@@ -23,7 +23,11 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 import { SortType } from "../js/chart/types";
 import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute, createWebComponentElement } from "./utils";
+import {
+  convertArrayAttribute,
+  createWebComponentElement,
+  getVariableNameProcessingFn,
+} from "./utils";
 
 /**
  * Web component for rendering a bar chart tile.
@@ -181,6 +185,26 @@ export class DatacommonsBarComponent extends LitElement {
   @property({ type: Number })
   yAxisMargin?: number;
 
+  // Optional: Whether to show the "explore" link.
+  // Default: false
+  @property({ type: Boolean })
+  showExploreMore: boolean;
+
+  // Optional: Regex used to process variable names
+  // If provided, will only use the first case of the variable name that matches
+  // this regex.
+  // For example, if the variableNameRegex is "(.*?)(?=:)", only the part before
+  // a ":" will be used for variable names. So "variable 1: test" will become
+  // "variable 1".
+  @property()
+  variableNameRegex!: string;
+
+  // Optional: default variable name used with variableNameRegex.
+  // If provided and no variable name can be extracted using variableNameRegex,
+  // use this as the variable name.
+  @property()
+  defaultVariableName!: string;
+
   render(): HTMLElement {
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
@@ -209,6 +233,7 @@ export class DatacommonsBarComponent extends LitElement {
         name: "",
         types: [],
       },
+      showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
       sort: this.sort,
       stacked: this.stacked,
@@ -217,6 +242,10 @@ export class DatacommonsBarComponent extends LitElement {
       title: this.header || this.title,
       useLollipop: this.lollipop,
       yAxisMargin: this.yAxisMargin,
+      getProcessedSVNameFn: getVariableNameProcessingFn(
+        this.variableNameRegex,
+        this.defaultVariableName
+      ),
     };
 
     return createWebComponentElement(BarTile, barTileProps);

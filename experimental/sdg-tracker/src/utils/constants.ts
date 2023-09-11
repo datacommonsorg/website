@@ -17,9 +17,19 @@
 import appConfig from "../config/appConfig.json";
 
 /**
- * DCID for the world
+ * DCID for the Earth/World
  */
 export const EARTH_PLACE_DCID = "Earth";
+
+/**
+ * Place name for Earth/World
+ */
+export const EARTH_PLACE_NAME = "World";
+
+/**
+ * Country place type
+ */
+export const COUNTRY_PLACE_TYPE = "Country";
 
 /**
  * Variable DCID url parameter
@@ -35,6 +45,7 @@ export const QUERY_PARAM_PLACE = "p";
  * Query search text url parameter
  */
 export const QUERY_PARAM_QUERY = "q";
+
 /**
  * Root SDG variable group
  */

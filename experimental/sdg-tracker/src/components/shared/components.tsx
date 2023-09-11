@@ -15,7 +15,7 @@
  */
 
 import { gray } from "@ant-design/colors";
-import { CaretDownOutlined, SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Breadcrumb, Col, Input, Layout, Row, Spin } from "antd";
 import { parseToRgb } from "polished";
 import React, { useEffect, useState } from "react";
@@ -116,6 +116,7 @@ export const SearchBar: React.FC<{
       <div className="info">Early Preview</div>
       <div className="search">
         <SearchInput
+          className="-dc-search-bar"
           placeholder={
             placeholder
               ? placeholder
@@ -183,10 +184,10 @@ export const ContentCardBody = styled.div`
 `;
 
 // Country selection dropdown
-const CountrySelectContainer = styled.div`
+const CountrySelectContainer = styled.div<{ width: string }>`
   display: flex;
   position: relative;
-  width: fit-content;
+  width: ${(p) => p.width};
   .ant-select-selector {
     border-radius: 2rem !important;
   }
@@ -194,6 +195,7 @@ const CountrySelectContainer = styled.div`
     color: black;
   }
   svg {
+    pointer-events: none;
     position: absolute;
     right: 0.8rem;
     top: 0.8rem;
@@ -207,24 +209,32 @@ const CountrySelectNoResults = styled.div`
 export const CountrySelect: React.FC<{
   setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
   currentPlaceName?: string;
-}> = ({ setSelectedPlaceDcid, currentPlaceName }) => {
+  style?: Record<string, string>;
+}> = ({ setSelectedPlaceDcid, currentPlaceName, style }) => {
   const [isFocused, setIsFocused] = useState(false);
   const countries = useStoreState((s) =>
     s.countries.dcids.map((dcid) => s.countries.byDcid[dcid])
   );
-
+  const regions = useStoreState((s) =>
+    s.regions.dcids.map((dcid) => s.regions.byDcid[dcid])
+  );
+  const options = [countries, regions]
+    .flat()
+    .map((place) => ({ value: place.name, dcid: place.dcid }));
+  const containerWidth = style && style.width ? style.width : "fit-content";
   const [value, setValue] = useState("");
 
   useEffect(() => {});
 
   return (
-    <CountrySelectContainer>
+    <CountrySelectContainer width={containerWidth}>
       <AutoComplete
+        className="-dc-place-search"
         size="large"
         value={isFocused ? value : ""}
-        style={{ width: 225 }}
-        options={countries.map((c) => ({ value: c.name, dcid: c.dcid }))}
-        placeholder={currentPlaceName || "Select a country"}
+        style={style || { width: 225 }}
+        options={options}
+        placeholder={currentPlaceName || "Select a country/region"}
         defaultActiveFirstOption={true}
         notFoundContent={
           <CountrySelectNoResults>No results found</CountrySelectNoResults>
@@ -248,7 +258,6 @@ export const CountrySelect: React.FC<{
           }
         }}
       />
-      <CaretDownOutlined />
     </CountrySelectContainer>
   );
 };
@@ -291,19 +300,27 @@ const StyledBreadcrumb = styled(Breadcrumb)`
   }
 `;
 
+const UserMessage = styled.div`
+  border: 1px solid #e3e3e3;
+  border-radius: 0.5rem;
+  padding: 16px 24px;
+`;
+
 export const PlaceHeaderCard: React.FC<{
-  currentPlaceName: string | undefined;
-  hidePlaceSearch: boolean | undefined;
+  placeNames: string[];
+  hideBreadcrumbs?: boolean;
+  hidePlaceSearch?: boolean;
   setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
+  userMessage?: string;
   variableDcids: string[];
 }> = ({
-  currentPlaceName,
+  placeNames,
+  hideBreadcrumbs,
   hidePlaceSearch,
   setSelectedPlaceDcid,
+  userMessage,
   variableDcids,
 }) => {
-  useEffect(() => {});
-
   // get breadcrumbs from current location
   const location = useLocation();
   const topics = useStoreState((s) =>
@@ -334,19 +351,18 @@ export const PlaceHeaderCard: React.FC<{
     return parentDcids.map((parentDcid) => s.topics.byDcid[parentDcid]);
   });
   const shouldHideBreadcrumbs =
-    topics.length == 1 && topics[0].dcid === ROOT_TOPIC;
+    hideBreadcrumbs || (topics.length == 1 && topics[0].dcid === ROOT_TOPIC);
   return (
     <PlaceCard>
       <PlaceCardContent>
-        {currentPlaceName === "World" ? (
-          <PlaceTitle>World</PlaceTitle>
+        {userMessage && <UserMessage>{userMessage}</UserMessage>}
+        {hidePlaceSearch ? (
+          <PlaceTitle>{placeNames.join(", ")}</PlaceTitle>
         ) : (
-          !hidePlaceSearch && (
-            <CountrySelect
-              setSelectedPlaceDcid={setSelectedPlaceDcid}
-              currentPlaceName={currentPlaceName}
-            />
-          )
+          <CountrySelect
+            setSelectedPlaceDcid={setSelectedPlaceDcid}
+            currentPlaceName={placeNames.length > 0 ? placeNames[0] : undefined}
+          />
         )}
         {!shouldHideBreadcrumbs && (
           <StyledBreadcrumb>
@@ -399,6 +415,7 @@ const HeadlineImage = styled.img`
     0px 1px 14px rgba(3, 7, 18, 0.05);
   padding: 1rem;
   margin-bottom: 2rem;
+  background-color: white;
 `;
 
 const HeadlineLink = styled.div`
@@ -473,7 +490,12 @@ export const TargetHeader: React.FC<{ color: string; target: string }> = ({
 
   return (
     <>
-      <TargetIdBox color={color}>{target}</TargetIdBox>
+      <TargetIdBox
+        className={`-dc-target-header -dc-target-header-${target}`}
+        color={color}
+      >
+        {target}
+      </TargetIdBox>
       <TargetText color={color}>{targetText}</TargetText>
     </>
   );
@@ -484,3 +506,43 @@ export const Divider = styled.div<{ color: string }>`
   border: 1px solid ${(p) => p.color};
   margin: 40px -24px 40px -24px;
 `;
+
+// Footnotes
+const MAP_DISCLAIMER_TEXT = `
+The boundaries and names shown and the designations used on this and other maps
+throughout this publication do not imply official endorsement or acceptance by
+the United Nations.
+`;
+
+export const FootnotesContainer = styled.div`
+  margin: 24px 0px;
+`;
+
+export const Footnote = styled.div`
+  display: flex;
+  flex-direction: row;
+  color: grey;
+  font-size: 0.8rem;
+`;
+
+export const StyledMarker = styled.div`
+  font-size: 1rem;
+  margin: 0 4px;
+`;
+
+export const FootnoteDivider = styled.hr`
+  color: grey;
+  margin-bottom: 24px;
+`;
+
+export const Footnotes: React.FC = () => {
+  return (
+    <FootnotesContainer>
+      <FootnoteDivider></FootnoteDivider>
+      <Footnote>
+        <StyledMarker>*</StyledMarker>
+        {MAP_DISCLAIMER_TEXT}
+      </Footnote>
+    </FootnotesContainer>
+  );
+};

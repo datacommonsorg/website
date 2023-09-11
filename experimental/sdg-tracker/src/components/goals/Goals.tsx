@@ -64,7 +64,7 @@ const Goals: React.FC = () => {
             <CountriesContent
               hidePlaceSearch={true}
               variableDcids={[variableDcid]}
-              placeDcid={EARTH_PLACE_DCID}
+              placeDcids={[EARTH_PLACE_DCID]}
               setPlaceDcid={() => {}}
             />
           </Layout>

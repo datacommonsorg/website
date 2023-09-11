@@ -22,6 +22,7 @@ import styled from "styled-components";
 import { dataCommonsClient } from "../../state";
 import { QUERY_PARAM_QUERY } from "../../utils/constants";
 import { theme } from "../../utils/theme";
+import { FulfillResponse } from "../../utils/types";
 import CountriesContent from "../countries/CountriesContent";
 import AppFooter from "../shared/AppFooter";
 import AppHeader from "../shared/AppHeader";
@@ -142,7 +143,7 @@ const SearchTop = styled.div`
 
 const ColorBar = styled.div`
   background-image: url("./images/datacommons/sdg-color-bar.png");
-  background-size: 100% auto;
+  background-size: 100% 10px;
   height: 10px;
 `;
 
@@ -223,6 +224,8 @@ const Search = () => {
   const [variableDcids, setVariableDcids] = useState<string[]>([]);
   const [placeDcids, setPlaceDcids] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [userMessage, setUserMessage] = useState("");
+  const [fulfillResponse, setFulfillResponse] = useState<FulfillResponse>();
   const location = useLocation();
   const history = useHistory();
   const searchParams = useMemo(
@@ -245,31 +248,58 @@ const Search = () => {
     async (searchQuery?: string) => {
       setIsSearching(true);
       setErrorMessage("");
-      const responseObj = await dataCommonsClient.detect(searchQuery || query);
-      setIsSearching(false);
+      setUserMessage("");
+      setVariableDcids([]);
+      setPlaceDcids([]);
+      setFulfillResponse(undefined);
+      const context = fulfillResponse ? fulfillResponse.context : undefined;
 
-      if (responseObj.failure) {
-        setErrorMessage(responseObj.failure);
-        setVariableDcids([]);
-        setPlaceDcids([]);
-      }
-      setVariableDcids(responseObj.variables || []);
-      setPlaceDcids(responseObj.entities || []);
-      if (
-        !responseObj.variables ||
-        responseObj.variables.length === 0 ||
-        !responseObj.entities ||
-        responseObj.entities.length === 0
-      ) {
+      try {
+        const fulfillResponse = await dataCommonsClient.detectAndFulfill(
+          searchQuery || query,
+          context
+        );
+
+        setFulfillResponse(fulfillResponse);
+        setIsSearching(false);
+
+        if (fulfillResponse.failure) {
+          setErrorMessage(
+            fulfillResponse.failure || fulfillResponse.userMessage
+          );
+          return;
+        }
+        if (fulfillResponse.place.dcid === "") {
+          setErrorMessage(
+            `Your search for "${
+              searchQuery || query
+            }" did not match any documents.`
+          );
+          return;
+        }
+        setUserMessage(fulfillResponse.userMessage || "");
+
+        const variableDcids =
+          fulfillResponse?.relatedThings?.mainTopics?.map((e) => e.dcid) || [];
+        const placesDcids = fulfillResponse?.places?.map((e) => e.dcid) || [];
+        setVariableDcids(variableDcids);
+        setPlaceDcids(placesDcids);
+        if (variableDcids.length === 0 || placesDcids.length === 0) {
+          setErrorMessage(
+            "Sorry, we couldn't find any data related to the place or topic you searched for. Please try another query."
+          );
+        }
+      } catch (e) {
+        setIsSearching(false);
         setErrorMessage(
-          "Sorry, we couldn't find any data related to the place or topic you searched for. Please try another query."
+          `Your search for "${searchQuery || query}" returned an error.`
         );
       }
     },
-    [query]
+    [fulfillResponse, query, searchParamQuery]
   );
 
-  if (variableDcids.length === 0 || placeDcids.length === 0) {
+  if (!searchParamQuery) {
     return (
       <AppLayout>
         <AppHeader selected="search" />
@@ -304,9 +334,9 @@ const Search = () => {
               </StyledSubheader>
               <LinkGroup>
                 {QUERIES.general.map((q, i) => (
-                  <StyledLinkContainer>
+                  <StyledLinkContainer key={i}>
                     <IconSquare color={theme.sdgColors[q.goal - 1]} />
-                    <StyledLink key={i} to={`/search?q=${q.query}`}>
+                    <StyledLink to={`/search?q=${q.query}`}>
                       {q.query}
                     </StyledLink>
                   </StyledLinkContainer>
@@ -319,9 +349,12 @@ const Search = () => {
               </StyledSubheader>
               <LinkGroup>
                 {QUERIES.specific.map((q, i) => (
-                  <StyledLinkContainer>
+                  <StyledLinkContainer key={i}>
                     <IconSquare color={theme.sdgColors[q.goal - 1]} />
-                    <StyledLink key={i} to={`/search?q=${q.query}`}>
+                    <StyledLink
+                      className={`-dc-search-example`}
+                      to={`/search?q=${q.query}`}
+                    >
                       {q.query}
                     </StyledLink>
                   </StyledLinkContainer>
@@ -334,9 +367,9 @@ const Search = () => {
               </StyledSubheader>
               <LinkGroup>
                 {QUERIES.comparison.map((q, i) => (
-                  <StyledLinkContainer>
+                  <StyledLinkContainer key={i}>
                     <IconSquare color={theme.sdgColors[q.goal - 1]} />
-                    <StyledLink key={i} to={`/search?q=${q.query}`}>
+                    <StyledLink to={`/search?q=${q.query}`}>
                       {q.query}
                     </StyledLink>
                   </StyledLinkContainer>
@@ -357,16 +390,20 @@ const Search = () => {
         <Layout style={{ height: "100%", flexGrow: 1, flexDirection: "row" }}>
           <Layout style={{ overflow: "auto" }}>
             <CountriesContent
+              errorMessage={errorMessage}
               showNLSearch={true}
               hidePlaceSearch={true}
               query={query}
+              fulfillResponse={fulfillResponse}
+              isFetchingFulfillment={isSearching}
               onSearch={(q) => {
                 const searchParams = new URLSearchParams();
                 searchParams.set(QUERY_PARAM_QUERY, q);
                 history.push("/search?" + searchParams.toString());
               }}
+              userMessage={userMessage}
               variableDcids={variableDcids}
-              placeDcid={placeDcids[0]}
+              placeDcids={placeDcids}
               setPlaceDcid={(placeDcid: string) => {
                 setPlaceDcids([placeDcid]);
               }}

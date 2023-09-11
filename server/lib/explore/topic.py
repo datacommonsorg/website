@@ -16,7 +16,7 @@
 from collections import OrderedDict
 from dataclasses import dataclass
 import time
-from typing import Dict, List
+from typing import List
 
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import is_sdg
@@ -30,7 +30,7 @@ _MAX_CORRELATION_SVS_PER_TOPIC = 4
 # This is for main.
 _MAX_SUBTOPIC_SV_LIMIT = 3
 # Pick a higher limit for SDG
-_MAX_SUBTOPIC_SV_LIMIT_SDG = 20
+_MAX_SUBTOPIC_SV_LIMIT_SDG = 500
 
 
 @dataclass

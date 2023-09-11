@@ -198,8 +198,13 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   border-radius: var(--border-radius-primary);
 
   .fade-text {
-    mask-image: linear-gradient(180deg, rgba(250,250,250), 85%, transparent);
-    -webkit-mask-image: linear-gradient(180deg, rgba(250,250,250), 85%, transparent);
+    mask-image: linear-gradient(180deg, rgba(250, 250, 250), 85%, transparent);
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      rgba(250, 250, 250),
+      85%,
+      transparent
+    );
   }
 
   .text-link {
@@ -225,10 +230,6 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
     margin: 16px 0;
     color: var(--gm-3-ref-neutral-neutral-40);
   }
-
-
-
-
 }
 
 /**
@@ -486,7 +487,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
  */
 
 .chart-container.place-overview-tile {
-  font-size: 1rem;
+  font-size: 14px;
   background-color: var(--gm-3-white);
 
   .factoid {

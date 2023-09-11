@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import csv
 from dataclasses import dataclass
 import json
 import logging
 import os
+import re
 from typing import Dict, List, Set
 
 import requests
@@ -25,9 +27,10 @@ logging.getLogger().setLevel(logging.INFO)
 
 _SDG_ROOT = "dc/g/SDG"
 _SDG_TOPIC_JSON = '../../../server/config/nl_page/sdg_topic_cache.json'
+_SDG_NON_COUNTRY_VARS = '../../../server/config/nl_page/sdg_non_country_vars.json'
 _TMP_DIR = '/tmp'
 _MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_sdg.mcf')
-_VARIABLE_GROUPING_FILE = 'variable_grouping.csv'
+_VARIABLES_FILE = 'variable_grouping.csv'
 API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
 API_PATH_PV = API_ROOT + '/v1/bulk/property/values/out'
@@ -53,7 +56,8 @@ def _svg2t(svg):
   return svg.replace('dc/g/SDG', 'dc/topic/sdg').replace('dc/g/', 'dc/topic/')
 
 
-def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict]):
+def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
+                           filter_vars: Set[str]):
   resp = call_api(API_PATH_SVG_INFO, {'nodes': svgs})
 
   recurse_nodes = set()
@@ -70,10 +74,10 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict]):
     if tid in nodes:
       continue
 
-    # TODO: Put stuff that has the same `pt` together.
     members = []
     for csv in info.get('childStatVars', []):
-      if not csv.get('hasData') or not csv.get('id'):
+      svid = csv.get('id')
+      if not csv.get('hasData') or not svid or svid not in filter_vars:
         continue
       members.append(csv['id'])
 
@@ -83,6 +87,10 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict]):
       members.append(_svg2t(csvg['id']))
       recurse_nodes.add(csvg['id'])
 
+    if not members:
+      print(f'Skipping empty {tid}')
+      continue
+
     nodes[tid] = {
         'dcid': [tid],
         'name': [info.get('absoluteName', '')],
@@ -91,62 +99,124 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict]):
     }
 
   if recurse_nodes:
-    download_svg_recursive(sorted(list(recurse_nodes)), nodes)
+    download_svg_recursive(sorted(list(recurse_nodes)), nodes, filter_vars)
 
 
-def download_sdg_svgs():
+def download_sdg_svgs(filter_vars: Set[str]):
   nodes = {}
-  download_svg_recursive([_SDG_ROOT], nodes)
+  download_svg_recursive([_SDG_ROOT], nodes, filter_vars)
   return nodes
 
 
 @dataclass
-class VarGrouping:
+class Variables:
   series2group2vars: Dict[str, Dict[str, List[str]]]
-  vars: Set[str]
+  grouped_vars: Set[str]
+  group_descriptions: Dict[str, str]
+  non_country_vars: Set[str]
+  all_vars: Set[str]
 
 
-def load_variable_grouping():
-  vg = VarGrouping(series2group2vars={}, vars=set())
-  with open(_VARIABLE_GROUPING_FILE) as fp:
+def load_variables():
+  vars = Variables(series2group2vars={},
+                   grouped_vars=set(),
+                   group_descriptions={},
+                   non_country_vars=set(),
+                   all_vars=set())
+  with open(_VARIABLES_FILE) as fp:
     for row in csv.DictReader(fp):
-      if not row.get('GROUPING ID') or not row.get(
-          'VARIABLE_CODE') or not row.get('SERIES_CODE'):
+      if not row.get('VARIABLE_CODE'):
+        continue
+      var = 'sdg/' + row['VARIABLE_CODE'].replace('@', '.').replace(' ', '')
+      vars.all_vars.add(var)
+
+      if row.get('SELECT') and 'Do not display' in row['SELECT']:
+        vars.non_country_vars.add(var)
+
+      if not row.get('GROUPING ID') or not row.get('SERIES_CODE'):
         continue
       srs = 'dc/topic/sdg' + row['SERIES_CODE'].replace('_', '')
       grp = 'dc/svpg/SDG' + row['GROUPING ID'].replace('_', '')
-      var = 'sdg/' + row['VARIABLE_CODE'].replace('@', '.').replace(' ', '')
 
-      if srs not in vg.series2group2vars:
-        vg.series2group2vars[srs] = {}
-      if grp not in vg.series2group2vars[srs]:
-        vg.series2group2vars[srs][grp] = []
-      vg.series2group2vars[srs][grp].append(var)
+      if grp not in vars.group_descriptions:
+        desc = row.get('GROUPING DESCRIPTION', '')
+        # Drop the stuff within () and [].
+        desc = re.sub("[\(\[].*?[\)\]]", '', desc)
+        # Remove the extra spaces.
+        desc = ' '.join(desc.strip().split())
+        desc = desc.replace(' ,', ',')
+        vars.group_descriptions[grp] = desc
+      if srs not in vars.series2group2vars:
+        vars.series2group2vars[srs] = {}
+      if grp not in vars.series2group2vars[srs]:
+        vars.series2group2vars[srs][grp] = []
+      vars.series2group2vars[srs][grp].append(var)
 
-      assert var not in vg.vars
-      vg.vars.add(var)
+      assert var not in vars.grouped_vars
+      vars.grouped_vars.add(var)
 
   # Prune out the single-member stuff.
   deletions = {}
-  for srs, grp2vars in vg.series2group2vars.items():
+  for srs, grp2vars in vars.series2group2vars.items():
     deletions[srs] = []
-    for grp, vars in grp2vars.items():
-      if len(vars) > 1:
+    for grp, vs in grp2vars.items():
+      if len(vs) > 1:
         continue
       deletions[srs].append(grp)
-      for v in vars:
-        vg.vars.remove(v)
+      for v in vs:
+        vars.grouped_vars.remove(v)
   for srs, grps in deletions.items():
     for g in grps:
-      del vg.series2group2vars[srs][g]
-    if srs in vg.series2group2vars and not vg.series2group2vars[srs]:
-      del vg.series2group2vars[srs]
+      del vars.series2group2vars[srs][g]
+    if srs in vars.series2group2vars and not vars.series2group2vars[srs]:
+      del vars.series2group2vars[srs]
 
-  return vg
+  return vars
 
 
-def generate(var_group: VarGrouping):
-  nodes = download_sdg_svgs()
+# As a result of creating SVPG nodes we might have dropped some empty Topic
+# nodes that in turn led to "dangling" references.
+#
+# This function helps drop those references first and then check if as a result
+# we dropped more Topic nodes, and then drop those refs, etc
+def drop_dangling_topic_refs(nodes: List[Dict]):
+
+  new_nodes = []
+  rounds = 0
+  while True:
+    existing = set()
+    for n in nodes:
+      existing.add(n['dcid'][0])
+
+    new_nodes = []
+    for n in nodes:
+      if n['typeOf'][0] != 'Topic':
+        new_nodes.append(n)
+        continue
+
+      vars = []
+      for t in n.get('relevantVariableList', []):
+        if t.startswith('dc/topic/') and t not in existing:
+          continue
+        vars.append(t)
+
+      if vars:
+        n['relevantVariableList'] = vars
+        new_nodes.append(n)
+
+    if len(new_nodes) == len(nodes):
+      break
+    # There are fewer new_nodes, so this may in turn
+    # lead to more orphan refs.
+    rounds += 1
+    nodes = copy.deepcopy(new_nodes)
+
+  print(f'Took {rounds} rounds of orphan pruning!')
+  return new_nodes
+
+
+def generate(sdg_vars: Variables):
+  nodes = download_sdg_svgs(sdg_vars.all_vars)
 
   final_nodes = []
   for topic, node in nodes.items():
@@ -156,39 +226,52 @@ def generate(var_group: VarGrouping):
     pruned_members = []
     # Skip members in SVPG groups.
     for m in node['relevantVariableList']:
-      if m not in var_group.vars:
+      if m not in sdg_vars.grouped_vars:
         pruned_members.append(m)
 
     # Add SVPGs in its place.
-    for svpg, members in var_group.series2group2vars.get(topic, {}).items():
+    for svpg, members in sdg_vars.series2group2vars.get(topic, {}).items():
       pruned_members.append(svpg)
+
+      if sdg_vars.group_descriptions.get(svpg):
+        names = [sdg_vars.group_descriptions[svpg]]
+      else:
+        names = node['name']
       final_nodes.append({
           'dcid': [svpg],
-          'name': node['name'],
+          'name': names,
           'memberList': members,
           'typeOf': ['StatVarPeerGroup']
       })
 
-    if topic in var_group.series2group2vars:
-      del var_group.series2group2vars[topic]
+    if topic in sdg_vars.series2group2vars:
+      del sdg_vars.series2group2vars[topic]
 
     if pruned_members:
       node['relevantVariableList'] = pruned_members
       final_nodes.append(node)
 
   # Assert we have consumed everything!
-  assert not var_group.series2group2vars, var_group.series2group2vars
+  assert not sdg_vars.series2group2vars, sdg_vars.series2group2vars
+
+  final_nodes = drop_dangling_topic_refs(final_nodes)
 
   final_nodes.sort(key=lambda x: x['dcid'])
   return final_nodes
 
 
-def write_json(nodes):
+def write_non_country_vars(sdg_vars: Variables):
+  js = {'variables': sorted(list(sdg_vars.non_country_vars))}
+  with open(_SDG_NON_COUNTRY_VARS, 'w') as fp:
+    json.dump(js, fp, indent=2)
+
+
+def write_topic_json(nodes):
   with open(_SDG_TOPIC_JSON, 'w') as fp:
     json.dump({'nodes': nodes}, fp, indent=2)
 
 
-def write_mcf(nodes: list[dict]) -> None:
+def write_topic_mcf(nodes: list[dict]) -> None:
   logging.info("Writing MCF to: %s", _MCF_PATH)
   os.makedirs(_TMP_DIR, exist_ok=True)
   with open(_MCF_PATH, 'w') as out:
@@ -200,14 +283,15 @@ def _write_mcf_node(node: dict) -> str:
   lines = []
 
   if node['typeOf'][0] == 'Topic':
-    prop = 'relevantVariableList'
+    prop = 'relevantVariable'
   else:
-    prop = 'memberList'
+    prop = 'member'
+  list_prop = prop + 'List'
 
   lines.append(f"Node: dcid:{node['dcid'][0]}")
 
-  if node[prop]:
-    refs_str = ", ".join([f"dcid:{var}" for var in node[prop]])
+  if node[list_prop]:
+    refs_str = ", ".join([f"dcid:{var}" for var in node[list_prop]])
     lines.append(f"{prop}: {refs_str}")
 
   lines.append(f'name: "{node["name"][0]}"')
@@ -218,10 +302,12 @@ def _write_mcf_node(node: dict) -> str:
 
 
 def main():
-  var_group = load_variable_grouping()
-  nodes = generate(var_group)
-  write_json(nodes)
-  write_mcf(nodes)
+  sdg_vars = load_variables()
+  print(f'Found {len(sdg_vars.all_vars)} vars')
+  nodes = generate(sdg_vars)
+  write_topic_json(nodes)
+  write_non_country_vars(sdg_vars)
+  write_topic_mcf(nodes)
 
 
 if __name__ == "__main__":

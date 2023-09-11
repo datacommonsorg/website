@@ -50,8 +50,8 @@ import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
   getNoDataErrorMsg,
+  getStatFormat,
   getStatVarNames,
-  getUnitAndScaling,
   ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
@@ -104,6 +104,8 @@ export interface BarTilePropType {
   yAxisMargin?: number;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // Function used to get processed stat var names.
+  getProcessedSVNameFn?: (name: string) => string;
 }
 
 export interface BarChartData {
@@ -240,7 +242,8 @@ export const fetchData = async (props: BarTilePropType) => {
     );
     const statVarDcidToName = await getStatVarNames(
       props.statVarSpec,
-      props.apiRoot
+      props.apiRoot,
+      props.getProcessedSVNameFn
     );
     return rawToChart(
       props,
@@ -274,7 +277,7 @@ function rawToChart(
   );
 
   // Assume all stat var specs will use the same unit and scaling.
-  const { unit, scaling } = getUnitAndScaling(props.statVarSpec[0], statData);
+  const { unit, scaling } = getStatFormat(props.statVarSpec[0], statData);
   const dates: Set<string> = new Set();
   for (const point of popPoints) {
     const placeDcid = point.placeDcid;
@@ -439,7 +442,7 @@ function getExploreLink(props: BarTilePropType): {
 } {
   const hash = getHash(
     VisType.TIMELINE,
-    [...props.comparisonPlaces, props.place.dcid],
+    props.comparisonPlaces || [props.place.dcid],
     "",
     props.statVarSpec.map((spec) => getContextStatVar(spec)),
     {}

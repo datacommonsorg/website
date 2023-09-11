@@ -162,6 +162,13 @@
           ]
         },
         {
+          "dcid": "country/ALA",
+          "name": "\u00c5land Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
           "dcid": "country/ALB",
           "name": "Albania",
           "types": [
@@ -475,13 +482,6 @@
           "types": [
             "Country"
           ]
-        },
-        {
-          "dcid": "country/COG",
-          "name": "Congo [Republic]",
-          "types": [
-            "Country"
-          ]
         }
       ]
     },
@@ -523,21 +523,25 @@
         ]
       }
     ],
-    "varToTopic": {
-      "sdg/SH_STA_STNT.AGE--Y0T4": {
-        "dcid": "dc/topic/sdg_2.2.1",
-        "name": "Height Stunting for Children Under 5",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SH_STA_STNTN.AGE--Y0T4": {
-        "dcid": "dc/topic/sdg_2.2.1",
-        "name": "Height Stunting for Children Under 5",
-        "types": [
-          "Topic"
-        ]
-      }
+    "varToTopics": {
+      "sdg/SH_STA_STNT.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.1",
+          "name": "Height Stunting for Children Under 5",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SH_STA_STNTN.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.1",
+          "name": "Height Stunting for Children Under 5",
+          "types": [
+            "Topic"
+          ]
+        }
+      ]
     }
   },
   "svSource": "UNKNOWN",

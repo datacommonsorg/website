@@ -30,7 +30,8 @@ $selector-footer-height: 40px;
   align-items: stretch;
 }
 
-#main-header, #main-footer {
+#main-header,
+#main-footer {
   flex: 0 0;
 }
 
@@ -115,7 +116,7 @@ $selector-footer-height: 40px;
 
 .selected-options-container {
   display: flex;
-  background-color: #FAF9F9;
+  background-color: #faf9f9;
   padding: 12px 32px 12px 32px;
   gap: 24px;
   flex-wrap: wrap;
@@ -126,7 +127,7 @@ $selector-footer-height: 40px;
     border-radius: 1rem;
     padding: 5px;
   }
-  
+
   .material-icons-outlined.action:hover {
     background-color: #dee2e6;
   }
@@ -141,7 +142,8 @@ $selector-footer-height: 40px;
   gap: 8px;
 }
 
-.selected-options-places, .selected-option-values {
+.selected-options-places,
+.selected-option-values {
   display: flex;
   gap: 7px;
   align-items: flex-start;
@@ -225,7 +227,7 @@ $selector-footer-height: 40px;
 .place-selector-dropdown {
   position: absolute;
   border-radius: 8px;
-  border: solid 1px #C7C7C7;
+  border: solid 1px #c7c7c7;
   padding: 16px;
   background: white;
   border: solid 1px #747775;
@@ -258,7 +260,7 @@ $selector-footer-height: 40px;
 
 .selector-container {
   border-radius: 8px;
-  border: solid 1px #C7C7C7;
+  border: solid 1px #c7c7c7;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -309,13 +311,15 @@ $selector-footer-height: 40px;
 .selector-footer {
   height: $selector-footer-height;
   flex-shrink: 0;
-  
+
   .continue-button {
     font-size: 14px;
   }
 }
 
-.place-selector, .place-type-selector, .stat-var-selector {
+.place-selector,
+.place-type-selector,
+.stat-var-selector {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -329,7 +333,7 @@ $selector-footer-height: 40px;
   min-width: 250px;
 
   #search {
-    border-color: #C7C7C7;
+    border-color: #c7c7c7;
     flex-grow: 0;
 
     #search-icon {
@@ -355,27 +359,26 @@ $selector-footer-height: 40px;
   .place-selector-selections {
     padding-bottom: 5px;
     width: 100%;
-  
+
     .selected-place {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding-left: 5px;
-    
+
       .material-icons-outlined {
         cursor: pointer;
         border-radius: 1rem;
         padding: 5px;
         font-size: 20px;
       }
-    
+
       .material-icons-outlined:hover {
         background-color: #dee2e6;
       }
     }
   }
 }
-
 
 // Place type selector
 
@@ -387,8 +390,8 @@ $selector-footer-height: 40px;
   }
 
   .info-message {
-    max-width: 225px;  
-    
+    max-width: 225px;
+
     @include media-breakpoint-down(md) {
       max-width: 100%;
     }
@@ -407,13 +410,13 @@ $selector-footer-height: 40px;
   .selector-body {
     min-height: 350px;
   }
-  
+
   .info-message {
     max-width: 400px;
   }
 
   .show-sv-toggle {
-    color: #1F1F1F;
+    color: #1f1f1f;
   }
 
   #stat-var-hierarchy-section {
@@ -425,9 +428,9 @@ $selector-footer-height: 40px;
   }
 
   #hierarchy-section {
-    color: #1F1F1F
+    color: #1f1f1f;
   }
-  
+
   .statvar-hierarchy-search-section {
     padding-top: 0;
   }
@@ -456,9 +459,9 @@ $selector-footer-height: 40px;
 
 .chart-section {
   display: flex;
-  background-color: #FAF9F9;
+  background-color: #faf9f9;
   flex-grow: 1;
-  
+
   .stat-var-selector-area {
     position: relative;
 
@@ -468,20 +471,20 @@ $selector-footer-height: 40px;
       right: 0;
       top: 0;
     }
-    
+
     #stat-var-selector-content {
       padding: 16px 0 0 16px;
       display: flex;
       flex-direction: column;
       height: 100%;
-    
+
       .section-title {
         font-size: 20px;
         font-weight: 500;
         margin-bottom: 16px;
       }
     }
-    
+
     #stat-var-selector-content.hidden {
       display: none;
     }
@@ -495,7 +498,6 @@ $selector-footer-height: 40px;
     }
   }
 
-
   .chart-area {
     flex-grow: 1;
     margin: 32px;
@@ -507,7 +509,7 @@ $selector-footer-height: 40px;
       margin: 1rem 0;
       width: 100%;
 
-      #chart-container-footer {
+      .chart-container-footer {
         border-top: none;
         padding-top: 0;
       }
@@ -630,7 +632,7 @@ $selector-footer-height: 40px;
 
     b {
       font-weight: 600;
-    };
+    }
   }
 
   .actions {

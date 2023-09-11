@@ -47,13 +47,22 @@ const AppSidebar: React.FC<{
   const getMenuItem = (item: MenuItemType) => {
     if (item.children && item.children.length > 0) {
       return (
-        <SubMenu key={item.key} title={item.label} icon={item.icon}>
+        <SubMenu
+          className={`-dc-sidebar-submenu -dc-sidebar-submenu-${item.key}`}
+          key={item.key}
+          title={item.label}
+          icon={item.icon}
+        >
           {item.children.map((subItem) => getMenuItem(subItem))}
         </SubMenu>
       );
     }
     return (
-      <Menu.Item key={item.key} icon={item.icon}>
+      <Menu.Item
+        className={`-dc-sidebar-menu-item -dc-sidebar-menu-item-${item.key}`}
+        key={item.key}
+        icon={item.icon}
+      >
         {item.label}
       </Menu.Item>
     );
@@ -74,7 +83,7 @@ const AppSidebar: React.FC<{
     >
       <MenuTitle>Goals</MenuTitle>
       <StyledMenu
-        defaultSelectedKeys={[variableDcid]}
+        selectedKeys={[variableDcid, `summary-${variableDcid}`]}
         mode="inline"
         defaultOpenKeys={["1"]}
         style={{ borderRight: 0 }}

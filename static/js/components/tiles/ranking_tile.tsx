@@ -43,8 +43,8 @@ import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
   getNoDataErrorMsg,
+  getStatFormat,
   getStatVarName,
-  getUnitAndScaling,
 } from "../../utils/tile_utils";
 import { SvRankingUnits } from "./sv_ranking_units";
 
@@ -291,7 +291,7 @@ function pointApiToPerSvRankingData(
     // might not display.
     const sources = new Set<string>();
     const dates = new Set<string>();
-    const { unit, scaling } = getUnitAndScaling(spec, statData);
+    const { unit, scaling } = getStatFormat(spec, statData);
     for (const place in statData.data[spec.statVar]) {
       const statPoint = statData.data[spec.statVar][place];
       const rankingPoint = {

@@ -47,7 +47,7 @@ import {
   TOOLTIP_ID,
 } from "./util";
 
-const ROOT_SVG = "dc/g/Root";
+const ROOT_SVG = globalThis.svgRoot || "dc/g/Root";
 const TOOLTIP_TOP_OFFSET = 30;
 const TOOLTIP_MARGIN = 5;
 export interface StatVarHierarchyPropType {
@@ -147,11 +147,14 @@ export class StatVarHierarchy extends React.Component<
           <div className="error-message">{this.state.errorMessage}</div>
         )}
         <div className="stat-var-hierarchy-container">
-          <StatVarHierarchySearch
-            entities={this.props.entities.map((x) => x.dcid)}
-            onSelectionChange={this.onSearchSelectionChange}
-            searchLabel={this.props.searchLabel}
-          />
+          {/* If svgRoot is set, only show subset of stat vars, so disable search */}
+          {!globalThis.svgRoot && (
+            <StatVarHierarchySearch
+              entities={this.props.entities.map((x) => x.dcid)}
+              onSelectionChange={this.onSearchSelectionChange}
+              searchLabel={this.props.searchLabel}
+            />
+          )}
           {this.props.type !== StatVarHierarchyType.BROWSER &&
             this.props.type !== StatVarHierarchyType.STAT_VAR && (
               <div className="stat-var-hierarchy-options">

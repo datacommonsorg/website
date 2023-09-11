@@ -26,8 +26,10 @@ import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { ItemList } from "./item_list";
 
-const FORM_URL =
+const DATA_FORM_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSf_kZ13bmzXvgEbim0OXeAVsTQYsIhN8_o9ekdbjKoeFjfvRA/viewform";
+const LOW_CONFIDENCE_FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSfZw0M1xcwDLZYt0r1o9-KVsLZZINxNbTcgeBLrcPHTadsrgA/viewform";
 
 interface UserMessagePropType {
   userMessage: UserMessageInfo;
@@ -48,17 +50,26 @@ export function UserMessage(props: UserMessagePropType): JSX.Element {
     : [];
 
   return (
-    <div className="user-message">
-      <div className="user-message-text">
-        <span className="main-message">{props.userMessage.msg}</span>
-        {props.userMessage.showForm && (
-          <span className="sub-message">
-            <a href={FORM_URL}>Fill out this form</a> to add data to answer this
-            query.
-          </span>
-        )}
+    <div className="user-message-container">
+      <div className="material-icons">info</div>
+      <div className="user-message">
+        <div className="user-message-text">
+          <span className="main-message">{props.userMessage.msg}</span>
+          {props.userMessage.showForm && (
+            <span className="sub-message">
+              <a href={DATA_FORM_URL}>Fill out this form</a> to add data to
+              answer this query.
+            </span>
+          )}
+          {!props.userMessage.showForm &&
+            props.userMessage.msg.includes("Low confidence") && (
+              <span className="sub-message">
+                <a href={LOW_CONFIDENCE_FORM_URL}>Flag inappropriate results</a>
+              </span>
+            )}
+        </div>
+        {!_.isEmpty(topicList) && <ItemList items={topicList} />}
       </div>
-      {!_.isEmpty(topicList) && <ItemList items={topicList} />}
     </div>
   );
 }

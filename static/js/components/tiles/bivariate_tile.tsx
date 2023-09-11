@@ -48,8 +48,8 @@ import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
   getDenomInfo,
   getNoDataErrorMsg,
+  getStatFormat,
   getStatVarName,
-  getUnitAndScaling,
   ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
@@ -247,8 +247,8 @@ function rawToChart(
   }
   const points = {};
   const sources: Set<string> = new Set();
-  const xUnitScaling = getUnitAndScaling(xStatVar, rawData.placeStats);
-  const yUnitScaling = getUnitAndScaling(yStatVar, rawData.placeStats);
+  const xUnitScaling = getStatFormat(xStatVar, rawData.placeStats);
+  const yUnitScaling = getStatFormat(yStatVar, rawData.placeStats);
   for (const place in xPlacePointStat) {
     const namedPlace = {
       dcid: place,

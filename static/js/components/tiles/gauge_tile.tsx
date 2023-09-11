@@ -29,8 +29,8 @@ import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import {
   getDenomInfo,
   getNoDataErrorMsg,
+  getStatFormat,
   getStatVarNames,
-  getUnitAndScaling,
   ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
@@ -150,7 +150,7 @@ const fetchData = async (props: GaugeTilePropType) => {
       props.apiRoot
     );
 
-    const { unit, scaling } = getUnitAndScaling(props.statVarSpec, statResp);
+    const { unit, scaling } = getStatFormat(props.statVarSpec, statResp);
     const sources = new Set<string>();
     const statData = statResp.data[props.statVarSpec.statVar][props.place.dcid];
     if (statResp.facets[statData.facet]) {

@@ -29,58 +29,33 @@
                 ]
               }
             ],
-            "title": "Population Below International Poverty Line"
+            "title": "Proportion of Population Below International Poverty Line"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Children/Households Receiving Family Cash Benefit in United States",
-                    "statVarKey": [
-                      "sdg/SI_COV_CHLD"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
                     ],
-                    "title": "Children/Households Receiving Family Cash Benefit in United States",
-                    "type": "HIGHLIGHT"
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_multiple_place_bar_block",
+                      "sdg/SI_COV_CHLD.SEX--F_multiple_place_bar_block",
+                      "sdg/SI_COV_CHLD.SEX--M_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex in United States (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Children/Households Receiving Family Cash Benefit"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Girls/Households Receiving Family Cash Benefit in United States",
-                    "statVarKey": [
-                      "sdg/SI_COV_CHLD.SEX--F"
-                    ],
-                    "title": "Girls/Households Receiving Family Cash Benefit in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Girls/Households Receiving Family Cash Benefit"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Boys/Households Receiving Family Cash Benefit in United States",
-                    "statVarKey": [
-                      "sdg/SI_COV_CHLD.SEX--M"
-                    ],
-                    "title": "Boys/Households Receiving Family Cash Benefit in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Boys/Households Receiving Family Cash Benefit"
+            "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex"
           },
           {
             "columns": [
@@ -108,7 +83,7 @@
                 ]
               }
             ],
-            "title": "Employed Population Covered for Work Injury"
+            "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex"
           },
           {
             "columns": [
@@ -125,35 +100,25 @@
                 ]
               }
             ],
-            "title": "Population Covered by Social Assistance Programs"
+            "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States",
                     "statVarKey": [
-                      "sdg/SI_COV_PENSN"
+                      "sdg/SI_COV_PENSN",
+                      "sdg/SI_COV_PENSN.SEX--F",
+                      "sdg/SI_COV_PENSN.SEX--M"
                     ],
-                    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_PENSN"
-                    ],
-                    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States",
+                    "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Vulnerable Population Receiving Social Assistance Cash Benefit"
+            "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex"
           },
           {
             "columns": [
@@ -181,91 +146,25 @@
                 ]
               }
             ],
-            "title": "Population With Social Protection Benefits"
+            "title": "Proportion of Population Covered by at Least One Social Protection Benefit, by Sex"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Severely Disabled Population Receiving Disability Cash Benefit in United States",
                     "statVarKey": [
-                      "sdg/SI_COV_DISAB"
-                    ],
-                    "title": "Severely Disabled Population Receiving Disability Cash Benefit in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_DISAB"
-                    ],
-                    "title": "Severely Disabled Population Receiving Disability Cash Benefit in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Severely Disabled Population Receiving Disability Cash Benefit"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Women With Severe Disabilities Receiving Disability Cash Benefit in United States",
-                    "statVarKey": [
-                      "sdg/SI_COV_DISAB.SEX--F"
-                    ],
-                    "title": "Women With Severe Disabilities Receiving Disability Cash Benefit in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_DISAB.SEX--F"
-                    ],
-                    "title": "Women With Severe Disabilities Receiving Disability Cash Benefit in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Women With Severe Disabilities Receiving Disability Cash Benefit"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Men With Severe Disabilities Receiving Disability Cash Benefit in United States",
-                    "statVarKey": [
+                      "sdg/SI_COV_DISAB",
+                      "sdg/SI_COV_DISAB.SEX--F",
                       "sdg/SI_COV_DISAB.SEX--M"
                     ],
-                    "title": "Men With Severe Disabilities Receiving Disability Cash Benefit in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_DISAB.SEX--M"
-                    ],
-                    "title": "Men With Severe Disabilities Receiving Disability Cash Benefit in United States",
+                    "title": "Proportion of Population With Severe Disabilities Receiving Disability Cash Benefit, by Sex in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Men With Severe Disabilities Receiving Disability Cash Benefit"
+            "title": "Proportion of Population With Severe Disabilities Receiving Disability Cash Benefit, by Sex"
           },
           {
             "columns": [
@@ -293,7 +192,7 @@
                 ]
               }
             ],
-            "title": "Unemployed Population Receiving Unemployment Cash Benefit"
+            "title": "Proportion of Unemployed Persons Receiving Unemployment Cash Benefit, by Sex"
           },
           {
             "columns": [
@@ -321,7 +220,7 @@
                 ]
               }
             ],
-            "title": "Vulnerable Population Receiving Social Assistance Cash Benefit"
+            "title": "Proportion of Vulnerable Population Receiving Social Assistance Cash Benefit, by Sex"
           },
           {
             "columns": [
@@ -329,89 +228,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_COV_PENSN.SEX--F",
-                      "sdg/SI_COV_PENSN.SEX--M"
-                    ],
-                    "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Population Using Basic Drinking Water Services in United States",
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
-                    ],
-                    "title": "Population Using Basic Drinking Water Services in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
-                    ],
-                    "title": "Population Using Basic Drinking Water Services in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Using Basic Drinking Water Services"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Population Using Basic Sanitation Services in United States",
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
-                    ],
-                    "title": "Population Using Basic Sanitation Services in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
-                    ],
-                    "title": "Population Using Basic Sanitation Services in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Using Basic Sanitation Services"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O",
                       "sdg/SP_ACS_BSRVH2O.URBANISATION--R",
                       "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
                     ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services in United States",
+                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Population Using Basic Drinking Water Services"
+            "title": "Proportion of Population Using Basic Drinking Water Services, by Location"
           },
           {
             "columns": [
@@ -419,16 +246,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN",
                       "sdg/SP_ACS_BSRVSAN.URBANISATION--R",
                       "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
                     ],
-                    "title": "Proportion of Population Using Basic Sanitation Services in United States",
+                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Population Using Basic Sanitation Services"
+            "title": "Proportion of Population Using Basic Sanitation Services, by Location"
           },
           {
             "columns": [
@@ -992,17 +820,17 @@
             "name": "Population With Social Protection Benefits",
             "statVar": "sdg/SI_COV_BENFTS"
           },
-          "sdg/SI_COV_CHLD": {
-            "name": "Children/Households Receiving Family Cash Benefit",
-            "statVar": "sdg/SI_COV_CHLD"
-          },
-          "sdg/SI_COV_CHLD.SEX--F": {
+          "sdg/SI_COV_CHLD.SEX--F_multiple_place_bar_block": {
             "name": "Girls/Households Receiving Family Cash Benefit",
             "statVar": "sdg/SI_COV_CHLD.SEX--F"
           },
-          "sdg/SI_COV_CHLD.SEX--M": {
+          "sdg/SI_COV_CHLD.SEX--M_multiple_place_bar_block": {
             "name": "Boys/Households Receiving Family Cash Benefit",
             "statVar": "sdg/SI_COV_CHLD.SEX--M"
+          },
+          "sdg/SI_COV_CHLD_multiple_place_bar_block": {
+            "name": "Children/Households Receiving Family Cash Benefit",
+            "statVar": "sdg/SI_COV_CHLD"
           },
           "sdg/SI_COV_DISAB": {
             "name": "Severely Disabled Population Receiving Disability Cash Benefit",
@@ -1194,47 +1022,9 @@
         "types": [
           "Topic"
         ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1.b",
-        "name": "Poverty Eradication Policy Frameworks",
-        "types": [
-          "Topic"
-        ]
       }
     ],
-    "exploreMore": {
-      "sdg/SI_COV_CHLD": {
-        "gender": [
-          "sdg/SI_COV_CHLD.SEX--F",
-          "sdg/SI_COV_CHLD.SEX--M"
-        ]
-      },
-      "sdg/SI_COV_DISAB": {
-        "gender": [
-          "sdg/SI_COV_DISAB.SEX--F",
-          "sdg/SI_COV_DISAB.SEX--M"
-        ]
-      },
-      "sdg/SI_COV_PENSN": {
-        "gender": [
-          "sdg/SI_COV_PENSN.SEX--F",
-          "sdg/SI_COV_PENSN.SEX--M"
-        ]
-      },
-      "sdg/SP_ACS_BSRVH2O": {
-        "sdg_urbanisation": [
-          "sdg/SP_ACS_BSRVH2O.URBANISATION--R",
-          "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
-        ]
-      },
-      "sdg/SP_ACS_BSRVSAN": {
-        "sdg_urbanisation": [
-          "sdg/SP_ACS_BSRVSAN.URBANISATION--R",
-          "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/sdg_1",
@@ -1468,287 +1258,570 @@
         ]
       }
     ],
-    "varToTopic": {
-      "sdg/DC_ODA_POVDLG": {
-        "dcid": "dc/topic/sdg_1.a.1",
-        "name": "Grants for Poverty Reduction",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SD_XPD_ESED": {
-        "dcid": "dc/topic/sdg_1.a.2",
-        "name": "Government Expenditure On Essential Services",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SG_DSR_LGRGSR": {
-        "dcid": "dc/topic/sdg_1.5.3",
-        "name": "Countries With Disaster Risk Reduction",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SG_DSR_SILN": {
-        "dcid": "dc/topic/sdg_1.5.4",
-        "name": "Local Governments With Disaster Risk Reduction",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SG_DSR_SILS": {
-        "dcid": "dc/topic/sdg_1.5.4",
-        "name": "Local Governments With Disaster Risk Reduction",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SG_GOV_LOGV": {
-        "dcid": "dc/topic/sdg_1.5.4",
-        "name": "Local Governments With Disaster Risk Reduction",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_BENFTS": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_CHLD": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_CHLD.SEX--F": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_CHLD.SEX--M": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_DISAB": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_DISAB.SEX--F": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_DISAB.SEX--M": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_PENSN": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_PENSN.SEX--F": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_PENSN.SEX--M": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_POOR": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_UEMP": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_VULN": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_COV_WKINJRY": {
-        "dcid": "dc/topic/sdg_1.3.1",
-        "name": "Population Covered By Social Protection Systems",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SI_POV_DAY1": {
-        "dcid": "dc/topic/sdg_1.1.1",
-        "name": "Population Below the Poverty Line",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SP_ACS_BSRVH2O": {
-        "dcid": "dc/topic/sdg_1.4.1",
-        "name": "Households with Access to Basic Services",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SP_ACS_BSRVH2O.URBANISATION--R": {
-        "dcid": "dc/topic/sdg_1.4.1",
-        "name": "Households with Access to Basic Services",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SP_ACS_BSRVH2O.URBANISATION--U": {
-        "dcid": "dc/topic/sdg_1.4.1",
-        "name": "Households with Access to Basic Services",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SP_ACS_BSRVSAN": {
-        "dcid": "dc/topic/sdg_1.4.1",
-        "name": "Households with Access to Basic Services",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SP_ACS_BSRVSAN.URBANISATION--R": {
-        "dcid": "dc/topic/sdg_1.4.1",
-        "name": "Households with Access to Basic Services",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/SP_ACS_BSRVSAN.URBANISATION--U": {
-        "dcid": "dc/topic/sdg_1.4.1",
-        "name": "Households with Access to Basic Services",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/VC_DSR_AFFCT": {
-        "dcid": "dc/topic/sdg_1.5.1",
-        "name": "Deaths from Disasters Per 100k Capita",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/VC_DSR_AGLH": {
-        "dcid": "dc/topic/sdg_1.5.2",
-        "name": "Economic Loss from Disasters",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/VC_DSR_CILN": {
-        "dcid": "dc/topic/sdg_1.5.2",
-        "name": "Economic Loss from Disasters",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/VC_DSR_DAFF": {
-        "dcid": "dc/topic/sdg_1.5.1",
-        "name": "Deaths from Disasters Per 100k Capita",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/VC_DSR_DDPA": {
-        "dcid": "dc/topic/sdg_1.5.2",
-        "name": "Economic Loss from Disasters",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/VC_DSR_GDPLS": {
-        "dcid": "dc/topic/sdg_1.5.2",
-        "name": "Economic Loss from Disasters",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/VC_DSR_IJILN": {
-        "dcid": "dc/topic/sdg_1.5.1",
-        "name": "Deaths from Disasters Per 100k Capita",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/VC_DSR_LSGP": {
-        "dcid": "dc/topic/sdg_1.5.2",
-        "name": "Economic Loss from Disasters",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/VC_DSR_MMHN": {
-        "dcid": "dc/topic/sdg_1.5.1",
-        "name": "Deaths from Disasters Per 100k Capita",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/VC_DSR_MORT": {
-        "dcid": "dc/topic/sdg_1.5.1",
-        "name": "Deaths from Disasters Per 100k Capita",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/VC_DSR_MTMP": {
-        "dcid": "dc/topic/sdg_1.5.1",
-        "name": "Deaths from Disasters Per 100k Capita",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/VC_DSR_PDAN": {
-        "dcid": "dc/topic/sdg_1.5.1",
-        "name": "Deaths from Disasters Per 100k Capita",
-        "types": [
-          "Topic"
-        ]
-      },
-      "sdg/VC_DSR_PDYN": {
-        "dcid": "dc/topic/sdg_1.5.1",
-        "name": "Deaths from Disasters Per 100k Capita",
-        "types": [
-          "Topic"
-        ]
-      }
+    "varToTopics": {
+      "sdg/DC_ODA_POVDLG": [
+        {
+          "dcid": "dc/topic/sdg_1.a.1",
+          "name": "Grants for Poverty Reduction",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SD_XPD_ESED": [
+        {
+          "dcid": "dc/topic/sdg_1.a.2",
+          "name": "Government Expenditure On Essential Services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_DSR_LGRGSR": [
+        {
+          "dcid": "dc/topic/sdg_1.5.3",
+          "name": "Countries With Disaster Risk Reduction",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.b.1",
+          "name": "National Disaster Risk Reduction Strategies Adoption",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.2",
+          "name": "Adopt and Implement National Disaster Risk Reduction Strategies",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_DSR_SILN": [
+        {
+          "dcid": "dc/topic/sdg_1.5.4",
+          "name": "Local Governments With Disaster Risk Reduction",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.b.2",
+          "name": "Local Disaster Risk Reduction Strategies Adoption",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.3",
+          "name": "Adopt and Implement Local Disaster Risk Reduction Strategies",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_DSR_SILS": [
+        {
+          "dcid": "dc/topic/sdg_1.5.4",
+          "name": "Local Governments With Disaster Risk Reduction",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.b.2",
+          "name": "Local Disaster Risk Reduction Strategies Adoption",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.3",
+          "name": "Adopt and Implement Local Disaster Risk Reduction Strategies",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_GOV_LOGV": [
+        {
+          "dcid": "dc/topic/sdg_1.5.4",
+          "name": "Local Governments With Disaster Risk Reduction",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.b.2",
+          "name": "Local Disaster Risk Reduction Strategies Adoption",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.3",
+          "name": "Adopt and Implement Local Disaster Risk Reduction Strategies",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_BENFTS": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_CHLD": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_CHLD.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_CHLD.SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_DISAB": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_DISAB.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_DISAB.SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_PENSN": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_PENSN.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_PENSN.SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_POOR": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_UEMP": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_VULN": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_WKINJRY": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_DAY1": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_ACS_BSRVH2O": [
+        {
+          "dcid": "dc/topic/sdg_1.4.1",
+          "name": "Households with Access to Basic Services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_ACS_BSRVH2O.URBANISATION--R": [
+        {
+          "dcid": "dc/topic/sdg_1.4.1",
+          "name": "Households with Access to Basic Services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_ACS_BSRVH2O.URBANISATION--U": [
+        {
+          "dcid": "dc/topic/sdg_1.4.1",
+          "name": "Households with Access to Basic Services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_ACS_BSRVSAN": [
+        {
+          "dcid": "dc/topic/sdg_1.4.1",
+          "name": "Households with Access to Basic Services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_ACS_BSRVSAN.URBANISATION--R": [
+        {
+          "dcid": "dc/topic/sdg_1.4.1",
+          "name": "Households with Access to Basic Services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_ACS_BSRVSAN.URBANISATION--U": [
+        {
+          "dcid": "dc/topic/sdg_1.4.1",
+          "name": "Households with Access to Basic Services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_AFFCT": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "Deaths from Disasters Per 100k Capita",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "Deaths, Missing Persons, and Affected Persons From Disasters",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "Deaths and Missing Persons From Natural Disasters",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_AGLH": [
+        {
+          "dcid": "dc/topic/sdg_1.5.2",
+          "name": "Economic Loss from Disasters",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.2",
+          "name": "Economic Losses From Disasters Relative to GDP",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_CILN": [
+        {
+          "dcid": "dc/topic/sdg_1.5.2",
+          "name": "Economic Loss from Disasters",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.2",
+          "name": "Economic Losses From Disasters Relative to GDP",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_DAFF": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "Deaths from Disasters Per 100k Capita",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "Deaths, Missing Persons, and Affected Persons From Disasters",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "Deaths and Missing Persons From Natural Disasters",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_DDPA": [
+        {
+          "dcid": "dc/topic/sdg_1.5.2",
+          "name": "Economic Loss from Disasters",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.2",
+          "name": "Economic Losses From Disasters Relative to GDP",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_GDPLS": [
+        {
+          "dcid": "dc/topic/sdg_1.5.2",
+          "name": "Economic Loss from Disasters",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.2",
+          "name": "Economic Losses From Disasters Relative to GDP",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_IJILN": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "Deaths from Disasters Per 100k Capita",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "Deaths, Missing Persons, and Affected Persons From Disasters",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "Deaths and Missing Persons From Natural Disasters",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_LSGP": [
+        {
+          "dcid": "dc/topic/sdg_1.5.2",
+          "name": "Economic Loss from Disasters",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.2",
+          "name": "Economic Losses From Disasters Relative to GDP",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_MMHN": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "Deaths from Disasters Per 100k Capita",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "Deaths, Missing Persons, and Affected Persons From Disasters",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "Deaths and Missing Persons From Natural Disasters",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_MORT": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "Deaths from Disasters Per 100k Capita",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "Deaths, Missing Persons, and Affected Persons From Disasters",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "Deaths and Missing Persons From Natural Disasters",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_MTMP": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "Deaths from Disasters Per 100k Capita",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "Deaths, Missing Persons, and Affected Persons From Disasters",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "Deaths and Missing Persons From Natural Disasters",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_PDAN": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "Deaths from Disasters Per 100k Capita",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "Deaths, Missing Persons, and Affected Persons From Disasters",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "Deaths and Missing Persons From Natural Disasters",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_PDYN": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "Deaths from Disasters Per 100k Capita",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "Deaths, Missing Persons, and Affected Persons From Disasters",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "Deaths and Missing Persons From Natural Disasters",
+          "types": [
+            "Topic"
+          ]
+        }
+      ]
     }
   },
   "svSource": "UNKNOWN",

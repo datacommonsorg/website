@@ -179,6 +179,22 @@ class ExploreTest(NLWebServerTestCase):
     }
     self.run_fulfillment('fulfillment_api_sdg_global', req)
 
+  def test_fulfillment_sdg_specialvars(self):
+    req = {
+        'entities': ['country/USA'],
+        'variables': ['dc/topic/sdg_17.19.2'],
+        'dc': 'sdg'
+    }
+    self.run_fulfillment('fulfillment_api_sdg_specialvars', req)
+
+  def test_fulfillment_sdg_global_specialvars(self):
+    req = {
+        'entities': ['Earth'],
+        'variables': ['dc/topic/sdg_17.19.2'],
+        'dc': 'sdg'
+    }
+    self.run_fulfillment('fulfillment_api_sdg_global_specialvars', req)
+
   def test_fulfillment_comparison(self):
     req = {
         'entities': ['geoId/06'],
@@ -246,18 +262,27 @@ class ExploreTest(NLWebServerTestCase):
   def test_e2e_electrification_demo(self):
     self.run_detect_and_fulfill('e2e_electrification_demo', [
         'Which countries in Africa have had the greatest increase in electricity access?',
-        'How do these countries compare with the US and Germany?',
         'How has poverty reduced in these places?',
         'How has the GDP grown?',
+        'What is the greenhouse gas emissions from these places?',
+        'How do these countries compare with the US and Germany?',
     ])
 
   def test_e2e_india_demo(self):
     self.run_detect_and_fulfill('e2e_india_demo', [
         'Which states in India have the highest poverty levels per capita?',
-        'How have the wages changed over time in these states?',
-        'How much has infant mortality reduced?',
+        'How much has infant mortality changed over time in these states?',
         'How does the literacy rate compare?',
-        'How has the number of secondary schools increased?',
+        'How does literacy rate compare to poverty in India?',
+    ])
+
+  def test_e2e_us_demo(self):
+    self.run_detect_and_fulfill('e2e_us_demo', [
+        'Which counties in the US have the highest levels of diabetes?',
+        'What is the demographic breakdown of East Carroll Parish, LA?',
+        'What is the median household income in East Carroll Parish, LA?',
+        'How does household income compare with rates of diabetes in USA counties?',
+        'How do obesity rates compare with rates of diabetes in USA counties?',
     ])
 
   def test_e2e_edge_cases(self):
@@ -280,3 +305,27 @@ class ExploreTest(NLWebServerTestCase):
         'Richest counties in california',
         'List schools in Sunnyvale',
     ])
+
+  def test_e2e_sdg(self):
+    self.run_detect_and_fulfill('e2e_sdg', [
+        'Hunger in Nigeria',
+        'Compare progress on poverty in Mexico, Nigeria and Pakistan'
+    ],
+                                dc='sdg')
+
+  def test_e2e_fallbacks(self):
+    self.run_detect_and_fulfill(
+        'e2e_fallbacks',
+        [
+            # There is NO county-level data at all, so this
+            # should fallback to US states.
+            'Life expectancy in US counties',
+            # There is county-level data further down in the
+            # chart list, so it should also fallback to states.
+            'Tamil speakers in US counties',
+            # This should fallback from tract to city.
+            'auto thefts in tracts of sunnyvale',
+            # This should fallback from child-type (tract)
+            # to the place (SC county) to its state (CA).
+            'auto thefts in tracts of santa clara county'
+        ])

@@ -43,6 +43,68 @@ const DEFAULT_PC_SCALING = 100;
 const DEFAULT_PC_UNIT = "%";
 const ERROR_MSG_PC = "Sorry, could not calculate per capita.";
 const ERROR_MSG_DEFAULT = "Sorry, we do not have this data.";
+const NUM_FRACTION_DIGITS = 1;
+
+/**
+ * Override unit display when unit contains
+ * "TH" (Thousands), "M" (Millions), "B" (Billions)
+ */
+interface UnitOverride {
+  multiplier: number;
+  numFractionDigits?: number;
+  unit: string;
+  unitDisplayName: string;
+}
+const UNIT_OVERRIDE_CONFIG: {
+  [key: string]: UnitOverride;
+} = {
+  SDG_CON_USD_M: {
+    unit: "SDG_CON_USD",
+    multiplier: 1000000,
+    unitDisplayName: "Constant USD",
+  },
+  SDG_CUR_LCU_M: {
+    unit: "SDG_CUR_LCU",
+    multiplier: 1000000,
+    unitDisplayName: "Current local currency",
+  },
+  SDG_CU_USD_B: {
+    unit: "SDG_CU_USD",
+    multiplier: 1000000000,
+    unitDisplayName: "USD",
+  },
+  SDG_CU_USD_M: {
+    unit: "SDG_CU_USD",
+    multiplier: 1000000,
+    unitDisplayName: "USD",
+  },
+  SDG_HA_TH: {
+    unit: "SDG_HA",
+    multiplier: 1000,
+    unitDisplayName: "Hectares",
+  },
+  SDG_NUM_M: {
+    unit: "SDG_NUMBER",
+    multiplier: 1000000,
+    unitDisplayName: "",
+  },
+  SDG_NUM_TH: {
+    unit: "SDG_NUMBER",
+    multiplier: 1000,
+    unitDisplayName: "",
+  },
+  SDG_TONNES_M: {
+    unit: "SDG_TONNES",
+    multiplier: 1000000,
+    unitDisplayName: "Tonnes",
+  },
+  SDG_NUMBER: {
+    unit: "SDG_NUMBER",
+    multiplier: 1,
+    numFractionDigits: 0,
+    unitDisplayName: "",
+  },
+};
 
 export interface ReplacementStrings {
   placeName?: string;
@@ -102,10 +164,13 @@ export function getStatVarName(
  * in its spec, will try to query the name though an api call.
  * @param statVarSpecs specs of stat vars to get names for
  * @param apiRoot api root to use for api
+ * @param getProcessedName If provided, use this function to get the processed
+ *        stat var names.
  */
 export async function getStatVarNames(
   statVarSpec: StatVarSpec[],
-  apiRoot?: string
+  apiRoot?: string,
+  getProcessedName?: (name: string) => string
 ): Promise<{ [key: string]: string }> {
   if (_.isEmpty(statVarSpec)) {
     return Promise.resolve({});
@@ -127,28 +192,42 @@ export async function getStatVarNames(
     }
   });
 
+  // Promise that returns an object where key is stat var dcid and value is name
+  let statVarNamesPromise;
   // If all names were provided by statVarSpec or stats_var_labels.json
   // skip propval api call
   if (_.isEmpty(statVarDcids)) {
-    return Promise.resolve(statVarNames);
+    statVarNamesPromise = Promise.resolve(statVarNames);
+  } else {
+    statVarNamesPromise = axios
+      .get(`${apiRoot || ""}/api/node/propvals/out`, {
+        params: {
+          dcids: statVarDcids,
+          prop: "name",
+        },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        for (const statVar in resp.data) {
+          // If the api call can't find a name for the stat var (api returns []),
+          // default to using its dcid
+          statVarNames[statVar] = _.isEmpty(resp.data[statVar])
+            ? statVar
+            : resp.data[statVar][0].value;
+        }
+        return statVarNames;
+      });
   }
 
   try {
-    const resp = await axios.get(`${apiRoot || ""}/api/node/propvals/out`, {
-      params: {
-        dcids: statVarDcids,
-        prop: "name",
-      },
-      paramsSerializer: stringifyFn,
-    });
-    for (const statVar in resp.data) {
-      // If the api call can't find a name for the stat var (api returns []),
-      // default to using its dcid
-      statVarNames[statVar] = _.isEmpty(resp.data[statVar])
-        ? statVar
-        : resp.data[statVar][0].value;
+    const statVarNamesResult = await statVarNamesPromise;
+    // If there is a function for processing stat var names, use it
+    if (getProcessedName) {
+      Object.keys(statVarNamesResult).forEach((dcid) => {
+        statVarNamesResult[dcid] = getProcessedName(statVarNamesResult[dcid]);
+      });
     }
-    return statVarNames;
+    return statVarNamesResult;
   } catch (error) {
     return await Promise.reject(error);
   }
@@ -303,37 +382,72 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
  * @param statPointData stat data for the tile as a PointApiResponse
  * @param statSeriesData stat data for the tile as a SeriesApiResponse
  */
-export function getUnitAndScaling(
+export function getStatFormat(
   svSpec: StatVarSpec,
   statPointData?: PointApiResponse,
   statSeriesData?: SeriesApiResponse
-): { unit: string; scaling: number } {
-  // If the stat var spec specifies a unit, use that unit
+): { unit: string; scaling: number; numFractionDigits: number } {
   const result = {
     unit: svSpec.unit,
     scaling: svSpec.scaling,
+    numFractionDigits: NUM_FRACTION_DIGITS,
   };
-  // Otherwise, try to get the unit from the stat data
-  if (!result.unit) {
-    let statMetadata = null;
-    if (statPointData) {
-      const obsWithFacet = Object.values(
-        statPointData.data[svSpec.statVar]
-      ).find((obs) => !!obs.facet);
+  // If unit was specified in the svSpec, use that unit
+  if (result.unit) {
+    return result;
+  }
+  // Get stat metadata info from stat data
+  let statMetadata = null;
+  if (statPointData) {
+    const obsWithFacet = Object.values(statPointData.data[svSpec.statVar]).find(
+      (obs) => !!obs.facet
+    );
+    if (obsWithFacet) {
       statMetadata = statPointData.facets[obsWithFacet.facet];
-    } else if (statSeriesData) {
-      const seriesWithFacet = Object.values(
-        statSeriesData.data[svSpec.statVar]
-      ).find((series) => !!series.facet);
+    }
+  } else if (statSeriesData) {
+    const seriesWithFacet = Object.values(
+      statSeriesData.data[svSpec.statVar]
+    ).find((series) => !!series.facet);
+    if (seriesWithFacet) {
       statMetadata = statSeriesData.facets[seriesWithFacet.facet];
     }
+  }
+
+  const isComplexUnit = !!statMetadata?.unit?.match(/\[.+ [0-9]+\]/);
+  let overrideConfig = null;
+  if (statMetadata) {
+    // If complex unit, use the unit part to get the override config, otherwise
+    // use the whole unit to get the override config.
+    const unitStr = isComplexUnit
+      ? statMetadata.unit.substring(1, statMetadata.unit.indexOf(" "))
+      : statMetadata.unit;
+    overrideConfig = UNIT_OVERRIDE_CONFIG[unitStr];
+  }
+  // If there's a matching override config, use the format information from
+  // the config. Otherwise, get unit from stat metadata.
+  if (overrideConfig) {
+    let unitSuffix = "";
+    if (isComplexUnit) {
+      // If complex unit, form the unit suffix with the date part of the unit
+      const date = statMetadata.unit.substring(
+        statMetadata.unit.indexOf(" ") + 1,
+        statMetadata.unit.length - 1
+      );
+      unitSuffix = ` with base period ${date}`;
+    }
+    result.unit = `${overrideConfig.unitDisplayName}${unitSuffix}`;
+    result.scaling = overrideConfig.multiplier;
+    result.numFractionDigits = overrideConfig.numFractionDigits;
+  } else {
     result.unit = getUnit(statMetadata);
   }
-  // If this is a per capita case and no unit has been found, use the default
-  // per capita unit and scaling
+  // If this is a per capita case and no unit name has been found, use the
+  // default per capita unit and multiply scaling by the default per capita
+  // scaling.
   if (svSpec.denom && !result.unit) {
     result.unit = DEFAULT_PC_UNIT;
-    result.scaling = DEFAULT_PC_SCALING;
+    result.scaling *= DEFAULT_PC_SCALING;
   }
   return result;
 }

@@ -48,6 +48,7 @@ const MenuImageIcon = styled.img`
   border-radius: 0.25rem;
 `;
 
+const REGION_PLACE_TYPES = ["UNGeoRegion", "ContinentalUnion", "Continent"];
 export interface Place {
   name: string;
   dcid: string;
@@ -230,7 +231,8 @@ const appModel: AppModel = {
 const appActions: AppActions = {
   initializeAppState: thunk(async (actions) => {
     actions.setRootTopics(rootTopics);
-    actions.setRegions(countries.regions);
+    const regions = await dataCommonsClient.getPlaces(REGION_PLACE_TYPES);
+    actions.setRegions(regions);
     actions.setCountries(
       countries.countries.filter((c) => c.is_un_member_or_observer)
     );

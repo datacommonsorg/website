@@ -43,8 +43,8 @@ import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
   getNoDataErrorMsg,
+  getStatFormat,
   getStatVarNames,
-  getUnitAndScaling,
   ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
@@ -78,6 +78,8 @@ export interface LineTilePropType {
   showLoadingSpinner?: boolean;
   // Whether to show tooltip on hover
   showTooltipOnHover?: boolean;
+  // Function used to get processed stat var names.
+  getProcessedSVNameFn?: (name: string) => string;
 }
 
 export interface LineChartData {
@@ -178,7 +180,11 @@ export const fetchData = async (props: LineTilePropType) => {
   const resp = await dataPromise;
   // get place names from dcids
   const placeDcids = Object.keys(resp.data[statVars[0]]);
-  const statVarNames = await getStatVarNames(props.statVarSpec, props.apiRoot);
+  const statVarNames = await getStatVarNames(
+    props.statVarSpec,
+    props.apiRoot,
+    props.getProcessedSVNameFn
+  );
   const placeNames = await getPlaceNames(placeDcids, props.apiRoot);
   // How legend labels should be set
   // If neither options are set, default to showing stat vars in legend labels
@@ -259,7 +265,7 @@ function rawToChart(
     }
   }
   // Assume all stat var specs will use the same unit and scaling.
-  const { unit, scaling } = getUnitAndScaling(props.statVarSpec[0], null, raw);
+  const { unit, scaling } = getStatFormat(props.statVarSpec[0], null, raw);
   for (const spec of props.statVarSpec) {
     // Do not modify the React state. Create a clone.
     const entityToSeries = raw.data[spec.statVar];

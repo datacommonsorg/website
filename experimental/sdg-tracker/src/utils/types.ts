@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 export interface ChartConfigTile {
+  comparisonPlaces?: string[];
   description: string;
+  placeDcidOverride?: string;
   statVarKey: string[];
   title: string;
-  type: "BAR" | "LINE" | "MAP" | "HIGHLIGHT" | "GAUGE";
+  type: "BAR" | "GAUGE" | "HIGHLIGHT" | "LINE" | "MAP" | "PLACE_OVERVIEW";
 }
 export interface ChartConfigColumn {
   tiles: ChartConfigTile[];
@@ -26,25 +28,29 @@ export interface ChartConfigBlock {
   columns: ChartConfigColumn[];
   title: string;
 }
+
+export interface StatVarSpec {
+  [dcid: string]: {
+    name: string;
+    statVar: string;
+  };
+}
 export interface ChartConfigCategory {
   blocks: ChartConfigBlock[];
-  statVarSpec: {
-    [dcid: string]: {
-      name: string;
-      statVar: string;
-    };
+  statVarSpec: StatVarSpec;
+}
+
+export interface ChartConfigMetadata {
+  containedPlaceTypes: {
+    [placeType: string]: string;
   };
+  placeDcid: string[];
+  topicId: string;
+  topicName: string;
 }
 export interface ChartConfig {
   categories?: ChartConfigCategory[];
-  metadata?: {
-    containedPlaceTypes: {
-      Place: string;
-    };
-    placeDcid: string[];
-    topicId: string;
-    topicName: string;
-  };
+  metadata?: ChartConfigMetadata;
 }
 export interface Place {
   dcid: string;
@@ -63,7 +69,7 @@ export interface RelatedTopic {
 }
 
 export interface VarToTopicMapping {
-  [key: string]: RelatedTopic;
+  [key: string]: RelatedTopic[];
 }
 export interface RelatedThings {
   childPlaces: {
@@ -73,7 +79,7 @@ export interface RelatedThings {
   parentPlaces: RelatedPlace[];
   parentTopics: RelatedTopic[];
   peerTopics: RelatedTopic[];
-  varToTopic: VarToTopicMapping;
+  varToTopics: VarToTopicMapping;
 }
 
 /**
@@ -109,6 +115,7 @@ export interface FulfillResponse {
   debug: any; // Not currently used; define interface later if needed
   failure?: string;
   place: Place;
+  places: Place[];
   placeFallback: any; // Not currently used; define interface later if needed
   placeSource: FulfillmentResult;
   relatedThings: RelatedThings;
