@@ -106,5 +106,17 @@ class DataCommonsClient {
     });
     return (await response.json()) as BulkObservationExistenceResponse;
   }
+
+  async getCountriesInRegion(regionDcid: string): Promise<string[]> {
+    const url = `${this.apiRoot}/api/place/descendent?descendentType=Country&dcids=${regionDcid}`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const responseJson = await response.json();
+    return responseJson[regionDcid] || [];
+  }
 }
 export default DataCommonsClient;

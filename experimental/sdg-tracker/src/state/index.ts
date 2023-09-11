@@ -308,7 +308,7 @@ const appActions: AppActions = {
 
   fetchPlaceSidebarMenuHierarchy: thunk(
     async (_, { placeDcid, allTopicDcids, sidebarMenuHierarchy }) => {
-      if (!placeDcid || !placeDcid.startsWith("country")) {
+      if (!placeDcid || placeDcid.length === 0 || placeDcid === "Earth") {
         return sidebarMenuHierarchy;
       }
       if (!allTopicDcids || allTopicDcids.length === 0) {
@@ -316,8 +316,15 @@ const appActions: AppActions = {
       }
 
       try {
+        let countryDcids = [placeDcid];
+        if (!placeDcid.startsWith("country")) {
+          countryDcids = await dataCommonsClient.getCountriesInRegion(
+            placeDcid
+          );
+        }
+
         const request: BulkObservationExistenceRequest = {
-          entities: [placeDcid],
+          entities: countryDcids,
           variables: allTopicDcids,
         };
         const response = await dataCommonsClient.existence(request);
@@ -328,6 +335,7 @@ const appActions: AppActions = {
           for (const key in exists) {
             if (exists[key]) {
               existingTopicDcids.add(topicDcid);
+              break;
             }
           }
         }
