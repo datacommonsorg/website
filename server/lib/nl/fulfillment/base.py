@@ -266,9 +266,10 @@ def _add_charts_with_existence_check(state: PopulateState,
         parent_type = utils.get_parent_place_type(state.place_type, places[0])
         if not parent_type or places[0].place_type == parent_type:
           # This type does not have parent-type, or the parent-type is
-          # this place type (meaning immediate child-type).  In this case,
-          # ensure we set the fallback message and return success!
-          # Reset the place_type since there was no data with this place-type.
+          # the main place type.  In this case, ensure we set the fallback
+          # message and return success, because we have charts for the main
+          # place, after reseting the child-type in state (important for
+          # _maybe_set_fallback()).
           state.place_type = None
           _maybe_set_fallback(state, places)
         else:
