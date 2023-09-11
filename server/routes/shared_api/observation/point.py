@@ -69,8 +69,7 @@ def point_within():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or 'LATEST'
-  facet_id = request.args.get('facetId') or None
-  facet_ids = [facet_id] if facet_id else None
+  facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
   return fetch.point_within_core(parent_entity, child_type, variables, date,
                                  False, facet_ids)
 
