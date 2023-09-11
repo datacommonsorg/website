@@ -1,0 +1,46 @@
+---
+project: iqss-gdc
+cluster_prefix: datacommons
+namespace:
+  name: website
+website:
+  image:
+    project: iqss-gdc
+    tag: 43a453c
+  flaskEnv: custom
+mixer:
+  useBranchBigtable: false
+  useCustomBigtable: true
+ingress:
+  enabled: true
+  certName: dc-website-cert-custom
+serviceAccount:
+  name: website-ksa
+serviceGroups:
+  recon: null
+  svg: null
+  observation: null
+  node: null
+  default:
+    replicas: 1
+    useSearch: true
+    resources:
+      memoryRequest: 8G
+      memoryLimit: 8G
+nl:
+  enabled: false
+kgStoreConfig:
+  customBigtableInfo: |
+    project: "iqss-gdc"
+    instance: dc-graph
+    tables:
+      - import_group1_test_2023_04_05_12_40_16
+      - import_group2_test_2023_04_13_12_01_07
+      - import_group3_test_2023_04_20_11_39_37
+      - import_group4_test_2023_05_12_07_49_08
+      - import_group5_test_2023_05_17_11_43_07
+      - import_group6_test_2023_05_17_11_50_51
+svg:
+  blocklistFile:
+    - dc/g/Uncategorized
+    - oecd/g/OECD
