@@ -92,7 +92,11 @@ def obs_point(entities, variables, date='LATEST'):
       })
 
 
-def obs_point_within(parent_entity, child_type, variables, date='LATEST'):
+def obs_point_within(parent_entity,
+                     child_type,
+                     variables,
+                     date='LATEST',
+                     facet_ids=None):
   """Gets the statistical variable values for child places of a certain place
     type contained in a parent place at a given date.
 
@@ -110,22 +114,24 @@ def obs_point_within(parent_entity, child_type, variables, date='LATEST'):
 
   """
   url = get_service_url('/v2/observation')
-  return post(
-      url, {
-          'select': ['date', 'value', 'variable', 'entity'],
-          'entity': {
-              'expression':
-                  '{0}<-containedInPlace+{{typeOf:{1}}}'.format(
-                      parent_entity, child_type)
-          },
-          'variable': {
-              'dcids': sorted(variables)
-          },
-          'date': date
-      })
+  req = {
+      'select': ['date', 'value', 'variable', 'entity'],
+      'entity': {
+          'expression':
+              '{0}<-containedInPlace+{{typeOf:{1}}}'.format(
+                  parent_entity, child_type)
+      },
+      'variable': {
+          'dcids': sorted(variables)
+      },
+      'date': date
+  }
+  if facet_ids:
+    req['filter'] = {'facetIds': facet_ids}
+  return post(url, req)
 
 
-def obs_series(entities, variables):
+def obs_series(entities, variables, facet_ids=None):
   """Gets the observation time series for the given entities of the given
   variable.
 
@@ -134,19 +140,21 @@ def obs_series(entities, variables):
       variables: A list of statistical variables.
   """
   url = get_service_url('/v2/observation')
-  return post(
-      url, {
-          'select': ['date', 'value', 'variable', 'entity'],
-          'entity': {
-              'dcids': sorted(entities)
-          },
-          'variable': {
-              'dcids': sorted(variables)
-          },
-      })
+  req = {
+      'select': ['date', 'value', 'variable', 'entity'],
+      'entity': {
+          'dcids': sorted(entities)
+      },
+      'variable': {
+          'dcids': sorted(variables)
+      },
+  }
+  if facet_ids:
+    req['filter'] = {'facetIds': facet_ids}
+  return post(url, req)
 
 
-def obs_series_within(parent_entity, child_type, variables):
+def obs_series_within(parent_entity, child_type, variables, facet_ids=None):
   """Gets the statistical variable series for child places of a certain place
     type contained in a parent place.
 
@@ -156,18 +164,20 @@ def obs_series_within(parent_entity, child_type, variables):
       variables: List of statistical variable DCIDs each as a string.
   """
   url = get_service_url('/v2/observation')
-  return post(
-      url, {
-          'select': ['date', 'value', 'variable', 'entity'],
-          'entity': {
-              'expression':
-                  '{0}<-containedInPlace+{{typeOf:{1}}}'.format(
-                      parent_entity, child_type)
-          },
-          'variable': {
-              'dcids': sorted(variables)
-          },
-      })
+  req = {
+      'select': ['date', 'value', 'variable', 'entity'],
+      'entity': {
+          'expression':
+              '{0}<-containedInPlace+{{typeOf:{1}}}'.format(
+                  parent_entity, child_type)
+      },
+      'variable': {
+          'dcids': sorted(variables)
+      },
+  }
+  if facet_ids:
+    req['filter'] = {'facetIds': facet_ids}
+  return post(url, req)
 
 
 def series_facet(entities, variables):
