@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,13 @@
  * limitations under the License.
  */
 
-import React from "react";
+/**
+ * Formats search result response userMessage to change instances of "Earth" to "the world"
+ */
+export function formatUserMessage(userMessage?: string): string {
+  if (!userMessage) {
+    return "";
+  }
 
-interface SpinnerProps {
-  isOpen: boolean;
-}
-
-export function Spinner(props: SpinnerProps): JSX.Element {
-  return (
-    <div id="screen" style={{ display: props.isOpen ? "block" : "none" }}>
-      <div id="spinner" />
-      <div id="spinner-text" />
-    </div>
-  );
+  return userMessage.replace(/Earth/, "the world");
 }

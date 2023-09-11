@@ -69,8 +69,9 @@ def point_within():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or 'LATEST'
+  facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
   return fetch.point_within_core(parent_entity, child_type, variables, date,
-                                 False)
+                                 False, facet_ids)
 
 
 @bp.route('/within/all')

@@ -17,86 +17,20 @@ import re
 from flask import Blueprint
 from flask import request
 
-import server.services.datacommons as dc
+from server.lib import fetch
 
 bp = Blueprint("facets", __name__, url_prefix='/api/facets')
-
-
-def get_variable_facets_from_series(series_response):
-  """Gets the available facets for each sv in an api response for series_within.
-
-  Args:
-      series_response: the response from a dc.obs_series_within call.
-
-  Returns:
-      a dict of sv to dict of facet id to facet information:
-          {
-              [sv]: {
-                  [facet1]: {
-                      "importName": "Census",
-                      "observationPeriod": "P1Y",
-                      ...
-                  },
-                  ...
-              },
-              ...
-          }
-  """
-  facets_by_variable = {}
-  facets = series_response.get("facets", {})
-  for var, var_obs in series_response.get("byVariable", {}).items():
-    facets_by_variable[var] = {}
-    for _, entity_obs in var_obs.get("byEntity", {}).items():
-      for facet_obs in entity_obs.get("orderedFacets", []):
-        facet_id = facet_obs.get("facetId", "")
-        if facet_id and facet_id not in facets_by_variable[var]:
-          facets_by_variable[var][facet_id] = facets.get(facet_id, {})
-  return facets_by_variable
-
-
-def get_variable_facets_from_points(point_response):
-  """Gets the available facets for each sv in an api response for obs_point_within.
-
-  Args:
-      points_response: the response from a dc.obs_point_within call.
-
-  Returns:
-      a dict of sv to dict of facet id to facet information:
-          {
-              [sv]: {
-                  [facet1]: {
-                      "importName": "Census",
-                      "observationPeriod": "P1Y",
-                      ...
-                  },
-                  ...
-              },
-              ...
-          }
-  """
-  facets_by_variable = {}
-  facets = point_response.get("facets", {})
-  for var, var_obs in point_response.get("byVariable", {}).items():
-    facets_by_variable[var] = {}
-    for _, entity_obs in var_obs.get("byEntity", {}).items():
-      for facet_obs in entity_obs.get("orderedFacets", []):
-        facet_id = facet_obs.get("facetId", "")
-        if facet_id not in facets_by_variable[var]:
-          facets_by_variable[var][facet_id] = facets.get(facet_id, {})
-  return facets_by_variable
 
 
 def is_valid_date(date):
   """
   Returns whether or not the date string is valid. Valid date strings are:
       1. empty or
-      2. "latest" or
+      2. "LATEST" or
       3. of the form "YYYY" or "YYYY-MM" or "YYYY-MM-DD"
   """
-  if not date or date == "latest" or re.match(r"^(\d\d\d\d)(-\d\d)?(-\d\d)?$",
-                                              date):
-    return True
-  return False
+  return (date == '' or date == 'LATEST' or
+          re.match(r"^(\d\d\d\d)(-\d\d)?(-\d\d)?$", date))
 
 
 @bp.route('/within')
@@ -106,49 +40,36 @@ def get_facets_within():
     the latest date facets will be returned.
 
   Request body:
-      parentPlace: the parent place of the places to get facets for
+      parentEntity: the parent place of the places to get facets for
       childType: type of places to get facets for
-      statVars: list of statistical variables to get facets for
-      minDate (optional): earliest date to get facets for
-      maxDate (optional): latest date to get facets for
-
-  Returns a dict of sv to dict of facet id to facet information:
-  {
-      [sv]: {
-          [facet1]: {
-              "importName": "Census",
-              "observationPeriod": "P1Y",
-              ...
-          },
-          ...
-      },
-      ...
-  }
+      variables: list of statistical variables to get facets for
+      date: If empty, fetch for all date; Otherwise could be "LATEST" or
+        specific date.
   """
-  parent_place = request.args.get('parentPlace')
-  if not parent_place:
-    return 'error: must provide a parentPlace field', 400
+  parent_entity = request.args.get('parentEntity')
+  if not parent_entity:
+    return 'error: must provide a parentEntity field', 400
   child_type = request.args.get('childType')
   if not child_type:
     return 'error: must provide a childType field', 400
-  stat_vars = list(filter(lambda x: x != "", request.args.getlist('statVars')))
-  if not stat_vars:
-    return 'error: must provide a statVars field', 400
-  min_date = request.args.get('minDate')
-  if not is_valid_date(min_date):
-    return 'error: minDate must be YYYY or YYYY-MM or YYYY-MM-DD', 400
-  max_date = request.args.get('maxDate')
-  if not is_valid_date(max_date):
-    return 'error: minDate must be YYYY or YYYY-MM or YYYY-MM-DD', 400
-  # when min_date and max_date are the same and non empty, we will get the
-  # points data, otherwise we will get series data
-  if min_date and max_date and min_date == max_date:
-    date = min_date
-    if min_date == "latest":
-      date = "LATEST"
-    point_response = dc.obs_point_within(parent_place, child_type, stat_vars,
-                                         date)
-    return get_variable_facets_from_points(point_response), 200
-  else:
-    series_response = dc.obs_series_within(parent_place, child_type, stat_vars)
-    return get_variable_facets_from_series(series_response), 200
+  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  if not variables:
+    return 'error: must provide a variables field', 400
+  date = request.args.get('date')
+  if not is_valid_date(date):
+    return 'error: date must be LATEST or YYYY or YYYY-MM or YYYY-MM-DD', 400
+  return fetch.point_within_facet(parent_entity, child_type, variables, date,
+                                  True)
+
+
+@bp.route('/')
+def get_facets():
+  """Gets the available facets for a list of stat vars for a list of places.
+  """
+  entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
+  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  if not entities:
+    return 'error: must provide a `entities` field', 400
+  if not variables:
+    return 'error: must provide a `variables` field', 400
+  return fetch.series_facet(entities, variables, True)
