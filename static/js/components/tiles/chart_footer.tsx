@@ -39,48 +39,50 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
     return null;
   }
   return (
-    <footer id="chart-container-footer">
+    <>
       <slot name="footer" {...{ part: "footer" }}></slot>
-      <div className="main-footer-section">
-        <div className="outlinks">
-          {props.handleEmbed && (
-            <div className="outlink-item">
-              <span className="material-icons-outlined">download</span>
-              <a
-                href="#"
-                onClick={(event) => {
-                  event.preventDefault();
-                  triggerGAEvent(GA_EVENT_TILE_DOWNLOAD, {
-                    [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
-                  });
-                  props.handleEmbed();
-                }}
-              >
-                Download
-              </a>
-            </div>
-          )}
-          {props.exploreLink && (
-            <div className="outlink-item">
-              <span className="material-icons-outlined">timeline</span>
-              <a
-                href={props.exploreLink.url}
-                rel="noopener noreferrer"
-                target="_blank"
-                onClick={(event) => {
-                  triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
-                    [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
-                  });
-                  return true;
-                }}
-              >
-                Explore in {props.exploreLink.displayText}
-              </a>
-            </div>
-          )}
+      <footer className="chart-container-footer">
+        <div className="main-footer-section">
+          <div className="outlinks">
+            {props.handleEmbed && (
+              <div className="outlink-item">
+                <span className="material-icons-outlined">download</span>
+                <a
+                  href="#"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD, {
+                      [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
+                    });
+                    props.handleEmbed();
+                  }}
+                >
+                  Download
+                </a>
+              </div>
+            )}
+            {props.exploreLink && (
+              <div className="outlink-item">
+                <span className="material-icons-outlined">timeline</span>
+                <a
+                  href={props.exploreLink.url}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  onClick={(event) => {
+                    triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
+                      [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
+                    });
+                    return true;
+                  }}
+                >
+                  Explore in {props.exploreLink.displayText}
+                </a>
+              </div>
+            )}
+          </div>
+          {props.children}
         </div>
-        {props.children}
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }
