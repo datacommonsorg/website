@@ -275,6 +275,8 @@ function buildTileHierarchy(
   topicDcids.sort();
   if (mainTopics.length == 2) {
     topicNameStr = `${mainTopics[0].name} vs. ${mainTopics[1].name}`;
+  } else if (mainTopics.length == 1) {
+    topicNameStr = mainTopics[0].name;
   }
   return {hierarchy, orderedTiles, topicNameStr};
 }
