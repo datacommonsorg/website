@@ -81,6 +81,10 @@ Optional:
 
   Optionally specify regex to use to extract out variable name. e.g., if the variableNameRegex is "(.*?)(?=:)", only the part before a ":" will be used for variable names. So "variable 1: test" will become "variable 1".
 
+- `defaultVariableName` _string_
+
+  To be used with variableNameRegex. If specified and no variable name is extracted out with the regex, use this as the variable name. e.g., if the variableNameRegex is "(.*?)(?=:)", and the defaultVariableName is "Total", for a variable named "variable 1", it will become "Total". 
+
 ## Examples
 
 A bar chart of population for states in the US:

@@ -15,49 +15,26 @@
  */
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import backgroundImg from "../../../public/images/datacommons/place-background.png";
 import { CountrySelect } from "../shared/components";
+import { HomeSection } from "./components";
 
-const Container = styled.div`
-  font-family: Roboto;
-
-  img {
-    width: 100%;
-  }
-`;
-
-const PlaceContent = styled.div`
-  background-image: url(${backgroundImg});
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 685px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const Container = styled(HomeSection)`
+  border-top: 0.5px solid #ABABAB;
+  border-bottom: 0.5px solid #ABABAB;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.15);
 `;
 
 const PlaceSearchContainer = styled.div`
-  border-radius: 10px;
-  border: 1px solid #414042;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.15);
-  max-width: 702px;
-  width: 90%;
-  padding: 40px 0;
-  flex-shrink: 0;
+  max-width: 775px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 30px;
-  justify-content: center;
+  gap: 37px;
 
   .title {
-    color: #449bd5;
-    font-size: 34px;
-    font-weight: 700;
-    line-height: 47px;
-    padding: 0 73px;
-    width: 100%;
+    color: rgba(0, 0, 0, 0.79);
+    font-size: 22px;
+    font-weight: 600;
   }
 
   .footer {
@@ -66,12 +43,10 @@ const PlaceSearchContainer = styled.div`
     font-weight: 400;
     line-height: 36px;
     width: 100%;
-    padding: 0 73px;
   }
 
   .search-bar-container {
     width: 100%;
-    padding: 0 33px;
 
     svg {
       display: none;
@@ -111,16 +86,14 @@ export const PlaceSection = () => {
   const countrySelectStyle = {
     width: "100%",
     borderRadius: "30px",
-    border: "0.5px solid #414042",
+    border: "1px solid #449BD5",
     background: "#fff",
     height: "63px",
   }
   return (
     <Container>
-      <img src="/images/datacommons/sdg-color-bar.png" />
-      <PlaceContent>
         <PlaceSearchContainer>
-          <div className="title">Explore SDG Data by Countries and Regions</div>
+          <div className="title">Explore Countries and Regions</div>
           <div className="search-bar-container">
             <CountrySelect setSelectedPlaceDcid={(placeDcid) => history.push(`/countries?p=${placeDcid}`)} style={countrySelectStyle}/>
           </div>
@@ -129,8 +102,6 @@ export const PlaceSection = () => {
             Commons.
           </div>
         </PlaceSearchContainer>
-      </PlaceContent>
-      <img src="/images/datacommons/sdg-color-bar.png" />
     </Container>
   );
 };
