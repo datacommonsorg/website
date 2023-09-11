@@ -30,7 +30,7 @@ import {
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { GA_EVENT_PAGE_VIEW, triggerGAEvent } from "../../shared/ga_events";
+import { GA_EVENT_NL_DETECT_FULFILL, GA_EVENT_NL_FULFILL, GA_EVENT_PAGE_VIEW, triggerGAEvent } from "../../shared/ga_events";
 import {
   QueryResult,
   UserMessageInfo,
@@ -319,6 +319,7 @@ const fetchFulfillData = async (
   disableExploreMore: string
 ) => {
   try {
+    let startTime = window.performance ? window.performance.now() : undefined;
     const resp = await axios.post(`/api/explore/fulfill`, {
       dc,
       entities: places,
@@ -330,6 +331,15 @@ const fetchFulfillData = async (
       classifications: classificationsJson,
       disableExploreMore,
     });
+    if (startTime) {
+      let endTime = window.performance ? window.performance.now() - startTime : undefined;
+      if (endTime) {
+        triggerGAEvent(GA_EVENT_NL_FULFILL, {
+          GA_PARAM_TOPIC: topics,
+          GA_VALUE_TIMING_MS: Math.round(endTime).toString()
+        });
+      }
+    }
     return resp.data;
   } catch (error) {
     console.log(error);
@@ -348,6 +358,7 @@ const fetchDetectAndFufillData = async (
   const detectorTypeArg = detector ? `&detector=${detector}` : "";
   const llmApiArg = llmApi ? `&llm_api=${llmApi}` : "";
   try {
+    let startTime = window.performance ? window.performance.now() : undefined;
     const resp = await axios.post(
       `/api/explore/detect-and-fulfill?q=${query}${detectorTypeArg}${llmApiArg}`,
       {
@@ -356,6 +367,15 @@ const fetchDetectAndFufillData = async (
         disableExploreMore,
       }
     );
+    if (startTime) {
+      let endTime = window.performance ? window.performance.now() - startTime : undefined;
+      if (endTime) {
+        triggerGAEvent(GA_EVENT_NL_DETECT_FULFILL, {
+          GA_PARAM_QUERY: query,
+          GA_VALUE_TIMING_MS: Math.round(endTime).toString()
+        });
+      }
+    }
     return resp.data;
   } catch (error) {
     console.log(error);
