@@ -57,6 +57,7 @@ const Goals: React.FC = () => {
       <AppLayoutContent style={{ display: "flex", flexDirection: "column" }}>
         <Layout style={{ height: "100%", flexGrow: 1, flexDirection: "row" }}>
           <AppSidebar
+            placeDcid=""
             variableDcid={variableDcid}
             setVariableDcid={setVariableDcid}
           />
