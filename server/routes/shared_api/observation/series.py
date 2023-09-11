@@ -47,8 +47,7 @@ def series():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
-  return fetch.series_core(entities, variables, bool(facet_ids), facet_ids)
+  return fetch.series_core(entities, variables, False)
 
 
 @bp.route('/all')
@@ -61,7 +60,8 @@ def series_all():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return fetch.series_core(entities, variables, True)
+  facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
+  return fetch.series_core(entities, variables, True, facet_ids)
 
 
 @bp.route('/within')
@@ -91,14 +91,12 @@ def series_within():
           shared.divide_into_batches(child_places, batch_size))
       merged_response = {}
       for batch in child_place_batches:
-        new_response = fetch.series_core(batch, variables, bool(facet_ids),
-                                         facet_ids)
+        new_response = fetch.series_core(batch, variables, False)
         merged_response = shared.merge_responses(merged_response, new_response)
       return merged_response, 200
     except:
       return 'error: Error encountered when attempting to make batch calls', 400
-  return fetch.series_within_core(parent_entity, child_type, variables,
-                                  bool(facet_ids), facet_ids)
+  return fetch.series_within_core(parent_entity, child_type, variables, False)
 
 
 @bp.route('/within/all')
@@ -117,4 +115,21 @@ def series_within_all():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return fetch.series_within_core(parent_entity, child_type, variables, True)
+  facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
+  batch_size = request.args.get('batchSize') or _MAX_BATCH_SIZE
+  # Make batched calls there are too many child places for server to handle
+  if parent_entity in _BATCHED_CALL_PLACES.get(child_type, []):
+    try:
+      child_places = fetch.descendent_places([parent_entity],
+                                             child_type).get(parent_entity, [])
+      child_place_batches = list(
+          shared.divide_into_batches(child_places, batch_size))
+      merged_response = {}
+      for batch in child_place_batches:
+        new_response = fetch.series_core(batch, variables, True, facet_ids)
+        merged_response = shared.merge_responses(merged_response, new_response)
+      return merged_response, 200
+    except:
+      return 'error: Error encountered when attempting to make batch calls', 400
+  return fetch.series_within_core(parent_entity, child_type, variables, True,
+                                  facet_ids)
