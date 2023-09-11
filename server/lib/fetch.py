@@ -65,10 +65,8 @@ def _get_processed_facets(facets):
     # handle unit display name for complex units
     elif re.match(COMPLEX_UNIT_REGEX, facet_unit):
       unit = facet_unit[1:].split()[0]
-      date = facet_unit.split()[1][:-1]
       if unit2name.get(unit, ''):
-        result[facet_id][
-            'unitDisplayName'] = f'{unit2name[unit]} with base period {date}'
+        result[facet_id]['unitDisplayName'] = unit2name[unit]
   return result
 
 
