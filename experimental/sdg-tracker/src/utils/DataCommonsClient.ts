@@ -15,7 +15,7 @@
  */
 
 import { Place } from "../state";
-import { DetectRequest, FulfillResponse, FullfillRequest } from "./types";
+import { BulkObservationExistenceRequest, DetectRequest, FulfillResponse, FullfillRequest } from "./types";
 
 interface DatacommonsClientParams {
   apiRoot?: string;
@@ -85,6 +85,18 @@ class DataCommonsClient {
       })
     })
     return result;
+  }
+
+  async existence(payload: BulkObservationExistenceRequest): Promise<any> {
+    const url = `${this.apiRoot}/api/observation/existence`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    return (await response.json()) as any;
   }
 }
 export default DataCommonsClient;

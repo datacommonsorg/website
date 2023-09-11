@@ -57,6 +57,7 @@ const Goals: React.FC = () => {
       <AppLayoutContent style={{ display: "flex", flexDirection: "column" }}>
         <Layout style={{ height: "100%", flexGrow: 1, flexDirection: "row" }}>
           <AppSidebar
+            placeDcid=""
             variableDcid={variableDcid}
             setVariableDcid={setVariableDcid}
           />
@@ -65,7 +66,7 @@ const Goals: React.FC = () => {
               hidePlaceSearch={true}
               variableDcids={[variableDcid]}
               placeDcids={[EARTH_PLACE_DCID]}
-              setPlaceDcid={() => {}}
+              setPlaceDcid={() => { }}
             />
           </Layout>
         </Layout>

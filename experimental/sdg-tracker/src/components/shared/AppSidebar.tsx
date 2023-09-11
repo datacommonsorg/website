@@ -16,9 +16,9 @@
 
 import { Layout, Menu } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { MenuItemType, useStoreState } from "../../state";
+import { MenuItemType, useStoreActions, useStoreState } from "../../state";
 const { Sider } = Layout;
 
 const MenuTitle = styled.div`
@@ -38,11 +38,15 @@ const StyledMenu = styled(Menu)`
 `;
 
 const AppSidebar: React.FC<{
+  placeDcid: string;
   variableDcid: string;
   setVariableDcid: (variableDcid: string) => void;
 }> = (props) => {
-  const { setVariableDcid, variableDcid } = props;
+  const { placeDcid, setVariableDcid, variableDcid } = props;
   const sidebarMenuHierarchy = useStoreState((s) => s.sidebarMenuHierarchy);
+  const fetchPlaceSidebarMenuHierarchy = useStoreActions((a) => a.fetchPlaceSidebarMenuHierarchy);
+  const allTopicDcids = useStoreState((s) => s.allTopicDcids);
+  const [placeSidebarMenuHierarchy, setPlaceSidebarMenuHierarchy] = useState<MenuItemType[]>([]);
   const [siderHidden, setSiderHidden] = useState<boolean>(false);
   const getMenuItem = (item: MenuItemType) => {
     if (item.children && item.children.length > 0) {
@@ -68,6 +72,13 @@ const AppSidebar: React.FC<{
     );
   };
 
+  useEffect(() => {
+    (async () => {
+      const hierarchy = await fetchPlaceSidebarMenuHierarchy({ placeDcid, allTopicDcids, sidebarMenuHierarchy });
+      setPlaceSidebarMenuHierarchy(hierarchy);
+    })();
+  }, [placeDcid, allTopicDcids, sidebarMenuHierarchy])
+
   return (
     <Sider
       breakpoint="lg"
@@ -91,7 +102,7 @@ const AppSidebar: React.FC<{
           setVariableDcid(item.key.replace("summary-", ""));
         }}
       >
-        {sidebarMenuHierarchy.map((vg) => getMenuItem(vg))}
+        {placeSidebarMenuHierarchy.map((vg) => getMenuItem(vg))}
       </StyledMenu>
     </Sider>
   );
