@@ -34,7 +34,9 @@ import {
   ChartConfigMetadata,
   ChartConfigTile,
   FulfillResponse,
+  RelatedTopic,
   StatVarSpec,
+  VarToTopicMapping,
 } from "../../utils/types";
 
 import {
@@ -60,6 +62,27 @@ const CHART_HEIGHT = 389;
 const HIGHLIGHT_CHART_HEIGHT = 155;
 const VARIABLE_NAME_REGEX = "(?<=\\[)(.*?)(?=\\])";
 const DEFAULT_VARIABLE_NAME = "Total";
+
+// Interfaces to define Goal -> Target -> Indicator -> Tiles[] mapping
+interface Indicators {
+  [key: string]: ChartConfigTile[];
+}
+interface Targets {
+  [key: string]: Indicators;
+}
+
+interface Goals {
+  [key: string]: Targets;
+}
+
+interface TileHierarchy {
+  // map goal -> target -> indicator -> tiles, used in country/goal pages
+  hierarchy: Goals;
+  // list of tiles in order received from fulfillment
+  orderedTiles: ChartConfigTile[];
+  // Optional: string to show after " * " separator in place header
+  topicNameStr?: string;
+}
 
 const SearchCard = styled.div`
   display: flex;
@@ -174,13 +197,14 @@ function isInSelectedTopics(
  * @param tile tile to add
  * @param hierarchy tree of goal->target->indicator->tiles to add to
  * @param topicDcid topic associated with the tile being added
+ *        if provided, will only add tile if it falls under the topic
  * @param selectedTopics list of topics the current page is about
  */
 function addTileToHierarchy(
   tile: ChartConfigTile,
   hierarchy: Goals,
   topicDcid: string,
-  selectedTopics: string[]
+  selectedTopics: string[],
 ): void {
   if (isInSelectedTopics(topicDcid, selectedTopics)) {
     // put tile in appropriate spot in hierarchy
@@ -202,6 +226,61 @@ function addTileToHierarchy(
       hierarchy[goal][target][indicator] = [tile];
     }
   }
+}
+
+/**
+ * builds object to store tiles in order of display 
+ */
+function buildTileHierarchy(
+  chartConfigCategory: ChartConfigCategory,
+  mainTopics: RelatedTopic[],
+  selectedTopics: string[],
+  varToTopics: VarToTopicMapping,
+): TileHierarchy {
+  // stores hierarchy of Goals -> Target -> Indicator -> Tiles
+  const hierarchy: Goals = {};
+  // stores tiles in order returned by fulfillment api
+  const orderedTiles: ChartConfigTile[] = [];
+  // stores topic dcids covered by the tiles
+  const topicDcids: string[] = [];
+
+  // iterate over tiles nested in chartConfigCategory
+  chartConfigCategory.blocks.forEach((block) => {
+    block.columns.forEach((column) => {
+      column.tiles.forEach((tile) => {
+        if (tile.type === "PLACE_OVERVIEW") {
+          return;
+        }
+        if (_.isEmpty(tile.statVarKey)) {
+          return;
+        }
+        const statVarKey = tile.statVarKey[0];
+        if (_.isEmpty(chartConfigCategory.statVarSpec[statVarKey])) {
+          return;
+        }
+        const statVar = chartConfigCategory.statVarSpec[statVarKey].statVar;
+        if (_.isEmpty(varToTopics[statVar])) {
+          return;
+        }
+        for (const topic of varToTopics[statVar]) {
+          addTileToHierarchy(tile, hierarchy, topic.dcid, selectedTopics);
+        }
+        orderedTiles.push(tile);
+        varToTopics[statVar].forEach((topic) => topicDcids.push(topic.dcid));
+      });
+    });
+  });
+
+  let topicNameStr = "";
+  if (!_.isEmpty(mainTopics)) {
+    if (mainTopics.length == 2) {
+      topicNameStr = `${mainTopics[0].name} vs. ${mainTopics[1].name}`;
+    } else {
+      topicNameStr = mainTopics[0].name;
+    }
+  }
+
+  return {hierarchy, orderedTiles, topicNameStr};
 }
 
 const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
@@ -250,6 +329,7 @@ const CountriesContent: React.FC<{
     useState(false);
   const [localFulfillResponse, setLocalFulfillResponse] =
     useState<FulfillResponse>();
+  const [tileHierarchy, setTileHierarchy] = useState<TileHierarchy>();
   const placeNames = useStoreState((s) => {
     const names: string[] = [];
     placeDcids.forEach((placeDcid) => {
@@ -317,6 +397,23 @@ const CountriesContent: React.FC<{
       setLocalIsFetchingFulfillment(isFetchingFulfillment);
     }
   }, [isFetchingFulfillment]);
+
+  /** Process tiles */
+  useEffect(() => {
+    if (
+      !localFulfillResponse?.config?.categories ||
+      _.isEmpty(localFulfillResponse.config.categories
+    )) {
+      return;
+    }
+    const processedTiles = buildTileHierarchy(
+      localFulfillResponse.config.categories[0] || [],
+      localFulfillResponse.relatedThings.mainTopics,
+      variableDcids,
+      localFulfillResponse.relatedThings.varToTopics,
+    );
+    setTileHierarchy(processedTiles);
+  }, [localFulfillResponse, variableDcids]);
 
   if (
     variableDcids.length > 0 &&
@@ -394,6 +491,8 @@ const CountriesContent: React.FC<{
               placeNames={placeNames}
               hideBreadcrumbs={isSearch}
               hidePlaceSearch={hidePlaceSearch}
+              isSearch={isSearch}
+              topicNames={tileHierarchy?.topicNameStr}
               setSelectedPlaceDcid={setPlaceDcid}
               userMessage={userMessage}
               variableDcids={variableDcids}
@@ -420,6 +519,8 @@ const CountriesContent: React.FC<{
               fulfillResponse={localFulfillResponse}
               placeDcids={placeDcids}
               selectedVariableDcids={variableDcids}
+              isSearch={isSearch}
+              processedTiles={tileHierarchy}
             />
           )}
           <Footnotes />
@@ -433,9 +534,12 @@ const ChartContent: React.FC<{
   fulfillResponse?: FulfillResponse;
   placeDcids: string[];
   selectedVariableDcids: string[];
+  isSearch: boolean;
+  processedTiles?: TileHierarchy;
 }> = (props) => {
-  const { fulfillResponse, placeDcids, selectedVariableDcids } = props;
-  if (!fulfillResponse || fulfillResponse.failure) {
+  const { fulfillResponse, placeDcids, isSearch, processedTiles } =
+    props;
+  if (!fulfillResponse || fulfillResponse.failure || !processedTiles) {
     return null;
   }
   return (
@@ -447,62 +551,48 @@ const ChartContent: React.FC<{
             placeDcids={placeDcids}
             chartConfigCategory={chartConfigCategory}
             fulfillResponse={fulfillResponse}
-            selectedTopics={selectedVariableDcids}
+            isSearch={isSearch}
+            processedTiles={processedTiles}
           />
         ))}
     </>
   );
 };
 
-// Interfaces to define Goal -> Target -> Indicator -> Tiles[] mapping
-interface Indicators {
-  [key: string]: ChartConfigTile[];
-}
-interface Targets {
-  [key: string]: Indicators;
-}
-
-interface Goals {
-  [key: string]: Targets;
-}
-
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   fulfillResponse: FulfillResponse;
+  isSearch: boolean;
   placeDcids: string[];
-  selectedTopics: string[];
-}> = ({ chartConfigCategory, fulfillResponse, placeDcids, selectedTopics }) => {
-  const varToTopics = fulfillResponse.relatedThings.varToTopics;
-  // stores hierarchy of Goals -> Target -> Indicator -> Tiles
-  const allGoals: Goals = {};
-
-  // iterate over tiles nested in chartConfigCategory
-  chartConfigCategory.blocks.forEach((block) => {
-    block.columns.forEach((column) => {
-      column.tiles.forEach((tile) => {
-        if (tile.type === "PLACE_OVERVIEW") {
-          return;
-        }
-        if (_.isEmpty(tile.statVarKey)) {
-          return;
-        }
-        const statVarKey = tile.statVarKey[0];
-        if (_.isEmpty(chartConfigCategory.statVarSpec[statVarKey])) {
-          return;
-        }
-        const statVar = chartConfigCategory.statVarSpec[statVarKey].statVar;
-        if (_.isEmpty(varToTopics[statVar])) {
-          return;
-        }
-        for (const topic of varToTopics[statVar]) {
-          addTileToHierarchy(tile, allGoals, topic.dcid, selectedTopics);
-        }
-      });
-    });
-  });
+  processedTiles: TileHierarchy;
+}> = ({
+  chartConfigCategory,
+  fulfillResponse,
+  isSearch,
+  placeDcids,
+  processedTiles,
+}) => {
+  if (isSearch) {
+    // Show all tiles in one card without headers
+    return (
+      <ContentCard>
+        <ChartContentBody>
+          {processedTiles.orderedTiles.map((tile, i) => (
+            <ChartTile
+              fulfillResponse={fulfillResponse}
+              key={`search-result-tile-${i}`}
+              placeDcids={placeDcids}
+              tile={tile}
+              statVarSpec={chartConfigCategory.statVarSpec}
+            />
+          ))}
+        </ChartContentBody>
+      </ContentCard>
+    );
+  }
   return (
     <>
-      {Object.keys(allGoals)
+      {Object.keys(processedTiles.hierarchy)
         .sort()
         .map((goal, i) => {
           return (
@@ -512,7 +602,7 @@ const ChartCategoryContent: React.FC<{
               key={i}
               placeDcids={placeDcids}
               statVarSpec={chartConfigCategory.statVarSpec}
-              targetData={allGoals[goal]}
+              targetData={processedTiles.hierarchy[goal]}
             />
           );
         })}
