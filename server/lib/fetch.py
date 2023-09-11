@@ -76,7 +76,7 @@ def _convert_v2_obs_point(facet):
   result = {
       'facet': facet['facetId'],
   }
-  if 'observations' in facet:
+  if 'observations' in facet and len(facet['observations']) > 0:
     if 'date' in facet['observations'][0]:
       result['date'] = facet['observations'][0]['date']
     if 'value' in facet['observations'][0]:

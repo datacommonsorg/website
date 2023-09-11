@@ -128,10 +128,10 @@ export function Page(props: PagePropType): JSX.Element {
       }
     }
     const reqObj = {
-      variables: Object.keys(selectedOptions.selectedStatVars),
-      parentEntity: selectedOptions.selectedPlace.dcid,
       childType: selectedOptions.enclosedPlaceType,
       date,
+      parentEntity: selectedOptions.selectedPlace.dcid,
+      variables: Object.keys(selectedOptions.selectedStatVars),
     };
     // if req object is the same as the one used for current
     // svSourceListPromise, then don't need to update svSourceListPromise
