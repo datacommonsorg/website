@@ -33,7 +33,12 @@ import indicatorHeadlines from "../config/indicatorText.json";
 import rootTopics from "../config/rootTopics.json";
 import sidebarConfig from "../config/sidebar.json";
 import targetText from "../config/targetText.json";
-import { WEB_API_ENDPOINT } from "../utils/constants";
+import {
+  CONTINENTS,
+  EARTH_COUNTRIES,
+  EARTH_PLACE_DCID,
+  WEB_API_ENDPOINT,
+} from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
 import {
   BulkObservationExistenceRequest,
@@ -52,41 +57,6 @@ const MenuImageIcon = styled.img`
 `;
 
 const REGION_PLACE_TYPES = ["UNGeoRegion", "ContinentalUnion", "Continent"];
-
-const EARTH_DCID = "Earth";
-
-const EARTH_COUNTRIES = [
-  "country/AUS",
-  "country/USA",
-  "country/MEX",
-  "country/BRA",
-  "country/COL",
-  "country/IND",
-  "country/CHN",
-  "country/RUS",
-  "country/NGA",
-  "country/ETH",
-  "country/SOM",
-  "country/KEN",
-  "country/FRA",
-  "country/UKR",
-  "country/DEU",
-  "country/JPN",
-  "country/IDN",
-  "country/PHL",
-  "country/SAU",
-  "country/IRN",
-  "country/KAZ",
-];
-
-const CONTINENTS = new Set([
-  "africa",
-  "antartica",
-  "asia",
-  "europe",
-  "northamerica",
-  "oceania",
-]);
 
 export interface Place {
   name: string;
@@ -348,13 +318,13 @@ const appActions: AppActions = {
         return [];
       }
       if (!placeDcid || placeDcid.length === 0) {
-        placeDcid = EARTH_DCID;
+        placeDcid = EARTH_PLACE_DCID;
       }
 
       try {
         // check existence for the place.
         let placeDcids: string[] = [placeDcid];
-        if (placeDcid === EARTH_DCID) {
+        if (placeDcid === EARTH_PLACE_DCID) {
           // For Earth, add select countries as well.
           placeDcids.push(...EARTH_COUNTRIES);
         } else if (CONTINENTS.has(placeDcid)) {
