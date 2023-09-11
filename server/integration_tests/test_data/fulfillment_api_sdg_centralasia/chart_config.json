@@ -1,0 +1,234 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Children Under 5 With Moderate or Severe Stunting in Central Asia",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Moderate or Severe Stunting in Central Asia",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Moderate or Severe Stunting in Central Asia",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Children Under 5 With Moderate or Severe Stunting"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Moderate or Severe Stunting in Countries of Central Asia (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Children Under 5 With Moderate or Severe Stunting in Countries of Central Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Moderate or Severe Stunting in Population Under 5 in Central Asia",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Moderate or Severe Stunting in Population Under 5 in Central Asia",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Moderate or Severe Stunting in Population Under 5 in Central Asia",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Moderate or Severe Stunting in Population Under 5"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Moderate or Severe Stunting in Population Under 5 in Countries of Central Asia (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Moderate or Severe Stunting in Population Under 5 in Countries of Central Asia"
+          }
+        ],
+        "statVarSpec": {
+          "sdg/SH_STA_STNT.AGE--Y0T4": {
+            "name": "Moderate or Severe Stunting in Population Under 5",
+            "statVar": "sdg/SH_STA_STNT.AGE--Y0T4"
+          },
+          "sdg/SH_STA_STNTN.AGE--Y0T4": {
+            "name": "Children Under 5 With Moderate or Severe Stunting",
+            "statVar": "sdg/SH_STA_STNTN.AGE--Y0T4"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "UNGeoRegion": "Country"
+      },
+      "placeDcid": [
+        "CentralAsia"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "CentralAsia",
+    "name": "Central Asia",
+    "place_type": "UNGeoRegion"
+  },
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [
+    {
+      "dcid": "CentralAsia",
+      "name": "Central Asia",
+      "place_type": "UNGeoRegion"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "Country": [
+        {
+          "dcid": "country/KAZ",
+          "name": "Kazakhstan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/KGZ",
+          "name": "Kyrgyzstan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/TJK",
+          "name": "Tajikistan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/TKM",
+          "name": "Turkmenistan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/UZB",
+          "name": "Uzbekistan",
+          "types": [
+            "Country"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/sdg_2.2.1",
+        "name": "Height Stunting for Children Under 5",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/sdg_2.2",
+        "name": "End Malnutrition by 2030",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/sdg_2.2.2",
+        "name": "Malnutrition (wasting and overweight) for Children Under 5",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_2.2.3",
+        "name": "Aenemia",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "varToTopics": {
+      "sdg/SH_STA_STNT.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.1",
+          "name": "Height Stunting for Children Under 5",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SH_STA_STNTN.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.1",
+          "name": "Height Stunting for Children Under 5",
+          "types": [
+            "Topic"
+          ]
+        }
+      ]
+    }
+  },
+  "svSource": "UNKNOWN",
+  "userMessage": ""
+}
