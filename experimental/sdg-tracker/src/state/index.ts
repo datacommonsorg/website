@@ -52,6 +52,42 @@ const MenuImageIcon = styled.img`
 `;
 
 const REGION_PLACE_TYPES = ["UNGeoRegion", "ContinentalUnion", "Continent"];
+
+const EARTH_DCID = "Earth";
+
+const EARTH_COUNTRIES = [
+  "country/AUS",
+  "country/USA",
+  "country/MEX",
+  "country/BRA",
+  "country/COL",
+  "country/IND",
+  "country/CHN",
+  "country/RUS",
+  "country/NGA",
+  "country/ETH",
+  "country/SOM",
+  "country/KEN",
+  "country/FRA",
+  "country/UKR",
+  "country/DEU",
+  "country/JPN",
+  "country/IDN",
+  "country/PHL",
+  "country/SAU",
+  "country/IRN",
+  "country/KAZ",
+];
+
+const CONTINENTS = new Set([
+  "africa",
+  "antartica",
+  "asia",
+  "europe",
+  "northamerica",
+  "oceania",
+]);
+
 export interface Place {
   name: string;
   dcid: string;
@@ -308,23 +344,29 @@ const appActions: AppActions = {
 
   fetchPlaceSidebarMenuHierarchy: thunk(
     async (_, { placeDcid, allTopicDcids, sidebarMenuHierarchy }) => {
-      if (!placeDcid || placeDcid.length === 0 || placeDcid === "Earth") {
-        return sidebarMenuHierarchy;
-      }
       if (!allTopicDcids || allTopicDcids.length === 0) {
         return [];
       }
+      if (!placeDcid || placeDcid.length === 0) {
+        placeDcid = EARTH_DCID;
+      }
 
       try {
-        let countryDcids = [placeDcid];
-        if (!placeDcid.startsWith("country")) {
-          countryDcids = await dataCommonsClient.getCountriesInRegion(
+        // check existence for the place.
+        let placeDcids: string[] = [placeDcid];
+        if (placeDcid === EARTH_DCID) {
+          // For Earth, add select countries as well.
+          placeDcids.push(...EARTH_COUNTRIES);
+        } else if (CONTINENTS.has(placeDcid)) {
+          // For continents, fetch countries in the continent.
+          const countryDcids = await dataCommonsClient.getCountriesInRegion(
             placeDcid
           );
+          placeDcids.push(...countryDcids);
         }
 
         const request: BulkObservationExistenceRequest = {
-          entities: countryDcids,
+          entities: placeDcids,
           variables: allTopicDcids,
         };
         const response = await dataCommonsClient.existence(request);
