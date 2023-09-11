@@ -15,7 +15,13 @@
  */
 
 import { Place } from "../state";
-import { DetectRequest, FulfillResponse, FullfillRequest } from "./types";
+import {
+  BulkObservationExistenceRequest,
+  BulkObservationExistenceResponse,
+  DetectRequest,
+  FulfillResponse,
+  FullfillRequest,
+} from "./types";
 
 interface DatacommonsClientParams {
   apiRoot?: string;
@@ -64,13 +70,13 @@ class DataCommonsClient {
     let url = `${this.apiRoot}/api/node/propvals/in?prop=typeOf`;
     placeTypes.forEach((type) => {
       url += `&dcids=${type}`;
-    })
+    });
     const response = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-      }
-    })
+      },
+    });
     const responseJson = await response.json();
     const result: Place[] = [];
     placeTypes.forEach((placeType) => {
@@ -82,9 +88,23 @@ class DataCommonsClient {
           return;
         }
         result.push({ dcid: place.dcid, name: place.name });
-      })
-    })
+      });
+    });
     return result;
+  }
+
+  async existence(
+    payload: BulkObservationExistenceRequest
+  ): Promise<BulkObservationExistenceResponse> {
+    const url = `${this.apiRoot}/api/observation/existence`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    return (await response.json()) as BulkObservationExistenceResponse;
   }
 }
 export default DataCommonsClient;
