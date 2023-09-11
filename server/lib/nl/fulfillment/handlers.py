@@ -16,6 +16,7 @@
 from dataclasses import dataclass
 from typing import List
 
+from server.lib.nl.common import constants
 import server.lib.nl.common.utils as cutils
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import QueryType
@@ -133,8 +134,9 @@ def _maybe_remap_basic(uttr: Utterance) -> QueryType:
 
 
 def _maybe_add_containedin(uttr: Utterance) -> bool:
-  if (len(uttr.places) == 1 and (uttr.places[0].place_type == 'Continent' or
-                                 uttr.places[0].dcid == 'Earth') and
+  if (len(uttr.places) == 1 and
+      (uttr.places[0].place_type in constants.SUPER_NATIONAL_TYPES or
+       uttr.places[0].dcid == constants.EARTH_DCID) and
       not cutils.get_contained_in_type(uttr)):
     uttr.classifications.append(
         NLClassifier(
