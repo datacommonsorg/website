@@ -261,7 +261,6 @@ def series_facet(entities, variables, all_facets):
   return _compact_series(resp, all_facets)
 
 
-
 def point_within_facet(ancestor_entity, descendent_type, variables, date,
                        all_facets):
   """Fetches facet of child places of a certain place type contained in a parent
