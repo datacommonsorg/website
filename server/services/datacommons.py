@@ -190,6 +190,26 @@ def series_facet(entities, variables):
       })
 
 
+def point_within_facet(parent_entity, child_type, variables, date):
+  """Gets facet of for child places of a certain place type contained in a
+  parent place at a given date.
+  """
+  url = get_service_url('/v2/observation')
+  return post(
+      url, {
+          'select': ['variable', 'entity', 'facet'],
+          'entity': {
+              'expression':
+                  '{0}<-containedInPlace+{{typeOf:{1}}}'.format(
+                      parent_entity, child_type)
+          },
+          'variable': {
+              'dcids': sorted(variables)
+          },
+          'date': date
+      })
+
+
 def v2observation(select, entity, variable):
   """
   Args:
