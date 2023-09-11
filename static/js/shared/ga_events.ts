@@ -26,7 +26,7 @@ export function triggerGAEvent(
   if (window.gtag) {
     window.gtag("event", eventName, parameter);
   }
-  console.log(eventName, parameter);
+  console.log(parameter);
 }
 
 /**
@@ -161,6 +161,8 @@ export const GA_PARAM_QUERY = "query";
 export const GA_PARAM_URL = "url";
 export const GA_PARAM_SOURCE = "source";
 export const GA_PARAM_TOPIC = "topic";
+export const GA_PARAM_PLACE = "place";
+export const GA_PARAM_TIMING_MS = "time_ms";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";
@@ -190,4 +192,3 @@ export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
 export const GA_VALUE_SEARCH_SOURCE_EXPLORE = "explore";
 export const GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING = "explore_landing";
 export const GA_VALUE_SEARCH_SOURCE_HOMEPAGE = "homepage";
-export const GA_VALUE_TIMING_MS = "time_ms";

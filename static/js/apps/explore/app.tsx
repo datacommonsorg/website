@@ -34,6 +34,10 @@ import {
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
   GA_EVENT_PAGE_VIEW,
+  GA_PARAM_PLACE,
+  GA_PARAM_QUERY,
+  GA_PARAM_TIMING_MS,
+  GA_PARAM_TOPIC,
   triggerGAEvent,
 } from "../../shared/ga_events";
 import {
@@ -337,13 +341,14 @@ const fetchFulfillData = async (
       disableExploreMore,
     });
     if (startTime) {
-      const endTime = window.performance
+      const elapsedTime = window.performance
         ? window.performance.now() - startTime
         : undefined;
-      if (endTime) {
+      if (elapsedTime) {
         triggerGAEvent(GA_EVENT_NL_FULFILL, {
-          GA_PARAM_TOPIC: topics,
-          GA_VALUE_TIMING_MS: Math.round(endTime).toString(),
+          [GA_PARAM_TOPIC]: topics,
+          [GA_PARAM_PLACE]: places,
+          [GA_PARAM_TIMING_MS]: Math.round(elapsedTime).toString(),
         });
       }
     }
@@ -375,13 +380,14 @@ const fetchDetectAndFufillData = async (
       }
     );
     if (startTime) {
-      const endTime = window.performance
+      const elapsedTime = window.performance
         ? window.performance.now() - startTime
         : undefined;
-      if (endTime) {
+      if (elapsedTime) {
+        // TODO(beets): Add past queries from context.
         triggerGAEvent(GA_EVENT_NL_DETECT_FULFILL, {
-          GA_PARAM_QUERY: query,
-          GA_VALUE_TIMING_MS: Math.round(endTime).toString(),
+          [GA_PARAM_QUERY]: query,
+          [GA_PARAM_TIMING_MS]: Math.round(elapsedTime).toString(),
         });
       }
     }
