@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -216,17 +216,27 @@ export function axiosMock(): void {
     .calledWith("/api/facets/within", {
       params: {
         childType: "County",
-        maxDate: "latest",
-        minDate: "latest",
-        parentPlace: "geoId/06",
-        statVars: ["Count_Person"],
+        date: "LATEST",
+        parentEntity: "geoId/06",
+        variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
-        Count_Person: {
-          importName: "Facet1",
+        data: {
+          Count_Person: {
+            "": [
+              {
+                facet: "facetId1",
+              },
+            ],
+          },
+        },
+        facets: {
+          facetId1: {
+            importName: "Facet1",
+          },
         },
       },
     });
@@ -235,17 +245,27 @@ export function axiosMock(): void {
     .calledWith("/api/facets/within", {
       params: {
         childType: "County",
-        maxDate: "",
-        minDate: "2020",
-        parentPlace: "geoId/06",
-        statVars: ["Count_Person"],
+        date: "",
+        parentEntity: "geoId/06",
+        variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
-        Count_Person: {
-          importName: "Facet1",
+        data: {
+          Count_Person: {
+            "": [
+              {
+                facet: "facetId1",
+              },
+            ],
+          },
+        },
+        facets: {
+          facetId1: {
+            importName: "Facet1",
+          },
         },
       },
     });
@@ -255,20 +275,34 @@ export function axiosMock(): void {
     .calledWith("/api/facets/within", {
       params: {
         childType: "County",
-        maxDate: "",
-        minDate: "2020",
-        parentPlace: "geoId/06",
-        statVars: ["Count_Person", "Median_Age_Person"],
+        date: "",
+        parentEntity: "geoId/06",
+        variables: ["Count_Person", "Median_Age_Person"],
       },
       paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
-        Count_Person: {
-          importName: "Facet1",
+        data: {
+          Count_Person: {
+            "": [
+              {
+                facet: "facetId1",
+              },
+            ],
+          },
+          Median_Age_Person: {
+            "": [
+              {
+                facet: "facetId1",
+              },
+            ],
+          },
         },
-        Median_Age_Person: {
-          importName: "Facet1",
+        facets: {
+          facetId1: {
+            importName: "Facet1",
+          },
         },
       },
     });

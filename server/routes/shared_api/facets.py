@@ -58,8 +58,8 @@ def get_facets_within():
   date = request.args.get('date')
   if not is_valid_date(date):
     return 'error: date must be LATEST or YYYY or YYYY-MM or YYYY-MM-DD', 400
-
-  return fetch.point_within_facet(parent_entity, child_type, variables, date)
+  return fetch.point_within_facet(parent_entity, child_type, variables, date,
+                                  True)
 
 
 @bp.route('/')
@@ -72,4 +72,4 @@ def get_facets():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return fetch.series_facet(entities, variables)
+  return fetch.series_facet(entities, variables, True)

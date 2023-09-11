@@ -229,7 +229,7 @@ def series_core(entities, variables, all_facets):
   return _compact_series(resp, all_facets)
 
 
-def series_facet(entities, variables):
+def series_facet(entities, variables, all_facets):
   """Fetches facet of series for given entities and variables.
 
   The response is in the following format:
@@ -253,17 +253,17 @@ def series_facet(entities, variables):
 
   """
   resp = dc.series_facet(entities, variables)
-  return _compact_series(resp, True)
+  return _compact_series(resp, all_facets)
 
 
-def point_within_facet(ancestor_entity, descendent_type, variables, date):
+def point_within_facet(ancestor_entity, descendent_type, variables, date,
+                       all_facets):
   """Fetches facet of child places of a certain place type contained in a parent
   place at a given date.
-
   """
   resp = dc.point_within_facet(ancestor_entity, descendent_type, variables,
                                date)
-  return _compact_point(resp, True)
+  return _compact_point(resp, all_facets)
 
 
 def series_within_core(ancestor_entity, descendent_type, variables, all_facets):
