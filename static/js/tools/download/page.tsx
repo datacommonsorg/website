@@ -22,6 +22,7 @@ import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 import { Chip } from "../../shared/chip";
 import { FacetSelector } from "../../shared/facet_selector";
 import { PlaceSelector } from "../../shared/place_selector";
+import { PointAllApiResponse, StatMetadata } from "../../shared/stat_types";
 import { getStatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
@@ -119,12 +120,18 @@ export function Page(props: PagePropType): JSX.Element {
         return;
       }
     }
+    let date = "";
+    if (minDate && maxDate && minDate == maxDate) {
+      date = minDate;
+      if (date == "latest") {
+        date = "LATEST";
+      }
+    }
     const reqObj = {
-      statVars: Object.keys(selectedOptions.selectedStatVars),
-      parentPlace: selectedOptions.selectedPlace.dcid,
+      variables: Object.keys(selectedOptions.selectedStatVars),
+      parentEntity: selectedOptions.selectedPlace.dcid,
       childType: selectedOptions.enclosedPlaceType,
-      minDate,
-      maxDate,
+      date,
     };
     // if req object is the same as the one used for current
     // svSourceListPromise, then don't need to update svSourceListPromise
@@ -139,14 +146,20 @@ export function Page(props: PagePropType): JSX.Element {
           paramsSerializer: stringifyFn,
         })
         .then((resp) => {
-          const facetMap = resp.data;
+          const facetResp: PointAllApiResponse = resp.data;
           const sourceSelectorFacetList = [];
           for (const sv in selectedOptions.selectedStatVars) {
-            sourceSelectorFacetList.push({
-              dcid: sv,
-              name: selectedOptions.selectedStatVars[sv].title || sv,
-              metadataMap: sv in facetMap ? facetMap[sv] : {},
-            });
+            if (sv in facetResp.data) {
+              const metadataMap: Record<string, StatMetadata> = {};
+              for (const item of facetResp.data[sv][""]) {
+                metadataMap[item.facet] = facetResp.facets[item.facet];
+              }
+              sourceSelectorFacetList.push({
+                dcid: sv,
+                metadataMap,
+                name: selectedOptions.selectedStatVars[sv].title || sv,
+              });
+            }
           }
           return sourceSelectorFacetList;
         })
