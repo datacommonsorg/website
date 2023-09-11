@@ -98,6 +98,15 @@ const ChartContentBody = styled.div`
   }
 `;
 
+const DatacommonsMapContainer = styled.div`
+  datacommons-slider::part(container) {
+    margin-bottom: 0;
+    border: 0;
+    border-top: 1px solid #e3e3e3;
+    border-radius: 0;
+  }
+`;
+
 /**
  * Given a sdg topic DCID, determine the goal, target, and indicator via regex.
  * If a level of granularity is missing, the string "none" is used in its place.
@@ -493,18 +502,20 @@ const ChartCategoryContent: React.FC<{
   });
   return (
     <>
-      {Object.keys(allGoals).sort().map((goal, i) => {
-        return (
-          <ChartGoalBlock
-            fulfillResponse={fulfillResponse}
-            goal={goal}
-            key={i}
-            placeDcids={placeDcids}
-            statVarSpec={chartConfigCategory.statVarSpec}
-            targetData={allGoals[goal]}
-          />
-        );
-      })}
+      {Object.keys(allGoals)
+        .sort()
+        .map((goal, i) => {
+          return (
+            <ChartGoalBlock
+              fulfillResponse={fulfillResponse}
+              goal={goal}
+              key={i}
+              placeDcids={placeDcids}
+              statVarSpec={chartConfigCategory.statVarSpec}
+              targetData={allGoals[goal]}
+            />
+          );
+        })}
     </>
   );
 };
@@ -523,18 +534,20 @@ const ChartGoalBlock: React.FC<{
       {placeDcids[0] === EARTH_PLACE_DCID && (
         <GoalOverview goalNumber={Number(goal)} showExploreLink={false} />
       )}
-      {Object.keys(targetData).sort().map((target, i) => {
-        return (
-          <ChartTargetBlock
-            key={`${goal}-${i}`}
-            fulfillResponse={fulfillResponse}
-            placeDcids={placeDcids}
-            target={target}
-            indicatorData={targetData[target]}
-            statVarSpec={statVarSpec}
-          />
-        );
-      })}
+      {Object.keys(targetData)
+        .sort()
+        .map((target, i) => {
+          return (
+            <ChartTargetBlock
+              key={`${goal}-${i}`}
+              fulfillResponse={fulfillResponse}
+              placeDcids={placeDcids}
+              target={target}
+              indicatorData={targetData[target]}
+              statVarSpec={statVarSpec}
+            />
+          );
+        })}
     </>
   );
 };
@@ -553,18 +566,20 @@ const ChartTargetBlock: React.FC<{
     <ContentCard>
       <TargetHeader color={color} target={target} />
       <Divider color={color} />
-      {Object.keys(indicatorData).sort().map((indicator, i) => {
-        return (
-          <ChartIndicatorBlock
-            fulfillResponse={fulfillResponse}
-            indicator={indicator}
-            key={`${target}=${i}`}
-            placeDcids={placeDcids}
-            statVarSpec={statVarSpec}
-            tiles={indicatorData[indicator]}
-          />
-        );
-      })}
+      {Object.keys(indicatorData)
+        .sort()
+        .map((indicator, i) => {
+          return (
+            <ChartIndicatorBlock
+              fulfillResponse={fulfillResponse}
+              indicator={indicator}
+              key={`${target}=${i}`}
+              placeDcids={placeDcids}
+              statVarSpec={statVarSpec}
+              tiles={indicatorData[indicator]}
+            />
+          );
+        })}
     </ContentCard>
   );
 };
@@ -698,7 +713,7 @@ const ChartTile: React.FC<{
     // the child place is Country (for World or regional views)
     const showMap = childPlaceType === COUNTRY_PLACE_TYPE;
     component = showMap ? (
-      <>
+      <DatacommonsMapContainer>
         {/** @ts-ignore */}
         <datacommons-map
           apiRoot={WEB_API_ENDPOINT}
@@ -708,16 +723,20 @@ const ChartTile: React.FC<{
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
           showExploreMore={true}
-        />
-        {/** @ts-ignore */}
-        <datacommons-slider
-          apiRoot={WEB_API_ENDPOINT}
-          publish={channel}
-          variable={tileStatVars.join(" ")}
-          parentPlace={placeDcid}
-          childPlaceType={childPlaceType}
-        />
-      </>
+        >
+          <div slot="footer">
+            {/** @ts-ignore */}
+            <datacommons-slider
+              apiRoot={WEB_API_ENDPOINT}
+              publish={channel}
+              variable={tileStatVars.join(" ")}
+              parentPlace={placeDcid}
+              childPlaceType={childPlaceType}
+            />
+          </div>
+          {/** @ts-ignore */}
+        </datacommons-map>
+      </DatacommonsMapContainer>
     ) : (
       <></>
     );
