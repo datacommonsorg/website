@@ -312,3 +312,20 @@ class ExploreTest(NLWebServerTestCase):
         'Compare progress on poverty in Mexico, Nigeria and Pakistan'
     ],
                                 dc='sdg')
+
+  def test_e2e_fallbacks(self):
+    self.run_detect_and_fulfill(
+        'e2e_fallbacks',
+        [
+            # There is NO county-level data at all, so this
+            # should fallback to US states.
+            'Life expectancy in US counties',
+            # There is county-level data further down in the
+            # chart list, so it should also fallback to states.
+            'Tamil speakers in US counties',
+            # This should fallback from tract to city.
+            'auto thefts in tracts of sunnyvale',
+            # This should fallback from child-type (tract)
+            # to the place (SC county) to its state (CA).
+            'auto thefts in tracts of santa clara county'
+        ])

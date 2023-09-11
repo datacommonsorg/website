@@ -119,7 +119,9 @@ def detect_and_fulfill():
 
   # Important to setup utterance for explore flow (this is really the only difference
   # between NL and Explore).
+  start = time.time()
   nl_detector.setup_for_explore(utterance)
+  utterance.counters.timeit('setup_for_explore', start)
 
   return _fulfill_with_chart_config(utterance, debug_logs)
 
@@ -190,7 +192,7 @@ def _fulfill_with_insight_ctx(insight_ctx: Dict, debug_logs: Dict,
   query_detection, error_msg = nl_detector.construct_for_explore(
       entities, vars, child_type, cmp_entities, cmp_vars, classifications,
       debug_logs, counters)
-  counters.timeit('query_detection', start)
+  counters.timeit('construct_for_explore', start)
   if not query_detection:
     return helpers.abort(error_msg, '', [])
 
