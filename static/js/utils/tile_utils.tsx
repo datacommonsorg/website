@@ -32,7 +32,7 @@ import {
 import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
-import { urlToDomain } from "../shared/util";
+import { urlToDisplayText } from "../shared/util";
 import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
@@ -337,18 +337,18 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
   }
 
   const sourceList: string[] = Array.from(sources);
-  const seenSourceDomains = new Set();
+  const seenSourceText = new Set();
   const sourcesJsx = sourceList.map((source, index) => {
     // HACK for updating source for NL interface
     let processedSource = source;
     if (isNlInterface()) {
       processedSource = NL_SOURCE_REPLACEMENTS[source] || source;
     }
-    const domain = urlToDomain(processedSource);
-    if (seenSourceDomains.has(domain)) {
+    const sourceText = urlToDisplayText(processedSource);
+    if (seenSourceText.has(sourceText)) {
       return null;
     }
-    seenSourceDomains.add(domain);
+    seenSourceText.add(sourceText);
     return (
       <span key={processedSource} {...{ part: "source" }}>
         {index > 0 ? ", " : ""}
@@ -363,7 +363,7 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
             return true;
           }}
         >
-          {domain}
+          {sourceText}
         </a>
         {globalThis.viaGoogle ? " via Google" : ""}
       </span>
@@ -414,9 +414,9 @@ export function getStatFormat(
     }
   }
 
-  const isComplexUnit = !!statMetadata?.unit?.match(/\[.+ [0-9]+\]/);
   let overrideConfig = null;
   if (statMetadata) {
+    const isComplexUnit = !!statMetadata.unit?.match(/\[.+ [0-9]+\]/);
     // If complex unit, use the unit part to get the override config, otherwise
     // use the whole unit to get the override config.
     const unitStr = isComplexUnit
@@ -427,16 +427,7 @@ export function getStatFormat(
   // If there's a matching override config, use the format information from
   // the config. Otherwise, get unit from stat metadata.
   if (overrideConfig) {
-    let unitSuffix = "";
-    if (isComplexUnit) {
-      // If complex unit, form the unit suffix with the date part of the unit
-      const date = statMetadata.unit.substring(
-        statMetadata.unit.indexOf(" ") + 1,
-        statMetadata.unit.length - 1
-      );
-      unitSuffix = ` with base period ${date}`;
-    }
-    result.unit = `${overrideConfig.unitDisplayName}${unitSuffix}`;
+    result.unit = overrideConfig.unitDisplayName;
     result.scaling = overrideConfig.multiplier;
     result.numFractionDigits = overrideConfig.numFractionDigits;
   } else {

@@ -26,6 +26,7 @@ export function triggerGAEvent(
   if (window.gtag) {
     window.gtag("event", eventName, parameter);
   }
+  console.log(parameter);
 }
 
 /**
@@ -98,6 +99,22 @@ export const GA_EVENT_TOOL_CHART_OPTION_CLICK = "tool_chart_option_click";
 export const GA_EVENT_NL_SEARCH = "explore_search_q";
 
 /**
+ * Triggered when detection results are returned in NL search.
+ * Parameters:
+ *   "query": search query
+ *   "time_ms": e2e request/response timing in ms.
+ */
+export const GA_EVENT_NL_DETECT_FULFILL = "explore_detect_fulfill";
+
+/**
+ * Triggered when detection results are returned in NL search.
+ * Parameters:
+ *   "topic": array of topics
+ *   "time_ms": e2e request/response timing in ms.
+ */
+export const GA_EVENT_NL_FULFILL = "explore_fulfill";
+
+/**
  * Triggered when "download" button is clicked on a tile.
  * Parameters:
  *    "type": "Timeline Tool" | "Scatter Tool" | "Map Tool" | ""
@@ -143,6 +160,9 @@ export const GA_PARAM_TILE_TYPE = "type";
 export const GA_PARAM_QUERY = "query";
 export const GA_PARAM_URL = "url";
 export const GA_PARAM_SOURCE = "source";
+export const GA_PARAM_TOPIC = "topic";
+export const GA_PARAM_PLACE = "place";
+export const GA_PARAM_TIMING_MS = "time_ms";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";
