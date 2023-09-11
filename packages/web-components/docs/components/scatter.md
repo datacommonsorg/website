@@ -20,13 +20,17 @@ between two variables.
 
 Required:
 
+- `childPlaceType` _string_
+
+  Child place types to plot. Example: `Country`.
+
 - `header` _string_
 
   Chart title.
 
-- `place` _string_
+- `parentPlace` _string_
 
-  Place DCID to plot.
+  Parent place DCID to plot. Example: `Earth`.
 
 - `variables` _space-separated list of strings_
 
@@ -48,9 +52,9 @@ Optional:
   Whether to label outliers in the top left quadrant. Defaults to false.
 
 - `highlightTopRight` _boolean_
-  
+
   Whether to label outliers in the top right quadrant. Defaults to false.
-  
+
 - `showPlaceLabels` _boolean_
 
   Whether to label all points with the place they correspond to.
