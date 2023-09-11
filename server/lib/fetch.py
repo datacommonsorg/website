@@ -184,8 +184,12 @@ def point_core(entities, variables, date, all_facets):
   return _compact_point(resp, all_facets)
 
 
-def point_within_core(ancestor_entity, descendent_type, variables, date,
-                      all_facets):
+def point_within_core(ancestor_entity,
+                      descendent_type,
+                      variables,
+                      date,
+                      all_facets,
+                      facet_ids=None):
   """Fetchs observation point for descendent entities of certain type.
 
   The response is in the following format:
@@ -202,12 +206,13 @@ def point_within_core(ancestor_entity, descendent_type, variables, date,
     }
   }
   """
-  resp = dc.obs_point_within(ancestor_entity, descendent_type, variables, date)
+  resp = dc.obs_point_within(ancestor_entity, descendent_type, variables, date,
+                             facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
-def series_core(entities, variables, all_facets):
+def series_core(entities, variables, all_facets, facet_ids=None):
   """Fetchs observation series for given entities and variables.
 
   The response is in the following format:
@@ -224,7 +229,7 @@ def series_core(entities, variables, all_facets):
     }
   }
   """
-  resp = dc.obs_series(entities, variables)
+  resp = dc.obs_series(entities, variables, facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
@@ -266,7 +271,11 @@ def point_within_facet(ancestor_entity, descendent_type, variables, date,
   return _compact_point(resp, all_facets)
 
 
-def series_within_core(ancestor_entity, descendent_type, variables, all_facets):
+def series_within_core(ancestor_entity,
+                       descendent_type,
+                       variables,
+                       all_facets,
+                       facet_ids=None):
   """Fetchs observation series for for descendent entities of certain type.
 
   The response is in the following format:
@@ -283,7 +292,8 @@ def series_within_core(ancestor_entity, descendent_type, variables, all_facets):
     }
   }
   """
-  resp = dc.obs_series_within(ancestor_entity, descendent_type, variables)
+  resp = dc.obs_series_within(ancestor_entity, descendent_type, variables,
+                              facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
