@@ -17,6 +17,7 @@ import logging
 import time
 from typing import Dict, List
 
+from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
 from server.lib.nl.common.utterance import ChartOriginType
@@ -100,8 +101,8 @@ def _add_charts_with_place_fallback(state: PopulateState,
 
   place = places[0]  # Caller populate_charts ensures this exists
 
-  if place.place_type == 'Continent':
-    # Continent is special in that it has a single parent entity
+  if place.place_type in constants.SUPER_NATIONAL_TYPES:
+    # Continent, etc are special in that they have a single parent entity
     # 'Earth' which is of a general type 'Place'. So handle it here
     # (instead of relying on PARENT_PLACE_TYPES).
     earth = Place(

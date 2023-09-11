@@ -179,6 +179,14 @@ class ExploreTest(NLWebServerTestCase):
     }
     self.run_fulfillment('fulfillment_api_sdg_global', req)
 
+  def test_fulfillment_sdg_global(self):
+    req = {
+        'entities': ['CentralAsia'],
+        'variables': ['dc/topic/sdg_2.2.1'],
+        'dc': 'sdg'
+    }
+    self.run_fulfillment('fulfillment_api_sdg_centralasia', req)
+
   def test_fulfillment_sdg_specialvars(self):
     req = {
         'entities': ['country/USA'],
