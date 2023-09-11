@@ -446,6 +446,7 @@ export function draw(
   );
   const getTooltipHtml = (place: NamedPlace) => {
     let value = "Data Unavailable";
+    let date = "";
     if (place.dcid in chartData.dataValues) {
       // shows upto 2 precision digits for very low values
       if (
@@ -465,8 +466,9 @@ export function draw(
           chartData.unit
         );
       }
+      date = ` (${chartData.metadata[place.dcid].placeStatDate})`;
     }
-    return place.name + ": " + value;
+    return place.name + ": " + value + date;
   };
   const legendWidth = generateLegendSvg(
     legendContainer,
