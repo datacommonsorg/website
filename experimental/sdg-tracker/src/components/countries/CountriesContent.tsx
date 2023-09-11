@@ -272,12 +272,14 @@ function buildTileHierarchy(
   });
 
   let topicNameStr = "";
-  topicDcids.sort();
-  if (mainTopics.length == 2) {
-    topicNameStr = `${mainTopics[0].name} vs. ${mainTopics[1].name}`;
-  } else {
-    topicNameStr = mainTopics[0].name;
+  if (!_.isEmpty(mainTopics)) {
+    if (mainTopics.length == 2) {
+      topicNameStr = `${mainTopics[0].name} vs. ${mainTopics[1].name}`;
+    } else {
+      topicNameStr = mainTopics[0].name;
+    }
   }
+
   return {hierarchy, orderedTiles, topicNameStr};
 }
 
