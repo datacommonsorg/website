@@ -69,16 +69,13 @@ interface ObservationDatesResponse {
 @customElement("datacommons-slider")
 export class DatacommonsSliderComponent extends LitElement {
   static styles: CSSResult = css`
-    .component {
+    .container {
       border: var(--border-primary);
       border-radius: var(--border-radius-primary);
-      margin: 1rem 0;
-      padding: 24px;
-    }
-    .container {
       display: flex;
       flex-direction: column;
-      width: 100%;
+      margin: 1rem 0;
+      padding: 24px;
     }
     .row {
       display: flex;
@@ -231,11 +228,11 @@ export class DatacommonsSliderComponent extends LitElement {
 
   render(): TemplateResult {
     if (this._isLoading) {
-      return html`<div class="component">Loading...</div>`;
+      return html`<div class="container" part="container">Loading...</div>`;
     }
     if (this._errorMessage) {
       return html`
-        <div class="component error">
+        <div class="container error" part="container">
           <h4>datacommons-slider</h4>
           <div>${this._errorMessage}</div>
         </div>
@@ -243,7 +240,7 @@ export class DatacommonsSliderComponent extends LitElement {
     }
     if (!this._dates || this._dates.length === 0) {
       return html`
-        <div class="component error">
+        <div class="container error" part="container">
           <h4>datacommons-slider</h4>
           <div>
             Please specify either the "dates" attribute or all of the
@@ -254,25 +251,23 @@ export class DatacommonsSliderComponent extends LitElement {
     }
 
     return html`
-      <div class="component">
-        <div class="container">
-          ${this.header
-            ? html`<h4 part="header">${this.header}</h4>`
-            : this.defaultHeader()}
-          <div class="row">
-            <div class="label">${this._dates[0]}</div>
-            <input
-              class="slider"
-              max="${this._dates.length}"
-              min="0"
-              title="${this.getValueText()}"
-              type="range"
-              value="${this._value}"
-              @change=${this.onSliderChange}
-              @input=${this.onSliderInput}
-            />
-            <div class="label">${MOST_RECENT_TEXT}</div>
-          </div>
+      <div class="container" part="container">
+        ${this.header
+          ? html`<h4 part="header">${this.header}</h4>`
+          : this.defaultHeader()}
+        <div class="row">
+          <div class="label">${this._dates[0]}</div>
+          <input
+            class="slider"
+            max="${this._dates.length}"
+            min="0"
+            title="${this.getValueText()}"
+            type="range"
+            value="${this._value}"
+            @change=${this.onSliderChange}
+            @input=${this.onSliderInput}
+          />
+          <div class="label">${MOST_RECENT_TEXT}</div>
         </div>
       </div>
     `;
