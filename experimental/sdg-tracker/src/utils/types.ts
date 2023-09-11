@@ -147,3 +147,20 @@ export interface DetectResponse {
   sessionId: string;
   variables?: string[];
 }
+
+/**
+ * API request for /api/observation/existence
+ */
+export interface BulkObservationExistenceRequest {
+  variables: string[];
+  entities: string[];
+}
+
+/**
+ * API response from /api/observation/existence endpoint
+ */
+export interface BulkObservationExistenceResponse {
+  [topicDcid: string]: {
+    [countryDcid: string]: boolean;
+  };
+}

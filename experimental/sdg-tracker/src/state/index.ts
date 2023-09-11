@@ -35,7 +35,10 @@ import sidebarConfig from "../config/sidebar.json";
 import targetText from "../config/targetText.json";
 import { WEB_API_ENDPOINT } from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
-import { FulfillResponse } from "../utils/types";
+import {
+  BulkObservationExistenceRequest,
+  FulfillResponse,
+} from "../utils/types";
 
 export const dataCommonsClient = new DataCommonsClient({
   apiRoot: WEB_API_ENDPOINT,
@@ -147,6 +150,7 @@ export interface AppModel {
   };
   sidebarMenuHierarchy: MenuItemType[];
   rootTopics: RootTopic[];
+  allTopicDcids: string[];
   goalSummaries: {
     byGoal: {
       [key: string]: GoalText;
@@ -168,6 +172,7 @@ export interface AppModel {
 export interface AppActions {
   // Actions (these manipulate state directly)
   setTopics: Action<AppModel, Topic[]>;
+  setAllTopicDcids: Action<AppModel, string[]>;
   setRootTopics: Action<AppModel, RootTopic[]>;
   setSidebarMenuHierarchy: Action<AppModel, MenuItemType[]>;
   setCountries: Action<AppModel, Place[]>;
@@ -189,6 +194,14 @@ export interface AppActions {
         [key: string]: FulfillResponse;
       };
       variableDcids: string[];
+    }
+  >;
+  fetchPlaceSidebarMenuHierarchy: Thunk<
+    AppActions,
+    {
+      placeDcid: string;
+      allTopicDcids: string[];
+      sidebarMenuHierarchy: MenuItemType[];
     }
   >;
   initializeAppState: Thunk<AppActions>;
@@ -213,6 +226,7 @@ const appModel: AppModel = {
     byId: {},
   },
   rootTopics: [],
+  allTopicDcids: [],
   sidebarMenuHierarchy: [],
   goalSummaries: {
     byGoal: {},
@@ -248,6 +262,7 @@ const appActions: AppActions = {
     actions.setIndicatorHeadlines(indicatorHeadlines);
     actions.setTargetText(targetText);
     const topics: Topic[] = [];
+    const allTopicDcids: string[] = [];
     const traverseTopics = (item: MenuItemType) => {
       if (!item.key.startsWith("dc")) {
         return;
@@ -257,11 +272,13 @@ const appActions: AppActions = {
         name: item.label,
         parentDcids: item.parents,
       });
+      allTopicDcids.push(item.key.replace("summary-", ""));
       item.children &&
         item.children.forEach((childItem) => traverseTopics(childItem));
     };
     sidebarConfig.forEach((item) => traverseTopics(item));
     actions.setTopics(topics);
+    actions.setAllTopicDcids(allTopicDcids);
   }),
 
   fetchTopicFulfillment: thunk(
@@ -288,6 +305,58 @@ const appActions: AppActions = {
       return fulfillment;
     }
   ),
+
+  fetchPlaceSidebarMenuHierarchy: thunk(
+    async (_, { placeDcid, allTopicDcids, sidebarMenuHierarchy }) => {
+      if (!placeDcid || !placeDcid.startsWith("country")) {
+        return sidebarMenuHierarchy;
+      }
+      if (!allTopicDcids || allTopicDcids.length === 0) {
+        return [];
+      }
+
+      try {
+        const request: BulkObservationExistenceRequest = {
+          entities: [placeDcid],
+          variables: allTopicDcids,
+        };
+        const response = await dataCommonsClient.existence(request);
+
+        const existingTopicDcids = new Set<string>();
+        for (const topicDcid in response) {
+          const exists = response[topicDcid];
+          for (const key in exists) {
+            if (exists[key]) {
+              existingTopicDcids.add(topicDcid);
+            }
+          }
+        }
+
+        const filterItems = (items: MenuItemType[]) => {
+          const filtered: MenuItemType[] = [];
+
+          items.forEach((item) => {
+            const topicDcid = item.key.startsWith("summary-")
+              ? item.key.substring("summary-".length)
+              : item.key;
+            if (existingTopicDcids.has(topicDcid)) {
+              item = { ...item };
+              item.children = filterItems(item.children || []);
+              filtered.push(item);
+            }
+          });
+
+          return filtered;
+        };
+
+        return filterItems(sidebarMenuHierarchy);
+      } catch (e) {
+        console.error(e);
+        return sidebarMenuHierarchy;
+      }
+    }
+  ),
+
   setCountries: action((state, countries) => {
     state.countries.byDcid = {};
     state.countries.dcids = [];
@@ -312,6 +381,9 @@ const appActions: AppActions = {
   }),
   setRootTopics: action((state, rootTopics) => {
     state.rootTopics = [...rootTopics];
+  }),
+  setAllTopicDcids: action((state, topicDcids) => {
+    state.allTopicDcids = [...topicDcids];
   }),
   setSidebarMenuHierarchy: action((state, items) => {
     state.sidebarMenuHierarchy = [...items];
