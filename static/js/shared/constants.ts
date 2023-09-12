@@ -26,8 +26,10 @@ export const NORTH_AMERICA_DCID = "northamerica";
 export const OCEANIA_DCID = "oceania";
 export const AUSTRALIA_NEW_ZEALAND_DCID = "AustraliaAndNewZealand";
 export const NORTHERN_EUROPE_DCID = "NorthernEurope";
-export const EASTERN_EUROPE_DCID = "EasterEurope";
+export const EASTERN_EUROPE_DCID = "EasternEurope";
 export const WESTERN_EUROPE_DCID = "WesternEurope";
+export const EU_DCID = "EuropeanUnion";
+export const MELANESIA_DCID = "Melanesia";
 export const ASIA_NAMED_TYPED_PLACE: NamedTypedPlace = {
   dcid: "asia",
   name: "Asia",
