@@ -853,7 +853,7 @@
           "sdg/SI_POV_DAY1.AGE--Y15T64",
           "sdg/SI_POV_DAY1.AGE--Y_GE65"
         ],
-        "gender": [
+        "sdg_sex": [
           "sdg/SI_POV_DAY1.SEX--F",
           "sdg/SI_POV_DAY1.SEX--M"
         ],
@@ -863,7 +863,7 @@
         ]
       },
       "sdg/SI_POV_EMP1.AGE--Y_GE15": {
-        "gender": [
+        "sdg_sex": [
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
         ]
