@@ -98,8 +98,8 @@ export const PlaceSection = () => {
             <CountrySelect setSelectedPlaceDcid={(placeDcid) => history.push(`/countries?p=${placeDcid}`)} style={countrySelectStyle}/>
           </div>
           <div className="footer">
-            Learn about country and SDG region progress through the UN Data
-            Commons.
+            Learn about country and SDG region progress on the UN SDGs through
+            the UN Data Commons.
           </div>
         </PlaceSearchContainer>
     </Container>
