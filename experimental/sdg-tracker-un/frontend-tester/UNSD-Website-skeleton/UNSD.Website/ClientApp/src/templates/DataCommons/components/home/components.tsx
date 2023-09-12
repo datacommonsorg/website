@@ -20,11 +20,39 @@ import styled from "styled-components";
  * Styling for a section on the homepage.
  */
 export const HomeSection = styled.div`
-  padding: 112px 28px;
+  padding: 64px 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: Roboto;
   flex-shrink: 0;
+`
+
+/**
+ * Styling for the header for each section.
+ */
+export const SectionHeader = styled.div`
+  font-size: 30px;
+  font-weight: 500;
+  text-align: center;
+`
+
+/**
+ * Styling for the description for each section.
+ */
+export const SectionDescription = styled.div`
+  font-size: 22px;
+  font-weight: 400;
+  text-align: center;
+  max-width: 886px;
+`
+
+/**
+ * Styling for search bar containers on the home page.
+ */
+export const HomeSearchContainer = styled.div`
+  max-width: 778px;
+  width: 100%;
+  height: 60px;
 `

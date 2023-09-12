@@ -16,70 +16,55 @@
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { CountrySelect } from "../shared/components";
-import { HomeSection } from "./components";
+import { HomeSearchContainer, HomeSection, SectionDescription, SectionHeader } from "./components";
 
 const Container = styled(HomeSection)`
-  border-top: 0.5px solid #ababab;
-  border-bottom: 0.5px solid #ababab;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.15);
+  gap: 36px;
 `;
 
-const PlaceSearchContainer = styled.div`
-  max-width: 775px;
-  display: flex;
-  flex-direction: column;
-  gap: 37px;
+const Header = styled(SectionHeader)`
+  color: rgba(0, 0, 0, 0.79);
+`
 
-  .title {
-    color: rgba(0, 0, 0, 0.79);
-    font-size: 22px;
-    font-weight: 600;
+const SearchBarContainer = styled(HomeSearchContainer)`
+  svg {
+    display: none;
   }
 
-  .footer {
-    color: #414042;
-    font-size: 22px;
-    font-weight: 400;
-    line-height: 36px;
-    width: 100%;
-  }
+  .ant-select.ant-select-auto-complete.-dc-place-search {
+    .ant-select-selector {
+      height: 100% !important;
+      display: flex;
+      align-items: center;
+      font-size: 20px;
+      border: 0;
+      border-radius: 30px !important;
 
-  .search-bar-container {
-    width: 100%;
-
-    svg {
-      display: none;
-    }
-
-    .ant-select {
-      .ant-select-selector {
-        height: 100%;
+      .ant-select-selection-search {
+        height: 100% !important;
         display: flex;
         align-items: center;
-        font-size: 24px;
-        border: 0;
-        border-radius: 30px !important;
 
-        .ant-select-selection-search {
-          height: 100%;
-          display: flex;
-          align-items: center;
-
-          input {
-            height: fit-content;
-            padding-left: 30px;
-          }
-        }
-
-        .ant-select-selection-placeholder {
-          height: fit-content;
-          font-style: italic;
+        input {
+          height: 100% !important;
           padding-left: 30px;
         }
       }
+
+      .ant-select-selection-placeholder {
+        height: 100% !important;
+        font-style: italic;
+        padding-left: 30px;
+        display: flex;
+        align-items: center;
+      }
     }
   }
+`
+
+const ColorBar = styled.div`
+  background-image: url("./images/datacommons/sdg-color-bar.png");
+  height: 16px;
 `;
 
 export const PlaceSection = () => {
@@ -89,25 +74,26 @@ export const PlaceSection = () => {
     borderRadius: "30px",
     border: "1px solid #449BD5",
     background: "#fff",
-    height: "63px",
+    height: "100%",
   };
   return (
+    <>
+    <ColorBar/>
     <Container>
-      <PlaceSearchContainer>
-        <div className="title">Explore Countries and Regions</div>
-        <div className="search-bar-container">
+        <Header>Explore Countries and Regions</Header>
+        <SearchBarContainer>
           <CountrySelect
             setSelectedPlaceDcid={(placeDcid) =>
               history.push(`/countries?p=${placeDcid}`)
             }
             style={countrySelectStyle}
           />
-        </div>
-        <div className="footer">
+        </SearchBarContainer>
+        <SectionDescription>
           Learn about country and SDG region progress on the UN SDGs through the
           UN Data Commons.
-        </div>
-      </PlaceSearchContainer>
+        </SectionDescription>
     </Container>
+      <ColorBar/></>
   );
 };

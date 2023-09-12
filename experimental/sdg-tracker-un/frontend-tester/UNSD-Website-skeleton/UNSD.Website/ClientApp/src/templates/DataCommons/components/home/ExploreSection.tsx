@@ -18,24 +18,13 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { QUERY_PARAM_QUERY } from "../../utils/constants";
 import { SearchBar } from "../shared/components";
-import { HomeSection } from "./components";
+import { HomeSearchContainer, HomeSection, SectionDescription, SectionHeader } from "./components";
 
 const Container = styled(HomeSection)`
   background-image: url(./images/datacommons/explore-background.png);
   background-color: #005677;
   flex-shrink: 0;
-  gap: 50px;
-
-  h3 {
-    color: #fff;
-    text-align: center;
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15);
-    font-size: 64px;
-    font-weight: 700;
-    line-height: 84px;
-    max-width: 776px;
-    margin-bottom: 0;
-  }
+  gap: 36px;
 
   .description {
     color: #fff;
@@ -48,21 +37,26 @@ const Container = styled(HomeSection)`
   }
 `;
 
-const SearchBarContainer = styled.div`
-  max-width: 885px;
-  width: 90%;
+const Header = styled(SectionHeader)`
+  color: #fff;
+`
 
+const Description = styled(SectionDescription)`
+  color: #fff;
+`
+
+const SearchBarContainer = styled(HomeSearchContainer)`
   .info {
-    color: #fff;
+    display: none;
   }
 
   .search {
-    height: 83px;
+    height: 100%;
 
     input {
       height: 100%;
-      border-radius: 67.5px;
-      font-size: 32px;
+      border-radius: 30px !important;
+      font-size: 20px;
       padding-left: 40px;
       padding-right: 70px;
     }
@@ -87,7 +81,7 @@ export const ExploreSection = () => {
 
   return (
     <Container>
-      <h3>Explore UN Data Commons for the SDGs</h3>
+      <Header>Explore UN Data Commons for the SDGs</Header>
       <SearchBarContainer>
         <SearchBar
           initialQuery="What is the global poverty rate?"
@@ -99,10 +93,10 @@ export const ExploreSection = () => {
           }}
         />
       </SearchBarContainer>
-      <div className="description">
+      <Description>
         Delve into SDG data and insights with precision - where your questions
         lead the way!
-      </div>
+      </Description>
     </Container>
   );
 };

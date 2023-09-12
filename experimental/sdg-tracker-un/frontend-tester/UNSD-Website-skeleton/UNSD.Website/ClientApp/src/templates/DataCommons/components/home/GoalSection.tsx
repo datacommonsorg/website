@@ -16,36 +16,25 @@
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { RootTopic, useStoreState } from "../../state";
-import { HomeSection } from "./components";
+import { HomeSection, SectionDescription, SectionHeader } from "./components";
 const HALF_TOPIC_NUM = 9;
 
 const Container = styled(HomeSection)`
-  gap: 114px;
+  gap: 36px;
   background-color: #f2f2f2;
 `;
+
 const HeaderContainer = styled.div`
   color: #414042;
   text-align: center;
 
-  .title {
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 36px;
-  }
-
   .line-separator {
     height: 0;
     border-top: solid 3px #999;
-    margin: 30px 0;
-  }
-
-  .description {
-    max-width: 700px;
-    font-size: 22px;
-    font-weight: 400;
-    line-height: 36px;
+    margin: 21px 0;
   }
 `;
+
 const GoalContainer = styled.div`
   display: flex;
   align-items: center;
@@ -56,7 +45,7 @@ const GoalContainer = styled.div`
 
   .goal-section {
     display: grid;
-    gap: 15px;
+    gap: 14px;
     grid-auto-rows: 1fr;
   }
 
@@ -82,7 +71,7 @@ const GoalContainer = styled.div`
 
   .goal-number {
     color: #fff;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: 700;
     width: 70px;
     flex-shrink: 0;
@@ -95,7 +84,7 @@ const GoalContainer = styled.div`
   .goal-name {
     color: #444;
     font-family: Roboto;
-    font-size: 20px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -125,12 +114,12 @@ export const GoalSection = () => {
   return (
     <Container>
       <HeaderContainer>
-        <div className="title">Explore SDG Data by Goal</div>
+        <SectionHeader>Explore SDG Data by Goal</SectionHeader>
         <div className="line-separator" />
-        <div className="description">
+        <SectionDescription>
           Learn about SDG progress in a one-stop hub with data, insights and
           infographics for a comprehensive overview across all 17 Goals.
-        </div>
+      </SectionDescription>
       </HeaderContainer>
       <GoalContainer>
         {goalSections.map((goalSection: RootTopic[], sectionNum) => {
