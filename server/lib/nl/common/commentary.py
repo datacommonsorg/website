@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 
+from server.lib.explore import params
 from server.lib.nl.common import constants
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance
@@ -56,6 +57,10 @@ def unknown_topic(u: Utterance) -> str:
   if not u.places:
     return ''
   place_str = u.places[0].name
+
+  if params.is_sdg(u.insight_ctx):
+    return 'Could not recognize any topic from the query.'
+
   return f'Could not recognize any topic from the query. See available topic categories for {place_str}.'
 
 
@@ -63,6 +68,10 @@ def nodata_topic(u: Utterance) -> str:
   if not u.places:
     return ''
   place_str = u.places[0].name
+
+  if params.is_sdg(u.insight_ctx):
+    return f'Sorry, there were no relevant statistics about the topic for {place_str}.'
+
   return 'Sorry, there were no relevant statistics about the topic for ' \
           f'{place_str}. See available topic categories with statistics for {place_str}.'
 
