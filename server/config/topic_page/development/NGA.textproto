@@ -336,7 +336,7 @@ categories {
 
       tiles {
         type: DESCRIPTION
-        description: "*The authors interacted with the following artificial intelligence tools to assist in the creation of content included in this site: Google Bard v2.0*"
+        description: "_The authors interacted with the following artificial intelligence tools to assist in the creation of content included on this page: Google Bard v2.0_\n\n_Funded by [Google.org](https://www.google.org)_"
       }
     }
 

@@ -975,7 +975,7 @@ categories {
     columns {
       tiles {
         type: DESCRIPTION
-        description: "_The authors interacted with artificial intelligence tools to assist in the creation of content included in this site._"
+        description: "_The authors interacted with artificial intelligence tools to assist in the creation of content included on this page._\n\n_Funded by [Google.org](https://www.google.org)_"
       }
     }
   }

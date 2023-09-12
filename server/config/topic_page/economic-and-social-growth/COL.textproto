@@ -412,5 +412,14 @@ categories {
     }
   }
 
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "_Funded by [Google.org](https://www.google.org)_"
+      }
+    }
+  }
+
 }
 

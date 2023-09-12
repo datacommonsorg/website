@@ -271,6 +271,16 @@ categories {
       #tiles {type: BAR stat_var_key: "Count_DroughtEvent"}
     }
   }
+
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "_Funded by [Google.org](https://www.google.org)_"
+      }
+    }
+  }
+  
   stat_var_spec {key: "Count_DroughtEvent" value {stat_var: "Count_DroughtEvent" name: "Droughts"}}
 }
 
