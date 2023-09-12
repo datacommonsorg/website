@@ -22,6 +22,7 @@ import _ from "lodash";
 import React from "react";
 
 import { ScatterTile } from "../../../components/tiles/scatter_tile";
+import { FacetSelector } from "../../../shared/facet_selector";
 import {
   GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
@@ -31,6 +32,7 @@ import {
 import { StatVarHierarchyType } from "../../../shared/types";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
+import { getFacetsWithin } from "../../../utils/data_fetch_utils";
 import { AppContextType } from "../app_context";
 import { ChartFooter, InputInfo } from "../chart_footer";
 import { VisType } from "../vis_type_configs";
@@ -95,6 +97,53 @@ function getDisplayInputs(appContext: AppContextType): InputInfo[] {
   ];
 }
 
+function getFacetSelector(appContext: AppContextType): JSX.Element {
+  const statVars = appContext.statVars.slice(0, 2);
+  const svFacetId = {};
+  statVars.forEach((sv) => {
+    svFacetId[sv.dcid] = sv.facetId;
+  });
+  const facetListPromises = statVars.map((sv) =>
+    getFacetsWithin(
+      "",
+      appContext.places[0].dcid,
+      appContext.enclosedPlaceType,
+      [sv.dcid],
+      sv.date
+    )
+  );
+  const facetListPromise = Promise.all(facetListPromises).then((facetResp) => {
+    return statVars.map((sv, idx) => {
+      return {
+        dcid: sv.dcid,
+        name: sv.info.title || sv.dcid,
+        metadataMap:
+          idx < facetResp.length ? facetResp[idx][sv.dcid] || {} : {},
+      };
+    });
+  });
+  const onSvFacetIdUpdated = (svFacetId: Record<string, string>) => {
+    const facetsChanged = statVars.filter(
+      (sv) => sv.facetId !== svFacetId[sv.dcid]
+    );
+    if (_.isEmpty(facetsChanged)) {
+      return;
+    }
+    const newStatVars = _.cloneDeep(appContext.statVars);
+    statVars.forEach((sv, idx) => {
+      newStatVars[idx].facetId = svFacetId[sv.dcid];
+    });
+    appContext.setStatVars(newStatVars);
+  };
+  return (
+    <FacetSelector
+      svFacetId={svFacetId}
+      facetListPromise={facetListPromise}
+      onSvFacetIdUpdated={onSvFacetIdUpdated}
+    />
+  );
+}
+
 function getChartArea(
   appContext: AppContextType,
   chartHeight: number
@@ -139,6 +188,7 @@ function getChartArea(
           },
           { label: "Display:", inputs: getDisplayInputs(appContext) },
         ]}
+        facetSelector={getFacetSelector(appContext)}
       />
     </div>
   );

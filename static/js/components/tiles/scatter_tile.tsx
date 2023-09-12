@@ -247,10 +247,12 @@ export const fetchData = async (props: ScatterTilePropType) => {
       {
         statVarDcid: props.statVarSpec[0].statVar,
         date: props.statVarSpec[0].date,
+        facetId: props.statVarSpec[0].facetId,
       },
       {
         statVarDcid: props.statVarSpec[1].statVar,
         date: props.statVarSpec[1].date,
+        facetId: props.statVarSpec[1].facetId,
       },
     ],
     props.apiRoot

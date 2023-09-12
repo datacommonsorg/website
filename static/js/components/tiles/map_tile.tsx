@@ -48,16 +48,11 @@ import {
   loadSpinner,
   removeSpinner,
 } from "../../shared/util";
-import {
-  getPlaceChartData,
-  MAP_URL_PATH,
-  shouldShowBorder,
-} from "../../tools/map/util";
+import { getPlaceChartData, shouldShowBorder } from "../../tools/map/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
-import { getDenom } from "../../tools/timeline/util";
 import {
   getContextStatVar,
   getHash,
@@ -276,12 +271,17 @@ export const fetchData = async (
     .then((resp) => resp.data);
   const dataDate =
     props.statVarSpec.date || getCappedStatVarDate(props.statVarSpec.statVar);
+  const facetIds = props.statVarSpec.facetId
+    ? [props.statVarSpec.facetId]
+    : null;
   const placeStatPromise: Promise<PointApiResponse> = getPointWithin(
     props.apiRoot,
     props.enclosedPlaceType,
     props.place.dcid,
     [props.statVarSpec.statVar],
-    dataDate
+    dataDate,
+    [],
+    facetIds
   );
   const populationPromise: Promise<SeriesApiResponse> = props.statVarSpec.denom
     ? getSeriesWithin(

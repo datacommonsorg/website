@@ -53,6 +53,7 @@ const HEADING_HEIGHT = 36;
 const PER_RANKING_HEIGHT = 24;
 const FOOTER_HEIGHT = 26;
 const LATEST_DATE_KEY = "latest";
+const EMPTY_FACET_ID_KEY = "empty";
 
 export interface RankingTilePropType {
   id: string;
@@ -179,35 +180,55 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
 export async function fetchData(
   props: RankingTilePropType
 ): Promise<RankingData> {
-  // Get map of date to variables that should use this date for its data fetch
-  const dateToVariable = { [LATEST_DATE_KEY]: [] };
+  // Get map of date to map of facet id to variables that should use this date
+  // and facet id for its data fetch
+  const dateFacetToVariable = {
+    [LATEST_DATE_KEY]: {
+      [EMPTY_FACET_ID_KEY]: [],
+    },
+  };
   for (const spec of props.statVarSpec) {
     const variableDate =
       spec.date || getCappedStatVarDate(spec.statVar) || LATEST_DATE_KEY;
-    if (!dateToVariable[variableDate]) {
-      dateToVariable[variableDate] = [];
+    const variableFacetId = spec.facetId || EMPTY_FACET_ID_KEY;
+    if (!dateFacetToVariable[variableDate]) {
+      dateFacetToVariable[variableDate] = {};
     }
-    dateToVariable[variableDate].push(spec.statVar);
+    if (!dateFacetToVariable[variableDate][variableFacetId]) {
+      dateFacetToVariable[variableDate][variableFacetId] = [];
+    }
+    dateFacetToVariable[variableDate][variableFacetId].push(spec.statVar);
   }
   // Make one promise for each date
   const statPromises: Promise<PointApiResponse>[] = [];
-  for (const date of Object.keys(dateToVariable)) {
-    if (_.isEmpty(dateToVariable[date])) {
+  for (const date of Object.keys(dateFacetToVariable)) {
+    if (_.isEmpty(dateFacetToVariable[date])) {
       continue;
     }
-    let dateParam = "";
-    if (date !== LATEST_DATE_KEY) {
-      dateParam = date;
+    for (const facetId of Object.keys(dateFacetToVariable[date])) {
+      if (_.isEmpty(dateFacetToVariable[date][facetId])) {
+        continue;
+      }
+      let dateParam = "";
+      if (date !== LATEST_DATE_KEY) {
+        dateParam = date;
+      }
+      let facetIds = [];
+      if (facetId !== EMPTY_FACET_ID_KEY) {
+        facetIds = [facetId];
+      }
+      statPromises.push(
+        getPointWithin(
+          props.apiRoot,
+          props.enclosedPlaceType,
+          props.place.dcid,
+          dateFacetToVariable[date][facetId],
+          dateParam,
+          [],
+          facetIds
+        )
+      );
     }
-    statPromises.push(
-      getPointWithin(
-        props.apiRoot,
-        props.enclosedPlaceType,
-        props.place.dcid,
-        dateToVariable[date],
-        dateParam
-      )
-    );
   }
   const statPromise = Promise.all(statPromises).then((statResponses) => {
     // Merge the responses of all stat promises
