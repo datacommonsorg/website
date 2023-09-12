@@ -139,6 +139,9 @@ SUPER_NATIONAL_TYPES = frozenset([
     ContainedInPlaceType.UN_GEO_REGION.value
 ])
 
+# For these geos, the maps look empty.
+NO_MAP_SUPER_NATIONAL_GEOS = frozenset(['Micronesia', 'Polynesia'])
+
 # Key is canonical AA types (and excludes county, province, etc.).
 # Note also that we don't include CONTINENT because we virtually have no
 # data at Continent level.
