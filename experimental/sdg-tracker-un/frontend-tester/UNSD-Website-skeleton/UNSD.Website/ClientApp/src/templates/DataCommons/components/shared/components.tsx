@@ -29,6 +29,7 @@ const SearchInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  height: 100%;
 
   .info {
     align-self: flex-end;
@@ -38,7 +39,7 @@ const SearchInputContainer = styled.div`
     margin: 0 1.2rem 0rem;
     text-transform: uppercase;
   }
-  .search {
+    .search {
     position: relative;
 
     input {
@@ -188,6 +189,7 @@ const CountrySelectContainer = styled.div<{ width: string }>`
   display: flex;
   position: relative;
   width: ${(p) => p.width};
+  height: 100%;
   .ant-select-selector {
     border-radius: 2rem !important;
   }

@@ -16,54 +16,51 @@
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { RootTopic, useStoreState } from "../../state";
-import { HomeSection } from "./components";
+import { HomeSection, SectionDescription, SectionHeader } from "./components";
 const HALF_TOPIC_NUM = 9;
 
 const Container = styled(HomeSection)`
-  gap: 114px;
+  gap: 36px;
   background-color: #f2f2f2;
 `;
+
 const HeaderContainer = styled.div`
   color: #414042;
   text-align: center;
 
-  .title {
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 36px;
-  }
-
   .line-separator {
     height: 0;
     border-top: solid 3px #999;
-    margin: 30px 0;
-  }
-
-  .description {
-    max-width: 700px;
-    font-size: 22px;
-    font-weight: 400;
-    line-height: 36px;
+    margin: 21px 0;
   }
 `;
+
+const GoalContainerOuter = styled.div`
+    width: 100%;
+    max-width: 1065px;
+    display: flex;
+    justify-content: center;
+`
+
 const GoalContainer = styled.div`
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
 
   .goal-section {
     display: grid;
     gap: 15px;
     grid-auto-rows: 1fr;
+    height: 100%;
   }
 
   .goal-item {
     display: flex;
     align-items: stretch;
-    min-height: 70px;
+    min-height: 60px;
     border-radius: 6px;
     cursor: pointer;
     max-width: 525px;
@@ -82,9 +79,9 @@ const GoalContainer = styled.div`
 
   .goal-number {
     color: #fff;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: 700;
-    width: 70px;
+    width: 60px;
     flex-shrink: 0;
     border-radius: 6px 0px 0px 6px;
     display: flex;
@@ -95,11 +92,11 @@ const GoalContainer = styled.div`
   .goal-name {
     color: #444;
     font-family: Roboto;
-    font-size: 20px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    padding: 0 19px;
+    padding: 0 16px;
     word-wrap: break-word;
   }
 
@@ -125,58 +122,60 @@ export const GoalSection = () => {
   return (
     <Container>
       <HeaderContainer>
-        <div className="title">Explore SDG Data by Goal</div>
+        <SectionHeader>Explore SDG Data by Goal</SectionHeader>
         <div className="line-separator" />
-        <div className="description">
+        <SectionDescription>
           Learn about SDG progress in a one-stop hub with data, insights and
           infographics for a comprehensive overview across all 17 Goals.
-        </div>
+      </SectionDescription>
       </HeaderContainer>
-      <GoalContainer>
-        {goalSections.map((goalSection: RootTopic[], sectionNum) => {
-          return (
-            <div className="goal-section" key={`section-${sectionNum}`}>
-              {goalSection.map((goal: RootTopic, topicNum) => {
-                return (
-                  <div
-                    className={`goal-item -dc-goal-item-${topicNum + 1}`}
-                    key={goal.topicDcid}
-                    onClick={() =>
-                      history.push(`/goals/dc/topic/sdg_1?v=${goal.topicDcid}`)
-                    }
-                  >
+      <GoalContainerOuter>
+        <GoalContainer>
+          {goalSections.map((goalSection: RootTopic[], sectionNum) => {
+            return (
+              <div className="goal-section" key={`section-${sectionNum}`}>
+                {goalSection.map((goal: RootTopic, topicNum) => {
+                  return (
                     <div
-                      style={{ backgroundColor: goal.color }}
-                      className="goal-number"
+                      className={`goal-item -dc-goal-item-${topicNum + 1}`}
+                      key={goal.topicDcid}
+                      onClick={() =>
+                        history.push(`/goals/dc/topic/sdg_1?v=${goal.topicDcid}`)
+                      }
                     >
-                      <span>{HALF_TOPIC_NUM * sectionNum + topicNum + 1}</span>
-                    </div>
-                    <div className="goal-content">
-                      <div className="goal-name">{goal.name}</div>
-                      <div className="goal-icon">
-                        <img src={goal.homePageIcon} />
+                      <div
+                        style={{ backgroundColor: goal.color }}
+                        className="goal-number"
+                      >
+                        <span>{HALF_TOPIC_NUM * sectionNum + topicNum + 1}</span>
+                      </div>
+                      <div className="goal-content">
+                        <div className="goal-name">{goal.name}</div>
+                        <div className="goal-icon">
+                          <img src={goal.homePageIcon} />
+                        </div>
                       </div>
                     </div>
+                  );
+                })}
+                {sectionNum === 1 && (
+                  <div
+                    className="goal-item -dc-goal-item-all"
+                    onClick={() => history.push("/goals")}
+                  >
+                    <div className="goal-number">
+                      <img src={"./images/datacommons/sdg-goals-icon.svg"} />
+                    </div>
+                    <div className="goal-content">
+                      <div className="goal-name">All Goals</div>
+                    </div>
                   </div>
-                );
-              })}
-              {sectionNum === 1 && (
-                <div
-                  className="goal-item -dc-goal-item-all"
-                  onClick={() => history.push("/goals")}
-                >
-                  <div className="goal-number">
-                    <img src={"./images/datacommons/sdg-goals-icon.svg"} />
-                  </div>
-                  <div className="goal-content">
-                    <div className="goal-name">All Goals</div>
-                  </div>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </GoalContainer>
+                )}
+              </div>
+            );
+          })}
+        </GoalContainer>
+      </GoalContainerOuter>
     </Container>
   );
 };
