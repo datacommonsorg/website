@@ -5148,22 +5148,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/SDGSHSANSAFE."
-      ],
-      "name": [
-        "Proportion of population using safely managed sanitation services, by urban/rural"
-      ],
-      "memberList": [
-        "sdg/SH_SAN_SAFE",
-        "sdg/SH_SAN_SAFE.URBANISATION--R",
-        "sdg/SH_SAN_SAFE.URBANISATION--U"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/SDGSHSTAFGMS."
       ],
       "name": [
@@ -13543,20 +13527,6 @@
     },
     {
       "dcid": [
-        "dc/topic/sdgSHSANSAFE"
-      ],
-      "name": [
-        "Proportion of Population Using Safely Managed Sanitation Services"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/SDGSHSANSAFE."
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/sdgSHSTAFGMS"
       ],
       "name": [
@@ -15774,7 +15744,6 @@
         "Topic"
       ],
       "relevantVariableList": [
-        "sdg/VC_DTH_TOTPT",
         "dc/svpg/SDGVCDTHTOTPT.2",
         "dc/svpg/SDGVCDTHTOTPT.3",
         "dc/svpg/SDGVCDTHTOTPT.4"
@@ -19188,7 +19157,6 @@
       ],
       "relevantVariableList": [
         "dc/topic/sdg_17.10",
-        "dc/topic/sdg_17.11",
         "dc/topic/sdg_17.12",
         "dc/topic/sdg_17.13",
         "dc/topic/sdg_17.14",
@@ -19279,37 +19247,6 @@
       "relevantVariableList": [
         "dc/topic/sdgTMTAXWMFN",
         "dc/topic/sdgTMTAXWMPS"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/sdg_17.11"
-      ],
-      "name": [
-        "17.11: Significantly increase the exports of developing countries, in particular with a view to doubling the least developed countries' share of global exports by 2020"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "dc/topic/sdg_17.11.1"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/sdg_17.11.1"
-      ],
-      "name": [
-        "17.11.1: Developing countries\u2019 and least developed countries\u2019 share of global exports"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "sdg/TX_EXP_GBMRCH",
-        "sdg/TX_IMP_GBMRCH",
-        "sdg/TX_EXP_GBSVR",
-        "sdg/TX_IMP_GBSVR"
       ]
     },
     {
@@ -19881,7 +19818,6 @@
         "dc/topic/sdg_2.4",
         "dc/topic/sdg_2.5",
         "dc/topic/sdg_2.a",
-        "dc/topic/sdg_2.b",
         "dc/topic/sdg_2.c"
       ]
     },
@@ -20172,34 +20108,6 @@
       ],
       "relevantVariableList": [
         "sdg/DC_TOF_AGRL"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/sdg_2.b"
-      ],
-      "name": [
-        "2.b: Correct and prevent trade restrictions and distortions in world agricultural markets, including through the parallel elimination of all forms of agricultural export subsidies and all export measures with equivalent effect, in accordance with the mandate of the Doha Development Round"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "dc/topic/sdg_2.b.1"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/sdg_2.b.1"
-      ],
-      "name": [
-        "2.b.1: Agricultural export subsidies"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "sdg/AG_PRD_XSUBDY"
       ]
     },
     {
@@ -21661,7 +21569,6 @@
       ],
       "relevantVariableList": [
         "dc/topic/sdgSHSANDEFECT",
-        "dc/topic/sdgSHSANSAFE",
         "dc/topic/sdgSHSANHNDWSH"
       ]
     },
