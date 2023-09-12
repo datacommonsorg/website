@@ -2,7 +2,7 @@
   {
     "key": "dc/topic/sdg",
     "label": "All Sustainable Development Goals",
-    "icon": "/images/datacommons/sdg-wheel-transparent.png",
+    "icon": "./images/datacommons/sdg-wheel-transparent.png",
     "parents": []
   },
   {
@@ -162,7 +162,7 @@
         "parents": ["dc/topic/sdg_1", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-01-md.png",
+    "icon": "./images/datacommons/sdg-goal-01-md.png",
     "key": "dc/topic/sdg_1",
     "label": "1: No Poverty",
     "parents": ["dc/topic/sdg"]
@@ -341,7 +341,7 @@
         "parents": ["dc/topic/sdg_2", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-02-md.png",
+    "icon": "./images/datacommons/sdg-goal-02-md.png",
     "key": "dc/topic/sdg_2",
     "label": "2: Zero Hunger",
     "parents": ["dc/topic/sdg"]
@@ -650,7 +650,7 @@
         "parents": ["dc/topic/sdg_3", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-03-md.png",
+    "icon": "./images/datacommons/sdg-goal-03-md.png",
     "key": "dc/topic/sdg_3",
     "label": "3: Good Health and Well-being",
     "parents": ["dc/topic/sdg"]
@@ -843,7 +843,7 @@
         "parents": ["dc/topic/sdg_4", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-04-md.png",
+    "icon": "./images/datacommons/sdg-goal-04-md.png",
     "key": "dc/topic/sdg_4",
     "label": "4: Quality Education",
     "parents": ["dc/topic/sdg"]
@@ -1034,7 +1034,7 @@
         "parents": ["dc/topic/sdg_5", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-05-md.png",
+    "icon": "./images/datacommons/sdg-goal-05-md.png",
     "key": "dc/topic/sdg_5",
     "label": "5: Gender Equality",
     "parents": ["dc/topic/sdg"]
@@ -1198,7 +1198,7 @@
         "parents": ["dc/topic/sdg_6", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-06-md.png",
+    "icon": "./images/datacommons/sdg-goal-06-md.png",
     "key": "dc/topic/sdg_6",
     "label": "6: Clean Water and Sanitation",
     "parents": ["dc/topic/sdg"]
@@ -1301,7 +1301,7 @@
         "parents": ["dc/topic/sdg_7", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-07-md.png",
+    "icon": "./images/datacommons/sdg-goal-07-md.png",
     "key": "dc/topic/sdg_7",
     "label": "7: Affordable and Clean Energy",
     "parents": ["dc/topic/sdg"]
@@ -1538,7 +1538,7 @@
         "parents": ["dc/topic/sdg_8", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-08-md.png",
+    "icon": "./images/datacommons/sdg-goal-08-md.png",
     "key": "dc/topic/sdg_8",
     "label": "8: Decent Work and Economic Growth",
     "parents": ["dc/topic/sdg"]
@@ -1707,7 +1707,7 @@
         "parents": ["dc/topic/sdg_9", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-09-md.png",
+    "icon": "./images/datacommons/sdg-goal-09-md.png",
     "key": "dc/topic/sdg_9",
     "label": "9: Industry, Innovation and Infrastructure",
     "parents": ["dc/topic/sdg"]
@@ -1910,7 +1910,7 @@
         "parents": ["dc/topic/sdg_10", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-10-md.png",
+    "icon": "./images/datacommons/sdg-goal-10-md.png",
     "key": "dc/topic/sdg_10",
     "label": "10: Reduced Inequality",
     "parents": ["dc/topic/sdg"]
@@ -2118,7 +2118,7 @@
         "parents": ["dc/topic/sdg_11", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-11-md.png",
+    "icon": "./images/datacommons/sdg-goal-11-md.png",
     "key": "dc/topic/sdg_11",
     "label": "11: Sustainable Cities and Communities",
     "parents": ["dc/topic/sdg"]
@@ -2328,7 +2328,7 @@
         "parents": ["dc/topic/sdg_12", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-12-md.png",
+    "icon": "./images/datacommons/sdg-goal-12-md.png",
     "key": "dc/topic/sdg_12",
     "label": "12: Responsible Consumption and Production",
     "parents": ["dc/topic/sdg"]
@@ -2441,7 +2441,7 @@
         "parents": ["dc/topic/sdg_13", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-13-md.png",
+    "icon": "./images/datacommons/sdg-goal-13-md.png",
     "key": "dc/topic/sdg_13",
     "label": "13: Climate Action",
     "parents": ["dc/topic/sdg"]
@@ -2624,7 +2624,7 @@
         "parents": ["dc/topic/sdg_14", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-14-md.png",
+    "icon": "./images/datacommons/sdg-goal-14-md.png",
     "key": "dc/topic/sdg_14",
     "label": "14: Life Below Water",
     "parents": ["dc/topic/sdg"]
@@ -2851,7 +2851,7 @@
         "parents": ["dc/topic/sdg_15", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-15-md.png",
+    "icon": "./images/datacommons/sdg-goal-15-md.png",
     "key": "dc/topic/sdg_15",
     "label": "15: Life on Land",
     "parents": ["dc/topic/sdg"]
@@ -3128,7 +3128,7 @@
         "parents": ["dc/topic/sdg_16", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-16-md.png",
+    "icon": "./images/datacommons/sdg-goal-16-md.png",
     "key": "dc/topic/sdg_16",
     "label": "16: Peace and Justice Strong Institutions",
     "parents": ["dc/topic/sdg"]
@@ -3489,7 +3489,7 @@
         "parents": ["dc/topic/sdg_17", "dc/topic/sdg"]
       }
     ],
-    "icon": "/images/datacommons/sdg-goal-17-md.png",
+    "icon": "./images/datacommons/sdg-goal-17-md.png",
     "key": "dc/topic/sdg_17",
     "label": "17: Partnerships to achieve the Goal",
     "parents": ["dc/topic/sdg"]
