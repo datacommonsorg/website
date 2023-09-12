@@ -578,7 +578,7 @@ const ChartCategoryContent: React.FC<{
               fulfillResponse={fulfillResponse}
               key={`search-result-tile-${i}`}
               placeDcids={placeDcids}
-              tile={tile}
+              tileWithFootnote={tile}
               statVarSpec={chartConfigCategory.statVarSpec}
             />
           ))}
