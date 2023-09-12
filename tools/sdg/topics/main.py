@@ -128,10 +128,15 @@ def load_variables():
       if not row.get('VARIABLE_CODE'):
         continue
       var = 'sdg/' + row['VARIABLE_CODE'].replace('@', '.').replace(' ', '')
-      vars.all_vars.add(var)
 
-      if row.get('SELECT') and 'Do not display' in row['SELECT']:
-        vars.non_country_vars.add(var)
+      if row.get('SELECT'):
+        if 'drop' in row['SELECT'].lower():
+          print(f'Dropping variable {var}')
+          continue
+        elif 'do not display in country pages' in row['SELECT'].lower():
+          vars.non_country_vars.add(var)
+
+      vars.all_vars.add(var)
 
       if not row.get('GROUPING ID') or not row.get('SERIES_CODE'):
         continue
