@@ -31,6 +31,30 @@ export const EARTH_PLACE_NAME = "World";
  */
 export const COUNTRY_PLACE_TYPE = "Country";
 
+export const EARTH_COUNTRIES = [
+  "country/AUS",
+  "country/USA",
+  "country/MEX",
+  "country/BRA",
+  "country/COL",
+  "country/IND",
+  "country/CHN",
+  "country/RUS",
+  "country/NGA",
+  "country/ETH",
+  "country/SOM",
+  "country/KEN",
+  "country/FRA",
+  "country/UKR",
+  "country/DEU",
+  "country/JPN",
+  "country/IDN",
+  "country/PHL",
+  "country/SAU",
+  "country/IRN",
+  "country/KAZ",
+];
+
 /**
  * Variable DCID url parameter
  */

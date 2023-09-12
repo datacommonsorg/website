@@ -77,11 +77,13 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   }
   const rs: ReplacementStrings = {
     placeName: props.place.name,
-    date: formatDate(highlightData.date),
+    date: highlightData.date ? formatDate(highlightData.date) : "",
   };
   let description = "";
   if (props.description) {
-    description = formatString(props.description + " (${date})", rs);
+    description = rs.date
+      ? formatString(props.description + " (${date})", rs)
+      : formatString(props.description, rs);
   }
   // TODO: The {...{ part: "container"}} syntax to set a part is a hacky
   // workaround to add a "part" attribute to a React element without npm errors.

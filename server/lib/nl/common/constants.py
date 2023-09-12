@@ -122,10 +122,25 @@ EVENT_TYPE_TO_DC_TYPES = {
 # Key is canonical AA types (and excludes county, province, etc.)
 CHILD_PLACE_TYPES = {
     ContainedInPlaceType.CONTINENT: ContainedInPlaceType.COUNTRY,
+    ContainedInPlaceType.CONTINENTAL_UNION: ContainedInPlaceType.COUNTRY,
+    ContainedInPlaceType.GEO_REGION: ContainedInPlaceType.COUNTRY,
+    ContainedInPlaceType.UN_GEO_REGION: ContainedInPlaceType.COUNTRY,
     ContainedInPlaceType.COUNTRY: ContainedInPlaceType.ADMIN_AREA_1,
     ContainedInPlaceType.ADMIN_AREA_1: ContainedInPlaceType.ADMIN_AREA_2,
     ContainedInPlaceType.ADMIN_AREA_2: ContainedInPlaceType.CITY,
 }
+
+# Types that are larger than a country.
+# NOTE: These should be strings.
+SUPER_NATIONAL_TYPES = frozenset([
+    ContainedInPlaceType.CONTINENT.value,
+    ContainedInPlaceType.CONTINENTAL_UNION.value,
+    ContainedInPlaceType.GEO_REGION.value,
+    ContainedInPlaceType.UN_GEO_REGION.value
+])
+
+# For these geos, the maps look empty.
+NO_MAP_SUPER_NATIONAL_GEOS = frozenset(['Micronesia', 'Polynesia'])
 
 # Key is canonical AA types (and excludes county, province, etc.).
 # Note also that we don't include CONTINENT because we virtually have no

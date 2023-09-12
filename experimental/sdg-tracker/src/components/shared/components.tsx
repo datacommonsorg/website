@@ -310,16 +310,20 @@ export const PlaceHeaderCard: React.FC<{
   placeNames: string[];
   hideBreadcrumbs?: boolean;
   hidePlaceSearch?: boolean;
+  isSearch: boolean;
   setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
   userMessage?: string;
   variableDcids: string[];
+  topicNames?: string;
 }> = ({
   placeNames,
   hideBreadcrumbs,
   hidePlaceSearch,
+  isSearch,
   setSelectedPlaceDcid,
   userMessage,
   variableDcids,
+  topicNames,
 }) => {
   // get breadcrumbs from current location
   const location = useLocation();
@@ -356,8 +360,11 @@ export const PlaceHeaderCard: React.FC<{
     <PlaceCard>
       <PlaceCardContent>
         {userMessage && <UserMessage>{userMessage}</UserMessage>}
-        {hidePlaceSearch ? (
-          <PlaceTitle>{placeNames.join(", ")}</PlaceTitle>
+        {hidePlaceSearch || isSearch ? (
+          <PlaceTitle>
+            {placeNames.join(", ")}
+            {isSearch && topicNames ? ` • ${topicNames}` : ""}
+          </PlaceTitle>
         ) : (
           <CountrySelect
             setSelectedPlaceDcid={setSelectedPlaceDcid}
