@@ -22,7 +22,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useStoreState } from "../../state";
-import { QUERY_PARAM_VARIABLE, ROOT_TOPIC } from "../../utils/constants";
+import { FOOTNOTE_CHAR_LIMIT, QUERY_PARAM_VARIABLE, ROOT_TOPIC } from "../../utils/constants";
 import "./components.css";
 
 const SearchInputContainer = styled.div`
@@ -553,5 +553,33 @@ export const Footnotes: React.FC = () => {
         {MAP_DISCLAIMER_TEXT}
       </Footnote>
     </FootnotesContainer>
+  );
+};
+
+// Footnotes for the chart tiles
+export const ChartFootnoteContainer = styled.div`
+  margin: 0 24px 24px 14px;
+  font-size: 0.8rem;
+`;
+
+export const ShowMoreToggle = styled.span`
+  cursor: pointer;
+  color: var(--link-color);
+`;
+
+export const ChartFootnote: React.FC<{text: string | undefined}> = ({text}) => {
+  const [showFullText, setShowFullText] = useState(false);
+  if (!text) {
+    return <></>;
+  }
+  const hideToggle = text.length < FOOTNOTE_CHAR_LIMIT;
+  const shortText = text.slice(0, FOOTNOTE_CHAR_LIMIT)
+  return (
+    <ChartFootnoteContainer>
+      {hideToggle || showFullText ? text : `${shortText}...`}
+      <ShowMoreToggle onClick={() => setShowFullText(!showFullText)}>
+        {!hideToggle && (showFullText ? " Show less" : "Show more")}
+      </ShowMoreToggle>
+    </ChartFootnoteContainer>
   );
 };
