@@ -103,8 +103,8 @@ export const PlaceSection = () => {
           />
         </div>
         <div className="footer">
-          Learn about country and SDG region progress through the UN Data
-          Commons.
+          Learn about country and SDG region progress on the UN SDGs through the
+          UN Data Commons.
         </div>
       </PlaceSearchContainer>
     </Container>

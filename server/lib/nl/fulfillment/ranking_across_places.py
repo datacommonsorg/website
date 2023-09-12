@@ -87,7 +87,7 @@ def populate(state: PopulateState,
         state.ranking_types[0] in [RankingType.HIGH, RankingType.LOW]):
       _compute_answer_places(state, places[0], chart_vars.svs[0])
 
-    if not utils.has_map(state.place_type, places):
+    if not utils.has_map(state.place_type, places[0]):
       chart_vars.skip_map_for_ranking = True
     return add_chart_to_utterance(ChartType.RANKING_WITH_MAP,
                                   state,

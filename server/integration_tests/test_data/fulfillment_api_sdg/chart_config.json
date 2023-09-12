@@ -284,6 +284,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Deaths and Missing Persons From Disasters"
           },
           {
@@ -312,6 +313,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Deaths and Missing Persons From Disasters Per 100k Capita"
           },
           {
@@ -340,6 +342,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Deaths From Disasters"
           },
           {
@@ -368,6 +371,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Population Affected by Disasters Per 100k Capita"
           },
           {
@@ -396,6 +400,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Injured or Ill Population From Disasters"
           },
           {
@@ -424,6 +429,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Population Affected by Disasters"
           },
           {
@@ -452,6 +458,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Population With Damaged Dwellings From Disasters"
           },
           {
@@ -480,6 +487,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Population With Destroyed Dwellings From Disasters"
           },
           {
@@ -508,6 +516,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Direct Agriculture Loss From Disasters"
           },
           {
@@ -536,6 +545,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Direct Economic Loss From Disasters"
           },
           {
@@ -564,6 +574,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Direct Economic Loss From Disasters (Relative to GDP)"
           },
           {
@@ -592,6 +603,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Direct Economic Loss From Disaster-Caused Infrastructure Damage"
           },
           {
@@ -620,6 +632,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Direct Economic Loss From Disaster-Caused Productive Asset Damage"
           },
           {
@@ -648,6 +661,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Adoption and Implementation of National DRR Strategies"
           },
           {
@@ -676,6 +690,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Local Governments"
           },
           {
@@ -704,6 +719,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Local Governments Adopting and Implementing DRR Strategies"
           },
           {
@@ -732,6 +748,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "title": "Prevalence of Local Government Adoption and Implementation of DRR Strategies"
           },
           {
@@ -760,6 +777,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: the organisation for economic Co-operation and development (OECD).",
             "title": "Grants for Poverty Reduction"
           },
           {
@@ -788,6 +806,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: BOOST initiative. Country-Data available at: https://www.Worldbank.Org/En/Programs/Boost-Portal/Country-Data; data extracted on 01 april 2022; expenditure by function of government (COFOG) - IMF data. Data available at: https://data.Imf.org/regular.Aspx?Key=61037799; data extracted on 01 april 2022; government finace statistics (GFS) database. Data available at: https://data.Imf.Org/; data extracted on 01 april 2022; IMF; data extracted on 01 april 2022; public expenditure review (PER); data extracted on 01 april 2022; UNESCO institute for statistics; data extracted on 01 april 2022.",
             "title": "Government Spending on Essential Services and Education"
           }
         ],

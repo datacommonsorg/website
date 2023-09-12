@@ -29,13 +29,22 @@ interface PlaceOverviewTilePropType {
   place: NamedTypedPlace;
 }
 
+const NO_PLACE_EXPLORER_TYPES = new Set([
+  "UNGeoRegion",
+  "Continent",
+  "GeoRegion",
+  "ContinentalUnion",
+]);
+
 export function PlaceOverviewTile(
   props: PlaceOverviewTilePropType
 ): JSX.Element {
   // Overview should only show ranking if the place is inside the USA
   // Also use 'Learn _more_ about' if place is inside the USA
   const isUsaPlace = props.place.dcid.startsWith("geoId/");
-
+  const skipLink =
+    props.place.types.filter((type) => NO_PLACE_EXPLORER_TYPES.has(type))
+      .length > 0;
   return (
     <>
       <div className="chart-container place-overview-tile">
@@ -46,11 +55,13 @@ export function PlaceOverviewTile(
             locale="en"
           />
         </RawIntlProvider>
-        <div className="row">
-          <a href={`/place/${props.place.dcid}`}>
-            See {props.place.name} in Place Explorer
-          </a>
-        </div>
+        {!skipLink && (
+          <div className="row">
+            <a href={`/place/${props.place.dcid}`}>
+              See {props.place.name} in Place Explorer
+            </a>
+          </div>
+        )}
       </div>
     </>
   );

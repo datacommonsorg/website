@@ -29,6 +29,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
             "title": "Population Below International Poverty Line"
           },
           {
@@ -154,6 +155,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
             "title": "Decrease in Population Below International Poverty Line Over Time (Absolute Change)"
           },
           {
@@ -279,6 +281,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
             "title": "Decrease in Population Below International Poverty Line Over Time (Percent Change)"
           }
         ],

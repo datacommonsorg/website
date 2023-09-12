@@ -5314,21 +5314,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/Sanitation_ProportionofPopulationusingsafelymanagedsanitationservicesbyresidency"
-      ],
-      "memberList": [
-        "sdg/SH_SAN_SAFE.URBANISATION--R",
-        "sdg/SH_SAN_SAFE.URBANISATION--U"
-      ],
-      "name": [
-        "Proportion of Population Using Safely Managed Sanitation Services by Residency"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/SeparatedFemalePopulationByAge_SeparatedFemalePopulationByAge"
       ],
       "memberList": [
@@ -10960,20 +10945,6 @@
     },
     {
       "dcid": [
-        "dc/topic/ExportSubsidies"
-      ],
-      "name": [
-        "Export Subsidies"
-      ],
-      "relevantVariableList": [
-        "sdg/AG_PRD_XSUBDY"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/FemaleMortality"
       ],
       "name": [
@@ -14652,10 +14623,8 @@
         "Sanitation"
       ],
       "relevantVariableList": [
-        "sdg/SH_SAN_SAFE",
         "sdg/SP_ACS_BSRVSAN",
-        "dc/svpg/Sanitation_ProportionofPopulationusingbasicsanitationservicesbyresidency",
-        "dc/svpg/Sanitation_ProportionofPopulationusingsafelymanagedsanitationservicesbyresidency"
+        "dc/svpg/Sanitation_ProportionofPopulationusingbasicsanitationservicesbyresidency"
       ],
       "typeOf": [
         "Topic"
