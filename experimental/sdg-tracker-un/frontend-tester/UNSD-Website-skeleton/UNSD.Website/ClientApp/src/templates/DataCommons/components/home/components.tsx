@@ -54,5 +54,5 @@ export const SectionDescription = styled.div`
 export const HomeSearchContainer = styled.div`
   max-width: 778px;
   width: 100%;
-  height: 60px;
+  height: 45px;
 `
