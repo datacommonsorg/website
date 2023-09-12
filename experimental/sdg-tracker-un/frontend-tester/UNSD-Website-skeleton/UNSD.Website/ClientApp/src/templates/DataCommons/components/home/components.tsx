@@ -33,7 +33,7 @@ export const HomeSection = styled.div`
  * Styling for the header for each section.
  */
 export const SectionHeader = styled.div`
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 500;
   text-align: center;
 `
@@ -42,7 +42,7 @@ export const SectionHeader = styled.div`
  * Styling for the description for each section.
  */
 export const SectionDescription = styled.div`
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 400;
   text-align: center;
   max-width: 886px;

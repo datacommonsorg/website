@@ -35,24 +35,32 @@ const HeaderContainer = styled.div`
   }
 `;
 
+const GoalContainerOuter = styled.div`
+    width: 100%;
+    max-width: 1065px;
+    display: flex;
+    justify-content: center;
+`
+
 const GoalContainer = styled.div`
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
 
   .goal-section {
     display: grid;
-    gap: 14px;
+    gap: 15px;
     grid-auto-rows: 1fr;
+    height: 100%;
   }
 
   .goal-item {
     display: flex;
     align-items: stretch;
-    min-height: 70px;
+    min-height: 60px;
     border-radius: 6px;
     cursor: pointer;
     max-width: 525px;
@@ -73,7 +81,7 @@ const GoalContainer = styled.div`
     color: #fff;
     font-size: 16px;
     font-weight: 700;
-    width: 70px;
+    width: 60px;
     flex-shrink: 0;
     border-radius: 6px 0px 0px 6px;
     display: flex;
@@ -88,7 +96,7 @@ const GoalContainer = styled.div`
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    padding: 0 19px;
+    padding: 0 16px;
     word-wrap: break-word;
   }
 
@@ -121,51 +129,53 @@ export const GoalSection = () => {
           infographics for a comprehensive overview across all 17 Goals.
       </SectionDescription>
       </HeaderContainer>
-      <GoalContainer>
-        {goalSections.map((goalSection: RootTopic[], sectionNum) => {
-          return (
-            <div className="goal-section" key={`section-${sectionNum}`}>
-              {goalSection.map((goal: RootTopic, topicNum) => {
-                return (
-                  <div
-                    className={`goal-item -dc-goal-item-${topicNum + 1}`}
-                    key={goal.topicDcid}
-                    onClick={() =>
-                      history.push(`/goals/dc/topic/sdg_1?v=${goal.topicDcid}`)
-                    }
-                  >
+      <GoalContainerOuter>
+        <GoalContainer>
+          {goalSections.map((goalSection: RootTopic[], sectionNum) => {
+            return (
+              <div className="goal-section" key={`section-${sectionNum}`}>
+                {goalSection.map((goal: RootTopic, topicNum) => {
+                  return (
                     <div
-                      style={{ backgroundColor: goal.color }}
-                      className="goal-number"
+                      className={`goal-item -dc-goal-item-${topicNum + 1}`}
+                      key={goal.topicDcid}
+                      onClick={() =>
+                        history.push(`/goals/dc/topic/sdg_1?v=${goal.topicDcid}`)
+                      }
                     >
-                      <span>{HALF_TOPIC_NUM * sectionNum + topicNum + 1}</span>
-                    </div>
-                    <div className="goal-content">
-                      <div className="goal-name">{goal.name}</div>
-                      <div className="goal-icon">
-                        <img src={goal.homePageIcon} />
+                      <div
+                        style={{ backgroundColor: goal.color }}
+                        className="goal-number"
+                      >
+                        <span>{HALF_TOPIC_NUM * sectionNum + topicNum + 1}</span>
+                      </div>
+                      <div className="goal-content">
+                        <div className="goal-name">{goal.name}</div>
+                        <div className="goal-icon">
+                          <img src={goal.homePageIcon} />
+                        </div>
                       </div>
                     </div>
+                  );
+                })}
+                {sectionNum === 1 && (
+                  <div
+                    className="goal-item -dc-goal-item-all"
+                    onClick={() => history.push("/goals")}
+                  >
+                    <div className="goal-number">
+                      <img src={"./images/datacommons/sdg-goals-icon.svg"} />
+                    </div>
+                    <div className="goal-content">
+                      <div className="goal-name">All Goals</div>
+                    </div>
                   </div>
-                );
-              })}
-              {sectionNum === 1 && (
-                <div
-                  className="goal-item -dc-goal-item-all"
-                  onClick={() => history.push("/goals")}
-                >
-                  <div className="goal-number">
-                    <img src={"./images/datacommons/sdg-goals-icon.svg"} />
-                  </div>
-                  <div className="goal-content">
-                    <div className="goal-name">All Goals</div>
-                  </div>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </GoalContainer>
+                )}
+              </div>
+            );
+          })}
+        </GoalContainer>
+      </GoalContainerOuter>
     </Container>
   );
 };

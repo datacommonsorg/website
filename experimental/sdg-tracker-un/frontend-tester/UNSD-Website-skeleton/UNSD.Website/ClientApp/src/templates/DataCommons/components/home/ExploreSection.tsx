@@ -56,7 +56,7 @@ const SearchBarContainer = styled(HomeSearchContainer)`
     input {
       height: 100%;
       border-radius: 30px !important;
-      font-size: 20px;
+      font-size: 16px;
       padding-left: 40px;
       padding-right: 70px;
     }

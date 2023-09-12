@@ -36,7 +36,7 @@ const SearchBarContainer = styled(HomeSearchContainer)`
       height: 100% !important;
       display: flex;
       align-items: center;
-      font-size: 20px;
+      font-size: 16px;
       border: 0;
       border-radius: 30px !important;
 
