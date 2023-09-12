@@ -204,7 +204,7 @@ function addTileToHierarchy(
   tile: ChartConfigTile,
   hierarchy: Goals,
   topicDcid: string,
-  selectedTopics: string[],
+  selectedTopics: string[]
 ): void {
   if (isInSelectedTopics(topicDcid, selectedTopics)) {
     // put tile in appropriate spot in hierarchy
@@ -229,13 +229,12 @@ function addTileToHierarchy(
 }
 
 /**
- * builds object to store tiles in order of display 
+ * builds object to store tiles in order of display
  */
 function buildTileHierarchy(
   chartConfigCategory: ChartConfigCategory,
-  mainTopics: RelatedTopic[],
   selectedTopics: string[],
-  varToTopics: VarToTopicMapping,
+  varToTopics: VarToTopicMapping
 ): TileHierarchy {
   // stores hierarchy of Goals -> Target -> Indicator -> Tiles
   const hierarchy: Goals = {};
@@ -271,16 +270,22 @@ function buildTileHierarchy(
     });
   });
 
-  let topicNameStr = "";
-  if (!_.isEmpty(mainTopics)) {
-    if (mainTopics.length == 2) {
-      topicNameStr = `${mainTopics[0].name} vs. ${mainTopics[1].name}`;
-    } else {
-      topicNameStr = mainTopics[0].name;
-    }
+  return { hierarchy, orderedTiles };
+}
+
+/**
+ * Builds topic name(s) to display on search results header
+ */
+function buildTopicNames(mainTopics?: RelatedTopic[]): string {
+  if (!mainTopics || _.isEmpty(mainTopics)) {
+    return "";
   }
 
-  return {hierarchy, orderedTiles, topicNameStr};
+  if (mainTopics.length == 2) {
+    return `${mainTopics[0].name} vs. ${mainTopics[1].name}`;
+  } else {
+    return mainTopics[0].name;
+  }
 }
 
 const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
@@ -329,7 +334,6 @@ const CountriesContent: React.FC<{
     useState(false);
   const [localFulfillResponse, setLocalFulfillResponse] =
     useState<FulfillResponse>();
-  const [tileHierarchy, setTileHierarchy] = useState<TileHierarchy>();
   const placeNames = useStoreState((s) => {
     const names: string[] = [];
     placeDcids.forEach((placeDcid) => {
@@ -398,23 +402,9 @@ const CountriesContent: React.FC<{
     }
   }, [isFetchingFulfillment]);
 
-  /** Process tiles */
-  useEffect(() => {
-    if (
-      !localFulfillResponse ||
-      !localFulfillResponse?.config?.categories ||
-      _.isEmpty(localFulfillResponse.config.categories
-    )) {
-      return;
-    }
-    const processedTiles = buildTileHierarchy(
-      localFulfillResponse.config.categories[0] || [],
-      localFulfillResponse.relatedThings.mainTopics,
-      variableDcids,
-      localFulfillResponse.relatedThings.varToTopics,
-    );
-    setTileHierarchy(processedTiles);
-  }, [localFulfillResponse, variableDcids]);
+  const topicNames = buildTopicNames(
+    localFulfillResponse?.relatedThings?.mainTopics
+  );
 
   if (
     variableDcids.length > 0 &&
@@ -493,7 +483,7 @@ const CountriesContent: React.FC<{
               hideBreadcrumbs={isSearch}
               hidePlaceSearch={hidePlaceSearch}
               isSearch={isSearch}
-              topicNames={tileHierarchy?.topicNameStr}
+              topicNames={topicNames}
               setSelectedPlaceDcid={setPlaceDcid}
               userMessage={userMessage}
               variableDcids={variableDcids}
@@ -521,7 +511,6 @@ const CountriesContent: React.FC<{
               placeDcids={placeDcids}
               selectedVariableDcids={variableDcids}
               isSearch={isSearch}
-              processedTiles={tileHierarchy}
             />
           )}
           <Footnotes />
@@ -536,13 +525,12 @@ const ChartContent: React.FC<{
   placeDcids: string[];
   selectedVariableDcids: string[];
   isSearch: boolean;
-  processedTiles?: TileHierarchy;
 }> = (props) => {
-  const { fulfillResponse, placeDcids, isSearch, processedTiles } =
-    props;
-  if (!fulfillResponse || fulfillResponse.failure || !processedTiles) {
+  const { fulfillResponse, placeDcids, isSearch } = props;
+  if (!fulfillResponse || fulfillResponse.failure) {
     return null;
   }
+
   return (
     <>
       {fulfillResponse.config.categories &&
@@ -553,7 +541,6 @@ const ChartContent: React.FC<{
             chartConfigCategory={chartConfigCategory}
             fulfillResponse={fulfillResponse}
             isSearch={isSearch}
-            processedTiles={processedTiles}
           />
         ))}
     </>
@@ -565,14 +552,15 @@ const ChartCategoryContent: React.FC<{
   fulfillResponse: FulfillResponse;
   isSearch: boolean;
   placeDcids: string[];
-  processedTiles: TileHierarchy;
-}> = ({
-  chartConfigCategory,
-  fulfillResponse,
-  isSearch,
-  placeDcids,
-  processedTiles,
-}) => {
+}> = ({ chartConfigCategory, fulfillResponse, isSearch, placeDcids }) => {
+  const mainTopicDcids =
+    fulfillResponse?.relatedThings?.mainTopics?.map((e) => e.dcid) || [];
+  const processedTiles = buildTileHierarchy(
+    chartConfigCategory,
+    mainTopicDcids,
+    fulfillResponse.relatedThings.varToTopics
+  );
+
   if (isSearch) {
     // Show all tiles in one card without headers
     return (
