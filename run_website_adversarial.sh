@@ -17,12 +17,19 @@ set -e
 
 # DC Instance domain like: "dev.datacommons.org", "datacommons.org"
 domain=$1
+echo "Domain: $domain"
+
+NO_PIP=$2
+
 
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 
 python3 -m venv .env
 source .env/bin/activate
-pip3 install -r server/requirements.txt
+if [[ $NO_PIP != "true" ]]; then
+  python3 -m pip install --upgrade pip setuptools
+  pip3 install -r server/requirements.txt
+fi
 
 # copy input files
 mkdir -p input
