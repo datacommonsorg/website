@@ -64,7 +64,7 @@ const Home = () => {
       >
         <HomeContainer>
           <div className="page-header">
-            <img src={"/images/datacommons/un-dc-sdg-logo.png"} />
+            <img src={"./images/datacommons/un-dc-sdg-logo.png"} />
           </div>
           <p>
             Introducing the new SDG Data Commons — a platform integrating

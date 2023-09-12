@@ -19,8 +19,8 @@ import { CountrySelect } from "../shared/components";
 import { HomeSection } from "./components";
 
 const Container = styled(HomeSection)`
-  border-top: 0.5px solid #ABABAB;
-  border-bottom: 0.5px solid #ABABAB;
+  border-top: 0.5px solid #ababab;
+  border-bottom: 0.5px solid #ababab;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.15);
 `;
@@ -58,19 +58,19 @@ const PlaceSearchContainer = styled.div`
         display: flex;
         align-items: center;
         font-size: 24px;
-        border-radius: 30px;
-  
+        border-radius: 30px !important;
+
         .ant-select-selection-search {
           height: 100%;
           display: flex;
           align-items: center;
-  
+
           input {
             height: fit-content;
             padding-left: 30px;
           }
         }
-  
+
         .ant-select-selection-placeholder {
           height: fit-content;
           font-style: italic;
@@ -89,19 +89,24 @@ export const PlaceSection = () => {
     border: "1px solid #449BD5",
     background: "#fff",
     height: "63px",
-  }
+  };
   return (
     <Container>
-        <PlaceSearchContainer>
-          <div className="title">Explore Countries and Regions</div>
-          <div className="search-bar-container">
-            <CountrySelect setSelectedPlaceDcid={(placeDcid) => history.push(`/countries?p=${placeDcid}`)} style={countrySelectStyle}/>
-          </div>
-          <div className="footer">
-            Learn about country and SDG region progress through the UN Data
-            Commons.
-          </div>
-        </PlaceSearchContainer>
+      <PlaceSearchContainer>
+        <div className="title">Explore Countries and Regions</div>
+        <div className="search-bar-container">
+          <CountrySelect
+            setSelectedPlaceDcid={(placeDcid) =>
+              history.push(`/countries?p=${placeDcid}`)
+            }
+            style={countrySelectStyle}
+          />
+        </div>
+        <div className="footer">
+          Learn about country and SDG region progress through the UN Data
+          Commons.
+        </div>
+      </PlaceSearchContainer>
     </Container>
   );
 };
