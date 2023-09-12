@@ -536,10 +536,11 @@ export const FootnotesContainer = styled.div`
 `;
 
 export const Footnote = styled.div`
+  color: grey;
   display: flex;
   flex-direction: row;
-  color: grey;
   font-size: 0.8rem;
+  margin-bottom: 0.5rem;
 `;
 
 export const StyledMarker = styled.div`
@@ -557,12 +558,11 @@ export const Footnotes: React.FC = () => {
     <FootnotesContainer>
       <FootnoteDivider></FootnoteDivider>
       <Footnote>
-        <StyledMarker>*</StyledMarker>
-        <div>{MAP_DISCLAIMER_TEXT}</div>
+        <div>{DATACOMMONS_INFO_TEXT}</div>
       </Footnote>
       <Footnote>
         <StyledMarker>*</StyledMarker>
-        <div>{DATACOMMONS_INFO_TEXT}</div>
+        <div>{MAP_DISCLAIMER_TEXT}</div>
       </Footnote>
     </FootnotesContainer>
   );
