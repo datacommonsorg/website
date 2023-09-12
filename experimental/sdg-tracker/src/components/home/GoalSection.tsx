@@ -166,7 +166,7 @@ export const GoalSection = () => {
                   onClick={() => history.push("/goals")}
                 >
                   <div className="goal-number">
-                    <img src={"/images/datacommons/sdg-goals-icon.svg"} />
+                    <img src={"./images/datacommons/sdg-goals-icon.svg"} />
                   </div>
                   <div className="goal-content">
                     <div className="goal-name">All Goals</div>
