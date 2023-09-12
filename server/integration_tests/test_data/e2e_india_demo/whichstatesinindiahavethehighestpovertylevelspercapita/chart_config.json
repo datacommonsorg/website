@@ -236,6 +236,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
             "title": "Population Below International Poverty Line"
           },
           {
@@ -316,6 +317,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
             "title": "Population Using Basic Drinking Water Services"
           },
           {
@@ -344,6 +346,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
             "title": "Population Using Basic Sanitation Services"
           },
           {
@@ -372,6 +375,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
             "title": "Employed Population Aged 15 or Over Below International Poverty Line"
           },
           {
