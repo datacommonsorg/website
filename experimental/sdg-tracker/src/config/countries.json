@@ -2154,5 +2154,107 @@
       "name": "Sub-Saharan Africa",
       "dcid": "Sub-Saharan Africa"
     }
+  ],
+  "unRegions": [
+    {
+      "dcid": "AustraliaAndNewZealand",
+      "name": "Australia and New Zealand"
+    },
+    {
+      "dcid": "Caribbean",
+      "name": "Caribbean"
+    },
+    {
+      "dcid": "CentralAmerica",
+      "name": "Central America (including Mexico)"
+    },
+    {
+      "dcid": "CentralAsia",
+      "name": "Central Asia"
+    },
+    {
+      "dcid": "ChannelIslands",
+      "name": "Channel Islands"
+    },
+    {
+      "dcid": "EasternAfrica",
+      "name": "Eastern Africa"
+    },
+    {
+      "dcid": "EasternAsia",
+      "name": "Eastern Asia"
+    },
+    {
+      "dcid": "EasternEurope",
+      "name": "Eastern Europe (including Northern Asia)"
+    },
+    {
+      "dcid": "EuropeanUnion",
+      "name": "European Union"
+    },
+    {
+      "dcid": "LatinAmerica",
+      "name": "Latin America"
+    },
+    {
+      "dcid": "LatinAmericaAndCaribbean",
+      "name": "Latin America and the Caribbean"
+    },
+    {
+      "dcid": "Melanesia",
+      "name": "Melanesia"
+    },
+    {
+      "dcid": "Micronesia",
+      "name": "Micronesia"
+    },
+    {
+      "dcid": "MiddleAfrica",
+      "name": "Middle Africa"
+    },
+    {
+      "dcid": "NorthernAfrica",
+      "name": "Northern Africa"
+    },
+    {
+      "dcid": "NorthernEurope",
+      "name": "Northern Europe"
+    },
+    {
+      "dcid": "Polynesia",
+      "name": "Polynesia"
+    },
+    {
+      "dcid": "SouthEasternAsia",
+      "name": "South-Eastern Asia"
+    },
+    {
+      "dcid": "SouthernAfrica",
+      "name": "Southern Africa"
+    },
+    {
+      "dcid": "SouthernAsia",
+      "name": "Southern Asia"
+    },
+    {
+      "dcid": "SouthernEurope",
+      "name": "Southern Europe"
+    },
+    {
+      "dcid": "SubSaharanAfrica",
+      "name": "Sub-Saharan Africa"
+    },
+    {
+      "dcid": "WesternAfrica",
+      "name": "Western Africa"
+    },
+    {
+      "dcid": "WesternAsia",
+      "name": "Western Asia"
+    },
+    {
+      "dcid": "WesternEurope",
+      "name": "Western Europe"
+    }
   ]
 }
