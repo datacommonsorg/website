@@ -74,6 +74,10 @@ flags.DEFINE_string(
     "results_csv_file", None,
     f"The results csv file to be inspected in {Mode.COMPUTE_FILE_STATS} mode.")
 
+flags.DEFINE_boolean(
+    "use_sdg", False,
+    f"Set to True to use the dc=sdg argument to invoke the SDG experience.")
+
 
 class ResultStatus(StrEnum):
   UNKNOWN = "Unknown"
@@ -218,10 +222,12 @@ class ResultsFileWriter:
 class AdversarialQueriesTest:
   base_url: str
   llm_api: str
+  is_sdg: bool
 
-  def __init__(self, base_url: str, llm_api: str) -> None:
+  def __init__(self, base_url: str, llm_api: str, is_sdg: bool = False) -> None:
     self.base_url = base_url
     self.llm_api = llm_api
+    self.is_sdg = is_sdg
 
   def generate_reports(self, output_dir: str) -> None:
     reports_dir = os.path.join(output_dir, REPORTS_DIR)
@@ -311,9 +317,13 @@ class AdversarialQueriesTest:
           csv_writer.writerow(result.to_csv_row())
 
   def run_query(self, query: str) -> Result:
+    sdg_param = ""
+    if self.is_sdg:
+      sdg_param = "sdg"
     result = unknown_result(
         query, self.base_url +
-        f'/explore#q={urllib.parse.quote_plus(query)}&llm_api={self.llm_api}')
+        f'/explore#q={urllib.parse.quote_plus(query)}&llm_api={self.llm_api}&dc={sdg_param}'
+    )
     logging.info("Running: %s", query)
     if not query:
       logging.info(result)
@@ -323,10 +333,10 @@ class AdversarialQueriesTest:
     try:
       resp = requests.post(
           self.base_url +
-          f'/api/explore/detect-and-fulfill?q={query}&llm_api={self.llm_api}',
+          f'/api/explore/detect-and-fulfill?q={query}&llm_api={self.llm_api}&dc={sdg_param}',
           json={
               'contextHistory': {},
-              'dc': '',
+              'dc': f'{sdg_param}',
           },
           timeout=30)
     except requests.exceptions.ReadTimeout:
@@ -434,26 +444,32 @@ def read_tsv(csv_file: str):
 
 
 def run_test():
-  os.makedirs(os.path.join(FLAGS.output_dir, REPORTS_DIR), exist_ok=True)
-  test = AdversarialQueriesTest(base_url=FLAGS.base_url, llm_api=FLAGS.llm_api)
+  output_dir = FLAGS.output_dir
+  if FLAGS.use_sdg:
+    output_dir += "_sdg"
+
+  os.makedirs(os.path.join(output_dir, REPORTS_DIR), exist_ok=True)
+  test = AdversarialQueriesTest(base_url=FLAGS.base_url,
+                                llm_api=FLAGS.llm_api,
+                                is_sdg=FLAGS.use_sdg)
 
   # match-case would be the right thing to use here.
   # But yapf errors out if we do, hence using if-elif.
   if FLAGS.mode == Mode.RUN_ALL:
     test.run_queries_from_files_in_dir(input_dir=FLAGS.input_dir,
-                                       output_dir=FLAGS.output_dir)
-    test.generate_reports(FLAGS.output_dir)
+                                       output_dir=output_dir)
+    test.generate_reports(output_dir)
 
   elif FLAGS.mode == Mode.RUN_QUERIES:
     test.run_queries_from_files_in_dir(input_dir=FLAGS.input_dir,
-                                       output_dir=FLAGS.output_dir)
+                                       output_dir=output_dir)
   elif FLAGS.mode == Mode.RUN_QUERY:
     if not FLAGS.query:
       raise Exception("'--query' flag not specified.")
-    result = test.run_query(FLAGS.query)
+    result = test.run_query(FLAGS.query, FLAGS.use_sdg)
     logging.info("Result:\n %s", json.dumps(result.to_csv_row(), indent=1))
   elif FLAGS.mode == Mode.GENERATE_REPORTS:
-    test.generate_reports(FLAGS.output_dir)
+    test.generate_reports(output_dir)
   elif FLAGS.mode == Mode.COMPUTE_FILE_STATS:
     if not FLAGS.results_csv_file:
       raise Exception("'--results_csv_file' flag not specified.")

@@ -32,8 +32,20 @@ domain_list=(dev.datacommons.org)
 for domain in "${domain_list[@]}"
 do
   date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
+  echo "=================================================================================="
+  echo "Executing the Adversarial Test against the main index, detection and fulfillment."
   python3 server/integration_tests/standalone/adversarial.py --mode=run_all --base_url="https://$domain"
-  gsutil cp ./output/reports/* gs://datcom-website-adversarial/reports/$domain/$date_str/
-  rm -rf ./input/*
+  gsutil cp ./output/reports/* gs://datcom-website-adversarial/reports/$domain/$date_str/main/
   rm -rf ./output/*
+  echo "Finished the Adversarial Test against the main index, detection and fulfillment."
+  echo "=================================================================================="
+  
+  echo "=================================================================================="
+  echo "Executing the Adversarial Test against the SDG index, detection and fulfillment."
+  python3 server/integration_tests/standalone/adversarial.py --mode=run_all --base_url="https://$domain --use_sdg=True"
+  gsutil cp ./output_sdg/reports/* gs://datcom-website-adversarial/reports/$domain/$date_str/sdg/
+  rm -rf ./input/*
+  rm -rf ./output_sdg/*
+  echo "Finished the Adversarial Test against the SDG index, detection and fulfillment."
+  echo "=================================================================================="
 done

@@ -11,12 +11,15 @@ This test invokes the DC `detect-and-fulfill` API for adversarial queries specif
 * The generated reports are persisted in a `reports` folder under the output folder.
 * The API by default is invoked on `http://dev.datacommons.org` by default (use the `--base_url` flag to override).
 * The `llm_api` parameter used for invoking the API can be specified via the `--llm_api` flag (possible values: `chat` (default), `text`).
+* Use the flag `use_sdg=True` to use the SDG experience (SDG index, detection, and fulfillment).
 
 Specify the `--help` flag to see full usage:
 
 ```shell
 python3 adversarial.py --help
 ```
+
+Use the `--use_sdg=True` parameter to invoke the SDG experience for detection + fulfullment. 
 
 This test can be run in the following modes: 
 
