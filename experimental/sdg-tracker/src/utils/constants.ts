@@ -55,15 +55,6 @@ export const EARTH_COUNTRIES = [
   "country/KAZ",
 ];
 
-export const CONTINENTS = new Set([
-  "africa",
-  "antartica",
-  "asia",
-  "europe",
-  "northamerica",
-  "oceania",
-]);
-
 /**
  * Variable DCID url parameter
  */

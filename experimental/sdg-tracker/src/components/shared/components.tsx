@@ -24,7 +24,6 @@ import styled from "styled-components";
 import { useStoreState } from "../../state";
 import { QUERY_PARAM_VARIABLE, ROOT_TOPIC } from "../../utils/constants";
 import "./components.css";
-import { RelatedTopic } from "../../utils/types";
 
 const SearchInputContainer = styled.div`
   display: flex;
@@ -364,7 +363,7 @@ export const PlaceHeaderCard: React.FC<{
         {hidePlaceSearch || isSearch ? (
           <PlaceTitle>
             {placeNames.join(", ")}
-            {isSearch && topicNames ? ` • ${topicNames}`: ""}
+            {isSearch && topicNames ? ` • ${topicNames}` : ""}
           </PlaceTitle>
         ) : (
           <CountrySelect
