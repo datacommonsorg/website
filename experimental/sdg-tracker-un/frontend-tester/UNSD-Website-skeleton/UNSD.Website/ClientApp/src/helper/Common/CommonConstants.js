@@ -36,7 +36,7 @@
   SHOWPAGESIZECHANGER: false,
   //updated page size navigation to multiple of 12 which used to be a multiple of 10, works well with ststcom past chairs
   PAGESIZEOPTIONS: ["12", "24", "36", "48", "60"],
-    CD_PAGESIZEOPTIONS: ["6", "12", "24", "48"],
+  CD_PAGESIZEOPTIONS: ["6", "12", "24", "48"],
   CURRENTPAGE: 1,
   VIEW_RECORD_MAX: 10,
   READMORE_MAX: 3,
@@ -78,9 +78,9 @@
   SEARCH_BY_TITLE: "Title",
   FILTER_BY_STAT_TYPE: "Type",
   TOP_NEWS_COUNT: 8,
-    DATAFORNOW: "datafornow",
-    DATAFORNOWTEXT: "Data For Now",
-    CAPACITYDEVELOPMENT: "Capacity Development",
+  DATAFORNOW: "datafornow",
+  DATAFORNOWTEXT: "Data For Now",
+  CAPACITYDEVELOPMENT: "Capacity Development",
   /* constants for News Page and Statements page*/
 
   SORTOPTIONS: [
@@ -90,30 +90,31 @@
     { label: "Date (Latest to Oldest)", value: "date_desc" },
   ],
   DEFAULT_SORT_VALUE: "date_desc",
-    DEFAULT_ALL_VALUE: "all",
+  DEFAULT_ALL_VALUE: "all",
   PAGE_TITLE: "UNSD - Welcome to UNSD",
   PAGE_TITLE_EVENTS: "UNSD - Calendar of events",
-    PAGE_TITLE_NQAF: "UNSD – Data quality",
-    PAGE_TITLE_RESOURCE_CATALOG: "UNSD – Admin data collaborative",
-    PAGE_TITLE_DATA_FOR_NOW: "UNSD - Data for Now",
-    PAGE_TITLE_CAPACITY_DEVELOPMENT: "UNSD - Capacity development",
+  PAGE_TITLE_NQAF: "UNSD – Data quality",
+  PAGE_TITLE_RESOURCE_CATALOG: "UNSD – Admin data collaborative",
+  PAGE_TITLE_DATA_FOR_NOW: "UNSD - Data for Now",
+  PAGE_TITLE_CAPACITY_DEVELOPMENT: "UNSD - Capacity development",
+  PAGE_TITLE_DATA_COMMONS: "UNSD - Data Commons for the SDGs",
   // USED in BreadCrumb and Title
   ABOUT: "About",
   ABOUT_US: "About Us",
   EVENTS: "Events",
-    HOME: "UNSD",
+  HOME: "UNSD",
   EXPAND_ALL: "Expand All",
   COLLAPSE_ALL: "Collapse All",
   DEFAULT_SELECT_VALUE: "Select",
   TRACKING_ID: "UA-48267274-1",
 };
 export const FilterParamsConstants = {
-    ProjectNameParam: "Projectname",
-    CountryNameParam: "Countryname",
-    Type: "type",
-    Id: "Id"
-}
+  ProjectNameParam: "Projectname",
+  CountryNameParam: "Countryname",
+  Type: "type",
+  Id: "Id",
+};
 
 export const allInitiativeFilter = [
-    { label: "CapacityDevelopment", value: "CapacityDevelopment" }
-]
+  { label: "CapacityDevelopment", value: "CapacityDevelopment" },
+];
