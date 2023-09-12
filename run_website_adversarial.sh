@@ -46,7 +46,7 @@ do
   echo "  ==================================================================================="
   echo "  Executing the Adversarial Test against the $dc index, detection and fulfillment."
   python3 server/integration_tests/standalone/adversarial.py --mode=run_all --dc="$dc" --base_url="https://$domain"
-  gsutil cp ./output/reports/* gs://datcom-website-adversarial/reports/$dc/$domain/$date_str/
+  gsutil cp ./output/$dc/reports/* gs://datcom-website-adversarial/reports/$dc/$domain/$date_str/
   rm -rf ./output/$dc/*
   echo "  Finished the Adversarial Test against the $dc index, detection and fulfillment."
   echo "  ==================================================================================="
