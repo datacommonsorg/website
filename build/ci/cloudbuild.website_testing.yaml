@@ -13,16 +13,38 @@
 # limitations under the License.
 
 steps:
+  # Run Website sanity
+  - id: website_adversarial
+    name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
+    entrypoint: /bin/sh
+    waitFor: ["-"]
+    args:
+      - -c
+      - |
+        ./run_website_adversarial.sh $_DOMAIN
+
+  # Run Website sanity
+  - id: website_sanity
+    name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
+    entrypoint: /bin/sh
+    waitFor: ["-"]
+    args:
+      - -c
+      - |
+        ./run_website_sanity.sh $_DOMAIN
+
+  # Run Website snapshot
   - id: snapshot
     name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
     entrypoint: /bin/bash
+    waitFor: ["-"]
     args:
       - -c
       - |
         ./run_test.sh --setup_python
-        ./run_website_snapshot.sh
+        ./run_website_snapshot.sh $_DOMAIN
 
-timeout: 3600s
+timeout: 14400s
 
 options:
   machineType: "E2_HIGHCPU_32"

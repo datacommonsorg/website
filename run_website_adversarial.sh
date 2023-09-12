@@ -15,6 +15,9 @@
 
 set -e
 
+# DC Instance domain like: "dev.datacommons.org", "datacommons.org"
+domain=$1
+
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 
 python3 -m venv .env
@@ -25,27 +28,21 @@ pip3 install -r server/requirements.txt
 mkdir -p input
 gsutil cp gs://datcom-website-adversarial/input/frequent/* input/
 
-# Define a list of domains
-domain_list=(dev.datacommons.org)
-dc_list=("main" "sdg")
 
-# Loop through the domain list and the dc_list (nested).
-for domain in "${domain_list[@]}"
+dc_list=("main" "sdg")
+echo "====================================================================================="
+echo "Domain: $domain"
+echo "====================================================================================="
+date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
+for dc in "${dc_list[@]}"
 do
-  echo "====================================================================================="
-  echo "Domain: $domain"
-  echo "====================================================================================="
-  date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
-  for dc in "${dc_list[@]}"
-  do
-    echo "  ==================================================================================="
-    echo "  Executing the Adversarial Test against the $dc index, detection and fulfillment."
-    python3 server/integration_tests/standalone/adversarial.py --mode=run_all --dc="$dc" --base_url="https://$domain"
-    gsutil cp ./output/reports/* gs://datcom-website-adversarial/reports/$dc/$domain/$date_str/
-    rm -rf ./output/$dc/*
-    echo "  Finished the Adversarial Test against the $dc index, detection and fulfillment."
-    echo "  ==================================================================================="
-  done
+  echo "  ==================================================================================="
+  echo "  Executing the Adversarial Test against the $dc index, detection and fulfillment."
+  python3 server/integration_tests/standalone/adversarial.py --mode=run_all --dc="$dc" --base_url="https://$domain"
+  gsutil cp ./output/reports/* gs://datcom-website-adversarial/reports/$dc/$domain/$date_str/
+  rm -rf ./output/$dc/*
+  echo "  Finished the Adversarial Test against the $dc index, detection and fulfillment."
+  echo "  ==================================================================================="
 done
 rm -rf ./input/*
 rm -rf ./output/*
