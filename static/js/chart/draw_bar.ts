@@ -42,6 +42,7 @@ import {
   appendLegendElem,
   getDisplayUnitAndLabel,
   getLegendKeyFn,
+  LegendItem,
   updateXAxis,
 } from "./draw_utils";
 import { ChartOptions, HorizontalBarChartOptions } from "./types";
@@ -120,6 +121,31 @@ function getTooltipPositionByMouseQuadrant(
     }
   }
   return [top, left];
+}
+
+/**
+ * Get the list of legend items from a list of data groups
+ * @param dataGroups data groups to get the legend items for
+ */
+function getLegendItems(dataGroups: DataGroup[]): LegendItem[] {
+  const items = [];
+  const seenLabels = new Set();
+  // Iterate through each data group and add items that have not been seen in
+  // previous groups in case some groups have more data points than others.
+  dataGroups.forEach((dg) => {
+    dg.value.forEach((dp) => {
+      if (seenLabels.has(dp.label)) {
+        return;
+      }
+      items.push({
+        dcid: dp.dcid,
+        label: dp.label,
+        link: dp.link,
+      });
+      seenLabels.add(dp.label);
+    });
+  });
+  return items;
 }
 
 /**
@@ -222,7 +248,8 @@ export function drawStackBarChart(
     labelToLink[dataGroup.label] = dataGroup.link;
   }
 
-  const keys = dataGroups[0].value.map((dp) => dp.label);
+  const legendItems = getLegendItems(dataGroups);
+  const keys = legendItems.map((item) => item.label);
   const legendKeyFn = getLegendKeyFn(keys);
   const data = [];
   for (const dataGroup of dataGroups) {
@@ -414,11 +441,9 @@ export function drawStackBarChart(
   appendLegendElem(
     containerElement,
     colorFn,
-    dataGroups[0].value.map((dp) => ({
-      dcid: dp.dcid,
-      label: dp.label,
-      link: dp.link,
-      index: legendKeyFn(dp.label),
+    legendItems.map((item) => ({
+      ...item,
+      index: legendKeyFn(item.label),
     })),
     options?.apiRoot
   );
@@ -884,7 +909,8 @@ export function drawGroupBarChart(
   for (const dataGroup of dataGroups) {
     labelToLink[dataGroup.label] = dataGroup.link;
   }
-  const keys = dataGroups[0].value.map((dp) => dp.label);
+  const legendItems = getLegendItems(dataGroups);
+  const keys = legendItems.map((item) => item.label);
   const legendKeyFn = getLegendKeyFn(keys);
   const minV = Math.min(
     0,
@@ -983,11 +1009,9 @@ export function drawGroupBarChart(
   appendLegendElem(
     containerElement,
     colorFn,
-    dataGroups[0].value.map((dp) => ({
-      dcid: dp.dcid,
-      label: dp.label,
-      link: dp.link,
-      index: legendKeyFn(dp.label),
+    legendItems.map((item) => ({
+      ...item,
+      index: legendKeyFn(item.label),
     })),
     options?.apiRoot
   );
@@ -1015,7 +1039,8 @@ export function drawHorizontalBarChart(
     labelToLink[dataGroup.label] = dataGroup.link;
   }
 
-  const keys = dataGroups[0].value.map((dp) => dp.label);
+  const legendItems = getLegendItems(dataGroups);
+  const keys = legendItems.map((item) => item.label);
   const legendKeyFn = getLegendKeyFn(keys);
   const data = [];
   for (const dataGroup of dataGroups) {
@@ -1192,11 +1217,9 @@ export function drawHorizontalBarChart(
   appendLegendElem(
     containerElement,
     color,
-    dataGroups[0].value.map((dp) => ({
-      dcid: dp.dcid,
-      label: dp.label,
-      link: dp.link,
-      index: legendKeyFn(dp.label),
+    legendItems.map((item) => ({
+      ...item,
+      index: legendKeyFn(item.label),
     })),
     options?.apiRoot
   );
