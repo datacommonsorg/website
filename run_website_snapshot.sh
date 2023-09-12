@@ -23,7 +23,7 @@ python3 -m pip install --upgrade pip setuptools
 pip3 install -r server/requirements.txt
 
 # Define a list of domains
-domain_list=(datacommons.feedingamerica.org dev.datacommons.org)
+domain_list=(datacommons.org dev.datacommons.org datacommons.feedingamerica.org)
 
 # Loop through the domain list
 for domain in "${domain_list[@]}"
