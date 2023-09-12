@@ -26,7 +26,7 @@ mkdir -p input
 gsutil cp gs://datcom-website-adversarial/input/frequent/* input/
 
 # Define a list of domains
-domain_list=(dev.datacommons.org)
+domain_list=(datacommons.org dev.datacommons.org)
 dc_list=("main" "sdg")
 
 # Loop through the domain list and the dc_list (nested).

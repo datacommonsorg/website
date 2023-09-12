@@ -23,7 +23,7 @@ source .env/bin/activate
 pip3 install -r server/requirements.txt
 
 # Define a list of domains
-domain_list=(dev.datacommons.org)
+domain_list=(datacommons.org dev.datacommons.org)
 
 # Loop through the domain list
 for domain in "${domain_list[@]}"
