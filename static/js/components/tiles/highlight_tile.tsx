@@ -31,12 +31,12 @@ import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { formatDate } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   formatString,
   getDenomInfo,
   getNoDataErrorMsg,
   getSourcesJsx,
   getStatFormat,
-  ReplacementStrings,
 } from "../../utils/tile_utils";
 
 // units that should be formatted as part of the number
@@ -77,11 +77,13 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   }
   const rs: ReplacementStrings = {
     placeName: props.place.name,
-    date: formatDate(highlightData.date),
+    date: highlightData.date ? formatDate(highlightData.date) : "",
   };
   let description = "";
   if (props.description) {
-    description = formatString(props.description + " (${date})", rs);
+    description = rs.date
+      ? formatString(props.description + " (${date})", rs)
+      : formatString(props.description, rs);
   }
   // TODO: The {...{ part: "container"}} syntax to set a part is a hacky
   // workaround to add a "part" attribute to a React element without npm errors.

@@ -15,6 +15,7 @@
  */
 
 import { Place } from "../state";
+import { COUNTRY_PLACE_TYPE } from "./constants";
 import {
   BulkObservationExistenceRequest,
   BulkObservationExistenceResponse,
@@ -105,6 +106,18 @@ class DataCommonsClient {
       body: JSON.stringify(payload),
     });
     return (await response.json()) as BulkObservationExistenceResponse;
+  }
+
+  async getCountriesInRegion(regionDcid: string): Promise<string[]> {
+    const url = `${this.apiRoot}/api/place/descendent?descendentType=${COUNTRY_PLACE_TYPE}&dcids=${regionDcid}`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const responseJson = await response.json();
+    return responseJson[regionDcid] || [];
   }
 }
 export default DataCommonsClient;

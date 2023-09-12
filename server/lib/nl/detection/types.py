@@ -134,6 +134,10 @@ class ContainedInPlaceType(str, Enum):
   # Typically corresponds to county equivalent
   EU_NUTS_3 = "EurostatNUTS3"
 
+  UN_GEO_REGION = "UNGeoRegion"
+  CONTINENTAL_UNION = "ContinentalUnion"
+  GEO_REGION = "GeoRegion"
+
   # Indicates that the fulfiller should use the contained-in-place-type
   # depending on the place.
   DEFAULT_TYPE = "DefaultType"
