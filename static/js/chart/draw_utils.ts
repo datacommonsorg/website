@@ -307,6 +307,13 @@ export function getLegendKeyFn(labels: string[]): (label: string) => string {
   };
 }
 
+export interface LegendItem {
+  dcid?: string;
+  label: string;
+  link?: string;
+  index?: string;
+}
+
 /**
  * Adds a legend to the parent element
  * @param elem parent element
@@ -318,12 +325,7 @@ export function getLegendKeyFn(labels: string[]): (label: string) => string {
 export function appendLegendElem(
   elem: HTMLElement,
   color: d3.ScaleOrdinal<string, string>,
-  keys: {
-    dcid?: string;
-    label: string;
-    link?: string;
-    index?: string;
-  }[],
+  keys: LegendItem[],
   apiRoot?: string
 ): void {
   const legendContainer = d3
