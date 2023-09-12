@@ -92,7 +92,7 @@ export const ExploreSection = () => {
       <h3>Explore UN Data Commons for the SDGs</h3>
       <SearchBarContainer>
         <SearchBar
-          initialQuery="What is the global poverty rate?"
+          initialQuery="Poverty in Indonesia"
           isSearching={false}
           onSearch={(q) => {
             const searchParams = new URLSearchParams();
