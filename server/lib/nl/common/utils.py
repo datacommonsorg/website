@@ -312,23 +312,22 @@ def pluralize_place_type(place_type: str) -> str:
   return result.title()
 
 
-def has_map(place_type: any, places: List[types.Place]) -> bool:
+def has_map(place_type: any, place: types.Place) -> bool:
   if isinstance(place_type, str):
     place_type = types.ContainedInPlaceType(place_type)
   if place_type == types.ContainedInPlaceType.COUNTRY:
+    if place.dcid in constants.NO_MAP_SUPER_NATIONAL_GEOS:
+      return False
     return True
 
-  if not places:
-    return False
-
   aatype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, None)
-  if aatype and places[0].country in constants.ADMIN_AREA_MAP_COUNTRIES:
+  if aatype and place.country and place.country in constants.ADMIN_AREA_MAP_COUNTRIES:
     return True
 
   # If the parent place is in USA, check that the child type +
   # parent type combination supports map.
-  if (places[0].country == constants.USA.dcid and
-      places[0].place_type in constants.USA_ONLY_MAP_TYPES.get(place_type, [])):
+  if (place.country == constants.USA.dcid and
+      place.place_type in constants.USA_ONLY_MAP_TYPES.get(place_type, [])):
     return True
 
   return False
