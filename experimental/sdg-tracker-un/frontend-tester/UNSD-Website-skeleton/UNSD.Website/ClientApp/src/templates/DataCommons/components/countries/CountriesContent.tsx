@@ -481,20 +481,6 @@ const CountriesContent: React.FC<{
           </SearchCard>
         )}
 
-        <PlaceTitle style={{ display: "none" }}>
-          <div>
-            {placeNames.length > 0 ? (
-              placeNames.join(", ")
-            ) : placeDcids.length > 0 ? (
-              <Spinner />
-            ) : (
-              "Select a country"
-            )}
-          </div>
-          {!hidePlaceSearch && (
-            <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
-          )}
-        </PlaceTitle>
         {errorMessage && <ErorrMessage message={errorMessage} />}
 
         {(placeNames.length > 0 || userMessage) && (
