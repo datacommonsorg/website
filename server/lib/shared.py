@@ -36,14 +36,12 @@ def names(dcids, prop=None):
   # that prop first
   if prop:
     name_prop_response = fetch.property_values(dcids, prop)
+    for dcid, values in name_prop_response.items():
+      if values:
+        result[dcid] = values[0]
     for dcid in dcids:
-      for dcid, values in name_prop_response.items():
-        name_found = False
-        if values:
-          result[dcid] = values[0]
-          name_found = True
-        if not name_found:
-          default_name_dcids.append(dcid)
+      if not dcid in result:
+        default_name_dcids.append(dcid)
   else:
     default_name_dcids = dcids
   # if there are dcids to get default name for, do it now
@@ -51,9 +49,9 @@ def names(dcids, prop=None):
     response = fetch.property_values(default_name_dcids, 'name')
     for dcid in default_name_dcids:
       result[dcid] = ''
-      for dcid, values in response.items():
-        if values:
-          result[dcid] = values[0]
+    for dcid, values in response.items():
+      if values:
+        result[dcid] = values[0]
   return result
 
 

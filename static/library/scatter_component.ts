@@ -103,7 +103,7 @@ export class DatacommonsScatterComponent extends LitElement {
   // Optional: Property to use to get place names
   @property()
   placeNameProp: string;
-  
+
   // Optional: Whether to show the "explore" link.
   // Default: false
   @property({ type: Boolean })
