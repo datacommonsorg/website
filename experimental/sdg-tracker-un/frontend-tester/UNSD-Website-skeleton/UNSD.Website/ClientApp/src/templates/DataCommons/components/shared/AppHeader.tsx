@@ -73,7 +73,7 @@ const AppHeader = (props: { selected: HeaderOptions }) => {
             to="/countries"
             selected={selected === "countries"}
           >
-            Countries / Regions
+            Countries / Areas
           </SubNavbarItemLink>
         </HeaderNavItem>
         <HeaderNavItem>
