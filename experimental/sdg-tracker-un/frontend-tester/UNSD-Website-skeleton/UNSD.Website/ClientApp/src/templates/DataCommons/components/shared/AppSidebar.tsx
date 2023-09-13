@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-import { Layout, Menu, Tooltip } from "antd";
+import { Layout, Menu, Spin, Tooltip } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MenuItemType, useStoreActions, useStoreState } from "../../state";
+import { LoadingOutlined } from "@ant-design/icons";
 const { Sider } = Layout;
 
 const MenuTitle = styled.div`
@@ -133,9 +134,29 @@ const AppSidebar: React.FC<{
           setVariableDcid(item.key.replace("summary-", ""));
         }}
       >
-        {placeSidebarMenuHierarchy.map((vg) => getMenuItem(vg))}
+        {placeSidebarMenuHierarchy.length === 0 ? (
+          <Spinner />
+        ) : (
+          placeSidebarMenuHierarchy.map((vg) => getMenuItem(vg))
+        )}
       </StyledMenu>
     </Sider>
+  );
+};
+
+const Spinner = () => {
+  return (
+    <Spin
+      indicator={
+        <LoadingOutlined
+          style={{
+            paddingLeft: "1.5rem",
+            fontSize: "1.5rem",
+          }}
+          spin
+        />
+      }
+    />
   );
 };
 

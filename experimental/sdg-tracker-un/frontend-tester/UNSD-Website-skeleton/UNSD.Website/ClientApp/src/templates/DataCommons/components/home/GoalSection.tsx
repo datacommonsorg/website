@@ -30,7 +30,7 @@ const HeaderContainer = styled.div`
 
   .line-separator {
     height: 0;
-    border-top: solid 3px #999;
+    border-top: solid 2px #999;
     margin: 21px 0;
   }
 `;
