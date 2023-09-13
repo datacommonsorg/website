@@ -25,6 +25,7 @@ import {
   COUNTRY_PLACE_TYPE,
   EARTH_PLACE_DCID,
   EARTH_PLACE_NAME,
+  NULL_TOPIC,
   ROOT_TOPIC,
   WEB_API_ENDPOINT,
 } from "../../utils/constants";
@@ -287,12 +288,15 @@ function buildTopicNames(mainTopics?: RelatedTopic[]): string {
   if (!mainTopics || _.isEmpty(mainTopics)) {
     return "";
   }
-
-  if (mainTopics.length == 2) {
-    return `${mainTopics[0].name} vs. ${mainTopics[1].name}`;
-  } else {
-    return mainTopics[0].name;
+  // Don't show default topic nome if no topic was found
+  if (mainTopics.find((topic) => topic.dcid === NULL_TOPIC)) {
+    return "";
   }
+  // Two topics denote a correlation/comparison
+  if (mainTopics.length === 2) {
+    return `${mainTopics[0].name} vs. ${mainTopics[1].name}`;
+  }
+  return mainTopics[0].name;
 }
 
 const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
@@ -869,6 +873,7 @@ const ChartTile: React.FC<{
           variables={tileStatVars.join(" ")}
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
+          showExploreMore={true}
         >
           <div slot="footer">
             <ChartFootnote text={footnote} />

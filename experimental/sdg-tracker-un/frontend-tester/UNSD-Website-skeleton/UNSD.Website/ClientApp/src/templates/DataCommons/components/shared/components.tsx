@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
 import { gray } from "@ant-design/colors";
 import { SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Breadcrumb, Col, Input, Layout, Row, Spin } from "antd";
@@ -358,14 +359,19 @@ export const PlaceHeaderCard: React.FC<{
   });
   const shouldHideBreadcrumbs =
     hideBreadcrumbs || (topics.length == 1 && topics[0].dcid === ROOT_TOPIC);
+  // hide place title on search pages with no topics found
+  const shouldHidePlaceName = (isSearch && !topicNames);
+  // show topic names only if on search and there is a place found
+  const shouldShowTopicNames = 
+    isSearch && topicNames && !_.isEmpty(placeNames);
   return (
     <PlaceCard>
       <PlaceCardContent>
         {userMessage && <UserMessage>{userMessage}</UserMessage>}
-        {hidePlaceSearch || isSearch ? (
+        {(hidePlaceSearch || isSearch) ? (
           <PlaceTitle>
-            {placeNames.join(", ")}
-            {isSearch && topicNames ? ` • ${topicNames}` : ""}
+            {!shouldHidePlaceName && placeNames.join(", ")}
+            {shouldShowTopicNames ? ` • ${topicNames}` : ""}
           </PlaceTitle>
         ) : (
           <CountrySelect
