@@ -20,6 +20,7 @@ import _ from "lodash";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
+import { TimeScaleOption } from "../js/chart/types";
 import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
 import {
@@ -117,7 +118,7 @@ export class DatacommonsLineComponent extends LitElement {
 
   // Optional: Timescale to use for x-axis labels
   @property()
-  timeScale?: string;
+  timeScale?: TimeScaleOption;
 
   render(): HTMLElement {
     const lineTileProps: LineTilePropType = {
