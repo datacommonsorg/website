@@ -37,4 +37,5 @@ export const theme = {
     "#00689D",
     "#19486A",
   ],
+  searchBackgroundColor: "rgb(240, 242, 245)",
 };
