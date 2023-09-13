@@ -268,7 +268,7 @@ export const fetchData = async (props: ScatterTilePropType) => {
     descendentType: props.enclosedPlaceType,
   };
   if (props.placeNameProp) {
-    placeNamesParams["nameProp"] = props.placeNameProp;
+    placeNamesParams["prop"] = props.placeNameProp;
   }
   const placeNamesPromise = axios
     .get(`${props.apiRoot || ""}/api/place/descendent/name`, {
