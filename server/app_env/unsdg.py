@@ -18,6 +18,7 @@ from server.app_env import local
 
 class Config(_base.Config):
   CUSTOM = True
+  GA_ACCOUNT = 'G-7QE2ET63E5'
   SHOW_TOPIC = True
   NAME = "Data Commons"
   LOGO_PATH = "/custom_dc/unsdg/logo.png"
