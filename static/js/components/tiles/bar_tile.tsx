@@ -78,6 +78,8 @@ export interface BarTilePropType {
   // A list of specific colors to use
   colors?: string[];
   enclosedPlaceType: string;
+  // Text to show in footer
+  footnote?: string;
   horizontal?: boolean;
   id: string;
   // Maximum number of places to display
@@ -158,6 +160,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       isInitialLoading={_.isNull(barChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={barChartData && !!barChartData.errorMsg}
+      footnote={props.footnote}
     >
       <div
         id={props.id}

@@ -18,6 +18,7 @@
  * Landing Page for Visualization Tool.
  */
 
+import _ from "lodash";
 import React, { useContext } from "react";
 
 import { AppContext } from "./app_context";
@@ -29,10 +30,12 @@ interface InfoPropType {
 
 export function Info(props: InfoPropType): JSX.Element {
   const { visType } = useContext(AppContext);
+  const visTypeConfig = VIS_TYPE_CONFIG[visType];
+  const footer = visTypeConfig.getFooter ? visTypeConfig.getFooter() : "";
 
   return (
     <div className="info-pane container">
-      {VIS_TYPE_CONFIG[visType].getInfoContent()}
+      {visTypeConfig.getInfoContent()}
       <div className="actions">
         <div
           className="primary-button start-button"
@@ -40,10 +43,9 @@ export function Info(props: InfoPropType): JSX.Element {
         >
           Start
         </div>
-        <a href={VIS_TYPE_CONFIG[visType].oldToolUrl}>
-          Switch back to the old tool
-        </a>
+        <a href={visTypeConfig.oldToolUrl}>Switch back to the old tool</a>
       </div>
+      {footer && <div className="footer">{footer}</div>}
     </div>
   );
 }

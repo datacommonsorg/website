@@ -29,6 +29,7 @@ import { Chart } from "./chart";
 import { Info } from "./info";
 import { SelectedOptions } from "./selected_options";
 import { SelectorPane } from "./selector_pane";
+import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 import { VisTypeSelector } from "./vis_type_selector";
 
 export function App(): JSX.Element {

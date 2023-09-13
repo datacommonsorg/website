@@ -26,7 +26,6 @@ export function triggerGAEvent(
   if (window.gtag) {
     window.gtag("event", eventName, parameter);
   }
-  console.log(parameter);
 }
 
 /**

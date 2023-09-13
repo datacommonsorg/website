@@ -18,6 +18,7 @@ from server.app_env import local
 
 class Config(_base.Config):
   CUSTOM = True
+  GA_ACCOUNT = 'G-7QE2ET63E5'
   SHOW_TOPIC = True
   NAME = "Data Commons"
   LOGO_PATH = "/custom_dc/unsdg/logo.png"
@@ -25,6 +26,7 @@ class Config(_base.Config):
   SHOW_DISASTER = False
   USE_PALM = True
   ENABLE_PER_CAPITA = False
+  MAP_TOOL_FOOTER = "The boundaries and names shown and the designations used on this and other maps throughout this publication do not imply official endorsement or acceptance by the United Nations."
 
 
 class LocalConfig(Config, local.Config):

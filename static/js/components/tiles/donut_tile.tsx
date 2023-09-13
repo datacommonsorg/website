@@ -53,6 +53,8 @@ export interface DonutTilePropType {
   className?: string;
   // Colors to use
   colors?: string[];
+  // Text to show in footer
+  footnote?: string;
   // Id for the chart
   id: string;
   // Whether to draw as full pie chart instead
@@ -112,6 +114,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       }
       isInitialLoading={_.isNull(donutChartData)}
       hasErrorMsg={donutChartData && !!donutChartData.errorMsg}
+      footnote={props.footnote}
     >
       <div
         id={props.id}
