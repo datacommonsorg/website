@@ -210,7 +210,6 @@ export function draw(
     showError(chartData.errorMsg, svgContainer);
     return;
   }
-  console.log("calling1");
   const isCompleteLine = drawLineChart(
     svgContainer,
     props.svgChartWidth || svgContainer.offsetWidth,

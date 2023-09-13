@@ -397,11 +397,11 @@ export function drawLineChart(
   // If using a custom timescale setting and there are fewer points than
   // NUM_X_TICKS, only use one tick-mark per point. This prevents duplicate
   // dates showing up on the x-axis.
-  const numPoints = dataGroups
-    .map((dataGroup) => dataGroup.value.length)
-    .reduce((a, b) => a + b, 0);
+  const numPointsInLongestLine = Math.max(
+    ...dataGroups.map((dataGroup) => dataGroup.value.length)
+  );
   const numPointsToShow =
-    options?.timeScale && Math.min(numPoints, NUM_X_TICKS);
+    options?.timeScale && Math.min(numPointsInLongestLine, NUM_X_TICKS);
 
   const bottomHeight = addXAxis(
     xAxis,

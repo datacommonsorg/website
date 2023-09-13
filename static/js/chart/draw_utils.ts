@@ -78,7 +78,7 @@ export function addTooltip(
  * @param labelToLink: optional map of [label] -> link for each ordinal tick
  * @param tickFormatFn: function to format tick label
  * @param numTicks: number of ticks to display
- * 
+ *
  * @return the height of the x-axis bounding-box.
  */
 export function addXAxis(
