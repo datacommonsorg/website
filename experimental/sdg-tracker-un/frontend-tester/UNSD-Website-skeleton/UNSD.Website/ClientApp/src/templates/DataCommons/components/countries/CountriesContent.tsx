@@ -421,7 +421,9 @@ const CountriesContent: React.FC<{
   ) {
     return (
       <Layout style={{ height: "100%", flexGrow: 1 }}>
-        <Layout.Content style={{ padding: "0rem 0" }}>
+        <Layout.Content
+          style={{ padding: "0rem 0", background: theme.searchBackgroundColor }}
+        >
           <PlaceTitle style={{ marginBottom: "1rem", display: "block" }}>
             <div>
               {placeNames.length > 0 ? (
@@ -452,7 +454,9 @@ const CountriesContent: React.FC<{
 
   return (
     <Layout style={{ height: "100%", flexGrow: 1 }}>
-      <Layout.Content style={{ padding: "0rem 0" }}>
+      <Layout.Content
+        style={{ padding: "0rem 0", background: theme.searchBackgroundColor }}
+      >
         {showNLSearch && (
           <SearchCard>
             <SearchBar
