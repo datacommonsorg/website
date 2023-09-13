@@ -100,6 +100,10 @@ export class DatacommonsScatterComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   usePerCapita?: string[];
 
+  // Optional: Property to use to get place names
+  @property()
+  placeNameProp: string;
+
   render(): HTMLElement {
     const scatterTileProps: ScatterTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
@@ -128,6 +132,7 @@ export class DatacommonsScatterComponent extends LitElement {
       })),
       svgChartHeight: 200,
       title: this.header,
+      placeNameProp: this.placeNameProp,
     };
     return createWebComponentElement(ScatterTile, scatterTileProps);
   }

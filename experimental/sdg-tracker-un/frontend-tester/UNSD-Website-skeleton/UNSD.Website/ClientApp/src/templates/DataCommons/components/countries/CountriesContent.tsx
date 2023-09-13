@@ -63,6 +63,7 @@ const CHART_HEIGHT = 389;
 const HIGHLIGHT_CHART_HEIGHT = 155;
 const VARIABLE_NAME_REGEX = "(?<=\\[)(.*?)(?=\\])";
 const DEFAULT_VARIABLE_NAME = "Total";
+const PLACE_NAME_PROP = "unDataLabel";
 
 interface TileWithFootnote {
   tile: ChartConfigTile;
@@ -765,6 +766,7 @@ const ChartTile: React.FC<{
           showExploreMore={true}
           variableNameRegex={VARIABLE_NAME_REGEX}
           defaultVariableName={DEFAULT_VARIABLE_NAME}
+          placeNameProp={PLACE_NAME_PROP}
         >
           <div slot="footer">
             <ChartFootnote text={footnote} />
@@ -796,6 +798,7 @@ const ChartTile: React.FC<{
           variableNameRegex={VARIABLE_NAME_REGEX}
           showExploreMore={true}
           defaultVariableName={DEFAULT_VARIABLE_NAME}
+          placeNameProp={PLACE_NAME_PROP}
         >
           <div slot="footer">
             <ChartFootnote text={footnote} />
@@ -819,6 +822,7 @@ const ChartTile: React.FC<{
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
           showExploreMore={true}
+          placeNameProp={PLACE_NAME_PROP}
         >
           <div slot="footer">
             {/** @ts-ignore */}
@@ -865,6 +869,7 @@ const ChartTile: React.FC<{
           variables={tileStatVars.join(" ")}
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
+          placeNameProp={PLACE_NAME_PROP}
         >
           <div slot="footer">
             <ChartFootnote text={footnote} />

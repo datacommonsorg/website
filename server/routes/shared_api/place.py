@@ -145,8 +145,11 @@ def api_name():
   if not dcids:
     dcids = request.json['dcids']
   dcids = list(filter(lambda d: d != '', dcids))
+  prop = request.args.get('prop')
+  if not prop:
+    prop = request.json.get('prop')
   try:
-    return names(dcids)
+    return names(dcids, prop)
   except Exception as e:
     logging.error(e)
     return 'error fetching names for the given places', 400
@@ -618,10 +621,14 @@ def descendent_names():
   """
   dcid = request.args.get("dcid")
   descendent_type = request.args.get("descendentType")
+  prop = request.args.get("prop", None)
   child_places = fetch.descendent_places([dcid], descendent_type).get(dcid, [])
-  return Response(json.dumps(get_display_name(child_places)),
-                  200,
-                  mimetype='application/json')
+  result = {}
+  if prop:
+    result = names(child_places, prop)
+  else:
+    result = get_display_name(child_places)
+  return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @bp.route('/placeid2dcid')
