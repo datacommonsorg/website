@@ -552,6 +552,7 @@ const ChartContent: React.FC<{
   }
   // Return no data error if there is nothing to show.
   if (
+    !isSearch &&
     Object.keys(fulfillResponse?.relatedThings?.varToTopics || {}).length === 0
   ) {
     return (
