@@ -108,6 +108,8 @@ export interface BarTilePropType {
   showExploreMore?: boolean;
   // Function used to get processed stat var names.
   getProcessedSVNameFn?: (name: string) => string;
+  // The property to use to get place names.
+  placeNameProp?: string;
 }
 
 export interface BarChartData {
@@ -241,7 +243,8 @@ export const fetchData = async (props: BarTilePropType) => {
 
     const placeNames = await getPlaceNames(
       Array.from(popPoints).map((x) => x.placeDcid),
-      props.apiRoot
+      props.apiRoot,
+      props.placeNameProp
     );
     const statVarDcidToName = await getStatVarNames(
       props.statVarSpec,

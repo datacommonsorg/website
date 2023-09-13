@@ -26,7 +26,7 @@ import AppLayoutContent from "../shared/AppLayoutContent";
 import AppSidebar from "../shared/AppSidebar";
 import CountriesContent from "./CountriesContent";
 
-const DEFAULT_PLACE = "country/IRL";
+const DEFAULT_PLACE = "africa";
 
 const Countries = () => {
   const history = useHistory();

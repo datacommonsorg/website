@@ -13,6 +13,7 @@
 # limitations under the License.
 """This module defines the endpoints that support drawing a choropleth map.
 """
+import copy
 import json
 from typing import List
 import urllib.parse
@@ -199,6 +200,29 @@ def get_geojson_feature(geo_id: str, geo_name: str, json_text: List[str]):
   return geo_feature
 
 
+def process_cached_geojson(cached_geojson, place_name_prop):
+  """
+  Processes a cached geojson result.
+  """
+  result = copy.deepcopy(cached_geojson)
+  # If there is a place_name_prop, update place names of features
+  if place_name_prop:
+    geos = []
+    for feature in cached_geojson.get('features', []):
+      geo_dcid = feature.get('properties', {}).get('geoDcid', "")
+      if geo_dcid:
+        geos.append(geo_dcid)
+    names_by_geo = shared.names(geos, place_name_prop)
+    for feature in result.get('features', []):
+      feature_properties = feature.get('properties')
+      if not feature_properties:
+        continue
+      geo_dcid = feature_properties.get('geoDcid', "")
+      default_name = feature_properties.get('name', geo_dcid)
+      feature_properties['name'] = names_by_geo.get(geo_dcid, default_name)
+  return result
+
+
 @bp.route('/geojson')
 @cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def geojson():
@@ -211,10 +235,12 @@ def geojson():
   place_type = request.args.get("placeType")
   if not place_type:
     place_dcid, place_type = get_choropleth_display_level(place_dcid)
+  place_name_prop = request.args.get("placeNameProp")
   cached_geojson = current_app.config['CACHED_GEOJSONS'].get(
       place_dcid, {}).get(place_type, None)
   if cached_geojson:
-    return lib_util.gzip_compress_response(cached_geojson, is_json=True)
+    result = process_cached_geojson(cached_geojson, place_name_prop)
+    return lib_util.gzip_compress_response(result, is_json=True)
   geos = []
   if place_dcid and place_type:
     geos = fetch.descendent_places([place_dcid], place_type).get(place_dcid, [])
@@ -225,7 +251,11 @@ def geojson():
   # too fragmented
   if place_dcid == 'geoId/72':
     geojson_prop = 'geoJsonCoordinatesDP1'
-  names_by_geo = place_api.get_display_name(geos)
+  names_by_geo = {}
+  if place_name_prop:
+    names_by_geo = shared.names(geos, place_name_prop)
+  else:
+    names_by_geo = place_api.get_display_name(geos)
   features = []
   if geojson_prop:
     geojson_by_geo = fetch.property_values(geos, geojson_prop)

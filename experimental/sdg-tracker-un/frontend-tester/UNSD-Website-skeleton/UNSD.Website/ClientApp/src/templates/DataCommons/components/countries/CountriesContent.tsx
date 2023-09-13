@@ -25,6 +25,7 @@ import {
   COUNTRY_PLACE_TYPE,
   EARTH_PLACE_DCID,
   EARTH_PLACE_NAME,
+  NULL_TOPIC,
   ROOT_TOPIC,
   WEB_API_ENDPOINT,
 } from "../../utils/constants";
@@ -63,6 +64,7 @@ const CHART_HEIGHT = 389;
 const HIGHLIGHT_CHART_HEIGHT = 155;
 const VARIABLE_NAME_REGEX = "(?<=\\[)(.*?)(?=\\])";
 const DEFAULT_VARIABLE_NAME = "Total";
+const PLACE_NAME_PROP = "unDataLabel";
 
 interface TileWithFootnote {
   tile: ChartConfigTile;
@@ -267,9 +269,14 @@ function buildTileHierarchy(
         if (_.isEmpty(varToTopics[statVar])) {
           return;
         }
-        const tileWithFootnote: TileWithFootnote = {tile, footnote};
+        const tileWithFootnote: TileWithFootnote = { tile, footnote };
         for (const topic of varToTopics[statVar]) {
-          addTileToHierarchy(tileWithFootnote, hierarchy, topic.dcid, selectedTopics);
+          addTileToHierarchy(
+            tileWithFootnote,
+            hierarchy,
+            topic.dcid,
+            selectedTopics
+          );
         }
         orderedTiles.push(tileWithFootnote);
         varToTopics[statVar].forEach((topic) => topicDcids.push(topic.dcid));
@@ -287,12 +294,15 @@ function buildTopicNames(mainTopics?: RelatedTopic[]): string {
   if (!mainTopics || _.isEmpty(mainTopics)) {
     return "";
   }
-
-  if (mainTopics.length == 2) {
-    return `${mainTopics[0].name} vs. ${mainTopics[1].name}`;
-  } else {
-    return mainTopics[0].name;
+  // Don't show default topic nome if no topic was found
+  if (mainTopics.find((topic) => topic.dcid === NULL_TOPIC)) {
+    return "";
   }
+  // Two topics denote a correlation/comparison
+  if (mainTopics.length === 2) {
+    return `${mainTopics[0].name} vs. ${mainTopics[1].name}`;
+  }
+  return mainTopics[0].name;
 }
 
 const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
@@ -541,6 +551,17 @@ const ChartContent: React.FC<{
   if (!fulfillResponse || fulfillResponse.failure) {
     return null;
   }
+  // Return no data error if there is nothing to show.
+  if (
+    !isSearch &&
+    Object.keys(fulfillResponse?.relatedThings?.varToTopics || {}).length === 0
+  ) {
+    return (
+      <ContentCard>
+        <ErorrMessageText>No data found.</ErorrMessageText>
+      </ContentCard>
+    );
+  }
 
   return (
     <>
@@ -769,10 +790,12 @@ const ChartTile: React.FC<{
           showExploreMore={true}
           variableNameRegex={VARIABLE_NAME_REGEX}
           defaultVariableName={DEFAULT_VARIABLE_NAME}
+          placeNameProp={PLACE_NAME_PROP}
         >
           <div slot="footer">
             <ChartFootnote text={footnote} />
           </div>
+          {/** @ts-ignore */}
         </datacommons-bar>
       </>
     );
@@ -800,10 +823,12 @@ const ChartTile: React.FC<{
           variableNameRegex={VARIABLE_NAME_REGEX}
           showExploreMore={true}
           defaultVariableName={DEFAULT_VARIABLE_NAME}
+          placeNameProp={PLACE_NAME_PROP}
         >
           <div slot="footer">
             <ChartFootnote text={footnote} />
           </div>
+          {/** @ts-ignore */}
         </datacommons-line>
       </>
     );
@@ -823,6 +848,7 @@ const ChartTile: React.FC<{
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
           showExploreMore={true}
+          placeNameProp={PLACE_NAME_PROP}
         >
           <div slot="footer">
             {/** @ts-ignore */}
@@ -856,6 +882,7 @@ const ChartTile: React.FC<{
           <div slot="footer">
             <ChartFootnote text={footnote} />
           </div>
+          {/** @ts-ignore */}
         </datacommons-gauge>
       </>
     );
@@ -869,11 +896,13 @@ const ChartTile: React.FC<{
           variables={tileStatVars.join(" ")}
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
+          placeNameProp={PLACE_NAME_PROP}
           showExploreMore={true}
         >
           <div slot="footer">
             <ChartFootnote text={footnote} />
           </div>
+          {/** @ts-ignore */}
         </datacommons-scatter>
       </>
     );

@@ -76,6 +76,11 @@ export const QUERY_PARAM_QUERY = "q";
 export const ROOT_TOPIC = "dc/topic/sdg";
 
 /**
+ * DCID returned by fulfillment when no topic is identified
+ */
+export const NULL_TOPIC = "dc/topic/Root";
+
+/**
  * Web api root
  */
 export const WEB_API_ENDPOINT = appConfig.webApiEndpoint;

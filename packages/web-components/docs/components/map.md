@@ -59,6 +59,10 @@ Optional:
 
   Listen for data changes on this event channel. Channel name should match the `publish` name on a control component. Example: [datacommons-slider](./slider.md)
 
+- `placeNameProp` _string_
+
+  Optionally specify the property to use to get the place names.
+
 ### Examples
 
 A map of population below poverty level in US States in the year 2020:
