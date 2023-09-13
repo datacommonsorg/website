@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import _ from "lodash";
 import { gray } from "@ant-design/colors";
-import { SearchOutlined } from "@ant-design/icons";
+import { CaretDownOutlined, SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Breadcrumb, Col, Input, Layout, Row, Spin } from "antd";
+import _ from "lodash";
 import { parseToRgb } from "polished";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -195,7 +195,9 @@ const CountrySelectContainer = styled.div<{ width: string }>`
   position: relative;
   width: ${(p) => p.width};
   height: 100%;
-  .ant-select-selector {
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector,
+  .ant-input,
+  .react-dropdown-select {
     border-radius: 2rem !important;
   }
   .ant-select-selection-placeholder {
@@ -244,7 +246,7 @@ export const CountrySelect: React.FC<{
         value={isFocused ? value : ""}
         style={style || { width: 225 }}
         options={options}
-        placeholder={currentPlaceName || "Select a country/region"}
+        placeholder={"Select a country or area"}
         defaultActiveFirstOption={true}
         notFoundContent={
           <CountrySelectNoResults>No results found</CountrySelectNoResults>
@@ -268,6 +270,7 @@ export const CountrySelect: React.FC<{
           }
         }}
       />
+      <CaretDownOutlined />
     </CountrySelectContainer>
   );
 };
@@ -314,6 +317,14 @@ const UserMessage = styled.div`
   border: 1px solid #e3e3e3;
   border-radius: 0.5rem;
   padding: 16px 24px;
+`;
+
+const PlaceTitleRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 `;
 
 export const PlaceHeaderCard: React.FC<{
@@ -380,10 +391,18 @@ export const PlaceHeaderCard: React.FC<{
             {shouldShowTopicNames ? ` • ${topicNames}` : ""}
           </PlaceTitle>
         ) : (
-          <CountrySelect
-            setSelectedPlaceDcid={setSelectedPlaceDcid}
-            currentPlaceName={placeNames.length > 0 ? placeNames[0] : undefined}
-          />
+          <PlaceTitleRow>
+            <PlaceTitle>
+              {!shouldHidePlaceName && placeNames.join(", ")}
+              {shouldShowTopicNames ? ` • ${topicNames}` : ""}
+            </PlaceTitle>
+            <CountrySelect
+              setSelectedPlaceDcid={setSelectedPlaceDcid}
+              currentPlaceName={
+                placeNames.length > 0 ? placeNames[0] : undefined
+              }
+            />
+          </PlaceTitleRow>
         )}
         {!shouldHideBreadcrumbs && (
           <StyledBreadcrumb>
