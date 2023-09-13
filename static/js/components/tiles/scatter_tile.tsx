@@ -75,6 +75,8 @@ export interface ScatterTilePropType {
   showExploreMore?: boolean;
   // Whether or not to show a loading spinner when fetching data.
   showLoadingSpinner?: boolean;
+  // Text to show in footer
+  footnote?: string;
   // The property to use to get place names.
   placeNameProp?: string;
 }
@@ -163,6 +165,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       isInitialLoading={_.isNull(scatterChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={scatterChartData && !!scatterChartData.errorMsg}
+      footnote={props.footnote}
     >
       <div className="scatter-tile-content">
         <div
