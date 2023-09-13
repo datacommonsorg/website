@@ -269,9 +269,14 @@ function buildTileHierarchy(
         if (_.isEmpty(varToTopics[statVar])) {
           return;
         }
-        const tileWithFootnote: TileWithFootnote = {tile, footnote};
+        const tileWithFootnote: TileWithFootnote = { tile, footnote };
         for (const topic of varToTopics[statVar]) {
-          addTileToHierarchy(tileWithFootnote, hierarchy, topic.dcid, selectedTopics);
+          addTileToHierarchy(
+            tileWithFootnote,
+            hierarchy,
+            topic.dcid,
+            selectedTopics
+          );
         }
         orderedTiles.push(tileWithFootnote);
         varToTopics[statVar].forEach((topic) => topicDcids.push(topic.dcid));
@@ -546,6 +551,17 @@ const ChartContent: React.FC<{
   if (!fulfillResponse || fulfillResponse.failure) {
     return null;
   }
+  // Return no data error if there is nothing to show.
+  if (
+    !isSearch &&
+    Object.keys(fulfillResponse?.relatedThings?.varToTopics || {}).length === 0
+  ) {
+    return (
+      <ContentCard>
+        <ErorrMessageText>No data found.</ErorrMessageText>
+      </ContentCard>
+    );
+  }
 
   return (
     <>
@@ -779,6 +795,7 @@ const ChartTile: React.FC<{
           <div slot="footer">
             <ChartFootnote text={footnote} />
           </div>
+          {/** @ts-ignore */}
         </datacommons-bar>
       </>
     );
@@ -811,6 +828,7 @@ const ChartTile: React.FC<{
           <div slot="footer">
             <ChartFootnote text={footnote} />
           </div>
+          {/** @ts-ignore */}
         </datacommons-line>
       </>
     );
@@ -864,6 +882,7 @@ const ChartTile: React.FC<{
           <div slot="footer">
             <ChartFootnote text={footnote} />
           </div>
+          {/** @ts-ignore */}
         </datacommons-gauge>
       </>
     );
@@ -883,6 +902,7 @@ const ChartTile: React.FC<{
           <div slot="footer">
             <ChartFootnote text={footnote} />
           </div>
+          {/** @ts-ignore */}
         </datacommons-scatter>
       </>
     );
