@@ -586,7 +586,7 @@
     "key": "12.3.1",
     "tags": {
       "headline": "Despite rising global hunger, food waste and losses are staggering and uneven",
-      "images": [],
+      "images": ["./images/datacommons/infographics/12.3.1b_infographic.svg"],
       "link": "https://unstats.un.org/sdgs/report/2023/Goal-12/"
     }
   },
@@ -611,14 +611,6 @@
     "tags": {
       "headline": "",
       "images": ["/images/datacommons/infographics/12.2.1_infographic.svg"],
-      "link": "https://unstats.un.org/sdgs/report/2023/Goal-12/"
-    }
-  },
-  {
-    "key": "12.3.1b",
-    "tags": {
-      "headline": "",
-      "images": ["./images/datacommons/infographics/12.3.1b_infographic.svg"],
       "link": "https://unstats.un.org/sdgs/report/2023/Goal-12/"
     }
   },
@@ -687,18 +679,13 @@
     }
   },
   {
-    "key": "14.1.1b",
+    "key": "14.1.1",
     "tags": {
-      "headline": "Citizen science sheds light on the magnitude of ocean plastic pollution",
-      "images": ["./images/datacommons/infographics/14.1.1b_infographic.svg"],
-      "link": "https://unstats.un.org/sdgs/report/2023/Goal-14/"
-    }
-  },
-  {
-    "key": "14.1.1a",
-    "tags": {
-      "headline": "Coastal eutrophication: a growing threat to marine ecosystems and communities",
-      "images": ["./images/datacommons/infographics/14.1.1a_infographic.svg"],
+      "headline": "(a) Coastal eutrophication: a growing threat to marine ecosystems and communities. (b) Citizen science sheds light on the magnitude of ocean plastic pollution",
+      "images": [
+        "./images/datacommons/infographics/14.1.1a_infographic.svg",
+        "./images/datacommons/infographics/14.1.1b_infographic.svg"
+      ],
       "link": "https://unstats.un.org/sdgs/report/2023/Goal-14/"
     }
   },
