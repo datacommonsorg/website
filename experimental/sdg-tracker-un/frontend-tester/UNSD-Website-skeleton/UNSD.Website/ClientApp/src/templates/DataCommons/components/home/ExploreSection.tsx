@@ -16,9 +16,14 @@
 
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { QUERY_PARAM_QUERY } from "../../utils/constants";
+import { QUERY_PARAM_QUERY, SAMPLE_NL_QUERY } from "../../utils/constants";
 import { SearchBar } from "../shared/components";
-import { HomeSearchContainer, HomeSection, SectionDescription, SectionHeader } from "./components";
+import {
+  HomeSearchContainer,
+  HomeSection,
+  SectionDescription,
+  SectionHeader,
+} from "./components";
 
 const Container = styled(HomeSection)`
   background-image: url(./images/datacommons/explore-background.png);
@@ -39,11 +44,11 @@ const Container = styled(HomeSection)`
 
 const Header = styled(SectionHeader)`
   color: #fff;
-`
+`;
 
 const Description = styled(SectionDescription)`
   color: #fff;
-`
+`;
 
 const SearchBarContainer = styled(HomeSearchContainer)`
   .info {
@@ -84,7 +89,7 @@ export const ExploreSection = () => {
       <Header>Explore UN Data Commons for the SDGs</Header>
       <SearchBarContainer>
         <SearchBar
-          initialQuery="What is the global poverty rate?"
+          initialQuery={SAMPLE_NL_QUERY}
           isSearching={false}
           onSearch={(q) => {
             const searchParams = new URLSearchParams();
