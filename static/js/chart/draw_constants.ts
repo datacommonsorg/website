@@ -46,6 +46,8 @@ export const MARGIN = {
   grid: 10, // margin between y-axis and chart content
 };
 
+export const NUM_X_TICKS = 5;
+
 export const NUM_Y_TICKS = 5;
 
 export const SVGNS = "http://www.w3.org/2000/svg";

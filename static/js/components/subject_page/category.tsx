@@ -125,7 +125,6 @@ function renderBlocks(
                 enclosedPlaceType={props.enclosedPlaceType}
                 title={block.title}
                 description={block.description}
-                footnote={block.footnote}
                 columns={block.columns}
                 eventTypeSpec={props.eventTypeSpec}
                 showExploreMore={props.showExploreMore}
@@ -141,7 +140,6 @@ function renderBlocks(
               id={id}
               title={block.title}
               description={block.description}
-              footnote={block.footnote}
               place={props.place}
               commonSVSpec={commonSVSpec}
             >
