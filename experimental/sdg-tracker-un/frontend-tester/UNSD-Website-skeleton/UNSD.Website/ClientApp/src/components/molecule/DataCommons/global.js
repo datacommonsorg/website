@@ -30,11 +30,6 @@ export default class Global extends Component {
 
                     </Row>
                 </Col>
-                <Col xs={{ span: 24 }} md={{ span: 7 }} lg={{ span: 7 }}>
-                    <ClientOnly>
-                        <Search />
-                    </ClientOnly>
-                </Col>
             </Row>
         );
     }
