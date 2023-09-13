@@ -103,6 +103,11 @@ export class DatacommonsScatterComponent extends LitElement {
   // Optional: Property to use to get place names
   @property()
   placeNameProp: string;
+  
+  // Optional: Whether to show the "explore" link.
+  // Default: false
+  @property({ type: Boolean })
+  showExploreMore: boolean;
 
   render(): HTMLElement {
     const scatterTileProps: ScatterTilePropType = {
@@ -122,6 +127,7 @@ export class DatacommonsScatterComponent extends LitElement {
         showPlaceLabels: this.showPlaceLabels,
         showQuadrants: this.showQuadrants,
       },
+      showExploreMore: this.showExploreMore,
       statVarSpec: this.variables.map((variable) => ({
         denom: this.usePerCapita?.includes(variable) ? "Count_Person" : "",
         log: false,

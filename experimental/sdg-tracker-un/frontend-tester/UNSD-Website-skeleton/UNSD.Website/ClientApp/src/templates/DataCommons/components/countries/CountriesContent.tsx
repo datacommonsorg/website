@@ -25,6 +25,7 @@ import {
   COUNTRY_PLACE_TYPE,
   EARTH_PLACE_DCID,
   EARTH_PLACE_NAME,
+  NULL_TOPIC,
   ROOT_TOPIC,
   WEB_API_ENDPOINT,
 } from "../../utils/constants";
@@ -288,12 +289,15 @@ function buildTopicNames(mainTopics?: RelatedTopic[]): string {
   if (!mainTopics || _.isEmpty(mainTopics)) {
     return "";
   }
-
-  if (mainTopics.length == 2) {
-    return `${mainTopics[0].name} vs. ${mainTopics[1].name}`;
-  } else {
-    return mainTopics[0].name;
+  // Don't show default topic nome if no topic was found
+  if (mainTopics.find((topic) => topic.dcid === NULL_TOPIC)) {
+    return "";
   }
+  // Two topics denote a correlation/comparison
+  if (mainTopics.length === 2) {
+    return `${mainTopics[0].name} vs. ${mainTopics[1].name}`;
+  }
+  return mainTopics[0].name;
 }
 
 const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
@@ -422,7 +426,9 @@ const CountriesContent: React.FC<{
   ) {
     return (
       <Layout style={{ height: "100%", flexGrow: 1 }}>
-        <Layout.Content style={{ padding: "0rem 0" }}>
+        <Layout.Content
+          style={{ padding: "0rem 0", background: theme.searchBackgroundColor }}
+        >
           <PlaceTitle style={{ marginBottom: "1rem", display: "block" }}>
             <div>
               {placeNames.length > 0 ? (
@@ -453,7 +459,9 @@ const CountriesContent: React.FC<{
 
   return (
     <Layout style={{ height: "100%", flexGrow: 1 }}>
-      <Layout.Content style={{ padding: "0rem 0" }}>
+      <Layout.Content
+        style={{ padding: "0rem 0", background: theme.searchBackgroundColor }}
+      >
         {showNLSearch && (
           <SearchCard>
             <SearchBar
@@ -870,6 +878,7 @@ const ChartTile: React.FC<{
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
           placeNameProp={PLACE_NAME_PROP}
+          showExploreMore={true}
         >
           <div slot="footer">
             <ChartFootnote text={footnote} />

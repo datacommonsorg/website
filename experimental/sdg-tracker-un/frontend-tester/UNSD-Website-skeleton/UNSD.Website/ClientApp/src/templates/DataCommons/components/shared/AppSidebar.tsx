@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Tooltip } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -31,9 +31,21 @@ const StyledMenu = styled(Menu)`
   .ant-menu-submenu-title {
   }
   .-title-content {
+    flex: auto !important;
     overflow: hidden;
     text-overflow: ellipsis;
-    flex: auto !important;
+  }
+
+  /** 
+   * Ensures tooltips are placed directly to the right of the menu instead of
+   * overflowing in the middle of the page 
+   */
+  .-title-content span,
+  .ant-menu-title-content span {
+    display: block;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 `;
 
@@ -53,12 +65,17 @@ const AppSidebar: React.FC<{
   >([]);
   const [siderHidden, setSiderHidden] = useState<boolean>(false);
   const getMenuItem = (item: MenuItemType) => {
+    const tagId = `${item.key.replace(/[\/\.]/g, "_")}`;
     if (item.children && item.children.length > 0) {
       return (
         <SubMenu
           className={`-dc-sidebar-submenu -dc-sidebar-submenu-${item.key}`}
           key={item.key}
-          title={item.label}
+          title={
+            <Tooltip mouseEnterDelay={0.6} placement="right" title={item.label}>
+              {item.label}
+            </Tooltip>
+          }
           icon={item.icon}
         >
           {item.children.map((subItem) => getMenuItem(subItem))}
@@ -70,8 +87,11 @@ const AppSidebar: React.FC<{
         className={`-dc-sidebar-menu-item -dc-sidebar-menu-item-${item.key}`}
         key={item.key}
         icon={item.icon}
+        id={tagId}
       >
-        {item.label}
+        <Tooltip mouseEnterDelay={0.6} placement="right" title={item.label}>
+          {item.label}
+        </Tooltip>
       </Menu.Item>
     );
   };
