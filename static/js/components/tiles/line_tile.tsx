@@ -80,6 +80,8 @@ export interface LineTilePropType {
   showTooltipOnHover?: boolean;
   // Function used to get processed stat var names.
   getProcessedSVNameFn?: (name: string) => string;
+  // The property to use to get place names.
+  placeNameProp?: string;
 }
 
 export interface LineChartData {
@@ -185,7 +187,11 @@ export const fetchData = async (props: LineTilePropType) => {
     props.apiRoot,
     props.getProcessedSVNameFn
   );
-  const placeNames = await getPlaceNames(placeDcids, props.apiRoot);
+  const placeNames = await getPlaceNames(
+    placeDcids,
+    props.apiRoot,
+    props.placeNameProp
+  );
   // How legend labels should be set
   // If neither options are set, default to showing stat vars in legend labels
   const options = {

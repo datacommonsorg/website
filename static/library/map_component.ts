@@ -120,6 +120,10 @@ export class DatacommonsMapComponent extends LitElement {
   @property({ type: Boolean })
   showExploreMore: boolean;
 
+  // Optional: Property to use to get place names
+  @property()
+  placeNameProp: string;
+
   firstUpdated(): void {
     if (this.subscribe) {
       this.parentElement.addEventListener(
@@ -159,6 +163,7 @@ export class DatacommonsMapComponent extends LitElement {
       },
       svgChartHeight: 200,
       title: this.header || this.title,
+      placeNameProp: this.placeNameProp,
     };
     return createWebComponentElement(MapTile, mapTileProps);
   }
