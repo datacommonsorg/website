@@ -23,13 +23,14 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useStoreState } from "../../state";
-import { QUERY_PARAM_VARIABLE, ROOT_TOPIC } from "../../utils/constants";
+import { FOOTNOTE_CHAR_LIMIT, QUERY_PARAM_VARIABLE, ROOT_TOPIC } from "../../utils/constants";
 import "./components.css";
 
 const SearchInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  height: 100%;
 
   .info {
     align-self: flex-end;
@@ -39,7 +40,7 @@ const SearchInputContainer = styled.div`
     margin: 0 1.2rem 0rem;
     text-transform: uppercase;
   }
-  .search {
+    .search {
     position: relative;
 
     input {
@@ -189,6 +190,7 @@ const CountrySelectContainer = styled.div<{ width: string }>`
   display: flex;
   position: relative;
   width: ${(p) => p.width};
+  height: 100%;
   .ant-select-selector {
     border-radius: 2rem !important;
   }
@@ -527,15 +529,26 @@ throughout this publication do not imply official endorsement or acceptance by
 the United Nations.
 `;
 
+const DATACOMMONS_INFO_TEXT = `
+UN Data Commons for the SDGs integrates authoritative SDG data from across the
+UN System into a public repository with a user-friendly interface and advanced 
+natural language search functionality. This data analysis and exploration tool 
+is the product of an ongoing UN Statistics Division effort supported by 
+Google’s Data Commons and funded by Google.org, with the ultimate goal of 
+making the UN’s authoritative data–including and beyond SDG data–more 
+accessible to the public.
+`;
+
 export const FootnotesContainer = styled.div`
   margin: 24px 0px;
 `;
 
 export const Footnote = styled.div`
+  color: grey;
   display: flex;
   flex-direction: row;
-  color: grey;
   font-size: 0.8rem;
+  margin-bottom: 0.5rem;
 `;
 
 export const StyledMarker = styled.div`
@@ -553,9 +566,40 @@ export const Footnotes: React.FC = () => {
     <FootnotesContainer>
       <FootnoteDivider></FootnoteDivider>
       <Footnote>
+        <div>{DATACOMMONS_INFO_TEXT}</div>
+      </Footnote>
+      <Footnote>
         <StyledMarker>*</StyledMarker>
-        {MAP_DISCLAIMER_TEXT}
+        <div>{MAP_DISCLAIMER_TEXT}</div>
       </Footnote>
     </FootnotesContainer>
+  );
+};
+
+// Footnotes for the chart tiles
+export const ChartFootnoteContainer = styled.div`
+  margin: 0 24px 24px 14px;
+  font-size: 0.8rem;
+`;
+
+export const ShowMoreToggle = styled.span`
+  cursor: pointer;
+  color: var(--link-color);
+`;
+
+export const ChartFootnote: React.FC<{text: string | undefined}> = ({text}) => {
+  const [showFullText, setShowFullText] = useState(false);
+  if (!text) {
+    return <></>;
+  }
+  const hideToggle = text.length < FOOTNOTE_CHAR_LIMIT;
+  const shortText = text.slice(0, FOOTNOTE_CHAR_LIMIT)
+  return (
+    <ChartFootnoteContainer>
+      {hideToggle || showFullText ? text : `${shortText}...`}
+      <ShowMoreToggle onClick={() => setShowFullText(!showFullText)}>
+        {!hideToggle && (showFullText ? " Show less" : "Show more")}
+      </ShowMoreToggle>
+    </ChartFootnoteContainer>
   );
 };
