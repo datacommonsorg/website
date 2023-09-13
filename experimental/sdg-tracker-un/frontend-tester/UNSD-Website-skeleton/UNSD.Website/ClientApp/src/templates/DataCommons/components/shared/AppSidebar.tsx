@@ -70,7 +70,6 @@ const AppSidebar: React.FC<{
   const [placeSidebarMenuHierarchy, setPlaceSidebarMenuHierarchy] = useState<
     MenuItemType[]
   >([]);
-  const [siderHidden, setSiderHidden] = useState<boolean>(false);
   const getMenuItem = (item: MenuItemType) => {
     const tagId = `${item.key.replace(/[\/\.]/g, "_")}`;
     if (item.children && item.children.length > 0) {
@@ -119,9 +118,6 @@ const AppSidebar: React.FC<{
       breakpoint="lg"
       collapsedWidth="0"
       width={320}
-      onCollapse={(collapsed) => {
-        setSiderHidden(collapsed);
-      }}
       style={{
         background: "white",
         position: "sticky",
