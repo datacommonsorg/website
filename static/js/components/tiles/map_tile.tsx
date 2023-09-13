@@ -87,6 +87,8 @@ export interface MapTilePropType {
   // Extra classes to add to the container.
   className?: string;
   enclosedPlaceType: string;
+  // text to show in footer of tile
+  footnote?: string;
   id: string;
   // Parent places of the current place showing map for
   parentPlaces?: NamedPlace[];
@@ -211,6 +213,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={mapChartData && !!mapChartData.errorMsg}
+      footnote={props.footnote}
     >
       {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">

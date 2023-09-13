@@ -62,6 +62,8 @@ export interface LineTilePropType {
   comparisonPlaces?: string[];
   // Type of child places to plot
   enclosedPlaceType?: string;
+  // Text to show in footer
+  footnote?: string;
   id: string;
   // Whether or not to render the data version of this tile
   isDataTile?: boolean;
@@ -128,6 +130,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       isInitialLoading={_.isNull(chartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={chartData && !!chartData.errorMsg}
+      footnote={props.footnote}
     >
       <div
         id={props.id}
