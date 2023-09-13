@@ -18,6 +18,7 @@
  * Info page before a chart is shown.
  */
 
+import _ from "lodash";
 import React, { useContext } from "react";
 
 import { MemoizedInfoExamples } from "../shared/info_examples";
@@ -26,6 +27,13 @@ import { ifShowChart } from "./util";
 
 export function Info(): JSX.Element {
   const { statVar, placeInfo } = useContext(Context);
+  let footer = "";
+  if (window.infoConfig["footer"]) {
+    const footerList = window.infoConfig["footer"]["map"];
+    if (!_.isEmpty(footerList)) {
+      footer = footerList[0]["header"];
+    }
+  }
 
   return (
     <>
@@ -57,6 +65,7 @@ export function Info(): JSX.Element {
             <a href="mailto:collaborations@datacommons.org">Send</a> us your
             discoveries!
           </p>
+          {footer && <div className="footer">* {footer}</div>}
         </div>
       )}
     </>
