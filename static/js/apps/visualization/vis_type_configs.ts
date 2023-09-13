@@ -68,6 +68,8 @@ export interface VisTypeConfig {
   svHierarchyNumExistence?: number;
   // the function to use to get the BQ SQL query.
   getSqlQueryFn?: (appContext: AppContextType) => () => string;
+  // function to get a footer for the tool.
+  getFooter?: () => string;
 }
 
 export const VIS_TYPE_CONFIG: Record<string, VisTypeConfig> = {
