@@ -27,13 +27,7 @@ import { ifShowChart } from "./util";
 
 export function Info(): JSX.Element {
   const { statVar, placeInfo } = useContext(Context);
-  let footer = "";
-  if (window.infoConfig["footer"]) {
-    const footerList = window.infoConfig["footer"]["map"];
-    if (!_.isEmpty(footerList)) {
-      footer = footerList[0]["header"];
-    }
-  }
+  const footer = document.getElementById("metadata").dataset.footer || "";
 
   return (
     <>
@@ -54,9 +48,12 @@ export function Info(): JSX.Element {
               hierarchy.
             </li>
           </ol>
-          <p>
-            Or you can start your exploration from these interesting points ...
-          </p>
+          {!_.isEmpty(window.infoConfig["map"]) && (
+            <p>
+              Or you can start your exploration from these interesting points
+              ...
+            </p>
+          )}
 
           <MemoizedInfoExamples configKey="map" />
 
