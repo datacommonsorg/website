@@ -66,18 +66,133 @@
               {
                 "tiles": [
                   {
+                    "description": "Population With Moderate or Severe Food Insecurity in Nigeria",
                     "statVarKey": [
-                      "sdg/AG_PRD_FIESMSN",
+                      "sdg/AG_PRD_FIESMSN"
+                    ],
+                    "title": "Population With Moderate or Severe Food Insecurity in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMSN"
+                    ],
+                    "title": "Population With Moderate or Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Population With Moderate or Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population With Severe Food Insecurity in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESSN"
+                    ],
+                    "title": "Population With Severe Food Insecurity in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESSN"
+                    ],
+                    "title": "Population With Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Population With Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Moderate or Severe Food Insecurity in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS"
+                    ],
+                    "title": "Moderate or Severe Food Insecurity in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS"
+                    ],
+                    "title": "Moderate or Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Moderate or Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Severe Food Insecurity in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS"
+                    ],
+                    "title": "Severe Food Insecurity in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS"
+                    ],
+                    "title": "Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Number of Moderately or Severely Food Insecure People in Nigeria",
+                    "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Number of Moderately or Severely Food Insecure People"
+            "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex"
           },
           {
             "columns": [
@@ -85,17 +200,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/AG_PRD_FIESSN",
                       "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Number of Severely Food Insecure People in Nigeria",
+                    "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Number of Severely Food Insecure People"
+            "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex"
           },
           {
             "columns": [
@@ -103,17 +217,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/AG_PRD_FIESMS",
                       "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Prevalence of Moderate or Severe Food Insecurity in Nigeria",
+                    "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Prevalence of Moderate or Severe Food Insecurity"
+            "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex"
           },
           {
             "columns": [
@@ -121,17 +234,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/AG_PRD_FIESS",
                       "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Prevalence of Severe Food Insecurity in Nigeria",
+                    "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Prevalence of Severe Food Insecurity"
+            "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex"
           },
           {
             "columns": [
