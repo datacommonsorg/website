@@ -28,6 +28,7 @@ import {
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import countries from "../config/countries.json";
+import geoRegions from "../config/geo_regions.json";
 import goalSummaries from "../config/goalSummaries.json";
 import indicatorHeadlines from "../config/indicatorText.json";
 import rootTopics from "../config/rootTopics.json";
@@ -55,7 +56,11 @@ const MenuImageIcon = styled.img`
   border-radius: 0.25rem;
 `;
 
-const REGION_PLACE_TYPES = ["UNGeoRegion", "ContinentalUnion", "Continent"];
+const REGION_PLACE_TYPES = [
+  "UNGeoRegion",
+  "ContinentalUnion",
+  "Continent",
+];
 
 export interface Place {
   name: string;
@@ -251,7 +256,7 @@ const appActions: AppActions = {
   initializeAppState: thunk(async (actions) => {
     actions.setRootTopics(rootTopics);
     const regions = await dataCommonsClient.getPlaces(REGION_PLACE_TYPES);
-    actions.setRegions(regions);
+    actions.setRegions([...regions, ...geoRegions]);
     actions.setCountries(
       countries.countries.filter((c) => c.is_un_member_or_observer)
     );
