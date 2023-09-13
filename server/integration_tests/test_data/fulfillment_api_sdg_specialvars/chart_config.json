@@ -28,7 +28,7 @@
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
-    "name": "United States",
+    "name": "United States of America",
     "place_type": "Country"
   },
   "placeFallback": {},
@@ -36,7 +36,7 @@
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States",
+      "name": "United States of America",
       "place_type": "Country"
     }
   ],
@@ -160,5 +160,5 @@
   },
   "showForm": true,
   "svSource": "UNFULFILLED",
-  "userMessage": "Sorry, there were no relevant statistics about the topic for United States."
+  "userMessage": "Sorry, there were no relevant statistics about the topic for United States of America."
 }
