@@ -33,28 +33,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 FLAGS = flags.FLAGS
 
-OUTPUT_DIR = "output"
-
-COUNTRIES_JSON_FILE = "../../../../experimental/sdg-tracker/src/config/countries.json"
-
-
-def load_countries() -> dict[str, dict]:
-  with open(COUNTRIES_JSON_FILE, "r") as file:
-    countries = {}
-    config = json.load(file)
-    for country in config["countries"]:
-      if country["is_un_member_or_observer"]:
-        countries[country["dcid"]] = country
-    for region in config["unRegions"]:
-      countries[region["dcid"]] = region
-
-    # Printing instead of logging since the logger is not initialized when this function is called.
-    print("# UN countries and regions loaded: ", len(countries))
-    return countries
-
-
-COUNTRIES: dict[str, dict] = load_countries()
-
 
 class Mode:
   ALL = "all"
@@ -83,6 +61,28 @@ flags.DEFINE_string(
     "",
     f"The stat var (URL parameter 'v'). Can be specified in {Mode.COUNTRY} mode.",
 )
+
+OUTPUT_DIR = "output"
+
+COUNTRIES_JSON_FILE = "../../../../experimental/sdg-tracker/src/config/countries.json"
+
+
+def load_countries() -> dict[str, dict]:
+  with open(COUNTRIES_JSON_FILE, "r") as file:
+    countries = {}
+    config = json.load(file)
+    for country in config["countries"]:
+      if country["is_un_member_or_observer"]:
+        countries[country["dcid"]] = country
+    for region in config["unRegions"]:
+      countries[region["dcid"]] = region
+
+    # Printing instead of logging since the logger is not initialized when this function is called.
+    print("# UN countries and regions loaded: ", len(countries))
+    return countries
+
+
+COUNTRIES: dict[str, dict] = load_countries()
 
 
 class PageType(StrEnum):
