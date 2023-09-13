@@ -274,7 +274,7 @@
     },
     {
       "dcid": "country/BOL",
-      "name": "Bolivia",
+      "name": "Bolivia (Plurinational State of)",
       "iso_code": "BO",
       "country_alpha_3_code": "BOL",
       "country_numeric_code": "68",
@@ -298,7 +298,7 @@
     },
     {
       "dcid": "country/BRN",
-      "name": "Brunei",
+      "name": "Brunei Darussalam",
       "iso_code": "BN",
       "country_alpha_3_code": "BRN",
       "country_numeric_code": "96",
@@ -386,7 +386,7 @@
     },
     {
       "dcid": "country/CIV",
-      "name": "C\u00f4te d'Ivoire",
+      "name": "C\u00f4te d\u2019Ivoire",
       "iso_code": "CI",
       "country_alpha_3_code": "CIV",
       "country_numeric_code": "384",
@@ -402,7 +402,7 @@
     },
     {
       "dcid": "country/COD",
-      "name": "Democratic Republic of the Congo]",
+      "name": "Democratic Republic of the Congo",
       "iso_code": "CD",
       "country_alpha_3_code": "COD",
       "country_numeric_code": "180",
@@ -410,7 +410,7 @@
     },
     {
       "dcid": "country/COG",
-      "name": "Republic of the Congo",
+      "name": "Congo",
       "iso_code": "CG",
       "country_alpha_3_code": "COG",
       "country_numeric_code": "178",
@@ -442,7 +442,7 @@
     },
     {
       "dcid": "country/CPV",
-      "name": "Cape Verde",
+      "name": "Cabo Verde",
       "iso_code": "CV",
       "country_alpha_3_code": "CPV",
       "country_numeric_code": "132",
@@ -514,7 +514,7 @@
     },
     {
       "dcid": "country/CZE",
-      "name": "Czech Republic",
+      "name": "Czechia",
       "iso_code": "CZ",
       "country_alpha_3_code": "CZE",
       "country_numeric_code": "203",
@@ -682,7 +682,7 @@
     },
     {
       "dcid": "country/FSM",
-      "name": "Federated States of Micronesia",
+      "name": "Micronesia (Federated States of)",
       "iso_code": "FM",
       "country_alpha_3_code": "FSM",
       "country_numeric_code": "583",
@@ -706,7 +706,7 @@
     },
     {
       "dcid": "country/GBR",
-      "name": "United Kingdom",
+      "name": "United Kingdom of Great Britain and Northern Ireland",
       "iso_code": "GB",
       "country_alpha_3_code": "GBR",
       "country_numeric_code": "826",
@@ -946,7 +946,7 @@
     },
     {
       "dcid": "country/IRN",
-      "name": "Iran",
+      "name": "Iran (Islamic Republic of)",
       "iso_code": "IR",
       "country_alpha_3_code": "IRN",
       "country_numeric_code": "364",
@@ -1066,7 +1066,7 @@
     },
     {
       "dcid": "country/KOR",
-      "name": "South Korea",
+      "name": "Republic of Korea",
       "iso_code": "KR",
       "country_alpha_3_code": "KOR",
       "country_numeric_code": "410",
@@ -1082,7 +1082,7 @@
     },
     {
       "dcid": "country/LAO",
-      "name": "Laos",
+      "name": "Lao People's Democratic Republic",
       "iso_code": "LA",
       "country_alpha_3_code": "LAO",
       "country_numeric_code": "418",
@@ -1202,7 +1202,7 @@
     },
     {
       "dcid": "country/MDA",
-      "name": "Moldova",
+      "name": "Republic of Moldova",
       "iso_code": "MD",
       "country_alpha_3_code": "MDA",
       "country_numeric_code": "498",
@@ -1426,7 +1426,7 @@
     },
     {
       "dcid": "country/NLD",
-      "name": "Netherlands",
+      "name": "Netherlands (Kingdom of the)",
       "iso_code": "NL",
       "country_alpha_3_code": "NLD",
       "country_numeric_code": "528",
@@ -1546,7 +1546,7 @@
     },
     {
       "dcid": "country/PRK",
-      "name": "North Korea",
+      "name": "Democratic People's Republic of Korea",
       "iso_code": "KP",
       "country_alpha_3_code": "PRK",
       "country_numeric_code": "408",
@@ -1570,7 +1570,7 @@
     },
     {
       "dcid": "country/PSE",
-      "name": "Palestine",
+      "name": "State of Palestine",
       "iso_code": "PS",
       "country_alpha_3_code": "PSE",
       "country_numeric_code": "275",
@@ -1610,7 +1610,7 @@
     },
     {
       "dcid": "country/RUS",
-      "name": "Russia",
+      "name": "Russian Federation",
       "iso_code": "RU",
       "country_alpha_3_code": "RUS",
       "country_numeric_code": "643",
@@ -1754,7 +1754,7 @@
     },
     {
       "dcid": "country/STP",
-      "name": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+      "name": "Sao Tome and Principe",
       "iso_code": "ST",
       "country_alpha_3_code": "STP",
       "country_numeric_code": "678",
@@ -1826,7 +1826,7 @@
     },
     {
       "dcid": "country/SYR",
-      "name": "Syria",
+      "name": "Syrian Arab Republic",
       "iso_code": "SY",
       "country_alpha_3_code": "SYR",
       "country_numeric_code": "760",
@@ -1922,7 +1922,7 @@
     },
     {
       "dcid": "country/TUR",
-      "name": "Turkey",
+      "name": "T\u00fcrkiye",
       "iso_code": "TR",
       "country_alpha_3_code": "TUR",
       "country_numeric_code": "792",
@@ -1946,7 +1946,7 @@
     },
     {
       "dcid": "country/TZA",
-      "name": "Tanzania",
+      "name": "United Republic of Tanzania",
       "iso_code": "TZ",
       "country_alpha_3_code": "TZA",
       "country_numeric_code": "834",
@@ -1986,7 +1986,7 @@
     },
     {
       "dcid": "country/USA",
-      "name": "United States",
+      "name": "United States of America",
       "iso_code": "US",
       "country_alpha_3_code": "USA",
       "country_numeric_code": "840",
@@ -2002,7 +2002,7 @@
     },
     {
       "dcid": "country/VAT",
-      "name": "Vatican City",
+      "name": "Holy See",
       "iso_code": "VA",
       "country_alpha_3_code": "VAT",
       "country_numeric_code": "336",
@@ -2018,7 +2018,7 @@
     },
     {
       "dcid": "country/VEN",
-      "name": "Venezuela",
+      "name": "Venezuela (Bolivarian Republic of)",
       "iso_code": "VE",
       "country_alpha_3_code": "VEN",
       "country_numeric_code": "862",
@@ -2042,7 +2042,7 @@
     },
     {
       "dcid": "country/VNM",
-      "name": "Vietnam",
+      "name": "Viet Nam",
       "iso_code": "VN",
       "country_alpha_3_code": "VNM",
       "country_numeric_code": "704",
