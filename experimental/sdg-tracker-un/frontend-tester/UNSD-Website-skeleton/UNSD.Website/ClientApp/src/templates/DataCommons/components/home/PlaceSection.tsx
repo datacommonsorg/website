@@ -16,17 +16,38 @@
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { CountrySelect } from "../shared/components";
-import { HomeSearchContainer, HomeSection, SectionDescription, SectionHeader } from "./components";
+import {
+  HomeSearchContainer,
+  HomeSection,
+  SectionDescription,
+  SectionHeader,
+} from "./components";
 
 const Container = styled(HomeSection)`
-  gap: 36px;
+  background: rgb(213, 235, 245);
+  background-image: url("./images/datacommons/un-homepage-map.png");
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 
 const Header = styled(SectionHeader)`
-  color: rgba(0, 0, 0, 0.79);
-`
+  color: #449bd5;
+  margin-bottom: 30px;
+`;
+
+const SearchCard = styled.div`
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #414042;
+  box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 2rem;
+`;
 
 const SearchBarContainer = styled(HomeSearchContainer)`
+  margin-bottom: 16px;
   svg {
     display: none;
   }
@@ -60,7 +81,7 @@ const SearchBarContainer = styled(HomeSearchContainer)`
       }
     }
   }
-`
+`;
 
 const ColorBar = styled.div`
   background-image: url("./images/datacommons/sdg-color-bar.png");
@@ -78,22 +99,25 @@ export const PlaceSection = () => {
   };
   return (
     <>
-    <ColorBar/>
-    <Container>
-        <Header>Explore Countries and Regions</Header>
-        <SearchBarContainer>
-          <CountrySelect
-            setSelectedPlaceDcid={(placeDcid) =>
-              history.push(`/countries?p=${placeDcid}`)
-            }
-            style={countrySelectStyle}
-          />
-        </SearchBarContainer>
-        <SectionDescription>
-          Learn about country and SDG region progress on the UN SDGs through the
-          UN Data Commons.
-        </SectionDescription>
-    </Container>
-      <ColorBar/></>
+      <ColorBar />
+      <Container>
+        <SearchCard>
+          <Header>Explore SDG Data by Countries and Regions</Header>
+          <SearchBarContainer>
+            <CountrySelect
+              setSelectedPlaceDcid={(placeDcid) =>
+                history.push(`/countries?p=${placeDcid}`)
+              }
+              style={countrySelectStyle}
+            />
+          </SearchBarContainer>
+          <SectionDescription>
+            Learn about country and SDG region progress on the UN SDGs through
+            the UN Data Commons.
+          </SectionDescription>
+        </SearchCard>
+      </Container>
+      <ColorBar />
+    </>
   );
 };
