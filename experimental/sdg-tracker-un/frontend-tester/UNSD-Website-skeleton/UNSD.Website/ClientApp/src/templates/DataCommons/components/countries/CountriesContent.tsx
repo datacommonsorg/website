@@ -869,6 +869,7 @@ const ChartTile: React.FC<{
           variables={tileStatVars.join(" ")}
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
+          showExploreMore={true}
         >
           <div slot="footer">
             <ChartFootnote text={footnote} />
