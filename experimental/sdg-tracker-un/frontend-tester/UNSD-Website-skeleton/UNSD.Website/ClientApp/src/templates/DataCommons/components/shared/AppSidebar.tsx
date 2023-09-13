@@ -50,6 +50,12 @@ const StyledMenu = styled(Menu)`
   }
 `;
 
+const SidebarContent = styled.div`
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+`;
+
 const AppSidebar: React.FC<{
   placeDcid: string;
   variableDcid: string;
@@ -121,25 +127,26 @@ const AppSidebar: React.FC<{
         position: "sticky",
         top: 0,
         height: "100vh",
-        overflow: !siderHidden ? "auto" : undefined,
       }}
     >
-      <MenuTitle>Goals</MenuTitle>
-      <StyledMenu
-        selectedKeys={[variableDcid, `summary-${variableDcid}`]}
-        mode="inline"
-        defaultOpenKeys={["1"]}
-        style={{ borderRight: 0 }}
-        onClick={(item) => {
-          setVariableDcid(item.key.replace("summary-", ""));
-        }}
-      >
-        {placeSidebarMenuHierarchy.length === 0 ? (
-          <Spinner />
-        ) : (
-          placeSidebarMenuHierarchy.map((vg) => getMenuItem(vg))
-        )}
-      </StyledMenu>
+      <SidebarContent>
+        <MenuTitle>Goals</MenuTitle>
+        <StyledMenu
+          selectedKeys={[variableDcid, `summary-${variableDcid}`]}
+          mode="inline"
+          defaultOpenKeys={["1"]}
+          style={{ borderRight: 0 }}
+          onClick={(item) => {
+            setVariableDcid(item.key.replace("summary-", ""));
+          }}
+        >
+          {placeSidebarMenuHierarchy.length === 0 ? (
+            <Spinner />
+          ) : (
+            placeSidebarMenuHierarchy.map((vg) => getMenuItem(vg))
+          )}
+        </StyledMenu>
+      </SidebarContent>
     </Sider>
   );
 };
