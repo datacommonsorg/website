@@ -29,12 +29,17 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string('project', 'datcom-store', 'GCP project')
 flags.DEFINE_string('instance', 'website-data', 'BT instance')
 flags.DEFINE_string('table', 'nl-query', 'BT table')
-flags.DEFINE_integer('past_days', 5, 'Days to go back')
+flags.DEFINE_integer('past_days', 1, 'Days to go back')
 flags.DEFINE_string('output_dir', '/tmp/', 'Output dir for CSV')
+flags.DEFINE_string('env_name', 'prod', 'Env name')
 flags.DEFINE_bool('all_rows', False, 'Process all rows')
 
 _CHART_IDX_THRESHOLD = 15
 _SUPPORTED_ENV = {
+    'datcom-website-prod': {
+        'name': 'prod',
+        'url': 'https://datacommons.org/'
+    },
     'datcom-website-autopush': {
         'name': 'autopush',
         'url': 'https://autopush.datacommons.org/'
@@ -230,14 +235,14 @@ def _write_feedback_rows(key, data, env, out_rows):
     out_rows.append(output_row)
 
 
-def mine(table, start, out_rows, all_rows):
+def mine(table, start, out_rows, supported_env, all_rows):
   rows = table.read_rows(filter_=row_filters.TimestampRangeFilter(
       row_filters.TimestampRange(start=start)))
   for row in rows:
     key = row.row_key.decode('utf-8')
     # Format xxx_yyyyyyyy#<project>
     project = key.split('#')[1].strip()
-    if project not in _SUPPORTED_ENV:
+    if project not in supported_env:
       continue
     data = {
         _COL_DATA: [],
@@ -273,9 +278,9 @@ def mine(table, start, out_rows, all_rows):
     data[_COL_DATA].sort(key=lambda x: len(x['session']['items']))
 
     if all_rows:
-      _write_all_rows(key, data, _SUPPORTED_ENV[project], out_rows)
+      _write_all_rows(key, data, supported_env[project], out_rows)
     else:
-      _write_feedback_rows(key, data, _SUPPORTED_ENV[project], out_rows)
+      _write_feedback_rows(key, data, supported_env[project], out_rows)
 
 
 def main(_):
@@ -287,7 +292,16 @@ def main(_):
   start = now - timedelta(days=FLAGS.past_days)
 
   out_rows = []
-  mine(table, start, out_rows, FLAGS.all_rows)
+  if FLAGS.env_name:
+    supported_env = {}
+    for k, v in _SUPPORTED_ENV.items():
+      if v.get('name') == FLAGS.env_name:
+        supported_env[k] = v
+    assert supported_env
+  else:
+    supported_env = _SUPPORTED_ENV
+
+  mine(table, start, out_rows, supported_env, FLAGS.all_rows)
   out_rows.sort(key=lambda x: x['Time'])
 
   output_csv = os.path.join(FLAGS.output_dir, _fname(start, now))
