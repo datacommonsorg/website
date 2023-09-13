@@ -23,7 +23,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useStoreState } from "../../state";
-import { FOOTNOTE_CHAR_LIMIT, QUERY_PARAM_VARIABLE, ROOT_TOPIC } from "../../utils/constants";
+import {
+  FOOTNOTE_CHAR_LIMIT,
+  QUERY_PARAM_VARIABLE,
+  ROOT_TOPIC,
+} from "../../utils/constants";
 import "./components.css";
 
 const SearchInputContainer = styled.div`
@@ -40,7 +44,7 @@ const SearchInputContainer = styled.div`
     margin: 0 1.2rem 0rem;
     text-transform: uppercase;
   }
-    .search {
+  .search {
     position: relative;
 
     input {
@@ -224,6 +228,9 @@ export const CountrySelect: React.FC<{
   const options = [countries, regions]
     .flat()
     .map((place) => ({ value: place.name, dcid: place.dcid }));
+  options.sort(({ value: value1 }, { value: value2 }) =>
+    value1.localeCompare(value2)
+  );
   const containerWidth = style && style.width ? style.width : "fit-content";
   const [value, setValue] = useState("");
 
@@ -360,15 +367,14 @@ export const PlaceHeaderCard: React.FC<{
   const shouldHideBreadcrumbs =
     hideBreadcrumbs || (topics.length == 1 && topics[0].dcid === ROOT_TOPIC);
   // hide place title on search pages with no topics found
-  const shouldHidePlaceName = (isSearch && !topicNames);
+  const shouldHidePlaceName = isSearch && !topicNames;
   // show topic names only if on search and there is a place found
-  const shouldShowTopicNames = 
-    isSearch && topicNames && !_.isEmpty(placeNames);
+  const shouldShowTopicNames = isSearch && topicNames && !_.isEmpty(placeNames);
   return (
     <PlaceCard>
       <PlaceCardContent>
         {userMessage && <UserMessage>{userMessage}</UserMessage>}
-        {(hidePlaceSearch || isSearch) ? (
+        {hidePlaceSearch || isSearch ? (
           <PlaceTitle>
             {!shouldHidePlaceName && placeNames.join(", ")}
             {shouldShowTopicNames ? ` • ${topicNames}` : ""}
@@ -587,13 +593,15 @@ export const ShowMoreToggle = styled.span`
   color: var(--link-color);
 `;
 
-export const ChartFootnote: React.FC<{text: string | undefined}> = ({text}) => {
+export const ChartFootnote: React.FC<{ text: string | undefined }> = ({
+  text,
+}) => {
   const [showFullText, setShowFullText] = useState(false);
   if (!text) {
     return <></>;
   }
   const hideToggle = text.length < FOOTNOTE_CHAR_LIMIT;
-  const shortText = text.slice(0, FOOTNOTE_CHAR_LIMIT)
+  const shortText = text.slice(0, FOOTNOTE_CHAR_LIMIT);
   return (
     <ChartFootnoteContainer>
       {hideToggle || showFullText ? text : `${shortText}...`}
