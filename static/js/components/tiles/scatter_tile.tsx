@@ -75,6 +75,8 @@ export interface ScatterTilePropType {
   showExploreMore?: boolean;
   // Whether or not to show a loading spinner when fetching data.
   showLoadingSpinner?: boolean;
+  // The property to use to get place names.
+  placeNameProp?: string;
 }
 
 interface RawData {
@@ -116,7 +118,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
     loadSpinner(getSpinnerId());
     (async () => {
       const data = await fetchData(props);
-      if (props && _.isEqual(data.props, props)) {
+      if (props && data && _.isEqual(data.props, props)) {
         setScatterChartData(data);
       }
     })();
@@ -261,12 +263,16 @@ export const fetchData = async (props: ScatterTilePropType) => {
     props.statVarSpec,
     props.apiRoot
   );
+  const placeNamesParams = {
+    dcid: props.place.dcid,
+    descendentType: props.enclosedPlaceType,
+  };
+  if (props.placeNameProp) {
+    placeNamesParams["prop"] = props.placeNameProp;
+  }
   const placeNamesPromise = axios
     .get(`${props.apiRoot || ""}/api/place/descendent/name`, {
-      params: {
-        dcid: props.place.dcid,
-        descendentType: props.enclosedPlaceType,
-      },
+      params: placeNamesParams,
       paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
