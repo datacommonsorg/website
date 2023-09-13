@@ -236,8 +236,9 @@ def geojson():
   if not place_type:
     place_dcid, place_type = get_choropleth_display_level(place_dcid)
   place_name_prop = request.args.get("placeNameProp")
+  cache_geojson_prop = request.args.get("cacheGeoJsonProp", "default")
   cached_geojson = current_app.config['CACHED_GEOJSONS'].get(
-      place_dcid, {}).get(place_type, None)
+      place_dcid, {}).get(place_type, {}).get(cache_geojson_prop, {})
   if cached_geojson:
     result = process_cached_geojson(cached_geojson, place_name_prop)
     return lib_util.gzip_compress_response(result, is_json=True)

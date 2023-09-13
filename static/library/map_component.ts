@@ -124,6 +124,10 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   placeNameProp: string;
 
+  // Optional: Property to use to get cached geojson
+  @property()
+  cacheGeoJsonProp: string;
+
   firstUpdated(): void {
     if (this.subscribe) {
       this.parentElement.addEventListener(
@@ -164,6 +168,7 @@ export class DatacommonsMapComponent extends LitElement {
       svgChartHeight: 200,
       title: this.header || this.title,
       placeNameProp: this.placeNameProp,
+      cacheGeoJsonProp: this.cacheGeoJsonProp,
     };
     return createWebComponentElement(MapTile, mapTileProps);
   }

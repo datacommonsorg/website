@@ -57,43 +57,68 @@ TOPIC_PAGE_CONFIGS = {
 # compression).
 GZIP_COMPRESSION_LEVEL = 3
 
+DEFAULT_CACHED_GEOJSON = "default"
+
 # Dict of place dcid to place type to filename of the geojson to cache for that
 # place + place type combination.
 # To generate cached geojson files, follow instructions/use the endpoint here:
 # https://github.com/chejennifer/website/blob/generateCacheGeojsons/server/routes/api/choropleth.py#L201-L273
 CACHED_GEOJSON_FILES = {
     "Earth": {
-        "Country": "earth_country_dp13"
+        "Country": {
+            DEFAULT_CACHED_GEOJSON: "earth_country_dp13",
+            "unGeoCoordinate": "earth_country_dp13",
+        }
     },
     "africa": {
-        "Country": "africa_country_dp10"
+        "Country": {
+            DEFAULT_CACHED_GEOJSON: "africa_country_dp10"
+        }
     },
     "asia": {
-        "Country": "asia_country_dp10"
+        "Country": {
+            DEFAULT_CACHED_GEOJSON: "asia_country_dp10"
+        }
     },
     "europe": {
-        "Country": "europe_country_dp6"
+        "Country": {
+            DEFAULT_CACHED_GEOJSON: "europe_country_dp6"
+        }
     },
     "northamerica": {
-        "Country": "northamerica_country_dp13"
+        "Country": {
+            DEFAULT_CACHED_GEOJSON: "northamerica_country_dp13"
+        }
     },
     "oceania": {
-        "Country": "oceania_country_dp13"
+        "Country": {
+            DEFAULT_CACHED_GEOJSON: "oceania_country_dp13"
+        }
     },
     "southamerica": {
-        "Country": "southamerica_country_dp10"
+        "Country": {
+            DEFAULT_CACHED_GEOJSON: "southamerica_country_dp10"
+        }
     },
     "geoId/06": {
-        "CensusTract": "california_censustract"
+        "CensusTract": {
+            DEFAULT_CACHED_GEOJSON: "california_censustract"
+        }
     },
     "geoId/12": {
-        "CensusTract": "florida_censustract"
+        "CensusTract": {
+            DEFAULT_CACHED_GEOJSON: "florida_censustract"
+        }
     },
     "geoId/36": {
-        "CensusTract": "newyorkstate_censustract"
+        "CensusTract": {
+            DEFAULT_CACHED_GEOJSON: "newyorkstate_censustract"
+        }
     },
     "geoId/48": {
-        "CensusTract": "texas_censustract"
+        "CensusTract": {
+            DEFAULT_CACHED_GEOJSON: "texas_censustract"
+        }
     },
 }
 
@@ -227,19 +252,21 @@ def get_disaster_event_metadata():
     return subject_page_config
 
 
-# Returns dict of place dcid to place type to geojson object. Geojson object is
-# a feature collection where the geometry of the features do not follow the
-# right hand rule.
+# Returns dict of place dcid to place type to geojsonProp to geojson object.
+# Geojson object is a feature collection where the geometry of the features do
+# not follow the right hand rule.
 def get_cached_geojsons():
   geojsons = {}
   for place in CACHED_GEOJSON_FILES:
     geojsons[place] = {}
     for place_type in CACHED_GEOJSON_FILES[place]:
-      filename = CACHED_GEOJSON_FILES[place][place_type]
-      filepath = os.path.join(get_repo_root(), 'config', 'geojson',
-                              filename + '.json')
-      with open(filepath, 'r') as f:
-        geojsons[place][place_type] = json.load(f)
+      geojsons[place][place_type] = {}
+      for geo_json_prop in CACHED_GEOJSON_FILES[place][place_type]:
+        filename = CACHED_GEOJSON_FILES[place][place_type][geo_json_prop]
+        filepath = os.path.join(get_repo_root(), 'config', 'geojson',
+                                geo_json_prop, filename + '.json')
+        with open(filepath, 'r') as f:
+          geojsons[place][place_type][geo_json_prop] = json.load(f)
   return geojsons
 
 

@@ -15,7 +15,7 @@
  */
 
 /** Default website API endpoint for datacommons library */
-export const DEFAULT_API_ENDPOINT = "https://datacommons.org";
+export const DEFAULT_API_ENDPOINT = "http://localhost:8080";
 
 /** URL for Material Icons stylesheet to inject into web components */
 export const ICON_STYLESHEET_URL =

@@ -5,7 +5,7 @@
       rel="stylesheet"
       href="https://datacommons.org/css/datacommons.min.css"
     />
-    <script src="https://datacommons.org/datacommons.js"></script>
+    <script src="http://localhost:8080/datacommons.js"></script>
     <style>
       /**
        * Example component styling using shadow part identifiers
@@ -239,6 +239,17 @@
       parentPlace="country/USA"
       childPlaceType="State"
       variable="Count_Person"
+    ></datacommons-map>
+    <datacommons-map
+      parentPlace="Earth"
+      childPlaceType="Country"
+      variable="Count_Person"
+    ></datacommons-map>
+    <datacommons-map
+      parentPlace="Earth"
+      childPlaceType="Country"
+      variable="Count_Person"
+      cacheGeoJsonProp="unGeoCoordinate"
     ></datacommons-map>
     <h2>Map with year slider</h2>
     <datacommons-map

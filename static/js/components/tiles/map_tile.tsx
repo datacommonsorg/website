@@ -106,6 +106,8 @@ export interface MapTilePropType {
   allowZoom?: boolean;
   // The property to use to get place names.
   placeNameProp?: string;
+  // The property to use to get cached geojsons.
+  cacheGeoJsonProp?: string;
 }
 
 interface RawData {
@@ -270,6 +272,9 @@ export const fetchData = async (
   };
   if (props.placeNameProp) {
     geoJsonParams["placeNameProp"] = props.placeNameProp;
+  }
+  if (props.cacheGeoJsonProp) {
+    geoJsonParams["cacheGeoJsonProp"] = props.cacheGeoJsonProp;
   }
   const geoJsonPromise = axios
     .get(`${props.apiRoot || ""}/api/choropleth/geojson`, {
