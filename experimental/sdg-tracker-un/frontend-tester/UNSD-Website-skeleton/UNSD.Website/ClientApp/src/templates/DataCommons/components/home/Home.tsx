@@ -19,11 +19,11 @@ import AppLayoutContent from "../shared/AppLayoutContent";
 import { ExploreSection } from "./ExploreSection";
 import { GoalSection } from "./GoalSection";
 import { PlaceSection } from "./PlaceSection";
-import { HomeSection } from "./components";
+import { HomeSection, SectionDescription } from "./components";
 
 const HomeContainer = styled(HomeSection)`
-  gap: 64px;
   background-color: #f2f2f2;
+  gap: 45px;
 
   .page-header {
     display: flex;
@@ -35,17 +35,8 @@ const HomeContainer = styled(HomeSection)`
       width: 100%;
     }
   }
-  p {
-    color: #414042;
-    text-align: center;
-    font-family: Roboto;
-    font-size: 26px;
-    font-weight: 400;
-    line-height: 42px;
-    max-width: 886px;
-    margin-bottom: 0;
-  }
 `;
+
 
 const Home = () => {
   return (
@@ -59,15 +50,15 @@ const Home = () => {
         }}
       >
         <HomeContainer>
-          <div className="page-header">
-            <img src={"./images/datacommons/un-dc-sdg-logo.png"} />
-          </div>
-          <p>
-            Introducing the new UN Data Commons for the SDGs — a platform
-            integrating authoritative SDG data and information resources from
-            across the UN System into a public repository with advanced search
-            functionality and a modern, user-friendly interface.
-          </p>
+            <div className="page-header">
+              <img src={"./images/datacommons/un-dc-sdg-logo.png"} />
+            </div>
+            <SectionDescription>
+              Introducing the new UN Data Commons for the SDGs — a platform
+              integrating authoritative SDG data and information resources from
+              across the UN System into a public repository with advanced search
+              functionality and a modern, user-friendly interface.
+            </SectionDescription>
         </HomeContainer>
         <PlaceSection />
         <GoalSection />

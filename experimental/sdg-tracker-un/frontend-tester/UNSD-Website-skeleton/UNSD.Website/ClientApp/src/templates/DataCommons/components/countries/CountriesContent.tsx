@@ -40,6 +40,7 @@ import {
 } from "../../utils/types";
 
 import {
+  ChartFootnote,
   ContentCard,
   CountrySelect,
   Divider,
@@ -63,9 +64,13 @@ const HIGHLIGHT_CHART_HEIGHT = 155;
 const VARIABLE_NAME_REGEX = "(?<=\\[)(.*?)(?=\\])";
 const DEFAULT_VARIABLE_NAME = "Total";
 
+interface TileWithFootnote {
+  tile: ChartConfigTile;
+  footnote?: string;
+}
 // Interfaces to define Goal -> Target -> Indicator -> Tiles[] mapping
 interface Indicators {
-  [key: string]: ChartConfigTile[];
+  [key: string]: TileWithFootnote[];
 }
 interface Targets {
   [key: string]: Indicators;
@@ -79,7 +84,7 @@ interface TileHierarchy {
   // map goal -> target -> indicator -> tiles, used in country/goal pages
   hierarchy: Goals;
   // list of tiles in order received from fulfillment
-  orderedTiles: ChartConfigTile[];
+  orderedTiles: TileWithFootnote[];
   // Optional: string to show after " * " separator in place header
   topicNameStr?: string;
 }
@@ -201,7 +206,7 @@ function isInSelectedTopics(
  * @param selectedTopics list of topics the current page is about
  */
 function addTileToHierarchy(
-  tile: ChartConfigTile,
+  tile: TileWithFootnote,
   hierarchy: Goals,
   topicDcid: string,
   selectedTopics: string[]
@@ -239,12 +244,13 @@ function buildTileHierarchy(
   // stores hierarchy of Goals -> Target -> Indicator -> Tiles
   const hierarchy: Goals = {};
   // stores tiles in order returned by fulfillment api
-  const orderedTiles: ChartConfigTile[] = [];
+  const orderedTiles: TileWithFootnote[] = [];
   // stores topic dcids covered by the tiles
   const topicDcids: string[] = [];
 
   // iterate over tiles nested in chartConfigCategory
   chartConfigCategory.blocks.forEach((block) => {
+    const footnote = block.footnote;
     block.columns.forEach((column) => {
       column.tiles.forEach((tile) => {
         if (tile.type === "PLACE_OVERVIEW") {
@@ -261,10 +267,11 @@ function buildTileHierarchy(
         if (_.isEmpty(varToTopics[statVar])) {
           return;
         }
+        const tileWithFootnote: TileWithFootnote = {tile, footnote};
         for (const topic of varToTopics[statVar]) {
-          addTileToHierarchy(tile, hierarchy, topic.dcid, selectedTopics);
+          addTileToHierarchy(tileWithFootnote, hierarchy, topic.dcid, selectedTopics);
         }
-        orderedTiles.push(tile);
+        orderedTiles.push(tileWithFootnote);
         varToTopics[statVar].forEach((topic) => topicDcids.push(topic.dcid));
       });
     });
@@ -414,7 +421,9 @@ const CountriesContent: React.FC<{
   ) {
     return (
       <Layout style={{ height: "100%", flexGrow: 1 }}>
-        <Layout.Content style={{ padding: "0rem 0" }}>
+        <Layout.Content
+          style={{ padding: "0rem 0", background: theme.searchBackgroundColor }}
+        >
           <PlaceTitle style={{ marginBottom: "1rem", display: "block" }}>
             <div>
               {placeNames.length > 0 ? (
@@ -445,7 +454,9 @@ const CountriesContent: React.FC<{
 
   return (
     <Layout style={{ height: "100%", flexGrow: 1 }}>
-      <Layout.Content style={{ padding: "0rem 0" }}>
+      <Layout.Content
+        style={{ padding: "0rem 0", background: theme.searchBackgroundColor }}
+      >
         {showNLSearch && (
           <SearchCard>
             <SearchBar
@@ -571,7 +582,7 @@ const ChartCategoryContent: React.FC<{
               fulfillResponse={fulfillResponse}
               key={`search-result-tile-${i}`}
               placeDcids={placeDcids}
-              tile={tile}
+              tileWithFootnote={tile}
               statVarSpec={chartConfigCategory.statVarSpec}
             />
           ))}
@@ -669,7 +680,7 @@ const ChartIndicatorBlock: React.FC<{
   indicator: string;
   placeDcids: string[];
   statVarSpec: StatVarSpec;
-  tiles: ChartConfigTile[];
+  tiles: TileWithFootnote[];
 }> = ({ fulfillResponse, indicator, placeDcids, statVarSpec, tiles }) => {
   const goalNumber = Number(indicator.split(".")[0]) || 1;
   const color = theme.sdgColors[goalNumber - 1];
@@ -683,7 +694,7 @@ const ChartIndicatorBlock: React.FC<{
           fulfillResponse={fulfillResponse}
           key={`${indicator}-${i}`}
           placeDcids={placeDcids}
-          tile={tile}
+          tileWithFootnote={tile}
           statVarSpec={statVarSpec}
         />
       ))}
@@ -695,8 +706,8 @@ const ChartTile: React.FC<{
   fulfillResponse: FulfillResponse;
   statVarSpec: StatVarSpec;
   placeDcids: string[];
-  tile: ChartConfigTile;
-}> = ({ fulfillResponse, placeDcids, tile, statVarSpec }) => {
+  tileWithFootnote: TileWithFootnote;
+}> = ({ fulfillResponse, placeDcids, tileWithFootnote, statVarSpec }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [isIntersecting, setIntersecting] = useState(false);
@@ -725,6 +736,8 @@ const ChartTile: React.FC<{
     return <div ref={ref} />;
   }
 
+  const tile = tileWithFootnote.tile;
+  const footnote = tileWithFootnote.footnote;
   const placeDcid = placeDcids[0];
   const placeType = fulfillResponse.place.place_type;
   const containedPlaceTypes =
@@ -756,7 +769,11 @@ const ChartTile: React.FC<{
           showExploreMore={true}
           variableNameRegex={VARIABLE_NAME_REGEX}
           defaultVariableName={DEFAULT_VARIABLE_NAME}
-        />
+        >
+          <div slot="footer">
+            <ChartFootnote text={footnote} />
+          </div>
+        </datacommons-bar>
       </>
     );
   } else if (tile.type === "HIGHLIGHT") {
@@ -784,7 +801,11 @@ const ChartTile: React.FC<{
           showExploreMore={true}
           defaultVariableName={DEFAULT_VARIABLE_NAME}
           timeScale="year"
-        />
+        >
+          <div slot="footer">
+            <ChartFootnote text={footnote} />
+          </div>
+        </datacommons-line>
       </>
     );
   } else if (tile.type === "MAP") {
@@ -813,6 +834,7 @@ const ChartTile: React.FC<{
               parentPlace={placeDcid}
               childPlaceType={childPlaceType}
             />
+            <ChartFootnote text={footnote} />
           </div>
           {/** @ts-ignore */}
         </datacommons-map>
@@ -831,7 +853,11 @@ const ChartTile: React.FC<{
           place={placeDcid}
           min="0"
           max="100"
-        />
+        >
+          <div slot="footer">
+            <ChartFootnote text={footnote} />
+          </div>
+        </datacommons-gauge>
       </>
     );
   } else if (tile.type === "SCATTER") {
@@ -844,7 +870,11 @@ const ChartTile: React.FC<{
           variables={tileStatVars.join(" ")}
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
-        />
+        >
+          <div slot="footer">
+            <ChartFootnote text={footnote} />
+          </div>
+        </datacommons-scatter>
       </>
     );
   } else if (tile.type === "RANKING") {
