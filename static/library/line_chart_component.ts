@@ -106,6 +106,10 @@ export class DatacommonsLineComponent extends LitElement {
   @property()
   defaultVariableName!: string;
 
+  // Optional: Property to use to get place names
+  @property()
+  placeNameProp: string;
+
   // Optional: Whether to show the "explore" link.
   // Default: false
   @property({ type: Boolean })
@@ -144,6 +148,7 @@ export class DatacommonsLineComponent extends LitElement {
         this.variableNameRegex,
         this.defaultVariableName
       ),
+      placeNameProp: this.placeNameProp,
     };
     return createWebComponentElement(LineTile, lineTileProps);
   }

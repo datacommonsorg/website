@@ -159,6 +159,12 @@
       horizontal
       sort="descending"
     ></datacommons-bar>
+    <datacommons-bar
+      header="Population Of Netherlands and USA (with place name prop)"
+      variables="Count_Person"
+      places="country/USA country/NLD geoId/06"
+      placeNameProp="unDataLabel"
+    ></datacommons-bar>
     <h2>Pie/Donut</h2>
     <datacommons-pie
       header="California Farms by Size"
@@ -212,6 +218,13 @@
       childPlaceType="State"
       variable="Count_Person"
       colors="red"
+    ></datacommons-map>
+    <datacommons-map
+      header="Population (with place name prop)"
+      parentPlace="Earth"
+      childPlaceType="Country"
+      variable="Count_Person"
+      placeNameProp="unDataLabel"
     ></datacommons-map>
     <!-- Test deprecated attributes placeDcid, enclosedPlaceType, and statVarDcid -->
     <datacommons-map
@@ -302,6 +315,12 @@
       variables="Count_Person_Male Count_Person_Female"
     ></datacommons-line>
     <datacommons-line
+      header="Population Of Netherlands and USA (with place name prop)"
+      places="country/NLD country/USA geoId/06"
+      variables="Count_Person"
+      placeNameProp="unDataLabel"
+    ></datacommons-line>
+    <datacommons-line
       header="Line chart using years in the x-axis"
       places="country/COL"
       variables="sdg/SI_POV_NAHC"
@@ -358,6 +377,13 @@
       variables="Count_Person Median_Income_Household"
       parentPlace="country/USA"
       childPlaceType="State"
+    ></datacommons-scatter>
+    <datacommons-scatter
+      header="Population vs Cell Subscription for Countries in Europe (with place name prop)"
+      variables="Count_Person Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person"
+      parentPlace="europe"
+      childPlaceType="Country"
+      placeNameProp="unDataLabel"
     ></datacommons-scatter>
   </body>
 </html>

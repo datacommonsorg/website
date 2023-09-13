@@ -205,6 +205,10 @@ export class DatacommonsBarComponent extends LitElement {
   @property()
   defaultVariableName!: string;
 
+  // Optional: Property to use to get place names.
+  @property()
+  placeNameProp!: string;
+
   render(): HTMLElement {
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
@@ -246,6 +250,7 @@ export class DatacommonsBarComponent extends LitElement {
         this.variableNameRegex,
         this.defaultVariableName
       ),
+      placeNameProp: this.placeNameProp,
     };
 
     return createWebComponentElement(BarTile, barTileProps);

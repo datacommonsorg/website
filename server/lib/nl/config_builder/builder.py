@@ -17,7 +17,9 @@ from typing import cast
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.explore.params import DCNames
+from server.lib.explore.params import is_sdg
 from server.lib.explore.params import Params
+from server.lib.nl.common import utils
 from server.lib.nl.common import variable
 from server.lib.nl.common.constants import PROJECTED_TEMP_TOPIC
 from server.lib.nl.common.utterance import ChartType
@@ -65,6 +67,9 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
       footnote=variable.get_sv_footnote(all_svs),
   )
   state.sv2thing = sv2thing
+  # In SDG mode, override the place names with `unDataLabel` values.
+  if is_sdg(state.uttr.insight_ctx):
+    _set_un_labels_in_places(state)
   uttr.counters.timeit('get_sv_details', start)
 
   builder = base.Builder(uttr, sv2thing, config)
@@ -200,3 +205,29 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
 
   builder.finalize()
   return builder.page_config
+
+
+def _set_un_labels_in_places(state: PopulateState):
+  # Collect all the DCIDs.
+  place_dcids = set()
+  for cspec in state.uttr.rankedCharts:
+    place_dcids.update([p.dcid for p in cspec.places])
+  for ps in [state.uttr.places, state.uttr.answerPlaces]:
+    place_dcids.update([p.dcid for p in ps])
+  if state.uttr.place_fallback and state.uttr.place_fallback.newPlace:
+    place_dcids.add(state.uttr.place_fallback.newPlace.dcid)
+
+  # Fetch UN Labels.
+  place2labels = utils.get_un_labels(list(place_dcids))
+
+  # Set all the names.
+  for cspec in state.uttr.rankedCharts:
+    for p in cspec.places:
+      p.name = place2labels.get(p.dcid, p.name)
+  for ps in [state.uttr.places, state.uttr.answerPlaces]:
+    for p in ps:
+      p.name = place2labels.get(p.dcid, p.name)
+  if state.uttr.place_fallback and state.uttr.place_fallback.newPlace:
+    state.uttr.place_fallback.newPlace.name = place2labels.get(
+        state.uttr.place_fallback.newPlace.dcid,
+        state.uttr.place_fallback.newPlace.name)
