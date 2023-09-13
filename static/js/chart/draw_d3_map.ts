@@ -25,9 +25,15 @@ import _ from "lodash";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import {
   ASIA_NAMED_TYPED_PLACE,
+  AUSTRALIA_NEW_ZEALAND_DCID,
+  EASTERN_EUROPE_DCID,
+  EU_DCID,
   EUROPE_NAMED_TYPED_PLACE,
+  MELANESIA_DCID,
   NORTH_AMERICA_DCID,
+  NORTHERN_EUROPE_DCID,
   OCEANIA_DCID,
+  WESTERN_EUROPE_DCID,
 } from "../shared/constants";
 import { NamedPlace } from "../shared/types";
 import { getPlacePathId } from "./draw_map_utils";
@@ -76,6 +82,15 @@ const MAP_PATH_HIGHLIGHT_CLASS = "map-path-highlight";
 const MAP_PATH_STROKE_WIDTH = "1.5px";
 const MAP_PATH_OPACITY = "0.5";
 const DEFAULT_MIN_DOT_SIZE = 1.25;
+// map of place dcid to a place dcid with the projection to use
+const PROJECTION_MAPPING = {
+  [AUSTRALIA_NEW_ZEALAND_DCID]: OCEANIA_DCID,
+  [NORTHERN_EUROPE_DCID]: EUROPE_NAMED_TYPED_PLACE.dcid,
+  [WESTERN_EUROPE_DCID]: EUROPE_NAMED_TYPED_PLACE.dcid,
+  [EU_DCID]: EUROPE_NAMED_TYPED_PLACE.dcid,
+  // TODO: might want to look into a better projection
+  [MELANESIA_DCID]: OCEANIA_DCID,
+};
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -267,10 +282,13 @@ export function getProjection(
 ): d3.GeoProjection {
   let projection = null;
   let isMapFitted = false;
-  switch (enclosingPlaceDcid) {
+  const projectionDcid =
+    PROJECTION_MAPPING[enclosingPlaceDcid] || enclosingPlaceDcid;
+  switch (projectionDcid) {
     case EUROPE_NAMED_TYPED_PLACE.dcid:
       // Reference:
       // https://observablehq.com/@toja/five-map-projections-for-europe#_lambertAzimuthalEqualArea
+      // TODO: improve scaling for northern and western europe
       projection = d3
         .geoAzimuthalEqualArea()
         .rotate([-20.0, -52.0])

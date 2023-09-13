@@ -111,6 +111,10 @@ export class DatacommonsLineComponent extends LitElement {
   @property({ type: Boolean })
   showExploreMore: boolean;
 
+  // Optional: Property to use to get place names
+  @property()
+  placeNameProp: string;
+
   render(): HTMLElement {
     const lineTileProps: LineTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
@@ -139,6 +143,7 @@ export class DatacommonsLineComponent extends LitElement {
         this.variableNameRegex,
         this.defaultVariableName
       ),
+      placeNameProp: this.placeNameProp,
     };
     return createWebComponentElement(LineTile, lineTileProps);
   }

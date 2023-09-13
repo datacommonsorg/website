@@ -100,6 +100,15 @@ export class DatacommonsScatterComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   usePerCapita?: string[];
 
+  // Optional: Property to use to get place names
+  @property()
+  placeNameProp: string;
+
+  // Optional: Whether to show the "explore" link.
+  // Default: false
+  @property({ type: Boolean })
+  showExploreMore: boolean;
+
   render(): HTMLElement {
     const scatterTileProps: ScatterTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
@@ -118,6 +127,7 @@ export class DatacommonsScatterComponent extends LitElement {
         showPlaceLabels: this.showPlaceLabels,
         showQuadrants: this.showQuadrants,
       },
+      showExploreMore: this.showExploreMore,
       statVarSpec: this.variables.map((variable) => ({
         denom: this.usePerCapita?.includes(variable) ? "Count_Person" : "",
         log: false,
@@ -128,6 +138,7 @@ export class DatacommonsScatterComponent extends LitElement {
       })),
       svgChartHeight: 200,
       title: this.header,
+      placeNameProp: this.placeNameProp,
     };
     return createWebComponentElement(ScatterTile, scatterTileProps);
   }

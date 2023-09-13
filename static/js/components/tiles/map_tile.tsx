@@ -102,6 +102,8 @@ export interface MapTilePropType {
   showLoadingSpinner?: boolean;
   // Whether or not to allow zoom in and out of the map
   allowZoom?: boolean;
+  // The property to use to get place names.
+  placeNameProp?: string;
 }
 
 interface RawData {
@@ -259,12 +261,16 @@ export function getReplacementStrings(
 export const fetchData = async (
   props: MapTilePropType
 ): Promise<MapChartData> => {
+  const geoJsonParams = {
+    placeDcid: props.place.dcid,
+    placeType: props.enclosedPlaceType,
+  };
+  if (props.placeNameProp) {
+    geoJsonParams["placeNameProp"] = props.placeNameProp;
+  }
   const geoJsonPromise = axios
     .get(`${props.apiRoot || ""}/api/choropleth/geojson`, {
-      params: {
-        placeDcid: props.place.dcid,
-        placeType: props.enclosedPlaceType,
-      },
+      params: geoJsonParams,
       paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
