@@ -122,6 +122,18 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   background-color: var(--light);
 }
 
+/** footnotes */
+.chart-footnote {
+  color: var(--dc-gray);
+  font-size: 0.6rem;
+  margin: 0 24px;
+
+  .chart-footnote-toggle {
+    color: var(--link-color);
+    cursor: pointer;
+  }
+}
+
 /**
  * highlight tile
  */
