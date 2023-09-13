@@ -146,7 +146,7 @@ def api_name():
     dcids = request.json['dcids']
   dcids = list(filter(lambda d: d != '', dcids))
   prop = request.args.get('prop')
-  if not prop:
+  if request.is_json:
     prop = request.json.get('prop')
   try:
     return names(dcids, prop)
