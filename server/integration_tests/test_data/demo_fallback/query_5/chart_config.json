@@ -89,10 +89,7 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block",
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block",
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block",
-                      "dc/62n3z7mvfpjx1_multiple_place_bar_block",
-                      "dc/qt7ewllmt3826_multiple_place_bar_block",
-                      "dc/zz6gwv838v9w_multiple_place_bar_block"
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block"
                     ],
                     "title": "Breakdown of GDP by Industry in United States (${date})",
                     "type": "BAR"
@@ -311,18 +308,6 @@
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
-          },
-          "dc/62n3z7mvfpjx1_multiple_place_bar_block": {
-            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Manufacturing (NAICS/31-33)",
-            "statVar": "dc/62n3z7mvfpjx1"
-          },
-          "dc/qt7ewllmt3826_multiple_place_bar_block": {
-            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Retail Trade (NAICS/44-45)",
-            "statVar": "dc/qt7ewllmt3826"
-          },
-          "dc/zz6gwv838v9w_multiple_place_bar_block": {
-            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Transportation And Warehousing (NAICS/48-49)",
-            "statVar": "dc/zz6gwv838v9w"
           }
         }
       }
