@@ -235,6 +235,7 @@ function renderTiles(
             parentPlaces={props.parentPlaces}
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
+            footnote={props.footnote}
           />
         );
       case "LINE":
@@ -254,6 +255,7 @@ function renderTiles(
             showExploreMore={props.showExploreMore}
             showTooltipOnHover={true}
             colors={tile.lineTileSpec?.colors}
+            footnote={props.footnote}
           />
         );
       case "RANKING":
@@ -281,6 +283,7 @@ function renderTiles(
             className={className}
             comparisonPlaces={comparisonPlaces}
             enclosedPlaceType={enclosedPlaceType}
+            footnote={props.footnote}
             horizontal={tile.barTileSpec?.horizontal}
             id={id}
             key={id}
@@ -320,6 +323,7 @@ function renderTiles(
             className={className}
             scatterTileSpec={tile.scatterTileSpec}
             showExploreMore={props.showExploreMore}
+            footnote={props.footnote}
           />
         );
       case "BIVARIATE":
@@ -343,6 +347,7 @@ function renderTiles(
         return (
           <GaugeTile
             colors={tile.gaugeTileSpec?.colors}
+            footnote={props.footnote}
             id={id}
             place={place}
             range={tile.gaugeTileSpec.range}
@@ -358,6 +363,7 @@ function renderTiles(
         return (
           <DonutTile
             colors={tile.donutTileSpec?.colors}
+            footnote={props.footnote}
             id={id}
             pie={tile.donutTileSpec?.pie}
             place={place}
