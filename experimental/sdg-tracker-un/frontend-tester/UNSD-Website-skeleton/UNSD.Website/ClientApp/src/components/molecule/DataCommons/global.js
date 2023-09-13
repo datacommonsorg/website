@@ -27,8 +27,13 @@ export default class Global extends Component {
                                 <span><Text tid="GlobalSpan1" /></span>
                             </div>
                         </Col>
-
                     </Row>
+                </Col>
+                <Col xs={{ span: 24 }} md={{ span: 7 }} lg={{ span: 7 }}>
+                    <div className="dc-logo">
+                        <span>Powered by Google's</span>
+                        <img src="./images/datacommons/dc-logo.png" />
+                    </div>
                 </Col>
             </Row>
         );

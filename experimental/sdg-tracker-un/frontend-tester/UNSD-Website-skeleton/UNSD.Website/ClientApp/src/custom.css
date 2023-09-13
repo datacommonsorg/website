@@ -8902,3 +8902,20 @@ HOME INVENTORY SECTION
 #Recordings iframe {
   width: auto !important;
 }
+
+.header-section .dc-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-section .dc-logo span {
+  width: 130px;
+  font-size: 14px;
+  font-weight:  500;
+  flex-shrink: 0;
+}
+
+.header-section .dc-logo img {
+  width: 100px;
+}
