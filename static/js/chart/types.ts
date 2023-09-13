@@ -168,8 +168,11 @@ export interface HorizontalBarChartOptions extends ChartOptions {
   };
 }
 
+export type TimeScaleOption = "year" | "month" | "day";
+
 export interface LineChartOptions extends ChartOptions {
   handleDotClick?: (dotData: DotDataPoint) => void;
+  timeScale?: TimeScaleOption;
 }
 
 export type SORT_ASCENDING = "ascending";
