@@ -170,6 +170,7 @@ export interface HorizontalBarChartOptions extends ChartOptions {
 
 export interface LineChartOptions extends ChartOptions {
   handleDotClick?: (dotData: DotDataPoint) => void;
+  timeScale?: string;
 }
 
 export type SORT_ASCENDING = "ascending";

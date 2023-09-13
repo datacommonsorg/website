@@ -111,6 +111,10 @@ export class DatacommonsLineComponent extends LitElement {
   @property({ type: Boolean })
   showExploreMore: boolean;
 
+  // Optional: Timescale to use for x-axis labels
+  @property()
+  timeScale?: string;
+
   render(): HTMLElement {
     const lineTileProps: LineTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
@@ -135,6 +139,7 @@ export class DatacommonsLineComponent extends LitElement {
       })),
       svgChartHeight: 200,
       title: this.header || this.title,
+      timeScale: this.timeScale,
       getProcessedSVNameFn: getVariableNameProcessingFn(
         this.variableNameRegex,
         this.defaultVariableName

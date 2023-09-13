@@ -80,6 +80,8 @@ export interface LineTilePropType {
   showTooltipOnHover?: boolean;
   // Function used to get processed stat var names.
   getProcessedSVNameFn?: (name: string) => string;
+  // Time scale to use on x-axis. "year", "month", or "day"
+  timeScale?: string;
 }
 
 export interface LineChartData {
@@ -208,6 +210,7 @@ export function draw(
     showError(chartData.errorMsg, svgContainer);
     return;
   }
+  console.log("calling1");
   const isCompleteLine = drawLineChart(
     svgContainer,
     props.svgChartWidth || svgContainer.offsetWidth,
@@ -217,6 +220,7 @@ export function draw(
     props.showTooltipOnHover,
     {
       colors: props.colors,
+      timeScale: props.timeScale,
       unit: chartData.unit,
     }
   );

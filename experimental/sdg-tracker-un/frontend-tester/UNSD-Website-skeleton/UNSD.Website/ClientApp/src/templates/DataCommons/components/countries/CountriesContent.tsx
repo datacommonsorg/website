@@ -783,6 +783,7 @@ const ChartTile: React.FC<{
           variableNameRegex={VARIABLE_NAME_REGEX}
           showExploreMore={true}
           defaultVariableName={DEFAULT_VARIABLE_NAME}
+          timeScale="year"
         />
       </>
     );

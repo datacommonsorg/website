@@ -45,3 +45,7 @@ Optional:
 - `defaultVariableName` _string_
 
   To be used with variableNameRegex. If specified and no variable name is extracted out with the regex, use this as the variable name. e.g., if the variableNameRegex is "(.*?)(?=:)", and the defaultVariableName is "Total", for a variable named "variable 1", it will become "Total". 
+
+- `timeScale` _string_
+
+  One of `"year"`, `"month"`, or `"day"`. If provided, the x-axis will draw a tick mark and label at that time scale.
