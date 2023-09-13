@@ -24,6 +24,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw_line";
+import { TimeScaleOption } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -80,6 +81,8 @@ export interface LineTilePropType {
   showTooltipOnHover?: boolean;
   // Function used to get processed stat var names.
   getProcessedSVNameFn?: (name: string) => string;
+  // Time scale to use on x-axis. "year", "month", or "day"
+  timeScale?: TimeScaleOption;
   // The property to use to get place names.
   placeNameProp?: string;
 }
@@ -223,6 +226,7 @@ export function draw(
     props.showTooltipOnHover,
     {
       colors: props.colors,
+      timeScale: props.timeScale,
       unit: chartData.unit,
     }
   );
