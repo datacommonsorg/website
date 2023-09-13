@@ -54,13 +54,12 @@
     },
     {
       "dcid": [
-        "dc/svpg/SDGAGPRDFIESMS."
+        "dc/svpg/SDGAGPRDFIESMS.2"
       ],
       "name": [
-        "Prevalence of moderate or severe food insecurity"
+        "Prevalence of moderate or severe food insecurity among population 15 years old and over, by sex"
       ],
       "memberList": [
-        "sdg/AG_PRD_FIESMS",
         "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F",
         "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
       ],
@@ -70,13 +69,12 @@
     },
     {
       "dcid": [
-        "dc/svpg/SDGAGPRDFIESMSN."
+        "dc/svpg/SDGAGPRDFIESMSN.2"
       ],
       "name": [
-        "Number of moderately or severely food insecure people"
+        "Number of moderately or severely food insecure people 15 years old and over, by sex"
       ],
       "memberList": [
-        "sdg/AG_PRD_FIESMSN",
         "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F",
         "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
       ],
@@ -86,13 +84,12 @@
     },
     {
       "dcid": [
-        "dc/svpg/SDGAGPRDFIESS."
+        "dc/svpg/SDGAGPRDFIESS.2"
       ],
       "name": [
-        "Prevalence of severe food insecurity"
+        "Prevalence of severe food insecurity among population 15 years old and over, by sex"
       ],
       "memberList": [
-        "sdg/AG_PRD_FIESS",
         "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F",
         "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
       ],
@@ -102,13 +99,12 @@
     },
     {
       "dcid": [
-        "dc/svpg/SDGAGPRDFIESSN."
+        "dc/svpg/SDGAGPRDFIESSN.2"
       ],
       "name": [
-        "Number of severely food insecure people"
+        "Number of severely food insecure people 15 years old and over, by sex"
       ],
       "memberList": [
-        "sdg/AG_PRD_FIESSN",
         "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F",
         "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
       ],
@@ -1099,7 +1095,7 @@
         "dc/svpg/SDGITNETBBND."
       ],
       "name": [
-        "Fixed broadband subscriptions per 100\u00c2 inhabitants, by speed"
+        "Fixed broadband subscriptions per 100 inhabitants, by speed"
       ],
       "memberList": [
         "sdg/IT_NET_BBND",
@@ -9918,7 +9914,8 @@
         "Topic"
       ],
       "relevantVariableList": [
-        "dc/svpg/SDGAGPRDFIESMS."
+        "sdg/AG_PRD_FIESMS",
+        "dc/svpg/SDGAGPRDFIESMS.2"
       ]
     },
     {
@@ -9932,7 +9929,8 @@
         "Topic"
       ],
       "relevantVariableList": [
-        "dc/svpg/SDGAGPRDFIESMSN."
+        "sdg/AG_PRD_FIESMSN",
+        "dc/svpg/SDGAGPRDFIESMSN.2"
       ]
     },
     {
@@ -9946,7 +9944,8 @@
         "Topic"
       ],
       "relevantVariableList": [
-        "dc/svpg/SDGAGPRDFIESS."
+        "sdg/AG_PRD_FIESS",
+        "dc/svpg/SDGAGPRDFIESS.2"
       ]
     },
     {
@@ -9960,7 +9959,8 @@
         "Topic"
       ],
       "relevantVariableList": [
-        "dc/svpg/SDGAGPRDFIESSN."
+        "sdg/AG_PRD_FIESSN",
+        "dc/svpg/SDGAGPRDFIESSN.2"
       ]
     },
     {
@@ -12512,8 +12512,8 @@
       ],
       "relevantVariableList": [
         "dc/topic/sdgSGDMKPARLCCLC_age",
-        "dc/topic/sdgSGDMKPARLCCLC_gender",
         "dc/topic/sdgSGDMKPARLCCLC_sdgparliamentaryCommittees",
+        "dc/topic/sdgSGDMKPARLCCLC_sdgsex",
         "dc/svpg/SDGSGDMKPARLCCLC.1",
         "dc/svpg/SDGSGDMKPARLCCLC.2",
         "dc/svpg/SDGSGDMKPARLCCLC.3",
@@ -12549,36 +12549,8 @@
         "Topic"
       ],
       "relevantVariableList": [
-        "dc/topic/sdgSGDMKPARLCCLC_age-SDGAgeEnumYGE46_gender",
-        "dc/topic/sdgSGDMKPARLCCLC_age-SDGAgeEnumYGE46_sdgparliamentaryCommittees"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/sdgSGDMKPARLCCLC_age-SDGAgeEnumYGE46_gender"
-      ],
-      "name": [
-        "Number of Chairs of Permanent Committees With Age = 46 Years Old And Over, Gender"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--_U__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/sdgSGDMKPARLCCLC_age-SDGAgeEnumYGE46_gender_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU"
-      ],
-      "name": [
-        "Number of Chairs of Permanent Committees With Age = 46 Years Old And Over, Gender, Parliamentary Committees = Gender Equality"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--_U__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU"
+        "dc/topic/sdgSGDMKPARLCCLC_age-SDGAgeEnumYGE46_sdgparliamentaryCommittees",
+        "dc/topic/sdgSGDMKPARLCCLC_age-SDGAgeEnumYGE46_sdgsex"
       ]
     },
     {
@@ -12606,15 +12578,15 @@
         "Topic"
       ],
       "relevantVariableList": [
-        "dc/topic/sdgSGDMKPARLCCLC_age-SDGAgeEnumYGE46_gender_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU"
+        "dc/topic/sdgSGDMKPARLCCLC_age-SDGAgeEnumYGE46_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU_sdgsex"
       ]
     },
     {
       "dcid": [
-        "dc/topic/sdgSGDMKPARLCCLC_age_gender-SDGSexEnumU"
+        "dc/topic/sdgSGDMKPARLCCLC_age-SDGAgeEnumYGE46_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU_sdgsex"
       ],
       "name": [
-        "Number of Chairs of Permanent Committees With Age, Gender = Unknown"
+        "Number of Chairs of Permanent Committees With Age = 46 Years Old And Over, Parliamentary Committees = Gender Equality, Sex"
       ],
       "typeOf": [
         "Topic"
@@ -12625,10 +12597,10 @@
     },
     {
       "dcid": [
-        "dc/topic/sdgSGDMKPARLCCLC_age_gender-SDGSexEnumU_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU"
+        "dc/topic/sdgSGDMKPARLCCLC_age-SDGAgeEnumYGE46_sdgsex"
       ],
       "name": [
-        "Number of Chairs of Permanent Committees With Age, Gender = Unknown, Parliamentary Committees = Gender Equality"
+        "Number of Chairs of Permanent Committees With Age = 46 Years Old And Over, Sex"
       ],
       "typeOf": [
         "Topic"
@@ -12653,73 +12625,30 @@
     },
     {
       "dcid": [
-        "dc/topic/sdgSGDMKPARLCCLC_gender"
+        "dc/topic/sdgSGDMKPARLCCLC_age_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU_sdgsex-SDGSexEnumU"
       ],
       "name": [
-        "Number of Chairs of Permanent Committees by Gender"
+        "Number of Chairs of Permanent Committees With Age, Parliamentary Committees = Gender Equality, Sex = Unknown"
       ],
       "typeOf": [
         "Topic"
       ],
       "relevantVariableList": [
-        "dc/topic/sdgSGDMKPARLCCLC_gender-SDGSexEnumU"
+        "sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--_U__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU"
       ]
     },
     {
       "dcid": [
-        "dc/topic/sdgSGDMKPARLCCLC_gender-SDGSexEnumU"
+        "dc/topic/sdgSGDMKPARLCCLC_age_sdgsex-SDGSexEnumU"
       ],
       "name": [
-        "Number of Chairs of Permanent Committees With Gender = Unknown"
+        "Number of Chairs of Permanent Committees With Age, Sex = Unknown"
       ],
       "typeOf": [
         "Topic"
       ],
       "relevantVariableList": [
-        "dc/topic/sdgSGDMKPARLCCLC_age_gender-SDGSexEnumU",
-        "dc/topic/sdgSGDMKPARLCCLC_gender-SDGSexEnumU_sdgparliamentaryCommittees"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/sdgSGDMKPARLCCLC_gender-SDGSexEnumU_sdgparliamentaryCommittees"
-      ],
-      "name": [
-        "Number of Chairs of Permanent Committees With Gender = Unknown, Parliamentary Committees"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "dc/topic/sdgSGDMKPARLCCLC_gender-SDGSexEnumU_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/sdgSGDMKPARLCCLC_gender-SDGSexEnumU_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU"
-      ],
-      "name": [
-        "Number of Chairs of Permanent Committees With Gender = Unknown, Parliamentary Committees = Gender Equality"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "dc/topic/sdgSGDMKPARLCCLC_age_gender-SDGSexEnumU_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/sdgSGDMKPARLCCLC_gender_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU"
-      ],
-      "name": [
-        "Number of Chairs of Permanent Committees With Gender, Parliamentary Committees = Gender Equality"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "dc/topic/sdgSGDMKPARLCCLC_gender-SDGSexEnumU_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU"
+        "sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--_U__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU"
       ]
     },
     {
@@ -12748,7 +12677,78 @@
       ],
       "relevantVariableList": [
         "dc/topic/sdgSGDMKPARLCCLC_age_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU",
-        "dc/topic/sdgSGDMKPARLCCLC_gender_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU"
+        "dc/topic/sdgSGDMKPARLCCLC_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU_sdgsex"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdgSGDMKPARLCCLC_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU_sdgsex"
+      ],
+      "name": [
+        "Number of Chairs of Permanent Committees With Parliamentary Committees = Gender Equality, Sex"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/sdgSGDMKPARLCCLC_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU_sdgsex-SDGSexEnumU"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdgSGDMKPARLCCLC_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU_sdgsex-SDGSexEnumU"
+      ],
+      "name": [
+        "Number of Chairs of Permanent Committees With Parliamentary Committees = Gender Equality, Sex = Unknown"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/sdgSGDMKPARLCCLC_age_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU_sdgsex-SDGSexEnumU"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdgSGDMKPARLCCLC_sdgparliamentaryCommittees_sdgsex-SDGSexEnumU"
+      ],
+      "name": [
+        "Number of Chairs of Permanent Committees With Parliamentary Committees, Sex = Unknown"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/sdgSGDMKPARLCCLC_sdgparliamentaryCommittees-SDGParliamentaryCommitteesEnumPCGENEQU_sdgsex-SDGSexEnumU"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdgSGDMKPARLCCLC_sdgsex"
+      ],
+      "name": [
+        "Number of Chairs of Permanent Committees by Sex"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/sdgSGDMKPARLCCLC_sdgsex-SDGSexEnumU"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdgSGDMKPARLCCLC_sdgsex-SDGSexEnumU"
+      ],
+      "name": [
+        "Number of Chairs of Permanent Committees With Sex = Unknown"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/sdgSGDMKPARLCCLC_age_sdgsex-SDGSexEnumU",
+        "dc/topic/sdgSGDMKPARLCCLC_sdgparliamentaryCommittees_sdgsex-SDGSexEnumU"
       ]
     },
     {
@@ -12812,8 +12812,8 @@
         "Topic"
       ],
       "relevantVariableList": [
-        "sdg/SG_DMK_PSRVC.AGE--Y0T34__OCCUPATION--AGG_PSP",
         "sdg/SG_DMK_PSRVC.OCCUPATION--AGG_PSP__DISABILITY_STATUS--PD",
+        "sdg/SG_DMK_PSRVC.AGE--Y0T34__OCCUPATION--AGG_PSP",
         "dc/topic/sdgSGDMKPSRVC_sdgoccupation",
         "dc/topic/sdgSGDMKPSRVC_sdgpopulationGroup",
         "dc/svpg/SDGSGDMKPSRVC.3"
@@ -12844,8 +12844,8 @@
         "Topic"
       ],
       "relevantVariableList": [
-        "sdg/SG_DMK_PSRVC.AGE--Y0T34__OCCUPATION--AGG_PSP",
         "sdg/SG_DMK_PSRVC.OCCUPATION--AGG_PSP__DISABILITY_STATUS--PD",
+        "sdg/SG_DMK_PSRVC.AGE--Y0T34__OCCUPATION--AGG_PSP",
         "dc/topic/sdgSGDMKPSRVC_sdgoccupation-SDGOccupationEnumAGGPSP_sdgpopulationGroup"
       ]
     },

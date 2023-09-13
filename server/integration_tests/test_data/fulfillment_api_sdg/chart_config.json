@@ -8,11 +8,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below International Poverty Line in United States",
+                    "description": "Population Below International Poverty Line in United States of America",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Population Below International Poverty Line in United States",
+                    "title": "Population Below International Poverty Line in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -23,7 +23,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Population Below International Poverty Line in United States",
+                    "title": "Population Below International Poverty Line in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -49,7 +49,7 @@
                       "sdg/SI_COV_CHLD.SEX--F_multiple_place_bar_block",
                       "sdg/SI_COV_CHLD.SEX--M_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex in United States (${date})",
+                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -62,11 +62,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Employed Population Covered for Work Injury in United States",
+                    "description": "Employed Population Covered for Work Injury in United States of America",
                     "statVarKey": [
                       "sdg/SI_COV_WKINJRY"
                     ],
-                    "title": "Employed Population Covered for Work Injury in United States",
+                    "title": "Employed Population Covered for Work Injury in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -77,7 +77,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_WKINJRY"
                     ],
-                    "title": "Employed Population Covered for Work Injury in United States",
+                    "title": "Employed Population Covered for Work Injury in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -90,11 +90,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Covered by Social Assistance Programs in United States",
+                    "description": "Population Covered by Social Assistance Programs in United States of America",
                     "statVarKey": [
                       "sdg/SI_COV_POOR"
                     ],
-                    "title": "Population Covered by Social Assistance Programs in United States",
+                    "title": "Population Covered by Social Assistance Programs in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -112,7 +112,7 @@
                       "sdg/SI_COV_PENSN.SEX--F",
                       "sdg/SI_COV_PENSN.SEX--M"
                     ],
-                    "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex in United States",
+                    "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -125,11 +125,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population With Social Protection Benefits in United States",
+                    "description": "Population With Social Protection Benefits in United States of America",
                     "statVarKey": [
                       "sdg/SI_COV_BENFTS"
                     ],
-                    "title": "Population With Social Protection Benefits in United States",
+                    "title": "Population With Social Protection Benefits in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -140,7 +140,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_BENFTS"
                     ],
-                    "title": "Population With Social Protection Benefits in United States",
+                    "title": "Population With Social Protection Benefits in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -158,7 +158,7 @@
                       "sdg/SI_COV_DISAB.SEX--F",
                       "sdg/SI_COV_DISAB.SEX--M"
                     ],
-                    "title": "Proportion of Population With Severe Disabilities Receiving Disability Cash Benefit, by Sex in United States",
+                    "title": "Proportion of Population With Severe Disabilities Receiving Disability Cash Benefit, by Sex in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -171,11 +171,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Unemployed Population Receiving Unemployment Cash Benefit in United States",
+                    "description": "Unemployed Population Receiving Unemployment Cash Benefit in United States of America",
                     "statVarKey": [
                       "sdg/SI_COV_UEMP"
                     ],
-                    "title": "Unemployed Population Receiving Unemployment Cash Benefit in United States",
+                    "title": "Unemployed Population Receiving Unemployment Cash Benefit in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -186,7 +186,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_UEMP"
                     ],
-                    "title": "Unemployed Population Receiving Unemployment Cash Benefit in United States",
+                    "title": "Unemployed Population Receiving Unemployment Cash Benefit in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -199,11 +199,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States",
+                    "description": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States of America",
                     "statVarKey": [
                       "sdg/SI_COV_VULN"
                     ],
-                    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States",
+                    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -214,7 +214,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_VULN"
                     ],
-                    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States",
+                    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -232,7 +232,7 @@
                       "sdg/SP_ACS_BSRVH2O.URBANISATION--R",
                       "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
                     ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in United States",
+                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -250,7 +250,7 @@
                       "sdg/SP_ACS_BSRVSAN.URBANISATION--R",
                       "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
                     ],
-                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in United States",
+                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -263,11 +263,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths and Missing Persons From Disasters in United States",
+                    "description": "Deaths and Missing Persons From Disasters in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_MMHN"
                     ],
-                    "title": "Deaths and Missing Persons From Disasters in United States",
+                    "title": "Deaths and Missing Persons From Disasters in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -278,7 +278,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_MMHN"
                     ],
-                    "title": "Deaths and Missing Persons From Disasters in United States",
+                    "title": "Deaths and Missing Persons From Disasters in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -292,11 +292,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths and Missing Persons From Disasters Per 100k Capita in United States",
+                    "description": "Deaths and Missing Persons From Disasters Per 100k Capita in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_MTMP"
                     ],
-                    "title": "Deaths and Missing Persons From Disasters Per 100k Capita in United States",
+                    "title": "Deaths and Missing Persons From Disasters Per 100k Capita in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -307,7 +307,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_MTMP"
                     ],
-                    "title": "Deaths and Missing Persons From Disasters Per 100k Capita in United States",
+                    "title": "Deaths and Missing Persons From Disasters Per 100k Capita in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -321,11 +321,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths From Disasters in United States",
+                    "description": "Deaths From Disasters in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_MORT"
                     ],
-                    "title": "Deaths From Disasters in United States",
+                    "title": "Deaths From Disasters in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -336,7 +336,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_MORT"
                     ],
-                    "title": "Deaths From Disasters in United States",
+                    "title": "Deaths From Disasters in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -350,11 +350,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Affected by Disasters Per 100k Capita in United States",
+                    "description": "Population Affected by Disasters Per 100k Capita in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_DAFF"
                     ],
-                    "title": "Population Affected by Disasters Per 100k Capita in United States",
+                    "title": "Population Affected by Disasters Per 100k Capita in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -365,7 +365,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_DAFF"
                     ],
-                    "title": "Population Affected by Disasters Per 100k Capita in United States",
+                    "title": "Population Affected by Disasters Per 100k Capita in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -379,11 +379,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Injured or Ill Population From Disasters in United States",
+                    "description": "Injured or Ill Population From Disasters in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_IJILN"
                     ],
-                    "title": "Injured or Ill Population From Disasters in United States",
+                    "title": "Injured or Ill Population From Disasters in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -394,7 +394,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_IJILN"
                     ],
-                    "title": "Injured or Ill Population From Disasters in United States",
+                    "title": "Injured or Ill Population From Disasters in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -408,11 +408,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Affected by Disasters in United States",
+                    "description": "Population Affected by Disasters in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_AFFCT"
                     ],
-                    "title": "Population Affected by Disasters in United States",
+                    "title": "Population Affected by Disasters in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -423,7 +423,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_AFFCT"
                     ],
-                    "title": "Population Affected by Disasters in United States",
+                    "title": "Population Affected by Disasters in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -437,11 +437,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population With Damaged Dwellings From Disasters in United States",
+                    "description": "Population With Damaged Dwellings From Disasters in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_PDAN"
                     ],
-                    "title": "Population With Damaged Dwellings From Disasters in United States",
+                    "title": "Population With Damaged Dwellings From Disasters in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -452,7 +452,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_PDAN"
                     ],
-                    "title": "Population With Damaged Dwellings From Disasters in United States",
+                    "title": "Population With Damaged Dwellings From Disasters in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -466,11 +466,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population With Destroyed Dwellings From Disasters in United States",
+                    "description": "Population With Destroyed Dwellings From Disasters in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_PDYN"
                     ],
-                    "title": "Population With Destroyed Dwellings From Disasters in United States",
+                    "title": "Population With Destroyed Dwellings From Disasters in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -481,7 +481,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_PDYN"
                     ],
-                    "title": "Population With Destroyed Dwellings From Disasters in United States",
+                    "title": "Population With Destroyed Dwellings From Disasters in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -495,11 +495,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Direct Agriculture Loss From Disasters in United States",
+                    "description": "Direct Agriculture Loss From Disasters in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_AGLH"
                     ],
-                    "title": "Direct Agriculture Loss From Disasters in United States",
+                    "title": "Direct Agriculture Loss From Disasters in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -510,7 +510,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_AGLH"
                     ],
-                    "title": "Direct Agriculture Loss From Disasters in United States",
+                    "title": "Direct Agriculture Loss From Disasters in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -524,11 +524,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Direct Economic Loss From Disasters in United States",
+                    "description": "Direct Economic Loss From Disasters in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_GDPLS"
                     ],
-                    "title": "Direct Economic Loss From Disasters in United States",
+                    "title": "Direct Economic Loss From Disasters in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -539,7 +539,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_GDPLS"
                     ],
-                    "title": "Direct Economic Loss From Disasters in United States",
+                    "title": "Direct Economic Loss From Disasters in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -553,11 +553,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Direct Economic Loss From Disasters (Relative to GDP) in United States",
+                    "description": "Direct Economic Loss From Disasters (Relative to GDP) in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_LSGP"
                     ],
-                    "title": "Direct Economic Loss From Disasters (Relative to GDP) in United States",
+                    "title": "Direct Economic Loss From Disasters (Relative to GDP) in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -568,7 +568,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_LSGP"
                     ],
-                    "title": "Direct Economic Loss From Disasters (Relative to GDP) in United States",
+                    "title": "Direct Economic Loss From Disasters (Relative to GDP) in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -582,11 +582,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Direct Economic Loss From Disaster-Caused Infrastructure Damage in United States",
+                    "description": "Direct Economic Loss From Disaster-Caused Infrastructure Damage in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_CILN"
                     ],
-                    "title": "Direct Economic Loss From Disaster-Caused Infrastructure Damage in United States",
+                    "title": "Direct Economic Loss From Disaster-Caused Infrastructure Damage in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -597,7 +597,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_CILN"
                     ],
-                    "title": "Direct Economic Loss From Disaster-Caused Infrastructure Damage in United States",
+                    "title": "Direct Economic Loss From Disaster-Caused Infrastructure Damage in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -611,11 +611,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Direct Economic Loss From Disaster-Caused Productive Asset Damage in United States",
+                    "description": "Direct Economic Loss From Disaster-Caused Productive Asset Damage in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_DDPA"
                     ],
-                    "title": "Direct Economic Loss From Disaster-Caused Productive Asset Damage in United States",
+                    "title": "Direct Economic Loss From Disaster-Caused Productive Asset Damage in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -626,7 +626,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_DDPA"
                     ],
-                    "title": "Direct Economic Loss From Disaster-Caused Productive Asset Damage in United States",
+                    "title": "Direct Economic Loss From Disaster-Caused Productive Asset Damage in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -640,11 +640,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Adoption and Implementation of National DRR Strategies in United States",
+                    "description": "Adoption and Implementation of National DRR Strategies in United States of America",
                     "statVarKey": [
                       "sdg/SG_DSR_LGRGSR"
                     ],
-                    "title": "Adoption and Implementation of National DRR Strategies in United States",
+                    "title": "Adoption and Implementation of National DRR Strategies in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -655,7 +655,7 @@
                     "statVarKey": [
                       "sdg/SG_DSR_LGRGSR"
                     ],
-                    "title": "Adoption and Implementation of National DRR Strategies in United States",
+                    "title": "Adoption and Implementation of National DRR Strategies in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -669,11 +669,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Local Governments in United States",
+                    "description": "Local Governments in United States of America",
                     "statVarKey": [
                       "sdg/SG_GOV_LOGV"
                     ],
-                    "title": "Local Governments in United States",
+                    "title": "Local Governments in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -684,7 +684,7 @@
                     "statVarKey": [
                       "sdg/SG_GOV_LOGV"
                     ],
-                    "title": "Local Governments in United States",
+                    "title": "Local Governments in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -698,11 +698,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Local Governments Adopting and Implementing DRR Strategies in United States",
+                    "description": "Local Governments Adopting and Implementing DRR Strategies in United States of America",
                     "statVarKey": [
                       "sdg/SG_DSR_SILN"
                     ],
-                    "title": "Local Governments Adopting and Implementing DRR Strategies in United States",
+                    "title": "Local Governments Adopting and Implementing DRR Strategies in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -713,7 +713,7 @@
                     "statVarKey": [
                       "sdg/SG_DSR_SILN"
                     ],
-                    "title": "Local Governments Adopting and Implementing DRR Strategies in United States",
+                    "title": "Local Governments Adopting and Implementing DRR Strategies in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -727,11 +727,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Prevalence of Local Government Adoption and Implementation of DRR Strategies in United States",
+                    "description": "Prevalence of Local Government Adoption and Implementation of DRR Strategies in United States of America",
                     "statVarKey": [
                       "sdg/SG_DSR_SILS"
                     ],
-                    "title": "Prevalence of Local Government Adoption and Implementation of DRR Strategies in United States",
+                    "title": "Prevalence of Local Government Adoption and Implementation of DRR Strategies in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -742,7 +742,7 @@
                     "statVarKey": [
                       "sdg/SG_DSR_SILS"
                     ],
-                    "title": "Prevalence of Local Government Adoption and Implementation of DRR Strategies in United States",
+                    "title": "Prevalence of Local Government Adoption and Implementation of DRR Strategies in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -756,11 +756,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Grants for Poverty Reduction in United States",
+                    "description": "Grants for Poverty Reduction in United States of America",
                     "statVarKey": [
                       "sdg/DC_ODA_POVDLG"
                     ],
-                    "title": "Grants for Poverty Reduction in United States",
+                    "title": "Grants for Poverty Reduction in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -771,7 +771,7 @@
                     "statVarKey": [
                       "sdg/DC_ODA_POVDLG"
                     ],
-                    "title": "Grants for Poverty Reduction in United States",
+                    "title": "Grants for Poverty Reduction in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -785,11 +785,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Government Spending on Essential Services and Education in United States",
+                    "description": "Government Spending on Essential Services and Education in United States of America",
                     "statVarKey": [
                       "sdg/SD_XPD_ESED"
                     ],
-                    "title": "Government Spending on Essential Services and Education in United States",
+                    "title": "Government Spending on Essential Services and Education in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -800,7 +800,7 @@
                     "statVarKey": [
                       "sdg/SD_XPD_ESED"
                     ],
-                    "title": "Government Spending on Essential Services and Education in United States",
+                    "title": "Government Spending on Essential Services and Education in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -985,7 +985,7 @@
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
-    "name": "United States",
+    "name": "United States of America",
     "place_type": "Country"
   },
   "placeFallback": {},
@@ -993,7 +993,7 @@
   "places": [
     {
       "dcid": "country/USA",
-      "name": "United States",
+      "name": "United States of America",
       "place_type": "Country"
     }
   ],
