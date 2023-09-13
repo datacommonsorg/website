@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+import { LoadingOutlined } from "@ant-design/icons";
 import { Layout, Menu, Spin, Tooltip } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MenuItemType, useStoreActions, useStoreState } from "../../state";
-import { LoadingOutlined } from "@ant-design/icons";
 const { Sider } = Layout;
 
 const MenuTitle = styled.div`
@@ -113,8 +113,8 @@ const AppSidebar: React.FC<{
       breakpoint="lg"
       collapsedWidth="0"
       width={320}
-      onBreakpoint={(broken) => {
-        setSiderHidden(broken);
+      onCollapse={(collapsed) => {
+        setSiderHidden(collapsed);
       }}
       style={{
         background: "white",
