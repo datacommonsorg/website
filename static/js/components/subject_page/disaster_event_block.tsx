@@ -73,7 +73,6 @@ interface DisasterEventBlockPropType {
   description: string;
   columns: ColumnConfig[];
   eventTypeSpec: Record<string, EventTypeSpec>;
-  footnote?: string;
   parentPlaces?: NamedNode[];
   // API root
   apiRoot?: string;

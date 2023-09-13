@@ -36,6 +36,7 @@ import {
   LEGEND,
   LEGEND_HIGHLIGHT_CLASS,
   MARGIN,
+  NUM_X_TICKS,
   NUM_Y_TICKS,
   TEXT_FONT_FAMILY,
   TOOLTIP_ID,
@@ -45,7 +46,6 @@ const AXIS_GRID_FILL = "#999";
 // max number of characters a unit can have and still be shown next to ticks
 // When a unit is longer, we show the unit as an axes label instead
 export const MAX_UNIT_LENGTH = 5;
-const NUM_X_TICKS = 5;
 const ROTATE_MARGIN_BOTTOM = 75;
 const TICK_SIZE = 6;
 
@@ -76,6 +76,8 @@ export function addTooltip(
  * @param xScale: d3-scale for the x-axis
  * @param shouldRotate: true if the x-ticks should be rotated (no wrapping applied).
  * @param labelToLink: optional map of [label] -> link for each ordinal tick
+ * @param tickFormatFn: function to format tick label
+ * @param numTicks: number of ticks to display
  *
  * @return the height of the x-axis bounding-box.
  */
@@ -86,18 +88,24 @@ export function addXAxis(
   shouldRotate?: boolean,
   labelToLink?: { [label: string]: string },
   singlePointLabel?: string,
-  apiRoot?: string
+  apiRoot?: string,
+  tickFormatFn?: (arg: any, index: any) => string,
+  numTicks?: number
 ): number {
   let d3Axis = d3
     .axisBottom(xScale)
-    .ticks(NUM_X_TICKS)
+    .ticks(numTicks || NUM_X_TICKS)
     .tickSize(TICK_SIZE)
     .tickSizeOuter(0);
+  if (tickFormatFn) {
+    d3Axis.tickFormat(tickFormatFn);
+  }
   if (singlePointLabel) {
     d3Axis = d3Axis.tickFormat(() => {
       return singlePointLabel;
     });
   }
+
   if (shouldRotate && typeof xScale.bandwidth == "function") {
     if (xScale.bandwidth() < 5) {
       d3Axis.tickValues(xScale.domain().filter((v, i) => i % 5 == 0));
