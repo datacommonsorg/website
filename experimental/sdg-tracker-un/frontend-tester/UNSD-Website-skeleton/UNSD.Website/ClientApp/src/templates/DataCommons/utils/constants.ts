@@ -98,4 +98,4 @@ export const FOOTNOTE_CHAR_LIMIT = 100;
 /**
  * Sample NL query
  */
-export const SAMPLE_NL_QUERY = "Poverty in Indonesia";
+export const SAMPLE_NL_QUERY = "How many people go hungry in the World?";
