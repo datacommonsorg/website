@@ -43,6 +43,25 @@ const GoalImage = styled.img<{ $md?: boolean }>`
   width: 100%;
 `;
 
+const GoalCardHeader = styled(ContentCardHeader)<{
+  xs?: boolean;
+}>`
+  ${(p) =>
+    p.xs
+      ? `
+      margin-bottom:1rem;
+      img {
+        height: 3.5rem;
+        margin-right: 1rem;
+        width: 3.5rem;
+      }
+      h3 {
+        font-size: 1.25rem;
+      }
+    `
+      : ""}
+`;
+
 const StyledCol = styled(Col)`
   flex-grow: 1;
 `;
@@ -70,12 +89,12 @@ const GoalOverview: React.FC<{
     <ContentCard
       className={`-dc-goal-overview -dc-goal-overview-${goalNumber}`}
     >
-      <ContentCardHeader>
+      <GoalCardHeader xs={breakpoint.xs}>
         <img src={rootTopic.iconUrl} />
         <h3>
           {goalNumber}: {rootTopic.name}
         </h3>
-      </ContentCardHeader>
+      </GoalCardHeader>
       <ContentCardBody>
         <Row>
           {goalSummary.image ? (
