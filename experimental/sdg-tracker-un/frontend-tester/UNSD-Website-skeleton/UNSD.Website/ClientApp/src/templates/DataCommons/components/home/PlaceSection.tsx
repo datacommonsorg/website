@@ -38,12 +38,12 @@ const Header = styled(SectionHeader)`
 const SearchCard = styled.div`
   background: white;
   border-radius: 10px;
-  border: 1px solid #414042;
-  box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 6px rgba(3, 7, 18, 0.04),
+    0px 1px 24px rgba(3, 7, 18, 0.08);
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 1rem auto;
+  padding: 3rem 2rem;
 `;
 
 const SearchBarContainer = styled(HomeSearchContainer)`
