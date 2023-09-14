@@ -62,11 +62,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Employed Population Covered in the Event of Work Injury in United States of America",
+                    "description": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex in United States of America",
                     "statVarKey": [
                       "sdg/SI_COV_WKINJRY"
                     ],
-                    "title": "Proportion of Employed Population Covered in the Event of Work Injury in United States of America",
+                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -77,7 +77,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_WKINJRY"
                     ],
-                    "title": "Proportion of Employed Population Covered in the Event of Work Injury in United States of America",
+                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -90,11 +90,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Poor Population Receiving Social Assistance Cash Benefit in United States of America",
+                    "description": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex in United States of America",
                     "statVarKey": [
                       "sdg/SI_COV_POOR"
                     ],
-                    "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit in United States of America",
+                    "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -125,11 +125,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Population Covered by at Least One Social Protection Benefit in United States of America",
+                    "description": "Proportion of Population Covered by at Least One Social Protection Benefit, by Sex in United States of America",
                     "statVarKey": [
                       "sdg/SI_COV_BENFTS"
                     ],
-                    "title": "Proportion of Population Covered by at Least One Social Protection Benefit in United States of America",
+                    "title": "Proportion of Population Covered by at Least One Social Protection Benefit, by Sex in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -140,7 +140,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_BENFTS"
                     ],
-                    "title": "Proportion of Population Covered by at Least One Social Protection Benefit in United States of America",
+                    "title": "Proportion of Population Covered by at Least One Social Protection Benefit, by Sex in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -171,11 +171,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Unemployed Persons Receiving Unemployment Cash Benefit in United States of America",
+                    "description": "Proportion of Unemployed Persons Receiving Unemployment Cash Benefit, by Sex in United States of America",
                     "statVarKey": [
                       "sdg/SI_COV_UEMP"
                     ],
-                    "title": "Proportion of Unemployed Persons Receiving Unemployment Cash Benefit in United States of America",
+                    "title": "Proportion of Unemployed Persons Receiving Unemployment Cash Benefit, by Sex in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -186,7 +186,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_UEMP"
                     ],
-                    "title": "Proportion of Unemployed Persons Receiving Unemployment Cash Benefit in United States of America",
+                    "title": "Proportion of Unemployed Persons Receiving Unemployment Cash Benefit, by Sex in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -199,11 +199,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Vulnerable Population Receiving Social Assistance Cash Benefit in United States of America",
+                    "description": "Proportion of Vulnerable Population Receiving Social Assistance Cash Benefit, by Sex in United States of America",
                     "statVarKey": [
                       "sdg/SI_COV_VULN"
                     ],
-                    "title": "Proportion of Vulnerable Population Receiving Social Assistance Cash Benefit in United States of America",
+                    "title": "Proportion of Vulnerable Population Receiving Social Assistance Cash Benefit, by Sex in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -214,7 +214,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_VULN"
                     ],
-                    "title": "Proportion of Vulnerable Population Receiving Social Assistance Cash Benefit in United States of America",
+                    "title": "Proportion of Vulnerable Population Receiving Social Assistance Cash Benefit, by Sex in United States of America",
                     "type": "LINE"
                   }
                 ]
@@ -640,11 +640,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Score of Adoption and Implementation of National DRR Strategies in Line With the Sendai Framework in United States of America",
+                    "description": "Score of Adoption and Implementation of National Disaster Risk Reduction Strategies in Line With the Sendai Framework in United States of America",
                     "statVarKey": [
                       "sdg/SG_DSR_LGRGSR"
                     ],
-                    "title": "Score of Adoption and Implementation of National DRR Strategies in Line With the Sendai Framework in United States of America",
+                    "title": "Score of Adoption and Implementation of National Disaster Risk Reduction Strategies in Line With the Sendai Framework in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -655,14 +655,14 @@
                     "statVarKey": [
                       "sdg/SG_DSR_LGRGSR"
                     ],
-                    "title": "Score of Adoption and Implementation of National DRR Strategies in Line With the Sendai Framework in United States of America",
+                    "title": "Score of Adoption and Implementation of National Disaster Risk Reduction Strategies in Line With the Sendai Framework in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Score of Adoption and Implementation of National DRR Strategies in Line With the Sendai Framework"
+            "title": "Score of Adoption and Implementation of National Disaster Risk Reduction Strategies in Line With the Sendai Framework"
           },
           {
             "columns": [
@@ -698,11 +698,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Local Governments That Adopt and Implement Local DRR Strategies in Line With National Strategies in United States of America",
+                    "description": "Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies in United States of America",
                     "statVarKey": [
                       "sdg/SG_DSR_SILN"
                     ],
-                    "title": "Local Governments That Adopt and Implement Local DRR Strategies in Line With National Strategies in United States of America",
+                    "title": "Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -713,14 +713,14 @@
                     "statVarKey": [
                       "sdg/SG_DSR_SILN"
                     ],
-                    "title": "Local Governments That Adopt and Implement Local DRR Strategies in Line With National Strategies in United States of America",
+                    "title": "Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Local Governments That Adopt and Implement Local DRR Strategies in Line With National Strategies"
+            "title": "Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies"
           },
           {
             "columns": [
@@ -756,11 +756,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Official Development Assistance Grants for Poverty Reduction in United States of America",
+                    "description": "Official Development Assistance Grants for Poverty Reduction, by Donor Countries in United States of America",
                     "statVarKey": [
                       "sdg/DC_ODA_POVDLG"
                     ],
-                    "title": "Official Development Assistance Grants for Poverty Reduction in United States of America",
+                    "title": "Official Development Assistance Grants for Poverty Reduction, by Donor Countries in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -771,14 +771,14 @@
                     "statVarKey": [
                       "sdg/DC_ODA_POVDLG"
                     ],
-                    "title": "Official Development Assistance Grants for Poverty Reduction in United States of America",
+                    "title": "Official Development Assistance Grants for Poverty Reduction, by Donor Countries in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: the organisation for economic Co-operation and development (OECD).",
-            "title": "Official Development Assistance Grants for Poverty Reduction"
+            "title": "Official Development Assistance Grants for Poverty Reduction, by Donor Countries"
           },
           {
             "columns": [
@@ -812,7 +812,7 @@
         ],
         "statVarSpec": {
           "sdg/DC_ODA_POVDLG": {
-            "name": "Official development assistance grants for poverty reduction",
+            "name": "Official development assistance grants for poverty reduction, by donor countries",
             "statVar": "sdg/DC_ODA_POVDLG"
           },
           "sdg/SD_XPD_ESED": {
@@ -820,11 +820,11 @@
             "statVar": "sdg/SD_XPD_ESED"
           },
           "sdg/SG_DSR_LGRGSR": {
-            "name": "Score of adoption and implementation of national DRR strategies in line with the Sendai Framework",
+            "name": "Score of adoption and implementation of national Disaster Risk Reduction strategies in line with the Sendai Framework",
             "statVar": "sdg/SG_DSR_LGRGSR"
           },
           "sdg/SG_DSR_SILN": {
-            "name": "local governments that adopt and implement local DRR strategies in line with national strategies",
+            "name": "local governments that adopt and implement local Disaster Risk Reduction strategies in line with national strategies",
             "statVar": "sdg/SG_DSR_SILN"
           },
           "sdg/SG_DSR_SILS": {
@@ -836,59 +836,59 @@
             "statVar": "sdg/SG_GOV_LOGV"
           },
           "sdg/SI_COV_BENFTS": {
-            "name": "Proportion of population covered by at least one social protection benefit",
+            "name": "Proportion of population covered by at least one social protection benefit, by sex",
             "statVar": "sdg/SI_COV_BENFTS"
           },
           "sdg/SI_COV_CHLD.SEX--F_multiple_place_bar_block": {
-            "name": "Proportion of children/households receiving child/family cash benefit [Female]",
+            "name": "Proportion of children/households receiving child/family cash benefit, by sex [Female]",
             "statVar": "sdg/SI_COV_CHLD.SEX--F"
           },
           "sdg/SI_COV_CHLD.SEX--M_multiple_place_bar_block": {
-            "name": "Proportion of children/households receiving child/family cash benefit [Male]",
+            "name": "Proportion of children/households receiving child/family cash benefit, by sex [Male]",
             "statVar": "sdg/SI_COV_CHLD.SEX--M"
           },
           "sdg/SI_COV_CHLD_multiple_place_bar_block": {
-            "name": "Proportion of children/households receiving child/family cash benefit",
+            "name": "Proportion of children/households receiving child/family cash benefit, by sex",
             "statVar": "sdg/SI_COV_CHLD"
           },
           "sdg/SI_COV_DISAB": {
-            "name": "Proportion of population with severe disabilities receiving disability cash benefit",
+            "name": "Proportion of population with severe disabilities receiving disability cash benefit, by sex",
             "statVar": "sdg/SI_COV_DISAB"
           },
           "sdg/SI_COV_DISAB.SEX--F": {
-            "name": "Proportion of population with severe disabilities receiving disability cash benefit [Female]",
+            "name": "Proportion of population with severe disabilities receiving disability cash benefit, by sex [Female]",
             "statVar": "sdg/SI_COV_DISAB.SEX--F"
           },
           "sdg/SI_COV_DISAB.SEX--M": {
-            "name": "Proportion of population with severe disabilities receiving disability cash benefit [Male]",
+            "name": "Proportion of population with severe disabilities receiving disability cash benefit, by sex [Male]",
             "statVar": "sdg/SI_COV_DISAB.SEX--M"
           },
           "sdg/SI_COV_PENSN": {
-            "name": "Proportion of population above statutory pensionable age receiving a pension",
+            "name": "Proportion of population above statutory pensionable age receiving a pension, by sex",
             "statVar": "sdg/SI_COV_PENSN"
           },
           "sdg/SI_COV_PENSN.SEX--F": {
-            "name": "Proportion of population above statutory pensionable age receiving a pension [Female]",
+            "name": "Proportion of population above statutory pensionable age receiving a pension, by sex [Female]",
             "statVar": "sdg/SI_COV_PENSN.SEX--F"
           },
           "sdg/SI_COV_PENSN.SEX--M": {
-            "name": "Proportion of population above statutory pensionable age receiving a pension [Male]",
+            "name": "Proportion of population above statutory pensionable age receiving a pension, by sex [Male]",
             "statVar": "sdg/SI_COV_PENSN.SEX--M"
           },
           "sdg/SI_COV_POOR": {
-            "name": "Proportion of poor population receiving social assistance cash benefit",
+            "name": "Proportion of poor population receiving social assistance cash benefit, by sex",
             "statVar": "sdg/SI_COV_POOR"
           },
           "sdg/SI_COV_UEMP": {
-            "name": "Proportion of unemployed persons receiving unemployment cash benefit",
+            "name": "Proportion of unemployed persons receiving unemployment cash benefit, by sex",
             "statVar": "sdg/SI_COV_UEMP"
           },
           "sdg/SI_COV_VULN": {
-            "name": "Proportion of vulnerable population receiving social assistance cash benefit",
+            "name": "Proportion of vulnerable population receiving social assistance cash benefit, by sex",
             "statVar": "sdg/SI_COV_VULN"
           },
           "sdg/SI_COV_WKINJRY": {
-            "name": "Proportion of employed population covered in the event of work injury",
+            "name": "Proportion of employed population covered in the event of work injury, by sex",
             "statVar": "sdg/SI_COV_WKINJRY"
           },
           "sdg/SI_POV_DAY1": {
@@ -896,27 +896,27 @@
             "statVar": "sdg/SI_POV_DAY1"
           },
           "sdg/SP_ACS_BSRVH2O": {
-            "name": "Proportion of population using basic drinking water services",
+            "name": "Proportion of population using basic drinking water services, by location",
             "statVar": "sdg/SP_ACS_BSRVH2O"
           },
           "sdg/SP_ACS_BSRVH2O.URBANISATION--R": {
-            "name": "Proportion of population using basic drinking water services [Rural]",
+            "name": "Proportion of population using basic drinking water services, by location [Rural]",
             "statVar": "sdg/SP_ACS_BSRVH2O.URBANISATION--R"
           },
           "sdg/SP_ACS_BSRVH2O.URBANISATION--U": {
-            "name": "Proportion of population using basic drinking water services [Urban]",
+            "name": "Proportion of population using basic drinking water services, by location [Urban]",
             "statVar": "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
           },
           "sdg/SP_ACS_BSRVSAN": {
-            "name": "Proportion of population using basic sanitation services",
+            "name": "Proportion of population using basic sanitation services, by location",
             "statVar": "sdg/SP_ACS_BSRVSAN"
           },
           "sdg/SP_ACS_BSRVSAN.URBANISATION--R": {
-            "name": "Proportion of population using basic sanitation services [Rural]",
+            "name": "Proportion of population using basic sanitation services, by location [Rural]",
             "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--R"
           },
           "sdg/SP_ACS_BSRVSAN.URBANISATION--U": {
-            "name": "Proportion of population using basic sanitation services [Urban]",
+            "name": "Proportion of population using basic sanitation services, by location [Urban]",
             "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
           },
           "sdg/VC_DSR_AFFCT": {

@@ -299,7 +299,7 @@
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services in India",
+                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in India",
                     "type": "LINE"
                   }
                 ]
@@ -307,18 +307,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Population Using Basic Drinking Water Services in India",
+                    "description": "Proportion of Population Using Basic Drinking Water Services, by Location in India",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services in India",
+                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Proportion of Population Using Basic Drinking Water Services"
+            "title": "Proportion of Population Using Basic Drinking Water Services, by Location"
           },
           {
             "columns": [
@@ -328,7 +328,7 @@
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN"
                     ],
-                    "title": "Proportion of Population Using Basic Sanitation Services in India",
+                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in India",
                     "type": "LINE"
                   }
                 ]
@@ -336,18 +336,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Population Using Basic Sanitation Services in India",
+                    "description": "Proportion of Population Using Basic Sanitation Services, by Location in India",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN"
                     ],
-                    "title": "Proportion of Population Using Basic Sanitation Services in India",
+                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Proportion of Population Using Basic Sanitation Services"
+            "title": "Proportion of Population Using Basic Sanitation Services, by Location"
           },
           {
             "columns": [
@@ -357,7 +357,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Employed Population Below International Poverty Line [15 Years Old and Over] in India",
+                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over] in India",
                     "type": "LINE"
                   }
                 ]
@@ -365,18 +365,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Employed Population Below International Poverty Line [15 Years Old and Over] in India",
+                    "description": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over] in India",
                     "statVarKey": [
                       "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Employed Population Below International Poverty Line [15 Years Old and Over] in India",
+                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over] in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
-            "title": "Employed Population Below International Poverty Line [15 Years Old and Over]"
+            "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over]"
           },
           {
             "columns": [
@@ -513,23 +513,23 @@
             "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE15": {
-            "name": "Employed population below international poverty line [15 years old and over]",
+            "name": "Employed population below international poverty line, by sex and age [15 years old and over]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": {
-            "name": "Employed population below international poverty line [15 years old and over, Female]",
+            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Female]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
-            "name": "Employed population below international poverty line [15 years old and over, Male]",
+            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Male]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
           },
           "sdg/SP_ACS_BSRVH2O": {
-            "name": "Proportion of population using basic drinking water services",
+            "name": "Proportion of population using basic drinking water services, by location",
             "statVar": "sdg/SP_ACS_BSRVH2O"
           },
           "sdg/SP_ACS_BSRVSAN": {
-            "name": "Proportion of population using basic sanitation services",
+            "name": "Proportion of population using basic sanitation services, by location",
             "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }
