@@ -73,6 +73,8 @@ export interface BlockPropType {
   startWithDenom?: boolean;
 }
 
+const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
+
 export function Block(props: BlockPropType): JSX.Element {
   const minIdxToHide = getMinTileIdxToHide();
   const columnWidth = getColumnWidth(props.columns);
@@ -231,7 +233,12 @@ function renderTiles(
             )}
             svgChartHeight={props.svgChartHeight}
             className={className}
-            showExploreMore={props.showExploreMore}
+            showExploreMore={
+              props.showExploreMore &&
+              props.place.types.every(
+                (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
+              )
+            }
             parentPlaces={props.parentPlaces}
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
