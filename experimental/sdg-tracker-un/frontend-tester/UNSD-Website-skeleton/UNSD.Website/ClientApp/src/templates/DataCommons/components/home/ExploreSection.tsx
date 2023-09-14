@@ -62,17 +62,19 @@ const SearchBarContainer = styled(HomeSearchContainer)`
       height: 100%;
       border-radius: 30px !important;
       font-size: 16px;
-      padding-left: 40px;
+      padding-left: 20px;
       padding-right: 70px;
     }
   }
 
   .anticon.anticon-search {
-    background-image: url(./images/datacommons/sdg-goals-icon.svg});
+    background-image: url(./images/datacommons/sdg-goals-icon.svg);
+    background-position: center;
     background-repeat: no-repeat;
+    background-size: 30px;
     height: 100%;
     width: 45px;
-    background-position: center;
+    right: 0;
     top: 0;
 
     svg {

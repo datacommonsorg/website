@@ -102,7 +102,7 @@ export const PlaceSection = () => {
       <ColorBar />
       <Container>
         <SearchCard>
-          <Header>Explore SDG Data by Countries and Regions</Header>
+          <Header>Explore SDG Data by Countries or Areas</Header>
           <SearchBarContainer>
             <CountrySelect
               setSelectedPlaceDcid={(placeDcid) =>
