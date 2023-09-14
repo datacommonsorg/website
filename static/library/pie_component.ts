@@ -25,7 +25,11 @@ import {
   DonutTilePropType,
 } from "../js/components/tiles/donut_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute, convertBooleanAttribute, createWebComponentElement } from "./utils";
+import {
+  convertArrayAttribute,
+  convertBooleanAttribute,
+  createWebComponentElement,
+} from "./utils";
 
 /**
  * Web component for rendering a donut chart tile.

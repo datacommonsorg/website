@@ -44,12 +44,12 @@ export function convertArrayAttribute(attributeValue: string): string[] {
 /**
  * Custom attribute converter for boolean type attributes.
  * Checks that the attribute value equals "true"
- * 
+ *
  * @param attributeValue the attribute value provided to the web component
  * @returns boolean
  */
 export function convertBooleanAttribute(attributeValue: string): boolean {
-  return attributeValue.toLowerCase() !== "false"
+  return attributeValue.toLowerCase() !== "false";
 }
 
 /**

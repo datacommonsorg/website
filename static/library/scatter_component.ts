@@ -25,7 +25,11 @@ import {
   ScatterTilePropType,
 } from "../js/components/tiles/scatter_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute, convertBooleanAttribute, createWebComponentElement } from "./utils";
+import {
+  convertArrayAttribute,
+  convertBooleanAttribute,
+  createWebComponentElement,
+} from "./utils";
 
 /**
  * Web component for rendering the datacommons scatter tile.
