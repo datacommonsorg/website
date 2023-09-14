@@ -317,10 +317,9 @@ const StyledBreadcrumb = styled(Breadcrumb)`
   }
   .ant-breadcrumb-link a {
     display: block;
-    max-width: 400px;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
   }
 `;
 
@@ -388,7 +387,7 @@ export const PlaceHeaderCard: React.FC<{
   });
   const breakpoint = useBreakpoint();
   const shouldHideBreadcrumbs =
-    hideBreadcrumbs || (topics.length == 1 && topics[0].dcid === ROOT_TOPIC);
+    hideBreadcrumbs || (topics.length === 1 && topics[0].dcid === ROOT_TOPIC);
   // hide place title on search pages with no topics found
   const shouldHidePlaceName = isSearch && !topicNames;
   // show topic names only if on search and there is a place found
