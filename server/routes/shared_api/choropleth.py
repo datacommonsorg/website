@@ -60,22 +60,23 @@ SPECIAL_CHOROPLETH_DISPLAY_LEVEL_MAP = {
     "Earth": "Country"
 }
 
-# GeoJSON property to use, keyed by display level.
-CHOROPLETH_GEOJSON_PROPERTY_MAP = {
-    "Country": "geoJsonCoordinatesDP3",
-    "State": "geoJsonCoordinatesDP3",
-    "AdministrativeArea1": "geoJsonCoordinatesDP3",
-    "County": "geoJsonCoordinatesDP1",
-    "AdministrativeArea2": "geoJsonCoordinatesDP1",
-    "AdministrativeArea3": "geoJsonCoordinatesDP1",
-    "EurostatNUTS1": "geoJsonCoordinatesDP2",
-    "EurostatNUTS2": "geoJsonCoordinatesDP2",
-    "EurostatNUTS3": "geoJsonCoordinatesDP1",
-    "IPCCPlace_50": "geoJsonCoordinates",
-    "City": "geoJsonCoordinates",
-    "CensusBlockGroup": "geoJsonCoordinates",
-    "CensusTract": "geoJsonCoordinates",
-    "CensusZipCodeTabulationArea": "geoJsonCoordinates",
+CHOROPLETH_DEFAULT_GEOJSON_PROP = "geoJsonCoordinates"
+# GeoJson property DP level to use, keyed by place type
+CHOROPLETH_GEOJSON_DP_LEVEL_MAP = {
+    "Country": "DP3",
+    "State": "DP3",
+    "AdministrativeArea1": "DP3",
+    "County": "DP1",
+    "AdministrativeArea2": "DP1",
+    "AdministrativeArea3": "DP1",
+    "EurostatNUTS1": "DP2",
+    "EurostatNUTS2": "DP2",
+    "EurostatNUTS3": "DP1",
+    "IPCCPlace_50": "",
+    "City": "",
+    "CensusBlockGroup": "",
+    "CensusTract": "",
+    "CensusZipCodeTabulationArea": "",
 }
 MULTILINE_GEOJSON_TYPE = "MultiLineString"
 MULTIPOLYGON_GEOJSON_TYPE = "MultiPolygon"
@@ -236,9 +237,9 @@ def geojson():
   if not place_type:
     place_dcid, place_type = get_choropleth_display_level(place_dcid)
   place_name_prop = request.args.get("placeNameProp")
-  cache_geojson_prop = request.args.get("cacheGeoJsonProp", "default")
+  geojson_prop = request.args.get("geoJsonProp", CHOROPLETH_DEFAULT_GEOJSON_PROP)
   cached_geojson = current_app.config['CACHED_GEOJSONS'].get(
-      place_dcid, {}).get(place_type, {}).get(cache_geojson_prop, {})
+      place_dcid, {}).get(place_type, {}).get(geojson_prop, {})
   if cached_geojson:
     result = process_cached_geojson(cached_geojson, place_name_prop)
     return lib_util.gzip_compress_response(result, is_json=True)
@@ -247,7 +248,9 @@ def geojson():
     geos = fetch.descendent_places([place_dcid], place_type).get(place_dcid, [])
   if not geos:
     return Response(json.dumps({}), 200, mimetype='application/json')
-  geojson_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP.get(place_type, "")
+  # When fetching geojson data from kg, use the geojson prop at the correct
+  # dp level for the place type
+  geojson_prop = geojson_prop + CHOROPLETH_GEOJSON_DP_LEVEL_MAP.get(place_type, "")
   # geoId/72 needs higher resolution geojson because otherwise, the map looks
   # too fragmented
   if place_dcid == 'geoId/72':

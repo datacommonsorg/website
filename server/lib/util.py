@@ -57,8 +57,6 @@ TOPIC_PAGE_CONFIGS = {
 # compression).
 GZIP_COMPRESSION_LEVEL = 3
 
-DEFAULT_CACHED_GEOJSON = "default"
-
 # Dict of place dcid to place type to filename of the geojson to cache for that
 # place + place type combination.
 # To generate cached geojson files, follow instructions/use the endpoint here:
@@ -66,58 +64,58 @@ DEFAULT_CACHED_GEOJSON = "default"
 CACHED_GEOJSON_FILES = {
     "Earth": {
         "Country": {
-            DEFAULT_CACHED_GEOJSON: "earth_country_dp13",
-            "unGeoCoordinate": "earth_country_dp13",
+            "geoJsonCoordinates": "earth_country_dp13",
+            "geoJsonCoordinatesUN": "earth_country_dp13",
         }
     },
     "africa": {
         "Country": {
-            DEFAULT_CACHED_GEOJSON: "africa_country_dp10"
+            "geoJsonCoordinates": "africa_country_dp10"
         }
     },
     "asia": {
         "Country": {
-            DEFAULT_CACHED_GEOJSON: "asia_country_dp10"
+            "geoJsonCoordinates": "asia_country_dp10"
         }
     },
     "europe": {
         "Country": {
-            DEFAULT_CACHED_GEOJSON: "europe_country_dp6"
+            "geoJsonCoordinates": "europe_country_dp6"
         }
     },
     "northamerica": {
         "Country": {
-            DEFAULT_CACHED_GEOJSON: "northamerica_country_dp13"
+            "geoJsonCoordinates": "northamerica_country_dp13"
         }
     },
     "oceania": {
         "Country": {
-            DEFAULT_CACHED_GEOJSON: "oceania_country_dp13"
+            "geoJsonCoordinates": "oceania_country_dp13"
         }
     },
     "southamerica": {
         "Country": {
-            DEFAULT_CACHED_GEOJSON: "southamerica_country_dp10"
+            "geoJsonCoordinates": "southamerica_country_dp10"
         }
     },
     "geoId/06": {
         "CensusTract": {
-            DEFAULT_CACHED_GEOJSON: "california_censustract"
+            "geoJsonCoordinates": "california_censustract"
         }
     },
     "geoId/12": {
         "CensusTract": {
-            DEFAULT_CACHED_GEOJSON: "florida_censustract"
+            "geoJsonCoordinates": "florida_censustract"
         }
     },
     "geoId/36": {
         "CensusTract": {
-            DEFAULT_CACHED_GEOJSON: "newyorkstate_censustract"
+            "geoJsonCoordinates": "newyorkstate_censustract"
         }
     },
     "geoId/48": {
         "CensusTract": {
-            DEFAULT_CACHED_GEOJSON: "texas_censustract"
+            "geoJsonCoordinates": "texas_censustract"
         }
     },
 }
