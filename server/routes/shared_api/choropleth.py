@@ -237,7 +237,8 @@ def geojson():
   if not place_type:
     place_dcid, place_type = get_choropleth_display_level(place_dcid)
   place_name_prop = request.args.get("placeNameProp")
-  geojson_prop = request.args.get("geoJsonProp", CHOROPLETH_DEFAULT_GEOJSON_PROP)
+  geojson_prop = request.args.get("geoJsonProp",
+                                  CHOROPLETH_DEFAULT_GEOJSON_PROP)
   cached_geojson = current_app.config['CACHED_GEOJSONS'].get(
       place_dcid, {}).get(place_type, {}).get(geojson_prop, {})
   if cached_geojson:
@@ -250,7 +251,8 @@ def geojson():
     return Response(json.dumps({}), 200, mimetype='application/json')
   # When fetching geojson data from kg, use the geojson prop at the correct
   # dp level for the place type
-  geojson_prop = geojson_prop + CHOROPLETH_GEOJSON_DP_LEVEL_MAP.get(place_type, "")
+  geojson_prop = geojson_prop + CHOROPLETH_GEOJSON_DP_LEVEL_MAP.get(
+      place_type, "")
   # geoId/72 needs higher resolution geojson because otherwise, the map looks
   # too fragmented
   if place_dcid == 'geoId/72':
