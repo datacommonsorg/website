@@ -815,11 +815,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Total Official Flows for Agriculture in Nigeria",
+                    "description": "Total Official Flows for Agriculture, by Recipient Countries in Nigeria",
                     "statVarKey": [
                       "sdg/DC_TOF_AGRL"
                     ],
-                    "title": "Total Official Flows for Agriculture in Nigeria",
+                    "title": "Total Official Flows for Agriculture, by Recipient Countries in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -830,25 +830,25 @@
                     "statVarKey": [
                       "sdg/DC_TOF_AGRL"
                     ],
-                    "title": "Total Official Flows for Agriculture in Nigeria",
+                    "title": "Total Official Flows for Agriculture, by Recipient Countries in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: the organisation for economic Co-operation and development (OECD).",
-            "title": "Total Official Flows for Agriculture"
+            "title": "Total Official Flows for Agriculture, by Recipient Countries"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Indicator of Food Price Anomalies in Nigeria",
+                    "description": "Indicator of Food Price Anomalies, by Consumer Food Price Index in Nigeria",
                     "statVarKey": [
                       "sdg/AG_FPA_CFPI"
                     ],
-                    "title": "Indicator of Food Price Anomalies in Nigeria",
+                    "title": "Indicator of Food Price Anomalies, by Consumer Food Price Index in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -859,14 +859,14 @@
                     "statVarKey": [
                       "sdg/AG_FPA_CFPI"
                     ],
-                    "title": "Indicator of Food Price Anomalies in Nigeria",
+                    "title": "Indicator of Food Price Anomalies, by Consumer Food Price Index in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: FAOSTAT data/ consumer price indices: http://www.Fao.org/faostat/en/#data/CP.",
-            "title": "Indicator of Food Price Anomalies"
+            "title": "Indicator of Food Price Anomalies, by Consumer Food Price Index"
           },
           {
             "columns": [
@@ -890,23 +890,23 @@
         ],
         "statVarSpec": {
           "sdg/AG_FPA_CFPI": {
-            "name": "Indicator of Food Price Anomalies",
+            "name": "Indicator of Food Price Anomalies, by Consumer Food Price Index",
             "statVar": "sdg/AG_FPA_CFPI"
           },
           "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112": {
-            "name": "Indicator of Food Price Anomalies [Maize]",
+            "name": "Indicator of Food Price Anomalies, by type of product [Maize]",
             "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112"
           },
           "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113": {
-            "name": "Indicator of Food Price Anomalies [Rice]",
+            "name": "Indicator of Food Price Anomalies, by type of product [Rice]",
             "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113"
           },
           "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114": {
-            "name": "Indicator of Food Price Anomalies [Sorghum]",
+            "name": "Indicator of Food Price Anomalies, by type of product [Sorghum]",
             "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114"
           },
           "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118": {
-            "name": "Indicator of Food Price Anomalies [Millet]",
+            "name": "Indicator of Food Price Anomalies, by type of product [Millet]",
             "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118"
           },
           "sdg/AG_PRD_AGVAS": {
@@ -970,7 +970,7 @@
             "statVar": "sdg/AG_XPD_AGSGB"
           },
           "sdg/DC_TOF_AGRL": {
-            "name": "Total official flows for agriculture",
+            "name": "Total official flows for agriculture, by recipient countries",
             "statVar": "sdg/DC_TOF_AGRL"
           },
           "sdg/ER_GRF_ANIMKPT": {
