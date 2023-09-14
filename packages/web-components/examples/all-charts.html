@@ -240,6 +240,17 @@
       childPlaceType="State"
       variable="Count_Person"
     ></datacommons-map>
+    <datacommons-map
+      parentPlace="Earth"
+      childPlaceType="Country"
+      variable="Count_Person"
+    ></datacommons-map>
+    <datacommons-map
+      parentPlace="Earth"
+      childPlaceType="Country"
+      variable="Count_Person"
+      geoJsonProp="geoJsonCoordinatesUN"
+    ></datacommons-map>
     <h2>Map with year slider</h2>
     <datacommons-map
       header="Population"
@@ -319,6 +330,12 @@
       places="country/NLD country/USA geoId/06"
       variables="Count_Person"
       placeNameProp="unDataLabel"
+    ></datacommons-line>
+    <datacommons-line
+      header="Line chart using years in the x-axis"
+      places="country/COL"
+      variables="sdg/SI_POV_NAHC"
+      timeScale="year"
     ></datacommons-line>
     <h2>Lollipop</h2>
     <datacommons-bar

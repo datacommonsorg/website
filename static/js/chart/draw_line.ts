@@ -30,6 +30,7 @@ import {
   LEGEND,
   LEGEND_HIGHLIGHT_CLASS,
   MARGIN,
+  NUM_X_TICKS,
   NUM_Y_TICKS,
   SVGNS,
   TEXT_FONT_FAMILY,
@@ -292,6 +293,30 @@ function addHighlightOnHover(
 }
 
 /**
+ * Get the d3 time interval that corresponds with the time scale to use for
+ * x-axis labels. Returns undefined if no setting is provided.
+ * @param setting time setting set by user
+ */
+function getTickFormatFn(
+  timeScale: string
+): (date: Date) => string | undefined {
+  if (!timeScale) {
+    return;
+  }
+
+  switch (timeScale.toLowerCase()) {
+    case "year":
+      return d3.timeFormat("%Y");
+    case "month":
+      return d3.timeFormat("%Y-%m");
+    case "day":
+      return d3.timeFormat("%Y-%m-%d");
+    default:
+      return;
+  }
+}
+
+/**
  * Draw line chart.
  * @param svgContainer
  * @param width
@@ -366,6 +391,18 @@ export function drawLineChart(
   if (dataGroups[0].value.length === 1) {
     singlePointLabel = dataGroups[0].value[0].label;
   }
+
+  const tickFormatFn = getTickFormatFn(options?.timeScale);
+
+  // If using a custom timescale setting and there are fewer points than
+  // NUM_X_TICKS, only use one tick-mark per point. This prevents duplicate
+  // dates showing up on the x-axis.
+  const numPointsInLongestLine = Math.max(
+    ...dataGroups.map((dataGroup) => dataGroup.value.length)
+  );
+  const numPointsToShow =
+    options?.timeScale && Math.min(numPointsInLongestLine, NUM_X_TICKS);
+
   const bottomHeight = addXAxis(
     xAxis,
     height,
@@ -373,7 +410,9 @@ export function drawLineChart(
     null,
     null,
     singlePointLabel,
-    options?.apiRoot
+    options?.apiRoot,
+    tickFormatFn,
+    numPointsToShow
   );
   updateXAxis(xAxis, bottomHeight, height, yScale);
 
