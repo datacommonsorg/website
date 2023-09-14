@@ -63,37 +63,60 @@ GZIP_COMPRESSION_LEVEL = 3
 # https://github.com/chejennifer/website/blob/generateCacheGeojsons/server/routes/api/choropleth.py#L201-L273
 CACHED_GEOJSON_FILES = {
     "Earth": {
-        "Country": "earth_country_dp13"
+        "Country": {
+            "geoJsonCoordinates": "earth_country_dp13",
+            "geoJsonCoordinatesUN": "earth_country_dp13",
+        }
     },
     "africa": {
-        "Country": "africa_country_dp10"
+        "Country": {
+            "geoJsonCoordinates": "africa_country_dp10"
+        }
     },
     "asia": {
-        "Country": "asia_country_dp10"
+        "Country": {
+            "geoJsonCoordinates": "asia_country_dp10"
+        }
     },
     "europe": {
-        "Country": "europe_country_dp6"
+        "Country": {
+            "geoJsonCoordinates": "europe_country_dp6"
+        }
     },
     "northamerica": {
-        "Country": "northamerica_country_dp13"
+        "Country": {
+            "geoJsonCoordinates": "northamerica_country_dp13"
+        }
     },
     "oceania": {
-        "Country": "oceania_country_dp13"
+        "Country": {
+            "geoJsonCoordinates": "oceania_country_dp13"
+        }
     },
     "southamerica": {
-        "Country": "southamerica_country_dp10"
+        "Country": {
+            "geoJsonCoordinates": "southamerica_country_dp10"
+        }
     },
     "geoId/06": {
-        "CensusTract": "california_censustract"
+        "CensusTract": {
+            "geoJsonCoordinates": "california_censustract"
+        }
     },
     "geoId/12": {
-        "CensusTract": "florida_censustract"
+        "CensusTract": {
+            "geoJsonCoordinates": "florida_censustract"
+        }
     },
     "geoId/36": {
-        "CensusTract": "newyorkstate_censustract"
+        "CensusTract": {
+            "geoJsonCoordinates": "newyorkstate_censustract"
+        }
     },
     "geoId/48": {
-        "CensusTract": "texas_censustract"
+        "CensusTract": {
+            "geoJsonCoordinates": "texas_censustract"
+        }
     },
 }
 
@@ -227,19 +250,21 @@ def get_disaster_event_metadata():
     return subject_page_config
 
 
-# Returns dict of place dcid to place type to geojson object. Geojson object is
-# a feature collection where the geometry of the features do not follow the
-# right hand rule.
+# Returns dict of place dcid to place type to geojsonProp to geojson object.
+# Geojson object is a feature collection where the geometry of the features do
+# not follow the right hand rule.
 def get_cached_geojsons():
   geojsons = {}
   for place in CACHED_GEOJSON_FILES:
     geojsons[place] = {}
     for place_type in CACHED_GEOJSON_FILES[place]:
-      filename = CACHED_GEOJSON_FILES[place][place_type]
-      filepath = os.path.join(get_repo_root(), 'config', 'geojson',
-                              filename + '.json')
-      with open(filepath, 'r') as f:
-        geojsons[place][place_type] = json.load(f)
+      geojsons[place][place_type] = {}
+      for geo_json_prop in CACHED_GEOJSON_FILES[place][place_type]:
+        filename = CACHED_GEOJSON_FILES[place][place_type][geo_json_prop]
+        filepath = os.path.join(get_repo_root(), 'config', 'geojson',
+                                geo_json_prop, filename + '.json')
+        with open(filepath, 'r') as f:
+          geojsons[place][place_type][geo_json_prop] = json.load(f)
   return geojsons
 
 
