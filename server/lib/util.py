@@ -70,32 +70,38 @@ CACHED_GEOJSON_FILES = {
     },
     "africa": {
         "Country": {
-            "geoJsonCoordinates": "africa_country_dp10"
+            "geoJsonCoordinates": "africa_country_dp10",
+            "geoJsonCoordinatesUN": "africa_country_dp10"
         }
     },
     "asia": {
         "Country": {
-            "geoJsonCoordinates": "asia_country_dp10"
+            "geoJsonCoordinates": "asia_country_dp10",
+            "geoJsonCoordinatesUN": "asia_country_dp10"
         }
     },
     "europe": {
         "Country": {
-            "geoJsonCoordinates": "europe_country_dp6"
+            "geoJsonCoordinates": "europe_country_dp6",
+            "geoJsonCoordinatesUN": "europe_country_dp6"
         }
     },
     "northamerica": {
         "Country": {
-            "geoJsonCoordinates": "northamerica_country_dp13"
+            "geoJsonCoordinates": "northamerica_country_dp13",
+            "geoJsonCoordinatesUN": "northamerica_country_dp13"
         }
     },
     "oceania": {
         "Country": {
-            "geoJsonCoordinates": "oceania_country_dp13"
+            "geoJsonCoordinates": "oceania_country_dp13",
+            "geoJsonCoordinatesUN": "oceania_country_dp13"
         }
     },
     "southamerica": {
         "Country": {
-            "geoJsonCoordinates": "southamerica_country_dp10"
+            "geoJsonCoordinates": "southamerica_country_dp10",
+            "geoJsonCoordinatesUN": "southamerica_country_dp10"
         }
     },
     "geoId/06": {

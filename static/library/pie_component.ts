@@ -25,7 +25,11 @@ import {
   DonutTilePropType,
 } from "../js/components/tiles/donut_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute, createWebComponentElement } from "./utils";
+import {
+  convertArrayAttribute,
+  convertBooleanAttribute,
+  createWebComponentElement,
+} from "./utils";
 
 /**
  * Web component for rendering a donut chart tile.
@@ -75,7 +79,7 @@ export class DatacommonsPieComponent extends LitElement {
 
   // Optional: Whether to draw as donut chart instead of a pie chart
   // Set to true to draw a donut chart
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   donut?: boolean;
 
   // DCID of the parent place

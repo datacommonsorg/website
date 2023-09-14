@@ -610,7 +610,7 @@
     "key": "12.2.1",
     "tags": {
       "headline": "",
-      "images": ["/images/datacommons/infographics/12.2.1_infographic.svg"],
+      "images": ["./images/datacommons/infographics/12.2.1_infographic.svg"],
       "link": "https://unstats.un.org/sdgs/report/2023/Goal-12/"
     }
   },

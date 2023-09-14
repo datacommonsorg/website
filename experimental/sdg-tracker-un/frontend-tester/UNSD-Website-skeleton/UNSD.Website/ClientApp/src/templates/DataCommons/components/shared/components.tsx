@@ -469,8 +469,21 @@ const HeadlineImage = styled.img`
 `;
 
 const HeadlineLink = styled.div`
+  cursor: pointer; 
   margin-left: auto;
   width: fit-content;
+
+  a {
+    font-size: 1rem;
+    line-height: 1rem;
+  }
+
+  .material-icons-outlined {
+    color: #5B92E5;
+    font-size: 1rem;
+    line-height: 1rem;
+    vertical-align: middle;
+  }
 `;
 
 export const HeadlineTile: React.FC<{
@@ -500,7 +513,10 @@ export const HeadlineTile: React.FC<{
         ))}
       </Row>
       <HeadlineLink>
-        <a href={headlineData.link}>Read more</a>
+        <a href={headlineData.link} target="_blank" rel="noreferrer">
+          Read more{" "}
+          <span className="material-icons-outlined">open_in_new</span>
+        </a>
       </HeadlineLink>
     </HeadlineContainer>
   );
