@@ -64,3 +64,7 @@ Optional:
 
   Whether to show grid lines delimiting top right, top left, bottom right, and
   bottom left quadrants. Defaults to false.
+
+- `placeNameProp` _string_
+
+  Optionally specify the property to use to get the place names.

@@ -64,6 +64,10 @@ const CHART_HEIGHT = 389;
 const HIGHLIGHT_CHART_HEIGHT = 155;
 const VARIABLE_NAME_REGEX = "(?<=\\[)(.*?)(?=\\])";
 const DEFAULT_VARIABLE_NAME = "Total";
+const PLACE_NAME_PROP = "unDataLabel";
+const NO_MAP_TOOL_PLACE_TYPES = new Set([
+  "UNGeoRegion", "GeoRegion"
+]);
 
 interface TileWithFootnote {
   tile: ChartConfigTile;
@@ -268,9 +272,14 @@ function buildTileHierarchy(
         if (_.isEmpty(varToTopics[statVar])) {
           return;
         }
-        const tileWithFootnote: TileWithFootnote = {tile, footnote};
+        const tileWithFootnote: TileWithFootnote = { tile, footnote };
         for (const topic of varToTopics[statVar]) {
-          addTileToHierarchy(tileWithFootnote, hierarchy, topic.dcid, selectedTopics);
+          addTileToHierarchy(
+            tileWithFootnote,
+            hierarchy,
+            topic.dcid,
+            selectedTopics
+          );
         }
         orderedTiles.push(tileWithFootnote);
         varToTopics[statVar].forEach((topic) => topicDcids.push(topic.dcid));
@@ -475,20 +484,6 @@ const CountriesContent: React.FC<{
           </SearchCard>
         )}
 
-        <PlaceTitle style={{ display: "none" }}>
-          <div>
-            {placeNames.length > 0 ? (
-              placeNames.join(", ")
-            ) : placeDcids.length > 0 ? (
-              <Spinner />
-            ) : (
-              "Select a country"
-            )}
-          </div>
-          {!hidePlaceSearch && (
-            <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
-          )}
-        </PlaceTitle>
         {errorMessage && <ErorrMessage message={errorMessage} />}
 
         {(placeNames.length > 0 || userMessage) && (
@@ -545,6 +540,17 @@ const ChartContent: React.FC<{
   if (!fulfillResponse || fulfillResponse.failure) {
     return null;
   }
+  // Return no data error if there is nothing to show.
+  if (
+    !isSearch &&
+    Object.keys(fulfillResponse?.relatedThings?.varToTopics || {}).length === 0
+  ) {
+    return (
+      <ContentCard>
+        <ErorrMessageText>No data found.</ErorrMessageText>
+      </ContentCard>
+    );
+  }
 
   return (
     <>
@@ -579,7 +585,7 @@ const ChartCategoryContent: React.FC<{
   if (isSearch) {
     // Show all tiles in one card without headers
     return (
-      <ContentCard>
+      <ContentCard className="-dc-goal-overview">
         <ChartContentBody>
           {processedTiles.orderedTiles.map((tile, i) => (
             <ChartTile
@@ -657,7 +663,7 @@ const ChartTargetBlock: React.FC<{
   const goalNumber = Number(target.split(".")[0]) || 1;
   const color = theme.sdgColors[goalNumber - 1];
   return (
-    <ContentCard>
+    <ContentCard className="-dc-goal-overview">
       <TargetHeader color={color} target={target} />
       <Divider color={color} />
       {Object.keys(indicatorData)
@@ -773,10 +779,12 @@ const ChartTile: React.FC<{
           showExploreMore={true}
           variableNameRegex={VARIABLE_NAME_REGEX}
           defaultVariableName={DEFAULT_VARIABLE_NAME}
+          placeNameProp={PLACE_NAME_PROP}
         >
           <div slot="footer">
             <ChartFootnote text={footnote} />
           </div>
+          {/** @ts-ignore */}
         </datacommons-bar>
       </>
     );
@@ -804,10 +812,13 @@ const ChartTile: React.FC<{
           variableNameRegex={VARIABLE_NAME_REGEX}
           showExploreMore={true}
           defaultVariableName={DEFAULT_VARIABLE_NAME}
+          timeScale="year"
+          placeNameProp={PLACE_NAME_PROP}
         >
           <div slot="footer">
             <ChartFootnote text={footnote} />
           </div>
+          {/** @ts-ignore */}
         </datacommons-line>
       </>
     );
@@ -826,7 +837,8 @@ const ChartTile: React.FC<{
           variable={tileStatVars.join(" ")}
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
-          showExploreMore={true}
+          showExploreMore={placeType && !NO_MAP_TOOL_PLACE_TYPES.has(placeType)}
+          placeNameProp={PLACE_NAME_PROP}
         >
           <div slot="footer">
             {/** @ts-ignore */}
@@ -860,6 +872,7 @@ const ChartTile: React.FC<{
           <div slot="footer">
             <ChartFootnote text={footnote} />
           </div>
+          {/** @ts-ignore */}
         </datacommons-gauge>
       </>
     );
@@ -873,11 +886,13 @@ const ChartTile: React.FC<{
           variables={tileStatVars.join(" ")}
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
+          placeNameProp={PLACE_NAME_PROP}
           showExploreMore={true}
         >
           <div slot="footer">
             <ChartFootnote text={footnote} />
           </div>
+          {/** @ts-ignore */}
         </datacommons-scatter>
       </>
     );

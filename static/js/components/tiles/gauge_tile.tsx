@@ -42,6 +42,8 @@ export interface GaugeTilePropType {
   apiRoot?: string;
   // colors to use
   colors?: string[];
+  // Text to show in footer
+  footnote?: string;
   // ID of the tile
   id: string;
   // Place to show data for
@@ -120,6 +122,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
           : null
       }
       hasErrorMsg={gaugeData && !!gaugeData.errorMsg}
+      footnote={props.footnote}
     >
       <div
         className={`svg-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}

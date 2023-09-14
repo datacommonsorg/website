@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import { Layout, Menu, Tooltip } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Layout, Menu, Spin, Tooltip } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -49,6 +50,12 @@ const StyledMenu = styled(Menu)`
   }
 `;
 
+const SidebarContent = styled.div`
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+`;
+
 const AppSidebar: React.FC<{
   placeDcid: string;
   variableDcid: string;
@@ -63,7 +70,6 @@ const AppSidebar: React.FC<{
   const [placeSidebarMenuHierarchy, setPlaceSidebarMenuHierarchy] = useState<
     MenuItemType[]
   >([]);
-  const [siderHidden, setSiderHidden] = useState<boolean>(false);
   const getMenuItem = (item: MenuItemType) => {
     const tagId = `${item.key.replace(/[\/\.]/g, "_")}`;
     if (item.children && item.children.length > 0) {
@@ -112,30 +118,48 @@ const AppSidebar: React.FC<{
       breakpoint="lg"
       collapsedWidth="0"
       width={320}
-      onBreakpoint={(broken) => {
-        setSiderHidden(broken);
-      }}
       style={{
         background: "white",
         position: "sticky",
         top: 0,
         height: "100vh",
-        overflow: !siderHidden ? "auto" : undefined,
       }}
     >
-      <MenuTitle>Goals</MenuTitle>
-      <StyledMenu
-        selectedKeys={[variableDcid, `summary-${variableDcid}`]}
-        mode="inline"
-        defaultOpenKeys={["1"]}
-        style={{ borderRight: 0 }}
-        onClick={(item) => {
-          setVariableDcid(item.key.replace("summary-", ""));
-        }}
-      >
-        {placeSidebarMenuHierarchy.map((vg) => getMenuItem(vg))}
-      </StyledMenu>
+      <SidebarContent>
+        <MenuTitle>Goals</MenuTitle>
+        <StyledMenu
+          selectedKeys={[variableDcid, `summary-${variableDcid}`]}
+          mode="inline"
+          defaultOpenKeys={["1"]}
+          style={{ borderRight: 0 }}
+          onClick={(item) => {
+            setVariableDcid(item.key.replace("summary-", ""));
+          }}
+        >
+          {placeSidebarMenuHierarchy.length === 0 ? (
+            <Spinner />
+          ) : (
+            placeSidebarMenuHierarchy.map((vg) => getMenuItem(vg))
+          )}
+        </StyledMenu>
+      </SidebarContent>
     </Sider>
+  );
+};
+
+const Spinner = () => {
+  return (
+    <Spin
+      indicator={
+        <LoadingOutlined
+          style={{
+            paddingLeft: "1.5rem",
+            fontSize: "1.5rem",
+          }}
+          spin
+        />
+      }
+    />
   );
 };
 

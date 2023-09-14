@@ -19,7 +19,7 @@
  {% set is_hide_sub_footer = false %}
  {% set main_id = 'explore-landing' %}
  {% set page_id = 'explore-landing-page' %}
- {% set title = 'Explore' %}
+ {% set title = 'Explore ' + topic | title %}
 
  {% block head %}
  <link rel="stylesheet" href={{url_for('static', filename='css/explore_landing.min.css', t=config['VERSION'])}} >

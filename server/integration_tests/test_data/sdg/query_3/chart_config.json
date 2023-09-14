@@ -180,7 +180,7 @@
                     "statVarKey": [
                       "sdg/SH_STA_MORT.SEX--F"
                     ],
-                    "title": "Maternal Mortality Ratio in the World (${date})",
+                    "title": "Maternal Mortality Ratio [Female] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -843,7 +843,7 @@
             "statVar": "WHO/WHS4_543"
           },
           "sdg/SH_STA_MORT.SEX--F": {
-            "name": "Maternal mortality ratio",
+            "name": "Maternal mortality ratio [Female]",
             "statVar": "sdg/SH_STA_MORT.SEX--F"
           }
         }

@@ -14,18 +14,32 @@
  * limitations under the License.
  */
 
-import _ from "lodash";
 import { gray } from "@ant-design/colors";
-import { SearchOutlined } from "@ant-design/icons";
-import { AutoComplete, Breadcrumb, Col, Input, Layout, Row, Spin } from "antd";
+import { CaretDownOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  AutoComplete,
+  Breadcrumb,
+  Col,
+  Grid,
+  Input,
+  Layout,
+  Row,
+  Spin,
+} from "antd";
+import _ from "lodash";
 import { parseToRgb } from "polished";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useStoreState } from "../../state";
-import { FOOTNOTE_CHAR_LIMIT, QUERY_PARAM_VARIABLE, ROOT_TOPIC } from "../../utils/constants";
+import {
+  FOOTNOTE_CHAR_LIMIT,
+  QUERY_PARAM_VARIABLE,
+  ROOT_TOPIC,
+} from "../../utils/constants";
 import "./components.css";
 
+const useBreakpoint = Grid.useBreakpoint;
 const SearchInputContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -40,10 +54,11 @@ const SearchInputContainer = styled.div`
     margin: 0 1.2rem 0rem;
     text-transform: uppercase;
   }
-    .search {
+  .search {
     position: relative;
 
     input {
+      border-radius: 2rem !important;
       padding-right: 2.25rem;
     }
 
@@ -191,7 +206,9 @@ const CountrySelectContainer = styled.div<{ width: string }>`
   position: relative;
   width: ${(p) => p.width};
   height: 100%;
-  .ant-select-selector {
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector,
+  .ant-input,
+  .react-dropdown-select {
     border-radius: 2rem !important;
   }
   .ant-select-selection-placeholder {
@@ -210,10 +227,10 @@ const CountrySelectNoResults = styled.div`
 `;
 
 export const CountrySelect: React.FC<{
+  placeholder?: string;
   setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
-  currentPlaceName?: string;
   style?: Record<string, string>;
-}> = ({ setSelectedPlaceDcid, currentPlaceName, style }) => {
+}> = ({ setSelectedPlaceDcid, placeholder, style }) => {
   const [isFocused, setIsFocused] = useState(false);
   const countries = useStoreState((s) =>
     s.countries.dcids.map((dcid) => s.countries.byDcid[dcid])
@@ -224,6 +241,9 @@ export const CountrySelect: React.FC<{
   const options = [countries, regions]
     .flat()
     .map((place) => ({ value: place.name, dcid: place.dcid }));
+  options.sort(({ value: value1 }, { value: value2 }) =>
+    value1.localeCompare(value2)
+  );
   const containerWidth = style && style.width ? style.width : "fit-content";
   const [value, setValue] = useState("");
 
@@ -237,7 +257,7 @@ export const CountrySelect: React.FC<{
         value={isFocused ? value : ""}
         style={style || { width: 225 }}
         options={options}
-        placeholder={currentPlaceName || "Select a country/region"}
+        placeholder={placeholder || "Select a country or area"}
         defaultActiveFirstOption={true}
         notFoundContent={
           <CountrySelectNoResults>No results found</CountrySelectNoResults>
@@ -261,6 +281,7 @@ export const CountrySelect: React.FC<{
           }
         }}
       />
+      <CaretDownOutlined />
     </CountrySelectContainer>
   );
 };
@@ -296,10 +317,9 @@ const StyledBreadcrumb = styled(Breadcrumb)`
   }
   .ant-breadcrumb-link a {
     display: block;
-    max-width: 400px;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
   }
 `;
 
@@ -307,6 +327,14 @@ const UserMessage = styled.div`
   border: 1px solid #e3e3e3;
   border-radius: 0.5rem;
   padding: 16px 24px;
+`;
+
+const PlaceTitleRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 `;
 
 export const PlaceHeaderCard: React.FC<{
@@ -357,27 +385,34 @@ export const PlaceHeaderCard: React.FC<{
     }
     return parentDcids.map((parentDcid) => s.topics.byDcid[parentDcid]);
   });
+  const breakpoint = useBreakpoint();
   const shouldHideBreadcrumbs =
-    hideBreadcrumbs || (topics.length == 1 && topics[0].dcid === ROOT_TOPIC);
+    hideBreadcrumbs || (topics.length === 1 && topics[0].dcid === ROOT_TOPIC);
   // hide place title on search pages with no topics found
-  const shouldHidePlaceName = (isSearch && !topicNames);
+  const shouldHidePlaceName = isSearch && !topicNames;
   // show topic names only if on search and there is a place found
-  const shouldShowTopicNames = 
-    isSearch && topicNames && !_.isEmpty(placeNames);
+  const shouldShowTopicNames = isSearch && topicNames && !_.isEmpty(placeNames);
   return (
     <PlaceCard>
       <PlaceCardContent>
         {userMessage && <UserMessage>{userMessage}</UserMessage>}
-        {(hidePlaceSearch || isSearch) ? (
+        {hidePlaceSearch || isSearch ? (
           <PlaceTitle>
             {!shouldHidePlaceName && placeNames.join(", ")}
             {shouldShowTopicNames ? ` • ${topicNames}` : ""}
           </PlaceTitle>
         ) : (
-          <CountrySelect
-            setSelectedPlaceDcid={setSelectedPlaceDcid}
-            currentPlaceName={placeNames.length > 0 ? placeNames[0] : undefined}
-          />
+          <PlaceTitleRow>
+            {!breakpoint.xs && <PlaceTitle>{placeNames.join(", ")}</PlaceTitle>}
+            <CountrySelect
+              setSelectedPlaceDcid={setSelectedPlaceDcid}
+              placeholder={
+                breakpoint.xs && placeNames.length > 0
+                  ? placeNames[0]
+                  : undefined
+              }
+            />
+          </PlaceTitleRow>
         )}
         {!shouldHideBreadcrumbs && (
           <StyledBreadcrumb>
@@ -434,8 +469,21 @@ const HeadlineImage = styled.img`
 `;
 
 const HeadlineLink = styled.div`
+  cursor: pointer; 
   margin-left: auto;
   width: fit-content;
+
+  a {
+    font-size: 1rem;
+    line-height: 1rem;
+  }
+
+  .material-icons-outlined {
+    color: #5B92E5;
+    font-size: 1rem;
+    line-height: 1rem;
+    vertical-align: middle;
+  }
 `;
 
 export const HeadlineTile: React.FC<{
@@ -465,7 +513,10 @@ export const HeadlineTile: React.FC<{
         ))}
       </Row>
       <HeadlineLink>
-        <a href={headlineData.link}>Read more</a>
+        <a href={headlineData.link} target="_blank" rel="noreferrer">
+          Read more{" "}
+          <span className="material-icons-outlined">open_in_new</span>
+        </a>
       </HeadlineLink>
     </HeadlineContainer>
   );
@@ -587,13 +638,15 @@ export const ShowMoreToggle = styled.span`
   color: var(--link-color);
 `;
 
-export const ChartFootnote: React.FC<{text: string | undefined}> = ({text}) => {
+export const ChartFootnote: React.FC<{ text: string | undefined }> = ({
+  text,
+}) => {
   const [showFullText, setShowFullText] = useState(false);
   if (!text) {
     return <></>;
   }
   const hideToggle = text.length < FOOTNOTE_CHAR_LIMIT;
-  const shortText = text.slice(0, FOOTNOTE_CHAR_LIMIT)
+  const shortText = text.slice(0, FOOTNOTE_CHAR_LIMIT);
   return (
     <ChartFootnoteContainer>
       {hideToggle || showFullText ? text : `${shortText}...`}

@@ -25,7 +25,11 @@ import {
   ScatterTilePropType,
 } from "../js/components/tiles/scatter_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute, createWebComponentElement } from "./utils";
+import {
+  convertArrayAttribute,
+  convertBooleanAttribute,
+  createWebComponentElement,
+} from "./utils";
 
 /**
  * Web component for rendering the datacommons scatter tile.
@@ -69,40 +73,44 @@ export class DatacommonsScatterComponent extends LitElement {
 
   // Optional: whether to label top left outlier points
   // Defaults to false
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   highlightBottomLeft?: boolean;
 
   // Optional: whether to label top right outlier points
   // Defaults to false
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   highlightBottomRight?: boolean;
 
   // Optional: whether to label top left outlier points
   // Defaults to false
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   highlightTopLeft?: boolean;
 
   // Optional: whether to label top right outlier points
   // Defaults to false
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   highlightTopRight?: boolean;
 
   // Optional: whether to label points with places
   // Defaults to false
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   showPlaceLabels?: boolean;
 
   // Optional: whether to show grid lines delimiting quadrants
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   showQuadrants?: boolean;
 
   // Optional: list of statvars to plot in per capita instead of raw value
   @property({ type: Array<string>, converter: convertArrayAttribute })
   usePerCapita?: string[];
 
+  // Optional: Property to use to get place names
+  @property()
+  placeNameProp: string;
+
   // Optional: Whether to show the "explore" link.
   // Default: false
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   showExploreMore: boolean;
 
   render(): HTMLElement {
@@ -134,6 +142,7 @@ export class DatacommonsScatterComponent extends LitElement {
       })),
       svgChartHeight: 200,
       title: this.header,
+      placeNameProp: this.placeNameProp,
     };
     return createWebComponentElement(ScatterTile, scatterTileProps);
   }
