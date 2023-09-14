@@ -58,6 +58,7 @@ const SearchInputContainer = styled.div`
     position: relative;
 
     input {
+      border-radius: 2rem !important;
       padding-right: 2.25rem;
     }
 
