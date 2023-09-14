@@ -513,8 +513,10 @@ export const HeadlineTile: React.FC<{
         ))}
       </Row>
       <HeadlineLink>
-        <a href={headlineData.link}>Read more </a>
-        <span className="material-icons-outlined">open_in_new</span>
+        <a href={headlineData.link} target="_blank" rel="noreferrer">
+          Read more{" "}
+          <span className="material-icons-outlined">open_in_new</span>
+        </a>
       </HeadlineLink>
     </HeadlineContainer>
   );
