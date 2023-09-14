@@ -94,3 +94,8 @@ export const SDG_ICON_URL = "./images/datacommons/sdg-wheel-transparent.png";
  * Number of characters on footnote to show before ...
  */
 export const FOOTNOTE_CHAR_LIMIT = 100;
+
+/**
+ * Sample NL query
+ */
+export const SAMPLE_NL_QUERY = "Poverty in Indonesia";
