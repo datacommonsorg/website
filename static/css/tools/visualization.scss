@@ -556,6 +556,10 @@ $selector-footer-height: 40px;
         }
       }
     }
+
+    .footer {
+      font-size: 13px;
+    }
   }
 
   .chart.scatter {
@@ -648,5 +652,10 @@ $selector-footer-height: 40px;
       font-size: 14px;
       padding: 10px 12px 10px 12px;
     }
+  }
+
+  .footer {
+    font-size: 13px;
+    margin-top: 1rem;
   }
 }

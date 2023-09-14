@@ -52,6 +52,8 @@ interface ChartTileContainerProp {
   exploreLink?: { displayText: string; url: string };
   // Whether or not there is an error message in the chart.
   hasErrorMsg?: boolean;
+  // Text to show in footer
+  footnote?: string;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -92,6 +94,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       <ChartFooter
         handleEmbed={showEmbed ? handleEmbed : null}
         exploreLink={props.exploreLink}
+        footnote={props.footnote}
       >
         <NlChartFeedback id={props.id} />
       </ChartFooter>

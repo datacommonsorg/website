@@ -21,7 +21,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { dataCommonsClient } from "../../state";
 import { formatUserMessage } from "../../utils";
-import { QUERY_PARAM_QUERY } from "../../utils/constants";
+import { QUERY_PARAM_QUERY, SAMPLE_NL_QUERY } from "../../utils/constants";
 import { theme } from "../../utils/theme";
 import { FulfillResponse } from "../../utils/types";
 import CountriesContent from "../countries/CountriesContent";
@@ -318,7 +318,7 @@ const Search = () => {
                     searchParams.set(QUERY_PARAM_QUERY, q);
                     history.push("/search?" + searchParams.toString());
                   }}
-                  placeholder={"What is the global poverty rate?"}
+                  placeholder={SAMPLE_NL_QUERY}
                 />
               </SearchBarContainer>
               {errorMessage ? (
