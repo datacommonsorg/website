@@ -85,7 +85,7 @@ const SearchBarContainer = styled(HomeSearchContainer)`
 
 const ColorBar = styled.div`
   background-image: url("./images/datacommons/sdg-color-bar.png");
-  height: 16px;
+  height: 10px;
 `;
 
 export const PlaceSection = () => {
