@@ -5,7 +5,7 @@
       rel="stylesheet"
       href="https://datacommons.org/css/datacommons.min.css"
     />
-    <script src="https://datacommons.org/datacommons.js"></script>
+    <script src="http://localhost:8080/datacommons.js"></script>
     <style>
       /**
        * Example component styling using shadow part identifiers
@@ -240,13 +240,94 @@
       childPlaceType="State"
       variable="Count_Person"
     ></datacommons-map>
+    <h2>UN Map Comparisons</h2>
     <datacommons-map
+      header="World Bank Boundaries - Earth"
       parentPlace="Earth"
       childPlaceType="Country"
       variable="Count_Person"
     ></datacommons-map>
     <datacommons-map
+      header="UN Boundaries - Earth"
       parentPlace="Earth"
+      childPlaceType="Country"
+      variable="Count_Person"
+      geoJsonProp="geoJsonCoordinatesUN"
+    ></datacommons-map>
+    <datacommons-map
+      header="World Bank Boundaries - Europe"
+      parentPlace="europe"
+      childPlaceType="Country"
+      variable="Count_Person"
+    ></datacommons-map>
+    <datacommons-map
+      header="UN Boundaries - Europe"
+      parentPlace="europe"
+      childPlaceType="Country"
+      variable="Count_Person"
+      geoJsonProp="geoJsonCoordinatesUN"
+    ></datacommons-map>
+    <datacommons-map
+      header="World Bank Boundaries - Africa"
+      parentPlace="africa"
+      childPlaceType="Country"
+      variable="Count_Person"
+    ></datacommons-map>
+    <datacommons-map
+      header="UN Boundaries - Africa"
+      parentPlace="africa"
+      childPlaceType="Country"
+      variable="Count_Person"
+      geoJsonProp="geoJsonCoordinatesUN"
+    ></datacommons-map>
+    <datacommons-map
+      header="World Bank Boundaries - South America"
+      parentPlace="southamerica"
+      childPlaceType="Country"
+      variable="Count_Person"
+    ></datacommons-map>
+    <datacommons-map
+      header="UN Boundaries - South America"
+      parentPlace="southamerica"
+      childPlaceType="Country"
+      variable="Count_Person"
+      geoJsonProp="geoJsonCoordinatesUN"
+    ></datacommons-map>
+    <datacommons-map
+      header="World Bank Boundaries - Asia"
+      parentPlace="asia"
+      childPlaceType="Country"
+      variable="Count_Person"
+    ></datacommons-map>
+    <datacommons-map
+      header="UN Boundaries - Asia"
+      parentPlace="asia"
+      childPlaceType="Country"
+      variable="Count_Person"
+      geoJsonProp="geoJsonCoordinatesUN"
+    ></datacommons-map>
+    <datacommons-map
+      header="World Bank Boundaries - North America"
+      parentPlace="northamerica"
+      childPlaceType="Country"
+      variable="Count_Person"
+    ></datacommons-map>
+    <datacommons-map
+      header="UN Boundaries - North America"
+      parentPlace="northamerica"
+      childPlaceType="Country"
+      variable="Count_Person"
+      geoJsonProp="geoJsonCoordinatesUN"
+    ></datacommons-map>
+    <datacommons-map
+      header="World Bank Boundaries - Oceania"
+      parentPlace="oceania"
+      childPlaceType="Country"
+      variable="Count_Person"
+    ></datacommons-map>
+    <datacommons-map
+      header="UN Boundaries - Oceania"
+      parentPlace="oceania"
       childPlaceType="Country"
       variable="Count_Person"
       geoJsonProp="geoJsonCoordinatesUN"
