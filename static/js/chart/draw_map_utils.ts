@@ -169,7 +169,7 @@ export function getColorScale(
   if (!domainValues) {
     domainValues = [minValue, meanValue, maxValue];
     // domain values should always be smallest to largest
-    domainValues.sort();
+    domainValues.sort((a, b) => a - b);
     const formattedMin = formatNumber(domainValues[0]);
     const formattedMax = formatNumber(domainValues[2]);
     // If the max and min values are different but the formatted versions of
