@@ -839,6 +839,7 @@ const ChartTile: React.FC<{
           childPlaceType={childPlaceType}
           showExploreMore={placeType && !NO_MAP_TOOL_PLACE_TYPES.has(placeType)}
           placeNameProp={PLACE_NAME_PROP}
+          geoJsonProp={"geoJsonCoordinatesUN"}
         >
           <div slot="footer">
             {/** @ts-ignore */}
