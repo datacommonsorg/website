@@ -62,6 +62,42 @@ const REGION_PLACE_TYPES = [
   "Continent",
 ];
 
+const BLOCKED_GEO_REGIONS = new Set([
+  "undata-geo/G00001610",
+  "undata-geo/G00002100",
+  "undata-geo/G00002770",
+  "undata-geo/G00002870",
+  "undata-geo/G00003000",
+  "undata-geo/G00003070",
+  "undata-geo/G00202010",
+  "undata-geo/G00202020",
+  "undata-geo/G00202030",
+  "undata-geo/G00202040",
+  "undata-geo/G00202050",
+  "undata-geo/G00202060",
+  "undata-geo/G00202070",
+  "undata-geo/G00202080",
+  "undata-geo/G00202090",
+  "undata-geo/G00202100",
+  "undata-geo/G00202110",
+  "undata-geo/G00202120",
+  "undata-geo/G00202130",
+  "undata-geo/G00202140",
+  "undata-geo/G00202150",
+  "undata-geo/G00500200",
+  "undata-geo/G00500360",
+  "undata-geo/G00600110",
+  "undata-geo/G00600120",
+  "undata-geo/G00800120",
+  "undata-geo/G00800150",
+  "undata-geo/G00800160",
+  "undata-geo/G00800240",
+  "undata-geo/G00800370",
+  "undata-geo/G00800480",
+  "undata-geo/G00800500",
+  "undata-geo/G99999999"
+])
+
 export interface Place {
   name: string;
   dcid: string;
@@ -256,7 +292,8 @@ const appActions: AppActions = {
   initializeAppState: thunk(async (actions) => {
     actions.setRootTopics(rootTopics);
     const regions = await dataCommonsClient.getPlaces(REGION_PLACE_TYPES);
-    actions.setRegions([...regions, ...geoRegions]);
+    const filteredGeoRegions = geoRegions.filter((region) => !BLOCKED_GEO_REGIONS.has(region.dcid));
+    actions.setRegions([...regions, ...filteredGeoRegions]);
     actions.setCountries(
       countries.countries.filter((c) => c.is_un_member_or_observer)
     );
