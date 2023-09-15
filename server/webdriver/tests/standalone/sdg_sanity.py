@@ -18,6 +18,7 @@ from enum import StrEnum
 import json
 import logging
 import os
+import re
 import time
 import urllib.parse
 
@@ -47,8 +48,10 @@ flags.DEFINE_enum(
     f"Mode of operation",
 )
 
-flags.DEFINE_string("base_url", "https://datcom-un.ue.r.appspot.com",
-                    "Base URL of the SDG website.")
+flags.DEFINE_string(
+    "base_url",
+    "https://datcom-un-sdg.ue.r.appspot.com/UNSDWebsite/undatacommons/sdgs",
+    "Base URL of the SDG website.")
 
 flags.DEFINE_string(
     "country_dcid",
@@ -94,14 +97,14 @@ class PageType(StrEnum):
 class HomeConstants:
   NUM_GOAL_ITEMS = 18
   GOAL_ITEM_CSS_CLASS_NAME = "goal-item"
-  SEARCH_CLASS_NAME = "search-bar-container"
+  SEARCH_CLASS_NAME = "-dc-place-search"
   COUNTRY_DROPDOWN_CSS_SELECTOR = (
       "div[class*='ant-select-item ant-select-item-option']")
 
 
 class CountryConstants:
   SPINNER_CSS_CLASS_NAME = "ant-spin-spinning"
-  GOAL_CARD_CSS_SELECTOR = "div[class*='sc-eDvSBu iJYMMi']"
+  GOAL_CARD_CSS_CLASS_NAME = "-dc-goal-overview"
   TARGET_HEADER_CSS_CLASS_NAME = "-dc-target-header"
   EXPANDABLE_GOALS_XPATH = ".//ul/li[contains(@class, 'ant-menu-submenu') and contains(@class, 'ant-menu-submenu-inline')]"
   STAT_VAR_DATA_MENU_ID_ATTRIBUTE = "data-menu-id"
@@ -157,6 +160,8 @@ class SdgWebsiteSanityTest:
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     self.driver = webdriver.Chrome(options=chrome_options)
+    self.driver.switch_to.new_window('window')
+    self.driver.set_window_size(width=1280, height=4000, windowHandle='current')
     self.file = open(self.results_csv_file_path, "w", newline="")
     logging.info("Writing results to: %s", self.results_csv_file_path)
     self.csv_writer = csv.DictWriter(self.file,
@@ -185,7 +190,7 @@ class SdgWebsiteSanityTest:
         title="",
         base_url=self.base_url,
         path=path,
-        source_url=source.source_url if source else "",
+        source_url=source.url if source else "",
     )
 
   def all(self):
@@ -248,7 +253,7 @@ class SdgWebsiteSanityTest:
               source: WebPage = None):
     path = f"countries?p={urllib.parse.quote_plus(country_dcid)}{f'&v={urllib.parse.quote_plus(stat_var)}' if stat_var else ''}"
     page = self.new_page(PageType.COUNTRY, path, source=source)
-    page.title = f"{country_dcid}{f'({stat_var})' if stat_var else ''}"
+    page.title = f"{country_dcid}{f' ({stat_var})' if stat_var else ''}"
     logging.info("Running: %s", page.url)
 
     self.driver.get(page.url)
@@ -267,8 +272,8 @@ class SdgWebsiteSanityTest:
           "Timed out.",
       ))
 
-    goal_cards = find_elems(self.driver, By.CSS_SELECTOR,
-                            CountryConstants.GOAL_CARD_CSS_SELECTOR)
+    goal_cards = find_elems(self.driver, By.CLASS_NAME,
+                            CountryConstants.GOAL_CARD_CSS_CLASS_NAME)
     if len(goal_cards) == 0:
       self.add_result(fail_result(
           page,
@@ -288,6 +293,14 @@ class SdgWebsiteSanityTest:
 
     # Pass
     self.add_result(pass_result(page))
+
+    page_text = find_elem(self.driver, By.XPATH, "/html/body").text
+    if re.search("SDG_", page_text, re.IGNORECASE):
+      self.add_result(fail_result(
+          page,
+          "Contains SDG_ in display text.",
+      ))
+      return
 
     # if stat_var was already specified, don't navigate further down.
     if stat_var:

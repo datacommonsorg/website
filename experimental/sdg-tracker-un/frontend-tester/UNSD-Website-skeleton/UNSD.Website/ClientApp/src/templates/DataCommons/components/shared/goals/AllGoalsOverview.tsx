@@ -28,8 +28,8 @@ const StyledContentCardHeader = styled(ContentCardHeader)`
 
 const AllGoalsOverview = () => {
   return (
-    <MainLayoutContent className="-dc-goal-overview -dc-goal-overview-all">
-      <ContentCard>
+    <MainLayoutContent>
+      <ContentCard className="-dc-goal-overview -dc-goal-overview-all">
         <StyledContentCardHeader>
           <img src={SDG_ICON_URL} />
           <h3>All Goals</h3>

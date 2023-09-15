@@ -25,7 +25,7 @@ import {
   RankingTilePropType,
 } from "../js/components/tiles/ranking_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { createWebComponentElement } from "./utils";
+import { convertBooleanAttribute, createWebComponentElement } from "./utils";
 
 /**
  * Web component for rendering a ranking tile.
@@ -79,7 +79,7 @@ export class DatacommonsRankingComponent extends LitElement {
 
   // Optional: Set to show a lowest-to-highest ranking.
   // Default: highest-to-lowest
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   showLowest: boolean;
 
   /**

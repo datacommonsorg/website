@@ -24,6 +24,8 @@ import {
   SectionDescription,
   SectionHeader,
 } from "./components";
+// @ts-ignore
+import { routePathConstants } from "../../../../../src/helper/Common/RoutePathConstants";
 
 const Container = styled(HomeSection)`
   background-image: url(./images/datacommons/explore-background.png);
@@ -62,17 +64,19 @@ const SearchBarContainer = styled(HomeSearchContainer)`
       height: 100%;
       border-radius: 30px !important;
       font-size: 16px;
-      padding-left: 40px;
+      padding-left: 20px;
       padding-right: 70px;
     }
   }
 
   .anticon.anticon-search {
-    background-image: url(./images/datacommons/sdg-goals-icon.svg});
+    background-image: url(./images/datacommons/sdg-goals-icon.svg);
+    background-position: center;
     background-repeat: no-repeat;
+    background-size: 30px;
     height: 100%;
     width: 45px;
-    background-position: center;
+    right: 0;
     top: 0;
 
     svg {
@@ -94,7 +98,11 @@ export const ExploreSection = () => {
           onSearch={(q) => {
             const searchParams = new URLSearchParams();
             searchParams.set(QUERY_PARAM_QUERY, q);
-            history.push(`/search?${searchParams.toString()}`);
+            history.push(
+              `${
+                routePathConstants.DATA_COMMONS
+              }search?${searchParams.toString()}`
+            );
           }}
         />
       </SearchBarContainer>
