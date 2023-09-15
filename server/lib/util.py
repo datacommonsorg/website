@@ -224,12 +224,6 @@ CACHED_GEOJSON_FILES = {
             UN_GEOJSON_PROP: "undata-geog00134000_country_dp6"
         }
     },
-    # Oceania excluding Australia and New Zealand
-    'undata-geo/G00145000': {
-        "Country": {
-            UN_GEOJSON_PROP: "undata-geog00145000_country_dp6"
-        }
-    },
     "geoId/06": {
         "CensusTract": {
             DEFAULT_GEOJSON_PROP: "california_censustract"
