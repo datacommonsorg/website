@@ -38,8 +38,6 @@ import {
   ROOT_TOPIC,
 } from "../../utils/constants";
 import "./components.css";
-// @ts-ignore
-import { routePathConstants } from "../../../../helper/Common/RoutePathConstants";
 
 const useBreakpoint = Grid.useBreakpoint;
 const SearchInputContainer = styled.div`
@@ -426,9 +424,7 @@ export const PlaceHeaderCard: React.FC<{
                 return (
                   <Breadcrumb.Item key={i}>
                     <Link
-                      to={`${
-                        routePathConstants.DATA_COMMONS
-                      }countries?${searchParams.toString()}`}
+                      to={`${location.pathname}?${searchParams.toString()}`}
                       title={v.name}
                     >
                       {v.name}
