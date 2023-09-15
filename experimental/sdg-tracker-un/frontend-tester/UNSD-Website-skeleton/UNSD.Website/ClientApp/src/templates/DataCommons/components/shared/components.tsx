@@ -38,6 +38,8 @@ import {
   ROOT_TOPIC,
 } from "../../utils/constants";
 import "./components.css";
+// @ts-ignore
+import { routePathConstants } from "../../../../helper/Common/RoutePathConstants";
 
 const useBreakpoint = Grid.useBreakpoint;
 const SearchInputContainer = styled.div`
@@ -424,7 +426,9 @@ export const PlaceHeaderCard: React.FC<{
                 return (
                   <Breadcrumb.Item key={i}>
                     <Link
-                      to={"/countries?" + searchParams.toString()}
+                      to={`${
+                        routePathConstants.DATA_COMMONS
+                      }countries?${searchParams.toString()}`}
                       title={v.name}
                     >
                       {v.name}
@@ -469,7 +473,7 @@ const HeadlineImage = styled.img`
 `;
 
 const HeadlineLink = styled.div`
-  cursor: pointer; 
+  cursor: pointer;
   margin-left: auto;
   width: fit-content;
 
@@ -479,7 +483,7 @@ const HeadlineLink = styled.div`
   }
 
   .material-icons-outlined {
-    color: #5B92E5;
+    color: #5b92e5;
     font-size: 1rem;
     line-height: 1rem;
     vertical-align: middle;
@@ -514,8 +518,7 @@ export const HeadlineTile: React.FC<{
       </Row>
       <HeadlineLink>
         <a href={headlineData.link} target="_blank" rel="noreferrer">
-          Read more{" "}
-          <span className="material-icons-outlined">open_in_new</span>
+          Read more <span className="material-icons-outlined">open_in_new</span>
         </a>
       </HeadlineLink>
     </HeadlineContainer>
