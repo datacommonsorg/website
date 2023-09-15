@@ -39,7 +39,7 @@ const HeaderContainer = styled.div`
 
 const GoalContainerOuter = styled.div`
   width: 100%;
-  max-width: 1065px;
+  max-width: 900px;
   display: flex;
   justify-content: center;
 `;
@@ -47,7 +47,7 @@ const GoalContainerOuter = styled.div`
 const GoalContainer = styled.div`
   display: grid;
   grid-auto-rows: 1fr;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 15px;
   width: fit-content;
   max-width: 100%;
