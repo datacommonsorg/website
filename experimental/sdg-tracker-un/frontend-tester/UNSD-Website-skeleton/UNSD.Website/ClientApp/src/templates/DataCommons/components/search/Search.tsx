@@ -412,7 +412,7 @@ const Search = () => {
                 history.push(
                   `${
                     routePathConstants.DATA_COMMONS
-                  }search?q=${searchParams.toString()}`
+                  }search?${searchParams.toString()}`
                 );
               }}
               userMessage={userMessage}
