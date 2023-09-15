@@ -432,6 +432,11 @@ export function draw(
     return;
   }
   const width = svgWidth || svgContainer.offsetWidth;
+  // TODO (chejennifer): we should not be getting to this state where width is 0
+  // and it might have to do with the resize observer. Look into root cause.
+  if (!width) {
+    return;
+  }
   const shouldHighlightQuadrants = {
     [ChartQuadrant.TOP_LEFT]: scatterTileSpec.highlightTopLeft,
     [ChartQuadrant.TOP_RIGHT]: scatterTileSpec.highlightTopRight,
