@@ -70,14 +70,14 @@ const SearchBarContainer = styled(HomeSearchContainer)`
 
         input {
           height: 100% !important;
-          padding-left: 30px;
+          padding-left: 10px;
         }
       }
 
       .ant-select-selection-placeholder {
         height: 100% !important;
         font-style: italic;
-        padding-left: 30px;
+        padding-left: 10px;
         display: flex;
         align-items: center;
       }
