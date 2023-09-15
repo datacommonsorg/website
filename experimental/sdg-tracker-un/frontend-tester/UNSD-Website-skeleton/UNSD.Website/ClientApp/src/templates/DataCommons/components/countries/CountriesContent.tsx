@@ -65,6 +65,9 @@ const HIGHLIGHT_CHART_HEIGHT = 155;
 const VARIABLE_NAME_REGEX = "(?<=\\[)(.*?)(?=\\])";
 const DEFAULT_VARIABLE_NAME = "Total";
 const PLACE_NAME_PROP = "unDataLabel";
+const NO_MAP_TOOL_PLACE_TYPES = new Set([
+  "UNGeoRegion", "GeoRegion"
+]);
 
 interface TileWithFootnote {
   tile: ChartConfigTile;
@@ -584,7 +587,7 @@ const ChartCategoryContent: React.FC<{
   if (isSearch) {
     // Show all tiles in one card without headers
     return (
-      <ContentCard>
+      <ContentCard className="-dc-goal-overview">
         <ChartContentBody>
           {processedTiles.orderedTiles.map((tile, i) => (
             <ChartTile
@@ -662,7 +665,7 @@ const ChartTargetBlock: React.FC<{
   const goalNumber = Number(target.split(".")[0]) || 1;
   const color = theme.sdgColors[goalNumber - 1];
   return (
-    <ContentCard>
+    <ContentCard className="-dc-goal-overview">
       <TargetHeader color={color} target={target} />
       <Divider color={color} />
       {Object.keys(indicatorData)
@@ -836,8 +839,9 @@ const ChartTile: React.FC<{
           variable={tileStatVars.join(" ")}
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
-          showExploreMore={true}
+          showExploreMore={placeType && !NO_MAP_TOOL_PLACE_TYPES.has(placeType)}
           placeNameProp={PLACE_NAME_PROP}
+          geoJsonProp={"geoJsonCoordinatesUN"}
         >
           <div slot="footer">
             {/** @ts-ignore */}
