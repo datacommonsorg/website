@@ -377,7 +377,8 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
   );
 }
 
-// Processes a unit string
+// Processes a unit string by converting "X^Y" to "X<superscript Y>"
+// e.g., km^2 will be km²
 function getProcessedUnit(unit: string): string {
   const unitSplit = unit.split("^");
   if (unitSplit.length == 2) {
