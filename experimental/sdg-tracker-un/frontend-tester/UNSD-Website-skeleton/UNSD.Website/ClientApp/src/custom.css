@@ -983,6 +983,22 @@ span.date span {
   margin-right: 0px;
 }
 
+/** Data Commons SDG tracker styles */
+.datacommons-container {
+  display:flex;
+  flex-direction:column;
+  height: 100vh;
+}
+
+.datacommons-body {
+  overflow:auto;
+}
+
+/** sticky header */
+.headercontainer {
+  flex-shrink: 0;
+}
+
 /* Top Navigation CSS */
 .topnavigation {
   padding: 8px 0px;
