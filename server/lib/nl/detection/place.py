@@ -55,7 +55,7 @@ SDG_BROKEN_PLACES = {
     "undata-geo/G00202080":
         "FAO Major Fishing Area: Indian Ocean, Western",
     "undata-geo/G00202090":
-        "FAO Major Fishing Area: Indian Ocean, Western",
+        "FAO Major Fishing Area: Mediterranean and Black Sea",
     "undata-geo/G00202100":
         "FAO Major Fishing Area: Pacific, Eastern Central",
     "undata-geo/G00202110":
