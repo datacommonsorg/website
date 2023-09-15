@@ -24,6 +24,8 @@ import {
   SectionDescription,
   SectionHeader,
 } from "./components";
+// @ts-ignore
+import { routePathConstants } from "../../../../../src/helper/Common/RoutePathConstants";
 
 const Container = styled(HomeSection)`
   background-image: url(./images/datacommons/explore-background.png);
@@ -96,7 +98,11 @@ export const ExploreSection = () => {
           onSearch={(q) => {
             const searchParams = new URLSearchParams();
             searchParams.set(QUERY_PARAM_QUERY, q);
-            history.push(`/search?${searchParams.toString()}`);
+            history.push(
+              `${
+                routePathConstants.DATA_COMMONS
+              }search?${searchParams.toString()}`
+            );
           }}
         />
       </SearchBarContainer>

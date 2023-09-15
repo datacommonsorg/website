@@ -65,9 +65,7 @@ const HIGHLIGHT_CHART_HEIGHT = 155;
 const VARIABLE_NAME_REGEX = "(?<=\\[)(.*?)(?=\\])";
 const DEFAULT_VARIABLE_NAME = "Total";
 const PLACE_NAME_PROP = "unDataLabel";
-const NO_MAP_TOOL_PLACE_TYPES = new Set([
-  "UNGeoRegion", "GeoRegion"
-]);
+const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
 
 interface TileWithFootnote {
   tile: ChartConfigTile;
@@ -354,17 +352,20 @@ const CountriesContent: React.FC<{
     useState(false);
   const [localFulfillResponse, setLocalFulfillResponse] =
     useState<FulfillResponse>();
-  const placeNames = useStoreState((s) => {
-    const names: string[] = [];
+  const placeNamesAndDcids = useStoreState((s) => {
+    const names: { name: string; dcid: string }[] = [];
     placeDcids.forEach((placeDcid) => {
       if (placeDcids && placeDcid in s.countries.byDcid) {
-        names.push(s.countries.byDcid[placeDcid].name);
+        names.push({
+          name: s.countries.byDcid[placeDcid].name,
+          dcid: placeDcid,
+        });
       }
       if (placeDcid && placeDcid in s.regions.byDcid) {
-        names.push(s.regions.byDcid[placeDcid].name);
+        names.push({ name: s.regions.byDcid[placeDcid].name, dcid: placeDcid });
       }
       if (placeDcid === EARTH_PLACE_DCID) {
-        names.push(EARTH_PLACE_NAME);
+        names.push({ name: EARTH_PLACE_NAME, dcid: placeDcid });
       }
     });
 
@@ -375,6 +376,7 @@ const CountriesContent: React.FC<{
   // Used to hide PageHeaderCard if we're showing search results
   const location = useLocation();
   const isSearch = location.pathname.includes("/search");
+  const isGoal = location.pathname.includes("/goals");
 
   /**
    * Fetch page content
@@ -427,6 +429,7 @@ const CountriesContent: React.FC<{
   );
 
   if (
+    isGoal &&
     variableDcids.length > 0 &&
     variableDcids[0] === ROOT_TOPIC &&
     placeDcids.length > 0 &&
@@ -439,8 +442,8 @@ const CountriesContent: React.FC<{
         >
           <PlaceTitle style={{ marginBottom: "1rem", display: "block" }}>
             <div>
-              {placeNames.length > 0 ? (
-                placeNames.join(", ")
+              {placeNamesAndDcids.length > 0 ? (
+                placeNamesAndDcids.map((p) => p.name).join(", ")
               ) : placeDcids.length > 0 ? (
                 <Spinner />
               ) : (
@@ -486,10 +489,10 @@ const CountriesContent: React.FC<{
 
         {errorMessage && <ErorrMessage message={errorMessage} />}
 
-        {(placeNames.length > 0 || userMessage) && (
+        {(placeNamesAndDcids.length > 0 || userMessage) && (
           <Layout.Content style={{ padding: "0 24px 24px" }}>
             <PlaceHeaderCard
-              placeNames={placeNames}
+              placeNamesAndDcids={placeNamesAndDcids}
               hideBreadcrumbs={isSearch}
               hidePlaceSearch={hidePlaceSearch}
               isSearch={isSearch}
@@ -839,6 +842,7 @@ const ChartTile: React.FC<{
           childPlaceType={childPlaceType}
           showExploreMore={placeType && !NO_MAP_TOOL_PLACE_TYPES.has(placeType)}
           placeNameProp={PLACE_NAME_PROP}
+          geoJsonProp={"geoJsonCoordinatesUN"}
         >
           <div slot="footer">
             {/** @ts-ignore */}

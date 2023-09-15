@@ -16,7 +16,7 @@
 
 import { StoreProvider } from "easy-peasy";
 import { useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Countries from "./components/countries/Countries";
 import Goals from "./components/goals/Goals";
 import Home from "./components/home/Home";
@@ -25,22 +25,28 @@ import Topics from "./components/topics/Topics";
 import { store, useStoreActions } from "./state";
 
 // @ts-ignore
-import { routePathConstants } from "../../helper/Common/RoutePathConstants";
 import "./App.css";
 
 function App() {
+  const location = useLocation();
+  let component = null;
+  const pathname = location?.pathname || "";
+  if (pathname.endsWith("countries")) {
+    component = <Countries />;
+  } else if (pathname.endsWith("goals")) {
+    component = <Goals />;
+  } else if (pathname.endsWith("topics")) {
+    component = <Topics />;
+  } else if (pathname.endsWith("search")) {
+    component = <Search />;
+  } else {
+    component = <Home />;
+  }
+
   return (
     <StoreProvider store={store}>
       <InitializeStore />
-      <BrowserRouter basename={`${routePathConstants.DATA_COMMONS}`}>
-        <Switch>
-          <Route path="/countries/:dcid?" component={Countries} />
-          <Route path="/goals" component={Goals} />
-          <Route path="/topics" component={Topics} />
-          <Route path="/search" component={Search} />
-          <Route path="/" component={Home} />
-        </Switch>
-      </BrowserRouter>
+      {component}
     </StoreProvider>
   );
 }
