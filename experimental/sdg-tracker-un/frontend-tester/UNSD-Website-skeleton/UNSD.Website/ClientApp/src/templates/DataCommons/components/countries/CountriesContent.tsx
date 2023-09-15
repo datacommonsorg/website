@@ -372,6 +372,7 @@ const CountriesContent: React.FC<{
   // Used to hide PageHeaderCard if we're showing search results
   const location = useLocation();
   const isSearch = location.pathname.includes("/search");
+  const isGoal = location.pathname.includes("/goals");
 
   /**
    * Fetch page content
@@ -424,6 +425,7 @@ const CountriesContent: React.FC<{
   );
 
   if (
+    isGoal &&
     variableDcids.length > 0 &&
     variableDcids[0] === ROOT_TOPIC &&
     placeDcids.length > 0 &&
