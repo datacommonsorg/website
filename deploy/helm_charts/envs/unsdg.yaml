@@ -29,7 +29,7 @@ website:
         "us-central1": {
           "host": "10.97.7.235",
           "port": "6379"
-        },
+        }
       }
 
 serviceAccount:
