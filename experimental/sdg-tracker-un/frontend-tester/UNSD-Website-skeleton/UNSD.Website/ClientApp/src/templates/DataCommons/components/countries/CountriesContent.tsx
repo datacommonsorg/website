@@ -352,17 +352,20 @@ const CountriesContent: React.FC<{
     useState(false);
   const [localFulfillResponse, setLocalFulfillResponse] =
     useState<FulfillResponse>();
-  const placeNames = useStoreState((s) => {
-    const names: string[] = [];
+  const placeNamesAndDcids = useStoreState((s) => {
+    const names: { name: string; dcid: string }[] = [];
     placeDcids.forEach((placeDcid) => {
       if (placeDcids && placeDcid in s.countries.byDcid) {
-        names.push(s.countries.byDcid[placeDcid].name);
+        names.push({
+          name: s.countries.byDcid[placeDcid].name,
+          dcid: placeDcid,
+        });
       }
       if (placeDcid && placeDcid in s.regions.byDcid) {
-        names.push(s.regions.byDcid[placeDcid].name);
+        names.push({ name: s.regions.byDcid[placeDcid].name, dcid: placeDcid });
       }
       if (placeDcid === EARTH_PLACE_DCID) {
-        names.push(EARTH_PLACE_NAME);
+        names.push({ name: EARTH_PLACE_NAME, dcid: placeDcid });
       }
     });
 
@@ -439,8 +442,8 @@ const CountriesContent: React.FC<{
         >
           <PlaceTitle style={{ marginBottom: "1rem", display: "block" }}>
             <div>
-              {placeNames.length > 0 ? (
-                placeNames.join(", ")
+              {placeNamesAndDcids.length > 0 ? (
+                placeNamesAndDcids.map((p) => p.name).join(", ")
               ) : placeDcids.length > 0 ? (
                 <Spinner />
               ) : (
@@ -486,10 +489,10 @@ const CountriesContent: React.FC<{
 
         {errorMessage && <ErorrMessage message={errorMessage} />}
 
-        {(placeNames.length > 0 || userMessage) && (
+        {(placeNamesAndDcids.length > 0 || userMessage) && (
           <Layout.Content style={{ padding: "0 24px 24px" }}>
             <PlaceHeaderCard
-              placeNames={placeNames}
+              placeNamesAndDcids={placeNamesAndDcids}
               hideBreadcrumbs={isSearch}
               hidePlaceSearch={hidePlaceSearch}
               isSearch={isSearch}
