@@ -37,6 +37,7 @@ import targetText from "../config/targetText.json";
 import {
   EARTH_COUNTRIES,
   EARTH_PLACE_DCID,
+  MAP_ONLY_REGIONS,
   WEB_API_ENDPOINT,
 } from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
@@ -56,11 +57,7 @@ const MenuImageIcon = styled.img`
   border-radius: 0.25rem;
 `;
 
-const REGION_PLACE_TYPES = [
-  "UNGeoRegion",
-  "ContinentalUnion",
-  "Continent",
-];
+const REGION_PLACE_TYPES = ["UNGeoRegion", "ContinentalUnion", "Continent"];
 
 export interface Place {
   name: string;
@@ -331,8 +328,8 @@ const appActions: AppActions = {
         if (placeDcid === EARTH_PLACE_DCID) {
           // For Earth, add select countries as well.
           placeDcids.push(...EARTH_COUNTRIES);
-        } else if (!placeDcid.startsWith("country")) {
-          // For regions, fetch countries in the region.
+        } else if (MAP_ONLY_REGIONS.has(placeDcid)) {
+          // For map-only regions, fetch countries in the region.
           const countryDcids = await dataCommonsClient.getCountriesInRegion(
             placeDcid
           );
