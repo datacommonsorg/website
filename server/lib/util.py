@@ -57,71 +57,197 @@ TOPIC_PAGE_CONFIGS = {
 # compression).
 GZIP_COMPRESSION_LEVEL = 3
 
+DEFAULT_GEOJSON_PROP = 'geoJsonCoordinates'
+UN_GEOJSON_PROP = 'geoJsonCoordinatesUN'
+
 # Dict of place dcid to place type to filename of the geojson to cache for that
 # place + place type combination.
 # To generate cached geojson files, follow instructions/use the endpoint here:
 # https://github.com/chejennifer/website/blob/generateCacheGeojsons/server/routes/api/choropleth.py#L201-L273
+# TODO: add 'LatinAmericaAndCaribbean' and 'SubSaharanAfrica' for UN_GEOJSON_PROP.
 CACHED_GEOJSON_FILES = {
     "Earth": {
         "Country": {
-            "geoJsonCoordinates": "earth_country_dp13",
-            "geoJsonCoordinatesUN": "earth_country_dp13",
+            DEFAULT_GEOJSON_PROP: "earth_country_dp13",
+            UN_GEOJSON_PROP: "earth_country_dp13",
         }
     },
     "africa": {
         "Country": {
-            "geoJsonCoordinates": "africa_country_dp10",
-            "geoJsonCoordinatesUN": "africa_country_dp10"
+            DEFAULT_GEOJSON_PROP: "africa_country_dp10",
+            UN_GEOJSON_PROP: "africa_country_dp10"
         }
     },
     "asia": {
         "Country": {
-            "geoJsonCoordinates": "asia_country_dp10",
-            "geoJsonCoordinatesUN": "asia_country_dp10"
+            DEFAULT_GEOJSON_PROP: "asia_country_dp10",
+            UN_GEOJSON_PROP: "asia_country_dp10"
         }
     },
     "europe": {
         "Country": {
-            "geoJsonCoordinates": "europe_country_dp6",
-            "geoJsonCoordinatesUN": "europe_country_dp6"
+            DEFAULT_GEOJSON_PROP: "europe_country_dp6",
+            UN_GEOJSON_PROP: "europe_country_dp6"
         }
     },
     "northamerica": {
         "Country": {
-            "geoJsonCoordinates": "northamerica_country_dp13",
-            "geoJsonCoordinatesUN": "northamerica_country_dp13"
+            DEFAULT_GEOJSON_PROP: "northamerica_country_dp13",
+            UN_GEOJSON_PROP: "northamerica_country_dp13"
         }
     },
     "oceania": {
         "Country": {
-            "geoJsonCoordinates": "oceania_country_dp13",
-            "geoJsonCoordinatesUN": "oceania_country_dp13"
+            DEFAULT_GEOJSON_PROP: "oceania_country_dp13",
+            UN_GEOJSON_PROP: "oceania_country_dp13"
         }
     },
     "southamerica": {
         "Country": {
-            "geoJsonCoordinates": "southamerica_country_dp10",
-            "geoJsonCoordinatesUN": "southamerica_country_dp10"
+            DEFAULT_GEOJSON_PROP: "southamerica_country_dp10",
+            UN_GEOJSON_PROP: "southamerica_country_dp10"
+        }
+    },
+    'AustraliaAndNewZealand': {
+        "Country": {
+            UN_GEOJSON_PROP: "australiaandnewzealand_country_dp6"
+        }
+    },
+    'Caribbean': {
+        "Country": {
+            UN_GEOJSON_PROP: "caribbean_country_dp6"
+        }
+    },
+    'CentralAmerica': {
+        "Country": {
+            UN_GEOJSON_PROP: "centralamerica_country_dp6"
+        }
+    },
+    'CentralAsia': {
+        "Country": {
+            UN_GEOJSON_PROP: "centralasia_country_dp6"
+        }
+    },
+    'ChannelIslands': {
+        "Country": {
+            UN_GEOJSON_PROP: "channelislands_country_dp6"
+        }
+    },
+    'EasternAfrica': {
+        "Country": {
+            UN_GEOJSON_PROP: "easternafrica_country_dp6"
+        }
+    },
+    'EasternAsia': {
+        "Country": {
+            UN_GEOJSON_PROP: "easternasia_country_dp6"
+        }
+    },
+    'EasternEurope': {
+        "Country": {
+            UN_GEOJSON_PROP: "easterneurope_country_dp6"
+        }
+    },
+    'EuropeanUnion': {
+        "Country": {
+            UN_GEOJSON_PROP: "europeanunion_country_dp6"
+        }
+    },
+    'LatinAmericaAndCaribbean': {
+        "Country": {
+            UN_GEOJSON_PROP: "latinamericaandcaribbean_country_dp6"
+        }
+    },
+    'Melanesia': {
+        "Country": {
+            UN_GEOJSON_PROP: "melanesia_country_dp6"
+        }
+    },
+    'MiddleAfrica': {
+        "Country": {
+            UN_GEOJSON_PROP: "middleafrica_country_dp6"
+        }
+    },
+    'NorthernAfrica': {
+        "Country": {
+            UN_GEOJSON_PROP: "northernafrica_country_dp6"
+        }
+    },
+    'NorthernEurope': {
+        "Country": {
+            UN_GEOJSON_PROP: "northerneurope_country_dp6"
+        }
+    },
+    'SouthEasternAsia': {
+        "Country": {
+            UN_GEOJSON_PROP: "southeasternasia_country_dp6"
+        }
+    },
+    'SouthernAfrica': {
+        "Country": {
+            UN_GEOJSON_PROP: "southernafrica_country_dp6"
+        }
+    },
+    'SouthernAsia': {
+        "Country": {
+            UN_GEOJSON_PROP: "southernasia_country_dp6"
+        }
+    },
+    'SouthernEurope': {
+        "Country": {
+            UN_GEOJSON_PROP: "southerneurope_country_dp6"
+        }
+    },
+    'SubSaharanAfrica': {
+        "Country": {
+            UN_GEOJSON_PROP: "subsaharanafrica_country_dp6"
+        }
+    },
+    'WesternAfrica': {
+        "Country": {
+            UN_GEOJSON_PROP: "westernafrica_country_dp6"
+        }
+    },
+    'WesternAsia': {
+        "Country": {
+            UN_GEOJSON_PROP: "westernasia_country_dp6"
+        }
+    },
+    'WesternEurope': {
+        "Country": {
+            UN_GEOJSON_PROP: "westerneurope_country_dp6"
+        }
+    },
+    # Americas
+    'undata-geo/G00134000': {
+        "Country": {
+            UN_GEOJSON_PROP: "undata-geog00134000_country_dp6"
+        }
+    },
+    # Oceania excluding Australia and New Zealand
+    'undata-geo/G00145000': {
+        "Country": {
+            UN_GEOJSON_PROP: "undata-geog00145000_country_dp6"
         }
     },
     "geoId/06": {
         "CensusTract": {
-            "geoJsonCoordinates": "california_censustract"
+            DEFAULT_GEOJSON_PROP: "california_censustract"
         }
     },
     "geoId/12": {
         "CensusTract": {
-            "geoJsonCoordinates": "florida_censustract"
+            DEFAULT_GEOJSON_PROP: "florida_censustract"
         }
     },
     "geoId/36": {
         "CensusTract": {
-            "geoJsonCoordinates": "newyorkstate_censustract"
+            DEFAULT_GEOJSON_PROP: "newyorkstate_censustract"
         }
     },
     "geoId/48": {
         "CensusTract": {
-            "geoJsonCoordinates": "texas_censustract"
+            DEFAULT_GEOJSON_PROP: "texas_censustract"
         }
     },
 }
