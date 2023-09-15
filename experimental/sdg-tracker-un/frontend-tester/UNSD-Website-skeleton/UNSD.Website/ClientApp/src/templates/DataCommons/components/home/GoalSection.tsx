@@ -47,7 +47,7 @@ const GoalContainerOuter = styled.div`
 const GoalContainer = styled.div`
   display: grid;
   grid-auto-rows: 1fr;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 15px;
   width: fit-content;
   max-width: 100%;
@@ -76,7 +76,7 @@ const GoalContainer = styled.div`
     justify-content: space-between;
     flex-grow: 1;
     height: 100%;
-    padding: 10px 0;
+    padding: 0;
   }
 
   .goal-number {
@@ -104,7 +104,7 @@ const GoalContainer = styled.div`
 
   .goal-icon {
     width: 116px;
-    height: 45px;
+    height: 40px;
     border-left: solid 1px #999;
     display: flex;
     justify-content: center;
