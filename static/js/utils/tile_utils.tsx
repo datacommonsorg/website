@@ -44,6 +44,7 @@ const DEFAULT_PC_UNIT = "%";
 const ERROR_MSG_PC = "Sorry, could not calculate per capita.";
 const ERROR_MSG_DEFAULT = "Sorry, we do not have this data.";
 const NUM_FRACTION_DIGITS = 1;
+const SUPER_SCRIPT_DIGITS = "⁰¹²³⁴⁵⁶⁷⁸⁹";
 
 /**
  * Override unit display when unit contains
@@ -376,6 +377,19 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
   );
 }
 
+// Processes a unit string by converting "X^Y" to "X<superscript Y>"
+// e.g., km^2 will be km²
+function getProcessedUnit(unit: string): string {
+  const unitSplit = unit.split("^");
+  if (unitSplit.length == 2) {
+    const superScriptNumber = unitSplit[1].replace(/\d/g, (c) =>
+      !_.isNaN(Number(c)) ? SUPER_SCRIPT_DIGITS[Number(c)] || "" : ""
+    );
+    return unitSplit[0] + superScriptNumber || unitSplit[1];
+  }
+  return unit;
+}
+
 /**
  * Gets the unit and scaling factor to use for a stat var spec
  * @param svSpec stat var spec to get unit and scaling for
@@ -394,6 +408,7 @@ export function getStatFormat(
   };
   // If unit was specified in the svSpec, use that unit
   if (result.unit) {
+    result.unit = getProcessedUnit(result.unit);
     return result;
   }
   // Get stat metadata info from stat data
@@ -440,6 +455,7 @@ export function getStatFormat(
     result.unit = DEFAULT_PC_UNIT;
     result.scaling *= DEFAULT_PC_SCALING;
   }
+  result.unit = getProcessedUnit(result.unit);
   return result;
 }
 

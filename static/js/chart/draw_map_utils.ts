@@ -20,6 +20,7 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
+import { format } from "path";
 
 import { formatNumber } from "../i18n/i18n";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
@@ -164,7 +165,42 @@ export function getColorScale(
     : isWetBulbStatVar(statVar)
     ? d3.color(d3.interpolateReds(1)) // Use a red scale for wet-bulb temps
     : d3.color(getColorFn([label])(label));
-  const domainValues: number[] = domain || [minValue, meanValue, maxValue];
+  let domainValues: number[] = domain;
+  if (!domainValues) {
+    domainValues = [minValue, meanValue, maxValue];
+    // domain values should always be smallest to largest
+    domainValues.sort((a, b) => a - b);
+    const formattedMin = formatNumber(domainValues[0]);
+    const formattedMax = formatNumber(domainValues[2]);
+    // If the max and min values are different but the formatted versions of
+    // those numbers are equal, round the min number down and round the max
+    // number up so we don't display mulitple of the same numbers on the legend.
+    // (max and min will always show up on the legend).
+    if (formattedMin === formattedMax && domainValues[0] !== domainValues[2]) {
+      const decimalIdx = formattedMin.indexOf(".");
+      if (decimalIdx < 0) {
+        domainValues[0] =
+          domainValues[0] < 0
+            ? Math.ceil(domainValues[0])
+            : Math.floor(domainValues[0]);
+        domainValues[2] =
+          domainValues[2] < 0
+            ? Math.floor(domainValues[2])
+            : Math.ceil(domainValues[2]);
+      } else {
+        const numDecimals = formattedMin.length - 1 - decimalIdx;
+        const scale = Math.pow(10, numDecimals - 1);
+        domainValues[0] =
+          domainValues[0] < 0
+            ? Math.ceil(domainValues[0] * scale) / scale
+            : Math.floor(domainValues[0] * scale) / scale;
+        domainValues[2] =
+          domainValues[2] < 0
+            ? Math.floor(domainValues[2] * scale) / scale
+            : Math.ceil(domainValues[2] * scale) / scale;
+      }
+    }
+  }
   const rangeValues =
     domainValues.length == 3
       ? [MIN_COLOR, maxColor, maxColor.darker(2)]
