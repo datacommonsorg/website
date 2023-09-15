@@ -22,6 +22,8 @@ import {
   SectionDescription,
   SectionHeader,
 } from "./components";
+// @ts-ignore
+import { routePathConstants } from "../../../../../src/helper/Common/RoutePathConstants";
 
 const Container = styled(HomeSection)`
   background: rgb(213, 235, 245);
@@ -106,7 +108,9 @@ export const PlaceSection = () => {
           <SearchBarContainer>
             <CountrySelect
               setSelectedPlaceDcid={(placeDcid) =>
-                history.push(`/countries?p=${placeDcid}`)
+                history.push(
+                  `${routePathConstants.DATA_COMMONS}countries?p=${placeDcid}`
+                )
               }
               style={countrySelectStyle}
             />

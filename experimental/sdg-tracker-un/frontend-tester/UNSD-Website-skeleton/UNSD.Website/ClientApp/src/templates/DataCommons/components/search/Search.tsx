@@ -27,6 +27,8 @@ import { FulfillResponse } from "../../utils/types";
 import CountriesContent from "../countries/CountriesContent";
 import AppLayoutContent from "../shared/AppLayoutContent";
 import { SearchBar } from "../shared/components";
+// @ts-ignore
+import { routePathConstants } from "../../../../helper/Common/RoutePathConstants";
 
 const QUERIES = {
   general: [
@@ -316,7 +318,11 @@ const Search = () => {
                   onSearch={(q) => {
                     const searchParams = new URLSearchParams();
                     searchParams.set(QUERY_PARAM_QUERY, q);
-                    history.push("/search?" + searchParams.toString());
+                    history.push(
+                      `${
+                        routePathConstants.DATA_COMMONS
+                      }search?${searchParams.toString()}`
+                    );
                   }}
                   placeholder={SAMPLE_NL_QUERY}
                 />
@@ -336,7 +342,10 @@ const Search = () => {
                 {QUERIES.general.map((q, i) => (
                   <StyledLinkContainer key={i}>
                     <IconSquare color={theme.sdgColors[q.goal - 1]} />
-                    <StyledLink to={`/search?q=${q.query}`}>
+                    <StyledLink
+                      className={`-dc-search-example`}
+                      to={`${location.pathname}?q=${q.query}`}
+                    >
                       {q.query}
                     </StyledLink>
                   </StyledLinkContainer>
@@ -353,7 +362,7 @@ const Search = () => {
                     <IconSquare color={theme.sdgColors[q.goal - 1]} />
                     <StyledLink
                       className={`-dc-search-example`}
-                      to={`/search?q=${q.query}`}
+                      to={`${location.pathname}?q=${q.query}`}
                     >
                       {q.query}
                     </StyledLink>
@@ -369,7 +378,10 @@ const Search = () => {
                 {QUERIES.comparison.map((q, i) => (
                   <StyledLinkContainer key={i}>
                     <IconSquare color={theme.sdgColors[q.goal - 1]} />
-                    <StyledLink to={`/search?q=${q.query}`}>
+                    <StyledLink
+                      className={`-dc-search-example`}
+                      to={`${location.pathname}?q=${q.query}`}
+                    >
                       {q.query}
                     </StyledLink>
                   </StyledLinkContainer>
@@ -397,7 +409,11 @@ const Search = () => {
               onSearch={(q) => {
                 const searchParams = new URLSearchParams();
                 searchParams.set(QUERY_PARAM_QUERY, q);
-                history.push("/search?" + searchParams.toString());
+                history.push(
+                  `${
+                    routePathConstants.DATA_COMMONS
+                  }search?q=${searchParams.toString()}`
+                );
               }}
               userMessage={userMessage}
               variableDcids={variableDcids}

@@ -17,6 +17,8 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { RootTopic, useStoreState } from "../../state";
 import { HomeSection, SectionDescription, SectionHeader } from "./components";
+// @ts-ignore
+import { routePathConstants } from "../../../../helper/Common/RoutePathConstants";
 const HALF_TOPIC_NUM = 9;
 
 const Container = styled(HomeSection)`
@@ -141,7 +143,7 @@ export const GoalSection = () => {
                       key={goal.topicDcid}
                       onClick={() =>
                         history.push(
-                          `/goals/dc/topic/sdg_1?v=${goal.topicDcid}`
+                          `${routePathConstants.DATA_COMMONS}goals?v=${goal.topicDcid}`
                         )
                       }
                     >
@@ -165,7 +167,9 @@ export const GoalSection = () => {
                 {sectionNum === 1 && (
                   <div
                     className="goal-item -dc-goal-item-all"
-                    onClick={() => history.push("/goals")}
+                    onClick={() =>
+                      history.push(`${routePathConstants.DATA_COMMONS}goals`)
+                    }
                   >
                     <div className="goal-number">
                       <img src={"./images/datacommons/sdg-goals-icon.svg"} />
