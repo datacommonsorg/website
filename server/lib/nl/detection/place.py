@@ -24,6 +24,76 @@ import shared.lib.utils as utils
 
 MAX_IDENTICAL_NAME_PLACES = 5
 
+# TODO: These are places missing containedInPLace necessary for SDG.
+SDG_BROKEN_PLACES = {
+    "undata-geo/G00001610":
+        "Kosovo",
+    "undata-geo/G00002100":
+        "Netherlands Antilles (former, excl. Aruba)",
+    "undata-geo/G00002770":
+        "Serbia and Montenegro [former]",
+    "undata-geo/G00002870":
+        "Socialist Federal Republic of Yugoslavia [former]",
+    "undata-geo/G00003000":
+        "Sudan [former]",
+    "undata-geo/G00003070":
+        "Taiwan province of China",
+    "undata-geo/G00202010":
+        "FAO Major Fishing Area: Atlantic, Eastern Central",
+    "undata-geo/G00202020":
+        "FAO Major Fishing Area: Atlantic, Northeast",
+    "undata-geo/G00202030":
+        "FAO Major Fishing Area: Atlantic, Northwest",
+    "undata-geo/G00202040":
+        "FAO Major Fishing Area: Atlantic, Southeast",
+    "undata-geo/G00202050":
+        "FAO Major Fishing Area: Atlantic, Southwest",
+    "undata-geo/G00202060":
+        "FAO Major Fishing Area: Atlantic, Western Central",
+    "undata-geo/G00202070":
+        "FAO Major Fishing Area: Indian Ocean, Eastern",
+    "undata-geo/G00202080":
+        "FAO Major Fishing Area: Indian Ocean, Western",
+    "undata-geo/G00202090":
+        "FAO Major Fishing Area: Mediterranean and Black Sea",
+    "undata-geo/G00202100":
+        "FAO Major Fishing Area: Pacific, Eastern Central",
+    "undata-geo/G00202110":
+        "FAO Major Fishing Area: Pacific, Northeast",
+    "undata-geo/G00202120":
+        "FAO Major Fishing Area: Pacific, Northwest",
+    "undata-geo/G00202130":
+        "FAO Major Fishing Area: Pacific, Southeast",
+    "undata-geo/G00202140":
+        "FAO Major Fishing Area: Pacific, Southwest",
+    "undata-geo/G00202150":
+        "FAO Major Fishing Area: Pacific, Western Central",
+    "undata-geo/G00500200":
+        "Development Assistance Committee (DAC)",
+    "undata-geo/G00500360":
+        "European Union (EU) Institutions",
+    "undata-geo/G00600110":
+        "Food and Agriculture Organization (FAO) International Centers",
+    "undata-geo/G00600120":
+        "Food and Agriculture Organization (FAO) Regional Centers",
+    "undata-geo/G00800120":
+        "Central and Southern Asia (excl. India)",
+    "undata-geo/G00800150":
+        "Eastern Asia (excl. Japan and China)",
+    "undata-geo/G00800160":
+        "Eastern Asia (excl. Japan)",
+    "undata-geo/G00800240":
+        "Belgium and Luxembourg",
+    "undata-geo/G00800370":
+        "Western Asia (excl. Armenia, Azerbaijan, Cyprus, Israel and Georgia)",
+    "undata-geo/G00800480":
+        "Northern Africa (excl. Sudan)",
+    "undata-geo/G00800500":
+        "Sub-Saharan Africa (incl. Sudan)",
+    "undata-geo/G99999999":
+        "Source geographies without a corresponding geography in UNdata",
+}
+
 
 #
 # The main entrypoint for place detection using NER
@@ -284,6 +354,10 @@ def get_place_from_dcids(place_dcids: List[str], debug_logs: Dict) -> any:
       continue
     added.add(p_dcid)
 
+    if p_dcid not in dcid2place and p_dcid in SDG_BROKEN_PLACES:
+      dcid2place[p_dcid] = Place(dcid=p_dcid,
+                                 name=SDG_BROKEN_PLACES[p_dcid],
+                                 place_type='GeoRegion')
     if p_dcid not in dcid2place:
       logging.info(
           f"Place DCID ({p_dcid}) did not correspond to a place_type and/or place name."
