@@ -19,6 +19,7 @@ import styled from "styled-components";
 
 const AppLayoutContent = styled(Layout.Content)`
   background: white;
+  max-height:100%;
 `;
 
 export default AppLayoutContent;

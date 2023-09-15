@@ -15,9 +15,10 @@ const DataCommonsLayout = (WrappedComponent) => {
     }
     render() {
       return (
-        <React.Fragment>
-          <div className="">
-            <DataCommonsHeaderInfo />
+        <div className="datacommons-container">
+          <DataCommonsHeaderInfo />
+          <div className="datacommons-body">
+            <div className="datacommons-inner">
             <WrappedComponent {...this.props} />
             <Footer className="rc-footer">
               <BackTop>
@@ -27,8 +28,9 @@ const DataCommonsLayout = (WrappedComponent) => {
               </BackTop>
               <DataCommonsMainFooter />
             </Footer>
+            </div>
           </div>
-        </React.Fragment>
+        </div>
       );
     }
   };
