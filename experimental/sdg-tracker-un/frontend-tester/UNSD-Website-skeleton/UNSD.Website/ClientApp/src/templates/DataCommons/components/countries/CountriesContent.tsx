@@ -65,9 +65,7 @@ const HIGHLIGHT_CHART_HEIGHT = 155;
 const VARIABLE_NAME_REGEX = "(?<=\\[)(.*?)(?=\\])";
 const DEFAULT_VARIABLE_NAME = "Total";
 const PLACE_NAME_PROP = "unDataLabel";
-const NO_MAP_TOOL_PLACE_TYPES = new Set([
-  "UNGeoRegion", "GeoRegion"
-]);
+const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
 
 interface TileWithFootnote {
   tile: ChartConfigTile;
