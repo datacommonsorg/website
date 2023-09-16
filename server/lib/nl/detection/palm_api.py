@@ -188,7 +188,6 @@ def parse_response(query: str, resp: Dict, field: str,
 _UNSAFE_SIGNAL_WORDS = [
     'adult',
     'biased',
-    'cannot',
     'discriminatory',
     'harmful'
     'hate',
@@ -198,9 +197,7 @@ _UNSAFE_SIGNAL_WORDS = [
     'respectful',
     'sexist',
     'stereotype',
-    'unsafe',
     'violence',
-    'will not',
 ]
 
 

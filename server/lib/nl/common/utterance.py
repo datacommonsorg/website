@@ -173,3 +173,5 @@ class Utterance:
   place_fallback: PlaceFallback = None
   # Past complete context for insight flow.
   insight_ctx: Dict = field(default_factory=dict)
+  # Test param.
+  test: str = ''

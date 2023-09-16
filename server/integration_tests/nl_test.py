@@ -37,7 +37,8 @@ class NLTest(NLWebServerTestCase):
                    check_place_detection=False,
                    expected_detectors=[],
                    place_detector='dc',
-                   failure=''):
+                   failure='',
+                   test=''):
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
@@ -49,7 +50,7 @@ class NLTest(NLWebServerTestCase):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(
           self.get_server_url() +
-          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}',
+          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}',
           json={
               'contextHistory': ctx
           }).json()
@@ -209,7 +210,8 @@ class NLTest(NLWebServerTestCase):
 
   def test_demo_climatetrace(self):
     self.run_sequence('demo_climatetrace',
-                      ['Which countries emit the most greenhouse gases?'])
+                      ['Which countries emit the most greenhouse gases?'],
+                      test='unittest')
 
   # This test uses DC's Recognize Places API.
   def test_place_detection_e2e_dc(self):

@@ -259,6 +259,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     );
     const detector = getSingleParam(hashParams[URL_HASH_PARAMS.DETECTOR]);
     const llmApi = getSingleParam(hashParams[URL_HASH_PARAMS.LLM_API]);
+    const testMode = getSingleParam(hashParams[URL_HASH_PARAMS.TEST_MODE]);
 
     let fulfillmentPromise: Promise<any>;
     const gaTitle = query
@@ -278,7 +279,8 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         dc,
         disableExploreMore,
         detector,
-        llmApi
+        llmApi,
+        testMode
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -297,7 +299,8 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         dc,
         [],
         [],
-        disableExploreMore
+        disableExploreMore,
+        testMode
       )
         .then((resp) => {
           processFulfillData(resp, true);
@@ -325,11 +328,13 @@ const fetchFulfillData = async (
   dc: string,
   svgs: string[],
   classificationsJson: any,
-  disableExploreMore: string
+  disableExploreMore: string,
+  testMode: string
 ) => {
   try {
+    const testModeArg = testMode ? `?test=${testMode}` : "";
     const startTime = window.performance ? window.performance.now() : undefined;
-    const resp = await axios.post(`/api/explore/fulfill`, {
+    const resp = await axios.post(`/api/explore/fulfill${testModeArg}`, {
       dc,
       entities: places,
       variables: topics,
@@ -365,14 +370,16 @@ const fetchDetectAndFufillData = async (
   dc: string,
   disableExploreMore: string,
   detector: string,
-  llmApi: string
+  llmApi: string,
+  testMode: string
 ) => {
   const detectorTypeArg = detector ? `&detector=${detector}` : "";
   const llmApiArg = llmApi ? `&llm_api=${llmApi}` : "";
+  const testModeArg = testMode ? `&test=${testMode}` : "";
   try {
     const startTime = window.performance ? window.performance.now() : undefined;
     const resp = await axios.post(
-      `/api/explore/detect-and-fulfill?q=${query}${detectorTypeArg}${llmApiArg}`,
+      `/api/explore/detect-and-fulfill?q=${query}${detectorTypeArg}${llmApiArg}${testModeArg}`,
       {
         contextHistory: savedContext,
         dc,
