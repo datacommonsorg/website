@@ -28,15 +28,17 @@ _TEST_DATA = 'test_data'
 
 class ExploreTest(NLWebServerTestCase):
 
-  def run_fulfillment(self, test_dir, req_json, failure=''):
-    resp = requests.post(self.get_server_url() + '/api/explore/fulfill',
+  def run_fulfillment(self, test_dir, req_json, failure='', test=''):
+    resp = requests.post(self.get_server_url() +
+                         f'/api/explore/fulfill?test={test}',
                          json=req_json).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
-  def run_detection(self, test_dir, queries, dc='', failure=''):
+  def run_detection(self, test_dir, queries, dc='', failure='', test=''):
     ctx = {}
     for q in queries:
-      resp = requests.post(self.get_server_url() + f'/api/explore/detect?q={q}',
+      resp = requests.post(self.get_server_url() +
+                           f'/api/explore/detect?q={q}&test={test}',
                            json={
                                'contextHistory': ctx,
                                'dc': dc,
@@ -48,11 +50,16 @@ class ExploreTest(NLWebServerTestCase):
         d = q.replace(' ', '').replace('?', '').lower()
       self.handle_response(q, resp, test_dir, d, failure)
 
-  def run_detect_and_fulfill(self, test_dir, queries, dc='', failure=''):
+  def run_detect_and_fulfill(self,
+                             test_dir,
+                             queries,
+                             dc='',
+                             failure='',
+                             test=''):
     ctx = {}
     for q in queries:
       resp = requests.post(self.get_server_url() +
-                           f'/api/explore/detect-and-fulfill?q={q}',
+                           f'/api/explore/detect-and-fulfill?q={q}&test={test}',
                            json={
                                'contextHistory': ctx,
                                'dc': dc,
@@ -127,7 +134,8 @@ class ExploreTest(NLWebServerTestCase):
           self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
 
   def test_detection_basic(self):
-    self.run_detection('detection_api_basic', ['Commute in California'])
+    self.run_detection('detection_api_basic', ['Commute in California'],
+                       test='unittest')
 
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
@@ -153,7 +161,7 @@ class ExploreTest(NLWebServerTestCase):
         'dc': '',
         'disableExploreMore': '1',
     }
-    self.run_fulfillment('fulfillment_api_basic', req)
+    self.run_fulfillment('fulfillment_api_basic', req, test='unittest')
 
   def test_fulfillment_explore_more(self):
     req = {
@@ -312,7 +320,8 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detect_and_fulfill('e2e_superlatives', [
         'Richest counties in california',
         'List schools in Sunnyvale',
-    ])
+    ],
+                                test='unittest')
 
   def test_e2e_sdg(self):
     self.run_detect_and_fulfill('e2e_sdg', [

@@ -34,7 +34,8 @@ def homepage():
   # Return old homepage if hiding revamp changes
   # http since the ssl happens in GCP load balancer.
   if request.url == 'http://unsdg.datacommons.org/':
-    return redirect('https://datcom-un.ue.r.appspot.com', code=302)
+    return redirect('https://unstats.un.org/UNSDWebsite/undatacommons/sdgs',
+                    code=302)
   if (current_app.config.get('HIDE_REVAMP_CHANGES')):
     return lib_render.render_page("static/homepage_old.html", "homepage.html")
   return lib_render.render_page(

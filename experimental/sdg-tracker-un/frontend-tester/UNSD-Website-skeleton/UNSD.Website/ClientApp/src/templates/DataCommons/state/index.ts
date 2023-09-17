@@ -37,6 +37,7 @@ import targetText from "../config/targetText.json";
 import {
   EARTH_COUNTRIES,
   EARTH_PLACE_DCID,
+  MAP_ONLY_REGIONS,
   WEB_API_ENDPOINT,
 } from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
@@ -56,47 +57,7 @@ const MenuImageIcon = styled.img`
   border-radius: 0.25rem;
 `;
 
-const REGION_PLACE_TYPES = [
-  "UNGeoRegion",
-  "ContinentalUnion",
-  "Continent",
-];
-
-const BLOCKED_GEO_REGIONS = new Set([
-  "undata-geo/G00001610",
-  "undata-geo/G00002100",
-  "undata-geo/G00002770",
-  "undata-geo/G00002870",
-  "undata-geo/G00003000",
-  "undata-geo/G00003070",
-  "undata-geo/G00202010",
-  "undata-geo/G00202020",
-  "undata-geo/G00202030",
-  "undata-geo/G00202040",
-  "undata-geo/G00202050",
-  "undata-geo/G00202060",
-  "undata-geo/G00202070",
-  "undata-geo/G00202080",
-  "undata-geo/G00202090",
-  "undata-geo/G00202100",
-  "undata-geo/G00202110",
-  "undata-geo/G00202120",
-  "undata-geo/G00202130",
-  "undata-geo/G00202140",
-  "undata-geo/G00202150",
-  "undata-geo/G00500200",
-  "undata-geo/G00500360",
-  "undata-geo/G00600110",
-  "undata-geo/G00600120",
-  "undata-geo/G00800120",
-  "undata-geo/G00800150",
-  "undata-geo/G00800160",
-  "undata-geo/G00800240",
-  "undata-geo/G00800370",
-  "undata-geo/G00800480",
-  "undata-geo/G00800500",
-  "undata-geo/G99999999"
-])
+const REGION_PLACE_TYPES = ["UNGeoRegion", "ContinentalUnion", "Continent"];
 
 export interface Place {
   name: string;
@@ -292,8 +253,7 @@ const appActions: AppActions = {
   initializeAppState: thunk(async (actions) => {
     actions.setRootTopics(rootTopics);
     const regions = await dataCommonsClient.getPlaces(REGION_PLACE_TYPES);
-    const filteredGeoRegions = geoRegions.filter((region) => !BLOCKED_GEO_REGIONS.has(region.dcid));
-    actions.setRegions([...regions, ...filteredGeoRegions]);
+    actions.setRegions([...regions, ...geoRegions]);
     actions.setCountries(
       countries.countries.filter((c) => c.is_un_member_or_observer)
     );
@@ -368,8 +328,8 @@ const appActions: AppActions = {
         if (placeDcid === EARTH_PLACE_DCID) {
           // For Earth, add select countries as well.
           placeDcids.push(...EARTH_COUNTRIES);
-        } else if (!placeDcid.startsWith("country")) {
-          // For regions, fetch countries in the region.
+        } else if (MAP_ONLY_REGIONS.has(placeDcid)) {
+          // For map-only regions, fetch countries in the region.
           const countryDcids = await dataCommonsClient.getCountriesInRegion(
             placeDcid
           );

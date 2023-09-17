@@ -38,6 +38,8 @@ import {
   ROOT_TOPIC,
 } from "../../utils/constants";
 import "./components.css";
+// @ts-ignore
+import { routePathConstants } from "../../../../../src/helper/Common/RoutePathConstants";
 
 const useBreakpoint = Grid.useBreakpoint;
 const SearchInputContainer = styled.div`
@@ -338,7 +340,7 @@ const PlaceTitleRow = styled.div`
 `;
 
 export const PlaceHeaderCard: React.FC<{
-  placeNames: string[];
+  placeNamesAndDcids: { name: string; dcid: string }[];
   hideBreadcrumbs?: boolean;
   hidePlaceSearch?: boolean;
   isSearch: boolean;
@@ -347,7 +349,7 @@ export const PlaceHeaderCard: React.FC<{
   variableDcids: string[];
   topicNames?: string;
 }> = ({
-  placeNames,
+  placeNamesAndDcids,
   hideBreadcrumbs,
   hidePlaceSearch,
   isSearch,
@@ -386,19 +388,36 @@ export const PlaceHeaderCard: React.FC<{
     return parentDcids.map((parentDcid) => s.topics.byDcid[parentDcid]);
   });
   const breakpoint = useBreakpoint();
+  const placeNames = placeNamesAndDcids.map((p) => p.name);
   const shouldHideBreadcrumbs =
     hideBreadcrumbs || (topics.length === 1 && topics[0].dcid === ROOT_TOPIC);
-  // hide place title on search pages with no topics found
-  const shouldHidePlaceName = isSearch && !topicNames;
   // show topic names only if on search and there is a place found
-  const shouldShowTopicNames = isSearch && topicNames && !_.isEmpty(placeNames);
+  const shouldShowTopicNames =
+    isSearch && topicNames && !_.isEmpty(placeNamesAndDcids);
+  const showNoTopicsFoundMessage =
+    isSearch && placeNamesAndDcids.length > 0 && !topicNames;
   return (
     <PlaceCard>
       <PlaceCardContent>
         {userMessage && <UserMessage>{userMessage}</UserMessage>}
+        {showNoTopicsFoundMessage && (
+          <UserMessage>
+            No topics found. Explore SDG topics for{" "}
+            {placeNamesAndDcids.map((p, i) => (
+              <Link
+                key={i}
+                to={`${routePathConstants.DATA_COMMONS}countries?p=${p.dcid}`}
+              >
+                {p.name}
+                {i === placeNamesAndDcids.length - 1 ? "" : ", "}
+              </Link>
+            ))}
+            .
+          </UserMessage>
+        )}
         {hidePlaceSearch || isSearch ? (
           <PlaceTitle>
-            {!shouldHidePlaceName && placeNames.join(", ")}
+            {placeNames.join(", ")}
             {shouldShowTopicNames ? ` • ${topicNames}` : ""}
           </PlaceTitle>
         ) : (
@@ -424,7 +443,7 @@ export const PlaceHeaderCard: React.FC<{
                 return (
                   <Breadcrumb.Item key={i}>
                     <Link
-                      to={"/countries?" + searchParams.toString()}
+                      to={`${location.pathname}?${searchParams.toString()}`}
                       title={v.name}
                     >
                       {v.name}
@@ -469,7 +488,7 @@ const HeadlineImage = styled.img`
 `;
 
 const HeadlineLink = styled.div`
-  cursor: pointer; 
+  cursor: pointer;
   margin-left: auto;
   width: fit-content;
 
@@ -479,7 +498,7 @@ const HeadlineLink = styled.div`
   }
 
   .material-icons-outlined {
-    color: #5B92E5;
+    color: #5b92e5;
     font-size: 1rem;
     line-height: 1rem;
     vertical-align: middle;
@@ -514,8 +533,7 @@ export const HeadlineTile: React.FC<{
       </Row>
       <HeadlineLink>
         <a href={headlineData.link} target="_blank" rel="noreferrer">
-          Read more{" "}
-          <span className="material-icons-outlined">open_in_new</span>
+          Read more <span className="material-icons-outlined">open_in_new</span>
         </a>
       </HeadlineLink>
     </HeadlineContainer>
