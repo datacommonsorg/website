@@ -189,7 +189,7 @@ _UNSAFE_SIGNAL_WORDS = [
     'adult',
     'biased',
     'discriminatory',
-    'harmful'
+    'harmful',
     'hate',
     'offensive',
     'problem',
