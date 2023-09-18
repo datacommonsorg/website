@@ -15,21 +15,23 @@
 
 set -e
 
+# DC Instance domain like: "dev.datacommons.org", "datacommons.org"
+domain=$1
+echo "Domain: $domain"
+
+NO_PIP=$2
+
 export FLASK_ENV=webdriver
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 
 python3 -m venv .env
 source .env/bin/activate
-pip3 install -r server/requirements.txt
+if [[ $NO_PIP != "true" ]]; then
+  python3 -m pip install --upgrade pip setuptools
+  pip3 install -r server/requirements.txt
+fi
 
-# Define a list of domains
-domain_list=(dev.datacommons.org)
-
-# Loop through the domain list
-for domain in "${domain_list[@]}"
-do
-  date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
-  python3 server/webdriver/tests/standalone/sanity.py --mode=home --url="https://$domain"
-  gsutil cp ./output/*.csv gs://datcom-website-sanity/$domain/$date_str/
-  rm ./output/*.csv
-done
+date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
+python3 server/webdriver/tests/standalone/sanity.py --mode=home --url="https://$domain"
+gsutil cp ./output/*.csv gs://datcom-website-sanity/$domain/$date_str/
+rm ./output/*.csv

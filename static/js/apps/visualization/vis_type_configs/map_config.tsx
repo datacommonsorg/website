@@ -144,6 +144,7 @@ export function getChartArea(
 }
 
 function getInfoContent(): JSX.Element {
+  const hideExamples = _.isEmpty(window.infoConfig["map"]);
   return (
     <div className="info-content">
       <div>
@@ -153,14 +154,16 @@ function getInfoContent(): JSX.Element {
           vary across geographic regions.
         </p>
       </div>
-      <div>
-        <p>
-          You can start your exploration from one of these interesting points
-          ...
-        </p>
-        <MemoizedInfoExamples configKey="map" />
-      </div>
-      <p>Or click start to build your own map.</p>
+      {!hideExamples && (
+        <div>
+          <p>
+            You can start your exploration from one of these interesting points
+            ...
+          </p>
+          <MemoizedInfoExamples configKey="map" />
+        </div>
+      )}
+      <p>{hideExamples ? "Click" : "Or click"} start to build your own map.</p>
     </div>
   );
 }
@@ -200,6 +203,11 @@ function getSqlQueryFn(appContext: AppContextType): () => string {
   };
 }
 
+function getFooter(): string {
+  const footer = document.getElementById("metadata").dataset.mapFooter || "";
+  return footer ? `* ${footer}` : "";
+}
+
 export const MAP_CONFIG = {
   displayName: "Map Explorer",
   icon: "public",
@@ -212,4 +220,5 @@ export const MAP_CONFIG = {
   getInfoContent,
   getSqlQueryFn,
   oldToolUrl: "/tools/map",
+  getFooter,
 };

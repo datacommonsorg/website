@@ -34,7 +34,6 @@ import rootTopics from "../config/rootTopics.json";
 import sidebarConfig from "../config/sidebar.json";
 import targetText from "../config/targetText.json";
 import {
-  CONTINENTS,
   EARTH_COUNTRIES,
   EARTH_PLACE_DCID,
   WEB_API_ENDPOINT,

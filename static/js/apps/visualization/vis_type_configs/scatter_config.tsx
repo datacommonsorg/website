@@ -195,6 +195,7 @@ function getChartArea(
 }
 
 function getInfoContent(): JSX.Element {
+  const hideExamples = _.isEmpty(window.infoConfig["scatter"]);
   return (
     <div className="info-content">
       <div>
@@ -204,14 +205,19 @@ function getInfoContent(): JSX.Element {
           statistical variables.
         </p>
       </div>
-      <div>
-        <p>
-          You can start your exploration from one of these interesting points
-          ...
-        </p>
-        <MemoizedInfoExamples configKey="scatter" />
-      </div>
-      <p>Or click start to build your own scatter plot.</p>
+      {!hideExamples && (
+        <div>
+          <p>
+            You can start your exploration from one of these interesting points
+            ...
+          </p>
+          <MemoizedInfoExamples configKey="scatter" />
+        </div>
+      )}
+      <p>
+        {hideExamples ? "Click" : "Or click"} start to build your own scatter
+        plot.
+      </p>
     </div>
   );
 }

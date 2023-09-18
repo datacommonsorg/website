@@ -322,7 +322,7 @@ const Search = () => {
                     searchParams.set(QUERY_PARAM_QUERY, q);
                     history.push("/search?" + searchParams.toString());
                   }}
-                  placeholder={"What is the global poverty rate?"}
+                  placeholder={"Poverty in Indonesia"}
                 />
               </SearchBarContainer>
               {errorMessage ? (

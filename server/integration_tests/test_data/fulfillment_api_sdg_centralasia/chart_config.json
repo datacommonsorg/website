@@ -8,11 +8,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Children Under 5 With Moderate or Severe Stunting in Central Asia",
+                    "description": "Children Moderately or Severely Stunted [Under 5 Years Old] in Central Asia",
                     "statVarKey": [
                       "sdg/SH_STA_STNTN.AGE--Y0T4"
                     ],
-                    "title": "Children Under 5 With Moderate or Severe Stunting in Central Asia",
+                    "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in Central Asia",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -23,13 +23,14 @@
                     "statVarKey": [
                       "sdg/SH_STA_STNTN.AGE--Y0T4"
                     ],
-                    "title": "Children Under 5 With Moderate or Severe Stunting in Central Asia",
+                    "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in Central Asia",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Children Under 5 With Moderate or Severe Stunting"
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Children Moderately or Severely Stunted [Under 5 Years Old]"
           },
           {
             "columns": [
@@ -39,24 +40,25 @@
                     "statVarKey": [
                       "sdg/SH_STA_STNTN.AGE--Y0T4"
                     ],
-                    "title": "Children Under 5 With Moderate or Severe Stunting in Countries of Central Asia (${date})",
+                    "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in Countries of Central Asia (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Children Under 5 With Moderate or Severe Stunting in Countries of Central Asia"
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in Countries of Central Asia"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Moderate or Severe Stunting in Population Under 5 in Central Asia",
+                    "description": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in Central Asia",
                     "statVarKey": [
                       "sdg/SH_STA_STNT.AGE--Y0T4"
                     ],
-                    "title": "Moderate or Severe Stunting in Population Under 5 in Central Asia",
+                    "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in Central Asia",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -67,13 +69,14 @@
                     "statVarKey": [
                       "sdg/SH_STA_STNT.AGE--Y0T4"
                     ],
-                    "title": "Moderate or Severe Stunting in Population Under 5 in Central Asia",
+                    "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in Central Asia",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Moderate or Severe Stunting in Population Under 5"
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old]"
           },
           {
             "columns": [
@@ -83,22 +86,23 @@
                     "statVarKey": [
                       "sdg/SH_STA_STNT.AGE--Y0T4"
                     ],
-                    "title": "Moderate or Severe Stunting in Population Under 5 in Countries of Central Asia (${date})",
+                    "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in Countries of Central Asia (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Moderate or Severe Stunting in Population Under 5 in Countries of Central Asia"
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in Countries of Central Asia"
           }
         ],
         "statVarSpec": {
           "sdg/SH_STA_STNT.AGE--Y0T4": {
-            "name": "Moderate or Severe Stunting in Population Under 5",
+            "name": "Proportion of children moderately or severely stunted [under 5 years old]",
             "statVar": "sdg/SH_STA_STNT.AGE--Y0T4"
           },
           "sdg/SH_STA_STNTN.AGE--Y0T4": {
-            "name": "Children Under 5 With Moderate or Severe Stunting",
+            "name": "Children moderately or severely stunted [under 5 years old]",
             "statVar": "sdg/SH_STA_STNTN.AGE--Y0T4"
           }
         }
@@ -175,7 +179,7 @@
     "mainTopics": [
       {
         "dcid": "dc/topic/sdg_2.2.1",
-        "name": "Height Stunting for Children Under 5",
+        "name": "2.2.1: Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age",
         "types": [
           "Topic"
         ]
@@ -185,7 +189,7 @@
     "parentTopics": [
       {
         "dcid": "dc/topic/sdg_2.2",
-        "name": "End Malnutrition by 2030",
+        "name": "2.2: By 2030, end all forms of malnutrition, including achieving, by 2025, the internationally agreed targets on stunting and wasting in children under 5 years of age, and address the nutritional needs of adolescent girls, pregnant and lactating women and older persons",
         "types": [
           "Topic"
         ]
@@ -195,14 +199,14 @@
     "peerTopics": [
       {
         "dcid": "dc/topic/sdg_2.2.2",
-        "name": "Malnutrition (wasting and overweight) for Children Under 5",
+        "name": "2.2.2: Prevalence of malnutrition (weight for height >+2 or <-2 standard deviation from the median of the WHO Child Growth Standards) among children under 5 years of age, by type (wasting and overweight)",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_2.2.3",
-        "name": "Aenemia",
+        "name": "2.2.3: Prevalence of anaemia in women aged 15 to 49 years, by pregnancy status (percentage)",
         "types": [
           "Topic"
         ]
@@ -212,7 +216,7 @@
       "sdg/SH_STA_STNT.AGE--Y0T4": [
         {
           "dcid": "dc/topic/sdg_2.2.1",
-          "name": "Height Stunting for Children Under 5",
+          "name": "2.2.1: Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age",
           "types": [
             "Topic"
           ]
@@ -221,7 +225,7 @@
       "sdg/SH_STA_STNTN.AGE--Y0T4": [
         {
           "dcid": "dc/topic/sdg_2.2.1",
-          "name": "Height Stunting for Children Under 5",
+          "name": "2.2.1: Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age",
           "types": [
             "Topic"
           ]

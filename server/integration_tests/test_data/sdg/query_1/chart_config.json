@@ -11,13 +11,14 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Population Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Proportion of Population Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Population Below International Poverty Line in Countries of Africa"
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Proportion of Population Below International Poverty Line in Countries of Africa"
           },
           {
             "columns": [
@@ -27,7 +28,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.AGE--Y0T14"
                     ],
-                    "title": "Population Age Under 15 Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Proportion of Population Below International Poverty Line [Under 15 Years Old] in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -38,7 +39,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.AGE--Y15T64"
                     ],
-                    "title": "Population Age 15 to 64 Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Proportion of Population Below International Poverty Line [15 to 64 Years Old] in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -49,7 +50,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
-                    "title": "Population Age 65 or Older Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Proportion of Population Below International Poverty Line [65 Years Old and Over] in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -65,7 +66,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.SEX--F"
                     ],
-                    "title": "Women Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Proportion of Population Below International Poverty Line [Female] in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -76,7 +77,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.SEX--M"
                     ],
-                    "title": "Men Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Proportion of Population Below International Poverty Line [Male] in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -92,7 +93,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.URBANISATION--U"
                     ],
-                    "title": "Urban Population Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Proportion of Population Below International Poverty Line [Urban] in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -103,7 +104,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.URBANISATION--R"
                     ],
-                    "title": "Rural Population Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Proportion of Population Below International Poverty Line [Rural] in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -119,7 +120,7 @@
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Population Using Basic Drinking Water Services in Countries of Africa (${date})",
+                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -130,7 +131,7 @@
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN"
                     ],
-                    "title": "Population Using Basic Sanitation Services in Countries of Africa (${date})",
+                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -141,13 +142,13 @@
                     "statVarKey": [
                       "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over] in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Population Below International Poverty Line and More in Countries of Africa"
+            "title": "Proportion of Population Below International Poverty Line and More in Countries of Africa"
           },
           {
             "columns": [
@@ -157,7 +158,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
                     ],
-                    "title": "Employed Women Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over, Female] in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -168,7 +169,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Employed Men Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over, Male] in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -179,55 +180,55 @@
         ],
         "statVarSpec": {
           "sdg/SI_POV_DAY1": {
-            "name": "Population Below International Poverty Line",
+            "name": "Proportion of population below international poverty line",
             "statVar": "sdg/SI_POV_DAY1"
           },
           "sdg/SI_POV_DAY1.AGE--Y0T14": {
-            "name": "Population Age Under 15 Below International Poverty Line",
+            "name": "Proportion of population below international poverty line [under 15 years old]",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
           },
           "sdg/SI_POV_DAY1.AGE--Y15T64": {
-            "name": "Population Age 15 to 64 Below International Poverty Line",
+            "name": "Proportion of population below international poverty line [15 to 64 years old]",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y15T64"
           },
           "sdg/SI_POV_DAY1.AGE--Y_GE65": {
-            "name": "Population Age 65 or Older Below International Poverty Line",
+            "name": "Proportion of population below international poverty line [65 years old and over]",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
           },
           "sdg/SI_POV_DAY1.SEX--F": {
-            "name": "Women Below International Poverty Line",
+            "name": "Proportion of population below international poverty line [Female]",
             "statVar": "sdg/SI_POV_DAY1.SEX--F"
           },
           "sdg/SI_POV_DAY1.SEX--M": {
-            "name": "Men Below International Poverty Line",
+            "name": "Proportion of population below international poverty line [Male]",
             "statVar": "sdg/SI_POV_DAY1.SEX--M"
           },
           "sdg/SI_POV_DAY1.URBANISATION--R": {
-            "name": "Rural Population Below International Poverty Line",
+            "name": "Proportion of population below international poverty line [Rural]",
             "statVar": "sdg/SI_POV_DAY1.URBANISATION--R"
           },
           "sdg/SI_POV_DAY1.URBANISATION--U": {
-            "name": "Urban Population Below International Poverty Line",
+            "name": "Proportion of population below international poverty line [Urban]",
             "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE15": {
-            "name": "Employed Population Aged 15 or Over Below International Poverty Line",
+            "name": "Employed population below international poverty line, by sex and age [15 years old and over]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": {
-            "name": "Employed Women Aged 15 or Over Below International Poverty Line",
+            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Female]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
-            "name": "Employed Men Aged 15 or Over Below International Poverty Line",
+            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Male]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
           },
           "sdg/SP_ACS_BSRVH2O": {
-            "name": "Population Using Basic Drinking Water Services",
+            "name": "Proportion of population using basic drinking water services, by location",
             "statVar": "sdg/SP_ACS_BSRVH2O"
           },
           "sdg/SP_ACS_BSRVSAN": {
-            "name": "Population Using Basic Sanitation Services",
+            "name": "Proportion of population using basic sanitation services, by location",
             "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }

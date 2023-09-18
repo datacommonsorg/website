@@ -24,6 +24,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw_line";
+import { TimeScaleOption } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -64,6 +65,8 @@ export interface LineTilePropType {
   comparisonPlaces?: string[];
   // Type of child places to plot
   enclosedPlaceType?: string;
+  // Text to show in footer
+  footnote?: string;
   id: string;
   // Whether or not to render the data version of this tile
   isDataTile?: boolean;
@@ -82,6 +85,10 @@ export interface LineTilePropType {
   showTooltipOnHover?: boolean;
   // Function used to get processed stat var names.
   getProcessedSVNameFn?: (name: string) => string;
+  // Time scale to use on x-axis. "year", "month", or "day"
+  timeScale?: TimeScaleOption;
+  // The property to use to get place names.
+  placeNameProp?: string;
 }
 
 export interface LineChartData {
@@ -130,6 +137,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       isInitialLoading={_.isNull(chartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={chartData && !!chartData.errorMsg}
+      footnote={props.footnote}
     >
       <div
         id={props.id}
@@ -227,7 +235,11 @@ export const fetchData = async (props: LineTilePropType) => {
     props.apiRoot,
     props.getProcessedSVNameFn
   );
-  const placeNames = await getPlaceNames(placeDcids, props.apiRoot);
+  const placeNames = await getPlaceNames(
+    placeDcids,
+    props.apiRoot,
+    props.placeNameProp
+  );
   // How legend labels should be set
   // If neither options are set, default to showing stat vars in legend labels
   const options = {
@@ -259,6 +271,7 @@ export function draw(
     props.showTooltipOnHover,
     {
       colors: props.colors,
+      timeScale: props.timeScale,
       unit: chartData.unit,
     }
   );

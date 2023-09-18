@@ -25,6 +25,7 @@ import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
 import {
   convertArrayAttribute,
+  convertBooleanAttribute,
   createWebComponentElement,
   getVariableNameProcessingFn,
 } from "./utils";
@@ -116,13 +117,13 @@ export class DatacommonsBarComponent extends LitElement {
   /**
    * Optional: Render bars horizontally instead of vertically
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   horizontal?: boolean;
 
   /**
    * Optional: Draw as a lollipop chart instead of bars
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   lollipop: boolean;
 
   /**
@@ -162,7 +163,7 @@ export class DatacommonsBarComponent extends LitElement {
   /**
    * Optional: Draw as a stacked chart instead of grouped chart
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   stacked?: boolean;
 
   /**
@@ -187,7 +188,7 @@ export class DatacommonsBarComponent extends LitElement {
 
   // Optional: Whether to show the "explore" link.
   // Default: false
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   showExploreMore: boolean;
 
   // Optional: Regex used to process variable names
@@ -204,6 +205,10 @@ export class DatacommonsBarComponent extends LitElement {
   // use this as the variable name.
   @property()
   defaultVariableName!: string;
+
+  // Optional: Property to use to get place names.
+  @property()
+  placeNameProp!: string;
 
   render(): HTMLElement {
     const statVarDcids: string[] = this.variables;
@@ -246,6 +251,7 @@ export class DatacommonsBarComponent extends LitElement {
         this.variableNameRegex,
         this.defaultVariableName
       ),
+      placeNameProp: this.placeNameProp,
     };
 
     return createWebComponentElement(BarTile, barTileProps);

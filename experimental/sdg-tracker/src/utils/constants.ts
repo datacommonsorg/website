@@ -55,15 +55,6 @@ export const EARTH_COUNTRIES = [
   "country/KAZ",
 ];
 
-export const CONTINENTS = new Set([
-  "africa",
-  "antartica",
-  "asia",
-  "europe",
-  "northamerica",
-  "oceania",
-]);
-
 /**
  * Variable DCID url parameter
  */
@@ -93,3 +84,8 @@ export const WEB_API_ENDPOINT = appConfig.webApiEndpoint;
  * URL to the SDG wheel icon
  */
 export const SDG_ICON_URL = "./images/datacommons/sdg-wheel-transparent.png";
+
+/**
+ * Number of characters on footnote to show before ...
+ */
+export const FOOTNOTE_CHAR_LIMIT = 100;

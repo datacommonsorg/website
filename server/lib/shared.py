@@ -19,19 +19,36 @@ from typing import Set
 import server.lib.fetch as fetch
 
 
-def names(dcids):
+def names(dcids, prop=None):
   """Returns display names for set of dcids.
 
   Args:
       dcids: A list of DCIDs.
+      prop: property to use to get the names.
 
   Returns:
       A dictionary of display place names, keyed by dcid.
   """
-  response = fetch.property_values(dcids, 'name')
   result = {}
-  for dcid in dcids:
-    result[dcid] = ''
+  # dcids to get default name for
+  default_name_dcids = []
+  # if there's a specified property to use for the name, try to find names using
+  # that prop first
+  if prop:
+    name_prop_response = fetch.property_values(dcids, prop)
+    for dcid, values in name_prop_response.items():
+      if values:
+        result[dcid] = values[0]
+    for dcid in dcids:
+      if not dcid in result:
+        default_name_dcids.append(dcid)
+  else:
+    default_name_dcids = dcids
+  # if there are dcids to get default name for, do it now
+  if default_name_dcids:
+    response = fetch.property_values(default_name_dcids, 'name')
+    for dcid in default_name_dcids:
+      result[dcid] = ''
     for dcid, values in response.items():
       if values:
         result[dcid] = values[0]

@@ -203,6 +203,7 @@ function getChartArea(
 }
 
 function getInfoContent(): JSX.Element {
+  const hideExamples = _.isEmpty(window.infoConfig["timeline"]);
   return (
     <div className="info-content">
       <div>
@@ -211,15 +212,19 @@ function getInfoContent(): JSX.Element {
           The timeline tool helps you explore trends for statistical variables.
         </p>
       </div>
-      <div>
-        <p>
-          You can start your exploration from one of these interesting points
-          ...
-        </p>
-        <MemoizedInfoExamples configKey="timeline" />
-      </div>
+      {!hideExamples && (
+        <div>
+          <p>
+            You can start your exploration from one of these interesting points
+            ...
+          </p>
+          <MemoizedInfoExamples configKey="timeline" />
+        </div>
+      )}
 
-      <p>Or click start to build your own timelines.</p>
+      <p>
+        {hideExamples ? "Click" : "Or click"} start to build your own timelines.
+      </p>
     </div>
   );
 }

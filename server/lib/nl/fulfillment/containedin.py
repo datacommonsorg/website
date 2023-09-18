@@ -37,7 +37,11 @@ def populate(state: PopulateState, chart_vars: ChartVars,
   if not state.place_type:
     state.uttr.counters.err('containedin_failed_cb_missing_type', 1)
     return False
-  if not utils.has_map(state.place_type, contained_places):
+  if len(contained_places) > 1:
+    state.uttr.counters.err('containedin_failed_cb_toomanyplaces',
+                            contained_places)
+    return False
+  if not utils.has_map(state.place_type, contained_places[0]):
     state.uttr.counters.err('containedin_failed_cb_nonmap_type',
                             state.place_type)
     return False
@@ -46,10 +50,6 @@ def populate(state: PopulateState, chart_vars: ChartVars,
     return False
   if not chart_vars.svs:
     state.uttr.counters.err('containedin_failed_cb_missing_svs', 1)
-    return False
-  if len(contained_places) > 1:
-    state.uttr.counters.err('containedin_failed_cb_toomanyplaces',
-                            contained_places)
     return False
   chart_vars = copy.deepcopy(chart_vars)
 

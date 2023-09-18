@@ -18,6 +18,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
             "title": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years"
           },
           {
@@ -34,6 +35,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
             "title": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World"
           },
           {
@@ -62,6 +64,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
             "title": "Countries With Birth Registration Data That Are at Least 90 Percent Complete"
           },
           {
@@ -78,6 +81,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
             "title": "Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World"
           },
           {
@@ -106,6 +110,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
             "title": "Countries With Death Registration Data That Are at Least 75 Percent Complete"
           },
           {
@@ -122,6 +127,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
             "title": "Countries With Death Registration Data That Are at Least 75 Percent Complete in the World"
           },
           {
@@ -139,6 +145,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
             "title": "Proportion of Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years"
           },
           {
@@ -167,6 +174,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
             "title": "Proportion of Countries With Birth Registration Data That Are at Least 90 Percent Complete"
           },
           {
@@ -195,6 +203,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
             "title": "Proportion of Countries With Death Registration Data That Are at Least 75 Percent Complete"
           }
         ],
@@ -612,7 +621,7 @@
     "mainTopics": [
       {
         "dcid": "dc/topic/sdg_17.19.2",
-        "name": "Census, Birth, and Death Registration",
+        "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
         "types": [
           "Topic"
         ]
@@ -622,7 +631,7 @@
     "parentTopics": [
       {
         "dcid": "dc/topic/sdg_17.19",
-        "name": "Develop Progress Measurements for SDG by 2030",
+        "name": "17.19: By 2030, build on existing initiatives to develop measurements of progress on sustainable development that complement gross domestic product, and support statistical capacity-building in developing countries",
         "types": [
           "Topic"
         ]
@@ -632,7 +641,7 @@
     "peerTopics": [
       {
         "dcid": "dc/topic/sdg_17.19.1",
-        "name": "Resources for Strengthening Statistical Capacity",
+        "name": "17.19.1: Dollar value of all resources made available to strengthen statistical capacity in developing countries",
         "types": [
           "Topic"
         ]
@@ -642,7 +651,7 @@
       "sdg/SG_REG_BRTH90": [
         {
           "dcid": "dc/topic/sdg_17.19.2",
-          "name": "Census, Birth, and Death Registration",
+          "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
           "types": [
             "Topic"
           ]
@@ -651,7 +660,7 @@
       "sdg/SG_REG_BRTH90N": [
         {
           "dcid": "dc/topic/sdg_17.19.2",
-          "name": "Census, Birth, and Death Registration",
+          "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
           "types": [
             "Topic"
           ]
@@ -660,7 +669,7 @@
       "sdg/SG_REG_CENSUS": [
         {
           "dcid": "dc/topic/sdg_17.19.2",
-          "name": "Census, Birth, and Death Registration",
+          "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
           "types": [
             "Topic"
           ]
@@ -669,7 +678,7 @@
       "sdg/SG_REG_CENSUSN": [
         {
           "dcid": "dc/topic/sdg_17.19.2",
-          "name": "Census, Birth, and Death Registration",
+          "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
           "types": [
             "Topic"
           ]
@@ -678,7 +687,7 @@
       "sdg/SG_REG_DETH75": [
         {
           "dcid": "dc/topic/sdg_17.19.2",
-          "name": "Census, Birth, and Death Registration",
+          "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
           "types": [
             "Topic"
           ]
@@ -687,7 +696,7 @@
       "sdg/SG_REG_DETH75N": [
         {
           "dcid": "dc/topic/sdg_17.19.2",
-          "name": "Census, Birth, and Death Registration",
+          "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
           "types": [
             "Topic"
           ]
