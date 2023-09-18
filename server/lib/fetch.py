@@ -428,7 +428,7 @@ def triples(nodes, out=True):
   """
   resp = dc.v2node(nodes, '->*' if out else '<-*')
   result = {}
-  for node, arcs in resp['data'].items():
+  for node, arcs in resp.get('data', {}).items():
     result[node] = {}
     for prop, val in arcs.get('arcs', {}).items():
       result[node][prop] = val.get('nodes', [])
