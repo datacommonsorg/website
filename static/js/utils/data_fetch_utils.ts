@@ -270,7 +270,7 @@ export function getFacetsWithin(
 }
 
 /**
- * Gets the available favets for each variable given a list of entities.
+ * Gets the available facets for each variable given a list of entities.
  * @param apiRoot api root
  * @param entities entities to get available facets for
  * @param variables variables to get available facets for
