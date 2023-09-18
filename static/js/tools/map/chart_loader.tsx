@@ -219,6 +219,8 @@ export function ChartLoader(): JSX.Element {
       date,
       chartStore.mapValuesDates.data.unit
     );
+
+    const footer = document.getElementById("metadata").dataset.footer || "";
     return (
       <div className="chart-region">
         <Chart
@@ -272,6 +274,7 @@ export function ChartLoader(): JSX.Element {
             europeanCountries={europeanCountries}
           />
         )}
+        {footer && <div className="footer">* {footer}</div>}
         <BqModal getSqlQuery={getSqlQuery} showButton={true} />
       </div>
     );

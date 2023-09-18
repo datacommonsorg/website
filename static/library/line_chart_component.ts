@@ -20,10 +20,12 @@ import _ from "lodash";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
+import { TimeScaleOption } from "../js/chart/types";
 import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
 import {
   convertArrayAttribute,
+  convertBooleanAttribute,
   createWebComponentElement,
   getVariableNameProcessingFn,
 } from "./utils";
@@ -106,10 +108,18 @@ export class DatacommonsLineComponent extends LitElement {
   @property()
   defaultVariableName!: string;
 
+  // Optional: Property to use to get place names
+  @property()
+  placeNameProp: string;
+
   // Optional: Whether to show the "explore" link.
   // Default: false
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   showExploreMore: boolean;
+
+  // Optional: Timescale to use for x-axis labels
+  @property()
+  timeScale?: TimeScaleOption;
 
   render(): HTMLElement {
     const lineTileProps: LineTilePropType = {
@@ -135,10 +145,12 @@ export class DatacommonsLineComponent extends LitElement {
       })),
       svgChartHeight: 200,
       title: this.header || this.title,
+      timeScale: this.timeScale,
       getProcessedSVNameFn: getVariableNameProcessingFn(
         this.variableNameRegex,
         this.defaultVariableName
       ),
+      placeNameProp: this.placeNameProp,
     };
     return createWebComponentElement(LineTile, lineTileProps);
   }

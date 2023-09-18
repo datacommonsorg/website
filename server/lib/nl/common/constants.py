@@ -140,7 +140,39 @@ SUPER_NATIONAL_TYPES = frozenset([
 ])
 
 # For these geos, the maps look empty.
-NO_MAP_SUPER_NATIONAL_GEOS = frozenset(['Micronesia', 'Polynesia'])
+MAP_ONLY_SUPER_NATIONAL_GEOS = frozenset([
+    'Earth',
+    'africa',
+    'asia',
+    'europe',
+    'northamerica',
+    'southamerica',
+    'oceania',
+    'AustraliaAndNewZealand',
+    'Caribbean',
+    'CentralAmerica',
+    'CentralAsia',
+    'ChannelIslands',
+    'EasternAfrica',
+    'EasternAsia',
+    'EasternEurope',
+    'EuropeanUnion',
+    'LatinAmericaAndCaribbean',
+    'Melanesia',
+    'MiddleAfrica',
+    'NorthernAfrica',
+    'NorthernEurope',
+    'SouthEasternAsia',
+    'SouthernAfrica',
+    'SouthernAsia',
+    'SouthernEurope',
+    'SubSaharanAfrica',
+    'WesternAfrica',
+    'WesternAsia',
+    'WesternEurope',
+    # Americas
+    'undata-geo/G00134000',
+])
 
 # Key is canonical AA types (and excludes county, province, etc.).
 # Note also that we don't include CONTINENT because we virtually have no

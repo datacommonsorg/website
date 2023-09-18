@@ -87,6 +87,8 @@ export interface MapTilePropType {
   // Extra classes to add to the container.
   className?: string;
   enclosedPlaceType: string;
+  // text to show in footer of tile
+  footnote?: string;
   id: string;
   // Parent places of the current place showing map for
   parentPlaces?: NamedPlace[];
@@ -102,6 +104,10 @@ export interface MapTilePropType {
   showLoadingSpinner?: boolean;
   // Whether or not to allow zoom in and out of the map
   allowZoom?: boolean;
+  // The property to use to get place names.
+  placeNameProp?: string;
+  // The property to use to get geojsons.
+  geoJsonProp?: string;
 }
 
 interface RawData {
@@ -211,6 +217,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={mapChartData && !!mapChartData.errorMsg}
+      footnote={props.footnote}
     >
       {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">
@@ -259,12 +266,19 @@ export function getReplacementStrings(
 export const fetchData = async (
   props: MapTilePropType
 ): Promise<MapChartData> => {
+  const geoJsonParams = {
+    placeDcid: props.place.dcid,
+    placeType: props.enclosedPlaceType,
+  };
+  if (props.placeNameProp) {
+    geoJsonParams["placeNameProp"] = props.placeNameProp;
+  }
+  if (props.geoJsonProp) {
+    geoJsonParams["geoJsonProp"] = props.geoJsonProp;
+  }
   const geoJsonPromise = axios
     .get(`${props.apiRoot || ""}/api/choropleth/geojson`, {
-      params: {
-        placeDcid: props.place.dcid,
-        placeType: props.enclosedPlaceType,
-      },
+      params: geoJsonParams,
       paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);

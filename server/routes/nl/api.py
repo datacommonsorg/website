@@ -42,8 +42,6 @@ def data():
       request, 'nl', debug_logs)
   if error_json:
     return error_json
-  if not utterance:
-    return helpers.abort('Failed to process!', '', [])
   return helpers.fulfill_with_chart_config(utterance, debug_logs)
 
 

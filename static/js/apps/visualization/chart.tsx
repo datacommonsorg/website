@@ -31,6 +31,9 @@ export function Chart(): JSX.Element {
 
   const chartHeight = window.innerHeight * 0.45;
   const showBqButton = !!VIS_TYPE_CONFIG[appContext.visType].getSqlQueryFn;
+  const visTypeConfig = VIS_TYPE_CONFIG[appContext.visType];
+  const footer = visTypeConfig.getFooter ? visTypeConfig.getFooter() : "";
+
   return (
     <div className="chart-section">
       <div className="stat-var-selector-area" id="collapsible-variable-area">
@@ -44,16 +47,12 @@ export function Chart(): JSX.Element {
         </div>
       </div>
       <div className="chart-area">
-        {VIS_TYPE_CONFIG[appContext.visType].getChartArea(
-          appContext,
-          chartHeight
-        )}
+        {visTypeConfig.getChartArea(appContext, chartHeight)}
+        {footer && <div className="footer">{footer}</div>}
       </div>
       {showBqButton && (
         <BqModal
-          getSqlQuery={VIS_TYPE_CONFIG[appContext.visType].getSqlQueryFn(
-            appContext
-          )}
+          getSqlQuery={visTypeConfig.getSqlQueryFn(appContext)}
           showButton={true}
         />
       )}

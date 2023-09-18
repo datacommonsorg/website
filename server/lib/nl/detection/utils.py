@@ -150,8 +150,11 @@ def empty_place_detection() -> PlaceDetection:
                         main_place=None)
 
 
-def create_utterance(query_detection: Detection, currentUtterance: Utterance,
-                     counters: ctr.Counters, session_id: str) -> Utterance:
+def create_utterance(query_detection: Detection,
+                     currentUtterance: Utterance,
+                     counters: ctr.Counters,
+                     session_id: str,
+                     test: str = '') -> Utterance:
   filtered_svs = filter_svs(query_detection.svs_detected.single_sv, counters)
 
   # Construct Utterance datastructure.
@@ -168,7 +171,8 @@ def create_utterance(query_detection: Detection, currentUtterance: Utterance,
                    counters=counters,
                    session_id=session_id,
                    multi_svs=query_detection.svs_detected.multi_sv,
-                   llm_resp=query_detection.llm_resp)
+                   llm_resp=query_detection.llm_resp,
+                   test=test)
   uttr.counters.info('filtered_svs', filtered_svs)
 
   # Add detected places.

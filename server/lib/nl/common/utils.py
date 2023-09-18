@@ -225,6 +225,12 @@ def parent_place_names(dcid: str) -> List[str]:
   return None
 
 
+# Returns a list of parent place names for a dcid.
+def get_un_labels(dcids: List[str]) -> Dict[str, str]:
+  resp = fetch.property_values(nodes=dcids, prop='unDataLabel')
+  return {p: vals[0] for p, vals in resp.items() if vals}
+
+
 def trim_classifications(
     classifications: List[types.NLClassifier],
     to_trim: Set[types.ClassificationType]) -> List[types.NLClassifier]:
@@ -316,9 +322,9 @@ def has_map(place_type: any, place: types.Place) -> bool:
   if isinstance(place_type, str):
     place_type = types.ContainedInPlaceType(place_type)
   if place_type == types.ContainedInPlaceType.COUNTRY:
-    if place.dcid in constants.NO_MAP_SUPER_NATIONAL_GEOS:
-      return False
-    return True
+    if place.dcid in constants.MAP_ONLY_SUPER_NATIONAL_GEOS:
+      return True
+    return False
 
   aatype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, None)
   if aatype and place.country and place.country in constants.ADMIN_AREA_MAP_COUNTRIES:

@@ -128,8 +128,8 @@ export const GoalSection = () => {
         <div className="title">Explore SDG Data by Goal</div>
         <div className="line-separator" />
         <div className="description">
-          Learn about SDG progress across all 17 Goals -- with data, insights
-          and infographics in one place for a comprehensive overview.
+          Learn about SDG progress in a one-stop hub with data, insights and
+          infographics for a comprehensive overview across all 17 Goals.
         </div>
       </HeaderContainer>
       <GoalContainer>
@@ -166,7 +166,7 @@ export const GoalSection = () => {
                   onClick={() => history.push("/goals")}
                 >
                   <div className="goal-number">
-                    <img src={"/images/datacommons/sdg-goals-icon.svg"} />
+                    <img src={"./images/datacommons/sdg-goals-icon.svg"} />
                   </div>
                   <div className="goal-content">
                     <div className="goal-name">All Goals</div>
