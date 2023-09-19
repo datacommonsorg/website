@@ -23,7 +23,9 @@ import _ from "lodash";
 
 import {
   Observation,
+  PointAllApiResponse,
   PointApiResponse,
+  SeriesAllApiResponse,
   SeriesApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
@@ -31,6 +33,7 @@ import { stringifyFn } from "./axios";
 import { getUnit } from "./stat_metadata_utils";
 
 const EMPTY_UNIT = "EMPTY";
+const FACET_WITHIN_ENTITY = "";
 
 /**
  * Gets the best unit
@@ -153,11 +156,16 @@ export function getPointWithin(
   parentEntity: string,
   variables: string[],
   date: string,
-  alignedVariables?: string[][]
+  alignedVariables?: string[][],
+  facetIds?: string[]
 ): Promise<PointApiResponse> {
+  const params = { childType, date, parentEntity, variables };
+  if (facetIds) {
+    params["facetIds"] = facetIds;
+  }
   return axios
     .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point/within`, {
-      params: { childType, date, parentEntity, variables },
+      params,
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
@@ -174,11 +182,16 @@ export function getPointWithin(
 export function getSeries(
   apiRoot: string,
   entities: string[],
-  variables: string[]
+  variables: string[],
+  facetIds?: string[]
 ): Promise<SeriesApiResponse> {
+  const params = { entities, variables };
+  if (facetIds) {
+    params["facetIds"] = facetIds;
+  }
   return axios
     .get(`${apiRoot || ""}/api/observations/series`, {
-      params: { entities, variables },
+      params,
       paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
@@ -196,12 +209,101 @@ export function getSeriesWithin(
   apiRoot: string,
   parentEntity: string,
   childType: string,
-  variables: string[]
+  variables: string[],
+  facetIds?: string[]
 ): Promise<SeriesApiResponse> {
+  const params = { parentEntity, childType, variables };
+  if (facetIds) {
+    params["facetIds"] = facetIds;
+  }
   return axios
     .get(`${apiRoot || ""}/api/observations/series/within`, {
-      params: { parentEntity, childType, variables },
+      params,
       paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
+}
+
+export interface FacetResponse {
+  [svDcid: string]: {
+    [facetId: string]: StatMetadata;
+  };
+}
+
+/**
+ * Gets all the available facets for each variable given the parent, child type
+ * and date.
+ * @param apiRoot  api root
+ * @param parentEntity parent place to get available facets for
+ * @param childType place type to get available facets for
+ * @param variables variables to get available facets for
+ * @param date date to get available facets for
+ */
+export function getFacetsWithin(
+  apiRoot: string,
+  parentEntity: string,
+  childType: string,
+  variables: string[],
+  date?: string
+): Promise<FacetResponse> {
+  return axios
+    .get<PointAllApiResponse>(`${apiRoot || ""}/api/facets/within`, {
+      params: { parentEntity, childType, variables, date: date || "LATEST" },
+      paramsSerializer: stringifyFn,
+    })
+    .then((resp) => {
+      const respData = resp.data;
+      const result = {};
+      for (const svDcid of Object.keys(respData.data)) {
+        result[svDcid] = {};
+        if (_.isEmpty(respData.data[svDcid][FACET_WITHIN_ENTITY])) {
+          continue;
+        }
+        respData.data[svDcid][FACET_WITHIN_ENTITY].forEach((obs) => {
+          if (obs.facet && respData.facets[obs.facet]) {
+            result[svDcid][obs.facet] = respData.facets[obs.facet];
+          }
+        });
+      }
+      return result;
+    });
+}
+
+/**
+ * Gets the available facets for each variable given a list of entities.
+ * @param apiRoot api root
+ * @param entities entities to get available facets for
+ * @param variables variables to get available facets for
+ */
+export function getFacets(
+  apiRoot: string,
+  entities: string[],
+  variables: string[]
+): Promise<FacetResponse> {
+  return axios
+    .get<SeriesAllApiResponse>(`${apiRoot || ""}/api/facets`, {
+      params: { entities, variables },
+      paramsSerializer: stringifyFn,
+    })
+    .then((resp) => {
+      const respData = resp.data;
+      const result = {};
+      for (const svDcid of Object.keys(respData.data)) {
+        result[svDcid] = {};
+        if (_.isEmpty(respData.data[svDcid])) {
+          continue;
+        }
+        for (const placeDcid of Object.keys(respData.data[svDcid])) {
+          if (_.isEmpty(respData.data[svDcid][placeDcid])) {
+            continue;
+          }
+          respData.data[svDcid][placeDcid].forEach((series) => {
+            if (series.facet && respData.facets[series.facet]) {
+              result[svDcid][series.facet] = respData.facets[series.facet];
+            }
+          });
+        }
+      }
+      return result;
+    });
 }

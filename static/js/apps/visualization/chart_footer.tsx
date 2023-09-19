@@ -19,7 +19,7 @@
  */
 
 import React from "react";
-import { FormGroup, Input, Label } from "reactstrap";
+import { Input } from "reactstrap";
 
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
@@ -36,6 +36,7 @@ export interface InputInfo {
 
 interface ChartFooterPropType {
   inputSections: { label?: string; inputs: InputInfo[] }[];
+  facetSelector: React.ReactNode;
 }
 
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
@@ -74,6 +75,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
           </div>
         );
       })}
+      {props.facetSelector}
     </div>
   );
 }
