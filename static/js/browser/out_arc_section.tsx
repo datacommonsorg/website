@@ -93,16 +93,16 @@ export class OutArcSection extends React.Component<
     if (!_.isEmpty(this.state.errorMessage)) {
       return <div className="error-message">{this.state.errorMessage}</div>;
     }
-    if (_.isEmpty(this.state.data)) {
-      return <div className="info-message">{this.notANodeMessage}</div>;
-    }
-    const data = this.state.data;
+    const data = this.state.data || {};
     if (this.props.nodeTypes.includes(STAT_VAR_OBS_DCID)) {
       data[TYPEOF_PREDICATE] = {
         [STAT_VAR_OBS_PROVENANCE]: [
           { text: STAT_VAR_OBS_DCID, dcid: STAT_VAR_OBS_DCID },
         ],
       };
+    }
+    if (_.isEmpty(data)) {
+      return <div className="info-message">{this.notANodeMessage}</div>;
     }
     const predicates = Object.keys(this.state.data);
     predicates.sort(this.predicateComparator);
