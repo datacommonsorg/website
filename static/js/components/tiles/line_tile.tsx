@@ -52,6 +52,8 @@ import {
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
+const EMPTY_FACET_ID_KEY = "empty";
+
 export interface LineTilePropType {
   // API root
   apiRoot?: string;
@@ -163,31 +165,71 @@ export function getReplacementStrings(
 }
 
 export const fetchData = async (props: LineTilePropType) => {
-  const statVars = [];
+  const facetToVariable = { [EMPTY_FACET_ID_KEY]: [] };
   for (const spec of props.statVarSpec) {
-    statVars.push(spec.statVar);
+    const facetId = spec.facetId || EMPTY_FACET_ID_KEY;
+    if (!facetToVariable[facetId]) {
+      facetToVariable[facetId] = [];
+    }
+    facetToVariable[facetId].push(spec.statVar);
     if (spec.denom) {
-      statVars.push(spec.denom);
+      facetToVariable[EMPTY_FACET_ID_KEY].push(spec.denom);
     }
   }
 
-  let dataPromise: Promise<SeriesApiResponse>;
-  if (!_.isEmpty(props.comparisonPlaces)) {
-    dataPromise = getSeries(props.apiRoot, props.comparisonPlaces, statVars);
-  } else if (props.enclosedPlaceType) {
-    dataPromise = getSeriesWithin(
-      props.apiRoot,
-      props.place.dcid,
-      props.enclosedPlaceType,
-      statVars
-    );
-  } else {
-    dataPromise = getSeries(props.apiRoot, [props.place.dcid], statVars);
+  const dataPromises: Promise<SeriesApiResponse>[] = [];
+  for (const facetId of Object.keys(facetToVariable)) {
+    if (_.isEmpty(facetToVariable[facetId])) {
+      continue;
+    }
+    let facetIds = null;
+    if (facetId !== EMPTY_FACET_ID_KEY) {
+      facetIds = [facetId];
+    }
+    if (!_.isEmpty(props.comparisonPlaces)) {
+      dataPromises.push(
+        getSeries(
+          props.apiRoot,
+          props.comparisonPlaces,
+          facetToVariable[facetId],
+          facetIds
+        )
+      );
+    } else if (props.enclosedPlaceType) {
+      dataPromises.push(
+        getSeriesWithin(
+          props.apiRoot,
+          props.place.dcid,
+          props.enclosedPlaceType,
+          facetToVariable[facetId],
+          facetIds
+        )
+      );
+    } else {
+      dataPromises.push(
+        getSeries(
+          props.apiRoot,
+          [props.place.dcid],
+          facetToVariable[facetId],
+          facetIds
+        )
+      );
+    }
   }
 
+  const dataPromise: Promise<SeriesApiResponse> = Promise.all(
+    dataPromises
+  ).then((statResponses) => {
+    const mergedResponse = { data: {}, facets: {} };
+    statResponses.forEach((resp) => {
+      mergedResponse.data = Object.assign(mergedResponse.data, resp.data);
+      mergedResponse.facets = Object.assign(mergedResponse.facets, resp.facets);
+    });
+    return mergedResponse;
+  });
   const resp = await dataPromise;
   // get place names from dcids
-  const placeDcids = Object.keys(resp.data[statVars[0]]);
+  const placeDcids = Object.keys(resp.data[props.statVarSpec[0].statVar]);
   const statVarNames = await getStatVarNames(
     props.statVarSpec,
     props.apiRoot,
@@ -202,9 +244,9 @@ export const fetchData = async (props: LineTilePropType) => {
   // If neither options are set, default to showing stat vars in legend labels
   const options = {
     // If many places and one stat var, legend should show only place labels
-    usePlaceLabels: statVars.length == 1 && placeDcids.length > 1,
+    usePlaceLabels: props.statVarSpec.length == 1 && placeDcids.length > 1,
     // If many places and many stat vars, legends need to show both
-    useBothLabels: statVars.length > 1 && placeDcids.length > 1,
+    useBothLabels: props.statVarSpec.length > 1 && placeDcids.length > 1,
   };
   return rawToChart(resp, props, placeNames, statVarNames, options);
 };

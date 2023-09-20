@@ -23,12 +23,14 @@ import React from "react";
 
 import { LineTile } from "../../../components/tiles/line_tile";
 import { Chip } from "../../../shared/chip";
+import { FacetSelector } from "../../../shared/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import { getTimelineSqlQuery } from "../../../tools/timeline/bq_query_utils";
 import { getStatVarGroups } from "../../../utils/app/timeline_utils";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
+import { getFacets } from "../../../utils/data_fetch_utils";
 import { AppContextType, ContextStatVar } from "../app_context";
 import { ChartFooter } from "../chart_footer";
 import { VisType } from "../vis_type_configs";
@@ -90,6 +92,54 @@ function groupStatVars(appContext: AppContextType): {
   return lineChartGrouping;
 }
 
+function getFacetSelector(
+  appContext: AppContextType,
+  chartSvInfo: ContextStatVar[]
+): JSX.Element {
+  const svFacetId = {};
+  chartSvInfo.forEach((sv) => {
+    svFacetId[sv.dcid] = sv.facetId;
+  });
+  const facetListPromise = getFacets(
+    "",
+    appContext.places.map((place) => place.dcid),
+    chartSvInfo.map((sv) => sv.dcid)
+  ).then((resp) => {
+    const result = chartSvInfo.map((sv) => {
+      return {
+        dcid: sv.dcid,
+        name: sv.info.title || sv.dcid,
+        metadataMap: resp[sv.dcid] || {},
+      };
+    });
+    return result;
+  });
+  const chartSvs = new Set(chartSvInfo.map((sv) => sv.dcid));
+  const onSvFacetIdUpdated = (svFacetId: Record<string, string>) => {
+    const facetsChanged = chartSvInfo.filter(
+      (sv) => sv.facetId !== svFacetId[sv.dcid]
+    );
+    if (_.isEmpty(facetsChanged)) {
+      return;
+    }
+    const newStatVars = _.cloneDeep(appContext.statVars);
+    appContext.statVars.forEach((sv, idx) => {
+      if (chartSvs.has(sv.dcid) && sv.dcid in svFacetId) {
+        newStatVars[idx].facetId = svFacetId[sv.dcid];
+      }
+    });
+    appContext.setStatVars(newStatVars);
+  };
+
+  return (
+    <FacetSelector
+      svFacetId={svFacetId}
+      facetListPromise={facetListPromise}
+      onSvFacetIdUpdated={onSvFacetIdUpdated}
+    />
+  );
+}
+
 function getChartArea(
   appContext: AppContextType,
   chartHeight: number
@@ -141,9 +191,10 @@ function getChartArea(
               showLoadingSpinner={true}
               showTooltipOnHover={true}
             />
-            {!_.isEmpty(chartPCInputs) && (
-              <ChartFooter inputSections={[{ inputs: chartPCInputs }]} />
-            )}
+            <ChartFooter
+              inputSections={[{ inputs: chartPCInputs }]}
+              facetSelector={getFacetSelector(appContext, chartSvInfo)}
+            />
           </div>
         );
       })}

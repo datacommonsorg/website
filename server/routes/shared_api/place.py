@@ -388,7 +388,8 @@ def api_mapinfo(dcid):
   up = -90
   down = 90
   coordinate_sequence_set = []
-  kmlCoordinates = fetch.property_values([dcid], 'kmlCoordinates')[dcid]
+  kmlCoordinates = fetch.property_values([dcid],
+                                         'kmlCoordinates').get(dcid, None)
   if not kmlCoordinates:
     return {}
 
