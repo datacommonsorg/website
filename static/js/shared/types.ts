@@ -206,6 +206,7 @@ export interface StatVarSpec {
   // not make sense.
   // Set to "true" to block toggling per capita in subject pages.
   noPerCapita?: boolean;
+  facetId?: string;
 }
 
 export interface SampleDates {

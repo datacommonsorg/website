@@ -98,6 +98,8 @@ message StatVarSpec {
   string date = 7;
   // [Optional] Whether to prevent this variable from being shown per capita. 
   bool no_per_capita = 8;
+  // [Optional] If set, only get data from facet with this id.
+  string facet_id = 9;
 }
 
 // This ranks across child places for a single stat var.

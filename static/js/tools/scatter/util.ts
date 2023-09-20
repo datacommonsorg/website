@@ -60,7 +60,7 @@ export const SCATTER_URL_PATH = "/tools/scatter";
 export async function getStatWithinPlace(
   parentPlace: string,
   childType: string,
-  statVars: { statVarDcid: string; date?: string }[],
+  statVars: { statVarDcid: string; date?: string; facetId?: string }[],
   apiRoot?: string
 ): Promise<PointApiResponse> {
   // There are two stat vars for scatter plot.
@@ -74,13 +74,16 @@ export async function getStatWithinPlace(
     if (statVar.date) {
       dataDate = statVar.date;
     }
+    const facetIds = statVar.facetId ? [statVar.facetId] : null;
     promises.push(
       getPointWithin(
         apiRoot,
         childType,
         parentPlace,
         [statVar.statVarDcid],
-        dataDate
+        dataDate,
+        [],
+        facetIds
       )
     );
   }

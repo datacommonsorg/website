@@ -20,6 +20,7 @@
 @import "../tiles.scss";
 @import "../draw_scatter.scss";
 @import "../bq_modal";
+@import "../source_selector";
 
 $selector-footer-height: 40px;
 
@@ -557,6 +558,10 @@ $selector-footer-height: 40px;
       }
     }
 
+    .source-selector-open-modal-button {
+      margin-top: 0;
+    }
+    
     .footer {
       font-size: 13px;
     }

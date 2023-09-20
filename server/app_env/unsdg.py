@@ -21,6 +21,7 @@ class Config(_base.Config):
   GA_ACCOUNT = 'G-7QE2ET63E5'
   SHOW_TOPIC = True
   NAME = "Data Commons"
+  LOG_QUERY = True
   LOGO_PATH = "/custom_dc/unsdg/logo.png"
   OVERRIDE_CSS_PATH = '/custom_dc/unsdg/overrides.css'
   SHOW_DISASTER = False
