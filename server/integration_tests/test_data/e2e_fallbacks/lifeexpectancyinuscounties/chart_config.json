@@ -68,6 +68,68 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Female Life Expectancy in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Male Life Expectancy in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "LifeExpectancy_Person_Female",
                       "LifeExpectancy_Person_Male"
                     ],
