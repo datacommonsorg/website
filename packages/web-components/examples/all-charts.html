@@ -70,6 +70,10 @@
         font-size: 0.85rem;
         font-weight: 200;
       }
+      #highlight-styled {
+        --dc-headings-font-family: monospace;
+        --dc-font-family: serif;
+      }
     </style>
   </head>
   <body style="max-width: 40vw; margin: auto">
@@ -200,6 +204,13 @@
       date="2020"
     ></datacommons-highlight>
     <datacommons-highlight
+      description="Population of the United States (styled fonts)"
+      id="highlight-styled"
+      place="country/USA"
+      variable="Count_Person"
+      date="2020"
+    ></datacommons-highlight>
+    <datacommons-highlight
       apiroot="https://dev.datacommons.org/"
       header="Population With Moderate or Severe Food Insecurity in United States"
       variable="sdg/AG_PRD_FIESMSN"
@@ -211,6 +222,7 @@
       variable="sdg/ER_GRF_ANIMRCNTN"
       place="country/USA"
     ></datacommons-highlight>
+
     <h2>Map</h2>
     <datacommons-map
       header="Population"
