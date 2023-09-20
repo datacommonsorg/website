@@ -162,6 +162,65 @@ function getTextLength(text: string): number {
   };
 };
 
+
+// Gets a promise for a single tile result
+function getTileResult(
+  id: string,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  svSpec: StatVarSpec[],
+  tileConfig: TileConfig
+): Promise<TileResult> {
+  switch (tileConfig.type) {
+    case "LINE":
+      return getLineTileResult(
+          id,
+          tileConfig,
+          place,
+          svSpec,
+          CONFIG.apiRoot,
+          "",
+          false
+        )
+    case "SCATTER":
+      return getScatterTileResult(
+          id,
+          tileConfig,
+          place,
+          enclosedPlaceType,
+          svSpec,
+          CONFIG.apiRoot,
+          "",
+          false
+        );
+    case "BAR":
+      return getBarTileResult(
+          id,
+          tileConfig,
+          place,
+          enclosedPlaceType,
+          svSpec as any as StatVarSpec[],
+          CONFIG.apiRoot,
+          "",
+          false
+        )
+      break;
+    case "MAP":
+      return getMapTileResult(
+          id,
+          tileConfig,
+          place,
+          enclosedPlaceType,
+          svSpec[0],
+          CONFIG.apiRoot,
+          "",
+          false
+      );
+    default:
+      return Promise.resolve(null);
+  }
+}
+
 // Get a list of tile result promises for all the tiles in the block
 function getBlockTileResults(
   id: string,
@@ -537,6 +596,36 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
       res.status(500).send(null);
     });
 });
+
+app.get("/nodejs/chart-info", (req: Request, res: Response) => {
+  const place = _.escape(req.query[CHART_URL_PARAMS.PLACE] as string);
+  const enclosedPlaceType = _.escape(
+    req.query[CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE] as string
+  );
+  const svSpec = JSON.parse(
+    req.query[CHART_URL_PARAMS.STAT_VAR_SPEC] as string
+  );
+  const tileConfig = JSON.parse(
+    req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
+  );
+  res.setHeader("Content-Type", "application/json");
+  const namedTypedPlace = { dcid: place, name: place, types: []}
+  getTileResult("TEST", namedTypedPlace, enclosedPlaceType, svSpec, tileConfig)
+  .then((tileResult) => {
+    /*
+    const container = document.createElement("div");
+    const img = document.createElement("img");
+    img.src = tileResult.svg;
+    container.appendChild(img);
+  res.setHeader("Content-Type", "text/html").send(container.outerHTML);*/
+    res
+      .status(200)
+      .send(JSON.stringify(tileResult));
+  })
+  .catch(() => {
+    res.status(500).send({ err: "Error fetching data." });
+  });
+})
 
 app.get("/nodejs/healthz", (_, res: Response) => {
   res.status(200).send("Node Server Ready");
