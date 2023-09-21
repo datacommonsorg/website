@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import allowedPlaces from "../config/allowed_places.json";
+import placesDenylist from "../config/placesDenylist.json";
 import { Place } from "../state";
 import { COUNTRY_PLACE_TYPE } from "./constants";
 import {
@@ -23,7 +25,6 @@ import {
   FulfillResponse,
   FullfillRequest,
 } from "./types";
-import allowedPlaces from "../config/allowed_places.json"
 
 interface DatacommonsClientParams {
   apiRoot?: string;
@@ -89,7 +90,9 @@ class DataCommonsClient {
       const shouldFilterPlaces = placeType in allowedPlaces;
       let typeAllowedPlaces: Record<string, string>;
       if (shouldFilterPlaces) {
-        typeAllowedPlaces = (allowedPlaces as Record<string, Record<string, string>>)[placeType];
+        typeAllowedPlaces = (
+          allowedPlaces as Record<string, Record<string, string>>
+        )[placeType];
       }
       placeTypeResult.forEach((place: any) => {
         // Only return places with name property because that is needed for the
@@ -100,7 +103,13 @@ class DataCommonsClient {
         if (shouldFilterPlaces && !(place.dcid in typeAllowedPlaces)) {
           return;
         }
-        result.push({ dcid: place.dcid, name: place.unDataLabel || place.name });
+        if (place.dcid in placesDenylist) {
+          return;
+        }
+        result.push({
+          dcid: place.dcid,
+          name: place.unDataLabel || place.name,
+        });
       });
     });
     return result;

@@ -1,10 +1,6 @@
 <html>
   <head>
     <!-- https://gist.github.com/dwnoble/822ce6018bb41113c866d703760c1def -->
-    <link
-      rel="stylesheet"
-      href="https://datacommons.org/css/datacommons.min.css"
-    />
     <script src="https://datacommons.org/datacommons.js"></script>
     <style>
       /**
@@ -69,6 +65,10 @@
         color: grey;
         font-size: 0.85rem;
         font-weight: 200;
+      }
+      #highlight-styled {
+        --dc-headings-font-family: monospace;
+        --dc-font-family: serif;
       }
     </style>
   </head>
@@ -200,6 +200,13 @@
       date="2020"
     ></datacommons-highlight>
     <datacommons-highlight
+      description="Population of the United States (styled fonts)"
+      id="highlight-styled"
+      place="country/USA"
+      variable="Count_Person"
+      date="2020"
+    ></datacommons-highlight>
+    <datacommons-highlight
       apiroot="https://dev.datacommons.org/"
       header="Population With Moderate or Severe Food Insecurity in United States"
       variable="sdg/AG_PRD_FIESMSN"
@@ -211,6 +218,7 @@
       variable="sdg/ER_GRF_ANIMRCNTN"
       place="country/USA"
     ></datacommons-highlight>
+
     <h2>Map</h2>
     <datacommons-map
       header="Population"
@@ -240,12 +248,15 @@
       childPlaceType="State"
       variable="Count_Person"
     ></datacommons-map>
+    <h2>UN Map Comparisons</h2>
     <datacommons-map
+      header="World Bank Boundaries - Earth"
       parentPlace="Earth"
       childPlaceType="Country"
       variable="Count_Person"
     ></datacommons-map>
     <datacommons-map
+      header="UN Boundaries - Earth"
       parentPlace="Earth"
       childPlaceType="Country"
       variable="Count_Person"

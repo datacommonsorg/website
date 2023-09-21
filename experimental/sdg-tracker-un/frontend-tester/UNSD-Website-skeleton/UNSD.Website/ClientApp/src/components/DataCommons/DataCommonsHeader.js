@@ -1,10 +1,9 @@
-﻿import React, { Component, Fragment } from 'react';
-import TopNavigation from '../molecule/DataCommons/topnavigation';
+﻿import React, { Component } from 'react';
+import { isMobile } from '../../script/Commonfunctions';
 import Global from '../molecule/DataCommons/global';
 import Menu from '../molecule/DataCommons/menu';
 import MobileMenu from '../molecule/DataCommons/mobilemenu';
-import { isMobile } from '../../script/Commonfunctions';
-import { Layout } from 'antd';
+import TopNavigation from '../molecule/DataCommons/topnavigation';
 
 export default class DataCommonsHeaderInfo extends Component {
     constructor(props) {
@@ -19,7 +18,7 @@ export default class DataCommonsHeaderInfo extends Component {
        
         return (
 
-            <React.Fragment>
+            <div className="headercontainer">
                 <div className="topnavigation">
                     <div className="container">
                         <TopNavigation />
@@ -37,7 +36,7 @@ export default class DataCommonsHeaderInfo extends Component {
                         <Menu />
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
             
         );
     }

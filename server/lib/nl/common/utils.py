@@ -322,9 +322,9 @@ def has_map(place_type: any, place: types.Place) -> bool:
   if isinstance(place_type, str):
     place_type = types.ContainedInPlaceType(place_type)
   if place_type == types.ContainedInPlaceType.COUNTRY:
-    if place.dcid in constants.NO_MAP_SUPER_NATIONAL_GEOS:
-      return False
-    return True
+    if place.dcid in constants.MAP_ONLY_SUPER_NATIONAL_GEOS:
+      return True
+    return False
 
   aatype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, None)
   if aatype and place.country and place.country in constants.ADMIN_AREA_MAP_COUNTRIES:

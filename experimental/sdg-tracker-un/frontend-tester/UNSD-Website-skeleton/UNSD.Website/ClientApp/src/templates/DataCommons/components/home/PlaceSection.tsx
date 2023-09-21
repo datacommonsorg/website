@@ -22,6 +22,8 @@ import {
   SectionDescription,
   SectionHeader,
 } from "./components";
+// @ts-ignore
+import { routePathConstants } from "../../../../../src/helper/Common/RoutePathConstants";
 
 const Container = styled(HomeSection)`
   background: rgb(213, 235, 245);
@@ -38,12 +40,12 @@ const Header = styled(SectionHeader)`
 const SearchCard = styled.div`
   background: white;
   border-radius: 10px;
-  border: 1px solid #414042;
-  box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 6px rgba(3, 7, 18, 0.04),
+    0px 1px 24px rgba(3, 7, 18, 0.08);
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 1rem auto;
+  padding: 3rem 2rem;
 `;
 
 const SearchBarContainer = styled(HomeSearchContainer)`
@@ -68,14 +70,14 @@ const SearchBarContainer = styled(HomeSearchContainer)`
 
         input {
           height: 100% !important;
-          padding-left: 30px;
+          padding-left: 10px;
         }
       }
 
       .ant-select-selection-placeholder {
         height: 100% !important;
         font-style: italic;
-        padding-left: 30px;
+        padding-left: 10px;
         display: flex;
         align-items: center;
       }
@@ -85,7 +87,7 @@ const SearchBarContainer = styled(HomeSearchContainer)`
 
 const ColorBar = styled.div`
   background-image: url("./images/datacommons/sdg-color-bar.png");
-  height: 16px;
+  height: 10px;
 `;
 
 export const PlaceSection = () => {
@@ -102,11 +104,13 @@ export const PlaceSection = () => {
       <ColorBar />
       <Container>
         <SearchCard>
-          <Header>Explore SDG Data by Countries and Regions</Header>
+          <Header>Explore SDG Data by Countries or Areas</Header>
           <SearchBarContainer>
             <CountrySelect
               setSelectedPlaceDcid={(placeDcid) =>
-                history.push(`/countries?p=${placeDcid}`)
+                history.push(
+                  `${routePathConstants.DATA_COMMONS}countries?p=${placeDcid}`
+                )
               }
               style={countrySelectStyle}
             />

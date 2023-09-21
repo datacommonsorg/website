@@ -56,6 +56,7 @@ export interface ContextStatVar {
   isLog?: boolean;
   date?: string;
   denom?: string;
+  facetId?: string;
 }
 
 export interface AppContextType {

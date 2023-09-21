@@ -13,6 +13,7 @@
     "geoId/06"
   ],
   "sessionId": "007_999999999",
+  "test": "unittest",
   "variables": [
     "dc/topic/CommuteTime",
     "dc/topic/WorkCommute",
