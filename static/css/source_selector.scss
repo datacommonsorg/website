@@ -44,6 +44,7 @@ $color-byline: #7b7b7b;
   overflow-y: scroll;
   word-break: break-word;
   padding: 1rem 1.5rem;
+  align-items: stretch;
 }
 
 .source-selector-modal .modal-content {
@@ -118,4 +119,12 @@ $color-byline: #7b7b7b;
 .source-selector-import-trigger-closed .material-icons {
   font-size: $font-size-large;
   padding-right: 0.5rem;
+}
+
+.source-selector-open-modal-button {
+  font-size: 0.8rem;
+  color: var(--link-color);
+  margin-left: -0.5rem;
+  width: fit-content;
+  margin-top: 0.5rem;
 }

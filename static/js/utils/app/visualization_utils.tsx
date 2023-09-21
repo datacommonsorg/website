@@ -258,6 +258,7 @@ export function getStatVarSpec(
     statVar: sv.dcid,
     unit: "",
     date: visType !== VisType.TIMELINE ? sv.date : "",
+    facetId: sv.facetId || "",
   };
 }
 
