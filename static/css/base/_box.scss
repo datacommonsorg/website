@@ -18,8 +18,8 @@
  * Base styling variables to use for box attributes
  * (i.e., padding, border, margin, etc)
  */
-
-:root {
+:root,
+:host {
   --border-primary: 1px solid var(--gm-3-ref-neutral-neutral-90);
   --border-radius-primary: 8px;
 }
