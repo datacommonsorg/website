@@ -74,5 +74,7 @@ class Config:
   DATA_SOURCE_NAME = ''
   # Should hide debug info
   HIDE_DEBUG = True
-  # footer note to show in the map tool
+  # Footer note to show in the map tool
   MAP_TOOL_FOOTER = ""
+  # The default property to use for getting geojsons
+  GEO_JSON_PROP = "geoJsonCoordinates"

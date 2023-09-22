@@ -28,6 +28,7 @@ class Config(_base.Config):
   USE_PALM = True
   ENABLE_PER_CAPITA = False
   MAP_TOOL_FOOTER = "The boundaries and names shown and the designations used on this and other maps throughout this publication do not imply official endorsement or acceptance by the United Nations."
+  GEO_JSON_PROP = "geoJsonCoordinatesUN"
 
 
 class LocalConfig(Config, local.Config):
