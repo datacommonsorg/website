@@ -49,8 +49,7 @@ function getTileProp(
         p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
       )
     : undefined;
-  const useLollipop =
-    tileConfig.barTileSpec && tileConfig.barTileSpec.useLollipop;
+  const barTileSpec = tileConfig.barTileSpec || {};
   return {
     id,
     title: tileConfig.title,
@@ -60,7 +59,9 @@ function getTileProp(
     apiRoot,
     svgChartHeight: SVG_HEIGHT,
     comparisonPlaces,
-    useLollipop,
+    useLollipop: barTileSpec.useLollipop || false,
+    stacked: barTileSpec.stacked || false,
+    horizontal: barTileSpec.horizontal || false
   };
 }
 
