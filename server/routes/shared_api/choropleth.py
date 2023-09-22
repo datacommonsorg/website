@@ -238,7 +238,7 @@ def geojson():
     place_dcid, place_type = get_choropleth_display_level(place_dcid)
   place_name_prop = request.args.get("placeNameProp")
   geojson_prop = request.args.get("geoJsonProp",
-                                  CHOROPLETH_DEFAULT_GEOJSON_PROP)
+                                  current_app.config["GEO_JSON_PROP"])
   cached_geojson = current_app.config['CACHED_GEOJSONS'].get(
       place_dcid, {}).get(place_type, {}).get(geojson_prop, {})
   if cached_geojson:
