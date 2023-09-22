@@ -36,7 +36,7 @@ import {
 } from "../js/utils/disaster_event_map_utils";
 import { getTileEventTypeSpecs } from "../js/utils/tile_utils";
 import { getBarChart, getBarTileResult } from "../nodejs_server/bar_tile";
-import { CHART_URL_PARAMS } from "../nodejs_server/constants";
+import { CHART_ID, CHART_URL_PARAMS } from "../nodejs_server/constants";
 import {
   getDisasterMapChart,
   getDisasterMapTileResult,
@@ -552,7 +552,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
             .send(JSON.stringify({ charts: filteredResults, debug }));
         })
         .catch(() => {
-          res.status(500).send({ err: "Error fetching data." });
+          res.status(500).send({ err: "Error fetching data." }); []
         });
     })
     .catch((error) => {
@@ -597,6 +597,7 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
     });
 });
 
+// TODO: come up with better params
 app.get("/nodejs/chart-info", (req: Request, res: Response) => {
   const place = _.escape(req.query[CHART_URL_PARAMS.PLACE] as string);
   const enclosedPlaceType = _.escape(
@@ -610,14 +611,8 @@ app.get("/nodejs/chart-info", (req: Request, res: Response) => {
   );
   res.setHeader("Content-Type", "application/json");
   const namedTypedPlace = { dcid: place, name: place, types: []}
-  getTileResult("TEST", namedTypedPlace, enclosedPlaceType, svSpec, tileConfig)
+  getTileResult(CHART_ID, namedTypedPlace, enclosedPlaceType, svSpec, tileConfig)
   .then((tileResult) => {
-    /*
-    const container = document.createElement("div");
-    const img = document.createElement("img");
-    img.src = tileResult.svg;
-    container.appendChild(img);
-  res.setHeader("Content-Type", "text/html").send(container.outerHTML);*/
     res
       .status(200)
       .send(JSON.stringify(tileResult));
