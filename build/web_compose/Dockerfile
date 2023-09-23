@@ -72,7 +72,10 @@ RUN npm run-script build
 COPY server/. /workspace/server/
 COPY shared/. /workspace/shared/
 
+ENV USE_SQLITE=false
+ENV USE_CLOUDSQL=false
+
 WORKDIR /workspace
 COPY build/web_compose/compose.sh .
 EXPOSE 8080 8081
-CMD ./compose.sh $USE_SQLITE $SQLITE_PATH
+CMD ./compose.sh $USE_SQLITE $USE_CLOUDSQL $SQL_DATA_PATH $CLOUDSQL_INSTANCE
