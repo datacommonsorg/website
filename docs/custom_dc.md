@@ -1,9 +1,9 @@
 # Custom Data Commons
 
-A custom Data Commons can hold new data and include UI modification that are
+A custom Data Commons can hold new data and include UI modifications that are
 sutiable to a third party's need.
 
-This document illustrates developent and deployment details for a custom Data
+This document illustrates development and deployment details for a custom Data
 Commons instance.
 
 ## Prerequisit
@@ -15,7 +15,7 @@ Commons instance.
 ## API Key
 
 - A custom Data Commons needs to connect with main Data Commons. Get API key for
-  mixer by sending an email to `support@datacommons.org`.
+  Data Commons by sending an email to `support@datacommons.org`.
 
 - [Optional] Provision a Google Maps API key from your GCP project. This is
   optional and used for place search in visualization tools. Refer to [Maps API
@@ -49,7 +49,7 @@ The first column header is a property that identifies the observed entity,
 supported properties are `dcid`, `name`, `geoId`. When `dcid` is used, the
 entity should have been resolved (from a previous step).
 
-## UI Update
+## UI Updates
 
 Make changes in this repo, commit the change via `git commit` command and then
 build a new docker image:
@@ -74,7 +74,7 @@ Start custom Data Commons instance by running:
 
 ```bash
 docker run -it --pull=always \
--e MIXER_API_KEY=<YOUR_MIXER_API_KEY> \
+-e DC_API_KEY=<YOUR_DC_API_KEY> \
 -e MAPS_API_KEY=<YOUR_MAPS_API_KEY> \
 -e FLASK_ENV=custom \
 -e ENV_PREFIX=Compose \
@@ -105,7 +105,8 @@ approach can still be used. Note you need to copy the data folders into the
 cloud disk and mount it to the docker container then specify the enviornment
 variables based on the requirements of the cloud providers.
 
-We also provided a specific deployment setup on GCP that is based on Cloud SQL.
+We have also provided a specific deployment setup on GCP that is based on Cloud
+SQL.
 
 ### Setup Cloud SQL
 
@@ -119,8 +120,8 @@ form of "<project>:<region>:dc-graph"
 
 Google Cloud Storage is used to hold the data CSV files. From the [Cloud
 Console](https://console.cloud.google.com/storage/browser), create a new bucket
-or pick up an existing bucket and upload the data CSV files there. It's
-recommended to create intermediate folders for the files for easier managment.
+or pick an existing bucket and upload the data CSV files there. It's recommended
+to create intermediate folders for the files for easier management.
 
 ### Upload Data Files
 
@@ -134,7 +135,7 @@ application-default login` to get a credential json file locally. Then run:
 
 ```bash
 docker run -it \
--e MIXER_API_KEY=<YOUR_MIXER_API_KEY> \
+-e DC_API_KEY=<YOUR_DC_API_KEY> \
 -e MAPS_API_KEY=<YOUR_MAPS_API_KEY> \
 -e FLASK_ENV=custom \
 -e ENV_PREFIX=Compose \
@@ -163,8 +164,8 @@ gcloud run deploy datacommons \
 --set-env-vars SQL_DATA_PATH=<gs://bucket-name/.../> \
 --set-env-vars USE_CLOUDSQL=true \
 --set-env-vars CLOUDSQL_INSTANCE=<project>:<region>:dc-graph \
---set-env-vars MIXER_API_KEY= \
---set-env-vars MAPS_API_KEY= \
+--set-env-vars DC_API_KEY=<YOUR_DC_API_KEY> \
+--set-env-vars MAPS_API_KEY=<YOUR_MAPS_API_KEY> \
 --set-env-vars FLASK_ENV=custom \
 --set-env-vars ENV_PREFIX=Compose \
 --set-env-vars USE_LOCAL_MIXER=true \

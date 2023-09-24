@@ -13,11 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-USE_SQLITE=$1
-USE_CLOUDSQL=$2
-SQL_DATA_PATH=$3
-CLOUDSQL_INSTANCE=$4
+export MIXER_API_KEY=$DC_API_KEY
 
 /go/bin/mixer \
     --use_bigquery=false \
@@ -28,7 +24,7 @@ CLOUDSQL_INSTANCE=$4
     --use_sqlite=$USE_SQLITE \
     --use_cloudsql=$USE_CLOUDSQL \
     --cloudsql_instance=$CLOUDSQL_INSTANCE \
-    --remote_mixer_domain=https://api.datacommons.org &
+    --remote_mixer_domain=$REMOTE_MIXER_DOMAIN &
 
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 
