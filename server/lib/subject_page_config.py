@@ -251,7 +251,9 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
 def place_metadata(place_dcid,
                    get_child_places=True,
                    arg_place_type=None,
-                   arg_place_name=None) -> PlaceMetadata:
+                   arg_place_name=None,
+                   arg_child_places_sortbyname=False,
+                   arg_limit_child_places=True) -> PlaceMetadata:
   """
   Returns place metadata needed to render a subject page config for a given dcid.
   """
@@ -298,9 +300,12 @@ def place_metadata(place_dcid,
   if get_child_places:
     child_places = place_api.child_fetch(place_dcid)
     for place_type in child_places:
-      child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
-      child_places[place_type] = child_places[place_type][:place_api.
-                                                          CHILD_PLACE_LIMIT]
+      if arg_child_places_sortbyname:
+        child_places[place_type].sort(key=lambda x: x['name'], reverse=False)
+      else:
+        child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
+      if arg_limit_child_places:
+        child_places[place_type] = child_places[place_type][:place_api.CHILD_PLACE_LIMIT]
 
     # Filter out unsupported place types
     supported_place_types = set(contained_place_types.keys())

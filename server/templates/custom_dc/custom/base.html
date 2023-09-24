@@ -34,9 +34,18 @@
 <html lang={{ locale }} id={{ page_id }}>
 
 <head>
+  {# Google Tag Manager #}
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T94G38VL');</script>
+  {# End Google Tag Manager #}
+
   <title>Data Commons for Civil Society</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="/custom_dc/custom/favicon.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
@@ -48,6 +57,11 @@
 </head>
 
 <body>
+  {# Google Tag Manager (noscript) #}
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T94G38VL"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  {# End Google Tag Manager (noscript) #}
+  
   <div id="main">
     <header id="main-header">
       <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
@@ -60,7 +74,7 @@
                 </a>
             </div>
             {% endif %}
-            <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
+            <a id="brand-name-link" href="{{ url_for('static.homepage') }}"><div id="brand-name-title">Data Commons</div><div id="brand-name-subtitle">for Civil Society</div></a>
             {% if subpage_title %}
             <span>
               {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
@@ -75,6 +89,9 @@
           </button>
           <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
             <ul class="navbar-nav float-md-right">
+              <li class="nav-item dropdown">
+                <a href="{{ url_for('place.place') }}" id="nav-place" class="nav-link-main "><span>Places</span></a>
+              </li>
                 <li class="nav-item dropdown">
                     <a href="{{ url_for('tools.timeline') }}" id="nav-timeline" class="nav-link-main "><span>Timeline</span></a>
                 </li>
@@ -104,13 +121,13 @@
     <footer id="main-footer">
       <div class="container">
         <div class="row">
-          <div id="sub-footer" class="col-12">
-            <span>Data Commons is a Google supported project</span>
+          <div {# id="sub-footer" #} class="col-12">
+            <span>Powered by Google's <a href="https://www.datacommons.org" target="_blank">Data Commons</a></span>
             <div class="float-md-right mt-3 mt-md-0">
               {% block subfooter_extra %}{% endblock %}
-              <a href="#">Terms of Use ›</a>
-              <a href="#">Privacy Policy ›</a>
-              <a href="#">Contact Us ›</a>
+              <a href="https://www.techsoup.org/termsofuse" target="_blank">Terms of Use ›</a>
+              <a href="https://www.techsoup.org/privacypolicy" target="_blank">Privacy Policy ›</a>
+              <a href="mailto:datacommons@techsoup.org">Contact Us ›</a>
             </div>
           </div>
         </div>

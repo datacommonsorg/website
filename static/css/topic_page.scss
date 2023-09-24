@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
+/* TECHSOUP: Add searchbox and child places to topic page */
+@use "./base_subject_page";
+@use "./place/place_search";
+
 @use "./shared/subject_page";
+
 @import "./base";
 @import "./draw";
 @import "./draw_choropleth";
@@ -51,3 +56,4 @@
   margin-bottom: 0;
   padding-right: 0.5rem;
 }
+

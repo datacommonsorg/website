@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 TechSoup Global
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,518 +17,440 @@
 metadata {
   topic_id: "foodsecurity"
   topic_name: "Food Security"
+#  place_group {
+#    parent_place: "Earth"
+#    place_type: "Country"
+#  }
+
   place_dcid: "country/USA"
+  place_group {
+    parent_place: "country/USA"
+    place_type: "State"
+  }
+  place_group {
+    parent_place: "country/USA"
+    place_type: "County"
+  }
+  place_group{
+    parent_place: "country/USA"
+    place_type: "City"
+  }
   contained_place_types {
     key: "Country"
     value: "State"
   }
+  contained_place_types {
+    key: "State"
+    value: "County"
+  }
+  contained_place_types {
+    key: "County"
+    value: "City"
+  }
+  contained_place_types {
+    key: "City"
+    value: "CensusTract"
+  }
 }
 
 categories {
-  title: "Overview"
+  title: "Poverty"
 
+#------- FOOD ASSISTANCE -------#
+
+    ### NEW BLOCK ###
   blocks {
-    title: "Gini index of economic activity"
+    description: "Food assistance programs address food insecurity in a variety of ways by providing critical resources, such as bulk food, prepared meals, community gardens, subsidized or free groceries, and other local community efforts. These safety net programs help families stabilize during times of financial hardship by providing financial assistance and access to balanced, nutritional meals.\n\nWhat factors might contribute to individuals not utilizing SNAP?"
     columns {
       tiles {
         type: HIGHLIGHT
-        description: "Gini index of economic activity for ${placeName} (${date})"
-        stat_var_key: "gini"
+        description: "People live below the poverty line"
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
       }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Population Living Below the Poverty Line (${date})"
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person_BelowPovertyLevelInThePast12Months"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      name: "Population Living Below the Poverty Line"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Of people live below the poverty line"
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months_pct"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months_pct"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of Population Living Below the Poverty Line (${date})"
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months_pct"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person_BelowPovertyLevelInThePast12Months_pct"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      name: "Percentage of Population Living Below the Poverty Line"
+      scaling: 100
+      unit: "%"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Households in ${placeName} live below the poverty line and do not receive food assistance (SNAP)"
+        stat_var_key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_pct"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of Households That Live Below the Poverty Line and Not Receiving SNAP (${date})"
+        stat_var_key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_pct"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+    value {
+      stat_var: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+      name: "Households That Live Below the Poverty Line and Not Receiving SNAP"
+    }
+  }
+
+  stat_var_spec {
+    key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_pct"
+    value {
+      stat_var: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+      name: "Percentage of Households That Live Below the Poverty Line and Not Receiving SNAP"
+      denom: "Count_Household"
+      scaling: 100
+      unit: "%"
+    }
+  }
+
+  #------- MEDIAN INCOME -------#
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Median Income"
+    description: "Income and the cost of living can help us understand where and how food insecurity impacts communities at the local level. Often, communities with higher costs of living have a segment of the population living below the poverty line with low access to balanced, nutritional meals."
+    columns {
+      tiles {
+        title: "Median Income (${date})"
+        type: MAP
+        stat_var_key: "Median_Income_Household"
+      }
+    }
+    columns {
+      tiles {
+        title: "Median Rent (${date})"
+        type: MAP
+        stat_var_key: "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Median_Income_Household"
+    value {
+      stat_var: "Median_Income_Household"
+      name: "Median Income"
+    }
+  }
+  stat_var_spec {
+    key: "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
+    value {
+      stat_var: "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
+      name: "Median Rent"
+    }
+  }
+
+#------- POVERTY AND UNEMPLOYMENT -------#
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Poverty and Unemployment"
+    description: "Unemployment can impact families in a variety of difficult ways, including needing to prioritize bills over groceries. Policies and programs that support individuals in finding stable employment can play a significant role in alleviating food insecurity. However, fluctuations in income — even among those who are employed — can lead to food insecurity. Unemployment and poverty both speak to how difficult it is for households to consistently meet their household's nutritional needs.\n\nHow is food insecurity in rural areas different from food insecurity in urban areas?"
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of Population Living Below the Poverty Line (${date})"
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months_pct"
+      }
+    }
+    columns {
+      tiles {
+        title: "Unemployment Rate (${date})"
+        type: MAP
+        stat_var_key: "UnemploymentRate_Person"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "UnemploymentRate_Person"
+    value {
+      stat_var: "UnemploymentRate_Person"
+      name: "Unemployment Rate"
+    }
+  }
+
+#------- LANGUAGE -------#
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Language"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Working-age adults who do not speak English at home"
+        stat_var_key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome"
+      }
+    }
+    columns {
+      tiles {
+        title: "Working-Age Adults Who Do Not Speak English At Home"
+        type: LINE
+        stat_var_key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome"
+      }
+    }
+  }
+  blocks {
+    columns {
       tiles {
         type: DESCRIPTION
-        description: "In economics, the Gini index is a measure of income inequality within a nation or social group. It measures the inequality among values of a frequency distribution (e.g. a Gini index of 0 represents perfect equality, while 100 represents perfect inequality)."
+        description: "Language proficiency can play a role in food security. Finding and accessing assistance programs can be challenging when a person does not read or write in English. Granted that many of the individuals represented in this data have some degree of English proficiency, understanding the language spoken at home can also help food security organizations — like pantries — tailor their offerings and materials to fit the language and culture of a community."
       }
     }
     columns {
-      tiles: {
-        type: LINE
-        title: "Gini index of economic activity for ${placeName}"
-        stat_var_key: "gini"
+      tiles {
+        title: "Percentage of Working Age Adults Who Do Not Speak English At Home (${date})"
+        type: MAP
+        stat_var_key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome_pct"
       }
-      # TODO: Add rankings of other /Countries/
     }
   }
-
   stat_var_spec {
-    key: "gini"
+    key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome"
     value {
-      stat_var: "GiniIndex_EconomicActivity"
-      name: "Gini index of economic activity"
+      stat_var: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome"
+      name: "Working-Age Adults Who Do Not Speak English At Home"
     }
   }
-}
-
-categories {
-  title: "Equity between sexes"
-  description: "Gender is often confused with the concept of sex. Gender is a social construct, whereas sex is based on the biological attributes of men and women. The US Census intends to capture a person's biological sex and not gender. For more information, see https://www.census.gov/topics/population/age-and-sex/about.html"
-  blocks {
-    title: "Income inequality between sexes"
-    description: "Income inequality is computed as the ratio of the difference between median income for each sex, with the combined median incomes. A value of 0 means complete equality of median income."
-    columns {
-      tiles {
-        type: MAP
-        title: "Income inequality between sexes (${date})"
-        stat_var_key: "income_inequality"
-      }
-    }
-    columns {
-      tiles {
-        type: RANKING
-        ranking_tile_spec {
-          show_highest: true
-          show_lowest: true
-        }
-        stat_var_key: "income_inequality"
-      }
+  stat_var_spec {
+    key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome_pct"
+    value {
+      stat_var: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome"
+      name: "Percentage of Working Age Adults Who Do Not Speak English At Home"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
     }
   }
 
-  blocks {
-    title: "Income and employment, by sex"
-    description: "Median incomes of individuals, broken down by sex"
-    columns {
-      tiles {
-        title: "Median income by sex"
-        type: LINE
-        stat_var_key: "median_income_female"
-        stat_var_key: "median_income_male"
-      }
-    }
-    columns {
-      tiles {
-        title: "Unemployment rate by sex"
-        type: LINE
-        stat_var_key: "unemployment_female"
-        stat_var_key: "unemployment_male"
-      }
-      # There is only state-level data for Median Income, not unemployment rate.
-    }
-  }
+#------- GENDER -------#
 
+  ### NEW BLOCK ###
   blocks {
-    title: "Poverty rate, by sex"
-    description: "Percentage of the population of each sex living below the poverty level."
-    columns {
-      tiles {
-        type: MAP
-        title: "Percentage of the female population in poverty (${date})"
-        stat_var_key: "poverty_rate_female"
-      }
-      tiles {
-        type: LINE
-        title: "Poverty rate, by sex"
-        stat_var_key: "poverty_rate_female"
-        stat_var_key: "poverty_rate_male"
-      }
-    }
-    columns {
-      tiles {
-        type: MAP
-        title: "Percentage of the male population in poverty (${date})"
-        stat_var_key: "poverty_rate_male"
-      }
-      tiles {
-        type: RANKING
-        ranking_tile_spec {
-          show_highest: true
-        }
-        stat_var_key: "poverty_rate_female"
-        stat_var_key: "poverty_rate_male"
-      }
-    }
-  }
-
-  blocks {
-    title: "Uninsured, by sex"
-    description: "Of those without insurance, how many are male or female?"
-    # TODO(beets): This isn't available at the country level
-    # stat_var_spec {
-    #   stat_var: "Count_Person_Female_WithHealthInsurance"
-    #   denom: "Count_Person_Female"
-    #   unit: "%"
-    #   scaling: 100
-    #   name: "Female, insured"
-    # }
-    # stat_var_spec {
-    #   stat_var: "Count_Person_Male_WithHealthInsurance"
-    #   denom: "Count_Person_Male"
-    #   unit: "%"
-    #   scaling: 100
-    #   name: "Male, insured"
-    # }
+    title: "Gender"
+    description: "Single mother households often face exacerbated economic difficulties. Often their households operate with less income and must balance professional work with caregiving responsibilities. When single caregivers rely on day care services, they are left with less income to provide sufficient and nutritious food for their household."
     columns {
       tiles {
         type: HIGHLIGHT
-        description: "Americans have no health insurance (${date})"
-        stat_var_key: "uninsured_count"
-      }
-      tiles {
-        type: RANKING
-        ranking_tile_spec {
-          show_highest: true
-        }
-        stat_var_key: "uninsured_rate_female"
-        stat_var_key: "uninsured_rate_male"
+        description: "Of households are single mother households"
+        stat_var_key: "Count_Household_SingleMotherFamilyHousehold_pct"
       }
     }
-    columns {
-      tiles {
-        type: LINE
-        title: "Uninsured, by sex"
-        stat_var_key: "uninsured_rate_female"
-        stat_var_key: "uninsured_rate_male"
-      }
-    }
-  }
-
-  blocks {
-    title: "With disabilities, by sex"
-    description: "Percentage of the population of each sex with disabilities"
-    # TODO(beets): This isn"t available at the country level
-    # stat_var_spec {
-    #   stat_var: "Count_Person_Female_WithHealthInsurance"
-    #   denom: "Count_Person_Female"
-    #   unit: "%"
-    #   scaling: 100
-    #   name: "Female, insured"
-    # }
-    # stat_var_spec {
-    #   stat_var: "Count_Person_Male_WithHealthInsurance"
-    #   denom: "Count_Person_Male"
-    #   unit: "%"
-    #   scaling: 100
-    #   name: "Male, insured"
-    # }
-    columns {
-      tiles {
-        type: LINE
-        title: "With disability, by sex in ${placeName}"
-        stat_var_key: "disability_rate_female"
-        stat_var_key: "disability_rate_male"
-      }
-    }
-    columns {
-      tiles {
-        type: RANKING
-        ranking_tile_spec {
-          show_highest: true
-        }
-        stat_var_key: "disability_rate_female"
-        stat_var_key: "disability_rate_male"
-      }
-    }
-  }
-
-  # Note: This data is not available by race.
-  blocks {
-    title: "Education attainment by sex"
-    description: "Percentage of the population of each sex with an associate's degree"
-    columns {
-      tiles {
-        type: LINE
-        title: "Associate's degree holders by sex"
-        stat_var_key: "associates_female"
-        stat_var_key: "associates_male"
-      }
-    }
-    columns {
-      tiles {
-        type: RANKING
-        ranking_tile_spec {
-          show_highest: true
-          show_lowest: true
-        }
-        stat_var_key: "associates_female"
-        stat_var_key: "associates_male"
-      }
-    }
-  }
-
-  blocks {
-    # Note: title intentionally left out
-    description: "Percentage of the population of each sex with an bachelors's degree"
-    columns {
-      tiles {
-        type: RANKING
-        ranking_tile_spec {
-          show_highest: true
-          show_lowest: true
-        }
-        stat_var_key: "bachelors_female"
-        stat_var_key: "bachelors_male"
-      }
-    }
-    columns {
-      tiles {
-        title: "Bachelor's degree holders by sex"
-        type: LINE
-        stat_var_key: "bachelors_female"
-        stat_var_key: "bachelors_male"
-      }
-    }
-  }
-
-  blocks {
-    # Note: title intentionally left out
-    description: "Percentage of the population of each sex with a graduate or professional degree"
-    columns {
-      tiles {
-        type: MAP
-        title: "Percentage of females who are graduate or professional degree holders"
-        stat_var_key: "graduate_female"
-      }
-      tiles {
-        type: LINE
-        title: "Graduate or professional degree holders by sex"
-        stat_var_key: "graduate_female"
-        stat_var_key: "graduate_male"
-      }
-    }
-    columns {
-      tiles {
-        type: MAP
-        title: "Percentage of males who are graduate or professional degree holders"
-        stat_var_key: "graduate_male"
-      }
-      tiles {
-        type: RANKING
-        ranking_tile_spec {
-          show_highest: true
-          show_lowest: true
-        }
-        stat_var_key: "graduate_female"
-        stat_var_key: "graduate_male"
-      }
-    }
-  }
-
-  stat_var_spec {
-    key: "income_inequality"
-    value {
-      stat_var: "GenderIncomeInequality_Person_15OrMoreYears_WithIncome"
-      name: "Income inequality between sexes"
-    }
-  }
-  stat_var_spec {
-    key: "median_income_female"
-    value {
-      stat_var: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
-      unit: "$"
-    }
-  }
-  stat_var_spec {
-    key: "median_income_male"
-    value {
-      stat_var: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-      unit: "$"
-    }
-  }
-  stat_var_spec {
-    key: "unemployment_female"
-    value {
-      stat_var: "UnemploymentRate_Person_Female"
-      unit: "%"
-    }
-  }
-  stat_var_spec {
-    key: "unemployment_male"
-    value {
-      stat_var: "UnemploymentRate_Person_Male"
-      unit: "%"
-    }
-  }
-  stat_var_spec {
-    key: "poverty_rate_female"
-    value {
-      stat_var: "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-      denom: "Count_Person_Female"
-      scaling: 100
-      unit: "%"
-    }
-  }
-  stat_var_spec {
-    key: "poverty_rate_male"
-    value {
-      stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-      denom: "Count_Person_Male"
-      scaling: 100
-      unit: "%"
-    }
-  }
-  stat_var_spec {
-    key: "uninsured_rate_female"
-    value {
-      stat_var: "Count_Person_Female_NoHealthInsurance"
-      denom: "Count_Person_NoHealthInsurance"
-      unit: "%"
-      scaling: 100
-      name: "Female, uninsured"
-    }
-  }
-  stat_var_spec {
-    key: "uninsured_rate_male"
-    value {
-      stat_var: "Count_Person_Male_NoHealthInsurance"
-      denom: "Count_Person_NoHealthInsurance"
-      unit: "%"
-      scaling: 100
-      name: "Male, uninsured"
-    }
-  }
-  stat_var_spec {
-    key: "uninsured_count"
-    value {
-      stat_var: "Count_Person_NoHealthInsurance"
-    }
-  }
-  stat_var_spec {
-    key: "disability_rate_female"
-    value {
-      stat_var: "Count_Person_WithDisability_Female"
-      denom: "Count_Person_Female"
-      unit: "%"
-      scaling: 100
-      name: "Female, with disability"
-    }
-  }
-  stat_var_spec {
-    key: "disability_rate_male"
-    value {
-      stat_var: "Count_Person_WithDisability_Male"
-      denom: "Count_Person_Male"
-      unit: "%"
-      scaling: 100
-      name: "Male, with disability"
-    }
-  }
-  stat_var_spec {
-    key: "associates_female"
-    value {
-      stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female"
-      denom: "Count_Person_25To34Years_Female"
-      unit: "%"
-      scaling: 100
-      name: "Female"
-    }
-  }
-  stat_var_spec {
-    key: "associates_male"
-    value {
-      stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
-      denom: "Count_Person_25To34Years_Male"
-      unit: "%"
-      scaling: 100
-      name: "Male"
-    }
-  }
-  stat_var_spec {
-    key: "bachelors_female"
-    value {
-      stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female"
-      denom: "Count_Person_25To34Years_Female"
-      unit: "%"
-      scaling: 100
-      name: "Female"
-    }
-  }
-  stat_var_spec {
-    key: "bachelors_male"
-    value {
-      stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
-      denom: "Count_Person_25To34Years_Male"
-      unit: "%"
-      scaling: 100
-      name: "Male"
-    }
-  }
-  stat_var_spec {
-    key: "graduate_female"
-    value {
-      stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female"
-      denom: "Count_Person_25To34Years_Female"
-      unit: "%"
-      scaling: 100
-      name: "Female"
-    }
-  }
-  stat_var_spec {
-    key: "graduate_male"
-    value {
-      stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
-      denom: "Count_Person_25To34Years_Male"
-      unit: "%"
-      scaling: 100
-      name: "Male"
-    }
-  }
-}
-
-categories {
-  title: "Equity between races"
-  description: "The US Census Bureau measures race and ethnicity based on self-identification and may choose to identify with more than one race. The races are White, Black or African American, American Indian or Alaska Native, Asian and Native Hawaiian or Other Pacific Islander. As well, two ethnicities are included: Hispanic or Latino, and Not Hispanic or Latino. For more information, see https://www.census.gov/topics/population/race/about.html and https://www.census.gov/topics/population/hispanic-origin/about.html"
-
-  # TODO: Not available at the country level
-  # blocks {
-  #   title: "Median income, by race"
-  #   description: "Median incomes of households, broken down by race"
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
-  #     unit: "$"
-  #   }
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
-  #     unit: "$"
-  #   }
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceAsianAlone"
-  #     unit: "$"
-  #   }
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-  #     unit: "$"
-  #   }
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceHispanicOrLatino"
-  #     unit: "$"
-  #   }
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
-  #     unit: "$"
-  #   }
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
-  #     unit: "$"
-  #   }
-  #   columns {
-  #     tiles {
-  #       type: LINE
-  #       title: "Median household income by race"
-  #     }
-  #   }
-  #   columns {
-  #     tiles {
-  #       type: RANKING
-  #       ranking_tile_spec {
-  #         show_highest: true
-  #       }
-  #     }
-  #   }
-  # }
-
-  blocks {
-    title: "Median household income by race"
-    # TODO: This data is not available at the country level!
     columns {
       tiles {
         type: BAR
-        title: "Median household income by race"
-        stat_var_key: "income_aian"
-        stat_var_key: "income_a"
-        stat_var_key: "income_baa"
-        stat_var_key: "income_hl"
-        stat_var_key: "income_nhpi"
-        stat_var_key: "income_w"
+        description: "Number of Single Mother Households ${date}"
+        stat_var_key: "Count_Household_SingleMotherFamilyHousehold"
+        stat_var_key: "Count_Household_SingleFatherFamilyHousehold"
+        comparison_places: "self"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "Count_Household_SingleMotherFamilyHousehold_pct"
+    value {
+      stat_var: "Count_Household_SingleMotherFamilyHousehold"
+      name: "Single Family Household rate"
+      denom: "Count_Household_FamilyHousehold"
+      unit: "Percent"
+      scaling: 100
+    }
+  }
+
+  stat_var_spec {
+    key: "Count_Household_SingleMotherFamilyHousehold"
+    value {
+      stat_var: "Count_Household_SingleMotherFamilyHousehold"
+      name: "Single Mother Households"
+    }
+  }
+
+  stat_var_spec {
+    key: "Count_Household_SingleFatherFamilyHousehold"
+    value {
+      stat_var: "Count_Household_SingleFatherFamilyHousehold"
+      name: "Single Father Households"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Is the average earnings for women (adjusted for inflation)"
+        stat_var_key: "Mean_Earnings_Person_Female"
+      }
+      tiles {
+        type: HIGHLIGHT
+        description: "Is the average earnings for men (adjusted for inflation)"
+        stat_var_key: "Mean_Earnings_Person_Male"
+      }
+    }
+    columns {
+      tiles {
+        type: BAR
+        description: "Average Earnings (${date})"
+        stat_var_key: "Mean_Earnings_Person_Female"
+        stat_var_key: "Mean_Earnings_Person_Male"
+        comparison_places: "self"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "Mean_Earnings_Person_Female"
+    value {
+      stat_var: "Mean_Earnings_Person_Female"
+      name: "Average Earnings for Women"
+      unit: "$"
+    }
+  }
+
+  stat_var_spec {
+    key: "Mean_Earnings_Person_Male"
+    value {
+      stat_var: "Mean_Earnings_Person_Male"
+      name: "Average Earnings for Men"
+      unit: "$"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Is the amount below the poverty level that single mother households earn on average"
+        stat_var_key: "Mean_IncomeDeficit_Household_SingleMotherFamilyHousehold"
+      }
+    }
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "Single mothers often have to deal with income disparities since women on average earn less than men. Combined with the pervasiveness of single mother households living below the poverty line, this financial challenge makes it difficult for mothers to ensure nutritious food is consistently available in their household."
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "Mean_IncomeDeficit_Household_SingleMotherFamilyHousehold"
+    value {
+      stat_var: "Mean_IncomeDeficit_Household_SingleMotherFamilyHousehold"
+      name: "Average Income Deficit for Single Mother Households"
+      unit: "$"
+    }
+  }
+
+}
+ 
+
+categories {
+  title: "Health and Nutrition"
+
+#------- COMMUNITY FOOD SERVICES AND GROCERY STORES -------#
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Community Food Services"
+    columns {
+      tiles {
+        title: "Number of Community Food Services (${date})"
+        type: MAP
+        stat_var_key: "dc/7dcmzwydmtet5"
+      }
+    }
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "Community food services (food banks, pantries, meal programs, gardens, and other social services programs related to food) provide crucial and immediate access to food for households facing food insecurity. These programs play a critical role in providing immediate relief, promoting nutrition, and building community resilience to address food insecurity at the local level. Highly populated areas may have easier access to these services than more rural areas, which might make it difficult for food services to reach residents in need. Even when there are community food services available, there may be a cultural stigma discouraging individuals from receiving these services."
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "dc/7dcmzwydmtet5"
+    value {
+      stat_var: "dc/7dcmzwydmtet5"
+      name: "Number of Community Food Services"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    columns {
+      tiles {
+        type: MAP
+        title: "Number of Community Food Services (Per 100,000 People)"
+        stat_var_key: "pc_community_food_services"
       }
     }
     columns {
@@ -536,31 +458,57 @@ categories {
         type: RANKING
         ranking_tile_spec {
           show_highest: true
-          highest_title: "Highest among ${statVar}"
+          show_lowest: true
         }
-        stat_var_key: "income_aian"
-        stat_var_key: "income_a"
-        stat_var_key: "income_baa"
-        stat_var_key: "income_hl"
-        stat_var_key: "income_nhpi"
-        stat_var_key: "income_w"
+        stat_var_key: "pc_community_food_services"
       }
+      
     }
   }
 
+  stat_var_spec {
+    key: "pc_community_food_services"
+    value {
+      stat_var: "dc/j1kr0ft77ptb6"
+      denom: "Count_Person"
+      name: "Number of Community Food Services (Per 100,000 People)"
+      scaling: 100000
+    }
+  }
+
+  ### NEW BLOCK ###
   blocks {
-    title: "Poverty rate by race"
-    description: "Percentage of the population of each race living in poverty"
+    title: "Grocery Stores"
     columns {
       tiles {
-        type: LINE
-        title: "Poverty rate by race in ${placeName}"
-        stat_var_key: "poverty_aian"
-        stat_var_key: "poverty_a"
-        stat_var_key: "poverty_baa"
-        stat_var_key: "poverty_hl"
-        stat_var_key: "poverty_nhpi"
-        stat_var_key: "poverty_w"
+        type: DESCRIPTION
+        description: "Having more grocery store owners means greater availability of fresh produce and food options, reduces food deserts, and increases competition that drives lower prices. With more stores available, it is more likely that a grocer is nearby, which is important for those who lack access to a vehicle or public transportation.\n\nWhat other factors could provide us with an understanding of food availability in a region?"
+      }
+    }
+    columns {
+      tiles {
+        title: "Number of Grocery Store Owners (${date})"
+        type: MAP
+        stat_var_key: "dc/cc51jvbvp0jdf"
+      }
+    }
+  }
+  
+  stat_var_spec {
+    key: "dc/cc51jvbvp0jdf"
+    value {
+      stat_var: "dc/cc51jvbvp0jdf"
+      name: "Number of Grocery Store Owners"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    columns {
+      tiles {
+        type: MAP
+        title: "Population with Low Income and Low Access to Grocery Stores"
+        stat_var_key: "count_lowincome_lowgroceryaccess"
       }
     }
     columns {
@@ -568,723 +516,490 @@ categories {
         type: RANKING
         ranking_tile_spec {
           show_highest: true
-          highest_title: "Highest among ${statVar}"
+          show_lowest: true
         }
-        stat_var_key: "poverty_aian"
-        stat_var_key: "poverty_a"
-        stat_var_key: "poverty_baa"
-        stat_var_key: "poverty_hl"
-        stat_var_key: "poverty_nhpi"
-        stat_var_key: "poverty_w"
+        stat_var_key: "count_lowincome_lowgroceryaccess"
       }
     }
   }
 
+  stat_var_spec {
+    key: "count_lowincome_lowgroceryaccess"
+    value {
+      stat_var: "Low_Income_Low_Access_To_Grocery_Store"
+      name: "Population with Low Income and Low Access to Grocery Stores"
+    }
+  }
+
+  #------- HEALTH -------#
+  
+  ### NEW BLOCK - Health Insurance ###
   blocks {
-    title: "Disability status by race"
-    description: "Percentage of the population of each race with disabilities"
+    title: "Health"
     columns {
       tiles {
-        type: LINE
-        title: "Percentage of the population of each race with disabilities in ${placeName}"
-        stat_var_key: "disability_aian"
-        stat_var_key: "disability_a"
-        stat_var_key: "disability_baa"
-        stat_var_key: "disability_hl"
-        stat_var_key: "disability_nhpi"
-        stat_var_key: "disability_w"
+        type: DESCRIPTION
+        description: "Lack of access to health insurance and healthcare can contribute to a cycle of poor health and poverty. Having a health emergency without health insurance is costly, can put you into a debt cycle, and can create challenges to getting nutritious food. Additionally, preventative care – which is generally inexpensive with health insurance –  helps avoid costly health procedures in the future. Being in a situation that foregoes preventative care costs families more in the long run.\n\nWhat are other ways families must choose between food and health?"
       }
     }
     columns {
       tiles {
-        type: RANKING
-        ranking_tile_spec {
-          show_highest: true
-          highest_title: "Highest among ${statVar}"
-        }
-        stat_var_key: "disability_aian"
-        stat_var_key: "disability_a"
-        stat_var_key: "disability_baa"
-        stat_var_key: "disability_hl"
-        stat_var_key: "disability_nhpi"
-        stat_var_key: "disability_w"
+        title: "Percentage of Population Without Health Insurance (${date})"
+        type: MAP
+        stat_var_key: "Count_Person_NoHealthInsurance_pct"
       }
     }
   }
 
+  stat_var_spec {
+    key: "Count_Person_NoHealthInsurance_pct"
+    value {
+      stat_var: "Count_Person_NoHealthInsurance"
+      name: "Percentage of Population Without Health Insurance"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+    }
+  }
+
+  ### NEW BLOCK - Annual Health Checkups ###
   blocks {
-    title: "Correctional facility residents by race"
-    description: "Percentage of the population of each facility type, broken down by race"
     columns {
-    # TODO(bhoot): Count_Person_ResidesInJuvenileFacilities is not available at the country level
-    # tiles {
-    #   title: "Percentage of the population in juvenile facilities, ${placeName} (${date})"
-    #   type: MAP
-    #   stat_var_override {
-    #     stat_var: "Count_Person_ResidesInJuvenileFacilities"
-    #     denom: "Count_Person"
-    #     scaling: 100
-    #     unit: "%"
-    #   }
-    # }
       tiles {
-        title: "Racial breakdown of juvenile facility residents"
-        type: LINE
-        stat_var_key: "juvie_aian"
-        stat_var_key: "juvie_a"
-        stat_var_key: "juvie_baa"
-        stat_var_key: "juvie_hl"
-        stat_var_key: "juvie_nhpi"
-        stat_var_key: "juvie_w"
+        title: "Percentage of Population That Has Received an Annual Checkup ${date}"
+        type: MAP
+        stat_var_key: "Percent_Person_ReceivedAnnualCheckup"
       }
     }
     columns {
-    # TODO: Enable when juvenile map is available.
-    # tiles {
-    #   title: "Percentage of the population in adult correctional facilities, ${placeName} (${date})"
-    #   type: MAP
-    #   stat_var_override {
-    #     stat_var: "Count_Person_ResidesInAdultCorrectionalFacilities"
-    #     denom: "Count_Person"
-    #     scaling: 100
-    #     unit: "%"
-    #   }
-    # }
       tiles {
-        title: "Racial breakdown of adult correctional facility residents"
-        type: LINE
-        stat_var_key: "jail_aian"
-        stat_var_key: "jail_a"
-        stat_var_key: "jail_baa"
-        stat_var_key: "jail_hl"
-        stat_var_key: "jail_nhpi"
-        stat_var_key: "jail_w"
+        type: DESCRIPTION
+        description: "Health insurance provides individuals with access to preventative health services, including annual checkups. These checkups are essential for detecting and addressing health issues early, which can lead to better health outcomes and reduced healthcare costs in the long run. Health insurance coverage can make annual health checkups more affordable, encouraging individuals to seek regular medical care."
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "Percent_Person_ReceivedAnnualCheckup"
+    value {
+      stat_var: "Percent_Person_ReceivedAnnualCheckup"
+      name: "Percentage of Population That Has Received an Annual Checkup"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    description: "Food insecurity often leads to limited access to nutritious foods, which can result in a diet that is high in unhealthy, processed foods and low in heart-healthy foods such as fruits, vegetables, whole grains, and lean proteins. This type of diet increases the risk of developing type 2 diabetes and developing factors for coronary heart disease, such as high blood pressure, high cholesterol, and obesity. Furthermore, developing these conditions can lead to increased healthcare costs, perpetuating and exacerbating the cycle of food insecurity."
+    columns {
+      tiles {
+        title: "Percent Population With Diabetes"
+        type: MAP
+        stat_var_key: "Percent_Person_WithDiabetes"
+      }
+    }
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Of the population has diabetes"
+        stat_var_key: "Percent_Person_WithDiabetes"
       }
     }
   }
   blocks {
-    # Title intentionally left out to "merge" with previous block
-    description: "Percentage of the population of each race living in correctional facilities"
     columns {
       tiles {
-        title: "Percentage of each race in correctional facilities"
-        type: LINE
-        stat_var_key: "juvie_rate_aian"
-        stat_var_key: "juvie_rate_a"
-        stat_var_key: "juvie_rate_baa"
-        stat_var_key: "juvie_rate_hl"
-        stat_var_key: "juvie_rate_nhpi"
-        stat_var_key: "juvie_rate_w"
+        title: "Percent Population With Coronary Heart Disease"
+        type: MAP
+        stat_var_key: "Percent_Person_WithCoronaryHeartDisease"
       }
     }
     columns {
       tiles {
-        title: "Percentage of each race in correctional facilities"
-        type: LINE
-        stat_var_key: "jail_rate_aian"
-        stat_var_key: "jail_rate_a"
-        stat_var_key: "jail_rate_baa"
-        stat_var_key: "jail_rate_hl"
-        stat_var_key: "jail_rate_nhpi"
-        stat_var_key: "jail_rate_w"
+        type: HIGHLIGHT
+        description: "Of the population has coronary heart disease"
+        stat_var_key: "Percent_Person_WithCoronaryHeartDisease"
       }
     }
   }
 
   stat_var_spec {
-    key: "income_aian"
+    key: "Percent_Person_WithCoronaryHeartDisease"
     value {
-      stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
-      unit: "$"
-      name: "American Indian or Alaska Native"
-    }
-  }
-  stat_var_spec {
-    key: "income_a"
-    value {
-      stat_var: "Median_Income_Household_HouseholderRaceAsianAlone"
-      unit: "$"
-      name: "Asian"
-    }
-  }
-  stat_var_spec {
-    key: "income_baa"
-    value {
-      stat_var: "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-      unit: "$"
-      name: "Black or African American"
-    }
-  }
-  stat_var_spec {
-    key: "income_hl"
-    value {
-      stat_var: "Median_Income_Household_HouseholderRaceHispanicOrLatino"
-      unit: "$"
-      name: "Hispanic or Latino"
-    }
-  }
-  stat_var_spec {
-    key: "income_nhpi"
-    value {
-      stat_var: "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
-      unit: "$"
-      name: "Native Hawaiian or Pacific Islander"
-    }
-  }
-  stat_var_spec {
-    key: "income_w"
-    value {
-      stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
-      unit: "$"
-      name: "White"
-    }
-  }
-
-  stat_var_spec {
-    key: "poverty_aian"
-    value {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
-      denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
-      scaling: 100
+      stat_var: "Percent_Person_WithCoronaryHeartDisease"
+      name: "Percentage of Population With Coronary Heart Disease"
       unit: "%"
     }
   }
   stat_var_spec {
-    key: "poverty_a"
+    key: "Percent_Person_WithDiabetes"
     value {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
-      denom: "Count_Person_AsianAlone"
-      scaling: 100
-      unit: "%"
-    }
-  }
-  stat_var_spec {
-    key: "poverty_baa"
-    value {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-      denom: "Count_Person_BlackOrAfricanAmericanAlone"
-      scaling: 100
-      unit: "%"
-    }
-  }
-  stat_var_spec {
-    key: "poverty_hl"
-    value {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
-      denom: "Count_Person_HispanicOrLatino"
-      scaling: 100
-      unit: "%"
-    }
-  }
-  stat_var_spec {
-    key: "poverty_nhpi"
-    value {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
-      denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
-      scaling: 100
-      unit: "%"
-    }
-  }
-  stat_var_spec {
-    key: "poverty_w"
-    value {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-      denom: "Count_Person_WhiteAlone"
-      scaling: 100
+      stat_var: "Percent_Person_WithDiabetes"
+      name: "Percentage of Population With Diabetes"
       unit: "%"
     }
   }
 
-  stat_var_spec {
-    key: "disability_aian"
-    value {
-      stat_var: "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
-      denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
-      scaling: 100
-      unit: "%"
-      name: "American Indian or Alaska Native"
+
+  ### NEW BLOCK - Life Expectancy ###
+  blocks {
+    columns {
+      tiles {
+        title: "Life Expectancy ${date}"
+        type: MAP
+        stat_var_key: "LifeExpectancy_Person"
+      }
+    }
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "Access to an adequate and nutritious diet is crucial for maintaining good health and well-being. Food insecurity leads to a poor diet and contributes to a range of physical and mental health issues, and these health challenges impact life expectancy. Food insecurity is often rooted in poverty and socioeconomic disparities. Low-income households may face barriers to accessing healthcare and health insurance, education, safe housing, and other resources that influence overall health and life expectancy."
+      }
     }
   }
   stat_var_spec {
-    key: "disability_a"
+    key: "LifeExpectancy_Person"
     value {
-      stat_var: "Count_Person_WithDisability_AsianAlone"
-      denom: "Count_Person_AsianAlone"
-      scaling: 100
-      unit: "%"
-      name: "Asian"
-    }
-  }
-  stat_var_spec {
-    key: "disability_baa"
-    value {
-      stat_var: "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
-      denom: "Count_Person_BlackOrAfricanAmericanAlone"
-      scaling: 100
-      unit: "%"
-      name: "Black or African American"
-    }
-  }
-  stat_var_spec {
-    key: "disability_hl"
-    value {
-      stat_var: "Count_Person_WithDisability_HispanicOrLatino"
-      denom: "Count_Person_HispanicOrLatino"
-      scaling: 100
-      unit: "%"
-      name: "Hispanic or Latino"
-    }
-  }
-  stat_var_spec {
-    key: "disability_nhpi"
-    value {
-      stat_var: "Count_Person_WithDisability_NativeHawaiianOrOtherPacificIslanderAlone"
-      denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
-      scaling: 100
-      unit: "%"
-      name: "Native Hawaiian or Pacific Islander"
-    }
-  }
-  stat_var_spec {
-    key: "disability_w"
-    value {
-      stat_var: "Count_Person_WithDisability_WhiteAlone"
-      denom: "Count_Person_WhiteAlone"
-      scaling: 100
-      unit: "%"
-      name: "White"
+      stat_var: "LifeExpectancy_Person"
+      name: "Life Expectancy"
     }
   }
 
   stat_var_spec {
-    key: "juvie_aian"
+    key: "Count_Person_BelowPovertyLevelInThePast12Months"
     value {
-      stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "American Indian or Alaska Native"
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      name: "Population Below Poverty Level Status in Past Year"
+    }
+  }
+
+}
+
+
+  
+
+categories {
+  title: "Farming and Climate"
+
+  #------- FARMS -------#
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Farms"
+    description: "The number of farms and crop coverage are factors that influence food security by proxy. While they are not direct indicators of food insecurity, they are part of the broader agricultural landscape that contributes to food availability, affordability, and access. In some cases, farms may prioritize exporting crops over the cultivation of diverse and nutritious foods for local consumption. Prioritizing crop exports — and instead focusing on importing foods — can make local food systems vulnerable to global market fluctuations and global supply chain disruptions. Additionally, if the prices of imported foods increase, it can impact local economies and potentially hinder food affordability and access."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Farms in ${placeName}"
+        stat_var_key: "Count_Farm"
+      }
     }
   }
   stat_var_spec {
-    key: "juvie_a"
+    key: "Count_Farm"
     value {
-      stat_var: "Count_Person_AsianAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "Asian"
+      stat_var: "Count_Farm"
+      name: "Farms"
     }
   }
-  stat_var_spec {
-    key: "juvie_baa"
-    value {
-      stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "Black or African American"
+
+  blocks {
+    columns {
+      tiles {
+        title: "Farms (${date})"
+        type: MAP
+        stat_var_key: "Count_Farm"
+      }
     }
-  }
-  stat_var_spec {
-    key: "juvie_hl"
-    value {
-      stat_var: "Count_Person_HispanicOrLatino_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "Hispanic or Latino"
-    }
-  }
-  stat_var_spec {
-    key: "juvie_nhpi"
-    value {
-      stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "Native Hawaiian or Pacific Islander"
-    }
-  }
-  stat_var_spec {
-    key: "juvie_w"
-    value {
-      stat_var: "Count_Person_WhiteAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "White"
+    columns {
+      tiles {
+        title: "Percentage of Crop Covered Area (${date})"
+        type: MAP
+        stat_var_key: "LandCoverFraction_Cropland"
+      }
     }
   }
 
   stat_var_spec {
-    key: "jail_aian"
+    key: "LandCoverFraction_Cropland"
     value {
-      stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
-      scaling: 100
-      unit: "%"
-      name: "American Indian or Alaska Native"
+      stat_var: "LandCoverFraction_Cropland"
+      name: "Percentage of Crop Covered Area"
     }
   }
-  stat_var_spec {
-    key: "jail_a"
-    value {
-      stat_var: "Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
-      scaling: 100
-      unit: "%"
-      name: "Asian"
-    }
-  }
-  stat_var_spec {
-    key: "jail_baa"
-    value {
-      stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
-      scaling: 100
-      unit: "%"
-      name: "Black or African American"
-    }
-  }
-  stat_var_spec {
-    key: "jail_hl"
-    value {
-      stat_var: "Count_Person_HispanicOrLatino_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
-      scaling: 100
-      unit: "%"
-      name: "Hispanic or Latino"
-    }
-  }
-  stat_var_spec {
-    key: "jail_nhpi"
-    value {
-      stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
-      scaling: 100
-      unit: "%"
-      name: "Native Hawaiian or Pacific Islander"
-    }
-  }
-  stat_var_spec {
-    key: "jail_w"
-    value {
-      stat_var: "Count_Person_WhiteAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
-      scaling: 100
-      unit: "%"
-      name: "White"
+
+  #------- FARMS -------#
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Farm Areas"
+    description: "Silage and forage are crops that are grown specifically to feed livestock, including cows, and are an essential component of cattle farming. Having sufficient land dedicated to silage and forage production can support a healthy, productive, and sustainable cattle population, which in turn contributes to food security by ensuring a consistent supply of meat and dairy products to these communities. Especially during periods of drought, crop failure, or other disasters, having dedicated land for cattle and feed ensures consistent supply of animal-based foods to communities in the face of potential agricultural disasters."
+    columns {
+      tiles {
+        title: "Beef Cows on a Farm (${date})"
+        type: MAP
+        stat_var_key: "Count_FarmInventory_BeefCows"
+      }
     }
   }
 
   stat_var_spec {
-    key: "juvie_rate_aian"
+    key: "Count_FarmInventory_BeefCows"
     value {
-      stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
-      scaling: 100
-      unit: "%"
-      name: "American Indian or Alaska Native"
-    }
-  }
-  stat_var_spec {
-    key: "juvie_rate_a"
-    value {
-      stat_var: "Count_Person_AsianAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_AsianAlone"
-      scaling: 100
-      unit: "%"
-      name: "Asian"
-    }
-  }
-  stat_var_spec {
-    key: "juvie_rate_baa"
-    value {
-      stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_BlackOrAfricanAmericanAlone"
-      scaling: 100
-      unit: "%"
-      name: "Black or African American"
-    }
-  }
-  stat_var_spec {
-    key: "juvie_rate_hl"
-    value {
-      stat_var: "Count_Person_HispanicOrLatino_ResidesInJuvenileFacilities"
-      denom: "Count_Person_HispanicOrLatino"
-      scaling: 100
-      unit: "%"
-      name: "Hispanic or Latino"
-    }
-  }
-  stat_var_spec {
-    key: "juvie_rate_nhpi"
-    value {
-      stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
-      scaling: 100
-      unit: "%"
-      name: "Native Hawaiian or Pacific Islander"
-    }
-  }
-  stat_var_spec {
-    key: "juvie_rate_w"
-    value {
-      stat_var: "Count_Person_WhiteAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_WhiteAlone"
-      scaling: 100
-      unit: "%"
-      name: "White"
+      stat_var: "Count_FarmInventory_BeefCows"
+      name: "Beef Cows on a Farm"
     }
   }
 
-  stat_var_spec {
-    key: "jail_rate_aian"
-    value {
-      stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
-      scaling: 100
-      unit: "%"
-      name: "American Indian or Alaska Native"
+  blocks {
+    columns {
+      tiles {
+        title: "Land Dedicated to Forage Production (${date})"
+        type: MAP
+        stat_var_key: "Area_Farm_Forage"
+      }
+    }
+    columns {
+      tiles {
+        title: "Land Dedicated to Silage Production (${date})"
+        type: MAP
+        stat_var_key: "Area_Farm_CornForSilageOrGreenchop"
+      }
     }
   }
   stat_var_spec {
-    key: "jail_rate_a"
+    key: "Area_Farm_Forage"
     value {
-      stat_var: "Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_AsianAlone"
-      scaling: 100
-      unit: "%"
-      name: "Asian"
+      stat_var: "Area_Farm_Forage"
+      name: "Land Dedicated to Forage Production"
     }
   }
   stat_var_spec {
-    key: "jail_rate_baa"
+    key: "Area_Farm_CornForSilageOrGreenchop"
     value {
-      stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_BlackOrAfricanAmericanAlone"
-      scaling: 100
-      unit: "%"
-      name: "Black or African American"
+      stat_var: "Area_Farm_CornForSilageOrGreenchop"
+      name: "Land Dedicated to Silage Production"
+    }
+  }
+
+  #------- FARM PRODUCTION -------#
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Farm Production"
+    description: "Irrigation and depleting water sources play an increasingly critical role on farms. Crops vary in their dependence on irrigation, with many vegetables and more sensitive grains being completely reliant on supplementary water to survive harsh summers. Other crops require supplemental water from irrigation to be economically viable, but are unlikely to die or completely fail without it.\n\nWith climate change impacting access to reliable irrigation, how will farmers need to adapt to this depleting resource? "
+    columns {
+      tiles {
+        title: "Area of Irrigated Lands on Farms (${date})"
+        type: MAP
+        stat_var_key: "Area_Farm_IrrigatedLand"
+      }
+    }
+    columns {
+      tiles {
+        title: "Area of Farms Growing Vegetables for Sale (${date})"
+        type: MAP
+        stat_var_key: "Area_Farm_VegetablesHarvestedForSale"
+      }
     }
   }
   stat_var_spec {
-    key: "jail_rate_hl"
+    key: "Area_Farm_IrrigatedLand"
     value {
-      stat_var: "Count_Person_HispanicOrLatino_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_HispanicOrLatino"
-      scaling: 100
-      unit: "%"
-      name: "Hispanic or Latino"
+      stat_var: "Area_Farm_IrrigatedLand"
+      name: "Area of Irrigated Lands on Farms"
     }
   }
   stat_var_spec {
-    key: "jail_rate_nhpi"
+    key: "Area_Farm_VegetablesHarvestedForSale"
     value {
-      stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
-      scaling: 100
-      unit: "%"
-      name: "Native Hawaiian or Pacific Islander"
+      stat_var: "Area_Farm_VegetablesHarvestedForSale"
+      name: "Area of Farms Growing Vegetables for Sale"
+    }
+  }
+
+
+  #------- FARM EQUIPMENT AND SUBSIDIES -------#
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Farm Equipment and Subsidies"
+    description: "The U.S. government has subsidized farmers through direct cash payments and other measures since 1933. How do higher equipment costs impact new farmers?"
+    columns {
+      tiles {
+        title: "Farms Receiving Government Payments (${date})"
+        type: MAP
+        stat_var_key: "Count_Farm_ReceivedGovernmentPayment"
+      }
+    }
+    columns {
+      tiles {
+        title: "Average Value of Farming Equipment (${date})"
+        type: MAP
+        stat_var_key: "Mean_MarketValue_Farm_MachineryAndEquipment"
+      }
     }
   }
   stat_var_spec {
-    key: "jail_rate_w"
+    key: "Count_Farm_ReceivedGovernmentPayment"
     value {
-      stat_var: "Count_Person_WhiteAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_WhiteAlone"
-      scaling: 100
-      unit: "%"
-      name: "White"
+      stat_var: "Count_Farm_ReceivedGovernmentPayment"
+      name: "Farms Receiving Government Payments"
     }
   }
+  stat_var_spec {
+    key: "Mean_MarketValue_Farm_MachineryAndEquipment"
+    value {
+      stat_var: "Mean_MarketValue_Farm_MachineryAndEquipment"
+      name: "Average Value of Farming Equipment"
+    }
+  }
+
+  #------- CLIMATE AND AGRICULTURE -------#
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Climate and Agriculture"
+    description: "Climate change is an increasingly significant development for farmers. Heat waves are just one factor that can lead to crop loss. Below you see a map exploring the rate of heat waves experienced by a population in a given region.\n\nWhat decisions will farmers have to make to address more frequent heat events?"
+    columns {
+      tiles {
+        title: "Population-weighted Number of Heat Waves (${date})"
+        type: MAP
+        stat_var_key: "PopulationWeighted_Count_HeatWaveEvent"
+      }
+      
+    }
+  }
+  stat_var_spec {
+    key: "PopulationWeighted_Count_HeatWaveEvent"
+    value {
+      stat_var: "PopulationWeighted_Count_HeatWaveEvent"
+      name: "Population-weighted Number of Heat Waves"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    columns {
+      tiles {
+        title: "Number of Droughts (${date})"
+        type: MAP
+        stat_var_key: "Count_DroughtEvent"
+      } 
+    }
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "Farmers rely on a steady and reliable source of water for their crops to be successful, either in the form of irrigation or in the form of consistent rainfall. Coupled with intensifying water use, the number of droughts paint a picture of a dwindling key resource and the stress on farmers to obtain consistent access to this resource."
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_DroughtEvent"
+    value {
+      stat_var: "Count_DroughtEvent"
+      name: "Droughts"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "In response to a changing climate, farmers may need to find other resources for their crops or livestock."
+      }
+    }
+    columns {
+      tiles {
+        title: "Irrigated Lands on Farms (${date})"
+        type: MAP
+        stat_var_key: "Area_Farm_IrrigatedLand"
+      } 
+    }
+  }
+  stat_var_spec {
+    key: "Area_Farm_IrrigatedLand"
+    value {
+      stat_var: "Area_Farm_IrrigatedLand"
+      name: "Irrigated Lands on Farms"
+    }
+  } 
+
+  ### NEW BLOCK ###
+  blocks {
+    columns {
+      tiles : {
+        type: DESCRIPTION
+        description: "Animal products are an essential component of the U.S. food system. However, it is important to note that beef demands a lot of water. This demand stems from both the animals themselves and the feed that they rely on.\n\nHow could the U.S. preference for beef be impacting other agricultural sectors negatively?"
+      }
+      tiles: {
+        type: LINE
+        title: "Withdrawal Rate of Water for Livestock in ${placeName}"
+        stat_var_key: "WithdrawalRate_Water_Livestock"
+      }
+    }
+    columns {
+      tiles : {
+        type: DESCRIPTION
+        description: "Animal agriculture is often the most viable agricultural option in many areas. Factors limiting crop production include climate pressures, access to irrigation, and socioeconomic pressures.\n\nSince water resources are often limited, how might competition for this resource affect farmers?"
+      }
+      tiles {
+        title: "Withdrawal Rate of Water for Livestock (${date})"
+        type: MAP
+        stat_var_key: "WithdrawalRate_Water_Livestock"
+      }
+    }
+  }
+  
+  stat_var_spec {
+    key: "WithdrawalRate_Water_Livestock"
+    value {
+      stat_var: "WithdrawalRate_Water_Livestock"
+      name: "Withdrawal Rate of Water for Livestock"
+    }
+  } 
+
 }
 
 categories {
-  title: "Disability status"
-  description: "The US Census Bureau collects data on disability through a few programs which have different definitions of disability. The data in this section is from the American Community Survey (ACS) which includes six questions on the topic. Respondents reporting hearing, vision, cognitive, ambulatory, self-care or independent living difficulties are considered to have a disability. For more information, see https://www.census.gov/topics/health/disability/guidance/data-collection-acs.html"
-
+  ### NEW BLOCK ###
   blocks {
     columns {
       tiles {
-        title: "Percentage of the population with disabilities (${date})"
-        type: MAP
-        stat_var_key: "disability_rate"
-      }
-    }
-    columns {
-      tiles {
-        type: HIGHLIGHT
-        description: "of Americans have disabilities (${date})"
-        stat_var_key: "disability_rate"
-      }
-
-      tiles {
-        type: RANKING
-        ranking_tile_spec {
-          show_highest: true
-          show_lowest: true
-        }
-        stat_var_key: "disability_rate"
+        type: DESCRIPTION
+        description: "It is important to note that the dryer, warmer future is only one component of how climate change is expected to affect our food systems. The increasing severity of storms, massive flooding events, and other changing climate factors affect our ability to produce food. These events not only impact food production where they occur, they also drive up the demand for food and other resources as people are displaced and try to recover.\n\nIn summary, improving food security depends on careful planning and policy considerations. Food security is a multifaceted issue influenced by a wide range of factors, including income levels, access to markets, food distribution systems, government policies, social safety nets, education, health, sustainable agricultural practices, climate resilience, and more."
       }
     }
   }
-
   blocks {
-    title: "Without health insurance"
     columns {
       tiles {
-        type: HIGHLIGHT
-        description: "of Americans with disabilities have no health insurance (${date})"
-        stat_var_key: "disabled_uninsured_rate"
+        type: DESCRIPTION
+        description: "_The authors interacted with artificial intelligence tools to assist in the creation of content included on this page._\n\n_Funded by [Google.org](https://www.google.org)_"
       }
-
-      tiles {
-        type: RANKING
-        ranking_tile_spec {
-          show_highest: true
-          show_lowest: true
-        }
-        stat_var_key: "disabled_uninsured_rate"
-      }
-    }
-    columns {
-      tiles {
-        title: "Percentage of the population with disabilities (${date})"
-        type: MAP
-        stat_var_key: "disabled_uninsured_rate"
-      }
-    }
-
-  }
-
-  # TODO: Computed percentages does not sum up to 100% with uninsured block.
-  # blocks {
-  #   title: "With health insurance"
-  #   stat_var_spec {
-  #     stat_var: "Count_Person_WithHealthInsurance_WithDisability"
-  #     denom: "Count_Person_WithDisability"
-  #     name: "Percentage of people with disabilities and health insurance"
-  #     unit: "%"
-  #     scaling: 100
-  #   }
-  #   columns {
-  #     tiles {
-  #       title: "Percentage of the population with disabilities and health insurance (${date})"
-  #       type: MAP
-  #     }
-  #   }
-  #   columns {  
-  #   # TODO(pradh): Count_Person_WithHealthInsurance_WithDisability not available at country level.
-  #   # tiles {
-  #   #   type: HIGHLIGHT
-  #   #   description: "of Americans with disabilities have health insurance (${date})"
-  #   # }
-  #     tiles {
-  #       type: RANKING
-  #       ranking_tile_spec {
-  #         show_highest: true
-  #         show_lowest: true
-  #       }
-  #     }
-  #   }
-  # }
-
-  # TODO(beets): The charts here would be better as percentages, but there is no denominator: Count_Household_WithDisability
-  blocks {
-    title: "Food assistance for households with disabilities"
-    description: "Number of households with one or more people with a disability receiving food stamps in the last 12 months."
-    columns {
-      tiles {
-        type: MAP
-        title: "Number of households with one or more people with a disability receiving food stamps (${date})"
-        stat_var_key: "disabled_foodstamps"
-      }
-    }
-    columns {
-      tiles {
-        type: MAP
-        title: "Number of households with one or more people with a disability not receiving food stamps (${date})"
-        stat_var_key: "disabled_nofoodstamps"
-      }
-    }
-  }
-
-
-  blocks {
-    title: "Correctional facility residents with disabilities"
-    description: "Percentage of the population of each facility type with disabiliites"
-    columns {
-    # TODO(bhoot): This data is not available at the state level. Neither is the "no disability" corrolary data.
-    # tiles {
-    #   title: "Percentage of the juvenile facility residents with disabiliites (${date})"
-    #   type: MAP
-    # }
-      tiles {
-        title: "Percentage of the juvenile facility residents with disabiliites"
-        type: LINE
-        stat_var_key: "disabled_juvie"
-      }
-    }
-    columns {
-      tiles {
-        title: "Percentage of the adult correctional facility residents with disabiliites (${date})"
-        type: MAP
-        stat_var_key: "disabled_jail"
-      }
-    }
-  }
-
-  stat_var_spec {
-    key: "disability_rate"
-    value {
-      stat_var: "Count_Person_WithDisability"
-      denom: "Count_Person"
-      name: "Percentage of people with disability"
-      unit: "%"
-      scaling: 100
-    }
-  }
-  stat_var_spec {
-    key: "disabled_uninsured_rate"
-    value {
-      stat_var: "Count_Person_NoHealthInsurance_WithDisability"
-      denom: "Count_Person_WithDisability"
-      name: "Percentage of people with disabilities and no health insurance"
-      unit: "%"
-      scaling: 100
-    }
-  }
-  stat_var_spec {
-    key: "disabled_foodstamps"
-    value {
-      stat_var: "Count_Household_WithFoodStampsInThePast12Months_WithDisability"
-    }
-  }
-  stat_var_spec {
-    key: "disabled_nofoodstamps"
-    value {
-      stat_var: "Count_Household_WithoutFoodStampsInThePast12Months_WithDisability"
-    }
-  }
-  stat_var_spec {
-    key: "disabled_juvie"
-    value {
-    stat_var: "Count_Person_WithDisability_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "With disability"
-    }
-  }
-  stat_var_spec {
-    key: "disabled_jail"
-    value {
-      stat_var: "Count_Person_WithDisability_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
-      scaling: 100
-      unit: "%"
     }
   }
 }
+
+#categories {
+#  title: "Explore More"
+#
+#  ### NEW BLOCK ###
+#  blocks {
+#    title: "See data for your state"
+#    columns {
+#      tiles {
+#        type: DESCRIPTION
+#        description: "* [Alabama](../geoId/01)\n* [Alaska](../geoId/02)\n* [Arizona](../geoId/04)\n* [Arkansas](../geoId/05)\n* [California](../geoId/06)\n* [Colorado](../geoId/08)\n* [Connecticut](../geoId/09)\n* [Delaware](../geoId/10)\n* [Florida](../geoId/12)\n* [Georgia](../geoId/13)\n* [Hawaii](../geoId/15)\n* [Idaho](../geoId/16)\n* [Illinois](../geoId/17)\n* [Indiana](../geoId/18)\n* [Iowa](../geoId/19)\n* [Kansas](../geoId/20)\n* [Kentucky](../geoId/21)\n* [Louisiana](../geoId/22)\n* [Maine](../geoId/23)\n* [Maryland](../geoId/24)\n* [Massachusetts](../geoId/25)\n* [Michigan](../geoId/26)\n* [Minnesota](../geoId/27)\n* [Mississippi](../geoId/28)\n* [Missouri](../geoId/29)"
+#      }
+#    }
+#    columns {
+#      tiles {
+#        type: DESCRIPTION
+#        description: "* [Montana](../geoId/30)\n* [Nebraska](../geoId/31)\n* [Nevada](../geoId/32)\n* [New Hampshire	](../geoId/33)\n* [New Jersey	](../geoId/34)\n* [New Mexico	](../geoId/35)\n* [New York	](../geoId/36)\n* [North Carolina	](../geoId/37)\n* [North Dakota	](../geoId/38)\n* [Ohio](../geoId/39)\n* [Oklahoma	](../geoId/40)\n* [Oregon](../geoId/41)\n* [Pennsylvania](../geoId/42)\n* [Rhode Island](../geoId/44)\n* [South Carolina](../geoId/45)\n* [South Dakota	](../geoId/46)\n* [Tennessee](../geoId/47)\n* [Texas](../geoId/48)\n* [Utah](../geoId/49)\n* [Vermont](../geoId/50)\n* [Virginia](../geoId/51)\n* [Washington](../geoId/53)\n* [West Virginia	](../geoId/54)\n* [Wisconsin](../geoId/55)\n* [Wyoming](../geoId/56)"
+#      }
+#    }
+#    
+#  }
+#}
+

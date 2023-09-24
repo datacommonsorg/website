@@ -1,0 +1,345 @@
+# Copyright 2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies the topic page config for poverty in USA
+
+metadata {
+  topic_id: "development"
+  topic_name: "Development Landscape"
+  place_dcid: "country/NGA"
+  contained_place_types {
+    key: "Country"
+    value: "AdministrativeArea1"
+  }
+}
+
+categories {
+    title: "Introduction"
+    blocks {
+        columns {
+            tiles {
+                type: DESCRIPTION
+                description: "Nigeria is facing increasing pressure to deliver on its Sustainable Development Goals (SDGs) in the face of rising development needs, population growth, the COVID-19 pandemic, and the cost of living crisis. This dashboard aggregates country-level development data from Data Commons to show progress on the SDGs. It compares relationships across development indicators to identify the factors that are driving or slowing progress. This information is useful for understanding the development landscape in Nigeria since the adoption of the SDGs in 2015."
+            }
+        }
+    }
+}
+
+categories {
+    title: "Life Expectancy"
+    description: "The life expectancy in Nigeria is at an all-time high of 52.9 years as of 2022, the highest since 1960 when the country gained independence. At independence, life expectancy was 37.4 years; by 2000, it was 47.2 years. What is driving this improvement? We see that infant mortality was steadily declining as life expectancy rose."
+    
+    blocks {
+        columns {
+            tiles {
+                type: LINE
+                title: "Life Expectancy in ${placeName}"
+                stat_var_key: "lifeExpectancy"
+            }
+        }
+        columns {
+            tiles {
+                type: LINE
+                title: "Infant mortality under 1 year old in ${placeName}"
+                stat_var_key: "infantMortalityRate"
+            }
+        }
+    }
+
+    stat_var_spec {
+        key: "lifeExpectancy"
+        value {
+            stat_var: "LifeExpectancy_Person"
+            name: "Life Expectancy"
+        }
+    }
+
+    stat_var_spec {
+        key: "infantMortalityRate"
+        value {
+            stat_var: "sdg/SH_DYN_IMRT.AGE--Y0"
+            name: "Infant motality rate (Age = under 1 year old)"
+        }
+    }
+
+    blocks {
+        description: "Other factors that increase life expectancy include the reduction of deaths from chronic diseases and wider access to safe drinking water."
+        columns {
+            tiles {
+                type: LINE
+                title: "Deaths from common diseases in ${placeName}"
+                stat_var_key: "sdg/SH_DTH_NCOM.AGE--Y30T70"
+            }
+        }
+        columns {
+            tiles {
+                type: LINE
+                title: "Access to clean water in ${placeName}"
+                stat_var_key: "sdg/SH_H2O_SAFE"
+            }
+        }
+    }
+
+    stat_var_spec {
+        key: "sdg/SH_DTH_NCOM.AGE--Y30T70"
+        value {
+            stat_var: "sdg/SH_DTH_NCOM.AGE--Y30T70"
+            name: "Mortality Rate Attributed To Cardiovascular Disease, Cancer, Diabetes or Chronic Respiratory Disease With Age = 30 to 70 Years Old"
+            unit: "%"
+        }
+    }
+
+    stat_var_spec {
+        key: "sdg/SH_H2O_SAFE"
+        value {
+            stat_var: "sdg/SH_H2O_SAFE"
+            name: "Proportion of population using safely managed drinking water services"
+            unit: "%"
+        } 
+    }
+}
+
+categories {
+    title: "COVID-19 Impact"
+    description: "COVID-19 deaths recorded in Nigeria stood at 3,155 people from 267,000 confirmed cases as of March, 2023. For other countries with large populations the rates of death were much higher. For example the United States suffered over 1 million deaths from 103 million confirmed cases. As of 2022, the COVID-19 vaccination rate in Nigeria was under 7%. Given the low vaccination rate and its poor health infrastructure, what kept the death rate so low for Nigeria and many other countries in Africa?"
+
+    blocks {
+        columns {
+            tiles {
+                type: DESCRIPTION
+                description: "A [research project](https://healthpolicy.fsi.stanford.edu/news/how-has-africa-largely-evaded-covid-19-pandemic-0) from a group led by a Nigerian doctor at Stanford University identified five possible factors:\n* Limited seeding (less air travel)\n* Power of the young age group\n* Exposure to previous infectious diseases\n* Population density\n* Prevalence of associated comorbid conditions"
+            }
+        }
+    }
+
+    blocks {
+        columns {
+            tiles {
+                type: HIGHLIGHT
+                description: "Cumulative COVID-19 Deaths in ${placeName}"
+                stat_var_key: "covidDeaths"
+            }
+            tiles {
+                type: HIGHLIGHT
+                description: "COVID-19 Deaths per 100,000 people in ${placeName}"
+                stat_var_key: "covidDeaths_pc"
+            }
+        }
+        columns {
+            tiles {
+                type: HIGHLIGHT
+                description: "Total Population in ${placeName}"
+                stat_var_key: "Count_Person"
+            }   
+        }
+    }
+
+    stat_var_spec {
+        key: "covidDeaths"
+        value {
+            stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+            name: "Cumulative Count of COVID-19 Deaths"
+        }
+    }
+
+    stat_var_spec {
+        key: "covidDeaths_pc"
+        value {
+            stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+            name: "Cumulative Count of COVID-19 Deaths"
+            denom: "Count_Person"
+            scaling: 100000
+        }
+    }
+
+    stat_var_spec {
+        key: "Count_Person"
+        value {
+            stat_var: "Count_Person"
+            name: "Total Population"
+        }
+    }
+}
+
+categories {
+    title: "Population Growth"
+    description: "Nigeria's population has grown rapidly since independence, but this growth rate has varied considerably. The rate peaked in 1980 at 3.06%, which was followed by a sharp decline around 1985. It remained steady until around 2010, but has been steadily declining since then. The growth rate is expected to continue to decline, but nonetheless Nigeria is projected to have a population of [over 375 million people by 2050](https://www.worldometers.info/world-population/nigeria-population/#:~:text=The%20current%20population%20of%20Nigeria,of%20the%20total%20world%20population)."
+    
+    blocks {
+        columns {
+            tiles {
+                type: LINE
+                title: "Population Growth Rate in ${placeName}"
+                stat_var_key: "populationGrowthRate"
+            }
+        }
+
+        columns {
+            tiles {
+                type: LINE
+                title: "Population Growth in ${placeName}"
+                stat_var_key: "population"
+            }
+        }
+
+        
+    }
+
+    stat_var_spec {
+        key: "population"
+        value {
+            stat_var: "Count_Person"
+            name: "Total Population"
+        }
+    }
+
+    stat_var_spec {
+        key: "populationGrowthRate"
+        value {
+            stat_var: "GrowthRate_Count_Person"
+            name: "Rate of Population Growth"
+        }
+    }
+}
+
+
+categories {
+    title: "Fertility and Education"
+    description: "At independence in 1960, the fertility rate in Nigeria was 6.36 children per woman; by 2000 it had dropped to 6.12 and continues to decline. A fertility rate of 5.32 in 2020 still puts Nigeria on the path of an ever increasing population (globally the average fertility rate is 2.3)  At the same time, Nigeria has been making progress towards broader access to education. What is the relationship between birth rates and education, especially for women?"
+    
+    blocks {
+        columns {
+            tiles {
+                type: LINE
+                title: "Fertility Rate in ${placeName}"
+                stat_var_key: "fertilityRate"
+            }
+        }
+
+        columns {
+            tiles {
+                type: LINE
+                title: "Lower Secondary Education in ${placeName}"
+                stat_var_key: "completionRate"
+            }
+        }
+    }
+
+    stat_var_spec {
+        key: "fertilityRate"
+        value {
+            stat_var: "FertilityRate_Person_Female"
+            name: "Fertility Rate"
+        }
+    }
+
+    stat_var_spec {
+        key: "completionRate"
+        value {
+            stat_var: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_2"
+            name: "Completion rate: Lower secondary"
+            unit: "%"
+        }
+    }
+}
+
+
+categories {
+    title: "GDP and Consumption"
+    description: "In 2021, the Gross Domestic Product (GDP) of Nigeria grew faster than the population (3.65% vs 2.41%, respectively). However, [according to the World Bank](https://www.worldbank.org/en/country/nigeria/overview#:~:text=The%20economy%20is%20projected%20to,population%20growth%20rate%20of%202.4%25), \"The economy is projected to grow by an average of 2.9% per year between 2023 and 2025, only slightly above the estimated population growth rate of 2.4%.\" The country is in an uncomfortable position where the population may soon rise faster than its economy. What does this mean if this economic growth does not enhance the standard of living?"
+    
+    blocks {
+        columns {
+            tiles {
+                type: LINE
+                title: "GDP Growth Rate in ${placeName}"
+                stat_var_key: "gdpGrowthRate"
+            }
+        }
+
+        columns {
+            tiles {
+                type: LINE
+                title: "Population Growth Rate in ${placeName}"
+                stat_var_key: "populationGrowthRate"
+            }
+        }
+    }
+
+    stat_var_spec {
+        key: "gdpGrowthRate"
+        value {
+            stat_var: "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+            name: "Growth Rate of GDP"
+        }
+    }
+
+    stat_var_spec {
+        key: "domesticMaterialConsumption"
+        value {
+            stat_var: "sdg/EN_MAT_DOMCMPT"
+            name: "Domestic material consumption"
+        }
+    }
+
+    stat_var_spec {
+        key: "populationGrowthRate"
+        value {
+            stat_var: "GrowthRate_Count_Person"
+            name: "Rate of Population Growth"
+        }
+    }
+}
+
+categories {
+    blocks {
+        columns {
+            tiles {
+                type: DESCRIPTION
+                description: "Civil society organisations are bringing hope and providing nonprofit services to the vulnerable in needy communities across the country in ways that improves livelihood and addresses attainment of the SDGs. During the pandemic, 132 nonprofits collectively spent 316 million Nigerian Naira (or USD$409,000) to help people in need. These nonprofits reached over 2 million beneficiaries across 31 states and 206 local governments according to data from the [Nigeria Network of NGOs](http://nnngo.org/).\n\nMany nonprofits in Nigeria are working on critical issues including infant mortality, death from common disease, access to clean water, population growth, and education. Below are some examples of these nonprofits.\n* [Helpmum](https://helpmum.org/) is a social enterprise with the mission to reduce maternal and infant mortality in Africa.\n* [Project PINK BLUE](https://projectpinkblue.org/ngoscsos-cancer-policy-advocacy-nigeria/) is an organization engaged in cancer awareness, free cancer screenings, support to people battling cancer, patient navigation, advocacy and fundraising for cancer patients, cancer research, oncology training and psychological support.\n* [Fairlife Africa](https://www.fairlifeafrica.org/) is a progressive, humanitarian organization. They are committed to empowering people through practical social initiatives and programs. The organisation stands for a fairer life for all people by improving the lives of the most disadvantaged and serving people of all faiths, races, gender, and any other orientation without discrimination.\n* [Onelife Initiative for Human Development](https://onelifeinitiative.org/sexual-reproductive-health-rights/) works to improve the well-being of young people by providing safe spaces, skills, linkages and vocational training including information and resources to enable them to make informed life decisions.\n* [Serendipity Healthcare Foundation](https://www.serendipityhealthcare.org.in/home) is a growing organization positioned to fight poverty through access to safe, clean drinking water, basic sanitation and hygiene education; also through programs aimed at reducing the scourge of malaria in rural communities and saving lives at birth.\n\nThese are just a few examples of the many nonprofits that are working to improve the lives of vulnerable people in Nigeria. Their work is essential to building a more just and equitable society."
+            }
+        }
+    }
+}
+
+categories {
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "## ACKNOWLEDGEMENTS"
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "Contributed by:\n\nOyebisi Babatunde Oluseyi\n\nExecutive Director\n\n[Nigeria Network of NGOs](https://nnngo.org/)"
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "[![NNNGO](/custom_dc/custom/images/topics/development-landscape/nnngo-30th-logo.png)](https://nnngo.org)"
+      }
+
+      tiles {
+        type: DESCRIPTION
+        description: "![Oyebisi Babatunde Oluseyi](/custom_dc/custom/images/topics/development-landscape/EDD1.jpeg)"
+      }
+
+      tiles {
+        type: DESCRIPTION
+        description: "_The authors interacted with the following artificial intelligence tools to assist in the creation of content included on this page: Google Bard v2.0_\n\n_Funded by [Google.org](https://www.google.org)_"
+      }
+    }
+
+  }
+  
+}
