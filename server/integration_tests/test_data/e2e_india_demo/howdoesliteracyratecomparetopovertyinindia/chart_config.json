@@ -488,10 +488,6 @@
           "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Illiterate",
           "indianCensus/Count_Person_Religion_ReligionNotStated_Illiterate",
           "indianCensus/Count_Person_Religion_Sikh_Illiterate"
-        ],
-        "socialCategory": [
-          "Count_Person_ScheduledCaste_Illiterate",
-          "Count_Person_ScheduledTribe_Illiterate"
         ]
       },
       "Count_Person_Literate": {
