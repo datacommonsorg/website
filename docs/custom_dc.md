@@ -156,20 +156,24 @@ Note: you can change the docker image to use your custom built docker image.
 
 ### Deploy to Cloud Run
 
-```bash
+In GCP [IAM](https://console.cloud.google.com/iam-admin/iam), grant the default
+service account "Cloud SQL Editor" permission. Then run:
 
+```bash
 gcloud run deploy datacommons \
---image gcr.io/datcom-ci/datacommons-website-compose:latest \
---add-cloudsql-instances=<project>:<region>:dc-graph \
---set-env-vars SQL_DATA_PATH=<gs://bucket-name/.../> \
---set-env-vars USE_CLOUDSQL=true \
---set-env-vars CLOUDSQL_INSTANCE=<project>:<region>:dc-graph \
---set-env-vars DC_API_KEY=<YOUR_DC_API_KEY> \
---set-env-vars MAPS_API_KEY=<YOUR_MAPS_API_KEY> \
---set-env-vars FLASK_ENV=custom \
---set-env-vars ENV_PREFIX=Compose \
---set-env-vars USE_LOCAL_MIXER=true \
---set-env-vars DB_USER=<DB_USER> \
---set-env-vars DB_PASS=<DB_PASS> \
---port 8080
+  --allow-unauthenticated \
+  --memory 4G \
+  --image gcr.io/datcom-ci/datacommons-website-compose:latest \
+  --add-cloudsql-instances=<project>:<region>:dc-graph \
+  --set-env-vars SQL_DATA_PATH=<gs://bucket-name/.../> \
+  --set-env-vars USE_CLOUDSQL=true \
+  --set-env-vars CLOUDSQL_INSTANCE=<project>:<region>:dc-graph \
+  --set-env-vars DC_API_KEY=<YOUR_DC_API_KEY> \
+  --set-env-vars MAPS_API_KEY=<YOUR_MAPS_API_KEY> \
+  --set-env-vars FLASK_ENV=custom \
+  --set-env-vars ENV_PREFIX=Compose \
+  --set-env-vars USE_LOCAL_MIXER=true \
+  --set-env-vars DB_USER=<DB_USER> \
+  --set-env-vars DB_PASS=<DB_PASS> \
+  --port 8080
 ```
