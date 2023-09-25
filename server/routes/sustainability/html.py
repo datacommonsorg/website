@@ -48,15 +48,15 @@ def sustainability_explorer(place_dcid=None):
         place_dcid=lib_subject_page_config.DEFAULT_PLACE_DCID),
                     code=302)
 
-  subject_config = current_app.config['DISASTER_SUSTAINABILITY_CONFIG']
+  raw_subject_config = current_app.config['DISASTER_SUSTAINABILITY_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     # TODO: Delete this when we are close to launch
-    subject_config = server.lib.util.get_disaster_sustainability_config()
+    raw_subject_config = server.lib.util.get_disaster_sustainability_config()
 
-  if not subject_config:
+  if not raw_subject_config:
     return "Error: no config installed"
-  subject_config = copy.deepcopy(subject_config)
+  subject_config = copy.deepcopy(raw_subject_config)
 
   # Update contained places from place metadata
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)
