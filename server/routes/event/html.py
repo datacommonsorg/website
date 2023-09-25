@@ -153,12 +153,12 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
   provenance = get_provenance(properties)
 
   # Get subject page config for event.
-  subject_config = current_app.config['DISASTER_EVENT_CONFIG']
+  raw_subject_config = current_app.config['DISASTER_EVENT_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
-    subject_config = lib_util.get_disaster_event_config()
+    raw_subject_config = lib_util.get_disaster_event_config()
 
-  subject_config = copy.deepcopy(subject_config)
+  subject_config = copy.deepcopy(raw_subject_config)
   places = get_places(properties)
   place_dcid = find_best_place_for_config(places)
 
