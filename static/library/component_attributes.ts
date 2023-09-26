@@ -27,7 +27,7 @@ export interface BarComponentProps
   apiRoot?: string;
   barHeight?: number;
   childPlaceType?: string;
-  colors?: string[];
+  colors?: string;
   footnote?: string;
   header: string;
   horizontal?: boolean;
@@ -35,11 +35,11 @@ export interface BarComponentProps
   maxPlaces?: number;
   maxVariables?: number;
   parentPlace?: string;
-  places?: string[];
+  places?: string;
   sort?: SortType;
   stacked?: boolean;
   title?: string;
-  variables: string[];
+  variables: string;
   yAxisMargin?: number;
 }
 
@@ -143,10 +143,13 @@ export interface SliderComponentProps
     React.HTMLAttributes<HTMLElement>,
     HTMLElement
   > {
-  max: number;
-  min: number;
-  publish: string;
-  value: number;
+  max?: number;
+  min?: number;
+  childPlaceType?: string;
+  parentPlace?: string;
+  publish?: string;
+  value?: number;
+  variable?: string;
 }
 
 export interface TextComponentProps
