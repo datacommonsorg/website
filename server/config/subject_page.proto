@@ -125,9 +125,6 @@ message RankingTileSpec {
   // ranking_count bottom points separated by "...". If true, show_highest
   // and show_lowest will be ignored.
   bool show_highest_lowest = 12;
-
-  // If true, will hide the footer with download link
-  bool hide_footer = 13;
 }
 
 message DisasterEventMapTileSpec {
