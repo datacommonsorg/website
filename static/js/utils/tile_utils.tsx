@@ -403,7 +403,7 @@ export function getStatFormat(
 ): { unit: string; scaling: number; numFractionDigits: number } {
   const result = {
     unit: svSpec.unit,
-    scaling: svSpec.scaling,
+    scaling: svSpec.scaling || 1,
     numFractionDigits: NUM_FRACTION_DIGITS,
   };
   // If unit was specified in the svSpec, use that unit
