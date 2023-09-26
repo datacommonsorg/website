@@ -61,7 +61,7 @@ function getTileProp(
     comparisonPlaces,
     useLollipop: barTileSpec.useLollipop || false,
     stacked: barTileSpec.stacked || false,
-    horizontal: barTileSpec.horizontal || false
+    horizontal: barTileSpec.horizontal || false,
   };
 }
 
