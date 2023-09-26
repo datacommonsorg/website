@@ -68,7 +68,7 @@ export function ResultHeaderSection(
 
   function getPlaceHeader(): JSX.Element {
     // Avoid links when there is more than one place, since the mix of links
-    // and non-links (","" "and more") looks odd.
+    // and non-links (`,` `and more`) looks odd.
     return (
       <>
         {props.pageMetadata.places.length == 1 && (
