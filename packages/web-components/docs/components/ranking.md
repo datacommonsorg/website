@@ -77,7 +77,7 @@ Optional:
 
 - `showMultiColumn` _boolean_
 
-  Whether to show variables across multiple columns in one table, with a header for each variable.
+  Whether to show variables across multiple columns in one table, with a header for each variable. The last variable provided is used for ranking.
 
   Default: false. If multiple variables are provided, a separate ranking table is generated for each variable.
 
