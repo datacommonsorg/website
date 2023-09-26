@@ -110,6 +110,11 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Boolean, converter: convertBooleanAttribute })
   showHighestLowest?: boolean;
 
+  // Optional: Set to true to show loading spinner during data fetch
+  // Default: false
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  showLoadingSpinner?: boolean;
+
   // Optional: Set to true to show a lowest-to-highest ranking
   // Default: highest-to-lowest, if showHighestLowest is false
   @property({ type: Boolean, converter: convertBooleanAttribute })
@@ -168,6 +173,7 @@ export class DatacommonsRankingComponent extends LitElement {
         showHighestLowest: this.showHighestLowest,
       },
       showExploreMore: this.showExploreMore,
+      showLoadingSpinner: this.showLoadingSpinner,
       statVarSpec,
       title: this.header || this.title,
     };
