@@ -76,6 +76,7 @@ interface RankingUnitPropType {
   headerChild?: React.ReactNode;
   errorMsg?: string;
   apiRoot?: string;
+  entityType?: string;
 }
 
 // Calculates ranks based on the order of data if no rank is provided.
@@ -178,7 +179,11 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                           }`}
                         >
                           <LocalizedLink
-                            href={urlFunc(point.placeDcid)}
+                            href={urlFunc(
+                              point.placeDcid,
+                              props.entityType,
+                              props.apiRoot
+                            )}
                             text={
                               <PlaceName
                                 dcid={point.placeDcid}

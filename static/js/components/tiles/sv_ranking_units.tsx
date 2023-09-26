@@ -48,6 +48,7 @@ interface SvRankingUnitsProps {
     svNames: string[]
   ) => void;
   statVar: string;
+  entityType: string;
   tileId: string;
   title?: string;
   showExploreMore?: boolean;
@@ -105,6 +106,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
           {getRankingUnit(
             title,
             statVar,
+            props.entityType,
             rankingGroup,
             rankingMetadata,
             true,
@@ -135,6 +137,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               {getRankingUnit(
                 title,
                 statVar,
+                props.entityType,
                 rankingGroup,
                 rankingMetadata,
                 true,
@@ -161,6 +164,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               {getRankingUnit(
                 title,
                 statVar,
+                props.entityType,
                 rankingGroup,
                 rankingMetadata,
                 false,
@@ -230,6 +234,7 @@ export function getRankingUnitTitle(
 export function getRankingUnit(
   tileConfigTitle: string,
   statVar: string,
+  entityType: string,
   rankingGroup: RankingGroup,
   rankingMetadata: RankingTileSpec,
   isHighest: boolean,
@@ -276,6 +281,7 @@ export function getRankingUnit(
       headerChild={errorMsg ? null : getSourcesJsx(rankingGroup.sources)}
       errorMsg={errorMsg}
       apiRoot={apiRoot}
+      entityType={entityType}
     />
   );
 }
