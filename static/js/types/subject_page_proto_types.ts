@@ -140,6 +140,7 @@ export interface TileConfig {
   statVarKey: string[];
   comparisonPlaces?: string[];
   placeDcidOverride?: string;
+  hideFooter?: boolean;
   rankingTileSpec?: RankingTileSpec;
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
   topEventTileSpec?: TopEventTileSpec;

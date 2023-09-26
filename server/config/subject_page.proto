@@ -125,6 +125,9 @@ message RankingTileSpec {
   // ranking_count bottom points separated by "...". If true, show_highest
   // and show_lowest will be ignored.
   bool show_highest_lowest = 12;
+
+  // If true, will hide the footer with download link
+  bool hide_footer = 13;
 }
 
 message DisasterEventMapTileSpec {
@@ -278,6 +281,10 @@ message Tile {
   repeated string comparison_places = 7;
   // [optional] If set, used instead of main place for the page.
   string place_dcid_override = 11;
+
+  // [optional] used only in ranking tiles
+  // set to true to hide the footer with download / explore more link
+  bool hide_footer = 17;
 
   // specs for specific tile types
   oneof tile_type_spec {
