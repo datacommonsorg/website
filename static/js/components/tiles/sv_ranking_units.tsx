@@ -21,7 +21,6 @@ import React, { RefObject, useRef } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { URL_PATH } from "../../constants/app/visualization_constants";
-import { ASYNC_ELEMENT_CLASS } from "../../constants/css_constants";
 import {
   RankingData,
   RankingGroup,
@@ -100,9 +99,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
   return (
     <React.Fragment>
       {rankingMetadata.showHighestLowest || props.errorMsg ? (
-        <div
-          className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} highest-ranking-container`}
-        >
+        <div className="ranking-unit-container highest-ranking-container">
           {getRankingUnit(
             title,
             statVar,
@@ -131,9 +128,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       ) : (
         <>
           {rankingMetadata.showHighest && (
-            <div
-              className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} highest-ranking-container`}
-            >
+            <div className="ranking-unit-container highest-ranking-container">
               {getRankingUnit(
                 title,
                 statVar,
@@ -158,9 +153,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             </div>
           )}
           {rankingMetadata.showLowest && (
-            <div
-              className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} lowest-ranking-container`}
-            >
+            <div className="ranking-unit-container lowest-ranking-container">
               {getRankingUnit(
                 title,
                 statVar,
