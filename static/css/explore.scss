@@ -175,11 +175,10 @@
   }
 
   .place-callout-link:hover {
-    color: #0056b3;
+    color: var(--link-color);
     text-decoration: underline;
   }
 }
-
 
 .topic-item {
   width: 100%;
