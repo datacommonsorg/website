@@ -61,7 +61,7 @@ function getTileProp(
     comparisonPlaces,
     useLollipop: barTileSpec.useLollipop || false,
     stacked: barTileSpec.stacked || false,
-    horizontal: barTileSpec.horizontal || false
+    horizontal: barTileSpec.horizontal || false,
   };
 }
 
@@ -72,7 +72,10 @@ function getBarChartSvg(
   const tileContainer = document.createElement("div");
   tileContainer.setAttribute("id", tileProp.id);
   document.getElementById(DOM_ID).appendChild(tileContainer);
-  draw(tileProp, chartData, tileContainer, SVG_WIDTH);
+  draw(tileProp, chartData, tileContainer, SVG_WIDTH, true);
+  const chartSvg = tileContainer.querySelector("svg");
+  // viewBox attribute throws off sizing in node server
+  chartSvg.removeAttribute("viewBox");
   return getProcessedSvg(tileContainer.querySelector("svg"));
 }
 
