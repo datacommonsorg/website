@@ -283,10 +283,6 @@ message Tile {
   // set to true to hide the footer with download / explore more link
   bool hide_footer = 17;
 
-  // [optional] used only in ranking tiles
-  // whether to show loading spinner during data fetch
-  bool show_loading_spinner = 18;
-
   // specs for specific tile types
   oneof tile_type_spec {
     RankingTileSpec ranking_tile_spec = 5;

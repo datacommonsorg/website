@@ -105,15 +105,10 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Boolean, converter: convertBooleanAttribute })
   showExploreMore?: boolean;
 
-  // Optional: Set to true to show both high-to-low and low-to-high rankings
-  // Default: only show highest-to-lowest
+  // Optional: Set to true to show both top and bottom places in highest-to-lowest order.
+  // Default: only show top places
   @property({ type: Boolean, converter: convertBooleanAttribute })
   showHighestLowest?: boolean;
-
-  // Optional: Set to true to show loading spinner during data fetch
-  // Default: false
-  @property({ type: Boolean, converter: convertBooleanAttribute })
-  showLoadingSpinner?: boolean;
 
   // Optional: Set to true to show a lowest-to-highest ranking
   // Default: highest-to-lowest, if showHighestLowest is false
@@ -131,11 +126,11 @@ export class DatacommonsRankingComponent extends LitElement {
   @property()
   title!: string;
 
-  // DCID of the statistical variable to compare values for
+  // DCID of the statistical variable to rank values for
   @property()
   variable!: string;
 
-  // List of DCIDs of the statistical variable to compare values for
+  // List of DCIDs of the statistical variable to rank values for
   @property({ type: Array<string>, converter: convertArrayAttribute })
   variables?: string[];
 

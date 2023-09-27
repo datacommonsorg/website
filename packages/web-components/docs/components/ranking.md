@@ -65,7 +65,7 @@ Optional:
 
 - `showHighestLowest` _boolean_
 
-  Whether to show a high-to-low ranking stacked on top of a low-to-high ranking, in one chart.
+  Whether to show both the top and bottom places, ordered highest-to-lowest, in one chart.
 
   Default: false.
 
