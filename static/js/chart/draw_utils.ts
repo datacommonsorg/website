@@ -352,18 +352,22 @@ export function appendSvgLegendElem(
       .attr("transform", `translate(0, ${yOffset})`);
     const circle = lgGroup
       .append("circle")
+      // x coordinate of the center of the circle
       .attr("cx", LEGEND_CIRCLE_RADIUS + LEGEND_CIRCLE_PADDING)
-      .attr("cy", 0)
+      // y coordinate of the center of the circle
+      .attr("cy", LEGEND_CIRCLE_RADIUS)
       .attr("r", LEGEND_CIRCLE_RADIUS)
       .attr("fill", color(key.label));
     const circleWidth = LEGEND_CIRCLE_RADIUS * 2 + LEGEND_CIRCLE_PADDING * 2;
     const text = lgGroup
       .append("text")
       .attr("transform", `translate(${circleWidth}, 0)`)
+      // align the bottom of the text with the bottom of the circle
       .attr("dy", "0")
-      .attr("y", "0.3em")
+      .attr("y", LEGEND_CIRCLE_RADIUS * 2)
       .text(key.label)
       .style("text-rendering", "optimizedLegibility")
+      // wrap text to max width of the width of the legend minus the circle
       .call(wrap, legendWidth - circleWidth);
     yOffset += Math.max(
       circle.node().getBBox().height,
