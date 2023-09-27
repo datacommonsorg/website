@@ -22,6 +22,8 @@
 
 import { createContext } from "react";
 
+import { PLACE_TYPES } from "./constants";
+
 // Global app state
 export interface ContextType {
   statVarHierarchyType: string;
@@ -41,9 +43,16 @@ export interface ExploreType {
 
 export const ExploreContext = createContext({} as ExploreType);
 
-export const RankingUnitUrlFuncContext = createContext((dcid: string) => {
-  return "/place/" + dcid;
-});
+export const RankingUnitUrlFuncContext = createContext(
+  (dcid: string, placeType?: string, apiRoot?: string) => {
+    const formattedApiRoot = apiRoot ? apiRoot.replace(/\/$/, "") : "";
+    const path =
+      !placeType || PLACE_TYPES.has(placeType)
+        ? `/place/${dcid}`
+        : `/browser/${dcid}`;
+    return `${formattedApiRoot || ""}${path}`;
+  }
+);
 
 export const SdgContext = createContext({
   sdgIndex: null,

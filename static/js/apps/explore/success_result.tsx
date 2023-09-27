@@ -170,8 +170,8 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
               />
             )}
             <RankingUnitUrlFuncContext.Provider
-              value={(dcid: string) => {
-                return `/explore/#${getUpdatedHash({
+              value={(dcid: string, placeType?: string, apiRoot?: string) => {
+                return `${apiRoot || ""}/explore/#${getUpdatedHash({
                   [URL_HASH_PARAMS.PLACE]: dcid,
                   [URL_HASH_PARAMS.TOPIC]: topicUrlVal,
                   [URL_HASH_PARAMS.QUERY]: "",
