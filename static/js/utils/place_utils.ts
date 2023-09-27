@@ -188,31 +188,23 @@ export function getPlaceNames(
 }
 
 /**
- * Given a list of place dcids, returns a promise with a map of dcids to place
+ * Fetches the place type for the given DCID
  * names
  */
-export async function getPlaceTypes(
-  dcids: string[],
+export async function getPlaceType(
+  dcid: string,
   apiRoot?: string,
   prop?: string
-): Promise<{ [key: string]: string }> {
-  if (!dcids.length) {
-    return Promise.resolve({});
+): Promise<string> {
+  if (!dcid) {
+    return THING_PLACE_TYPE;
   }
-  const placeTypes: { [key: string]: string } = {};
-  for (let i = 0; i < dcids.length; i++) {
-    const dcid = dcids[i];
-    try {
-      const response = await axios.get(
-        `${apiRoot || ""}/api/place/type/${dcid}`
-      );
-      const placeType = response.data;
-      placeTypes[dcid] = placeType;
-    } catch (e) {
-      placeTypes[dcid] = THING_PLACE_TYPE;
-    }
+  try {
+    const response = await axios.get(`${apiRoot || ""}/api/place/type/${dcid}`);
+    return response.data;
+  } catch (e) {
+    return THING_PLACE_TYPE;
   }
-  return placeTypes;
 }
 
 /**

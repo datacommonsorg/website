@@ -46,7 +46,7 @@ import {
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
-import { getPlaceNames, getPlaceTypes } from "../../utils/place_utils";
+import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   ReplacementStrings,
@@ -248,10 +248,14 @@ export const fetchData = async (props: BarTilePropType) => {
       props.apiRoot,
       props.placeNameProp
     );
-    const placeTypes = await getPlaceTypes(
-      Array.from(popPoints).map((x) => x.placeDcid),
-      props.apiRoot
-    );
+    const placeType =
+      props.enclosedPlaceType ||
+      (await getPlaceType(
+        Array.from(popPoints)
+          .map((x) => x.placeDcid)
+          .pop(),
+        props.apiRoot
+      ));
     const statVarDcidToName = await getStatVarNames(
       props.statVarSpec,
       props.apiRoot,
@@ -263,7 +267,7 @@ export const fetchData = async (props: BarTilePropType) => {
       denomResp,
       popPoints,
       placeNames,
-      placeTypes,
+      placeType,
       statVarDcidToName
     );
   } catch (error) {
@@ -278,7 +282,7 @@ function rawToChart(
   denomData: SeriesApiResponse,
   popPoints: RankingPoint[],
   placeNames: Record<string, string>,
-  placeTypes: Record<string, string>,
+  placeType: string,
   statVarNames: Record<string, string>
 ): BarChartData {
   const raw = _.cloneDeep(statData);
@@ -330,7 +334,7 @@ function rawToChart(
     const apiRoot = (props.apiRoot || "").replace(/\/$/, "");
     const urlPath =
       specLinkRoot ||
-      (PLACE_TYPES.has(placeTypes[placeDcid])
+      (PLACE_TYPES.has(placeType)
         ? PLACE_X_LABEL_LINK_ROOT
         : DEFAULT_X_LABEL_LINK_ROOT);
     const link = `${apiRoot}${urlPath}${placeDcid}`;
