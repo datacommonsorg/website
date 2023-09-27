@@ -401,7 +401,8 @@ export function draw(
   props: BarTilePropType,
   chartData: BarChartData,
   svgContainer: HTMLDivElement,
-  svgWidth?: number
+  svgWidth?: number,
+  useSvgLegend?: boolean
 ): void {
   if (chartData.errorMsg) {
     showError(chartData.errorMsg, svgContainer);
@@ -423,6 +424,7 @@ export function draw(
           yAxisMargin: props.yAxisMargin,
         },
         unit: chartData.unit,
+        useSvgLegend,
       }
     );
   } else {
@@ -439,6 +441,7 @@ export function draw(
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
+          useSvgLegend,
         }
       );
     } else {
@@ -454,6 +457,7 @@ export function draw(
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
+          useSvgLegend,
         }
       );
     }

@@ -41,6 +41,7 @@ import {
   addXAxis,
   addYAxis,
   appendLegendElem,
+  appendSvgLegendElem,
   buildInChartLegend,
   computeRanges,
   getLegendKeyFn,
@@ -523,16 +524,16 @@ export function drawLineChart(
     );
   }
 
-  appendLegendElem(
-    svgContainer,
-    colorFn,
-    dataGroups.map((dg) => ({
-      label: dg.label,
-      link: dg.link,
-      index: legendKeyFn(dg.label),
-    })),
-    options?.apiRoot
-  );
+  const legendItems = dataGroups.map((dg) => ({
+    label: dg.label,
+    link: dg.link,
+    index: legendKeyFn(dg.label),
+  }));
+  if (options?.useSvgLegend) {
+    appendSvgLegendElem(svg, height, width, colorFn, legendItems);
+  } else {
+    appendLegendElem(svgContainer, colorFn, legendItems, options?.apiRoot);
+  }
   svg.attr("class", ASYNC_ELEMENT_CLASS);
   return !hasFilledInValues;
 }

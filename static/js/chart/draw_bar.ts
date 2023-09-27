@@ -40,6 +40,7 @@ import {
   addXAxis,
   addYAxis,
   appendLegendElem,
+  appendSvgLegendElem,
   getDisplayUnitAndLabel,
   getLegendKeyFn,
   LegendItem,
@@ -438,15 +439,19 @@ export function drawStackBarChart(
     addHighlightOnHover(chartAreaBoundary, container, svg);
   }
 
-  appendLegendElem(
-    containerElement,
-    colorFn,
-    legendItems.map((item) => ({
-      ...item,
-      index: legendKeyFn(item.label),
-    })),
-    options?.apiRoot
-  );
+  if (options?.useSvgLegend) {
+    appendSvgLegendElem(svg, chartHeight, chartWidth, colorFn, legendItems);
+  } else {
+    appendLegendElem(
+      containerElement,
+      colorFn,
+      legendItems.map((item) => ({
+        ...item,
+        index: legendKeyFn(item.label),
+      })),
+      options?.apiRoot
+    );
+  }
   svg.attr("class", ASYNC_ELEMENT_CLASS);
 }
 
@@ -1006,15 +1011,19 @@ export function drawGroupBarChart(
     addHighlightOnHover(chartAreaBoundary, container, svg);
   }
 
-  appendLegendElem(
-    containerElement,
-    colorFn,
-    legendItems.map((item) => ({
-      ...item,
-      index: legendKeyFn(item.label),
-    })),
-    options?.apiRoot
-  );
+  if (options?.useSvgLegend) {
+    appendSvgLegendElem(svg, chartHeight, chartWidth, colorFn, legendItems);
+  } else {
+    appendLegendElem(
+      containerElement,
+      colorFn,
+      legendItems.map((item) => ({
+        ...item,
+        index: legendKeyFn(item.label),
+      })),
+      options?.apiRoot
+    );
+  }
   svg.attr("class", ASYNC_ELEMENT_CLASS);
 }
 
@@ -1213,14 +1222,17 @@ export function drawHorizontalBarChart(
     addHighlightOnHover(chartAreaBoundary, container, svg);
   }
 
-  // Legend
-  appendLegendElem(
-    containerElement,
-    color,
-    legendItems.map((item) => ({
-      ...item,
-      index: legendKeyFn(item.label),
-    })),
-    options?.apiRoot
-  );
+  if (options?.useSvgLegend) {
+    appendSvgLegendElem(svg, height, chartWidth, color, legendItems);
+  } else {
+    appendLegendElem(
+      containerElement,
+      color,
+      legendItems.map((item) => ({
+        ...item,
+        index: legendKeyFn(item.label),
+      })),
+      options?.apiRoot
+    );
+  }
 }
