@@ -203,7 +203,6 @@ function getTileResult(
         "",
         false
       );
-      break;
     case "MAP":
       return getMapTileResult(
         id,

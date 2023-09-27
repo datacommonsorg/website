@@ -58,7 +58,7 @@ function getLineChartSvg(
   const tileContainer = document.createElement("div");
   tileContainer.setAttribute("id", CHART_ID);
   document.getElementById(DOM_ID).appendChild(tileContainer);
-  draw(tileProp, chartData, tileContainer);
+  draw(tileProp, chartData, tileContainer, true);
   return getProcessedSvg(tileContainer.querySelector("svg"));
 }
 
