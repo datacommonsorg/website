@@ -45,7 +45,7 @@ export const ExploreContext = createContext({} as ExploreType);
 
 export const RankingUnitUrlFuncContext = createContext(
   (dcid: string, placeType?: string, apiRoot?: string) => {
-    const formattedApiRoot = apiRoot.replace(/\/$/, "");
+    const formattedApiRoot = apiRoot ? apiRoot.replace(/\/$/, "") : "";
     const path = PLACE_TYPES.has(placeType)
       ? `/place/${dcid}`
       : `/browser/${dcid}`;
