@@ -344,8 +344,10 @@ export function appendSvgLegendElem(
     .append("g")
     .attr("class", "legend")
     .attr("transform", `translate(0, ${legendY})`);
-  // Add each legend item
   let yOffset = 0;
+  let nextYOffset = 0;
+  let xOffset = 0;
+  // Add each legend item
   for (const key of keys) {
     const lgGroup = legend
       .append("g")
@@ -369,13 +371,27 @@ export function appendSvgLegendElem(
       .style("text-rendering", "optimizedLegibility")
       // wrap text to max width of the width of the legend minus the circle
       .call(wrap, legendWidth - circleWidth);
-    yOffset += Math.max(
+    const lgGroupWidth = circleWidth + text.node().getBBox().width;
+    const lgGroupHeight = Math.max(
       circle.node().getBBox().height,
       text.node().getBBox().height
     );
+    // if adding the legend item to the current line will overflow, update x
+    // and y offset to the start of the next line
+    if (xOffset + lgGroupWidth > legendWidth) {
+      yOffset = nextYOffset;
+      xOffset = 0;
+    }
+    lgGroup.attr("transform", `translate(${xOffset}, ${yOffset})`);
+    // xOffset for the next item will be the current offset + width of the
+    // current item
+    xOffset += lgGroupWidth;
+    // If current y offset + height of the current item is greater than the
+    // nextYOffset, update nextYOffset
+    nextYOffset = Math.max(nextYOffset, yOffset + lgGroupHeight);
   }
   // Update the height of the svg to include the height of the legend
-  svg.attr("height", legendY + yOffset);
+  svg.attr("height", legendY + nextYOffset);
 }
 
 /**
