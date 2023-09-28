@@ -67,6 +67,7 @@
           <div class="navbar-brand">
             <a href="{{ url_for('static.homepage') }}">India Data Commons</a>
             {% if subpage_title %}
+            <span class="sep">•</span>
             <span>
               {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
               {{ subpage_title }}
