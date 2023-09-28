@@ -69,9 +69,6 @@ export class DatacommonsRankingComponent extends LitElement {
   @property()
   childPlaceType!: string;
 
-  @property()
-  diffBaseDate?: string;
-
   // Title of the chart
   @property()
   header!: string;
@@ -158,7 +155,6 @@ export class DatacommonsRankingComponent extends LitElement {
         types: [],
       },
       rankingMetadata: {
-        diffBaseDate: this.diffBaseDate || "",
         highestTitle: this.highestTitle,
         lowestTitle: this.lowestTitle,
         rankingCount: this.rankingCount || 5,
@@ -168,7 +164,6 @@ export class DatacommonsRankingComponent extends LitElement {
         showHighestLowest: this.showHighestLowest,
       },
       showExploreMore: this.showExploreMore,
-      showLoadingSpinner: this.showLoadingSpinner,
       statVarSpec,
       title: this.header || this.title,
     };

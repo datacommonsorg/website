@@ -60,8 +60,6 @@ export interface RankingTileSpec {
   showHighest: boolean;
   showLowest: boolean;
 
-  diffBaseDate: string;
-
   highestTitle?: string;
   lowestTitle?: string;
   rankingCount?: number;
