@@ -66,6 +66,11 @@ flags.DEFINE_string(
     DEFAULT_OUTPUT_LANUGAGE_CODE,
     help="2 letter code of the language to translate to",
 )
+flags.DEFINE_string(
+    "input_language",
+    None,
+    help="2 letter code of the language to translate from"
+)
 
 
 class Translator:
@@ -139,11 +144,12 @@ class Translator:
 def process_csv(
     csv_filepath: str,
     new_column_name: str = "translation",
-    source_column_index: int = 0,
+    source_column_index: int = None,
     source_column_name: str = None,
+    input_lang: str = None,
     output_lang: str = "en",
 ) -> None:
-    """Translate a csv of queries using the Google Translate API.
+    """Translate a column in a csv of queries using the Google Translate API.
 
     Assumes a csv format where the 2 letter language codes are used
     as column headers in the first row. Will MODIFY input csv to add a
@@ -156,6 +162,9 @@ def process_csv(
                                 Defaults to the 0-th column.
         source_column_name: header of the column to translate. If provided,
                             source_column_index will be ignored.
+        input_lang: source language, as 2 letter language code.
+                    if not provided, will default to using the translate API's
+                    auto language detection.
         output_lang: target language, as 2 letter language code
     """
     with open(csv_filepath, "r+") as f:
@@ -164,17 +173,19 @@ def process_csv(
         translator = Translator()
 
         # Extract input language code from csv headers
-        col_name = headers[0]
+        # Will use column header as input language if the header is a valid
+        # 2 letter language code.
+        col_name = input_lang
         if source_column_name in headers:
             col_name = source_column_name
         elif source_column_index and source_column_index < len(headers):
             col_name = headers[source_column_index]
-        input_lang = col_name if col_name in translator.supported_languages else None
+        input_lang_code = col_name if col_name in translator.supported_languages else None
 
         # Call translate function
         text_to_translate = df[col_name].values.tolist()
         translations = translator.translate_multiple_queries(
-            texts=text_to_translate, input_lang=input_lang, output_lang=output_lang
+            texts=text_to_translate, input_lang=input_lang_code, output_lang=output_lang
         )
 
         # Write new column
