@@ -25,8 +25,12 @@ import React from "react";
 
 import { StatVarCharts } from "../browser/stat_var_charts";
 import { Context } from "../shared/context";
-import { NamedNode, StatVarHierarchyType } from "../shared/types";
-import { StatVarInfo, StatVarSummary } from "../shared/types";
+import {
+  NamedNode,
+  StatVarHierarchyType,
+  StatVarInfo,
+  StatVarSummary,
+} from "../shared/types";
 import { stringifyFn } from "../utils/axios";
 import { getCommonPrefix } from "../utils/string_utils";
 import { StatVarSectionInput } from "./stat_var_section_input";
@@ -143,7 +147,7 @@ export class StatVarSection extends React.Component<
       });
   }
 
-  private getPrefix(svList: StatVarInfo[]): string {
+  public getPrefix(svList: StatVarInfo[]): string {
     const svNamesList = svList.map((sv) => sv.displayName);
     // Only get prefix if there is more than 1 stat var.
     if (svNamesList.length < 2) {
