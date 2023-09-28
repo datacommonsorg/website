@@ -76,7 +76,7 @@ export interface BarTilePropType {
   // Extra classes to add to the container.
   className?: string;
   // A list of related places to show comparison with the main place.
-  comparisonPlaces: string[];
+  comparisonPlaces?: string[];
   // A list of specific colors to use
   colors?: string[];
   enclosedPlaceType: string;
@@ -129,7 +129,6 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
   );
-
   useEffect(() => {
     if (!barChartData || !_.isEqual(barChartData.props, props)) {
       (async () => {
@@ -227,9 +226,24 @@ export const fetchData = async (props: BarTilePropType) => {
   try {
     const statResp = await statPromise;
     const denomResp = await denomPromise;
-
     // Find the most populated places.
     const popPoints: RankingPoint[] = [];
+    // Non-place entities won't have a value for Count_Person.
+    // In this case, make an empty list of popPoints
+    if (_.isEmpty(statResp.data[FILTER_STAT_VAR])) {
+      const entityDcidsSet = new Set<string>();
+      Object.keys(statResp.data).forEach((statVarKey) => {
+        Object.keys(statResp.data[statVarKey]).forEach((entityDcid) => {
+          entityDcidsSet.add(entityDcid);
+        });
+      });
+      entityDcidsSet.forEach((entityDcid) => {
+        popPoints.push({
+          placeDcid: entityDcid,
+          value: undefined,
+        });
+      });
+    }
     for (const place in statResp.data[FILTER_STAT_VAR]) {
       popPoints.push({
         placeDcid: place,
@@ -293,7 +307,6 @@ function rawToChart(
   const statVarOrder = props.statVarSpec.map(
     (spec) => statVarNames[spec.statVar]
   );
-
   // Assume all stat var specs will use the same unit and scaling.
   const { unit, scaling } = getStatFormat(props.statVarSpec[0], statData);
   const dates: Set<string> = new Set();
