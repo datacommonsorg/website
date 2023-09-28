@@ -96,7 +96,8 @@ class Translator:
     Args:
         text: query to translate
         input_lang: source language, as ISO 639-1 language code
-                    if not provided, will use translation API's detect language feature
+                    if not provided, will use translation API's detect
+                    language feature
         output_lang: target language, as ISO 639-1 language code
                      defaults to English
 
@@ -122,7 +123,8 @@ class Translator:
     Args:
         texts: queries to translate. Maximum length is 1024.
         input_lang: source language, as ISO 639-1 language code
-                    if not provided, will use translation API's detect language feature
+                    if not provided, will use translation API's detect
+                    language feature
         output_lang: target language, as ISO 639-1 language code
                         defaults to English
 
