@@ -700,6 +700,7 @@ function drawHorizontalStackedBars(
       ...dp,
     }));
   };
+  console.log(setData(series[series.length-1]));
   if (useLollipop) {
     // How much to shift stems so they plot at center of band
     const yShift = yScale.bandwidth() / 2;
@@ -1058,12 +1059,15 @@ export function drawHorizontalBarChart(
       curr[dataPoint.label] = dataPoint.value;
       curr.dcid = dataPoint.dcid;
       curr.date = dataPoint.date;
-      curr.value = dataPoint.value;
     }
     data.push(curr);
   }
 
+  console.log("data");
+  console.log(data);
   const series = d3.stack().keys(keys).offset(d3.stackOffsetDiverging)(data);
+  console.log("series")
+  console.log(series);
   // clear old chart to redraw over
   const container = d3.select(containerElement);
   container.selectAll("*").remove();
