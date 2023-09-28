@@ -135,8 +135,7 @@ class Translator:
         parent=self.parent,
         contents=texts,
         source_language_code=input_lang,
-        target_language_code=output_lang,
-    )
+        target_language_code=output_lang)
     translations = [resp.translated_text for resp in response.translations]
     return translations
 
