@@ -34,31 +34,35 @@ class Detection:
       if dcid:
         self.places.add(dcid)
 
-  def compare(self, other: "Detection") -> int:
-    return len(self.places.intersection(other.places)) + len(
-        self.svs.intersection(other.svs))
+  def compare(self, other: "Detection"):
+    return {
+        "places": len(self.places.intersection(other.places)),
+        "svs": len(self.svs.intersection(other.svs))
+    }
 
-  def __len__(self):
-    return len(self.places) + len(self.svs)
+  def num_attributes(self):
+    return {"places": len(self.places), "svs": len(self.svs)}
 
   def __str__(self) -> str:
-    return f"Attributes: {len(self)}\nPlaces: {self.places}\nSVs: {self.svs}"
+    return f"Places ({len(self.places)}): {self.places}\nSVs ({len(self.svs)}): {self.svs}"
 
 
 def detect(query):
   try:
-    resp = requests.post(f"{_API_BASE_URL}/api/explore/detect?q={query}",
-                         json={
-                             "contextHistory": {},
-                             "dc": "",
-                         },
-                         timeout=30).json()
+    resp = requests.post(
+        f"{_API_BASE_URL}/api/explore/detect?detector=heuristic&q={query}",
+        json={
+            "contextHistory": {},
+            "dc": "",
+        },
+        timeout=30).json()
     return Detection(resp)
   except Exception as e:
     logging.warning("Error calling detect for query: %s\n%s", query, e)
     return Detection({})
 
 
+# TODO: cleanup
 def main(_):
   queries = [
       "Tell me about economic equity in California",
