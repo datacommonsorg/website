@@ -131,11 +131,10 @@ class Translator:
     Returns:
         translated text
     """
-    response = self.client.translate_text(
-        parent=self.parent,
-        contents=texts,
-        source_language_code=input_lang,
-        target_language_code=output_lang)
+    response = self.client.translate_text(parent=self.parent,
+                                          contents=texts,
+                                          source_language_code=input_lang,
+                                          target_language_code=output_lang)
     translations = [resp.translated_text for resp in response.translations]
     return translations
 
