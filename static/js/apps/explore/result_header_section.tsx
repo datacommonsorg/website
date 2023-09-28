@@ -72,7 +72,10 @@ export function ResultHeaderSection(
     return (
       <>
         {props.pageMetadata.places.length == 1 && (
-          <a href={`/place/${props.pageMetadata.places[0].dcid}`}>
+          <a
+            className="place-callout-link"
+            href={`/place/${props.pageMetadata.places[0].dcid}`}
+          >
             {props.pageMetadata.places[0].name}
           </a>
         )}
