@@ -14,10 +14,10 @@
 
 """Translate queries in csv files using the Google Translate API
 
-    Translates a single column in a CSV file specified by the user.
-    Assumes a csv format where the 2 letter language codes are used
-    as column headers in the first row. Will MODIFY input csv to add a
-    column with the translations.
+Translates a single column in CSV files specified by the user.
+Assumes a csv format where the 2 letter language codes are used
+as column headers in the first row. Will MODIFY input csv to add a
+column with the translations.
 
 Requires:
     * A Google Cloud project with the Translate API enabled
