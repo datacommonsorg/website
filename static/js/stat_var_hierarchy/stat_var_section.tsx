@@ -123,6 +123,21 @@ export class StatVarSection extends React.Component<
     );
   }
 
+  public getPrefix(svList: StatVarInfo[]): string {
+    const svNamesList = svList.map((sv) => sv.displayName);
+    // Only get prefix if there is more than 1 stat var.
+    if (svNamesList.length < 2) {
+      return "";
+    }
+    const svNamesCommonPrefix = getCommonPrefix(svNamesList);
+    // Cut the prefix at the last complete word.
+    let idx = svNamesCommonPrefix.length - 1;
+    while (idx >= 0 && svNamesCommonPrefix[idx] !== " ") {
+      idx--;
+    }
+    return idx > 0 ? svNamesCommonPrefix.slice(0, idx) : "";
+  }
+
   private fetchSummary(): void {
     if (this.props.data.length === 0) {
       return;
@@ -145,21 +160,6 @@ export class StatVarSection extends React.Component<
         this.svSummaryFetching = null;
         this.setState({ svSummaryFetched: statVarList });
       });
-  }
-
-  public getPrefix(svList: StatVarInfo[]): string {
-    const svNamesList = svList.map((sv) => sv.displayName);
-    // Only get prefix if there is more than 1 stat var.
-    if (svNamesList.length < 2) {
-      return "";
-    }
-    const svNamesCommonPrefix = getCommonPrefix(svNamesList);
-    // Cut the prefix at the last complete word.
-    let idx = svNamesCommonPrefix.length - 1;
-    while (idx >= 0 && svNamesCommonPrefix[idx] !== " ") {
-      idx--;
-    }
-    return idx > 0 ? svNamesCommonPrefix.slice(0, idx) : "";
   }
 }
 

@@ -131,11 +131,11 @@ describe("BarTile", () => {
         id={"bar-id"}
         statVarSpec={[
           {
-            statVar: "sector_property",
             denom: "",
-            unit: "",
-            scaling: 1,
             log: false,
+            scaling: 1,
+            statVar: "sector_property",
+            unit: "",
           },
         ]}
         svgChartHeight={200}
