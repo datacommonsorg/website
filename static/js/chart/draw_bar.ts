@@ -326,14 +326,16 @@ export function drawStackBarChart(
   const colorFn = getColorFn(colorOrder, options?.colors);
 
   const setData = (d: d3.Series<{ [key: string]: number }, string>) => {
-    return d.map((item) => ({
-      date: item.data.date,
-      place: item.data.label,
-      statVar: d.key,
-      unit: options?.unit,
-      value: item.data.value,
-      ...item,
-    }));
+    return d
+      .filter((item) => !isNaN(item[0]) && !isNaN(item[1]))
+      .map((item) => ({
+        date: item.data.date,
+        place: item.data.label,
+        statVar: d.key,
+        unit: options?.unit,
+        value: item[1] - item[0],
+        ...item,
+      }));
   };
 
   if (options?.lollipop) {
@@ -691,16 +693,18 @@ function drawHorizontalStackedBars(
   unit?: string
 ): void {
   const setData = (d: d3.Series<{ [key: string]: number }, string>) => {
-    return d.map((dp) => ({
-      date: dp.data.date,
-      place: dp.data.label,
-      statVar: d.key,
-      unit,
-      value: dp.data.value,
-      ...dp,
-    }));
+    return d
+      .filter((dp) => !isNaN(dp[0]) && !isNaN(dp[1]))
+      .map((dp) => ({
+        date: dp.data.date,
+        place: dp.data.label,
+        statVar: d.key,
+        unit,
+        value: dp[1] - dp[0],
+        ...dp,
+      }));
   };
-  console.log(setData(series[series.length-1]));
+
   if (useLollipop) {
     // How much to shift stems so they plot at center of band
     const yShift = yScale.bandwidth() / 2;
@@ -1063,11 +1067,7 @@ export function drawHorizontalBarChart(
     data.push(curr);
   }
 
-  console.log("data");
-  console.log(data);
   const series = d3.stack().keys(keys).offset(d3.stackOffsetDiverging)(data);
-  console.log("series")
-  console.log(series);
   // clear old chart to redraw over
   const container = d3.select(containerElement);
   container.selectAll("*").remove();
