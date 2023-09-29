@@ -79,9 +79,8 @@ class ExploreTest(NLWebServerTestCase):
         d = q.replace(' ', '').replace('?', '').lower()
         # For some queries like Chinese, no characters are replaced and leads to unwieldy folder names.
         # Use the query index for such cases.
-        if d == q:
+        if d == q and i18n:
           d = f"query_{index + 1}"
-      print(resp)
       self.handle_response(d, resp, test_dir, d, failure)
 
   def handle_response(self,
