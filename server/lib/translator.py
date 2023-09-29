@@ -26,14 +26,17 @@ _EN_LANG = "en"
 
 
 # Detects the query language and translates non-English queries to English.
-def detect_lang_and_translate(query, counters: Counters, api_key=None):
+def detect_lang_and_translate(query, counters: Counters):
   try:
     lang = lang_detect(query)
     if lang.startswith(_EN_LANG):
       return query
 
+    api_key = current_app.config.get('PALM_API_KEY')
     if not api_key:
-      api_key = current_app.config['PALM_API_KEY']
+      counters.err("translation_api_key_error", "No API key configured.")
+      return query
+
     request = {"q": query, "format": "text", "source": lang, "target": _EN_LANG}
     response = requests.post(f'{_API_URL}?key={api_key}',
                              json=request,
@@ -51,7 +54,9 @@ def detect_lang_and_translate(query, counters: Counters, api_key=None):
               "target_language": _EN_LANG
           })
       return translation
+
+    counters.err("empty_query_translation_error", {"query": query})
     return query
   except Exception as e:
-    counters.err(f"Error detecting / translating query: {query}\n{str(e)}", "")
+    counters.err("query_translation_error", {"query": query, "error": str(e)})
     return query
