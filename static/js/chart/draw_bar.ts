@@ -327,9 +327,7 @@ export function drawStackBarChart(
 
   const setData = (d: d3.Series<{ [key: string]: number }, string>) => {
     return d
-      .filter(
-        (item) => item.length >= 2 && !isNaN(item[0]) && !isNaN(item[1])
-      )
+      .filter((item) => item.length >= 2 && !isNaN(item[0]) && !isNaN(item[1]))
       .map((item) => ({
         date: item.data.date,
         place: item.data.label,
