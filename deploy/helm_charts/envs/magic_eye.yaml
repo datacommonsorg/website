@@ -41,11 +41,14 @@ nl:
 serviceGroups:
   recon: null
   svg:
-    replicas: 6
+    replicas: 3
+    resources:
+      memoryRequest: "12G"
+      memoryLimit: "12G"
   observation:
-    replicas: 6
+    replicas: 10
   node:
-    replicas: 6
+    replicas: 10
   default:
     replicas: 6
 
@@ -54,7 +57,7 @@ kgStoreConfig:
     project: datcom-magiceye-dev
     instance: dc-graph
     tables:
-      - magic_eye_2023_02_18_16_57_52
+      - magic_eye_2023_09_28_15_15_11
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

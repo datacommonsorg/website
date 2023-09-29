@@ -124,7 +124,9 @@ export class StatVarSection extends React.Component<
   }
 
   public getPrefix(svList: StatVarInfo[]): string {
-    const svNamesList = svList.map((sv) => sv.displayName);
+    const svNamesList = svList
+      .filter((sv) => sv.displayName)
+      .map((sv) => sv.displayName);
     // Only get prefix if there is more than 1 stat var.
     if (svNamesList.length < 2) {
       return "";
