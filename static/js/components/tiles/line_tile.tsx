@@ -254,7 +254,8 @@ export const fetchData = async (props: LineTilePropType) => {
 export function draw(
   props: LineTilePropType,
   chartData: LineChartData,
-  svgContainer: HTMLDivElement
+  svgContainer: HTMLDivElement,
+  useSvgLegend?: boolean
 ): void {
   // TODO: Remove all cases of setting innerHTML directly.
   svgContainer.innerHTML = "";
@@ -273,6 +274,7 @@ export function draw(
       colors: props.colors,
       timeScale: props.timeScale,
       unit: chartData.unit,
+      useSvgLegend,
     }
   );
   if (!isCompleteLine) {

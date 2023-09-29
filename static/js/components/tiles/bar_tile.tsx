@@ -30,6 +30,7 @@ import {
 } from "../../chart/draw_bar";
 import { SortType } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
+import { PLACE_TYPES } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
@@ -45,7 +46,7 @@ import {
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
-import { getPlaceNames } from "../../utils/place_utils";
+import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
@@ -61,7 +62,8 @@ import { useDrawOnResize } from "./use_draw_on_resize";
 const NUM_PLACES = 7;
 
 const FILTER_STAT_VAR = "Count_Person";
-const DEFAULT_X_LABEL_LINK_ROOT = "/place/";
+const DEFAULT_X_LABEL_LINK_ROOT = "/browser/";
+const PLACE_X_LABEL_LINK_ROOT = "/place/";
 
 // TODO (juliawu): Refactor the "optional" specs into BarTileSpec. This will
 //                 also allow BarTilePropType to match the structure of the
@@ -246,6 +248,14 @@ export const fetchData = async (props: BarTilePropType) => {
       props.apiRoot,
       props.placeNameProp
     );
+    const placeType =
+      props.enclosedPlaceType ||
+      (await getPlaceType(
+        Array.from(popPoints)
+          .map((x) => x.placeDcid)
+          .pop(),
+        props.apiRoot
+      ));
     const statVarDcidToName = await getStatVarNames(
       props.statVarSpec,
       props.apiRoot,
@@ -257,6 +267,7 @@ export const fetchData = async (props: BarTilePropType) => {
       denomResp,
       popPoints,
       placeNames,
+      placeType,
       statVarDcidToName
     );
   } catch (error) {
@@ -271,6 +282,7 @@ function rawToChart(
   denomData: SeriesApiResponse,
   popPoints: RankingPoint[],
   placeNames: Record<string, string>,
+  placeType: string,
   statVarNames: Record<string, string>
 ): BarChartData {
   const raw = _.cloneDeep(statData);
@@ -319,7 +331,13 @@ function rawToChart(
       dataPoints.push(dataPoint);
     }
     const specLinkRoot = props.tileSpec ? props.tileSpec.xLabelLinkRoot : "";
-    const link = `${specLinkRoot || DEFAULT_X_LABEL_LINK_ROOT}${placeDcid}`;
+    const apiRoot = (props.apiRoot || "").replace(/\/$/, "");
+    const urlPath =
+      specLinkRoot ||
+      (PLACE_TYPES.has(placeType)
+        ? PLACE_X_LABEL_LINK_ROOT
+        : DEFAULT_X_LABEL_LINK_ROOT);
+    const link = `${apiRoot}${urlPath}${placeDcid}`;
     if (!_.isEmpty(dataPoints)) {
       // Only add to dataGroups if data is present
       dataGroups.push(
@@ -383,7 +401,8 @@ export function draw(
   props: BarTilePropType,
   chartData: BarChartData,
   svgContainer: HTMLDivElement,
-  svgWidth?: number
+  svgWidth?: number,
+  useSvgLegend?: boolean
 ): void {
   if (chartData.errorMsg) {
     showError(chartData.errorMsg, svgContainer);
@@ -405,6 +424,7 @@ export function draw(
           yAxisMargin: props.yAxisMargin,
         },
         unit: chartData.unit,
+        useSvgLegend,
       }
     );
   } else {
@@ -421,6 +441,7 @@ export function draw(
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
+          useSvgLegend,
         }
       );
     } else {
@@ -436,6 +457,7 @@ export function draw(
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
+          useSvgLegend,
         }
       );
     }
