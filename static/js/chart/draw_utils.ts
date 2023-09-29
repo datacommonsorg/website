@@ -48,6 +48,8 @@ const AXIS_GRID_FILL = "#999";
 export const MAX_UNIT_LENGTH = 5;
 const ROTATE_MARGIN_BOTTOM = 75;
 const TICK_SIZE = 6;
+const LEGEND_CIRCLE_RADIUS = 5;
+const LEGEND_CIRCLE_PADDING = 2;
 
 /**
  * Adds tooltip element within a given container.
@@ -320,6 +322,76 @@ export interface LegendItem {
   label: string;
   link?: string;
   index?: string;
+}
+
+/**
+ * Adds a non-interactive legend as part of an svg
+ * @param svg svg to add the legend to
+ * @param legendY the y coordinate on the svg to add the legend at
+ * @param legendWidth width of the legend
+ * @param color d3 color scale
+ * @param keys legend items
+ */
+export function appendSvgLegendElem(
+  svg: d3.Selection<SVGGElement, any, any, any>,
+  legendY: number,
+  legendWidth: number,
+  color: d3.ScaleOrdinal<string, string>,
+  keys: LegendItem[]
+): void {
+  // Add legend group to svg
+  const legend = svg
+    .append("g")
+    .attr("class", "legend")
+    .attr("transform", `translate(0, ${legendY})`);
+  let yOffset = 0;
+  let nextYOffset = 0;
+  let xOffset = 0;
+  // Add each legend item
+  for (const key of keys) {
+    const lgGroup = legend
+      .append("g")
+      .attr("transform", `translate(0, ${yOffset})`);
+    const circle = lgGroup
+      .append("circle")
+      // x coordinate of the center of the circle
+      .attr("cx", LEGEND_CIRCLE_RADIUS + LEGEND_CIRCLE_PADDING)
+      // y coordinate of the center of the circle
+      .attr("cy", LEGEND_CIRCLE_RADIUS)
+      .attr("r", LEGEND_CIRCLE_RADIUS)
+      .attr("fill", color(key.label));
+    const circleWidth = LEGEND_CIRCLE_RADIUS * 2 + LEGEND_CIRCLE_PADDING * 2;
+    const text = lgGroup
+      .append("text")
+      .attr("transform", `translate(${circleWidth}, 0)`)
+      // align the bottom of the text with the bottom of the circle
+      .attr("dy", "0")
+      .attr("y", LEGEND_CIRCLE_RADIUS * 2)
+      .text(key.label)
+      .style("text-rendering", "optimizedLegibility")
+      // wrap text to max width of the width of the legend minus the circle
+      .call(wrap, legendWidth - circleWidth);
+    const lgGroupWidth = circleWidth + text.node().getBBox().width;
+    const lgGroupHeight = Math.max(
+      circle.node().getBBox().height,
+      text.node().getBBox().height
+    );
+    // if adding the legend item to the current line will overflow, update x
+    // and y offset to the start of the next line
+    if (xOffset + lgGroupWidth > legendWidth) {
+      yOffset = nextYOffset;
+      xOffset = 0;
+    }
+    lgGroup.attr("transform", `translate(${xOffset}, ${yOffset})`);
+    // xOffset for the next item will be the current offset + width of the
+    // current item
+    xOffset += lgGroupWidth;
+    // If current y offset + height of the current item is greater than the
+    // nextYOffset, update nextYOffset
+    nextYOffset = Math.max(nextYOffset, yOffset + lgGroupHeight);
+  }
+  // Update the height of the svg to include the height of the legend
+  svg.attr("height", legendY + nextYOffset);
 }
 
 /**

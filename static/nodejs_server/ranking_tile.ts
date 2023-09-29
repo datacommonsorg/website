@@ -66,6 +66,7 @@ function getTileProp(
 function getRankingChartSvg(
   rankingGroup: RankingGroup,
   sv: string,
+  enclosedPlaceType: string,
   tileConfig: TileConfig,
   apiRoot: string
 ): SVGSVGElement {
@@ -73,6 +74,7 @@ function getRankingChartSvg(
     getRankingUnit(
       tileConfig.title,
       sv,
+      enclosedPlaceType,
       rankingGroup,
       tileConfig.rankingTileSpec,
       tileConfig.rankingTileSpec.showHighest,
@@ -142,7 +144,13 @@ function getRankingUnitResult(
     );
     return result;
   }
-  const svg = getRankingChartSvg(rankingGroup, sv, tileConfig, apiRoot);
+  const svg = getRankingChartSvg(
+    rankingGroup,
+    sv,
+    enclosedPlaceType,
+    tileConfig,
+    apiRoot
+  );
   result.svg = getSvgXml(svg);
   return result;
 }
@@ -247,7 +255,13 @@ export async function getRankingChart(
     const rankingData = await fetchData(tileProp);
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = rankingData[sv];
-      return getRankingChartSvg(rankingGroup, sv, tileConfig, apiRoot);
+      return getRankingChartSvg(
+        rankingGroup,
+        sv,
+        enclosedPlaceType,
+        tileConfig,
+        apiRoot
+      );
     }
   } catch (e) {
     console.log("Failed to get ranking chart");
