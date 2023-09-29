@@ -276,6 +276,7 @@ function renderTiles(
             rankingMetadata={tile.rankingTileSpec}
             className={className}
             showExploreMore={props.showExploreMore}
+            hideFooter={tile.hideFooter}
           />
         );
       case "BAR":
