@@ -704,7 +704,6 @@ function drawHorizontalStackedBars(
         ...dp,
       }));
   };
-
   if (useLollipop) {
     // How much to shift stems so they plot at center of band
     const yShift = yScale.bandwidth() / 2;
