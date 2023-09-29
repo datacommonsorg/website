@@ -27,7 +27,8 @@
     color: #fff;
   }
 
-  .nav-item .nav-link {
+  .nav-item .nav-link,
+  #main-nav .navbar-brand .sep {
     color: rgba(255,255,255,.5)
   }
 }

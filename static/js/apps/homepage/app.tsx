@@ -17,8 +17,6 @@
 /**
  * Main component for homnepage.
  */
-import "../../../library";
-
 import React from "react";
 
 import { NlSearchBar } from "../../components/nl_search_bar";

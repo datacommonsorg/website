@@ -13,6 +13,7 @@
 # limitations under the License.
 """Topic page related handlers."""
 
+import copy
 import json
 
 import flask
@@ -69,10 +70,12 @@ def topic_page(topic_id=None, place_dcid=None):
   if not place_dcid and not topic_id:
     return flask.render_template('topic_page_landing.html')
 
-  all_configs = current_app.config['TOPIC_PAGE_CONFIG']
+  raw_configs = current_app.config['TOPIC_PAGE_CONFIG']
   if g.env == 'local':
-    all_configs = libutil.get_topic_page_config()
-  topic_configs = all_configs.get(topic_id, [])
+    raw_configs = libutil.get_topic_page_config()
+  configs = copy.deepcopy(raw_configs)
+
+  topic_configs = configs.get(topic_id, [])
 
   if topic_id in _DEBUG_TOPICS:
     if current_app.config['SHOW_TOPIC']:

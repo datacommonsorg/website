@@ -29,7 +29,7 @@ from server.webdriver import shared
 WIDTH = 1280
 SCREENSHOTS_FOLDER = 'screenshots'
 
-timeout = 20
+WAIT_TIMEOUT = 40
 
 
 def prepare(page_config_dir):
@@ -65,13 +65,13 @@ def run(driver, page_base_url, page_config):
   if page_config['async']:
     shared.wait_for_loading(driver)
     try:
-      WebDriverWait(driver, timeout).until(shared.charts_rendered)
+      WebDriverWait(driver, WAIT_TIMEOUT).until(shared.charts_rendered)
     except (TimeoutException, UnexpectedAlertPresentException) as e:
       logging.error("Exception for url: %s\n%s", url, e)
       raise e
   else:
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'main'))
-    WebDriverWait(driver, timeout).until(element_present)
+    WebDriverWait(driver, WAIT_TIMEOUT).until(element_present)
   # Extra sleep to make sure page element settles. For example, stat var
   # hierarchy widget expands via animation.
   time.sleep(1)

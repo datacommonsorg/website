@@ -36,7 +36,7 @@ import {
 } from "../js/utils/disaster_event_map_utils";
 import { getTileEventTypeSpecs } from "../js/utils/tile_utils";
 import { getBarChart, getBarTileResult } from "../nodejs_server/bar_tile";
-import { CHART_URL_PARAMS } from "../nodejs_server/constants";
+import { CHART_ID, CHART_URL_PARAMS } from "../nodejs_server/constants";
 import {
   getDisasterMapChart,
   getDisasterMapTileResult,
@@ -161,6 +161,63 @@ function getTextLength(text: string): number {
     toJSON: { ...this },
   };
 };
+
+// Gets a promise for a single tile result
+function getTileResult(
+  id: string,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  svSpec: StatVarSpec[],
+  tileConfig: TileConfig
+): Promise<TileResult> {
+  switch (tileConfig.type) {
+    case "LINE":
+      return getLineTileResult(
+        id,
+        tileConfig,
+        place,
+        svSpec,
+        CONFIG.apiRoot,
+        "",
+        false
+      );
+    case "SCATTER":
+      return getScatterTileResult(
+        id,
+        tileConfig,
+        place,
+        enclosedPlaceType,
+        svSpec,
+        CONFIG.apiRoot,
+        "",
+        false
+      );
+    case "BAR":
+      return getBarTileResult(
+        id,
+        tileConfig,
+        place,
+        enclosedPlaceType,
+        svSpec as any as StatVarSpec[],
+        CONFIG.apiRoot,
+        "",
+        false
+      );
+    case "MAP":
+      return getMapTileResult(
+        id,
+        tileConfig,
+        place,
+        enclosedPlaceType,
+        svSpec[0],
+        CONFIG.apiRoot,
+        "",
+        false
+      );
+    default:
+      return Promise.resolve(null);
+  }
+}
 
 // Get a list of tile result promises for all the tiles in the block
 function getBlockTileResults(
@@ -494,6 +551,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
         })
         .catch(() => {
           res.status(500).send({ err: "Error fetching data." });
+          [];
         });
     })
     .catch((error) => {
@@ -535,6 +593,35 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
     .catch((error) => {
       console.log("Error making request:\n", error.message);
       res.status(500).send(null);
+    });
+});
+
+// TODO: come up with better params
+app.get("/nodejs/chart-info", (req: Request, res: Response) => {
+  const place = _.escape(req.query[CHART_URL_PARAMS.PLACE] as string);
+  const enclosedPlaceType = _.escape(
+    req.query[CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE] as string
+  );
+  const svSpec = JSON.parse(
+    req.query[CHART_URL_PARAMS.STAT_VAR_SPEC] as string
+  );
+  const tileConfig = JSON.parse(
+    req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
+  );
+  res.setHeader("Content-Type", "application/json");
+  const namedTypedPlace = { dcid: place, name: place, types: [] };
+  getTileResult(
+    CHART_ID,
+    namedTypedPlace,
+    enclosedPlaceType,
+    svSpec,
+    tileConfig
+  )
+    .then((tileResult) => {
+      res.status(200).send(JSON.stringify(tileResult));
+    })
+    .catch(() => {
+      res.status(500).send({ err: "Error fetching data." });
     });
 });
 
