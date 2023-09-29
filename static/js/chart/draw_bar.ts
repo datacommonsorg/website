@@ -327,7 +327,9 @@ export function drawStackBarChart(
 
   const setData = (d: d3.Series<{ [key: string]: number }, string>) => {
     return d
-      .filter((item) => !isNaN(item[0]) && !isNaN(item[1]))
+      .filter(
+        (item) => item.length >= 2 && !isNaN(item[0]) && !isNaN(item[1])
+      )
       .map((item) => ({
         date: item.data.date,
         place: item.data.label,
@@ -694,7 +696,7 @@ function drawHorizontalStackedBars(
 ): void {
   const setData = (d: d3.Series<{ [key: string]: number }, string>) => {
     return d
-      .filter((dp) => !isNaN(dp[0]) && !isNaN(dp[1]))
+      .filter((dp) => dp.length >= 2 && !isNaN(dp[0]) && !isNaN(dp[1]))
       .map((dp) => ({
         date: dp.data.date,
         place: dp.data.label,
