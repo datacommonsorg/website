@@ -38,7 +38,8 @@ class NLTest(NLWebServerTestCase):
                    expected_detectors=[],
                    place_detector='dc',
                    failure='',
-                   test=''):
+                   test='',
+                   i18n=''):
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
@@ -50,7 +51,7 @@ class NLTest(NLWebServerTestCase):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(
           self.get_server_url() +
-          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}',
+          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}&i18n={i18n}',
           json={
               'contextHistory': ctx
           }).json()
@@ -246,6 +247,14 @@ class NLTest(NLWebServerTestCase):
             # Shows map of ZCTAs.
             'how many people are unemployed in zip codes of washington?'
         ])
+
+  def test_translate(self):
+    # Hindi query for "which cities in the Santa Clara County have the highest larceny?"
+    self.run_sequence(
+        'translate_hindi',
+        ['सांता क्लारा काउंटी के किन शहरों में सबसे अधिक चोरी होती है?'],
+        check_place_detection=True,
+        i18n='true')
 
   def test_sdg(self):
     self.run_sequence('sdg', [
