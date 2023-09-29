@@ -18,17 +18,17 @@ from flask import current_app
 from langdetect import detect as lang_detect
 import requests
 
+from server.lib.nl.common.counters import Counters
+
 _API_URL = "https://translation.googleapis.com/language/translate/v2"
 _API_HEADER = {'content-type': 'application/json'}
 _EN_LANG = "en"
 
 
 # Detects the query language and translates non-English queries to English.
-# TODO: Add tests once I understand out how to access the api key in tests.
-def detect_lang_and_translate(query, api_key=None):
+def detect_lang_and_translate(query, counters: Counters, api_key=None):
   try:
     lang = lang_detect(query)
-    logging.info("Language detected for '%s': %s", query, lang)
     if lang.startswith(_EN_LANG):
       return query
 
@@ -43,9 +43,15 @@ def detect_lang_and_translate(query, api_key=None):
                                {}).get("translations",
                                        [{}])[0].get("translatedText", "")
     if translation:
-      logging.info("Translated '%s' to: %s", query, translation)
+      counters.info(
+          "query_translation", {
+              "query": query,
+              "translation": translation,
+              "source_language": lang,
+              "target_language": _EN_LANG
+          })
       return translation
     return query
   except Exception as e:
-    logging.warning("Error detecting / translating query: %s\n%s", query, e)
+    counters.err(f"Error detecting / translating query: {query}\n{str(e)}", "")
     return query

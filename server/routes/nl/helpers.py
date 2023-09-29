@@ -47,10 +47,10 @@ from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
 import server.lib.nl.fulfillment.fulfiller as fulfillment
 import server.lib.nl.fulfillment.utils as futils
+from server.lib.translator import detect_lang_and_translate
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 import server.services.bigtable as bt
-from shared.lib.translator import detect_lang_and_translate
 import shared.lib.utils as shared_utils
 
 
@@ -106,8 +106,12 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   else:
     llm_api_type = LlmApiType(llm_api_type)
 
+  counters = ctr.Counters()
+
   if i18n and i18n.lower() == 'true':
-    original_query = detect_lang_and_translate(original_query)
+    start = time.time()
+    original_query = detect_lang_and_translate(original_query, counters)
+    counters.timeit("detect_lang_and_translate", start)
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   if not query:
@@ -130,7 +134,6 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
                              blocked=True)
     return None, err_json
 
-  counters = ctr.Counters()
   debug_logs["original_query"] = query
 
   # Generate new utterance.
