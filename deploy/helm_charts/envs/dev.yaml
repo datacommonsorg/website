@@ -21,7 +21,7 @@ namespace:
 
 website:
   flaskEnv: dev
-  replicas: 20
+  replicas: 10
   redis:
     enabled: true
     configFile: |
@@ -40,15 +40,15 @@ serviceGroups:
   svg:
     replicas: 5
   observation:
-    replicas: 20
+    replicas: 10
   node:
-    replicas: 10
+    replicas: 5
   default:
-    replicas: 10
+    replicas: 5
 
 nl:
   enabled: true
 
 nodejs:
   enabled: true
-  replicas: 6
+  replicas: 50
