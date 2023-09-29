@@ -50,6 +50,7 @@ import server.lib.nl.fulfillment.utils as futils
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 import server.services.bigtable as bt
+from shared.lib.translator import detect_lang_and_translate
 import shared.lib.utils as shared_utils
 
 
@@ -64,6 +65,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   nl_bad_words = current_app.config['NL_BAD_WORDS']
 
   test = request.args.get(params.Params.TEST.value, '')
+  i18n = request.args.get(params.Params.I18N.value, '')
 
   # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
@@ -103,6 +105,9 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
     llm_api_type = LlmApiType.Chat
   else:
     llm_api_type = LlmApiType(llm_api_type)
+
+  if i18n and i18n.lower() == 'true':
+    original_query = detect_lang_and_translate(original_query)
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   if not query:
