@@ -53,6 +53,10 @@ Optional:
   Chart title to show if `header` is not provided. Will only show if a
   lowest-to-highest ranking is shown.
 
+- `perCapita` _list of strings_
+
+  A list of variable DCIDs to rank by per capita value. Entries in the list should be separated by spaces. Example: `"dcid1 dcid2"`.
+
 - `rankingCount` _integer_
   
   How many places to show, e.g. the "N" in "Top-N".

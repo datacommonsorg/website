@@ -92,6 +92,10 @@ export class DatacommonsRankingComponent extends LitElement {
   @property()
   parentPlace!: string;
 
+  // Optional: List of variable DCIDs to plot per capita
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  perCapita?: string[];
+
   // Optional: How many places to show, e.g. "N" in "Top-N"
   // Defaults to 5.
   @property()
@@ -135,7 +139,10 @@ export class DatacommonsRankingComponent extends LitElement {
     const variables = this.variables || [this.variable];
     const statVarSpec = variables.map((statVar) => {
       return {
-        denom: "",
+        denom:
+          this.perCapita && this.perCapita.includes(statVar)
+            ? "Count_Person"
+            : "",
         log: false,
         name: "",
         scaling: 1,
