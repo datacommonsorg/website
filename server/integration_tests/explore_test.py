@@ -64,7 +64,7 @@ class ExploreTest(NLWebServerTestCase):
                              test='',
                              i18n=''):
     ctx = {}
-    for q in queries:
+    for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
           f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}',
@@ -77,6 +77,10 @@ class ExploreTest(NLWebServerTestCase):
         d = ''
       else:
         d = q.replace(' ', '').replace('?', '').lower()
+        # For some queries like Chinese, no characters are replaced and leads to unwieldy folder names.
+        # Use the query index for such cases.
+        if d == q:
+          d = f"query_{index + 1}"
       print(resp)
       self.handle_response(d, resp, test_dir, d, failure)
 
@@ -337,8 +341,11 @@ class ExploreTest(NLWebServerTestCase):
                                 test='unittest')
 
   def test_e2e_translate(self):
-    # Chinese query for "which cities in the Santa Clara County have the highest larceny?"
-    self.run_detect_and_fulfill('e2e_translate_chinese', ['圣克拉拉县哪些城市的盗窃率最高？'],
+    # Chinese queries for:
+    # - "which cities in the Santa Clara County have the highest larceny?"
+    # - "what about car theft?"
+    self.run_detect_and_fulfill('e2e_translate_chinese',
+                                ['圣克拉拉县哪些城市的盗窃率最高？', '汽车被盗怎么办？'],
                                 i18n='true')
 
   def test_e2e_sdg(self):
