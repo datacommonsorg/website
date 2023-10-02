@@ -28,17 +28,23 @@ _TEST_DATA = 'test_data'
 
 class ExploreTest(NLWebServerTestCase):
 
-  def run_fulfillment(self, test_dir, req_json, failure='', test=''):
+  def run_fulfillment(self, test_dir, req_json, failure='', test='', i18n=''):
     resp = requests.post(self.get_server_url() +
-                         f'/api/explore/fulfill?test={test}',
+                         f'/api/explore/fulfill?test={test}&i18n={i18n}',
                          json=req_json).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
-  def run_detection(self, test_dir, queries, dc='', failure='', test=''):
+  def run_detection(self,
+                    test_dir,
+                    queries,
+                    dc='',
+                    failure='',
+                    test='',
+                    i18n=''):
     ctx = {}
     for q in queries:
       resp = requests.post(self.get_server_url() +
-                           f'/api/explore/detect?q={q}&test={test}',
+                           f'/api/explore/detect?q={q}&test={test}&i18n={i18n}',
                            json={
                                'contextHistory': ctx,
                                'dc': dc,
@@ -55,21 +61,26 @@ class ExploreTest(NLWebServerTestCase):
                              queries,
                              dc='',
                              failure='',
-                             test=''):
+                             test='',
+                             i18n=''):
     ctx = {}
-    for q in queries:
-      resp = requests.post(self.get_server_url() +
-                           f'/api/explore/detect-and-fulfill?q={q}&test={test}',
-                           json={
-                               'contextHistory': ctx,
-                               'dc': dc,
-                           }).json()
+    for (index, q) in enumerate(queries):
+      resp = requests.post(
+          self.get_server_url() +
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}',
+          json={
+              'contextHistory': ctx,
+              'dc': dc,
+          }).json()
       ctx = resp['context']
       if len(queries) == 1:
         d = ''
       else:
         d = q.replace(' ', '').replace('?', '').lower()
-      print(resp)
+        # For some queries like Chinese, no characters are replaced and leads to unwieldy folder names.
+        # Use the query index for such cases.
+        if d == q and i18n:
+          d = f"query_{index + 1}"
       self.handle_response(d, resp, test_dir, d, failure)
 
   def handle_response(self,
@@ -153,6 +164,11 @@ class ExploreTest(NLWebServerTestCase):
         'Income in information industry in nevada',
         'Correlate with GDP of California'
     ])
+
+  def test_detection_translate(self):
+    # Chinese query for "which cities in the Santa Clara County have the highest larceny?"
+    self.run_detection('detection_translate_chinese', ['圣克拉拉县哪些城市的盗窃率最高？'],
+                       i18n='true')
 
   def test_fulfillment_basic(self):
     req = {
@@ -322,6 +338,14 @@ class ExploreTest(NLWebServerTestCase):
         'List schools in Sunnyvale',
     ],
                                 test='unittest')
+
+  def test_e2e_translate(self):
+    # Chinese queries for:
+    # - "which cities in the Santa Clara County have the highest larceny?"
+    # - "what about car theft?"
+    self.run_detect_and_fulfill('e2e_translate_chinese',
+                                ['圣克拉拉县哪些城市的盗窃率最高？', '汽车被盗怎么办？'],
+                                i18n='true')
 
   def test_e2e_sdg(self):
     self.run_detect_and_fulfill('e2e_sdg', [
