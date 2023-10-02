@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.app_env import _base, local
+from server.app_env import _base
+from server.app_env import local
 
 
 class Config(_base.Config):
