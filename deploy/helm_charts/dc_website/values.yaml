@@ -65,15 +65,13 @@ mixer:
 esp:
   image:
     repository: gcr.io/endpoints-release/endpoints-runtime
-    tag: "1"
+    tag: "2"
     pullPolicy: Always
 
 kgStoreConfig:
   bigqueryVersion:
   baseBigtableInfo:
   customBigtableInfo: ""
-
-memdbJSON: ""
 
 serviceGroups:
   svg:
