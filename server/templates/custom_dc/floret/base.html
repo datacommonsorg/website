@@ -1,5 +1,5 @@
 {#-
-  Copyright 2020 Google LLC
+  Copyright 2023 Google LLC
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -57,13 +57,6 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  {% if config['HIDE_REVAMP_CHANGES'] %}
-  <link rel="icon" href="old_favicon.ico" type="image/png">
-  {% elif config['LOCAL'] %}
-  <link rel="icon" href="/images/favicon-local.png" type="image/png">
-  {% else %}
-  <link rel="icon" href="/images/favicon.png" type="image/png">
-  {% endif %}
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&family=Google+Sans+Text:wght@300;400;500;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=block">
@@ -71,9 +64,6 @@
   {% endblock %}
   {% if OVERRIDE_CSS_PATH %}
   <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
-  {% endif %}
-  {% if config['HIDE_REVAMP_CHANGES'] %}
-  <link href="/css/base_old.css" rel="stylesheet">
   {% endif %}
   <script>
     globalThis.isCustomDC = {{ config['CUSTOM']|int }};

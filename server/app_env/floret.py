@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.app_env import _base
-from server.app_env import local
+from server.app_env import _base, local
 
 
 class Config(_base.Config):
@@ -24,7 +23,7 @@ class Config(_base.Config):
   LOGO_PATH = "/custom_dc/floret/logo.svg"
   OVERRIDE_CSS_PATH = '/custom_dc/floret/overrides.css'
   SHOW_DISASTER = False
-  USE_PALM = True
+  USE_PALM = False
   ENABLE_PER_CAPITA = False
 
 
