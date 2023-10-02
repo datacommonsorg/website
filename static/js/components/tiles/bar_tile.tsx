@@ -441,7 +441,7 @@ export function draw(
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
-          useSvgLegend
+          useSvgLegend,
         }
       );
     } else {
@@ -457,7 +457,7 @@ export function draw(
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
-          useSvgLegend,
+          useSvgLegend
         }
       );
     }
