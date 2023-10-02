@@ -441,7 +441,7 @@ export function draw(
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
-          useSvgLegend,
+          useSvgLegend
         }
       );
     } else {
