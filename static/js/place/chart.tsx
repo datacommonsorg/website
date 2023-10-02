@@ -665,7 +665,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           enclosedPlaceType: this.props.rankingPlaceType,
           place: { dcid: this.props.parentPlaceDcid, name: "", types: [] },
           rankingMetadata: {
-            diffBaseDate: "",
             showHighest: true,
             showLowest: true,
             showMultiColumn: false,
