@@ -22,15 +22,15 @@ steps:
         ./run_test.sh --setup_python
         exit 0
 
-  # Run Website snapshot
-  - id: snapshot
+  # Run Website screenshot
+  - id: screenshot
     name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
     entrypoint: /bin/bash
     args:
       - -c
       - |
-        if [[ "$_TEST" == "all" || "$_TEST" == "snapshot" ]]; then
-          ./run_website_snapshot.sh $_DOMAIN true
+        if [[ "$_TEST" == "all" || "$_TEST" == "screenshot" ]]; then
+          ./run_website_screenshot.sh $_DOMAIN true
         fi
         exit 0
 
