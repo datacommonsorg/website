@@ -55,9 +55,9 @@ function getTileProp(
   return {
     id,
     title: tileConfig.title,
-    place,
+    parentPlace: place,
     enclosedPlaceType,
-    statVarSpec,
+    variables: statVarSpec,
     rankingMetadata: tileConfig.rankingTileSpec,
     apiRoot,
   };

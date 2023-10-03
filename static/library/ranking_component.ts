@@ -137,7 +137,7 @@ export class DatacommonsRankingComponent extends LitElement {
 
   render(): HTMLElement {
     const variables = this.variables || [this.variable];
-    const statVarSpec = variables.map((statVar) => {
+    const statVarSpecs = variables.map((statVar) => {
       return {
         denom:
           this.perCapita && this.perCapita.includes(statVar)
@@ -156,7 +156,7 @@ export class DatacommonsRankingComponent extends LitElement {
       enclosedPlaceType: this.childPlaceType,
       hideFooter: this.hideFooter,
       id: `chart-${_.uniqueId()}`,
-      place: {
+      parentPlace: {
         dcid: this.parentPlace,
         name: "",
         types: [],
@@ -171,7 +171,7 @@ export class DatacommonsRankingComponent extends LitElement {
         showMultiColumn: this.showMultiColumn,
       },
       showExploreMore: this.showExploreMore,
-      statVarSpec,
+      variables: statVarSpecs,
       title: this.header || this.title,
     };
     return createWebComponentElement(RankingTile, rankingTileProps);
