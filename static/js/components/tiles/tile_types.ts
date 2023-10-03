@@ -24,7 +24,7 @@ export interface TileProp {
   // API root
   apiRoot?: string;
   // Extra classes to add to the container.
-  className?: string; 
+  className?: string;
   // Id for the chart
   id: string;
   // Whether or not to show the explore more button.
@@ -99,3 +99,4 @@ export interface ContainedInPlaceMultiVariableTileProp extends TileProp {
   parentPlace: NamedTypedPlace;
   variables: StatVarSpec[];
 }
+

@@ -25,7 +25,7 @@ import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
-import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { StatVarSpec } from "../../shared/types";
 import {
   getCappedStatVarDate,
   loadSpinner,
@@ -56,7 +56,8 @@ const FOOTER_HEIGHT = 26;
 const LATEST_DATE_KEY = "latest";
 const EMPTY_FACET_ID_KEY = "empty";
 
-export interface RankingTilePropType extends ContainedInPlaceMultiVariableTileProp {
+export interface RankingTilePropType
+  extends ContainedInPlaceMultiVariableTileProp {
   hideFooter?: boolean;
   onHoverToggled?: (placeDcid: string, hover: boolean) => void;
   rankingMetadata: RankingTileSpec;
@@ -233,9 +234,7 @@ export async function fetchData(
     });
     return mergedResponse;
   });
-  const denoms = props.variables
-    .map((spec) => spec.denom)
-    .filter((sv) => !!sv);
+  const denoms = props.variables.map((spec) => spec.denom).filter((sv) => !!sv);
   const denomPromise = _.isEmpty(denoms)
     ? Promise.resolve(null)
     : getSeriesWithin(
@@ -252,10 +251,7 @@ export async function fetchData(
         props.variables
       );
       if (props.rankingMetadata.showMultiColumn) {
-        return transformRankingDataForMultiColumn(
-          rankingData,
-          props.variables
-        );
+        return transformRankingDataForMultiColumn(rankingData, props.variables);
       }
       return rankingData;
     }
