@@ -26,6 +26,7 @@ import { MapTile } from "../../../components/tiles/map_tile";
 import { RankingTile } from "../../../components/tiles/ranking_tile";
 import { FacetSelector } from "../../../shared/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
+import { StatMetadata } from "../../../shared/stat_types";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { getNonPcQuery, getPcQuery } from "../../../tools/map/bq_query_utils";
 import { getAllChildPlaceTypes } from "../../../tools/map/util";
@@ -57,12 +58,17 @@ function getFacetSelector(appContext: AppContextType): JSX.Element {
       },
     ];
   });
-  const onSvFacetIdUpdated = (svFacetId: Record<string, string>) => {
+  const onSvFacetIdUpdated = (
+    svFacetId: Record<string, string>,
+    metadataMap: Record<string, StatMetadata>
+  ) => {
     if (svFacetId[statVar.dcid] === statVar.facetId) {
       return;
     }
     const newStatVars = _.cloneDeep(appContext.statVars);
+    const facetId = svFacetId[newStatVars[0].dcid];
     newStatVars[0].facetId = svFacetId[newStatVars[0].dcid];
+    newStatVars[0].facetInfo = metadataMap[facetId];
     appContext.setStatVars(newStatVars);
   };
   return (
@@ -189,7 +195,7 @@ function getSqlQueryFn(appContext: AppContextType): () => string {
         appContext.places[0].dcid,
         appContext.enclosedPlaceType,
         contextStatVar.date,
-        {}
+        contextStatVar.facetInfo || {}
       );
     } else {
       return getNonPcQuery(
@@ -197,7 +203,7 @@ function getSqlQueryFn(appContext: AppContextType): () => string {
         appContext.places[0].dcid,
         appContext.enclosedPlaceType,
         contextStatVar.date,
-        {}
+        contextStatVar.facetInfo || {}
       );
     }
   };
