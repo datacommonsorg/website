@@ -99,4 +99,3 @@ export interface ContainedInPlaceMultiVariableTileProp extends TileProp {
   parentPlace: NamedTypedPlace;
   variables: StatVarSpec[];
 }
-

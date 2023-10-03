@@ -356,7 +356,7 @@ function pointApiToPerSvRankingData(
 function getNumRankingLists(
   rankingTileSpec: RankingTileSpec,
   rankingData: { [sv: string]: RankingGroup },
-  statVarSpec: StatVarSpec[]
+  statVarSpecs: StatVarSpec[]
 ): number {
   if (rankingTileSpec.showMultiColumn) {
     return [rankingTileSpec.showHighest, rankingTileSpec.showLowest].filter(
@@ -376,7 +376,7 @@ function getNumRankingLists(
     numListsPerSv = 1;
   }
   if (!rankingData) {
-    return statVarSpec.length * numListsPerSv;
+    return statVarSpecs.length * numListsPerSv;
   }
   return Object.keys(rankingData).length * numListsPerSv;
 }
