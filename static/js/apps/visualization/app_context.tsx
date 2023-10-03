@@ -28,6 +28,7 @@ import {
   STAT_VAR_PARAM_KEYS,
   URL_PARAMS,
 } from "../../constants/app/visualization_constants";
+import { GA_EVENT_PAGE_VIEW, triggerGAEvent } from "../../shared/ga_events";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedNode, NamedTypedPlace } from "../../shared/types";
 import {
@@ -55,6 +56,7 @@ export interface ContextStatVar {
   isLog?: boolean;
   date?: string;
   denom?: string;
+  facetId?: string;
 }
 
 export interface AppContextType {
@@ -126,6 +128,7 @@ export function AppContextProvider(
       setStatVars(statVars);
     },
     setVisType: (visType) => {
+      trackPageview(visType);
       shouldUpdateHash.current.push(true);
       setChildPlaceTypes(null);
       setSamplePlaces(null);
@@ -146,9 +149,19 @@ export function AppContextProvider(
     return params.get(paramKey) || "";
   }
 
+  function trackPageview(visType: string) {
+    triggerGAEvent(GA_EVENT_PAGE_VIEW, {
+      page_title: `${visType} - ${document.title}`,
+      page_location: `${window.location.pathname}/${visType}${window.location.hash}`,
+    });
+  }
+
   useEffect(() => {
     // Update context value based off url on initial load
     updateContextValue();
+
+    // Track initial page load
+    trackPageview(visType);
 
     // Update the context value based off the url whenever the window history
     // state changes (i.e., forward or back buttons are clicked)

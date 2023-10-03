@@ -16,9 +16,13 @@ import time
 from typing import cast
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.explore.params import DCNames
+from server.lib.explore.params import is_sdg
+from server.lib.explore.params import Params
+from server.lib.nl.common import utils
 from server.lib.nl.common import variable
+from server.lib.nl.common.constants import PROJECTED_TEMP_TOPIC
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.config_builder import bar
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import event
@@ -38,6 +42,10 @@ from server.lib.nl.fulfillment.types import SV2Thing
 # Given an Utterance, build the final Chart config proto.
 #
 def build(state: PopulateState, config: Config) -> SubjectPageConfig:
+  if not state.uttr.rankedCharts:
+    return None
+
+  dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
   # Get names of all SVs
   uttr = state.uttr
   all_svs = set()
@@ -53,12 +61,15 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
   all_svs = list(all_svs)
   start = time.time()
   sv2thing = SV2Thing(
-      name=variable.get_sv_name(all_svs, config.sv_chart_titles),
+      name=variable.get_sv_name(all_svs, config.sv_chart_titles, dc),
       unit=variable.get_sv_unit(all_svs),
       description=variable.get_sv_description(all_svs),
       footnote=variable.get_sv_footnote(all_svs),
   )
   state.sv2thing = sv2thing
+  # In SDG mode, override the place names with `unDataLabel` values.
+  if is_sdg(state.uttr.insight_ctx):
+    _set_un_labels_in_places(state)
   uttr.counters.timeit('get_sv_details', start)
 
   builder = base.Builder(uttr, sv2thing, config)
@@ -135,7 +146,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
         continue
       pri_place = cspec.places[0]
 
-      if cv.source_topic == 'dc/topic/ProjectedClimateExtremes':
+      if cv.source_topic == PROJECTED_TEMP_TOPIC:
         stat_var_spec_map.update(
             ranking.ranking_chart_block_climate_extremes(
                 builder, pri_place, cspec.svs, sv2thing, cspec))
@@ -194,3 +205,29 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
 
   builder.finalize()
   return builder.page_config
+
+
+def _set_un_labels_in_places(state: PopulateState):
+  # Collect all the DCIDs.
+  place_dcids = set()
+  for cspec in state.uttr.rankedCharts:
+    place_dcids.update([p.dcid for p in cspec.places])
+  for ps in [state.uttr.places, state.uttr.answerPlaces]:
+    place_dcids.update([p.dcid for p in ps])
+  if state.uttr.place_fallback and state.uttr.place_fallback.newPlace:
+    place_dcids.add(state.uttr.place_fallback.newPlace.dcid)
+
+  # Fetch UN Labels.
+  place2labels = utils.get_un_labels(list(place_dcids))
+
+  # Set all the names.
+  for cspec in state.uttr.rankedCharts:
+    for p in cspec.places:
+      p.name = place2labels.get(p.dcid, p.name)
+  for ps in [state.uttr.places, state.uttr.answerPlaces]:
+    for p in ps:
+      p.name = place2labels.get(p.dcid, p.name)
+  if state.uttr.place_fallback and state.uttr.place_fallback.newPlace:
+    state.uttr.place_fallback.newPlace.name = place2labels.get(
+        state.uttr.place_fallback.newPlace.dcid,
+        state.uttr.place_fallback.newPlace.name)

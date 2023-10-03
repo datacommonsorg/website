@@ -42,6 +42,17 @@ export function convertArrayAttribute(attributeValue: string): string[] {
 }
 
 /**
+ * Custom attribute converter for boolean type attributes.
+ * Checks that the attribute value does not equal "false".
+ *
+ * @param attributeValue the attribute value provided to the web component
+ * @returns boolean
+ */
+export function convertBooleanAttribute(attributeValue: string): boolean {
+  return attributeValue.toLowerCase() !== "false";
+}
+
+/**
  * Create the HTML web component for a tile.
  * @param tile React function to create the Tile's JSX
  * @param tileProps the tile's props
@@ -65,4 +76,23 @@ export function createWebComponentElement(
   container.appendChild(mountPoint);
 
   return container;
+}
+
+/**
+ * Gets a function for processing variable names using variable name regex and
+ * a default variable name
+ * @param variableNameRegex regex to use for extracting out a part of the name
+ * @param defaultVariableName default name to use if nothing extracted out
+ */
+export function getVariableNameProcessingFn(
+  variableNameRegex: string,
+  defaultVariableName: string
+): (name: string) => string {
+  if (!variableNameRegex) {
+    return null;
+  }
+  return (name: string) => {
+    const extractedName = name.match(variableNameRegex)?.shift();
+    return extractedName || defaultVariableName || name;
+  };
 }

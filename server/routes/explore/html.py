@@ -18,6 +18,7 @@ import os
 import flask
 from flask import Blueprint
 from flask import current_app
+from flask import g
 from flask import render_template
 
 bp = Blueprint('explore', __name__, url_prefix='/explore')
@@ -30,6 +31,7 @@ def page():
     flask.abort(404)
 
   return render_template('/explore.html',
+                         manual_ga_pageview=True,
                          maps_api_key=current_app.config['MAPS_API_KEY'],
                          website_hash=os.environ.get("WEBSITE_HASH"))
 

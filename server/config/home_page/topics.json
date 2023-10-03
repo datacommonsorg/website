@@ -22,7 +22,7 @@
   {
     "id": "health",
     "title": "Health",
-    "description": "Explore Health Conditions, Health Equity, Health Insurance, Mortality, Preventive Health and Behavior",
+    "description": "Health Conditions, Health Equity, Health Insurance, Mortality, Preventive Health and Behavior",
     "url": "/nl#topic=health",
     "browseUrl": "/explore/health",
     "icon": "area_chart",
@@ -32,7 +32,7 @@
   {
     "id": "sustainability",
     "title": "Sustainability",
-    "description": "Explore Emissions, Natural Disasters, Temperature, Precipitation, Agriculture, Energy, and more",
+    "description": "Emissions, Natural Disasters, Temperature, Precipitation, Agriculture, Energy, and more",
     "url": "/nl#topic=sustainability",
     "browseUrl": "/explore/sustainability",
     "icon": "eco",
@@ -42,7 +42,7 @@
   {
     "id": "education-housing-commute",
     "title": "Education, Housing, and Commute",
-    "description": "Explore Educational Attainment, Home Ownership, and more",
+    "description": "Educational Attainment, Home Ownership, and more",
     "url": "/nl#topic=education-housing-commute",
     "browseUrl": "/explore/education-housing-commute",
     "icon": "school",
@@ -52,7 +52,7 @@
   {
     "id": "equity",
     "title": "Equity",
-    "description": "Explore Economic Equity, Education Equity, Health Equity, Justice System Equity and more",
+    "description": "Economic Equity, Education Equity, Health Equity, Justice System Equity and more",
     "url": "/nl#topic=equity",
     "browseUrl": "/explore/equity",
     "icon": "public",

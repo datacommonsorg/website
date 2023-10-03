@@ -140,7 +140,7 @@ export class StatVarSectionInput extends React.Component<
     } else if (this.props.selected) {
       className = "node-title highlighted-node-title";
     }
-    let displayName = this.props.statVar.displayName;
+    let displayName = this.props.statVar.displayName || this.props.statVar.id;
     // Only replace prefix in display name if prefix is shorter than display
     // name.
     if (

@@ -32,8 +32,11 @@ import { StatVarInfo } from "../shared/stat_var";
 import { DataGroup, Style, wrap } from "./base";
 import {
   AXIS_TEXT_FILL,
+  HIGHLIGHT_TIMEOUT,
   LEGEND,
+  LEGEND_HIGHLIGHT_CLASS,
   MARGIN,
+  NUM_X_TICKS,
   NUM_Y_TICKS,
   TEXT_FONT_FAMILY,
   TOOLTIP_ID,
@@ -43,9 +46,10 @@ const AXIS_GRID_FILL = "#999";
 // max number of characters a unit can have and still be shown next to ticks
 // When a unit is longer, we show the unit as an axes label instead
 export const MAX_UNIT_LENGTH = 5;
-const NUM_X_TICKS = 5;
 const ROTATE_MARGIN_BOTTOM = 75;
 const TICK_SIZE = 6;
+const LEGEND_CIRCLE_RADIUS = 5;
+const LEGEND_CIRCLE_PADDING = 2;
 
 /**
  * Adds tooltip element within a given container.
@@ -74,6 +78,8 @@ export function addTooltip(
  * @param xScale: d3-scale for the x-axis
  * @param shouldRotate: true if the x-ticks should be rotated (no wrapping applied).
  * @param labelToLink: optional map of [label] -> link for each ordinal tick
+ * @param tickFormatFn: function to format tick label
+ * @param numTicks: number of ticks to display
  *
  * @return the height of the x-axis bounding-box.
  */
@@ -84,18 +90,24 @@ export function addXAxis(
   shouldRotate?: boolean,
   labelToLink?: { [label: string]: string },
   singlePointLabel?: string,
-  apiRoot?: string
+  apiRoot?: string,
+  tickFormatFn?: (arg: any, index: any) => string,
+  numTicks?: number
 ): number {
   let d3Axis = d3
     .axisBottom(xScale)
-    .ticks(NUM_X_TICKS)
+    .ticks(numTicks || NUM_X_TICKS)
     .tickSize(TICK_SIZE)
     .tickSizeOuter(0);
+  if (tickFormatFn) {
+    d3Axis.tickFormat(tickFormatFn);
+  }
   if (singlePointLabel) {
     d3Axis = d3Axis.tickFormat(() => {
       return singlePointLabel;
     });
   }
+
   if (shouldRotate && typeof xScale.bandwidth == "function") {
     if (xScale.bandwidth() < 5) {
       d3Axis.tickValues(xScale.domain().filter((v, i) => i % 5 == 0));
@@ -295,20 +307,105 @@ export function addYAxis(
 }
 
 /**
+ * Create a function mapping a legend label to a unique ID string, used to match
+ * a chart's data representation objects (line, bar, etc) with legend labels.
+ * @param labels array of labels present in the legend
+ */
+export function getLegendKeyFn(labels: string[]): (label: string) => string {
+  return function (label: string): string {
+    return `legend-index-${labels.indexOf(label)}`;
+  };
+}
+
+export interface LegendItem {
+  dcid?: string;
+  label: string;
+  link?: string;
+  index?: string;
+}
+
+/**
+ * Adds a non-interactive legend as part of an svg
+ * @param svg svg to add the legend to
+ * @param legendY the y coordinate on the svg to add the legend at
+ * @param legendWidth width of the legend
+ * @param color d3 color scale
+ * @param keys legend items
+ */
+export function appendSvgLegendElem(
+  svg: d3.Selection<SVGGElement, any, any, any>,
+  legendY: number,
+  legendWidth: number,
+  color: d3.ScaleOrdinal<string, string>,
+  keys: LegendItem[]
+): void {
+  // Add legend group to svg
+  const legend = svg
+    .append("g")
+    .attr("class", "legend")
+    .attr("transform", `translate(0, ${legendY})`);
+  let yOffset = 0;
+  let nextYOffset = 0;
+  let xOffset = 0;
+  // Add each legend item
+  for (const key of keys) {
+    const lgGroup = legend
+      .append("g")
+      .attr("transform", `translate(0, ${yOffset})`);
+    const circle = lgGroup
+      .append("circle")
+      // x coordinate of the center of the circle
+      .attr("cx", LEGEND_CIRCLE_RADIUS + LEGEND_CIRCLE_PADDING)
+      // y coordinate of the center of the circle
+      .attr("cy", LEGEND_CIRCLE_RADIUS)
+      .attr("r", LEGEND_CIRCLE_RADIUS)
+      .attr("fill", color(key.label));
+    const circleWidth = LEGEND_CIRCLE_RADIUS * 2 + LEGEND_CIRCLE_PADDING * 2;
+    const text = lgGroup
+      .append("text")
+      .attr("transform", `translate(${circleWidth}, 0)`)
+      // align the bottom of the text with the bottom of the circle
+      .attr("dy", "0")
+      .attr("y", LEGEND_CIRCLE_RADIUS * 2)
+      .text(key.label)
+      .style("text-rendering", "optimizedLegibility")
+      // wrap text to max width of the width of the legend minus the circle
+      .call(wrap, legendWidth - circleWidth);
+    const lgGroupWidth = circleWidth + text.node().getBBox().width;
+    const lgGroupHeight = Math.max(
+      circle.node().getBBox().height,
+      text.node().getBBox().height
+    );
+    // if adding the legend item to the current line will overflow, update x
+    // and y offset to the start of the next line
+    if (xOffset + lgGroupWidth > legendWidth) {
+      yOffset = nextYOffset;
+      xOffset = 0;
+    }
+    lgGroup.attr("transform", `translate(${xOffset}, ${yOffset})`);
+    // xOffset for the next item will be the current offset + width of the
+    // current item
+    xOffset += lgGroupWidth;
+    // If current y offset + height of the current item is greater than the
+    // nextYOffset, update nextYOffset
+    nextYOffset = Math.max(nextYOffset, yOffset + lgGroupHeight);
+  }
+  // Update the height of the svg to include the height of the legend
+  svg.attr("height", legendY + nextYOffset);
+}
+
+/**
  * Adds a legend to the parent element
  * @param elem parent element
  * @param color d3 color scale
  * @param key legend items
- * @param marginLeft [optional] legend offset
+ * @param svg svg element to find corresponding bars/lines/etc. in
+ * @param apiRoot root to use for links in legend items
  */
 export function appendLegendElem(
   elem: HTMLElement,
   color: d3.ScaleOrdinal<string, string>,
-  keys: {
-    dcid?: string;
-    label: string;
-    link?: string;
-  }[],
+  keys: LegendItem[],
   apiRoot?: string
 ): void {
   const legendContainer = d3
@@ -321,7 +418,8 @@ export function appendLegendElem(
     .selectAll("div")
     .data(keys)
     .join("div")
-    .attr("class", "legend-item");
+    .attr("class", "legend-item")
+    .attr("id", (d) => d.index || null);
 
   legendItem
     .append("div")
@@ -341,6 +439,35 @@ export function appendLegendElem(
         [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP,
       })
     );
+
+  // Add highlighting to svg chart area when mousing over legend
+  const svg = d3.select(elem).select("svg");
+  if (svg) {
+    // define mouse behavior functions
+    let hideFn: ReturnType<typeof setTimeout> = null;
+    const highlightSelector = `.${LEGEND_HIGHLIGHT_CLASS}`;
+    const mouseoverFn = function () {
+      if (hideFn) {
+        clearTimeout(hideFn);
+      }
+      const selector = this.id ? `.${this.id}` : null;
+      svg.selectAll(highlightSelector).style("opacity", 0.3);
+      svg.selectAll(selector).style("opacity", 1);
+    };
+    const mouseoutFn = function () {
+      // Slightly delay resetting styling so that quickly mousing over a stream
+      // of legend items doesn't result in the chart flickering
+      hideFn = setTimeout(() => {
+        svg.selectAll(highlightSelector).style("opacity", 1);
+      }, HIGHLIGHT_TIMEOUT);
+    };
+
+    // Add mouse behavior functions on hover to legend items
+    legendContainer
+      .selectAll(".legend-item")
+      .on("mouseover", mouseoverFn)
+      .on("mouseout", mouseoutFn);
+  }
 }
 
 /**

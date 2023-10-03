@@ -20,6 +20,7 @@ import _ from "lodash";
 import {
   EARTH_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
+  THING_PLACE_TYPE,
 } from "../shared/constants";
 import { DisplayNameApiResponse } from "../shared/stat_types";
 import {
@@ -170,7 +171,8 @@ export function getNamedTypedPlace(
  */
 export function getPlaceNames(
   dcids: string[],
-  apiRoot?: string
+  apiRoot?: string,
+  prop?: string
 ): Promise<{ [key: string]: string }> {
   if (!dcids.length) {
     return Promise.resolve({});
@@ -178,10 +180,31 @@ export function getPlaceNames(
   return axios
     .post(`${apiRoot || ""}/api/place/name`, {
       dcids,
+      prop,
     })
     .then((resp) => {
       return resp.data;
     });
+}
+
+/**
+ * Fetches the place type for the given DCID
+ * names
+ */
+export async function getPlaceType(
+  dcid: string,
+  apiRoot?: string,
+  prop?: string
+): Promise<string> {
+  if (!dcid) {
+    return THING_PLACE_TYPE;
+  }
+  try {
+    const response = await axios.get(`${apiRoot || ""}/api/place/type/${dcid}`);
+    return response.data;
+  } catch (e) {
+    return THING_PLACE_TYPE;
+  }
 }
 
 /**

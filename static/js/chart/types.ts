@@ -149,6 +149,9 @@ export interface ChartOptions {
   // list of stat var DCIDs, in the order the colors should be applied
   statVarColorOrder?: string[];
   unit?: string;
+  // Use an svg version of the legend that is added as part of the svg chart and
+  // has no interactions.
+  useSvgLegend?: boolean;
 }
 
 export interface GroupLineChartOptions extends ChartOptions {
@@ -168,8 +171,11 @@ export interface HorizontalBarChartOptions extends ChartOptions {
   };
 }
 
+export type TimeScaleOption = "year" | "month" | "day";
+
 export interface LineChartOptions extends ChartOptions {
   handleDotClick?: (dotData: DotDataPoint) => void;
+  timeScale?: TimeScaleOption;
 }
 
 export type SORT_ASCENDING = "ascending";

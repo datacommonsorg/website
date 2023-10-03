@@ -225,6 +225,12 @@ def parent_place_names(dcid: str) -> List[str]:
   return None
 
 
+# Returns a list of parent place names for a dcid.
+def get_un_labels(dcids: List[str]) -> Dict[str, str]:
+  resp = fetch.property_values(nodes=dcids, prop='unDataLabel')
+  return {p: vals[0] for p, vals in resp.items() if vals}
+
+
 def trim_classifications(
     classifications: List[types.NLClassifier],
     to_trim: Set[types.ClassificationType]) -> List[types.NLClassifier]:
@@ -251,15 +257,15 @@ def get_contained_in_type(
   return place_type
 
 
-def get_size_types(uttr: nl_uttr.Utterance) -> List[types.SizeType]:
+def get_superlatives(uttr: nl_uttr.Utterance) -> List[types.SuperlativeType]:
   classification = futils.classifications_of_type_from_utterance(
-      uttr, types.ClassificationType.SIZE_TYPE)
-  size_types = []
+      uttr, types.ClassificationType.SUPERLATIVE)
+  superlatives = []
   if (classification and isinstance(classification[0].attributes,
-                                    types.SizeTypeClassificationAttributes)):
+                                    types.SuperlativeClassificationAttributes)):
     # Ranking among places.
-    size_types = classification[0].attributes.size_types
-  return size_types
+    superlatives = classification[0].attributes.superlatives
+  return superlatives
 
 
 def get_ranking_types(uttr: nl_uttr.Utterance) -> List[types.RankingType]:
@@ -312,23 +318,22 @@ def pluralize_place_type(place_type: str) -> str:
   return result.title()
 
 
-def has_map(place_type: any, places: List[types.Place]) -> bool:
+def has_map(place_type: any, place: types.Place) -> bool:
   if isinstance(place_type, str):
     place_type = types.ContainedInPlaceType(place_type)
   if place_type == types.ContainedInPlaceType.COUNTRY:
-    return True
-
-  if not places:
+    if place.dcid in constants.MAP_ONLY_SUPER_NATIONAL_GEOS:
+      return True
     return False
 
   aatype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, None)
-  if aatype and places[0].country in constants.ADMIN_AREA_MAP_COUNTRIES:
+  if aatype and place.country and place.country in constants.ADMIN_AREA_MAP_COUNTRIES:
     return True
 
   # If the parent place is in USA, check that the child type +
   # parent type combination supports map.
-  if (places[0].country == constants.USA.dcid and
-      places[0].place_type in constants.USA_ONLY_MAP_TYPES.get(place_type, [])):
+  if (place.country == constants.USA.dcid and
+      place.place_type in constants.USA_ONLY_MAP_TYPES.get(place_type, [])):
     return True
 
   return False
@@ -372,11 +377,6 @@ def get_default_child_place_type(
   ptype = constants.CHILD_PLACE_TYPES.get(ptype, None)
   if ptype:
     ptype = admin_area_equiv_for_place(ptype, place)
-
-    if place.dcid == constants.USA.dcid:
-      # NL has fallback, so if for country we preferred AA1, downgrade
-      # to AA2 since if data doesn't exist it will fallback to AA1.
-      ptype = types.ContainedInPlaceType.COUNTY
 
   return ptype
 

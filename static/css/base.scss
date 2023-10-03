@@ -18,6 +18,7 @@
 @import "./base/box";
 
 $full-footer-bg: #fafcff;
+$sub-footer-breakpoint: 596px;
 
 :root {
   --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
@@ -58,9 +59,9 @@ $theme-colors: (
 );
 
 $font-family-sans-serif: "Google Sans Text", -apple-system, BlinkMacSystemFont,
-"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-"Segoe UI Emoji", "Segoe UI Symbol";
-$headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
+  "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol";
+$headings-font-family: "Google Sans", $font-family-sans-serif;
 
 @import "~bootstrap/scss/bootstrap";
 
@@ -109,8 +110,12 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 #main-nav .navbar-brand span,
 #main-nav .navbar-brand span a {
   font-weight: 200;
-  letter-spacing: 2px;
-  margin-left: 2rem;
+}
+
+#main-nav .navbar-brand .sep {
+  color: var(--gm-3-ref-neutral-neutral-40);
+  display: inline-block;
+  margin: 0 0.5rem;
 }
 
 .main-content {
@@ -235,6 +240,12 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
     }
   }
 }
+@include media-breakpoint-down(xs) {
+  #main-footer h6 {
+    font-size: 22px;
+    line-height: 28px;
+  }
+}
 
 #main-footer #sub-footer {
   align-items: space-between;
@@ -249,10 +260,9 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
     flex-direction: row;
     justify-content: space-between;
   }
-}
+  height: fit-content;
 
-@include media-breakpoint-down(xs) {
-  #main-footer #sub-footer {
+  @media (max-width: $sub-footer-breakpoint) {
     .container {
       align-items: center;
       flex-direction: column;
@@ -346,6 +356,28 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
   animation: spin 1s infinite linear;
 }
 
+#spinner-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#spinner-text::after {
+  content: "Still loading ...";
+  z-index: 10;
+  margin-top: 150px;
+  margin-left: 20px;
+  font-size: 20px;
+  color: white;
+  opacity: 0; /* Initially hidden */
+  animation: fadeIn 0.5s forwards 3s; /* Animation after 3s delay */
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -353,6 +385,12 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
   }
 }
 

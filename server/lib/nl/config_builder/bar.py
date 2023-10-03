@@ -24,6 +24,7 @@ import server.lib.nl.fulfillment.types
 from server.lib.nl.fulfillment.types import ChartVars
 
 _MAX_VARIABLE_LIMIT = 15
+_MAX_PLACES_LIMIT = 15
 
 
 def multiple_place_bar_block(column,
@@ -78,6 +79,7 @@ def multiple_place_bar_block(column,
                                             unit=sv2thing.unit[sv])
 
   tile.bar_tile_spec.max_variables = _MAX_VARIABLE_LIMIT
+  tile.bar_tile_spec.max_places = _MAX_PLACES_LIMIT
   # Always show top ones by default since we truncate #vars.
   tile.bar_tile_spec.sort = BarTileSpec.DESCENDING
   if RankingType.LOW in ranking_types and RankingType.HIGH not in ranking_types:

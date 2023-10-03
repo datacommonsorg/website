@@ -27,10 +27,16 @@ export const URL_HASH_PARAMS = {
   DISABLE_EXPLORE_MORE: "em",
   // old query param
   DEPRECATED_QUERY: "oq",
+  // Detection params
+  DETECTOR: "detector",
+  LLM_API: "llm_api",
   // auto play params
   AUTO_PLAY_QUERY: "aq",
   AUTO_PLAY_DISABLE_TYPING: "at",
   AUTO_PLAY_MANUAL_ENTER: "ae",
+  MAXIMUM_BLOCK: "mb",
+  TEST_MODE: "test",
+  I18N: "i18n",
 };
 // Dcid of the default topic to use
 export const DEFAULT_TOPIC = "dc/topic/Root";

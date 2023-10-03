@@ -111,7 +111,7 @@ function renderBlocks(
     switch (block.type) {
       case "DISASTER_EVENT":
         return (
-          <ErrorBoundary key={id}>
+          <ErrorBoundary key={id} customError={<></>}>
             <BlockContainer
               id={id}
               title={block.title}
@@ -125,7 +125,6 @@ function renderBlocks(
                 enclosedPlaceType={props.enclosedPlaceType}
                 title={block.title}
                 description={block.description}
-                footnote={block.footnote}
                 columns={block.columns}
                 eventTypeSpec={props.eventTypeSpec}
                 showExploreMore={props.showExploreMore}
@@ -136,12 +135,11 @@ function renderBlocks(
         );
       default:
         return (
-          <ErrorBoundary key={id}>
+          <ErrorBoundary key={id} customError={<></>}>
             <BlockContainer
               id={id}
               title={block.title}
               description={block.description}
-              footnote={block.footnote}
               place={props.place}
               commonSVSpec={commonSVSpec}
             >

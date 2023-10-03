@@ -28,7 +28,9 @@ import { Boundary } from "../shared/types";
 import { DataGroup, getColorFn, PlotParams, shouldFillInValues } from "./base";
 import {
   LEGEND,
+  LEGEND_HIGHLIGHT_CLASS,
   MARGIN,
+  NUM_X_TICKS,
   NUM_Y_TICKS,
   SVGNS,
   TEXT_FONT_FAMILY,
@@ -39,8 +41,10 @@ import {
   addXAxis,
   addYAxis,
   appendLegendElem,
+  appendSvgLegendElem,
   buildInChartLegend,
   computeRanges,
+  getLegendKeyFn,
   getRowLabels,
   updateXAxis,
 } from "./draw_utils";
@@ -290,6 +294,30 @@ function addHighlightOnHover(
 }
 
 /**
+ * Get the d3 time interval that corresponds with the time scale to use for
+ * x-axis labels. Returns undefined if no setting is provided.
+ * @param setting time setting set by user
+ */
+function getTickFormatFn(
+  timeScale: string
+): (date: Date) => string | undefined {
+  if (!timeScale) {
+    return;
+  }
+
+  switch (timeScale.toLowerCase()) {
+    case "year":
+      return d3.timeFormat("%Y");
+    case "month":
+      return d3.timeFormat("%Y-%m");
+    case "day":
+      return d3.timeFormat("%Y-%m-%d");
+    default:
+      return;
+  }
+}
+
+/**
  * Draw line chart.
  * @param svgContainer
  * @param width
@@ -322,8 +350,10 @@ export function drawLineChart(
   if (maxV == 0) {
     maxV = MAX_Y_FOR_ZERO_CHARTS;
   }
-  const svg = d3
-    .select(svgContainer)
+  // wrapper div for chart area, used as bounds for tooltip
+  const svgWrapper = d3.select(svgContainer).append("div");
+  // create svg
+  const svg = svgWrapper
     .append("svg")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
@@ -362,6 +392,18 @@ export function drawLineChart(
   if (dataGroups[0].value.length === 1) {
     singlePointLabel = dataGroups[0].value[0].label;
   }
+
+  const tickFormatFn = getTickFormatFn(options?.timeScale);
+
+  // If using a custom timescale setting and there are fewer points than
+  // NUM_X_TICKS, only use one tick-mark per point. This prevents duplicate
+  // dates showing up on the x-axis.
+  const numPointsInLongestLine = Math.max(
+    ...dataGroups.map((dataGroup) => dataGroup.value.length)
+  );
+  const numPointsToShow =
+    options?.timeScale && Math.min(numPointsInLongestLine, NUM_X_TICKS);
+
   const bottomHeight = addXAxis(
     xAxis,
     height,
@@ -369,13 +411,16 @@ export function drawLineChart(
     null,
     null,
     singlePointLabel,
-    options?.apiRoot
+    options?.apiRoot,
+    tickFormatFn,
+    numPointsToShow
   );
   updateXAxis(xAxis, bottomHeight, height, yScale);
 
   const legendText = dataGroups.map((dataGroup) =>
     dataGroup.label ? dataGroup.label : "A"
   );
+  const legendKeyFn = getLegendKeyFn(legendText);
   const colorFn = getColorFn(legendText, options?.colors);
 
   let hasFilledInValues = false;
@@ -417,7 +462,10 @@ export function drawLineChart(
     chart
       .append("path")
       .datum(dataset)
-      .attr("class", "line")
+      .attr(
+        "class",
+        `line ${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(dataGroup.label)}`
+      )
       .attr("d", line)
       .attr("part", (d) =>
         ["series", `series-variable-${dataGroup.label}`].join(" ")
@@ -433,7 +481,10 @@ export function drawLineChart(
         .data(dataGroup.value)
         .enter()
         .append("circle")
-        .attr("class", "dot")
+        .attr(
+          "class",
+          `dot ${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(dataGroup.label)}`
+        )
         .attr("cx", (d) => xScale(d.time))
         .attr("cy", (d) => yScale(d.value))
         .attr("part", (d) =>
@@ -456,8 +507,6 @@ export function drawLineChart(
       top: 0,
     };
     const dataGroupsDict = { [DATAGROUP_UNKNOWN_PLACE]: dataGroups };
-    const container: d3.Selection<HTMLDivElement, any, any, any> =
-      d3.select(svgContainer);
     const highlightColorFn = (_: string, dataGroup: DataGroup) => {
       return colorFn(dataGroup.label);
     };
@@ -465,7 +514,7 @@ export function drawLineChart(
     addHighlightOnHover(
       xScale,
       yScale,
-      container,
+      svgWrapper,
       dataGroupsDict,
       highlightColorFn,
       timePoints,
@@ -475,15 +524,16 @@ export function drawLineChart(
     );
   }
 
-  appendLegendElem(
-    svgContainer,
-    colorFn,
-    dataGroups.map((dg) => ({
-      label: dg.label,
-      link: dg.link,
-    })),
-    options?.apiRoot
-  );
+  const legendItems = dataGroups.map((dg) => ({
+    label: dg.label,
+    link: dg.link,
+    index: legendKeyFn(dg.label),
+  }));
+  if (options?.useSvgLegend) {
+    appendSvgLegendElem(svg, height, width, colorFn, legendItems);
+  } else {
+    appendLegendElem(svgContainer, colorFn, legendItems, options?.apiRoot);
+  }
   svg.attr("class", ASYNC_ELEMENT_CLASS);
   return !hasFilledInValues;
 }

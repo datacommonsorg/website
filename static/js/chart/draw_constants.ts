@@ -20,6 +20,10 @@
 
 export const AXIS_TEXT_FILL = "#2b2929";
 
+// amount of time to delay style resetting in tooltip & legend hover behavior
+// in milliseconds, to prevent flickering
+export const HIGHLIGHT_TIMEOUT = 150;
+
 export const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
@@ -30,6 +34,10 @@ export const LEGEND = {
   defaultColor: "#000",
 };
 
+// class name to add to svg parts that represent data (bars/lines/etc.)
+// Used for highlight styling when hovering over legend items.
+export const LEGEND_HIGHLIGHT_CLASS = "chart-data-object";
+
 export const MARGIN = {
   top: 20, // margin between chart and top edge
   right: 10, // margin between chart and right edge
@@ -37,6 +45,8 @@ export const MARGIN = {
   left: 0, // margin between chart and left edge
   grid: 10, // margin between y-axis and chart content
 };
+
+export const NUM_X_TICKS = 5;
 
 export const NUM_Y_TICKS = 5;
 

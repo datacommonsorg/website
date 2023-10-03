@@ -29,6 +29,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
             "title": "Children Under 5 With Moderate or Severe Stunting"
           },
           {
@@ -45,6 +46,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
             "title": "Children Under 5 With Moderate or Severe Stunting in the World"
           },
           {
@@ -73,6 +75,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
             "title": "Moderate or Severe Stunting in Population Under 5"
           },
           {
@@ -89,6 +92,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
             "title": "Moderate or Severe Stunting in Population Under 5 in the World"
           }
         ],
@@ -122,7 +126,7 @@
     "place_type": "Place"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "UNKNOWN",
   "places": [
     {
       "dcid": "Earth",
@@ -157,6 +161,13 @@
         {
           "dcid": "country/AIA",
           "name": "Anguilla",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALA",
+          "name": "\u00c5land Islands",
           "types": [
             "Country"
           ]
@@ -475,13 +486,6 @@
           "types": [
             "Country"
           ]
-        },
-        {
-          "dcid": "country/COG",
-          "name": "Congo [Republic]",
-          "types": [
-            "Country"
-          ]
         }
       ]
     },
@@ -522,8 +526,28 @@
           "Topic"
         ]
       }
-    ]
+    ],
+    "varToTopics": {
+      "sdg/SH_STA_STNT.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.1",
+          "name": "Height Stunting for Children Under 5",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SH_STA_STNTN.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.1",
+          "name": "Height Stunting for Children Under 5",
+          "types": [
+            "Topic"
+          ]
+        }
+      ]
+    }
   },
-  "svSource": "CURRENT_QUERY",
+  "svSource": "UNKNOWN",
   "userMessage": ""
 }

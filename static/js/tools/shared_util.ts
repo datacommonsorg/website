@@ -17,7 +17,7 @@
 import _ from "lodash";
 
 import { IPCC_PLACE_50_TYPE_DCID } from "../shared/constants";
-import { Observation, StatMetadata } from "../shared/stat_types";
+import { Observation } from "../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { USA_PLACE_HIERARCHY } from "./map/util";
 
@@ -146,6 +146,15 @@ export function isChildPlaceOf(
 }
 
 /**
+ * Check whether a place is USA city or county.
+ * @param dcid The dcid of a place
+ * @returns boolean
+ */
+export function isUSACountyOrCity(dcid: string): boolean {
+  return dcid.startsWith("geoId/") && (dcid.length === 11 || dcid.length == 13);
+}
+
+/**
  * Transforms a string to Title Case.
  * @param str the string to transform.
  */
@@ -169,7 +178,7 @@ export function computeRatio(
   denom: Observation[],
   scaling = 1
 ): Observation[] {
-  if (!denom) {
+  if (_.isEmpty(denom)) {
     return [];
   }
   const result: Observation[] = [];

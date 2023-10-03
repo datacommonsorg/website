@@ -16,7 +16,7 @@
 from collections import OrderedDict
 from dataclasses import dataclass
 import time
-from typing import Dict, List
+from typing import List
 
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import is_sdg
@@ -30,7 +30,7 @@ _MAX_CORRELATION_SVS_PER_TOPIC = 4
 # This is for main.
 _MAX_SUBTOPIC_SV_LIMIT = 3
 # Pick a higher limit for SDG
-_MAX_SUBTOPIC_SV_LIMIT_SDG = 20
+_MAX_SUBTOPIC_SV_LIMIT_SDG = 500
 
 
 @dataclass
@@ -73,8 +73,16 @@ def compute_correlation_chart_vars(
     state: ftypes.PopulateState) -> OrderedDict[str, List[ftypes.ChartVars]]:
   # Note: This relies on the construction of multi-sv in `construct()`
   chart_vars_map = OrderedDict()
-  lhs_svs = state.uttr.multi_svs.candidates[0].parts[0].svs
-  rhs_svs = state.uttr.multi_svs.candidates[0].parts[1].svs
+
+  # Get dual-SV candidate.
+  lhs_svs, rhs_svs = [], []
+  for c in state.uttr.multi_svs.candidates:
+    if len(c.parts) == 2:
+      lhs_svs = c.parts[0].svs
+      rhs_svs = c.parts[1].svs
+      break
+  if not lhs_svs or not rhs_svs:
+    return chart_vars_map
 
   # To not go crazy with api calls, don't handle more than one topic on each
   # side.

@@ -20,6 +20,7 @@
 import _ from "lodash";
 import React, { useContext } from "react";
 
+import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { BqModal } from "../../tools/shared/bq_modal";
 import { AppContext } from "./app_context";
 import { StatVarSelector } from "./stat_var_selector";
@@ -30,23 +31,28 @@ export function Chart(): JSX.Element {
 
   const chartHeight = window.innerHeight * 0.45;
   const showBqButton = !!VIS_TYPE_CONFIG[appContext.visType].getSqlQueryFn;
+  const visTypeConfig = VIS_TYPE_CONFIG[appContext.visType];
+  const footer = visTypeConfig.getFooter ? visTypeConfig.getFooter() : "";
+
   return (
     <div className="chart-section">
-      <div className="stat-var-selector-area">
-        <div className="title">Variables</div>
-        <StatVarSelector />
+      <div className="stat-var-selector-area" id="collapsible-variable-area">
+        <DrawerToggle
+          collapseElemId="collapsible-variable-area"
+          visibleElemId="stat-var-selector-content"
+        />
+        <div id="stat-var-selector-content">
+          <div className="section-title">Variables</div>
+          <StatVarSelector />
+        </div>
       </div>
       <div className="chart-area">
-        {VIS_TYPE_CONFIG[appContext.visType].getChartArea(
-          appContext,
-          chartHeight
-        )}
+        {visTypeConfig.getChartArea(appContext, chartHeight)}
+        {footer && <div className="footer">{footer}</div>}
       </div>
       {showBqButton && (
         <BqModal
-          getSqlQuery={VIS_TYPE_CONFIG[appContext.visType].getSqlQueryFn(
-            appContext
-          )}
+          getSqlQuery={visTypeConfig.getSqlQueryFn(appContext)}
           showButton={true}
         />
       )}

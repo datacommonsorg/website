@@ -308,7 +308,7 @@
     "place_type": "County"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "UNKNOWN",
   "places": [
     {
       "dcid": "geoId/06085",
@@ -824,6 +824,6 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
+  "svSource": "UNKNOWN",
   "userMessage": ""
 }

@@ -21,7 +21,7 @@ namespace:
 
 website:
   flaskEnv: production
-  replicas: 60
+  replicas: 150
   redis:
     enabled: true
     configFile: |
@@ -40,18 +40,18 @@ serviceAccount:
   name: website-ksa
 
 nl:
-  enabled: false
+  enabled: true
 
 serviceGroups:
   recon: null
   svg:
-    replicas: 5
+    replicas: 10
   observation:
-    replicas: 50
+    replicas: 100
   node:
-    replicas: 50
+    replicas: 100
   default:
-    replicas: 20
+    replicas: 50
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD", "dc/g/SDG"]

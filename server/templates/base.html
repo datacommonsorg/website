@@ -25,6 +25,8 @@
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
   locale: string, value for html lang attr
   brand_logo_light: boolean, if true, use the light colored logo in the footer. Default false which uses the dark colored logo.
+  manual_ga_pageview: boolean, if true, will set the Google Analytics config to
+      stop pageview tracking, relying on the app to do all pageview tracking.
 
   Blocks to override:
   head - additional head elements
@@ -43,7 +45,10 @@
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', '{{ GA_ACCOUNT }}', {
-      client_storage: 'none', anonymize_ip: true, {{ ("place_category: '{}'"|safe).format(place_category) if place_category is defined else ""}}
+      client_storage: 'none',
+      anonymize_ip: true,
+      {{ ("place_category: '{}',"|safe).format(place_category) if place_category is defined else "" }}
+      {{ ("send_page_view: false,"|safe) if manual_ga_pageview else "" }}
     });
   </script>
   {% endif %}
@@ -59,11 +64,9 @@
   {% else %}
   <link rel="icon" href="/images/favicon.png" type="image/png">
   {% endif %}
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&family=Google+Sans+Text:wght@300;400;500;700&display=swap"
     rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Text:wght@300;400;500;700" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=block">
   {% block head %}
   {% endblock %}
   {% if OVERRIDE_CSS_PATH %}
@@ -73,7 +76,7 @@
   <link href="/css/base_old.css" rel="stylesheet">
   {% endif %}
   <script>
-    globalThis.is_custom_datacommons = {{ config['CUSTOM']|int }};
+    globalThis.isCustomDC = {{ config['CUSTOM']|int }};
     globalThis.dataSourceDcid = "{{ config['DATA_SOURCE_DCID']|string }}";
     globalThis.dataSourceName = "{{ config['DATA_SOURCE_NAME']|string }}";
   </script>
@@ -82,18 +85,19 @@
 <body>
   <div id="main">
     <header id="main-header">
-      <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
+      <nav class="navbar navbar-light navbar-expand-lg col" id="main-nav">
         <div class="container-fluid">
           <div class="navbar-brand">
             {% if LOGO_PATH %}
             <div id="main-header-logo">
-                <a href="{{ url_for('static.homepage') }}">
-                  <img src="{{ LOGO_PATH }}" />
+                <a href="{{ url_for('static.homepage') }}" aria-label="{% trans %}Back to {{ NAME }} homepage{% endtrans %}">
+                  <img src="{{ LOGO_PATH }}" alt="{{ NAME }} logo"/>
                 </a>
             </div>
             {% endif %}
             <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
             {% if subpage_title %}
+            <span class="sep">•</span>
             <span>
               {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
                 {{ subpage_title }}
@@ -102,14 +106,14 @@
             {% endif %}
             </a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav" aria-label="{% trans %}Show site navigation{% endtrans %}">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
             <ul class="navbar-nav float-md-right">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="{% trans %}Show exploration tools{% endtrans %}">
                   {% trans %}Explore{% endtrans %}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
@@ -145,7 +149,7 @@
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="nav-doc-dropdown" role="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">{% trans %}Documentation{% endtrans %}</a>
+                  aria-haspopup="true" aria-expanded="false" aria-label="{% trans %}Show documentation links{% endtrans %}">{% trans %}Documentation{% endtrans %}</a>
                 <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
                   <a class="dropdown-item" href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
                   <a class="dropdown-item" href="http://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
@@ -160,7 +164,7 @@
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="nav-about-dropdown" role="button"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="{% trans %}Show about links{% endtrans %}">
                   {% trans %}About{% endtrans %}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-about-dropdown">
@@ -270,9 +274,9 @@
           <span class="brand-byline">
             <span class="brand-text">{% trans %}An initiative from{% endtrans %}</span>
             {% if brand_logo_light %}
-            <img class="brand-logo" src="/images/google-logo-reverse.svg" />
+            <img class="brand-logo" width="74" height="25" src="/images/google-logo-reverse.svg" alt="Google logo" />
             {% else %}
-            <img class="brand-logo" src="/images/google-logo.svg" />
+            <img class="brand-logo" width="74" height="25" src="/images/google-logo.svg" alt="Google logo" />
             {% endif %}
           </span>
           <div class="sub-footer-links">

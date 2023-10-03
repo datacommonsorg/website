@@ -335,12 +335,12 @@ class TestBrowser(WebdriverBaseTest):
     # Click the point on the chart for the year 1850
     element_present = EC.presence_of_element_located((
         By.XPATH,
-        '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'
+        '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/div/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'
     ))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     point = self.driver.find_element(
         By.XPATH,
-        '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'
+        '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/div/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'
     )
     point.click()
 

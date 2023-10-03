@@ -20,9 +20,15 @@ import _ from "lodash";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
+import { TimeScaleOption } from "../js/chart/types";
 import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute, createWebComponentElement } from "./utils";
+import {
+  convertArrayAttribute,
+  convertBooleanAttribute,
+  createWebComponentElement,
+  getVariableNameProcessingFn,
+} from "./utils";
 
 /**
  * Web component for rendering the datacommons line tile.
@@ -87,6 +93,34 @@ export class DatacommonsLineComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   variables!: Array<string>;
 
+  // Optional: Regex used to process variable names
+  // If provided, will only use the first case of the variable name that matches
+  // this regex.
+  // For example, if the variableNameRegex is "(.*?)(?=:)", only the part before
+  // a ":" will be used for variable names. So "variable 1: test" will become
+  // "variable 1".
+  @property()
+  variableNameRegex!: string;
+
+  // Optional: default variable name used with variableNameRegex.
+  // If provided and no variable name can be extracted using variableNameRegex,
+  // use this as the variable name.
+  @property()
+  defaultVariableName!: string;
+
+  // Optional: Property to use to get place names
+  @property()
+  placeNameProp: string;
+
+  // Optional: Whether to show the "explore" link.
+  // Default: false
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  showExploreMore: boolean;
+
+  // Optional: Timescale to use for x-axis labels
+  @property()
+  timeScale?: TimeScaleOption;
+
   render(): HTMLElement {
     const lineTileProps: LineTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
@@ -99,6 +133,7 @@ export class DatacommonsLineComponent extends LitElement {
         name: "",
         types: [],
       },
+      showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
       statVarSpec: this.variables.map((variable) => ({
         denom: "",
@@ -110,6 +145,12 @@ export class DatacommonsLineComponent extends LitElement {
       })),
       svgChartHeight: 200,
       title: this.header || this.title,
+      timeScale: this.timeScale,
+      getProcessedSVNameFn: getVariableNameProcessingFn(
+        this.variableNameRegex,
+        this.defaultVariableName
+      ),
+      placeNameProp: this.placeNameProp,
     };
     return createWebComponentElement(LineTile, lineTileProps);
   }

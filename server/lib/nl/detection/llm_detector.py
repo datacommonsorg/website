@@ -28,6 +28,7 @@ from server.lib.nl.detection import utils as dutils
 from server.lib.nl.detection import variable
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import LlmApiType
 
 # TODO: Add support for COMPARISON_FILTER and RANKING_FILTER
 _LLM_TYPE_TO_CLASSIFICATION_TYPE = {
@@ -35,7 +36,7 @@ _LLM_TYPE_TO_CLASSIFICATION_TYPE = {
     'SUB_PLACE_TYPE':
         (types.ClassificationType.CONTAINED_IN, 'contained_in_place_type'),
     'GROWTH': (types.ClassificationType.TIME_DELTA, 'time_delta_type'),
-    'SIZE': (types.ClassificationType.SIZE_TYPE, 'size_type'),
+    'SUPERLATIVE': (types.ClassificationType.SUPERLATIVE, 'superlatives'),
     'DISASTER_EVENT': (types.ClassificationType.EVENT, 'event_type'),
 }
 
@@ -69,9 +70,12 @@ _LLM_TYPE_TO_CLASSIFICATION_SUBTYPE = {
         'DECREASE': types.TimeDeltaType.DECREASE,
         'CHANGE': types.TimeDeltaType.CHANGE,
     },
-    'SIZE': {
-        'BIG': types.SizeType.BIG,
-        'SMALL': types.SizeType.SMALL,
+    'SUPERLATIVE': {
+        'BIG': types.SuperlativeType.BIG,
+        'SMALL': types.SuperlativeType.SMALL,
+        'RICH': types.SuperlativeType.RICH,
+        'POOR': types.SuperlativeType.POOR,
+        'LIST': types.SuperlativeType.LIST,
     },
     'DISASTER_EVENT': {
         'FIRE': types.EventType.FIRE,
@@ -94,8 +98,20 @@ _LLM_OP_TO_QUANTITY_OP = {
 }
 
 
+# Returns False if the query fails safety check.
+def check_safety(query: str, llm_api_type: LlmApiType,
+                 ctr: counters.Counters) -> Detection:
+  if llm_api_type == LlmApiType.Text:
+    llm_resp = palm_api.detect_via_text(query, [], ctr)
+  else:
+    llm_resp = palm_api.detect_via_chat(query, [], ctr)
+  if llm_resp.get('UNSAFE') == True:
+    return False
+  return True
+
+
 def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
-           query_detection_debug_logs: Dict,
+           llm_api_type: LlmApiType, query_detection_debug_logs: Dict,
            ctr: counters.Counters) -> Detection:
   # History
   history = []
@@ -104,7 +120,13 @@ def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
     history.append((u.query, u.llm_resp))
     u = u.prev_utterance
 
-  llm_resp = palm_api.call(query, history, ctr)
+  if llm_api_type == LlmApiType.Text:
+    llm_resp = palm_api.detect_via_text(query, history, ctr)
+  else:
+    llm_resp = palm_api.detect_via_chat(query, history, ctr)
+
+  if llm_resp.get('UNSAFE') == True:
+    return None
 
   # Need to append to sv_list below, so make a copy.
   sv_list = copy.deepcopy(llm_resp.get('METRICS', []))
@@ -155,7 +177,8 @@ def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
                    svs_detected=sv_detection,
                    classifications=classifications,
                    llm_resp=llm_resp,
-                   detector=ActualDetectorType.LLM)
+                   detector=ActualDetectorType.LLM,
+                   llm_api=llm_api_type)
 
 
 def _build_classifications(llm_resp: Dict,

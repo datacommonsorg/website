@@ -19,7 +19,6 @@
  */
 
 import _ from "lodash";
-import React from "react";
 import ReactDOMServer from "react-dom/server";
 
 import {
@@ -67,15 +66,19 @@ function getTileProp(
 function getRankingChartSvg(
   rankingGroup: RankingGroup,
   sv: string,
-  tileConfig: TileConfig
+  enclosedPlaceType: string,
+  tileConfig: TileConfig,
+  apiRoot: string
 ): SVGSVGElement {
   const rankingHtml = ReactDOMServer.renderToString(
     getRankingUnit(
       tileConfig.title,
       sv,
+      enclosedPlaceType,
       rankingGroup,
       tileConfig.rankingTileSpec,
-      tileConfig.rankingTileSpec.showHighest
+      tileConfig.rankingTileSpec.showHighest,
+      apiRoot
     )
   );
   const style = {
@@ -100,7 +103,8 @@ function getRankingUnitResult(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  apiRoot: string
 ): TileResult {
   const result: TileResult = {
     data_csv: rankingPointsToCsv(rankingGroup.points, rankingGroup.svName),
@@ -140,7 +144,13 @@ function getRankingUnitResult(
     );
     return result;
   }
-  const svg = getRankingChartSvg(rankingGroup, sv, tileConfig);
+  const svg = getRankingChartSvg(
+    rankingGroup,
+    sv,
+    enclosedPlaceType,
+    tileConfig,
+    apiRoot
+  );
   result.svg = getSvgXml(svg);
   return result;
 }
@@ -188,7 +198,8 @@ export async function getRankingTileResult(
             enclosedPlaceType,
             statVarSpec,
             urlRoot,
-            useChartUrl
+            useChartUrl,
+            apiRoot
           )
         );
       }
@@ -203,7 +214,8 @@ export async function getRankingTileResult(
             enclosedPlaceType,
             statVarSpec,
             urlRoot,
-            useChartUrl
+            useChartUrl,
+            apiRoot
           )
         );
       }
@@ -243,7 +255,13 @@ export async function getRankingChart(
     const rankingData = await fetchData(tileProp);
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = rankingData[sv];
-      return getRankingChartSvg(rankingGroup, sv, tileConfig);
+      return getRankingChartSvg(
+        rankingGroup,
+        sv,
+        enclosedPlaceType,
+        tileConfig,
+        apiRoot
+      );
     }
   } catch (e) {
     console.log("Failed to get ranking chart");

@@ -50,17 +50,22 @@ interface ChartTileContainerProp {
   isInitialLoading?: boolean;
   // Object used for the explore link
   exploreLink?: { displayText: string; url: string };
+  // Whether or not there is an error message in the chart.
+  hasErrorMsg?: boolean;
+  // Text to show in footer
+  footnote?: string;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const containerRef = useRef(null);
   const embedModalElement = useRef<ChartEmbed>(null);
-
   // on initial loading, hide the title text
   const title = !props.isInitialLoading
     ? getChartTitle(props.title, props.replacementStrings)
     : "";
-  const showEmbed = props.allowEmbed && !props.isInitialLoading;
+  const showSources = !_.isEmpty(props.sources) && !props.hasErrorMsg;
+  const showEmbed =
+    props.allowEmbed && !props.isInitialLoading && !props.hasErrorMsg;
   return (
     <div
       className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ${
@@ -81,17 +86,20 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
             props.title && <h4 {...{ part: "header" }}>{title}</h4>
           }
           <slot name="subheader" {...{ part: "subheader" }}></slot>
-          {!_.isEmpty(props.sources) && getSourcesJsx(props.sources)}
+          {showSources && getSourcesJsx(props.sources)}
         </div>
         {props.children}
       </div>
       <ChartFooter
         handleEmbed={showEmbed ? handleEmbed : null}
         exploreLink={props.exploreLink}
+        footnote={props.footnote}
       >
         <NlChartFeedback id={props.id} />
       </ChartFooter>
-      {showEmbed && <ChartEmbed ref={embedModalElement} />}
+      {showEmbed && (
+        <ChartEmbed container={containerRef.current} ref={embedModalElement} />
+      )}
     </div>
   );
 

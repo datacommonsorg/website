@@ -13,11 +13,8 @@
 # limitations under the License.
 
 import collections
-import io
-import urllib.parse
 
 from google.cloud import storage
-from PIL import Image
 
 
 def list_blobs(bucket_name, max_blobs):
@@ -51,29 +48,11 @@ def list_blobs(bucket_name, max_blobs):
   return d
 
 
-def list_png(bucket_name, prefix):
-  """Return a list of images in a given bucket and folder prefix.
-
-  Args:
-    bucket_name: the bucket where the image is stored.
-    prefix: the folder prefix
-  Returns:
-    An array of base64 encoded images.
-  """
+def read_blob(bucket_name, blob_name):
   storage_client = storage.Client()
   bucket = storage_client.get_bucket(bucket_name)
-  blobs = bucket.list_blobs(prefix=prefix)
-  result = {}
-  for b in blobs:
-    if b.name.endswith('png'):
-      bytes = b.download_as_bytes()
-      name = b.name.removeprefix(prefix + '/').removesuffix('.png')
-      name = urllib.parse.unquote(name)
-      im = Image.open(io.BytesIO(bytes))
-      if 'url' in im.info:
-        name = im.info['url'][1:]  # remove leading /
-      result[name] = bytes
-  return result
+  blob = bucket.get_blob(blob_name)
+  return blob.download_as_bytes()
 
 
 def list_folder(bucket_name, prefix, start_offset):

@@ -187,8 +187,8 @@ def detect_from_names(place_names: List[str], query_without_places: str,
   query_detection_debug_logs["place_resolution"] = {}
   # Look to find place DCIDs.
   if place_names:
-    place_dcids = infer_place_dcids(
-        place_names, query_detection_debug_logs["place_dcid_inference"])
+    name2dcids = dc.find_entities(place_names)
+    place_dcids = {n: d[0] for n, d in name2dcids.items() if d}
 
   if place_dcids:
     resolved_places, parent_map = get_place_from_dcids(

@@ -9,6 +9,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
                     "title": "Life Expectancy in the World (${date})",
@@ -17,7 +28,7 @@
                 ]
               }
             ],
-            "title": "Life Expectancy in the World"
+            "title": "Deaths Per Capita and More in the World"
           },
           {
             "columns": [
@@ -45,22 +56,6 @@
               }
             ],
             "title": "Life Expectancy by Gender in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita) in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Causes of Death in the World"
           },
           {
             "columns": [
@@ -98,7 +93,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) and More in the World"
           },
           {
@@ -165,7 +159,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) and More in the World"
           },
           {
@@ -187,7 +180,7 @@
                     "statVarKey": [
                       "sdg/SH_STA_MORT.SEX--F"
                     ],
-                    "title": "Maternal Mortality Ratio in the World (${date})",
+                    "title": "Maternal Mortality Ratio [Female] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -645,9 +638,9 @@
           }
         ],
         "statVarSpec": {
-          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person": {
-            "name": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita)",
-            "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+          "Count_Death_AsAFractionOfCount_Person": {
+            "name": "Deaths Per Capita",
+            "statVar": "Count_Death_AsAFractionOfCount_Person"
           },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
@@ -850,7 +843,7 @@
             "statVar": "WHO/WHS4_543"
           },
           "sdg/SH_STA_MORT.SEX--F": {
-            "name": "Maternal mortality ratio",
+            "name": "Maternal mortality ratio [Female]",
             "statVar": "sdg/SH_STA_MORT.SEX--F"
           }
         }

@@ -52,8 +52,6 @@ def detect():
       request, 'explore', debug_logs)
   if error_json:
     return error_json
-  if not utterance:
-    return helpers.abort('Sorry could not answer your query.', '', [])
 
   data_dict = copy.deepcopy(utterance.insight_ctx)
   utterance.prev_utterance = None
@@ -68,7 +66,8 @@ def detect():
                                          utterance.detection,
                                          dbg_counters,
                                          debug_logs,
-                                         has_data=True)
+                                         has_data=True,
+                                         test=utterance.test)
 
 
 #
@@ -83,14 +82,10 @@ def detect():
 def fulfill():
   """Data handler."""
   logging.info('NL Chart API: Enter')
-  # NO production support yet.
-  if os.environ.get('FLASK_ENV') == 'production':
-    flask.abort(404)
 
-  req_json = request.get_json()
   debug_logs = {}
   counters = ctr.Counters()
-  return _fulfill_with_insight_ctx(req_json, debug_logs, counters)
+  return _fulfill_with_insight_ctx(request, debug_logs, counters)
 
 
 #
@@ -100,19 +95,20 @@ def fulfill():
 def detect_and_fulfill():
   debug_logs = {}
 
+  test = request.args.get(Params.TEST.value, '')
   # First sanity DC name, if any.
   dc_name = request.get_json().get(Params.DC.value)
   if not dc_name:
     dc_name = DCNames.MAIN_DC.value
   if dc_name not in set([it.value for it in DCNames]):
-    return helpers.abort(f'Invalid Custom Data Commons Name {dc_name}', '', [])
+    return helpers.abort(f'Invalid Custom Data Commons Name {dc_name}',
+                         '', [],
+                         test=test)
 
   utterance, error_json = helpers.parse_query_and_detect(
       request, 'explore', debug_logs)
   if error_json:
     return error_json
-  if not utterance:
-    return helpers.abort('Sorry, could not answer your query.', '', [])
 
   # Set some params used downstream in explore flow.
   utterance.insight_ctx[
@@ -122,7 +118,9 @@ def detect_and_fulfill():
 
   # Important to setup utterance for explore flow (this is really the only difference
   # between NL and Explore).
+  start = time.time()
   nl_detector.setup_for_explore(utterance)
+  utterance.counters.timeit('setup_for_explore', start)
 
   return _fulfill_with_chart_config(utterance, debug_logs)
 
@@ -158,12 +156,18 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
 #
 # Given an insight context, fulfills it into charts.
 #
-def _fulfill_with_insight_ctx(insight_ctx: Dict, debug_logs: Dict,
+def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
                               counters: ctr.Counters) -> Dict:
+  insight_ctx = request.get_json()
+  test = request.args.get(Params.TEST.value, '')
   if not insight_ctx:
-    return helpers.abort('Sorry, could not answer your query.', '', [])
+    return helpers.abort('Sorry, could not answer your query.',
+                         '', [],
+                         test=test)
   if not insight_ctx.get('entities'):
-    return helpers.abort('Could not recognize any places in the query.', '', [])
+    return helpers.abort('Could not recognize any places in the query.',
+                         '', [],
+                         test=test)
 
   entities = insight_ctx.get(Params.ENTITIES.value, [])
   cmp_entities = insight_ctx.get(Params.CMP_ENTITIES.value, [])
@@ -177,7 +181,9 @@ def _fulfill_with_insight_ctx(insight_ctx: Dict, debug_logs: Dict,
   if not dc_name:
     dc_name = DCNames.MAIN_DC.value
   if dc_name not in set([it.value for it in DCNames]):
-    return helpers.abort(f'Invalid Custom Data Commons Name {dc_name}', '', [])
+    return helpers.abort(f'Invalid Custom Data Commons Name {dc_name}',
+                         '', [],
+                         test=test)
 
   if not session_id:
     if current_app.config['LOG_QUERY']:
@@ -193,11 +199,12 @@ def _fulfill_with_insight_ctx(insight_ctx: Dict, debug_logs: Dict,
   query_detection, error_msg = nl_detector.construct_for_explore(
       entities, vars, child_type, cmp_entities, cmp_vars, classifications,
       debug_logs, counters)
-  counters.timeit('query_detection', start)
+  counters.timeit('construct_for_explore', start)
   if not query_detection:
-    return helpers.abort(error_msg, '', [])
+    return helpers.abort(error_msg, '', [], test=test)
 
-  utterance = create_utterance(query_detection, None, counters, session_id)
+  utterance = create_utterance(query_detection, None, counters, session_id,
+                               test)
   utterance.insight_ctx = insight_ctx
   utterance.insight_ctx[Params.DC.value] = dc_name
   return _fulfill_with_chart_config(utterance, debug_logs)

@@ -4,6 +4,7 @@ __pycache__/
 *.pyc
 .env/
 screenshots/*.png
+screenshots/screenshot_url.json
 
 # Production static files
 **/dist/**
@@ -69,3 +70,7 @@ data/
 # Topic cache
 gen_ordered_list_for_topics.mcf
 mcf_parser.py
+
+# Test input and output files
+input/
+output/

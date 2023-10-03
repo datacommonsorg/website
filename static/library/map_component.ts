@@ -23,7 +23,11 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 import { ChartEventDetail } from "../js/chart/types";
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute, createWebComponentElement } from "./utils";
+import {
+  convertArrayAttribute,
+  convertBooleanAttribute,
+  createWebComponentElement,
+} from "./utils";
 
 /**
  * Web component for rendering map tile.
@@ -115,6 +119,19 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   statVarDcid: string;
 
+  // Optional: Whether to show the "explore" link.
+  // Default: false
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  showExploreMore: boolean;
+
+  // Optional: Property to use to get place names
+  @property()
+  placeNameProp: string;
+
+  // Optional: Property to use to get geojsons
+  @property()
+  geoJsonProp: string;
+
   firstUpdated(): void {
     if (this.subscribe) {
       this.parentElement.addEventListener(
@@ -142,6 +159,7 @@ export class DatacommonsMapComponent extends LitElement {
         name: "",
         types: [],
       },
+      showExploreMore: this.showExploreMore,
       statVarSpec: {
         denom: "",
         log: false,
@@ -153,6 +171,8 @@ export class DatacommonsMapComponent extends LitElement {
       },
       svgChartHeight: 200,
       title: this.header || this.title,
+      placeNameProp: this.placeNameProp,
+      geoJsonProp: this.geoJsonProp,
     };
     return createWebComponentElement(MapTile, mapTileProps);
   }

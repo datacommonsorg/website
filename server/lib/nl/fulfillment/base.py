@@ -17,6 +17,7 @@ import logging
 import time
 from typing import Dict, List
 
+from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
 from server.lib.nl.common.utterance import ChartOriginType
@@ -100,8 +101,8 @@ def _add_charts_with_place_fallback(state: PopulateState,
 
   place = places[0]  # Caller populate_charts ensures this exists
 
-  if place.place_type == 'Continent':
-    # Continent is special in that it has a single parent entity
+  if place.place_type in constants.SUPER_NATIONAL_TYPES:
+    # Continent, etc are special in that they have a single parent entity
     # 'Earth' which is of a general type 'Place'. So handle it here
     # (instead of relying on PARENT_PLACE_TYPES).
     earth = Place(
@@ -118,7 +119,9 @@ def _add_charts_with_place_fallback(state: PopulateState,
   # Get the place-type.  Either of child-place (contained-in query-type),
   # or of the place itself.
   # Use child type only if user had specified the child type.
+  has_child_place_type = False
   if state.place_type and not state.had_default_place_type:
+    has_child_place_type = True
     pt = state.place_type
   else:
     pt = place.place_type
@@ -130,6 +133,8 @@ def _add_charts_with_place_fallback(state: PopulateState,
 
   # Walk up the parent type hierarchy trying to add charts.
   parent_type = utils.get_parent_place_type(pt, place)
+  parent_type = _maybe_switch_parent_type(state, place, parent_type,
+                                          has_child_place_type)
   while parent_type:
     if state.place_type:
       if parent_type == place.place_type:
@@ -160,8 +165,23 @@ def _add_charts_with_place_fallback(state: PopulateState,
       return True
     # Else, try next parent type.
     parent_type = utils.get_parent_place_type(parent_type, place)
+    parent_type = _maybe_switch_parent_type(state, place, parent_type,
+                                            has_child_place_type)
 
   return False
+
+
+def _maybe_switch_parent_type(
+    state: PopulateState, place: Place, parent_type: ContainedInPlaceType,
+    has_child_place_type: bool) -> ContainedInPlaceType:
+  if (has_child_place_type and state.place_type and
+      (not parent_type or parent_type.value == place.place_type)):
+    # This is the scenario where we have nowhere up to go
+    # for child-type hierarchy. Walk up the main-place hierarchy.
+    state.place_type = None
+    pt = ContainedInPlaceType(place.place_type)
+    parent_type = utils.get_parent_place_type(pt, place)
+  return parent_type
 
 
 # Add charts given a place and a list of stat-vars.
@@ -174,9 +194,7 @@ def _add_charts_with_existence_check(state: PopulateState,
   _maybe_set_fallback(state, places)
 
   # If there is a child place_type, get child place samples for existence check.
-  state.places_to_check = get_places_to_check(state,
-                                              places,
-                                              is_explore=state.explore_mode)
+  state.places_to_check = get_places_to_check(state, places)
 
   if not state.places_to_check:
     # Counter updated in get_sample_child_places
@@ -221,7 +239,7 @@ def _add_charts_with_existence_check(state: PopulateState,
 
       # If we have found enough charts, return success
       if num_charts >= _MAX_NUM_CHARTS:
-        return True
+        break
 
     # Handle extended/comparable SVs only for simple query since
     # for those we would construct a single bar chart comparing the differe
@@ -229,7 +247,8 @@ def _add_charts_with_existence_check(state: PopulateState,
     # individual "related" charts, and those don't look good.
     #
     # TODO: Optimize and enable in Explore mode.
-    if qt == QueryType.BASIC and existing_svs and not state.place_type and not state.ranking_types:
+    if (qt == QueryType.BASIC and existing_svs and not state.place_type and
+        not state.ranking_types and num_charts < _MAX_NUM_CHARTS):
       # Note that we want to expand on existing_svs only, and in the
       # order of `svs`
       ordered_existing_svs = [v for v in svs if v in existing_svs]
@@ -240,6 +259,25 @@ def _add_charts_with_existence_check(state: PopulateState,
 
     # For a given handler, if we found any charts at all, we're good.
     if found:
+      if (qt == QueryType.BASIC and state.place_type and
+          not state.had_default_place_type and
+          not state.has_child_type_in_top_basic_charts):
+        parent_type = utils.get_parent_place_type(state.place_type, places[0])
+        if not parent_type or places[0].place_type == parent_type:
+          # This type does not have parent-type, or the parent-type is
+          # the main place type.  In this case, ensure we set the fallback
+          # message and return success, because we have charts for the main
+          # place, after reseting the child-type in state (important for
+          # _maybe_set_fallback()).
+          state.place_type = None
+          state.uttr.counters.info('info_internal_fallback_messaging', 1)
+          _maybe_set_fallback(state, places)
+        else:
+          state.uttr.counters.info('info_internal_placetype_fallback',
+                                   state.place_type.value)
+          # Important to reset the added charts!
+          state.uttr.chartCandidates = []
+          found = False
       break
 
   if not found:

@@ -121,10 +121,9 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     ranked_places = ranked_places[:constants.MAX_ANSWER_PLACES]
 
     # TODO: Uncomment this once we agree on look and feel
-    # if field == 'abs' and ranked_places:
-    #   found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT,
-    #                                   state, chart_vars, ranked_places,
-    #                                   chart_origin)
+    if field == 'abs' and ranked_places:
+      found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT, state,
+                                      chart_vars, ranked_places, chart_origin)
 
     if rank == 0 and field == 'abs' and ranked_places:
       ans_places = copy.deepcopy(ranked_places)

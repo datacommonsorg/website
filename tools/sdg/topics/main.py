@@ -12,9 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
+import csv
+from dataclasses import dataclass
 import json
 import logging
 import os
+import re
 from typing import Dict, List, Set
 
 import requests
@@ -23,65 +27,13 @@ logging.getLogger().setLevel(logging.INFO)
 
 _SDG_ROOT = "dc/g/SDG"
 _SDG_TOPIC_JSON = '../../../server/config/nl_page/sdg_topic_cache.json'
-_SDG_MINI_TOPIC_JSON = '../../../server/config/nl_page/sdgmini_topic_cache.json'
+_SDG_NON_COUNTRY_VARS = '../../../server/config/nl_page/sdg_non_country_vars.json'
+_TMP_DIR = '/tmp'
+_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_sdg.mcf')
+_VARIABLES_FILE = 'variable_grouping.csv'
 API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
 API_PATH_PV = API_ROOT + '/v1/bulk/property/values/out'
-
-#
-# This comes from https://country-profiles.unstatshub.org/irl.
-# TODO: Some Series (like SH_DYN_IMRTN are defined as SV sdg/SH_DYN_IMRTN.AGE--Y0)
-#
-TRIMMED_GOAL_SERIES = [
-    "SI_POV_DAY1,SI_COV_MATNL,SI_COV_POOR,SI_COV_CHLD,SI_COV_UEMP,SI_COV_VULN,SI_COV_WKINJRY,SI_COV_BENFTS,SI_COV_DISAB,SI_COV_PENSN,SP_ACS_BSRVH2O,SP_ACS_BSRVSAN,VC_DSR_LSGP,VC_DSR_AGLN,VC_DSR_HOLN,VC_DSR_CILN,SD_XPD_ESED",
-    "SN_ITK_DEFC,AG_PRD_FIESMSI,AG_PRD_FIESMSIN,AG_PRD_FIESSI,AG_PRD_FIESSIN,ER_GRF_ANIMRCNTN,ER_GRF_PLNTSTOR,ER_RSK_LBREDS,AG_PRD_ORTIND,AG_PRD_AGVAS,AG_XPD_AGSGB,AG_FPA_CFPI",
-    "SH_STA_MMR,SH_DYN_IMRTN,SH_DYN_MORT,SH_DYN_IMRT,SH_DYN_MORTN,SH_DYN_NMRTN,SH_DYN_NMRT,SH_HIV_INCD,SH_TBS_INCID,SH_HAP_HBSAG,SH_TRP_INTVN,SH_DTH_NCOM,SH_DTH_RNCOM,SH_STA_SCIDE,SH_STA_SCIDEN,SH_SUD_ALCOL,SH_ALC_CONSPT,SH_STA_TRAF,SP_DYN_ADKL,SH_ACS_UNHC,SH_XPD_EARN25,SH_XPD_EARN10,SH_AAP_ASMORT,SH_STA_WASH,SH_STA_POISN,SH_PRV_SMOK,SH_ACS_DTP3,SH_ACS_PCV3,SH_ACS_HPV,SH_MED_HEAWOR",
-    "SE_PRE_PARTN,SE_ADT_EDUCTRN,SE_ADT_ACTS,SE_PRE_GPIPARTN,SE_GPI_PART,SE_GPI_ICTS,SE_IMP_FPOF,SE_ADT_FUNS",
-    "SG_GEN_PARL,SG_GEN_LOCGELS,IC_GEN_MGTL,IC_GEN_MGTN,IT_MOB_OWN",
-    "SH_H2O_SAFE,SH_SAN_SAFE,SH_SAN_DEFECT,EN_WWT_WWDS,EN_H2O_OPAMBQ,EN_H2O_RVAMBQ,EN_H2O_GRAMBQ,EN_H2O_WBAMBQ,ER_H2O_WUEYST,ER_H2O_STRESS,ER_H2O_IWRMD,EG_TBA_H2CO,EG_TBA_H2COAQ,EG_TBA_H2CORL,EN_WBE_PMPR",
-    "EG_ELC_ACCS,EG_EGY_CLEAN,EG_FEC_RNEW,EG_EGY_PRIM",
-    "NY_GDP_PCAP,SL_EMP_PCAP,SL_EMP_AEARN,SL_TLF_UEM,SL_TLF_NEET,SL_EMP_FTLINJUR,SL_EMP_INJUR,SL_LBR_NTLCPL,FB_ATM_TOTL,FB_CBK_BRCH,FB_BNK_ACCSS,DC_TOF_TRDCMDL,DC_TOF_TRDDBMDL",
-    "IS_RDP_FRGVOL,IS_RDP_PFVOL,IS_RDP_PORFVOL,NV_IND_MANFPC,NV_IND_MANF,SL_TLF_MANF,NV_IND_SSIS,EN_ATM_CO2,EN_ATM_CO2MVA,EN_ATM_CO2GDP,GB_XPD_RSDV,GB_POP_SCIERD,NV_IND_TECH,IT_MOB_2GNTWK,IT_MOB_3GNTWK,IT_MOB_4GNTWK",
-    "SI_HEI_TOTL,SI_POV_50MI,VC_VOV_GDSD,SL_EMP_GTOTL,FI_FSI_FSANL,FI_FSI_FSERA,FI_FSI_FSKA,FI_FSI_FSKNL,FI_FSI_FSLS,TM_TRF_ZERO,DC_TRF_TOTDL",
-    "EN_ATM_PM25",
-    "EN_MAT_DOMCMPG,EN_MAT_DOMCMPC,EN_EWT_GENPCAP,EN_EWT_RCYR,EN_EWT_RCYPCAP,EN_HAZ_PCAP,EN_HAZ_GENGDP,EN_HAZ_TRTDISR,EN_EWT_RCYR,EN_EWT_RCYPCAP,ER_FFS_PRTSST,ER_FFS_PRTSPC,ER_FFS_PRTSPR",
-    "VC_DSR_AFFCT,VC_DSR_MORT,VC_DSR_MTMP,VC_DSR_MTMN,VC_DSR_DAFF,VC_DSR_PDAN,VC_DSR_PDLN,SG_DSR_LGRGSR,SG_DSR_SILS",
-    "ER_MRN_MARINT,ER_MRN_MARIN,ER_MRN_MPA,ER_RDE_OSEX",
-    "AG_LND_FRST,ER_PTD_FRWRT,ER_PTD_TERRS,AG_LND_FRSTBIOPHA,AG_LND_FRSTCERT,AG_LND_FRSTCHG,AG_LND_FRSTMGT,AG_LND_FRSTPRCT,ER_PTD_MOTN,ER_MTN_GRNCVI,ER_RSK_LSTI,ER_CBD_SMTA,DC_ODA_BDVDL,DC_ODA_BDVDL",
-    "VC_VOV_PHYL,VC_HTF_DETV,VC_PRR_PHYV,VC_PRR_ROBB,VC_PRS_UNSEC,SG_REG_BRTH,VC_VOV_GDSD",
-    "GR_G14_GDP,GC_GOB_TAXD,DC_ODA_SIDSG,DC_ODA_LDCG,DC_ODA_LLDC,DC_ODA_SIDS,DC_ODA_LDCS,DC_ODA_LLDCG,DC_ODA_TOTG,DC_ODA_TOTL,GF_FRN_FDI,BX_TRF_PWKR,IT_NET_BBP,IT_USE_ii99",
-]
-
-# Remap all the 67 missing SVs, here is a start:
-# SERIES_OVERRIDE = {
-#   'SI_COV_MATNL': 'SI_COV_MATNL.SEX--F',
-#   'AG_PRD_AGLN': 'AG_PRD_AGLH',
-#   'AG_PRD_HOLN': 'AG_PRD_HOLH',
-# }
-
-
-# Given a topic like dc/topic/sdg_1, returns the SVs from TRIMMED_GOAL_SERIES
-def get_trimmed_children(topic):
-  idx = int(topic.replace('dc/topic/sdg_', '')) - 1
-  svs = []
-  for series in TRIMMED_GOAL_SERIES[idx].split(','):
-    svs.append(f'sdg/{series}')
-  return svs
-
-
-# TODO: Fix all SVS so this is empty.
-def sv_existence_check():
-  all_svs = [
-      f'sdg/{sv}' for line in TRIMMED_GOAL_SERIES for sv in line.split(',')
-  ]
-  resp = call_api(API_PATH_PV, {'property': 'name', 'nodes': all_svs})
-  num_missing = 0
-  for data in resp.get('data', []):
-    if not data.get('values'):
-      num_missing += 1
-      print(f"Missing {data['node']}")
-
-  print(f'\nIMPORTANT: Missing {num_missing} out of {len(all_svs)} Series!\n')
 
 
 def call_api(url, req):
@@ -104,8 +56,8 @@ def _svg2t(svg):
   return svg.replace('dc/g/SDG', 'dc/topic/sdg').replace('dc/g/', 'dc/topic/')
 
 
-def download_svg_recursive(svgs: List[str], nodes: List[Dict],
-                           processed: Set[str], filterset: Set[str]):
+def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
+                           filter_vars: Set[str]):
   resp = call_api(API_PATH_SVG_INFO, {'nodes': svgs})
 
   recurse_nodes = set()
@@ -119,13 +71,13 @@ def download_svg_recursive(svgs: List[str], nodes: List[Dict],
       continue
 
     tid = _svg2t(svg_id)
-    if tid in processed:
+    if tid in nodes:
       continue
 
-    # TODO: Put stuff that has the same `pt` together.
     members = []
     for csv in info.get('childStatVars', []):
-      if not csv.get('hasData') or not csv.get('id'):
+      svid = csv.get('id')
+      if not csv.get('hasData') or not svid or svid not in filter_vars:
         continue
       members.append(csv['id'])
 
@@ -133,60 +85,234 @@ def download_svg_recursive(svgs: List[str], nodes: List[Dict],
       if not csvg.get('id'):
         continue
       members.append(_svg2t(csvg['id']))
-      if not filterset or csvg['id'] in filterset:
-        recurse_nodes.add(csvg['id'])
+      recurse_nodes.add(csvg['id'])
 
-    nodes.append({
+    if not members:
+      print(f'Skipping empty {tid}')
+      continue
+
+    nodes[tid] = {
         'dcid': [tid],
         'name': [info.get('absoluteName', '')],
         'typeOf': ['Topic'],
         'relevantVariableList': members
-    })
-    processed.add(tid)
+    }
 
   if recurse_nodes:
-    download_svg_recursive(sorted(list(recurse_nodes)), nodes, processed,
-                           filterset)
+    download_svg_recursive(sorted(list(recurse_nodes)), nodes, filter_vars)
 
 
-def download_full_sdg_svgs():
-  nodes = []
-  processed = set()
-  download_svg_recursive([_SDG_ROOT], nodes, processed, None)
+def download_sdg_svgs(filter_vars: Set[str]):
+  nodes = {}
+  download_svg_recursive([_SDG_ROOT], nodes, filter_vars)
   return nodes
 
 
-def generate_full():
-  nodes = download_full_sdg_svgs()
-  nodes.sort(key=lambda x: x['dcid'])
+@dataclass
+class Variables:
+  series2group2vars: Dict[str, Dict[str, List[str]]]
+  grouped_vars: Set[str]
+  group_descriptions: Dict[str, str]
+  non_country_vars: Set[str]
+  all_vars: Set[str]
+
+
+def load_variables():
+  vars = Variables(series2group2vars={},
+                   grouped_vars=set(),
+                   group_descriptions={},
+                   non_country_vars=set(),
+                   all_vars=set())
+  with open(_VARIABLES_FILE) as fp:
+    for row in csv.DictReader(fp):
+      if not row.get('VARIABLE_CODE'):
+        continue
+      var = 'sdg/' + row['VARIABLE_CODE'].replace('@', '.').replace(' ', '')
+
+      if row.get('SELECT'):
+        if 'drop' in row['SELECT'].lower():
+          print(f'Dropping variable {var}')
+          continue
+        elif 'do not display in country pages' in row['SELECT'].lower():
+          vars.non_country_vars.add(var)
+
+      vars.all_vars.add(var)
+
+      if not row.get('GROUPING ID') or not row.get('SERIES_CODE'):
+        continue
+      srs = 'dc/topic/sdg' + row['SERIES_CODE'].replace('_', '')
+      grp = 'dc/svpg/SDG' + row['GROUPING ID'].replace('_', '')
+
+      if grp not in vars.group_descriptions:
+        desc = row.get('GROUPING DESCRIPTION', '')
+        # Drop the stuff within () and [].
+        desc = re.sub("[\(\[].*?[\)\]]", '', desc)
+        # Remove the extra spaces.
+        desc = ' '.join(desc.strip().split())
+        desc = desc.replace(' ,', ',')
+        vars.group_descriptions[grp] = desc
+      if srs not in vars.series2group2vars:
+        vars.series2group2vars[srs] = {}
+      if grp not in vars.series2group2vars[srs]:
+        vars.series2group2vars[srs][grp] = []
+      vars.series2group2vars[srs][grp].append(var)
+
+      assert var not in vars.grouped_vars
+      vars.grouped_vars.add(var)
+
+  # Prune out the single-member stuff.
+  deletions = {}
+  for srs, grp2vars in vars.series2group2vars.items():
+    deletions[srs] = []
+    for grp, vs in grp2vars.items():
+      if len(vs) > 1:
+        continue
+      deletions[srs].append(grp)
+      for v in vs:
+        vars.grouped_vars.remove(v)
+  for srs, grps in deletions.items():
+    for g in grps:
+      del vars.series2group2vars[srs][g]
+    if srs in vars.series2group2vars and not vars.series2group2vars[srs]:
+      del vars.series2group2vars[srs]
+
+  return vars
+
+
+# As a result of creating SVPG nodes we might have dropped some empty Topic
+# nodes that in turn led to "dangling" references.
+#
+# This function helps drop those references first and then check if as a result
+# we dropped more Topic nodes, and then drop those refs, etc
+def drop_dangling_topic_refs(nodes: List[Dict]):
+
+  new_nodes = []
+  rounds = 0
+  while True:
+    existing = set()
+    for n in nodes:
+      existing.add(n['dcid'][0])
+
+    new_nodes = []
+    for n in nodes:
+      if n['typeOf'][0] != 'Topic':
+        new_nodes.append(n)
+        continue
+
+      vars = []
+      for t in n.get('relevantVariableList', []):
+        if t.startswith('dc/topic/') and t not in existing:
+          continue
+        vars.append(t)
+
+      if vars:
+        n['relevantVariableList'] = vars
+        new_nodes.append(n)
+
+    if len(new_nodes) == len(nodes):
+      break
+    # There are fewer new_nodes, so this may in turn
+    # lead to more orphan refs.
+    rounds += 1
+    nodes = copy.deepcopy(new_nodes)
+
+  print(f'Took {rounds} rounds of orphan pruning!')
+  return new_nodes
+
+
+def generate(sdg_vars: Variables):
+  nodes = download_sdg_svgs(sdg_vars.all_vars)
+
+  final_nodes = []
+  for topic, node in nodes.items():
+    if not node.get('relevantVariableList'):
+      continue
+
+    pruned_members = []
+    # Skip members in SVPG groups.
+    for m in node['relevantVariableList']:
+      if m not in sdg_vars.grouped_vars:
+        pruned_members.append(m)
+
+    # Add SVPGs in its place.
+    for svpg, members in sdg_vars.series2group2vars.get(topic, {}).items():
+      pruned_members.append(svpg)
+
+      if sdg_vars.group_descriptions.get(svpg):
+        names = [sdg_vars.group_descriptions[svpg]]
+      else:
+        names = node['name']
+      final_nodes.append({
+          'dcid': [svpg],
+          'name': names,
+          'memberList': members,
+          'typeOf': ['StatVarPeerGroup']
+      })
+
+    if topic in sdg_vars.series2group2vars:
+      del sdg_vars.series2group2vars[topic]
+
+    if pruned_members:
+      node['relevantVariableList'] = pruned_members
+      final_nodes.append(node)
+
+  # Assert we have consumed everything!
+  assert not sdg_vars.series2group2vars, sdg_vars.series2group2vars
+
+  final_nodes = drop_dangling_topic_refs(final_nodes)
+
+  final_nodes.sort(key=lambda x: x['dcid'])
+  return final_nodes
+
+
+def write_non_country_vars(sdg_vars: Variables):
+  js = {'variables': sorted(list(sdg_vars.non_country_vars))}
+  with open(_SDG_NON_COUNTRY_VARS, 'w') as fp:
+    json.dump(js, fp, indent=2)
+
+
+def write_topic_json(nodes):
   with open(_SDG_TOPIC_JSON, 'w') as fp:
     json.dump({'nodes': nodes}, fp, indent=2)
 
 
-def generate_trimmed():
-  # Print missing SVs
-  sv_existence_check()
+def write_topic_mcf(nodes: list[dict]) -> None:
+  logging.info("Writing MCF to: %s", _MCF_PATH)
+  os.makedirs(_TMP_DIR, exist_ok=True)
+  with open(_MCF_PATH, 'w') as out:
+    for node in nodes:
+      out.write(_write_mcf_node(node))
 
-  # Generate just the top-level nodes.
-  processed = set()
-  nodes = []
-  # Filter to only get the Goals.
-  filterset = set([f'dc/g/SDG_{i}' for i in range(1, 18)])
-  download_svg_recursive([_SDG_ROOT], nodes, processed, filterset)
 
-  # Replace the SVG children with trimmed SVs.
-  for n in nodes:
-    dcid = n['dcid'][0]
-    if dcid.startswith('dc/topic/sdg_'):
-      n['relevantVariableList'] = get_trimmed_children(dcid)
+def _write_mcf_node(node: dict) -> str:
+  lines = []
 
-  with open(_SDG_MINI_TOPIC_JSON, 'w') as fp:
-    json.dump({'nodes': nodes}, fp, indent=2)
+  if node['typeOf'][0] == 'Topic':
+    prop = 'relevantVariable'
+  else:
+    prop = 'member'
+  list_prop = prop + 'List'
+
+  lines.append(f"Node: dcid:{node['dcid'][0]}")
+
+  if node[list_prop]:
+    refs_str = ", ".join([f"dcid:{var}" for var in node[list_prop]])
+    lines.append(f"{prop}: {refs_str}")
+
+  lines.append(f'name: "{node["name"][0]}"')
+  lines.append(f"typeOf: dcid:{node['typeOf'][0]}")
+
+  lines.append("\n")
+  return "\n".join(lines)
 
 
 def main():
-  generate_trimmed()
-  generate_full()
+  sdg_vars = load_variables()
+  print(f'Found {len(sdg_vars.all_vars)} vars')
+  nodes = generate(sdg_vars)
+  write_topic_json(nodes)
+  write_non_country_vars(sdg_vars)
+  write_topic_mcf(nodes)
 
 
 if __name__ == "__main__":

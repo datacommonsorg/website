@@ -14,8 +14,9 @@
 """Module for related things."""
 
 from dataclasses import dataclass
+import re
 import time
-from typing import Dict, List
+from typing import cast, Dict, List, Set
 
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import is_sdg
@@ -58,15 +59,23 @@ def compute_related_things(state: ftypes.PopulateState,
 
   # Convert the places to json.
   pd = state.uttr.detection.places_detected
-  related_things['parentPlaces'] = _get_json_places(pd.parent_places)
-  if state.place_type and pd.child_places:
-    related_things['childPlaces'] = {
-        state.place_type.value: _get_json_places(pd.child_places)
-    }
-  if pd.peer_places:
-    related_things['peerPlaces'] = _get_json_places(pd.peer_places)
+  fallback = state.uttr.place_fallback
+  # If we did a place-fallback, do not bother setting these!
+  had_place_fallback = bool(fallback and fallback.newPlace and
+                            fallback.origPlace and
+                            fallback.newStr != fallback.origStr)
+  if not had_place_fallback:
+    related_things['parentPlaces'] = _get_json_places(pd.parent_places)
+    if state.place_type and pd.child_places:
+      related_things['childPlaces'] = {
+          state.place_type.value: _get_json_places(pd.child_places)
+      }
+    if pd.peer_places:
+      related_things['peerPlaces'] = _get_json_places(pd.peer_places)
 
   dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
+
+  is_this_sdg = is_sdg(state.uttr.insight_ctx)
 
   # Expand to parent and peer topics.
   # Do this only for one topic, otherwise it gets
@@ -90,13 +99,61 @@ def compute_related_things(state: ftypes.PopulateState,
       # We found a topic, so break!
       break
 
-  if not is_sdg(state.uttr.insight_ctx):
+  if is_this_sdg:
+    _add_sdg_topics(state, related_things)
+
+  if not is_this_sdg:
     related_things = prune_related_topics(related_things, state.uttr)
 
   state.uttr.counters.timeit('topic_expansion', start)
 
   _trim_dups(related_things)
   return related_things
+
+
+def _add_sdg_topics(state: ftypes.PopulateState, related_things: Dict):
+  added_svs = set()
+  related_things['varToTopics'] = {}
+  for cspec in state.uttr.rankedCharts:
+    cspec = cast(ftypes.ChartSpec, cspec)
+    for sv in cspec.svs:
+      if not utils.is_sv(sv) or sv in added_svs:
+        continue
+      added_svs.add(sv)
+      topics = get_sdg_ancestors(sv)
+      if topics:
+        related_things['varToTopics'][sv] = topics
+
+
+def _is_goal_target_indicator(dcid: str) -> bool:
+  # We only want to return Goal/Target/Indicator.
+  return re.match(r'^dc/topic/sdg_[1-9]', dcid)
+
+
+def _get_sdg_ancestors_recursive(topics: List[str], result: List[str],
+                                 added: Set[str]):
+  dc: str = DCNames.SDG_DC.value
+  next = set()
+  for t in topics:
+    for r in topic.get_parent_topics(t, dc):
+      dcid = r['dcid']
+      if _is_goal_target_indicator(dcid):
+        # Stop here!
+        if dcid not in added:
+          result.append(r)
+          added.add(dcid)
+      else:
+        # Recurse up.
+        next.add(dcid)
+  if next:
+    _get_sdg_ancestors_recursive(sorted(list(next)), result, added)
+
+
+def get_sdg_ancestors(topic: str):
+  result = []
+  added = set()
+  _get_sdg_ancestors_recursive([topic], result, added)
+  return result
 
 
 def _trim_dups(related_things: Dict):

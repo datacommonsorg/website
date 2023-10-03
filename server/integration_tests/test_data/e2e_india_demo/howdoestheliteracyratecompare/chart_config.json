@@ -9,6 +9,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -25,17 +26,16 @@
                       "wikidataId/Q22048"
                     ],
                     "statVarKey": [
-                      "Count_Person_Literate_multiple_place_bar_block",
-                      "Count_Person_Illiterate_multiple_place_bar_block"
+                      "Count_Person_Literate_multiple_place_bar_block"
                     ],
-                    "title": "Population: Literate and More (${date})",
+                    "title": "Population: Literate (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate and More"
+            "title": "Population: Literate"
           },
           {
             "columns": [
@@ -43,6 +43,41 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "wikidataId/Q1165",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1168",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1195",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1437",
+                      "wikidataId/Q22048"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Illiterate_multiple_place_bar_block"
+                    ],
+                    "title": "Population: Illiterate (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Illiterate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -76,6 +111,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -109,6 +145,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -142,6 +179,40 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "wikidataId/Q1165",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1168",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1195",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1437",
+                      "wikidataId/Q22048"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Illiterate_AsAFractionOf_Count_Person_multiple_place_bar_block"
+                    ],
+                    "title": "Population: Illiterate (Per Capita) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Population: Illiterate (Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -175,6 +246,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -208,6 +280,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -240,6 +313,10 @@
           "Count_Person_Houseless_Literate_multiple_place_bar_block": {
             "name": "Population: Houseless, Literate",
             "statVar": "Count_Person_Houseless_Literate"
+          },
+          "Count_Person_Illiterate_AsAFractionOf_Count_Person_multiple_place_bar_block": {
+            "name": "Population: Illiterate (Per Capita)",
+            "statVar": "Count_Person_Illiterate_AsAFractionOf_Count_Person"
           },
           "Count_Person_Illiterate_Rural_multiple_place_bar_block": {
             "name": "Population: Illiterate, Rural",
@@ -368,16 +445,6 @@
         "gender": [
           "Count_Person_Illiterate_Rural_Female",
           "Count_Person_Illiterate_Rural_Male"
-        ],
-        "religion": [
-          "indianCensus/Count_Person_Religion_Buddhist_Illiterate_Rural",
-          "indianCensus/Count_Person_Religion_Christian_Illiterate_Rural",
-          "indianCensus/Count_Person_Religion_Hindu_Illiterate_Rural",
-          "indianCensus/Count_Person_Religion_Jain_Illiterate_Rural",
-          "indianCensus/Count_Person_Religion_Muslim_Illiterate_Rural",
-          "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Illiterate_Rural",
-          "indianCensus/Count_Person_Religion_ReligionNotStated_Illiterate_Rural",
-          "indianCensus/Count_Person_Religion_Sikh_Illiterate_Rural"
         ]
       },
       "Count_Person_Illiterate_Urban": {

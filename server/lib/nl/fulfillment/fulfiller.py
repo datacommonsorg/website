@@ -13,11 +13,16 @@
 # limitations under the License.
 """Module for NL page data spec"""
 
+import copy
 import logging
 from typing import cast, List
 
+from flask import current_app
+
+import server.lib.explore.params as params
 import server.lib.explore.topic as topic
 from server.lib.nl.common import utils
+from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 import server.lib.nl.detection.types as dtypes
@@ -25,7 +30,7 @@ from server.lib.nl.fulfillment import base
 from server.lib.nl.fulfillment import event
 from server.lib.nl.fulfillment import filter_with_dual_vars
 from server.lib.nl.fulfillment import overview
-from server.lib.nl.fulfillment import size_across_entities
+from server.lib.nl.fulfillment import superlative
 import server.lib.nl.fulfillment.handlers as handlers
 from server.lib.nl.fulfillment.types import PopulateState
 import server.lib.nl.fulfillment.utils as futils
@@ -69,9 +74,9 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   if main_qt == QueryType.FILTER_WITH_DUAL_VARS:
     # This needs custom SVs.
     filter_with_dual_vars.set_overrides(state)
-  elif main_qt == QueryType.SIZE_ACROSS_ENTITIES:
+  elif main_qt == QueryType.SUPERLATIVE:
     # This needs custom SVs.
-    size_across_entities.set_overrides(state)
+    superlative.set_overrides(state)
   elif main_qt == QueryType.OVERVIEW:
     done = overview.populate(uttr)
   elif main_qt == QueryType.EVENT:
@@ -93,8 +98,13 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   if (has_correlation and state.uttr.multi_svs and
       state.uttr.multi_svs.candidates):
     state.chart_vars_map = topic.compute_correlation_chart_vars(state)
+    if not state.chart_vars_map:
+      state.chart_vars_map = topic.compute_chart_vars(state)
   else:
     state.chart_vars_map = topic.compute_chart_vars(state)
+
+  if params.is_sdg(state.uttr.insight_ctx):
+    _prune_non_country_sdg_vars(state)
 
   # Call populate_charts.
   if not base.populate_charts(state):
@@ -105,6 +115,14 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   # Rank candidates.
   _rank_charts(state.uttr)
 
+  # Prevent artificial overwritten SVs from propagating into
+  # the context of next query.  This is relevant for two types:
+  # - superlatives
+  # - dual-var filter query
+  if state.has_overwritten_svs:
+    state.uttr.svs = []
+    state.uttr.sv_source = FulfillmentResult.UNKNOWN
+
   return state
 
 
@@ -112,6 +130,19 @@ def _produce_query_types(uttr: Utterance) -> List[QueryType]:
   query_types = [handlers.first_query_type(uttr)]
   while query_types[-1] != None:
     query_types.append(handlers.next_query_type(query_types))
+
+  if params.is_sdg(uttr.insight_ctx):
+    # Prune out query_types that aren't relevant.
+    pruned_types = []
+    for qt in query_types:
+      # Superlative introduces custom SVs not relevant for SDG.
+      # And we don't do event maps for SDG.
+      if qt not in [QueryType.EVENT, QueryType.SUPERLATIVE]:
+        pruned_types.append(qt)
+    if not pruned_types:
+      pruned_types.append(QueryType.BASIC)
+    query_types = pruned_types
+
   return query_types
 
 
@@ -123,3 +154,42 @@ def _rank_charts(utterance: Utterance):
   for chart in utterance.chartCandidates:
     logging.info("Chart: %s %s\n" % (chart.places, chart.svs))
   utterance.rankedCharts = utterance.chartCandidates
+
+
+def _prune_non_country_sdg_vars(state: PopulateState):
+  places = state.uttr.places
+  if not places or all([p.place_type != 'Country' for p in places]):
+    # The main places are not countries, nothing to do.
+    return
+
+  if not current_app.config.get('SDG_NON_COUNTRY_ONLY_VARS'):
+    state.uttr.counters.err('failed_missing_sdg_noncountry_vars', '')
+    return
+  sdg_non_country_vars = current_app.config['SDG_NON_COUNTRY_ONLY_VARS']
+
+  # Go over the chart_vars_map and drop
+  pruned_chart_vars_map = {}
+  dropped_vars = set()
+  for var, chart_vars_list in state.chart_vars_map.items():
+    if var in sdg_non_country_vars:
+      dropped_vars.add(var)
+      continue
+    pruned_chart_vars_list = []
+    for cv in chart_vars_list:
+      pruned_cv = copy.deepcopy(cv)
+      pruned_cv.svs = []
+      for v in cv.svs:
+        if v in sdg_non_country_vars:
+          dropped_vars.add(v)
+          continue
+        pruned_cv.svs.append(v)
+      if pruned_cv.svs:
+        pruned_chart_vars_list.append(pruned_cv)
+    if pruned_chart_vars_list:
+      pruned_chart_vars_map[var] = pruned_chart_vars_list
+
+  if dropped_vars:
+    state.uttr.counters.info('info_sdg_noncountry_vars_dropped',
+                             list(dropped_vars))
+
+  state.chart_vars_map = pruned_chart_vars_map

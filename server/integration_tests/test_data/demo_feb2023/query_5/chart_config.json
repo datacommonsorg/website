@@ -9,6 +9,37 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Worker_NAICSHealthCareSocialAssistance",
+                      "dc/p69tpsldf99h7",
+                      "Count_Worker_NAICSConstruction",
+                      "Count_Worker_NAICSAccommodationFoodServices",
+                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+                      "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+                      "Count_Worker_NAICSEducationalServices",
+                      "Count_Worker_NAICSFinanceInsurance",
+                      "Count_Worker_NAICSOtherServices",
+                      "Count_Worker_NAICSArtsEntertainmentRecreation",
+                      "Count_Worker_NAICSRealEstateRentalLeasing",
+                      "Count_Worker_NAICSWholesaleTrade",
+                      "Count_Worker_NAICSPublicAdministration",
+                      "Count_Worker_NAICSInformation",
+                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+                    ],
+                    "title": "Categories of Jobs in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Categories of Jobs"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Worker_NAICSHealthCareSocialAssistance_growth_abs"
                     ],
                     "title": "Health Care and Social Assistance Industry in Placer County",
@@ -518,6 +549,10 @@
           }
         ],
         "statVarSpec": {
+          "Count_Worker_NAICSAccommodationFoodServices": {
+            "name": "Accomodation/Food Industry",
+            "statVar": "Count_Worker_NAICSAccommodationFoodServices"
+          },
           "Count_Worker_NAICSAccommodationFoodServices_growth_abs": {
             "name": "Accomodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
@@ -529,6 +564,10 @@
           "Count_Worker_NAICSAccommodationFoodServices_growth_pct": {
             "name": "Accomodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
+          },
+          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices": {
+            "name": "Admin / Waste Management Service Industry",
+            "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_abs": {
             "name": "Admin / Waste Management Service Industry",
@@ -542,6 +581,10 @@
             "name": "Admin / Waste Management Service Industry",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
+          "Count_Worker_NAICSArtsEntertainmentRecreation": {
+            "name": "Arts, Entertainment, Recreation Industry",
+            "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
+          },
           "Count_Worker_NAICSArtsEntertainmentRecreation_growth_abs": {
             "name": "Arts, Entertainment, Recreation Industry",
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
@@ -553,6 +596,10 @@
           "Count_Worker_NAICSArtsEntertainmentRecreation_growth_pct": {
             "name": "Arts, Entertainment, Recreation Industry",
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
+          },
+          "Count_Worker_NAICSConstruction": {
+            "name": "Construction Industry",
+            "statVar": "Count_Worker_NAICSConstruction"
           },
           "Count_Worker_NAICSConstruction_growth_abs": {
             "name": "Construction Industry",
@@ -566,6 +613,10 @@
             "name": "Construction Industry",
             "statVar": "Count_Worker_NAICSConstruction"
           },
+          "Count_Worker_NAICSEducationalServices": {
+            "name": "Educational Services Industry",
+            "statVar": "Count_Worker_NAICSEducationalServices"
+          },
           "Count_Worker_NAICSEducationalServices_growth_abs": {
             "name": "Educational Services Industry",
             "statVar": "Count_Worker_NAICSEducationalServices"
@@ -577,6 +628,10 @@
           "Count_Worker_NAICSEducationalServices_growth_pct": {
             "name": "Educational Services Industry",
             "statVar": "Count_Worker_NAICSEducationalServices"
+          },
+          "Count_Worker_NAICSFinanceInsurance": {
+            "name": "Finance and Insurance Industry",
+            "statVar": "Count_Worker_NAICSFinanceInsurance"
           },
           "Count_Worker_NAICSFinanceInsurance_growth_abs": {
             "name": "Finance and Insurance Industry",
@@ -590,6 +645,10 @@
             "name": "Finance and Insurance Industry",
             "statVar": "Count_Worker_NAICSFinanceInsurance"
           },
+          "Count_Worker_NAICSHealthCareSocialAssistance": {
+            "name": "Health Care and Social Assistance Industry",
+            "statVar": "Count_Worker_NAICSHealthCareSocialAssistance"
+          },
           "Count_Worker_NAICSHealthCareSocialAssistance_growth_abs": {
             "name": "Health Care and Social Assistance Industry",
             "statVar": "Count_Worker_NAICSHealthCareSocialAssistance"
@@ -601,6 +660,10 @@
           "Count_Worker_NAICSHealthCareSocialAssistance_growth_pct": {
             "name": "Health Care and Social Assistance Industry",
             "statVar": "Count_Worker_NAICSHealthCareSocialAssistance"
+          },
+          "Count_Worker_NAICSInformation": {
+            "name": "Information Industry",
+            "statVar": "Count_Worker_NAICSInformation"
           },
           "Count_Worker_NAICSInformation_growth_abs": {
             "name": "Information Industry",
@@ -614,6 +677,10 @@
             "name": "Information Industry",
             "statVar": "Count_Worker_NAICSInformation"
           },
+          "Count_Worker_NAICSMiningQuarryingOilGasExtraction": {
+            "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
+            "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_abs": {
             "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
@@ -625,6 +692,10 @@
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pct": {
             "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          },
+          "Count_Worker_NAICSOtherServices": {
+            "name": "Other Services (except Public Admin)",
+            "statVar": "Count_Worker_NAICSOtherServices"
           },
           "Count_Worker_NAICSOtherServices_growth_abs": {
             "name": "Other Services (except Public Admin)",
@@ -638,6 +709,10 @@
             "name": "Other Services (except Public Admin)",
             "statVar": "Count_Worker_NAICSOtherServices"
           },
+          "Count_Worker_NAICSProfessionalScientificTechnicalServices": {
+            "name": "Professional, Scientific, and Technical Services",
+            "statVar": "Count_Worker_NAICSProfessionalScientificTechnicalServices"
+          },
           "Count_Worker_NAICSProfessionalScientificTechnicalServices_growth_abs": {
             "name": "Professional, Scientific, and Technical Services",
             "statVar": "Count_Worker_NAICSProfessionalScientificTechnicalServices"
@@ -649,6 +724,10 @@
           "Count_Worker_NAICSProfessionalScientificTechnicalServices_growth_pct": {
             "name": "Professional, Scientific, and Technical Services",
             "statVar": "Count_Worker_NAICSProfessionalScientificTechnicalServices"
+          },
+          "Count_Worker_NAICSPublicAdministration": {
+            "name": "Public Administration",
+            "statVar": "Count_Worker_NAICSPublicAdministration"
           },
           "Count_Worker_NAICSPublicAdministration_growth_abs": {
             "name": "Public Administration",
@@ -662,6 +741,10 @@
             "name": "Public Administration",
             "statVar": "Count_Worker_NAICSPublicAdministration"
           },
+          "Count_Worker_NAICSRealEstateRentalLeasing": {
+            "name": "Real Estate and Rental and Leasing",
+            "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
+          },
           "Count_Worker_NAICSRealEstateRentalLeasing_growth_abs": {
             "name": "Real Estate and Rental and Leasing",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
@@ -674,6 +757,10 @@
             "name": "Real Estate and Rental and Leasing",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
           },
+          "Count_Worker_NAICSWholesaleTrade": {
+            "name": "Wholesale Trade",
+            "statVar": "Count_Worker_NAICSWholesaleTrade"
+          },
           "Count_Worker_NAICSWholesaleTrade_growth_abs": {
             "name": "Wholesale Trade",
             "statVar": "Count_Worker_NAICSWholesaleTrade"
@@ -685,6 +772,10 @@
           "Count_Worker_NAICSWholesaleTrade_growth_pct": {
             "name": "Wholesale Trade",
             "statVar": "Count_Worker_NAICSWholesaleTrade"
+          },
+          "dc/p69tpsldf99h7": {
+            "name": "Retail Trade",
+            "statVar": "dc/p69tpsldf99h7"
           },
           "dc/p69tpsldf99h7_growth_abs": {
             "name": "Retail Trade",

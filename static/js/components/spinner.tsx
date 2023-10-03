@@ -24,6 +24,7 @@ export function Spinner(props: SpinnerProps): JSX.Element {
   return (
     <div id="screen" style={{ display: props.isOpen ? "block" : "none" }}>
       <div id="spinner" />
+      <div id="spinner-text" />
     </div>
   );
 }

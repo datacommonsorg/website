@@ -60,6 +60,7 @@ export interface SVScores {
 
 export interface DebugInfo {
   status: string;
+  blocked?: boolean;
   originalQuery: string;
   placesDetected: Array<string>;
   placesResolved: string;
@@ -69,11 +70,16 @@ export interface DebugInfo {
   svScores: SVScores;
   svSentences: Map<string, Array<string>>;
   rankingClassification: string;
-  overviewClassification: string;
+  generalClassification: string;
   sizeTypeClassification: string;
   timeDeltaClassification: string;
   comparisonClassification: string;
   containedInClassification: string;
   correlationClassification: string;
   eventClassification: string;
+}
+
+export interface UserMessageInfo {
+  msg: string;
+  showForm: boolean;
 }

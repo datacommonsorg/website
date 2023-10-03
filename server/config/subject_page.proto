@@ -98,6 +98,8 @@ message StatVarSpec {
   string date = 7;
   // [Optional] Whether to prevent this variable from being shown per capita. 
   bool no_per_capita = 8;
+  // [Optional] If set, only get data from facet with this id.
+  string facet_id = 9;
 }
 
 // This ranks across child places for a single stat var.
@@ -276,6 +278,10 @@ message Tile {
   repeated string comparison_places = 7;
   // [optional] If set, used instead of main place for the page.
   string place_dcid_override = 11;
+
+  // [optional] used only in ranking tiles
+  // set to true to hide the footer with download / explore more link
+  bool hide_footer = 17;
 
   // specs for specific tile types
   oneof tile_type_spec {

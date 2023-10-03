@@ -35,7 +35,7 @@ test("getPrefix", () => {
       data={[]}
       pathToSelection={[]}
       entities={[]}
-      highlightedStatVar={null}
+      highlightedStatVar={React.createRef()}
     />
   );
   const cases: {
@@ -80,7 +80,9 @@ test("getPrefix", () => {
     },
   ];
   for (const c of cases) {
-    const resultPrefix = wrapper.instance().getPrefix(c.svList);
+    const resultPrefix = (wrapper.instance() as StatVarSection).getPrefix(
+      c.svList
+    );
     try {
       expect(resultPrefix).toEqual(c.wantPrefix);
     } catch (e) {

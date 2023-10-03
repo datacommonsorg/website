@@ -16,9 +16,12 @@
 # The fetch functions call REST wrappers in datacommons module.
 
 import copy
+import re
 from typing import Dict, List
 
 import server.services.datacommons as dc
+
+COMPLEX_UNIT_REGEX = r'\[.+ [0-9]+\]'
 
 
 def _get_unit_names(units: List[str]) -> Dict:
@@ -46,31 +49,46 @@ def _get_unit_names(units: List[str]) -> Dict:
 def _get_processed_facets(facets):
   units = set()
   for facet in facets.values():
-    facet_unit = facet.get('unit')
+    facet_unit = facet.get('unit', '')
     if facet_unit:
       units.add(facet_unit)
+    # If the facet unit is a complex unit, add the unit part to the set of units
+    if re.match(COMPLEX_UNIT_REGEX, facet_unit):
+      unit = facet_unit[1:].split()[0]
+      units.add(unit)
   unit2name = _get_unit_names(list(units))
   result = copy.deepcopy(facets)
   for facet_id, facet in facets.items():
-    facet_unit = facet.get('unit')
+    facet_unit = facet.get('unit', '')
     if facet_unit and unit2name.get(facet_unit, ''):
       result[facet_id]['unitDisplayName'] = unit2name[facet_unit]
+    # handle unit display name for complex units
+    elif re.match(COMPLEX_UNIT_REGEX, facet_unit):
+      unit = facet_unit[1:].split()[0]
+      if unit2name.get(unit, ''):
+        result[facet_id]['unitDisplayName'] = unit2name[unit]
   return result
 
 
 def _convert_v2_obs_point(facet):
-  return {
+  result = {
       'facet': facet['facetId'],
-      'date': facet['observations'][0]['date'],
-      'value': facet['observations'][0]['value']
   }
+  if 'observations' in facet and len(facet['observations']) > 0:
+    if 'date' in facet['observations'][0]:
+      result['date'] = facet['observations'][0]['date']
+    if 'value' in facet['observations'][0]:
+      result['value'] = facet['observations'][0]['value']
+  return result
 
 
 def _convert_v2_obs_series(facet):
-  return {
+  result = {
       'facet': facet['facetId'],
-      'series': facet['observations'],
   }
+  if 'observations' in facet:
+    result['series'] = facet['observations']
+  return result
 
 
 # Returns a compact version of observation point API results
@@ -79,7 +97,7 @@ def _compact_point(point_resp, all_facets):
       'facets': {},
   }
   if all_facets:
-    result['facets'] = point_resp['facets']
+    result['facets'] = point_resp.get('facets', {})
   data = {}
   for var, var_obs in point_resp.get('byVariable', {}).items():
     data[var] = {}
@@ -164,8 +182,12 @@ def point_core(entities, variables, date, all_facets):
   return _compact_point(resp, all_facets)
 
 
-def point_within_core(ancestor_entity, descendent_type, variables, date,
-                      all_facets):
+def point_within_core(ancestor_entity,
+                      descendent_type,
+                      variables,
+                      date,
+                      all_facets,
+                      facet_ids=None):
   """Fetchs observation point for descendent entities of certain type.
 
   The response is in the following format:
@@ -182,12 +204,13 @@ def point_within_core(ancestor_entity, descendent_type, variables, date,
     }
   }
   """
-  resp = dc.obs_point_within(ancestor_entity, descendent_type, variables, date)
+  resp = dc.obs_point_within(ancestor_entity, descendent_type, variables, date,
+                             facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
-def series_core(entities, variables, all_facets):
+def series_core(entities, variables, all_facets, facet_ids=None):
   """Fetchs observation series for given entities and variables.
 
   The response is in the following format:
@@ -204,7 +227,7 @@ def series_core(entities, variables, all_facets):
     }
   }
   """
-  resp = dc.obs_series(entities, variables)
+  resp = dc.obs_series(entities, variables, facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
@@ -236,7 +259,21 @@ def series_facet(entities, variables, all_facets):
   return _compact_series(resp, all_facets)
 
 
-def series_within_core(ancestor_entity, descendent_type, variables, all_facets):
+def point_within_facet(ancestor_entity, descendent_type, variables, date,
+                       all_facets):
+  """Fetches facet of child places of a certain place type contained in a parent
+  place at a given date.
+  """
+  resp = dc.point_within_facet(ancestor_entity, descendent_type, variables,
+                               date)
+  return _compact_point(resp, all_facets)
+
+
+def series_within_core(ancestor_entity,
+                       descendent_type,
+                       variables,
+                       all_facets,
+                       facet_ids=None):
   """Fetchs observation series for for descendent entities of certain type.
 
   The response is in the following format:
@@ -253,7 +290,8 @@ def series_within_core(ancestor_entity, descendent_type, variables, all_facets):
     }
   }
   """
-  resp = dc.obs_series_within(ancestor_entity, descendent_type, variables)
+  resp = dc.obs_series_within(ancestor_entity, descendent_type, variables,
+                              facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
@@ -390,7 +428,7 @@ def triples(nodes, out=True):
   """
   resp = dc.v2node(nodes, '->*' if out else '<-*')
   result = {}
-  for node, arcs in resp['data'].items():
+  for node, arcs in resp.get('data', {}).items():
     result[node] = {}
     for prop, val in arcs.get('arcs', {}).items():
       result[node][prop] = val.get('nodes', [])
@@ -398,10 +436,15 @@ def triples(nodes, out=True):
 
 
 def descendent_places(nodes, descendent_type):
-  return property_values(nodes,
-                         'containedInPlace+',
-                         out=False,
-                         constraints='{{typeOf:{}}}'.format(descendent_type))
+  # When the only node being requested is also the descendent_type, fetch all nodes of that type.
+  if nodes and len(nodes) == 1 and nodes[0] == descendent_type:
+    return property_values(nodes, "typeOf", out=False)
+  return property_values(
+      nodes,
+      "containedInPlace+",
+      out=False,
+      constraints="{{typeOf:{}}}".format(descendent_type),
+  )
 
 
 def raw_descendent_places(nodes, descendent_type):

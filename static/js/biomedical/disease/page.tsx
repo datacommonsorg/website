@@ -215,7 +215,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
                 The U.S.state-wise prevalence rates of {diseaseName} as reported
                 by the Centers for Disease Control and Prevention (CDC).
               </p>
-              <br></br>
               <div id={diseasePrevalenceStatVarDcid}></div>
               <MapTile
                 id={diseasePrevalenceStatVarDcid}
@@ -224,6 +223,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
                 enclosedPlaceType={"State"}
                 statVarSpec={statVarDisease}
                 svgChartHeight={200}
+                className="disease-map"
               />
             </>
           )}

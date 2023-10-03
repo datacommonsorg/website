@@ -17,10 +17,11 @@ from datetime import date
 import json
 import os
 
-import flask
 from flask import Blueprint
 from flask import current_app
+from flask import redirect
 from flask import render_template
+from flask import request
 
 import server.lib.render as lib_render
 from server.services import datacommons as dc
@@ -31,6 +32,10 @@ bp = Blueprint('static', __name__)
 @bp.route('/')
 def homepage():
   # Return old homepage if hiding revamp changes
+  # http since the ssl happens in GCP load balancer.
+  if request.url == 'http://unsdg.datacommons.org/':
+    return redirect('https://unstats.un.org/UNSDWebsite/undatacommons/sdgs',
+                    code=302)
   if (current_app.config.get('HIDE_REVAMP_CHANGES')):
     return lib_render.render_page("static/homepage_old.html", "homepage.html")
   return lib_render.render_page(

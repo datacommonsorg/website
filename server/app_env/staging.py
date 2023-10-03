@@ -17,4 +17,6 @@ from server.app_env import _base
 
 class Config(_base.Config):
   GA_ACCOUNT = 'G-HV2XYYS1JD'
-  HIDE_REVAMP_CHANGES = True
+  HIDE_REVAMP_CHANGES = False
+  USE_PALM = True
+  LOG_QUERY = True

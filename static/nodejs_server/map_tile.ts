@@ -68,7 +68,15 @@ function getMapChartSvg(
 ): SVGSVGElement {
   const legendContainer = document.createElement("div");
   const mapContainer = document.createElement("div");
-  draw(chartData, tileProp, null, legendContainer, mapContainer, SVG_WIDTH);
+  draw(
+    chartData,
+    tileProp,
+    null,
+    legendContainer,
+    mapContainer,
+    null,
+    SVG_WIDTH
+  );
   // Get the width of the text in the legend
   let legendTextWidth = 0;
   Array.from(legendContainer.querySelectorAll("text")).forEach((node) => {

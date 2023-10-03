@@ -134,7 +134,14 @@ class MainExistenceCheckTracker(ExistenceCheckTracker):
                     'places': places[:constants.DBG_LIST_LIMIT],
                     'event': chart_vars.event
                 })
-        else:
+        elif len(chart_vars.orig_svs) < 2:
+          # Do this dedupe only for non-correlation chart-vars.
+          # Because scatter plots will have overlapping vars.
+          # Imagine:  (sv1, sv2) vs. (sva, svb, svc, svd, sve)
+          # And assume: sv1 doesn't exist.
+          # By the time we get to (sv2, svd) as a pair, both
+          # SVs will exist.
+
           # NOTE: This does not prevent an SV that first appears alone
           # and is then part of a topic.  For that case, we do
           # chart dedupe (since having that SV as part of the
@@ -180,26 +187,32 @@ class ExtensionExistenceCheckTracker(ExistenceCheckTracker):
 
 # Returns a list of place as a map with place DCID as key, and the value for
 # grouping.
-def get_places_to_check(state: PopulateState, places: List[Place],
-                        is_explore: bool) -> Dict[str, str]:
+def get_places_to_check(state: PopulateState,
+                        places: List[Place]) -> Dict[str, str]:
   uttr = state.uttr
   # Get places to perform existence check on.
   places_to_check = {}
   for p in _get_place_dcids(places):
     places_to_check[p] = p
-  if state.place_type:
+  if state.place_type and len(places) == 1:
     # Add child places
     key = places[0].dcid + state.place_type.value
-    if is_explore:
+    if state.place_type.value == uttr.detection.places_detected.child_place_type:
+      # Only if the requested place-type matches the stored place-type should we use.
       for p in uttr.detection.places_detected.child_places[:utils.
                                                            NUM_CHILD_PLACES_FOR_EXISTENCE]:
         places_to_check[p.dcid] = key
     else:
-      ret_places = utils.get_sample_child_places(places[0].dcid,
-                                                 state.place_type.value,
-                                                 state.uttr.counters)
+      try:
+        ret_places = utils.get_all_child_places(places[0].dcid,
+                                                state.place_type.value,
+                                                state.uttr.counters)
+        ret_places = ret_places[:utils.NUM_CHILD_PLACES_FOR_EXISTENCE]
+      except Exception as e:
+        state.uttr.counters.err('failed_get_all_child_places', str(e))
+        return places_to_check
       for p in ret_places:
-        places_to_check[p] = key
+        places_to_check[p.dcid] = key
   # NOTE: We don't do existence check on parent places since it is
   # not really shown on the Explore UI anymore.
   return places_to_check

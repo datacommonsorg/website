@@ -183,7 +183,7 @@ class TestMap(WebdriverBaseTest):
         (By.ID, 'placeholder-container'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     self.driver.find_element(
-        By.XPATH, '//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
+        By.XPATH, '//*[@id="placeholder-container"]/ul/li[2]/a[1]').click()
 
     # Assert chart loads
     shared.wait_for_loading(self.driver)

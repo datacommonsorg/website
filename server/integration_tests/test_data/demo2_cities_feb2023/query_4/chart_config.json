@@ -9,6 +9,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -39,6 +40,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -69,6 +71,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -99,6 +102,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -129,6 +133,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -159,6 +164,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -169,14 +175,15 @@
                     "statVarKey": [
                       "dc/e9gftzl2hm8h9_multiple_place_bar_block"
                     ],
-                    "title": "Commute Time (${date})",
+                    "title": "Total Commute Time (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Commute Time"
+            "description": "Total time spent on a single commute across all workers.",
+            "title": "Total Commute Time"
           },
           {
             "columns": [
@@ -184,6 +191,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -277,7 +285,7 @@
             "statVar": "dc/e27c5t4tbplg"
           },
           "dc/e9gftzl2hm8h9_multiple_place_bar_block": {
-            "name": "Commute Time",
+            "name": "Total Commute Time",
             "statVar": "dc/e9gftzl2hm8h9"
           },
           "dc/exr9t81en1h34_multiple_place_bar_block": {

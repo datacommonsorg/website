@@ -21,54 +21,23 @@
 import _ from "lodash";
 import React from "react";
 
-import {
-  DEFAULT_TOPIC,
-  URL_HASH_PARAMS,
-} from "../../constants/app/explore_constants";
+import { DEFAULT_TOPIC } from "../../constants/app/explore_constants";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { getUpdatedHash } from "../../utils/url_utils";
+import { getTopics } from "../../utils/app/explore_utils";
 import { ItemList } from "./item_list";
 
 interface ResultHeaderSectionPropType {
   placeUrlVal: string;
   pageMetadata: SubjectPageMetadata;
+  hideRelatedTopics: boolean;
 }
 
 export function ResultHeaderSection(
   props: ResultHeaderSectionPropType
 ): JSX.Element {
-  const topics = props.pageMetadata?.childTopics
-    .concat(props.pageMetadata?.peerTopics)
-    .concat(props.pageMetadata?.parentTopics);
-  const topicList = [];
-  if (!_.isEmpty(topics)) {
-    for (const topic of topics) {
-      if (topic.dcid == DEFAULT_TOPIC || !topic.name) {
-        // Do not show the root topic.
-        continue;
-      }
-      topicList.push({
-        text: topic.name,
-        url: `/explore/#${getUpdatedHash({
-          [URL_HASH_PARAMS.TOPIC]: topic.dcid,
-          [URL_HASH_PARAMS.PLACE]: props.placeUrlVal,
-          [URL_HASH_PARAMS.QUERY]: "",
-        })}`,
-      });
-    }
-  }
-
-  let placeNameStr = "";
-  for (let i = 0; i < props.pageMetadata.places.length; i++) {
-    if (i == 2) {
-      placeNameStr += " and more";
-      break;
-    }
-    if (placeNameStr) {
-      placeNameStr += ", ";
-    }
-    placeNameStr += props.pageMetadata.places[i].name;
-  }
+  const topicList = props.hideRelatedTopics
+    ? []
+    : getTopics(props.pageMetadata, props.placeUrlVal);
 
   let topicNameStr = "";
   if (
@@ -85,7 +54,7 @@ export function ResultHeaderSection(
   return (
     <>
       <div id="place-callout">
-        {placeNameStr}
+        {getPlaceHeader()}
         {topicNameStr && <span> • {topicNameStr}</span>}
       </div>
       {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && (
@@ -96,4 +65,28 @@ export function ResultHeaderSection(
       )}
     </>
   );
+
+  function getPlaceHeader(): JSX.Element {
+    // Avoid links when there is more than one place, since the mix of links
+    // and non-links (`,` `and more`) looks odd.
+    return (
+      <>
+        {props.pageMetadata.places.length == 1 && (
+          <a
+            className="place-callout-link"
+            href={`/place/${props.pageMetadata.places[0].dcid}`}
+          >
+            {props.pageMetadata.places[0].name}
+          </a>
+        )}
+        {props.pageMetadata.places.length >= 2 && (
+          <span>
+            {props.pageMetadata.places[0].name},&nbsp;
+            {props.pageMetadata.places[1].name}
+          </span>
+        )}
+        {props.pageMetadata.places.length > 2 && <>&nbsp;and more</>}
+      </>
+    );
+  }
 }

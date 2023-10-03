@@ -34,8 +34,8 @@ from server.lib.nl.detection.types import GeneralClassificationAttributes
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import RankingClassificationAttributes
 from server.lib.nl.detection.types import RankingType
-from server.lib.nl.detection.types import SizeType
-from server.lib.nl.detection.types import SizeTypeClassificationAttributes
+from server.lib.nl.detection.types import SuperlativeClassificationAttributes
+from server.lib.nl.detection.types import SuperlativeType
 from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaType
 import shared.lib.constants as constants
@@ -188,7 +188,7 @@ def time_delta(query: str) -> Union[NLClassifier, None]:
 
 # TODO: This code is similar to the ranking and time_delta classifiers.
 # Ideally, refactor.
-def size_type(query: str) -> Union[NLClassifier, None]:
+def superlative_type(query: str) -> Union[NLClassifier, None]:
   """Determine if query is a 'Size-Type' type.
 
   Uses heuristics instead of ML-based classification.
@@ -197,21 +197,25 @@ def size_type(query: str) -> Union[NLClassifier, None]:
     query (str): the user's input
 
   Returns:
-    NLClassifier with SizeTypeClassificationAttributes
+    NLClassifier with SuperlativeClassificationAttributes
   """
   subtype_map = {
-      "Big": SizeType.BIG,
-      "Small": SizeType.SMALL,
+      "Big": SuperlativeType.BIG,
+      "Small": SuperlativeType.SMALL,
+      "Rich": SuperlativeType.RICH,
+      "Poor": SuperlativeType.POOR,
+      "List": SuperlativeType.LIST
   }
-  size_type_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS["SizeType"]
-  size_type_subtypes = size_type_heuristics.keys()
+  superlative_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS[
+      "Superlative"]
+  superlative_subtypes = superlative_heuristics.keys()
   query = query.lower()
   subtypes_matched = []
   trigger_words = []
-  for subtype in size_type_subtypes:
+  for subtype in superlative_subtypes:
     type_trigger_words = []
 
-    for keyword in size_type_heuristics[subtype]:
+    for keyword in superlative_heuristics[subtype]:
       # look for keyword surrounded by spaces or start/end delimiters
       regex = r"(^|\W)" + keyword + r"($|\W)"
       type_trigger_words += [w.group() for w in re.finditer(regex, query)]
@@ -224,9 +228,10 @@ def size_type(query: str) -> Union[NLClassifier, None]:
   if len(trigger_words) == 0:
     return None
 
-  attributes = SizeTypeClassificationAttributes(
-      size_types=subtypes_matched, size_types_trigger_words=trigger_words)
-  return NLClassifier(type=ClassificationType.SIZE_TYPE, attributes=attributes)
+  attributes = SuperlativeClassificationAttributes(
+      superlatives=subtypes_matched, superlatives_trigger_words=trigger_words)
+  return NLClassifier(type=ClassificationType.SUPERLATIVE,
+                      attributes=attributes)
 
 
 def comparison(query) -> Union[NLClassifier, None]:

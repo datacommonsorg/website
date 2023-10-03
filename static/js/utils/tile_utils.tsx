@@ -19,16 +19,94 @@
  */
 
 import axios from "axios";
+import * as d3 from "d3";
 import _ from "lodash";
 import React from "react";
 
 import { NL_SOURCE_REPLACEMENTS } from "../constants/app/nl_interface_constants";
+import { SELF_PLACE_DCID_PLACEHOLDER } from "../constants/subject_page_constants";
+import {
+  GA_EVENT_TILE_EXPLORE_MORE,
+  GA_PARAM_URL,
+  triggerGAEvent,
+} from "../shared/ga_events";
+import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
-import { StatVarSpec } from "../shared/types";
-import { urlToDomain } from "../shared/util";
+import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { urlToDisplayText } from "../shared/util";
+import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
 import { isNlInterface } from "./nl_interface_utils";
+import { getUnit } from "./stat_metadata_utils";
+
+const DEFAULT_PC_SCALING = 100;
+const DEFAULT_PC_UNIT = "%";
+const ERROR_MSG_PC = "Sorry, could not calculate per capita.";
+const ERROR_MSG_DEFAULT = "Sorry, we do not have this data.";
+const NUM_FRACTION_DIGITS = 1;
+const SUPER_SCRIPT_DIGITS = "⁰¹²³⁴⁵⁶⁷⁸⁹";
+
+/**
+ * Override unit display when unit contains
+ * "TH" (Thousands), "M" (Millions), "B" (Billions)
+ */
+interface UnitOverride {
+  multiplier: number;
+  numFractionDigits?: number;
+  unit: string;
+  unitDisplayName: string;
+}
+const UNIT_OVERRIDE_CONFIG: {
+  [key: string]: UnitOverride;
+} = {
+  SDG_CON_USD_M: {
+    unit: "SDG_CON_USD",
+    multiplier: 1000000,
+    unitDisplayName: "Constant USD",
+  },
+  SDG_CUR_LCU_M: {
+    unit: "SDG_CUR_LCU",
+    multiplier: 1000000,
+    unitDisplayName: "Current local currency",
+  },
+  SDG_CU_USD_B: {
+    unit: "SDG_CU_USD",
+    multiplier: 1000000000,
+    unitDisplayName: "USD",
+  },
+  SDG_CU_USD_M: {
+    unit: "SDG_CU_USD",
+    multiplier: 1000000,
+    unitDisplayName: "USD",
+  },
+  SDG_HA_TH: {
+    unit: "SDG_HA",
+    multiplier: 1000,
+    unitDisplayName: "Hectares",
+  },
+  SDG_NUM_M: {
+    unit: "SDG_NUMBER",
+    multiplier: 1000000,
+    unitDisplayName: "",
+  },
+  SDG_NUM_TH: {
+    unit: "SDG_NUMBER",
+    multiplier: 1000,
+    unitDisplayName: "",
+  },
+  SDG_TONNES_M: {
+    unit: "SDG_TONNES",
+    multiplier: 1000000,
+    unitDisplayName: "Tonnes",
+  },
+  SDG_NUMBER: {
+    unit: "SDG_NUMBER",
+    multiplier: 1,
+    numFractionDigits: 0,
+    unitDisplayName: "",
+  },
+};
 
 export interface ReplacementStrings {
   placeName?: string;
@@ -88,10 +166,13 @@ export function getStatVarName(
  * in its spec, will try to query the name though an api call.
  * @param statVarSpecs specs of stat vars to get names for
  * @param apiRoot api root to use for api
+ * @param getProcessedName If provided, use this function to get the processed
+ *        stat var names.
  */
 export async function getStatVarNames(
   statVarSpec: StatVarSpec[],
-  apiRoot?: string
+  apiRoot?: string,
+  getProcessedName?: (name: string) => string
 ): Promise<{ [key: string]: string }> {
   if (_.isEmpty(statVarSpec)) {
     return Promise.resolve({});
@@ -113,28 +194,42 @@ export async function getStatVarNames(
     }
   });
 
+  // Promise that returns an object where key is stat var dcid and value is name
+  let statVarNamesPromise;
   // If all names were provided by statVarSpec or stats_var_labels.json
   // skip propval api call
   if (_.isEmpty(statVarDcids)) {
-    return Promise.resolve(statVarNames);
+    statVarNamesPromise = Promise.resolve(statVarNames);
+  } else {
+    statVarNamesPromise = axios
+      .get(`${apiRoot || ""}/api/node/propvals/out`, {
+        params: {
+          dcids: statVarDcids,
+          prop: "name",
+        },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        for (const statVar in resp.data) {
+          // If the api call can't find a name for the stat var (api returns []),
+          // default to using its dcid
+          statVarNames[statVar] = _.isEmpty(resp.data[statVar])
+            ? statVar
+            : resp.data[statVar][0].value;
+        }
+        return statVarNames;
+      });
   }
 
   try {
-    const resp = await axios.get(`${apiRoot || ""}/api/node/propvals/out`, {
-      params: {
-        dcids: statVarDcids,
-        prop: "name",
-      },
-      paramsSerializer: stringifyFn,
-    });
-    for (const statVar in resp.data) {
-      // If the api call can't find a name for the stat var (api returns []),
-      // default to using its dcid
-      statVarNames[statVar] = _.isEmpty(resp.data[statVar])
-        ? statVar
-        : resp.data[statVar][0].value;
+    const statVarNamesResult = await statVarNamesPromise;
+    // If there is a function for processing stat var names, use it
+    if (getProcessedName) {
+      Object.keys(statVarNamesResult).forEach((dcid) => {
+        statVarNamesResult[dcid] = getProcessedName(statVarNamesResult[dcid]);
+      });
     }
-    return statVarNames;
+    return statVarNamesResult;
   } catch (error) {
     return await Promise.reject(error);
   }
@@ -244,22 +339,34 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
   }
 
   const sourceList: string[] = Array.from(sources);
-  const seenSourceDomains = new Set();
+  const seenSourceText = new Set();
   const sourcesJsx = sourceList.map((source, index) => {
     // HACK for updating source for NL interface
     let processedSource = source;
     if (isNlInterface()) {
       processedSource = NL_SOURCE_REPLACEMENTS[source] || source;
     }
-    const domain = urlToDomain(processedSource);
-    if (seenSourceDomains.has(domain)) {
+    const sourceText = urlToDisplayText(processedSource);
+    if (seenSourceText.has(sourceText)) {
       return null;
     }
-    seenSourceDomains.add(domain);
+    seenSourceText.add(sourceText);
     return (
       <span key={processedSource} {...{ part: "source" }}>
         {index > 0 ? ", " : ""}
-        <a href={processedSource}>{domain}</a>
+        <a
+          href={processedSource}
+          rel="noreferrer"
+          target="_blank"
+          onClick={(event) => {
+            triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
+              [GA_PARAM_URL]: processedSource,
+            });
+            return true;
+          }}
+        >
+          {sourceText}
+        </a>
         {globalThis.viaGoogle ? " via Google" : ""}
       </span>
     );
@@ -268,5 +375,172 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
     <div className="sources" {...{ part: "source" }}>
       Source: {sourcesJsx}
     </div>
+  );
+}
+
+// Processes a unit string by converting "X^Y" to "X<superscript Y>"
+// e.g., km^2 will be km²
+function getProcessedUnit(unit: string): string {
+  const unitSplit = unit.split("^");
+  if (unitSplit.length == 2) {
+    const superScriptNumber = unitSplit[1].replace(/\d/g, (c) =>
+      !_.isNaN(Number(c)) ? SUPER_SCRIPT_DIGITS[Number(c)] || "" : ""
+    );
+    return unitSplit[0] + superScriptNumber || unitSplit[1];
+  }
+  return unit;
+}
+
+/**
+ * Gets the unit and scaling factor to use for a stat var spec
+ * @param svSpec stat var spec to get unit and scaling for
+ * @param statPointData stat data for the tile as a PointApiResponse
+ * @param statSeriesData stat data for the tile as a SeriesApiResponse
+ */
+export function getStatFormat(
+  svSpec: StatVarSpec,
+  statPointData?: PointApiResponse,
+  statSeriesData?: SeriesApiResponse
+): { unit: string; scaling: number; numFractionDigits: number } {
+  const result = {
+    unit: svSpec.unit,
+    scaling: svSpec.scaling || 1,
+    numFractionDigits: NUM_FRACTION_DIGITS,
+  };
+  // If unit was specified in the svSpec, use that unit
+  if (result.unit) {
+    result.unit = getProcessedUnit(result.unit);
+    return result;
+  }
+  // Get stat metadata info from stat data
+  let statMetadata = null;
+  if (statPointData) {
+    const obsWithFacet = Object.values(statPointData.data[svSpec.statVar]).find(
+      (obs) => !!obs.facet
+    );
+    if (obsWithFacet) {
+      statMetadata = statPointData.facets[obsWithFacet.facet];
+    }
+  } else if (statSeriesData) {
+    const seriesWithFacet = Object.values(
+      statSeriesData.data[svSpec.statVar]
+    ).find((series) => !!series.facet);
+    if (seriesWithFacet) {
+      statMetadata = statSeriesData.facets[seriesWithFacet.facet];
+    }
+  }
+
+  let overrideConfig = null;
+  if (statMetadata) {
+    const isComplexUnit = !!statMetadata.unit?.match(/\[.+ [0-9]+\]/);
+    // If complex unit, use the unit part to get the override config, otherwise
+    // use the whole unit to get the override config.
+    const unitStr = isComplexUnit
+      ? statMetadata.unit.substring(1, statMetadata.unit.indexOf(" "))
+      : statMetadata.unit;
+    overrideConfig = UNIT_OVERRIDE_CONFIG[unitStr];
+  }
+  // If there's a matching override config, use the format information from
+  // the config. Otherwise, get unit from stat metadata.
+  if (overrideConfig) {
+    result.unit = overrideConfig.unitDisplayName;
+    result.scaling = overrideConfig.multiplier;
+    result.numFractionDigits = overrideConfig.numFractionDigits;
+  } else {
+    result.unit = getUnit(statMetadata);
+  }
+  // If this is a per capita case and no unit name has been found, use the
+  // default per capita unit and multiply scaling by the default per capita
+  // scaling.
+  if (svSpec.denom && !result.unit) {
+    result.unit = DEFAULT_PC_UNIT;
+    result.scaling *= DEFAULT_PC_SCALING;
+  }
+  result.unit = getProcessedUnit(result.unit);
+  return result;
+}
+
+interface DenomInfo {
+  value: number;
+  date: string;
+  source: string;
+}
+
+/**
+ * Gets information needed to calculate per capita for a single stat data point.
+ * Uses the denom value with the closest date to the mainStatDate and returns
+ * null if no matching value is found or matching value is 0.
+ * @param svSpec the stat var spec of the data point to calculate per capita for
+ * @param denomData population data to use for the calculation
+ * @param placeDcid place of the data point
+ * @param mainStatDate date of the data point
+ * @param mainStatUnit unit of the data point
+ */
+export function getDenomInfo(
+  svSpec: StatVarSpec,
+  denomData: SeriesApiResponse,
+  placeDcid: string,
+  mainStatDate: string
+): DenomInfo {
+  if (!denomData || !(svSpec.denom in denomData.data)) {
+    return null;
+  }
+  const placeDenomData = denomData.data[svSpec.denom][placeDcid];
+  if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
+    return null;
+  }
+  const denomSeries = placeDenomData.series;
+  const denomObs = getMatchingObservation(denomSeries, mainStatDate);
+  if (!denomObs || !denomObs.value) {
+    return null;
+  }
+  let source = "";
+  if (denomData.facets[placeDenomData.facet]) {
+    source = denomData.facets[placeDenomData.facet].provenanceUrl;
+  }
+  return {
+    value: denomObs.value,
+    date: denomObs.date,
+    source,
+  };
+}
+
+/**
+ * Gets the error message to show when there's no data for a tile.
+ * @param statVarSpec stat var spec for the tile.
+ */
+export function getNoDataErrorMsg(statVarSpec: StatVarSpec[]): string {
+  return statVarSpec.findIndex((spec) => !!spec.denom) >= 0
+    ? ERROR_MSG_PC
+    : ERROR_MSG_DEFAULT;
+}
+
+/**
+ * Shows an error message in a container div
+ * @param errorMsg the message to show
+ * @param container the container div to show the message
+ */
+export function showError(errorMsg: string, container: HTMLDivElement): void {
+  // Remove contents of the container
+  const containerSelection = d3.select(container);
+  containerSelection.selectAll("*").remove();
+  // Show error message in the container
+  containerSelection.html(errorMsg);
+}
+
+/**
+ * Gets the list of comparison places to use
+ * @param tileConfig tile config to get comparison places from
+ * @param place the main place for the tile
+ */
+export function getComparisonPlaces(
+  tileConfig: TileConfig,
+  place: NamedTypedPlace
+): string[] {
+  if (!tileConfig.comparisonPlaces) {
+    return undefined;
+  }
+  return tileConfig.comparisonPlaces.map((p) =>
+    p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
   );
 }

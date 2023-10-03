@@ -18,21 +18,26 @@
  * Component for rendering a donut tile.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawDonutChart } from "../../chart/draw_donut";
-import { PointApiResponse } from "../../shared/stat_types";
+import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
-import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
+import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { getPlaceNames } from "../../utils/place_utils";
-import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
+import {
+  getDenomInfo,
+  getNoDataErrorMsg,
+  getStatFormat,
+  getStatVarNames,
+  ReplacementStrings,
+  showError,
+} from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -48,6 +53,8 @@ export interface DonutTilePropType {
   className?: string;
   // Colors to use
   colors?: string[];
+  // Text to show in footer
+  footnote?: string;
   // Id for the chart
   id: string;
   // Whether to draw as full pie chart instead
@@ -67,6 +74,7 @@ interface DonutChartData {
   sources: Set<string>;
   unit: string;
   dateRange: string;
+  errorMsg: string;
 }
 
 export function DonutTile(props: DonutTilePropType): JSX.Element {
@@ -105,6 +113,8 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
         donutChartData ? () => dataGroupsToCsv(donutChartData.dataGroup) : null
       }
       isInitialLoading={_.isNull(donutChartData)}
+      hasErrorMsg={donutChartData && !!donutChartData.errorMsg}
+      footnote={props.footnote}
     >
       <div
         id={props.id}
@@ -128,32 +138,30 @@ export function getReplacementStrings(
 }
 
 export const fetchData = async (props: DonutTilePropType) => {
-  const statVars = [];
-  for (const spec of props.statVarSpec) {
-    statVars.push(spec.statVar);
-    if (spec.denom) {
-      statVars.push(spec.denom);
-    }
-  }
-  // Fetch populations.
-  statVars.push(FILTER_STAT_VAR);
-  const url = `${props.apiRoot || ""}/api/observations/point`;
-  const params = {
-    entities: [props.place.dcid],
-    variables: statVars,
-  };
+  const statSvs = props.statVarSpec
+    .map((spec) => spec.statVar)
+    .filter((sv) => !!sv);
+  const denomSvs = props.statVarSpec
+    .map((spec) => spec.denom)
+    .filter((sv) => !!sv);
   try {
-    const resp = await axios.get<PointApiResponse>(url, {
-      params,
-      paramsSerializer: stringifyFn,
-    });
+    const statResp = await getPoint(
+      props.apiRoot,
+      [props.place.dcid],
+      [statSvs, FILTER_STAT_VAR].flat(1),
+      "",
+      [statSvs]
+    );
+    const denomResp = _.isEmpty(denomSvs)
+      ? null
+      : await getSeries(props.apiRoot, [props.place.dcid], denomSvs);
 
     // Find the most populated places.
     let popPoints: RankingPoint[] = [];
-    for (const place in resp.data.data[FILTER_STAT_VAR]) {
+    for (const place in statResp.data[FILTER_STAT_VAR]) {
       popPoints.push({
         placeDcid: place,
-        value: resp.data.data[FILTER_STAT_VAR][place].value,
+        value: statResp.data[FILTER_STAT_VAR][place].value,
       });
     }
     // Take the most populated places.
@@ -169,29 +177,33 @@ export const fetchData = async (props: DonutTilePropType) => {
     );
     return rawToChart(
       props,
-      resp.data,
+      statResp,
+      denomResp,
       popPoints,
       placeNames,
       statVarDcidToName
     );
   } catch (error) {
+    console.log(error);
     return null;
   }
 };
 
 function rawToChart(
   props: DonutTilePropType,
-  rawData: PointApiResponse,
+  statData: PointApiResponse,
+  denomData: SeriesApiResponse,
   popPoints: RankingPoint[],
   placeNames: Record<string, string>,
   statVarNames: Record<string, string>
 ): DonutChartData {
-  const raw = _.cloneDeep(rawData);
+  const raw = _.cloneDeep(statData);
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
 
-  let unit = "";
   const dates: Set<string> = new Set();
+  // Assume all stat var specs will use the same unit and scaling.
+  const { unit, scaling } = getStatFormat(props.statVarSpec[0], statData);
   for (const point of popPoints) {
     const placeDcid = point.placeDcid;
     const dataPoints: DataPoint[] = [];
@@ -209,32 +221,37 @@ function rawToChart(
       dates.add(stat.date);
       if (raw.facets[stat.facet]) {
         sources.add(raw.facets[stat.facet].provenanceUrl);
-        const svUnit = getUnit(raw.facets[stat.facet]);
-        unit = unit || svUnit;
       }
-      if (spec.denom && spec.denom in raw.data) {
-        const denomStat = raw.data[spec.denom][placeDcid];
-        dataPoint.value /= denomStat.value;
-        sources.add(raw.facets[denomStat.facet].provenanceUrl);
+      if (spec.denom) {
+        const denomInfo = getDenomInfo(spec, denomData, placeDcid, stat.date);
+        if (!denomInfo) {
+          // skip this data point because missing denom data.
+          continue;
+        }
+        dataPoint.value /= denomInfo.value;
+        sources.add(denomInfo.source);
       }
-      if (spec.scaling) {
-        dataPoint.value *= spec.scaling;
+      if (scaling) {
+        dataPoint.value *= scaling;
       }
       dataPoints.push(dataPoint);
     }
     const link = `${DEFAULT_X_LABEL_LINK_ROOT}${placeDcid}`;
-    dataGroups.push(
-      new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints, link)
-    );
+    if (!_.isEmpty(dataPoints)) {
+      dataGroups.push(
+        new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints, link)
+      );
+    }
   }
-  if (!_.isEmpty(props.statVarSpec)) {
-    unit = props.statVarSpec[0].unit || unit;
-  }
+  const errorMsg = _.isEmpty(dataGroups)
+    ? getNoDataErrorMsg(props.statVarSpec)
+    : "";
   return {
     dataGroup: dataGroups,
     sources,
     dateRange: getDateRange(Array.from(dates)),
     unit,
+    errorMsg,
   };
 }
 
@@ -244,6 +261,10 @@ export function draw(
   svgContainer: HTMLDivElement,
   svgWidth?: number
 ): void {
+  if (chartData.errorMsg) {
+    showError(chartData.errorMsg, svgContainer);
+    return;
+  }
   drawDonutChart(
     svgContainer,
     svgWidth || svgContainer.offsetWidth,

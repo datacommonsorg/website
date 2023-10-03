@@ -43,6 +43,8 @@ class Config:
   SHOW_SUSTAINABILITY = False
   # Whether to use PaLM API
   USE_PALM = False
+  # Show per capita option in chart
+  ENABLE_PER_CAPITA = True
 
   # Environment name of the config.
   ENV = ''
@@ -51,7 +53,6 @@ class Config:
   VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
                            os.environ.get('MIXER_HASH'))
   API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
-  NL_ROOT = 'http://127.0.0.1:6060'  # Port for Kubernetes ESP.
   SECRET_PROJECT = ''
   GA_ACCOUNT = ''
   SCHEME = 'https'
@@ -71,3 +72,9 @@ class Config:
   DATA_SOURCE_DCID = ''
   # The name of the special data source to show as top level category in the hierarchy
   DATA_SOURCE_NAME = ''
+  # Should hide debug info
+  HIDE_DEBUG = True
+  # Footer note to show in the map tool
+  MAP_TOOL_FOOTER = ""
+  # The default property to use for getting geojsons
+  GEO_JSON_PROP = "geoJsonCoordinates"

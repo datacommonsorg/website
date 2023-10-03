@@ -165,6 +165,7 @@ export function drawGaugeChart(
     [
       {
         label: data.statVarName,
+        index: "",
       },
     ],
     options?.apiRoot

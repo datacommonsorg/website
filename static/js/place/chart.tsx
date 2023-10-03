@@ -55,7 +55,7 @@ import {
 } from "../shared/ga_events";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
-import { isDateTooFar, urlToDomain } from "../shared/util";
+import { isDateTooFar, urlToDisplayText } from "../shared/util";
 import { RankingGroup, RankingPoint } from "../types/ranking_unit_types";
 import {
   dataGroupsToCsv,
@@ -225,7 +225,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
     sources.sort();
     const sourcesJsx = sources.map((source, index) => {
-      const domain = urlToDomain(source);
+      const sourceText = urlToDisplayText(source);
       return (
         <span key={source}>
           <a
@@ -237,7 +237,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               })
             }
           >
-            {domain}
+            {sourceText}
           </a>
           {index < sources.length - 1 ? ", " : ""}
         </span>
@@ -665,7 +665,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           enclosedPlaceType: this.props.rankingPlaceType,
           place: { dcid: this.props.parentPlaceDcid, name: "", types: [] },
           rankingMetadata: {
-            diffBaseDate: "",
             showHighest: true,
             showLowest: true,
             showMultiColumn: false,

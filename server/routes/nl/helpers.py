@@ -17,7 +17,7 @@ import json
 import logging
 import os
 import time
-from typing import Dict
+from typing import Dict, List
 
 import flask
 from flask import current_app
@@ -25,6 +25,7 @@ from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.explore import params
 from server.lib.nl.common import bad_words
 from server.lib.nl.common import commentary
 from server.lib.nl.common import serialize
@@ -39,12 +40,14 @@ from server.lib.nl.detection import utils as dutils
 import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
 import server.lib.nl.fulfillment.fulfiller as fulfillment
 import server.lib.nl.fulfillment.utils as futils
+from server.lib.translator import detect_lang_and_translate
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 import server.services.bigtable as bt
@@ -56,21 +59,22 @@ import shared.lib.utils as shared_utils
 # detects stuff into a Detection object.
 #
 def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
-  # NO production support yet.
-  if os.environ.get('FLASK_ENV') == 'production':
-    flask.abort(404)
-
   if not current_app.config.get('NL_BAD_WORDS'):
     logging.error('Missing NL_BAD_WORDS config!')
     flask.abort(404)
   nl_bad_words = current_app.config['NL_BAD_WORDS']
+
+  test = request.args.get(params.Params.TEST.value, '')
+  i18n = request.args.get(params.Params.I18N.value, '')
 
   # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
   original_query = request.args.get('q')
   if not original_query:
     err_json = helpers.abort(
-        'Received an empty query, please type a few words :)', '', [])
+        'Received an empty query, please type a few words :)',
+        '', [],
+        test=test)
     return None, err_json
   context_history = []
   if request.get_json():
@@ -79,9 +83,10 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   if is_sdg:
     embeddings_index_type = 'sdg_ft'
 
-  detector_type = request.args.get('detector',
-                                   default=RequestedDetectorType.Hybrid.value,
-                                   type=str)
+  detector_type = request.args.get(
+      'detector',
+      default=RequestedDetectorType.HybridSafetyCheck.value,
+      type=str)
 
   place_detector_type = request.args.get('place_detector',
                                          default='dc',
@@ -92,11 +97,29 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   else:
     place_detector_type = PlaceDetectorType(place_detector_type)
 
+  llm_api_type = request.args.get('llm_api',
+                                  default=LlmApiType.Chat.value,
+                                  type=str).lower()
+  if llm_api_type not in [LlmApiType.Chat, LlmApiType.Text]:
+    logging.error(f'Unknown place_detector {place_detector_type}')
+    llm_api_type = LlmApiType.Chat
+  else:
+    llm_api_type = LlmApiType(llm_api_type)
+
+  counters = ctr.Counters()
+
+  if i18n and i18n.lower() == 'true':
+    start = time.time()
+    original_query = detect_lang_and_translate(original_query, counters)
+    counters.timeit("detect_lang_and_translate", start)
+
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   if not query:
     err_json = helpers.abort(
-        'Received an empty query, please type a few words :)', original_query,
-        context_history)
+        'Received an empty query, please type a few words :)',
+        original_query,
+        context_history,
+        test=test)
     return None, err_json
 
   #
@@ -105,10 +128,12 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   if (not bad_words.is_safe(original_query, nl_bad_words) or
       not bad_words.is_safe(query, nl_bad_words)):
     err_json = helpers.abort('Sorry, could not complete your request.',
-                             original_query, context_history)
+                             original_query,
+                             context_history,
+                             test=test,
+                             blocked=True)
     return None, err_json
 
-  counters = ctr.Counters()
   debug_logs["original_query"] = query
 
   # Generate new utterance.
@@ -126,11 +151,21 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   start = time.time()
   query_detection = detector.detect(detector_type, place_detector_type,
                                     original_query, query, prev_utterance,
-                                    embeddings_index_type, debug_logs, counters)
+                                    embeddings_index_type, llm_api_type,
+                                    debug_logs, counters)
+  if not query_detection:
+    err_json = helpers.abort('Sorry, could not complete your request.',
+                             original_query,
+                             context_history,
+                             debug_logs,
+                             counters,
+                             test=test,
+                             blocked=True)
+    return None, err_json
   counters.timeit('query_detection', start)
 
   utterance = create_utterance(query_detection, prev_utterance, counters,
-                               session_id)
+                               session_id, test)
 
   if utterance:
     context.merge_with_context(utterance, is_sdg)
@@ -188,6 +223,13 @@ def prepare_response(utterance: nl_utterance.Utterance,
     if (fallback and fallback.origPlace and fallback.newPlace and
         fallback.origPlace.dcid != fallback.newPlace.dcid):
       ret_places = [fallback.newPlace]
+    elif utterance.answerPlaces and len(utterance.places) > 1:
+      # If there are answer places, then we know the charts will have
+      # data for that place.  However, important to not do this for queries
+      # like [cities with highest poverty in US]. So we do this only when
+      # we came in with comparison / answer-places, since in that
+      # case we know the answer will be a subset of the input places.
+      ret_places = utterance.answerPlaces
     else:
       ret_places = utterance.places
   else:
@@ -233,16 +275,22 @@ def prepare_response(utterance: nl_utterance.Utterance,
 
   has_charts = True if page_config else False
   return prepare_response_common(data_dict, status_str, detection, dbg_counters,
-                                 debug_logs, has_charts)
+                                 debug_logs, has_charts, utterance.test)
 
 
-def prepare_response_common(data_dict: Dict, status_str: str,
-                            detection: Detection, dbg_counters: Dict,
-                            debug_logs: Dict, has_data: bool) -> Dict:
+def prepare_response_common(data_dict: Dict,
+                            status_str: str,
+                            detection: Detection,
+                            dbg_counters: Dict,
+                            debug_logs: Dict,
+                            has_data: bool,
+                            test: str = '') -> Dict:
   data_dict = dbg.result_with_debug_info(data_dict, status_str, detection,
                                          dbg_counters, debug_logs)
   # Convert data_dict to pure json.
   data_dict = utils.to_dict(data_dict)
+  if test:
+    data_dict['test'] = test
   if current_app.config['LOG_QUERY']:
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
@@ -256,8 +304,13 @@ def prepare_response_common(data_dict: Dict, status_str: str,
 #
 # Preliminary abort with the given error message
 #
-def abort(error_message: str, original_query: str,
-          context_history: Dict) -> Dict:
+def abort(error_message: str,
+          original_query: str,
+          context_history: List[Dict],
+          debug_logs: Dict = None,
+          counters: ctr.Counters = None,
+          blocked: bool = False,
+          test: str = '') -> Dict:
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   escaped_context_history = []
   for ch in context_history:
@@ -275,9 +328,11 @@ def abort(error_message: str, original_query: str,
       'userMessage': error_message,
   }
 
-  counters = ctr.Counters()
-  query_detection_debug_logs = {}
-  query_detection_debug_logs["original_query"] = query
+  if not counters:
+    counters = ctr.Counters()
+  if not debug_logs:
+    debug_logs = {}
+    debug_logs["original_query"] = query
 
   query_detection = Detection(original_query=original_query,
                               cleaned_query=query,
@@ -286,11 +341,29 @@ def abort(error_message: str, original_query: str,
                                   query, dutils.empty_svs_score_dict()),
                               classifications=[],
                               llm_resp={})
-  data_dict = dbg.result_with_debug_info(
-      data_dict=res,
-      status=error_message,
-      query_detection=query_detection,
-      debug_counters=counters.get(),
-      query_detection_debug_logs=query_detection_debug_logs)
+  data_dict = dbg.result_with_debug_info(data_dict=res,
+                                         status=error_message,
+                                         query_detection=query_detection,
+                                         debug_counters=counters.get(),
+                                         query_detection_debug_logs=debug_logs)
+
+  if test:
+    data_dict['test'] = test
+  if blocked:
+    _set_blocked(data_dict)
+
   logging.info('NL Data API: Empty Exit')
+  if current_app.config['LOG_QUERY']:
+    # Asynchronously log as bigtable write takes O(100ms)
+    loop = asyncio.new_event_loop()
+    session_info = futils.get_session_info(context_history, False)
+    data_dict['session'] = session_info
+    loop.run_until_complete(bt.write_row(session_info, data_dict, debug_logs))
+
   return data_dict
+
+
+def _set_blocked(err_json: Dict):
+  err_json['blocked'] = True
+  if err_json.get('debug'):
+    err_json['debug']['blocked'] = True

@@ -18,13 +18,13 @@
  * Component for rendering a line type tile.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw_line";
+import { TimeScaleOption } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -34,13 +34,25 @@ import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
-import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
+import {
+  getBestUnit,
+  getSeries,
+  getSeriesWithin,
+} from "../../utils/data_fetch_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
-import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
+import {
+  getNoDataErrorMsg,
+  getStatFormat,
+  getStatVarNames,
+  ReplacementStrings,
+  showError,
+} from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
+
+const EMPTY_FACET_ID_KEY = "empty";
 
 export interface LineTilePropType {
   // API root
@@ -53,6 +65,8 @@ export interface LineTilePropType {
   comparisonPlaces?: string[];
   // Type of child places to plot
   enclosedPlaceType?: string;
+  // Text to show in footer
+  footnote?: string;
   id: string;
   // Whether or not to render the data version of this tile
   isDataTile?: boolean;
@@ -69,6 +83,12 @@ export interface LineTilePropType {
   showLoadingSpinner?: boolean;
   // Whether to show tooltip on hover
   showTooltipOnHover?: boolean;
+  // Function used to get processed stat var names.
+  getProcessedSVNameFn?: (name: string) => string;
+  // Time scale to use on x-axis. "year", "month", or "day"
+  timeScale?: TimeScaleOption;
+  // The property to use to get place names.
+  placeNameProp?: string;
 }
 
 export interface LineChartData {
@@ -77,6 +97,7 @@ export interface LineChartData {
   unit: string;
   // props used when fetching this data
   props: LineTilePropType;
+  errorMsg: string;
 }
 
 export function LineTile(props: LineTilePropType): JSX.Element {
@@ -115,6 +136,8 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
       isInitialLoading={_.isNull(chartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hasErrorMsg={chartData && !!chartData.errorMsg}
+      footnote={props.footnote}
     >
       <div
         id={props.id}
@@ -142,65 +165,104 @@ export function getReplacementStrings(
 }
 
 export const fetchData = async (props: LineTilePropType) => {
-  const statVars = [];
+  const facetToVariable = { [EMPTY_FACET_ID_KEY]: [] };
   for (const spec of props.statVarSpec) {
-    statVars.push(spec.statVar);
+    const facetId = spec.facetId || EMPTY_FACET_ID_KEY;
+    if (!facetToVariable[facetId]) {
+      facetToVariable[facetId] = [];
+    }
+    facetToVariable[facetId].push(spec.statVar);
     if (spec.denom) {
-      statVars.push(spec.denom);
+      facetToVariable[EMPTY_FACET_ID_KEY].push(spec.denom);
     }
   }
 
-  let params;
-  let endpoint;
-  if (!_.isEmpty(props.comparisonPlaces)) {
-    endpoint = `${props.apiRoot || ""}/api/observations/series`;
-    params = {
-      entities: props.comparisonPlaces,
-      variables: statVars,
-    };
-  } else if (props.enclosedPlaceType) {
-    endpoint = `${props.apiRoot || ""}/api/observations/series/within`;
-    params = {
-      parentEntity: props.place.dcid,
-      childType: props.enclosedPlaceType,
-      variables: statVars,
-    };
-  } else {
-    endpoint = `${props.apiRoot || ""}/api/observations/series`;
-    params = {
-      variables: statVars,
-      entities: [props.place.dcid],
-    };
+  const dataPromises: Promise<SeriesApiResponse>[] = [];
+  for (const facetId of Object.keys(facetToVariable)) {
+    if (_.isEmpty(facetToVariable[facetId])) {
+      continue;
+    }
+    let facetIds = null;
+    if (facetId !== EMPTY_FACET_ID_KEY) {
+      facetIds = [facetId];
+    }
+    if (!_.isEmpty(props.comparisonPlaces)) {
+      dataPromises.push(
+        getSeries(
+          props.apiRoot,
+          props.comparisonPlaces,
+          facetToVariable[facetId],
+          facetIds
+        )
+      );
+    } else if (props.enclosedPlaceType) {
+      dataPromises.push(
+        getSeriesWithin(
+          props.apiRoot,
+          props.place.dcid,
+          props.enclosedPlaceType,
+          facetToVariable[facetId],
+          facetIds
+        )
+      );
+    } else {
+      dataPromises.push(
+        getSeries(
+          props.apiRoot,
+          [props.place.dcid],
+          facetToVariable[facetId],
+          facetIds
+        )
+      );
+    }
   }
 
-  const resp = await axios.get(endpoint, {
-    // Fetch both numerator stat vars and denominator stat vars
-    params,
-    paramsSerializer: stringifyFn,
+  const dataPromise: Promise<SeriesApiResponse> = Promise.all(
+    dataPromises
+  ).then((statResponses) => {
+    const mergedResponse = { data: {}, facets: {} };
+    statResponses.forEach((resp) => {
+      mergedResponse.data = Object.assign(mergedResponse.data, resp.data);
+      mergedResponse.facets = Object.assign(mergedResponse.facets, resp.facets);
+    });
+    return mergedResponse;
   });
-
+  const resp = await dataPromise;
   // get place names from dcids
-  const placeDcids = Object.keys(resp.data.data[statVars[0]]);
-  const statVarNames = await getStatVarNames(props.statVarSpec, props.apiRoot);
-  const placeNames = await getPlaceNames(placeDcids, props.apiRoot);
+  const placeDcids = Object.keys(resp.data[props.statVarSpec[0].statVar]);
+  const statVarNames = await getStatVarNames(
+    props.statVarSpec,
+    props.apiRoot,
+    props.getProcessedSVNameFn
+  );
+  const placeNames = await getPlaceNames(
+    placeDcids,
+    props.apiRoot,
+    props.placeNameProp
+  );
   // How legend labels should be set
   // If neither options are set, default to showing stat vars in legend labels
   const options = {
     // If many places and one stat var, legend should show only place labels
-    usePlaceLabels: statVars.length == 1 && placeDcids.length > 1,
+    usePlaceLabels: props.statVarSpec.length == 1 && placeDcids.length > 1,
     // If many places and many stat vars, legends need to show both
-    useBothLabels: statVars.length > 1 && placeDcids.length > 1,
+    useBothLabels: props.statVarSpec.length > 1 && placeDcids.length > 1,
   };
-  return rawToChart(resp.data, props, placeNames, statVarNames, options);
+  return rawToChart(resp, props, placeNames, statVarNames, options);
 };
 
 export function draw(
   props: LineTilePropType,
   chartData: LineChartData,
-  svgContainer: HTMLDivElement
+  svgContainer: HTMLDivElement,
+  useSvgLegend?: boolean
 ): void {
   // TODO: Remove all cases of setting innerHTML directly.
   svgContainer.innerHTML = "";
+  if (chartData.errorMsg) {
+    showError(chartData.errorMsg, svgContainer);
+    return;
+  }
   const isCompleteLine = drawLineChart(
     svgContainer,
     props.svgChartWidth || svgContainer.offsetWidth,
@@ -210,7 +272,9 @@ export function draw(
     props.showTooltipOnHover,
     {
       colors: props.colors,
+      timeScale: props.timeScale,
       unit: chartData.unit,
+      useSvgLegend,
     }
   );
   if (!isCompleteLine) {
@@ -233,7 +297,32 @@ function rawToChart(
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
   const allDates = new Set<string>();
-  let unit = "";
+  // TODO: make a new wrapper to fetch series data & do the processing there.
+  const unit2count = {};
+  for (const spec of props.statVarSpec) {
+    const entityToSeries = raw.data[spec.statVar];
+    for (const placeDcid in entityToSeries) {
+      const series = raw.data[spec.statVar][placeDcid];
+      const svUnit = getUnit(raw.facets[series.facet]);
+      if (!unit2count[svUnit]) {
+        unit2count[svUnit] = 0;
+      }
+      unit2count[svUnit]++;
+    }
+  }
+  const bestUnit = getBestUnit(unit2count);
+  // filter stat data to only keep series that use best unit
+  for (const spec of props.statVarSpec) {
+    for (const place in raw.data[spec.statVar]) {
+      const series = raw.data[spec.statVar][place];
+      const svUnit = getUnit(raw.facets[series.facet]);
+      if (svUnit !== bestUnit) {
+        raw.data[spec.statVar][place] = { series: [] };
+      }
+    }
+  }
+  // Assume all stat var specs will use the same unit and scaling.
+  const { unit, scaling } = getStatFormat(props.statVarSpec[0], null, raw);
   for (const spec of props.statVarSpec) {
     // Do not modify the React state. Create a clone.
     const entityToSeries = raw.data[spec.statVar];
@@ -250,7 +339,7 @@ function rawToChart(
           dataPoints.push({
             label: obs.date,
             time: new Date(obs.date).getTime(),
-            value: spec.scaling ? obs.value * spec.scaling : obs.value,
+            value: scaling ? obs.value * scaling : obs.value,
           });
           allDates.add(obs.date);
         }
@@ -262,8 +351,6 @@ function rawToChart(
           ? placeDcidToName[placeDcid]
           : statVarDcidToName[spec.statVar];
         dataGroups.push(new DataGroup(label, dataPoints));
-        const svUnit = getUnit(raw.facets[series.facet]);
-        unit = unit || svUnit;
         sources.add(raw.facets[series.facet].provenanceUrl);
       }
     }
@@ -271,14 +358,15 @@ function rawToChart(
   for (let i = 0; i < dataGroups.length; i++) {
     dataGroups[i].value = expandDataPoints(dataGroups[i].value, allDates);
   }
-  if (!_.isEmpty(props.statVarSpec)) {
-    unit = props.statVarSpec[0].unit || unit;
-  }
+  const errorMsg = _.isEmpty(dataGroups)
+    ? getNoDataErrorMsg(props.statVarSpec)
+    : "";
   return {
     dataGroup: dataGroups,
     sources,
     unit,
     props,
+    errorMsg,
   };
 }
 

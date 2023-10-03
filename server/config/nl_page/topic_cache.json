@@ -3085,13 +3085,8 @@
         "dc/svpg/MortalityRate_InfantMortalityRateByGender"
       ],
       "memberList": [
-        "sdg/SH_AAP_ASMORT",
         "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F",
-        "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M",
-        "sdg/SH_HAP_ASMORT",
-        "sdg/SH_STA_ASAIRP",
-        "sdg/SH_STA_POISN",
-        "sdg/SH_STA_SCIDE"
+        "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
       ],
       "name": [
         "Infant Mortality Rate by Gender"
@@ -5312,21 +5307,6 @@
       ],
       "name": [
         "Proportion of Population Using Basic Sanitation Services by Residency"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/Sanitation_ProportionofPopulationusingsafelymanagedsanitationservicesbyresidency"
-      ],
-      "memberList": [
-        "sdg/SH_SAN_SAFE.URBANISATION--R",
-        "sdg/SH_SAN_SAFE.URBANISATION--U"
-      ],
-      "name": [
-        "Proportion of Population Using Safely Managed Sanitation Services by Residency"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -10965,20 +10945,6 @@
     },
     {
       "dcid": [
-        "dc/topic/ExportSubsidies"
-      ],
-      "name": [
-        "Export Subsidies"
-      ],
-      "relevantVariableList": [
-        "sdg/AG_PRD_XSUBDY"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/FemaleMortality"
       ],
       "name": [
@@ -11024,6 +10990,23 @@
         "Count_FlashFloodEvent",
         "dc/topic/CoastalFlood",
         "dc/topic/RiverineFlood"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/FoodInsecurity"
+      ],
+      "name": [
+        "Food Security"
+      ],
+      "relevantVariableList": [
+        "Count_Person_FoodInsecure",
+        "Count_Person_FoodInsecure_AsAFractionOf_Count_Person",
+        "Mean_MealCost_Person_FoodSecure",
+        "Weekly_WeightedFoodSpendAmount_Person_FoodInSecure"
       ],
       "typeOf": [
         "Topic"
@@ -12232,6 +12215,8 @@
       "relevantVariableList": [
         "Median_Income_Household",
         "Median_Income_Person",
+        "Mean_WagesMonthly_Worker",
+        "Monthly_Mean_Income_Person_Years14Onwards_Employed_AllJobs_IncomeActuallyReceived",
         "dc/topic/IndividualIncomeDistribution",
         "dc/topic/IndividualIncomeByIndustry",
         "dc/topic/HouseholdIncomeDistribution"
@@ -12320,8 +12305,10 @@
         "Infant Mortality"
       ],
       "relevantVariableList": [
+        "sdg/SH_DYN_NMRT.AGE--M0",
         "Count_Death_Upto1Years",
-        "dc/svpg/dc/topic/InfantMortality_CausesOfDeath"
+        "dc/svpg/dc/topic/InfantMortality_CausesOfDeath",
+        "dc/svpg/MortalityRate_InfantMortalityRateByGender"
       ],
       "typeOf": [
         "Topic"
@@ -12675,6 +12662,7 @@
         "Malnutrition"
       ],
       "relevantVariableList": [
+        "sdg/SN_ITK_DEFC",
         "Percent_Underweight_In_Count_Person",
         "dc/topic/HeightStunting",
         "sdg/SH_STA_WASHARI",
@@ -12992,6 +12980,8 @@
         "Mortality"
       ],
       "relevantVariableList": [
+        "Count_Death",
+        "Count_Death_AsAFractionOfCount_Person",
         "dc/topic/LifeExpectancy",
         "dc/topic/CausesOfDeath",
         "dc/topic/FemaleMortality",
@@ -13044,21 +13034,6 @@
         "Count_Death_AsianOrPacificIslander",
         "Count_Death_BlackOrAfricanAmerican",
         "Count_Death_White"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/MortalityRate"
-      ],
-      "name": [
-        "Mortality Rate"
-      ],
-      "relevantVariableList": [
-        "sdg/SH_DYN_NMRT.AGE--M0",
-        "dc/svpg/MortalityRate_InfantMortalityRateByGender"
       ],
       "typeOf": [
         "Topic"
@@ -14665,10 +14640,8 @@
         "Sanitation"
       ],
       "relevantVariableList": [
-        "sdg/SH_SAN_SAFE",
         "sdg/SP_ACS_BSRVSAN",
-        "dc/svpg/Sanitation_ProportionofPopulationusingbasicsanitationservicesbyresidency",
-        "dc/svpg/Sanitation_ProportionofPopulationusingsafelymanagedsanitationservicesbyresidency"
+        "dc/svpg/Sanitation_ProportionofPopulationusingbasicsanitationservicesbyresidency"
       ],
       "typeOf": [
         "Topic"
@@ -15294,6 +15267,7 @@
       ],
       "relevantVariableList": [
         "UnemploymentRate_Person",
+        "Count_Person_NonWorker",
         "UnemploymentRate_Person_Female",
         "UnemploymentRate_Person_Male"
       ],

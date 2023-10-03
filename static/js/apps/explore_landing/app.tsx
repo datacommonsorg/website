@@ -17,12 +17,17 @@
 /**
  * Main component for DC Explore.
  */
-import "../../../library";
-
 import React from "react";
 import { Container } from "reactstrap";
 
 import { NlSearchBar } from "../../components/nl_search_bar";
+import {
+  GA_EVENT_NL_SEARCH,
+  GA_PARAM_QUERY,
+  GA_PARAM_SOURCE,
+  GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { Topic, TopicConfig } from "../../shared/topic_config";
 import { TopicQueries } from "../../shared/topic_queries";
 import { Item, ItemList } from "../explore/item_list";
@@ -76,12 +81,16 @@ export function App(): JSX.Element {
         <NlSearchBar
           inputId="query-search-input"
           onSearch={(q) => {
+            triggerGAEvent(GA_EVENT_NL_SEARCH, {
+              [GA_PARAM_QUERY]: q,
+              [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING,
+            });
             window.location.href =
               q.toLocaleLowerCase() === placeholderQuery.title.toLowerCase()
                 ? placeholderHref
                 : `/explore#q=${encodeURIComponent(q)}&dc=${dc}`;
           }}
-          placeholder={"Enter a question or topic to explore"}
+          placeholder={"Enter a question to explore"}
           initialValue={""}
           shouldAutoFocus={false}
         />

@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  height: 79px;
+  height: fit-content;
   margin: 24px 0 44px 0;
   width: 100%;
 
@@ -86,7 +86,7 @@
     display: flex;
     flex-shrink: 0;
     gap: 4px;
-    height: 56px;
+    height: fit-content;
     margin: 1px;
     padding: 0px;
     width: 100%;
@@ -97,7 +97,7 @@
       display: flex;
       flex-shrink: 0;
       gap: 4px;
-      height: 100%;
+      height: fit-content;
       padding: 4px 8px 4px 24px;
       width: 100%;
 

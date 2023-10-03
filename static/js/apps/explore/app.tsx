@@ -30,7 +30,20 @@ import {
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { QueryResult } from "../../types/app/nl_interface_types";
+import {
+  GA_EVENT_NL_DETECT_FULFILL,
+  GA_EVENT_NL_FULFILL,
+  GA_EVENT_PAGE_VIEW,
+  GA_PARAM_PLACE,
+  GA_PARAM_QUERY,
+  GA_PARAM_TIMING_MS,
+  GA_PARAM_TOPIC,
+  triggerGAEvent,
+} from "../../shared/ga_events";
+import {
+  QueryResult,
+  UserMessageInfo,
+} from "../../types/app/nl_interface_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
@@ -82,7 +95,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
   );
   const [query, setQuery] = useState<string>("");
   const [pageMetadata, setPageMetadata] = useState<SubjectPageMetadata>(null);
-  const [userMessage, setUserMessage] = useState<string>("");
+  const [userMessage, setUserMessage] = useState<UserMessageInfo>(null);
   const [debugData, setDebugData] = useState<any>({});
   const [queryResult, setQueryResult] = useState<QueryResult>(null);
   const savedContext = useRef([]);
@@ -213,9 +226,13 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         }
       }
     }
+    const userMessage = {
+      msg: fulfillData["userMessage"] || "",
+      showForm: !!fulfillData["showForm"],
+    };
     savedContext.current = fulfillData["context"] || [];
     setPageMetadata(pageMetadata);
-    setUserMessage(fulfillData["userMessage"]);
+    setUserMessage(userMessage);
     setLoadingStatus(LoadingStatus.SUCCESS);
     setQueryResult({
       place: mainPlace,
@@ -240,14 +257,32 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const disableExploreMore = getSingleParam(
       hashParams[URL_HASH_PARAMS.DISABLE_EXPLORE_MORE]
     );
+    const detector = getSingleParam(hashParams[URL_HASH_PARAMS.DETECTOR]);
+    const llmApi = getSingleParam(hashParams[URL_HASH_PARAMS.LLM_API]);
+    const testMode = getSingleParam(hashParams[URL_HASH_PARAMS.TEST_MODE]);
+    const i18n = getSingleParam(hashParams[URL_HASH_PARAMS.I18N]);
+
     let fulfillmentPromise: Promise<any>;
+    const gaTitle = query
+      ? `Q: ${query} - `
+      : topic
+      ? `T: ${topic} | P: ${place} - `
+      : "";
+    triggerGAEvent(GA_EVENT_PAGE_VIEW, {
+      page_title: `${gaTitle}${document.title}`,
+      page_location: window.location.href.replace("#", "?"),
+    });
     if (query) {
       setQuery(query);
       fulfillmentPromise = fetchDetectAndFufillData(
         query,
         savedContext.current,
         dc,
-        disableExploreMore
+        disableExploreMore,
+        detector,
+        llmApi,
+        testMode,
+        i18n
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -266,7 +301,9 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         dc,
         [],
         [],
-        disableExploreMore
+        disableExploreMore,
+        testMode,
+        i18n
       )
         .then((resp) => {
           processFulfillData(resp, true);
@@ -294,10 +331,21 @@ const fetchFulfillData = async (
   dc: string,
   svgs: string[],
   classificationsJson: any,
-  disableExploreMore: string
+  disableExploreMore: string,
+  testMode: string,
+  i18n: string
 ) => {
   try {
-    const resp = await axios.post(`/api/explore/fulfill`, {
+    const argsMap = new Map<string, string>();
+    if (testMode) {
+      argsMap.set(URL_HASH_PARAMS.TEST_MODE, testMode);
+    }
+    if (i18n) {
+      argsMap.set(URL_HASH_PARAMS.I18N, i18n);
+    }
+    const args = argsMap.size > 0 ? `?${generateArgsParams(argsMap)}` : "";
+    const startTime = window.performance ? window.performance.now() : undefined;
+    const resp = await axios.post(`/api/explore/fulfill${args}`, {
       dc,
       entities: places,
       variables: topics,
@@ -308,6 +356,18 @@ const fetchFulfillData = async (
       classifications: classificationsJson,
       disableExploreMore,
     });
+    if (startTime) {
+      const elapsedTime = window.performance
+        ? window.performance.now() - startTime
+        : undefined;
+      if (elapsedTime) {
+        triggerGAEvent(GA_EVENT_NL_FULFILL, {
+          [GA_PARAM_TOPIC]: topics,
+          [GA_PARAM_PLACE]: places,
+          [GA_PARAM_TIMING_MS]: Math.round(elapsedTime).toString(),
+        });
+      }
+    }
     return resp.data;
   } catch (error) {
     console.log(error);
@@ -319,20 +379,59 @@ const fetchDetectAndFufillData = async (
   query: string,
   savedContext: any,
   dc: string,
-  disableExploreMore: string
+  disableExploreMore: string,
+  detector: string,
+  llmApi: string,
+  testMode: string,
+  i18n: string
 ) => {
+  const argsMap = new Map<string, string>();
+  if (detector) {
+    argsMap.set(URL_HASH_PARAMS.DETECTOR, detector);
+  }
+  if (llmApi) {
+    argsMap.set(URL_HASH_PARAMS.LLM_API, llmApi);
+  }
+  if (testMode) {
+    argsMap.set(URL_HASH_PARAMS.TEST_MODE, testMode);
+  }
+  if (i18n) {
+    argsMap.set(URL_HASH_PARAMS.I18N, i18n);
+  }
+  const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
   try {
+    const startTime = window.performance ? window.performance.now() : undefined;
     const resp = await axios.post(
-      `/api/explore/detect-and-fulfill?q=${query}`,
+      `/api/explore/detect-and-fulfill?q=${query}${args}`,
       {
         contextHistory: savedContext,
         dc,
         disableExploreMore,
       }
     );
+    if (startTime) {
+      const elapsedTime = window.performance
+        ? window.performance.now() - startTime
+        : undefined;
+      if (elapsedTime) {
+        // TODO(beets): Add past queries from context.
+        triggerGAEvent(GA_EVENT_NL_DETECT_FULFILL, {
+          [GA_PARAM_QUERY]: query,
+          [GA_PARAM_TIMING_MS]: Math.round(elapsedTime).toString(),
+        });
+      }
+    }
     return resp.data;
   } catch (error) {
     console.log(error);
     return null;
   }
+};
+
+const generateArgsParams = (argsMap: Map<string, string>): string => {
+  const args: string[] = [];
+
+  argsMap.forEach((value, key) => args.push(`${key}=${value}`));
+
+  return args.join("&");
 };

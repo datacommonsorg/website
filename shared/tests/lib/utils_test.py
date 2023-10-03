@@ -56,7 +56,7 @@ class TestUtilsAddToSet(unittest.TestCase):
     # dictionary (of lists). The strings themselves are also sentences
     # which need to be split in to words.
     for ctype, d_vals in constants.QUERY_CLASSIFICATION_HEURISTICS.items():
-      if ctype == 'Event':
+      if ctype == 'Event' or ctype == 'Superlative':
         continue
       vals_list = []
       if type(d_vals) == list:
@@ -85,7 +85,7 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       ["tell me about the climate extremes in palo alto", "climate palo alto"],
       [
           "How big are the public elementary schools in Sunnyvale",
-          "public elementary schools sunnyvale"
+          "big public elementary schools sunnyvale"
       ],
       [
           "what is relationship between the sickest and healthiest people in the world",

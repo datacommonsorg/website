@@ -173,7 +173,7 @@ def _get_comparison_or_correlation(
 def _get_multi_sv_pair(uttr: nl_uttr.Utterance) -> List[str]:
   parts = dutils.get_multi_sv_pair(uttr.detection)
   if not parts or len(parts) != 2:
-    return []
+    return [], []
   return parts[0].svs, parts[1].svs
 
 

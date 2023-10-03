@@ -27,11 +27,12 @@ import { createWebComponentElement } from "./utils";
  *
  * Example usage:
  *
- * <!-- Show companion text to UN SDG 1 we have in the KG -->
+ * <!-- Show some text with a link -->
  * <datacommons-text
- *      header="Title here"
- *      text="Main text goes here"
- * ></datacommons-text>
+ *   link="http://url.to/some/link"
+ * >
+ *  <div slot="text">Text here</div>
+ * </datacommons-text>
  */
 @customElement("datacommons-text")
 export class DatacommonsTextComponent extends LitElement {
@@ -39,27 +40,14 @@ export class DatacommonsTextComponent extends LitElement {
   static styles: CSSResult = css`
     ${unsafeCSS(tilesCssString)}
   `;
-  // Optional: number of characters of text body to show before "show more"
-  // defaults to 250 chars
-  characterLimit?: number;
 
-  // Header/title of the text
+  // Optional: URL to add as a "see more" link pointer
   @property()
-  header!: string;
-
-  // Optional: Whether to show entire story regardless of character limit
-  showFullText?: boolean;
-
-  // text body
-  @property()
-  text!: string;
+  link?: string;
 
   render(): HTMLElement {
     const textTileProps: TextTilePropType = {
-      characterLimit: this.characterLimit || 250,
-      heading: this.header,
-      text: this.text,
-      showFullText: this.showFullText,
+      link: this.link,
     };
     return createWebComponentElement(TextTile, textTileProps);
   }

@@ -9,6 +9,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -102,6 +103,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -195,6 +197,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -288,6 +291,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -383,7 +387,7 @@
                     "statVarKey": [
                       "dc/e9gftzl2hm8h9"
                     ],
-                    "title": "Commute Time in Santa Clara County",
+                    "title": "Total Commute Time in Santa Clara County",
                     "type": "LINE"
                   }
                 ]
@@ -391,18 +395,19 @@
               {
                 "tiles": [
                   {
-                    "description": "Commute Time in Santa Clara County",
+                    "description": "Total Commute Time in Santa Clara County",
                     "statVarKey": [
                       "dc/e9gftzl2hm8h9"
                     ],
-                    "title": "Commute Time in Santa Clara County",
+                    "title": "Total Commute Time in Santa Clara County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Commute Time"
+            "description": "Total time spent on a single commute across all workers.",
+            "title": "Total Commute Time"
           },
           {
             "columns": [
@@ -412,7 +417,7 @@
                     "statVarKey": [
                       "dc/e9gftzl2hm8h9"
                     ],
-                    "title": "Commute Time in Cities of Santa Clara County (${date})",
+                    "title": "Total Commute Time in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -427,14 +432,15 @@
                     "statVarKey": [
                       "dc/e9gftzl2hm8h9"
                     ],
-                    "title": "Commute Time in Cities of Santa Clara County (${date})",
+                    "title": "Total Commute Time in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Commute Time in Cities of Santa Clara County"
+            "description": "Total time spent on a single commute across all workers.",
+            "title": "Total Commute Time in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -442,6 +448,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -610,7 +617,7 @@
             "statVar": "dc/dn2h9yfcgbkg2"
           },
           "dc/e9gftzl2hm8h9": {
-            "name": "Commute Time",
+            "name": "Total Commute Time",
             "statVar": "dc/e9gftzl2hm8h9"
           },
           "dc/exr9t81en1h34_multiple_place_bar_block": {
@@ -746,7 +753,7 @@
     "place_type": "County"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "UNKNOWN",
   "places": [
     {
       "dcid": "geoId/06085",
@@ -1206,6 +1213,7 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
+  "svSource": "UNKNOWN",
+  "test": "unittest",
   "userMessage": ""
 }

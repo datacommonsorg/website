@@ -25,6 +25,7 @@ import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { PointAllApiResponse, PointApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
 import { stringifyFn } from "../../utils/axios";
+import { getPointWithin } from "../../utils/data_fetch_utils";
 import {
   Axis,
   ContextType,
@@ -59,7 +60,7 @@ export const SCATTER_URL_PATH = "/tools/scatter";
 export async function getStatWithinPlace(
   parentPlace: string,
   childType: string,
-  statVars: { statVarDcid: string; date?: string }[],
+  statVars: { statVarDcid: string; date?: string; facetId?: string }[],
   apiRoot?: string
 ): Promise<PointApiResponse> {
   // There are two stat vars for scatter plot.
@@ -73,21 +74,17 @@ export async function getStatWithinPlace(
     if (statVar.date) {
       dataDate = statVar.date;
     }
+    const facetIds = statVar.facetId ? [statVar.facetId] : null;
     promises.push(
-      axios
-        .get<PointApiResponse>(
-          `${apiRoot || ""}/api/observations/point/within`,
-          {
-            params: {
-              childType,
-              date: dataDate,
-              parentEntity: parentPlace,
-              variables: [statVar.statVarDcid],
-            },
-            paramsSerializer: stringifyFn,
-          }
-        )
-        .then((resp) => resp.data)
+      getPointWithin(
+        apiRoot,
+        childType,
+        parentPlace,
+        [statVar.statVarDcid],
+        dataDate,
+        [],
+        facetIds
+      )
     );
   }
   return Promise.all(promises).then((responses) => {

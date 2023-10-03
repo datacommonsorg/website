@@ -58,7 +58,7 @@ const FEEDBACK_OPTIONS: Option[] = [
   {
     icon: "priority_high",
     sentiment: CHART_FEEDBACK_SENTIMENT.FACE_PALM,
-    tooltip: "The chart is embarrassing or inappropriate for the the query",
+    tooltip: "The chart is embarrassing or inappropriate for the query",
   },
 ];
 

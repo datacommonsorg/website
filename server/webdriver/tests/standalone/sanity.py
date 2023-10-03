@@ -21,6 +21,7 @@ import os
 from absl import app
 from absl import flags
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -56,10 +57,15 @@ class PageType(StrEnum):
 
 class WebPage:
 
-  def __init__(self, page_type: PageType, title: str, url: str) -> None:
+  def __init__(self,
+               page_type: PageType,
+               title: str,
+               url: str,
+               source_url: str = "") -> None:
     self.page_type = page_type
     self.title = title
     self.url = url
+    self.source_url = source_url
 
 
 class Result:
@@ -69,6 +75,7 @@ class Result:
     self.title = page.title
     self.status = status
     self.url = page.url
+    self.source_url = page.source_url
     self.comments = comments
 
   def to_csv_row(self) -> dict:
@@ -85,8 +92,11 @@ class WebsiteSanityTest:
     self.results = []
 
   def __enter__(self):
-    self.driver = webdriver.Chrome(
-        service=Service(ChromeDriverManager().install()))
+    chrome_options = Options()
+    chrome_options.add_argument("--headless=new")
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    self.driver = webdriver.Chrome(options=chrome_options)
     self.file = open(self.results_csv_file_path, "w", newline="")
     logging.info("Writing results to: %s", self.results_csv_file_path)
     self.csv_writer = csv.DictWriter(self.file,
@@ -107,6 +117,8 @@ class WebsiteSanityTest:
     self.results.append(result)
 
   def home(self, page: WebPage):
+    logging.info("Running: %s", page.url)
+
     self.driver.get(page.url)
 
     page.title = self.driver.title if page.title is None else page.title
@@ -143,6 +155,7 @@ class WebsiteSanityTest:
               PageType.EXPLORE_LANDING,
               topic_title_elem.text,
               topic_url_elem.get_attribute("href"),
+              source_url=page.url,
           ))
 
     # Pass
@@ -152,6 +165,8 @@ class WebsiteSanityTest:
       self.explore_landing(explore_landing_page)
 
   def explore_landing(self, page: WebPage):
+    logging.info("Running: %s", page.url)
+
     self.driver.get(page.url)
 
     page.title = self.driver.title if page.title is None else page.title
@@ -183,11 +198,18 @@ class WebsiteSanityTest:
     explore_pages = []
     for link in explore_links:
       explore_pages.append(
-          WebPage(PageType.EXPLORE, link.text, link.get_attribute("href")))
+          WebPage(
+              PageType.EXPLORE,
+              link.text,
+              link.get_attribute("href"),
+              source_url=page.url,
+          ))
     for explore_page in explore_pages:
       self.explore(explore_page, True)
 
   def explore(self, page: WebPage, recurse: bool = False):
+    logging.info("Running: %s", page.url)
+
     self.driver.get(page.url)
 
     page.title = self.driver.title if page.title is None else page.title
@@ -195,11 +217,10 @@ class WebsiteSanityTest:
     # TODO(keyurs): Use this function to ensure all async elements have loaded:
     # https://github.com/datacommonsorg/website/blob/master/server/webdriver/shared.py#L56
 
-    # Wait 5 secs for charts container to load
-    explore_container_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, "explore-charts"))
+    # Wait 10 secs for charts container to load
     try:
-      WebDriverWait(self.driver, 10).until(explore_container_present)
+      WebDriverWait(self.driver, 10).until(
+          EC.presence_of_element_located((By.CLASS_NAME, "explore-charts")))
     except:
       self.add_result(fail_result(
           page,
@@ -208,20 +229,19 @@ class WebsiteSanityTest:
       return
 
     # Wait couple more seconds for subtopics (i.e. charts) to load
-    subtopics_present = EC.presence_of_element_located(
-        (By.CSS_SELECTOR, "section[class*='block subtopic']"))
+    subtopics = None
     try:
-      WebDriverWait(self.driver, 2).until(subtopics_present)
+      subtopics = WebDriverWait(self.driver, 2).until(
+          EC.presence_of_all_elements_located(
+              (By.CSS_SELECTOR, "section[class*='block subtopic']")))
     except:
       self.add_result(fail_result(
           page,
-          "No charts.",
+          "Timed out.",
       ))
       return
 
     # subtopics
-    subtopics = find_elems(self.driver, By.CSS_SELECTOR,
-                           "section[class*='block subtopic']")
     if subtopics is None or len(subtopics) == 0:
       self.add_result(fail_result(
           page,
@@ -263,7 +283,12 @@ class WebsiteSanityTest:
     explore_pages = []
     for link in explore_links:
       explore_pages.append(
-          WebPage(PageType.EXPLORE, link.text, link.get_attribute("href")))
+          WebPage(
+              PageType.EXPLORE,
+              link.text,
+              link.get_attribute("href"),
+              source_url=page.url,
+          ))
     for explore_page in explore_pages:
       self.explore(explore_page, False)
 
@@ -305,7 +330,7 @@ def result_csv_columns() -> str:
 def run_test():
   os.makedirs(OUTPUT_DIR, exist_ok=True)
   results_csv_file_path = os.path.join(
-      OUTPUT_DIR, f"results-{int(datetime.now().timestamp())}.csv")
+      OUTPUT_DIR, f"results_{datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}.csv")
 
   with WebsiteSanityTest(results_csv_file_path=results_csv_file_path) as test:
     page = WebPage(PageType.UNKNOWN, None, FLAGS.url)
@@ -335,6 +360,8 @@ def main(_):
   end = datetime.now()
   logging.info("End: %s", end)
   logging.info("Duration: %s", str(end - start))
+  print("", flush=True)
+  logging.shutdown()
 
 
 if __name__ == "__main__":

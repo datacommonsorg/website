@@ -99,7 +99,7 @@
     "place_type": "City"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "UNKNOWN",
   "places": [
     {
       "dcid": "geoId/0660102",
@@ -726,6 +726,6 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
+  "svSource": "UNKNOWN",
   "userMessage": ""
 }

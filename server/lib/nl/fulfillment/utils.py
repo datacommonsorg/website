@@ -128,8 +128,9 @@ def handle_contained_in_type(state: PopulateState, places: List[Place]):
   if (state.place_type == ContainedInPlaceType.DEFAULT_TYPE and
       len(places) == 1):
     state.place_type = utils.get_default_child_place_type(places[0])
-    state.uttr.counters.info('contained_in_across_fallback',
-                             state.place_type.value)
+    if state.place_type:
+      state.uttr.counters.info('contained_in_across_fallback',
+                               state.place_type.value)
 
   if state.place_type and places:
     ptype = state.place_type

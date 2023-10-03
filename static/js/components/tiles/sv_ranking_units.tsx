@@ -21,7 +21,6 @@ import React, { RefObject, useRef } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { URL_PATH } from "../../constants/app/visualization_constants";
-import { ASYNC_ELEMENT_CLASS } from "../../constants/css_constants";
 import {
   RankingData,
   RankingGroup,
@@ -48,12 +47,14 @@ interface SvRankingUnitsProps {
     svNames: string[]
   ) => void;
   statVar: string;
+  entityType: string;
   tileId: string;
   title?: string;
   showExploreMore?: boolean;
   apiRoot?: string;
   hideFooter?: boolean;
   onHoverToggled?: (placeDcid: string, hover: boolean) => void;
+  errorMsg?: string;
 }
 
 /**
@@ -97,24 +98,27 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
 
   return (
     <React.Fragment>
-      {rankingMetadata.showHighestLowest ? (
-        <div
-          className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} highest-ranking-container`}
-        >
+      {rankingMetadata.showHighestLowest || props.errorMsg ? (
+        <div className="ranking-unit-container highest-ranking-container">
           {getRankingUnit(
             title,
             statVar,
+            props.entityType,
             rankingGroup,
             rankingMetadata,
             true,
+            props.apiRoot,
             highestRankingUnitRef,
-            props.onHoverToggled
+            props.onHoverToggled,
+            props.errorMsg
           )}
           {!props.hideFooter && (
             <ChartFooter
-              handleEmbed={() => handleEmbed(true)}
+              handleEmbed={props.errorMsg ? null : () => handleEmbed(true)}
               exploreLink={
-                props.showExploreMore ? getExploreLink(props, true) : null
+                props.showExploreMore && !props.errorMsg
+                  ? getExploreLink(props, true)
+                  : null
               }
             >
               <NlChartFeedback id={props.tileId} />
@@ -124,15 +128,15 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       ) : (
         <>
           {rankingMetadata.showHighest && (
-            <div
-              className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} highest-ranking-container`}
-            >
+            <div className="ranking-unit-container highest-ranking-container">
               {getRankingUnit(
                 title,
                 statVar,
+                props.entityType,
                 rankingGroup,
                 rankingMetadata,
                 true,
+                props.apiRoot,
                 highestRankingUnitRef,
                 props.onHoverToggled
               )}
@@ -149,15 +153,15 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             </div>
           )}
           {rankingMetadata.showLowest && (
-            <div
-              className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} lowest-ranking-container`}
-            >
+            <div className="ranking-unit-container lowest-ranking-container">
               {getRankingUnit(
                 title,
                 statVar,
+                props.entityType,
                 rankingGroup,
                 rankingMetadata,
                 false,
+                props.apiRoot,
                 lowestRankingUnitRef,
                 props.onHoverToggled
               )}
@@ -223,11 +227,14 @@ export function getRankingUnitTitle(
 export function getRankingUnit(
   tileConfigTitle: string,
   statVar: string,
+  entityType: string,
   rankingGroup: RankingGroup,
   rankingMetadata: RankingTileSpec,
   isHighest: boolean,
+  apiRoot: string,
   rankingUnitRef?: RefObject<HTMLDivElement>,
-  onHoverToggled?: (placeDcid: string, hover: boolean) => void
+  onHoverToggled?: (placeDcid: string, hover: boolean) => void,
+  errorMsg?: string
 ): JSX.Element {
   const rankingCount = rankingMetadata.rankingCount || RANKING_COUNT;
   const topPoints = isHighest
@@ -264,7 +271,10 @@ export function getRankingUnit(
         rankingMetadata.showMultiColumn ? rankingGroup.svName : undefined
       }
       onHoverToggled={onHoverToggled}
-      headerChild={getSourcesJsx(rankingGroup.sources)}
+      headerChild={errorMsg ? null : getSourcesJsx(rankingGroup.sources)}
+      errorMsg={errorMsg}
+      apiRoot={apiRoot}
+      entityType={entityType}
     />
   );
 }

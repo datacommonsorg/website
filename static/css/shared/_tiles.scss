@@ -24,14 +24,26 @@
 @use "../base";
 
 $chart-container-top-margin: 20px;
-$highlight-font-family: base.$headings-font-family;
 $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.4);
 
 .chart-container {
+  // Allow font family override via --dc-font-family
+  font-family: var(--dc-font-family, base.$font-family-sans-serif);
   margin-top: $chart-container-top-margin;
   position: relative;
   width: 100%;
+  font-size: 13px;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    // Allow font family override via --dc-headings-font-family
+    font-family: var(--dc-headings-font-family, base.$headings-font-family);
+  }
 
   .sources {
     font-size: 11px;
@@ -121,6 +133,18 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   background-color: var(--light);
 }
 
+/** footnotes */
+.chart-footnote {
+  color: var(--dc-gray);
+  font-size: 0.6rem;
+  margin: 0 24px;
+
+  .chart-footnote-toggle {
+    color: var(--link-color);
+    cursor: pointer;
+  }
+}
+
 /**
  * highlight tile
  */
@@ -129,13 +153,13 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   display: flex;
   flex-direction: column;
   padding: 24px;
-  font-family: $highlight-font-family;
   margin-bottom: 1rem;
   background: rgba(223, 243, 255, 0.5);
   border-radius: var(--border-radius-primary);
   gap: 8px;
 
   .stat {
+    font-family: var(--dc-headings-font-family, base.$headings-font-family);
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -154,6 +178,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   }
 
   .desc {
+    font-family: var(--dc-headings-font-family, base.$headings-font-family);
     font-size: 22px;
     line-height: 28px;
     color: var(--gm-3-ref-neutral-neutral-40);
@@ -182,14 +207,6 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   }
 }
 
-.scatter-spinner {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
 .scatter-tile-content {
   position: relative;
 }
@@ -198,18 +215,23 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
  * text tile
  */
 .text-tile {
-  font-family: $highlight-font-family;
+  font-family: var(--dc-headings-font-family, base.$headings-font-family);
   margin-bottom: 1rem;
   padding: 20px 32px;
   background: rgba(223, 243, 255, 0.5);
   border-radius: var(--border-radius-primary);
 
   .fade-text {
-    mask-image: linear-gradient(180deg, rgba(250,250,250), 85%, transparent);
-    -webkit-mask-image: linear-gradient(180deg, rgba(250,250,250), 85%, transparent);
+    mask-image: linear-gradient(180deg, rgba(250, 250, 250), 85%, transparent);
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      rgba(250, 250, 250),
+      85%,
+      transparent
+    );
   }
 
-  .show-more-toggle {
+  .text-link {
     margin-left: auto;
     width: fit-content;
     font-size: 18px;
@@ -232,10 +254,6 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
     margin: 16px 0;
     color: var(--gm-3-ref-neutral-neutral-40);
   }
-
-
-
-
 }
 
 /**
@@ -493,7 +511,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
  */
 
 .chart-container.place-overview-tile {
-  font-size: 1rem;
+  font-size: 14px;
   background-color: var(--gm-3-white);
 
   .factoid {

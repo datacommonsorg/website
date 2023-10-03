@@ -8,6 +8,35 @@
               {
                 "tiles": [
                   {
+                    "comparisonPlaces": [
+                      "country/TJK",
+                      "country/SLB",
+                      "country/NPL",
+                      "country/GUY",
+                      "country/MLI",
+                      "country/LBR",
+                      "country/GIN",
+                      "country/TGO",
+                      "country/COD",
+                      "country/GMB"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY110"
+                    ],
+                    "title": "Proportion of Population Below International Poverty Line",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
+            "title": "Proportion of Population Below International Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/TJK",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
@@ -126,7 +155,8 @@
                 ]
               }
             ],
-            "title": "Decrease in Population Below International Poverty Line Over Time (Absolute Change)"
+            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
+            "title": "Decrease in Proportion of Population Below International Poverty Line Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -251,16 +281,21 @@
                 ]
               }
             ],
-            "title": "Decrease in Population Below International Poverty Line Over Time (Percent Change)"
+            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
+            "title": "Decrease in Proportion of Population Below International Poverty Line Over Time (Percent Change)"
           }
         ],
         "statVarSpec": {
+          "sdg/SI_POV_DAY110": {
+            "name": "Proportion of population below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1"
+          },
           "sdg/SI_POV_DAY1_growth_abs": {
-            "name": "Population Below International Poverty Line",
+            "name": "Proportion of population below international poverty line",
             "statVar": "sdg/SI_POV_DAY1"
           },
           "sdg/SI_POV_DAY1_growth_pct": {
-            "name": "Population Below International Poverty Line",
+            "name": "Proportion of population below international poverty line",
             "statVar": "sdg/SI_POV_DAY1"
           }
         }

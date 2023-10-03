@@ -329,9 +329,12 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             ],
             "Change": ["change(s|d|) (over|with) time"]
         },
-        "SizeType": {
-            "Big": ["big",],
-            "Small": ["small",],
+        "Superlative": {
+            "Big": ["big", "bigger", "biggest"],
+            "Small": ["small", "bigger", "smallest"],
+            "Rich": ["rich", "richer", "richest"],
+            "Poor": ["poor", "poorer", "poorest"],
+            "List": ["list( of|)"]
         },
         "Overview": ["tell me (more )?about",],
         # Hint for potential reference to answer-places, to be used

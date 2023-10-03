@@ -17,6 +17,7 @@
 @import "../base";
 @import "./shared.scss";
 @import "../draw_choropleth";
+@import "../tiles.scss";
 
 table {
   border-collapse: collapse;
@@ -60,3 +61,16 @@ tbody tr:nth-child(even) {
   stroke-width: 1.5;
   border: 3px solid #000;
 }
+
+.chart-container .sources {
+  font-style: normal;
+  font-size: 15px;
+}
+
+.legend {
+  position: absolute;
+  top: 70px;
+  left: 1100px;
+  padding-top: 10px;
+}
+

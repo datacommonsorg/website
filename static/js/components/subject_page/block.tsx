@@ -27,7 +27,6 @@ import {
   COLUMN_ID_PREFIX,
   HIDE_COLUMN_CLASS,
   HIDE_TILE_CLASS,
-  SELF_PLACE_DCID_PLACEHOLDER,
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
@@ -41,6 +40,7 @@ import {
   getId,
   getMinTileIdxToHide,
 } from "../../utils/subject_page_utils";
+import { getComparisonPlaces } from "../../utils/tile_utils";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
 import { DonutTile } from "../tiles/donut_tile";
@@ -72,6 +72,8 @@ export interface BlockPropType {
   denom?: string;
   startWithDenom?: boolean;
 }
+
+const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
 
 export function Block(props: BlockPropType): JSX.Element {
   const minIdxToHide = getMinTileIdxToHide();
@@ -198,11 +200,7 @@ function renderTiles(
     const place = tile.placeDcidOverride
       ? overridePlaces[tile.placeDcidOverride]
       : props.place;
-    const comparisonPlaces = tile.comparisonPlaces
-      ? tile.comparisonPlaces.map((p) =>
-          p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
-        )
-      : undefined;
+    const comparisonPlaces = getComparisonPlaces(tile, place);
     const className = classNameList.join(" ");
     switch (tile.type) {
       case "HIGHLIGHT":
@@ -231,10 +229,16 @@ function renderTiles(
             )}
             svgChartHeight={props.svgChartHeight}
             className={className}
-            showExploreMore={props.showExploreMore}
+            showExploreMore={
+              props.showExploreMore &&
+              props.place.types.every(
+                (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
+              )
+            }
             parentPlaces={props.parentPlaces}
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
+            footnote={props.footnote}
           />
         );
       case "LINE":
@@ -254,6 +258,7 @@ function renderTiles(
             showExploreMore={props.showExploreMore}
             showTooltipOnHover={true}
             colors={tile.lineTileSpec?.colors}
+            footnote={props.footnote}
           />
         );
       case "RANKING":
@@ -271,6 +276,7 @@ function renderTiles(
             rankingMetadata={tile.rankingTileSpec}
             className={className}
             showExploreMore={props.showExploreMore}
+            hideFooter={tile.hideFooter}
           />
         );
       case "BAR":
@@ -281,6 +287,7 @@ function renderTiles(
             className={className}
             comparisonPlaces={comparisonPlaces}
             enclosedPlaceType={enclosedPlaceType}
+            footnote={props.footnote}
             horizontal={tile.barTileSpec?.horizontal}
             id={id}
             key={id}
@@ -320,6 +327,7 @@ function renderTiles(
             className={className}
             scatterTileSpec={tile.scatterTileSpec}
             showExploreMore={props.showExploreMore}
+            footnote={props.footnote}
           />
         );
       case "BIVARIATE":
@@ -343,6 +351,7 @@ function renderTiles(
         return (
           <GaugeTile
             colors={tile.gaugeTileSpec?.colors}
+            footnote={props.footnote}
             id={id}
             place={place}
             range={tile.gaugeTileSpec.range}
@@ -358,6 +367,7 @@ function renderTiles(
         return (
           <DonutTile
             colors={tile.donutTileSpec?.colors}
+            footnote={props.footnote}
             id={id}
             pie={tile.donutTileSpec?.pie}
             place={place}

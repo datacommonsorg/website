@@ -16,6 +16,7 @@
 from dataclasses import dataclass
 from typing import List
 
+from server.lib.nl.common import constants
 import server.lib.nl.common.utils as cutils
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import QueryType
@@ -30,7 +31,7 @@ from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import correlation
 from server.lib.nl.fulfillment import filter_with_dual_vars
 from server.lib.nl.fulfillment import filter_with_single_var
-from server.lib.nl.fulfillment import size_across_entities
+from server.lib.nl.fulfillment import superlative
 from server.lib.nl.fulfillment import time_delta_across_places
 from server.lib.nl.fulfillment import time_delta_across_vars
 from server.lib.nl.fulfillment.types import PopulateState
@@ -76,8 +77,8 @@ QUERY_HANDLERS = {
     QueryType.EVENT:
         QueryHandlerConfig(module=None, rank=6,
                            direct_fallback=QueryType.BASIC),
-    QueryType.SIZE_ACROSS_ENTITIES:
-        QueryHandlerConfig(module=size_across_entities,
+    QueryType.SUPERLATIVE:
+        QueryHandlerConfig(module=superlative,
                            rank=7,
                            direct_fallback=QueryType.BASIC),
     QueryType.FILTER_WITH_SINGLE_VAR:
@@ -133,8 +134,9 @@ def _maybe_remap_basic(uttr: Utterance) -> QueryType:
 
 
 def _maybe_add_containedin(uttr: Utterance) -> bool:
-  if (len(uttr.places) == 1 and (uttr.places[0].place_type == 'Continent' or
-                                 uttr.places[0].dcid == 'Earth') and
+  if (len(uttr.places) == 1 and
+      (uttr.places[0].place_type in constants.SUPER_NATIONAL_TYPES or
+       uttr.places[0].dcid == constants.EARTH_DCID) and
       not cutils.get_contained_in_type(uttr)):
     uttr.classifications.append(
         NLClassifier(
@@ -152,8 +154,8 @@ def _classification_to_query_type(cl: NLClassifier,
     query_type = QueryType.BASIC
   elif cl.type == ClassificationType.EVENT:
     query_type = QueryType.EVENT
-  elif cl.type == ClassificationType.SIZE_TYPE:
-    query_type = QueryType.SIZE_ACROSS_ENTITIES
+  elif cl.type == ClassificationType.SUPERLATIVE:
+    query_type = QueryType.SUPERLATIVE
   elif cl.type == ClassificationType.SIMPLE:
     query_type = QueryType.BASIC
   elif cl.type == ClassificationType.OVERVIEW:
@@ -164,7 +166,7 @@ def _classification_to_query_type(cl: NLClassifier,
       # no SVs in current utterance, so consider it a place overview.
       query_type = QueryType.OVERVIEW
       # Reset the source of SV to the default.
-      uttr.sv_source = FulfillmentResult.CURRENT_QUERY
+      uttr.sv_source = FulfillmentResult.UNKNOWN
   elif cl.type == ClassificationType.RANKING:
     _maybe_add_containedin(uttr)
     classification = futils.classifications_of_type_from_utterance(

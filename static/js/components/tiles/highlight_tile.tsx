@@ -18,86 +18,29 @@
  * Component for rendering a highlight tile.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
-import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
+import {
+  ASYNC_ELEMENT_CLASS,
+  ASYNC_ELEMENT_HOLDER_CLASS,
+} from "../../constants/css_constants";
 import { formatNumber, translateUnit } from "../../i18n/i18n";
-import { Observation, PointApiResponse } from "../../shared/stat_types";
+import { Observation } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { stringifyFn } from "../../utils/axios";
+import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { formatDate } from "../../utils/string_utils";
 import {
   formatString,
+  getDenomInfo,
+  getNoDataErrorMsg,
   getSourcesJsx,
+  getStatFormat,
   ReplacementStrings,
 } from "../../utils/tile_utils";
 
-const NUM_FRACTION_DIGITS = 1;
 // units that should be formatted as part of the number
 const NUMBER_UNITS = ["%"];
-
-/**
- * Override unit display when unit contains
- * "TH" (Thousands), "M" (Millions), "B" (Billions)
- */
-interface UnitOverride {
-  multiplier: number;
-  numFractionDigits?: number;
-  unit: string;
-  unitDisplayName: string;
-}
-const UnitOverrideConfig: {
-  [key: string]: UnitOverride;
-} = {
-  SDG_CON_USD_M: {
-    unit: "SDG_CON_USD",
-    multiplier: 1000000,
-    unitDisplayName: "Constant USD",
-  },
-  SDG_CUR_LCU_M: {
-    unit: "SDG_CUR_LCU",
-    multiplier: 1000000,
-    unitDisplayName: "Current local currency",
-  },
-  SDG_CU_USD_B: {
-    unit: "SDG_CU_USD",
-    multiplier: 1000000000,
-    unitDisplayName: "USD",
-  },
-  SDG_CU_USD_M: {
-    unit: "SDG_CU_USD",
-    multiplier: 1000000,
-    unitDisplayName: "USD",
-  },
-  SDG_HA_TH: {
-    unit: "SDG_HA",
-    multiplier: 1000,
-    unitDisplayName: "Hectares",
-  },
-  SDG_NUM_M: {
-    unit: "SDG_NUMBER",
-    multiplier: 1000000,
-    unitDisplayName: "",
-  },
-  SDG_NUM_TH: {
-    unit: "SDG_NUMBER",
-    multiplier: 1000,
-    unitDisplayName: "",
-  },
-  SDG_TONNES_M: {
-    unit: "SDG_TONNES",
-    multiplier: 1000000,
-    unitDisplayName: "Tonnes",
-  },
-  SDG_NUMBER: {
-    unit: "SDG_NUMBER",
-    multiplier: 1,
-    numFractionDigits: 0,
-    unitDisplayName: "",
-  },
-};
 
 export interface HighlightTilePropType {
   // API root for data fetch
@@ -115,6 +58,7 @@ export interface HighlightTilePropType {
 interface HighlightData extends Observation {
   sources: Set<string>;
   numFractionDigits?: number;
+  errorMsg: string;
 }
 
 export function HighlightTile(props: HighlightTilePropType): JSX.Element {
@@ -133,11 +77,13 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   }
   const rs: ReplacementStrings = {
     placeName: props.place.name,
-    date: formatDate(highlightData.date),
+    date: highlightData.date ? formatDate(highlightData.date) : "",
   };
   let description = "";
   if (props.description) {
-    description = formatString(props.description + " (${date})", rs);
+    description = rs.date
+      ? formatString(props.description + " (${date})", rs)
+      : formatString(props.description, rs);
   }
   // TODO: The {...{ part: "container"}} syntax to set a part is a hacky
   // workaround to add a "part" attribute to a React element without npm errors.
@@ -157,10 +103,10 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
       className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
       {...{ part: "container" }}
     >
-      {highlightData && (
+      {highlightData && !highlightData.errorMsg && (
         <>
           <span className="stat">
-            <span className="number">
+            <span className={`number ${ASYNC_ELEMENT_CLASS}`}>
               {formatNumber(
                 highlightData.value,
                 numberUnit,
@@ -173,7 +119,11 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
         </>
       )}
       <span className="desc">{description}</span>
+      {highlightData && highlightData.errorMsg && (
+        <span>{highlightData.errorMsg}</span>
+      )}
       {!_.isEmpty(highlightData.sources) &&
+        !highlightData.errorMsg &&
         getSourcesJsx(highlightData.sources)}
     </div>
   );
@@ -181,53 +131,69 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
 
 const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
   // Now assume highlight only talks about one stat var.
-  const mainStatVar = props.statVarSpec.statVar;
-  const denomStatVar = props.statVarSpec.denom;
-  const statVars = [mainStatVar];
-  if (denomStatVar) {
-    statVars.push(denomStatVar);
-  }
-  return axios
-    .get<PointApiResponse>(`${props.apiRoot || ""}/api/observations/point`, {
-      params: {
-        date: props.date,
-        entities: [props.place.dcid],
-        variables: statVars,
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      const statData = resp.data.data;
-      const mainStatData = statData[mainStatVar][props.place.dcid];
+  const statPromise = getPoint(
+    props.apiRoot,
+    [props.place.dcid],
+    [props.statVarSpec.statVar],
+    props.date
+  );
+  const denomPromise = props.statVarSpec.denom
+    ? getSeries(props.apiRoot, [props.place.dcid], [props.statVarSpec.denom])
+    : Promise.resolve(null);
+  return Promise.all([statPromise, denomPromise])
+    .then(([statResp, denomResp]) => {
+      const mainStatData =
+        statResp.data[props.statVarSpec.statVar][props.place.dcid];
       let value = mainStatData.value;
-      const facet = resp.data.facets[mainStatData.facet];
-      if (denomStatVar) {
-        value /= statData[denomStatVar][props.place.dcid].value;
+      const facet = statResp.facets[mainStatData.facet];
+      const sources = new Set();
+      if (facet && facet.provenanceUrl) {
+        sources.add(facet.provenanceUrl);
       }
-      if (props.statVarSpec.scaling) {
-        value *= props.statVarSpec.scaling;
+      const { unit, scaling, numFractionDigits } = getStatFormat(
+        props.statVarSpec,
+        statResp
+      );
+      let numFractionDigitsUsed: number;
+      if (props.statVarSpec.denom) {
+        const denomInfo = getDenomInfo(
+          props.statVarSpec,
+          denomResp,
+          props.place.dcid,
+          mainStatData.date
+        );
+        if (denomInfo && value) {
+          value /= denomInfo.value;
+          sources.add(denomInfo.source);
+        } else {
+          value = null;
+        }
+      }
+      let errorMsg = "";
+      if (_.isUndefined(value) || _.isNull(value)) {
+        errorMsg = getNoDataErrorMsg([props.statVarSpec]);
+      } else {
+        // Only do additional calculations if value is not null or undefined
+
+        // If value is a decimal, calculate the numFractionDigits as the number of
+        // digits to get the first non-zero digit and the number after
+        // TODO: think about adding a limit to the number of digits.
+        numFractionDigitsUsed =
+          Math.abs(value) >= 1
+            ? numFractionDigits
+            : 1 - Math.floor(Math.log(Math.abs(value)) / Math.log(10));
+        if (scaling) {
+          value *= scaling;
+        }
       }
       const result = {
         value,
         date: mainStatData.date,
-        numFractionDigits: NUM_FRACTION_DIGITS,
+        numFractionDigitsUsed,
+        unitDisplayName: unit,
+        sources,
+        errorMsg,
       };
-      if (facet) {
-        if (facet.unit in UnitOverrideConfig) {
-          const override = UnitOverrideConfig[facet.unit];
-          result["unitDisplayName"] = override.unitDisplayName;
-          result.value = result.value * override.multiplier;
-          result["numFractionDigits"] =
-            override.numFractionDigits === undefined
-              ? NUM_FRACTION_DIGITS
-              : override.numFractionDigits;
-        } else if (facet.unitDisplayName) {
-          result["unitDisplayName"] = facet.unitDisplayName;
-        }
-        if (facet.provenanceUrl) {
-          result["sources"] = new Set([facet.provenanceUrl]);
-        }
-      }
       return result;
     })
     .catch(() => {

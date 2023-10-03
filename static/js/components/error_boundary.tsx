@@ -23,7 +23,10 @@
 
 import React from "react";
 
-interface ErrorBoundaryPropType {}
+interface ErrorBoundaryPropType {
+  // Custom element to display when there's an error instead of the default.
+  customError?: React.ReactNode;
+}
 
 interface ErrorBoundaryStateType {
   hasError: boolean;
@@ -48,9 +51,16 @@ export class ErrorBoundary extends React.Component<
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-        <div className="alert alert-warning" role="alert">
-          Error rendering this component.
-        </div>
+        <>
+          {" "}
+          {this.props.customError ? (
+            this.props.customError
+          ) : (
+            <div className="alert alert-warning" role="alert">
+              Error rendering this component.
+            </div>
+          )}
+        </>
       );
     }
     return this.props.children;

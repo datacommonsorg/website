@@ -16,7 +16,7 @@
 
 import _ from "lodash";
 
-import { MAX_DATE, MAX_YEAR } from "./constants";
+import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -93,12 +93,16 @@ export function saveToFile(filename: string, contents: string): void {
 }
 
 /**
- * Get the domain from a url.
+ * Get display text from a url.
  */
-export function urlToDomain(url: string): string {
+export function urlToDisplayText(url: string): string {
   if (!url) {
     return "";
   }
+  if (url in SOURCE_DISPLAY_NAME) {
+    return SOURCE_DISPLAY_NAME[url];
+  }
+  // Use domain as the default display name
   return url
     .replace("http://", "")
     .replace("https://", "")

@@ -8,6 +8,34 @@
               {
                 "tiles": [
                   {
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB",
+                      "country/SSD"
+                    ],
+                    "statVarKey": [
+                      "LifeExpectancy_Person10"
+                    ],
+                    "title": "Life Expectancy",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Life Expectancy"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/DZA",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
@@ -255,6 +283,10 @@
           }
         ],
         "statVarSpec": {
+          "LifeExpectancy_Person10": {
+            "name": "Life Expectancy",
+            "statVar": "LifeExpectancy_Person"
+          },
           "LifeExpectancy_Person_growth_abs": {
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"

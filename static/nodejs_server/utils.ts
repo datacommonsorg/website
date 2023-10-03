@@ -22,7 +22,7 @@ import * as xmlserializer from "xmlserializer";
 
 import { SVGNS, XLINKNS } from "../js/constants/svg_constants";
 import { StatVarSpec } from "../js/shared/types";
-import { urlToDomain } from "../js/shared/util";
+import { urlToDisplayText } from "../js/shared/util";
 import {
   EventTypeSpec,
   TileConfig,
@@ -45,7 +45,7 @@ export function getSources(
 ): { name: string; url: string }[] {
   return Array.from(sources).map((src) => {
     return {
-      name: urlToDomain(src),
+      name: urlToDisplayText(src),
       url: src,
     };
   });
@@ -63,6 +63,7 @@ export function getProcessedSvg(
   if (!chartSvg) {
     return null;
   }
+  const height = Number(chartSvg.getAttribute("height")) || SVG_HEIGHT;
   chartSvg.setAttribute("xmlns", SVGNS);
   chartSvg.setAttribute("xmlns:xlink", XLINKNS);
 
@@ -70,7 +71,7 @@ export function getProcessedSvg(
   //                 workaround for getting axes labels to show up in pngs.
   //                 Need to switch to dynamically setting svg size.
   const svgWidth = SVG_WIDTH + 2 * SVG_PADDING;
-  const svgHeight = SVG_HEIGHT + 2 * SVG_PADDING;
+  const svgHeight = height + 2 * SVG_PADDING;
   chartSvg.setAttribute("width", `${svgWidth}px`);
   chartSvg.setAttribute("height", `${svgHeight}px`);
   if (!isDisasterMapTile) {

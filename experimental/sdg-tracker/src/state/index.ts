@@ -28,11 +28,21 @@ import {
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import countries from "../config/countries.json";
+import goalSummaries from "../config/goalSummaries.json";
+import indicatorHeadlines from "../config/indicatorText.json";
 import rootTopics from "../config/rootTopics.json";
 import sidebarConfig from "../config/sidebar.json";
-import { WEB_API_ENDPOINT } from "../utils/constants";
+import targetText from "../config/targetText.json";
+import {
+  EARTH_COUNTRIES,
+  EARTH_PLACE_DCID,
+  WEB_API_ENDPOINT,
+} from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
-import { FulfillResponse } from "../utils/types";
+import {
+  BulkObservationExistenceRequest,
+  FulfillResponse,
+} from "../utils/types";
 
 export const dataCommonsClient = new DataCommonsClient({
   apiRoot: WEB_API_ENDPOINT,
@@ -45,9 +55,44 @@ const MenuImageIcon = styled.img`
   border-radius: 0.25rem;
 `;
 
+const REGION_PLACE_TYPES = ["UNGeoRegion", "ContinentalUnion", "Continent"];
+
 export interface Place {
   name: string;
   dcid: string;
+}
+
+/**
+ * Summary text to accompany each goal
+ */
+export interface GoalText {
+  key: string;
+  headlines: string[];
+  image?: string;
+}
+
+/**
+ * Text to accompany each target
+ */
+export interface TargetText {
+  [key: string]: string;
+}
+
+/**
+ * Headlines and links for each indicator
+ */
+export interface IndicatorTags {
+  headline: string;
+  link: string;
+  images: string[];
+}
+
+/**
+ * Text to accompany each indicator
+ */
+export interface IndicatorText {
+  key: string;
+  tags: IndicatorTags;
 }
 
 /**
@@ -59,8 +104,8 @@ export interface RootTopic {
   groupDcid: string;
   topicDcid: string;
   iconUrl: string;
-  storyTitle: string;
-  storyText: string;
+  homePageIcon: string;
+  color: string;
 }
 
 /**
@@ -110,6 +155,20 @@ export interface AppModel {
   };
   sidebarMenuHierarchy: MenuItemType[];
   rootTopics: RootTopic[];
+  allTopicDcids: string[];
+  goalSummaries: {
+    byGoal: {
+      [key: string]: GoalText;
+    };
+  };
+  targetText: {
+    byTarget: TargetText;
+  };
+  indicatorHeadlines: {
+    byIndicator: {
+      [key: string]: IndicatorTags;
+    };
+  };
 }
 
 /**
@@ -118,10 +177,14 @@ export interface AppModel {
 export interface AppActions {
   // Actions (these manipulate state directly)
   setTopics: Action<AppModel, Topic[]>;
+  setAllTopicDcids: Action<AppModel, string[]>;
   setRootTopics: Action<AppModel, RootTopic[]>;
   setSidebarMenuHierarchy: Action<AppModel, MenuItemType[]>;
   setCountries: Action<AppModel, Place[]>;
   setRegions: Action<AppModel, Place[]>;
+  setGoalSummaries: Action<AppModel, GoalText[]>;
+  setTargetText: Action<AppModel, TargetText>;
+  setIndicatorHeadlines: Action<AppModel, IndicatorText[]>;
   setFulfillment: Action<
     AppModel,
     { key: string; fulfillment: FulfillResponse }
@@ -136,6 +199,14 @@ export interface AppActions {
         [key: string]: FulfillResponse;
       };
       variableDcids: string[];
+    }
+  >;
+  fetchPlaceSidebarMenuHierarchy: Thunk<
+    AppActions,
+    {
+      placeDcid: string;
+      allTopicDcids: string[];
+      sidebarMenuHierarchy: MenuItemType[];
     }
   >;
   initializeAppState: Thunk<AppActions>;
@@ -160,7 +231,17 @@ const appModel: AppModel = {
     byId: {},
   },
   rootTopics: [],
+  allTopicDcids: [],
   sidebarMenuHierarchy: [],
+  goalSummaries: {
+    byGoal: {},
+  },
+  targetText: {
+    byTarget: {},
+  },
+  indicatorHeadlines: {
+    byIndicator: {},
+  },
 };
 
 /**
@@ -169,7 +250,8 @@ const appModel: AppModel = {
 const appActions: AppActions = {
   initializeAppState: thunk(async (actions) => {
     actions.setRootTopics(rootTopics);
-    actions.setRegions(countries.regions);
+    const regions = await dataCommonsClient.getPlaces(REGION_PLACE_TYPES);
+    actions.setRegions(regions);
     actions.setCountries(
       countries.countries.filter((c) => c.is_un_member_or_observer)
     );
@@ -181,7 +263,11 @@ const appActions: AppActions = {
         }),
       }))
     );
+    actions.setGoalSummaries(goalSummaries);
+    actions.setIndicatorHeadlines(indicatorHeadlines);
+    actions.setTargetText(targetText);
     const topics: Topic[] = [];
+    const allTopicDcids: string[] = [];
     const traverseTopics = (item: MenuItemType) => {
       if (!item.key.startsWith("dc")) {
         return;
@@ -191,11 +277,13 @@ const appActions: AppActions = {
         name: item.label,
         parentDcids: item.parents,
       });
+      allTopicDcids.push(item.key.replace("summary-", ""));
       item.children &&
         item.children.forEach((childItem) => traverseTopics(childItem));
     };
     sidebarConfig.forEach((item) => traverseTopics(item));
     actions.setTopics(topics);
+    actions.setAllTopicDcids(allTopicDcids);
   }),
 
   fetchTopicFulfillment: thunk(
@@ -222,6 +310,72 @@ const appActions: AppActions = {
       return fulfillment;
     }
   ),
+
+  fetchPlaceSidebarMenuHierarchy: thunk(
+    async (_, { placeDcid, allTopicDcids, sidebarMenuHierarchy }) => {
+      if (!allTopicDcids || allTopicDcids.length === 0) {
+        return [];
+      }
+      if (!placeDcid || placeDcid.length === 0) {
+        placeDcid = EARTH_PLACE_DCID;
+      }
+
+      try {
+        // check existence for the place.
+        let placeDcids: string[] = [placeDcid];
+        if (placeDcid === EARTH_PLACE_DCID) {
+          // For Earth, add select countries as well.
+          placeDcids.push(...EARTH_COUNTRIES);
+        } else if (!placeDcid.startsWith("country")) {
+          // For regions, fetch countries in the region.
+          const countryDcids = await dataCommonsClient.getCountriesInRegion(
+            placeDcid
+          );
+          placeDcids.push(...countryDcids);
+        }
+
+        const request: BulkObservationExistenceRequest = {
+          entities: placeDcids,
+          variables: allTopicDcids,
+        };
+        const response = await dataCommonsClient.existence(request);
+
+        const existingTopicDcids = new Set<string>();
+        for (const topicDcid in response) {
+          const exists = response[topicDcid];
+          for (const key in exists) {
+            if (exists[key]) {
+              existingTopicDcids.add(topicDcid);
+              break;
+            }
+          }
+        }
+
+        const filterItems = (items: MenuItemType[]) => {
+          const filtered: MenuItemType[] = [];
+
+          items.forEach((item) => {
+            const topicDcid = item.key.startsWith("summary-")
+              ? item.key.substring("summary-".length)
+              : item.key;
+            if (existingTopicDcids.has(topicDcid)) {
+              item = { ...item };
+              item.children = filterItems(item.children || []);
+              filtered.push(item);
+            }
+          });
+
+          return filtered;
+        };
+
+        return filterItems(sidebarMenuHierarchy);
+      } catch (e) {
+        console.error(e);
+        return sidebarMenuHierarchy;
+      }
+    }
+  ),
+
   setCountries: action((state, countries) => {
     state.countries.byDcid = {};
     state.countries.dcids = [];
@@ -247,11 +401,29 @@ const appActions: AppActions = {
   setRootTopics: action((state, rootTopics) => {
     state.rootTopics = [...rootTopics];
   }),
+  setAllTopicDcids: action((state, topicDcids) => {
+    state.allTopicDcids = [...topicDcids];
+  }),
   setSidebarMenuHierarchy: action((state, items) => {
     state.sidebarMenuHierarchy = [...items];
   }),
   setFulfillment: action((state, { key, fulfillment }) => {
     state.fulfillments.byId[key] = { ...fulfillment };
+  }),
+  setGoalSummaries: action((state, goalSummaries) => {
+    state.goalSummaries.byGoal = {};
+    goalSummaries.forEach((goal) => {
+      state.goalSummaries.byGoal[goal.key] = goal;
+    });
+  }),
+  setTargetText: action((state, targetText) => {
+    state.targetText.byTarget = targetText;
+  }),
+  setIndicatorHeadlines: action((state, indicatorHeadlines) => {
+    state.indicatorHeadlines.byIndicator = {};
+    indicatorHeadlines.forEach((indicator) => {
+      state.indicatorHeadlines.byIndicator[indicator.key] = indicator.tags;
+    });
   }),
 };
 

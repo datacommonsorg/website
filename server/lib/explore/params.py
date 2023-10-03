@@ -28,6 +28,8 @@ class Params(str, Enum):
   DC = 'dc'
   EXT_SVGS = 'extensionGroups'
   EXP_MORE_DISABLED = 'disableExploreMore'
+  TEST = 'test'
+  I18N = 'i18n'
 
 
 class DCNames(str, Enum):

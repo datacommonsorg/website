@@ -28,6 +28,7 @@ import {
   StatMetadata,
 } from "../../shared/stat_types";
 import { stringifyFn } from "../../utils/axios";
+import { getSeries } from "../../utils/data_fetch_utils";
 import { getPlaceDisplayNames } from "../../utils/place_utils";
 import { computeRatio } from "../shared_util";
 
@@ -163,17 +164,7 @@ export function fetchRawData(
     facets: {},
   });
   if (denom) {
-    denomDataPromise = axios
-      .get("/api/observations/series", {
-        params: {
-          entities: places,
-          variables: [denom],
-        },
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => {
-        return resp.data;
-      });
+    denomDataPromise = getSeries("", places, [denom]);
   }
   const displayNamesPromise: Promise<DisplayNameApiResponse> =
     getPlaceDisplayNames(places);
