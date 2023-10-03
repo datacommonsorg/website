@@ -112,7 +112,15 @@ function deploy_cloud_esp() {
 
   # Deploy ESP configuration
   gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .
-  gcloud endpoints services deploy mixer-grpc.$MIXER_HASH.pb endpoints.yaml --project $PROJECT_ID
+  CONFIG_ID=$(gcloud endpoints services deploy mixer-grpc.$MIXER_HASH.pb endpoints.yaml --project $PROJECT_ID 2>&1 | awk -F'[][]' '/Service Configuration/ {print $2}')
+
+  # Mount the service config for the container
+  # https://cloud.google.com/endpoints/docs/grpc/get-started-kubernetes-engine-espv2#deploying_the_sample_api_and_esp_to_the_cluster
+  curl -o "/tmp/service_config.json" -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+    "https://servicemanagement.googleapis.com/v1/services/$SERVICE_NAME/configs/$CONFIG_ID?view=FULL"
+  kubectl delete configmap service-config-configmap -n website --ignore-not-found
+  kubectl create configmap service-config-configmap -n website \
+    --from-file=service_config.json=/tmp/service_config.json
 }
 # Release website helm chart
 function deploy_website() {

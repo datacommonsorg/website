@@ -129,7 +129,6 @@ export function getChartArea(
           rankingMetadata={{
             showHighest: true,
             showLowest: true,
-            diffBaseDate: "",
             showMultiColumn: false,
             highestTitle: "Top Places",
             lowestTitle: "Bottom Places",
