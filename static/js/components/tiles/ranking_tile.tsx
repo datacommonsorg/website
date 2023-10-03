@@ -151,6 +151,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               rankingMetadata={props.rankingMetadata}
               showChartEmbed={showChartEmbed}
               statVar={statVar}
+              entityType={props.enclosedPlaceType}
               title={props.title}
               showExploreMore={props.showExploreMore}
               apiRoot={props.apiRoot}

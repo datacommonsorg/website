@@ -279,6 +279,10 @@ message Tile {
   // [optional] If set, used instead of main place for the page.
   string place_dcid_override = 11;
 
+  // [optional] used only in ranking tiles
+  // set to true to hide the footer with download / explore more link
+  bool hide_footer = 17;
+
   // specs for specific tile types
   oneof tile_type_spec {
     RankingTileSpec ranking_tile_spec = 5;
