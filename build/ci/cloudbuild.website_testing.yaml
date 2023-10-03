@@ -16,24 +16,21 @@ steps:
   - id: setup_python
     name: python:3.11.3
     entrypoint: /bin/bash
-    waitFor: ["-"]
     args:
       - -c
       - |
         ./run_test.sh --setup_python
         exit 0
 
-  # Run Website sanity
-  - id: website_adversarial
+  # Run Website screenshot
+  - id: screenshot
     name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
     entrypoint: /bin/bash
-    waitFor:
-      - setup_python
     args:
       - -c
       - |
-        if [[ "$_TEST" == "all" || "$_TEST" == "adversarial" ]]; then
-          ./run_website_adversarial.sh $_DOMAIN true
+        if [[ "$_TEST" == "all" || "$_TEST" == "screenshot" ]]; then
+          ./run_website_screenshot.sh $_DOMAIN true
         fi
         exit 0
 
@@ -41,8 +38,6 @@ steps:
   - id: website_sanity
     name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
     entrypoint: /bin/bash
-    waitFor:
-      - setup_python
     args:
       - -c
       - |
@@ -51,21 +46,17 @@ steps:
         fi
         exit 0
 
-  # Run Website snapshot
-  - id: snapshot
+  # Run Website adversarial
+  - id: website_adversarial
     name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
     entrypoint: /bin/bash
-    waitFor:
-      - setup_python
     args:
       - -c
       - |
-        if [[ "$_TEST" == "all" || "$_TEST" == "snapshot" ]]; then
-          ./run_test.sh --setup_python
-          ./run_website_snapshot.sh $_DOMAIN true
+        if [[ "$_TEST" == "all" || "$_TEST" == "adversarial" ]]; then
+          ./run_website_adversarial.sh $_DOMAIN true
         fi
         exit 0
-
 
 substitutions:
   _DOMAIN: dev.datacommons.org
