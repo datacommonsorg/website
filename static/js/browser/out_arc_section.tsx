@@ -48,6 +48,9 @@ const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "geoJsonCoordinatesDP2",
   "geoJsonCoordinatesDP3",
   "geoJsonCoordinatesUN",
+  "geoJsonCoordinatesUNDP1",
+  "geoJsonCoordinatesUNDP2",
+  "geoJsonCoordinatesUNDP3",
   "firePerimeter",
 ]);
 
