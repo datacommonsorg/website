@@ -1,1 +1,30 @@
-{"root": true}
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["react", "prettier", "simple-import-sort", "react-hooks"],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "semi": ["error", "always"],
+    "@typescript-eslint/no-empty-interface": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
+    "camelcase": "warn",
+    "no-fallthrough": "off",
+    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": "error",
+    "react-hooks/rules-of-hooks": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+    "object-shorthand": ["error", "always", { "avoidQuotes": true }]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
