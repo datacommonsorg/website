@@ -33,7 +33,8 @@ def main_new():
   return render_template('/import_wizard2.html')
 
 
-# This is only
+# This is only used in CSV + SQL backend, converting raw CSV data into resolved
+# CSV.
 @bp.route('/simple/convert', methods=['POST'])
 def convert():
   RAW_DATA_PATH = os.environ.get("RAW_DATA_PATH")
