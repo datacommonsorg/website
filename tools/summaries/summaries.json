@@ -1,210 +1,210 @@
 {
  "geoId/01": {
   "name": "Alabama",
-  "summary": "Alabama ranks fairly low in terms of unemployment rate, population size, median age, median income, but has a relatively high crime rate per capita compared to other states in the USA."
+  "summary": "Alabama has the highest unemployment rate, largest population, highest median age, lowest median income, and highest crime per capita in the United States."
  },
  "geoId/02": {
   "name": "Alaska",
-  "summary": "Alaska ranks high in terms of unemployment, population, median age, median income, and crime per capita compared to other states in the US."
+  "summary": "Alaska has the highest unemployment rate, 11th largest population, 50th highest median age, 14th highest median income, and 2nd highest crime rate in the United States."
  },
  "geoId/04": {
   "name": "Arizona",
-  "summary": "Arizona ranks 30th in terms of highest median income, 12th in highest unemployment rate, 14th in largest population, 37th in highest median age, and 13th in highest crime per capita among the states in the United States of America."
+  "summary": "Arizona has the 14th largest population, 30th highest median income, 12th highest unemployment rate, 37th highest median age, and 13th highest crime rate in the United States."
  },
  "geoId/05": {
   "name": "Arkansas",
-  "summary": "Arkansas ranks among the highest in unemployment rate, population size, median age, median income, and crime per capita in the United States."
+  "summary": "Arkansas has the 40th highest unemployment rate, 34th largest population, 30th highest median age, 49th highest median income, and 5th highest crime per capita in the United States."
  },
  "geoId/06": {
   "name": "California",
-  "summary": "California is the most populous state in the US with the highest median age, income, unemployment rate, and crime per capita among all states."
+  "summary": "California has the largest population, highest median age, highest median income, highest unemployment rate, and highest crime per capita in the United States."
  },
  "geoId/08": {
   "name": "Colorado",
-  "summary": "Colorado ranks high in median age and income, while also having a large population; however, it struggles with unemployment and crime rates."
+  "summary": "Colorado has the highest median age, highest median income, largest population, highest crime per capita, and highest unemployment rate in the United States."
  },
  "geoId/09": {
   "name": "Connecticut",
-  "summary": "Connecticut ranks high in terms of population, median age, median income, and unemployment rate, but struggles with a relatively high crime rate."
+  "summary": "Connecticut has the 7th highest median age, 5th highest median income, 17th highest unemployment rate, and 44th highest crime rate in the United States."
  },
  "geoId/10": {
   "name": "Delaware",
-  "summary": "Delaware ranks high in median age, median income, unemployment rate, crime per capita, but lower in terms of population size."
+  "summary": "Delaware has the highest median age, highest median income, highest unemployment rate, largest population, and highest crime per capita in the United States."
  },
  "geoId/11": {
   "name": "District of Columbia",
-  "summary": "The District of Columbia ranks 3rd in highest unemployment rate, 50th in largest population, 51st in highest median age, and 1st in highest median income among the United States."
+  "summary": "The District of Columbia has the highest unemployment rate, the largest population, the highest median age, and the highest median income in the United States."
  },
  "geoId/12": {
   "name": "Florida",
-  "summary": "Florida ranks 6th in terms of highest median age, 40th in terms of highest median income, 39th in terms of highest unemployment rate, 3rd in terms of largest population, and 24th in terms of highest crime per capita among the states in the US."
+  "summary": "Florida has the 3rd largest population, 6th highest median age, 40th highest median income, 39th highest unemployment rate, and 24th highest crime rate in the United States."
  },
  "geoId/13": {
   "name": "Georgia",
-  "summary": "Georgia ranks 24th for highest unemployment rate, 8th for largest population, 42nd for highest median age, 35th for highest median income, and 20th for highest crime per capita in the United States."
+  "summary": "Georgia has the 8th largest population, 24th highest unemployment rate, 42nd highest median age, 35th highest median income, and 20th highest crime rate in the United States."
  },
  "geoId/15": {
   "name": "Hawaii",
-  "summary": "Hawaii ranks relatively high in terms of unemployment rate, population size, median age, median income, and crime per capita among all states in the United States."
+  "summary": "Hawaii has the highest median age, highest median income, highest crime per capita, largest population, and highest unemployment rate in the United States."
  },
  "geoId/16": {
   "name": "Idaho",
-  "summary": "Idaho ranks relatively low in terms of unemployment rate, population size, median age, median income, and crime per capita compared to other states in the United States."
+  "summary": "Idaho has the highest unemployment rate, largest population, highest median age, highest median income, and highest crime per capita in the United States."
  },
  "geoId/17": {
   "name": "Illinois",
-  "summary": "Illinois ranks 7th in highest unemployment rate, 6th in largest population, 29th in highest median age, 16th in highest median income, and 31st in highest crime per capita among all states in the US."
+  "summary": "Illinois has the 7th highest unemployment rate, 6th largest population, 29th highest median age, 16th highest median income, and 31st highest crime per capita in the United States."
  },
  "geoId/18": {
   "name": "Indiana",
-  "summary": "Indiana ranks 34th in highest median income, 21st in highest unemployment rate, 17th in largest population, 36th in highest median age, and 28th in highest crime per capita among the United States."
+  "summary": "Indiana has the 17th largest population, 34th highest median income, 21st highest unemployment rate, 36th highest median age, and 28th highest crime rate in the United States."
  },
  "geoId/19": {
   "name": "Iowa",
-  "summary": "Iowa ranks relatively high in terms of unemployment rate, population, median age, median income, and crime per capita among all states in the US."
+  "summary": "Iowa has the highest unemployment rate, largest population, highest median age, highest median income, and highest crime per capita in the United States."
  },
  "geoId/20": {
   "name": "Kansas",
-  "summary": "Kansas ranks 26th in the United States for highest median income, 38th for highest unemployment rate, 36th for largest population, 41st for highest median age, and 19th for highest crime per capita."
+  "summary": "Kansas has the 26th highest median income, 38th highest unemployment rate, 36th largest population, 41st highest median age, and 19th highest crime per capita in the United States."
  },
  "geoId/21": {
   "name": "Kentucky",
-  "summary": "Kentucky ranks relatively low in terms of median income, unemployment rate, population size, median age, and crime per capita compared to other states in the United States."
+  "summary": "Kentucky has the highest median age, highest crime per capita, highest unemployment rate, and 45th highest median income in the United States."
  },
  "geoId/22": {
   "name": "Louisiana",
-  "summary": "Louisiana ranks relatively high in terms of unemployment rate, population size, median age, median income, and crime per capita among the states in the United States."
+  "summary": "Louisiana has the 23rd highest unemployment rate, 25th largest population, 40th highest median age, 47th highest median income, and 3rd highest crime per capita in the United States."
  },
  "geoId/23": {
   "name": "Maine",
-  "summary": "Maine ranks relatively high in terms of median age and median income, but struggles with unemployment, population size, and crime rates compared to other states in the US."
+  "summary": "Maine has the highest median age, highest crime rate, and highest unemployment rate in the US."
  },
  "geoId/24": {
   "name": "Maryland",
-  "summary": "Maryland ranks poorly in terms of unemployment rate, population size, median age, and crime per capita, but it boasts the second-highest median income in the United States."
+  "summary": "Maryland has the highest unemployment rate, 25th largest population, 2nd highest median income, 26th highest crime per capita and 25th highest median age in the United States."
  },
  "geoId/25": {
   "name": "Massachusetts",
-  "summary": "Massachusetts has a high median income and population, but struggles with unemployment, an aging population, and a relatively high crime rate."
+  "summary": "Massachusetts has the highest median age, highest median income, and highest crime per capita in the US, but also the 16th largest population and the 41st highest unemployment rate."
  },
  "geoId/26": {
   "name": "Michigan",
-  "summary": "Michigan ranks 14th in highest unemployment rate, 10th in largest population, 13th in highest median age, 36th in highest median income, and 35th in highest crime per capita among the 53 states in the United States of America."
+  "summary": "Michigan has the 14th highest unemployment rate, 10th largest population, 13th highest median age, 36th highest median income, and 35th highest crime rate in the United States."
  },
  "geoId/27": {
   "name": "Minnesota",
-  "summary": "Minnesota ranks in the top half for highest unemployment rate, population, median age, median income, and crime per capita among states in the United States."
+  "summary": "Minnesota has the highest unemployment rate, 27th largest population, 32nd highest median age, 8th highest median income, and 30th highest crime per capita in the United States."
  },
  "geoId/28": {
   "name": "Mississippi",
-  "summary": "Mississippi ranks below average in terms of population, median age, median income, unemployment rate, and crime per capita among the states in the United States."
+  "summary": "Mississippi has the 35th largest population, 38th highest median age, 51st highest median income, 25th highest unemployment rate, and 21st highest crime rate in the United States."
  },
  "geoId/29": {
   "name": "Missouri",
-  "summary": "Missouri ranks in the lower half of the United States in terms of unemployment rate, population size, median age, median income, and crime per capita."
+  "summary": "Missouri has the 35th highest unemployment rate, 18th largest population, 26th highest median age, 37th highest median income, and 8th highest crime per capita in the United States."
  },
  "geoId/30": {
   "name": "Montana",
-  "summary": "Montana ranks relatively low in terms of unemployment rate, population size, median age, median income, and crime rate compared to other states in the United States."
+  "summary": "Montana has the highest unemployment rate, largest population, highest median age, highest crime per capita, and 39th highest median income in the United States."
  },
  "geoId/31": {
   "name": "Nebraska",
-  "summary": "Nebraska ranks relatively low in terms of unemployment rate, population size, median age, crime per capita, but higher in terms of median income compared to other states in the US."
+  "summary": "Nebraska has the highest unemployment rate, largest population, highest median age, highest median income, and highest crime per capita in the United States."
  },
  "geoId/32": {
   "name": "Nevada",
-  "summary": "Nevada ranks among the highest in unemployment rate, population size, median age, median income, and crime per capita compared to other states in the US."
+  "summary": "Nevada has the 2nd highest unemployment rate, 33rd largest population, 31st highest median age, 29th highest median income, and 16th highest crime per capita in the United States."
  },
  "geoId/33": {
   "name": "New Hampshire",
-  "summary": "New Hampshire ranks relatively high in terms of median age, median income, and population size, but struggles with high unemployment rates and crime per capita."
+  "summary": "New Hampshire has the highest unemployment rate, 4th largest population, 4th highest median age, 9th highest median income, and 49th highest crime per capita in the United States."
  },
  "geoId/34": {
   "name": "New Jersey",
-  "summary": "New Jersey ranks high in terms of unemployment rate, population, median age, median income, but has a relatively low crime rate compared to other states."
+  "summary": "New Jersey has the 5th highest unemployment rate, 11th largest population, 11th highest median age, 4th highest median income, and 47th highest crime per capita in the United States."
  },
  "geoId/35": {
   "name": "New Mexico",
-  "summary": "New Mexico ranks low in terms of median income and employment opportunities, but has a relatively large population with a high median age and the highest crime rate per capita in the country."
+  "summary": "New Mexico has the highest crime rate, highest median age, largest population, highest unemployment rate, and 48th highest median income in the United States."
  },
  "geoId/36": {
   "name": "New York",
-  "summary": "New York ranks 10th in highest unemployment rate, 4th in largest population, 22nd in highest median age, 13th in highest median income, and 43rd in highest crime per capita among the 53 states in the United States of America."
+  "summary": "New York has the 4th largest population, 10th highest unemployment rate, 22nd highest median age, 13th highest median income, and 43rd highest crime rate in the United States."
  },
  "geoId/37": {
   "name": "North Carolina",
-  "summary": "North Carolina ranks moderately in terms of median income, unemployment rate, population size, median age, and crime per capita among other states in the USA."
+  "summary": "North Carolina has the 9th largest population, 38th highest median income, 22nd highest unemployment rate, 24th highest median age, and 18th highest crime per capita in the United States."
  },
  "geoId/38": {
   "name": "North Dakota",
-  "summary": "North Dakota ranks poorly in terms of unemployment rate, population, median age, crime per capita, but performs relatively well in terms of median income."
+  "summary": "North Dakota has the highest unemployment rate, largest population, highest median age, highest median income, and highest crime per capita in the United States."
  },
  "geoId/39": {
   "name": "Ohio",
-  "summary": "Ohio has a relatively large population, a higher median age and income compared to other states, but also faces higher unemployment rates and crime per capita."
+  "summary": "Ohio has the 7th largest population, 17th highest median age, 32nd highest median income, 20th highest unemployment rate, and 27th highest crime per capita in the United States."
  },
  "geoId/40": {
   "name": "Oklahoma",
-  "summary": "Oklahoma ranks relatively low in terms of unemployment rate, population, median age, median income, but has a high crime rate per capita compared to other states in the United States."
+  "summary": "Oklahoma has the 34th highest unemployment rate, 28th largest population, 44th highest median age, 42nd highest median income, and 6th highest crime per capita in the United States."
  },
  "geoId/41": {
   "name": "Oregon",
-  "summary": "Oregon ranks 24th in highest median income, 19th in highest unemployment rate, 27th in largest population, 18th in highest median age, and 11th in highest crime per capita among the United States."
+  "summary": "Oregon has the 24th highest median income, 19th highest unemployment rate, 27th largest population, 18th highest median age, and 11th highest crime per capita in the United States."
  },
  "geoId/42": {
   "name": "Pennsylvania",
-  "summary": "Pennsylvania has a relatively high median age and income, a moderate unemployment rate, a large population, and a relatively high crime rate compared to other states in the USA."
+  "summary": "Pennsylvania has the 5th largest population, 8th highest median age, 25th highest median income, 18th highest unemployment rate, and 42nd highest crime rate in the United States."
  },
  "geoId/72": {
   "name": "Puerto Rico",
-  "summary": "Puerto Rico ranks low in terms of median income and population size, but has the highest unemployment rate and second-highest median age among all US states and territories."
+  "summary": "Puerto Rico has the highest unemployment rate, the highest median age, and the 52nd highest median income in the United States."
  },
  "geoId/44": {
   "name": "Rhode Island",
-  "summary": "Rhode Island ranks in the lower half of the United States in terms of population, median age, median income, unemployment rate, and crime per capita."
+  "summary": "Rhode Island has the 45th largest population, 10th highest median age, 19th highest median income, 37th highest unemployment rate, and 41st highest crime per capita in the United States."
  },
  "geoId/45": {
   "name": "South Carolina",
-  "summary": "South Carolina ranks relatively high in terms of unemployment rate, population, median age, median income, and crime per capita compared to other states in the United States."
+  "summary": "South Carolina has the 29th highest unemployment rate, 23rd largest population, 16th highest median age, 43rd highest median income, and 4th highest crime rate in the United States."
  },
  "geoId/46": {
   "name": "South Dakota",
-  "summary": "South Dakota has a relatively high median age and income, low unemployment rate, below average population size, and moderate crime rate compared to other states in the US."
+  "summary": "South Dakota has the highest median age, highest unemployment rate, largest population, and highest crime per capita in the United States."
  },
  "geoId/47": {
   "name": "Tennessee",
-  "summary": "Tennessee ranks relatively high in terms of unemployment rate, population size, median age, median income, and crime per capita compared to other states in the United States."
+  "summary": "Tennessee has the 26th highest unemployment rate, 15th largest population, 23rd highest median age, 41st highest median income, and 7th highest crime rate in the United States."
  },
  "geoId/48": {
   "name": "Texas",
-  "summary": "Texas ranks 31st in the United States for highest median income, 6th for highest unemployment rate, 2nd for largest population, 49th for highest median age, and 15th for highest crime per capita."
+  "summary": "Texas has the 2nd largest population, 6th highest unemployment rate, 31st highest median income, 49th highest median age, and 15th highest crime rate in the United States."
  },
  "geoId/49": {
   "name": "Utah",
-  "summary": "Utah ranks relatively low in terms of unemployment rate, population size, median age, median income, and crime per capita compared to other states in the United States."
+  "summary": "Utah has the highest unemployment rate, largest population, highest median age, highest median income, and highest crime per capita in the United States."
  },
  "geoId/50": {
   "name": "Vermont",
-  "summary": "Vermont is ranked 3rd for having the highest median age and 21st for highest median income, but it also has the highest unemployment rate, second smallest population, and 45th highest crime rate per capita among the states in the USA."
+  "summary": "Vermont has the highest median age, highest median income, highest unemployment rate, largest population, and highest crime per capita in the United States."
  },
  "geoId/51": {
   "name": "Virginia",
-  "summary": "Virginia ranks 42nd in unemployment rate, 12th in population, 27th in median age, 10th in median income, and 38th in crime per capita among all states in the USA."
+  "summary": "Virginia has the 12th largest population, 10th highest median income, 27th highest median age, 42nd highest unemployment rate, and 38th highest crime rate in the United States."
  },
  "geoId/53": {
   "name": "Washington",
-  "summary": "Washington ranks 16th in terms of unemployment rate, 13th in population size, 35th in median age, 6th in median income, and 14th in crime per capita among all states in the United States."
+  "summary": "Washington has the 16th highest unemployment rate, 13th largest population, 35th highest median age, 6th highest median income, and 14th highest crime rate in the United States."
  },
  "geoId/54": {
   "name": "West Virginia",
-  "summary": "West Virginia ranks high in unemployment rate, population, median age, crime per capita, but low in median income among the states in the USA."
+  "summary": "West Virginia has the 15th highest unemployment rate, 40th largest population, 5th highest median age, 50th highest median income, and 37th highest crime rate in the United States."
  },
  "geoId/55": {
   "name": "Wisconsin",
-  "summary": "Wisconsin ranks relatively high in terms of unemployment rate, population, median age, median income, but relatively low in terms of crime per capita compared to other states in the USA."
+  "summary": "Wisconsin has the 32nd highest unemployment rate, 20th largest population, 14th highest median age, 18th highest median income, and 40th highest crime per capita in the United States."
  },
  "geoId/56": {
   "name": "Wyoming",
-  "summary": "Wyoming ranks high in median age and income, but struggles with unemployment, population size, and crime rate compared to other states in the US."
+  "summary": "Wyoming has the highest median age, highest unemployment rate, largest population, and highest crime per capita in the United States."
  }
 }

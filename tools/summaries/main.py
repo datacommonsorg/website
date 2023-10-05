@@ -17,7 +17,8 @@ import json
 import logging
 
 from dc import get_ranking_csv
-from llm import get_summary
+from palm import get_summary as palm_get_summary
+from openai import get_summary as openai_get_summary
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -28,25 +29,25 @@ _SUMMARIES_CSV_FILE = "summaries.csv"
 
 def get_and_write_ranking_summaries():
   places = read_json(_PLACE_JSON_FILE)
-  summaries = get_ranking_summaries(places)
+  summaries = get_ranking_summaries(places, palm_get_summary, "palm")
   write_json(summaries, _SUMMARIES_JSON_FILE)
   write_csv(summaries, _SUMMARIES_CSV_FILE)
 
 
-def get_ranking_summaries(places: dict):
+def get_ranking_summaries(places: dict, summary_func, llm_name):
   summaries = {}
   for dcid, name in places.items():
     # TODO: parallelize
-    logging.info("Getting ranking summary for: %s (%s)", dcid, name)
-    summary = get_ranking_summary(dcid, name)
-    logging.info("Got ranking summary for: %s (%s)\n%s", dcid, name, summary)
+    logging.info("Getting ranking summary (using %s) for : %s (%s)", llm_name, dcid, name)
+    summary = get_ranking_summary(dcid, name, summary_func)
+    logging.info("Got ranking summary (using %s) for: %s (%s)\n%s", llm_name, dcid, name, summary)
     summaries[dcid] = {"name": name, "summary": summary}
   return summaries
 
 
-def get_ranking_summary(dcid: str, name: str):
+def get_ranking_summary(dcid: str, name: str, summary_func):
   csv = get_ranking_csv(dcid)
-  return get_summary(name, csv)
+  return summary_func(name, csv)
 
 
 def read_json(file_name: str):
@@ -71,4 +72,23 @@ def write_csv(data, file_name: str):
     writer.writerows(rows)
 
 
-get_and_write_ranking_summaries()
+def compare():
+  places = read_json(_PLACE_JSON_FILE)
+  palm_summaries = get_ranking_summaries(places, palm_get_summary, "palm")
+  openai_summaries = get_ranking_summaries(places, openai_get_summary, "openai")
+  
+  columns = ["dcid", "name", "palm_summary", "openai_summary"]
+  rows = []
+  for dcid, palm_summary in palm_summaries.items():
+    openai_summary = openai_summaries.get(dcid, {}).get("summary", "")
+    rows.append([dcid, palm_summary["name"], palm_summary["summary"], openai_summary])
+
+  with open(_SUMMARIES_CSV_FILE, "w") as f:
+    writer = csv.writer(f)
+    writer.writerow(columns)
+    writer.writerows(rows)
+
+
+
+# get_and_write_ranking_summaries()
+compare()
