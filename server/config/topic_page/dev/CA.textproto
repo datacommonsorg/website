@@ -431,7 +431,7 @@ categories {
       tiles {
         type: LINE
         title: "Population"
-        subtitle: "Countries"
+        subtitle: "Over time"
         stat_var_key: "Count_Person"
       }
     }
