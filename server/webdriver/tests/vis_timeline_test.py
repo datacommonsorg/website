@@ -57,8 +57,7 @@ class TestVisTimeline(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert page heading and selected tab are correct.
-    page_header = self.driver.find_element(
-        By.XPATH, '//*[@id="main-pane"]/div/div[2]/div[1]/div[1]/h3')
+    page_header = self.driver.find_element(By.CSS_SELECTOR, '.info-content h3')
     self.assertEqual(page_header.text, 'Timeline')
     selected_tab = self.driver.find_element(
         By.CSS_SELECTOR, ".vis-type-selector .selected .label")
@@ -158,8 +157,7 @@ class TestVisTimeline(WebdriverBaseTest):
       if 'Timeline' in vis_type.text:
         vis_type.click()
         break
-    page_header = self.driver.find_element(
-        By.XPATH, '//*[@id="main-pane"]/div/div[2]/div[1]/div[1]/h3')
+    page_header = self.driver.find_element(By.CSS_SELECTOR, '.info-content h3')
     self.assertEqual(page_header.text, 'Timeline')
 
     # Click the start button
@@ -198,9 +196,9 @@ class TestVisTimeline(WebdriverBaseTest):
     first_result.click()
 
     # Click continue after USA has been selected.
-    element_present = EC.presence_of_element_located(
-        (By.XPATH,
-         '//*[@id="main-pane"]/div/div[3]/div[1]/div[2]/div[1]/div[1]/div[2]'))
+    element_present = EC.text_to_be_present_in_element(
+        (By.CLASS_NAME, 'place-selector-selections'),
+        'United States of America')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     element_present = EC.presence_of_element_located(
         (By.CLASS_NAME, 'continue-button'))
@@ -244,13 +242,11 @@ class TestVisTimeline(WebdriverBaseTest):
     """
     self.driver.get(self.url_ + TIMELINE_URL)
 
-    # Click on first link on landing page
+    # Click a link on the landing page
     element_present = EC.presence_of_element_located(
         (By.CLASS_NAME, 'info-content'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(
-        By.XPATH,
-        '//*[@id="main-pane"]/div/div[2]/div[1]/div[2]/ul/li[1]/a[1]').click()
+    self.driver.find_element(By.CSS_SELECTOR, '.info-content a').click()
 
     # Assert chart loads
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)

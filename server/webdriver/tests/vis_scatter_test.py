@@ -56,8 +56,7 @@ class TestVisScatter(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert page heading and selected tab are correct.
-    page_header = self.driver.find_element(
-        By.XPATH, '//*[@id="main-pane"]/div/div[2]/div[1]/div[1]/h3')
+    page_header = self.driver.find_element(By.CSS_SELECTOR, '.info-content h3')
     self.assertEqual(page_header.text, 'Scatter Plot')
     selected_tab = self.driver.find_element(
         By.CSS_SELECTOR, ".vis-type-selector .selected .label")
@@ -88,14 +87,13 @@ class TestVisScatter(WebdriverBaseTest):
     self.assertTrue('Female Population' in stat_var_chips[1].text)
 
     # Assert chart is correct.
-    chart_title = self.driver.find_element(
-        By.XPATH,
-        '//*[@id="main-pane"]/div/div[3]/div[2]/div[1]/div[1]/div/div[1]/h4')
+    chart_title = self.driver.find_element(By.CSS_SELECTOR,
+                                           '.scatter-chart .chart-headers h4')
     self.assertEqual(
         chart_title.text,
         "Population Without Health Insurance (2021) vs Female Population (2021)"
     )
-    chart = self.driver.find_element(By.XPATH, '//*[@id="scatterplot"]')
+    chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
 
@@ -113,7 +111,7 @@ class TestVisScatter(WebdriverBaseTest):
     x_axis_label = self.driver.find_element(By.CSS_SELECTOR,
                                             '#scatterplot .x-axis-label')
     self.assertTrue('Female Population (%)' in x_axis_label.text)
-    chart = self.driver.find_element(By.XPATH, '//*[@id="scatterplot"]')
+    chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
     quadrant_lines = chart.find_elements(By.CSS_SELECTOR,
@@ -150,14 +148,13 @@ class TestVisScatter(WebdriverBaseTest):
     update_button.click()
     shared.wait_for_loading(self.driver)
     # Check that results are correct
-    chart_title = self.driver.find_element(
-        By.XPATH,
-        '//*[@id="main-pane"]/div/div[3]/div[2]/div[1]/div[1]/div/div[1]/h4')
+    chart_title = self.driver.find_element(By.CSS_SELECTOR,
+                                           '.scatter-chart .chart-headers h4')
     self.assertEqual(
         chart_title.text,
         "Population Without Health Insurance (2021) vs Female Population (2019)"
     )
-    chart = self.driver.find_element(By.XPATH, '//*[@id="scatterplot"]')
+    chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
 
@@ -174,8 +171,7 @@ class TestVisScatter(WebdriverBaseTest):
       if 'Scatter' in vis_type.text:
         vis_type.click()
         break
-    page_header = self.driver.find_element(
-        By.XPATH, '//*[@id="main-pane"]/div/div[2]/div[1]/div[1]/h3')
+    page_header = self.driver.find_element(By.CSS_SELECTOR, '.info-content h3')
     self.assertEqual(page_header.text, 'Scatter Plot')
 
     # Click the start button
@@ -245,14 +241,13 @@ class TestVisScatter(WebdriverBaseTest):
 
     # Assert chart is correct
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
-    chart_title = self.driver.find_element(
-        By.XPATH,
-        '//*[@id="main-pane"]/div/div[3]/div[2]/div[1]/div[1]/div/div[1]/h4')
+    chart_title = self.driver.find_element(By.CSS_SELECTOR,
+                                           '.scatter-chart .chart-headers h4')
     self.assertEqual(
         chart_title.text,
         'Median Age of Population (2021) vs Median Income of a Population (2021)'
     )
-    chart = self.driver.find_element(By.XPATH, '//*[@id="scatterplot"]')
+    chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
 
@@ -261,17 +256,15 @@ class TestVisScatter(WebdriverBaseTest):
     """
     self.driver.get(self.url_ + SCATTER_URL)
 
-    # Click on first link on landing page
+    # Click a link on the landing page
     element_present = EC.presence_of_element_located(
         (By.CLASS_NAME, 'info-content'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(
-        By.XPATH,
-        '//*[@id="main-pane"]/div/div[2]/div[1]/div[2]/ul/li[1]/a[1]').click()
+    self.driver.find_element(By.CSS_SELECTOR, '.info-content a').click()
 
     # Assert chart loads
     element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    chart = self.driver.find_element(By.XPATH, '//*[@id="scatterplot"]')
+    chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)

@@ -56,8 +56,7 @@ class TestVisMap(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert page heading and selected tab are correct.
-    page_header = self.driver.find_element(
-        By.XPATH, '//*[@id="main-pane"]/div/div[2]/div[1]/div[1]/h3')
+    page_header = self.driver.find_element(By.CSS_SELECTOR, '.info-content h3')
     self.assertEqual(page_header.text, 'Map Explorer')
     selected_tab = self.driver.find_element(
         By.CSS_SELECTOR, ".vis-type-selector .selected .label")
@@ -86,9 +85,8 @@ class TestVisMap(WebdriverBaseTest):
     self.assertTrue('Female Population' in stat_var_chip.text)
 
     # Assert chart is correct.
-    chart_title = self.driver.find_element(
-        By.XPATH,
-        '//*[@id="main-pane"]/div/div[3]/div[2]/div[1]/div[1]/div/div[1]/h4')
+    chart_title = self.driver.find_element(By.CSS_SELECTOR,
+                                           '.map-chart .chart-headers h4')
     self.assertEqual(chart_title.text, "Female Population (2021)")
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
@@ -138,9 +136,8 @@ class TestVisMap(WebdriverBaseTest):
                                              '.modal-footer .btn')
     update_button.click()
     shared.wait_for_loading(self.driver)
-    chart_title = self.driver.find_element(
-        By.XPATH,
-        '//*[@id="main-pane"]/div/div[3]/div[2]/div[1]/div[1]/div/div[1]/h4')
+    chart_title = self.driver.find_element(By.CSS_SELECTOR,
+                                           '.map-chart .chart-headers h4')
     self.assertEqual(chart_title.text, "Female Population (2019)")
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
@@ -217,9 +214,8 @@ class TestVisMap(WebdriverBaseTest):
 
     # Assert chart is correct.
     shared.wait_for_loading(self.driver)
-    chart_title = self.driver.find_element(
-        By.XPATH,
-        '//*[@id="main-pane"]/div/div[3]/div[2]/div[1]/div[1]/div/div[1]/h4')
+    chart_title = self.driver.find_element(By.CSS_SELECTOR,
+                                           '.map-chart .chart-headers h4')
     self.assertEqual(chart_title.text, "Median Age of Population (2021)")
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
@@ -242,13 +238,11 @@ class TestVisMap(WebdriverBaseTest):
     """
     self.driver.get(self.url_ + MAP_URL)
 
-    # Click on first link on landing page
+    # Click a link on the landing page
     element_present = EC.presence_of_element_located(
         (By.CLASS_NAME, 'info-content'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(
-        By.XPATH,
-        '//*[@id="main-pane"]/div/div[2]/div[1]/div[2]/ul/li[1]/a[1]').click()
+    self.driver.find_element(By.CSS_SELECTOR, '.info-content a').click()
 
     # Assert chart loads
     shared.wait_for_loading(self.driver)

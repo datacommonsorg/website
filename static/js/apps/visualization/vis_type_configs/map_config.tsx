@@ -62,7 +62,10 @@ function getFacetSelector(appContext: AppContextType): JSX.Element {
     svFacetId: Record<string, string>,
     metadataMap: Record<string, StatMetadata>
   ) => {
-    if (svFacetId[statVar.dcid] === statVar.facetId) {
+    if (
+      svFacetId[statVar.dcid] === statVar.facetId ||
+      _.isEmpty(appContext.statVars)
+    ) {
       return;
     }
     const newStatVars = _.cloneDeep(appContext.statVars);
