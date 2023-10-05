@@ -39,8 +39,8 @@
     "USStateQuarterlyIndustryGDP_NAICS_44_45",
     "dc/topic/Economy",
     "dc/topic/EconomicEquity",
-    "dc/topic/GDP",
     "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
+    "dc/topic/GDP",
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
   ]
 }
