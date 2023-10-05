@@ -19,6 +19,7 @@ import subprocess
 from flask import Blueprint
 from flask import jsonify
 from flask import render_template
+from flask import request
 
 bp = Blueprint('import_wizard', __name__, url_prefix='/import')
 
@@ -37,18 +38,20 @@ def main_new():
 # CSV.
 @bp.route('/simple/convert', methods=['POST'])
 def convert():
-  RAW_DATA_PATH = os.environ.get("RAW_DATA_PATH")
-  SQL_DATA_PATH = os.environ.get("SQL_DATA_PATH")
+  raw_data_path = request.json.get("rawDataPath") or os.environ.get(
+      "RAW_DATA_PATH")
+  sql_data_path = request.json.get("sqlDataPath") or os.environ.get(
+      "SQL_DATA_PATH")
   command1 = [
       "python",
       "import/simple/stats/main.py",
       "--input_path",
-      f"{RAW_DATA_PATH}/input.csv",  # TODO: use gcs and local folder path.
+      f"{raw_data_path}/input.csv",  # TODO: use gcs and local folder path.
       "--output_dir",
-      f"{SQL_DATA_PATH}",
+      f"{sql_data_path}",
   ]
   # TODO: save debug information in another folder
-  command2 = ["rm", f"{SQL_DATA_PATH}/debug_resolve.csv"]
+  command2 = ["rm", f"{sql_data_path}/debug_resolve.csv"]
   output = []
   for command in [command1, command2]:
     try:
