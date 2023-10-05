@@ -17,11 +17,11 @@ from typing import Dict, List, Union
 
 from markupsafe import escape
 
-from server.config import subject_page_pb2
 import server.lib.fetch as fetch
 import server.lib.nl.common.counters as nl_ctr
 import server.lib.nl.common.utils as nl_utils
 import server.routes.shared_api.place as place_api
+from server.config import subject_page_pb2
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
@@ -191,7 +191,6 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
                                             stat_vars_existence, place_dcid)
     child_exist_keys = _exist_keys_category(sample_child_places, category,
                                             stat_vars_existence, place_dcid)
-
     for block in category.blocks:
       for column in block.columns:
         # Filter all tiles with no data

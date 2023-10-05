@@ -17,9 +17,7 @@ import copy
 import json
 
 import flask
-from flask import current_app
-from flask import g
-from flask import request
+from flask import current_app, g, request
 from google.protobuf.json_format import MessageToJson
 
 import server.lib.subject_page_config as lib_subject_page_config
@@ -86,7 +84,6 @@ def topic_page(topic_id=None, place_dcid=None):
 
   if len(topic_configs) < 1:
     return "Error: no config found"
-
   if not place_dcid:
     return flask.render_template(
         'topic_page.html',

@@ -129,6 +129,8 @@ export interface LineTileSpec {
 
 export interface MapTileSpec {
   colors?: string[];
+  geoJsonProp?: string;
+  placeNameProp?: string;
 }
 
 export interface TileConfig {
@@ -139,6 +141,7 @@ export interface TileConfig {
   comparisonPlaces?: string[];
   placeDcidOverride?: string;
   hideFooter?: boolean;
+  subtitle?: string;
   rankingTileSpec?: RankingTileSpec;
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
   topEventTileSpec?: TopEventTileSpec;

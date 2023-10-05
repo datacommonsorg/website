@@ -49,11 +49,11 @@ import {
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -112,6 +112,8 @@ export interface BarTilePropType {
   getProcessedSVNameFn?: (name: string) => string;
   // The property to use to get place names.
   placeNameProp?: string;
+  // Chart subtitle
+  subtitle?: string;
 }
 
 export interface BarChartData {
@@ -151,6 +153,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     <ChartTileContainer
       id={props.id}
       title={props.title}
+      subtitle={props.subtitle}
       sources={barChartData && barChartData.sources}
       replacementStrings={getReplacementStrings(props, barChartData)}
       className={`${props.className} bar-chart`}

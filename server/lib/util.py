@@ -13,15 +13,15 @@
 # limitations under the License.
 
 import csv
-from datetime import datetime
 import gzip
 import hashlib
 import json
 import logging
 import os
 import time
-from typing import List
 import urllib
+from datetime import datetime
+from typing import List
 
 from flask import make_response
 from google.protobuf import text_format
@@ -49,7 +49,7 @@ PLACE_EXPLORER_CATEGORIES = [
 TOPIC_PAGE_CONFIGS = {
     'equity': ['USA', 'US_Places'],
     'poverty': ['USA', 'India'],
-    'dev': ['CA'],
+    'dev': ['CA', 'asia'],
     'sdg': ['sdg']
 }
 
