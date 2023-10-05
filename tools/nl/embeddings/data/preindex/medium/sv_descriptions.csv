@@ -6257,6 +6257,11 @@ dc/topic/UrbanMalePopulationByAge,Urban Male Population By Age
 dc/topic/UrbanPopulationByAge,Urban Population By Age
 dc/topic/Vaccines,Vaccines
 dc/topic/VeryOldAndVeryYoungPopulation,Very Old and Very Young Population;very old and very young;young children and old people
+dc/topic/Veterans,Veterans;veteran
+dc/topic/VeteransByGender,Veterans By Gender;gender breakdown of veterans;gender of veterans;veterans gender breakdown
+dc/topic/VeteransByGroupQuartersResidence,Veterans By Group Quarters Residence;residence of veterans
+dc/topic/VeteransByWar,Veterans By War;veterans by wars fought;wars veterans fought in
+dc/topic/VeteransIncome,Veterans Income;earnings of veterans;income of veterans;veterans earnings
 dc/topic/Visibility,Visibility
 dc/topic/Volcano,Volcano
 dc/topic/Voting,Voting
