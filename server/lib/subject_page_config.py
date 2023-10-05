@@ -17,11 +17,11 @@ from typing import Dict, List, Union
 
 from markupsafe import escape
 
+from server.config import subject_page_pb2
 import server.lib.fetch as fetch
 import server.lib.nl.common.counters as nl_ctr
 import server.lib.nl.common.utils as nl_utils
 import server.routes.shared_api.place as place_api
-from server.config import subject_page_pb2
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"

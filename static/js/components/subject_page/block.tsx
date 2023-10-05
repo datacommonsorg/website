@@ -354,18 +354,17 @@ function renderTiles(
           />
         );
       case "GAUGE":
-        // "min: 0" value are stripped out when loading text protobufs, so add them back in here
-        const range = {
-          min: tile.gaugeTileSpec.range.min || 0,
-          max: tile.gaugeTileSpec.range.max,
-        };
         return (
           <GaugeTile
             colors={tile.gaugeTileSpec?.colors}
             footnote={props.footnote}
             id={id}
             place={place}
-            range={range}
+            /* "min: 0" value are stripped out when loading text protobufs, so add them back in here */
+            range={{
+              max: tile.gaugeTileSpec.range.max,
+              min: tile.gaugeTileSpec.range.min || 0,
+            }}
             statVarSpec={props.statVarProvider.getSpec(
               tile.statVarKey[0],
               blockDenom

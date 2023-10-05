@@ -17,7 +17,9 @@ import copy
 import json
 
 import flask
-from flask import current_app, g, request
+from flask import current_app
+from flask import g
+from flask import request
 from google.protobuf.json_format import MessageToJson
 
 import server.lib.subject_page_config as lib_subject_page_config
