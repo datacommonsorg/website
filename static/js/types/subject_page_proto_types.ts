@@ -108,8 +108,8 @@ export interface BarTileSpec {
   stacked?: boolean;
   useLollipop?: boolean;
   yAxisMargin?: number;
-  variableNameRegex: string;
-  defaultVariableName: string;
+  variableNameRegex?: string;
+  defaultVariableName?: string;
 }
 
 export interface GaugeTileSpec {
