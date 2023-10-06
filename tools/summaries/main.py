@@ -15,39 +15,52 @@
 import csv
 import json
 import logging
+import multiprocessing
 
+from absl import app
 from dc import get_ranking_csv
-from palm import get_summary as palm_get_summary
-from openai import get_summary as openai_get_summary
-
-logging.getLogger().setLevel(logging.INFO)
+from palm import get_summary
 
 _PLACE_JSON_FILE = "places.json"
 _SUMMARIES_JSON_FILE = "summaries.json"
 _SUMMARIES_CSV_FILE = "summaries.csv"
+_NUM_PARALLEL_PROCESSES = 8
+
+logging.getLogger().setLevel(logging.INFO)
 
 
 def get_and_write_ranking_summaries():
   places = read_json(_PLACE_JSON_FILE)
-  summaries = get_ranking_summaries(places, palm_get_summary, "palm")
+  summaries = get_ranking_summaries(places)
   write_json(summaries, _SUMMARIES_JSON_FILE)
   write_csv(summaries, _SUMMARIES_CSV_FILE)
 
 
-def get_ranking_summaries(places: dict, summary_func, llm_name):
+def get_ranking_summaries(places: dict):
+  tuples = list(places.items())
+  unordered_summaries = {}
+  with multiprocessing.Pool(processes=_NUM_PARALLEL_PROCESSES) as pool:
+    for dcid, name, summary in pool.imap_unordered(
+        get_ranking_summary_with_tuple, tuples):
+      unordered_summaries[dcid] = {"name": name, "summary": summary}
+
   summaries = {}
-  for dcid, name in places.items():
-    # TODO: parallelize
-    logging.info("Getting ranking summary (using %s) for : %s (%s)", llm_name, dcid, name)
-    summary = get_ranking_summary(dcid, name, summary_func)
-    logging.info("Got ranking summary (using %s) for: %s (%s)\n%s", llm_name, dcid, name, summary)
-    summaries[dcid] = {"name": name, "summary": summary}
+  for dcid, _ in tuples:
+    summaries[dcid] = unordered_summaries[dcid]
   return summaries
 
 
-def get_ranking_summary(dcid: str, name: str, summary_func):
+def get_ranking_summary_with_tuple(tuple):
+  dcid, name = tuple
+  return (dcid, name, get_ranking_summary(dcid, name))
+
+
+def get_ranking_summary(dcid: str, name: str):
+  logging.info("Getting ranking summary for : %s (%s)", dcid, name)
   csv = get_ranking_csv(dcid)
-  return summary_func(name, csv)
+  summary = get_summary(name, csv)
+  logging.info("Got ranking summary for: %s (%s)\n%s", dcid, name, summary)
+  return summary
 
 
 def read_json(file_name: str):
@@ -72,23 +85,9 @@ def write_csv(data, file_name: str):
     writer.writerows(rows)
 
 
-def compare():
-  places = read_json(_PLACE_JSON_FILE)
-  palm_summaries = get_ranking_summaries(places, palm_get_summary, "palm")
-  openai_summaries = get_ranking_summaries(places, openai_get_summary, "openai")
-  
-  columns = ["dcid", "name", "palm_summary", "openai_summary"]
-  rows = []
-  for dcid, palm_summary in palm_summaries.items():
-    openai_summary = openai_summaries.get(dcid, {}).get("summary", "")
-    rows.append([dcid, palm_summary["name"], palm_summary["summary"], openai_summary])
-
-  with open(_SUMMARIES_CSV_FILE, "w") as f:
-    writer = csv.writer(f)
-    writer.writerow(columns)
-    writer.writerows(rows)
+def main(_):
+  get_and_write_ranking_summaries()
 
 
-
-# get_and_write_ranking_summaries()
-compare()
+if __name__ == "__main__":
+  app.run(main)

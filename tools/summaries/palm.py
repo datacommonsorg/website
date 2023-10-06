@@ -17,8 +17,8 @@ import logging
 import os
 import re
 
-import requests
 import dc
+import requests
 
 _API_KEY = os.getenv("PALM_API_KEY")
 _API_URL = "https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText"
@@ -29,27 +29,30 @@ _RETRIES = 2
 
 
 def get_summary(name: str, csv: str):
-    url = f"{_API_URL}?key={_API_KEY}"
-    prompt = f"Summarize the following CSV for {name} in 1 sentence. Don't use superlatives.\n\n{csv}"
-    # prompt = f"Give me a one sentence NL summary based on the following info for {name}:\n\n{csv}"
-    params = {
-        "prompt": {"text": prompt},
-        "temperature": _TEMPERATURE,
-        "candidateCount": 1,
-    }
-    headers = {
-        "Content-Type": "application/json",
-    }
+  url = f"{_API_URL}?key={_API_KEY}"
+  prompt = f"Summarize the following CSV for {name} in 1 sentence. Don't use superlatives.\n\n{csv}"
+  # prompt = f"Give me a one sentence NL summary based on the following info for {name}:\n\n{csv}"
+  params = {
+      "prompt": {
+          "text": prompt
+      },
+      "temperature": _TEMPERATURE,
+      "candidateCount": 1,
+  }
+  headers = {
+      "Content-Type": "application/json",
+  }
 
-    for attempt in range(_RETRIES):
-        response = requests.post(url=url, json=params, headers=headers).json()
-        logging.debug("LLM response (attempt #%s):\n%s", attempt + 1, json.dumps(response, indent=1))
-        candidate = response.get("candidates", [{}])[0].get("output", "")
-        if re.search(r'(\d+).+(\d+)', candidate):
-            return candidate
-        if attempt == _RETRIES - 1:
-            logging.warning("Summary may not be factual: %s", candidate)
-            return candidate
-        logging.warning("Retrying %s: %s", name, candidate)
-        
-    return ""
+  for attempt in range(_RETRIES):
+    response = requests.post(url=url, json=params, headers=headers).json()
+    logging.debug("LLM response (attempt #%s):\n%s", attempt + 1,
+                  json.dumps(response, indent=1))
+    candidate = response.get("candidates", [{}])[0].get("output", "")
+    if re.search(r'(\d+).+(\d+)', candidate):
+      return candidate
+    if attempt == _RETRIES - 1:
+      logging.warning("Summary may not be factual: %s", candidate)
+      return candidate
+    logging.warning("Retrying %s: %s", name, candidate)
+
+  return ""
