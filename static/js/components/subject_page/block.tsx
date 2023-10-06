@@ -221,6 +221,7 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
+            subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpec(
@@ -235,6 +236,8 @@ function renderTiles(
                 (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
               )
             }
+            geoJsonProp={tile.mapTileSpec?.geoJsonProp}
+            placeNameProp={tile.mapTileSpec?.placeNameProp}
             parentPlaces={props.parentPlaces}
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
@@ -247,6 +250,7 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
+            subtitle={tile.subtitle}
             place={place}
             comparisonPlaces={comparisonPlaces}
             statVarSpec={props.statVarProvider.getSpecList(
@@ -305,6 +309,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             tileSpec={tile.barTileSpec}
             title={tile.title}
+            subtitle={tile.subtitle}
             useLollipop={tile.barTileSpec?.useLollipop}
             yAxisMargin={tile.barTileSpec?.yAxisMargin}
           />
@@ -315,6 +320,7 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
+            subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(
@@ -354,13 +360,18 @@ function renderTiles(
             footnote={props.footnote}
             id={id}
             place={place}
-            range={tile.gaugeTileSpec.range}
+            /* "min: 0" value are stripped out when loading text protobufs, so add them back in here */
+            range={{
+              max: tile.gaugeTileSpec.range.max,
+              min: tile.gaugeTileSpec.range.min || 0,
+            }}
             statVarSpec={props.statVarProvider.getSpec(
               tile.statVarKey[0],
               blockDenom
             )}
             svgChartHeight={props.svgChartHeight}
             title={tile.title}
+            subtitle={tile.subtitle}
           ></GaugeTile>
         );
       case "DONUT":
@@ -377,6 +388,7 @@ function renderTiles(
             )}
             svgChartHeight={props.svgChartHeight}
             title={tile.title}
+            subtitle={tile.subtitle}
           ></DonutTile>
         );
       case "DESCRIPTION":

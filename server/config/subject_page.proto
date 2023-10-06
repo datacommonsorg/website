@@ -225,6 +225,10 @@ message LineTileSpec {
 message MapTileSpec {
   // specific colors to use, as a list of CSS-compatible color strings
   repeated string colors = 2;
+  // [optional] knowledge graph property containing the place GeoJSON
+  string geo_json_prop = 3;
+  // [optional] knowledge graph property containing the place name
+  string place_name_prop = 4;
 }
 
 message Tile {
@@ -282,6 +286,9 @@ message Tile {
   // [optional] used only in ranking tiles
   // set to true to hide the footer with download / explore more link
   bool hide_footer = 17;
+
+  // [optional] Tile subtitle
+  string subtitle = 18;
 
   // specs for specific tile types
   oneof tile_type_spec {
