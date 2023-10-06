@@ -128,8 +128,8 @@ export interface DonutTileSpec {
 export interface LineTileSpec {
   colors?: string[];
   timeScale?: "YEAR" | "MONTH" | "DAY";
-  variableNameRegex: string;
-  defaultVariableName: string;
+  variableNameRegex?: string;
+  defaultVariableName?: string;
 }
 
 export interface MapTileSpec {
