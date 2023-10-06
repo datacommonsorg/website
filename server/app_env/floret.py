@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from server.app_env import _base
-from server.app_env import local
 
 
 class Config(_base.Config):
@@ -28,5 +27,9 @@ class Config(_base.Config):
   ENABLE_PER_CAPITA = False
 
 
-class LocalConfig(Config, local.Config):
+class LocalConfig(Config):
+  pass
+
+
+class ComposeConfig(Config):
   pass
