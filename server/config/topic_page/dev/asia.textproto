@@ -33,9 +33,9 @@ categories {
         title: "GDP (Nominal Value) (${date})"
         subtitle: "Countries"
         stat_var_key: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+        place_name_prop: "unDataLabel"
         map_tile_spec {
           geo_json_prop: "geoJsonCoordinatesUN"
-          place_name_prop: "unDataLabel"
         }
       }
     }
@@ -47,6 +47,24 @@ categories {
         title: "GDP (Nominal Value) (${date})"
         subtitle: "Countries"
         stat_var_key: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+        place_name_prop: "unDataLabel"
+        bar_tile_spec: {
+          variable_name_regex: "(?<=GDP).*"
+          default_variable_name: "Should not show"
+        }
+      }
+    }
+    columns {
+      tiles {
+        type: BAR
+        title: "GDP (Nominal Value) (${date})"
+        subtitle: "Countries"
+        stat_var_key: "worldBank/NE_EXP_GNFS_CD"
+        place_name_prop: "unDataLabel"
+        bar_tile_spec: {
+          variable_name_regex: "(?<=GDP).*"
+          default_variable_name: "Exports"
+        }
       }
     }
     columns {
@@ -56,6 +74,7 @@ categories {
         subtitle: "Countries"
         stat_var_key: "Count_Person"
         stat_var_key: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+        place_name_prop: "unDataLabel"
       }
     }
   }
@@ -63,7 +82,14 @@ categories {
     key: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     value {
       stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
-      name: "GDP"
+      name: "GDP Total"
+    }
+  }
+  stat_var_spec {
+    key: "worldBank/NE_EXP_GNFS_CD"
+    value {
+      stat_var: "worldBank/NE_EXP_GNFS_CD"
+      name: "Exports of goods and services (current US$)"
     }
   }
   stat_var_spec {

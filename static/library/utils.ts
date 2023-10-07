@@ -91,6 +91,7 @@ export function getVariableNameProcessingFn(
   if (!variableNameRegex) {
     return null;
   }
+
   return (name: string) => {
     const extractedName = name.match(variableNameRegex)?.shift();
     return extractedName || defaultVariableName || name;

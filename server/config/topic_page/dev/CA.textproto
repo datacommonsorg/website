@@ -423,7 +423,6 @@ categories {
   }
 }
 
-
 categories {
   title: "Testing subtitle"
   blocks: {
@@ -449,6 +448,8 @@ categories {
         }
       }
     }
+  }
+  blocks: {
     columns {
       tiles {
         type: DONUT
@@ -456,6 +457,21 @@ categories {
         subtitle: "Age 15+"
         stat_var_key: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
         stat_var_key: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Count of COVID-19 Cases"
+        subtitle: "Cumulative"
+        stat_var_key: "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
+        stat_var_key: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+        stat_var_key: "Count_MortalityEvent_HypertensiveHeartDisease"
+        line_tile_spec: {
+          timeScale: MONTH
+          variable_name_regex: "(?=.*)(?<=\\().*(?=\\))"
+          default_variable_name: "Hypertension"
+        }
       }
     }
   }
@@ -485,6 +501,27 @@ categories {
     value {
       stat_var: "Count_Person"
       name: "Population"
+    }
+  }
+  stat_var_spec {
+    key: "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase",
+    value: {
+      stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
+      name: "Cumulative Count (COVID-19 Cases)"
+    }
+  }
+  stat_var_spec {
+    key: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased",
+    value: {
+      stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+      name: "Cumulative Count (COVID-19 Deaths)"
+    }
+  }
+  stat_var_spec {
+    key: "Count_MortalityEvent_HypertensiveHeartDisease",
+    value: {
+      stat_var: "Count_MortalityEvent_HypertensiveHeartDisease"
+      name: "Hypertensive Heart Disease"
     }
   }
 }

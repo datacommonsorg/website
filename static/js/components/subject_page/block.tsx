@@ -22,6 +22,8 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Input } from "reactstrap";
 
+import { getVariableNameProcessingFn } from "../../../library/utils";
+import { TimeScaleOption } from "../../chart/types";
 import { NL_NUM_BLOCKS_SHOWN } from "../../constants/app/nl_interface_constants";
 import {
   COLUMN_ID_PREFIX,
@@ -53,6 +55,20 @@ import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
+
+/**
+ * Translates the line tile's timeScale enum to the TimeScaleOption type
+ */
+function getTimeScaleOption(timeScale?: string): TimeScaleOption | undefined {
+  if (timeScale === "YEAR") {
+    return "year";
+  } else if (timeScale === "MONTH") {
+    return "month";
+  } else if (timeScale === "DAY") {
+    return "day";
+  }
+  return;
+}
 
 // Either provide (place, enclosedPlaceType) or provide (places)
 export interface BlockPropType {
@@ -237,7 +253,7 @@ function renderTiles(
               )
             }
             geoJsonProp={tile.mapTileSpec?.geoJsonProp}
-            placeNameProp={tile.mapTileSpec?.placeNameProp}
+            placeNameProp={tile.placeNameProp}
             parentPlaces={props.parentPlaces}
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
@@ -263,6 +279,12 @@ function renderTiles(
             showTooltipOnHover={true}
             colors={tile.lineTileSpec?.colors}
             footnote={props.footnote}
+            timeScale={getTimeScaleOption(tile.lineTileSpec?.timeScale)}
+            placeNameProp={tile.placeNameProp}
+            getProcessedSVNameFn={getVariableNameProcessingFn(
+              tile.lineTileSpec?.variableNameRegex,
+              tile.lineTileSpec?.defaultVariableName
+            )}
           />
         );
       case "RANKING":
@@ -312,6 +334,11 @@ function renderTiles(
             subtitle={tile.subtitle}
             useLollipop={tile.barTileSpec?.useLollipop}
             yAxisMargin={tile.barTileSpec?.yAxisMargin}
+            placeNameProp={tile.placeNameProp}
+            getProcessedSVNameFn={getVariableNameProcessingFn(
+              tile.barTileSpec?.variableNameRegex,
+              tile.barTileSpec?.defaultVariableName
+            )}
           />
         );
       case "SCATTER":
@@ -334,6 +361,7 @@ function renderTiles(
             scatterTileSpec={tile.scatterTileSpec}
             showExploreMore={props.showExploreMore}
             footnote={props.footnote}
+            placeNameProp={tile.placeNameProp}
           />
         );
       case "BIVARIATE":
@@ -358,6 +386,7 @@ function renderTiles(
           <GaugeTile
             colors={tile.gaugeTileSpec?.colors}
             footnote={props.footnote}
+            key={id}
             id={id}
             place={place}
             /* "min: 0" value are stripped out when loading text protobufs, so add them back in here */
@@ -379,6 +408,7 @@ function renderTiles(
           <DonutTile
             colors={tile.donutTileSpec?.colors}
             footnote={props.footnote}
+            key={id}
             id={id}
             pie={tile.donutTileSpec?.pie}
             place={place}
