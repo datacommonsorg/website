@@ -27,9 +27,10 @@ _EN_LANG = "en"
 
 # Detects the query language and translates non-English queries to English.
 def detect_lang_and_translate(query, counters: Counters):
+  source_lang = ""
   try:
-    lang = lang_detect(query)
-    if lang.startswith(_EN_LANG):
+    source_lang = lang_detect(query)
+    if source_lang.startswith(_EN_LANG):
       return query
 
     api_key = current_app.config.get('PALM_API_KEY')
@@ -37,7 +38,12 @@ def detect_lang_and_translate(query, counters: Counters):
       counters.err("translation_api_key_error", "No API key configured.")
       return query
 
-    request = {"q": query, "format": "text", "source": lang, "target": _EN_LANG}
+    request = {
+        "q": query,
+        "format": "text",
+        "source": source_lang,
+        "target": _EN_LANG
+    }
     response = requests.post(f'{_API_URL}?key={api_key}',
                              json=request,
                              headers=_API_HEADER).json()
@@ -45,18 +51,25 @@ def detect_lang_and_translate(query, counters: Counters):
     translation = response.get("data",
                                {}).get("translations",
                                        [{}])[0].get("translatedText", "")
+    counters.info(
+        "query_translation", {
+            "query": query,
+            "translation": translation,
+            "source_language": source_lang,
+            "target_language": _EN_LANG,
+            "translation_response": response
+        })
     if translation:
-      counters.info(
-          "query_translation", {
-              "query": query,
-              "translation": translation,
-              "source_language": lang,
-              "target_language": _EN_LANG
-          })
       return translation
 
     counters.err("empty_query_translation_error", {"query": query})
     return query
   except Exception as e:
-    counters.err("query_translation_error", {"query": query, "error": str(e)})
+    counters.err(
+        "query_translation_error", {
+            "query": query,
+            "source_language": source_lang,
+            "target_language": _EN_LANG,
+            "error": str(e)
+        })
     return query
