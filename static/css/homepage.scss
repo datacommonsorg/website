@@ -395,14 +395,8 @@ $search-answer-bottom: 48px;
       margin-top: 28px;
 
       @include media-breakpoint-up(md) {
-        // width: 282px;
         margin: 0 0 0 56px;
         bottom: 25%;
-      }
-
-      @include media-breakpoint-up(lg) {
-        // transform: scale(1);
-        // width: 376px;
       }
 
       #data-size-icon {
@@ -411,18 +405,11 @@ $search-answer-bottom: 48px;
         background-position: -814px 0;
         width: 376px;
         height: 227px;
-        // scale: .75;
 
         @include media-breakpoint-up(md) {
           position: absolute;
           bottom: 0;
-          // top: 50%;
-          // transform: scale(0.75) translate(0, -100%);
           transform-origin: 0 0;
-        }
-
-        @include media-breakpoint-up(lg) {
-          // transform: scale(1) translate(0, -45%);
         }
       }
     }
