@@ -30,6 +30,7 @@ class Params(str, Enum):
   EXP_MORE_DISABLED = 'disableExploreMore'
   TEST = 'test'
   I18N = 'i18n'
+  USE_DEFAULT_PLACE = 'udp'
 
 
 class DCNames(str, Enum):

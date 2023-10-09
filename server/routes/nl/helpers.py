@@ -15,7 +15,6 @@
 import asyncio
 import json
 import logging
-import os
 import time
 from typing import Dict, List
 
@@ -66,6 +65,8 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
 
   test = request.args.get(params.Params.TEST.value, '')
   i18n = request.args.get(params.Params.I18N.value, '')
+  use_default_place = request.args.get(params.Params.USE_DEFAULT_PLACE.value,
+                                       'true')
 
   # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
@@ -168,7 +169,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
                                session_id, test)
 
   if utterance:
-    context.merge_with_context(utterance, is_sdg)
+    context.merge_with_context(utterance, is_sdg, use_default_place != "false")
 
   return utterance, None
 
