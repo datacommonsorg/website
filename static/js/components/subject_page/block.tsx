@@ -293,7 +293,7 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
-            parentPlace={place}
+            parentPlace={place.dcid}
             enclosedPlaceType={enclosedPlaceType}
             variables={props.statVarProvider.getSpecList(
               tile.statVarKey,

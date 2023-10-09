@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { StatVarSpec } from "../../shared/types";
 
 /**
  * Types and interfaces shared by tiles
@@ -49,7 +49,7 @@ export interface ChartOptions {
  *  - GAUGE, HIGHLIGHT
  */
 export interface SinglePlaceSingleVariableTileProp extends TileProp {
-  place: NamedTypedPlace;
+  place: string;
   variable: StatVarSpec;
 }
 
@@ -58,7 +58,7 @@ export interface SinglePlaceSingleVariableTileProp extends TileProp {
  *  - DONUT
  */
 export interface SinglePlaceMultiVariableTileProp extends TileProp {
-  place: NamedTypedPlace;
+  place: string;
   variables: StatVarSpec[];
 }
 
@@ -67,7 +67,7 @@ export interface SinglePlaceMultiVariableTileProp extends TileProp {
  *  - TODO: Implement multi-place, single var for donut tile
  */
 export interface MultiPlaceSingleVariableTileProp extends TileProp {
-  places: NamedTypedPlace[];
+  places: string[];
   variable: StatVarSpec;
 }
 
@@ -76,7 +76,7 @@ export interface MultiPlaceSingleVariableTileProp extends TileProp {
  *  - BAR, LINE
  */
 export interface MultiPlaceMultiVariableTileProp extends TileProp {
-  places: NamedTypedPlace[];
+  places: string[];
   variables: StatVarSpec[];
 }
 
@@ -86,7 +86,7 @@ export interface MultiPlaceMultiVariableTileProp extends TileProp {
  */
 export interface ContainedInPlaceSingleVariableTileProp extends TileProp {
   enclosedPlaceType: string;
-  parentPlace: NamedTypedPlace;
+  parentPlace: string;
   variable: StatVarSpec;
 }
 
@@ -96,6 +96,6 @@ export interface ContainedInPlaceSingleVariableTileProp extends TileProp {
  */
 export interface ContainedInPlaceMultiVariableTileProp extends TileProp {
   enclosedPlaceType: string;
-  parentPlace: NamedTypedPlace;
+  parentPlace: string;
   variables: StatVarSpec[];
 }
