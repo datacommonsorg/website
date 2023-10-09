@@ -169,6 +169,15 @@
   line-height: 36px;
   color: var(--gm-3-ref-neutral-neutral-20);
   padding-bottom: 16px;
+
+  .place-callout-link {
+    color: inherit;
+  }
+
+  .place-callout-link:hover {
+    color: var(--link-color);
+    text-decoration: underline;
+  }
 }
 
 .topic-item {

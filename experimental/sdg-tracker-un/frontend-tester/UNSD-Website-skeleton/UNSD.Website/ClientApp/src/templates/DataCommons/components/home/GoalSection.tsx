@@ -17,6 +17,8 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { RootTopic, useStoreState } from "../../state";
 import { HomeSection, SectionDescription, SectionHeader } from "./components";
+// @ts-ignore
+import { routePathConstants } from "../../../../helper/Common/RoutePathConstants";
 const HALF_TOPIC_NUM = 9;
 
 const Container = styled(HomeSection)`
@@ -36,16 +38,16 @@ const HeaderContainer = styled.div`
 `;
 
 const GoalContainerOuter = styled.div`
-    width: 100%;
-    max-width: 1065px;
-    display: flex;
-    justify-content: center;
-`
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: center;
+`;
 
 const GoalContainer = styled.div`
   display: grid;
   grid-auto-rows: 1fr;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 15px;
   width: fit-content;
   max-width: 100%;
@@ -74,7 +76,7 @@ const GoalContainer = styled.div`
     justify-content: space-between;
     flex-grow: 1;
     height: 100%;
-    padding: 10px 0;
+    padding: 0;
   }
 
   .goal-number {
@@ -102,7 +104,7 @@ const GoalContainer = styled.div`
 
   .goal-icon {
     width: 116px;
-    height: 45px;
+    height: 40px;
     border-left: solid 1px #999;
     display: flex;
     justify-content: center;
@@ -127,7 +129,7 @@ export const GoalSection = () => {
         <SectionDescription>
           Learn about SDG progress in a one-stop hub with data, insights and
           infographics for a comprehensive overview across all 17 Goals.
-      </SectionDescription>
+        </SectionDescription>
       </HeaderContainer>
       <GoalContainerOuter>
         <GoalContainer>
@@ -140,14 +142,18 @@ export const GoalSection = () => {
                       className={`goal-item -dc-goal-item-${topicNum + 1}`}
                       key={goal.topicDcid}
                       onClick={() =>
-                        history.push(`/goals/dc/topic/sdg_1?v=${goal.topicDcid}`)
+                        history.push(
+                          `${routePathConstants.DATA_COMMONS}goals?v=${goal.topicDcid}`
+                        )
                       }
                     >
                       <div
                         style={{ backgroundColor: goal.color }}
                         className="goal-number"
                       >
-                        <span>{HALF_TOPIC_NUM * sectionNum + topicNum + 1}</span>
+                        <span>
+                          {HALF_TOPIC_NUM * sectionNum + topicNum + 1}
+                        </span>
                       </div>
                       <div className="goal-content">
                         <div className="goal-name">{goal.name}</div>
@@ -161,7 +167,9 @@ export const GoalSection = () => {
                 {sectionNum === 1 && (
                   <div
                     className="goal-item -dc-goal-item-all"
-                    onClick={() => history.push("/goals")}
+                    onClick={() =>
+                      history.push(`${routePathConstants.DATA_COMMONS}goals`)
+                    }
                   >
                     <div className="goal-number">
                       <img src={"./images/datacommons/sdg-goals-icon.svg"} />

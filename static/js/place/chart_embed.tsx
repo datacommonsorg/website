@@ -39,6 +39,9 @@ const CHART_PADDING = 10;
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 
+interface ChartEmbedPropsType {
+  container?: HTMLElement;
+}
 interface ChartEmbedStateType {
   modal: boolean;
   svgXml: string;
@@ -56,7 +59,10 @@ interface ChartEmbedStateType {
  * A component to include with each Chart, that displays embed information and data for a chart
  * in a Modal
  */
-class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
+class ChartEmbed extends React.Component<
+  ChartEmbedPropsType,
+  ChartEmbedStateType
+> {
   private modalId: string;
   private svgContainerElement: React.RefObject<HTMLDivElement>;
   private textareaElement: React.RefObject<HTMLTextAreaElement>;
@@ -363,6 +369,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         isOpen={this.state.modal}
         toggle={this.toggle}
         className="modal-dialog-centered modal-lg"
+        container={this.props.container}
         onOpened={this.onOpened}
         id={this.modalId}
       >

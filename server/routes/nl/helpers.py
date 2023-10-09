@@ -17,7 +17,7 @@ import json
 import logging
 import os
 import time
-from typing import Dict
+from typing import Dict, List
 
 import flask
 from flask import current_app
@@ -25,6 +25,7 @@ from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.explore import params
 from server.lib.nl.common import bad_words
 from server.lib.nl.common import commentary
 from server.lib.nl.common import serialize
@@ -46,6 +47,7 @@ from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
 import server.lib.nl.fulfillment.fulfiller as fulfillment
 import server.lib.nl.fulfillment.utils as futils
+from server.lib.translator import detect_lang_and_translate
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 import server.services.bigtable as bt
@@ -62,12 +64,17 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
     flask.abort(404)
   nl_bad_words = current_app.config['NL_BAD_WORDS']
 
+  test = request.args.get(params.Params.TEST.value, '')
+  i18n = request.args.get(params.Params.I18N.value, '')
+
   # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
   original_query = request.args.get('q')
   if not original_query:
     err_json = helpers.abort(
-        'Received an empty query, please type a few words :)', '', [])
+        'Received an empty query, please type a few words :)',
+        '', [],
+        test=test)
     return None, err_json
   context_history = []
   if request.get_json():
@@ -99,11 +106,20 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   else:
     llm_api_type = LlmApiType(llm_api_type)
 
+  counters = ctr.Counters()
+
+  if i18n and i18n.lower() == 'true':
+    start = time.time()
+    original_query = detect_lang_and_translate(original_query, counters)
+    counters.timeit("detect_lang_and_translate", start)
+
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   if not query:
     err_json = helpers.abort(
-        'Received an empty query, please type a few words :)', original_query,
-        context_history)
+        'Received an empty query, please type a few words :)',
+        original_query,
+        context_history,
+        test=test)
     return None, err_json
 
   #
@@ -112,11 +128,12 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   if (not bad_words.is_safe(original_query, nl_bad_words) or
       not bad_words.is_safe(query, nl_bad_words)):
     err_json = helpers.abort('Sorry, could not complete your request.',
-                             original_query, context_history)
-    _set_blocked(err_json)
+                             original_query,
+                             context_history,
+                             test=test,
+                             blocked=True)
     return None, err_json
 
-  counters = ctr.Counters()
   debug_logs["original_query"] = query
 
   # Generate new utterance.
@@ -138,14 +155,17 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
                                     debug_logs, counters)
   if not query_detection:
     err_json = helpers.abort('Sorry, could not complete your request.',
-                             original_query, context_history, debug_logs,
-                             counters)
-    _set_blocked(err_json)
+                             original_query,
+                             context_history,
+                             debug_logs,
+                             counters,
+                             test=test,
+                             blocked=True)
     return None, err_json
   counters.timeit('query_detection', start)
 
   utterance = create_utterance(query_detection, prev_utterance, counters,
-                               session_id)
+                               session_id, test)
 
   if utterance:
     context.merge_with_context(utterance, is_sdg)
@@ -255,16 +275,22 @@ def prepare_response(utterance: nl_utterance.Utterance,
 
   has_charts = True if page_config else False
   return prepare_response_common(data_dict, status_str, detection, dbg_counters,
-                                 debug_logs, has_charts)
+                                 debug_logs, has_charts, utterance.test)
 
 
-def prepare_response_common(data_dict: Dict, status_str: str,
-                            detection: Detection, dbg_counters: Dict,
-                            debug_logs: Dict, has_data: bool) -> Dict:
+def prepare_response_common(data_dict: Dict,
+                            status_str: str,
+                            detection: Detection,
+                            dbg_counters: Dict,
+                            debug_logs: Dict,
+                            has_data: bool,
+                            test: str = '') -> Dict:
   data_dict = dbg.result_with_debug_info(data_dict, status_str, detection,
                                          dbg_counters, debug_logs)
   # Convert data_dict to pure json.
   data_dict = utils.to_dict(data_dict)
+  if test:
+    data_dict['test'] = test
   if current_app.config['LOG_QUERY']:
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
@@ -280,9 +306,11 @@ def prepare_response_common(data_dict: Dict, status_str: str,
 #
 def abort(error_message: str,
           original_query: str,
-          context_history: Dict,
+          context_history: List[Dict],
           debug_logs: Dict = None,
-          counters: ctr.Counters = None) -> Dict:
+          counters: ctr.Counters = None,
+          blocked: bool = False,
+          test: str = '') -> Dict:
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   escaped_context_history = []
   for ch in context_history:
@@ -318,7 +346,20 @@ def abort(error_message: str,
                                          query_detection=query_detection,
                                          debug_counters=counters.get(),
                                          query_detection_debug_logs=debug_logs)
+
+  if test:
+    data_dict['test'] = test
+  if blocked:
+    _set_blocked(data_dict)
+
   logging.info('NL Data API: Empty Exit')
+  if current_app.config['LOG_QUERY']:
+    # Asynchronously log as bigtable write takes O(100ms)
+    loop = asyncio.new_event_loop()
+    session_info = futils.get_session_info(context_history, False)
+    data_dict['session'] = session_info
+    loop.run_until_complete(bt.write_row(session_info, data_dict, debug_logs))
+
   return data_dict
 
 

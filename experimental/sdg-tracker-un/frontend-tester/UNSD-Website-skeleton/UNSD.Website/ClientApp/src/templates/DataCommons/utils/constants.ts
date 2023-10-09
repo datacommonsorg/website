@@ -55,6 +55,40 @@ export const EARTH_COUNTRIES = [
   "country/KAZ",
 ];
 
+// From: https://github.com/datacommonsorg/website/blob/c7d02962e1438b4d804f3190871fd7533abd754f/server/lib/nl/common/constants.py#L143
+export const MAP_ONLY_REGIONS = new Set([
+  "africa",
+  "asia",
+  "europe",
+  "northamerica",
+  "southamerica",
+  "oceania",
+  "AustraliaAndNewZealand",
+  "Caribbean",
+  "CentralAmerica",
+  "CentralAsia",
+  "ChannelIslands",
+  "EasternAfrica",
+  "EasternAsia",
+  "EasternEurope",
+  "EuropeanUnion",
+  "LatinAmericaAndCaribbean",
+  "Melanesia",
+  "MiddleAfrica",
+  "NorthernAfrica",
+  "NorthernEurope",
+  "SouthEasternAsia",
+  "SouthernAfrica",
+  "SouthernAsia",
+  "SouthernEurope",
+  "SubSaharanAfrica",
+  "WesternAfrica",
+  "WesternAsia",
+  "WesternEurope",
+  // Americas
+  "undata-geo/G00134000",
+]);
+
 /**
  * Variable DCID url parameter
  */
@@ -98,4 +132,4 @@ export const FOOTNOTE_CHAR_LIMIT = 100;
 /**
  * Sample NL query
  */
-export const SAMPLE_NL_QUERY = "Poverty in Indonesia";
+export const SAMPLE_NL_QUERY = "How many people go hungry in the World?";

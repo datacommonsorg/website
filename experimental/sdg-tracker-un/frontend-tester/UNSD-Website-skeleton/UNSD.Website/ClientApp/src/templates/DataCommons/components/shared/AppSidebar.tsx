@@ -15,12 +15,17 @@
  */
 
 import { LoadingOutlined } from "@ant-design/icons";
-import { Layout, Menu, Spin, Tooltip } from "antd";
+import { Grid, Layout, Menu, Spin, Tooltip } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MenuItemType, useStoreActions, useStoreState } from "../../state";
 const { Sider } = Layout;
+
+const useBreakpoint = Grid.useBreakpoint;
+
+const HEADER_HEIGHT_XL = "175px"
+const HEADER_HEIGHT_XS = "226px"
 
 const MenuTitle = styled.div`
   font-size: 1.25rem;
@@ -51,7 +56,7 @@ const StyledMenu = styled(Menu)`
 `;
 
 const SidebarContent = styled.div`
-  height: 100vh;
+  height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
 `;
@@ -113,6 +118,10 @@ const AppSidebar: React.FC<{
     })();
   }, [placeDcid, allTopicDcids, sidebarMenuHierarchy]);
 
+  const breakpoint = useBreakpoint();
+
+  const headerHeight = breakpoint.xl ? HEADER_HEIGHT_XL : HEADER_HEIGHT_XS;
+
   return (
     <Sider
       breakpoint="lg"
@@ -122,7 +131,7 @@ const AppSidebar: React.FC<{
         background: "white",
         position: "sticky",
         top: 0,
-        height: "100vh",
+        height: `calc(100vh - ${headerHeight})`,
       }}
     >
       <SidebarContent>

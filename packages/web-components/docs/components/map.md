@@ -63,6 +63,10 @@ Optional:
 
   Optionally specify the property to use to get the place names.
 
+- `geoJsonProp` _string_
+
+  Optionally specify the property to use to get geojsons.
+
 ### Examples
 
 A map of population below poverty level in US States in the year 2020:

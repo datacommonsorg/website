@@ -28,15 +28,23 @@ _TEST_DATA = 'test_data'
 
 class ExploreTest(NLWebServerTestCase):
 
-  def run_fulfillment(self, test_dir, req_json, failure=''):
-    resp = requests.post(self.get_server_url() + '/api/explore/fulfill',
+  def run_fulfillment(self, test_dir, req_json, failure='', test='', i18n=''):
+    resp = requests.post(self.get_server_url() +
+                         f'/api/explore/fulfill?test={test}&i18n={i18n}',
                          json=req_json).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
-  def run_detection(self, test_dir, queries, dc='', failure=''):
+  def run_detection(self,
+                    test_dir,
+                    queries,
+                    dc='',
+                    failure='',
+                    test='',
+                    i18n=''):
     ctx = {}
     for q in queries:
-      resp = requests.post(self.get_server_url() + f'/api/explore/detect?q={q}',
+      resp = requests.post(self.get_server_url() +
+                           f'/api/explore/detect?q={q}&test={test}&i18n={i18n}',
                            json={
                                'contextHistory': ctx,
                                'dc': dc,
@@ -48,21 +56,31 @@ class ExploreTest(NLWebServerTestCase):
         d = q.replace(' ', '').replace('?', '').lower()
       self.handle_response(q, resp, test_dir, d, failure)
 
-  def run_detect_and_fulfill(self, test_dir, queries, dc='', failure=''):
+  def run_detect_and_fulfill(self,
+                             test_dir,
+                             queries,
+                             dc='',
+                             failure='',
+                             test='',
+                             i18n=''):
     ctx = {}
-    for q in queries:
-      resp = requests.post(self.get_server_url() +
-                           f'/api/explore/detect-and-fulfill?q={q}',
-                           json={
-                               'contextHistory': ctx,
-                               'dc': dc,
-                           }).json()
+    for (index, q) in enumerate(queries):
+      resp = requests.post(
+          self.get_server_url() +
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}',
+          json={
+              'contextHistory': ctx,
+              'dc': dc,
+          }).json()
       ctx = resp['context']
       if len(queries) == 1:
         d = ''
       else:
         d = q.replace(' ', '').replace('?', '').lower()
-      print(resp)
+        # For some queries like Chinese, no characters are replaced and leads to unwieldy folder names.
+        # Use the query index for such cases.
+        if d == q and i18n:
+          d = f"query_{index + 1}"
       self.handle_response(d, resp, test_dir, d, failure)
 
   def handle_response(self,
@@ -127,7 +145,8 @@ class ExploreTest(NLWebServerTestCase):
           self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
 
   def test_detection_basic(self):
-    self.run_detection('detection_api_basic', ['Commute in California'])
+    self.run_detection('detection_api_basic', ['Commute in California'],
+                       test='unittest')
 
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
@@ -146,6 +165,11 @@ class ExploreTest(NLWebServerTestCase):
         'Correlate with GDP of California'
     ])
 
+  def test_detection_translate(self):
+    # Chinese query for "which cities in the Santa Clara County have the highest larceny?"
+    self.run_detection('detection_translate_chinese', ['圣克拉拉县哪些城市的盗窃率最高？'],
+                       i18n='true')
+
   def test_fulfillment_basic(self):
     req = {
         'entities': ['geoId/06085'],
@@ -153,7 +177,7 @@ class ExploreTest(NLWebServerTestCase):
         'dc': '',
         'disableExploreMore': '1',
     }
-    self.run_fulfillment('fulfillment_api_basic', req)
+    self.run_fulfillment('fulfillment_api_basic', req, test='unittest')
 
   def test_fulfillment_explore_more(self):
     req = {
@@ -312,7 +336,16 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detect_and_fulfill('e2e_superlatives', [
         'Richest counties in california',
         'List schools in Sunnyvale',
-    ])
+    ],
+                                test='unittest')
+
+  def test_e2e_translate(self):
+    # Chinese queries for:
+    # - "which cities in the Santa Clara County have the highest larceny?"
+    # - "what about car theft?"
+    self.run_detect_and_fulfill('e2e_translate_chinese',
+                                ['圣克拉拉县哪些城市的盗窃率最高？', '汽车被盗怎么办？'],
+                                i18n='true')
 
   def test_e2e_sdg(self):
     self.run_detect_and_fulfill('e2e_sdg', [

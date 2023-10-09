@@ -22,12 +22,13 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Input } from "reactstrap";
 
+import { getVariableNameProcessingFn } from "../../../library/utils";
+import { TimeScaleOption } from "../../chart/types";
 import { NL_NUM_BLOCKS_SHOWN } from "../../constants/app/nl_interface_constants";
 import {
   COLUMN_ID_PREFIX,
   HIDE_COLUMN_CLASS,
   HIDE_TILE_CLASS,
-  SELF_PLACE_DCID_PLACEHOLDER,
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
@@ -41,6 +42,7 @@ import {
   getId,
   getMinTileIdxToHide,
 } from "../../utils/subject_page_utils";
+import { getComparisonPlaces } from "../../utils/tile_utils";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
 import { DonutTile } from "../tiles/donut_tile";
@@ -53,6 +55,20 @@ import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
+
+/**
+ * Translates the line tile's timeScale enum to the TimeScaleOption type
+ */
+function getTimeScaleOption(timeScale?: string): TimeScaleOption | undefined {
+  if (timeScale === "YEAR") {
+    return "year";
+  } else if (timeScale === "MONTH") {
+    return "month";
+  } else if (timeScale === "DAY") {
+    return "day";
+  }
+  return;
+}
 
 // Either provide (place, enclosedPlaceType) or provide (places)
 export interface BlockPropType {
@@ -72,6 +88,8 @@ export interface BlockPropType {
   denom?: string;
   startWithDenom?: boolean;
 }
+
+const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
 
 export function Block(props: BlockPropType): JSX.Element {
   const minIdxToHide = getMinTileIdxToHide();
@@ -198,11 +216,7 @@ function renderTiles(
     const place = tile.placeDcidOverride
       ? overridePlaces[tile.placeDcidOverride]
       : props.place;
-    const comparisonPlaces = tile.comparisonPlaces
-      ? tile.comparisonPlaces.map((p) =>
-          p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
-        )
-      : undefined;
+    const comparisonPlaces = getComparisonPlaces(tile, place);
     const className = classNameList.join(" ");
     switch (tile.type) {
       case "HIGHLIGHT":
@@ -223,6 +237,7 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
+            subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpec(
@@ -231,7 +246,14 @@ function renderTiles(
             )}
             svgChartHeight={props.svgChartHeight}
             className={className}
-            showExploreMore={props.showExploreMore}
+            showExploreMore={
+              props.showExploreMore &&
+              props.place.types.every(
+                (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
+              )
+            }
+            geoJsonProp={tile.mapTileSpec?.geoJsonProp}
+            placeNameProp={tile.placeNameProp}
             parentPlaces={props.parentPlaces}
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
@@ -244,6 +266,7 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
+            subtitle={tile.subtitle}
             place={place}
             comparisonPlaces={comparisonPlaces}
             statVarSpec={props.statVarProvider.getSpecList(
@@ -256,6 +279,12 @@ function renderTiles(
             showTooltipOnHover={true}
             colors={tile.lineTileSpec?.colors}
             footnote={props.footnote}
+            timeScale={getTimeScaleOption(tile.lineTileSpec?.timeScale)}
+            placeNameProp={tile.placeNameProp}
+            getProcessedSVNameFn={getVariableNameProcessingFn(
+              tile.lineTileSpec?.variableNameRegex,
+              tile.lineTileSpec?.defaultVariableName
+            )}
           />
         );
       case "RANKING":
@@ -264,15 +293,16 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
-            place={place}
+            parentPlace={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(
+            variables={props.statVarProvider.getSpecList(
               tile.statVarKey,
               blockDenom
             )}
             rankingMetadata={tile.rankingTileSpec}
             className={className}
             showExploreMore={props.showExploreMore}
+            hideFooter={tile.hideFooter}
           />
         );
       case "BAR":
@@ -301,8 +331,14 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             tileSpec={tile.barTileSpec}
             title={tile.title}
+            subtitle={tile.subtitle}
             useLollipop={tile.barTileSpec?.useLollipop}
             yAxisMargin={tile.barTileSpec?.yAxisMargin}
+            placeNameProp={tile.placeNameProp}
+            getProcessedSVNameFn={getVariableNameProcessingFn(
+              tile.barTileSpec?.variableNameRegex,
+              tile.barTileSpec?.defaultVariableName
+            )}
           />
         );
       case "SCATTER":
@@ -311,6 +347,7 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
+            subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(
@@ -324,6 +361,7 @@ function renderTiles(
             scatterTileSpec={tile.scatterTileSpec}
             showExploreMore={props.showExploreMore}
             footnote={props.footnote}
+            placeNameProp={tile.placeNameProp}
           />
         );
       case "BIVARIATE":
@@ -348,15 +386,21 @@ function renderTiles(
           <GaugeTile
             colors={tile.gaugeTileSpec?.colors}
             footnote={props.footnote}
+            key={id}
             id={id}
             place={place}
-            range={tile.gaugeTileSpec.range}
+            /* "min: 0" value are stripped out when loading text protobufs, so add them back in here */
+            range={{
+              max: tile.gaugeTileSpec.range.max,
+              min: tile.gaugeTileSpec.range.min || 0,
+            }}
             statVarSpec={props.statVarProvider.getSpec(
               tile.statVarKey[0],
               blockDenom
             )}
             svgChartHeight={props.svgChartHeight}
             title={tile.title}
+            subtitle={tile.subtitle}
           ></GaugeTile>
         );
       case "DONUT":
@@ -364,6 +408,7 @@ function renderTiles(
           <DonutTile
             colors={tile.donutTileSpec?.colors}
             footnote={props.footnote}
+            key={id}
             id={id}
             pie={tile.donutTileSpec?.pie}
             place={place}
@@ -373,6 +418,7 @@ function renderTiles(
             )}
             svgChartHeight={props.svgChartHeight}
             title={tile.title}
+            subtitle={tile.subtitle}
           ></DonutTile>
         );
       case "DESCRIPTION":

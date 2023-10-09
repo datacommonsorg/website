@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import allowedPlaces from "../config/allowed_places.json";
+import placesDenylist from "../config/placesDenylist.json";
 import { Place } from "../state";
 import { COUNTRY_PLACE_TYPE } from "./constants";
 import {
@@ -82,13 +84,32 @@ class DataCommonsClient {
     const result: Place[] = [];
     placeTypes.forEach((placeType) => {
       const placeTypeResult = responseJson[placeType];
+      // If the place type is in the allowedPlaces json, we should only return
+      // the ones that are allowed. If not in the json, return all the places of
+      // that type.
+      const shouldFilterPlaces = placeType in allowedPlaces;
+      let typeAllowedPlaces: Record<string, string>;
+      if (shouldFilterPlaces) {
+        typeAllowedPlaces = (
+          allowedPlaces as Record<string, Record<string, string>>
+        )[placeType];
+      }
       placeTypeResult.forEach((place: any) => {
         // Only return places with name property because that is needed for the
         // backend to work.
         if (!place || !place.dcid || !place.name) {
           return;
         }
-        result.push({ dcid: place.dcid, name: place.name });
+        if (shouldFilterPlaces && !(place.dcid in typeAllowedPlaces)) {
+          return;
+        }
+        if (place.dcid in placesDenylist) {
+          return;
+        }
+        result.push({
+          dcid: place.dcid,
+          name: place.unDataLabel || place.name,
+        });
       });
     });
     return result;

@@ -24,6 +24,7 @@ import _ from "lodash";
 import React from "react";
 
 import { NL_SOURCE_REPLACEMENTS } from "../constants/app/nl_interface_constants";
+import { SELF_PLACE_DCID_PLACEHOLDER } from "../constants/subject_page_constants";
 import {
   GA_EVENT_TILE_EXPLORE_MORE,
   GA_PARAM_URL,
@@ -31,7 +32,7 @@ import {
 } from "../shared/ga_events";
 import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
-import { StatVarSpec } from "../shared/types";
+import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { urlToDisplayText } from "../shared/util";
 import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
@@ -44,6 +45,7 @@ const DEFAULT_PC_UNIT = "%";
 const ERROR_MSG_PC = "Sorry, could not calculate per capita.";
 const ERROR_MSG_DEFAULT = "Sorry, we do not have this data.";
 const NUM_FRACTION_DIGITS = 1;
+const SUPER_SCRIPT_DIGITS = "⁰¹²³⁴⁵⁶⁷⁸⁹";
 
 /**
  * Override unit display when unit contains
@@ -376,6 +378,19 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
   );
 }
 
+// Processes a unit string by converting "X^Y" to "X<superscript Y>"
+// e.g., km^2 will be km²
+function getProcessedUnit(unit: string): string {
+  const unitSplit = unit.split("^");
+  if (unitSplit.length == 2) {
+    const superScriptNumber = unitSplit[1].replace(/\d/g, (c) =>
+      !_.isNaN(Number(c)) ? SUPER_SCRIPT_DIGITS[Number(c)] || "" : ""
+    );
+    return unitSplit[0] + superScriptNumber || unitSplit[1];
+  }
+  return unit;
+}
+
 /**
  * Gets the unit and scaling factor to use for a stat var spec
  * @param svSpec stat var spec to get unit and scaling for
@@ -389,11 +404,12 @@ export function getStatFormat(
 ): { unit: string; scaling: number; numFractionDigits: number } {
   const result = {
     unit: svSpec.unit,
-    scaling: svSpec.scaling,
+    scaling: svSpec.scaling || 1,
     numFractionDigits: NUM_FRACTION_DIGITS,
   };
   // If unit was specified in the svSpec, use that unit
   if (result.unit) {
+    result.unit = getProcessedUnit(result.unit);
     return result;
   }
   // Get stat metadata info from stat data
@@ -440,6 +456,7 @@ export function getStatFormat(
     result.unit = DEFAULT_PC_UNIT;
     result.scaling *= DEFAULT_PC_SCALING;
   }
+  result.unit = getProcessedUnit(result.unit);
   return result;
 }
 
@@ -509,4 +526,21 @@ export function showError(errorMsg: string, container: HTMLDivElement): void {
   containerSelection.selectAll("*").remove();
   // Show error message in the container
   containerSelection.html(errorMsg);
+}
+
+/**
+ * Gets the list of comparison places to use
+ * @param tileConfig tile config to get comparison places from
+ * @param place the main place for the tile
+ */
+export function getComparisonPlaces(
+  tileConfig: TileConfig,
+  place: NamedTypedPlace
+): string[] {
+  if (!tileConfig.comparisonPlaces) {
+    return undefined;
+  }
+  return tileConfig.comparisonPlaces.map((p) =>
+    p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
+  );
 }

@@ -17,8 +17,6 @@
 /**
  * Main component for DC Explore.
  */
-import "../../../library";
-
 import React from "react";
 import { Container } from "reactstrap";
 

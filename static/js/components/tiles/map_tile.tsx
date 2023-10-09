@@ -48,16 +48,11 @@ import {
   loadSpinner,
   removeSpinner,
 } from "../../shared/util";
-import {
-  getPlaceChartData,
-  MAP_URL_PATH,
-  shouldShowBorder,
-} from "../../tools/map/util";
+import { getPlaceChartData, shouldShowBorder } from "../../tools/map/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
-import { getDenom } from "../../tools/timeline/util";
 import {
   getContextStatVar,
   getHash,
@@ -106,6 +101,10 @@ export interface MapTilePropType {
   allowZoom?: boolean;
   // The property to use to get place names.
   placeNameProp?: string;
+  // The property to use to get geojsons.
+  geoJsonProp?: string;
+  // Chart subtitle
+  subtitle?: string;
 }
 
 interface RawData {
@@ -203,6 +202,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     <ChartTileContainer
       id={props.id}
       title={props.title}
+      subtitle={props.subtitle}
       sources={mapChartData && mapChartData.sources}
       replacementStrings={getReplacementStrings(props, mapChartData)}
       className={`${props.className} map-chart`}
@@ -271,6 +271,9 @@ export const fetchData = async (
   if (props.placeNameProp) {
     geoJsonParams["placeNameProp"] = props.placeNameProp;
   }
+  if (props.geoJsonProp) {
+    geoJsonParams["geoJsonProp"] = props.geoJsonProp;
+  }
   const geoJsonPromise = axios
     .get(`${props.apiRoot || ""}/api/choropleth/geojson`, {
       params: geoJsonParams,
@@ -285,12 +288,17 @@ export const fetchData = async (
     .then((resp) => resp.data);
   const dataDate =
     props.statVarSpec.date || getCappedStatVarDate(props.statVarSpec.statVar);
+  const facetIds = props.statVarSpec.facetId
+    ? [props.statVarSpec.facetId]
+    : null;
   const placeStatPromise: Promise<PointApiResponse> = getPointWithin(
     props.apiRoot,
     props.enclosedPlaceType,
     props.place.dcid,
     [props.statVarSpec.statVar],
-    dataDate
+    dataDate,
+    [],
+    facetIds
   );
   const populationPromise: Promise<SeriesApiResponse> = props.statVarSpec.denom
     ? getSeriesWithin(

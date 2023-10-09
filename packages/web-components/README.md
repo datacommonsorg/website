@@ -8,7 +8,7 @@ visualizations in your web application.
 
 ## Usage
 
-Include `datacommons.js` and `datacommons.min.css` in your html's
+Include `datacommons.js` in your html's
 `<head>...</head>` tag. Then use `datacommons-*` [web
 component](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) tags
 to add embedded data visualizations.
@@ -18,10 +18,6 @@ Example:
 ```html
 <html>
   <head>
-    <link
-      rel="stylesheet"
-      href="https://datacommons.org/css/datacommons.min.css"
-    />
     <script src="https://datacommons.org/datacommons.js"></script>
   </head>
   <body>
@@ -98,12 +94,22 @@ Custom styles are supported through [CSS shadow parts](https://developer.mozilla
 
 _\* Escape forward slashes in `::part()` names_
 
+Additionally, the following css variables are supported:
+
+| CSS variable                | Description                                                | Default            |
+| --------------------------- | ---------------------------------------------------------- | ------------------ |
+| `--dc-headings-font-family` | Font family for web component headings (`h1` through `h6`) | `Google Sans`      |
+| `--dc-font-family`          | Font family for web component body text                    | `Google Sans Text` |
+
 Example:
 
 ```html
 <html>
   <head>
     <style>
+      #styled-map {
+        --dc-headings-font-family: monospace;
+      }
       #styled-map::part(container) {
         border-radius: 10px;
         border: 1px solid #f5f5f5;

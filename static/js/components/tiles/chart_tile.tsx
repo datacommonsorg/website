@@ -54,12 +54,13 @@ interface ChartTileContainerProp {
   hasErrorMsg?: boolean;
   // Text to show in footer
   footnote?: string;
+  // Subtitle text
+  subtitle?: string;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const containerRef = useRef(null);
   const embedModalElement = useRef<ChartEmbed>(null);
-
   // on initial loading, hide the title text
   const title = !props.isInitialLoading
     ? getChartTitle(props.title, props.replacementStrings)
@@ -86,7 +87,11 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
             to keep the space on the page */
             props.title && <h4 {...{ part: "header" }}>{title}</h4>
           }
-          <slot name="subheader" {...{ part: "subheader" }}></slot>
+          <slot name="subheader" {...{ part: "subheader" }}>
+            {props.subtitle && !props.isInitialLoading ? (
+              <div className="subheader">{props.subtitle}</div>
+            ) : null}
+          </slot>
           {showSources && getSourcesJsx(props.sources)}
         </div>
         {props.children}
@@ -98,7 +103,9 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       >
         <NlChartFeedback id={props.id} />
       </ChartFooter>
-      {showEmbed && <ChartEmbed ref={embedModalElement} />}
+      {showEmbed && (
+        <ChartEmbed container={containerRef.current} ref={embedModalElement} />
+      )}
     </div>
   );
 

@@ -24,7 +24,9 @@ import React from "react";
 import { highlightPlaceToggle } from "../../../chart/draw_map_utils";
 import { MapTile } from "../../../components/tiles/map_tile";
 import { RankingTile } from "../../../components/tiles/ranking_tile";
+import { FacetSelector } from "../../../shared/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
+import { StatMetadata } from "../../../shared/stat_types";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { getNonPcQuery, getPcQuery } from "../../../tools/map/bq_query_utils";
 import { getAllChildPlaceTypes } from "../../../tools/map/util";
@@ -33,9 +35,53 @@ import {
   getStatVarSpec,
   isSelectionComplete,
 } from "../../../utils/app/visualization_utils";
+import { getFacetsWithin } from "../../../utils/data_fetch_utils";
 import { AppContextType } from "../app_context";
 import { ChartFooter } from "../chart_footer";
 import { VisType } from "../vis_type_configs";
+
+function getFacetSelector(appContext: AppContextType): JSX.Element {
+  const statVar = appContext.statVars[0];
+  const svFacetId = { [statVar.dcid]: statVar.facetId };
+  const facetListPromise = getFacetsWithin(
+    "",
+    appContext.places[0].dcid,
+    appContext.enclosedPlaceType,
+    [statVar.dcid],
+    statVar.date
+  ).then((resp) => {
+    return [
+      {
+        dcid: statVar.dcid,
+        name: statVar.info.title || statVar.dcid,
+        metadataMap: resp[statVar.dcid],
+      },
+    ];
+  });
+  const onSvFacetIdUpdated = (
+    svFacetId: Record<string, string>,
+    metadataMap: Record<string, StatMetadata>
+  ) => {
+    if (
+      svFacetId[statVar.dcid] === statVar.facetId ||
+      _.isEmpty(appContext.statVars)
+    ) {
+      return;
+    }
+    const newStatVars = _.cloneDeep(appContext.statVars);
+    const facetId = svFacetId[newStatVars[0].dcid];
+    newStatVars[0].facetId = svFacetId[newStatVars[0].dcid];
+    newStatVars[0].facetInfo = metadataMap[facetId];
+    appContext.setStatVars(newStatVars);
+  };
+  return (
+    <FacetSelector
+      svFacetId={svFacetId}
+      facetListPromise={facetListPromise}
+      onSvFacetIdUpdated={onSvFacetIdUpdated}
+    />
+  );
+}
 
 export function getChartArea(
   appContext: AppContextType,
@@ -58,7 +104,6 @@ export function getChartArea(
   const statVarLabel =
     appContext.statVars[0].info.title || appContext.statVars[0].dcid;
   const statVarSpec = getStatVarSpec(appContext.statVars[0], VisType.MAP);
-  const date = appContext.statVars[0].date || "";
   return (
     <>
       <div className="chart">
@@ -72,21 +117,21 @@ export function getChartArea(
           showLoadingSpinner={true}
           allowZoom={true}
         />
-        {!_.isEmpty(perCapitaInputs) && (
-          <ChartFooter inputSections={[{ inputs: perCapitaInputs }]} />
-        )}
+        <ChartFooter
+          inputSections={[{ inputs: perCapitaInputs }]}
+          facetSelector={getFacetSelector(appContext)}
+        />
       </div>
       <div className="chart">
         <RankingTile
           id="vis-tool-ranking"
-          place={appContext.places[0]}
+          parentPlace={appContext.places[0]}
           enclosedPlaceType={appContext.enclosedPlaceType}
           title=""
-          statVarSpec={[statVarSpec]}
+          variables={[statVarSpec]}
           rankingMetadata={{
             showHighest: true,
             showLowest: true,
-            diffBaseDate: "",
             showMultiColumn: false,
             highestTitle: "Top Places",
             lowestTitle: "Bottom Places",
@@ -152,7 +197,7 @@ function getSqlQueryFn(appContext: AppContextType): () => string {
         appContext.places[0].dcid,
         appContext.enclosedPlaceType,
         contextStatVar.date,
-        {}
+        contextStatVar.facetInfo || {}
       );
     } else {
       return getNonPcQuery(
@@ -160,7 +205,7 @@ function getSqlQueryFn(appContext: AppContextType): () => string {
         appContext.places[0].dcid,
         appContext.enclosedPlaceType,
         contextStatVar.date,
-        {}
+        contextStatVar.facetInfo || {}
       );
     }
   };

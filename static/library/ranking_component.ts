@@ -25,7 +25,11 @@ import {
   RankingTilePropType,
 } from "../js/components/tiles/ranking_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { createWebComponentElement } from "./utils";
+import {
+  convertArrayAttribute,
+  convertBooleanAttribute,
+  createWebComponentElement,
+} from "./utils";
 
 /**
  * Web component for rendering a ranking tile.
@@ -61,26 +65,60 @@ export class DatacommonsRankingComponent extends LitElement {
   @property()
   apiRoot: string;
 
+  // Type of child place to rank (ex: State, County)
+  @property()
+  childPlaceType!: string;
+
   // Title of the chart
   @property()
   header!: string;
+
+  // Optional: Set to true to hide the footer with download link
+  // default: false
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  hideFooter?: boolean;
+
+  // Optional: Title of chart, but only shown if a highest-to-lowest ranking is
+  //           being shown
+  @property()
+  highestTitle?: string;
+
+  // Optional: Title of the chart, but only shown if a lowest-to-highest ranking
+  //           is being shown
+  @property()
+  lowestTitle?: string;
 
   // DCID of the parent place
   @property()
   parentPlace!: string;
 
-  // Type of child place to rank (ex: State, County)
-  @property()
-  childPlaceType!: string;
+  // Optional: List of variable DCIDs to plot per capita
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  perCapita?: string[];
 
-  // DCID of the statistical variable to compare values for
+  // Optional: How many places to show, e.g. "N" in "Top-N"
+  // Defaults to 5.
   @property()
-  variable!: string;
+  rankingCount?: number;
 
-  // Optional: Set to show a lowest-to-highest ranking.
-  // Default: highest-to-lowest
-  @property({ type: Boolean })
-  showLowest: boolean;
+  // Optional: Set to true to show an "explore more" link to visualization tools
+  // Default: false
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  showExploreMore?: boolean;
+
+  // Optional: Set to true to show both top and bottom places in highest-to-lowest order.
+  // Default: only show top places
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  showHighestLowest?: boolean;
+
+  // Optional: Set to true to show a lowest-to-highest ranking
+  // Default: highest-to-lowest, if showHighestLowest is false
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  showLowest?: boolean;
+
+  // Optional: Set to true to allow table to spread across multiple columns
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  showMultiColumn?: boolean;
 
   /**
    * @deprecated
@@ -89,32 +127,51 @@ export class DatacommonsRankingComponent extends LitElement {
   @property()
   title!: string;
 
+  // DCID of the statistical variable to rank values for
+  @property()
+  variable!: string;
+
+  // List of DCIDs of the statistical variable to rank values for
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  variables?: string[];
+
   render(): HTMLElement {
+    const variables = this.variables || [this.variable];
+    const statVarSpecs = variables.map((statVar) => {
+      return {
+        denom:
+          this.perCapita && this.perCapita.includes(statVar)
+            ? "Count_Person"
+            : "",
+        log: false,
+        name: "",
+        scaling: 1,
+        statVar,
+        unit: "",
+      };
+    });
+
     const rankingTileProps: RankingTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       enclosedPlaceType: this.childPlaceType,
+      hideFooter: this.hideFooter,
       id: `chart-${_.uniqueId()}`,
-      place: {
+      parentPlace: {
         dcid: this.parentPlace,
         name: "",
         types: [],
       },
       rankingMetadata: {
-        diffBaseDate: "",
-        showHighest: !this.showLowest,
+        highestTitle: this.highestTitle,
+        lowestTitle: this.lowestTitle,
+        rankingCount: this.rankingCount || 5,
+        showHighest: !this.showLowest && !this.showHighestLowest,
+        showHighestLowest: this.showHighestLowest,
         showLowest: this.showLowest,
-        showMultiColumn: false,
+        showMultiColumn: this.showMultiColumn,
       },
-      statVarSpec: [
-        {
-          denom: "",
-          log: false,
-          name: "",
-          scaling: 1,
-          statVar: this.variable,
-          unit: "",
-        },
-      ],
+      showExploreMore: this.showExploreMore,
+      variables: statVarSpecs,
       title: this.header || this.title,
     };
     return createWebComponentElement(RankingTile, rankingTileProps);

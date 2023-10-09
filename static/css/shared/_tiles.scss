@@ -24,15 +24,26 @@
 @use "../base";
 
 $chart-container-top-margin: 20px;
-$highlight-font-family: base.$headings-font-family;
 $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.4);
 
 .chart-container {
+  // Allow font family override via --dc-font-family
+  font-family: var(--dc-font-family, base.$font-family-sans-serif);
   margin-top: $chart-container-top-margin;
   position: relative;
   width: 100%;
   font-size: 13px;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    // Allow font family override via --dc-headings-font-family
+    font-family: var(--dc-headings-font-family, base.$headings-font-family);
+  }
 
   .sources {
     font-size: 11px;
@@ -50,6 +61,12 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
       font-weight: 500;
       line-height: 24px;
       margin-bottom: 2px;
+    }
+
+    .subheader {
+      color: var(--gm-3-ref-neutral-neutral-40);
+      font-size: 12px;
+      margin-bottom: 8px;
     }
   }
 
@@ -142,13 +159,13 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   display: flex;
   flex-direction: column;
   padding: 24px;
-  font-family: $highlight-font-family;
   margin-bottom: 1rem;
   background: rgba(223, 243, 255, 0.5);
   border-radius: var(--border-radius-primary);
   gap: 8px;
 
   .stat {
+    font-family: var(--dc-headings-font-family, base.$headings-font-family);
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -167,6 +184,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   }
 
   .desc {
+    font-family: var(--dc-headings-font-family, base.$headings-font-family);
     font-size: 22px;
     line-height: 28px;
     color: var(--gm-3-ref-neutral-neutral-40);
@@ -203,7 +221,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
  * text tile
  */
 .text-tile {
-  font-family: $highlight-font-family;
+  font-family: var(--dc-headings-font-family, base.$headings-font-family);
   margin-bottom: 1rem;
   padding: 20px 32px;
   background: rgba(223, 243, 255, 0.5);

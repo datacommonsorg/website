@@ -49,7 +49,7 @@ PLACE_EXPLORER_CATEGORIES = [
 TOPIC_PAGE_CONFIGS = {
     'equity': ['USA', 'US_Places'],
     'poverty': ['USA', 'India'],
-    'dev': ['CA'],
+    'dev': ['CA', 'asia'],
     'sdg': ['sdg']
 }
 
@@ -57,43 +57,192 @@ TOPIC_PAGE_CONFIGS = {
 # compression).
 GZIP_COMPRESSION_LEVEL = 3
 
+DEFAULT_GEOJSON_PROP = 'geoJsonCoordinates'
+UN_GEOJSON_PROP = 'geoJsonCoordinatesUN'
+
 # Dict of place dcid to place type to filename of the geojson to cache for that
 # place + place type combination.
 # To generate cached geojson files, follow instructions/use the endpoint here:
 # https://github.com/chejennifer/website/blob/generateCacheGeojsons/server/routes/api/choropleth.py#L201-L273
+# TODO: add 'LatinAmericaAndCaribbean' and 'SubSaharanAfrica' for UN_GEOJSON_PROP.
 CACHED_GEOJSON_FILES = {
     "Earth": {
-        "Country": "earth_country_dp13"
+        "Country": {
+            DEFAULT_GEOJSON_PROP: "earth_country_dp13",
+            UN_GEOJSON_PROP: "earth_country_dp13",
+        }
     },
     "africa": {
-        "Country": "africa_country_dp10"
+        "Country": {
+            DEFAULT_GEOJSON_PROP: "africa_country_dp10",
+            UN_GEOJSON_PROP: "africa_country_dp10"
+        }
     },
     "asia": {
-        "Country": "asia_country_dp10"
+        "Country": {
+            DEFAULT_GEOJSON_PROP: "asia_country_dp10",
+            UN_GEOJSON_PROP: "asia_country_dp10"
+        }
     },
     "europe": {
-        "Country": "europe_country_dp6"
+        "Country": {
+            DEFAULT_GEOJSON_PROP: "europe_country_dp6",
+            UN_GEOJSON_PROP: "europe_country_dp6"
+        }
     },
     "northamerica": {
-        "Country": "northamerica_country_dp13"
+        "Country": {
+            DEFAULT_GEOJSON_PROP: "northamerica_country_dp13",
+            UN_GEOJSON_PROP: "northamerica_country_dp13"
+        }
     },
     "oceania": {
-        "Country": "oceania_country_dp13"
+        "Country": {
+            DEFAULT_GEOJSON_PROP: "oceania_country_dp13",
+            UN_GEOJSON_PROP: "oceania_country_dp13"
+        }
     },
     "southamerica": {
-        "Country": "southamerica_country_dp10"
+        "Country": {
+            DEFAULT_GEOJSON_PROP: "southamerica_country_dp10",
+            UN_GEOJSON_PROP: "southamerica_country_dp10"
+        }
+    },
+    'AustraliaAndNewZealand': {
+        "Country": {
+            UN_GEOJSON_PROP: "australiaandnewzealand_country_dp6"
+        }
+    },
+    'Caribbean': {
+        "Country": {
+            UN_GEOJSON_PROP: "caribbean_country_dp6"
+        }
+    },
+    'CentralAmerica': {
+        "Country": {
+            UN_GEOJSON_PROP: "centralamerica_country_dp6"
+        }
+    },
+    'CentralAsia': {
+        "Country": {
+            UN_GEOJSON_PROP: "centralasia_country_dp6"
+        }
+    },
+    'ChannelIslands': {
+        "Country": {
+            UN_GEOJSON_PROP: "channelislands_country_dp6"
+        }
+    },
+    'EasternAfrica': {
+        "Country": {
+            UN_GEOJSON_PROP: "easternafrica_country_dp6"
+        }
+    },
+    'EasternAsia': {
+        "Country": {
+            UN_GEOJSON_PROP: "easternasia_country_dp6"
+        }
+    },
+    'EasternEurope': {
+        "Country": {
+            UN_GEOJSON_PROP: "easterneurope_country_dp6"
+        }
+    },
+    'EuropeanUnion': {
+        "Country": {
+            UN_GEOJSON_PROP: "europeanunion_country_dp6"
+        }
+    },
+    'LatinAmericaAndCaribbean': {
+        "Country": {
+            UN_GEOJSON_PROP: "latinamericaandcaribbean_country_dp6"
+        }
+    },
+    'Melanesia': {
+        "Country": {
+            UN_GEOJSON_PROP: "melanesia_country_dp6"
+        }
+    },
+    'MiddleAfrica': {
+        "Country": {
+            UN_GEOJSON_PROP: "middleafrica_country_dp6"
+        }
+    },
+    'NorthernAfrica': {
+        "Country": {
+            UN_GEOJSON_PROP: "northernafrica_country_dp6"
+        }
+    },
+    'NorthernEurope': {
+        "Country": {
+            UN_GEOJSON_PROP: "northerneurope_country_dp6"
+        }
+    },
+    'SouthEasternAsia': {
+        "Country": {
+            UN_GEOJSON_PROP: "southeasternasia_country_dp6"
+        }
+    },
+    'SouthernAfrica': {
+        "Country": {
+            UN_GEOJSON_PROP: "southernafrica_country_dp6"
+        }
+    },
+    'SouthernAsia': {
+        "Country": {
+            UN_GEOJSON_PROP: "southernasia_country_dp6"
+        }
+    },
+    'SouthernEurope': {
+        "Country": {
+            UN_GEOJSON_PROP: "southerneurope_country_dp6"
+        }
+    },
+    'SubSaharanAfrica': {
+        "Country": {
+            UN_GEOJSON_PROP: "subsaharanafrica_country_dp6"
+        }
+    },
+    'WesternAfrica': {
+        "Country": {
+            UN_GEOJSON_PROP: "westernafrica_country_dp6"
+        }
+    },
+    'WesternAsia': {
+        "Country": {
+            UN_GEOJSON_PROP: "westernasia_country_dp6"
+        }
+    },
+    'WesternEurope': {
+        "Country": {
+            UN_GEOJSON_PROP: "westerneurope_country_dp6"
+        }
+    },
+    # Americas
+    'undata-geo/G00134000': {
+        "Country": {
+            UN_GEOJSON_PROP: "undata-geog00134000_country_dp6"
+        }
     },
     "geoId/06": {
-        "CensusTract": "california_censustract"
+        "CensusTract": {
+            DEFAULT_GEOJSON_PROP: "california_censustract"
+        }
     },
     "geoId/12": {
-        "CensusTract": "florida_censustract"
+        "CensusTract": {
+            DEFAULT_GEOJSON_PROP: "florida_censustract"
+        }
     },
     "geoId/36": {
-        "CensusTract": "newyorkstate_censustract"
+        "CensusTract": {
+            DEFAULT_GEOJSON_PROP: "newyorkstate_censustract"
+        }
     },
     "geoId/48": {
-        "CensusTract": "texas_censustract"
+        "CensusTract": {
+            DEFAULT_GEOJSON_PROP: "texas_censustract"
+        }
     },
 }
 
@@ -227,19 +376,21 @@ def get_disaster_event_metadata():
     return subject_page_config
 
 
-# Returns dict of place dcid to place type to geojson object. Geojson object is
-# a feature collection where the geometry of the features do not follow the
-# right hand rule.
+# Returns dict of place dcid to place type to geojsonProp to geojson object.
+# Geojson object is a feature collection where the geometry of the features do
+# not follow the right hand rule.
 def get_cached_geojsons():
   geojsons = {}
   for place in CACHED_GEOJSON_FILES:
     geojsons[place] = {}
     for place_type in CACHED_GEOJSON_FILES[place]:
-      filename = CACHED_GEOJSON_FILES[place][place_type]
-      filepath = os.path.join(get_repo_root(), 'config', 'geojson',
-                              filename + '.json')
-      with open(filepath, 'r') as f:
-        geojsons[place][place_type] = json.load(f)
+      geojsons[place][place_type] = {}
+      for geo_json_prop in CACHED_GEOJSON_FILES[place][place_type]:
+        filename = CACHED_GEOJSON_FILES[place][place_type][geo_json_prop]
+        filepath = os.path.join(get_repo_root(), 'config', 'geojson',
+                                geo_json_prop, filename + '.json')
+        with open(filepath, 'r') as f:
+          geojsons[place][place_type][geo_json_prop] = json.load(f)
   return geojsons
 
 

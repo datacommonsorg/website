@@ -30,6 +30,7 @@ import {
 } from "../../chart/draw_bar";
 import { SortType } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
+import { PLACE_TYPES } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
@@ -45,7 +46,7 @@ import {
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
-import { getPlaceNames } from "../../utils/place_utils";
+import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
@@ -61,7 +62,8 @@ import { useDrawOnResize } from "./use_draw_on_resize";
 const NUM_PLACES = 7;
 
 const FILTER_STAT_VAR = "Count_Person";
-const DEFAULT_X_LABEL_LINK_ROOT = "/place/";
+const DEFAULT_X_LABEL_LINK_ROOT = "/browser/";
+const PLACE_X_LABEL_LINK_ROOT = "/place/";
 
 // TODO (juliawu): Refactor the "optional" specs into BarTileSpec. This will
 //                 also allow BarTilePropType to match the structure of the
@@ -74,7 +76,7 @@ export interface BarTilePropType {
   // Extra classes to add to the container.
   className?: string;
   // A list of related places to show comparison with the main place.
-  comparisonPlaces: string[];
+  comparisonPlaces?: string[];
   // A list of specific colors to use
   colors?: string[];
   enclosedPlaceType: string;
@@ -110,6 +112,8 @@ export interface BarTilePropType {
   getProcessedSVNameFn?: (name: string) => string;
   // The property to use to get place names.
   placeNameProp?: string;
+  // Chart subtitle
+  subtitle?: string;
 }
 
 export interface BarChartData {
@@ -127,7 +131,6 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
   );
-
   useEffect(() => {
     if (!barChartData || !_.isEqual(barChartData.props, props)) {
       (async () => {
@@ -150,6 +153,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     <ChartTileContainer
       id={props.id}
       title={props.title}
+      subtitle={props.subtitle}
       sources={barChartData && barChartData.sources}
       replacementStrings={getReplacementStrings(props, barChartData)}
       className={`${props.className} bar-chart`}
@@ -225,9 +229,24 @@ export const fetchData = async (props: BarTilePropType) => {
   try {
     const statResp = await statPromise;
     const denomResp = await denomPromise;
-
     // Find the most populated places.
     const popPoints: RankingPoint[] = [];
+    // Non-place entities won't have a value for Count_Person.
+    // In this case, make an empty list of popPoints
+    if (_.isEmpty(statResp.data[FILTER_STAT_VAR])) {
+      const entityDcidsSet = new Set<string>();
+      Object.keys(statResp.data).forEach((statVarKey) => {
+        Object.keys(statResp.data[statVarKey]).forEach((entityDcid) => {
+          entityDcidsSet.add(entityDcid);
+        });
+      });
+      entityDcidsSet.forEach((entityDcid) => {
+        popPoints.push({
+          placeDcid: entityDcid,
+          value: undefined,
+        });
+      });
+    }
     for (const place in statResp.data[FILTER_STAT_VAR]) {
       popPoints.push({
         placeDcid: place,
@@ -246,6 +265,14 @@ export const fetchData = async (props: BarTilePropType) => {
       props.apiRoot,
       props.placeNameProp
     );
+    const placeType =
+      props.enclosedPlaceType ||
+      (await getPlaceType(
+        Array.from(popPoints)
+          .map((x) => x.placeDcid)
+          .pop(),
+        props.apiRoot
+      ));
     const statVarDcidToName = await getStatVarNames(
       props.statVarSpec,
       props.apiRoot,
@@ -257,6 +284,7 @@ export const fetchData = async (props: BarTilePropType) => {
       denomResp,
       popPoints,
       placeNames,
+      placeType,
       statVarDcidToName
     );
   } catch (error) {
@@ -271,6 +299,7 @@ function rawToChart(
   denomData: SeriesApiResponse,
   popPoints: RankingPoint[],
   placeNames: Record<string, string>,
+  placeType: string,
   statVarNames: Record<string, string>
 ): BarChartData {
   const raw = _.cloneDeep(statData);
@@ -281,7 +310,6 @@ function rawToChart(
   const statVarOrder = props.statVarSpec.map(
     (spec) => statVarNames[spec.statVar]
   );
-
   // Assume all stat var specs will use the same unit and scaling.
   const { unit, scaling } = getStatFormat(props.statVarSpec[0], statData);
   const dates: Set<string> = new Set();
@@ -319,7 +347,13 @@ function rawToChart(
       dataPoints.push(dataPoint);
     }
     const specLinkRoot = props.tileSpec ? props.tileSpec.xLabelLinkRoot : "";
-    const link = `${specLinkRoot || DEFAULT_X_LABEL_LINK_ROOT}${placeDcid}`;
+    const apiRoot = (props.apiRoot || "").replace(/\/$/, "");
+    const urlPath =
+      specLinkRoot ||
+      (PLACE_TYPES.has(placeType)
+        ? PLACE_X_LABEL_LINK_ROOT
+        : DEFAULT_X_LABEL_LINK_ROOT);
+    const link = `${apiRoot}${urlPath}${placeDcid}`;
     if (!_.isEmpty(dataPoints)) {
       // Only add to dataGroups if data is present
       dataGroups.push(
@@ -383,7 +417,8 @@ export function draw(
   props: BarTilePropType,
   chartData: BarChartData,
   svgContainer: HTMLDivElement,
-  svgWidth?: number
+  svgWidth?: number,
+  useSvgLegend?: boolean
 ): void {
   if (chartData.errorMsg) {
     showError(chartData.errorMsg, svgContainer);
@@ -405,6 +440,7 @@ export function draw(
           yAxisMargin: props.yAxisMargin,
         },
         unit: chartData.unit,
+        useSvgLegend,
       }
     );
   } else {
@@ -421,6 +457,7 @@ export function draw(
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
+          useSvgLegend,
         }
       );
     } else {
@@ -436,6 +473,7 @@ export function draw(
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
+          useSvgLegend,
         }
       );
     }

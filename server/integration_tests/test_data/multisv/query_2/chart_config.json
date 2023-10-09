@@ -236,16 +236,16 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
+                      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Population Above Poverty Line (${date})",
+                    "title": "Households With Food Stamps in the Past Year and Below Poverty Line (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Above Poverty Line"
+            "title": "Households With Food Stamps in the Past Year and Below Poverty Line"
           },
           {
             "columns": [
@@ -262,21 +262,26 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "dc/9pmyhk89dj3pf_multiple_place_bar_block"
+                      "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Median Incomes in Accommodation and Food Services (${date})",
+                    "title": "Population Above Poverty Line (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Median Incomes in Accommodation and Food Services"
+            "denom": "Count_Person",
+            "title": "Population Above Poverty Line"
           }
         ],
         "statVarSpec": {
           "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
             "name": "Family Households Below the poverty line",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Households With Food Stamps in the Past Year and below poverty line",
+            "statVar": "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block": {
             "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
@@ -354,10 +359,6 @@
             "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
-          },
-          "dc/9pmyhk89dj3pf_multiple_place_bar_block": {
-            "name": "Median Incomes in Accommodation And Food Services",
-            "statVar": "dc/9pmyhk89dj3pf"
           }
         }
       }

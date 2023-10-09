@@ -297,7 +297,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_CHLD_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit (${date})",
+                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -323,7 +323,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_WKINJRY_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Employed Population Covered in the Event of Work Injury (${date})",
+                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -349,7 +349,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_POOR_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit (${date})",
+                    "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -375,7 +375,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_PENSN_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension (${date})",
+                    "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -401,7 +401,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_BENFTS_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Population Covered by at Least One Social Protection Benefit (${date})",
+                    "title": "Proportion of Population Covered by at Least One Social Protection Benefit, by Sex (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -440,11 +440,11 @@
             "statVar": "sdg/SD_MDP_MUHC"
           },
           "sdg/SI_COV_BENFTS_multiple_place_bar_block": {
-            "name": "Proportion of population covered by at least one social protection benefit",
+            "name": "Proportion of population covered by at least one social protection benefit, by sex",
             "statVar": "sdg/SI_COV_BENFTS"
           },
           "sdg/SI_COV_CHLD_multiple_place_bar_block": {
-            "name": "Proportion of children/households receiving child/family cash benefit",
+            "name": "Proportion of children/households receiving child/family cash benefit, by sex",
             "statVar": "sdg/SI_COV_CHLD"
           },
           "sdg/SI_COV_MATNL.SEX--F_multiple_place_bar_block": {
@@ -452,15 +452,15 @@
             "statVar": "sdg/SI_COV_MATNL.SEX--F"
           },
           "sdg/SI_COV_PENSN_multiple_place_bar_block": {
-            "name": "Proportion of population above statutory pensionable age receiving a pension",
+            "name": "Proportion of population above statutory pensionable age receiving a pension, by sex",
             "statVar": "sdg/SI_COV_PENSN"
           },
           "sdg/SI_COV_POOR_multiple_place_bar_block": {
-            "name": "Proportion of poor population receiving social assistance cash benefit",
+            "name": "Proportion of poor population receiving social assistance cash benefit, by sex",
             "statVar": "sdg/SI_COV_POOR"
           },
           "sdg/SI_COV_WKINJRY_multiple_place_bar_block": {
-            "name": "Proportion of employed population covered in the event of work injury",
+            "name": "Proportion of employed population covered in the event of work injury, by sex",
             "statVar": "sdg/SI_COV_WKINJRY"
           },
           "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block": {
@@ -496,39 +496,39 @@
             "statVar": "sdg/SI_POV_DAY1"
           },
           "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line [15 to 24 years old, Female]",
+            "name": "Employed population below international poverty line, by sex and age [15 to 24 years old, Female]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F"
           },
           "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line [15 to 24 years old, Male]",
+            "name": "Employed population below international poverty line, by sex and age [15 to 24 years old, Male]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
           },
           "sdg/SI_POV_EMP1.AGE--Y15T24_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line [15 to 24 years old]",
+            "name": "Employed population below international poverty line, by sex and age [15 to 24 years old]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line [15 years old and over, Female]",
+            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Female]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line [15 years old and over, Male]",
+            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Male]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE15_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line [15 years old and over]",
+            "name": "Employed population below international poverty line, by sex and age [15 years old and over]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line [25 years old and over, Female]",
+            "name": "Employed population below international poverty line, by sex and age [25 years old and over, Female]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line [25 years old and over, Male]",
+            "name": "Employed population below international poverty line, by sex and age [25 years old and over, Male]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE25_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line [25 years old and over]",
+            "name": "Employed population below international poverty line, by sex and age [25 years old and over]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25"
           },
           "sdg/SI_POV_NAHC_multiple_place_bar_block": {

@@ -24,6 +24,8 @@ import { ContentCard, ContentCardBody, ContentCardHeader } from "../components";
 const { useBreakpoint } = Grid;
 
 const ExploreLink = styled(Link)`
+  display: flex;
+  align-items: center;
   .anticon {
     margin-right: 0.5rem;
   }
@@ -41,6 +43,25 @@ const GoalImage = styled.img<{ $md?: boolean }>`
   margin-right: ${(p) => (p.$md ? "2rem" : "0")};
   padding: 2rem;
   width: 100%;
+`;
+
+const GoalCardHeader = styled(ContentCardHeader)<{
+  $xs?: boolean;
+}>`
+  ${(p) =>
+    p.$xs
+      ? `
+      margin-bottom:1rem;
+      img {
+        height: 3.5rem;
+        margin-right: 1rem;
+        width: 3.5rem;
+      }
+      h3 {
+        font-size: 1.25rem;
+      }
+    `
+      : ""}
 `;
 
 const StyledCol = styled(Col)`
@@ -70,12 +91,12 @@ const GoalOverview: React.FC<{
     <ContentCard
       className={`-dc-goal-overview -dc-goal-overview-${goalNumber}`}
     >
-      <ContentCardHeader>
+      <GoalCardHeader $xs={breakpoint.xs}>
         <img src={rootTopic.iconUrl} />
         <h3>
           {goalNumber}: {rootTopic.name}
         </h3>
-      </ContentCardHeader>
+      </GoalCardHeader>
       <ContentCardBody>
         <Row>
           {goalSummary.image ? (

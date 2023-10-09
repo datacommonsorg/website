@@ -65,7 +65,10 @@ interface FacetSelectorPropType {
   // Promise that returns the available facet for each stat var
   facetListPromise: Promise<FacetSelectorFacetInfo[]>;
   // Callback function that is run when new facets are selected
-  onSvFacetIdUpdated: (svFacetId: Record<string, string>) => void;
+  onSvFacetIdUpdated: (
+    svFacetId: Record<string, string>,
+    metadataMap: Record<string, StatMetadata>
+  ) => void;
 }
 
 export function FacetSelector(props: FacetSelectorPropType): JSX.Element {
@@ -164,7 +167,14 @@ export function FacetSelector(props: FacetSelectorPropType): JSX.Element {
   );
 
   function onConfirm(): void {
-    props.onSvFacetIdUpdated(modalSelections);
+    const metadataMap = {};
+    facetList.forEach((facetInfo: FacetSelectorFacetInfo) => {
+      const selectedFacetId = modalSelections[facetInfo.dcid];
+      if (selectedFacetId) {
+        metadataMap[selectedFacetId] = facetInfo.metadataMap[selectedFacetId];
+      }
+    });
+    props.onSvFacetIdUpdated(modalSelections, metadataMap);
     setModalOpen(false);
   }
 }

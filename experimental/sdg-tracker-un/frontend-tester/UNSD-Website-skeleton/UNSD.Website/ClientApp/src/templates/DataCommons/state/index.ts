@@ -28,6 +28,7 @@ import {
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import countries from "../config/countries.json";
+import geoRegions from "../config/geo_regions.json";
 import goalSummaries from "../config/goalSummaries.json";
 import indicatorHeadlines from "../config/indicatorText.json";
 import rootTopics from "../config/rootTopics.json";
@@ -36,6 +37,7 @@ import targetText from "../config/targetText.json";
 import {
   EARTH_COUNTRIES,
   EARTH_PLACE_DCID,
+  MAP_ONLY_REGIONS,
   WEB_API_ENDPOINT,
 } from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
@@ -251,7 +253,7 @@ const appActions: AppActions = {
   initializeAppState: thunk(async (actions) => {
     actions.setRootTopics(rootTopics);
     const regions = await dataCommonsClient.getPlaces(REGION_PLACE_TYPES);
-    actions.setRegions(regions);
+    actions.setRegions([...regions, ...geoRegions]);
     actions.setCountries(
       countries.countries.filter((c) => c.is_un_member_or_observer)
     );
@@ -326,8 +328,8 @@ const appActions: AppActions = {
         if (placeDcid === EARTH_PLACE_DCID) {
           // For Earth, add select countries as well.
           placeDcids.push(...EARTH_COUNTRIES);
-        } else if (!placeDcid.startsWith("country")) {
-          // For regions, fetch countries in the region.
+        } else if (MAP_ONLY_REGIONS.has(placeDcid)) {
+          // For map-only regions, fetch countries in the region.
           const countryDcids = await dataCommonsClient.getCountriesInRegion(
             placeDcid
           );

@@ -25,6 +25,7 @@ import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
 import {
   convertArrayAttribute,
+  convertBooleanAttribute,
   createWebComponentElement,
   getVariableNameProcessingFn,
 } from "./utils";
@@ -113,7 +114,7 @@ export class DatacommonsLineComponent extends LitElement {
 
   // Optional: Whether to show the "explore" link.
   // Default: false
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: convertBooleanAttribute })
   showExploreMore: boolean;
 
   // Optional: Timescale to use for x-axis labels

@@ -428,7 +428,7 @@ def triples(nodes, out=True):
   """
   resp = dc.v2node(nodes, '->*' if out else '<-*')
   result = {}
-  for node, arcs in resp['data'].items():
+  for node, arcs in resp.get('data', {}).items():
     result[node] = {}
     for prop, val in arcs.get('arcs', {}).items():
       result[node][prop] = val.get('nodes', [])
@@ -436,10 +436,15 @@ def triples(nodes, out=True):
 
 
 def descendent_places(nodes, descendent_type):
-  return property_values(nodes,
-                         'containedInPlace+',
-                         out=False,
-                         constraints='{{typeOf:{}}}'.format(descendent_type))
+  # When the only node being requested is also the descendent_type, fetch all nodes of that type.
+  if nodes and len(nodes) == 1 and nodes[0] == descendent_type:
+    return property_values(nodes, "typeOf", out=False)
+  return property_values(
+      nodes,
+      "containedInPlace+",
+      out=False,
+      constraints="{{typeOf:{}}}".format(descendent_type),
+  )
 
 
 def raw_descendent_places(nodes, descendent_type):
