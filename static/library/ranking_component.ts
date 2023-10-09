@@ -24,11 +24,11 @@ import {
   RankingTile,
   RankingTilePropType,
 } from "../js/components/tiles/ranking_tile";
-import { DEFAULT_API_ENDPOINT } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
   createWebComponentElement,
+  getApiRoot,
 } from "./utils";
 
 /**
@@ -137,7 +137,7 @@ export class DatacommonsRankingComponent extends LitElement {
 
   render(): HTMLElement {
     const variables = this.variables || [this.variable];
-    const statVarSpec = variables.map((statVar) => {
+    const statVarSpecs = variables.map((statVar) => {
       return {
         denom:
           this.perCapita && this.perCapita.includes(statVar)
@@ -152,11 +152,11 @@ export class DatacommonsRankingComponent extends LitElement {
     });
 
     const rankingTileProps: RankingTilePropType = {
-      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
+      apiRoot: getApiRoot(this.apiRoot),
       enclosedPlaceType: this.childPlaceType,
       hideFooter: this.hideFooter,
       id: `chart-${_.uniqueId()}`,
-      place: {
+      parentPlace: {
         dcid: this.parentPlace,
         name: "",
         types: [],
@@ -171,7 +171,7 @@ export class DatacommonsRankingComponent extends LitElement {
         showMultiColumn: this.showMultiColumn,
       },
       showExploreMore: this.showExploreMore,
-      statVarSpec,
+      variables: statVarSpecs,
       title: this.header || this.title,
     };
     return createWebComponentElement(RankingTile, rankingTileProps);

@@ -89,6 +89,8 @@ export interface LineTilePropType {
   timeScale?: TimeScaleOption;
   // The property to use to get place names.
   placeNameProp?: string;
+  // Chart subtitle
+  subtitle?: string;
 }
 
 export interface LineChartData {
@@ -129,6 +131,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
     <ChartTileContainer
       id={props.id}
       title={props.title}
+      subtitle={props.subtitle}
       sources={chartData && chartData.sources}
       replacementStrings={getReplacementStrings(props)}
       className={`${props.className} line-chart`}

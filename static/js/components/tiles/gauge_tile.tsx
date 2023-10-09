@@ -59,6 +59,8 @@ export interface GaugeTilePropType {
   svgChartHeight: number;
   // Title at top of tile
   title: string;
+  // Chart subtitle
+  subtitle?: string;
 }
 
 export interface GaugeChartData {
@@ -109,6 +111,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
     <ChartTileContainer
       id={props.id}
       title={props.title}
+      subtitle={props.subtitle}
       sources={gaugeData && gaugeData.sources}
       replacementStrings={replacementStrings}
       allowEmbed={true}

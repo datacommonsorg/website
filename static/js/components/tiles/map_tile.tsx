@@ -103,6 +103,8 @@ export interface MapTilePropType {
   placeNameProp?: string;
   // The property to use to get geojsons.
   geoJsonProp?: string;
+  // Chart subtitle
+  subtitle?: string;
 }
 
 interface RawData {
@@ -200,6 +202,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     <ChartTileContainer
       id={props.id}
       title={props.title}
+      subtitle={props.subtitle}
       sources={mapChartData && mapChartData.sources}
       replacementStrings={getReplacementStrings(props, mapChartData)}
       className={`${props.className} map-chart`}
