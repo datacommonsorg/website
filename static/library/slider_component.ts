@@ -18,8 +18,7 @@ import { css, CSSResult, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 
 import { ChartEventDetail } from "../js/chart/types";
-import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute } from "./utils";
+import { convertArrayAttribute, getApiRoot } from "./utils";
 
 const MOST_RECENT_TEXT = "Most recent";
 interface ObservationDatesByVariable {
@@ -317,7 +316,7 @@ export class DatacommonsSliderComponent extends LitElement {
   }
 
   private async fetchObservationDates() {
-    const apiRoot = `${this.apiRoot || DEFAULT_API_ENDPOINT}`;
+    const apiRoot = getApiRoot(this.apiRoot);
     const apiPath = "api/observation-dates";
     if (!this.parentPlace || !this.childPlaceType || !this.variable) {
       console.log("No place found in the slider");

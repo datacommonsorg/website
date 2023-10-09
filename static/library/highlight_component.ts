@@ -23,8 +23,7 @@ import {
   HighlightTile,
   HighlightTilePropType,
 } from "../js/components/tiles/highlight_tile";
-import { DEFAULT_API_ENDPOINT } from "./constants";
-import { createWebComponentElement } from "./utils";
+import { createWebComponentElement, getApiRoot } from "./utils";
 
 /**
  * Web component for rendering a highlight tile.
@@ -79,7 +78,7 @@ export class DatacommonsHighlightComponent extends LitElement {
 
   render(): HTMLElement {
     const highlightTileProps: HighlightTilePropType = {
-      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
+      apiRoot: getApiRoot(this.apiRoot),
       date: this.date,
       description: this.header || this.description,
       place: {

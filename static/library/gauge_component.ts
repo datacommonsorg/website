@@ -24,8 +24,11 @@ import {
   GaugeTile,
   GaugeTilePropType,
 } from "../js/components/tiles/gauge_tile";
-import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute, createWebComponentElement } from "./utils";
+import {
+  convertArrayAttribute,
+  createWebComponentElement,
+  getApiRoot,
+} from "./utils";
 
 /**
  * Web component for rendering a gauge tile.
@@ -87,7 +90,7 @@ export class DatacommonsGaugeComponent extends LitElement {
 
   render(): HTMLElement {
     const gaugeTileProps: GaugeTilePropType = {
-      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
+      apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
       id: `chart-${_.uniqueId()}`,
       place: {

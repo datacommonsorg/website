@@ -22,11 +22,11 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { ChartEventDetail } from "../js/chart/types";
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
-import { DEFAULT_API_ENDPOINT } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
   createWebComponentElement,
+  getApiRoot,
 } from "./utils";
 
 /**
@@ -150,7 +150,7 @@ export class DatacommonsMapComponent extends LitElement {
     const variable = this.variable || this.statVarDcid;
     const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
     const mapTileProps: MapTilePropType = {
-      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
+      apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
       enclosedPlaceType: childPlaceType,
       id: `chart-${_.uniqueId()}`,
