@@ -1,6 +1,8 @@
 # Sample Places
 
-The sample places in [places.json](places.json) can be generated using this SQL against [BigQuery](https://pantheon.corp.google.com/bigquery?project=datcom-store).
+The sample places in `places.json` can be generated using this SQL against [BigQuery](https://pantheon.corp.google.com/bigquery?project=datcom-store).
+
+TODO: Group by place type and containment.
 
 ```sql
 with 

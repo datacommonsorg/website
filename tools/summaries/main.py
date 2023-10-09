@@ -16,13 +16,15 @@ import csv
 import json
 import logging
 import multiprocessing
+import os
 
 from absl import app
 from dc import get_ranking_csv
 from palm import get_summary
 
-_PLACE_JSON_FILE = "places.json"
-_SUMMARIES_JSON_FILE = "summaries.json"
+_OUTPUT_DIR = "../../server/config/summaries"
+_PLACE_JSON_FILE = os.path.join(_OUTPUT_DIR, "places.json")
+_SUMMARIES_JSON_FILE = os.path.join(_OUTPUT_DIR, "summaries.json")
 _SUMMARIES_CSV_FILE = "summaries.csv"
 _NUM_PARALLEL_PROCESSES = 8
 

@@ -18,8 +18,8 @@ import logging
 import pandas as pd
 import requests
 
-_API_BASE_URL = "https://browser.datacommons.org/api/place/ranking"
-_RANKINGS_HEADER = "Rankings (in)"
+_API_BASE_URL = "https://datacommons.org/api/place/ranking"
+_RANKINGS_HEADER = "Rankings"
 _LABEL_KEY = "label"
 
 

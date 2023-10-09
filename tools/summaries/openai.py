@@ -21,6 +21,8 @@ import requests
 _API_KEY = os.getenv("OPENAI_API_KEY")
 _API_URL = "https://api.openai.com/v1/chat/completions"
 _MODEL_NAME = "gpt-3.5-turbo"
+# Using 0.5 so that all responses are not the same nor vary wildly.
+# Reference: https://screenshot.googleplex.com/v2FACUjXsdZnAXN
 _TEMPERATURE = 0.5
 
 

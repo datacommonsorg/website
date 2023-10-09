@@ -27,6 +27,8 @@ _TEMPERATURE = 0.2
 # We use a heuristic that the summary must contain at least 2 numbers to be factual.
 _RETRIES = 2
 
+assert _API_KEY, "$PALM_API_KEY must be specified."
+
 
 def get_summary(name: str, csv: str):
   url = f"{_API_URL}?key={_API_KEY}"

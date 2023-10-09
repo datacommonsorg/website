@@ -1,11 +1,11 @@
 {
  "wikidataId/Q356811": {
   "name": "Adi Keyh",
-  "summary": "Adi Keyh has a population of 10,000 and a literacy rate of 80%."
+  "summary": "Adi Keyh has a population of 12,000 and a literacy rate of 70%."
  },
  "geoId/01": {
   "name": "Alabama",
-  "summary": "Alabama has the 46th highest unemployment rate, 24th largest population, 20th highest median age, 46th highest median income, and 9th highest crime rate in the United States."
+  "summary": "Alabama has the 46th highest unemployment rate, 24th largest population, 20th highest median age, 46th highest median income, and 9th highest crime per capita in the United States."
  },
  "geoId/02": {
   "name": "Alaska",
@@ -13,7 +13,7 @@
  },
  "undata-geo/C21900001": {
   "name": "Anguilla",
-  "summary": "Anguilla has a population of 15,000 and a GDP of $1.2 billion."
+  "summary": "Anguilla has a population of 15,000, an area of 91 km\u00b2 and a GDP of $1.2 billion."
  },
  "geoId/04": {
   "name": "Arizona",
@@ -21,7 +21,7 @@
  },
  "geoId/3302420": {
   "name": "Atkinson and Gilmanton Academy Grant",
-  "summary": "Atkinson and Gilmanton Academy Grant has an enrollment of 1,128 students."
+  "summary": "Atkinson and Gilmanton Academy Grant has a student population of 1,039 and a teacher population of 61."
  },
  "nuts/TR8": {
   "name": "Bati Karadeniz",
@@ -41,31 +41,31 @@
  },
  "wikidataId/Q4976766": {
   "name": "Brownsville-Brent-Goulding",
-  "summary": "Brownsville-Brent-Goulding is the 7th largest community in Escambia County, the 207th largest in Florida, and the 2935th largest in the United States."
+  "summary": "Brownsville-Brent-Goulding is in Escambia County, Florida, United States of America."
  },
  "geoId/4716060": {
   "name": "Coker Creek",
-  "summary": "Coker Creek has a mean discharge of 2,300 cu ft/s and a maximum discharge of 12,000 cu ft/s."
+  "summary": "Coker Creek has a mean discharge of 1,100 cubic feet per second."
  },
  "geoId/08": {
   "name": "Colorado",
-  "summary": "Colorado has the 28th highest unemployment rate, 21st largest population, 42nd highest median age, 7th highest median income, and 12th highest crime per capita in the United States."
+  "summary": "Colorado has the 28th highest unemployment rate, 21st largest population, 42nd highest median age, 7th highest median income, and 12th highest crime rate in the United States."
  },
  "country/CRI": {
   "name": "Costa Rica",
-  "summary": "Costa Rica has a GDP of 56.7 billion, a population of 4.8 million, and a life expectancy of 80.2 years."
+  "summary": "Costa Rica has a GDP of 56.6 billion and a population of 4.8 million."
  },
  "geoId/47035": {
   "name": "Cumberland County",
-  "summary": "Cumberland County has the highest median age, 34th highest median income, 34th highest unemployment rate, and 22nd largest population in Tennessee, United States of America."
+  "summary": "Cumberland County has the highest median age, 34th highest median income, 34th highest unemployment rate, and 22nd largest population in Tennessee and the United States."
  },
  "geoId/5518575": {
   "name": "Dallas",
-  "summary": "Dallas has a population of 1,345,052 and a median income of $61,880."
+  "summary": "Dallas has a population of 1,345,092 and a median household income of $57,406."
  },
  "country/DNK": {
   "name": "Denmark",
-  "summary": "Denmark is the 4th most populous country in the Kingdom of Denmark."
+  "summary": "Denmark is the fourth most populous country in the Nordics."
  },
  "nuts/TR9": {
   "name": "Dogu Karadeniz",
@@ -77,7 +77,7 @@
  },
  "nuts/EE0": {
   "name": "Eesti",
-  "summary": "Estonia has a GDP of 23.8 billion, a population of 1.3 million, and a life expectancy of 79.1 years."
+  "summary": "Estonia has a GDP of 26.9 billion and a population of 1.3 million."
  },
  "nuts/TR3": {
   "name": "Ege",
@@ -85,15 +85,15 @@
  },
  "country/GNQ": {
   "name": "Equatorial Guinea",
-  "summary": "Equatorial Guinea has a population of 1,262,000, a GDP of $13.1 billion, and a life expectancy of 63.4 years."
+  "summary": "Equatorial Guinea has a population of 1,262,000 and a GDP of $15.9 billion."
  },
  "geoId/25009": {
   "name": "Essex County",
-  "summary": "Essex County has the 8th highest median age, 7th highest median income, 6th highest unemployment rate, and 3rd largest population in Massachusetts and the United States."
+  "summary": "Essex County has the 8th highest median age, 7th highest median income, 6th highest unemployment rate, and 3rd largest population in Massachusetts, United States of America."
  },
  "country/EST": {
   "name": "Estonia",
-  "summary": "Estonia has a GDP of 27.3 billion, a population of 1.3 million, and a life expectancy of 78.3 years."
+  "summary": "Estonia has a population of 1.3 million people, a GDP of 27.3 billion, and a life expectancy of 78.5 years."
  },
  "nuts/BE2": {
   "name": "Flemish Region",
@@ -101,7 +101,7 @@
  },
  "geoId/18043": {
   "name": "Floyd County",
-  "summary": "Floyd County has the 72nd highest unemployment rate, 21st largest population, 64th highest median age, and 9th highest median income in Indiana and the United States."
+  "summary": "Floyd County has the 72nd highest unemployment rate, 21st largest population, 64th highest median age, and 9th highest median income in Indiana, United States of America."
  },
  "geoId/42055": {
   "name": "Franklin County",
@@ -113,19 +113,19 @@
  },
  "country/GEO": {
   "name": "Georgia",
-  "summary": "Georgia has a population of 10,620,000 and a GDP of 134.8 billion."
+  "summary": "Georgia has a population of 10,435,156 and a GDP of 144.2 billion."
  },
  "geoId/31075": {
   "name": "Grant County",
-  "summary": "Grant County had a population of 94,269 and a median household income of $55,420."
+  "summary": "Grant County had a population of 93,293 in 2010, with a median age of 38.5."
  },
  "nuts/TRC": {
   "name": "G\u00fcneydogu Anadolu",
-  "summary": "G\u00fcneydogu Anadolu is the 4th most populous region in Turkey."
+  "summary": "G\u00fcneydogu Anadolu is the 4th most populated region in Turkey."
  },
  "wikidataId/Q5637687": {
   "name": "Haddon, Gauteng",
-  "summary": "Haddon, Gauteng has the 898th largest population in South Africa."
+  "summary": "Haddon, Gauteng is the second largest city in South Africa with a population of 898 out of 1130."
  },
  "geoId/20075": {
   "name": "Hamilton County",
@@ -133,7 +133,7 @@
  },
  "geoId/4232616": {
   "name": "Harleysville",
-  "summary": "Harleysville is the 37th largest city in Montgomery County, Pennsylvania, United States of America, with a population of 6,008. It has the 4th highest median age and 43rd highest median income."
+  "summary": "Harleysville is the 37th largest city in Montgomery County, Pennsylvania, United States of America."
  },
  "wikidataId/Q5681356": {
   "name": "Hatfield, Pretoria",
@@ -141,15 +141,15 @@
  },
  "nuts/FRE": {
   "name": "Hauts-de-France",
-  "summary": "Hauts-de-France is the second most populous region in Metropolitan France and the fifth most populous region in France."
+  "summary": "Hauts-de-France is the 2nd most populous region in Metropolitan France and the 5th most populous region in France."
  },
  "wikidataId/Q2690370": {
   "name": "Hayes",
-  "summary": "Hayes has a population of 1,572 and a median income of $43,652."
+  "summary": "Hayes has a population of 1,000 and a median income of $50,000."
  },
  "wikidataId/Q9040203": {
   "name": "Holly Mountain Township",
-  "summary": "Holly Mountain Township has a population of 1,281 and a median household income of $55,833."
+  "summary": "Holly Mountain Township has a population of 1,037 and a median household income of $43,906."
  },
  "wikidataId/Q66278313": {
   "name": "Jammu and Kashmir",
@@ -157,7 +157,7 @@
  },
  "geoId/45053": {
   "name": "Jasper County",
-  "summary": "Jasper County is in the 40th percentile for unemployment rate, 31st percentile for population, 14th percentile for median age, and 14th percentile for median income."
+  "summary": "Jasper County has the 40th highest unemployment rate, 31st largest population, 14th highest median age, and 14th highest median income in South Carolina and the United States."
  },
  "geoId/48247": {
   "name": "Jim Hogg County",
@@ -169,7 +169,7 @@
  },
  "country/KEN": {
   "name": "Kenya",
-  "summary": "Kenya has a GDP of 104.9 billion, a population of 47.6 million, and a life expectancy of 64.9 years."
+  "summary": "Kenya has a population of 47.6 million people, a GDP of 96.4 billion, and a life expectancy of 64.3 years."
  },
  "geoId/22057": {
   "name": "Lafourche Parish",
@@ -177,19 +177,19 @@
  },
  "wikidataId/Q69714": {
   "name": "Le Grand-Saconnex",
-  "summary": "Le Grand-Saconnex is the 105th largest populated municipality in Switzerland."
+  "summary": "Le Grand-Saconnex has the 105th largest population in Switzerland."
  },
  "nuts/DE9": {
   "name": "Lower Saxony",
-  "summary": "Lower Saxony is the 4th most populous state in Germany."
+  "summary": "Lower Saxony is the fourth most populous state in Germany."
  },
  "country/MAC": {
   "name": "Macau",
-  "summary": "Macau has a population of 650,000 people and a GDP of 55.5 billion."
+  "summary": "Macau has a population of 647,600 and a GDP of 55.2 billion."
  },
  "wikidataId/Q1188": {
   "name": "Madhya Pradesh",
-  "summary": "Madhya Pradesh has the fifth largest population in India."
+  "summary": "Madhya Pradesh has the 5th largest population in India."
  },
  "geoId/23": {
   "name": "Maine",
@@ -197,19 +197,19 @@
  },
  "geoId/68190": {
   "name": "Majuro",
-  "summary": "Majuro has a population of 27,500 and a land area of 9.7 square kilometers."
+  "summary": "Majuro has a population of 27,000 and a land area of 9.7 square kilometers."
  },
  "nuts/PL6": {
   "name": "Makroregion P\u00f3\u0142nocny",
-  "summary": "Makroregion P\u00f3\u0142nocny is the third most populous macroregion in Poland."
+  "summary": "Makroregion P\u00f3\u0142nocny is the third most populous region in Poland."
  },
  "country/MLT": {
   "name": "Malta",
-  "summary": "Malta has a population of 431,276, a GDP of 12.5 billion and a life expectancy of 81.2 years."
+  "summary": "Malta has a population of 441,540 and a GDP of 12.68 billion."
  },
  "geoId/17121": {
   "name": "Marion County",
-  "summary": "Marion County has the 81st highest median income, 31st highest unemployment rate, 36th largest population, and 50th highest median age in Illinois and the United States."
+  "summary": "Marion County is ranked 81st in median income, 31st in unemployment rate, 36th in population, and 50th in median age in Illinois and 1692nd in the United States."
  },
  "geoId/17125": {
   "name": "Mason County",
@@ -217,7 +217,7 @@
  },
  "country/MUS": {
   "name": "Mauritius",
-  "summary": "Mauritius has a GDP of 12.3 billion, a population of 1.3 million, and a life expectancy of 74.3 years."
+  "summary": "Mauritius has a population of 1.3 million people, a GDP of $12.5 billion, and a life expectancy of 75 years."
  },
  "geoId/28": {
   "name": "Mississippi",
@@ -225,7 +225,7 @@
  },
  "geoId/2048625": {
   "name": "Moscow Township",
-  "summary": "Moscow Township has a population of 1,650 people and a median household income of $50,481."
+  "summary": "Moscow Township had a population of 1,040 people, 440 households, and 295 families residing in it."
  },
  "geoId/17139": {
   "name": "Moultrie County",
@@ -233,11 +233,11 @@
  },
  "country/NHB": {
   "name": "New Hebrides",
-  "summary": "New Hebrides has a population of 130,000 people and a GDP of $1.5 billion."
+  "summary": "New Hebrides has a population of 130,000 and a GDP of 1.1 billion."
  },
  "country/NIU": {
   "name": "Niue",
-  "summary": "Niue has a population of 1,640 people, a land area of 260 km2, and a GDP of $100 million."
+  "summary": "Niue has a population of 1,640 people and a GDP of $100 million."
  },
  "nuts/DEA": {
   "name": "Nordrhein-Westfalen",
@@ -253,19 +253,19 @@
  },
  "nuts/UKN": {
   "name": "Northern Ireland",
-  "summary": "Northern Ireland is the 12th most populous of the 13 United Kingdom constituent countries."
+  "summary": "Northern Ireland is the 12th most populous region in the United Kingdom."
  },
  "nuts/EL4": {
   "name": "N\u03b7\u03c3\u03b9\u03b1 \u0391\u03b9\u03b3\u03b1\u03b9\u03bf\u03c5, K\u03c1\u03b7\u03c4\u03b7",
-  "summary": "N\u03b7\u03c3\u03b9\u03b1 \u0391\u03b9\u03b3\u03b1\u03b9\u03bf\u03c5, K\u03c1\u03b7\u03c4\u03b7 is the 4th most populated island in Greece."
+  "summary": "N\u03b7\u03c3\u03b9\u03b1 \u0391\u03b9\u03b3\u03b1\u03b9\u03bf\u03c5, K\u03c1\u03b7\u03c4\u03b7 is the 4th largest populated island in Greece."
  },
  "geoId/1756211": {
   "name": "Ophiem",
-  "summary": "Ophiem has a mass of 1.08 solar masses, a radius of 1.15 solar radii, and an effective temperature of 5,829 K."
+  "summary": "Ophiem has a high price of 200 and a low customer rating of 1 out of 5."
  },
  "country/PSE": {
   "name": "Palestinian Territories",
-  "summary": "The Palestinian Territories had a population of 4,874,000 in 2016, with a life expectancy of 74.2 years."
+  "summary": "The Palestinian Territories has a population of 4,747,000 and a GDP of 18.3 billion."
  },
  "geoId/2460975": {
   "name": "Perry Hall",
@@ -285,11 +285,11 @@
  },
  "geoId/20157": {
   "name": "Republic County",
-  "summary": "Republic County has the 94th highest unemployment rate, 70th largest population, 9th highest median age, and 63rd highest median income in Kansas and the United States."
+  "summary": "Republic County has the 94th highest unemployment rate, 70th largest population, 9th highest median age, and 63rd highest median income in Kansas, United States of America."
  },
  "wikidataId/Q31354462": {
   "name": "Republic of Abkhazia",
-  "summary": "Republic of Abkhazia has a population of 248,000 and a GDP of $1.1 billion."
+  "summary": "Republic of Abkhazia has a population of 248,000 and a GDP of $1.2 billion."
  },
  "nuts/BE3": {
   "name": "R\u00e9gion Wallonne",
@@ -297,27 +297,27 @@
  },
  "country/REU": {
   "name": "R\u00e9union",
-  "summary": "R\u00e9union is the second most populous region in France."
+  "summary": "R\u00e9union has the second largest population of all the French overseas departments."
  },
  "country/SRB": {
   "name": "Serbia",
-  "summary": "Serbia has a GDP of 46.24 billion, a population of 7.1 million, and a life expectancy of 75.6 years."
+  "summary": "Serbia has a population of 7.1 million people, a GDP of $47.2 billion, and a life expectancy of 76 years."
  },
  "geoId/2760304": {
   "name": "Silver Creek Township",
-  "summary": "Silver Creek Township is the 3rd largest township in Lake County, Minnesota, United States of America by population."
+  "summary": "Silver Creek Township is in Lake County, Minnesota, United States of America. It is the 3rd largest township in Lake County, the 515th largest township in Minnesota, and the 23000th largest township in the United States."
  },
  "geoId/3762040": {
   "name": "Simpson",
-  "summary": "Simpson has a high rating and is a comedy."
+  "summary": "Simpson has 12 episodes, 2 seasons, 10.0 average rating and 1997 release year."
  },
  "country/SOM": {
   "name": "Somalia",
-  "summary": "Somalia has a population of 15.0 million, a GDP of 6.0 billion, and a life expectancy of 55.0 years."
+  "summary": "Somalia has a population of 15.1 million people, a GDP of $16.6 billion, and a life expectancy of 55.3 years."
  },
  "geoId/46": {
   "name": "South Dakota",
-  "summary": "South Dakota has the 48th highest unemployment rate, 47th largest population, 40th highest median age, 28th highest median income, and 33rd highest crime per capita in the United States."
+  "summary": "South Dakota has the 48th highest unemployment rate, 47th largest population, 40th highest median age, 28th highest median income, and 33rd highest crime rate in the United States."
  },
  "nuts/UKJ": {
   "name": "South East",
@@ -341,7 +341,7 @@
  },
  "country/THA": {
   "name": "Thailand",
-  "summary": "Thailand has a population of 69.4 million people, a GDP of 433.6 billion USD, and a life expectancy of 75.5 years."
+  "summary": "Thailand has a GDP of 432.3 billion, a population of 69.7 million, and a life expectancy of 75.4 years."
  },
  "geoId/21219": {
   "name": "Todd County",
@@ -349,11 +349,11 @@
  },
  "country/TUR": {
   "name": "Turkey",
-  "summary": "Turkey has a GDP of 819.6 billion and a population of 84 million."
+  "summary": "Turkey has a population of 83 million people, a GDP of $830 billion, and a life expectancy of 78 years."
  },
  "country/USA": {
   "name": "United States",
-  "summary": "The United States has a population of 328 million people, a GDP of 20.5 trillion, and a life expectancy of 78.8 years."
+  "summary": "The United States has a population of 328 million people, a GDP of 20.5 trillion, and a life expectancy of 78.6 years."
  },
  "geoId/49": {
   "name": "Utah",
@@ -361,7 +361,7 @@
  },
  "geoId/39163": {
   "name": "Vinton County",
-  "summary": "Vinton County has the 10th highest unemployment rate, 88th largest population, 15th highest median age, and 79th highest median income in Ohio."
+  "summary": "Vinton County has the 10th highest unemployment rate, 88th largest population, 15th highest median age, and 79th highest median income in Ohio, United States of America."
  },
  "geoId/51": {
   "name": "Virginia",
@@ -369,11 +369,11 @@
  },
  "undata-geo/C07500976": {
   "name": "V\u00e9lez",
-  "summary": "V\u00e9lez has a population of 89,558 and a GDP of 1.5 billion."
+  "summary": "V\u00e9lez has a population of 106,000 and a GDP of 1.5 billion."
  },
  "geoId/53": {
   "name": "Washington",
-  "summary": "Washington has the 36th highest median age, 6th highest median income, 16th highest unemployment rate, 13th largest population, and 14th highest crime per capita in the United States."
+  "summary": "Washington has the 3rd highest median income, 16th highest unemployment rate, 13th largest population, and 14th highest crime rate in the US."
  },
  "wikidataId/Q61912": {
   "name": "Wertheim",
@@ -389,14 +389,14 @@
  },
  "country/ZMB": {
   "name": "Zambia",
-  "summary": "Zambia has a GDP of 23.22 billion, a population of 17.3 million, and a life expectancy of 59.8 years."
+  "summary": "Zambia has a GDP of 23.3 billion, a population of 17.3 million, and a life expectancy of 61.3 years."
  },
  "nuts/IS0": {
   "name": "\u00cdsland",
-  "summary": "Iceland has a population of 340,000 and a GDP of 27.3 billion."
+  "summary": "Iceland has a population of 338,349 and a GDP of 21.2 billion."
  },
  "nuts/CZ0": {
   "name": "\u010cesk\u00e1 Republika",
-  "summary": "\u010cesk\u00e1 Republika has a GDP of 246.9 billion and a population of 10.7 million."
+  "summary": "\u010cesk\u00e1 Republika has a GDP of 245.5 billion and a population of 10.6 million."
  }
 }
