@@ -125,7 +125,7 @@ export function getChartArea(
       <div className="chart">
         <RankingTile
           id="vis-tool-ranking"
-          parentPlace={appContext.places[0]}
+          parentPlace={appContext.places[0].dcid}
           enclosedPlaceType={appContext.enclosedPlaceType}
           title=""
           variables={[statVarSpec]}
