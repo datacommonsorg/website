@@ -11,25 +11,25 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Managing the Spacy model for NL detection."""
+"""Managing the model for NL detection."""
 
 from typing import List
 
 import en_core_web_lg
 
 
-class SpacyModel:
+class NLAttributeModel:
 
   def __init__(self) -> None:
-    self.spacy_model = en_core_web_lg.load()
+    self.spacy_model_ = en_core_web_lg.load()
 
   def detect_places_ner(self, query: str) -> List[str]:
-    """Use the Spacy model to detect places in `query`.
+    """Use the Spacy NER model to detect places in `query`.
 
     Raises an Exception if the Spacy model fails on the query.
     """
     try:
-      doc = self.spacy_model(query)
+      doc = self.spacy_model_(query)
     except Exception as e:
       raise Exception(e)
 
@@ -51,13 +51,19 @@ class SpacyModel:
 
   def detect_verbs(self, query: str) -> List[str]:
     try:
-      doc = self.spacy_model(query)
+      doc = self.spacy_model_(query)
     except Exception as e:
       raise Exception(e)
     result = []
     for token in doc:
-      print(token.text, token.pos_, token.dep_, token.head.text)
       if 'VERB' in token.pos_:
+        # checks the dependency relation of the token. Skip if the token is not
+        # action related.
+        #
+        # 'auxpass': passive auxiliary of a clause is a non-main verb like
+        # 'was observed', "were seen".
+        #
+        # 'amod': adjectival modifier which should not be treated as verb.
         if token.dep_ in ['auxpass', 'amod']:
           continue
         result.append(token.text)

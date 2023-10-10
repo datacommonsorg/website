@@ -69,9 +69,9 @@ def search_places():
   }
   """
   query = str(escape(request.args.get('q')))
-  nl_spacy = current_app.config['SPACY_MODEL']
+  nl_model = current_app.config['NL_MODEL']
   try:
-    res = nl_spacy.detect_places_ner(query)
+    res = nl_model.detect_places_ner(query)
     return json.dumps({'places': res})
   except Exception as e:
     logging.error(f'NER place detection failed with error: {e}')
@@ -80,9 +80,13 @@ def search_places():
 
 @bp.route('/api/search_verbs/', methods=['GET'])
 def search_verbs():
+  """Returns a list tokens that detected as verbs.
+
+  List[str]
+  """
   query = str(escape(request.args.get('q')))
-  nl_spacy = current_app.config['SPACY_MODEL']
-  return json.dumps(nl_spacy.detect_verbs(query.strip()))
+  nl_model = current_app.config['NL_MODEL']
+  return json.dumps(nl_model.detect_verbs(query.strip()))
 
 
 @bp.route('/api/embeddings_version_map/', methods=['GET'])

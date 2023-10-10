@@ -17,10 +17,10 @@ import os
 
 from nl_server import gcs
 from nl_server.embeddings import Embeddings
-from nl_server.spacy_model import SpacyModel
+from nl_server.nl_attribute_model import NLAttributeModel
 
 nl_embeddings_cache_key_base = 'nl_embeddings'
-nl_spacy_cache_key = 'nl_spacy'
+nl_model_cache_key = 'nl_model'
 nl_cache_path = '~/.datacommons/'
 nl_cache_expire = 3600 * 24  # Cache for 1 day
 nl_cache_size_limit = 16e9  # 16Gb local cache size
@@ -72,8 +72,8 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
     cache = Cache(nl_cache_path, size_limit=nl_cache_size_limit)
     cache.expire()
 
-    nl_spacy = cache.get(nl_spacy_cache_key)
-    app.config['SPACY_MODEL'] = nl_spacy
+    nl_model = cache.get(nl_model_cache_key)
+    app.config['NL_MODEL'] = nl_model
 
     missing_embeddings = False
     for sz in embeddings_map.keys():
@@ -83,8 +83,8 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
         break
       app.config[embeddings_config_key(sz)] = nl_embeddings
 
-    if nl_spacy and not missing_embeddings:
-      logging.info("Using cached embeddings and Spacy Model in: " +
+    if nl_model and not missing_embeddings:
+      logging.info("Using cached embeddings and NL Model in: " +
                    cache.directory)
       return
 
@@ -112,8 +112,8 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
                                existing_model_path)
     app.config[embeddings_config_key(sz)] = nl_embeddings
 
-  nl_spacy_model = SpacyModel()
-  app.config["SPACY_MODEL"] = nl_spacy_model
+  nl_model = NLAttributeModel()
+  app.config["NL_MODEL"] = nl_model
 
   if _use_cache(flask_env):
     with Cache(cache.directory, size_limit=nl_cache_size_limit) as reference:
@@ -121,4 +121,4 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
         reference.set(nl_embeddings_cache_key(sz),
                       app.config[embeddings_config_key(sz)],
                       expire=nl_cache_expire)
-      reference.set(nl_spacy_cache_key, nl_spacy_model, expire=nl_cache_expire)
+      reference.set(nl_model_cache_key, nl_model, expire=nl_cache_expire)

@@ -11,16 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Tests for NERPlaces (in spacy_model.py)."""
+"""Tests for NERPlaces (in nl_attribute_model.py)."""
 
+import logging
 import unittest
 
 from diskcache import Cache
 from parameterized import parameterized
 
 from nl_server.loader import nl_cache_path
-from nl_server.loader import nl_spacy_cache_key
-from nl_server.spacy_model import SpacyModel
+from nl_server.loader import nl_model_cache_key
+from nl_server.nl_attribute_model import NLAttributeModel
 import shared.lib.utils as nl_utils
 
 
@@ -32,13 +33,13 @@ class TestNERPlaces(unittest.TestCase):
     # Look for the Embeddings model in the cache if it exists.
     cache = Cache(nl_cache_path)
     cache.expire()
-    cls.nl_spacy_model = cache.get(nl_spacy_cache_key)
-    if not cls.nl_spacy_model:
-      print(
-          "Could not load NERPlaces from the cache for these tests. Loading a new NERPlaces object."
+    cls.nl_model = cache.get(nl_model_cache_key)
+    if not cls.nl_model:
+      logging.error(
+          "Could not load models from the cache for these tests. Loading a new model object."
       )
-      # Using the default Spacy model.
-      cls.nl_spacy_model = SpacyModel()
+      # Using the default model.
+      cls.nl_model = NLAttributeModel()
 
   @parameterized.expand([
       # All these queries should detect places.
@@ -133,15 +134,15 @@ class TestNERPlaces(unittest.TestCase):
   ])
   def test_heuristic_detection(self, query_str, expected):
     got = nl_utils.place_detection_with_heuristics(
-        self.nl_spacy_model.detect_places_ner, query_str)
+        self.nl_model.detect_places_ner, query_str)
     self.assertEqual(expected, got)
 
   @parameterized.expand(
       # All these are valid queries even if they do not detect a Place.
       # There should be no exceptions.
       ["random", "California", "United States", "America", "", "."])
-  def test_spacy_default(self, query_str):
+  def test_default(self, query_str):
     try:
-      self.nl_spacy_model.detect_places_ner(query_str)
+      self.nl_model.detect_places_ner(query_str)
     except Exception as e:
       self.assertTrue(False, f"Unexpected Exception raised: {e}")
