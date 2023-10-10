@@ -79,7 +79,6 @@ export class DatacommonsHighlightComponent extends LitElement {
   render(): HTMLElement {
     const highlightTileProps: HighlightTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
-      date: this.date,
       description: this.header || this.description,
       place: {
         dcid: this.place,
@@ -93,6 +92,7 @@ export class DatacommonsHighlightComponent extends LitElement {
         scaling: 1,
         statVar: this.variable,
         unit: this.unit || "",
+        date: this.date,
       },
     };
     return createWebComponentElement(HighlightTile, highlightTileProps);
