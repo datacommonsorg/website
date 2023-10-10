@@ -51,8 +51,6 @@ function App(): JSX.Element {
   const showInfo = !showChart && !showChooseStatVarMessage;
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
-  const hideVisLink =
-    document.getElementById("metadata")?.dataset?.hideVisLink === "True";
   return (
     <>
       <StatVarChooser
@@ -65,11 +63,9 @@ function App(): JSX.Element {
             <Row>
               <div className="app-header">
                 <h1 className="mb-4">Scatter Plot Explorer</h1>
-                {!hideVisLink && (
-                  <a href="/tools/visualization#visType%3Dscatter">
-                    Go back to the new Data Commons
-                  </a>
-                )}
+                <a href="/tools/visualization#visType%3Dscatter">
+                  Go back to the new Data Commons
+                </a>
               </div>
             </Row>
           )}

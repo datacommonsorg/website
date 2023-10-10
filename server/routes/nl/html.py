@@ -26,10 +26,6 @@ bp = Blueprint('nl', __name__, url_prefix='/nl')
 
 @bp.route('/')
 def page():
-  # No production support yet.
-  if current_app.config['HIDE_REVAMP_CHANGES']:
-    flask.abort(404)
-
   placeholder_query = ''
   # TODO: Make this more customizable for all custom DC's
   if g.env == 'climate_trace':
@@ -43,10 +39,6 @@ def page():
 
 @bp.route('/sdg')
 def sdg_page():
-  # No production support yet.
-  if current_app.config['HIDE_REVAMP_CHANGES']:
-    flask.abort(404)
-
   placeholder_query = ''
   return render_template('/nl_interface.html',
                          maps_api_key=current_app.config['MAPS_API_KEY'],
