@@ -26,10 +26,6 @@ bp = Blueprint('explore', __name__, url_prefix='/explore')
 
 @bp.route('/')
 def page():
-  # No production support yet.
-  if current_app.config["HIDE_REVAMP_CHANGES"]:
-    flask.abort(404)
-
   return render_template('/explore.html',
                          manual_ga_pageview=True,
                          maps_api_key=current_app.config['MAPS_API_KEY'],
@@ -38,10 +34,6 @@ def page():
 
 @bp.route('/<string:topic>')
 def landing(topic):
-  # No production support yet.
-  if current_app.config["HIDE_REVAMP_CHANGES"]:
-    flask.abort(404)
-
   return render_template('/explore_landing.html',
                          topic=topic,
                          maps_api_key=current_app.config['MAPS_API_KEY'],

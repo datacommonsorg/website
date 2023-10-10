@@ -17,7 +17,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { ICON_STYLESHEET_URL } from "./constants";
+import { DEFAULT_API_ENDPOINT, ICON_STYLESHEET_URL } from "./constants";
 
 /** Library of helper functions shared across web components */
 
@@ -96,4 +96,21 @@ export function getVariableNameProcessingFn(
     const extractedName = name.match(variableNameRegex)?.shift();
     return extractedName || defaultVariableName || name;
   };
+}
+
+/**
+ * Gets the Data Commons website api root to use.
+ * If apiRoot is "/", return the current host as the api root
+ * If apiRoot is set to anything else, use that as the api root
+ * If unset, use DEFAULT_API_ENDPOINT
+ * @param apiRoot api root passed into web component
+ */
+export function getApiRoot(apiRoot: string): string {
+  if (apiRoot === "/") {
+    return window.location.origin;
+  }
+  if (apiRoot) {
+    return apiRoot;
+  }
+  return DEFAULT_API_ENDPOINT;
 }

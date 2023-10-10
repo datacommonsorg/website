@@ -11,11 +11,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-from server.app_env import _base
-
-
-class Config(_base.Config):
-  GA_ACCOUNT = 'G-KWSES5WXZE'
-  USE_PALM = True
-  LOG_QUERY = True

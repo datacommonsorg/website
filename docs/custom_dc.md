@@ -86,7 +86,7 @@ docker run -it --pull=always \
 gcr.io/datcom-ci/datacommons-website-compose:latest
 ```
 
-Run `curl -X POST localhost:8080/import/simple/load2sql` to load the data into
+Run `curl -X POST localhost:8080/import/simple/load` to load the data into
 database. Whenever there is update on the data, re-run this commands (no need to
 restart the container).
 

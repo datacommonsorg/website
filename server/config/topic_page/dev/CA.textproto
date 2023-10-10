@@ -475,6 +475,15 @@ categories {
       }
     }
   }
+  blocks: {
+    columns: {
+      tiles {
+        type: HIGHLIGHT
+        description: "Population"
+        stat_var_key: "Count_Person"
+      }
+    }
+  }
   stat_var_spec {
     key: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     value {
@@ -501,6 +510,7 @@ categories {
     value {
       stat_var: "Count_Person"
       name: "Population"
+      date: "1999"
     }
   }
   stat_var_spec {

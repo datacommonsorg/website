@@ -25,19 +25,15 @@ import { ifShowChart } from "./util";
 
 export function Title(): JSX.Element {
   const { statVar, placeInfo } = useContext(Context);
-  const hideVisLink =
-    document.getElementById("metadata")?.dataset?.hideVisLink === "True";
 
   return (
     <>
       {!ifShowChart(statVar.value, placeInfo.value) && (
         <div className="app-header">
           <h1 className="mb-4">Map Explorer</h1>
-          {!hideVisLink && (
-            <a href="/tools/visualization#visType%3Dmap">
-              Go back to the new Data Commons
-            </a>
-          )}
+          <a href="/tools/visualization#visType%3Dmap">
+            Go back to the new Data Commons
+          </a>
         </div>
       )}
     </>

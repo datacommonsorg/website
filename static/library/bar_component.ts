@@ -22,11 +22,11 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { SortType } from "../js/chart/types";
 import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
-import { DEFAULT_API_ENDPOINT } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
   createWebComponentElement,
+  getApiRoot,
   getVariableNameProcessingFn,
 } from "./utils";
 
@@ -224,7 +224,7 @@ export class DatacommonsBarComponent extends LitElement {
       });
     });
     const barTileProps: BarTilePropType = {
-      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
+      apiRoot: getApiRoot(this.apiRoot),
       barHeight: this.barHeight,
       colors: this.colors,
       enclosedPlaceType: this.childPlaceType,

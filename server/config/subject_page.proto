@@ -94,7 +94,7 @@ message StatVarSpec {
   // The name to use for the stat var in labels and titles.
   string name = 6;
   // [Optional] The date to use when getting data for the stat var. Will use the
-  // latest date if not set. Only enabled in map, ranking, and scatter tiles.
+  // latest date if not set. Only enabled in map, ranking, scatter, and highlight tiles.
   string date = 7;
   // [Optional] Whether to prevent this variable from being shown per capita. 
   bool no_per_capita = 8;

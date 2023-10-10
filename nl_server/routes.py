@@ -69,13 +69,24 @@ def search_places():
   }
   """
   query = str(escape(request.args.get('q')))
-  nl_ner_places = current_app.config['NL_NER_PLACES']
+  nl_model = current_app.config['NL_MODEL']
   try:
-    res = nl_ner_places.detect_places_ner(query)
+    res = nl_model.detect_places_ner(query)
     return json.dumps({'places': res})
   except Exception as e:
     logging.error(f'NER place detection failed with error: {e}')
     return json.dumps({'places': []})
+
+
+@bp.route('/api/search_verbs/', methods=['GET'])
+def search_verbs():
+  """Returns a list tokens that detected as verbs.
+
+  List[str]
+  """
+  query = str(escape(request.args.get('q')))
+  nl_model = current_app.config['NL_MODEL']
+  return json.dumps(nl_model.detect_verbs(query.strip()))
 
 
 @bp.route('/api/embeddings_version_map/', methods=['GET'])
