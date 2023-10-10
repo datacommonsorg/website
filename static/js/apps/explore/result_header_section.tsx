@@ -39,18 +39,6 @@ export function ResultHeaderSection(
     ? []
     : getTopics(props.pageMetadata, props.placeUrlVal);
 
-  let placeNameStr = "";
-  for (let i = 0; i < props.pageMetadata.places.length; i++) {
-    if (i == 2) {
-      placeNameStr += " and more";
-      break;
-    }
-    if (placeNameStr) {
-      placeNameStr += ", ";
-    }
-    placeNameStr += props.pageMetadata.places[i].name;
-  }
-
   let topicNameStr = "";
   if (
     !_.isEmpty(props.pageMetadata.mainTopics) &&
@@ -66,7 +54,7 @@ export function ResultHeaderSection(
   return (
     <>
       <div id="place-callout">
-        {placeNameStr}
+        {getPlaceHeader()}
         {topicNameStr && <span> • {topicNameStr}</span>}
       </div>
       {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && (
@@ -77,4 +65,28 @@ export function ResultHeaderSection(
       )}
     </>
   );
+
+  function getPlaceHeader(): JSX.Element {
+    // Avoid links when there is more than one place, since the mix of links
+    // and non-links (`,` `and more`) looks odd.
+    return (
+      <>
+        {props.pageMetadata.places.length == 1 && (
+          <a
+            className="place-callout-link"
+            href={`/place/${props.pageMetadata.places[0].dcid}`}
+          >
+            {props.pageMetadata.places[0].name}
+          </a>
+        )}
+        {props.pageMetadata.places.length >= 2 && (
+          <span>
+            {props.pageMetadata.places[0].name},&nbsp;
+            {props.pageMetadata.places[1].name}
+          </span>
+        )}
+        {props.pageMetadata.places.length > 2 && <>&nbsp;and more</>}
+      </>
+    );
+  }
 }

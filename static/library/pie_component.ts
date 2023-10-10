@@ -24,11 +24,11 @@ import {
   DonutTile,
   DonutTilePropType,
 } from "../js/components/tiles/donut_tile";
-import { DEFAULT_API_ENDPOINT } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
   createWebComponentElement,
+  getApiRoot,
 } from "./utils";
 
 /**
@@ -106,7 +106,7 @@ export class DatacommonsPieComponent extends LitElement {
       });
     });
     const donutTileProps: DonutTilePropType = {
-      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
+      apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
       id: `chart-${_.uniqueId()}`,
       pie: !this.donut,

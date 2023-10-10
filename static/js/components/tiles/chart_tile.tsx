@@ -54,6 +54,8 @@ interface ChartTileContainerProp {
   hasErrorMsg?: boolean;
   // Text to show in footer
   footnote?: string;
+  // Subtitle text
+  subtitle?: string;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -85,7 +87,11 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
             to keep the space on the page */
             props.title && <h4 {...{ part: "header" }}>{title}</h4>
           }
-          <slot name="subheader" {...{ part: "subheader" }}></slot>
+          <slot name="subheader" {...{ part: "subheader" }}>
+            {props.subtitle && !props.isInitialLoading ? (
+              <div className="subheader">{props.subtitle}</div>
+            ) : null}
+          </slot>
           {showSources && getSourcesJsx(props.sources)}
         </div>
         {props.children}

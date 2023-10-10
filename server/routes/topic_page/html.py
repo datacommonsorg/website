@@ -86,7 +86,6 @@ def topic_page(topic_id=None, place_dcid=None):
 
   if len(topic_configs) < 1:
     return "Error: no config found"
-
   if not place_dcid:
     return flask.render_template(
         'topic_page.html',

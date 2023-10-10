@@ -422,3 +422,116 @@ categories {
     }
   }
 }
+
+categories {
+  title: "Testing subtitle"
+  blocks: {
+    columns {
+      tiles {
+        type: LINE
+        title: "Population"
+        subtitle: "Over time"
+        stat_var_key: "Count_Person"
+      }
+    }
+    columns {
+      tiles {
+        type: GAUGE
+        title: "California Population"
+        subtitle: "Compared to overall USA population"
+        stat_var_key: "Count_Person"
+        gauge_tile_spec {
+          range {
+            min: 0
+            max: 331900000
+          }
+        }
+      }
+    }
+  }
+  blocks: {
+    columns {
+      tiles {
+        type: DONUT
+        title: "Median income"
+        subtitle: "Age 15+"
+        stat_var_key: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+        stat_var_key: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Count of COVID-19 Cases"
+        subtitle: "Cumulative"
+        stat_var_key: "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
+        stat_var_key: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+        stat_var_key: "Count_MortalityEvent_HypertensiveHeartDisease"
+        line_tile_spec: {
+          timeScale: MONTH
+          variable_name_regex: "(?=.*)(?<=\\().*(?=\\))"
+          default_variable_name: "Hypertension"
+        }
+      }
+    }
+  }
+  blocks: {
+    columns: {
+      tiles {
+        type: HIGHLIGHT
+        description: "Population"
+        stat_var_key: "Count_Person"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+    value {
+      stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+      name: "GDP"
+    }
+  }
+  stat_var_spec {
+    key: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+    value {
+      stat_var: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+      name: "Median income (men, age 15+)"
+    }
+  }
+  stat_var_spec {
+    key: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+    value {
+      stat_var: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      name: "Median income (women, age 15+)"
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person"
+    value {
+      stat_var: "Count_Person"
+      name: "Population"
+      date: "1999"
+    }
+  }
+  stat_var_spec {
+    key: "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase",
+    value: {
+      stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
+      name: "Cumulative Count (COVID-19 Cases)"
+    }
+  }
+  stat_var_spec {
+    key: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased",
+    value: {
+      stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+      name: "Cumulative Count (COVID-19 Deaths)"
+    }
+  }
+  stat_var_spec {
+    key: "Count_MortalityEvent_HypertensiveHeartDisease",
+    value: {
+      stat_var: "Count_MortalityEvent_HypertensiveHeartDisease"
+      name: "Hypertensive Heart Disease"
+    }
+  }
+}

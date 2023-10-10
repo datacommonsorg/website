@@ -191,7 +191,6 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
                                             stat_vars_existence, place_dcid)
     child_exist_keys = _exist_keys_category(sample_child_places, category,
                                             stat_vars_existence, place_dcid)
-
     for block in category.blocks:
       for column in block.columns:
         # Filter all tiles with no data

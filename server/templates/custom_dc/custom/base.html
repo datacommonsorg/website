@@ -66,6 +66,7 @@
             {% endif %}
             <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
             {% if subpage_title %}
+            <span class="sep">•</span>
             <span>
               {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
                 {{ subpage_title }}

@@ -29,6 +29,7 @@ import {
   URL_PARAMS,
 } from "../../constants/app/visualization_constants";
 import { GA_EVENT_PAGE_VIEW, triggerGAEvent } from "../../shared/ga_events";
+import { StatMetadata } from "../../shared/stat_types";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedNode, NamedTypedPlace } from "../../shared/types";
 import {
@@ -57,6 +58,8 @@ export interface ContextStatVar {
   date?: string;
   denom?: string;
   facetId?: string;
+  // This is the stat metadata for the selected facetId
+  facetInfo?: StatMetadata;
 }
 
 export interface AppContextType {

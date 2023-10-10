@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-FROM gcr.io/datcom-ci/python-node-go-protoc-envoy:2023-08-19
+FROM gcr.io/datcom-ci/python-node-go-protoc-envoy:2023-10-05
 
 ARG ENV
 ENV ENV=${ENV}
@@ -48,6 +48,7 @@ RUN GRPC_HEALTH_PROBE_VERSION=v0.4.7 && \
 # Build binary
 COPY mixer/cmd/ cmd
 COPY mixer/esp/ esp
+ENV CGO_ENABLED=1
 RUN go build -o /go/bin/mixer cmd/main.go
 
 # Flask
@@ -57,6 +58,8 @@ RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
 # --no-cache-dir removes ~/.cache files, which can be a few GB.
 RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
+# Used by Import Tool
+RUN pip install pandas
 
 # NPM
 WORKDIR /workspace/static
@@ -72,6 +75,10 @@ RUN npm run-script build
 COPY server/. /workspace/server/
 COPY shared/. /workspace/shared/
 
+# Import Tool
+COPY import/. /workspace/import/
+
+# Env
 ENV USE_SQLITE=false
 ENV USE_CLOUDSQL=false
 ENV REMOTE_MIXER_DOMAIN=https://api.datacommons.org

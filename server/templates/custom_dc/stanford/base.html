@@ -58,6 +58,7 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=block">
   {% block head %}
   {% endblock %}
   {% if OVERRIDE_CSS_PATH %}
@@ -73,6 +74,7 @@
           <div class="navbar-brand">
             <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
             {% if subpage_title %}
+            <span class="sep">•</span>
             <span>
               {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
                 {{ subpage_title }}
