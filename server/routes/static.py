@@ -36,19 +36,12 @@ def homepage():
   if request.url == 'http://unsdg.datacommons.org/':
     return redirect('https://unstats.un.org/UNSDWebsite/undatacommons/sdgs',
                     code=302)
-  if (current_app.config.get('HIDE_REVAMP_CHANGES')):
-    return lib_render.render_page("static/homepage_old.html", "homepage.html")
   return lib_render.render_page(
       "static/homepage.html",
       "homepage.html",
       topics=current_app.config.get('HOMEPAGE_TOPICS', []),
       partners_list=current_app.config.get('HOMEPAGE_PARTNERS', []),
       partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
-
-
-@bp.route('/old')
-def homepage_old():
-  return lib_render.render_page("static/homepage_old.html", "homepage.html")
 
 
 @bp.route('/about')
