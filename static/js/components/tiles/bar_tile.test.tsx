@@ -141,7 +141,7 @@ describe("BarTile", () => {
         svgChartHeight={200}
         title={"Chart Title"}
         enclosedPlaceType={"NAICSEnum"}
-        places={["NAICSEnum"]}
+        parentPlace={"NAICSEnum"}
       />
     );
     await act(async () => {
