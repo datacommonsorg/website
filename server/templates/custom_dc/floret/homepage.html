@@ -22,7 +22,7 @@
  {% block head %}
  <link rel="stylesheet" href={{url_for('static', filename='css/homepage.min.css', t=config['VERSION'])}}>
  <script src={{url_for('static', filename='homepage.js', t=config['VERSION'])}} async></script>
- <script src="https://dev.datacommons.org/datacommons.js"></script>
+ <script src="/datacommons.js"></script>
 <link
   rel="icon"
   href="https://datacommons.org/images/favicon.png"
@@ -70,7 +70,7 @@
     <div class="row">
       <div class="col-lg-12">
         <datacommons-map
-          apiRoot="https://floret.datacommons.org/"
+          apiRoot="/"
           title="Country Risk Map (Higher numbers have lower risk)"
           parentPlace="Earth"
           childPlaceType="Country"
@@ -79,7 +79,7 @@
       </div>
       <div class="col-lg-6">
         <datacommons-ranking
-          apiRoot="https://floret.datacommons.org/"
+          apiRoot="/"
           header="Countries with the highest risk"
           parentPlace="Earth"
           childPlaceType="Country"
@@ -89,7 +89,7 @@
       </div>
       <div class="col-lg-6">
         <datacommons-ranking
-          apiRoot="https://floret.datacommons.org/"
+          apiRoot="/"
           header="Countries with the lowest risk"
           parentPlace="Earth"
           childPlaceType="Country"
@@ -106,7 +106,7 @@
     <div class="row">
       <div class="col-lg-12">
         <datacommons-bar
-          apiRoot="https://floret.datacommons.org/"
+          apiRoot="/"
           header="BRICS countries risk"
           places="country/BRA country/RUS country/IND country/CHN country/ZAF"
           variables="country_risk"
@@ -115,7 +115,7 @@
       </div>
       <div class="col-lg-12">
         <datacommons-scatter
-          apiRoot="https://floret.datacommons.org/"
+          apiRoot="/"
           header="Country risk vs GDP per capita"
           variables="country_risk Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
           parentPlace="Earth"
@@ -135,7 +135,7 @@
     <div class="row">
       <div class="col-lg-12">
         <datacommons-ranking
-          apiRoot="https://floret.datacommons.org/"
+          apiRoot="/"
           header="Sectors with lowest risk"
           parentPlace="NAICSEnum"
           childPlaceType="NAICSEnum"
@@ -144,7 +144,7 @@
       </div>
       <div class="col-lg-12">
         <datacommons-bar
-          apiRoot="https://floret.datacommons.org/"
+          apiRoot="/"
           header="Airlines company risk"
           places="ein/741563240 ein/362675207 ein/580218548 ein/751825172"
           variables="company_risk"
@@ -157,7 +157,7 @@
     <div class="row">
       <div class="col-lg-6">
         <datacommons-ranking
-          apiRoot="https://floret.datacommons.org/"
+          apiRoot="/"
           header="Companies with high economic context"
           parentPlace="Company"
           childPlaceType="Company"
@@ -166,7 +166,7 @@
       </div>
       <div class="col-lg-6">
         <datacommons-ranking
-          apiRoot="https://floret.datacommons.org/"
+          apiRoot="/"
           header="Companies with low economic context"
           parentPlace="Company"
           childPlaceType="Company"
@@ -177,7 +177,7 @@
     </div>
 
     <datacommons-scatter
-      apiRoot="https://floret.datacommons.org/"
+      apiRoot="/"
       header="Company risk vs Social context"
       variables="company_risk context_social"
       parentPlace="Company"
@@ -185,7 +185,7 @@
     ></datacommons-scatter>
 
     <!-- <datacommons-bar
-apiRoot="https://floret.datacommons.org/"
+apiRoot="/"
 header="Sectors with lowest risk"
 parentPlace="NAICSEnum"
 childPlaceType="NAICSEnum"
