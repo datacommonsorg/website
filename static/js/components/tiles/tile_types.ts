@@ -42,6 +42,13 @@ export interface ChartOptions {
   colors?: string[];
   // footnote to add the the bottom
   footnote?: string;
+  // text to put under title
+  subtitle?: string;
+  // height, in px, for the SVG chart
+  svgChartHeight: number;
+  // TODO: implement placeNameProp for GAUGE and DONUT.
+  // TODO: implement getProcessedSVNameFn for DONUT, GAUGE, MAP, SCATTER.
+  // TODO: implement colors for SCATTER.
 }
 
 /**
@@ -99,3 +106,11 @@ export interface ContainedInPlaceMultiVariableTileProp extends TileProp {
   parentPlace: string;
   variables: StatVarSpec[];
 }
+
+/**
+ * Allow both multiple places or contained-in places
+ *  - BAR, LINE
+ */
+export type MultiOrContainedInPlaceMultiVariableTileType =
+  | MultiPlaceMultiVariableTileProp
+  | ContainedInPlaceMultiVariableTileProp;

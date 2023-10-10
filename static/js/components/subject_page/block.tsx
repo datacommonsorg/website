@@ -311,7 +311,6 @@ function renderTiles(
             barHeight={tile.barTileSpec?.barHeight}
             colors={tile.barTileSpec?.colors}
             className={className}
-            comparisonPlaces={comparisonPlaces}
             enclosedPlaceType={enclosedPlaceType}
             footnote={props.footnote}
             horizontal={tile.barTileSpec?.horizontal}
@@ -319,20 +318,21 @@ function renderTiles(
             key={id}
             maxPlaces={tile.barTileSpec?.maxPlaces}
             maxVariables={tile.barTileSpec?.maxVariables}
-            place={place}
+            parentPlace={place.dcid}
+            places={comparisonPlaces}
             showExploreMore={props.showExploreMore}
             sort={convertToSortType(tile.barTileSpec?.sort)}
             showTooltipOnHover={true}
             stacked={tile.barTileSpec?.stacked}
-            statVarSpec={props.statVarProvider.getSpecList(
+            subtitle={tile.subtitle}
+            svgChartHeight={props.svgChartHeight}
+            title={tile.title}
+            useLollipop={tile.barTileSpec?.useLollipop}
+            variables={props.statVarProvider.getSpecList(
               tile.statVarKey,
               blockDenom
             )}
-            svgChartHeight={props.svgChartHeight}
-            tileSpec={tile.barTileSpec}
-            title={tile.title}
-            subtitle={tile.subtitle}
-            useLollipop={tile.barTileSpec?.useLollipop}
+            xLabelLinkRoot={tile.barTileSpec?.xLabelLinkRoot}
             yAxisMargin={tile.barTileSpec?.yAxisMargin}
             placeNameProp={tile.placeNameProp}
             getProcessedSVNameFn={getVariableNameProcessingFn(

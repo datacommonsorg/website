@@ -38,22 +38,20 @@ import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 function getTileProp(
   id: string,
   tileConfig: TileConfig,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string
 ): BarTilePropType {
-  const comparisonPlaces = getComparisonPlaces(tileConfig, place);
   const barTileSpec = tileConfig.barTileSpec || {};
   return {
     id,
     title: tileConfig.title,
-    place,
+    places: tileConfig.comparisonPlaces || [place],
     enclosedPlaceType,
-    statVarSpec,
+    variables: statVarSpec,
     apiRoot,
     svgChartHeight: SVG_HEIGHT,
-    comparisonPlaces,
     useLollipop: barTileSpec.useLollipop || false,
     stacked: barTileSpec.stacked || false,
     horizontal: barTileSpec.horizontal || false,
@@ -86,7 +84,7 @@ function getBarChartSvg(
 export async function getBarTileResult(
   id: string,
   tileConfig: TileConfig,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
@@ -114,16 +112,13 @@ export async function getBarTileResult(
       data_csv: dataGroupsToCsv(chartData.dataGroup),
       srcs: getSources(chartData.sources),
       legend,
-      title: getChartTitle(
-        tileConfig.title,
-        getReplacementStrings(tileProp, chartData)
-      ),
+      title: getChartTitle(tileConfig.title, getReplacementStrings(chartData)),
       type: "BAR",
     };
     if (useChartUrl) {
       result.chartUrl = getChartUrl(
         tileConfig,
-        place.dcid,
+        place,
         statVarSpec,
         enclosedPlaceType,
         null,
@@ -150,7 +145,7 @@ export async function getBarTileResult(
  */
 export async function getBarChart(
   tileConfig: TileConfig,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string
