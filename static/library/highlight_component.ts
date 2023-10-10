@@ -86,13 +86,13 @@ export class DatacommonsHighlightComponent extends LitElement {
         types: [],
       },
       statVarSpec: {
+        date: this.date,
         denom: "",
         log: false,
         name: "",
         scaling: 1,
         statVar: this.variable,
         unit: this.unit || "",
-        date: this.date,
       },
     };
     return createWebComponentElement(HighlightTile, highlightTileProps);
