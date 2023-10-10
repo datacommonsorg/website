@@ -17,10 +17,10 @@ import os
 
 from nl_server import gcs
 from nl_server.embeddings import Embeddings
-from nl_server.ner_place_model import NERPlaces
+from nl_server.nl_attribute_model import NLAttributeModel
 
 nl_embeddings_cache_key_base = 'nl_embeddings'
-nl_ner_cache_key = 'nl_ner'
+nl_model_cache_key = 'nl_model'
 nl_cache_path = '~/.datacommons/'
 nl_cache_expire = 3600 * 24  # Cache for 1 day
 nl_cache_size_limit = 16e9  # 16Gb local cache size
@@ -72,8 +72,8 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
     cache = Cache(nl_cache_path, size_limit=nl_cache_size_limit)
     cache.expire()
 
-    nl_ner_places = cache.get(nl_ner_cache_key)
-    app.config['NL_NER_PLACES'] = nl_ner_places
+    nl_model = cache.get(nl_model_cache_key)
+    app.config['NL_MODEL'] = nl_model
 
     missing_embeddings = False
     for sz in embeddings_map.keys():
@@ -83,8 +83,9 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
         break
       app.config[embeddings_config_key(sz)] = nl_embeddings
 
-    if nl_ner_places and not missing_embeddings:
-      logging.info("Using cached embeddings and NER in: " + cache.directory)
+    if nl_model and not missing_embeddings:
+      logging.info("Using cached embeddings and NL Model in: " +
+                   cache.directory)
       return
 
   # Download the embeddings from GCS
@@ -111,8 +112,8 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
                                existing_model_path)
     app.config[embeddings_config_key(sz)] = nl_embeddings
 
-  nl_ner_places = NERPlaces()
-  app.config["NL_NER_PLACES"] = nl_ner_places
+  nl_model = NLAttributeModel()
+  app.config["NL_MODEL"] = nl_model
 
   if _use_cache(flask_env):
     with Cache(cache.directory, size_limit=nl_cache_size_limit) as reference:
@@ -120,4 +121,4 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
         reference.set(nl_embeddings_cache_key(sz),
                       app.config[embeddings_config_key(sz)],
                       expire=nl_cache_expire)
-      reference.set(nl_ner_cache_key, nl_ner_places, expire=nl_cache_expire)
+      reference.set(nl_model_cache_key, nl_model, expire=nl_cache_expire)
