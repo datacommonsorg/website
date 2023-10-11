@@ -110,7 +110,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
 
   counters = ctr.Counters()
 
-  if i18n and i18n.lower() == 'true':
+  if i18n:
     start = time.time()
     original_query = detect_lang_and_translate(original_query, counters)
     counters.timeit("detect_lang_and_translate", start)
