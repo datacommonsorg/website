@@ -64,9 +64,10 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   nl_bad_words = current_app.config['NL_BAD_WORDS']
 
   test = request.args.get(params.Params.TEST.value, '')
-  i18n = request.args.get(params.Params.I18N.value, '')
-  use_default_place = request.args.get(params.Params.USE_DEFAULT_PLACE.value,
-                                       'true')
+  i18n_str = request.args.get(params.Params.I18N.value, '')
+  i18n = i18n_str and i18n_str.lower() == 'true'
+  udp_str = request.args.get(params.Params.USE_DEFAULT_PLACE.value, 'true')
+  udp = udp_str and udp_str.lower() == 'true'
 
   # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
@@ -169,7 +170,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
                                session_id, test)
 
   if utterance:
-    context.merge_with_context(utterance, is_sdg, use_default_place != "false")
+    context.merge_with_context(utterance, is_sdg, udp)
 
   return utterance, None
 
