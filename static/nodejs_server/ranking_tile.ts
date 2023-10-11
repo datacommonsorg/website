@@ -47,7 +47,7 @@ import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 function getTileProp(
   id: string,
   tileConfig: TileConfig,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string
@@ -55,9 +55,9 @@ function getTileProp(
   return {
     id,
     title: tileConfig.title,
-    place,
+    parentPlace: place,
     enclosedPlaceType,
-    statVarSpec,
+    variables: statVarSpec,
     rankingMetadata: tileConfig.rankingTileSpec,
     apiRoot,
   };
@@ -99,7 +99,7 @@ function getRankingUnitResult(
   rankingGroup: RankingGroup,
   sv: string,
   isHighest: boolean,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   urlRoot: string,
@@ -136,7 +136,7 @@ function getRankingUnitResult(
       : statVarSpec.filter((spec) => spec.statVar === sv);
     result.chartUrl = getChartUrl(
       urlTileConfig,
-      place.dcid,
+      place,
       urlSvSpec,
       enclosedPlaceType,
       null,
@@ -167,7 +167,7 @@ function getRankingUnitResult(
 export async function getRankingTileResult(
   id: string,
   tileConfig: TileConfig,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
@@ -238,7 +238,7 @@ export async function getRankingTileResult(
  */
 export async function getRankingChart(
   tileConfig: TileConfig,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string

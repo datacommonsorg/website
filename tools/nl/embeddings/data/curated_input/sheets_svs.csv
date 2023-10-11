@@ -1571,3 +1571,8 @@ Exports_EconomicActivity_ElectronicComponents,Electronics Components Exports,,,e
 Imports_EconomicActivity_ElectronicComponents,Electronics Components Imports,,,import of electronics;electronic components import; imports of electronic components;
 Exports_EconomicActivity_Pharmaceutical,Pharmaceutical Exports,,,export of pharmaceuicals;pharmaceutical export; exports of pharmaceuticals;
 Imports_EconomicActivity_Pharmaceutical,Pharmaceutical Imports,,,import of pharmaceuicals;pharmaceutical import; imports of pharmaceuticals;
+dc/topic/Veterans,Veterans,Veterans,,veteran;
+dc/topic/VeteransByGender,Veterans By Gender,Veterans By Gender,,gender of veterans;gender breakdown of veterans;veterans gender breakdown;
+dc/topic/VeteransByGroupQuartersResidence,Veterans By Group Quarters Residence,Veterans By Group Quarters Residence,,residence of veterans;
+dc/topic/VeteransByWar,Veterans By War,Veterans By War,,veterans by wars fought;wars veterans fought in;
+dc/topic/VeteransIncome,Veterans Income,Veterans Income,,income of veterans;veterans earnings;earnings of veterans;

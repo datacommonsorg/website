@@ -129,7 +129,7 @@ describe("BarTile", () => {
         barHeight={200}
         className={"some-class"}
         id={"bar-id"}
-        statVarSpec={[
+        variables={[
           {
             denom: "",
             log: false,
@@ -141,11 +141,7 @@ describe("BarTile", () => {
         svgChartHeight={200}
         title={"Chart Title"}
         enclosedPlaceType={"NAICSEnum"}
-        place={{
-          dcid: "NAICSEnum",
-          name: "",
-          types: [],
-        }}
+        parentPlace={"NAICSEnum"}
       />
     );
     await act(async () => {

@@ -82,10 +82,13 @@ docker run -it --pull=always \
 -e USE_SQLITE=true \
 -e SQL_DATA_PATH=/sqlite \
 -p 8080:8080 \
--p 8081:8081 \
 -v $HOME/dc-data:/sqlite \
 gcr.io/datcom-ci/datacommons-website-compose:latest
 ```
+
+Run `curl -X POST localhost:8080/import/simple/load` to load the data into
+database. Whenever there is update on the data, re-run this commands (no need to
+restart the container).
 
 If you have your own UI updates and build the docker image locally, replace the
 docker image with your locally one in the command.
@@ -93,10 +96,6 @@ docker image with your locally one in the command.
 Now you can access a custom Data Commons site via
 [localhost](http://localhost:8080). For example, the data from the sample data
 can be viewed in [Timeline Chart](http://localhost:8080/tools/timeline#place=geoId%2F06&statsVar=stat_var_1).
-
-If the CSV files are updated, just run `curl -X POST localhost:8081/import`.
-This re-imports the CSV files into the local instance without the need to
-restart the container.
 
 ## Run in Cloud
 
@@ -148,7 +147,6 @@ docker run -it \
 -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
 -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
 -p 8080:8080 \
--p 8081:8081 \
 gcr.io/datcom-ci/datacommons-website-compose:latest
 ```
 

@@ -196,7 +196,7 @@ function getTileResult(
       return getBarTileResult(
         id,
         tileConfig,
-        place,
+        place.dcid,
         enclosedPlaceType,
         svSpec as any as StatVarSpec[],
         CONFIG.apiRoot,
@@ -270,7 +270,7 @@ function getBlockTileResults(
             getBarTileResult(
               tileId,
               tile,
-              place,
+              place.dcid,
               enclosedPlaceType,
               tileSvSpec,
               CONFIG.apiRoot,
@@ -391,7 +391,7 @@ function getTileChart(
     case "BAR":
       return getBarChart(
         tileConfig,
-        place,
+        place.dcid,
         childPlaceType,
         svSpec,
         CONFIG.apiRoot

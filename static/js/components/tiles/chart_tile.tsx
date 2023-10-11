@@ -22,7 +22,7 @@ import _ from "lodash";
 import React, { useRef } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
-import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
+import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import {
   formatString,
@@ -54,6 +54,8 @@ interface ChartTileContainerProp {
   hasErrorMsg?: boolean;
   // Text to show in footer
   footnote?: string;
+  // Subtitle text
+  subtitle?: string;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -76,7 +78,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     >
       <div
         className={`chart-content ${
-          props.isInitialLoading ? INITAL_LOADING_CLASS : ""
+          props.isInitialLoading ? INITIAL_LOADING_CLASS : ""
         }`}
       >
         <div className="chart-headers">
@@ -85,7 +87,11 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
             to keep the space on the page */
             props.title && <h4 {...{ part: "header" }}>{title}</h4>
           }
-          <slot name="subheader" {...{ part: "subheader" }}></slot>
+          <slot name="subheader" {...{ part: "subheader" }}>
+            {props.subtitle && !props.isInitialLoading ? (
+              <div className="subheader">{props.subtitle}</div>
+            ) : null}
+          </slot>
           {showSources && getSourcesJsx(props.sources)}
         </div>
         {props.children}

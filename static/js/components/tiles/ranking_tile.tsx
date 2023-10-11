@@ -22,10 +22,10 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
-import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
+import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
-import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { StatVarSpec } from "../../shared/types";
 import {
   getCappedStatVarDate,
   loadSpinner,
@@ -47,6 +47,7 @@ import {
   getStatVarName,
 } from "../../utils/tile_utils";
 import { SvRankingUnits } from "./sv_ranking_units";
+import { ContainedInPlaceMultiVariableTileProp } from "./tile_types";
 
 const RANKING_COUNT = 5;
 const HEADING_HEIGHT = 36;
@@ -55,18 +56,11 @@ const FOOTER_HEIGHT = 26;
 const LATEST_DATE_KEY = "latest";
 const EMPTY_FACET_ID_KEY = "empty";
 
-export interface RankingTilePropType {
-  id: string;
-  place: NamedTypedPlace;
-  enclosedPlaceType: string;
-  title: string;
-  statVarSpec: StatVarSpec[];
-  rankingMetadata: RankingTileSpec;
-  className?: string;
-  apiRoot?: string;
-  showExploreMore?: boolean;
+export interface RankingTilePropType
+  extends ContainedInPlaceMultiVariableTileProp {
   hideFooter?: boolean;
   onHoverToggled?: (placeDcid: string, hover: boolean) => void;
+  rankingMetadata: RankingTileSpec;
   showLoadingSpinner?: boolean;
 }
 
@@ -87,7 +81,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   const numRankingLists = getNumRankingLists(
     props.rankingMetadata,
     rankingData,
-    props.statVarSpec
+    props.variables
   );
   const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
   // TODO: have a better way of calculating the loading placeholder height
@@ -132,7 +126,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           return (
             <div
               key={`ranking-placeholder-${i}`}
-              className={INITAL_LOADING_CLASS}
+              className={INITIAL_LOADING_CLASS}
               style={{ minHeight: placeHolderHeight }}
             ></div>
           );
@@ -142,7 +136,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           const errorMsg =
             _.isEmpty(rankingData[statVar]) ||
             rankingData[statVar].numDataPoints === 0
-              ? getNoDataErrorMsg(props.statVarSpec)
+              ? getNoDataErrorMsg(props.variables)
               : "";
           return (
             <SvRankingUnits
@@ -188,7 +182,7 @@ export async function fetchData(
       [EMPTY_FACET_ID_KEY]: [],
     },
   };
-  for (const spec of props.statVarSpec) {
+  for (const spec of props.variables) {
     const variableDate =
       spec.date || getCappedStatVarDate(spec.statVar) || LATEST_DATE_KEY;
     const variableFacetId = spec.facetId || EMPTY_FACET_ID_KEY;
@@ -222,7 +216,7 @@ export async function fetchData(
         getPointWithin(
           props.apiRoot,
           props.enclosedPlaceType,
-          props.place.dcid,
+          props.parentPlace,
           dateFacetToVariable[date][facetId],
           dateParam,
           [],
@@ -240,14 +234,12 @@ export async function fetchData(
     });
     return mergedResponse;
   });
-  const denoms = props.statVarSpec
-    .map((spec) => spec.denom)
-    .filter((sv) => !!sv);
+  const denoms = props.variables.map((spec) => spec.denom).filter((sv) => !!sv);
   const denomPromise = _.isEmpty(denoms)
     ? Promise.resolve(null)
     : getSeriesWithin(
         props.apiRoot,
-        props.place.dcid,
+        props.parentPlace,
         props.enclosedPlaceType,
         denoms
       );
@@ -256,13 +248,10 @@ export async function fetchData(
       const rankingData = pointApiToPerSvRankingData(
         statResp,
         denomResp,
-        props.statVarSpec
+        props.variables
       );
       if (props.rankingMetadata.showMultiColumn) {
-        return transformRankingDataForMultiColumn(
-          rankingData,
-          props.statVarSpec
-        );
+        return transformRankingDataForMultiColumn(rankingData, props.variables);
       }
       return rankingData;
     }
@@ -367,7 +356,7 @@ function pointApiToPerSvRankingData(
 function getNumRankingLists(
   rankingTileSpec: RankingTileSpec,
   rankingData: { [sv: string]: RankingGroup },
-  statVarSpec: StatVarSpec[]
+  statVarSpecs: StatVarSpec[]
 ): number {
   if (rankingTileSpec.showMultiColumn) {
     return [rankingTileSpec.showHighest, rankingTileSpec.showLowest].filter(
@@ -387,7 +376,7 @@ function getNumRankingLists(
     numListsPerSv = 1;
   }
   if (!rankingData) {
-    return statVarSpec.length * numListsPerSv;
+    return statVarSpecs.length * numListsPerSv;
   }
   return Object.keys(rankingData).length * numListsPerSv;
 }

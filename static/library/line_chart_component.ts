@@ -22,11 +22,11 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { TimeScaleOption } from "../js/chart/types";
 import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
-import { DEFAULT_API_ENDPOINT } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
   createWebComponentElement,
+  getApiRoot,
   getVariableNameProcessingFn,
 } from "./utils";
 
@@ -123,7 +123,7 @@ export class DatacommonsLineComponent extends LitElement {
 
   render(): HTMLElement {
     const lineTileProps: LineTilePropType = {
-      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
+      apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
       comparisonPlaces: this.places,
       enclosedPlaceType: this.childPlaceType,
