@@ -156,11 +156,7 @@ export class DatacommonsRankingComponent extends LitElement {
       enclosedPlaceType: this.childPlaceType,
       hideFooter: this.hideFooter,
       id: `chart-${_.uniqueId()}`,
-      parentPlace: {
-        dcid: this.parentPlace,
-        name: "",
-        types: [],
-      },
+      parentPlace: this.parentPlace,
       rankingMetadata: {
         highestTitle: this.highestTitle,
         lowestTitle: this.lowestTitle,
