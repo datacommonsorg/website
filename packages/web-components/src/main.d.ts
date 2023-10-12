@@ -25,6 +25,16 @@ export type ChartSortOption =
   | SORT_ASCENDING_POPULATION
   | SORT_DESCENDING_POPULATION;
 
+/**
+ * Interface describing change events for web components that support publish/subscribe pattern
+ * For example, if a user moves the slider on a <datacommons-slider> component to 2011, it will
+ * publish an event with the ChartEventDetail:
+ *
+ * {
+ *   property: "date",
+ *   value: "2011"
+ * }
+ */
 export interface ChartEventDetail {
   property: string;
   value: string;
