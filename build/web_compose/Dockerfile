@@ -58,7 +58,10 @@ RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
 # --no-cache-dir removes ~/.cache files, which can be a few GB.
 RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
-# Used by Import Tool
+
+# Import Tool
+COPY import/simple/requirements.txt /workspace/import/simple/requirements.txt
+RUN pip3 install --no-cache-dir -r /workspace/import/simple/requirements.txt
 RUN pip install pandas
 
 WORKDIR /workspace/static
