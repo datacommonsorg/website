@@ -65,4 +65,4 @@ kgStoreConfig:
       - s3l_2023_06_09_10_45_33
       - center_for_ocean_sol_2023_08_30_15_32_02
 svg:
-  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG", "oecd/g/OECD"]
+  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

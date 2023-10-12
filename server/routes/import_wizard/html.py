@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,22 +36,31 @@ def main_new():
 
 # This is only used in CSV + SQL backend, converting raw CSV data into resolved
 # CSV.
-@bp.route('/simple/convert', methods=['POST'])
-def convert():
-  raw_data_path = request.json.get("rawDataPath") or os.environ.get(
-      "RAW_DATA_PATH")
-  sql_data_path = request.json.get("sqlDataPath") or os.environ.get(
-      "SQL_DATA_PATH")
+@bp.route('/simple/load', methods=['POST'])
+def load():
+  raw_data_path, sql_data_path = None, None
+  if request.is_json:
+    raw_data_path = request.json.get("rawDataPath")
+    sql_data_path = request.json.get("sqlDataPath")
+  if not raw_data_path:
+    raw_data_path = os.environ.get("RAW_DATA_PATH")
+  if not sql_data_path:
+    sql_data_path = os.environ.get("SQL_DATA_PATH")
+
   command1 = [
       "python",
       "import/simple/stats/main.py",
       "--input_path",
-      f"{raw_data_path}/input.csv",  # TODO: use gcs and local folder path.
+      f"{raw_data_path}",
       "--output_dir",
       f"{sql_data_path}",
   ]
-  # TODO: save debug information in another folder
-  command2 = ["rm", f"{sql_data_path}/debug_resolve.csv"]
+  command2 = [
+      "curl",
+      "-X",
+      "POST",
+      "localhost:8081/import",
+  ]
   output = []
   for command in [command1, command2]:
     try:
@@ -66,26 +75,3 @@ def convert():
     except Exception as e:
       return jsonify({"status": "error", "message": str(e)}), 500
   return jsonify(output), 200
-
-
-# This is a proxy to trigger Mixer import for csv + SQL backend.
-# This can only be used for bundled mixer and website in the same docker image.
-@bp.route('/simple/load2sql', methods=['POST'])
-def load2sql():
-  command = [
-      "curl",
-      "-X",
-      "POST",
-      "localhost:8081/import",
-  ]
-  try:
-    result = subprocess.run(command, capture_output=True, text=True)
-    if result.returncode == 0:
-      return jsonify({
-          "status": "success",
-          "output": result.stdout.strip()
-      }), 200
-    else:
-      return jsonify({"status": "failure", "error": result.stderr.strip()}), 500
-  except Exception as e:
-    return jsonify({"status": "error", "message": str(e)}), 500
