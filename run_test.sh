@@ -27,7 +27,10 @@ function setup_python {
 
 # Run test for client side code.
 function run_npm_test {
-  cd static
+  cd packages/web-components
+  npm install --update
+  cd ../../static
+  npm install --update
   npm run test
   cd ..
 }
@@ -66,13 +69,19 @@ function run_lint_fix {
 
 # Build client side code
 function run_npm_build () {
-  cd static
+  
   if [[ $1 == true ]]
   then
     echo -e "#### Only installing production dependencies"
+    cd packages/web-components/
+    npm install --omit=dev
+    cd ../../static
     npm install --omit=dev
     npm run-script build
   else
+    cd packages/web-components/
+    npm install
+    cd ../../static
     npm install
     npm run-script dev-build
   fi
