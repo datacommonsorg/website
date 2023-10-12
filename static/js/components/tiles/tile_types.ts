@@ -114,3 +114,14 @@ export interface ContainedInPlaceMultiVariableTileProp extends TileProp {
 export type MultiOrContainedInPlaceMultiVariableTileType =
   | MultiPlaceMultiVariableTileProp
   | ContainedInPlaceMultiVariableTileProp;
+
+/**
+ * DataSpec options for Map Tile
+ * TODO: Extend this for other tile types
+ *       and deprecate the *TileProp interfaces
+ */
+export interface ContainedInPlaceSingleVariableView {
+  enclosedPlaceType: string;
+  parentPlace: string;
+  variable: StatVarSpec;
+}

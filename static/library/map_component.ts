@@ -149,13 +149,29 @@ export class DatacommonsMapComponent extends LitElement {
     const place = this.parentPlace || this.place || this.placeDcid;
     const variable = this.variable || this.statVarDcid;
     const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
+    const dataSpec = [
+      {
+        parentPlace: place,
+        enclosedPlaceType: childPlaceType,
+        variable: {
+          denom: "",
+          log: false,
+          name: "",
+          scaling: 1,
+          statVar: variable,
+          unit: "",
+          date: this.date,
+        },
+      },
+    ];
     const mapTileProps: MapTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
-      enclosedPlaceType: childPlaceType,
+      dataSpec,
+      enclosedPlaceType: "", //childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
-        dcid: place,
+        dcid: "", //place,
         name: "",
         types: [],
       },
@@ -165,7 +181,7 @@ export class DatacommonsMapComponent extends LitElement {
         log: false,
         name: "",
         scaling: 1,
-        statVar: variable,
+        statVar: "", //variable,
         unit: "",
         date: this.date,
       },

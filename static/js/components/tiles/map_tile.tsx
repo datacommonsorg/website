@@ -69,6 +69,7 @@ import {
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { ContainedInPlaceSingleVariableView } from "./tile_types";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
@@ -81,17 +82,26 @@ export interface MapTilePropType {
   colors?: string[];
   // Extra classes to add to the container.
   className?: string;
+  // Specs of places and stat vars to plot as a layer.
+  // If provided, supersedes places, enclosedPlaceType, and statVarSpec.
+  // TODO: Make dataSpec required and deprecate places, enclosedPlaceType,
+  //       and statVarSpec.
+  // TODO: Convert other tiles to using dataSpec.
+  // TODO: Expand options of types for DataSpec
+  dataSpec?: ContainedInPlaceSingleVariableView[];
+  // Type of child places to show within the parent place.
   enclosedPlaceType: string;
   // text to show in footer of tile
   footnote?: string;
   id: string;
   // Parent places of the current place showing map for
   parentPlaces?: NamedPlace[];
-  // Specific date to show data for
+  // Specific place to show data for
   place: NamedTypedPlace;
   statVarSpec: StatVarSpec;
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
+  // Title of the chart
   title: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
@@ -261,12 +271,43 @@ export function getReplacementStrings(
   };
 }
 
+/**
+ * Determine values to use for data fetch, based on if the optional dataSpec
+ * parameter was passed into the map tile props. Uses values form dataSpec if
+ * present.
+ * @param props tile props
+ * @returns parent place's dcid, enclosed place type, parent place as a
+ *          NamedTypedPlace, and statVarSpec to use, in that order.
+ */
+function getPlaceAndVariableSpecs(
+  props: MapTilePropType
+): [string, string, NamedTypedPlace, StatVarSpec] {
+  let parentPlaceDcid = props.place.dcid;
+  let enclosedPlaceType = props.enclosedPlaceType;
+  let statVarSpec = props.statVarSpec;
+  let place = props.place;
+  if (props.dataSpec && props.dataSpec.length > 0) {
+    const spec = props.dataSpec[0];
+    parentPlaceDcid = spec.parentPlace;
+    enclosedPlaceType = spec.enclosedPlaceType;
+    statVarSpec = spec.variable;
+    place = {
+      name: "",
+      dcid: spec.parentPlace,
+      types: [],
+    };
+  }
+  return [parentPlaceDcid, enclosedPlaceType, place, statVarSpec];
+}
+
 export const fetchData = async (
   props: MapTilePropType
 ): Promise<MapChartData> => {
+  const [parentPlaceDcid, enclosedPlaceType, place, statVarSpec] =
+    getPlaceAndVariableSpecs(props);
   const geoJsonParams = {
-    placeDcid: props.place.dcid,
-    placeType: props.enclosedPlaceType,
+    placeDcid: parentPlaceDcid,
+    placeType: enclosedPlaceType,
   };
   if (props.placeNameProp) {
     geoJsonParams["placeNameProp"] = props.placeNameProp;
@@ -283,35 +324,30 @@ export const fetchData = async (
   const borderGeoJsonPromise = axios
     .post(`${props.apiRoot || ""}/api/choropleth/node-geojson`, {
       geoJsonProp: "geoJsonCoordinates",
-      nodes: [props.place.dcid],
+      nodes: [parentPlaceDcid],
     })
     .then((resp) => resp.data);
   const dataDate =
-    props.statVarSpec.date || getCappedStatVarDate(props.statVarSpec.statVar);
-  const facetIds = props.statVarSpec.facetId
-    ? [props.statVarSpec.facetId]
-    : null;
+    statVarSpec.date || getCappedStatVarDate(statVarSpec.statVar);
+  const facetIds = statVarSpec.facetId ? [statVarSpec.facetId] : null;
   const placeStatPromise: Promise<PointApiResponse> = getPointWithin(
     props.apiRoot,
-    props.enclosedPlaceType,
-    props.place.dcid,
-    [props.statVarSpec.statVar],
+    enclosedPlaceType,
+    parentPlaceDcid,
+    [statVarSpec.statVar],
     dataDate,
     [],
     facetIds
   );
   const populationPromise: Promise<SeriesApiResponse> = props.statVarSpec.denom
-    ? getSeriesWithin(
-        props.apiRoot,
-        props.place.dcid,
-        props.enclosedPlaceType,
-        [props.statVarSpec.denom]
-      )
+    ? getSeriesWithin(props.apiRoot, parentPlaceDcid, enclosedPlaceType, [
+        statVarSpec.denom,
+      ])
     : Promise.resolve(null);
   const parentPlacesPromise = props.parentPlaces
     ? Promise.resolve(props.parentPlaces)
     : axios
-        .get(`${props.apiRoot || ""}/api/place/parent?dcid=${props.place.dcid}`)
+        .get(`${props.apiRoot || ""}/api/place/parent?dcid=${parentPlaceDcid}`)
         .then((resp) => resp.data);
   try {
     const [geoJson, placeStat, population, parentPlaces, borderGeoJsonData] =
@@ -323,7 +359,7 @@ export const fetchData = async (
         borderGeoJsonPromise,
       ]);
     // Only draw borders for containing places without 'wall to wall' coverage
-    const borderGeoJson = shouldShowBorder(props.enclosedPlaceType)
+    const borderGeoJson = shouldShowBorder(enclosedPlaceType)
       ? borderGeoJsonData
       : undefined;
     const rawData = {
@@ -333,13 +369,7 @@ export const fetchData = async (
       parentPlaces,
       borderGeoJson,
     };
-    return rawToChart(
-      rawData,
-      props.statVarSpec,
-      props.place,
-      props.enclosedPlaceType,
-      props
-    );
+    return rawToChart(rawData, statVarSpec, place, enclosedPlaceType, props);
   } catch (error) {
     removeSpinner(props.id);
     return null;
@@ -487,6 +517,7 @@ export function draw(
     }
     return place.name + ": " + value + date;
   };
+
   const legendWidth = generateLegendSvg(
     legendContainer,
     height,
@@ -495,6 +526,8 @@ export function draw(
     0
   );
   const chartWidth = (svgWidth || svgContainer.offsetWidth) - legendWidth;
+  const [, , place] = getPlaceAndVariableSpecs(props);
+
   const shouldUseBorderData =
     props.enclosedPlaceType &&
     shouldShowBorder(props.enclosedPlaceType) &&
@@ -507,7 +540,7 @@ export function draw(
     : chartData.geoJson;
   const projection = getProjection(
     chartData.isUsaPlace,
-    props.place.dcid,
+    place.dcid,
     chartWidth,
     height,
     projectionData
@@ -545,11 +578,13 @@ function getExploreLink(props: MapTilePropType): {
   displayText: string;
   url: string;
 } {
+  const [parentPlaceDcid, enclosedPlaceType, , statVarSpec] =
+    getPlaceAndVariableSpecs(props);
   const hash = getHash(
     VisType.MAP,
-    [props.place.dcid],
-    props.enclosedPlaceType,
-    [getContextStatVar(props.statVarSpec)],
+    [parentPlaceDcid],
+    enclosedPlaceType,
+    [getContextStatVar(statVarSpec)],
     {}
   );
   return {
