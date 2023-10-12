@@ -1,0 +1,18 @@
+{
+ "geoId/01": {
+  "name": "Alabama",
+  "summary": "Alabama has the 46th highest unemployment rate, 24th largest population, 20th highest median age, 46th highest median income, and 9th highest crime per capita in the United States."
+ },
+ "geoId/02": {
+  "name": "Alaska",
+  "summary": "Alaska has the 11th highest unemployment rate, 49th largest population, 50th highest median age, 14th highest median income, and 2nd highest crime rate in the United States."
+ },
+ "geoId/04": {
+  "name": "Arizona",
+  "summary": "Arizona has the 12th highest unemployment rate, 14th largest population, 35th highest median age, 30th highest median income, and 13th highest crime per capita in the United States."
+ },
+ "geoId/08": {
+  "name": "Colorado",
+  "summary": "Colorado has the 28th highest unemployment rate, 21st largest population, 42nd highest median age, 7th highest median income, and 12th highest crime per capita in the United States."
+ }
+}

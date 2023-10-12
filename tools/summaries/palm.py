@@ -34,6 +34,7 @@ def get_summary(name: str, csv: str):
   url = f"{_API_URL}?key={_API_KEY}"
   prompt = f"Summarize the following CSV for {name} in 1 sentence. Don't use superlatives.\n\n{csv}"
   # prompt = f"Give me a one sentence NL summary based on the following info for {name}:\n\n{csv}"
+  logging.info(prompt)
   params = {
       "prompt": {
           "text": prompt

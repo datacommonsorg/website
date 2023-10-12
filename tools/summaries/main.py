@@ -23,8 +23,8 @@ from dc import get_ranking_csv
 from palm import get_summary
 
 _OUTPUT_DIR = "../../server/config/summaries"
-_PLACE_JSON_FILE = os.path.join(_OUTPUT_DIR, "places.json")
-_SUMMARIES_JSON_FILE = os.path.join(_OUTPUT_DIR, "summaries.json")
+_PLACE_JSON_FILE = os.path.join(_OUTPUT_DIR, "places-short.json")
+_SUMMARIES_JSON_FILE = os.path.join(_OUTPUT_DIR, "summaries-short.json")
 _SUMMARIES_CSV_FILE = "summaries.csv"
 _NUM_PARALLEL_PROCESSES = 8
 
@@ -60,6 +60,7 @@ def get_ranking_summary_with_tuple(tuple):
 def get_ranking_summary(dcid: str, name: str):
   logging.info("Getting ranking summary for : %s (%s)", dcid, name)
   csv = get_ranking_csv(dcid)
+  logging.info(csv)
   summary = get_summary(name, csv)
   logging.info("Got ranking summary for: %s (%s)\n%s", dcid, name, summary)
   return summary
