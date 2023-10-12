@@ -35,6 +35,7 @@ steps:
       - |
         set -e
         git clone https://github.com/datacommonsorg/mixer.git
+        git clone https://github.com/datacommonsorg/import.git
 
         # Bundle container with website, esp and mixer.
         docker build -f build/web_compose/Dockerfile \
