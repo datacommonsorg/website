@@ -15,7 +15,6 @@
 import asyncio
 import json
 import logging
-import os
 import time
 from typing import Dict, List
 
@@ -65,7 +64,10 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   nl_bad_words = current_app.config['NL_BAD_WORDS']
 
   test = request.args.get(params.Params.TEST.value, '')
-  i18n = request.args.get(params.Params.I18N.value, '')
+  i18n_str = request.args.get(params.Params.I18N.value, '')
+  i18n = i18n_str and i18n_str.lower() == 'true'
+  udp_str = request.args.get(params.Params.USE_DEFAULT_PLACE.value, 'true')
+  udp = udp_str and udp_str.lower() == 'true'
 
   # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
@@ -108,7 +110,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
 
   counters = ctr.Counters()
 
-  if i18n and i18n.lower() == 'true':
+  if i18n:
     start = time.time()
     original_query = detect_lang_and_translate(original_query, counters)
     counters.timeit("detect_lang_and_translate", start)
@@ -168,7 +170,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
                                session_id, test)
 
   if utterance:
-    context.merge_with_context(utterance, is_sdg)
+    context.merge_with_context(utterance, is_sdg, udp)
 
   return utterance, None
 
