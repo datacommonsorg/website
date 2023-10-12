@@ -15,9 +15,20 @@
  */
 
 /** Interfaces for the attributes for each web component */
-import React from "react";
+export type SORT_ASCENDING = "ascending";
+export type SORT_DESCENDING = "descending";
+export type SORT_ASCENDING_POPULATION = "ascendingPopulation";
+export type SORT_DESCENDING_POPULATION = "descendingPopulation";
+export type ChartSortOption =
+  | SORT_ASCENDING
+  | SORT_DESCENDING
+  | SORT_ASCENDING_POPULATION
+  | SORT_DESCENDING_POPULATION;
 
-import { SortType } from "../js/chart/types";
+export interface ChartEventDetail {
+  property: string;
+  value: string;
+}
 
 export interface BarComponentProps
   extends React.DetailedHTMLProps<
@@ -36,7 +47,7 @@ export interface BarComponentProps
   maxVariables?: number;
   parentPlace?: string;
   places?: string;
-  sort?: SortType;
+  sort?: ChartSortOption;
   stacked?: boolean;
   title?: string;
   variables: string;
@@ -122,6 +133,7 @@ export interface PieComponentProps
   place: string;
   title?: string;
   variables: string[];
+  subheader?: string;
 }
 
 export interface RankingComponentProps

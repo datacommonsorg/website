@@ -86,6 +86,10 @@ export class DatacommonsPieComponent extends LitElement {
   @property()
   place!: string;
 
+  // Subheader text
+  @property()
+  subheader?: string;
+
   /**
    * @deprecated
    * Title of the chart
@@ -118,6 +122,7 @@ export class DatacommonsPieComponent extends LitElement {
       statVarSpec,
       svgChartHeight: 200,
       title: this.header || this.title,
+      subtitle: this.subheader,
     };
     return createWebComponentElement(DonutTile, donutTileProps);
   }

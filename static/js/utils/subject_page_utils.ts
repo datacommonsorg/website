@@ -16,7 +16,8 @@
 import axios from "axios";
 import _ from "lodash";
 
-import { GeoJsonData, SortType } from "../chart/types";
+import { ChartSortOption } from "@datacommonsorg/web-components";
+import { GeoJsonData } from "../chart/types";
 import {
   NL_LARGE_TILE_CLASS,
   NL_MED_TILE_CLASS,
@@ -24,8 +25,10 @@ import {
   NL_SMALL_TILE_CLASS,
 } from "../constants/app/nl_interface_constants";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
-import { SubjectPageConfig } from "../types/subject_page_proto_types";
-import { ColumnConfig } from "../types/subject_page_proto_types";
+import {
+  ColumnConfig,
+  SubjectPageConfig,
+} from "../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "./../types/subject_page_types";
 import { getFilteredParentPlaces } from "./app/disaster_dashboard_utils";
 import { isNlInterface } from "./nl_interface_utils";
@@ -166,17 +169,17 @@ export function loadSubjectPageMetadataFromPage(): SubjectPageMetadata {
  * Convert input to bar tile's "sort" prop into a SortType
  * Used to type cast SCREAMING_SNAKE_CASE from subject page configs
  */
-export function convertToSortType(str: string): SortType {
+export function convertToSortType(str: string): ChartSortOption {
   switch (str) {
     case "ASCENDING":
-      return "ascending" as SortType;
+      return "ascending" as ChartSortOption;
     case "ASCENDING_POPULATION":
-      return "ascendingPopulation" as SortType;
+      return "ascendingPopulation" as ChartSortOption;
     case "DESCENDING":
-      return "descending" as SortType;
+      return "descending" as ChartSortOption;
     default:
       // Default to descending population to match behavior of bar tiles
-      return "descendingPopulation" as SortType;
+      return "descendingPopulation" as ChartSortOption;
   }
 }
 /**

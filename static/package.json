@@ -9,17 +9,18 @@
   "license": "Apache-2.0",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode=production --progress --config webpack.config.js",
+    "build": "wireit",
     "compile": "formatjs compile-folder",
-    "dev-build": "webpack --mode=development --progress --config webpack.config.js",
-    "dev:nodemon": "nodemon --watch src --ext ts,tsx --exec ts-node src/server.ts",
+    "dev-build": "wireit",
+    "dev:nodemon": "wireit",
     "extract": "formatjs extract",
     "lint": "eslint --fix .",
-    "test": "NODE_ICU_DATA=node_modules/full-icu jest --unhandled-rejections=strict",
+    "test": "wireit",
     "test-lint": "eslint .",
-    "watch": "webpack --mode=development --progress --config webpack.config.js --watch"
+    "watch": "wireit"
   },
   "dependencies": {
+    "@datacommonsorg/web-components": "file:../packages/web-components",
     "@types/d3": "^5.7.2",
     "@types/d3-scale": "^4.0.2",
     "@types/express": "^4.17.17",
@@ -106,6 +107,47 @@
     "prettier": "^2.7.1",
     "pretty": "^2.0.0",
     "react-test-renderer": "^17.0.2",
-    "ts-jest": "^28.0.5"
+    "ts-jest": "^28.0.5",
+    "wireit": "^0.14.0"
+  },
+  "wireit": {
+    "build-web-components-watch": {
+      "command": "cd ../packages/web-components && npm run build-watch",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "built in"
+        }
+      }
+    },
+    "build": {
+      "command": "webpack --mode=production --progress --config webpack.config.js",
+      "dependencies": [
+        "../packages/web-components:build"
+      ]
+    },
+    "dev:nodemon": {
+      "command": "nodemon --watch src --ext ts,tsx --exec ts-node src/server.ts",
+      "dependencies": [
+        "build-web-components-watch"
+      ]
+    },
+    "dev-build": {
+      "command": "webpack --mode=development --progress --config webpack.config.js",
+      "dependencies": [
+        "../packages/web-components:build"
+      ]
+    },
+    "test": {
+      "command": "NODE_ICU_DATA=node_modules/full-icu jest --unhandled-rejections=strict",
+      "dependencies": [
+        "../packages/web-components:build"
+      ]
+    },
+    "watch": {
+      "command": "webpack --mode=development --progress --config webpack.config.js --watch",
+      "dependencies": [
+        "build-web-components-watch"
+      ]
+    }
   }
 }

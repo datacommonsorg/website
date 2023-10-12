@@ -18,10 +18,9 @@ import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
 
-//import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
-import tilesCssString from "../css/tiles.scss";
+import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
-import { SortType } from "../js/chart/types";
+import { ChartSortOption } from "@datacommonsorg/web-components";
 import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
 import {
   convertArrayAttribute,
@@ -75,7 +74,6 @@ import {
  *      lollipop
  * ></datacommons-bar>
  */
-console.log("111111");
 @customElement("datacommons-bar")
 export class DatacommonsBarComponent extends LitElement {
   // Inject tiles.scss styles directly into web component
@@ -160,7 +158,7 @@ export class DatacommonsBarComponent extends LitElement {
    * Default: descendingPopulation
    */
   @property()
-  sort?: SortType;
+  sort?: ChartSortOption;
 
   /**
    * Optional: Draw as a stacked chart instead of grouped chart
@@ -259,4 +257,3 @@ export class DatacommonsBarComponent extends LitElement {
     return createWebComponentElement(BarTile, barTileProps);
   }
 }
-console.log("2222");

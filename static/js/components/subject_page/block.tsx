@@ -21,6 +21,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Input } from "reactstrap";
+import "../../../library/pie_component";
 
 import { getVariableNameProcessingFn } from "../../../library/utils";
 import { TimeScaleOption } from "../../chart/types";
@@ -45,7 +46,6 @@ import {
 import { getComparisonPlaces } from "../../utils/tile_utils";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
-import { DonutTile } from "../tiles/donut_tile";
 import { GaugeTile } from "../tiles/gauge_tile";
 import { HighlightTile } from "../tiles/highlight_tile";
 import { LineTile } from "../tiles/line_tile";
@@ -404,22 +404,21 @@ function renderTiles(
           ></GaugeTile>
         );
       case "DONUT":
+        // TODO(dwnoble): Add footnote, svg chart height, and stat var spec support to this tile
         return (
-          <DonutTile
+          <datacommons-pie
             colors={tile.donutTileSpec?.colors}
-            footnote={props.footnote}
             key={id}
             id={id}
-            pie={tile.donutTileSpec?.pie}
-            place={place}
-            statVarSpec={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
-            svgChartHeight={props.svgChartHeight}
-            title={tile.title}
-            subtitle={tile.subtitle}
-          ></DonutTile>
+            {...(tile.donutTileSpec?.pie ? {} : { donut: "true" })}
+            place={place.dcid}
+            variables={props.statVarProvider
+              .getSpecList(tile.statVarKey, blockDenom)
+              .map((spec) => spec.statVar)
+              .join(" ")}
+            header={tile.title}
+            subheader={tile.subtitle}
+          />
         );
       case "DESCRIPTION":
         return (
