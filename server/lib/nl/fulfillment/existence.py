@@ -20,7 +20,6 @@ from typing import Dict, List, Set
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 import server.lib.nl.common.utils as cutils
-from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import Place
 import server.lib.nl.fulfillment.existence as ext
 from server.lib.nl.fulfillment.types import ChartVars
