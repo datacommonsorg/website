@@ -74,13 +74,7 @@
     <dt>Q: How can we access data in Data Commons?
     <dd>The data in knowledge graph can be accessed through the
       <a href="{{ url_for('browser.browser_main') }}">Data Commons Graph Browser</a>,
-        {% if config['HIDE_REVAMP_CHANGES'] %}
-          <a href="{{ url_for('tools.timeline')}}">Timelines Explorer</a>,
-          <a href="{{ url_for('tools.scatter')}}">Scatter Plot Explorer</a>,
-          <a href="{{ url_for('tools.map')}}">Map Explorer</a>
-        {% else %}
-          <a href="{{ url_for('tools.visualization')}}">Data Commons Visualization tools</a>,
-        {% endif %}
+      <a href="{{ url_for('tools.visualization')}}">Data Commons Visualization tools</a>,
       and APIs for
       <a href="https://docs.datacommons.org/api/python">Python</a>,
       <a href="https://docs.datacommons.org/api/rest/v2">REST</a> and

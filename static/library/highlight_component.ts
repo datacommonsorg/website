@@ -79,7 +79,6 @@ export class DatacommonsHighlightComponent extends LitElement {
   render(): HTMLElement {
     const highlightTileProps: HighlightTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
-      date: this.date,
       description: this.header || this.description,
       place: {
         dcid: this.place,
@@ -87,6 +86,7 @@ export class DatacommonsHighlightComponent extends LitElement {
         types: [],
       },
       statVarSpec: {
+        date: this.date,
         denom: "",
         log: false,
         name: "",
