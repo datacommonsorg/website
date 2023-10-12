@@ -77,7 +77,7 @@ $search-answer-bottom: 48px;
   margin-bottom: 1.5rem;
 }
 
-#homepage h3 {
+#homepage h3, #homepage #data-size li {
   color: var(--gm-3-ref-neutral-neutral-20);
   font-family: $headings-font-family;
   font-weight: 400;
@@ -90,7 +90,7 @@ $search-answer-bottom: 48px;
 }
 
 @include media-breakpoint-down(xs) {
-  #homepage h3 {
+  #homepage h3, #homepage #data-size li {
     font-size: 24px;
     line-height: 32px;
   }
@@ -99,7 +99,7 @@ $search-answer-bottom: 48px;
   }
 }
 @include media-breakpoint-up(sm) {
-  #homepage h3 {
+  #homepage h3, #homepage #data-size li {
     font-size: 28px;
     line-height: 36px;
   }
@@ -108,7 +108,7 @@ $search-answer-bottom: 48px;
   }
 }
 @include media-breakpoint-up(md) {
-  #homepage h3 {
+  #homepage h3, #homepage #data-size li {
     font-size: 32px;
     line-height: 40px;
   }
@@ -359,13 +359,12 @@ $search-answer-bottom: 48px;
 
     li {
       color: $color-font-dark;
-      font-size: 36px;
-      line-height: 44px;
     }
   }
 
   p {
     color: $color-font-dark;
+    font-family: $headings-font-family;
     font-size: 22px;
     line-height: 28px;
   }
@@ -391,11 +390,11 @@ $search-answer-bottom: 48px;
       flex: none;
       position: relative;
       margin: 0 auto;
-      width: 376px;
+      width: 323px;
       margin-top: 28px;
 
       @include media-breakpoint-up(md) {
-        margin: 0 0 0 56px;
+        margin: 0 0 0 102px;
         bottom: 25%;
       }
 
@@ -403,8 +402,8 @@ $search-answer-bottom: 48px;
         margin: 0 auto;
         background-image: url("/images/home-sprite.svg");
         background-position: -814px 0;
-        width: 376px;
-        height: 227px;
+        width: 323px;
+        height: 195px;
 
         @include media-breakpoint-up(md) {
           position: absolute;
