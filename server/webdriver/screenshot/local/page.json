@@ -5,6 +5,11 @@
     "async": false
   },
   {
+    "url": "/",
+    "height": 4000,
+    "async": false
+  },
+  {
     "url": "/place/country/USA?topic=Demographics&seed=1",
     "height": 4400,
     "async": true
@@ -130,9 +135,59 @@
     "async": true
   },
   {
+    "url": "/tools/visualization#visType=timeline",
+    "height": 1200,
+    "async": false
+  },
+  {
+    "url": "/tools/visualization#visType=map",
+    "height": 1200,
+    "async": false
+  },
+  {
+    "url": "/tools/visualization#visType=scatter",
+    "height": 1200,
+    "async": false
+  },
+  {
     "url": "/browser/fire/irwinId/04745f7c-3f8b-47a4-8efe-c8f3c84742d9",
     "height": 1080,
     "async": true
+  },
+  {
+    "url": "/explore/economics",
+    "height": 1080,
+    "async": false
+  },
+  {
+    "url": "/explore/demographics",
+    "height": 1080,
+    "async": false
+  },
+  {
+    "url": "/explore/health",
+    "height": 1080,
+    "async": false
+  },
+  {
+    "url": "/explore/sustainability",
+    "height": 1080,
+    "async": false
+  },
+  {
+    "url": "/explore/education-housing-commute",
+    "height": 1080,
+    "async": false
+  },
+  {
+    "url": "/explore/equity",
+    "height": 1080,
+    "async": false
+  },
+  {
+    "url": "/explore/sdg",
+    "height": 1080,
+    "async": false
   },
   {
     "url": "/explore/#q=Obesity+vs+Unemployment+in+the+US+counties&mb=3&test=screenshot",
