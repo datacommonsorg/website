@@ -249,3 +249,91 @@ date,Median Income
 
 RESPONSE:
 San Francisco's median income has been steadily increasing over the past decade, from $35,989 in 2012 to $59,017 in 2021. This represents a 64% increase in median income over the 10-year period.
+
+-----------------------
+PROMPT:
+    Generate a summary for San Francisco in 1 paragraph using only the information from the following tables.
+    Only list important highlights per table.
+    The summary should only be based on the information presented in these tables. Do not include facts from other sources.
+    Do not return markdown or lists.
+    Please write in a professional and business-neutral tone.
+    Do not use the phrase 'According to the data'.
+    Please include references if information is included from other sources. Do not include opinions.
+
+Table:
+date,Sleep Less Than 7 Hours,Obesity,Binge Drinking,Physical Inactivity,Smoking
+2020,29,19.3,17.6,17.3,9.3
+2018,33.2,17.1,22.2,18.2,11.6
+2016,30.3,17.2,21.2,17.9,11.5
+2014,33.6,18.4,16.6,20.1,12.8
+2021,,19.1,16.4,17.9,9.2
+2017,,17.9,20.3,16.8,11.3
+2015,,18.9,20.1,17,11.2
+
+Table:
+date,Median Income
+2021,59017
+2020,54549
+2019,52677
+2018,49432
+2017,45229
+2016,41945
+2015,40070
+2014,38228
+2013,37098
+2012,35989
+2011,36033
+
+Summary:
+
+RESPONSE:
+In San Francisco, the percentage of adults who slept less than 7 hours increased from 29% in 2020 to 33.2% in 2018 but decreased to 29% in 2021. Obesity rates were 19.3% in 2020 and 17.1% in 2018. Binge drinking decreased from 22.2% in 2018 to 17.6% in 2020 and 16.4% in 2021. Physical inactivity increased from 17.9% in 2016 to 20.1% in 2014 but decreased to 17.9% in 2021. Smoking rates decreased from 12.8% in 2014 to 9.3% in 2020 and 9.2% in 2021. Median income increased from $37,098 in 2013 to $59,017 in 2021.
+
+--------------------
+PROMPT:
+    Generate a summary for San Francisco in 1 paragraph using only the information from the following tables.
+    Only list important highlights per table.
+    The summary should only be based on the information presented in these tables. Do not include facts from other sources.
+    Do not return markdown or lists.
+    Please write in a professional and business-neutral tone.
+    Do not use the phrase 'According to the data'.
+    Please include references if information is included from other sources. Do not include opinions.
+
+Table:
+Population, 4 of 470 cities in California, 17 of 10289 cities in United States of America
+Median Income, 148 of 1113 cities in California, 934 of 16432 cities in United States of America
+Median Age, 577 of 1110 cities in California, 9155 of 16415 cities in United States of America
+Unemployment Rate, 254 of 284 cities in California, 1131 of 2722 cities in United States of America
+Crime Per Capita, 8 of 448 cities in California, 312 of 7636 cities in United States of America
+
+Table:
+date,Sleep Less Than 7 Hours,Obesity,Binge Drinking,Physical Inactivity,Smoking
+2020,29,19.3,17.6,17.3,9.3
+2018,33.2,17.1,22.2,18.2,11.6
+2016,30.3,17.2,21.2,17.9,11.5
+2014,33.6,18.4,16.6,20.1,12.8
+2021,,19.1,16.4,17.9,9.2
+2017,,17.9,20.3,16.8,11.3
+2015,,18.9,20.1,17,11.2
+
+Table:
+date,Median Income
+2021,59017
+2020,54549
+2019,52677
+2018,49432
+2017,45229
+2016,41945
+2015,40070
+2014,38228
+2013,37098
+2012,35989
+2011,36033
+
+Summary:
+
+RESPONSE:
+San Francisco is the 4th most populous city in California and the 17th most populous in the United States, with a median income of $59,017 (148th in California and 934th in the US).
+It has a relatively low unemployment rate (254th in California and 1131st in the US) and a high crime rate (8th in California and 312th in the US).
+The city's median age is 37.4, making it the 577th oldest city in California and the 9155th oldest in the US.
+In terms of health, 29% of the population gets less than 7 hours of sleep, 19.3% are obese, 17.6% binge drink, 17.3% are physically inactive, and 9.3% smoke.

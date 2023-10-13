@@ -18,13 +18,26 @@ import logging
 import pandas as pd
 import requests
 
-_API_BASE_URL = "https://datacommons.org/api/place/ranking"
+_API_BASE_URL = "https://datacommons.org/"
+_RANKING_URL = _API_BASE_URL + "api/place/ranking/{dcid}"
+_PLACE_DATA_URL = _API_BASE_URL + "/api/landingpage/data/{dcid}?category=Overview&hl=en&seed=0"
 _RANKINGS_HEADER = "Rankings"
 _LABEL_KEY = "label"
 
+_SERIES_TO_KEEP = {
+  "Demographics": {
+    "Median Age": "Median_Age_Person",
+    "Population": "Count_Person",
+  },
+  "Economics": {
+    "Median individual income": "Median_Income_Person",
+    # "Unemployment rate": "UnemploymentRate_Person",
+  },
+}
 
-def get_ranking_csv(dcid: str):
-  url = f"{_API_BASE_URL}/{dcid}"
+
+def get_ranking_csv(dcid: str, place_type_plural: str):
+  url = _RANKING_URL.format(dcid=dcid)
   response = requests.get(url).json()
   logging.debug("Ranking response:\n%s", json.dumps(response, indent=True))
   csv = []
@@ -32,11 +45,32 @@ def get_ranking_csv(dcid: str):
     if variable == _LABEL_KEY:
       continue
 
+    variable = variable.replace("Highest", "")
+    variable = variable.replace("Largest", "")
     row = {_RANKINGS_HEADER: variable}
     csv.append(row)
     for place in places:
       rank = place["data"]
       row[place[
-          "name"]] = f"{rank['rankFromTop']} of {rank['rankFromTop'] + rank['rankFromBottom']}"
+          "name"]] = f"{rank['rankFromTop']} of {rank['rankFromTop'] + rank['rankFromBottom']} {place_type_plural} in {place['name']}"
 
   return pd.DataFrame(csv).to_csv(index=False)
+
+
+def get_data_series(dcid: str):
+  url = _PLACE_DATA_URL.format(dcid=dcid)
+  response = requests.get(url).json()
+
+  prompt_tables = []
+
+  for category, sv_titles in _SERIES_TO_KEEP.items():
+    category_data = response["pageChart"]["Overview"][category]
+    for chart_block in category_data:
+      block_title = chart_block["title"]
+      if block_title in sv_titles:
+        sv = sv_titles[block_title]
+        series = chart_block["trend"]["series"][sv]
+        prompt_tables.append(f"{block_title} = {json.dumps(series)}")
+
+  logging.debug(prompt_tables)
+  return prompt_tables

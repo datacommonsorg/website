@@ -17,9 +17,10 @@ import json
 import logging
 import multiprocessing
 import os
+import dc
 
 from absl import app
-from dc import get_ranking_csv
+from itertools import starmap
 from palm import get_summary
 
 _OUTPUT_DIR = "../../server/config/summaries"
@@ -38,30 +39,32 @@ def get_and_write_ranking_summaries():
   write_csv(summaries, _SUMMARIES_CSV_FILE)
 
 
-def get_ranking_summaries(places: dict):
-  tuples = list(places.items())
-  unordered_summaries = {}
-  with multiprocessing.Pool(processes=_NUM_PARALLEL_PROCESSES) as pool:
-    for dcid, name, summary in pool.imap_unordered(
-        get_ranking_summary_with_tuple, tuples):
-      unordered_summaries[dcid] = {"name": name, "summary": summary}
-
+def get_ranking_summaries(places_by_type: dict):
   summaries = {}
-  for dcid, _ in tuples:
-    summaries[dcid] = unordered_summaries[dcid]
+  for place_type_plural, places in places_by_type.items():
+    unordered_summaries = {}
+    tuples = list(starmap(lambda dcid, place_name: (dcid, place_name, place_type_plural), places.items()))
+    with multiprocessing.Pool(processes=_NUM_PARALLEL_PROCESSES) as pool:
+      for dcid, name, summary in pool.imap_unordered(
+          get_ranking_summary_with_tuple, tuples):
+        unordered_summaries[dcid] = {"name": name, "summary": summary}
+
+    for dcid, _, _ in tuples:
+      summaries[dcid] = unordered_summaries[dcid]
   return summaries
 
 
 def get_ranking_summary_with_tuple(tuple):
-  dcid, name = tuple
-  return (dcid, name, get_ranking_summary(dcid, name))
+  dcid, name, place_type_plural = tuple
+  return (dcid, name, get_ranking_summary(dcid, name, place_type_plural))
 
 
-def get_ranking_summary(dcid: str, name: str):
+def get_ranking_summary(dcid: str, name: str, place_type_plural: str):
   logging.info("Getting ranking summary for : %s (%s)", dcid, name)
-  csv = get_ranking_csv(dcid)
-  logging.info(csv)
-  summary = get_summary(name, csv)
+  csv = dc.get_ranking_csv(dcid, place_type_plural)
+  # logging.info(csvs)
+  data_tables = dc.get_data_series(dcid)
+  summary = get_summary(name, csv, data_tables)
   logging.info("Got ranking summary for: %s (%s)\n%s", dcid, name, summary)
   return summary
 

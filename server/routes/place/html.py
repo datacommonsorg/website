@@ -71,11 +71,14 @@ def place(place_dcid=None):
     place_name = place_names[place_dcid]
   else:
     place_name = place_dcid
+  place_summary = current_app.config['PLACE_EXPLORER_SUMMARIES'].get(place_dcid, "")
+  print(place_summary)
   return flask.render_template('place.html',
                                place_type=place_type,
                                place_name=place_name,
                                place_dcid=place_dcid,
                                category=category if category else '',
+                               place_summary=place_summary['summary'] if place_summary else '',
                                maps_api_key=current_app.config['MAPS_API_KEY'])
 
 

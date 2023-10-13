@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import List
+
 import json
 import logging
 import os
@@ -30,10 +32,28 @@ _RETRIES = 2
 assert _API_KEY, "$PALM_API_KEY must be specified."
 
 
-def get_summary(name: str, csv: str):
+def get_summary(name: str, ranking_csv: str, data_tables: List[str]):
   url = f"{_API_URL}?key={_API_KEY}"
-  prompt = f"Summarize the following CSV for {name} in 1 sentence. Don't use superlatives.\n\n{csv}"
+  # prompt = f"Summarize the following CSV for {name} in 1 sentence. Don't use superlatives.\n\n{csv}"
   # prompt = f"Give me a one sentence NL summary based on the following info for {name}:\n\n{csv}"
+  tables_for_prompt = "\n\nTable:\n".join(data_tables)
+  prompt = f"""
+  Generate a summary for {name} in 1 paragraph using only the information from the following tables.
+  Only list important highlights per table.
+  The summary should only be based on the information presented in these tables. Do not include facts from other sources.
+  Do not return markdown or lists.
+  Please write in a professional and business-neutral tone.
+  Do not use the phrase 'According to the data'.
+  Please include references if information is included from other sources. Do not include opinions.
+
+  Table:
+  {ranking_csv}
+
+  Table:
+  {tables_for_prompt}
+
+  Summary:
+  """
   logging.info(prompt)
   params = {
       "prompt": {
