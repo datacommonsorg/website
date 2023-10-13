@@ -1,6 +1,13 @@
 {
-  "geoId/01": "Alabama",
-  "geoId/02": "Alaska",
-  "geoId/04": "Arizona",
-  "geoId/08": "Colorado"
+  "cities": {
+    "geoId/0667000": "San Francisco",
+    "geoId/3651000": "New York City",
+    "geoId/1304000": "Atlanta"
+  },
+  "states": {
+    "geoId/01": "Alabama",
+    "geoId/02": "Alaska",
+    "geoId/04": "Arizona",
+    "geoId/08": "Colorado"
+  }
 }
