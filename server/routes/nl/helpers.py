@@ -47,10 +47,14 @@ from server.lib.nl.detection.utils import create_utterance
 import server.lib.nl.fulfillment.fulfiller as fulfillment
 import server.lib.nl.fulfillment.utils as futils
 from server.lib.translator import detect_lang_and_translate
+from server.lib.translator import translate_page_config
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 import server.services.bigtable as bt
 import shared.lib.utils as shared_utils
+
+# English language code.
+_EN_LANG = "en"
 
 
 #
@@ -110,9 +114,11 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
 
   counters = ctr.Counters()
 
+  query_lang = ''
   if i18n:
     start = time.time()
-    original_query = detect_lang_and_translate(original_query, counters)
+    query_lang, original_query = detect_lang_and_translate(
+        original_query, counters)
     counters.timeit("detect_lang_and_translate", start)
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
@@ -166,10 +172,15 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
     return None, err_json
   counters.timeit('query_detection', start)
 
-  utterance = create_utterance(query_detection, prev_utterance, counters,
-                               session_id, test)
+  utterance = create_utterance(query_detection,
+                               prev_utterance,
+                               counters,
+                               session_id,
+                               test,
+                               i18n=i18n)
 
   if utterance:
+    utterance.query_lang = query_lang
     context.merge_with_context(utterance, is_sdg, udp)
 
   return utterance, None
@@ -219,6 +230,11 @@ def prepare_response(utterance: nl_utterance.Utterance,
   ret_places = []
   if chart_pb:
     page_config = json.loads(MessageToJson(chart_pb))
+    if utterance.i18n and not utterance.query_lang.lower().startswith(_EN_LANG):
+      start = time.time()
+      page_config = translate_page_config(page_config, utterance.query_lang,
+                                          utterance.counters)
+      utterance.counters.timeit("translate_page_config", start)
 
     # Figure out the main place.
     fallback = utterance.place_fallback

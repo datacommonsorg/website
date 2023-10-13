@@ -154,7 +154,8 @@ def create_utterance(query_detection: Detection,
                      currentUtterance: Utterance,
                      counters: ctr.Counters,
                      session_id: str,
-                     test: str = '') -> Utterance:
+                     test: str = '',
+                     i18n: str = '') -> Utterance:
   filtered_svs = filter_svs(query_detection.svs_detected.single_sv, counters)
 
   # Construct Utterance datastructure.
@@ -172,7 +173,8 @@ def create_utterance(query_detection: Detection,
                    session_id=session_id,
                    multi_svs=query_detection.svs_detected.multi_sv,
                    llm_resp=query_detection.llm_resp,
-                   test=test)
+                   test=test,
+                   i18n=i18n)
   uttr.counters.info('filtered_svs', filtered_svs)
 
   # Add detected places.

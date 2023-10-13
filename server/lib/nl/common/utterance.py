@@ -175,3 +175,7 @@ class Utterance:
   insight_ctx: Dict = field(default_factory=dict)
   # Test param.
   test: str = ''
+  # i18n param.
+  i18n: str = ''
+  # For i18n enabled requests, this field encodes the language of the query.
+  query_lang: str = ''
