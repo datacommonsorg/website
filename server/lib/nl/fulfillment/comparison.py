@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import copy
-import logging
 from typing import List
 
 import server.lib.explore.existence as ext

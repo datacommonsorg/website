@@ -15,7 +15,7 @@
 import copy
 import logging
 import time
-from typing import Dict, List
+from typing import List
 
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
