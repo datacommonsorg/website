@@ -12,11 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import random
 import re
 from typing import List
 
-from server.lib.config import is_test_env
 import server.lib.fetch as fetch
 from server.lib.nl.detection.types import Place
 

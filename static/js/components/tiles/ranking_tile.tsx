@@ -22,7 +22,7 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
-import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
+import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
@@ -126,7 +126,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           return (
             <div
               key={`ranking-placeholder-${i}`}
-              className={INITAL_LOADING_CLASS}
+              className={INITIAL_LOADING_CLASS}
               style={{ minHeight: placeHolderHeight }}
             ></div>
           );
@@ -216,7 +216,7 @@ export async function fetchData(
         getPointWithin(
           props.apiRoot,
           props.enclosedPlaceType,
-          props.parentPlace.dcid,
+          props.parentPlace,
           dateFacetToVariable[date][facetId],
           dateParam,
           [],
@@ -239,7 +239,7 @@ export async function fetchData(
     ? Promise.resolve(null)
     : getSeriesWithin(
         props.apiRoot,
-        props.parentPlace.dcid,
+        props.parentPlace,
         props.enclosedPlaceType,
         denoms
       );

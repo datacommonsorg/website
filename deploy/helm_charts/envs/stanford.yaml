@@ -63,6 +63,6 @@ kgStoreConfig:
     tables:
       - magic-lab_2023_04_12_22_22_43
       - s3l_2023_06_09_10_45_33
-      - center_for_ocean_sol_2023_08_30_15_32_02
+      - center_for_ocean_sol_2023_10_12_16_24_44
 svg:
-  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG", "oecd/g/OECD"]
+  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

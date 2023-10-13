@@ -22,7 +22,7 @@ import _ from "lodash";
 import React, { useRef } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
-import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
+import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import {
   formatString,
@@ -78,7 +78,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     >
       <div
         className={`chart-content ${
-          props.isInitialLoading ? INITAL_LOADING_CLASS : ""
+          props.isInitialLoading ? INITIAL_LOADING_CLASS : ""
         }`}
       >
         <div className="chart-headers">

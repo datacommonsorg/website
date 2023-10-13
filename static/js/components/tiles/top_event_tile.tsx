@@ -26,7 +26,7 @@ import {
   ASYNC_ELEMENT_CLASS,
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../../constants/css_constants";
-import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
+import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { ChartEmbed } from "../../place/chart_embed";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
@@ -127,7 +127,7 @@ export const TopEventTile = memo(function TopEventTile(
     >
       <div
         className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} ${
-          isInitialLoading ? INITAL_LOADING_CLASS : ""
+          isInitialLoading ? INITIAL_LOADING_CLASS : ""
         }`}
       >
         <div className={`ranking-list top-event-content `}>
