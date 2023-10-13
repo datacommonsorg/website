@@ -61,11 +61,15 @@ RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
 # Used by Import Tool
 RUN pip install pandas
 
-# NPM
+# Install website NPM dependencies
 WORKDIR /workspace/static
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
 RUN npm install --omit=dev
+
+# Install packages NPM depenencies
+COPY packages/. /workspace/packages/
+RUN npm --prefix /workspace/packages/web-components install --omit=dev
 
 # Build Static Files
 COPY static/. /workspace/static/
