@@ -175,11 +175,6 @@
     "async": true
   },
   {
-    "url": "/explore/economics",
-    "height": 1080,
-    "async": true
-  },
-  {
     "url": "/explore/#q=Obesity+vs+Unemployment+in+the+US+counties&mb=3&test=screenshot",
     "height": 3000,
     "async": true
