@@ -15,9 +15,30 @@
  */
 
 /** Interfaces for the attributes for each web component */
-import React from "react";
+export type SORT_ASCENDING = "ascending";
+export type SORT_DESCENDING = "descending";
+export type SORT_ASCENDING_POPULATION = "ascendingPopulation";
+export type SORT_DESCENDING_POPULATION = "descendingPopulation";
+export type ChartSortOption =
+  | SORT_ASCENDING
+  | SORT_DESCENDING
+  | SORT_ASCENDING_POPULATION
+  | SORT_DESCENDING_POPULATION;
 
-import { SortType } from "../js/chart/types";
+/**
+ * Interface describing change events for web components that support publish/subscribe pattern
+ * For example, if a user moves the slider on a <datacommons-slider> component to 2011, it will
+ * publish an event with the ChartEventDetail:
+ *
+ * {
+ *   property: "date",
+ *   value: "2011"
+ * }
+ */
+export interface ChartEventDetail {
+  property: string;
+  value: string;
+}
 
 export interface BarComponentProps
   extends React.DetailedHTMLProps<
@@ -27,7 +48,7 @@ export interface BarComponentProps
   apiRoot?: string;
   barHeight?: number;
   childPlaceType?: string;
-  colors?: string[];
+  colors?: string;
   footnote?: string;
   header: string;
   horizontal?: boolean;
@@ -35,11 +56,11 @@ export interface BarComponentProps
   maxPlaces?: number;
   maxVariables?: number;
   parentPlace?: string;
-  places?: string[];
-  sort?: SortType;
+  places?: string;
+  sort?: ChartSortOption;
   stacked?: boolean;
   title?: string;
-  variables: string[];
+  variables: string;
   yAxisMargin?: number;
 }
 
@@ -122,6 +143,7 @@ export interface PieComponentProps
   place: string;
   title?: string;
   variables: string[];
+  subheader?: string;
 }
 
 export interface RankingComponentProps
@@ -143,10 +165,13 @@ export interface SliderComponentProps
     React.HTMLAttributes<HTMLElement>,
     HTMLElement
   > {
-  max: number;
-  min: number;
-  publish: string;
-  value: number;
+  max?: number;
+  min?: number;
+  childPlaceType?: string;
+  parentPlace?: string;
+  publish?: string;
+  value?: number;
+  variable?: string;
 }
 
 export interface TextComponentProps

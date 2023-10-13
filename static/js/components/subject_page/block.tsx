@@ -408,7 +408,7 @@ function renderTiles(
           <DonutTile
             colors={tile.donutTileSpec?.colors}
             footnote={props.footnote}
-            key={id}
+            key={`${id}-2`}
             id={id}
             pie={tile.donutTileSpec?.pie}
             place={place}

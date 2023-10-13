@@ -66,10 +66,14 @@ RUN pip install pandas
 
 WORKDIR /workspace/static
 
-# NPM
+# Install website NPM dependencies
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
 RUN npm install --omit=dev
+
+# Install packages NPM depenencies
+COPY packages/. /workspace/packages/
+RUN npm --prefix /workspace/packages/web-components install --omit=dev
 
 # Build Static Files
 COPY static/. /workspace/static/

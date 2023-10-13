@@ -20,7 +20,7 @@ import _ from "lodash";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
-import { ChartEventDetail } from "../js/chart/types";
+import { ChartEventDetail } from "@datacommonsorg/web-components";
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
 import {
   convertArrayAttribute,

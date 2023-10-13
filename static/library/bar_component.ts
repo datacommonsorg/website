@@ -20,7 +20,7 @@ import _ from "lodash";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
-import { SortType } from "../js/chart/types";
+import { ChartSortOption } from "@datacommonsorg/web-components";
 import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
 import {
   convertArrayAttribute,
@@ -158,7 +158,7 @@ export class DatacommonsBarComponent extends LitElement {
    * Default: descendingPopulation
    */
   @property()
-  sort?: SortType;
+  sort?: ChartSortOption;
 
   /**
    * Optional: Draw as a stacked chart instead of grouped chart
