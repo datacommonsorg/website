@@ -120,9 +120,9 @@ export class DatacommonsPieComponent extends LitElement {
         types: [],
       },
       statVarSpec,
+      subtitle: this.subheader,
       svgChartHeight: 200,
       title: this.header || this.title,
-      subtitle: this.subheader,
     };
     return createWebComponentElement(DonutTile, donutTileProps);
   }
