@@ -52,7 +52,7 @@ class TestMap(WebdriverBaseTest):
 
   def test_charts_from_url(self):
     """Given the url directly, test the page shows up correctly"""
-    # Load Scatter Tool page with Statistical Variables.
+    # Load Map Tool page with Statistical Variables.
     self.driver.get(self.url_ + MAP_URL + URL_HASH_1)
 
     # Wait until the chart has loaded.

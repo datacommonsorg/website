@@ -31,12 +31,12 @@ import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { formatDate } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   formatString,
   getDenomInfo,
   getNoDataErrorMsg,
   getSourcesJsx,
   getStatFormat,
-  ReplacementStrings,
 } from "../../utils/tile_utils";
 
 // units that should be formatted as part of the number
@@ -135,7 +135,7 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
     props.apiRoot,
     [props.place.dcid],
     [props.statVarSpec.statVar],
-    props.date
+    props.statVarSpec.date
   );
   const denomPromise = props.statVarSpec.denom
     ? getSeries(props.apiRoot, [props.place.dcid], [props.statVarSpec.denom])

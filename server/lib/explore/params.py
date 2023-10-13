@@ -28,7 +28,11 @@ class Params(str, Enum):
   DC = 'dc'
   EXT_SVGS = 'extensionGroups'
   EXP_MORE_DISABLED = 'disableExploreMore'
+  # Indicating it's a test query and the type of test, ex, "test=screenshot"
   TEST = 'test'
+  I18N = 'i18n'
+  # Whether to use default place when no places are detected from the query.
+  USE_DEFAULT_PLACE = 'udp'
 
 
 class DCNames(str, Enum):

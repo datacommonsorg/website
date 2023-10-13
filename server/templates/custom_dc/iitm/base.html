@@ -49,6 +49,7 @@
   <link rel="icon" href="/custom_dc/iitm/favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=block">
   {% block head %}
   {% endblock %}
   <link href="/custom_dc/iitm/style.css" rel="stylesheet">
@@ -67,6 +68,7 @@
           <div class="navbar-brand">
             <a href="{{ url_for('static.homepage') }}">India Data Commons</a>
             {% if subpage_title %}
+            <span class="sep">•</span>
             <span>
               {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
               {{ subpage_title }}

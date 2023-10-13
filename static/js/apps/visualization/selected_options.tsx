@@ -82,7 +82,7 @@ export function SelectedOptions(): JSX.Element {
               {places.map((place) => {
                 return (
                   <div
-                    className="selected-option-chip"
+                    className="selected-option-chip place"
                     key={`selected-chip-${place.dcid}`}
                   >
                     <div className="chip-content">
@@ -179,7 +179,7 @@ export function SelectedOptions(): JSX.Element {
           >
             <span className="selected-option-label">by</span>
             <div className="selected-option-values">
-              <div className="selected-option-chip">
+              <div className="selected-option-chip place-type">
                 <div className="chip-content">
                   <span className="material-icons-outlined">straighten</span>
                   <span>{enclosedPlaceType}</span>
@@ -218,7 +218,7 @@ export function SelectedOptions(): JSX.Element {
             {statVars.map((sv) => {
               return (
                 <div
-                  className="selected-option-chip"
+                  className="selected-option-chip stat-var"
                   key={`selected-chip-${sv.dcid}`}
                 >
                   <div className="chip-content">

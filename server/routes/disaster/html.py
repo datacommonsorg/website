@@ -42,16 +42,16 @@ def disaster_dashboard(place_dcid=None):
         place_dcid=lib_subject_page_config.DEFAULT_PLACE_DCID),
                     code=302)
 
-  dashboard_config = current_app.config['DISASTER_DASHBOARD_CONFIG']
+  raw_dashboard_config = current_app.config['DISASTER_DASHBOARD_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     # TODO: Delete this when we are close to launch
-    dashboard_config = server.lib.util.get_disaster_dashboard_config()
+    raw_dashboard_config = server.lib.util.get_disaster_dashboard_config()
 
-  if not dashboard_config:
+  if not raw_dashboard_config:
     return "Error: no config installed"
 
-  dashboard_config = copy.deepcopy(dashboard_config)
+  dashboard_config = copy.deepcopy(raw_dashboard_config)
 
   # Update contained places from place metadata
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)

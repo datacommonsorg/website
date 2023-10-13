@@ -77,7 +77,7 @@ $search-answer-bottom: 48px;
   margin-bottom: 1.5rem;
 }
 
-#homepage h3 {
+#homepage h3, #homepage #data-size li {
   color: var(--gm-3-ref-neutral-neutral-20);
   font-family: $headings-font-family;
   font-weight: 400;
@@ -90,7 +90,7 @@ $search-answer-bottom: 48px;
 }
 
 @include media-breakpoint-down(xs) {
-  #homepage h3 {
+  #homepage h3, #homepage #data-size li {
     font-size: 24px;
     line-height: 32px;
   }
@@ -99,7 +99,7 @@ $search-answer-bottom: 48px;
   }
 }
 @include media-breakpoint-up(sm) {
-  #homepage h3 {
+  #homepage h3, #homepage #data-size li {
     font-size: 28px;
     line-height: 36px;
   }
@@ -108,7 +108,7 @@ $search-answer-bottom: 48px;
   }
 }
 @include media-breakpoint-up(md) {
-  #homepage h3 {
+  #homepage h3, #homepage #data-size li {
     font-size: 32px;
     line-height: 40px;
   }
@@ -341,6 +341,82 @@ $search-answer-bottom: 48px;
   margin-left: auto;
   margin-top: -24px;
   width: fit-content;
+}
+
+// Styling for data size section
+#homepage #data-size {
+  margin-bottom: $topics-section-vmargin;
+
+  h4 {
+    color: var(--gm-3-ref-neutral-neutral-40);
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-inline-start: 0;
+
+    li {
+      color: $color-font-dark;
+    }
+  }
+
+  p {
+    color: $color-font-dark;
+    font-family: $headings-font-family;
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  article {
+    margin-top: 44px;
+  }
+  article:first-child {
+    margin-top: 0;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: $topics-section-vmargin auto;
+
+    @include media-breakpoint-up(md) {
+      flex-wrap: nowrap;
+    }
+
+    #data-size-icon-container {
+      flex: none;
+      position: relative;
+      margin: 0 auto;
+      width: 323px;
+      margin-top: 28px;
+
+      @include media-breakpoint-up(md) {
+        margin: 0 0 0 102px;
+        bottom: 25%;
+      }
+
+      #data-size-icon {
+        margin: 0 auto;
+        background-image: url("/images/home-sprite.svg");
+        background-position: -814px 0;
+        width: 323px;
+        height: 195px;
+
+        @include media-breakpoint-up(md) {
+          position: absolute;
+          bottom: 0;
+          transform-origin: 0 0;
+        }
+      }
+    }
+  }
+}
+
+.divider {
+  border-bottom: 1px solid var(--gm-3-ref-neutral-neutral-80);
 }
 
 // Styling for the topics section

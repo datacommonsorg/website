@@ -94,9 +94,6 @@ def download():
 
 @bp.route('/visualization')
 def visualization():
-  if current_app.config['HIDE_REVAMP_CHANGES']:
-    flask.abort(404)
-
   with open(get_example_file('visualization')) as f:
     info_json = json.load(f)
     return flask.render_template(

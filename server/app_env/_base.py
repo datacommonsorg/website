@@ -66,13 +66,13 @@ class Config:
   # overrides in the default base template. Will not be compiled. Must be the
   # full serving path from /static folder.
   OVERRIDE_CSS_PATH = ''
-  # Hide changes made for the website revamp.
-  HIDE_REVAMP_CHANGES = False
   # The dcid of the special data source to show as top level category in the hierarchy
   DATA_SOURCE_DCID = ''
   # The name of the special data source to show as top level category in the hierarchy
   DATA_SOURCE_NAME = ''
   # Should hide debug info
   HIDE_DEBUG = True
-  # footer note to show in the map tool
+  # Footer note to show in the map tool
   MAP_TOOL_FOOTER = ""
+  # The default property to use for getting geojsons
+  GEO_JSON_PROP = "geoJsonCoordinates"

@@ -22,11 +22,11 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { SortType } from "../js/chart/types";
 import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
-import { DEFAULT_API_ENDPOINT } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
   createWebComponentElement,
+  getApiRoot,
   getVariableNameProcessingFn,
 } from "./utils";
 
@@ -224,34 +224,30 @@ export class DatacommonsBarComponent extends LitElement {
       });
     });
     const barTileProps: BarTilePropType = {
-      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
+      apiRoot: getApiRoot(this.apiRoot),
       barHeight: this.barHeight,
       colors: this.colors,
-      comparisonPlaces: this.places,
       enclosedPlaceType: this.childPlaceType,
-      horizontal: this.horizontal,
-      id: `chart-${_.uniqueId()}`,
-      maxPlaces: this.maxPlaces,
-      maxVariables: this.maxVariables,
-      place: {
-        dcid: this.parentPlace,
-        name: "",
-        types: [],
-      },
-      showExploreMore: this.showExploreMore,
-      showTooltipOnHover: true,
-      sort: this.sort,
-      stacked: this.stacked,
-      statVarSpec,
-      svgChartHeight: 200,
-      title: this.header || this.title,
-      useLollipop: this.lollipop,
-      yAxisMargin: this.yAxisMargin,
       getProcessedSVNameFn: getVariableNameProcessingFn(
         this.variableNameRegex,
         this.defaultVariableName
       ),
+      horizontal: this.horizontal,
+      id: `chart-${_.uniqueId()}`,
+      maxPlaces: this.maxPlaces,
+      maxVariables: this.maxVariables,
+      parentPlace: this.parentPlace,
       placeNameProp: this.placeNameProp,
+      places: this.places,
+      showExploreMore: this.showExploreMore,
+      showTooltipOnHover: true,
+      sort: this.sort,
+      stacked: this.stacked,
+      variables: statVarSpec,
+      svgChartHeight: 200,
+      title: this.header || this.title,
+      useLollipop: this.lollipop,
+      yAxisMargin: this.yAxisMargin,
     };
 
     return createWebComponentElement(BarTile, barTileProps);

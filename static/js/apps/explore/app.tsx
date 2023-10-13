@@ -260,6 +260,8 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const detector = getSingleParam(hashParams[URL_HASH_PARAMS.DETECTOR]);
     const llmApi = getSingleParam(hashParams[URL_HASH_PARAMS.LLM_API]);
     const testMode = getSingleParam(hashParams[URL_HASH_PARAMS.TEST_MODE]);
+    const i18n = getSingleParam(hashParams[URL_HASH_PARAMS.I18N]);
+    const udp = getSingleParam(hashParams[URL_HASH_PARAMS.USE_DEFAULT_PLACE]);
 
     let fulfillmentPromise: Promise<any>;
     const gaTitle = query
@@ -280,7 +282,9 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         disableExploreMore,
         detector,
         llmApi,
-        testMode
+        testMode,
+        i18n,
+        udp
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -300,7 +304,9 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         [],
         [],
         disableExploreMore,
-        testMode
+        testMode,
+        i18n,
+        udp
       )
         .then((resp) => {
           processFulfillData(resp, true);
@@ -329,12 +335,24 @@ const fetchFulfillData = async (
   svgs: string[],
   classificationsJson: any,
   disableExploreMore: string,
-  testMode: string
+  testMode: string,
+  i18n: string,
+  udp: string
 ) => {
   try {
-    const testModeArg = testMode ? `?test=${testMode}` : "";
+    const argsMap = new Map<string, string>();
+    if (testMode) {
+      argsMap.set(URL_HASH_PARAMS.TEST_MODE, testMode);
+    }
+    if (i18n) {
+      argsMap.set(URL_HASH_PARAMS.I18N, i18n);
+    }
+    if (udp) {
+      argsMap.set(URL_HASH_PARAMS.USE_DEFAULT_PLACE, udp);
+    }
+    const args = argsMap.size > 0 ? `?${generateArgsParams(argsMap)}` : "";
     const startTime = window.performance ? window.performance.now() : undefined;
-    const resp = await axios.post(`/api/explore/fulfill${testModeArg}`, {
+    const resp = await axios.post(`/api/explore/fulfill${args}`, {
       dc,
       entities: places,
       variables: topics,
@@ -371,15 +389,31 @@ const fetchDetectAndFufillData = async (
   disableExploreMore: string,
   detector: string,
   llmApi: string,
-  testMode: string
+  testMode: string,
+  i18n: string,
+  udp: string
 ) => {
-  const detectorTypeArg = detector ? `&detector=${detector}` : "";
-  const llmApiArg = llmApi ? `&llm_api=${llmApi}` : "";
-  const testModeArg = testMode ? `&test=${testMode}` : "";
+  const argsMap = new Map<string, string>();
+  if (detector) {
+    argsMap.set(URL_HASH_PARAMS.DETECTOR, detector);
+  }
+  if (llmApi) {
+    argsMap.set(URL_HASH_PARAMS.LLM_API, llmApi);
+  }
+  if (testMode) {
+    argsMap.set(URL_HASH_PARAMS.TEST_MODE, testMode);
+  }
+  if (i18n) {
+    argsMap.set(URL_HASH_PARAMS.I18N, i18n);
+  }
+  if (udp) {
+    argsMap.set(URL_HASH_PARAMS.USE_DEFAULT_PLACE, udp);
+  }
+  const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
   try {
     const startTime = window.performance ? window.performance.now() : undefined;
     const resp = await axios.post(
-      `/api/explore/detect-and-fulfill?q=${query}${detectorTypeArg}${llmApiArg}${testModeArg}`,
+      `/api/explore/detect-and-fulfill?q=${query}${args}`,
       {
         contextHistory: savedContext,
         dc,
@@ -403,4 +437,12 @@ const fetchDetectAndFufillData = async (
     console.log(error);
     return null;
   }
+};
+
+const generateArgsParams = (argsMap: Map<string, string>): string => {
+  const args: string[] = [];
+
+  argsMap.forEach((value, key) => args.push(`${key}=${value}`));
+
+  return args.join("&");
 };

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-FROM gcr.io/datcom-ci/python-node-go-protoc-envoy:2023-08-19
+FROM gcr.io/datcom-ci/python-node-go-protoc-envoy:2023-10-05
 
 ARG ENV
 ENV ENV=${ENV}
@@ -48,6 +48,7 @@ RUN GRPC_HEALTH_PROBE_VERSION=v0.4.7 && \
 # Build binary
 COPY mixer/cmd/ cmd
 COPY mixer/esp/ esp
+ENV CGO_ENABLED=1
 RUN go build -o /go/bin/mixer cmd/main.go
 
 # Flask
@@ -58,8 +59,14 @@ RUN pip install --upgrade setuptools
 # --no-cache-dir removes ~/.cache files, which can be a few GB.
 RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
 
-# NPM
+# Import Tool
+COPY import/simple/requirements.txt /workspace/import/simple/requirements.txt
+RUN pip3 install --no-cache-dir -r /workspace/import/simple/requirements.txt
+RUN pip install pandas
+
 WORKDIR /workspace/static
+
+# NPM
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
 RUN npm install --omit=dev
@@ -68,11 +75,20 @@ RUN npm install --omit=dev
 COPY static/. /workspace/static/
 RUN npm run-script build
 
+WORKDIR /workspace
+
 # Flask
 COPY server/. /workspace/server/
 COPY shared/. /workspace/shared/
 
-WORKDIR /workspace
+# Import Tool
+COPY import/. /workspace/import/
+
+# Env
+ENV USE_SQLITE=false
+ENV USE_CLOUDSQL=false
+ENV REMOTE_MIXER_DOMAIN=https://api.datacommons.org
+
 COPY build/web_compose/compose.sh .
 EXPOSE 8080 8081
-CMD ./compose.sh $USE_SQLITE $SQLITE_PATH
+CMD ./compose.sh

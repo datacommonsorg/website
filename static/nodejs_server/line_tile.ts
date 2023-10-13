@@ -28,7 +28,7 @@ import {
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { dataGroupsToCsv } from "../js/utils/chart_csv_utils";
-import { getChartTitle } from "../js/utils/tile_utils";
+import { getChartTitle, getComparisonPlaces } from "../js/utils/tile_utils";
 import { CHART_ID, DOM_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
 import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
@@ -40,6 +40,7 @@ function getTileProp(
   statVarSpec: StatVarSpec[],
   apiRoot: string
 ): LineTilePropType {
+  const comparisonPlaces = getComparisonPlaces(tileConfig, place);
   return {
     apiRoot,
     id,
@@ -48,6 +49,7 @@ function getTileProp(
     svgChartHeight: SVG_HEIGHT,
     svgChartWidth: SVG_WIDTH,
     title: tileConfig.title,
+    comparisonPlaces,
   };
 }
 
@@ -58,7 +60,7 @@ function getLineChartSvg(
   const tileContainer = document.createElement("div");
   tileContainer.setAttribute("id", CHART_ID);
   document.getElementById(DOM_ID).appendChild(tileContainer);
-  draw(tileProp, chartData, tileContainer);
+  draw(tileProp, chartData, tileContainer, true);
   return getProcessedSvg(tileContainer.querySelector("svg"));
 }
 

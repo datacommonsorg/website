@@ -40,6 +40,7 @@ import {
   addXAxis,
   addYAxis,
   appendLegendElem,
+  appendSvgLegendElem,
   getDisplayUnitAndLabel,
   getLegendKeyFn,
   LegendItem,
@@ -325,14 +326,16 @@ export function drawStackBarChart(
   const colorFn = getColorFn(colorOrder, options?.colors);
 
   const setData = (d: d3.Series<{ [key: string]: number }, string>) => {
-    return d.map((item) => ({
-      date: item.data.date,
-      place: item.data.label,
-      statVar: d.key,
-      unit: options?.unit,
-      value: item.data.value,
-      ...item,
-    }));
+    return d
+      .filter((item) => item.length >= 2 && !isNaN(item[0]) && !isNaN(item[1]))
+      .map((item) => ({
+        date: item.data.date,
+        place: item.data.label,
+        statVar: d.key,
+        unit: options?.unit,
+        value: item[1] - item[0],
+        ...item,
+      }));
   };
 
   if (options?.lollipop) {
@@ -438,15 +441,19 @@ export function drawStackBarChart(
     addHighlightOnHover(chartAreaBoundary, container, svg);
   }
 
-  appendLegendElem(
-    containerElement,
-    colorFn,
-    legendItems.map((item) => ({
-      ...item,
-      index: legendKeyFn(item.label),
-    })),
-    options?.apiRoot
-  );
+  if (options?.useSvgLegend) {
+    appendSvgLegendElem(svg, chartHeight, chartWidth, colorFn, legendItems);
+  } else {
+    appendLegendElem(
+      containerElement,
+      colorFn,
+      legendItems.map((item) => ({
+        ...item,
+        index: legendKeyFn(item.label),
+      })),
+      options?.apiRoot
+    );
+  }
   svg.attr("class", ASYNC_ELEMENT_CLASS);
 }
 
@@ -686,14 +693,16 @@ function drawHorizontalStackedBars(
   unit?: string
 ): void {
   const setData = (d: d3.Series<{ [key: string]: number }, string>) => {
-    return d.map((dp) => ({
-      date: dp.data.date,
-      place: dp.data.label,
-      statVar: d.key,
-      unit,
-      value: dp.data.value,
-      ...dp,
-    }));
+    return d
+      .filter((dp) => dp.length >= 2 && !isNaN(dp[0]) && !isNaN(dp[1]))
+      .map((dp) => ({
+        date: dp.data.date,
+        place: dp.data.label,
+        statVar: d.key,
+        unit,
+        value: dp[1] - dp[0],
+        ...dp,
+      }));
   };
   if (useLollipop) {
     // How much to shift stems so they plot at center of band
@@ -1006,15 +1015,19 @@ export function drawGroupBarChart(
     addHighlightOnHover(chartAreaBoundary, container, svg);
   }
 
-  appendLegendElem(
-    containerElement,
-    colorFn,
-    legendItems.map((item) => ({
-      ...item,
-      index: legendKeyFn(item.label),
-    })),
-    options?.apiRoot
-  );
+  if (options?.useSvgLegend) {
+    appendSvgLegendElem(svg, chartHeight, chartWidth, colorFn, legendItems);
+  } else {
+    appendLegendElem(
+      containerElement,
+      colorFn,
+      legendItems.map((item) => ({
+        ...item,
+        index: legendKeyFn(item.label),
+      })),
+      options?.apiRoot
+    );
+  }
   svg.attr("class", ASYNC_ELEMENT_CLASS);
 }
 
@@ -1049,7 +1062,6 @@ export function drawHorizontalBarChart(
       curr[dataPoint.label] = dataPoint.value;
       curr.dcid = dataPoint.dcid;
       curr.date = dataPoint.date;
-      curr.value = dataPoint.value;
     }
     data.push(curr);
   }
@@ -1213,14 +1225,17 @@ export function drawHorizontalBarChart(
     addHighlightOnHover(chartAreaBoundary, container, svg);
   }
 
-  // Legend
-  appendLegendElem(
-    containerElement,
-    color,
-    legendItems.map((item) => ({
-      ...item,
-      index: legendKeyFn(item.label),
-    })),
-    options?.apiRoot
-  );
+  if (options?.useSvgLegend) {
+    appendSvgLegendElem(svg, height, chartWidth, color, legendItems);
+  } else {
+    appendLegendElem(
+      containerElement,
+      color,
+      legendItems.map((item) => ({
+        ...item,
+        index: legendKeyFn(item.label),
+      })),
+      options?.apiRoot
+    );
+  }
 }

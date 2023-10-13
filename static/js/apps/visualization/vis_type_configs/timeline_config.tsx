@@ -250,12 +250,22 @@ function getSqlQueryFn(appContext: AppContextType): () => string {
       perCapita: !!sampleSvSpec.denom,
     };
   }
+  // map of stat var dcid to the facet id.
+  const metahashMap = {};
+  // map of stat var dcid to map of facet id to stat metadata.
+  const metadataMap = {};
+  appContext.statVars.forEach((sv) => {
+    metahashMap[sv.dcid] = sv.facetId || "";
+    if (sv.facetId) {
+      metadataMap[sv.dcid] = { [sv.facetId]: sv.facetInfo || {} };
+    }
+  });
   return () => {
     return getTimelineSqlQuery(
       { chartOrder, chartIdToOptions, chartIdToStatVars: groups },
       appContext.places.map((place) => place.dcid),
-      {},
-      {}
+      metahashMap,
+      metadataMap
     );
   };
 }

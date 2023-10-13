@@ -16,7 +16,7 @@
 FROM python:3.11.4-slim as base
 
 RUN apt update
-RUN apt install -y curl zip wget
+RUN apt install -y curl zip wget gcc libc6-dev
 
 # Install Node
 ENV NODE_VERSION=18.17.1

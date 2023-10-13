@@ -162,7 +162,6 @@ function getTextLength(text: string): number {
   };
 };
 
-
 // Gets a promise for a single tile result
 function getTileResult(
   id: string,
@@ -174,47 +173,46 @@ function getTileResult(
   switch (tileConfig.type) {
     case "LINE":
       return getLineTileResult(
-          id,
-          tileConfig,
-          place,
-          svSpec,
-          CONFIG.apiRoot,
-          "",
-          false
-        )
+        id,
+        tileConfig,
+        place,
+        svSpec,
+        CONFIG.apiRoot,
+        "",
+        false
+      );
     case "SCATTER":
       return getScatterTileResult(
-          id,
-          tileConfig,
-          place,
-          enclosedPlaceType,
-          svSpec,
-          CONFIG.apiRoot,
-          "",
-          false
-        );
+        id,
+        tileConfig,
+        place,
+        enclosedPlaceType,
+        svSpec,
+        CONFIG.apiRoot,
+        "",
+        false
+      );
     case "BAR":
       return getBarTileResult(
-          id,
-          tileConfig,
-          place,
-          enclosedPlaceType,
-          svSpec as any as StatVarSpec[],
-          CONFIG.apiRoot,
-          "",
-          false
-        )
-      break;
+        id,
+        tileConfig,
+        place.dcid,
+        enclosedPlaceType,
+        svSpec as any as StatVarSpec[],
+        CONFIG.apiRoot,
+        "",
+        false
+      );
     case "MAP":
       return getMapTileResult(
-          id,
-          tileConfig,
-          place,
-          enclosedPlaceType,
-          svSpec[0],
-          CONFIG.apiRoot,
-          "",
-          false
+        id,
+        tileConfig,
+        place,
+        enclosedPlaceType,
+        svSpec[0],
+        CONFIG.apiRoot,
+        "",
+        false
       );
     default:
       return Promise.resolve(null);
@@ -272,7 +270,7 @@ function getBlockTileResults(
             getBarTileResult(
               tileId,
               tile,
-              place,
+              place.dcid,
               enclosedPlaceType,
               tileSvSpec,
               CONFIG.apiRoot,
@@ -393,7 +391,7 @@ function getTileChart(
     case "BAR":
       return getBarChart(
         tileConfig,
-        place,
+        place.dcid,
         childPlaceType,
         svSpec,
         CONFIG.apiRoot
@@ -552,7 +550,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
             .send(JSON.stringify({ charts: filteredResults, debug }));
         })
         .catch(() => {
-          res.status(500).send({ err: "Error fetching data." }); []
+          res.status(500).send({ err: "Error fetching data." });
+          [];
         });
     })
     .catch((error) => {
@@ -610,17 +609,21 @@ app.get("/nodejs/chart-info", (req: Request, res: Response) => {
     req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
   );
   res.setHeader("Content-Type", "application/json");
-  const namedTypedPlace = { dcid: place, name: place, types: []}
-  getTileResult(CHART_ID, namedTypedPlace, enclosedPlaceType, svSpec, tileConfig)
-  .then((tileResult) => {
-    res
-      .status(200)
-      .send(JSON.stringify(tileResult));
-  })
-  .catch(() => {
-    res.status(500).send({ err: "Error fetching data." });
-  });
-})
+  const namedTypedPlace = { dcid: place, name: place, types: [] };
+  getTileResult(
+    CHART_ID,
+    namedTypedPlace,
+    enclosedPlaceType,
+    svSpec,
+    tileConfig
+  )
+    .then((tileResult) => {
+      res.status(200).send(JSON.stringify(tileResult));
+    })
+    .catch(() => {
+      res.status(500).send({ err: "Error fetching data." });
+    });
+});
 
 app.get("/nodejs/healthz", (_, res: Response) => {
   res.status(200).send("Node Server Ready");

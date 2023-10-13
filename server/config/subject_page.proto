@@ -94,7 +94,7 @@ message StatVarSpec {
   // The name to use for the stat var in labels and titles.
   string name = 6;
   // [Optional] The date to use when getting data for the stat var. Will use the
-  // latest date if not set. Only enabled in map, ranking, and scatter tiles.
+  // latest date if not set. Only enabled in map, ranking, scatter, and highlight tiles.
   string date = 7;
   // [Optional] Whether to prevent this variable from being shown per capita. 
   bool no_per_capita = 8;
@@ -197,6 +197,15 @@ message BarTileSpec {
   bool use_lollipop = 9;
   // y-axis margin
   double y_axis_margin = 10;
+  // [optional] Replace the variable name display with the first match from
+  // this regular expression. For example, if the variableNameRegex is 
+  // "(.*?)(?=:)", only the part before a ":" will be used for variable names.
+  // So "variable 1: test" will become "variable 1".
+  string variable_name_regex = 11;
+  // [optional] default variable name used with variableNameRegex. If provided
+  // and no variable name can be extracted using variableNameRegex, use this 
+  // as the variable name.
+  string default_variable_name = 12;
 }
 
 message GaugeTileSpec {
@@ -218,13 +227,32 @@ message DonutTileSpec {
 }
 
 message LineTileSpec {
+  enum TimeScaleType {
+    TYPE_UNSPECIFIED = 0;
+    MONTH = 1;
+    YEAR = 2;
+    DAY = 3;
+  }
   // specific colors to use, as a list of CSS-compatible color strings
   repeated string colors = 1;
+  // [optional] Use a specific time scale for this chart.
+  TimeScaleType timeScale = 2;
+  // [optional] Replace the variable name display with the first match from
+  // this regular expression. For example, if the variableNameRegex is 
+  // "(.*?)(?=:)", only the part before a ":" will be used for variable names.
+  // So "variable 1: test" will become "variable 1".
+  string variable_name_regex = 3;
+  // [optional] default variable name used with variableNameRegex. If provided
+  // and no variable name can be extracted using variableNameRegex, use this 
+  // as the variable name.
+  string default_variable_name = 4;
 }
 
 message MapTileSpec {
   // specific colors to use, as a list of CSS-compatible color strings
   repeated string colors = 2;
+  // [optional] knowledge graph property containing the place GeoJSON
+  string geo_json_prop = 3;
 }
 
 message Tile {
@@ -278,6 +306,13 @@ message Tile {
   repeated string comparison_places = 7;
   // [optional] If set, used instead of main place for the page.
   string place_dcid_override = 11;
+  // [optional] used only in ranking tiles
+  // set to true to hide the footer with download / explore more link
+  bool hide_footer = 17;
+  // [optional] Tile subtitle
+  string subtitle = 18;
+  // [optional] knowledge graph property containing the place name
+  string place_name_prop = 19;
 
   // specs for specific tile types
   oneof tile_type_spec {

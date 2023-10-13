@@ -663,14 +663,13 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         fetchData({
           id: "",
           enclosedPlaceType: this.props.rankingPlaceType,
-          place: { dcid: this.props.parentPlaceDcid, name: "", types: [] },
+          parentPlace: this.props.parentPlaceDcid,
           rankingMetadata: {
-            diffBaseDate: "",
             showHighest: true,
             showLowest: true,
             showMultiColumn: false,
           },
-          statVarSpec: [
+          variables: [
             {
               denom: "",
               log: false,

@@ -15,7 +15,6 @@
 import asyncio
 import json
 import logging
-import os
 import time
 from typing import Dict, List
 
@@ -47,6 +46,7 @@ from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
 import server.lib.nl.fulfillment.fulfiller as fulfillment
 import server.lib.nl.fulfillment.utils as futils
+from server.lib.translator import detect_lang_and_translate
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 import server.services.bigtable as bt
@@ -64,6 +64,10 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   nl_bad_words = current_app.config['NL_BAD_WORDS']
 
   test = request.args.get(params.Params.TEST.value, '')
+  i18n_str = request.args.get(params.Params.I18N.value, '')
+  i18n = i18n_str and i18n_str.lower() == 'true'
+  udp_str = request.args.get(params.Params.USE_DEFAULT_PLACE.value, 'true')
+  udp = udp_str and udp_str.lower() == 'true'
 
   # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
@@ -104,6 +108,13 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   else:
     llm_api_type = LlmApiType(llm_api_type)
 
+  counters = ctr.Counters()
+
+  if i18n:
+    start = time.time()
+    original_query = detect_lang_and_translate(original_query, counters)
+    counters.timeit("detect_lang_and_translate", start)
+
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   if not query:
     err_json = helpers.abort(
@@ -125,7 +136,6 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
                              blocked=True)
     return None, err_json
 
-  counters = ctr.Counters()
   debug_logs["original_query"] = query
 
   # Generate new utterance.
@@ -160,7 +170,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
                                session_id, test)
 
   if utterance:
-    context.merge_with_context(utterance, is_sdg)
+    context.merge_with_context(utterance, is_sdg, udp)
 
   return utterance, None
 

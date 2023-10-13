@@ -67,6 +67,8 @@ export interface DonutTilePropType {
   svgChartHeight: number;
   // Title to put at top of chart
   title: string;
+  // Chart subtitle
+  subtitle?: string;
 }
 
 interface DonutChartData {
@@ -105,6 +107,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
     <ChartTileContainer
       id={props.id}
       title={props.title}
+      subtitle={props.subtitle}
       sources={donutChartData && donutChartData.sources}
       replacementStrings={getReplacementStrings(props, donutChartData)}
       className={`${props.className} bar-chart`}

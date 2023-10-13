@@ -36,6 +36,8 @@ export const URL_HASH_PARAMS = {
   AUTO_PLAY_MANUAL_ENTER: "ae",
   MAXIMUM_BLOCK: "mb",
   TEST_MODE: "test",
+  I18N: "i18n",
+  USE_DEFAULT_PLACE: "udp",
 };
 // Dcid of the default topic to use
 export const DEFAULT_TOPIC = "dc/topic/Root";

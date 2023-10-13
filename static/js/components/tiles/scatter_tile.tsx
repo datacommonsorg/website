@@ -79,6 +79,8 @@ export interface ScatterTilePropType {
   footnote?: string;
   // The property to use to get place names.
   placeNameProp?: string;
+  // Chart subtitle
+  subtitle?: string;
 }
 
 interface RawData {
@@ -146,6 +148,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
     <ChartTileContainer
       id={props.id}
       title={props.title}
+      subtitle={props.subtitle}
       sources={scatterChartData && scatterChartData.sources}
       replacementStrings={getReplacementStrings(props, scatterChartData)}
       className={`${props.className} scatter-chart`}

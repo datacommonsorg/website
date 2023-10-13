@@ -47,7 +47,7 @@ import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 function getTileProp(
   id: string,
   tileConfig: TileConfig,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string
@@ -55,9 +55,9 @@ function getTileProp(
   return {
     id,
     title: tileConfig.title,
-    place,
+    parentPlace: place,
     enclosedPlaceType,
-    statVarSpec,
+    variables: statVarSpec,
     rankingMetadata: tileConfig.rankingTileSpec,
     apiRoot,
   };
@@ -66,6 +66,7 @@ function getTileProp(
 function getRankingChartSvg(
   rankingGroup: RankingGroup,
   sv: string,
+  enclosedPlaceType: string,
   tileConfig: TileConfig,
   apiRoot: string
 ): SVGSVGElement {
@@ -73,6 +74,7 @@ function getRankingChartSvg(
     getRankingUnit(
       tileConfig.title,
       sv,
+      enclosedPlaceType,
       rankingGroup,
       tileConfig.rankingTileSpec,
       tileConfig.rankingTileSpec.showHighest,
@@ -97,7 +99,7 @@ function getRankingUnitResult(
   rankingGroup: RankingGroup,
   sv: string,
   isHighest: boolean,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   urlRoot: string,
@@ -134,7 +136,7 @@ function getRankingUnitResult(
       : statVarSpec.filter((spec) => spec.statVar === sv);
     result.chartUrl = getChartUrl(
       urlTileConfig,
-      place.dcid,
+      place,
       urlSvSpec,
       enclosedPlaceType,
       null,
@@ -142,7 +144,13 @@ function getRankingUnitResult(
     );
     return result;
   }
-  const svg = getRankingChartSvg(rankingGroup, sv, tileConfig, apiRoot);
+  const svg = getRankingChartSvg(
+    rankingGroup,
+    sv,
+    enclosedPlaceType,
+    tileConfig,
+    apiRoot
+  );
   result.svg = getSvgXml(svg);
   return result;
 }
@@ -159,7 +167,7 @@ function getRankingUnitResult(
 export async function getRankingTileResult(
   id: string,
   tileConfig: TileConfig,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
@@ -230,7 +238,7 @@ export async function getRankingTileResult(
  */
 export async function getRankingChart(
   tileConfig: TileConfig,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string
@@ -247,7 +255,13 @@ export async function getRankingChart(
     const rankingData = await fetchData(tileProp);
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = rankingData[sv];
-      return getRankingChartSvg(rankingGroup, sv, tileConfig, apiRoot);
+      return getRankingChartSvg(
+        rankingGroup,
+        sv,
+        enclosedPlaceType,
+        tileConfig,
+        apiRoot
+      );
     }
   } catch (e) {
     console.log("Failed to get ranking chart");

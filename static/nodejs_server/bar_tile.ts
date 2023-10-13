@@ -27,8 +27,7 @@ import {
   fetchData,
   getReplacementStrings,
 } from "../js/components/tiles/bar_tile";
-import { SELF_PLACE_DCID_PLACEHOLDER } from "../js/constants/subject_page_constants";
-import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
+import { StatVarSpec } from "../js/shared/types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { dataGroupsToCsv } from "../js/utils/chart_csv_utils";
 import { getChartTitle } from "../js/utils/tile_utils";
@@ -39,29 +38,23 @@ import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 function getTileProp(
   id: string,
   tileConfig: TileConfig,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string
 ): BarTilePropType {
-  const comparisonPlaces = tileConfig.comparisonPlaces
-    ? tileConfig.comparisonPlaces.map((p) =>
-        p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
-      )
-    : undefined;
   const barTileSpec = tileConfig.barTileSpec || {};
   return {
     id,
     title: tileConfig.title,
-    place,
+    places: tileConfig.comparisonPlaces || [place],
     enclosedPlaceType,
-    statVarSpec,
+    variables: statVarSpec,
     apiRoot,
     svgChartHeight: SVG_HEIGHT,
-    comparisonPlaces,
     useLollipop: barTileSpec.useLollipop || false,
     stacked: barTileSpec.stacked || false,
-    horizontal: barTileSpec.horizontal || false
+    horizontal: barTileSpec.horizontal || false,
   };
 }
 
@@ -72,7 +65,10 @@ function getBarChartSvg(
   const tileContainer = document.createElement("div");
   tileContainer.setAttribute("id", tileProp.id);
   document.getElementById(DOM_ID).appendChild(tileContainer);
-  draw(tileProp, chartData, tileContainer, SVG_WIDTH);
+  draw(tileProp, chartData, tileContainer, SVG_WIDTH, true);
+  const chartSvg = tileContainer.querySelector("svg");
+  // viewBox attribute throws off sizing in node server
+  chartSvg.removeAttribute("viewBox");
   return getProcessedSvg(tileContainer.querySelector("svg"));
 }
 
@@ -88,7 +84,7 @@ function getBarChartSvg(
 export async function getBarTileResult(
   id: string,
   tileConfig: TileConfig,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
@@ -116,16 +112,13 @@ export async function getBarTileResult(
       data_csv: dataGroupsToCsv(chartData.dataGroup),
       srcs: getSources(chartData.sources),
       legend,
-      title: getChartTitle(
-        tileConfig.title,
-        getReplacementStrings(tileProp, chartData)
-      ),
+      title: getChartTitle(tileConfig.title, getReplacementStrings(chartData)),
       type: "BAR",
     };
     if (useChartUrl) {
       result.chartUrl = getChartUrl(
         tileConfig,
-        place.dcid,
+        place,
         statVarSpec,
         enclosedPlaceType,
         null,
@@ -152,7 +145,7 @@ export async function getBarTileResult(
  */
 export async function getBarChart(
   tileConfig: TileConfig,
-  place: NamedTypedPlace,
+  place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string

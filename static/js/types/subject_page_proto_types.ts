@@ -60,8 +60,6 @@ export interface RankingTileSpec {
   showHighest: boolean;
   showLowest: boolean;
 
-  diffBaseDate: string;
-
   highestTitle?: string;
   lowestTitle?: string;
   rankingCount?: number;
@@ -110,6 +108,8 @@ export interface BarTileSpec {
   stacked?: boolean;
   useLollipop?: boolean;
   yAxisMargin?: number;
+  variableNameRegex?: string;
+  defaultVariableName?: string;
 }
 
 export interface GaugeTileSpec {
@@ -127,10 +127,14 @@ export interface DonutTileSpec {
 
 export interface LineTileSpec {
   colors?: string[];
+  timeScale?: "YEAR" | "MONTH" | "DAY";
+  variableNameRegex?: string;
+  defaultVariableName?: string;
 }
 
 export interface MapTileSpec {
   colors?: string[];
+  geoJsonProp?: string;
 }
 
 export interface TileConfig {
@@ -140,6 +144,9 @@ export interface TileConfig {
   statVarKey: string[];
   comparisonPlaces?: string[];
   placeDcidOverride?: string;
+  hideFooter?: boolean;
+  subtitle?: string;
+  placeNameProp?: string;
   rankingTileSpec?: RankingTileSpec;
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
   topEventTileSpec?: TopEventTileSpec;
