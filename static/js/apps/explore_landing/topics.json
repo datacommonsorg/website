@@ -30,7 +30,7 @@
           "url": "t=dc/topic/JusticeSystemEquity&p=country/USA"
         }
       ],
-      "image": "/images/topic-equity.svg",
+      "image": "/images/explore_landing/topic-equity.svg",
       "examples": {
         "general": [
           {
@@ -133,7 +133,7 @@
           "url": "t=dc/topic/Agriculture&p=country/USA"
         }
       ],
-      "image": "/images/topic-economics.svg",
+      "image": "/images/explore_landing/topic-economics.svg",
       "examples": {
         "general": [
           {
@@ -246,7 +246,7 @@
           "url": "t=dc/topic/PreventativeHealthAndBehavior&p=country/USA"
         }
       ],
-      "image": "/images/topic-health.svg",
+      "image": "/images/explore_landing/topic-health.svg",
       "examples": {
         "general": [
           {
@@ -373,7 +373,7 @@
           "url": "t=dc/topic/WorkCommute&p=country/USA"
         }
       ],
-      "image": "/images/topic-education.svg",
+      "image": "/images/explore_landing/topic-education.svg",
       "examples": {
         "general": [
           {
@@ -486,7 +486,7 @@
           "url": "t=dc/topic/Nationality&p=country/USA"
         }
       ],
-      "image": "/images/topic-demographics.svg",
+      "image": "/images/explore_landing/topic-demographics.svg",
       "examples": {
         "general": [
           {
@@ -633,7 +633,7 @@
           "url": "t=dc/topic/ProductionConsumptionandWaste&p=country/USA"
         }
       ],
-      "image": "/images/topic-sustainability.svg",
+      "image": "/images/explore_landing/topic-sustainability.svg",
       "examples": {
         "general": [
           {
@@ -726,7 +726,7 @@
       "title": "Sustainability Development Goals",
       "description": "Explore global and country level progress on the 17 Sustainable Development Goals (SDGs).",
       "subTopics": [],
-      "image": "/images/topic-sustainability.svg",
+      "image": "/images/explore_landing/topic-sustainability.svg",
       "examples": {
         "general": [
           {
