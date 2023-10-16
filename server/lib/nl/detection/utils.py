@@ -172,8 +172,7 @@ def create_utterance(query_detection: Detection,
                    session_id=session_id,
                    multi_svs=query_detection.svs_detected.multi_sv,
                    llm_resp=query_detection.llm_resp,
-                   test=test,
-                   i18n=i18n)
+                   test=test)
   uttr.counters.info('filtered_svs', filtered_svs)
 
   # Add detected places.
