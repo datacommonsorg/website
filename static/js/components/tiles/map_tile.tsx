@@ -26,6 +26,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
   addPolygonLayer,
+  combineGeoJsons,
   drawD3Map,
   getProjection,
   MapZoomParams,
@@ -123,21 +124,34 @@ interface RawData {
   population: SeriesApiResponse;
   parentPlaces: NamedTypedPlace[];
   borderGeoJson?: GeoJsonData;
+  place: NamedTypedPlace;
+  enclosedPlaceType: string;
+}
+
+// Geojson and metadata for the place of a single layer of the map
+interface PlaceData {
+  borderGeoJson?: GeoJsonData;
+  enclosedPlaceType: string;
+  geoJson: GeoJsonData;
+  place: NamedTypedPlace;
+  showMapBoundaries: boolean;
 }
 
 export interface MapChartData {
   dataValues: { [dcid: string]: number };
-  metadata: { [dcid: string]: DataPointMetadata };
-  sources: Set<string>;
-  geoJson: GeoJsonData;
   dateRange: string;
+  errorMsg: string;
+  // Whether all places to show are contained in the US
+  // Determines whether or not to use US-specific projection
   isUsaPlace: boolean;
-  showMapBoundaries: boolean;
-  unit: string;
-  borderGeoJson?: GeoJsonData;
+  metadata: { [dcid: string]: DataPointMetadata };
+  // geoJsons and metadata for each layer to draw
+  placeData: PlaceData[];
   // props used when fetching this data
   props: MapTilePropType;
-  errorMsg: string;
+  sources: Set<string>;
+  // statVarDcid -> unit display string
+  units: { [dcid: string]: string };
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
@@ -159,7 +173,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     !!zoomParams && !!mapChartData && _.isEqual(mapChartData.props, props);
 
   useEffect(() => {
-    if (!mapChartData || !_.isEqual(mapChartData.props, props)) {
+    if (_.isEmpty(mapChartData) || !_.isEqual(mapChartData.props, props)) {
       loadSpinner(props.id);
       (async () => {
         const data = await fetchData(props);
@@ -167,7 +181,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           setMapChartData(data);
         }
       })();
-    } else if (_.isEqual(mapChartData.props, props)) {
+    } else if (!!mapChartData && _.isEqual(mapChartData.props, props)) {
       draw(
         mapChartData,
         props,
@@ -214,20 +228,26 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       title={props.title}
       subtitle={props.subtitle}
       sources={mapChartData && mapChartData.sources}
-      replacementStrings={getReplacementStrings(props, mapChartData)}
+      replacementStrings={
+        mapChartData && getReplacementStrings(props, mapChartData)
+      }
       className={`${props.className} map-chart`}
       allowEmbed={true}
       getDataCsv={
         mapChartData
-          ? () => mapDataToCsv(mapChartData.geoJson, mapChartData.dataValues)
+          ? () =>
+              mapDataToCsv(
+                mapChartData.placeData[0].geoJson,
+                mapChartData.dataValues
+              )
           : null
       }
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
-      hasErrorMsg={mapChartData && !!mapChartData.errorMsg}
+      hasErrorMsg={!_.isEmpty(mapChartData) && !!mapChartData.errorMsg}
       footnote={props.footnote}
     >
-      {showZoomButtons && !mapChartData.errorMsg && (
+      {showZoomButtons && !_.isEmpty(mapChartData) && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">
           <div id={zoomParams.zoomInButtonId} className="map-zoom-button">
             <i className="material-icons">add</i>
@@ -266,174 +286,207 @@ export function getReplacementStrings(
   chartData: MapChartData
 ): ReplacementStrings {
   return {
-    placeName: props.place.name,
+    placeName: !props.dataSpec && props.place.name,
     date: chartData && chartData.dateRange,
   };
 }
 
 /**
- * Determine values to use for data fetch, based on if the optional dataSpec
- * parameter was passed into the map tile props. Uses values form dataSpec if
- * present.
- * @param props tile props
- * @returns parent place's dcid, enclosed place type, parent place as a
- *          NamedTypedPlace, and statVarSpec to use, in that order.
+ * Get DataSpec formatted object if not provided in props
+ * @param props map tile props
  */
-function getPlaceAndVariableSpecs(
+function getDataSpec(
   props: MapTilePropType
-): [string, string, NamedTypedPlace, StatVarSpec] {
-  let parentPlaceDcid = props.place.dcid;
-  let enclosedPlaceType = props.enclosedPlaceType;
-  let statVarSpec = props.statVarSpec;
-  let place = props.place;
+): ContainedInPlaceSingleVariableView[] {
   if (props.dataSpec && props.dataSpec.length > 0) {
-    const spec = props.dataSpec[0];
-    parentPlaceDcid = spec.parentPlace;
-    enclosedPlaceType = spec.enclosedPlaceType;
-    statVarSpec = spec.variable;
-    place = {
-      name: "",
-      dcid: spec.parentPlace,
-      types: [],
-    };
+    return props.dataSpec;
   }
-  return [parentPlaceDcid, enclosedPlaceType, place, statVarSpec];
+
+  return [
+    {
+      parentPlace: props.place.dcid,
+      enclosedPlaceType: props.enclosedPlaceType,
+      variable: props.statVarSpec,
+    },
+  ];
 }
 
 export const fetchData = async (
   props: MapTilePropType
 ): Promise<MapChartData> => {
-  const [parentPlaceDcid, enclosedPlaceType, place, statVarSpec] =
-    getPlaceAndVariableSpecs(props);
-  const geoJsonParams = {
-    placeDcid: parentPlaceDcid,
-    placeType: enclosedPlaceType,
-  };
-  if (props.placeNameProp) {
-    geoJsonParams["placeNameProp"] = props.placeNameProp;
-  }
-  if (props.geoJsonProp) {
-    geoJsonParams["geoJsonProp"] = props.geoJsonProp;
-  }
-  const geoJsonPromise = axios
-    .get(`${props.apiRoot || ""}/api/choropleth/geojson`, {
-      params: geoJsonParams,
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => resp.data);
-  const borderGeoJsonPromise = axios
-    .post(`${props.apiRoot || ""}/api/choropleth/node-geojson`, {
-      geoJsonProp: "geoJsonCoordinates",
-      nodes: [parentPlaceDcid],
-    })
-    .then((resp) => resp.data);
-  const dataDate =
-    statVarSpec.date || getCappedStatVarDate(statVarSpec.statVar);
-  const facetIds = statVarSpec.facetId ? [statVarSpec.facetId] : null;
-  const placeStatPromise: Promise<PointApiResponse> = getPointWithin(
-    props.apiRoot,
-    enclosedPlaceType,
-    parentPlaceDcid,
-    [statVarSpec.statVar],
-    dataDate,
-    [],
-    facetIds
-  );
-  const populationPromise: Promise<SeriesApiResponse> = props.statVarSpec.denom
-    ? getSeriesWithin(props.apiRoot, parentPlaceDcid, enclosedPlaceType, [
-        statVarSpec.denom,
-      ])
-    : Promise.resolve(null);
-  const parentPlacesPromise = props.parentPlaces
-    ? Promise.resolve(props.parentPlaces)
-    : axios
-        .get(`${props.apiRoot || ""}/api/place/parent?dcid=${parentPlaceDcid}`)
-        .then((resp) => resp.data);
-  try {
-    const [geoJson, placeStat, population, parentPlaces, borderGeoJsonData] =
-      await Promise.all([
-        geoJsonPromise,
-        placeStatPromise,
-        populationPromise,
-        parentPlacesPromise,
-        borderGeoJsonPromise,
-      ]);
-    // Only draw borders for containing places without 'wall to wall' coverage
-    const borderGeoJson = shouldShowBorder(enclosedPlaceType)
-      ? borderGeoJsonData
-      : undefined;
-    const rawData = {
-      geoJson,
-      placeStat,
-      population,
-      parentPlaces,
-      borderGeoJson,
-    };
-    return rawToChart(rawData, statVarSpec, place, enclosedPlaceType, props);
-  } catch (error) {
+  const layers = getDataSpec(props);
+  if (_.isEmpty(layers)) {
     removeSpinner(props.id);
     return null;
   }
+  const rawDataArray = [];
+  for (const layer of layers) {
+    const place = props.dataSpec
+      ? { name: "", dcid: layer.parentPlace, types: [] }
+      : props.place;
+    const geoJsonParams = {
+      placeDcid: layer.parentPlace,
+      placeType: layer.enclosedPlaceType,
+    };
+    if (props.placeNameProp) {
+      geoJsonParams["placeNameProp"] = props.placeNameProp;
+    }
+    if (props.geoJsonProp) {
+      geoJsonParams["geoJsonProp"] = props.geoJsonProp;
+    }
+    const geoJsonPromise = axios
+      .get(`${props.apiRoot || ""}/api/choropleth/geojson`, {
+        params: geoJsonParams,
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => resp.data);
+    const borderGeoJsonPromise = axios
+      .post(`${props.apiRoot || ""}/api/choropleth/node-geojson`, {
+        geoJsonProp: "geoJsonCoordinates",
+        nodes: [layer.parentPlace],
+      })
+      .then((resp) => resp.data);
+    const dataDate =
+      layer.variable.date || getCappedStatVarDate(layer.variable.statVar);
+    const facetIds = layer.variable.facetId ? [layer.variable.facetId] : null;
+    const placeStatPromise: Promise<PointApiResponse> = getPointWithin(
+      props.apiRoot,
+      layer.enclosedPlaceType,
+      layer.parentPlace,
+      [layer.variable.statVar],
+      dataDate,
+      [],
+      facetIds
+    );
+    const populationPromise: Promise<SeriesApiResponse> = props.statVarSpec
+      .denom
+      ? getSeriesWithin(
+          props.apiRoot,
+          layer.parentPlace,
+          layer.enclosedPlaceType,
+          [layer.variable.denom]
+        )
+      : Promise.resolve(null);
+    const parentPlacesPromise = props.parentPlaces
+      ? Promise.resolve(props.parentPlaces)
+      : axios
+          .get(
+            `${props.apiRoot || ""}/api/place/parent?dcid=${layer.parentPlace}`
+          )
+          .then((resp) => resp.data);
+    try {
+      const [geoJson, placeStat, population, parentPlaces, borderGeoJsonData] =
+        await Promise.all([
+          geoJsonPromise,
+          placeStatPromise,
+          populationPromise,
+          parentPlacesPromise,
+          borderGeoJsonPromise,
+        ]);
+      // Only draw borders for containing places without 'wall to wall' coverage
+      const borderGeoJson = shouldShowBorder(layer.enclosedPlaceType)
+        ? borderGeoJsonData
+        : undefined;
+      const rawData = {
+        geoJson,
+        placeStat,
+        population,
+        parentPlaces,
+        borderGeoJson,
+        place,
+        enclosedPlaceType: layer.enclosedPlaceType,
+      };
+      rawDataArray.push(rawData);
+    } catch (error) {
+      removeSpinner(props.id);
+      return null;
+    }
+  }
+  return rawToChart(rawDataArray, layers[0].variable, props);
 };
 
 function rawToChart(
-  rawData: RawData,
+  rawDataArray: RawData[],
   statVarSpec: StatVarSpec,
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
   props: MapTilePropType
 ): MapChartData {
-  const metadataMap = rawData.placeStat.facets || {};
-  const placeStat = rawData.placeStat.data[statVarSpec.statVar] || {};
-
   const dataValues = {};
-  const metadata = {};
-  const sources: Set<string> = new Set();
   const dates: Set<string> = new Set();
-  if (_.isEmpty(rawData.geoJson)) {
-    return;
-  }
-  const { unit, scaling } = getStatFormat(statVarSpec, rawData.placeStat);
-  for (const geoFeature of rawData.geoJson.features) {
-    const placeDcid = geoFeature.properties.geoDcid;
-    const placeChartData = getPlaceChartData(
-      placeStat,
-      placeDcid,
-      false /* set isPerCapita as false here so that we can calculate per capita the same way as all the tiles */,
-      {},
-      metadataMap
-    );
-    if (_.isEmpty(placeChartData)) {
-      continue;
+  const metadata = {};
+  const placeData = [];
+  const sources: Set<string> = new Set();
+  const units = {};
+  let isUsaPlace = true;
+
+  for (const rawData of rawDataArray) {
+    if (_.isEmpty(rawData.geoJson)) {
+      return;
     }
-    let value = placeChartData.value;
-    placeChartData.sources.forEach((source) => {
-      if (!_.isEmpty(source)) {
-        sources.add(source);
-      }
+
+    const metadataMap = rawData.placeStat.facets || {};
+    const placeStat = rawData.placeStat.data[statVarSpec.statVar] || {};
+    placeData.push({
+      borderGeoJson: rawData.borderGeoJson,
+      enclosedPlaceType: rawData.enclosedPlaceType,
+      geoJson: rawData.geoJson,
+      place: rawData.place,
+      showMapBoundaries: shouldShowMapBoundaries(
+        rawData.place,
+        rawData.enclosedPlaceType
+      ),
     });
-    if (statVarSpec.denom) {
-      const denomInfo = getDenomInfo(
-        statVarSpec,
-        rawData.population,
+
+    // isUsaPlace will only remain true if all places provided are
+    // within the United States
+    if (
+      !isChildPlaceOf(rawData.place.dcid, USA_PLACE_DCID, rawData.parentPlaces)
+    ) {
+      isUsaPlace = false;
+    }
+
+    const { unit, scaling } = getStatFormat(statVarSpec, rawData.placeStat);
+    units[statVarSpec.statVar] = unit;
+    for (const geoFeature of rawData.geoJson.features) {
+      const placeDcid = geoFeature.properties.geoDcid;
+      const placeChartData = getPlaceChartData(
+        placeStat,
         placeDcid,
-        placeChartData.date
+        false /* set isPerCapita as false here so that we can calculate per capita the same way as all the tiles */,
+        {},
+        metadataMap
       );
-      if (_.isEmpty(denomInfo)) {
-        // skip this data point because missing denom data.
+      if (_.isEmpty(placeChartData)) {
         continue;
       }
-      value /= denomInfo.value;
-      placeChartData.metadata.popSource = denomInfo.source;
-      placeChartData.metadata.popDate = denomInfo.date;
-      sources.add(denomInfo.source);
+      let value = placeChartData.value;
+      placeChartData.sources.forEach((source) => {
+        if (!_.isEmpty(source)) {
+          sources.add(source);
+        }
+      });
+      if (statVarSpec.denom) {
+        const denomInfo = getDenomInfo(
+          statVarSpec,
+          rawData.population,
+          placeDcid,
+          placeChartData.date
+        );
+        if (_.isEmpty(denomInfo)) {
+          // skip this data point because missing denom data.
+          continue;
+        }
+        value /= denomInfo.value;
+        placeChartData.metadata.popSource = denomInfo.source;
+        placeChartData.metadata.popDate = denomInfo.date;
+        sources.add(denomInfo.source);
+      }
+      if (scaling) {
+        value = value * scaling;
+      }
+      dataValues[placeDcid] = value;
+      metadata[placeDcid] = placeChartData.metadata;
+      dates.add(placeChartData.date);
     }
-    if (scaling) {
-      value = value * scaling;
-    }
-    dataValues[placeDcid] = value;
-    metadata[placeDcid] = placeChartData.metadata;
-    dates.add(placeChartData.date);
   }
   // check for empty data values
   const errorMsg = _.isEmpty(dataValues)
@@ -441,20 +494,14 @@ function rawToChart(
     : "";
   return {
     dataValues,
-    metadata,
-    sources,
     dateRange: getDateRange(Array.from(dates)),
-    geoJson: rawData.geoJson,
-    isUsaPlace: isChildPlaceOf(
-      place.dcid,
-      USA_PLACE_DCID,
-      rawData.parentPlaces
-    ),
-    showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
-    unit,
-    borderGeoJson: rawData.borderGeoJson,
-    props,
     errorMsg,
+    isUsaPlace,
+    metadata,
+    placeData,
+    props,
+    sources,
+    units,
   };
 }
 
@@ -479,7 +526,12 @@ export function draw(
   if (errorMsgContainer) {
     errorMsgContainer.innerHTML = "";
   }
-  const mainStatVar = props.statVarSpec.statVar;
+  // If multiple StatVars are provided, use the first
+  // TODO: Support multiple stat-vars
+  const mainStatVar = !_.isEmpty(props.dataSpec)
+    ? props.dataSpec[0].variable.statVar
+    : props.statVarSpec.statVar;
+  const unit = mainStatVar in chartData.units && chartData.units[mainStatVar];
   const height = props.svgChartHeight;
   const dataValues = Object.values(chartData.dataValues);
   const colorScale = getColorScale(
@@ -501,16 +553,13 @@ export function draw(
         Math.abs(chartData.dataValues[place.dcid]) > 0
       ) {
         const chartDatavalue = chartData.dataValues[place.dcid];
-        value = formatNumber(
-          Number(chartDatavalue.toPrecision(2)),
-          chartData.unit
-        );
+        value = formatNumber(Number(chartDatavalue.toPrecision(2)), unit);
       } else {
         value = formatNumber(
           Math.round(
             (chartData.dataValues[place.dcid] + Number.EPSILON) * 100
           ) / 100,
-          chartData.unit
+          unit
         );
       }
       date = ` (${chartData.metadata[place.dcid].placeStatDate})`;
@@ -522,33 +571,50 @@ export function draw(
     legendContainer,
     height,
     colorScale,
-    chartData.unit,
+    unit,
     0
   );
   const chartWidth = (svgWidth || svgContainer.offsetWidth) - legendWidth;
-  const [, , place] = getPlaceAndVariableSpecs(props);
 
-  const shouldUseBorderData =
-    props.enclosedPlaceType &&
-    shouldShowBorder(props.enclosedPlaceType) &&
-    !_.isEmpty(chartData.borderGeoJson);
-  // Use border data to calculate projection if using borders.
-  // This prevents borders from being cutoff when enclosed places don't
-  // provide wall to wall coverage.
-  const projectionData = shouldUseBorderData
-    ? chartData.borderGeoJson
-    : chartData.geoJson;
+  // Create combined geojson to use to calculate projection.
+  const projectionGeoJsons = [];
+  const bordersToDraw = [];
+  for (const placeData of chartData.placeData) {
+    // Use border data to calculate projection if using borders.
+    // This prevents borders from being cutoff when enclosed places don't
+    // provide wall to wall coverage.
+    const shouldUseBorderData =
+      placeData.enclosedPlaceType &&
+      shouldShowBorder(placeData.enclosedPlaceType) &&
+      !_.isEmpty(placeData.borderGeoJson);
+    projectionGeoJsons.push(
+      shouldUseBorderData ? placeData.borderGeoJson : placeData.geoJson
+    );
+    if (shouldUseBorderData) {
+      bordersToDraw.push(placeData.borderGeoJson);
+    }
+  }
+
+  const projectionData = combineGeoJsons(projectionGeoJsons);
+  const enclosingPlace =
+    chartData.placeData.length == 1 ? chartData.placeData[0].place.dcid : "";
   const projection = getProjection(
     chartData.isUsaPlace,
-    place.dcid,
+    enclosingPlace,
     chartWidth,
     height,
     projectionData
   );
+  const geoJsons = {};
+  const showMapBoundaries = {};
+  for (const placeData of chartData.placeData) {
+    geoJsons[placeData.place.dcid] = placeData.geoJson;
+    showMapBoundaries[placeData.place.dcid] = placeData.showMapBoundaries;
+  }
 
   drawD3Map(
     mapContainer,
-    chartData.geoJson,
+    geoJsons,
     height,
     chartWidth,
     chartData.dataValues,
@@ -556,30 +622,38 @@ export function draw(
     _.noop,
     getTooltipHtml,
     () => false,
-    chartData.showMapBoundaries,
+    showMapBoundaries,
     projection,
     undefined,
     zoomParams
   );
-  if (shouldUseBorderData) {
+  for (const borderGeoJson of bordersToDraw)
     addPolygonLayer(
       mapContainer,
-      chartData.borderGeoJson,
+      borderGeoJson,
       projection,
       () => "none",
       () => BORDER_STROKE_COLOR,
       () => null,
       false
     );
-  }
 }
 
 function getExploreLink(props: MapTilePropType): {
   displayText: string;
   url: string;
 } {
-  const [parentPlaceDcid, enclosedPlaceType, , statVarSpec] =
-    getPlaceAndVariableSpecs(props);
+  // If dataSpec is provided, will only provide link of first layer
+  // TODO: Update the link after the visualization tools support multi-place
+  const parentPlaceDcid = !_.isEmpty(props.dataSpec)
+    ? props.dataSpec[0].parentPlace
+    : props.place.dcid;
+  const enclosedPlaceType = !_.isEmpty(props.dataSpec)
+    ? props.dataSpec[0].enclosedPlaceType
+    : props.enclosedPlaceType;
+  const statVarSpec = !_.isEmpty(props.dataSpec)
+    ? props.dataSpec[0].variable
+    : props.statVarSpec;
   const hash = getHash(
     VisType.MAP,
     [parentPlaceDcid],

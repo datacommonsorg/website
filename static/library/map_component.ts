@@ -48,6 +48,11 @@ export class DatacommonsMapComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Optional: Allow zoom and pan on map
+  // TODO: Add to documentation once zoom button bug gets fixed.
+  @property({ type: Boolean })
+  allowZoom: boolean;
+
   // Optional: API root to use to fetch data
   // Defaults to https://datacommons.org
   @property()
@@ -56,6 +61,12 @@ export class DatacommonsMapComponent extends LitElement {
   // Type of child place to rank (ex: State, County)
   @property()
   childPlaceType!: string;
+
+  // [Optional] List of type of child place to rank (ex: State, County),
+  // in matching order with parentPlaces (plural). If provided, childPlaceType
+  // (singular) is ignored.
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  childPlaceTypes?: string[];
 
   // Optional: color(s) to use
   @property({ type: Array<string>, converter: convertArrayAttribute })
@@ -72,6 +83,11 @@ export class DatacommonsMapComponent extends LitElement {
   // DCID of the parent place
   @property()
   parentPlace!: string;
+
+  // [Optional] DCIDs of places to plot, must be paired with childPlaceTypes
+  // (plural). If provided, parentPlace (singular) is ignored.
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  parentPlaces?: string[];
 
   /**
    * @deprecated
@@ -146,25 +162,51 @@ export class DatacommonsMapComponent extends LitElement {
   }
 
   render(): HTMLElement {
-    const place = this.parentPlace || this.place || this.placeDcid;
-    const variable = this.variable || this.statVarDcid;
-    const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
-    const dataSpec = [
-      {
-        parentPlace: place,
-        enclosedPlaceType: childPlaceType,
-        variable: {
-          denom: "",
-          log: false,
-          name: "",
-          scaling: 1,
-          statVar: variable,
-          unit: "",
-          date: this.date,
+    let dataSpec = [];
+    if (!_.isEmpty(this.parentPlaces) && !_.isEmpty(this.childPlaceTypes)) {
+      this.parentPlaces?.forEach((placeDcid, index) => {
+        const enclosedPlaceType =
+          this.childPlaceTypes[
+            Math.min(index, this.childPlaceTypes.length - 1)
+          ];
+        dataSpec.push({
+          parentPlace: placeDcid,
+          enclosedPlaceType,
+          variable: {
+            denom: "",
+            log: false,
+            name: "",
+            scaling: 1,
+            statVar: this.variable || this.statVarDcid,
+            unit: "",
+            date: this.date,
+          },
+        });
+      });
+    } else {
+      const place = this.parentPlace || this.place || this.placeDcid;
+      const variable = this.variable || this.statVarDcid;
+      const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
+      dataSpec = [
+        {
+          parentPlace: place,
+          enclosedPlaceType: childPlaceType,
+          variable: {
+            denom: "",
+            log: false,
+            name: "",
+            scaling: 1,
+            statVar: variable,
+            unit: "",
+            date: this.date,
+          },
         },
-      },
-    ];
+      ];
+    }
+    // TODO: Remove placeholder values once Map Tile depreciates
+    //       enclosedPlaceType, place, statVarSpec.
     const mapTileProps: MapTilePropType = {
+      allowZoom: this.allowZoom,
       apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
       dataSpec,

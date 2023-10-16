@@ -508,9 +508,13 @@ export function draw(
     chartData.baseMapGeoJson,
     props.place.dcid
   );
+  const geoJsonData = {};
+  geoJsonData[props.place.dcid] = chartData.baseMapGeoJson;
+  const showMapBoundaries = {};
+  showMapBoundaries[props.place.dcid] = true;
   drawD3Map(
     svgContainer,
-    chartData.baseMapGeoJson,
+    geoJsonData,
     svgHeight,
     svgWidth,
     {} /* dataValues: no data values to show on the base map */,
@@ -521,7 +525,7 @@ export function draw(
       placeDcid !==
       props.place
         .dcid /* canClickRegion: don't allow clicking region that will redirect to current page */,
-    true /* shouldShowBoundaryLines */,
+    showMapBoundaries /* shouldShowBoundaryLines */,
     projection,
     chartData.isPlaceBaseMap
       ? ""

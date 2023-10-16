@@ -20,7 +20,6 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
-import { format } from "path";
 
 import { formatNumber } from "../i18n/i18n";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
@@ -364,7 +363,7 @@ export function getPlacePathId(placeDcid: string): string {
   if (_.isEmpty(placeDcid)) {
     return "";
   }
-  return placeDcid.replaceAll("/", "-");
+  return placeDcid.replaceAll("/", "-").replaceAll(".", "_");
 }
 
 /**
