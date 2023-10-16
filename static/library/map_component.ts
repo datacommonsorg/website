@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+import { ChartEventDetail } from "@datacommonsorg/web-components";
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
-import { ChartEventDetail } from "@datacommonsorg/web-components";
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
 import {
   convertArrayAttribute,
