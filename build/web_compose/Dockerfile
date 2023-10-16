@@ -62,7 +62,6 @@ RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
 # Import Tool
 COPY import/simple/requirements.txt /workspace/import/simple/requirements.txt
 RUN pip3 install --no-cache-dir -r /workspace/import/simple/requirements.txt
-RUN pip install pandas
 
 WORKDIR /workspace/static
 
