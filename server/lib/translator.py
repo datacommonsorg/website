@@ -20,10 +20,10 @@ from langdetect import detect as lang_detect
 import requests
 
 from server.lib.nl.common.counters import Counters
+from shared.lib.constants import EN_LANG_CODE
 
 _API_URL = "https://translation.googleapis.com/language/translate/v2"
 _API_HEADER = {"content-type": "application/json"}
-_EN_LANG = "en"
 
 
 # Detects the query language and translates non-English queries to English.
@@ -31,10 +31,10 @@ _EN_LANG = "en"
 def detect_lang_and_translate(query, counters: Counters) -> (str, str):
   try:
     lang = lang_detect(query)
-    if lang.startswith(_EN_LANG):
+    if lang.startswith(EN_LANG_CODE):
       return lang, query
 
-    translations = _translate([query], lang, _EN_LANG)
+    translations = _translate([query], lang, EN_LANG_CODE)
 
     if translations:
       counters.info(
@@ -43,7 +43,7 @@ def detect_lang_and_translate(query, counters: Counters) -> (str, str):
               "query": query,
               "translation": translations[0],
               "source_language": lang,
-              "target_language": _EN_LANG,
+              "target_language": EN_LANG_CODE,
           },
       )
       return lang, translations[0]
@@ -52,32 +52,34 @@ def detect_lang_and_translate(query, counters: Counters) -> (str, str):
     return lang, query
   except Exception as e:
     counters.err("query_translation_error", {"query": query, "error": str(e)})
-    return _EN_LANG, query
+    return EN_LANG_CODE, query
 
 
-class TranslationStringTokens:
-  """Class that replaces tokens (like "${date}") in strings 
-with replacements that won't be translated (like "___") to send for translation.
+class TranslationStringTokenizer:
+  """Performs tokenization operations on translation strings.
+  
+  Replaces tokens (like "${date}") in strings with replacements 
+  that won't be translated (like "___") to send for translation.
 
-It also supports a method to reinsert tokens back into the translated string.
-"""
+  It also supports a method to reinsert tokens back into the translated string.
+  """
 
   _TOKEN_PATTERN = r"\${[^}]+}"
   _TOKEN_REPLACEMENT = "___"
 
   def __init__(self, original_string: str) -> None:
     self.original_string = original_string
-    self.tokens = re.findall(TranslationStringTokens._TOKEN_PATTERN,
+    self.tokens = re.findall(TranslationStringTokenizer._TOKEN_PATTERN,
                              original_string)
     self.string_for_translation = re.sub(
-        TranslationStringTokens._TOKEN_PATTERN,
-        TranslationStringTokens._TOKEN_REPLACEMENT,
+        TranslationStringTokenizer._TOKEN_PATTERN,
+        TranslationStringTokenizer._TOKEN_REPLACEMENT,
         original_string,
     )
 
   def reinsert_tokens(self, translation):
     for token in self.tokens:
-      translation = re.sub(TranslationStringTokens._TOKEN_REPLACEMENT,
+      translation = re.sub(TranslationStringTokenizer._TOKEN_REPLACEMENT,
                            token,
                            translation,
                            count=1)
@@ -86,34 +88,32 @@ It also supports a method to reinsert tokens back into the translated string.
 
 # Translates display strings in the provided page config and
 # updates and returns the page config with the translations.
-def translate_page_config(page_config: dict, query_lang: str,
+def translate_page_config(page_config: dict, i18n_lang: str,
                           counters: Counters) -> dict:
   try:
     original_strings = _get_strings_for_translation(page_config)
-    strings_with_tokens: list[TranslationStringTokens] = []
+    tokenizers: list[TranslationStringTokenizer] = []
     strings_for_translation: list[str] = []
     for original_string in original_strings:
-      translation_string_tokens = TranslationStringTokens(original_string)
-      strings_with_tokens.append(translation_string_tokens)
-      strings_for_translation.append(
-          translation_string_tokens.string_for_translation)
+      tokenizer = TranslationStringTokenizer(original_string)
+      tokenizers.append(tokenizer)
+      strings_for_translation.append(tokenizer.string_for_translation)
 
     translated_strings = _translate(queries=strings_for_translation,
-                                    source_lang=_EN_LANG,
-                                    target_lang=query_lang)
+                                    source_lang=EN_LANG_CODE,
+                                    target_lang=i18n_lang)
 
     translated_strings_with_tokens_reinserted = []
-    for translated_string, translation_string_token in zip(
-        translated_strings, strings_with_tokens):
+    for translated_string, tokenizer in zip(translated_strings, tokenizers):
       translated_strings_with_tokens_reinserted.append(
-          translation_string_token.reinsert_tokens(translated_string))
+          tokenizer.reinsert_tokens(translated_string))
     translations = dict(
         zip(original_strings, translated_strings_with_tokens_reinserted))
 
     counters.info(
         "translate_page_config",
         {
-            "num_translations": len(strings_with_tokens),
+            "num_translations": len(tokenizers),
             "translations": translations
         },
     )
@@ -145,13 +145,12 @@ def _populate_translated_strings(page_config: dict, translations: dict[str,
       _maybe_update(sv, "name")
 
 
-def _get_strings_for_translation(
-    page_config: dict) -> list[TranslationStringTokens]:
-  strings = set()
+def _get_strings_for_translation(page_config: dict) -> list[str]:
+  strings = {}
 
   def _maybe_add(string: str):
-    if string:
-      strings.add(string)
+    if string and not string in strings:
+      strings[string] = True
 
   for category in page_config.get("categories", []):
     for block in category.get("blocks", []):
@@ -163,7 +162,7 @@ def _get_strings_for_translation(
     for sv in category.get("statVarSpec", {}).values():
       _maybe_add(sv.get("name"))
 
-  return list(strings)
+  return list(strings.keys())
 
 
 def _translate(queries: list[str], source_lang: str,
