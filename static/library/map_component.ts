@@ -170,8 +170,8 @@ export class DatacommonsMapComponent extends LitElement {
             Math.min(index, this.childPlaceTypes.length - 1)
           ];
         dataSpec.push({
-          parentPlace: placeDcid,
           enclosedPlaceType,
+          parentPlace: placeDcid,
           variable: {
             denom: "",
             log: false,
@@ -189,8 +189,8 @@ export class DatacommonsMapComponent extends LitElement {
       const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
       dataSpec = [
         {
-          parentPlace: place,
           enclosedPlaceType: childPlaceType,
+          parentPlace: place,
           variable: {
             denom: "",
             log: false,

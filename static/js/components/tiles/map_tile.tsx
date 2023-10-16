@@ -119,13 +119,13 @@ export interface MapTilePropType {
 }
 
 interface RawData {
+  borderGeoJson?: GeoJsonData;
+  enclosedPlaceType: string;
   geoJson: GeoJsonData;
+  parentPlaces: NamedTypedPlace[];
+  place: NamedTypedPlace;
   placeStat: PointApiResponse;
   population: SeriesApiResponse;
-  parentPlaces: NamedTypedPlace[];
-  borderGeoJson?: GeoJsonData;
-  place: NamedTypedPlace;
-  enclosedPlaceType: string;
 }
 
 // Geojson and metadata for the place of a single layer of the map

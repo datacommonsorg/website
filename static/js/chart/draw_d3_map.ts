@@ -273,11 +273,11 @@ export function combineGeoJsons(geoJsons: GeoJsonData[]): GeoJsonData {
   }
 
   return {
-    type: "FeatureCollection",
     features,
     properties: {
       currentGeo: "",
     },
+    type: "FeatureCollection",
   };
 }
 
