@@ -21,6 +21,10 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
+# Install packages NPM depenencies
+COPY packages/. /workspace/packages/
+RUN npm --prefix /workspace/packages/web-components install --omit=dev
+
 # Install dependencies
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
