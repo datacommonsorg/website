@@ -304,8 +304,8 @@ function getDataSpec(
 
   return [
     {
-      parentPlace: props.place.dcid,
       enclosedPlaceType: props.enclosedPlaceType,
+      parentPlace: props.place.dcid,
       variable: props.statVarSpec,
     },
   ];
@@ -388,13 +388,13 @@ export const fetchData = async (
         ? borderGeoJsonData
         : undefined;
       const rawData = {
+        borderGeoJson,
+        enclosedPlaceType: layer.enclosedPlaceType,
         geoJson,
+        parentPlaces,
+        place,
         placeStat,
         population,
-        parentPlaces,
-        borderGeoJson,
-        place,
-        enclosedPlaceType: layer.enclosedPlaceType,
       };
       rawDataArray.push(rawData);
     } catch (error) {
