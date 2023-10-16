@@ -64,6 +64,7 @@ class TranslationStringTokenizer:
   It also supports a method to reinsert tokens back into the translated string.
   """
 
+  # Regex to capture tokens such as "${date}".
   _TOKEN_PATTERN = r"\${[^}]+}"
   _TOKEN_REPLACEMENT = "___"
 
