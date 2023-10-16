@@ -58,18 +58,27 @@ RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
 # --no-cache-dir removes ~/.cache files, which can be a few GB.
 RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
-# Used by Import Tool
-RUN pip install pandas
 
-# NPM
+# Import Tool
+COPY import/simple/requirements.txt /workspace/import/simple/requirements.txt
+RUN pip3 install --no-cache-dir -r /workspace/import/simple/requirements.txt
+
 WORKDIR /workspace/static
+
+# Install website NPM dependencies
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
 RUN npm install --omit=dev
 
+# Install packages NPM depenencies
+COPY packages/. /workspace/packages/
+RUN npm --prefix /workspace/packages/web-components install --omit=dev
+
 # Build Static Files
 COPY static/. /workspace/static/
 RUN npm run-script build
+
+WORKDIR /workspace
 
 # Flask
 COPY server/. /workspace/server/
@@ -83,7 +92,6 @@ ENV USE_SQLITE=false
 ENV USE_CLOUDSQL=false
 ENV REMOTE_MIXER_DOMAIN=https://api.datacommons.org
 
-WORKDIR /workspace
 COPY build/web_compose/compose.sh .
 EXPOSE 8080 8081
 CMD ./compose.sh

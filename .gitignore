@@ -75,3 +75,6 @@ mcf_parser.py
 # Test input and output files
 input/
 output/
+
+# wireit files
+.wireit

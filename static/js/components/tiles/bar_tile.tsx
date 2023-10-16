@@ -21,6 +21,7 @@
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { ChartSortOption } from "@datacommonsorg/web-components";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
@@ -28,7 +29,6 @@ import {
   drawHorizontalBarChart,
   drawStackBarChart,
 } from "../../chart/draw_bar";
-import { SortType } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { PLACE_TYPES } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
@@ -47,11 +47,11 @@ import {
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -83,7 +83,7 @@ interface BarTileSpecificSpec {
   // Set to true to draw tooltip when hovering over bars
   showTooltipOnHover?: boolean;
   // sort order
-  sort?: SortType;
+  sort?: ChartSortOption;
   // Set to true to draw as a stacked chart instead of a grouped chart
   stacked?: boolean;
   // Whether to draw as a lollipop chart instead
