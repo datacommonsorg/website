@@ -1550,6 +1550,13 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/Veterans",
+        "name": "Veterans",
+        "types": [
+          "Topic"
+        ]
       }
     ],
     "exploreMore": {
