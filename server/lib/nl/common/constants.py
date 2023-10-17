@@ -241,8 +241,7 @@ PAK_PLACE_TYPE_REMAP = {
 }
 
 EARTH = Place('Earth', 'World', 'Place')
-USA = Place('country/USA', 'United States of America',
-            'Country', 'country/USA')
+USA = Place('country/USA', 'United States of America', 'Country', 'country/USA')
 
 # Key is US-only map type.
 # Value is a list of corresponding parent place types.
