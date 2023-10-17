@@ -29,13 +29,18 @@ RUN pip install --upgrade setuptools
 # --no-cache-dir removes ~/.cache files, which can be a few GB.
 RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
 
+COPY packages/web-components/package.json /workspace/packages/web-components/package.json
+COPY packages/web-components/package-lock.json /workspace/packages/web-components/package-lock.json
+RUN npm --prefix /workspace/packages/web-components install --omit=dev
+
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
-WORKDIR /workspace/static
-RUN npm install --omit=dev
+RUN npm --prefix /workspace/static install --omit=dev
 
 # NPM
+COPY packages/. /workspace/packages/
 COPY static/. /workspace/static/
+WORKDIR /workspace/static
 RUN npm run-script build
 
 # Flask
