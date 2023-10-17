@@ -65,10 +65,11 @@ RUN pip3 install --no-cache-dir -r /workspace/import/simple/requirements.txt
 
 # Install website NPM dependencies
 COPY packages/web-components/package.json /workspace/packages/web-components/package.json
+COPY packages/web-components/package-lock.json /workspace/packages/web-components/package-lock.json
+RUN npm --prefix /workspace/packages/web-components install --omit=dev
+
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
-
-RUN npm --prefix /workspace/packages/web-components install --omit=dev
 RUN npm --prefix /workspace/static install --omit=dev
 
 # Install packages NPM depenencies
