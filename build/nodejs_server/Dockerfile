@@ -21,17 +21,19 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
-# Install packages NPM depenencies
-COPY packages/. /workspace/packages/
-RUN npm --prefix /workspace/packages/web-components install --omit=dev
-
 # Install dependencies
+COPY packages/web-components/package.json /workspace/packages/web-components/package.json
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
-WORKDIR /workspace/static
-RUN npm install --omit=dev
 
+RUN npm --prefix /workspace/packages/web-components install --omit=dev
+RUN npm --prefix /workspace/static install --omit=dev
+
+COPY packages/. /workspace/packages/
 COPY static/. /workspace/static/
+
+WORKDIR /workspace/static
+
 # Expose the port that the Node.js application will listen on.
 # Important to use 8080 for health check.
 EXPOSE 8080
