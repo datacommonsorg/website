@@ -408,3 +408,6 @@ NON_GEO_PLACE_TYPES: FrozenSet[str] = frozenset([
 # In Multi-SV detection, if the difference between successive scores exceeds
 # this threshold, then SVs at the lower score and below are ignored.
 MULTI_SV_SCORE_DIFFERENTIAL = 0.05
+
+# English language code.
+EN_LANG_CODE = 'en'
