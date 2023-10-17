@@ -466,10 +466,10 @@ export function drawD3Map(
   const map = svg.append("g").attr("id", MAP_ITEMS_GROUP_ID);
   // Build the map objects
   const mapObjects = [];
-  for (const placeDcid in geoJsons) {
+  for (const geoJsonInfo of Object.values(geoJsons)) {
     const mapObjectLayer = addGeoJsonLayer(
       containerElement,
-      geoJsons[placeDcid].geoJson,
+      geoJsonInfo.geoJson,
       projection,
       "",
       MAP_GEO_REGIONS_ID
@@ -505,7 +505,7 @@ export function drawD3Map(
         "mousemove",
         onMouseMove(canClickRegion, containerElement, getTooltipHtml)
       );
-    if (geoJsons[placeDcid].shouldShowBoundaryLines) {
+    if (geoJsonInfo.shouldShowBoundaryLines) {
       mapObjectLayer
         .attr("stroke-width", STROKE_WIDTH)
         .attr(

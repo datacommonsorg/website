@@ -22,6 +22,7 @@ import _ from "lodash";
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
+import { ContainedInPlaceSingleVariableDataSpec } from "../js/components/tiles/tile_types";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -63,8 +64,9 @@ export class DatacommonsMapComponent extends LitElement {
   childPlaceType!: string;
 
   // [Optional] List of type of child place to rank (ex: State, County),
-  // in matching order with parentPlaces (plural). If provided, childPlaceType
-  // (singular) is ignored.
+  // in matching order with parentPlaces (plural). If fewer childPlaceTypes than
+  // parentPlaces are provided, the last childPlaceType will be used for the
+  // remaining parentPlaces. If provided, childPlaceType (singular) is ignored.
   @property({ type: Array<string>, converter: convertArrayAttribute })
   childPlaceTypes?: string[];
 
@@ -84,8 +86,8 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   parentPlace!: string;
 
-  // [Optional] DCIDs of places to plot, must be paired with childPlaceTypes
-  // (plural). If provided, parentPlace (singular) is ignored.
+  // [Optional] DCIDs of places to plot. If provided, childPlaceTypes
+  // (plural) must also be provided, and parentPlace (singular) is ignored.
   @property({ type: Array<string>, converter: convertArrayAttribute })
   parentPlaces?: string[];
 
@@ -162,7 +164,7 @@ export class DatacommonsMapComponent extends LitElement {
   }
 
   render(): HTMLElement {
-    let dataSpec = [];
+    let dataSpecs: ContainedInPlaceSingleVariableDataSpec[] = [];
     if (!_.isEmpty(this.parentPlaces) && !_.isEmpty(this.childPlaceTypes)) {
       this.parentPlaces.forEach((placeDcid, index) => {
         // If more parentPlaces than childPlaceTypes provided, use the
@@ -171,7 +173,7 @@ export class DatacommonsMapComponent extends LitElement {
           this.childPlaceTypes[
             Math.min(index, this.childPlaceTypes.length - 1)
           ];
-        dataSpec.push({
+        dataSpecs.push({
           enclosedPlaceType,
           parentPlace: placeDcid,
           variable: {
@@ -189,7 +191,7 @@ export class DatacommonsMapComponent extends LitElement {
       const place = this.parentPlace || this.place || this.placeDcid;
       const variable = this.variable || this.statVarDcid;
       const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
-      dataSpec = [
+      dataSpecs = [
         {
           enclosedPlaceType: childPlaceType,
           parentPlace: place,
@@ -211,7 +213,7 @@ export class DatacommonsMapComponent extends LitElement {
       allowZoom: this.allowZoom,
       apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
-      dataSpec,
+      dataSpecs,
       enclosedPlaceType: "", //childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {

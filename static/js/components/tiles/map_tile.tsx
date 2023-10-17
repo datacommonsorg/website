@@ -70,7 +70,7 @@ import {
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
-import { ContainedInPlaceSingleVariableView } from "./tile_types";
+import { ContainedInPlaceSingleVariableDataSpec } from "./tile_types";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
@@ -89,7 +89,7 @@ export interface MapTilePropType {
   //       and statVarSpec.
   // TODO: Convert other tiles to using dataSpec.
   // TODO: Expand options of types for DataSpec
-  dataSpec?: ContainedInPlaceSingleVariableView[];
+  dataSpecs?: ContainedInPlaceSingleVariableDataSpec[];
   // Type of child places to show within the parent place.
   enclosedPlaceType: string;
   // text to show in footer of tile
@@ -286,7 +286,7 @@ export function getReplacementStrings(
   props: MapTilePropType,
   chartData: MapChartData
 ): ReplacementStrings {
-  const placeName = !props.dataSpec
+  const placeName = !props.dataSpecs
     ? props.place.name
     : chartData.placeData.map((placeData) => placeData.place.name).join(", ");
   return {
@@ -301,9 +301,9 @@ export function getReplacementStrings(
  */
 function getDataSpec(
   props: MapTilePropType
-): ContainedInPlaceSingleVariableView[] {
-  if (!_.isEmpty(props.dataSpec)) {
-    return props.dataSpec;
+): ContainedInPlaceSingleVariableDataSpec[] {
+  if (!_.isEmpty(props.dataSpecs)) {
+    return props.dataSpecs;
   }
 
   return [
@@ -325,7 +325,7 @@ export const fetchData = async (
   }
   const rawDataArray = [];
   for (const layer of layers) {
-    const place = props.dataSpec
+    const place = props.dataSpecs
       ? { name: "", dcid: layer.parentPlace, types: [] }
       : props.place;
     const geoJsonParams = {
@@ -533,8 +533,8 @@ export function draw(
   }
   // If multiple StatVars are provided, use the first
   // TODO: Support multiple stat-vars
-  const mainStatVar = !_.isEmpty(props.dataSpec)
-    ? props.dataSpec[0].variable.statVar
+  const mainStatVar = !_.isEmpty(props.dataSpecs)
+    ? props.dataSpecs[0].variable.statVar
     : props.statVarSpec.statVar;
   const unit = chartData.units[mainStatVar];
   const height = props.svgChartHeight;
@@ -652,14 +652,14 @@ function getExploreLink(props: MapTilePropType): {
 } {
   // If dataSpec is provided, will only provide link of first layer
   // TODO: Update the link after the visualization tools support multi-place
-  const parentPlaceDcid = !_.isEmpty(props.dataSpec)
-    ? props.dataSpec[0].parentPlace
+  const parentPlaceDcid = !_.isEmpty(props.dataSpecs)
+    ? props.dataSpecs[0].parentPlace
     : props.place.dcid;
-  const enclosedPlaceType = !_.isEmpty(props.dataSpec)
-    ? props.dataSpec[0].enclosedPlaceType
+  const enclosedPlaceType = !_.isEmpty(props.dataSpecs)
+    ? props.dataSpecs[0].enclosedPlaceType
     : props.enclosedPlaceType;
-  const statVarSpec = !_.isEmpty(props.dataSpec)
-    ? props.dataSpec[0].variable
+  const statVarSpec = !_.isEmpty(props.dataSpecs)
+    ? props.dataSpecs[0].variable
     : props.statVarSpec;
   const hash = getHash(
     VisType.MAP,

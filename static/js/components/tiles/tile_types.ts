@@ -120,7 +120,7 @@ export type MultiOrContainedInPlaceMultiVariableTileType =
  * TODO: Extend this for other tile types
  *       and deprecate the *TileProp interfaces
  */
-export interface ContainedInPlaceSingleVariableView {
+export interface ContainedInPlaceSingleVariableDataSpec {
   enclosedPlaceType: string;
   parentPlace: string;
   variable: StatVarSpec;
