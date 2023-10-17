@@ -76,12 +76,17 @@
   },
   {
     "url": "/tools/map#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility",
-    "height": 1080,
+    "height": 1200,
     "async": true
   },
   {
     "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DState%26sv%3D%7B%22dcid%22%3A%22Annual_Emissions_GreenhouseGas_NonBiogenic%22%7D",
-    "height": 1080,
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/scatter#%26svx%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26dx%3DCount_Person%26svy%3DPercent_Person_WithCoronaryHeartDisease%26dy%3DCount_Person%26epd%3DgeoId%2F12%26ept%3DCounty%26pp%3D",
+    "height": 1200,
     "async": true
   },
   {
