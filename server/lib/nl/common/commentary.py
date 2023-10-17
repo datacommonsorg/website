@@ -128,7 +128,7 @@ def user_message(uttr: Utterance) -> UserMessage:
       callback = topic_from_context
     elif uttr.place_source == FulfillmentResult.PAST_QUERY and uttr.sv_source == FulfillmentResult.PAST_QUERY:
       callback = place_from_context
-    elif uttr.place_source == FulfillmentResult.DEFAULT and uttr.past_source_context != constants.EARTH_DCID:
+    elif uttr.place_source == FulfillmentResult.DEFAULT and uttr.past_source_context != constants.EARTH.name:
       callback = default_place
 
   msg = ''
