@@ -118,6 +118,7 @@ export interface MapTilePropType {
   subtitle?: string;
 }
 
+// Api responses associated with a single layer of the map
 interface RawData {
   borderGeoJson?: GeoJsonData;
   enclosedPlaceType: string;
@@ -237,7 +238,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         mapChartData
           ? () =>
               mapDataToCsv(
-                mapChartData.placeData[0].geoJson,
+                mapChartData.placeData.map((place) => place.geoJson),
                 mapChartData.dataValues
               )
           : null
@@ -247,7 +248,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       hasErrorMsg={!_.isEmpty(mapChartData) && !!mapChartData.errorMsg}
       footnote={props.footnote}
     >
-      {showZoomButtons && !_.isEmpty(mapChartData) && !mapChartData.errorMsg && (
+      {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">
           <div id={zoomParams.zoomInButtonId} className="map-zoom-button">
             <i className="material-icons">add</i>
@@ -285,8 +286,11 @@ export function getReplacementStrings(
   props: MapTilePropType,
   chartData: MapChartData
 ): ReplacementStrings {
+  const placeName = !props.dataSpec
+    ? props.place.name
+    : chartData.placeData.map((placeData) => placeData.place.name).join(", ");
   return {
-    placeName: !props.dataSpec && props.place.name,
+    placeName,
     date: chartData && chartData.dateRange,
   };
 }
@@ -298,7 +302,7 @@ export function getReplacementStrings(
 function getDataSpec(
   props: MapTilePropType
 ): ContainedInPlaceSingleVariableView[] {
-  if (props.dataSpec && props.dataSpec.length > 0) {
+  if (!_.isEmpty(props.dataSpec)) {
     return props.dataSpec;
   }
 
@@ -358,8 +362,7 @@ export const fetchData = async (
       [],
       facetIds
     );
-    const populationPromise: Promise<SeriesApiResponse> = props.statVarSpec
-      .denom
+    const populationPromise: Promise<SeriesApiResponse> = layer.variable.denom
       ? getSeriesWithin(
           props.apiRoot,
           layer.parentPlace,
@@ -402,6 +405,8 @@ export const fetchData = async (
       return null;
     }
   }
+  // For now, all layers will use variable from first layer
+  // TODO: Expand to mulitple variables
   return rawToChart(rawDataArray, layers[0].variable, props);
 };
 
@@ -416,11 +421,11 @@ function rawToChart(
   const placeData = [];
   const sources: Set<string> = new Set();
   const units = {};
-  let isUsaPlace = true;
+  let isUsaPlace = true; // whether all layers are about USA places
 
   for (const rawData of rawDataArray) {
     if (_.isEmpty(rawData.geoJson)) {
-      return;
+      continue;
     }
 
     const metadataMap = rawData.placeStat.facets || {};
@@ -531,7 +536,7 @@ export function draw(
   const mainStatVar = !_.isEmpty(props.dataSpec)
     ? props.dataSpec[0].variable.statVar
     : props.statVarSpec.statVar;
-  const unit = mainStatVar in chartData.units && chartData.units[mainStatVar];
+  const unit = chartData.units[mainStatVar];
   const height = props.svgChartHeight;
   const dataValues = Object.values(chartData.dataValues);
   const colorScale = getColorScale(
@@ -605,11 +610,14 @@ export function draw(
     height,
     projectionData
   );
-  const geoJsons = {};
-  const showMapBoundaries = {};
+  const geoJsons: {
+    [dcid: string]: { geoJson: GeoJsonData; shouldShowBoundaryLines: boolean };
+  } = {};
   for (const placeData of chartData.placeData) {
-    geoJsons[placeData.place.dcid] = placeData.geoJson;
-    showMapBoundaries[placeData.place.dcid] = placeData.showMapBoundaries;
+    geoJsons[placeData.place.dcid] = {
+      geoJson: placeData.geoJson,
+      shouldShowBoundaryLines: placeData.showMapBoundaries,
+    };
   }
 
   drawD3Map(
@@ -622,7 +630,6 @@ export function draw(
     _.noop,
     getTooltipHtml,
     () => false,
-    showMapBoundaries,
     projection,
     undefined,
     zoomParams

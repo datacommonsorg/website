@@ -164,7 +164,9 @@ export class DatacommonsMapComponent extends LitElement {
   render(): HTMLElement {
     let dataSpec = [];
     if (!_.isEmpty(this.parentPlaces) && !_.isEmpty(this.childPlaceTypes)) {
-      this.parentPlaces?.forEach((placeDcid, index) => {
+      this.parentPlaces.forEach((placeDcid, index) => {
+        // If more parentPlaces than childPlaceTypes provided, use the
+        // last childPlaceType provided for remaining parentPlaces.
         const enclosedPlaceType =
           this.childPlaceTypes[
             Math.min(index, this.childPlaceTypes.length - 1)

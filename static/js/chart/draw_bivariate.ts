@@ -330,9 +330,10 @@ export function drawBivariate(
     geoJson
   );
   const geoJsonData = {};
-  geoJson[properties.placeDcid] = geoJson;
-  const showMapBoundaries = {};
-  showMapBoundaries[properties.placeDcid] = properties.showMapBoundaries;
+  geoJsonData[properties.placeDcid] = {
+    geoJson,
+    shouldShowBoundaryLines: properties.showMapBoundaries,
+  };
   drawD3Map(
     containerRef.current,
     geoJsonData,
@@ -343,7 +344,6 @@ export function drawBivariate(
     redirectAction,
     getTooltipHtml,
     () => true,
-    showMapBoundaries,
     projection
   );
 }

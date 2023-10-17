@@ -138,7 +138,7 @@ export async function getMapTileResult(
     const chartData = await fetchData(tileProp);
     const result: TileResult = {
       data_csv: mapDataToCsv(
-        chartData.placeData[0].geoJson,
+        chartData.placeData.map((place) => place.geoJson),
         chartData.dataValues
       ),
       srcs: getSources(chartData.sources),
@@ -193,7 +193,7 @@ export async function getMapChart(
   );
   try {
     const chartData = await fetchData(tileProp);
-    return getMapChartSvg(tileProp, chartData[0]);
+    return getMapChartSvg(tileProp, chartData);
   } catch (e) {
     console.log("Failed to get map chart.");
     return null;

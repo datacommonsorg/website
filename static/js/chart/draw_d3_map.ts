@@ -439,7 +439,9 @@ function addGeoJsonLayer(
  */
 export function drawD3Map(
   containerElement: HTMLDivElement,
-  geoJsons: { [dcid: string]: GeoJsonData },
+  geoJsons: {
+    [dcid: string]: { geoJson: GeoJsonData; shouldShowBoundaryLines: boolean };
+  },
   chartHeight: number,
   chartWidth: number,
   dataValues: {
@@ -449,7 +451,6 @@ export function drawD3Map(
   redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
   getTooltipHtml: (place: NamedPlace) => string,
   canClickRegion: (placeDcid: string) => boolean,
-  shouldShowBoundaryLines: { [dcid: string]: boolean },
   projection: d3.GeoProjection,
   zoomDcid?: string,
   zoomParams?: MapZoomParams,
@@ -468,7 +469,7 @@ export function drawD3Map(
   for (const placeDcid in geoJsons) {
     const mapObjectLayer = addGeoJsonLayer(
       containerElement,
-      geoJsons[placeDcid],
+      geoJsons[placeDcid].geoJson,
       projection,
       "",
       MAP_GEO_REGIONS_ID
@@ -479,7 +480,7 @@ export function drawD3Map(
         if (
           (geo.properties.geoDcid in geoJsons &&
             geo.properties.geoDcid ===
-              geoJsons[geo.properties.geoDcid].properties.currentGeo) ||
+              geoJsons[geo.properties.geoDcid].geoJson.properties.currentGeo) ||
           geo.properties.geoDcid === zoomDcid
         ) {
           return HIGHLIGHTED_CLASS_NAME;
@@ -504,10 +505,7 @@ export function drawD3Map(
         "mousemove",
         onMouseMove(canClickRegion, containerElement, getTooltipHtml)
       );
-    if (
-      placeDcid in shouldShowBoundaryLines &&
-      shouldShowBoundaryLines[placeDcid]
-    ) {
+    if (geoJsons[placeDcid].shouldShowBoundaryLines) {
       mapObjectLayer
         .attr("stroke-width", STROKE_WIDTH)
         .attr(
