@@ -156,6 +156,7 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
 #
 # Given an insight context, fulfills it into charts.
 #
+# TODO: Add support for i18n.
 def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
                               counters: ctr.Counters) -> Dict:
   insight_ctx = request.get_json()
