@@ -65,17 +65,32 @@
     "async": true
   },
   {
+    "url": "/tools/visualization#visType%3Dtimeline%26place%3DgeoId%2F0606000___geoId%2F2511000%26placeType%3DCensusZipCodeTabulationArea%26sv%3D%7B%22dcid%22%3A%22Median_Age_Person%22%7D",
+    "height": 1000,
+    "async": true
+  },
+  {
     "url": "/ranking/Median_Income_Person/County/country/USA",
     "height": 1080,
     "async": true
   },
   {
     "url": "/tools/map#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility",
-    "height": 1080,
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DState%26sv%3D%7B%22dcid%22%3A%22Annual_Emissions_GreenhouseGas_NonBiogenic%22%7D",
+    "height": 1200,
     "async": true
   },
   {
     "url": "/tools/scatter#%26svx%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26dx%3DCount_Person%26svy%3DPercent_Person_WithCoronaryHeartDisease%26dy%3DCount_Person%26epd%3DgeoId%2F12%26ept%3DCounty%26pp%3D",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/visualization?#visType%3Dscatter%26place%3Dcountry%2FUSA%26placeType%3DCounty%26sv%3D%7B%22dcid%22%3A%22Percent_Person_WithCoronaryHeartDisease%22%7D___%7B%22dcid%22%3A%22DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%22%7D",
     "height": 1200,
     "async": true
   },
@@ -130,7 +145,17 @@
     "async": true
   },
   {
+    "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DCounty%26sv%3D%7B%22dcid%22%3A%22DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%22%7D",
+    "height": 1200,
+    "async": true
+  },
+  {
     "url": "/tools/map#%26sv%3DMaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_GFDL-CM4_SSP245%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F08%26placeType%3DCounty%26sv%3D%7B%22dcid%22%3A%22Count_Person_EducationalAttainmentBachelorsDegreeOrHigher%22%2C%22pc%22%3A%221%22%7D",
     "height": 1200,
     "async": true
   },

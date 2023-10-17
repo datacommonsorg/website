@@ -1582,10 +1582,10 @@
   },
   "context": {},
   "debug": {},
-  "pastSourceContext": "Earth",
+  "pastSourceContext": "World",
   "place": {
     "dcid": "Earth",
-    "name": "Earth",
+    "name": "World",
     "place_type": "Place"
   },
   "placeFallback": {},
@@ -1593,7 +1593,7 @@
   "places": [
     {
       "dcid": "Earth",
-      "name": "Earth",
+      "name": "World",
       "place_type": "Place"
     }
   ],
