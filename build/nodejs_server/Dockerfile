@@ -15,22 +15,23 @@
 FROM node:18.14.0-slim
 
 RUN apt-get update && apt-get -y upgrade
+RUN apt-get install -y python3 pkg-config build-essential libpixman-1-dev libcairo2-dev libpango1.0-dev
 
 ARG ENV
 ENV ENV=${ENV}
 
 WORKDIR /workspace
 
-# Install dependencies
-COPY packages/web-components/package.json /workspace/packages/web-components/package.json
-COPY packages/web-components/package-lock.json /workspace/packages/web-components/package-lock.json
+# Build web components dependency
+COPY packages/. /workspace/packages/
 RUN npm --prefix /workspace/packages/web-components install --omit=dev
+RUN npm --prefix /workspace/packages/web-components run build
 
+# Install nodejs server dependencies
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
 RUN npm --prefix /workspace/static install --omit=dev
 
-COPY packages/. /workspace/packages/
 COPY static/. /workspace/static/
 
 WORKDIR /workspace/static

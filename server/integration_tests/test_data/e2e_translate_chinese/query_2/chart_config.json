@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft"
                     ],
-                    "title": "Motor Vehicle Thefts in Cities of Santa Clara County (${date})",
+                    "title": "\u5723\u514b\u62c9\u62c9\u53bf (${date}) \u57ce\u5e02\u7684\u673a\u52a8\u8f66\u8f86\u76d7\u7a83\u6848",
                     "type": "MAP"
                   }
                 ]
@@ -26,14 +26,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft"
                     ],
-                    "title": "Motor Vehicle Thefts in Cities of Santa Clara County (${date})",
+                    "title": "\u5723\u514b\u62c9\u62c9\u53bf (${date}) \u57ce\u5e02\u7684\u673a\u52a8\u8f66\u8f86\u76d7\u7a83\u6848",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Motor Vehicle Thefts in Cities of Santa Clara County"
+            "title": "\u5723\u514b\u62c9\u62c9\u53bf\u57ce\u5e02\u7684\u673a\u52a8\u8f66\u76d7\u7a83"
           },
           {
             "columns": [
@@ -43,7 +43,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Robbery"
                     ],
-                    "title": "Robberies in Cities of Santa Clara County (${date})",
+                    "title": "\u5723\u514b\u62c9\u62c9\u53bf (${date}) \u57ce\u5e02\u7684\u62a2\u52ab\u6848",
                     "type": "MAP"
                   }
                 ]
@@ -58,23 +58,23 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Robbery"
                     ],
-                    "title": "Robberies in Cities of Santa Clara County (${date})",
+                    "title": "\u5723\u514b\u62c9\u62c9\u53bf (${date}) \u57ce\u5e02\u7684\u62a2\u52ab\u6848",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Robberies in Cities of Santa Clara County"
+            "title": "\u5723\u514b\u62c9\u62c9\u53bf\u57ce\u5e02\u7684\u62a2\u52ab\u6848"
           }
         ],
         "statVarSpec": {
           "Count_CriminalActivities_MotorVehicleTheft": {
-            "name": "Motor Vehicle Thefts",
+            "name": "\u673a\u52a8\u8f66\u76d7\u7a83",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
           "Count_CriminalActivities_Robbery": {
-            "name": "Robberies",
+            "name": "\u62a2\u52ab",
             "statVar": "Count_CriminalActivities_Robbery"
           }
         }
