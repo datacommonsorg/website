@@ -181,6 +181,7 @@ you use Google Chrome browser and ChromeDriver.
 You can view the latest ChromeDriver version
 [here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE). Also make
 sure PATH is updated with ChromeDriver location.
+```
 
 If using Linux system, you can run the following commands to download Chrome
 browser and ChromeDriver, this will also include the path setup:
@@ -196,6 +197,15 @@ sudo mv chromedriver /usr/bin/chromedriver
 sudo chown root:root /usr/bin/chromedriver
 sudo chmod +x /usr/bin/chromedriver
 ```
+
+:exclamation: NOTE: If using MacOS with M1 chip, run local NL server and set `DEFAULT_NL_SERVER=1` before running the tests:
+
+```bash
+# Run local NL server
+./run_nl_server.sh -p 6060
+
+# Set DEFAULT_NL_SERVER=1
+export DEFAULT_NL_SERVER=1
 
 ### Run all tests
 
