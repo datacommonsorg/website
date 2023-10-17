@@ -284,11 +284,13 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
     if is_sdg:
       uttr.places = [constants.EARTH]
       places = [constants.EARTH_DCID]
+      uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
+      uttr.past_source_context = constants.EARTH.name
     elif use_default_place:
       uttr.places = [constants.USA]
       places = [constants.USA.dcid]
-    uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
-    uttr.past_source_context = constants.USA.name
+      uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
+      uttr.past_source_context = constants.USA.name
 
   return places, cmp_places
 
