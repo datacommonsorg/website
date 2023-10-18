@@ -79,6 +79,7 @@ const ALL_PLACE_CHILD_TYPES = {
   Planet: ["Country"],
   Continent: ["Country", IPCC_PLACE_50_TYPE_DCID],
   Country: [IPCC_PLACE_50_TYPE_DCID],
+  OceanicBasin: ["GeoGridPlace_1Deg"],
 };
 
 const USA_CHILD_PLACE_TYPES = {
@@ -150,6 +151,7 @@ export const ALL_MAP_PLACE_TYPES = {
 
 export const MANUAL_GEOJSON_DISTANCES = {
   [IPCC_PLACE_50_TYPE_DCID]: 0.5,
+  ["GeoGridPlace_1Deg"]: 1.0,
 };
 
 // list of place types in the US in the order of high to low granularity.
