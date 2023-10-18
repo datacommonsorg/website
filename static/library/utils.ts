@@ -17,7 +17,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { DEFAULT_API_ENDPOINT, ICON_STYLESHEET_URL } from "./constants";
+import {
+  DEFAULT_API_ENDPOINT,
+  MATERIAL_ICONS_OUTLINED_STYLESHEET_URL,
+  MATERIAL_ICONS_STYLESHEET_URL,
+} from "./constants";
 
 /** Library of helper functions shared across web components */
 
@@ -65,10 +69,15 @@ export function createWebComponentElement(
   const container = document.createElement("div");
 
   // Add stylesheet for material icons to the shadow DOM
-  const link = document.createElement("link");
-  link.setAttribute("rel", "stylesheet");
-  link.setAttribute("href", ICON_STYLESHEET_URL);
-  container.appendChild(link);
+  for (const url of [
+    MATERIAL_ICONS_OUTLINED_STYLESHEET_URL,
+    MATERIAL_ICONS_STYLESHEET_URL,
+  ]) {
+    const link = document.createElement("link");
+    link.setAttribute("rel", "stylesheet");
+    link.setAttribute("href", url);
+    container.appendChild(link);
+  }
 
   // Create mount point and render tile in it
   const mountPoint = document.createElement("div");

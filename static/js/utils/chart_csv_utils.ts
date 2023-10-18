@@ -159,18 +159,20 @@ export function dataPointsToCsv(dataPoints: DataPoint[]): string {
  * @param dataValues data values used in the map
  */
 export function mapDataToCsv(
-  geoJson: GeoJsonData,
+  geoJsons: GeoJsonData[],
   dataValues: { [placeDcid: string]: number }
 ): string {
   const header = ["label", "data"];
   const data = [];
-  for (const geo of geoJson.features) {
-    if (!geo.id) {
-      continue;
+  for (const geoJson of geoJsons) {
+    for (const geo of geoJson.features) {
+      if (!geo.id) {
+        continue;
+      }
+      const value = geo.id in dataValues ? dataValues[geo.id] : "N/A";
+      const name = geo.properties.name || geo.id;
+      data.push([name, value]);
     }
-    const value = geo.id in dataValues ? dataValues[geo.id] : "N/A";
-    const name = geo.properties.name || geo.id;
-    data.push([name, value]);
   }
   // sort data by label column (alphabetically)
   data.sort((a, b) => {
