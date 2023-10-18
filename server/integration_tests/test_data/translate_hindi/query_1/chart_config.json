@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Robbery"
                     ],
-                    "title": "Robberies in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0921\u0915\u0948\u0924\u0940 (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -26,14 +26,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Robbery"
                     ],
-                    "title": "Robberies in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0921\u0915\u0948\u0924\u0940 (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Robberies in Cities of Santa Clara County"
+            "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0921\u0915\u0948\u0924\u093f\u092f\u093e\u0901"
           },
           {
             "columns": [
@@ -47,7 +47,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_PropertyCrime"
                     ],
-                    "title": "Property Related Crimes in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0938\u0902\u092a\u0924\u094d\u0924\u093f \u0938\u0902\u092c\u0902\u0927\u0940 \u0905\u092a\u0930\u093e\u0927 (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -58,14 +58,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_PropertyCrime"
                     ],
-                    "title": "Property Related Crimes in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0938\u0902\u092a\u0924\u094d\u0924\u093f \u0938\u0902\u092c\u0902\u0927\u0940 \u0905\u092a\u0930\u093e\u0927 (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Property Related Crimes in Cities of Santa Clara County"
+            "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0938\u0902\u092a\u0924\u094d\u0924\u093f \u0938\u0902\u092c\u0902\u0927\u0940 \u0905\u092a\u0930\u093e\u0927"
           },
           {
             "columns": [
@@ -79,7 +79,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_LarcenyTheft"
                     ],
-                    "title": "Larceny Theft Cases in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u091a\u094b\u0930\u0940 \u0915\u0947 \u092e\u093e\u092e\u0932\u0947 (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -90,14 +90,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_LarcenyTheft"
                     ],
-                    "title": "Larceny Theft Cases in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u091a\u094b\u0930\u0940 \u0915\u0947 \u092e\u093e\u092e\u0932\u0947 (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Larceny Theft Cases in Cities of Santa Clara County"
+            "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u091a\u094b\u0930\u0940 \u0915\u0947 \u092e\u093e\u092e\u0932\u0947"
           },
           {
             "columns": [
@@ -111,7 +111,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft"
                     ],
-                    "title": "Motor Vehicle Thefts in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u092e\u094b\u091f\u0930 \u0935\u093e\u0939\u0928 \u091a\u094b\u0930\u0940 (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -122,14 +122,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft"
                     ],
-                    "title": "Motor Vehicle Thefts in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u092e\u094b\u091f\u0930 \u0935\u093e\u0939\u0928 \u091a\u094b\u0930\u0940 (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Motor Vehicle Thefts in Cities of Santa Clara County"
+            "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u092e\u094b\u091f\u0930 \u0935\u093e\u0939\u0928 \u091a\u094b\u0930\u0940"
           },
           {
             "columns": [
@@ -143,7 +143,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
-                    "title": "Criminal Activities in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0906\u092a\u0930\u093e\u0927\u093f\u0915 \u0917\u0924\u093f\u0935\u093f\u0927\u093f\u092f\u093e\u0901 (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -154,14 +154,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
-                    "title": "Criminal Activities in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0906\u092a\u0930\u093e\u0927\u093f\u0915 \u0917\u0924\u093f\u0935\u093f\u0927\u093f\u092f\u093e\u0901 (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Criminal Activities in Cities of Santa Clara County"
+            "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0906\u092a\u0930\u093e\u0927\u093f\u0915 \u0917\u0924\u093f\u0935\u093f\u0927\u093f\u092f\u093e\u0901"
           },
           {
             "columns": [
@@ -175,7 +175,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_AggravatedAssault"
                     ],
-                    "title": "Aggravated Assault Cases in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0917\u0902\u092d\u0940\u0930 \u0939\u092e\u0932\u0947 \u0915\u0947 \u092e\u093e\u092e\u0932\u0947 (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -186,14 +186,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_AggravatedAssault"
                     ],
-                    "title": "Aggravated Assault Cases in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0917\u0902\u092d\u0940\u0930 \u0939\u092e\u0932\u0947 \u0915\u0947 \u092e\u093e\u092e\u0932\u0947 (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Aggravated Assault Cases in Cities of Santa Clara County"
+            "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0917\u0902\u092d\u0940\u0930 \u0939\u092e\u0932\u0947 \u0915\u0947 \u092e\u093e\u092e\u0932\u0947"
           },
           {
             "columns": [
@@ -207,7 +207,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Arson"
                     ],
-                    "title": "Arson Crimes in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0906\u0917\u091c\u0928\u0940 \u0905\u092a\u0930\u093e\u0927 (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -218,14 +218,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Arson"
                     ],
-                    "title": "Arson Crimes in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0906\u0917\u091c\u0928\u0940 \u0905\u092a\u0930\u093e\u0927 (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Arson Crimes in Cities of Santa Clara County"
+            "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0906\u0917\u091c\u0928\u0940 \u0905\u092a\u0930\u093e\u0927"
           },
           {
             "columns": [
@@ -239,7 +239,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Burglary"
                     ],
-                    "title": "Burglaries in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u091a\u094b\u0930\u093f\u092f\u093e\u0901 (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -250,14 +250,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Burglary"
                     ],
-                    "title": "Burglaries in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u091a\u094b\u0930\u093f\u092f\u093e\u0901 (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Burglaries in Cities of Santa Clara County"
+            "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u091a\u094b\u0930\u093f\u092f\u093e\u0901"
           },
           {
             "columns": [
@@ -271,7 +271,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_ForcibleRape"
                     ],
-                    "title": "Forcible Rapes in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u091c\u092c\u0930\u0928 \u092c\u0932\u093e\u0924\u094d\u0915\u093e\u0930 (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -282,14 +282,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_ForcibleRape"
                     ],
-                    "title": "Forcible Rapes in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u091c\u092c\u0930\u0928 \u092c\u0932\u093e\u0924\u094d\u0915\u093e\u0930 (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Forcible Rapes in Cities of Santa Clara County"
+            "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u091c\u092c\u0930\u0928 \u092c\u0932\u093e\u0924\u094d\u0915\u093e\u0930"
           },
           {
             "columns": [
@@ -303,7 +303,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_ViolentCrime"
                     ],
-                    "title": "Violent Crimes in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0939\u093f\u0902\u0938\u0915 \u0905\u092a\u0930\u093e\u0927 (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -314,55 +314,55 @@
                     "statVarKey": [
                       "Count_CriminalActivities_ViolentCrime"
                     ],
-                    "title": "Violent Crimes in Cities of Santa Clara County (${date})",
+                    "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0939\u093f\u0902\u0938\u0915 \u0905\u092a\u0930\u093e\u0927 (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Violent Crimes in Cities of Santa Clara County"
+            "title": "\u0938\u093e\u0902\u0924\u093e \u0915\u094d\u0932\u093e\u0930\u093e \u0915\u093e\u0909\u0902\u091f\u0940 \u0915\u0947 \u0936\u0939\u0930\u094b\u0902 \u092e\u0947\u0902 \u0939\u093f\u0902\u0938\u0915 \u0905\u092a\u0930\u093e\u0927"
           }
         ],
         "statVarSpec": {
           "Count_CriminalActivities_AggravatedAssault": {
-            "name": "Aggravated Assault Cases",
+            "name": "\u0917\u0902\u092d\u0940\u0930 \u0939\u092e\u0932\u0947 \u0915\u0947 \u092e\u093e\u092e\u0932\u0947",
             "statVar": "Count_CriminalActivities_AggravatedAssault"
           },
           "Count_CriminalActivities_Arson": {
-            "name": "Arson Crimes",
+            "name": "\u0906\u0917\u091c\u0928\u0940 \u0905\u092a\u0930\u093e\u0927",
             "statVar": "Count_CriminalActivities_Arson"
           },
           "Count_CriminalActivities_Burglary": {
-            "name": "Burglaries",
+            "name": "\u091a\u094b\u0930\u0940",
             "statVar": "Count_CriminalActivities_Burglary"
           },
           "Count_CriminalActivities_CombinedCrime": {
-            "name": "Criminal Activities",
+            "name": "\u0906\u092a\u0930\u093e\u0927\u093f\u0915 \u0917\u0924\u093f\u0935\u093f\u0927\u093f\u092f\u093e\u0901",
             "statVar": "Count_CriminalActivities_CombinedCrime"
           },
           "Count_CriminalActivities_ForcibleRape": {
-            "name": "Forcible Rapes",
+            "name": "\u091c\u092c\u0930\u0928 \u092c\u0932\u093e\u0924\u094d\u0915\u093e\u0930",
             "statVar": "Count_CriminalActivities_ForcibleRape"
           },
           "Count_CriminalActivities_LarcenyTheft": {
-            "name": "Larceny Theft Cases",
+            "name": "\u091a\u094b\u0930\u0940 \u0915\u0947 \u092e\u093e\u092e\u0932\u0947",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
           "Count_CriminalActivities_MotorVehicleTheft": {
-            "name": "Motor Vehicle Thefts",
+            "name": "\u092e\u094b\u091f\u0930 \u0935\u093e\u0939\u0928 \u091a\u094b\u0930\u0940",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
           "Count_CriminalActivities_PropertyCrime": {
-            "name": "Property Related Crimes",
+            "name": "\u0938\u0902\u092a\u0924\u094d\u0924\u093f \u0938\u0902\u092c\u0902\u0927\u0940 \u0905\u092a\u0930\u093e\u0927",
             "statVar": "Count_CriminalActivities_PropertyCrime"
           },
           "Count_CriminalActivities_Robbery": {
-            "name": "Robberies",
+            "name": "\u0921\u0915\u0948\u0924\u0940",
             "statVar": "Count_CriminalActivities_Robbery"
           },
           "Count_CriminalActivities_ViolentCrime": {
-            "name": "Violent Crimes",
+            "name": "\u0939\u093f\u0902\u0938\u0915 \u0905\u092a\u0930\u093e\u0927",
             "statVar": "Count_CriminalActivities_ViolentCrime"
           }
         }
