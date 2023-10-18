@@ -28,7 +28,7 @@ mixer:
   useBranchBigtable: false
   useCustomBigtable: true
   foldRemoteRootSvg: true
-  remoteMixerDomain: https://api.datacommons.org
+  remoteMixerDomain: https://autopush.api.datacommons.org
 
 serviceAccount:
   name: website-ksa
@@ -53,6 +53,9 @@ kgStoreConfig:
     instance: dc-graph
     tables:
       - magic-lab_2023_04_12_22_22_43
+      - s3l_2023_06_09_10_45_33
+      - center_for_ocean_sol_2023_10_12_16_24_44
+      - test-grid-data_2023_10_17_11_25_17
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
