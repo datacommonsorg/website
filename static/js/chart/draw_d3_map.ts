@@ -26,7 +26,6 @@ import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import {
   ASIA_NAMED_TYPED_PLACE,
   AUSTRALIA_NEW_ZEALAND_DCID,
-  EASTERN_EUROPE_DCID,
   EU_DCID,
   EUROPE_NAMED_TYPED_PLACE,
   MELANESIA_DCID,
@@ -264,6 +263,25 @@ function addTooltip(containerElement: HTMLDivElement): void {
 }
 
 /**
+ * Merge multiple geoJsons into one FeatureCollection
+ * @param geoJsons array of geoJsons to combine.
+ */
+export function combineGeoJsons(geoJsons: GeoJsonData[]): GeoJsonData {
+  let features = [];
+  for (const geoJson of geoJsons) {
+    features = features.concat(geoJson.features);
+  }
+
+  return {
+    features,
+    properties: {
+      currentGeo: "",
+    },
+    type: "FeatureCollection",
+  };
+}
+
+/**
  * Get the projection to use for drawing a map
  * @param isUSAPlace whether or not the map is of the USA
  * @param enclosingPlaceDcid the enclosing place of the map
@@ -421,7 +439,9 @@ function addGeoJsonLayer(
  */
 export function drawD3Map(
   containerElement: HTMLDivElement,
-  geoJson: GeoJsonData,
+  geoJsons: {
+    [dcid: string]: { geoJson: GeoJsonData; shouldShowBoundaryLines: boolean };
+  },
   chartHeight: number,
   chartWidth: number,
   dataValues: {
@@ -431,7 +451,6 @@ export function drawD3Map(
   redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
   getTooltipHtml: (place: NamedPlace) => string,
   canClickRegion: (placeDcid: string) => boolean,
-  shouldShowBoundaryLines: boolean,
   projection: d3.GeoProjection,
   zoomDcid?: string,
   zoomParams?: MapZoomParams,
@@ -446,56 +465,63 @@ export function drawD3Map(
     .attr("preserveAspectRatio", "xMidYMid meet");
   const map = svg.append("g").attr("id", MAP_ITEMS_GROUP_ID);
   // Build the map objects
-  const mapObjects = addGeoJsonLayer(
-    containerElement,
-    geoJson,
-    projection,
-    "",
-    MAP_GEO_REGIONS_ID
-  );
-  mapObjects
-    .attr("class", (geo: GeoJsonFeature) => {
-      // highlight the place of the current page
-      if (
-        geo.properties.geoDcid === geoJson.properties.currentGeo ||
-        geo.properties.geoDcid === zoomDcid
-      ) {
-        return HIGHLIGHTED_CLASS_NAME;
-      }
-      if (getValue(geo, dataValues) === undefined) {
-        return "missing-data";
-      }
-    })
-    .attr("fill", (d: GeoJsonFeature) => {
-      const value = getValue(d, dataValues);
-      if (value !== undefined) {
-        return colorScale(value);
-      }
-      return styleParams?.noDataFill || MISSING_DATA_COLOR;
-    })
-    .attr("id", (d: GeoJsonFeature) => {
-      return getPlacePathId(d.properties.geoDcid);
-    })
-    .on("mouseover", onMouseOver(canClickRegion, containerElement))
-    .on("mouseout", onMouseOut(containerElement))
-    .on(
-      "mousemove",
-      onMouseMove(canClickRegion, containerElement, getTooltipHtml)
+  const mapObjects = [];
+  for (const geoJsonInfo of Object.values(geoJsons)) {
+    const mapObjectLayer = addGeoJsonLayer(
+      containerElement,
+      geoJsonInfo.geoJson,
+      projection,
+      "",
+      MAP_GEO_REGIONS_ID
     );
-  if (shouldShowBoundaryLines) {
-    mapObjects
-      .attr("stroke-width", STROKE_WIDTH)
-      .attr(
-        "stroke",
-        styleParams
-          ? styleParams.strokeColor || GEO_STROKE_COLOR
-          : GEO_STROKE_COLOR
+    mapObjectLayer
+      .attr("class", (geo: GeoJsonFeature) => {
+        // highlight the place of the current page
+        if (
+          (geo.properties.geoDcid in geoJsons &&
+            geo.properties.geoDcid ===
+              geoJsons[geo.properties.geoDcid].geoJson.properties.currentGeo) ||
+          geo.properties.geoDcid === zoomDcid
+        ) {
+          return HIGHLIGHTED_CLASS_NAME;
+        }
+        if (getValue(geo, dataValues) === undefined) {
+          return "missing-data";
+        }
+      })
+      .attr("fill", (d: GeoJsonFeature) => {
+        const value = getValue(d, dataValues);
+        if (value !== undefined) {
+          return colorScale(value);
+        }
+        return styleParams?.noDataFill || MISSING_DATA_COLOR;
+      })
+      .attr("id", (d: GeoJsonFeature) => {
+        return getPlacePathId(d.properties.geoDcid);
+      })
+      .on("mouseover", onMouseOver(canClickRegion, containerElement))
+      .on("mouseout", onMouseOut(containerElement))
+      .on(
+        "mousemove",
+        onMouseMove(canClickRegion, containerElement, getTooltipHtml)
       );
+    if (geoJsonInfo.shouldShowBoundaryLines) {
+      mapObjectLayer
+        .attr("stroke-width", STROKE_WIDTH)
+        .attr(
+          "stroke",
+          styleParams
+            ? styleParams.strokeColor || GEO_STROKE_COLOR
+            : GEO_STROKE_COLOR
+        );
+    }
+    mapObjectLayer.on(
+      "click",
+      onMapClick(canClickRegion, containerElement, redirectAction)
+    );
+    mapObjects.push(mapObjectLayer);
   }
-  mapObjects.on(
-    "click",
-    onMapClick(canClickRegion, containerElement, redirectAction)
-  );
+
   // style highlighted region and bring to the front
   d3.select(containerElement)
     .select("." + HIGHLIGHTED_CLASS_NAME)
@@ -513,7 +539,9 @@ export function drawD3Map(
         [chartWidth, chartHeight],
       ])
       .on("zoom", function (): void {
-        mapObjects.on("mousemove", null).on("mouseover", null);
+        mapObjects.forEach((mapObjectLayer) => {
+          mapObjectLayer.on("mousemove", null).on("mouseover", null);
+        });
         d3.select(`#${TOOLTIP_ID}`).style("display", "none");
         map
           .selectAll("path,circle")
@@ -522,12 +550,14 @@ export function drawD3Map(
           .attr("transform", d3.event.transform);
       })
       .on("end", function (): void {
-        mapObjects
-          .on(
-            "mousemove",
-            onMouseMove(canClickRegion, containerElement, getTooltipHtml)
-          )
-          .on("mouseover", onMouseOver(canClickRegion, containerElement));
+        mapObjects.forEach((mapObjectLayer) => {
+          mapObjectLayer
+            .on(
+              "mousemove",
+              onMouseMove(canClickRegion, containerElement, getTooltipHtml)
+            )
+            .on("mouseover", onMouseOver(canClickRegion, containerElement));
+        });
       });
     svg.call(zoom).call(zoom.transform, STARTING_ZOOM_TRANSFORMATION);
     if (zoomParams.zoomInButtonId) {
@@ -654,7 +684,7 @@ export function addMapPoints(
  * Adds a layer of polygons on top of a map
  * @param containerElement containing element of the map
  * @param geoJson polygon data to draw
- * @param projection projection to use for drawing geojsonss
+ * @param projection projection to use for drawing geojsons
  * @param getRegionColor mapping of geojson feature to its fill color
  * @param getRegionBorder mapping of geojson feature to its stroke color
  * @param onClick function to use when clicking on a feature

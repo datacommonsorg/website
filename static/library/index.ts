@@ -62,10 +62,15 @@ function loadStyles() {
   googleSansEl.rel = "stylesheet";
   const materialIconsEl = document.createElement("link");
   materialIconsEl.href =
-    "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=block";
+    "https://fonts.googleapis.com/icon?family=Material+Icons&display=block";
   materialIconsEl.rel = "stylesheet";
+  const materialIconsOutlinedEl = document.createElement("link");
+  materialIconsOutlinedEl.href =
+    "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=block";
+  materialIconsOutlinedEl.rel = "stylesheet";
   document.head.appendChild(googleSansEl);
   document.head.appendChild(materialIconsEl);
+  document.head.appendChild(materialIconsOutlinedEl);
 }
 
 // Append font styles to page
