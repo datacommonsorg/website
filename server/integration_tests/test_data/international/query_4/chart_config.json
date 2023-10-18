@@ -245,35 +245,6 @@
               }
             ],
             "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/MORT_MATERNALNUM"
-                    ],
-                    "title": "Number of Maternal Deaths in Turkey",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Number of Maternal Deaths in Turkey",
-                    "statVarKey": [
-                      "WHO/MORT_MATERNALNUM"
-                    ],
-                    "title": "Number of Maternal Deaths in Turkey",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Number of Maternal Deaths"
           }
         ],
         "statVarSpec": {
@@ -296,10 +267,6 @@
           "GrowthRate_Count_Person": {
             "name": "Rate of Population Growth",
             "statVar": "GrowthRate_Count_Person"
-          },
-          "WHO/MORT_MATERNALNUM": {
-            "name": "Number Of Maternal Deaths",
-            "statVar": "WHO/MORT_MATERNALNUM"
           },
           "WHO/SA_0000001432": {
             "name": "Prematurity And Low Birth Rate, Per 100,000",

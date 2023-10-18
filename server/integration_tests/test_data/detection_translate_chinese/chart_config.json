@@ -26,6 +26,7 @@
     "Count_CriminalActivities_LarcenyTheft",
     "Count_CriminalActivities_MotorVehicleTheft",
     "Count_CriminalActivities_PropertyCrime",
-    "Count_CriminalActivities_CombinedCrime"
+    "Count_CriminalActivities_CombinedCrime",
+    "sdg/VC_VOV_ROBB"
   ]
 }

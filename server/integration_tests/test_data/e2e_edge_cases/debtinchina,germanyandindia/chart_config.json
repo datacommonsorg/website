@@ -41,6 +41,59 @@
                     },
                     "comparisonPlaces": [
                       "country/CHN",
+                      "country/IND"
+                    ],
+                    "statVarKey": [
+                      "sdg/DT_TDS_DECT_multiple_place_bar_block"
+                    ],
+                    "title": "Debt Service as a Proportion of Exports of Goods and Services (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: world bank, international debt statistics.",
+            "title": "Debt Service as a Proportion of Exports of Goods and Services"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/CHN",
+                      "country/DEU",
+                      "country/IND"
+                    ],
+                    "statVarKey": [
+                      "sdg/FI_FSI_FSLS_multiple_place_bar_block"
+                    ],
+                    "title": "Liquid Assets to Short Term Liabilities (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: IMF.",
+            "title": "Liquid Assets to Short Term Liabilities"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/CHN",
                       "country/DEU",
                       "country/IND"
                     ],
@@ -54,6 +107,59 @@
               }
             ],
             "title": "Gini Index of Economic Activity of a Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/DEU",
+                      "country/IND"
+                    ],
+                    "statVarKey": [
+                      "sdg/GC_BAL_CASH_GD_ZS_multiple_place_bar_block"
+                    ],
+                    "title": "Cash Surplus/Deficit as a Proportion of GDP (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: international monetary fund, government finance statistics yearbook and data files, and world bank and OECD GDP estimates.",
+            "title": "Cash Surplus/Deficit as a Proportion of GDP"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/CHN",
+                      "country/DEU",
+                      "country/IND"
+                    ],
+                    "statVarKey": [
+                      "sdg/FI_FSI_FSKNL_multiple_place_bar_block"
+                    ],
+                    "title": "Non-performing Loans Net of Provisions to Capital (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: IMF.",
+            "title": "Non-performing Loans Net of Provisions to Capital"
           }
         ],
         "statVarSpec": {
@@ -64,6 +170,22 @@
           "sdg/DT_DOD_DECT_GN_ZS_multiple_place_bar_block": {
             "name": "External debt stocks as a proportion of GNI",
             "statVar": "sdg/DT_DOD_DECT_GN_ZS"
+          },
+          "sdg/DT_TDS_DECT_multiple_place_bar_block": {
+            "name": "Debt service as a proportion of exports of goods and services",
+            "statVar": "sdg/DT_TDS_DECT"
+          },
+          "sdg/FI_FSI_FSKNL_multiple_place_bar_block": {
+            "name": "Non-performing loans net of provisions to capital",
+            "statVar": "sdg/FI_FSI_FSKNL"
+          },
+          "sdg/FI_FSI_FSLS_multiple_place_bar_block": {
+            "name": "Liquid assets to short term liabilities",
+            "statVar": "sdg/FI_FSI_FSLS"
+          },
+          "sdg/GC_BAL_CASH_GD_ZS_multiple_place_bar_block": {
+            "name": "Cash surplus/deficit as a proportion of GDP",
+            "statVar": "sdg/GC_BAL_CASH_GD_ZS"
           }
         }
       }

@@ -54,6 +54,64 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/GR_G14_GDP"
+                    ],
+                    "title": "Total Government Revenue as a Proportion of GDP in United Kingdom",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Total Government Revenue as a Proportion of GDP in United Kingdom",
+                    "statVarKey": [
+                      "sdg/GR_G14_GDP"
+                    ],
+                    "title": "Total Government Revenue as a Proportion of GDP in United Kingdom",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: IMF.",
+            "title": "Total Government Revenue as a Proportion of GDP"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/NY_GDP_MKTP_KD_ZG"
+                    ],
+                    "title": "Annual GDP Growth in United Kingdom",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual GDP Growth in United Kingdom",
+                    "statVarKey": [
+                      "sdg/NY_GDP_MKTP_KD_ZG"
+                    ],
+                    "title": "Annual GDP Growth in United Kingdom",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: world bank national accounts data, and OECD national accounts data files.",
+            "title": "Annual GDP Growth"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
                     "title": "Growth Rate of GDP in United Kingdom",
@@ -110,25 +168,34 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
+                      "sdg/GC_TAX_TOTL_GD_ZS"
                     ],
-                    "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of United Kingdom (${date})",
-                    "type": "MAP"
+                    "title": "Tax Revenue as a Proportion of GDP in United Kingdom",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Tax Revenue as a Proportion of GDP in United Kingdom",
+                    "statVarKey": [
+                      "sdg/GC_TAX_TOTL_GD_ZS"
+                    ],
+                    "title": "Tax Revenue as a Proportion of GDP in United Kingdom",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of United Kingdom"
+            "footnote": "Includes data from the following sources: international monetary fund, government finance statistics yearbook and data files, and world bank and OECD GDP estimates.",
+            "title": "Tax Revenue as a Proportion of GDP"
           }
         ],
         "statVarSpec": {
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
             "name": "GDP (Nominal Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person": {
-            "name": "Economic Activity: Nominal GDP (Nominal, Per Capita)",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
             "name": "Nominal GDP Per Capita",
@@ -141,6 +208,18 @@
           "UnemploymentRate_Person": {
             "name": "Unemployment Rate",
             "statVar": "UnemploymentRate_Person"
+          },
+          "sdg/GC_TAX_TOTL_GD_ZS": {
+            "name": "Tax revenue as a proportion of GDP",
+            "statVar": "sdg/GC_TAX_TOTL_GD_ZS"
+          },
+          "sdg/GR_G14_GDP": {
+            "name": "Total government revenue as a proportion of GDP",
+            "statVar": "sdg/GR_G14_GDP"
+          },
+          "sdg/NY_GDP_MKTP_KD_ZG": {
+            "name": "Annual GDP growth",
+            "statVar": "sdg/NY_GDP_MKTP_KD_ZG"
           }
         }
       }

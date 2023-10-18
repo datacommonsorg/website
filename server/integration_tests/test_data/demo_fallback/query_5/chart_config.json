@@ -106,6 +106,64 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/GR_G14_GDP"
+                    ],
+                    "title": "Total Government Revenue as a Proportion of GDP in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Total Government Revenue as a Proportion of GDP in United States",
+                    "statVarKey": [
+                      "sdg/GR_G14_GDP"
+                    ],
+                    "title": "Total Government Revenue as a Proportion of GDP in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: IMF.",
+            "title": "Total Government Revenue as a Proportion of GDP"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/NY_GDP_MKTP_KD_ZG"
+                    ],
+                    "title": "Annual GDP Growth in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual GDP Growth in United States",
+                    "statVarKey": [
+                      "sdg/NY_GDP_MKTP_KD_ZG"
+                    ],
+                    "title": "Annual GDP Growth in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: world bank national accounts data, and OECD national accounts data files.",
+            "title": "Annual GDP Growth"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
                     "title": "Growth Rate of GDP in United States",
@@ -134,9 +192,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+                      "sdg/GC_TAX_TOTL_GD_ZS"
                     ],
-                    "title": "GDP (Real Value) in United States",
+                    "title": "Tax Revenue as a Proportion of GDP in United States",
                     "type": "LINE"
                   }
                 ]
@@ -144,76 +202,18 @@
               {
                 "tiles": [
                   {
-                    "description": "GDP (Real Value) in United States",
+                    "description": "Tax Revenue as a Proportion of GDP in United States",
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+                      "sdg/GC_TAX_TOTL_GD_ZS"
                     ],
-                    "title": "GDP (Real Value) in United States",
+                    "title": "Tax Revenue as a Proportion of GDP in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "GDP (Real Value)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/USA"
-                    ],
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue_multiple_place_bar_block"
-                    ],
-                    "title": "GDP of the Finance and Insurance Industry and More in United States (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Related: GDP of the Finance and Insurance Industry and More"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
-                      "Amount_EconomicActivity_GrossValueAdded_RealValue"
-                    ],
-                    "title": "GDP (Real Value) and More in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Related: GDP (Real Value) and More"
+            "footnote": "Includes data from the following sources: international monetary fund, government finance statistics yearbook and data files, and world bank and OECD GDP estimates.",
+            "title": "Tax Revenue as a Proportion of GDP"
           }
         ],
         "statVarSpec": {
@@ -273,14 +273,6 @@
             "name": "GDP of the Real Estate and Rental and Leasing Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue_multiple_place_bar_block": {
-            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Retail Trade (NAICS/44-45)",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue_multiple_place_bar_block": {
-            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Transportation And Warehousing (NAICS/48-49)",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block": {
             "name": "GDP of the Utilities Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
@@ -297,17 +289,21 @@
             "name": "Nominal GDP Per Capita",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_RealValue": {
-            "name": "GDP (Real Value)",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
-          },
-          "Amount_EconomicActivity_GrossValueAdded_RealValue": {
-            "name": "Amount of Economic Activity (Real Value): Gross Value Added",
-            "statVar": "Amount_EconomicActivity_GrossValueAdded_RealValue"
-          },
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+          },
+          "sdg/GC_TAX_TOTL_GD_ZS": {
+            "name": "Tax revenue as a proportion of GDP",
+            "statVar": "sdg/GC_TAX_TOTL_GD_ZS"
+          },
+          "sdg/GR_G14_GDP": {
+            "name": "Total government revenue as a proportion of GDP",
+            "statVar": "sdg/GR_G14_GDP"
+          },
+          "sdg/NY_GDP_MKTP_KD_ZG": {
+            "name": "Annual GDP growth",
+            "statVar": "sdg/NY_GDP_MKTP_KD_ZG"
           }
         }
       }
