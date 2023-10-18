@@ -1,16 +1,16 @@
 # NL Dashboard
 
 We have [Looker Studio](https://lookerstudio.google.com/) based dashboards
-that allows drilling down into stats on queries:
+that allow drilling down into stats on queries:
 * [Main DC
   Dashboard](https://lookerstudio.google.com/c/reporting/8630027a-8d53-4b50-805d-9fc533e0a738/page/p_0zw216uvad)
 * [UNSDG
   Dashboard](https://lookerstudio.google.com/c/reporting/ba70ded9-dde3-4c9d-9862-440025e3d081/page/dVqcD)
 
 We add the `nl-query` BT table, where the queries get logged, as a BQ table.
-On top of that, we run a few [scheduled
+On top of that, a few [scheduled
 queries](https://pantheon.corp.google.com/bigquery/scheduled-queries?mods=-monitoring_api_staging&project=datcom-store)
-that run nightly to produce 3 tables:
+run nightly to produce 3 tables:
 
 * Query table
 * Query count table
@@ -19,6 +19,11 @@ that run nightly to produce 3 tables:
 These tables are then directly loaded into the dashboards above.
 
 Below are SQL snippets for recreating the setup.
+
+In case of enabling dashboards for new custom DCs, replace
+`datcom-website-prod` in the queries with the custom DC's GCP project.
+
+TODO: Script the last 3 queries with `bq query --schedule` as needed.
 
 
 ## Adding BT as an external BQ table
