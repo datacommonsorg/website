@@ -23,7 +23,6 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { MANUAL_GEOJSON_DISTANCES } from "../../../dist/js/tools/map/util";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
   addPolygonLayer,
@@ -53,6 +52,7 @@ import {
 import {
   getGeoJsonDataFeatures,
   getPlaceChartData,
+  MANUAL_GEOJSON_DISTANCES,
   shouldShowBorder,
 } from "../../tools/map/util";
 import {
@@ -448,7 +448,10 @@ function rawToChart(
       geoJson = {
         type: "FeatureCollection",
         properties: { currentGeo: rawData.place.dcid },
-        features: getGeoJsonDataFeatures(childPlaces, rawData.enclosedPlaceType),
+        features: getGeoJsonDataFeatures(
+          childPlaces,
+          rawData.enclosedPlaceType
+        ),
       };
     }
     placeData.push({
