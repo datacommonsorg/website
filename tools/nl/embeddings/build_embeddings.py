@@ -51,7 +51,7 @@ flags.DEFINE_string(
     'Google Sheets Url for the latest SVs')
 flags.DEFINE_list(
     'worksheet_names', ['Demo_SVs', 'SDG_GOALS_INDICATORS_ONLY'],
-    'Names of worksheets in the Google Sheets file to use, separated by ___')
+    'List of names of worksheets in the Google Sheets file to use')
 
 flags.DEFINE_string(
     'autogen_input_basedir', 'data/autogen_input',
