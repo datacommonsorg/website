@@ -41,7 +41,7 @@ def get_summary(name: str, ranking_csv: str, data_tables: List[str]):
   Generate a summary for {name} in 1 paragraph using only the information from the following tables.
   Only list important highlights per table.
   The summary should only be based on the information presented in these tables. Do not include facts from other sources.
-  Do not return markdown or lists.
+  Do not return markdown or lists. Do not use superlatives.
   Please write in a professional and business-neutral tone.
   Do not use the phrase 'According to the data'.
   Please include references if information is included from other sources. Do not include opinions.
@@ -54,7 +54,7 @@ def get_summary(name: str, ranking_csv: str, data_tables: List[str]):
 
   Summary:
   """
-  logging.info(prompt)
+  logging.debug(prompt)
   params = {
       "prompt": {
           "text": prompt
@@ -71,11 +71,12 @@ def get_summary(name: str, ranking_csv: str, data_tables: List[str]):
     logging.debug("LLM response (attempt #%s):\n%s", attempt + 1,
                   json.dumps(response, indent=1))
     candidate = response.get("candidates", [{}])[0].get("output", "")
+    # cd
     if re.search(r'(\d+).+(\d+)', candidate):
-      return candidate
+      return prompt, candidate
     if attempt == _RETRIES - 1:
       logging.warning("Summary may not be factual: %s", candidate)
-      return candidate
+      return prompt, candidate
     logging.warning("Retrying %s: %s", name, candidate)
 
-  return ""
+  return prompt, ""

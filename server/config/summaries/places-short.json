@@ -2,7 +2,11 @@
   "cities": {
     "geoId/0667000": "San Francisco",
     "geoId/3651000": "New York City",
-    "geoId/1304000": "Atlanta"
+    "geoId/1304000": "Atlanta",
+
+    "geoId/2101648": "Annville",
+    "geoId/4877680": "Westminster",
+    "geoId/2827620": "Glendale"
   },
   "states": {
     "geoId/01": "Alabama",

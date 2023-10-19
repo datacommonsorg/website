@@ -44,10 +44,13 @@ def get_ranking_summaries(places_by_type: dict):
   for place_type_plural, places in places_by_type.items():
     unordered_summaries = {}
     tuples = list(starmap(lambda dcid, place_name: (dcid, place_name, place_type_plural), places.items()))
-    with multiprocessing.Pool(processes=_NUM_PARALLEL_PROCESSES) as pool:
-      for dcid, name, summary in pool.imap_unordered(
-          get_ranking_summary_with_tuple, tuples):
-        unordered_summaries[dcid] = {"name": name, "summary": summary}
+    for tuple in tuples:
+      dcid, name, (prompt, summary) = get_ranking_summary_with_tuple(tuple)
+      unordered_summaries[dcid] = {"name": name, "prompt": prompt,  "summary": summary}
+    # with multiprocessing.Pool(processes=_NUM_PARALLEL_PROCESSES) as pool:
+    #   for dcid, name, summary in pool.imap_unordered(
+    #       get_ranking_summary_with_tuple, tuples):
+    #     unordered_summaries[dcid] = {"name": name, "summary": summary}
 
     for dcid, _, _ in tuples:
       summaries[dcid] = unordered_summaries[dcid]
@@ -63,10 +66,10 @@ def get_ranking_summary(dcid: str, name: str, place_type_plural: str):
   logging.info("Getting ranking summary for : %s (%s)", dcid, name)
   csv = dc.get_ranking_csv(dcid, place_type_plural)
   # logging.info(csvs)
-  data_tables = dc.get_data_series(dcid)
-  summary = get_summary(name, csv, data_tables)
+  data_tables = dc.get_data_series(dcid, name)
+  prompt, summary = get_summary(name, csv, data_tables)
   logging.info("Got ranking summary for: %s (%s)\n%s", dcid, name, summary)
-  return summary
+  return prompt, summary
 
 
 def read_json(file_name: str):

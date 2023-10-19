@@ -52,12 +52,12 @@ def get_ranking_csv(dcid: str, place_type_plural: str):
     for place in places:
       rank = place["data"]
       row[place[
-          "name"]] = f"{rank['rankFromTop']} of {rank['rankFromTop'] + rank['rankFromBottom']} {place_type_plural} in {place['name']}"
+          "name"]] = f"Ranked {rank['rankFromTop']} of {rank['rankFromTop'] + rank['rankFromBottom']} {place_type_plural} in {place['name']}"
 
   return pd.DataFrame(csv).to_csv(index=False)
 
 
-def get_data_series(dcid: str):
+def get_data_series(dcid: str, place_name: str):
   url = _PLACE_DATA_URL.format(dcid=dcid)
   response = requests.get(url).json()
 
@@ -69,8 +69,20 @@ def get_data_series(dcid: str):
       block_title = chart_block["title"]
       if block_title in sv_titles:
         sv = sv_titles[block_title]
-        series = chart_block["trend"]["series"][sv]
-        prompt_tables.append(f"{block_title} = {json.dumps(series)}")
+        # series = chart_block["trend"]["series"][sv]
+        series = chart_block["trend"]["series"]
+        # prompt_tables.append(f"{block_title} = {json.dumps(series)}")
+        j = json.dumps( series , sort_keys=True)
+        j = j.replace("'", '"')
+        j = j.replace(sv, f"{block_title} in {place_name}")
+        df = pd.read_json(j)
+        prompt_tables.append('date' + df.to_csv())
+
+  # add highlight stat
+  pop_highlight = response["highlight"]["Population"]
+  pop_date = pop_highlight["date"]
+  pop_value = pop_highlight["data"][0]["data"]["Count_Person"]
+  prompt_tables.append(f"Population of {place_name} in {pop_date} is {pop_value}")
 
   logging.debug(prompt_tables)
   return prompt_tables
