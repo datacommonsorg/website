@@ -446,12 +446,12 @@ function rawToChart(
       _.isEmpty(rawData.geoJson.features)
     ) {
       geoJson = {
-        type: "FeatureCollection",
-        properties: { currentGeo: rawData.place.dcid },
         features: getGeoJsonDataFeatures(
           childPlaces,
           rawData.enclosedPlaceType
         ),
+        properties: { currentGeo: rawData.place.dcid },
+        type: "FeatureCollection",
       };
     }
     placeData.push({
