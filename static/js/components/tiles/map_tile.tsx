@@ -49,7 +49,12 @@ import {
   loadSpinner,
   removeSpinner,
 } from "../../shared/util";
-import { getPlaceChartData, shouldShowBorder } from "../../tools/map/util";
+import {
+  getGeoJsonDataFeatures,
+  getPlaceChartData,
+  MANUAL_GEOJSON_DISTANCES,
+  shouldShowBorder,
+} from "../../tools/map/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
@@ -430,10 +435,29 @@ function rawToChart(
 
     const metadataMap = rawData.placeStat.facets || {};
     const placeStat = rawData.placeStat.data[statVarSpec.statVar] || {};
+    // Get the list of child places from either the geojson data or the
+    // placeStat data
+    const childPlaces = !_.isEmpty(rawData.geoJson.features)
+      ? rawData.geoJson.features.map((feature) => feature.properties.geoDcid)
+      : Object.keys(placeStat);
+    let geoJson = rawData.geoJson;
+    if (
+      rawData.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES &&
+      _.isEmpty(rawData.geoJson.features)
+    ) {
+      geoJson = {
+        features: getGeoJsonDataFeatures(
+          childPlaces,
+          rawData.enclosedPlaceType
+        ),
+        properties: { currentGeo: rawData.place.dcid },
+        type: "FeatureCollection",
+      };
+    }
     placeData.push({
       borderGeoJson: rawData.borderGeoJson,
       enclosedPlaceType: rawData.enclosedPlaceType,
-      geoJson: rawData.geoJson,
+      geoJson,
       place: rawData.place,
       showMapBoundaries: shouldShowMapBoundaries(
         rawData.place,
@@ -451,8 +475,7 @@ function rawToChart(
 
     const { unit, scaling } = getStatFormat(statVarSpec, rawData.placeStat);
     units[statVarSpec.statVar] = unit;
-    for (const geoFeature of rawData.geoJson.features) {
-      const placeDcid = geoFeature.properties.geoDcid;
+    for (const placeDcid of childPlaces) {
       const placeChartData = getPlaceChartData(
         placeStat,
         placeDcid,
