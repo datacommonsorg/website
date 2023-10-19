@@ -74,9 +74,7 @@ This is a common sheet across the different index sizes.
 
 1. Generate an SV embeddings differ report by following the process under the [`sv_index_differ`](../svindex_differ/README.md) folder (one level up). Look at the diffs and evaluate whether they make sense.
 
-1. Remove embedding caches by running `rm -rf ~/.datacommons/cache.*` and then update goldens by running `./run_test.sh -g` from the repo root.
-
-1. If everything looks good, send out a PR with the `embeddings.yaml`, the `differ_report.html` file (as a linked attachement), CSV changes, and updated goldens.
+1. If everything looks good, send out a PR with the `embeddings.yaml`, the `differ_report.html` file (as a linked attachement) and CSV changes.
 
 ## One time setup
 
