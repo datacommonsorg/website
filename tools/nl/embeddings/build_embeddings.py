@@ -299,8 +299,7 @@ def main(_):
   # Process all the data, produce the final dataframes, build the embeddings and return the embeddings dataframe.
   # During this process, the downloaded latest SVs and Descriptions data and the
   # final dataframe with SVs and Alternates are also written to local_merged_dir.
-  embeddings_df = build(ctx, FLAGS.sheets_url,
-                        FLAGS.worksheet_names,
+  embeddings_df = build(ctx, FLAGS.sheets_url, FLAGS.worksheet_names,
                         FLAGS.local_sheets_csv_filepath, local_merged_filepath,
                         dup_names_filepath, autogen_input_filepattern,
                         FLAGS.alternatives_filepattern)
