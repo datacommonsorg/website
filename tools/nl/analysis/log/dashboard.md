@@ -23,10 +23,12 @@ Below are SQL snippets for recreating the setup.
 In case of enabling dashboards for new custom DCs, replace
 `datcom-website-prod` in the queries with the custom DC's GCP project.
 
-TODO: Script the last 3 queries with `bq query --schedule` as needed.
+TODO: Automate the instructions below with a script that uses `bq query --schedule`.
 
 
 ## Adding BT as an external BQ table
+
+As a one-time thing, run this query on the BQ UI.
 
 ```
 CREATE OR REPLACE EXTERNAL TABLE dc_dashboard.nl_query_log
@@ -72,6 +74,8 @@ OPTIONS (
 
 ## Generating Query Table
 
+Follow instructions [here](https://cloud.google.com/bigquery/docs/scheduling-queries#set_up_scheduled_queries) to set up this query as a BQ Scheduled query, run daily.
+
 ```
 CREATE OR REPLACE TABLE `datcom-store.dc_dashboard.nl_queries_all` AS
 SELECT
@@ -92,6 +96,8 @@ WHERE
 
 ## Generating Query Counts Table
 
+Follow instructions [here](https://cloud.google.com/bigquery/docs/scheduling-queries#set_up_scheduled_queries) to set up this query as a BQ Scheduled query, run daily.
+
 ```
 CREATE OR REPLACE TABLE `datcom-store.dc_dashboard.nl_query_counts` AS
 SELECT
@@ -109,6 +115,8 @@ ORDER BY Time
 ```
 
 ## Generating User Feedback Table
+
+Follow instructions [here](https://cloud.google.com/bigquery/docs/scheduling-queries#set_up_scheduled_queries) to set up this query as a BQ Scheduled query, run daily.
 
 ```
 CREATE OR REPLACE TABLE `datcom-store.dc_dashboard.nl_query_feedback_all` AS
