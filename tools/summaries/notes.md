@@ -337,3 +337,13 @@ San Francisco is the 4th most populous city in California and the 17th most popu
 It has a relatively low unemployment rate (254th in California and 1131st in the US) and a high crime rate (8th in California and 312th in the US).
 The city's median age is 37.4, making it the 577th oldest city in California and the 9155th oldest in the US.
 In terms of health, 29% of the population gets less than 7 hours of sleep, 19.3% are obese, 17.6% binge drink, 17.3% are physically inactive, and 9.3% smoke.
+
+--------------------
+
+Things to try next:
+More cities (big and small)
+- Add explicit population from highlight
+one table at a time and use it as highlights? ("3 complete sentences", "don't use superlatives")
+convert all data to CSV
+add comparison data
+Try adding generated bullet points anyway
