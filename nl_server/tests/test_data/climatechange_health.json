@@ -114,8 +114,8 @@
           {
             "QueryPart": "climate change",
             "SV": [
-              "dc/topic/sdg_13",
-              "dc/topic/ClimateChange"
+              "dc/topic/ClimateChange",
+              "dc/topic/sdg_13"
             ],
             "CosineScore": [
               1.0000001192092896,
@@ -136,14 +136,14 @@
             ],
             "CosineScore": [
               0.7570107579231262,
-              0.7528941035270691
+              0.7528940439224243
             ]
           },
           {
             "QueryPart": "climate change",
             "SV": [
-              "dc/topic/sdg_13",
-              "dc/topic/ClimateChange"
+              "dc/topic/ClimateChange",
+              "dc/topic/sdg_13"
             ],
             "CosineScore": [
               1.0000001192092896,

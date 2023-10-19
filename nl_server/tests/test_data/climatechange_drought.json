@@ -33,12 +33,12 @@
           {
             "QueryPart": "show climate change",
             "SV": [
-              "dc/topic/sdg_13",
-              "dc/topic/ClimateChange"
+              "dc/topic/ClimateChange",
+              "dc/topic/sdg_13"
             ],
             "CosineScore": [
-              0.8647745251655579,
-              0.8647745251655579
+              0.8647745847702026,
+              0.8647745847702026
             ]
           },
           {
@@ -98,12 +98,12 @@
           {
             "QueryPart": "climate change",
             "SV": [
-              "dc/topic/sdg_13",
-              "dc/topic/ClimateChange"
+              "dc/topic/ClimateChange",
+              "dc/topic/sdg_13"
             ],
             "CosineScore": [
-              1.0000001192092896,
-              1.0000001192092896
+              0.9999998807907104,
+              0.9999998807907104
             ]
           },
           {
@@ -133,12 +133,12 @@
           {
             "QueryPart": "climate",
             "SV": [
-              "dc/topic/sdg_13",
-              "dc/topic/ClimateChange"
+              "dc/topic/ClimateChange",
+              "dc/topic/sdg_13"
             ],
             "CosineScore": [
-              0.9142745733261108,
-              0.9142745733261108
+              0.9142746329307556,
+              0.9142746329307556
             ]
           },
           {
@@ -209,12 +209,12 @@
           {
             "QueryPart": "climate",
             "SV": [
-              "dc/topic/sdg_13",
-              "dc/topic/ClimateChange"
+              "dc/topic/ClimateChange",
+              "dc/topic/sdg_13"
             ],
             "CosineScore": [
-              0.9142745733261108,
-              0.9142745733261108
+              0.9142746329307556,
+              0.9142746329307556
             ]
           },
           {

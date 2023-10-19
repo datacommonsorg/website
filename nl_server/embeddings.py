@@ -116,7 +116,7 @@ class Embeddings:
     for q, sv2score in query2sv2score.items():
       sv2score_sorted = [(k, v) for (
           k,
-          v) in sorted(sv2score.items(), key=lambda item: item[1], reverse=True)
+          v) in sorted(sv2score.items(), key=lambda item: (-item[1], item[0]))
                         ]
       svs = [k for (k, _) in sv2score_sorted]
       scores = [v for (_, v) in sv2score_sorted]
