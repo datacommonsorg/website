@@ -36,8 +36,9 @@ This is a common sheet across the different index sizes.
 4. Run the command below which will both generate a new embeddings csv in
    `gs://datcom-nl-models`, as well as update the corresponding csv under
    [`data/curated_input/`](data/curated_input/). Note down the embeddings
-   file version printed at the end of the run. There are 3 embeddings csvs used
-   in PROD and the following are the commands to generate each of them:
+   file version printed at the end of the run. As of 2023 Q3, there are 3
+   embeddings used in PROD and the following are the commands to generate each
+   of them:
 
    To generate the `small` embeddings:
    ```bash
