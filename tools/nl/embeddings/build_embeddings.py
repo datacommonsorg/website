@@ -49,8 +49,8 @@ flags.DEFINE_string(
     'sheets_url',
     'https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU',
     'Google Sheets Url for the latest SVs')
-flags.DEFINE_string(
-    'worksheet_names', 'Demo_SVs___SDG_SVs',
+flags.DEFINE_list(
+    'worksheet_names', ['Demo_SVs', 'SDG_GOALS_INDICATORS_ONLY'],
     'Names of worksheets in the Google Sheets file to use, separated by ___')
 
 flags.DEFINE_string(
@@ -213,7 +213,7 @@ def build(ctx, sheets_url: str, worksheet_names: List[str],
 
   # Merge the downloaded files into one dataframe and write it to local.
   print(f"Writing the dataframe to local at: {local_sheets_csv_filepath}")
-  df_svs = pd.concat(worksheet_df_list)
+  df_svs = pd.concat(worksheet_df_list, join="inner")
   df_svs.to_csv(local_sheets_csv_filepath, index=False)
 
   # Append autogen CSVs if any.
@@ -300,7 +300,7 @@ def main(_):
   # During this process, the downloaded latest SVs and Descriptions data and the
   # final dataframe with SVs and Alternates are also written to local_merged_dir.
   embeddings_df = build(ctx, FLAGS.sheets_url,
-                        FLAGS.worksheet_names.split("___"),
+                        FLAGS.worksheet_names,
                         FLAGS.local_sheets_csv_filepath, local_merged_filepath,
                         dup_names_filepath, autogen_input_filepattern,
                         FLAGS.alternatives_filepattern)
