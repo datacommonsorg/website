@@ -457,35 +457,6 @@
             "denom": "Count_Person",
             "startWithDenom": true,
             "title": "Mean Monthly Wages"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC"
-                    ],
-                    "title": "Proportion of Population Living Below the National Poverty Line in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Proportion of Population Living Below the National Poverty Line in India",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC"
-                    ],
-                    "title": "Proportion of Population Living Below the National Poverty Line in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: poverty and inequality platform, world bank.",
-            "title": "Proportion of Population Living Below the National Poverty Line"
           }
         ],
         "statVarSpec": {
@@ -552,10 +523,6 @@
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
             "name": "Employed population below international poverty line, by sex and age [15 years old and over, Male]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-          },
-          "sdg/SI_POV_NAHC": {
-            "name": "Proportion of population living below the national poverty line",
-            "statVar": "sdg/SI_POV_NAHC"
           },
           "sdg/SP_ACS_BSRVH2O": {
             "name": "Proportion of population using basic drinking water services, by location",

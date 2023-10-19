@@ -1,23 +1,47 @@
 {
-  "config": {},
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "type": "PLACE_OVERVIEW"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
   "context": {},
   "debug": {},
-  "pastSourceContext": "",
+  "pastSourceContext": "United States",
   "place": {
-    "dcid": "",
-    "name": "",
-    "place_type": ""
+    "dcid": "country/USA",
+    "name": "United States",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "UNRECOGNIZED",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "",
-      "name": "",
-      "place_type": ""
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {},
-  "svSource": "UNKNOWN",
-  "userMessage": ""
+  "showForm": true,
+  "svSource": "UNFULFILLED",
+  "userMessage": "Sorry, there were no relevant statistics about the topic for United States. See available topic categories with statistics for United States."
 }

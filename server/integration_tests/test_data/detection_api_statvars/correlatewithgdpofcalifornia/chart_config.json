@@ -34,13 +34,13 @@
     "dc/topic/IndustriesByGDP",
     "USStateQuarterlyIndustryGDP_NAICS_55",
     "dc/topic/GDPByIndustry",
-    "sdg/GR_G14_GDP",
-    "sdg/NY_GDP_MKTP_KD_ZG",
     "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
     "USStateQuarterlyIndustryGDP_NAICS_44_45",
     "dc/topic/Economy",
+    "dc/topic/sdg_17.1.1",
     "dc/topic/EconomicEquity",
-    "sdg/GC_TAX_TOTL_GD_ZS"
+    "dc/topic/GDP",
+    "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
   ]
 }
