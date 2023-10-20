@@ -39,6 +39,7 @@ from server.lib.nl.detection.types import SuperlativeType
 from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaType
 import shared.lib.constants as constants
+from server.lib.nl.detection.date import parse_date
 
 
 # TODO (juliawu): This function shares a lot of structure with the ranking
@@ -367,4 +368,11 @@ def quantity(query_orig: str, ctr: Counters) -> Union[NLClassifier, None]:
   attributes = qty.parse_quantity(query_orig, ctr)
   if attributes:
     return NLClassifier(type=ClassificationType.QUANTITY, attributes=attributes)
+  return None
+
+
+def date(query_orig: str, ctr: Counters) -> Union[NLClassifier, None]:
+  attributes = parse_date(query_orig, ctr)
+  if attributes:
+    return NLClassifier(type=ClassificationType.DATE, attributes=attributes)
   return None
