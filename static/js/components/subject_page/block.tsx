@@ -495,35 +495,33 @@ function renderWebComponents(
         );
       case "MAP":
         return (
-          <>
-            <datacommons-map
-              key={id}
-              id={id}
-              header={tile.title}
-              subheader={tile.subtitle}
-              parentPlace={place.dcid}
-              childPlaceType={enclosedPlaceType}
-              variable={
-                props.statVarProvider.getSpec(tile.statVarKey[0], blockDenom)
-                  .statVar
-              }
-              className={className}
-              {...(props.showExploreMore &&
-              props.place.types.every(
-                (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
-              )
-                ? { showExploreMore: true }
-                : {})}
-              {...(tile.mapTileSpec?.geoJsonProp ? { geoJsonProp: true } : {})}
-              {...(tile.placeNameProp ? { placeNameProp: true } : {})}
-              parentPlaces={props.parentPlaces}
-              allowZoom={true}
-              {...(tile.mapTileSpec?.colors
-                ? { colors: tile.mapTileSpec?.colors.join(" ") }
-                : {})}
-              colors={tile.mapTileSpec?.colors}
-            />
-          </>
+          <datacommons-map
+            key={id}
+            id={id}
+            header={tile.title}
+            subheader={tile.subtitle}
+            parentPlace={place.dcid}
+            childPlaceType={enclosedPlaceType}
+            variable={
+              props.statVarProvider.getSpec(tile.statVarKey[0], blockDenom)
+                .statVar
+            }
+            className={className}
+            {...(props.showExploreMore &&
+            props.place.types.every(
+              (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
+            )
+              ? { showExploreMore: true }
+              : {})}
+            {...(tile.mapTileSpec?.geoJsonProp ? { geoJsonProp: true } : {})}
+            {...(tile.placeNameProp ? { placeNameProp: true } : {})}
+            parentPlaces={props.parentPlaces}
+            allowZoom={true}
+            {...(tile.mapTileSpec?.colors
+              ? { colors: tile.mapTileSpec?.colors.join(" ") }
+              : {})}
+            colors={tile.mapTileSpec?.colors}
+          />
         );
       case "LINE":
         return (
