@@ -20,6 +20,8 @@ class Config(_base.Config):
   SHOW_TOPIC = True
   NAME = "FLORET Data Commons"
   LOG_QUERY = True
+  # Do not use memcache so content is fresh after new data is loaded
+  USE_MEMCACHE = False
   LOGO_PATH = "/custom_dc/floret/logo.svg"
   OVERRIDE_CSS_PATH = '/custom_dc/floret/overrides.css'
   SHOW_DISASTER = False
