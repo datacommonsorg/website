@@ -96,7 +96,7 @@ ltt install torch --cpuonly
 pip3 install -r requirements.txt
 
 if [ "$SHEETS_URL" != "" ]; then
-  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --sheets_url=$SHEETS_URL --worksheet_name=$WORKSHEET_NAME --local_sheets_csv_filepath=$LOCAL_CSV_FILE_FOR_SHEETS_DATA_DOWNLOAD
+  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --sheets_url=$SHEETS_URL --worksheet_names=$WORKSHEET_NAME --local_sheets_csv_filepath=$LOCAL_CSV_FILE_FOR_SHEETS_DATA_DOWNLOAD
 elif [ "$FINETUNED_MODEL" != "" ]; then
   python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL
 elif [ "$LOCAL_MODEL_PATH" != "" ]; then
