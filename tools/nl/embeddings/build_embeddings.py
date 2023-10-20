@@ -49,8 +49,9 @@ flags.DEFINE_string(
     'sheets_url',
     'https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU',
     'Google Sheets Url for the latest SVs')
-flags.DEFINE_string('worksheet_name', 'Demo_SVs',
-                    'Worksheet name in the Google Sheets file')
+flags.DEFINE_list(
+    'worksheet_names', ['Demo_SVs', 'SDG_GOALS_INDICATORS_ONLY'],
+    'List of names of worksheets in the Google Sheets file to use')
 
 flags.DEFINE_string(
     'autogen_input_basedir', 'data/autogen_input',
@@ -194,21 +195,25 @@ def get_embeddings(ctx, df_svs: pd.DataFrame, local_merged_filepath: str,
   return _build_embeddings(ctx, texts, dcids)
 
 
-def build(ctx, sheets_url: str, worksheet_name: str,
+def build(ctx, sheets_url: str, worksheet_names: List[str],
           local_sheets_csv_filepath: str, local_merged_filepath: str,
           dup_names_filepath: str, autogen_input_filepattern: str,
           alternative_filepattern: str) -> pd.DataFrame:
-  # First download the latest file from sheets.
-  print(
-      f"Downloading the latest sheets data from: {sheets_url} (worksheet: {worksheet_name})"
-  )
-  df_svs = get_sheets_data(ctx, sheets_url, worksheet_name)
-  print(f"Downloaded {len(df_svs)} rows and {len(df_svs.columns)} columns.")
+  worksheet_df_list = list()
+  # First download the latest files from sheets.
+  for worksheet_name in worksheet_names:
+    print(
+        f"Downloading the latest sheets data from: {sheets_url} (worksheet: {worksheet_name})"
+    )
+    worksheet_df = get_sheets_data(ctx, sheets_url, worksheet_name)
+    worksheet_df_list.append(worksheet_df)
+    print(
+        f"Downloaded {len(worksheet_df)} rows and {len(worksheet_df.columns)} columns."
+    )
 
-  # Write this downloaded file to local.
-  print(
-      f"Writing the downloaded dataframe to local at: {local_sheets_csv_filepath}"
-  )
+  # Merge the downloaded files into one dataframe and write it to local.
+  print(f"Writing the dataframe to local at: {local_sheets_csv_filepath}")
+  df_svs = pd.concat(worksheet_df_list, join="inner")
   df_svs.to_csv(local_sheets_csv_filepath, index=False)
 
   # Append autogen CSVs if any.
@@ -230,7 +235,7 @@ def build(ctx, sheets_url: str, worksheet_name: str,
 
 
 def main(_):
-  assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2 and FLAGS.local_sheets_csv_filepath and FLAGS.sheets_url and FLAGS.worksheet_name
+  assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2 and FLAGS.local_sheets_csv_filepath and FLAGS.sheets_url and FLAGS.worksheet_names
 
   assert os.path.exists(os.path.join('data'))
 
@@ -294,7 +299,7 @@ def main(_):
   # Process all the data, produce the final dataframes, build the embeddings and return the embeddings dataframe.
   # During this process, the downloaded latest SVs and Descriptions data and the
   # final dataframe with SVs and Alternates are also written to local_merged_dir.
-  embeddings_df = build(ctx, FLAGS.sheets_url, FLAGS.worksheet_name,
+  embeddings_df = build(ctx, FLAGS.sheets_url, FLAGS.worksheet_names,
                         FLAGS.local_sheets_csv_filepath, local_merged_filepath,
                         dup_names_filepath, autogen_input_filepattern,
                         FLAGS.alternatives_filepattern)
