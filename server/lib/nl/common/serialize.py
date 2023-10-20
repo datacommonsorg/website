@@ -154,7 +154,8 @@ def dict_to_classification(
     ]:
       attributes = GeneralClassificationAttributes(trigger_words=[])
     elif 'dates' in cdict:
-      attributes = DateClassificationAttributes(dates=[Date(**d) for d in cdict['dates']])
+      attributes = DateClassificationAttributes(
+          dates=[Date(**d) for d in cdict['dates']])
 
     classifications.append(
         NLClassifier(type=ClassificationType(cdict['type']),
