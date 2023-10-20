@@ -23,6 +23,7 @@ from typing import Union
 
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection import quantity as qty
+from server.lib.nl.detection.date import parse_date
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ComparisonClassificationAttributes
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
@@ -39,7 +40,6 @@ from server.lib.nl.detection.types import SuperlativeType
 from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaType
 import shared.lib.constants as constants
-from server.lib.nl.detection.date import parse_date
 
 
 # TODO (juliawu): This function shares a lot of structure with the ranking

@@ -25,12 +25,12 @@ from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import Date
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import QuantityClassificationAttributes
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import TimeDeltaType
-from server.lib.nl.detection.types import Date
 
 
 # Data structure for configuring the vars that go into a chart.
