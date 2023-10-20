@@ -34,7 +34,7 @@ export type ChartSortOption =
  *   property: "date",
  *   value: "2011"
  * }
- */
+ */ s;
 export interface ChartEventDetail {
   property: string;
   value: string;
@@ -109,11 +109,7 @@ export interface LineComponentProps
   variables: string[];
 }
 
-export interface MapComponentProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLElement>,
-    HTMLElement
-  > {
+export type MapComponentProps = {
   apiRoot?: string;
   childPlaceType?: string;
   colors?: string[];
@@ -128,7 +124,7 @@ export interface MapComponentProps
   subscribe?: string;
   title?: string;
   variable: string;
-}
+} & React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
 
 export interface PieComponentProps
   extends React.DetailedHTMLProps<
@@ -183,4 +179,25 @@ export interface TextComponentProps
   heading: string;
   text: string;
   showFullText?: boolean;
+}
+
+export interface ScatterComponentProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLElement>,
+    HTMLElement
+  > {
+  apiRoot: string;
+  childPlaceType: string;
+  header: string;
+  parentPlace: string;
+  variables: string;
+  highlightBottomLeft?: boolean;
+  highlightBottomRight?: boolean;
+  highlightTopLeft?: boolean;
+  highlightTopRight?: boolean;
+  showPlaceLabels?: boolean;
+  showQuadrants?: boolean;
+  usePerCapita?: string;
+  placeNameProp?: string;
+  showExploreMore?: boolean;
 }

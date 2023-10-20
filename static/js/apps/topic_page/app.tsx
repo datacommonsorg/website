@@ -56,9 +56,12 @@ interface AppPropType {
 
 const PAGE_ID = "topic";
 
+const SHOW_WEB_COMPONENTS_URL_PARAM = "wc";
 export function App(props: AppPropType): JSX.Element {
   const [sdgIndex, setSdgIndex] = useState(props.topic === "sdg" ? 0 : null);
   const value = { sdgIndex, setSdgIndex };
+  const searchParams = new URLSearchParams(location.search);
+  const showWebComponents = !!searchParams.get(SHOW_WEB_COMPONENTS_URL_PARAM);
   return (
     <SdgContext.Provider value={value}>
       <div className="row">
@@ -92,6 +95,7 @@ export function App(props: AppPropType): JSX.Element {
             id={PAGE_ID}
             place={props.place}
             pageConfig={props.pageConfig}
+            showWebComponents={showWebComponents}
           />
         </div>
       </div>
