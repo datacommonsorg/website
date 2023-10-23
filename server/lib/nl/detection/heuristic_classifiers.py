@@ -373,6 +373,6 @@ def quantity(query_orig: str, ctr: Counters) -> Union[NLClassifier, None]:
 
 def date(query_orig: str, ctr: Counters) -> Union[NLClassifier, None]:
   attributes = parse_date(query_orig, ctr)
-  if attributes:
+  if attributes and attributes.dates:
     return NLClassifier(type=ClassificationType.DATE, attributes=attributes)
   return None

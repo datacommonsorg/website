@@ -30,78 +30,53 @@
                     "statVarKey": [
                       "Area_DroughtEvent"
                     ],
-                    "title": "Area of Drought Event in Countries of Africa (${date})",
-                    "type": "MAP"
+                    "title": "Area of Drought Event in Africa",
+                    "type": "LINE"
                   }
                 ]
               },
+              {
+                "tiles": [
+                  {
+                    "description": "Area of Drought Event in Africa",
+                    "statVarKey": [
+                      "Area_DroughtEvent"
+                    ],
+                    "title": "Area of Drought Event in Africa",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Area of Drought Event"
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
                     "statVarKey": [
                       "Count_DroughtEvent"
                     ],
-                    "title": "Droughts in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Area of Drought Event and More in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Max_Rainfall"
-                    ],
-                    "title": "Max Rainfall in Countries of Africa (${date})",
-                    "type": "MAP"
+                    "title": "Droughts in Africa",
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Droughts in Africa",
                     "statVarKey": [
-                      "Mean_Rainfall"
+                      "Count_DroughtEvent"
                     ],
-                    "title": "Mean Rainfall in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Min_Rainfall"
-                    ],
-                    "title": "Min Rainfall in Countries of Africa (${date})",
-                    "type": "MAP"
+                    "title": "Droughts in Africa",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Rainfall Amount in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "PrecipitationRate"
-                    ],
-                    "title": "Precipitation Rate in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Precipitation Rate in Countries of Africa"
+            "title": "Droughts"
           }
         ],
         "statVarSpec": {
@@ -112,22 +87,6 @@
           "Count_DroughtEvent": {
             "name": "Droughts",
             "statVar": "Count_DroughtEvent"
-          },
-          "Max_Rainfall": {
-            "name": "Max Rainfall",
-            "statVar": "Max_Rainfall"
-          },
-          "Mean_Rainfall": {
-            "name": "Mean Rainfall",
-            "statVar": "Mean_Rainfall"
-          },
-          "Min_Rainfall": {
-            "name": "Min Rainfall",
-            "statVar": "Min_Rainfall"
-          },
-          "PrecipitationRate": {
-            "name": "Precipitation Rate",
-            "statVar": "PrecipitationRate"
           }
         }
       }
