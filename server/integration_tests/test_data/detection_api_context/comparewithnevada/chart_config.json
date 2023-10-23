@@ -4,6 +4,10 @@
     {
       "comparison": true,
       "type": 7
+    },
+    {
+      "dates": [],
+      "type": 12
     }
   ],
   "comparisonEntities": [

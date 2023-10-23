@@ -5,6 +5,10 @@
       "contained_in_place_type": "CensusTract",
       "had_default_type": false,
       "type": 4
+    },
+    {
+      "dates": [],
+      "type": 12
     }
   ],
   "comparisonEntities": [],

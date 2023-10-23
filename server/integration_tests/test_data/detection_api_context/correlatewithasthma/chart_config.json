@@ -6,6 +6,10 @@
       "type": 5
     },
     {
+      "dates": [],
+      "type": 12
+    },
+    {
       "contained_in_place_type": "DefaultType",
       "had_default_type": false,
       "type": 4
