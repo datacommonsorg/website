@@ -488,87 +488,844 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1"
+                      "Median_Income_Household"
                     ],
-                    "title": "Proportion of Population Below International Poverty Line in United States",
-                    "type": "LINE"
+                    "title": "Household Median Income in Counties of United States (${date})",
+                    "type": "RANKING"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Population Below International Poverty Line in United States",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1"
+                      "Median_Income_Household"
                     ],
-                    "title": "Proportion of Population Below International Poverty Line in United States",
-                    "type": "HIGHLIGHT"
+                    "title": "Household Median Income in Counties of United States (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
-            "title": "Proportion of Population Below International Poverty Line"
+            "title": "Household Median Income in Counties of United States"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
+                      "Median_Income_Person"
                     ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in United States",
-                    "type": "LINE"
+                    "title": "Individual Median Income in Counties of United States (${date})",
+                    "type": "RANKING"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Population Using Basic Drinking Water Services, by Location in United States",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
+                      "Median_Income_Person"
                     ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in United States",
-                    "type": "HIGHLIGHT"
+                    "title": "Individual Median Income in Counties of United States (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Proportion of Population Using Basic Drinking Water Services, by Location"
+            "title": "Individual Median Income in Counties of United States"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
+                      "Count_Person_IncomeOfUpto9999USDollar"
                     ],
-                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in United States",
-                    "type": "LINE"
+                    "title": "People Earning Up to $9,999 in Counties of United States (${date})",
+                    "type": "RANKING"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Population Using Basic Sanitation Services, by Location in United States",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
+                      "Count_Person_IncomeOfUpto9999USDollar"
                     ],
-                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in United States",
-                    "type": "HIGHLIGHT"
+                    "title": "People Earning Up to $9,999 in Counties of United States (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Proportion of Population Using Basic Sanitation Services, by Location"
+            "denom": "Count_Person",
+            "title": "People Earning Up to $9,999 in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf10000To14999USDollar"
+                    ],
+                    "title": "People Earning $10,000 and $14,999 in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_IncomeOf10000To14999USDollar"
+                    ],
+                    "title": "People Earning $10,000 and $14,999 in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People Earning $10,000 and $14,999 in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf25000To34999USDollar"
+                    ],
+                    "title": "People Earning $25,000 and $34,999 in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_IncomeOf25000To34999USDollar"
+                    ],
+                    "title": "People Earning $25,000 and $34,999 in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People Earning $25,000 and $34,999 in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf35000To49999USDollar"
+                    ],
+                    "title": "People Earning $35,000 and $49,999 in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_IncomeOf35000To49999USDollar"
+                    ],
+                    "title": "People Earning $35,000 and $49,999 in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People Earning $35,000 and $49,999 in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf50000To64999USDollar"
+                    ],
+                    "title": "People Earning Between $50,000 and $64,999 in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_IncomeOf50000To64999USDollar"
+                    ],
+                    "title": "People Earning Between $50,000 and $64,999 in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People Earning Between $50,000 and $64,999 in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf65000To74999USDollar"
+                    ],
+                    "title": "People Earning Between $65,000 and $74,999 in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_IncomeOf65000To74999USDollar"
+                    ],
+                    "title": "People Earning Between $65,000 and $74,999 in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People Earning Between $65,000 and $74,999 in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf75000OrMoreUSDollar"
+                    ],
+                    "title": "People Earning $75,000 or More in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_IncomeOf75000OrMoreUSDollar"
+                    ],
+                    "title": "People Earning $75,000 or More in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People Earning $75,000 or More in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/015d58s9xh8kd"
+                    ],
+                    "title": "Median Incomes in Real Estate and Rental and Leasing in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/015d58s9xh8kd"
+                    ],
+                    "title": "Median Incomes in Real Estate and Rental and Leasing in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Real Estate and Rental and Leasing in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/2wgh04kx6es88"
+                    ],
+                    "title": "Median Incomes in Health Care and Social Assistance in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/2wgh04kx6es88"
+                    ],
+                    "title": "Median Incomes in Health Care and Social Assistance in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Health Care and Social Assistance in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/3ex11eg2q9hp6"
+                    ],
+                    "title": "Median Income of Manufacturing in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/3ex11eg2q9hp6"
+                    ],
+                    "title": "Median Income of Manufacturing in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Manufacturing in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/4z9xy6wn8xns1"
+                    ],
+                    "title": "Median Incomes in Administrative and Support and Waste Management Services in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/4z9xy6wn8xns1"
+                    ],
+                    "title": "Median Incomes in Administrative and Support and Waste Management Services in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Administrative and Support and Waste Management Services in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/5f3gkej4mrq24"
+                    ],
+                    "title": "Median Incomes in Retail Trade in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/5f3gkej4mrq24"
+                    ],
+                    "title": "Median Incomes in Retail Trade in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Retail Trade in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/7jqw95h5wbelb"
+                    ],
+                    "title": "Median Incomes in Public Administration in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/7jqw95h5wbelb"
+                    ],
+                    "title": "Median Incomes in Public Administration in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Public Administration in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/9pmyhk89dj3pf"
+                    ],
+                    "title": "Median Incomes in Accommodation and Food Services in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/9pmyhk89dj3pf"
+                    ],
+                    "title": "Median Incomes in Accommodation and Food Services in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Accommodation and Food Services in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/b4dj4sbgqybh7"
+                    ],
+                    "title": "Median Incomes in Mining, Quarrying, and Oil and Gas Extraction in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/b4dj4sbgqybh7"
+                    ],
+                    "title": "Median Incomes in Mining, Quarrying, and Oil and Gas Extraction in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Mining, Quarrying, and Oil and Gas Extraction in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/jefhcs9qxc971"
+                    ],
+                    "title": "Median Incomes in Educational Services in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/jefhcs9qxc971"
+                    ],
+                    "title": "Median Incomes in Educational Services in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Educational Services in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/knhvyxwsd3y6h"
+                    ],
+                    "title": "Median Incomes in Other Services, Except Public Administration in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/knhvyxwsd3y6h"
+                    ],
+                    "title": "Median Incomes in Other Services, Except Public Administration in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Other Services, Except Public Administration in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/m07n4w3ywjzs3"
+                    ],
+                    "title": "Median Incomes in Construction in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/m07n4w3ywjzs3"
+                    ],
+                    "title": "Median Incomes in Construction in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Construction in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/t6m99mqmqxjbc"
+                    ],
+                    "title": "Median Incomes in Management of Companies and Enterprises in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/t6m99mqmqxjbc"
+                    ],
+                    "title": "Median Incomes in Management of Companies and Enterprises in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Management of Companies and Enterprises in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/xj2nk2bg60fg"
+                    ],
+                    "title": "Median Incomes in Information Industry in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/xj2nk2bg60fg"
+                    ],
+                    "title": "Median Incomes in Information Industry in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Information Industry in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/yw52qqrrb2w11"
+                    ],
+                    "title": "Median Incomes in Agriculture, Forestry, Fishing and Hunting in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/yw52qqrrb2w11"
+                    ],
+                    "title": "Median Incomes in Agriculture, Forestry, Fishing and Hunting in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Agriculture, Forestry, Fishing and Hunting in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/zbpsz8dg01nh2"
+                    ],
+                    "title": "Median Incomes in Transportation and Warehousing in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/zbpsz8dg01nh2"
+                    ],
+                    "title": "Median Incomes in Transportation and Warehousing in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Transportation and Warehousing in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Family Household Income in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Married Couple Family Household Income in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Nonfamily Household Median Income in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Nonfamily Household Median Income in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Nonfamily Household Median Income in Counties of United States"
           },
           {
             "columns": [
@@ -837,6 +1594,34 @@
             "name": "Women below Poverty Line",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
+          "Count_Person_IncomeOf10000To14999USDollar": {
+            "name": "People Earning $10,000 and $14,999",
+            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
+          },
+          "Count_Person_IncomeOf25000To34999USDollar": {
+            "name": "People Earning $25,000 and $34,999",
+            "statVar": "Count_Person_IncomeOf25000To34999USDollar"
+          },
+          "Count_Person_IncomeOf35000To49999USDollar": {
+            "name": "People Earning $35,000 and $49,999",
+            "statVar": "Count_Person_IncomeOf35000To49999USDollar"
+          },
+          "Count_Person_IncomeOf50000To64999USDollar": {
+            "name": "People Earning Between $50,000 and $64,999",
+            "statVar": "Count_Person_IncomeOf50000To64999USDollar"
+          },
+          "Count_Person_IncomeOf65000To74999USDollar": {
+            "name": "People Earning Between $65,000 and $74,999",
+            "statVar": "Count_Person_IncomeOf65000To74999USDollar"
+          },
+          "Count_Person_IncomeOf75000OrMoreUSDollar": {
+            "name": "People Earning $75,000 or More",
+            "statVar": "Count_Person_IncomeOf75000OrMoreUSDollar"
+          },
+          "Count_Person_IncomeOfUpto9999USDollar": {
+            "name": "People Earning Up to $9,999",
+            "statVar": "Count_Person_IncomeOfUpto9999USDollar"
+          },
           "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
             "name": "Males in Poverty (in last year)",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
@@ -845,17 +1630,85 @@
             "name": "Population With Poverty Status Determined",
             "statVar": "Count_Person_PovertyStatusDetermined"
           },
-          "sdg/SI_POV_DAY1": {
-            "name": "Proportion of population below international poverty line",
-            "statVar": "sdg/SI_POV_DAY1"
+          "Median_Income_Household": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
           },
-          "sdg/SP_ACS_BSRVH2O": {
-            "name": "Proportion of population using basic drinking water services, by location",
-            "statVar": "sdg/SP_ACS_BSRVH2O"
+          "Median_Income_Household_FamilyHousehold": {
+            "name": "Median Family Household Income",
+            "statVar": "Median_Income_Household_FamilyHousehold"
           },
-          "sdg/SP_ACS_BSRVSAN": {
-            "name": "Proportion of population using basic sanitation services, by location",
-            "statVar": "sdg/SP_ACS_BSRVSAN"
+          "Median_Income_Household_MarriedCoupleFamilyHousehold": {
+            "name": "Median Married Couple Family Household Income",
+            "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
+          },
+          "Median_Income_Household_NonfamilyHousehold": {
+            "name": "Nonfamily Household Median Income",
+            "statVar": "Median_Income_Household_NonfamilyHousehold"
+          },
+          "Median_Income_Person": {
+            "name": "Individual Median Income",
+            "statVar": "Median_Income_Person"
+          },
+          "dc/015d58s9xh8kd": {
+            "name": "Median Incomes in Real Estate And Rental And Leasing",
+            "statVar": "dc/015d58s9xh8kd"
+          },
+          "dc/2wgh04kx6es88": {
+            "name": "Median Incomes in Health Care And Social Assistance",
+            "statVar": "dc/2wgh04kx6es88"
+          },
+          "dc/3ex11eg2q9hp6": {
+            "name": "Median Income of Manufacturing",
+            "statVar": "dc/3ex11eg2q9hp6"
+          },
+          "dc/4z9xy6wn8xns1": {
+            "name": "Median Incomes in Administrative And Support And Waste Management Services",
+            "statVar": "dc/4z9xy6wn8xns1"
+          },
+          "dc/5f3gkej4mrq24": {
+            "name": "Median Incomes in Retail Trade",
+            "statVar": "dc/5f3gkej4mrq24"
+          },
+          "dc/7jqw95h5wbelb": {
+            "name": "Median Incomes in Public Administration",
+            "statVar": "dc/7jqw95h5wbelb"
+          },
+          "dc/9pmyhk89dj3pf": {
+            "name": "Median Incomes in Accommodation And Food Services",
+            "statVar": "dc/9pmyhk89dj3pf"
+          },
+          "dc/b4dj4sbgqybh7": {
+            "name": "Median Incomes in Mining, Quarrying, And Oil And Gas Extraction",
+            "statVar": "dc/b4dj4sbgqybh7"
+          },
+          "dc/jefhcs9qxc971": {
+            "name": "Median Incomes in Educational Services",
+            "statVar": "dc/jefhcs9qxc971"
+          },
+          "dc/knhvyxwsd3y6h": {
+            "name": "Median Incomes in Other Services, Except Public Administration",
+            "statVar": "dc/knhvyxwsd3y6h"
+          },
+          "dc/m07n4w3ywjzs3": {
+            "name": "Median Incomes in Construction",
+            "statVar": "dc/m07n4w3ywjzs3"
+          },
+          "dc/t6m99mqmqxjbc": {
+            "name": "Median Incomes in Management of Companies And Enterprises",
+            "statVar": "dc/t6m99mqmqxjbc"
+          },
+          "dc/xj2nk2bg60fg": {
+            "name": "Median Incomes in Information industry",
+            "statVar": "dc/xj2nk2bg60fg"
+          },
+          "dc/yw52qqrrb2w11": {
+            "name": "Median Incomes in Agriculture, Forestry, Fishing And Hunting",
+            "statVar": "dc/yw52qqrrb2w11"
+          },
+          "dc/zbpsz8dg01nh2": {
+            "name": "Median Incomes in Transportation And Warehousing",
+            "statVar": "dc/zbpsz8dg01nh2"
           }
         }
       }

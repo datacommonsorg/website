@@ -9,8 +9,7 @@ Count_Person_DetailedHighSchool,dc/topic/StudentsInHighSchool,high school studen
 Count_Person_DetailedPrimarySchool,dc/topic/StudentsInPrimarySchool,primary school students
 Count_Person_DetailedMiddleSchool,dc/topic/StudentsInMiddleSchool,middle school students
 Annual_Emissions_GreenhouseGas,dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emissions
-dc/topic/SDG_2,dc/topic/FoodInsecurity,food security
-dc/topic/SDG_2,dc/topic/sdg_2.1.2,food security
+dc/topic/sdg_2.1.2,dc/topic/FoodInsecurity,food security
 dc/topic/sdg_7.1.1,dc/topic/GlobalElectricityAccess,electricity access
 Amount_EconomicActivity_GrossDomesticProduction_Nominal,dc/topic/sdg_8.1.1,GDP
 Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita,dc/topic/sdg_8.1.1,GDP per capita
@@ -97,9 +96,6 @@ dc/topic/sdg_15.a.1,dc/topic/sdg_15.b.1,(a) Official development assistance on c
 dc/topic/sdg_15.a.1,dc/topic/sdg_15.b.1,and (b) revenue generated and finance mobilized from biodiversity-relevant economic instruments
 dc/topic/sdg_15.a.1,dc/topic/sdg_15.b.1,sdg (a) Official development assistance on conservation and sustainable use of biodiversity
 dc/topic/sdg_15.a.1,dc/topic/sdg_15.b.1,sustainable development goal (a) Official development assistance on conservation and sustainable use of biodiversity
-dc/topic/sdg_15.7.1,dc/topic/sdg_15.c.1,Proportion of traded wildlife that was poached or illicitly trafficked
-dc/topic/sdg_15.7.1,dc/topic/sdg_15.c.1,sdg Proportion of traded wildlife that was poached or illicitly trafficked
-dc/topic/sdg_15.7.1,dc/topic/sdg_15.c.1,sustainable development goal Proportion of traded wildlife that was poached or illicitly trafficked
 dc/topic/sdg_10.6.1,dc/topic/sdg_16.8.1,Proportion of members and voting rights of developing countries in international organizations
 dc/topic/sdg_10.6.1,dc/topic/sdg_16.8.1,sdg Proportion of members and voting rights of developing countries in international organizations
 dc/topic/sdg_10.6.1,dc/topic/sdg_16.8.1,sustainable development goal Proportion of members and voting rights of developing countries in international organizations

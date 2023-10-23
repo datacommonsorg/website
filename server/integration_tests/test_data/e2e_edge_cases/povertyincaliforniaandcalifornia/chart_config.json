@@ -332,6 +332,399 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Household Median Income in California",
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Income in California",
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Population by Income Level in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Income Level"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar"
+                    ],
+                    "title": "People Earning Up to $9,999 in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar"
+                    ],
+                    "title": "People Earning Up to $9,999 in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People Earning Up to $9,999 in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_IncomeOf10000To14999USDollar"
+                    ],
+                    "title": "People Earning $10,000 and $14,999 in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf10000To14999USDollar"
+                    ],
+                    "title": "People Earning $10,000 and $14,999 in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People Earning $10,000 and $14,999 in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "dc/015d58s9xh8kd_multiple_place_bar_block",
+                      "dc/2wgh04kx6es88_multiple_place_bar_block",
+                      "dc/3ex11eg2q9hp6_multiple_place_bar_block",
+                      "dc/4z9xy6wn8xns1_multiple_place_bar_block",
+                      "dc/5f3gkej4mrq24_multiple_place_bar_block",
+                      "dc/7jqw95h5wbelb_multiple_place_bar_block",
+                      "dc/9pmyhk89dj3pf_multiple_place_bar_block",
+                      "dc/b4dj4sbgqybh7_multiple_place_bar_block",
+                      "dc/jefhcs9qxc971_multiple_place_bar_block",
+                      "dc/knhvyxwsd3y6h_multiple_place_bar_block",
+                      "dc/m07n4w3ywjzs3_multiple_place_bar_block",
+                      "dc/t6m99mqmqxjbc_multiple_place_bar_block",
+                      "dc/xj2nk2bg60fg_multiple_place_bar_block",
+                      "dc/yw52qqrrb2w11_multiple_place_bar_block",
+                      "dc/zbpsz8dg01nh2_multiple_place_bar_block"
+                    ],
+                    "title": "Individual Income by Industry Type in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Income by Industry Type"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/015d58s9xh8kd"
+                    ],
+                    "title": "Median Incomes in Real Estate and Rental and Leasing in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/015d58s9xh8kd"
+                    ],
+                    "title": "Median Incomes in Real Estate and Rental and Leasing in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Real Estate and Rental and Leasing in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/2wgh04kx6es88"
+                    ],
+                    "title": "Median Incomes in Health Care and Social Assistance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/2wgh04kx6es88"
+                    ],
+                    "title": "Median Incomes in Health Care and Social Assistance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Health Care and Social Assistance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold",
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold",
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Median Income by Household Type in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income by Household Type"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Family Household Income in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Married Couple Family Household Income in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months"
                     ],
                     "title": "Population Above Poverty Line in California",
@@ -746,6 +1139,42 @@
             "name": "Women below Poverty Line",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
+          "Count_Person_IncomeOf10000To14999USDollar": {
+            "name": "People Earning $10,000 and $14,999",
+            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
+          },
+          "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block": {
+            "name": "People Earning $10,000 and $14,999",
+            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
+          },
+          "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block": {
+            "name": "People Earning $25,000 and $34,999",
+            "statVar": "Count_Person_IncomeOf25000To34999USDollar"
+          },
+          "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block": {
+            "name": "People Earning $35,000 and $49,999",
+            "statVar": "Count_Person_IncomeOf35000To49999USDollar"
+          },
+          "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block": {
+            "name": "People Earning Between $50,000 and $64,999",
+            "statVar": "Count_Person_IncomeOf50000To64999USDollar"
+          },
+          "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block": {
+            "name": "People Earning Between $65,000 and $74,999",
+            "statVar": "Count_Person_IncomeOf65000To74999USDollar"
+          },
+          "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block": {
+            "name": "People Earning $75,000 or More",
+            "statVar": "Count_Person_IncomeOf75000OrMoreUSDollar"
+          },
+          "Count_Person_IncomeOfUpto9999USDollar": {
+            "name": "People Earning Up to $9,999",
+            "statVar": "Count_Person_IncomeOfUpto9999USDollar"
+          },
+          "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block": {
+            "name": "People Earning Up to $9,999",
+            "statVar": "Count_Person_IncomeOfUpto9999USDollar"
+          },
           "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
             "name": "Males in Poverty (in last year)",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
@@ -753,6 +1182,94 @@
           "Count_Person_PovertyStatusDetermined": {
             "name": "Population With Poverty Status Determined",
             "statVar": "Count_Person_PovertyStatusDetermined"
+          },
+          "Median_Income_Household": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
+          },
+          "Median_Income_Household_FamilyHousehold": {
+            "name": "Median Family Household Income",
+            "statVar": "Median_Income_Household_FamilyHousehold"
+          },
+          "Median_Income_Household_MarriedCoupleFamilyHousehold": {
+            "name": "Median Married Couple Family Household Income",
+            "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
+          },
+          "Median_Income_Household_NonfamilyHousehold": {
+            "name": "Nonfamily Household Median Income",
+            "statVar": "Median_Income_Household_NonfamilyHousehold"
+          },
+          "Median_Income_Person": {
+            "name": "Individual Median Income",
+            "statVar": "Median_Income_Person"
+          },
+          "dc/015d58s9xh8kd": {
+            "name": "Median Incomes in Real Estate And Rental And Leasing",
+            "statVar": "dc/015d58s9xh8kd"
+          },
+          "dc/015d58s9xh8kd_multiple_place_bar_block": {
+            "name": "Median Incomes in Real Estate And Rental And Leasing",
+            "statVar": "dc/015d58s9xh8kd"
+          },
+          "dc/2wgh04kx6es88": {
+            "name": "Median Incomes in Health Care And Social Assistance",
+            "statVar": "dc/2wgh04kx6es88"
+          },
+          "dc/2wgh04kx6es88_multiple_place_bar_block": {
+            "name": "Median Incomes in Health Care And Social Assistance",
+            "statVar": "dc/2wgh04kx6es88"
+          },
+          "dc/3ex11eg2q9hp6_multiple_place_bar_block": {
+            "name": "Median Income of Manufacturing",
+            "statVar": "dc/3ex11eg2q9hp6"
+          },
+          "dc/4z9xy6wn8xns1_multiple_place_bar_block": {
+            "name": "Median Incomes in Administrative And Support And Waste Management Services",
+            "statVar": "dc/4z9xy6wn8xns1"
+          },
+          "dc/5f3gkej4mrq24_multiple_place_bar_block": {
+            "name": "Median Incomes in Retail Trade",
+            "statVar": "dc/5f3gkej4mrq24"
+          },
+          "dc/7jqw95h5wbelb_multiple_place_bar_block": {
+            "name": "Median Incomes in Public Administration",
+            "statVar": "dc/7jqw95h5wbelb"
+          },
+          "dc/9pmyhk89dj3pf_multiple_place_bar_block": {
+            "name": "Median Incomes in Accommodation And Food Services",
+            "statVar": "dc/9pmyhk89dj3pf"
+          },
+          "dc/b4dj4sbgqybh7_multiple_place_bar_block": {
+            "name": "Median Incomes in Mining, Quarrying, And Oil And Gas Extraction",
+            "statVar": "dc/b4dj4sbgqybh7"
+          },
+          "dc/jefhcs9qxc971_multiple_place_bar_block": {
+            "name": "Median Incomes in Educational Services",
+            "statVar": "dc/jefhcs9qxc971"
+          },
+          "dc/knhvyxwsd3y6h_multiple_place_bar_block": {
+            "name": "Median Incomes in Other Services, Except Public Administration",
+            "statVar": "dc/knhvyxwsd3y6h"
+          },
+          "dc/m07n4w3ywjzs3_multiple_place_bar_block": {
+            "name": "Median Incomes in Construction",
+            "statVar": "dc/m07n4w3ywjzs3"
+          },
+          "dc/t6m99mqmqxjbc_multiple_place_bar_block": {
+            "name": "Median Incomes in Management of Companies And Enterprises",
+            "statVar": "dc/t6m99mqmqxjbc"
+          },
+          "dc/xj2nk2bg60fg_multiple_place_bar_block": {
+            "name": "Median Incomes in Information industry",
+            "statVar": "dc/xj2nk2bg60fg"
+          },
+          "dc/yw52qqrrb2w11_multiple_place_bar_block": {
+            "name": "Median Incomes in Agriculture, Forestry, Fishing And Hunting",
+            "statVar": "dc/yw52qqrrb2w11"
+          },
+          "dc/zbpsz8dg01nh2_multiple_place_bar_block": {
+            "name": "Median Incomes in Transportation And Warehousing",
+            "statVar": "dc/zbpsz8dg01nh2"
           }
         }
       }
@@ -1213,33 +1730,7 @@
           "Count_Household_FamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
         ]
       },
-      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine": {
-        "residentStatus": [
-          "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_DifferentHouseAbroad",
-          "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState",
-          "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_DifferentHouseInDifferentCountySameState",
-          "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_DifferentHouseInSameCounty"
-        ]
-      },
-      "Count_Person_AbovePovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To17Years_AbovePovertyLevelInThePast12Months",
-          "Count_Person_18To59Years_AbovePovertyLevelInThePast12Months",
-          "Count_Person_60To74Years_AbovePovertyLevelInThePast12Months",
-          "Count_Person_75To84Years_AbovePovertyLevelInThePast12Months",
-          "Count_Person_85OrMoreYears_AbovePovertyLevelInThePast12Months",
-          "Count_Person_Upto6Years_AbovePovertyLevelInThePast12Months"
-        ]
-      },
       "Count_Person_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Upto6Years_BelowPovertyLevelInThePast12Months"
-        ],
         "gender": [
           "Count_Person_Female_BelowPovertyLevelInThePast12Months",
           "Count_Person_Male_BelowPovertyLevelInThePast12Months"
@@ -1250,39 +1741,13 @@
           "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
           "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
           "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
         ]
       },
-      "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months"
-        ],
-        "maritalStatus": [
-          "Count_Person_Female_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Female_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months"
-        ],
-        "maritalStatus": [
-          "Count_Person_Male_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Male_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Person_PovertyStatusDetermined": {
-        "healthInsurance": [
-          "Count_Person_NoHealthInsurance_PovertyStatusDetermined",
-          "Count_Person_WithHealthInsurance_PovertyStatusDetermined"
+      "Median_Income_Household": {
+        "benefitsStatus": [
+          "Median_Income_Household_WithFoodStampsInThePast12Months",
+          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
         ]
       }
     },

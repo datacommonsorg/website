@@ -87,6 +87,88 @@
             ],
             "denom": "Count_Person",
             "title": "Males in Poverty (In Last Year) in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_scatter",
+                      "Median_Income_Person_scatter"
+                    ],
+                    "title": "Household Median Income (${yDate}) Vs. Individual Median Income (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income vs. Individual Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -105,6 +187,24 @@
           "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter": {
             "name": "Males in Poverty (in last year)",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+          },
+          "Median_Income_Household": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
+          },
+          "Median_Income_Household_scatter": {
+            "name": "Household Median Income",
+            "noPerCapita": true,
+            "statVar": "Median_Income_Household"
+          },
+          "Median_Income_Person": {
+            "name": "Individual Median Income",
+            "statVar": "Median_Income_Person"
+          },
+          "Median_Income_Person_scatter": {
+            "name": "Individual Median Income",
+            "noPerCapita": true,
+            "statVar": "Median_Income_Person"
           }
         }
       }
@@ -514,68 +614,10 @@
       }
     ],
     "exploreMore": {
-      "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_25To34Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_35To44Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_45To54Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_55To64Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_5Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_65To74Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_6To11Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_75OrMoreYears_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Upto5Years_Female_BelowPovertyLevelInThePast12Months"
-        ],
-        "maritalStatus": [
-          "Count_Person_Female_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Female_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
-        ],
-        "race": [
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-        ]
-      },
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_25To34Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_35To44Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_45To54Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_55To64Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_5Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_65To74Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_6To11Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_75OrMoreYears_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Upto5Years_Male_BelowPovertyLevelInThePast12Months"
-        ],
-        "maritalStatus": [
-          "Count_Person_Male_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Male_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
-        ],
-        "race": [
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+      "Median_Income_Household": {
+        "benefitsStatus": [
+          "Median_Income_Household_WithFoodStampsInThePast12Months",
+          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
         ]
       }
     },
