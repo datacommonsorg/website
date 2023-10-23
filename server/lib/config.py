@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import os
 
 import google.auth
@@ -35,10 +36,14 @@ def get_config():
       cfg.API_ROOT = 'http://127.0.0.1:8081'
     # Set up secret project for GCP deployment
     if not cfg.LOCAL:
-      _, project_id = google.auth.default()
-      # For webdriver tests and integration test, the SECRET_PROJECT is
-      # overwritten to datcom-ci when running on cloudbuild.
-      cfg.SECRET_PROJECT = project_id
+      try:
+        _, project_id = google.auth.default()
+        # For webdriver tests and integration test, the SECRET_PROJECT is
+        # overwritten to datcom-ci when running on cloudbuild.
+        cfg.SECRET_PROJECT = project_id
+      except Exception as e:
+        logging.error(e)
+
     return cfg
   except:
     raise ValueError("No valid config class is specified: %s" % config_class)

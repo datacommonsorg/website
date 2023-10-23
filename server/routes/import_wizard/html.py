@@ -49,7 +49,8 @@ def load():
 
   command1 = [
       "python",
-      "import/simple/stats/main.py",
+      "-m",
+      "stats.main",
       "--input_path",
       f"{raw_data_path}",
       "--output_dir",
@@ -62,16 +63,22 @@ def load():
       "localhost:8081/import",
   ]
   output = []
-  for command in [command1, command2]:
+  for command, cwd in [(command1, "import/simple"), (command2, ".")]:
     try:
-      result = subprocess.run(command, capture_output=True, text=True)
-      if result.returncode == 0:
-        output.append({"status": "success", "output": result.stdout.strip()})
-      else:
-        return jsonify({
-            "status": "failure",
-            "error": result.stderr.strip()
-        }), 500
+      result = subprocess.run(command,
+                              capture_output=True,
+                              text=True,
+                              check=True,
+                              cwd=cwd)
+      output.append({
+          "status": "success",
+          "stdout": result.stdout.strip().splitlines()
+      })
+    except subprocess.CalledProcessError as cpe:
+      return jsonify({
+          "status": "failure",
+          "error": cpe.stderr.strip().splitlines()
+      }), 500
     except Exception as e:
       return jsonify({"status": "error", "message": str(e)}), 500
   return jsonify(output), 200
