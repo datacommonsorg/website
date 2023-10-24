@@ -71,7 +71,12 @@ def place(place_dcid=None):
     place_name = place_names[place_dcid]
   else:
     place_name = place_dcid
-  place_summary = current_app.config['PLACE_EXPLORER_SUMMARIES'].get(place_dcid, "")
+
+  place_summary = None
+  if not category:
+    # Only show summary for Overview
+    place_summary = current_app.config['PLACE_EXPLORER_SUMMARIES'].get(place_dcid, "")
+
   return flask.render_template('place.html',
                                place_type=place_type,
                                place_name=place_name,
