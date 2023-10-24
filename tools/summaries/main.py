@@ -26,8 +26,7 @@ from palm import get_summary
 _OUTPUT_DIR = "../../server/config/summaries"
 _PLACE_JSON_FILE = os.path.join(_OUTPUT_DIR, "places-short.json")
 _SUMMARIES_JSON_FILE = os.path.join(_OUTPUT_DIR, "summaries-short.json")
-_SUMMARIES_CSV_FILE = "summaries.csv"
-_NUM_PARALLEL_PROCESSES = 8
+_NUM_PARALLEL_PROCESSES = 1
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -36,7 +35,6 @@ def get_and_write_ranking_summaries():
   places = read_json(_PLACE_JSON_FILE)
   summaries = get_ranking_summaries(places)
   write_json(summaries, _SUMMARIES_JSON_FILE)
-  write_csv(summaries, _SUMMARIES_CSV_FILE)
 
 
 def get_ranking_summaries(places_by_type: dict):
@@ -44,13 +42,10 @@ def get_ranking_summaries(places_by_type: dict):
   for place_type, places in places_by_type.items():
     unordered_summaries = {}
     tuples = list(starmap(lambda dcid, place_name: (dcid, place_name, place_type), places.items()))
-    for tuple in tuples:
-      dcid, name, (prompt, summary) = get_ranking_summary_with_tuple(tuple)
-      unordered_summaries[dcid] = {"name": name, "prompt": prompt,  "summary": summary}
-    # with multiprocessing.Pool(processes=_NUM_PARALLEL_PROCESSES) as pool:
-    #   for dcid, name, summary in pool.imap_unordered(
-    #       get_ranking_summary_with_tuple, tuples):
-    #     unordered_summaries[dcid] = {"name": name, "summary": summary}
+    with multiprocessing.Pool(processes=_NUM_PARALLEL_PROCESSES) as pool:
+      for dcid, name, (prompt, summary) in pool.imap_unordered(
+          get_ranking_summary_with_tuple, tuples):
+        unordered_summaries[dcid] = {"name": name, "prompt": prompt, "summary": summary}
 
     for dcid, _, _ in tuples:
       summaries[dcid] = unordered_summaries[dcid]
@@ -63,12 +58,10 @@ def get_ranking_summary_with_tuple(tuple):
 
 
 def get_ranking_summary(dcid: str, place_name: str, place_type: str):
-  logging.info("Getting ranking summary for : %s (%s)", dcid, place_name)
-  csv = dc.get_ranking_csv(dcid, place_type)
-  # logging.info(csvs)
+  ranking_data = dc.get_ranking_data(dcid, place_type)
   data_tables = dc.get_data_series(dcid, place_name)
-  prompt, summary = get_summary(place_name, place_type, csv, data_tables)
-  logging.info("Got ranking summary for: %s (%s)\n%s", dcid, place_name, summary)
+  prompt, summary = get_summary(place_name, place_type, ranking_data, data_tables)
+  logging.info("Ranking summary for: %s (%s)\n%s", dcid, place_name, summary)
   return prompt, summary
 
 
@@ -80,18 +73,6 @@ def read_json(file_name: str):
 def write_json(data, file_name: str):
   with open(file_name, "w") as f:
     json.dump(data, f, indent=True)
-
-
-def write_csv(data, file_name: str):
-  columns = ["dcid", "name", "summary"]
-  rows = []
-  for dcid, summary in data.items():
-    rows.append([dcid, summary["name"], summary["summary"]])
-
-  with open(file_name, "w") as f:
-    writer = csv.writer(f)
-    writer.writerow(columns)
-    writer.writerows(rows)
 
 
 def main(_):
