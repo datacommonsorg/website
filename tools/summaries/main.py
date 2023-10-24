@@ -41,9 +41,9 @@ def get_and_write_ranking_summaries():
 
 def get_ranking_summaries(places_by_type: dict):
   summaries = {}
-  for place_type_plural, places in places_by_type.items():
+  for place_type, places in places_by_type.items():
     unordered_summaries = {}
-    tuples = list(starmap(lambda dcid, place_name: (dcid, place_name, place_type_plural), places.items()))
+    tuples = list(starmap(lambda dcid, place_name: (dcid, place_name, place_type), places.items()))
     for tuple in tuples:
       dcid, name, (prompt, summary) = get_ranking_summary_with_tuple(tuple)
       unordered_summaries[dcid] = {"name": name, "prompt": prompt,  "summary": summary}
@@ -62,13 +62,13 @@ def get_ranking_summary_with_tuple(tuple):
   return (dcid, name, get_ranking_summary(dcid, name, place_type_plural))
 
 
-def get_ranking_summary(dcid: str, name: str, place_type_plural: str):
-  logging.info("Getting ranking summary for : %s (%s)", dcid, name)
-  csv = dc.get_ranking_csv(dcid, place_type_plural)
+def get_ranking_summary(dcid: str, place_name: str, place_type: str):
+  logging.info("Getting ranking summary for : %s (%s)", dcid, place_name)
+  csv = dc.get_ranking_csv(dcid, place_type)
   # logging.info(csvs)
-  data_tables = dc.get_data_series(dcid, name)
-  prompt, summary = get_summary(name, csv, data_tables)
-  logging.info("Got ranking summary for: %s (%s)\n%s", dcid, name, summary)
+  data_tables = dc.get_data_series(dcid, place_name)
+  prompt, summary = get_summary(place_name, place_type, csv, data_tables)
+  logging.info("Got ranking summary for: %s (%s)\n%s", dcid, place_name, summary)
   return prompt, summary
 
 

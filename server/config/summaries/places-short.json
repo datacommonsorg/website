@@ -1,5 +1,5 @@
 {
-  "cities": {
+  "city": {
     "geoId/0667000": "San Francisco",
     "geoId/3651000": "New York City",
     "geoId/1304000": "Atlanta",
@@ -8,7 +8,7 @@
     "geoId/4877680": "Westminster",
     "geoId/2827620": "Glendale"
   },
-  "states": {
+  "state": {
     "geoId/01": "Alabama",
     "geoId/02": "Alaska",
     "geoId/04": "Arizona",

@@ -29,42 +29,87 @@ _TEMPERATURE = 0.2
 # We use a heuristic that the summary must contain at least 2 numbers to be factual.
 _RETRIES = 2
 
+_PROMPT = """
+Generate a summary in 2 sentences using only the information from the following tables.
+Only list important highlights per table.
+The summary should only be based on the information presented in these tables.
+Do not include facts from other sources.
+Do not use superlatives.
+Do not use the phrase 'According to the data'.
+Do not include opinions.
+Please include references if information is included from other sources.
+Please write in a professional and business-neutral tone.
+
+{place_type}: {place_name}
+
+{ranking_key}:
+{ranking_data}
+
+Table:
+{data_table}
+
+Summary:
+"""
+
 assert _API_KEY, "$PALM_API_KEY must be specified."
 
+# Ranking key -> data_table key
+_TABLE_KEYS = {
+  "Population": "Count_Person",
+  "Median Income": "Median_Income_Person",
+  "Median Age": "Median_Age_Person",
+}
 
-def get_summary(name: str, ranking_csv: str, data_tables: List[str]):
+
+def get_summary(place_name: str, place_type: str, rankings: str, data_tables: List[str]):
   url = f"{_API_URL}?key={_API_KEY}"
-  # prompt = f"Summarize the following CSV for {name} in 1 sentence. Don't use superlatives.\n\n{csv}"
-  # prompt = f"Give me a one sentence NL summary based on the following info for {name}:\n\n{csv}"
-  tables_for_prompt = "\n\nTable:\n".join(data_tables)
+  headers = {
+      "Content-Type": "application/json",
+  }
+
+  candidates = []
+  prompts = []
+  for ranking_key, data_table_key in _TABLE_KEYS.items():
+    if not ranking_key in rankings:
+      logging.info(f"Skipping {ranking_key} for {place_name}")
+      continue
+    prompt_keys = {"place_type":place_type,
+                 "place_name":place_name,
+                 "ranking_key":ranking_key,
+                 "ranking_data":rankings[ranking_key],
+                 "data_table":data_tables[data_table_key]}
+    prompt = _PROMPT.format(**prompt_keys)
+    prompts.append(prompt)
+
+    params = {
+        "prompt": {
+            "text": prompt,
+        },
+        "temperature": _TEMPERATURE,
+        "candidateCount": 1,
+    }
+    response = requests.post(url=url, json=params, headers=headers).json()
+    candidates.append(" -- " + response.get("candidates", [{}])[0].get("output", ""))
+
+    # TODO: Add some verification step here
+
+  facts = '\n'.join(candidates)
   prompt = f"""
-  Generate a summary for {name} in 1 paragraph using only the information from the following tables.
-  Only list important highlights per table.
-  The summary should only be based on the information presented in these tables. Do not include facts from other sources.
-  Do not return markdown or lists. Do not use superlatives.
-  Please write in a professional and business-neutral tone.
-  Do not use the phrase 'According to the data'.
-  Please include references if information is included from other sources. Do not include opinions.
+  Summarize these facts into 1 paragraph.
 
-  Table:
-  {ranking_csv}
-
-  Table:
-  {tables_for_prompt}
-
-  Summary:
+  {facts}
   """
-  logging.debug(prompt)
   params = {
       "prompt": {
-          "text": prompt
+          "text": prompt,
       },
       "temperature": _TEMPERATURE,
       "candidateCount": 1,
   }
-  headers = {
-      "Content-Type": "application/json",
-  }
+  response = requests.post(url=url, json=params, headers=headers).json()
+  prompts.append(prompt)
+
+  return prompts, response.get("candidates", [{}])[0].get("output", "")
 
   for attempt in range(_RETRIES):
     response = requests.post(url=url, json=params, headers=headers).json()
@@ -77,6 +122,6 @@ def get_summary(name: str, ranking_csv: str, data_tables: List[str]):
     if attempt == _RETRIES - 1:
       logging.warning("Summary may not be factual: %s", candidate)
       return prompt, candidate
-    logging.warning("Retrying %s: %s", name, candidate)
+    logging.warning("Retrying %s: %s", place_name, candidate)
 
   return prompt, ""

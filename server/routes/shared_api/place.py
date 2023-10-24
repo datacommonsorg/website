@@ -464,8 +464,8 @@ def api_ranking(dcid):
     i18n_name = parent_i18n_names[parent_dcid]
     parent_names[parent_dcid] = i18n_name if i18n_name else parent.get(
         'name', "")
-    if len(selected_parents) == 3:
-      break
+    # if len(selected_parents) == 3:
+    #   break
   result = collections.defaultdict(list)
 
   # Contains statistical variable and the display name used for place rankings.
