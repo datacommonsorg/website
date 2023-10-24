@@ -56,7 +56,7 @@ Facts:
 Summary:
 """
 
-_PROMPT = """
+_SERIES_PROMPT = """
 Generate a summary in 2 sentences using only the information from the following tables.
 Only list important highlights per table.
 The summary should only be based on the information presented in these tables.
@@ -76,6 +76,12 @@ Table:
 {data_table}
 
 Summary:
+"""
+
+_RESUMMARIZE_PROMPT = """
+Summarize these facts into 1 paragraph.
+
+{facts}
 """
 
 assert _API_KEY, "$PALM_API_KEY must be specified."
@@ -99,7 +105,7 @@ def request_palm(prompt):
   """Sends a summary request to PALM"""
   url = f"{_API_URL}?key={_API_KEY}"
   headers = {
-      "Content-Type": "application/json",
+    "Content-Type": "application/json",
   }
   params = {
       "prompt": {
