@@ -69,7 +69,7 @@ class Embeddings:
     self.dcids = self.df['dcid'].values.tolist()
     self.df = self.df.drop('dcid', axis=1)
     # Also get the sentence mappings.
-    self.sentences = [] 
+    self.sentences = []
     if 'sentence' in self.df:
       self.sentences = self.df['sentence'].values.tolist()
       self.df = self.df.drop('sentence', axis=1)
