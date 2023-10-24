@@ -38,29 +38,31 @@ def main_new():
 # CSV.
 @bp.route('/simple/load', methods=['POST'])
 def load():
-  raw_data_path, sql_data_path = None, None
+  sql_data_path = None
   if request.is_json:
-    raw_data_path = request.json.get("rawDataPath")
     sql_data_path = request.json.get("sqlDataPath")
-  if not raw_data_path:
-    raw_data_path = os.environ.get("RAW_DATA_PATH")
   if not sql_data_path:
     sql_data_path = os.environ.get("SQL_DATA_PATH")
+
+  # TODO: dynamically create the output dir.
+  output_dir = os.path.join(sql_data_path, 'data')
 
   command1 = [
       "python",
       "-m",
       "stats.main",
       "--input_path",
-      f"{raw_data_path}",
-      "--output_dir",
       f"{sql_data_path}",
+      "--output_dir",
+      f"{output_dir}",
   ]
   command2 = [
       "curl",
       "-X",
       "POST",
       "localhost:8081/import",
+      "-d",
+      f'{{"data_path": "{output_dir}"}}',
   ]
   output = []
   for command, cwd in [(command1, "import/simple"), (command2, ".")]:
