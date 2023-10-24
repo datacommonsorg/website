@@ -101,10 +101,15 @@ def add_sv(name: str, sv: str, text2sv: Dict[str, str],
     text2sv[name] = sv
     return
 
-  # This is a case of duplicate SV.  Prefer the human-curated, shorter SV.
+  # This is a case of duplicate SV.  Prefer the non sdg, human-curated, shorter SV.
   # Track it.
   pref, drop = sv, osv
-  if ((osv.startswith('dc/') and sv.startswith('dc/')) or
+  if sv.startswith('dc/topic/sdg'):
+    # sv is an sdg topic. Prefer osv if osv is not an sdg topic. Otherwise, go
+    # by dcid len.
+    if not osv.startswith('dc/topic/sdg') or len(osv) <= len(sv):
+      pref, drop = osv, sv
+  elif ((osv.startswith('dc/') and sv.startswith('dc/')) or
       (not osv.startswith('dc/') and not sv.startswith('dc/'))):
     # Both SVs are autogen or both aren't. Go by dcid len.
     if len(osv) <= len(sv):
