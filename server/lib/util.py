@@ -275,7 +275,7 @@ def get_subject_page_config(filepath):
 # Returns generated summaries for place explorer.
 def get_place_summaries():
   filepath = os.path.join(get_repo_root(), "config", "summaries",
-                          "summaries-short.json")
+                          "place_summaries.json")
   with open(filepath, 'r') as f:
     return json.load(f)
 

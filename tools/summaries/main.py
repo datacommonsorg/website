@@ -12,29 +12,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import csv
 import json
 import logging
 import multiprocessing
 import os
+import sys
+
 import dc
 
 from absl import app
+from absl import flags
 from itertools import starmap
 from palm import get_summary
 
-_OUTPUT_DIR = "../../server/config/summaries"
-_PLACE_JSON_FILE = os.path.join(_OUTPUT_DIR, "places-short.json")
-_SUMMARIES_JSON_FILE = os.path.join(_OUTPUT_DIR, "summaries-short.json")
+FLAGS = flags.FLAGS
+
+flags.DEFINE_boolean('save_prompts', False, 'Saves prompts to output file')
+flags.DEFINE_string('places_in_file', 'places.json', 'Place input file to generate summaries for')
+flags.DEFINE_string('summary_out_file', '../../server/config/summaries/place_summaries.json', 'Summary output file')
+
 _NUM_PARALLEL_PROCESSES = 1
 
 logging.getLogger().setLevel(logging.INFO)
 
 
 def get_and_write_ranking_summaries():
-  places = read_json(_PLACE_JSON_FILE)
+  places = read_json(FLAGS.places_in_file)
   summaries = get_ranking_summaries(places)
-  write_json(summaries, _SUMMARIES_JSON_FILE)
+  write_json(summaries, FLAGS.summary_out_file)
 
 
 def get_ranking_summaries(places_by_type: dict):
@@ -42,10 +47,14 @@ def get_ranking_summaries(places_by_type: dict):
   for place_type, places in places_by_type.items():
     unordered_summaries = {}
     tuples = list(starmap(lambda dcid, place_name: (dcid, place_name, place_type), places.items()))
-    with multiprocessing.Pool(processes=_NUM_PARALLEL_PROCESSES) as pool:
+    with multiprocessing.Pool(processes=_NUM_PARALLEL_PROCESSES, initializer=parse_flags) as pool:
       for dcid, name, (prompt, summary) in pool.imap_unordered(
           get_ranking_summary_with_tuple, tuples):
-        unordered_summaries[dcid] = {"name": name, "prompt": prompt, "summary": summary}
+        data = {"summary": summary}
+        if FLAGS.save_prompts:
+          data["name"] = name
+          data["prompt"] = prompt
+        unordered_summaries[dcid] = data
 
     for dcid, _, _ in tuples:
       summaries[dcid] = unordered_summaries[dcid]
@@ -73,6 +82,10 @@ def read_json(file_name: str):
 def write_json(data, file_name: str):
   with open(file_name, "w") as f:
     json.dump(data, f, indent=True)
+
+
+def parse_flags():
+  flags.FLAGS(sys.argv)
 
 
 def main(_):

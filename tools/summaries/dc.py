@@ -18,10 +18,14 @@ import logging
 import pandas as pd
 import requests
 
-# _API_BASE_URL = "https://autopush.datacommons.org/"
-_API_BASE_URL = "http://localhost:8080/"
-_RANKING_URL = _API_BASE_URL + "api/place/ranking/{dcid}?all=1"
-_PLACE_DATA_URL = _API_BASE_URL + "/api/landingpage/data/{dcid}?category=Overview&hl=en&seed=0"
+from absl import flags
+
+FLAGS = flags.FLAGS
+
+flags.DEFINE_string('dc_base_url', 'https://datacommons.org', 'DC instance to query')
+
+_RANKING_URL = "{host}/api/place/ranking/{dcid}?all=1"
+_PLACE_DATA_URL = "{host}/api/landingpage/data/{dcid}?category=Overview&hl=en&seed=0"
 _LABEL_KEY = "label"
 
 _SERIES_TO_KEEP = {
@@ -43,7 +47,7 @@ _PLACE_TYPE_PLURAL = {
 
 def get_ranking_data(dcid: str, place_type: str):
   """Returns ranking data as a list, keyed by rank label"""
-  url = _RANKING_URL.format(dcid=dcid)
+  url = _RANKING_URL.format(host=FLAGS.dc_base_url, dcid=dcid)
   response = requests.get(url).json()
   logging.debug("Ranking response:\n%s", json.dumps(response, indent=True))
   data = {}
@@ -63,7 +67,7 @@ def get_ranking_data(dcid: str, place_type: str):
 
 def get_data_series(dcid: str, place_name: str):
   """Returns series data as a CSV keyed by stat var"""
-  url = _PLACE_DATA_URL.format(dcid=dcid)
+  url = _PLACE_DATA_URL.format(host=FLAGS.dc_base_url, dcid=dcid)
   response = requests.get(url).json()
 
   prompt_tables = {}
