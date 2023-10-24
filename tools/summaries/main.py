@@ -30,8 +30,7 @@ FLAGS = flags.FLAGS
 flags.DEFINE_boolean('save_prompts', False, 'Saves prompts to output file')
 flags.DEFINE_string('places_in_file', 'places.json', 'Place input file to generate summaries for')
 flags.DEFINE_string('summary_out_file', '../../server/config/summaries/place_summaries.json', 'Summary output file')
-
-_NUM_PARALLEL_PROCESSES = 1
+flags.DEFINE_integer('num_processes', 8, 'Number of concurrent processes')
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -47,7 +46,7 @@ def get_ranking_summaries(places_by_type: dict):
   for place_type, places in places_by_type.items():
     unordered_summaries = {}
     tuples = list(starmap(lambda dcid, place_name: (dcid, place_name, place_type), places.items()))
-    with multiprocessing.Pool(processes=_NUM_PARALLEL_PROCESSES, initializer=parse_flags) as pool:
+    with multiprocessing.Pool(processes=FLAGS.num_processes, initializer=parse_flags) as pool:
       for dcid, name, (prompt, summary) in pool.imap_unordered(
           get_ranking_summary_with_tuple, tuples):
         data = {"summary": summary}
