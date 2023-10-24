@@ -15,3 +15,4 @@ scikit-learn==1.2.2
 # using the guidelines here: https://spacy.io/usage/models#production
 -f https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.5.0/en_core_web_lg-3.5.0-py3-none-any.whl
 en_core_web_lg==3.5.0
+fsspec<2023.10.0
