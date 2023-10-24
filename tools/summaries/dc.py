@@ -44,6 +44,10 @@ _PLACE_TYPE_PLURAL = {
     "state": "states",
 }
 
+_PLACE_TYPE_PLURAL = {
+  "city": "cities",
+  "state": "states",
+}
 
 def get_ranking_data(dcid: str, place_type: str):
   """Returns ranking data as a list, keyed by rank label"""

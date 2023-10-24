@@ -56,6 +56,28 @@ Facts:
 Summary:
 """
 
+_PROMPT = """
+Generate a summary in 2 sentences using only the information from the following tables.
+Only list important highlights per table.
+The summary should only be based on the information presented in these tables.
+Do not include facts from other sources.
+Do not use superlatives.
+Do not use the phrase 'According to the data'.
+Do not include opinions.
+Please include references if information is included from other sources.
+Please write in a professional and business-neutral tone.
+
+{place_type}: {place_name}
+
+{ranking_key}:
+{ranking_data}
+
+Table:
+{data_table}
+
+Summary:
+"""
+
 assert _API_KEY, "$PALM_API_KEY must be specified."
 
 # Ranking key -> data_table key
