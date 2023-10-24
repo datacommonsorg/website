@@ -34,7 +34,7 @@ export type ChartSortOption =
  *   property: "date",
  *   value: "2011"
  * }
- */ s;
+ */
 export interface ChartEventDetail {
   property: string;
   value: string;
