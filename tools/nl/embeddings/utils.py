@@ -110,7 +110,7 @@ def add_sv(name: str, sv: str, text2sv: Dict[str, str],
     if not osv.startswith('dc/topic/sdg') or len(osv) <= len(sv):
       pref, drop = osv, sv
   elif ((osv.startswith('dc/') and sv.startswith('dc/')) or
-      (not osv.startswith('dc/') and not sv.startswith('dc/'))):
+        (not osv.startswith('dc/') and not sv.startswith('dc/'))):
     # Both SVs are autogen or both aren't. Go by dcid len.
     if len(osv) <= len(sv):
       pref, drop = osv, sv
