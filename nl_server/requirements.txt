@@ -15,3 +15,6 @@ scikit-learn==1.2.2
 # using the guidelines here: https://spacy.io/usage/models#production
 -f https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.5.0/en_core_web_lg-3.5.0-py3-none-any.whl
 en_core_web_lg==3.5.0
+# fsspec is used by datasets and version 2023.10.0 of fsspec causes problems as
+# mentioned here: https://github.com/huggingface/datasets/issues/6333.
+fsspec<2023.10.0
