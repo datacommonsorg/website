@@ -60,8 +60,8 @@ class Embeddings:
     logging.info('Loading embeddings file')
     try:
       ds = load_dataset('csv', data_files=embeddings_path)
-    except Exception as e:
-      error_str = "No embedding could be loaded:" + e
+    except:
+      error_str = "No embedding could be loaded."
       logging.error(error_str)
       raise Exception("No embedding could be loaded.")
 
