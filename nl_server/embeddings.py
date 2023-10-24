@@ -26,7 +26,6 @@ from nl_server import query_util
 from shared.lib import constants
 from shared.lib import detected_variables as vars
 from shared.lib import utils
-import fsspec
 
 MODEL_NAME = 'all-MiniLM-L6-v2'
 
@@ -60,8 +59,6 @@ class Embeddings:
 
     logging.info('Loading embeddings file')
     try:
-      logging.info("fsspec version: ")
-      logging.info(fsspec.__version__)
       ds = load_dataset('csv', data_files=embeddings_path)
     except:
       error_str = "No embedding could be loaded."
