@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List
-
 import logging
 import os
+from typing import List
+
 import requests
 
 _API_KEY = os.getenv("PALM_API_KEY")
@@ -60,9 +60,9 @@ assert _API_KEY, "$PALM_API_KEY must be specified."
 
 # Ranking key -> data_table key
 _TABLE_KEYS = {
-  "Largest Population": "Count_Person",
-  "Highest Median Income": "Median_Income_Person",
-  "Highest Median Age": "Median_Age_Person",
+    "Largest Population": "Count_Person",
+    "Highest Median Income": "Median_Income_Person",
+    "Highest Median Age": "Median_Age_Person",
 }
 
 
@@ -77,20 +77,21 @@ def request_palm(prompt):
   """Sends a summary request to PALM"""
   url = f"{_API_URL}?key={_API_KEY}"
   headers = {
-    "Content-Type": "application/json",
+      "Content-Type": "application/json",
   }
   params = {
-    "prompt": {
-      "text": prompt,
-    },
-    "temperature": _TEMPERATURE,
-    "candidateCount": 1,
+      "prompt": {
+          "text": prompt,
+      },
+      "temperature": _TEMPERATURE,
+      "candidateCount": 1,
   }
   response = requests.post(url=url, json=params, headers=headers).json()
   return response.get("candidates", [{}])[0].get("output", "")
 
 
-def get_summary(place_name: str, place_type: str, rankings: str, data_tables: List[str]):
+def get_summary(place_name: str, place_type: str, rankings: str,
+                data_tables: List[str]):
   """Generates an overview summary for a place"""
   candidates = []
   prompts = []
@@ -102,11 +103,11 @@ def get_summary(place_name: str, place_type: str, rankings: str, data_tables: Li
       logging.info(f"Skipping {data_table_key} for {place_name}")
       continue
     prompt_keys = {
-      "place_type": place_type,
-      "place_name": place_name,
-      "ranking_key": strip_superlatives(ranking_key),
-      "ranking_data": '\n'.join(rankings[ranking_key]),
-      "data_table": data_tables[data_table_key]
+        "place_type": place_type,
+        "place_name": place_name,
+        "ranking_key": strip_superlatives(ranking_key),
+        "ranking_data": '\n'.join(rankings[ranking_key]),
+        "data_table": data_tables[data_table_key]
     }
     prompt = _SERIES_PROMPT.format(**prompt_keys)
     prompts.append(prompt)

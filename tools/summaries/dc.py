@@ -15,33 +15,33 @@
 import json
 import logging
 
+from absl import flags
 import pandas as pd
 import requests
 
-from absl import flags
-
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('dc_base_url', 'https://datacommons.org', 'DC instance to query')
+flags.DEFINE_string('dc_base_url', 'https://datacommons.org',
+                    'DC instance to query')
 
 _RANKING_URL = "{host}/api/place/ranking/{dcid}?all=1"
 _PLACE_DATA_URL = "{host}/api/landingpage/data/{dcid}?category=Overview&hl=en&seed=0"
 _LABEL_KEY = "label"
 
 _SERIES_TO_KEEP = {
-  "Demographics": {
-    "Median Age": "Median_Age_Person",
-    "Population": "Count_Person",
-  },
-  "Economics": {
-    "Median individual income": "Median_Income_Person",
-    # "Unemployment rate": "UnemploymentRate_Person",
-  },
+    "Demographics": {
+        "Median Age": "Median_Age_Person",
+        "Population": "Count_Person",
+    },
+    "Economics": {
+        "Median individual income": "Median_Income_Person",
+        # "Unemployment rate": "UnemploymentRate_Person",
+    },
 }
 
 _PLACE_TYPE_PLURAL = {
-  "city": "cities",
-  "state": "states",
+    "city": "cities",
+    "state": "states",
 }
 
 
@@ -60,7 +60,8 @@ def get_ranking_data(dcid: str, place_type: str):
     for place in places:
       rank = place["data"]
       data[variable].append(
-      f"Ranked {rank['rankFromTop']} of {rank['rankFromTop'] + rank['rankFromBottom'] - 1} {place_type_plural} in {place['name']}")
+          f"Ranked {rank['rankFromTop']} of {rank['rankFromTop'] + rank['rankFromBottom'] - 1} {place_type_plural} in {place['name']}"
+      )
 
   return data
 
@@ -81,7 +82,7 @@ def get_data_series(dcid: str, place_name: str):
         series = chart_block["trend"]["series"]
 
         # Convert dict into a csv with sorted date keys
-        j = json.dumps(series , sort_keys=True)
+        j = json.dumps(series, sort_keys=True)
         j = j.replace("'", '"')  # Needed for pd.read_json
         j = j.replace(sv, f"{block_title} in {place_name}")
         df = pd.read_json(j)

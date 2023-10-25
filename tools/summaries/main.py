@@ -12,24 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from itertools import starmap
 import json
 import logging
 import multiprocessing
 import os
 import sys
 
-import dc
-
 from absl import app
 from absl import flags
-from itertools import starmap
+import dc
 from palm import get_summary
 
 FLAGS = flags.FLAGS
 
 flags.DEFINE_boolean('save_prompts', False, 'Saves prompts to output file')
-flags.DEFINE_string('places_in_file', 'places.json', 'Place input file to generate summaries for')
-flags.DEFINE_string('summary_out_file', '../../server/config/summaries/place_summaries.json', 'Summary output file')
+flags.DEFINE_string('places_in_file', 'places.json',
+                    'Place input file to generate summaries for')
+flags.DEFINE_string('summary_out_file',
+                    '../../server/config/summaries/place_summaries.json',
+                    'Summary output file')
 flags.DEFINE_integer('num_processes', 8, 'Number of concurrent processes')
 
 logging.getLogger().setLevel(logging.INFO)
@@ -45,8 +47,11 @@ def get_ranking_summaries(places_by_type: dict):
   summaries = {}
   for place_type, places in places_by_type.items():
     unordered_summaries = {}
-    tuples = list(starmap(lambda dcid, place_name: (dcid, place_name, place_type), places.items()))
-    with multiprocessing.Pool(processes=FLAGS.num_processes, initializer=parse_flags) as pool:
+    tuples = list(
+        starmap(lambda dcid, place_name: (dcid, place_name, place_type),
+                places.items()))
+    with multiprocessing.Pool(processes=FLAGS.num_processes,
+                              initializer=parse_flags) as pool:
       for dcid, name, (prompt, summary) in pool.imap_unordered(
           get_ranking_summary_with_tuple, tuples):
         data = {"summary": summary}
@@ -68,7 +73,8 @@ def get_ranking_summary_with_tuple(tuple):
 def get_ranking_summary(dcid: str, place_name: str, place_type: str):
   ranking_data = dc.get_ranking_data(dcid, place_type)
   data_tables = dc.get_data_series(dcid, place_name)
-  prompt, summary = get_summary(place_name, place_type, ranking_data, data_tables)
+  prompt, summary = get_summary(place_name, place_type, ranking_data,
+                                data_tables)
   logging.info("Ranking summary for: %s (%s)\n%s", dcid, place_name, summary)
   return prompt, summary
 
