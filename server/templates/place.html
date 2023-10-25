@@ -58,6 +58,11 @@ limitations under the License.
                 endtrans %} ›</a></span></h4>
         </div>
       </div>
+      {% if place_summary %}
+      <div id="summary" class="row-col">
+        <p>{{ place_summary }}</p>
+      </div>
+      {% endif %}
       <div id="subtitle" class="row"></div>
       <div id="main-pane" class="row"></div>
       {# TRANSLATORS: A message shown on the page while the content is loading. #}
