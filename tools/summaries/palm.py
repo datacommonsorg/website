@@ -81,7 +81,10 @@ Summary:
 _RESUMMARIZE_PROMPT = """
 Summarize these facts into 1 paragraph.
 
+Facts:
 {facts}
+
+Summary:
 """
 
 assert _API_KEY, "$PALM_API_KEY must be specified."
