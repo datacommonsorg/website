@@ -109,7 +109,7 @@ def classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
     elif isinstance(c.attributes, QuantityClassificationAttributes):
       cdict['quantity'] = _quantity_to_dict(c.attributes)
     elif isinstance(c.attributes, DateClassificationAttributes):
-      cdict['dates'] = c.attributes.dates
+      cdict['dates'] = [asdict(d) for d in c.attributes.dates]
     classifications_dict.append(cdict)
   return classifications_dict
 
@@ -212,7 +212,8 @@ def _chart_spec_to_dict(charts: List[ChartSpec]) -> List[Dict]:
     cdict['place_type'] = c.place_type
     cdict['chart_vars'] = asdict(c.chart_vars)
     cdict['ranking_types'] = c.ranking_types
-    cdict['date'] = c.date
+    if c.date:
+      cdict['date'] = asdict(c.date)
     charts_dict.append(cdict)
   return charts_dict
 
@@ -224,6 +225,10 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
       cv = ChartVars(**cdict['chart_vars'])
     else:
       cv = ChartVars(svs=[])
+    if cdict.get('date'):
+      date = Date(**cdict['date'])
+    else:
+      date = None
     charts.append(
         ChartSpec(
             chart_type=ChartType(cdict['chart_type']),
@@ -236,7 +241,7 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
             ranking_count=0,
             chart_origin=None,
             is_sdg=False,
-            date=cdict['date']))
+            date=date))
   return charts
 
 
