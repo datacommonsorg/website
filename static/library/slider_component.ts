@@ -17,7 +17,7 @@
 import { css, CSSResult, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 
-import { ChartEventDetail } from "../js/chart/types";
+import { ChartEventDetail } from "@datacommonsorg/web-components";
 import { convertArrayAttribute, getApiRoot } from "./utils";
 
 const MOST_RECENT_TEXT = "Most recent";

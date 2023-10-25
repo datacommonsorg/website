@@ -16,7 +16,6 @@
 # Common types used across the fulfillers.
 #
 
-from collections import OrderedDict
 from dataclasses import dataclass
 from dataclasses import field
 from typing import Dict, List, Set

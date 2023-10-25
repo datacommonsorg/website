@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
+import { ChartEventDetail } from "@datacommonsorg/web-components";
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
-import { ChartEventDetail } from "../js/chart/types";
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
+import { ContainedInPlaceSingleVariableDataSpec } from "../js/components/tiles/tile_types";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -48,6 +49,11 @@ export class DatacommonsMapComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Optional: Allow zoom and pan on map
+  // TODO: Add to documentation once zoom button bug gets fixed.
+  @property({ type: Boolean })
+  allowZoom: boolean;
+
   // Optional: API root to use to fetch data
   // Defaults to https://datacommons.org
   @property()
@@ -56,6 +62,13 @@ export class DatacommonsMapComponent extends LitElement {
   // Type of child place to rank (ex: State, County)
   @property()
   childPlaceType!: string;
+
+  // [Optional] List of type of child place to rank (ex: State, County),
+  // in matching order with parentPlaces (plural). If fewer childPlaceTypes than
+  // parentPlaces are provided, the last childPlaceType will be used for the
+  // remaining parentPlaces. If provided, childPlaceType (singular) is ignored.
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  childPlaceTypes?: string[];
 
   // Optional: color(s) to use
   @property({ type: Array<string>, converter: convertArrayAttribute })
@@ -72,6 +85,11 @@ export class DatacommonsMapComponent extends LitElement {
   // DCID of the parent place
   @property()
   parentPlace!: string;
+
+  // [Optional] DCIDs of places to plot. If provided, childPlaceTypes
+  // (plural) must also be provided, and parentPlace (singular) is ignored.
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  parentPlaces?: string[];
 
   /**
    * @deprecated
@@ -146,16 +164,60 @@ export class DatacommonsMapComponent extends LitElement {
   }
 
   render(): HTMLElement {
-    const place = this.parentPlace || this.place || this.placeDcid;
-    const variable = this.variable || this.statVarDcid;
-    const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
+    let dataSpecs: ContainedInPlaceSingleVariableDataSpec[] = [];
+    if (!_.isEmpty(this.parentPlaces) && !_.isEmpty(this.childPlaceTypes)) {
+      this.parentPlaces.forEach((placeDcid, index) => {
+        // If more parentPlaces than childPlaceTypes provided, use the
+        // last childPlaceType provided for remaining parentPlaces.
+        const enclosedPlaceType =
+          this.childPlaceTypes[
+            Math.min(index, this.childPlaceTypes.length - 1)
+          ];
+        dataSpecs.push({
+          enclosedPlaceType,
+          parentPlace: placeDcid,
+          variable: {
+            denom: "",
+            log: false,
+            name: "",
+            scaling: 1,
+            statVar: this.variable || this.statVarDcid,
+            unit: "",
+            date: this.date,
+          },
+        });
+      });
+    } else {
+      const place = this.parentPlace || this.place || this.placeDcid;
+      const variable = this.variable || this.statVarDcid;
+      const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
+      dataSpecs = [
+        {
+          enclosedPlaceType: childPlaceType,
+          parentPlace: place,
+          variable: {
+            denom: "",
+            log: false,
+            name: "",
+            scaling: 1,
+            statVar: variable,
+            unit: "",
+            date: this.date,
+          },
+        },
+      ];
+    }
+    // TODO: Remove placeholder values once Map Tile depreciates
+    //       enclosedPlaceType, place, statVarSpec.
     const mapTileProps: MapTilePropType = {
+      allowZoom: this.allowZoom,
       apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
-      enclosedPlaceType: childPlaceType,
+      dataSpecs,
+      enclosedPlaceType: "", //childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
-        dcid: place,
+        dcid: "", //place,
         name: "",
         types: [],
       },
@@ -165,7 +227,7 @@ export class DatacommonsMapComponent extends LitElement {
         log: false,
         name: "",
         scaling: 1,
-        statVar: variable,
+        statVar: "", //variable,
         unit: "",
         date: this.date,
       },

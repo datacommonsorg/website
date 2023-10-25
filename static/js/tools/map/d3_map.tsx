@@ -167,9 +167,17 @@ export function D3Map(props: D3MapProps): JSX.Element {
       projectionData,
       zoomDcid
     );
+    const geoJsonData = {};
+    geoJsonData[placeInfo.value.enclosingPlace.dcid] = {
+      geoJson: props.geoJsonData,
+      shouldShowBoundaryLines: shouldShowMapBoundaries(
+        placeInfo.value.selectedPlace,
+        placeInfo.value.enclosedPlaceType
+      ),
+    };
     drawD3Map(
       mapContainerRef.current,
-      props.geoJsonData,
+      geoJsonData,
       height,
       width - legendWidth,
       props.mapDataValues,
@@ -182,10 +190,6 @@ export function D3Map(props: D3MapProps): JSX.Element {
         props.unit
       ),
       canClickRegion(placeInfo.value, props.europeanCountries),
-      shouldShowMapBoundaries(
-        placeInfo.value.selectedPlace,
-        placeInfo.value.enclosedPlaceType
-      ),
       projection,
       zoomDcid,
       zoomParams

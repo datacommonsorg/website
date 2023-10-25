@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,12 +38,15 @@ export function useGeoJsonReady(chartStore: ChartStore) {
     return (
       !chartStore.geoJson.error &&
       !_.isEmpty(c) &&
+      !_.isEmpty(chartStore.geoJson.data) &&
+      !_.isEmpty(chartStore.geoJson.data.features) &&
       placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
       placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
       borderIsReady
     );
   }, [
     chartStore.geoJson.context,
+    chartStore.geoJson.data,
     chartStore.geoJson.error,
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,

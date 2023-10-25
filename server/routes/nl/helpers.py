@@ -15,7 +15,6 @@
 import asyncio
 import json
 import logging
-import os
 import time
 from typing import Dict, List
 
@@ -48,9 +47,11 @@ from server.lib.nl.detection.utils import create_utterance
 import server.lib.nl.fulfillment.fulfiller as fulfillment
 import server.lib.nl.fulfillment.utils as futils
 from server.lib.translator import detect_lang_and_translate
+from server.lib.translator import translate_page_config
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 import server.services.bigtable as bt
+from shared.lib.constants import EN_LANG_CODE
 import shared.lib.utils as shared_utils
 
 
@@ -65,7 +66,10 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   nl_bad_words = current_app.config['NL_BAD_WORDS']
 
   test = request.args.get(params.Params.TEST.value, '')
-  i18n = request.args.get(params.Params.I18N.value, '')
+  i18n_str = request.args.get(params.Params.I18N.value, '')
+  i18n = i18n_str and i18n_str.lower() == 'true'
+  udp_str = request.args.get(params.Params.USE_DEFAULT_PLACE.value, 'true')
+  udp = udp_str and udp_str.lower() == 'true'
 
   # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
@@ -108,9 +112,11 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
 
   counters = ctr.Counters()
 
-  if i18n and i18n.lower() == 'true':
+  i18n_lang = ''
+  if i18n:
     start = time.time()
-    original_query = detect_lang_and_translate(original_query, counters)
+    i18n_lang, original_query = detect_lang_and_translate(
+        original_query, counters)
     counters.timeit("detect_lang_and_translate", start)
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
@@ -168,7 +174,8 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
                                session_id, test)
 
   if utterance:
-    context.merge_with_context(utterance, is_sdg)
+    utterance.i18n_lang = i18n_lang
+    context.merge_with_context(utterance, is_sdg, udp)
 
   return utterance, None
 
@@ -217,6 +224,12 @@ def prepare_response(utterance: nl_utterance.Utterance,
   ret_places = []
   if chart_pb:
     page_config = json.loads(MessageToJson(chart_pb))
+    if utterance.i18n_lang and not utterance.i18n_lang.lower().startswith(
+        EN_LANG_CODE):
+      start = time.time()
+      page_config = translate_page_config(page_config, utterance.i18n_lang,
+                                          utterance.counters)
+      utterance.counters.timeit("translate_page_config", start)
 
     # Figure out the main place.
     fallback = utterance.place_fallback
@@ -291,7 +304,7 @@ def prepare_response_common(data_dict: Dict,
   data_dict = utils.to_dict(data_dict)
   if test:
     data_dict['test'] = test
-  if current_app.config['LOG_QUERY']:
+  if current_app.config['LOG_QUERY'] and not test:
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
     session_info = futils.get_session_info(data_dict['context'], has_data)
@@ -353,7 +366,7 @@ def abort(error_message: str,
     _set_blocked(data_dict)
 
   logging.info('NL Data API: Empty Exit')
-  if current_app.config['LOG_QUERY']:
+  if current_app.config['LOG_QUERY'] and not test:
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
     session_info = futils.get_session_info(context_history, False)

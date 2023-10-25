@@ -28,10 +28,17 @@ _TEST_DATA = 'test_data'
 
 class ExploreTest(NLWebServerTestCase):
 
-  def run_fulfillment(self, test_dir, req_json, failure='', test='', i18n=''):
-    resp = requests.post(self.get_server_url() +
-                         f'/api/explore/fulfill?test={test}&i18n={i18n}',
-                         json=req_json).json()
+  def run_fulfillment(self,
+                      test_dir,
+                      req_json,
+                      failure='',
+                      test='',
+                      i18n='',
+                      udp=''):
+    resp = requests.post(
+        self.get_server_url() +
+        f'/api/explore/fulfill?test={test}&i18n={i18n}&udp={udp}',
+        json=req_json).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
   def run_detection(self,
@@ -62,12 +69,13 @@ class ExploreTest(NLWebServerTestCase):
                              dc='',
                              failure='',
                              test='',
-                             i18n=''):
+                             i18n='',
+                             udp=''):
     ctx = {}
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}',
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&udp={udp}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -370,3 +378,10 @@ class ExploreTest(NLWebServerTestCase):
             # to the place (SC county) to its state (CA).
             'auto thefts in tracts of santa clara county'
         ])
+
+  def test_e2e_default_place(self):
+    self.run_detect_and_fulfill('e2e_default_place', [
+        'what does a diet for diabetes look like?',
+        'how to earn money online without investment'
+    ],
+                                udp='false')
