@@ -215,33 +215,18 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
                     "statVarKey": [
-                      "Mean_WagesMonthly_Worker"
+                      "sdg/SI_POV_EMP1.AGE--Y15T24",
+                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
+                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
                     ],
-                    "title": "Mean Monthly Wages in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker"
-                    ],
-                    "title": "Mean Monthly Wages in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
+                    "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex in India",
+                    "type": "LINE"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Mean Monthly Wages in Administrative Area 1 Places of India"
+            "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex"
           },
           {
             "columns": [
@@ -249,9 +234,76 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_WagesMonthly_Worker"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Mean Monthly Wages in India",
+                    "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex in India",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE25",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
+                    ],
+                    "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex in India",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/IND"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population Below International Poverty Line in India (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Below International Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC"
+                    ],
+                    "title": "Proportion of Population Living Below the National Poverty Line in India",
                     "type": "LINE"
                   }
                 ]
@@ -259,19 +311,301 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean Monthly Wages in India",
+                    "description": "Proportion of Population Living Below the National Poverty Line in India",
                     "statVarKey": [
-                      "Mean_WagesMonthly_Worker"
+                      "sdg/SI_POV_NAHC"
                     ],
-                    "title": "Mean Monthly Wages in India",
+                    "title": "Proportion of Population Living Below the National Poverty Line in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Mean Monthly Wages"
+            "title": "Proportion of Population Living Below the National Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F"
+                    ],
+                    "title": "Proportion of Mothers With Newborns Receiving Maternity Cash Benefit [Female] in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Mothers With Newborns Receiving Maternity Cash Benefit [Female] in India",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F"
+                    ],
+                    "title": "Proportion of Mothers With Newborns Receiving Maternity Cash Benefit [Female] in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO social security inquiry (SSI); ILO estimates based on country data compled through the ILO social security inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO social security inquiry (SSI). Based on information from federal programmes only.",
+            "title": "Proportion of Mothers With Newborns Receiving Maternity Cash Benefit [Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex in India",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD"
+                    ],
+                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_COV_WKINJRY"
+                    ],
+                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex in India",
+                    "statVarKey": [
+                      "sdg/SI_COV_WKINJRY"
+                    ],
+                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O",
+                      "sdg/SP_ACS_BSRVH2O.URBANISATION--R",
+                      "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
+                    ],
+                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in India",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Using Basic Drinking Water Services, by Location"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN",
+                      "sdg/SP_ACS_BSRVSAN.URBANISATION--R",
+                      "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
+                    ],
+                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in India",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Using Basic Sanitation Services, by Location"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/VC_DSR_MMHN"
+                    ],
+                    "title": "Deaths and Missing Persons Attributed to Disasters in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Deaths and Missing Persons Attributed to Disasters in India",
+                    "statVarKey": [
+                      "sdg/VC_DSR_MMHN"
+                    ],
+                    "title": "Deaths and Missing Persons Attributed to Disasters in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
+            "title": "Deaths and Missing Persons Attributed to Disasters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/VC_DSR_MTMP"
+                    ],
+                    "title": "Deaths and Missing Persons Attributed to Disasters Per 100K Population in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Deaths and Missing Persons Attributed to Disasters Per 100K Population in India",
+                    "statVarKey": [
+                      "sdg/VC_DSR_MTMP"
+                    ],
+                    "title": "Deaths and Missing Persons Attributed to Disasters Per 100K Population in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
+            "title": "Deaths and Missing Persons Attributed to Disasters Per 100K Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/VC_DSR_MORT"
+                    ],
+                    "title": "Deaths Due to Disaster in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Deaths Due to Disaster in India",
+                    "statVarKey": [
+                      "sdg/VC_DSR_MORT"
+                    ],
+                    "title": "Deaths Due to Disaster in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
+            "title": "Deaths Due to Disaster"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/VC_DSR_DAFF"
+                    ],
+                    "title": "Directly Affected Persons Attributed to Disasters Per 100K Population in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Directly Affected Persons Attributed to Disasters Per 100K Population in India",
+                    "statVarKey": [
+                      "sdg/VC_DSR_DAFF"
+                    ],
+                    "title": "Directly Affected Persons Attributed to Disasters Per 100K Population in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
+            "title": "Directly Affected Persons Attributed to Disasters Per 100K Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/DC_ODA_POVLG"
+                    ],
+                    "title": "Official Development Assistance Grants for Poverty Reduction, by Recipient Countries in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Official Development Assistance Grants for Poverty Reduction, by Recipient Countries in India",
+                    "statVarKey": [
+                      "sdg/DC_ODA_POVLG"
+                    ],
+                    "title": "Official Development Assistance Grants for Poverty Reduction, by Recipient Countries in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: the organisation for economic Co-operation and development (OECD).",
+            "title": "Official Development Assistance Grants for Poverty Reduction, by Recipient Countries"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SD_XPD_ESED"
+                    ],
+                    "title": "Proportion of Total Government Spending on Essential Services, Education in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Total Government Spending on Essential Services, Education in India",
+                    "statVarKey": [
+                      "sdg/SD_XPD_ESED"
+                    ],
+                    "title": "Proportion of Total Government Spending on Essential Services, Education in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: BOOST initiative. Country-Data available at: https://www.Worldbank.Org/En/Programs/Boost-Portal/Country-Data; data extracted on 01 april 2022; expenditure by function of government (COFOG) - IMF data. Data available at: https://data.Imf.org/regular.Aspx?Key=61037799; data extracted on 01 april 2022; government finace statistics (GFS) database. Data available at: https://data.Imf.Org/; data extracted on 01 april 2022; IMF; data extracted on 01 april 2022; public expenditure review (PER); data extracted on 01 april 2022; UNESCO institute for statistics; data extracted on 01 april 2022.",
+            "title": "Proportion of Total Government Spending on Essential Services, Education"
           }
         ],
         "statVarSpec": {
@@ -291,9 +625,137 @@
             "name": "Urban residents, Below Poverty Line",
             "statVar": "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
           },
-          "Mean_WagesMonthly_Worker": {
-            "name": "Mean Monthly Wages",
-            "statVar": "Mean_WagesMonthly_Worker"
+          "sdg/DC_ODA_POVLG": {
+            "name": "Official development assistance grants for poverty reduction, by recipient countries",
+            "statVar": "sdg/DC_ODA_POVLG"
+          },
+          "sdg/SD_XPD_ESED": {
+            "name": "Proportion of total government spending on essential services, education",
+            "statVar": "sdg/SD_XPD_ESED"
+          },
+          "sdg/SI_COV_CHLD": {
+            "name": "Proportion of children/households receiving child/family cash benefit, by sex",
+            "statVar": "sdg/SI_COV_CHLD"
+          },
+          "sdg/SI_COV_MATNL.SEX--F": {
+            "name": "Proportion of mothers with newborns receiving maternity cash benefit [Female]",
+            "statVar": "sdg/SI_COV_MATNL.SEX--F"
+          },
+          "sdg/SI_COV_WKINJRY": {
+            "name": "Proportion of employed population covered in the event of work injury, by sex",
+            "statVar": "sdg/SI_COV_WKINJRY"
+          },
+          "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block": {
+            "name": "Proportion of population below international poverty line [under 15 years old]",
+            "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
+          },
+          "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block": {
+            "name": "Proportion of population below international poverty line [15 to 64 years old]",
+            "statVar": "sdg/SI_POV_DAY1.AGE--Y15T64"
+          },
+          "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block": {
+            "name": "Proportion of population below international poverty line [65 years old and over]",
+            "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
+          },
+          "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block": {
+            "name": "Proportion of population below international poverty line [Female]",
+            "statVar": "sdg/SI_POV_DAY1.SEX--F"
+          },
+          "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block": {
+            "name": "Proportion of population below international poverty line [Male]",
+            "statVar": "sdg/SI_POV_DAY1.SEX--M"
+          },
+          "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block": {
+            "name": "Proportion of population below international poverty line [Rural]",
+            "statVar": "sdg/SI_POV_DAY1.URBANISATION--R"
+          },
+          "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block": {
+            "name": "Proportion of population below international poverty line [Urban]",
+            "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
+          },
+          "sdg/SI_POV_DAY1_multiple_place_bar_block": {
+            "name": "Proportion of population below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y15T24": {
+            "name": "Employed population below international poverty line, by sex and age [15 to 24 years old]",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F": {
+            "name": "Employed population below international poverty line, by sex and age [15 to 24 years old, Female]",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M": {
+            "name": "Employed population below international poverty line, by sex and age [15 to 24 years old, Male]",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE15": {
+            "name": "Employed population below international poverty line, by sex and age [15 years old and over]",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": {
+            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Female]",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
+            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Male]",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE25": {
+            "name": "Employed population below international poverty line, by sex and age [25 years old and over]",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F": {
+            "name": "Employed population below international poverty line, by sex and age [25 years old and over, Female]",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M": {
+            "name": "Employed population below international poverty line, by sex and age [25 years old and over, Male]",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
+          },
+          "sdg/SI_POV_NAHC": {
+            "name": "Proportion of population living below the national poverty line",
+            "statVar": "sdg/SI_POV_NAHC"
+          },
+          "sdg/SP_ACS_BSRVH2O": {
+            "name": "Proportion of population using basic drinking water services, by location",
+            "statVar": "sdg/SP_ACS_BSRVH2O"
+          },
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--R": {
+            "name": "Proportion of population using basic drinking water services, by location [Rural]",
+            "statVar": "sdg/SP_ACS_BSRVH2O.URBANISATION--R"
+          },
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--U": {
+            "name": "Proportion of population using basic drinking water services, by location [Urban]",
+            "statVar": "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
+          },
+          "sdg/SP_ACS_BSRVSAN": {
+            "name": "Proportion of population using basic sanitation services, by location",
+            "statVar": "sdg/SP_ACS_BSRVSAN"
+          },
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--R": {
+            "name": "Proportion of population using basic sanitation services, by location [Rural]",
+            "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--R"
+          },
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--U": {
+            "name": "Proportion of population using basic sanitation services, by location [Urban]",
+            "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
+          },
+          "sdg/VC_DSR_DAFF": {
+            "name": "directly affected persons attributed to disasters per 100K population",
+            "statVar": "sdg/VC_DSR_DAFF"
+          },
+          "sdg/VC_DSR_MMHN": {
+            "name": "deaths and missing persons attributed to disasters",
+            "statVar": "sdg/VC_DSR_MMHN"
+          },
+          "sdg/VC_DSR_MORT": {
+            "name": "deaths due to disaster",
+            "statVar": "sdg/VC_DSR_MORT"
+          },
+          "sdg/VC_DSR_MTMP": {
+            "name": "deaths and missing persons attributed to disasters per 100K population",
+            "statVar": "sdg/VC_DSR_MTMP"
           }
         }
       }
@@ -608,6 +1070,51 @@
         "placeOfResidenceClassification": [
           "Count_Person_Rural_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person",
           "Count_Person_Urban_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person"
+        ]
+      },
+      "sdg/SI_POV_DAY1": {
+        "age": [
+          "sdg/SI_POV_DAY1.AGE--Y0T14",
+          "sdg/SI_POV_DAY1.AGE--Y15T64",
+          "sdg/SI_POV_DAY1.AGE--Y_GE65"
+        ],
+        "sdg_sex": [
+          "sdg/SI_POV_DAY1.SEX--F",
+          "sdg/SI_POV_DAY1.SEX--M"
+        ],
+        "sdg_urbanisation": [
+          "sdg/SI_POV_DAY1.URBANISATION--R",
+          "sdg/SI_POV_DAY1.URBANISATION--U"
+        ]
+      },
+      "sdg/SI_POV_EMP1.AGE--Y15T24": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
+        ]
+      },
+      "sdg/SI_POV_EMP1.AGE--Y_GE15": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+        ]
+      },
+      "sdg/SI_POV_EMP1.AGE--Y_GE25": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
+        ]
+      },
+      "sdg/SP_ACS_BSRVH2O": {
+        "sdg_urbanisation": [
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--R",
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
+        ]
+      },
+      "sdg/SP_ACS_BSRVSAN": {
+        "sdg_urbanisation": [
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--R",
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
         ]
       }
     },

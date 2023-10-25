@@ -8,18 +8,345 @@
               {
                 "tiles": [
                   {
-                    "type": "PLACE_OVERVIEW"
+                    "comparisonPlaces": [
+                      "country/UGA",
+                      "country/GHA",
+                      "country/ETH",
+                      "country/KEN",
+                      "country/SEN",
+                      "country/MAR",
+                      "country/MLI",
+                      "country/RWA"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC8"
+                    ],
+                    "title": "Proportion of Population Living Below the National Poverty Line",
+                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "footnote": "Includes data from the following sources: Poverty and Inequality Platform, World Bank",
+            "title": "Proportion of Population Living Below the National Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Uganda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GHA",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_abs"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: Poverty and Inequality Platform, World Bank",
+            "title": "Decrease in Proportion of Population Living Below the National Poverty Line Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Uganda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GHA",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_growth_pct"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: Poverty and Inequality Platform, World Bank",
+            "title": "Decrease in Proportion of Population Living Below the National Poverty Line Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/KEN",
+                      "country/RWA"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR2"
+                    ],
+                    "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI); ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI).  Based on information from federal programmes only",
+            "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_abs"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_abs"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI); ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI).  Based on information from federal programmes only",
+            "title": "Decrease in Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_pct"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_pct"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI); ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI).  Based on information from federal programmes only",
+            "title": "Decrease in Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex Over Time (Percent Change)"
           }
-        ]
+        ],
+        "statVarSpec": {
+          "sdg/SI_COV_POOR2": {
+            "name": "Proportion of poor population receiving social assistance cash benefit, by sex",
+            "statVar": "sdg/SI_COV_POOR"
+          },
+          "sdg/SI_COV_POOR_growth_abs": {
+            "name": "Proportion of poor population receiving social assistance cash benefit, by sex",
+            "statVar": "sdg/SI_COV_POOR"
+          },
+          "sdg/SI_COV_POOR_growth_pct": {
+            "name": "Proportion of poor population receiving social assistance cash benefit, by sex",
+            "statVar": "sdg/SI_COV_POOR"
+          },
+          "sdg/SI_POV_NAHC8": {
+            "name": "Proportion of population living below the national poverty line",
+            "statVar": "sdg/SI_POV_NAHC"
+          },
+          "sdg/SI_POV_NAHC_growth_abs": {
+            "name": "Proportion of population living below the national poverty line",
+            "statVar": "sdg/SI_POV_NAHC"
+          },
+          "sdg/SI_POV_NAHC_growth_pct": {
+            "name": "Proportion of population living below the national poverty line",
+            "statVar": "sdg/SI_POV_NAHC"
+          }
+        }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "country/KEN"
+        "country/UGA"
       ]
     }
   },
@@ -89,36 +416,43 @@
     "childPlaces": {},
     "childTopics": [
       {
-        "dcid": "dc/topic/Demographics",
-        "name": "Demographics",
+        "dcid": "dc/topic/sdg_1.1",
+        "name": "1.1: By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Health",
-        "name": "Health",
+        "dcid": "dc/topic/sdg_1.2",
+        "name": "1.2: By 2030, reduce at least by half the proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
+        "dcid": "dc/topic/sdg_1.3",
+        "name": "1.3: Implement nationally appropriate social protection systems and measures for all, including floors, and by 2030 achieve substantial coverage of the poor and the vulnerable",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Equity",
-        "name": "Equity",
+        "dcid": "dc/topic/sdg_1.4",
+        "name": "1.4: By 2030, ensure that all men and women, in particular the poor and the vulnerable, have equal rights to economic resources, as well as access to basic services, ownership and control over land and other forms of property, inheritance, natural resources, appropriate new technology and financial services, including microfinance",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Sustainability",
-        "name": "Sustainability",
+        "dcid": "dc/topic/sdg_1.5",
+        "name": "1.5: By 2030, build the resilience of the poor and those in vulnerable situations and reduce their exposure and vulnerability to climate-related extreme events and other economic, social and environmental shocks and disasters",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1.a",
+        "name": "1.a: Ensure significant mobilization of resources from a variety of sources, including through enhanced development cooperation, in order to provide adequate and predictable means for developing countries, in particular least developed countries, to implement programmes and policies to end poverty in all its dimensions",
         "types": [
           "Topic"
         ]
@@ -127,19 +461,139 @@
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/Root",
-        "name": "Statistics",
+        "dcid": "dc/topic/sdg_1",
+        "name": "1: No Poverty",
         "types": [
           "Topic"
         ]
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/sdg",
+        "name": "Sustainable Development Goals",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "peerPlaces": [],
-    "peerTopics": []
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/sdg_2",
+        "name": "2: Zero Hunger",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_3",
+        "name": "3: Good Health and Well-being",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_4",
+        "name": "4: Quality Education",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_5",
+        "name": "5: Gender Equality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_6",
+        "name": "6: Clean Water and Sanitation",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_7",
+        "name": "7: Affordable and Clean Energy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_8",
+        "name": "8: Decent Work and Economic Growth",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_9",
+        "name": "9: Industry, Innovation and Infrastructure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_10",
+        "name": "10: Reduced Inequality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_11",
+        "name": "11: Sustainable Cities and Communities",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_12",
+        "name": "12: Responsible Consumption and Production",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_13",
+        "name": "13: Climate Action",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_14",
+        "name": "14: Life Below Water",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_15",
+        "name": "15: Life on Land",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_16",
+        "name": "16: Peace and Justice Strong Institutions",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_17",
+        "name": "17: Partnerships to achieve the Goal",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
-  "showForm": true,
-  "svSource": "UNFULFILLED",
-  "userMessage": "Sorry, there were no relevant statistics about the topic for Kenya. See available topic categories with statistics for Kenya."
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "See comparison based on places in the previous answer."
 }

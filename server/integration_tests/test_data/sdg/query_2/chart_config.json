@@ -8,18 +8,1156 @@
               {
                 "tiles": [
                   {
-                    "type": "PLACE_OVERVIEW"
+                    "comparisonPlaces": [
+                      "country/AIA",
+                      "country/RUS",
+                      "country/NPL",
+                      "country/PAN",
+                      "country/ECU",
+                      "country/ARG",
+                      "country/ATG",
+                      "country/IRN",
+                      "country/SLV",
+                      "country/CPV"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F10"
+                    ],
+                    "title": "Proportion of Mothers With Newborns Receiving Maternity Cash Benefit [Female]",
+                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI); ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI). Based on information from federal programmes only",
+            "title": "Proportion of Mothers With Newborns Receiving Maternity Cash Benefit [Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/AIA",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_abs"
+                    ],
+                    "title": "Anguilla",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RUS",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_abs"
+                    ],
+                    "title": "Russia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/NPL",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_abs"
+                    ],
+                    "title": "Nepal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PAN",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_abs"
+                    ],
+                    "title": "Panama",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ECU",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_abs"
+                    ],
+                    "title": "Ecuador",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ARG",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_abs"
+                    ],
+                    "title": "Argentina",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ATG",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_abs"
+                    ],
+                    "title": "Antigua and Barbuda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/IRN",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_abs"
+                    ],
+                    "title": "Iran",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SLV",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_abs"
+                    ],
+                    "title": "El Salvador",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/CPV",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_abs"
+                    ],
+                    "title": "Cape Verde",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI); ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI). Based on information from federal programmes only",
+            "title": "Decrease in Proportion of Mothers With Newborns Receiving Maternity Cash Benefit [Female] Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/NPL",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_pct"
+                    ],
+                    "title": "Nepal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ECU",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_pct"
+                    ],
+                    "title": "Ecuador",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PAN",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_pct"
+                    ],
+                    "title": "Panama",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/AIA",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_pct"
+                    ],
+                    "title": "Anguilla",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RUS",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_pct"
+                    ],
+                    "title": "Russia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ARG",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_pct"
+                    ],
+                    "title": "Argentina",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SLV",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_pct"
+                    ],
+                    "title": "El Salvador",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/IRN",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_pct"
+                    ],
+                    "title": "Iran",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ATG",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_pct"
+                    ],
+                    "title": "Antigua and Barbuda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/CPV",
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_growth_pct"
+                    ],
+                    "title": "Cape Verde",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI); ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI). Based on information from federal programmes only",
+            "title": "Decrease in Proportion of Mothers With Newborns Receiving Maternity Cash Benefit [Female] Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/KAZ",
+                      "country/TUN",
+                      "country/MEX",
+                      "country/PAN",
+                      "country/MNG",
+                      "country/PRY",
+                      "country/BRA",
+                      "country/KEN",
+                      "country/SEN",
+                      "country/GTM"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD10"
+                    ],
+                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI); ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI). Based on information from federal programmes only",
+            "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KAZ",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_abs"
+                    ],
+                    "title": "Kazakhstan",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/TUN",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_abs"
+                    ],
+                    "title": "Tunisia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MEX",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_abs"
+                    ],
+                    "title": "Mexico",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PAN",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_abs"
+                    ],
+                    "title": "Panama",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MNG",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_abs"
+                    ],
+                    "title": "Mongolia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PRY",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_abs"
+                    ],
+                    "title": "Paraguay",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BRA",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_abs"
+                    ],
+                    "title": "Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_abs"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_abs"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GTM",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_abs"
+                    ],
+                    "title": "Guatemala",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI); ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI). Based on information from federal programmes only",
+            "title": "Decrease in Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MOZ",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_pct"
+                    ],
+                    "title": "Mozambique",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_pct"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/CAF",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_pct"
+                    ],
+                    "title": "Central African Republic",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_pct"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MEX",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_pct"
+                    ],
+                    "title": "Mexico",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/TUN",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_pct"
+                    ],
+                    "title": "Tunisia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KAZ",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_pct"
+                    ],
+                    "title": "Kazakhstan",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PAN",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_pct"
+                    ],
+                    "title": "Panama",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GTM",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_pct"
+                    ],
+                    "title": "Guatemala",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PRY",
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_growth_pct"
+                    ],
+                    "title": "Paraguay",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI); ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI). Based on information from federal programmes only",
+            "title": "Decrease in Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/SLV",
+                      "country/BOL",
+                      "country/PAN",
+                      "country/ARG",
+                      "country/PRY",
+                      "country/MOZ",
+                      "country/KEN",
+                      "country/RWA",
+                      "country/AZE",
+                      "country/BRA"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR10"
+                    ],
+                    "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI); ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI).  Based on information from federal programmes only",
+            "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SLV",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_abs"
+                    ],
+                    "title": "El Salvador",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BOL",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_abs"
+                    ],
+                    "title": "Bolivia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PAN",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_abs"
+                    ],
+                    "title": "Panama",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ARG",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_abs"
+                    ],
+                    "title": "Argentina",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PRY",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_abs"
+                    ],
+                    "title": "Paraguay",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MOZ",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_abs"
+                    ],
+                    "title": "Mozambique",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_abs"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_abs"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/AZE",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_abs"
+                    ],
+                    "title": "Azerbaijan",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BRA",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_abs"
+                    ],
+                    "title": "Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI); ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI).  Based on information from federal programmes only",
+            "title": "Decrease in Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KEN",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_pct"
+                    ],
+                    "title": "Kenya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SLV",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_pct"
+                    ],
+                    "title": "El Salvador",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PAN",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_pct"
+                    ],
+                    "title": "Panama",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MOZ",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_pct"
+                    ],
+                    "title": "Mozambique",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_pct"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BOL",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_pct"
+                    ],
+                    "title": "Bolivia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ARG",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_pct"
+                    ],
+                    "title": "Argentina",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PRY",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_pct"
+                    ],
+                    "title": "Paraguay",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/AZE",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_pct"
+                    ],
+                    "title": "Azerbaijan",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BRA",
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_growth_pct"
+                    ],
+                    "title": "Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI); ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO Social Security Inquiry (SSI).  Based on information from federal programmes only",
+            "title": "Decrease in Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/PHL",
+                      "country/DOM",
+                      "country/SLV",
+                      "country/MLI",
+                      "country/CRI",
+                      "country/HND",
+                      "country/VNM",
+                      "country/CHL",
+                      "country/MAR"
+                    ],
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC9"
+                    ],
+                    "title": "Proportion of Households Living in Multidimensional Poverty",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: Department of Census and Statistics; Department of Statistics Malaysia; General Statistics Office; Ghana Statistical Service; INSTITUT NATIONAL DE LA STATISTIQUE; Institut National de la Statistique (INSTAT); La Direcci\u00f3n General de Estad\u00edstica y Censos; Ministerio de Desarrollo Social; Ministry of Economy, Planning and Development; Ministry of Social Development; Philippine Statistics Authority; Secretar\u00eda T\u00e9cnica y de Planificaci\u00f3n Presidencia; Secretar\u00eda de Coordinaci\u00f3n General de Gobierno, Instituto Nacional de Estad\u00edstica INE; Statistical Committee of Republic of Armenia; The Central Statistical Office of Saint Lucia; The National Institute of Statistics and Census of Costa Rica; The Palestinian Central Bureau of Statistics (PCBS); The high commission of planning",
+            "title": "Proportion of Households Living in Multidimensional Poverty"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PHL",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_abs"
+                    ],
+                    "title": "Philippines",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/DOM",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_abs"
+                    ],
+                    "title": "Dominican Republic",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SLV",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_abs"
+                    ],
+                    "title": "El Salvador",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_abs"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/CRI",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_abs"
+                    ],
+                    "title": "Costa Rica",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/HND",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_abs"
+                    ],
+                    "title": "Honduras",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/VNM",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_abs"
+                    ],
+                    "title": "Vietnam",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/CHL",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_abs"
+                    ],
+                    "title": "Chile",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_abs"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: Department of Census and Statistics; Department of Statistics Malaysia; General Statistics Office; Ghana Statistical Service; INSTITUT NATIONAL DE LA STATISTIQUE; Institut National de la Statistique (INSTAT); La Direcci\u00f3n General de Estad\u00edstica y Censos; Ministerio de Desarrollo Social; Ministry of Economy, Planning and Development; Ministry of Social Development; Philippine Statistics Authority; Secretar\u00eda T\u00e9cnica y de Planificaci\u00f3n Presidencia; Secretar\u00eda de Coordinaci\u00f3n General de Gobierno, Instituto Nacional de Estad\u00edstica INE; Statistical Committee of Republic of Armenia; The Central Statistical Office of Saint Lucia; The National Institute of Statistics and Census of Costa Rica; The Palestinian Central Bureau of Statistics (PCBS); The high commission of planning",
+            "title": "Decrease in Proportion of Households Living in Multidimensional Poverty Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/PHL",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_pct"
+                    ],
+                    "title": "Philippines",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/VNM",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_pct"
+                    ],
+                    "title": "Vietnam",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/DOM",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_pct"
+                    ],
+                    "title": "Dominican Republic",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SLV",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_pct"
+                    ],
+                    "title": "El Salvador",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/CRI",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_pct"
+                    ],
+                    "title": "Costa Rica",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_pct"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_pct"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/CHL",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_pct"
+                    ],
+                    "title": "Chile",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/HND",
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHHC_growth_pct"
+                    ],
+                    "title": "Honduras",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: Department of Census and Statistics; Department of Statistics Malaysia; General Statistics Office; Ghana Statistical Service; INSTITUT NATIONAL DE LA STATISTIQUE; Institut National de la Statistique (INSTAT); La Direcci\u00f3n General de Estad\u00edstica y Censos; Ministerio de Desarrollo Social; Ministry of Economy, Planning and Development; Ministry of Social Development; Philippine Statistics Authority; Secretar\u00eda T\u00e9cnica y de Planificaci\u00f3n Presidencia; Secretar\u00eda de Coordinaci\u00f3n General de Gobierno, Instituto Nacional de Estad\u00edstica INE; Statistical Committee of Republic of Armenia; The Central Statistical Office of Saint Lucia; The National Institute of Statistics and Census of Costa Rica; The Palestinian Central Bureau of Statistics (PCBS); The high commission of planning",
+            "title": "Decrease in Proportion of Households Living in Multidimensional Poverty Over Time (Percent Change)"
           }
-        ]
+        ],
+        "statVarSpec": {
+          "sdg/SD_MDP_MUHHC9": {
+            "name": "Proportion of households living in multidimensional poverty",
+            "statVar": "sdg/SD_MDP_MUHHC"
+          },
+          "sdg/SD_MDP_MUHHC_growth_abs": {
+            "name": "Proportion of households living in multidimensional poverty",
+            "statVar": "sdg/SD_MDP_MUHHC"
+          },
+          "sdg/SD_MDP_MUHHC_growth_pct": {
+            "name": "Proportion of households living in multidimensional poverty",
+            "statVar": "sdg/SD_MDP_MUHHC"
+          },
+          "sdg/SI_COV_CHLD10": {
+            "name": "Proportion of children/households receiving child/family cash benefit, by sex",
+            "statVar": "sdg/SI_COV_CHLD"
+          },
+          "sdg/SI_COV_CHLD_growth_abs": {
+            "name": "Proportion of children/households receiving child/family cash benefit, by sex",
+            "statVar": "sdg/SI_COV_CHLD"
+          },
+          "sdg/SI_COV_CHLD_growth_pct": {
+            "name": "Proportion of children/households receiving child/family cash benefit, by sex",
+            "statVar": "sdg/SI_COV_CHLD"
+          },
+          "sdg/SI_COV_MATNL.SEX--F10": {
+            "name": "Proportion of mothers with newborns receiving maternity cash benefit [Female]",
+            "statVar": "sdg/SI_COV_MATNL.SEX--F"
+          },
+          "sdg/SI_COV_MATNL.SEX--F_growth_abs": {
+            "name": "Proportion of mothers with newborns receiving maternity cash benefit [Female]",
+            "statVar": "sdg/SI_COV_MATNL.SEX--F"
+          },
+          "sdg/SI_COV_MATNL.SEX--F_growth_pct": {
+            "name": "Proportion of mothers with newborns receiving maternity cash benefit [Female]",
+            "statVar": "sdg/SI_COV_MATNL.SEX--F"
+          },
+          "sdg/SI_COV_POOR10": {
+            "name": "Proportion of poor population receiving social assistance cash benefit, by sex",
+            "statVar": "sdg/SI_COV_POOR"
+          },
+          "sdg/SI_COV_POOR_growth_abs": {
+            "name": "Proportion of poor population receiving social assistance cash benefit, by sex",
+            "statVar": "sdg/SI_COV_POOR"
+          },
+          "sdg/SI_COV_POOR_growth_pct": {
+            "name": "Proportion of poor population receiving social assistance cash benefit, by sex",
+            "statVar": "sdg/SI_COV_POOR"
+          }
+        }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "Earth"
+        "country/AIA"
       ]
     }
   },
@@ -41,7 +1179,6 @@
     }
   ],
   "relatedThings": {},
-  "showForm": true,
-  "svSource": "UNRECOGNIZED",
-  "userMessage": "Could not recognize any topic from the query. See available topic categories for World."
+  "svSource": "PAST_QUERY",
+  "userMessage": ""
 }
