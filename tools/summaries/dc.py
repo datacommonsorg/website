@@ -73,12 +73,14 @@ def get_data_series(dcid: str, place_name: str):
   prompt_tables = {}
 
   for category, sv_titles in _SERIES_TO_KEEP.items():
-    category_data = response["pageChart"]["Overview"][category]
+    category_data = response["pageChart"]["Overview"].get(category, {})
     for chart_block in category_data:
       block_title = chart_block["title"]
       if block_title in sv_titles:
         sv = sv_titles[block_title]
         series = chart_block["trend"]["series"]
+
+        # Convert dict into a csv with sorted date keys
         j = json.dumps(series , sort_keys=True)
         j = j.replace("'", '"')  # Needed for pd.read_json
         j = j.replace(sv, f"{block_title} in {place_name}")

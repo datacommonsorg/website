@@ -67,6 +67,7 @@ _TABLE_KEYS = {
 
 
 def strip_superlatives(label: str) -> str:
+  """Converts e.g. "Largest Population" -> "Population"."""
   label = label.replace("Highest", "")
   label = label.replace("Largest", "")
   return label.strip()

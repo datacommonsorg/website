@@ -73,9 +73,10 @@ def place(place_dcid=None):
     place_name = place_dcid
 
   place_summary = None
-  if not category:
-    # Only show summary for Overview
-    place_summary = current_app.config['PLACE_EXPLORER_SUMMARIES'].get(place_dcid, "")
+  if os.environ.get('FLASK_ENV') in [ 'autopush', 'local' ]:
+    if not category:
+      # Only show summary for Overview
+      place_summary = current_app.config['PLACE_EXPLORER_SUMMARIES'].get(place_dcid, "")
 
   return flask.render_template('place.html',
                                place_type=place_type,
