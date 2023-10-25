@@ -44,6 +44,8 @@ interface SubjectPageMainPanePropType {
   parentPlaces?: NamedPlace[];
   // Whether or not to show the explore more button on tiles.
   showExploreMore?: boolean;
+  // Whether to to render tiles as web components
+  showWebComponents?: boolean;
 }
 
 export const SubjectPageMainPane = memo(function SubjectPageMainPane(
@@ -97,6 +99,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
                   }
                   showExploreMore={props.showExploreMore}
                   parentPlaces={props.parentPlaces}
+                  showWebComponents={props.showWebComponents}
                 />
               </ErrorBoundary>
             );
