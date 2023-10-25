@@ -108,7 +108,7 @@ def request_palm(prompt):
   """Sends a summary request to PALM"""
   url = f"{_API_URL}?key={_API_KEY}"
   headers = {
-    "Content-Type": "application/json",
+      "Content-Type": "application/json",
   }
   params = {
       "prompt": {
