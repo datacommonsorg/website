@@ -43,10 +43,10 @@ import {
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
+  ReplacementStrings,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";

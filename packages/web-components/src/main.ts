@@ -25,6 +25,7 @@ import {
   MapComponentProps,
   PieComponentProps,
   RankingComponentProps,
+  ScatterComponentProps,
   SliderComponentProps,
   TextComponentProps,
 } from "./main.d";
@@ -43,6 +44,7 @@ declare global {
       "datacommons-ranking": RankingComponentProps;
       "datacommons-slider": SliderComponentProps;
       "datacommons-text": TextComponentProps;
+      "datacommons-scatter": ScatterComponentProps;
     }
   }
 }
