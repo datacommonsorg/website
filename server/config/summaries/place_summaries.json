@@ -1,402 +1,152 @@
 {
- "wikidataId/Q356811": {
-  "name": "Adi Keyh",
-  "summary": "Adi Keyh has a population of 12,000 and a literacy rate of 70%."
+ "geoId/3651000": {
+  "summary": "New York City, NY is the most populous city in the United States. The population of New York City has fluctuated between 7.3 million and 8.8 million people between 1990 and 2021. New York City has the 2nd highest median income in Staten Island, Queens, Manhattan, Brooklyn, and The Bronx. The median individual income in New York City has increased from $27,252 in 2011 to $36,302 in 2021. The median age in New York City has increased from 35.4 in 2011 to 37.3 in 2021."
  },
- "geoId/01": {
-  "name": "Alabama",
-  "summary": "Alabama has the 46th highest unemployment rate, 24th largest population, 20th highest median age, 46th highest median income, and 9th highest crime per capita in the United States."
+ "geoId/0644000": {
+  "summary": "Los Angeles is the most populous city in Los Angeles County, California and the second most populous city in the United States. The population of Los Angeles has declined from a peak of 3.98 million in 2018 to 3.84 million in 2021. The median individual income in Los Angeles, CA increased from 23215 in 2011 to 31822 in 2021. Los Angeles, CA is ranked 85 of 139 cities in Los Angeles County, 629 of 1054 cities in California, and 8401 of 15229 cities in the United States. The median age in Los Angeles, CA was 33.9 in 2011 and has increased to 36.2 in 2021. Los Angeles is ranked 91 of 140 cities in Los Angeles County, 705 of 1113 cities in California, and 11690 of 16433 cities in the United States."
  },
- "geoId/02": {
-  "name": "Alaska",
-  "summary": "Alaska has the 11th highest unemployment rate, 49th largest population, 50th highest median age, 14th highest median income, and 2nd highest crime per capita in the United States."
+ "geoId/1714000": {
+  "summary": "Chicago is the most populous city in Illinois, the third most populous city in the United States, and the largest city in the Midwest. The population of Chicago has declined from a peak of 2.8 million in 1950 to 2.7 million in 2021. The median individual income in Chicago is $36261, which is ranked 34 of 39 cities in DuPage County, 82 of 133 cities in Cook County, 334 of 689 cities in Illinois, and 6177 of 15229 cities in the United States. The median age in Chicago has increased from 33.0 in 2011 to 35.1 in 2021."
  },
- "undata-geo/C21900001": {
-  "name": "Anguilla",
-  "summary": "Anguilla has a population of 15,000, an area of 91 km\u00b2 and a GDP of $1.2 billion."
+ "geoId/4835000": {
+  "summary": "Houston, Texas is the most populous city in Waller County, Montgomery County, Harris County, Fort Bend County, Texas, and the United States. The population of Houston has increased from 1697873 in 1990 to 2288250 in 2021. The median individual income in Houston is $31672. Houston is ranked 2 of 7 cities in Waller County, 12 of 18 cities in Montgomery County, 32 of 45 cities in Harris County, 16 of 24 cities in Fort Bend County, 391 of 967 cities in Texas, and 7776 of 15229 cities in the United States of America. The median age in Houston was 33.7 in 2021."
  },
- "geoId/04": {
-  "name": "Arizona",
-  "summary": "Arizona has the 12th highest unemployment rate, 14th largest population, 35th highest median age, 30th highest median income, and 13th highest crime per capita in the United States."
+ "geoId/0455000": {
+  "summary": "Phoenix, Arizona is the most populous city in Maricopa County and the fifth most populous city in the United States. The population of Phoenix has increased from 988,983 in 1990 to 1624,569 in 2021. The median individual income in Phoenix increased from $27,130 in 2011 to $34,427 in 2021. The median age in Phoenix was 34.1 in 2021."
  },
- "geoId/3302420": {
-  "name": "Atkinson and Gilmanton Academy Grant",
-  "summary": "Atkinson and Gilmanton Academy Grant has a student population of 1,039 and a teacher population of 61."
+ "geoId/4260000": {
+  "summary": "Philadelphia, PA is the 6th most populous city in the United States and the 1st most populous city in Pennsylvania. The population of Philadelphia has fluctuated between 1417601 and 1601005 between 1990 and 2021. The median individual income in Philadelphia, PA increased from $21448 in 2011 to $30080 in 2021. The median age in Philadelphia, PA was 33.5 in 2011 and has increased to 34.8 in 2021."
  },
- "nuts/TR8": {
-  "name": "Bati Karadeniz",
-  "summary": "Bati Karadeniz is the 7th most populous region in Turkey."
+ "geoId/4865000": {
+  "summary": "San Antonio, Texas is the 7th most populous city in the United States with a population of 1451853. The population has increased from 997434 in 1990. The median individual income is $29688, which is ranked 9401 of 15229 cities in the United States. The median age has increased from 32.6 in 2011 to 33.9 in 2021."
  },
- "nuts/TR2": {
-  "name": "Bati Marmara",
-  "summary": "Bati Marmara is the 10th most populous region in Turkey."
+ "geoId/0666000": {
+  "summary": "San Diego is the largest city in San Diego County, California and the 8th largest city in the United States. The population of San Diego has increased from 1.1 million in 1990 to 1.4 million in 2021. The median individual income in San Diego, CA increased from 31227 in 2011 to 41491 in 2021. San Diego is ranked 24 of 51 cities in San Diego County, 372 of 1054 cities in California, and 4032 of 15229 cities in the United States."
  },
- "wikidataId/Q4923105": {
-  "name": "Blacklick Township",
-  "summary": "Blacklick Township is the 25th largest of 49 townships in Cambria County, the 1615th largest of 2373 townships in Pennsylvania, and the 17718th largest of 25062 townships in the United States."
+ "geoId/4819000": {
+  "summary": "Dallas, Texas is the most populous city in Rockwall, Kaufman, Denton, Dallas, Collin counties, and Texas. The population of Dallas has increased from 1006646 in 1990 to 1288457 in 2021. The median individual income in Dallas is $34120. The median age in Dallas was 33.1 in 2021."
  },
- "nuts/DE4": {
-  "name": "Brandenburg",
-  "summary": "Brandenburg is the 9th most populous state in Germany."
+ "geoId/0668000": {
+  "summary": "San Jose, CA is the 10th most populous city in the United States with a population of 983489 in 2021. The city's population has increased steadily since 1990, when it was 783324. The median individual income in San Jose is $46298, which ranks 19th of 23 cities in Santa Clara County, 276th of 1054 cities in California, and 2722nd of 15229 cities in the United States. The median age in San Jose is 37.5 years, which is ranked 15th of 24 cities in Santa Clara County, 632nd of 1113 cities in California, and 10377th of 16433 cities in the United States."
  },
- "wikidataId/Q4976766": {
-  "name": "Brownsville-Brent-Goulding",
-  "summary": "Brownsville-Brent-Goulding is in Escambia County, Florida, United States of America."
+ "geoId/4805000": {
+  "summary": "Austin, Texas is the 4th most populous city in Texas and the 11th most populous city in the United States. The population of Austin has increased from 494,290 in 1990 to 964,177 in 2021. The median individual income in Austin increased from 28601 in 2011 to 43993 in 2021. The median age in Austin has increased from 30.9 in 2011 to 33.9 in 2021."
  },
- "geoId/4716060": {
-  "name": "Coker Creek",
-  "summary": "Coker Creek has a mean discharge of 1,100 cubic feet per second."
+ "geoId/1235000": {
+  "summary": "Jacksonville, Florida is the most populous city in Nassau County, Duval County, Florida, and the United States. The population of Jacksonville has increased from 736,123 in 2000 to 954,614 in 2021. The median individual income in Jacksonville is $32471, which has increased from $27028 in 2011. Jacksonville is ranked 5 of 8 cities in Nassau County, 6 of 7 cities in Duval County, 300 of 746 cities in Florida, and 7287 of 15229 cities in the United States. The median age in Jacksonville was 36.2 in 2021."
  },
- "geoId/08": {
-  "name": "Colorado",
-  "summary": "Colorado has the 28th highest unemployment rate, 21st largest population, 42nd highest median age, 7th highest median income, and 12th highest crime rate in the United States."
+ "geoId/4827000": {
+  "summary": "Fort Worth, Texas is the most populous city in Wise County, Tarrant County, Parker County, Johnson County, and Denton County. The population of Fort Worth has increased from 448,181 in 1990 to 935,508 in 2021. The median individual income in Fort Worth is $34,728, and the median age is 33.0."
  },
- "country/CRI": {
-  "name": "Costa Rica",
-  "summary": "Costa Rica has a GDP of 56.6 billion and a population of 4.8 million."
+ "geoId/3918000": {
+  "summary": "Columbus, OH is the most populous city in Ohio with a population of 906,528 in 2021. The population has increased by 269,205 people since 1990. The median individual income in Columbus is $34,153, which is ranked 7045 of 15229 cities in the United States. The median age in Columbus was 32.5 in 2021."
  },
- "geoId/47035": {
-  "name": "Cumberland County",
-  "summary": "Cumberland County has the highest median age, 34th highest median income, 34th highest unemployment rate, and 22nd largest population in Tennessee and the United States."
+ "geoId/1836003": {
+  "summary": "Indianapolis, IN is the most populous city in Marion County, Indiana and the 15th most populous city in the United States. The city's population has increased from 731,726 in 1990 to 882,039 in 2021. The median individual income in Indianapolis is $32,733, which ranks 6th of 9 cities in Marion County, 129th of 332 cities in Indiana, and 7820th of 15229 cities in the United States. The median age in Indianapolis was 34.3 in 2021."
  },
- "geoId/5518575": {
-  "name": "Dallas",
-  "summary": "Dallas has a population of 1,345,092 and a median household income of $57,406."
+ "geoId/3712000": {
+  "summary": "Charlotte, NC is the most populous city in Mecklenburg County, North Carolina, and the 16th most populous city in the United States. The population of Charlotte has increased from 426,984 in 1990 to 879,709 in 2021. The median individual income in Charlotte, NC was $29450 in 2011 and increased to $37925 in 2021. The median age in Charlotte, NC was 33.4 in 2011 and has increased to 34.5 in 2021."
  },
- "country/DNK": {
-  "name": "Denmark",
-  "summary": "Denmark is the fourth most populous country in the Nordics."
+ "geoId/0667000": {
+  "summary": "San Francisco, CA is the 4th most populous city in California and 17th most populous city in the United States. The population of San Francisco has fluctuated between 723,959 and 879,676 between 1990 and 2021. The median individual income in San Francisco is $59017, which is ranked 135th in California and 932nd in the United States. The median age in San Francisco is 38.4 years, which is ranked 578th out of 1113 cities in California and 9166th out of 16433 cities in the United States."
  },
- "nuts/TR9": {
-  "name": "Dogu Karadeniz",
-  "summary": "Dogu Karadeniz is the 11th most populous region in Turkey."
+ "geoId/5363000": {
+  "summary": "Seattle, WA is the most populous city in King County, Washington and the 18th most populous city in the United States. The population of Seattle has increased from 516,332 in 1990 to 733,919 in 2021. The median individual income in Seattle is $56,758, which ranks 1299th out of 15,229 cities in the United States. The median age in Seattle is 35.3 years, which is ranked 54th out of 61 cities in King County, 305th out of 414 cities in Washington, and 12443rd out of 16433 cities in the United States."
  },
- "geoId/17041": {
-  "name": "Douglas County",
-  "summary": "Douglas County has the 86th highest unemployment rate, 58th largest population, 88th highest median age, and 46th highest median income in Illinois and the United States."
+ "geoId/0820000": {
+  "summary": "Denver, Colorado is the most populous city in the state and the 19th most populous city in the United States. The population of Denver has increased from 467,549 in 1990 to 711,463 in 2021. The median individual income in Denver is $45457, which is ranked 66 of 217 cities in Colorado and 3043 of 15229 cities in the United States. The median age in Denver was 34.8 in 2021."
  },
- "nuts/EE0": {
-  "name": "Eesti",
-  "summary": "Estonia has a GDP of 26.9 billion and a population of 1.3 million."
+ "geoId/4055000": {
+  "summary": "Oklahoma City, OK is the most populous city in Pottawatomie County, Oklahoma County, Cleveland County, Canadian County, and Oklahoma. The population of Oklahoma City has increased from 444605 in 1990 to 687725 in 2021. The median individual income in Oklahoma City is $34017, which is higher than the median income of all cities in the United States. The median age in Oklahoma City was 34.9 in 2021."
  },
- "nuts/TR3": {
-  "name": "Ege",
-  "summary": "Ege is the second most populous region in Turkey."
+ "geoId/2447875": {
+  "summary": "Lonaconing, Maryland is a city with a population of 989. It is the 4th most populous city in Allegany County and the 99th most populous city in Maryland. The median individual income in Lonaconing is $26,181, which is ranked 4th of 8 cities in Allegany County, 307th of 320 cities in Maryland, and 11628th of 15229 cities in the United States. The median age in Lonaconing is 36.7 years, which is lower than the median age of 39.7 years in Allegany County and 42.2 years in Maryland."
  },
- "country/GNQ": {
-  "name": "Equatorial Guinea",
-  "summary": "Equatorial Guinea has a population of 1,262,000 and a GDP of $15.9 billion."
+ "geoId/1755171": {
+  "summary": "Odell, Illinois is a small town with a population of 989. It is located in Livingston County and is ranked 8th out of 8 cities in the county. The median individual income is $28,000 and the median age is 36.4 years."
  },
- "geoId/25009": {
-  "name": "Essex County",
-  "summary": "Essex County has the 8th highest median age, 7th highest median income, 6th highest unemployment rate, and 3rd largest population in Massachusetts, United States of America."
+ "geoId/4052600": {
+  "summary": "North Enid, Oklahoma is the 3rd most populous city in Garfield County with a population of 987 as of 2021. It is ranked 10271st in the United States. The median individual income is $27146, which is ranked 1st of 3 cities in Garfield County, 35th of 229 cities in Oklahoma, and 6613th of 15229 cities in the United States. The median age in North Enid was 44.0 in 2011 and has increased to 44.9 in 2021. North Enid is ranked 2 of 3 cities in Garfield County, 23 of 247 cities in Oklahoma, and 3932 of 16433 cities in the United States."
  },
- "country/EST": {
-  "name": "Estonia",
-  "summary": "Estonia has a population of 1.3 million people, a GDP of 27.3 billion, and a life expectancy of 78.5 years."
+ "geoId/2874760": {
+  "summary": "Tunica, MS is the 2nd largest city in Tunica County with a population of 987 in 2021. The population has fluctuated between 1000 and 1200 people since 1990. Tunica has a median individual income of $29522, which is ranked 2nd in Tunica County, 66th in Mississippi, and 11333rd in the United States. The median age in Tunica is 45.2 years old, which is ranked 1st in Tunica County, 8th in Mississippi, and 1940th in the United States."
  },
- "nuts/BE2": {
-  "name": "Flemish Region",
-  "summary": "The Flemish Region is the largest region in Belgium by population."
+ "geoId/5531300": {
+  "summary": "Green Lake, Wisconsin is a small city with a population of 985. It is located in Green Lake County and has a median individual income of $28,558. The median age in Green Lake is 47.5 years old, which is lower than the national average of 38.1 years old."
  },
- "geoId/18043": {
-  "name": "Floyd County",
-  "summary": "Floyd County has the 72nd highest unemployment rate, 21st largest population, 64th highest median age, and 9th highest median income in Indiana, United States of America."
+ "geoId/4856996": {
+  "summary": "Petersburg, Texas is a city with a population of 982 people. It is the fourth-largest city in Hale County and is ranked 791st out of 793 cities in Texas. The median income in Petersburg is $24,133, which is ranked 3rd out of 5 cities in Hale County and 612th out of 967 cities in Texas. The median age in Petersburg is 36.4 years old, which is ranked 2nd out of 5 cities in Hale County and 130th out of 1062 cities in Texas."
  },
- "geoId/42055": {
-  "name": "Franklin County",
-  "summary": "Franklin County has the 60th highest unemployment rate, 23rd largest population, 46th highest median age, and 14th highest median income in Pennsylvania and the United States."
+ "geoId/3101780": {
+  "summary": "Arapahoe is the second most populous city in Furnas County, Nebraska. The population of Arapahoe has fluctuated between 920 and 1027 between 1990 and 2021. Arapahoe has a median individual income of $37292, which is ranked 1st of 2 cities in Furnas County, 60th of 114 cities in Nebraska, and 7562nd of 15229 cities in the United States. Arapahoe has a median age of 41.5 years old, which is the 1st ranked city in Furnas County, 25th ranked city in Nebraska, and 6424th ranked city in the United States."
  },
- "geoId/28039": {
-  "name": "George County",
-  "summary": "George County has the 19th highest unemployment rate, 38th largest population, 69th highest median age, and 23rd highest median income in Mississippi and the United States."
+ "geoId/2959942": {
+  "summary": "Princeton, Missouri has a population of 982 and is ranked 339 of 339 cities in Missouri and 10276 of 10288 cities in the United States. The median individual income is $22784, which is ranked 292 of 362 cities in Missouri and 13126 of 15229 cities in the United States. The median age was 38.1 in 2011, increased to 44.1 in 2017, before decreasing to 38.1 in 2019."
  },
- "country/GEO": {
-  "name": "Georgia",
-  "summary": "Georgia has a population of 10,435,156 and a GDP of 144.2 billion."
+ "geoId/0148808": {
+  "summary": "Millport, Alabama is a city with a population of 982 people. It is the 3rd most populous city in Lamar County, Alabama and the 258th most populous city in Alabama. The median individual income in Millport is $22,434. The median age in Millport was 38.3 in 2011 and 40.3 in 2021."
  },
- "geoId/31075": {
-  "name": "Grant County",
-  "summary": "Grant County had a population of 93,293 in 2010, with a median age of 38.5."
+ "geoId/2637860": {
+  "summary": "Hesperia, Michigan is a small city with a population of 964. It is located in Oceana County and has the highest median income of all cities in Oceana County, Newaygo County, and Michigan. The median income in Hesperia has increased from $15,778 in 2011 to $21,630 in 2021. Hesperia also has the highest median age of all cities in Oceana County, Newaygo County, Michigan, and the United States. The median age in Hesperia has increased from 32.9 in 2011 to 49.4 in 2021."
  },
- "nuts/TRC": {
-  "name": "G\u00fcneydogu Anadolu",
-  "summary": "G\u00fcneydogu Anadolu is the 4th most populated region in Turkey."
+ "geoId/4007500": {
+  "summary": "Boley, Oklahoma is the third most populous city in Okfuskee County with a population of 951 in 2021. The city's population has fluctuated between 872 and 1262 over the past 30 years. Boley has a median individual income of $14,402, which is ranked third in Okfuskee County, 225th in Oklahoma, and 15026th in the United States. The median age in Boley is 44.7 years, which is higher than the median age of 38.3 years in Okfuskee County and 41.0 years in Oklahoma."
  },
- "wikidataId/Q5637687": {
-  "name": "Haddon, Gauteng",
-  "summary": "Haddon, Gauteng is the second largest city in South Africa with a population of 898 out of 1130."
+ "geoId/2215780": {
+  "summary": "Clarks is the second most populous city in Caldwell Parish, Louisiana. The population of Clarks has decreased from 1068 in 2000 to 897 in 2021. The median individual income in Clarks is $14813, which is ranked 2nd in Caldwell Parish, 262nd in Louisiana, and 14973rd in the United States. The median age in Clarks is 37.0, which is ranked 1 of 2 cities in Caldwell Parish, 147 of 290 cities in Louisiana, and 10843 of 16433 cities in the United States."
  },
- "geoId/20075": {
-  "name": "Hamilton County",
-  "summary": "Hamilton County has the 104th highest unemployment rate, 93rd largest population, 86th highest median age, and 14th highest median income in Kansas and the United States."
+ "geoId/1229100": {
+  "summary": "Hastings, Florida is the third most populous city in St. Johns County, Florida. The population of Hastings has fluctuated between 561 and 843 people between 1990 and 2009. Hastings has a median individual income of $31,645, which ranks 12th out of 13 cities in St. Johns County, 428th out of 746 cities in Florida, and 9828th out of 15229 cities in the United States. Hastings has a median age of 44.1 years, which ranks 8th out of 14 cities in St. Johns County, 247th out of 791 cities in Florida, and 2050th out of 16433 cities in the United States."
  },
- "geoId/4232616": {
-  "name": "Harleysville",
-  "summary": "Harleysville is the 37th largest city in Montgomery County, Pennsylvania, United States of America."
+ "geoId/1775172": {
+  "summary": "Thomson, Illinois is the fifth-largest city in Carroll County with a population of 753. The median individual income is $27,069, which is ranked 4th of 5 cities in Carroll County, 580th of 689 cities in Illinois, and 10651st of 15229 cities in the United States. Thomson has the highest median age of 58.4 in 2021 among 16433 cities in the United States. The median age in Thomson increased from 34.6 in 2011 to 58.4 in 2021."
  },
- "wikidataId/Q5681356": {
-  "name": "Hatfield, Pretoria",
-  "summary": "Hatfield, Pretoria is the 361st largest city in South Africa."
+ "geoId/0270760": {
+  "summary": "Skagway is a city in Alaska with a population of 741 people. It is ranked 30th out of 30 cities in Alaska and 10283rd out of 10288 cities in the United States. The median individual income in Skagway was $37016 in 2021, and the median age was 39.6."
  },
- "nuts/FRE": {
-  "name": "Hauts-de-France",
-  "summary": "Hauts-de-France is the 2nd most populous region in Metropolitan France and the 5th most populous region in France."
+ "geoId/4813828": {
+  "summary": "Center Point is a city in Kerr County, Texas with a population of 657. It is the 3rd most populous city in Kerr County and is ranked 792nd in Texas and 10284th in the United States. The median age in Center Point is 42.1 and the median individual income is $33587."
  },
- "wikidataId/Q2690370": {
-  "name": "Hayes",
-  "summary": "Hayes has a population of 1,000 and a median income of $50,000."
+ "geoId/3908168": {
+  "summary": "Brady Lake, Ohio is a small city with a population of 529 people. It is the 10th most populous city in Portage County, Ohio and the 530th most populous city in Ohio. The median age in Brady Lake is 48.5, which is the highest of all cities in Portage County. The median individual income in Brady Lake is $27,461, which is ranked 8th of 11 cities in Portage County, 478th of 658 cities in Ohio, and 10,302nd of 15,229 cities in the United States."
  },
- "wikidataId/Q9040203": {
-  "name": "Holly Mountain Township",
-  "summary": "Holly Mountain Township has a population of 1,037 and a median household income of $43,906."
+ "geoId/2101648": {
+  "summary": "Annville, KY is a small town with a population of 494. It is ranked 206 of 206 cities in Kentucky and 10286 of 10288 cities in the United States. The median individual income is $19620, which is ranked 201 of 230 cities in Kentucky and 14448 of 15229 cities in the United States. The median age is 42.1, which is ranked 62 of 247 cities in Kentucky and 5886 of 16433 cities in the United States."
  },
- "wikidataId/Q66278313": {
-  "name": "Jammu and Kashmir",
-  "summary": "Jammu and Kashmir has the 20th largest population in India."
+ "geoId/4877680": {
+  "summary": "Westminster is a city in Collin County, Texas with a population of 453. It is ranked 30th of 30 cities in Collin County, 793rd of 793 cities in Texas, and 10287th of 10288 cities in the United States. The median individual income is $24500 and the median age is 31.8."
  },
- "geoId/45053": {
-  "name": "Jasper County",
-  "summary": "Jasper County has the 40th highest unemployment rate, 31st largest population, 14th highest median age, and 14th highest median income in South Carolina and the United States."
+ "geoId/2827620": {
+  "summary": "Glendale, Mississippi is a city in Forrest County, Mississippi. With a population of 262 in 1999, it is the 3rd most populous city in Forrest County, the 148th most populous city in Mississippi, and the 10288th most populous city in the United States. The median individual income in Glendale is $20,873, which is ranked 2nd of 4 cities in Forrest County, 103rd of 184 cities in Mississippi, and 13289th of 15229 cities in the United States. The median age in Glendale is 37.7 years, which is ranked 2nd of 4 cities in Forrest County, 26th of 209 cities in Mississippi, and 4178th of 16433 cities in the United States."
  },
- "geoId/48247": {
-  "name": "Jim Hogg County",
-  "summary": "Jim Hogg County has the 29th highest unemployment rate, 204th largest population, 246th highest median age, and 234th highest median income in Texas and the United States."
+ "geoId/06": {
+  "summary": "California is the most populous state in the United States with a population of over 39 million people. The state's population has increased by over 27 million people since 1900. The median individual income in California was $27,355 in 2011 and rose to $36,281 in 2021. California's median age is 37.0 years, which is ranked 44th out of 52 states in the United States. The median age has increased by 1.9 years from 2011 to 2021."
  },
- "wikidataId/Q1185": {
-  "name": "Karnataka",
-  "summary": "Karnataka is the 9th most populous state in India."
+ "geoId/48": {
+  "summary": "Texas is the second most populous state in the United States of America. The population of Texas has increased from 3055000 in 1900 to 29527941 in 2021. The median individual income in Texas increased from 25554 in 2011 to 33644 in 2021. Texas is ranked 30 of 52 states in United States of America. The median age in Texas has increased from 33.5 in 2011 to 35.0 in 2021. Texas is ranked 49th out of 52 states in the United States of America for median age."
  },
- "country/KEN": {
-  "name": "Kenya",
-  "summary": "Kenya has a population of 47.6 million people, a GDP of 96.4 billion, and a life expectancy of 64.3 years."
+ "geoId/12": {
+  "summary": "Florida is the 3rd most populous state in the United States with a population of 21.8 million people. The median individual income in Florida was $31,169 in 2021, up from $25,014 in 2011. Florida has the 6th highest median age in the United States at 42.3 years, up from 40.5 years in 2011."
  },
- "geoId/22057": {
-  "name": "Lafourche Parish",
-  "summary": "Lafourche Parish has the 56th highest unemployment rate, 15th largest population, 29th highest median age, and 21st highest median income in Louisiana and the United States."
+ "geoId/36": {
+  "summary": "New York is the 4th most populous state in the United States with a population of 19.83 million. The population has increased from 7.28 million in 1900. New York's median individual income increased from 28670 in 2011 to 37469 in 2021. New York is ranked 15th in the United States of America for median income. The median age of New York is 39.2 years, which is ranked 21st out of 52 states in the United States. The median age has increased by 1.4 years from 2011 to 2021."
  },
- "wikidataId/Q69714": {
-  "name": "Le Grand-Saconnex",
-  "summary": "Le Grand-Saconnex has the 105th largest population in Switzerland."
- },
- "nuts/DE9": {
-  "name": "Lower Saxony",
-  "summary": "Lower Saxony is the fourth most populous state in Germany."
- },
- "country/MAC": {
-  "name": "Macau",
-  "summary": "Macau has a population of 647,600 and a GDP of 55.2 billion."
- },
- "wikidataId/Q1188": {
-  "name": "Madhya Pradesh",
-  "summary": "Madhya Pradesh has the 5th largest population in India."
- },
- "geoId/23": {
-  "name": "Maine",
-  "summary": "Maine has the 33rd highest median income, 45th highest unemployment rate, 43rd largest population, 1st highest median age, and 50th highest crime per capita in the United States."
- },
- "geoId/68190": {
-  "name": "Majuro",
-  "summary": "Majuro has a population of 27,000 and a land area of 9.7 square kilometers."
- },
- "nuts/PL6": {
-  "name": "Makroregion P\u00f3\u0142nocny",
-  "summary": "Makroregion P\u00f3\u0142nocny is the third most populous region in Poland."
- },
- "country/MLT": {
-  "name": "Malta",
-  "summary": "Malta has a population of 441,540 and a GDP of 12.68 billion."
- },
- "geoId/17121": {
-  "name": "Marion County",
-  "summary": "Marion County is ranked 81st in median income, 31st in unemployment rate, 36th in population, and 50th in median age in Illinois and 1692nd in the United States."
- },
- "geoId/17125": {
-  "name": "Mason County",
-  "summary": "Mason County has the 25th highest unemployment rate, 81st largest population, 16th highest median age, and 63rd highest median income in Illinois and the United States."
- },
- "country/MUS": {
-  "name": "Mauritius",
-  "summary": "Mauritius has a population of 1.3 million people, a GDP of $12.5 billion, and a life expectancy of 75 years."
- },
- "geoId/28": {
-  "name": "Mississippi",
-  "summary": "Mississippi has the 25th highest unemployment rate, 35th largest population, 38th highest median age, 51st highest median income, and 21st highest crime rate in the United States."
- },
- "geoId/2048625": {
-  "name": "Moscow Township",
-  "summary": "Moscow Township had a population of 1,040 people, 440 households, and 295 families residing in it."
- },
- "geoId/17139": {
-  "name": "Moultrie County",
-  "summary": "Moultrie County has the 74th highest median age, 23rd highest median income, 90th highest unemployment rate, and 74th largest population in Illinois, United States of America."
- },
- "country/NHB": {
-  "name": "New Hebrides",
-  "summary": "New Hebrides has a population of 130,000 and a GDP of 1.1 billion."
- },
- "country/NIU": {
-  "name": "Niue",
-  "summary": "Niue has a population of 1,640 people and a GDP of $100 million."
- },
- "nuts/DEA": {
-  "name": "Nordrhein-Westfalen",
-  "summary": "Nordrhein-Westfalen is the 1st largest state in Germany by population."
- },
- "geoId/37": {
-  "name": "North Carolina",
-  "summary": "North Carolina has the 9th largest population, 22nd highest median age, 38th highest median income, 22nd highest unemployment rate, and 18th highest crime rate in the United States."
+ "geoId/42": {
+  "summary": "Pennsylvania is the 5th most populous state in the United States with a population of 12.9 million people. The median age in Pennsylvania is 40.8, and the median individual income is $34,229. Pennsylvania is ranked 25th in the United States for median individual income."
  },
  "geoId/38": {
-  "name": "North Dakota",
-  "summary": "North Dakota has the 48th largest population, 49th highest unemployment rate, 12th highest median income, 48th highest median age, and 32nd highest crime rate in the United States."
+  "summary": "North Dakota is a state in the United States with a population of 774,948 in 2021. It is ranked 48th in population out of the 50 states. The median individual income in North Dakota increased from $25,925 in 2011 to $37,861 in 2021, and the state is ranked 11th in the United States for median individual income. North Dakota has a median age of 35.2 years, which is ranked 48th out of 52 states in the United States. The median age has decreased slightly from 37.1 years in 2011 to 35.2 years in 2021."
  },
- "nuts/UKN": {
-  "name": "Northern Ireland",
-  "summary": "Northern Ireland is the 12th most populous region in the United Kingdom."
+ "geoId/02": {
+  "summary": "Alaska is the 49th most populous state in the United States with a population of 732,673. The median individual income in Alaska was $37368 in 2021, ranking 13th in the United States. Alaska has the 50th highest median age in the United States at 35.0."
  },
- "nuts/EL4": {
-  "name": "N\u03b7\u03c3\u03b9\u03b1 \u0391\u03b9\u03b3\u03b1\u03b9\u03bf\u03c5, K\u03c1\u03b7\u03c4\u03b7",
-  "summary": "N\u03b7\u03c3\u03b9\u03b1 \u0391\u03b9\u03b3\u03b1\u03b9\u03bf\u03c5, K\u03c1\u03b7\u03c4\u03b7 is the 4th largest populated island in Greece."
+ "geoId/11": {
+  "summary": "The District of Columbia is the capital of the United States and is ranked 50th out of 52 states in terms of population. The population has fluctuated between 278,000 and 900,000 people from 1900 to 2021. The median individual income in the District of Columbia was $58,142 in 2021, the highest in the United States. The median age in the District of Columbia was 34.1 in 2011 and has increased to 34.3 in 2021. The District of Columbia is ranked 51st out of 52 states in the United States of America in terms of median age."
  },
- "geoId/1756211": {
-  "name": "Ophiem",
-  "summary": "Ophiem has a high price of 200 and a low customer rating of 1 out of 5."
- },
- "country/PSE": {
-  "name": "Palestinian Territories",
-  "summary": "The Palestinian Territories has a population of 4,747,000 and a GDP of 18.3 billion."
- },
- "geoId/2460975": {
-  "name": "Perry Hall",
-  "summary": "Perry Hall is the 13th most populous, 20th highest median age, and 13th highest median income place in Baltimore County, Maryland, United States of America."
- },
- "geoId/48375": {
-  "name": "Potter County",
-  "summary": "Potter County has the 207th highest unemployment rate, 39th largest population, 197th highest median age, and 149th highest median income in Texas and the United States."
- },
- "wikidataId/Q22424": {
-  "name": "Punjab",
-  "summary": "Punjab is the 16th most populous state in India."
- },
- "geoId/27127": {
-  "name": "Redwood County",
-  "summary": "Redwood County has the 48th highest unemployment rate, 54th largest population, 54th highest median age, and 61st highest median income in Minnesota and the United States."
- },
- "geoId/20157": {
-  "name": "Republic County",
-  "summary": "Republic County has the 94th highest unemployment rate, 70th largest population, 9th highest median age, and 63rd highest median income in Kansas, United States of America."
- },
- "wikidataId/Q31354462": {
-  "name": "Republic of Abkhazia",
-  "summary": "Republic of Abkhazia has a population of 248,000 and a GDP of $1.2 billion."
- },
- "nuts/BE3": {
-  "name": "R\u00e9gion Wallonne",
-  "summary": "R\u00e9gion Wallonne is the second most populous region in Belgium."
- },
- "country/REU": {
-  "name": "R\u00e9union",
-  "summary": "R\u00e9union has the second largest population of all the French overseas departments."
- },
- "country/SRB": {
-  "name": "Serbia",
-  "summary": "Serbia has a population of 7.1 million people, a GDP of $47.2 billion, and a life expectancy of 76 years."
- },
- "geoId/2760304": {
-  "name": "Silver Creek Township",
-  "summary": "Silver Creek Township is in Lake County, Minnesota, United States of America. It is the 3rd largest township in Lake County, the 515th largest township in Minnesota, and the 23000th largest township in the United States."
- },
- "geoId/3762040": {
-  "name": "Simpson",
-  "summary": "Simpson has 12 episodes, 2 seasons, 10.0 average rating and 1997 release year."
- },
- "country/SOM": {
-  "name": "Somalia",
-  "summary": "Somalia has a population of 15.1 million people, a GDP of $16.6 billion, and a life expectancy of 55.3 years."
- },
- "geoId/46": {
-  "name": "South Dakota",
-  "summary": "South Dakota has the 48th highest unemployment rate, 47th largest population, 40th highest median age, 28th highest median income, and 33rd highest crime rate in the United States."
- },
- "nuts/UKJ": {
-  "name": "South East",
-  "summary": "South East is the most populous region in the UK."
- },
- "nuts/UKK": {
-  "name": "South West",
-  "summary": "South West is the 6th most populous region in the UK."
- },
- "nuts/ITF": {
-  "name": "Sud",
-  "summary": "Sud is the second most populous region in Italy."
- },
- "wikidataId/Q1445": {
-  "name": "Tamil Nadu",
-  "summary": "Tamil Nadu is the 7th most populous state in India."
- },
- "geoId/47": {
-  "name": "Tennessee",
-  "summary": "Tennessee has the 26th highest unemployment rate, 16th largest population, 25th highest median age, 41st highest median income, and 7th highest crime rate in the United States."
- },
- "country/THA": {
-  "name": "Thailand",
-  "summary": "Thailand has a GDP of 432.3 billion, a population of 69.7 million, and a life expectancy of 75.4 years."
- },
- "geoId/21219": {
-  "name": "Todd County",
-  "summary": "Todd County has the 99th highest unemployment rate, 90th largest population, 110th highest median age, and 19th highest median income in Kentucky and the United States."
- },
- "country/TUR": {
-  "name": "Turkey",
-  "summary": "Turkey has a population of 83 million people, a GDP of $830 billion, and a life expectancy of 78 years."
- },
- "country/USA": {
-  "name": "United States",
-  "summary": "The United States has a population of 328 million people, a GDP of 20.5 trillion, and a life expectancy of 78.6 years."
- },
- "geoId/49": {
-  "name": "Utah",
-  "summary": "Utah has the 43rd highest unemployment rate, 31st largest population, 52nd highest median age, 27th highest median income, and 25th highest crime rate in the United States."
- },
- "geoId/39163": {
-  "name": "Vinton County",
-  "summary": "Vinton County has the 10th highest unemployment rate, 88th largest population, 15th highest median age, and 79th highest median income in Ohio, United States of America."
- },
- "geoId/51": {
-  "name": "Virginia",
-  "summary": "Virginia has the 12th largest population, 10th highest median income, 42nd highest unemployment rate, 27th highest median age, and 38th highest crime rate in the United States."
- },
- "undata-geo/C07500976": {
-  "name": "V\u00e9lez",
-  "summary": "V\u00e9lez has a population of 106,000 and a GDP of 1.5 billion."
- },
- "geoId/53": {
-  "name": "Washington",
-  "summary": "Washington has the 3rd highest median income, 16th highest unemployment rate, 13th largest population, and 14th highest crime rate in the US."
- },
- "wikidataId/Q61912": {
-  "name": "Wertheim",
-  "summary": "Wertheim is the 503rd largest city in Germany."
- },
- "geoId/54": {
-  "name": "West Virginia",
-  "summary": "West Virginia has the 15th highest unemployment rate, 40th largest population, 5th highest median age, 50th highest median income, and 37th highest crime rate in the United States."
+ "geoId/50": {
+  "summary": "Vermont is the 51st most populous state in the United States with a population of 645,570 in 2021. The population has increased by 22,223 people since 2020. Vermont's median individual income increased from 26550 in 2011 to 34798 in 2021. Vermont is ranked 23rd in the United States of America for median income. Vermont has the 4th highest median age in the United States. The median age in Vermont has increased from 41.4 in 2011 to 42.7 in 2021."
  },
  "geoId/56": {
-  "name": "Wyoming",
-  "summary": "Wyoming has the 33rd highest median age, 23rd highest median income, 31st highest unemployment rate, 52nd largest population, and 39th highest crime rate in the United States."
- },
- "country/ZMB": {
-  "name": "Zambia",
-  "summary": "Zambia has a GDP of 23.3 billion, a population of 17.3 million, and a life expectancy of 61.3 years."
- },
- "nuts/IS0": {
-  "name": "\u00cdsland",
-  "summary": "Iceland has a population of 338,349 and a GDP of 21.2 billion."
- },
- "nuts/CZ0": {
-  "name": "\u010cesk\u00e1 Republika",
-  "summary": "\u010cesk\u00e1 Republika has a GDP of 245.5 billion and a population of 10.6 million."
+  "summary": "Wyoming is the least populous state in the United States with a population of 578,803 in 2021. The population has been increasing since 1900, with the exception of a few years during the Great Depression. Wyoming's median individual income was $34678 in 2021, ranking 19th in the United States. Wyoming has a median age of 38.2 years, which is ranked 33rd in the United States. The median age has increased by 1.3 years from 2011 to 2021."
  }
 }

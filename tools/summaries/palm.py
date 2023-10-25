@@ -19,7 +19,7 @@ import os
 import requests
 
 _API_KEY = os.getenv("PALM_API_KEY")
-_API_URL = "https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText"
+_API_URL = "https://generativelanguage.googleapis.com/v1beta3/models/text-bison-001:generateText"
 _TEMPERATURE = 0.2
 
 _SERIES_PROMPT = """
@@ -46,8 +46,14 @@ Summary:
 
 _RESUMMARIZE_PROMPT = """
 Summarize these facts into 1 paragraph.
+Start by introducing the place.
+The summary should only be based on the information presented in these facts.
+Please write in a professional and business-neutral tone.
 
+Facts:
 {facts}
+
+Summary:
 """
 
 assert _API_KEY, "$PALM_API_KEY must be specified."
@@ -58,6 +64,12 @@ _TABLE_KEYS = {
   "Highest Median Income": "Median_Income_Person",
   "Highest Median Age": "Median_Age_Person",
 }
+
+
+def strip_superlatives(label: str) -> str:
+  label = label.replace("Highest", "")
+  label = label.replace("Largest", "")
+  return label.strip()
 
 
 def request_palm(prompt):
@@ -91,20 +103,21 @@ def get_summary(place_name: str, place_type: str, rankings: str, data_tables: Li
     prompt_keys = {
       "place_type": place_type,
       "place_name": place_name,
-      "ranking_key": ranking_key,
-      "ranking_data": rankings[ranking_key],
+      "ranking_key": strip_superlatives(ranking_key),
+      "ranking_data": '\n'.join(rankings[ranking_key]),
       "data_table": data_tables[data_table_key]
     }
     prompt = _SERIES_PROMPT.format(**prompt_keys)
     prompts.append(prompt)
 
     response = request_palm(prompt)
-    candidates.append(" -- " + response)
+    candidates.append("- " + response)
 
     # TODO: Add some verification step here
 
   facts = '\n'.join(candidates)
-  response = request_palm(_RESUMMARIZE_PROMPT.format(facts=facts))
+  prompt = _RESUMMARIZE_PROMPT.format(facts=facts)
+  response = request_palm(prompt)
   prompts.append(prompt)
 
   return prompts, response
