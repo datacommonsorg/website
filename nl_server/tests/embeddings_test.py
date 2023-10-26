@@ -19,13 +19,13 @@ import unittest
 
 from diskcache import Cache
 from parameterized import parameterized
-from sklearn.metrics.pairwise import cosine_similarity
 import yaml
 
+from nl_server import embeddings_store as store
 from nl_server import gcs
-from nl_server import loader
 from nl_server.embeddings import Embeddings
-from nl_server.loader import nl_cache_path
+from nl_server.loader import NL_CACHE_PATH
+from nl_server.loader import NL_EMBEDDINGS_CACHE_KEY
 
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -33,15 +33,13 @@ _root_dir = os.path.dirname(
 _test_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                           'test_data')
 
-_tuned_model_key = "tuned_model"
-
 
 # TODO(pradh): Expand tests to other index sizes.
 def _get_embeddings_file_path() -> str:
   embeddings_config_path = os.path.join(_root_dir, 'deploy/nl/embeddings.yaml')
   with open(embeddings_config_path) as f:
     embeddings = yaml.full_load(f)
-    embeddings_file = embeddings[loader.DEFAULT_INDEX_TYPE]
+    embeddings_file = embeddings[store.DEFAULT_INDEX_TYPE]
     return gcs.download_embeddings(embeddings_file)
 
 
@@ -49,9 +47,7 @@ def _get_tuned_model_path() -> str:
   models_config_path = os.path.join(_root_dir, 'deploy/nl/models.yaml')
   with open(models_config_path) as f:
     models_map = yaml.full_load(f)
-    tuned_model_dict = {_tuned_model_key: models_map[_tuned_model_key]}
-    models_downloaded_paths = loader.download_models(tuned_model_dict)
-    return models_downloaded_paths[models_map[_tuned_model_key]]
+    return gcs.download_model_folder(models_map['tuned_model'])
 
 
 class TestEmbeddings(unittest.TestCase):
@@ -59,11 +55,11 @@ class TestEmbeddings(unittest.TestCase):
   @classmethod
   def setUpClass(cls) -> None:
     # Look for the Embeddings in the cache if it exists.
-    cache = Cache(nl_cache_path)
+    cache = Cache(NL_CACHE_PATH)
     cache.expire()
-    cls.nl_embeddings = cache.get(loader.nl_embeddings_cache_key())
+    embeddings_store = cache.get(NL_EMBEDDINGS_CACHE_KEY)
 
-    if not cls.nl_embeddings:
+    if not embeddings_store:
       print(
           "Could not load the embeddings from the cache for these tests. Loading a new embeddings object."
       )
@@ -73,11 +69,13 @@ class TestEmbeddings(unittest.TestCase):
       # model pointed to in models.yaml.
       # If the default index is not a "finetuned" index, then the default model can be used.
       tuned_model_path = ""
-      if "ft" in loader.DEFAULT_INDEX_TYPE:
+      if "ft" in store.DEFAULT_INDEX_TYPE:
         tuned_model_path = _get_tuned_model_path()
 
       cls.nl_embeddings = Embeddings(_get_embeddings_file_path(),
                                      tuned_model_path)
+    else:
+      cls.nl_embeddings = embeddings_store.get()
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.

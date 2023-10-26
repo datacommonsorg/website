@@ -33,6 +33,8 @@ INPUT_DIR = "input"
 OUTPUT_DIR = "output"
 REPORTS_DIR = "reports"
 
+_TEST_PARAM = "test=adversarial"
+
 
 class Mode:
   RUN_ALL = "run_all"
@@ -323,7 +325,7 @@ class AdversarialQueriesTest:
 
     result = unknown_result(
         query, self.base_url +
-        f'/explore#q={urllib.parse.quote_plus(query)}&llm_api={self.llm_api}{get_dc_param}'
+        f'/explore#q={urllib.parse.quote_plus(query)}&llm_api={self.llm_api}{get_dc_param}&{_TEST_PARAM}'
     )
     logging.info("Running: %s", query)
     if not query:
@@ -334,7 +336,7 @@ class AdversarialQueriesTest:
     try:
       resp = requests.post(
           self.base_url +
-          f'/api/explore/detect-and-fulfill?q={query}&llm_api={self.llm_api}',
+          f'/api/explore/detect-and-fulfill?q={query}&llm_api={self.llm_api}&{_TEST_PARAM}',
           json={
               'contextHistory': {},
               'dc': f'{post_dc_param}',
