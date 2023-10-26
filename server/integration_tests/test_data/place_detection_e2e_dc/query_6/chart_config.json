@@ -509,6 +509,7 @@
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
             "title": "Proportion of Population Below International Poverty Line"
           },
           {
@@ -516,36 +517,10 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/USA"
-                    ],
                     "statVarKey": [
-                      "sdg/SI_COV_CHLD_multiple_place_bar_block",
-                      "sdg/SI_COV_CHLD.SEX--F_multiple_place_bar_block",
-                      "sdg/SI_COV_CHLD.SEX--M_multiple_place_bar_block"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex in United States (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_WKINJRY"
-                    ],
-                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex in United States",
+                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in United States",
                     "type": "LINE"
                   }
                 ]
@@ -553,51 +528,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex in United States",
+                    "description": "Proportion of Population Using Basic Drinking Water Services, by Location in United States",
                     "statVarKey": [
-                      "sdg/SI_COV_WKINJRY"
-                    ],
-                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex in United States",
-                    "statVarKey": [
-                      "sdg/SI_COV_POOR"
-                    ],
-                    "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O",
-                      "sdg/SP_ACS_BSRVH2O.URBANISATION--R",
-                      "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Proportion of Population Using Basic Drinking Water Services, by Location in United States",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
+            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
             "title": "Proportion of Population Using Basic Drinking Water Services, by Location"
           },
           {
@@ -606,191 +547,28 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN",
-                      "sdg/SP_ACS_BSRVSAN.URBANISATION--R",
-                      "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
+                      "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Proportion of Population Using Basic Sanitation Services, by Location in United States",
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Population Using Basic Sanitation Services, by Location in United States",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
             ],
+            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
             "title": "Proportion of Population Using Basic Sanitation Services, by Location"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/VC_DSR_MMHN"
-                    ],
-                    "title": "Deaths and Missing Persons Attributed to Disasters in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Deaths and Missing Persons Attributed to Disasters in United States",
-                    "statVarKey": [
-                      "sdg/VC_DSR_MMHN"
-                    ],
-                    "title": "Deaths and Missing Persons Attributed to Disasters in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Deaths and Missing Persons Attributed to Disasters"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/VC_DSR_MTMP"
-                    ],
-                    "title": "Deaths and Missing Persons Attributed to Disasters Per 100K Population in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Deaths and Missing Persons Attributed to Disasters Per 100K Population in United States",
-                    "statVarKey": [
-                      "sdg/VC_DSR_MTMP"
-                    ],
-                    "title": "Deaths and Missing Persons Attributed to Disasters Per 100K Population in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Deaths and Missing Persons Attributed to Disasters Per 100K Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/VC_DSR_MORT"
-                    ],
-                    "title": "Deaths Due to Disaster in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Deaths Due to Disaster in United States",
-                    "statVarKey": [
-                      "sdg/VC_DSR_MORT"
-                    ],
-                    "title": "Deaths Due to Disaster in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Deaths Due to Disaster"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/VC_DSR_DAFF"
-                    ],
-                    "title": "Directly Affected Persons Attributed to Disasters Per 100K Population in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Directly Affected Persons Attributed to Disasters Per 100K Population in United States",
-                    "statVarKey": [
-                      "sdg/VC_DSR_DAFF"
-                    ],
-                    "title": "Directly Affected Persons Attributed to Disasters Per 100K Population in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Directly Affected Persons Attributed to Disasters Per 100K Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/DC_ODA_POVDLG"
-                    ],
-                    "title": "Official Development Assistance Grants for Poverty Reduction, by Donor Countries in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Official Development Assistance Grants for Poverty Reduction, by Donor Countries in United States",
-                    "statVarKey": [
-                      "sdg/DC_ODA_POVDLG"
-                    ],
-                    "title": "Official Development Assistance Grants for Poverty Reduction, by Donor Countries in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: the organisation for economic Co-operation and development (OECD).",
-            "title": "Official Development Assistance Grants for Poverty Reduction, by Donor Countries"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SD_XPD_ESED"
-                    ],
-                    "title": "Proportion of Total Government Spending on Essential Services, Education in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Proportion of Total Government Spending on Essential Services, Education in United States",
-                    "statVarKey": [
-                      "sdg/SD_XPD_ESED"
-                    ],
-                    "title": "Proportion of Total Government Spending on Essential Services, Education in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: BOOST initiative. Country-Data available at: https://www.Worldbank.Org/En/Programs/Boost-Portal/Country-Data; data extracted on 01 april 2022; expenditure by function of government (COFOG) - IMF data. Data available at: https://data.Imf.org/regular.Aspx?Key=61037799; data extracted on 01 april 2022; government finace statistics (GFS) database. Data available at: https://data.Imf.Org/; data extracted on 01 april 2022; IMF; data extracted on 01 april 2022; public expenditure review (PER); data extracted on 01 april 2022; UNESCO institute for statistics; data extracted on 01 april 2022.",
-            "title": "Proportion of Total Government Spending on Essential Services, Education"
           },
           {
             "columns": [
@@ -887,12 +665,145 @@
             ],
             "denom": "Count_Person",
             "title": "Family Households Below the Poverty Line in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in the Past 12 Months in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_PovertyStatusDetermined"
+                    ],
+                    "title": "Population With Poverty Status Determined in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population With Poverty Status Determined in United States",
+                    "statVarKey": [
+                      "Count_Person_PovertyStatusDetermined"
+                    ],
+                    "title": "Population With Poverty Status Determined in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population With Poverty Status Determined"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population: English Spoken at Home, Above Poverty Line in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population: English Spoken at Home, Above Poverty Line in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: English Spoken at Home, Above Poverty Line in Counties of United States"
           }
         ],
         "statVarSpec": {
           "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
             "name": "Family Households Below the poverty line",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months": {
+            "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months": {
+            "name": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine": {
             "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
@@ -901,6 +812,10 @@
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
             "name": "Population: Some language other than English spoken at home & below poverty line",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months": {
+            "name": "Population: English Spoken At Home, Above Poverty Line",
+            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
             "name": "Population: Only English Spoken At Home, Below Poverty Line",
@@ -962,33 +877,9 @@
             "name": "Males in Poverty (in last year)",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           },
-          "sdg/DC_ODA_POVDLG": {
-            "name": "Official development assistance grants for poverty reduction, by donor countries",
-            "statVar": "sdg/DC_ODA_POVDLG"
-          },
-          "sdg/SD_XPD_ESED": {
-            "name": "Proportion of total government spending on essential services, education",
-            "statVar": "sdg/SD_XPD_ESED"
-          },
-          "sdg/SI_COV_CHLD.SEX--F_multiple_place_bar_block": {
-            "name": "Proportion of children/households receiving child/family cash benefit, by sex [Female]",
-            "statVar": "sdg/SI_COV_CHLD.SEX--F"
-          },
-          "sdg/SI_COV_CHLD.SEX--M_multiple_place_bar_block": {
-            "name": "Proportion of children/households receiving child/family cash benefit, by sex [Male]",
-            "statVar": "sdg/SI_COV_CHLD.SEX--M"
-          },
-          "sdg/SI_COV_CHLD_multiple_place_bar_block": {
-            "name": "Proportion of children/households receiving child/family cash benefit, by sex",
-            "statVar": "sdg/SI_COV_CHLD"
-          },
-          "sdg/SI_COV_POOR": {
-            "name": "Proportion of poor population receiving social assistance cash benefit, by sex",
-            "statVar": "sdg/SI_COV_POOR"
-          },
-          "sdg/SI_COV_WKINJRY": {
-            "name": "Proportion of employed population covered in the event of work injury, by sex",
-            "statVar": "sdg/SI_COV_WKINJRY"
+          "Count_Person_PovertyStatusDetermined": {
+            "name": "Population With Poverty Status Determined",
+            "statVar": "Count_Person_PovertyStatusDetermined"
           },
           "sdg/SI_POV_DAY1": {
             "name": "Proportion of population below international poverty line",
@@ -998,41 +889,9 @@
             "name": "Proportion of population using basic drinking water services, by location",
             "statVar": "sdg/SP_ACS_BSRVH2O"
           },
-          "sdg/SP_ACS_BSRVH2O.URBANISATION--R": {
-            "name": "Proportion of population using basic drinking water services, by location [Rural]",
-            "statVar": "sdg/SP_ACS_BSRVH2O.URBANISATION--R"
-          },
-          "sdg/SP_ACS_BSRVH2O.URBANISATION--U": {
-            "name": "Proportion of population using basic drinking water services, by location [Urban]",
-            "statVar": "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
-          },
           "sdg/SP_ACS_BSRVSAN": {
             "name": "Proportion of population using basic sanitation services, by location",
             "statVar": "sdg/SP_ACS_BSRVSAN"
-          },
-          "sdg/SP_ACS_BSRVSAN.URBANISATION--R": {
-            "name": "Proportion of population using basic sanitation services, by location [Rural]",
-            "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--R"
-          },
-          "sdg/SP_ACS_BSRVSAN.URBANISATION--U": {
-            "name": "Proportion of population using basic sanitation services, by location [Urban]",
-            "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
-          },
-          "sdg/VC_DSR_DAFF": {
-            "name": "directly affected persons attributed to disasters per 100K population",
-            "statVar": "sdg/VC_DSR_DAFF"
-          },
-          "sdg/VC_DSR_MMHN": {
-            "name": "deaths and missing persons attributed to disasters",
-            "statVar": "sdg/VC_DSR_MMHN"
-          },
-          "sdg/VC_DSR_MORT": {
-            "name": "deaths due to disaster",
-            "statVar": "sdg/VC_DSR_MORT"
-          },
-          "sdg/VC_DSR_MTMP": {
-            "name": "deaths and missing persons attributed to disasters per 100K population",
-            "statVar": "sdg/VC_DSR_MTMP"
           }
         }
       }

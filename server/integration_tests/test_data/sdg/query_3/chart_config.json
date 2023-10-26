@@ -151,26 +151,42 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "WHO/WHS4_543"
+                    ],
+                    "title": "Bcg Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) and More in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/MORT_MATERNALNUM"
+                    ],
+                    "title": "Number of Maternal Deaths in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/SH_STA_MORT.SEX--F"
                     ],
                     "title": "Maternal Mortality Ratio [Female] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_STA_BRTC"
-                    ],
-                    "title": "Proportion of Births Attended by Skilled Health Personnel in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
               }
             ],
-            "title": "Maternal Mortality Ratio [Female] and More in the World"
+            "title": "Number of Maternal Deaths and More in the World"
           },
           {
             "columns": [
@@ -178,9 +194,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_IMRTN.AGE--Y0"
+                      "WHO/CM_01"
                     ],
-                    "title": "Infant Deaths [Under 1 Year Old] in the World (${date})",
+                    "title": "Number of Under-Five Deaths in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -189,9 +205,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_IMRTN.AGE--Y0__SEX--F"
+                      "WHO/CM_02"
                     ],
-                    "title": "Infant Deaths [Under 1 Year Old, Female] in the World (${date})",
+                    "title": "Number of Infant Deaths in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -200,15 +216,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_IMRTN.AGE--Y0__SEX--M"
+                      "WHO/CM_03"
                     ],
-                    "title": "Infant Deaths [Under 1 Year Old, Male] in the World (${date})",
+                    "title": "Number of Neonatal Deaths in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Infant Deaths in the World"
+            "denom": "Count_Person",
+            "title": "Child Mortality in the World"
           },
           {
             "columns": [
@@ -216,9 +233,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_IMRT.AGE--Y0"
+                      "WHO/SA_0000001418"
                     ],
-                    "title": "Infant Mortality Rate [Under 1 Year Old] in the World (${date})",
+                    "title": "Alcohol Use Disorders, Per 100,000 in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -227,9 +244,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F"
+                      "WHO/SA_0000001419"
                     ],
-                    "title": "Infant Mortality Rate [Under 1 Year Old, Female] in the World (${date})",
+                    "title": "Breast Cancer, Per 100,000 in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -238,15 +255,192 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
+                      "WHO/SA_0000001420"
                     ],
-                    "title": "Infant Mortality Rate [Under 1 Year Old, Male] in the World (${date})",
+                    "title": "Colon and Rectum Cancers, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001421"
+                    ],
+                    "title": "Diabetes Mellitus, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001422"
+                    ],
+                    "title": "Drownings, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001423"
+                    ],
+                    "title": "Falls, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001424"
+                    ],
+                    "title": "Fires, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001425"
+                    ],
+                    "title": "Ischaemic Heart Disease, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001426"
+                    ],
+                    "title": "Liver Cancer, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001427"
+                    ],
+                    "title": "Liver Cirrhosis, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001429"
+                    ],
+                    "title": "Mouth and Oropharynx Cancer, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001430"
+                    ],
+                    "title": "Oesophagus Cancer, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001431"
+                    ],
+                    "title": "Poisoning, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001432"
+                    ],
+                    "title": "Prematurity and Low Birth Rate, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001433"
+                    ],
+                    "title": "Road Traffic Accidents, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001434"
+                    ],
+                    "title": "Self-Inflicted Injury, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001435"
+                    ],
+                    "title": "Other Unintentional Injuries, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001436"
+                    ],
+                    "title": "Violence, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001689"
+                    ],
+                    "title": "Cerebrovascular Disease, Per 100,000 in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Infant Mortality Rate in the World"
+            "denom": "Count_Person",
+            "title": "Disability-Adjusted Life-Years in the World"
           },
           {
             "columns": [
@@ -254,9 +448,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_MORTN.AGE--Y0T4"
+                      "WHO/NTD_4"
                     ],
-                    "title": "Under-five Deaths [Under 5 Years Old] in the World (${date})",
+                    "title": "New Cases of Human African Trypanosomiasis in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -265,9 +459,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_MORTN.AGE--Y0T4__SEX--F"
+                      "WHO/NTD_LEISHCNUM"
                     ],
-                    "title": "Under-five Deaths [Under 5 Years Old, Female] in the World (${date})",
+                    "title": "Cases of Cutaneous Leishmaniasis in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -276,15 +470,27 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_MORTN.AGE--Y0T4__SEX--M"
+                      "WHO/NTD_LEISHVNUM"
                     ],
-                    "title": "Under-five Deaths [Under 5 Years Old, Male] in the World (${date})",
+                    "title": "Cases of Visceral Leishmaniasis in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/NTD_LEPR5"
+                    ],
+                    "title": "New G2D Leprosy Cases in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Under-five Deaths in the World"
+            "denom": "Count_Person",
+            "title": "Cases of Neglected Troplical Diseases in the World"
           },
           {
             "columns": [
@@ -292,9 +498,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_MORT.AGE--Y0T4"
+                      "WHO/LBW_PREVALENCE"
                     ],
-                    "title": "Under-five Mortality Rate, by Sex [Under 5 Years Old] in the World (${date})",
+                    "title": "% Low Birth Weight in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -303,9 +509,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_MORT.AGE--Y0T4__SEX--F"
+                      "WHO/NUTOVERWEIGHTPREV"
                     ],
-                    "title": "Under-five Mortality Rate, by Sex [Under 5 Years Old, Female] in the World (${date})",
+                    "title": "% Overweight, Children Under 5 Years in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -314,15 +520,60 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_MORT.AGE--Y0T4__SEX--M"
+                      "WHO/NUTRITION_ANAEMIA_CHILDREN_PREV"
                     ],
-                    "title": "Under-five Mortality Rate, by Sex [Under 5 Years Old, Male] in the World (${date})",
+                    "title": "% Anaemia, Children Aged 6-59 Months in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/NUTRITION_WA_2"
+                    ],
+                    "title": "% Underweight, Children Under 5 Years in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/NUTRITION_WH_2"
+                    ],
+                    "title": "% Wasted, Children Under 5 Years in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/NUTRITION_WH_3"
+                    ],
+                    "title": "% Severely Wasted, Children Under 5 Years in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/NUTSTUNTINGPREV"
+                    ],
+                    "title": "% Stunting, Children Under 5 Years in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Under-five Mortality Rate, by Sex in the World"
+            "denom": "Count_Person",
+            "title": "Non-communicable Diseases Among Children in the World"
           },
           {
             "columns": [
@@ -330,9 +581,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_HIV_INCD.AGE--Y_GE50__SEX--F"
+                      "WHO/GDO_q35"
                     ],
-                    "title": "New HIV Infections Per 1,000 Uninfected Population, by Sex and Age [50 Years Old and Over, Female] in the World (${date})",
+                    "title": "Estimated Population-Based Prevalence of Depression in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -341,9 +592,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_HIV_INCD.AGE--Y15T24__SEX--F"
+                      "WHO/SDG_SH_DTH_RNCOM_ChronicRespiratoryDiseases"
                     ],
-                    "title": "New HIV Infections Per 1,000 Uninfected Population, by Sex and Age [15 to 24 Years Old, Female] in the World (${date})",
+                    "title": "Non-Communicable Disease Deaths, by Disease & Sex, Chronic Respiratory Diseases in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -352,216 +603,38 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_HIV_INCD.AGE--Y15T49__SEX--F"
+                      "WHO/SDG_SH_DTH_RNCOM_DiabetesMellitus"
                     ],
-                    "title": "New HIV Infections Per 1,000 Uninfected Population, by Sex and Age [15 to 49 Years Old, Female] in the World (${date})",
+                    "title": "Non-Communicable Disease Deaths, by Disease & Sex, Diabetes Mellitus in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SDG_SH_DTH_RNCOM_MajorCardiovascularDiseases"
+                    ],
+                    "title": "Non-Communicable Diseases Deaths, by Disease & Sex, Major Cardiovascular Diseases in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SDG_SH_DTH_RNCOM_MalignantNeoplasms"
+                    ],
+                    "title": "Non-Communicable Diseases Deaths, by Disease & Sex, Malignant Neoplasms in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Number of New HIV Infections Per 1,000 Uninfected Female Population, by Age in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_HIV_INCD.AGE--Y_GE50__SEX--M"
-                    ],
-                    "title": "New HIV Infections Per 1,000 Uninfected Population, by Sex and Age [50 Years Old and Over, Male] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_HIV_INCD.AGE--Y15T24__SEX--M"
-                    ],
-                    "title": "New HIV Infections Per 1,000 Uninfected Population, by Sex and Age [15 to 24 Years Old, Male] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_HIV_INCD.AGE--Y15T49__SEX--M"
-                    ],
-                    "title": "New HIV Infections Per 1,000 Uninfected Population, by Sex and Age [15 to 49 Years Old, Male] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Number of New HIV Infections Per 1,000 Uninfected Male Population, by Age in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_HIV_INCD"
-                    ],
-                    "title": "New HIV Infections Per 1,000 Uninfected Population, by Sex and Age in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_HIV_INCD.AGE--Y_GE50"
-                    ],
-                    "title": "New HIV Infections Per 1,000 Uninfected Population, by Sex and Age [50 Years Old and Over] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_HIV_INCD.AGE--Y0T14"
-                    ],
-                    "title": "New HIV Infections Per 1,000 Uninfected Population, by Sex and Age [Under 15 Years Old] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_HIV_INCD.AGE--Y15T24"
-                    ],
-                    "title": "New HIV Infections Per 1,000 Uninfected Population, by Sex and Age [15 to 24 Years Old] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_HIV_INCD.AGE--Y15T49"
-                    ],
-                    "title": "New HIV Infections Per 1,000 Uninfected Population, by Sex and Age [15 to 49 Years Old] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Number of New HIV Infections Per 1,000 Uninfected Population, by Age in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_HIV_INCD.SEX--F"
-                    ],
-                    "title": "New HIV Infections Per 1,000 Uninfected Population, by Sex and Age [Female] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_HIV_INCD.SEX--M"
-                    ],
-                    "title": "New HIV Infections Per 1,000 Uninfected Population, by Sex and Age [Male] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Number of New HIV Infections Per 1,000 Uninfected Population, by Sex in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_DTH_NCOM.AGE--Y30T70"
-                    ],
-                    "title": "Mortality Rate Attributed to Cardiovascular Disease, Cancer, Diabetes or Chronic Respiratory Disease [30 to 70 Years Old] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_DTH_NCOM.AGE--Y30T70__SEX--F"
-                    ],
-                    "title": "Mortality Rate Attributed to Cardiovascular Disease, Cancer, Diabetes or Chronic Respiratory Disease [30 to 70 Years Old, Female] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_DTH_NCOM.AGE--Y30T70__SEX--M"
-                    ],
-                    "title": "Mortality Rate Attributed to Cardiovascular Disease, Cancer, Diabetes or Chronic Respiratory Disease [30 to 70 Years Old, Male] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Mortality Rate Attributed to Cardiovascular Disease, Cancer, Diabetes or Chronic Respiratory Disease in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_DTH_NCD.NAME_OF_NON_COMMUNICABLE_DISEASE--NCD_CNCR"
-                    ],
-                    "title": "Deaths Attributed to Non-Communicable Diseases, by Type of Disease and Sex [Cancer] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_DTH_NCD.SEX--F__NAME_OF_NON_COMMUNICABLE_DISEASE--NCD_CNCR"
-                    ],
-                    "title": "Deaths Attributed to Non-Communicable Diseases, by Type of Disease and Sex [Female, Cancer] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_DTH_NCD.SEX--M__NAME_OF_NON_COMMUNICABLE_DISEASE--NCD_CNCR"
-                    ],
-                    "title": "Deaths Attributed to Non-Communicable Diseases, by Type of Disease and Sex [Male, Cancer] in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Number of Deaths Attributed to Non-Communicable Diseases: Cancer, by Sex in the World"
+            "denom": "Count_Person",
+            "title": "Deaths Due to Non-communicable Diseases in the World"
           }
         ],
         "statVarSpec": {
@@ -581,6 +654,30 @@
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           },
+          "WHO/CM_01": {
+            "name": "Number Of Under-Five Deaths",
+            "statVar": "WHO/CM_01"
+          },
+          "WHO/CM_02": {
+            "name": "Number Of Infant Deaths",
+            "statVar": "WHO/CM_02"
+          },
+          "WHO/CM_03": {
+            "name": "Number Of Neonatal Deaths",
+            "statVar": "WHO/CM_03"
+          },
+          "WHO/GDO_q35": {
+            "name": "Estimated Population-Based Prevalence Of Depression",
+            "statVar": "WHO/GDO_q35"
+          },
+          "WHO/LBW_PREVALENCE": {
+            "name": "% Low Birth Weight",
+            "statVar": "WHO/LBW_PREVALENCE"
+          },
+          "WHO/MORT_MATERNALNUM": {
+            "name": "Number Of Maternal Deaths",
+            "statVar": "WHO/MORT_MATERNALNUM"
+          },
           "WHO/M_Est_smk_daily": {
             "name": "% Daily Tobacco Smokers (Estimate)",
             "statVar": "WHO/M_Est_smk_daily"
@@ -597,6 +694,138 @@
             "name": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate)",
             "statVar": "WHO/NCD_PAC"
           },
+          "WHO/NTD_4": {
+            "name": "New Cases Of Human African Trypanosomiasis",
+            "statVar": "WHO/NTD_4"
+          },
+          "WHO/NTD_LEISHCNUM": {
+            "name": "Cases Of Cutaneous Leishmaniasis",
+            "statVar": "WHO/NTD_LEISHCNUM"
+          },
+          "WHO/NTD_LEISHVNUM": {
+            "name": "Cases Of Visceral Leishmaniasis",
+            "statVar": "WHO/NTD_LEISHVNUM"
+          },
+          "WHO/NTD_LEPR5": {
+            "name": "New G2D Leprosy Cases",
+            "statVar": "WHO/NTD_LEPR5"
+          },
+          "WHO/NUTOVERWEIGHTPREV": {
+            "name": "% Overweight, Children Under 5 Years",
+            "statVar": "WHO/NUTOVERWEIGHTPREV"
+          },
+          "WHO/NUTRITION_ANAEMIA_CHILDREN_PREV": {
+            "name": "% Anaemia, Children Aged 6-59 Months",
+            "statVar": "WHO/NUTRITION_ANAEMIA_CHILDREN_PREV"
+          },
+          "WHO/NUTRITION_WA_2": {
+            "name": "% Underweight, Children Under 5 Years",
+            "statVar": "WHO/NUTRITION_WA_2"
+          },
+          "WHO/NUTRITION_WH_2": {
+            "name": "% Wasted, Children Under 5 Years",
+            "statVar": "WHO/NUTRITION_WH_2"
+          },
+          "WHO/NUTRITION_WH_3": {
+            "name": "% Severely Wasted, Children Under 5 Years",
+            "statVar": "WHO/NUTRITION_WH_3"
+          },
+          "WHO/NUTSTUNTINGPREV": {
+            "name": "% Stunting, Children Under 5 Years",
+            "statVar": "WHO/NUTSTUNTINGPREV"
+          },
+          "WHO/SA_0000001418": {
+            "name": "Alcohol Use Disorders, Per 100,000",
+            "statVar": "WHO/SA_0000001418"
+          },
+          "WHO/SA_0000001419": {
+            "name": "Breast Cancer, Per 100,000",
+            "statVar": "WHO/SA_0000001419"
+          },
+          "WHO/SA_0000001420": {
+            "name": "Colon And Rectum Cancers, Per 100,000",
+            "statVar": "WHO/SA_0000001420"
+          },
+          "WHO/SA_0000001421": {
+            "name": "Diabetes Mellitus, Per 100,000",
+            "statVar": "WHO/SA_0000001421"
+          },
+          "WHO/SA_0000001422": {
+            "name": "Drownings, Per 100,000",
+            "statVar": "WHO/SA_0000001422"
+          },
+          "WHO/SA_0000001423": {
+            "name": "Falls, Per 100,000",
+            "statVar": "WHO/SA_0000001423"
+          },
+          "WHO/SA_0000001424": {
+            "name": "Fires, Per 100,000",
+            "statVar": "WHO/SA_0000001424"
+          },
+          "WHO/SA_0000001425": {
+            "name": "Ischaemic Heart Disease, Per 100,000",
+            "statVar": "WHO/SA_0000001425"
+          },
+          "WHO/SA_0000001426": {
+            "name": "Liver Cancer, Per 100,000",
+            "statVar": "WHO/SA_0000001426"
+          },
+          "WHO/SA_0000001427": {
+            "name": "Liver Cirrhosis, Per 100,000",
+            "statVar": "WHO/SA_0000001427"
+          },
+          "WHO/SA_0000001429": {
+            "name": "Mouth And Oropharynx Cancer, Per 100,000",
+            "statVar": "WHO/SA_0000001429"
+          },
+          "WHO/SA_0000001430": {
+            "name": "Oesophagus Cancer, Per 100,000",
+            "statVar": "WHO/SA_0000001430"
+          },
+          "WHO/SA_0000001431": {
+            "name": "Poisoning, Per 100,000",
+            "statVar": "WHO/SA_0000001431"
+          },
+          "WHO/SA_0000001432": {
+            "name": "Prematurity And Low Birth Rate, Per 100,000",
+            "statVar": "WHO/SA_0000001432"
+          },
+          "WHO/SA_0000001433": {
+            "name": "Road Traffic Accidents, Per 100,000",
+            "statVar": "WHO/SA_0000001433"
+          },
+          "WHO/SA_0000001434": {
+            "name": "Self-Inflicted Injury, Per 100,000",
+            "statVar": "WHO/SA_0000001434"
+          },
+          "WHO/SA_0000001435": {
+            "name": "Other Unintentional Injuries, Per 100,000",
+            "statVar": "WHO/SA_0000001435"
+          },
+          "WHO/SA_0000001436": {
+            "name": "Violence, Per 100,000",
+            "statVar": "WHO/SA_0000001436"
+          },
+          "WHO/SA_0000001689": {
+            "name": "Cerebrovascular Disease, Per 100,000",
+            "statVar": "WHO/SA_0000001689"
+          },
+          "WHO/SDG_SH_DTH_RNCOM_ChronicRespiratoryDiseases": {
+            "name": "Non-Communicable Disease Deaths, By Disease & Sex, Chronic Respiratory Diseases",
+            "statVar": "WHO/SDG_SH_DTH_RNCOM_ChronicRespiratoryDiseases"
+          },
+          "WHO/SDG_SH_DTH_RNCOM_DiabetesMellitus": {
+            "name": "Non-Communicable Disease Deaths, By Disease & Sex, Diabetes Mellitus",
+            "statVar": "WHO/SDG_SH_DTH_RNCOM_DiabetesMellitus"
+          },
+          "WHO/SDG_SH_DTH_RNCOM_MajorCardiovascularDiseases": {
+            "name": "Non-Communicable Diseases Deaths, By Disease & Sex, Major Cardiovascular Diseases",
+            "statVar": "WHO/SDG_SH_DTH_RNCOM_MajorCardiovascularDiseases"
+          },
+          "WHO/SDG_SH_DTH_RNCOM_MalignantNeoplasms": {
+            "name": "Non-Communicable Diseases Deaths, By Disease & Sex, Malignant Neoplasms",
+            "statVar": "WHO/SDG_SH_DTH_RNCOM_MalignantNeoplasms"
+          },
           "WHO/WHS4_117": {
             "name": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%)",
             "statVar": "WHO/WHS4_117"
@@ -609,133 +838,9 @@
             "name": "Hib (Hib3) Immunization Coverage Among 1-Year-Olds (%)",
             "statVar": "WHO/WHS4_129"
           },
-          "sdg/SH_DTH_NCD.NAME_OF_NON_COMMUNICABLE_DISEASE--NCD_CNCR": {
-            "name": "deaths attributed to non-communicable diseases, by type of disease and sex [Cancer]",
-            "statVar": "sdg/SH_DTH_NCD.NAME_OF_NON_COMMUNICABLE_DISEASE--NCD_CNCR"
-          },
-          "sdg/SH_DTH_NCD.SEX--F__NAME_OF_NON_COMMUNICABLE_DISEASE--NCD_CNCR": {
-            "name": "deaths attributed to non-communicable diseases, by type of disease and sex [Female, Cancer]",
-            "statVar": "sdg/SH_DTH_NCD.SEX--F__NAME_OF_NON_COMMUNICABLE_DISEASE--NCD_CNCR"
-          },
-          "sdg/SH_DTH_NCD.SEX--M__NAME_OF_NON_COMMUNICABLE_DISEASE--NCD_CNCR": {
-            "name": "deaths attributed to non-communicable diseases, by type of disease and sex [Male, Cancer]",
-            "statVar": "sdg/SH_DTH_NCD.SEX--M__NAME_OF_NON_COMMUNICABLE_DISEASE--NCD_CNCR"
-          },
-          "sdg/SH_DTH_NCOM.AGE--Y30T70": {
-            "name": "Mortality rate attributed to cardiovascular disease, cancer, diabetes or chronic respiratory disease [30 to 70 years old]",
-            "statVar": "sdg/SH_DTH_NCOM.AGE--Y30T70"
-          },
-          "sdg/SH_DTH_NCOM.AGE--Y30T70__SEX--F": {
-            "name": "Mortality rate attributed to cardiovascular disease, cancer, diabetes or chronic respiratory disease [30 to 70 years old, Female]",
-            "statVar": "sdg/SH_DTH_NCOM.AGE--Y30T70__SEX--F"
-          },
-          "sdg/SH_DTH_NCOM.AGE--Y30T70__SEX--M": {
-            "name": "Mortality rate attributed to cardiovascular disease, cancer, diabetes or chronic respiratory disease [30 to 70 years old, Male]",
-            "statVar": "sdg/SH_DTH_NCOM.AGE--Y30T70__SEX--M"
-          },
-          "sdg/SH_DYN_IMRT.AGE--Y0": {
-            "name": "Infant mortality rate [under 1 year old]",
-            "statVar": "sdg/SH_DYN_IMRT.AGE--Y0"
-          },
-          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F": {
-            "name": "Infant mortality rate [under 1 year old, Female]",
-            "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F"
-          },
-          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M": {
-            "name": "Infant mortality rate [under 1 year old, Male]",
-            "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
-          },
-          "sdg/SH_DYN_IMRTN.AGE--Y0": {
-            "name": "Infant deaths [under 1 year old]",
-            "statVar": "sdg/SH_DYN_IMRTN.AGE--Y0"
-          },
-          "sdg/SH_DYN_IMRTN.AGE--Y0__SEX--F": {
-            "name": "Infant deaths [under 1 year old, Female]",
-            "statVar": "sdg/SH_DYN_IMRTN.AGE--Y0__SEX--F"
-          },
-          "sdg/SH_DYN_IMRTN.AGE--Y0__SEX--M": {
-            "name": "Infant deaths [under 1 year old, Male]",
-            "statVar": "sdg/SH_DYN_IMRTN.AGE--Y0__SEX--M"
-          },
-          "sdg/SH_DYN_MORT.AGE--Y0T4": {
-            "name": "Under-five mortality rate, by sex [under 5 years old]",
-            "statVar": "sdg/SH_DYN_MORT.AGE--Y0T4"
-          },
-          "sdg/SH_DYN_MORT.AGE--Y0T4__SEX--F": {
-            "name": "Under-five mortality rate, by sex [under 5 years old, Female]",
-            "statVar": "sdg/SH_DYN_MORT.AGE--Y0T4__SEX--F"
-          },
-          "sdg/SH_DYN_MORT.AGE--Y0T4__SEX--M": {
-            "name": "Under-five mortality rate, by sex [under 5 years old, Male]",
-            "statVar": "sdg/SH_DYN_MORT.AGE--Y0T4__SEX--M"
-          },
-          "sdg/SH_DYN_MORTN.AGE--Y0T4": {
-            "name": "Under-five deaths [under 5 years old]",
-            "statVar": "sdg/SH_DYN_MORTN.AGE--Y0T4"
-          },
-          "sdg/SH_DYN_MORTN.AGE--Y0T4__SEX--F": {
-            "name": "Under-five deaths [under 5 years old, Female]",
-            "statVar": "sdg/SH_DYN_MORTN.AGE--Y0T4__SEX--F"
-          },
-          "sdg/SH_DYN_MORTN.AGE--Y0T4__SEX--M": {
-            "name": "Under-five deaths [under 5 years old, Male]",
-            "statVar": "sdg/SH_DYN_MORTN.AGE--Y0T4__SEX--M"
-          },
-          "sdg/SH_HIV_INCD": {
-            "name": "new HIV infections per 1,000 uninfected population, by sex and age",
-            "statVar": "sdg/SH_HIV_INCD"
-          },
-          "sdg/SH_HIV_INCD.AGE--Y0T14": {
-            "name": "new HIV infections per 1,000 uninfected population, by sex and age [under 15 years old]",
-            "statVar": "sdg/SH_HIV_INCD.AGE--Y0T14"
-          },
-          "sdg/SH_HIV_INCD.AGE--Y15T24": {
-            "name": "new HIV infections per 1,000 uninfected population, by sex and age [15 to 24 years old]",
-            "statVar": "sdg/SH_HIV_INCD.AGE--Y15T24"
-          },
-          "sdg/SH_HIV_INCD.AGE--Y15T24__SEX--F": {
-            "name": "new HIV infections per 1,000 uninfected population, by sex and age [15 to 24 years old, Female]",
-            "statVar": "sdg/SH_HIV_INCD.AGE--Y15T24__SEX--F"
-          },
-          "sdg/SH_HIV_INCD.AGE--Y15T24__SEX--M": {
-            "name": "new HIV infections per 1,000 uninfected population, by sex and age [15 to 24 years old, Male]",
-            "statVar": "sdg/SH_HIV_INCD.AGE--Y15T24__SEX--M"
-          },
-          "sdg/SH_HIV_INCD.AGE--Y15T49": {
-            "name": "new HIV infections per 1,000 uninfected population, by sex and age [15 to 49 years old]",
-            "statVar": "sdg/SH_HIV_INCD.AGE--Y15T49"
-          },
-          "sdg/SH_HIV_INCD.AGE--Y15T49__SEX--F": {
-            "name": "new HIV infections per 1,000 uninfected population, by sex and age [15 to 49 years old, Female]",
-            "statVar": "sdg/SH_HIV_INCD.AGE--Y15T49__SEX--F"
-          },
-          "sdg/SH_HIV_INCD.AGE--Y15T49__SEX--M": {
-            "name": "new HIV infections per 1,000 uninfected population, by sex and age [15 to 49 years old, Male]",
-            "statVar": "sdg/SH_HIV_INCD.AGE--Y15T49__SEX--M"
-          },
-          "sdg/SH_HIV_INCD.AGE--Y_GE50": {
-            "name": "new HIV infections per 1,000 uninfected population, by sex and age [50 years old and over]",
-            "statVar": "sdg/SH_HIV_INCD.AGE--Y_GE50"
-          },
-          "sdg/SH_HIV_INCD.AGE--Y_GE50__SEX--F": {
-            "name": "new HIV infections per 1,000 uninfected population, by sex and age [50 years old and over, Female]",
-            "statVar": "sdg/SH_HIV_INCD.AGE--Y_GE50__SEX--F"
-          },
-          "sdg/SH_HIV_INCD.AGE--Y_GE50__SEX--M": {
-            "name": "new HIV infections per 1,000 uninfected population, by sex and age [50 years old and over, Male]",
-            "statVar": "sdg/SH_HIV_INCD.AGE--Y_GE50__SEX--M"
-          },
-          "sdg/SH_HIV_INCD.SEX--F": {
-            "name": "new HIV infections per 1,000 uninfected population, by sex and age [Female]",
-            "statVar": "sdg/SH_HIV_INCD.SEX--F"
-          },
-          "sdg/SH_HIV_INCD.SEX--M": {
-            "name": "new HIV infections per 1,000 uninfected population, by sex and age [Male]",
-            "statVar": "sdg/SH_HIV_INCD.SEX--M"
-          },
-          "sdg/SH_STA_BRTC": {
-            "name": "Proportion of births attended by skilled health personnel",
-            "statVar": "sdg/SH_STA_BRTC"
+          "WHO/WHS4_543": {
+            "name": "Bcg Immunization Coverage Among 1-Year-Olds (%)",
+            "statVar": "WHO/WHS4_543"
           },
           "sdg/SH_STA_MORT.SEX--F": {
             "name": "Maternal mortality ratio [Female]",

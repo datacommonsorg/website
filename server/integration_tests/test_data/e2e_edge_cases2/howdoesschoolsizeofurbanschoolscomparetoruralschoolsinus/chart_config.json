@@ -38,6 +38,35 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_EnrolledInSchool"
+                    ],
+                    "title": "Population Currently Enrolled in School in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Currently Enrolled in School in United States",
+                    "statVarKey": [
+                      "Count_Person_EnrolledInSchool"
+                    ],
+                    "title": "Population Currently Enrolled in School in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Currently Enrolled in School"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Person_DetailedPrimarySchool"
                     ],
                     "title": "Elementary School Students in United States",
@@ -136,6 +165,10 @@
           "Count_Person_EnrolledInKindergarten": {
             "name": "Population: Enrolled in Kindergarten",
             "statVar": "Count_Person_EnrolledInKindergarten"
+          },
+          "Count_Person_EnrolledInSchool": {
+            "name": "Population Currently Enrolled in School",
+            "statVar": "Count_Person_EnrolledInSchool"
           }
         }
       }
@@ -169,55 +202,6 @@
       {
         "dcid": "dc/topic/StudentPopulation",
         "name": "Student Population",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_4.1",
-        "name": "4.1: By 2030, ensure that all girls and boys complete free, equitable and quality primary and secondary education leading to relevant and effective learning outcomes",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_4.2",
-        "name": "4.2: By 2030, ensure that all girls and boys have access to quality early childhood development, care and pre-primary education so that they are ready for primary education",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_4.3",
-        "name": "4.3: By 2030, ensure equal access for all women and men to affordable and quality technical, vocational and tertiary education, including university",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_4.5",
-        "name": "4.5: By 2030, eliminate gender disparities in education and ensure equal access to all levels of education and vocational training for the vulnerable, including persons with disabilities, indigenous peoples and children in vulnerable situations",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_4.6",
-        "name": "4.6: By 2030, ensure that all youth and a substantial proportion of adults, both men and women, achieve literacy and numeracy",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_4.a",
-        "name": "4.a: Build and upgrade education facilities that are child, disability and gender sensitive and provide safe, non-violent, inclusive and effective learning environments for all",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_4.c",
-        "name": "4.c: By 2030, substantially increase the supply of qualified teachers, including through international cooperation for teacher training in developing countries, especially least developed countries and small island developing States",
         "types": [
           "Topic"
         ]
@@ -268,19 +252,26 @@
           "dc/g8kg52zcxzw9f",
           "dc/p34mhcpgtth76"
         ]
+      },
+      "Count_Person_EnrolledInSchool": {
+        "gender": [
+          "Count_Person_3OrMoreYears_Female_EnrolledInSchool",
+          "Count_Person_3OrMoreYears_Male_EnrolledInSchool"
+        ],
+        "race": [
+          "dc/4wdtyd2bbf9m9",
+          "dc/5qnjtqc0w783b",
+          "dc/8cnhmxe67qddf",
+          "dc/jbv3zc0ezvcyc",
+          "dc/km8en9ep7bwh6",
+          "dc/zq864lhfql079"
+        ]
       }
     },
     "mainTopics": [
       {
         "dcid": "dc/topic/Schools",
         "name": "Schools",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_4",
-        "name": "4: Quality Education",
         "types": [
           "Topic"
         ]
@@ -291,13 +282,6 @@
       {
         "dcid": "dc/topic/Education",
         "name": "Education",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg",
-        "name": "Sustainable Development Goals",
         "types": [
           "Topic"
         ]
@@ -414,118 +398,6 @@
       {
         "dcid": "dc/topic/SchoolType",
         "name": "School Type",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1",
-        "name": "1: No Poverty",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_2",
-        "name": "2: Zero Hunger",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_3",
-        "name": "3: Good Health and Well-being",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_5",
-        "name": "5: Gender Equality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_6",
-        "name": "6: Clean Water and Sanitation",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_7",
-        "name": "7: Affordable and Clean Energy",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_8",
-        "name": "8: Decent Work and Economic Growth",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_9",
-        "name": "9: Industry, Innovation and Infrastructure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_10",
-        "name": "10: Reduced Inequality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_11",
-        "name": "11: Sustainable Cities and Communities",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_12",
-        "name": "12: Responsible Consumption and Production",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_13",
-        "name": "13: Climate Action",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_14",
-        "name": "14: Life Below Water",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_15",
-        "name": "15: Life on Land",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_16",
-        "name": "16: Peace and Justice Strong Institutions",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_17",
-        "name": "17: Partnerships to achieve the Goal",
         "types": [
           "Topic"
         ]

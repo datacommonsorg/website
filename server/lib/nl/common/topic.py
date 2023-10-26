@@ -149,23 +149,6 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Transportation",
         "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Transportation"
     ],
-    "dc/svpg/SI_POV_DAY1_ByAge": [
-        "sdg/SI_POV_DAY1.AGE--Y0T14",
-        "sdg/SI_POV_DAY1.AGE--Y15T64",
-        "sdg/SI_POV_DAY1.AGE--Y_GE65",
-    ],
-    "dc/svpg/SI_POV_DAY1_ByGender": [
-        "sdg/SI_POV_DAY1.SEX--F",
-        "sdg/SI_POV_DAY1.SEX--M",
-    ],
-    "dc/svpg/SI_POV_DAY1_ByResidence": [
-        "sdg/SI_POV_DAY1.URBANISATION--U",
-        "sdg/SI_POV_DAY1.URBANISATION--R",
-    ],
-    "dc/svpg/SI_POV_EMP1.AGE--Y_GE15_ByGender": [
-        "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
-        "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M",
-    ],
 }
 
 SVPG_NAMES_OVERRIDE = {
@@ -191,15 +174,6 @@ SVPG_NAMES_OVERRIDE = {
         "Emissions from Power Sector",
     "dc/svpg/TransportationEmissionsByGas":
         "Emissions from Transportation Sector",
-    "dc/svpg/SI_POV_DAY1_ByAge":
-        "Population below international poverty line by age",
-    "dc/svpg/SI_POV_DAY1_ByGender":
-        "Population below international poverty line by gender",
-    "dc/svpg/SI_POV_DAY1_ByResidence":
-        ""
-        "Population below international poverty line in rural vs. urban areas",
-    "dc/svpg/SI_POV_EMP1.AGE--Y_GE15_ByGender":
-        "Employed population below international poverty line by gender",
 
     # Temperature Prediction SVPGs.
     'dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecade_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario':

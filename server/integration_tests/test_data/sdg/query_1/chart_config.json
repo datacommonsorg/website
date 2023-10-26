@@ -9,40 +9,13 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24"
+                      "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 to 24 Years Old] in Countries of Africa (${date})",
+                    "title": "Proportion of Population Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
               },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F"
-                    ],
-                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 to 24 Years Old, Female] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
-                    ],
-                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 to 24 Years Old, Male] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex in Countries of Africa"
-          },
-          {
-            "columns": [
               {
                 "tiles": [
                   {
@@ -58,9 +31,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over, Female] in Countries of Africa (${date})",
+                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -69,146 +42,15 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+                      "sdg/SP_ACS_BSRVSAN"
                     ],
-                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over, Male] in Countries of Africa (${date})",
+                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25"
-                    ],
-                    "title": "Employed Population Below International Poverty Line, by Sex and Age [25 Years Old and Over] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F"
-                    ],
-                    "title": "Employed Population Below International Poverty Line, by Sex and Age [25 Years Old and Over, Female] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
-                    ],
-                    "title": "Employed Population Below International Poverty Line, by Sex and Age [25 Years Old and Over, Male] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Proportion of Population Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
-                    ],
-                    "title": "Proportion of Population Below International Poverty Line [65 Years Old and Over] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.AGE--Y0T14"
-                    ],
-                    "title": "Proportion of Population Below International Poverty Line [Under 15 Years Old] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.AGE--Y15T64"
-                    ],
-                    "title": "Proportion of Population Below International Poverty Line [15 to 64 Years Old] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.SEX--F"
-                    ],
-                    "title": "Proportion of Population Below International Poverty Line [Female] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.SEX--M"
-                    ],
-                    "title": "Proportion of Population Below International Poverty Line [Male] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.URBANISATION--R"
-                    ],
-                    "title": "Proportion of Population Below International Poverty Line [Rural] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.URBANISATION--U"
-                    ],
-                    "title": "Proportion of Population Below International Poverty Line [Urban] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Population Below International Poverty Line in Countries of Africa"
+            "title": "Proportion of Population Below International Poverty Line and More in Countries of Africa"
           },
           {
             "columns": [
@@ -301,235 +143,6 @@
               }
             ],
             "title": "Proportion of Children Living in Child-Specific Multidimensional Poverty in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_MATNL.SEX--F"
-                    ],
-                    "title": "Proportion of Mothers With Newborns Receiving Maternity Cash Benefit [Female] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO social security inquiry (SSI); ILO estimates based on country data compled through the ILO social security inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO social security inquiry (SSI). Based on information from federal programmes only.",
-            "title": "Proportion of Mothers With Newborns Receiving Maternity Cash Benefit [Female] in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_CHLD"
-                    ],
-                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_CHLD.SEX--F"
-                    ],
-                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex [Female] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_CHLD.SEX--M"
-                    ],
-                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex [Male] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_WKINJRY"
-                    ],
-                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_WKINJRY.SEX--F"
-                    ],
-                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex [Female] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_WKINJRY.SEX--M"
-                    ],
-                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex [Male] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_POOR"
-                    ],
-                    "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_LGL_LNDSEC"
-                    ],
-                    "title": "Proportion of People Who Perceive Their Rights to Land as Secure Out of Total Adult Population, by Sex in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: census & administrative data; INE; LSMS-ISA; MCC-SHPS; MCC/SHPS; NBS; UEMOA CIV1.",
-            "title": "Proportion of People Who Perceive Their Rights to Land as Secure Out of Total Adult Population, by Sex in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
-                    ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O.URBANISATION--R"
-                    ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location [Rural] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
-                    ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location [Urban] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Population Using Basic Drinking Water Services, by Location in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
-                    ],
-                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN.URBANISATION--R"
-                    ],
-                    "title": "Proportion of Population Using Basic Sanitation Services, by Location [Rural] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
-                    ],
-                    "title": "Proportion of Population Using Basic Sanitation Services, by Location [Urban] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Population Using Basic Sanitation Services, by Location in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_LGL_LNDDOC"
-                    ],
-                    "title": "Proportion of People With Legally Recognized Documentation of Their Rights to Land Out of Total Adult Population, by Sex in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_LGL_LNDDOC.SEX--F"
-                    ],
-                    "title": "Proportion of People With Legally Recognized Documentation of Their Rights to Land Out of Total Adult Population, by Sex [Female] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of People With Legally Recognized Documentation of Their Rights to Land Out of Total Adult Population, by Sex in Countries of Africa"
           }
         ],
         "statVarSpec": {
@@ -557,105 +170,13 @@
             "name": "Proportion of children living in child-specific multidimensional poverty [under 18 years old, Urban]",
             "statVar": "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--U"
           },
-          "sdg/SI_COV_CHLD": {
-            "name": "Proportion of children/households receiving child/family cash benefit, by sex",
-            "statVar": "sdg/SI_COV_CHLD"
-          },
-          "sdg/SI_COV_CHLD.SEX--F": {
-            "name": "Proportion of children/households receiving child/family cash benefit, by sex [Female]",
-            "statVar": "sdg/SI_COV_CHLD.SEX--F"
-          },
-          "sdg/SI_COV_CHLD.SEX--M": {
-            "name": "Proportion of children/households receiving child/family cash benefit, by sex [Male]",
-            "statVar": "sdg/SI_COV_CHLD.SEX--M"
-          },
-          "sdg/SI_COV_MATNL.SEX--F": {
-            "name": "Proportion of mothers with newborns receiving maternity cash benefit [Female]",
-            "statVar": "sdg/SI_COV_MATNL.SEX--F"
-          },
-          "sdg/SI_COV_POOR": {
-            "name": "Proportion of poor population receiving social assistance cash benefit, by sex",
-            "statVar": "sdg/SI_COV_POOR"
-          },
-          "sdg/SI_COV_WKINJRY": {
-            "name": "Proportion of employed population covered in the event of work injury, by sex",
-            "statVar": "sdg/SI_COV_WKINJRY"
-          },
-          "sdg/SI_COV_WKINJRY.SEX--F": {
-            "name": "Proportion of employed population covered in the event of work injury, by sex [Female]",
-            "statVar": "sdg/SI_COV_WKINJRY.SEX--F"
-          },
-          "sdg/SI_COV_WKINJRY.SEX--M": {
-            "name": "Proportion of employed population covered in the event of work injury, by sex [Male]",
-            "statVar": "sdg/SI_COV_WKINJRY.SEX--M"
-          },
           "sdg/SI_POV_DAY1": {
             "name": "Proportion of population below international poverty line",
             "statVar": "sdg/SI_POV_DAY1"
           },
-          "sdg/SI_POV_DAY1.AGE--Y0T14": {
-            "name": "Proportion of population below international poverty line [under 15 years old]",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
-          },
-          "sdg/SI_POV_DAY1.AGE--Y15T64": {
-            "name": "Proportion of population below international poverty line [15 to 64 years old]",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y15T64"
-          },
-          "sdg/SI_POV_DAY1.AGE--Y_GE65": {
-            "name": "Proportion of population below international poverty line [65 years old and over]",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
-          },
-          "sdg/SI_POV_DAY1.SEX--F": {
-            "name": "Proportion of population below international poverty line [Female]",
-            "statVar": "sdg/SI_POV_DAY1.SEX--F"
-          },
-          "sdg/SI_POV_DAY1.SEX--M": {
-            "name": "Proportion of population below international poverty line [Male]",
-            "statVar": "sdg/SI_POV_DAY1.SEX--M"
-          },
-          "sdg/SI_POV_DAY1.URBANISATION--R": {
-            "name": "Proportion of population below international poverty line [Rural]",
-            "statVar": "sdg/SI_POV_DAY1.URBANISATION--R"
-          },
-          "sdg/SI_POV_DAY1.URBANISATION--U": {
-            "name": "Proportion of population below international poverty line [Urban]",
-            "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y15T24": {
-            "name": "Employed population below international poverty line, by sex and age [15 to 24 years old]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F": {
-            "name": "Employed population below international poverty line, by sex and age [15 to 24 years old, Female]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M": {
-            "name": "Employed population below international poverty line, by sex and age [15 to 24 years old, Male]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
-          },
           "sdg/SI_POV_EMP1.AGE--Y_GE15": {
             "name": "Employed population below international poverty line, by sex and age [15 years old and over]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": {
-            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Female]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
-            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Male]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE25": {
-            "name": "Employed population below international poverty line, by sex and age [25 years old and over]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F": {
-            "name": "Employed population below international poverty line, by sex and age [25 years old and over, Female]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M": {
-            "name": "Employed population below international poverty line, by sex and age [25 years old and over, Male]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
           },
           "sdg/SI_POV_NAHC": {
             "name": "Proportion of population living below the national poverty line",
@@ -665,37 +186,9 @@
             "name": "Proportion of population using basic drinking water services, by location",
             "statVar": "sdg/SP_ACS_BSRVH2O"
           },
-          "sdg/SP_ACS_BSRVH2O.URBANISATION--R": {
-            "name": "Proportion of population using basic drinking water services, by location [Rural]",
-            "statVar": "sdg/SP_ACS_BSRVH2O.URBANISATION--R"
-          },
-          "sdg/SP_ACS_BSRVH2O.URBANISATION--U": {
-            "name": "Proportion of population using basic drinking water services, by location [Urban]",
-            "statVar": "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
-          },
           "sdg/SP_ACS_BSRVSAN": {
             "name": "Proportion of population using basic sanitation services, by location",
             "statVar": "sdg/SP_ACS_BSRVSAN"
-          },
-          "sdg/SP_ACS_BSRVSAN.URBANISATION--R": {
-            "name": "Proportion of population using basic sanitation services, by location [Rural]",
-            "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--R"
-          },
-          "sdg/SP_ACS_BSRVSAN.URBANISATION--U": {
-            "name": "Proportion of population using basic sanitation services, by location [Urban]",
-            "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
-          },
-          "sdg/SP_LGL_LNDDOC": {
-            "name": "Proportion of people with legally recognized documentation of their rights to land out of total adult population, by sex",
-            "statVar": "sdg/SP_LGL_LNDDOC"
-          },
-          "sdg/SP_LGL_LNDDOC.SEX--F": {
-            "name": "Proportion of people with legally recognized documentation of their rights to land out of total adult population, by sex [Female]",
-            "statVar": "sdg/SP_LGL_LNDDOC.SEX--F"
-          },
-          "sdg/SP_LGL_LNDSEC": {
-            "name": "Proportion of people who perceive their rights to land as secure out of total adult population, by sex",
-            "statVar": "sdg/SP_LGL_LNDSEC"
           }
         }
       }
