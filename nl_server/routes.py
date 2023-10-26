@@ -20,7 +20,7 @@ from flask import current_app
 from flask import request
 from markupsafe import escape
 
-from nl_server import loader as ld
+from nl_server import embeddings_store as store
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -41,14 +41,14 @@ def search_sv():
   }
   """
   query = str(escape(request.args.get('q')))
-  sz = str(escape(request.args.get('sz', ld.DEFAULT_INDEX_TYPE)))
+  sz = str(escape(request.args.get('sz', store.DEFAULT_INDEX_TYPE)))
   if not sz:
-    sz = ld.DEFAULT_INDEX_TYPE
+    sz = store.DEFAULT_INDEX_TYPE
   skip_multi_sv = False
   if request.args.get('skip_multi_sv'):
     skip_multi_sv = True
   try:
-    nl_embeddings = current_app.config[ld.embeddings_config_key(sz)]
+    nl_embeddings = current_app.config['NL_EMBEDDINGS'].get(sz)
     return json.dumps(nl_embeddings.detect_svs(query, skip_multi_sv))
   except Exception as e:
     logging.error(f'Embeddings-based SV detection failed with error: {e}')
