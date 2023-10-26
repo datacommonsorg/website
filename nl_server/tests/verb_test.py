@@ -19,8 +19,8 @@ import unittest
 from diskcache import Cache
 from parameterized import parameterized
 
-from nl_server.loader import nl_cache_path
-from nl_server.loader import nl_model_cache_key
+from nl_server.loader import NL_CACHE_PATH
+from nl_server.loader import NL_MODEL_CACHE_KEY
 from nl_server.nl_attribute_model import NLAttributeModel
 
 
@@ -30,9 +30,9 @@ class TestVerbs(unittest.TestCase):
   def setUpClass(cls) -> None:
 
     # Look for the Embeddings model in the cache if it exists.
-    cache = Cache(nl_cache_path)
+    cache = Cache(NL_CACHE_PATH)
     cache.expire()
-    cls.nl_model = cache.get(nl_model_cache_key)
+    cls.nl_model = cache.get(NL_MODEL_CACHE_KEY)
     if not cls.nl_model:
       logging.error(
           'Could not load model from the cache for these tests. Loading a new model object.'

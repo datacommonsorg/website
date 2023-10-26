@@ -287,6 +287,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     user_db = firestore.client()
     app.config['USER_DB'] = user_db
 
+  # Load place explorer summaries
+  app.config['PLACE_EXPLORER_SUMMARIES'] = libutil.get_place_summaries()
+
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
   app.config['TOPIC_PAGE_CONFIG'] = topic_page_configs
