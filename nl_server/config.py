@@ -89,11 +89,13 @@ def _parse(embeddings_map: Dict[str, str]) -> List[Index]:
     idx = Index(name=key, embeddings_file_name=value)
     if len(parts) == 4:
       # Expect: <embeddings_version>.<fine-tuned-model-version>.<base-model>.csv
+      # Example: embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
       assert parts[
           2] == EMBEDDINGS_BASE_MODEL_NAME, f'Unexpected base model {parts[3]}'
       idx.tuned_model = f'{parts[1]}.{parts[2]}'
     else:
       # Expect: <embeddings_version>.csv
+      # Example: embeddings_small_2023_05_24_23_17_03.csv
       assert len(parts) == 2, f'Unexpected file name format {value}'
     assert parts[
         -1] == 'csv', f'Embeddings file {value} name does not end with .csv!'
