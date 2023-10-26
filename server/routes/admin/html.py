@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import os
+import shlex
 import subprocess
 
 from flask import Blueprint
@@ -35,6 +36,7 @@ def load_data():
     sql_data_path = request.json.get("sqlDataPath")
   if not sql_data_path:
     sql_data_path = os.environ.get("SQL_DATA_PATH")
+  sql_data_path = os.path.abspath(sql_data_path)
 
   # TODO: dynamically create the output dir.
   output_dir = os.path.join(sql_data_path, 'data')
@@ -48,13 +50,14 @@ def load_data():
       "--output_dir",
       f"{output_dir}",
   ]
+  data_path_arg = shlex.quote(f'{{"data_path": "{output_dir}"}}')
   command2 = [
       "curl",
       "-X",
       "POST",
       "localhost:8081/import",
       "-d",
-      f'{{"data_path": "{output_dir}"}}',
+      data_path_arg,
   ]
   output = []
   for command, cwd in [(command1, "import/simple"), (command2, ".")]:
