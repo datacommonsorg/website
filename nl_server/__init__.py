@@ -49,6 +49,11 @@ def create_app():
   return app
 
 
+#
+# On prod the yaml files are in /datacommons/nl/, whereas
+# in test-like environments it is the checked in path
+# (deploy/nl/).
+#
 def get_env_path(file_name: str) -> str:
   flask_env = os.environ.get('FLASK_ENV')
   if flask_env in ['local', 'test', 'integration_test', 'webdriver']:

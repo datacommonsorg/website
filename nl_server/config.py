@@ -33,7 +33,7 @@ NL_EMBEDDINGS_VERSION_KEY = 'NL_EMBEDDINGS_VERSION_MAP'
 
 # Defines one embeddings index config.
 @dataclass
-class Index:
+class EmbeddingsIndex:
   # Name provided in the yaml file, and set in `idx=` URL param.
   name: str
 
@@ -51,8 +51,8 @@ class Index:
 #
 # Validates the config input, downloads all the files and returns a list of Indexes to load.
 #
-def load(embeddings_map: Dict[str, str], models_map: Dict[str,
-                                                          str]) -> List[Index]:
+def load(embeddings_map: Dict[str, str],
+         models_map: Dict[str, str]) -> List[EmbeddingsIndex]:
   # Create Index objects.
   indexes = _parse(embeddings_map)
 
@@ -81,12 +81,16 @@ def load(embeddings_map: Dict[str, str], models_map: Dict[str,
   return indexes
 
 
-def _parse(embeddings_map: Dict[str, str]) -> List[Index]:
-  indexes: List[Index] = []
+def _parse(embeddings_map: Dict[str, str]) -> List[EmbeddingsIndex]:
+  indexes: List[EmbeddingsIndex] = []
 
   for key, value in embeddings_map.items():
+    idx = EmbeddingsIndex(name=key, embeddings_file_name=value)
+
     parts = value.split('.')
-    idx = Index(name=key, embeddings_file_name=value)
+    assert parts[
+        -1] == 'csv', f'Embeddings file {value} name does not end with .csv!'
+
     if len(parts) == 4:
       # Expect: <embeddings_version>.<fine-tuned-model-version>.<base-model>.csv
       # Example: embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
@@ -97,8 +101,6 @@ def _parse(embeddings_map: Dict[str, str]) -> List[Index]:
       # Expect: <embeddings_version>.csv
       # Example: embeddings_small_2023_05_24_23_17_03.csv
       assert len(parts) == 2, f'Unexpected file name format {value}'
-    assert parts[
-        -1] == 'csv', f'Embeddings file {value} name does not end with .csv!'
     indexes.append(idx)
 
   return indexes

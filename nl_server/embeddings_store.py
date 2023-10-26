@@ -15,7 +15,7 @@
 from typing import List
 
 from nl_server.config import DEFAULT_INDEX_TYPE
-from nl_server.config import Index
+from nl_server.config import EmbeddingsIndex
 from nl_server.embeddings import Embeddings
 
 
@@ -26,7 +26,7 @@ from nl_server.embeddings import Embeddings
 #
 class Store:
 
-  def __init__(self, indexes: List[Index]):
+  def __init__(self, indexes: List[EmbeddingsIndex]):
     self.embeddings_map = {}
     for idx in indexes:
       self.embeddings_map[idx.name] = Embeddings(idx.embeddings_local_path,
