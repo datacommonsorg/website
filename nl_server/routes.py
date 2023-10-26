@@ -20,7 +20,7 @@ from flask import current_app
 from flask import request
 from markupsafe import escape
 
-from nl_server import embeddings_store as store
+from nl_server import config
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -41,14 +41,14 @@ def search_sv():
   }
   """
   query = str(escape(request.args.get('q')))
-  sz = str(escape(request.args.get('sz', store.DEFAULT_INDEX_TYPE)))
+  sz = str(escape(request.args.get('sz', config.DEFAULT_INDEX_TYPE)))
   if not sz:
-    sz = store.DEFAULT_INDEX_TYPE
+    sz = config.DEFAULT_INDEX_TYPE
   skip_multi_sv = False
   if request.args.get('skip_multi_sv'):
     skip_multi_sv = True
   try:
-    nl_embeddings = current_app.config['NL_EMBEDDINGS'].get(sz)
+    nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(sz)
     return json.dumps(nl_embeddings.detect_svs(query, skip_multi_sv))
   except Exception as e:
     logging.error(f'Embeddings-based SV detection failed with error: {e}')
@@ -69,7 +69,7 @@ def search_places():
   }
   """
   query = str(escape(request.args.get('q')))
-  nl_model = current_app.config['NL_MODEL']
+  nl_model = current_app.config[config.NL_MODEL_KEY]
   try:
     res = nl_model.detect_places_ner(query)
     return json.dumps({'places': res})
@@ -85,10 +85,10 @@ def search_verbs():
   List[str]
   """
   query = str(escape(request.args.get('q')))
-  nl_model = current_app.config['NL_MODEL']
+  nl_model = current_app.config[config.NL_MODEL_KEY]
   return json.dumps(nl_model.detect_verbs(query.strip()))
 
 
 @bp.route('/api/embeddings_version_map/', methods=['GET'])
 def embeddings_version_map():
-  return json.dumps(current_app.config['EMBEDDINGS_VERSION_MAP'])
+  return json.dumps(current_app.config[config.NL_EMBEDDINGS_VERSION_KEY])

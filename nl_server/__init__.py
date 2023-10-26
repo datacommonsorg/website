@@ -19,6 +19,7 @@ from flask import Flask
 import torch
 import yaml
 
+from nl_server import config
 import nl_server.loader as loader
 import nl_server.routes as routes
 
@@ -41,7 +42,7 @@ def create_app():
   with open(get_env_path(_EMBEDDINGS_YAML)) as f:
     embeddings_map = yaml.full_load(f)
     assert embeddings_map, 'No embeddings.yaml found!'
-    app.config['EMBEDDINGS_VERSION_MAP'] = embeddings_map
+    app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_map
 
   loader.load_server_state(app, embeddings_map, models_map)
 

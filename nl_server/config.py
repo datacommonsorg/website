@@ -18,8 +18,20 @@ from typing import Dict, List
 from nl_server import embeddings
 from nl_server import gcs
 
+# Index constants.  Passed in `url=`
+CUSTOM_DC_INDEX = 'custom'
+DEFAULT_INDEX_TYPE = 'medium_ft'
 
-# Defines one embeddings index.
+# The default base model we use.
+EMBEDDINGS_BASE_MODEL_NAME = 'all-MiniLM-L6-v2'
+
+# App Config constants.
+NL_MODEL_KEY = 'NL_MODEL'
+NL_EMBEDDINGS_KEY = 'NL_EMBEDDINGS'
+NL_EMBEDDINGS_VERSION_KEY = 'NL_EMBEDDINGS_VERSION_MAP'
+
+
+# Defines one embeddings index config.
 @dataclass
 class Index:
   # Name provided in the yaml file, and set in `idx=` URL param.
@@ -78,7 +90,7 @@ def _to_indexes(embeddings_map: Dict[str, str]) -> List[Index]:
     if len(parts) == 4:
       # Expect: <embeddings_version>.<fine-tuned-model-version>.<base-model>.csv
       assert parts[
-          2] == embeddings.MODEL_NAME, f'Unexpected base model {parts[3]}'
+          2] == EMBEDDINGS_BASE_MODEL_NAME, f'Unexpected base model {parts[3]}'
       idx.tuned_model = f'{parts[1]}.{parts[2]}'
     else:
       # Expect: <embeddings_version>.csv

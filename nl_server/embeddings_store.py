@@ -14,11 +14,9 @@
 
 from typing import List
 
+from nl_server.config import DEFAULT_INDEX_TYPE
 from nl_server.config import Index
 from nl_server.embeddings import Embeddings
-
-CUSTOM_DC_INDEX = 'custom'
-DEFAULT_INDEX_TYPE = 'medium_ft'
 
 
 #

@@ -44,16 +44,16 @@ def load_server_state(app: Any, embeddings_map: Dict[str, str],
     nl_model = cache.get(NL_MODEL_CACHE_KEY)
     nl_embeddings = cache.get(NL_EMBEDDINGS_CACHE_KEY)
     if nl_model and nl_embeddings:
-      app.config['NL_MODEL'] = nl_model
-      app.config['NL_EMBEDDINGS'] = nl_embeddings
+      app.config[config.NL_MODEL_KEY] = nl_model
+      app.config[config.NL_EMBEDDINGS_KEY] = nl_embeddings
       return
 
   nl_embeddings = embeddings_store.Store(config.load(embeddings_map,
                                                      models_map))
-  app.config['NL_EMBEDDINGS'] = nl_embeddings
+  app.config[config.NL_EMBEDDINGS_KEY] = nl_embeddings
 
   nl_model = NLAttributeModel()
-  app.config["NL_MODEL"] = nl_model
+  app.config[config.NL_MODEL_KEY] = nl_model
 
   if _use_cache(flask_env):
     with Cache(cache.directory, size_limit=_NL_CACHE_SIZE_LIMIT) as reference:
