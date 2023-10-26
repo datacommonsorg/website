@@ -54,7 +54,7 @@ class Index:
 def load(embeddings_map: Dict[str, str], models_map: Dict[str,
                                                           str]) -> List[Index]:
   # Create Index objects.
-  indexes = _to_indexes(embeddings_map)
+  indexes = _parse(embeddings_map)
 
   # This is just a sanity, we can soon deprecate models.yaml
   tuned_models_provided = list(set(models_map.values()))
@@ -81,7 +81,7 @@ def load(embeddings_map: Dict[str, str], models_map: Dict[str,
   return indexes
 
 
-def _to_indexes(embeddings_map: Dict[str, str]) -> List[Index]:
+def _parse(embeddings_map: Dict[str, str]) -> List[Index]:
   indexes: List[Index] = []
 
   for key, value in embeddings_map.items():
