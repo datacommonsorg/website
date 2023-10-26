@@ -70,6 +70,22 @@ This is a common sheet across the different index sizes.
 
 8. If everything looks good, send out a PR with the `embeddings.yaml`, the `differ_report.html` file (as a linked attachement), CSV changes, and updated goldens.
 
+## Production Config Files
+
+### [`embeddings.yaml`](../../../deploy/nl/embeddings.yaml)
+
+Lists the embeddings CSV files (generated using the steps above).
+
+The keys are index names (specified as `idx=` param value), and the values are file names (with the assumption that the files are stored in gs://datcom-nl-models/).
+
+These files, generated from a fine-tuned model (as of Q2 2023), have the following structure:  <version>.<fine-tuned-model-version>.<base-model-name>.csv  (e.g., `datcom-nl-models/embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv`).
+
+Additionally, for custom DCs, there is `custom` index name which gets merged into the default prod index (`medium_ft`) on NL server boot.  This allows for custom vs. base SV comparisons on NL.
+
+### [`models.yaml`](../../../deploy/nl/models.yaml)
+
+A mostly legacy file that lists the fine-tuned model name.
+
 ## One time setup
 
 To allow the `gspread` library access to the google sheets above, you will need [credentials downloaded to your computer](https://docs.gspread.org/en/latest/oauth2.html#for-end-users-using-oauth-client-id).

@@ -41,14 +41,14 @@ def search_sv():
   }
   """
   query = str(escape(request.args.get('q')))
-  sz = str(escape(request.args.get('sz', config.DEFAULT_INDEX_TYPE)))
-  if not sz:
-    sz = config.DEFAULT_INDEX_TYPE
+  idx = str(escape(request.args.get('idx', config.DEFAULT_INDEX_TYPE)))
+  if not idx:
+    idx = config.DEFAULT_INDEX_TYPE
   skip_multi_sv = False
   if request.args.get('skip_multi_sv'):
     skip_multi_sv = True
   try:
-    nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(sz)
+    nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(idx)
     return json.dumps(nl_embeddings.detect_svs(query, skip_multi_sv))
   except Exception as e:
     logging.error(f'Embeddings-based SV detection failed with error: {e}')

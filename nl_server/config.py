@@ -19,16 +19,16 @@ from nl_server import embeddings
 from nl_server import gcs
 
 # Index constants.  Passed in `url=`
-CUSTOM_DC_INDEX = 'custom'
-DEFAULT_INDEX_TYPE = 'medium_ft'
+CUSTOM_DC_INDEX: str = 'custom'
+DEFAULT_INDEX_TYPE: str = 'medium_ft'
 
 # The default base model we use.
-EMBEDDINGS_BASE_MODEL_NAME = 'all-MiniLM-L6-v2'
+EMBEDDINGS_BASE_MODEL_NAME: str = 'all-MiniLM-L6-v2'
 
 # App Config constants.
-NL_MODEL_KEY = 'NL_MODEL'
-NL_EMBEDDINGS_KEY = 'NL_EMBEDDINGS'
-NL_EMBEDDINGS_VERSION_KEY = 'NL_EMBEDDINGS_VERSION_MAP'
+NL_MODEL_KEY: str = 'NL_MODEL'
+NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
+NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
 
 
 # Defines one embeddings index config.
