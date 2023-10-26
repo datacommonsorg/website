@@ -78,9 +78,9 @@ Lists the embeddings CSV files (generated using the steps above).
 
 The keys are index names (specified as `idx=` param value), and the values are file names (with the assumption that the files are stored in gs://datcom-nl-models/).
 
-These files, generated from a fine-tuned model (as of Q2 2023), have the following structure:  <version>.<fine-tuned-model-version>.<base-model-name>.csv  (e.g., `datcom-nl-models/embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv`).
+These files, generated from a fine-tuned model (as of Q2 2023), have the following structure:  `<version>.<fine-tuned-model-version>.<base-model-name>.csv`  (e.g., `datcom-nl-models/embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv`).
 
-Additionally, for custom DCs, there is `custom` index name which gets merged into the default prod index (`medium_ft`) on NL server boot.  This allows for custom vs. base SV comparisons on NL.
+Additionally, for custom DCs, there is `custom` index name which gets merged into the default prod index (`medium_ft`) on NL server boot.  This allows for queries spanning custom DC vs. base DC variables.
 
 ### [`models.yaml`](../../../deploy/nl/models.yaml)
 
