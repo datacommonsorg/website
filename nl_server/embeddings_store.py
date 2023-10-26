@@ -27,8 +27,6 @@ from nl_server.embeddings import Embeddings
 #
 # A simple wrapper class around multiple embeddings indexes.
 #
-# TODO: Handle custom DC specific logic here.
-#
 class Store:
 
   def __init__(self, indexes: List[EmbeddingsIndex]):
