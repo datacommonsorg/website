@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import os
-import shlex
 import subprocess
 
 from flask import Blueprint
@@ -50,14 +49,13 @@ def load_data():
       "--output_dir",
       f"{output_dir}",
   ]
-  data_path_arg = shlex.quote(f'{{"data_path": "{output_dir}"}}')
   command2 = [
       "curl",
       "-X",
       "POST",
       "localhost:8081/import",
       "-d",
-      data_path_arg,
+      f'{{"data_path": "{output_dir}"}}',
   ]
   output = []
   for command, cwd in [(command1, "import/simple"), (command2, ".")]:

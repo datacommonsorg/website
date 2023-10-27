@@ -105,7 +105,7 @@ const config = {
       __dirname + "/js/import_wizard2/import_wizard.ts",
       __dirname + "/css/import_wizard2.scss",
     ],
-    admin: [__dirname + "/js/admin/app.ts", __dirname + "/css/admin.scss"],
+    admin: [__dirname + "/js/admin/main.ts", __dirname + "/css/admin.scss"],
     disaster_dashboard: [
       __dirname + "/js/apps/disaster_dashboard/main.ts",
       __dirname + "/css/disaster_dashboard.scss",

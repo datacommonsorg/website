@@ -24,9 +24,9 @@ import React, { useState } from "react";
 import { Button } from "reactstrap";
 
 export function Page(): JSX.Element {
-  const [loading, setLoading] = useState(Boolean);
-  const [secret, setSecret] = useState(String);
-  const [loadResponse, setLoadResponse] = useState(Object);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [secret, setSecret] = useState<string>("");
+  const [loadResponse, setLoadResponse] = useState<any>(null);
 
   function onEditSecret(text: string): void {
     setSecret(text);
