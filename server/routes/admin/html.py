@@ -35,7 +35,6 @@ def load_data():
     sql_data_path = request.json.get("sqlDataPath")
   if not sql_data_path:
     sql_data_path = os.environ.get("SQL_DATA_PATH")
-  sql_data_path = os.path.abspath(sql_data_path)
 
   # TODO: dynamically create the output dir.
   output_dir = os.path.join(sql_data_path, 'data')
