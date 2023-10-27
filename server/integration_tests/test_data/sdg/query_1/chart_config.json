@@ -20,6 +20,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over] in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Proportion of Population Using Basic Drinking Water Services, by Location in Countries of Africa (${date})",
@@ -309,6 +320,10 @@
           "sdg/SI_POV_DAY1.URBANISATION--U": {
             "name": "Proportion of population below international poverty line [Urban]",
             "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE15": {
+            "name": "Employed population below international poverty line, by sex and age [15 years old and over]",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": {
             "name": "Employed population below international poverty line, by sex and age [15 years old and over, Female]",

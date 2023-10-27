@@ -365,9 +365,9 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months"
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Above Poverty Line in Counties of United States (${date})",
+                    "title": "Population: Some Language Other Than English Spoken at Home & Below Poverty Line in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -376,16 +376,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months"
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Above Poverty Line in Counties of United States (${date})",
+                    "title": "Population: Some Language Other Than English Spoken at Home & Below Poverty Line in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Above Poverty Line in Counties of United States"
+            "title": "Population: Some Language Other Than English Spoken at Home & Below Poverty Line in Counties of United States"
           },
           {
             "columns": [
@@ -418,6 +418,102 @@
             ],
             "denom": "Count_Person",
             "title": "Population: Only English Spoken at Home, Below Poverty Line in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population: Spanish or Spanish Creole Spoken at Home, Below Poverty Line in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population: Spanish or Spanish Creole Spoken at Home, Below Poverty Line in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Spanish or Spanish Creole Spoken at Home, Below Poverty Line in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population: Spanish Spoken at Home, Below Poverty Line in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population: Spanish Spoken at Home, Below Poverty Line in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Spanish Spoken at Home, Below Poverty Line in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Above Poverty Line in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Above Poverty Line in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Above Poverty Line in Counties of United States"
           },
           {
             "columns": [
@@ -626,6 +722,10 @@
             "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
             "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
           },
+          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
+            "name": "Population: Some language other than English spoken at home & below poverty line",
+            "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
+          },
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months": {
             "name": "Population: English Spoken At Home, Above Poverty Line",
             "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
@@ -633,6 +733,14 @@
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
             "name": "Population: Only English Spoken At Home, Below Poverty Line",
             "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months": {
+            "name": "Population: Spanish or Spanish Creole Spoken At Home, Below Poverty Line",
+            "statVar": "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
+            "name": "Population: Spanish Spoken At Home, Below Poverty Line",
+            "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_AbovePovertyLevelInThePast12Months": {
             "name": "Population Above poverty line",

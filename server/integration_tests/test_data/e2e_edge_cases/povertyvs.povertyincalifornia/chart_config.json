@@ -8,111 +8,16 @@
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter"
-                    ],
-                    "title": "Women Below Poverty Line (${yDate}) Vs. Males in Poverty (In Last Year) (${xDate}) in Counties of California",
-                    "type": "SCATTER"
+                    "type": "PLACE_OVERVIEW"
                   }
                 ]
               }
-            ],
-            "denom": "Count_Person",
-            "title": "Women below Poverty Line vs. Males in Poverty (in last year)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Women Below Poverty Line in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Women Below Poverty Line in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Women Below Poverty Line in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Males in Poverty (In Last Year) in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Males in Poverty (In Last Year) in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Males in Poverty (In Last Year) in Counties of California"
+            ]
           }
-        ],
-        "statVarSpec": {
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
-            "name": "Women below Poverty Line",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter": {
-            "name": "Women below Poverty Line",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
-            "name": "Males in Poverty (in last year)",
-            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter": {
-            "name": "Males in Poverty (in last year)",
-            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-          }
-        }
+        ]
       }
     ],
     "metadata": {
-      "containedPlaceTypes": {
-        "State": "County"
-      },
       "placeDcid": [
         "geoId/06"
       ]
@@ -136,461 +41,63 @@
     }
   ],
   "relatedThings": {
-    "childPlaces": {
-      "County": [
-        {
-          "dcid": "geoId/06001",
-          "name": "Alameda",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06003",
-          "name": "Alpine",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06005",
-          "name": "Amador",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06007",
-          "name": "Butte",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06009",
-          "name": "Calaveras",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06011",
-          "name": "Colusa",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06013",
-          "name": "Contra Costa",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06015",
-          "name": "Del Norte",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06017",
-          "name": "El Dorado",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06019",
-          "name": "Fresno",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06021",
-          "name": "Glenn",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06023",
-          "name": "Humboldt",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06025",
-          "name": "Imperial",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06027",
-          "name": "Inyo",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06029",
-          "name": "Kern",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06031",
-          "name": "Kings",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06033",
-          "name": "Lake",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06035",
-          "name": "Lassen",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06037",
-          "name": "Los Angeles",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06039",
-          "name": "Madera",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06041",
-          "name": "Marin",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06043",
-          "name": "Mariposa",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06045",
-          "name": "Mendocino",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06047",
-          "name": "Merced",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06049",
-          "name": "Modoc",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06051",
-          "name": "Mono",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06053",
-          "name": "Monterey",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06055",
-          "name": "Napa",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06057",
-          "name": "Nevada",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06059",
-          "name": "Orange",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06061",
-          "name": "Placer",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06063",
-          "name": "Plumas",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06065",
-          "name": "Riverside",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06067",
-          "name": "Sacramento",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06069",
-          "name": "San Benito",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06071",
-          "name": "San Bernardino",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06073",
-          "name": "San Diego",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06075",
-          "name": "San Francisco",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06077",
-          "name": "San Joaquin",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06079",
-          "name": "San Luis Obispo",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06081",
-          "name": "San Mateo",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06083",
-          "name": "Santa Barbara",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06085",
-          "name": "Santa Clara",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06087",
-          "name": "Santa Cruz",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06089",
-          "name": "Shasta",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06091",
-          "name": "Sierra",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06093",
-          "name": "Siskiyou",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06095",
-          "name": "Solano",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06097",
-          "name": "Sonoma",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06099",
-          "name": "Stanislaus",
-          "types": [
-            "County"
-          ]
-        }
-      ]
-    },
+    "childPlaces": {},
     "childTopics": [
       {
-        "dcid": "dc/topic/PovertyByGender",
-        "name": "Poverty by Gender",
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/PovertyByRace",
-        "name": "Poverty by Race",
+        "dcid": "dc/topic/Health",
+        "name": "Health",
         "types": [
           "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_25To34Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_35To44Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_45To54Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_55To64Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_5Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_65To74Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_6To11Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_75OrMoreYears_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Upto5Years_Female_BelowPovertyLevelInThePast12Months"
-        ],
-        "maritalStatus": [
-          "Count_Person_Female_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Female_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
-        ],
-        "race": [
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
         ]
       },
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_25To34Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_35To44Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_45To54Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_55To64Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_5Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_65To74Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_6To11Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_75OrMoreYears_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Upto5Years_Male_BelowPovertyLevelInThePast12Months"
-        ],
-        "maritalStatus": [
-          "Count_Person_Male_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Male_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
-        ],
-        "race": [
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-        ]
-      }
-    },
-    "mainTopics": [
-      {
-        "dcid": "dc/topic/Poverty",
-        "name": "Poverty",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "parentPlaces": [],
-    "parentTopics": [
       {
         "dcid": "dc/topic/Economy",
         "name": "Economy",
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/EducationHousingAndCommute",
+        "name": "Education, Housing and Commute",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Equity",
+        "name": "Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Sustainability",
+        "name": "Sustainability",
+        "types": [
+          "Topic"
+        ]
       }
     ],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Root",
+        "name": "Statistics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/01",
@@ -943,51 +450,9 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "showForm": true,
+  "svSource": "UNRECOGNIZED",
+  "userMessage": "Could not recognize any topic from the query. See available topic categories for California."
 }

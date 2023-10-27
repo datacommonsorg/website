@@ -8,292 +8,104 @@
               {
                 "tiles": [
                   {
-                    "comparisonPlaces": [
-                      "country/ETH",
-                      "country/MAR",
-                      "country/KEN",
-                      "country/GHA",
-                      "country/UGA",
-                      "country/SEN",
-                      "country/GIN",
-                      "country/MLI",
-                      "country/RWA",
-                      "country/SOM"
-                    ],
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal10"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "GDP (Nominal Value)",
-                    "type": "LINE"
+                    "title": "GDP (Nominal Value) in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+                    ],
+                    "title": "GDP (Nominal Value) in Countries of Africa (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "GDP (Nominal Value)"
+            "title": "GDP (Nominal Value) in Countries of Africa"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
+                    "title": "Nominal GDP Per Capita in Countries of Africa (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Morocco",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/KEN",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Kenya",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GHA",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Ghana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/UGA",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Uganda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/RWA",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Rwanda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SOM",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Somalia",
-                    "type": "LINE"
+                    "title": "Nominal GDP Per Capita in Countries of Africa (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Increase in GDP (Nominal Value) Over Time (Absolute Change)"
+            "title": "Nominal GDP Per Capita in Countries of Africa"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/KEN",
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
+                      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
-                    "title": "Kenya",
-                    "type": "LINE"
+                    "title": "Growth Rate of GDP in Countries of Africa (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/UGA",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
+                      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
-                    "title": "Uganda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/RWA",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
-                    ],
-                    "title": "Rwanda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MAR",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
-                    ],
-                    "title": "Morocco",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GHA",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
-                    ],
-                    "title": "Ghana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SOM",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
-                    ],
-                    "title": "Somalia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/ETH",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
-                    ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
+                    "title": "Growth Rate of GDP in Countries of Africa (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Increase in GDP (Nominal Value) Over Time (Percent Change)"
+            "title": "Growth Rate of GDP in Countries of Africa"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
+                      "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Morocco",
+                    "title": "Proportion of Population Below International Poverty Line in Africa",
                     "type": "LINE"
                   }
                 ]
@@ -301,206 +113,453 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GHA",
+                    "description": "Proportion of Population Below International Poverty Line in Africa",
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
+                      "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Ghana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/KEN",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Kenya",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/ETH",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/UGA",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Uganda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/RWA",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Rwanda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SOM",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Somalia",
-                    "type": "LINE"
+                    "title": "Proportion of Population Below International Poverty Line in Africa",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Increase in GDP (Nominal Value) Over Time (Per Capita Change)"
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Proportion of Population Below International Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Proportion of Population Below International Poverty Line in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Proportion of Population Below International Poverty Line in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Proportion of Population Below International Poverty Line in Countries of Africa"
           }
         ],
         "statVarSpec": {
-          "Amount_EconomicActivity_GrossDomesticProduction_Nominal10": {
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
             "name": "GDP (Nominal Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs": {
-            "name": "GDP (Nominal Value)",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
+            "name": "Nominal GDP Per Capita",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc": {
-            "name": "GDP (Nominal Value)",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
+            "name": "Growth Rate of GDP",
+            "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct": {
-            "name": "GDP (Nominal Value)",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          "sdg/SI_POV_DAY1": {
+            "name": "Proportion of population below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Continent": "Country"
+      },
       "placeDcid": [
-        "country/ETH"
+        "africa"
       ]
     }
   },
   "context": {},
   "debug": {},
-  "pastSourceContext": "",
+  "pastSourceContext": "Africa",
   "place": {
-    "dcid": "country/ETH",
-    "name": "Ethiopia",
-    "place_type": "Country"
+    "dcid": "africa",
+    "name": "Africa",
+    "place_type": "Continent"
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "country/ETH",
-      "name": "Ethiopia",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/MAR",
-      "name": "Morocco",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/KEN",
-      "name": "Kenya",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/GHA",
-      "name": "Ghana",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/UGA",
-      "name": "Uganda",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SEN",
-      "name": "Senegal",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/GIN",
-      "name": "Guinea",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/MLI",
-      "name": "Mali",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/RWA",
-      "name": "Rwanda",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SOM",
-      "name": "Somalia",
-      "place_type": "Country"
+      "dcid": "africa",
+      "name": "Africa",
+      "place_type": "Continent"
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "Country": [
+        {
+          "dcid": "country/AGO",
+          "name": "Angola",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATF",
+          "name": "French Southern Territories",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BDI",
+          "name": "Burundi",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEN",
+          "name": "Benin",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BFA",
+          "name": "Burkina Faso",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BWA",
+          "name": "Botswana",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAF",
+          "name": "Central African Republic",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CIV",
+          "name": "C\u00f4te d'Ivoire",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CMR",
+          "name": "Cameroon",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/COD",
+          "name": "Congo [DRC]",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/COG",
+          "name": "Congo [Republic]",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/COM",
+          "name": "Comoros",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CPV",
+          "name": "Cape Verde",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/DJI",
+          "name": "Djibouti",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/DZA",
+          "name": "Algeria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/EGY",
+          "name": "Egypt",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ERI",
+          "name": "Eritrea",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ESH",
+          "name": "Western Sahara",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ETH",
+          "name": "Ethiopia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GAB",
+          "name": "Gabon",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GHA",
+          "name": "Ghana",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GIN",
+          "name": "Guinea",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GMB",
+          "name": "Gambia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GNB",
+          "name": "Guinea-Bissau",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GNQ",
+          "name": "Equatorial Guinea",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/KEN",
+          "name": "Kenya",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/LBR",
+          "name": "Liberia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/LBY",
+          "name": "Libya",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/LSO",
+          "name": "Lesotho",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MAR",
+          "name": "Morocco",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MDG",
+          "name": "Madagascar",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MLI",
+          "name": "Mali",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MOZ",
+          "name": "Mozambique",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MRT",
+          "name": "Mauritania",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MUS",
+          "name": "Mauritius",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MWI",
+          "name": "Malawi",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MYT",
+          "name": "Mayotte",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/NAM",
+          "name": "Namibia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/NER",
+          "name": "Niger",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/NGA",
+          "name": "Nigeria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/REU",
+          "name": "R\u00e9union",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/RWA",
+          "name": "Rwanda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SDN",
+          "name": "Sudan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SEN",
+          "name": "Senegal",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SHN",
+          "name": "Saint Helena",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SLE",
+          "name": "Sierra Leone",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SOM",
+          "name": "Somalia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SSD",
+          "name": "South Sudan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/STP",
+          "name": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SWZ",
+          "name": "Eswatini",
+          "types": [
+            "Country"
+          ]
+        }
+      ]
+    },
     "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
@@ -513,47 +572,10 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Debt",
-        "name": "Debt",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EducationExpenditure",
-        "name": "Education Expenditure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HealthcareExpenditure",
-        "name": "Healthcare Expenditure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Remittance",
-        "name": "Remittance",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See relevant statistics based on the previous query."
+  "userMessage": "See relevant statistics for Africa based on the previous query."
 }
