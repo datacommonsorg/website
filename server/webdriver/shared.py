@@ -23,7 +23,8 @@ MAX_NUM_SPINNERS = 3
 ASYNC_ELEMENT_HOLDER_CLASS = 'dc-async-element-holder'
 ASYNC_ELEMENT_CLASS = 'dc-async-element'
 TIMEOUT = 60
-# Keep in sync with packages/web-components/src/main.ts
+# Keep in sync with the web component definitions at static/library/*component.ts
+# and packages/web-components/src/main.ts
 WEB_COMPONENT_TAG_NAMES = [
     'datacommons-bar', 'datacommons-gauge', 'datacommons-highlight',
     'datacommons-line', 'datacommons-map', 'datacommons-pie',
