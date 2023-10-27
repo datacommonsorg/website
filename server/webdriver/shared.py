@@ -23,15 +23,10 @@ MAX_NUM_SPINNERS = 3
 ASYNC_ELEMENT_HOLDER_CLASS = 'dc-async-element-holder'
 ASYNC_ELEMENT_CLASS = 'dc-async-element'
 TIMEOUT = 60
-WEB_COMPONENT_TAG_NAMES=[
-  'datacommons-bar',
-  'datacommons-map',
-  'datacommons-line',
-  'datacommons-highlight',
-  'datacommons-gauge',
-  'datacommons-pie',
-  'datacommons-highlight',
-  'datacommons-scatter'
+WEB_COMPONENT_TAG_NAMES = [
+    'datacommons-bar', 'datacommons-map', 'datacommons-line',
+    'datacommons-highlight', 'datacommons-gauge', 'datacommons-pie',
+    'datacommons-highlight', 'datacommons-scatter'
 ]
 
 
@@ -67,22 +62,27 @@ def charts_rendered(driver):
   """
   Wait asynchronously for charts or web components to show up
   """
-  web_component_element_present = EC.any_of(*[ EC.presence_of_element_located((By.TAG_NAME, tag_name)) for tag_name in WEB_COMPONENT_TAG_NAMES])
+  web_component_element_present = EC.any_of(*[
+      EC.presence_of_element_located((By.TAG_NAME, tag_name))
+      for tag_name in WEB_COMPONENT_TAG_NAMES
+  ])
   chart_element_present = EC.presence_of_element_located(
       (By.CLASS_NAME, ASYNC_ELEMENT_HOLDER_CLASS))
-  WebDriverWait(driver, TIMEOUT).until(EC.any_of(chart_element_present, web_component_element_present))
+  WebDriverWait(driver, TIMEOUT).until(
+      EC.any_of(chart_element_present, web_component_element_present))
   chart_containers = driver.find_elements(By.CLASS_NAME,
                                           ASYNC_ELEMENT_HOLDER_CLASS)
-  web_component_containers = driver.find_elements(By.CSS_SELECTOR, ", ".join(WEB_COMPONENT_TAG_NAMES))
+  web_component_containers = driver.find_elements(
+      By.CSS_SELECTOR, ", ".join(WEB_COMPONENT_TAG_NAMES))
   for c in chart_containers:
     try:
       c.find_element(By.CLASS_NAME, ASYNC_ELEMENT_CLASS)
     except NoSuchElementException:
       return False
-  
+
   for wc in web_component_containers:
-      header = wc.get_attribute("header")
-      description = wc.get_attribute("description")
-      if not header and not description:
-        return False
+    header = wc.get_attribute("header")
+    description = wc.get_attribute("description")
+    if not header and not description:
+      return False
   return True
