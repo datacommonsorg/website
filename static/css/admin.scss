@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2020 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,12 @@
  * limitations under the License.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
+@import "base";
 
-import { Page } from "./page";
-
-const domId = "main-section";
-
-window.onload = () => {
-  const pageElem = document.getElementById(domId);
-  const user = JSON.parse(pageElem.dataset.user);
-  const newUser = "True" === pageElem.dataset.new_user;
-  ReactDOM.render(
-    React.createElement(Page, {
-      newUser,
-      user,
-    }),
-    pageElem
-  );
-};
+.json-display {
+  background-color: #f7f7f7;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
