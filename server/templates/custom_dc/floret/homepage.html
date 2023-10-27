@@ -21,7 +21,6 @@
 
  {% block head %}
  <link rel="stylesheet" href={{url_for('static', filename='css/homepage.min.css', t=config['VERSION'])}}>
- <script src={{url_for('static', filename='homepage.js', t=config['VERSION'])}} async></script>
  <script src="/datacommons.js"></script>
 <link
   rel="icon"
@@ -96,6 +95,7 @@
           childPlaceType="Country"
           variable="country_risk"
           rankingCount="20"
+          showHighest
         ></datacommons-ranking>
       </div>
     </div>
@@ -106,7 +106,7 @@
   <div class="container">
     <h2>Bridge the gap between raw data and informed decision-making</h2>
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-6">
         <datacommons-bar
           apiRoot="/"
           header="BRICS countries risk"
@@ -115,7 +115,7 @@
           sort="descending"
         ></datacommons-bar>
       </div>
-      <div class="col-lg-12">
+      <div class="col-lg-6">
         <datacommons-scatter
           apiRoot="/"
           header="Country risk vs GDP per capita"
@@ -142,27 +142,32 @@
           parentPlace="NAICSEnum"
           childPlaceType="NAICSEnum"
           variable="sector_risk"
-          rankingCount="10"
+          rankingCount="20"
+          showHighest
         ></datacommons-ranking>
       </div>
-
     </div>
 
-    <datacommons-scatter
-      apiRoot="/"
-      header="Company risk vs Number of Employees"
-      variables="company_risk employee_count"
-      parentPlace="Company"
-      childPlaceType="Company"
-    ></datacommons-scatter>
-
-    <datacommons-scatter
-      apiRoot="/"
-      header="Company Risk vs Total Sales"
-      variables="company_risk total_sales"
-      parentPlace="Company"
-      childPlaceType="Company"
-    ></datacommons-scatter>
+    <div class="row">
+      <div class="col-lg-6">
+        <datacommons-scatter
+          apiRoot="/"
+          header="Company risk vs Number of Employees"
+          variables="company_risk log_employee_count"
+          parentPlace="Company"
+          childPlaceType="Company"
+        ></datacommons-scatter>
+      </div>
+      <div class="col-lg-6">
+        <datacommons-scatter
+          apiRoot="/"
+          header="Company Risk vs Total Sales"
+          variables="company_risk log_total_sales"
+          parentPlace="Company"
+          childPlaceType="Company"
+        ></datacommons-scatter>
+      </div>
+    </div>
 
   </div>
 </div>
