@@ -23,7 +23,7 @@ from nl_server.nl_attribute_model import NLAttributeModel
 
 _MODEL_YAML = 'models.yaml'
 _EMBEDDINGS_YAML = 'embeddings.yaml'
-_CUSTOM_DC_EMBEDDINGS_YAML = '/nl/custom_embeddings.yaml'
+_CUSTOM_EMBEDDINGS_YAML = 'custom_embeddings.yaml'
 
 NL_CACHE_PATH = '~/.datacommons/'
 NL_EMBEDDINGS_CACHE_KEY = 'nl_embeddings'
@@ -79,11 +79,24 @@ def _load_yamls(flask_env: str) -> tuple[Dict[str, str], Dict[str, str]]:
     embeddings_map = yaml.full_load(f)
   assert embeddings_map, 'No embeddings.yaml found!'
 
-  if os.path.exists(_CUSTOM_DC_EMBEDDINGS_YAML):
-    with open(_CUSTOM_DC_EMBEDDINGS_YAML) as f:
-      embeddings_map.update(yaml.full_load(f))
+  custom_map = _maybe_load_custom_dc_yaml()
+  if custom_map:
+    embeddings_map.update(custom_map)
 
   return embeddings_map, models_map
+
+
+def _maybe_load_custom_dc_yaml():
+  base = os.environ.get('SQL_DATA_PATH')
+  if not base:
+    return None
+
+  file_path = os.path.join(base, f'data/nl/{_CUSTOM_EMBEDDINGS_YAML}')
+  if os.path.exists(file_path):
+    with open(file_path) as f:
+      return yaml.full_load(f)
+
+  return None
 
 
 #
