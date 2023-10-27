@@ -15,7 +15,17 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/DEU"
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_multiple_place_bar_block"
@@ -42,7 +52,17 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/DEU"
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Agriculture_multiple_place_bar_block",
@@ -79,7 +99,11 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/DEU"
+                      "country/DEU",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/SEN"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse_multiple_place_bar_block"
@@ -92,6 +116,37 @@
             ],
             "denom": "Count_Person",
             "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide"
           },
           {
             "columns": [
@@ -131,7 +186,17 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/DEU"
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Power_multiple_place_bar_block"
@@ -158,7 +223,12 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/DEU"
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/SEN"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_FossilFuelOperations_multiple_place_bar_block"
@@ -185,7 +255,17 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/DEU"
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing_multiple_place_bar_block"
@@ -211,7 +291,17 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/DEU"
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_OpenBurningWaste_multiple_place_bar_block"
@@ -237,7 +327,17 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/DEU"
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block"
@@ -264,7 +364,17 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/DEU"
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse_multiple_place_bar_block"
@@ -290,7 +400,43 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/DEU"
+                      "country/GHA"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_OilAndGasProduction_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Manufacturing_multiple_place_bar_block"
@@ -317,7 +463,17 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/DEU"
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherManufacturing_multiple_place_bar_block"
@@ -343,7 +499,17 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/DEU"
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_Methane_Power_multiple_place_bar_block"
@@ -356,64 +522,16 @@
             ],
             "denom": "Count_Person",
             "title": "Annual Amount of Emissions: Power, Methane"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU"
-                    ],
-                    "statVarKey": [
-                      "Annual_Emissions_Methane_Manufacturing_multiple_place_bar_block"
-                    ],
-                    "title": "Annual Amount of Emissions: Manufacturing, Methane (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Manufacturing, Methane"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU"
-                    ],
-                    "statVarKey": [
-                      "Annual_Emissions_CarbonDioxide_OpenBurningWaste_multiple_place_bar_block"
-                    ],
-                    "title": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide"
           }
         ],
         "statVarSpec": {
           "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Agriculture",
             "statVar": "Annual_Emissions_CarbonDioxide_Agriculture"
+          },
+          "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide",
+            "statVar": "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse"
           },
           "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherManufacturing_multiple_place_bar_block": {
             "name": "Annual Amount of Emissions: Other Manufacturing, Carbon Dioxide",
@@ -426,10 +544,6 @@
           "Annual_Emissions_CarbonDioxide_Manufacturing_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Manufacturing",
             "statVar": "Annual_Emissions_CarbonDioxide_Manufacturing"
-          },
-          "Annual_Emissions_CarbonDioxide_OpenBurningWaste_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide",
-            "statVar": "Annual_Emissions_CarbonDioxide_OpenBurningWaste"
           },
           "Annual_Emissions_CarbonDioxide_Power_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Power Sector",
@@ -475,6 +589,10 @@
             "name": "Greenhouse Gas Emissions from Mineral Extraction",
             "statVar": "Annual_Emissions_GreenhouseGas_MineralExtraction"
           },
+          "Annual_Emissions_GreenhouseGas_OilAndGasProduction_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
+          },
           "Annual_Emissions_GreenhouseGas_OilAndGas_multiple_place_bar_block": {
             "name": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_OilAndGas"
@@ -503,10 +621,6 @@
             "name": "Annual Amount of Emissions: Other Energy Use, Methane",
             "statVar": "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse"
           },
-          "Annual_Emissions_Methane_Manufacturing_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Manufacturing, Methane",
-            "statVar": "Annual_Emissions_Methane_Manufacturing"
-          },
           "Annual_Emissions_Methane_Power_multiple_place_bar_block": {
             "name": "Annual Amount of Emissions: Power, Methane",
             "statVar": "Annual_Emissions_Methane_Power"
@@ -533,7 +647,7 @@
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_ANSWER",
   "places": [
     {
       "dcid": "country/USA",
@@ -543,6 +657,46 @@
     {
       "dcid": "country/DEU",
       "name": "Germany",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/ETH",
+      "name": "Ethiopia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MAR",
+      "name": "Morocco",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/KEN",
+      "name": "Kenya",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/GHA",
+      "name": "Ghana",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/UGA",
+      "name": "Uganda",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/SEN",
+      "name": "Senegal",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/GIN",
+      "name": "Guinea",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MLI",
+      "name": "Mali",
       "place_type": "Country"
     }
   ],
@@ -718,5 +872,5 @@
     ]
   },
   "svSource": "PAST_QUERY",
-  "userMessage": "See relevant statistics based on the previous query."
+  "userMessage": "See comparison based on places in the previous answer."
 }

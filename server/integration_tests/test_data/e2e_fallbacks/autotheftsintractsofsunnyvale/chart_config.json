@@ -8,13 +8,136 @@
               {
                 "tiles": [
                   {
-                    "type": "PLACE_OVERVIEW"
+                    "statVarKey": [
+                      "Count_CriminalActivities_MotorVehicleTheft"
+                    ],
+                    "title": "Motor Vehicle Thefts in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Motor Vehicle Thefts in Sunnyvale",
+                    "statVarKey": [
+                      "Count_CriminalActivities_MotorVehicleTheft"
+                    ],
+                    "title": "Motor Vehicle Thefts in Sunnyvale",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Motor Vehicle Thefts"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery"
+                    ],
+                    "title": "Robberies in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Robberies in Sunnyvale",
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery"
+                    ],
+                    "title": "Robberies in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Robberies"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime"
+                    ],
+                    "title": "Property Related Crimes in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Property Related Crimes in Sunnyvale",
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime"
+                    ],
+                    "title": "Property Related Crimes in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Property Related Crimes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft"
+                    ],
+                    "title": "Larceny Theft Cases in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Larceny Theft Cases in Sunnyvale",
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft"
+                    ],
+                    "title": "Larceny Theft Cases in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Larceny Theft Cases"
           }
-        ]
+        ],
+        "statVarSpec": {
+          "Count_CriminalActivities_LarcenyTheft": {
+            "name": "Larceny Theft Cases",
+            "statVar": "Count_CriminalActivities_LarcenyTheft"
+          },
+          "Count_CriminalActivities_MotorVehicleTheft": {
+            "name": "Motor Vehicle Thefts",
+            "statVar": "Count_CriminalActivities_MotorVehicleTheft"
+          },
+          "Count_CriminalActivities_PropertyCrime": {
+            "name": "Property Related Crimes",
+            "statVar": "Count_CriminalActivities_PropertyCrime"
+          },
+          "Count_CriminalActivities_Robbery": {
+            "name": "Robberies",
+            "statVar": "Count_CriminalActivities_Robbery"
+          }
+        }
       }
     ],
     "metadata": {
@@ -31,7 +154,23 @@
     "name": "Sunnyvale",
     "place_type": "City"
   },
-  "placeFallback": {},
+  "placeFallback": {
+    "newPlace": {
+      "country": "country/USA",
+      "dcid": "geoId/0677000",
+      "name": "Sunnyvale",
+      "place_type": "City"
+    },
+    "newStr": "Sunnyvale",
+    "origPlace": {
+      "country": "country/USA",
+      "dcid": "geoId/0677000",
+      "name": "Sunnyvale",
+      "place_type": "City"
+    },
+    "origStr": "census tracts in Sunnyvale",
+    "origType": "CensusTract"
+  },
   "placeSource": "CURRENT_QUERY",
   "places": [
     {
@@ -42,55 +181,12 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/Demographics",
-        "name": "Demographics",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Health",
-        "name": "Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EducationHousingAndCommute",
-        "name": "Education, Housing and Commute",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Equity",
-        "name": "Equity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Sustainability",
-        "name": "Sustainability",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/Root",
-        "name": "Statistics",
+        "dcid": "dc/topic/Crime",
+        "name": "Crime",
         "types": [
           "Topic"
         ]
@@ -98,361 +194,9 @@
     ],
     "parentPlaces": [],
     "parentTopics": [],
-    "peerPlaces": [
-      {
-        "dcid": "geoId/3502000",
-        "name": "Albuquerque",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0203000",
-        "name": "Anchorage municipality",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2603000",
-        "name": "Ann Arbor",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1304000",
-        "name": "Atlanta",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4805000",
-        "name": "Austin",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2404000",
-        "name": "Baltimore",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1608830",
-        "name": "Boise",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2507000",
-        "name": "Boston",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4513330",
-        "name": "Charleston",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3712000",
-        "name": "Charlotte",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1714000",
-        "name": "Chicago",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3915000",
-        "name": "Cincinnati",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3916000",
-        "name": "Cleveland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3918000",
-        "name": "Columbus",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4819000",
-        "name": "Dallas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0820000",
-        "name": "Denver",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2622000",
-        "name": "Detroit",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4824000",
-        "name": "El Paso",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0937000",
-        "name": "Hartford",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4835000",
-        "name": "Houston",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1836003",
-        "name": "Indianapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2836000",
-        "name": "Jackson",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1235000",
-        "name": "Jacksonville",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2938000",
-        "name": "Kansas City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3240000",
-        "name": "Las Vegas",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0541000",
-        "name": "Little Rock",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0644000",
-        "name": "Los Angeles",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2148006",
-        "name": "Louisville/Jefferson County metro government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5548000",
-        "name": "Madison",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4748000",
-        "name": "Memphis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1245000",
-        "name": "Miami",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5553000",
-        "name": "Milwaukee",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2743000",
-        "name": "Minneapolis",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0649670",
-        "name": "Mountain View",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4752006",
-        "name": "Nashville-Davidson metropolitan government (balance)",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0952000",
-        "name": "New Haven",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/2255000",
-        "name": "New Orleans",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/3651000",
-        "name": "New York",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0653000",
-        "name": "Oakland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4055000",
-        "name": "Oklahoma City",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/3137000",
-        "name": "Omaha",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/1253000",
-        "name": "Orlando",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0655282",
-        "name": "Palo Alto",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4260000",
-        "name": "Philadelphia",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/0455000",
-        "name": "Phoenix",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4261000",
-        "name": "Pittsburgh",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4159000",
-        "name": "Portland",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/5167000",
-        "name": "Richmond",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/0664000",
-        "name": "Sacramento",
-        "types": [
-          "City"
-        ]
-      },
-      {
-        "dcid": "geoId/4967000",
-        "name": "Salt Lake City",
-        "types": [
-          "City"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": []
   },
-  "showForm": true,
-  "svSource": "UNRECOGNIZED",
-  "userMessage": "Could not recognize any topic from the query. See available topic categories for Sunnyvale."
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Sorry, there were no relevant statistics for census tracts in Sunnyvale. See results for Sunnyvale."
 }
