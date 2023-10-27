@@ -19,7 +19,6 @@ import shutil
 import unittest
 
 from parameterized import parameterized
-import yaml
 
 from nl_server import config
 from nl_server import embeddings
@@ -50,27 +49,23 @@ class TestEmbeddings(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls) -> None:
-    tuned_model_path = gcs.download_model_folder(_TUNED_MODEL)
-    default_idx = config.EmbeddingsIndex(
-        name='medium_ft',
-        embeddings_file_name=_DEFAULT_FILE,
-        embeddings_local_path=_copy(_DEFAULT_FILE),
-        tuned_model=_TUNED_MODEL,
-        tuned_model_local_path=tuned_model_path)
-    custom_idx = config.EmbeddingsIndex(
-        name='custom',
-        embeddings_file_name=_CUSTOM_FILE,
-        embeddings_local_path=_copy(_CUSTOM_FILE),
-        tuned_model=_TUNED_MODEL,
-        tuned_model_local_path=tuned_model_path)
-    cls.main = store.Store([default_idx])
-    cls.custom = store.Store([default_idx, custom_idx])
+    default_file = _copy(_DEFAULT_FILE)
+    custom_file = _copy(_CUSTOM_FILE)
+
+    cls.main = store.Store(
+        config.load({'medium_ft': default_file}, {'tuned_model': _TUNED_MODEL}))
+
+    cls.custom = store.Store(
+        config.load({
+            'medium_ft': default_file,
+            'custom_ft': custom_file,
+        }, {'tuned_model': _TUNED_MODEL}))
 
   def test_entries(self):
     self.assertEqual(1, len(self.main.get('medium_ft').dcids))
-    self.assertTrue(not self.main.get('custom'))
+    self.assertTrue(not self.main.get('custom_ft'))
     self.assertEqual(2, len(self.custom.get('medium_ft').dcids))
-    self.assertEqual(1, len(self.custom.get('custom').dcids))
+    self.assertEqual(1, len(self.custom.get('custom_ft').dcids))
 
   #
   # MAIN DC content:
@@ -83,13 +78,13 @@ class TestEmbeddings(unittest.TestCase):
       # Main DC
       [DCType.MAIN, 'money', 'medium_ft', 'dc/topic/sdg_1'],
       [DCType.MAIN, 'food', 'medium_ft', ''],
-      [DCType.MAIN, 'money', 'custom', ''],
-      [DCType.MAIN, 'food', 'custom', ''],
+      [DCType.MAIN, 'money', 'custom_ft', ''],
+      [DCType.MAIN, 'food', 'custom_ft', ''],
       # Custom DC
       [DCType.CUSTOM, 'money', 'medium_ft', 'dc/topic/sdg_1'],
       [DCType.CUSTOM, 'food', 'medium_ft', 'dc/topic/sdg_2'],
-      [DCType.CUSTOM, 'money', 'custom', ''],
-      [DCType.CUSTOM, 'food', 'custom', 'dc/topic/sdg_2'],
+      [DCType.CUSTOM, 'money', 'custom_ft', ''],
+      [DCType.CUSTOM, 'food', 'custom_ft', 'dc/topic/sdg_2'],
   ])
   def test_queries(self, dc, query, index, expected):
     if dc == DCType.MAIN:

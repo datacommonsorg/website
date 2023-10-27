@@ -13,13 +13,13 @@
 # limitations under the License.
 
 from dataclasses import dataclass
+import os
 from typing import Dict, List
 
-from nl_server import embeddings
 from nl_server import gcs
 
 # Index constants.  Passed in `url=`
-CUSTOM_DC_INDEX: str = 'custom'
+CUSTOM_DC_INDEX: str = 'custom_ft'
 DEFAULT_INDEX_TYPE: str = 'medium_ft'
 
 # The default base model we use.
@@ -40,7 +40,7 @@ class EmbeddingsIndex:
   # File name provided in the yaml file.
   embeddings_file_name: str
   # Local path.
-  embeddings_local_path: str = ""
+  embeddings_local_path: str
 
   # Fine-tuned model name ("" if embeddings uses base model).
   tuned_model: str = ""
@@ -75,8 +75,9 @@ def load(embeddings_map: Dict[str, str],
   # Download all the embeddings.
   #
   for idx in indexes:
-    idx.embeddings_local_path = gcs.download_embeddings(
-        idx.embeddings_file_name)
+    if not idx.embeddings_local_path:
+      idx.embeddings_local_path = gcs.download_embeddings(
+          idx.embeddings_file_name)
 
   return indexes
 
@@ -85,7 +86,18 @@ def _parse(embeddings_map: Dict[str, str]) -> List[EmbeddingsIndex]:
   indexes: List[EmbeddingsIndex] = []
 
   for key, value in embeddings_map.items():
-    idx = EmbeddingsIndex(name=key, embeddings_file_name=value)
+
+    if value.startswith('/'):
+      # Value is an absolute path
+      file_name = os.path.basename(value)
+      local_path = value
+    else:
+      file_name = value
+      local_path = ''
+
+    idx = EmbeddingsIndex(name=key,
+                          embeddings_file_name=file_name,
+                          embeddings_local_path=local_path)
 
     parts = value.split('.')
     assert parts[

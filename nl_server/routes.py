@@ -21,6 +21,7 @@ from flask import request
 from markupsafe import escape
 
 from nl_server import config
+from nl_server import loader
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -91,4 +92,10 @@ def search_verbs():
 
 @bp.route('/api/embeddings_version_map/', methods=['GET'])
 def embeddings_version_map():
+  return json.dumps(current_app.config[config.NL_EMBEDDINGS_VERSION_KEY])
+
+
+@bp.route('/api/load/', methods=['GET'])
+def load():
+  loader.load_server_state(current_app)
   return json.dumps(current_app.config[config.NL_EMBEDDINGS_VERSION_KEY])
