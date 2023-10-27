@@ -19,6 +19,7 @@ import { NamedTypedPlace } from "./types";
 export const USA_PLACE_DCID = "country/USA";
 export const INDIA_PLACE_DCID = "country/IND";
 export const BANGLADESH_PLACE_DCID = "country/BGD";
+export const BRAZIL_PLACE_DCID = "country/BRA";
 export const NEPAL_PLACE_DCID = "country/NPL";
 export const PAKISTAN_PLACE_DCID = "country/PAK";
 export const CHINA_PLACE_DCID = "country/CHN";
