@@ -6426,67 +6426,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/dc/topic/CURATED_SDG_1_SI_POV_DAY1_ByAge"
-      ],
-      "memberList": [
-        "sdg/SI_POV_DAY1.AGE--Y0T14",
-        "sdg/SI_POV_DAY1.AGE--Y15T64",
-        "sdg/SI_POV_DAY1.AGE--Y_GE65"
-      ],
-      "name": [
-        "Population below international poverty line by age"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/CURATED_SDG_1_SI_POV_DAY1_ByGender"
-      ],
-      "memberList": [
-        "sdg/SI_POV_DAY1.SEX--F",
-        "sdg/SI_POV_DAY1.SEX--M"
-      ],
-      "name": [
-        "Population below international poverty line by gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/CURATED_SDG_1_SI_POV_DAY1_ByResidence"
-      ],
-      "memberList": [
-        "sdg/SI_POV_DAY1.URBANISATION--R",
-        "sdg/SI_POV_DAY1.URBANISATION--U"
-      ],
-      "name": [
-        "Population below international poverty line in rural vs. urban areas"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/CURATED_SDG_1_SI_POV_EMP1.AGEY_GE15_ByGender"
-      ],
-      "memberList": [
-        "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
-        "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-      ],
-      "name": [
-        "Employed population below international poverty line by gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/dc/topic/Cancer_DeathsbyAge"
       ],
       "memberList": [
@@ -8614,6 +8553,67 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/Poverty_SDG_1_SI_POV_DAY1_ByAge"
+      ],
+      "memberList": [
+        "sdg/SI_POV_DAY1.AGE--Y0T14",
+        "sdg/SI_POV_DAY1.AGE--Y15T64",
+        "sdg/SI_POV_DAY1.AGE--Y_GE65"
+      ],
+      "name": [
+        "Population below international poverty line by age"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Poverty_SDG_1_SI_POV_DAY1_ByGender"
+      ],
+      "memberList": [
+        "sdg/SI_POV_DAY1.SEX--F",
+        "sdg/SI_POV_DAY1.SEX--M"
+      ],
+      "name": [
+        "Population below international poverty line by gender"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Poverty_SDG_1_SI_POV_DAY1_ByResidence"
+      ],
+      "memberList": [
+        "sdg/SI_POV_DAY1.URBANISATION--R",
+        "sdg/SI_POV_DAY1.URBANISATION--U"
+      ],
+      "name": [
+        "Population below international poverty line in rural vs. urban areas"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Poverty_SDG_1_SI_POV_EMP1.AGEY_GE15_ByGender"
+      ],
+      "memberList": [
+        "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
+        "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+      ],
+      "name": [
+        "Employed population below international poverty line by gender"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/PrivateHealthInsuranceType_TypeofPrivateHealthInsuranceCoverage"
       ],
       "memberList": [
@@ -10074,27 +10074,6 @@
         "IncrementalCount_Vaccine_COVID_19_Administered",
         "dc/svpg/COVID19_COVID19Cases",
         "dc/svpg/COVID19_COVID19CumulativeCount"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/CURATED_SDG_1"
-      ],
-      "name": [
-        "Poverty"
-      ],
-      "relevantVariableList": [
-        "sdg/SI_POV_DAY1",
-        "sdg/SI_POV_EMP1.AGE--Y_GE15",
-        "sdg/SP_ACS_BSRVH2O",
-        "sdg/SP_ACS_BSRVSAN",
-        "dc/svpg/dc/topic/CURATED_SDG_1_SI_POV_DAY1_ByAge",
-        "dc/svpg/dc/topic/CURATED_SDG_1_SI_POV_DAY1_ByGender",
-        "dc/svpg/dc/topic/CURATED_SDG_1_SI_POV_DAY1_ByResidence",
-        "dc/svpg/dc/topic/CURATED_SDG_1_SI_POV_EMP1.AGEY_GE15_ByGender"
       ],
       "typeOf": [
         "Topic"
@@ -14473,11 +14452,17 @@
       ],
       "relevantVariableList": [
         "Count_Person_BelowPovertyLevelInThePast12Months",
+        "sdg/SI_POV_DAY1",
         "dc/topic/PovertyByGender",
         "dc/topic/PovertyByRace",
         "dc/topic/PovertyByResidency",
-        "dc/topic/PovertyByLanguageSpokenAtHome",
-        "dc/topic/CURATED_SDG_1"
+        "dc/topic/PovertyByLanguageSpokenAtHomerelevantVariable: dcid:sdg/SI_POV_EMP1.AGE--Y_GE15",
+        "sdg/SP_ACS_BSRVH2O",
+        "sdg/SP_ACS_BSRVSAN",
+        "dc/svpg/dc/topic/Poverty_SDG_1_SI_POV_DAY1_ByAge",
+        "dc/svpg/dc/topic/Poverty_SDG_1_SI_POV_DAY1_ByGender",
+        "dc/svpg/dc/topic/Poverty_SDG_1_SI_POV_DAY1_ByResidence",
+        "dc/svpg/dc/topic/Poverty_SDG_1_SI_POV_EMP1.AGEY_GE15_ByGender"
       ],
       "typeOf": [
         "Topic"

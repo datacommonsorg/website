@@ -504,13 +504,6 @@
         "types": [
           "Topic"
         ]
-      },
-      {
-        "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
-        "name": "Poverty by Language Spoken At Home",
-        "types": [
-          "Topic"
-        ]
       }
     ],
     "exploreMore": {

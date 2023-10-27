@@ -103,6 +103,35 @@
               }
             ],
             "title": "Unemployment Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Proportion of Population Below International Poverty Line in United Kingdom",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Population Below International Poverty Line in United Kingdom",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Proportion of Population Below International Poverty Line in United Kingdom",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Proportion of Population Below International Poverty Line"
           }
         ],
         "statVarSpec": {
@@ -121,6 +150,10 @@
           "UnemploymentRate_Person": {
             "name": "Unemployment Rate",
             "statVar": "UnemploymentRate_Person"
+          },
+          "sdg/SI_POV_DAY1": {
+            "name": "Proportion of population below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1"
           }
         }
       }
