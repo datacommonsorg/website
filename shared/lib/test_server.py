@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import warnings
 import multiprocessing
 import os
 import platform
 import socket
+import warnings
 
 from flask_testing import LiveServerTestCase
 
@@ -55,6 +55,7 @@ class NLWebServerTestCase(LiveServerTestCase):
     if is_nl_mode:
 
       if should_start_nl_server:
+
         def start_nl_server(app):
           app.run(port=nl_port, debug=False, use_reloader=False, threaded=True)
 
@@ -66,7 +67,8 @@ class NLWebServerTestCase(LiveServerTestCase):
         cls.proc.start()
       else:
         cls.proc = None
-      libutil.check_backend_ready(['http://127.0.0.1:{}/healthz'.format(nl_port)])
+      libutil.check_backend_ready(
+          ['http://127.0.0.1:{}/healthz'.format(nl_port)])
 
   @classmethod
   def tearDownClass(cls):
