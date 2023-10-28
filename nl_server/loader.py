@@ -87,11 +87,16 @@ def _load_yamls(flask_env: str) -> tuple[Dict[str, str], Dict[str, str]]:
 
 
 def _maybe_load_custom_dc_yaml():
+  # The path comes from:
+  # https://github.com/datacommonsorg/website/blob/master/server/routes/admin/html.py#L39-L40
   base = os.environ.get('SQL_DATA_PATH')
   if not base:
     return None
 
+  # TODO: Consider reading the base path from a "version.txt" instead
+  # of hardcoding `data`
   file_path = os.path.join(base, f'data/nl/{_CUSTOM_EMBEDDINGS_YAML}')
+
   if os.path.exists(file_path):
     with open(file_path) as f:
       return yaml.full_load(f)

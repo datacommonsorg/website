@@ -64,6 +64,7 @@ class TestEmbeddings(unittest.TestCase):
   def test_entries(self):
     self.assertEqual(1, len(self.main.get('medium_ft').dcids))
     self.assertTrue(not self.main.get('custom_ft'))
+    # Custom DC should merge base + custom embeddings.
     self.assertEqual(2, len(self.custom.get('medium_ft').dcids))
     self.assertEqual(1, len(self.custom.get('custom_ft').dcids))
 
