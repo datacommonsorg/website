@@ -84,6 +84,7 @@ def build_embeddings_dataframe(ctx: utils.Context,
 
 def generate_embeddings_yaml(embeddings_csv_path: str,
                              embeddings_yaml_path: str):
+  embeddings_csv_path = os.path.abspath(embeddings_csv_path)
   data = {"custom_ft": embeddings_csv_path}
   with open(embeddings_yaml_path, "w") as f:
     yaml.dump(data, f)
