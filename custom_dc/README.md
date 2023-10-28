@@ -6,7 +6,7 @@ custom to a third party's need.
 This document illustrates development and deployment details for a custom Data
 Commons instance.
 
-## Prerequisit
+## Prerequisites
 
 - Install [docker](https://www.docker.com/products/docker-desktop/)
 - [Optional] Install [gcloud](https://cloud.google.com/sdk/docs/install-sdk)
