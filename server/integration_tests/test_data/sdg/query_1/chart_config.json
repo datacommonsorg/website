@@ -15,42 +15,10 @@
                     "type": "MAP"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
-                    ],
-                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
-                    ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
-                    ],
-                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
               }
             ],
-            "title": "Proportion of Population Below International Poverty Line and More in Countries of Africa"
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Proportion of Population Below International Poverty Line in Countries of Africa"
           },
           {
             "columns": [
@@ -123,53 +91,26 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1.URBANISATION--R"
-                    ],
-                    "title": "Proportion of Population Below International Poverty Line [Rural] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "sdg/SI_POV_DAY1.URBANISATION--U"
                     ],
                     "title": "Proportion of Population Below International Poverty Line [Urban] in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
-              }
-            ],
-            "title": "Population Below International Poverty Line in Rural Vs. Urban Areas in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
-                    ],
-                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over, Female] in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
               },
               {
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+                      "sdg/SI_POV_DAY1.URBANISATION--R"
                     ],
-                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over, Male] in Countries of Africa (${date})",
+                    "title": "Proportion of Population Below International Poverty Line [Rural] in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Employed Population Below International Poverty Line by Gender in Countries of Africa"
+            "title": "Population Below International Poverty Line in Rural Vs. Urban Areas in Countries of Africa"
           },
           {
             "columns": [
@@ -262,6 +203,71 @@
               }
             ],
             "title": "Proportion of Children Living in Child-Specific Multidimensional Poverty in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over] in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Below International Poverty Line and More in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
+                    ],
+                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over, Female] in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over, Male] in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Employed Population Below International Poverty Line by Gender in Countries of Africa"
           }
         ],
         "statVarSpec": {

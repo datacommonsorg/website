@@ -9,107 +9,35 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/UGA",
-                      "country/GHA",
-                      "country/ETH",
-                      "country/KEN",
-                      "country/SEN",
-                      "country/MAR",
                       "country/MLI",
-                      "country/RWA"
+                      "country/GIN",
+                      "country/SEN",
+                      "country/ETH",
+                      "country/RWA",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/MAR"
                     ],
                     "statVarKey": [
-                      "sdg/SI_POV_NAHC8"
+                      "sdg/SI_POV_DAY18"
                     ],
-                    "title": "Proportion of Population Living Below the National Poverty Line",
+                    "title": "Proportion of Population Below International Poverty Line",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: Poverty and Inequality Platform, World Bank",
-            "title": "Proportion of Population Living Below the National Poverty Line"
+            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
+            "title": "Proportion of Population Below International Poverty Line"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/UGA",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_abs"
-                    ],
-                    "title": "Uganda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GHA",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_abs"
-                    ],
-                    "title": "Ghana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/ETH",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_abs"
-                    ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/KEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_abs"
-                    ],
-                    "title": "Kenya",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_abs"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MAR",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_abs"
-                    ],
-                    "title": "Morocco",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_abs"
+                      "sdg/SI_POV_DAY1_growth_abs"
                     ],
                     "title": "Mali",
                     "type": "LINE"
@@ -119,27 +47,135 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/RWA",
                     "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_abs"
+                      "sdg/SI_POV_DAY1_growth_abs"
                     ],
                     "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GHA",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Ghana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Uganda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
-            "footnote": "Includes data from the following sources: Poverty and Inequality Platform, World Bank",
-            "title": "Decrease in Proportion of Population Living Below the National Poverty Line Over Time (Absolute Change)"
+            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
+            "title": "Decrease in Proportion of Population Below International Poverty Line Over Time (Absolute Change)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/MAR",
                     "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
                     "title": "Morocco",
                     "type": "LINE"
@@ -151,7 +187,7 @@
                   {
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
                     "title": "Ethiopia",
                     "type": "LINE"
@@ -161,21 +197,9 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/UGA",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_pct"
-                    ],
-                    "title": "Uganda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/GHA",
                     "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
                     "title": "Ghana",
                     "type": "LINE"
@@ -185,33 +209,9 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/KEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_pct"
-                    ],
-                    "title": "Kenya",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_pct"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/RWA",
                     "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
                     "title": "Rwanda",
                     "type": "LINE"
@@ -221,39 +221,39 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/UGA",
                     "statVarKey": [
-                      "sdg/SI_POV_NAHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Mali",
+                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: Poverty and Inequality Platform, World Bank",
-            "title": "Decrease in Proportion of Population Living Below the National Poverty Line Over Time (Percent Change)"
+            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
+            "title": "Decrease in Proportion of Population Below International Poverty Line Over Time (Percent Change)"
           }
         ],
         "statVarSpec": {
-          "sdg/SI_POV_NAHC8": {
-            "name": "Proportion of population living below the national poverty line",
-            "statVar": "sdg/SI_POV_NAHC"
+          "sdg/SI_POV_DAY18": {
+            "name": "Proportion of population below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1"
           },
-          "sdg/SI_POV_NAHC_growth_abs": {
-            "name": "Proportion of population living below the national poverty line",
-            "statVar": "sdg/SI_POV_NAHC"
+          "sdg/SI_POV_DAY1_growth_abs": {
+            "name": "Proportion of population below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1"
           },
-          "sdg/SI_POV_NAHC_growth_pct": {
-            "name": "Proportion of population living below the national poverty line",
-            "statVar": "sdg/SI_POV_NAHC"
+          "sdg/SI_POV_DAY1_growth_pct": {
+            "name": "Proportion of population below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "country/UGA"
+        "country/MLI"
       ]
     }
   },
@@ -261,51 +261,16 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/KEN",
-    "name": "Kenya",
+    "dcid": "country/MLI",
+    "name": "Mali",
     "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_ANSWER",
   "places": [
     {
-      "dcid": "country/KEN",
-      "name": "Kenya",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SOM",
-      "name": "Somalia",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/GHA",
-      "name": "Ghana",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/ETH",
-      "name": "Ethiopia",
-      "place_type": "Country"
-    },
-    {
       "dcid": "country/MLI",
       "name": "Mali",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/MAR",
-      "name": "Morocco",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/RWA",
-      "name": "Rwanda",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SEN",
-      "name": "Senegal",
       "place_type": "Country"
     },
     {
@@ -314,34 +279,60 @@
       "place_type": "Country"
     },
     {
+      "dcid": "country/SEN",
+      "name": "Senegal",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/ETH",
+      "name": "Ethiopia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/RWA",
+      "name": "Rwanda",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/GHA",
+      "name": "Ghana",
+      "place_type": "Country"
+    },
+    {
       "dcid": "country/UGA",
       "name": "Uganda",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MAR",
+      "name": "Morocco",
       "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/sdg_1.2.1",
-        "name": "1.2.1: Proportion of population living below the national poverty line, by sex and age",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1.2.2",
-        "name": "1.2.2: Proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions",
-        "types": [
-          "Topic"
+    "childTopics": [],
+    "exploreMore": {
+      "sdg/SI_POV_DAY1": {
+        "age": [
+          "sdg/SI_POV_DAY1.AGE--Y0T14",
+          "sdg/SI_POV_DAY1.AGE--Y15T64",
+          "sdg/SI_POV_DAY1.AGE--Y_GE65"
+        ],
+        "sdg_sex": [
+          "sdg/SI_POV_DAY1.SEX--F",
+          "sdg/SI_POV_DAY1.SEX--M"
+        ],
+        "sdg_urbanisation": [
+          "sdg/SI_POV_DAY1.URBANISATION--R",
+          "sdg/SI_POV_DAY1.URBANISATION--U"
         ]
       }
-    ],
-    "exploreMore": {},
+    },
     "mainTopics": [
       {
-        "dcid": "dc/topic/sdg_1.2",
-        "name": "1.2: By 2030, reduce at least by half the proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions",
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
         "types": [
           "Topic"
         ]
@@ -350,8 +341,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/sdg_1",
-        "name": "1: No Poverty",
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
         "types": [
           "Topic"
         ]
@@ -360,36 +351,8 @@
     "peerPlaces": [],
     "peerTopics": [
       {
-        "dcid": "dc/topic/sdg_1.1",
-        "name": "1.1: By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1.3",
-        "name": "1.3: Implement nationally appropriate social protection systems and measures for all, including floors, and by 2030 achieve substantial coverage of the poor and the vulnerable",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1.4",
-        "name": "1.4: By 2030, ensure that all men and women, in particular the poor and the vulnerable, have equal rights to economic resources, as well as access to basic services, ownership and control over land and other forms of property, inheritance, natural resources, appropriate new technology and financial services, including microfinance",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1.5",
-        "name": "1.5: By 2030, build the resilience of the poor and those in vulnerable situations and reduce their exposure and vulnerability to climate-related extreme events and other economic, social and environmental shocks and disasters",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_1.a",
-        "name": "1.a: Ensure significant mobilization of resources from a variety of sources, including through enhanced development cooperation, in order to provide adequate and predictable means for developing countries, in particular least developed countries, to implement programmes and policies to end poverty in all its dimensions",
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
         "types": [
           "Topic"
         ]

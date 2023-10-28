@@ -9,38 +9,39 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/PHL",
-                      "country/DOM",
-                      "country/SLV",
+                      "country/TJK",
+                      "country/SLB",
+                      "country/NPL",
+                      "country/GUY",
                       "country/MLI",
-                      "country/CRI",
-                      "country/HND",
-                      "country/VNM",
-                      "country/CHL",
-                      "country/MAR"
+                      "country/LBR",
+                      "country/GIN",
+                      "country/TGO",
+                      "country/COD",
+                      "country/GMB"
                     ],
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC9"
+                      "sdg/SI_POV_DAY110"
                     ],
-                    "title": "Proportion of Households Living in Multidimensional Poverty",
+                    "title": "Proportion of Population Below International Poverty Line",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: Department of Census and Statistics; Department of Statistics Malaysia; General Statistics Office; Ghana Statistical Service; INSTITUT NATIONAL DE LA STATISTIQUE; Institut National de la Statistique (INSTAT); La Direcci\u00f3n General de Estad\u00edstica y Censos; Ministerio de Desarrollo Social; Ministry of Economy, Planning and Development; Ministry of Social Development; Philippine Statistics Authority; Secretar\u00eda T\u00e9cnica y de Planificaci\u00f3n Presidencia; Secretar\u00eda de Coordinaci\u00f3n General de Gobierno, Instituto Nacional de Estad\u00edstica INE; Statistical Committee of Republic of Armenia; The Central Statistical Office of Saint Lucia; The National Institute of Statistics and Census of Costa Rica; The Palestinian Central Bureau of Statistics (PCBS); The high commission of planning",
-            "title": "Proportion of Households Living in Multidimensional Poverty"
+            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
+            "title": "Proportion of Population Below International Poverty Line"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/PHL",
+                    "placeDcidOverride": "country/TJK",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_abs"
+                      "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Philippines",
+                    "title": "Tajikistan",
                     "type": "LINE"
                   }
                 ]
@@ -48,11 +49,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/DOM",
+                    "placeDcidOverride": "country/SLB",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_abs"
+                      "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Dominican Republic",
+                    "title": "Solomon Islands",
                     "type": "LINE"
                   }
                 ]
@@ -60,11 +61,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SLV",
+                    "placeDcidOverride": "country/NPL",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_abs"
+                      "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "El Salvador",
+                    "title": "Nepal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GUY",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Guyana",
                     "type": "LINE"
                   }
                 ]
@@ -74,7 +87,7 @@
                   {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_abs"
+                      "sdg/SI_POV_DAY1_growth_abs"
                     ],
                     "title": "Mali",
                     "type": "LINE"
@@ -84,11 +97,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/CRI",
+                    "placeDcidOverride": "country/LBR",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_abs"
+                      "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Costa Rica",
+                    "title": "Liberia",
                     "type": "LINE"
                   }
                 ]
@@ -96,11 +109,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/HND",
+                    "placeDcidOverride": "country/GIN",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_abs"
+                      "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Honduras",
+                    "title": "Guinea",
                     "type": "LINE"
                   }
                 ]
@@ -108,11 +121,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/VNM",
+                    "placeDcidOverride": "country/TGO",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_abs"
+                      "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Vietnam",
+                    "title": "Togo",
                     "type": "LINE"
                   }
                 ]
@@ -120,11 +133,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/CHL",
+                    "placeDcidOverride": "country/COD",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_abs"
+                      "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Chile",
+                    "title": "Congo [DRC]",
                     "type": "LINE"
                   }
                 ]
@@ -132,29 +145,29 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "placeDcidOverride": "country/GMB",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_abs"
+                      "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Morocco",
+                    "title": "Gambia",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: Department of Census and Statistics; Department of Statistics Malaysia; General Statistics Office; Ghana Statistical Service; INSTITUT NATIONAL DE LA STATISTIQUE; Institut National de la Statistique (INSTAT); La Direcci\u00f3n General de Estad\u00edstica y Censos; Ministerio de Desarrollo Social; Ministry of Economy, Planning and Development; Ministry of Social Development; Philippine Statistics Authority; Secretar\u00eda T\u00e9cnica y de Planificaci\u00f3n Presidencia; Secretar\u00eda de Coordinaci\u00f3n General de Gobierno, Instituto Nacional de Estad\u00edstica INE; Statistical Committee of Republic of Armenia; The Central Statistical Office of Saint Lucia; The National Institute of Statistics and Census of Costa Rica; The Palestinian Central Bureau of Statistics (PCBS); The high commission of planning",
-            "title": "Decrease in Proportion of Households Living in Multidimensional Poverty Over Time (Absolute Change)"
+            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
+            "title": "Decrease in Proportion of Population Below International Poverty Line Over Time (Absolute Change)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/PHL",
+                    "placeDcidOverride": "country/MMR",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Philippines",
+                    "title": "Myanmar [Burma]",
                     "type": "LINE"
                   }
                 ]
@@ -162,11 +175,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/VNM",
+                    "placeDcidOverride": "country/SYC",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Vietnam",
+                    "title": "Seychelles",
                     "type": "LINE"
                   }
                 ]
@@ -174,11 +187,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/DOM",
+                    "placeDcidOverride": "country/AZE",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Dominican Republic",
+                    "title": "Azerbaijan",
                     "type": "LINE"
                   }
                 ]
@@ -186,11 +199,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SLV",
+                    "placeDcidOverride": "country/GUY",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "El Salvador",
+                    "title": "Guyana",
                     "type": "LINE"
                   }
                 ]
@@ -198,11 +211,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/CRI",
+                    "placeDcidOverride": "country/SRB",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Costa Rica",
+                    "title": "Serbia",
                     "type": "LINE"
                   }
                 ]
@@ -210,11 +223,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "placeDcidOverride": "country/SYR",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Morocco",
+                    "title": "Syria",
                     "type": "LINE"
                   }
                 ]
@@ -222,11 +235,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/MKD",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Mali",
+                    "title": "Macedonia [FYROM]",
                     "type": "LINE"
                   }
                 ]
@@ -234,11 +247,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/CHL",
+                    "placeDcidOverride": "country/BGR",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Chile",
+                    "title": "Bulgaria",
                     "type": "LINE"
                   }
                 ]
@@ -246,39 +259,51 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/HND",
+                    "placeDcidOverride": "country/SLB",
                     "statVarKey": [
-                      "sdg/SD_MDP_MUHHC_growth_pct"
+                      "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Honduras",
+                    "title": "Solomon Islands",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/KIR",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Kiribati",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: Department of Census and Statistics; Department of Statistics Malaysia; General Statistics Office; Ghana Statistical Service; INSTITUT NATIONAL DE LA STATISTIQUE; Institut National de la Statistique (INSTAT); La Direcci\u00f3n General de Estad\u00edstica y Censos; Ministerio de Desarrollo Social; Ministry of Economy, Planning and Development; Ministry of Social Development; Philippine Statistics Authority; Secretar\u00eda T\u00e9cnica y de Planificaci\u00f3n Presidencia; Secretar\u00eda de Coordinaci\u00f3n General de Gobierno, Instituto Nacional de Estad\u00edstica INE; Statistical Committee of Republic of Armenia; The Central Statistical Office of Saint Lucia; The National Institute of Statistics and Census of Costa Rica; The Palestinian Central Bureau of Statistics (PCBS); The high commission of planning",
-            "title": "Decrease in Proportion of Households Living in Multidimensional Poverty Over Time (Percent Change)"
+            "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
+            "title": "Decrease in Proportion of Population Below International Poverty Line Over Time (Percent Change)"
           }
         ],
         "statVarSpec": {
-          "sdg/SD_MDP_MUHHC9": {
-            "name": "Proportion of households living in multidimensional poverty",
-            "statVar": "sdg/SD_MDP_MUHHC"
+          "sdg/SI_POV_DAY110": {
+            "name": "Proportion of population below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1"
           },
-          "sdg/SD_MDP_MUHHC_growth_abs": {
-            "name": "Proportion of households living in multidimensional poverty",
-            "statVar": "sdg/SD_MDP_MUHHC"
+          "sdg/SI_POV_DAY1_growth_abs": {
+            "name": "Proportion of population below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1"
           },
-          "sdg/SD_MDP_MUHHC_growth_pct": {
-            "name": "Proportion of households living in multidimensional poverty",
-            "statVar": "sdg/SD_MDP_MUHHC"
+          "sdg/SI_POV_DAY1_growth_pct": {
+            "name": "Proportion of population below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "country/PHL"
+        "country/TJK"
       ]
     }
   },
