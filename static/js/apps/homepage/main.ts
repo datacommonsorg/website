@@ -19,7 +19,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { NL_SOURCE_REPLACEMENTS } from "./../../constants/app/nl_interface_constants";
 import { App } from "./app";
 
 window.onload = () => {
