@@ -38,8 +38,9 @@ if is_nl_mode:
   # Start NL server on an unused port, so multiple integration tests can
   # run at the same time.
   if platform.system() == 'Darwin' and platform.processor() == 'arm':
-    msg = '\n\nIMPORTANT NOTE: Detected MacOS ARM processor! You need ' \
-          'to have a local NL server running (using run_nl_server.sh).\n'
+    msg = '\n\n!!!!! IMPORTANT NOTE !!!!!!\n' \
+          'Detected MacOS ARM processor! You need to have a local ' \
+          'NL server running (using run_nl_server.sh).\n'
     warnings.warn(msg)
     nl_port = 6060
     should_start_nl_server = False
