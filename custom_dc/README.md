@@ -155,6 +155,15 @@ datacommons-website-compose:latest
 
 ### Deploy to Cloud Run
 
+Build docker image and push it to Google Container Registry
+
+```bash
+export PROJECT_ID=<YOUR_PROJECT_ID>
+export CUSTOM_DC_TAG=<YOUR_TAG>
+docker build --tag gcr.io/$PROJECT_ID/datacommons-website-compose:$CUSTOM_DC_TAG -f build/web_compose/Dockerfile -t website-compose .
+docker push gcr.io/$PROJECT_ID/datacommons-website-compose:$CUSTOM_DC_TAG
+```
+
 In GCP [IAM](https://console.cloud.google.com/iam-admin/iam), grant the default
 service account "Cloud SQL Editor" permission. Then run:
 
@@ -165,7 +174,7 @@ env_vars=$(awk -F '=' 'NF==2 {print $1"="$2}' custom_dc/cloudsql_env.list | tr '
 gcloud run deploy datacommons \
   --allow-unauthenticated \
   --memory 4G \
-  --image gcr.io/datcom-ci/datacommons-website-compose:latest \
+  --image gcr.io/$PROJECT_ID/datacommons-website-compose:$CUSTOM_DC_TAG \
   --add-cloudsql-instances=<project>:<region>:dc-graph \
   --set-env-vars="$env_vars" \
   --port 8080
@@ -214,5 +223,5 @@ You can also load the data by running:
 ```bash
 curl -X POST localhost:8080/admin/load-data -d \
    -H "Content-Type: application/x-www-form-urlencoded" \
-   -d "secret=<YOUR_ADMIN_SECRET"
+   -d "secret=<YOUR_ADMIN_SECRET>"
 ```
