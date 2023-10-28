@@ -80,8 +80,6 @@ The keys are index names (specified as `idx=` param value), and the values are f
 
 These files, generated from a fine-tuned model (as of Q2 2023), have the following structure:  `<version>.<fine-tuned-model-version>.<base-model-name>.csv`  (e.g., `datcom-nl-models/embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv`).
 
-Additionally, for custom DCs, there is `custom` index name which gets merged into the default prod index (`medium_ft`) on NL server boot.  This allows for queries spanning custom DC vs. base DC variables.
-
 ### [`models.yaml`](../../../deploy/nl/models.yaml)
 
 A mostly legacy file that lists the fine-tuned model name.
