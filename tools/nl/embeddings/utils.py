@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 import pandas as pd
+from sentence_transformers import SentenceTransformer
 
 # Col names in the input files/sheets.
 DCID_COL = 'dcid'
@@ -208,6 +209,12 @@ def get_or_download_model_from_gcs(ctx: Context, model_version: str) -> str:
     print(f"Model downloaded locally to: {tuned_model_path}")
 
   return tuned_model_path
+
+
+def get_ft_model_from_gcs(ctx: Context,
+                          model_version: str) -> SentenceTransformer:
+  model_path = get_or_download_model_from_gcs(ctx, model_version)
+  return SentenceTransformer(model_path)
 
 
 def validate_embeddings(embeddings_df: pd.DataFrame,

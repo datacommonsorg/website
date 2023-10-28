@@ -13,9 +13,59 @@
 # limitations under the License.
 """Build embeddings for custom DCs."""
 
+import os
+
+from absl import app
+from absl import flags
+from google.cloud import storage
 import pandas as pd
 import utils
 import yaml
+
+FLAGS = flags.FLAGS
+
+flags.DEFINE_string(
+    "model_version",
+    None,
+    "Existing finetuned model folder name on GCS (e.g. 'ft_final_v20230717230459.all-MiniLM-L6-v2')",
+    required=True)
+flags.DEFINE_string("sv_sentences_csv_path",
+                    None,
+                    "Path to the custom DC SV sentences path.",
+                    required=True)
+flags.DEFINE_string(
+    "output_dir",
+    None,
+    "Output directory where the generated embeddings will be saved.",
+    required=True)
+
+MODELS_BUCKET = 'datcom-nl-models'
+EMBEDDINGS_CSV_FILENAME = "custom_embeddings.csv"
+EMBEDDINGS_YAML_FILE_NAME = "custom_embeddings.yaml"
+
+
+def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
+  print(f"Downloading model: {model_version}")
+  ctx = _download_model(model_version)
+
+  print(
+      f"Generating embeddings dataframe from SV sentences CSV: {sv_sentences_csv_path}"
+  )
+  embeddings_df = build_embeddings_dataframe(ctx, sv_sentences_csv_path)
+
+  print("Validating embeddings.")
+  utils.validate_embeddings(embeddings_df, sv_sentences_csv_path)
+
+  embeddings_csv_path = os.path.join(output_dir, EMBEDDINGS_CSV_FILENAME)
+  embeddings_yaml_path = os.path.join(output_dir, EMBEDDINGS_YAML_FILE_NAME)
+
+  print(f"Saving embeddings CSV: {embeddings_csv_path}")
+  embeddings_df.to_csv(embeddings_csv_path, index=False)
+
+  print(f"Saving embeddings yaml: {embeddings_yaml_path}")
+  generate_embeddings_yaml(embeddings_csv_path, embeddings_yaml_path)
+
+  print("Done building custom DC embeddings.")
 
 
 def build_embeddings_dataframe(ctx: utils.Context,
@@ -37,3 +87,18 @@ def generate_embeddings_yaml(embeddings_csv_path: str,
   data = {"custom_ft": embeddings_csv_path}
   with open(embeddings_yaml_path, "w") as f:
     yaml.dump(data, f)
+
+
+def _download_model(model_version: str) -> utils.Context:
+  bucket = storage.Client.create_anonymous_client().bucket(MODELS_BUCKET)
+  ctx_no_model = utils.Context(gs=None, model=None, bucket=bucket)
+  model = utils.get_ft_model_from_gcs(ctx_no_model, model_version)
+  return utils.Context(gs=None, model=model, bucket=bucket)
+
+
+def main(_):
+  build(FLAGS.model_version, FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
+
+
+if __name__ == "__main__":
+  app.run(main)

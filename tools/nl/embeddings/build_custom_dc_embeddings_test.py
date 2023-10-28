@@ -12,14 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import glob
 import os
 import tempfile
 import unittest
-from unittest import mock
 
-import build_custom_dc_embeddings as be
-import pandas as pd
+from build_custom_dc_embeddings import EMBEDDINGS_CSV_FILENAME
+from build_custom_dc_embeddings import EMBEDDINGS_YAML_FILE_NAME
+import build_custom_dc_embeddings as builder
 from sentence_transformers import SentenceTransformer
 import utils
 
@@ -55,7 +54,7 @@ class TestEndToEnd(unittest.TestCase):
       actual_dcids_sentences_csv_path = os.path.join(
           temp_dir, "final_dcids_sentences.csv")
 
-      embeddings_df = be.build_embeddings_dataframe(
+      embeddings_df = builder.build_embeddings_dataframe(
           ctx, input_dcids_sentences_csv_path)
 
       embeddings_df[['dcid',
@@ -74,7 +73,7 @@ class TestEndToEnd(unittest.TestCase):
     input_dcids_sentences_csv_path = os.path.join(INPUT_DIR,
                                                   "dcids_sentences.csv")
 
-    embeddings_df = be.build_embeddings_dataframe(
+    embeddings_df = builder.build_embeddings_dataframe(
         ctx, input_dcids_sentences_csv_path)
 
     # Test success == no failures during validation
@@ -82,14 +81,15 @@ class TestEndToEnd(unittest.TestCase):
 
   def test_generate_yaml(self):
     expected_embeddings_yaml_path = os.path.join(EXPECTED_DIR,
-                                                 "embeddings.yaml")
-    fake_embeddings_csv_path = "/fake/path/to/embeddings.csv"
+                                                 EMBEDDINGS_YAML_FILE_NAME)
+    fake_embeddings_csv_path = f"/fake/path/to/{EMBEDDINGS_CSV_FILENAME}"
 
     with tempfile.TemporaryDirectory() as temp_dir:
-      actual_embeddings_yaml_path = os.path.join(temp_dir, "embeddings.yaml")
+      actual_embeddings_yaml_path = os.path.join(temp_dir,
+                                                 EMBEDDINGS_YAML_FILE_NAME)
 
-      be.generate_embeddings_yaml(fake_embeddings_csv_path,
-                                  actual_embeddings_yaml_path)
+      builder.generate_embeddings_yaml(fake_embeddings_csv_path,
+                                       actual_embeddings_yaml_path)
 
       _compare_files(self, actual_embeddings_yaml_path,
                      expected_embeddings_yaml_path)
