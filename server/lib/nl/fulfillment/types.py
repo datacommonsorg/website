@@ -25,6 +25,7 @@ from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import Date
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import QuantityClassificationAttributes
@@ -90,6 +91,7 @@ class PopulateState:
   ranking_types: List[RankingType] = field(default_factory=list)
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
   quantity: QuantityClassificationAttributes = None
+  date: Date = None
   event_types: List[EventType] = field(default_factory=list)
   disable_fallback: bool = False
   # The list of chart-vars to process.  This is keyed by var / topic.
@@ -134,3 +136,4 @@ class ChartSpec:
   ranking_count: int
   chart_origin: ChartOriginType
   is_sdg: bool
+  date: Date

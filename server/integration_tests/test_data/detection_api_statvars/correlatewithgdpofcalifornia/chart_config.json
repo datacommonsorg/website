@@ -38,9 +38,9 @@
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
     "USStateQuarterlyIndustryGDP_NAICS_44_45",
     "dc/topic/Economy",
+    "dc/topic/sdg_17.1.1",
     "dc/topic/EconomicEquity",
     "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
-    "dc/topic/GDP",
-    "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
+    "dc/topic/GDP"
   ]
 }

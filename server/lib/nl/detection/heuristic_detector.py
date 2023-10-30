@@ -71,6 +71,7 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
                                     "AnswerPlacesReference"),
       heuristic_classifiers.general(query, ClassificationType.PER_CAPITA,
                                     "PerCapita"),
+      heuristic_classifiers.date(query, counters),
   ]
 
   # Set the Classifications list.

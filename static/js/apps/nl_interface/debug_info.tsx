@@ -198,6 +198,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     correlationClassification: props.debugData["correlation_classification"],
     eventClassification: props.debugData["event_classification"],
     quantityClassification: props.debugData["quantity_classification"],
+    dateClassification: props.debugData["date_classification"],
     counters: props.debugData["counters"],
   };
 
@@ -306,6 +307,9 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <Col>
               Quantity classification: {debugInfo.quantityClassification}
             </Col>
+          </Row>
+          <Row>
+            <Col>Date classification: {debugInfo.dateClassification}</Col>
           </Row>
           <Row>
             <b>Single Variables Matches:</b>

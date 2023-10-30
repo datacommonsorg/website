@@ -289,6 +289,17 @@ def get_quantity(
   return None
 
 
+def get_date(uttr: nl_uttr.Utterance) -> types.DateClassificationAttributes:
+  classification = futils.classifications_of_type_from_utterance(
+      uttr, types.ClassificationType.DATE)
+  if (classification and isinstance(classification[0].attributes,
+                                    types.DateClassificationAttributes)):
+    # Just get the first date for now
+    if classification[0].attributes.dates:
+      return classification[0].attributes.dates[0]
+  return None
+
+
 def get_time_delta_types(uttr: nl_uttr.Utterance) -> List[types.TimeDeltaType]:
   classification = futils.classifications_of_type_from_utterance(
       uttr, types.ClassificationType.TIME_DELTA)
