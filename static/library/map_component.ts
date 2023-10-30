@@ -50,7 +50,6 @@ export class DatacommonsMapComponent extends LitElement {
   `;
 
   // Optional: Allow zoom and pan on map
-  // TODO: Add to documentation once zoom button bug gets fixed.
   @property({ type: Boolean })
   allowZoom: boolean;
 

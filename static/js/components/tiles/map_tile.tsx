@@ -341,7 +341,6 @@ export const fetchData = async (
   for (const layer of layers) {
     // TODO: Currently we make one set of data fetches per layer.
     //       We should switch to concurrent/batch calls across all layers.
-    console.log(layer);
     const place = props.dataSpecs
       ? { name: "", dcid: layer.parentPlace, types: [] }
       : props.place;
@@ -585,7 +584,7 @@ export function draw(
   const units: { [variable: string]: string } = {};
   // mapping of variable to values for computing color scale
   const allValuesByVariable: { [variable: string]: number[] } = {};
-  const variableNames: { [variable: string]: name } = {};
+  const variableNames: { [variable: string]: string } = {};
   // lists of geojsons used for computing projections and borders
   const projectionGeoJsons = [];
   const bordersToDraw = [];
