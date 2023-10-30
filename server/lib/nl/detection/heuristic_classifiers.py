@@ -23,6 +23,7 @@ from typing import Union
 
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection import quantity as qty
+from server.lib.nl.detection.date import parse_date
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ComparisonClassificationAttributes
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
@@ -367,4 +368,11 @@ def quantity(query_orig: str, ctr: Counters) -> Union[NLClassifier, None]:
   attributes = qty.parse_quantity(query_orig, ctr)
   if attributes:
     return NLClassifier(type=ClassificationType.QUANTITY, attributes=attributes)
+  return None
+
+
+def date(query_orig: str, ctr: Counters) -> Union[NLClassifier, None]:
+  attributes = parse_date(query_orig, ctr)
+  if attributes and attributes.dates:
+    return NLClassifier(type=ClassificationType.DATE, attributes=attributes)
   return None
