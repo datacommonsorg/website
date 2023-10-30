@@ -156,8 +156,7 @@ export function dataPointsToCsv(dataPoints: DataPoint[]): string {
 
 /**
  * Gets the csv (as a string) for a map chart data
- * @param geoJson GeoJson used for the map
- * @param dataValues data values used in the map
+ * @param layerData geoJsons + data values plotted by the map
  */
 export function mapDataToCsv(layerData: MapLayerData[]): string {
   const header = ["label", "variable", "data"];

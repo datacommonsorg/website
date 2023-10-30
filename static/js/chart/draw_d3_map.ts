@@ -425,11 +425,9 @@ function addGeoJsonLayer(
 /**
  * Draws the base d3 map
  * @param containerElement div element to draw the choropleth in
- * @param geoJson the geojson data for drawing choropleth
+ * @param layers the geojsons, data, and colorscale for each layer to draw
  * @param chartHeight height for the chart
  * @param chartWidth width for the chart
- * @param dataValues data values for plotting
- * @param colorScale the color scale to use for drawing the map and legend
  * @param redirectAction function that runs when region on map is clicked
  * @param getTooltipHtml function to get the html content for the tooltip
  * @param canClickRegion function to determine if a region on the map is clickable

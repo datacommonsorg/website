@@ -510,8 +510,8 @@ export function draw(
     props.place.dcid
   );
   const layerData: MapLayerData = {
-    colorScale: null,
-    dataValues: {},
+    colorScale: null /* no color scale since no data shown on the base map */,
+    dataValues: {} /* no data values to show on the base map */,
     geoJson: chartData.baseMapGeoJson,
   };
   drawD3Map(
@@ -519,8 +519,6 @@ export function draw(
     [layerData],
     svgHeight,
     svgWidth,
-    // {} /* dataValues: no data values to show on the base map */,
-    //null /* colorScale: no color scale since no data shown on the base map */,
     redirectAction || _.noop /* redirectAction */,
     (place: NamedPlace) => place.name || place.dcid /* getTooltipHtml */,
     (placeDcid: string) =>

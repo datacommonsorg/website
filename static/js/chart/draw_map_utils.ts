@@ -31,7 +31,6 @@ export const LEGEND_MARGIN_RIGHT = 5;
 export const LEGEND_IMG_WIDTH = 10;
 export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
 export const LEGEND_TICK_LABEL_MARGIN = 10;
-export const LEGEND_SPACING = 10; //px in between color scales in legends
 const MIN_COLOR = "#f0f0f0";
 const AXIS_TEXT_FILL = "#2b2929";
 const AXIS_GRID_FILL = "#999";
@@ -245,7 +244,7 @@ const genScaleImg = (
  * @param color color scale to use for the legend
  * @param unit unit for the values on the legend
  * @param label label for the legend bar
- * @param id to give the legend bar
+ * @param variableId id to give the legend bar
  * @returns
  */
 export function generateLegend(
@@ -270,8 +269,8 @@ export function generateLegend(
   const yScale = d3.scaleLinear().domain(color.domain()).range(yScaleRange);
 
   const legend = svg.append("g").attr("class", LEGEND_CLASS_NAME);
-  const test = legend.append("g");
-  test
+  const colorBar = legend.append("g");
+  colorBar
     .append("image")
     .attr("id", `legend-img-${variableId}`)
     .attr("x", 0)
@@ -298,7 +297,7 @@ export function generateLegend(
       );
     })
   );
-  test
+  colorBar
     .append("g")
     .attr("id", "legend-axis")
     .call(
@@ -325,7 +324,7 @@ export function generateLegend(
     .call((g) => g.select(".domain").remove());
 
   let legendWidth = (
-    test.select("#legend-axis").node() as SVGGraphicsElement
+    colorBar.select("#legend-axis").node() as SVGGraphicsElement
   ).getBBox().width;
 
   // Add label to color bar
@@ -336,7 +335,6 @@ export function generateLegend(
       .attr("part", "map-legend-label")
       .attr("transform", "rotate(-90)") // rotation swaps x and y attributes
       .attr("x", -colorBarHeight / 2)
-      //.attr("y", -TICK_SIZE - LEGEND_IMG_WIDTH)
       .attr("y", 0)
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "hanging")
@@ -344,7 +342,7 @@ export function generateLegend(
       .text(label);
     const colorBarLabelBBox = colorBarLabel.node().getBBox();
     legendWidth += colorBarLabelBBox.height;
-    test.attr("transform", `translate(${colorBarLabelBBox.height}, 0)`);
+    colorBar.attr("transform", `translate(${colorBarLabelBBox.height}, 0)`);
   }
 
   return legendWidth;
@@ -355,8 +353,7 @@ export function generateLegend(
  *
  * @param containerElement element to draw the legend in
  * @param height height of the legend
- * @param colorScale the color scale to use for the legend
- * @param unit unit of measurement
+ * @param legendData list of colorScale+unit+labels to add to legend
  * @param marginLeft left margin of the legend
  *
  * @return width of the svg including the margins
@@ -375,19 +372,25 @@ export function generateLegendSvg(
   container.selectAll("*").remove();
 
   let totalLegendWidth = 0;
-  for (const scale of legendData) {
+  legendData.forEach((scale, idx) => {
     const svg = container.append("svg");
+    const id = scale.label ? scale.label.replaceAll(" ", "-") : `${idx}`;
     const legendWidth =
-      generateLegend(svg, height, scale.colorScale, scale.unit, scale.label) +
-      marginLeft;
+      generateLegend(
+        svg,
+        height,
+        scale.colorScale,
+        scale.unit,
+        scale.label,
+        id
+      ) + marginLeft;
     svg
       .attr("width", legendWidth)
       .attr("height", height + LEGEND_MARGIN_VERTICAL * 2)
       .select(`.${LEGEND_CLASS_NAME}`)
       .attr("transform", `translate(0, ${LEGEND_MARGIN_VERTICAL})`);
     totalLegendWidth += legendWidth;
-  }
-
+  });
   return totalLegendWidth;
 }
 

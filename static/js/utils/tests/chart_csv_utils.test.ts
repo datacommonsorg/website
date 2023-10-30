@@ -287,7 +287,9 @@ test("mapDataToCsv", () => {
   ];
 
   for (const c of cases) {
-    const csv = mapDataToCsv([c.geoJson], c.dataValues);
+    const csv = mapDataToCsv([
+      { dataValues: c.dataValues, geoJson: c.geoJson },
+    ]);
     try {
       expect(csv).toEqual(c.expected);
     } catch (e) {
