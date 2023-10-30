@@ -27,7 +27,7 @@ import {
   EventTypeSpec,
 } from "../../types/subject_page_proto_types";
 import { getId } from "../../utils/subject_page_utils";
-import { ReplacementStrings, formatString } from "../../utils/tile_utils";
+import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Block } from "./block";
 import { BlockContainer } from "./block_container";
