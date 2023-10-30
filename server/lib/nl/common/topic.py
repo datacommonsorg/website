@@ -64,6 +64,8 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
     "dc/topic/TransportationEmissionsByGas": [
         "dc/svpg/TransportationEmissionsByGas"
     ],
+    # TODO(chejennifer): Try removing after bug with multi SVs is fixed (and
+    # when electrification demo looks ok without this topic)
     "dc/topic/SDG_1": [
         "sdg/SI_POV_DAY1",
         "dc/svpg/SI_POV_DAY1_ByAge",
