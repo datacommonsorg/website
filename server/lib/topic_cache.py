@@ -107,7 +107,8 @@ class TopicCache:
     return self.out_map[id].name
 
 
-def load_files(fpath_list: List[str], name_overrides: Dict, dc: str) -> TopicCache:
+def load_files(fpath_list: List[str], name_overrides: Dict,
+               dc: str) -> TopicCache:
   cache_nodes = []
   for fpath in fpath_list:
     with open(fpath, 'r') as fp:

@@ -246,7 +246,9 @@ CACHED_GEOJSON_FILES = {
     },
 }
 
-NL_CHART_TITLE_FILES = ['chart_titles_by_sv.json', 'chart_titles_by_sv_sdg.json']
+NL_CHART_TITLE_FILES = [
+    'chart_titles_by_sv.json', 'chart_titles_by_sv_sdg.json'
+]
 
 
 def get_repo_root():
