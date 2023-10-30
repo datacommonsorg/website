@@ -160,6 +160,32 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
+                      "country/DEU"
+                    ],
+                    "statVarKey": [
+                      "sdg/EN_ATM_GHGT_AIP_multiple_place_bar_block"
+                    ],
+                    "title": "Total Greenhouse Gas Emissions Without LULUCF for Annex I Parties (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: UNFCCC.",
+            "title": "Total Greenhouse Gas Emissions Without LULUCF for Annex I Parties"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
                       "country/DEU",
                       "country/ETH",
                       "country/MAR",
@@ -314,94 +340,17 @@
                       "country/SOM"
                     ],
                     "statVarKey": [
-                      "eia/INTL.4008-8-MMTCD.A_multiple_place_bar_block"
+                      "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block"
                     ],
-                    "title": "CO2 Emissions, Annual (${date})",
+                    "title": "CO\u2082 Emissions From Agriculture (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "CO2 Emissions, Annual"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
-                      "country/ETH",
-                      "country/MAR",
-                      "country/KEN",
-                      "country/GHA",
-                      "country/UGA",
-                      "country/SEN",
-                      "country/GIN",
-                      "country/MLI",
-                      "country/RWA",
-                      "country/SOM"
-                    ],
-                    "statVarKey": [
-                      "Amount_Emissions_CarbonDioxide_PerCapita_multiple_place_bar_block"
-                    ],
-                    "title": "CO2 Emissions Per Capita (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "CO2 Emissions Per Capita"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
-                      "country/ETH",
-                      "country/MAR",
-                      "country/KEN",
-                      "country/GHA",
-                      "country/UGA",
-                      "country/SEN",
-                      "country/GIN",
-                      "country/MLI",
-                      "country/RWA",
-                      "country/SOM"
-                    ],
-                    "statVarKey": [
-                      "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_FossilFuelOperations_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_Manufacturing_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_MineralExtraction_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_Power_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_Transportation_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_WasteManagement_multiple_place_bar_block"
-                    ],
-                    "title": "CO2 Emissions by Source (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "CO2 Emissions by Source"
+            "description": "CO\u2082 emissions from the growing of crops and livestock for food and raw materials for non-food consumption (measured in tonnes).",
+            "title": "CO\u2082 Emissions From Agriculture"
           },
           {
             "columns": [
@@ -490,6 +439,43 @@
                       "country/SOM"
                     ],
                     "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_Manufacturing_multiple_place_bar_block"
+                    ],
+                    "title": "CO\u2082 Emissions From Manufacturing (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "CO\u2082 emissions from cement, aluminum, steel, and other manufacturing processes (measured in tonnes).",
+            "title": "CO\u2082 Emissions From Manufacturing"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
+                    ],
+                    "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherManufacturing_multiple_place_bar_block"
                     ],
                     "title": "Annual Amount of Emissions: Other Manufacturing, Carbon Dioxide (${date})",
@@ -536,49 +522,9 @@
             ],
             "denom": "Count_Person",
             "title": "Annual Amount of Emissions: Power, Methane"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
-                      "country/ETH",
-                      "country/MAR",
-                      "country/KEN",
-                      "country/GHA",
-                      "country/UGA",
-                      "country/SEN",
-                      "country/GIN",
-                      "country/MLI",
-                      "country/RWA",
-                      "country/SOM"
-                    ],
-                    "statVarKey": [
-                      "Annual_Emissions_Methane_Manufacturing_multiple_place_bar_block"
-                    ],
-                    "title": "Annual Amount of Emissions: Manufacturing, Methane (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Manufacturing, Methane"
           }
         ],
         "statVarSpec": {
-          "Amount_Emissions_CarbonDioxide_PerCapita_multiple_place_bar_block": {
-            "name": "CO2 Emissions Per Capita",
-            "statVar": "Amount_Emissions_CarbonDioxide_PerCapita"
-          },
           "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Agriculture",
             "statVar": "Annual_Emissions_CarbonDioxide_Agriculture"
@@ -595,29 +541,13 @@
             "name": "CO\u2082 Emissions from Fossil Fuel Operations",
             "statVar": "Annual_Emissions_CarbonDioxide_FossilFuelOperations"
           },
-          "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings_multiple_place_bar_block": {
-            "name": "CO\u2082 Emissions from Fuel Combustion in Buildings",
-            "statVar": "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings"
-          },
           "Annual_Emissions_CarbonDioxide_Manufacturing_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Manufacturing",
             "statVar": "Annual_Emissions_CarbonDioxide_Manufacturing"
           },
-          "Annual_Emissions_CarbonDioxide_MineralExtraction_multiple_place_bar_block": {
-            "name": "CO\u2082 Emissions from Mineral Extraction",
-            "statVar": "Annual_Emissions_CarbonDioxide_MineralExtraction"
-          },
           "Annual_Emissions_CarbonDioxide_Power_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Power Sector",
             "statVar": "Annual_Emissions_CarbonDioxide_Power"
-          },
-          "Annual_Emissions_CarbonDioxide_Transportation_multiple_place_bar_block": {
-            "name": "CO\u2082 Emissions from Transportation",
-            "statVar": "Annual_Emissions_CarbonDioxide_Transportation"
-          },
-          "Annual_Emissions_CarbonDioxide_WasteManagement_multiple_place_bar_block": {
-            "name": "CO\u2082 Emissions from Waste Management",
-            "statVar": "Annual_Emissions_CarbonDioxide_WasteManagement"
           },
           "Annual_Emissions_GreenhouseGas_Agriculture_multiple_place_bar_block": {
             "name": "Greenhouse Gas Emissions from Agriculture",
@@ -691,17 +621,13 @@
             "name": "Annual Amount of Emissions: Other Energy Use, Methane",
             "statVar": "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse"
           },
-          "Annual_Emissions_Methane_Manufacturing_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Manufacturing, Methane",
-            "statVar": "Annual_Emissions_Methane_Manufacturing"
-          },
           "Annual_Emissions_Methane_Power_multiple_place_bar_block": {
             "name": "Annual Amount of Emissions: Power, Methane",
             "statVar": "Annual_Emissions_Methane_Power"
           },
-          "eia/INTL.4008-8-MMTCD.A_multiple_place_bar_block": {
-            "name": "CO2 emissions, Annual",
-            "statVar": "eia/INTL.4008-8-MMTCD.A"
+          "sdg/EN_ATM_GHGT_AIP_multiple_place_bar_block": {
+            "name": "Total greenhouse gas emissions without LULUCF for Annex I Parties",
+            "statVar": "sdg/EN_ATM_GHGT_AIP"
           }
         }
       }

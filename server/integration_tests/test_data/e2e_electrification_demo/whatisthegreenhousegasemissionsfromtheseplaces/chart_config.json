@@ -160,6 +160,39 @@
                       "country/SEN",
                       "country/GIN",
                       "country/MLI",
+                      "country/RWA"
+                    ],
+                    "statVarKey": [
+                      "sdg/EN_ATM_GHGT_NAIP_multiple_place_bar_block"
+                    ],
+                    "title": "Total Greenhouse Gas Emissions Without LULUCF for non-Annex I Parties (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: UNFCCC.",
+            "title": "Total Greenhouse Gas Emissions Without LULUCF for non-Annex I Parties"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -517,34 +550,6 @@
             ],
             "denom": "Count_Person",
             "title": "Annual Amount of Emissions: Manufacturing, Methane"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/ETH",
-                      "country/KEN",
-                      "country/GHA",
-                      "country/MLI"
-                    ],
-                    "statVarKey": [
-                      "Annual_Emissions_CarbonDioxide_OpenBurningWaste_multiple_place_bar_block"
-                    ],
-                    "title": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide"
           }
         ],
         "statVarSpec": {
@@ -579,10 +584,6 @@
           "Annual_Emissions_CarbonDioxide_MineralExtraction_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Mineral Extraction",
             "statVar": "Annual_Emissions_CarbonDioxide_MineralExtraction"
-          },
-          "Annual_Emissions_CarbonDioxide_OpenBurningWaste_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide",
-            "statVar": "Annual_Emissions_CarbonDioxide_OpenBurningWaste"
           },
           "Annual_Emissions_CarbonDioxide_Power_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Power Sector",
@@ -675,6 +676,10 @@
           "eia/INTL.4008-8-MMTCD.A_multiple_place_bar_block": {
             "name": "CO2 emissions, Annual",
             "statVar": "eia/INTL.4008-8-MMTCD.A"
+          },
+          "sdg/EN_ATM_GHGT_NAIP_multiple_place_bar_block": {
+            "name": "Total greenhouse gas emissions without LULUCF for non-Annex I Parties",
+            "statVar": "sdg/EN_ATM_GHGT_NAIP"
           }
         }
       }
