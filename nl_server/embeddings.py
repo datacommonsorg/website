@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Managing the embeddings."""
-from dataclasses import dataclass
 import logging
 import os
 from typing import Dict, List, Union
@@ -22,12 +21,11 @@ from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 import torch
 
+from nl_server import config
 from nl_server import query_util
 from shared.lib import constants
 from shared.lib import detected_variables as vars
 from shared.lib import utils
-
-MODEL_NAME = 'all-MiniLM-L6-v2'
 
 # A value higher than the highest score.
 _HIGHEST_SCORE = 1.0
@@ -52,7 +50,7 @@ class Embeddings:
       assert os.path.exists(existing_model_path)
       self.model = SentenceTransformer(existing_model_path)
     else:
-      self.model = SentenceTransformer(MODEL_NAME)
+      self.model = SentenceTransformer(config.EMBEDDINGS_BASE_MODEL_NAME)
     self.dataset_embeddings: torch.Tensor = None
     self.dcids: List[str] = []
     self.sentences: List[str] = []
@@ -116,8 +114,7 @@ class Embeddings:
     for q, sv2score in query2sv2score.items():
       sv2score_sorted = [(k, v) for (
           k,
-          v) in sorted(sv2score.items(), key=lambda item: item[1], reverse=True)
-                        ]
+          v) in sorted(sv2score.items(), key=lambda item: (-item[1], item[0]))]
       svs = [k for (k, _) in sv2score_sorted]
       scores = [v for (_, v) in sv2score_sorted]
       query2result[q] = vars.VarCandidates(svs=svs,
