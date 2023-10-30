@@ -18,10 +18,10 @@
  * Component for rendering a bar tile.
  */
 
+import { ChartSortOption } from "@datacommonsorg/web-components";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { ChartSortOption } from "@datacommonsorg/web-components";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
@@ -47,11 +47,11 @@ import {
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
-  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
+  ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";

@@ -61,6 +61,8 @@ RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
 
 # Import Tool
 COPY import/simple/requirements.txt /workspace/import/simple/requirements.txt
+RUN pip install --upgrade pip setuptools light-the-torch
+RUN ltt install torch --cpuonly
 RUN pip3 install --no-cache-dir -r /workspace/import/simple/requirements.txt
 
 # Install website NPM dependencies

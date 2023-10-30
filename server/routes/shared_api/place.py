@@ -448,6 +448,7 @@ def api_ranking(dcid):
   current_place_type = get_place_type(dcid)
   parents = parent_places([dcid])[dcid]
   parent_i18n_names = get_i18n_name([x['dcid'] for x in parents], False)
+  should_return_all = request.args.get('all', '') == "1"
 
   selected_parents = []
   parent_names = {}
@@ -464,7 +465,7 @@ def api_ranking(dcid):
     i18n_name = parent_i18n_names[parent_dcid]
     parent_names[parent_dcid] = i18n_name if i18n_name else parent.get(
         'name', "")
-    if len(selected_parents) == 3:
+    if (not should_return_all) and (len(selected_parents) == 3):
       break
   result = collections.defaultdict(list)
 

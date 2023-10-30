@@ -23,6 +23,14 @@ MAX_NUM_SPINNERS = 3
 ASYNC_ELEMENT_HOLDER_CLASS = 'dc-async-element-holder'
 ASYNC_ELEMENT_CLASS = 'dc-async-element'
 TIMEOUT = 60
+# Keep in sync with the web component definitions at static/library/*component.ts
+# and packages/web-components/src/main.ts
+WEB_COMPONENT_TAG_NAMES = [
+    'datacommons-bar', 'datacommons-gauge', 'datacommons-highlight',
+    'datacommons-line', 'datacommons-map', 'datacommons-pie',
+    'datacommons-ranking', 'datacommons-slider', 'datacommons-text',
+    'datacommons-scatter'
+]
 
 
 def wait_for_loading(driver):
@@ -54,16 +62,32 @@ def click_sv_group(driver, svg_name):
 
 
 def charts_rendered(driver):
-  """Wait for asyncronously charts to show up.
   """
-  element_present = EC.presence_of_element_located(
+  Wait asynchronously for charts or web components to show up
+  """
+  web_component_element_present = EC.any_of(*[
+      EC.presence_of_element_located((By.TAG_NAME, tag_name))
+      for tag_name in WEB_COMPONENT_TAG_NAMES
+  ])
+  chart_element_present = EC.presence_of_element_located(
       (By.CLASS_NAME, ASYNC_ELEMENT_HOLDER_CLASS))
-  WebDriverWait(driver, TIMEOUT).until(element_present)
+  WebDriverWait(driver, TIMEOUT).until(
+      EC.any_of(chart_element_present, web_component_element_present))
   chart_containers = driver.find_elements(By.CLASS_NAME,
                                           ASYNC_ELEMENT_HOLDER_CLASS)
+
+  # Ensure chart tiles were rendered properly
   for c in chart_containers:
     try:
       c.find_element(By.CLASS_NAME, ASYNC_ELEMENT_CLASS)
     except NoSuchElementException:
+      return False
+  # Ensure web components have a header or description attribute
+  web_component_containers = driver.find_elements(
+      By.CSS_SELECTOR, ", ".join(WEB_COMPONENT_TAG_NAMES))
+
+  for wc in list(web_component_containers):
+    dom_id = wc.get_attribute("id")
+    if not dom_id:
       return False
   return True

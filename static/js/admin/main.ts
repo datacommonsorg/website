@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,14 @@
  * limitations under the License.
  */
 
-@import "base";
-@import "source_selector";
-@import "bq_modal";
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { Page } from "./page";
+
+const domId = "main-section";
+
+window.onload = () => {
+  const pageElem = document.getElementById(domId);
+  ReactDOM.render(React.createElement(Page), pageElem);
+};
