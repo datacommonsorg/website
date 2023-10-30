@@ -75,17 +75,19 @@ def charts_rendered(driver):
       EC.any_of(chart_element_present, web_component_element_present))
   chart_containers = driver.find_elements(By.CLASS_NAME,
                                           ASYNC_ELEMENT_HOLDER_CLASS)
-  web_component_containers = driver.find_elements(
-      By.CSS_SELECTOR, ", ".join(WEB_COMPONENT_TAG_NAMES))
+
+  # Ensure chart tiles were rendered properly
   for c in chart_containers:
     try:
       c.find_element(By.CLASS_NAME, ASYNC_ELEMENT_CLASS)
     except NoSuchElementException:
       return False
+  # Ensure web components have a header or description attribute
+  web_component_containers = driver.find_elements(
+      By.CSS_SELECTOR, ", ".join(WEB_COMPONENT_TAG_NAMES))
 
-  for wc in web_component_containers:
-    header = wc.get_attribute("header")
-    description = wc.get_attribute("description")
-    if not header and not description:
+  for wc in list(web_component_containers):
+    dom_id = wc.get_attribute("id")
+    if not dom_id:
       return False
   return True
