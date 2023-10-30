@@ -16,12 +16,12 @@
 from dataclasses import dataclass
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
-import yaml
 import re
+from typing import Any, Dict, List, Tuple
 
 import pandas as pd
 from sentence_transformers import SentenceTransformer
+import yaml
 
 # Col names in the input files/sheets.
 DCID_COL = 'dcid'
@@ -241,6 +241,13 @@ def get_ft_model_from_gcs(ctx: Context,
 
 
 def get_default_ft_model_version() -> str:
+  """Gets the default index's (i.e. 'medium_ft') model version from embeddings.yaml.
+  
+  It will raise an error if the file or default index is not found or
+  if the value does not conform to the pattern:
+  <embeddings_version>.<fine-tuned-model-version>.<base-model>.csv
+  Example: embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+  """
   return _get_default_ft_model_version(_EMBEDDINGS_YAML_PATH)
 
 
