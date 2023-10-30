@@ -169,7 +169,8 @@ export function mapDataToCsv(layerData: MapLayerData[]): string {
       const value =
         geo.id in layer.dataValues ? layer.dataValues[geo.id] : "N/A";
       const name = geo.properties.name || geo.id;
-      data.push([name, layer.variable.name, value]);
+      const variable = layer.variable ? layer.variable.name : "N/A";
+      data.push([name, variable, value]);
     }
   }
   // sort data by label column (alphabetically)

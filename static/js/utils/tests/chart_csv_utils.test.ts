@@ -254,20 +254,26 @@ test("mapDataToCsv", () => {
     [testPlaceA]: 1,
     [testPlaceB]: 2,
   };
+  const testVariable = {
+    name: "testVarName",
+    statVar: "testVarDcid",
+  };
   const cases: {
     name: string;
     geoJson: GeoJsonData;
     dataValues: { [placeDcid: string]: number };
     expected: string;
+    variable: { name?: string; statVar?: string };
   }[] = [
     {
-      name: "non empty geoJson and dataValues",
+      name: "non empty geoJson and dataValues, empty variable",
       geoJson: testGeoJson,
       dataValues: testDataValues,
-      expected: 'label,data\r\nPlaceA,1\r\n"PlaceB, test",2',
+      expected: 'label,variable,data\r\nPlaceA,N/A,1\r\n"PlaceB, test",N/A,2',
+      variable: {},
     },
     {
-      name: "empty geoJson",
+      name: "empty geoJson, empty variable",
       geoJson: {
         type: "FeatureCollection",
         features: [],
@@ -276,13 +282,24 @@ test("mapDataToCsv", () => {
         },
       },
       dataValues: testDataValues,
-      expected: "label,data",
+      expected: "label,variable,data",
+      variable: {},
     },
     {
-      name: "empty dataValues",
+      name: "empty dataValues, empty variable",
       geoJson: testGeoJson,
       dataValues: {},
-      expected: 'label,data\r\nPlaceA,N/A\r\n"PlaceB, test",N/A',
+      expected:
+        'label,variable,data\r\nPlaceA,N/A,N/A\r\n"PlaceB, test",N/A,N/A',
+      variable: {},
+    },
+    {
+      name: "non empty geoJson, dataValues, variable",
+      geoJson: testGeoJson,
+      dataValues: testDataValues,
+      expected:
+        'label,variable,data\r\nPlaceA,testVarName,N/A\r\n"PlaceB, test",testVarName,N/A',
+      variable: testVariable,
     },
   ];
 
