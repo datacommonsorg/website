@@ -50,7 +50,7 @@ flags.DEFINE_string(
     'https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU',
     'Google Sheets Url for the latest SVs')
 flags.DEFINE_list(
-    'worksheet_names', ['Demo_SVs', 'SDG_GOALS_INDICATORS_ONLY'],
+    'worksheet_names', ['Demo_SVs', 'MAIN_DC_SDG_GOALS_INDICATORS_ONLY'],
     'List of names of worksheets in the Google Sheets file to use')
 
 flags.DEFINE_string(

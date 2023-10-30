@@ -41,6 +41,32 @@
                     },
                     "comparisonPlaces": [
                       "country/CHN",
+                      "country/IND"
+                    ],
+                    "statVarKey": [
+                      "sdg/DT_TDS_DECT_multiple_place_bar_block"
+                    ],
+                    "title": "Debt Service as a Proportion of Exports of Goods and Services (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: world bank, international debt statistics.",
+            "title": "Debt Service as a Proportion of Exports of Goods and Services"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/CHN",
                       "country/DEU",
                       "country/IND"
                     ],
@@ -64,6 +90,10 @@
           "sdg/DT_DOD_DECT_GN_ZS_multiple_place_bar_block": {
             "name": "External debt stocks as a proportion of GNI",
             "statVar": "sdg/DT_DOD_DECT_GN_ZS"
+          },
+          "sdg/DT_TDS_DECT_multiple_place_bar_block": {
+            "name": "Debt service as a proportion of exports of goods and services",
+            "statVar": "sdg/DT_TDS_DECT"
           }
         }
       }
