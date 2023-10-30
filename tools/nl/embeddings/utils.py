@@ -17,6 +17,8 @@ from dataclasses import dataclass
 import os
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
+import yaml
+import re
 
 import pandas as pd
 from sentence_transformers import SentenceTransformer
@@ -33,6 +35,20 @@ ALTERNATIVES_COL = 'Alternatives'
 
 # Col names in the concatenated dataframe.
 COL_ALTERNATIVES = 'sentence'
+
+_EMBEDDINGS_YAML_PATH = "../../../deploy/nl/embeddings.yaml"
+_DEFAULT_EMBEDDINGS_INDEX_TYPE = "medium_ft"
+"""The embeddings filename pattern in embeddings.yaml.
+
+Expect: <embeddings_version>.<fine-tuned-model-version>.<base-model>.csv
+Example: embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+
+Model version: <fine-tuned-model-version>.<base-model>
+Example: ft_final_v20230717230459.all-MiniLM-L6-v2
+
+If a string matches this pattern, the first group is the model version.
+"""
+_EMBEDDINGS_FILENAME_PATTERN = r"^[^.]+\.([^.]+\.[^.]+)\.csv$"
 
 
 @dataclass
@@ -148,7 +164,7 @@ def get_texts_dcids(
   return (texts, dcids)
 
 
-def download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
+def _download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
   # TODO: deprecate this in favor of the function  in nl_server.gcs
   """Downloads a Sentence Tranformer model (or finetuned version) from GCS.
 
@@ -160,7 +176,7 @@ def download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
   The downloaded model can then be loaded as:
 
   ```
-      downloaded_model_path = download_model_from_gcs(ctx, gcs_model_folder_name)
+      downloaded_model_path = _download_model_from_gcs(ctx, gcs_model_folder_name)
       model = SentenceTransformer(downloaded_model_path)
   ```
   """
@@ -182,6 +198,13 @@ def download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
 
 
 def build_embeddings(ctx, texts: List[str], dcids: List[str]) -> pd.DataFrame:
+  """Builds the embeddings dataframe.
+  
+  Texts and dcids should be of equal length such that
+  a text at a given index corresponds to the dcid at that index.
+
+  The output dataframe contains the embeddings columns (typically 384) + dcid + sentence.
+  """
   assert len(texts) == len(dcids)
 
   embeddings = ctx.model.encode(texts, show_progress_bar=True)
@@ -205,7 +228,7 @@ def get_or_download_model_from_gcs(ctx: Context, model_version: str) -> str:
     print(f"Model already downloaded at path: {tuned_model_path}")
   else:
     print("Model not previously downloaded locally. Downloading from GCS.")
-    tuned_model_path = download_model_from_gcs(ctx, model_version)
+    tuned_model_path = _download_model_from_gcs(ctx, model_version)
     print(f"Model downloaded locally to: {tuned_model_path}")
 
   return tuned_model_path
@@ -215,6 +238,22 @@ def get_ft_model_from_gcs(ctx: Context,
                           model_version: str) -> SentenceTransformer:
   model_path = get_or_download_model_from_gcs(ctx, model_version)
   return SentenceTransformer(model_path)
+
+
+def get_default_ft_model_version() -> str:
+  return _get_default_ft_model_version(_EMBEDDINGS_YAML_PATH)
+
+
+def _get_default_ft_model_version(embeddings_yaml_file_path: str) -> str:
+  with open(embeddings_yaml_file_path, "r") as f:
+    data = yaml.full_load(f)
+    if _DEFAULT_EMBEDDINGS_INDEX_TYPE not in data:
+      raise ValueError(f"{_DEFAULT_EMBEDDINGS_INDEX_TYPE} not found.")
+    value = data[_DEFAULT_EMBEDDINGS_INDEX_TYPE]
+    matcher = re.match(_EMBEDDINGS_FILENAME_PATTERN, value)
+    if not matcher:
+      raise ValueError(f"Invalid embeddings filename value: {value}")
+    return matcher.group(1)
 
 
 def validate_embeddings(embeddings_df: pd.DataFrame,

@@ -25,10 +25,9 @@ import yaml
 FLAGS = flags.FLAGS
 
 flags.DEFINE_string(
-    "model_version",
-    None,
-    "Existing finetuned model folder name on GCS (e.g. 'ft_final_v20230717230459.all-MiniLM-L6-v2')",
-    required=True)
+    "model_version", None,
+    "Existing finetuned model folder name on GCS (e.g. 'ft_final_v20230717230459.all-MiniLM-L6-v2'). If not specified, the version will be parsed from embeddings.yaml."
+)
 flags.DEFINE_string("sv_sentences_csv_path",
                     None,
                     "Path to the custom DC SV sentences path.",
@@ -51,7 +50,7 @@ def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
   print(
       f"Generating embeddings dataframe from SV sentences CSV: {sv_sentences_csv_path}"
   )
-  embeddings_df = build_embeddings_dataframe(ctx, sv_sentences_csv_path)
+  embeddings_df = _build_embeddings_dataframe(ctx, sv_sentences_csv_path)
 
   print("Validating embeddings.")
   utils.validate_embeddings(embeddings_df, sv_sentences_csv_path)
@@ -68,8 +67,8 @@ def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
   print("Done building custom DC embeddings.")
 
 
-def build_embeddings_dataframe(ctx: utils.Context,
-                               sv_sentences_csv_path: str) -> pd.DataFrame:
+def _build_embeddings_dataframe(ctx: utils.Context,
+                                sv_sentences_csv_path: str) -> pd.DataFrame:
   sv_sentences_df = pd.read_csv(sv_sentences_csv_path)
 
   # Dedupe texts
@@ -98,7 +97,12 @@ def _download_model(model_version: str) -> utils.Context:
 
 
 def main(_):
-  build(FLAGS.model_version, FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
+  model_version = FLAGS.model_version
+  if not model_version:
+    model_version = utils.get_default_ft_model_version()
+    print(f"Using model version {model_version} from embeddings.yaml.")
+
+  build(model_version, FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
 
 
 if __name__ == "__main__":

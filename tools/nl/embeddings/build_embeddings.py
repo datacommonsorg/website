@@ -229,9 +229,7 @@ def main(_):
 
   if use_finetuned_model:
     ctx_no_model = utils.Context(gs=gs, model=None, bucket=bucket, tmp='/tmp')
-    tuned_model_path = utils.get_or_download_model_from_gcs(
-        ctx_no_model, model_version)
-    model = SentenceTransformer(tuned_model_path)
+    model = utils.get_ft_model_from_gcs(ctx_no_model, model_version)
 
   elif use_local_model:
     print(f"Use the local model at: {FLAGS.existing_model_path}")

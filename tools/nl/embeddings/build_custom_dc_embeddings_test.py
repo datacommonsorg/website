@@ -23,8 +23,8 @@ from sentence_transformers import SentenceTransformer
 import utils
 
 MODEL_NAME = "all-MiniLM-L6-v2"
-INPUT_DIR = "testdata/customdc/input"
-EXPECTED_DIR = "testdata/customdc/expected"
+INPUT_DIR = "testdata/custom_dc/input"
+EXPECTED_DIR = "testdata/custom_dc/expected"
 
 
 def _compare_files(test: unittest.TestCase, output_path, expected_path):
@@ -54,7 +54,7 @@ class TestEndToEnd(unittest.TestCase):
       actual_dcids_sentences_csv_path = os.path.join(
           temp_dir, "final_dcids_sentences.csv")
 
-      embeddings_df = builder.build_embeddings_dataframe(
+      embeddings_df = builder._build_embeddings_dataframe(
           ctx, input_dcids_sentences_csv_path)
 
       embeddings_df[['dcid',
@@ -73,7 +73,7 @@ class TestEndToEnd(unittest.TestCase):
     input_dcids_sentences_csv_path = os.path.join(INPUT_DIR,
                                                   "dcids_sentences.csv")
 
-    embeddings_df = builder.build_embeddings_dataframe(
+    embeddings_df = builder._build_embeddings_dataframe(
         ctx, input_dcids_sentences_csv_path)
 
     # Test success == no failures during validation
