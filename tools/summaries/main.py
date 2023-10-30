@@ -34,7 +34,7 @@ flags.DEFINE_string('summary_out_file',
                     'Summary output file')
 flags.DEFINE_integer('num_processes', 8, 'Number of concurrent processes')
 
-logging.getLogger().setLevel(logging.INFO)
+logging.getLogger().setLevel(logging.DEBUG)
 
 
 def get_and_write_ranking_summaries():
