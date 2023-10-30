@@ -18,7 +18,6 @@ import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 import tilesCssString from "../css/tiles.scss";
-
 import { TextTile, TextTilePropType } from "../js/components/tiles/text_tile";
 import { createWebComponentElement } from "./utils";
 
