@@ -11,6 +11,8 @@ Commons instance.
 - Install [docker](https://www.docker.com/products/docker-desktop/)
 - [Optional] Install [gcloud](https://cloud.google.com/sdk/docs/install-sdk)
   command line tool.
+- [Optional] Have a Google Cloud Project that can be used to deploy the custom
+  instance.
 
 ## API Key
 
@@ -21,9 +23,160 @@ Commons instance.
   optional and used for place search in visualization tools. Refer to [Maps API
   Key](TODO) section for detailed instructions.
 
-## Prepare Custom Data
+## Local Development
 
-[Note] Skip this section if you don't have custom Data.
+Custom Data Commons instance can be developed and tested locally by following
+the instructions below:
+
+### Build docker image locally
+
+```bash
+docker build --tag datacommons-website-compose:latest \
+-f build/web_compose/Dockerfile \
+-t website-compose .
+```
+
+### Run custom Data Commons locally with SQLITE database
+
+In the root of this repository, run:
+
+```bash
+docker run -it \
+--env-file $PWD/custom_dc/sqlite_env.list \
+-p 8080:8080 \
+-v $PWD/custom_dc/sample:/sqlite \
+-v $PWD/server/templates/custom_dc:/workspace/server/templates/custom_dc \
+datacommons-website-compose:latest
+```
+
+This brings up a local instance with sample data that are stored under
+`custom_dc/sample` folder.
+
+Now you can open `localhost:8080/tools/timeline` to browse these sample data.
+Also note the base Data Commons data are also avaiable in this instance.
+
+## Cloud Development and Deployment
+
+Custom Data Commons can be ran on the cloud as a production service. The SQLite
+approach can still be used. Note you need to copy the data folders into the
+cloud disk and mount it to the docker container then specify the enviornment
+variables based on the requirements of the cloud providers.
+
+We have also provided a specific deployment setup on Google Cloud Run that is
+based on Cloud SQL.
+
+### Setup Google Cloud SQL
+
+Create a Google Cloud SQL instance from the [Cloud
+Console](https://console.cloud.google.com/sql/instances). Set instance ID as
+`dc-graph`, choose the type as "MySQL" and create a database `datacommons`. You
+will need to set a user and password. Record the instance connection name in the
+form of "<project>:<region>:dc-graph"
+
+### Setup Google Cloud Storage
+
+Google Cloud Storage is used to hold the data CSV files. From the [Cloud
+Console](https://console.cloud.google.com/storage/browser), create a new bucket
+or pick an existing bucket and upload the data CSV files there. It's recommended
+to create intermediate folders for the files for easier management.
+
+### Upload Data Files
+
+Upload the data CSV files into GCS and record the folder path as
+`gs://<bucket-name>/.../`. You can start wit the sample data provided under
+`custom_dc/sample` and update to your own data later.
+
+### Run Custom Data Commons Locally with CloudSQL Database
+
+Authenticate Google Cloud:
+
+```bash
+gcloud auth application-default login
+```
+
+This should generate a credential json file in
+`$HOME/.config/gcloud/application_default_credentials.json`. This is used in the
+command below for authentication in the docker container.
+
+In the root of this repository, run:
+
+```bash
+docker run -it \
+--env-file $PWD/custom_dc/cloudsql_env.list \
+-p 8080:8080 \
+-e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
+-v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
+-v $PWD/server/templates/custom_dc:/workspace/server/templates/custom_dc \
+datacommons-website-compose:latest
+```
+
+[Note] you can change the docker image to use your custom built docker image.
+
+### Deploy to Cloud Run
+
+Specify the GCP project and custom instance docker image tag.
+
+```bash
+export PROJECT_ID=<YOUR_PROJECT_ID>
+export CUSTOM_DC_TAG=<YOUR_TAG>
+```
+
+Authenticate for docker image push.
+
+```bash
+gcloud auth login
+gcloud auth configure-docker us-central1-docker.pkg.dev
+```
+
+Create a Container Registry repository if not done yet, this is a one time
+
+```bash
+gcloud artifacts repositories create datacommons \
+  --project=$PROJECT_ID \
+  --repository-format=docker \
+  --location=us-central1 \
+  --immutable-tags \
+  --async
+```
+
+Build docker image and push it to Google Artifact Registry
+
+```bash
+docker tag datacommons-website-compose:latest \
+  us-central1-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG
+
+docker push us-central1-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG
+```
+
+In GCP [IAM](https://console.cloud.google.com/iam-admin/iam), grant the default
+service account "Cloud SQL Editor" permission. Then run:
+
+```bash
+# Then env file is "custom_dc/cloudsql_env.list"
+env_vars=$(awk -F '=' 'NF==2 {print $1"="$2}' custom_dc/cloudsql_env.list | tr '\n' ',' | sed 's/,$//')
+
+gcloud run deploy datacommons \
+  --allow-unauthenticated \
+  --memory 4G \
+  --image us-central1-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG \
+  --add-cloudsql-instances=<project>:<region>:dc-graph \
+  --set-env-vars="$env_vars" \
+  --port 8080
+```
+
+## Admin Page
+
+There is an admin page under /admin when custom Data Commons is running. It
+provides a few operational functions that are protected by secret. To set the
+secret, add the secret string in "env.list" file for `ADMIN_SECRET` variable and
+restart the server.
+
+For operations that require a secret, enter the secret token in the text input
+before the operation.
+
+## Import Custom Data
+
+### Prepare Custom Data
 
 Prepare CSV files with statistical data in the following formats:
 
@@ -55,11 +208,26 @@ Put all the input files under a local folder or Google Cloud Storage folder, and
 use the folder path for environment variable `SQL_DATA_PATH` as described in the
 Environment Variables section below.
 
-## Data Config
+### Data Config
 
 A config file `config.json` is required and should be put under `SQL_DATA_PATH`.
 The detailed spec can be found in this
 [doc](https://github.com/datacommonsorg/import/blob/master/simple/stats/config.md).
+
+### Load Data
+
+Custom Data Commons instance supports data refreshing on the fly. You can update
+the raw data in the storage (locally or in the Cloud Storage), then in "Admin
+page", enter the admin secret and click on "load data". Upon operation
+completion, you can see all the processing logs in the page.
+
+You can also load the data by running:
+
+```bash
+curl -X POST localhost:8080/admin/load-data -d \
+   -H "Content-Type: application/x-www-form-urlencoded" \
+   -d "secret=<YOUR_ADMIN_SECRET>"
+```
 
 ## UI Updates
 
@@ -69,116 +237,8 @@ html and css customization. These customization are in the following folders:
 - html files: [location](../server/templates/custom_dc/custom/)
 - css and image files: [location](../static/custom_dc/custom/)
 
-Update these files for UI customization.
-
-## Local Development
-
-Custom Data Commons site via [localhost](http://localhost:8080) by following the
-instructions below:
-
-### Build docker image locally
-
-```bash
-docker build --tag datacommons-website-compose:latest \
--f build/web_compose/Dockerfile \
--t website-compose .
-```
-
-### Run custom Data Commons locally with SQLITE database
-
-In the root of this repository, run:
-
-```bash
-docker run -it \
---env-file $PWD/custom_dc/sqlite_env.list \
--p 8080:8080 \
--v $PWD/custom_dc/sample:/sqlite \
--v $PWD/server/templates/custom_dc:/workspace/server/templates/custom_dc \
-datacommons-website-compose:latest
-```
-
-## Run in Cloud
-
-Custom Data Commons can be ran on the cloud as a production service. The SQLite
-approach can still be used. Note you need to copy the data folders into the
-cloud disk and mount it to the docker container then specify the enviornment
-variables based on the requirements of the cloud providers.
-
-We have also provided a specific deployment setup on Google Cloud Run that is
-based on Cloud SQL.
-
-### Setup Cloud SQL
-
-Create a Cloud SQL instance from the [Cloud
-Console](https://console.cloud.google.com/sql/instances). Set instance ID as
-`dc-graph`, choose the type as "MySQL" and create a database `datacommons`. You
-will need to set a user and password. Record the instance connection name in the
-form of "<project>:<region>:dc-graph"
-
-### Setup Google Cloud Storage
-
-Google Cloud Storage is used to hold the data CSV files. From the [Cloud
-Console](https://console.cloud.google.com/storage/browser), create a new bucket
-or pick an existing bucket and upload the data CSV files there. It's recommended
-to create intermediate folders for the files for easier management.
-
-### Upload Data Files
-
-Upload the data CSV files into GCS and record the folder path as
-`gs://<bucket-name>/.../`.
-
-### Test Locally
-
-Authentical Google Cloud:
-
-```bash
-gcloud auth application-default login
-```
-
-This should generate a credential json file in
-`$HOME/.config/gcloud/application_default_credentials.json`. This is used in the
-command below for authentication in the docker container.
-
-In the root of this repository, run:
-
-```bash
-docker run -it \
---env-file $PWD/custom_dc/cloudsql_env.list \
--p 8080:8080 \
--e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
--v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
--v $PWD/server/templates/custom_dc:/workspace/server/templates/custom_dc \
-datacommons-website-compose:latest
-```
-
-[Note] you can change the docker image to use your custom built docker image.
-
-### Deploy to Cloud Run
-
-Build docker image and push it to Google Container Registry
-
-```bash
-export PROJECT_ID=<YOUR_PROJECT_ID>
-export CUSTOM_DC_TAG=<YOUR_TAG>
-docker build --tag gcr.io/$PROJECT_ID/datacommons-website-compose:$CUSTOM_DC_TAG -f build/web_compose/Dockerfile -t website-compose .
-docker push gcr.io/$PROJECT_ID/datacommons-website-compose:$CUSTOM_DC_TAG
-```
-
-In GCP [IAM](https://console.cloud.google.com/iam-admin/iam), grant the default
-service account "Cloud SQL Editor" permission. Then run:
-
-```bash
-# Then env file is "custom_dc/cloudsql_env.list"
-env_vars=$(awk -F '=' 'NF==2 {print $1"="$2}' custom_dc/cloudsql_env.list | tr '\n' ',' | sed 's/,$//')
-
-gcloud run deploy datacommons \
-  --allow-unauthenticated \
-  --memory 4G \
-  --image gcr.io/$PROJECT_ID/datacommons-website-compose:$CUSTOM_DC_TAG \
-  --add-cloudsql-instances=<project>:<region>:dc-graph \
-  --set-env-vars="$env_vars" \
-  --port 8080
-```
+Update these files for UI customization then run through the local and cloud
+development cycles as illustrated above.
 
 ## Environment Variables
 
@@ -200,28 +260,3 @@ variables available.
 | DB_PASS              | [`USE_CLOUDSQL=true`]Cloud SQL database password                                                                                                              |
 | ADMIN_SECRET         | [Optional] Secret token to perform /admin page operation                                                                                                      |
 | MAPS_API_KEY         | [Optional] Used for map visulization place search                                                                                                             |
-
-## Admin Page
-
-There is an admin page under /admin when custom Data Commons is running. It
-provides a few operational functions that are protected by secret. To set the
-secret, add the secret string in "env.list" file for `ADMIN_SECRET` variable and
-restart the server.
-
-For operations that require a secret, enter the secret token in the text input
-before the operation.
-
-## Load Data
-
-Custom Data Commons instance supports data refreshing on the fly. You can update
-the raw data, then in admin page, enter the admin secret and click on "load
-data". Upon operation completion, you can see all the processing logs in the
-page.
-
-You can also load the data by running:
-
-```bash
-curl -X POST localhost:8080/admin/load-data -d \
-   -H "Content-Type: application/x-www-form-urlencoded" \
-   -d "secret=<YOUR_ADMIN_SECRET>"
-```
