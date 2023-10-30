@@ -25,6 +25,8 @@ from server.lib.nl.detection.types import ComparisonClassificationAttributes
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import CorrelationClassificationAttributes
+from server.lib.nl.detection.types import Date
+from server.lib.nl.detection.types import DateClassificationAttributes
 from server.lib.nl.detection.types import EventClassificationAttributes
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import GeneralClassificationAttributes
@@ -106,7 +108,8 @@ def classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
       cdict['correlation'] = True
     elif isinstance(c.attributes, QuantityClassificationAttributes):
       cdict['quantity'] = _quantity_to_dict(c.attributes)
-
+    elif isinstance(c.attributes, DateClassificationAttributes):
+      cdict['dates'] = [asdict(d) for d in c.attributes.dates]
     classifications_dict.append(cdict)
   return classifications_dict
 
@@ -150,6 +153,9 @@ def dict_to_classification(
         ClassificationType.PER_CAPITA
     ]:
       attributes = GeneralClassificationAttributes(trigger_words=[])
+    elif 'dates' in cdict:
+      attributes = DateClassificationAttributes(
+          dates=[Date(**d) for d in cdict['dates']])
 
     classifications.append(
         NLClassifier(type=ClassificationType(cdict['type']),
@@ -206,6 +212,8 @@ def _chart_spec_to_dict(charts: List[ChartSpec]) -> List[Dict]:
     cdict['place_type'] = c.place_type
     cdict['chart_vars'] = asdict(c.chart_vars)
     cdict['ranking_types'] = c.ranking_types
+    if c.date:
+      cdict['date'] = asdict(c.date)
     charts_dict.append(cdict)
   return charts_dict
 
@@ -217,6 +225,10 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
       cv = ChartVars(**cdict['chart_vars'])
     else:
       cv = ChartVars(svs=[])
+    if cdict.get('date'):
+      date = Date(**cdict['date'])
+    else:
+      date = None
     charts.append(
         ChartSpec(
             chart_type=ChartType(cdict['chart_type']),
@@ -228,7 +240,8 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
             ranking_types=[RankingType(c) for c in cdict['ranking_types']],
             ranking_count=0,
             chart_origin=None,
-            is_sdg=False))
+            is_sdg=False,
+            date=date))
   return charts
 
 

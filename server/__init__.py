@@ -15,11 +15,7 @@
 import json
 import logging
 import os
-import tempfile
 
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
 from flask import Flask
 from flask import g
 from flask import redirect
@@ -27,7 +23,6 @@ from flask import request
 from flask_babel import Babel
 import flask_cors
 from google.cloud import secretmanager
-from google_auth_oauthlib.flow import Flow
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
@@ -147,10 +142,8 @@ def register_routes_sustainability(app):
 
 
 def register_routes_admin(app):
-  from server.routes.user import html as user_html
-  app.register_blueprint(user_html.bp)
-  from server.routes.user import api as user_api
-  app.register_blueprint(user_api.bp)
+  from server.routes.admin import html as admin_html
+  app.register_blueprint(admin_html.bp)
 
 
 def register_routes_common(app):
@@ -282,10 +275,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   if cfg.ADMIN:
     register_routes_admin(app)
-    cred = credentials.ApplicationDefault()
-    firebase_admin.initialize_app(cred)
-    user_db = firestore.client()
-    app.config['USER_DB'] = user_db
+
+  # Load place explorer summaries
+  app.config['PLACE_EXPLORER_SUMMARIES'] = libutil.get_place_summaries()
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
@@ -324,27 +316,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
   if cfg.ADMIN:
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                    'oauth-client', 'latest')
-    secret_response = secret_client.access_secret_version(name=secret_name)
-    oauth_string = secret_response.payload.data.decode('UTF-8')
-    oauth_json = json.loads(oauth_string)
-    app.config['GOOGLE_CLIENT_ID'] = oauth_json['web']['client_id']
-    tf = tempfile.NamedTemporaryFile()
-    with open(tf.name, 'w') as f:
-      f.write(oauth_string)
-    app.config['OAUTH_FLOW'] = Flow.from_client_secrets_file(
-        client_secrets_file=tf.name,
-        redirect_uri=oauth_json['web']['redirect_uris'][0],
-        scopes=[
-            'https://www.googleapis.com/auth/userinfo.profile',
-            'https://www.googleapis.com/auth/userinfo.email',
-            'openid',
-        ])
+    app.config['ADMIN_SECRET'] = os.environ.get('ADMIN_SECRET')
 
   if cfg.LOCAL:
-    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     app.config['LOCAL'] = True
 
   # Need to fetch the API key for non gcp environment.

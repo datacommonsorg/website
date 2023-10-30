@@ -107,7 +107,7 @@ class TestEndToEnd(unittest.TestCase):
     with tempfile.TemporaryDirectory() as tmp_dir, self.assertRaises(KeyError):
       tmp_local_sheets_csv_filepath = os.path.join(tmp_dir, "sheets_data.csv")
       tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
-      be.build(ctx, sheets_url, worksheet_name, tmp_local_sheets_csv_filepath,
+      be.build(ctx, sheets_url, [worksheet_name], tmp_local_sheets_csv_filepath,
                tmp_local_merged_filepath, "", input_autogen_filepattern,
                input_alternatives_filepattern)
 
@@ -147,7 +147,7 @@ class TestEndToEnd(unittest.TestCase):
       tmp_dcid_sentence_csv = os.path.join(tmp_dir,
                                            "final_dcid_sentences_csv.csv")
 
-      embeddings_df = be.build(ctx, sheets_url, worksheet_name,
+      embeddings_df = be.build(ctx, sheets_url, [worksheet_name],
                                tmp_local_sheets_csv_filepath,
                                tmp_local_merged_filepath, "",
                                input_autogen_filepattern,

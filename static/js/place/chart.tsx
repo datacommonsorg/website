@@ -422,7 +422,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
     if (this.state.choroplethDataGroup && this.state.geoJson) {
       return mapDataToCsv(
-        this.state.geoJson,
+        [this.state.geoJson],
         this.state.choroplethDataGroup.data
       );
     }
@@ -547,9 +547,14 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         CHART_HEIGHT,
         this.state.geoJson
       );
+      const geoJsonData = {};
+      geoJsonData[this.props.dcid] = {
+        geoJson: this.state.geoJson,
+        shouldShowBoundaryLines: true,
+      };
       drawD3Map(
         this.mapContainerElement.current,
-        this.state.geoJson,
+        geoJsonData,
         CHART_HEIGHT,
         mapWidth,
         this.state.choroplethDataGroup.data,
@@ -557,7 +562,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         redirectAction,
         getTooltipHtml,
         () => true,
-        true,
         projection
       );
     }

@@ -24,7 +24,7 @@ export MIXER_API_KEY=$DC_API_KEY
     --use_sqlite=$USE_SQLITE \
     --use_cloudsql=$USE_CLOUDSQL \
     --cloudsql_instance=$CLOUDSQL_INSTANCE \
-    --remote_mixer_domain=$REMOTE_MIXER_DOMAIN &
+    --remote_mixer_domain=$DC_API_ROOT &
 
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 

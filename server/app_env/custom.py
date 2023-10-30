@@ -36,4 +36,6 @@ class LocalConfig(Config, local.Config):
 
 
 class ComposeConfig(Config, local.Config):
+  # Do not use memcache so content is fresh after new data is loaded
+  USE_MEMCACHE = False
   pass

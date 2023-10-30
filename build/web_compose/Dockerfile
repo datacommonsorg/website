@@ -61,21 +61,25 @@ RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
 
 # Import Tool
 COPY import/simple/requirements.txt /workspace/import/simple/requirements.txt
+RUN pip install --upgrade pip setuptools light-the-torch
+RUN ltt install torch --cpuonly
 RUN pip3 install --no-cache-dir -r /workspace/import/simple/requirements.txt
 
-WORKDIR /workspace/static
-
 # Install website NPM dependencies
+COPY packages/web-components/package.json /workspace/packages/web-components/package.json
+COPY packages/web-components/package-lock.json /workspace/packages/web-components/package-lock.json
+RUN npm --prefix /workspace/packages/web-components install --omit=dev
+
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
-RUN npm install --omit=dev
+RUN npm --prefix /workspace/static install --omit=dev
 
 # Install packages NPM depenencies
 COPY packages/. /workspace/packages/
-RUN npm --prefix /workspace/packages/web-components install --omit=dev
+COPY static/. /workspace/static/
 
 # Build Static Files
-COPY static/. /workspace/static/
+WORKDIR /workspace/static
 RUN npm run-script build
 
 WORKDIR /workspace
@@ -87,10 +91,16 @@ COPY shared/. /workspace/shared/
 # Import Tool
 COPY import/. /workspace/import/
 
-# Env
+
+# Env that should not change
+ENV USE_LOCAL_MIXER=true
+ENV ENV_PREFIX=Compose
+
+
+# Env that can be set from `docker run`
 ENV USE_SQLITE=false
 ENV USE_CLOUDSQL=false
-ENV REMOTE_MIXER_DOMAIN=https://api.datacommons.org
+ENV DC_API_ROOT=https://api.datacommons.org
 
 COPY build/web_compose/compose.sh .
 EXPOSE 8080 8081

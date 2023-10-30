@@ -4,30 +4,34 @@
     "dc/topic/ClimateChange",
     "AirPollutant_Cancer_Risk",
     "dc/topic/Asthma",
+    "dc/topic/sdg_3.4.1",
     "dc/topic/PopulationWithAsthmaByAge",
     "Percent_Person_WithPhysicalHealthNotGood",
+    "dc/topic/sdg_13",
+    "Count_Death_Upto1Years_EndocrineNutritionalMetabolicDiseases",
+    "dc/topic/sdg_3.9.1",
     "dc/topic/WHOMortalityCauses",
     "Count_Death_EndocrineNutritionalMetabolicDiseases_AsianOrPacificIslander",
     "dc/topic/AsthmaFemalePopulationByAge",
     "Percent_Person_Children_WithAsthma",
-    "dc/topic/AsthmaMalePopulationByAge",
-    "Percent_Person_Obesity",
-    "Count_Death_DiseasesOfTheRespiratorySystem_AsianOrPacificIslander"
+    "dc/topic/sdg_13.3"
   ],
   "CosineScore": [
     0.5826336145401001,
     0.5660892724990845,
     0.55907142162323,
     0.5585702657699585,
-    0.5492844581604004,
+    0.552188515663147,
+    0.5492846369743347,
     0.547248125076294,
-    0.515220582485199,
-    0.5129308700561523,
+    0.5355881452560425,
+    0.5235278606414795,
+    0.5221829414367676,
+    0.5152206420898438,
+    0.5129307508468628,
     0.5124292373657227,
     0.5115020275115967,
-    0.5048962235450745,
-    0.5001506209373474,
-    0.49817562103271484
+    0.5106162428855896
   ],
   "SV_to_Sentences": {},
   "MultiSV": {
@@ -37,10 +41,12 @@
           {
             "QueryPart": "factors like obesity",
             "SV": [
-              "Percent_Person_Obesity"
+              "Percent_Person_Obesity",
+              "WHO/NCD_BMI_30A"
             ],
             "CosineScore": [
-              0.7908685207366943
+              0.7908685207366943,
+              0.7453001737594604
             ]
           },
           {
@@ -79,10 +85,12 @@
           {
             "QueryPart": "factors like obesity",
             "SV": [
-              "Percent_Person_Obesity"
+              "Percent_Person_Obesity",
+              "WHO/NCD_BMI_30A"
             ],
             "CosineScore": [
-              0.7908685207366943
+              0.7908685207366943,
+              0.7453001737594604
             ]
           },
           {
@@ -106,9 +114,11 @@
           {
             "QueryPart": "climate change",
             "SV": [
-              "dc/topic/ClimateChange"
+              "dc/topic/ClimateChange",
+              "dc/topic/sdg_13"
             ],
             "CosineScore": [
+              1.0000001192092896,
               1.0000001192092896
             ]
           }
@@ -132,9 +142,11 @@
           {
             "QueryPart": "climate change",
             "SV": [
-              "dc/topic/ClimateChange"
+              "dc/topic/ClimateChange",
+              "dc/topic/sdg_13"
             ],
             "CosineScore": [
+              1.0000001192092896,
               1.0000001192092896
             ]
           }
@@ -173,10 +185,12 @@
           {
             "QueryPart": "factors like obesity blood",
             "SV": [
-              "Percent_Person_Obesity"
+              "Percent_Person_Obesity",
+              "WHO/NCD_BMI_30A"
             ],
             "CosineScore": [
-              0.7836707830429077
+              0.7836707830429077,
+              0.7413345575332642
             ]
           },
           {
@@ -215,10 +229,12 @@
           {
             "QueryPart": "factors like obesity",
             "SV": [
-              "Percent_Person_Obesity"
+              "Percent_Person_Obesity",
+              "WHO/NCD_BMI_30A"
             ],
             "CosineScore": [
-              0.7908685207366943
+              0.7908685207366943,
+              0.7453001737594604
             ]
           },
           {
@@ -250,10 +266,12 @@
           {
             "QueryPart": "factors like obesity blood pressure",
             "SV": [
-              "Percent_Person_Obesity"
+              "Percent_Person_Obesity",
+              "WHO/NCD_BMI_30A"
             ],
             "CosineScore": [
-              0.7555329203605652
+              0.7555329203605652,
+              0.7211811542510986
             ]
           },
           {
