@@ -18,22 +18,6 @@
  * Component for rendering a bar tile.
  */
 
-import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
-import { getDateRange } from "../../utils/string_utils";
-import {
-  getDenomInfo,
-  getNoDataErrorMsg,
-  getStatFormat,
-  getStatVarNames,
-  ReplacementStrings,
-  showError,
-} from "../../utils/tile_utils";
-import { ChartTileContainer } from "./chart_tile";
-import {
-  ChartOptions,
-  MultiOrContainedInPlaceMultiVariableTileType,
-} from "./tile_types";
-import { useDrawOnResize } from "./use_draw_on_resize";
 import { ChartSortOption } from "@datacommonsorg/web-components";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -60,6 +44,22 @@ import {
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
+import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
+import { getDateRange } from "../../utils/string_utils";
+import {
+  getDenomInfo,
+  getNoDataErrorMsg,
+  getStatFormat,
+  getStatVarNames,
+  ReplacementStrings,
+  showError,
+} from "../../utils/tile_utils";
+import { ChartTileContainer } from "./chart_tile";
+import {
+  ChartOptions,
+  MultiOrContainedInPlaceMultiVariableTileType,
+} from "./tile_types";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 const NUM_PLACES = 7;
 
