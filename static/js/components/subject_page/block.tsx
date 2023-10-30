@@ -513,7 +513,9 @@ function renderWebComponents(
             )
               ? { showExploreMore: true }
               : {})}
-            {...(tile.mapTileSpec?.geoJsonProp ? { geoJsonProp: true } : {})}
+            {...(tile.mapTileSpec?.geoJsonProp
+              ? { geoJsonProp: tile.mapTileSpec?.geoJsonProp }
+              : {})}
             {...(tile.placeNameProp ? { placeNameProp: true } : {})}
             parentPlaces={props.parentPlaces}
             allowZoom={true}
