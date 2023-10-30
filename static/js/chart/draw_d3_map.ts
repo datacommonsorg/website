@@ -22,6 +22,7 @@ import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
 import _ from "lodash";
 
+import { MapLayerData } from "../components/tiles/map_tile";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import {
   ASIA_NAMED_TYPED_PLACE,
@@ -439,15 +440,9 @@ function addGeoJsonLayer(
  */
 export function drawD3Map(
   containerElement: HTMLDivElement,
-  geoJsons: {
-    [dcid: string]: { geoJson: GeoJsonData; shouldShowBoundaryLines: boolean };
-  },
+  layers: MapLayerData[],
   chartHeight: number,
   chartWidth: number,
-  dataValues: {
-    [placeDcid: string]: number;
-  },
-  colorScale: d3.ScaleLinear<number | string, number>,
   redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
   getTooltipHtml: (place: NamedPlace) => string,
   canClickRegion: (placeDcid: string) => boolean,
@@ -466,10 +461,10 @@ export function drawD3Map(
   const map = svg.append("g").attr("id", MAP_ITEMS_GROUP_ID);
   // Build the map objects
   const mapObjects = [];
-  for (const geoJsonInfo of Object.values(geoJsons)) {
+  for (const layer of layers) {
     const mapObjectLayer = addGeoJsonLayer(
       containerElement,
-      geoJsonInfo.geoJson,
+      layer.geoJson,
       projection,
       "",
       MAP_GEO_REGIONS_ID
@@ -478,19 +473,18 @@ export function drawD3Map(
       .attr("class", (geo: GeoJsonFeature) => {
         // highlight the place of the current page
         if (
-          (geo.properties.geoDcid in geoJsons &&
-            geo.properties.geoDcid ===
-              geoJsons[geo.properties.geoDcid].geoJson.properties.currentGeo) ||
+          geo.properties.geoDcid === layer.geoJson.properties.currentGeo ||
           geo.properties.geoDcid === zoomDcid
         ) {
           return HIGHLIGHTED_CLASS_NAME;
         }
-        if (getValue(geo, dataValues) === undefined) {
+        if (layer.dataValues && getValue(geo, layer.dataValues) === undefined) {
           return "missing-data";
         }
       })
       .attr("fill", (d: GeoJsonFeature) => {
-        const value = getValue(d, dataValues);
+        const value = getValue(d, layer.dataValues);
+        const colorScale = layer.colorScale;
         if (value !== undefined) {
           return colorScale(value);
         }
@@ -505,7 +499,7 @@ export function drawD3Map(
         "mousemove",
         onMouseMove(canClickRegion, containerElement, getTooltipHtml)
       );
-    if (geoJsonInfo.shouldShowBoundaryLines) {
+    if (layer.showMapBoundaries) {
       mapObjectLayer
         .attr("stroke-width", STROKE_WIDTH)
         .attr(

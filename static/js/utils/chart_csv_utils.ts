@@ -24,6 +24,7 @@ import Papa from "papaparse";
 import { DataGroup, DataPoint } from "../chart/base";
 import { Point } from "../chart/draw_scatter";
 import { GeoJsonData } from "../chart/types";
+import { MapLayerData } from "../components/tiles/map_tile";
 import { RankingPoint } from "../types/ranking_unit_types";
 
 // TODO(beets): Create DataPoints class and add this to that class.
@@ -158,20 +159,18 @@ export function dataPointsToCsv(dataPoints: DataPoint[]): string {
  * @param geoJson GeoJson used for the map
  * @param dataValues data values used in the map
  */
-export function mapDataToCsv(
-  geoJsons: GeoJsonData[],
-  dataValues: { [placeDcid: string]: number }
-): string {
-  const header = ["label", "data"];
+export function mapDataToCsv(layerData: MapLayerData[]): string {
+  const header = ["label", "variable", "data"];
   const data = [];
-  for (const geoJson of geoJsons) {
-    for (const geo of geoJson.features) {
+  for (const layer of layerData) {
+    for (const geo of layer.geoJson.features) {
       if (!geo.id) {
         continue;
       }
-      const value = geo.id in dataValues ? dataValues[geo.id] : "N/A";
+      const value =
+        geo.id in layer.dataValues ? layer.dataValues[geo.id] : "N/A";
       const name = geo.properties.name || geo.id;
-      data.push([name, value]);
+      data.push([name, layer.variable.name, value]);
     }
   }
   // sort data by label column (alphabetically)
