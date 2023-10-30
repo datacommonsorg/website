@@ -1,0 +1,3 @@
+geoId,year,ignore1,Variable 1,Variable 2,ignore2
+01,2021,foo,555, 666 ,bar
+122,2022,#N/A,321 , "123,456",baz
