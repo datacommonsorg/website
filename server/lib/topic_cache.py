@@ -107,7 +107,8 @@ class TopicCache:
     return self.out_map[id].name
 
 
-def load_files(fpath_list: List[str], name_overrides: Dict) -> TopicCache:
+def load_files(fpath_list: List[str], name_overrides: Dict,
+               dc: str) -> TopicCache:
   cache_nodes = []
   for fpath in fpath_list:
     with open(fpath, 'r') as fp:
@@ -121,8 +122,9 @@ def load_files(fpath_list: List[str], name_overrides: Dict) -> TopicCache:
     dcid = node['dcid'][0]
     typ = node['typeOf'][0]
     name = node.get('name', [''])[0]
-    if name_overrides.get(dcid):
-      name = name_overrides.get(dcid)
+    name_override_info = name_overrides.get(dcid)
+    if name_override_info and not dc in name_override_info.get('blocklist', []):
+      name = name_override_info.get('title', '')
     if 'relevantVariableList' in node:
       prop = 'relevantVariableList'
     else:
@@ -145,5 +147,5 @@ def load_files(fpath_list: List[str], name_overrides: Dict) -> TopicCache:
 def load(name_overrides: Dict) -> Dict[str, TopicCache]:
   topic_cache_map = {}
   for dc, fpath_list in TOPIC_CACHE_FILES.items():
-    topic_cache_map[dc] = load_files(fpath_list, name_overrides)
+    topic_cache_map[dc] = load_files(fpath_list, name_overrides, dc)
   return topic_cache_map

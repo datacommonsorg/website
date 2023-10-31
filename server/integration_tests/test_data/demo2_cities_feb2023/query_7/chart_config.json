@@ -94,14 +94,14 @@
                     "statVarKey": [
                       "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Women of Reproductive Age Who Have Their Need for Family Planning Satisfied With Modern Methods [15 to 49 Years Old, Female] (${date})",
+                    "title": "Access to Modern Family Planning for Adult Women (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: afghanistan 2015 demographic and health survey; albania 2008-2009 demographic and health survey; albania 2017-2018 demographic and health survey; algeria 2006 multiple indicator cluster survey; algeria 2012-2013 multiple indicator cluster survey; algeria 2018-2019 multiple indicator cluster survey; angola 2015-2016 demographic and health survey; argentina 2019-2020 multiple indicator cluster survey; armenia 2000 demographic and health survey; armenia 200...21431 more chars",
-            "title": "Proportion of Women of Reproductive Age Who Have Their Need for Family Planning Satisfied With Modern Methods [15 to 49 Years Old, Female]"
+            "title": "Access to Modern Family Planning for Adult Women"
           },
           {
             "columns": [
@@ -161,14 +161,14 @@
                     "statVarKey": [
                       "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block"
                     ],
-                    "title": "Maternal Mortality Ratio [Female] (${date})",
+                    "title": "Maternal Mortality Ratio (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: estimates by WHO, UNICEF, UNFPA, world bank group and UNDESA/Population division. Geneva: world health organization; 2023.",
-            "title": "Maternal Mortality Ratio [Female]"
+            "title": "Maternal Mortality Ratio"
           },
           {
             "columns": [
@@ -330,7 +330,7 @@
             "statVar": "WHO/SA_0000001451"
           },
           "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F_multiple_place_bar_block": {
-            "name": "Proportion of women of reproductive age who have their need for family planning satisfied with modern methods [15 to 49 years old, Female]",
+            "name": "Access to modern family planning for adult women",
             "statVar": "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
           },
           "sdg/SH_STA_BRTC_multiple_place_bar_block": {
@@ -338,7 +338,7 @@
             "statVar": "sdg/SH_STA_BRTC"
           },
           "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block": {
-            "name": "Maternal mortality ratio [Female]",
+            "name": "Maternal mortality ratio",
             "statVar": "sdg/SH_STA_MORT.SEX--F"
           }
         }
