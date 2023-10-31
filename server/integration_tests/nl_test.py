@@ -25,6 +25,8 @@ _TEST_MODE = os.environ['TEST_MODE']
 
 _TEST_DATA = 'test_data'
 
+_MAX_FOOTNOTE_LENGTH = 500
+
 
 class NLTest(NLWebServerTestCase):
 
@@ -39,7 +41,8 @@ class NLTest(NLWebServerTestCase):
                    place_detector='dc',
                    failure='',
                    test='',
-                   i18n=''):
+                   i18n='',
+                   mode=''):
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
@@ -51,7 +54,7 @@ class NLTest(NLWebServerTestCase):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(
           self.get_server_url() +
-          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}&i18n={i18n}',
+          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}&i18n={i18n}&mode={mode}',
           json={
               'contextHistory': ctx
           }).json()
@@ -72,6 +75,12 @@ class NLTest(NLWebServerTestCase):
     dbg = resp['debug']
     resp['debug'] = {}
     resp['context'] = {}
+    for category in resp.get('config', {}).get('categories', []):
+      for block in category.get('blocks'):
+        block_footnote = block.get('footnote', '')
+        if len(block_footnote) > _MAX_FOOTNOTE_LENGTH:
+          block[
+              'footnote'] = f'{block_footnote[:_MAX_FOOTNOTE_LENGTH:]}...{len(block_footnote) - _MAX_FOOTNOTE_LENGTH} more chars'
     json_file = os.path.join(_dir, _TEST_DATA, test_dir, test_name,
                              'chart_config.json')
     if _TEST_MODE == 'write':
@@ -262,8 +271,13 @@ class NLTest(NLWebServerTestCase):
         'which countries have shown the greatest reduction?',
         'health in the world',
     ])
-
-    # def test_inappropriate_query(self):
     self.run_sequence('inappropriate_query',
                       ['how many wise asses live in sunnyvale?'],
                       failure='could not complete')
+
+  def test_strict(self):
+    self.run_sequence('strict', [
+        'how do i build and construct a house and sell it in california with low income',
+        'tell me asian california population with low income'
+    ],
+                      mode='strict')

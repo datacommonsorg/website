@@ -23,11 +23,14 @@ from typing import Union
 
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection import quantity as qty
+from server.lib.nl.detection.date import parse_date
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ComparisonClassificationAttributes
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import CorrelationClassificationAttributes
+from server.lib.nl.detection.types import \
+    DetailedActionClassificationAttributes
 from server.lib.nl.detection.types import EventClassificationAttributes
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import GeneralClassificationAttributes
@@ -38,6 +41,7 @@ from server.lib.nl.detection.types import SuperlativeClassificationAttributes
 from server.lib.nl.detection.types import SuperlativeType
 from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaType
+from server.services import datacommons as dc
 import shared.lib.constants as constants
 
 
@@ -367,4 +371,21 @@ def quantity(query_orig: str, ctr: Counters) -> Union[NLClassifier, None]:
   attributes = qty.parse_quantity(query_orig, ctr)
   if attributes:
     return NLClassifier(type=ClassificationType.QUANTITY, attributes=attributes)
+  return None
+
+
+def date(query_orig: str, ctr: Counters) -> Union[NLClassifier, None]:
+  attributes = parse_date(query_orig, ctr)
+  if attributes and attributes.dates:
+    return NLClassifier(type=ClassificationType.DATE, attributes=attributes)
+  return None
+
+
+def detailed_action(query_orig: str) -> Union[NLClassifier, None]:
+  verbs = dc.nl_detect_verbs(query_orig)
+  # When there are more than two verbs in a query, treat it as an action query.
+  if len(verbs) > 2:
+    return NLClassifier(
+        type=ClassificationType.DETAILED_ACTION,
+        attributes=DetailedActionClassificationAttributes(actions=verbs))
   return None

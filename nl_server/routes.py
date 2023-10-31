@@ -79,8 +79,8 @@ def search_places():
     return json.dumps({'places': []})
 
 
-@bp.route('/api/search_verbs/', methods=['GET'])
-def search_verbs():
+@bp.route('/api/detect_verbs/', methods=['GET'])
+def detect_verbs():
   """Returns a list tokens that detected as verbs.
 
   List[str]

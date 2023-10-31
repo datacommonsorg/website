@@ -23,4 +23,4 @@ npm run dev:nodemon
 
 ## Fetch SVG
 
-Get an example svg from a [test page](http://localhost:3030/?q=san+jose+population).
+Get an example svg from a [test page](http://localhost:3030/nodejs/query?q=san+jose+population).
