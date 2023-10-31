@@ -355,9 +355,8 @@ def main(_):
         f"Loading the pre-finetuned Intermediate model: {model_intermediate_name}"
     )
     ctx = utils.Context(gs=gs, model=None, bucket=bucket, tmp='/tmp')
-    downloaded_model_path = utils.download_model_from_gcs(
-        ctx, model_intermediate_name)
-    model_intermediate = SentenceTransformer(downloaded_model_path)
+    model_intermediate = utils.get_ft_model_from_gcs(ctx,
+                                                     model_intermediate_name)
 
   else:
     # The intermediate model is the base model.

@@ -98,9 +98,11 @@ ENV ENV_PREFIX=Compose
 
 
 # Env that can be set from `docker run`
+ENV DEBUG=false
 ENV USE_SQLITE=false
 ENV USE_CLOUDSQL=false
 ENV DC_API_ROOT=https://api.datacommons.org
+ENV ENABLE_ADMIN=true
 
 COPY build/web_compose/compose.sh .
 EXPOSE 8080 8081
