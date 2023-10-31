@@ -64,4 +64,4 @@ if __name__ == '__main__':
   # a webserver process such as Gunicorn will serve the app.
   logging.info("Run web server in local mode")
   port = sys.argv[1] if len(sys.argv) >= 2 else 8080
-  app.run(host='127.0.0.1', port=port, debug=True)
+  app.run(host='0.0.0.0', port=port, debug=True)

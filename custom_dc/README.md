@@ -36,7 +36,10 @@ docker build --tag datacommons-website-compose:latest \
 -t website-compose .
 ```
 
-### Run custom Data Commons locally with SQLITE database
+### Test custom Data Commons locally with SQLITE database
+
+[Note]: Refer to [Environment Variables](#environment-variables) for setting
+environment variables.
 
 In the root of this repository, run:
 
@@ -44,8 +47,9 @@ In the root of this repository, run:
 docker run -it \
 --env-file $PWD/custom_dc/sqlite_env.list \
 -p 8080:8080 \
+-e DEBUG=true \
 -v $PWD/custom_dc/sample:/sqlite \
--v $PWD/server/templates/custom_dc:/workspace/server/templates/custom_dc \
+-v $PWD/server:/workspace/server \
 datacommons-website-compose:latest
 ```
 
@@ -54,6 +58,8 @@ This brings up a local instance with sample data that are stored under
 
 Now you can open `localhost:8080/tools/timeline` to browse these sample data.
 Also note the base Data Commons data are also avaiable in this instance.
+
+To use your own data, refer to [Import Custom Data](#import-custom-data).
 
 ## Cloud Development and Deployment
 
@@ -84,11 +90,17 @@ to create intermediate folders for the files for easier management.
 
 ### Upload Data Files
 
+[Note]: Refer to [Import Custom Data](#import-custom-data) for preparing the
+data files.
+
 Upload the data CSV files into GCS and record the folder path as
 `gs://<bucket-name>/.../`. You can start wit the sample data provided under
 `custom_dc/sample` and update to your own data later.
 
 ### Testing Locally with CloudSQL Database
+
+[Note]: Refer to [Environment Variables](#environment-variables) for setting
+environment variables.
 
 Authenticate Google Cloud:
 
@@ -106,6 +118,7 @@ In the root of this repository, run:
 docker run -it \
 --env-file $PWD/custom_dc/cloudsql_env.list \
 -p 8080:8080 \
+-e DEBUG=true \
 -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
 -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
 -v $PWD/server/templates/custom_dc:/workspace/server/templates/custom_dc \
@@ -244,9 +257,13 @@ development cycles as illustrated above.
 
 ## Environment Variables
 
-Environment variables are set in "sqlite_env.list" or "cloudsql_env.list"
-depending on the database type. Below is a detailed description of all the
-variables available.
+Custom Data Commons Development and deployment require a set of environment
+variables to be set. These variables should be set in a text file. Example file
+for SQLite based instance can be found in ["sqlite_env.list"](./sqlite_env.list).
+Example file for CloudSQL based intance can be found in
+["cloudsql_env.list"](./cloudsql_env.list).
+
+Below is a detailed description of all the variables available.
 
 | Variable             | Description                                                                                                                                                   |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
