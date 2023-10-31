@@ -43,6 +43,13 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   # Construct a common PopulateState
   state = PopulateState(uttr=uttr)
 
+  da_cls = futils.classifications_of_type(
+      uttr.classifications, dtypes.ClassificationType.DETAILED_ACTION)
+  if da_cls:
+    uttr.counters.info('fulfill_detailed_action_querytypes',
+                       utils.get_action_verbs(uttr))
+    return state
+
   # IMPORTANT: Do this as the very first thing before
   # accessing the various heuristics, since it may
   # update `uttr`

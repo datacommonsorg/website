@@ -16,6 +16,7 @@
 import logging
 from typing import Dict
 
+from server.lib.explore.params import QueryMode
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.detection import heuristic_classifiers
 from server.lib.nl.detection import place
@@ -74,8 +75,8 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
       heuristic_classifiers.date(query, counters),
   ]
 
-  if mode == 'strict':
-    classifications.append(heuristic_classifiers.action(query, counters))
+  if mode == QueryMode.STRICT:
+    classifications.append(heuristic_classifiers.detailed_action(query))
 
   # Set the Classifications list.
   classifications = [c for c in classifications if c is not None]

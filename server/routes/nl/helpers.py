@@ -73,7 +73,9 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   udp_str = request.args.get(params.Params.USE_DEFAULT_PLACE.value, 'true')
   udp = udp_str and udp_str.lower() == 'true'
   # mode param
-  mode = request.args.get(params.Params.MODE.value, 'true')
+  mode = request.args.get(params.Params.MODE.value, '')
+  if mode == 'true':
+    udp = True
 
   # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
