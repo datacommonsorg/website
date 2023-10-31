@@ -491,7 +491,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Proportion of Population Below International Poverty Line in United States",
+                    "title": "Population Below International Poverty Line in United States",
                     "type": "LINE"
                   }
                 ]
@@ -499,18 +499,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Population Below International Poverty Line in United States",
+                    "description": "Population Below International Poverty Line in United States",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Proportion of Population Below International Poverty Line in United States",
+                    "title": "Population Below International Poverty Line in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
-            "title": "Proportion of Population Below International Poverty Line"
+            "title": "Population Below International Poverty Line"
           },
           {
             "columns": [
@@ -824,7 +824,7 @@
             "statVar": "Count_Person_PovertyStatusDetermined"
           },
           "sdg/SI_POV_DAY1": {
-            "name": "Proportion of population below international poverty line",
+            "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
           }
         }

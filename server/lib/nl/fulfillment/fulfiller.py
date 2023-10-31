@@ -43,6 +43,11 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   # Construct a common PopulateState
   state = PopulateState(uttr=uttr)
 
+  detailed_action = utils.get_action_verbs(uttr)
+  if detailed_action:
+    uttr.counters.info('fulfill_detailed_action_querytypes', detailed_action)
+    return state
+
   # IMPORTANT: Do this as the very first thing before
   # accessing the various heuristics, since it may
   # update `uttr`

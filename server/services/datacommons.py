@@ -335,6 +335,12 @@ def nl_search_sv(query, index_type):
   return get(url)
 
 
+def nl_detect_verbs(query):
+  """Detect verbs from NL server."""
+  url = f'{current_app.config["NL_ROOT"]}/api/detect_verbs?q={query}'
+  return get(url)
+
+
 def nl_detect_place_ner(query):
   """Detect places from NL server."""
   url = f'{current_app.config["NL_ROOT"]}/api/search_places?q={query}'
