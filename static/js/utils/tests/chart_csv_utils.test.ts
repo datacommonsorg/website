@@ -16,6 +16,7 @@
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { GeoJsonData } from "../../chart/types";
+import { StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
   dataGroupsToCsv,
@@ -255,22 +256,25 @@ test("mapDataToCsv", () => {
     [testPlaceB]: 2,
   };
   const testVariable = {
+    denom: "",
+    log: false,
     name: "testVarName",
+    scaling: 1,
     statVar: "testVarDcid",
+    unit: "",
   };
   const cases: {
     name: string;
     geoJson: GeoJsonData;
     dataValues: { [placeDcid: string]: number };
     expected: string;
-    variable: { name?: string; statVar?: string };
+    variable?: StatVarSpec;
   }[] = [
     {
       name: "non empty geoJson and dataValues, empty variable",
       geoJson: testGeoJson,
       dataValues: testDataValues,
       expected: 'label,variable,data\r\nPlaceA,N/A,1\r\n"PlaceB, test",N/A,2',
-      variable: {},
     },
     {
       name: "empty geoJson, empty variable",
@@ -283,7 +287,6 @@ test("mapDataToCsv", () => {
       },
       dataValues: testDataValues,
       expected: "label,variable,data",
-      variable: {},
     },
     {
       name: "empty dataValues, empty variable",
@@ -291,21 +294,20 @@ test("mapDataToCsv", () => {
       dataValues: {},
       expected:
         'label,variable,data\r\nPlaceA,N/A,N/A\r\n"PlaceB, test",N/A,N/A',
-      variable: {},
     },
     {
       name: "non empty geoJson, dataValues, variable",
       geoJson: testGeoJson,
       dataValues: testDataValues,
       expected:
-        'label,variable,data\r\nPlaceA,testVarName,N/A\r\n"PlaceB, test",testVarName,N/A',
+        'label,variable,data\r\nPlaceA,testVarName,1\r\n"PlaceB, test",testVarName,2',
       variable: testVariable,
     },
   ];
 
   for (const c of cases) {
     const csv = mapDataToCsv([
-      { dataValues: c.dataValues, geoJson: c.geoJson },
+      { dataValues: c.dataValues, geoJson: c.geoJson, variable: c.variable },
     ]);
     try {
       expect(csv).toEqual(c.expected);
