@@ -246,6 +246,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   cfg = libconfig.get_config()
   app.config.from_object(cfg)
   app.config['NL_ROOT'] = nl_root
+  app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
 
   # Init extentions
   from server.cache import cache
@@ -273,7 +274,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   if cfg.SHOW_SUSTAINABILITY:
     register_routes_sustainability(app)
 
-  if cfg.ADMIN:
+  if app.config['ENABLE_ADMIN']:
     register_routes_admin(app)
 
   # Load place explorer summaries
@@ -315,8 +316,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       secret_response = secret_client.access_secret_version(name=secret_name)
       app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
-  if cfg.ADMIN:
-    app.config['ADMIN_SECRET'] = os.environ.get('ADMIN_SECRET')
+  if app.config['ENABLE_ADMIN']:
+    app.config['ADMIN_SECRET'] = os.environ.get('ADMIN_SECRET', '')
 
   if cfg.LOCAL:
     app.config['LOCAL'] = True
@@ -379,6 +380,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   if os.path.isfile(BLOCKLIST_SVG_FILE):
     with open(BLOCKLIST_SVG_FILE) as f:
       blocklist_svg = json.load(f) or []
+  else:
+    blocklist_svg = ["dc/g/Uncategorized", "oecd/g/OECD"]
   app.config['BLOCKLIST_SVG'] = blocklist_svg
 
   if not cfg.TEST:

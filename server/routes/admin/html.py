@@ -36,6 +36,12 @@ def load_data():
   if not sql_data_path:
     sql_data_path = os.environ.get("SQL_DATA_PATH")
 
+  if not sql_data_path:
+    return jsonify({
+        "status": "error",
+        "message": "sql_data_path is not set"
+    }), 500
+
   # TODO: dynamically create the output dir.
   output_dir = os.path.join(sql_data_path, 'data')
 
