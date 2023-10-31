@@ -370,7 +370,7 @@ class ExploreTest(NLWebServerTestCase):
     ],
                                 dc='sdg')
 
-    self.run_detect_and_fulfill('e2e_sdg_mainDc', [
+    self.run_detect_and_fulfill('e2e_sdg_main_dc', [
         'Hunger in Nigeria',
         'Compare progress on poverty in Mexico, Nigeria and Pakistan'
     ])
