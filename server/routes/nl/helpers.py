@@ -22,6 +22,7 @@ import flask
 from flask import current_app
 from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
+from server.lib.explore.params import QueryMode
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.explore import params
@@ -69,12 +70,13 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   # i18n param
   i18n_str = request.args.get(params.Params.I18N.value, '')
   i18n = i18n_str and i18n_str.lower() == 'true'
+  # TODO: Deprecate USE_DEFAULT_PLACE param once 'mode=strict' is in use.
   # use default place param
   udp_str = request.args.get(params.Params.USE_DEFAULT_PLACE.value, 'true')
   udp = udp_str and udp_str.lower() == 'true'
   # mode param
   mode = request.args.get(params.Params.MODE.value, '')
-  if mode == 'true':
+  if mode == QueryMode.STRICT:
     udp = True
 
   # Index-type default is in nl_server.

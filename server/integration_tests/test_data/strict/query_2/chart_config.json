@@ -1,0 +1,395 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceAsianAlone"
+                    ],
+                    "title": "Median Income of Asian Households in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Asian Households in California",
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceAsianAlone"
+                    ],
+                    "title": "Median Income of Asian Households in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Asian Households"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asian Population Above Poverty Line in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Asian Population Above Poverty Line in California",
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asian Population Above Poverty Line in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Population Above Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_HouseholderRaceAsianAlone"
+                    ],
+                    "title": "Count of Household: Asian Alone in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: Asian Alone in California",
+                    "statVarKey": [
+                      "Count_Household_HouseholderRaceAsianAlone"
+                    ],
+                    "title": "Count of Household: Asian Alone in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Asian Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asians Below Poverty Line in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Asians Below Poverty Line in California",
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asians Below Poverty Line in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asians Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, Eastern Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Household: Foreign Born, Eastern Asia in California",
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, Eastern Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: Foreign Born, Eastern Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthWesternAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, Western Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Household: Foreign Born, Western Asia in California",
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthWesternAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, Western Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: Foreign Born, Western Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, South Eastern Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Household: Foreign Born, South Eastern Asia in California",
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, South Eastern Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: Foreign Born, South Eastern Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Household: Foreign Born, Asia in California",
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: Foreign Born, Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthWesternAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, Foreign Born, Western Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: With Earnings, Foreign Born, Western Asia in California",
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthWesternAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, Foreign Born, Western Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Earnings, Foreign Born, Western Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, Foreign Born, Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: With Earnings, Foreign Born, Asia in California",
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, Foreign Born, Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Earnings, Foreign Born, Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, Foreign Born, Eastern Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: With Earnings, Foreign Born, Eastern Asia in California",
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, Foreign Born, Eastern Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Earnings, Foreign Born, Eastern Asia"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Household_HouseholderRaceAsianAlone": {
+            "name": "Count of Household: Asian Alone",
+            "statVar": "Count_Household_HouseholderRaceAsianAlone"
+          },
+          "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia": {
+            "name": "Count of Household: With Earnings, Foreign Born, Asia",
+            "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
+          },
+          "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia": {
+            "name": "Count of Household: With Earnings, Foreign Born, Eastern Asia",
+            "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
+          },
+          "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthWesternAsia": {
+            "name": "Count of Household: With Earnings, Foreign Born, Western Asia",
+            "statVar": "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthWesternAsia"
+          },
+          "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone": {
+            "name": "Asian Population Above poverty line",
+            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
+            "name": "Asians Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+          },
+          "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia": {
+            "name": "Median Income of Household: Foreign Born, Asia",
+            "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
+          },
+          "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia": {
+            "name": "Median Income of Household: Foreign Born, Eastern Asia",
+            "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
+          },
+          "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia": {
+            "name": "Median Income of Household: Foreign Born, South Eastern Asia",
+            "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
+          },
+          "Median_Income_Household_ForeignBorn_PlaceOfBirthWesternAsia": {
+            "name": "Median Income of Household: Foreign Born, Western Asia",
+            "statVar": "Median_Income_Household_ForeignBorn_PlaceOfBirthWesternAsia"
+          },
+          "Median_Income_Household_HouseholderRaceAsianAlone": {
+            "name": "Median Income of Asian Households",
+            "statVar": "Median_Income_Household_HouseholderRaceAsianAlone"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/06"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/06",
+    "name": "California",
+    "place_type": "State"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}

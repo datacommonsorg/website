@@ -277,6 +277,7 @@ class NLTest(NLWebServerTestCase):
 
   def test_strict(self):
     self.run_sequence('strict', [
-        'how do i build and construct a house and sell it in california since with low income',
+        'how do i build and construct a house and sell it in california with low income',
+        'tell me asian california population with low income'
     ],
                       mode='strict')
