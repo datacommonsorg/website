@@ -28,7 +28,12 @@ export MIXER_API_KEY=$DC_API_KEY
 
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 
-gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:8080 -w 4 web_app:app
+if [[ $DEBUG == "true" ]]
+then
+    python3 web_app.py
+else
+    gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:8080 -w 4 web_app:app
+fi
 
 # Wait for any process to exit
 wait -n

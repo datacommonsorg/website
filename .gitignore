@@ -72,8 +72,7 @@ dc-data/
 gen_ordered_list_for_topics.mcf
 mcf_parser.py
 
-# Test input and output files
-input/
+# Test output files
 output/
 
 # wireit files

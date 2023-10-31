@@ -25,6 +25,8 @@ _TEST_MODE = os.environ['TEST_MODE']
 
 _TEST_DATA = 'test_data'
 
+_MAX_FOOTNOTE_LENGTH = 500
+
 
 class NLTest(NLWebServerTestCase):
 
@@ -72,6 +74,12 @@ class NLTest(NLWebServerTestCase):
     dbg = resp['debug']
     resp['debug'] = {}
     resp['context'] = {}
+    for category in resp.get('config', {}).get('categories', []):
+      for block in category.get('blocks'):
+        block_footnote = block.get('footnote', '')
+        if len(block_footnote) > _MAX_FOOTNOTE_LENGTH:
+          block[
+              'footnote'] = f'{block_footnote[:_MAX_FOOTNOTE_LENGTH:]}...{len(block_footnote) - _MAX_FOOTNOTE_LENGTH} more chars'
     json_file = os.path.join(_dir, _TEST_DATA, test_dir, test_name,
                              'chart_config.json')
     if _TEST_MODE == 'write':
