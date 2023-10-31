@@ -123,8 +123,8 @@ def load_files(fpath_list: List[str], name_overrides: Dict,
     typ = node['typeOf'][0]
     name = node.get('name', [''])[0]
     name_override_info = name_overrides.get(dcid)
-    if name_override_info and not dc in name_override_info['blocklist']:
-      name = name_override_info['title']
+    if name_override_info and not dc in name_override_info.get('blocklist', []):
+      name = name_override_info.get('title', '')
     if 'relevantVariableList' in node:
       prop = 'relevantVariableList'
     else:

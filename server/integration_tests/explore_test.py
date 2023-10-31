@@ -369,6 +369,11 @@ class ExploreTest(NLWebServerTestCase):
         'Compare progress on poverty in Mexico, Nigeria and Pakistan'
     ],
                                 dc='sdg')
+    
+    self.run_detect_and_fulfill('e2e_sdg_mainDc', [
+        'Hunger in Nigeria',
+        'Compare progress on poverty in Mexico, Nigeria and Pakistan'
+    ])
 
   def test_e2e_fallbacks(self):
     self.run_detect_and_fulfill(
