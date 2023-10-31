@@ -230,16 +230,21 @@ function getPopulationPromise(
   statVarSpec: StatVarSpec[],
   apiRoot?: string
 ): Promise<SeriesApiResponse> {
-  const statVars = [];
+  const statVars = new Set<string>();
   for (const sv of statVarSpec) {
     if (sv.denom) {
-      statVars.push(sv.denom);
+      statVars.add(sv.denom);
     }
   }
   if (_.isEmpty(statVars)) {
     return Promise.resolve(null);
   } else {
-    return getSeriesWithin(apiRoot, placeDcid, enclosedPlaceType, statVars);
+    return getSeriesWithin(
+      apiRoot,
+      placeDcid,
+      enclosedPlaceType,
+      Array.from(statVars)
+    );
   }
 }
 
