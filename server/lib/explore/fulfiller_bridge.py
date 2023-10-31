@@ -14,6 +14,7 @@
 
 # NL Bridge fulfiller.
 
+import copy
 from dataclasses import dataclass
 import time
 from typing import cast, Dict, List
@@ -88,14 +89,28 @@ def _get_plotted_orig_vars(
   added = set()
   for cs in state.uttr.rankedCharts:
     cs = cast(ChartSpec, cs)
-    svs = cs.chart_vars.orig_svs
-    if not svs:
+    orig_svs = copy.deepcopy(cs.chart_vars.orig_svs)
+    if not orig_svs:
       continue
-    svk = ''.join(sorted(svs))
+
+    if len(orig_svs) == 2 and cs.chart_type != ChartType.SCATTER_CHART:
+      # This was intended as a correlation query, but we're not plotting
+      # a scatter-chart.  So only add the specific orig SV that we're
+      # plotting in the chart.
+      if len(cs.chart_vars.svs) != 2 or len(cs.svs) != 1:
+        continue
+      sv_pair = cs.chart_vars.svs
+      disp_sv = cs.svs[0]
+
+      # Find which of LHS or RHS SV is being displayed.
+      idx = 0 if disp_sv == sv_pair[0] else 1
+      orig_svs = [orig_svs[idx]]
+
+    svk = ''.join(sorted(orig_svs))
     if svk in added:
       continue
     plotted_orig_vars.append(
-        related.PlottedOrigVar(svs=[_node(sv) for sv in svs]))
+        related.PlottedOrigVar(svs=[_node(sv) for sv in orig_svs]))
     added.add(svk)
 
   return plotted_orig_vars

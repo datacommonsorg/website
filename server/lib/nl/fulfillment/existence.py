@@ -224,26 +224,11 @@ def _get_place_dcids(places: List[Place]) -> List[str]:
   return dcids
 
 
-def chart_vars_fetch(tracker: ext.MainExistenceCheckTracker,
-                     chart_vars_list: List[ChartVars],
-                     existing_svs: Set[str],
-                     topics: List[str] = None,
-                     explore_more_svs: Set[str] = None):
+def chart_vars_fetch(tracker: ext.MainExistenceCheckTracker) -> List[ChartVars]:
+  chart_vars_list: List[ChartVars] = []
   for exist_state in tracker.exist_sv_states:
     for exist_cv in exist_state.chart_vars_list:
       cv = tracker.get_chart_vars(exist_cv)
       if cv.svs:
-        existing_svs.update(cv.svs)
         chart_vars_list.append(cv)
-        if explore_more_svs != None and len(explore_more_svs) < 20:
-          explore_more_svs.update(cv.svs[:10])
-      if cv.source_topic:
-        existing_svs.add(cv.source_topic)
-      if cv.svpg_id:
-        existing_svs.add(cv.svpg_id)
-      if cv.orig_svs:
-        existing_svs.update(cv.orig_svs)
-        if topics != None:
-          for v in cv.orig_svs:
-            if cutils.is_topic(v) and v not in topics:
-              topics.append(v)
+  return chart_vars_list

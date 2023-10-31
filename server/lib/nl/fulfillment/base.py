@@ -207,8 +207,7 @@ def _add_charts_with_existence_check(state: PopulateState,
   tracker = MainExistenceCheckTracker(state, state.places_to_check,
                                       chart_vars_map)
   tracker.perform_existence_check()
-  state.exist_chart_vars_list = []
-  chart_vars_fetch(tracker, state.exist_chart_vars_list, set())
+  state.exist_chart_vars_list = chart_vars_fetch(tracker)
 
   existing_svs = set()
   found = False
