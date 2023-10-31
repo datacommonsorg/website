@@ -50,11 +50,18 @@ MAX_CHILD_LIMIT = 50
 # For `hybrid` detection, it first calls Heuristic detector, and
 # based on `need_llm()`, decides to call the LLM detector.
 #
-def detect(detector_type: str, place_detector_type: PlaceDetectorType,
-           original_query: str, no_punct_query: str, prev_utterance: Utterance,
-           embeddings_index_type: str, llm_api_type: LlmApiType,
-           query_detection_debug_logs: Dict,
-           counters: Counters) -> types.Detection:
+def detect(
+    detector_type: str,
+    place_detector_type: PlaceDetectorType,
+    original_query: str,
+    no_punct_query: str,
+    prev_utterance: Utterance,
+    embeddings_index_type: str,
+    llm_api_type: LlmApiType,
+    query_detection_debug_logs: Dict,
+    mode: str,
+    counters: Counters,
+) -> types.Detection:
   #
   # In the absence of the PALM API key, fallback to heuristic.
   #
@@ -82,7 +89,7 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
   #
   heuristic_detection = heuristic_detector.detect(
       place_detector_type, original_query, no_punct_query,
-      embeddings_index_type, query_detection_debug_logs, counters)
+      embeddings_index_type, query_detection_debug_logs, mode, counters)
   if detector_type == RequestedDetectorType.Heuristic.value:
     return heuristic_detection
 
