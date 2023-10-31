@@ -33,12 +33,20 @@ class Params(str, Enum):
   I18N = 'i18n'
   # Whether to use default place when no places are detected from the query.
   USE_DEFAULT_PLACE = 'udp'
+  # The mode of query detection.
+  # - 'strict': detect and fulfill query with much higher specificity criteria.
+  #    Ex, if multiple verbs present, treat as action query and do not fulfill.
+  MODE = 'mode'
 
 
 class DCNames(str, Enum):
   MAIN_DC = 'main'
   SDG_DC = 'sdg'
   SDG_MINI_DC = 'sdgmini'
+
+
+class QueryMode(str, Enum):
+  STRICT = 'strict'
 
 
 def is_sdg(insight_ctx: Dict) -> bool:

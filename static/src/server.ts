@@ -462,7 +462,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   axios
     // Use "udp=false" to disable using default place.
     .post(
-      `${CONFIG.apiRoot}/api/nl/data?q=${query}&detector=heuristic&udp=false`,
+      `${CONFIG.apiRoot}/api/nl/data?q=${query}&detector=heuristic&udp=false&mode=strict`,
       {}
     )
     .then((resp) => {
