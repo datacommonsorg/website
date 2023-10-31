@@ -2,8 +2,9 @@ This directory is for storing and processing curated stat-var title spreadsheets
 
 State as of March 2023:
 
-* The spreadsheet with 1.2K SVs is [HERE](https://docs.google.com/spreadsheets/d/1lmNAnqECpcvkuOlIkdo50Ve1KAalOoyP_lUlOuLmIAU/edit#gid=599439456),
-  and checked in as [`demo_svs_1.3k_names.csv`](demo_svs_1.3k_names.csv).
+* The spreadsheet with the information to generate chart titles is [HERE](https://docs.google.com/spreadsheets/d/1lmNAnqECpcvkuOlIkdo50Ve1KAalOoyP_lUlOuLmIAU/edit#gid=599439456) and it has 2 sheets that are used:
+   * __Main__: This is the sheet for stat var titles that are used in all DCs & is checked in as [`demo_svs_1.3k_names.csv`](demo_svs_1.3k_names.csv).
+   * __Main_SDG__: This is the sheet for stat var titles for SDG topics and variables that are used in the main DC, but not in sdg or sdgmini DCs. These are not used in sdg or sdgmini DCs because the [UN SDG Frontend](https://unstats.un.org/UNSDWebsite/undatacommons/sdgs) requires original SDG strings. This is checked in as [`sdg_svs_names.csv`](sdg_svs_names.csv).
 
 Steps to add the titles to prod:
 
