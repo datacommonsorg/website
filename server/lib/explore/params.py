@@ -33,6 +33,10 @@ class Params(str, Enum):
   I18N = 'i18n'
   # Whether to use default place when no places are detected from the query.
   USE_DEFAULT_PLACE = 'udp'
+  # The mode of query detection.
+  # - 'strict': detect and fulfill query with much high criteria. Ex, if
+  #    multiple verbs present, treat as action query and do not fulfill.
+  MODE = 'mode'
 
 
 class DCNames(str, Enum):

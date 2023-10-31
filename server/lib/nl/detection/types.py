@@ -330,6 +330,11 @@ class DateClassificationAttributes(ClassificationAttributes):
   dates: List[Date]
 
 
+@dataclass
+class ActionClassificationAttributes(ClassificationAttributes):
+  actions: List[str]
+
+
 class ClassificationType(IntEnum):
   OTHER = 0
   SIMPLE = 1
@@ -345,7 +350,8 @@ class ClassificationType(IntEnum):
   DATE = 12
   ANSWER_PLACES_REFERENCE = 13
   PER_CAPITA = 14
-  UNKNOWN = 15
+  ACTION = 15
+  UNKNOWN = 100
 
 
 @dataclass

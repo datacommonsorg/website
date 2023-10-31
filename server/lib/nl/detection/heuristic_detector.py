@@ -31,7 +31,7 @@ from server.lib.nl.detection.types import SimpleClassificationAttributes
 
 def detect(place_detector_type: PlaceDetectorType, orig_query: str,
            cleaned_query: str, index_type: str,
-           query_detection_debug_logs: Dict,
+           query_detection_debug_logs: Dict, mode: str,
            counters: ctr.Counters) -> Detection:
   if place_detector_type == PlaceDetectorType.DC:
     place_detection = place.detect_from_query_dc(orig_query,
@@ -73,6 +73,9 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
                                     "PerCapita"),
       heuristic_classifiers.date(query, counters),
   ]
+
+  if mode == 'strict':
+    classifications.append(heuristic_classifiers.action(query, counters))
 
   # Set the Classifications list.
   classifications = [c for c in classifications if c is not None]

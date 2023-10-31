@@ -24,6 +24,7 @@ from typing import Union
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection import quantity as qty
 from server.lib.nl.detection.date import parse_date
+from server.lib.nl.detection.types import ActionClassificationAttributes
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ComparisonClassificationAttributes
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
@@ -39,6 +40,7 @@ from server.lib.nl.detection.types import SuperlativeClassificationAttributes
 from server.lib.nl.detection.types import SuperlativeType
 from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaType
+from server.services import datacommons as dc
 import shared.lib.constants as constants
 
 
@@ -375,4 +377,14 @@ def date(query_orig: str, ctr: Counters) -> Union[NLClassifier, None]:
   attributes = parse_date(query_orig, ctr)
   if attributes and attributes.dates:
     return NLClassifier(type=ClassificationType.DATE, attributes=attributes)
+  return None
+
+
+def action(query_orig: str, ctr: Counters) -> Union[NLClassifier, None]:
+  verbs = dc.nl_detect_verbs(query_orig)
+  # When there are more than two verbs in a query, treat it as an action query.
+  if len(verbs) > 2:
+    return NLClassifier(
+        type=ClassificationType.ACTION,
+        attributes=ActionClassificationAttributes(actions=verbs))
   return None
