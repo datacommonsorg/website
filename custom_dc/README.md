@@ -88,7 +88,7 @@ Upload the data CSV files into GCS and record the folder path as
 `gs://<bucket-name>/.../`. You can start wit the sample data provided under
 `custom_dc/sample` and update to your own data later.
 
-### Run Custom Data Commons Locally with CloudSQL Database
+### Testing Locally with CloudSQL Database
 
 Authenticate Google Cloud:
 
