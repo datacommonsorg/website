@@ -485,6 +485,7 @@ function renderWebComponents(
         return (
           <datacommons-highlight
             key={id}
+            id={id}
             description={tile.description}
             place={place.dcid}
             variable={

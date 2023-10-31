@@ -57,10 +57,12 @@ Also note the base Data Commons data are also avaiable in this instance.
 
 ## Cloud Development and Deployment
 
-Custom Data Commons can be ran on the cloud as a production service. The SQLite
-approach can still be used. Note you need to copy the data folders into the
-cloud disk and mount it to the docker container then specify the enviornment
-variables based on the requirements of the cloud providers.
+Custom Data Commons can run on the cloud as a production service. The SQLite
+approach can still be used. Note you need to copy the data folders (e.g.,
+custom_dc/sample) into the cloud disk (for example, [persistent volume in
+GKE](https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes#persistentvolumeclaims))and
+mount it to the docker container then specify the enviornment variables based on
+the requirements of the cloud providers.
 
 We have also provided a specific deployment setup on Google Cloud Run that is
 based on Cloud SQL.
@@ -86,7 +88,7 @@ Upload the data CSV files into GCS and record the folder path as
 `gs://<bucket-name>/.../`. You can start wit the sample data provided under
 `custom_dc/sample` and update to your own data later.
 
-### Run Custom Data Commons Locally with CloudSQL Database
+### Testing Locally with CloudSQL Database
 
 Authenticate Google Cloud:
 
