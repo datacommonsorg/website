@@ -20,6 +20,7 @@
     "dc/topic/GreenhouseGasEmissions",
     "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse",
     "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse",
+    "dc/topic/sdg_13.2.2",
     "Annual_Emissions_GreenhouseGas_OilAndGas",
     "Annual_Emissions_CarbonDioxide_Power",
     "Annual_Emissions_CarbonDioxide_FossilFuelOperations",
@@ -34,7 +35,6 @@
     "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse",
     "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
     "Annual_Emissions_GreenhouseGas_OilAndGasProduction",
-    "Annual_Emissions_CarbonDioxide_Manufacturing",
-    "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherManufacturing"
+    "Annual_Emissions_CarbonDioxide_Manufacturing"
   ]
 }

@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+/**
+ * Keep web component definitions in sync with typings at
+ * packages/web-components/src/main.ts and integration tests at
+ * server/webdriver/shared.py
+ */
 import { renderRankingComponent } from "../js/ranking/component";
 import { DatacommonsBarComponent } from "./bar_component";
 import {

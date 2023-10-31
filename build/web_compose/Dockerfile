@@ -61,6 +61,8 @@ RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
 
 # Import Tool
 COPY import/simple/requirements.txt /workspace/import/simple/requirements.txt
+RUN pip install --upgrade pip setuptools light-the-torch
+RUN ltt install torch --cpuonly
 RUN pip3 install --no-cache-dir -r /workspace/import/simple/requirements.txt
 
 # Install website NPM dependencies
@@ -89,10 +91,18 @@ COPY shared/. /workspace/shared/
 # Import Tool
 COPY import/. /workspace/import/
 
-# Env
+
+# Env that should not change
+ENV USE_LOCAL_MIXER=true
+ENV ENV_PREFIX=Compose
+
+
+# Env that can be set from `docker run`
+ENV DEBUG=false
 ENV USE_SQLITE=false
 ENV USE_CLOUDSQL=false
-ENV REMOTE_MIXER_DOMAIN=https://api.datacommons.org
+ENV DC_API_ROOT=https://api.datacommons.org
+ENV ENABLE_ADMIN=true
 
 COPY build/web_compose/compose.sh .
 EXPOSE 8080 8081

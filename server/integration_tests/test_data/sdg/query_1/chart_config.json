@@ -118,6 +118,98 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/SI_POV_NAHC"
+                    ],
+                    "title": "Proportion of Population Living Below the National Poverty Line in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Living Below the National Poverty Line in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI"
+                    ],
+                    "title": "Average Proportion of Deprivations for People Multidimensionally Poor in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI.URBANISATION--R"
+                    ],
+                    "title": "Average Proportion of Deprivations for People Multidimensionally Poor [Rural] in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI.URBANISATION--U"
+                    ],
+                    "title": "Average Proportion of Deprivations for People Multidimensionally Poor [Urban] in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Proportion of Deprivations for People Multidimensionally Poor in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SD_MDP_CSMP.AGE--Y0T17"
+                    ],
+                    "title": "Proportion of Children Living in Child-Specific Multidimensional Poverty [Under 18 Years Old] in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--R"
+                    ],
+                    "title": "Proportion of Children Living in Child-Specific Multidimensional Poverty [Under 18 Years Old, Rural] in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--U"
+                    ],
+                    "title": "Proportion of Children Living in Child-Specific Multidimensional Poverty [Under 18 Years Old, Urban] in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Children Living in Child-Specific Multidimensional Poverty in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Proportion of Population Using Basic Drinking Water Services, by Location in Countries of Africa (${date})",
@@ -179,6 +271,30 @@
           }
         ],
         "statVarSpec": {
+          "sdg/SD_MDP_ANDI": {
+            "name": "Average proportion of deprivations for people multidimensionally poor",
+            "statVar": "sdg/SD_MDP_ANDI"
+          },
+          "sdg/SD_MDP_ANDI.URBANISATION--R": {
+            "name": "Average proportion of deprivations for people multidimensionally poor [Rural]",
+            "statVar": "sdg/SD_MDP_ANDI.URBANISATION--R"
+          },
+          "sdg/SD_MDP_ANDI.URBANISATION--U": {
+            "name": "Average proportion of deprivations for people multidimensionally poor [Urban]",
+            "statVar": "sdg/SD_MDP_ANDI.URBANISATION--U"
+          },
+          "sdg/SD_MDP_CSMP.AGE--Y0T17": {
+            "name": "Proportion of children living in child-specific multidimensional poverty [under 18 years old]",
+            "statVar": "sdg/SD_MDP_CSMP.AGE--Y0T17"
+          },
+          "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--R": {
+            "name": "Proportion of children living in child-specific multidimensional poverty [under 18 years old, Rural]",
+            "statVar": "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--R"
+          },
+          "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--U": {
+            "name": "Proportion of children living in child-specific multidimensional poverty [under 18 years old, Urban]",
+            "statVar": "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--U"
+          },
           "sdg/SI_POV_DAY1": {
             "name": "Proportion of population below international poverty line",
             "statVar": "sdg/SI_POV_DAY1"
@@ -222,6 +338,10 @@
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
             "name": "Employed population below international poverty line, by sex and age [15 years old and over, Male]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/SI_POV_NAHC": {
+            "name": "Proportion of population living below the national poverty line",
+            "statVar": "sdg/SI_POV_NAHC"
           },
           "sdg/SP_ACS_BSRVH2O": {
             "name": "Proportion of population using basic drinking water services, by location",

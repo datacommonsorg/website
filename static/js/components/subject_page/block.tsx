@@ -18,6 +18,9 @@
  * Component for rendering a default block (block with no type).
  */
 
+// Import web components
+import "../../../library";
+
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Input } from "reactstrap";
@@ -55,9 +58,6 @@ import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
-
-// Import web components
-import "../../../library";
 
 /**
  * Translates the line tile's timeScale enum to the TimeScaleOption type
@@ -485,6 +485,7 @@ function renderWebComponents(
         return (
           <datacommons-highlight
             key={id}
+            id={id}
             description={tile.description}
             place={place.dcid}
             variable={
@@ -513,7 +514,9 @@ function renderWebComponents(
             )
               ? { showExploreMore: true }
               : {})}
-            {...(tile.mapTileSpec?.geoJsonProp ? { geoJsonProp: true } : {})}
+            {...(tile.mapTileSpec?.geoJsonProp
+              ? { geoJsonProp: tile.mapTileSpec?.geoJsonProp }
+              : {})}
             {...(tile.placeNameProp ? { placeNameProp: true } : {})}
             parentPlaces={props.parentPlaces}
             allowZoom={true}

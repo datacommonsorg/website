@@ -198,14 +198,11 @@ sudo chown root:root /usr/bin/chromedriver
 sudo chmod +x /usr/bin/chromedriver
 ```
 
-:exclamation: NOTE: If using MacOS with M1 chip, run local NL server and set `DEFAULT_NL_SERVER=1` before running the tests:
+:exclamation: NOTE: If using MacOS with an ARM processor (M1 chip), run local NL server before running the tests:
 
 ```bash
 # Run local NL server
 ./run_nl_server.sh -p 6060
-
-# Set DEFAULT_NL_SERVER=1
-export DEFAULT_NL_SERVER=1
 
 ### Run all tests
 

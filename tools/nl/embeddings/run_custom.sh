@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,9 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.app_env import _base
+set -e
 
+python3 -m venv .env
+source .env/bin/activate
+python3 -m pip install --upgrade pip setuptools light-the-torch
+ltt install torch --cpuonly
+pip3 install -r requirements.txt
 
-class Config(_base.Config):
-  LOCAL = True
-  SCHEME = 'http'
+python3 build_custom_dc_embeddings.py "$@"
