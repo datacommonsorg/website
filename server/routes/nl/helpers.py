@@ -22,10 +22,10 @@ import flask
 from flask import current_app
 from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
-from server.lib.explore.params import QueryMode
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.explore import params
+from server.lib.explore.params import QueryMode
 from server.lib.nl.common import bad_words
 from server.lib.nl.common import commentary
 from server.lib.nl.common import serialize
