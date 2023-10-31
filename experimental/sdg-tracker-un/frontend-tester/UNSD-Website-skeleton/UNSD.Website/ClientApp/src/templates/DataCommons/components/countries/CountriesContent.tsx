@@ -594,7 +594,11 @@ const ChartCategoryContent: React.FC<{
             <ChartTile
               fulfillResponse={fulfillResponse}
               key={`search-result-tile-${i}`}
-              placeDcids={placeDcids}
+              placeDcids={
+                tile.tile.comparisonPlaces
+                  ? tile.tile.comparisonPlaces
+                  : placeDcids
+              }
               tileWithFootnote={tile}
               statVarSpec={chartConfigCategory.statVarSpec}
             />

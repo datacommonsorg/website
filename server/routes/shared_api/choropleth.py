@@ -178,6 +178,9 @@ def get_geojson_feature(geo_id: str, geo_name: str, json_text: List[str]):
   # Exclude geo if no renderings are present.
   if len(json_text) < 1:
     return None
+  if len(json_text) > 1:
+    # In the rare case where there are multiple, the smaller one can be buggy.
+    json_text.sort(key=lambda x: len(x), reverse=True)
   geojson = json.loads(json_text[0])
   geo_feature = {
       "type": "Feature",

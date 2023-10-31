@@ -27,8 +27,6 @@ class Config:
   LITE = False
   # If the deployment is a custom instance.
   CUSTOM = False
-  # Whether to have account management page
-  ADMIN = False
   # Set this to False if the deployment has frequently updated data.
   USE_MEMCACHE = True
   # Whether to log the query (and make them avaiable in query history interface)

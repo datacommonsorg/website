@@ -54,6 +54,7 @@ def result_with_debug_info(data_dict: Dict, status: str,
   clustering_classification = "<None>"
   event_classification = "<None>"
   quantity_classification = "<None>"
+  date_classification = "<None>"
 
   general_parts = []
   for classification in query_detection.classifications:
@@ -75,6 +76,8 @@ def result_with_debug_info(data_dict: Dict, status: str,
       correlation_classification = 'DETECTED'
     elif classification.type == ClassificationType.QUANTITY:
       quantity_classification = str(classification.attributes)
+    elif classification.type == ClassificationType.DATE:
+      date_classification = str(classification.attributes)
     elif isinstance(classification.attributes, GeneralClassificationAttributes):
       typ = None
       if classification.type == ClassificationType.OVERVIEW:
@@ -107,6 +110,7 @@ def result_with_debug_info(data_dict: Dict, status: str,
       'correlation_classification': correlation_classification,
       'event_classification': event_classification,
       'quantity_classification': quantity_classification,
+      'date_classification': date_classification,
       'counters': debug_counters,
   }
 

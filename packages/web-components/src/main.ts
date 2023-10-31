@@ -32,6 +32,10 @@ import {
 
 export type { ChartEventDetail, ChartSortOption } from "./main.d";
 
+/**
+ * Keep in sync with the web component definitions at static/library/*component.ts
+ * and integration tests at server/webdriver/shared.py
+ */
 declare global {
   namespace JSX {
     interface IntrinsicElements {
