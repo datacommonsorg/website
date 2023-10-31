@@ -208,7 +208,6 @@ def extend_svs(svs: List[str]):
 def get_sv_name(all_svs: List[str],
                 sv_chart_titles: Dict,
                 dc: str = DCNames.MAIN_DC.value) -> Dict:
-  print("HERE??")
   sv2name_raw = fetch.property_values(all_svs, 'name')
   uncurated_names = {
       sv: names[0] if names else sv for sv, names in sv2name_raw.items()
