@@ -297,6 +297,34 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/SI_POV_NAHC"
+                    ],
+                    "title": "Proportion of Population Living Below the National Poverty Line in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Population Living Below the National Poverty Line in India",
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC"
+                    ],
+                    "title": "Proportion of Population Living Below the National Poverty Line in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Living Below the National Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Proportion of Population Using Basic Drinking Water Services, by Location in India",
@@ -394,69 +422,6 @@
               }
             ],
             "title": "Employed Population Below International Poverty Line by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker"
-                    ],
-                    "title": "Mean Monthly Wages in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker"
-                    ],
-                    "title": "Mean Monthly Wages in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Mean Monthly Wages in Administrative Area 1 Places of India"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker"
-                    ],
-                    "title": "Mean Monthly Wages in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Mean Monthly Wages in India",
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker"
-                    ],
-                    "title": "Mean Monthly Wages in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Mean Monthly Wages"
           }
         ],
         "statVarSpec": {
@@ -475,10 +440,6 @@
           "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
             "name": "Urban residents, Below Poverty Line",
             "statVar": "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
-          },
-          "Mean_WagesMonthly_Worker": {
-            "name": "Mean Monthly Wages",
-            "statVar": "Mean_WagesMonthly_Worker"
           },
           "sdg/SI_POV_DAY1": {
             "name": "Proportion of population below international poverty line",
@@ -523,6 +484,10 @@
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
             "name": "Employed population below international poverty line, by sex and age [15 years old and over, Male]",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/SI_POV_NAHC": {
+            "name": "Proportion of population living below the national poverty line",
+            "statVar": "sdg/SI_POV_NAHC"
           },
           "sdg/SP_ACS_BSRVH2O": {
             "name": "Proportion of population using basic drinking water services, by location",
