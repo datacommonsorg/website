@@ -41,7 +41,8 @@ class NLTest(NLWebServerTestCase):
                    place_detector='dc',
                    failure='',
                    test='',
-                   i18n=''):
+                   i18n='',
+                   mode=''):
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
@@ -53,7 +54,7 @@ class NLTest(NLWebServerTestCase):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(
           self.get_server_url() +
-          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}&i18n={i18n}',
+          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}&i18n={i18n}&mode={mode}',
           json={
               'contextHistory': ctx
           }).json()
@@ -270,8 +271,12 @@ class NLTest(NLWebServerTestCase):
         'which countries have shown the greatest reduction?',
         'health in the world',
     ])
-
-    # def test_inappropriate_query(self):
     self.run_sequence('inappropriate_query',
                       ['how many wise asses live in sunnyvale?'],
                       failure='could not complete')
+
+  def test_strict(self):
+    self.run_sequence('strict', [
+        'how do i build and construct a house and sell it in california since with low income',
+    ],
+                      mode='strict')

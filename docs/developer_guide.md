@@ -199,15 +199,15 @@ sudo chmod +x /usr/bin/chromedriver
 
 :exclamation: NOTE: If using MacOS with an ARM processor (M1 chip), run local NL server before running the tests:
 
-````bash
-# Run local NL server
+```bash
 ./run_nl_server.sh -p 6060
+```
 
 ### Run all tests
 
 ```bash
 ./run_test.sh -a
-````
+```
 
 ### Update React test snapshots
 
