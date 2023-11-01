@@ -279,6 +279,17 @@ def get_ranking_types(uttr: nl_uttr.Utterance) -> List[types.RankingType]:
   return ranking_types
 
 
+def get_action_verbs(uttr: nl_uttr.Utterance) -> List[str]:
+  classification = futils.classifications_of_type_from_utterance(
+      uttr, types.ClassificationType.DETAILED_ACTION)
+  action_verbs = []
+  if (classification and
+      isinstance(classification[0].attributes,
+                 types.DetailedActionClassificationAttributes)):
+    action_verbs = classification[0].attributes.actions
+  return action_verbs
+
+
 def get_quantity(
     uttr: nl_uttr.Utterance) -> types.QuantityClassificationAttributes:
   classification = futils.classifications_of_type_from_utterance(

@@ -16,6 +16,7 @@
 import logging
 from typing import Dict
 
+from server.lib.explore.params import QueryMode
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.detection import heuristic_classifiers
 from server.lib.nl.detection import place
@@ -31,7 +32,7 @@ from server.lib.nl.detection.types import SimpleClassificationAttributes
 
 def detect(place_detector_type: PlaceDetectorType, orig_query: str,
            cleaned_query: str, index_type: str,
-           query_detection_debug_logs: Dict,
+           query_detection_debug_logs: Dict, mode: str,
            counters: ctr.Counters) -> Detection:
   if place_detector_type == PlaceDetectorType.DC:
     place_detection = place.detect_from_query_dc(orig_query,
@@ -73,6 +74,9 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
                                     "PerCapita"),
       heuristic_classifiers.date(query, counters),
   ]
+
+  if mode == QueryMode.STRICT:
+    classifications.append(heuristic_classifiers.detailed_action(query))
 
   # Set the Classifications list.
   classifications = [c for c in classifications if c is not None]

@@ -25,6 +25,7 @@ from markupsafe import escape
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.explore import params
+from server.lib.explore.params import QueryMode
 from server.lib.nl.common import bad_words
 from server.lib.nl.common import commentary
 from server.lib.nl.common import serialize
@@ -66,10 +67,17 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   nl_bad_words = current_app.config['NL_BAD_WORDS']
 
   test = request.args.get(params.Params.TEST.value, '')
+  # i18n param
   i18n_str = request.args.get(params.Params.I18N.value, '')
   i18n = i18n_str and i18n_str.lower() == 'true'
+  # TODO: Deprecate USE_DEFAULT_PLACE param once 'mode=strict' is in use.
+  # use default place param
   udp_str = request.args.get(params.Params.USE_DEFAULT_PLACE.value, 'true')
   udp = udp_str and udp_str.lower() == 'true'
+  # mode param
+  mode = request.args.get(params.Params.MODE.value, '')
+  if mode == QueryMode.STRICT:
+    udp = True
 
   # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
@@ -158,7 +166,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   query_detection = detector.detect(detector_type, place_detector_type,
                                     original_query, query, prev_utterance,
                                     embeddings_index_type, llm_api_type,
-                                    debug_logs, counters)
+                                    debug_logs, mode, counters)
   if not query_detection:
     err_json = helpers.abort('Sorry, could not complete your request.',
                              original_query,
