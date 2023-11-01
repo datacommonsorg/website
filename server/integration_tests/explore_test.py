@@ -356,9 +356,10 @@ class ExploreTest(NLWebServerTestCase):
             'California counties with the biggest increase in income levels',
 
             # This is a regression test to ensure that filter_with_single_var can
-            # work with a variable in a topic.  Before the fix, it returned
-            # place overview.
-            'Counties in California where median age is over 40',
+            # work with a variable in a topic.  Before the fix, it returns
+            # a standalone SV (average earnings), and after fix it returns an
+            # SV part of the topic with page title (median household income)
+            'Counties in California where income is over 50000',
 
             # This is a regression test to ensure that the titles does
             # not have both the topics. Instead, the title has the topic

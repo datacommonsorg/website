@@ -14,37 +14,37 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06009",
-                      "geoId/06063",
-                      "geoId/06043",
-                      "geoId/06057",
-                      "geoId/06005",
-                      "geoId/06109"
+                      "geoId/06085",
+                      "geoId/06081",
+                      "geoId/06041",
+                      "geoId/06075",
+                      "geoId/06001",
+                      "geoId/06013",
+                      "geoId/06059"
                     ],
                     "statVarKey": [
-                      "Median_Age_Person_multiple_place_bar_block"
+                      "Median_Income_Household_multiple_place_bar_block"
                     ],
-                    "title": "Median Age of Population (${date}) - Top 7 of 22",
+                    "title": "Household Median Income (${date}) - Top 7 of 55",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Median Age of Population"
+            "title": "Household Median Income"
           }
         ],
         "statVarSpec": {
-          "Median_Age_Person_multiple_place_bar_block": {
-            "name": "Median Age of Population",
-            "statVar": "Median_Age_Person"
+          "Median_Income_Household_multiple_place_bar_block": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/06105"
+        "geoId/06085"
       ]
     }
   },
@@ -420,12 +420,41 @@
         }
       ]
     },
-    "childTopics": [],
-    "exploreMore": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/IndividualIncomeDistribution",
+        "name": "Individual Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income by Industry",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HouseholdIncomeDistribution",
+        "name": "Household Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Median_Income_Household": {
+        "benefitsStatus": [
+          "Median_Income_Household_WithFoodStampsInThePast12Months",
+          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+        ]
+      }
+    },
     "mainTopics": [
       {
-        "dcid": "dc/topic/AgeMedians",
-        "name": "Age Medians",
+        "dcid": "dc/topic/Income",
+        "name": "Income",
         "types": [
           "Topic"
         ]
@@ -434,8 +463,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Age",
-        "name": "Age",
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
         "types": [
           "Topic"
         ]
@@ -795,15 +824,43 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/AgeDistribution",
-        "name": "Age Distribution",
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/VeryOldAndVeryYoungPopulation",
-        "name": "Very Old and Very Young Population",
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
         "types": [
           "Topic"
         ]
