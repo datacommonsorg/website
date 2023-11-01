@@ -42,7 +42,8 @@ def get_config():
         # overwritten to datcom-ci when running on cloudbuild.
         cfg.SECRET_PROJECT = project_id
       except Exception as e:
-        logging.error(e)
+        logging.warning(
+            "GCP project is not detected and secret project is not set")
 
     return cfg
   except:

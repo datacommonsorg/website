@@ -69,7 +69,7 @@ function run_lint_fix {
 
 # Build client side code
 function run_npm_build () {
-  
+
   if [[ $1 == true ]]
   then
     echo -e "#### Only installing production dependencies"
@@ -150,7 +150,7 @@ function run_screenshot_test {
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export ENABLE_MODEL=true
-  export MIXER_API_KEY=
+  export DC_API_KEY=
   export PALM_API_KEY=
   python3 -m pytest --reruns 2 server/webdriver/screenshot/
 }
