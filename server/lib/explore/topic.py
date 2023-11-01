@@ -53,7 +53,7 @@ def compute_chart_vars(
   for sv in state.uttr.svs:
     cv = []
     if cutils.is_sv(sv):
-      cv = [ftypes.ChartVars(svs=[sv], orig_sv_map={sv: sv})]
+      cv = [ftypes.ChartVars(svs=[sv], orig_sv_map={sv: [sv]})]
     elif num_topics_opened < num_topics_limit:
       start = time.time()
       cv = _topic_chart_vars(state=state,

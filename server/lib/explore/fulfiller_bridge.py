@@ -14,7 +14,6 @@
 
 # NL Bridge fulfiller.
 
-import copy
 from dataclasses import dataclass
 import time
 from typing import cast, Dict, List

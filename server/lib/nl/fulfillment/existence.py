@@ -15,11 +15,10 @@
 from collections import OrderedDict
 from dataclasses import dataclass
 import logging
-from typing import Dict, List, Set
+from typing import Dict, List
 
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
-import server.lib.nl.common.utils as cutils
 from server.lib.nl.detection.types import Place
 import server.lib.nl.fulfillment.existence as ext
 from server.lib.nl.fulfillment.types import ChartVars
