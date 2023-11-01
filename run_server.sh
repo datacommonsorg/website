@@ -59,8 +59,8 @@ export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 # Set flask env
 if [[ $FLASK_ENV == "" ]]; then
   export FLASK_ENV="local"
-fi
-if [[ $FLASK_ENV != "local" ]]; then
+  export ENV_PREFIX="DC"
+else
   export ENV_PREFIX="Local"
 fi
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
