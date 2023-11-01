@@ -512,7 +512,7 @@ export function drawD3Map(
         ) {
           return HIGHLIGHTED_CLASS_NAME;
         }
-        if (layer.dataValues && getValue(geo, layer.dataValues) === undefined) {
+        if (getValue(geo, layer.dataValues) === undefined) {
           return "missing-data";
         }
       })
