@@ -133,7 +133,7 @@ class MainExistenceCheckTracker(ExistenceCheckTracker):
                     'places': places[:constants.DBG_LIST_LIMIT],
                     'event': chart_vars.event
                 })
-        elif len(chart_vars.orig_svs) < 2:
+        elif len(chart_vars.orig_sv_map) < 2:
           # Do this dedupe only for non-correlation chart-vars.
           # Because scatter plots will have overlapping vars.
           # Imagine:  (sv1, sv2) vs. (sva, svb, svc, svd, sve)
@@ -175,7 +175,9 @@ class ExtensionExistenceCheckTracker(ExistenceCheckTracker):
       if extended_svs and not all(v in self.all_svs for v in extended_svs):
         exist_state.chart_vars_list.append(
             ChartVarsExistenceCheckState(chart_vars=ChartVars(
-                svs=extended_svs, orig_svs=[sv], is_topic_peer_group=True),
+                svs=extended_svs,
+                orig_sv_map={sv: extended_svs},
+                is_topic_peer_group=True),
                                          exist_svs=[]))
         self.all_svs.update(extended_svs)
 

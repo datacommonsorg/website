@@ -93,7 +93,7 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
     elif main_qt == QueryType.COMPARISON_ACROSS_PLACES:
       # There are multiple places so we don't fallback.
       state.disable_fallback = True
-    
+
     # All done if successful
     if success:
       break

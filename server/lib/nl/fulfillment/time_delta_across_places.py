@@ -95,6 +95,10 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   direction = state.time_delta_types[0]
   pt = child_places[0].place_type
   sv = chart_vars.svs[0]
+
+  chart_vars = copy.deepcopy(chart_vars)
+  chart_vars.svs = [sv]
+
   ranked_children = rank_utils.rank_places_by_series_growth(
       places=dcids,
       sv=sv,

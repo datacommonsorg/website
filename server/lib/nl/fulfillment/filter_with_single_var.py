@@ -60,6 +60,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
   logging.info('Attempting to filter places')
   sv = chart_vars.svs[0]
+  chart_vars = copy.deepcopy(chart_vars)
+  chart_vars.svs = [sv]
 
   ranked_children = rank_utils.filter_and_rank_places(
       parent_place=places[0],
