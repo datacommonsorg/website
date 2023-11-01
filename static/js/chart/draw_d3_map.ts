@@ -22,8 +22,9 @@ import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
 import _ from "lodash";
 
-import { MapLayerData } from "../components/tiles/map_tile";
+import { MapChartData, MapLayerData } from "../components/tiles/map_tile";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
+import { BORDER_STROKE_COLOR } from "../constants/map_constants";
 import {
   ASIA_NAMED_TYPED_PLACE,
   AUSTRALIA_NEW_ZEALAND_DCID,
@@ -36,6 +37,7 @@ import {
   WESTERN_EUROPE_DCID,
 } from "../shared/constants";
 import { NamedPlace } from "../shared/types";
+import { shouldShowBorder } from "../tools/map/util";
 import { getPlacePathId } from "./draw_map_utils";
 import {
   GeoJsonData,
@@ -374,6 +376,39 @@ export function getProjection(
   return projection;
 }
 
+export function calculateProjection(
+  chartData: MapChartData,
+  chartHeight: number,
+  chartWidth: number
+): d3.GeoProjection {
+  // lists of geojsons used for computing projections and borders
+  const projectionGeoJsons = [];
+  for (const layer of chartData.layerData) {
+    // Use border data to calculate projection if using borders.
+    // This prevents borders from being cutoff when enclosed places don't
+    // provide wall to wall coverage.
+    const shouldUseBorderData =
+      layer.enclosedPlaceType &&
+      shouldShowBorder(layer.enclosedPlaceType) &&
+      !_.isEmpty(layer.borderGeoJson);
+    projectionGeoJsons.push(
+      shouldUseBorderData ? layer.borderGeoJson : layer.geoJson
+    );
+  }
+
+  // Calculate projection to use using all geojsons to plot.
+  const projectionData = combineGeoJsons(projectionGeoJsons);
+  const enclosingPlace =
+    chartData.layerData.length == 1 ? chartData.layerData[0].place.dcid : "";
+  return getProjection(
+    chartData.isUsaPlace,
+    enclosingPlace,
+    chartWidth,
+    chartHeight,
+    projectionData
+  );
+}
+
 function getValue(
   geo: GeoJsonFeature,
   dataValues: {
@@ -382,6 +417,7 @@ function getValue(
 ) {
   // returns undefined if there is no value
   if (
+    !_.isEmpty(dataValues) &&
     geo.properties.geoDcid in dataValues &&
     dataValues[geo.properties.geoDcid] !== undefined &&
     dataValues[geo.properties.geoDcid] !== null
@@ -563,6 +599,25 @@ export function drawD3Map(
       });
     }
   }
+
+  for (const layer of layers) {
+    if (
+      layer.enclosedPlaceType &&
+      shouldShowBorder(layer.enclosedPlaceType) &&
+      !_.isEmpty(layer.borderGeoJson)
+    ) {
+      addPolygonLayer(
+        containerElement,
+        layer.borderGeoJson,
+        projection,
+        () => "none",
+        () => BORDER_STROKE_COLOR,
+        () => null,
+        false
+      );
+    }
+  }
+
   svg.attr("class", ASYNC_ELEMENT_CLASS);
 }
 

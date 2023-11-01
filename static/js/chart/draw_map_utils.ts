@@ -21,8 +21,10 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
+import { MapChartData } from "../components/tiles/map_tile";
 import { formatNumber } from "../i18n/i18n";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { DataPointMetadata, NamedPlace } from "../shared/types";
 import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
 import { getColorFn } from "./base";
 
@@ -329,12 +331,11 @@ export function generateLegend(
 
   // Add label to color bar
   if (label) {
-    const colorBarHeight = Math.max(...yScale.range());
     const colorBarLabel = legend
       .append("text")
       .attr("part", "map-legend-label")
       .attr("transform", "rotate(-90)") // rotation swaps x and y attributes
-      .attr("x", -colorBarHeight / 2)
+      .attr("x", -height / 2)
       .attr("y", 0)
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "hanging")
@@ -349,7 +350,7 @@ export function generateLegend(
 }
 
 /**
- * Generate a svg that contains a color scale legend
+ * Generate a svg that contains a single color scale legend
  *
  * @param containerElement element to draw the legend in
  * @param height height of the legend
@@ -395,6 +396,83 @@ export function generateLegendSvg(
 }
 
 /**
+ * Draw legend with color bars for all variables in the map
+ * @param chartData chart data being plotted by the map
+ * @param height height of the legend being drawn
+ * @param legendContainer DOM element holding the legend
+ * @param colors mapping of variable to color scale to use
+ * @returns the width of the drawn legend in pixels and mapping of variables
+ *          to computed color scales
+ */
+export function drawLegendSvg(
+  chartData: MapChartData,
+  height: number,
+  legendContainer: HTMLDivElement,
+  colors?: { [variable: string]: string[] }
+): [
+  number,
+  {
+    [variable: string]: d3.ScaleLinear<number, number, never>;
+  }
+] {
+  // mapping of variable to values for computing color scale
+  const allValuesByVariable: { [variable: string]: number[] } = {};
+  const variableNames: { [variable: string]: string } = {};
+  const units: { [variable: string]: string } = {};
+  const colorScales: {
+    [variable: string]: d3.ScaleLinear<number, number, never>;
+  } = {};
+  for (const layer of chartData.layerData) {
+    // Build variable -> values mapping for color scale calculations
+    // Assumes each place and variable combination will only ever have 1 unique
+    // value.
+    allValuesByVariable[layer.variable.statVar] = Object.values(
+      layer.dataValues
+    );
+    variableNames[layer.variable.statVar] = layer.variable.name;
+    units[layer.variable.statVar] = layer.unit;
+  }
+
+  // Calculate color scales for each variable and add legends
+  const legendData: {
+    colorScale: d3.ScaleLinear<number, number, never>;
+    unit: string;
+    label?: string;
+  }[] = [];
+  for (const variable in allValuesByVariable) {
+    // calculate color scale based on max/min values across all layers
+    const dataValues = allValuesByVariable[variable];
+    const customColors = colors && colors[variable];
+    const label = chartData.layerData.length > 1 && variableNames[variable];
+    const colorScale = getColorScale(
+      variable,
+      d3.min(dataValues),
+      d3.mean(dataValues),
+      d3.max(dataValues),
+      undefined,
+      undefined,
+      customColors
+    );
+    colorScales[variable] = colorScale;
+    legendData.push({
+      colorScale,
+      unit: units[variable],
+      label,
+    });
+  }
+
+  // add legend
+  const legendWidth = generateLegendSvg(
+    legendContainer,
+    height,
+    legendData,
+    10
+  );
+
+  return [legendWidth, colorScales];
+}
+
+/**
  * Gets the id to use for the path for a specific place
  * @param placeDcid the dcid of the place the path is drawing
  */
@@ -424,4 +502,65 @@ export function highlightPlaceToggle(
   if (region.size()) {
     container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
   }
+}
+
+/**
+ * Create function that generates tooltip content
+ * @param chartData geojson and observation data for all layers of the map
+ */
+export function getTooltipHtmlFn(
+  chartData: MapChartData
+): (place: NamedPlace) => string {
+  // build mapping of all values, metadata, and variable units
+  // for a place/variable, to show in tooltip
+  const allDataValues: { [placeDcid: string]: { [variable: string]: number } } =
+    {};
+  const allMetadataValues: {
+    [placeDcid: string]: { [variable: string]: DataPointMetadata };
+  } = {};
+  const units: { [variable: string]: string } = {};
+  for (const layer of chartData.layerData) {
+    for (const place in layer.dataValues) {
+      if (!Object.keys(allDataValues).includes(place)) {
+        allDataValues[place] = {};
+      }
+      allDataValues[place][layer.variable.statVar] = layer.dataValues[place];
+
+      if (!Object.keys(allMetadataValues).includes(place)) {
+        allMetadataValues[place] = {};
+      }
+      allMetadataValues[place][layer.variable.statVar] = layer.metadata[place];
+    }
+  }
+
+  const getTooltipHtml = (place: NamedPlace) => {
+    const tooltipLines: string[] = [place.name];
+    if (place.dcid in allDataValues) {
+      const placeValues = allDataValues[place.dcid];
+      for (const variable in placeValues) {
+        let value = "Data Unavailable.";
+        const unit = units[variable];
+        // shows upto 2 precision digits for very low values
+        if (
+          Math.abs(placeValues[variable]) < 1 &&
+          Math.abs(placeValues[variable]) > 0
+        ) {
+          const dataValue = placeValues[variable];
+          value = formatNumber(Number(dataValue.toPrecision(2)), unit);
+        } else {
+          value = formatNumber(
+            Math.round((placeValues[variable] + Number.EPSILON) * 100) / 100,
+            unit
+          );
+        }
+        const date = ` (${
+          allMetadataValues[place.dcid][variable].placeStatDate
+        })`;
+        tooltipLines.push(`${variable}: ${value}${date}`);
+      }
+    }
+    return tooltipLines.join("<br />");
+  };
+
+  return getTooltipHtml;
 }

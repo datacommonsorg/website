@@ -23,7 +23,6 @@ import Papa from "papaparse";
 
 import { DataGroup, DataPoint } from "../chart/base";
 import { Point } from "../chart/draw_scatter";
-import { GeoJsonData } from "../chart/types";
 import { MapLayerData } from "../components/tiles/map_tile";
 import { RankingPoint } from "../types/ranking_unit_types";
 
@@ -167,9 +166,11 @@ export function mapDataToCsv(layerData: MapLayerData[]): string {
         continue;
       }
       const value =
-        geo.id in layer.dataValues ? layer.dataValues[geo.id] : "N/A";
+        geo.id in layer.dataValues ? layer.dataValues[geo.id] || "N/A" : "N/A";
       const name = geo.properties.name || geo.id;
-      const variable = layer.variable ? layer.variable.name : "N/A";
+      const variable = layer.variable
+        ? layer.variable.name || layer.variable.statVar
+        : "N/A";
       data.push([name, variable, value]);
     }
   }

@@ -26,15 +26,20 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
   addPolygonLayer,
+  calculateProjection,
   combineGeoJsons,
   drawD3Map,
   getProjection,
   MapZoomParams,
 } from "../../chart/draw_d3_map";
-import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
+import {
+  drawLegendSvg,
+  generateLegendSvg,
+  getColorScale,
+  getTooltipHtmlFn,
+} from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
-import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
@@ -540,7 +545,8 @@ function rawToChart(
     });
   }
   // check for empty data values
-  const errorMsg = _.isEmpty(allDataValues)
+  console.log(layerData);
+  const errorMsg = layerData.every((layer) => _.isEmpty(layer.dataValues))
     ? getNoDataErrorMsg([props.statVarSpec])
     : "";
   return {
@@ -575,137 +581,29 @@ export function draw(
     errorMsgContainer.innerHTML = "";
   }
 
-  // mapping of all values and metadata, to show in tooltip
-  const allDataValues: { [placeDcid: string]: { [variable: string]: number } } =
-    {};
-  const allMetadataValues: {
-    [placeDcid: string]: { [variable: string]: DataPointMetadata };
-  } = {};
-  const units: { [variable: string]: string } = {};
-  // mapping of variable to values for computing color scale
-  const allValuesByVariable: { [variable: string]: number[] } = {};
-  const variableNames: { [variable: string]: string } = {};
-  // lists of geojsons used for computing projections and borders
-  const projectionGeoJsons = [];
-  const bordersToDraw = [];
+  // add legend and calculate color scales
+  const [legendWidth, colorScales] = drawLegendSvg(
+    chartData,
+    props.svgChartHeight,
+    legendContainer
+  );
 
+  // add color scale to layer info
   for (const layer of chartData.layerData) {
-    // Build mapping of all values and metadata for a place, to show in tooltip
-    for (const place in layer.dataValues) {
-      if (!Object.keys(allDataValues).includes(place)) {
-        allDataValues[place] = {};
-      }
-      allDataValues[place][layer.variable.statVar] = layer.dataValues[place];
-
-      if (!Object.keys(allMetadataValues).includes(place)) {
-        allMetadataValues[place] = {};
-      }
-      allMetadataValues[place][layer.variable.statVar] = layer.metadata[place];
-    }
-    // Build variable -> values mapping for color scale calculations
-    // Assumes each place and variable combination will only ever have 1 unique
-    // value.
-    allValuesByVariable[layer.variable.statVar] = Object.values(
-      layer.dataValues
-    );
-    variableNames[layer.variable.statVar] = layer.variable.name;
-    units[layer.variable.statVar] = layer.unit;
-
-    // Use border data to calculate projection if using borders.
-    // This prevents borders from being cutoff when enclosed places don't
-    // provide wall to wall coverage.
-    const shouldUseBorderData =
-      layer.enclosedPlaceType &&
-      shouldShowBorder(layer.enclosedPlaceType) &&
-      !_.isEmpty(layer.borderGeoJson);
-    projectionGeoJsons.push(
-      shouldUseBorderData ? layer.borderGeoJson : layer.geoJson
-    );
-    if (shouldUseBorderData) {
-      bordersToDraw.push(layer.borderGeoJson);
-    }
+    layer.colorScale =
+      layer.variable.statVar in colorScales &&
+      colorScales[layer.variable.statVar];
   }
 
-  // Calculate color scales for each variable and add legends
-  let totalLegendWidth = 0;
-  const legendData: {
-    colorScale: d3.ScaleLinear<number, number, never>;
-    unit: string;
-    label?: string;
-  }[] = [];
-  for (const variable in allValuesByVariable) {
-    // calculate color scale based on max/min values across all layers
-    const dataValues = allValuesByVariable[variable];
-    const colorScale = getColorScale(
-      variable,
-      d3.min(dataValues),
-      d3.mean(dataValues),
-      d3.max(dataValues),
-      undefined,
-      undefined,
-      props.colors
-    );
-    // add colorScale to layers
-    for (const layer of chartData.layerData) {
-      if (layer.variable.statVar === variable) {
-        layer.colorScale = colorScale;
-      }
-    }
-    legendData.push({
-      colorScale,
-      unit: units[variable],
-      label: variableNames[variable],
-    });
-  }
+  const chartWidth = (svgWidth || svgContainer.offsetWidth) - legendWidth;
 
-  // add legend
-  totalLegendWidth += generateLegendSvg(
-    legendContainer,
+  const projection = calculateProjection(
+    chartData,
     props.svgChartHeight,
-    legendData,
-    10
+    chartWidth
   );
-  const chartWidth = (svgWidth || svgContainer.offsetWidth) - totalLegendWidth;
-  const getTooltipHtml = (place: NamedPlace) => {
-    const tooltipLines: string[] = [place.name];
-    if (place.dcid in allDataValues) {
-      const placeValues = allDataValues[place.dcid];
-      for (const variable in placeValues) {
-        let value = "Data Unavailable.";
-        const unit = units[variable];
-        // shows upto 2 precision digits for very low values
-        if (
-          Math.abs(placeValues[variable]) < 1 &&
-          Math.abs(placeValues[variable]) > 0
-        ) {
-          const dataValue = placeValues[variable];
-          value = formatNumber(Number(dataValue.toPrecision(2)), unit);
-        } else {
-          value = formatNumber(
-            Math.round((placeValues[variable] + Number.EPSILON) * 100) / 100,
-            unit
-          );
-        }
-        const date = ` (${
-          allMetadataValues[place.dcid][variable].placeStatDate
-        })`;
-        tooltipLines.push(`${variable}: ${value}${date}`);
-      }
-    }
-    return tooltipLines.join("<br />");
-  };
 
-  // Calculate projection to use using all geojsons to plot.
-  const projectionData = combineGeoJsons(projectionGeoJsons);
-  const enclosingPlace =
-    chartData.layerData.length == 1 ? chartData.layerData[0].place.dcid : "";
-  const projection = getProjection(
-    chartData.isUsaPlace,
-    enclosingPlace,
-    chartWidth,
-    props.svgChartHeight,
-    projectionData
-  );
+  const getTooltipHtml = getTooltipHtmlFn(chartData);
 
   drawD3Map(
     mapContainer,
@@ -720,16 +618,6 @@ export function draw(
     zoomParams,
     undefined
   );
-  for (const borderGeoJson of bordersToDraw)
-    addPolygonLayer(
-      mapContainer,
-      borderGeoJson,
-      projection,
-      () => "none",
-      () => BORDER_STROKE_COLOR,
-      () => null,
-      false
-    );
 }
 
 function getExploreLink(props: MapTilePropType): {
