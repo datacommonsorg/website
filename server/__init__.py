@@ -371,7 +371,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
         secret_response = secret_client.access_secret_version(name=secret_name)
         app.config['PALM_API_KEY'] = secret_response.payload.data.decode(
             'UTF-8')
-    app.config['NL_BAD_WORDS'] = bad_words.load_bad_words()
+    app.config['NL_BAD_WORDS'] = bad_words.load_bad_words(load=not cfg.CUSTOM)
     app.config['NL_CHART_TITLES'] = libutil.get_nl_chart_titles()
     app.config['TOPIC_CACHE'] = topic_cache.load(app.config['NL_CHART_TITLES'])
     app.config['SDG_PERCENT_VARS'] = libutil.get_sdg_percent_vars()
