@@ -72,28 +72,39 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
 
   main_qt = state.query_types[0]
 
-  # TODO: Avoid relying on a single query_type
-
-  state.uttr.query_type = main_qt
   # Perform certain type-specific overrides or actions.
   done = False
-  if main_qt == QueryType.FILTER_WITH_DUAL_VARS:
-    # This needs custom SVs.
-    filter_with_dual_vars.set_overrides(state)
-  elif main_qt == QueryType.SUPERLATIVE:
-    # This needs custom SVs.
-    superlative.set_overrides(state)
-  elif main_qt == QueryType.OVERVIEW:
-    done = overview.populate(uttr)
-  elif main_qt == QueryType.EVENT:
-    # TODO: Port `event` to work in the normal flow.
-    # Don't consider it done and fallthrough to show SV stuff
-    event.populate(uttr)
-    state.query_types.remove(QueryType.EVENT)
+  while True:
+    success = True
+    state.uttr.query_type = main_qt
+    if main_qt == QueryType.FILTER_WITH_DUAL_VARS:
+      # This needs custom SVs.
+      success = filter_with_dual_vars.set_overrides(state)
+    elif main_qt == QueryType.SUPERLATIVE:
+      # This needs custom SVs.
+      success = superlative.set_overrides(state)
+    elif main_qt == QueryType.OVERVIEW:
+      done = overview.populate(uttr)
+    elif main_qt == QueryType.EVENT:
+      # TODO: Port `event` to work in the normal flow.
+      # Don't consider it done or failed, and fallthrough to show SV stuff
+      event.populate(uttr)
+      state.query_types.remove(QueryType.EVENT)
+    elif main_qt == QueryType.COMPARISON_ACROSS_PLACES:
+      # There are multiple places so we don't fallback.
+      state.disable_fallback = True
 
-  elif main_qt == QueryType.COMPARISON_ACROSS_PLACES:
-    # There are multiple places so we don't fallback.
-    state.disable_fallback = True
+    # All done if successful
+    if success:
+      break
+
+    state.query_types.remove(main_qt)
+    if not state.query_types:
+      uttr.counters.err('fulfill_empty_querytypes', '')
+      return state
+
+    # Try the next query_type
+    main_qt = state.query_types[0]
 
   if done:
     _rank_charts(uttr)
