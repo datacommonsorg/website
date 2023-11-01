@@ -439,11 +439,12 @@ export function drawLegendSvg(
     unit: string;
     label?: string;
   }[] = [];
+  const shouldShowLabels = Object.keys(allValuesByVariable).length > 1;
   for (const variable in allValuesByVariable) {
     // calculate color scale based on max/min values across all layers
     const dataValues = allValuesByVariable[variable];
     const customColors = colors && colors[variable];
-    const label = chartData.layerData.length > 1 && variableNames[variable];
+    const label = shouldShowLabels && variableNames[variable];
     const colorScale = getColorScale(
       variable,
       d3.min(dataValues),
