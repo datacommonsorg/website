@@ -581,11 +581,21 @@ export function draw(
     errorMsgContainer.innerHTML = "";
   }
 
+  // use props.colors if there's a single layer
+  const customColors: { [variable: string]: string[] } = {};
+  if (
+    chartData.layerData.length == 1 &&
+    chartData.layerData[0].variable &&
+    props.colors
+  ) {
+    customColors[chartData.layerData[0].variable.statVar] = props.colors;
+  }
   // add legend and calculate color scales
   const [legendWidth, colorScales] = drawLegendSvg(
     chartData,
     props.svgChartHeight,
-    legendContainer
+    legendContainer,
+    customColors
   );
 
   // add color scale to layer info
