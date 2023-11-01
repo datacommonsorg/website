@@ -245,6 +245,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   # Setup flask config
   cfg = libconfig.get_config()
   app.config.from_object(cfg)
+
+  # Check DC_API_KEY is set for local dev.
+  if cfg.CUSTOM and cfg.LOCAL and not os.environ.get('DC_API_KEY'):
+    raise Exception(
+        'Set environment variable DC_API_KEY for local custom DC development')
+
   app.config['NL_ROOT'] = nl_root
   app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
 
@@ -325,16 +331,16 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   # Need to fetch the API key for non gcp environment.
   if cfg.LOCAL or cfg.WEBDRIVER or cfg.INTEGRATION:
     # Get the API key from environment first.
-    if os.environ.get('MIXER_API_KEY'):
-      app.config['MIXER_API_KEY'] = os.environ.get('MIXER_API_KEY')
-    elif os.environ.get('mixer_api_key'):
-      app.config['MIXER_API_KEY'] = os.environ.get('mixer_api_key')
+    if os.environ.get('DC_API_KEY'):
+      app.config['DC_API_KEY'] = os.environ.get('DC_API_KEY')
+    elif os.environ.get('dc_api_key'):
+      app.config['DC_API_KEY'] = os.environ.get('dc_api_key')
     else:
       secret_client = secretmanager.SecretManagerServiceClient()
       secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                       'mixer-api-key', 'latest')
       secret_response = secret_client.access_secret_version(name=secret_name)
-      app.config['MIXER_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+      app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
   # Initialize translations
   babel = Babel(app, default_domain='all')
