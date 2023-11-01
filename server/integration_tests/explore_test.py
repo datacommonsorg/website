@@ -342,11 +342,30 @@ class ExploreTest(NLWebServerTestCase):
     ])
 
   def test_e2e_edge_cases2(self):
-    self.run_detect_and_fulfill('e2e_edge_cases2', [
-        'What crimes are considered felonies vs. misdemeanors in the US',
-        'How does school size of urban schools compare to rural schools in US',
-        'What is the relationship between housing size and home prices in California',
-    ])
+    self.run_detect_and_fulfill(
+        'e2e_edge_cases2',
+        [
+            'What crimes are considered felonies vs. misdemeanors in the US',
+            'How does school size of urban schools compare to rural schools in US',
+            'What is the relationship between housing size and home prices in California',
+
+            # This is a regression test to ensure "biggest" doesn't trigger
+            # SUPERLATIVE, and we return Household Income within a topic,
+            # instead of a standalone lower-ranked SV (Individual median earnings)
+            # without an topic title.
+            'California counties with the biggest increase in income levels',
+
+            # This is a regression test to ensure that filter_with_single_var can
+            # work with a variable in a topic.  Before the fix, it returns
+            # a standalone SV (average earnings), and after fix it returns an
+            # SV part of the topic with page title (median household income)
+            'Counties in California where income is over 50000',
+
+            # This is a regression test to ensure that the titles does
+            # not have both the topics. Instead, the title has the topic
+            # corresponding to the SV in the very first chart.
+            'Poverty vs. unemployment rate in districts of Tamil Nadu',
+        ])
 
   def test_e2e_superlatives(self):
     self.run_detect_and_fulfill('e2e_superlatives', [

@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-export MIXER_API_KEY=$DC_API_KEY
-
 /go/bin/mixer \
     --use_bigquery=false \
     --use_base_bigtable=false \

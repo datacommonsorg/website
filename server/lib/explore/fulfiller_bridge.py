@@ -88,14 +88,27 @@ def _get_plotted_orig_vars(
   added = set()
   for cs in state.uttr.rankedCharts:
     cs = cast(ChartSpec, cs)
-    svs = cs.chart_vars.orig_svs
-    if not svs:
+    osv2svs = cs.chart_vars.orig_sv_map
+    if not osv2svs:
       continue
-    svk = ''.join(sorted(svs))
+
+    orig_svs = list(osv2svs.keys())
+    if len(osv2svs) == 2 and cs.chart_type != ChartType.SCATTER_CHART:
+      # This was intended as a correlation query, but we're not plotting
+      # a scatter-chart.  So only add the specific orig SV that we're
+      # plotting in the chart.
+      if len(cs.svs) > 1:
+        continue
+      for orig, svs in osv2svs.items():
+        if cs.svs[0] in svs:
+          orig_svs = [orig]
+          break
+
+    svk = ''.join(sorted(orig_svs))
     if svk in added:
       continue
     plotted_orig_vars.append(
-        related.PlottedOrigVar(svs=[_node(sv) for sv in svs]))
+        related.PlottedOrigVar(svs=[_node(sv) for sv in orig_svs]))
     added.add(svk)
 
   return plotted_orig_vars
