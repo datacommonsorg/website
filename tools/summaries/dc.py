@@ -87,6 +87,6 @@ def get_data_series(dcid: str, place_name: str):
         series = chart_block["trend"]["series"][sv]
 
         # Convert dict into a list with sorted date keys
-        prompt_tables[sv] = ",".join([f"{d}: {series[d]}" for d in sorted(series.keys())])
+        prompt_tables[sv] = ", ".join([f"{d}: {series[d]}" for d in sorted(series.keys())])
 
   return prompt_tables
