@@ -69,14 +69,14 @@ class BannedWords:
 
 #
 # Loads a list of bad words from a text file.
-# If the load argument is False (True by default), 
+# If the load argument is False (True by default),
 # then an empty BannedWords object will be returned.
 # It will only be True for Custom DCs at this time.
 #
 def load_bad_words(load: bool = True) -> BannedWords:
   if not load:
     return BannedWords(entries={})
-  
+
   local_file = gcs.download_file(bucket=GLOBAL_CONFIG_BUCKET,
                                  filename=BAD_WORDS_FILE)
   return load_bad_words_file(local_file)

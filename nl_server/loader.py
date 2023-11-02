@@ -110,7 +110,7 @@ def _maybe_load_custom_dc_yaml():
 # (deploy/nl/).
 #
 def get_env_path(flask_env: str, file_name: str) -> str:
-  if flask_env in ['local', 'test', 'integration_test', 'webdriver']:
+  if flask_env in ['local', 'test', 'integration_test', 'webdriver', 'custom']:
     return os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
         f'deploy/nl/{file_name}')

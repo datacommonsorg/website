@@ -26,7 +26,9 @@ from shared.lib import gcs as gcs_lib
 
 
 def download_embeddings(embeddings_filename: str) -> str:
-  return gcs_lib.download_file(bucket=BUCKET, filename=embeddings_filename, use_anonymous_client=True)
+  return gcs_lib.download_file(bucket=BUCKET,
+                               filename=embeddings_filename,
+                               use_anonymous_client=True)
 
 
 def local_path(embeddings_file: str) -> str:
