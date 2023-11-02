@@ -158,7 +158,8 @@ export function dataPointsToCsv(dataPoints: DataPoint[]): string {
  * @param layerData geoJsons + data values plotted by the map
  */
 export function mapDataToCsv(layerData: MapLayerData[]): string {
-  const header = ["label", "variable", "data"];
+  // check if at least one layer has a variable field provided
+  const hasVariable = layerData.some((layer) => layer.variable);
   const data = [];
   for (const layer of layerData) {
     for (const geo of layer.geoJson.features) {
@@ -168,10 +169,15 @@ export function mapDataToCsv(layerData: MapLayerData[]): string {
       const value =
         geo.id in layer.dataValues ? layer.dataValues[geo.id] || "N/A" : "N/A";
       const name = geo.properties.name || geo.id;
-      const variable = layer.variable
-        ? layer.variable.name || layer.variable.statVar
-        : "N/A";
-      data.push([name, variable, value]);
+      // only add variable column if a variable field is in layer data.
+      if (hasVariable) {
+        const variable = layer.variable
+          ? layer.variable.name || layer.variable.statVar
+          : "N/A";
+        data.push([name, variable, value]);
+      } else {
+        data.push([name, value]);
+      }
     }
   }
   // sort data by label column (alphabetically)
@@ -184,6 +190,9 @@ export function mapDataToCsv(layerData: MapLayerData[]): string {
       return a[0] > b[0] ? 1 : -1;
     }
   });
+  const header = hasVariable
+    ? ["label", "variable", "data"]
+    : ["label", "data"];
   const rows = [header, ...data];
   return Papa.unparse(rows);
 }

@@ -424,8 +424,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     if (this.state.choroplethDataGroup && this.state.geoJson) {
       return mapDataToCsv([
         {
-          geoJson: this.state.geoJson,
           dataValues: this.state.choroplethDataGroup.data,
+          geoJson: this.state.geoJson,
         },
       ]);
     }

@@ -169,10 +169,10 @@ export function D3Map(props: D3MapProps): JSX.Element {
     );
     const variable: StatVarSpec = {
       denom: statVar.value.denom,
+      log: false,
+      scaling: 1,
       statVar: statVar.value.dcid,
       unit: props.unit,
-      scaling: 1,
-      log: false,
     };
     const layerData: MapLayerData = {
       colorScale,

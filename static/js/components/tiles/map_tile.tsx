@@ -25,22 +25,14 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
-  addPolygonLayer,
-  calculateProjection,
-  combineGeoJsons,
   drawD3Map,
   getProjection,
+  getProjectionGeoJson,
   MapZoomParams,
 } from "../../chart/draw_d3_map";
-import {
-  drawLegendSvg,
-  generateLegendSvg,
-  getColorScale,
-  getTooltipHtmlFn,
-} from "../../chart/draw_map_utils";
+import { drawLegendSvg, getTooltipHtmlFn } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
-import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import {
@@ -545,9 +537,8 @@ function rawToChart(
     });
   }
   // check for empty data values
-  console.log(layerData);
   const errorMsg = layerData.every((layer) => _.isEmpty(layer.dataValues))
-    ? getNoDataErrorMsg([props.statVarSpec])
+    ? getNoDataErrorMsg(layerData.map((layer) => layer.variable))
     : "";
   return {
     dateRange: getDateRange(Array.from(dates)),
@@ -600,17 +591,21 @@ export function draw(
 
   // add color scale to layer info
   for (const layer of chartData.layerData) {
-    layer.colorScale =
-      layer.variable.statVar in colorScales &&
-      colorScales[layer.variable.statVar];
+    layer.colorScale = colorScales[layer.variable.statVar];
   }
 
   const chartWidth = (svgWidth || svgContainer.offsetWidth) - legendWidth;
 
-  const projection = calculateProjection(
-    chartData,
+  // Calculate projection to use using all geojsons to plot.
+  const projectionData = getProjectionGeoJson(chartData);
+  const enclosingPlace =
+    chartData.layerData.length == 1 ? chartData.layerData[0].place.dcid : "";
+  const projection = getProjection(
+    chartData.isUsaPlace,
+    enclosingPlace,
+    chartWidth,
     props.svgChartHeight,
-    chartWidth
+    projectionData
   );
 
   const getTooltipHtml = getTooltipHtmlFn(chartData);

@@ -376,11 +376,15 @@ export function getProjection(
   return projection;
 }
 
-export function calculateProjection(
-  chartData: MapChartData,
-  chartHeight: number,
-  chartWidth: number
-): d3.GeoProjection {
+/**
+ * Get unified geoJson for computing map projection
+ *
+ * Given the chart data, returns a unified geoJson to use for calculating
+ * map projection. Includes borders if they will be shown.
+ * @param chartData map data with geojsons to compute projection for
+ * @returns geoJson
+ */
+export function getProjectionGeoJson(chartData: MapChartData): GeoJsonData {
   // lists of geojsons used for computing projections and borders
   const projectionGeoJsons = [];
   for (const layer of chartData.layerData) {
@@ -395,18 +399,7 @@ export function calculateProjection(
       shouldUseBorderData ? layer.borderGeoJson : layer.geoJson
     );
   }
-
-  // Calculate projection to use using all geojsons to plot.
-  const projectionData = combineGeoJsons(projectionGeoJsons);
-  const enclosingPlace =
-    chartData.layerData.length == 1 ? chartData.layerData[0].place.dcid : "";
-  return getProjection(
-    chartData.isUsaPlace,
-    enclosingPlace,
-    chartWidth,
-    chartHeight,
-    projectionData
-  );
+  return combineGeoJsons(projectionGeoJsons);
 }
 
 function getValue(

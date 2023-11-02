@@ -198,13 +198,13 @@ export class DatacommonsMapComponent extends LitElement {
           enclosedPlaceType,
           parentPlace: placeDcid,
           variable: {
+            date,
             denom: "",
             log: false,
             name: "",
             scaling: 1,
             statVar: variable,
             unit: "",
-            date,
           },
         });
       });

@@ -457,8 +457,8 @@ export function drawLegendSvg(
     colorScales[variable] = colorScale;
     legendData.push({
       colorScale,
-      unit: units[variable],
       label,
+      unit: units[variable],
     });
   }
 
@@ -521,13 +521,14 @@ export function getTooltipHtmlFn(
   } = {};
   const units: { [variable: string]: string } = {};
   for (const layer of chartData.layerData) {
+    units[layer.variable.statVar] = layer.unit;
     for (const place in layer.dataValues) {
-      if (!Object.keys(allDataValues).includes(place)) {
+      if (!(place in allDataValues)) {
         allDataValues[place] = {};
       }
       allDataValues[place][layer.variable.statVar] = layer.dataValues[place];
 
-      if (!Object.keys(allMetadataValues).includes(place)) {
+      if (!(place in allMetadataValues)) {
         allMetadataValues[place] = {};
       }
       allMetadataValues[place][layer.variable.statVar] = layer.metadata[place];
