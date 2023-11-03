@@ -34,7 +34,7 @@ TABLE_HEADERS = [
 TABLE_ROW_1 = [
     'geoId/06001', 'Alameda County', '2021', '38',
     'https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html',
-    '2021', '1648556', 'https://www2.census.gov/programs-surveys/popest/tables'
+    '2022', '1628997', 'https://www2.census.gov/programs-surveys/popest/tables'
 ]
 MAX_NUM_FILE_CHECK_TRIES = 3
 
