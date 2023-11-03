@@ -26,8 +26,10 @@ from google.cloud import storage
 def download_file(bucket: str,
                   filename: str,
                   use_anonymous_client: bool = False) -> str:
-  storage_client = storage.Client.create_anonymous_client(
-  ) if use_anonymous_client else storage.Client()
+  if use_anonymous_client:
+    storage_client = storage.Client.create_anonymous_client()
+  else:
+    storage_client = storage.Client()
   bucket = storage_client.bucket(bucket_name=bucket)
   blob = bucket.get_blob(filename)
   # Download
