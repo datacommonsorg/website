@@ -51,13 +51,7 @@ def worker(total, domain, page):
   driver = drivers[process_counter - 1]
   max_attempts = 3
   attempts = 0
-  while attempts < max_attempts:
-    try:
-      runner.run(driver, 'https://' + domain, page)
-      break
-    except Exception as e:
-      logging.error("Error: %s, %s", page['url'], e)
-      attempts += 1
+  runner.run(driver, 'https://' + domain, page)
   end = time.time()
   with lock:
     global_var.value += 1
