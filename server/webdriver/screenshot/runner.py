@@ -32,7 +32,9 @@ SCREENSHOTS_FOLDER = 'screenshots'
 
 WAIT_TIMEOUT = 40
 
-_INSTANCE_WITH_IAP = ['https://autopush.datacommons.org']
+_INSTANCE_WITH_IAP = [
+    'https://autopush.datacommons.org', 'https://staging.datacommons.org'
+]
 _SECRET_PROJECT = 'datcom-ci'
 _SECRET_NAME = 'webdriver-gmail-password'
 
