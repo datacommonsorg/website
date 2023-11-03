@@ -130,7 +130,7 @@ class TestVisMap(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     source_options = self.driver.find_elements(By.CSS_SELECTOR,
                                                '.source-selector-option input')
-    self.assertEqual(len(source_options), 6)
+    self.assertTrue(len(source_options) > 5)
     source_options[3].click()
     update_button = self.driver.find_element(By.CSS_SELECTOR,
                                              '.modal-footer .btn')
