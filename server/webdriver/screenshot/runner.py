@@ -81,7 +81,7 @@ def login(driver):
   secret_response = secret_client.access_secret_version(name=secret_name)
   password = secret_response.payload.data.decode('UTF-8')
   password_input = WebDriverWait(driver, WAIT_TIMEOUT).until(
-      EC.element_to_be_clickable((By.XPATH, "//input[@type='password']")))
+      EC.presence_of_element_located((By.XPATH, "//input[@type='password']")))
   password_input.send_keys(password)
   password_next_button = driver.find_element(By.XPATH,
                                              "//button[contains(., 'Next')]")
