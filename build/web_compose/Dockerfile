@@ -53,7 +53,7 @@ COPY mixer/esp/ esp
 ENV CGO_ENABLED=1
 RUN go build -o /go/bin/mixer cmd/main.go
 
-# Flask
+# Website Server
 COPY web_app.py /workspace/web_app.py
 COPY server/requirements.txt /workspace/server/requirements.txt
 RUN pip install --upgrade pip
@@ -69,8 +69,6 @@ RUN pip3 install -r /workspace/nl_server/requirements.txt
 
 # Import Tool
 COPY import/simple/requirements.txt /workspace/import/simple/requirements.txt
-RUN pip install --upgrade pip setuptools light-the-torch
-RUN ltt install torch --cpuonly
 RUN pip3 install -r /workspace/import/simple/requirements.txt
 
 # Install website NPM dependencies

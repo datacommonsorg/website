@@ -167,6 +167,10 @@ def _validate(mode: str, line: str, bad_words: BannedWords, validate: bool):
 # Returns false if the query contains any bad word.
 #
 def is_safe(query: str, bad_words: BannedWords) -> bool:
+  # If bad words is empty, return True.
+  if not bad_words.entries:
+    return True
+
   qwords = [w.strip().lower() for w in query.split() if w.strip()]
   qwset = set(qwords)
   for word in qwords:

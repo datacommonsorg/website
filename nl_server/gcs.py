@@ -26,6 +26,8 @@ from shared.lib import gcs as gcs_lib
 
 
 def download_embeddings(embeddings_filename: str) -> str:
+  # Using use_anonymous_client = True because
+  # Custom DCs need to download models without DC creds.
   return gcs_lib.download_file(bucket=BUCKET,
                                filename=embeddings_filename,
                                use_anonymous_client=True)
@@ -71,6 +73,8 @@ def download_model_from_gcs(gcs_bucket: Any, local_dir: str,
 # Downloads the `model_folder` from GCS to /tmp/
 # and return its path.
 def download_model_folder(model_folder: str) -> str:
+  # Using an anonymous client because
+  # Custom DCs need to download models without DC creds.
   sc = storage.Client.create_anonymous_client()
   bucket = sc.bucket(bucket_name=BUCKET)
   directory = gcs_lib.TEMP_DIR

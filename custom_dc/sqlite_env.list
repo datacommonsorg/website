@@ -3,9 +3,7 @@ USE_SQLITE=true
 ENABLE_MODEL=true
 SQL_DATA_PATH=/sqlite
 
-DC_API_ROOT=https://api.datacommons.org
 DC_API_KEY=
-MIXER_API_KEY=
 
 MAPS_API_KEY=
 ADMIN_SECRET=

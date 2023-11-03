@@ -106,16 +106,22 @@ def _maybe_load_custom_dc_yaml():
 
 #
 # On prod the yaml files are in /datacommons/nl/, whereas
-# in test-like environments it is the checked in path
+# in custom DC and test-like environments it is the checked in path
 # (deploy/nl/).
 #
 def get_env_path(flask_env: str, file_name: str) -> str:
-  if flask_env in ['local', 'test', 'integration_test', 'webdriver', 'custom']:
+  if _use_deploy_nl_path(flask_env):
     return os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
         f'deploy/nl/{file_name}')
 
   return f'/datacommons/nl/{file_name}'
+
+
+def _use_deploy_nl_path(flask_env: str) -> bool:
+  return flask_env in [
+      'local', 'test', 'integration_test', 'webdriver', 'custom'
+  ]
 
 
 def _use_cache(flask_env):
