@@ -50,7 +50,6 @@ export class DatacommonsMapComponent extends LitElement {
   `;
 
   // Optional: Allow zoom and pan on map
-  // TODO: Add to documentation once zoom button bug gets fixed.
   @property({ type: Boolean })
   allowZoom: boolean;
 
@@ -78,6 +77,11 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   date: string;
 
+  // Optional: dates to fetch stat vars for, in matching order with
+  //           variables (plural).
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  dates?: string[];
+
   // Title of the chart
   @property()
   header!: string;
@@ -86,7 +90,7 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   parentPlace!: string;
 
-  // [Optional] DCIDs of places to plot. If provided, childPlaceTypes
+  // Optional: DCIDs of places to plot. If provided, childPlaceTypes
   // (plural) must also be provided, and parentPlace (singular) is ignored.
   @property({ type: Array<string>, converter: convertArrayAttribute })
   parentPlaces?: string[];
@@ -113,6 +117,14 @@ export class DatacommonsMapComponent extends LitElement {
   // Statistical variable DCID
   @property()
   variable!: string;
+
+  // Optional: DCIDs of variables. If provided, parentPlaces (plural) and
+  // childPlaceTypes (plural) must also be provided, and variable (singular)
+  // is ignored.  If fewer variables than parentPlaces are provided, the last
+  // variable will be used for the remaining parentPlaces.
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  variables?: string[];
+
   /**
    * @deprecated
    * DCID of the parent place
@@ -167,23 +179,32 @@ export class DatacommonsMapComponent extends LitElement {
     let dataSpecs: ContainedInPlaceSingleVariableDataSpec[] = [];
     if (!_.isEmpty(this.parentPlaces) && !_.isEmpty(this.childPlaceTypes)) {
       this.parentPlaces.forEach((placeDcid, index) => {
+        const date = !_.isEmpty(this.dates)
+          ? this.dates[Math.min(index, this.dates.length - 1)]
+          : this.date;
         // If more parentPlaces than childPlaceTypes provided, use the
         // last childPlaceType provided for remaining parentPlaces.
-        const enclosedPlaceType =
-          this.childPlaceTypes[
-            Math.min(index, this.childPlaceTypes.length - 1)
-          ];
+        const enclosedPlaceType = !_.isEmpty(this.childPlaceTypes)
+          ? this.childPlaceTypes[
+              Math.min(index, this.childPlaceTypes.length - 1)
+            ]
+          : this.childPlaceType;
+        // If more parentPlaces than variables provided, use the last
+        // variable provided for remaining parentPlaces.
+        const variable = !_.isEmpty(this.variables)
+          ? this.variables[Math.min(index, this.variables.length - 1)]
+          : this.variable || this.statVarDcid;
         dataSpecs.push({
           enclosedPlaceType,
           parentPlace: placeDcid,
           variable: {
+            date,
             denom: "",
             log: false,
             name: "",
             scaling: 1,
-            statVar: this.variable || this.statVarDcid,
+            statVar: variable,
             unit: "",
-            date: this.date,
           },
         });
       });
@@ -207,6 +228,7 @@ export class DatacommonsMapComponent extends LitElement {
         },
       ];
     }
+
     // TODO: Remove placeholder values once Map Tile depreciates
     //       enclosedPlaceType, place, statVarSpec.
     const mapTileProps: MapTilePropType = {

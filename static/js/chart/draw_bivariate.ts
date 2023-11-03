@@ -17,6 +17,7 @@
 import * as d3 from "d3";
 import React from "react";
 
+import { MapLayerData } from "../components/tiles/map_tile";
 import { NamedPlace } from "../shared/types";
 import { getStringOrNA } from "../utils/number_utils";
 import { drawD3Map, getProjection } from "./draw_d3_map";
@@ -329,18 +330,17 @@ export function drawBivariate(
     properties.height,
     geoJson
   );
-  const geoJsonData = {};
-  geoJsonData[properties.placeDcid] = {
+  const layerData: MapLayerData = {
+    colorScale,
+    dataValues: dataPoints,
     geoJson,
-    shouldShowBoundaryLines: properties.showMapBoundaries,
+    showMapBoundaries: properties.showMapBoundaries,
   };
   drawD3Map(
     containerRef.current,
-    geoJsonData,
+    [layerData],
     properties.height,
     properties.width,
-    dataPoints,
-    colorScale,
     redirectAction,
     getTooltipHtml,
     () => true,
