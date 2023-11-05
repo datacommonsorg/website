@@ -9,7 +9,10 @@ instructions [here](../embeddings)) to compare against the version
 currently checked-in. Note that `small` or `medium_ft` refers to the PROD
 (base) embeddings.
 
+Note that it needs the autopush Mixer API key.
+
 ```
+export AUTOPUSH_KEY=<XYZ>
 ./run.sh (small | medium_ft) <embeddings_YYYY_MM_DD_HH_MM_SS.csv>
 ```
 
