@@ -36,7 +36,7 @@ _SV_THRESHOLD = 0.5
 _NUM_SVS = 10
 _SUB_COLOR = '#ffaaaa'
 _ADD_COLOR = '#aaffaa'
-_PROPERTY_URL = f'https://autopush.api.datacommons.org/v2/node'
+_PROPERTY_URL = 'https://autopush.api.datacommons.org/v2/node'
 _GCS_BUCKET = 'datcom-embedding-diffs'
 
 FLAGS = flags.FLAGS
@@ -120,11 +120,10 @@ def _get_diff_table(diff_list, base_sv_info, test_sv_info):
   """
   diff_table_rows = []
   last_added = -1
-  for i in range(len(diff_list)):
+  for i, diff in enumerate(diff_list):
     if i <= last_added:
       continue
     last_added = i
-    diff = diff_list[i]
     # difflib.Differ will add 2 characters in front of the original text for every line.
     diff_sv = diff[2:]
     next_diff = None
