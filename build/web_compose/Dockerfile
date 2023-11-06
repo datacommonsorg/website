@@ -16,6 +16,8 @@
 FROM gcr.io/datcom-ci/python-node-go-protoc-envoy:2023-10-05
 
 ARG ENV
+ARG PIP_DISABLE_PIP_VERSION_CHECK=1
+ARG PIP_NO_CACHE_DIR=1
 ENV ENV=${ENV}
 
 WORKDIR /workspace
@@ -51,19 +53,24 @@ COPY mixer/esp/ esp
 ENV CGO_ENABLED=1
 RUN go build -o /go/bin/mixer cmd/main.go
 
-# Flask
+# Website Server
 COPY web_app.py /workspace/web_app.py
 COPY server/requirements.txt /workspace/server/requirements.txt
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
-# --no-cache-dir removes ~/.cache files, which can be a few GB.
-RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
+RUN pip3 install -r /workspace/server/requirements.txt
+
+# NL Server
+COPY nl_app.py /workspace/nl_app.py
+COPY deploy/nl/. /datacommons/nl/
+COPY nl_server/requirements.txt /workspace/nl_server/requirements.txt
+RUN pip install --upgrade pip setuptools light-the-torch
+RUN ltt install torch --cpuonly
+RUN pip3 install -r /workspace/nl_server/requirements.txt
 
 # Import Tool
 COPY import/simple/requirements.txt /workspace/import/simple/requirements.txt
-RUN pip install --upgrade pip setuptools light-the-torch
-RUN ltt install torch --cpuonly
-RUN pip3 install --no-cache-dir -r /workspace/import/simple/requirements.txt
+RUN pip3 install -r /workspace/import/simple/requirements.txt
 
 # Install website NPM dependencies
 COPY packages/web-components/package.json /workspace/packages/web-components/package.json
@@ -88,12 +95,17 @@ WORKDIR /workspace
 COPY server/. /workspace/server/
 COPY shared/. /workspace/shared/
 
+# NL Server
+COPY nl_server/. /workspace/nl_server/
+COPY deploy/nl/. /workspace/deploy/nl/
+
 # Import Tool
 COPY import/. /workspace/import/
 
 
 # Env that should not change
 ENV USE_LOCAL_MIXER=true
+ENV ENABLE_MODEL=true
 ENV ENV_PREFIX=Compose
 
 
@@ -105,5 +117,5 @@ ENV DC_API_ROOT=https://api.datacommons.org
 ENV ENABLE_ADMIN=true
 
 COPY build/web_compose/compose.sh .
-EXPOSE 8080 8081
+EXPOSE 6060 8080 8081
 CMD ./compose.sh

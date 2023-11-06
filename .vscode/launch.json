@@ -49,6 +49,30 @@
       "envFile": "${workspaceFolder}/.env",
       "jinja": true,
       "console": "internalConsole"
+    },
+    {
+      "name": "Flask (Custom with NL)",
+      "type": "python",
+      "justMyCode": false,
+      "request": "launch",
+      "stopOnEntry": false,
+      "python": "${workspaceFolder}/.env/bin/python3",
+      "program": "${workspaceRoot}/web_app.py",
+      "env": {
+        "FLASK_APP": "${workspaceRoot}/web_app.py",
+        "FLASK_ENV": "custom",
+        "ENV_PREFIX": "Local",
+        "FLASK_DEBUG": "1",
+        "ENABLE_MODEL": "true"
+      },
+      "args": [
+        "8080",
+        "--no-debugger"
+      ],
+      "cwd": "${workspaceRoot}",
+      "envFile": "${workspaceFolder}/.vscode/.env",
+      "jinja": true,
+      "console": "internalConsole"
     }
   ]
 }
