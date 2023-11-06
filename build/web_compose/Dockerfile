@@ -62,6 +62,7 @@ RUN pip3 install -r /workspace/server/requirements.txt
 
 # NL Server
 COPY nl_app.py /workspace/nl_app.py
+COPY deploy/nl/. /datacommons/nl/
 COPY nl_server/requirements.txt /workspace/nl_server/requirements.txt
 RUN pip install --upgrade pip setuptools light-the-torch
 RUN ltt install torch --cpuonly
