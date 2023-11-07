@@ -123,17 +123,24 @@ def get_summary(place_name: str, place_type: str, rankings: str,
       continue
     key = strip_superlatives(ranking_key)
     prompt_keys = {
-        "examples": _POPULATION_EXAMPLE,
-        "place_type": place_type,
-        "place_name": place_name,
-        "ranking_key": key,
-        "ranking_data": '\n'.join([f"- {ranking} by {key}" for ranking in rankings[ranking_key]]),
-        "data_table": data_tables[data_table_key]
+        "examples":
+            _POPULATION_EXAMPLE,
+        "place_type":
+            place_type,
+        "place_name":
+            place_name,
+        "ranking_key":
+            key,
+        "ranking_data":
+            '\n'.join(
+                [f"- {ranking} by {key}" for ranking in rankings[ranking_key]]),
+        "data_table":
+            data_tables[data_table_key]
     }
     prompt = _SERIES_PROMPT.format(**prompt_keys)
-    prompts.append(
-        '\n'.join([f"- {ranking} by {key}" for ranking in rankings[ranking_key]]) +
-        data_tables[data_table_key])
+    prompts.append('\n'.join(
+        [f"- {ranking} by {key}" for ranking in rankings[ranking_key]]) +
+                   data_tables[data_table_key])
 
     response = request_palm(prompt)
     candidates.append("- " + response)

@@ -44,6 +44,7 @@ _PLACE_TYPE_PLURAL = {
     "state": "states",
 }
 
+
 def get_ranking_data(dcid: str, place_type: str):
   """Returns ranking data as a list, keyed by rank label"""
   url = _RANKING_URL.format(host=FLAGS.dc_base_url, dcid=dcid)
@@ -61,9 +62,10 @@ def get_ranking_data(dcid: str, place_type: str):
       rank = place["data"]
       data[variable].append(
           "Rankied {top} of {total} {place_type} in {parent_name}".format(
-            top=rank['rankFromTop'], total=rank['rankFromTop'] + rank['rankFromBottom'] - 1, place_type=place_type_plural, parent_name=place['name']
-          )
-      )
+              top=rank['rankFromTop'],
+              total=rank['rankFromTop'] + rank['rankFromBottom'] - 1,
+              place_type=place_type_plural,
+              parent_name=place['name']))
 
   return data
 
@@ -84,6 +86,7 @@ def get_data_series(dcid: str, place_name: str):
         series = chart_block["trend"]["series"][sv]
 
         # Convert dict into a list with sorted date keys
-        prompt_tables[sv] = ", ".join([f"{d}: {series[d]}" for d in sorted(series.keys())])
+        prompt_tables[sv] = ", ".join(
+            [f"{d}: {series[d]}" for d in sorted(series.keys())])
 
   return prompt_tables
