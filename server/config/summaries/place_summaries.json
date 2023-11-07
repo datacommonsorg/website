@@ -1,6 +1,22 @@
 {
+ "geoId/3651000": {
+  "summary": "New York City is the most populous city in Staten Island, Queens and Manhattan. It is also the most populous city in the United States.",
+  "name": "New York City, NY",
+  "prompt": [
+   "- Ranked 1 of 5 cities in Staten Island by  Population\n- Ranked 1 of 5 cities in Queens by  Population\n- Ranked 1 of 5 cities in Manhattan by  Population",
+   "- New York City is the most populous city in Staten Island, Queens and Manhattan."
+  ]
+ },
+ "geoId/0644000": {
+  "summary": "Los Angeles is the most populous city in Los Angeles County, California and the second most populous city in the United States. It is located in Southern California on the Pacific coast. The city has a population of over 4 million people and is home to a diverse population of people from all over the world. Los Angeles is a major center of culture, commerce, and entertainment.",
+  "name": "Los Angeles, CA",
+  "prompt": [
+   "- Ranked 1 of 85 cities in Los Angeles County by  Population\n- Ranked 1 of 469 cities in California by  Population\n- Ranked 2 of 10288 cities in United States of America by  Population",
+   "- Los Angeles is the most populous city in Los Angeles County, California and the second most populous city in the United States."
+  ]
+ },
  "geoId/1714000": {
-  "summary": "Chicago is the most populous city in DuPage County, Cook County, and Illinois. It is located on the southern shore of Lake Michigan, in the Midwestern United States. The city has a population of over 2.7 million people and is the third most populous city in the United States. Chicago is a major economic and cultural center, and is home to many Fortune 500 companies. The city is also a major transportation hub, with two major airports and a large rail network.",
+  "summary": "Chicago is the most populous city in DuPage County, Cook County, and Illinois. It is located on the shores of Lake Michigan, and is the third most populous city in the United States. Chicago is a major economic and cultural center, and is home to many Fortune 500 companies. The city is also a major transportation hub, with two international airports and a large rail network.",
   "name": "Chicago, IL",
   "prompt": [
    "- Ranked 1 of 39 cities in DuPage County by  Population\n- Ranked 1 of 133 cities in Cook County by  Population\n- Ranked 1 of 658 cities in Illinois by  Population",
@@ -8,43 +24,379 @@
   ]
  },
  "geoId/4835000": {
-  "summary": "Houston is the most populous city in Waller County, Montgomery County and Harris County. It is located in the southeastern United States and is the largest city in the state of Texas. Houston is also the fourth-largest city in the United States and the sixth-largest in North America.",
+  "summary": "Houston, Texas is the most populous city in Waller County, Montgomery County, and Harris County. It is the fourth most populous city in the United States and the largest city in the Southern United States. Houston is also the seat of Harris County.",
   "name": "Houston, TX",
   "prompt": [
    "- Ranked 1 of 7 cities in Waller County by  Population\n- Ranked 1 of 15 cities in Montgomery County by  Population\n- Ranked 1 of 32 cities in Harris County by  Population",
-   "- Houston is the most populous city in Waller County, Montgomery County and Harris County."
+   "- Houston, TX is the most populous city in Waller County, Montgomery County, and Harris County."
+  ]
+ },
+ "geoId/0455000": {
+  "summary": "Phoenix is the most populous city in Maricopa County, Arizona and the 5th most populous city in the United States. It is located in the Sonoran Desert and is the county seat of Maricopa County. The city has a population of over 1.6 million people and is the center of a metropolitan area with over 4.8 million people. Phoenix is a major economic center and is home to a number of large corporations, including Intel, Honeywell, and American Express. The city is also a popular tourist destination, with attractions such as the Phoenix Zoo, the Desert Botanical Garden, and the Heard Museum.",
+  "name": "Phoenix, AZ",
+  "prompt": [
+   "- Ranked 1 of 25 cities in Maricopa County by  Population\n- Ranked 1 of 85 cities in Arizona by  Population\n- Ranked 5 of 10288 cities in United States of America by  Population",
+   "- Phoenix is the most populous city in Maricopa County, Arizona and the 5th most populous city in the United States."
+  ]
+ },
+ "geoId/4260000": {
+  "summary": "Philadelphia, Pennsylvania is the most populous city in the state and the 6th most populous city in the United States. It is located on the Delaware River and is the county seat of Philadelphia County. The city has a population of over 1.5 million people and is home to a diverse population of people from all over the world. Philadelphia is a major economic and cultural center and is home to many historical landmarks, including the Liberty Bell and Independence Hall.",
+  "name": "Philadelphia, PA",
+  "prompt": [
+   "- Ranked 1 of 602 cities in Pennsylvania by  Population\n- Ranked 6 of 10288 cities in United States of America by  Population",
+   "- Philadelphia, PA is the most populous city in Pennsylvania and the 6th most populous city in the United States."
+  ]
+ },
+ "geoId/4865000": {
+  "summary": "San Antonio is the most populous city in Medina County, Comal County and Bexar County. It is located in the U.S. state of Texas and is the seventh-most populous city in the United States. The city is the seat of Bexar County, the second-most populous county in Texas.",
+  "name": "San Antonio, TX",
+  "prompt": [
+   "- Ranked 1 of 7 cities in Medina County by  Population\n- Ranked 1 of 7 cities in Comal County by  Population\n- Ranked 1 of 27 cities in Bexar County by  Population",
+   "- San Antonio is the most populous city in Medina County, Comal County and Bexar County."
+  ]
+ },
+ "geoId/0666000": {
+  "summary": "San Diego is the most populous city in San Diego County, California, and the 8th most populous city in the United States. It is located on the coast of the Pacific Ocean and is known for its mild climate, beautiful beaches, and diverse culture. The city is home to many military bases, as well as a number of large corporations. San Diego is also a popular tourist destination, with attractions such as the San Diego Zoo, SeaWorld San Diego, and the USS Midway Museum.",
+  "name": "San Diego, CA",
+  "prompt": [
+   "- Ranked 1 of 18 cities in San Diego County by  Population\n- Ranked 2 of 469 cities in California by  Population\n- Ranked 8 of 10288 cities in United States of America by  Population",
+   "- San Diego is the most populous city in San Diego County, California, and the 8th most populous city in the United States."
+  ]
+ },
+ "geoId/4819000": {
+  "summary": "Dallas is the most populous city in Rockwall County, Kaufman County, and Denton County. It is located in the U.S. state of Texas and is the county seat of Dallas County. The city has a population of over 1.3 million people and is the ninth-largest city in the United States. Dallas is a major center of business, finance, and culture in the Southern United States.",
+  "name": "Dallas, TX",
+  "prompt": [
+   "- Ranked 1 of 11 cities in Rockwall County by  Population\n- Ranked 1 of 16 cities in Kaufman County by  Population\n- Ranked 1 of 43 cities in Denton County by  Population",
+   "- Dallas is the most populous city in Rockwall County, Kaufman County, and Denton County."
+  ]
+ },
+ "geoId/0668000": {
+  "summary": "San Jose is the most populous city in Santa Clara County, California, and the 10th most populous city in the United States. It is located in the southern end of the San Francisco Bay Area. The city is home to many tech companies, including Google, Apple, and Cisco Systems.",
+  "name": "San Jose, CA",
+  "prompt": [
+   "- Ranked 1 of 15 cities in Santa Clara County by  Population\n- Ranked 3 of 469 cities in California by  Population\n- Ranked 10 of 10288 cities in United States of America by  Population",
+   "- San Jose is the most populous city in Santa Clara County, California, and the 10th most populous city in the United States."
+  ]
+ },
+ "geoId/4805000": {
+  "summary": "Austin, Texas is the most populous city in Williamson County, Travis County and Hays County. It is located in the central part of the state and is the capital of Texas. The city has a population of over 970,000 people and is home to the University of Texas at Austin. Austin is a major center for technology, education, and culture.",
+  "name": "Austin, TX",
+  "prompt": [
+   "- Ranked 1 of 14 cities in Williamson County by  Population\n- Ranked 1 of 16 cities in Travis County by  Population\n- Ranked 1 of 8 cities in Hays County by  Population",
+   "- Austin, TX is the most populous city in Williamson County, Travis County and Hays County."
+  ]
+ },
+ "geoId/1235000": {
+  "summary": "Jacksonville is the most populous city in Nassau County, Duval County and Florida. It is located on the Atlantic coast and is the largest city by area in the contiguous United States. Jacksonville is a major port city and is home to several military bases.",
+  "name": "Jacksonville, FL",
+  "prompt": [
+   "- Ranked 1 of 4 cities in Nassau County by  Population\n- Ranked 1 of 5 cities in Duval County by  Population\n- Ranked 1 of 336 cities in Florida by  Population",
+   "- Jacksonville is the most populous city in Nassau County, Duval County and Florida."
+  ]
+ },
+ "geoId/4827000": {
+  "summary": "Fort Worth is the most populous city in Wise County, Tarrant County and Parker County. It is located in the U.S. state of Texas.",
+  "name": "Fort Worth, TX",
+  "prompt": [
+   "- Ranked 1 of 11 cities in Wise County by  Population\n- Ranked 1 of 42 cities in Tarrant County by  Population\n- Ranked 1 of 11 cities in Parker County by  Population",
+   "- Fort Worth is the most populous city in Wise County, Tarrant County and Parker County."
+  ]
+ },
+ "geoId/3918000": {
+  "summary": "Columbus, Ohio is the most populous city in Franklin County, Fairfield County and Delaware County. It is located in the central part of the state and is the state capital. The city has a population of over 890,000 people and is the 14th largest city in the United States. Columbus is a major economic and cultural center for the state of Ohio.",
+  "name": "Columbus, OH",
+  "prompt": [
+   "- Ranked 1 of 20 cities in Franklin County by  Population\n- Ranked 1 of 9 cities in Fairfield County by  Population\n- Ranked 1 of 8 cities in Delaware County by  Population",
+   "- Columbus, OH is the most populous city in Franklin County, Fairfield County and Delaware County."
+  ]
+ },
+ "geoId/1836003": {
+  "summary": "Indianapolis is the most populous city in Marion County, Indiana and the 15th most populous city in the United States. It is located in the center of the state and is the county seat of Marion County. The city has a population of over 870,000 people and is the economic and cultural center of the state. Indianapolis is home to a number of professional sports teams, including the Indianapolis Colts, Indiana Pacers, and Indianapolis Indians. The city is also home to a number of educational institutions, including Indiana University-Purdue University Indianapolis and Butler University.",
+  "name": "Indianapolis, IN",
+  "prompt": [
+   "- Ranked 1 of 9 cities in Marion County by  Population\n- Ranked 1 of 299 cities in Indiana by  Population\n- Ranked 15 of 10288 cities in United States of America by  Population",
+   "- Indianapolis is the most populous city in Marion County, Indiana and the 15th most populous city in the United States."
+  ]
+ },
+ "geoId/3712000": {
+  "summary": "Charlotte is the most populous city in Mecklenburg County, North Carolina, and the 16th most populous city in the United States. It is the county seat of Mecklenburg County and the largest city in the Charlotte metropolitan area. The city is located in the Piedmont region of the state, approximately 25 miles (40 km) southwest of the state capital, Raleigh. Charlotte is a major center of banking and finance in the United States, and is home to the headquarters of Bank of America, Truist Financial, and Wells Fargo. The city is also a major center for transportation, with two international airports and a large rail network.",
+  "name": "Charlotte, NC",
+  "prompt": [
+   "- Ranked 1 of 13 cities in Mecklenburg County by  Population\n- Ranked 1 of 331 cities in North Carolina by  Population\n- Ranked 16 of 10288 cities in United States of America by  Population",
+   "- Charlotte is the most populous city in Mecklenburg County, North Carolina, and the 16th most populous city in the United States."
+  ]
+ },
+ "geoId/0667000": {
+  "summary": "San Francisco is the 4th most populous city in California and the 17th most populous city in the United States. It is located on the West Coast of the United States, at the tip of the San Francisco Peninsula. The city is known for its steep hills, cable cars, fog, and landmarks such as the Golden Gate Bridge and Alcatraz Island.",
+  "name": "San Francisco, CA",
+  "prompt": [
+   "- Ranked 4 of 469 cities in California by  Population\n- Ranked 17 of 10288 cities in United States of America by  Population",
+   "- San Francisco is the 4th most populous city in California and the 17th most populous city in the United States."
+  ]
+ },
+ "geoId/5363000": {
+  "summary": "Seattle is the most populous city in King County, Washington, and the 18th most populous city in the United States. It is located on the Puget Sound, an inlet of the Pacific Ocean, and is the center of the Seattle metropolitan area, the largest in the Pacific Northwest. The city is known for its mild climate, its many parks and waterways, and its vibrant arts and culture scene.",
+  "name": "Seattle, WA",
+  "prompt": [
+   "- Ranked 1 of 36 cities in King County by  Population\n- Ranked 1 of 205 cities in Washington by  Population\n- Ranked 18 of 10288 cities in United States of America by  Population",
+   "- Seattle is the most populous city in King County, Washington, and the 18th most populous city in the United States."
   ]
  },
  "geoId/0820000": {
-  "summary": "Denver, Colorado is the most populous city in the state and the 19th most populous city in the United States. The city is located in the South Platte River Valley on the eastern edge of the Rocky Mountains. Denver is the cultural, economic, and transportation center of the Front Range Urban Corridor, which is home to over 5 million people. The city is also home to the Denver International Airport, which is the 5th busiest airport in the United States.",
+  "summary": "Denver is the most populous city in Colorado and the 19th most populous city in the United States. It is located in the South Platte River Valley on the eastern edge of the Rocky Mountains. The city has a population of over 700,000 people and is the economic and cultural center of the state. Denver is home to a number of professional sports teams, including the Denver Broncos, Colorado Avalanche, and Colorado Rockies. The city is also home to a number of educational institutions, including the University of Denver and Colorado State University.",
   "name": "Denver, CO",
   "prompt": [
    "- Ranked 1 of 151 cities in Colorado by  Population\n- Ranked 19 of 10288 cities in United States of America by  Population",
-   "- Denver, CO is the most populous city in Colorado and 19th most populous city in the United States."
+   "- Denver is the most populous city in Colorado and 19th most populous city in the United States."
+  ]
+ },
+ "geoId/4055000": {
+  "summary": "Oklahoma City is the most populous city in Pottawatomie County, Oklahoma County, and Cleveland County. It is located in the central part of the state and is the county seat of Oklahoma County. The city has a population of over 650,000 people and is the capital of Oklahoma.",
+  "name": "Oklahoma City, OK",
+  "prompt": [
+   "- Ranked 1 of 7 cities in Pottawatomie County by  Population\n- Ranked 1 of 15 cities in Oklahoma County by  Population\n- Ranked 1 of 8 cities in Cleveland County by  Population",
+   "- Oklahoma City is the most populous city in Pottawatomie County, Oklahoma County, and Cleveland County."
+  ]
+ },
+ "geoId/2447875": {
+  "summary": "Lonaconing is the 4th most populous city in Allegany County, Maryland, and the 10269th most populous city in the United States. It is located in the western part of the county, along the Potomac River. The city has a population of approximately 3,000 people and is home to a variety of businesses and services. Lonaconing is also home to the Lonaconing Iron Furnace, which is a National Historic Landmark.",
+  "name": "Lonaconing, MD",
+  "prompt": [
+   "- Ranked 4 of 4 cities in Allegany County by  Population\n- Ranked 99 of 99 cities in Maryland by  Population\n- Ranked 10269 of 10288 cities in United States of America by  Population",
+   "- Lonaconing, MD is the 4th most populous city in Allegany County, Maryland, and the 10269th most populous city in the United States."
+  ]
+ },
+ "geoId/1755171": {
+  "summary": "Odell is a city in Livingston County, Illinois. It is the 8th most populous city in the county and the 10270th most populous city in the United States.",
+  "name": "Odell, IL",
+  "prompt": [
+   "- Ranked 8 of 8 cities in Livingston County by  Population\n- Ranked 657 of 658 cities in Illinois by  Population\n- Ranked 10270 of 10288 cities in United States of America by  Population",
+   "- Odell is the 8th most populous city in Livingston County, Illinois, and the 10270th most populous city in the United States."
+  ]
+ },
+ "geoId/4052600": {
+  "summary": "North Enid is a city in Garfield County, Oklahoma, United States. It is the third least populous city in Garfield County and the 10271st least populous city in the United States.",
+  "name": "North Enid, OK",
+  "prompt": [
+   "- Ranked 3 of 3 cities in Garfield County by  Population\n- Ranked 213 of 214 cities in Oklahoma by  Population\n- Ranked 10271 of 10288 cities in United States of America by  Population",
+   "- North Enid is the third least populous city in Garfield County, Oklahoma, and the 10271st least populous city in the United States."
+  ]
+ },
+ "geoId/2874760": {
+  "summary": "Tunica is the 2nd most populous city in Tunica County, Mississippi, and the 147th most populous city in Mississippi. It is located on the Mississippi River and is home to the Tunica Resorts, a major tourist destination.",
+  "name": "Tunica, MS",
+  "prompt": [
+   "- Ranked 2 of 4 cities in Tunica County by  Population\n- Ranked 147 of 148 cities in Mississippi by  Population\n- Ranked 10272 of 10288 cities in United States of America by  Population",
+   "- Tunica is the 2nd most populous city in Tunica County, Mississippi, and the 147th most populous city in Mississippi."
+  ]
+ },
+ "geoId/5531300": {
+  "summary": "Green Lake is a city in Green Lake County, Wisconsin, United States. It is the 4th most populous city in Green Lake County and the 10273rd most populous city in the United States.",
+  "name": "Green Lake, WI",
+  "prompt": [
+   "- Ranked 4 of 4 cities in Green Lake County by  Population\n- Ranked 367 of 367 cities in Wisconsin by  Population\n- Ranked 10273 of 10288 cities in United States of America by  Population",
+   "- Green Lake is the 4th most populous city in Green Lake County, Wisconsin, and the 10273rd most populous city in the United States."
+  ]
+ },
+ "geoId/4856996": {
+  "summary": "Petersburg is a city in Hale County, Texas, United States. It is the 4th most populous city in Hale County, the 791st most populous city in Texas, and the 10274th most populous city in the United States.",
+  "name": "Petersburg, TX",
+  "prompt": [
+   "- Ranked 4 of 4 cities in Hale County by  Population\n- Ranked 791 of 793 cities in Texas by  Population\n- Ranked 10274 of 10288 cities in United States of America by  Population",
+   "- Petersburg is the 4th most populous city in Hale County, Texas. It is the 791st most populous city in Texas and the 10274th most populous city in the United States."
+  ]
+ },
+ "geoId/3101780": {
+  "summary": "Arapahoe is a city in Furnas County, Nebraska, United States. It is the least populous city in Furnas County and the United States.",
+  "name": "Arapahoe, NE",
+  "prompt": [
+   "- Ranked 2 of 2 cities in Furnas County by  Population\n- Ranked 111 of 111 cities in Nebraska by  Population\n- Ranked 10275 of 10288 cities in United States of America by  Population",
+   "- Arapahoe is the least populous city in Furnas County, Nebraska, and the United States."
   ]
  },
  "geoId/2959942": {
-  "summary": "Princeton is a city in Missouri, United States. It is the least populous city in Missouri and the 13th least populous city in the United States.",
+  "summary": "Princeton is a city in Missouri, United States. It is the least populous city in Missouri and the 13th least populous city in the United States. The population was 56 at the 2010 census.",
   "name": "Princeton, MO",
   "prompt": [
    "- Ranked 339 of 339 cities in Missouri by  Population\n- Ranked 10276 of 10288 cities in United States of America by  Population",
    "- Princeton is the least populous city in Missouri and the 13th least populous city in the United States."
   ]
  },
+ "geoId/0148808": {
+  "summary": "Millport is a city in Lamar County, Alabama, United States. It is the third least populous city in Lamar County and the 12th least populous city in the United States.",
+  "name": "Millport, AL",
+  "prompt": [
+   "- Ranked 3 of 3 cities in Lamar County by  Population\n- Ranked 258 of 258 cities in Alabama by  Population\n- Ranked 10277 of 10288 cities in United States of America by  Population",
+   "- Millport is the third least populous city in Lamar County, Alabama, and the 12th least populous city in the United States."
+  ]
+ },
+ "geoId/2637860": {
+  "summary": "Hesperia is a city in the U.S. state of Michigan. It is the 3rd most populous city in Oceana County, the 4th most populous city in Newaygo County, and the 354th most populous city in Michigan.",
+  "name": "Hesperia, MI",
+  "prompt": [
+   "- Ranked 3 of 3 cities in Oceana County by  Population\n- Ranked 4 of 4 cities in Newaygo County by  Population\n- Ranked 354 of 354 cities in Michigan by  Population",
+   "- Hesperia is the 3rd most populous city in Oceana County, the 4th most populous city in Newaygo County, and the 354th most populous city in Michigan."
+  ]
+ },
+ "geoId/4007500": {
+  "summary": "Boley is a city in Okfuskee County, Oklahoma, United States. It is the third least populous city in Okfuskee County and the 10,279th most populous city in the United States.",
+  "name": "Boley, OK",
+  "prompt": [
+   "- Ranked 3 of 3 cities in Okfuskee County by  Population\n- Ranked 214 of 214 cities in Oklahoma by  Population\n- Ranked 10279 of 10288 cities in United States of America by  Population",
+   "- Boley is the third least populous city in Okfuskee County, Oklahoma, and the 10,279th most populous city in the United States."
+  ]
+ },
+ "geoId/2215780": {
+  "summary": "Clarks is a city in Caldwell Parish, Louisiana. It is the second least populous city in the parish and the 10280th most populous city in the United States.",
+  "name": "Clarks, LA",
+  "prompt": [
+   "- Ranked 2 of 2 cities in Caldwell Parish by  Population\n- Ranked 157 of 157 cities in Louisiana by  Population\n- Ranked 10280 of 10288 cities in United States of America by  Population",
+   "- Clarks is the second least populous city in Caldwell Parish, Louisiana and the 10280th most populous city in the United States."
+  ]
+ },
  "geoId/1229100": {
-  "summary": "Hastings, Florida is the least populous city in St. Johns County, Florida. It has a population of 1,695 people as of the 2020 census. It is also the 336th least populous city in Florida and the 10281st least populous city in the United States.",
+  "summary": "Hastings is a city in St. Johns County, Florida. It is the least populous city in the county and the 3rd least populous city in the United States. The population was 1,818 at the 2020 census.",
   "name": "Hastings, FL",
   "prompt": [
    "- Ranked 3 of 3 cities in St. Johns County by  Population\n- Ranked 336 of 336 cities in Florida by  Population\n- Ranked 10281 of 10288 cities in United States of America by  Population",
-   "- Hastings, Florida is the least populous city in St. Johns County, Florida. It is also the 336th least populous city in Florida and the 10281st least populous city in the United States."
+   "- Hastings is the least populous city in St. Johns County, Florida and the 3rd least populous city in the United States."
+  ]
+ },
+ "geoId/1775172": {
+  "summary": "Thomson is a city in Carroll County, Illinois, United States. It is the 5th most populous city in Carroll County, the 658th most populous city in Illinois, and the 10282nd most populous city in the United States.",
+  "name": "Thomson, IL",
+  "prompt": [
+   "- Ranked 5 of 5 cities in Carroll County by  Population\n- Ranked 658 of 658 cities in Illinois by  Population\n- Ranked 10282 of 10288 cities in United States of America by  Population",
+   "- Thomson is the 5th most populous city in Carroll County, Illinois. It is the 658th most populous city in Illinois and the 10282nd most populous city in the United States."
+  ]
+ },
+ "geoId/0270760": {
+  "summary": "Skagway is a city in Alaska, United States. It is the 30th most populous city in Alaska and the 10283rd most populous city in the United States.",
+  "name": "Skagway, AK",
+  "prompt": [
+   "- Ranked 30 of 30 cities in Alaska by  Population\n- Ranked 10283 of 10288 cities in United States of America by  Population",
+   "- Skagway is the 30th most populous city in Alaska and the 10283rd most populous city in the United States."
+  ]
+ },
+ "geoId/4813828": {
+  "summary": "Center Point is a city in Kerr County, Texas, United States. It is the third least populous city in Kerr County and the 10284th least populous city in the United States.",
+  "name": "Center Point, TX",
+  "prompt": [
+   "- Ranked 3 of 3 cities in Kerr County by  Population\n- Ranked 792 of 793 cities in Texas by  Population\n- Ranked 10284 of 10288 cities in United States of America by  Population",
+   "- Center Point is the third least populous city in Kerr County, Texas, and the 10284th least populous city in the United States."
+  ]
+ },
+ "geoId/3908168": {
+  "summary": "Brady Lake is a city in Portage County, Ohio, United States. It is the tenth most populous city in Portage County and the 10285th most populous city in the United States.",
+  "name": "Brady Lake, OH",
+  "prompt": [
+   "- Ranked 10 of 10 cities in Portage County by  Population\n- Ranked 530 of 530 cities in Ohio by  Population\n- Ranked 10285 of 10288 cities in United States of America by  Population",
+   "- Brady Lake is the tenth most populous city in Portage County, Ohio, and the 10285th most populous city in the United States."
+  ]
+ },
+ "geoId/2101648": {
+  "summary": "Annville is a city in Kentucky. It is the 206th most populous city in Kentucky and the 10286th most populous city in the United States.",
+  "name": "Annville, KY",
+  "prompt": [
+   "- Ranked 206 of 206 cities in Kentucky by  Population\n- Ranked 10286 of 10288 cities in United States of America by  Population",
+   "- Annville is a city in Kentucky. It is the 206th most populous city in Kentucky and the 10286th most populous city in the United States."
   ]
  },
  "geoId/4877680": {
-  "summary": "Westminster is a city in Collin County, Texas, United States. It is the 30th most populous city in Collin County and the 10287th most populous city in the United States.",
+  "summary": "Westminster is a city in Collin County, Texas. It is the 30th most populous city in Collin County, the 793rd most populous city in Texas, and the 10287th most populous city in the United States.",
   "name": "Westminster, TX",
   "prompt": [
    "- Ranked 30 of 30 cities in Collin County by  Population\n- Ranked 793 of 793 cities in Texas by  Population\n- Ranked 10287 of 10288 cities in United States of America by  Population",
-   "- Westminster is the 30th most populous city in Collin County, Texas, and the 10287th most populous city in the United States."
+   "- Westminster is a city in Collin County, Texas. It is the 30th most populous city in Collin County, the 793rd most populous city in Texas, and the 10287th most populous city in the United States."
+  ]
+ },
+ "geoId/2827620": {
+  "summary": "Glendale is a city in Forrest County, Mississippi. It is the third most populous city in the county, with a population of 4,022 as of the 2010 census. Glendale is also the 148th most populous city in Mississippi and the 10288th most populous city in the United States.",
+  "name": "Glendale, Mississippi, MS",
+  "prompt": [
+   "- Ranked 3 of 3 cities in Forrest County by  Population\n- Ranked 148 of 148 cities in Mississippi by  Population\n- Ranked 10288 of 10288 cities in United States of America by  Population",
+   "- Glendale is the third most populous city in Forrest County, Mississippi. It is also the 148th most populous city in Mississippi and the 10288th most populous city in the United States."
+  ]
+ },
+ "geoId/06": {
+  "summary": "California is the most populous state in the United States with over 39.5 million residents. It is located on the West Coast of the country and is bordered by Oregon to the north, Nevada to the east, Arizona to the southeast, and the Pacific Ocean to the west. The state's capital is Sacramento and its largest city is Los Angeles. California is home to a diverse population and is a major economic center of the United States.",
+  "name": "California",
+  "prompt": [
+   "- Ranked 1 of 52 states in United States of America by  Population",
+   "- California is the most populous state in the United States."
+  ]
+ },
+ "geoId/48": {
+  "summary": "Texas is the second most populous state in the United States, with a population of over 29 million people. It is also the second largest state by area, after Alaska. The state is home to a diverse population, with people from all over the world calling Texas home. The state's economy is also strong, with a gross domestic product of over $2 trillion.",
+  "name": "Texas",
+  "prompt": [
+   "- Ranked 2 of 52 states in United States of America by  Population",
+   "- Texas is the 2nd most populous state in the United States."
+  ]
+ },
+ "geoId/12": {
+  "summary": "Florida is the 3rd most populous state in the United States, with a population of over 21 million people. It is located in the southeastern region of the country and is bordered by the Atlantic Ocean to the east, the Gulf of Mexico to the west, and Alabama and Georgia to the north. The state's capital is Tallahassee and its largest city is Miami. Florida is a popular tourist destination, known for its beaches, theme parks, and warm climate.",
+  "name": "Florida",
+  "prompt": [
+   "- Ranked 3 of 52 states in United States of America by  Population",
+   "- Florida is the 3rd most populous state in the United States."
+  ]
+ },
+ "geoId/36": {
+  "summary": "New York is the 4th most populous state in the United States with a population of over 20 million people. It is also the 27th largest state by land area. The state is home to the Big Apple, New York City, which is the most populous city in the United States.",
+  "name": "New York",
+  "prompt": [
+   "- Ranked 4 of 52 states in United States of America by  Population",
+   "- New York is the 4th most populous state in the United States."
+  ]
+ },
+ "geoId/42": {
+  "summary": "Pennsylvania is the 5th most populous state in the United States, with a population of over 12.8 million people. It is located in the northeastern part of the country and borders New York, New Jersey, Delaware, Maryland, Ohio, West Virginia, and the state of Michigan across Lake Erie. The state capital is Harrisburg.",
+  "name": "Pennsylvania",
+  "prompt": [
+   "- Ranked 5 of 52 states in United States of America by  Population",
+   "- Pennsylvania is ranked 5th in the United States by population."
+  ]
+ },
+ "geoId/38": {
+  "summary": "North Dakota is a state in the United States. It is ranked 48th in the United States by population.",
+  "name": "North Dakota",
+  "prompt": [
+   "- Ranked 48 of 52 states in United States of America by  Population",
+   "- North Dakota is ranked 48th in the United States by population."
+  ]
+ },
+ "geoId/02": {
+  "summary": "Alaska is the 49th most populous state in the United States. It is located in the northwest corner of the country and is bordered by Canada to the east and the Pacific Ocean to the west. Alaska is the largest state in the United States by area, but it is also the least densely populated. The state's capital is Juneau.",
+  "name": "Alaska",
+  "prompt": [
+   "- Ranked 49 of 52 states in United States of America by  Population",
+   "- Alaska is the 49th most populous state in the United States."
+  ]
+ },
+ "geoId/11": {
+  "summary": "The District of Columbia is the 50th most populous state in the United States. It is located in the mid-Atlantic region of the country and is bordered by Maryland to the north, east, and west, and Virginia to the south. The District of Columbia has a population of approximately 705,000 people and is home to the federal government of the United States.",
+  "name": "District of Columbia",
+  "prompt": [
+   "- Ranked 50 of 52 states in United States of America by  Population",
+   "- District of Columbia is the 50th most populous state in the United States."
+  ]
+ },
+ "geoId/50": {
+  "summary": "Vermont is a state in the New England region of the United States. It is the 51st-most populous state, with a population of just over 623,000 people. Vermont is bordered by New Hampshire to the east, Massachusetts to the south, New York to the west, and Canada to the north. The state capital is Montpelier.",
+  "name": "Vermont",
+  "prompt": [
+   "- Ranked 51 of 52 states in United States of America by  Population",
+   "- Vermont is ranked 51st in the United States by population."
+  ]
+ },
+ "geoId/56": {
+  "summary": "Wyoming is the least populous state in the United States with a population of just over 578,000 people. It is also the 10th largest state by land area, covering over 97,000 square miles. The state is home to the Grand Teton National Park and Yellowstone National Park, two of the most popular tourist destinations in the country.",
+  "name": "Wyoming",
+  "prompt": [
+   "- Ranked 52 of 52 states in United States of America by  Population",
+   "- Wyoming is the least populous state in the United States."
   ]
  }
 }
