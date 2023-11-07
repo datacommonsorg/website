@@ -15,6 +15,7 @@
 import json
 import os
 
+from langdetect import detect as detect_lang
 import requests
 
 from shared.lib.test_server import NLWebServerTestCase
@@ -151,6 +152,26 @@ class ExploreTest(NLWebServerTestCase):
           self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
           self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
           self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
+
+  def handle_translate_response(self, resp, lang):
+    """The translation API does not always return the same translations.
+    This makes golden comparisons flaky.
+    So we instead extract the texts from the response and assert they are
+    in the expected language.
+    """
+    texts: list[str] = []
+    for category in resp.get("config", {}).get("categories", []):
+      for column in category.get("columns", []):
+        for tile in column.get("tiles", []):
+          title = tile.get("title")
+          if title:
+            texts.append(title)
+
+    self.assertTrue(len(texts) > 0)
+    for text in texts:
+      detected = detect_lang(text).lower()
+      self.assertTrue(lang in detected,
+                      f"{text}, wanted: {lang}, got {detected}")
 
   def test_detection_basic(self):
     self.run_detection('detection_api_basic', ['Commute in California'],
