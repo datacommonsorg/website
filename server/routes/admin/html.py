@@ -44,6 +44,8 @@ def load_data():
 
   # TODO: dynamically create the output dir.
   output_dir = os.path.join(sql_data_path, 'data')
+  nl_dir = os.path.join(output_dir, "nl")
+  sentences_path = os.path.join(nl_dir, "sentences.csv")
 
   command1 = [
       "python",
@@ -55,6 +57,14 @@ def load_data():
       f"{output_dir}",
   ]
   command2 = [
+      "python",
+      "build_custom_dc_embeddings.py",
+      "--sv_sentences_csv_path",
+      f"{sentences_path}",
+      "--output_dir",
+      f"{nl_dir}",
+  ]
+  command3 = [
       "curl",
       "-X",
       "POST",
@@ -62,8 +72,14 @@ def load_data():
       "-d",
       f'{{"data_path": "{output_dir}"}}',
   ]
+  command4 = [
+      "curl",
+      "localhost:6060/api/load/",
+  ]
   output = []
-  for command, cwd in [(command1, "import/simple"), (command2, ".")]:
+  for command, cwd in [(command1, "import/simple"),
+                       (command2, "tools/nl/embeddings"), (command3, "."),
+                       (command4, ".")]:
     try:
       result = subprocess.run(command,
                               capture_output=True,
