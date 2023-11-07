@@ -114,6 +114,7 @@ export async function getBarTileResult(
       legend,
       title: getChartTitle(tileConfig.title, getReplacementStrings(chartData)),
       type: "BAR",
+      unit: chartData.unit,
     };
     if (useChartUrl) {
       result.chartUrl = getChartUrl(
