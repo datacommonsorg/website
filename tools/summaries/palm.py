@@ -22,24 +22,41 @@ _API_KEY = os.getenv("PALM_API_KEY")
 _API_URL = "https://generativelanguage.googleapis.com/v1beta3/models/text-bison-001:generateText"
 _TEMPERATURE = 0.2
 
+_POPULATION_EXAMPLE = """
+Ranked 1 of 793 cities in Texas by population. Summary: Most populous city in Texas.
+Ranked 4 of 10288 cities in United States of America by population. Summary: 4th most populous city in United States.
+Ranked 2 of 2 cities in Furnas County by Population. Summary: Least populous city in Furnas County.
+Ranked 110 of 111 cities in Nebraska by population. Summary: 2nd least populous city in Nebraska.
+Ranked 10275 of 10288 cities in United States of America by Population. Summary: 14th least populous city in United States.
+Ranked 10276 of 10288 cities in United States of America by Population. Summary: 13th least populous city in United States.
+Ranked 10277 of 10288 cities in United States of America by Population. Summary: 12th least populous city in United States.
+Ranked 791 of 793 cities in Texas by population. Summary: 3rd least populous in Texas.
+Ranked 3 of 3 cities in St Johns County by Population. Summary: Least populous city in St Johns County.
+Ranked 339 of 339 cities in Missouri by population. Summary: Least populous city in Missouri.
+"""
+
+# FYI - it did not work to include multiple ranking types in the examples.
+_FIXME = """
+Ranked 1 of 793 cities in Texas by population. Summary: Most populous city in Texas.
+Ranked 4 of 10288 cities in United States of America by median income. Summary: City with 4th highest median income in United States.
+Ranked 2 of 2 cities in Furnas County by Population. Summary: Least populous city in Furnas County.
+Ranked 110 of 111 cities in Nebraska by Median age. Summary: City with 2nd lowest median age in Nebraska.
+Ranked 10275 of 10288 cities in United States of America by Population. Summary: 14th least populous city in United States.
+Ranked 791 of 793 cities in Texas by median income. Summary: City with 3rd lowest median income in Texas.
+Ranked 339 of 339 cities in Missouri by median age. Summary: Youngest city in Missouri by median age.
+"""
+
 _SERIES_PROMPT = """
-Generate a summary in 2 sentences using only the information from the following tables.
+Generate a summary in 2 sentences using only the information in the prompt.
 Only list important highlights per table.
-The summary should only be based on the information presented in these tables.
-Do not include facts from other sources.
-Do not use superlatives.
-Do not use the phrase 'According to the data'.
-Do not include opinions.
-Please include references if information is included from other sources.
+The summary should only be based on the information presented in the prompt. Do not include facts from other sources.
 Please write in a professional and business-neutral tone.
 
-{place_type}: {place_name}
+Examples: {examples}
 
-{ranking_key}:
+Prompt:
+- {place_type}: {place_name}
 {ranking_data}
-
-Table:
-{data_table}
 
 Summary:
 """
@@ -47,7 +64,7 @@ Summary:
 _RESUMMARIZE_PROMPT = """
 Summarize these facts into 1 paragraph.
 Start by introducing the place.
-The summary should only be based on the information presented in these facts.
+The summary should only be based on the information presented in these facts. Do not include facts from other sources.
 Please write in a professional and business-neutral tone.
 
 Facts:
@@ -61,8 +78,8 @@ assert _API_KEY, "$PALM_API_KEY must be specified."
 # Ranking key -> data_table key
 _TABLE_KEYS = {
     "Largest Population": "Count_Person",
-    "Highest Median Income": "Median_Income_Person",
-    "Highest Median Age": "Median_Age_Person",
+    # "Highest Median Income": "Median_Income_Person",
+    # "Highest Median Age": "Median_Age_Person",
 }
 
 
@@ -86,8 +103,11 @@ def request_palm(prompt):
       "temperature": _TEMPERATURE,
       "candidateCount": 1,
   }
+  logging.info(prompt)
   response = requests.post(url=url, json=params, headers=headers).json()
-  return response.get("candidates", [{}])[0].get("output", "")
+  generated_text = response.get("candidates", [{}])[0].get("output", "")
+  logging.info(generated_text)
+  return generated_text
 
 
 def get_summary(place_name: str, place_type: str, rankings: str,
@@ -102,15 +122,21 @@ def get_summary(place_name: str, place_type: str, rankings: str,
     if not data_table_key in data_tables:
       logging.info(f"Skipping {data_table_key} for {place_name}")
       continue
+    key = strip_superlatives(ranking_key)
+    ranking_data = '\n'.join([
+        f"- {strip_superlatives(ranking)}" for ranking in rankings[ranking_key]
+    ])
     prompt_keys = {
+        "examples": _POPULATION_EXAMPLE,
         "place_type": place_type,
         "place_name": place_name,
-        "ranking_key": strip_superlatives(ranking_key),
-        "ranking_data": '\n'.join(rankings[ranking_key]),
+        "ranking_key": key,
+        "ranking_data": ranking_data,
         "data_table": data_tables[data_table_key]
     }
     prompt = _SERIES_PROMPT.format(**prompt_keys)
-    prompts.append(prompt)
+    prompts.append(
+        ranking_data)  # Add other data to the saved prompt for debugging
 
     response = request_palm(prompt)
     candidates.append("- " + response)
@@ -120,6 +146,6 @@ def get_summary(place_name: str, place_type: str, rankings: str,
   facts = '\n'.join(candidates)
   prompt = _RESUMMARIZE_PROMPT.format(facts=facts)
   response = request_palm(prompt)
-  prompts.append(prompt)
+  prompts.append(facts)
 
   return prompts, response
