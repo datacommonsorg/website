@@ -50,6 +50,7 @@ def get_ranking_data(dcid: str, place_type: str):
   url = _RANKING_URL.format(host=FLAGS.dc_base_url, dcid=dcid)
   response = requests.get(url).json()
   logging.debug("Ranking response:\n%s", json.dumps(response, indent=True))
+
   data = {}
   place_type_plural = _PLACE_TYPE_PLURAL[place_type]
   for variable, places in response.items():
@@ -60,8 +61,12 @@ def get_ranking_data(dcid: str, place_type: str):
     for place in places:
       rank = place["data"]
       data[variable].append(
-          f"Ranked {rank['rankFromTop']} of {rank['rankFromTop'] + rank['rankFromBottom'] - 1} {place_type_plural} in {place['name']}"
-      )
+          "Ranked {top} of {total} {place_type} in {parent_name} by {variable}".
+          format(top=rank['rankFromTop'],
+                 total=rank['rankFromTop'] + rank['rankFromBottom'] - 1,
+                 place_type=place_type_plural,
+                 parent_name=place['name'],
+                 variable=variable))
 
   return data
 
@@ -79,14 +84,10 @@ def get_data_series(dcid: str, place_name: str):
       block_title = chart_block["title"]
       if block_title in sv_titles:
         sv = sv_titles[block_title]
-        series = chart_block["trend"]["series"]
+        series = chart_block["trend"]["series"][sv]
 
-        # Convert dict into a csv with sorted date keys
-        j = json.dumps(series, sort_keys=True)
-        j = j.replace("'", '"')  # Needed for pd.read_json
-        j = j.replace(sv, f"{block_title} in {place_name}")
-        df = pd.read_json(j)
-        prompt_tables[sv] = 'date' + df.to_csv()
+        # Convert dict into a list with sorted date keys
+        prompt_tables[sv] = ", ".join(
+            [f"{d}: {series[d]}" for d in sorted(series.keys())])
 
-  logging.debug(prompt_tables)
   return prompt_tables
