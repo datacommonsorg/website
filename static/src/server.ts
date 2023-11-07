@@ -465,11 +465,9 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const urlRoot = `${req.protocol}://${req.get("host")}`;
   res.setHeader("Content-Type", "application/json");
   axios
-    // Use "mode=strict" to disable using default place, use a higher SV threshold, etc.
-    .post(
-      `${CONFIG.apiRoot}/api/nl/data?q=${query}&detector=heuristic&mode=strict`,
-      {}
-    )
+    // Set "mode=strict" to use heuristic detector, disable using default place,
+    // use a higher SV threshold and avoid multi-verb queries
+    .post(`${CONFIG.apiRoot}/api/nl/data?q=${query}&mode=strict`, {})
     .then((resp) => {
       const nlResultTime = process.hrtime.bigint();
       const mainPlace = resp.data["place"] || {};

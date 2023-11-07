@@ -34,8 +34,8 @@ export const NL_SOURCE_REPLACEMENTS = {
 export const NL_URL_PARAMS = {
   DETECTOR: "detector",
   IDX: "idx",
-  PLACE_DETECTOR: "place_detector",
   MODE: "mode",
+  PLACE_DETECTOR: "place_detector",
 };
 
 export const NL_INDEX_VALS = {

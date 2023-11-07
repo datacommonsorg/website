@@ -34,7 +34,9 @@ class Params(str, Enum):
   TEST = 'test'
   I18N = 'i18n'
   # The mode of query detection.
-  # - 'strict': detect and fulfill query with much higher specificity criteria.
+  # - 'strict': detect and fulfill more specific queries (without too many verbs),
+  #             using a higher SV cosine score threshold (0.7), and without
+  #             using a default place (if query doesn't specify places).
   #    Ex, if multiple verbs present, treat as action query and do not fulfill.
   MODE = 'mode'
 

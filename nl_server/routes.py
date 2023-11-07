@@ -52,6 +52,7 @@ def search_sv():
     try:
       threshold = float(threshold)
     except Exception:
+      logging.error(f'Found non-float threshold value: {threshold}')
       threshold = SV_SCORE_DEFAULT_THRESHOLD
   else:
     threshold = SV_SCORE_DEFAULT_THRESHOLD

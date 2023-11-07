@@ -284,7 +284,11 @@ class NLTest(NLWebServerTestCase):
             # This query should be fine.
             'tell me asian california population with low income',
         ],
-        mode='strict')
+        mode='strict',
+        expected_detectors=[
+            'Heuristic Based',
+            'Heuristic Based',
+        ])
 
   def test_strict_default_place(self):
     self.run_sequence(
@@ -297,4 +301,9 @@ class NLTest(NLWebServerTestCase):
             # return low-confidence results.
             'number of headless drivers in california',
         ],
-        mode='strict')
+        mode='strict',
+        expected_detectors=[
+            'Heuristic Based',
+            'Heuristic Based',
+            'Heuristic Based',
+        ])

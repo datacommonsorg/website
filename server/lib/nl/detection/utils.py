@@ -38,8 +38,8 @@ def filter_svs(detection: SVDetection, counters: ctr.Counters) -> List[str]:
   ans = []
   blocked_vars = set()
   single_sv = detection.single_sv
-  while (i < len(single_sv.svs)):
-    if (single_sv.scores[i] >= detection.sv_threshold):
+  while i < len(single_sv.svs):
+    if single_sv.scores[i] >= detection.sv_threshold:
       var = single_sv.svs[i]
 
       # Check if an earlier var blocks this var.
