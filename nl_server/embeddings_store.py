@@ -78,7 +78,7 @@ def _get_default_and_custom(
 #
 def _merge_custom_index(default: EmbeddingsIndex,
                         custom: EmbeddingsIndex) -> str:
-  assert default.tuned_model == custom.tuned_model, \
+  assert not custom.tuned_model or default.tuned_model == custom.tuned_model, \
     f'Main ({default.tuned_model}) vs. custom ({custom.tuned_model}) not using the same embeddings'
 
   # /foo/x.csv => /foo/WithCustom_x.csv

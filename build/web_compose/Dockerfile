@@ -72,6 +72,10 @@ RUN pip3 install -r /workspace/nl_server/requirements.txt
 COPY import/simple/requirements.txt /workspace/import/simple/requirements.txt
 RUN pip3 install -r /workspace/import/simple/requirements.txt
 
+# Embeddings Tool
+COPY tools/nl/embeddings/requirements.txt /workspace/tools/nl/embeddings/requirements.txt
+RUN pip3 install -r /workspace/tools/nl/embeddings/requirements.txt
+
 # Install website NPM dependencies
 COPY packages/web-components/package.json /workspace/packages/web-components/package.json
 COPY packages/web-components/package-lock.json /workspace/packages/web-components/package-lock.json
@@ -101,6 +105,9 @@ COPY deploy/nl/. /workspace/deploy/nl/
 
 # Import Tool
 COPY import/. /workspace/import/
+
+# Embeddings Tool
+COPY tools/nl/embeddings/. /workspace/tools/nl/embeddings/
 
 
 # Env that should not change
