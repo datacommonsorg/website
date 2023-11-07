@@ -18,9 +18,9 @@ from server.app_env import local
 
 class Config(_base.Config):
   CUSTOM = True
-  NAME = "Custom Data Commons"
-  OVERRIDE_CSS_PATH = '/custom_dc/custom/overrides.css'
-  LOGO_PATH = "/custom_dc/custom/logo.png"
+  NAME = "Data Commons"
+  OVERRIDE_CSS_PATH = '/custom_dc/one/overrides.css'
+  LOGO_PATH = "/custom_dc/one/one-logo.svg"
   SHOW_DISASTER = False
 
 
