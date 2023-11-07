@@ -47,6 +47,14 @@ flags.DEFINE_string(
 
 flags.DEFINE_string("url", None, "URL to start testing from.", required=True)
 
+_TEST_PARAM = "test=sanity"
+
+
+def url_with_test_param(url: str):
+  if _TEST_PARAM in url:
+    return url
+  return f"{url}{'&' if '#' in url else '#'}{_TEST_PARAM}"
+
 
 class PageType(StrEnum):
   UNKNOWN = "Unknown"
@@ -64,7 +72,7 @@ class WebPage:
                source_url: str = "") -> None:
     self.page_type = page_type
     self.title = title
-    self.url = url
+    self.url = url_with_test_param(url)
     self.source_url = source_url
 
 
@@ -102,8 +110,8 @@ class WebsiteSanityTest:
   def __enter__(self):
     chrome_options = Options()
     chrome_options.add_argument("--headless=new")
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
     self.driver = webdriver.Chrome(options=chrome_options)
     self.file = open(self.results_csv_file_path, "w", newline="")
     logging.info("Writing results to: %s", self.results_csv_file_path)
