@@ -55,6 +55,8 @@ import server.services.bigtable as bt
 from shared.lib.constants import EN_LANG_CODE
 import shared.lib.utils as shared_utils
 
+_SANITY_TEST = 'sanity'
+
 
 #
 # Given a request parses the query and other params and
@@ -312,7 +314,7 @@ def prepare_response_common(data_dict: Dict,
   data_dict = utils.to_dict(data_dict)
   if test:
     data_dict['test'] = test
-  if current_app.config['LOG_QUERY'] and not test:
+  if (current_app.config['LOG_QUERY'] and (not test or test == _SANITY_TEST)):
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
     session_info = futils.get_session_info(data_dict['context'], has_data)
@@ -374,7 +376,7 @@ def abort(error_message: str,
     _set_blocked(data_dict)
 
   logging.info('NL Data API: Empty Exit')
-  if current_app.config['LOG_QUERY'] and not test:
+  if (current_app.config['LOG_QUERY'] and (not test or test == _SANITY_TEST)):
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
     session_info = futils.get_session_info(context_history, False)

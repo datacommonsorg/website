@@ -23,8 +23,13 @@ from google.cloud import storage
 # Downloads the `filename` from GCS to TEMP_DIR
 # and returns its path.
 #
-def download_file(bucket: str, filename: str) -> str:
-  storage_client = storage.Client()
+def download_file(bucket: str,
+                  filename: str,
+                  use_anonymous_client: bool = False) -> str:
+  if use_anonymous_client:
+    storage_client = storage.Client.create_anonymous_client()
+  else:
+    storage_client = storage.Client()
   bucket = storage_client.bucket(bucket_name=bucket)
   blob = bucket.get_blob(filename)
   # Download

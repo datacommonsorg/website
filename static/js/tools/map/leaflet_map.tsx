@@ -122,8 +122,7 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
     generateLegendSvg(
       legendContainerRef.current,
       legendHeight,
-      colorScale,
-      "",
+      [{ colorScale, unit: "" }],
       LEGEND_MARGIN_LEFT
     );
     if (geotiffLayer.current) {
