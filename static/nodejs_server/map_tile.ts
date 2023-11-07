@@ -144,6 +144,7 @@ export async function getMapTileResult(
         getReplacementStrings(tileProp, chartData)
       ),
       type: "MAP",
+      unit: !_.isEmpty(chartData.layerData) ? chartData.layerData[0].unit : "",
     };
     if (useChartUrl) {
       result.chartUrl = getChartUrl(
