@@ -105,8 +105,9 @@ def request_palm(prompt):
   }
   logging.info(prompt)
   response = requests.post(url=url, json=params, headers=headers).json()
-  logging.info(response.get("candidates", [{}])[0].get("output", ""))
-  return response.get("candidates", [{}])[0].get("output", "")
+  generated_text = response.get("candidates", [{}])[0].get("output", "")
+  logging.info(generated_text)
+  return generated_text
 
 
 def get_summary(place_name: str, place_type: str, rankings: str,
@@ -122,25 +123,18 @@ def get_summary(place_name: str, place_type: str, rankings: str,
       logging.info(f"Skipping {data_table_key} for {place_name}")
       continue
     key = strip_superlatives(ranking_key)
+    ranking_data = '\n'.join(
+                [f"- {strip_superlatives(ranking)}" for ranking in rankings[ranking_key]])
     prompt_keys = {
-        "examples":
-            _POPULATION_EXAMPLE,
-        "place_type":
-            place_type,
-        "place_name":
-            place_name,
-        "ranking_key":
-            key,
-        "ranking_data":
-            '\n'.join(
-                [f"- {ranking} by {key}" for ranking in rankings[ranking_key]]),
-        "data_table":
-            data_tables[data_table_key]
+        "examples": _POPULATION_EXAMPLE,
+        "place_type": place_type,
+        "place_name": place_name,
+        "ranking_key": key,
+        "ranking_data": ranking_data,
+        "data_table": data_tables[data_table_key]
     }
     prompt = _SERIES_PROMPT.format(**prompt_keys)
-    prompts.append('\n'.join(
-        [f"- {ranking} by {key}" for ranking in rankings[ranking_key]]) +
-                   data_tables[data_table_key])
+    prompts.append(ranking_data)  # Add other data to the saved prompt for debugging
 
     response = request_palm(prompt)
     candidates.append("- " + response)

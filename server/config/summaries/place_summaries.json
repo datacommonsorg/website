@@ -1,50 +1,50 @@
 {
  "geoId/1714000": {
-  "summary": "Chicago is the most populous city in DuPage County, Cook County, and Illinois. It is located on the shores of Lake Michigan and is the third most populous city in the United States. Chicago is a major economic and cultural center, and is home to many Fortune 500 companies.",
+  "summary": "Chicago is the most populous city in DuPage County, Cook County, and Illinois. It is located on the southern shore of Lake Michigan, in the Midwestern United States. The city has a population of over 2.7 million people and is the third most populous city in the United States. Chicago is a major economic and cultural center, and is home to many Fortune 500 companies. The city is also a major transportation hub, with two major airports and a large rail network.",
   "name": "Chicago, IL",
   "prompt": [
-   "- Rankied 1 of 39 cities in DuPage County by Population\n- Rankied 1 of 133 cities in Cook County by Population\n- Rankied 1 of 658 cities in Illinois by Population1990: 2783660, 1991: 2785828, 1992: 2789787, 1993: 2792316, 1994: 2796631, 1995: 2801609, 1996: 2814008, 1997: 2808104, 1998: 2802798, 1999: 2799050, 2000: 2895723, 2001: 2895117, 2002: 2882813, 2003: 2870258, 2004: 2852263, 2005: 2829054, 2006: 2811768, 2007: 2817389, 2008: 2834556, 2009: 2854720, 2010: 2697480, 2011: 2708067, 2012: 2719039, 2013: 2725575, 2014: 2726800, 2015: 2724006, 2016: 2716297, 2017: 2710456, 2018: 2700968, 2019: 2691497, 2020: 2741730, 2021: 2696555",
+   "- Ranked 1 of 39 cities in DuPage County by  Population\n- Ranked 1 of 133 cities in Cook County by  Population\n- Ranked 1 of 658 cities in Illinois by  Population",
    "- Chicago is the most populous city in DuPage County, Cook County, and Illinois."
   ]
  },
  "geoId/4835000": {
-  "summary": "Houston is the most populous city in Waller County, Montgomery County, and Harris County. It is located in the southeastern United States and is the largest city in the state of Texas. Houston is also the fourth-largest city in the United States and the sixth-largest metropolitan area in North America.",
+  "summary": "Houston is the most populous city in Waller County, Montgomery County and Harris County. It is located in the southeastern United States and is the largest city in the state of Texas. Houston is also the fourth-largest city in the United States and the sixth-largest in North America.",
   "name": "Houston, TX",
   "prompt": [
-   "- Rankied 1 of 7 cities in Waller County by Population\n- Rankied 1 of 15 cities in Montgomery County by Population\n- Rankied 1 of 32 cities in Harris County by Population1990: 1697873, 1991: 1707248, 1992: 1733420, 1993: 1756426, 1994: 1774143, 1995: 1779124, 1996: 1791508, 1997: 1807363, 1998: 1829098, 1999: 1845967, 2000: 1977408, 2001: 1994315, 2002: 2015621, 2003: 2019727, 2004: 2017358, 2005: 2021875, 2006: 2058724, 2007: 2065128, 2008: 2084441, 2009: 2118595, 2010: 2097647, 2011: 2123298, 2012: 2158700, 2013: 2196367, 2014: 2238653, 2015: 2283616, 2016: 2306360, 2017: 2313079, 2018: 2314478, 2019: 2315720, 2020: 2300027, 2021: 2288250",
-   "- Houston is the most populous city in Waller County, Montgomery County, and Harris County."
+   "- Ranked 1 of 7 cities in Waller County by  Population\n- Ranked 1 of 15 cities in Montgomery County by  Population\n- Ranked 1 of 32 cities in Harris County by  Population",
+   "- Houston is the most populous city in Waller County, Montgomery County and Harris County."
   ]
  },
  "geoId/0820000": {
-  "summary": "Denver is the most populous city in Colorado and the 19th most populous city in the United States. It is located in the South Platte River Valley on the eastern edge of the Rocky Mountains. The city has a population of over 700,000 people and is the economic and cultural center of the state. Denver is home to a number of professional sports teams, including the Denver Broncos, Colorado Avalanche, and Colorado Rockies. The city is also home to a number of educational institutions, including the University of Denver and Colorado State University.",
+  "summary": "Denver, Colorado is the most populous city in the state and the 19th most populous city in the United States. The city is located in the South Platte River Valley on the eastern edge of the Rocky Mountains. Denver is the cultural, economic, and transportation center of the Front Range Urban Corridor, which is home to over 5 million people. The city is also home to the Denver International Airport, which is the 5th busiest airport in the United States.",
   "name": "Denver, CO",
   "prompt": [
-   "- Rankied 1 of 151 cities in Colorado by Population\n- Rankied 19 of 10288 cities in United States of America by Population1990: 467549, 1991: 466960, 1992: 472296, 1993: 484110, 1994: 491332, 1995: 492467, 1996: 495805, 1997: 499326, 1998: 498402, 1999: 499775, 2000: 556320, 2001: 565114, 2002: 562305, 2003: 560379, 2004: 560855, 2005: 564116, 2006: 571688, 2007: 581784, 2008: 595880, 2009: 612088, 2010: 603012, 2011: 620250, 2012: 634965, 2013: 649270, 2014: 664540, 2015: 683328, 2016: 696273, 2017: 704869, 2018: 716340, 2019: 725508, 2020: 717630, 2021: 711463",
-   "- Denver is the most populous city in Colorado and 19th most populous city in the United States."
+   "- Ranked 1 of 151 cities in Colorado by  Population\n- Ranked 19 of 10288 cities in United States of America by  Population",
+   "- Denver, CO is the most populous city in Colorado and 19th most populous city in the United States."
   ]
  },
  "geoId/2959942": {
-  "summary": "Princeton is a city in Missouri, United States. It is the least populous city in Missouri and the 13th least populous city in the United States. The population was 55 at the 2010 census.",
+  "summary": "Princeton is a city in Missouri, United States. It is the least populous city in Missouri and the 13th least populous city in the United States.",
   "name": "Princeton, MO",
   "prompt": [
-   "- Rankied 339 of 339 cities in Missouri by Population\n- Rankied 10276 of 10288 cities in United States of America by Population1990: 1026, 1991: 1029, 1992: 1009, 1993: 1003, 1994: 1039, 1995: 1060, 1996: 1018, 1997: 999, 1998: 981, 1999: 962, 2000: 1035, 2001: 1017, 2002: 991, 2003: 980, 2004: 958, 2005: 942, 2006: 929, 2007: 926, 2008: 933, 2009: 932, 2010: 1151, 2011: 1151, 2012: 1131, 2013: 1116, 2014: 1120, 2015: 1112, 2016: 1109, 2017: 1110, 2018: 1099, 2019: 1097, 2020: 990, 2021: 982",
-   "- Princeton, Missouri is the least populous city in Missouri and the 13th least populous city in the United States."
+   "- Ranked 339 of 339 cities in Missouri by  Population\n- Ranked 10276 of 10288 cities in United States of America by  Population",
+   "- Princeton is the least populous city in Missouri and the 13th least populous city in the United States."
   ]
  },
  "geoId/1229100": {
-  "summary": "Hastings is a city in St. Johns County, Florida. It is the least populous city in the county and the third least populous city in Florida. It is also the 10,281st most populous city in the United States.",
+  "summary": "Hastings, Florida is the least populous city in St. Johns County, Florida. It has a population of 1,695 people as of the 2020 census. It is also the 336th least populous city in Florida and the 10281st least populous city in the United States.",
   "name": "Hastings, FL",
   "prompt": [
-   "- Rankied 3 of 3 cities in St. Johns County by Population\n- Rankied 336 of 336 cities in Florida by Population\n- Rankied 10281 of 10288 cities in United States of America by Population1990: 561, 1991: 568, 1992: 592, 1993: 613, 1994: 675, 1995: 703, 1996: 741, 1997: 779, 1998: 814, 1999: 843, 2000: 639, 2001: 654, 2002: 675, 2003: 693, 2004: 725, 2005: 748, 2006: 766, 2007: 790, 2008: 816, 2009: 826",
-   "- Hastings is the least populous city in St. Johns County, Florida and the 3rd least populous city in Florida. It is also the 10,281st most populous city in the United States."
+   "- Ranked 3 of 3 cities in St. Johns County by  Population\n- Ranked 336 of 336 cities in Florida by  Population\n- Ranked 10281 of 10288 cities in United States of America by  Population",
+   "- Hastings, Florida is the least populous city in St. Johns County, Florida. It is also the 336th least populous city in Florida and the 10281st least populous city in the United States."
   ]
  },
  "geoId/4877680": {
-  "summary": "Westminster is a city in Collin County, Texas. It is the 30th most populous city in Collin County, the 793rd most populous city in Texas, and the 10287th most populous city in the United States.",
+  "summary": "Westminster is a city in Collin County, Texas, United States. It is the 30th most populous city in Collin County and the 10287th most populous city in the United States.",
   "name": "Westminster, TX",
   "prompt": [
-   "- Rankied 30 of 30 cities in Collin County by Population\n- Rankied 793 of 793 cities in Texas by Population\n- Rankied 10287 of 10288 cities in United States of America by Population1990: 388, 1991: 392, 1992: 395, 1993: 400, 1994: 419, 1995: 424, 1996: 436, 1997: 450, 1998: 454, 1999: 453",
-   "- Westminster is a city in Collin County, Texas. It is the 30th most populous city in Collin County, the 793rd most populous city in Texas, and the 10287th most populous city in the United States."
+   "- Ranked 30 of 30 cities in Collin County by  Population\n- Ranked 793 of 793 cities in Texas by  Population\n- Ranked 10287 of 10288 cities in United States of America by  Population",
+   "- Westminster is the 30th most populous city in Collin County, Texas, and the 10287th most populous city in the United States."
   ]
  }
 }
