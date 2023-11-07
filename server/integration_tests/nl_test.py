@@ -275,9 +275,26 @@ class NLTest(NLWebServerTestCase):
                       ['how many wise asses live in sunnyvale?'],
                       failure='could not complete')
 
-  def test_strict(self):
-    self.run_sequence('strict', [
-        'how do i build and construct a house and sell it in california with low income',
-        'tell me asian california population with low income'
-    ],
-                      mode='strict')
+  def test_strict_multi_verb(self):
+    self.run_sequence(
+        'strict_multi_verb',
+        [
+            # This query should return empty results in struct mode.
+            'how do i build and construct a house and sell it in california with low income',
+            # This query should be fine.
+            'tell me asian california population with low income',
+        ],
+        mode='strict')
+
+  def test_strict_default_place(self):
+    self.run_sequence(
+        'strict_default_place',
+        [
+            # These queries do not have a default place, so should fail.
+            'what does a diet for diabetes look like?',
+            'how to earn money online without investment',
+            # This query should return empty result because we don't
+            # return low-confidence results.
+            'number of headless drivers in california',
+        ],
+        mode='strict')

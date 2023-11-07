@@ -21,6 +21,7 @@ from enum import IntEnum
 from typing import Dict, List, Optional
 
 from shared.lib import detected_variables as dvars
+from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
 
 
 @dataclass
@@ -57,6 +58,8 @@ class SVDetection:
   single_sv: dvars.VarCandidates
   # Multi SV detection.
   multi_sv: dvars.MultiVarCandidates
+  # Input SV Threshold
+  sv_threshold: float = SV_SCORE_DEFAULT_THRESHOLD
 
 
 class RankingType(IntEnum):

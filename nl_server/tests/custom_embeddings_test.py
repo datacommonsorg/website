@@ -97,7 +97,7 @@ class TestEmbeddings(unittest.TestCase):
     if idx:
       got = idx.detect_svs(query)
       for i in range(len(got['SV'])):
-        if got['CosineScore'][i] >= embeddings._SV_SCORE_THRESHOLD:
+        if got['CosineScore'][i] >= 0.5:
           trimmed_svs.append(got['SV'][i])
 
     if not expected:

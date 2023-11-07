@@ -19,13 +19,13 @@ from server.lib.nl.common import constants
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.utils import get_top_sv_score
+from shared.lib.constants import SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
 
 #
 # List of user messages!
 #
 
 # If the score is below this, then we report low confidence.
-LOW_CONFIDENCE_SCORE_REPORT_THRESHOLD = 0.7
 LOW_CONFIDENCE_SCORE_MESSAGE = \
   'Low confidence in understanding your query. Displaying the closest results.'
 
@@ -139,7 +139,7 @@ def user_message(uttr: Utterance) -> UserMessage:
   if (uttr.rankedCharts and
       uttr.sv_source == FulfillmentResult.CURRENT_QUERY and
       get_top_sv_score(uttr.detection, uttr.rankedCharts[0])
-      < LOW_CONFIDENCE_SCORE_REPORT_THRESHOLD):
+      < SV_SCORE_HIGH_CONFIDENCE_THRESHOLD):
     # We're showing charts for SVs in the current user query and the
     # top-score is below the threshold, so report message.
     msg = LOW_CONFIDENCE_SCORE_MESSAGE

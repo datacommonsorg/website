@@ -35,6 +35,7 @@ export const NL_URL_PARAMS = {
   DETECTOR: "detector",
   IDX: "idx",
   PLACE_DETECTOR: "place_detector",
+  MODE: "mode",
 };
 
 export const NL_INDEX_VALS = {
@@ -46,6 +47,10 @@ export const NL_DETECTOR_VALS = {
   HEURISTIC: "heuristic",
   HYBRID: "hybrid",
   LLM: "llm",
+};
+
+export const NL_MODE_VALS = {
+  STRICT: "strict",
 };
 
 export const NL_PLACE_DETECTOR_VALS = {
