@@ -61,12 +61,12 @@ def get_ranking_data(dcid: str, place_type: str):
     for place in places:
       rank = place["data"]
       data[variable].append(
-          "Ranked {top} of {total} {place_type} in {parent_name} by {variable}".format(
-              top=rank['rankFromTop'],
-              total=rank['rankFromTop'] + rank['rankFromBottom'] - 1,
-              place_type=place_type_plural,
-              parent_name=place['name'],
-              variable=variable))
+          "Ranked {top} of {total} {place_type} in {parent_name} by {variable}".
+          format(top=rank['rankFromTop'],
+                 total=rank['rankFromTop'] + rank['rankFromBottom'] - 1,
+                 place_type=place_type_plural,
+                 parent_name=place['name'],
+                 variable=variable))
 
   return data
 

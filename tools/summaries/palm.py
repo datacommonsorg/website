@@ -123,8 +123,9 @@ def get_summary(place_name: str, place_type: str, rankings: str,
       logging.info(f"Skipping {data_table_key} for {place_name}")
       continue
     key = strip_superlatives(ranking_key)
-    ranking_data = '\n'.join(
-                [f"- {strip_superlatives(ranking)}" for ranking in rankings[ranking_key]])
+    ranking_data = '\n'.join([
+        f"- {strip_superlatives(ranking)}" for ranking in rankings[ranking_key]
+    ])
     prompt_keys = {
         "examples": _POPULATION_EXAMPLE,
         "place_type": place_type,
@@ -134,7 +135,8 @@ def get_summary(place_name: str, place_type: str, rankings: str,
         "data_table": data_tables[data_table_key]
     }
     prompt = _SERIES_PROMPT.format(**prompt_keys)
-    prompts.append(ranking_data)  # Add other data to the saved prompt for debugging
+    prompts.append(
+        ranking_data)  # Add other data to the saved prompt for debugging
 
     response = request_palm(prompt)
     candidates.append("- " + response)
