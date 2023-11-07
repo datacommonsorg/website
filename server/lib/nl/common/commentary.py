@@ -19,13 +19,15 @@ from server.lib.nl.common import constants
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.utils import get_top_sv_score
+from shared.lib.constants import SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
 
 #
 # List of user messages!
 #
 
-# If the score is below this, then we report low confidence.
-LOW_CONFIDENCE_SCORE_REPORT_THRESHOLD = 0.7
+# If the score is below this, then we report low confidence
+# (we reuse the threshold we use for determining something is "high confidence")
+LOW_CONFIDENCE_SCORE_REPORT_THRESHOLD = SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
 LOW_CONFIDENCE_SCORE_MESSAGE = \
   'Low confidence in understanding your query. Displaying the closest results.'
 

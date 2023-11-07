@@ -329,9 +329,9 @@ def resolve(nodes, prop):
   return post(url, {'nodes': nodes, 'property': prop})
 
 
-def nl_search_sv(query, index_type):
+def nl_search_sv(query, index_type, threshold):
   """Search sv from NL server."""
-  url = f'{current_app.config["NL_ROOT"]}/api/search_sv?q={query}&idx={index_type}'
+  url = f'{current_app.config["NL_ROOT"]}/api/search_sv?q={query}&idx={index_type}&threshold={threshold}'
   return get(url)
 
 
