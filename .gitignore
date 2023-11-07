@@ -78,3 +78,4 @@ output/
 
 # wireit files
 .wireit
+.envvars

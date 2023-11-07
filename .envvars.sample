@@ -1,0 +1,5 @@
+# Create an .envvars file with these values to run ./setup_devcontainer.sh
+
+DC_API_KEY=
+MIXER_API_KEY=
+MAPS_API_KEY=
