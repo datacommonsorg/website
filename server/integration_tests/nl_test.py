@@ -279,7 +279,7 @@ class NLTest(NLWebServerTestCase):
     self.run_sequence(
         'strict_multi_verb',
         [
-            # This query should return empty results in struct mode.
+            # This query should return empty results in strict mode.
             'how do i build and construct a house and sell it in california with low income',
             # This query should be fine.
             'tell me asian california population with low income',
