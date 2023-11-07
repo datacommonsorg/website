@@ -44,16 +44,11 @@ _PLACE_TYPE_PLURAL = {
     "state": "states",
 }
 
-_PLACE_TYPE_PLURAL = {
-    "city": "cities",
-    "state": "states",
-}
-
 def get_ranking_data(dcid: str, place_type: str):
   """Returns ranking data as a list, keyed by rank label"""
   url = _RANKING_URL.format(host=FLAGS.dc_base_url, dcid=dcid)
   response = requests.get(url).json()
-  # logging.debug("Ranking response:\n%s", json.dumps(response, indent=True))
+  logging.debug("Ranking response:\n%s", json.dumps(response, indent=True))
 
   data = {}
   place_type_plural = _PLACE_TYPE_PLURAL[place_type]
@@ -65,7 +60,9 @@ def get_ranking_data(dcid: str, place_type: str):
     for place in places:
       rank = place["data"]
       data[variable].append(
-          f"Ranked {rank['rankFromTop']} of {rank['rankFromTop'] + rank['rankFromBottom'] - 1} {place_type_plural} in {place['name']}"
+          "Rankied {top} of {total} {place_type} in {parent_name}".format(
+            top=rank['rankFromTop'], total=rank['rankFromTop'] + rank['rankFromBottom'] - 1, place_type=place_type_plural, parent_name=place['name']
+          )
       )
 
   return data

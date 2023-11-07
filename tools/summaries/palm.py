@@ -35,6 +35,7 @@ Ranked 3 of 3 cities in St Johns County by Population. Summary: Least populous c
 Ranked 339 of 339 cities in Missouri by population. Summary: Least populous city in Missouri.
 """
 
+# FYI - it did not work to include multiple ranking types in the examples.
 _FIXME = """
 Ranked 1 of 793 cities in Texas by population. Summary: Most populous city in Texas.
 Ranked 4 of 10288 cities in United States of America by median income. Summary: City with 4th highest median income in United States.
@@ -59,44 +60,12 @@ Prompt:
 
 Summary:
 """
-# - {ranking_key}: {data_table}
 
 _RESUMMARIZE_PROMPT = """
 Summarize these facts into 1 paragraph.
 Start by introducing the place.
 The summary should only be based on the information presented in these facts. Do not include facts from other sources.
 Please write in a professional and business-neutral tone.
-
-Facts:
-{facts}
-
-Summary:
-"""
-
-_SERIES_PROMPT = """
-Generate a summary in 2 sentences using only the information from the following tables.
-Only list important highlights per table.
-The summary should only be based on the information presented in these tables.
-Do not include facts from other sources.
-Do not use superlatives.
-Do not use the phrase 'According to the data'.
-Do not include opinions.
-Please include references if information is included from other sources.
-Please write in a professional and business-neutral tone.
-
-{place_type}: {place_name}
-
-{ranking_key}:
-{ranking_data}
-
-Table:
-{data_table}
-
-Summary:
-"""
-
-_RESUMMARIZE_PROMPT = """
-Summarize these facts into 1 paragraph.
 
 Facts:
 {facts}
@@ -157,12 +126,11 @@ def get_summary(place_name: str, place_type: str, rankings: str,
         "examples": _POPULATION_EXAMPLE,
         "place_type": place_type,
         "place_name": place_name,
-        # "ranking_key": key,
+        "ranking_key": key,
         "ranking_data": '\n'.join([f"- {ranking} by {key}" for ranking in rankings[ranking_key]]),
-        # "data_table": data_tables[data_table_key]
+        "data_table": data_tables[data_table_key]
     }
     prompt = _SERIES_PROMPT.format(**prompt_keys)
-    # prompts.append(prompt)
     prompts.append(
         '\n'.join([f"- {ranking} by {key}" for ranking in rankings[ranking_key]]) +
         data_tables[data_table_key])
@@ -172,10 +140,9 @@ def get_summary(place_name: str, place_type: str, rankings: str,
 
     # TODO: Add some verification step here
 
-  # facts = '\n'.join(candidates)
-  # prompt = _RESUMMARIZE_PROMPT.format(facts=facts)
-  # response = request_palm(prompt)
-  # # prompts.append(prompt)
-  # prompts.append(facts)
+  facts = '\n'.join(candidates)
+  prompt = _RESUMMARIZE_PROMPT.format(facts=facts)
+  response = request_palm(prompt)
+  prompts.append(facts)
 
   return prompts, response
