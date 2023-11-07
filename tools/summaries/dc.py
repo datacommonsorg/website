@@ -14,8 +14,10 @@
 
 import json
 import logging
+import os
 
 from absl import flags
+from typing import Dict
 import pandas as pd
 import requests
 
@@ -43,6 +45,52 @@ _PLACE_TYPE_PLURAL = {
     "city": "cities",
     "state": "states",
 }
+
+_API_KEY = os.getenv("MIXER_API_KEY")
+assert _API_KEY, "$MIXER_API_KEY must be specified."
+
+
+def post(url: str, req: Dict):
+  # Get json string so the request can be flask cached.
+  # Also to have deterministic req string, the repeated fields in request
+  # are sorted.
+  req_str = json.dumps(req, sort_keys=True)
+  return post_wrapper(url, req_str)
+
+
+def post_wrapper(url, req_str: str):
+  req = json.loads(req_str)
+  headers = {'Content-Type': 'application/json'}
+  headers['x-api-key'] = _API_KEY
+  # Send the request and verify the request succeeded
+  response = requests.post(url, json=req, headers=headers)
+  if response.status_code != 200:
+    raise ValueError(
+        'An HTTP {} code ({}) was returned by the mixer: "{}"'.format(
+            response.status_code, response.reason, response.content))
+  return response.json()
+
+
+def place_rankings(variables, place_type, within_place=None, per_capita=False):
+  url = "https://api.datacommons.org/v1/place/ranking"
+  req_json = {'stat_var_dcids': variables, 'place_type': place_type}
+  if within_place:
+    req_json['within_place'] = within_place
+  if per_capita:
+    req_json['is_per_capita'] = per_capita
+  return post(url, req_json)
+
+
+def related_place(dcid, variables, ancestor=None, per_capita=False):
+  # url = get_service_url('/v1/place/related')
+  # url = "https://api.datacommons.org/v1/place/related"
+  url = "https://api.datacommons.org/v1/place/ranking"
+  req_json = {'dcid': dcid, 'stat_var_dcids': sorted(variables)}
+  if ancestor:
+    req_json['within_place'] = ancestor
+  if per_capita:
+    req_json['is_per_capita'] = per_capita
+  return post(url, req_json)
 
 
 def get_ranking_data(dcid: str, place_type: str):

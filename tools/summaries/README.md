@@ -5,6 +5,10 @@ This script generates NL summaries for Place Explorer.
 To run:
 
 ```shell
+> root
+python3 -m venv .env
+source .env/bin/activate
+> this dir
 python3 main.py
 ```
 
