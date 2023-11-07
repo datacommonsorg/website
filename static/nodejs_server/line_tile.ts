@@ -18,6 +18,8 @@
  * Functions for getting results for the line tile
  */
 
+import _ from "lodash";
+
 import {
   draw,
   fetchData,
@@ -90,7 +92,23 @@ export async function getLineTileResult(
       legend: chartData.dataGroup.map((dg) => dg.label || "A"),
       title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
       type: "LINE",
+      unit: chartData.unit,
     };
+    // If it is a single line chart, add highlight information.
+    if (chartData.dataGroup && chartData.dataGroup.length === 1) {
+      const dataPoints = _.cloneDeep(chartData.dataGroup[0].value);
+      if (!_.isEmpty(dataPoints)) {
+        dataPoints.sort((a, b) => {
+          const fieldToCompare =
+            a.time && b.time ? "time" : a.date && b.date ? "date" : "label";
+          return a[fieldToCompare] > b[fieldToCompare] ? -1 : 1;
+        });
+        result.highlight = {
+          date: dataPoints[0].label,
+          value: dataPoints[0].value,
+        };
+      }
+    }
     if (useChartUrl) {
       result.chartUrl = getChartUrl(
         tileConfig,

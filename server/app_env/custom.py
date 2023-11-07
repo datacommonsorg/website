@@ -23,6 +23,8 @@ class Config(_base.Config):
   LOGO_PATH = "/custom_dc/custom/logo.png"
   SHOW_DISASTER = False
   LITE = True
+  USE_PALM = False
+  USE_MEMCACHE = False
 
 
 class LocalConfig(Config, local.Config):
