@@ -166,7 +166,7 @@ export class DatacommonsRankingComponent extends LitElement {
         highestTitle: this.highestTitle,
         lowestTitle: this.lowestTitle,
         rankingCount: this.rankingCount || 5,
-        showHighest: this.showHighest,
+        showHighest: !this.showLowest && !this.showHighestLowest,
         showHighestLowest: this.showHighestLowest,
         showLowest: this.showLowest,
         showMultiColumn: this.showMultiColumn,
