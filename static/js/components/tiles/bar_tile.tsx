@@ -47,11 +47,11 @@ import {
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -190,8 +190,8 @@ export const fetchData = async (props: BarTilePropType) => {
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
     statPromise = getPointWithin(
       apiRoot,
-      props["enclosedPlaceType"],
-      props["parentPlace"],
+      props.enclosedPlaceType,
+      props.parentPlace,
       statVars,
       "",
       [statSvs]
@@ -200,8 +200,8 @@ export const fetchData = async (props: BarTilePropType) => {
       ? Promise.resolve(null)
       : getSeriesWithin(
           apiRoot,
-          props["parentPlace"],
-          props["enclosedPlaceType"],
+          props.parentPlace,
+          props.enclosedPlaceType,
           denomSvs
         );
   }

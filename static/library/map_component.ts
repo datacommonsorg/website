@@ -205,7 +205,7 @@ export class DatacommonsMapComponent extends LitElement {
           variable: {
             date,
             denom:
-              this.perCapita && this.perCapita.includes(this.variable)
+              this.perCapita && this.perCapita.includes(variable)
                 ? DEFAULT_PER_CAPITA_DENOM
                 : "",
             log: false,
@@ -226,7 +226,7 @@ export class DatacommonsMapComponent extends LitElement {
           parentPlace: place,
           variable: {
             denom:
-              this.perCapita && this.perCapita.includes(this.variable)
+              this.perCapita && this.perCapita.includes(variable)
                 ? DEFAULT_PER_CAPITA_DENOM
                 : "",
             log: false,
@@ -256,10 +256,7 @@ export class DatacommonsMapComponent extends LitElement {
       },
       showExploreMore: this.showExploreMore,
       statVarSpec: {
-        denom:
-          this.perCapita && this.perCapita.includes(this.variable)
-            ? DEFAULT_PER_CAPITA_DENOM
-            : "",
+        denom: "",
         log: false,
         name: "",
         scaling: 1,
