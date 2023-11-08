@@ -51,7 +51,7 @@
       "console": "internalConsole"
     },
     {
-      "name": "Flask (Custom with NL)",
+      "name": "Flask (Custom DC with NL)",
       "type": "python",
       "justMyCode": false,
       "request": "launch",

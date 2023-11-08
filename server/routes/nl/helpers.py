@@ -72,14 +72,6 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   # i18n param
   i18n_str = request.args.get(params.Params.I18N.value, '')
   i18n = i18n_str and i18n_str.lower() == 'true'
-  # TODO: Deprecate USE_DEFAULT_PLACE param once 'mode=strict' is in use.
-  # use default place param
-  udp_str = request.args.get(params.Params.USE_DEFAULT_PLACE.value, 'true')
-  udp = udp_str and udp_str.lower() == 'true'
-  # mode param
-  mode = request.args.get(params.Params.MODE.value, '')
-  if mode == QueryMode.STRICT:
-    udp = True
 
   # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
@@ -101,6 +93,14 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
       'detector',
       default=RequestedDetectorType.HybridSafetyCheck.value,
       type=str)
+
+  # mode param
+  use_default_place = True
+  mode = request.args.get(params.Params.MODE.value, '')
+  if mode == QueryMode.STRICT:
+    # Strict mode is compatible only with Heuristic Detector!
+    detector_type = RequestedDetectorType.Heuristic.value
+    use_default_place = False
 
   place_detector_type = request.args.get('place_detector',
                                          default='dc',
@@ -185,7 +185,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
 
   if utterance:
     utterance.i18n_lang = i18n_lang
-    context.merge_with_context(utterance, is_sdg, udp)
+    context.merge_with_context(utterance, is_sdg, use_default_place)
 
   return utterance, None
 
