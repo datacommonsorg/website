@@ -23,6 +23,7 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
 import { ContainedInPlaceSingleVariableDataSpec } from "../js/components/tiles/tile_types";
+import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -158,6 +159,10 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   placeNameProp: string;
 
+  // Optional: List of variable DCIDs to plot per capita
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  perCapita?: string[];
+
   // Optional: Property to use to get geojsons
   @property()
   geoJsonProp: string;
@@ -199,7 +204,10 @@ export class DatacommonsMapComponent extends LitElement {
           parentPlace: placeDcid,
           variable: {
             date,
-            denom: "",
+            denom:
+              this.perCapita && this.perCapita.includes(this.variable)
+                ? DEFAULT_PER_CAPITA_DENOM
+                : "",
             log: false,
             name: "",
             scaling: 1,
@@ -217,7 +225,10 @@ export class DatacommonsMapComponent extends LitElement {
           enclosedPlaceType: childPlaceType,
           parentPlace: place,
           variable: {
-            denom: "",
+            denom:
+              this.perCapita && this.perCapita.includes(this.variable)
+                ? DEFAULT_PER_CAPITA_DENOM
+                : "",
             log: false,
             name: "",
             scaling: 1,
@@ -245,7 +256,10 @@ export class DatacommonsMapComponent extends LitElement {
       },
       showExploreMore: this.showExploreMore,
       statVarSpec: {
-        denom: "",
+        denom:
+          this.perCapita && this.perCapita.includes(this.variable)
+            ? DEFAULT_PER_CAPITA_DENOM
+            : "",
         log: false,
         name: "",
         scaling: 1,

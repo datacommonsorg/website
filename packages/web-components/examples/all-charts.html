@@ -165,6 +165,19 @@
       places="country/USA country/NLD geoId/06"
       placeNameProp="unDataLabel"
     ></datacommons-bar>
+    <datacommons-bar
+      header="Population With Moderate or Severe Food Insecurity in United States"
+      variables="sdg/AG_PRD_FIESMSN"
+      parentPlace="Earth"
+      childPlaceType="Country"
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Percent of Population With Moderate or Severe Food Insecurity in United States"
+      variables="sdg/AG_PRD_FIESMSN"
+      parentPlace="Earth"
+      childPlaceType="Country"
+      perCapita="sdg/AG_PRD_FIESMSN"
+    ></datacommons-bar>
     <h2>Pie/Donut</h2>
     <datacommons-pie
       header="California Farms by Size"
@@ -179,6 +192,18 @@
       </div>
     </datacommons-pie>
     <datacommons-pie
+      header="Environmental Disasters in California"
+      place="geoId/06"
+      variables="Count_WildfireEvent Count_EarthquakeEvent"
+      donut
+    ></datacommons-pie>
+    <datacommons-pie
+    header="Environmental Disasters in California"
+    place="geoId/06"
+    variables="Count_WildfireEvent Count_EarthquakeEvent"
+    donut
+  ></datacommons-pie>
+    <datacommons-pie
       header="California Farms by Size"
       place="geoId/06"
       variables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
@@ -189,6 +214,21 @@
       header="Percentage of US Population that are Internet Users"
       place="country/USA"
       variable="Count_Person_IsInternetUser_PerCapita"
+      min="0"
+      max="100"
+    ></datacommons-gauge>
+    <datacommons-gauge
+      header="Population With Moderate or Severe Food Insecurity in United States"
+      variable="sdg/AG_PRD_FIESMSN"
+      place="country/USA"
+      min="0"
+      max="331000000"
+    ></datacommons-gauge>
+    <datacommons-gauge
+      header="Percent of Population With Moderate or Severe Food Insecurity in United States"
+      variable="sdg/AG_PRD_FIESMSN"
+      place="country/USA"
+      perCapita="sdg/AG_PRD_FIESMSN"
       min="0"
       max="100"
     ></datacommons-gauge>
@@ -212,13 +252,17 @@
       date="2020"
     ></datacommons-highlight>
     <datacommons-highlight
-      apiroot="https://dev.datacommons.org/"
       header="Population With Moderate or Severe Food Insecurity in United States"
       variable="sdg/AG_PRD_FIESMSN"
       place="country/USA"
     ></datacommons-highlight>
     <datacommons-highlight
-      apiroot="https://dev.datacommons.org/"
+      header="Percent of Population With Moderate or Severe Food Insecurity in United States"
+      variable="sdg/AG_PRD_FIESMSN"
+      place="country/USA"
+      perCapita="sdg/AG_PRD_FIESMSN"
+    ></datacommons-highlight>
+    <datacommons-highlight
       header="Local Breeds With Adequate Genetic Resources for Reconstitution in United States"
       variable="sdg/ER_GRF_ANIMRCNTN"
       place="country/USA"
@@ -281,6 +325,19 @@
       parentPlace="country/USA"
       childPlaceType="State"
     ></datacommons-slider>
+    <datacommons-map
+      header="Population With Moderate or Severe Food Insecurity in the World"
+      parentPlace="Earth"
+      childPlaceType="Country"
+      variable="sdg/AG_PRD_FIESMSN"
+    ></datacommons-map>
+    <datacommons-map
+      header="Percent of Population With Moderate or Severe Food Insecurity in the World"
+      parentPlace="Earth"
+      childPlaceType="Country"
+      variable="sdg/AG_PRD_FIESMSN"
+      perCapita="sdg/AG_PRD_FIESMSN"
+    ></datacommons-map>
     <h2>Ranking</h2>
     <datacommons-ranking
       header="US States with the Highest Population"
@@ -352,6 +409,17 @@
       places="country/COL"
       variables="sdg/SI_POV_NAHC"
       timeScale="year"
+    ></datacommons-line>
+    <datacommons-line
+      header="Population With Moderate or Severe Food Insecurity in United States"
+      places="country/USA"
+      variables="sdg/AG_PRD_FIESMSN"
+    ></datacommons-line>
+    <datacommons-line
+      header="Percent of Population With Moderate or Severe Food Insecurity in United States"
+      places="country/USA"
+      variables="sdg/AG_PRD_FIESMSN"
+      perCapita="sdg/AG_PRD_FIESMSN"
     ></datacommons-line>
     <h2>Lollipop</h2>
     <datacommons-bar

@@ -200,7 +200,7 @@ export const fetchData = async (props: BarTilePropType) => {
       ? Promise.resolve(null)
       : getSeriesWithin(
           apiRoot,
-          props["parentPlaces"],
+          props["parentPlace"],
           props["enclosedPlaceType"],
           denomSvs
         );
