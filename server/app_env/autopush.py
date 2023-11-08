@@ -23,3 +23,4 @@ class Config(_base.Config):
   SHOW_SUSTAINABILITY = True
   USE_PALM = True
   HIDE_DEBUG = False
+  USE_MEMCACHE = False

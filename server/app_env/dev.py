@@ -22,3 +22,5 @@ class Config(_base.Config):
   GA_ACCOUNT = 'G-P9M91VX1T3'
   USE_PALM = True
   HIDE_DEBUG = False
+  USE_MEMCACHE = False
+
