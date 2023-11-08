@@ -48,7 +48,8 @@ flags.DEFINE_string(
     'test', '', 'Test index. Can be a versioned embeddings file name on GCS '
     'or a local file with absolute path')
 flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
-flags.DEFINE_string('indextype', '', 'The base index type such as small or medium_ft')
+flags.DEFINE_string('indextype', '',
+                    'The base index type such as small or medium_ft')
 
 _TEMPLATE = 'tools/nl/svindex_differ/template.html'
 _REPORT = '/tmp/diff_report.html'
