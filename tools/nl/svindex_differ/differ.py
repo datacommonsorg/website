@@ -16,20 +16,28 @@
 # TODO: Support index size
 
 import csv
+from datetime import datetime
 import difflib
 import os
+import pwd
 import re
 
 from absl import app
 from absl import flags
+from google.cloud import storage
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
+import requests
 
 from nl_server import gcs
 from nl_server.embeddings import Embeddings
 
 _SV_THRESHOLD = 0.5
 _NUM_SVS = 10
+_SUB_COLOR = '#ffaaaa'
+_ADD_COLOR = '#aaffaa'
+_PROPERTY_URL = 'https://autopush.api.datacommons.org/v2/node'
+_GCS_BUCKET = 'datcom-embedding-diffs'
 
 FLAGS = flags.FLAGS
 
@@ -40,19 +48,59 @@ flags.DEFINE_string(
     'test', '', 'Test index. Can be a versioned embeddings file name on GCS '
     'or a local file with absolute path')
 flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
+flags.DEFINE_string('indextype', '',
+                    'The base index type such as small or medium_ft')
 
 _TEMPLATE = 'tools/nl/svindex_differ/template.html'
 _REPORT = '/tmp/diff_report.html'
 _FILE_PATTERN_EMBEDDINGS = r'embeddings_.*_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}\.csv'
 _FILE_PATTERN_FINETUNED_EMBEDDINGS = r'embeddings_.*_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}\.ft.*\.csv'
 
+AUTOPUSH_KEY = os.environ.get('AUTOPUSH_KEY')
+assert AUTOPUSH_KEY
+
+
+def _get_sv_names(sv_dcids):
+  """Get stat var names by making a mixer call"""
+  headers = {'Content-Type': 'application/json'}
+  headers['x-api-key'] = AUTOPUSH_KEY
+  resp = requests.post(_PROPERTY_URL,
+                       json={
+                           'nodes': sv_dcids,
+                           'property': '->name'
+                       },
+                       headers=headers).json()
+  result = {}
+  for node, node_arcs in resp.get('data', {}).items():
+    for v in node_arcs.get('arcs', {}).get('name', {}).get('nodes', []):
+      if 'value' in v:
+        result[node] = (v['value'])
+        break
+  return result
+
 
 def _prune(res):
-  result = []
+  svs = []
+  sv_info = {}
   for i in range(len(res['SV'])):
-    if i < _NUM_SVS and res['CosineScore'][i] >= _SV_THRESHOLD:
-      result.append(res['SV'][i])
-  return result
+    score = res['CosineScore'][i]
+    if i < _NUM_SVS and score >= _SV_THRESHOLD:
+      sv = res['SV'][i]
+      svs.append(sv)
+      sv_info[sv] = {
+          'sv': sv,
+          'rank': i + 1,
+          'score': score,
+          'sentence_scores': res['SV_to_Sentences'].get(sv, [])
+      }
+  return svs, sv_info
+
+
+def _get_file_name():
+  """Get the file name to use"""
+  username = pwd.getpwuid(os.getuid()).pw_name
+  date = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+  return f'{username}_{FLAGS.indextype}_{date}.html'
 
 
 def _maybe_copy_embeddings(file):
@@ -67,8 +115,48 @@ def _maybe_copy_embeddings(file):
   return file
 
 
-def _diff_table(base, test):
-  return difflib.HtmlDiff().make_table(base, test)
+def _get_diff_table(diff_list, base_sv_info, test_sv_info):
+  """Given a list of diffs produced by the difflib.Differ, get the rows of
+  sv information to show in the diff table.
+  """
+  diff_table_rows = []
+  last_added = -1
+  for i, diff in enumerate(diff_list):
+    if i <= last_added:
+      continue
+    last_added = i
+    # difflib.Differ will add 2 characters in front of the original text for every line.
+    diff_sv = diff[2:]
+    next_diff = None
+    if i < len(diff_list) - 1:
+      next_diff = diff_list[i + 1]
+    # If theres no + or -, that means this line is the same in both base and test.
+    if not diff.startswith('+') and not diff.startswith('-'):
+      info = base_sv_info.get(diff_sv, test_sv_info.get(diff_sv))
+      diff_table_rows.append((info, info))
+    # If the line starts with -, this means it was present in base but not in test.
+    elif diff.startswith('-'):
+      base_info = base_sv_info.get(diff_sv, {})
+      base_info['color'] = _SUB_COLOR
+      test_info = {}
+      if next_diff and next_diff.startswith('+'):
+        test_sv = next_diff[2:]
+        test_info = test_sv_info.get(test_sv, {})
+        test_info['color'] = _ADD_COLOR
+        last_added = i + 1
+      diff_table_rows.append((base_info, test_info))
+    # Otherwise, the line started with +, which means it was present in test but not base.
+    else:
+      base_info = {}
+      test_info = test_sv_info.get(diff_sv, {})
+      test_info['color'] = _ADD_COLOR
+      if next_diff and next_diff.startswith('-'):
+        base_sv = next_diff[2:]
+        base_info = base_sv_info.get(base_sv, {})
+        base_info['color'] = _SUB_COLOR
+        last_added = i + 1
+      diff_table_rows.append((base_info, test_info))
+  return diff_table_rows
 
 
 def _extract_model_name(embeddings_name: str, embeddings_file_path: str) -> str:
@@ -97,7 +185,6 @@ def _extract_model_name(embeddings_name: str, embeddings_file_path: str) -> str:
 def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
              output_file):
   env = Environment(loader=FileSystemLoader(os.path.dirname(_TEMPLATE)))
-  env.filters['diff_table'] = _diff_table
   template = env.get_template(os.path.basename(_TEMPLATE))
 
   print("=================================")
@@ -112,7 +199,9 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
   test = Embeddings(test_file, test_model_path)
   print("=================================")
 
+  # Get the list of diffs
   diffs = []
+  all_svs = set()
   with open(query_file) as f:
     for row in csv.reader(f):
       if not row:
@@ -121,20 +210,41 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
       if not query or query.startswith('#') or query.startswith('//'):
         continue
       assert ';' not in query, 'Multiple query not yet supported'
-      base_result = _prune(base.detect_svs(query))
-      test_result = _prune(test.detect_svs(query))
-      if base_result != test_result:
-        diffs.append((query, base_result, test_result))
+      base_svs, base_sv_info = _prune(base.detect_svs(query))
+      test_svs, test_sv_info = _prune(test.detect_svs(query))
+      for sv in base_svs + test_svs:
+        all_svs.add(sv)
+      if base_svs != test_svs:
+        diff_list = list(difflib.Differ().compare(base_svs, test_svs))
+        diff_table_rows = _get_diff_table(diff_list, base_sv_info, test_sv_info)
+        diffs.append((query, diff_table_rows))
 
+  # Update the diffs with sv names
+  sv_names = _get_sv_names(list(all_svs))
+  for _, diff_table_rows in diffs:
+    for row in diff_table_rows:
+      for info in row:
+        info['name'] = sv_names.get(info.get('sv'), '')
+
+  # Render the html with the diffs
   with open(output_file, 'w') as f:
     f.write(
-        template.render(base_file=FLAGS.base,
-                        test_file=FLAGS.test,
-                        diff_table=_diff_table,
+        template.render(base_file=FLAGS.base, test_file=FLAGS.test,
                         diffs=diffs))
   print('')
-  print(f'Output written to {output_file}')
+  print(f'Saving locally to {output_file}')
   print('')
+  sc = storage.Client()
+  bucket = sc.bucket(_GCS_BUCKET)
+
+  # Upload diff report html to GCS
+  print("Attempting to write to GCS")
+  gcs_filename = _get_file_name()
+  blob = bucket.blob(gcs_filename)
+  # Since the files can be fairly large, use a 10min timeout to be safe.
+  blob.upload_from_filename(output_file, timeout=600)
+  print("Done uploading to gcs.")
+  print(f"\t Diff report Filename: {gcs_filename}")
 
 
 def main(_):
