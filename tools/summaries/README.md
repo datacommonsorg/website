@@ -5,10 +5,15 @@ This script generates NL summaries for Place Explorer.
 To run:
 
 ```shell
-> root
+> git root
 python3 -m venv .env
 source .env/bin/activate
+
 > this dir
+# Generate list of SVs
+python3 build_sv_list.py
+
+# Generate summaries
 python3 main.py
 ```
 
@@ -18,4 +23,5 @@ To debug:
 python3 main.py --num_processes=1 --places_in_file=places-short.json --save_prompt=True --dc_base_url=http://localhost:8080
 ```
 
-The PaLM API Key must be specified under an environment variable named `PALM_API_KEY`.
+A PaLM API Key must be specified under an environment variable named `PALM_API_KEY`.
+A Mixer API Key must be specified under an environment variable named `MIXER_API_KEY`.
