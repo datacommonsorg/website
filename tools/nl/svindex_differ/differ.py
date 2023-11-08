@@ -48,6 +48,7 @@ flags.DEFINE_string(
     'test', '', 'Test index. Can be a versioned embeddings file name on GCS '
     'or a local file with absolute path')
 flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
+flags.DEFINE_string('indextype', '', 'The base index type such as small or medium_ft')
 
 _TEMPLATE = 'tools/nl/svindex_differ/template.html'
 _REPORT = '/tmp/diff_report.html'
@@ -56,7 +57,6 @@ _FILE_PATTERN_FINETUNED_EMBEDDINGS = r'embeddings_.*_\d{4}_\d{2}_\d{2}_\d{2}_\d{
 
 AUTOPUSH_KEY = os.environ.get('AUTOPUSH_KEY')
 assert AUTOPUSH_KEY
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
 def _get_sv_names(sv_dcids):
@@ -99,7 +99,7 @@ def _get_file_name():
   """Get the file name to use"""
   username = pwd.getpwuid(os.getuid()).pw_name
   date = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-  return f'{username}_{date}'
+  return f'{username}_{FLAGS.indextype}_{date}.html'
 
 
 def _maybe_copy_embeddings(file):
@@ -239,7 +239,7 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
   # Upload diff report html to GCS
   print("Attempting to write to GCS")
   gcs_filename = _get_file_name()
-  blob = bucket.blob(_get_file_name())
+  blob = bucket.blob(gcs_filename)
   # Since the files can be fairly large, use a 10min timeout to be safe.
   blob.upload_from_filename(output_file, timeout=600)
   print("Done uploading to gcs.")
