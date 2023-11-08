@@ -21,9 +21,8 @@ import unittest
 from parameterized import parameterized
 
 from nl_server import config
-from nl_server import embeddings
 from nl_server import embeddings_store as store
-from nl_server import gcs
+from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
 from shared.lib.gcs import TEMP_DIR
 
 _test_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -97,7 +96,7 @@ class TestEmbeddings(unittest.TestCase):
     if idx:
       got = idx.detect_svs(query)
       for i in range(len(got['SV'])):
-        if got['CosineScore'][i] >= embeddings._SV_SCORE_THRESHOLD:
+        if got['CosineScore'][i] >= SV_SCORE_DEFAULT_THRESHOLD:
           trimmed_svs.append(got['SV'][i])
 
     if not expected:
