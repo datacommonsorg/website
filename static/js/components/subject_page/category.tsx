@@ -48,6 +48,8 @@ export interface CategoryPropType {
   parentPlaces?: NamedPlace[];
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // Whether to render tiles as web components
+  showWebComponents?: boolean;
 }
 
 export const Category = memo(function Category(
@@ -157,6 +159,7 @@ function renderBlocks(
                 parentPlaces={props.parentPlaces}
                 denom={block.denom}
                 startWithDenom={block.startWithDenom}
+                showWebComponents={props.showWebComponents}
               />
             </BlockContainer>
           </ErrorBoundary>

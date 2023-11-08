@@ -16,7 +16,6 @@
 # Common types used across the fulfillers.
 #
 
-from collections import OrderedDict
 from dataclasses import dataclass
 from dataclasses import field
 from typing import Dict, List, Set
@@ -26,6 +25,7 @@ from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import Date
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import QuantityClassificationAttributes
@@ -42,8 +42,8 @@ from server.lib.nl.detection.types import TimeDeltaType
 #    to decide the chart category.
 # 3) svpg_id: if the svs belong to a peer-group, this is set
 #    and used to infer the title of a bar/timeline chart.
-# 4) orig_svs: this is the user-specified topic/sv. this is
-#    used to decide the "main" topic for the page.
+# 4) orig_sv_map: the user-specified topic/sv is the key.
+#    this is used to decide the "main" topic for the page.
 @dataclass
 class ChartVars:
   # Only one of svs or events is set.
@@ -60,9 +60,9 @@ class ChartVars:
   skip_map_for_ranking: bool = False
   # When `svs` has multiple entries and corresponds to expansion, this represents
   # the original SV.
-  # Only correlation query has 2 entries, for the rest there
-  # should only be one entry.
-  orig_svs: List[str] = field(default_factory=list)
+  # Only correlation query has 2 keys (and singleton values), for the
+  # rest there should only be one key (and list of 1 or more values).
+  orig_sv_map: Dict[str, List[str]] = field(default_factory=dict)
 
   # Relevant only when chart_type is RANKED_TIMELINE_COLLECTION
   growth_direction: TimeDeltaType = None
@@ -91,6 +91,7 @@ class PopulateState:
   ranking_types: List[RankingType] = field(default_factory=list)
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
   quantity: QuantityClassificationAttributes = None
+  date: Date = None
   event_types: List[EventType] = field(default_factory=list)
   disable_fallback: bool = False
   # The list of chart-vars to process.  This is keyed by var / topic.
@@ -135,3 +136,4 @@ class ChartSpec:
   ranking_count: int
   chart_origin: ChartOriginType
   is_sdg: bool
+  date: Date

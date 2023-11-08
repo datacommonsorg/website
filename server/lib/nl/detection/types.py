@@ -21,6 +21,7 @@ from enum import IntEnum
 from typing import Dict, List, Optional
 
 from shared.lib import detected_variables as dvars
+from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
 
 
 @dataclass
@@ -57,6 +58,8 @@ class SVDetection:
   single_sv: dvars.VarCandidates
   # Multi SV detection.
   multi_sv: dvars.MultiVarCandidates
+  # Input SV Threshold
+  sv_threshold: float = SV_SCORE_DEFAULT_THRESHOLD
 
 
 class RankingType(IntEnum):
@@ -330,6 +333,11 @@ class DateClassificationAttributes(ClassificationAttributes):
   dates: List[Date]
 
 
+@dataclass
+class DetailedActionClassificationAttributes(ClassificationAttributes):
+  actions: List[str]
+
+
 class ClassificationType(IntEnum):
   OTHER = 0
   SIMPLE = 1
@@ -345,7 +353,8 @@ class ClassificationType(IntEnum):
   DATE = 12
   ANSWER_PLACES_REFERENCE = 13
   PER_CAPITA = 14
-  UNKNOWN = 15
+  DETAILED_ACTION = 15
+  UNKNOWN = 100
 
 
 @dataclass

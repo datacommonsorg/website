@@ -34,9 +34,14 @@ class Node:
 
 # Keyed by DC.
 TOPIC_CACHE_FILES = {
-    DCNames.MAIN_DC.value: 'server/config/nl_page/topic_cache.json',
-    DCNames.SDG_DC.value: 'server/config/nl_page/sdg_topic_cache.json',
-    DCNames.SDG_MINI_DC.value: 'server/config/nl_page/sdgmini_topic_cache.json',
+    DCNames.MAIN_DC.value: [
+        'server/config/nl_page/topic_cache.json',
+        'server/config/nl_page/sdg_topic_cache.json'
+    ],
+    DCNames.SDG_DC.value: ['server/config/nl_page/sdg_topic_cache.json'],
+    DCNames.SDG_MINI_DC.value: [
+        'server/config/nl_page/sdgmini_topic_cache.json'
+    ],
 }
 
 # TODO: Move this to schema
@@ -102,19 +107,24 @@ class TopicCache:
     return self.out_map[id].name
 
 
-def load_file(fpath: str, name_overrides: Dict) -> TopicCache:
-  with open(fpath, 'r') as fp:
-    cache = json.load(fp)
+def load_files(fpath_list: List[str], name_overrides: Dict,
+               dc: str) -> TopicCache:
+  cache_nodes = []
+  for fpath in fpath_list:
+    with open(fpath, 'r') as fp:
+      cache = json.load(fp)
+      cache_nodes.extend(cache['nodes'])
 
   out_map = {}
   in_map = {}
 
-  for node in cache['nodes']:
+  for node in cache_nodes:
     dcid = node['dcid'][0]
     typ = node['typeOf'][0]
     name = node.get('name', [''])[0]
-    if name_overrides.get(dcid):
-      name = name_overrides.get(dcid)
+    name_override_info = name_overrides.get(dcid)
+    if name_override_info and not dc in name_override_info.get('blocklist', []):
+      name = name_override_info.get('title', '')
     if 'relevantVariableList' in node:
       prop = 'relevantVariableList'
     else:
@@ -136,6 +146,6 @@ def load_file(fpath: str, name_overrides: Dict) -> TopicCache:
 
 def load(name_overrides: Dict) -> Dict[str, TopicCache]:
   topic_cache_map = {}
-  for dc, fpath in TOPIC_CACHE_FILES.items():
-    topic_cache_map[dc] = load_file(fpath, name_overrides)
+  for dc, fpath_list in TOPIC_CACHE_FILES.items():
+    topic_cache_map[dc] = load_files(fpath_list, name_overrides, dc)
   return topic_cache_map

@@ -35,6 +35,7 @@ import Papa from "papaparse";
 import {
   NL_DETECTOR_VALS,
   NL_INDEX_VALS,
+  NL_MODE_VALS,
   NL_PLACE_DETECTOR_VALS,
   NL_URL_PARAMS,
 } from "../../constants/app/nl_interface_constants";
@@ -118,6 +119,7 @@ interface NLAppConfig {
    */
   hideFeedbackButtons: boolean;
 
+  mode: string;
   detector: string;
   indexType: string;
   placeholderQuery: string;
@@ -188,6 +190,7 @@ const nlAppModel: NLAppModel = {
     autoPlayDisableTypingAnimation: false,
     currentNlQueryContextId: null,
     hideFeedbackButtons: false,
+    mode: "",
     detector: NL_DETECTOR_VALS.HYBRID,
     indexType: NL_INDEX_VALS.MEDIUM_FT,
     placeholderQuery: "family earnings in california",
@@ -224,6 +227,7 @@ const nlAppActions: NLAppActions = {
       autoPlayDisableTypingAnimation: !!getUrlToken("d"),
       autoPlayManuallyShowQuery: !!getUrlToken("m"),
       hideFeedbackButtons: !!getUrlToken("enable_demo"),
+      mode: getUrlTokenOrDefault(NL_URL_PARAMS.MODE, ""),
       detector: getUrlTokenOrDefault(
         NL_URL_PARAMS.DETECTOR,
         NL_DETECTOR_VALS.HYBRID
@@ -302,6 +306,9 @@ const nlAppActions: NLAppActions = {
       }
       if (config.placeDetector) {
         params["place_detector"] = config.placeDetector;
+      }
+      if (config.mode) {
+        params["mode"] = config.mode;
       }
       const start = Date.now();
       try {

@@ -16,6 +16,7 @@ screenshots/screenshot_url.json
 *.swp
 .vscode
 !.vscode/launch.json
+.env.list
 
 # Mac
 .DS_Store
@@ -72,6 +73,8 @@ dc-data/
 gen_ordered_list_for_topics.mcf
 mcf_parser.py
 
-# Test input and output files
-input/
+# Test output files
 output/
+
+# wireit files
+.wireit

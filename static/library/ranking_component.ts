@@ -24,11 +24,11 @@ import {
   RankingTile,
   RankingTilePropType,
 } from "../js/components/tiles/ranking_tile";
-import { DEFAULT_API_ENDPOINT } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
   createWebComponentElement,
+  getApiRoot,
 } from "./utils";
 
 /**
@@ -106,6 +106,11 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Boolean, converter: convertBooleanAttribute })
   showExploreMore?: boolean;
 
+  // Optional: Set to true to show a highest-to-lowest ranking
+  // Default: highest-to-lowest, if showHighestLowest is false
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  showHighest?: boolean;
+
   // Optional: Set to true to show both top and bottom places in highest-to-lowest order.
   // Default: only show top places
   @property({ type: Boolean, converter: convertBooleanAttribute })
@@ -152,20 +157,16 @@ export class DatacommonsRankingComponent extends LitElement {
     });
 
     const rankingTileProps: RankingTilePropType = {
-      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
+      apiRoot: getApiRoot(this.apiRoot),
       enclosedPlaceType: this.childPlaceType,
       hideFooter: this.hideFooter,
       id: `chart-${_.uniqueId()}`,
-      parentPlace: {
-        dcid: this.parentPlace,
-        name: "",
-        types: [],
-      },
+      parentPlace: this.parentPlace,
       rankingMetadata: {
         highestTitle: this.highestTitle,
         lowestTitle: this.lowestTitle,
         rankingCount: this.rankingCount || 5,
-        showHighest: !this.showLowest && !this.showHighestLowest,
+        showHighest: this.showHighest,
         showHighestLowest: this.showHighestLowest,
         showLowest: this.showLowest,
         showMultiColumn: this.showMultiColumn,

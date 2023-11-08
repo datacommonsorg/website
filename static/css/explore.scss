@@ -62,13 +62,13 @@
   .explore-charts {
     font-size: 1.25rem;
   }
-  
+
   .explore-charts.place-overview-only {
     #subject-page-main-pane {
       .category {
         padding-top: 0;
       }
-  
+
       .block {
         padding-top: 0;
       }
@@ -208,7 +208,8 @@
   }
 }
 
-.related-places, .user-message-container {
+.related-places,
+.user-message-container {
   padding: 24px;
   border-radius: var(--border-radius-primary);
   border: var(--border-primary);
@@ -240,21 +241,20 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
-    
+
       .main-message {
         font-size: 20px;
       }
-    
+
       .sub-message {
         font-size: 14px;
       }
     }
-  
+
     .item-list-container {
       margin-top: 16px;
     }
   }
-
 }
 
 .chart-container.map-chart {
@@ -292,7 +292,7 @@
     height: 30px;
     font-size: 13px;
   }
-  
+
   .search-bar .search-bar-content #rich-search-button {
     height: 30px;
     width: 30px;
@@ -305,6 +305,7 @@
   z-index: 20;
   height: calc(100vh - 100px);
   overflow-y: scroll;
+  max-width: 100%;
 }
 
 #ranking-table-container {

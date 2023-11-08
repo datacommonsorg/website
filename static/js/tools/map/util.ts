@@ -24,6 +24,7 @@ import { GeoJsonFeature } from "../../chart/types";
 import { NO_FULL_COVERAGE_PLACE_TYPES } from "../../constants/map_constants";
 import {
   BANGLADESH_PLACE_DCID,
+  BRAZIL_PLACE_DCID,
   CHINA_PLACE_DCID,
   DEFAULT_POPULATION_DCID,
   EUROPE_NAMED_TYPED_PLACE,
@@ -79,6 +80,7 @@ const ALL_PLACE_CHILD_TYPES = {
   Planet: ["Country"],
   Continent: ["Country", IPCC_PLACE_50_TYPE_DCID],
   Country: [IPCC_PLACE_50_TYPE_DCID],
+  OceanicBasin: ["GeoGridPlace_1Deg"],
 };
 
 const USA_CHILD_PLACE_TYPES = {
@@ -112,10 +114,11 @@ const EUROPE_CHILD_PLACE_TYPES = {
 };
 
 const AA1_AA2_PLACES = new Set([
-  INDIA_PLACE_DCID,
   BANGLADESH_PLACE_DCID,
-  NEPAL_PLACE_DCID,
+  BRAZIL_PLACE_DCID,
   CHINA_PLACE_DCID,
+  INDIA_PLACE_DCID,
+  NEPAL_PLACE_DCID,
 ]);
 
 const CHILD_PLACE_TYPE_MAPPING = {
@@ -150,6 +153,7 @@ export const ALL_MAP_PLACE_TYPES = {
 
 export const MANUAL_GEOJSON_DISTANCES = {
   [IPCC_PLACE_50_TYPE_DCID]: 0.5,
+  ["GeoGridPlace_1Deg"]: 1.0,
 };
 
 // list of place types in the US in the order of high to low granularity.

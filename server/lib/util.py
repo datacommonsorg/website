@@ -246,6 +246,10 @@ CACHED_GEOJSON_FILES = {
     },
 }
 
+NL_CHART_TITLE_FILES = [
+    'chart_titles_by_sv.json', 'chart_titles_by_sv_sdg.json'
+]
+
 
 def get_repo_root():
   '''Get the absolute path of the repo root directory
@@ -270,6 +274,14 @@ def get_subject_page_config(filepath):
     subject_page_config = subject_page_pb2.SubjectPageConfig()
     text_format.Parse(data, subject_page_config)
     return subject_page_config
+
+
+# Returns generated summaries for place explorer.
+def get_place_summaries():
+  filepath = os.path.join(get_repo_root(), "config", "summaries",
+                          "place_summaries.json")
+  with open(filepath, 'r') as f:
+    return json.load(f)
 
 
 # Returns topic pages loaded as SubjectPageConfig protos:
@@ -322,10 +334,12 @@ def get_nl_disaster_config():
 
 # Returns chart titles for NL
 def get_nl_chart_titles():
-  filepath = os.path.join(get_repo_root(), "config", "nl_page",
-                          "chart_titles_by_sv.json")
-  with open(filepath, 'r') as f:
-    return json.load(f)
+  chart_titles = {}
+  for file in NL_CHART_TITLE_FILES:
+    filepath = os.path.join(get_repo_root(), "config", "nl_page", file)
+    with open(filepath, 'r') as f:
+      chart_titles.update(json.load(f))
+  return chart_titles
 
 
 # Returns a set of SVs that should not have Per-capita.

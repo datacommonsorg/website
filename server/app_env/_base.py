@@ -27,8 +27,6 @@ class Config:
   LITE = False
   # If the deployment is a custom instance.
   CUSTOM = False
-  # Whether to have account management page
-  ADMIN = False
   # Set this to False if the deployment has frequently updated data.
   USE_MEMCACHE = True
   # Whether to log the query (and make them avaiable in query history interface)
@@ -66,8 +64,6 @@ class Config:
   # overrides in the default base template. Will not be compiled. Must be the
   # full serving path from /static folder.
   OVERRIDE_CSS_PATH = ''
-  # Hide changes made for the website revamp.
-  HIDE_REVAMP_CHANGES = False
   # The dcid of the special data source to show as top level category in the hierarchy
   DATA_SOURCE_DCID = ''
   # The name of the special data source to show as top level category in the hierarchy

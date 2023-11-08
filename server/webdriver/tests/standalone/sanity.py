@@ -47,6 +47,14 @@ flags.DEFINE_string(
 
 flags.DEFINE_string("url", None, "URL to start testing from.", required=True)
 
+_TEST_PARAM = "test=sanity"
+
+
+def url_with_test_param(url: str):
+  if _TEST_PARAM in url:
+    return url
+  return f"{url}{'&' if '#' in url else '#'}{_TEST_PARAM}"
+
 
 class PageType(StrEnum):
   UNKNOWN = "Unknown"
@@ -64,16 +72,24 @@ class WebPage:
                source_url: str = "") -> None:
     self.page_type = page_type
     self.title = title
-    self.url = url
+    self.url = url_with_test_param(url)
     self.source_url = source_url
 
 
 class Result:
 
-  def __init__(self, page: WebPage, status: str, comments: str = "") -> None:
+  def __init__(self,
+               page: WebPage,
+               status: str,
+               latency_sec: float,
+               comments: str = "") -> None:
     self.page_type = page.page_type
     self.title = page.title
     self.status = status
+    # Note that this latency is NOT the whole page latency.
+    # It is only the latency incurred until the page sanity is deemed to be a pass or a failure.
+    # It tends to be a small fraction of the full page latency.
+    self.latency_sec = latency_sec
     self.url = page.url
     self.source_url = page.source_url
     self.comments = comments
@@ -94,8 +110,8 @@ class WebsiteSanityTest:
   def __enter__(self):
     chrome_options = Options()
     chrome_options.add_argument("--headless=new")
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
     self.driver = webdriver.Chrome(options=chrome_options)
     self.file = open(self.results_csv_file_path, "w", newline="")
     logging.info("Writing results to: %s", self.results_csv_file_path)
@@ -118,6 +134,7 @@ class WebsiteSanityTest:
 
   def home(self, page: WebPage):
     logging.info("Running: %s", page.url)
+    start = datetime.now()
 
     self.driver.get(page.url)
 
@@ -126,7 +143,7 @@ class WebsiteSanityTest:
     # topic cards
     topic_cards = find_elems(self.driver, By.CLASS_NAME, "topic-card")
     if topic_cards is None or len(topic_cards) == 0:
-      self.add_result(fail_result(page, "No topic cards."))
+      self.add_result(fail_result(page, start, "No topic cards."))
       return
 
     explore_landing_pages = []
@@ -137,6 +154,7 @@ class WebsiteSanityTest:
         self.add_result(
             fail_result(
                 page,
+                start,
                 "No explore landing title on one of the cards.",
             ))
         return
@@ -146,6 +164,7 @@ class WebsiteSanityTest:
         self.add_result(
             fail_result(
                 page,
+                start,
                 "No explore landing URL on one of the cards.",
             ))
         return
@@ -159,13 +178,14 @@ class WebsiteSanityTest:
           ))
 
     # Pass
-    self.add_result(pass_result(page))
+    self.add_result(pass_result(page, start))
 
     for explore_landing_page in explore_landing_pages:
       self.explore_landing(explore_landing_page)
 
   def explore_landing(self, page: WebPage):
     logging.info("Running: %s", page.url)
+    start = datetime.now()
 
     self.driver.get(page.url)
 
@@ -174,7 +194,7 @@ class WebsiteSanityTest:
     # topics
     topics = find_elems(self.driver, By.CLASS_NAME, "item-list-text")
     if topics is None or len(topics) == 0:
-      self.add_result(fail_result(page, "No topics."))
+      self.add_result(fail_result(page, start, "No topics."))
       return
 
     # queries
@@ -184,15 +204,15 @@ class WebsiteSanityTest:
         "#dc-explore-landing > div > div > div.topic-container > div.topic-queries",
     )
     if queries_parent is None:
-      self.add_result(fail_result(page, "No queries."))
+      self.add_result(fail_result(page, start, "No queries."))
       return
     queries = find_elems(queries_parent, By.TAG_NAME, "a")
     if queries is None or len(queries) == 0:
-      self.add_result(fail_result(page, "No queries."))
+      self.add_result(fail_result(page, start, "No queries."))
       return
 
     # Pass
-    self.add_result(pass_result(page))
+    self.add_result(pass_result(page, start))
 
     explore_links = topics + queries
     explore_pages = []
@@ -209,6 +229,7 @@ class WebsiteSanityTest:
 
   def explore(self, page: WebPage, recurse: bool = False):
     logging.info("Running: %s", page.url)
+    start = datetime.now()
 
     self.driver.get(page.url)
 
@@ -224,6 +245,7 @@ class WebsiteSanityTest:
     except:
       self.add_result(fail_result(
           page,
+          start,
           "Timed out.",
       ))
       return
@@ -237,6 +259,7 @@ class WebsiteSanityTest:
     except:
       self.add_result(fail_result(
           page,
+          start,
           "Timed out.",
       ))
       return
@@ -245,16 +268,19 @@ class WebsiteSanityTest:
     if subtopics is None or len(subtopics) == 0:
       self.add_result(fail_result(
           page,
+          start,
           "No charts.",
       ))
       return
     if len(subtopics) == 1:
       map_element = find_elem(subtopics[0], By.CLASS_NAME, "map-container")
       if map_element:
-        self.add_result(fail_result(
-            page,
-            "Placeholder map only, no charts.",
-        ))
+        self.add_result(
+            fail_result(
+                page,
+                start,
+                "Placeholder map only, no charts.",
+            ))
         return
 
     maybe_warning_result = None
@@ -267,6 +293,7 @@ class WebsiteSanityTest:
       if topics is None or len(topics) == 0:
         maybe_warning_result = warning_result(
             page,
+            start,
             "Topics section with no relevant topics.",
         )
 
@@ -274,7 +301,7 @@ class WebsiteSanityTest:
     if maybe_warning_result:
       self.add_result(maybe_warning_result)
     else:
-      self.add_result(pass_result(page))
+      self.add_result(pass_result(page, start))
 
     if not recurse:
       return
@@ -308,23 +335,30 @@ def find_elems(parent, by: str, value: str):
 
 
 # Pass result
-def pass_result(page: WebPage, comments: str = "") -> Result:
-  return Result(page, "PASS", comments)
+def pass_result(page: WebPage, start: datetime, comments: str = "") -> Result:
+  return Result(page, "PASS", duration_sec(start), comments)
 
 
 # Fail result
-def fail_result(page: WebPage, comments: str = "") -> Result:
-  return Result(page, "FAIL", comments)
+def fail_result(page: WebPage, start: datetime, comments: str = "") -> Result:
+  return Result(page, "FAIL", duration_sec(start), comments)
 
 
 # Warning result
-def warning_result(page: WebPage, comments: str = "") -> Result:
-  return Result(page, "WARNING", comments)
+def warning_result(page: WebPage,
+                   start: datetime,
+                   comments: str = "") -> Result:
+  return Result(page, "WARNING", duration_sec(start), comments)
+
+
+def duration_sec(start: datetime) -> float:
+  return round((datetime.now() - start).total_seconds(), 2)
 
 
 def result_csv_columns() -> str:
   return list(
-      pass_result(WebPage(PageType.UNKNOWN, "", ""), "").__dict__.keys())
+      pass_result(WebPage(PageType.UNKNOWN, "", ""), datetime.now(),
+                  "").__dict__.keys())
 
 
 def run_test():

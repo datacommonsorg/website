@@ -22,11 +22,12 @@ import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
 import _ from "lodash";
 
+import { MapChartData, MapLayerData } from "../components/tiles/map_tile";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
+import { BORDER_STROKE_COLOR } from "../constants/map_constants";
 import {
   ASIA_NAMED_TYPED_PLACE,
   AUSTRALIA_NEW_ZEALAND_DCID,
-  EASTERN_EUROPE_DCID,
   EU_DCID,
   EUROPE_NAMED_TYPED_PLACE,
   MELANESIA_DCID,
@@ -36,6 +37,7 @@ import {
   WESTERN_EUROPE_DCID,
 } from "../shared/constants";
 import { NamedPlace } from "../shared/types";
+import { shouldShowBorder } from "../tools/map/util";
 import { getPlacePathId } from "./draw_map_utils";
 import {
   GeoJsonData,
@@ -264,6 +266,25 @@ function addTooltip(containerElement: HTMLDivElement): void {
 }
 
 /**
+ * Merge multiple geoJsons into one FeatureCollection
+ * @param geoJsons array of geoJsons to combine.
+ */
+export function combineGeoJsons(geoJsons: GeoJsonData[]): GeoJsonData {
+  let features = [];
+  for (const geoJson of geoJsons) {
+    features = features.concat(geoJson.features);
+  }
+
+  return {
+    features,
+    properties: {
+      currentGeo: "",
+    },
+    type: "FeatureCollection",
+  };
+}
+
+/**
  * Get the projection to use for drawing a map
  * @param isUSAPlace whether or not the map is of the USA
  * @param enclosingPlaceDcid the enclosing place of the map
@@ -355,6 +376,32 @@ export function getProjection(
   return projection;
 }
 
+/**
+ * Get unified geoJson for computing map projection
+ *
+ * Given the chart data, returns a unified geoJson to use for calculating
+ * map projection. Includes borders if they will be shown.
+ * @param chartData map data with geojsons to compute projection for
+ * @returns geoJson
+ */
+export function getProjectionGeoJson(chartData: MapChartData): GeoJsonData {
+  // lists of geojsons used for computing projections and borders
+  const projectionGeoJsons = [];
+  for (const layer of chartData.layerData) {
+    // Use border data to calculate projection if using borders.
+    // This prevents borders from being cutoff when enclosed places don't
+    // provide wall to wall coverage.
+    const shouldUseBorderData =
+      layer.enclosedPlaceType &&
+      shouldShowBorder(layer.enclosedPlaceType) &&
+      !_.isEmpty(layer.borderGeoJson);
+    projectionGeoJsons.push(
+      shouldUseBorderData ? layer.borderGeoJson : layer.geoJson
+    );
+  }
+  return combineGeoJsons(projectionGeoJsons);
+}
+
 function getValue(
   geo: GeoJsonFeature,
   dataValues: {
@@ -363,6 +410,7 @@ function getValue(
 ) {
   // returns undefined if there is no value
   if (
+    !_.isEmpty(dataValues) &&
     geo.properties.geoDcid in dataValues &&
     dataValues[geo.properties.geoDcid] !== undefined &&
     dataValues[geo.properties.geoDcid] !== null
@@ -406,11 +454,9 @@ function addGeoJsonLayer(
 /**
  * Draws the base d3 map
  * @param containerElement div element to draw the choropleth in
- * @param geoJson the geojson data for drawing choropleth
+ * @param layers the geojsons, data, and colorscale for each layer to draw
  * @param chartHeight height for the chart
  * @param chartWidth width for the chart
- * @param dataValues data values for plotting
- * @param colorScale the color scale to use for drawing the map and legend
  * @param redirectAction function that runs when region on map is clicked
  * @param getTooltipHtml function to get the html content for the tooltip
  * @param canClickRegion function to determine if a region on the map is clickable
@@ -421,17 +467,12 @@ function addGeoJsonLayer(
  */
 export function drawD3Map(
   containerElement: HTMLDivElement,
-  geoJson: GeoJsonData,
+  layers: MapLayerData[],
   chartHeight: number,
   chartWidth: number,
-  dataValues: {
-    [placeDcid: string]: number;
-  },
-  colorScale: d3.ScaleLinear<number | string, number>,
   redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
   getTooltipHtml: (place: NamedPlace) => string,
   canClickRegion: (placeDcid: string) => boolean,
-  shouldShowBoundaryLines: boolean,
   projection: d3.GeoProjection,
   zoomDcid?: string,
   zoomParams?: MapZoomParams,
@@ -446,56 +487,62 @@ export function drawD3Map(
     .attr("preserveAspectRatio", "xMidYMid meet");
   const map = svg.append("g").attr("id", MAP_ITEMS_GROUP_ID);
   // Build the map objects
-  const mapObjects = addGeoJsonLayer(
-    containerElement,
-    geoJson,
-    projection,
-    "",
-    MAP_GEO_REGIONS_ID
-  );
-  mapObjects
-    .attr("class", (geo: GeoJsonFeature) => {
-      // highlight the place of the current page
-      if (
-        geo.properties.geoDcid === geoJson.properties.currentGeo ||
-        geo.properties.geoDcid === zoomDcid
-      ) {
-        return HIGHLIGHTED_CLASS_NAME;
-      }
-      if (getValue(geo, dataValues) === undefined) {
-        return "missing-data";
-      }
-    })
-    .attr("fill", (d: GeoJsonFeature) => {
-      const value = getValue(d, dataValues);
-      if (value !== undefined) {
-        return colorScale(value);
-      }
-      return styleParams?.noDataFill || MISSING_DATA_COLOR;
-    })
-    .attr("id", (d: GeoJsonFeature) => {
-      return getPlacePathId(d.properties.geoDcid);
-    })
-    .on("mouseover", onMouseOver(canClickRegion, containerElement))
-    .on("mouseout", onMouseOut(containerElement))
-    .on(
-      "mousemove",
-      onMouseMove(canClickRegion, containerElement, getTooltipHtml)
+  const mapObjects = [];
+  for (const layer of layers) {
+    const mapObjectLayer = addGeoJsonLayer(
+      containerElement,
+      layer.geoJson,
+      projection,
+      "",
+      MAP_GEO_REGIONS_ID
     );
-  if (shouldShowBoundaryLines) {
-    mapObjects
-      .attr("stroke-width", STROKE_WIDTH)
-      .attr(
-        "stroke",
-        styleParams
-          ? styleParams.strokeColor || GEO_STROKE_COLOR
-          : GEO_STROKE_COLOR
+    mapObjectLayer
+      .attr("class", (geo: GeoJsonFeature) => {
+        // highlight the place of the current page
+        if (
+          geo.properties.geoDcid === layer.geoJson.properties.currentGeo ||
+          geo.properties.geoDcid === zoomDcid
+        ) {
+          return HIGHLIGHTED_CLASS_NAME;
+        }
+        if (getValue(geo, layer.dataValues) === undefined) {
+          return "missing-data";
+        }
+      })
+      .attr("fill", (d: GeoJsonFeature) => {
+        const value = getValue(d, layer.dataValues);
+        const colorScale = layer.colorScale;
+        if (value !== undefined) {
+          return colorScale(value);
+        }
+        return styleParams?.noDataFill || MISSING_DATA_COLOR;
+      })
+      .attr("id", (d: GeoJsonFeature) => {
+        return getPlacePathId(d.properties.geoDcid);
+      })
+      .on("mouseover", onMouseOver(canClickRegion, containerElement))
+      .on("mouseout", onMouseOut(containerElement))
+      .on(
+        "mousemove",
+        onMouseMove(canClickRegion, containerElement, getTooltipHtml)
       );
+    if (layer.showMapBoundaries) {
+      mapObjectLayer
+        .attr("stroke-width", STROKE_WIDTH)
+        .attr(
+          "stroke",
+          styleParams
+            ? styleParams.strokeColor || GEO_STROKE_COLOR
+            : GEO_STROKE_COLOR
+        );
+    }
+    mapObjectLayer.on(
+      "click",
+      onMapClick(canClickRegion, containerElement, redirectAction)
+    );
+    mapObjects.push(mapObjectLayer);
   }
-  mapObjects.on(
-    "click",
-    onMapClick(canClickRegion, containerElement, redirectAction)
-  );
+
   // style highlighted region and bring to the front
   d3.select(containerElement)
     .select("." + HIGHLIGHTED_CLASS_NAME)
@@ -513,7 +560,9 @@ export function drawD3Map(
         [chartWidth, chartHeight],
       ])
       .on("zoom", function (): void {
-        mapObjects.on("mousemove", null).on("mouseover", null);
+        mapObjects.forEach((mapObjectLayer) => {
+          mapObjectLayer.on("mousemove", null).on("mouseover", null);
+        });
         d3.select(`#${TOOLTIP_ID}`).style("display", "none");
         map
           .selectAll("path,circle")
@@ -522,12 +571,14 @@ export function drawD3Map(
           .attr("transform", d3.event.transform);
       })
       .on("end", function (): void {
-        mapObjects
-          .on(
-            "mousemove",
-            onMouseMove(canClickRegion, containerElement, getTooltipHtml)
-          )
-          .on("mouseover", onMouseOver(canClickRegion, containerElement));
+        mapObjects.forEach((mapObjectLayer) => {
+          mapObjectLayer
+            .on(
+              "mousemove",
+              onMouseMove(canClickRegion, containerElement, getTooltipHtml)
+            )
+            .on("mouseover", onMouseOver(canClickRegion, containerElement));
+        });
       });
     svg.call(zoom).call(zoom.transform, STARTING_ZOOM_TRANSFORMATION);
     if (zoomParams.zoomInButtonId) {
@@ -541,6 +592,25 @@ export function drawD3Map(
       });
     }
   }
+
+  for (const layer of layers) {
+    if (
+      layer.enclosedPlaceType &&
+      shouldShowBorder(layer.enclosedPlaceType) &&
+      !_.isEmpty(layer.borderGeoJson)
+    ) {
+      addPolygonLayer(
+        containerElement,
+        layer.borderGeoJson,
+        projection,
+        () => "none",
+        () => BORDER_STROKE_COLOR,
+        () => null,
+        false
+      );
+    }
+  }
+
   svg.attr("class", ASYNC_ELEMENT_CLASS);
 }
 
@@ -654,7 +724,7 @@ export function addMapPoints(
  * Adds a layer of polygons on top of a map
  * @param containerElement containing element of the map
  * @param geoJson polygon data to draw
- * @param projection projection to use for drawing geojsonss
+ * @param projection projection to use for drawing geojsons
  * @param getRegionColor mapping of geojson feature to its fill color
  * @param getRegionBorder mapping of geojson feature to its stroke color
  * @param onClick function to use when clicking on a feature

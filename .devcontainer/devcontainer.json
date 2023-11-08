@@ -1,0 +1,6 @@
+{
+    "image": "gcr.io/datcom-ci/python-node-go-protoc-envoy:2023-10-05",
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {}
+    }
+}

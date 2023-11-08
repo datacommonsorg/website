@@ -177,18 +177,3 @@ export interface LineChartOptions extends ChartOptions {
   handleDotClick?: (dotData: DotDataPoint) => void;
   timeScale?: TimeScaleOption;
 }
-
-export type SORT_ASCENDING = "ascending";
-export type SORT_DESCENDING = "descending";
-export type SORT_ASCENDING_POPULATION = "ascendingPopulation";
-export type SORT_DESCENDING_POPULATION = "descendingPopulation";
-export type SortType =
-  | SORT_ASCENDING
-  | SORT_DESCENDING
-  | SORT_ASCENDING_POPULATION
-  | SORT_DESCENDING_POPULATION;
-
-export interface ChartEventDetail {
-  property: string;
-  value: string;
-}

@@ -43,8 +43,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     state.uttr.counters.err('filter-with-single-var_failed_cb_toomanyplaces',
                             [p.dcid for p in places])
     return False
-  if len(chart_vars.svs) > 1:
-    state.uttr.counters.err('filter-with-single-var_failed_cb_toomanysvs',
+  if len(chart_vars.svs) > 1 and chart_vars.is_topic_peer_group:
+    state.uttr.counters.err('filter-with-single-var_failed_cb_peergroupsvs',
                             chart_vars.svs)
     return False
   if not state.place_type:
@@ -60,6 +60,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
   logging.info('Attempting to filter places')
   sv = chart_vars.svs[0]
+  chart_vars = copy.deepcopy(chart_vars)
+  chart_vars.svs = [sv]
 
   ranked_children = rank_utils.filter_and_rank_places(
       parent_place=places[0],

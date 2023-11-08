@@ -74,13 +74,15 @@
 
 <body>
   <div id="main">
-
     <main id="{{ main_id }}" class="main-content">
       {% block content %}
       {% endblock %}
     </main>
-
   </div>
+  <footer id="main-footer">
+    <div class="container">
+    </div>
+  </footer>
   {# Compile this down (or manually implement). Used only for nav bar so far #}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   {% block footer %}

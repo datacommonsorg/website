@@ -16,6 +16,8 @@
 import logging
 from typing import Dict
 
+from server.lib.explore import params
+from server.lib.explore.params import QueryMode
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.detection import heuristic_classifiers
 from server.lib.nl.detection import place
@@ -31,7 +33,7 @@ from server.lib.nl.detection.types import SimpleClassificationAttributes
 
 def detect(place_detector_type: PlaceDetectorType, orig_query: str,
            cleaned_query: str, index_type: str,
-           query_detection_debug_logs: Dict,
+           query_detection_debug_logs: Dict, mode: str,
            counters: ctr.Counters) -> Detection:
   if place_detector_type == PlaceDetectorType.DC:
     place_detection = place.detect_from_query_dc(orig_query,
@@ -42,17 +44,20 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
 
   query = place_detection.query_without_place_substr
 
+  sv_threshold = params.sv_threshold(mode)
   # Step 3: Identify the SV matched based on the query.
   svs_scores_dict = dutils.empty_svs_score_dict()
   try:
     svs_scores_dict = variable.detect_svs(
-        query, index_type, query_detection_debug_logs["query_transformations"])
+        query, index_type, query_detection_debug_logs["query_transformations"],
+        sv_threshold)
   except ValueError as e:
     logging.info(e)
     logging.info("Using an empty svs_scores_dict")
 
   # Set the SVDetection.
-  sv_detection = dutils.create_sv_detection(query, svs_scores_dict)
+  sv_detection = dutils.create_sv_detection(query, svs_scores_dict,
+                                            sv_threshold)
 
   # Step 4: find query classifiers.
   classifications = [
@@ -71,7 +76,11 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
                                     "AnswerPlacesReference"),
       heuristic_classifiers.general(query, ClassificationType.PER_CAPITA,
                                     "PerCapita"),
+      heuristic_classifiers.date(query, counters),
   ]
+
+  if mode == QueryMode.STRICT:
+    classifications.append(heuristic_classifiers.detailed_action(query))
 
   # Set the Classifications list.
   classifications = [c for c in classifications if c is not None]

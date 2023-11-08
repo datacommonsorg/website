@@ -13,7 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cd static
+cd packages/web-components
+npm install --update
+cd ../../static
 npm install --update
 npm run-script watch
 cd ..

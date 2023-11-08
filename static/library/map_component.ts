@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
+import { ChartEventDetail } from "@datacommonsorg/web-components";
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
-import { ChartEventDetail } from "../js/chart/types";
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
-import { DEFAULT_API_ENDPOINT } from "./constants";
+import { ContainedInPlaceSingleVariableDataSpec } from "../js/components/tiles/tile_types";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
   createWebComponentElement,
+  getApiRoot,
 } from "./utils";
 
 /**
@@ -48,6 +49,10 @@ export class DatacommonsMapComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Optional: Allow zoom and pan on map
+  @property({ type: Boolean })
+  allowZoom: boolean;
+
   // Optional: API root to use to fetch data
   // Defaults to https://datacommons.org
   @property()
@@ -57,6 +62,13 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   childPlaceType!: string;
 
+  // [Optional] List of type of child place to rank (ex: State, County),
+  // in matching order with parentPlaces (plural). If fewer childPlaceTypes than
+  // parentPlaces are provided, the last childPlaceType will be used for the
+  // remaining parentPlaces. If provided, childPlaceType (singular) is ignored.
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  childPlaceTypes?: string[];
+
   // Optional: color(s) to use
   @property({ type: Array<string>, converter: convertArrayAttribute })
   colors?: string[];
@@ -65,6 +77,11 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   date: string;
 
+  // Optional: dates to fetch stat vars for, in matching order with
+  //           variables (plural).
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  dates?: string[];
+
   // Title of the chart
   @property()
   header!: string;
@@ -72,6 +89,11 @@ export class DatacommonsMapComponent extends LitElement {
   // DCID of the parent place
   @property()
   parentPlace!: string;
+
+  // Optional: DCIDs of places to plot. If provided, childPlaceTypes
+  // (plural) must also be provided, and parentPlace (singular) is ignored.
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  parentPlaces?: string[];
 
   /**
    * @deprecated
@@ -95,6 +117,14 @@ export class DatacommonsMapComponent extends LitElement {
   // Statistical variable DCID
   @property()
   variable!: string;
+
+  // Optional: DCIDs of variables. If provided, parentPlaces (plural) and
+  // childPlaceTypes (plural) must also be provided, and variable (singular)
+  // is ignored.  If fewer variables than parentPlaces are provided, the last
+  // variable will be used for the remaining parentPlaces.
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  variables?: string[];
+
   /**
    * @deprecated
    * DCID of the parent place
@@ -146,16 +176,70 @@ export class DatacommonsMapComponent extends LitElement {
   }
 
   render(): HTMLElement {
-    const place = this.parentPlace || this.place || this.placeDcid;
-    const variable = this.variable || this.statVarDcid;
-    const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
+    let dataSpecs: ContainedInPlaceSingleVariableDataSpec[] = [];
+    if (!_.isEmpty(this.parentPlaces) && !_.isEmpty(this.childPlaceTypes)) {
+      this.parentPlaces.forEach((placeDcid, index) => {
+        const date = !_.isEmpty(this.dates)
+          ? this.dates[Math.min(index, this.dates.length - 1)]
+          : this.date;
+        // If more parentPlaces than childPlaceTypes provided, use the
+        // last childPlaceType provided for remaining parentPlaces.
+        const enclosedPlaceType = !_.isEmpty(this.childPlaceTypes)
+          ? this.childPlaceTypes[
+              Math.min(index, this.childPlaceTypes.length - 1)
+            ]
+          : this.childPlaceType;
+        // If more parentPlaces than variables provided, use the last
+        // variable provided for remaining parentPlaces.
+        const variable = !_.isEmpty(this.variables)
+          ? this.variables[Math.min(index, this.variables.length - 1)]
+          : this.variable || this.statVarDcid;
+        dataSpecs.push({
+          enclosedPlaceType,
+          parentPlace: placeDcid,
+          variable: {
+            date,
+            denom: "",
+            log: false,
+            name: "",
+            scaling: 1,
+            statVar: variable,
+            unit: "",
+          },
+        });
+      });
+    } else {
+      const place = this.parentPlace || this.place || this.placeDcid;
+      const variable = this.variable || this.statVarDcid;
+      const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
+      dataSpecs = [
+        {
+          enclosedPlaceType: childPlaceType,
+          parentPlace: place,
+          variable: {
+            denom: "",
+            log: false,
+            name: "",
+            scaling: 1,
+            statVar: variable,
+            unit: "",
+            date: this.date,
+          },
+        },
+      ];
+    }
+
+    // TODO: Remove placeholder values once Map Tile depreciates
+    //       enclosedPlaceType, place, statVarSpec.
     const mapTileProps: MapTilePropType = {
-      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
+      allowZoom: this.allowZoom,
+      apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
-      enclosedPlaceType: childPlaceType,
+      dataSpecs,
+      enclosedPlaceType: "", //childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
-        dcid: place,
+        dcid: "", //place,
         name: "",
         types: [],
       },
@@ -165,7 +249,7 @@ export class DatacommonsMapComponent extends LitElement {
         log: false,
         name: "",
         scaling: 1,
-        statVar: variable,
+        statVar: "", //variable,
         unit: "",
         date: this.date,
       },

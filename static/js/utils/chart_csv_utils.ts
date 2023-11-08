@@ -23,7 +23,7 @@ import Papa from "papaparse";
 
 import { DataGroup, DataPoint } from "../chart/base";
 import { Point } from "../chart/draw_scatter";
-import { GeoJsonData } from "../chart/types";
+import { MapLayerData } from "../components/tiles/map_tile";
 import { RankingPoint } from "../types/ranking_unit_types";
 
 // TODO(beets): Create DataPoints class and add this to that class.
@@ -155,22 +155,30 @@ export function dataPointsToCsv(dataPoints: DataPoint[]): string {
 
 /**
  * Gets the csv (as a string) for a map chart data
- * @param geoJson GeoJson used for the map
- * @param dataValues data values used in the map
+ * @param layerData geoJsons + data values plotted by the map
  */
-export function mapDataToCsv(
-  geoJson: GeoJsonData,
-  dataValues: { [placeDcid: string]: number }
-): string {
-  const header = ["label", "data"];
+export function mapDataToCsv(layerData: MapLayerData[]): string {
+  // check if at least one layer has a variable field provided
+  const hasVariable = layerData.some((layer) => layer.variable);
   const data = [];
-  for (const geo of geoJson.features) {
-    if (!geo.id) {
-      continue;
+  for (const layer of layerData) {
+    for (const geo of layer.geoJson.features) {
+      if (!geo.id) {
+        continue;
+      }
+      const value =
+        geo.id in layer.dataValues ? layer.dataValues[geo.id] || "N/A" : "N/A";
+      const name = geo.properties.name || geo.id;
+      // only add variable column if a variable field is in layer data.
+      if (hasVariable) {
+        const variable = layer.variable
+          ? layer.variable.name || layer.variable.statVar
+          : "N/A";
+        data.push([name, variable, value]);
+      } else {
+        data.push([name, value]);
+      }
     }
-    const value = geo.id in dataValues ? dataValues[geo.id] : "N/A";
-    const name = geo.properties.name || geo.id;
-    data.push([name, value]);
   }
   // sort data by label column (alphabetically)
   data.sort((a, b) => {
@@ -182,6 +190,9 @@ export function mapDataToCsv(
       return a[0] > b[0] ? 1 : -1;
     }
   });
+  const header = hasVariable
+    ? ["label", "variable", "data"]
+    : ["label", "data"];
   const rows = [header, ...data];
   return Papa.unparse(rows);
 }

@@ -135,7 +135,7 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
     props.apiRoot,
     [props.place.dcid],
     [props.statVarSpec.statVar],
-    props.date
+    props.statVarSpec.date
   );
   const denomPromise = props.statVarSpec.denom
     ? getSeries(props.apiRoot, [props.place.dcid], [props.statVarSpec.denom])

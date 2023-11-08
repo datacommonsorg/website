@@ -22,17 +22,13 @@ class Config(_base.Config):
   OVERRIDE_CSS_PATH = '/custom_dc/custom/overrides.css'
   LOGO_PATH = "/custom_dc/custom/logo.png"
   SHOW_DISASTER = False
+  LITE = True
+  USE_PALM = False
+  USE_MEMCACHE = False
 
 
 class LocalConfig(Config, local.Config):
-  API_ROOT = 'https://api.datacommons.org'
-  # NEED TO DO THE FOLLOWING CHANGES:
-  # 1. Send an email to <support+custom@datacommons.org> to get an API key
-  #    for Data Commons API.
-  # 2. In the custom GCP project, store the API key in secret manager
-  #    `printf "<API_KEY>" | gcloud secrets create mixer-api-key --data-file=-`
-  # 3. Update SECRET_PROJECT to be the custom GCP project id.
-  SECRET_PROJECT = ''
+  pass
 
 
 class ComposeConfig(Config, local.Config):

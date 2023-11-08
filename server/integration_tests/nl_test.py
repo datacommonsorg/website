@@ -25,6 +25,8 @@ _TEST_MODE = os.environ['TEST_MODE']
 
 _TEST_DATA = 'test_data'
 
+_MAX_FOOTNOTE_LENGTH = 500
+
 
 class NLTest(NLWebServerTestCase):
 
@@ -39,7 +41,8 @@ class NLTest(NLWebServerTestCase):
                    place_detector='dc',
                    failure='',
                    test='',
-                   i18n=''):
+                   i18n='',
+                   mode=''):
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
@@ -51,7 +54,7 @@ class NLTest(NLWebServerTestCase):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(
           self.get_server_url() +
-          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}&i18n={i18n}',
+          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}&i18n={i18n}&mode={mode}',
           json={
               'contextHistory': ctx
           }).json()
@@ -72,6 +75,12 @@ class NLTest(NLWebServerTestCase):
     dbg = resp['debug']
     resp['debug'] = {}
     resp['context'] = {}
+    for category in resp.get('config', {}).get('categories', []):
+      for block in category.get('blocks'):
+        block_footnote = block.get('footnote', '')
+        if len(block_footnote) > _MAX_FOOTNOTE_LENGTH:
+          block[
+              'footnote'] = f'{block_footnote[:_MAX_FOOTNOTE_LENGTH:]}...{len(block_footnote) - _MAX_FOOTNOTE_LENGTH} more chars'
     json_file = os.path.join(_dir, _TEST_DATA, test_dir, test_name,
                              'chart_config.json')
     if _TEST_MODE == 'write':
@@ -262,8 +271,39 @@ class NLTest(NLWebServerTestCase):
         'which countries have shown the greatest reduction?',
         'health in the world',
     ])
-
-    # def test_inappropriate_query(self):
     self.run_sequence('inappropriate_query',
                       ['how many wise asses live in sunnyvale?'],
                       failure='could not complete')
+
+  def test_strict_multi_verb(self):
+    self.run_sequence(
+        'strict_multi_verb',
+        [
+            # This query should return empty results in strict mode.
+            'how do i build and construct a house and sell it in california with low income',
+            # This query should be fine.
+            'tell me asian california population with low income',
+        ],
+        mode='strict',
+        expected_detectors=[
+            'Heuristic Based',
+            'Heuristic Based',
+        ])
+
+  def test_strict_default_place(self):
+    self.run_sequence(
+        'strict_default_place',
+        [
+            # These queries do not have a default place, so should fail.
+            'what does a diet for diabetes look like?',
+            'how to earn money online without investment',
+            # This query should return empty result because we don't
+            # return low-confidence results.
+            'number of headless drivers in california',
+        ],
+        mode='strict',
+        expected_detectors=[
+            'Heuristic Based',
+            'Heuristic Based',
+            'Heuristic Based',
+        ])

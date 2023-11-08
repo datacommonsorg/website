@@ -15,6 +15,8 @@
 from enum import Enum
 from typing import Dict
 
+from shared.lib import constants
+
 
 class Params(str, Enum):
   ENTITIES = 'entities'
@@ -28,14 +30,34 @@ class Params(str, Enum):
   DC = 'dc'
   EXT_SVGS = 'extensionGroups'
   EXP_MORE_DISABLED = 'disableExploreMore'
+  # Indicating it's a test query and the type of test, ex, "test=screenshot"
   TEST = 'test'
   I18N = 'i18n'
+  # The mode of query detection.
+  # - 'strict': detect and fulfill more specific queries (without too many verbs),
+  #             using a higher SV cosine score threshold (0.7), and without
+  #             using a default place (if query doesn't specify places).
+  #    Ex, if multiple verbs present, treat as action query and do not fulfill.
+  MODE = 'mode'
 
 
 class DCNames(str, Enum):
   MAIN_DC = 'main'
   SDG_DC = 'sdg'
   SDG_MINI_DC = 'sdgmini'
+
+
+class QueryMode(str, Enum):
+  # NOTE: This mode is incompatible with LLM detector
+  STRICT = 'strict'
+
+
+# Get the SV score threshold for the given mode.
+def sv_threshold(mode: str) -> bool:
+  if mode == QueryMode.STRICT:
+    return constants.SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
+  else:
+    return constants.SV_SCORE_DEFAULT_THRESHOLD
 
 
 def is_sdg(insight_ctx: Dict) -> bool:

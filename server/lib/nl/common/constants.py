@@ -240,8 +240,8 @@ PAK_PLACE_TYPE_REMAP = {
         ContainedInPlaceType.ADMIN_AREA_3,
 }
 
-EARTH = Place('Earth', 'Earth', 'Place')
-USA = Place('country/USA', 'USA', 'Country', 'country/USA')
+EARTH = Place('Earth', 'World', 'Place')
+USA = Place('country/USA', 'United States of America', 'Country', 'country/USA')
 
 # Key is US-only map type.
 # Value is a list of corresponding parent place types.
@@ -260,7 +260,7 @@ USA_ONLY_MAP_TYPES = {
 # This is only for US.
 # Avoid `CITY` -> `USA` since loading maps, etc. takes a really long time.
 DEFAULT_PARENT_PLACES = {
-    ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
+    ContainedInPlaceType.COUNTRY: EARTH,
     ContainedInPlaceType.COUNTY: USA,
     ContainedInPlaceType.STATE: USA,
 }

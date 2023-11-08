@@ -491,7 +491,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Proportion of Population Below International Poverty Line in United States",
+                    "title": "Population Below International Poverty Line in United States",
                     "type": "LINE"
                   }
                 ]
@@ -499,76 +499,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Population Below International Poverty Line in United States",
+                    "description": "Population Below International Poverty Line in United States",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Proportion of Population Below International Poverty Line in United States",
+                    "title": "Population Below International Poverty Line in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
-            "title": "Proportion of Population Below International Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
-                    ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Proportion of Population Using Basic Drinking Water Services, by Location in United States",
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
-                    ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Proportion of Population Using Basic Drinking Water Services, by Location"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
-                    ],
-                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Proportion of Population Using Basic Sanitation Services, by Location in United States",
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
-                    ],
-                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Proportion of Population Using Basic Sanitation Services, by Location"
+            "title": "Population Below International Poverty Line"
           },
           {
             "columns": [
@@ -882,16 +824,8 @@
             "statVar": "Count_Person_PovertyStatusDetermined"
           },
           "sdg/SI_POV_DAY1": {
-            "name": "Proportion of population below international poverty line",
+            "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
-          },
-          "sdg/SP_ACS_BSRVH2O": {
-            "name": "Proportion of population using basic drinking water services, by location",
-            "statVar": "sdg/SP_ACS_BSRVH2O"
-          },
-          "sdg/SP_ACS_BSRVSAN": {
-            "name": "Proportion of population using basic sanitation services, by location",
-            "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }
       }

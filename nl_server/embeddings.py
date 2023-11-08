@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Managing the embeddings."""
-from dataclasses import dataclass
 import logging
 import os
 from typing import Dict, List, Union
@@ -22,19 +21,15 @@ from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 import torch
 
+from nl_server import config
 from nl_server import query_util
 from shared.lib import constants
 from shared.lib import detected_variables as vars
 from shared.lib import utils
 
-MODEL_NAME = 'all-MiniLM-L6-v2'
-
 # A value higher than the highest score.
 _HIGHEST_SCORE = 1.0
 _INIT_SCORE = (_HIGHEST_SCORE + 0.1)
-
-# Scores below this are ignored.
-_SV_SCORE_THRESHOLD = 0.5
 
 _NUM_CANDIDATES_PER_NSPLIT = 3
 
@@ -52,7 +47,7 @@ class Embeddings:
       assert os.path.exists(existing_model_path)
       self.model = SentenceTransformer(existing_model_path)
     else:
-      self.model = SentenceTransformer(MODEL_NAME)
+      self.model = SentenceTransformer(config.EMBEDDINGS_BASE_MODEL_NAME)
     self.dataset_embeddings: torch.Tensor = None
     self.dcids: List[str] = []
     self.sentences: List[str] = []
@@ -116,8 +111,7 @@ class Embeddings:
     for q, sv2score in query2sv2score.items():
       sv2score_sorted = [(k, v) for (
           k,
-          v) in sorted(sv2score.items(), key=lambda item: item[1], reverse=True)
-                        ]
+          v) in sorted(sv2score.items(), key=lambda item: (-item[1], item[0]))]
       svs = [k for (k, _) in sv2score_sorted]
       scores = [v for (_, v) in sv2score_sorted]
       query2result[q] = vars.VarCandidates(svs=svs,
@@ -143,6 +137,7 @@ class Embeddings:
   #
   def detect_svs(self,
                  orig_query: str,
+                 threshold: float = constants.SV_SCORE_DEFAULT_THRESHOLD,
                  skip_multi_sv: bool = False) -> Dict[str, Union[Dict, List]]:
     # Remove all stop-words.
     query_monovar = utils.remove_stop_words(orig_query,
@@ -156,7 +151,7 @@ class Embeddings:
       # Try to detect multiple SVs.  Use the original query so that
       # the logic can rely on stop-words like `vs`, `and`, etc as hints
       # for SV delimiters.
-      result_multivar = self._detect_multiple_svs(orig_query)
+      result_multivar = self._detect_multiple_svs(orig_query, threshold)
       multi_sv = vars.multivar_candidates_to_dict(result_multivar)
 
     # TODO: Rename SV_to_Sentences for consistency.
@@ -171,7 +166,8 @@ class Embeddings:
   # Detects one or more SVs from the query.
   # TODO: Fix the query upstream to ensure the punctuations aren't stripped.
   #
-  def _detect_multiple_svs(self, query: str) -> vars.MultiVarCandidates:
+  def _detect_multiple_svs(self, query: str,
+                           threshold: float) -> vars.MultiVarCandidates:
     #
     # Prepare a combination of query-sets.
     #
@@ -237,7 +233,7 @@ class Embeddings:
           total += score
           candidate.parts.append(part)
 
-        if lowest < _SV_SCORE_THRESHOLD:
+        if lowest < threshold:
           # A query-part's best SV did not cross our score threshold,
           # so drop this candidate.
           continue

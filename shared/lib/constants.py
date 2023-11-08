@@ -403,8 +403,19 @@ NON_GEO_PLACE_TYPES: FrozenSet[str] = frozenset([
     "school",
 ])
 
+# The default Cosine score threshold beyond which Stat Vars
+# are considered as a match.
+SV_SCORE_DEFAULT_THRESHOLD = 0.5
+
+# The default Cosine score threshold beyond which Stat Vars
+# are considered a high confidence match.
+SV_SCORE_HIGH_CONFIDENCE_THRESHOLD = 0.7
+
 # A cosine score differential we use to indicate if scores
 # that differ by up to this amount are "near" SVs.
 # In Multi-SV detection, if the difference between successive scores exceeds
 # this threshold, then SVs at the lower score and below are ignored.
 MULTI_SV_SCORE_DIFFERENTIAL = 0.05
+
+# English language code.
+EN_LANG_CODE = 'en'

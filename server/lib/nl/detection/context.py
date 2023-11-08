@@ -22,7 +22,6 @@ from typing import List
 from server.lib.explore.params import Params
 from server.lib.nl.common import constants
 from server.lib.nl.common import serialize
-import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.detection.types import ClassificationType
@@ -43,7 +42,8 @@ _MAX_RETURNED_VARS = 20
 # context in both the utterance inline and in `insight_ctx`.
 #
 # TODO: Handle OVERVIEW query (for Explore)
-def merge_with_context(uttr: nl_uttr.Utterance, is_sdg: bool):
+def merge_with_context(uttr: nl_uttr.Utterance, is_sdg: bool,
+                       use_default_place: bool):
   data_dict = {}
 
   # 1. Route comparison vs. correlation query.
@@ -92,7 +92,9 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_sdg: bool):
       uttr,
       place_type,
       query_type == nl_uttr.QueryType.COMPARISON_ACROSS_PLACES,
-      is_sdg=is_sdg)
+      is_sdg=is_sdg,
+      use_default_place=use_default_place,
+  )
 
   # 5. Detect SVs leveraging context.
   main_vars, cmp_vars = _detect_vars(
@@ -178,7 +180,8 @@ def _get_multi_sv_pair(uttr: nl_uttr.Utterance) -> List[str]:
 
 
 def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
-                   is_cmp: bool, is_sdg: bool) -> List[str]:
+                   is_cmp: bool, is_sdg: bool,
+                   use_default_place: bool) -> List[str]:
   places = []
   cmp_places = []
   #
@@ -281,11 +284,13 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
     if is_sdg:
       uttr.places = [constants.EARTH]
       places = [constants.EARTH_DCID]
-    else:
+      uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
+      uttr.past_source_context = constants.EARTH.name
+    elif use_default_place:
       uttr.places = [constants.USA]
       places = [constants.USA.dcid]
-    uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
-    uttr.past_source_context = constants.USA.name
+      uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
+      uttr.past_source_context = constants.USA.name
 
   return places, cmp_places
 

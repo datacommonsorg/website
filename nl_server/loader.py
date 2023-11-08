@@ -12,112 +12,111 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 import os
+from typing import Any, Dict
 
-from nl_server import gcs
-from nl_server.embeddings import Embeddings
-from nl_server.ner_place_model import NERPlaces
+import yaml
 
-nl_embeddings_cache_key_base = 'nl_embeddings'
-nl_ner_cache_key = 'nl_ner'
-nl_cache_path = '~/.datacommons/'
-nl_cache_expire = 3600 * 24  # Cache for 1 day
-nl_cache_size_limit = 16e9  # 16Gb local cache size
+from nl_server import config
+from nl_server import embeddings_store
+from nl_server.nl_attribute_model import NLAttributeModel
 
-DEFAULT_INDEX_TYPE = 'medium_ft'
+_MODEL_YAML = 'models.yaml'
+_EMBEDDINGS_YAML = 'embeddings.yaml'
+_CUSTOM_EMBEDDINGS_YAML = 'custom_embeddings.yaml'
 
-
-def nl_embeddings_cache_key(index_type=DEFAULT_INDEX_TYPE):
-  return f'{nl_embeddings_cache_key_base}_{index_type}'
-
-
-def embeddings_config_key(index_type):
-  return f'NL_EMBEDDINGS_{index_type.upper()}'
+NL_CACHE_PATH = '~/.datacommons/'
+NL_EMBEDDINGS_CACHE_KEY = 'nl_embeddings'
+NL_MODEL_CACHE_KEY = 'nl_model'
+_NL_CACHE_EXPIRE = 3600 * 24  # Cache for 1 day
+_NL_CACHE_SIZE_LIMIT = 16e9  # 16Gb local cache size
 
 
-def _use_cache(flask_env):
-  return flask_env in ['local', 'integration_test', 'webdriver']
-
-
-def download_models(models_map):
-  # Download existing models (if not already downloaded).
-  models_downloaded_paths = {}
-  for m in models_map:
-    # Only downloads if not already done so.
-    download_path = gcs.download_model_folder(models_map[m])
-    models_downloaded_paths[models_map[m]] = download_path
-
-  return models_downloaded_paths
-
-
-def load_embeddings(app, embeddings_map, models_downloaded_paths):
+#
+# Reads the yaml files and loads all the server state.
+#
+def load_server_state(app: Any):
   flask_env = os.environ.get('FLASK_ENV')
 
-  # Sanity check that file names aren't mispresented
-  for sz in embeddings_map.keys():
-    if '_ft' in sz:
-      assert '.ft_final' in embeddings_map[
-          sz], f'ft_final not found {embeddings_map[sz]}'
-      size_str = sz.split("_ft")[0]
-      assert size_str in embeddings_map[
-          sz], f'{size_str} not found {embeddings_map[sz]}'
-    else:
-      assert sz in embeddings_map[sz], f'{sz} not found in {embeddings_map[sz]}'
+  embeddings_map, models_map = _load_yamls(flask_env)
 
   # In local dev, cache the embeddings on disk so each hot reload won't download
   # the embeddings again.
   if _use_cache(flask_env):
     from diskcache import Cache
-    cache = Cache(nl_cache_path, size_limit=nl_cache_size_limit)
+    cache = Cache(NL_CACHE_PATH, size_limit=_NL_CACHE_SIZE_LIMIT)
     cache.expire()
 
-    nl_ner_places = cache.get(nl_ner_cache_key)
-    app.config['NL_NER_PLACES'] = nl_ner_places
-
-    missing_embeddings = False
-    for sz in embeddings_map.keys():
-      nl_embeddings = cache.get(nl_embeddings_cache_key(sz))
-      if not nl_embeddings:
-        missing_embeddings = True
-        break
-      app.config[embeddings_config_key(sz)] = nl_embeddings
-
-    if nl_ner_places and not missing_embeddings:
-      logging.info("Using cached embeddings and NER in: " + cache.directory)
+    nl_model = cache.get(NL_MODEL_CACHE_KEY)
+    nl_embeddings = cache.get(NL_EMBEDDINGS_CACHE_KEY)
+    if nl_model and nl_embeddings:
+      app.config[config.NL_MODEL_KEY] = nl_model
+      app.config[config.NL_EMBEDDINGS_KEY] = nl_embeddings
+      app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_map
       return
 
-  # Download the embeddings from GCS
-  for sz in sorted(embeddings_map.keys()):
-    assert sz in embeddings_map, f'{sz} missing from {embeddings_map}'
-
-    existing_model_path = ""
-    for model_key, model_path in models_downloaded_paths.items():
-      if model_key in embeddings_map[sz]:
-        existing_model_path = model_path
-        print(
-            f"Using existing model {model_key} for embeddings ({sz}) version: {embeddings_map[sz]}"
-        )
-        break
-
-    # Checking that the finetuned embeddings have the finetuned model.
-    if "_ft" in sz:
-      assert existing_model_path, f"Could not find a finetuned model for finetuned embeddings ({sz}) version: {embeddings_map[sz]}"
-
-    print(
-        f"Building an Embeddings object with the model: {existing_model_path} (empty means default) and embeddings file ({sz}) version: {embeddings_map[sz]}."
-    )
-    nl_embeddings = Embeddings(gcs.download_embeddings(embeddings_map[sz]),
-                               existing_model_path)
-    app.config[embeddings_config_key(sz)] = nl_embeddings
-
-  nl_ner_places = NERPlaces()
-  app.config["NL_NER_PLACES"] = nl_ner_places
+  nl_embeddings = embeddings_store.Store(config.load(embeddings_map,
+                                                     models_map))
+  nl_model = NLAttributeModel()
+  app.config[config.NL_MODEL_KEY] = nl_model
+  app.config[config.NL_EMBEDDINGS_KEY] = nl_embeddings
+  app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_map
 
   if _use_cache(flask_env):
-    with Cache(cache.directory, size_limit=nl_cache_size_limit) as reference:
-      for sz in embeddings_map.keys():
-        reference.set(nl_embeddings_cache_key(sz),
-                      app.config[embeddings_config_key(sz)],
-                      expire=nl_cache_expire)
-      reference.set(nl_ner_cache_key, nl_ner_places, expire=nl_cache_expire)
+    with Cache(cache.directory, size_limit=_NL_CACHE_SIZE_LIMIT) as reference:
+      reference.set(NL_EMBEDDINGS_CACHE_KEY,
+                    nl_embeddings,
+                    expire=_NL_CACHE_EXPIRE)
+      reference.set(NL_MODEL_CACHE_KEY, nl_model, expire=_NL_CACHE_EXPIRE)
+
+
+def _load_yamls(flask_env: str) -> tuple[Dict[str, str], Dict[str, str]]:
+  with open(get_env_path(flask_env, _MODEL_YAML)) as f:
+    models_map = yaml.full_load(f)
+  assert models_map, 'No models.yaml found!'
+
+  with open(get_env_path(flask_env, _EMBEDDINGS_YAML)) as f:
+    embeddings_map = yaml.full_load(f)
+  assert embeddings_map, 'No embeddings.yaml found!'
+
+  custom_map = _maybe_load_custom_dc_yaml()
+  if custom_map:
+    embeddings_map.update(custom_map)
+
+  return embeddings_map, models_map
+
+
+def _maybe_load_custom_dc_yaml():
+  # The path comes from:
+  # https://github.com/datacommonsorg/website/blob/master/server/routes/admin/html.py#L39-L40
+  base = os.environ.get('SQL_DATA_PATH')
+  if not base:
+    return None
+
+  # TODO: Consider reading the base path from a "version.txt" instead
+  # of hardcoding `data`
+  file_path = os.path.join(base, f'data/nl/{_CUSTOM_EMBEDDINGS_YAML}')
+
+  if os.path.exists(file_path):
+    with open(file_path) as f:
+      return yaml.full_load(f)
+
+  return None
+
+
+#
+# On prod the yaml files are in /datacommons/nl/, whereas
+# in test-like environments it is the checked in path
+# (deploy/nl/).
+#
+def get_env_path(flask_env: str, file_name: str) -> str:
+  if flask_env in ['local', 'test', 'integration_test', 'webdriver']:
+    return os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        f'deploy/nl/{file_name}')
+
+  return f'/datacommons/nl/{file_name}'
+
+
+def _use_cache(flask_env):
+  return flask_env in ['local', 'integration_test', 'webdriver']

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { StatVarSpec } from "../../shared/types";
 
 /**
  * Types and interfaces shared by tiles
@@ -42,6 +42,13 @@ export interface ChartOptions {
   colors?: string[];
   // footnote to add the the bottom
   footnote?: string;
+  // text to put under title
+  subtitle?: string;
+  // height, in px, for the SVG chart
+  svgChartHeight: number;
+  // TODO: implement placeNameProp for GAUGE and DONUT.
+  // TODO: implement getProcessedSVNameFn for DONUT, GAUGE, MAP, SCATTER.
+  // TODO: implement colors for SCATTER.
 }
 
 /**
@@ -49,7 +56,7 @@ export interface ChartOptions {
  *  - GAUGE, HIGHLIGHT
  */
 export interface SinglePlaceSingleVariableTileProp extends TileProp {
-  place: NamedTypedPlace;
+  place: string;
   variable: StatVarSpec;
 }
 
@@ -58,7 +65,7 @@ export interface SinglePlaceSingleVariableTileProp extends TileProp {
  *  - DONUT
  */
 export interface SinglePlaceMultiVariableTileProp extends TileProp {
-  place: NamedTypedPlace;
+  place: string;
   variables: StatVarSpec[];
 }
 
@@ -67,7 +74,7 @@ export interface SinglePlaceMultiVariableTileProp extends TileProp {
  *  - TODO: Implement multi-place, single var for donut tile
  */
 export interface MultiPlaceSingleVariableTileProp extends TileProp {
-  places: NamedTypedPlace[];
+  places: string[];
   variable: StatVarSpec;
 }
 
@@ -76,7 +83,7 @@ export interface MultiPlaceSingleVariableTileProp extends TileProp {
  *  - BAR, LINE
  */
 export interface MultiPlaceMultiVariableTileProp extends TileProp {
-  places: NamedTypedPlace[];
+  places: string[];
   variables: StatVarSpec[];
 }
 
@@ -86,7 +93,7 @@ export interface MultiPlaceMultiVariableTileProp extends TileProp {
  */
 export interface ContainedInPlaceSingleVariableTileProp extends TileProp {
   enclosedPlaceType: string;
-  parentPlace: NamedTypedPlace;
+  parentPlace: string;
   variable: StatVarSpec;
 }
 
@@ -96,6 +103,25 @@ export interface ContainedInPlaceSingleVariableTileProp extends TileProp {
  */
 export interface ContainedInPlaceMultiVariableTileProp extends TileProp {
   enclosedPlaceType: string;
-  parentPlace: NamedTypedPlace;
+  parentPlace: string;
   variables: StatVarSpec[];
+}
+
+/**
+ * Allow both multiple places or contained-in places
+ *  - BAR, LINE
+ */
+export type MultiOrContainedInPlaceMultiVariableTileType =
+  | MultiPlaceMultiVariableTileProp
+  | ContainedInPlaceMultiVariableTileProp;
+
+/**
+ * DataSpec options for Map Tile
+ * TODO: Extend this for other tile types
+ *       and deprecate the *TileProp interfaces
+ */
+export interface ContainedInPlaceSingleVariableDataSpec {
+  enclosedPlaceType: string;
+  parentPlace: string;
+  variable: StatVarSpec;
 }
