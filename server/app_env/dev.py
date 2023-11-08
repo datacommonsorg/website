@@ -23,4 +23,3 @@ class Config(_base.Config):
   USE_PALM = True
   HIDE_DEBUG = False
   USE_MEMCACHE = False
-
