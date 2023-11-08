@@ -1,33 +1,33 @@
 {#-
- Copyright 2023 Google LLC
+Copyright 2023 Google LLC
 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 -#}
 
 
 {#-
-  Required variables:
-  title: page title
-  main_id: DOM Element ID for the main content block
-  page_id: DOM Element ID for the html element
+Required variables:
+title: page title
+main_id: DOM Element ID for the main content block
+page_id: DOM Element ID for the html element
 
-  Optional variables:
-  locale: string, value for html lang attr
-  subpage_title: string, if specified, will be displayed in the header next to Data Commons
+Optional variables:
+locale: string, value for html lang attr
+subpage_title: string, if specified, will be displayed in the header next to Data Commons
 
-  Blocks to override:
-  head - additional head elements
-  content - main page content
+Blocks to override:
+head - additional head elements
+content - main page content
 -#}
 <!DOCTYPE html>
 
@@ -39,7 +39,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
+  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css' , t=config['VERSION'])}}>
   {% block head %}
   {% endblock %}
   {% if OVERRIDE_CSS_PATH %}
@@ -59,9 +59,9 @@
           <div class="navbar-brand">
             {% if LOGO_PATH %}
             <div id="main-header-logo">
-                <a href="{{ url_for('static.homepage') }}">
-                  <img src="{{ LOGO_PATH }}" />
-                </a>
+              <a href="{{ url_for('static.homepage') }}">
+                <img src="{{ LOGO_PATH }}" />
+              </a>
             </div>
             {% endif %}
             <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
@@ -79,23 +79,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
-            <ul class="navbar-nav float-md-right">
-                <li class="nav-item dropdown">
-                    <a href="{{ url_for('tools.timeline') }}" id="nav-timeline" class="nav-link-main "><span>Timeline</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="{{ url_for('tools.scatter') }}" id="nav-scatter" class="nav-link-main"><span>Scatter</span> </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="{{ url_for('tools.map') }}" id="nav-map" class="nav-link-main "><span>Map</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="{{ url_for('tools.download') }}" id="nav-map" class="nav-link-main "><span>Download</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="{{ url_for('tools.stat_var') }}" id="nav-map" class="nav-link-main "><span>Variables</span></a>
-                </li>
-            </ul>
+            {% include 'custom_dc/one/partials/menu.html' %}
           </div>
         </div>
       </nav>
@@ -108,7 +92,7 @@
 
     <footer id="main-footer">
       <div class="container">
-        footer
+        {% include 'custom_dc/one/partials/footer.html' %}
       </div>
     </footer>
   </div>

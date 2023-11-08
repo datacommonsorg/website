@@ -1,0 +1,28 @@
+<ul class="navbar-nav float-md-right">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" aria-label="Show exploration tools">
+            Explore
+        </a>
+        <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
+            <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">Timeline</a>
+            <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">Scatter</a>
+            <a class="dropdown-item" href="{{ url_for('tools.map') }}">Map</a>
+            <a class="dropdown-item" href="{{ url_for('tools.download') }}">Download</a>
+            <a class="dropdown-item" href="{{ url_for('tools.stat_var') }}">Variables</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="https://data.one.org" target="_blank">Aftershocks</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="nav-dataoneorg-dropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" aria-label="Show data.one.org links">
+            data.one.org
+        </a>
+        <div class="dropdown-menu" aria-labelledby="nav-dataoneorg-dropdown">
+            <a class="dropdown-item" href="{{ url_for('tools.timeline') }}" target="_blank">Economies</a>
+            <a class="dropdown-item" href="{{ url_for('tools.scatter') }}" target="_blank">Topics</a>
+            <a class="dropdown-item" href="{{ url_for('tools.map') }}" target="_blank">Data Dives</a>
+        </div>
+    </li>
+</ul>
