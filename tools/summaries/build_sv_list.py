@@ -11,14 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Filters place explorer chart configs for prompt generation.
 
 Currently only saves Overview stat vars.
 """
 
-import logging
 import json
+import logging
 import os
 
 from absl import app
@@ -41,9 +40,9 @@ def process_chart_config_list(config_json):
 
     for sv in config['statsVars']:
       result_list.append({
-        'sv': sv,
-        'unit': config.get('unit', ''),
-        'scaling': config.get('scaling', ''),
+          'sv': sv,
+          'unit': config.get('unit', ''),
+          'scaling': config.get('scaling', ''),
       })
   return results
 
@@ -54,7 +53,8 @@ def process_chart_configs():
     for file in files:
       if not file.name.endswith('.json'):
         continue
-      with open(os.path.join(PLACE_EXPLORER_CONFIG_PATH, file.name), 'r') as jsonf:
+      with open(os.path.join(PLACE_EXPLORER_CONFIG_PATH, file.name),
+                'r') as jsonf:
         logging.info(f'Processing {file.name}')
         config = json.loads(jsonf.read())
         result = process_chart_config_list(config)

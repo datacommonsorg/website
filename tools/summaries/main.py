@@ -29,7 +29,8 @@ FLAGS = flags.FLAGS
 flags.DEFINE_boolean('save_prompts', False, 'Saves prompts to output file')
 flags.DEFINE_string('places_in_file', 'places.json',
                     'Place input file to generate summaries for')
-flags.DEFINE_string('sv_in_file', 'stat_vars.json', 'Stat var list to process rankings from')
+flags.DEFINE_string('sv_in_file', 'stat_vars.json',
+                    'Stat var list to process rankings from')
 flags.DEFINE_string('summary_out_file',
                     '../../server/config/summaries/place_summaries.json',
                     'Summary output file')
@@ -52,8 +53,9 @@ def get_ranking_summaries(places_by_type: dict, svs_by_category: dict):
   for place_type, places in places_by_type.items():
     unordered_summaries = {}
     tuples = list(
-        starmap(lambda dcid, place_name: (dcid, place_name, place_type, sv_list),
-                places.items()))
+        starmap(
+            lambda dcid, place_name: (dcid, place_name, place_type, sv_list),
+            places.items()))
     with multiprocessing.Pool(processes=FLAGS.num_processes,
                               initializer=parse_flags) as pool:
       for dcid, name, (prompt, summary) in pool.imap_unordered(
@@ -71,15 +73,16 @@ def get_ranking_summaries(places_by_type: dict, svs_by_category: dict):
 
 def get_ranking_summary_with_tuple(tuple):
   dcid, name, place_type_plural, sv_list = tuple
-  return (dcid, name, get_ranking_summary(dcid, name, place_type_plural, sv_list))
+  return (dcid, name, get_ranking_summary(dcid, name, place_type_plural,
+                                          sv_list))
 
 
 def get_ranking_summary(dcid: str, place_name: str, place_type: str, sv_list):
   ranking_data = dc.get_ranking_data(dcid, sv_list)
   data_tables = dc.get_data_series(dcid, sv_list)
   # TODO: Insert SV selection step here
-  prompt, summary = palm.get_summary(place_name, place_type, sv_list, ranking_data,
-                                     data_tables)
+  prompt, summary = palm.get_summary(place_name, place_type, sv_list,
+                                     ranking_data, data_tables)
   logging.info("Ranking summary for: %s (%s)\n%s", dcid, place_name, summary)
   return prompt, summary
 

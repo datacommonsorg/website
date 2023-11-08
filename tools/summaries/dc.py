@@ -15,9 +15,9 @@
 import json
 import logging
 import os
+from typing import Dict, List
 
 from absl import flags
-from typing import Dict, List
 import requests
 
 FLAGS = flags.FLAGS
@@ -25,9 +25,7 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string('dc_base_url', 'https://api.datacommons.org',
                     'Mixer instance to query')
 
-_WANTED_PARENT_TYPES = [
-  "County", "State", "Country"
-]
+_WANTED_PARENT_TYPES = ["County", "State", "Country"]
 
 _API_KEY = os.getenv("MIXER_API_KEY")
 assert _API_KEY, "$MIXER_API_KEY must be specified."

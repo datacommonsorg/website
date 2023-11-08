@@ -126,13 +126,11 @@ def get_summary(place_name: str, place_type: str, sv_list: List, rankings: Dict,
     timeseries = data_tables[sv].get('val', {})
     logging.debug(timeseries)
 
-    prompt = _SERIES_PROMPT.format(
-      examples=_POPULATION_EXAMPLE,
-      place_type=place_type,
-      place_name=place_name,
-      ranking=ranking_text,
-      timeseries=timeseries
-    )
+    prompt = _SERIES_PROMPT.format(examples=_POPULATION_EXAMPLE,
+                                   place_type=place_type,
+                                   place_name=place_name,
+                                   ranking=ranking_text,
+                                   timeseries=timeseries)
     prompts.append(f"{ranking_text}\n{timeseries}")
     response = request_palm(prompt)
     candidates.append("- " + response)
