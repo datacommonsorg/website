@@ -1,0 +1,32 @@
+#main-nav {
+    .dropdown-item,
+    .nav-link {
+        font-size: 1.15rem;
+        text-transform: uppercase;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        line-height: 1.2;
+    }
+
+    .nav-item {
+        &.show {
+            a.nav-link {
+                font-weight: 600;
+            }
+        }
+    }
+
+    .dropdown-menu {
+        border-radius: 0;
+        border-color: var(--dc-primary);
+        padding: 0;
+    }
+
+    .dropdown-item {
+        padding: 1rem 1.5rem;
+        &:not(:last-child) {
+            border-bottom: 1px solid var(--dc-primary);
+        }
+    }
+}
