@@ -69,9 +69,13 @@ def load_custom_embeddings(app: Flask):
   This method should only be called at runtime (i.e. NOT at startup).
   It assumes that embeddings were already initialized at startup and this method
   only merges any newly loaded custom embeddings with the default embeddings.
+
+  NOTE that this method requires that the custom embeddings be available 
+  on a local path.
   """
   flask_env = os.environ.get('FLASK_ENV')
   embeddings_map, _ = _load_yamls(flask_env)
+  # TODO: call config._parse() to parse embeddings and assert that the path is local.
   custom_embeddings_local_path = embeddings_map.get(config.CUSTOM_DC_INDEX)
   if not custom_embeddings_local_path:
     logging.warning("No custom DC embeddings found, so none will be loaded.")
@@ -119,7 +123,7 @@ def _update_app_config(app: Flask, nl_model: NLAttributeModel,
   app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_map
 
 
-def _maybe_cache(flask_env, nl_embeddings: embeddings_store.Store,
+def _maybe_cache(flask_env: str, nl_embeddings: embeddings_store.Store,
                  nl_model: NLAttributeModel):
   if not nl_embeddings and not nl_model:
     return

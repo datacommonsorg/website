@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import dataclasses
+import copy
 import logging
 import os
 import shutil
@@ -39,7 +39,7 @@ class Store:
 
     # If a new custom index is loaded after startup, it will be merged with the
     # original default index maintained under this variable.
-    self.original_default_idx = dataclasses.replace(default_idx)
+    self.original_default_idx = copy.copy(default_idx)
 
     if custom_idx:
       default_idx.embeddings_local_path = _merge_custom_index(
@@ -62,7 +62,7 @@ class Store:
     This method will be called if a new custom index is loaded at runtime
     via the /api/load/ call.
     """
-    default_idx = dataclasses.replace(self.original_default_idx)
+    default_idx = copy.copy(self.original_default_idx)
     default_idx.embeddings_local_path = _merge_custom_index(
         default_idx, custom_idx)
     self.embeddings_map.update({
@@ -123,6 +123,8 @@ def _merge_custom_index(default: EmbeddingsIndex,
   custom_df = pd.read_csv(custom.embeddings_local_path)
   # Append custom embeddings to output file.
   with open(output_embeddings_path, "a") as out:
+    # Custom embeddings csv have a header row
+    # which needs to be removed when appending it.
     out.write(custom_df.to_csv(header=None, index=False))
 
   logging.info(
