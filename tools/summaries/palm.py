@@ -14,7 +14,7 @@
 
 import logging
 import os
-from typing import List
+from typing import Dict, List
 
 import requests
 
@@ -22,28 +22,14 @@ _API_KEY = os.getenv("PALM_API_KEY")
 _API_URL = "https://generativelanguage.googleapis.com/v1beta3/models/text-bison-001:generateText"
 _TEMPERATURE = 0.2
 
-_POPULATION_EXAMPLE = """
-Ranked 1 of 793 cities in Texas by population. Summary: Most populous city in Texas.
-Ranked 4 of 10288 cities in United States of America by population. Summary: 4th most populous city in United States.
-Ranked 2 of 2 cities in Furnas County by Population. Summary: Least populous city in Furnas County.
-Ranked 110 of 111 cities in Nebraska by population. Summary: 2nd least populous city in Nebraska.
-Ranked 10275 of 10288 cities in United States of America by Population. Summary: 14th least populous city in United States.
-Ranked 10276 of 10288 cities in United States of America by Population. Summary: 13th least populous city in United States.
-Ranked 10277 of 10288 cities in United States of America by Population. Summary: 12th least populous city in United States.
-Ranked 791 of 793 cities in Texas by population. Summary: 3rd least populous in Texas.
-Ranked 3 of 3 cities in St Johns County by Population. Summary: Least populous city in St Johns County.
-Ranked 339 of 339 cities in Missouri by population. Summary: Least populous city in Missouri.
-"""
+_PLACE_TYPE_PLURAL = {
+    "city": "cities",
+    "state": "states",
+}
 
-# FYI - it did not work to include multiple ranking types in the examples.
-_FIXME = """
-Ranked 1 of 793 cities in Texas by population. Summary: Most populous city in Texas.
-Ranked 4 of 10288 cities in United States of America by median income. Summary: City with 4th highest median income in United States.
-Ranked 2 of 2 cities in Furnas County by Population. Summary: Least populous city in Furnas County.
-Ranked 110 of 111 cities in Nebraska by Median age. Summary: City with 2nd lowest median age in Nebraska.
-Ranked 10275 of 10288 cities in United States of America by Population. Summary: 14th least populous city in United States.
-Ranked 791 of 793 cities in Texas by median income. Summary: City with 3rd lowest median income in Texas.
-Ranked 339 of 339 cities in Missouri by median age. Summary: Youngest city in Missouri by median age.
+_POPULATION_EXAMPLE = """
+Ranked 1 of cities in Texas by population. Summary: Most populous city in Texas.
+Ranked 4 of cities in United States of America by population. Summary: 4th most populous city in United States.
 """
 
 _SERIES_PROMPT = """
@@ -56,7 +42,8 @@ Examples: {examples}
 
 Prompt:
 - {place_type}: {place_name}
-{ranking_data}
+- {ranking}
+- Values: {timeseries}
 
 Summary:
 """
@@ -74,13 +61,6 @@ Summary:
 """
 
 assert _API_KEY, "$PALM_API_KEY must be specified."
-
-# Ranking key -> data_table key
-_TABLE_KEYS = {
-    "Largest Population": "Count_Person",
-    # "Highest Median Income": "Median_Income_Person",
-    # "Highest Median Age": "Median_Age_Person",
-}
 
 
 def strip_superlatives(label: str) -> str:
@@ -110,34 +90,48 @@ def request_palm(prompt):
   return generated_text
 
 
-def get_summary(place_name: str, place_type: str, rankings: str,
-                data_tables: List[str]):
+def get_summary(place_name: str, place_type: str, sv_list: List, rankings: Dict,
+                data_tables: List):
   """Generates an overview summary for a place"""
+  place_parents = rankings['parents']
+  # parent_dcid -> { dcid, name, place_type }
+  parent_info = {}
+  for parent in reversed(place_parents):
+    parent_info[parent['dcid']] = parent
+
+  # Select sv's - naively keep any sv that is in the top 5, preferring country > state > county.
+  kept_rankings = {}
+  for sv in sv_list:
+    for parent in reversed(place_parents):
+      parent_dcid = parent['dcid']
+      sv_rank = rankings[parent_dcid].get('data', {}).get(sv, None)
+      if not sv_rank:
+        continue
+      if sv_rank['rankFromTop'] < 5:
+        sv_rank['parent'] = parent_dcid
+        if not kept_rankings.get(sv, None):
+          kept_rankings[sv] = sv_rank
+        break
+  logging.debug(kept_rankings)
+
+  place_type_plural = _PLACE_TYPE_PLURAL[place_type]
   candidates = []
   prompts = []
-  for ranking_key, data_table_key in _TABLE_KEYS.items():
-    if not ranking_key in rankings:
-      logging.info(f"Skipping {ranking_key} for {place_name}")
-      continue
-    if not data_table_key in data_tables:
-      logging.info(f"Skipping {data_table_key} for {place_name}")
-      continue
-    key = strip_superlatives(ranking_key)
-    ranking_data = '\n'.join([
-        f"- {strip_superlatives(ranking)}" for ranking in rankings[ranking_key]
-    ])
-    prompt_keys = {
-        "examples": _POPULATION_EXAMPLE,
-        "place_type": place_type,
-        "place_name": place_name,
-        "ranking_key": key,
-        "ranking_data": ranking_data,
-        "data_table": data_tables[data_table_key]
-    }
-    prompt = _SERIES_PROMPT.format(**prompt_keys)
-    prompts.append(
-        ranking_data)  # Add other data to the saved prompt for debugging
+  for sv, rank_info in kept_rankings.items():
+    # TODO: Pull in SV titles from KG
+    ranking_text = f"Ranked {rank_info['rankFromTop']} of {place_type_plural} in {parent_info[rank_info['parent']]['name']} by {sv}"
+    logging.debug(ranking_text)
 
+    # TODO: append unit if applicable
+    timeseries = data_tables[sv].get('val', {})
+    logging.debug(timeseries)
+
+    prompt = _SERIES_PROMPT.format(examples=_POPULATION_EXAMPLE,
+                                   place_type=place_type,
+                                   place_name=place_name,
+                                   ranking=ranking_text,
+                                   timeseries=timeseries)
+    prompts.append(f"{ranking_text}\n{timeseries}")
     response = request_palm(prompt)
     candidates.append("- " + response)
 
