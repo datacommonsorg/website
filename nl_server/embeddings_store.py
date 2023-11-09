@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import dataclasses
 import logging
 import os
 from typing import List
@@ -30,10 +31,15 @@ from nl_server.embeddings import Embeddings
 class Store:
 
   def __init__(self, indexes: List[EmbeddingsIndex]):
-    self.embeddings_map = {}
+    self.embeddings_map: dict[str, Embeddings] = {}
 
     # If there is a custom DC index, merge the embeddings into default DC index.
     default_idx, custom_idx = _get_default_and_custom(indexes)
+
+    # If a new custom index is loaded after startup, it will be merged with the
+    # original default index maintained under this variable.
+    self.original_default_idx = dataclasses.replace(default_idx)
+
     if custom_idx:
       default_idx.embeddings_local_path = _merge_custom_index(
           default_idx, custom_idx)
@@ -48,6 +54,24 @@ class Store:
   # Note: The caller takes care of exceptions.
   def get(self, index_type: str = DEFAULT_INDEX_TYPE) -> Embeddings:
     return self.embeddings_map.get(index_type)
+
+  def merge_custom_index(self, custom_idx: EmbeddingsIndex):
+    """Merges the specified custom index with the default index.
+
+    This method will be called if a new custom index is loaded at runtime
+    via the /api/load/ call.
+    """
+    default_idx = dataclasses.replace(self.original_default_idx)
+    default_idx.embeddings_local_path = _merge_custom_index(
+        default_idx, custom_idx)
+    self.embeddings_map.update({
+        custom_idx.name:
+            Embeddings(custom_idx.embeddings_local_path,
+                       custom_idx.tuned_model_local_path),
+        default_idx.name:
+            Embeddings(default_idx.embeddings_local_path,
+                       default_idx.tuned_model_local_path)
+    })
 
 
 #
