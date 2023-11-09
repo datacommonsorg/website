@@ -78,6 +78,10 @@ module.exports = {
         { from: 'one/css/overrides.css', to: path.resolve(__dirname, '../custom_dc/one/overrides.css') },
         // Copy the overrides.css file to the server/dist/custom_dc directory
         { from: 'one/css/overrides.css', to: path.resolve(__dirname, '../../server/dist/custom_dc/one/overrides.css') },
+        // Copy the entire fonts directory to the custom_dc directory
+        { from: 'one/fonts', to: path.resolve(__dirname, '../custom_dc/one/fonts') },
+        // Copy the entire fonts directory to the server/dist/custom_dc directory
+        { from: 'one/fonts', to: path.resolve(__dirname, '../../server/dist/custom_dc/one/fonts') },
       ],
     }),
   ],
