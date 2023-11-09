@@ -15,6 +15,7 @@
 import dataclasses
 import logging
 import os
+import shutil
 from typing import List
 
 import pandas as pd
@@ -112,14 +113,17 @@ def _merge_custom_index(default: EmbeddingsIndex,
       os.path.dirname(default.embeddings_local_path),
       'WithCustom_' + os.path.basename(default.embeddings_local_path))
 
-  main_df = pd.read_csv(default.embeddings_local_path)
-  custom_df = pd.read_csv(custom.embeddings_local_path)
-  assert main_df.columns.equals(custom_df.columns), \
-    'Main vs. custom embeddings CSV columns differ!'
+  # We merge by first doing a file copy of the main embeddings (vs loading to a dataframe)
+  # followed by loading custom DC embeddings to a dataframe and appending them.
+  # This significantly reduces the merge time (from 7-10 seconds to 150-200 ms).
 
-  # Set ignore_index to reset index in output
-  concat_df = pd.concat([main_df, custom_df], ignore_index=True)
-  concat_df.to_csv(output_embeddings_path, index=False)
+  # First copy default embeddings to output file.
+  shutil.copy(default.embeddings_local_path, output_embeddings_path)
+  # Load custom embeddings into a dataframe
+  custom_df = pd.read_csv(custom.embeddings_local_path)
+  # Append custom embeddings to output file.
+  with open(output_embeddings_path, "a") as out:
+    out.write(custom_df.to_csv(header=None, index=False))
 
   logging.info(
       f'Concatenated main {default.embeddings_local_path} with '
