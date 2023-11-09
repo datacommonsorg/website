@@ -8,8 +8,9 @@
 
 #main-header {
 
-    box-shadow: none;
-
+    border-bottom: 1px solid var(--dc-primary);
+    box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.10);
+    
     #main-header-logo img {
         width: 60px;
         height: auto;
