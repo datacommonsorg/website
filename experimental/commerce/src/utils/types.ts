@@ -26,9 +26,10 @@ export interface ChartConfigColumn {
 }
 export interface ChartConfigBlock {
   columns: ChartConfigColumn[];
-  title: string;
+  denom: string;
   description?: string;
   footnote?: string;
+  title: string;
 }
 
 export interface StatVarSpec {

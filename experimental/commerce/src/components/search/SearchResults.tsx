@@ -28,7 +28,7 @@ import {
 } from "../../utils/constants";
 
 import {
-  ChartConfigCategory,
+  ChartConfigBlock,
   ChartConfigTile,
   FulfillResponse,
   RelatedTopic,
@@ -45,7 +45,7 @@ import {
 } from "../shared/components";
 
 import _ from "lodash";
-import { Col, Row } from "reactstrap";
+import { Col, Input, Row } from "reactstrap";
 
 // Approximate chart heights for lazy-loading
 const CHART_HEIGHT = 389;
@@ -107,6 +107,27 @@ const ChartBlock = styled.div`
 
 const ChartBlockTitle = styled.div`
   font-size: 1.25rem;
+`;
+
+const ShowPerCapitaContainer = styled.div`
+  padding: 14px 0;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .form-check-input {
+    margin: 0;
+    position: relative;
+    height: 18px;
+    width: 18px;
+  }
+
+  span {
+    font-size: 14px;
+  }
 `;
 
 /**
@@ -294,7 +315,7 @@ const ChartContent: React.FC<{
           <ChartCategoryContent
             key={i}
             placeDcids={placeDcids}
-            chartConfigCategory={chartConfigCategory}
+            statVarSpec={chartConfigCategory.statVarSpec}
             fulfillResponse={fulfillResponse}
           />
         ))}
@@ -303,10 +324,10 @@ const ChartContent: React.FC<{
 };
 
 const ChartCategoryContent: React.FC<{
-  chartConfigCategory: ChartConfigCategory;
+  statVarSpec: StatVarSpec;
   fulfillResponse: FulfillResponse;
   placeDcids: string[];
-}> = ({ chartConfigCategory, fulfillResponse, placeDcids }) => {
+}> = ({ statVarSpec, fulfillResponse, placeDcids }) => {
   const tiles: ChartConfigTile[] = [];
   fulfillResponse.config.categories?.forEach((category) => {
     category.blocks.forEach((block) => {
@@ -324,57 +345,90 @@ const ChartCategoryContent: React.FC<{
         {fulfillResponse.config.categories?.map((category, categoryIndex) => (
           <div key={categoryIndex}>
             {category.blocks.map((block, blockIndex) => (
-              <ChartBlock key={blockIndex}>
-                <ChartBlockTitle>{block.title}</ChartBlockTitle>
-                <Row>
-                  {block.columns.map((column, columnIndex) => (
-                    <Col key={columnIndex}>
-                      {column.tiles.map((tile, tileIndex) => (
-                        <ChartTile
-                          fulfillResponse={fulfillResponse}
-                          key={`search-result-tile-${tileIndex}`}
-                          placeDcids={
-                            tile.comparisonPlaces
-                              ? tile.comparisonPlaces
-                              : placeDcids
-                          }
-                          tileWithFootnote={{
-                            tile,
-                          }}
-                          statVarSpec={chartConfigCategory.statVarSpec}
-                        />
-                      ))}
-                    </Col>
-                  ))}
-                </Row>
-              </ChartBlock>
+              <CategoryBlock
+                key={blockIndex}
+                block={block}
+                fulfillResponse={fulfillResponse}
+                showPerCapitaToggle={!!block.denom}
+                placeDcids={placeDcids}
+                statVarSpec={statVarSpec}
+              />
             ))}
           </div>
-        ))}
-        {tiles.map((tile, i) => (
-          <ChartTile
-            fulfillResponse={fulfillResponse}
-            key={`search-result-tile-${i}`}
-            placeDcids={
-              tile.comparisonPlaces ? tile.comparisonPlaces : placeDcids
-            }
-            tileWithFootnote={{
-              tile,
-            }}
-            statVarSpec={chartConfigCategory.statVarSpec}
-          />
         ))}
       </ChartContentBody>
     </ContentCard>
   );
 };
 
+const CategoryBlock: React.FC<{
+  block: ChartConfigBlock;
+  fulfillResponse: FulfillResponse;
+  placeDcids: string[];
+  showPerCapitaToggle: boolean;
+  statVarSpec: StatVarSpec;
+}> = (props) => {
+  const {
+    block,
+    fulfillResponse,
+    placeDcids,
+    showPerCapitaToggle,
+    statVarSpec,
+  } = props;
+  const [perCapita, setPerCapita] = useState(false);
+  return (
+    <ChartBlock>
+      <ChartBlockTitle>{block.title}</ChartBlockTitle>
+
+      {showPerCapitaToggle && (
+        <ShowPerCapitaContainer>
+          <label>
+            <Input
+              type="checkbox"
+              checked={perCapita}
+              onChange={() => setPerCapita(!perCapita)}
+            />
+            See per capita
+          </label>
+        </ShowPerCapitaContainer>
+      )}
+      <Row>
+        {block.columns.map((column, columnIndex) => (
+          <Col key={columnIndex}>
+            {column.tiles.map((tile, tileIndex) => (
+              <ChartTile
+                fulfillResponse={fulfillResponse}
+                key={`search-result-tile-${tileIndex}`}
+                placeDcids={
+                  tile.comparisonPlaces ? tile.comparisonPlaces : placeDcids
+                }
+                tileWithFootnote={{
+                  tile,
+                }}
+                perCapita={perCapita}
+                statVarSpec={statVarSpec}
+              />
+            ))}
+          </Col>
+        ))}
+      </Row>
+    </ChartBlock>
+  );
+};
+
 const ChartTile: React.FC<{
   fulfillResponse: FulfillResponse;
-  statVarSpec: StatVarSpec;
+  perCapita: boolean;
   placeDcids: string[];
+  statVarSpec: StatVarSpec;
   tileWithFootnote: TileWithFootnote;
-}> = ({ fulfillResponse, placeDcids, tileWithFootnote, statVarSpec }) => {
+}> = ({
+  fulfillResponse,
+  perCapita,
+  placeDcids,
+  tileWithFootnote,
+  statVarSpec,
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [isIntersecting, setIntersecting] = useState(false);
@@ -431,6 +485,7 @@ const ChartTile: React.FC<{
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variables={tileStatVars.join(" ")}
+          perCapita={perCapita ? tileStatVars.join(" ") : ""}
           places={placeDcids.join(" ")}
           sort="descending"
           showExploreMore={true}
@@ -452,6 +507,7 @@ const ChartTile: React.FC<{
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variable={tileStatVars.join(" ")}
+          perCapita={perCapita ? tileStatVars.join(" ") : ""}
           place={placeDcid}
         />
       </>
@@ -464,6 +520,7 @@ const ChartTile: React.FC<{
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variables={tileStatVars.join(" ")}
+          perCapita={perCapita ? tileStatVars.join(" ") : ""}
           places={tile.placeDcidOverride || placeDcids.join(" ")}
           variableNameRegex={VARIABLE_NAME_REGEX}
           showExploreMore={true}
@@ -487,6 +544,7 @@ const ChartTile: React.FC<{
           subscribe={channel}
           header={`${tile.title}*`}
           variable={tileStatVars.join(" ")}
+          perCapita={perCapita ? tileStatVars.join(" ") : ""}
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
           showExploreMore={placeType && !NO_MAP_TOOL_PLACE_TYPES.has(placeType)}
@@ -514,6 +572,7 @@ const ChartTile: React.FC<{
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variable={tileStatVars.join(" ")}
+          perCapita={perCapita ? tileStatVars.join(" ") : ""}
           place={placeDcid}
           min="0"
           max="100"
@@ -533,6 +592,7 @@ const ChartTile: React.FC<{
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variables={tileStatVars.join(" ")}
+          perCapita={perCapita ? tileStatVars.join(" ") : ""}
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
           showExploreMore={true}
@@ -553,6 +613,7 @@ const ChartTile: React.FC<{
           parentPlace={placeDcid}
           childPlaceType={childPlaceType}
           variable={tileStatVars.join(" ")}
+          perCapita={perCapita ? tileStatVars.join(" ") : ""}
         />
       </>
     );
