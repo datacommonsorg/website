@@ -22,6 +22,7 @@ from markupsafe import escape
 
 from nl_server import config
 from nl_server import loader
+from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -45,12 +46,24 @@ def search_sv():
   idx = str(escape(request.args.get('idx', config.DEFAULT_INDEX_TYPE)))
   if not idx:
     idx = config.DEFAULT_INDEX_TYPE
+
+  threshold = escape(request.args.get('threshold'))
+  if threshold:
+    try:
+      threshold = float(threshold)
+    except Exception:
+      logging.error(f'Found non-float threshold value: {threshold}')
+      threshold = SV_SCORE_DEFAULT_THRESHOLD
+  else:
+    threshold = SV_SCORE_DEFAULT_THRESHOLD
+
   skip_multi_sv = False
   if request.args.get('skip_multi_sv'):
     skip_multi_sv = True
+
   try:
     nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(idx)
-    return json.dumps(nl_embeddings.detect_svs(query, skip_multi_sv))
+    return json.dumps(nl_embeddings.detect_svs(query, threshold, skip_multi_sv))
   except Exception as e:
     logging.error(f'Embeddings-based SV detection failed with error: {e}')
     return json.dumps({

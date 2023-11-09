@@ -14,79 +14,120 @@
 
 import json
 import logging
+import os
+from typing import Dict, List
 
 from absl import flags
-import pandas as pd
 import requests
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('dc_base_url', 'https://datacommons.org',
-                    'DC instance to query')
+flags.DEFINE_string('dc_base_url', 'https://api.datacommons.org',
+                    'Mixer instance to query')
 
-_RANKING_URL = "{host}/api/place/ranking/{dcid}?all=1"
-_PLACE_DATA_URL = "{host}/api/landingpage/data/{dcid}?category=Overview&hl=en&seed=0"
-_LABEL_KEY = "label"
+_WANTED_PARENT_TYPES = ["County", "State", "Country"]
 
-_SERIES_TO_KEEP = {
-    "Demographics": {
-        "Median Age": "Median_Age_Person",
-        "Population": "Count_Person",
-    },
-    "Economics": {
-        "Median individual income": "Median_Income_Person",
-        # "Unemployment rate": "UnemploymentRate_Person",
-    },
-}
-
-_PLACE_TYPE_PLURAL = {
-    "city": "cities",
-    "state": "states",
-}
+_API_KEY = os.getenv("MIXER_API_KEY")
+assert _API_KEY, "$MIXER_API_KEY must be specified."
 
 
-def get_ranking_data(dcid: str, place_type: str):
-  """Returns ranking data as a list, keyed by rank label"""
-  url = _RANKING_URL.format(host=FLAGS.dc_base_url, dcid=dcid)
-  response = requests.get(url).json()
-  logging.debug("Ranking response:\n%s", json.dumps(response, indent=True))
-  data = {}
-  place_type_plural = _PLACE_TYPE_PLURAL[place_type]
-  for variable, places in response.items():
-    if variable == _LABEL_KEY:
+def get_service_url(path):
+  return FLAGS.dc_base_url + path
+
+
+def post_wrapper(url, req_str: str):
+  req = json.loads(req_str)
+  headers = {'Content-Type': 'application/json'}
+  headers['x-api-key'] = _API_KEY
+  # Send the request and verify the request succeeded
+  logging.debug(f'{url} {req}')
+  response = requests.post(url, json=req, headers=headers)
+  if response.status_code != 200:
+    raise ValueError(
+        'An HTTP {} code ({}) was returned by the mixer: "{}"'.format(
+            response.status_code, response.reason, response.content))
+  return response.json()
+
+
+def post(url: str, req: Dict):
+  req_str = json.dumps(req, sort_keys=True)
+  return post_wrapper(url, req_str)
+
+
+def get_place_info(dcids: List[str]) -> Dict:
+  """Retrieves Place Info given a list of DCIDs."""
+  url = get_service_url("/v1/bulk/info/place")
+  return post(url, {
+      'nodes': sorted(set(dcids)),
+  })
+
+
+def get_parent_places(dcids):
+  """Get the parent place chain for a list of places.
+
+  Args:
+      dcids: A list of place dids.
+
+  Returns:
+      A dictionary of lists of containedInPlace, keyed by dcid.
+  """
+  result = {dcid: {} for dcid in dcids}
+  place_info = get_place_info(dcids)
+  for item in place_info.get('data', []):
+    if 'node' not in item or 'info' not in item:
       continue
+    dcid = item['node']
+    parents = item['info'].get('parents', [])
+    parents = [
+        x for x in parents
+        if ('type' in x and x['type'] in _WANTED_PARENT_TYPES)
+    ]
+    result[dcid] = parents
+  return result
 
-    data[variable] = []
-    for place in places:
-      rank = place["data"]
-      data[variable].append(
-          f"Ranked {rank['rankFromTop']} of {rank['rankFromTop'] + rank['rankFromBottom'] - 1} {place_type_plural} in {place['name']}"
-      )
+
+def get_place_rankings(dcid, variables, ancestor=None, per_capita=False):
+  """Returns rankings for a list of SVs, for a single DCID and ancestor pair."""
+  url = get_service_url("/v1/place/related")
+  req_json = {'dcid': dcid, 'stat_var_dcids': sorted(variables)}
+  if ancestor:
+    req_json['within_place'] = ancestor
+  if per_capita:
+    req_json['is_per_capita'] = per_capita
+  return post(url, req_json)
+
+
+def get_landing_page_data(dcid):
+  """Returns the landing page cache for the Overview page"""
+  req = {'node': dcid, 'category': 'Overview'}
+  url = get_service_url('/v1/internal/page/place')
+  return post(url, req)
+
+
+def get_ranking_data(dcid: str, sv_list):
+  """Returns ranking data as a list, keyed by rank label"""
+  parents = get_parent_places([dcid])[dcid]
+
+  rankings = {}
+  rankings['parents'] = parents
+  for parent in parents:
+    parent_dcid = parent['dcid']
+    parent_rankings = get_place_rankings(dcid, sv_list, parent_dcid)
+    rankings[parent_dcid] = parent_rankings
+
+  logging.debug("Ranking response:\n%s", json.dumps(rankings, indent=True))
+  return rankings
+
+
+def get_data_series(dcid: str, sv_list):
+  """Returns series data as a CSV keyed by stat var"""
+  response = get_landing_page_data(dcid)
+  sv_series = response.get("statVarSeries", {}).get(dcid, {}).get('data', {})
+
+  data = {}
+  for sv in sv_list:
+    series = sv_series.get(sv, None)
+    if series:
+      data[sv] = series
 
   return data
-
-
-def get_data_series(dcid: str, place_name: str):
-  """Returns series data as a CSV keyed by stat var"""
-  url = _PLACE_DATA_URL.format(host=FLAGS.dc_base_url, dcid=dcid)
-  response = requests.get(url).json()
-
-  prompt_tables = {}
-
-  for category, sv_titles in _SERIES_TO_KEEP.items():
-    category_data = response["pageChart"]["Overview"].get(category, {})
-    for chart_block in category_data:
-      block_title = chart_block["title"]
-      if block_title in sv_titles:
-        sv = sv_titles[block_title]
-        series = chart_block["trend"]["series"]
-
-        # Convert dict into a csv with sorted date keys
-        j = json.dumps(series, sort_keys=True)
-        j = j.replace("'", '"')  # Needed for pd.read_json
-        j = j.replace(sv, f"{block_title} in {place_name}")
-        df = pd.read_json(j)
-        prompt_tables[sv] = 'date' + df.to_csv()
-
-  logging.debug(prompt_tables)
-  return prompt_tables
