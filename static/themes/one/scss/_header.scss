@@ -1,10 +1,35 @@
 #main-nav {
-    padding: 3.0625rem 2.5rem;
+    padding: 1.5rem 2rem;
+
+    .navbar-brand {
+        padding: 0;
+    }
 }
 
 #main-header {
+
+    box-shadow: none;
+
     #main-header-logo img {
         width: 60px;
         height: auto;
+        margin-right: 1.75rem;
     }
-} 
+
+    a.site-name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        word-break: break-all;
+        width: 160px;
+        display: block;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        white-space: normal;
+        line-height: 1.1;
+        border-left: 1px solid #000;
+        padding-left: 2rem;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        margin-right: auto;
+    }
+}
