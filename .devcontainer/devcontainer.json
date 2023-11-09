@@ -3,5 +3,5 @@
     "features": {
         "ghcr.io/devcontainers/features/git:1": {}
     },
-    "postCreateCommand": "./setup_devcontainer.sh"
+    "postCreateCommand": "./setup_devcontainer.sh -e one"
 }
