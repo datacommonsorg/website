@@ -24,6 +24,7 @@ module.exports = {
             options: {
               sourceMap: false, // Make sure source maps are disabled
               importLoaders: 2, // Number of loaders applied before CSS loader
+              url: false,
             },
           },
           {
@@ -43,6 +44,13 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)$/,
+        type: 'asset/resource',
+        generator: {
+          emit: false  // Do not emit files, just keep the URL as it is
+        }
       },
     ],
   },

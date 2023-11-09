@@ -37,8 +37,6 @@ content - main page content
   <title>{{ title }} - Custom Data Commons Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
-    rel="stylesheet">
   <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css' , t=config['VERSION'])}}>
   {% block head %}
   {% endblock %}
@@ -55,32 +53,30 @@ content - main page content
   <div id="main">
     <header id="main-header">
       <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
-        <div class="container-fluid">
-          <div class="navbar-brand">
-            {% if LOGO_PATH %}
-            <div id="main-header-logo">
-              <a href="{{ url_for('static.homepage') }}">
-                <img src="{{ LOGO_PATH }}" />
-              </a>
-            </div>
-            {% endif %}
-            <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
-            {% if subpage_title %}
-            <span class="sep">•</span>
-            <span>
-              {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
-                {{ subpage_title }}
-                {% if subpage_url %}</a>{% endif %}
-            </span>
-            {% endif %}
+        <div class="navbar-brand">
+          {% if LOGO_PATH %}
+          <div id="main-header-logo">
+            <a href="{{ url_for('static.homepage') }}">
+              <img src="{{ LOGO_PATH }}" />
             </a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
-            {% include 'custom_dc/one/partials/menu.html' %}
-          </div>
+          {% endif %}
+          <a href="{{ url_for('static.homepage') }}" class="site-name">{{ NAME }}</a>
+          {% if subpage_title %}
+          <span class="sep">•</span>
+          <span>
+            {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
+              {{ subpage_title }}
+              {% if subpage_url %}</a>{% endif %}
+          </span>
+          {% endif %}
+          </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
+          {% include 'custom_dc/one/partials/menu.html' %}
         </div>
       </nav>
     </header>
