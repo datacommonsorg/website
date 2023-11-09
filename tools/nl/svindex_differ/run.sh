@@ -33,5 +33,10 @@ pip3 install -r tools/nl/svindex_differ/requirements.txt
 # Get the production embeddings.
 PROD=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/embeddings.yaml | awk '$1=="'$SIZE':"{ print $2; }')
 
+# Set TOKENIZERS_PARALLELISM to false to solve a warning from huggingface's
+# transfomers library as mentioned here:
+# https://stackoverflow.com/questions/62691279/how-to-disable-tokenizers-parallelism-true-false-warning
+export TOKENIZERS_PARALLELISM=false
+
 # Diff production embeddings against test.
-python3 -m tools.nl.svindex_differ.differ --base="$PROD" --test="$2" --queryset=tools/nl/svindex_differ/queryset_vars.csv
+python3 -m tools.nl.svindex_differ.differ --base="$PROD" --test="$2" --queryset=tools/nl/svindex_differ/queryset_vars.csv --indextype="$SIZE"
