@@ -43,6 +43,7 @@ import {
 } from "../nodejs_server/disaster_map_tile";
 import { getLineChart, getLineTileResult } from "../nodejs_server/line_tile";
 import { getMapChart, getMapTileResult } from "../nodejs_server/map_tile";
+import { getRankingTileResult } from "../nodejs_server/ranking_tile";
 import {
   getScatterChart,
   getScatterTileResult,
@@ -97,6 +98,8 @@ const CHART_URL_PARAM_SVG = "0";
 // /nodejs/query. Otherwise, return QUERY_MAX_RESULTS number of charts.
 const ALL_CHARTS_URL_PARAM = "1";
 const QUERY_MAX_RESULTS = 3;
+// The root to use to form the dc link in the tile results
+const DC_LINK_ROOT = "https://datacommons.org/explore#q=";
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -283,6 +286,7 @@ function getBlockTileResults(
             )
           );
           break;
+        /* Ignore map for now because Bard can not draw maps.
         case "MAP":
           tileSvSpec = svSpec[tile.statVarKey[0]];
           tilePromises.push(
@@ -297,17 +301,14 @@ function getBlockTileResults(
               useChartUrl
             )
           );
-          break;
-        /* TODO: foreignobject doesn't work with the svg to png converter.
-                  Need to find a different way to render an svg of the ranking
-                  table & then re-enable this.
+          break;*/
         case "RANKING":
           tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
           tilePromises.push(
             getRankingTileResult(
               tileId,
               tile,
-              place,
+              place.dcid,
               enclosedPlaceType,
               tileSvSpec,
               CONFIG.apiRoot,
@@ -315,7 +316,7 @@ function getBlockTileResults(
               useChartUrl
             )
           );
-          break;*/
+          break;
         default:
           break;
       }
@@ -546,9 +547,12 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
 
       Promise.all(tilePromises)
         .then((tileResults) => {
-          const filteredResults = tileResults
+          const processedResults = tileResults
             .flat(1)
             .filter((result) => result !== null);
+          processedResults.forEach((result) => {
+            result.dcLink = DC_LINK_ROOT + query;
+          });
           const endTime = process.hrtime.bigint();
           const debug = {
             timing: {
@@ -560,7 +564,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
           };
           res
             .status(200)
-            .send(JSON.stringify({ charts: filteredResults, debug }));
+            .send(JSON.stringify({ charts: processedResults, debug }));
         })
         .catch(() => {
           res.status(500).send({ err: "Error fetching data." });

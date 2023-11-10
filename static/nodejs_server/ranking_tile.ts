@@ -33,6 +33,7 @@ import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { RankingGroup } from "../js/types/ranking_unit_types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { rankingPointsToCsv } from "../js/utils/chart_csv_utils";
+import { getPlaceNames } from "../js/utils/place_utils";
 import { htmlToSvg } from "../js/utils/svg_utils";
 import {
   CHART_ID,
@@ -122,7 +123,8 @@ function getRankingUnitResult(
         ? rankingGroup.unit[0]
         : "",
   };
-
+  // Currently cannot draw ranking table in nodejs
+  /*
   if (useChartUrl) {
     // Get a tile config to pass in the chart url so that only one ranking unit
     // will be created. i.e., only one of highest or lowest.
@@ -155,7 +157,7 @@ function getRankingUnitResult(
     tileConfig,
     apiRoot
   );
-  result.svg = getSvgXml(svg);
+  result.svg = getSvgXml(svg);*/
   return result;
 }
 
@@ -188,9 +190,19 @@ export async function getRankingTileResult(
   );
   try {
     const rankingData = await fetchData(tileProp);
+    const placeDcids = new Set<string>();
+    Object.values(rankingData).forEach((rankingGroup) => {
+      rankingGroup.points.forEach((point) => {
+        placeDcids.add(point.placeDcid);
+      });
+    });
+    const placeNames = await getPlaceNames(Array.from(placeDcids), apiRoot);
     const tileResults: TileResult[] = [];
     for (const sv of Object.keys(rankingData)) {
-      const rankingGroup = rankingData[sv];
+      const rankingGroup = _.cloneDeep(rankingData[sv]);
+      rankingGroup.points.forEach(
+        (point) => (point.placeName = placeNames[point.placeDcid])
+      );
       if (tileConfig.rankingTileSpec.showHighest) {
         tileResults.push(
           getRankingUnitResult(
