@@ -38,6 +38,7 @@ content - main page content
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css' , t=config['VERSION'])}}>
+  {% include 'custom_dc/one/partials/favicon.html' %}
   {% block head %}
   {% endblock %}
   {% if OVERRIDE_CSS_PATH %}

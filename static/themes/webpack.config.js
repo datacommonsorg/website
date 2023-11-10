@@ -90,6 +90,10 @@ module.exports = {
         { from: 'one/fonts', to: path.resolve(__dirname, '../custom_dc/one/fonts') },
         // Copy the entire fonts directory to the server/dist/custom_dc directory
         { from: 'one/fonts', to: path.resolve(__dirname, '../../server/dist/custom_dc/one/fonts') },
+        // Copy the entire favicon directory to the custom_dc directory
+        { from: 'one/favicon', to: path.resolve(__dirname, '../custom_dc/one/favicon') },
+        // Copy the entire fonts directory to the server/dist/custom_dc directory
+        { from: 'one/favicon', to: path.resolve(__dirname, '../../server/dist/custom_dc/one/favicon') },
       ],
     }),
   ],
