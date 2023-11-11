@@ -50,7 +50,8 @@ TOPIC_PAGE_CONFIGS = {
     'equity': ['USA', 'US_Places'],
     'poverty': ['USA', 'India'],
     'dev': ['CA', 'asia'],
-    'sdg': ['sdg']
+    'sdg': ['sdg'],
+    'economy': ['africa']
 }
 
 # Levels range from 0 (fastest, least compression), to 9 (slowest, most
