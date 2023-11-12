@@ -1,0 +1,520 @@
+# Copyright 2023 ONE Campaign
+
+## Test topic page for africa
+
+metadata {
+  topic_id: "one-health"
+  topic_name: "Health"
+  place_dcid: "africa"
+  contained_place_types {
+    key: "Continent"
+    value: "Country"
+  }
+}
+
+
+### OVERVIEW ###
+categories {
+  title: "Overview"
+  description: "Where you live shouldn’t determine whether you live, but too often it does. Low- and lower-middle income countries are home to a majority of the global burden of disease, yet make up a small proportion of global health spending. This means people in the most vulnerable countries, including mothers and children, continue to die from completely preventable and treatable diseases. The health and wellbeing of a population can be assessed using a range of indicators that include life expectancy, maternal and infant mortality. Access to quality health is one of the many factors that is considered to contribute to higher life expectancy and lower maternal and infant mortality rates."
+  
+
+  # Life Expectancy
+  blocks {
+    title: "Life Expectancy"
+    description: "Life expectancy at birth indicates the average number of years a newborn could expect to live, providing a snapshot of population health and mortality. High life expectancy is generally associated with good healthcare, nutrition, sanitation and other socioeconomic conditions."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "LifeExpectancy_Person"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Life Expectancy (${date})"
+        stat_var_key: "LifeExpectancy_Person"
+      }
+    }
+  }
+
+  # Maternal Mortality
+  blocks {
+    title: "Maternal Mortality"
+    description: "The maternal mortality ratio is defined as the number of maternal deaths as a result of complications during or following pregnancy and childbirth per 100,000 live births during a given time period. Maternal mortality is a critical indicator of, among other things, the quality and accessibility of maternal healthcare services, including access to skilled birth attendants."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "WHO/MDG_0000000026"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Maternal Mortality Ratio (Per 100 000 Live Births) (${date})"
+        stat_var_key: "WHO/MDG_0000000026"
+      }
+    }
+  }
+
+  # Infant Mortality
+  blocks {
+    title: "Infant Mortality"
+    description: "Infant mortality rate is defined as the probability of newborn infant deaths before the age of 1 year, per 1,000 live births during a given period. Infant mortality rate can be associated with access to healthcare, water and sanitation as well as infectious diseases, malnutrition and vaccination coverage."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SH_DYN_IMRT.AGE--Y0"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Infant Mortality Rate (under 1 year old) (${date})"
+        stat_var_key: "sdg/SH_DYN_IMRT.AGE--Y0"
+      }
+    }
+  }
+
+  
+  stat_var_spec {
+    key: "LifeExpectancy_Person"
+    value {
+      stat_var: "LifeExpectancy_Person"
+      name: "Life Expectancy"
+    }
+  }
+
+  stat_var_spec {
+    key: "WHO/MDG_0000000026"
+    value {
+      stat_var: "WHO/MDG_0000000026"
+      name: "Maternal Mortality Ratio (Per 100 000 Live Births)"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SH_DYN_IMRT.AGE--Y0"
+    value {
+      stat_var: "sdg/SH_DYN_IMRT.AGE--Y0"
+      name: "Infant Mortality Rate (under 1 year old)"
+    }
+  }
+
+}
+
+### HEALTH FINANCING ###
+categories {
+  title: "Health Financing"
+  description: "Health financing is a key pillar of health systems that can ensure people can access quality health services and have their health needs addressed, without suffering personal financial hardship. But, while total health spending has grown across all income levels over the past 20 years, higher income countries account for the predominant majority of this spending. This means individuals in low income countries often have to pay out of their pockets to cover health expenses, pushing millions into extreme poverty as a result."
+
+  # Total Health Expenditure
+  blocks {
+    title: "Total Health Expenditure"
+    description: "Total health spending refers to health expenditure from all financing sources, including domestic government, external aid, domestic private, and out-of-pocket health spending."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "healthExpenditureCurrentUSD"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Health expenditure (current USD) (${date})"
+        stat_var_key: "healthExpenditureCurrentUSD"
+      }
+    }
+  }
+
+  # Total Health Expenditure from external sources
+  blocks {
+    title: "Total Health Expenditure from external sources"
+    description: "The amount of health expenditure, funded from external sources. External sources consist of direct foreign transfers and foreign transfers distributed by the government encompassing all financial inflows into the national health system from outside the country."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "healthExpenditureExternalCurrentUSD"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "External health expenditure (current USD) (${date})"
+        stat_var_key: "healthExpenditureExternalCurrentUSD"
+      }
+    }
+  }
+
+  # Out-of-pocket health expenditure
+  blocks {
+    title: "Out-of-pocket health expenditure"
+    description: "The share of total health expenditure that comes directly from out of pocket payments."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "healthExpenditureFinancingSchemeOopCurrentUSD"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Out-of-pocket health expenditure (current USD) (${date})"
+        stat_var_key: "healthExpenditureFinancingSchemeOopCurrentUSD"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "healthExpenditureCurrentUSD"
+    value {
+      stat_var: "healthExpenditureCurrentUSD"
+      name: "Health expenditure (current USD)"
+    }
+  }
+
+  stat_var_spec {
+    key: "healthExpenditureExternalCurrentUSD"
+    value {
+      stat_var: "healthExpenditureExternalCurrentUSD"
+      name: "External health expenditure (current USD)"
+    }
+  }
+
+  stat_var_spec {
+    key: "healthExpenditureFinancingSchemeOopCurrentUSD"
+    value {
+      stat_var: "healthExpenditureFinancingSchemeOopCurrentUSD"
+      name: "Out-of-pocket health expenditure (current USD)"
+    }
+  }
+
+}
+
+
+### PREVENTABLE INFECTIOUS DISEASES ###
+categories {
+  title: "Preventable Infectious Diseases"
+  description: "Infectious diseases, such as HIV, tuberculosis and malaria, are still among the leading causes of death in the world’s most vulnerable countries, despite being completely preventable and/or treatable. Ensuring equitable access to life-saving health services and medicines, including vaccines, has the potential to save lives now, increase life expectancy over time and disrupt the cycle of poverty."
+
+  # HIV New infections
+  blocks {
+    title: "HIV New infections"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "HivNewInfectionsPeople"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "New HIV infections (number of people) (${date})"
+        stat_var_key: "HivNewInfectionsPeople"
+      }
+    }
+  }
+
+  # AIDS related deaths
+  blocks {
+    title: "AIDS related deaths"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "HivDeathsPeople"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "AIDS related deaths (number of people) (${date})"
+        stat_var_key: "HivDeathsPeople"
+      }
+    }
+  }
+
+  # People receiving treatment
+  blocks {
+    title: "People receiving treatment"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "HivPeopleLivingWithHIVReceivingARTPercent"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "People living with HIV receiving Antiretroviral therapy (percent) (${date})"
+        stat_var_key: "HivPeopleLivingWithHIVReceivingARTPercent"
+      }
+    }
+  }
+
+  # Incidence of Malaria
+  blocks {
+    title: "Incidence of Malaria"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "in ${placeName}"
+        stat_var_key: "sdg/SH_STA_MALR_alternate_unit"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: LINE
+        stat_var_key: "sdg/SH_STA_MALR"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Malaria incidence per 1,000 population at risk (${date})"
+        stat_var_key: "sdg/SH_STA_MALR"
+      }
+    }
+  }
+
+  # Tuberculosis Incidence
+  blocks {
+    title: "Tuberculosis Incidence"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SH_TBS_INCD"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Tuberculosis incidence (${date})"
+        stat_var_key: "sdg/SH_TBS_INCD"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "HivNewInfectionsPeople"
+    value {
+      stat_var: "HivNewInfectionsPeople"
+      name: "New HIV infections (number of people)"
+    }
+  }
+
+  stat_var_spec {
+    key: "HivDeathsPeople"
+    value {
+      stat_var: "HivDeathsPeople"
+      name: "AIDS related deaths (number of people)"
+    }
+  }
+
+  stat_var_spec {
+    key: "HivPeopleLivingWithHIVReceivingARTPercent"
+    value {
+      stat_var: "HivPeopleLivingWithHIVReceivingARTPercent"
+      name: "People living with HIV receiving Antiretroviral therapy (percent)"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SH_STA_MALR"
+    value {
+      stat_var: "sdg/SH_STA_MALR"
+      name: "Malaria incidence per 1,000 population at risk"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SH_STA_MALR_alternate_unit"
+    value {
+      stat_var: "sdg/SH_STA_MALR"
+      name: "Malaria incidence per 1,000 population at risk"
+      unit: "Cases of Malaria per 1,000 people at risk"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SH_TBS_INCD"
+    value {
+      stat_var: "sdg/SH_TBS_INCD"
+      name: "Tuberculosis incidence"
+    }
+  }
+
+}
+
+### FOOD SECURITY ###
+categories {
+  title: "Food Security"
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+
+  # Stunting
+  blocks {
+    title: "Stunting"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "in ${placeName} are moderately or severely stunted"
+        stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Proportion of children moderately orseverely stunted [under 5 years old] (${date})"
+        stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
+      }
+    }
+  }
+
+  # Wasting
+  blocks {
+    title: "Wasting"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "in ${placeName} are moderately or severely wasted"
+        stat_var_key: "sdg/SH_STA_WAST.AGE--Y0T4"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SH_STA_WAST.AGE--Y0T4"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Proportion of children moderately or severely wasted [under 5 years old] (${date})"
+        stat_var_key: "sdg/SH_STA_WAST.AGE--Y0T4"
+      }
+    }
+  }
+
+  # Undernourishment
+  blocks {
+    title: "Undernourishment"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "of the population in ${placeName} are undernourished"
+        stat_var_key: "sdg/SN_ITK_DEFC"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SN_ITK_DEFC"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Prevalence of undernourishment (${date})"
+        stat_var_key: "sdg/SN_ITK_DEFC"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SH_STA_STNT.AGE--Y0T4"
+    value {
+      stat_var: "sdg/SH_STA_STNT.AGE--Y0T4"
+      name: "Proportion of children moderately or severely stunted [under 5 years old]"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SH_STA_WAST.AGE--Y0T4"
+    value {
+      stat_var: "sdg/SH_STA_WAST.AGE--Y0T4"
+      name: "Proportion of children moderately or severely wasted [under 5 years old]"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SN_ITK_DEFC"
+    value {
+      stat_var: "sdg/SN_ITK_DEFC"
+      name: "Prevalence of undernourishment"
+    }
+  }
+
+}
