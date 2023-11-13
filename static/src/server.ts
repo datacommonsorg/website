@@ -43,6 +43,7 @@ import {
 } from "../nodejs_server/disaster_map_tile";
 import { getLineChart, getLineTileResult } from "../nodejs_server/line_tile";
 import { getMapChart, getMapTileResult } from "../nodejs_server/map_tile";
+import { getRankingTileResult } from "../nodejs_server/ranking_tile";
 import {
   getScatterChart,
   getScatterTileResult,
@@ -97,6 +98,12 @@ const CHART_URL_PARAM_SVG = "0";
 // /nodejs/query. Otherwise, return QUERY_MAX_RESULTS number of charts.
 const ALL_CHARTS_URL_PARAM = "1";
 const QUERY_MAX_RESULTS = 3;
+// The param value for the client param if the client is Bard. Default is Bard.
+const BARD_CLIENT_URL_PARAM = "bard";
+// Allowed chart types if client is Bard.
+const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING"]);
+// The root to use to form the dc link in the tile results
+const DC_URL_ROOT = "https://datacommons.org/explore#q=";
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -231,11 +238,15 @@ function getBlockTileResults(
   enclosedPlaceType: string,
   svSpec: Record<string, StatVarSpec>,
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  allowedTilesTypes?: Set<string>
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   block.columns.forEach((column, colIdx) => {
     column.tiles.forEach((tile, tileIdx) => {
+      if (allowedTilesTypes && !allowedTilesTypes.has(tile.type)) {
+        return;
+      }
       const tileId = `${id}-col${colIdx}-tile${tileIdx}`;
       let tileSvSpec = null;
       switch (tile.type) {
@@ -298,16 +309,13 @@ function getBlockTileResults(
             )
           );
           break;
-        /* TODO: foreignobject doesn't work with the svg to png converter.
-                  Need to find a different way to render an svg of the ranking
-                  table & then re-enable this.
         case "RANKING":
           tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
           tilePromises.push(
             getRankingTileResult(
               tileId,
               tile,
-              place,
+              place.dcid,
               enclosedPlaceType,
               tileSvSpec,
               CONFIG.apiRoot,
@@ -315,7 +323,7 @@ function getBlockTileResults(
               useChartUrl
             )
           );
-          break;*/
+          break;
         default:
           break;
       }
@@ -332,7 +340,8 @@ function getDisasterBlockTileResults(
   enclosedPlaceType: string,
   eventTypeSpec: Record<string, EventTypeSpec>,
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  allowedTilesTypes?: Set<string>
 ): Promise<TileResult>[] {
   const blockEventTypeSpec = getBlockEventTypeSpecs(
     eventTypeSpec,
@@ -349,6 +358,9 @@ function getDisasterBlockTileResults(
   const tilePromises = [];
   block.columns.forEach((column, colIdx) => {
     column.tiles.forEach((tile, tileIdx) => {
+      if (allowedTilesTypes && !allowedTilesTypes.has(tile.type)) {
+        return;
+      }
       const tileEventTypeSpec = getTileEventTypeSpecs(eventTypeSpec, tile);
       const tileId = `${id}-col${colIdx}-tile${tileIdx}`;
       switch (tile.type) {
@@ -463,6 +475,10 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
   const allResults = req.query.allCharts === ALL_CHARTS_URL_PARAM;
   const urlRoot = `${req.protocol}://${req.get("host")}`;
+  const allowedTileTypes =
+    (req.query.client || BARD_CLIENT_URL_PARAM) === BARD_CLIENT_URL_PARAM
+      ? BARD_ALLOWED_CHARTS
+      : null;
   res.setHeader("Content-Type", "application/json");
   axios
     // Set "mode=strict" to use heuristic detector, disable using default place,
@@ -520,7 +536,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
                 enclosedPlaceType,
                 config["metadata"]["eventTypeSpec"],
                 urlRoot,
-                useChartUrl
+                useChartUrl,
+                allowedTileTypes
               );
               break;
             default:
@@ -531,7 +548,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
                 enclosedPlaceType,
                 svSpec,
                 urlRoot,
-                useChartUrl
+                useChartUrl,
+                allowedTileTypes
               );
           }
           tilePromises.push(...blockTilePromises);
@@ -546,9 +564,12 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
 
       Promise.all(tilePromises)
         .then((tileResults) => {
-          const filteredResults = tileResults
+          const processedResults = tileResults
             .flat(1)
             .filter((result) => result !== null);
+          processedResults.forEach((result) => {
+            result.dcUrl = DC_URL_ROOT + encodeURIComponent(query as string);
+          });
           const endTime = process.hrtime.bigint();
           const debug = {
             timing: {
@@ -560,7 +581,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
           };
           res
             .status(200)
-            .send(JSON.stringify({ charts: filteredResults, debug }));
+            .send(JSON.stringify({ charts: processedResults, debug }));
         })
         .catch(() => {
           res.status(500).send({ err: "Error fetching data." });
