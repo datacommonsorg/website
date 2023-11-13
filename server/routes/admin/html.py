@@ -14,6 +14,7 @@
 
 import os
 import subprocess
+import time
 
 from flask import Blueprint
 from flask import current_app
@@ -77,9 +78,16 @@ def load_data():
       "localhost:6060/api/load/",
   ]
   output = []
-  for command, cwd in [(command1, "import/simple"),
-                       (command2, "tools/nl/embeddings"), (command3, "."),
-                       (command4, ".")]:
+  for command, stage, cwd in [(command1, "import_data", "import/simple"),
+                              (command2, "create_embeddings",
+                               "tools/nl/embeddings"),
+                              (command3, "load_data", "."),
+                              (command4, "load_embeddings", ".")]:
+    start = time.time()
+
+    def _duration():
+      return round(time.time() - start, 2)
+
     try:
       result = subprocess.run(command,
                               capture_output=True,
@@ -87,16 +95,25 @@ def load_data():
                               check=True,
                               cwd=cwd)
       output.append({
+          "stage": stage,
           "status": "success",
+          "durationSeconds": _duration(),
           "stdout": result.stdout.strip().splitlines()
       })
     except subprocess.CalledProcessError as cpe:
       return jsonify({
+          "stage": stage,
           "status": "failure",
+          "durationSeconds": _duration(),
           "error": cpe.stderr.strip().splitlines()
       }), 500
     except Exception as e:
-      return jsonify({"status": "error", "message": str(e)}), 500
+      return jsonify({
+          "stage": stage,
+          "status": "error",
+          "durationSeconds": _duration(),
+          "message": str(e)
+      }), 500
   return jsonify(output), 200
 
 
