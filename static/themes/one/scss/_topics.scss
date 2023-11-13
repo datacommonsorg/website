@@ -1,8 +1,17 @@
-article.topic {}
+article.topic {
+    margin-bottom: 1.5rem;
+}
 
 figure.topic__figure {
     position: relative;
     margin-bottom: 0;
+    border: 2px solid var(--dc-primary);
+    transition: all .3s;
+
+    &:hover {
+        box-shadow: 4px 4px;
+        transform: translate(-2px, -2px);
+    }
 }
 
 .topic__name {
@@ -28,13 +37,23 @@ figure.topic__figure {
 img.topic__image {
     display: block;
     width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
 a.topic__link {
+    display: block;
+    padding: 0.25rem 0.5rem;
     color: #BBB;
     font-size: 0.5rem;
     font-style: normal;
     font-weight: 900;
     line-height: normal;
     margin-left: auto;
+
+    &:active,
+    &:focus,
+    &:hover {
+        text-decoration: none;
+    }
 }
