@@ -190,8 +190,8 @@ export const fetchData = async (props: BarTilePropType) => {
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
     statPromise = getPointWithin(
       apiRoot,
-      props["enclosedPlaceType"],
-      props["parentPlace"],
+      props.enclosedPlaceType,
+      props.parentPlace,
       statVars,
       "",
       [statSvs]
@@ -200,8 +200,8 @@ export const fetchData = async (props: BarTilePropType) => {
       ? Promise.resolve(null)
       : getSeriesWithin(
           apiRoot,
-          props["parentPlaces"],
-          props["enclosedPlaceType"],
+          props.parentPlace,
+          props.enclosedPlaceType,
           denomSvs
         );
   }
