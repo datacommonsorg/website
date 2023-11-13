@@ -26,13 +26,16 @@ _TEST_DATA = 'test_data/nodejs_query'
 
 class IntegrationTest(unittest.TestCase):
 
-  def run_test(self, test_dir, query, all_charts=""):
+  def run_test(self, test_dir, query, all_charts="", client=""):
     resp = requests.get(
-        f'https://dev.datacommons.org/nodejs/query?q={query}&allCharts={all_charts}'
+        f'https://dev.datacommons.org/nodejs/query?q={query}&allCharts={all_charts}&client={client}'
     ).json()
     # TODO: Validate detection type, etc, after push to dev.
     del resp['debug']
     for chart in resp.get('charts', []):
+      # charts of type TABLE will not have a chartUrl so skip this check
+      if chart.get('type', '') == 'TABLE':
+        continue
       self.assertNotEqual('', chart.get('chartUrl', '')), chart
       chart['chartUrl'] = ''
     json_file = os.path.join(_dir, _TEST_DATA, test_dir, 'screenshot.json')
@@ -58,4 +61,6 @@ class IntegrationTest(unittest.TestCase):
     self.run_test('bar', 'top jobs in santa clara county')
     self.run_test('map_rank', 'counties in california with highest obesity')
     self.run_test('scatter', 'obesity vs. poverty in counties of california')
+    self.run_test('scatter_non_bard',
+                  'obesity vs. poverty in counties of california', "", "dc")
     self.run_test('disaster', 'fires in california')
