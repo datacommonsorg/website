@@ -341,10 +341,16 @@ h6{
   z-index:-10;
 }
 
+.section--about,
 .section--explore{
-  padding:5rem 0;
+  margin:5rem 0;
 }
 
+@media screen and (min-width: 1200px){
+  .section__content{
+    max-width:50%;
+  }
+}
 .explore__list{
   list-style:none;
   margin:0;
