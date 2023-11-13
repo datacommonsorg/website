@@ -34,5 +34,11 @@
     "title": "United Nations Sustainable Development Goals",
     "sprite-index": 5,
     "url": "https://unstats.un.org/UNSDWebsite/undatacommons/sdgs"
+  },
+  {
+    "id": "one",
+    "title": "One Data Commons",
+    "sprite-index": 6,
+    "url": "https://datacommons.one.org"
   }
 ]
