@@ -28,4 +28,6 @@ gcloud services enable --project=$PROJECT_ID \
   servicecontrol.googleapis.com \
   maps-backend.googleapis.com \
   places-backend.googleapis.com \
-  secretmanager.googleapis.com
+  secretmanager.googleapis.com \
+  api.datacommons.org \
+  generativelanguage.googleapis.com

@@ -13,8 +13,7 @@
 # limitations under the License.
 
 
-# This is a yaml template to create gcp/gke configuration.
-# Copy this file to `config.yaml` and use that.
+# gcp/gke configuration for UN SDG staging instance
 
 project: datcom-un-staging
 domain: staging.unsdg.datacommons.org
