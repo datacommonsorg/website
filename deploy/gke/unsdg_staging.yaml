@@ -1,5 +1,4 @@
-#!/bin/bash
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,14 +13,14 @@
 # limitations under the License.
 
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
+# gcp/gke configuration for UN SDG staging instance
 
-gcloud config set project $PROJECT_ID
-
-# Create a static IP address for the API
-gcloud compute addresses create dc-website-ip --global
-
-# Record the IP address.
-export IP=$(gcloud compute addresses list --global --filter='name:dc-website-ip' --format='value(ADDRESS)')
-
-yq eval -i '.ip = env(IP)' config.yaml
+project: datcom-un-staging
+domain: staging.unsdg.datacommons.org
+ip: 34.120.81.84
+region:
+  primary: us-central1
+  others:
+    -
+nodes: 1
+storage_project: datcom-store
