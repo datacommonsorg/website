@@ -110,5 +110,5 @@ def embeddings_version_map():
 
 @bp.route('/api/load/', methods=['GET'])
 def load():
-  loader.load_server_state(current_app)
+  loader.load_custom_embeddings(current_app)
   return json.dumps(current_app.config[config.NL_EMBEDDINGS_VERSION_KEY])

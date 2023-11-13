@@ -19,4 +19,4 @@ DOMAIN=$(yq eval '.domain' config.yaml)
 echo $PROJECT_ID
 gcloud config set project $PROJECT_ID
 
-gcloud compute ssl-certificates create website-certificate --domains=$DOMAIN --global
+gcloud compute ssl-certificates create dc-website-cert --domains=$DOMAIN --global

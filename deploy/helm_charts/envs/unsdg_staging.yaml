@@ -1,5 +1,4 @@
-#!/bin/bash
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,15 +12,38 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Helm config
+project: "datcom-un-staging"
+cluster_prefix: "website"
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
+namespace:
+  name: "website"
 
-gcloud config set project $PROJECT_ID
+website:
+  flaskEnv: unsdg
+  replicas: 4
+  redis:
+    enabled: false
 
-# Create a static IP address for the API
-gcloud compute addresses create dc-website-ip --global
+serviceAccount:
+  name: website-ksa
 
-# Record the IP address.
-export IP=$(gcloud compute addresses list --global --filter='name:dc-website-ip' --format='value(ADDRESS)')
+ingress:
+  enabled: true
 
-yq eval -i '.ip = env(IP)' config.yaml
+nl:
+  enabled: true
+
+serviceGroups:
+  recon: null
+  svg:
+    replicas: 2
+  node:
+    replicas: 5
+  observation:
+    replicas: 5
+  default:
+    replicas: 3
+
+svg:
+  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
