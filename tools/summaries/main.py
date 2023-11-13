@@ -12,57 +12,79 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import csv
+from itertools import starmap
 import json
 import logging
 import multiprocessing
 import os
+import sys
 
 from absl import app
-from dc import get_ranking_csv
-from palm import get_summary
+from absl import flags
+import dc
+import palm
 
-_OUTPUT_DIR = "../../server/config/summaries"
-_PLACE_JSON_FILE = os.path.join(_OUTPUT_DIR, "places.json")
-_SUMMARIES_JSON_FILE = os.path.join(_OUTPUT_DIR, "summaries.json")
-_SUMMARIES_CSV_FILE = "summaries.csv"
-_NUM_PARALLEL_PROCESSES = 8
+FLAGS = flags.FLAGS
+
+flags.DEFINE_boolean('save_prompts', False, 'Saves prompts to output file')
+flags.DEFINE_string('places_in_file', 'places.json',
+                    'Place input file to generate summaries for')
+flags.DEFINE_string('sv_in_file', 'stat_vars.json',
+                    'Stat var list to process rankings from')
+flags.DEFINE_string('summary_out_file',
+                    '../../server/config/summaries/place_summaries.json',
+                    'Summary output file')
+flags.DEFINE_integer('num_processes', 1, 'Number of concurrent processes')
 
 logging.getLogger().setLevel(logging.INFO)
 
 
 def get_and_write_ranking_summaries():
-  places = read_json(_PLACE_JSON_FILE)
-  summaries = get_ranking_summaries(places)
-  write_json(summaries, _SUMMARIES_JSON_FILE)
-  write_csv(summaries, _SUMMARIES_CSV_FILE)
+  places = read_json(FLAGS.places_in_file)
+  svs = read_json(FLAGS.sv_in_file)
+  summaries = get_ranking_summaries(places, svs)
+  write_json(summaries, FLAGS.summary_out_file)
 
 
-def get_ranking_summaries(places: dict):
-  tuples = list(places.items())
-  unordered_summaries = {}
-  with multiprocessing.Pool(processes=_NUM_PARALLEL_PROCESSES) as pool:
-    for dcid, name, summary in pool.imap_unordered(
-        get_ranking_summary_with_tuple, tuples):
-      unordered_summaries[dcid] = {"name": name, "summary": summary}
-
+def get_ranking_summaries(places_by_type: dict, svs_by_category: dict):
   summaries = {}
-  for dcid, _ in tuples:
-    summaries[dcid] = unordered_summaries[dcid]
+  # NOTE: Only processing variables from Demographics list
+  sv_list = [config['sv'] for config in svs_by_category['Demographics']]
+  for place_type, places in places_by_type.items():
+    unordered_summaries = {}
+    tuples = list(
+        starmap(
+            lambda dcid, place_name: (dcid, place_name, place_type, sv_list),
+            places.items()))
+    with multiprocessing.Pool(processes=FLAGS.num_processes,
+                              initializer=parse_flags) as pool:
+      for dcid, name, (prompt, summary) in pool.imap_unordered(
+          get_ranking_summary_with_tuple, tuples):
+        data = {"summary": summary}
+        if FLAGS.save_prompts:
+          data["name"] = name
+          data["prompt"] = prompt
+        unordered_summaries[dcid] = data
+
+    for dcid, _, _, _ in tuples:
+      summaries[dcid] = unordered_summaries[dcid]
   return summaries
 
 
 def get_ranking_summary_with_tuple(tuple):
-  dcid, name = tuple
-  return (dcid, name, get_ranking_summary(dcid, name))
+  dcid, name, place_type_plural, sv_list = tuple
+  return (dcid, name, get_ranking_summary(dcid, name, place_type_plural,
+                                          sv_list))
 
 
-def get_ranking_summary(dcid: str, name: str):
-  logging.info("Getting ranking summary for : %s (%s)", dcid, name)
-  csv = get_ranking_csv(dcid)
-  summary = get_summary(name, csv)
-  logging.info("Got ranking summary for: %s (%s)\n%s", dcid, name, summary)
-  return summary
+def get_ranking_summary(dcid: str, place_name: str, place_type: str, sv_list):
+  ranking_data = dc.get_ranking_data(dcid, sv_list)
+  data_tables = dc.get_data_series(dcid, sv_list)
+  # TODO: Insert SV selection step here
+  prompt, summary = palm.get_summary(place_name, place_type, sv_list,
+                                     ranking_data, data_tables)
+  logging.info("Ranking summary for: %s (%s)\n%s", dcid, place_name, summary)
+  return prompt, summary
 
 
 def read_json(file_name: str):
@@ -75,16 +97,8 @@ def write_json(data, file_name: str):
     json.dump(data, f, indent=True)
 
 
-def write_csv(data, file_name: str):
-  columns = ["dcid", "name", "summary"]
-  rows = []
-  for dcid, summary in data.items():
-    rows.append([dcid, summary["name"], summary["summary"]])
-
-  with open(file_name, "w") as f:
-    writer = csv.writer(f)
-    writer.writerow(columns)
-    writer.writerows(rows)
+def parse_flags():
+  flags.FLAGS(sys.argv)
 
 
 def main(_):

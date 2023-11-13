@@ -223,8 +223,9 @@ def get_sv_name(all_svs: List[str],
       sv_name_map[sv] = topic.SVPG_NAMES_OVERRIDE[sv]
     elif constants.SV_DISPLAY_NAME_OVERRIDE.get(sv):
       sv_name_map[sv] = constants.SV_DISPLAY_NAME_OVERRIDE[sv]
-    elif sv_chart_titles.get(sv):
-      sv_name_map[sv] = clean_sv_name(sv_chart_titles[sv], dc)
+    elif sv_chart_titles.get(sv) and not dc in sv_chart_titles[sv].get(
+        'blocklist', []):
+      sv_name_map[sv] = clean_sv_name(sv_chart_titles[sv].get('title', ''), dc)
     else:
       # Topic and SVPG have a cache, so lookup name from there if its
       # fresher.

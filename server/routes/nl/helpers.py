@@ -25,6 +25,7 @@ from markupsafe import escape
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.explore import params
+from server.lib.explore.params import QueryMode
 from server.lib.nl.common import bad_words
 from server.lib.nl.common import commentary
 from server.lib.nl.common import serialize
@@ -54,6 +55,8 @@ import server.services.bigtable as bt
 from shared.lib.constants import EN_LANG_CODE
 import shared.lib.utils as shared_utils
 
+_SANITY_TEST = 'sanity'
+
 
 #
 # Given a request parses the query and other params and
@@ -66,10 +69,9 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   nl_bad_words = current_app.config['NL_BAD_WORDS']
 
   test = request.args.get(params.Params.TEST.value, '')
+  # i18n param
   i18n_str = request.args.get(params.Params.I18N.value, '')
   i18n = i18n_str and i18n_str.lower() == 'true'
-  udp_str = request.args.get(params.Params.USE_DEFAULT_PLACE.value, 'true')
-  udp = udp_str and udp_str.lower() == 'true'
 
   # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
@@ -91,6 +93,14 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
       'detector',
       default=RequestedDetectorType.HybridSafetyCheck.value,
       type=str)
+
+  # mode param
+  use_default_place = True
+  mode = request.args.get(params.Params.MODE.value, '')
+  if mode == QueryMode.STRICT:
+    # Strict mode is compatible only with Heuristic Detector!
+    detector_type = RequestedDetectorType.Heuristic.value
+    use_default_place = False
 
   place_detector_type = request.args.get('place_detector',
                                          default='dc',
@@ -158,7 +168,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   query_detection = detector.detect(detector_type, place_detector_type,
                                     original_query, query, prev_utterance,
                                     embeddings_index_type, llm_api_type,
-                                    debug_logs, counters)
+                                    debug_logs, mode, counters)
   if not query_detection:
     err_json = helpers.abort('Sorry, could not complete your request.',
                              original_query,
@@ -175,7 +185,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
 
   if utterance:
     utterance.i18n_lang = i18n_lang
-    context.merge_with_context(utterance, is_sdg, udp)
+    context.merge_with_context(utterance, is_sdg, use_default_place)
 
   return utterance, None
 
@@ -304,7 +314,7 @@ def prepare_response_common(data_dict: Dict,
   data_dict = utils.to_dict(data_dict)
   if test:
     data_dict['test'] = test
-  if current_app.config['LOG_QUERY'] and not test:
+  if (current_app.config['LOG_QUERY'] and (not test or test == _SANITY_TEST)):
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
     session_info = futils.get_session_info(data_dict['context'], has_data)
@@ -366,7 +376,7 @@ def abort(error_message: str,
     _set_blocked(data_dict)
 
   logging.info('NL Data API: Empty Exit')
-  if current_app.config['LOG_QUERY'] and not test:
+  if (current_app.config['LOG_QUERY'] and (not test or test == _SANITY_TEST)):
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
     session_info = futils.get_session_info(context_history, False)

@@ -1,0 +1,509 @@
+# Copyright 2023 ONE Campaign
+
+## Test topic page for africa
+
+metadata {
+  topic_id: "one-economy"
+  topic_name: "Economy"
+  place_dcid: "africa"
+  contained_place_types {
+    key: "Continent"
+    value: "Country"
+  }
+}
+
+### OVERVIEW ###
+categories {
+  title: "Overview"
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+  
+  # GINI Index
+  blocks {
+    title: "GINI Index"
+    description: "The Gini Index measures income equality within an economy by looking at how income is distributed amongst the population. A higher Gini score indicates a small number of individuals hold a higher percentage of income, than if it were evenly distributed. A score of 0 represents perfect income equality."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "GiniIndex_EconomicActivity"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Gini Index of Economic Activity (${date})"
+        stat_var_key: "GiniIndex_EconomicActivity"
+      }
+    }
+  }
+
+  # GDP per capita
+  blocks {
+    title: "GDP per capita"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Nominal GDP Per Capita (${date})"
+        stat_var_key: "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+      }
+    }
+  }
+
+  # GDP growth rate
+  blocks {
+    title: "GDP growth rate"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Growth Rate of GDP (${date})"
+        stat_var_key: "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+      }
+    }
+  }
+
+  # Inflation
+  blocks {
+    title: "Inflation"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "inflationPercentAverageConsumerPrices"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Inflation (% average consumer prices) (${date})"
+        stat_var_key: "inflationPercentAverageConsumerPrices"
+      }
+    }
+  }
+
+  # Unemployment
+  blocks {
+    title: "Unemployment"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "unemploymentPercentOfLaborForce"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Unemployment (% of labor force) (${date})"
+        stat_var_key: "unemploymentPercentOfLaborForce"
+      }
+    }
+  }
+  
+  stat_var_spec {
+    key: "GiniIndex_EconomicActivity"
+    value {
+      stat_var: "GiniIndex_EconomicActivity"
+      name: "Gini Index of Economic Activity"
+    }
+  }
+
+  stat_var_spec {
+    key: "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+    value {
+      stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+      name: "Nominal GDP Per Capita"
+    }
+  }
+
+  stat_var_spec {
+    key: "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+    value {
+      stat_var: "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+      name: "Growth Rate of GDP"
+    }
+  }
+
+  stat_var_spec {
+    key: "inflationPercentAverageConsumerPrices"
+    value {
+      stat_var: "inflationPercentAverageConsumerPrices"
+      name: "Inflation"
+    }
+  }
+
+  stat_var_spec {
+    key: "unemploymentPercentOfLaborForce"
+    value {
+      stat_var: "unemploymentPercentOfLaborForce"
+      name: "Unemployment"
+    }
+  }
+
+}
+
+### DEBT ###
+categories {
+  title: "Debt"
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+
+  # PPG Debt Stocks
+  blocks {
+    title: "PPG Debt Stocks"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "AmountOutstanding_Debt_PubliclyGuaranteed_LongTermExternalDebt"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Publicly guaranteed long term external debt pricipal repayment to all lenders (${date})"
+        stat_var_key: "AmountOutstanding_Debt_PubliclyGuaranteed_LongTermExternalDebt"
+      }
+    }
+  }
+
+  # PPG interest and principal repayments
+  blocks {
+    title: "PPG interest and principal repayments"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    
+    columns {
+      tiles {
+        type: MAP
+        title: "Publicly guaranteed long term external debt interest repayment to all lenders (${date})"
+        stat_var_key: "AmountInterestRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Publicly guaranteed long term external debt principal repayment to all lenders (${date})"
+        stat_var_key: "AmountPrincipalRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
+      }
+    }
+  }
+
+  # Currency composition of debt
+  blocks {
+    title: "Currency composition of debt"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    
+    columns {
+      tiles {
+        type: BAR
+        title: "Amount of debt"
+        stat_var_key: 'Amount_Debt_EUR_AsAFractionOf_Amount_Debt'
+        stat_var_key: 'Amount_Debt_GBP_AsAFractionOf_Amount_Debt'
+        stat_var_key: 'Amount_Debt_USD_AsAFractionOf_Amount_Debt'
+      }
+    }
+
+  }
+
+  # Debt held in USD
+  blocks {
+    title: "Debt held in USD"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Amount of Debt: USD (As Fraction of Amount Debt) (${date})"
+        stat_var_key: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
+      }
+    }
+  }
+  
+  stat_var_spec {
+    key: "AmountOutstanding_Debt_PubliclyGuaranteed_LongTermExternalDebt"
+    value {
+      stat_var: "AmountOutstanding_Debt_PubliclyGuaranteed_LongTermExternalDebt"
+      name: "Publicly guaranteed long term external debt pricipal repayment to all lenders"
+    }
+  }
+
+  stat_var_spec {
+    key: "AmountInterestRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
+    value {
+      stat_var: "AmountInterestRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
+      name: "Publicly guaranteed long term external debt interest repayment to all lenders."
+      date: "2023"
+    }
+  }
+
+  stat_var_spec {
+    key: "AmountPrincipalRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
+    value {
+      stat_var: "AmountPrincipalRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
+      name: "Publicly guaranteed long term external debt principal repayment to all lenders."
+      date: "2023"
+    }
+  }
+
+  stat_var_spec {
+    key: "Amount_Debt_EUR_AsAFractionOf_Amount_Debt"
+    value {
+      stat_var: "Amount_Debt_EUR_AsAFractionOf_Amount_Debt"
+      name: "Amount of Debt: EUR (As Fraction of Amount Debt)"
+    }
+  }
+
+  stat_var_spec {
+    key: "Amount_Debt_GBP_AsAFractionOf_Amount_Debt"
+    value {
+      stat_var: "Amount_Debt_GBP_AsAFractionOf_Amount_Debt"
+      name: "Amount of Debt: GBP (As Fraction of Amount Debt)"
+    }
+  }
+
+  stat_var_spec {
+    key: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
+    value {
+      stat_var: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
+      name: "Amount of Debt: USD (As Fraction of Amount Debt)"
+    }
+  }
+
+  stat_var_spec {
+    key: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
+    value {
+      stat_var: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
+      name: "Amount of Debt: USD (As Fraction of Amount Debt)"
+    }
+  }
+
+}
+
+
+### AID ###
+categories {
+  title: "Aid"
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+  
+  # PPG Debt Stocks
+  blocks {
+    title: "Total aid received per country"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "worldBank/DT_ODA_ALLD_CD"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Net official development assistance and official aid received (current US$) (${date})"
+        stat_var_key: "worldBank/DT_ODA_ALLD_CD"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "worldBank/DT_ODA_ALLD_CD"
+    value {
+      stat_var: "worldBank/DT_ODA_ALLD_CD"
+      name: "Net official development assistance and official aid received (current US$)"
+    }
+  }
+}
+
+### REMITTANCES ###
+categories {
+  title: "Remittances"
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+  
+  # Remittances received as a percent of GDP
+  blocks {
+    title: "Remittances received as a percent of GDP"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "Amount_Remittance_InwardRemittance"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Inward Remittances (${date})"
+        stat_var_key: "Amount_Remittance_InwardRemittance"
+      }
+    }
+  }
+
+  # Remittances sent as a percent of GDP
+  blocks {
+    title: "Remittances sent as a percent of GDP"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "Amount_Remittance_OutwardRemittance"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Outward Remittances (${date})"
+        stat_var_key: "Amount_Remittance_OutwardRemittance"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "Amount_Remittance_InwardRemittance"
+    value {
+      stat_var: "Amount_Remittance_InwardRemittance"
+      name: "Inward Remittances"
+    }
+  }
+
+  stat_var_spec {
+    key: "Amount_Remittance_OutwardRemittance"
+    value {
+      stat_var: "Amount_Remittance_OutwardRemittance"
+      name: "Outward Remittances"
+    }
+  }
+}
+
+### SPECIAL DRAWING RIGHTS ###
+categories {
+  title: "Special Drawing Rights"
+  description: "Special Drawing Rights (SDRs) are an important financing source for African countries to respond to ongoing and future crises. SDRs, which are created by the IMF, provide a much needed injection of liquidity to plug fiscal gaps, meet external debt obligations, or address foreign exchange shortages.They are allocated according to a country’s relative size in the global economy — so richer countries receive the lion’s share. The most recent SDR allocation equivalent to $650 billion took place in August 2021 to help countries respond to the COVID-19 pandemic."
+  
+  # Allocations
+  blocks {
+    title: "Allocations"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "SdrAllocationsSdr"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Allocations (SDRs) (${date})"
+        stat_var_key: "SdrAllocationsSdr"
+      }
+    }
+  }
+
+  # Holdings
+  blocks {
+    title: "Holdings"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "SdrHoldingsSdr"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Holdings (SDRs) (${date})"
+        stat_var_key: "SdrHoldingsSdr"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "SdrAllocationsSdr"
+    value {
+      stat_var: "SdrAllocationsSdr"
+      name: "Allocations (SDRs)"
+    }
+  }
+
+  stat_var_spec {
+    key: "SdrHoldingsSdr"
+    value {
+      stat_var: "SdrHoldingsSdr"
+      name: "Holdings (SDRs)"
+    }
+  }
+}

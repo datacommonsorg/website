@@ -117,6 +117,10 @@ function getRankingUnitResult(
       sv
     ),
     type: "TABLE",
+    unit:
+      !_.isEmpty(rankingGroup.unit) && rankingGroup.unit.length == 1
+        ? rankingGroup.unit[0]
+        : "",
   };
 
   if (useChartUrl) {

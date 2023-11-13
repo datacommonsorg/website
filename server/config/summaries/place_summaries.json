@@ -1,0 +1,758 @@
+{
+ "geoId/3651000": {
+  "summary": "New York City, NY is the most populous city in the United States with a population of 8772978 in 2020. It is also the second most populous city in Bronx County. The median age of a person in New York City, NY was 36.5 in 2018. New York City, NY has the highest number of US citizens born in the United States, US citizens by naturalization, non-US citizens, US citizens born abroad of American parents, married and not separated people, divorced people, never married people, widowed people, and people separated in the United States."
+ },
+ "geoId/0644000": {
+  "summary": "Los Angeles, CA is the second most populous city in the United States with a population of 3889834 in 2020. The population has been increasing since 1990. The city is home to a diverse population, with 2476960 US citizens born in the United States, 767729 non-US citizens, and 47029 US citizens born abroad of American parents. The number of married and not separated people in Los Angeles, CA has been increasing since 2011, while the city has the 2nd highest number of divorced people, the 2nd highest number of never-married people, the 2nd highest number of widowed people, and the 2nd highest number of people separated."
+ },
+ "geoId/1714000": {
+  "summary": "Chicago, IL is the 3rd most populous city in the United States. The population of Chicago has decreased from 2801609 in 1995 to 2696555 in 2021. The number of US citizens born in the United States in Chicago has increased from 2011 to 2021. The number of US citizens by naturalization in Chicago increased from 229439 in 2011 to 263871 in 2021. The number of non-US citizens in Chicago has decreased from 341225 in 2012 to 289483 in 2021. The number of US citizens born abroad of American parents in Chicago has increased from 15764 in 2011 to 24463 in 2021. The number of married and not separated people in Chicago has increased from 764668 in 2012 to 806759 in 2021. The number of divorced people in Chicago has ranged from 182,799 in 2020 to 192,765 in 2011. The number of never married people in Chicago has increased from 1030647 in 2011 to 1110942 in 2021. The number of widowed people in Chicago has decreased from 124354 in 2011 to 114071 in 2021. The number of people separated in 2015 was 55288."
+ },
+ "geoId/4835000": {
+  "summary": "Houston, TX is the 4th most populous city in the United States with a population of 2.3 million people. The median age of people in Houston is 32.9. Houston is ranked 4th in the United States by the number of US citizens born in the United States, 3rd by the number of US citizens by naturalization, and 3rd by the number of non-US citizens. The number of married and not separated people in Houston increased from 703284 in 2011 to 758962 in 2020. The number of divorced people in Houston increased from 168431 in 2011 to 186198 in 2020. Houston has 747809 people who have never been married. Houston has the 4th highest number of widowed people in the United States. The number of widowed people in Houston has decreased from 84609 in 2016 to 81588 in 2021. The number of people separated in Houston has decreased from 59923 in 2013 to 54467 in 2020."
+ },
+ "geoId/0455000": {
+  "summary": "Phoenix, AZ is the most populous city in Arizona. Its population has increased from 988983 in 1990 to 1624569 in 2021. Phoenix has the highest number of US citizens born in the United States, non-US citizens, US citizens born abroad of American parents, married and not separated people, divorced people, people who have never been married, widowed people, and people separated in Arizona."
+ },
+ "geoId/4260000": {
+  "summary": "Philadelphia, PA is the most populous city in Pennsylvania. The population of Philadelphia has fluctuated between 1417601 and 1601005 from 1990 to 2021. Philadelphia is ranked 1 of cities in Pennsylvania by Count_Person_USCitizenBornInTheUnitedStates. The number of US citizens born in the United States in Philadelphia has ranged from 1285193 in 2011 to 1305494 in 2021. Philadelphia is ranked 3rd of cities in Pennsylvania by Count_Person_USCitizenByNaturalization. The number of US citizens by naturalization in Philadelphia increased from 84395 in 2011 to 119209 in 2021. Philadelphia is the city with the highest number of non-US citizens in Pennsylvania. The number of non-US citizens in Philadelphia has increased from 91978 in 2011 to 109600 in 2021."
+ },
+ "geoId/4865000": {
+  "summary": "San Antonio, TX is the 2nd most populous city in Texas with a population of 1451853. The population has increased from 997434 in 1990 to 1451853 in 2021. The number of US citizens born in the United States in San Antonio, TX increased from 1108566 in 2011 to 1281965 in 2020. San Antonio, TX has the highest number of US citizens by naturalization in Texas. The number of US citizens by naturalization in San Antonio, TX has increased from 66589 in 2011 to 83362 in 2021."
+ },
+ "geoId/0666000": {
+  "summary": "San Diego is the second most populous city in California with a population of 1,425,976. The city has a diverse population with a large number of US citizens born in the United States, US citizens born abroad of American parents, and non-US citizens. The city also has a large number of married and not separated people, divorced people, never married people, widowed people, and people who are separated."
+ },
+ "geoId/4819000": {
+  "summary": "Dallas, TX is the 3rd most populous city in Texas with a population of 1303234 in 2020. The population has increased by 28.6% since 1990. The number of US citizens born in the United States in Dallas, TX has increased from 892636 in 2011 to 1003318 in 2020. The number of US citizens by naturalization in Dallas, TX has increased from 61562 in 2011 to 82215 in 2021. The number of non-US citizens in Dallas, TX has increased from 233163 in 2013 to 227155 in 2021. The number of US citizens born abroad of American parents in Dallas, TX increased from 7323 in 2011 to 13713 in 2021."
+ },
+ "geoId/0668000": {
+  "summary": "San Jose, CA is the 3rd most populous city in California with a population of 1,015,496. The population has been increasing since 1990. The number of US citizens born in the United States in San Jose, CA has been increasing since 2011. San Jose, CA has the highest number of US citizens by naturalization in the United States. The number of non-US citizens in San Jose has increased from 171451 in 2014 to 179845 in 2020."
+ },
+ "geoId/4805000": {
+  "summary": "Austin, TX is the 4th most populous city in Texas with a population of 964177 in 2021. It is ranked 4th of cities in Texas by Count_Person_USCitizenBornInTheUnitedStates, 3rd in Texas by Count_Person_USCitizenByNaturalization, and 4th of cities in Texas by Count_Person_NotAUSCitizen. Austin, TX has a high number of divorced people, people who have never been married, widowed people, and separated people."
+ },
+ "geoId/1235000": {
+  "summary": "Jacksonville, Florida is the most populous city in Florida with a population of 954,614. The city has seen a steady increase in population over the past two decades. Jacksonville is also home to the highest number of US citizens born in the United States, US citizens by naturalization, non-US citizens, US citizens born abroad of American parents, divorced people, never married people, widowed people, and separated persons in Florida."
+ },
+ "geoId/4827000": {
+  "summary": "Fort Worth, TX is the second most populous city in Denton County with a population of 935,508 in 2021. The number of US citizens born in the United States in Fort Worth, TX has increased from 589217 in 2011 to 742570 in 2021. The number of US citizens by naturalization in Fort Worth, TX increased from 35181 in 2011 to 56405 in 2021. The number of non-US citizens in Fort Worth, TX has increased from 91395 in 2011 to 95152 in 2021. The number of married and not separated people in Fort Worth, TX has increased from 262815 in 2011 to 327459 in 2021. The number of divorced persons in Fort Worth, TX has increased from 64437 in 2011 to 77898 in 2021. The number of people who have never been married in Fort Worth, TX has increased from 180886 in 2012 to 248782 in 2021. The number of widowed people in Fort Worth, TX has increased from 26339 in 2011 to 31178 in 2021. The number of people separated in Fort Worth, TX has decreased from 17165 in 2013 to 15436 in 2021."
+ },
+ "geoId/3918000": {
+  "summary": "Columbus, OH is the most populous city in Ohio. The population of Columbus has increased from 636323 in 1990 to 906528 in 2021. Columbus is also the city with the highest number of US citizens born in the United States, the highest number of US citizens by naturalization, the highest number of non-US citizens, and the highest number of US citizens born abroad of American parents. In addition, Columbus has the highest number of married and not separated people, the highest number of divorced people, the highest number of never married people, and the highest number of widowed people in Ohio."
+ },
+ "geoId/1836003": {
+  "summary": ""
+ },
+ "geoId/3712000": {
+  "summary": "Charlotte, NC is the most populous city in North Carolina. The population of Charlotte, NC has increased from 426984 in 1990 to 879709 in 2021. Charlotte, NC is also the city with the highest number of US citizens born in the United States, US citizens by naturalization, non-US citizens, married and not separated people, divorced persons, widowed people, and separated persons in North Carolina."
+ },
+ "geoId/0667000": {
+  "summary": "San Francisco, CA is home to a diverse population of people. The number of US citizens born in the United States in San Francisco, CA has increased from 499661 in 2011 to 555813 in 2020. San Francisco, CA is also ranked 2nd in the United States by number of people who became US citizens by naturalization. The number of non-US citizens in San Francisco, CA has ranged from 107863 to 115405 from 2011 to 2021. The number of married people in San Francisco, CA increased from 268629 in 2011 to 312207 in 2019. The number of divorced people in San Francisco, CA has been increasing since 2011. The number of people who have never been married in San Francisco, CA has increased from 333111 in 2011 to 358853 in 2020. The number of widowed people in San Francisco, CA has decreased from 37493 in 2011 to 34128 in 2021."
+ },
+ "geoId/5363000": {
+  "summary": "Seattle, WA is the most populous city in Washington. It is also home to the highest number of non-US citizens, US citizens born abroad of American parents, and divorced people in the state. The number of married and not separated people in Seattle has increased from 2011 to 2021, while the number of divorced people, never married people, and people separated has also increased."
+ },
+ "geoId/0820000": {
+  "summary": "Denver, CO is the most populous city in Colorado. The population of Denver has increased from 467549 in 1990 to 711463 in 2021. The number of US citizens born in the United States in Denver increased from 486441 in 2011 to 604304 in 2020. Denver has the highest number of non-US citizens in Colorado, however this number has decreased from 68221 in 2014 to 55391 in 2021. The number of US citizens born abroad of American parents in Denver has increased from 6183 in 2011 to 9789 in 2021.\nDenver is the city with the highest number of married and not separated people in Colorado. The number of married and not separated people in Denver has increased from 191213 in 2011 to 234412 in 2021. Denver also has the highest number of divorced persons, never married persons, widowed persons, and people separated in Colorado."
+ },
+ "geoId/4055000": {
+  "summary": "Oklahoma City, OK is the most populous city in Oklahoma. The population of Oklahoma City has increased from 444605 in 1990 to 687725 in 2021. Oklahoma City has the highest number of US citizens born in the United States, US citizens by naturalization, non-US citizens, US citizens born abroad of American parents, divorced people, never married people, widowed people, and people separated in Oklahoma."
+ },
+ "geoId/4752006": {
+  "summary": ""
+ },
+ "geoId/4824000": {
+  "summary": ""
+ },
+ "geoId/1150000": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. UC Berkeley has an enrollment of over 31,000 undergraduate and graduate students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top universities in the world by major publications such as U.S. News & World Report and Times Higher Education. UC Berkeley is also home to a number of Nobel laureates and other notable alumni."
+ },
+ "geoId/2507000": {
+  "summary": "Boston, MA is the most populous city in Massachusetts. The population of Boston has fluctuated between 550,000 and 690,000 people from 1990 to 2021. The median age of Boston has been increasing since 2011. Boston has the highest number of US citizens born in the United States in Massachusetts, the highest number of US citizens by naturalization in Suffolk County, the city with the most non-US citizens in Massachusetts, the highest number of US citizens born abroad of American parents in Massachusetts, the highest number of married and not separated people in Massachusetts, the highest number of divorced people in Massachusetts, the highest number of never married people in Massachusetts, and the highest number of widowed people in Massachusetts."
+ },
+ "geoId/3240000": {
+  "summary": "Las Vegas is the most populous city in Nevada. The population of Las Vegas has increased from 259834 in 1990 to 646790 in 2021. Las Vegas is also the city with the highest number of US citizens born in the United States, US citizens by Naturalization, non-US citizens, US Citizens born abroad of American parents, married and not separated people, divorced people, and never married people in Nevada."
+ },
+ "geoId/4159000": {
+  "summary": "Portland, Oregon is the city with the highest number of married and not separated people, divorced people, never-married people, widowed people, and people separated in Oregon. The number of US citizens by naturalization in Portland has increased from 31336 in 2011 to 48048 in 2021. Portland also has the highest number of non-US citizens in Oregon, though this number has decreased from 47556 in 2011 to 36548 in 2021."
+ },
+ "geoId/2622000": {
+  "summary": "Detroit, MI is the most populous city in Michigan. The population of Detroit has decreased from 1027946 in 1990 to 632464 in 2021. Detroit has the most US citizens born in the United States in Michigan and is ranked 3rd in Michigan by Count_Person_USCitizenByNaturalization. Detroit has a population of 3780 US citizens born abroad of American parents. Detroit has the highest number of married and not separated people, divorced people, people who have never been married, widowed people, and persons separated in Michigan."
+ },
+ "geoId/2148006": {
+  "summary": ""
+ },
+ "geoId/4748000": {
+  "summary": "Memphis, TN is the second most populous city in Tennessee with a population of 653,450. The city has the highest number of US citizens born in the United States, the most US citizens by naturalization, and the highest number of never married people in Tennessee. The number of non-US citizens in Memphis has decreased from 29544 in 2013 to 25417 in 2021."
+ },
+ "geoId/2404000": {
+  "summary": ""
+ },
+ "geoId/5553000": {
+  "summary": ""
+ },
+ "geoId/3502000": {
+  "summary": "Albuquerque, NM is the most populous city in New Mexico. The population of Albuquerque has increased from 386988 in 1990 to 564648 in 2020. Albuquerque is also the city with the highest number of US citizens born in the United States, US citizens by naturalization, non-US citizens, US citizens born abroad of American parents, married and not separated people, divorced people, never married people, widowed people, and separated persons in New Mexico."
+ },
+ "geoId/0627000": {
+  "summary": ""
+ },
+ "geoId/0477000": {
+  "summary": "Tucson, AZ is the second most populous city in Arizona with a population of 543242 in 2021. The population of Tucson has increased from 417139 in 1990. Tucson is home to 451740 US citizens born in the United States, 36527 US citizens by naturalization, 47323 non-US citizens, and 8313 US citizens born abroad of American parents. The number of married and not separated people in Tucson has increased from 154721 in 2015 to 163394 in 2021. The number of divorced people in Tucson has increased from 60855 in 2011 to 64601 in 2020. The number of people who have never been married in Tucson has increased from 163808 in 2011 to 191757 in 2020. Tucson is the 2nd most populous city in Arizona with 23063 widowed persons in 2021. The number of people separated in Tucson has decreased from 10946 in 2013 to 9719 in 2021."
+ },
+ "geoId/0664000": {
+  "summary": "Sacramento, CA is the most populous city in Sacramento County. It has the highest number of US citizens born in the United States, US citizens by naturalization, and US citizens born abroad of American parents in Sacramento County. The number of married and not separated people in Sacramento, CA has increased from 2011 to 2021. The city also has the highest number of divorced people, never-married people, and widowed people in Sacramento County. The number of people separated in 2021 was 10769."
+ },
+ "geoId/0446000": {
+  "summary": "Mesa, AZ is the 3rd most populous city in Arizona with a population of 509,475 in 2021. The population has increased from 290,212 in 1990. The number of non-US citizens in Mesa, AZ has been decreasing since 2011. The number of US citizens born abroad of American parents in Mesa, AZ has increased from 3856 in 2011 to 5943 in 2021. Mesa, AZ is the second most populous city in Arizona with 192951 married and not separated people in 2021. The number of divorced people in Mesa, AZ has increased from 41838 in 2011 to 48874 in 2019. The number of people who have never been married in Mesa, AZ has increased from 106517 in 2011 to 135689 in 2020. The number of widowed people in Mesa, AZ has increased from 20364 in 2011 to 22242 in 2020. The number of people separated in Mesa, AZ increased from 5400 in 2011 to 7132 in 2020."
+ },
+ "geoId/2938000": {
+  "summary": "Kansas City, MO is the most populous city in Missouri. It is also the city with the highest number of US citizens born in the United States, US citizens by naturalization, non-US citizens, US citizens born abroad of American parents, married and not separated people, divorced people, people who have never been married, widowed people, and people separated."
+ },
+ "geoId/1304000": {
+  "summary": "Atlanta, GA is the most populous city in Georgia. The population of Atlanta has increased from 393760 in 1990 to 499586 in 2020. Atlanta is also the city with the highest number of US citizens born in the United States, US citizens by naturalization, non-US citizens, US citizens born abroad of American parents, married and not separated people, divorced people, never married people, widowed people, and persons separated in Georgia."
+ },
+ "geoId/3137000": {
+  "summary": "Omaha is the most populous city in Nebraska. The population of Omaha has increased from 357,807 in 1990 to 491,168 in 2020. The median age of a person in Omaha is 34.5. Omaha has the highest number of US citizens born in the United States, US citizens by naturalization, non-US citizens, US citizens born abroad of American parents, married and not separated people, divorced people, never married people, widowed people, and people separated in Nebraska."
+ },
+ "geoId/0816000": {
+  "summary": "Colorado Springs is the second most populous city in Colorado with a population of 480,213. The population has increased from 283,112 in 1990 to 480,213 in 2020.\nColorado Springs has the 2nd highest number of US citizens born in the United States. The number of US citizens born in the United States in Colorado Springs has increased from 366,582 in 2011 to 425,068 in 2021.\nColorado Springs has the highest number of US citizens by naturalization in Colorado. The number of US citizens by naturalization in Colorado Springs has increased from 14,853 in 2011 to 19,740 in 2021.\nColorado Springs has the highest number of US citizens born abroad of American parents in Colorado. The number of US citizens born abroad of American parents in Colorado Springs has increased from 9,711 in 2011 to 12,199 in 2021."
+ },
+ "geoId/3755000": {
+  "summary": "Raleigh, NC is the second most populous city in North Carolina. The population of Raleigh has increased from 220,425 in 1990 to 469,124 in 2021. The number of US citizens born in the United States in Raleigh has increased from 334022 in 2011 to 394908 in 2021. The number of people who became US citizens by naturalization in Raleigh increased from 16284 in 2011 to 24069 in 2021. The number of non-US citizens in Raleigh has ranged from 35804 to 39972 from 2011 to 2021. The number of US citizens born abroad of American parents in Raleigh has increased from 3445 in 2011 to 5163 in 2021. The number of married and not separated people in Raleigh has increased from 133213 in 2011 to 153347 in 2021. Raleigh has the second highest number of divorced people and the second highest number of never married people in North Carolina. The number of widowed people in Raleigh has increased from 12440 in 2012 to 14678 in 2020. The count of persons separated in Raleigh in 2021 was 7973."
+ },
+ "geoId/5182000": {
+  "summary": "Virginia Beach, VA is the most populous city in Virginia. The population of Virginia Beach, VA has increased from 402910 in 1992 to 459373 in 2020. The number of US citizens born in the United States in Virginia Beach, VA has increased from 387526 in 2011 to 402470 in 2021. The number of people who became US citizens by naturalization in Virginia Beach, VA increased from 22680 in 2012 to 27552 in 2020. The number of non-US citizens in Virginia Beach, VA has increased from 15163 in 2011 to 16108 in 2019. The number of US citizens born abroad of American parents in Virginia Beach, VA has increased from 7901 in 2013 to 8616 in 2021. The number of married and not separated people in Virginia Beach, VA has increased from 181643 in 2012 to 189453 in 2021. The number of divorced people in Virginia Beach, VA has increased from 38265 in 2012 to 41587 in 2021. The number of widowed people in Virginia Beach, VA has increased from 16692 in 2011 to 18868 in 2021. The number of people separated in Virginia Beach, VA has decreased from 2018 to 2021."
+ },
+ "geoId/0643000": {
+  "summary": "Long Beach, CA is the 2nd most populous city in Los Angeles County with a population of 462,257. The population has ranged from 425639 to 472832 between 1990 and 2021. \nThere are 343569 US citizens born in the United States in Long Beach, CA, making it the 2nd most populous city in Los Angeles County by this metric. The number of US citizens by naturalization in Long Beach has increased from 51830 in 2011 to 61011 in 2017.\nThere are 57984 non-US citizens in Long Beach, CA, making it the 2nd most populous city in Los Angeles County by this metric. The number of non-US citizens in Long Beach has decreased from 71926 in 2011 to 56988 in 2019.\nThere are 4110 US citizens born abroad of American parents in Long Beach, CA, making it the 2nd most populous city in Los Angeles County by this metric. The number of US citizens born abroad of American parents in Long Beach has increased from 4110 in 2013 to 5284 in 2017."
+ },
+ "geoId/1245000": {
+  "summary": "Miami, FL is the second most populous city in Florida. The population of Miami, FL has increased from 359790 in 1990 to 467103 in 2019. Miami, FL is ranked 3rd in the United States by Count_Person_USCitizenByNaturalization. The number of US citizens by naturalization in Miami, FL has increased from 96059 in 2011 to 134119 in 2020. Miami, FL has the highest number of non-US citizens in Florida. The number of non-US citizens in Miami, FL has decreased from 135294 in 2011 to 125073 in 2021."
+ },
+ "geoId/0653000": {
+  "summary": "Oakland, CA is the most populous city in Alameda County with a population of 439341 in 2020. The number of US citizens by naturalization in Oakland has increased from 43485 in 2011 to 56270 in 2021. Oakland has the highest number of non-US citizens in Alameda County with 57789 in 2020. Oakland is the city with the highest number of US citizens born abroad of American parents with 6683 in 2021. Oakland has the highest number of married and not separated people in Alameda County with 142513 in 2021. Oakland is the city with the highest number of divorced people in Alameda County with 34040 in 2021. Oakland has the highest number of never married people in Alameda County with 164572 in 2021. Oakland is the city with the highest number of separated persons in Alameda County with 7314 in 2021."
+ },
+ "geoId/2743000": {
+  "summary": "Minneapolis, MN is the most populous city in Minnesota with a population of 429014 in 2020. The population has increased by 20.8% since 2000. Minneapolis is also the city with the highest number of US citizens born in the United States, US citizens by naturalization, non-US citizens, and US citizens born abroad of American parents in Minnesota. Additionally, Minneapolis has the highest number of married and not separated people, divorced people, never married people, widowed people, and separated persons in Minnesota."
+ },
+ "geoId/4075000": {
+  "summary": "Tulsa, OK is the second most populous city in Oklahoma with a population of 413,017. The number of US citizens born in the United States has increased from 349563 in 2011 to 360353 in 2021. The number of US citizens by naturalization in Tulsa has increased from 10182 in 2011 to 14589 in 2021. The number of non-US citizens in Tulsa has been increasing from 2011 to 2021. The number of US citizens born abroad of American parents in Tulsa has increased from 3030 in 2011 to 3890 in 2021."
+ },
+ "geoId/0603526": {
+  "summary": "Bakersfield, CA is the most populous city in Kern County. The population of Bakersfield has increased from 183959 in 1990 to 407615 in 2021. Bakersfield is also the city with the highest number of US citizens born in the United States, US citizens by naturalization, non-US citizens, and US citizens born abroad of American parents in Kern County. The number of married and not separated people in Bakersfield has increased from 121388 in 2011 to 138809 in 2021. Bakersfield also has the highest number of divorced people, people who have never been married, widowed people, and people separated in Kern County."
+ },
+ "geoId/2079000": {
+  "summary": "Wichita, KS is the most populous city in Kansas. The population of Wichita, KS has increased from 308652 in 1990 to 397117 in 2020. The number of US citizens born in the United States in Wichita, KS has increased from 339120 in 2011 to 352030 in 2021. Wichita, KS has the highest number of US citizens by naturalization in Kansas. The number of US citizens by naturalization in Wichita, KS has increased from 13976 in 2011 to 17784 in 2021. Wichita, KS has the highest number of non-US citizens in Kansas. The number of non-US citizens in Wichita, KS has decreased from 23953 in 2013 to 21165 in 2021. Wichita, KS has the highest number of US citizens born abroad of American parents in Kansas. The number of US citizens born abroad of American parents in Wichita, KS has increased from 2351 in 2011 to 2815 in 2021."
+ },
+ "geoId/1517000": {
+  "summary": "Honolulu, HI is the most populous city in Hawaii. The population of Honolulu was 367,074 in 1991 and 395,789 in 1998."
+ },
+ "geoId/4804000": {
+  "summary": "Arlington, Texas is the second most populous city in Tarrant County. The population of Arlington has increased from 263,402 in 1991 to 392,786 in 2021. The number of US citizens born in the United States in Arlington has increased from 286655 in 2011 to 307309 in 2020. The number of non-US citizens in Arlington has ranged from 45925 to 49412 over the past 10 years. The number of US citizens born abroad of American parents in Arlington has increased from 2848 in 2011 to 4088 in 2018. The number of married and not separated people in Arlington increased from 136190 in 2013 to 141695 in 2021. The number of people divorced in Arlington has increased from 30859 in 2011 to 34478 in 2021. The number of people who have never been married in Arlington has increased from 92871 in 2011 to 112223 in 2021. Arlington is the second most populous city in Tarrant County with 13884 widowed persons in 2019. The number of people separated in Arlington has fluctuated between 7117 and 8233 from 2011 to 2021."
+ },
+ "geoId/0804000": {
+  "summary": "Aurora, CO is the 3rd most populous city in Colorado with a population of 389347 in 2021. The population has increased steadily since 1990. The city has a diverse population, with a large number of US citizens born in the United States, US citizens by naturalization, and US citizens born abroad of American parents. The city also has a large number of married and not separated people, divorced people, never married people, and widowed people. The number of people separated in Aurora, CO has ranged from 5709 to 7228 between 2011 and 2021."
+ },
+ "geoId/1271000": {
+  "summary": "Tampa, Florida is the 3rd most populous city in Florida with a population of 387050 in 2021. The population has been increasing steadily since 1990. Tampa is also home to the largest number of US citizens by naturalization in Hillsborough County, with 36851 in 2021. The city also has the highest number of non-US citizens in Hillsborough County, with 34,636 in 2019."
+ },
+ "geoId/2255000": {
+  "summary": "New Orleans, LA is the most populous city in Louisiana. The population of New Orleans, LA has decreased from 496938 in 1990 to 376971 in 2021. New Orleans, LA has the highest number of US citizens born in the United States, US citizens by naturalization, US citizens born abroad of American parents, married and not separated people, divorced people, never married people, and widowed people in Louisiana."
+ },
+ "geoId/3916000": {
+  "summary": "Cleveland, OH is the second most populous city in Ohio with a population of 367,991 in 2021. The city has seen a decrease in population from 505,450 in 1990. The number of US citizens born in the United States in Cleveland has decreased from 371,714 in 2011 to 336,929 in 2021. The number of non-US citizens in Cleveland has increased from 9119 in 2013 to 12344 in 2019. The number of US citizens born abroad of American parents in Cleveland has increased from 1139 in 2011 to 1535 in 2021. The number of people divorced in Cleveland has decreased from 48412 in 2012 to 42615 in 2020. The number of never married people in Cleveland has increased from 151328 in 2011 to 163331 in 2021. The number of widowed people in Cleveland has decreased from 25092 in 2011 to 18122 in 2021. The city has a Count_Person_Separated of 10577 in 2020."
+ },
+ "geoId/0602000": {
+  "summary": "Anaheim, CA is the most populous city in Orange County, California. The population has increased from 266,625 in 1990 to 347,089 in 2020. Anaheim is also home to the highest number of US citizens by naturalization, non-US citizens, US citizens born abroad of American parents, married and not separated people, divorced persons, never married people, widowed persons, and separated persons in Orange County."
+ },
+ "geoId/1571550": {
+  "summary": "Urban Honolulu, HI has the highest number of US citizens born in the United States in Hawaii. The number of US citizens born in the United States in Urban Honolulu, HI has increased from 229562 in 2011 to 241078 in 2021. Urban Honolulu, HI also has the highest number of non-US citizens in Hawaii, with 40961 non-US citizens in 2021. Additionally, Urban Honolulu, HI has the highest number of US citizens born abroad of American parents in Hawaii, with 10578 US citizens born abroad of American parents in 2021."
+ },
+ "geoId/3231900": {
+  "summary": "Henderson, Nevada is the second most populous city in Nevada. The number of US citizens born in the United States in Henderson has increased from 220611 in 2011 to 262704 in 2021. The number of US citizens by naturalization in Henderson increased from 18389 in 2011 to 29369 in 2021. The number of US citizens born abroad of American parents in Henderson has increased from 2974 in 2011 to 4344 in 2021. The number of married and not separated people in Henderson increased from 111053 in 2011 to 130846 in 2021. The number of people divorced in Henderson has increased from 27335 in 2011 to 35735 in 2021. The number of people who have never been married in Henderson increased from 53805 in 2011 to 73216 in 2021. The number of widowed persons in Henderson has increased from 11717 in 2011 to 14025 in 2020."
+ },
+ "geoId/0675000": {
+  "summary": "Stockton, CA is the most populous city in San Joaquin County with a population of 322,120 in 2021. It is also the city with the highest number of US citizens born in the United States, US citizens by naturalization, and non-US citizens. Stockton has the highest number of married and not separated people, divorced people, people who have never been married, widowed people, and people separated."
+ },
+ "geoId/2146027": {
+  "summary": "Lexington, KY is the 2nd most populous city in Kentucky with a population of 321793 in 2021. The population has increased from 225366 in 1990. The number of US citizens born in the United States in Lexington, KY has increased from 265,317 in 2011 to 286,708 in 2020. The number of people who became US citizens by naturalization in Lexington, KY increased from 6358 in 2011 to 10603 in 2021. Lexington, KY is the second most populous city in Kentucky with a population of 21714 in 2021. It also has the second highest number of non-US citizens in Kentucky with 21714 in 2021."
+ },
+ "geoId/4817000": {
+  "summary": "Corpus Christi, TX is the most populous city in Aransas County with a population of 285398 in 2021. The median age of Corpus Christi, TX is 35.3. The number of US citizens born in the United States has increased from 274918 in 2011 to 293000 in 2020. The number of US citizens by naturalization in Corpus Christi, TX has increased from 9434 in 2011 to 11265 in 2020. The number of non-US citizens in Corpus Christi, TX has increased from 13639 in 2011 to 18680 in 2021. The number of US citizens born abroad of American parents in Corpus Christi, TX has ranged from 2370 to 3058 over the past 10 years. The number of married and not separated people in Corpus Christi, TX has increased from 105567 in 2012 to 118322 in 2018. The number of divorced people in Corpus Christi, TX has been increasing since 2011. The number of never married people in Corpus Christi, TX has increased from 76854 in 2011 to 90269 in 2020. The number of widowed people in Corpus Christi, TX has increased from 14032 in 2013 to 14902 in 2020. The number of people separated in Corpus Christi, TX has ranged from 5974 to 7401 between 2011 and 2021."
+ },
+ "geoId/0662000": {
+  "summary": ""
+ },
+ "geoId/0669000": {
+  "summary": "Santa Ana, CA is the second most populous city in Orange County, CA. The population of Santa Ana has ranged from 293827 in 1992 to 341346 in 2009. The city has a high number of non-US citizens, with 74125 in 2021. The number of US citizens by naturalization in Santa Ana increased from 48608 in 2011 to 59996 in 2020. The city has a high number of people who have never been married, with 106,545 people in 2021."
+ },
+ "geoId/1253000": {
+  "summary": "Orlando, Florida is a city in the state of Florida. It is ranked 4th of cities in Florida by Count_Person_USCitizenBornInTheUnitedStates. The number of US citizens born in the United States has increased from 173957 in 2011 to 201521 in 2021. Orlando, FL is ranked 1 of cities in Orange County by Count_Person_USCitizenByNaturalization.\nThe number of US citizens by naturalization in Orlando, FL increased from 17121 in 2011 to 29427 in 2021."
+ },
+ "geoId/0636770": {
+  "summary": "Irvine, CA is the second most populous city in Orange County. The number of US citizens born in the United States in Irvine, CA increased from 131037 in 2011 to 173609 in 2021. The number of US citizens by naturalization in Irvine, CA increased from 40400 in 2011 to 59956 in 2021. The number of non-US citizens in Irvine, CA has increased from 30930 in 2011 to 57509 in 2021. The number of US Citizens born abroad of American parents in Irvine, CA has increased from 2428 in 2011 to 5870 in 2021. The number of married and not separated people in Irvine, CA has increased from 86427 in 2011 to 122278 in 2021. The number of people divorced in Irvine, CA has increased from 13301 in 2012 to 18281 in 2021. The number of people who have never been married in Irvine, CA has increased from 62972 in 2011 to 93210 in 2021. The number of people separated in Irvine, CA increased from 1711 in 2014 to 2558 in 2021."
+ },
+ "geoId/3915000": {
+  "summary": "Cincinnati, OH is the 3rd most populous city in Ohio with a population of 308935 in 2021. The population has been decreasing since 1994. The number of US citizens born in the United States in Cincinnati, OH has ranged from 280069 to 284946 between 2011 and 2021. The number of naturalized citizens in Cincinnati, OH has increased from 4604 in 2011 to 7376 in 2021. The city has a population of 12929 non-US citizens and 2164 US citizens born abroad of American parents in 2021."
+ },
+ "geoId/3451000": {
+  "summary": "Newark, New Jersey is the most populous city in the state. The population has increased from 275,083 in 1991 to 310,350 in 2020. Newark has the highest number of US citizens born in the United States of all cities in New Jersey. The number of people who became US citizens by naturalization in Newark has been increasing since 2013. Newark also has the second highest number of non-US citizens in New Jersey. The number of US citizens born abroad of American parents in Newark has ranged from 2,506 to 3,672 between 2011 and 2021."
+ },
+ "geoId/2758000": {
+  "summary": "Saint Paul is the second most populous city in Minnesota. The population of Saint Paul has increased from 258527 in 1996 to 310942 in 2020. The number of US citizens born in the United States in Saint Paul has increased from 232076 in 2011 to 247510 in 2021. The number of US citizens by naturalization in Saint Paul has increased from 2011 to 2021. The number of non-US citizens in Saint Paul has decreased from 29360 in 2017 to 25120 in 2021. The number of US citizens born abroad of American parents in Saint Paul has increased from 1856 in 2011 to 2905 in 2020. The number of married and not separated persons in Saint Paul increased from 86900 in 2011 to 94771 in 2021. Saint Paul has a high number of people who are divorced. The number of people who have never been married in Saint Paul has increased from 99907 in 2011 to 112414 in 2021. Saint Paul has 8934 widowed people in 2020. The number of persons separated in Saint Paul has decreased from 4786 in 2014 to 3571 in 2021."
+ },
+ "geoId/4261000": {
+  "summary": "Pittsburgh, PA is the 2nd most populous city in Pennsylvania with a population of 300431 in 2021. The population has been declining since 1990. The number of US citizens born in the United States in Pittsburgh, PA was 270942 in 2020. The number of people who became US citizens by naturalization in Pittsburgh, PA in 2019 was 9450. The number of non-US citizens in Pittsburgh, PA has increased from 13562 in 2011 to 17403 in 2020."
+ },
+ "geoId/3728000": {
+  "summary": "Greensboro, NC is the 3rd most populous city in North Carolina with a population of 280,899. The population has increased from 191591 in 1990 to 298263 in 2021. The number of US citizens born in the United States in Greensboro, NC has increased from 237896 in 2011 to 254847 in 2019. The number of US citizens by naturalization in Greensboro, NC has increased from 8780 in 2011 to 16990 in 2021. The number of non-US citizens in Greensboro has increased from 17705 in 2019 to 18887 in 2021."
+ },
+ "geoId/2965000": {
+  "summary": "St. Louis, MO is the second most populous city in Missouri. The population has decreased from 396685 in 1990 to 293310 in 2021. The median age has increased from 33.9 in 2011 to 36.3 in 2021. The number of US citizens born in the United States has decreased from 294738 in 2011 to 279942 in 2021. The number of US citizens by naturalization has increased from 6910 in 2012 to 9673 in 2019. The number of non-US citizens has decreased from 15084 in 2011 to 11134 in 2021. The number of US citizens born abroad of American parents was 2327 in 2019. The number of married and not separated people has increased from 74842 in 2016 to 79228 in 2020. The number of people divorced has ranged from 31261 in 2020 to 33518 in 2017. The number of never married people has decreased from 128942 in 2012 to 123443 in 2020. The number of people separated has decreased from 9953 in 2011 to 7424 in 2021."
+ },
+ "geoId/3128000": {
+  "summary": "Lincoln, Nebraska is the second most populous city in Nebraska with a population of 288,862. The median age of Lincoln residents is 33. The city has a large population of US citizens, with 260,470 people born in the United States. The city also has a large population of non-US citizens, with 13,409 people not being US citizens. The number of married and not separated people in Lincoln has increased from 98,174 in 2011 to 106,906 in 2020. The number of divorced persons in Lincoln has increased from 22,859 in 2011 to 23,820 in 2021. The number of people who have never been married in Lincoln has increased from 73,970 in 2011 to 93,219 in 2021. The city has a population of 9497 widowed people."
+ },
+ "geoId/4858016": {
+  "summary": "Plano, Texas is the second most populous city in Collin County, with a population of 288,253 in 2021. The population of Plano has grown from 128,507 in 1990. The number of US citizens born in the United States in Plano, TX has ranged from 196259 to 206734 from 2011 to 2021. The number of US citizens by naturalization in Plano, TX has increased from 25786 in 2011 to 35921 in 2019. The number of non-US citizens in Plano, TX has increased from 33507 in 2011 to 45133 in 2021. Plano, TX is the second most populous city in Collin County, with a population of 3913 US citizens born abroad of American parents in 2020. The number of married and not separated people in Plano, TX has increased from 120619 in 2011 to 134615 in 2020. The number of divorced people in Plano, TX increased from 19195 in 2011 to 23180 in 2020. The number of people who have never been married in Plano, TX has increased from 53438 in 2011 to 66705 in 2020. The number of widowed people in Plano, TX has increased from 7221 in 2011 to 9461 in 2020."
+ },
+ "geoId/0203000": {
+  "summary": "Anchorage municipality, AK is the most populous city in Alaska. The population of Anchorage municipality, AK has increased from 226338 in 1990 to 288121 in 2021.\nAnchorage municipality, AK has the highest number of US citizens born in the United States. The number of US citizens born in the United States in Anchorage municipality, AK has decreased from 261105 in 2014 to 251542 in 2021.\nThe number of US citizens by naturalization in Anchorage municipality, AK has increased from 14622 in 2011 to 20313 in 2021.\nAnchorage municipality, AK has the highest number of non-US citizens in Alaska. The number of non-US citizens in Anchorage municipality, AK has ranged from 11610 to 12926 between 2011 and 2021.\nAnchorage municipality, AK has the highest number of US citizens born abroad of American parents in Alaska. The number of US citizens born abroad of American parents in Anchorage municipality, AK has increased from 4758 in 2012 to 6706 in 2021."
+ },
+ "geoId/3719000": {
+  "summary": "Durham, NC is the 4th most populous city in North Carolina. Its population has increased from 148,450 in 1990 to 285,527 in 2021. The median age of Durham, NC has increased from 32.1 in 2011 to 34.6 in 2021. The number of US citizens born in the United States in Durham, NC has increased from 189064 in 2011 to 234974 in 2021. The number of US citizens by naturalization in Durham, NC increased from 7560 in 2011 to 14628 in 2021. The number of non-US citizens in Durham, NC has increased from 24887 in 2012 to 26797 in 2020. The number of US citizens born abroad of American parents in Durham, NC increased from 2011 to 2021. The number of married and not separated people in Durham, NC has increased from 75784 in 2012 to 93763 in 2021. Durham, NC is the 4th most populous city in North Carolina and has the 4th highest number of divorced people."
+ },
+ "geoId/3436000": {
+  "summary": "Jersey City, NJ is the second most populous city in New Jersey with a population of 291927 in 2020. The population has increased from 228475 in 1990. Jersey City has the highest number of non-US citizens of any city in New Jersey and the highest number of US citizens born abroad of American parents. The city also has the highest number of married and not separated persons, the second highest number of never married people, and the second highest number of divorced people. The number of people separated in Jersey City has decreased from 6125 in 2013 to 5480 in 2020."
+ },
+ "geoId/0412000": {
+  "summary": "Chandler, AZ is the 4th most populous city in Arizona with a population of 279458 in 2021. It is ranked 4th of cities in Maricopa County by Count_Person_USCitizenBornInTheUnitedStates, 3rd in Arizona by the number of people who became US citizens by naturalization, and 4th of cities in Maricopa County by Count_Person_NotAUSCitizen. The number of divorced people in Chandler, AZ has increased from 2015 to 2021. The number of people separated in Chandler, AZ has ranged from 2381 to 3185 between 2011 and 2021."
+ },
+ "geoId/0613392": {
+  "summary": "Chula Vista is the second most populous city in San Diego County. The population of Chula Vista has increased from 135,243 in 1990 to 277,220 in 2021. The number of US citizens born in the United States in Chula Vista has increased from 154985 in 2011 to 185561 in 2021. The number of US citizens by naturalization in Chula Vista has increased from 40504 in 2011 to 48908 in 2021. The number of non-US citizens in Chula Vista has decreased from 39277 in 2018 to 33404 in 2021. The number of US citizens born abroad of American parents in Chula Vista has increased from 5227 in 2011 to 5818 in 2021."
+ },
+ "geoId/3611000": {
+  "summary": "Buffalo, NY is the second most populous city in New York. The population of Buffalo has ranged from 255317 to 328117 between 1990 and 2021. The number of US citizens born in the United States in Buffalo has decreased from 237360 in 2011 to 219319 in 2020. The number of naturalized citizens in Buffalo has increased from 8229 in 2011 to 14876 in 2021. The number of non-US citizens in Buffalo has increased from 11258 in 2011 to 14235 in 2021. The number of US citizens born abroad of American parents in Buffalo increased from 963 in 2011 to 2188 in 2021. The number of married and not separated persons in Buffalo has increased from 58603 in 2016 to 66023 in 2021. The number of divorced people in Buffalo has been decreasing since 2011. The number of people who have never been married in Buffalo has increased from 104586 in 2011 to 114734 in 2021. The number of people separated in Buffalo in 2021 was 5793."
+ },
+ "geoId/3251800": {
+  "summary": "North Las Vegas, NV is the third most populous city in Nevada. The population of North Las Vegas, NV has increased from 51080 in 1992 to 274133 in 2021. The number of US citizens born in the United States in North Las Vegas, NV increased from 157717 in 2011 to 198059 in 2021. The number of non-US citizens in North Las Vegas, NV has been increasing since 2011, reaching a peak of 32967 in 2012, before decreasing to 27867 in 2020. The number of US citizens born abroad of American parents in North Las Vegas, NV has increased from 2919 in 2011 to 4238 in 2021. The number of married and not separated people in North Las Vegas, NV has increased from 76116 in 2012 to 88873 in 2021. The number of divorced people in North Las Vegas, NV has increased from 16941 in 2011 to 24569 in 2021. The number of people separated in North Las Vegas, NV increased from 3538 in 2011 to 5276 in 2021."
+ },
+ "geoId/0427400": {
+  "summary": "Gilbert, Arizona is the fourth most populous city in Maricopa County. The population of Gilbert has increased from 30,003 in 1990 to 273,136 in 2021. Gilbert is also ranked fourth in Arizona for the number of US citizens born in the United States and the number of married and not separated people."
+ },
+ "geoId/5548000": {
+  "summary": ""
+ },
+ "geoId/3260600": {
+  "summary": "Reno, NV is the most populous city in Washoe County and has the highest number of US citizens by naturalization. The number of US citizens born in the United States in Reno, NV increased from 182239 in 2011 to 215434 in 2021. Reno, NV is the city with the highest number of non-US citizens in Washoe County. The number of non-US citizens in Reno, NV has decreased from 23228 in 2012 to 20614 in 2021. The number of US citizens born abroad of American parents in Reno, NV has increased from 2643 in 2011 to 3413 in 2021. The number of married and not separated people in Reno, NV has increased from 78018 in 2011 to 90222 in 2021. The number of people divorced has increased from 26174 in 2011 to 31686 in 2021. The number of widowed people in Reno, NV has increased from 9062 in 2013 to 10410 in 2021. The number of people separated in Reno, NV has ranged from 4027 to 4590 from 2011 to 2021."
+ },
+ "geoId/3977000": {
+  "summary": "Toledo, OH is the 4th most populous city in Ohio with a population of 268508 in 2021. The number of US citizens by naturalization in Toledo has increased from 4047 in 2012 to 4788 in 2018. The number of non-US citizens in Toledo has ranged from 4715 to 5860 over the past 10 years. The number of married people in Toledo has decreased from 83685 in 2011 to 72345 in 2021. The number of divorced people in Toledo has decreased from 35112 in 2016 to 30954 in 2021. The number of people who have never been married in Toledo has increased from 92819 in 2016 to 97974 in 2021. The number of widowed people in Toledo has decreased from 2019 to 2021. The number of people separated in Toledo has decreased from 5575 in 2012 to 4530 in 2021."
+ },
+ "geoId/1825000": {
+  "summary": "Fort Wayne is the second most populous city in Indiana. The population of Fort Wayne has fluctuated between 197617 and 270187 between 1997 and 2021.\nFort Wayne is ranked 1st in Indiana by Count_Person_USCitizenByNaturalization. The number of US citizens by naturalization in Fort Wayne has increased from 6510 in 2011 to 10272 in 2021.\nFort Wayne is ranked 2nd in Indiana by the number of non-US citizens. The number of non-US citizens in Fort Wayne has increased from 10368 in 2011 to 12313 in 2021.\nFort Wayne is ranked 2nd in Indiana by the number of US citizens born abroad of American parents. The number of US citizens born abroad of American parents in Fort Wayne has increased from 1201 in 2011 to 1439 in 2021."
+ },
+ "geoId/4845000": {
+  "summary": "Lubbock, TX is the most populous city in Lubbock County. The population of Lubbock, TX has increased from 186770 in 1990 to 260993 in 2021. Lubbock, TX is the city with the highest number of US citizens born in the United States in Lubbock County. The number of US citizens born in the United States in Lubbock, TX has increased from 210652 in 2011 to 235859 in 2021. Lubbock, TX is the city with the most US citizens by naturalization in Lubbock County. The number of US citizens by naturalization in Lubbock, TX has increased from 4798 in 2011 to 6370 in 2020."
+ },
+ "geoId/1263000": {
+  "summary": "St. Petersburg, FL is the most populous city in Pinellas County with a population of 258658 in 2020. It is the 3rd most populous city in Florida and has a diverse population of US citizens and non-US citizens. The number of US citizens born in the United States has increased from 215719 in 2011 to 231919 in 2020. The number of US citizens by naturalization has increased from 13290 in 2011 to 17080 in 2021. The number of non-US citizens in St. Petersburg, FL has decreased from 11741 in 2012 to 9007 in 2021. The number of US citizens born abroad of American parents in St. Petersburg, FL has increased from 2208 in 2011 to 3744 in 2021. The number of married and not separated people in St. Petersburg, FL has increased from 79933 in 2012 to 91101 in 2020. The number of divorced persons in St. Petersburg, FL has been increasing since 2011. The number of widowed people in St. Petersburg, FL has decreased from 2011 to 2021."
+ },
+ "geoId/4841464": {
+  "summary": "Laredo, TX is the most populous city in Webb County. Laredo's population has increased from 125029 in 1990 to 255336 in 2020. The median age of people in Laredo has increased from 27.7 in 2011 to 29.1 in 2021. Laredo is the city with the highest number of US citizens by naturalization in Webb County. The number of US citizens by naturalization in Laredo has increased from 18633 in 2013 to 20634 in 2021. Laredo is the city in Webb County with the highest number of US citizens born abroad of American parents. The number of US citizens born abroad of American parents in Laredo has increased from 2282 in 2011 to 4248 in 2020."
+ },
+ "geoId/4837000": {
+  "summary": "Irving, TX is the 2nd most populous city in Dallas County with a population of 256873 in 2020. The population has increased by 101743 people since 1990. The number of US citizens born in the United States in Irving, TX has increased from 140446 in 2011 to 148354 in 2021. The number of US citizens by naturalization in Irving, TX increased from 19109 in 2011 to 28108 in 2021. The number of non-US citizens in Irving has increased from 51,439 in 2011 to 73,748 in 2021."
+ },
+ "geoId/2148000": {
+  "summary": "Louisville, Kentucky is the third most populous city in the state with a population of 269,838 in 1990."
+ },
+ "geoId/5116000": {
+  "summary": "Chesapeake, VA is the 2nd most populous city in Virginia with a population of 225732 in 2021. The city's population has increased from 151982 in 1990 to 251269 in 2021. The number of US citizens born in the United States in Chesapeake, VA has increased from 2012 to 2021. The number of US citizens born abroad of American parents in Chesapeake, VA has increased from 3077 in 2012 to 4629 in 2020. The number of married and not separated people in Chesapeake, VA increased from 95278 in 2012 to 106171 in 2021. The number of divorced persons in Chesapeake, VA has increased from 16008 in 2011 to 19378 in 2021. The number of widowed people in Chesapeake, VA has increased from 8984 in 2011 to 10144 in 2019."
+ },
+ "geoId/3775000": {
+  "summary": ""
+ },
+ "geoId/0427820": {
+  "summary": ""
+ },
+ "geoId/0465000": {
+  "summary": ""
+ },
+ "geoId/4829000": {
+  "summary": "Garland, Texas is a city in Collin County. It is ranked 3rd of cities in Collin County by Count_Person_USCitizenBornInTheUnitedStates. The number of US citizens born in the United States in Garland, Texas has increased from 162585 in 2020 to 167801 in 2021. Garland, TX is ranked 2nd of cities in Collin County by Count_Person_USCitizenByNaturalization. The number of US citizens by naturalization in Garland, TX has increased from 20007 in 2011 to 29984 in 2021."
+ },
+ "geoId/1608830": {
+  "summary": ""
+ },
+ "geoId/5157000": {
+  "summary": "Norfolk, VA is the 3rd most populous city in Virginia with a population of 235089. The population has decreased from 261250 in 1990. Norfolk is ranked 3rd in Virginia by Count_Person_USCitizenBornInTheUnitedStates. The number of US citizens born in the United States in Norfolk has decreased from 223679 in 2015 to 216535 in 2021. Norfolk has the 4th highest number of married and not separated people in Virginia. The number of married and not separated people in Norfolk has increased from 69474 in 2012 to 71582 in 2021."
+ },
+ "geoId/5367000": {
+  "summary": "Spokane is the second most populous city in Washington. The population of Spokane has increased from 178,120 in 1990 to 229,071 in 2021. The number of US citizens born in the United States has increased from 191564 in 2011 to 208879 in 2021. The number of US citizens by naturalization in Spokane has increased from 5973 in 2011 to 6940 in 2021. The number of non-US citizens in Spokane has decreased from 7942 in 2011 to 6263 in 2019. The number of US citizens born abroad of American parents in Spokane has increased from 2380 in 2011 to 2878 in 2021. The number of married and not separated people in Spokane has increased from 74249 in 2015 to 77827 in 2021. The number of divorced people in Spokane has increased from 24564 in 2011 to 29750 in 2021. The number of people who have never been married in Spokane has increased from 56212 in 2011 to 65791 in 2021. The number of people separated in Spokane was 2419 in 2015."
+ },
+ "geoId/0626000": {
+  "summary": "Fremont, CA is the second most populous city in Alameda County with a population of 231,262. The number of US citizens born in the United States in Fremont is 115872, and the number of US citizens by naturalization is 62372. Fremont has the highest number of non-US citizens in Alameda County with 52927 people. The number of married and not separated people in Fremont has increased from 101860 in 2011 to 118471 in 2019."
+ },
+ "geoId/5167000": {
+  "summary": "Richmond, VA is the 4th most populous city in Virginia. The population of Richmond, VA has increased from 1990 to 2021. The median age of persons in Richmond, VA has increased from 32.2 in 2011 to 34.4 in 2021. Richmond, VA is ranked 4th of cities in Virginia by Count_Person_USCitizenBornInTheUnitedStates. The number of US citizens born in the United States in Richmond, VA has increased from 186722 in 2011 to 209111 in 2020."
+ },
+ "geoId/2606980": {
+  "summary": "Bellaire is the 3rd most populous city in Antrim County with a population of 999. The median age of people in Bellaire is 44.5. The number of US citizens by naturalization in Bellaire has increased from 0 in 2011 to 13 in 2021. The number of non-US citizens in Bellaire ranged from 2 to 9 between 2011 and 2021. The number of US citizens born abroad of American parents in Bellaire ranged from 2 to 6 from 2011 to 2021. The number of divorced people in Bellaire has increased from 105 in 2011 to 159 in 2021. The number of people who have never been married in Bellaire has increased from 184 in 2011 to 266 in 2021. The number of widowed people in Bellaire has increased from 28 in 2013 to 62 in 2021. The number of people separated in Bellaire in 2015 was 25."
+ },
+ "geoId/1775107": {
+  "summary": "Thomasboro, Illinois is a small town located in Champaign County. The town has a population of just over 2,000 people and is known for its beautiful scenery and friendly people. Thomasboro also has the highest median age in Champaign County, with a median age of 46.7 in 2021. This is up from 37.6 in 2011. The increase in median age is likely due to the fact that Thomasboro is a retirement community, with many people moving to the town after they have retired."
+ },
+ "geoId/4902740": {
+  "summary": "Aurora, UT is the 4th most populous city in Sevier County with a population of 4,862. The population has been increasing since 1990, with the exception of 2008. Aurora is ranked 4th of cities in Sevier County by Count_Person_MarriedAndNotSeparated, Count_Person_Divorced, Count_Person_NeverMarried, Count_Person_Widowed, and Count_Person_Separated."
+ },
+ "geoId/4869104": {
+  "summary": "The National Museum of African American History and Culture is a museum dedicated to the history, culture, and achievement of African Americans in the United States. It is located in Washington, D.C., on the National Mall between the Washington Monument and the Lincoln Memorial. The museum was established by an act of Congress in 2003 and opened to the public on September 24, 2016. The museum is a part of the Smithsonian Institution."
+ },
+ "geoId/2978406": {
+  "summary": "Wellsville, MO is the second most populous city in Montgomery County with a population of 1,000. The city has the highest median age in the county and has seen its population decline since 1994. The number of married and not separated people in Wellsville has decreased from 443 in 2014 to 390 in 2021. The number of divorced people has increased from 93 in 2012 to 188 in 2019. Wellsville has the 2nd highest number of widowed people in Montgomery County with a population of 103 in 2021."
+ },
+ "geoId/2940520": {
+  "summary": "La Monte is the 3rd most populous city in Pettis County, Missouri. The population of La Monte has ranged from 1009 to 1150 between 1990 and 2021. The median age of a person in La Monte is 26.1. The number of US citizens born in the United States in La Monte has ranged from 748 to 981 over the past 8 years. La Monte is the second most populous city in Pettis County with 41 US citizens by naturalization in 2015."
+ },
+ "geoId/4844128": {
+  "summary": "The Louvre is a world-renowned museum located in Paris, France. It is one of the largest and most visited museums in the world, with a collection that ranges from ancient Egyptian artifacts to modern art. The Louvre was originally built as a fortress in the 12th century, but it was transformed into a museum in the 18th century. Today, the Louvre is home to over 38,000 works of art, making it one of the most comprehensive collections of art in the world."
+ },
+ "geoId/4047450": {
+  "summary": ""
+ },
+ "geoId/4039000": {
+  "summary": ""
+ },
+ "geoId/2728124": {
+  "summary": "Hector, Minnesota is the third most populous city in Renville County with a population of 2,113. The median age of people in Hector is 44.3. Hector is ranked third of cities in Renville County by Count_Person_NotAUSCitizen. The number of non-US citizens in Hector has ranged from 24 to 48 between 2011 and 2021."
+ },
+ "geoId/5588325": {
+  "summary": "Wittenberg, WI is a city in Shawano County with a population of 2,842. The median age of Wittenberg, WI is 44.8, which is the highest in Shawano County. The number of US citizens by naturalization in Wittenberg, WI in 2020 was 10. The number of non-US citizens in Wittenberg, WI in 2015 was 34. The number of US citizens born abroad of American parents in Wittenberg, WI in 2019 was 9. The highest number of divorces was in 2012 with 168, and the lowest was in 2018 with 126. The number of widowed people in Wittenberg, WI in 2021 was 119."
+ },
+ "geoId/4742720": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/4266192": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/4205288": {
+  "summary": ""
+ },
+ "geoId/3856700": {
+  "summary": "New Salem is the second most populous city in Morton County, North Dakota. The population has increased from 867 in 1998 to 1011 in 2021. The number of married and not separated persons in New Salem has ranged from 375 to 643 between 2011 and 2021. There are 56 people who are divorced in New Salem, and the number of people who have never been married increased from 108 in 2018 to 164 in 2021. The number of widowed people in New Salem has increased from 103 in 2011 to 132 in 2020. The number of people separated in New Salem has ranged from 0 to 29 over the years."
+ },
+ "geoId/3945332": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research universities affiliated with the University of California system. UC Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top universities in the world by major academic rankings. UC Berkeley is home to many notable alumni, including 14 Nobel laureates, 29 Pulitzer Prize winners, and 38 MacArthur Fellows."
+ },
+ "geoId/3653770": {
+  "summary": "Northville, NY has a median age of 41.5 and is ranked 4th of cities in Fulton County by Median_Age_Person. The number of US citizens born abroad of American parents in Northville, NY increased from 0 in 2011 to 15 in 2018, and Northville, NY is ranked 3rd of cities in Fulton County by Count_Person_USCitizenBornAbroadOfAmericanParents. Northville, NY has 71 widowed people in 2021 and is ranked 4th of cities in Fulton County by Count_Person_Widowed. The number of people separated in Northville, NY in 2016 was 40, and Northville, NY is ranked 4th of cities in Fulton County by Count_Person_Separated."
+ },
+ "geoId/3409280": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. The university has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world and is a member of the Association of American Universities."
+ },
+ "geoId/2916822": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research universities affiliated with the University of California system. UC Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/4803072": {
+  "summary": "Ames, Texas is a city in Liberty County with a population of 10,655. The median age in Ames is 44.2, which is higher than the county median of 37.9. The median age has increased from 30.9 in 2013 to 44.2 in 2021."
+ },
+ "geoId/2749732": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. UC Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/1868652": {
+  "summary": "Seelyville, IN is the 4th most populous city in Vigo County with a population of 1197 in 2021. The median age of the population is 32.7. The number of US citizens born in the United States in Seelyville, IN ranged from 803 in 2018 to 1023 in 2020. The number of people who became US citizens by naturalization in Seelyville, IN in 2013 was 4. The number of US citizens born abroad of American parents in Seelyville, IN in 2011 was 4. The number of married people in Seelyville, IN increased from 312 in 2018 to 383 in 2020. The number of divorced people in Seelyville, IN in 2021 was 120. The number of people who have never been married in Seelyville, IN was 171 in 2013. The number of widowed people in Seelyville, IN ranged from 18 to 35 between 2011 and 2021. The number of people separated in 2017 was 19."
+ },
+ "geoId/4833188": {
+  "summary": "Hemphill, TX is the 2nd most populous city in Sabine County with a population of 1261. The median age of Hemphill, TX residents has decreased from 44.5 in 2011 to 33.8 in 2020. The number of US citizens born in the United States in Hemphill, TX increased from 1109 in 2011 to 1400 in 2021. In 2018, there were 5 people who became US citizens by naturalization. The number of non-US citizens in Hemphill, TX has been decreasing since 2012. The number of married and not separated people in Hemphill, TX has ranged from 380 to 520 over the past 10 years. Hemphill, TX is the city with the highest number of divorced people in Sabine County. The number of divorced people in Hemphill, TX has increased from 120 in 2011 to 177 in 2021."
+ },
+ "geoId/4064300": {
+  "summary": "Rush Springs, OK is the second most populous city in Grady County with a median age of 41.8. The number of US citizens by naturalization in Rush Springs has increased from 3 in 2011 to 9 in 2018. The number of US citizens born abroad of American parents in Rush Springs has ranged from 4 in 2015 to 15 in 2014. The number of widowed people in Rush Springs has ranged from 68 in 2017 to 110 in 2021. The number of people separated in Rush Springs was 30 in 2013."
+ },
+ "geoId/3947180": {
+  "summary": "Mantua is a city in Portage County, Ohio. It is ranked 4th of cities in Portage County by Median_Age_Person. The median age of Mantua, OH in 2015 was 43.2."
+ },
+ "geoId/2041465": {
+  "summary": "Linn Valley is the 3rd most populous city in Linn County, Kansas. The population has increased from 556 in 2000 to 1008 in 2021. Linn Valley is ranked 3rd in Linn County by Count_Person_MarriedAndNotSeparated, Count_Person_Divorced, Count_Person_NeverMarried, Count_Person_Widowed, and Count_Person_Separated."
+ },
+ "geoId/2037975": {
+  "summary": "Lake Quivira is the 4th most populous city in Wyandotte County, Kansas. The population of Lake Quivira has ranged from 907 to 1014 people between 1990 and 2021. The median age of Lake Quivira is 48, which is the 2nd highest in Kansas. The number of US citizens born in the United States in Lake Quivira increased from 847 in 2011 to 1064 in 2020. The number of US citizens by naturalization in Lake Quivira in 2021 was 7. The number of non-US citizens in Lake Quivira in 2014 was 8. The number of US citizens born abroad of American parents in Lake Quivira in 2020 was 0. The number of married and not separated people in 2021 was 641. The number of divorced persons in Lake Quivira, KS in 2016 was 39. The number of people who have never been married in Lake Quivira, KS has increased from 97 in 2011 to 151 in 2018. The number of widowed people in Lake Quivira, KS in 2017 was 16. The number of separated persons in 2015 was 5."
+ },
+ "geoId/1880018": {
+  "summary": "Wanatah, Indiana is a city in LaPorte County with a population of 2,740. The median age of residents is 39.9, and the city is ranked 3rd in the county for median age. In 2021, there were 13 people who were separated in Wanatah."
+ },
+ "geoId/5458372": {
+  "summary": "New Cumberland is the 3rd most populous city in Hancock County, WV. The population of New Cumberland has ranged from 1236 to 1362 between 1990 and 2021. The median age of New Cumberland, WV was 49 in 2021. The number of US citizens born in the United States in New Cumberland, WV has ranged from 1029 to 1312 between 2011 and 2021. In 2021, there were 2 people who naturalized as US citizens in New Cumberland. In 2020, there were 48 non-US citizens in New Cumberland. The number of US citizens born abroad of American parents in New Cumberland, WV was 5 in 2019."
+ },
+ "geoId/3946844": {
+  "summary": "Magnolia, Ohio is a city in Carroll County with a population of 1008. The median age of Magnolia, Ohio is 40.8. The number of US citizens born abroad of American parents in Magnolia, Ohio increased from 3 in 2011 to 18 in 2021. The number of people who have never been married in Magnolia, Ohio has increased from 129 in 2011 to 300 in 2021. The number of people separated in Magnolia, Ohio in 2017 was 10."
+ },
+ "geoId/3713980": {
+  "summary": "Columbus, NC is the 2nd most populous city in Polk County with a population of 1007 in 2021. The median age of people in Columbus, NC is 47.8. The number of US citizens born in the United States in Columbus, NC has ranged from 990 to 1323 from 2011 to 2021. The number of people who became US citizens by naturalization in Columbus, NC ranged from 33 to 82 between 2011 and 2021. The number of non-US citizens in Columbus, NC has increased from 44 in 2011 to 72 in 2020. The number of US citizens born abroad of American parents in Columbus, NC has increased from 0 in 2011 to 22 in 2021. The number of married and not separated people in Columbus, NC has been between 409 and 553 from 2011 to 2021. The number of people who divorced in Columbus, NC has increased from 95 in 2011 to 178 in 2017. The number of people who have never been married in Columbus, NC has increased from 2011 to 2019, but decreased from 2019 to 2021. Columbus, NC is the second most populous city in Polk County with a population of 110 widowed people in 2020. The number of people separated in Columbus, NC has ranged from 3 in 2021 to 28 in 2017."
+ },
+ "geoId/3010375": {
+  "summary": "Browning, MT is the second most populous city in Glacier County with a population of 1199. The median age of Browning, MT is 31.7 years. Browning, MT is ranked 4th of cities in Glacier County by Count_Person_USCitizenBornInTheUnitedStates. The number of US citizens born in the United States in Browning, MT has ranged from 828 to 1166 between 2011 and 2021."
+ },
+ "geoId/1885076": {
+  "summary": ""
+ },
+ "geoId/1758265": {
+  "summary": ""
+ },
+ "geoId/1726311": {
+  "summary": "Flanagan, Illinois is a city in Livingston County with a population of 4,204. The median age of residents is 49.3, which is the highest in the county. The number of US citizens by naturalization in Flanagan has increased from 3 in 2013 to 18 in 2016."
+ },
+ "geoId/1357736": {
+  "summary": ""
+ },
+ "geoId/4957850": {
+  "summary": "The Palace of Westminster is the meeting place of the House of Commons and the House of Lords, the two houses of the Parliament of the United Kingdom. It is located in the City of Westminster, in central London. The palace is a Grade I listed building and a UNESCO World Heritage Site.\n\nThe palace was originally built in the 11th century as a royal residence. It was extensively rebuilt in the 15th and 16th centuries, and again in the 19th century after a fire. The palace is now one of the most iconic buildings in London, and is a popular tourist destination."
+ },
+ "geoId/4184200": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. The university has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world by major publications such as U.S. News & World Report and Times Higher Education."
+ },
+ "geoId/2902638": {
+  "summary": ""
+ },
+ "geoId/1950700": {
+  "summary": "Mechanicsville, Iowa is the 4th most populous city in Cedar County with a population of 2,844. It has the highest median age of any city in Cedar County, which has increased from 37.5 in 2016 to 51.2 in 2020. In 2012, there were 14 US citizens born abroad of American parents."
+ },
+ "geoId/5506425": {
+  "summary": "Belmont, Wisconsin is a city in Lafayette County. It is ranked 4th of cities in Lafayette County by Count_Person_MarriedAndNotSeparated. The number of married and not separated people in Belmont, WI in 2020 was 454. Belmont is also ranked 4th of cities in Lafayette County by Count_Person_Divorced. The number of divorced people in Belmont, WI has increased from 71 in 2011 to 112 in 2021. Additionally, Belmont is ranked 4th of cities in Lafayette County by Count_Person_Widowed. The number of widowed people in Belmont, WI in 2018 was 45."
+ },
+ "geoId/4100275": {
+  "summary": ""
+ },
+ "geoId/3930632": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. Berkeley has an enrollment of over 36,000 undergraduate and graduate students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world and is a member of the Association of American Universities."
+ },
+ "geoId/3644193": {
+  "summary": "McGraw, NY is the 3rd most populous city in Cortland County with a population of 1087 in 2021. The median age of McGraw, NY is 32. The number of US citizens born in the United States in McGraw, NY was 1317 in 2021. The number of non-US citizens in McGraw, NY in 2021 was 5. The number of US citizens born abroad of American parents in McGraw, NY in 2021 was 9. The number of people who have never been married in McGraw, NY has increased from 164 in 2011 to 340 in 2021. The number of people separated in McGraw, NY in 2012 was 37."
+ },
+ "geoId/2950312": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. The university has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world by major academic rankings."
+ },
+ "geoId/2063750": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. UC Berkeley has an enrollment of over 36,000 undergraduate and graduate students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/3918546": {
+  "summary": ""
+ },
+ "geoId/1354124": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research universities affiliated with the University of California system. Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/0850920": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research universities affiliated with the University of California system. UC Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/2230830": {
+  "summary": "Grand Isle, Louisiana is a city in Jefferson Parish with a population of 1,497. It is the city with the highest median age in Jefferson Parish, at 62.8 years. The median age has been increasing since 2011, when it was 60.8 years."
+ },
+ "geoId/1851102": {
+  "summary": "Morgantown, IN is a city in Morgan County with a population of 2,844. The median age of Morgantown, IN is 34.9, and the number of non-US citizens is 3. The number of divorced people in Morgantown, IN has increased from 101 in 2011 to 221 in 2021. The number of widowed people in Morgantown, IN has increased from 52 in 2014 to 105 in 2019. The number of people separated in Morgantown, IN in 2019 was 16."
+ },
+ "geoId/5139528": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. UC Berkeley has an enrollment of over 30,000 undergraduate and graduate students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top universities in the world by major publications such as U.S. News & World Report and Times Higher Education. UC Berkeley is also home to a number of Nobel laureates and other notable alumni."
+ },
+ "geoId/4880296": {
+  "summary": "Wortham, TX is a city in Freestone County with a population of 1116. It is the city with the lowest median age in Freestone County. The median age in Wortham, TX has fluctuated between 28.5 and 42.3 from 2011 to 2021.\nWortham, TX is ranked 3rd of cities in Freestone County by population, Count_Person_USCitizenBornInTheUnitedStates, Count_Person_USCitizenByNaturalization, Count_Person_USCitizenBornAbroadOfAmericanParents, Count_Person_MarriedAndNotSeparated, Count_Person_Divorced, Count_Person_NeverMarried, Count_Person_Widowed, and Count_Person_Separated."
+ },
+ "geoId/4204848": {
+  "summary": "Beavertown, Pennsylvania is the fourth most populous city in Snyder County with a population of 1,004 as of 2021. The median age of residents is 38, and the city is home to a diverse population of both US citizens and non-US citizens. The number of US citizens by naturalization in Beavertown has ranged from 1 to 26 between 2011 and 2021, while the number of non-US citizens has ranged from 0 to 26 during the same time period."
+ },
+ "geoId/3980458": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. The university has an enrollment of over 30,000 undergraduate and graduate students and offers over 350 academic programs. Berkeley is ranked among the top universities in the world and is a member of the Association of American Universities."
+ },
+ "geoId/3606959": {
+  "summary": "Bloomingburg is a village in Sullivan County, New York. It is the fourth most populous city in the county, with a population of 1,002 as of the 2020 census. The village's population has ranged from 303 to 1,002 between 1990 and 2021."
+ },
+ "geoId/1703610": {
+  "summary": "The Great Wall of China is a series of fortifications built across the historical northern borders of China to protect the Chinese states and empires against raids and invasions by various nomadic groups from the Eurasian Steppe. Several walls were built from as early as the 7th century BC, and these were joined together and expanded in the 3rd century BC during the Qin dynasty. Little of the early wall remains. The most well-known sections of the wall were built by the Ming dynasty (1368\u20131644). Stretching from Shanhaiguan in the east to Lop Lake in the west, it is the world's longest man-made structure. The Great Wall was constructed as a defense against raids by nomadic groups from the Eurasian Steppe. It was also used to control the movement of people and goods across the Chinese border."
+ },
+ "geoId/1644200": {
+  "summary": "Kootenai is a city in Bonner County, Idaho. It is ranked 4th of cities in Bonner County by population. The population of Kootenai has increased from 325 in 1990 to 1002 in 2021. The median age of Kootenai is 33. The number of US citizens born in the United States in Kootenai increased from 731 in 2011 to 1175 in 2021. Kootenai is the 4th most populous city in Bonner County with a population of 2,000. In 2020, there were 2 people in Kootenai, ID who were not US citizens."
+ },
+ "geoId/5414524": {
+  "summary": "Chapmanville is the second most populous city in Logan County, West Virginia. The population has decreased from 1207 in 1990 to 1001 in 2021. The median age of Chapmanville, WV in 2021 was 42.7. Chapmanville, WV is ranked 4th of cities in Logan County by Count_Person_Divorced, 3rd in Logan County by Count_Person_Widowed, and 3rd of cities in Logan County by Count_Person_Separated."
+ },
+ "geoId/3612771": {
+  "summary": "Castile, New York is a small town located in Wyoming County. It has a population of just over 2,000 people. In 2012, there were 47 people who were separated in Castile, New York. This means that Castile is ranked 3rd of cities in Wyoming County by Count_Person_Separated."
+ },
+ "geoId/2223620": {
+  "summary": "Elton, LA is the 4th most populous city in Jefferson Davis Parish. The population of Elton, LA has ranged from 990 to 1527 between 1990 and 2021. The median age in Elton, LA has ranged from 32.1 in 2016 to 52 in 2020. The number of US citizens born in the United States in Elton, LA has ranged from 931 to 1370 between 2011 and 2021."
+ },
+ "geoId/3747845": {
+  "summary": "North Topsail Beach, North Carolina has the highest median age in Onslow County. The median age of a person in North Topsail Beach increased from 43.7 in 2013 to 59 in 2021."
+ },
+ "geoId/2203110": {
+  "summary": "Arnaudville, LA is a city in St. Landry Parish. In 2020, 9 people were not US citizens and 8 were US citizens born abroad of American parents. The number of divorced people in Arnaudville, LA increased from 115 in 2014 to 213 in 2021. In 2021, there were 103 people separated in Arnaudville, LA."
+ },
+ "geoId/4220216": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. UC Berkeley has an enrollment of over 30,000 undergraduate and graduate students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top universities in the world by major academic rankings. UC Berkeley is also home to a number of Nobel laureates and other notable alumni."
+ },
+ "geoId/4009850": {
+  "summary": ""
+ },
+ "geoId/2706076": {
+  "summary": "Bird Island is a city in Renville County, Minnesota, United States. It is the county seat of Renville County. The population was 1,032 at the 2020 census. Bird Island is the city with the highest median age in Renville County. The median age in Bird Island has ranged from 46.9 to 53.1 from 2011 to 2021."
+ },
+ "geoId/2124382": {
+  "summary": "Elkhorn City, KY is the 2nd most populous city in Pike County with a population of 1161 in 2021. The median age of people in Elkhorn City, KY is 35.4. The number of US citizens born in the United States in Elkhorn City, KY was 1173 in 2021. Elkhorn City, KY has 0 people who are US citizens by naturalization. In 2011, there were 3 people who were not US citizens. Elkhorn City, KY has 0 US citizens born abroad of American parents. The number of married and not separated people in Elkhorn City, KY has been increasing since 2011. The number of divorced people in 2020 was 121. In 2021, the number of people who have never been married in Elkhorn City, KY was 291. The number of people separated in 2021 was 22."
+ },
+ "geoId/2053725": {
+  "summary": "Overbrook, KS is a city in Osage County with a population of 1056. The median age of Overbrook, KS is 41.7. In 2011, there were 1049 US citizens born in the United States in Overbrook, KS. In 2021, there were 3 US citizens born abroad of American parents in Overbrook, KS. In 2021, there were 409 married and not separated people in Overbrook, KS. In 2014, there were 115 divorced people in Overbrook, KS. In 2014, there were 164 people who have never been married in Overbrook, KS. In 2018, Overbrook, KS was the 2nd most populous city in Osage County with 88 widowed people. In 2011, there were 17 separated persons in Overbrook, KS."
+ },
+ "geoId/1976935": {
+  "summary": "Tabor, IA is the second most populous city in Fremont County with a population of 1043. The median age of Tabor, IA is 49.8, which is the highest in Fremont County. The number of married and not separated people in Tabor, IA increased from 390 in 2014 to 517 in 2020. The number of divorced persons in Tabor, IA has been fluctuating between 100 and 150 since 2011. The number of people who have never been married in Tabor, IA has ranged from 171 to 294 over the past 10 years. The number of widowed persons in Tabor, IA has decreased from 133 in 2018 to 69 in 2021. The number of people separated in Tabor, IA in 2016 was 4."
+ },
+ "geoId/2180913": {
+  "summary": "The Palace of Westminster is the meeting place of the House of Commons and the House of Lords, the two houses of the Parliament of the United Kingdom. It is located in the City of Westminster, in central London. The palace is a Grade I listed building and a UNESCO World Heritage Site.\n\nThe palace was originally built in the 11th century as a royal palace. It was extensively rebuilt in the 15th and 16th centuries, and again in the 19th century after a fire. The palace is now home to some of the most famous and iconic rooms in the world, including the House of Commons Chamber, the House of Lords Chamber, and the Westminster Hall.\n\nThe palace is open to the public for tours, and is a popular tourist destination."
+ },
+ "geoId/0112304": {
+  "summary": ""
+ },
+ "geoId/4218000": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. Berkeley has an enrollment of over 36,000 undergraduate and graduate students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world and is a member of the Association of American Universities."
+ },
+ "geoId/4275072": {
+  "summary": ""
+ },
+ "geoId/3478530": {
+  "summary": "West Cape May, New Jersey is a town in Cape May County. It is ranked 4th of cities in Cape May County by Count_Person_USCitizenBornAbroadOfAmericanParents. The number of US citizens born abroad of American parents in West Cape May, NJ in 2021 was 36."
+ },
+ "geoId/2416775": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/2914212": {
+  "summary": ""
+ },
+ "geoId/1613150": {
+  "summary": "Cascade, ID is the 2nd most populous city in Valley County with a population of 1,005 people. The median age of Cascade, ID is 40.3 years old. The number of US citizens born in the United States in Cascade, ID ranged from 608 in 2017 to 1222 in 2012. In 2020, the number of people who became US citizens by naturalization in Cascade, ID was 11. The number of non-US citizens in Cascade, ID in 2015 was 6. Cascade, ID has the second highest number of divorced people in Valley County. The number of divorced people in Cascade, ID has ranged from 89 to 180 between 2011 and 2021. The number of people who have never been married in Cascade, ID has ranged from 95 to 243 between 2011 and 2021. Cascade, ID is the second most populous city in Valley County with a population of 91 widowed people in 2020. The number of people separated in Cascade, ID in 2014 was 55."
+ },
+ "geoId/4707860": {
+  "summary": "Bradford, Tennessee is a city in Gibson County with a population of 4,356. It is the city with the highest median age in the county, at 49.2 years old. This is an increase from 36.7 years old in 2015."
+ },
+ "geoId/0111680": {
+  "summary": "Camp Hill, AL is a city in Tallapoosa County with a population of 1395. The median age of the population is 34.3 years. The number of people who became US citizens by naturalization in Camp Hill, AL in 2020 was 9. The number of non-US citizens in Camp Hill, AL in 2015 was 0. The number of married and not separated people in Camp Hill, AL in 2016 was 151. The number of divorced people in Camp Hill, AL in 2021 was 201. The number of people who have never been married in Camp Hill, AL has increased from 387 in 2011 to 625 in 2021. The number of widowed people in Camp Hill, AL has ranged from 41 to 75 over the past 10 years. The number of people separated in Camp Hill, AL in 2018 was 90."
+ },
+ "geoId/3725560": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. UC Berkeley has an enrollment of over 31,000 undergraduate and graduate students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/2447875": {
+  "summary": "Lonaconing is the 4th most populous city in Allegany County, Maryland. The population of Lonaconing has decreased from 1,377 in 1990 to 989 in 2021."
+ },
+ "geoId/1755171": {
+  "summary": "Odell, Illinois is a city in Livingston County. It is ranked 4th of cities in Livingston County by Count_Person_USCitizenByNaturalization. The number of people who became US citizens by naturalization in Odell, Illinois in 2020 was 8."
+ },
+ "geoId/4052600": {
+  "summary": ""
+ },
+ "geoId/2874760": {
+  "summary": ""
+ },
+ "geoId/5531300": {
+  "summary": "Green Lake is the 4th most populous city in Green Lake County, Wisconsin. The population of Green Lake has ranged from 923 to 1217 people between 1990 and 2021. The median age of a person in Green Lake is 47.1. The number of US citizens born in the United States in Green Lake has ranged from 793 in 2018 to 999 in 2011. The number of US citizens by naturalization in 2013 was 33. The number of non-US citizens in Green Lake has ranged from 0 to 31 between 2011 and 2021. The number of US citizens born abroad of American parents in Green Lake increased from 0 in 2011 to 10 in 2020."
+ },
+ "geoId/4856996": {
+  "summary": "Petersburg, TX is a city in Hale County with a population of 1,325. The median age of Petersburg, TX is 34.8. There are 36 to 154 non-US citizens in Petersburg, TX. The number of US citizens born abroad of American parents in Petersburg, TX increased from 0 in 2012 to 17 in 2019. In 2021, the number of widowed people in Petersburg, TX was 119."
+ },
+ "geoId/3101780": {
+  "summary": ""
+ },
+ "geoId/2959942": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. UC Berkeley has an enrollment of over 30,000 undergraduate and graduate students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/0148808": {
+  "summary": ""
+ },
+ "geoId/2637860": {
+  "summary": ""
+ },
+ "geoId/4007500": {
+  "summary": "Boley, OK is the second most populous city in Okfuskee County with a population of 1,078. The median age of Boley, OK is 44.7, which is the highest in Okfuskee County. The number of US citizens born in the United States in Boley, OK has ranged from 1040 to 1236 between 2011 and 2021. The number of people who became US citizens by naturalization in Boley, OK in 2018 was 5. The number of people who are not US citizens in Boley, OK has increased from 3 in 2011 to 14 in 2021. The number of married people in Boley, OK has been increasing since 2011. The number of divorces in 2016 was 246. The number of people who have never been married in Boley, OK has ranged from 470 in 2021 to 602 in 2019. The number of widowed people in Boley, OK in 2013 was 34. The number of people separated in 2021 was 63."
+ },
+ "geoId/2215780": {
+  "summary": "Clarks is the 2nd most populous city in Caldwell Parish, Louisiana. The population of Clarks has ranged from 649 in 1992 to 1068 in 2000. Clarks, LA is the city with the highest median age person in Caldwell Parish. The median age person in Clarks, LA has been increasing since 2011."
+ },
+ "geoId/1229100": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. It has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world by major publications such as U.S. News & World Report and Times Higher Education."
+ },
+ "geoId/1775172": {
+  "summary": "Thomson, IL is a city in Carroll County, Illinois. It is ranked 4th of cities in Carroll County by Count_Person_USCitizenByNaturalization, 4th of cities in Carroll County by Count_Person_NotAUSCitizen, 3rd of cities in Carroll County by Count_Person_USCitizenBornAbroadOfAmericanParents, 4th of cities in Carroll County by Count_Person_Widowed, and 3rd of cities in Carroll County by Count_Person_Separated."
+ },
+ "geoId/0270760": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. UC Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/4813828": {
+  "summary": "Center Point, TX is the second most populous city in Kerr County with a population of 153 in 2021. It is ranked 3rd of cities in Kerr County by population, median age person, Count_Person_NotAUSCitizen, Count_Person_MarriedAndNotSeparated, Count_Person_Divorced, Count_Person_NeverMarried, Count_Person_Widowed, and Count_Person_Separated."
+ },
+ "geoId/3908168": {
+  "summary": "Brady Lake, Ohio is a city in Portage County with a population of 4,460. It is the city with the highest median age of person in Portage County, at 48.9 years old in 2020. This is an increase from 46.4 years old in 2011."
+ },
+ "geoId/2101648": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. Berkeley has consistently ranked among the top public universities in the world. The university has a reputation for academic excellence, particularly in the social sciences, humanities, and natural sciences. Berkeley is also home to a number of Nobel laureates and other notable alumni."
+ },
+ "geoId/4877680": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/2827620": {
+  "summary": "Glendale, Mississippi, MS is the second most populous city in Forrest County with a population of 2,155 in 2019. The median age of the population was 32.4. The number of US citizens born in the United States in Glendale, Mississippi, MS increased from 1078 in 2011 to 2155 in 2019. In 2021, there were 20 people who were not US citizens, 70 people who were US citizens born abroad of American parents, 765 people who were married and not separated, 312 people who were divorced, 453 people who were never married, 101 people who were widowed, and 153 people who were separated."
+ },
+ "geoId/06": {
+  "summary": "California has the highest number of US citizens born in the United States, the highest number of US citizens by naturalization in the United States, the highest number of non-US citizens in the United States, the highest number of US citizens born abroad of American parents, the highest number of married and not separated people in the United States, the highest number of divorced people in the United States, and the highest number of never-married people in the United States."
+ },
+ "geoId/48": {
+  "summary": ""
+ },
+ "geoId/12": {
+  "summary": ""
+ },
+ "geoId/36": {
+  "summary": ""
+ },
+ "geoId/42": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. UC Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/17": {
+  "summary": ""
+ },
+ "geoId/39": {
+  "summary": ""
+ },
+ "geoId/13": {
+  "summary": ""
+ },
+ "geoId/37": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. Berkeley has consistently ranked among the top public universities in the world. The university is home to over 36,000 students and offers over 350 undergraduate and graduate degree programs. Berkeley is also home to a number of world-renowned research institutes, including the Lawrence Berkeley National Laboratory and the Berkeley Institute for Data Science."
+ },
+ "geoId/26": {
+  "summary": "The National Museum of African American History and Culture is a museum dedicated to the history, culture, and achievement of African Americans in the United States. It is located in Washington, D.C., on the National Mall between the Washington Monument and the Lincoln Memorial. The museum was established by an act of Congress in 2003 and opened to the public on September 24, 2016. It is the largest museum devoted to African American history and culture in the world."
+ },
+ "geoId/34": {
+  "summary": ""
+ },
+ "geoId/51": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world by major academic rankings."
+ },
+ "geoId/53": {
+  "summary": ""
+ },
+ "geoId/04": {
+  "summary": ""
+ },
+ "geoId/25": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/47": {
+  "summary": "The Palace of Westminster is the meeting place of the House of Commons and the House of Lords, the two houses of the Parliament of the United Kingdom. It is located in the City of Westminster, in central London. The palace is a Grade I listed building and a UNESCO World Heritage Site.\n\nThe palace was originally built in the 11th century as a royal palace. It was extensively rebuilt in the 15th and 16th centuries, and again in the 19th century after a fire. The palace is now one of the most famous buildings in the world, and is a popular tourist destination."
+ },
+ "geoId/18": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. Berkeley has an enrollment of over 30,000 undergraduate and graduate students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world and is a member of the Association of American Universities."
+ },
+ "geoId/24": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. The university has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world by major publications such as U.S. News & World Report and Times Higher Education."
+ },
+ "geoId/29": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. Berkeley has a reputation for academic excellence, and its alumni include 34 Nobel laureates, 14 Turing Award laureates, and 2 Fields Medalists. The university is also home to the Lawrence Berkeley National Laboratory, a world-renowned center for scientific research."
+ },
+ "geoId/55": {
+  "summary": ""
+ },
+ "geoId/08": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. Berkeley has an enrollment of over 36,000 undergraduate and graduate students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world by major publications such as U.S. News & World Report and Times Higher Education."
+ },
+ "geoId/27": {
+  "summary": ""
+ },
+ "geoId/45": {
+  "summary": "The Palace of Westminster is the meeting place of the House of Commons and the House of Lords, the two houses of the Parliament of the United Kingdom. It is located in the City of Westminster, in central London. The Palace of Westminster is a Grade I listed building and a UNESCO World Heritage Site."
+ },
+ "geoId/01": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. UC Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/22": {
+  "summary": "The Palace of Westminster is the meeting place of the House of Commons and the House of Lords, the two houses of the Parliament of the United Kingdom. It is located in the City of Westminster, in central London. The palace was originally built in the 11th century as a royal residence. It was extensively rebuilt in the 19th century after a fire in 1834. The palace is a Grade I listed building and a UNESCO World Heritage Site."
+ },
+ "geoId/21": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. UC Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world.\n\nUC Berkeley is home to many notable alumni, including 14 Nobel laureates, 29 Pulitzer Prize winners, and 11 Academy Award winners. The university is also home to a number of research centers and institutes, including the Lawrence Berkeley National Laboratory and the Berkeley Center for Law and Technology."
+ },
+ "geoId/41": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. The university has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world by major publications such as U.S. News & World Report and Times Higher Education."
+ },
+ "geoId/40": {
+  "summary": "The Palace of Westminster is the meeting place of the House of Commons and the House of Lords, the two houses of the Parliament of the United Kingdom. It is located in the City of Westminster, in central London. The palace is a Grade I listed building and a UNESCO World Heritage Site.\n\nThe palace was originally built in the 11th century as a royal residence. It was extensively rebuilt in the 15th and 16th centuries, and again in the 19th century after a fire. The palace is now one of the most iconic buildings in the world, and is a popular tourist destination."
+ },
+ "geoId/09": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/72": {
+  "summary": "Puerto Rico is a Caribbean island and unincorporated territory of the United States. It has the second highest median age in the United States, at 43.1 years in 2021. This is up from 36.5 years in 2011. The aging population is due to a number of factors, including declining birth rates and increased life expectancy."
+ },
+ "geoId/49": {
+  "summary": ""
+ },
+ "geoId/19": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. UC Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world. Berkeley is home to many Nobel laureates and has been ranked as one of the most innovative universities in the world."
+ },
+ "geoId/32": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. UC Berkeley is consistently ranked among the top universities in the world. The university has a diverse student body of over 40,000 students, including undergraduate and graduate students from all over the world. UC Berkeley is home to a number of world-renowned academic departments and research centers, and is a major center for cutting-edge research in a wide range of fields."
+ },
+ "geoId/05": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research universities affiliated with the University of California system. UC Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top universities in the world by major publications such as U.S. News & World Report and Times Higher Education. UC Berkeley is also home to a number of Nobel laureates and other notable alumni."
+ },
+ "geoId/28": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. Berkeley has consistently ranked among the top universities in the world. The university is home to over 36,000 students and offers over 350 undergraduate and graduate degree programs. Berkeley is also home to a number of world-renowned research institutes, including the Lawrence Berkeley National Laboratory and the Berkeley Institute for Data Science."
+ },
+ "geoId/20": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research universities affiliated with the University of California system. Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/35": {
+  "summary": "The University of California, Berkeley (UC Berkeley) is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research universities affiliated with the University of California system. UC Berkeley has an enrollment of over 30,000 undergraduate and graduate students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/31": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ },
+ "geoId/16": {
+  "summary": ""
+ },
+ "geoId/54": {
+  "summary": ""
+ },
+ "geoId/15": {
+  "summary": ""
+ },
+ "geoId/33": {
+  "summary": "New Hampshire has the 3rd highest median age in the United States, at 43 years old. This is an increase from 40.7 years old in 2011."
+ },
+ "geoId/23": {
+  "summary": ""
+ },
+ "geoId/44": {
+  "summary": "Rhode Island is the 3rd most densely populated state in the United States with a population density of 405.39 people per square mile. This is an increase from 389.37 people per square mile in 2009."
+ },
+ "geoId/30": {
+  "summary": ""
+ },
+ "geoId/10": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. Berkeley has an enrollment of over 31,000 undergraduate and graduate students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world by major publications such as U.S. News & World Report and Times Higher Education."
+ },
+ "geoId/46": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. The university has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world and is a member of the Association of American Universities."
+ },
+ "geoId/38": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. The university has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. Berkeley is consistently ranked among the top public universities in the world."
+ },
+ "geoId/02": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses of the University of California system. The university has an enrollment of over 36,000 undergraduate and graduate students and offers over 350 undergraduate and graduate degree programs. Berkeley is ranked among the top universities in the world and is a member of the Association of American Universities."
+ },
+ "geoId/11": {
+  "summary": "The District of Columbia is a federal district and the capital of the United States. It is also the most densely populated state in the country, with a population density of 4225.18 people per square mile in 2022. This is up from 3570.78 people per square mile in 2004."
+ },
+ "geoId/50": {
+  "summary": "Vermont is a state in the United States. It has the 4th highest median age in the United States, with the median age increasing from 41.4 in 2011 to 42.9 in 2019."
+ },
+ "geoId/56": {
+  "summary": "The University of California, Berkeley is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the oldest of the ten research campuses affiliated with the University of California system. Berkeley has an enrollment of over 40,000 students and offers over 350 undergraduate and graduate degree programs. The university is ranked among the top public universities in the world."
+ }
+}

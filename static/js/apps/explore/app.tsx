@@ -261,7 +261,6 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const llmApi = getSingleParam(hashParams[URL_HASH_PARAMS.LLM_API]);
     const testMode = getSingleParam(hashParams[URL_HASH_PARAMS.TEST_MODE]);
     const i18n = getSingleParam(hashParams[URL_HASH_PARAMS.I18N]);
-    const udp = getSingleParam(hashParams[URL_HASH_PARAMS.USE_DEFAULT_PLACE]);
 
     let fulfillmentPromise: Promise<any>;
     const gaTitle = query
@@ -283,8 +282,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         detector,
         llmApi,
         testMode,
-        i18n,
-        udp
+        i18n
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -305,8 +303,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         [],
         disableExploreMore,
         testMode,
-        i18n,
-        udp
+        i18n
       )
         .then((resp) => {
           processFulfillData(resp, true);
@@ -336,8 +333,7 @@ const fetchFulfillData = async (
   classificationsJson: any,
   disableExploreMore: string,
   testMode: string,
-  i18n: string,
-  udp: string
+  i18n: string
 ) => {
   try {
     const argsMap = new Map<string, string>();
@@ -346,9 +342,6 @@ const fetchFulfillData = async (
     }
     if (i18n) {
       argsMap.set(URL_HASH_PARAMS.I18N, i18n);
-    }
-    if (udp) {
-      argsMap.set(URL_HASH_PARAMS.USE_DEFAULT_PLACE, udp);
     }
     const args = argsMap.size > 0 ? `?${generateArgsParams(argsMap)}` : "";
     const startTime = window.performance ? window.performance.now() : undefined;
@@ -390,8 +383,7 @@ const fetchDetectAndFufillData = async (
   detector: string,
   llmApi: string,
   testMode: string,
-  i18n: string,
-  udp: string
+  i18n: string
 ) => {
   const argsMap = new Map<string, string>();
   if (detector) {
@@ -405,9 +397,6 @@ const fetchDetectAndFufillData = async (
   }
   if (i18n) {
     argsMap.set(URL_HASH_PARAMS.I18N, i18n);
-  }
-  if (udp) {
-    argsMap.set(URL_HASH_PARAMS.USE_DEFAULT_PLACE, udp);
   }
   const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
   try {

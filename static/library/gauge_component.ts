@@ -24,6 +24,7 @@ import {
   GaugeTile,
   GaugeTilePropType,
 } from "../js/components/tiles/gauge_tile";
+import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
 import {
   convertArrayAttribute,
   createWebComponentElement,
@@ -77,6 +78,10 @@ export class DatacommonsGaugeComponent extends LitElement {
   @property()
   place!: string;
 
+  // Optional: List of variable DCIDs to plot per capita
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  perCapita?: string[];
+
   /**
    * @deprecated
    * Title of the chart
@@ -104,7 +109,10 @@ export class DatacommonsGaugeComponent extends LitElement {
       },
       svgChartHeight: 200,
       statVarSpec: {
-        denom: "",
+        denom:
+          this.perCapita && this.perCapita.includes(this.variable)
+            ? DEFAULT_PER_CAPITA_DENOM
+            : "",
         log: false,
         name: "",
         scaling: 1,

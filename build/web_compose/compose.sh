@@ -24,14 +24,27 @@ export MIXER_API_KEY=$DC_API_KEY
     --use_sqlite=$USE_SQLITE \
     --use_cloudsql=$USE_CLOUDSQL \
     --cloudsql_instance=$CLOUDSQL_INSTANCE \
-    --remote_mixer_domain=$REMOTE_MIXER_DOMAIN &
+    --remote_mixer_domain=$DC_API_ROOT &
 
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 
-gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:8080 -w 4 web_app:app
+if [[ $DEBUG == "true" ]]
+then
+    echo "Starting NL Server in debug mode."
+    python3 nl_app.py 6060 &
+
+    echo "Starting Website Server in debug mode."
+    python3 web_app.py &
+else
+    echo "Starting NL Server."
+    gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:6060 -w 4 nl_app:app &
+
+    echo "Starting Website Server."
+    gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:8080 -w 4 web_app:app &
+fi
 
 # Wait for any process to exit
-wait -n
+wait
 
 # Exit with status of process that exited first
 exit $?

@@ -25,12 +25,17 @@ import {
   MapComponentProps,
   PieComponentProps,
   RankingComponentProps,
+  ScatterComponentProps,
   SliderComponentProps,
   TextComponentProps,
 } from "./main.d";
 
 export type { ChartEventDetail, ChartSortOption } from "./main.d";
 
+/**
+ * Keep in sync with the web component definitions at static/library/*component.ts
+ * and integration tests at server/webdriver/shared.py
+ */
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -43,6 +48,7 @@ declare global {
       "datacommons-ranking": RankingComponentProps;
       "datacommons-slider": SliderComponentProps;
       "datacommons-text": TextComponentProps;
+      "datacommons-scatter": ScatterComponentProps;
     }
   }
 }

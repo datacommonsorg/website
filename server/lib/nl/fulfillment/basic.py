@@ -51,7 +51,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     state.uttr.counters.err('basic_failed_cb_events', 1)
     return False
   if not chart_vars:
-    state.uttr.counters.err('basic_failed_cb_missing_chat_vars', 1)
+    state.uttr.counters.err('basic_failed_cb_missing_chart_vars', 1)
     return False
   if not chart_vars.svs:
     state.uttr.counters.err('basic_failed_cb_missing_svs', 1)

@@ -50,7 +50,7 @@ flags.DEFINE_string(
     'https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU',
     'Google Sheets Url for the latest SVs')
 flags.DEFINE_list(
-    'worksheet_names', ['Demo_SVs', 'SDG_GOALS_INDICATORS_ONLY'],
+    'worksheet_names', ['Demo_SVs', 'MAIN_DC_SDG_GOALS_INDICATORS_ONLY'],
     'List of names of worksheets in the Google Sheets file to use')
 
 flags.DEFINE_string(
@@ -80,46 +80,6 @@ def _make_gcs_embeddings_filename(embeddings_size: str,
   second_str = utils.two_digits(now.second)
 
   return f"embeddings_{embeddings_size}_{now.year}_{month_str}_{day_str}_{hour_str}_{minute_str}_{second_str}.{model_version}.csv"
-
-
-def _build_embeddings(ctx, texts: List[str], dcids: List[str]) -> pd.DataFrame:
-  assert len(texts) == len(dcids)
-
-  embeddings = ctx.model.encode(texts, show_progress_bar=True)
-  embeddings = pd.DataFrame(embeddings)
-  embeddings[utils.DCID_COL] = dcids
-  embeddings[utils.COL_ALTERNATIVES] = texts
-  return embeddings
-
-
-def _validateEmbeddings(embeddings_df: pd.DataFrame,
-                        output_dcid_sentences_filepath: str) -> None:
-  # Verify that embeddings were created for all DCIDs and Sentences.
-  dcid_sentence_df = pd.read_csv(output_dcid_sentences_filepath).fillna("")
-  sentences = set()
-  for alts in dcid_sentence_df["sentence"].values:
-    for s in alts.split(";"):
-      s = s.strip()
-      if not s:
-        continue
-      sentences.add(s)
-
-  # Verify that each of the texts in the embeddings_df is in the sentences set
-  # and that all the sentences in the set are in the embeddings_df. Finally, also
-  # verify that embeddings_df has no duplicate sentences.
-  embeddings_sentences = embeddings_df['sentence'].values
-  embeddings_sentences_unique = set()
-  for s in embeddings_sentences:
-    assert s in sentences, f"Embeddings sentence not found in processed output file. Sentence: {s}"
-    assert s not in embeddings_sentences_unique, f"Found multiple instances of sentence in embeddings. Sentence: {s}."
-    embeddings_sentences_unique.add(s)
-
-  for s in sentences:
-    assert s in embeddings_sentences_unique, f"Output File sentence not found in Embeddings. Sentence: {s}"
-
-  # Verify that the number of columns = length of the embeddings vector + one each for the
-  # dcid and sentence columns.
-  assert len(embeddings_df.columns), 384 + 2
 
 
 def get_sheets_data(ctx, sheets_url: str, worksheet_name: str) -> pd.DataFrame:
@@ -192,7 +152,7 @@ def get_embeddings(ctx, df_svs: pd.DataFrame, local_merged_filepath: str,
   (texts, dcids) = utils.get_texts_dcids(name2sv_dict)
 
   print("Building embeddings")
-  return _build_embeddings(ctx, texts, dcids)
+  return utils.build_embeddings(ctx, texts, dcids)
 
 
 def build(ctx, sheets_url: str, worksheet_names: List[str],
@@ -269,18 +229,7 @@ def main(_):
 
   if use_finetuned_model:
     ctx_no_model = utils.Context(gs=gs, model=None, bucket=bucket, tmp='/tmp')
-
-    # Check if this model is already downloaded locally.
-    if os.path.exists(os.path.join(ctx_no_model.tmp, model_version)):
-      tuned_model_path = os.path.join(ctx_no_model.tmp, model_version)
-      print(f"Model already downloaded at path: {tuned_model_path}")
-    else:
-      print("Model not previously downloaded locally. Downloading from GCS.")
-      tuned_model_path = utils.download_model_from_gcs(ctx_no_model,
-                                                       model_version)
-      print(f"Model downloaded locally to: {tuned_model_path}")
-
-    model = SentenceTransformer(tuned_model_path)
+    model = utils.get_ft_model_from_gcs(ctx_no_model, model_version)
 
   elif use_local_model:
     print(f"Use the local model at: {FLAGS.existing_model_path}")
@@ -309,7 +258,7 @@ def main(_):
 
   # Before uploading embeddings to GCS, validate them.
   print("Validating the built embeddings.")
-  _validateEmbeddings(embeddings_df, local_merged_filepath)
+  utils.validate_embeddings(embeddings_df, local_merged_filepath)
   print("Embeddings DataFrame is validated.")
 
   # Finally, upload to the NL embeddings server's GCS bucket

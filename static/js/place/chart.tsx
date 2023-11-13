@@ -34,6 +34,7 @@ import {
   TrendData,
 } from "../chart/types";
 import { RankingUnit } from "../components/ranking_unit";
+import { MapLayerData } from "../components/tiles/map_tile";
 import { fetchData } from "../components/tiles/ranking_tile";
 import {
   ASYNC_ELEMENT_CLASS,
@@ -421,10 +422,12 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       return;
     }
     if (this.state.choroplethDataGroup && this.state.geoJson) {
-      return mapDataToCsv(
-        [this.state.geoJson],
-        this.state.choroplethDataGroup.data
-      );
+      return mapDataToCsv([
+        {
+          dataValues: this.state.choroplethDataGroup.data,
+          geoJson: this.state.geoJson,
+        },
+      ]);
     }
     if (this.state.rankingGroup) {
       const data = this.state.rankingGroup.points;
@@ -535,8 +538,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       const legendWidth = generateLegendSvg(
         this.legendContainerElement.current,
         CHART_HEIGHT,
-        colorScale,
-        this.props.unit,
+        [{ colorScale, unit: this.props.unit }],
         0
       );
       const mapWidth = elem.offsetWidth - legendWidth;
@@ -547,18 +549,17 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         CHART_HEIGHT,
         this.state.geoJson
       );
-      const geoJsonData = {};
-      geoJsonData[this.props.dcid] = {
+      const layerData: MapLayerData = {
+        colorScale,
+        dataValues: this.state.choroplethDataGroup.data,
         geoJson: this.state.geoJson,
-        shouldShowBoundaryLines: true,
+        showMapBoundaries: true,
       };
       drawD3Map(
         this.mapContainerElement.current,
-        geoJsonData,
+        [layerData],
         CHART_HEIGHT,
         mapWidth,
-        this.state.choroplethDataGroup.data,
-        colorScale,
         redirectAction,
         getTooltipHtml,
         () => true,

@@ -137,16 +137,14 @@ export async function getMapTileResult(
   try {
     const chartData = await fetchData(tileProp);
     const result: TileResult = {
-      data_csv: mapDataToCsv(
-        chartData.placeData.map((place) => place.geoJson),
-        chartData.dataValues
-      ),
+      data_csv: mapDataToCsv(chartData.layerData),
       srcs: getSources(chartData.sources),
       title: getChartTitle(
         tileConfig.title,
         getReplacementStrings(tileProp, chartData)
       ),
       type: "MAP",
+      unit: !_.isEmpty(chartData.layerData) ? chartData.layerData[0].unit : "",
     };
     if (useChartUrl) {
       result.chartUrl = getChartUrl(

@@ -13,13 +13,8 @@
 # limitations under the License.
 """Import Wizard routes"""
 
-import os
-import subprocess
-
 from flask import Blueprint
-from flask import jsonify
 from flask import render_template
-from flask import request
 
 bp = Blueprint('import_wizard', __name__, url_prefix='/import')
 
@@ -32,53 +27,3 @@ def main():
 @bp.route('/')
 def main_new():
   return render_template('/import_wizard2.html')
-
-
-# This is only used in CSV + SQL backend, converting raw CSV data into resolved
-# CSV.
-@bp.route('/simple/load', methods=['POST'])
-def load():
-  raw_data_path, sql_data_path = None, None
-  if request.is_json:
-    raw_data_path = request.json.get("rawDataPath")
-    sql_data_path = request.json.get("sqlDataPath")
-  if not raw_data_path:
-    raw_data_path = os.environ.get("RAW_DATA_PATH")
-  if not sql_data_path:
-    sql_data_path = os.environ.get("SQL_DATA_PATH")
-
-  command1 = [
-      "python",
-      "-m",
-      "stats.main",
-      "--input_path",
-      f"{raw_data_path}",
-      "--output_dir",
-      f"{sql_data_path}",
-  ]
-  command2 = [
-      "curl",
-      "-X",
-      "POST",
-      "localhost:8081/import",
-  ]
-  output = []
-  for command, cwd in [(command1, "import/simple"), (command2, ".")]:
-    try:
-      result = subprocess.run(command,
-                              capture_output=True,
-                              text=True,
-                              check=True,
-                              cwd=cwd)
-      output.append({
-          "status": "success",
-          "stdout": result.stdout.strip().splitlines()
-      })
-    except subprocess.CalledProcessError as cpe:
-      return jsonify({
-          "status": "failure",
-          "error": cpe.stderr.strip().splitlines()
-      }), 500
-    except Exception as e:
-      return jsonify({"status": "error", "message": str(e)}), 500
-  return jsonify(output), 200

@@ -93,6 +93,10 @@ const NS_TO_MS_SCALE_FACTOR = BigInt(1000000);
 const MS_TO_S_SCALE_FACTOR = 1000;
 // The param value for the chartUrl param which indicates using svg
 const CHART_URL_PARAM_SVG = "0";
+// The param value for the allCharts param if we should return all charts in
+// /nodejs/query. Otherwise, return QUERY_MAX_RESULTS number of charts.
+const ALL_CHARTS_URL_PARAM = "1";
+const QUERY_MAX_RESULTS = 3;
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -457,14 +461,13 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const startTime = process.hrtime.bigint();
   const query = req.query.q;
   const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
+  const allResults = req.query.allCharts === ALL_CHARTS_URL_PARAM;
   const urlRoot = `${req.protocol}://${req.get("host")}`;
   res.setHeader("Content-Type", "application/json");
   axios
-    // Use "udp=false" to disable using default place.
-    .post(
-      `${CONFIG.apiRoot}/api/nl/data?q=${query}&detector=heuristic&udp=false`,
-      {}
-    )
+    // Set "mode=strict" to use heuristic detector, disable using default place,
+    // use a higher SV threshold and avoid multi-verb queries
+    .post(`${CONFIG.apiRoot}/api/nl/data?q=${query}&mode=strict`, {})
     .then((resp) => {
       const nlResultTime = process.hrtime.bigint();
       const mainPlace = resp.data["place"] || {};
@@ -495,11 +498,17 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
       const tilePromises: Array<Promise<TileResult[] | TileResult>> = [];
       const categories = config["categories"] || [];
       categories.forEach((category, catIdx) => {
+        if (!allResults && tilePromises.length >= QUERY_MAX_RESULTS) {
+          return;
+        }
         const svSpec = {};
         for (const sv in category["statVarSpec"]) {
           svSpec[sv] = category["statVarSpec"][sv];
         }
         category.blocks.forEach((block, blkIdx) => {
+          if (!allResults && tilePromises.length >= QUERY_MAX_RESULTS) {
+            return;
+          }
           const blockId = `cat${catIdx}-blk${blkIdx}`;
           let blockTilePromises = [];
           switch (block.type) {
