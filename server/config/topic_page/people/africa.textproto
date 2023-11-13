@@ -1,0 +1,470 @@
+# Copyright 2023 ONE Campaign
+
+## Test topic page for africa
+
+metadata {
+  topic_id: "one-people"
+  topic_name: "People"
+  place_dcid: "africa"
+  contained_place_types {
+    key: "Continent"
+    value: "Country"
+  }
+}
+
+### OVERVIEW ###
+categories {
+  title: "Overview"
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+  
+  # Population
+  blocks {
+    title: "Population"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "Count_Person"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Total Population (${date})"
+        stat_var_key: "Count_Person"
+      }
+    }
+  }
+
+  # Population Growth
+  blocks {
+    title: "Population Growth"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "GrowthRate_Count_Person"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Rate of Population Growth (${date})"
+        stat_var_key: "GrowthRate_Count_Person"
+      }
+    }
+  }
+
+  # Fertility Rate
+  blocks {
+    title: "Fertility Rate"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "FertilityRate_Person_Female"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Fertility Rate (${date})"
+        stat_var_key: "FertilityRate_Person_Female"
+      }
+    }
+  }
+
+  # Life Expectancy
+  blocks {
+    title: "Life Expectancy"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "LifeExpectancy_Person"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Life Expectancy (${date})"
+        stat_var_key: "LifeExpectancy_Person"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "Count_Person"
+    value {
+      stat_var: "Count_Person"
+      name: "Total Population"
+    }
+  }
+
+  stat_var_spec {
+    key: "GrowthRate_Count_Person"
+    value {
+      stat_var: "GrowthRate_Count_Person"
+      name: "Rate of Population Growth"
+    }
+  }
+
+  stat_var_spec {
+    key: "FertilityRate_Person_Female"
+    value {
+      stat_var: "FertilityRate_Person_Female"
+      name: "Fertility Rate"
+    }
+  }
+
+  stat_var_spec {
+    key: "LifeExpectancy_Person"
+    value {
+      stat_var: "LifeExpectancy_Person"
+      name: "Life Expectancy"
+    }
+  }
+}
+
+### POVERTY ###
+categories {
+  title: "Poverty"
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+  
+  # Population below poverty line
+  blocks {
+    title: "Population below poverty line"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "of the population in ${placeName} is living below the international poverty line"
+        stat_var_key: "sdg/SI_POV_DAY1"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SI_POV_DAY1"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Proportion of population below international poverty line (${date})"
+        stat_var_key: "sdg/SI_POV_DAY1"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "Count_Person"
+    value {
+      stat_var: "Count_Person"
+      name: "Total Population"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SI_POV_DAY1"
+    value {
+      stat_var: "sdg/SI_POV_DAY1"
+      name: "Proportion of population below international poverty line"
+    }
+  }
+}
+
+### FOOD SECURITY ###
+categories {
+  title: "Food Insecurity"
+  description: "Hunger is the most visible indicator of poverty. Every one of us needs food to stay alive and healthy, and families will almost always prioritise food over other expenses. So when they can’t afford to eat, you know they are in crisis. Hunger is an umbrella term used to mean several different things. This page explores some of the most common measures of hunger and what they mean."
+
+  # Stunting
+  blocks {
+    title: "Stunting"
+    description: "Stunting means that children are smaller than expected for their age. It is typically a sign of long-term hunger. Stunting often has lifetime consequences because it impacts childrens’ cognitive and physical development."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "in ${placeName} are moderately or severely stunted"
+        stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Proportion of children moderately orseverely stunted [under 5 years old] (${date})"
+        stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
+      }
+    }
+  }
+
+  # Wasting
+  blocks {
+    title: "Wasting"
+    description: "Wasting means that children have a low weight for their height. It is usually a sign of recent and severe weight loss, due to food insecurity and/or an infectious disease."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "in ${placeName} are moderately or severely wasted"
+        stat_var_key: "sdg/SH_STA_WAST.AGE--Y0T4"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SH_STA_WAST.AGE--Y0T4"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Proportion of children moderately or severely wasted [under 5 years old] (${date})"
+        stat_var_key: "sdg/SH_STA_WAST.AGE--Y0T4"
+      }
+    }
+  }
+
+  # Undernourishment
+  blocks {
+    title: "Undernourishment"
+    description: "Someone is undernourished if they are not able to acquire enough food to meet the daily minimum dietary energy requirements, over a period of one year."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "of the population in ${placeName} are undernourished"
+        stat_var_key: "sdg/SN_ITK_DEFC"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SN_ITK_DEFC"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Prevalence of undernourishment (${date})"
+        stat_var_key: "sdg/SN_ITK_DEFC"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SH_STA_STNT.AGE--Y0T4"
+    value {
+      stat_var: "sdg/SH_STA_STNT.AGE--Y0T4"
+      name: "Proportion of children moderately or severely stunted [under 5 years old]"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SH_STA_WAST.AGE--Y0T4"
+    value {
+      stat_var: "sdg/SH_STA_WAST.AGE--Y0T4"
+      name: "Proportion of children moderately or severely wasted [under 5 years old]"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SN_ITK_DEFC"
+    value {
+      stat_var: "sdg/SN_ITK_DEFC"
+      name: "Prevalence of undernourishment"
+    }
+  }
+}
+
+### EDUCATION ###
+categories {
+  title: "Education"
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+
+  # Primary education completion rate
+  blocks {
+    title: "Primary education completion rate"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "is the primary education completion rate in ${placeName}"
+        stat_var_key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Primary education completion rate (${date})"
+        stat_var_key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+    value {
+      stat_var: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+      name: "Primary education completion rate"
+    }
+  }
+
+}
+
+### HEALTH ###
+categories {
+  title: "Health"
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+
+  # Maternal Mortality
+  blocks {
+    title: "Maternal Mortality"
+    description: "The maternal mortality ratio is the number of maternal deaths as a result of complications during or following pregnancy and childbirth per 100,000 live births during a given time period. Maternal mortality is a critical indicator of, among other things, the quality and accessibility of maternal healthcare services, including access to skilled birth attendants."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "WHO/MDG_0000000026"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Maternal Mortality Ratio (Per 100 000 Live Births) (${date})"
+        stat_var_key: "WHO/MDG_0000000026"
+      }
+    }
+  }
+
+  # Infant Mortality
+  blocks {
+    title: "Infant Mortality"
+    description: "Infant mortality rate is the likelihood of newborn infant deaths before the age of 1 year, per 1,000 live births during a given period. Infant mortality rate can be associated with access to healthcare, water and sanitation as well as infectious diseases, malnutrition and vaccination coverage."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SH_DYN_IMRT.AGE--Y0"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Infant Mortality Rate (under 1 year old) (${date})"
+        stat_var_key: "sdg/SH_DYN_IMRT.AGE--Y0"
+      }
+    }
+  }
+
+  # Government Health Expenditure
+  blocks {
+    title: "Government health expenditure"
+    description: "The amount of health expenditure, funded from domestic government public sources"
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "healthExpenditureGovernmentCurrentUSD"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Domestic government health expenditure (current USD) (${date})"
+        stat_var_key: "healthExpenditureGovernmentCurrentUSD"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "WHO/MDG_0000000026"
+    value {
+      stat_var: "WHO/MDG_0000000026"
+      name: "Maternal Mortality Ratio (Per 100 000 Live Births)"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SH_DYN_IMRT.AGE--Y0"
+    value {
+      stat_var: "sdg/SH_DYN_IMRT.AGE--Y0"
+      name: "Infant Mortality Rate (under 1 year old)"
+    }
+  }
+
+  stat_var_spec {
+    key: "healthExpenditureGovernmentCurrentUSD"
+    value {
+      stat_var: "healthExpenditureGovernmentCurrentUSD"
+      name: "Domestic government health expenditure (current USD)"
+    }
+  }
+
+}

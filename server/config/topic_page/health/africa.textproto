@@ -394,13 +394,13 @@ categories {
 
 ### FOOD SECURITY ###
 categories {
-  title: "Food Security"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+  title: "Food Security and Hunger"
+  description: "Hunger is the most visible indicator of poverty. Every one of us needs food to stay alive and healthy, and families will almost always prioritise food over other expenses. So when they can’t afford to eat, you know they are in crisis. Hunger is an umbrella term used to mean several different things. This page explores some of the most common measures of hunger and what they mean. "
 
   # Stunting
   blocks {
     title: "Stunting"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    description: "Stunting means that children are smaller than expected for their age. It is typically a sign of long-term hunger. Stunting often has lifetime consequences because it impacts childrens’ cognitive and physical development."
     columns {
       tiles {
         type: HIGHLIGHT
@@ -432,7 +432,7 @@ categories {
   # Wasting
   blocks {
     title: "Wasting"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    description: "Wasting means that children have a low weight for their height. It is usually a sign of recent and severe weight loss, due to food insecurity and/or an infectious disease."
     columns {
       tiles {
         type: HIGHLIGHT
@@ -464,7 +464,7 @@ categories {
   # Undernourishment
   blocks {
     title: "Undernourishment"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    description: "Someone is undernourished if they are not able to acquire enough food to meet the daily minimum dietary energy requirements, over a period of one year."
     columns {
       tiles {
         type: HIGHLIGHT
