@@ -23,8 +23,8 @@ CLUSTER_NAME="website-$REGION"
 
 gcloud config set project $PROJECT_ID
 gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
-# gcloud beta container hub ingress enable \
-# --config-membership=$CLUSTER_NAME
+gcloud beta container hub ingress enable \
+--config-membership=$CLUSTER_NAME
 
 cp mci.yaml.tpl mci.yaml
 export IP=$(yq eval '.ip' config.yaml)
