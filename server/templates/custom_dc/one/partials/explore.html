@@ -1,34 +1,36 @@
 {% set items = [
-  {
-    'name': 'Scatter Plots',
-    'url': '/tools/scatter',
-    'icon': 'scatter-plots'
-  },
-  {
-    'name': 'Timelines',
-    'url': '/tools/timeline',
-    'icon': 'timelines'
-  },
-  {
-    'name': 'Place Explorer',
-    'url': '/tools/map',
-    'icon': 'place-explorer'
-  },
-  {
-    'name': 'Data Download',
-    'url': '/tools/download',
-    'icon': 'data-download'
-  },
-  {
-    'name': 'Map Explorer',
-    'url': '/tools/map',
-    'icon': 'map-explorer'
-  }
+{
+'name': 'Scatter Plots',
+'url': '/tools/scatter',
+'icon': 'scatter-plots'
+},
+{
+'name': 'Timelines',
+'url': '/tools/timeline',
+'icon': 'timelines'
+},
+{
+'name': 'Place Explorer',
+'url': '/place',
+'icon': 'place-explorer'
+},
+{
+'name': 'Data Download',
+'url': '/tools/download',
+'icon': 'data-download'
+},
+{
+'name': 'Map Explorer',
+'url': '/tools/map',
+'icon': 'map-explorer'
+}
 ] %}
 
 <section class="section--explore">
   <h2 class="section__heading">Explore Topics</h2>
-  <p>Use our tools to explore the data!</p>
+  <div class="section__content">
+    <p>Use our tools to explore the data!</p>
+  </div>
   <nav class="explore__navigation" aria-label="Explore topics">
     <ul class="explore__list">
       {% for item in items %}
