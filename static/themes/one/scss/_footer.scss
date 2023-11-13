@@ -2,8 +2,8 @@ $social-icon-diameter: 1.85rem;
 $footer-color: #fff;
 
 #main-footer {
-    padding-top: 5rem;
-    padding-bottom: 3rem;
+    padding-top: 5rem !important;
+    padding-bottom: 3rem !important;
 
     background-color: var(--footer-bg);
     color: $footer-color;
