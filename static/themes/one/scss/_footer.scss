@@ -21,7 +21,6 @@ $footer-color: #fff;
         margin-bottom: 3rem;
         padding-bottom: 2rem;
         border-bottom: 1px solid #999;
-        margin-bottom: 2rem;
     }
 
     .powered-by {
@@ -76,6 +75,7 @@ $footer-color: #fff;
         li.social-network {
             display: inline-block;
             margin-bottom: 0.5rem;
+            margin-right: 0.5rem;
 
             svg {
                 display: block;

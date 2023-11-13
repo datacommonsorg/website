@@ -90,6 +90,18 @@ h6{
   font-family:"Colfax", sans-serif;
 }
 
+.visually-hidden{
+  position:absolute !important;
+  width:1px !important;
+  height:1px !important;
+  padding:0 !important;
+  margin:-1px !important;
+  overflow:hidden !important;
+  clip:rect(0, 0, 0, 0) !important;
+  white-space:nowrap !important;
+  border:0 !important;
+}
+
 #main-nav{
   padding:1.5rem 2rem;
 }
@@ -277,7 +289,6 @@ h6{
   margin-bottom:3rem;
   padding-bottom:2rem;
   border-bottom:1px solid #999;
-  margin-bottom:2rem;
 }
 #main-footer .powered-by{
   color:#FFF;
@@ -323,6 +334,7 @@ h6{
 #main-footer ul.social-networks li.social-network{
   display:inline-block;
   margin-bottom:0.5rem;
+  margin-right:0.5rem;
 }
 #main-footer ul.social-networks li.social-network svg{
   display:block;
