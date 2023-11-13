@@ -42,5 +42,5 @@ export interface TileResult {
     date: string;
   };
   // The link to the data commons explore page for this result.
-  dcLink?: string;
+  dcUrl?: string;
 }

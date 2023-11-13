@@ -98,8 +98,12 @@ const CHART_URL_PARAM_SVG = "0";
 // /nodejs/query. Otherwise, return QUERY_MAX_RESULTS number of charts.
 const ALL_CHARTS_URL_PARAM = "1";
 const QUERY_MAX_RESULTS = 3;
+// The param value for the client param if the client is Bard. Default is Bard.
+const BARD_CLIENT_URL_PARAM = "bard";
+// Allowed chart types if client is Bard.
+const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING"]);
 // The root to use to form the dc link in the tile results
-const DC_LINK_ROOT = "https://datacommons.org/explore#q=";
+const DC_URL_ROOT = "https://datacommons.org/explore#q=";
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -234,11 +238,15 @@ function getBlockTileResults(
   enclosedPlaceType: string,
   svSpec: Record<string, StatVarSpec>,
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  allowedTilesTypes?: Set<string>
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   block.columns.forEach((column, colIdx) => {
     column.tiles.forEach((tile, tileIdx) => {
+      if (allowedTilesTypes && !allowedTilesTypes.has(tile.type)) {
+        return;
+      }
       const tileId = `${id}-col${colIdx}-tile${tileIdx}`;
       let tileSvSpec = null;
       switch (tile.type) {
@@ -286,7 +294,6 @@ function getBlockTileResults(
             )
           );
           break;
-        /* Ignore map for now because Bard can not draw maps.
         case "MAP":
           tileSvSpec = svSpec[tile.statVarKey[0]];
           tilePromises.push(
@@ -301,7 +308,7 @@ function getBlockTileResults(
               useChartUrl
             )
           );
-          break;*/
+          break;
         case "RANKING":
           tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
           tilePromises.push(
@@ -333,7 +340,8 @@ function getDisasterBlockTileResults(
   enclosedPlaceType: string,
   eventTypeSpec: Record<string, EventTypeSpec>,
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  allowedTilesTypes?: Set<string>
 ): Promise<TileResult>[] {
   const blockEventTypeSpec = getBlockEventTypeSpecs(
     eventTypeSpec,
@@ -350,6 +358,9 @@ function getDisasterBlockTileResults(
   const tilePromises = [];
   block.columns.forEach((column, colIdx) => {
     column.tiles.forEach((tile, tileIdx) => {
+      if (allowedTilesTypes && !allowedTilesTypes.has(tile.type)) {
+        return;
+      }
       const tileEventTypeSpec = getTileEventTypeSpecs(eventTypeSpec, tile);
       const tileId = `${id}-col${colIdx}-tile${tileIdx}`;
       switch (tile.type) {
@@ -464,6 +475,10 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
   const allResults = req.query.allCharts === ALL_CHARTS_URL_PARAM;
   const urlRoot = `${req.protocol}://${req.get("host")}`;
+  const allowedTileTypes =
+    (req.query.client || BARD_CLIENT_URL_PARAM) === BARD_CLIENT_URL_PARAM
+      ? BARD_ALLOWED_CHARTS
+      : null;
   res.setHeader("Content-Type", "application/json");
   axios
     // Set "mode=strict" to use heuristic detector, disable using default place,
@@ -521,7 +536,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
                 enclosedPlaceType,
                 config["metadata"]["eventTypeSpec"],
                 urlRoot,
-                useChartUrl
+                useChartUrl,
+                allowedTileTypes
               );
               break;
             default:
@@ -532,7 +548,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
                 enclosedPlaceType,
                 svSpec,
                 urlRoot,
-                useChartUrl
+                useChartUrl,
+                allowedTileTypes
               );
           }
           tilePromises.push(...blockTilePromises);
@@ -551,7 +568,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
             .flat(1)
             .filter((result) => result !== null);
           processedResults.forEach((result) => {
-            result.dcLink = DC_LINK_ROOT + query;
+            result.dcUrl = DC_URL_ROOT + encodeURIComponent(query as string);
           });
           const endTime = process.hrtime.bigint();
           const debug = {
