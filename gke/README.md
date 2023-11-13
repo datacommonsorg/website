@@ -24,7 +24,7 @@ You should have owner/editor role to perform the following tasks.
 
 ## One time setup
 
-Run the following scripts sequentially. Retry any script if errors occur.
+1. Run the following scripts sequentially. Retry any script if errors occur.
 
 ```bash
 # Update gcloud
@@ -54,9 +54,41 @@ gcloud auth login
 
 # Deploy esp service
 ./setup_esp.sh
+```
 
+1. Copy the `config.yaml` file into the `/deploy/gke` folder. Rename
+the file to describe the environment the clusters are being used for.
+
+> The filename used will be the `<ENV>` in subsequent commands. E.g. if you
+> named the yaml file `staging.yaml`, then the `ENV` below is `staging`.
+
+1. Go to the Google Cloud Console and make sure the following APIs are enabled.
+   If the APIs are not yet enabled, enable them.
+   - Secret Manager API
+   - DataCommons API
+   - Generative Language API
+   - Maps Javascript API
+   - Places API
+
+1. In Google Cloud Console, under "APIs & Services" -> "Credentials", make sure
+   the following API keys are created. If the API keys do not exist yet, create
+   them.
+   - a key for "DataCommons API", called `mixer-api-key`
+   - a key for "Generative Language API", called `nl-palm-api-key`
+   - a key for both "Maps Javascript API" and "Places API", called `maps-api-key`
+
+1. In Google Cloud Console, under "Security" -> "Secret Manager", make sure
+   a secret is created for each of the 3 API keys above. If the secrets do not
+   exist, create them, using the API key value as the "secret value".
+   - a secret for `mixer-api-key` named `mixer-api-key`
+   - a secret for `nl-palm-api-key` named `palm-api-key` (note lack of `nl` prefix)
+   - a secret for `maps-api-key` named `maps-api-key`
+
+1. Run the following scripts sequentially.
+  
+```bash
 # Create clusters
-./create_all_clusters.sh
+./create_all_clusters.sh <ENV>
 
 # Set up multi-cluster ingress and service
 ./setup_config_cluster.sh
