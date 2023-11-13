@@ -370,7 +370,7 @@ h6{
   margin-right:0.5rem;
 }
 
-@media (min-width: 1200px){
+@media screen and (min-width: 1200px){
   #main-footer .footer__section-heading{
     margin-top:0;
   }
@@ -410,9 +410,6 @@ h6{
   font-weight:900;
 }
 
-.hero__description{
-  width:50%;
-}
 .hero__description p{
   font-size:1rem;
   font-weight:400;
@@ -433,4 +430,16 @@ h6{
   width:100vw;
   height:100% !important;
   z-index:-10;
+}
+
+@media screen and (max-width: 560px){
+  .hero__main{
+    padding-left:7.5px;
+    padding-right:7.5px;
+  }
+}
+@media screen and (min-width: 1200px){
+  .hero__main{
+    width:50%;
+  }
 }
