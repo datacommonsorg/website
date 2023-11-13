@@ -28,17 +28,22 @@ $icon-diameter: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: color 0.3s ease; // Example for a smooth color transition on hover
 
     &:hover,
     &:active,
     &:focus {
       text-decoration: none;
+
+      .explore__icon-wrapper {
+        box-shadow: 4px 4px;
+        transform: translate(-2px, -2px);
+      }
     }
   }
 
   &__icon-wrapper {
     border: 2px solid var(--dc-primary);
+    background-color: #fff;
     border-radius: 50%;
     padding: 20px;
     width: 2 * $icon-diameter;
@@ -46,6 +51,7 @@ $icon-diameter: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all .3s;
   }
 
   &__icon {
