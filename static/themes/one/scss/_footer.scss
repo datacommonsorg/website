@@ -33,7 +33,7 @@ $footer-color: #fff;
 
     a.by-data-commons {
         display: block;
-        color: $data-commons;
+        color: var(--dc-highlight);
         font-size: 1.5rem;
         font-style: normal;
         font-weight: 900;
