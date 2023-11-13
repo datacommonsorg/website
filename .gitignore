@@ -17,6 +17,7 @@ screenshots/screenshot_url.json
 .vscode
 !.vscode/launch.json
 .env.list
+.envvars
 
 # Mac
 .DS_Store
