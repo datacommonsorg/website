@@ -103,6 +103,7 @@ const BARD_CLIENT_URL_PARAM = "bard";
 // Allowed chart types if client is Bard.
 const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING"]);
 // The root to use to form the dc link in the tile results
+// TODO: update this to use bard.datacommons.org
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
 
 const dom = new JSDOM(

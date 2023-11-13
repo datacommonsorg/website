@@ -203,7 +203,10 @@ export async function getRankingTileResult(
       rankingGroup.points.forEach(
         (point) => (point.placeName = placeNames[point.placeDcid])
       );
-      if (tileConfig.rankingTileSpec.showHighest) {
+      if (
+        tileConfig.rankingTileSpec.showHighestLowest ||
+        tileConfig.rankingTileSpec.showHighest
+      ) {
         tileResults.push(
           getRankingUnitResult(
             tileConfig,
@@ -218,6 +221,11 @@ export async function getRankingTileResult(
             apiRoot
           )
         );
+      }
+      // If showHighestLowest in a single ranking unit, should not also show
+      // lowest ranking unit.
+      if (tileConfig.rankingTileSpec.showHighestLowest) {
+        continue;
       }
       if (tileConfig.rankingTileSpec.showLowest) {
         tileResults.push(
