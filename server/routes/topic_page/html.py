@@ -71,7 +71,7 @@ def topic_page(topic_id=None, place_dcid=None):
     return flask.render_template('topic_page_landing.html')
 
   raw_configs = current_app.config['TOPIC_PAGE_CONFIG']
-  if g.env == 'local':
+  if g.env == 'local' or current_app.config['DEBUG']:
     raw_configs = libutil.get_topic_page_config()
   configs = copy.deepcopy(raw_configs)
 
