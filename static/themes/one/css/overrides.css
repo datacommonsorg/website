@@ -379,13 +379,17 @@ h6{
   display:flex;
   flex-direction:column;
   align-items:center;
-  transition:color 0.3s ease;
 }
 .explore__link:hover, .explore__link:active, .explore__link:focus{
   text-decoration:none;
 }
+.explore__link:hover .explore__icon-wrapper, .explore__link:active .explore__icon-wrapper, .explore__link:focus .explore__icon-wrapper{
+  box-shadow:4px 4px;
+  transform:translate(-2px, -2px);
+}
 .explore__icon-wrapper{
   border:2px solid var(--dc-primary);
+  background-color:#fff;
   border-radius:50%;
   padding:20px;
   width:120px;
@@ -393,6 +397,7 @@ h6{
   display:flex;
   justify-content:center;
   align-items:center;
+  transition:all 0.3s;
 }
 .explore__icon{
   fill:none;
@@ -407,6 +412,10 @@ h6{
   padding:0.5rem 1rem;
   font-weight:700;
   line-height:normal;
+}
+
+.topics{
+  padding-top:1.5rem;
 }
 
 article.topic{
