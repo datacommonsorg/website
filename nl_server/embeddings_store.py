@@ -39,7 +39,7 @@ class Store:
 
     # If a new custom index is loaded after startup, it will be merged with the
     # original default index maintained under this variable.
-    self.original_default_idx = copy.copy(default_idx)
+    self.original_default_idx = copy.deepcopy(default_idx)
 
     if custom_idx:
       default_idx.embeddings_local_path = _merge_custom_index(
@@ -62,7 +62,7 @@ class Store:
     This method will be called if a new custom index is loaded at runtime
     via the /api/load/ call.
     """
-    default_idx = copy.copy(self.original_default_idx)
+    default_idx = copy.deepcopy(self.original_default_idx)
     default_idx.embeddings_local_path = _merge_custom_index(
         default_idx, custom_idx)
     self.embeddings_map.update({

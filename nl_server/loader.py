@@ -60,7 +60,7 @@ def load_server_state(app: Flask):
   nl_model = NLAttributeModel()
   _update_app_config(app, nl_model, nl_embeddings, embeddings_map)
 
-  _maybe_cache(flask_env, nl_embeddings, nl_model)
+  _maybe_update_cache(flask_env, nl_embeddings, nl_model)
 
 
 def load_custom_embeddings(app: Flask):
@@ -96,7 +96,7 @@ def load_custom_embeddings(app: Flask):
   _update_app_config(app, app.config[config.NL_MODEL_KEY], nl_embeddings,
                      embeddings_map)
   # Update cache.
-  _maybe_cache(flask_env, nl_embeddings, None)
+  _maybe_update_cache(flask_env, nl_embeddings, None)
 
 
 def _load_yamls(flask_env: str) -> tuple[Dict[str, str], Dict[str, str]]:
@@ -123,8 +123,8 @@ def _update_app_config(app: Flask, nl_model: NLAttributeModel,
   app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_map
 
 
-def _maybe_cache(flask_env: str, nl_embeddings: embeddings_store.Store,
-                 nl_model: NLAttributeModel):
+def _maybe_update_cache(flask_env: str, nl_embeddings: embeddings_store.Store,
+                        nl_model: NLAttributeModel):
   if not nl_embeddings and not nl_model:
     return
 
