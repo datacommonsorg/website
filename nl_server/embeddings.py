@@ -52,7 +52,7 @@ class Embeddings:
     self.dcids: List[str] = []
     self.sentences: List[str] = []
 
-    logging.info('Loading embeddings file')
+    logging.info('Loading embeddings file: %s', embeddings_path)
     try:
       ds = load_dataset('csv', data_files=embeddings_path)
     except:
