@@ -38,6 +38,12 @@
             height: 20px;
             margin-right: 1rem;
         }
+
+        &:hover,
+        &:active,
+        &:focus {
+            background-color: #f7f7f7;
+        }
     }
 
     .dropdown-toggle {
