@@ -152,13 +152,13 @@ categories {
 
 ### DEBT ###
 categories {
-  title: "Debt"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+  title: "Data behind the debt"
+  description: "Debt is an important source of financing to invest in a country’s economic and social development. But it has to be sustainable, meaning that governments must be able to reasonably pay it back. Explore the data behind Africa’s debt levels, including key factors that influence its sustainability."
 
   # PPG Debt Stocks
   blocks {
-    title: "PPG Debt Stocks"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    title: "External Debt Stocks"
+    description: "External long-term debt stocks show how much debt a country owes to external creditors. It’s often referred to as public or publicly guaranteed debt, meaning that it is owed by the government (and not accumulated by a household or private company)."
 
     columns {
       tiles {
@@ -173,7 +173,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Publicly guaranteed long term external debt pricipal repayment to all lenders (${date})"
+        title: "External debt (PPG ${date})"
         stat_var_key: "AmountOutstanding_Debt_PubliclyGuaranteed_LongTermExternalDebt"
       }
     }
@@ -181,46 +181,31 @@ categories {
 
   # PPG interest and principal repayments
   blocks {
-    title: "PPG interest and principal repayments"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    title: "Debt service on African governments’ external debt in the latest year"
+    description:""
 
     columns {
       tiles {
         type: MAP
-        title: "Publicly guaranteed long term external debt interest repayment to all lenders (${date})"
+        title: "Interest payments to all external lenders (${date})"
+        subtitle: "As with most loans, governments typically accrue interest on their debt. Interest rates on private loans or bonds are generally far higher than interest rates on loans from other governments. High interest rates can undermine debt sustainability, especially during crises."
         stat_var_key: "AmountInterestRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
       }
     }
     columns {
       tiles {
         type: MAP
-        title: "Publicly guaranteed long term external debt principal repayment to all lenders (${date})"
+        title: "Principal payments to all external lenders (${date})"
+        subtitle: "Principal repayments are the portion of the original loan amount paid during a period of time. The terms of a loan determine how frequently it is paid down, but most measures analyse yearly payments."
         stat_var_key: "AmountPrincipalRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
       }
     }
   }
 
-  # Currency composition of debt
-  blocks {
-    title: "Currency composition of debt"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-
-    columns {
-      tiles {
-        type: BAR
-        title: "Amount of debt"
-        stat_var_key: 'Amount_Debt_EUR_AsAFractionOf_Amount_Debt'
-        stat_var_key: 'Amount_Debt_GBP_AsAFractionOf_Amount_Debt'
-        stat_var_key: 'Amount_Debt_USD_AsAFractionOf_Amount_Debt'
-      }
-    }
-
-  }
-
   # Debt held in USD
   blocks {
-    title: "Debt held in USD"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    title: "External Debt held in US dollars"
+    description: "A high proportion of African debt is denominated in US dollars. When the US Federal Reserve increases interest rates, this has the effect of strengthening the US dollar globally, which has an unfortunate knock on effect of devaluing other currencies, and thus driving up the cost of African debt in relation. When exacerbated, this dynamic can make debt levels skyrocket in real terms."
 
     columns {
       tiles {
@@ -235,7 +220,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Amount of Debt: USD (As Fraction of Amount Debt) (${date})"
+        title: "Share of external debt held in US dollars (${date})"
         stat_var_key: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
       }
     }
@@ -245,7 +230,7 @@ categories {
     key: "AmountOutstanding_Debt_PubliclyGuaranteed_LongTermExternalDebt"
     value {
       stat_var: "AmountOutstanding_Debt_PubliclyGuaranteed_LongTermExternalDebt"
-      name: "Publicly guaranteed long term external debt pricipal repayment to all lenders"
+      name: "External (long-term) debt stocks (PPG)"
     }
   }
 
@@ -253,7 +238,7 @@ categories {
     key: "AmountInterestRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
     value {
       stat_var: "AmountInterestRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
-      name: "Publicly guaranteed long term external debt interest repayment to all lenders."
+      name: "Interest payments to all external lenders"
       date: "2023"
     }
   }
@@ -262,7 +247,7 @@ categories {
     key: "AmountPrincipalRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
     value {
       stat_var: "AmountPrincipalRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
-      name: "Publicly guaranteed long term external debt principal repayment to all lenders."
+      name: "Principal payments to all external lenders"
       date: "2023"
     }
   }
@@ -271,7 +256,7 @@ categories {
     key: "Amount_Debt_EUR_AsAFractionOf_Amount_Debt"
     value {
       stat_var: "Amount_Debt_EUR_AsAFractionOf_Amount_Debt"
-      name: "Amount of Debt: EUR (As Fraction of Amount Debt)"
+      name: "Share of external debt held in Euros"
     }
   }
 
@@ -279,7 +264,7 @@ categories {
     key: "Amount_Debt_GBP_AsAFractionOf_Amount_Debt"
     value {
       stat_var: "Amount_Debt_GBP_AsAFractionOf_Amount_Debt"
-      name: "Amount of Debt: GBP (As Fraction of Amount Debt)"
+      name: "Share of external debt held in British Pounds"
     }
   }
 
@@ -287,7 +272,7 @@ categories {
     key: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
     value {
       stat_var: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
-      name: "Amount of Debt: USD (As Fraction of Amount Debt)"
+      name: "Share of external debt held in US dollars"
     }
   }
 
@@ -295,7 +280,7 @@ categories {
     key: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
     value {
       stat_var: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
-      name: "Amount of Debt: USD (As Fraction of Amount Debt)"
+      name: "Share of external debt held in US dollars"
     }
   }
 
