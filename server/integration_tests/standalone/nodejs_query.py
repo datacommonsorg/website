@@ -89,5 +89,6 @@ def main(_):
   logging.info('Duration: %s', str(end - start))
 
 
+# TODO: add a script for triggering this test to run in GKE cron job
 if __name__ == '__main__':
   app.run(main)
