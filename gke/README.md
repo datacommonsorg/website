@@ -127,3 +127,14 @@ gcloud config set project <PROJECT>
 ```
 
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
+
+# Add a periodic testing job
+
+To add a cronjob to run periodic testing against a cluster, run:
+
+```bash
+./setup_periodic_testing.sh -e <ENV> -l <REGION>
+```
+
+where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
+If the region is not set, it will default to us-central-1

@@ -133,3 +133,11 @@ nodejs:
   env: "gke"
   replicas:
   apiRoot:
+
+###############################################################################
+# Config for Periodic Testing CronJob
+###############################################################################
+periodicTesting:
+  enabled: false
+  webApiRoot:
+  nodejsRoot:

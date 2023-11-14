@@ -1,10 +1,11 @@
+#!/bin/bash
 # Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,41 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Helm config
-project: "datcom-website-autopush"
-cluster_prefix: "website"
+# bash script to run website periodic tests
 
-namespace:
-  name: "website"
+set -e
 
-website:
-  flaskEnv: autopush
-  replicas: 15
+echo "Website domain: $WEB_API_ROOT"
+echo "Nodejs domain: $NODEJS_API_ROOT"
+echo "Testing env: $TESTING_ENV"
 
-mixer:
-  hostProject:
-  serviceName:
+NO_PIP=$2
 
-serviceAccount:
-  name: website-ksa
-
-nl:
-  enabled: true
-
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 5
-  node:
-    replicas: 12
-  observation:
-    replicas: 12
-  default:
-    replicas: 12
-
-nodejs:
-  enabled: true
-  replicas: 12
-
-periodicTesting:
-  enabled: true
+python3 -m venv .env
+source .env/bin/activate
+if [[ $NO_PIP != "true" ]]; then
+  python3 -m pip install --upgrade pip setuptools
+  pip3 install -r requirements.txt
+fi
