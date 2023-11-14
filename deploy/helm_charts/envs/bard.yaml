@@ -12,17 +12,38 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-steps:
-  - name: "gcr.io/cloud-builders/docker"
-    args:
-      - build
-      - --tag=gcr.io/datcom-ci/website-cron-testing:${_TAG}
-      - --tag=gcr.io/datcom-ci/website-cron-testing:latest
-      - "."
+# Helm config
+project: "datcom-bard"
+cluster_prefix: "website"
 
-images:
-  - "gcr.io/datcom-ci/website-cron-testing:${_TAG}"
-  - "gcr.io/datcom-ci/website-cron-testing:latest"
+namespace:
+  name: "website"
 
-options:
-  dynamic_substitutions: true
+website:
+  flaskEnv: custom
+  replicas: 4
+  redis:
+    enabled: false
+
+serviceAccount:
+  name: website-ksa
+
+ingress:
+  enabled: true
+
+nl:
+  enabled: true
+
+serviceGroups:
+  recon: null
+  svg:
+    replicas: 2
+  node:
+    replicas: 5
+  observation:
+    replicas: 5
+  default:
+    replicas: 3
+
+svg:
+  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
