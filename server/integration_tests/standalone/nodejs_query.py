@@ -28,16 +28,33 @@ OUTPUT_DIR = 'output'
 flags.DEFINE_string('base_url', 'https://dev.datacommons.org',
                     f'The base URL of the API server.')
 
-flags.DEFINE_string(
-    'output_dir', OUTPUT_DIR,
-    f'The output directory where results will be persisted.')
+flags.DEFINE_string('output_dir', OUTPUT_DIR,
+                    f'The output directory where results will be persisted.')
 
-TEST_CASES = [{'name': 'timeline', 'query': 'family earnings in north dakota'}, {'name': 'timeline_all', 'query': 'family earnings in north dakota', 'all_charts': '1'},
-    {'name':'bar', "query": 'top jobs in santa clara county'},
-    {'name': 'map_rank', 'query': 'counties in california with highest obesity'},
-    {'name': 'scatter', 'query': 'obesity vs. poverty in counties of california'},
-    {'name': 'scatter_non_bard', 'query': 'obesity vs. poverty in counties of california', 'client': 'dc'},
-    {'name': 'disaster', 'query': 'fires in california'}]
+TEST_CASES = [{
+    'name': 'timeline',
+    'query': 'family earnings in north dakota'
+}, {
+    'name': 'timeline_all',
+    'query': 'family earnings in north dakota',
+    'all_charts': '1'
+}, {
+    'name': 'bar',
+    "query": 'top jobs in santa clara county'
+}, {
+    'name': 'map_rank',
+    'query': 'counties in california with highest obesity'
+}, {
+    'name': 'scatter',
+    'query': 'obesity vs. poverty in counties of california'
+}, {
+    'name': 'scatter_non_bard',
+    'query': 'obesity vs. poverty in counties of california',
+    'client': 'dc'
+}, {
+    'name': 'disaster',
+    'query': 'fires in california'
+}]
 
 
 def run_test():
@@ -47,8 +64,8 @@ def run_test():
     all_charts = test_case.get('all_charts', '')
     client = test_case.get('client', '')
     resp = requests.get(
-        f'{FLAGS.base_url}/nodejs/query?q={query}&allCharts={all_charts}&client={client}').json(
-        )
+        f'{FLAGS.base_url}/nodejs/query?q={query}&allCharts={all_charts}&client={client}'
+    ).json()
     for chart in resp.get('charts', []):
       chart['chartUrl'] = ''
     file_name = test_case.get('name', '') + '.json'
