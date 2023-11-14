@@ -16,7 +16,7 @@ metadata {
 categories {
   title: "Overview"
   description: "Test description"
-  
+
   # GINI Index
   blocks {
     title: "GINI Index"
