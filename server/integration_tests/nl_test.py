@@ -64,7 +64,7 @@ class NLTest(NLWebServerTestCase):
         detection_method = expected_detectors[i]
       ctx = resp['context']
 
-      if i18n:
+      if i18n and i18n_lang:
         self.handle_i18n_response(resp, i18n_lang)
         return
 

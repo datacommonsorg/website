@@ -86,7 +86,7 @@ class ExploreTest(NLWebServerTestCase):
         if d == q and i18n:
           d = f"query_{index + 1}"
 
-      if i18n:
+      if i18n and i18n_lang:
         self.handle_i18n_response(resp, i18n_lang)
         return
 
