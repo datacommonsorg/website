@@ -24,6 +24,7 @@ import React, { useEffect, useRef } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import {
+  CLIENT_TYPES,
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
@@ -175,6 +176,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                   [URL_HASH_PARAMS.PLACE]: dcid,
                   [URL_HASH_PARAMS.TOPIC]: topicUrlVal,
                   [URL_HASH_PARAMS.QUERY]: "",
+                  [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RANKING_PLACE,
                 })}`;
               }}
             >

@@ -20,6 +20,7 @@
       "env": {
         "FLASK_APP": "${workspaceRoot}/web_app.py",
         "FLASK_ENV": "local",
+        "ENV_PREFIX": "DC",
         "FLASK_DEBUG": "1",
         "ENABLE_MODEL": "true",
         "GOOGLE_CLOUD_PROJECT": "datcom-website-dev"
@@ -40,6 +41,7 @@
       "env": {
         "FLASK_APP": "${workspaceRoot}/web_app.py",
         "FLASK_ENV": "local",
+        "ENV_PREFIX": "DC",
         "FLASK_DEBUG": "1",
         "ENABLE_MODEL": "false",
         "GOOGLE_CLOUD_PROJECT": "datcom-website-dev"

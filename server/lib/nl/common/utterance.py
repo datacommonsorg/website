@@ -177,3 +177,5 @@ class Utterance:
   test: str = ''
   # For i18n enabled requests, this field encodes the language of the query.
   i18n_lang: str = ''
+  # The client calling NL backend API.
+  client: str = ''

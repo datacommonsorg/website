@@ -37,6 +37,15 @@ export const URL_HASH_PARAMS = {
   MAXIMUM_BLOCK: "mb",
   TEST_MODE: "test",
   I18N: "i18n",
+  CLIENT: "client",
+};
+export const CLIENT_TYPES = {
+  ENTITY: "ui_entity",
+  LANDING: "ui_landing",
+  QUERY: "ui_query",
+  RANKING_PLACE: "ui_ranking_place",
+  RELATED_PLACE: "ui_related_place",
+  RELATED_TOPIC: "ui_related_topic",
 };
 // Dcid of the default topic to use
 export const DEFAULT_TOPIC = "dc/topic/Root";
