@@ -17,12 +17,12 @@ FROM gcr.io/datcom-ci/webdriver-chrome:2023-06-17
 WORKDIR /resources
 
 # Install python requirements
-COPY requirements.txt .
+COPY build/website_cron_testing/requirements.txt .
 RUN python3 -m pip install --upgrade pip setuptools
 RUN pip3 install -r /resources/requirements.txt
 
 # Copy script for running the cron tests
-COPY nodejs_query.py .
-COPY sanity.py .
-COPY run_website_cron_tests.sh .
+COPY server/integration_tests/standalone/nodejs_query.py .
+COPY server/webdriver/tests/standalone/sanity.py .
+COPY build/website_cron_testing/run_website_cron_tests.sh .
 RUN chmod +x /resources/run_website_cron_tests.sh

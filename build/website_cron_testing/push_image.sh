@@ -19,6 +19,7 @@ set -e
 
 gcloud config set project datcom-ci
 
+# TODO: find a less hacky way to do this
 cp ../../server/integration_tests/standalone/nodejs_query.py .
 cp ../../server/webdriver/tests/standalone/sanity.py .
 
