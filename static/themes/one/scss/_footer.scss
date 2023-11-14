@@ -124,7 +124,7 @@ $footer-color: #fff;
     }
 }
 
-@media screen and (min-width: var(--breakpoint-lg)) {
+@media screen and (min-width: 1068px) {
 
     #main-footer {
 
@@ -148,7 +148,7 @@ $footer-color: #fff;
         }
 
         .footer__cookie-consent {
-            margin-left: 0.5rem;
+            margin-left: 1rem;
         }
     }
 }

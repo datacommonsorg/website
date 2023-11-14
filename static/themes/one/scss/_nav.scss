@@ -61,7 +61,7 @@
     }
 }
 
-@media (min-width: --breakpoint-lg) { 
+@media (min-width: 1068px) { 
     #main-nav {
 
         .dropdown-menu {
@@ -78,7 +78,7 @@
     }
 }
 
-@media (max-width: --breakpoint-lg) { 
+@media (max-width: 1068px) { 
     #main-nav {
 
         .navbar-collapse {
