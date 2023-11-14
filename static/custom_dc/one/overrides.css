@@ -200,6 +200,7 @@ h6{
 @media (max-width: 1068px){
   #main-nav .navbar-collapse{
     padding:2rem 0;
+    margin-left:123px;
   }
   #main-nav a.nav-link{
     padding:1rem 0;
@@ -220,7 +221,7 @@ h6{
     background-position:center;
     background-repeat:no-repeat;
     background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2IiBoZWlnaHQ9IjYiIHZpZXdCb3g9IjAgMCA2IDYiIGZpbGw9Im5vbmUiPgogIDxwYXRoIGQ9Ik0wLjUgMC41VjUuNUg1LjUiIHN0cm9rZT0iIzY2NiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPg==");
-    margin:5px;
+    margin:5px 5px 5px 0;
   }
   #main-nav .dropdown-item:hover, #main-nav .dropdown-item:focus, #main-nav .dropdown-item:active{
     background-color:transparent;
@@ -315,8 +316,7 @@ h6{
 }
 
 .hero__image{
-  -o-object-fit:cover;
-     object-fit:cover;
+  object-fit:cover;
   position:absolute;
   top:0;
   right:0;
@@ -464,8 +464,7 @@ img.topic__image{
   display:block;
   width:100%;
   height:auto;
-  -o-object-fit:cover;
-     object-fit:cover;
+  object-fit:cover;
 }
 
 a.topic__link{

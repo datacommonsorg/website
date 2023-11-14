@@ -90,6 +90,7 @@
 
         .navbar-collapse {
             padding: 2rem 0;
+            margin-left: 123px;
         }
 
         a.nav-link {
@@ -112,7 +113,7 @@
                 background-position: center;
                 background-repeat: no-repeat;
                 background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2IiBoZWlnaHQ9IjYiIHZpZXdCb3g9IjAgMCA2IDYiIGZpbGw9Im5vbmUiPgogIDxwYXRoIGQ9Ik0wLjUgMC41VjUuNUg1LjUiIHN0cm9rZT0iIzY2NiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPg==");
-                margin: 5px;
+                margin: 5px 5px 5px 0;
             }
             &:hover,
             &:focus,
