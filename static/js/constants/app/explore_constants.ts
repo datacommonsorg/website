@@ -40,11 +40,17 @@ export const URL_HASH_PARAMS = {
   CLIENT: "client",
 };
 export const CLIENT_TYPES = {
+  // User typed in a p=X&t=Y URL
   ENTITY: "ui_entity",
+  // User clicked on a landing page query
   LANDING: "ui_landing",
+  // User typed in an nl query (URL or textbox)
   QUERY: "ui_query",
+  // User clicked on a place in ranking table
   RANKING_PLACE: "ui_ranking_place",
+  // User clicked on a related (parent/child) place
   RELATED_PLACE: "ui_related_place",
+  // User clicked on a related topic
   RELATED_TOPIC: "ui_related_topic",
 };
 // Dcid of the default topic to use
