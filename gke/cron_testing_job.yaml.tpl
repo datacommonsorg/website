@@ -19,6 +19,7 @@ metadata:
   name: cron-testing
   namespace: website
 spec:
+  # Run every 4 hours
   schedule: "0 */4 * * *"
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
