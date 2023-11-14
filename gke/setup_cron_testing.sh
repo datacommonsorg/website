@@ -56,10 +56,10 @@ gcloud container clusters get-credentials $CLUSTER_NAME \
   --region=$LOCATION --project=$PROJECT_ID
 
 # Update the cronjob config.
-cp periodic_testing_job.yaml.tpl periodic_testing_job.yaml
-yq eval -i '.spec.jobTemplate.spec.template.spec.containers[0].env += [{"name": "TESTING_ENV", "value": "'"$ENV"'"}]' periodic_testing_job.yaml
+cp cron_testing_job.yaml.tpl cron_testing_job.yaml
+yq eval -i '.spec.jobTemplate.spec.template.spec.containers[0].env += [{"name": "TESTING_ENV", "value": "'"$ENV"'"}]' cron_testing_job.yaml
 export SERVICE_ACCOUNT_NAME=$(yq eval '.serviceAccount.name' ../deploy/helm_charts/envs/$ENV.yaml)
-yq eval -i '.spec.jobTemplate.spec.template.spec.serviceAccountName = env(SERVICE_ACCOUNT_NAME)' periodic_testing_job.yaml
+yq eval -i '.spec.jobTemplate.spec.template.spec.serviceAccountName = env(SERVICE_ACCOUNT_NAME)' cron_testing_job.yaml
 
 # Apply config
-kubectl apply -f periodic_testing_job.yaml
+kubectl apply -f cron_testing_job.yaml

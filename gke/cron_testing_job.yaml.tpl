@@ -16,7 +16,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: periodic-testing
+  name: cron-testing
   namespace: website
 spec:
   schedule: "0 */4 * * *"
@@ -29,21 +29,21 @@ spec:
         spec:
           serviceAccountName:
           containers:
-          - name: periodic-testing-container
-            image: "gcr.io/datcom-ci/website-periodic-testing:latest"
+          - name: cron-testing-container
+            image: "gcr.io/datcom-ci/website-cron-testing:latest"
             args:
             - /bin/sh
             - -c
-            - /resources/run_website_periodic_tests.sh $WEB_API_ROOT $NODEJS_API_ROOT
+            - /resources/run_website_cron_tests.sh
             env:
             - name: WEB_API_ROOT
               valueFrom: 
                 configMapKeyRef:
-                  name: periodic-testing-config
+                  name: cron-testing-config
                   key: webApiRoot
             - name: NODEJS_API_ROOT
               valueFrom: 
                 configMapKeyRef:
-                  name: periodic-testing-config
+                  name: cron-testing-config
                   key: nodejsApiRoot
           restartPolicy: Never

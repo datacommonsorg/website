@@ -48,5 +48,5 @@ nodejs:
   enabled: true
   replicas: 12
 
-periodicTesting:
+cronTesting:
   enabled: true

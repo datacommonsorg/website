@@ -16,13 +16,13 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     args:
       - build
-      - --tag=gcr.io/datcom-ci/website-periodic-testing:${_TAG}
-      - --tag=gcr.io/datcom-ci/website-periodic-testing:latest
+      - --tag=gcr.io/datcom-ci/website-cron-testing:${_TAG}
+      - --tag=gcr.io/datcom-ci/website-cron-testing:latest
       - "."
 
 images:
-  - "gcr.io/datcom-ci/website-periodic-testing:${_TAG}"
-  - "gcr.io/datcom-ci/website-periodic-testing:latest"
+  - "gcr.io/datcom-ci/website-cron-testing:${_TAG}"
+  - "gcr.io/datcom-ci/website-cron-testing:latest"
 
 options:
   dynamic_substitutions: true

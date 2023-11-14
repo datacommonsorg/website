@@ -41,5 +41,5 @@ RUN chmod +x /usr/bin/chromedriver
 
 # Copy files
 COPY requirements.txt .
-COPY run_website_periodic_tests.sh .
-RUN chmod +x /resources/run_website_periodic_tests.sh
+COPY run_website_cron_tests.sh .
+RUN chmod +x /resources/run_website_cron_tests.sh

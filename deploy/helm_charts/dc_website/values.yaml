@@ -137,7 +137,7 @@ nodejs:
 ###############################################################################
 # Config for Periodic Testing CronJob
 ###############################################################################
-periodicTesting:
+cronTesting:
   enabled: false
   webApiRoot:
   nodejsRoot:
