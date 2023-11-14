@@ -12,41 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Helm config
-project: "datcom-website-autopush"
-cluster_prefix: "website"
+FROM gcr.io/datcom-ci/webdriver-chrome:2023-06-17
 
-namespace:
-  name: "website"
+WORKDIR /resources
 
-website:
-  flaskEnv: autopush
-  replicas: 15
+# Install python requirements
+COPY requirements.txt .
+RUN python3 -m pip install --upgrade pip setuptools
+RUN pip3 install -r /resources/requirements.txt
 
-mixer:
-  hostProject:
-  serviceName:
-
-serviceAccount:
-  name: website-ksa
-
-nl:
-  enabled: true
-
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 5
-  node:
-    replicas: 12
-  observation:
-    replicas: 12
-  default:
-    replicas: 12
-
-nodejs:
-  enabled: true
-  replicas: 12
-
-cronTesting:
-  enabled: true
+# Copy script for running the cron tests
+COPY run_website_cron_tests.sh .
+RUN chmod +x /resources/run_website_cron_tests.sh
