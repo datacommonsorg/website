@@ -289,13 +289,13 @@ categories {
 
 ### AID ###
 categories {
-  title: "Aid"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+  title: "Aid flows"
+  description: "Official Development Assistance (ODA) or “global aid” is a transfer of money and resources from predominantly richer countries to low-income countries to help fight poverty and support economic development. Official aid is from government sources or international institutions, and does not include private aid."
 
-  # PPG Debt Stocks
+  # Net aid received
   blocks {
     title: "Total aid received per country"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    description: "Net aid to African countries takes the total amount of official development assistance, minus any loans paid back. This includes aid directly from governments, as well as through multilateral institutions, like the Global Fund for AIDS, TB and Malaria."
 
     columns {
       tiles {
@@ -310,7 +310,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Net official development assistance and official aid received (current US$) (${date})"
+        title: "Net aid received (current US$) (${date})"
         stat_var_key: "worldBank/DT_ODA_ALLD_CD"
       }
     }
@@ -320,7 +320,7 @@ categories {
     key: "worldBank/DT_ODA_ALLD_CD"
     value {
       stat_var: "worldBank/DT_ODA_ALLD_CD"
-      name: "Net official development assistance and official aid received (current US$)"
+      name: "Net ODA (current US$)"
     }
   }
 }
@@ -328,12 +328,12 @@ categories {
 ### REMITTANCES ###
 categories {
   title: "Remittances"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+  description: "Remittances are money or goods that migrants send back to families and friends in origin countries. They are often the most direct and well-known link between migration and development, and can be a lifeline in times of crisis. The level of remittances to African countries can surpass the amount of funds received through official aid or foreign investments."
 
   # Remittances received as a percent of GDP
   blocks {
     title: "Remittances received as a percent of GDP"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    description: "Remittances received as a percent of GDP measures the money or goods received by one household from someone living in another country, as a proportion of the country’s gross domestic product. This helps illustrate how reliant a country’s economy is on external sources of income."
 
     columns {
       tiles {
@@ -357,7 +357,7 @@ categories {
   # Remittances sent as a percent of GDP
   blocks {
     title: "Remittances sent as a percent of GDP"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    description: "Remittances sent as a percent of GDP measures the money or goods sent by one household to someone living in another country, as a proportion of the country’s gross domestic product."
 
     columns {
       tiles {
@@ -372,7 +372,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Outward Remittances (${date})"
+        title: "Remittances sent (${date})"
         stat_var_key: "Amount_Remittance_OutwardRemittance"
       }
     }
@@ -382,7 +382,7 @@ categories {
     key: "Amount_Remittance_InwardRemittance"
     value {
       stat_var: "Amount_Remittance_InwardRemittance"
-      name: "Inward Remittances"
+      name: "Remittances received"
     }
   }
 
@@ -390,7 +390,7 @@ categories {
     key: "Amount_Remittance_OutwardRemittance"
     value {
       stat_var: "Amount_Remittance_OutwardRemittance"
-      name: "Outward Remittances"
+      name: "Remittances sent"
     }
   }
 }
