@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from datetime import datetime
 import json
 import logging
-from datetime import datetime
+import os
 
 from absl import app
 from absl import flags
 import requests
-import os
 
 FLAGS = flags.FLAGS
 
