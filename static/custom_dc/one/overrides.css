@@ -181,7 +181,7 @@ h6{
   transform:rotate(180deg);
 }
 
-@media (min-width: 1068px){
+@media (min-width: --breakpoint-lg){
   #main-nav .dropdown-menu{
     border:1px solid var(--dc-primary);
     border-radius:0;
@@ -191,7 +191,7 @@ h6{
     border-bottom:1px solid var(--dc-primary);
   }
 }
-@media (max-width: 1067px){
+@media (max-width: --breakpoint-lg){
   #main-nav .navbar-collapse{
     padding:2rem 0;
   }
@@ -309,7 +309,8 @@ h6{
 }
 
 .hero__image{
-  object-fit:cover;
+  -o-object-fit:cover;
+     object-fit:cover;
   position:absolute;
   top:0;
   right:0;
@@ -320,13 +321,13 @@ h6{
   z-index:-10;
 }
 
-@media screen and (max-width: 560px){
+@media screen and (max-width: var(--breakpoint-sm)){
   .hero__main{
     padding-left:7.5px;
     padding-right:7.5px;
   }
 }
-@media screen and (min-width: 1200px){
+@media screen and (min-width: var(--breakpoint-lg)){
   .hero__main{
     width:50%;
   }
@@ -351,7 +352,7 @@ h6{
   margin:5rem 0;
 }
 
-@media screen and (min-width: 1200px){
+@media screen and (min-width: --breakpoint-lg){
   .section__content{
     max-width:50%;
   }
@@ -457,7 +458,8 @@ img.topic__image{
   display:block;
   width:100%;
   height:auto;
-  object-fit:cover;
+  -o-object-fit:cover;
+     object-fit:cover;
 }
 
 a.topic__link{
@@ -573,7 +575,7 @@ a.topic__link:active, a.topic__link:focus, a.topic__link:hover{
   margin-right:0.5rem;
 }
 
-@media screen and (min-width: 1200px){
+@media screen and (min-width: var(--breakpoint-lg)){
   #main-footer .footer__section-heading{
     margin-top:0;
   }
