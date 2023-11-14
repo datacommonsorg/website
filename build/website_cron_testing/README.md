@@ -8,8 +8,8 @@ This is a Docker image based on gcr.io/datcom-ci/webdriver-chrome:2023-06-17, bu
 
 ## How to update the Docker image
 
-To generate the Docker image and push it to GCS:
+To generate the Docker image and push it to GCS, run the following from the root directory:
 
 ```bash
-./push_image.sh
+.scripts/push_image.sh
 ```
