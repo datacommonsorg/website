@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const sharp = require('sharp');
 
 module.exports = {
   devtool: false, // No source maps
@@ -93,8 +94,33 @@ module.exports = {
         { from: 'one/favicon', to: path.resolve(__dirname, '../custom_dc/one/favicon') },
         { from: 'one/favicon', to: path.resolve(__dirname, '../../server/dist/custom_dc/one/favicon') },
         // Copy the img directory
-        { from: 'one/img', to: path.resolve(__dirname, '../custom_dc/one') },
-        { from: 'one/img', to: path.resolve(__dirname, '../../server/dist/custom_dc/one') },
+        {
+          from: 'one/img',
+          to: path.resolve(__dirname, '../custom_dc/one'),
+          transform(content, path) {
+            if (/\.(jpe?g|png)$/i.test(path)) {
+              // Adjust compression settings as needed
+              return sharp(content)
+                .jpeg({ quality: 80 })
+                .toBuffer();
+            }
+            return content; // Return original content if not a JPEG or PNG
+          },
+        },
+        {
+          from: 'one/img',
+          to: path.resolve(__dirname, '../../server/dist/custom_dc/one'),
+          transform(content, path) {
+            // Adjust compression settings as needed
+            if (/\.(jpe?g|png)$/i.test(path)) {
+              // Adjust compression settings as needed
+              return sharp(content)
+                .jpeg({ quality: 80 })
+                .toBuffer();
+            }
+            return content; // Return original content if not a JPEG or PNG
+          },
+        },
       ],
     }),
   ],

@@ -337,7 +337,8 @@ h6{
 }
 
 .hero__image{
-  object-fit:cover;
+  -o-object-fit:cover;
+     object-fit:cover;
   position:absolute;
   top:0;
   right:0;
@@ -507,7 +508,8 @@ img.topic__image{
   display:block;
   width:100%;
   height:auto;
-  object-fit:cover;
+  -o-object-fit:cover;
+     object-fit:cover;
   aspect-ratio:5/6;
 }
 
