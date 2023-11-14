@@ -34,7 +34,7 @@ content - main page content
 <html lang={{ locale }} id={{ page_id }}>
 
 <head>
-  <title>{{ title }} - Custom Data Commons Commons</title>
+  <title>{{ title|default("ONE") }} - Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css' , t=config['VERSION'])}}>
