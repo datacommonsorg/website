@@ -49,20 +49,18 @@ $footer-color: #fff;
         font-size: 1.5rem;
     }
 
-    nav.footer-menu {
-        ul {
-            margin: 0;
-            padding-left: 0;
-            list-style: none;
+    ul.menu {
+        margin: 0;
+        padding-left: 0;
+        list-style: none;
 
-            li {
-                margin-bottom: 0.5rem;
+        li.menu-item {
+            margin-bottom: 0.5rem;
 
-                a {
-                    display: block;
-                    margin: 0;
-                    text-decoration: none;
-                }
+            a {
+                display: block;
+                margin: 0;
+                text-decoration: none;
             }
         }
     }
@@ -83,38 +81,38 @@ $footer-color: #fff;
                 height: $social-icon-diameter;
                 fill: $footer-color;
             }
-
         }
     }
-
 
     .footer__sub {
         display: flex;
         margin-top: 5rem;
         flex-direction: column;
+    }
 
-        .copyright {
-            display: block;
-            margin: 1.5rem 0 0 0;
-            order: 1;
-        }
-
-        ul.menu__footer-sub {
-            order: 2;
-        }
+    .copyright {
+        display: flex;
+        align-items: center;
+        margin: 1.5rem 0 0 0;
+        order: 1;
     }
 
     .footer__cookie-consent {
+        display: flex;
+        align-items: center;
         text-decoration: none;
     }
 
     ul.menu__footer-sub {
+        display: flex;
+        flex-direction: column;
+        order: 2;
         padding-left: 0;
-        list-style: none;
-        margin-bottom: 3rem;
 
-        >li {
+        > li.menu-item {
             display: inline-block;
+            vertical-align: baseline;
+            margin-bottom: 1rem;
 
             &:not(:last-child) {
                 margin-right: 0.5rem;
@@ -122,6 +120,7 @@ $footer-color: #fff;
 
         }
     }
+
 }
 
 @media screen and (min-width: 1068px) {
@@ -133,17 +132,20 @@ $footer-color: #fff;
         }
 
         .footer__sub {
-
             flex-direction: row;
+        }
 
-            .copyright {
-                order: initial;
-                margin: 0 1rem 0 0;
-                font-size: 1rem;
-            }
+        .copyright {
+            order: initial;
+            margin: 0 1rem 0 0;
+            font-size: 1rem;
+        }
 
-            ul.menu__footer-sub {
-                order: initial;
+        ul.menu__footer-sub {
+            flex-direction: row;
+            order: initial;
+            > li.menu-item {
+                margin-bottom: 0;
             }
         }
 

@@ -518,15 +518,15 @@ a.topic__link:active, a.topic__link:focus, a.topic__link:hover{
   margin-bottom:1.5rem;
   font-size:1.5rem;
 }
-#main-footer nav.footer-menu ul{
+#main-footer ul.menu{
   margin:0;
   padding-left:0;
   list-style:none;
 }
-#main-footer nav.footer-menu ul li{
+#main-footer ul.menu li.menu-item{
   margin-bottom:0.5rem;
 }
-#main-footer nav.footer-menu ul li a{
+#main-footer ul.menu li.menu-item a{
   display:block;
   margin:0;
   text-decoration:none;
@@ -552,26 +552,29 @@ a.topic__link:active, a.topic__link:focus, a.topic__link:hover{
   margin-top:5rem;
   flex-direction:column;
 }
-#main-footer .footer__sub .copyright{
-  display:block;
+#main-footer .copyright{
+  display:flex;
+  align-items:center;
   margin:1.5rem 0 0 0;
   order:1;
 }
-#main-footer .footer__sub ul.menu__footer-sub{
-  order:2;
-}
 #main-footer .footer__cookie-consent{
+  display:flex;
+  align-items:center;
   text-decoration:none;
 }
 #main-footer ul.menu__footer-sub{
+  display:flex;
+  flex-direction:column;
+  order:2;
   padding-left:0;
-  list-style:none;
-  margin-bottom:3rem;
 }
-#main-footer ul.menu__footer-sub > li{
+#main-footer ul.menu__footer-sub > li.menu-item{
   display:inline-block;
+  vertical-align:baseline;
+  margin-bottom:1rem;
 }
-#main-footer ul.menu__footer-sub > li:not(:last-child){
+#main-footer ul.menu__footer-sub > li.menu-item:not(:last-child){
   margin-right:0.5rem;
 }
 
@@ -582,13 +585,17 @@ a.topic__link:active, a.topic__link:focus, a.topic__link:hover{
   #main-footer .footer__sub{
     flex-direction:row;
   }
-  #main-footer .footer__sub .copyright{
+  #main-footer .copyright{
     order:initial;
     margin:0 1rem 0 0;
     font-size:1rem;
   }
-  #main-footer .footer__sub ul.menu__footer-sub{
+  #main-footer ul.menu__footer-sub{
+    flex-direction:row;
     order:initial;
+  }
+  #main-footer ul.menu__footer-sub > li.menu-item{
+    margin-bottom:0;
   }
   #main-footer .footer__cookie-consent{
     margin-left:1rem;
