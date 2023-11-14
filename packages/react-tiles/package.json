@@ -1,6 +1,6 @@
 {
   "name": "@datacommonsorg/react-tiles",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "React-based tiles for visualizing data from datacommons.org",
   "main": "index.js",
   "scripts": {
