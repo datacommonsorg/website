@@ -75,6 +75,14 @@ $footer-color: #fff;
             margin-bottom: 0.5rem;
             margin-right: 0.5rem;
 
+            a {
+                &:hover {
+                    svg {
+                        fill: var(--dc-highlight);        
+                    }
+                }
+            }
+
             svg {
                 display: block;
                 width: $social-icon-diameter;
