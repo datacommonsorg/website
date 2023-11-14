@@ -2,10 +2,8 @@
 
 ## Description
 
-This is a Docker image based on python:3.11, but comes with:
+This is a Docker image based on gcr.io/datcom-ci/webdriver-chrome:2023-06-17, but comes with:
 
-- Google Chrome: the browser which is used to run the tests.
-- ChromeDriver: used to send commands to Google Chrome.
 - Script (and files required by the script) to run the website cron tests
 
 ## How to update the Docker image

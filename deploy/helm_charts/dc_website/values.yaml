@@ -139,5 +139,7 @@ nodejs:
 ###############################################################################
 cronTesting:
   enabled: false
+  # These are the in-cluster service endpoints that are set during script
+  # deployment runtime.
   webApiRoot:
   nodejsRoot:

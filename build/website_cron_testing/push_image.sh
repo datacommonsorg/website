@@ -19,10 +19,6 @@ set -e
 
 gcloud config set project datcom-ci
 
-cp ../../server/requirements.txt .
-
 gcloud builds submit . \
   --config=cloudbuild.yaml \
   --substitutions=_TAG=$(git rev-parse --short=7 HEAD)
-
-rm requirements.txt

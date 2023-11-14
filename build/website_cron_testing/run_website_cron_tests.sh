@@ -21,11 +21,3 @@ echo "Website domain: $WEB_API_ROOT"
 echo "Nodejs domain: $NODEJS_API_ROOT"
 echo "Testing env: $TESTING_ENV"
 
-NO_PIP=$2
-
-python3 -m venv .env
-source .env/bin/activate
-if [[ $NO_PIP != "true" ]]; then
-  python3 -m pip install --upgrade pip setuptools
-  pip3 install -r requirements.txt
-fi
