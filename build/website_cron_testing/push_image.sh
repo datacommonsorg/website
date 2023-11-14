@@ -19,6 +19,11 @@ set -e
 
 gcloud config set project datcom-ci
 
+cp ../../server/integration_tests/standalone/nodejs_query.py .
+cp ../../server/webdriver/tests/standalone/sanity.py .
+
 gcloud builds submit . \
   --config=cloudbuild.yaml \
   --substitutions=_TAG=$(git rev-parse --short=7 HEAD)
+
+rm nodejs_query.py sanity.py

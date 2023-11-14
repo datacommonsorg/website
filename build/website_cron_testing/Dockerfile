@@ -22,5 +22,7 @@ RUN python3 -m pip install --upgrade pip setuptools
 RUN pip3 install -r /resources/requirements.txt
 
 # Copy script for running the cron tests
+COPY nodejs_query.py .
+COPY sanity.py .
 COPY run_website_cron_tests.sh .
 RUN chmod +x /resources/run_website_cron_tests.sh
