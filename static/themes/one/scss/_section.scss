@@ -20,7 +20,7 @@
     margin: 5rem 0;
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: --breakpoint-lg) {
     .section__content {
         max-width: 50%;
     }

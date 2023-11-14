@@ -113,17 +113,18 @@ $footer-color: #fff;
         list-style: none;
         margin-bottom: 3rem;
 
-        > li {
+        >li {
             display: inline-block;
+
             &:not(:last-child) {
                 margin-right: 0.5rem;
             }
-            
+
         }
     }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: var(--breakpoint-lg)) {
 
     #main-footer {
 

@@ -50,14 +50,14 @@
 	z-index: -10;
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: var(--breakpoint-sm)) {
 	.hero__main {
 		padding-left: 7.5px;
 		padding-right: 7.5px;
 	}
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: var(--breakpoint-lg)) {
 	.hero__main {
 		width: 50%;
 	}
