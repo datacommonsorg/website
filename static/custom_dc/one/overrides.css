@@ -163,6 +163,12 @@ h6{
 #main-nav .dropdown-item{
   padding:1rem 1.5rem;
 }
+#main-nav .dropdown-item svg{
+  display:block;
+  width:20px;
+  height:20px;
+  margin-right:1rem;
+}
 #main-nav .dropdown-toggle::after{
   margin-left:10px;
   content:"";

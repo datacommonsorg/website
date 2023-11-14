@@ -21,9 +21,24 @@
             data.one.org
         </a>
         <div class="dropdown-menu" aria-labelledby="nav-dataoneorg-dropdown">
-            <a class="dropdown-item" href="{{ url_for('tools.timeline') }}" target="_blank">Economies</a>
-            <a class="dropdown-item" href="{{ url_for('tools.scatter') }}" target="_blank">Topics</a>
-            <a class="dropdown-item" href="{{ url_for('tools.map') }}" target="_blank">Data Dives</a>
+            <a class="dropdown-item" href="{{ url_for('tools.timeline') }}" target="_blank">
+                <svg class="icon--countries">
+                    <use xlink:href="/custom_dc/one/icons.svg#countries"></use>
+                </svg>
+                Economies
+            </a>
+            <a class="dropdown-item" href="{{ url_for('tools.scatter') }}" target="_blank">
+                <svg class="icon--topic">
+                    <use xlink:href="/custom_dc/one/icons.svg#topic"></use>
+                </svg>
+                Topics
+            </a>
+            <a class="dropdown-item" href="{{ url_for('tools.map') }}" target="_blank">
+                <svg class="icon--dive">
+                    <use xlink:href="/custom_dc/one/icons.svg#dive"></use>
+                </svg>
+                Data Dives
+            </a>
         </div>
     </li>
 </ul>
