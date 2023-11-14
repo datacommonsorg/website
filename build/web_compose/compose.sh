@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+export MIXER_API_KEY=$DC_API_KEY
+
 /go/bin/mixer \
     --use_bigquery=false \
     --use_base_bigtable=false \
@@ -28,13 +30,21 @@ envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 
 if [[ $DEBUG == "true" ]]
 then
-    python3 web_app.py
+    echo "Starting NL Server in debug mode."
+    python3 nl_app.py 6060 &
+
+    echo "Starting Website Server in debug mode."
+    python3 web_app.py &
 else
-    gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:8080 -w 4 web_app:app
+    echo "Starting NL Server."
+    gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:6060 -w 1 nl_app:app &
+
+    echo "Starting Website Server."
+    gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:8080 -w 4 web_app:app &
 fi
 
 # Wait for any process to exit
-wait -n
+wait
 
 # Exit with status of process that exited first
 exit $?

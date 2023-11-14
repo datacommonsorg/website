@@ -14,6 +14,7 @@
 
 import os
 import subprocess
+import time
 
 from flask import Blueprint
 from flask import current_app
@@ -44,6 +45,8 @@ def load_data():
 
   # TODO: dynamically create the output dir.
   output_dir = os.path.join(sql_data_path, 'data')
+  nl_dir = os.path.join(output_dir, "nl")
+  sentences_path = os.path.join(nl_dir, "sentences.csv")
 
   command1 = [
       "python",
@@ -55,6 +58,14 @@ def load_data():
       f"{output_dir}",
   ]
   command2 = [
+      "python",
+      "build_custom_dc_embeddings.py",
+      "--sv_sentences_csv_path",
+      f"{sentences_path}",
+      "--output_dir",
+      f"{nl_dir}",
+  ]
+  command3 = [
       "curl",
       "-X",
       "POST",
@@ -62,8 +73,21 @@ def load_data():
       "-d",
       f'{{"data_path": "{output_dir}"}}',
   ]
+  command4 = [
+      "curl",
+      "localhost:6060/api/load/",
+  ]
   output = []
-  for command, cwd in [(command1, "import/simple"), (command2, ".")]:
+  for command, stage, cwd in [(command1, "import_data", "import/simple"),
+                              (command2, "create_embeddings",
+                               "tools/nl/embeddings"),
+                              (command3, "load_data", "."),
+                              (command4, "load_embeddings", ".")]:
+    start = time.time()
+
+    def _duration():
+      return round(time.time() - start, 2)
+
     try:
       result = subprocess.run(command,
                               capture_output=True,
@@ -71,16 +95,25 @@ def load_data():
                               check=True,
                               cwd=cwd)
       output.append({
+          "stage": stage,
           "status": "success",
+          "durationSeconds": _duration(),
           "stdout": result.stdout.strip().splitlines()
       })
     except subprocess.CalledProcessError as cpe:
       return jsonify({
+          "stage": stage,
           "status": "failure",
+          "durationSeconds": _duration(),
           "error": cpe.stderr.strip().splitlines()
       }), 500
     except Exception as e:
-      return jsonify({"status": "error", "message": str(e)}), 500
+      return jsonify({
+          "stage": stage,
+          "status": "error",
+          "durationSeconds": _duration(),
+          "message": str(e)
+      }), 500
   return jsonify(output), 200
 
 

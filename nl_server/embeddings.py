@@ -31,9 +31,6 @@ from shared.lib import utils
 _HIGHEST_SCORE = 1.0
 _INIT_SCORE = (_HIGHEST_SCORE + 0.1)
 
-# Scores below this are ignored.
-_SV_SCORE_THRESHOLD = 0.5
-
 _NUM_CANDIDATES_PER_NSPLIT = 3
 
 # Number of matches to find within the SV index.
@@ -55,7 +52,7 @@ class Embeddings:
     self.dcids: List[str] = []
     self.sentences: List[str] = []
 
-    logging.info('Loading embeddings file')
+    logging.info('Loading embeddings file: %s', embeddings_path)
     try:
       ds = load_dataset('csv', data_files=embeddings_path)
     except:
@@ -140,6 +137,7 @@ class Embeddings:
   #
   def detect_svs(self,
                  orig_query: str,
+                 threshold: float = constants.SV_SCORE_DEFAULT_THRESHOLD,
                  skip_multi_sv: bool = False) -> Dict[str, Union[Dict, List]]:
     # Remove all stop-words.
     query_monovar = utils.remove_stop_words(orig_query,
@@ -153,7 +151,7 @@ class Embeddings:
       # Try to detect multiple SVs.  Use the original query so that
       # the logic can rely on stop-words like `vs`, `and`, etc as hints
       # for SV delimiters.
-      result_multivar = self._detect_multiple_svs(orig_query)
+      result_multivar = self._detect_multiple_svs(orig_query, threshold)
       multi_sv = vars.multivar_candidates_to_dict(result_multivar)
 
     # TODO: Rename SV_to_Sentences for consistency.
@@ -168,7 +166,8 @@ class Embeddings:
   # Detects one or more SVs from the query.
   # TODO: Fix the query upstream to ensure the punctuations aren't stripped.
   #
-  def _detect_multiple_svs(self, query: str) -> vars.MultiVarCandidates:
+  def _detect_multiple_svs(self, query: str,
+                           threshold: float) -> vars.MultiVarCandidates:
     #
     # Prepare a combination of query-sets.
     #
@@ -234,7 +233,7 @@ class Embeddings:
           total += score
           candidate.parts.append(part)
 
-        if lowest < _SV_SCORE_THRESHOLD:
+        if lowest < threshold:
           # A query-part's best SV did not cross our score threshold,
           # so drop this candidate.
           continue

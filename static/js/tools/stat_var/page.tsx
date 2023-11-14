@@ -25,6 +25,7 @@ import { Button } from "reactstrap";
 import { PropertyValues } from "../../shared/api_response_types";
 import {
   NamedNode,
+  NamedTypedNode,
   StatVarHierarchyType,
   StatVarSummary,
 } from "../../shared/types";
@@ -35,10 +36,6 @@ import { DatasetSelector } from "./dataset_selector";
 import { Explorer } from "./explorer";
 import { Info } from "./info";
 import { SV_URL_PARAMS } from "./stat_var_constants";
-
-const SVG_URL_PREFIX = `/api/variable-group/info?dcid=${
-  globalThis.svgRoot || "dc/g/Root"
-}&entities=`;
 
 interface PageStateType {
   // DCID of selected dataset.
@@ -53,7 +50,7 @@ interface PageStateType {
   // DCID of selected source.
   source: string;
   // DCID and name of sources.
-  sources: NamedNode[];
+  sources: NamedTypedNode[];
   statVar: string;
   summary: StatVarSummary;
   urls: Record<string, string>;
@@ -176,49 +173,25 @@ class Page extends Component<unknown, PageStateType> {
    */
   private fetchSources(): void {
     axios
-      .get<PropertyValues>("/api/node/propvals/in?prop=typeOf&dcids=Source")
+      .get<Record<string, NamedTypedNode[]>>(
+        "/api/node/propvals/in?prop=typeOf&dcids=Source"
+      )
       .then((resp) => {
-        const sourcePromises = [];
         if (!resp.data["Source"]) {
           return;
         }
-        for (const source of resp.data["Source"]) {
-          const url = SVG_URL_PREFIX + source.dcid;
-          sourcePromises.push(axios.get(url).then((resp) => resp));
-        }
-        if (sourcePromises.length === 0) {
-          return;
-        }
-        Promise.all(sourcePromises).then((sourceResults) => {
-          const sourceDcids = [];
-          for (const result of sourceResults) {
-            // Filter out all sources which have no stat vars in the main hierarchy (e.g. BMDC).
-            // TODO: Use ENTITY in schema to identify sources with stats
-            if (result.data.descendentStatVarCount) {
-              sourceDcids.push(
-                result?.config?.url.replace([SVG_URL_PREFIX], "")
-              );
-            }
-          }
-          if (sourceDcids.length === 0) {
-            return;
-          }
-          axios
-            .get<PropertyValues>("/api/node/propvals/out", {
-              params: { dcids: sourceDcids, prop: "name" },
-              paramsSerializer: stringifyFn,
-            })
-            .then((resp) => {
-              const sources = [];
-              for (const dcid of Object.keys(resp.data).sort()) {
-                sources.push({
-                  dcid,
-                  name: resp.data[dcid][0]["value"],
-                });
-              }
-              this.setState({ sources });
-            });
-        });
+        const sources = resp.data["Source"];
+        const variable = globalThis.svgRoot || "dc/g/Root";
+        axios
+          .post("/api/observation/existence", {
+            entities: resp.data["Source"].map((s) => s.dcid),
+            variables: [variable],
+          })
+          .then((exResp) => {
+            const existence = exResp.data[variable];
+            const filteredSources = sources.filter((s) => existence[s.dcid]);
+            this.setState({ sources: filteredSources });
+          });
       })
       .catch(() => {
         alert("Error fetching data.");

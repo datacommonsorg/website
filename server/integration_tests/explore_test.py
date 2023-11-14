@@ -15,6 +15,7 @@
 import json
 import os
 
+from langdetect import detect as detect_lang
 import requests
 
 from shared.lib.test_server import NLWebServerTestCase
@@ -30,17 +31,10 @@ _MAX_FOOTNOTE_LENGTH = 500
 
 class ExploreTest(NLWebServerTestCase):
 
-  def run_fulfillment(self,
-                      test_dir,
-                      req_json,
-                      failure='',
-                      test='',
-                      i18n='',
-                      udp=''):
-    resp = requests.post(
-        self.get_server_url() +
-        f'/api/explore/fulfill?test={test}&i18n={i18n}&udp={udp}',
-        json=req_json).json()
+  def run_fulfillment(self, test_dir, req_json, failure='', test='', i18n=''):
+    resp = requests.post(self.get_server_url() +
+                         f'/api/explore/fulfill?test={test}&i18n={i18n}',
+                         json=req_json).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
   def run_detection(self,
@@ -72,12 +66,12 @@ class ExploreTest(NLWebServerTestCase):
                              failure='',
                              test='',
                              i18n='',
-                             udp=''):
+                             i18n_lang=''):
     ctx = {}
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&udp={udp}',
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -91,6 +85,11 @@ class ExploreTest(NLWebServerTestCase):
         # Use the query index for such cases.
         if d == q and i18n:
           d = f"query_{index + 1}"
+
+      if i18n and i18n_lang:
+        self.handle_i18n_response(resp, i18n_lang)
+        return
+
       self.handle_response(d, resp, test_dir, d, failure)
 
   def handle_response(self,
@@ -159,6 +158,33 @@ class ExploreTest(NLWebServerTestCase):
           self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
           self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
           self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
+
+  def handle_i18n_response(self, resp, i18n_lang):
+    """The translation API does not always return the same translations.
+    This makes golden comparisons flaky.
+    So we instead extract the texts from the response and assert at least one of them is
+    in the expected language.
+    """
+    texts: list[str] = []
+    for category in resp.get("config", {}).get("categories", []):
+      for block in category.get("blocks", []):
+        for column in block.get("columns", []):
+          for tile in column.get("tiles", []):
+            title = tile.get("title")
+            if title:
+              texts.append(title)
+
+    self.assertTrue(len(texts) > 0)
+
+    success = False
+    detected = ""
+    for text in texts:
+      detected = detect_lang(text).lower()
+      if i18n_lang in detected:
+        success = True
+        break
+
+    self.assertTrue(success, f"wanted: {i18n_lang}, got {detected}")
 
   def test_detection_basic(self):
     self.run_detection('detection_api_basic', ['Commute in California'],
@@ -380,7 +406,8 @@ class ExploreTest(NLWebServerTestCase):
     # - "what about car theft?"
     self.run_detect_and_fulfill('e2e_translate_chinese',
                                 ['圣克拉拉县哪些城市的盗窃率最高？', '汽车被盗怎么办？'],
-                                i18n='true')
+                                i18n='true',
+                                i18n_lang='zh')
 
   def test_e2e_sdg(self):
     self.run_detect_and_fulfill('e2e_sdg', [
@@ -410,10 +437,3 @@ class ExploreTest(NLWebServerTestCase):
             # to the place (SC county) to its state (CA).
             'auto thefts in tracts of santa clara county'
         ])
-
-  def test_e2e_default_place(self):
-    self.run_detect_and_fulfill('e2e_default_place', [
-        'what does a diet for diabetes look like?',
-        'how to earn money online without investment'
-    ],
-                                udp='false')

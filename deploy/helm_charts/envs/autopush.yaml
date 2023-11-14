@@ -47,3 +47,6 @@ serviceGroups:
 nodejs:
   enabled: true
   replicas: 12
+
+cronTesting:
+  enabled: true

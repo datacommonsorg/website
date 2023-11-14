@@ -24,6 +24,7 @@ import {
   RankingTile,
   RankingTilePropType,
 } from "../js/components/tiles/ranking_tile";
+import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -146,7 +147,7 @@ export class DatacommonsRankingComponent extends LitElement {
       return {
         denom:
           this.perCapita && this.perCapita.includes(statVar)
-            ? "Count_Person"
+            ? DEFAULT_PER_CAPITA_DENOM
             : "",
         log: false,
         name: "",
@@ -166,7 +167,7 @@ export class DatacommonsRankingComponent extends LitElement {
         highestTitle: this.highestTitle,
         lowestTitle: this.lowestTitle,
         rankingCount: this.rankingCount || 5,
-        showHighest: this.showHighest,
+        showHighest: !this.showLowest && !this.showHighestLowest,
         showHighestLowest: this.showHighestLowest,
         showLowest: this.showLowest,
         showMultiColumn: this.showMultiColumn,

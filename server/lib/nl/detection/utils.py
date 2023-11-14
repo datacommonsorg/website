@@ -29,20 +29,18 @@ from server.lib.nl.fulfillment.types import ChartType
 from shared.lib import constants as shared_constants
 from shared.lib import detected_variables as dvars
 
-# We will ignore SV detections that are below this threshold
-_SV_THRESHOLD = 0.5
-
 
 #
 # Filter out SVs that are below a score.
 #
-def filter_svs(sv: dvars.VarCandidates, counters: ctr.Counters) -> List[str]:
+def filter_svs(detection: SVDetection, counters: ctr.Counters) -> List[str]:
   i = 0
   ans = []
   blocked_vars = set()
-  while (i < len(sv.svs)):
-    if (sv.scores[i] >= _SV_THRESHOLD):
-      var = sv.svs[i]
+  single_sv = detection.single_sv
+  while i < len(single_sv.svs):
+    if single_sv.scores[i] >= detection.sv_threshold:
+      var = single_sv.svs[i]
 
       # Check if an earlier var blocks this var.
       if var in blocked_vars:
@@ -132,14 +130,19 @@ def empty_svs_score_dict():
   return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}, "MultiSV": {}}
 
 
-def create_sv_detection(query: str, svs_scores_dict: Dict) -> SVDetection:
+def create_sv_detection(
+    query: str,
+    svs_scores_dict: Dict,
+    sv_threshold: float = shared_constants.SV_SCORE_DEFAULT_THRESHOLD
+) -> SVDetection:
   return SVDetection(query=query,
                      single_sv=dvars.VarCandidates(
                          svs=svs_scores_dict['SV'],
                          scores=svs_scores_dict['CosineScore'],
                          sv2sentences=svs_scores_dict['SV_to_Sentences']),
                      multi_sv=dvars.dict_to_multivar_candidates(
-                         svs_scores_dict['MultiSV']))
+                         svs_scores_dict['MultiSV']),
+                     sv_threshold=sv_threshold)
 
 
 def empty_place_detection() -> PlaceDetection:
@@ -155,7 +158,7 @@ def create_utterance(query_detection: Detection,
                      counters: ctr.Counters,
                      session_id: str,
                      test: str = '') -> Utterance:
-  filtered_svs = filter_svs(query_detection.svs_detected.single_sv, counters)
+  filtered_svs = filter_svs(query_detection.svs_detected, counters)
 
   # Construct Utterance datastructure.
   uttr = Utterance(prev_utterance=currentUtterance,

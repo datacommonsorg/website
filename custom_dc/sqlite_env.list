@@ -1,5 +1,6 @@
 FLASK_ENV=custom
 USE_SQLITE=true
+ENABLE_MODEL=true
 SQL_DATA_PATH=/sqlite
 
 DC_API_KEY=

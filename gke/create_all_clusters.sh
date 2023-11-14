@@ -15,9 +15,11 @@
 
 set -e
 
+ENV=$1
+
 # Setup cluster in primary region
 PRIMARY_REGION=$(yq eval '.region.primary' config.yaml)
-./create_cluster.sh $PRIMARY_REGION
+./create_cluster.sh $ENV $PRIMARY_REGION
 
 # Setup cluster in other regions
 len=$(yq eval '.region.others | length' config.yaml)
@@ -26,6 +28,6 @@ do
   export index=$index
   REGION=$(yq eval '.region.others[env(index)]' config.yaml)
   if [[ $REGION != '' ]]; then
-    ./create_cluster.sh $REGION
+    ./create_cluster.sh $ENV $REGION
   fi
 done

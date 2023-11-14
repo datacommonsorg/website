@@ -34,4 +34,13 @@ export interface TileResult {
   chartUrl?: string;
   // The svg for the chart in the tile as an xml string. One of chartUrl or svg should be set.
   svg?: string;
+  // The unit of the data in the chart if it's a single unit.
+  unit?: string;
+  // The data point to highlight. Only returned for single line line charts.
+  highlight?: {
+    value: number;
+    date: string;
+  };
+  // The link to the data commons explore page for this result.
+  dcUrl?: string;
 }
