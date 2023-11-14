@@ -1,5 +1,18 @@
 #main-nav {
 
+    .navbar-brand span {
+        
+        margin-left: 2.5rem;
+        padding: 0.5rem 1rem;
+        border: 1px solid #222;
+
+        & a {
+            font-weight: 400;
+            text-transform: uppercase;
+            font-size: 1.15rem;
+        }
+    }
+
     a.dropdown-item,
     a.nav-link {
         font-size: 1.15rem;
@@ -91,8 +104,13 @@
     }
 }
 
+
 @media (max-width: 1068px) { 
     #main-nav {
+
+        .navbar-brand span {
+            display: none;
+        }
 
         .navbar-collapse {
             padding: 2rem 0;
