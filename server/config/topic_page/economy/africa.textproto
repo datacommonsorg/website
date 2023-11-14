@@ -16,19 +16,21 @@ metadata {
 
 ### OVERVIEW ###
 categories {
-  title: "Overview"
-  description: "Test description"
+  title: "The basics"
+  description: "Explore headline data on economic activity, including income distribution and the value of goods and services produced."
 
   # GINI Index
   blocks {
-    title: "GINI Index"
-    description: "The Gini Index measures income equality within an economy by looking at how income is distributed amongst the population. A higher Gini score indicates a small number of individuals hold a higher percentage of income, than if it were evenly distributed. A score of 0 represents perfect income equality."
+    title: "Income inequality"
+    description: "The Gini Index measures income equality within an economy by looking at how income is distributed throughout the population. A higher Gini score means there is more inequality: a small number of individuals hold a higher share of income. A score of zero represents perfect income equality."
     columns {
       tiles {
         type: RANKING
         ranking_tile_spec {
           show_highest: true
           show_lowest: true
+          highest_title: "Highest Gini Index in Africa"
+          lowest_title: "Lowest Gini Index in Africa"
         }
         stat_var_key: "GiniIndex_EconomicActivity"
       }
@@ -36,7 +38,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Gini Index of Economic Activity (${date})"
+        title: "Income inequality (Gini Index ${date})"
         stat_var_key: "GiniIndex_EconomicActivity"
       }
     }
@@ -44,8 +46,8 @@ categories {
 
   # GDP per capita
   blocks {
-    title: "GDP per capita"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    title: "Gross domestic product (GDP) per capita"
+    description: "GDP per capita measures the total value of the goods and services produced in a country by its population. It is used as a broad measure of the average living standard of a country; however, a high GDP per capita does not necessarily mean people have a higher standard of living."
 
     columns {
       tiles {
@@ -68,8 +70,8 @@ categories {
 
   # GDP growth rate
   blocks {
-    title: "GDP growth rate"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    title: "Gross domestic product (GDP) growth rate"
+    description: "The GDP growth rate measures how much a country’s economic output has grown or shrunk – essentially, an economy’s expansion or contraction during a specific period of time."
 
     columns {
       tiles {
@@ -92,8 +94,8 @@ categories {
 
   # Inflation
   blocks {
-    title: "Inflation"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    title: "Inflation rate"
+    description: "Inflation rates tell you how much consumer prices have increased over a specified period of time. It is like a speedometer for prices: high inflation means your money buys you less than before and low inflation means prices are steady and your money retains its value."
 
     columns {
       tiles {
@@ -114,35 +116,12 @@ categories {
     }
   }
 
-  # Unemployment
-  blocks {
-    title: "Unemployment"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-
-    columns {
-      tiles {
-        type: RANKING
-        ranking_tile_spec {
-          show_highest: true
-          show_lowest: true
-        }
-        stat_var_key: "unemploymentPercentOfLaborForce"
-      }
-    }
-    columns {
-      tiles {
-        type: MAP
-        title: "Unemployment (% of labor force) (${date})"
-        stat_var_key: "unemploymentPercentOfLaborForce"
-      }
-    }
-  }
-  
+  ## Stat var spec overview section
   stat_var_spec {
     key: "GiniIndex_EconomicActivity"
     value {
       stat_var: "GiniIndex_EconomicActivity"
-      name: "Gini Index of Economic Activity"
+      name: "Gini Index"
     }
   }
 
@@ -166,18 +145,9 @@ categories {
     key: "inflationPercentAverageConsumerPrices"
     value {
       stat_var: "inflationPercentAverageConsumerPrices"
-      name: "Inflation"
+      name: "Inflation rate"
     }
   }
-
-  stat_var_spec {
-    key: "unemploymentPercentOfLaborForce"
-    value {
-      stat_var: "unemploymentPercentOfLaborForce"
-      name: "Unemployment"
-    }
-  }
-
 }
 
 ### DEBT ###
@@ -189,7 +159,7 @@ categories {
   blocks {
     title: "PPG Debt Stocks"
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+
     columns {
       tiles {
         type: RANKING
@@ -213,7 +183,7 @@ categories {
   blocks {
     title: "PPG interest and principal repayments"
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+
     columns {
       tiles {
         type: MAP
@@ -234,7 +204,7 @@ categories {
   blocks {
     title: "Currency composition of debt"
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+
     columns {
       tiles {
         type: BAR
@@ -251,7 +221,7 @@ categories {
   blocks {
     title: "Debt held in USD"
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+
     columns {
       tiles {
         type: RANKING
@@ -270,7 +240,7 @@ categories {
       }
     }
   }
-  
+
   stat_var_spec {
     key: "AmountOutstanding_Debt_PubliclyGuaranteed_LongTermExternalDebt"
     value {
@@ -336,12 +306,12 @@ categories {
 categories {
   title: "Aid"
   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
-  
+
   # PPG Debt Stocks
   blocks {
     title: "Total aid received per country"
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+
     columns {
       tiles {
         type: RANKING
@@ -374,12 +344,12 @@ categories {
 categories {
   title: "Remittances"
   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
-  
+
   # Remittances received as a percent of GDP
   blocks {
     title: "Remittances received as a percent of GDP"
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+
     columns {
       tiles {
         type: RANKING
@@ -403,7 +373,7 @@ categories {
   blocks {
     title: "Remittances sent as a percent of GDP"
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+
     columns {
       tiles {
         type: RANKING
@@ -444,12 +414,12 @@ categories {
 categories {
   title: "Special Drawing Rights"
   description: "Special Drawing Rights (SDRs) are an important financing source for African countries to respond to ongoing and future crises. SDRs, which are created by the IMF, provide a much needed injection of liquidity to plug fiscal gaps, meet external debt obligations, or address foreign exchange shortages.They are allocated according to a country’s relative size in the global economy — so richer countries receive the lion’s share. The most recent SDR allocation equivalent to $650 billion took place in August 2021 to help countries respond to the COVID-19 pandemic."
-  
+
   # Allocations
   blocks {
     title: "Allocations"
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+
     columns {
       tiles {
         type: RANKING
@@ -473,7 +443,7 @@ categories {
   blocks {
     title: "Holdings"
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+
     columns {
       tiles {
         type: RANKING
