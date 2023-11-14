@@ -1,0 +1,27 @@
+.section__heading {
+    color: var(--dc-primary);
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: normal;
+
+    &:after {
+        content: '';
+        display: block;
+        border-bottom: 6px solid var(--dc-accent);
+        margin-top: -12px;
+        z-index: -10;
+        @extend %pull-full-width;
+    }
+}
+
+.section--about,
+.section--explore,
+.section--get-started {
+    margin: 5rem 0;
+}
+
+@media screen and (min-width: 1068px) {
+    .section__content {
+        max-width: 50%;
+    }
+}
