@@ -47,6 +47,8 @@ def load_data():
   output_dir = os.path.join(sql_data_path, 'data')
   nl_dir = os.path.join(output_dir, "nl")
   sentences_path = os.path.join(nl_dir, "sentences.csv")
+  # TODO: Enable NL for GCS paths once we add support for it.
+  load_nl = not sql_data_path.lower().startswith("gs://")
 
   command1 = [
       "python",
@@ -78,17 +80,27 @@ def load_data():
       "localhost:6060/api/load/",
   ]
   output = []
-  for command, stage, cwd in [(command1, "import_data", "import/simple"),
-                              (command2, "create_embeddings",
-                               "tools/nl/embeddings"),
-                              (command3, "load_data", "."),
-                              (command4, "load_embeddings", ".")]:
+  for command, stage, cwd, execute in [
+      (command1, "import_data", "import/simple", True),
+      (command2, "create_embeddings", "tools/nl/embeddings", load_nl),
+      (command3, "load_data", ".", True),
+      (command4, "load_embeddings", ".", load_nl)
+  ]:
     start = time.time()
 
     def _duration():
       return round(time.time() - start, 2)
 
     try:
+      if not execute:
+        output.append({
+            "stage": stage,
+            "status": "not_run",
+            "durationSeconds": 0,
+            "stdout": "Stage was not run."
+        })
+        continue
+
       result = subprocess.run(command,
                               capture_output=True,
                               text=True,
