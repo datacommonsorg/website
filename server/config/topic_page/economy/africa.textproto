@@ -398,12 +398,12 @@ categories {
 ### SPECIAL DRAWING RIGHTS ###
 categories {
   title: "Special Drawing Rights"
-  description: "Special Drawing Rights (SDRs) are an important financing source for African countries to respond to ongoing and future crises. SDRs, which are created by the IMF, provide a much needed injection of liquidity to plug fiscal gaps, meet external debt obligations, or address foreign exchange shortages.They are allocated according to a country’s relative size in the global economy — so richer countries receive the lion’s share. The most recent SDR allocation equivalent to $650 billion took place in August 2021 to help countries respond to the COVID-19 pandemic."
+  description: "Special Drawing Rights (SDRs) are a reserve asset issued by the International Monetary Fund (IMF) to all its members. They are not cash, but they can be traded for hard currency if countries need to use them. In times of crisis, SDRs can  provide a much needed injection of liquidity to shore up reserves, stabilise currencies, meet external debt obligations, or address other pressing needs.\n\nA country’s relative size in the global economy determines how much it receives — so richer countries get the lion’s share. The most recent SDR allocation equivalent to $650 billion took place in August 2021 to help countries respond to the COVID-19 pandemic."
 
   # Allocations
   blocks {
-    title: "Allocations"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    title: "SDR allocations"
+    description: "SDR allocations to African countries measures the total amount of SDRs that have been distributed to these IMF members over time."
 
     columns {
       tiles {
@@ -418,7 +418,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Allocations (SDRs) (${date})"
+        title: "SDR Allocations (${date})"
         stat_var_key: "SdrAllocationsSdr"
       }
     }
@@ -426,8 +426,8 @@ categories {
 
   # Holdings
   blocks {
-    title: "Holdings"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    title: "SDR Holdings"
+    description: " SDR holdings of African countries measures the total amount of SDRs that are currently retained, i.e. haven’t been used, by these IMF members."
 
     columns {
       tiles {
