@@ -26,10 +26,10 @@ FLAGS = flags.FLAGS
 OUTPUT_DIR = 'output'
 
 flags.DEFINE_string('base_url', 'https://dev.datacommons.org',
-                    f'The base URL of the API server.')
+                    'The base URL of the API server.')
 
 flags.DEFINE_string('output_dir', OUTPUT_DIR,
-                    f'The output directory where results will be persisted.')
+                    'The output directory where results will be persisted.')
 
 TEST_CASES = [{
     'name': 'timeline',
