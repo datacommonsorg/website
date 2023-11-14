@@ -33,6 +33,7 @@ module.exports = {
               postcssOptions: {
                 plugins: [
                   ['postcss-discard-comments', { removeAll: true }], // This plugin discards comments
+                  require('autoprefixer'), // Add Autoprefixer
                 ],
               },
             },
