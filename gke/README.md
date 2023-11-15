@@ -62,22 +62,7 @@ the file to describe the environment the clusters are being used for.
     > The filename used will be the `<ENV>` in subsequent commands. E.g. if you
     > named the yaml file `staging.yaml`, then the `ENV` below is `staging`.
 
-<!-- TODO: Write a shell script to handle the next two steps -->
-1. In Google Cloud Console, under "APIs & Services" -> "Credentials", make sure
-   the following API keys are created. If the API keys do not exist yet, create
-   them.
-   - a key for "DataCommons API", called `mixer-api-key`
-   - a key for "Generative Language API", called `nl-palm-api-key`
-   - a key for both "Maps Javascript API" and "Places API", called `maps-api-key`
-
-2. In Google Cloud Console, under "Security" -> "Secret Manager", make sure
-   a secret is created for each of the 3 API keys above. If the secrets do not
-   exist, create them, using the API key value as the "secret value".
-   - a secret for `mixer-api-key` named `mixer-api-key`
-   - a secret for `nl-palm-api-key` named `palm-api-key` (note lack of `nl` prefix)
-   - a secret for `maps-api-key` named `maps-api-key`
-
-3. Run the following scripts sequentially.
+1. Run the following scripts sequentially.
   
 ```bash
 # Create clusters
