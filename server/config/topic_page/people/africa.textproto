@@ -15,12 +15,10 @@ metadata {
 ### OVERVIEW ###
 categories {
   title: "Overview"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
-  
+  description: "Demographic data can tell you a lot about a country and its people. Who they are and whether they are educated, well-fed, healthy, and able to live a long and prosperous life. This information shows you where a country has been – but also where it’s going. More than half of Africa’s 54 countries will double in population by 2050, due in part to high fertility rates and improving mortality rates. By that time, one in four people on earth will live in Africa."
   # Population
   blocks {
     title: "Population"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
     columns {
       tiles {
         type: RANKING
@@ -43,7 +41,6 @@ categories {
   # Population Growth
   blocks {
     title: "Population Growth"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
     columns {
       tiles {
         type: RANKING
@@ -66,7 +63,7 @@ categories {
   # Fertility Rate
   blocks {
     title: "Fertility Rate"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    description: "Measures the average number of children a woman will have, assuming she lives from birth until the end of her reproductive life."
     columns {
       tiles {
         type: RANKING
@@ -89,7 +86,7 @@ categories {
   # Life Expectancy
   blocks {
     title: "Life Expectancy"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    description: "Indicates the average number of years a newborn could expect to live. This provides a snapshot of population health and mortality. High life expectancy is generally associated with good healthcare, nutrition, sanitation, and other socioeconomic conditions."
     columns {
       tiles {
         type: RANKING
@@ -145,18 +142,23 @@ categories {
 ### POVERTY ###
 categories {
   title: "Poverty"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
-  
+  description: "Living in poverty is about more than money. It reflects someone’s access to resources that enable them to live a healthy life, go to school or work, and grow old with dignity. This section includes the traditional measure of poverty in economic terms."
+
   # Population below poverty line
   blocks {
-    title: "Population below poverty line"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    title: "Population living below the international poverty line"
+    description: "If someone lives on less than $2.15 per person per day, they fall below the international poverty line. This figure is calculated based on the value of goods needed to sustain one adult."
     columns {
       tiles {
         type: HIGHLIGHT
         description: "of the population in ${placeName} is living below the international poverty line"
         stat_var_key: "sdg/SI_POV_DAY1"
       }
+      tiles {
+          type: LINE
+          description: "of the population in ${placeName} is living below the international poverty line"
+          stat_var_key: "sdg/SI_POV_DAY1"
+          }
     }
   }
   blocks {
@@ -173,11 +175,12 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Proportion of population below international poverty line (${date})"
+        title: "Population living below the international poverty line (${date})"
         stat_var_key: "sdg/SI_POV_DAY1"
       }
     }
   }
+
 
   stat_var_spec {
     key: "Count_Person"
@@ -198,17 +201,21 @@ categories {
 
 ### FOOD SECURITY ###
 categories {
-  title: "Food Insecurity"
-  description: "Hunger is the most visible indicator of poverty. Every one of us needs food to stay alive and healthy, and families will almost always prioritise food over other expenses. So when they can’t afford to eat, you know they are in crisis. Hunger is an umbrella term used to mean several different things. This page explores some of the most common measures of hunger and what they mean."
+  title: "Food security and hunger"
+  description: "Hunger is the most visible indicator of poverty. Every one of us needs food to stay alive and healthy, and families will almost always prioritise food over other expenses. So when they can’t afford to eat, you know they are in crisis. Hunger is an umbrella term used to mean several different things. This section explores some of the most common measures of hunger and what they mean."
 
   # Stunting
   blocks {
-    title: "Stunting"
-    description: "Stunting means that children are smaller than expected for their age. It is typically a sign of long-term hunger. Stunting often has lifetime consequences because it impacts childrens’ cognitive and physical development."
+    title: "Child stunting"
+    description: "Stunting means that children are smaller than expected for their age. It is typically a sign of long-term micronutrient deficiency. Stunting often has lifelong consequences because it impacts childrens’ cognitive and physical development. "
     columns {
       tiles {
         type: HIGHLIGHT
         description: "in ${placeName} are moderately or severely stunted"
+        stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
+      }
+      tiles {
+        type: LINE
         stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
       }
     }
@@ -227,7 +234,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Proportion of children moderately orseverely stunted [under 5 years old] (${date})"
+        title: "Proportion of children under 5 years old moderately or severely stunted (${date})"
         stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
       }
     }
@@ -235,8 +242,8 @@ categories {
 
   # Wasting
   blocks {
-    title: "Wasting"
-    description: "Wasting means that children have a low weight for their height. It is usually a sign of recent and severe weight loss, due to food insecurity and/or an infectious disease."
+    title: "Child wasting"
+    description: "Wasting means that children have a low weight for their height. It is typically a sign of recent and severe weight loss, due to food insecurity or infectious disease."
     columns {
       tiles {
         type: HIGHLIGHT
@@ -259,7 +266,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Proportion of children moderately or severely wasted [under 5 years old] (${date})"
+        title: "Proportion of children under 5 years old moderately or severely wasted (${date})"
         stat_var_key: "sdg/SH_STA_WAST.AGE--Y0T4"
       }
     }
@@ -267,12 +274,16 @@ categories {
 
   # Undernourishment
   blocks {
-    title: "Undernourishment"
+    title: "Prevalence of undernourishment"
     description: "Someone is undernourished if they are not able to acquire enough food to meet the daily minimum dietary energy requirements, over a period of one year."
     columns {
       tiles {
         type: HIGHLIGHT
-        description: "of the population in ${placeName} are undernourished"
+        description: "of the population in ${placeName} is undernourished"
+        stat_var_key: "sdg/SN_ITK_DEFC"
+      }
+      tiles {
+        type: LINE
         stat_var_key: "sdg/SN_ITK_DEFC"
       }
     }
@@ -301,7 +312,7 @@ categories {
     key: "sdg/SH_STA_STNT.AGE--Y0T4"
     value {
       stat_var: "sdg/SH_STA_STNT.AGE--Y0T4"
-      name: "Proportion of children moderately or severely stunted [under 5 years old]"
+      name: "Proportion of children under 5 years old moderately or severely stunted"
     }
   }
 
@@ -309,7 +320,7 @@ categories {
     key: "sdg/SH_STA_WAST.AGE--Y0T4"
     value {
       stat_var: "sdg/SH_STA_WAST.AGE--Y0T4"
-      name: "Proportion of children moderately or severely wasted [under 5 years old]"
+      name: "Proportion of children under 5 years old moderately or severely wasted"
     }
   }
 
@@ -325,16 +336,20 @@ categories {
 ### EDUCATION ###
 categories {
   title: "Education"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+  description: "Education is a powerful enabler for reducing poverty and increasing quality of life. Well-educated societies tend to be more equal, prosperous, and have stronger institutions. The world has made significant strides in increasing education rates and closing gender gaps, particularly in primary school, but more work is needed to ensure children everywhere learn essential skills and reach their potential. "
 
   # Primary education completion rate
   blocks {
     title: "Primary education completion rate"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    description: "The share of students who complete primary school. This measure reflects an education system's coverage and the educational attainment of students."
     columns {
       tiles {
         type: HIGHLIGHT
         description: "is the primary education completion rate in ${placeName}"
+        stat_var_key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+      }
+      tiles {
+        type: LINE
         stat_var_key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
       }
     }
@@ -372,12 +387,12 @@ categories {
 ### HEALTH ###
 categories {
   title: "Health"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
+  description: "Where you live shouldn’t determine whether you live, but too often it does. Lower-income countries are home to a majority of the global burden of disease, yet make up a small proportion of global health spending. This means people in the most vulnerable countries, including mothers and children, continue to die from preventable and treatable diseases."
 
   # Maternal Mortality
   blocks {
     title: "Maternal Mortality"
-    description: "The maternal mortality ratio is the number of maternal deaths as a result of complications during or following pregnancy and childbirth per 100,000 live births during a given time period. Maternal mortality is a critical indicator of, among other things, the quality and accessibility of maternal healthcare services, including access to skilled birth attendants."
+    description: "The number of maternal deaths as a result of complications during or following pregnancy and childbirth per 100,000 live births during a given time period. Maternal mortality is a critical indicator of the quality and accessibility of maternal healthcare services, including access to skilled birth attendants, amongst other things."
     columns {
       tiles {
         type: RANKING
@@ -400,7 +415,7 @@ categories {
   # Infant Mortality
   blocks {
     title: "Infant Mortality"
-    description: "Infant mortality rate is the likelihood of newborn infant deaths before the age of 1 year, per 1,000 live births during a given period. Infant mortality rate can be associated with access to healthcare, water and sanitation as well as infectious diseases, malnutrition and vaccination coverage."
+    description: "The likelihood of newborn infant deaths before the age of 1 year, per 1,000 live births. Infant mortality rate can be associated with access to healthcare, clean water, and sanitation as well as infectious diseases, malnutrition and vaccination coverage."
     columns {
       tiles {
         type: RANKING
@@ -422,7 +437,7 @@ categories {
 
   # Government Health Expenditure
   blocks {
-    title: "Government health expenditure"
+    title: "Domestic government health expenditure"
     description: "The amount of health expenditure, funded from domestic government public sources"
     columns {
       tiles {
