@@ -96,12 +96,13 @@ module.exports = {
         // Copy the img directory
         {
           from: 'one/img',
-          to: path.resolve(__dirname, '../custom_dc/one'),
+          to: path.resolve(__dirname, '../custom_dc/one/[name].webp'),
           transform(content, path) {
             if (/\.(jpe?g|png)$/i.test(path)) {
               // Adjust compression settings as needed
               return sharp(content)
-                .jpeg({ quality: 80 })
+              .webp({ lossless: true })
+                .resize(1056, 1268)
                 .toBuffer();
             }
             return content; // Return original content if not a JPEG or PNG
@@ -109,16 +110,15 @@ module.exports = {
         },
         {
           from: 'one/img',
-          to: path.resolve(__dirname, '../../server/dist/custom_dc/one'),
+          to: path.resolve(__dirname, '../../server/dist/custom_dc/one/[name].webp'),
           transform(content, path) {
-            // Adjust compression settings as needed
-            if (/\.(jpe?g|png)$/i.test(path)) {
-              // Adjust compression settings as needed
+            if (/\.(jpe?g)$/i.test(path)) {
               return sharp(content)
-                .jpeg({ quality: 80 })
+                .webp({ lossless: true })
+                .resize(1056, 1268)
                 .toBuffer();
             }
-            return content; // Return original content if not a JPEG or PNG
+            return content;
           },
         },
       ],
