@@ -26,35 +26,35 @@ You should have owner/editor role to perform the following tasks.
 
 1. Run the following scripts sequentially. Retry any script if errors occur.
 
-```bash
-# Update gcloud
-gcloud components update
-gcloud auth login
+    ```bash
+    # Update gcloud
+    gcloud components update
+    gcloud auth login
 
-# Enable GCP services
-./enable_services.sh
+    # Enable GCP services
+    ./enable_services.sh
 
-# Create a static IP for the domain
-./create_ip.sh
+    # Create a static IP for the domain
+    ./create_ip.sh
 
-# Create api key for web client maps and places API
-./create_api_key.sh
+    # Create api key for web client maps and places API
+    ./create_api_key.sh
 
-# Create robot account
-./create_robot_account.sh
+    # Create robot account
+    ./create_robot_account.sh
 
-# Config robot account IAM in the project
-./add_policy_binding.sh
+    # Config robot account IAM in the project
+    ./add_policy_binding.sh
 
-# [Ask Data Commons team to run this] Get permission to read Data Commons data
-./get_storage_permission.sh
+    # [Ask Data Commons team to run this] Get permission to read Data Commons data
+    ./get_storage_permission.sh
 
-# Create SSL certificate
-./setup_ssl.sh
+    # Create SSL certificate
+    ./setup_ssl.sh
 
-# Deploy esp service
-./setup_esp.sh
-```
+    # Deploy esp service
+    ./setup_esp.sh
+    ```
 
 1. Copy the `config.yaml` file into the `/deploy/gke` folder. Rename
 the file to describe the environment the clusters are being used for.
@@ -64,16 +64,21 @@ the file to describe the environment the clusters are being used for.
 
 1. Run the following scripts sequentially.
   
-```bash
-# Create clusters
-./create_all_clusters.sh <ENV>
+    ```bash
+    # Create clusters
+    ./create_all_clusters.sh <ENV>
 
-# Set up multi-cluster ingress and service
-./setup_config_cluster.sh
+    # Deploy helm
+    ../scripts/deploy_gke_helm.sh -e <ENV> -l <REGION>
+    ```
 
-# Deploy helm
-../scripts/deploy_gke_helm.sh -e <ENV> -l <REGION>
-```
+1. (Optional) If you're using multiple clusters, run the following script to
+   setup multi-cluster ingress and services.
+
+    ```bash
+    # Set up multi-cluster ingress and service
+    ./setup_config_cluster.sh
+    ```
 
 ### DNS setup
 
