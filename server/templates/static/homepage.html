@@ -27,6 +27,8 @@
  {% block head %}
  <link rel="stylesheet" href={{url_for('static', filename='css/homepage.min.css', t=config['VERSION'])}}>
  <script src={{url_for('static', filename='homepage.js', t=config['VERSION'])}} async></script>
+ <!-- required for Google Search Console access -->
+ <meta name="google-site-verification" content="63gGTTtkTwcSjEijMIuCq5VeaOmz_u0wsvB_bpRubZI" />
  {% endblock %}
 
  {% block content %}
