@@ -1,0 +1,50 @@
+{% set items = [
+{
+'name': 'Scatter Plots',
+'url': '/tools/scatter',
+'icon': 'scatter-plots'
+},
+{
+'name': 'Timelines',
+'url': '/tools/timeline',
+'icon': 'timelines'
+},
+{
+'name': 'Place Explorer',
+'url': '/place',
+'icon': 'place-explorer'
+},
+{
+'name': 'Data Download',
+'url': '/tools/download',
+'icon': 'data-download'
+},
+{
+'name': 'Map Explorer',
+'url': '/tools/map',
+'icon': 'map-explorer'
+}
+] %}
+
+<section class="section--explore">
+  <h2 class="section__heading">Explore</h2>
+  <div class="section__content">
+    <p>Explore and download all data on ONE Data Commons through these tools.</p>
+  </div>
+  <nav class="explore__navigation" aria-label="Explore topics">
+    <ul class="explore__list">
+      {% for item in items %}
+      <li class="explore__list-item">
+        <a href="{{ item.url }}" class="explore__link">
+          <div class="explore__icon-wrapper">
+            <svg class="explore__icon icon--{{ item.icon }}" aria-hidden="true" focusable="false">
+              <use href="/custom_dc/one/explore.svg#{{ item.icon }}"></use>
+            </svg>
+          </div>
+          <span class="explore__text">{{ item.name }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</section>

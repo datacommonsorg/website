@@ -1,0 +1,46 @@
+{% set topics = [
+{
+'name': 'Economy',
+'link': '/topic/economy/africa',
+'image': '/custom_dc/one/economy.jpg',
+'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor'
+},
+{
+'name': 'Health',
+'link': '/topic/health/africa',
+'image': '/custom_dc/one/health.jpg',
+'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor'
+},
+{
+'name': 'People',
+'link': '/topic/people/africa',
+'image': '/custom_dc/one/people.png',
+'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor'
+},
+] %}
+
+
+<section class="section--get-started">
+    <h2 class="section__heading">Get started</h2>
+    <div class="section__content">
+        <p>See key data on economics, health and people in African countries.</p>
+    </div>
+    <div class="row topics">
+        {% for topic in topics %}
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <article class="topic">
+                <figure class="topic__figure">
+                    <span class="topic__name">{{ topic.name }}</span>
+                    <a href="{{ topic.link }}" class="topic__image-link">
+                        <img src="{{ topic.image }}" class="topic__image" alt="{{ topic.name }}" width="526" height="390">
+                    </a>
+                    <figcaption class="topic__description">
+                        {{ topic.description }}
+                        <a href="{{ topic.link }}" class="topic__link">Explore</a>
+                    </figcaption>
+                </figure>
+            </article>
+        </div>
+        {% endfor %}
+    </div>
+</section>

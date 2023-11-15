@@ -1,0 +1,75 @@
+$bar-width: 40px;
+$bar-height: 4px;
+$bar-color: #000;
+$hover-bar-color: #333;
+$toggler-height: 40px;
+$transition-speed: 0.3s;
+
+.navbar-toggler {
+  border: none;
+  padding: 0.25rem 0.75rem;
+  background: transparent;
+  outline: none;
+  height: $toggler-height;
+  cursor: pointer;
+
+  .navbar-toggler-icon {
+    display: block;
+    width: $bar-width;
+    height: $bar-height;
+    background-color: $bar-color;
+    position: relative;
+    transition: all $transition-speed ease-in-out;
+
+    &::before,
+    &::after {
+      content: '';
+      background-color: $bar-color;
+      display: block;
+      width: 100%;
+      height: $bar-height;
+      position: absolute;
+      transition: all $transition-speed ease-in-out;
+    }
+
+    &::before {
+      top: -$bar-height * 2.5;
+    }
+
+    &::after {
+      bottom: -$bar-height * 2.5;
+    }
+  }
+
+  &:not(.collapsed) {
+    .navbar-toggler-icon {
+      background: transparent;
+
+      &::before {
+        transform: rotate(45deg);
+        top: 0;
+      }
+
+      &::after {
+        transform: rotate(-45deg);
+        bottom: 0;
+      }
+    }
+  }
+
+  &:hover {
+    .navbar-toggler-icon {
+      &,
+      &::before,
+      &::after {
+        background-color: $hover-bar-color;
+      }
+    }
+  }
+
+  &:not(.collapsed):hover {
+    .navbar-toggler-icon {
+      background: transparent;
+    }
+  }
+}

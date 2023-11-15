@@ -79,3 +79,7 @@ output/
 
 # wireit files
 .wireit
+.envvars
+
+# idea files
+.idea/

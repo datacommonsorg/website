@@ -1,0 +1,84 @@
+@font-face {
+    font-family: 'Colfax';
+    src: url('fonts/ColfaxThin.woff2') format("woff2"),
+        url('fonts/ColfaxThin.woff') format("woff"),
+        url('fonts/ColfaxThin.otf') format("opentype");
+
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: 'Colfax';
+    src: url('fonts/ColfaxLight.woff2') format("woff2"),
+        url('fonts/ColfaxLight.woff') format("woff"),
+        url('fonts/ColfaxLight.otf') format("opentype");
+
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: 'Colfax';
+    src: url('fonts/ColfaxRegular.woff2') format("woff2"),
+        url('fonts/ColfaxRegular.woff') format("woff"),
+        url('fonts/ColfaxRegular.otf') format("opentype");
+
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: 'Colfax';
+    src: url('fonts/ColfaxRegularItalic.woff2') format("woff2"),
+        url('fonts/ColfaxRegularItalic.woff') format("woff"),
+        url('fonts/ColfaxRegularItalic.otf') format("opentype");
+
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: 'Colfax';
+    src: url('fonts/ColfaxMedium.woff2') format("woff2"),
+        url('fonts/ColfaxMedium.woff') format("woff"),
+        url('fonts/ColfaxMedium.otf') format("opentype");
+
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: 'Colfax';
+    src: url('fonts/ColfaxBold.woff2') format("woff2"),
+        url('fonts/ColfaxBold.woff') format("woff"),
+        url('fonts/ColfaxBold.otf') format("opentype");
+
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    font-stretch: normal;
+}
+
+
+@font-face {
+    font-family: 'Colfax';
+    src: url('fonts/ColfaxBlack.woff2') format("woff2"),
+        url('fonts/ColfaxBlack.woff') format("woff"),
+        url('fonts/ColfaxBlack.otf') format("opentype");
+
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+    font-stretch: normal;
+}
