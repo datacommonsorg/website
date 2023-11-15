@@ -70,6 +70,7 @@ def _get_processed_facets(facets):
   return result
 
 
+# TODO: include obsCount, earliestDate, and latestDate like obs_series
 def _convert_v2_obs_point(facet):
   result = {
       'facet': facet['facetId'],

@@ -48,8 +48,7 @@ SERIES_WITHIN_ALL_FACETS = {
                 'geoId/01': {
                     'orderedFacets': [
                         {
-                            'facetId':
-                                '2517965213',
+                            'facetId': '2517965213',
                             'observations': [{
                                 'date': '2014',
                                 'value': 1021869
@@ -65,25 +64,29 @@ SERIES_WITHIN_ALL_FACETS = {
                             }, {
                                 'date': '2019',
                                 'value': 1068778
-                            }]
+                            }],
+                            'earliestDate': '2014',
+                            'latestDate': '2019',
+                            'obsCount': 5
                         },
                         {
-                            'facetId':
-                                '1145703171',
+                            'facetId': '1145703171',
                             'observations': [{
                                 'date': '2011',
                                 'value': 4747424
                             }, {
                                 'date': '2012',
                                 'value': 4777326
-                            }]
+                            }],
+                            'earliestDate': '',
+                            'latestDate': '2012',
+                            'obsCount': 2
                         },
                     ],
                 },
                 'geoId/06': {
                     'orderedFacets': [{
-                        'facetId':
-                            '2517965213',
+                        'facetId': '2517965213',
                         'observations': [{
                             'date': '2014',
                             'value': 2817628
@@ -96,7 +99,10 @@ SERIES_WITHIN_ALL_FACETS = {
                         }, {
                             'date': '2017',
                             'value': 2969905
-                        }]
+                        }],
+                        'earliestDate': '2014',
+                        'latestDate': '2017',
+                        'obsCount': 4
                     }],
                 },
             },
@@ -106,8 +112,7 @@ SERIES_WITHIN_ALL_FACETS = {
                 'geoId/01': {
                     'orderedFacets': [
                         {
-                            'facetId':
-                                '324358135',
+                            'facetId': '324358135',
                             'observations': [{
                                 'date': '1979-01',
                                 'value': 6.6
@@ -126,11 +131,13 @@ SERIES_WITHIN_ALL_FACETS = {
                             }, {
                                 'date': '2019-05',
                                 'value': 3.6
-                            }]
+                            }],
+                            'earliestDate': '1979-01',
+                            'latestDate': '2019-05',
+                            'obsCount': 6
                         },
                         {
-                            'facetId':
-                                '1249140336',
+                            'facetId': '1249140336',
                             'observations': [{
                                 'date': '2019',
                                 'value': 3.2
@@ -140,14 +147,16 @@ SERIES_WITHIN_ALL_FACETS = {
                             }, {
                                 'date': '2021',
                                 'value': 3.4
-                            }]
+                            }],
+                            'earliestDate': '2019',
+                            'latestDate': '2021',
+                            'obsCount': 3
                         },
                     ],
                 },
                 'geoId/06': {
                     'orderedFacets': [{
-                        'facetId':
-                            '324358135',
+                        'facetId': '324358135',
                         'observations': [{
                             'date': '2015-10',
                             'value': 6.4
@@ -166,7 +175,10 @@ SERIES_WITHIN_ALL_FACETS = {
                         }, {
                             'date': '2020-04',
                             'value': 1.2
-                        }]
+                        }],
+                        'earliestDate': '2015-10',
+                        'latestDate': '2020-04',
+                        'obsCount': 6
                     }]
                 },
             },

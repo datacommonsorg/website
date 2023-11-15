@@ -57,6 +57,9 @@ export interface Series {
   // series field is guaranteed to set from Flask.
   series: Observation[];
   facet?: string;
+  earliestDate?: string;
+  latestDate?: string;
+  obsCount?: number;
 }
 
 export interface EntitySeries {
