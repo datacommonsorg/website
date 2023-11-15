@@ -29,13 +29,15 @@ figure.topic__figure {
 }
 
 .topic__description {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     position: absolute;
     bottom: 0;
-    padding: 2rem 1.5rem 1rem 1rem;
+    padding: 1.5rem 1.5rem 1rem 1rem;
     background-color: rgba(#fff, 0.9);
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    min-height: 8rem;
 }
 
 img.topic__image {
@@ -50,10 +52,11 @@ a.topic__link {
     display: block;
     padding: 0.25rem 0.5rem;
     color: #BBB;
-    font-size: 0.5rem;
+    font-size: 0.75rem;
     font-style: normal;
     font-weight: 900;
     line-height: normal;
+    margin-top: auto;
     margin-left: auto;
 
     &:active,
@@ -70,7 +73,7 @@ a.topic__link {
         height: 12px;
         background-repeat: no-repeat;
         position: absolute;
-        bottom: 2px;
+        bottom: 4px;
         right: -9px;
         width: 15px;
         transform: rotate(-15.525deg);
