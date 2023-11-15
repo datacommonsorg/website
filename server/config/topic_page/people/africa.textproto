@@ -154,6 +154,8 @@ categories {
         description: "of the population in ${placeName} is living below the international poverty line"
         stat_var_key: "sdg/SI_POV_DAY1"
       }
+    }
+    columns {
       tiles {
           type: LINE
           description: "of the population in ${placeName} is living below the international poverty line"
@@ -175,7 +177,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Population living below the international poverty line (${date})"
+        title: "Population living in poverty (${date})"
         stat_var_key: "sdg/SI_POV_DAY1"
       }
     }
@@ -207,13 +209,15 @@ categories {
   # Stunting
   blocks {
     title: "Child stunting"
-    description: "Stunting means that children are smaller than expected for their age. It is typically a sign of long-term micronutrient deficiency. Stunting often has lifelong consequences because it impacts childrens’ cognitive and physical development. "
+    description: "Stunting means that children are smaller than expected for their age. It is typically a sign of long-term micronutrient deficiency. Stunting often has lifelong consequences because it impacts childrens’ cognitive and physical development."
     columns {
       tiles {
         type: HIGHLIGHT
         description: "in ${placeName} are moderately or severely stunted"
         stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
       }
+    }
+    columns {
       tiles {
         type: LINE
         stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
@@ -266,7 +270,8 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Proportion of children under 5 years old moderately or severely wasted (${date})"
+        title: "Child wasting (${date})"
+        subtitle: "Proportion of children under 5 years old moderately or severely wasted"
         stat_var_key: "sdg/SH_STA_WAST.AGE--Y0T4"
       }
     }
@@ -282,6 +287,8 @@ categories {
         description: "of the population in ${placeName} is undernourished"
         stat_var_key: "sdg/SN_ITK_DEFC"
       }
+    }
+    columns{
       tiles {
         type: LINE
         stat_var_key: "sdg/SN_ITK_DEFC"
