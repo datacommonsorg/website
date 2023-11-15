@@ -43,7 +43,7 @@ def homepage():
       partners_list=current_app.config.get('HOMEPAGE_PARTNERS', []),
       partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
 
-
+'''
 @bp.route('/about')
 def about():
   return lib_render.render_page("static/about.html", "about.html")
@@ -97,3 +97,4 @@ def version():
                          bigquery=mixer_version.get('bigquery', ''),
                          remote_mixer_domain=mixer_version.get(
                              'remoteMixerDomain', ''))
+'''
