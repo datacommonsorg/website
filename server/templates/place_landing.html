@@ -42,7 +42,7 @@
     <div id="location-field">
       <div id="search-icon"></div>
       <input id="place-autocomplete"
-        placeholder="{% trans %}Enter a country, state, county or city{% endtrans %}" type="text" />
+        placeholder="{% trans %}Enter a country or city{% endtrans %}" type="text" />
     </div>
   </div>
 
@@ -52,30 +52,30 @@
   {# TRANSLATORS: Heading for a list of places #}
   <h3>{% trans %}Places{% endtrans %}</h3>
   <ul>
-    {# TRANSLATORS: Heading for a list of cities in the US. See this message on https://datacommons.org/place #}
-    <li><strong>{% trans %}Cities, United States{% endtrans %}</strong>
-      {% for dcid in [ 'geoId/1714000', 'geoId/4805000', 'geoId/0667000', 'geoId/5363000'] %}
-      <a class="landing-link" href="{{ place_url(dcid) }}">{{ place_names[dcid] }}</a>
-      {%- if not loop.last %},{% endif -%}
-      {% endfor %}
-    </li>
-    {# TRANSLATORS: Heading for a list of counties in the US. See this message on https://datacommons.org/place #}
-    <li><strong>{% trans %}Counties, United States{% endtrans %}</strong>
-      {% for dcid in ['geoId/17031', 'geoId/06059', 'geoId/48201', 'geoId/06085'] %}
-      <a class="landing-link" href="{{ place_url(dcid) }}">{{ place_names[dcid] }}</a>
-      {%- if not loop.last %},{% endif -%}
-      {% endfor %}
-    </li>
-    {# TRANSLATORS: Heading for a list of states in the US. See this message on https://datacommons.org/place #}
-    <li><strong>{% trans %}States, United States{% endtrans %}</strong>
-      {% for dcid in ['geoId/06', 'geoId/48', 'geoId/17', 'geoId/21', 'geoId/36', 'geoId/26'] %}
-      <a class="landing-link" href="{{ place_url(dcid) }}">{{ place_names[dcid] }}</a>
-      {%- if not loop.last %},{% endif -%}
-      {% endfor %}
-    </li>
+<!--    {# TRANSLATORS: Heading for a list of cities in the US. See this message on https://datacommons.org/place #}-->
+<!--    <li><strong>{% trans %}Cities, United States{% endtrans %}</strong>-->
+<!--      {% for dcid in [ 'geoId/1714000', 'geoId/4805000', 'geoId/0667000', 'geoId/5363000'] %}-->
+<!--      <a class="landing-link" href="{{ place_url(dcid) }}">{{ place_names[dcid] }}</a>-->
+<!--      {%- if not loop.last %},{% endif -%}-->
+<!--      {% endfor %}-->
+<!--    </li>-->
+<!--    {# TRANSLATORS: Heading for a list of counties in the US. See this message on https://datacommons.org/place #}-->
+<!--    <li><strong>{% trans %}Counties, United States{% endtrans %}</strong>-->
+<!--      {% for dcid in ['geoId/17031', 'geoId/06059', 'geoId/48201', 'geoId/06085'] %}-->
+<!--      <a class="landing-link" href="{{ place_url(dcid) }}">{{ place_names[dcid] }}</a>-->
+<!--      {%- if not loop.last %},{% endif -%}-->
+<!--      {% endfor %}-->
+<!--    </li>-->
+<!--    {# TRANSLATORS: Heading for a list of states in the US. See this message on https://datacommons.org/place #}-->
+<!--    <li><strong>{% trans %}States, United States{% endtrans %}</strong>-->
+<!--      {% for dcid in ['geoId/06', 'geoId/48', 'geoId/17', 'geoId/21', 'geoId/36', 'geoId/26'] %}-->
+<!--      <a class="landing-link" href="{{ place_url(dcid) }}">{{ place_names[dcid] }}</a>-->
+<!--      {%- if not loop.last %},{% endif -%}-->
+<!--      {% endfor %}-->
+<!--    </li>-->
     {# TRANSLATORS: Heading for a list of countries. #}
     <li><strong>{% trans %}Countries{% endtrans %}</strong>
-      {% for dcid in ['country/CAN', 'country/USA', 'country/IND', 'country/MYS', 'country/DEU'] %}
+      {% for dcid in ['country/NGA', 'country/KEN', 'country/ZAF', 'country/EGY', 'country/SEN'] %}
       <a class="landing-link" href="{{ place_url(dcid) }}">{{ place_names[dcid] }}</a>
       {%- if not loop.last %},{% endif -%}
       {% endfor %}
@@ -85,32 +85,32 @@
   {# TRANSLATORS: Heading for a list of place rankings. #}
   <h3>{% trans %}Rankings{% endtrans %}</h3>
   <ul>
-    {# TRANSLATORS: Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place #}
-    <li><strong>{% trans %}Median Income, United States{% endtrans %}</strong>
-      <a class="landing-link" href="{{ ranking_url('Median_Income_Person', 'City', 'country/USA', unit='$') }}">
-        {# TRANSLATORS: Heading for a list of rankings, pivoted by city. See this message on https://datacommons.org/place #}
-        {%- trans %}by city{% endtrans -%}
-        </a>,
-      <a class="landing-link" href="{{ ranking_url('Median_Income_Person', 'County', 'country/USA', unit='$') }}">
-        {# TRANSLATORS: Heading for a list of rankings, pivoted by county. See this message on https://datacommons.org/place #}
-        {%- trans %}by county{% endtrans -%}
-        </a>,
-      <a class="landing-link" href="{{ ranking_url('Median_Income_Person', 'State', 'country/USA', unit='$') }}">
-        {# TRANSLATORS: Heading for a list of rankings, pivoted by state. See this message on https://datacommons.org/place #}
-        {%- trans %}by state{% endtrans -%}
-      </a>
-    </li>
-    {# TRANSLATORS: Heading for a list of links to rankings of places in the US, by their unemployment rate. See this message on https://datacommons.org/place #}
-    <li><strong>{%- trans %}Unemployment Rate, United States{% endtrans -%}</strong>
-      <a class="landing-link" href="{{ ranking_url('UnemploymentRate_Person', 'City', 'country/USA', unit='%') }}">
-        {%- trans %}by city{% endtrans -%}
-      </a>,
-      <a class="landing-link" href="{{ ranking_url('UnemploymentRate_Person', 'County', 'country/USA', unit='%') }}">
-        {%- trans %}by county{% endtrans -%}
-      </a>,
-      <a class="landing-link" href="{{ ranking_url('UnemploymentRate_Person', 'State', 'country/USA', unit='%') }}">
-        {%- trans %}by state{% endtrans -%}
-      </a>
+<!--    {# TRANSLATORS: Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place #}-->
+<!--    <li><strong>{% trans %}Median Income, United States{% endtrans %}</strong>-->
+<!--      <a class="landing-link" href="{{ ranking_url('Median_Income_Person', 'City', 'country/USA', unit='$') }}">-->
+<!--        {# TRANSLATORS: Heading for a list of rankings, pivoted by city. See this message on https://datacommons.org/place #}-->
+<!--        {%- trans %}by city{% endtrans -%}-->
+<!--        </a>,-->
+<!--      <a class="landing-link" href="{{ ranking_url('Median_Income_Person', 'County', 'country/USA', unit='$') }}">-->
+<!--        {# TRANSLATORS: Heading for a list of rankings, pivoted by county. See this message on https://datacommons.org/place #}-->
+<!--        {%- trans %}by county{% endtrans -%}-->
+<!--        </a>,-->
+<!--      <a class="landing-link" href="{{ ranking_url('Median_Income_Person', 'State', 'country/USA', unit='$') }}">-->
+<!--        {# TRANSLATORS: Heading for a list of rankings, pivoted by state. See this message on https://datacommons.org/place #}-->
+<!--        {%- trans %}by state{% endtrans -%}-->
+<!--      </a>-->
+<!--    </li>-->
+<!--    {# TRANSLATORS: Heading for a list of links to rankings of places in the US, by their unemployment rate. See this message on https://datacommons.org/place #}-->
+<!--    <li><strong>{%- trans %}Unemployment Rate, United States{% endtrans -%}</strong>-->
+<!--      <a class="landing-link" href="{{ ranking_url('UnemploymentRate_Person', 'City', 'country/USA', unit='%') }}">-->
+<!--        {%- trans %}by city{% endtrans -%}-->
+<!--      </a>,-->
+<!--      <a class="landing-link" href="{{ ranking_url('UnemploymentRate_Person', 'County', 'country/USA', unit='%') }}">-->
+<!--        {%- trans %}by county{% endtrans -%}-->
+<!--      </a>,-->
+<!--      <a class="landing-link" href="{{ ranking_url('UnemploymentRate_Person', 'State', 'country/USA', unit='%') }}">-->
+<!--        {%- trans %}by state{% endtrans -%}-->
+<!--      </a>-->
     </li>
     {# TRANSLATORS: Heading for a list of links to rankings of places in the US, by their life expectancy. #}
     <li><strong>{%- trans %}Life Expectancy{% endtrans -%}</strong>
@@ -118,10 +118,10 @@
         {# TRANSLATORS: Link to worldwide rankings for life expectancy by country. See this message on https://datacommons.org/place #}
         {%- trans %}Worldwide{% endtrans -%}
       </a>,
-      <a class="landing-link" href="{{ ranking_url('LifeExpectancy_Person', 'State') }}">
-        {# TRANSLATORS: Link to US rankings for life expectancy by state. See this message on https://datacommons.org/place #}
-        {%- trans %}in United States{% endtrans -%}
-      </a>
+<!--      <a class="landing-link" href="{{ ranking_url('LifeExpectancy_Person', 'State') }}">-->
+<!--        {# TRANSLATORS: Link to US rankings for life expectancy by state. See this message on https://datacommons.org/place #}-->
+<!--        {%- trans %}in United States{% endtrans -%}-->
+<!--      </a>-->
     </li>
     {# TRANSLATORS: Heading for a list of links to rankings of places worldwide, by their economic indicators. #}
     <li><strong>{%- trans %}Economic Indicators, Worldwide{% endtrans -%}</strong>
