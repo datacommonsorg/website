@@ -84,7 +84,7 @@ def healthz():
 @bp.route('/mcf_playground')
 def mcf_playground():
   return render_template('mcf_playground.html')
-
+'''
 
 # TODO(shifucun): get branch cache version from mixer
 @bp.route('/version')
@@ -97,4 +97,3 @@ def version():
                          bigquery=mixer_version.get('bigquery', ''),
                          remote_mixer_domain=mixer_version.get(
                              'remoteMixerDomain', ''))
-'''
