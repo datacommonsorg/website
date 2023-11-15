@@ -292,10 +292,6 @@ h6{
   background:transparent;
 }
 
-.main-content{
-  margin:0;
-}
-
 #main-pane{
   position:static !important;
 }
@@ -303,6 +299,10 @@ h6{
 #explore{
   background-color:#666;
   border-bottom:2px solid white;
+}
+
+.hero{
+  margin-top:-3rem;
 }
 
 .has-bg-image:before{
