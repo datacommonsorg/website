@@ -102,7 +102,6 @@ module.exports = {
               // Adjust compression settings as needed
               return sharp(content)
               .webp({ lossless: true })
-                .resize(1056, 1268)
                 .toBuffer();
             }
             return content; // Return original content if not a JPEG or PNG
@@ -115,7 +114,6 @@ module.exports = {
             if (/\.(jpe?g)$/i.test(path)) {
               return sharp(content)
                 .webp({ lossless: true })
-                .resize(1056, 1268)
                 .toBuffer();
             }
             return content;
