@@ -21,8 +21,8 @@ metadata:
 spec:
   # Run every 4 hours
   schedule: "0 */4 * * *"
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 100
+  failedJobsHistoryLimit: 100
   jobTemplate:
     spec:
       backoffLimit: 0
