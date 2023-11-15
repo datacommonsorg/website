@@ -26,6 +26,7 @@ import { Container } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
 import {
+  CLIENT_TYPES,
   DEFAULT_TOPIC,
   URL_DELIM,
   URL_HASH_PARAMS,
@@ -205,6 +206,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
             [URL_HASH_PARAMS.TOPIC]: category.dcid,
             [URL_HASH_PARAMS.PLACE]: pageMetadata.place.dcid,
             [URL_HASH_PARAMS.QUERY]: "",
+            [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RELATED_TOPIC,
           })}`;
         }
       }
@@ -261,6 +263,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const llmApi = getSingleParam(hashParams[URL_HASH_PARAMS.LLM_API]);
     const testMode = getSingleParam(hashParams[URL_HASH_PARAMS.TEST_MODE]);
     const i18n = getSingleParam(hashParams[URL_HASH_PARAMS.I18N]);
+    let client = getSingleParam(hashParams[URL_HASH_PARAMS.CLIENT]);
 
     let fulfillmentPromise: Promise<any>;
     const gaTitle = query
@@ -273,6 +276,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       page_location: window.location.href.replace("#", "?"),
     });
     if (query) {
+      client = client || CLIENT_TYPES.QUERY;
       setQuery(query);
       fulfillmentPromise = fetchDetectAndFufillData(
         query,
@@ -282,7 +286,8 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         detector,
         llmApi,
         testMode,
-        i18n
+        i18n,
+        client
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -291,6 +296,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
           setLoadingStatus(LoadingStatus.FAILED);
         });
     } else {
+      client = client || CLIENT_TYPES.ENTITY;
       setQuery("");
       fulfillmentPromise = fetchFulfillData(
         toApiList(place || DEFAULT_PLACE),
@@ -303,7 +309,8 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         [],
         disableExploreMore,
         testMode,
-        i18n
+        i18n,
+        client
       )
         .then((resp) => {
           processFulfillData(resp, true);
@@ -333,7 +340,8 @@ const fetchFulfillData = async (
   classificationsJson: any,
   disableExploreMore: string,
   testMode: string,
-  i18n: string
+  i18n: string,
+  client: string
 ) => {
   try {
     const argsMap = new Map<string, string>();
@@ -342,6 +350,9 @@ const fetchFulfillData = async (
     }
     if (i18n) {
       argsMap.set(URL_HASH_PARAMS.I18N, i18n);
+    }
+    if (client) {
+      argsMap.set(URL_HASH_PARAMS.CLIENT, client);
     }
     const args = argsMap.size > 0 ? `?${generateArgsParams(argsMap)}` : "";
     const startTime = window.performance ? window.performance.now() : undefined;
@@ -383,7 +394,8 @@ const fetchDetectAndFufillData = async (
   detector: string,
   llmApi: string,
   testMode: string,
-  i18n: string
+  i18n: string,
+  client: string
 ) => {
   const argsMap = new Map<string, string>();
   if (detector) {
@@ -397,6 +409,9 @@ const fetchDetectAndFufillData = async (
   }
   if (i18n) {
     argsMap.set(URL_HASH_PARAMS.I18N, i18n);
+  }
+  if (client) {
+    argsMap.set(URL_HASH_PARAMS.CLIENT, client);
   }
   const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
   try {

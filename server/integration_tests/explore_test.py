@@ -32,9 +32,10 @@ _MAX_FOOTNOTE_LENGTH = 500
 class ExploreTest(NLWebServerTestCase):
 
   def run_fulfillment(self, test_dir, req_json, failure='', test='', i18n=''):
-    resp = requests.post(self.get_server_url() +
-                         f'/api/explore/fulfill?test={test}&i18n={i18n}',
-                         json=req_json).json()
+    resp = requests.post(
+        self.get_server_url() +
+        f'/api/explore/fulfill?test={test}&i18n={i18n}&client=test_fulfill',
+        json=req_json).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
   def run_detection(self,
@@ -46,12 +47,13 @@ class ExploreTest(NLWebServerTestCase):
                     i18n=''):
     ctx = {}
     for q in queries:
-      resp = requests.post(self.get_server_url() +
-                           f'/api/explore/detect?q={q}&test={test}&i18n={i18n}',
-                           json={
-                               'contextHistory': ctx,
-                               'dc': dc,
-                           }).json()
+      resp = requests.post(
+          self.get_server_url() +
+          f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect',
+          json={
+              'contextHistory': ctx,
+              'dc': dc,
+          }).json()
       ctx = resp['context']
       if len(queries) == 1:
         d = ''
@@ -71,7 +73,7 @@ class ExploreTest(NLWebServerTestCase):
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}',
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&client=test_detect-and-fulfill',
           json={
               'contextHistory': ctx,
               'dc': dc,
