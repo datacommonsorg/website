@@ -41,7 +41,7 @@ export const URL_HASH_PARAMS = {
 };
 export const CLIENT_TYPES = {
   // User typed in a p=X&t=Y URL
-  ENTITY: "ui_entity",
+  ENTITY: "ui_url_entity",
   // User clicked on a landing page query
   LANDING: "ui_landing",
   // User typed in an nl query (URL or textbox)
