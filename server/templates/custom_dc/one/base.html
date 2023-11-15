@@ -37,6 +37,7 @@ content - main page content
   <title>{{ title|default("ONE") }} - Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Explore our data on the dynamic people and economies throughout Africa, and understand how the continent is evolving in a volatile world.">
   <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css' , t=config['VERSION'])}}>
   {% include 'custom_dc/one/partials/favicon.html' %}
   {% include 'custom_dc/one/partials/usercentrics.html' %}
@@ -60,8 +61,8 @@ content - main page content
         <div class="navbar-brand">
           {% if LOGO_PATH %}
           <div id="main-header-logo">
-            <a href="{{ url_for('static.homepage') }}">
-              <img src="{{ LOGO_PATH }}" />
+            <a href="{{ url_for('static.homepage') }}" aria-label="Return to homepage">
+              <img src="{{ LOGO_PATH }}" width="60" height="60" alt="ONE Logo" />
             </a>
           </div>
           {% endif %}
@@ -75,7 +76,7 @@ content - main page content
           {% endif %}
           </a>
         </div>
-        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#dc-main-nav">
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#dc-main-nav" aria-label="Toggle Menu">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">

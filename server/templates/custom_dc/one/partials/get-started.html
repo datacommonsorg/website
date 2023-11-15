@@ -2,19 +2,19 @@
 {
 'name': 'Economy',
 'link': '/topic/economy/africa',
-'image': '/custom_dc/one/economy.jpg',
+'image': '/custom_dc/one/economy.webp',
 'description': 'Follow the money with data on economic strength and inequality.'
 },
 {
 'name': 'Health',
 'link': '/topic/health/africa',
-'image': '/custom_dc/one/health.jpg',
+'image': '/custom_dc/one/health.webp',
 'description': 'Where you live shouldn’t determine whether you live, but too often it does. Explore data on health and wellbeing.'
 },
 {
 'name': 'People',
 'link': '/topic/people/africa',
-'image': '/custom_dc/one/people.jpg',
+'image': '/custom_dc/one/people.webp',
 'description': 'Explore data on people, populations, and quality of life.'
 },
 ] %}
@@ -32,7 +32,7 @@
                 <figure class="topic__figure">
                     <span class="topic__name">{{ topic.name }}</span>
                     <a href="{{ topic.link }}" class="topic__image-link">
-                        <img src="{{ topic.image }}" class="topic__image" alt="{{ topic.name }}" width="526" height="390">
+                        <img src="{{ topic.image }}" class="topic__image" alt="{{ topic.name }}" width="528" height="634" loading="lazy">
                     </a>
                     <figcaption class="topic__description">
                         {{ topic.description }}
