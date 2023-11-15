@@ -14,8 +14,8 @@ metadata {
 
 ### OVERVIEW ###
 categories {
-  title: "Overview"
-  description: "Demographic data can tell you a lot about a country and its people. Who they are and whether they are educated, well-fed, healthy, and able to live a long and prosperous life. This information shows you where a country has been – but also where it’s going. More than half of Africa’s 54 countries will double in population by 2050, due in part to high fertility rates and improving mortality rates. By that time, one in four people on earth will live in Africa."
+  title: "The Basics"
+  description: "Demographic data can tell you a lot about a country and its people. Who they are and whether they are educated, well-fed, healthy, and able to live a long and prosperous life. This information shows you where a country has been – but also where it’s going. More than half of Africa’s 54 countries will [double in population by 2050](https://www.imf.org/-/media/Files/Publications/Fandd/Article/2023/September/Picture-this-0923.ashx), due in part to high fertility rates and improving mortality rates. By that time, one in four people on earth will live in Africa."
   # Population
   blocks {
     title: "Population"
@@ -141,7 +141,7 @@ categories {
 
 ### POVERTY ###
 categories {
-  title: "Poverty"
+  title: "Poverty and access to resources"
   description: "Living in poverty is about more than money. It reflects someone’s access to resources that enable them to live a healthy life, go to school or work, and grow old with dignity. This section includes the traditional measure of poverty in economic terms."
 
   # Population below poverty line
