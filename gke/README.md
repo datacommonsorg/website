@@ -70,6 +70,9 @@ the file to describe the environment the clusters are being used for.
 
 # Set up multi-cluster ingress and service
 ./setup_config_cluster.sh
+
+# Deploy helm
+../scripts/deploy_gke_helm.sh -e <ENV> -l <REGION>
 ```
 
 ### DNS setup
