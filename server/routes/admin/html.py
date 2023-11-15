@@ -47,6 +47,7 @@ def load_data():
   output_dir = os.path.join(sql_data_path, 'data')
   nl_dir = os.path.join(output_dir, "nl")
   sentences_path = os.path.join(nl_dir, "sentences.csv")
+  # TODO: Support enabling / disabling NL via env / Dockerfile.
   # TODO: Enable NL for GCS paths once we add support for it.
   load_nl = not sql_data_path.lower().startswith("gs://")
 
