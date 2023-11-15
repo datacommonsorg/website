@@ -17,6 +17,7 @@ from server.app_env import local
 
 
 class Config(_base.Config):
+  GA_ACCOUNT = 'GTM-W6DJJVL'
   CUSTOM = True
   NAME = "Data Commons"
   OVERRIDE_CSS_PATH = '/custom_dc/one/overrides.css'

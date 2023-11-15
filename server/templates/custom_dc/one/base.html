@@ -49,9 +49,11 @@ content - main page content
     globalThis.dataSourceDcid = "{{ config['DATA_SOURCE_DCID']|string }}";
     globalThis.dataSourceName = "{{ config['DATA_SOURCE_NAME']|string }}";
   </script>
+  {% include 'custom_dc/one/partials/gtm-script.html' %}
 </head>
 
 <body>
+  {% include 'custom_dc/one/partials/gtm-no-script.html' %}
   <div id="main">
     <header id="main-header">
       <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
