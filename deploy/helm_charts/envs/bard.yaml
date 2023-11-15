@@ -13,22 +13,23 @@
 # limitations under the License.
 
 # Helm config
-project: "datcom-website-autopush"
+project: "datcom-bard"
 cluster_prefix: "website"
 
 namespace:
   name: "website"
 
 website:
-  flaskEnv: autopush
-  replicas: 15
-
-mixer:
-  hostProject:
-  serviceName:
+  flaskEnv: custom
+  replicas: 4
+  redis:
+    enabled: false
 
 serviceAccount:
   name: website-ksa
+
+ingress:
+  enabled: true
 
 nl:
   enabled: true
@@ -36,17 +37,13 @@ nl:
 serviceGroups:
   recon: null
   svg:
-    replicas: 5
+    replicas: 2
   node:
-    replicas: 12
+    replicas: 5
   observation:
-    replicas: 12
+    replicas: 5
   default:
-    replicas: 12
+    replicas: 3
 
-nodejs:
-  enabled: true
-  replicas: 12
-
-cronTesting:
-  enabled: true
+svg:
+  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

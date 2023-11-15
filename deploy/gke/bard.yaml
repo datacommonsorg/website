@@ -12,41 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Helm config
-project: "datcom-website-autopush"
-cluster_prefix: "website"
-
-namespace:
-  name: "website"
-
-website:
-  flaskEnv: autopush
-  replicas: 15
-
-mixer:
-  hostProject:
-  serviceName:
-
-serviceAccount:
-  name: website-ksa
-
-nl:
-  enabled: true
-
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 5
-  node:
-    replicas: 12
-  observation:
-    replicas: 12
-  default:
-    replicas: 12
-
-nodejs:
-  enabled: true
-  replicas: 12
-
-cronTesting:
-  enabled: true
+project: datcom-bard
+ip: 34.36.60.40
+domain: bard.datacommons.org
+region:
+  primary: us-central1
+  others:
+    -
+cluster_prefix: datacommons
+nodes: 2
+storage_project: datcom-store
