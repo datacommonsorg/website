@@ -22,6 +22,19 @@
       "dcUrl": "https://datacommons.org/explore#q=fires%20in%20california"
     },
     {
+      "data_csv": "rank,place,Count of Wildland Fire Event\r\n1,Contra Costa County,1\r\n2,Del Norte County,1\r\n3,Inyo County,1\r\n4,Kern County,1\r\n5,Kings County,1\r\n6,Merced County,1\r\n7,Mono County,1\r\n8,Monterey County,1\r\n9,Napa County,1\r\n10,San Benito County,1\r\n11,San Diego County,1\r\n12,San Joaquin County,1\r\n13,Santa Barbara County,1\r\n14,Sierra County,1\r\n15,Siskiyou County,1\r\n16,Sutter County,1\r\n17,Tuolumne County,1\r\n18,Yolo County,1\r\n19,Yuba County,1\r\n20,Calaveras County,2\r\n21,Glenn County,2\r\n22,Imperial County,2\r\n23,Marin County,2\r\n24,Modoc County,2\r\n25,Placer County,2\r\n26,San Francisco County,2\r\n27,Santa Cruz County,2\r\n28,Stanislaus County,2\r\n29,Trinity County,2\r\n30,Alpine County,3\r\n31,Amador County,3\r\n32,Butte County,3\r\n33,Lake County,3\r\n34,Mariposa County,3\r\n35,Orange County,3\r\n36,Sacramento County,3\r\n37,San Luis Obispo County,3\r\n38,Santa Clara County,3\r\n39,Tulare County,3\r\n40,Alameda County,4\r\n41,Colusa County,4\r\n42,Humboldt County,4\r\n43,Lassen County,4\r\n44,San Mateo County,4\r\n45,Solano County,4\r\n46,Los Angeles County,5\r\n47,Madera County,5\r\n48,Mendocino County,5\r\n49,Nevada County,5\r\n50,Shasta County,5\r\n51,Sonoma County,6\r\n52,Ventura County,6\r\n53,Fresno County,7\r\n54,Plumas County,7\r\n55,Tehama County,8\r\n56,El Dorado County,10\r\n57,San Bernardino County,10\r\n58,Riverside County,13",
+      "srcs": [
+        {
+          "name": "data-nifc.opendata.arcgis.com",
+          "url": "https://data-nifc.opendata.arcgis.com/datasets/nifc::wfigs-wildland-fire-locations-full-history/about"
+        }
+      ],
+      "title": "Count of Wildland Fire Event in Counties of California (Aug, 2022 to Mar, 2023)",
+      "type": "TABLE",
+      "unit": "",
+      "dcUrl": "https://datacommons.org/explore#q=fires%20in%20california"
+    },
+    {
       "data_csv": "label,Total area that burned (Acres)\r\n2021,280649.968396969\r\n2020,4508815.2486395\r\n2019,259259.905183516\r\n2018,1582292.85997783\r\n2017,1322296.00259527\r\n2016,539581.81596731\r\n2015,797352.091437577\r\n2014,525297.705430778\r\n2013,547550.726920088\r\n2012,733161.730745231\r\n2011,151207.412529489\r\n2010,95734.7071092107\r\n2009,420809.95126969\r\n2008,1410019.21623758\r\n2007,993509.806249008\r\n2006,730772.608230034\r\n2005,264322.110837698\r\n2004,249464.445834069\r\n2003,937955.885337796\r\n2002,496911.050170334\r\n2001,298681.250597749\r\n2000,244547.470808784\r\n1999,773103.648126237\r\n1998,162078.13098191\r\n1997,254613.738577728\r\n1996,647229.01718614\r\n1995,166893.6763712\r\n1994,348327.337955533\r\n1993,321717.029757809\r\n1992,211917.814434699\r\n1991,34050.2522320166\r\n1990,331454.896537279\r\n1989,156614.98081372\r\n1988,259014.405546211\r\n1987,792885.344740022\r\n1986,112765.436161764\r\n1985,570568.051305055\r\n1984,249926.098577392",
       "srcs": [
         {
@@ -38,27 +51,6 @@
       "highlight": {
         "date": "2021",
         "value": 280649.968396969
-      },
-      "chartUrl": "",
-      "dcUrl": "https://datacommons.org/explore#q=fires%20in%20california"
-    },
-    {
-      "data_csv": "label,Percent of area that burned\r\n2021,0.277120524507347\r\n2020,4.45211255054321\r\n2019,0.255999461958097\r\n2018,1.56239400198707\r\n2017,1.30566685571423\r\n2016,0.532796054492991\r\n2015,0.787324620267435\r\n2014,0.518691580415853\r\n2013,0.540664748708778\r\n2012,0.723941515238121\r\n2011,0.149305833558125\r\n2010,0.0945307508823087\r\n2009,0.415517860485984\r\n2008,1.3922868653828\r\n2007,0.981015462725742\r\n2006,0.721582438241585\r\n2005,0.260998005496383\r\n2004,0.246327189952459\r\n2003,0.92616018592208\r\n2002,0.490661914709079\r\n2001,0.294925045952909\r\n2000,0.241472050627914\r\n1999,0.76338112450541\r\n1998,0.160039842247003\r\n1997,0.251411725376124\r\n1996,0.639089488388251\r\n1995,0.164794827511001\r\n1994,0.343946785905028\r\n1993,0.317671127984323\r\n1992,0.209252743636612\r\n1991,0.0336220374869132\r\n1990,0.327286531702068\r\n1989,0.154645396458469\r\n1988,0.255757049715384\r\n1987,0.782914047215393\r\n1986,0.111347302099982\r\n1985,0.563392608051686\r\n1984,0.246783036967517",
-      "srcs": [
-        {
-          "name": "mtbs.gov",
-          "url": "https://www.mtbs.gov"
-        }
-      ],
-      "legend": [
-        "Percent of area that burned"
-      ],
-      "title": "Percent of Area That Burned in California",
-      "type": "LINE",
-      "unit": "%",
-      "highlight": {
-        "date": "2021",
-        "value": 0.277120524507347
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=fires%20in%20california"
