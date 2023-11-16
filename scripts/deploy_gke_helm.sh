@@ -144,8 +144,8 @@ function deploy_website() {
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \
   --set nodejs.apiRoot="$WEBSITE_SERVICE_URL" \
-  --set periodicTesting.webApiRoot="$WEBSITE_SERVICE_URL" \
-  --set periodicTesting.nodejsApiRoot="$NODEJS_SERVICE_URL" \
+  --set cronTesting.webApiRoot="$WEBSITE_SERVICE_URL" \
+  --set cronTesting.nodejsApiRoot="$NODEJS_SERVICE_URL" \
   --set-file nl.embeddings=deploy/nl/embeddings.yaml \
   --set-file nl.models=deploy/nl/models.yaml
 }

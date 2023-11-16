@@ -108,7 +108,7 @@ def sv_existence_for_places(places: List[str], svs: List[str],
 # keyed by SV DCID with value set to True if the SV has any
 # single data point series (across all places).
 def sv_existence_for_places_check_single_point(
-    places: List[str], svs: List[str],
+    places: List[str], svs: List[str], date: str,
     counters: ctr.Counters) -> Dict[str, bool]:
   if not svs:
     return {}, {}
@@ -116,20 +116,33 @@ def sv_existence_for_places_check_single_point(
   start = time.time()
   series_facet = fetch.series_facet(entities=places,
                                     variables=svs,
-                                    all_facets=False)
+                                    all_facets=bool(date))
   counters.timeit('sv_existence_for_places_check_single_point', start)
 
   existing_svs = {}
   existsv2places = {}
   for sv, sv_data in series_facet.get('data', {}).items():
     for pl, place_data in sv_data.items():
-      if not place_data.get('series'):
-        continue
-      num_series = place_data['series'][0]["value"]
-      existing_svs[sv] = existing_svs.get(sv, False) | (num_series == 1)
-      if sv not in existsv2places:
-        existsv2places[sv] = {}
-      existsv2places[sv][pl] = (num_series == 1)
+      for facet_data in place_data:
+        # If there is a date specified, but facet dates are different
+        # granularity, move on to next facet
+        # TODO: allow for different granularity but same year.
+        if date and (len(date) != len(facet_data.get('earliestDate', '')) or
+                     len(date) != len(facet_data.get('latestDate', ''))):
+          continue
+        # If there is a date specified, but it is outside the range of dates of
+        # this facet, move on to next facet
+        if date and (date < facet_data.get('earliestDate', '') or
+                     date > facet_data.get('latestDate', '')):
+          continue
+        num_obs = facet_data.get('obsCount', 0)
+        existing_svs[sv] = existing_svs.get(sv, False) | (num_obs == 1)
+        if sv not in existsv2places:
+          existsv2places[sv] = {}
+        existsv2places[sv][pl] = (num_obs == 1)
+        # There only needs to exist at least one facet that works for a place,
+        # so can move on to next place once a facet is found
+        break
   return existing_svs, existsv2places
 
 

@@ -476,15 +476,18 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
   const allResults = req.query.allCharts === ALL_CHARTS_URL_PARAM;
   const urlRoot = `${req.protocol}://${req.get("host")}`;
+  const client = req.query.client || BARD_CLIENT_URL_PARAM;
   const allowedTileTypes =
-    (req.query.client || BARD_CLIENT_URL_PARAM) === BARD_CLIENT_URL_PARAM
-      ? BARD_ALLOWED_CHARTS
-      : null;
+    client === BARD_CLIENT_URL_PARAM ? BARD_ALLOWED_CHARTS : null;
   res.setHeader("Content-Type", "application/json");
   axios
     // Set "mode=strict" to use heuristic detector, disable using default place,
     // use a higher SV threshold and avoid multi-verb queries
-    .post(`${CONFIG.apiRoot}/api/nl/data?q=${query}&mode=strict`, {})
+    // TODO: Switch this to explore backend's `detect-and-fulfill`
+    .post(
+      `${CONFIG.apiRoot}/api/nl/data?q=${query}&mode=strict&client=${client}`,
+      {}
+    )
     .then((resp) => {
       const nlResultTime = process.hrtime.bigint();
       const mainPlace = resp.data["place"] || {};

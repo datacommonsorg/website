@@ -21,7 +21,10 @@
 import React from "react";
 
 import { NlSearchBar } from "../../components/nl_search_bar";
-import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
+import {
+  CLIENT_TYPES,
+  URL_HASH_PARAMS,
+} from "../../constants/app/explore_constants";
 import {
   GA_EVENT_NL_SEARCH,
   GA_PARAM_QUERY,
@@ -63,6 +66,7 @@ export function SearchSection(props: {
           [URL_HASH_PARAMS.QUERY]: q,
           [URL_HASH_PARAMS.PLACE]: "",
           [URL_HASH_PARAMS.TOPIC]: "",
+          [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.QUERY,
         });
       }}
       placeholder={props.query}

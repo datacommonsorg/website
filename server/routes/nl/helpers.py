@@ -62,7 +62,8 @@ _SANITY_TEST = 'sanity'
 # Given a request parses the query and other params and
 # detects stuff into a Detection object.
 #
-def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
+def parse_query_and_detect(request: Dict, backend: str, client: str,
+                           debug_logs: Dict):
   if not current_app.config.get('NL_BAD_WORDS'):
     logging.error('Missing NL_BAD_WORDS config!')
     flask.abort(404)
@@ -80,7 +81,8 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
     err_json = helpers.abort(
         'Received an empty query, please type a few words :)',
         '', [],
-        test=test)
+        test=test,
+        client=client)
     return None, err_json
   context_history = []
   if request.get_json():
@@ -135,7 +137,8 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
         'Received an empty query, please type a few words :)',
         original_query,
         context_history,
-        test=test)
+        test=test,
+        client=client)
     return None, err_json
 
   #
@@ -147,7 +150,8 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
                              original_query,
                              context_history,
                              test=test,
-                             blocked=True)
+                             blocked=True,
+                             client=client)
     return None, err_json
 
   debug_logs["original_query"] = query
@@ -158,7 +162,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
     session_id = prev_utterance.session_id
   else:
     if current_app.config['LOG_QUERY']:
-      session_id = utils.new_session_id(app)
+      session_id = utils.new_session_id(backend)
     else:
       session_id = constants.TEST_SESSION_ID
 
@@ -176,12 +180,17 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
                              debug_logs,
                              counters,
                              test=test,
-                             blocked=True)
+                             blocked=True,
+                             client=client)
     return None, err_json
   counters.timeit('query_detection', start)
 
-  utterance = create_utterance(query_detection, prev_utterance, counters,
-                               session_id, test)
+  utterance = create_utterance(query_detection,
+                               prev_utterance,
+                               counters,
+                               session_id,
+                               test=test,
+                               client=client)
 
   if utterance:
     utterance.i18n_lang = i18n_lang
@@ -298,7 +307,8 @@ def prepare_response(utterance: nl_utterance.Utterance,
 
   has_charts = True if page_config else False
   return prepare_response_common(data_dict, status_str, detection, dbg_counters,
-                                 debug_logs, has_charts, utterance.test)
+                                 debug_logs, has_charts, utterance.test,
+                                 utterance.client)
 
 
 def prepare_response_common(data_dict: Dict,
@@ -307,13 +317,16 @@ def prepare_response_common(data_dict: Dict,
                             dbg_counters: Dict,
                             debug_logs: Dict,
                             has_data: bool,
-                            test: str = '') -> Dict:
+                            test: str = '',
+                            client: str = '') -> Dict:
   data_dict = dbg.result_with_debug_info(data_dict, status_str, detection,
                                          dbg_counters, debug_logs)
   # Convert data_dict to pure json.
   data_dict = utils.to_dict(data_dict)
   if test:
     data_dict['test'] = test
+  if client:
+    data_dict['client'] = client
   if (current_app.config['LOG_QUERY'] and (not test or test == _SANITY_TEST)):
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
@@ -333,7 +346,8 @@ def abort(error_message: str,
           debug_logs: Dict = None,
           counters: ctr.Counters = None,
           blocked: bool = False,
-          test: str = '') -> Dict:
+          test: str = '',
+          client: str = '') -> Dict:
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   escaped_context_history = []
   for ch in context_history:
@@ -372,6 +386,8 @@ def abort(error_message: str,
 
   if test:
     data_dict['test'] = test
+  if client:
+    data_dict['client'] = client
   if blocked:
     _set_blocked(data_dict)
 

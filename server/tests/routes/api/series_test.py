@@ -51,8 +51,7 @@ class TestApiSeriesWithin(unittest.TestCase):
             'Count_Person': {
                 'geoId/01': [
                     {
-                        'facet':
-                            '2517965213',
+                        'facet': '2517965213',
                         'series': [{
                             'date': '2014',
                             'value': 1021869
@@ -68,23 +67,27 @@ class TestApiSeriesWithin(unittest.TestCase):
                         }, {
                             'date': '2019',
                             'value': 1068778
-                        }]
+                        }],
+                        'earliestDate': '2014',
+                        'latestDate': '2019',
+                        'obsCount': 5
                     },
                     {
-                        'facet':
-                            '1145703171',
+                        'facet': '1145703171',
                         'series': [{
                             'date': '2011',
                             'value': 4747424
                         }, {
                             'date': '2012',
                             'value': 4777326
-                        }]
+                        }],
+                        'earliestDate': '',
+                        'latestDate': '2012',
+                        'obsCount': 2
                     },
                 ],
                 'geoId/06': [{
-                    'facet':
-                        '2517965213',
+                    'facet': '2517965213',
                     'series': [{
                         'date': '2014',
                         'value': 2817628
@@ -97,14 +100,16 @@ class TestApiSeriesWithin(unittest.TestCase):
                     }, {
                         'date': '2017',
                         'value': 2969905
-                    }]
+                    }],
+                    'earliestDate': '2014',
+                    'latestDate': '2017',
+                    'obsCount': 4
                 }]
             },
             'UnemploymentRate_Person': {
                 'geoId/01': [
                     {
-                        'facet':
-                            '324358135',
+                        'facet': '324358135',
                         'series': [{
                             'date': '1979-01',
                             'value': 6.6
@@ -123,11 +128,13 @@ class TestApiSeriesWithin(unittest.TestCase):
                         }, {
                             'date': '2019-05',
                             'value': 3.6
-                        }]
+                        }],
+                        'earliestDate': '1979-01',
+                        'latestDate': '2019-05',
+                        'obsCount': 6
                     },
                     {
-                        'facet':
-                            '1249140336',
+                        'facet': '1249140336',
                         'series': [{
                             'date': '2019',
                             'value': 3.2
@@ -137,12 +144,14 @@ class TestApiSeriesWithin(unittest.TestCase):
                         }, {
                             'date': '2021',
                             'value': 3.4
-                        }]
+                        }],
+                        'earliestDate': '2019',
+                        'latestDate': '2021',
+                        'obsCount': 3
                     },
                 ],
                 'geoId/06': [{
-                    'facet':
-                        '324358135',
+                    'facet': '324358135',
                     'series': [{
                         'date': '2015-10',
                         'value': 6.4
@@ -161,7 +170,10 @@ class TestApiSeriesWithin(unittest.TestCase):
                     }, {
                         'date': '2020-04',
                         'value': 1.2
-                    }]
+                    }],
+                    'earliestDate': '2015-10',
+                    'latestDate': '2020-04',
+                    'obsCount': 6
                 }],
             }
         },

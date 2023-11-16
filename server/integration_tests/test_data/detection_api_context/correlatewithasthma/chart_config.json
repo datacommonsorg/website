@@ -11,6 +11,7 @@
       "type": 4
     }
   ],
+  "client": "test_detect",
   "comparisonEntities": [
     "geoId/06"
   ],
