@@ -464,7 +464,7 @@ class ExploreTest(NLWebServerTestCase):
             'number of headless drivers in california',
         ],
         mode='strict')
-    
+
   def test_e2e_single_date(self):
     self.run_detect_and_fulfill('e2e_single_date', [
         'Life expectancy in US states in 2018',

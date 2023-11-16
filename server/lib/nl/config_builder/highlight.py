@@ -14,7 +14,6 @@
 
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
-from server.lib.nl.common import utils
 from server.lib.nl.config_builder import base
 import server.lib.nl.detection.date
 import server.lib.nl.fulfillment.types as types

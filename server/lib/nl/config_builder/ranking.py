@@ -17,7 +17,6 @@ from typing import List
 from server.config.subject_page_pb2 import RankingTileSpec
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
-from server.lib.nl.common import utils
 import server.lib.nl.common.constants as constants
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import map
