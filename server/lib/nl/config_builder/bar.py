@@ -19,6 +19,7 @@ from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import utils
 from server.lib.nl.config_builder import base
+import server.lib.nl.detection.date
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.fulfillment.types import ChartVars
@@ -73,9 +74,7 @@ def multiple_place_bar_block(column,
   tile = Tile(type=Tile.TileType.BAR,
               title=title,
               comparison_places=[x.dcid for x in places])
-  date_string = ''
-  if utils.is_single_date(date):
-    date_string = date.get_date_string()
+  date_string = server.lib.nl.detection.date.get_date_string(date)
   for sv in svs:
     sv_key = sv + "_multiple_place_bar_block"
     if date_string:

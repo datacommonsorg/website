@@ -16,6 +16,7 @@ from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import utils
 from server.lib.nl.config_builder import base
+import server.lib.nl.detection.date
 import server.lib.nl.fulfillment.types as types
 
 
@@ -27,9 +28,8 @@ def highlight_block(column,
   chart_title = base.decorate_chart_title(title=sv2thing.name[sv], place=place)
 
   sv_key = sv
-  date_string = ''
-  if utils.is_single_date(date):
-    date_string = date.get_date_string()
+  date_string = server.lib.nl.detection.date.get_date_string(date)
+  if date_string:
     sv_key += f'_{date_string}'
   tile = Tile(type=Tile.TileType.HIGHLIGHT,
               title=chart_title,

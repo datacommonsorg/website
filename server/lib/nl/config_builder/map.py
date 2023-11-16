@@ -16,6 +16,7 @@ from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import utils
 from server.lib.nl.config_builder import base
+import server.lib.nl.detection.date
 from server.lib.nl.detection.types import Place
 import server.lib.nl.fulfillment.types as types
 
@@ -29,9 +30,8 @@ def map_chart_block(column,
   # The main tile
   tile = column.tiles.add()
   sv_key = pri_sv
-  date_string = ''
-  if utils.is_single_date(date):
-    date_string = date.get_date_string()
+  date_string = server.lib.nl.detection.date.get_date_string(date)
+  if date_string:
     sv_key += f'_{date_string}'
   tile.stat_var_key.append(sv_key)
   tile.type = Tile.TileType.MAP

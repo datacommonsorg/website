@@ -327,21 +327,11 @@ class Date:
   def __str__(self):
     return f'{self.year} - {self.month} | {self.year_span}'
 
-  def get_date_string(self) -> str:
-    if not self.year:
-      return ''
-    year_string = str(self.year)
-    month_string = ''
-    if self.month > 9:
-      month_string = f'-{self.month}'
-    elif self.month > 0:
-      month_string = f'-0{self.month}'
-    return year_string + month_string
-
 
 @dataclass
 class DateClassificationAttributes(ClassificationAttributes):
   dates: List[Date]
+  is_single_date: bool
 
 
 @dataclass
