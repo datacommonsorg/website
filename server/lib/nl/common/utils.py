@@ -126,6 +126,7 @@ def sv_existence_for_places_check_single_point(
       for facet_data in place_data:
         # If there is a date specified, but facet dates are different
         # granularity, move on to next facet
+        # TODO: allow for different granularity but same year.
         if date and (len(date) != len(facet_data.get('earliestDate', '')) or
                      len(date) != len(facet_data.get('latestDate', ''))):
           continue

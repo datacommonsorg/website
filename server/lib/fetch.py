@@ -96,6 +96,9 @@ def _convert_v2_obs_series(facet):
 
 
 # Returns a compact version of observation point API results
+# TODO update this function to always return the same structure. Right now,
+# if all_facets is true, the value for data[var][entity] is an array & if false,
+# the value is an object.
 def _compact_point(point_resp, all_facets):
   result = {
       'facets': {},
@@ -131,6 +134,9 @@ def _compact_point(point_resp, all_facets):
   return result
 
 
+# TODO update this function to always return the same structure. Right now,
+# if all_facets is true, the value for data[var][entity] is an array & if false,
+# the value is an object.
 def _compact_series(series_resp, all_facets):
   result = {
       'facets': {},
