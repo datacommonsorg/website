@@ -200,6 +200,10 @@ h6{
 #main-nav .dropdown.show .dropdown-toggle::after{
   transform:rotate(180deg);
 }
+#main-nav .navbar-toggler{
+  padding:0;
+  margin-left:auto;
+}
 
 @media (min-width: 1068px){
   #main-nav .dropdown-menu{
@@ -242,6 +246,21 @@ h6{
   }
   #main-nav .dropdown-item:hover, #main-nav .dropdown-item:focus, #main-nav .dropdown-item:active{
     background-color:transparent;
+  }
+}
+@media (max-width: 400px){
+  #main-nav{
+    padding-left:1rem;
+    padding-right:1rem;
+  }
+  #main-nav a.site-name{
+    padding-left:1rem;
+  }
+  #main-nav #main-header-logo img{
+    margin-right:1rem;
+  }
+  #main-nav .navbar-collapse{
+    margin-left:0;
   }
 }
 .navbar-toggler{
