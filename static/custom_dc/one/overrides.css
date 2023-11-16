@@ -19,6 +19,7 @@
   --footer-bg:#000;
   --dc-red-fade:#40d4e033;
   --nav-link-color:#666;
+  --dc-headings-font-family:Colfax, sans-serif;
 }
 
 @font-face{
@@ -297,8 +298,33 @@ h6{
 }
 
 #explore{
-  background-color:#666;
+  background-color:#444;
   border-bottom:2px solid white;
+}
+
+#subject-page-sidebar{
+  position:sticky;
+  top:-50px;
+}
+#subject-page-sidebar .nav-item:hover{
+  border-radius:0;
+}
+
+#dc-topic-page .block-title{
+  border-radius:0;
+  background:white;
+  padding-left:0;
+  border-bottom:4px solid var(--dc-accent);
+  margin-bottom:1rem;
+}
+#dc-topic-page .highlight-tile{
+  margin-bottom:1rem;
+  background:#fff;
+  border-radius:0;
+  border-left:10px solid var(--dc-accent);
+}
+#dc-topic-page .subtopic h3{
+  margin-bottom:0.5rem;
 }
 
 .hero{
@@ -504,6 +530,7 @@ figure.topic__figure:hover{
   flex-direction:column;
   justify-content:center;
   min-height:8rem;
+  width:100%;
 }
 
 img.topic__image{
@@ -518,7 +545,7 @@ img.topic__image{
 a.topic__link{
   display:block;
   padding:0.25rem 0.5rem;
-  color:#BBB;
+  color:#666;
   font-size:0.75rem;
   font-style:normal;
   font-weight:900;
@@ -532,7 +559,7 @@ a.topic__link:active, a.topic__link:focus, a.topic__link:hover{
 }
 a.topic__link:after{
   content:"";
-  background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxNyIgdmlld0JveD0iMCAwIDE4IDE3IiBmaWxsPSJub25lIj4KPHBhdGggZD0iTTE0LjAyNjUgMTIuNDI0TDguODU5ODYgMTAuMzU3M0wxMy44MTM5IDYuODYzMzhMMTQuMDI2NSAxMi40MjRaIiBmaWxsPSIjQkJCQkJCIi8+CjxwYXRoIGQ9Ik0xLjU1NDY5IDMuOTQyODdDOS4zMTYzNiAzLjg2MjUxIDEyLjAyOTMgOS4zMzYwOSAxMi4yNzA2IDEwLjgyNTgiIHN0cm9rZT0iI0JCQkJCQiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4=");
+  background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAxOCAxNyI+CiAgPHBhdGggZmlsbD0iIzY2NiIgZD0ibTE0IDEyLjQtNS4xLTIgNS0zLjUuMSA1LjVaIi8+CiAgPHBhdGggc3Ryb2tlPSIjNjY2IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41IiBkPSJNMS42IDRjNy43LS4xIDEwLjQgNS4zIDEwLjcgNi44Ii8+Cjwvc3ZnPgo=");
   height:12px;
   background-repeat:no-repeat;
   position:absolute;
