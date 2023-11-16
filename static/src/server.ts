@@ -483,9 +483,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   axios
     // Set "mode=strict" to use heuristic detector, disable using default place,
     // use a higher SV threshold and avoid multi-verb queries
-    // TODO: Switch this to explore backend's `detect-and-fulfill`
     .post(
-      `${CONFIG.apiRoot}/api/nl/data?q=${query}&mode=strict&client=${client}`,
+      `${CONFIG.apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=strict&client=${client}`,
       {}
     )
     .then((resp) => {

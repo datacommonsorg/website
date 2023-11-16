@@ -169,6 +169,7 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
   insight_ctx = request.get_json()
   test = request.args.get(Params.TEST.value, '')
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
+  mode = request.args.get(Params.MODE.value, '')
   if not insight_ctx:
     return helpers.abort('Sorry, could not answer your query.',
                          '', [],
@@ -220,7 +221,8 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
                                counters,
                                session_id,
                                test=test,
-                               client=client)
+                               client=client,
+                               mode=mode)
   utterance.insight_ctx = insight_ctx
   utterance.insight_ctx[Params.DC.value] = dc_name
   return _fulfill_with_chart_config(utterance, debug_logs)

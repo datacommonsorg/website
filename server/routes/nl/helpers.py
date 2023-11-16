@@ -190,7 +190,8 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
                                counters,
                                session_id,
                                test=test,
-                               client=client)
+                               client=client,
+                               mode=mode)
 
   if utterance:
     utterance.i18n_lang = i18n_lang
