@@ -346,22 +346,24 @@ categories {
   description: "Education is a powerful enabler for reducing poverty and increasing quality of life. Well-educated societies tend to be more equal, prosperous, and have stronger institutions. The world has made significant strides in increasing education rates and closing gender gaps, particularly in primary school, but more work is needed to ensure children everywhere learn essential skills and reach their potential. "
 
   # Primary education completion rate
+#  blocks {
+#    title: "Primary education completion rate"
+#    description: "The share of students who complete primary school. This measure reflects an education system's coverage and the educational attainment of students."
+##    columns {
+##      tiles {
+##        type: HIGHLIGHT
+##        description: "is the primary education completion rate in ${placeName}"
+##        stat_var_key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+##      }
+##      tiles {
+##        type: LINE
+##        stat_var_key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+##      }
+##    }
+#  }
   blocks {
     title: "Primary education completion rate"
     description: "The share of students who complete primary school. This measure reflects an education system's coverage and the educational attainment of students."
-    columns {
-      tiles {
-        type: HIGHLIGHT
-        description: "is the primary education completion rate in ${placeName}"
-        stat_var_key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
-      }
-      tiles {
-        type: LINE
-        stat_var_key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
-      }
-    }
-  }
-  blocks {
     columns {
       tiles {
         type: RANKING
