@@ -14,6 +14,27 @@
       "dcUrl": "https://datacommons.org/explore#q=counties%20in%20california%20with%20highest%20obesity"
     },
     {
+      "data_csv": "label,Prevalence of Obesity\r\n2021,28.7630009388167\r\n2020,29.0011697264701\r\n2018,26.5610266256205\r\n2017,24.7490113165035\r\n2016,24.8973586521783\r\n2015,24.3597558272971\r\n2014,24.7177574137183",
+      "srcs": [
+        {
+          "name": "cdc.gov",
+          "url": "https://www.cdc.gov/places/index.html"
+        }
+      ],
+      "legend": [
+        "Prevalence of Obesity"
+      ],
+      "title": "Prevalence of Obesity in California",
+      "type": "LINE",
+      "unit": "%",
+      "highlight": {
+        "date": "2021",
+        "value": 28.7630009388167
+      },
+      "chartUrl": "",
+      "dcUrl": "https://datacommons.org/explore#q=counties%20in%20california%20with%20highest%20obesity"
+    },
+    {
       "data_csv": "rank,place,\"Prevalence: Female, Obesity\"\r\n1,Marin County,13.1\r\n2,Alpine County,16.7\r\n3,Santa Cruz County,16.9\r\n4,Orange County,17.9\r\n5,Placer County,18\r\n6,Santa Clara County,18\r\n7,Alameda County,18.1\r\n8,Sierra County,18.4\r\n9,Mariposa County,18.5\r\n10,San Francisco County,18.5\r\n11,Ventura County,18.6\r\n12,El Dorado County,19.6\r\n13,San Diego County,19.7\r\n14,San Mateo County,20.4\r\n15,Napa County,20.5\r\n16,Nevada County,20.7\r\n17,Mono County,20.9\r\n18,Sonoma County,21.2\r\n19,Los Angeles County,21.5\r\n20,Lake County,21.6\r\n21,Shasta County,21.6\r\n22,San Luis Obispo County,22.6\r\n23,Yolo County,22.6\r\n24,Plumas County,23\r\n25,Contra Costa County,23.3\r\n26,Santa Barbara County,24.1\r\n27,Tehama County,24.8\r\n28,Modoc County,25.4\r\n29,Butte County,26\r\n30,Inyo County,26.3\r\n31,Monterey County,27.4\r\n32,Merced County,27.5\r\n33,Riverside County,27.5\r\n34,San Bernardino County,28.2\r\n35,Kings County,28.6\r\n36,Humboldt County,28.9\r\n37,Sacramento County,29\r\n38,Stanislaus County,29.1\r\n39,Amador County,29.7\r\n40,Calaveras County,29.9\r\n41,Glenn County,30\r\n42,Solano County,30.5\r\n43,San Benito County,30.7\r\n44,Siskiyou County,31.2\r\n45,Sutter County,31.2\r\n46,Kern County,31.3\r\n47,San Joaquin County,31.6\r\n48,Mendocino County,31.7\r\n49,Fresno County,31.8\r\n50,Trinity County,32.6\r\n51,Tuolumne County,33.5\r\n52,Yuba County,34\r\n53,Del Norte County,34.8\r\n54,Imperial County,35.9\r\n55,Madera County,36.5\r\n56,Tulare County,38.2\r\n57,Colusa County,42.2\r\n58,Lassen County,42.9",
       "srcs": [
         {
@@ -22,19 +43,6 @@
         }
       ],
       "title": "Prevalence: Female, Obesity in Counties of California (2016)",
-      "type": "TABLE",
-      "unit": "",
-      "dcUrl": "https://datacommons.org/explore#q=counties%20in%20california%20with%20highest%20obesity"
-    },
-    {
-      "data_csv": "rank,place,\"Prevalence: Male, Obesity\"\r\n1,Marin County,18.4\r\n2,San Francisco County,18.4\r\n3,Alameda County,20.3\r\n4,Orange County,20.3\r\n5,Santa Clara County,20.3\r\n6,Santa Cruz County,20.4\r\n7,San Diego County,20.7\r\n8,San Mateo County,21.1\r\n9,Los Angeles County,21.3\r\n10,Nevada County,22.2\r\n11,Ventura County,22.2\r\n12,Placer County,22.9\r\n13,Sonoma County,23.3\r\n14,El Dorado County,23.5\r\n15,Contra Costa County,24.3\r\n16,Alpine County,24.5\r\n17,Santa Barbara County,25\r\n18,Shasta County,25.2\r\n19,Yolo County,25.4\r\n20,Napa County,25.9\r\n21,Mariposa County,26.5\r\n22,Riverside County,26.6\r\n23,Lake County,27.5\r\n24,Mono County,27.8\r\n25,Monterey County,27.8\r\n26,San Luis Obispo County,28\r\n27,Sierra County,28.1\r\n28,Butte County,28.5\r\n29,Inyo County,28.5\r\n30,Sacramento County,28.5\r\n31,Humboldt County,28.9\r\n32,San Bernardino County,29.1\r\n33,Merced County,29.2\r\n34,Plumas County,29.2\r\n35,Solano County,29.5\r\n36,Tehama County,29.7\r\n37,Amador County,29.8\r\n38,Modoc County,30.1\r\n39,Kings County,30.2\r\n40,Fresno County,30.9\r\n41,Calaveras County,31\r\n42,Stanislaus County,31.7\r\n43,Sutter County,32.2\r\n44,Tuolumne County,32.5\r\n45,Siskiyou County,32.6\r\n46,Mendocino County,32.7\r\n47,Kern County,33.1\r\n48,San Benito County,33.1\r\n49,Imperial County,33.4\r\n50,San Joaquin County,33.4\r\n51,Glenn County,34.1\r\n52,Trinity County,34.2\r\n53,Del Norte County,34.3\r\n54,Yuba County,34.8\r\n55,Madera County,35\r\n56,Tulare County,35.9\r\n57,Colusa County,39.2\r\n58,Lassen County,39.6",
-      "srcs": [
-        {
-          "name": "gis.cdc.gov",
-          "url": "https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html"
-        }
-      ],
-      "title": "Prevalence: Male, Obesity in Counties of California (2016)",
       "type": "TABLE",
       "unit": "",
       "dcUrl": "https://datacommons.org/explore#q=counties%20in%20california%20with%20highest%20obesity"

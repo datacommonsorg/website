@@ -68,12 +68,13 @@ class ExploreTest(NLWebServerTestCase):
                              failure='',
                              test='',
                              i18n='',
-                             i18n_lang=''):
+                             i18n_lang='',
+                             mode=''):
     ctx = {}
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&client=test_detect-and-fulfill',
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -440,9 +441,26 @@ class ExploreTest(NLWebServerTestCase):
             'auto thefts in tracts of santa clara county'
         ])
 
-  def test_e2e_single_date(self):
-    self.run_detect_and_fulfill('e2e_single_date', [
-        'Life expectancy in US states in 2018',
-        'What are the projected temperatures in california in 2025',
-        'population in the US in the last year'
-    ])
+  def test_e2e_strict_multi_verb(self):
+    self.run_detect_and_fulfill(
+        'explore_strict_multi_verb',
+        [
+            # This query should return empty results in strict mode.
+            'how do i build and construct a house and sell it in california with low income',
+            # This query should be fine.
+            'tell me asian california population with low income',
+        ],
+        mode='strict')
+
+  def test_e2e_strict_default_place(self):
+    self.run_detect_and_fulfill(
+        'explore_strict_default_place',
+        [
+            # These queries do not have a default place, so should fail.
+            'what does a diet for diabetes look like?',
+            'how to earn money online without investment',
+            # This query should return empty result because we don't
+            # return low-confidence results.
+            'number of headless drivers in california',
+        ],
+        mode='strict')

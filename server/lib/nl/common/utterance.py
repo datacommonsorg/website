@@ -22,6 +22,7 @@ from enum import Enum
 from enum import IntEnum
 from typing import Dict, List
 
+from server.lib.explore.params import QueryMode
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection
@@ -179,3 +180,5 @@ class Utterance:
   i18n_lang: str = ''
   # The client calling NL backend API.
   client: str = ''
+  # The mode for caller (currently just STRICT)
+  mode: QueryMode = None

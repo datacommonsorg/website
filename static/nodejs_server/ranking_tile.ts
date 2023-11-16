@@ -107,8 +107,11 @@ function getRankingUnitResult(
   useChartUrl: boolean,
   apiRoot: string
 ): TileResult {
+  const points = isHighest
+    ? rankingGroup.points.slice().reverse()
+    : rankingGroup.points;
   const result: TileResult = {
-    data_csv: rankingPointsToCsv(rankingGroup.points, rankingGroup.svName),
+    data_csv: rankingPointsToCsv(points, rankingGroup.svName),
     srcs: getSources(rankingGroup.sources),
     title: getRankingUnitTitle(
       tileConfig.title,
