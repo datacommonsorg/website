@@ -67,7 +67,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   if state.explore_mode and chart_vars.source_topic != PROJECTED_TEMP_TOPIC:
     return _populate_explore(state, chart_vars, places, chart_origin, rank)
   else:
-    return _populate_chat(state, chart_vars, places, chart_origin, rank)
+    return _populate_chart(state, chart_vars, places, chart_origin, rank)
 
 
 def _populate_explore(state: PopulateState, chart_vars: ChartVars,
@@ -133,9 +133,9 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
   return added
 
 
-def _populate_chat(state: PopulateState, chart_vars: ChartVars,
-                   places: List[Place], chart_origin: ChartOriginType,
-                   rank: int) -> bool:
+def _populate_chart(state: PopulateState, chart_vars: ChartVars,
+                    places: List[Place], chart_origin: ChartOriginType,
+                    rank: int) -> bool:
   if state.ranking_types:
     # Ranking query
     if state.place_type:

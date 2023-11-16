@@ -30,8 +30,8 @@ LAST_YEARS = [
 LAST_YEAR = [r'(?:in|during)(?: the)? (?:last|past|previous) year']
 
 YEAR_MONTH_RE = [
-    r'(in|after|on|before|since|by|util|from|between) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(?:,)? (\d{4})',
-    r'(in|after|on|before|since|by|util|from|between) (\d{4})(?:,)? (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)',
+    r'(in|after|on|before|since|by|until|from|between) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(?:,)? (\d{4})',
+    r'(in|after|on|before|since|by|until|from|between) (\d{4})(?:,)? (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)',
 ]
 
 

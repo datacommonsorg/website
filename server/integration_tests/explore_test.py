@@ -439,3 +439,10 @@ class ExploreTest(NLWebServerTestCase):
             # to the place (SC county) to its state (CA).
             'auto thefts in tracts of santa clara county'
         ])
+
+  def test_e2e_single_date(self):
+    self.run_detect_and_fulfill('e2e_single_date', [
+        'Life expectancy in US states in 2018',
+        'What are the projected temperatures in california in 2025',
+        'population in the US in the last year'
+    ])

@@ -148,19 +148,25 @@ def _produce_query_types(uttr: Utterance) -> List[QueryType]:
   while query_types[-1] != None:
     query_types.append(handlers.next_query_type(query_types))
 
-  if params.is_sdg(uttr.insight_ctx):
-    # Prune out query_types that aren't relevant.
-    pruned_types = []
-    for qt in query_types:
+  date = utils.get_date(uttr)
+  is_single_date = utils.is_single_date(date)
+  is_sdg = params.is_sdg(uttr.insight_ctx)
+  # Prune out query_types that aren't relevant.
+  pruned_types = []
+  for qt in query_types:
+    if is_sdg and qt in [QueryType.EVENT, QueryType.SUPERLATIVE]:
       # Superlative introduces custom SVs not relevant for SDG.
       # And we don't do event maps for SDG.
-      if qt not in [QueryType.EVENT, QueryType.SUPERLATIVE]:
-        pruned_types.append(qt)
-    if not pruned_types:
-      pruned_types.append(QueryType.BASIC)
-    query_types = pruned_types
-
-  return query_types
+      continue
+    if is_single_date and qt in [
+        QueryType.TIME_DELTA_ACROSS_VARS, QueryType.TIME_DELTA_ACROSS_PLACES
+    ]:
+      # Time Delta queries don't make sense for single date queries
+      continue
+    pruned_types.append(qt)
+  if not pruned_types:
+    pruned_types.append(QueryType.BASIC)
+  return pruned_types
 
 
 #

@@ -17,11 +17,12 @@ from typing import List
 from server.config.subject_page_pb2 import BarTileSpec
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
+from server.lib.nl.common import utils
 from server.lib.nl.config_builder import base
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
-import server.lib.nl.fulfillment.types
 from server.lib.nl.fulfillment.types import ChartVars
+import server.lib.nl.fulfillment.types as types
 
 _MAX_VARIABLE_LIMIT = 15
 _MAX_PLACES_LIMIT = 15
@@ -30,9 +31,10 @@ _MAX_PLACES_LIMIT = 15
 def multiple_place_bar_block(column,
                              places: List[Place],
                              svs: List[str],
-                             sv2thing: server.lib.nl.fulfillment.types.SV2Thing,
+                             sv2thing: types.SV2Thing,
                              cv: ChartVars,
-                             ranking_types: List[RankingType] = []):
+                             ranking_types: List[RankingType] = [],
+                             date: types.Date = None):
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
 
@@ -71,12 +73,18 @@ def multiple_place_bar_block(column,
   tile = Tile(type=Tile.TileType.BAR,
               title=title,
               comparison_places=[x.dcid for x in places])
+  date_string = ''
+  if utils.is_single_date(date):
+    date_string = date.get_date_string()
   for sv in svs:
     sv_key = sv + "_multiple_place_bar_block"
+    if date_string:
+      sv_key += f'_{date_string}'
     tile.stat_var_key.append(sv_key)
     stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv,
                                             name=sv2thing.name[sv],
-                                            unit=sv2thing.unit[sv])
+                                            unit=sv2thing.unit[sv],
+                                            date=date_string)
 
   tile.bar_tile_spec.max_variables = _MAX_VARIABLE_LIMIT
   tile.bar_tile_spec.max_places = _MAX_PLACES_LIMIT

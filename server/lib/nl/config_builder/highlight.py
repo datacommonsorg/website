@@ -14,21 +14,31 @@
 
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
+from server.lib.nl.common import utils
 from server.lib.nl.config_builder import base
-import server.lib.nl.fulfillment.types
+import server.lib.nl.fulfillment.types as types
 
 
-def higlight_block(column, place, sv,
-                   sv2thing: server.lib.nl.fulfillment.types.SV2Thing):
+def highlight_block(column,
+                    place,
+                    sv,
+                    sv2thing: types.SV2Thing,
+                    date: types.Date = None):
   chart_title = base.decorate_chart_title(title=sv2thing.name[sv], place=place)
 
+  sv_key = sv
+  date_string = ''
+  if utils.is_single_date(date):
+    date_string = date.get_date_string()
+    sv_key += f'_{date_string}'
   tile = Tile(type=Tile.TileType.HIGHLIGHT,
               title=chart_title,
               description=chart_title,
-              stat_var_key=[sv])
+              stat_var_key=[sv_key])
   stat_var_spec_map = {}
-  stat_var_spec_map[sv] = StatVarSpec(stat_var=sv,
-                                      name=sv2thing.name[sv],
-                                      unit=sv2thing.unit[sv])
+  stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv,
+                                          name=sv2thing.name[sv],
+                                          unit=sv2thing.unit[sv],
+                                          date=date_string)
   column.tiles.append(tile)
   return stat_var_spec_map

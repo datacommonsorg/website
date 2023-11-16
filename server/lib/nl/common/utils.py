@@ -17,6 +17,7 @@ import dataclasses
 import datetime
 import logging
 import random
+import re
 import time
 from typing import Any, Dict, List, Set
 
@@ -31,6 +32,9 @@ import shared.lib.constants as shared_constants
 
 # TODO: Consider tweaking/reducing this
 NUM_CHILD_PLACES_FOR_EXISTENCE = 15
+# List of date preps that indicate single date
+_SINGLE_DATE_PREPS = ['in', 'on']
+_FACET_OBS_PERIOD_RE = r'P(\d+)[Y|M|D|h|m|s]'
 
 
 def is_topic(sv):
@@ -108,7 +112,7 @@ def sv_existence_for_places(places: List[str], svs: List[str],
 # keyed by SV DCID with value set to True if the SV has any
 # single data point series (across all places).
 def sv_existence_for_places_check_single_point(
-    places: List[str], svs: List[str], date: str,
+    places: List[str], svs: List[str], date: types.Date,
     counters: ctr.Counters) -> Dict[str, bool]:
   if not svs:
     return {}, {}
@@ -121,20 +125,55 @@ def sv_existence_for_places_check_single_point(
 
   existing_svs = {}
   existsv2places = {}
+  facet_info = series_facet.get('facets', {})
+  date_to_check: types.Date = None
+  date_string = None
+  # For now, only check date if date is a single date.
+  # TODO: check for a date range.
+  if is_single_date(date):
+    date_to_check = date
+    date_string = date.get_date_string()
   for sv, sv_data in series_facet.get('data', {}).items():
     for pl, place_data in sv_data.items():
       for facet_data in place_data:
+        facet_earliest_date = facet_data.get('earliestDate', '')
+        facet_latest_date = facet_data.get('latestDate', '')
         # If there is a date specified, but facet dates are different
         # granularity, move on to next facet
         # TODO: allow for different granularity but same year.
-        if date and (len(date) != len(facet_data.get('earliestDate', '')) or
-                     len(date) != len(facet_data.get('latestDate', ''))):
+        if date_to_check and (len(date_string) != len(facet_earliest_date) or
+                              len(date_string) != len(facet_latest_date)):
           continue
         # If there is a date specified, but it is outside the range of dates of
         # this facet, move on to next facet
-        if date and (date < facet_data.get('earliestDate', '') or
-                     date > facet_data.get('latestDate', '')):
+        if date_to_check and (date_string < facet_earliest_date or
+                              date_string > facet_latest_date):
           continue
+        # Use observation period of the facet to predict if facet has data for
+        # date of interest.
+        # TODO: this is not 100% accurate, so frontend needs to fail gracefully
+        # when a tile doesn't have data
+        if date_to_check:
+          obs_period = facet_info.get(facet_data.get('facet', ''),
+                                      {}).get('observationPeriod', '')
+          obs_period_match = re.match(_FACET_OBS_PERIOD_RE, obs_period)
+          if obs_period_match:
+            obs_period_num, = obs_period_match.groups()
+            # Difference in years between date of interest and earliest date
+            # of the facet
+            year_diff = date_to_check.year - int(facet_earliest_date[:4])
+            if date_to_check.month:
+              # Difference in number of months between the date of interest
+              # and the earliest date of the facet
+              month_diff = year_diff * 12 + date_to_check.month - int(
+                  facet_earliest_date[5:])
+              # Check that the difference in months is divisble by the obs period
+              if month_diff % int(obs_period_num) != 0:
+                continue
+            # If the date to check is only a year, check that the difference in
+            # years is divisible by the obs period
+            elif year_diff % int(obs_period_num) != 0:
+              continue
         num_obs = facet_data.get('obsCount', 0)
         existing_svs[sv] = existing_svs.get(sv, False) | (num_obs == 1)
         if sv not in existsv2places:
@@ -313,7 +352,7 @@ def get_quantity(
   return None
 
 
-def get_date(uttr: nl_uttr.Utterance) -> types.DateClassificationAttributes:
+def get_date(uttr: nl_uttr.Utterance) -> types.Date:
   classification = futils.classifications_of_type_from_utterance(
       uttr, types.ClassificationType.DATE)
   if (classification and isinstance(classification[0].attributes,
@@ -322,6 +361,16 @@ def get_date(uttr: nl_uttr.Utterance) -> types.DateClassificationAttributes:
     if classification[0].attributes.dates:
       return classification[0].attributes.dates[0]
   return None
+
+
+def is_single_date(date: types.Date) -> bool:
+  if not date:
+    return False
+  if date.year_span == 1:
+    return True
+  if date.year_span == 0:
+    return date.prep in _SINGLE_DATE_PREPS
+  return False
 
 
 def get_time_delta_types(uttr: nl_uttr.Utterance) -> List[types.TimeDeltaType]:
