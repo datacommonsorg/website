@@ -1,6 +1,8 @@
-# Copyright 2023 ONE Campaign
+#Copyright (c) 2023 ONE Campaign
 
-## Test topic page for africa
+#This work is licensed under a Creative Commons Attribution 4.0 International License
+
+## Topic page for africa
 
 metadata {
   topic_id: "one-economy"
@@ -14,19 +16,20 @@ metadata {
 
 ### OVERVIEW ###
 categories {
-  title: "Overview"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
-  
+  title: "The basics"
+  description: "Explore headline data on economic activity, including income distribution, the value of goods and services produced."
   # GINI Index
   blocks {
-    title: "GINI Index"
-    description: "The Gini Index measures income equality within an economy by looking at how income is distributed amongst the population. A higher Gini score indicates a small number of individuals hold a higher percentage of income, than if it were evenly distributed. A score of 0 represents perfect income equality."
+    title: "Income inequality"
+    description: "The Gini Index measures income equality within an economy by looking at how income is distributed across the population. A higher Gini score means there is more inequality: a small number of individuals hold a higher share of income. A score of zero represents perfect income equality."
     columns {
       tiles {
         type: RANKING
         ranking_tile_spec {
           show_highest: true
           show_lowest: true
+          highest_title: "Highest Gini Index in Africa"
+          lowest_title: "Lowest Gini Index in Africa"
         }
         stat_var_key: "GiniIndex_EconomicActivity"
       }
@@ -34,7 +37,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Gini Index of Economic Activity (${date})"
+        title: "Income inequality (Gini Index ${date})"
         stat_var_key: "GiniIndex_EconomicActivity"
       }
     }
@@ -42,9 +45,8 @@ categories {
 
   # GDP per capita
   blocks {
-    title: "GDP per capita"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-
+    title: "Gross domestic product (GDP) per capita"
+    description: "Measures the total value of the goods and services produced in a country. It is used as a broad measure of the average living standard of a country; however, a high GDP per capita does not necessarily mean people have a high standard of living."
     columns {
       tiles {
         type: RANKING
@@ -66,9 +68,8 @@ categories {
 
   # GDP growth rate
   blocks {
-    title: "GDP growth rate"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-
+    title: "Gross domestic product (GDP) growth rate"
+    description: "Measures how much a country’s economic output has grown or shrunk – essentially, an economy’s expansion or contraction during a specific period of time."
     columns {
       tiles {
         type: RANKING
@@ -90,9 +91,8 @@ categories {
 
   # Inflation
   blocks {
-    title: "Inflation"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-
+    title: "Inflation rate"
+    description: "Tells you how much consumer prices have increased over a specified period of time. High inflation means your money buys less than before and low inflation means prices are steady and your money retains its value."
     columns {
       tiles {
         type: RANKING
@@ -112,35 +112,12 @@ categories {
     }
   }
 
-  # Unemployment
-  blocks {
-    title: "Unemployment"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-
-    columns {
-      tiles {
-        type: RANKING
-        ranking_tile_spec {
-          show_highest: true
-          show_lowest: true
-        }
-        stat_var_key: "unemploymentPercentOfLaborForce"
-      }
-    }
-    columns {
-      tiles {
-        type: MAP
-        title: "Unemployment (% of labor force) (${date})"
-        stat_var_key: "unemploymentPercentOfLaborForce"
-      }
-    }
-  }
-  
+  ## Stat var spec overview section
   stat_var_spec {
     key: "GiniIndex_EconomicActivity"
     value {
       stat_var: "GiniIndex_EconomicActivity"
-      name: "Gini Index of Economic Activity"
+      name: "Gini Index"
     }
   }
 
@@ -164,30 +141,19 @@ categories {
     key: "inflationPercentAverageConsumerPrices"
     value {
       stat_var: "inflationPercentAverageConsumerPrices"
-      name: "Inflation"
+      name: "Inflation rate"
     }
   }
-
-  stat_var_spec {
-    key: "unemploymentPercentOfLaborForce"
-    value {
-      stat_var: "unemploymentPercentOfLaborForce"
-      name: "Unemployment"
-    }
-  }
-
 }
 
 ### DEBT ###
 categories {
-  title: "Debt"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
-
+  title: "External debt"
+  description: "Debt is an important source of financing to invest in a country’s economic and social development. But it has to be sustainable, meaning that governments must be able to reasonably pay it back. Explore the data behind Africa’s debt levels, including key factors that influence its sustainability."
   # PPG Debt Stocks
   blocks {
-    title: "PPG Debt Stocks"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+    title: "External debt stocks"
+    description: "Reveals how much debt a country owes to external creditors. It’s often referred to as public or publicly guaranteed debt, meaning that it is owed by the government (and not accumulated by a household or private company)."
     columns {
       tiles {
         type: RANKING
@@ -201,7 +167,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Publicly guaranteed long term external debt pricipal repayment to all lenders (${date})"
+        title: "External debt (PPG ${date})"
         stat_var_key: "AmountOutstanding_Debt_PubliclyGuaranteed_LongTermExternalDebt"
       }
     }
@@ -209,47 +175,31 @@ categories {
 
   # PPG interest and principal repayments
   blocks {
-    title: "PPG interest and principal repayments"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+    title: "Debt service on government external debt"
+    description:""
+
     columns {
       tiles {
         type: MAP
-        title: "Publicly guaranteed long term external debt interest repayment to all lenders (${date})"
+        title: "Interest payments to all external lenders (${date})"
+        subtitle: "As with most loans, governments typically accrue interest on their debt. Interest rates on private loans or bonds are generally far higher than interest rates on loans from other governments. High interest rates can undermine debt sustainability, especially during crises."
         stat_var_key: "AmountInterestRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
       }
     }
     columns {
       tiles {
         type: MAP
-        title: "Publicly guaranteed long term external debt principal repayment to all lenders (${date})"
+        title: "Principal payments to all external lenders (${date})"
+        subtitle: "The portion of the original loan amount paid during a period of time. The terms of a loan determine how frequently it is paid down, but most measures analyse yearly payments."
         stat_var_key: "AmountPrincipalRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
       }
     }
   }
 
-  # Currency composition of debt
-  blocks {
-    title: "Currency composition of debt"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
-    columns {
-      tiles {
-        type: BAR
-        title: "Amount of debt"
-        stat_var_key: 'Amount_Debt_EUR_AsAFractionOf_Amount_Debt'
-        stat_var_key: 'Amount_Debt_GBP_AsAFractionOf_Amount_Debt'
-        stat_var_key: 'Amount_Debt_USD_AsAFractionOf_Amount_Debt'
-      }
-    }
-
-  }
-
   # Debt held in USD
   blocks {
-    title: "Debt held in USD"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+    title: "External Debt held in US dollars"
+    description: "A high proportion of African debt is denominated in US dollars. Higher interest rates in the US can cause the dollar to strengthen globally. That can devalue other currencies and cause the cost of African debt to increase. This dynamic can make debt levels skyrocket in real terms."
     columns {
       tiles {
         type: RANKING
@@ -263,17 +213,17 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Amount of Debt: USD (As Fraction of Amount Debt) (${date})"
+        title: "Share of external PPG debt held in US dollars (${date})"
         stat_var_key: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
       }
     }
   }
-  
+
   stat_var_spec {
     key: "AmountOutstanding_Debt_PubliclyGuaranteed_LongTermExternalDebt"
     value {
       stat_var: "AmountOutstanding_Debt_PubliclyGuaranteed_LongTermExternalDebt"
-      name: "Publicly guaranteed long term external debt pricipal repayment to all lenders"
+      name: "External (long-term) debt stocks (PPG)"
     }
   }
 
@@ -281,7 +231,7 @@ categories {
     key: "AmountInterestRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
     value {
       stat_var: "AmountInterestRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
-      name: "Publicly guaranteed long term external debt interest repayment to all lenders."
+      name: "Interest payments to all external lenders"
       date: "2023"
     }
   }
@@ -290,7 +240,7 @@ categories {
     key: "AmountPrincipalRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
     value {
       stat_var: "AmountPrincipalRepayment_Debt_PubliclyGuaranteed_LongTermExternalDebt"
-      name: "Publicly guaranteed long term external debt principal repayment to all lenders."
+      name: "Principal payments to all external lenders"
       date: "2023"
     }
   }
@@ -299,7 +249,7 @@ categories {
     key: "Amount_Debt_EUR_AsAFractionOf_Amount_Debt"
     value {
       stat_var: "Amount_Debt_EUR_AsAFractionOf_Amount_Debt"
-      name: "Amount of Debt: EUR (As Fraction of Amount Debt)"
+      name: "Share of external debt held in Euros"
     }
   }
 
@@ -307,7 +257,7 @@ categories {
     key: "Amount_Debt_GBP_AsAFractionOf_Amount_Debt"
     value {
       stat_var: "Amount_Debt_GBP_AsAFractionOf_Amount_Debt"
-      name: "Amount of Debt: GBP (As Fraction of Amount Debt)"
+      name: "Share of external debt held in British Pounds"
     }
   }
 
@@ -315,7 +265,7 @@ categories {
     key: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
     value {
       stat_var: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
-      name: "Amount of Debt: USD (As Fraction of Amount Debt)"
+      name: "Share of external PPG debt held in US dollars"
     }
   }
 
@@ -323,7 +273,7 @@ categories {
     key: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
     value {
       stat_var: "Amount_Debt_USD_AsAFractionOf_Amount_Debt"
-      name: "Amount of Debt: USD (As Fraction of Amount Debt)"
+      name: "Share of external debt held in US dollars"
     }
   }
 
@@ -332,14 +282,13 @@ categories {
 
 ### AID ###
 categories {
-  title: "Aid"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
-  
-  # PPG Debt Stocks
+  title: "Aid flows"
+  description: "Official Development Assistance (ODA) or “global aid” is a transfer of money and resources from predominantly richer countries to low-income countries to help fight poverty and support economic development. Official aid is from government sources or international institutions, and does not include private aid."
+
+  # Net aid received
   blocks {
-    title: "Total aid received per country"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+    title: "Net official aid received"
+    description: "The total amount of ODA minus any repaid loans."
     columns {
       tiles {
         type: RANKING
@@ -353,7 +302,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Net official development assistance and official aid received (current US$) (${date})"
+        title: "Net aid received (current US$) (${date})"
         stat_var_key: "worldBank/DT_ODA_ALLD_CD"
       }
     }
@@ -363,7 +312,7 @@ categories {
     key: "worldBank/DT_ODA_ALLD_CD"
     value {
       stat_var: "worldBank/DT_ODA_ALLD_CD"
-      name: "Net official development assistance and official aid received (current US$)"
+      name: "Net ODA (current US$)"
     }
   }
 }
@@ -371,13 +320,12 @@ categories {
 ### REMITTANCES ###
 categories {
   title: "Remittances"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui erat, vestibulum in nibh eget, auctor commodo mauris. Donec et venenatis augue. Curabitur finibus non velit ac pulvinar. Morbi vel risus pellentesque, ultrices massa sed, suscipit dui. Nullam ligula massa, rutrum aliquet urna non, aliquet dictum sapien. Pellentesque blandit iaculis justo, sed sollicitudin magna ultricies nec. Curabitur bibendum id justo in eleifend. Pellentesque eleifend mi eu diam maximus, eu consectetur sem euismod. Sed mollis sollicitudin semper. Pellentesque a diam a est iaculis elementum id vitae velit. Fusce tempor sem arcu, nec consectetur lorem sagittis eget."
-  
+  description: "Remittances are money or goods that migrants send to families and friends in origin countries. They are often the most direct and well-known link between migration and development, and can be a lifeline in times of crisis. The level of remittances to African countries can surpass the amount of funds received through official aid or foreign investment."
+
   # Remittances received as a percent of GDP
   blocks {
     title: "Remittances received as a percent of GDP"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+    description: "Measures the money or goods received by one household from someone living in another country, as a proportion of the country’s gross domestic product. This helps illustrate how reliant a country’s economy is on external sources of income."
     columns {
       tiles {
         type: RANKING
@@ -400,8 +348,7 @@ categories {
   # Remittances sent as a percent of GDP
   blocks {
     title: "Remittances sent as a percent of GDP"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+    description: "Measures the money or goods sent by one household to someone living in another country, as a proportion of the country’s gross domestic product."
     columns {
       tiles {
         type: RANKING
@@ -415,7 +362,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Outward Remittances (${date})"
+        title: "Remittances sent (${date})"
         stat_var_key: "Amount_Remittance_OutwardRemittance"
       }
     }
@@ -425,7 +372,7 @@ categories {
     key: "Amount_Remittance_InwardRemittance"
     value {
       stat_var: "Amount_Remittance_InwardRemittance"
-      name: "Inward Remittances"
+      name: "Remittances received"
     }
   }
 
@@ -433,7 +380,7 @@ categories {
     key: "Amount_Remittance_OutwardRemittance"
     value {
       stat_var: "Amount_Remittance_OutwardRemittance"
-      name: "Outward Remittances"
+      name: "Remittances sent"
     }
   }
 }
@@ -441,13 +388,11 @@ categories {
 ### SPECIAL DRAWING RIGHTS ###
 categories {
   title: "Special Drawing Rights"
-  description: "Special Drawing Rights (SDRs) are an important financing source for African countries to respond to ongoing and future crises. SDRs, which are created by the IMF, provide a much needed injection of liquidity to plug fiscal gaps, meet external debt obligations, or address foreign exchange shortages.They are allocated according to a country’s relative size in the global economy — so richer countries receive the lion’s share. The most recent SDR allocation equivalent to $650 billion took place in August 2021 to help countries respond to the COVID-19 pandemic."
-  
+  description: "Special Drawing Rights (SDRs) are a reserve asset issued by the International Monetary Fund (IMF) to all its members. They are not cash, but they can be traded for hard currency. In times of crisis, SDRs can provide a much needed injection of liquidity to shore up reserves, stabilise currencies, meet external debt obligations, or address other pressing needs.\n\n A country’s relative size in the global economy determines how much it receives — so richer countries get the lion’s share. The most recent SDR allocation, equivalent to US$650 billion, took place in August 2021 to help countries respond to the COVID-19 pandemic."
   # Allocations
   blocks {
-    title: "Allocations"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+    title: "SDR allocations"
+    description: "SDR allocations to African countries measures the total amount of SDRs that have been distributed to these IMF members over time."
     columns {
       tiles {
         type: RANKING
@@ -461,7 +406,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Allocations (SDRs) (${date})"
+        title: "SDR Allocations (${date})"
         stat_var_key: "SdrAllocationsSdr"
       }
     }
@@ -469,9 +414,8 @@ categories {
 
   # Holdings
   blocks {
-    title: "Holdings"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
-    
+    title: "SDR Holdings"
+    description: "SDR holdings of African countries measures the total amount of SDRs that are currently retained, i.e. haven’t been used, by these IMF members."
     columns {
       tiles {
         type: RANKING
@@ -491,6 +435,30 @@ categories {
     }
   }
 
+
+  # SDR debt proportion
+  blocks{
+    title: "Public and Publicly Guaranteed Debt held in SDRs"
+    description: "The proportion of a country’s public or publicly guaranteed debt (meaning that it is owed by the government and not accumulated by a household or private company), that is made up of SDRs.\n\n Generally the SDR interest rate is much lower than taking out private debt or bonds, and comparable to government to government lending."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "Amount_Debt_SDR_AsAFractionOf_Amount_Debt"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "PPG debt held in SDRs (${date})"
+        stat_var_key: "Amount_Debt_SDR_AsAFractionOf_Amount_Debt"
+      }
+    }
+  }
+
   stat_var_spec {
     key: "SdrAllocationsSdr"
     value {
@@ -504,6 +472,14 @@ categories {
     value {
       stat_var: "SdrHoldingsSdr"
       name: "Holdings (SDRs)"
+    }
+  }
+
+  stat_var_spec {
+    key: "Amount_Debt_SDR_AsAFractionOf_Amount_Debt"
+    value {
+      stat_var: "Amount_Debt_SDR_AsAFractionOf_Amount_Debt"
+      name: "Debt held in SDRs"
     }
   }
 }

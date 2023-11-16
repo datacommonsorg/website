@@ -15,14 +15,14 @@ metadata {
 
 ### OVERVIEW ###
 categories {
-  title: "Overview"
-  description: "Where you live shouldn’t determine whether you live, but too often it does. Low- and lower-middle income countries are home to a majority of the global burden of disease, yet make up a small proportion of global health spending. This means people in the most vulnerable countries, including mothers and children, continue to die from completely preventable and treatable diseases. The health and wellbeing of a population can be assessed using a range of indicators that include life expectancy, maternal and infant mortality. Access to quality health is one of the many factors that is considered to contribute to higher life expectancy and lower maternal and infant mortality rates."
+  title: "The basics"
+  description: "The health and well-being of a population begins in the womb. Data on maternal health, infant mortality, and life expectancy are a pulse check on the health of a country. Access to quality healthcare is one of the many factors that contributes to higher life expectancy and lower maternal and infant mortality rates."
   
 
   # Life Expectancy
   blocks {
     title: "Life Expectancy"
-    description: "Life expectancy at birth indicates the average number of years a newborn could expect to live, providing a snapshot of population health and mortality. High life expectancy is generally associated with good healthcare, nutrition, sanitation and other socioeconomic conditions."
+    description: "Life expectancy at birth indicates the average number of years a newborn could expect to live. This provides a snapshot of population health and mortality. High life expectancy is generally associated with good healthcare, nutrition, sanitation, and other socioeconomic conditions."
     columns {
       tiles {
         type: RANKING
@@ -45,7 +45,7 @@ categories {
   # Maternal Mortality
   blocks {
     title: "Maternal Mortality"
-    description: "The maternal mortality ratio is defined as the number of maternal deaths as a result of complications during or following pregnancy and childbirth per 100,000 live births during a given time period. Maternal mortality is a critical indicator of, among other things, the quality and accessibility of maternal healthcare services, including access to skilled birth attendants."
+    description: "The number of mothers who die from complications during or following childbirth, measured per 100,000 live births. Maternal mortality is a critical indicator of the quality and accessibility of maternal healthcare services, including access to skilled birth attendants, amongst other things."
     columns {
       tiles {
         type: RANKING
@@ -68,7 +68,7 @@ categories {
   # Infant Mortality
   blocks {
     title: "Infant Mortality"
-    description: "Infant mortality rate is defined as the probability of newborn infant deaths before the age of 1 year, per 1,000 live births during a given period. Infant mortality rate can be associated with access to healthcare, water and sanitation as well as infectious diseases, malnutrition and vaccination coverage."
+    description: "The likelihood of newborn infant deaths before the age of 1 year, per 1,000 live births. Infant mortality rate can be associated with access to healthcare, clean water, and sanitation as well as infectious diseases, malnutrition and vaccination coverage."
     columns {
       tiles {
         type: RANKING
@@ -117,13 +117,12 @@ categories {
 
 ### HEALTH FINANCING ###
 categories {
-  title: "Health Financing"
-  description: "Health financing is a key pillar of health systems that can ensure people can access quality health services and have their health needs addressed, without suffering personal financial hardship. But, while total health spending has grown across all income levels over the past 20 years, higher income countries account for the predominant majority of this spending. This means individuals in low income countries often have to pay out of their pockets to cover health expenses, pushing millions into extreme poverty as a result."
-
+  title: "Health financing"
+  description: "Health financing is vital to functioning health systems. Strong health systems ensure that people can access quality health services and have their health needs addressed without suffering personal financial hardship. Total health spending has risen across all income levels over the past 20 years, but higher-income countries account for the majority of this spending. Individuals in low-income countries often have to pay for health expenses out-of-pocket, pushing millions into extreme poverty as a result."
   # Total Health Expenditure
   blocks {
-    title: "Total Health Expenditure"
-    description: "Total health spending refers to health expenditure from all financing sources, including domestic government, external aid, domestic private, and out-of-pocket health spending."
+    title: "Total health expenditure"
+    description: "Health spending from all sources, including domestic government, external aid, domestic private, and out-of-pocket health spending."
     columns {
       tiles {
         type: RANKING
@@ -137,7 +136,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Health expenditure (current USD) (${date})"
+        title: "Total health expenditure (current USD) (${date})"
         stat_var_key: "healthExpenditureCurrentUSD"
       }
     }
@@ -145,8 +144,8 @@ categories {
 
   # Total Health Expenditure from external sources
   blocks {
-    title: "Total Health Expenditure from external sources"
-    description: "The amount of health expenditure, funded from external sources. External sources consist of direct foreign transfers and foreign transfers distributed by the government encompassing all financial inflows into the national health system from outside the country."
+    title: "Health expenditure from external sources"
+    description: "Measures the amount of external funding channelled into a country’s national health system. These transfers can be distributed directly to a hospital or clinic, or sent to a recipient government and then distributed."
     columns {
       tiles {
         type: RANKING
@@ -160,7 +159,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "External health expenditure (current USD) (${date})"
+        title: "Health expenditure from external sources (current USD) (${date})"
         stat_var_key: "healthExpenditureExternalCurrentUSD"
       }
     }
@@ -169,7 +168,7 @@ categories {
   # Out-of-pocket health expenditure
   blocks {
     title: "Out-of-pocket health expenditure"
-    description: "The share of total health expenditure that comes directly from out of pocket payments."
+    description: "Measures how much people are directly paying for their healthcare. In many countries, self- or family-reliance for healthcare can push families into debt."
     columns {
       tiles {
         type: RANKING
@@ -193,7 +192,7 @@ categories {
     key: "healthExpenditureCurrentUSD"
     value {
       stat_var: "healthExpenditureCurrentUSD"
-      name: "Health expenditure (current USD)"
+      name: "Total health expenditure (current USD)"
     }
   }
 
@@ -201,7 +200,7 @@ categories {
     key: "healthExpenditureExternalCurrentUSD"
     value {
       stat_var: "healthExpenditureExternalCurrentUSD"
-      name: "External health expenditure (current USD)"
+      name: "Health expenditure from external sources (current USD)"
     }
   }
 
@@ -218,13 +217,13 @@ categories {
 
 ### PREVENTABLE INFECTIOUS DISEASES ###
 categories {
-  title: "Preventable Infectious Diseases"
-  description: "Infectious diseases, such as HIV, tuberculosis and malaria, are still among the leading causes of death in the world’s most vulnerable countries, despite being completely preventable and/or treatable. Ensuring equitable access to life-saving health services and medicines, including vaccines, has the potential to save lives now, increase life expectancy over time and disrupt the cycle of poverty."
+  title: "Preventable infectious diseases"
+  description: "Infectious diseases, such as HIV, tuberculosis and malaria, are amongst the leading causes of death in the world’s most vulnerable countries, despite being completely preventable or treatable. Ensuring equitable access to life-saving health services and medicines, including vaccines, has the potential to save lives now, increase life expectancy over time, and disrupt the cycle of poverty."
 
   # HIV New infections
   blocks {
-    title: "HIV New infections"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    title: "New HIV infections"
+    description: "The human immunodeficiency virus (HIV) targets cells in the immune system – the body’s defence against illness – and weakens the body’s ability to fight against infections and some types of cancer. This indicator measures the number of recorded cases of new HIV infections, so its accuracy is dependent on robust health systems."
     columns {
       tiles {
         type: RANKING
@@ -246,8 +245,8 @@ categories {
 
   # AIDS related deaths
   blocks {
-    title: "AIDS related deaths"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    title: "AIDS-related deaths"
+    description: "Measures the number of people who die from illness related to acquired immunodeficiency syndrome (AIDS), the most advanced stage of HIV infection. Because HIV/AIDS targets the immune system, people typically die from a related illness, like tuberculosis or cancer, rather than from the virus itself. "
     columns {
       tiles {
         type: RANKING
@@ -261,7 +260,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "AIDS related deaths (number of people) (${date})"
+        title: "AIDS-related deaths (number of people) (${date})"
         stat_var_key: "HivDeathsPeople"
       }
     }
@@ -269,8 +268,8 @@ categories {
 
   # People receiving treatment
   blocks {
-    title: "People receiving treatment"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    title: "Percent of people receiving treatment for HIV"
+    description: "Measures the number of people receiving antiretroviral therapy (ART). ART can enable patients to live relatively normal, healthy lives, and avoid transmitting the virus to their child or sexual partners."
     columns {
       tiles {
         type: RANKING
@@ -284,7 +283,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "People living with HIV receiving Antiretroviral therapy (percent) (${date})"
+        title: "People living with HIV receiving antiretroviral therapy (percent) (${date})"
         stat_var_key: "HivPeopleLivingWithHIVReceivingARTPercent"
       }
     }
@@ -293,7 +292,7 @@ categories {
   # Incidence of Malaria
   blocks {
     title: "Incidence of Malaria"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    description: "Malaria is a disease caused by a parasite and spread via mosquitoes. This measures the number of cases per 1,000 people at risk in Africa every year. To reduce malaria infections, world health programs distribute preventive drugs and insecticide-treated bed nets to protect people from mosquito bites."
     columns {
       tiles {
         type: HIGHLIGHT
@@ -305,6 +304,7 @@ categories {
   blocks {
     columns {
       tiles {
+        title: "Incidence of malaria in ${placeName} per 1,000 population at risk"
         type: LINE
         stat_var_key: "sdg/SH_STA_MALR"
       }
@@ -312,16 +312,16 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Malaria incidence per 1,000 population at risk (${date})"
+        title: "Incidence of malaria per 1,000 population at risk (${date})"
         stat_var_key: "sdg/SH_STA_MALR"
       }
     }
   }
 
-  # Tuberculosis Incidence
+  # Incidence of Tuberculosis
   blocks {
-    title: "Tuberculosis Incidence"
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo velit, eleifend et ligula a, accumsan aliquet purus. Suspendisse vitae eros id dui ultrices auctor non vel tellus. Vivamus hendrerit, augue a bibendum lobortis, ante ligula auctor turpis, non volutpat lectus mauris et sem. Praesent aliquam interdum viverra. Curabitur finibus purus enim, id varius libero ultrices eu."
+    title: "Incidence of Tuberculosis"
+    description: "Tuberculosis is a disease caused by germs that are spread from person to person through the air. This measures the number of cases in Africa every year."
     columns {
       tiles {
         type: RANKING
@@ -335,7 +335,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Tuberculosis incidence (${date})"
+        title: "Incidence of tuberculosis (TB) (${date})"
         stat_var_key: "sdg/SH_TBS_INCD"
       }
     }
@@ -353,7 +353,7 @@ categories {
     key: "HivDeathsPeople"
     value {
       stat_var: "HivDeathsPeople"
-      name: "AIDS related deaths (number of people)"
+      name: "AIDS-related deaths (number of people)"
     }
   }
 
@@ -361,7 +361,7 @@ categories {
     key: "HivPeopleLivingWithHIVReceivingARTPercent"
     value {
       stat_var: "HivPeopleLivingWithHIVReceivingARTPercent"
-      name: "People living with HIV receiving Antiretroviral therapy (percent)"
+      name: "People living with HIV receiving antiretroviral therapy (percent)"
     }
   }
 
@@ -369,7 +369,7 @@ categories {
     key: "sdg/SH_STA_MALR"
     value {
       stat_var: "sdg/SH_STA_MALR"
-      name: "Malaria incidence per 1,000 population at risk"
+      name: "Incidence of malaria per 1,000 population at risk"
     }
   }
 
@@ -377,7 +377,7 @@ categories {
     key: "sdg/SH_STA_MALR_alternate_unit"
     value {
       stat_var: "sdg/SH_STA_MALR"
-      name: "Malaria incidence per 1,000 population at risk"
+      name: "Incidence of malaria per 1,000 population at risk"
       unit: "Cases of Malaria per 1,000 people at risk"
     }
   }
@@ -386,7 +386,7 @@ categories {
     key: "sdg/SH_TBS_INCD"
     value {
       stat_var: "sdg/SH_TBS_INCD"
-      name: "Tuberculosis incidence"
+      name: "Incidence of tuberculosis (TB)"
     }
   }
 
@@ -394,13 +394,13 @@ categories {
 
 ### FOOD SECURITY ###
 categories {
-  title: "Food Security and Hunger"
-  description: "Hunger is the most visible indicator of poverty. Every one of us needs food to stay alive and healthy, and families will almost always prioritise food over other expenses. So when they can’t afford to eat, you know they are in crisis. Hunger is an umbrella term used to mean several different things. This page explores some of the most common measures of hunger and what they mean. "
+  title: "Food security and hunger"
+  description: "Hunger is the most visible indicator of poverty. Every one of us needs food to stay alive and healthy, and families will almost always prioritise food over other expenses. So when they can’t afford to eat, you know they are in crisis. Hunger is an umbrella term used to mean several different things. This page explores some of the most common measures of hunger and what they mean."
 
   # Stunting
   blocks {
-    title: "Stunting"
-    description: "Stunting means that children are smaller than expected for their age. It is typically a sign of long-term hunger. Stunting often has lifetime consequences because it impacts childrens’ cognitive and physical development."
+    title: "Child stunting"
+    description: "Stunting means that children are smaller than expected for their age. It is typically a sign of long-term micronutrient deficiency. Stunting often has lifelong consequences because it impacts childrens’ cognitive and physical development. "
     columns {
       tiles {
         type: HIGHLIGHT
@@ -423,7 +423,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Proportion of children moderately orseverely stunted [under 5 years old] (${date})"
+        title: "Proportion of children under 5 years old moderately or severely stunted (${date})"
         stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
       }
     }
@@ -431,8 +431,8 @@ categories {
 
   # Wasting
   blocks {
-    title: "Wasting"
-    description: "Wasting means that children have a low weight for their height. It is usually a sign of recent and severe weight loss, due to food insecurity and/or an infectious disease."
+    title: "Child wasting"
+    description: "Wasting means that children have a low weight for their height. It is typically a sign of recent and severe weight loss, due to food insecurity or infectious disease."
     columns {
       tiles {
         type: HIGHLIGHT
@@ -455,7 +455,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Proportion of children moderately or severely wasted [under 5 years old] (${date})"
+        title: "Proportion of children under 5 years old moderately or severely wasted (${date})"
         stat_var_key: "sdg/SH_STA_WAST.AGE--Y0T4"
       }
     }
@@ -463,8 +463,8 @@ categories {
 
   # Undernourishment
   blocks {
-    title: "Undernourishment"
-    description: "Someone is undernourished if they are not able to acquire enough food to meet the daily minimum dietary energy requirements, over a period of one year."
+    title: "Prevalence of undernourishment"
+    description: "Someone is undernourished if they are not able to acquire enough food to meet the daily minimum dietary energy requirements, over a period of one year. Undernourishment is a precursor to both stunting and wasting, so increasing rates can flag where food assistance is urgently needed."
     columns {
       tiles {
         type: HIGHLIGHT
@@ -497,7 +497,7 @@ categories {
     key: "sdg/SH_STA_STNT.AGE--Y0T4"
     value {
       stat_var: "sdg/SH_STA_STNT.AGE--Y0T4"
-      name: "Proportion of children moderately or severely stunted [under 5 years old]"
+      name: "Proportion of children under 5 years old moderately or severely stunted"
     }
   }
 
@@ -516,5 +516,4 @@ categories {
       name: "Prevalence of undernourishment"
     }
   }
-
 }
