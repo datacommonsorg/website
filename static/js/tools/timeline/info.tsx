@@ -31,7 +31,7 @@ class Info extends Component {
         </p>
         {!_.isEmpty(window.infoConfig["timeline"]) && (
           <p>
-            Or you can start your exploration from these interesting points ...
+            {/*Or you can start your exploration from these interesting points ...*/}
           </p>
         )}
 
