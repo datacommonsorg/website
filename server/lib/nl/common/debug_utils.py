@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List
+from typing import cast, Dict
 
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
@@ -86,8 +86,11 @@ def result_with_debug_info(data_dict: Dict, status: str,
         typ = 'Answer Places Reference'
       elif classification.type == ClassificationType.PER_CAPITA:
         typ = 'Per Capita'
+      elif classification.type == ClassificationType.TEMPORAL:
+        typ = 'Temporal'
+      trigger_words = ','.join(classification.attributes.trigger_words).strip()
       if typ:
-        general_parts.append(typ)
+        general_parts.append(f'{typ} ({trigger_words})')
 
   if general_parts:
     general_classification = ' | '.join(general_parts)

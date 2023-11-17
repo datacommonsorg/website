@@ -81,6 +81,9 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
 
   if mode == QueryMode.STRICT:
     classifications.append(heuristic_classifiers.detailed_action(query))
+    classifications.append(
+        heuristic_classifiers.general(query, ClassificationType.TEMPORAL,
+                                      "Temporal"))
 
   # Set the Classifications list.
   classifications = [c for c in classifications if c is not None]

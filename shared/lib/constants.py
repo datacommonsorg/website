@@ -342,8 +342,44 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         "AnswerPlacesReference": ["these", "those"],
         "PerCapita": [
             "fraction", "percent", "percentage", "per capita", "percapita"
+        ],
+        "Temporal": [
+            # Day of week
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday",
+            # Month of year
+            "january",
+            "february",
+            "march",
+            "april",
+            "may",
+            "june",
+            "july",
+            "august",
+            "september",
+            "october",
+            "november",
+            "december",
+            # Season
+            "spring",
+            "summer",
+            "winter",
+            "autumn",
+            # Others
+            "today",
+            "yesterday",
+            "tomorrow",
         ]
     }
+
+# We do not want to strip words from events / superlatives / temporal
+# since we want those to match SVs too!
+HEURISTIC_TYPES_IN_VARIABLES = frozenset(["Event", "Superlative", "Temporal"])
 
 PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "place": "places",
