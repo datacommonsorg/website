@@ -100,6 +100,8 @@ export async function getLineTileResult(
       const highlightDate = statVarSpec[0].date;
       let highlightPoint = null;
       if (!_.isEmpty(dataPoints) && highlightDate) {
+        // TODO: consider handling incompatible date granularity. e.g., if one
+        // date is monthly and the other is yearly but they have the same year.
         highlightPoint = dataPoints.find(
           (point) => point.label === highlightDate
         );
