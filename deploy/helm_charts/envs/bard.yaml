@@ -47,3 +47,6 @@ serviceGroups:
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
+
+cronTesting:
+  enabled: true
