@@ -254,6 +254,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   app.config['NL_ROOT'] = nl_root
   app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
+  app.config['DEBUG'] = os.environ.get('DEBUG', '') == 'true'
 
   # Init extentions
   from server.cache import cache

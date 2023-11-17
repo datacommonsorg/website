@@ -1,0 +1,46 @@
+{% set topics = [
+{
+'name': 'Economy',
+'link': '/topic/economy/africa',
+'image': '/custom_dc/one/economy.webp',
+'description': 'Follow the money with data on economic strength and inequality.'
+},
+{
+'name': 'Health',
+'link': '/topic/health/africa',
+'image': '/custom_dc/one/health.webp',
+'description': 'Where you live shouldn’t determine whether you live, but too often it does. Explore data on health and wellbeing.'
+},
+{
+'name': 'People',
+'link': '/topic/people/africa',
+'image': '/custom_dc/one/people.webp',
+'description': 'Explore data on people, populations, and quality of life.'
+},
+] %}
+
+
+<section class="section--get-started">
+    <h2 class="section__heading">Get started</h2>
+    <div class="section__content">
+        <p>See key data on economics, health and people in African countries.</p>
+    </div>
+    <div class="row topics">
+        {% for topic in topics %}
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <article class="topic">
+                <figure class="topic__figure">
+                    <span class="topic__name">{{ topic.name }}</span>
+                    <a href="{{ topic.link }}" class="topic__image-link">
+                        <img src="{{ topic.image }}" class="topic__image" alt="{{ topic.name }}" width="528" height="634" loading="lazy">
+                    </a>
+                    <figcaption class="topic__description">
+                        {{ topic.description }}
+                        <a href="{{ topic.link }}" class="topic__link">Explore</a>
+                    </figcaption>
+                </figure>
+            </article>
+        </div>
+        {% endfor %}
+    </div>
+</section>

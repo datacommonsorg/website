@@ -43,7 +43,7 @@ def homepage():
       partners_list=current_app.config.get('HOMEPAGE_PARTNERS', []),
       partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
 
-
+'''
 @bp.route('/about')
 def about():
   return lib_render.render_page("static/about.html", "about.html")
@@ -64,10 +64,6 @@ def disclaimers():
   return lib_render.render_page("static/disclaimers.html", "disclaimers.html")
 
 
-@bp.route('/feedback')
-def feedback():
-  return lib_render.render_page("static/feedback.html", "feedback.html")
-
 
 # TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @bp.route('/translator')
@@ -84,7 +80,11 @@ def healthz():
 @bp.route('/mcf_playground')
 def mcf_playground():
   return render_template('mcf_playground.html')
+'''
 
+@bp.route('/feedback')
+def feedback():
+  return lib_render.render_page("static/feedback.html", "feedback.html")
 
 # TODO(shifucun): get branch cache version from mixer
 @bp.route('/version')

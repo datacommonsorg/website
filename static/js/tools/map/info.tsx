@@ -50,18 +50,18 @@ export function Info(): JSX.Element {
           </ol>
           {!_.isEmpty(window.infoConfig["map"]) && (
             <p>
-              Or you can start your exploration from these interesting points
-              ...
+              {/*Or you can start your exploration from these interesting points*/}
+              {/*...*/}
             </p>
           )}
 
-          <MemoizedInfoExamples configKey="map" />
+          {/*<MemoizedInfoExamples configKey="map" />*/}
 
-          <p>Take the data and use it on your site!</p>
-          <p>
-            <a href="mailto:collaborations@datacommons.org">Send</a> us your
-            discoveries!
-          </p>
+          {/*<p>Take the data and use it on your site!</p>*/}
+          {/*<p>*/}
+          {/*  <a href="mailto:collaborations@datacommons.org">Send</a> us your*/}
+          {/*  discoveries!*/}
+          {/*</p>*/}
           {footer && <div className="footer">* {footer}</div>}
         </div>
       )}

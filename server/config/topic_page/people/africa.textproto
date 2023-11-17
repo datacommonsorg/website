@@ -1,0 +1,494 @@
+# Copyright 2023 ONE Campaign
+
+## Test topic page for africa
+
+metadata {
+  topic_id: "one-people"
+  topic_name: "People"
+  place_dcid: "africa"
+  contained_place_types {
+    key: "Continent"
+    value: "Country"
+  }
+}
+
+### OVERVIEW ###
+categories {
+  title: "The Basics"
+  description: "Demographic data can tell you a lot about a country and its people. Who they are and whether they are educated, well-fed, healthy, and able to live a long and prosperous life. This information shows you where a country has been – but also where it’s going. More than half of Africa’s 54 countries will [double in population by 2050](https://www.imf.org/-/media/Files/Publications/Fandd/Article/2023/September/Picture-this-0923.ashx), due in part to high fertility rates and improving mortality rates. By that time, one in four people on earth will live in Africa."
+  # Population
+  blocks {
+    title: "Population"
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "Count_Person"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Total Population (${date})"
+        stat_var_key: "Count_Person"
+      }
+    }
+  }
+
+  # Population Growth
+  blocks {
+    title: "Population Growth"
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "GrowthRate_Count_Person"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Rate of Population Growth (${date})"
+        stat_var_key: "GrowthRate_Count_Person"
+      }
+    }
+  }
+
+  # Fertility Rate
+  blocks {
+    title: "Fertility Rate"
+    description: "Measures the average number of children a woman will have, assuming she lives from birth until the end of her reproductive life."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "FertilityRate_Person_Female"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Fertility Rate (${date})"
+        stat_var_key: "FertilityRate_Person_Female"
+      }
+    }
+  }
+
+  # Life Expectancy
+  blocks {
+    title: "Life Expectancy"
+    description: "Indicates the average number of years a newborn could expect to live. This provides a snapshot of population health and mortality. High life expectancy is generally associated with good healthcare, nutrition, sanitation, and other socioeconomic conditions."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "LifeExpectancy_Person"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Life Expectancy (${date})"
+        stat_var_key: "LifeExpectancy_Person"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "Count_Person"
+    value {
+      stat_var: "Count_Person"
+      name: "Total Population"
+    }
+  }
+
+  stat_var_spec {
+    key: "GrowthRate_Count_Person"
+    value {
+      stat_var: "GrowthRate_Count_Person"
+      name: "Rate of Population Growth"
+    }
+  }
+
+  stat_var_spec {
+    key: "FertilityRate_Person_Female"
+    value {
+      stat_var: "FertilityRate_Person_Female"
+      name: "Fertility Rate"
+    }
+  }
+
+  stat_var_spec {
+    key: "LifeExpectancy_Person"
+    value {
+      stat_var: "LifeExpectancy_Person"
+      name: "Life Expectancy"
+    }
+  }
+}
+
+### POVERTY ###
+categories {
+  title: "Poverty and access to resources"
+  description: "Living in poverty is about more than money. It reflects someone’s access to resources that enable them to live a healthy life, go to school or work, and grow old with dignity. This section includes the traditional measure of poverty in economic terms."
+
+  # Population below poverty line
+  blocks {
+    title: "Population living below the international poverty line"
+    description: "If someone lives on less than $2.15 per person per day, they fall below the international poverty line. This figure is calculated based on the value of goods needed to sustain one adult."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "of the population in ${placeName} is living below the international poverty line"
+        stat_var_key: "sdg/SI_POV_DAY1"
+      }
+    }
+    columns {
+      tiles {
+          type: LINE
+          description: "of the population in ${placeName} is living below the international poverty line"
+          stat_var_key: "sdg/SI_POV_DAY1"
+          }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SI_POV_DAY1"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Population living in poverty (${date})"
+        stat_var_key: "sdg/SI_POV_DAY1"
+      }
+    }
+  }
+
+
+  stat_var_spec {
+    key: "Count_Person"
+    value {
+      stat_var: "Count_Person"
+      name: "Total Population"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SI_POV_DAY1"
+    value {
+      stat_var: "sdg/SI_POV_DAY1"
+      name: "Proportion of population below international poverty line"
+    }
+  }
+}
+
+### FOOD SECURITY ###
+categories {
+  title: "Food security and hunger"
+  description: "Hunger is the most visible indicator of poverty. Every one of us needs food to stay alive and healthy, and families will almost always prioritise food over other expenses. So when they can’t afford to eat, you know they are in crisis. Hunger is an umbrella term used to mean several different things. This section explores some of the most common measures of hunger and what they mean."
+
+  # Stunting
+  blocks {
+    title: "Child stunting"
+    description: "Stunting means that children are smaller than expected for their age. It is typically a sign of long-term micronutrient deficiency. Stunting often has lifelong consequences because it impacts childrens’ cognitive and physical development."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "in ${placeName} are moderately or severely stunted"
+        stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Proportion of children under 5 years old moderately or severely stunted (${date})"
+        stat_var_key: "sdg/SH_STA_STNT.AGE--Y0T4"
+      }
+    }
+  }
+
+  # Wasting
+  blocks {
+    title: "Child wasting"
+    description: "Wasting means that children have a low weight for their height. It is typically a sign of recent and severe weight loss, due to food insecurity or infectious disease."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "in ${placeName} are moderately or severely wasted"
+        stat_var_key: "sdg/SH_STA_WAST.AGE--Y0T4"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SH_STA_WAST.AGE--Y0T4"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Child wasting (${date})"
+        subtitle: "Proportion of children under 5 years old moderately or severely wasted"
+        stat_var_key: "sdg/SH_STA_WAST.AGE--Y0T4"
+      }
+    }
+  }
+
+  # Undernourishment
+  blocks {
+    title: "Prevalence of undernourishment"
+    description: "Someone is undernourished if they are not able to acquire enough food to meet the daily minimum dietary energy requirements, over a period of one year."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "of the population in ${placeName} is undernourished"
+        stat_var_key: "sdg/SN_ITK_DEFC"
+      }
+    }
+    columns{
+      tiles {
+        type: LINE
+        stat_var_key: "sdg/SN_ITK_DEFC"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SN_ITK_DEFC"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Prevalence of undernourishment (${date})"
+        stat_var_key: "sdg/SN_ITK_DEFC"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SH_STA_STNT.AGE--Y0T4"
+    value {
+      stat_var: "sdg/SH_STA_STNT.AGE--Y0T4"
+      name: "Proportion of children under 5 years old moderately or severely stunted"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SH_STA_WAST.AGE--Y0T4"
+    value {
+      stat_var: "sdg/SH_STA_WAST.AGE--Y0T4"
+      name: "Proportion of children under 5 years old moderately or severely wasted"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SN_ITK_DEFC"
+    value {
+      stat_var: "sdg/SN_ITK_DEFC"
+      name: "Prevalence of undernourishment"
+    }
+  }
+}
+
+### EDUCATION ###
+categories {
+  title: "Education"
+  description: "Education is a powerful enabler for reducing poverty and increasing quality of life. Well-educated societies tend to be more equal, prosperous, and have stronger institutions. The world has made significant strides in increasing education rates and closing gender gaps, particularly in primary school, but more work is needed to ensure children everywhere learn essential skills and reach their potential. "
+
+  # Primary education completion rate
+#  blocks {
+#    title: "Primary education completion rate"
+#    description: "The share of students who complete primary school. This measure reflects an education system's coverage and the educational attainment of students."
+##    columns {
+##      tiles {
+##        type: HIGHLIGHT
+##        description: "is the primary education completion rate in ${placeName}"
+##        stat_var_key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+##      }
+##      tiles {
+##        type: LINE
+##        stat_var_key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+##      }
+##    }
+#  }
+  blocks {
+    title: "Primary education completion rate"
+    description: "The share of students who complete primary school. This measure reflects an education system's coverage and the educational attainment of students."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Primary education completion rate (${date})"
+        stat_var_key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+    value {
+      stat_var: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_1"
+      name: "Primary education completion rate"
+    }
+  }
+
+}
+
+### HEALTH ###
+categories {
+  title: "Health"
+  description: "Where you live shouldn’t determine whether you live, but too often it does. Lower-income countries are home to a majority of the global burden of disease, yet make up a small proportion of global health spending. This means people in the most vulnerable countries, including mothers and children, continue to die from preventable and treatable diseases."
+
+  # Maternal Mortality
+  blocks {
+    title: "Maternal Mortality"
+    description: "The number of maternal deaths as a result of complications during or following pregnancy and childbirth per 100,000 live births during a given time period. Maternal mortality is a critical indicator of the quality and accessibility of maternal healthcare services, including access to skilled birth attendants, amongst other things."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "WHO/MDG_0000000026"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Maternal Mortality Ratio (Per 100 000 Live Births) (${date})"
+        stat_var_key: "WHO/MDG_0000000026"
+      }
+    }
+  }
+
+  # Infant Mortality
+  blocks {
+    title: "Infant Mortality"
+    description: "The likelihood of newborn infant deaths before the age of 1 year, per 1,000 live births. Infant mortality rate can be associated with access to healthcare, clean water, and sanitation as well as infectious diseases, malnutrition and vaccination coverage."
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "sdg/SH_DYN_IMRT.AGE--Y0"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Infant Mortality Rate (under 1 year old) (${date})"
+        stat_var_key: "sdg/SH_DYN_IMRT.AGE--Y0"
+      }
+    }
+  }
+
+  # Government Health Expenditure
+  blocks {
+    title: "Domestic government health expenditure"
+    description: "The amount of health expenditure, funded from domestic government public sources"
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "healthExpenditureGovernmentCurrentUSD"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Domestic government health expenditure (current USD) (${date})"
+        stat_var_key: "healthExpenditureGovernmentCurrentUSD"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "WHO/MDG_0000000026"
+    value {
+      stat_var: "WHO/MDG_0000000026"
+      name: "Maternal Mortality Ratio (Per 100 000 Live Births)"
+    }
+  }
+
+  stat_var_spec {
+    key: "sdg/SH_DYN_IMRT.AGE--Y0"
+    value {
+      stat_var: "sdg/SH_DYN_IMRT.AGE--Y0"
+      name: "Infant Mortality Rate (under 1 year old)"
+    }
+  }
+
+  stat_var_spec {
+    key: "healthExpenditureGovernmentCurrentUSD"
+    value {
+      stat_var: "healthExpenditureGovernmentCurrentUSD"
+      name: "Domestic government health expenditure (current USD)"
+    }
+  }
+
+}

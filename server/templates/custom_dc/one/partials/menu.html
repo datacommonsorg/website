@@ -1,0 +1,44 @@
+<ul class="navbar-nav float-md-right">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" aria-label="Show exploration tools">
+            Explore
+        </a>
+        <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
+            <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">Timeline</a>
+            <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">Scatter</a>
+            <a class="dropdown-item" href="{{ url_for('tools.map') }}">Map</a>
+            <a class="dropdown-item" href="{{ url_for('tools.download') }}">Download</a>
+            <!--<a class="dropdown-item" href="{{ url_for('tools.stat_var') }}">Variables</a>-->
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="https://data.one.org/aftershocks" target="_blank">Aftershocks</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="nav-dataoneorg-dropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" aria-label="Show data.one.org links">
+            data.one.org
+        </a>
+        <div class="dropdown-menu" aria-labelledby="nav-dataoneorg-dropdown">
+            <a class="dropdown-item" href="https://data.one.org/#economies" target="_blank">
+                <svg class="icon--countries">
+                    <use xlink:href="/custom_dc/one/icons.svg#countries"></use>
+                </svg>
+                Economies
+            </a>
+            <a class="dropdown-item" href="https://data.one.org/topics/" target="_blank">
+                <svg class="icon--topic">
+                    <use xlink:href="/custom_dc/one/icons.svg#topic"></use>
+                </svg>
+                Topics
+            </a>
+            <a class="dropdown-item" href="https://data.one.org/data-dives/" target="_blank">
+                <svg class="icon--dive">
+                    <use xlink:href="/custom_dc/one/icons.svg#dive"></use>
+                </svg>
+                Data Dives
+            </a>
+        </div>
+    </li>
+</ul>

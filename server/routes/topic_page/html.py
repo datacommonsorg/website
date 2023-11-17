@@ -71,7 +71,7 @@ def topic_page(topic_id=None, place_dcid=None):
     return flask.render_template('topic_page_landing.html')
 
   raw_configs = current_app.config['TOPIC_PAGE_CONFIG']
-  if g.env == 'local':
+  if g.env == 'local' or current_app.config['DEBUG']:
     raw_configs = libutil.get_topic_page_config()
   configs = copy.deepcopy(raw_configs)
 
@@ -129,8 +129,10 @@ def topic_page(topic_id=None, place_dcid=None):
       return "Error: no config found"
     contained_place_type = topic_place_config.metadata.contained_place_types.get(
         place_type, None)
-    topic_place_config = lib_subject_page_config.remove_empty_charts(
-        topic_place_config, place_dcid, contained_place_type)
+    
+# [ONE] HACK: temporarily comment out the call to remove empty charts because the filtering logic is overly conservative
+#    topic_place_config = lib_subject_page_config.remove_empty_charts(
+#        topic_place_config, place_dcid, contained_place_type)
 
   place_names = place_api.get_i18n_name([place_dcid])
   if place_names:

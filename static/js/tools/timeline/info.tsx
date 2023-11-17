@@ -25,24 +25,23 @@ class Info extends Component {
       <div id="placeholder-container">
         <p>
           The timelines tool helps you explore trends for the statistical
-          variables that appear in the pane to the left. Enter a place --- city,
-          state, zip, county, country --- in the search box above and then pick
-          one or more statistical variables in the pane. There are thousands of
+          variables that appear in the pane to the left. Enter a place --- country, continent, city --- in the
+            search box above and then pick  one or more statistical variables in the pane. There are thousands of
           statistical variables to choose from, arranged in a topical hierarchy.
         </p>
         {!_.isEmpty(window.infoConfig["timeline"]) && (
           <p>
-            Or you can start your exploration from these interesting points ...
+            {/*Or you can start your exploration from these interesting points ...*/}
           </p>
         )}
 
-        <MemoizedInfoExamples configKey="timeline" />
+        {/*<MemoizedInfoExamples configKey="timeline" />*/}
 
-        <p>Take the data and use it on your site!</p>
-        <p>
-          <a href="mailto:collaborations@datacommons.org">Send</a> us your
-          discoveries!
-        </p>
+        {/*<p>Take the data and use it on your site!</p>*/}
+        {/*<p>*/}
+        {/*  <a href="mailto:collaborations@datacommons.org">Send</a> us your*/}
+        {/*  discoveries!*/}
+        {/*</p>*/}
       </div>
     );
   }
