@@ -104,7 +104,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
           stat_var_spec_map.update(
               highlight.highlight_block(block.columns.add(), cspec.places[0],
                                         cspec.svs[0], sv2thing,
-                                        cspec.single_date), cspec.single_date)
+                                        cspec.single_date))
         stat_var_spec_map = timeline.single_place_single_var_timeline_block(
             block.columns.add(), cspec.places[0], cspec.svs[0], sv2thing)
         if not cspec.is_sdg:
