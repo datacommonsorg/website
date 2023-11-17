@@ -15,7 +15,7 @@
   --dc-primary:#000;
   --dc-accent:#62A6CB;
   --dc-highlight:#5AC7F4;
-  --link-color:#000;
+  --link-color:#62A6CB;
   --footer-bg:#000;
   --dc-red-fade:#40d4e033;
   --nav-link-color:#666;
@@ -316,6 +316,10 @@ h6{
   position:static !important;
 }
 
+#main-content a{
+  font-weight:500;
+}
+
 #explore{
   background-color:#444;
   border-bottom:2px solid white;
@@ -451,13 +455,14 @@ h6{
   background:none;
   border:none;
   text-decoration:none;
-  color:inherit;
+  color:var(--dc-primary);
   display:flex;
   flex-direction:column;
   align-items:center;
 }
 .explore__link:hover, .explore__link:active, .explore__link:focus{
   text-decoration:none;
+  color:var(--dc-primary);
 }
 .explore__link:hover .explore__icon-wrapper, .explore__link:active .explore__icon-wrapper, .explore__link:focus .explore__icon-wrapper{
   box-shadow:4px 4px;

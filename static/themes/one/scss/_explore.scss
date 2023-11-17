@@ -1,8 +1,6 @@
 $icon-diameter: 60px;
 
 .explore {
-  &__navigation {}
-
   &__list {
     list-style: none;
     margin: 0;
@@ -22,7 +20,7 @@ $icon-diameter: 60px;
     background: none;
     border: none;
     text-decoration: none;
-    color: inherit;
+    color: var(--dc-primary);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,6 +29,7 @@ $icon-diameter: 60px;
     &:active,
     &:focus {
       text-decoration: none;
+      color: var(--dc-primary);
 
       .explore__icon-wrapper {
         box-shadow: 4px 4px;
