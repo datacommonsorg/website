@@ -16,7 +16,7 @@ from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
-import server.lib.nl.detection.date
+from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.fulfillment.types import ChartSpec
 
 
@@ -33,7 +33,7 @@ def scatter_chart_block(builder: base.Builder, cspec: ChartSpec):
   sv_names = [sv2thing.name[sv_pair[0]], sv2thing.name[sv_pair[1]]]
   sv_units = [sv2thing.unit[sv_pair[0]], sv2thing.unit[sv_pair[1]]]
   sv_key_pair = [sv_pair[0] + '_scatter', sv_pair[1] + '_scatter']
-  date_string = server.lib.nl.detection.date.get_date_string(cspec.single_date)
+  date_string = get_date_string(cspec.single_date)
   if date_string:
     sv_key_pair = [
         sv_key_pair[0] + f'_{date_string}', sv_key_pair[1] + f'_{date_string}'

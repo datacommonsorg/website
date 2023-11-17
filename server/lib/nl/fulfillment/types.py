@@ -91,6 +91,7 @@ class PopulateState:
   ranking_types: List[RankingType] = field(default_factory=list)
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
   quantity: QuantityClassificationAttributes = None
+  # A single specified date to get data for.
   single_date: Date = None
   event_types: List[EventType] = field(default_factory=list)
   disable_fallback: bool = False

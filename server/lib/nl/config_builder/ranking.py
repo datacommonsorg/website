@@ -20,7 +20,7 @@ from server.config.subject_page_pb2 import Tile
 import server.lib.nl.common.constants as constants
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import map
-import server.lib.nl.detection.date
+from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.fulfillment.types import ChartSpec
@@ -86,7 +86,7 @@ def ranking_chart_block_climate_extremes(builder: base.Builder,
   ranking_tile.type = Tile.TileType.RANKING
 
   ranking_count = cspec.ranking_count if cspec.ranking_count else _DEFAULT_RANKING_COUNT
-  date_string = server.lib.nl.detection.date.get_date_string(cspec.single_date)
+  date_string = get_date_string(cspec.single_date)
   for _, sv in enumerate(pri_svs):
     _set_ranking_tile_spec(cspec.ranking_types, sv,
                            ranking_tile.ranking_tile_spec, ranking_count)
@@ -130,7 +130,7 @@ def ranking_chart_block(column, pri_place: Place, pri_sv: str, child_type: str,
   # The main tile
   tile = column.tiles.add()
   sv_key = pri_sv
-  date_string = server.lib.nl.detection.date.get_date_string(date)
+  date_string = get_date_string(date)
   if date_string:
     sv_key += f'_{date_string}'
   tile.stat_var_key.append(sv_key)

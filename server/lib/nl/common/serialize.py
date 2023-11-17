@@ -20,7 +20,6 @@ from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import PlaceFallback
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
-import server.lib.nl.detection.date
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ComparisonClassificationAttributes
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
@@ -111,6 +110,7 @@ def classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
       cdict['quantity'] = _quantity_to_dict(c.attributes)
     elif isinstance(c.attributes, DateClassificationAttributes):
       cdict['dates'] = [asdict(d) for d in c.attributes.dates]
+      cdict['is_single_date'] = c.attributes.is_single_date
     classifications_dict.append(cdict)
   return classifications_dict
 
@@ -156,8 +156,9 @@ def dict_to_classification(
       attributes = GeneralClassificationAttributes(trigger_words=[])
     elif 'dates' in cdict:
       dates = [Date(**d) for d in cdict['dates']]
-      is_single_date = server.lib.nl.detection.date.is_single_date(dates)
-      attributes = DateClassificationAttributes(dates, is_single_date)
+      attributes = DateClassificationAttributes(dates,
+                                                is_single_date=cdict.get(
+                                                    'is_single_date', False))
 
     classifications.append(
         NLClassifier(type=ClassificationType(cdict['type']),

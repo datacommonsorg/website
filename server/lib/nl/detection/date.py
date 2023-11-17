@@ -40,7 +40,7 @@ _MIN_MONTH = 1
 _MIN_DOUBLE_DIGIT_MONTH = 10
 
 
-def is_single_date(dates: list[Date]) -> bool:
+def _is_single_date(dates: list[Date]) -> bool:
   if len(dates) != 1:
     return False
   date = dates[0]
@@ -85,7 +85,7 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
       dates.append(Date('before', year - 1, year_span=1))
 
   return DateClassificationAttributes(dates=dates,
-                                      is_single_date=is_single_date(dates))
+                                      is_single_date=_is_single_date(dates))
 
 
 # Gets the date as an ISO-8601 formatted string (i.e., YYYY-MM or YYYY)
