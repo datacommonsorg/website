@@ -21,6 +21,7 @@ import _ from "lodash";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
+import { GeoJsonData } from "../js/chart/types";
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
 import { ContainedInPlaceSingleVariableDataSpec } from "../js/components/tiles/tile_types";
 import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
@@ -167,6 +168,18 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   geoJsonProp: string;
 
+  // Optional: Custom geoJson string to plot
+  @property()
+  geoJson: string;
+
+  // Optional: Color to draw custom geoJsons in
+  @property()
+  geoJsonColor: string;
+
+  // Optional: Height of the chart region, in px. Defaults to 200.
+  @property()
+  svgChartHeight: number;
+
   firstUpdated(): void {
     if (this.subscribe) {
       this.parentElement.addEventListener(
@@ -264,11 +277,14 @@ export class DatacommonsMapComponent extends LitElement {
         unit: "",
         date: this.date,
       },
-      svgChartHeight: 200,
+      svgChartHeight: this.svgChartHeight || 200,
       title: this.header || this.title,
       placeNameProp: this.placeNameProp,
       geoJsonProp: this.geoJsonProp,
+      geoJson: this.geoJson && JSON.parse(this.geoJson),
+      geoJsonColor: this.geoJsonColor,
     };
+    console.log(this.geoJson && JSON.parse(this.geoJson));
     return createWebComponentElement(MapTile, mapTileProps);
   }
 }

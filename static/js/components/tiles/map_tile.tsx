@@ -25,6 +25,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
+  addPolygonLayer,
   drawD3Map,
   getProjection,
   getProjectionGeoJson,
@@ -78,6 +79,7 @@ import { useDrawOnResize } from "./use_draw_on_resize";
 
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
 const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
+const DEFAULT_CUSTOM_GEOJSON_STROKE_COLOR = "blue";
 
 export interface MapTilePropType {
   // API root
@@ -121,6 +123,12 @@ export interface MapTilePropType {
   subtitle?: string;
   // Function used to get processed stat var names.
   getProcessedSVNameFn?: (name: string) => string;
+  // Custom geoJson to plot along with the normal places.
+  // TODO: Make this a new dataSpec
+  geoJson?: GeoJsonData;
+  // Color to plot custom geoJson in
+  // TODO: Add this to a new dataSpec
+  geoJsonColor?: string;
 }
 
 // Api responses associated with a single layer of the map
@@ -623,6 +631,19 @@ export function draw(
     zoomParams,
     undefined
   );
+
+  // TODO: Make custom geoJsons its own layer type.
+  if (props.geoJson) {
+    addPolygonLayer(
+      mapContainer,
+      props.geoJson,
+      projection,
+      () => "none",
+      () => props.geoJsonColor || DEFAULT_CUSTOM_GEOJSON_STROKE_COLOR,
+      () => null,
+      false
+    );
+  }
 }
 
 function getExploreLink(props: MapTilePropType): {
