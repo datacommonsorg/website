@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, cast
+from typing import cast, Dict
 
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
