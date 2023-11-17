@@ -142,7 +142,7 @@ def _compact_series(series_resp, all_facets):
       'facets': {},
   }
   if all_facets:
-    result['facets'] = series_resp['facets']
+    result['facets'] = series_resp.get('facets', {})
   data = {}
   for var, var_obs in series_resp.get('byVariable', {}).items():
     data[var] = {}

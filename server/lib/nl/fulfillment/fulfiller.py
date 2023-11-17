@@ -64,7 +64,7 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   state.quantity = utils.get_quantity(uttr)
   state.event_types = utils.get_event_types(uttr)
   state.explore_mode = explore_mode
-  state.date = utils.get_date(uttr)
+  state.single_date = utils.get_single_date(uttr)
 
   if not state.query_types:
     uttr.counters.err('fulfill_empty_querytypes', '')

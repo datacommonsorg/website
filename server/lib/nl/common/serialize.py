@@ -110,6 +110,7 @@ def classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
       cdict['quantity'] = _quantity_to_dict(c.attributes)
     elif isinstance(c.attributes, DateClassificationAttributes):
       cdict['dates'] = [asdict(d) for d in c.attributes.dates]
+      cdict['is_single_date'] = c.attributes.is_single_date
     classifications_dict.append(cdict)
   return classifications_dict
 
@@ -154,8 +155,10 @@ def dict_to_classification(
     ]:
       attributes = GeneralClassificationAttributes(trigger_words=[])
     elif 'dates' in cdict:
-      attributes = DateClassificationAttributes(
-          dates=[Date(**d) for d in cdict['dates']])
+      dates = [Date(**d) for d in cdict['dates']]
+      attributes = DateClassificationAttributes(dates,
+                                                is_single_date=cdict.get(
+                                                    'is_single_date', False))
 
     classifications.append(
         NLClassifier(type=ClassificationType(cdict['type']),
@@ -212,8 +215,8 @@ def _chart_spec_to_dict(charts: List[ChartSpec]) -> List[Dict]:
     cdict['place_type'] = c.place_type
     cdict['chart_vars'] = asdict(c.chart_vars)
     cdict['ranking_types'] = c.ranking_types
-    if c.date:
-      cdict['date'] = asdict(c.date)
+    if c.single_date:
+      cdict['single_date'] = asdict(c.single_date)
     charts_dict.append(cdict)
   return charts_dict
 
@@ -225,10 +228,10 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
       cv = ChartVars(**cdict['chart_vars'])
     else:
       cv = ChartVars(svs=[])
-    if cdict.get('date'):
-      date = Date(**cdict['date'])
+    if cdict.get('single_date'):
+      single_date = Date(**cdict['single_date'])
     else:
-      date = None
+      single_date = None
     charts.append(
         ChartSpec(
             chart_type=ChartType(cdict['chart_type']),
@@ -241,7 +244,7 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
             ranking_count=0,
             chart_origin=None,
             is_sdg=False,
-            date=date))
+            single_date=single_date))
   return charts
 
 

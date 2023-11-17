@@ -331,6 +331,7 @@ class Date:
 @dataclass
 class DateClassificationAttributes(ClassificationAttributes):
   dates: List[Date]
+  is_single_date: bool
 
 
 @dataclass
