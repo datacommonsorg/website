@@ -1,21 +1,18 @@
 # Custom Data Commons
 
-A custom Data Commons can hold new data and include UI modifications that are
+A custom Data Commons (DC) can hold new data and include UI modifications that are
 custom to a third party's need.
 
 This document illustrates development and deployment details for a custom Data
 Commons instance.
 
-## Custom and Base Data Commons
-
+## Custom and Base DCs
 <img src="https://github.com/datacommonsorg/website/assets/1221814/63efdb88-580c-4bc2-967b-5dce61844eea" 
      alt="Custom Data Commons" 
      style="width: 40vw;"/>
-
-The diagram above is a high level view of the relationship between a custom and base DC.
+The diagram above is a high-level view of the relationship between custom and base DC instances.
 As indicated, custom and base DCs largely share the same software stack.
-Additionally a custom DC interfaces with its own custom data and as well as with main DC.
-The latter enables combining custom DC datasets with those from base DC.
+Additionally, a custom DC combines its own local datasets with base DC datasets to provide a unified view.
 
 ## Prerequisites
 
