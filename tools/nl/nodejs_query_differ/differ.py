@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import json
+
 from absl import app
 from absl import flags
 from deepdiff import DeepDiff
-import json
-
 from google.cloud import storage
 
 _GCS_BUCKET = 'datcom-website-periodic-testing'
