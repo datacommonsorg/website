@@ -550,6 +550,7 @@ figure.topic__figure:hover{
   justify-content:center;
   min-height:8rem;
   width:100%;
+  pointer-events:none;
 }
 
 img.topic__image{
