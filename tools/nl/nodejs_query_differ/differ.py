@@ -84,6 +84,7 @@ def run_diff(base_blobs, test_blobs, output_file):
       report[key] = json.dumps(diff.to_json())
     else:
       report[key] = 'Success'
+  # TODO: have a UI for showing the result
   with open(output_file, 'w') as f:
     f.write(json.dumps(report))
   print("Done running differ")
@@ -94,6 +95,12 @@ def main(_):
   sc = storage.Client()
   bucket = sc.get_bucket(f'{_GCS_BUCKET}')
   base_folder, test_folder = _get_folder_names(bucket)
+  if not base_folder:
+    print("Could not get base_folder name, please enter one manually.")
+    return
+  if not test_folder:
+    print("Could not get test_folder name, please enter one manually.")
+    return
   base_blobs = bucket.list_blobs(
       prefix=f'{FLAGS.env}/{base_folder}/nodejs_query/')
   test_blobs = bucket.list_blobs(
