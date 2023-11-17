@@ -71,7 +71,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_WildfireEvent"
+                      "Count_WildfireEvent_2022"
                     ],
                     "title": "Wildfires in California",
                     "type": "LINE"
@@ -99,7 +99,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_FireIncidentComplex"
+                      "Count_FireIncidentComplex_2022"
                     ],
                     "title": "Count of Fire Incident Complex Event in California",
                     "type": "LINE"
@@ -123,18 +123,10 @@
           }
         ],
         "statVarSpec": {
-          "Count_FireIncidentComplex": {
-            "name": "Count of Fire Incident Complex Event",
-            "statVar": "Count_FireIncidentComplex"
-          },
           "Count_FireIncidentComplex_2022": {
             "date": "2022",
             "name": "Count of Fire Incident Complex Event",
             "statVar": "Count_FireIncidentComplex"
-          },
-          "Count_WildfireEvent": {
-            "name": "Wildfires",
-            "statVar": "Count_WildfireEvent"
           },
           "Count_WildfireEvent_2022": {
             "date": "2022",

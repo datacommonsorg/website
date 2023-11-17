@@ -56,7 +56,7 @@ class TestUtilsAddToSet(unittest.TestCase):
     # dictionary (of lists). The strings themselves are also sentences
     # which need to be split in to words.
     for ctype, d_vals in constants.QUERY_CLASSIFICATION_HEURISTICS.items():
-      if ctype == 'Event' or ctype == 'Superlative':
+      if ctype in constants.HEURISTIC_TYPES_IN_VARIABLES:
         continue
       vals_list = []
       if type(d_vals) == list:

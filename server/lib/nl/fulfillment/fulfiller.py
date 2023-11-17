@@ -43,9 +43,7 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   # Construct a common PopulateState
   state = PopulateState(uttr=uttr)
 
-  detailed_action = utils.get_action_verbs(uttr)
-  if detailed_action:
-    uttr.counters.info('fulfill_detailed_action_querytypes', detailed_action)
+  if not _perform_strict_mode_checks(uttr):
     return state
 
   # IMPORTANT: Do this as the very first thing before
@@ -141,6 +139,21 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
     state.uttr.sv_source = FulfillmentResult.UNKNOWN
 
   return state
+
+
+# Returns False if the checks fail (aka should not proceed).
+def _perform_strict_mode_checks(uttr: Utterance) -> bool:
+  detailed_action = utils.get_action_verbs(uttr)
+  if detailed_action:
+    uttr.counters.info('fulfill_detailed_action_querytypes', detailed_action)
+    return False
+
+  if futils.classifications_of_type(uttr.classifications,
+                                    dtypes.ClassificationType.TEMPORAL):
+    uttr.counters.info('fulfill_temporal_types_detected', [])
+    return False
+
+  return True
 
 
 def _produce_query_types(uttr: Utterance) -> List[QueryType]:

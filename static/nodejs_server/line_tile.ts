@@ -97,15 +97,32 @@ export async function getLineTileResult(
     // If it is a single line chart, add highlight information.
     if (chartData.dataGroup && chartData.dataGroup.length === 1) {
       const dataPoints = _.cloneDeep(chartData.dataGroup[0].value);
-      if (!_.isEmpty(dataPoints)) {
+      const highlightDate = statVarSpec[0].date;
+      let highlightPoint = null;
+      if (!_.isEmpty(dataPoints) && highlightDate) {
+        highlightPoint = dataPoints.find(
+          (point) => point.label === highlightDate
+        );
+        // If there is a date specified, but the date is not in the list of
+        // datapoints, skip returning the result for this chart
+        if (!highlightPoint) {
+          console.log(
+            `Skipping line tile result for ${id} because missing specified date.`
+          );
+          return null;
+        }
+      } else if (!_.isEmpty(dataPoints)) {
         dataPoints.sort((a, b) => {
           const fieldToCompare =
             a.time && b.time ? "time" : a.date && b.date ? "date" : "label";
           return a[fieldToCompare] > b[fieldToCompare] ? -1 : 1;
         });
+        highlightPoint = dataPoints[0];
+      }
+      if (highlightPoint) {
         result.highlight = {
-          date: dataPoints[0].label,
-          value: dataPoints[0].value,
+          date: highlightPoint.label,
+          value: highlightPoint.value,
         };
       }
     }
