@@ -462,6 +462,8 @@ class ExploreTest(NLWebServerTestCase):
             # This query should return empty result because we don't
             # return low-confidence results.
             'number of headless drivers in california',
+            # This should be blocked because of "december"
+            'how many day beijing snow in december?',
         ],
         mode='strict')
 
