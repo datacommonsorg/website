@@ -1,10 +1,18 @@
 # Custom Data Commons
 
-A custom Data Commons can hold new data and include UI modifications that are
+A custom Data Commons (DC) can hold new data and include UI modifications that are
 custom to a third party's need.
 
 This document illustrates development and deployment details for a custom Data
 Commons instance.
+
+## Custom and Base DCs
+<img src="https://github.com/datacommonsorg/website/assets/1221814/63efdb88-580c-4bc2-967b-5dce61844eea" 
+     alt="Custom Data Commons" 
+     style="width: 40vw;"/>
+The diagram above is a high-level view of the relationship between custom and base DC instances.
+As indicated, custom and base DCs largely share the same software stack.
+Additionally, a custom DC combines its own local datasets with base DC datasets to provide a unified view.
 
 ## Prerequisites
 
@@ -193,6 +201,19 @@ before the operation.
 
 ### Prepare Custom Data
 
+The examples below show how you can prepare your data to be imported into a custom DC instance.
+
+The first column header is a property that identifies the observed entity.
+Supported properties in the examples below are `dcid`, `name`, `geoId`. 
+When `dcid` is used, the entity should have been resolved (i.e. mapped to a DC identifier from a previous step).
+
+The second column is a property that identifies the date.
+
+The last two columns identify IDs of metrics or statistical variables, with the column containing the corresponding numeric values.
+
+> Note that the treatment of variables in this section is much simplified for the purposes of this discussion.
+> For a more detailed discussion on the DC data model, please refer to the document on [Representing statistics in Data Commons](https://github.com/datacommonsorg/data/blob/master/docs/representing_statistics.md).
+
 Prepare CSV files with statistical data in the following formats:
 
 ```csv
@@ -212,10 +233,6 @@ dcid,observationDate,stat_var_1,stat_var_2
 geoId/06,2021,555,666
 geoId/08,2021,10,10
 ```
-
-The first column header is a property that identifies the observed entity,
-supported properties are `dcid`, `name`, `geoId`. When `dcid` is used, the
-entity should have been resolved (from a previous step).
 
 Refer to [sample folder](./sample) for supported example data files.
 
