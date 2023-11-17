@@ -24,14 +24,21 @@ _OUTPUT_FILE = 'differ_results.json'
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('env', 'autopush',
-                    'The environment of the responses to run the differ on. Defaults to autopush.')
+flags.DEFINE_string(
+    'env', 'autopush',
+    'The environment of the responses to run the differ on. Defaults to autopush.'
+)
 
-flags.DEFINE_string('base_folder', '',
-                    'The folder holding the base responses to test against. Defaults to second last folder in gs://datcom-website-periodic-testing/<FLAGS.env>')
+flags.DEFINE_string(
+    'base_folder', '',
+    'The folder holding the base responses to test against. Defaults to second last folder in gs://datcom-website-periodic-testing/<FLAGS.env>'
+)
 
-flags.DEFINE_string('test_folder', '',
-                    'The folder holding the responses to test. Defaults to last folder in gs://datcom-website-periodic-testing/<FLAGS.env>')
+flags.DEFINE_string(
+    'test_folder', '',
+    'The folder holding the responses to test. Defaults to last folder in gs://datcom-website-periodic-testing/<FLAGS.env>'
+)
+
 
 def _get_folder_names(bucket):
   """Gets a tuple of (base folder name, test folder name)"""
@@ -87,8 +94,10 @@ def main(_):
   sc = storage.Client()
   bucket = sc.get_bucket(f'{_GCS_BUCKET}')
   base_folder, test_folder = _get_folder_names(bucket)
-  base_blobs = bucket.list_blobs(prefix=f'{FLAGS.env}/{base_folder}/nodejs_query/')
-  test_blobs = bucket.list_blobs(prefix=f'{FLAGS.env}/{test_folder}/nodejs_query/')
+  base_blobs = bucket.list_blobs(
+      prefix=f'{FLAGS.env}/{base_folder}/nodejs_query/')
+  test_blobs = bucket.list_blobs(
+      prefix=f'{FLAGS.env}/{test_folder}/nodejs_query/')
   run_diff(base_blobs, test_blobs, _OUTPUT_FILE)
 
 
