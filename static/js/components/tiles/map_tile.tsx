@@ -79,7 +79,7 @@ import { useDrawOnResize } from "./use_draw_on_resize";
 
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
 const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
-const DEFAULT_CUSTOM_GEOJSON_STROKE_COLOR = "blue";
+const DEFAULT_CUSTOM_GEOJSON_STROKE_COLOR = "grey";
 
 export interface MapTilePropType {
   // API root

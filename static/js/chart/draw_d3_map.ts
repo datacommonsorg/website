@@ -421,7 +421,7 @@ function getValue(
 }
 
 // Adds a layer of geojson features to a map and returns that layer
-export function addGeoJsonLayer(
+function addGeoJsonLayer(
   containerElement: HTMLDivElement,
   geoJson: GeoJsonData,
   projection: d3.GeoProjection,
