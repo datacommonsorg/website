@@ -6,6 +6,17 @@ custom to a third party's need.
 This document illustrates development and deployment details for a custom Data
 Commons instance.
 
+## Custom and Base Data Commons
+
+<img src="https://github.com/datacommonsorg/website/assets/1221814/63efdb88-580c-4bc2-967b-5dce61844eea" 
+     alt="Custom Data Commons" 
+     style="width: 40vw;"/>
+
+The diagram above is a high level view of the relationship between a custom and base DC.
+As indicated, custom and base DCs largely share the same software stack.
+Additionally a custom DC interfaces with its own custom data and as well as with main DC.
+The latter enables combining custom DC datasets with those from base DC.
+
 ## Prerequisites
 
 - Install [docker](https://www.docker.com/products/docker-desktop/)
@@ -192,6 +203,9 @@ before the operation.
 ## Import Custom Data
 
 ### Prepare Custom Data
+
+> Note that the treatment of variables in this section is much simplified for the purposes of this discussion.
+> For a more detailed discussion on the DC data model, please refer to the document on [Representing statistics in Data Commons](https://github.com/datacommonsorg/data/blob/master/docs/representing_statistics.md).
 
 Prepare CSV files with statistical data in the following formats:
 
