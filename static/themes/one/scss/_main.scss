@@ -2,6 +2,12 @@
     position: static !important;
 }
 
+#main-content {
+    a {
+        font-weight: 500;
+    }
+}
+
 #explore {
     background-color: #444;
     border-bottom: 2px solid white;
