@@ -30,5 +30,8 @@
     "sharp": "^0.32.6",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "one-climate-story": "github:ONEcampaign/climate_finance_page"
   }
 }

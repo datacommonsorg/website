@@ -101,7 +101,7 @@ module.exports = {
             if (/\.(jpe?g|png)$/i.test(path)) {
               // Adjust compression settings as needed
               return sharp(content)
-              .webp({ lossless: true })
+                .webp({ lossless: true })
                 .toBuffer();
             }
             return content; // Return original content if not a JPEG or PNG
@@ -119,6 +119,9 @@ module.exports = {
             return content;
           },
         },
+        // Copy the climate-finance files
+        { from: 'node_modules/one-climate-story/docs/', to: path.resolve(__dirname, '../custom_dc/climate-finance') },
+        { from: 'node_modules/one-climate-story/docs/', to: path.resolve(__dirname, '../../server/dist/custom_dc/one/climate-finance') },
       ],
     }),
   ],

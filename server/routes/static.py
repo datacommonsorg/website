@@ -86,6 +86,10 @@ def mcf_playground():
 def feedback():
   return lib_render.render_page("static/feedback.html", "feedback.html")
 
+@bp.route('/climate-finance-files')
+def climate_finance():
+  return lib_render.render_page("static/climate-finance.html", "climate-finance.html")
+
 # TODO(shifucun): get branch cache version from mixer
 @bp.route('/version')
 def version():

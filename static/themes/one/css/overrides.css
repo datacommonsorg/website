@@ -723,3 +723,11 @@ a.topic__link:after{
     margin-left:1rem;
   }
 }
+#climate-finance.main-content{
+  margin-top:0;
+  margin-bottom:0;
+}
+
+#page-client-finance #main-footer{
+  background-color:var(--cs-dark);
+}
