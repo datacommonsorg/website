@@ -120,7 +120,7 @@ module.exports = {
           },
         },
         // Copy the climate-finance files
-        { from: 'node_modules/one-climate-story/docs/', to: path.resolve(__dirname, '../custom_dc/climate-finance') },
+        { from: 'node_modules/one-climate-story/docs/', to: path.resolve(__dirname, '../custom_dc/one/climate-finance') },
         { from: 'node_modules/one-climate-story/docs/', to: path.resolve(__dirname, '../../server/dist/custom_dc/one/climate-finance') },
       ],
     }),
