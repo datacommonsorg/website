@@ -91,6 +91,10 @@ function set_store_value(store, ret, value) {
   store.set(value);
   return ret;
 }
+function split_css_unit(value) {
+  const split = typeof value === "string" && value.match(/^\s*(-?[\d.]+)([^\s]*)\s*$/);
+  return split ? [parseFloat(split[1]), split[2] || "px"] : [value, "px"];
+}
 const is_client = typeof window !== "undefined";
 let now = is_client ? () => window.performance.now() : () => Date.now();
 let raf = is_client ? (cb) => requestAnimationFrame(cb) : noop;
@@ -1105,7 +1109,7 @@ function prepareText(copy) {
   });
 }
 const Progress_svelte_svelte_type_style_lang = "";
-function create_fragment$o(ctx) {
+function create_fragment$p(ctx) {
   let div1;
   let div0;
   return {
@@ -1144,7 +1148,7 @@ function create_fragment$o(ctx) {
     }
   };
 }
-function instance$l($$self, $$props, $$invalidate) {
+function instance$m($$self, $$props, $$invalidate) {
   let { progress = 0 } = $$props;
   $$self.$$set = ($$props2) => {
     if ("progress" in $$props2)
@@ -1155,12 +1159,28 @@ function instance$l($$self, $$props, $$invalidate) {
 class Progress extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$l, create_fragment$o, safe_not_equal, { progress: 0 });
+    init(this, options, instance$m, create_fragment$p, safe_not_equal, { progress: 0 });
   }
 }
 function cubicOut(t) {
   const f = t - 1;
   return f * f * f + 1;
+}
+function fly(node, { delay = 0, duration = 400, easing = cubicOut, x = 0, y = 0, opacity = 0 } = {}) {
+  const style = getComputedStyle(node);
+  const target_opacity = +style.opacity;
+  const transform = style.transform === "none" ? "" : style.transform;
+  const od = target_opacity * (1 - opacity);
+  const [xValue, xUnit] = split_css_unit(x);
+  const [yValue, yUnit] = split_css_unit(y);
+  return {
+    delay,
+    duration,
+    easing,
+    css: (t, u) => `
+			transform: ${transform} translate(${(1 - t) * xValue}${xUnit}, ${(1 - t) * yValue}${yUnit});
+			opacity: ${target_opacity - od * u}`
+  };
 }
 function slide(node, { delay = 0, duration = 400, easing = cubicOut, axis = "y" } = {}) {
   const style = getComputedStyle(node);
@@ -1190,7 +1210,7 @@ function get_each_context$4(ctx, list, i) {
   child_ctx[8] = i;
   return child_ctx;
 }
-function create_if_block$9(ctx) {
+function create_if_block$a(ctx) {
   let ul;
   let ul_transition;
   let current;
@@ -1382,7 +1402,7 @@ function create_each_block$4(ctx) {
     }
   };
 }
-function create_fragment$n(ctx) {
+function create_fragment$o(ctx) {
   let div1;
   let div0;
   let t;
@@ -1395,7 +1415,7 @@ function create_fragment$n(ctx) {
   let dispose;
   let if_block = (
     /*showBookmarks*/
-    ctx[1] && create_if_block$9(ctx)
+    ctx[1] && create_if_block$a(ctx)
   );
   return {
     c() {
@@ -1449,7 +1469,7 @@ function create_fragment$n(ctx) {
             transition_in(if_block, 1);
           }
         } else {
-          if_block = create_if_block$9(ctx2);
+          if_block = create_if_block$a(ctx2);
           if_block.c();
           transition_in(if_block, 1);
           if_block.m(div0, t);
@@ -1489,7 +1509,7 @@ function create_fragment$n(ctx) {
     }
   };
 }
-function instance$k($$self, $$props, $$invalidate) {
+function instance$l($$self, $$props, $$invalidate) {
   let $chapters, $$unsubscribe_chapters = noop, $$subscribe_chapters = () => ($$unsubscribe_chapters(), $$unsubscribe_chapters = subscribe(chapters, ($$value) => $$invalidate(2, $chapters = $$value)), chapters);
   $$self.$$.on_destroy.push(() => $$unsubscribe_chapters());
   let { chapters } = $$props;
@@ -1510,12 +1530,12 @@ function instance$k($$self, $$props, $$invalidate) {
 class Bookmarks extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$k, create_fragment$n, safe_not_equal, { chapters: 0 });
+    init(this, options, instance$l, create_fragment$o, safe_not_equal, { chapters: 0 });
   }
 }
 const heroImg = "" + new URL("hero.jpg", import.meta.url).href;
 const Tag_svelte_svelte_type_style_lang = "";
-function create_fragment$m(ctx) {
+function create_fragment$n(ctx) {
   let div;
   let t_value = (
     /*text*/
@@ -1546,7 +1566,7 @@ function create_fragment$m(ctx) {
     }
   };
 }
-function instance$j($$self, $$props, $$invalidate) {
+function instance$k($$self, $$props, $$invalidate) {
   let { text: text2 } = $$props;
   $$self.$$set = ($$props2) => {
     if ("text" in $$props2)
@@ -1557,11 +1577,11 @@ function instance$j($$self, $$props, $$invalidate) {
 class Tag extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$j, create_fragment$m, safe_not_equal, { text: 0 });
+    init(this, options, instance$k, create_fragment$n, safe_not_equal, { text: 0 });
   }
 }
 const ScrollCue_svelte_svelte_type_style_lang = "";
-function create_fragment$l(ctx) {
+function create_fragment$m(ctx) {
   let div;
   let t;
   return {
@@ -1606,7 +1626,7 @@ function create_fragment$l(ctx) {
     }
   };
 }
-function instance$i($$self, $$props, $$invalidate) {
+function instance$j($$self, $$props, $$invalidate) {
   let y = 0;
   let alpha = 0;
   let startTime;
@@ -1625,35 +1645,221 @@ function instance$i($$self, $$props, $$invalidate) {
 class ScrollCue extends SvelteComponent {
   constructor(options) {
     super();
+    init(this, options, instance$j, create_fragment$m, safe_not_equal, {});
+  }
+}
+const PressNote_svelte_svelte_type_style_lang = "";
+function create_else_block$2(ctx) {
+  let div;
+  return {
+    c() {
+      div = element("div");
+      div.textContent = "~ Embargoed press preview ~";
+      attr(div, "class", "press-wrap svelte-13dtrfb");
+      set_style(div, "font-weight", "700");
+    },
+    m(target, anchor) {
+      insert(target, div, anchor);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(div);
+    }
+  };
+}
+function create_if_block$9(ctx) {
+  let div2;
+  let div1;
+  let p0;
+  let t5;
+  let p1;
+  let t9;
+  let div0;
+  let button;
+  let div2_transition;
+  let current;
+  let mounted;
+  let dispose;
+  return {
+    c() {
+      div2 = element("div");
+      div1 = element("div");
+      p0 = element("p");
+      p0.innerHTML = `This is a <b>press preview</b>, under
+        <b>strict embargo until 00:01 CET on 30 November 2023</b>. Not all
+        features may work as expected and small changes are still possible.`;
+      t5 = space();
+      p1 = element("p");
+      p1.innerHTML = `This story will launch on <a href="https://datacommons.staging.one.org/climate-finance-files">datacommons.one.org/climate-finance-files</a> on 30 November at 00:01 CET.`;
+      t9 = space();
+      div0 = element("div");
+      button = element("button");
+      button.textContent = "close this note";
+      attr(button, "class", "close");
+      attr(div0, "class", "close-wrap svelte-13dtrfb");
+      attr(div1, "class", "press-note svelte-13dtrfb");
+      attr(div2, "class", "press-wrap svelte-13dtrfb");
+    },
+    m(target, anchor) {
+      insert(target, div2, anchor);
+      append(div2, div1);
+      append(div1, p0);
+      append(div1, t5);
+      append(div1, p1);
+      append(div1, t9);
+      append(div1, div0);
+      append(div0, button);
+      current = true;
+      if (!mounted) {
+        dispose = listen(
+          button,
+          "click",
+          /*click_handler*/
+          ctx[1]
+        );
+        mounted = true;
+      }
+    },
+    p: noop,
+    i(local) {
+      if (current)
+        return;
+      add_render_callback(() => {
+        if (!current)
+          return;
+        if (!div2_transition)
+          div2_transition = create_bidirectional_transition(div2, fly, { x: -200, duration: 300 }, true);
+        div2_transition.run(1);
+      });
+      current = true;
+    },
+    o(local) {
+      if (!div2_transition)
+        div2_transition = create_bidirectional_transition(div2, fly, { x: -200, duration: 300 }, false);
+      div2_transition.run(0);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(div2);
+      if (detaching && div2_transition)
+        div2_transition.end();
+      mounted = false;
+      dispose();
+    }
+  };
+}
+function create_fragment$l(ctx) {
+  let current_block_type_index;
+  let if_block;
+  let if_block_anchor;
+  let current;
+  const if_block_creators = [create_if_block$9, create_else_block$2];
+  const if_blocks = [];
+  function select_block_type(ctx2, dirty) {
+    if (
+      /*show*/
+      ctx2[0]
+    )
+      return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type(ctx);
+  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  return {
+    c() {
+      if_block.c();
+      if_block_anchor = empty();
+    },
+    m(target, anchor) {
+      if_blocks[current_block_type_index].m(target, anchor);
+      insert(target, if_block_anchor, anchor);
+      current = true;
+    },
+    p(ctx2, [dirty]) {
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type(ctx2);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx2, dirty);
+      } else {
+        group_outros();
+        transition_out(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        check_outros();
+        if_block = if_blocks[current_block_type_index];
+        if (!if_block) {
+          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+          if_block.c();
+        } else {
+          if_block.p(ctx2, dirty);
+        }
+        transition_in(if_block, 1);
+        if_block.m(if_block_anchor.parentNode, if_block_anchor);
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if_blocks[current_block_type_index].d(detaching);
+      if (detaching)
+        detach(if_block_anchor);
+    }
+  };
+}
+function instance$i($$self, $$props, $$invalidate) {
+  let show = true;
+  const click_handler = () => $$invalidate(0, show = false);
+  return [show, click_handler];
+}
+class PressNote extends SvelteComponent {
+  constructor(options) {
+    super();
     init(this, options, instance$i, create_fragment$l, safe_not_equal, {});
   }
 }
 const Hero_svelte_svelte_type_style_lang = "";
 function create_fragment$k(ctx) {
+  let pressnote;
+  let t0;
   let div1;
   let div0;
   let tag;
-  let t0;
+  let t1;
   let h1;
-  let t2;
+  let t3;
   let p;
-  let t4;
+  let t5;
   let scrollcue;
   let current;
+  pressnote = new PressNote({});
   tag = new Tag({ props: { text: "climate financing" } });
   scrollcue = new ScrollCue({});
   return {
     c() {
+      create_component(pressnote.$$.fragment);
+      t0 = space();
       div1 = element("div");
       div0 = element("div");
       create_component(tag.$$.fragment);
-      t0 = space();
+      t1 = space();
       h1 = element("h1");
       h1.textContent = "CLIMATE FINANCE REPORTING IS A MESS. HERE’S HOW TO FIX IT.";
-      t2 = space();
+      t3 = space();
       p = element("p");
       p.textContent = "No one really knows how much is being spent to address climate change. So\n      ONE is launching The Climate Finance Files, a detailed account of what's\n      being spent, where.";
-      t4 = space();
+      t5 = space();
       create_component(scrollcue.$$.fragment);
       attr(h1, "class", "svelte-2bvi8e");
       attr(p, "class", "svelte-2bvi8e");
@@ -1663,14 +1869,16 @@ function create_fragment$k(ctx) {
       set_style(div1, "background-image", "url(" + heroImg + ")");
     },
     m(target, anchor) {
+      mount_component(pressnote, target, anchor);
+      insert(target, t0, anchor);
       insert(target, div1, anchor);
       append(div1, div0);
       mount_component(tag, div0, null);
-      append(div0, t0);
+      append(div0, t1);
       append(div0, h1);
-      append(div0, t2);
+      append(div0, t3);
       append(div0, p);
-      append(div0, t4);
+      append(div0, t5);
       mount_component(scrollcue, div0, null);
       current = true;
     },
@@ -1678,16 +1886,21 @@ function create_fragment$k(ctx) {
     i(local) {
       if (current)
         return;
+      transition_in(pressnote.$$.fragment, local);
       transition_in(tag.$$.fragment, local);
       transition_in(scrollcue.$$.fragment, local);
       current = true;
     },
     o(local) {
+      transition_out(pressnote.$$.fragment, local);
       transition_out(tag.$$.fragment, local);
       transition_out(scrollcue.$$.fragment, local);
       current = false;
     },
     d(detaching) {
+      destroy_component(pressnote, detaching);
+      if (detaching)
+        detach(t0);
       if (detaching)
         detach(div1);
       destroy_component(tag);
