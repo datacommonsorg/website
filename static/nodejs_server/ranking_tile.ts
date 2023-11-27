@@ -28,7 +28,7 @@ import {
 import {
   getRankingUnit,
   getRankingUnitTitle,
-  MAX_RANKING_POINTS_IN_CSV
+  MAX_RANKING_POINTS_IN_CSV,
 } from "../js/components/tiles/sv_ranking_units";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { RankingGroup } from "../js/types/ranking_unit_types";
@@ -108,7 +108,7 @@ function getRankingUnitResult(
   useChartUrl: boolean,
   apiRoot: string
 ): TileResult {
-  var points = isHighest
+  let points = isHighest
     ? rankingGroup.points.slice().reverse()
     : rankingGroup.points;
   // Trim to top N.
