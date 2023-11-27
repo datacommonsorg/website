@@ -5603,6 +5603,7 @@ function create_fragment$3(ctx) {
   let resource3;
   let t7;
   let resource4;
+  let t8;
   let div2_data_chapter_value;
   let current;
   resource0 = new Resource({
@@ -5650,8 +5651,8 @@ function create_fragment$3(ctx) {
       div2 = element("div");
       div1 = element("div");
       header = element("header");
-      header.innerHTML = `<h2 class="svelte-4ox81g">Congratulations on making it to the end! 🪩</h2> 
-      <p class="svelte-4ox81g">Here’s your reward: you can dive deeper and explore the data on your
+      header.innerHTML = `<h2 class="svelte-zjte5q">Congratulations on making it to the end! 🪩</h2> 
+      <p class="svelte-zjte5q">Here’s your reward: you can dive deeper and explore the data on your
         own. Feel free to download the data, create, and share your own stories!</p>`;
       t3 = space();
       div0 = element("div");
@@ -5664,10 +5665,11 @@ function create_fragment$3(ctx) {
       create_component(resource3.$$.fragment);
       t7 = space();
       create_component(resource4.$$.fragment);
-      attr(header, "class", "svelte-4ox81g");
-      attr(div0, "class", "resources svelte-4ox81g");
-      attr(div1, "class", "resources-main svelte-4ox81g");
-      attr(div2, "class", "resources-wrap svelte-4ox81g");
+      t8 = space();
+      attr(header, "class", "svelte-zjte5q");
+      attr(div0, "class", "resources svelte-zjte5q");
+      attr(div1, "class", "resources-main svelte-zjte5q");
+      attr(div2, "class", "resources-wrap svelte-zjte5q");
       attr(div2, "data-chapter", div2_data_chapter_value = /*data*/
       ctx[0].chapter);
     },
@@ -5686,6 +5688,7 @@ function create_fragment$3(ctx) {
       mount_component(resource3, div0, null);
       append(div0, t7);
       mount_component(resource4, div0, null);
+      append(div1, t8);
       current = true;
     },
     p(ctx2, [dirty]) {
@@ -5748,7 +5751,7 @@ function create_fragment$2(ctx) {
       div3 = element("div");
       div2 = element("div");
       div1 = element("div");
-      div1.innerHTML = `<h3 class="svelte-aivbwk">This story was brought to you by an amazing team...</h3> 
+      div1.innerHTML = `<h3 class="svelte-aivbwk">This story was brought to you by the following team...</h3> 
       <div class="list svelte-aivbwk"><p class="svelte-aivbwk">Story by <strong><a href="https://data.one.org/experts/#joseph-kraus" target="_blank">Joseph Kraus</a></strong></p> 
         <p class="svelte-aivbwk">Data by
           <strong><a href="https://data.one.org/experts/#jorge-rivera" target="_blank">Jorge Rivera</a>
@@ -5757,7 +5760,8 @@ function create_fragment$2(ctx) {
         <p class="svelte-aivbwk">With contributions from
           <strong><a href="https://data.one.org/experts/#olawunmi-ola-busari" target="_blank">Olawunmi Ola-Busari</a>,
             <a href="https://data.one.org/experts/#luca-picci" target="_blank">Luca Picci</a>,
-            <a href="https://data.one.org/experts/#amy-dodd" target="_blank">Amy Dodd</a>, and
+            <a href="https://data.one.org/experts/#amy-dodd" target="_blank">Amy Dodd</a>,
+            <a href="https://www.one.org/stories/author/annepaisley/" target="_blank">Anne Paisley</a>, and
             <a href="https://data.one.org/experts/#david-mcnair" target="_blank">David McNair</a></strong></p> 
         <p class="svelte-aivbwk">Viusal storytelling by
           <strong><a href="https://www.parabole.studio/" target="_blank">Evelina Judeikyte</a>
