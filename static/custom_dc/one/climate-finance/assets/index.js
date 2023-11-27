@@ -1032,6 +1032,34 @@ const mobileBreak = readable(700);
 const windowWidth = writable(window.innerWidth);
 const isMobile = derived([mobileBreak, windowWidth], ([$mobileBreak, $windowWidth]) => $windowWidth < $mobileBreak);
 const slideWidth = writable(0);
+const legend_1_3 = readable([
+  {
+    label: "original report by the UK",
+    colour: "#EDB83A",
+    radius: "50%",
+    label_colour: "#EDB83A"
+  },
+  {
+    label: "our calculations",
+    colour: "#01FFD8",
+    radius: "50%",
+    label_colour: "#01FFD8"
+  }
+]);
+const legend_3_1 = readable([
+  {
+    label: "needs covered",
+    colour: "#C2C2C2",
+    radius: "10%",
+    label_colour: "#FFFFFF"
+  },
+  {
+    label: "needs not covered",
+    colour: "#3E4247",
+    radius: "10%",
+    label_colour: "#FFFFFF"
+  }
+]);
 function resize() {
   windowWidth.set(window.innerWidth);
 }
@@ -1077,7 +1105,7 @@ function prepareText(copy) {
   });
 }
 const Progress_svelte_svelte_type_style_lang = "";
-function create_fragment$l(ctx) {
+function create_fragment$o(ctx) {
   let div1;
   let div0;
   return {
@@ -1116,7 +1144,7 @@ function create_fragment$l(ctx) {
     }
   };
 }
-function instance$h($$self, $$props, $$invalidate) {
+function instance$l($$self, $$props, $$invalidate) {
   let { progress = 0 } = $$props;
   $$self.$$set = ($$props2) => {
     if ("progress" in $$props2)
@@ -1127,7 +1155,7 @@ function instance$h($$self, $$props, $$invalidate) {
 class Progress extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$h, create_fragment$l, safe_not_equal, { progress: 0 });
+    init(this, options, instance$l, create_fragment$o, safe_not_equal, { progress: 0 });
   }
 }
 function cubicOut(t) {
@@ -1156,13 +1184,13 @@ function slide(node, { delay = 0, duration = 400, easing = cubicOut, axis = "y" 
 }
 const bookmark = "" + new URL("bookmark.svg", import.meta.url).href;
 const Bookmarks_svelte_svelte_type_style_lang = "";
-function get_each_context$3(ctx, list, i) {
+function get_each_context$4(ctx, list, i) {
   const child_ctx = ctx.slice();
   child_ctx[6] = list[i];
   child_ctx[8] = i;
   return child_ctx;
 }
-function create_if_block$8(ctx) {
+function create_if_block$9(ctx) {
   let ul;
   let ul_transition;
   let current;
@@ -1236,7 +1264,7 @@ function create_if_block_1$5(ctx) {
   );
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
-    each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
+    each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
   }
   return {
     c() {
@@ -1260,11 +1288,11 @@ function create_if_block_1$5(ctx) {
         ctx2[2];
         let i;
         for (i = 0; i < each_value.length; i += 1) {
-          const child_ctx = get_each_context$3(ctx2, each_value, i);
+          const child_ctx = get_each_context$4(ctx2, each_value, i);
           if (each_blocks[i]) {
             each_blocks[i].p(child_ctx, dirty);
           } else {
-            each_blocks[i] = create_each_block$3(child_ctx);
+            each_blocks[i] = create_each_block$4(child_ctx);
             each_blocks[i].c();
             each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
           }
@@ -1282,7 +1310,7 @@ function create_if_block_1$5(ctx) {
     }
   };
 }
-function create_each_block$3(ctx) {
+function create_each_block$4(ctx) {
   let li;
   let button;
   let div0;
@@ -1354,7 +1382,7 @@ function create_each_block$3(ctx) {
     }
   };
 }
-function create_fragment$k(ctx) {
+function create_fragment$n(ctx) {
   let div1;
   let div0;
   let t;
@@ -1367,7 +1395,7 @@ function create_fragment$k(ctx) {
   let dispose;
   let if_block = (
     /*showBookmarks*/
-    ctx[1] && create_if_block$8(ctx)
+    ctx[1] && create_if_block$9(ctx)
   );
   return {
     c() {
@@ -1421,7 +1449,7 @@ function create_fragment$k(ctx) {
             transition_in(if_block, 1);
           }
         } else {
-          if_block = create_if_block$8(ctx2);
+          if_block = create_if_block$9(ctx2);
           if_block.c();
           transition_in(if_block, 1);
           if_block.m(div0, t);
@@ -1461,7 +1489,7 @@ function create_fragment$k(ctx) {
     }
   };
 }
-function instance$g($$self, $$props, $$invalidate) {
+function instance$k($$self, $$props, $$invalidate) {
   let $chapters, $$unsubscribe_chapters = noop, $$subscribe_chapters = () => ($$unsubscribe_chapters(), $$unsubscribe_chapters = subscribe(chapters, ($$value) => $$invalidate(2, $chapters = $$value)), chapters);
   $$self.$$.on_destroy.push(() => $$unsubscribe_chapters());
   let { chapters } = $$props;
@@ -1482,12 +1510,12 @@ function instance$g($$self, $$props, $$invalidate) {
 class Bookmarks extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$g, create_fragment$k, safe_not_equal, { chapters: 0 });
+    init(this, options, instance$k, create_fragment$n, safe_not_equal, { chapters: 0 });
   }
 }
 const heroImg = "" + new URL("hero.jpg", import.meta.url).href;
 const Tag_svelte_svelte_type_style_lang = "";
-function create_fragment$j(ctx) {
+function create_fragment$m(ctx) {
   let div;
   let t_value = (
     /*text*/
@@ -1518,7 +1546,7 @@ function create_fragment$j(ctx) {
     }
   };
 }
-function instance$f($$self, $$props, $$invalidate) {
+function instance$j($$self, $$props, $$invalidate) {
   let { text: text2 } = $$props;
   $$self.$$set = ($$props2) => {
     if ("text" in $$props2)
@@ -1529,11 +1557,11 @@ function instance$f($$self, $$props, $$invalidate) {
 class Tag extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$f, create_fragment$j, safe_not_equal, { text: 0 });
+    init(this, options, instance$j, create_fragment$m, safe_not_equal, { text: 0 });
   }
 }
 const ScrollCue_svelte_svelte_type_style_lang = "";
-function create_fragment$i(ctx) {
+function create_fragment$l(ctx) {
   let div;
   let t;
   return {
@@ -1578,7 +1606,7 @@ function create_fragment$i(ctx) {
     }
   };
 }
-function instance$e($$self, $$props, $$invalidate) {
+function instance$i($$self, $$props, $$invalidate) {
   let y = 0;
   let alpha = 0;
   let startTime;
@@ -1597,11 +1625,11 @@ function instance$e($$self, $$props, $$invalidate) {
 class ScrollCue extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$e, create_fragment$i, safe_not_equal, {});
+    init(this, options, instance$i, create_fragment$l, safe_not_equal, {});
   }
 }
 const Hero_svelte_svelte_type_style_lang = "";
-function create_fragment$h(ctx) {
+function create_fragment$k(ctx) {
   let div1;
   let div0;
   let tag;
@@ -1624,7 +1652,7 @@ function create_fragment$h(ctx) {
       h1.textContent = "CLIMATE FINANCE REPORTING IS A MESS. HERE’S HOW TO FIX IT.";
       t2 = space();
       p = element("p");
-      p.textContent = "No one really knows how much is being spent to address climate change. So\n      ONE is launching the Climate Finance Files, a detailed account of what's\n      being spent, where.";
+      p.textContent = "No one really knows how much is being spent to address climate change. So\n      ONE is launching The Climate Finance Files, a detailed account of what's\n      being spent, where.";
       t4 = space();
       create_component(scrollcue.$$.fragment);
       attr(h1, "class", "svelte-2bvi8e");
@@ -1670,13 +1698,13 @@ function create_fragment$h(ctx) {
 class Hero extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment$h, safe_not_equal, {});
+    init(this, options, null, create_fragment$k, safe_not_equal, {});
   }
 }
 const womenImg = "" + new URL("women.jpg", import.meta.url).href;
 const droughtImg = "" + new URL("drought.jpg", import.meta.url).href;
 const TextSlide_svelte_svelte_type_style_lang = "";
-function create_fragment$g(ctx) {
+function create_fragment$j(ctx) {
   let div2;
   let div1;
   let p;
@@ -1691,10 +1719,10 @@ function create_fragment$g(ctx) {
       t0 = space();
       div0 = element("div");
       div0.textContent = "Scroll →";
-      attr(p, "class", "svelte-zgccn8");
-      attr(div0, "class", "prompt svelte-zgccn8");
-      attr(div1, "class", "slide svelte-zgccn8");
-      attr(div2, "class", "slide-wrap svelte-zgccn8");
+      attr(p, "class", "svelte-1naeslp");
+      attr(div0, "class", "prompt svelte-1naeslp");
+      attr(div1, "class", "slide svelte-1naeslp");
+      attr(div2, "class", "slide-wrap svelte-1naeslp");
       add_render_callback(() => (
         /*div2_elementresize_handler*/
         ctx[2].call(div2)
@@ -1729,7 +1757,7 @@ function create_fragment$g(ctx) {
     }
   };
 }
-function instance$d($$self, $$props, $$invalidate) {
+function instance$h($$self, $$props, $$invalidate) {
   let $slideWidth;
   component_subscribe($$self, slideWidth, ($$value) => $$invalidate(1, $slideWidth = $$value));
   let { text: text2 } = $$props;
@@ -1746,11 +1774,11 @@ function instance$d($$self, $$props, $$invalidate) {
 class TextSlide extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$d, create_fragment$g, safe_not_equal, { text: 0 });
+    init(this, options, instance$h, create_fragment$j, safe_not_equal, { text: 0 });
   }
 }
 const MediaSlide_svelte_svelte_type_style_lang = "";
-function create_if_block$7(ctx) {
+function create_if_block$8(ctx) {
   let video;
   let source;
   let source_src_value;
@@ -1790,7 +1818,7 @@ function create_if_block$7(ctx) {
     }
   };
 }
-function create_fragment$f(ctx) {
+function create_fragment$i(ctx) {
   let div2;
   let div1;
   let t0;
@@ -1802,7 +1830,7 @@ function create_fragment$f(ctx) {
   let current;
   let if_block = (
     /*type*/
-    ctx[0] === "video" && create_if_block$7(ctx)
+    ctx[0] === "video" && create_if_block$8(ctx)
   );
   tag_1 = new Tag({ props: { text: (
     /*tag*/
@@ -1849,7 +1877,7 @@ function create_fragment$f(ctx) {
         if (if_block) {
           if_block.p(ctx2, dirty);
         } else {
-          if_block = create_if_block$7(ctx2);
+          if_block = create_if_block$8(ctx2);
           if_block.c();
           if_block.m(div1, t0);
         }
@@ -1893,7 +1921,7 @@ function create_fragment$f(ctx) {
     }
   };
 }
-function instance$c($$self, $$props, $$invalidate) {
+function instance$g($$self, $$props, $$invalidate) {
   let { type } = $$props;
   let { tag } = $$props;
   let { text: text2 } = $$props;
@@ -1929,17 +1957,17 @@ function instance$c($$self, $$props, $$invalidate) {
 class MediaSlide extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$c, create_fragment$f, safe_not_equal, { type: 0, tag: 1, text: 2, url: 3 });
+    init(this, options, instance$g, create_fragment$i, safe_not_equal, { type: 0, tag: 1, text: 2, url: 3 });
   }
 }
 const Pagination_svelte_svelte_type_style_lang = "";
-function get_each_context$2(ctx, list, i) {
+function get_each_context$3(ctx, list, i) {
   const child_ctx = ctx.slice();
   child_ctx[4] = list[i];
   child_ctx[6] = i;
   return child_ctx;
 }
-function create_each_block$2(ctx) {
+function create_each_block$3(ctx) {
   let button;
   let button_class_value;
   let mounted;
@@ -1958,7 +1986,7 @@ function create_each_block$2(ctx) {
       button = element("button");
       attr(button, "class", button_class_value = "dot " + /*currentSlide*/
       (ctx[1] === /*index*/
-      ctx[6] ? "active" : "") + " svelte-1utkktx");
+      ctx[6] ? "active" : "") + " svelte-145nzsq");
       attr(button, "aria-label", `Go to slide ${/*index*/
       ctx[6] + 1}`);
     },
@@ -1974,7 +2002,7 @@ function create_each_block$2(ctx) {
       if (dirty & /*currentSlide*/
       2 && button_class_value !== (button_class_value = "dot " + /*currentSlide*/
       (ctx[1] === /*index*/
-      ctx[6] ? "active" : "") + " svelte-1utkktx")) {
+      ctx[6] ? "active" : "") + " svelte-145nzsq")) {
         attr(button, "class", button_class_value);
       }
     },
@@ -1986,7 +2014,7 @@ function create_each_block$2(ctx) {
     }
   };
 }
-function create_fragment$e(ctx) {
+function create_fragment$h(ctx) {
   let div;
   let each_value = Array.from({ length: (
     /*slideNumber*/
@@ -1994,7 +2022,7 @@ function create_fragment$e(ctx) {
   ) }, func);
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
-    each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
+    each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
   }
   return {
     c() {
@@ -2002,7 +2030,7 @@ function create_fragment$e(ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      attr(div, "class", "pagination svelte-1utkktx");
+      attr(div, "class", "pagination svelte-145nzsq");
     },
     m(target, anchor) {
       insert(target, div, anchor);
@@ -2021,11 +2049,11 @@ function create_fragment$e(ctx) {
         ) }, func);
         let i;
         for (i = 0; i < each_value.length; i += 1) {
-          const child_ctx = get_each_context$2(ctx2, each_value, i);
+          const child_ctx = get_each_context$3(ctx2, each_value, i);
           if (each_blocks[i]) {
             each_blocks[i].p(child_ctx, dirty);
           } else {
-            each_blocks[i] = create_each_block$2(child_ctx);
+            each_blocks[i] = create_each_block$3(child_ctx);
             each_blocks[i].c();
             each_blocks[i].m(div, null);
           }
@@ -2046,7 +2074,7 @@ function create_fragment$e(ctx) {
   };
 }
 const func = (_, i) => i;
-function instance$b($$self, $$props, $$invalidate) {
+function instance$f($$self, $$props, $$invalidate) {
   let { slideNumber = 2 } = $$props;
   let { currentSlide = 0 } = $$props;
   let { selectSlide } = $$props;
@@ -2064,7 +2092,7 @@ function instance$b($$self, $$props, $$invalidate) {
 class Pagination extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$b, create_fragment$e, safe_not_equal, {
+    init(this, options, instance$f, create_fragment$h, safe_not_equal, {
       slideNumber: 0,
       currentSlide: 1,
       selectSlide: 2
@@ -2072,8 +2100,56 @@ class Pagination extends SvelteComponent {
   }
 }
 const Carousel_svelte_svelte_type_style_lang = "";
-function create_fragment$d(ctx) {
-  let div;
+function create_if_block$7(ctx) {
+  let pagination;
+  let current;
+  pagination = new Pagination({
+    props: {
+      slideNumber: totalSlides,
+      currentSlide: (
+        /*currentSlide*/
+        ctx[1]
+      ),
+      selectSlide: (
+        /*selectSlide*/
+        ctx[3]
+      )
+    }
+  });
+  return {
+    c() {
+      create_component(pagination.$$.fragment);
+    },
+    m(target, anchor) {
+      mount_component(pagination, target, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const pagination_changes = {};
+      if (dirty & /*currentSlide*/
+      2)
+        pagination_changes.currentSlide = /*currentSlide*/
+        ctx2[1];
+      pagination.$set(pagination_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(pagination.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(pagination.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(pagination, detaching);
+    }
+  };
+}
+function create_fragment$g(ctx) {
+  let div1;
+  let div0;
   let textslide;
   let t0;
   let mediaslide0;
@@ -2084,7 +2160,6 @@ function create_fragment$d(ctx) {
   let t3;
   let mediaslide3;
   let t4;
-  let pagination;
   let current;
   textslide = new TextSlide({
     props: {
@@ -2095,7 +2170,7 @@ function create_fragment$d(ctx) {
     props: {
       type: "image",
       tag: "Climate costs in Africa",
-      text: "<a href='https://library.wmo.int/viewer/58070/download?file=1300_State_of_the_Climate_in_Africa_2021_en.pdf&type=pdf&navigator=1'>Climate change is costing Africa</a> up to US$15 billion per year. That’s more than the individual GDPs of 26 African countries. By 2050, it could be US$50 billion.",
+      text: "<a href='https://library.wmo.int/viewer/58070/download?file=1300_State_of_the_Climate_in_Africa_2021_en.pdf&type=pdf&navigator=1' target='_blank'>Climate change is costing Africa</a> up to US$15 billion per year. That’s more than the individual GDPs of 26 African countries. By 2050, it could be US$50 billion",
       url: womenImg
     }
   });
@@ -2110,8 +2185,8 @@ function create_fragment$d(ctx) {
   mediaslide2 = new MediaSlide({
     props: {
       type: "image",
-      tag: "Drought in the Horn of Africa",
-      text: "More than 20 million people are facing acute hunger due to historic drought in the Greater Horn of Africa. Climate change made the drought 100 times more likely.",
+      tag: "Drought in East Africa",
+      text: "More than 20 million people are facing acute hunger due to historic drought in East Africa. Climate change made the drought 100 times more likely.",
       url: droughtImg
     }
   });
@@ -2123,22 +2198,14 @@ function create_fragment$d(ctx) {
       url: "https://datacommons-cdn.one.org/daniel.mp4"
     }
   });
-  pagination = new Pagination({
-    props: {
-      slideNumber: totalSlides,
-      currentSlide: (
-        /*currentSlide*/
-        ctx[1]
-      ),
-      selectSlide: (
-        /*selectSlide*/
-        ctx[2]
-      )
-    }
-  });
+  let if_block = (
+    /*$isMobile*/
+    ctx[2] && create_if_block$7(ctx)
+  );
   return {
     c() {
-      div = element("div");
+      div1 = element("div");
+      div0 = element("div");
       create_component(textslide.$$.fragment);
       t0 = space();
       create_component(mediaslide0.$$.fragment);
@@ -2149,32 +2216,53 @@ function create_fragment$d(ctx) {
       t3 = space();
       create_component(mediaslide3.$$.fragment);
       t4 = space();
-      create_component(pagination.$$.fragment);
-      attr(div, "class", "carousel-wrap svelte-xir1ot");
+      if (if_block)
+        if_block.c();
+      attr(div0, "class", "carousel-wrap svelte-1qz1ken");
+      attr(div1, "class", "carousel svelte-1qz1ken");
     },
     m(target, anchor) {
-      insert(target, div, anchor);
-      mount_component(textslide, div, null);
-      append(div, t0);
-      mount_component(mediaslide0, div, null);
-      append(div, t1);
-      mount_component(mediaslide1, div, null);
-      append(div, t2);
-      mount_component(mediaslide2, div, null);
-      append(div, t3);
-      mount_component(mediaslide3, div, null);
-      ctx[3](div);
-      insert(target, t4, anchor);
-      mount_component(pagination, target, anchor);
+      insert(target, div1, anchor);
+      append(div1, div0);
+      mount_component(textslide, div0, null);
+      append(div0, t0);
+      mount_component(mediaslide0, div0, null);
+      append(div0, t1);
+      mount_component(mediaslide1, div0, null);
+      append(div0, t2);
+      mount_component(mediaslide2, div0, null);
+      append(div0, t3);
+      mount_component(mediaslide3, div0, null);
+      ctx[4](div0);
+      append(div1, t4);
+      if (if_block)
+        if_block.m(div1, null);
       current = true;
     },
     p(ctx2, [dirty]) {
-      const pagination_changes = {};
-      if (dirty & /*currentSlide*/
-      2)
-        pagination_changes.currentSlide = /*currentSlide*/
-        ctx2[1];
-      pagination.$set(pagination_changes);
+      if (
+        /*$isMobile*/
+        ctx2[2]
+      ) {
+        if (if_block) {
+          if_block.p(ctx2, dirty);
+          if (dirty & /*$isMobile*/
+          4) {
+            transition_in(if_block, 1);
+          }
+        } else {
+          if_block = create_if_block$7(ctx2);
+          if_block.c();
+          transition_in(if_block, 1);
+          if_block.m(div1, null);
+        }
+      } else if (if_block) {
+        group_outros();
+        transition_out(if_block, 1, 1, () => {
+          if_block = null;
+        });
+        check_outros();
+      }
     },
     i(local) {
       if (current)
@@ -2184,7 +2272,7 @@ function create_fragment$d(ctx) {
       transition_in(mediaslide1.$$.fragment, local);
       transition_in(mediaslide2.$$.fragment, local);
       transition_in(mediaslide3.$$.fragment, local);
-      transition_in(pagination.$$.fragment, local);
+      transition_in(if_block);
       current = true;
     },
     o(local) {
@@ -2193,28 +2281,29 @@ function create_fragment$d(ctx) {
       transition_out(mediaslide1.$$.fragment, local);
       transition_out(mediaslide2.$$.fragment, local);
       transition_out(mediaslide3.$$.fragment, local);
-      transition_out(pagination.$$.fragment, local);
+      transition_out(if_block);
       current = false;
     },
     d(detaching) {
       if (detaching)
-        detach(div);
+        detach(div1);
       destroy_component(textslide);
       destroy_component(mediaslide0);
       destroy_component(mediaslide1);
       destroy_component(mediaslide2);
       destroy_component(mediaslide3);
-      ctx[3](null);
-      if (detaching)
-        detach(t4);
-      destroy_component(pagination, detaching);
+      ctx[4](null);
+      if (if_block)
+        if_block.d();
     }
   };
 }
 const totalSlides = 5;
-function instance$a($$self, $$props, $$invalidate) {
+function instance$e($$self, $$props, $$invalidate) {
   let $slideWidth;
-  component_subscribe($$self, slideWidth, ($$value) => $$invalidate(4, $slideWidth = $$value));
+  let $isMobile;
+  component_subscribe($$self, slideWidth, ($$value) => $$invalidate(5, $slideWidth = $$value));
+  component_subscribe($$self, isMobile, ($$value) => $$invalidate(2, $isMobile = $$value));
   let carousel;
   let currentSlide = 0;
   function selectSlide(index) {
@@ -2228,27 +2317,98 @@ function instance$a($$self, $$props, $$invalidate) {
     $$invalidate(1, currentSlide = Math.round(carousel.scrollLeft / $slideWidth));
   }
   onMount(() => {
-    document.addEventListener("wheel", handleScroll);
+    carousel.addEventListener("scroll", handleScroll);
     return () => {
-      document.removeEventListener("wheel", handleScroll);
+      carousel.removeEventListener("scroll", handleScroll);
     };
   });
-  function div_binding($$value) {
+  function div0_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](() => {
       carousel = $$value;
       $$invalidate(0, carousel);
     });
   }
-  return [carousel, currentSlide, selectSlide, div_binding];
+  return [carousel, currentSlide, $isMobile, selectSlide, div0_binding];
 }
 class Carousel extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$a, create_fragment$d, safe_not_equal, {});
+    init(this, options, instance$e, create_fragment$g, safe_not_equal, {});
+  }
+}
+const Title_svelte_svelte_type_style_lang = "";
+function create_fragment$f(ctx) {
+  let div2;
+  let div1;
+  let div0;
+  let h3;
+  return {
+    c() {
+      div2 = element("div");
+      div1 = element("div");
+      div0 = element("div");
+      h3 = element("h3");
+      set_style(
+        h3,
+        "color",
+        /*colour*/
+        ctx[1]
+      );
+      attr(div0, "class", "column svelte-11b5z9z");
+      attr(div1, "class", "column-wrap");
+      attr(div2, "class", "title");
+    },
+    m(target, anchor) {
+      insert(target, div2, anchor);
+      append(div2, div1);
+      append(div1, div0);
+      append(div0, h3);
+      h3.innerHTML = /*title*/
+      ctx[0];
+    },
+    p(ctx2, [dirty]) {
+      if (dirty & /*title*/
+      1)
+        h3.innerHTML = /*title*/
+        ctx2[0];
+      if (dirty & /*colour*/
+      2) {
+        set_style(
+          h3,
+          "color",
+          /*colour*/
+          ctx2[1]
+        );
+      }
+    },
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(div2);
+    }
+  };
+}
+function instance$d($$self, $$props, $$invalidate) {
+  let { title = "" } = $$props;
+  let { colour = "#01ffd8" } = $$props;
+  $$self.$$set = ($$props2) => {
+    if ("title" in $$props2)
+      $$invalidate(0, title = $$props2.title);
+    if ("colour" in $$props2)
+      $$invalidate(1, colour = $$props2.colour);
+  };
+  return [title, colour];
+}
+class Title extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance$d, create_fragment$f, safe_not_equal, { title: 0, colour: 1 });
   }
 }
 const ChapterTitle_svelte_svelte_type_style_lang = "";
-function create_fragment$c(ctx) {
+function create_fragment$e(ctx) {
+  let div2;
   let div1;
   let div0;
   let p;
@@ -2268,6 +2428,7 @@ function create_fragment$c(ctx) {
   let div1_data_chapter_value;
   return {
     c() {
+      div2 = element("div");
       div1 = element("div");
       div0 = element("div");
       p = element("p");
@@ -2276,15 +2437,17 @@ function create_fragment$c(ctx) {
       t2 = space();
       h1 = element("h1");
       t3 = text$1(t3_value);
-      attr(p, "class", "svelte-w62wpp");
-      attr(h1, "class", "svelte-w62wpp");
+      attr(p, "class", "svelte-1fsrzu3");
+      attr(h1, "class", "svelte-1fsrzu3");
       attr(div0, "class", "column");
-      attr(div1, "class", "column-wrap svelte-w62wpp");
+      attr(div1, "class", "column-wrap");
       attr(div1, "data-chapter", div1_data_chapter_value = /*data*/
       ctx[0].chapter);
+      attr(div2, "class", "chapter-title svelte-1fsrzu3");
     },
     m(target, anchor) {
-      insert(target, div1, anchor);
+      insert(target, div2, anchor);
+      append(div2, div1);
       append(div1, div0);
       append(div0, p);
       append(p, t0);
@@ -2312,11 +2475,11 @@ function create_fragment$c(ctx) {
     o: noop,
     d(detaching) {
       if (detaching)
-        detach(div1);
+        detach(div2);
     }
   };
 }
-function instance$9($$self, $$props, $$invalidate) {
+function instance$c($$self, $$props, $$invalidate) {
   let { data } = $$props;
   $$self.$$set = ($$props2) => {
     if ("data" in $$props2)
@@ -2327,11 +2490,11 @@ function instance$9($$self, $$props, $$invalidate) {
 class ChapterTitle extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$9, create_fragment$c, safe_not_equal, { data: 0 });
+    init(this, options, instance$c, create_fragment$e, safe_not_equal, { data: 0 });
   }
 }
 const TextBlock_svelte_svelte_type_style_lang = "";
-function get_each_context$1(ctx, list, i) {
+function get_each_context$2(ctx, list, i) {
   const child_ctx = ctx.slice();
   child_ctx[6] = list[i];
   return child_ctx;
@@ -2341,15 +2504,15 @@ function get_each_context_1(ctx, list, i) {
   child_ctx[9] = list[i];
   return child_ctx;
 }
-function create_if_block_2$1(ctx) {
+function create_if_block_2$3(ctx) {
   let div;
   let p;
   return {
     c() {
       div = element("div");
       p = element("p");
-      attr(p, "class", "svelte-1dpjahy");
-      attr(div, "class", "note link-potential svelte-1dpjahy");
+      attr(p, "class", "svelte-8yc1sq");
+      attr(div, "class", "note link-potential svelte-8yc1sq");
     },
     m(target, anchor) {
       insert(target, div, anchor);
@@ -2404,11 +2567,11 @@ function create_if_block_1$4(ctx) {
       t1 = space();
       div0 = element("div");
       t2 = text$1(t2_value);
-      attr(button, "class", "glossary svelte-1dpjahy");
+      attr(button, "class", "glossary svelte-8yc1sq");
       attr(div0, "class", div0_class_value = null_to_empty(`glossary-text ${/*activeGlossaryTerm*/
       ctx[2] === /*part*/
-      ctx[9].content ? "show" : ""}`) + " svelte-1dpjahy");
-      attr(div1, "class", "glossary-wrap svelte-1dpjahy");
+      ctx[9].content ? "show" : ""}`) + " svelte-8yc1sq");
+      attr(div1, "class", "glossary-wrap svelte-8yc1sq");
     },
     m(target, anchor) {
       insert(target, div1, anchor);
@@ -2435,7 +2598,7 @@ function create_if_block_1$4(ctx) {
       if (dirty & /*activeGlossaryTerm, copy*/
       5 && div0_class_value !== (div0_class_value = null_to_empty(`glossary-text ${/*activeGlossaryTerm*/
       ctx[2] === /*part*/
-      ctx[9].content ? "show" : ""}`) + " svelte-1dpjahy")) {
+      ctx[9].content ? "show" : ""}`) + " svelte-8yc1sq")) {
         attr(div0, "class", div0_class_value);
       }
     },
@@ -2527,7 +2690,7 @@ function create_each_block_1(ctx) {
     }
   };
 }
-function create_each_block$1(ctx) {
+function create_each_block$2(ctx) {
   let p;
   let t;
   let each_value_1 = (
@@ -2545,6 +2708,7 @@ function create_each_block$1(ctx) {
         each_blocks[i].c();
       }
       t = space();
+      attr(p, "class", "svelte-8yc1sq");
     },
     m(target, anchor) {
       insert(target, p, anchor);
@@ -2584,7 +2748,8 @@ function create_each_block$1(ctx) {
     }
   };
 }
-function create_fragment$b(ctx) {
+function create_fragment$d(ctx) {
+  let div3;
   let div2;
   let t0;
   let div0;
@@ -2592,7 +2757,7 @@ function create_fragment$b(ctx) {
   let div1;
   let if_block = (
     /*note*/
-    ctx[1] && create_if_block_2$1(ctx)
+    ctx[1] && create_if_block_2$3(ctx)
   );
   let each_value = (
     /*copy*/
@@ -2600,10 +2765,11 @@ function create_fragment$b(ctx) {
   );
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
-    each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+    each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
   }
   return {
     c() {
+      div3 = element("div");
       div2 = element("div");
       if (if_block)
         if_block.c();
@@ -2614,12 +2780,14 @@ function create_fragment$b(ctx) {
       }
       t1 = space();
       div1 = element("div");
-      attr(div0, "class", "column");
+      attr(div0, "class", "column svelte-8yc1sq");
       attr(div1, "class", "right");
       attr(div2, "class", "column-wrap");
+      attr(div3, "class", "text-block");
     },
     m(target, anchor) {
-      insert(target, div2, anchor);
+      insert(target, div3, anchor);
+      append(div3, div2);
       if (if_block)
         if_block.m(div2, null);
       append(div2, t0);
@@ -2640,7 +2808,7 @@ function create_fragment$b(ctx) {
         if (if_block) {
           if_block.p(ctx2, dirty);
         } else {
-          if_block = create_if_block_2$1(ctx2);
+          if_block = create_if_block_2$3(ctx2);
           if_block.c();
           if_block.m(div2, t0);
         }
@@ -2651,6 +2819,193 @@ function create_fragment$b(ctx) {
       if (dirty & /*copy, activeGlossaryTerm, toggleGlossary*/
       13) {
         each_value = /*copy*/
+        ctx2[0];
+        let i;
+        for (i = 0; i < each_value.length; i += 1) {
+          const child_ctx = get_each_context$2(ctx2, each_value, i);
+          if (each_blocks[i]) {
+            each_blocks[i].p(child_ctx, dirty);
+          } else {
+            each_blocks[i] = create_each_block$2(child_ctx);
+            each_blocks[i].c();
+            each_blocks[i].m(div0, null);
+          }
+        }
+        for (; i < each_blocks.length; i += 1) {
+          each_blocks[i].d(1);
+        }
+        each_blocks.length = each_value.length;
+      }
+    },
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(div3);
+      if (if_block)
+        if_block.d();
+      destroy_each(each_blocks, detaching);
+    }
+  };
+}
+function instance$b($$self, $$props, $$invalidate) {
+  let $isMobile;
+  component_subscribe($$self, isMobile, ($$value) => $$invalidate(5, $isMobile = $$value));
+  let { copy } = $$props;
+  let { note = "" } = $$props;
+  let activeGlossaryTerm = null;
+  function toggleGlossary(term) {
+    if ($isMobile) {
+      $$invalidate(2, activeGlossaryTerm = activeGlossaryTerm === term ? null : term);
+    }
+  }
+  const click_handler = (part) => toggleGlossary(part.content);
+  $$self.$$set = ($$props2) => {
+    if ("copy" in $$props2)
+      $$invalidate(0, copy = $$props2.copy);
+    if ("note" in $$props2)
+      $$invalidate(1, note = $$props2.note);
+  };
+  return [copy, note, activeGlossaryTerm, toggleGlossary, click_handler];
+}
+class TextBlock extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance$b, create_fragment$d, safe_not_equal, { copy: 0, note: 1 });
+  }
+}
+const Legend_svelte_svelte_type_style_lang = "";
+function get_each_context$1(ctx, list, i) {
+  const child_ctx = ctx.slice();
+  child_ctx[1] = list[i];
+  return child_ctx;
+}
+function create_each_block$1(ctx) {
+  let div2;
+  let div0;
+  let t0;
+  let div1;
+  let t1_value = (
+    /*category*/
+    ctx[1].label + ""
+  );
+  let t1;
+  let t2;
+  return {
+    c() {
+      div2 = element("div");
+      div0 = element("div");
+      t0 = space();
+      div1 = element("div");
+      t1 = text$1(t1_value);
+      t2 = space();
+      attr(div0, "class", "mark svelte-ijgu57");
+      set_style(
+        div0,
+        "background",
+        /*category*/
+        ctx[1].colour
+      );
+      set_style(
+        div0,
+        "border-radius",
+        /*category*/
+        ctx[1].radius
+      );
+      attr(div1, "class", "label svelte-ijgu57");
+      set_style(
+        div1,
+        "color",
+        /*category*/
+        ctx[1].label_colour
+      );
+      attr(div2, "class", "category svelte-ijgu57");
+    },
+    m(target, anchor) {
+      insert(target, div2, anchor);
+      append(div2, div0);
+      append(div2, t0);
+      append(div2, div1);
+      append(div1, t1);
+      append(div2, t2);
+    },
+    p(ctx2, dirty) {
+      if (dirty & /*legend_data*/
+      1) {
+        set_style(
+          div0,
+          "background",
+          /*category*/
+          ctx2[1].colour
+        );
+      }
+      if (dirty & /*legend_data*/
+      1) {
+        set_style(
+          div0,
+          "border-radius",
+          /*category*/
+          ctx2[1].radius
+        );
+      }
+      if (dirty & /*legend_data*/
+      1 && t1_value !== (t1_value = /*category*/
+      ctx2[1].label + ""))
+        set_data(t1, t1_value);
+      if (dirty & /*legend_data*/
+      1) {
+        set_style(
+          div1,
+          "color",
+          /*category*/
+          ctx2[1].label_colour
+        );
+      }
+    },
+    d(detaching) {
+      if (detaching)
+        detach(div2);
+    }
+  };
+}
+function create_fragment$c(ctx) {
+  let div2;
+  let div1;
+  let div0;
+  let each_value = (
+    /*legend_data*/
+    ctx[0]
+  );
+  let each_blocks = [];
+  for (let i = 0; i < each_value.length; i += 1) {
+    each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+  }
+  return {
+    c() {
+      div2 = element("div");
+      div1 = element("div");
+      div0 = element("div");
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        each_blocks[i].c();
+      }
+      attr(div0, "class", "categories svelte-ijgu57");
+      attr(div1, "class", "column");
+      attr(div2, "class", "column-wrap");
+    },
+    m(target, anchor) {
+      insert(target, div2, anchor);
+      append(div2, div1);
+      append(div1, div0);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        if (each_blocks[i]) {
+          each_blocks[i].m(div0, null);
+        }
+      }
+    },
+    p(ctx2, [dirty]) {
+      if (dirty & /*legend_data*/
+      1) {
+        each_value = /*legend_data*/
         ctx2[0];
         let i;
         for (i = 0; i < each_value.length; i += 1) {
@@ -2674,56 +3029,93 @@ function create_fragment$b(ctx) {
     d(detaching) {
       if (detaching)
         detach(div2);
-      if (if_block)
-        if_block.d();
       destroy_each(each_blocks, detaching);
     }
   };
 }
-function instance$8($$self, $$props, $$invalidate) {
-  let $isMobile;
-  component_subscribe($$self, isMobile, ($$value) => $$invalidate(5, $isMobile = $$value));
-  let { copy } = $$props;
-  let { note = "" } = $$props;
-  let activeGlossaryTerm = null;
-  function toggleGlossary(term) {
-    if ($isMobile) {
-      $$invalidate(2, activeGlossaryTerm = activeGlossaryTerm === term ? null : term);
-    }
-  }
-  const click_handler = (part) => toggleGlossary(part.content);
+function instance$a($$self, $$props, $$invalidate) {
+  let { legend_data } = $$props;
   $$self.$$set = ($$props2) => {
-    if ("copy" in $$props2)
-      $$invalidate(0, copy = $$props2.copy);
-    if ("note" in $$props2)
-      $$invalidate(1, note = $$props2.note);
+    if ("legend_data" in $$props2)
+      $$invalidate(0, legend_data = $$props2.legend_data);
   };
-  return [copy, note, activeGlossaryTerm, toggleGlossary, click_handler];
+  return [legend_data];
 }
-class TextBlock extends SvelteComponent {
+class Legend extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$8, create_fragment$b, safe_not_equal, { copy: 0, note: 1 });
+    init(this, options, instance$a, create_fragment$c, safe_not_equal, { legend_data: 0 });
   }
 }
 const Graphic_svelte_svelte_type_style_lang = "";
+function create_if_block_2$2(ctx) {
+  let legend;
+  let current;
+  legend = new Legend({
+    props: { legend_data: (
+      /*legend_data*/
+      ctx[5]
+    ) }
+  });
+  return {
+    c() {
+      create_component(legend.$$.fragment);
+    },
+    m(target, anchor) {
+      mount_component(legend, target, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const legend_changes = {};
+      if (dirty & /*legend_data*/
+      32)
+        legend_changes.legend_data = /*legend_data*/
+        ctx2[5];
+      legend.$set(legend_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(legend.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(legend.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(legend, detaching);
+    }
+  };
+}
 function create_if_block_1$3(ctx) {
   let p;
+  let t;
+  let html_tag;
   return {
     c() {
       p = element("p");
+      t = text$1("Note: ");
+      html_tag = new HtmlTag(false);
+      html_tag.a = null;
       attr(p, "class", "notes");
     },
     m(target, anchor) {
       insert(target, p, anchor);
-      p.innerHTML = /*notes*/
-      ctx[3];
+      append(p, t);
+      html_tag.m(
+        /*notes*/
+        ctx[3],
+        p
+      );
     },
     p(ctx2, dirty) {
       if (dirty & /*notes*/
       8)
-        p.innerHTML = /*notes*/
-        ctx2[3];
+        html_tag.p(
+          /*notes*/
+          ctx2[3]
+        );
     },
     d(detaching) {
       if (detaching)
@@ -2733,21 +3125,32 @@ function create_if_block_1$3(ctx) {
 }
 function create_if_block$5(ctx) {
   let p;
+  let t;
+  let html_tag;
   return {
     c() {
       p = element("p");
-      attr(p, "class", "source");
+      t = text$1("Sources: ");
+      html_tag = new HtmlTag(false);
+      html_tag.a = null;
+      attr(p, "class", "sources");
     },
     m(target, anchor) {
       insert(target, p, anchor);
-      p.innerHTML = /*source*/
-      ctx[4];
+      append(p, t);
+      html_tag.m(
+        /*sources*/
+        ctx[4],
+        p
+      );
     },
     p(ctx2, dirty) {
-      if (dirty & /*source*/
+      if (dirty & /*sources*/
       16)
-        p.innerHTML = /*source*/
-        ctx2[4];
+        html_tag.p(
+          /*sources*/
+          ctx2[4]
+        );
     },
     d(detaching) {
       if (detaching)
@@ -2755,7 +3158,8 @@ function create_if_block$5(ctx) {
     }
   };
 }
-function create_fragment$a(ctx) {
+function create_fragment$b(ctx) {
+  let div6;
   let div1;
   let div0;
   let header;
@@ -2766,24 +3170,31 @@ function create_fragment$a(ctx) {
   let t2;
   let div0_resize_listener;
   let t3;
+  let t4;
   let div3;
   let div2;
   let img;
   let img_src_value;
-  let t4;
+  let t5;
   let div5;
   let div4;
-  let t5;
+  let t6;
+  let current;
   let if_block0 = (
+    /*legend_data*/
+    ctx[5].length && create_if_block_2$2(ctx)
+  );
+  let if_block1 = (
     /*notes*/
     ctx[3] && create_if_block_1$3(ctx)
   );
-  let if_block1 = (
-    /*source*/
+  let if_block2 = (
+    /*sources*/
     ctx[4] && create_if_block$5(ctx)
   );
   return {
     c() {
+      div6 = element("div");
       div1 = element("div");
       div0 = element("div");
       header = element("header");
@@ -2799,21 +3210,24 @@ function create_fragment$a(ctx) {
         ctx[2]
       );
       t3 = space();
+      if (if_block0)
+        if_block0.c();
+      t4 = space();
       div3 = element("div");
       div2 = element("div");
       img = element("img");
-      t4 = space();
+      t5 = space();
       div5 = element("div");
       div4 = element("div");
-      if (if_block0)
-        if_block0.c();
-      t5 = space();
       if (if_block1)
         if_block1.c();
+      t6 = space();
+      if (if_block2)
+        if_block2.c();
       attr(div0, "class", "column");
       add_render_callback(() => (
         /*div0_elementresize_handler*/
-        ctx[8].call(div0)
+        ctx[9].call(div0)
       ));
       attr(div1, "class", "column-wrap");
       if (!src_url_equal(img.src, img_src_value = /*url*/
@@ -2821,19 +3235,21 @@ function create_fragment$a(ctx) {
         attr(img, "src", img_src_value);
       attr(img, "alt", "Graphic");
       attr(img, "width", "100%");
-      attr(div2, "class", "image-wrap svelte-cc5zun");
+      attr(div2, "class", "visual-wrap");
       attr(
         div2,
         "style",
         /*style*/
-        ctx[6]
+        ctx[7]
       );
-      attr(div3, "class", "extended-wrap svelte-cc5zun");
+      attr(div3, "class", "extended-wrap svelte-1dvqfow");
       attr(div4, "class", "column");
       attr(div5, "class", "column-wrap");
+      attr(div6, "class", "graphic svelte-1dvqfow");
     },
     m(target, anchor) {
-      insert(target, div1, anchor);
+      insert(target, div6, anchor);
+      append(div6, div1);
       append(div1, div0);
       append(div0, header);
       append(header, h3);
@@ -2844,134 +3260,166 @@ function create_fragment$a(ctx) {
       div0_resize_listener = add_iframe_resize_listener(
         div0,
         /*div0_elementresize_handler*/
-        ctx[8].bind(div0)
+        ctx[9].bind(div0)
       );
-      insert(target, t3, anchor);
-      insert(target, div3, anchor);
+      append(div6, t3);
+      if (if_block0)
+        if_block0.m(div6, null);
+      append(div6, t4);
+      append(div6, div3);
       append(div3, div2);
       append(div2, img);
-      insert(target, t4, anchor);
-      insert(target, div5, anchor);
+      append(div6, t5);
+      append(div6, div5);
       append(div5, div4);
-      if (if_block0)
-        if_block0.m(div4, null);
-      append(div4, t5);
       if (if_block1)
         if_block1.m(div4, null);
+      append(div4, t6);
+      if (if_block2)
+        if_block2.m(div4, null);
+      current = true;
     },
     p(ctx2, [dirty]) {
-      if (dirty & /*title*/
+      if (!current || dirty & /*title*/
       2)
         set_data(
           t0,
           /*title*/
           ctx2[1]
         );
-      if (dirty & /*subtitle*/
+      if (!current || dirty & /*subtitle*/
       4)
         set_data(
           t2,
           /*subtitle*/
           ctx2[2]
         );
-      if (dirty & /*url*/
+      if (
+        /*legend_data*/
+        ctx2[5].length
+      ) {
+        if (if_block0) {
+          if_block0.p(ctx2, dirty);
+          if (dirty & /*legend_data*/
+          32) {
+            transition_in(if_block0, 1);
+          }
+        } else {
+          if_block0 = create_if_block_2$2(ctx2);
+          if_block0.c();
+          transition_in(if_block0, 1);
+          if_block0.m(div6, t4);
+        }
+      } else if (if_block0) {
+        group_outros();
+        transition_out(if_block0, 1, 1, () => {
+          if_block0 = null;
+        });
+        check_outros();
+      }
+      if (!current || dirty & /*url*/
       1 && !src_url_equal(img.src, img_src_value = /*url*/
       ctx2[0])) {
         attr(img, "src", img_src_value);
       }
-      if (dirty & /*style*/
-      64) {
+      if (!current || dirty & /*style*/
+      128) {
         attr(
           div2,
           "style",
           /*style*/
-          ctx2[6]
+          ctx2[7]
         );
       }
       if (
         /*notes*/
         ctx2[3]
       ) {
-        if (if_block0) {
-          if_block0.p(ctx2, dirty);
-        } else {
-          if_block0 = create_if_block_1$3(ctx2);
-          if_block0.c();
-          if_block0.m(div4, t5);
-        }
-      } else if (if_block0) {
-        if_block0.d(1);
-        if_block0 = null;
-      }
-      if (
-        /*source*/
-        ctx2[4]
-      ) {
         if (if_block1) {
           if_block1.p(ctx2, dirty);
         } else {
-          if_block1 = create_if_block$5(ctx2);
+          if_block1 = create_if_block_1$3(ctx2);
           if_block1.c();
-          if_block1.m(div4, null);
+          if_block1.m(div4, t6);
         }
       } else if (if_block1) {
         if_block1.d(1);
         if_block1 = null;
       }
+      if (
+        /*sources*/
+        ctx2[4]
+      ) {
+        if (if_block2) {
+          if_block2.p(ctx2, dirty);
+        } else {
+          if_block2 = create_if_block$5(ctx2);
+          if_block2.c();
+          if_block2.m(div4, null);
+        }
+      } else if (if_block2) {
+        if_block2.d(1);
+        if_block2 = null;
+      }
     },
-    i: noop,
-    o: noop,
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block0);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block0);
+      current = false;
+    },
     d(detaching) {
       if (detaching)
-        detach(div1);
+        detach(div6);
       div0_resize_listener();
-      if (detaching)
-        detach(t3);
-      if (detaching)
-        detach(div3);
-      if (detaching)
-        detach(t4);
-      if (detaching)
-        detach(div5);
       if (if_block0)
         if_block0.d();
       if (if_block1)
         if_block1.d();
+      if (if_block2)
+        if_block2.d();
     }
   };
 }
-function instance$7($$self, $$props, $$invalidate) {
+function instance$9($$self, $$props, $$invalidate) {
   let { url } = $$props;
   let { width_factor = 1.8 } = $$props;
   let { title = "" } = $$props;
   let { subtitle = "" } = $$props;
   let { notes = "" } = $$props;
-  let { source = "" } = $$props;
+  let { sources = "" } = $$props;
+  let { legend_data = [] } = $$props;
   let columnWidth = 0;
   let style = "";
   function div0_elementresize_handler() {
     columnWidth = this.clientWidth;
-    $$invalidate(5, columnWidth);
+    $$invalidate(6, columnWidth);
   }
   $$self.$$set = ($$props2) => {
     if ("url" in $$props2)
       $$invalidate(0, url = $$props2.url);
     if ("width_factor" in $$props2)
-      $$invalidate(7, width_factor = $$props2.width_factor);
+      $$invalidate(8, width_factor = $$props2.width_factor);
     if ("title" in $$props2)
       $$invalidate(1, title = $$props2.title);
     if ("subtitle" in $$props2)
       $$invalidate(2, subtitle = $$props2.subtitle);
     if ("notes" in $$props2)
       $$invalidate(3, notes = $$props2.notes);
-    if ("source" in $$props2)
-      $$invalidate(4, source = $$props2.source);
+    if ("sources" in $$props2)
+      $$invalidate(4, sources = $$props2.sources);
+    if ("legend_data" in $$props2)
+      $$invalidate(5, legend_data = $$props2.legend_data);
   };
   $$self.$$.update = () => {
     if ($$self.$$.dirty & /*columnWidth, width_factor*/
-    160) {
+    320) {
       if (columnWidth)
-        $$invalidate(6, style = getExtendedWidthStyle(width_factor, columnWidth));
+        $$invalidate(7, style = getExtendedWidthStyle(width_factor, columnWidth));
     }
   };
   return [
@@ -2979,7 +3427,8 @@ function instance$7($$self, $$props, $$invalidate) {
     title,
     subtitle,
     notes,
-    source,
+    sources,
+    legend_data,
     columnWidth,
     style,
     width_factor,
@@ -2989,18 +3438,19 @@ function instance$7($$self, $$props, $$invalidate) {
 class Graphic extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$7, create_fragment$a, safe_not_equal, {
+    init(this, options, instance$9, create_fragment$b, safe_not_equal, {
       url: 0,
-      width_factor: 7,
+      width_factor: 8,
       title: 1,
       subtitle: 2,
       notes: 3,
-      source: 4
+      sources: 4,
+      legend_data: 5
     });
   }
 }
 const Visual_svelte_svelte_type_style_lang = "";
-function create_if_block_3(ctx) {
+function create_if_block_4$1(ctx) {
   let h3;
   let t;
   return {
@@ -3030,7 +3480,7 @@ function create_if_block_3(ctx) {
     }
   };
 }
-function create_if_block_2(ctx) {
+function create_if_block_3$1(ctx) {
   let p;
   let t;
   return {
@@ -3060,23 +3510,74 @@ function create_if_block_2(ctx) {
     }
   };
 }
+function create_if_block_2$1(ctx) {
+  let legend;
+  let current;
+  legend = new Legend({
+    props: { legend_data: (
+      /*legend_data*/
+      ctx[6]
+    ) }
+  });
+  return {
+    c() {
+      create_component(legend.$$.fragment);
+    },
+    m(target, anchor) {
+      mount_component(legend, target, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const legend_changes = {};
+      if (dirty & /*legend_data*/
+      64)
+        legend_changes.legend_data = /*legend_data*/
+        ctx2[6];
+      legend.$set(legend_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(legend.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(legend.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(legend, detaching);
+    }
+  };
+}
 function create_if_block_1$2(ctx) {
   let p;
+  let t;
+  let html_tag;
   return {
     c() {
       p = element("p");
+      t = text$1("Note: ");
+      html_tag = new HtmlTag(false);
+      html_tag.a = null;
       attr(p, "class", "notes");
     },
     m(target, anchor) {
       insert(target, p, anchor);
-      p.innerHTML = /*notes*/
-      ctx[2];
+      append(p, t);
+      html_tag.m(
+        /*notes*/
+        ctx[2],
+        p
+      );
     },
     p(ctx2, dirty) {
       if (dirty & /*notes*/
       4)
-        p.innerHTML = /*notes*/
-        ctx2[2];
+        html_tag.p(
+          /*notes*/
+          ctx2[2]
+        );
     },
     d(detaching) {
       if (detaching)
@@ -3086,21 +3587,32 @@ function create_if_block_1$2(ctx) {
 }
 function create_if_block$4(ctx) {
   let p;
+  let t;
+  let html_tag;
   return {
     c() {
       p = element("p");
-      attr(p, "class", "source");
+      t = text$1("Sources: ");
+      html_tag = new HtmlTag(false);
+      html_tag.a = null;
+      attr(p, "class", "sources");
     },
     m(target, anchor) {
       insert(target, p, anchor);
-      p.innerHTML = /*source*/
-      ctx[3];
+      append(p, t);
+      html_tag.m(
+        /*sources*/
+        ctx[3],
+        p
+      );
     },
     p(ctx2, dirty) {
-      if (dirty & /*source*/
+      if (dirty & /*sources*/
       8)
-        p.innerHTML = /*source*/
-        ctx2[3];
+        html_tag.p(
+          /*sources*/
+          ctx2[3]
+        );
     },
     d(detaching) {
       if (detaching)
@@ -3108,41 +3620,49 @@ function create_if_block$4(ctx) {
     }
   };
 }
-function create_fragment$9(ctx) {
+function create_fragment$a(ctx) {
+  let div7;
   let div1;
   let div0;
   let header;
   let t0;
   let div0_resize_listener;
   let t1;
+  let t2;
   let div4;
   let div3;
   let div2;
   let script;
   let script_src_value;
   let div2_data_src_value;
-  let t2;
+  let t3;
   let div6;
   let div5;
-  let t3;
+  let t4;
+  let current;
   let if_block0 = (
     /*title*/
-    ctx[0] && create_if_block_3(ctx)
+    ctx[0] && create_if_block_4$1(ctx)
   );
   let if_block1 = (
     /*subtitle*/
-    ctx[1] && create_if_block_2(ctx)
+    ctx[1] && create_if_block_3$1(ctx)
   );
   let if_block2 = (
+    /*legend_data*/
+    ctx[6].length && create_if_block_2$1(ctx)
+  );
+  let if_block3 = (
     /*notes*/
     ctx[2] && create_if_block_1$2(ctx)
   );
-  let if_block3 = (
-    /*source*/
+  let if_block4 = (
+    /*sources*/
     ctx[3] && create_if_block$4(ctx)
   );
   return {
     c() {
+      div7 = element("div");
       div1 = element("div");
       div0 = element("div");
       header = element("header");
@@ -3152,22 +3672,25 @@ function create_fragment$9(ctx) {
       if (if_block1)
         if_block1.c();
       t1 = space();
+      if (if_block2)
+        if_block2.c();
+      t2 = space();
       div4 = element("div");
       div3 = element("div");
       div2 = element("div");
       script = element("script");
-      t2 = space();
+      t3 = space();
       div6 = element("div");
       div5 = element("div");
-      if (if_block2)
-        if_block2.c();
-      t3 = space();
       if (if_block3)
         if_block3.c();
+      t4 = space();
+      if (if_block4)
+        if_block4.c();
       attr(div0, "class", "column");
       add_render_callback(() => (
         /*div0_elementresize_handler*/
-        ctx[9].call(div0)
+        ctx[10].call(div0)
       ));
       attr(div1, "class", "column-wrap");
       if (!src_url_equal(script.src, script_src_value = "https://public.flourish.studio/resources/embed.js"))
@@ -3176,19 +3699,21 @@ function create_fragment$9(ctx) {
       attr(div2, "data-src", div2_data_src_value = `${/*type*/
       ctx[4]}/${/*id*/
       ctx[5]}?123`);
-      attr(div3, "class", "flourish-wrap");
+      attr(div3, "class", "visual-wrap");
       attr(
         div3,
         "style",
         /*style*/
-        ctx[7]
+        ctx[8]
       );
-      attr(div4, "class", "extended-wrap svelte-chcrbn");
+      attr(div4, "class", "extended-wrap svelte-apxglq");
       attr(div5, "class", "column");
       attr(div6, "class", "column-wrap");
+      attr(div7, "class", "visual svelte-apxglq");
     },
     m(target, anchor) {
-      insert(target, div1, anchor);
+      insert(target, div7, anchor);
+      append(div7, div1);
       append(div1, div0);
       append(div0, header);
       if (if_block0)
@@ -3199,21 +3724,25 @@ function create_fragment$9(ctx) {
       div0_resize_listener = add_iframe_resize_listener(
         div0,
         /*div0_elementresize_handler*/
-        ctx[9].bind(div0)
+        ctx[10].bind(div0)
       );
-      insert(target, t1, anchor);
-      insert(target, div4, anchor);
+      append(div7, t1);
+      if (if_block2)
+        if_block2.m(div7, null);
+      append(div7, t2);
+      append(div7, div4);
       append(div4, div3);
       append(div3, div2);
       append(div2, script);
-      insert(target, t2, anchor);
-      insert(target, div6, anchor);
+      append(div7, t3);
+      append(div7, div6);
       append(div6, div5);
-      if (if_block2)
-        if_block2.m(div5, null);
-      append(div5, t3);
       if (if_block3)
         if_block3.m(div5, null);
+      append(div5, t4);
+      if (if_block4)
+        if_block4.m(div5, null);
+      current = true;
     },
     p(ctx2, [dirty]) {
       if (
@@ -3223,7 +3752,7 @@ function create_fragment$9(ctx) {
         if (if_block0) {
           if_block0.p(ctx2, dirty);
         } else {
-          if_block0 = create_if_block_3(ctx2);
+          if_block0 = create_if_block_4$1(ctx2);
           if_block0.c();
           if_block0.m(header, t0);
         }
@@ -3238,7 +3767,7 @@ function create_fragment$9(ctx) {
         if (if_block1) {
           if_block1.p(ctx2, dirty);
         } else {
-          if_block1 = create_if_block_2(ctx2);
+          if_block1 = create_if_block_3$1(ctx2);
           if_block1.c();
           if_block1.m(header, null);
         }
@@ -3246,90 +3775,116 @@ function create_fragment$9(ctx) {
         if_block1.d(1);
         if_block1 = null;
       }
-      if (dirty & /*type, id*/
+      if (
+        /*legend_data*/
+        ctx2[6].length
+      ) {
+        if (if_block2) {
+          if_block2.p(ctx2, dirty);
+          if (dirty & /*legend_data*/
+          64) {
+            transition_in(if_block2, 1);
+          }
+        } else {
+          if_block2 = create_if_block_2$1(ctx2);
+          if_block2.c();
+          transition_in(if_block2, 1);
+          if_block2.m(div7, t2);
+        }
+      } else if (if_block2) {
+        group_outros();
+        transition_out(if_block2, 1, 1, () => {
+          if_block2 = null;
+        });
+        check_outros();
+      }
+      if (!current || dirty & /*type, id*/
       48 && div2_data_src_value !== (div2_data_src_value = `${/*type*/
       ctx2[4]}/${/*id*/
       ctx2[5]}?123`)) {
         attr(div2, "data-src", div2_data_src_value);
       }
-      if (dirty & /*style*/
-      128) {
+      if (!current || dirty & /*style*/
+      256) {
         attr(
           div3,
           "style",
           /*style*/
-          ctx2[7]
+          ctx2[8]
         );
       }
       if (
         /*notes*/
         ctx2[2]
       ) {
-        if (if_block2) {
-          if_block2.p(ctx2, dirty);
-        } else {
-          if_block2 = create_if_block_1$2(ctx2);
-          if_block2.c();
-          if_block2.m(div5, t3);
-        }
-      } else if (if_block2) {
-        if_block2.d(1);
-        if_block2 = null;
-      }
-      if (
-        /*source*/
-        ctx2[3]
-      ) {
         if (if_block3) {
           if_block3.p(ctx2, dirty);
         } else {
-          if_block3 = create_if_block$4(ctx2);
+          if_block3 = create_if_block_1$2(ctx2);
           if_block3.c();
-          if_block3.m(div5, null);
+          if_block3.m(div5, t4);
         }
       } else if (if_block3) {
         if_block3.d(1);
         if_block3 = null;
       }
+      if (
+        /*sources*/
+        ctx2[3]
+      ) {
+        if (if_block4) {
+          if_block4.p(ctx2, dirty);
+        } else {
+          if_block4 = create_if_block$4(ctx2);
+          if_block4.c();
+          if_block4.m(div5, null);
+        }
+      } else if (if_block4) {
+        if_block4.d(1);
+        if_block4 = null;
+      }
     },
-    i: noop,
-    o: noop,
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block2);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block2);
+      current = false;
+    },
     d(detaching) {
       if (detaching)
-        detach(div1);
+        detach(div7);
       if (if_block0)
         if_block0.d();
       if (if_block1)
         if_block1.d();
       div0_resize_listener();
-      if (detaching)
-        detach(t1);
-      if (detaching)
-        detach(div4);
-      if (detaching)
-        detach(t2);
-      if (detaching)
-        detach(div6);
       if (if_block2)
         if_block2.d();
       if (if_block3)
         if_block3.d();
+      if (if_block4)
+        if_block4.d();
     }
   };
 }
-function instance$6($$self, $$props, $$invalidate) {
+function instance$8($$self, $$props, $$invalidate) {
   let { title = "" } = $$props;
   let { subtitle = "" } = $$props;
   let { notes = "" } = $$props;
-  let { source = "" } = $$props;
+  let { sources = "" } = $$props;
   let { width_factor = 1 } = $$props;
   let { type = "visualisation" } = $$props;
   let { id } = $$props;
+  let { legend_data = [] } = $$props;
   let columnWidth = 0;
   let style = "";
   function div0_elementresize_handler() {
     columnWidth = this.clientWidth;
-    $$invalidate(6, columnWidth);
+    $$invalidate(7, columnWidth);
   }
   $$self.$$set = ($$props2) => {
     if ("title" in $$props2)
@@ -3338,20 +3893,22 @@ function instance$6($$self, $$props, $$invalidate) {
       $$invalidate(1, subtitle = $$props2.subtitle);
     if ("notes" in $$props2)
       $$invalidate(2, notes = $$props2.notes);
-    if ("source" in $$props2)
-      $$invalidate(3, source = $$props2.source);
+    if ("sources" in $$props2)
+      $$invalidate(3, sources = $$props2.sources);
     if ("width_factor" in $$props2)
-      $$invalidate(8, width_factor = $$props2.width_factor);
+      $$invalidate(9, width_factor = $$props2.width_factor);
     if ("type" in $$props2)
       $$invalidate(4, type = $$props2.type);
     if ("id" in $$props2)
       $$invalidate(5, id = $$props2.id);
+    if ("legend_data" in $$props2)
+      $$invalidate(6, legend_data = $$props2.legend_data);
   };
   $$self.$$.update = () => {
     if ($$self.$$.dirty & /*columnWidth, width_factor*/
-    320) {
+    640) {
       if (columnWidth) {
-        $$invalidate(7, style = getExtendedWidthStyle(width_factor, columnWidth, false));
+        $$invalidate(8, style = getExtendedWidthStyle(width_factor, columnWidth, false));
       }
     }
   };
@@ -3359,9 +3916,10 @@ function instance$6($$self, $$props, $$invalidate) {
     title,
     subtitle,
     notes,
-    source,
+    sources,
     type,
     id,
+    legend_data,
     columnWidth,
     style,
     width_factor,
@@ -3371,14 +3929,15 @@ function instance$6($$self, $$props, $$invalidate) {
 class Visual extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$6, create_fragment$9, safe_not_equal, {
+    init(this, options, instance$8, create_fragment$a, safe_not_equal, {
       title: 0,
       subtitle: 1,
       notes: 2,
-      source: 3,
-      width_factor: 8,
+      sources: 3,
+      width_factor: 9,
       type: 4,
-      id: 5
+      id: 5,
+      legend_data: 6
     });
   }
 }
@@ -3388,7 +3947,7 @@ function create_if_block$3(ctx) {
   return {
     c() {
       cite = element("cite");
-      attr(cite, "class", "link-potential svelte-1lwx16a");
+      attr(cite, "class", "link-potential svelte-ovujoe");
     },
     m(target, anchor) {
       insert(target, cite, anchor);
@@ -3407,7 +3966,8 @@ function create_if_block$3(ctx) {
     }
   };
 }
-function create_fragment$8(ctx) {
+function create_fragment$9(ctx) {
+  let div2;
   let div1;
   let div0;
   let blockquote;
@@ -3419,6 +3979,7 @@ function create_fragment$8(ctx) {
   );
   return {
     c() {
+      div2 = element("div");
       div1 = element("div");
       div0 = element("div");
       blockquote = element("blockquote");
@@ -3435,12 +3996,14 @@ function create_fragment$8(ctx) {
         /*note*/
         ctx[1] ? "2rem" : "0"
       );
-      attr(blockquote, "class", "svelte-1lwx16a");
-      attr(div0, "class", "column svelte-1lwx16a");
+      attr(blockquote, "class", "svelte-ovujoe");
+      attr(div0, "class", "column svelte-ovujoe");
       attr(div1, "class", "column-wrap");
+      attr(div2, "class", "callout svelte-ovujoe");
     },
     m(target, anchor) {
-      insert(target, div1, anchor);
+      insert(target, div2, anchor);
+      append(div2, div1);
       append(div1, div0);
       append(div0, blockquote);
       append(blockquote, t0);
@@ -3485,13 +4048,13 @@ function create_fragment$8(ctx) {
     o: noop,
     d(detaching) {
       if (detaching)
-        detach(div1);
+        detach(div2);
       if (if_block)
         if_block.d();
     }
   };
 }
-function instance$5($$self, $$props, $$invalidate) {
+function instance$7($$self, $$props, $$invalidate) {
   let { text: text2 = "" } = $$props;
   let { note = "" } = $$props;
   $$self.$$set = ($$props2) => {
@@ -3505,11 +4068,12 @@ function instance$5($$self, $$props, $$invalidate) {
 class Callout extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$5, create_fragment$8, safe_not_equal, { text: 0, note: 1 });
+    init(this, options, instance$7, create_fragment$9, safe_not_equal, { text: 0, note: 1 });
   }
 }
 const KeyResults_svelte_svelte_type_style_lang = "";
-function create_fragment$7(ctx) {
+function create_fragment$8(ctx) {
+  let div4;
   let div1;
   let div0;
   let div0_resize_listener;
@@ -3523,58 +4087,60 @@ function create_fragment$7(ctx) {
   let section2;
   return {
     c() {
+      div4 = element("div");
       div1 = element("div");
       div0 = element("div");
-      div0.innerHTML = `<header class="svelte-yuz4oo"><h2 class="svelte-yuz4oo">Here&#39;s what we found</h2> 
-      <p class="svelte-yuz4oo">Climate finance commitments from donor countries and international
-        institutions are <b>vastly</b> overstated.</p></header>`;
+      div0.innerHTML = `<header class="svelte-12zud6l"><h2 class="svelte-12zud6l">Here&#39;s what we found</h2> 
+        <p class="svelte-12zud6l">Climate finance commitments from donor countries and international
+          institutions are <b>vastly</b> overstated.</p></header>`;
       t5 = space();
       div3 = element("div");
       div2 = element("div");
       section0 = element("section");
-      section0.innerHTML = `<h1 class="svelte-yuz4oo">2/3</h1> 
-      <p class="svelte-yuz4oo"><b>Nearly two-thirds</b> of climate finance commitments counted by the
-        OECD are never recorded as disbursed or didn’t have much to do with
-        climate to begin with. That amounts to an
-        <b>eye-popping US$343 billion</b> between 2013 and 2021.</p>`;
+      section0.innerHTML = `<h1 class="svelte-12zud6l">2/3</h1> 
+        <p class="svelte-12zud6l"><b>Nearly two-thirds</b> of climate finance commitments counted by the
+          OECD aren’t recorded as disbursed or have little to do with climate.
+          That’s an <b>eye-popping US$343 billion</b> between 2013 and 2021.</p>`;
       t12 = space();
       section1 = element("section");
-      section1.innerHTML = `<h1 class="svelte-yuz4oo">48%</h1> 
-      <p class="svelte-yuz4oo"><b>43% of countries</b> suffering severe debt problems paid more in debt
-        payments to lenders than they received in climate finance between 2019 and
-        2021.</p>`;
+      section1.innerHTML = `<h1 class="svelte-12zud6l">43%</h1> 
+        <p class="svelte-12zud6l"><b>43% of countries</b> suffering severe debt problems paid more in debt
+          payments to lenders than they received in climate finance between 2019
+          and 2021.</p>`;
       t17 = space();
       section2 = element("section");
-      section2.innerHTML = `<h1 class="svelte-yuz4oo">7%</h1> 
-      <p class="svelte-yuz4oo">In 2021, the world’s 20 most climate-vulnerable countries <b>received just 6.5%</b> of the climate finance they need each year to address climate change.</p>`;
+      section2.innerHTML = `<h1 class="svelte-12zud6l">7%</h1> 
+        <p class="svelte-12zud6l">In 2021, the world’s 20 most climate-vulnerable countries <b>received just 6.5%</b> of the climate finance they need each year to address climate change.</p>`;
       attr(div0, "class", "column");
       add_render_callback(() => (
         /*div0_elementresize_handler*/
         ctx[3].call(div0)
       ));
       attr(div1, "class", "column-wrap");
-      attr(section0, "class", "svelte-yuz4oo");
-      attr(section1, "class", "svelte-yuz4oo");
-      attr(section2, "class", "svelte-yuz4oo");
-      attr(div2, "class", "results svelte-yuz4oo");
+      attr(section0, "class", "svelte-12zud6l");
+      attr(section1, "class", "svelte-12zud6l");
+      attr(section2, "class", "svelte-12zud6l");
+      attr(div2, "class", "results svelte-12zud6l");
       attr(
         div2,
         "style",
         /*style*/
         ctx[1]
       );
-      attr(div3, "class", "extended-wrap svelte-yuz4oo");
+      attr(div3, "class", "extended-wrap svelte-12zud6l");
+      attr(div4, "class", "key-results svelte-12zud6l");
     },
     m(target, anchor) {
-      insert(target, div1, anchor);
+      insert(target, div4, anchor);
+      append(div4, div1);
       append(div1, div0);
       div0_resize_listener = add_iframe_resize_listener(
         div0,
         /*div0_elementresize_handler*/
         ctx[3].bind(div0)
       );
-      insert(target, t5, anchor);
-      insert(target, div3, anchor);
+      append(div4, t5);
+      append(div4, div3);
       append(div3, div2);
       append(div2, section0);
       append(div2, t12);
@@ -3597,16 +4163,12 @@ function create_fragment$7(ctx) {
     o: noop,
     d(detaching) {
       if (detaching)
-        detach(div1);
+        detach(div4);
       div0_resize_listener();
-      if (detaching)
-        detach(t5);
-      if (detaching)
-        detach(div3);
     }
   };
 }
-function instance$4($$self, $$props, $$invalidate) {
+function instance$6($$self, $$props, $$invalidate) {
   let { width_factor = 1.8 } = $$props;
   let columnWidth = 0;
   let style = "";
@@ -3630,10 +4192,52 @@ function instance$4($$self, $$props, $$invalidate) {
 class KeyResults extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$4, create_fragment$7, safe_not_equal, { width_factor: 2 });
+    init(this, options, instance$6, create_fragment$8, safe_not_equal, { width_factor: 2 });
   }
 }
 const Image_svelte_svelte_type_style_lang = "";
+function create_if_block_4(ctx) {
+  let div2;
+  let div1;
+  let div0;
+  let h3;
+  let t;
+  return {
+    c() {
+      div2 = element("div");
+      div1 = element("div");
+      div0 = element("div");
+      h3 = element("h3");
+      t = text$1(
+        /*title*/
+        ctx[2]
+      );
+      attr(div0, "class", "column");
+      attr(div1, "class", "column-wrap");
+      attr(div2, "class", "header-wrap svelte-1kwccrh");
+    },
+    m(target, anchor) {
+      insert(target, div2, anchor);
+      append(div2, div1);
+      append(div1, div0);
+      append(div0, h3);
+      append(h3, t);
+    },
+    p(ctx2, dirty) {
+      if (dirty & /*title*/
+      4)
+        set_data(
+          t,
+          /*title*/
+          ctx2[2]
+        );
+    },
+    d(detaching) {
+      if (detaching)
+        detach(div2);
+    }
+  };
+}
 function create_else_block$1(ctx) {
   let img;
   let img_src_value;
@@ -3662,12 +4266,12 @@ function create_else_block$1(ctx) {
     }
   };
 }
-function create_if_block$2(ctx) {
+function create_if_block_2(ctx) {
   let div;
   let div_class_value;
   let if_block = (
     /*text*/
-    ctx[2] && create_if_block_1$1(ctx)
+    ctx[3] && create_if_block_3(ctx)
   );
   return {
     c() {
@@ -3675,7 +4279,7 @@ function create_if_block$2(ctx) {
       if (if_block)
         if_block.c();
       attr(div, "class", div_class_value = "img-wrap " + /*text*/
-      (ctx[2] ? "has-text" : "") + " svelte-118h2kw");
+      (ctx[3] ? "has-text" : "") + " svelte-1kwccrh");
       set_style(div, "background-image", "url(" + /*url*/
       ctx[0] + ")");
       set_style(
@@ -3693,12 +4297,12 @@ function create_if_block$2(ctx) {
     p(ctx2, dirty) {
       if (
         /*text*/
-        ctx2[2]
+        ctx2[3]
       ) {
         if (if_block) {
           if_block.p(ctx2, dirty);
         } else {
-          if_block = create_if_block_1$1(ctx2);
+          if_block = create_if_block_3(ctx2);
           if_block.c();
           if_block.m(div, null);
         }
@@ -3707,8 +4311,8 @@ function create_if_block$2(ctx) {
         if_block = null;
       }
       if (dirty & /*text*/
-      4 && div_class_value !== (div_class_value = "img-wrap " + /*text*/
-      (ctx2[2] ? "has-text" : "") + " svelte-118h2kw")) {
+      8 && div_class_value !== (div_class_value = "img-wrap " + /*text*/
+      (ctx2[3] ? "has-text" : "") + " svelte-1kwccrh")) {
         attr(div, "class", div_class_value);
       }
       if (dirty & /*url*/
@@ -3734,7 +4338,7 @@ function create_if_block$2(ctx) {
     }
   };
 }
-function create_if_block_1$1(ctx) {
+function create_if_block_3(ctx) {
   let p;
   let t;
   return {
@@ -3742,9 +4346,9 @@ function create_if_block_1$1(ctx) {
       p = element("p");
       t = text$1(
         /*text*/
-        ctx[2]
+        ctx[3]
       );
-      attr(p, "class", "text svelte-118h2kw");
+      attr(p, "class", "text svelte-1kwccrh");
     },
     m(target, anchor) {
       insert(target, p, anchor);
@@ -3752,11 +4356,11 @@ function create_if_block_1$1(ctx) {
     },
     p(ctx2, dirty) {
       if (dirty & /*text*/
-      4)
+      8)
         set_data(
           t,
           /*text*/
-          ctx2[2]
+          ctx2[3]
         );
     },
     d(detaching) {
@@ -3765,104 +4369,286 @@ function create_if_block_1$1(ctx) {
     }
   };
 }
-function create_fragment$6(ctx) {
+function create_if_block_1$1(ctx) {
+  let p;
+  let t;
+  let html_tag;
+  return {
+    c() {
+      p = element("p");
+      t = text$1("Note: ");
+      html_tag = new HtmlTag(false);
+      html_tag.a = null;
+      attr(p, "class", "notes");
+    },
+    m(target, anchor) {
+      insert(target, p, anchor);
+      append(p, t);
+      html_tag.m(
+        /*notes*/
+        ctx[4],
+        p
+      );
+    },
+    p(ctx2, dirty) {
+      if (dirty & /*notes*/
+      16)
+        html_tag.p(
+          /*notes*/
+          ctx2[4]
+        );
+    },
+    d(detaching) {
+      if (detaching)
+        detach(p);
+    }
+  };
+}
+function create_if_block$2(ctx) {
+  let p;
+  let t;
+  let html_tag;
+  return {
+    c() {
+      p = element("p");
+      t = text$1("Sources: ");
+      html_tag = new HtmlTag(false);
+      html_tag.a = null;
+      attr(p, "class", "sources");
+    },
+    m(target, anchor) {
+      insert(target, p, anchor);
+      append(p, t);
+      html_tag.m(
+        /*sources*/
+        ctx[5],
+        p
+      );
+    },
+    p(ctx2, dirty) {
+      if (dirty & /*sources*/
+      32)
+        html_tag.p(
+          /*sources*/
+          ctx2[5]
+        );
+    },
+    d(detaching) {
+      if (detaching)
+        detach(p);
+    }
+  };
+}
+function create_fragment$7(ctx) {
+  let div5;
+  let t0;
+  let div2;
   let div1;
   let div0;
+  let t1;
+  let div4;
+  let div3;
+  let t2;
+  let if_block0 = (
+    /*title*/
+    ctx[2] && create_if_block_4(ctx)
+  );
   function select_block_type(ctx2, dirty) {
     if (
       /*bgImg*/
-      ctx2[3]
+      ctx2[6]
     )
-      return create_if_block$2;
+      return create_if_block_2;
     return create_else_block$1;
   }
   let current_block_type = select_block_type(ctx);
-  let if_block = current_block_type(ctx);
+  let if_block1 = current_block_type(ctx);
+  let if_block2 = (
+    /*notes*/
+    ctx[4] && create_if_block_1$1(ctx)
+  );
+  let if_block3 = (
+    /*sources*/
+    ctx[5] && create_if_block$2(ctx)
+  );
   return {
     c() {
+      div5 = element("div");
+      if (if_block0)
+        if_block0.c();
+      t0 = space();
+      div2 = element("div");
       div1 = element("div");
       div0 = element("div");
-      if_block.c();
-      attr(div0, "class", "column svelte-118h2kw");
+      if_block1.c();
+      t1 = space();
+      div4 = element("div");
+      div3 = element("div");
+      if (if_block2)
+        if_block2.c();
+      t2 = space();
+      if (if_block3)
+        if_block3.c();
+      attr(div0, "class", "column svelte-1kwccrh");
       attr(div1, "class", "column-wrap");
       set_style(
         div1,
         "grid-template-columns",
         /*gridColWidths*/
-        ctx[4]
+        ctx[7]
       );
+      attr(div2, "class", "visual-wrap svelte-1kwccrh");
+      attr(div3, "class", "column");
+      attr(div4, "class", "column-wrap");
+      attr(div5, "class", "image svelte-1kwccrh");
     },
     m(target, anchor) {
-      insert(target, div1, anchor);
+      insert(target, div5, anchor);
+      if (if_block0)
+        if_block0.m(div5, null);
+      append(div5, t0);
+      append(div5, div2);
+      append(div2, div1);
       append(div1, div0);
-      if_block.m(div0, null);
+      if_block1.m(div0, null);
+      append(div5, t1);
+      append(div5, div4);
+      append(div4, div3);
+      if (if_block2)
+        if_block2.m(div3, null);
+      append(div3, t2);
+      if (if_block3)
+        if_block3.m(div3, null);
     },
     p(ctx2, [dirty]) {
-      if (current_block_type === (current_block_type = select_block_type(ctx2)) && if_block) {
-        if_block.p(ctx2, dirty);
+      if (
+        /*title*/
+        ctx2[2]
+      ) {
+        if (if_block0) {
+          if_block0.p(ctx2, dirty);
+        } else {
+          if_block0 = create_if_block_4(ctx2);
+          if_block0.c();
+          if_block0.m(div5, t0);
+        }
+      } else if (if_block0) {
+        if_block0.d(1);
+        if_block0 = null;
+      }
+      if (current_block_type === (current_block_type = select_block_type(ctx2)) && if_block1) {
+        if_block1.p(ctx2, dirty);
       } else {
-        if_block.d(1);
-        if_block = current_block_type(ctx2);
-        if (if_block) {
-          if_block.c();
-          if_block.m(div0, null);
+        if_block1.d(1);
+        if_block1 = current_block_type(ctx2);
+        if (if_block1) {
+          if_block1.c();
+          if_block1.m(div0, null);
         }
       }
       if (dirty & /*gridColWidths*/
-      16) {
+      128) {
         set_style(
           div1,
           "grid-template-columns",
           /*gridColWidths*/
-          ctx2[4]
+          ctx2[7]
         );
+      }
+      if (
+        /*notes*/
+        ctx2[4]
+      ) {
+        if (if_block2) {
+          if_block2.p(ctx2, dirty);
+        } else {
+          if_block2 = create_if_block_1$1(ctx2);
+          if_block2.c();
+          if_block2.m(div3, t2);
+        }
+      } else if (if_block2) {
+        if_block2.d(1);
+        if_block2 = null;
+      }
+      if (
+        /*sources*/
+        ctx2[5]
+      ) {
+        if (if_block3) {
+          if_block3.p(ctx2, dirty);
+        } else {
+          if_block3 = create_if_block$2(ctx2);
+          if_block3.c();
+          if_block3.m(div3, null);
+        }
+      } else if (if_block3) {
+        if_block3.d(1);
+        if_block3 = null;
       }
     },
     i: noop,
     o: noop,
     d(detaching) {
       if (detaching)
-        detach(div1);
-      if_block.d();
+        detach(div5);
+      if (if_block0)
+        if_block0.d();
+      if_block1.d();
+      if (if_block2)
+        if_block2.d();
+      if (if_block3)
+        if_block3.d();
     }
   };
 }
-function instance$3($$self, $$props, $$invalidate) {
+function instance$5($$self, $$props, $$invalidate) {
   let { url } = $$props;
   let { width = "600px" } = $$props;
   let { height = "100vh" } = $$props;
+  let { title = "" } = $$props;
   let { text: text2 = "" } = $$props;
+  let { notes = "" } = $$props;
+  let { sources = "" } = $$props;
   let { bgImg = false } = $$props;
   let gridColWidths;
   $$self.$$set = ($$props2) => {
     if ("url" in $$props2)
       $$invalidate(0, url = $$props2.url);
     if ("width" in $$props2)
-      $$invalidate(5, width = $$props2.width);
+      $$invalidate(8, width = $$props2.width);
     if ("height" in $$props2)
       $$invalidate(1, height = $$props2.height);
+    if ("title" in $$props2)
+      $$invalidate(2, title = $$props2.title);
     if ("text" in $$props2)
-      $$invalidate(2, text2 = $$props2.text);
+      $$invalidate(3, text2 = $$props2.text);
+    if ("notes" in $$props2)
+      $$invalidate(4, notes = $$props2.notes);
+    if ("sources" in $$props2)
+      $$invalidate(5, sources = $$props2.sources);
     if ("bgImg" in $$props2)
-      $$invalidate(3, bgImg = $$props2.bgImg);
+      $$invalidate(6, bgImg = $$props2.bgImg);
   };
   $$self.$$.update = () => {
     if ($$self.$$.dirty & /*width*/
-    32) {
-      $$invalidate(4, gridColWidths = getGridColWidth(width));
+    256) {
+      $$invalidate(7, gridColWidths = getGridColWidth(width));
     }
   };
-  return [url, height, text2, bgImg, gridColWidths, width];
+  return [url, height, title, text2, notes, sources, bgImg, gridColWidths, width];
 }
 class Image extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$3, create_fragment$6, safe_not_equal, {
+    init(this, options, instance$5, create_fragment$7, safe_not_equal, {
       url: 0,
-      width: 5,
+      width: 8,
       height: 1,
-      text: 2,
-      bgImg: 3
+      title: 2,
+      text: 3,
+      notes: 4,
+      sources: 5,
+      bgImg: 6
     });
   }
 }
@@ -4096,7 +4882,7 @@ function create_each_block(ctx) {
     }
   };
 }
-function create_fragment$5(ctx) {
+function create_fragment$6(ctx) {
   let div1;
   let div0;
   let p;
@@ -4204,7 +4990,7 @@ function create_fragment$5(ctx) {
     }
   };
 }
-function instance$2($$self, $$props, $$invalidate) {
+function instance$4($$self, $$props, $$invalidate) {
   let { bullet = "" } = $$props;
   let { detail = [""] } = $$props;
   let showDetail = false;
@@ -4220,16 +5006,17 @@ function instance$2($$self, $$props, $$invalidate) {
 class Collapsible extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$2, create_fragment$5, safe_not_equal, { bullet: 0, detail: 1 });
+    init(this, options, instance$4, create_fragment$6, safe_not_equal, { bullet: 0, detail: 1 });
   }
 }
 const Accordion_svelte_svelte_type_style_lang = "";
-function create_fragment$4(ctx) {
+function create_fragment$5(ctx) {
+  let div2;
   let div1;
   let div0;
   let h2;
   let t1;
-  let p0;
+  let p;
   let t3;
   let collapsible0;
   let t4;
@@ -4239,7 +5026,7 @@ function create_fragment$4(ctx) {
   let t6;
   let collapsible3;
   let t7;
-  let p1;
+  let h3;
   let t9;
   let collapsible4;
   let t10;
@@ -4257,7 +5044,7 @@ function create_fragment$4(ctx) {
   let current;
   collapsible0 = new Collapsible({
     props: {
-      bullet: "Implement the <a href='https://unfccc.int/sites/default/files/resource/CMA2018_03a02E.pdf'>transparency commitments</a> agreed in 2018",
+      bullet: "Implement the <a href='https://unfccc.int/sites/default/files/resource/CMA2018_03a02E.pdf' target='_blank'>transparency commitments</a> agreed in 2018",
       detail: ["Including publishing more timely data, at a minimum annually."]
     }
   });
@@ -4344,13 +5131,14 @@ function create_fragment$4(ctx) {
   });
   return {
     c() {
+      div2 = element("div");
       div1 = element("div");
       div0 = element("div");
       h2 = element("h2");
       h2.textContent = "Recommendations";
       t1 = space();
-      p0 = element("p");
-      p0.textContent = "Delivering climate action and ambition will require trust between\n      providers and recipients. Transparent, accurate, and comparable climate\n      finance data is critical for building that trust. To achieve that, all\n      providers, working with the OECD and UNFCCC, should:";
+      p = element("p");
+      p.textContent = "Delivering climate action and ambition will require trust between\n        providers and recipients. Transparent, accurate, and comparable climate\n        finance data is critical for building that trust. To achieve that, all\n        providers, working with the OECD and UNFCCC, should:";
       t3 = space();
       create_component(collapsible0.$$.fragment);
       t4 = space();
@@ -4360,8 +5148,8 @@ function create_fragment$4(ctx) {
       t6 = space();
       create_component(collapsible3.$$.fragment);
       t7 = space();
-      p1 = element("p");
-      p1.textContent = "Climate action and ambition will also need more investment. Here’s what we\n      need to see:";
+      h3 = element("h3");
+      h3.textContent = "Climate action and ambition will also need more investment. Here’s what\n        we need to see:";
       t9 = space();
       create_component(collapsible4.$$.fragment);
       t10 = space();
@@ -4376,17 +5164,19 @@ function create_fragment$4(ctx) {
       create_component(collapsible9.$$.fragment);
       t15 = space();
       create_component(collapsible10.$$.fragment);
-      attr(h2, "class", "svelte-clg3i2");
-      set_style(p1, "margin", "2rem 0");
+      attr(h2, "class", "svelte-1g3vzv5");
+      attr(h3, "class", "svelte-1g3vzv5");
       attr(div0, "class", "column");
       attr(div1, "class", "column-wrap");
+      attr(div2, "class", "accordion");
     },
     m(target, anchor) {
-      insert(target, div1, anchor);
+      insert(target, div2, anchor);
+      append(div2, div1);
       append(div1, div0);
       append(div0, h2);
       append(div0, t1);
-      append(div0, p0);
+      append(div0, p);
       append(div0, t3);
       mount_component(collapsible0, div0, null);
       append(div0, t4);
@@ -4396,7 +5186,7 @@ function create_fragment$4(ctx) {
       append(div0, t6);
       mount_component(collapsible3, div0, null);
       append(div0, t7);
-      append(div0, p1);
+      append(div0, h3);
       append(div0, t9);
       mount_component(collapsible4, div0, null);
       append(div0, t10);
@@ -4446,7 +5236,7 @@ function create_fragment$4(ctx) {
     },
     d(detaching) {
       if (detaching)
-        detach(div1);
+        detach(div2);
       destroy_component(collapsible0);
       destroy_component(collapsible1);
       destroy_component(collapsible2);
@@ -4464,11 +5254,11 @@ function create_fragment$4(ctx) {
 class Accordion extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment$4, safe_not_equal, {});
+    init(this, options, null, create_fragment$5, safe_not_equal, {});
   }
 }
 const Resource_svelte_svelte_type_style_lang = "";
-function create_fragment$3(ctx) {
+function create_fragment$4(ctx) {
   let div;
   let button;
   let header;
@@ -4494,13 +5284,13 @@ function create_fragment$3(ctx) {
         /*description*/
         ctx[1]
       );
-      attr(header, "class", "svelte-5mycqn");
-      attr(p, "class", "svelte-5mycqn");
-      attr(button, "class", "svelte-5mycqn");
+      attr(header, "class", "svelte-13f4dc8");
+      attr(p, "class", "svelte-13f4dc8");
+      attr(button, "class", "svelte-13f4dc8");
       attr(div, "class", div_class_value = null_to_empty(
         /*position*/
         ctx[2]
-      ) + " svelte-5mycqn");
+      ) + " svelte-13f4dc8");
     },
     m(target, anchor) {
       insert(target, div, anchor);
@@ -4539,7 +5329,7 @@ function create_fragment$3(ctx) {
       4 && div_class_value !== (div_class_value = null_to_empty(
         /*position*/
         ctx2[2]
-      ) + " svelte-5mycqn")) {
+      ) + " svelte-13f4dc8")) {
         attr(div, "class", div_class_value);
       }
     },
@@ -4553,7 +5343,7 @@ function create_fragment$3(ctx) {
     }
   };
 }
-function instance$1($$self, $$props, $$invalidate) {
+function instance$3($$self, $$props, $$invalidate) {
   let { title = "" } = $$props;
   let { description = "" } = $$props;
   let { url = "" } = $$props;
@@ -4576,7 +5366,7 @@ function instance$1($$self, $$props, $$invalidate) {
 class Resource extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$1, create_fragment$3, safe_not_equal, {
+    init(this, options, instance$3, create_fragment$4, safe_not_equal, {
       title: 0,
       description: 1,
       url: 4,
@@ -4585,7 +5375,7 @@ class Resource extends SvelteComponent {
   }
 }
 const Resources_svelte_svelte_type_style_lang = "";
-function create_fragment$2(ctx) {
+function create_fragment$3(ctx) {
   let div2;
   let div1;
   let header;
@@ -4600,13 +5390,14 @@ function create_fragment$2(ctx) {
   let resource3;
   let t7;
   let resource4;
+  let div2_data_chapter_value;
   let current;
   resource0 = new Resource({
     props: {
       title: "ONE Data Commons",
       description: "Explore this data, together with thousands of other indicators, with ONE Data Commons.",
       position: "left",
-      url: "https://data.one.org"
+      url: "https://datacommons.one.org/"
     }
   });
   resource1 = new Resource({
@@ -4614,7 +5405,7 @@ function create_fragment$2(ctx) {
       title: "Methodology",
       description: "We had to simplify things a lot for this story. Read the technical details here.",
       position: "center",
-      url: "https://data.one.org"
+      url: "https://observablehq.com/@one-campaign/the-climate-finance-files-methodology"
     }
   });
   resource2 = new Resource({
@@ -4622,7 +5413,7 @@ function create_fragment$2(ctx) {
       title: "Behind-the-scenes",
       description: "While charts do tell a thousand words, some words are sometimes helpful. Read more about the charts on this story.",
       position: "center",
-      url: "https://data.one.org"
+      url: "https://observablehq.com/@one-campaign/climate-finance-files-story-behind-the-scenes"
     }
   });
   resource3 = new Resource({
@@ -4630,7 +5421,7 @@ function create_fragment$2(ctx) {
       title: "Data download",
       description: "We spent months cleaning data so that you don't have to. Download it this way.",
       position: "center",
-      url: "https://data.one.org"
+      url: "https://datacommons.one.org/tools/download"
     }
   });
   resource4 = new Resource({
@@ -4646,8 +5437,8 @@ function create_fragment$2(ctx) {
       div2 = element("div");
       div1 = element("div");
       header = element("header");
-      header.innerHTML = `<h2 class="svelte-1qz6zpe">Congratulations on making it to the end! 🪩</h2> 
-      <p class="svelte-1qz6zpe">Here’s your reward: you can dive deeper and explore the data on your
+      header.innerHTML = `<h2 class="svelte-4ox81g">Congratulations on making it to the end! 🪩</h2> 
+      <p class="svelte-4ox81g">Here’s your reward: you can dive deeper and explore the data on your
         own. Feel free to download the data, create, and share your own stories!</p>`;
       t3 = space();
       div0 = element("div");
@@ -4660,10 +5451,12 @@ function create_fragment$2(ctx) {
       create_component(resource3.$$.fragment);
       t7 = space();
       create_component(resource4.$$.fragment);
-      attr(header, "class", "svelte-1qz6zpe");
-      attr(div0, "class", "resources svelte-1qz6zpe");
-      attr(div1, "class", "resources-main svelte-1qz6zpe");
-      attr(div2, "class", "resources-wrap svelte-1qz6zpe");
+      attr(header, "class", "svelte-4ox81g");
+      attr(div0, "class", "resources svelte-4ox81g");
+      attr(div1, "class", "resources-main svelte-4ox81g");
+      attr(div2, "class", "resources-wrap svelte-4ox81g");
+      attr(div2, "data-chapter", div2_data_chapter_value = /*data*/
+      ctx[0].chapter);
     },
     m(target, anchor) {
       insert(target, div2, anchor);
@@ -4682,7 +5475,13 @@ function create_fragment$2(ctx) {
       mount_component(resource4, div0, null);
       current = true;
     },
-    p: noop,
+    p(ctx2, [dirty]) {
+      if (!current || dirty & /*data*/
+      1 && div2_data_chapter_value !== (div2_data_chapter_value = /*data*/
+      ctx2[0].chapter)) {
+        attr(div2, "data-chapter", div2_data_chapter_value);
+      }
+    },
     i(local) {
       if (current)
         return;
@@ -4712,10 +5511,98 @@ function create_fragment$2(ctx) {
     }
   };
 }
+function instance$2($$self, $$props, $$invalidate) {
+  let { data } = $$props;
+  $$self.$$set = ($$props2) => {
+    if ("data" in $$props2)
+      $$invalidate(0, data = $$props2.data);
+  };
+  return [data];
+}
 class Resources extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, null, create_fragment$2, safe_not_equal, {});
+    init(this, options, instance$2, create_fragment$3, safe_not_equal, { data: 0 });
+  }
+}
+const Contributor_svelte_svelte_type_style_lang = "";
+function create_fragment$2(ctx) {
+  let div3;
+  let div2;
+  let div1;
+  return {
+    c() {
+      div3 = element("div");
+      div2 = element("div");
+      div1 = element("div");
+      div1.innerHTML = `<h3 class="svelte-aivbwk">This story was brought to you by an amazing team...</h3> 
+      <div class="list svelte-aivbwk"><p class="svelte-aivbwk">Story by <strong><a href="https://data.one.org/experts/#joseph-kraus" target="_blank">Joseph Kraus</a></strong></p> 
+        <p class="svelte-aivbwk">Data by
+          <strong><a href="https://data.one.org/experts/#jorge-rivera" target="_blank">Jorge Rivera</a>
+            and
+            <a href="https://data.one.org/experts/#matthew-price" target="_blank">Matthew Price</a></strong></p> 
+        <p class="svelte-aivbwk">With contributions from
+          <strong><a href="https://data.one.org/experts/#olawunmi-ola-busari" target="_blank">Olawunmi Ola-Busari</a>,
+            <a href="https://data.one.org/experts/#luca-picci" target="_blank">Luca Picci</a>,
+            <a href="https://data.one.org/experts/#amy-dodd" target="_blank">Amy Dodd</a>, and
+            <a href="https://data.one.org/experts/#david-mcnair" target="_blank">David McNair</a></strong></p> 
+        <p class="svelte-aivbwk">Viusal storytelling by
+          <strong><a href="https://www.parabole.studio/" target="_blank">Evelina Judeikyte</a>
+            and
+            <a href="https://www.datamake.io/" target="_blank">Lars Verspohl</a></strong></p></div>`;
+      attr(div1, "class", "column");
+      attr(div2, "class", "column-wrap");
+      set_style(
+        div2,
+        "grid-template-columns",
+        /*gridColWidths*/
+        ctx[0]
+      );
+      attr(div3, "class", "contributor svelte-aivbwk");
+    },
+    m(target, anchor) {
+      insert(target, div3, anchor);
+      append(div3, div2);
+      append(div2, div1);
+    },
+    p(ctx2, [dirty]) {
+      if (dirty & /*gridColWidths*/
+      1) {
+        set_style(
+          div2,
+          "grid-template-columns",
+          /*gridColWidths*/
+          ctx2[0]
+        );
+      }
+    },
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(div3);
+    }
+  };
+}
+function instance$1($$self, $$props, $$invalidate) {
+  let { width = "600px" } = $$props;
+  let gridColWidths;
+  $$self.$$set = ($$props2) => {
+    if ("width" in $$props2)
+      $$invalidate(1, width = $$props2.width);
+  };
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty & /*width*/
+    2) {
+      $$invalidate(0, gridColWidths = getGridColWidth(width));
+    }
+  };
+  return [gridColWidths, width];
+}
+class Contributor extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance$1, create_fragment$2, safe_not_equal, { width: 1 });
   }
 }
 const graphic_1_2 = "" + new URL("graphic_1_2.svg", import.meta.url).href;
@@ -4724,86 +5611,97 @@ const graphic_1_3 = "" + new URL("graphic_1_3.svg", import.meta.url).href;
 const graphic_1_3_mobile = "" + new URL("graphic_1_3_mobile.svg", import.meta.url).href;
 const graphic_2_1 = "" + new URL("graphic_2_1.svg", import.meta.url).href;
 function create_if_block(ctx) {
-  let textblock0;
+  let title;
   let t0;
-  let textblock1;
+  let textblock0;
   let t1;
-  let keyresults;
+  let textblock1;
   let t2;
-  let chaptertitle0;
-  let t3;
   let textblock2;
+  let t3;
+  let keyresults;
   let t4;
-  let callout0;
+  let chaptertitle0;
   let t5;
   let textblock3;
   let t6;
-  let graphic0;
+  let callout0;
   let t7;
   let textblock4;
   let t8;
-  let graphic1;
+  let graphic0;
   let t9;
   let textblock5;
   let t10;
-  let image;
+  let graphic1;
   let t11;
   let textblock6;
   let t12;
-  let chaptertitle1;
+  let image;
   let t13;
   let textblock7;
   let t14;
-  let graphic2;
+  let chaptertitle1;
   let t15;
   let textblock8;
   let t16;
-  let callout1;
+  let graphic2;
   let t17;
   let textblock9;
   let t18;
-  let textblock10;
+  let callout1;
   let t19;
-  let visual0;
+  let textblock10;
   let t20;
   let textblock11;
   let t21;
-  let visual1;
+  let visual0;
   let t22;
   let textblock12;
   let t23;
-  let chaptertitle2;
+  let visual1;
   let t24;
   let textblock13;
   let t25;
-  let visual2;
+  let chaptertitle2;
   let t26;
   let textblock14;
   let t27;
-  let visual3;
+  let visual2;
   let t28;
-  let chaptertitle3;
-  let t29;
   let textblock15;
+  let t29;
+  let visual3;
   let t30;
-  let visual4;
+  let chaptertitle3;
   let t31;
   let textblock16;
   let t32;
-  let visual5;
+  let visual4;
   let t33;
-  let chaptertitle4;
-  let t34;
   let textblock17;
+  let t34;
+  let visual5;
   let t35;
-  let chaptertitle5;
+  let chaptertitle4;
   let t36;
   let textblock18;
   let t37;
-  let accordion;
+  let chaptertitle5;
   let t38;
+  let textblock19;
+  let t39;
+  let accordion;
+  let t40;
   let resources;
+  let t41;
+  let contributor;
   let current;
+  title = new Title({
+    props: {
+      title: "These ↑ are the human and economic impacts of just a few extreme weather events in Africa."
+    }
+  });
   textblock0 = new TextBlock({ props: { copy: (
     /*copy*/
     ctx[2].get(1)
@@ -4814,27 +5712,37 @@ function create_if_block(ctx) {
         /*copy*/
         ctx[2].get(2)
       ),
+      note: "You can " + /*$isMobile*/
+      (ctx[4] ? "click on" : "hover over") + " <span style='border-bottom: 0.5px dashed'>dash-underlined terms</span> for definitions"
+    }
+  });
+  textblock2 = new TextBlock({
+    props: {
+      copy: (
+        /*copy*/
+        ctx[2].get(3)
+      ),
       note: "The Files apply a robust methodology to correct flaws in the OECD's and UNFCCC's data."
     }
   });
-  keyresults = new KeyResults({ props: { width_factor: 1.8 } });
+  keyresults = new KeyResults({ props: { width_factor: 2 } });
   chaptertitle0 = new ChapterTitle({ props: { data: (
     /*$chapters*/
     ctx[3][0]
   ) } });
-  textblock2 = new TextBlock({ props: { copy: (
+  textblock3 = new TextBlock({ props: { copy: (
     /*copy*/
-    ctx[2].get(3)
+    ctx[2].get(4)
   ) } });
   callout0 = new Callout({
     props: {
       text: "“This is the wild, wild west of finance. Essentially, whatever [providers] call climate finance is climate finance.”",
-      note: "<a href='https://www.reuters.com/investigates/special-report/climate-change-finance/'>Mark Joven</a>, Philippines Department of Finance undersecretary"
+      note: "<a href='https://www.reuters.com/investigates/special-report/climate-change-finance/' target='_blank'>Mark Joven</a>, Philippines Department of Finance undersecretary"
     }
   });
-  textblock3 = new TextBlock({ props: { copy: (
+  textblock4 = new TextBlock({ props: { copy: (
     /*copy*/
-    ctx[2].get(4)
+    ctx[2].get(5)
   ) } });
   graphic0 = new Graphic({
     props: {
@@ -4844,70 +5752,83 @@ function create_if_block(ctx) {
         /*$isMobile*/
         ctx[4] ? graphic_1_2_mobile : graphic_1_2
       ),
-      notes: "Data reflects 2020 reporting methodology for each provider. We do not include providers who have not reported climate finance on the UNFCCC Climate Finance Data Portal (as of November 2023).",
+      notes: "Data reflects 2020 reporting methodology for each provider. We do not include providers that have not reported climate finance on the UNFCCC Climate Finance Data Portal (as of November 2023).",
+      sources: "<a href='https://unfccc.int/climatefinance?home' target='_blank'>UNFCCC Climate Finance Data Portal</a>",
       width_factor: 1.8
-    }
-  });
-  textblock4 = new TextBlock({ props: { copy: (
-    /*copy*/
-    ctx[2].get(5)
-  ) } });
-  graphic1 = new Graphic({
-    props: {
-      title: "Different methodologies, wildly different results",
-      subtitle: "Uk climate finance commitments for 22 projects, calculated using four methodologies",
-      url: (
-        /*$isMobile*/
-        ctx[4] ? graphic_1_3_mobile : graphic_1_3
-      ),
-      width_factor: 1.5
     }
   });
   textblock5 = new TextBlock({ props: { copy: (
     /*copy*/
     ctx[2].get(6)
   ) } });
-  image = new Image({
+  graphic1 = new Graphic({
     props: {
-      url: `https://datacommons-cdn.one.org/graphic_1_1${/*$isMobile*/
-      ctx[4] ? "_mobile" : ""}.gif`,
-      width: "100%",
-      height: "auto"
+      title: "Different methodologies, wildly different results",
+      subtitle: "UK climate finance commitments for 22 projects, calculated using four methodologies",
+      url: (
+        /*$isMobile*/
+        ctx[4] ? graphic_1_3_mobile : graphic_1_3
+      ),
+      notes: "Without the type of harmonisation made by The Climate Finance Files, numbers reported by different providers aren’t really comparable.",
+      sources: "<a href='https://unfccc.int/' target='_blank'>UNFCCC</a>, <a href='https://unfccc.int/climatefinance?home' target='_blank'>UNFCCC Climate Finance Data Portal</a>, <a href='https://one.oecd.org/document/DCD/DAC/STAT(2022)24/REV1/en/pdf' target='_blank'>OECD (2022)</a>",
+      width_factor: 1.5,
+      legend_data: (
+        /*$legend_1_3*/
+        ctx[5]
+      )
     }
   });
   textblock6 = new TextBlock({ props: { copy: (
     /*copy*/
     ctx[2].get(7)
   ) } });
-  chaptertitle1 = new ChapterTitle({ props: { data: (
-    /*$chapters*/
-    ctx[3][1]
-  ) } });
+  image = new Image({
+    props: {
+      url: `https://datacommons-cdn.one.org/graphic_1_1${/*$isMobile*/
+      ctx[4] ? "_mobile" : ""}.gif`,
+      width: "100%",
+      height: "auto",
+      title: "It took us months to figure out the data...",
+      sources: "<a href='https://unfccc.int/climatefinance?home' target='_blank'>UNFCCC Climate Finance Data Portal</a>"
+    }
+  });
   textblock7 = new TextBlock({ props: { copy: (
     /*copy*/
     ctx[2].get(8)
   ) } });
-  graphic2 = new Graphic({
-    props: { url: graphic_2_1, width_factor: 1 }
-  });
+  chaptertitle1 = new ChapterTitle({ props: { data: (
+    /*$chapters*/
+    ctx[3][1]
+  ) } });
   textblock8 = new TextBlock({ props: { copy: (
     /*copy*/
     ctx[2].get(9)
   ) } });
-  callout1 = new Callout({
+  graphic2 = new Graphic({
     props: {
-      text: "Rich countries are providing much less climate finance than they claim"
+      url: graphic_2_1,
+      width_factor: 1,
+      sources: "ONE calculations based on <a href='https://www.oecd.org/dac/financing-sustainable-development/development-finance-topics/climate-change.htm' target='_blank'>OECD</a>,\n    <a href='https://milex.sipri.org/sipri' target='_blank'>SIPRI</a>"
     }
   });
   textblock9 = new TextBlock({ props: { copy: (
     /*copy*/
     ctx[2].get(10)
   ) } });
-  textblock10 = new TextBlock({
+  callout1 = new Callout({
+    props: {
+      text: "Rich countries are providing much less climate finance than they claim"
+    }
+  });
+  textblock10 = new TextBlock({ props: { copy: (
+    /*copy*/
+    ctx[2].get(11)
+  ) } });
+  textblock11 = new TextBlock({
     props: {
       copy: (
         /*copy*/
-        ctx[2].get(11)
+        ctx[2].get(12)
       ),
       note: "Not the same data the OECD uses to track progress toward the US$100 billion pledge (which isn't public)."
     }
@@ -4916,256 +5837,287 @@ function create_if_block(ctx) {
     props: {
       type: "story",
       width_factor: 1.5,
-      id: 2099656
-    }
-  });
-  textblock11 = new TextBlock({ props: { copy: (
-    /*copy*/
-    ctx[2].get(12)
-  ) } });
-  visual1 = new Visual({
-    props: {
-      title: "Providers are not always delivering on their commitments",
-      subtitle: "Share of commitments disbursed, by year and provider",
-      width_factor: 1.5,
-      type: "story",
-      id: 2092470
+      id: 2102402
     }
   });
   textblock12 = new TextBlock({ props: { copy: (
     /*copy*/
     ctx[2].get(13)
   ) } });
-  chaptertitle2 = new ChapterTitle({ props: { data: (
-    /*$chapters*/
-    ctx[3][2]
-  ) } });
+  visual1 = new Visual({
+    props: {
+      title: "Climate commitments don’t always translate into climate disbursements",
+      subtitle: "Share of commitments that are disbursed and meaningfully related to climate",
+      notes: "Besides tracking disbursements instead of commitments, The Climate Finance Files only count 40% of climate projects marked “significant” (and 100% of those marked “principal”). That reduces (but probably doesn’t eliminate) inflation.",
+      sources: "ONE calculations based on <a href='https://www.oecd.org/dac/financing-sustainable-development/development-finance-topics/climate-change.htm' target='_blank'>OECD</a>",
+      width_factor: 1.5,
+      type: "story",
+      id: 2102404
+    }
+  });
   textblock13 = new TextBlock({ props: { copy: (
     /*copy*/
     ctx[2].get(14)
   ) } });
-  visual2 = new Visual({
-    props: {
-      title: "Millions of people most at risk from climate change aren’t being prioritised in climate financing",
-      subtitle: "The proportion of climate finance needs that is not covered for the world's 20 most vulnerable countries",
-      source: "Source: ONE calculation, based on the 2020-2021 average",
-      width_factor: 1.5,
-      id: 15787109
-    }
-  });
+  chaptertitle2 = new ChapterTitle({ props: { data: (
+    /*$chapters*/
+    ctx[3][2]
+  ) } });
   textblock14 = new TextBlock({ props: { copy: (
     /*copy*/
     ctx[2].get(15)
   ) } });
+  visual2 = new Visual({
+    props: {
+      title: "The climate finance needs of the most vulnerable countries are far from being met",
+      subtitle: "Most countries receive a fraction of the financing they need to address climate change",
+      notes: "Based on <a href='https://www.climatepolicyinitiative.org/wp-content/uploads/2022/06/Climate-Finance-Needs-of-African-Countries-1.pdf' target='_blank'>annual climate finance needs</a> in 20 most climate-vulnerable countries. Disbursement calculations based on the 2019-2020 average.",
+      sources: "ONE calculations based on <a href='https://www.oecd.org/dac/financing-sustainable-development/development-finance-topics/climate-change.htm' target='_blank'>OECD</a>, <a href='https://gain.nd.edu/' target='_blank'>ND-GAIN</a>, <a href='https://www.climatepolicyinitiative.org/wp-content/uploads/2022/06/Climate-Finance-Needs-of-African-Countries-1.pdf' target='_blank'>CPI</a>, <a href='https://www.imf.org/en/Topics/climate-change' target='_blank'>IMF</a>, <a href='https://unfccc.int/' target='_blank'>UNFCCC</a>",
+      width_factor: 1.5,
+      id: 15894576,
+      legend_data: (
+        /*$legend_3_1*/
+        ctx[6]
+      )
+    }
+  });
+  textblock15 = new TextBlock({ props: { copy: (
+    /*copy*/
+    ctx[2].get(16)
+  ) } });
   visual3 = new Visual({
     props: {
+      title: "No climate-vulnerable country is able to cover both climate and health needs",
+      subtitle: "Climate finance needs and health spending for the 20 most climate-vulnerable countries",
       type: "story",
       width_factor: 1.5,
-      id: 2096142
+      id: 2102410,
+      notes: "Based on <a href='https://www.climatepolicyinitiative.org/wp-content/uploads/2022/06/Climate-Finance-Needs-of-African-Countries-1.pdf' target='_blank'>annual climate finance needs</a> in 20 most climate-vulnerable countries.",
+      sources: "ONE calculations based on <a href='https://www.oecd.org/dac/financing-sustainable-development/development-finance-topics/climate-change.htm' target='_blank'>OECD</a>, <a href='https://apps.who.int/nha/database#:~:text=The%20Global%20Health%20Expenditure%20Database,open%20access%20to%20the%20public' target='_blank'>WHO GHED</a>"
     }
   });
   chaptertitle3 = new ChapterTitle({ props: { data: (
     /*$chapters*/
     ctx[3][3]
   ) } });
-  textblock15 = new TextBlock({ props: { copy: (
-    /*copy*/
-    ctx[2].get(16)
-  ) } });
-  visual4 = new Visual({
-    props: {
-      title: "Almost 1 in 2 debt-distressed country pays more in debt than it receives in climate financing",
-      subtitle: "Debt payments divided by climate financing in 2021, for 46 countries with severe debt problems",
-      width_factor: 1.5,
-      type: "story",
-      id: 2096207
-    }
-  });
   textblock16 = new TextBlock({ props: { copy: (
     /*copy*/
     ctx[2].get(17)
   ) } });
-  visual5 = new Visual({ props: { id: 15603815 } });
-  chaptertitle4 = new ChapterTitle({ props: { data: (
-    /*$chapters*/
-    ctx[3][4]
-  ) } });
+  visual4 = new Visual({
+    props: {
+      title: "Almost 1 in 2 debt-distressed countries paid more in debt than they received in climate financing",
+      subtitle: "Debt payments divided by climate financing in 2021",
+      notes: "Basen on climate finance and debt service payments data for 46 out 54 countries with severe debt problems. The list of 54 countries is from UNDP/Jensen, using data on credit ratings, debt sustainability ratings, and sovereign bond spreads.",
+      sources: "ONE calculations based on <a href='https://www.oecd.org/dac/financing-sustainable-development/development-finance-topics/climate-change.htm' target='_blank'>OECD</a>, <a href='https://www.worldbank.org/en/programs/debt-statistics/ids' target='_blank'>International Debt Statistics</a>, <a href='https://www.undp.org/sites/g/files/zskgke326/files/2022-10/UNDP-DFS-Avoiding-Too-Little-Too-Late-on-International-Debt-Relief-V2.pdf' target='_blank'>UNDP</>",
+      width_factor: 1.5,
+      type: "story",
+      id: 2102412
+    }
+  });
   textblock17 = new TextBlock({ props: { copy: (
     /*copy*/
     ctx[2].get(18)
   ) } });
-  chaptertitle5 = new ChapterTitle({ props: { data: (
+  visual5 = new Visual({
+    props: { id: 15886574, width_factor: 1.8 }
+  });
+  chaptertitle4 = new ChapterTitle({ props: { data: (
     /*$chapters*/
-    ctx[3][5]
+    ctx[3][4]
   ) } });
   textblock18 = new TextBlock({ props: { copy: (
     /*copy*/
     ctx[2].get(19)
   ) } });
+  chaptertitle5 = new ChapterTitle({ props: { data: (
+    /*$chapters*/
+    ctx[3][5]
+  ) } });
+  textblock19 = new TextBlock({ props: { copy: (
+    /*copy*/
+    ctx[2].get(20)
+  ) } });
   accordion = new Accordion({});
-  resources = new Resources({});
+  resources = new Resources({ props: { data: (
+    /*$chapters*/
+    ctx[3][6]
+  ) } });
+  contributor = new Contributor({ props: { width: "700px" } });
   return {
     c() {
-      create_component(textblock0.$$.fragment);
+      create_component(title.$$.fragment);
       t0 = space();
-      create_component(textblock1.$$.fragment);
+      create_component(textblock0.$$.fragment);
       t1 = space();
-      create_component(keyresults.$$.fragment);
+      create_component(textblock1.$$.fragment);
       t2 = space();
-      create_component(chaptertitle0.$$.fragment);
-      t3 = space();
       create_component(textblock2.$$.fragment);
+      t3 = space();
+      create_component(keyresults.$$.fragment);
       t4 = space();
-      create_component(callout0.$$.fragment);
+      create_component(chaptertitle0.$$.fragment);
       t5 = space();
       create_component(textblock3.$$.fragment);
       t6 = space();
-      create_component(graphic0.$$.fragment);
+      create_component(callout0.$$.fragment);
       t7 = space();
       create_component(textblock4.$$.fragment);
       t8 = space();
-      create_component(graphic1.$$.fragment);
+      create_component(graphic0.$$.fragment);
       t9 = space();
       create_component(textblock5.$$.fragment);
       t10 = space();
-      create_component(image.$$.fragment);
+      create_component(graphic1.$$.fragment);
       t11 = space();
       create_component(textblock6.$$.fragment);
       t12 = space();
-      create_component(chaptertitle1.$$.fragment);
+      create_component(image.$$.fragment);
       t13 = space();
       create_component(textblock7.$$.fragment);
       t14 = space();
-      create_component(graphic2.$$.fragment);
+      create_component(chaptertitle1.$$.fragment);
       t15 = space();
       create_component(textblock8.$$.fragment);
       t16 = space();
-      create_component(callout1.$$.fragment);
+      create_component(graphic2.$$.fragment);
       t17 = space();
       create_component(textblock9.$$.fragment);
       t18 = space();
-      create_component(textblock10.$$.fragment);
+      create_component(callout1.$$.fragment);
       t19 = space();
-      create_component(visual0.$$.fragment);
+      create_component(textblock10.$$.fragment);
       t20 = space();
       create_component(textblock11.$$.fragment);
       t21 = space();
-      create_component(visual1.$$.fragment);
+      create_component(visual0.$$.fragment);
       t22 = space();
       create_component(textblock12.$$.fragment);
       t23 = space();
-      create_component(chaptertitle2.$$.fragment);
+      create_component(visual1.$$.fragment);
       t24 = space();
       create_component(textblock13.$$.fragment);
       t25 = space();
-      create_component(visual2.$$.fragment);
+      create_component(chaptertitle2.$$.fragment);
       t26 = space();
       create_component(textblock14.$$.fragment);
       t27 = space();
-      create_component(visual3.$$.fragment);
+      create_component(visual2.$$.fragment);
       t28 = space();
-      create_component(chaptertitle3.$$.fragment);
-      t29 = space();
       create_component(textblock15.$$.fragment);
+      t29 = space();
+      create_component(visual3.$$.fragment);
       t30 = space();
-      create_component(visual4.$$.fragment);
+      create_component(chaptertitle3.$$.fragment);
       t31 = space();
       create_component(textblock16.$$.fragment);
       t32 = space();
-      create_component(visual5.$$.fragment);
+      create_component(visual4.$$.fragment);
       t33 = space();
-      create_component(chaptertitle4.$$.fragment);
-      t34 = space();
       create_component(textblock17.$$.fragment);
+      t34 = space();
+      create_component(visual5.$$.fragment);
       t35 = space();
-      create_component(chaptertitle5.$$.fragment);
+      create_component(chaptertitle4.$$.fragment);
       t36 = space();
       create_component(textblock18.$$.fragment);
       t37 = space();
-      create_component(accordion.$$.fragment);
+      create_component(chaptertitle5.$$.fragment);
       t38 = space();
+      create_component(textblock19.$$.fragment);
+      t39 = space();
+      create_component(accordion.$$.fragment);
+      t40 = space();
       create_component(resources.$$.fragment);
+      t41 = space();
+      create_component(contributor.$$.fragment);
     },
     m(target, anchor) {
-      mount_component(textblock0, target, anchor);
+      mount_component(title, target, anchor);
       insert(target, t0, anchor);
-      mount_component(textblock1, target, anchor);
+      mount_component(textblock0, target, anchor);
       insert(target, t1, anchor);
-      mount_component(keyresults, target, anchor);
+      mount_component(textblock1, target, anchor);
       insert(target, t2, anchor);
-      mount_component(chaptertitle0, target, anchor);
-      insert(target, t3, anchor);
       mount_component(textblock2, target, anchor);
+      insert(target, t3, anchor);
+      mount_component(keyresults, target, anchor);
       insert(target, t4, anchor);
-      mount_component(callout0, target, anchor);
+      mount_component(chaptertitle0, target, anchor);
       insert(target, t5, anchor);
       mount_component(textblock3, target, anchor);
       insert(target, t6, anchor);
-      mount_component(graphic0, target, anchor);
+      mount_component(callout0, target, anchor);
       insert(target, t7, anchor);
       mount_component(textblock4, target, anchor);
       insert(target, t8, anchor);
-      mount_component(graphic1, target, anchor);
+      mount_component(graphic0, target, anchor);
       insert(target, t9, anchor);
       mount_component(textblock5, target, anchor);
       insert(target, t10, anchor);
-      mount_component(image, target, anchor);
+      mount_component(graphic1, target, anchor);
       insert(target, t11, anchor);
       mount_component(textblock6, target, anchor);
       insert(target, t12, anchor);
-      mount_component(chaptertitle1, target, anchor);
+      mount_component(image, target, anchor);
       insert(target, t13, anchor);
       mount_component(textblock7, target, anchor);
       insert(target, t14, anchor);
-      mount_component(graphic2, target, anchor);
+      mount_component(chaptertitle1, target, anchor);
       insert(target, t15, anchor);
       mount_component(textblock8, target, anchor);
       insert(target, t16, anchor);
-      mount_component(callout1, target, anchor);
+      mount_component(graphic2, target, anchor);
       insert(target, t17, anchor);
       mount_component(textblock9, target, anchor);
       insert(target, t18, anchor);
-      mount_component(textblock10, target, anchor);
+      mount_component(callout1, target, anchor);
       insert(target, t19, anchor);
-      mount_component(visual0, target, anchor);
+      mount_component(textblock10, target, anchor);
       insert(target, t20, anchor);
       mount_component(textblock11, target, anchor);
       insert(target, t21, anchor);
-      mount_component(visual1, target, anchor);
+      mount_component(visual0, target, anchor);
       insert(target, t22, anchor);
       mount_component(textblock12, target, anchor);
       insert(target, t23, anchor);
-      mount_component(chaptertitle2, target, anchor);
+      mount_component(visual1, target, anchor);
       insert(target, t24, anchor);
       mount_component(textblock13, target, anchor);
       insert(target, t25, anchor);
-      mount_component(visual2, target, anchor);
+      mount_component(chaptertitle2, target, anchor);
       insert(target, t26, anchor);
       mount_component(textblock14, target, anchor);
       insert(target, t27, anchor);
-      mount_component(visual3, target, anchor);
+      mount_component(visual2, target, anchor);
       insert(target, t28, anchor);
-      mount_component(chaptertitle3, target, anchor);
-      insert(target, t29, anchor);
       mount_component(textblock15, target, anchor);
+      insert(target, t29, anchor);
+      mount_component(visual3, target, anchor);
       insert(target, t30, anchor);
-      mount_component(visual4, target, anchor);
+      mount_component(chaptertitle3, target, anchor);
       insert(target, t31, anchor);
       mount_component(textblock16, target, anchor);
       insert(target, t32, anchor);
-      mount_component(visual5, target, anchor);
+      mount_component(visual4, target, anchor);
       insert(target, t33, anchor);
-      mount_component(chaptertitle4, target, anchor);
-      insert(target, t34, anchor);
       mount_component(textblock17, target, anchor);
+      insert(target, t34, anchor);
+      mount_component(visual5, target, anchor);
       insert(target, t35, anchor);
-      mount_component(chaptertitle5, target, anchor);
+      mount_component(chaptertitle4, target, anchor);
       insert(target, t36, anchor);
       mount_component(textblock18, target, anchor);
       insert(target, t37, anchor);
-      mount_component(accordion, target, anchor);
+      mount_component(chaptertitle5, target, anchor);
       insert(target, t38, anchor);
+      mount_component(textblock19, target, anchor);
+      insert(target, t39, anchor);
+      mount_component(accordion, target, anchor);
+      insert(target, t40, anchor);
       mount_component(resources, target, anchor);
+      insert(target, t41, anchor);
+      mount_component(contributor, target, anchor);
       current = true;
     },
     p(ctx2, dirty) {
@@ -5180,73 +6132,81 @@ function create_if_block(ctx) {
       4)
         textblock1_changes.copy = /*copy*/
         ctx2[2].get(2);
+      if (dirty & /*$isMobile*/
+      16)
+        textblock1_changes.note = "You can " + /*$isMobile*/
+        (ctx2[4] ? "click on" : "hover over") + " <span style='border-bottom: 0.5px dashed'>dash-underlined terms</span> for definitions";
       textblock1.$set(textblock1_changes);
-      const chaptertitle0_changes = {};
-      if (dirty & /*$chapters*/
-      8)
-        chaptertitle0_changes.data = /*$chapters*/
-        ctx2[3][0];
-      chaptertitle0.$set(chaptertitle0_changes);
       const textblock2_changes = {};
       if (dirty & /*copy*/
       4)
         textblock2_changes.copy = /*copy*/
         ctx2[2].get(3);
       textblock2.$set(textblock2_changes);
+      const chaptertitle0_changes = {};
+      if (dirty & /*$chapters*/
+      8)
+        chaptertitle0_changes.data = /*$chapters*/
+        ctx2[3][0];
+      chaptertitle0.$set(chaptertitle0_changes);
       const textblock3_changes = {};
       if (dirty & /*copy*/
       4)
         textblock3_changes.copy = /*copy*/
         ctx2[2].get(4);
       textblock3.$set(textblock3_changes);
-      const graphic0_changes = {};
-      if (dirty & /*$isMobile*/
-      16)
-        graphic0_changes.url = /*$isMobile*/
-        ctx2[4] ? graphic_1_2_mobile : graphic_1_2;
-      graphic0.$set(graphic0_changes);
       const textblock4_changes = {};
       if (dirty & /*copy*/
       4)
         textblock4_changes.copy = /*copy*/
         ctx2[2].get(5);
       textblock4.$set(textblock4_changes);
-      const graphic1_changes = {};
+      const graphic0_changes = {};
       if (dirty & /*$isMobile*/
       16)
-        graphic1_changes.url = /*$isMobile*/
-        ctx2[4] ? graphic_1_3_mobile : graphic_1_3;
-      graphic1.$set(graphic1_changes);
+        graphic0_changes.url = /*$isMobile*/
+        ctx2[4] ? graphic_1_2_mobile : graphic_1_2;
+      graphic0.$set(graphic0_changes);
       const textblock5_changes = {};
       if (dirty & /*copy*/
       4)
         textblock5_changes.copy = /*copy*/
         ctx2[2].get(6);
       textblock5.$set(textblock5_changes);
-      const image_changes = {};
+      const graphic1_changes = {};
       if (dirty & /*$isMobile*/
       16)
-        image_changes.url = `https://datacommons-cdn.one.org/graphic_1_1${/*$isMobile*/
-        ctx2[4] ? "_mobile" : ""}.gif`;
-      image.$set(image_changes);
+        graphic1_changes.url = /*$isMobile*/
+        ctx2[4] ? graphic_1_3_mobile : graphic_1_3;
+      if (dirty & /*$legend_1_3*/
+      32)
+        graphic1_changes.legend_data = /*$legend_1_3*/
+        ctx2[5];
+      graphic1.$set(graphic1_changes);
       const textblock6_changes = {};
       if (dirty & /*copy*/
       4)
         textblock6_changes.copy = /*copy*/
         ctx2[2].get(7);
       textblock6.$set(textblock6_changes);
-      const chaptertitle1_changes = {};
-      if (dirty & /*$chapters*/
-      8)
-        chaptertitle1_changes.data = /*$chapters*/
-        ctx2[3][1];
-      chaptertitle1.$set(chaptertitle1_changes);
+      const image_changes = {};
+      if (dirty & /*$isMobile*/
+      16)
+        image_changes.url = `https://datacommons-cdn.one.org/graphic_1_1${/*$isMobile*/
+        ctx2[4] ? "_mobile" : ""}.gif`;
+      image.$set(image_changes);
       const textblock7_changes = {};
       if (dirty & /*copy*/
       4)
         textblock7_changes.copy = /*copy*/
         ctx2[2].get(8);
       textblock7.$set(textblock7_changes);
+      const chaptertitle1_changes = {};
+      if (dirty & /*$chapters*/
+      8)
+        chaptertitle1_changes.data = /*$chapters*/
+        ctx2[3][1];
+      chaptertitle1.$set(chaptertitle1_changes);
       const textblock8_changes = {};
       if (dirty & /*copy*/
       4)
@@ -5277,274 +6237,307 @@ function create_if_block(ctx) {
         textblock12_changes.copy = /*copy*/
         ctx2[2].get(13);
       textblock12.$set(textblock12_changes);
-      const chaptertitle2_changes = {};
-      if (dirty & /*$chapters*/
-      8)
-        chaptertitle2_changes.data = /*$chapters*/
-        ctx2[3][2];
-      chaptertitle2.$set(chaptertitle2_changes);
       const textblock13_changes = {};
       if (dirty & /*copy*/
       4)
         textblock13_changes.copy = /*copy*/
         ctx2[2].get(14);
       textblock13.$set(textblock13_changes);
+      const chaptertitle2_changes = {};
+      if (dirty & /*$chapters*/
+      8)
+        chaptertitle2_changes.data = /*$chapters*/
+        ctx2[3][2];
+      chaptertitle2.$set(chaptertitle2_changes);
       const textblock14_changes = {};
       if (dirty & /*copy*/
       4)
         textblock14_changes.copy = /*copy*/
         ctx2[2].get(15);
       textblock14.$set(textblock14_changes);
-      const chaptertitle3_changes = {};
-      if (dirty & /*$chapters*/
-      8)
-        chaptertitle3_changes.data = /*$chapters*/
-        ctx2[3][3];
-      chaptertitle3.$set(chaptertitle3_changes);
+      const visual2_changes = {};
+      if (dirty & /*$legend_3_1*/
+      64)
+        visual2_changes.legend_data = /*$legend_3_1*/
+        ctx2[6];
+      visual2.$set(visual2_changes);
       const textblock15_changes = {};
       if (dirty & /*copy*/
       4)
         textblock15_changes.copy = /*copy*/
         ctx2[2].get(16);
       textblock15.$set(textblock15_changes);
+      const chaptertitle3_changes = {};
+      if (dirty & /*$chapters*/
+      8)
+        chaptertitle3_changes.data = /*$chapters*/
+        ctx2[3][3];
+      chaptertitle3.$set(chaptertitle3_changes);
       const textblock16_changes = {};
       if (dirty & /*copy*/
       4)
         textblock16_changes.copy = /*copy*/
         ctx2[2].get(17);
       textblock16.$set(textblock16_changes);
-      const chaptertitle4_changes = {};
-      if (dirty & /*$chapters*/
-      8)
-        chaptertitle4_changes.data = /*$chapters*/
-        ctx2[3][4];
-      chaptertitle4.$set(chaptertitle4_changes);
       const textblock17_changes = {};
       if (dirty & /*copy*/
       4)
         textblock17_changes.copy = /*copy*/
         ctx2[2].get(18);
       textblock17.$set(textblock17_changes);
-      const chaptertitle5_changes = {};
+      const chaptertitle4_changes = {};
       if (dirty & /*$chapters*/
       8)
-        chaptertitle5_changes.data = /*$chapters*/
-        ctx2[3][5];
-      chaptertitle5.$set(chaptertitle5_changes);
+        chaptertitle4_changes.data = /*$chapters*/
+        ctx2[3][4];
+      chaptertitle4.$set(chaptertitle4_changes);
       const textblock18_changes = {};
       if (dirty & /*copy*/
       4)
         textblock18_changes.copy = /*copy*/
         ctx2[2].get(19);
       textblock18.$set(textblock18_changes);
+      const chaptertitle5_changes = {};
+      if (dirty & /*$chapters*/
+      8)
+        chaptertitle5_changes.data = /*$chapters*/
+        ctx2[3][5];
+      chaptertitle5.$set(chaptertitle5_changes);
+      const textblock19_changes = {};
+      if (dirty & /*copy*/
+      4)
+        textblock19_changes.copy = /*copy*/
+        ctx2[2].get(20);
+      textblock19.$set(textblock19_changes);
+      const resources_changes = {};
+      if (dirty & /*$chapters*/
+      8)
+        resources_changes.data = /*$chapters*/
+        ctx2[3][6];
+      resources.$set(resources_changes);
     },
     i(local) {
       if (current)
         return;
+      transition_in(title.$$.fragment, local);
       transition_in(textblock0.$$.fragment, local);
       transition_in(textblock1.$$.fragment, local);
+      transition_in(textblock2.$$.fragment, local);
       transition_in(keyresults.$$.fragment, local);
       transition_in(chaptertitle0.$$.fragment, local);
-      transition_in(textblock2.$$.fragment, local);
-      transition_in(callout0.$$.fragment, local);
       transition_in(textblock3.$$.fragment, local);
-      transition_in(graphic0.$$.fragment, local);
+      transition_in(callout0.$$.fragment, local);
       transition_in(textblock4.$$.fragment, local);
-      transition_in(graphic1.$$.fragment, local);
+      transition_in(graphic0.$$.fragment, local);
       transition_in(textblock5.$$.fragment, local);
-      transition_in(image.$$.fragment, local);
+      transition_in(graphic1.$$.fragment, local);
       transition_in(textblock6.$$.fragment, local);
-      transition_in(chaptertitle1.$$.fragment, local);
+      transition_in(image.$$.fragment, local);
       transition_in(textblock7.$$.fragment, local);
-      transition_in(graphic2.$$.fragment, local);
+      transition_in(chaptertitle1.$$.fragment, local);
       transition_in(textblock8.$$.fragment, local);
-      transition_in(callout1.$$.fragment, local);
+      transition_in(graphic2.$$.fragment, local);
       transition_in(textblock9.$$.fragment, local);
+      transition_in(callout1.$$.fragment, local);
       transition_in(textblock10.$$.fragment, local);
-      transition_in(visual0.$$.fragment, local);
       transition_in(textblock11.$$.fragment, local);
-      transition_in(visual1.$$.fragment, local);
+      transition_in(visual0.$$.fragment, local);
       transition_in(textblock12.$$.fragment, local);
-      transition_in(chaptertitle2.$$.fragment, local);
+      transition_in(visual1.$$.fragment, local);
       transition_in(textblock13.$$.fragment, local);
-      transition_in(visual2.$$.fragment, local);
+      transition_in(chaptertitle2.$$.fragment, local);
       transition_in(textblock14.$$.fragment, local);
+      transition_in(visual2.$$.fragment, local);
+      transition_in(textblock15.$$.fragment, local);
       transition_in(visual3.$$.fragment, local);
       transition_in(chaptertitle3.$$.fragment, local);
-      transition_in(textblock15.$$.fragment, local);
-      transition_in(visual4.$$.fragment, local);
       transition_in(textblock16.$$.fragment, local);
+      transition_in(visual4.$$.fragment, local);
+      transition_in(textblock17.$$.fragment, local);
       transition_in(visual5.$$.fragment, local);
       transition_in(chaptertitle4.$$.fragment, local);
-      transition_in(textblock17.$$.fragment, local);
-      transition_in(chaptertitle5.$$.fragment, local);
       transition_in(textblock18.$$.fragment, local);
+      transition_in(chaptertitle5.$$.fragment, local);
+      transition_in(textblock19.$$.fragment, local);
       transition_in(accordion.$$.fragment, local);
       transition_in(resources.$$.fragment, local);
+      transition_in(contributor.$$.fragment, local);
       current = true;
     },
     o(local) {
+      transition_out(title.$$.fragment, local);
       transition_out(textblock0.$$.fragment, local);
       transition_out(textblock1.$$.fragment, local);
+      transition_out(textblock2.$$.fragment, local);
       transition_out(keyresults.$$.fragment, local);
       transition_out(chaptertitle0.$$.fragment, local);
-      transition_out(textblock2.$$.fragment, local);
-      transition_out(callout0.$$.fragment, local);
       transition_out(textblock3.$$.fragment, local);
-      transition_out(graphic0.$$.fragment, local);
+      transition_out(callout0.$$.fragment, local);
       transition_out(textblock4.$$.fragment, local);
-      transition_out(graphic1.$$.fragment, local);
+      transition_out(graphic0.$$.fragment, local);
       transition_out(textblock5.$$.fragment, local);
-      transition_out(image.$$.fragment, local);
+      transition_out(graphic1.$$.fragment, local);
       transition_out(textblock6.$$.fragment, local);
-      transition_out(chaptertitle1.$$.fragment, local);
+      transition_out(image.$$.fragment, local);
       transition_out(textblock7.$$.fragment, local);
-      transition_out(graphic2.$$.fragment, local);
+      transition_out(chaptertitle1.$$.fragment, local);
       transition_out(textblock8.$$.fragment, local);
-      transition_out(callout1.$$.fragment, local);
+      transition_out(graphic2.$$.fragment, local);
       transition_out(textblock9.$$.fragment, local);
+      transition_out(callout1.$$.fragment, local);
       transition_out(textblock10.$$.fragment, local);
-      transition_out(visual0.$$.fragment, local);
       transition_out(textblock11.$$.fragment, local);
-      transition_out(visual1.$$.fragment, local);
+      transition_out(visual0.$$.fragment, local);
       transition_out(textblock12.$$.fragment, local);
-      transition_out(chaptertitle2.$$.fragment, local);
+      transition_out(visual1.$$.fragment, local);
       transition_out(textblock13.$$.fragment, local);
-      transition_out(visual2.$$.fragment, local);
+      transition_out(chaptertitle2.$$.fragment, local);
       transition_out(textblock14.$$.fragment, local);
+      transition_out(visual2.$$.fragment, local);
+      transition_out(textblock15.$$.fragment, local);
       transition_out(visual3.$$.fragment, local);
       transition_out(chaptertitle3.$$.fragment, local);
-      transition_out(textblock15.$$.fragment, local);
-      transition_out(visual4.$$.fragment, local);
       transition_out(textblock16.$$.fragment, local);
+      transition_out(visual4.$$.fragment, local);
+      transition_out(textblock17.$$.fragment, local);
       transition_out(visual5.$$.fragment, local);
       transition_out(chaptertitle4.$$.fragment, local);
-      transition_out(textblock17.$$.fragment, local);
-      transition_out(chaptertitle5.$$.fragment, local);
       transition_out(textblock18.$$.fragment, local);
+      transition_out(chaptertitle5.$$.fragment, local);
+      transition_out(textblock19.$$.fragment, local);
       transition_out(accordion.$$.fragment, local);
       transition_out(resources.$$.fragment, local);
+      transition_out(contributor.$$.fragment, local);
       current = false;
     },
     d(detaching) {
-      destroy_component(textblock0, detaching);
+      destroy_component(title, detaching);
       if (detaching)
         detach(t0);
-      destroy_component(textblock1, detaching);
+      destroy_component(textblock0, detaching);
       if (detaching)
         detach(t1);
-      destroy_component(keyresults, detaching);
+      destroy_component(textblock1, detaching);
       if (detaching)
         detach(t2);
-      destroy_component(chaptertitle0, detaching);
-      if (detaching)
-        detach(t3);
       destroy_component(textblock2, detaching);
       if (detaching)
+        detach(t3);
+      destroy_component(keyresults, detaching);
+      if (detaching)
         detach(t4);
-      destroy_component(callout0, detaching);
+      destroy_component(chaptertitle0, detaching);
       if (detaching)
         detach(t5);
       destroy_component(textblock3, detaching);
       if (detaching)
         detach(t6);
-      destroy_component(graphic0, detaching);
+      destroy_component(callout0, detaching);
       if (detaching)
         detach(t7);
       destroy_component(textblock4, detaching);
       if (detaching)
         detach(t8);
-      destroy_component(graphic1, detaching);
+      destroy_component(graphic0, detaching);
       if (detaching)
         detach(t9);
       destroy_component(textblock5, detaching);
       if (detaching)
         detach(t10);
-      destroy_component(image, detaching);
+      destroy_component(graphic1, detaching);
       if (detaching)
         detach(t11);
       destroy_component(textblock6, detaching);
       if (detaching)
         detach(t12);
-      destroy_component(chaptertitle1, detaching);
+      destroy_component(image, detaching);
       if (detaching)
         detach(t13);
       destroy_component(textblock7, detaching);
       if (detaching)
         detach(t14);
-      destroy_component(graphic2, detaching);
+      destroy_component(chaptertitle1, detaching);
       if (detaching)
         detach(t15);
       destroy_component(textblock8, detaching);
       if (detaching)
         detach(t16);
-      destroy_component(callout1, detaching);
+      destroy_component(graphic2, detaching);
       if (detaching)
         detach(t17);
       destroy_component(textblock9, detaching);
       if (detaching)
         detach(t18);
-      destroy_component(textblock10, detaching);
+      destroy_component(callout1, detaching);
       if (detaching)
         detach(t19);
-      destroy_component(visual0, detaching);
+      destroy_component(textblock10, detaching);
       if (detaching)
         detach(t20);
       destroy_component(textblock11, detaching);
       if (detaching)
         detach(t21);
-      destroy_component(visual1, detaching);
+      destroy_component(visual0, detaching);
       if (detaching)
         detach(t22);
       destroy_component(textblock12, detaching);
       if (detaching)
         detach(t23);
-      destroy_component(chaptertitle2, detaching);
+      destroy_component(visual1, detaching);
       if (detaching)
         detach(t24);
       destroy_component(textblock13, detaching);
       if (detaching)
         detach(t25);
-      destroy_component(visual2, detaching);
+      destroy_component(chaptertitle2, detaching);
       if (detaching)
         detach(t26);
       destroy_component(textblock14, detaching);
       if (detaching)
         detach(t27);
-      destroy_component(visual3, detaching);
+      destroy_component(visual2, detaching);
       if (detaching)
         detach(t28);
-      destroy_component(chaptertitle3, detaching);
-      if (detaching)
-        detach(t29);
       destroy_component(textblock15, detaching);
       if (detaching)
+        detach(t29);
+      destroy_component(visual3, detaching);
+      if (detaching)
         detach(t30);
-      destroy_component(visual4, detaching);
+      destroy_component(chaptertitle3, detaching);
       if (detaching)
         detach(t31);
       destroy_component(textblock16, detaching);
       if (detaching)
         detach(t32);
-      destroy_component(visual5, detaching);
+      destroy_component(visual4, detaching);
       if (detaching)
         detach(t33);
-      destroy_component(chaptertitle4, detaching);
-      if (detaching)
-        detach(t34);
       destroy_component(textblock17, detaching);
       if (detaching)
+        detach(t34);
+      destroy_component(visual5, detaching);
+      if (detaching)
         detach(t35);
-      destroy_component(chaptertitle5, detaching);
+      destroy_component(chaptertitle4, detaching);
       if (detaching)
         detach(t36);
       destroy_component(textblock18, detaching);
       if (detaching)
         detach(t37);
-      destroy_component(accordion, detaching);
+      destroy_component(chaptertitle5, detaching);
       if (detaching)
         detach(t38);
+      destroy_component(textblock19, detaching);
+      if (detaching)
+        detach(t39);
+      destroy_component(accordion, detaching);
+      if (detaching)
+        detach(t40);
       destroy_component(resources, detaching);
+      if (detaching)
+        detach(t41);
+      destroy_component(contributor, detaching);
     }
   };
 }
@@ -5565,7 +6558,7 @@ function create_fragment$1(ctx) {
   ) } });
   bookmarks = new Bookmarks({ props: { chapters: (
     /*chapters*/
-    ctx[5]
+    ctx[7]
   ) } });
   hero = new Hero({});
   carousel = new Carousel({});
@@ -5673,7 +6666,11 @@ function create_fragment$1(ctx) {
 function instance($$self, $$props, $$invalidate) {
   let $chapters;
   let $isMobile;
+  let $legend_1_3;
+  let $legend_3_1;
   component_subscribe($$self, isMobile, ($$value) => $$invalidate(4, $isMobile = $$value));
+  component_subscribe($$self, legend_1_3, ($$value) => $$invalidate(5, $legend_1_3 = $$value));
+  component_subscribe($$self, legend_3_1, ($$value) => $$invalidate(6, $legend_3_1 = $$value));
   let dataLoaded = false;
   const chapters = writable([]);
   component_subscribe($$self, chapters, (value) => $$invalidate(3, $chapters = value));
@@ -5730,7 +6727,16 @@ function instance($$self, $$props, $$invalidate) {
       observer.disconnect();
     };
   });
-  return [dataLoaded, progress, copy, $chapters, $isMobile, chapters];
+  return [
+    dataLoaded,
+    progress,
+    copy,
+    $chapters,
+    $isMobile,
+    $legend_1_3,
+    $legend_3_1,
+    chapters
+  ];
 }
 class Story extends SvelteComponent {
   constructor(options) {
