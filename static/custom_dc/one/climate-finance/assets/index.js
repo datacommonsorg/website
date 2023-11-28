@@ -1210,7 +1210,7 @@ function get_each_context$4(ctx, list, i) {
   child_ctx[8] = i;
   return child_ctx;
 }
-function create_if_block$a(ctx) {
+function create_if_block$b(ctx) {
   let ul;
   let ul_transition;
   let current;
@@ -1415,7 +1415,7 @@ function create_fragment$o(ctx) {
   let dispose;
   let if_block = (
     /*showBookmarks*/
-    ctx[1] && create_if_block$a(ctx)
+    ctx[1] && create_if_block$b(ctx)
   );
   return {
     c() {
@@ -1469,7 +1469,7 @@ function create_fragment$o(ctx) {
             transition_in(if_block, 1);
           }
         } else {
-          if_block = create_if_block$a(ctx2);
+          if_block = create_if_block$b(ctx2);
           if_block.c();
           transition_in(if_block, 1);
           if_block.m(div0, t);
@@ -1649,13 +1649,13 @@ class ScrollCue extends SvelteComponent {
   }
 }
 const PressNote_svelte_svelte_type_style_lang = "";
-function create_else_block$2(ctx) {
+function create_else_block$3(ctx) {
   let div;
   return {
     c() {
       div = element("div");
       div.textContent = "~ Embargoed press preview ~";
-      attr(div, "class", "press-wrap svelte-13dtrfb");
+      attr(div, "class", "press-wrap svelte-3ao8iq");
       set_style(div, "font-weight", "700");
     },
     m(target, anchor) {
@@ -1670,7 +1670,7 @@ function create_else_block$2(ctx) {
     }
   };
 }
-function create_if_block$9(ctx) {
+function create_if_block$a(ctx) {
   let div2;
   let div1;
   let p0;
@@ -1699,9 +1699,9 @@ function create_if_block$9(ctx) {
       button = element("button");
       button.textContent = "close this note";
       attr(button, "class", "close");
-      attr(div0, "class", "close-wrap svelte-13dtrfb");
-      attr(div1, "class", "press-note svelte-13dtrfb");
-      attr(div2, "class", "press-wrap svelte-13dtrfb");
+      attr(div0, "class", "close-wrap svelte-3ao8iq");
+      attr(div1, "class", "press-note svelte-3ao8iq");
+      attr(div2, "class", "press-wrap svelte-3ao8iq");
     },
     m(target, anchor) {
       insert(target, div2, anchor);
@@ -1757,7 +1757,7 @@ function create_fragment$l(ctx) {
   let if_block;
   let if_block_anchor;
   let current;
-  const if_block_creators = [create_if_block$9, create_else_block$2];
+  const if_block_creators = [create_if_block$a, create_else_block$3];
   const if_blocks = [];
   function select_block_type(ctx2, dirty) {
     if (
@@ -1991,7 +1991,7 @@ class TextSlide extends SvelteComponent {
   }
 }
 const MediaSlide_svelte_svelte_type_style_lang = "";
-function create_if_block$8(ctx) {
+function create_if_block$9(ctx) {
   let video;
   let source;
   let source_src_value;
@@ -2043,7 +2043,7 @@ function create_fragment$i(ctx) {
   let current;
   let if_block = (
     /*type*/
-    ctx[0] === "video" && create_if_block$8(ctx)
+    ctx[0] === "video" && create_if_block$9(ctx)
   );
   tag_1 = new Tag({ props: { text: (
     /*tag*/
@@ -2090,7 +2090,7 @@ function create_fragment$i(ctx) {
         if (if_block) {
           if_block.p(ctx2, dirty);
         } else {
-          if_block = create_if_block$8(ctx2);
+          if_block = create_if_block$9(ctx2);
           if_block.c();
           if_block.m(div1, t0);
         }
@@ -2313,7 +2313,7 @@ class Pagination extends SvelteComponent {
   }
 }
 const Carousel_svelte_svelte_type_style_lang = "";
-function create_if_block$7(ctx) {
+function create_if_block$8(ctx) {
   let pagination;
   let current;
   pagination = new Pagination({
@@ -2413,7 +2413,7 @@ function create_fragment$g(ctx) {
   });
   let if_block = (
     /*$isMobile*/
-    ctx[2] && create_if_block$7(ctx)
+    ctx[2] && create_if_block$8(ctx)
   );
   return {
     c() {
@@ -2431,8 +2431,8 @@ function create_fragment$g(ctx) {
       t4 = space();
       if (if_block)
         if_block.c();
-      attr(div0, "class", "carousel-wrap svelte-1qz1ken");
-      attr(div1, "class", "carousel svelte-1qz1ken");
+      attr(div0, "class", "carousel-wrap svelte-1lrpr01");
+      attr(div1, "class", "carousel svelte-1lrpr01");
     },
     m(target, anchor) {
       insert(target, div1, anchor);
@@ -2464,7 +2464,7 @@ function create_fragment$g(ctx) {
             transition_in(if_block, 1);
           }
         } else {
-          if_block = create_if_block$7(ctx2);
+          if_block = create_if_block$8(ctx2);
           if_block.c();
           transition_in(if_block, 1);
           if_block.m(div1, null);
@@ -2650,13 +2650,13 @@ function create_fragment$e(ctx) {
       t2 = space();
       h1 = element("h1");
       t3 = text$1(t3_value);
-      attr(p, "class", "svelte-1fsrzu3");
-      attr(h1, "class", "svelte-1fsrzu3");
+      attr(p, "class", "svelte-1beye53");
+      attr(h1, "class", "svelte-1beye53");
       attr(div0, "class", "column");
       attr(div1, "class", "column-wrap");
       attr(div1, "data-chapter", div1_data_chapter_value = /*data*/
       ctx[0].chapter);
-      attr(div2, "class", "chapter-title svelte-1fsrzu3");
+      attr(div2, "class", "chapter-title svelte-1beye53");
     },
     m(target, anchor) {
       insert(target, div2, anchor);
@@ -2724,8 +2724,8 @@ function create_if_block_2$3(ctx) {
     c() {
       div = element("div");
       p = element("p");
-      attr(p, "class", "svelte-8yc1sq");
-      attr(div, "class", "note link-potential svelte-8yc1sq");
+      attr(p, "class", "svelte-jm7m46");
+      attr(div, "class", "note link-potential svelte-jm7m46");
     },
     m(target, anchor) {
       insert(target, div, anchor);
@@ -2780,11 +2780,11 @@ function create_if_block_1$4(ctx) {
       t1 = space();
       div0 = element("div");
       t2 = text$1(t2_value);
-      attr(button, "class", "glossary svelte-8yc1sq");
+      attr(button, "class", "glossary svelte-jm7m46");
       attr(div0, "class", div0_class_value = null_to_empty(`glossary-text ${/*activeGlossaryTerm*/
       ctx[2] === /*part*/
-      ctx[9].content ? "show" : ""}`) + " svelte-8yc1sq");
-      attr(div1, "class", "glossary-wrap svelte-8yc1sq");
+      ctx[9].content ? "show" : ""}`) + " svelte-jm7m46");
+      attr(div1, "class", "glossary-wrap svelte-jm7m46");
     },
     m(target, anchor) {
       insert(target, div1, anchor);
@@ -2811,7 +2811,7 @@ function create_if_block_1$4(ctx) {
       if (dirty & /*activeGlossaryTerm, copy*/
       5 && div0_class_value !== (div0_class_value = null_to_empty(`glossary-text ${/*activeGlossaryTerm*/
       ctx[2] === /*part*/
-      ctx[9].content ? "show" : ""}`) + " svelte-8yc1sq")) {
+      ctx[9].content ? "show" : ""}`) + " svelte-jm7m46")) {
         attr(div0, "class", div0_class_value);
       }
     },
@@ -2823,7 +2823,7 @@ function create_if_block_1$4(ctx) {
     }
   };
 }
-function create_if_block$6(ctx) {
+function create_if_block$7(ctx) {
   let html_tag;
   let raw_value = (
     /*part*/
@@ -2861,7 +2861,7 @@ function create_each_block_1(ctx) {
       /*part*/
       ctx2[9].type === "text"
     )
-      return create_if_block$6;
+      return create_if_block$7;
     if (
       /*part*/
       ctx2[9].type === "button"
@@ -2921,7 +2921,7 @@ function create_each_block$2(ctx) {
         each_blocks[i].c();
       }
       t = space();
-      attr(p, "class", "svelte-8yc1sq");
+      attr(p, "class", "svelte-jm7m46");
     },
     m(target, anchor) {
       insert(target, p, anchor);
@@ -2993,7 +2993,7 @@ function create_fragment$d(ctx) {
       }
       t1 = space();
       div1 = element("div");
-      attr(div0, "class", "column svelte-8yc1sq");
+      attr(div0, "class", "column svelte-jm7m46");
       attr(div1, "class", "right");
       attr(div2, "class", "column-wrap");
       attr(div3, "class", "text-block");
@@ -3336,7 +3336,7 @@ function create_if_block_1$3(ctx) {
     }
   };
 }
-function create_if_block$5(ctx) {
+function create_if_block$6(ctx) {
   let p;
   let t;
   let html_tag;
@@ -3403,7 +3403,7 @@ function create_fragment$b(ctx) {
   );
   let if_block2 = (
     /*sources*/
-    ctx[4] && create_if_block$5(ctx)
+    ctx[4] && create_if_block$6(ctx)
   );
   return {
     c() {
@@ -3566,7 +3566,7 @@ function create_fragment$b(ctx) {
         if (if_block2) {
           if_block2.p(ctx2, dirty);
         } else {
-          if_block2 = create_if_block$5(ctx2);
+          if_block2 = create_if_block$6(ctx2);
           if_block2.c();
           if_block2.m(div4, null);
         }
@@ -3798,7 +3798,7 @@ function create_if_block_1$2(ctx) {
     }
   };
 }
-function create_if_block$4(ctx) {
+function create_if_block$5(ctx) {
   let p;
   let t;
   let html_tag;
@@ -3871,7 +3871,7 @@ function create_fragment$a(ctx) {
   );
   let if_block4 = (
     /*sources*/
-    ctx[3] && create_if_block$4(ctx)
+    ctx[3] && create_if_block$5(ctx)
   );
   return {
     c() {
@@ -4048,7 +4048,7 @@ function create_fragment$a(ctx) {
         if (if_block4) {
           if_block4.p(ctx2, dirty);
         } else {
-          if_block4 = create_if_block$4(ctx2);
+          if_block4 = create_if_block$5(ctx2);
           if_block4.c();
           if_block4.m(div5, null);
         }
@@ -4155,7 +4155,7 @@ class Visual extends SvelteComponent {
   }
 }
 const Callout_svelte_svelte_type_style_lang = "";
-function create_if_block$3(ctx) {
+function create_if_block$4(ctx) {
   let cite;
   return {
     c() {
@@ -4188,7 +4188,7 @@ function create_fragment$9(ctx) {
   let t1;
   let if_block = (
     /*note*/
-    ctx[1] && create_if_block$3(ctx)
+    ctx[1] && create_if_block$4(ctx)
   );
   return {
     c() {
@@ -4248,7 +4248,7 @@ function create_fragment$9(ctx) {
         if (if_block) {
           if_block.p(ctx2, dirty);
         } else {
-          if_block = create_if_block$3(ctx2);
+          if_block = create_if_block$4(ctx2);
           if_block.c();
           if_block.m(div0, null);
         }
@@ -4303,45 +4303,45 @@ function create_fragment$8(ctx) {
       div4 = element("div");
       div1 = element("div");
       div0 = element("div");
-      div0.innerHTML = `<header class="svelte-12zud6l"><h2 class="svelte-12zud6l">Here&#39;s what we found</h2> 
-        <p class="svelte-12zud6l">Climate finance commitments from donor countries and international
+      div0.innerHTML = `<header class="svelte-rhv190"><h2 class="svelte-rhv190">Here&#39;s what we found</h2> 
+        <p>Climate finance commitments from donor countries and international
           institutions are <b>vastly</b> overstated.</p></header>`;
       t5 = space();
       div3 = element("div");
       div2 = element("div");
       section0 = element("section");
-      section0.innerHTML = `<h1 class="svelte-12zud6l">2/3</h1> 
-        <p class="svelte-12zud6l"><b>Nearly two-thirds</b> of climate finance commitments counted by the
+      section0.innerHTML = `<h1 class="svelte-rhv190">2/3</h1> 
+        <p class="svelte-rhv190"><b>Nearly two-thirds</b> of climate finance commitments counted by the
           OECD aren’t recorded as disbursed or have little to do with climate.
           That’s an <b>eye-popping US$343 billion</b> between 2013 and 2021.</p>`;
       t12 = space();
       section1 = element("section");
-      section1.innerHTML = `<h1 class="svelte-12zud6l">43%</h1> 
-        <p class="svelte-12zud6l"><b>43% of countries</b> suffering severe debt problems paid more in debt
+      section1.innerHTML = `<h1 class="svelte-rhv190">43%</h1> 
+        <p class="svelte-rhv190"><b>43% of countries</b> suffering severe debt problems paid more in debt
           payments to lenders than they received in climate finance between 2019
           and 2021.</p>`;
       t17 = space();
       section2 = element("section");
-      section2.innerHTML = `<h1 class="svelte-12zud6l">7%</h1> 
-        <p class="svelte-12zud6l">In 2021, the world’s 20 most climate-vulnerable countries <b>received just 6.5%</b> of the climate finance they need each year to address climate change.</p>`;
+      section2.innerHTML = `<h1 class="svelte-rhv190">7%</h1> 
+        <p class="svelte-rhv190">In 2021, the world’s 20 most climate-vulnerable countries <b>received just 6.5%</b> of the climate finance they need each year to address climate change.</p>`;
       attr(div0, "class", "column");
       add_render_callback(() => (
         /*div0_elementresize_handler*/
         ctx[3].call(div0)
       ));
       attr(div1, "class", "column-wrap");
-      attr(section0, "class", "svelte-12zud6l");
-      attr(section1, "class", "svelte-12zud6l");
-      attr(section2, "class", "svelte-12zud6l");
-      attr(div2, "class", "results svelte-12zud6l");
+      attr(section0, "class", "svelte-rhv190");
+      attr(section1, "class", "svelte-rhv190");
+      attr(section2, "class", "svelte-rhv190");
+      attr(div2, "class", "results svelte-rhv190");
       attr(
         div2,
         "style",
         /*style*/
         ctx[1]
       );
-      attr(div3, "class", "extended-wrap svelte-12zud6l");
-      attr(div4, "class", "key-results svelte-12zud6l");
+      attr(div3, "class", "extended-wrap svelte-rhv190");
+      attr(div4, "class", "key-results svelte-rhv190");
     },
     m(target, anchor) {
       insert(target, div4, anchor);
@@ -4451,7 +4451,7 @@ function create_if_block_4(ctx) {
     }
   };
 }
-function create_else_block$1(ctx) {
+function create_else_block$2(ctx) {
   let img;
   let img_src_value;
   return {
@@ -4617,7 +4617,7 @@ function create_if_block_1$1(ctx) {
     }
   };
 }
-function create_if_block$2(ctx) {
+function create_if_block$3(ctx) {
   let p;
   let t;
   let html_tag;
@@ -4672,7 +4672,7 @@ function create_fragment$7(ctx) {
       ctx2[6]
     )
       return create_if_block_2;
-    return create_else_block$1;
+    return create_else_block$2;
   }
   let current_block_type = select_block_type(ctx);
   let if_block1 = current_block_type(ctx);
@@ -4682,7 +4682,7 @@ function create_fragment$7(ctx) {
   );
   let if_block3 = (
     /*sources*/
-    ctx[5] && create_if_block$2(ctx)
+    ctx[5] && create_if_block$3(ctx)
   );
   return {
     c() {
@@ -4790,7 +4790,7 @@ function create_fragment$7(ctx) {
         if (if_block3) {
           if_block3.p(ctx2, dirty);
         } else {
-          if_block3 = create_if_block$2(ctx2);
+          if_block3 = create_if_block$3(ctx2);
           if_block3.c();
           if_block3.m(div3, null);
         }
@@ -4872,12 +4872,12 @@ function get_each_context(ctx, list, i) {
   child_ctx[4] = list[i];
   return child_ctx;
 }
-function create_if_block$1(ctx) {
+function create_if_block$2(ctx) {
   let current_block_type_index;
   let if_block;
   let if_block_anchor;
   let current;
-  const if_block_creators = [create_if_block_1, create_else_block];
+  const if_block_creators = [create_if_block_1, create_else_block$1];
   const if_blocks = [];
   function select_block_type(ctx2, dirty) {
     if (
@@ -4938,7 +4938,7 @@ function create_if_block$1(ctx) {
     }
   };
 }
-function create_else_block(ctx) {
+function create_else_block$1(ctx) {
   let ul;
   let ul_transition;
   let current;
@@ -5109,7 +5109,7 @@ function create_fragment$6(ctx) {
   let dispose;
   let if_block = (
     /*showDetail*/
-    ctx[2] && create_if_block$1(ctx)
+    ctx[2] && create_if_block$2(ctx)
   );
   return {
     c() {
@@ -5170,7 +5170,7 @@ function create_fragment$6(ctx) {
             transition_in(if_block, 1);
           }
         } else {
-          if_block = create_if_block$1(ctx2);
+          if_block = create_if_block$2(ctx2);
           if_block.c();
           transition_in(if_block, 1);
           if_block.m(div1, null);
@@ -5589,8 +5589,8 @@ class Resource extends SvelteComponent {
 }
 const Resources_svelte_svelte_type_style_lang = "";
 function create_fragment$3(ctx) {
+  let div3;
   let div2;
-  let div1;
   let header;
   let t3;
   let div0;
@@ -5604,7 +5604,8 @@ function create_fragment$3(ctx) {
   let t7;
   let resource4;
   let t8;
-  let div2_data_chapter_value;
+  let div1;
+  let div3_data_chapter_value;
   let current;
   resource0 = new Resource({
     props: {
@@ -5625,7 +5626,7 @@ function create_fragment$3(ctx) {
   resource2 = new Resource({
     props: {
       title: "Behind-the-scenes",
-      description: "While charts do tell a thousand words, some words are sometimes helpful. Read more about the charts on this story.",
+      description: "While a chart is worth a thousand words, words can help clarify. Read more about the charts in this story.",
       position: "center",
       url: "https://observablehq.com/@one-campaign/climate-finance-files-story-behind-the-scenes"
     }
@@ -5648,12 +5649,13 @@ function create_fragment$3(ctx) {
   });
   return {
     c() {
+      div3 = element("div");
       div2 = element("div");
-      div1 = element("div");
       header = element("header");
-      header.innerHTML = `<h2 class="svelte-zjte5q">Congratulations on making it to the end! 🪩</h2> 
-      <p class="svelte-zjte5q">Here’s your reward: you can dive deeper and explore the data on your
-        own. Feel free to download the data, create, and share your own stories!</p>`;
+      header.innerHTML = `<h2 class="svelte-14n14t5">Congratulations on making it to the end! 🪩</h2> 
+      <p class="svelte-14n14t5">Here’s your reward: you can dive deeper and explore the data on your
+        own. Feel free to download the data and create and share your own
+        stories!</p>`;
       t3 = space();
       div0 = element("div");
       create_component(resource0.$$.fragment);
@@ -5666,19 +5668,22 @@ function create_fragment$3(ctx) {
       t7 = space();
       create_component(resource4.$$.fragment);
       t8 = space();
-      attr(header, "class", "svelte-zjte5q");
-      attr(div0, "class", "resources svelte-zjte5q");
-      attr(div1, "class", "resources-main svelte-zjte5q");
-      attr(div2, "class", "resources-wrap svelte-zjte5q");
-      attr(div2, "data-chapter", div2_data_chapter_value = /*data*/
+      div1 = element("div");
+      div1.innerHTML = `<p class="aftershock svelte-14n14t5">To learn more and stay informed, sign up to the <a href="https://data.one.org/aftershocks/" target="_blank" class="svelte-14n14t5">Aftershocks newsletter</a></p>`;
+      attr(header, "class", "svelte-14n14t5");
+      attr(div0, "class", "resources svelte-14n14t5");
+      attr(div1, "class", "aftershock-wrap svelte-14n14t5");
+      attr(div2, "class", "resources-main svelte-14n14t5");
+      attr(div3, "class", "resources-wrap svelte-14n14t5");
+      attr(div3, "data-chapter", div3_data_chapter_value = /*data*/
       ctx[0].chapter);
     },
     m(target, anchor) {
-      insert(target, div2, anchor);
-      append(div2, div1);
-      append(div1, header);
-      append(div1, t3);
-      append(div1, div0);
+      insert(target, div3, anchor);
+      append(div3, div2);
+      append(div2, header);
+      append(div2, t3);
+      append(div2, div0);
       mount_component(resource0, div0, null);
       append(div0, t4);
       mount_component(resource1, div0, null);
@@ -5688,14 +5693,15 @@ function create_fragment$3(ctx) {
       mount_component(resource3, div0, null);
       append(div0, t7);
       mount_component(resource4, div0, null);
-      append(div1, t8);
+      append(div2, t8);
+      append(div2, div1);
       current = true;
     },
     p(ctx2, [dirty]) {
       if (!current || dirty & /*data*/
-      1 && div2_data_chapter_value !== (div2_data_chapter_value = /*data*/
+      1 && div3_data_chapter_value !== (div3_data_chapter_value = /*data*/
       ctx2[0].chapter)) {
-        attr(div2, "data-chapter", div2_data_chapter_value);
+        attr(div3, "data-chapter", div3_data_chapter_value);
       }
     },
     i(local) {
@@ -5718,7 +5724,7 @@ function create_fragment$3(ctx) {
     },
     d(detaching) {
       if (detaching)
-        detach(div2);
+        detach(div3);
       destroy_component(resource0);
       destroy_component(resource1);
       destroy_component(resource2);
@@ -5742,31 +5748,129 @@ class Resources extends SvelteComponent {
   }
 }
 const Contributor_svelte_svelte_type_style_lang = "";
+function create_else_block(ctx) {
+  let a0;
+  let t1;
+  let a1;
+  return {
+    c() {
+      a0 = element("a");
+      a0.textContent = "Lars Verspohl";
+      t1 = text$1("\n            and\n            ");
+      a1 = element("a");
+      a1.textContent = "Evelina Judeikyte";
+      attr(a0, "href", "https://www.datamake.io/");
+      attr(a0, "target", "_blank");
+      attr(a0, "class", "svelte-o7jmxj");
+      attr(a1, "href", "https://www.parabole.studio/");
+      attr(a1, "target", "_blank");
+      attr(a1, "class", "svelte-o7jmxj");
+    },
+    m(target, anchor) {
+      insert(target, a0, anchor);
+      insert(target, t1, anchor);
+      insert(target, a1, anchor);
+    },
+    d(detaching) {
+      if (detaching)
+        detach(a0);
+      if (detaching)
+        detach(t1);
+      if (detaching)
+        detach(a1);
+    }
+  };
+}
+function create_if_block$1(ctx) {
+  let a0;
+  let t1;
+  let a1;
+  return {
+    c() {
+      a0 = element("a");
+      a0.textContent = "Evelina Judeikyte";
+      t1 = text$1("\n            and\n            ");
+      a1 = element("a");
+      a1.textContent = "Lars Verspohl";
+      attr(a0, "href", "https://www.parabole.studio/");
+      attr(a0, "target", "_blank");
+      attr(a0, "class", "svelte-o7jmxj");
+      attr(a1, "href", "https://www.datamake.io/");
+      attr(a1, "target", "_blank");
+      attr(a1, "class", "svelte-o7jmxj");
+    },
+    m(target, anchor) {
+      insert(target, a0, anchor);
+      insert(target, t1, anchor);
+      insert(target, a1, anchor);
+    },
+    d(detaching) {
+      if (detaching)
+        detach(a0);
+      if (detaching)
+        detach(t1);
+      if (detaching)
+        detach(a1);
+    }
+  };
+}
 function create_fragment$2(ctx) {
   let div3;
   let div2;
   let div1;
+  let h3;
+  let t1;
+  let div0;
+  let p0;
+  let t4;
+  let p1;
+  let t9;
+  let p2;
+  let t20;
+  let p3;
+  let t21;
+  function select_block_type(ctx2, dirty) {
+    if (Math.random() < 0.5)
+      return create_if_block$1;
+    return create_else_block;
+  }
+  let current_block_type = select_block_type();
+  let if_block = current_block_type(ctx);
   return {
     c() {
       div3 = element("div");
       div2 = element("div");
       div1 = element("div");
-      div1.innerHTML = `<h3 class="svelte-aivbwk">This story was brought to you by the following team...</h3> 
-      <div class="list svelte-aivbwk"><p class="svelte-aivbwk">Story by <strong><a href="https://data.one.org/experts/#joseph-kraus" target="_blank">Joseph Kraus</a></strong></p> 
-        <p class="svelte-aivbwk">Data by
-          <strong><a href="https://data.one.org/experts/#jorge-rivera" target="_blank">Jorge Rivera</a>
-            and
-            <a href="https://data.one.org/experts/#matthew-price" target="_blank">Matthew Price</a></strong></p> 
-        <p class="svelte-aivbwk">With contributions from
-          <strong><a href="https://data.one.org/experts/#olawunmi-ola-busari" target="_blank">Olawunmi Ola-Busari</a>,
-            <a href="https://data.one.org/experts/#luca-picci" target="_blank">Luca Picci</a>,
-            <a href="https://data.one.org/experts/#amy-dodd" target="_blank">Amy Dodd</a>,
-            <a href="https://www.one.org/stories/author/annepaisley/" target="_blank">Anne Paisley</a>, and
-            <a href="https://data.one.org/experts/#david-mcnair" target="_blank">David McNair</a></strong></p> 
-        <p class="svelte-aivbwk">Viusal storytelling by
-          <strong><a href="https://www.parabole.studio/" target="_blank">Evelina Judeikyte</a>
-            and
-            <a href="https://www.datamake.io/" target="_blank">Lars Verspohl</a></strong></p></div>`;
+      h3 = element("h3");
+      h3.textContent = "This story was brought to you by the following team...";
+      t1 = space();
+      div0 = element("div");
+      p0 = element("p");
+      p0.innerHTML = `Story by <a href="https://data.one.org/experts/#joseph-kraus" target="_blank" class="svelte-o7jmxj">Joseph Kraus</a>`;
+      t4 = space();
+      p1 = element("p");
+      p1.innerHTML = `Data by
+          <a href="https://data.one.org/experts/#jorge-rivera" target="_blank" class="svelte-o7jmxj">Jorge Rivera</a>
+          and
+          <a href="https://data.one.org/experts/#matthew-price" target="_blank" class="svelte-o7jmxj">Matthew Price</a>`;
+      t9 = space();
+      p2 = element("p");
+      p2.innerHTML = `With contributions from
+          <a href="https://data.one.org/experts/#olawunmi-ola-busari" target="_blank" class="svelte-o7jmxj">Olawunmi Ola-Busari</a>,
+          <a href="https://data.one.org/experts/#luca-picci" target="_blank" class="svelte-o7jmxj">Luca Picci</a>,
+          <a href="https://data.one.org/experts/#amy-dodd" target="_blank" class="svelte-o7jmxj">Amy Dodd</a>,
+          <a href="https://www.one.org/stories/author/annepaisley/" target="_blank" class="svelte-o7jmxj">Anne Paisley</a>, and
+          <a href="https://data.one.org/experts/#david-mcnair" target="_blank" class="svelte-o7jmxj">David McNair</a>`;
+      t20 = space();
+      p3 = element("p");
+      t21 = text$1("Visual storytelling by\n          ");
+      if_block.c();
+      attr(h3, "class", "svelte-o7jmxj");
+      attr(p0, "class", "svelte-o7jmxj");
+      attr(p1, "class", "svelte-o7jmxj");
+      attr(p2, "class", "svelte-o7jmxj");
+      attr(p3, "class", "svelte-o7jmxj");
+      attr(div0, "class", "list svelte-o7jmxj");
       attr(div1, "class", "column");
       attr(div2, "class", "column-wrap");
       set_style(
@@ -5775,12 +5879,24 @@ function create_fragment$2(ctx) {
         /*gridColWidths*/
         ctx[0]
       );
-      attr(div3, "class", "contributor svelte-aivbwk");
+      attr(div3, "class", "contributor svelte-o7jmxj");
     },
     m(target, anchor) {
       insert(target, div3, anchor);
       append(div3, div2);
       append(div2, div1);
+      append(div1, h3);
+      append(div1, t1);
+      append(div1, div0);
+      append(div0, p0);
+      append(div0, t4);
+      append(div0, p1);
+      append(div0, t9);
+      append(div0, p2);
+      append(div0, t20);
+      append(div0, p3);
+      append(p3, t21);
+      if_block.m(p3, null);
     },
     p(ctx2, [dirty]) {
       if (dirty & /*gridColWidths*/
@@ -5798,6 +5914,7 @@ function create_fragment$2(ctx) {
     d(detaching) {
       if (detaching)
         detach(div3);
+      if_block.d();
     }
   };
 }
@@ -5827,6 +5944,7 @@ const graphic_1_2_mobile = "" + new URL("graphic_1_2_mobile.svg", import.meta.ur
 const graphic_1_3 = "" + new URL("graphic_1_3.svg", import.meta.url).href;
 const graphic_1_3_mobile = "" + new URL("graphic_1_3_mobile.svg", import.meta.url).href;
 const graphic_2_1 = "" + new URL("graphic_2_1.svg", import.meta.url).href;
+const graphic_2_1_mobile = "" + new URL("graphic_2_1_mobile.svg", import.meta.url).href;
 function create_if_block(ctx) {
   let title;
   let t0;
@@ -5930,7 +6048,7 @@ function create_if_block(ctx) {
         ctx[2].get(2)
       ),
       note: "You can " + /*$isMobile*/
-      (ctx[4] ? "click on" : "hover over") + " <span style='border-bottom: 0.5px dashed'>dash-underlined terms</span> for definitions"
+      (ctx[4] ? "click on" : "hover over") + " <span style='border-bottom: 0.5px dashed'>dash-underlined terms</span> for definitions."
     }
   });
   textblock2 = new TextBlock({
@@ -5939,7 +6057,7 @@ function create_if_block(ctx) {
         /*copy*/
         ctx[2].get(3)
       ),
-      note: "The Files apply a robust methodology to correct flaws in the OECD's and UNFCCC's data."
+      note: "The Files apply a robust methodology to correct flaws in the existing data."
     }
   });
   keyresults = new KeyResults({ props: { width_factor: 2 } });
@@ -6023,7 +6141,10 @@ function create_if_block(ctx) {
   ) } });
   graphic2 = new Graphic({
     props: {
-      url: graphic_2_1,
+      url: (
+        /*$isMobile*/
+        ctx[4] ? graphic_2_1_mobile : graphic_2_1
+      ),
       width_factor: 1,
       sources: "ONE calculations based on <a href='https://www.oecd.org/dac/financing-sustainable-development/development-finance-topics/climate-change.htm' target='_blank'>OECD</a>,\n    <a href='https://milex.sipri.org/sipri' target='_blank'>SIPRI</a>"
     }
@@ -6034,7 +6155,7 @@ function create_if_block(ctx) {
   ) } });
   callout1 = new Callout({
     props: {
-      text: "Rich countries are providing much less climate finance than they claim"
+      text: "Rich countries are providing much less climate finance than they claim."
     }
   });
   textblock10 = new TextBlock({ props: { copy: (
@@ -6125,7 +6246,7 @@ function create_if_block(ctx) {
     props: {
       title: "Almost 1 in 2 debt-distressed countries paid more in debt than they received in climate financing",
       subtitle: "Debt payments divided by climate financing in 2021",
-      notes: "Basen on climate finance and debt service payments data for 46 out 54 countries with severe debt problems. The list of 54 countries is from UNDP/Jensen, using data on credit ratings, debt sustainability ratings, and sovereign bond spreads.",
+      notes: "Based on climate finance and debt service payments data for 46 out 54 countries with severe debt problems. The list of 54 countries is from UNDP/Jensen, using data on credit ratings, debt sustainability ratings, and sovereign bond spreads.",
       sources: "ONE calculations based on <a href='https://www.oecd.org/dac/financing-sustainable-development/development-finance-topics/climate-change.htm' target='_blank'>OECD</a>, <a href='https://www.worldbank.org/en/programs/debt-statistics/ids' target='_blank'>International Debt Statistics</a>, <a href='https://www.undp.org/sites/g/files/zskgke326/files/2022-10/UNDP-DFS-Avoiding-Too-Little-Too-Late-on-International-Debt-Relief-V2.pdf' target='_blank'>UNDP</>",
       width_factor: 1.5,
       type: "story",
@@ -6352,7 +6473,7 @@ function create_if_block(ctx) {
       if (dirty & /*$isMobile*/
       16)
         textblock1_changes.note = "You can " + /*$isMobile*/
-        (ctx2[4] ? "click on" : "hover over") + " <span style='border-bottom: 0.5px dashed'>dash-underlined terms</span> for definitions";
+        (ctx2[4] ? "click on" : "hover over") + " <span style='border-bottom: 0.5px dashed'>dash-underlined terms</span> for definitions.";
       textblock1.$set(textblock1_changes);
       const textblock2_changes = {};
       if (dirty & /*copy*/
@@ -6430,6 +6551,12 @@ function create_if_block(ctx) {
         textblock8_changes.copy = /*copy*/
         ctx2[2].get(9);
       textblock8.$set(textblock8_changes);
+      const graphic2_changes = {};
+      if (dirty & /*$isMobile*/
+      16)
+        graphic2_changes.url = /*$isMobile*/
+        ctx2[4] ? graphic_2_1_mobile : graphic_2_1;
+      graphic2.$set(graphic2_changes);
       const textblock9_changes = {};
       if (dirty & /*copy*/
       4)
