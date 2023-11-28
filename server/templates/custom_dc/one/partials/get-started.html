@@ -9,7 +9,8 @@
 'name': 'Health',
 'link': '/topic/health/africa',
 'image': '/custom_dc/one/health.webp',
-'description': 'Where you live shouldn’t determine whether you live, but too often it does. Explore data on health and wellbeing.'
+'description': 'Where you live shouldn’t determine whether you live, but too often it does. Explore data on health and
+wellbeing.'
 },
 {
 'name': 'People',
@@ -17,8 +18,13 @@
 'image': '/custom_dc/one/people.webp',
 'description': 'Explore data on people, populations, and quality of life.'
 },
+{
+'name': 'Climate',
+'link': '/climate-finance-files',
+'image': '/custom_dc/one/climate.webp',
+'description': 'Climate finance reporting is a mess. Here’s how to fix it.'
+},
 ] %}
-
 
 <section class="section--get-started">
     <h2 class="section__heading">Get started</h2>
@@ -32,7 +38,8 @@
                 <figure class="topic__figure">
                     <span class="topic__name">{{ topic.name }}</span>
                     <a href="{{ topic.link }}" class="topic__image-link">
-                        <img src="{{ topic.image }}" class="topic__image" alt="{{ topic.name }}" width="528" height="634" loading="lazy">
+                        <img src="{{ topic.image }}" class="topic__image" alt="{{ topic.name }}" width="528"
+                            height="634" loading="lazy">
                     </a>
                     <figcaption class="topic__description">
                         {{ topic.description }}
