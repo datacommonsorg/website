@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,23 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.app_env import _base
-from server.app_env import local
 
+# Convenience script for merging git submodules
+# 
+# Requires: git to be installed
+#
+# Usage: ./scripts/merge_git_submodules.sh from root directory
 
-class Config(_base.Config):
-  CUSTOM = True
-  NAME = "Custom Data Commons"
-  OVERRIDE_CSS_PATH = '/custom_dc/custom/overrides.css'
-  LOGO_PATH = "/custom_dc/custom/logo.png"
-  SHOW_DISASTER = False
-  USE_PALM = False
-  USE_MEMCACHE = False
-
-
-class LocalConfig(Config, local.Config):
-  pass
-
-
-class ComposeConfig(Config, local.Config):
-  pass
+cd mixer
+git checkout master
+git pull
+cd ../import
+git checkout master
+git pull
+cd ..

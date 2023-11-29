@@ -33,6 +33,7 @@ import { NlChartFeedback } from "../nl_feedback";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
 
+export const MAX_RANKING_POINTS_IN_CSV = 10;
 const RANKING_COUNT = 5;
 
 interface SvRankingUnitsProps {

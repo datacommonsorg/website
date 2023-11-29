@@ -45,3 +45,6 @@ nl:
 nodejs:
   enabled: true
   replicas: 50
+
+cronTesting:
+  enabled: true
