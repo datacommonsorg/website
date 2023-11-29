@@ -70,7 +70,7 @@ def load_custom_embeddings(app: Flask):
   It assumes that embeddings were already initialized at startup and this method
   only merges any newly loaded custom embeddings with the default embeddings.
 
-  NOTE that this method requires that the custom embeddings be available 
+  NOTE that this method requires that the custom embeddings be available
   on a local path.
   """
   flask_env = os.environ.get('FLASK_ENV')
@@ -141,13 +141,13 @@ def _maybe_update_cache(flask_env: str, nl_embeddings: embeddings_store.Store,
 def _maybe_load_custom_dc_yaml():
   # The path comes from:
   # https://github.com/datacommonsorg/website/blob/master/server/routes/admin/html.py#L39-L40
-  base = os.environ.get('SQL_DATA_PATH')
+  base = os.environ.get('USER_DATA_PATH')
   if not base:
     return None
 
   # TODO: Consider reading the base path from a "version.txt" instead
   # of hardcoding `data`
-  file_path = os.path.join(base, f'data/nl/{_CUSTOM_EMBEDDINGS_YAML}')
+  file_path = os.path.join(base, f'datacommons/nl/{_CUSTOM_EMBEDDINGS_YAML}')
   logging.info("Custom embeddings YAML path: %s", file_path)
 
   if os.path.exists(file_path):

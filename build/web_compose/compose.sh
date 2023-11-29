@@ -15,12 +15,23 @@
 
 export MIXER_API_KEY=$DC_API_KEY
 
+if [[ $USE_SQLITE == "true" ]]; then
+    export SQLITE_PATH=/sqlite/datacommons.db
+fi
+
+echo $GCS_DATA_PATH
+if [[ $GCS_DATA_PATH != "" ]]; then
+    export USER_DATA_PATH=$GCS_DATA_PATH
+else
+    export USER_DATA_PATH=/userdata/
+fi
+
 /go/bin/mixer \
     --use_bigquery=false \
     --use_base_bigtable=false \
     --use_custom_bigtable=false \
     --use_branch_bigtable=false \
-    --sqlite_path=$SQL_DATA_PATH/data/datacommons.db \
+    --sqlite_path=$SQLITE_PATH \
     --use_sqlite=$USE_SQLITE \
     --use_cloudsql=$USE_CLOUDSQL \
     --cloudsql_instance=$CLOUDSQL_INSTANCE \
@@ -28,23 +39,18 @@ export MIXER_API_KEY=$DC_API_KEY
 
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 
-if [[ $DEBUG == "true" ]]
-then
-    if [[ $ENABLE_MODEL == "true" ]]
-    then
+if [[ $DEBUG == "true" ]] then
+    if [[ $ENABLE_MODEL == "true" ]] then
         echo "Starting NL Server in debug mode."
         python3 nl_app.py 6060 &
     fi
-
     echo "Starting Website Server in debug mode."
     python3 web_app.py &
 else
-    if [[ $ENABLE_MODEL == "true" ]]
-    then
+    if [[ $ENABLE_MODEL == "true" ]] then
         echo "Starting NL Server."
         gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:6060 -w 1 nl_app:app &
     fi
-
     echo "Starting Website Server."
     gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:8080 -w 4 web_app:app &
 fi

@@ -28,9 +28,10 @@ Additionally, a custom DC combines its own local datasets with base DC datasets 
 - A custom Data Commons needs to connect with main Data Commons. Get API key for
   Data Commons by sending an email to `support@datacommons.org`.
 
-- [Optional] Provision a Google Maps API key from your GCP project. This is
-  optional and used for place search in visualization tools. Refer to [Maps API
-  Key](TODO) section for detailed instructions.
+- Obtain a Google Maps API key following [this
+  guide](https://developers.google.com/maps/documentation/javascript/get-api-key).
+  You can use a sample key `AIzaSyA9RsPS8tBCKwrET3qqAzydhOMWP0Ee8Y8` for local
+  development as discussed below.
 
 ## Local Development
 
@@ -45,7 +46,7 @@ docker build --tag datacommons-website-compose:latest \
 -t website-compose .
 ```
 
-### Test custom Data Commons locally with SQLITE database
+### Test custom Data Commons locally with SQLite database
 
 [Note]: Refer to [Environment Variables](#environment-variables) for setting
 environment variables.
@@ -57,7 +58,7 @@ docker run -it \
 --env-file $PWD/custom_dc/sqlite_env.list \
 -p 8080:8080 \
 -e DEBUG=true \
--v $PWD/custom_dc/sample:/sqlite \
+-v $PWD/custom_dc/sample:/userdata \
 -v $PWD/server:/workspace/server \
 datacommons-website-compose:latest
 ```
@@ -67,6 +68,13 @@ This brings up a local instance with sample data that are stored under
 
 Now you can open `localhost:8080/tools/timeline` to browse these sample data.
 Also note the base Data Commons data are also avaiable in this instance.
+
+[Note]: The local sample data path should always bind to `/userdata`.
+
+[Note]: The SQLite database is in the Docker runtime and does not persist. To
+persist the SQLite database, can bind it to a local directory by adding `-v
+<local_path>:/sqlite/` in the `docker run` command. By doing this, when you run
+the command and starting the servers, it can use the existing database.
 
 To use your own data, refer to [Import Custom Data](#import-custom-data).
 
@@ -202,18 +210,24 @@ before the operation.
 
 ### Prepare Custom Data
 
-The examples below show how you can prepare your data to be imported into a custom DC instance.
+The examples below show how you can prepare your data to be imported into a
+custom DC instance.
 
 The first column header is a property that identifies the observed entity.
 Supported properties in the examples below are `dcid`, `name`, `geoId`.
-When `dcid` is used, the entity should have been resolved (i.e. mapped to a DC identifier from a previous step).
+When `dcid` is used, the entity should have been resolved (i.e. mapped to a DC
+identifier from a previous step).
 
 The second column is a property that identifies the date.
 
-The last two columns identify IDs of metrics or statistical variables, with the column containing the corresponding numeric values.
+The last two columns identify IDs of metrics or statistical variables, with the
+column containing the corresponding numeric values.
 
-> Note that the treatment of variables in this section is much simplified for the purposes of this discussion.
-> For a more detailed discussion on the DC data model, please refer to the document on [Representing statistics in Data Commons](https://github.com/datacommonsorg/data/blob/master/docs/representing_statistics.md).
+> Note that the treatment of variables in this section is much simplified for
+> the purposes of this discussion.
+> For a more detailed discussion on the DC data model, please refer to the
+> document on [Representing statistics in Data
+> Commons](https://github.com/datacommonsorg/data/blob/master/docs/representing_statistics.md).
 
 Prepare CSV files with statistical data in the following formats:
 
@@ -237,13 +251,25 @@ geoId/08,2021,10,10
 
 Refer to [sample folder](./sample) for supported example data files.
 
-Put all the input files under a local folder or Google Cloud Storage folder, and
-use the folder path for environment variable `SQL_DATA_PATH` as described in the
-Environment Variables section below.
+Put all the input files under a local folder or Google Cloud Storage (GCS)
+folder.
+
+When using local folder, should bind it to `/userdata/` folder in `docker run`:
+
+```bash
+docker run -it \
+... \
+-v <LOCAL_PATH>:/userdata
+```
+
+When using GCS, should specify environment variable `GCS_DATA_PATH` as described
+in the Environment Variables section below.
 
 ### Data Config
 
-A config file `config.json` is required and should be put under `SQL_DATA_PATH`.
+A config file `config.json` is required and should be put under the same folder
+as the CSV files.
+
 The detailed spec can be found in this
 [doc](https://github.com/datacommonsorg/import/blob/master/simple/stats/config.md).
 
@@ -314,17 +340,17 @@ Example file for CloudSQL based intance can be found in
 
 Below is a detailed description of all the variables available.
 
-| Variable             | Description                                                                                                                                                   |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| FLASK_ENV            | Base folder name for custom html and css files, default to 'custom'                                                                                           |
-| DC_API_ROOT          | API endpoints to access base Data Commons data                                                                                                                |
-| DC_API_KEY           | API key for accessing base Data Commons API                                                                                                                   |
-| SQL_DATA_PATH        | The folder that holds raw custom Data Commons data; This could be local file path or Google Cloud Storage folder path in the form of `gs://<bucket>/<folder>` |
-| USE_SQLITE           | When set to `true`, use local SQLITE as database                                                                                                              |
-| USE_CLOUDSQL         | When set to `true`, use Google Cloud SQL as database                                                                                                          |
-| GOOGLE_CLOUD_PROJECT | [`USE_CLOUDSQL=true`] GCP project of the Cloud SQL when                                                                                                       |
-| CLOUDSQL_INSTANCE    | [`USE_CLOUDSQL=true`] In the form of `<project_id>:<region>:<instance_id>`                                                                                    |
-| DB_USER              | [`USE_CLOUDSQL=true`]Cloud SQL database user                                                                                                                  |
-| DB_PASS              | [`USE_CLOUDSQL=true`]Cloud SQL database password                                                                                                              |
-| ADMIN_SECRET         | [Optional] Secret token to perform /admin page operation                                                                                                      |
-| MAPS_API_KEY         | [Optional] Used for map visulization place search                                                                                                             |
+| Variable             | Description                                                                                      |
+| -------------------- | ------------------------------------------------------------------------------------------------ |
+| FLASK_ENV            | Base folder name for custom html and css files, default to 'custom'                              |
+| DC_API_ROOT          | API endpoints to access base Data Commons data                                                   |
+| DC_API_KEY           | API key for accessing base Data Commons API                                                      |
+| GCS_DATA_PATH        | When storing data in Google Cloud Storage, the data path in the form of `gs://<bucket>/<folder>` |
+| USE_SQLITE           | When set to `true`, use local SQLITE as database                                                 |
+| USE_CLOUDSQL         | When set to `true`, use Google Cloud SQL as database                                             |
+| GOOGLE_CLOUD_PROJECT | [`USE_CLOUDSQL=true`] GCP project of the Cloud SQL when                                          |
+| CLOUDSQL_INSTANCE    | [`USE_CLOUDSQL=true`] In the form of `<project_id>:<region>:<instance_id>`                       |
+| DB_USER              | [`USE_CLOUDSQL=true`]Cloud SQL database user                                                     |
+| DB_PASS              | [`USE_CLOUDSQL=true`]Cloud SQL database password                                                 |
+| ADMIN_SECRET         | [Optional] Secret token to perform /admin page operation                                         |
+| MAPS_API_KEY         | [Optional] Used for map visulization place search                                                |
