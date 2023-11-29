@@ -46,7 +46,7 @@ serviceGroups:
   node: null
   default:
     replicas: 1
-    useSearch: true
+    cacheSVG: true
     resources:
       memoryRequest: "8G"
       memoryLimit: "8G"

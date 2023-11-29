@@ -112,7 +112,7 @@ COPY tools/nl/embeddings/. /workspace/tools/nl/embeddings/
 
 # Env that should not change
 ENV USE_LOCAL_MIXER=true
-ENV ENABLE_MODEL=true
+ENV ENABLE_MODEL=false
 ENV ENV_PREFIX=Compose
 
 
