@@ -15,11 +15,15 @@
 
 export MIXER_API_KEY=$DC_API_KEY
 
-if [[ $USE_SQLITE == "true" ]] then
-    export USER_DATA_PATH=/userdata/
+if [[ $USE_SQLITE == "true" ]]; then
     export SQLITE_PATH=/sqlite/datacommons.db
-else
+fi
+
+echo $GCS_DATA_PATH
+if [[ $GCS_DATA_PATH != "" ]]; then
     export USER_DATA_PATH=$GCS_DATA_PATH
+else
+    export USER_DATA_PATH=/userdata/
 fi
 
 /go/bin/mixer \

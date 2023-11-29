@@ -48,6 +48,8 @@ def load_data():
   enable_model = os.environ.get('ENABLE_MODEL', '').lower() == 'true'
   load_nl = enable_model and not user_data_path.startswith('gs://')
 
+  # This will add a trailing "/" if the path does not end in one.
+  input_dir = os.path.join(user_data_path, "")
   # Process user csv files, generate debugging files and write the results to
   # database. The database configuration is read from environment variables.
   command1 = [
@@ -55,7 +57,7 @@ def load_data():
       '-m',
       'stats.main',
       '--input_path',
-      f'{user_data_path}',
+      f'{input_dir}',
       '--output_dir',
       f'{output_dir}',
   ]
