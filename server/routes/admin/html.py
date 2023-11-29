@@ -73,9 +73,7 @@ def load_data():
       "curl",
       "-X",
       "POST",
-      "localhost:8081/import",
-      "-d",
-      f'{{"data_path": "{output_dir}"}}',
+      "localhost:8081/update-cache",
   ]
   command4 = [
       "curl",
