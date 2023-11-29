@@ -1233,7 +1233,7 @@ function create_if_block$c(ctx) {
       ul = element("ul");
       if (if_block)
         if_block.c();
-      attr(ul, "class", "svelte-1jijp4m");
+      attr(ul, "class", "svelte-1y1qhbb");
     },
     m(target, anchor) {
       insert(target, ul, anchor);
@@ -1378,10 +1378,10 @@ function create_each_block$4(ctx) {
       div1 = element("div");
       t2 = text$1(t2_value);
       t3 = space();
-      attr(div0, "class", "svelte-1jijp4m");
-      attr(div1, "class", "circle svelte-1jijp4m");
-      attr(button, "class", "svelte-1jijp4m");
-      attr(li, "class", "svelte-1jijp4m");
+      attr(div0, "class", "svelte-1y1qhbb");
+      attr(div1, "class", "circle svelte-1y1qhbb");
+      attr(button, "class", "svelte-1y1qhbb");
+      attr(li, "class", "svelte-1y1qhbb");
     },
     m(target, anchor) {
       insert(target, li, anchor);
@@ -1440,13 +1440,13 @@ function create_fragment$o(ctx) {
         attr(img, "src", img_src_value);
       attr(img, "alt", "Bookmark");
       attr(img, "width", "100%");
-      attr(img, "class", "svelte-1jijp4m");
+      attr(img, "class", "svelte-1y1qhbb");
       attr(button, "class", button_class_value = null_to_empty(
         /*showBookmarks*/
         ctx[1] ? "highlight" : ""
-      ) + " svelte-1jijp4m");
-      attr(div0, "class", "bookmark svelte-1jijp4m");
-      attr(div1, "class", "bookmark-wrap svelte-1jijp4m");
+      ) + " svelte-1y1qhbb");
+      attr(div0, "class", "bookmark svelte-1y1qhbb");
+      attr(div1, "class", "bookmark-wrap svelte-1y1qhbb");
     },
     m(target, anchor) {
       insert(target, div1, anchor);
@@ -1495,7 +1495,7 @@ function create_fragment$o(ctx) {
       2 && button_class_value !== (button_class_value = null_to_empty(
         /*showBookmarks*/
         ctx2[1] ? "highlight" : ""
-      ) + " svelte-1jijp4m")) {
+      ) + " svelte-1y1qhbb")) {
         attr(button, "class", button_class_value);
       }
     },
@@ -1606,8 +1606,8 @@ function create_fragment$m(ctx) {
       a = element("a");
       a.textContent = "jump straight to the data";
       attr(a, "href", "#");
-      attr(a, "class", "svelte-1dwhp0h");
-      attr(div, "class", "scroll-indicator svelte-1dwhp0h");
+      attr(a, "class", "svelte-tbx18b");
+      attr(div, "class", "scroll-indicator svelte-tbx18b");
     },
     m(target, anchor) {
       insert(target, div, anchor);
@@ -1932,11 +1932,11 @@ function create_fragment$k(ctx) {
       t5 = space();
       if (if_block)
         if_block.c();
-      attr(h1, "class", "svelte-2bvi8e");
-      attr(p, "class", "svelte-2bvi8e");
+      attr(h1, "class", "svelte-w1138z");
+      attr(p, "class", "svelte-w1138z");
       attr(div0, "id", "hero-text");
-      attr(div0, "class", "svelte-2bvi8e");
-      attr(div1, "class", "img-wrap svelte-2bvi8e");
+      attr(div0, "class", "svelte-w1138z");
+      attr(div1, "class", "img-wrap svelte-w1138z");
       set_style(div1, "background-image", "url(" + heroImg + ")");
     },
     m(target, anchor) {
@@ -5075,7 +5075,7 @@ function create_else_block$1(ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      attr(ul, "class", "svelte-15jbbo");
+      attr(ul, "class", "svelte-11cm4o4");
     },
     m(target, anchor) {
       insert(target, ul, anchor);
@@ -5146,7 +5146,7 @@ function create_if_block_1(ctx) {
   return {
     c() {
       p = element("p");
-      attr(p, "class", "detail svelte-15jbbo");
+      attr(p, "class", "detail svelte-11cm4o4");
     },
     m(target, anchor) {
       insert(target, p, anchor);
@@ -5196,7 +5196,7 @@ function create_each_block(ctx) {
     c() {
       li = element("li");
       t = text$1(t_value);
-      attr(li, "class", "svelte-15jbbo");
+      attr(li, "class", "svelte-11cm4o4");
     },
     m(target, anchor) {
       insert(target, li, anchor);
@@ -5241,14 +5241,14 @@ function create_fragment$6(ctx) {
       t1 = space();
       if (if_block)
         if_block.c();
-      attr(p, "class", "svelte-15jbbo");
+      attr(p, "class", "svelte-11cm4o4");
       if (!src_url_equal(img.src, img_src_value = plus))
         attr(img, "src", img_src_value);
       attr(img, "alt", "plus");
       attr(img, "width", "100%");
       attr(button, "class", "image-wrap");
-      attr(div0, "class", "bullet svelte-15jbbo");
-      attr(div1, "class", "wrap svelte-15jbbo");
+      attr(div0, "class", "bullet svelte-11cm4o4");
+      attr(div1, "class", "wrap svelte-11cm4o4");
     },
     m(target, anchor) {
       insert(target, div1, anchor);
@@ -5384,7 +5384,7 @@ function create_fragment$5(ctx) {
     props: {
       bullet: "Address quality and reporting issues",
       detail: [
-        "Standardising reporting practices with all providers, including counting the actual climate portions of projects on a case-by-case basis.",
+        "Standardising reporting practices with all providers, including counting the actual climate portions of projects on a case-by-case basis. The climate-specific share of projects should be recorded in an additional column in the CRS.",
         "Accurately reporting both disbursement and commitment data for all projects.",
         "Applying a consistent, clean, and complete multilateral finance reporting methodology across donors.",
         "Improving the structure of Common Tabular Format tables and implementing a standardised way of reporting, including using consistent multilateral names, avoiding mixing ODA and Other Official Flows, and using columns consistently. This should be done at the review of the Enhanced Transparency Framework no later than 2028 (and ideally much sooner)."
@@ -5590,6 +5590,7 @@ class Accordion extends SvelteComponent {
   }
 }
 const up = "" + new URL("up.svg", import.meta.url).href;
+const disco = "" + new URL("disco.png", import.meta.url).href;
 const Resource_svelte_svelte_type_style_lang = "";
 function create_fragment$4(ctx) {
   let div;
@@ -5617,13 +5618,13 @@ function create_fragment$4(ctx) {
         /*description*/
         ctx[1]
       );
-      attr(header, "class", "svelte-13f4dc8");
-      attr(p, "class", "svelte-13f4dc8");
-      attr(button, "class", "svelte-13f4dc8");
+      attr(header, "class", "svelte-jxggjj");
+      attr(p, "class", "svelte-jxggjj");
+      attr(button, "class", "svelte-jxggjj");
       attr(div, "class", div_class_value = null_to_empty(
         /*position*/
         ctx[2]
-      ) + " svelte-13f4dc8");
+      ) + " svelte-jxggjj");
     },
     m(target, anchor) {
       insert(target, div, anchor);
@@ -5662,7 +5663,7 @@ function create_fragment$4(ctx) {
       4 && div_class_value !== (div_class_value = null_to_empty(
         /*position*/
         ctx2[2]
-      ) + " svelte-13f4dc8")) {
+      ) + " svelte-jxggjj")) {
         attr(div, "class", div_class_value);
       }
     },
@@ -5711,11 +5712,17 @@ const Resources_svelte_svelte_type_style_lang = "";
 function create_fragment$3(ctx) {
   let div3;
   let button;
-  let img;
-  let img_src_value;
+  let img0;
+  let img0_src_value;
   let t0;
   let div2;
   let header;
+  let h2;
+  let t1;
+  let img1;
+  let img1_src_value;
+  let t2;
+  let p0;
   let t4;
   let div0;
   let resource0;
@@ -5778,14 +5785,16 @@ function create_fragment$3(ctx) {
     c() {
       div3 = element("div");
       button = element("button");
-      img = element("img");
+      img0 = element("img");
       t0 = space();
       div2 = element("div");
       header = element("header");
-      header.innerHTML = `<h2 class="svelte-5eqj7i">Congratulations on making it to the end! 🪩</h2> 
-      <p class="svelte-5eqj7i">Here’s your reward: you can dive deeper and explore the data on your
-        own. Feel free to download the data and create and share your own
-        stories!</p>`;
+      h2 = element("h2");
+      t1 = text$1("Congratulations on making it to the end! ");
+      img1 = element("img");
+      t2 = space();
+      p0 = element("p");
+      p0.textContent = "Here’s your reward: you can dive deeper and explore the data on your\n        own. Feel free to download the data and create and share your own\n        stories!";
       t4 = space();
       div0 = element("div");
       create_component(resource0.$$.fragment);
@@ -5800,11 +5809,17 @@ function create_fragment$3(ctx) {
       t9 = space();
       div1 = element("div");
       div1.innerHTML = `<p class="aftershock svelte-5eqj7i">To learn more and stay informed, sign up to the <a href="https://data.one.org/aftershocks/" target="_blank" class="svelte-5eqj7i">Aftershocks newsletter</a></p>`;
-      if (!src_url_equal(img.src, img_src_value = up))
-        attr(img, "src", img_src_value);
-      attr(img, "alt", "up");
-      attr(img, "width", "100%");
+      if (!src_url_equal(img0.src, img0_src_value = up))
+        attr(img0, "src", img0_src_value);
+      attr(img0, "alt", "up");
+      attr(img0, "width", "100%");
       attr(button, "class", "up svelte-5eqj7i");
+      if (!src_url_equal(img1.src, img1_src_value = disco))
+        attr(img1, "src", img1_src_value);
+      attr(img1, "alt", "disco");
+      set_style(img1, "width", "1.8rem");
+      attr(h2, "class", "svelte-5eqj7i");
+      attr(p0, "class", "svelte-5eqj7i");
       attr(header, "class", "svelte-5eqj7i");
       attr(div0, "class", "resources svelte-5eqj7i");
       attr(div1, "class", "aftershock-wrap svelte-5eqj7i");
@@ -5818,10 +5833,15 @@ function create_fragment$3(ctx) {
     m(target, anchor) {
       insert(target, div3, anchor);
       append(div3, button);
-      append(button, img);
+      append(button, img0);
       append(div3, t0);
       append(div3, div2);
       append(div2, header);
+      append(header, h2);
+      append(h2, t1);
+      append(h2, img1);
+      append(header, t2);
+      append(header, p0);
       append(div2, t4);
       append(div2, div0);
       mount_component(resource0, div0, null);
@@ -5988,7 +6008,7 @@ function create_fragment$2(ctx) {
   let p0;
   let t4;
   let p1;
-  let t9;
+  let t11;
   let p2;
   let t20;
   let p3;
@@ -6014,14 +6034,14 @@ function create_fragment$2(ctx) {
       t4 = space();
       p1 = element("p");
       p1.innerHTML = `Data by
-          <a href="https://data.one.org/experts/#jorge-rivera" target="_blank" class="svelte-o7jmxj">Jorge Rivera</a>
+          <a href="https://data.one.org/experts/#jorge-rivera" target="_blank" class="svelte-o7jmxj">Jorge Rivera</a>,
+          <a href="https://data.one.org/experts/#matthew-price" target="_blank" class="svelte-o7jmxj">Matthew Price</a>
           and
-          <a href="https://data.one.org/experts/#matthew-price" target="_blank" class="svelte-o7jmxj">Matthew Price</a>`;
-      t9 = space();
+          <a href="https://data.one.org/experts/#luca-picci" target="_blank" class="svelte-o7jmxj">Luca Picci</a>`;
+      t11 = space();
       p2 = element("p");
       p2.innerHTML = `With contributions from
           <a href="https://data.one.org/experts/#olawunmi-ola-busari" target="_blank" class="svelte-o7jmxj">Olawunmi Ola-Busari</a>,
-          <a href="https://data.one.org/experts/#luca-picci" target="_blank" class="svelte-o7jmxj">Luca Picci</a>,
           <a href="https://data.one.org/experts/#amy-dodd" target="_blank" class="svelte-o7jmxj">Amy Dodd</a>,
           <a href="https://www.one.org/stories/author/annepaisley/" target="_blank" class="svelte-o7jmxj">Anne Paisley</a>, and
           <a href="https://data.one.org/experts/#david-mcnair" target="_blank" class="svelte-o7jmxj">David McNair</a>`;
@@ -6055,7 +6075,7 @@ function create_fragment$2(ctx) {
       append(div0, p0);
       append(div0, t4);
       append(div0, p1);
-      append(div0, t9);
+      append(div0, t11);
       append(div0, p2);
       append(div0, t20);
       append(div0, p3);
@@ -6427,7 +6447,7 @@ function create_if_block(ctx) {
   visual5 = new Visual({
     props: {
       title: "Most climate finance is in the form of loans",
-      subtitle: "including to the most climate and debt vulnerable countries",
+      subtitle: "Including to the most climate and debt vulnerable countries",
       notes: "Based on disbursements. The list of 54 debt countries is from UNDP/Jensen, using data on credit ratings, debt sustainability ratings, and sovereign bond spreads. Based on the 50 most climate vulnerable countries according to ND-GAIN.",
       sources: "ONE calculations based on <a href='https://www.oecd.org/dac/financing-sustainable-development/development-finance-topics/climate-change.htm' target='_blank'>OECD</a>, <a href='https://www.worldbank.org/en/programs/debt-statistics/ids' target='_blank'>International Debt Statistics</a>, <a href='https://www.undp.org/sites/g/files/zskgke326/files/2022-10/UNDP-DFS-Avoiding-Too-Little-Too-Late-on-International-Debt-Relief-V2.pdf' target='_blank'>UNDP</a>, <a href='https://gain.nd.edu/' target='_blank'>ND-GAIN.</a>",
       id: 15886574,
