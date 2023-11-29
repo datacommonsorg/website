@@ -17,6 +17,7 @@ export MIXER_API_KEY=$DC_API_KEY
 
 if [[ $USE_SQLITE == "true" ]] then
     export USER_DATA_PATH=/userdata/
+    export SQLITE_PATH=/sqlite/datacommons.db
 else
     export USER_DATA_PATH=$GCS_DATA_PATH
 fi
@@ -26,7 +27,7 @@ fi
     --use_base_bigtable=false \
     --use_custom_bigtable=false \
     --use_branch_bigtable=false \
-    --sqlite_path=/sqlite/datacommons.db \
+    --sqlite_path=$SQLITE_PATH \
     --use_sqlite=$USE_SQLITE \
     --use_cloudsql=$USE_CLOUDSQL \
     --cloudsql_instance=$CLOUDSQL_INSTANCE \
