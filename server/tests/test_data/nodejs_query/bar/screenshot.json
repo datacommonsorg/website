@@ -32,7 +32,8 @@
       "title": "Categories of Jobs in Santa Clara County (Mar, 2020)",
       "type": "BAR",
       "unit": "",
-      "chartUrl": ""
+      "chartUrl": "",
+      "dcUrl": "https://datacommons.org/explore#q=top%20jobs%20in%20santa%20clara%20county"
     }
   ]
 }

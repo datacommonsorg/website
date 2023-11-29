@@ -15,6 +15,7 @@
 import json
 import os
 
+from langdetect import detect as detect_lang
 import requests
 
 from shared.lib.test_server import NLWebServerTestCase
@@ -42,6 +43,7 @@ class NLTest(NLWebServerTestCase):
                    failure='',
                    test='',
                    i18n='',
+                   i18n_lang='',
                    mode=''):
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
@@ -54,13 +56,18 @@ class NLTest(NLWebServerTestCase):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(
           self.get_server_url() +
-          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}&i18n={i18n}&mode={mode}',
+          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}&i18n={i18n}&mode={mode}&client=test',
           json={
               'contextHistory': ctx
           }).json()
       if expected_detectors:
         detection_method = expected_detectors[i]
       ctx = resp['context']
+
+      if i18n and i18n_lang:
+        self.handle_i18n_response(resp, i18n_lang)
+        return
+
       self.handle_response(q, resp, test_dir, f'query_{i + 1}', failure,
                            check_place_detection, detection_method)
 
@@ -130,6 +137,33 @@ class NLTest(NLWebServerTestCase):
           self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
           self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
           self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
+
+  def handle_i18n_response(self, resp, i18n_lang):
+    """The translation API does not always return the same translations.
+    This makes golden comparisons flaky.
+    So we instead extract the texts from the response and assert at least one of them is
+    in the expected language.
+    """
+    texts: list[str] = []
+    for category in resp.get("config", {}).get("categories", []):
+      for block in category.get("blocks", []):
+        for column in block.get("columns", []):
+          for tile in column.get("tiles", []):
+            title = tile.get("title")
+            if title:
+              texts.append(title)
+
+    self.assertTrue(len(texts) > 0)
+
+    success = False
+    detected = ""
+    for text in texts:
+      detected = detect_lang(text).lower()
+      if i18n_lang in detected:
+        success = True
+        break
+
+    self.assertTrue(success, f"wanted: {i18n_lang}, got {detected}")
 
   def test_textbox_sample(self):
     # This is the sample advertised in our textbox
@@ -263,7 +297,8 @@ class NLTest(NLWebServerTestCase):
         'translate_hindi',
         ['सांता क्लारा काउंटी के किन शहरों में सबसे अधिक चोरी होती है?'],
         check_place_detection=True,
-        i18n='true')
+        i18n='true',
+        i18n_lang='hi')
 
   def test_sdg(self):
     self.run_sequence('sdg', [

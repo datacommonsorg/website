@@ -23,14 +23,7 @@ website:
   flaskEnv: dev
   replicas: 10
   redis:
-    enabled: true
-    configFile: |
-      {
-        "us-central1": {
-          "host": "10.27.156.51",
-          "port": "6379"
-        }
-      }
+    enabled: false
 
 serviceAccount:
   name: website-ksa
@@ -52,3 +45,6 @@ nl:
 nodejs:
   enabled: true
   replicas: 50
+
+cronTesting:
+  enabled: true

@@ -21,6 +21,8 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 
+from server.lib.explore.params import Clients
+from server.lib.explore.params import Params
 from server.routes.nl import helpers
 import server.services.bigtable as bt
 
@@ -36,8 +38,9 @@ bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 def data():
   """Data handler."""
   debug_logs = {}
+  client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
   utterance, error_json = helpers.parse_query_and_detect(
-      request, 'nl', debug_logs)
+      request, 'nl', client, debug_logs)
   if error_json:
     return error_json
   return helpers.fulfill_with_chart_config(utterance, debug_logs)

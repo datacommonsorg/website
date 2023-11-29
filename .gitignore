@@ -78,3 +78,6 @@ output/
 
 # wireit files
 .wireit
+
+
+custom_dc/sample/datacommons/**

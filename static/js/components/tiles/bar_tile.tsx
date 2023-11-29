@@ -178,44 +178,55 @@ export const fetchData = async (props: BarTilePropType) => {
   const denomSvs = props.variables
     .map((spec) => spec.denom)
     .filter((sv) => !!sv);
-  const statVars = [statSvs, FILTER_STAT_VAR].flat(1);
+  // Assume all variables will have the same date
+  const date = props.variables ? props.variables[0].date : "";
   const apiRoot = props.apiRoot || "";
   let statPromise: Promise<PointApiResponse>;
   let denomPromise: Promise<SeriesApiResponse>;
+  let filterPromise: Promise<PointApiResponse>;
   if ("places" in props && !_.isEmpty(props.places)) {
-    statPromise = getPoint(apiRoot, props.places, statVars, "", [statSvs]);
+    statPromise = getPoint(apiRoot, props.places, statSvs, date, [statSvs]);
+    filterPromise = getPoint(apiRoot, props.places, [FILTER_STAT_VAR], "");
     denomPromise = _.isEmpty(denomSvs)
       ? Promise.resolve(null)
       : getSeries(apiRoot, props.places, denomSvs);
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
     statPromise = getPointWithin(
       apiRoot,
-      props["enclosedPlaceType"],
-      props["parentPlace"],
-      statVars,
-      "",
+      props.enclosedPlaceType,
+      props.parentPlace,
+      statSvs,
+      date,
       [statSvs]
+    );
+    filterPromise = getPointWithin(
+      apiRoot,
+      props.enclosedPlaceType,
+      props.parentPlace,
+      [FILTER_STAT_VAR],
+      ""
     );
     denomPromise = _.isEmpty(denomSvs)
       ? Promise.resolve(null)
       : getSeriesWithin(
           apiRoot,
-          props["parentPlaces"],
-          props["enclosedPlaceType"],
+          props.parentPlace,
+          props.enclosedPlaceType,
           denomSvs
         );
   }
   try {
     const statResp = await statPromise;
     const denomResp = await denomPromise;
+    const filterResp = await filterPromise;
     // Find the most populated places.
     const popPoints: RankingPoint[] = [];
     // Non-place entities won't have a value for Count_Person.
     // In this case, make an empty list of popPoints
-    if (_.isEmpty(statResp.data[FILTER_STAT_VAR])) {
+    if (_.isEmpty(filterResp.data[FILTER_STAT_VAR])) {
       const entityDcidsSet = new Set<string>();
-      Object.keys(statResp.data).forEach((statVarKey) => {
-        Object.keys(statResp.data[statVarKey]).forEach((entityDcid) => {
+      Object.keys(filterResp.data).forEach((statVarKey) => {
+        Object.keys(filterResp.data[statVarKey]).forEach((entityDcid) => {
           entityDcidsSet.add(entityDcid);
         });
       });
@@ -226,10 +237,10 @@ export const fetchData = async (props: BarTilePropType) => {
         });
       });
     }
-    for (const place in statResp.data[FILTER_STAT_VAR]) {
+    for (const place in filterResp.data[FILTER_STAT_VAR]) {
       popPoints.push({
         placeDcid: place,
-        value: statResp.data[FILTER_STAT_VAR][place].value,
+        value: filterResp.data[FILTER_STAT_VAR][place].value,
       });
     }
     // Optionally sort by ascending/descending population

@@ -22,6 +22,7 @@ import _ from "lodash";
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
+import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -146,6 +147,10 @@ export class DatacommonsBarComponent extends LitElement {
   @property()
   parentPlace!: string;
 
+  // Optional: List of variable DCIDs to plot per capita
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  perCapita?: string[];
+
   /* Optional: List of DCIDs of places to plot
    * If provided, place and enclosePlaceType will be ignored
    */
@@ -215,7 +220,10 @@ export class DatacommonsBarComponent extends LitElement {
     const statVarSpec = [];
     statVarDcids.forEach((statVarDcid) => {
       statVarSpec.push({
-        denom: "",
+        denom:
+          this.perCapita && this.perCapita.includes(statVarDcid)
+            ? DEFAULT_PER_CAPITA_DENOM
+            : "",
         log: false,
         name: "",
         scaling: 1,

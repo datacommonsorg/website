@@ -1,4 +1,5 @@
 {
+  "client": "test_detect-and-fulfill",
   "config": {
     "categories": [
       {

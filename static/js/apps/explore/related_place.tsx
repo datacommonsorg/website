@@ -17,7 +17,10 @@
 import _ from "lodash";
 import React from "react";
 
-import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
+import {
+  CLIENT_TYPES,
+  URL_HASH_PARAMS,
+} from "../../constants/app/explore_constants";
 import { NamedTypedNode } from "../../shared/types";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { Item, ItemList } from "./item_list";
@@ -43,6 +46,7 @@ const buildPlaceList = (
         [URL_HASH_PARAMS.PLACE]: relatedPlace.dcid,
         [URL_HASH_PARAMS.TOPIC]: topic.dcid,
         [URL_HASH_PARAMS.QUERY]: "",
+        [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RELATED_PLACE,
       })}`,
     });
   }

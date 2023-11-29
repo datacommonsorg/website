@@ -26,6 +26,7 @@ from flask import current_app
 from flask import request
 
 import server.lib.explore.fulfiller_bridge as nl_fulfillment
+from server.lib.explore.params import Clients
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import Params
 from server.lib.nl.common import serialize
@@ -48,8 +49,10 @@ bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
 @bp.route('/detect', methods=['POST'])
 def detect():
   debug_logs = {}
+  client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
+
   utterance, error_json = helpers.parse_query_and_detect(
-      request, 'explore', debug_logs)
+      request, 'explore', client, debug_logs)
   if error_json:
     return error_json
 
@@ -67,7 +70,8 @@ def detect():
                                          dbg_counters,
                                          debug_logs,
                                          has_data=True,
-                                         test=utterance.test)
+                                         test=utterance.test,
+                                         client=client)
 
 
 #
@@ -96,6 +100,8 @@ def detect_and_fulfill():
   debug_logs = {}
 
   test = request.args.get(Params.TEST.value, '')
+  client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
+
   # First sanity DC name, if any.
   dc_name = request.get_json().get(Params.DC.value)
   if not dc_name:
@@ -103,10 +109,11 @@ def detect_and_fulfill():
   if dc_name not in set([it.value for it in DCNames]):
     return helpers.abort(f'Invalid Custom Data Commons Name {dc_name}',
                          '', [],
-                         test=test)
+                         test=test,
+                         client=client)
 
   utterance, error_json = helpers.parse_query_and_detect(
-      request, 'explore', debug_logs)
+      request, 'explore', client, debug_logs)
   if error_json:
     return error_json
 
@@ -161,14 +168,18 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
                               counters: ctr.Counters) -> Dict:
   insight_ctx = request.get_json()
   test = request.args.get(Params.TEST.value, '')
+  client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
+  mode = request.args.get(Params.MODE.value, '')
   if not insight_ctx:
     return helpers.abort('Sorry, could not answer your query.',
                          '', [],
-                         test=test)
+                         test=test,
+                         client=client)
   if not insight_ctx.get('entities'):
     return helpers.abort('Could not recognize any places in the query.',
                          '', [],
-                         test=test)
+                         test=test,
+                         client=client)
 
   entities = insight_ctx.get(Params.ENTITIES.value, [])
   cmp_entities = insight_ctx.get(Params.CMP_ENTITIES.value, [])
@@ -184,7 +195,8 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
   if dc_name not in set([it.value for it in DCNames]):
     return helpers.abort(f'Invalid Custom Data Commons Name {dc_name}',
                          '', [],
-                         test=test)
+                         test=test,
+                         client=client)
 
   if not session_id:
     if current_app.config['LOG_QUERY']:
@@ -202,10 +214,15 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
       debug_logs, counters)
   counters.timeit('construct_for_explore', start)
   if not query_detection:
-    return helpers.abort(error_msg, '', [], test=test)
+    return helpers.abort(error_msg, '', [], test=test, client=client)
 
-  utterance = create_utterance(query_detection, None, counters, session_id,
-                               test)
+  utterance = create_utterance(query_detection,
+                               None,
+                               counters,
+                               session_id,
+                               test=test,
+                               client=client,
+                               mode=mode)
   utterance.insight_ctx = insight_ctx
   utterance.insight_ctx[Params.DC.value] = dc_name
   return _fulfill_with_chart_config(utterance, debug_logs)
