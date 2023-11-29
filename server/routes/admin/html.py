@@ -36,8 +36,10 @@ def load_data():
 
   if not user_data_path:
     return jsonify({
-        "status": "error",
-        "message": 'can not find valid user data path, check GCS_DATA_PATH is set if you store data in GCS'
+        "status":
+            "error",
+        "message":
+            'can not find valid user data path, check GCS_DATA_PATH is set if you store data in GCS'
     }), 500
 
   # TODO: dynamically create the output dir.
