@@ -31,60 +31,61 @@ def load_data():
   request_secret = request.form.get('secret')
   if secret and request_secret != secret:
     return 'Invalid secret', 401
-  sql_data_path = None
-  if request.is_json:
-    sql_data_path = request.json.get("sqlDataPath")
-  if not sql_data_path:
-    sql_data_path = os.environ.get("SQL_DATA_PATH")
 
-  if not sql_data_path:
+  user_data_path = os.environ.get('USER_DATA_PATH')
+
+  if not user_data_path:
     return jsonify({
         "status": "error",
-        "message": "sql_data_path is not set"
+        "message": 'can not find valid user data path, check GCS_DATA_PATH is set if you store data in GCS'
     }), 500
 
   # TODO: dynamically create the output dir.
-  output_dir = os.path.join(sql_data_path, 'data')
-  nl_dir = os.path.join(output_dir, "nl")
-  sentences_path = os.path.join(nl_dir, "sentences.csv")
+  output_dir = os.path.join(user_data_path, 'datacommons')
+  nl_dir = os.path.join(output_dir, 'nl')
+  sentences_path = os.path.join(nl_dir, 'sentences.csv')
   # TODO: Enable NL for GCS paths once we add support for it.
-  load_nl = os.environ.get(
-      "ENABLE_MODEL",
-      "").lower() == "true" and not sql_data_path.lower().startswith("gs://")
+  enable_model = os.environ.get('ENABLE_MODEL', '').lower() == 'true'
+  load_nl = enable_model and not user_data_path.startswith('gs://')
 
+  # Process user csv files, generate debugging files and write the results to
+  # database. The database configuration is read from environment variables.
   command1 = [
-      "python",
-      "-m",
-      "stats.main",
-      "--input_path",
-      f"{sql_data_path}",
-      "--output_dir",
-      f"{output_dir}",
+      'python',
+      '-m',
+      'stats.main',
+      '--input_path',
+      f'{user_data_path}',
+      '--output_dir',
+      f'{output_dir}',
   ]
+  # Build custom embeddings.
   command2 = [
-      "python",
-      "build_custom_dc_embeddings.py",
-      "--sv_sentences_csv_path",
-      f"{sentences_path}",
-      "--output_dir",
-      f"{nl_dir}",
+      'python',
+      'build_custom_dc_embeddings.py',
+      '--sv_sentences_csv_path',
+      f'{sentences_path}',
+      '--output_dir',
+      f'{nl_dir}',
   ]
+  # Update mixer in-memory cache.
   command3 = [
-      "curl",
-      "-X",
-      "POST",
-      "localhost:8081/update-cache",
+      'curl',
+      '-X',
+      'POST',
+      'localhost:8081/update-cache',
   ]
+  # Load embeddings for NL.
   command4 = [
-      "curl",
-      "localhost:6060/api/load/",
+      'curl',
+      'localhost:6060/api/load/',
   ]
   output = []
   for command, stage, cwd, execute in [
-      (command1, "import_data", "import/simple", True),
-      (command2, "create_embeddings", "tools/nl/embeddings", load_nl),
-      (command3, "load_data", ".", True),
-      (command4, "load_embeddings", ".", load_nl)
+      (command1, 'import_data', 'import/simple', True),
+      (command2, 'create_embeddings', 'tools/nl/embeddings', load_nl),
+      (command3, 'load_data', '.', True),
+      (command4, 'load_embeddings', '.', load_nl)
   ]:
     start = time.time()
 
@@ -94,10 +95,10 @@ def load_data():
     try:
       if not execute:
         output.append({
-            "stage": stage,
-            "status": "not_run",
-            "durationSeconds": 0,
-            "stdout": "Stage was not run."
+            'stage': stage,
+            'status': 'not_run',
+            'durationSeconds': 0,
+            'stdout': 'Stage was not run.'
         })
         continue
 
@@ -107,24 +108,24 @@ def load_data():
                               check=True,
                               cwd=cwd)
       output.append({
-          "stage": stage,
-          "status": "success",
-          "durationSeconds": _duration(),
-          "stdout": result.stdout.strip().splitlines()
+          'stage': stage,
+          'status': 'success',
+          'durationSeconds': _duration(),
+          'stdout': result.stdout.strip().splitlines()
       })
     except subprocess.CalledProcessError as cpe:
       return jsonify({
-          "stage": stage,
-          "status": "failure",
-          "durationSeconds": _duration(),
-          "error": cpe.stderr.strip().splitlines()
+          'stage': stage,
+          'status': 'failure',
+          'durationSeconds': _duration(),
+          'error': cpe.stderr.strip().splitlines()
       }), 500
     except Exception as e:
       return jsonify({
-          "stage": stage,
-          "status": "error",
-          "durationSeconds": _duration(),
-          "message": str(e)
+          'stage': stage,
+          'status': 'error',
+          'durationSeconds': _duration(),
+          'message': str(e)
       }), 500
   return jsonify(output), 200
 
