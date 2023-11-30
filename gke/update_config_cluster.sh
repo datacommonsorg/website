@@ -55,7 +55,7 @@ gcloud container clusters get-credentials $CLUSTER_NAME \
 
 # Update mci config
 cp mci.yaml.tpl mci.yaml
-export IP=$(gcloud compute addresses list --global --filter='name:website-ip' --format='value(ADDRESS)')
+export IP=$(gcloud compute addresses list --global --filter='name:dc-website-ip' --format='value(ADDRESS)')
 yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = env(IP)' mci.yaml
 
 # Apply configs

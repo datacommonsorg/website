@@ -22,7 +22,6 @@ class Config(_base.Config):
   OVERRIDE_CSS_PATH = '/custom_dc/custom/overrides.css'
   LOGO_PATH = "/custom_dc/custom/logo.png"
   SHOW_DISASTER = False
-  LITE = True
   USE_PALM = False
   USE_MEMCACHE = False
 

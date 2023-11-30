@@ -79,7 +79,13 @@ output/
 
 # wireit files
 .wireit
+<<<<<<< HEAD
 .envvars
 
 # idea files
 .idea/
+=======
+
+
+custom_dc/sample/datacommons/**
+>>>>>>> f0443345bb05f74e3a91c57032a4931117683a50
