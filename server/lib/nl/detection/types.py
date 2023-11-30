@@ -331,6 +331,7 @@ class Date:
 @dataclass
 class DateClassificationAttributes(ClassificationAttributes):
   dates: List[Date]
+  is_single_date: bool
 
 
 @dataclass
@@ -354,6 +355,9 @@ class ClassificationType(IntEnum):
   ANSWER_PLACES_REFERENCE = 13
   PER_CAPITA = 14
   DETAILED_ACTION = 15
+  # Certain types of temporal attributes like
+  # month, day of the week, season, etc.
+  TEMPORAL = 16
   UNKNOWN = 100
 
 

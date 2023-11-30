@@ -20,6 +20,7 @@
 
 import React from "react";
 
+import { CLIENT_TYPES } from "../constants/app/explore_constants";
 import { formatNumber } from "../i18n/i18n";
 import { Query, Topic, TopicConfig } from "./topic_config";
 
@@ -97,14 +98,20 @@ interface QueryLinkProps {
 function QueryLink(props: QueryLinkProps): JSX.Element {
   const { query } = props;
   let url = "";
+  const cliParam = `client=${CLIENT_TYPES.LANDING}`;
   if (props.appName == "explore") {
     if (query.url) {
-      url = `/${props.appName}#${query.url}`;
+      url = `/${props.appName}#${cliParam}&${query.url}`;
     } else {
-      url = `/${props.appName}#oq=${encodeURIComponent(query.title)}`;
+      url = `/${props.appName}#${cliParam}&oq=${encodeURIComponent(
+        query.title
+      )}`;
     }
   } else {
-    url = `/${props.appName}#q=${encodeURIComponent(query.title)}&a=True`;
+    // NL
+    url = `/${props.appName}#${cliParam}&q=${encodeURIComponent(
+      query.title
+    )}&a=True`;
   }
   return <a href={url}>{query.title}</a>;
 }

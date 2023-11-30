@@ -119,7 +119,7 @@ def add_chart_to_utterance(
                  ranking_count=ranking_count,
                  chart_origin=primary_vs_secondary,
                  is_sdg=is_sdg,
-                 date=state.date)
+                 single_date=state.single_date)
   state.uttr.chartCandidates.append(ch)
   state.uttr.counters.info('num_chart_candidates', 1)
   return True

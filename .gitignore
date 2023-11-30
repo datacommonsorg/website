@@ -83,3 +83,5 @@ output/
 
 # idea files
 .idea/
+
+*.list

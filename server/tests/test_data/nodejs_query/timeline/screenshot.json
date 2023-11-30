@@ -18,7 +18,21 @@
         "date": "2019",
         "value": 105819
       },
-      "chartUrl": ""
+      "chartUrl": "",
+      "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
+    },
+    {
+      "data_csv": "rank,place,Average Income for Family Households\r\n1,Williams County,126095\r\n2,Dunn County,122699\r\n3,Divide County,118649\r\n4,Mountrail County,118316\r\n5,McKenzie County,117604\r\n6,Stark County,116735\r\n7,Burleigh County,115103\r\n8,Cass County,114000\r\n9,Burke County,113710\r\n10,Morton County,111901",
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+        }
+      ],
+      "title": "Average Income for Family Households in Counties of North Dakota (2019)",
+      "type": "TABLE",
+      "unit": "Infl. adj. USD (CY)",
+      "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
       "data_csv": "label,Median Family Household Income\r\n2019,86249\r\n2018,83272\r\n2017,80091\r\n2016,77277\r\n2015,74708\r\n2014,72770\r\n2013,70767\r\n2012,68293\r\n2011,65871\r\n2010,62920",
@@ -38,27 +52,8 @@
         "date": "2019",
         "value": 86249
       },
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,Median Married Couple Family Household Income\r\n2019,96825\r\n2018,93643\r\n2017,89787\r\n2016,86919\r\n2015,84437\r\n2014,82236\r\n2013,79820\r\n2012,76946\r\n2011,73585\r\n2010,69952",
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
-        }
-      ],
-      "legend": [
-        "Median Married Couple Family Household Income"
-      ],
-      "title": "Median Married Couple Family Household Income in North Dakota",
-      "type": "LINE",
-      "unit": "Infl. adj. USD (CY)",
-      "highlight": {
-        "date": "2019",
-        "value": 96825
-      },
-      "chartUrl": ""
+      "chartUrl": "",
+      "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     }
   ]
 }

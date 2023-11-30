@@ -17,6 +17,7 @@
 
 from typing import Dict, List
 
+from server.lib.explore.params import QueryMode
 from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.common.utterance import QueryType
@@ -157,7 +158,9 @@ def create_utterance(query_detection: Detection,
                      currentUtterance: Utterance,
                      counters: ctr.Counters,
                      session_id: str,
-                     test: str = '') -> Utterance:
+                     test: str = '',
+                     client: str = '',
+                     mode: QueryMode = None) -> Utterance:
   filtered_svs = filter_svs(query_detection.svs_detected, counters)
 
   # Construct Utterance datastructure.
@@ -175,7 +178,9 @@ def create_utterance(query_detection: Detection,
                    session_id=session_id,
                    multi_svs=query_detection.svs_detected.multi_sv,
                    llm_resp=query_detection.llm_resp,
-                   test=test)
+                   test=test,
+                   client=client,
+                   mode=mode)
   uttr.counters.info('filtered_svs', filtered_svs)
 
   # Add detected places.

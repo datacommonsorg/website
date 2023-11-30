@@ -18,6 +18,7 @@ import _ from "lodash";
 
 import { Item } from "../../apps/explore/item_list";
 import {
+  CLIENT_TYPES,
   DEFAULT_TOPIC,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
@@ -53,6 +54,7 @@ export function getTopics(
           [URL_HASH_PARAMS.TOPIC]: topic.dcid,
           [URL_HASH_PARAMS.PLACE]: placeUrlVal,
           [URL_HASH_PARAMS.QUERY]: "",
+          [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RELATED_TOPIC,
         })}`,
       });
     }
