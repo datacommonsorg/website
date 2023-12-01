@@ -18,10 +18,26 @@
 
 {% set main_id = 'climate-finance' %}
 {% set page_id = 'page-client-finance' %}
+{% set title = 'Climate Finance is a Mess. Here\'s How to Fix It.' %}
+{% set description = 'No one really knows how much is being spent to address climate change. So ONE launched the Climate Finance Files, a detailed account of what\'s being spent, where.' %}
 
 {% block head %}
 <script type="module" crossorigin src="custom_dc/one/climate-finance/assets/index.js"></script>
 <link rel="stylesheet" href="custom_dc/one/climate-finance/assets/index.css">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://datacommons.one.org/climate-finance-files" />
+<meta property="og:title" content="Climate Finance is a Mess. Here's How to Fix It." />
+<meta property="og:description" content="No one knows how much is being spent to address climate change. So ONE launched the Climate Finance Files." />
+<meta property="og:image" content="https://datacommons.one.org/custom_dc/one/share.webp" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://datacommons.one.org/climate-finance-files" />
+<meta property="twitter:title" content="Climate Finance is a Mess. Here's How to Fix It." />
+<meta property="twitter:description" content="No one knows how much is being spent to address climate change. So ONE launched the Climate Finance Files." />
+<meta property="twitter:image" content="https://datacommons.one.org/custom_dc/one/share.webp" />
 {% endblock %}
 
 {% block content %}
