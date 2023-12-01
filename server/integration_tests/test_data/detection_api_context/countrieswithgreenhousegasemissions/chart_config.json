@@ -7,6 +7,7 @@
       "type": 4
     }
   ],
+  "client": "test_detect",
   "comparisonEntities": [],
   "comparisonVariables": [],
   "context": {},

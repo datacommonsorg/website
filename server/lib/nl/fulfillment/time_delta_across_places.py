@@ -65,6 +65,9 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     state.uttr.counters.err('time-delta-across-places_failed_alreadyanswered',
                             len(state.uttr.answerPlaces))
     return False
+  if state.single_date:
+    state.uttr.counters.err('time-delta-across-places_failed_cb_singledate', 1)
+    return False
 
   found = False
   # Compute time-delta ranks.

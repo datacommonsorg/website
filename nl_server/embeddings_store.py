@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import logging
 import os
+import shutil
 from typing import List
 
 import pandas as pd
@@ -30,10 +32,15 @@ from nl_server.embeddings import Embeddings
 class Store:
 
   def __init__(self, indexes: List[EmbeddingsIndex]):
-    self.embeddings_map = {}
+    self.embeddings_map: dict[str, Embeddings] = {}
 
     # If there is a custom DC index, merge the embeddings into default DC index.
     default_idx, custom_idx = _get_default_and_custom(indexes)
+
+    # If a new custom index is loaded after startup, it will be merged with the
+    # original default index maintained under this variable.
+    self.original_default_idx = copy.deepcopy(default_idx)
+
     if custom_idx:
       default_idx.embeddings_local_path = _merge_custom_index(
           default_idx, custom_idx)
@@ -48,6 +55,24 @@ class Store:
   # Note: The caller takes care of exceptions.
   def get(self, index_type: str = DEFAULT_INDEX_TYPE) -> Embeddings:
     return self.embeddings_map.get(index_type)
+
+  def merge_custom_index(self, custom_idx: EmbeddingsIndex):
+    """Merges the specified custom index with the default index.
+
+    This method will be called if a new custom index is loaded at runtime
+    via the /api/load/ call.
+    """
+    default_idx = copy.deepcopy(self.original_default_idx)
+    default_idx.embeddings_local_path = _merge_custom_index(
+        default_idx, custom_idx)
+    self.embeddings_map.update({
+        custom_idx.name:
+            Embeddings(custom_idx.embeddings_local_path,
+                       custom_idx.tuned_model_local_path),
+        default_idx.name:
+            Embeddings(default_idx.embeddings_local_path,
+                       default_idx.tuned_model_local_path)
+    })
 
 
 #
@@ -88,14 +113,19 @@ def _merge_custom_index(default: EmbeddingsIndex,
       os.path.dirname(default.embeddings_local_path),
       'WithCustom_' + os.path.basename(default.embeddings_local_path))
 
-  main_df = pd.read_csv(default.embeddings_local_path)
-  custom_df = pd.read_csv(custom.embeddings_local_path)
-  assert main_df.columns.equals(custom_df.columns), \
-    'Main vs. custom embeddings CSV columns differ!'
+  # We merge by first doing a file copy of the main embeddings (vs loading to a dataframe)
+  # followed by loading custom DC embeddings to a dataframe and appending them.
+  # This significantly reduces the merge time (from 7-10 seconds to 150-200 ms).
 
-  # Set ignore_index to reset index in output
-  concat_df = pd.concat([main_df, custom_df], ignore_index=True)
-  concat_df.to_csv(output_embeddings_path, index=False)
+  # First copy default embeddings to output file.
+  shutil.copy(default.embeddings_local_path, output_embeddings_path)
+  # Load custom embeddings into a dataframe
+  custom_df = pd.read_csv(custom.embeddings_local_path)
+  # Append custom embeddings to output file.
+  with open(output_embeddings_path, "a") as out:
+    # Custom embeddings csv have a header row
+    # which needs to be removed when appending it.
+    out.write(custom_df.to_csv(header=None, index=False))
 
   logging.info(
       f'Concatenated main {default.embeddings_local_path} with '

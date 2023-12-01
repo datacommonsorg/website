@@ -39,6 +39,7 @@ class Params(str, Enum):
   #             using a default place (if query doesn't specify places).
   #    Ex, if multiple verbs present, treat as action query and do not fulfill.
   MODE = 'mode'
+  CLIENT = 'client'
 
 
 class DCNames(str, Enum):
@@ -50,6 +51,10 @@ class DCNames(str, Enum):
 class QueryMode(str, Enum):
   # NOTE: This mode is incompatible with LLM detector
   STRICT = 'strict'
+
+
+class Clients(str, Enum):
+  DEFAULT = 'default'
 
 
 # Get the SV score threshold for the given mode.

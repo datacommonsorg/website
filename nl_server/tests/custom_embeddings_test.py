@@ -22,6 +22,8 @@ from parameterized import parameterized
 
 from nl_server import config
 from nl_server import embeddings_store as store
+from nl_server.config import EmbeddingsIndex
+from nl_server.embeddings import Embeddings
 from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
 from shared.lib.gcs import TEMP_DIR
 
@@ -44,21 +46,38 @@ def _copy(fname: str):
   return dst
 
 
+def _test_query(test: unittest.TestCase, idx: Embeddings, query: str,
+                expected: str):
+  trimmed_svs = []
+  if idx:
+    got = idx.detect_svs(query)
+    for i in range(len(got['SV'])):
+      if got['CosineScore'][i] >= SV_SCORE_DEFAULT_THRESHOLD:
+        trimmed_svs.append(got['SV'][i])
+
+  if not expected:
+    test.assertTrue(not trimmed_svs, trimmed_svs)
+  else:
+    test.assertEqual([expected], trimmed_svs)
+
+
 class TestEmbeddings(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls) -> None:
-    default_file = _copy(_DEFAULT_FILE)
-    custom_file = _copy(_CUSTOM_FILE)
+    cls.default_file = _copy(_DEFAULT_FILE)
+    cls.custom_file = _copy(_CUSTOM_FILE)
 
     cls.main = store.Store(
-        config.load({'medium_ft': default_file}, {'tuned_model': _TUNED_MODEL}))
+        config.load({'medium_ft': cls.default_file},
+                    {'tuned_model': _TUNED_MODEL}))
 
     cls.custom = store.Store(
-        config.load({
-            'medium_ft': default_file,
-            'custom_ft': custom_file,
-        }, {'tuned_model': _TUNED_MODEL}))
+        config.load(
+            {
+                'medium_ft': cls.default_file,
+                'custom_ft': cls.custom_file,
+            }, {'tuned_model': _TUNED_MODEL}))
 
   def test_entries(self):
     self.assertEqual(1, len(self.main.get('medium_ft').dcids))
@@ -86,20 +105,27 @@ class TestEmbeddings(unittest.TestCase):
       [DCType.CUSTOM, 'money', 'custom_ft', ''],
       [DCType.CUSTOM, 'food', 'custom_ft', 'dc/topic/sdg_2'],
   ])
-  def test_queries(self, dc, query, index, expected):
+  def test_queries(self, dc: DCType, query: str, index: str, expected: str):
     if dc == DCType.MAIN:
       idx = self.main.get(index)
     else:
       idx = self.custom.get(index)
 
-    trimmed_svs = []
-    if idx:
-      got = idx.detect_svs(query)
-      for i in range(len(got['SV'])):
-        if got['CosineScore'][i] >= SV_SCORE_DEFAULT_THRESHOLD:
-          trimmed_svs.append(got['SV'][i])
+    _test_query(self, idx, query, expected)
 
-    if not expected:
-      self.assertTrue(not trimmed_svs), trimmed_svs
-    else:
-      self.assertEqual([expected], trimmed_svs)
+  def test_merge_custom_embeddings(self):
+    embeddings = store.Store(
+        config.load({'medium_ft': self.default_file},
+                    {'tuned_model': _TUNED_MODEL}))
+
+    _test_query(self, embeddings.get("medium_ft"), "money", "dc/topic/sdg_1")
+    _test_query(self, embeddings.get("medium_ft"), "food", "")
+
+    custom_idx = EmbeddingsIndex(name="custom_ft",
+                                 embeddings_file_name=_CUSTOM_FILE,
+                                 embeddings_local_path=os.path.join(
+                                     TEMP_DIR, _CUSTOM_FILE))
+    embeddings.merge_custom_index(custom_idx)
+
+    _test_query(self, embeddings.get("medium_ft"), "money", "dc/topic/sdg_1")
+    _test_query(self, embeddings.get("medium_ft"), "food", "dc/topic/sdg_2")

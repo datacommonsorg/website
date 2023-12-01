@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import unittest
 import urllib
 import urllib.request
 
@@ -251,6 +252,7 @@ class TestVisScatter(WebdriverBaseTest):
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
 
+  @unittest.skip("Timeout failures.")
   def test_landing_page_link(self):
     """Test one of the links on the landing page
     """

@@ -49,6 +49,10 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   if not config_pb:
     return FulfillResp(chart_pb=None, related_things={})
 
+  if uttr.mode == params.QueryMode.STRICT:
+    # No related things for strict mode.
+    return FulfillResp(chart_pb=config_pb, related_things={})
+
   plotted_orig_vars = _get_plotted_orig_vars(state)
 
   explore_peer_groups = {}

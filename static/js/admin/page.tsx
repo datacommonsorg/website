@@ -67,7 +67,7 @@ export function Page(): JSX.Element {
           Load Data
         </Button>
         <div>{loading && <span className="loading">LOADING...</span>}</div>
-        {!_.isEmpty(loadResponse) && (
+        {!_.isEmpty(loadResponse) && !loading && (
           <pre className="json-display">
             {JSON.stringify(loadResponse, null, 2)}
           </pre>

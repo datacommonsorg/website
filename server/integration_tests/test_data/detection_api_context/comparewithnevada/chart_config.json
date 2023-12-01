@@ -6,6 +6,7 @@
       "type": 7
     }
   ],
+  "client": "test_detect",
   "comparisonEntities": [
     "geoId/06"
   ],
