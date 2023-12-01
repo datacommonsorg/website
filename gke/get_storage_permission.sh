@@ -29,19 +29,35 @@ if [[ $STORE_PROJECT_ID == "" ]]; then
   STORE_PROJECT_ID=$(yq eval '.storage_project' config.yaml)
 fi
 
+CONTROL_PROJECT_ID=$2
+if [[ $CONTROL_PROJECT_ID == "" ]]; then
+  CONTROL_PROJECT_ID=$(yq eval '.control_project' config.yaml)
+fi
+
 NAME="website-robot"
 SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
 
 # Data store project roles
-declare -a roles=(
+declare -a store_roles=(
     "roles/bigquery.admin"   # BigQuery
     "roles/bigtable.reader" # Bigtable
     "roles/storage.objectViewer" # Branch Cache Read
     "roles/pubsub.editor" # Branch Cache Subscription
 )
-for role in "${roles[@]}"
+for role in "${store_roles[@]}"
 do
   gcloud projects add-iam-policy-binding $STORE_PROJECT_ID \
+    --member serviceAccount:$SERVICE_ACCOUNT \
+    --role $role
+done
+
+# Control project roles
+declare -a control_roles=(
+    "roles/pubsub.publisher"
+)
+for role in "${control_roles[@]}"
+do
+  gcloud projects add-iam-policy-binding $CONTROL_PROJECT_ID \
     --member serviceAccount:$SERVICE_ACCOUNT \
     --role $role
 done
