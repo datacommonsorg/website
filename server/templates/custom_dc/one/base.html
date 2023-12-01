@@ -37,7 +37,7 @@ content - main page content
   <title>{{ title|default("ONE") }} - Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Explore our data on the dynamic people and economies throughout Africa, and understand how the continent is evolving in a volatile world.">
+  <meta name="description" content="{{ description|default('Explore our data on the dynamic people and economies throughout Africa, and understand how the continent is evolving in a volatile world.') }}">
   <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css' , t=config['VERSION'])}}>
   {% include 'custom_dc/one/partials/favicon.html' %}
   {% include 'custom_dc/one/partials/usercentrics.html' %}
