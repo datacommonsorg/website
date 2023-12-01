@@ -133,6 +133,7 @@ function renderPage(): void {
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
   const locale = document.getElementById("locale").dataset.lc;
+  const summaryText = document.getElementById("summary").dataset.summary;
   const landingPagePromise = getLandingPageData(dcid, category, locale, seed);
 
   Promise.all([
@@ -164,24 +165,24 @@ function renderPage(): void {
         document.getElementById("menu")
       );
 
-      // Earth has no parent places.
-      if (data.parentPlaces.length > 0) {
-        ReactDOM.render(
-          React.createElement(ParentPlace, {
-            names: data.names,
-            parentPlaces: data.parentPlaces,
-            placeType,
-          }),
-          document.getElementById("place-type")
-        );
-      }
-      ReactDOM.render(
-        React.createElement(PlaceHighlight, {
-          dcid,
-          highlight: data.highlight,
-        }),
-        document.getElementById("place-highlight")
-      );
+      // // Earth has no parent places.
+      // if (data.parentPlaces.length > 0) {
+      //   ReactDOM.render(
+      //     React.createElement(ParentPlace, {
+      //       names: data.names,
+      //       parentPlaces: data.parentPlaces,
+      //       placeType,
+      //     }),
+      //     document.getElementById("place-type")
+      //   );
+      // }
+      // ReactDOM.render(
+      //   React.createElement(PlaceHighlight, {
+      //     dcid,
+      //     highlight: data.highlight,
+      //   }),
+      //   document.getElementById("place-highlight")
+      // );
 
       // Readjust sidebar based on parent places.
       updatePageLayoutState();
@@ -208,14 +209,14 @@ function renderPage(): void {
         document.getElementById("child-place")
       );
 
-      ReactDOM.render(
-        React.createElement(PageSubtitle, {
-          category,
-          categoryDisplayStr: data.categories[category],
-          dcid,
-        }),
-        document.getElementById("subtitle")
-      );
+      // ReactDOM.render(
+      //   React.createElement(PageSubtitle, {
+      //     category,
+      //     categoryDisplayStr: data.categories[category],
+      //     dcid,
+      //   }),
+      //   document.getElementById("subtitle")
+      // );
       ReactDOM.render(
         React.createElement(MainPane, {
           category,
@@ -229,6 +230,8 @@ function renderPage(): void {
           parentPlaces: data.parentPlaces,
           categoryStrings: data.categories,
           locale,
+          highlight: data.highlight,
+          summaryText,
         }),
         document.getElementById("main-pane")
       );

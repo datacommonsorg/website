@@ -17,7 +17,7 @@
 import React from "react";
 import { RawIntlProvider } from "react-intl";
 
-import { ChartBlockData, PageChart } from "../chart/types";
+import { ChartBlockData, PageChart, PageHighlight } from "../chart/types";
 import { intl } from "../i18n/i18n";
 import { randDomId } from "../shared/util";
 import { ChartBlock } from "./chart_block";
@@ -70,6 +70,14 @@ interface MainPanePropType {
    * The locale of the page.
    */
   locale: string;
+  /**
+   * Highlighted data to show in overview
+   */
+  highlight?: PageHighlight;
+  /**
+   * Text summary of the place to show in overview
+   */
+  summaryText?: string;
 }
 
 class MainPane extends React.Component<MainPanePropType> {
@@ -115,6 +123,11 @@ class MainPane extends React.Component<MainPanePropType> {
             dcid={this.props.dcid}
             showRanking={true}
             locale={this.props.locale}
+            highlight={this.props.highlight}
+            names={this.props.names}
+            parentPlaces={this.props.parentPlaces}
+            placeType={this.props.placeType}
+            summaryText={this.props.summaryText}
           />
         )}
         {topics.map((topic: string, index: number) => {
