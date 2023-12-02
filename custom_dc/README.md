@@ -8,7 +8,7 @@ Commons instance.
 
 ## Custom and Base DCs
 
-![Custom Data Commons](./system_diagram.jpeg)
+![Custom Data Commons](./system_diagram.jpg)
 
 The diagram above is a high-level view of the relationship between custom and base DC instances.
 As indicated, custom and base DCs largely share the same software stack.
