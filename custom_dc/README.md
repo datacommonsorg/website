@@ -8,9 +8,8 @@ Commons instance.
 
 ## Custom and Base DCs
 
-<img src="https://github.com/datacommonsorg/website/assets/1221814/63efdb88-580c-4bc2-967b-5dce61844eea"
-     alt="Custom Data Commons"
-     style="width: 40vw;"/>
+![Custom Data Commons](./system_diagram.jpg)
+
 The diagram above is a high-level view of the relationship between custom and base DC instances.
 As indicated, custom and base DCs largely share the same software stack.
 Additionally, a custom DC combines its own local datasets with base DC datasets to provide a unified view.
