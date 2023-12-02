@@ -25,9 +25,6 @@ import { initSearchAutocomplete } from "../shared/place_autocomplete";
 import { ChildPlace } from "./child_places_menu";
 import { MainPane } from "./main_pane";
 import { Menu } from "./menu";
-import { PageSubtitle } from "./page_subtitle";
-import { ParentPlace } from "./parent_breadcrumbs";
-import { PlaceHighlight } from "./place_highlight";
 import { isPlaceInUsa } from "./util";
 
 // Window scroll position to start fixing the sidebar.
@@ -47,6 +44,8 @@ window.onload = () => {
     maybeToggleFixedSidebar();
     window.onresize = maybeToggleFixedSidebar;
   } catch (e) {
+    console.log("error in main window function");
+    console.log(e);
     return;
   }
 };
@@ -119,6 +118,7 @@ async function getLandingPageData(
       `/api/landingpage/data/${dcid}?category=${category}&hl=${locale}&seed=${seed}`
     )
     .then((resp) => {
+      console.log("getLandingPagedata promise fulfilled");
       return resp.data;
     });
 }
@@ -133,7 +133,7 @@ function renderPage(): void {
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
   const locale = document.getElementById("locale").dataset.lc;
-  const summaryText = document.getElementById("summary").dataset.summary;
+  const summaryText = document.getElementById("place-summary").dataset.summary;
   const landingPagePromise = getLandingPageData(dcid, category, locale, seed);
 
   Promise.all([
@@ -146,6 +146,7 @@ function renderPage(): void {
     ]),
   ])
     .then(([landingPageData]) => {
+      console.log("hit then");
       const loadingElem = document.getElementById("page-loading");
       if (_.isEmpty(landingPageData)) {
         loadingElem.innerText =
