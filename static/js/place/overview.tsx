@@ -61,6 +61,9 @@ interface OverviewPropType {
 
 class Overview extends React.Component<OverviewPropType> {
   render(): JSX.Element {
+    const showParentPlaces =
+      this.props.parentPlaces && this.props.parentPlaces.length > 0;
+    const showBottomDivider = showParentPlaces || this.props.highlight;
     return (
       <section
         className={`factoid col-12 ${
@@ -68,11 +71,13 @@ class Overview extends React.Component<OverviewPropType> {
         }`}
       >
         <div className="overview-tile">
-          <div className="row">
-            <div className="col-12">
-              <PlaceSummary summary={this.props.summaryText} />
+          {this.props.summaryText && (
+            <div className="row">
+              <div className="col-12">
+                <PlaceSummary summary={this.props.summaryText} />
+              </div>
             </div>
-          </div>
+          )}
           <div className="row">
             <div className={`col-12 ${this.props.showRanking && "col-md-4"}`}>
               <GoogleMap dcid={this.props.dcid}></GoogleMap>
@@ -86,10 +91,8 @@ class Overview extends React.Component<OverviewPropType> {
               </div>
             )}
           </div>
-          {(this.props.parentPlaces.length > 0 || this.props.highlight) && (
-            <hr />
-          )}
-          {this.props.parentPlaces.length > 0 && (
+          {showBottomDivider && <hr />}
+          {showParentPlaces && (
             <div className="parent-places-container">
               <ParentPlace
                 names={this.props.names}
@@ -98,12 +101,14 @@ class Overview extends React.Component<OverviewPropType> {
               />
             </div>
           )}
-          <div className="place-highlight-container">
-            <PlaceHighlight
-              dcid={this.props.dcid}
-              highlight={this.props.highlight}
-            />
-          </div>
+          {this.props.highlight && (
+            <div className="place-highlight-container">
+              <PlaceHighlight
+                dcid={this.props.dcid}
+                highlight={this.props.highlight}
+              />
+            </div>
+          )}
         </div>
       </section>
     );
