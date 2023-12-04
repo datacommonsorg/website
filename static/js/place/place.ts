@@ -25,6 +25,9 @@ import { initSearchAutocomplete } from "../shared/place_autocomplete";
 import { ChildPlace } from "./child_places_menu";
 import { MainPane } from "./main_pane";
 import { Menu } from "./menu";
+import { PageSubtitle } from "./page_subtitle";
+import { ParentPlace } from "./parent_breadcrumbs";
+import { PlaceHighlight } from "./place_highlight";
 import { isPlaceInUsa } from "./util";
 
 // Window scroll position to start fixing the sidebar.
@@ -162,6 +165,27 @@ function renderPage(): void {
         document.getElementById("menu")
       );
 
+      if (category !== "Overview") {
+        // Earth has no parent places.
+        if (data.parentPlaces.length > 0) {
+          ReactDOM.render(
+            React.createElement(ParentPlace, {
+              names: data.names,
+              parentPlaces: data.parentPlaces,
+              placeType,
+            }),
+            document.getElementById("place-type")
+          );
+        }
+        ReactDOM.render(
+          React.createElement(PlaceHighlight, {
+            dcid,
+            highlight: data.highlight,
+          }),
+          document.getElementById("place-highlight")
+        );
+      }
+
       // Readjust sidebar based on parent places.
       updatePageLayoutState();
 
@@ -185,6 +209,15 @@ function renderPage(): void {
           placeName,
         }),
         document.getElementById("child-place")
+      );
+
+      ReactDOM.render(
+        React.createElement(PageSubtitle, {
+          category,
+          categoryDisplayStr: data.categories[category],
+          dcid,
+        }),
+        document.getElementById("subtitle")
       );
 
       ReactDOM.render(
