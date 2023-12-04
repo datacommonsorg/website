@@ -44,8 +44,6 @@ window.onload = () => {
     maybeToggleFixedSidebar();
     window.onresize = maybeToggleFixedSidebar;
   } catch (e) {
-    console.log("error in main window function");
-    console.log(e);
     return;
   }
 };
@@ -118,7 +116,6 @@ async function getLandingPageData(
       `/api/landingpage/data/${dcid}?category=${category}&hl=${locale}&seed=${seed}`
     )
     .then((resp) => {
-      console.log("getLandingPagedata promise fulfilled");
       return resp.data;
     });
 }
@@ -146,7 +143,6 @@ function renderPage(): void {
     ]),
   ])
     .then(([landingPageData]) => {
-      console.log("hit then");
       const loadingElem = document.getElementById("page-loading");
       if (_.isEmpty(landingPageData)) {
         loadingElem.innerText =
@@ -165,25 +161,6 @@ function renderPage(): void {
         }),
         document.getElementById("menu")
       );
-
-      // // Earth has no parent places.
-      // if (data.parentPlaces.length > 0) {
-      //   ReactDOM.render(
-      //     React.createElement(ParentPlace, {
-      //       names: data.names,
-      //       parentPlaces: data.parentPlaces,
-      //       placeType,
-      //     }),
-      //     document.getElementById("place-type")
-      //   );
-      // }
-      // ReactDOM.render(
-      //   React.createElement(PlaceHighlight, {
-      //     dcid,
-      //     highlight: data.highlight,
-      //   }),
-      //   document.getElementById("place-highlight")
-      // );
 
       // Readjust sidebar based on parent places.
       updatePageLayoutState();
@@ -210,14 +187,6 @@ function renderPage(): void {
         document.getElementById("child-place")
       );
 
-      // ReactDOM.render(
-      //   React.createElement(PageSubtitle, {
-      //     category,
-      //     categoryDisplayStr: data.categories[category],
-      //     dcid,
-      //   }),
-      //   document.getElementById("subtitle")
-      // );
       ReactDOM.render(
         React.createElement(MainPane, {
           category,
