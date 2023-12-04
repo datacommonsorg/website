@@ -25,3 +25,4 @@ region:
     -
 nodes: 1
 storage_project:
+control_project:
