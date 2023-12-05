@@ -98,6 +98,10 @@ class TestPlaceExplorer(WebdriverBaseTest):
     # Assert place name is correct.
     self.assertEqual("Mountain View", place_name)
 
+    # Wait until place overview tile has loaded.
+    element_present = EC.presence_of_element_located((By.CLASS_NAME, 'overview-tile'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
     # Wait until the place type has loaded.
     element_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
                                                        PLACE_TYPE_TITLE)
