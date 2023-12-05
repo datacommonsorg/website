@@ -149,7 +149,6 @@ class TestScatter(WebdriverBaseTest):
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
 
-  @unittest.skip("Timeout failures.")
   def test_landing_page_link(self):
     self.driver.get(self.url_ + SCATTER_URL)
 
