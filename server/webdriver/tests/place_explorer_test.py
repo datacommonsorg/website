@@ -103,7 +103,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Wait until the place type has loaded.
-    element_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
+    element_present = EC.text_to_be_present_in_element((By.ID, 'place-type-in-overview'),
                                                        PLACE_TYPE_TITLE)
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 

@@ -93,7 +93,10 @@ class Overview extends React.Component<OverviewPropType> {
           </div>
           {showBottomDivider && <hr />}
           {showParentPlaces && (
-            <div id="place-type" className="parent-places-container">
+            <div
+              id="place-type-in-overview"
+              className="parent-places-container"
+            >
               <ParentPlace
                 names={this.props.names}
                 parentPlaces={this.props.parentPlaces}
