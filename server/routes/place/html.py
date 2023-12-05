@@ -79,12 +79,11 @@ def place(place_dcid=None):
       # Only show summary for Overview
       place_summary = current_app.config['PLACE_EXPLORER_SUMMARIES'].get(
           place_dcid, "")
-      place_allow_list = current_app.config['PLACE_SUMMARY_ALLOW_LIST'] or []
-      # In local or autopush, show all summaries
-      # In staging or prod, only show summaries for places in allow list
-      show_summary = (os.environ.get('FLASK_ENV') in [
-          'autopush', 'local'
-      ]) or (place_dcid in place_allow_list)
+      show_summary = True
+      if os.environ.get('FLASK_ENV') in ['staging', 'prod']:
+        # In staging or prod, only show summaries for places in allow list
+        place_allow_list = current_app.config['PLACE_SUMMARY_ALLOW_LIST'] or []
+        show_summary = place_dcid in place_allow_list
 
   return flask.render_template('place.html',
                                place_type=place_type,
