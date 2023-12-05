@@ -72,18 +72,18 @@ def place(place_dcid=None):
   else:
     place_name = place_dcid
 
-  place_summary = None
+  place_summary = current_app.config['PLACE_EXPLORER_SUMMARIES'].get(
+      place_dcid, {'summary': ''})
   show_summary = False
-  if os.environ.get('FLASK_ENV') in ['autopush', 'local', 'staging', 'prod']:
-    if not category:
-      # Only show summary for Overview
-      place_summary = current_app.config['PLACE_EXPLORER_SUMMARIES'].get(
-          place_dcid, "")
+  if not category:
+    # Only show summary for Overview
+    if os.environ.get('FLASK_ENV') in ['autopush', 'local']:
+      # In autopush or local, show all summaries
       show_summary = True
-      if os.environ.get('FLASK_ENV') in ['staging', 'prod']:
-        # In staging or prod, only show summaries for places in allow list
-        place_allow_list = current_app.config['PLACE_SUMMARY_ALLOW_LIST'] or []
-        show_summary = place_dcid in place_allow_list
+    if os.environ.get('FLASK_ENV') in ['staging', 'prod']:
+      # In staging or prod, only show summaries for places in allow list
+      place_allow_list = current_app.config['PLACE_SUMMARY_ALLOW_LIST'] or []
+      show_summary = place_dcid in place_allow_list
 
   return flask.render_template('place.html',
                                place_type=place_type,
