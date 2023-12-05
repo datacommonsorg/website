@@ -99,16 +99,17 @@ class TestPlaceExplorer(WebdriverBaseTest):
     self.assertEqual("Mountain View", place_name)
 
     # Wait until place overview tile has loaded.
-    element_present = EC.presence_of_element_located((By.CLASS_NAME, 'overview-tile'))
+    element_present = EC.presence_of_element_located(
+        (By.CLASS_NAME, 'overview-tile'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Wait until the place type has loaded.
-    element_present = EC.text_to_be_present_in_element((By.ID, 'place-type-in-overview'),
-                                                       PLACE_TYPE_TITLE)
+    element_present = EC.text_to_be_present_in_element(
+        (By.ID, 'place-type-in-overview'), PLACE_TYPE_TITLE)
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert place type is correct.
-    place_type = self.driver.find_element(By.ID, "place-type").text
+    place_type = self.driver.find_element(By.ID, "place-type-in-overview").text
     self.assertEqual(PLACE_TYPE_TITLE, place_type)
 
   def test_place_search(self):
