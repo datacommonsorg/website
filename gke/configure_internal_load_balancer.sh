@@ -15,7 +15,7 @@
 
 # Configures internal load balancer requirements
 # (1) proxy subnet
-# (2) self -signed certificate for internal load balancer
+# (2) self-signed certificate for internal load balancer
 # (3) private cloud dns zone
 
 PROJECT_ID=$(yq eval '.project' config.yaml)
