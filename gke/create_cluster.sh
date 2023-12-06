@@ -74,14 +74,18 @@ kubectl annotate serviceaccount \
 # Get project number from project ID, to determine the default service account
 PROJECT_NUM=$(gcloud projects list --filter="$(gcloud config get-value project)" --format="value(PROJECT_NUMBER)")
 
-# Grant logging and monitoring permissions to the default service account
+# Grant permissions to the default service account
 # This is needed for workload logging
-gcloud projects add-iam-policy-binding \
-  $PROJECT_ID \
-  --member "serviceAccount:$PROJECT_NUM-compute@developer.gserviceaccount.com" \
-  --role "roles/logging.admin"
-
-gcloud projects add-iam-policy-binding \
-  $PROJECT_ID \
-  --member "serviceAccount:$PROJECT_NUM-compute@developer.gserviceaccount.com" \
-  --role "roles/monitoring.admin"
+declare -a roles=(
+    "roles/logging.admin"
+    "roles/monitoring.admin"
+    "roles/storage.admin"
+    "roles/dataflow.worker"
+    "roles/bigtable.user"
+)
+for role in "${roles[@]}"
+do
+  gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member "serviceAccount:$PROJECT_NUM-compute@developer.gserviceaccount.com" \
+    --role $role
+done

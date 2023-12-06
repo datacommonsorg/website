@@ -31,6 +31,9 @@ declare -a roles=(
     "roles/bigquery.jobUser"   # Query BigQuery
     "roles/pubsub.editor" # TMCF + CSV GCS data change subscription
     "roles/secretmanager.secretAccessor"
+    "roles/bigtable.user"
+    "roles/dataflow.admin"
+    "roles/storage.admin"
 )
 for role in "${roles[@]}"
 do

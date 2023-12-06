@@ -13,6 +13,7 @@ You should have owner/editor role to perform the following tasks.
   - `domain`: domain of the the website
   - `region.primary`: region for Kubernetes cluster
   - `storage-project`: base Data Commons project (set this to `datcom-store`)
+  - `control-project`: set this to `datcom-204919`
 
 - Install the following tools:
 
