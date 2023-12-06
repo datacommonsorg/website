@@ -56,7 +56,7 @@ You should have owner/editor role to perform the following tasks.
     # Deploy esp service
     ./setup_esp.sh
 
-    # [Internal load balancer services only] Configure internal load balancer network and dns settings
+    # [For apigee configurations only] Configure internal load balancer network and dns settings
     ./configure_internal_load_balancer.sh
     ```
 
@@ -135,3 +135,16 @@ To add a cronjob to run periodic testing against a cluster, run:
 
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
 If the region is not set, it will default to us-central-1
+
+## [Optional] Configure Apigee
+
+Optionally use [Apigee](https://cloud.google.com/apigee) for API key management, throttling, and logging.
+
+- Open GCP console
+- Navigate to Apigee console
+- Click "Enable" button (wait ~1 hour to complete)
+- Deploy proxy configuration
+
+```
+../deploy/apigee/deploy_proxy.sh <ENV>
+```

@@ -42,6 +42,8 @@ deploy/overlays/kustomization.yaml
 deploy/git/mixer_hash.txt
 deploy/git/website_hash.txt
 
+deploy/apigee/**/*.zip
+
 # Helm
 build/helm/**/*.tgz
 
