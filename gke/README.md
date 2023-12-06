@@ -63,8 +63,10 @@ You should have owner/editor role to perform the following tasks.
 1.  Copy the `config.yaml` file into the `/deploy/gke` folder. Rename
     the file to describe the environment the clusters are being used for.
 
-        > The filename used will be the `<ENV>` in subsequent commands. E.g. if you
-        > named the yaml file `staging.yaml`, then the `ENV` below is `staging`.
+    ```text
+      > The filename used will be the `<ENV>` in subsequent commands. E.g. if you
+      > named the yaml file `staging.yaml`, then the `ENV` below is `staging`.
+    ```
 
 1.  Run the following scripts sequentially.
 
@@ -136,7 +138,7 @@ To add a cronjob to run periodic testing against a cluster, run:
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
 If the region is not set, it will default to us-central-1
 
-## [Optional] Configure Apigee
+## (Optional) Configure Apigee
 
 Use [Apigee](https://cloud.google.com/apigee) for API key management, throttling, and logging.
 
@@ -145,7 +147,7 @@ Use [Apigee](https://cloud.google.com/apigee) for API key management, throttling
 - Click "Enable" button (wait ~1 hour to complete)
 - Deploy proxy configuration
 
-```
+```bash
 ../deploy/apigee/deploy_proxy.sh <ENV>
 ```
 

@@ -27,7 +27,6 @@ fi
 
 PROJECT_ID=$(yq eval '.project' config.yaml)
 AUTH="$(gcloud auth print-access-token)"
-PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
 ENVIRONMENT_NAME=website-environment
 APIGEE_CONFIG_PATH=../deploy/apigee
 PROXY_NAME=root
