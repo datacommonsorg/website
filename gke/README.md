@@ -24,7 +24,7 @@ You should have owner/editor role to perform the following tasks.
 
 ### One time setup
 
-1. Run the following scripts sequentially. Retry any script if errors occur.
+1.  Run the following scripts sequentially. Retry any script if errors occur.
 
     ```bash
     # Update gcloud
@@ -34,7 +34,7 @@ You should have owner/editor role to perform the following tasks.
     # Enable GCP services
     ./enable_services.sh
 
-    # Create a static IP for the domain
+    # Create a static IP for the domain (Skip this step if you are using apigee proxy)
     ./create_ip.sh
 
     # Create api key for web client maps and places API
@@ -54,16 +54,19 @@ You should have owner/editor role to perform the following tasks.
 
     # Deploy esp service
     ./setup_esp.sh
+
+    # [Internal load balancer services only] Configure internal load balancer network and dns settings
+    ./configure_internal_load_balancer.sh
     ```
 
-1. Copy the `config.yaml` file into the `/deploy/gke` folder. Rename
-the file to describe the environment the clusters are being used for.
+1.  Copy the `config.yaml` file into the `/deploy/gke` folder. Rename
+    the file to describe the environment the clusters are being used for.
 
-    > The filename used will be the `<ENV>` in subsequent commands. E.g. if you
-    > named the yaml file `staging.yaml`, then the `ENV` below is `staging`.
+        > The filename used will be the `<ENV>` in subsequent commands. E.g. if you
+        > named the yaml file `staging.yaml`, then the `ENV` below is `staging`.
 
-1. Run the following scripts sequentially.
-  
+1.  Run the following scripts sequentially.
+
     ```bash
     # Create clusters
     ./create_all_clusters.sh <ENV>
@@ -72,8 +75,8 @@ the file to describe the environment the clusters are being used for.
     ../scripts/deploy_gke_helm.sh -e <ENV> -l <REGION>
     ```
 
-1. (Optional) If you're using multiple clusters, run the following script to
-   setup multi-cluster ingress and services.
+1.  (Optional) If you're using multiple clusters, run the following script to
+    setup multi-cluster ingress and services.
 
     ```bash
     # Set up multi-cluster ingress and service
@@ -126,7 +129,7 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 To add a cronjob to run periodic testing against a cluster, run:
 
 ```bash
-./setup_periodic_testing.sh -e <ENV> -l <REGION>
+./setup_cron_testing.sh -e <ENV> -l <REGION>
 ```
 
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.

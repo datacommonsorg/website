@@ -30,6 +30,8 @@ gke/config.yaml
 gke/endpoints.yaml
 gke/mci.yaml
 endpoints.yaml
+gke/*.crt
+gke/*.key
 
 mixer-grpc.*.pb
 deploy/overlays/**/endpoints.yaml

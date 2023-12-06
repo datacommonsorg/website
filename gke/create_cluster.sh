@@ -76,12 +76,12 @@ PROJECT_NUM=$(gcloud projects list --filter="$(gcloud config get-value project)"
 
 # Grant logging and monitoring permissions to the default service account
 # This is needed for workload logging
-gcloud projects add-iam-policy-binding \ 
+gcloud projects add-iam-policy-binding \
   $PROJECT_ID \
   --member "serviceAccount:$PROJECT_NUM-compute@developer.gserviceaccount.com" \
   --role "roles/logging.admin"
 
-gcloud projects add-iam-policy-binding \ 
+gcloud projects add-iam-policy-binding \
   $PROJECT_ID \
   --member "serviceAccount:$PROJECT_NUM-compute@developer.gserviceaccount.com" \
   --role "roles/monitoring.admin"
