@@ -138,7 +138,7 @@ If the region is not set, it will default to us-central-1
 
 ## [Optional] Configure Apigee
 
-Optionally use [Apigee](https://cloud.google.com/apigee) for API key management, throttling, and logging.
+Use [Apigee](https://cloud.google.com/apigee) for API key management, throttling, and logging.
 
 - Open GCP console
 - Navigate to Apigee console
@@ -148,3 +148,6 @@ Optionally use [Apigee](https://cloud.google.com/apigee) for API key management,
 ```
 ../deploy/apigee/deploy_proxy.sh <ENV>
 ```
+
+- In the apigee console, [create an "API Product", "App", and "Developer" to instance to generate an API Key](https://cloud.google.com/apigee/docs/api-platform/security/api-keys).
+- Include your API key in URL to access Data Commons. Visit https://<your-host>/?apikey=<your-api-key>
