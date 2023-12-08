@@ -158,7 +158,10 @@ function useCache(): Cache {
    * re-retreive data.
    */
   useEffect(() => {
-    if (!areDataLoaded(cache, xVal, yVal, placeVal)) {
+    if (
+      !isLoading.areDataLoading &&
+      !areDataLoaded(cache, xVal, yVal, placeVal)
+    ) {
       loadData(x, y, placeVal, isLoading, setCache);
     }
   }, [xVal, yVal, placeVal]);
@@ -410,7 +413,12 @@ function areDataLoaded(
   y: Axis,
   place: PlaceInfo
 ): boolean {
-  if (_.isEmpty(cache) || _.isEmpty(cache.xAxis) || _.isEmpty(cache.yAxis)) {
+  if (
+    _.isEmpty(cache) ||
+    _.isEmpty(cache.xAxis) ||
+    _.isEmpty(cache.yAxis) ||
+    _.isEmpty(cache.place)
+  ) {
     return false;
   }
   const xStatVar = x.statVarDcid;
@@ -424,7 +432,7 @@ function areDataLoaded(
     cache.yAxis.date === y.date &&
     cache.xAxis.denom === x.denom &&
     cache.yAxis.denom === y.denom &&
-    cache.place.enclosingPlace === place.enclosingPlace &&
+    cache.place.enclosingPlace.dcid === place.enclosingPlace.dcid &&
     cache.place.enclosedPlaceType === place.enclosedPlaceType
   );
 }
