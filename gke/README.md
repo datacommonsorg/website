@@ -74,11 +74,14 @@ the file to describe the environment the clusters are being used for.
     ```
 
 1. (Optional) If you're using multiple clusters, run the following script to
-   setup multi-cluster ingress and services.
+   setup multi-cluster ingress and services. Use the "-n" flag to include the nodejs server in the setup.
 
     ```bash
-    # Set up multi-cluster ingress and service
+    # Set up multi-cluster ingress and service WITHOUT nodejs
     ./setup_config_cluster.sh
+
+    # Set up multi-cluster ingress and service WITH nodejså
+    ./setup_config_cluster.sh -n
     ```
 
 ### DNS setup
@@ -113,11 +116,11 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 
 ## Update cluster config
 
-If multi-cluster ingress and service needs to be updated, then for each region that needs to be updated, run:
+If multi-cluster ingress and service needs to be updated, then for each region that needs to be updated, run the following commands. The "-n" flag determines whether or not to set up a nodejs server (include "-n" to setup nodejs).
 
 ```bash
 gcloud config set project <PROJECT>
-./update_config_cluster.sh -e <ENV> -l <REGION>
+./update_config_cluster.sh -e <ENV> -l <REGION> -n
 ```
 
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
