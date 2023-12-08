@@ -148,7 +148,7 @@ Use [Apigee](https://cloud.google.com/apigee) for API key management, throttling
 - Deploy proxy configuration
 
 ```bash
-../deploy/apigee/deploy_proxy.sh <ENV>
+../deploy_proxy.sh <ENV>
 ```
 
 - In the apigee console, [create an "API Product", "App", and "Developer" to instance to generate an API Key](https://cloud.google.com/apigee/docs/api-platform/security/api-keys).

@@ -24,7 +24,7 @@ REGION=$(yq eval '.region.primary' config.yaml)
 echo $PROJECT_ID
 gcloud config set project $PROJECT_ID
 
-# Create proxy-only subnet 
+# Create proxy-only subnet (required for internal load balancers)
 gcloud compute networks subnets create website-internal-lb-proxy-subnet \
     --purpose=REGIONAL_MANAGED_PROXY \
     --role=ACTIVE \
@@ -43,7 +43,7 @@ gcloud dns managed-zones create dc-zone \
     --description="Data Commons private dns zone" \
     --visibility=private
 
-# Reserve internal static IP address
+# Reserve internal static IP address for the internal load balancer
 gcloud compute addresses create website-ilb-ip \
     --region $REGION --subnet default \
     --addresses 10.128.0.42
