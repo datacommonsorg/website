@@ -23,7 +23,7 @@ import { PageData } from "../chart/types";
 import { loadLocaleData } from "../i18n/i18n";
 import { initSearchAutocomplete } from "../shared/place_autocomplete";
 import { ChildPlace } from "./child_places_menu";
-import { MainPane } from "./main_pane";
+import { MainPane, showOverview } from "./main_pane";
 import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
 import { ParentPlace } from "./parent_breadcrumbs";
@@ -133,6 +133,7 @@ function renderPage(): void {
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
   const locale = document.getElementById("locale").dataset.lc;
+  const summaryText = document.getElementById("place-summary").dataset.summary;
   const landingPagePromise = getLandingPageData(dcid, category, locale, seed);
 
   Promise.all([
@@ -164,24 +165,26 @@ function renderPage(): void {
         document.getElementById("menu")
       );
 
-      // Earth has no parent places.
-      if (data.parentPlaces.length > 0) {
+      if (!showOverview(isUsaPlace, placeType, category)) {
+        // Earth has no parent places.
+        if (data.parentPlaces.length > 0) {
+          ReactDOM.render(
+            React.createElement(ParentPlace, {
+              names: data.names,
+              parentPlaces: data.parentPlaces,
+              placeType,
+            }),
+            document.getElementById("place-type")
+          );
+        }
         ReactDOM.render(
-          React.createElement(ParentPlace, {
-            names: data.names,
-            parentPlaces: data.parentPlaces,
-            placeType,
+          React.createElement(PlaceHighlight, {
+            dcid,
+            highlight: data.highlight,
           }),
-          document.getElementById("place-type")
+          document.getElementById("place-highlight")
         );
       }
-      ReactDOM.render(
-        React.createElement(PlaceHighlight, {
-          dcid,
-          highlight: data.highlight,
-        }),
-        document.getElementById("place-highlight")
-      );
 
       // Readjust sidebar based on parent places.
       updatePageLayoutState();
@@ -216,6 +219,7 @@ function renderPage(): void {
         }),
         document.getElementById("subtitle")
       );
+
       ReactDOM.render(
         React.createElement(MainPane, {
           category,
@@ -229,6 +233,8 @@ function renderPage(): void {
           parentPlaces: data.parentPlaces,
           categoryStrings: data.categories,
           locale,
+          highlight: data.highlight,
+          summaryText,
         }),
         document.getElementById("main-pane")
       );

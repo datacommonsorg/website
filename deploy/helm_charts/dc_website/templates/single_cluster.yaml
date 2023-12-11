@@ -29,6 +29,9 @@ metadata:
   name: website-service
   namespace: {{ .Values.namespace.name }}
   annotations:
+    {{- if .Values.ingress.internal }}
+    cloud.google.com/neg: '{"ingress": true}'
+    {{- end }}
     cloud.google.com/backend-config: '{"ports": {"8081":"backendconfig"}}'
 spec:
   type: NodePort
@@ -39,6 +42,47 @@ spec:
       name: http
   selector:
     app: website-app
+
+{{- if .Values.nodejs.enabled }}
+---
+
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: backendconfig-nodejs
+  namespace: website
+spec:
+  timeoutSec: 60
+  connectionDraining:
+    drainingTimeoutSec: 60
+  healthCheck:
+    checkIntervalSec: 15
+    port: 8080
+    type: HTTP
+    requestPath: /nodejs/healthz
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: website-nodejs-service
+  namespace: {{ .Values.namespace.name }}
+  annotations:
+    {{- if .Values.ingress.internal }}
+    cloud.google.com/neg: '{"ingress": true}'
+    {{- end }}
+    cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig-nodejs"}}'
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app: website-nodejs-app
+
+{{- end }}
 
 ---
 
@@ -51,10 +95,20 @@ metadata:
   name: {{ .Values.ingress.name }}
   namespace: {{ .Values.namespace.name }}
   annotations:
+    {{- if .Values.ingress.internal }}
+    ingress.gcp.kubernetes.io/pre-shared-cert: "website-ilb"
+    kubernetes.io/ingress.regional-static-ip-name: "website-ilb-ip"
+    kubernetes.io/ingress.class: "gce-internal"
+    kubernetes.io/ingress.allow-http: "false"
+    {{- else }}
     kubernetes.io/ingress.global-static-ip-name: {{ .Values.ingress.ipName }}
     ingress.gcp.kubernetes.io/pre-shared-cert: {{ .Values.ingress.certName }}
+    {{- end }}
 spec:
   rules:
+    {{- if .Values.ingress.internal }}
+    - host: website-ilb.website.internal
+    {{- end }}
     - http:
         paths:
         - path: /*
@@ -64,5 +118,15 @@ spec:
               name: website-service
               port:
                 number: 8080
+        {{- if .Values.nodejs.enabled }}
+        - path: /nodejs/*
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: website-nodejs-service
+              port:
+                number: 8080
+        {{- end }}
+
 
 {{- end }}
