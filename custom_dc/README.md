@@ -37,15 +37,17 @@ Additionally, a custom DC combines its own local datasets with base DC datasets 
 Once the prerequisites and api keys from above are in place, 
 here's how you can start a local custom DC instance quickly.
 
+> Note that this is only a quick start section. See the rest of the sections for more details.
+
 ### Env variables
 
 Open [sqlite_env.list](sqlite_env.list) and specify values for `DC_API_KEY` and `MAPS_API_KEY`.
 
 > NOTE: Do not use double-quotes or spaces when specifying the values.
 
-### Run docker
+### Start services
 
-In the root of this repository, run:
+To start the custom DC services, in the root of this repository, run Docker as follows:
 
 ```bash
 docker run -it \
@@ -58,7 +60,7 @@ gcr.io/datcom-ci/datacommons-website-compose:2023_11_30_1
 ```
 
 The first time this is run, it will download the docker image (`gcr.io/datcom-ci/datacommons-website-compose:2023_11_30_1`) from the cloud 
-which could take a few minutes. Subsquent runs will use the previously downloaded image on your machine.
+which could take a few minutes. Subsequent runs will use the previously downloaded image on your machine.
 
 ### Local website
 
@@ -71,7 +73,7 @@ To load custom data, point your browser to (http://localhost:8080/admin) and cli
 
 Since we've not specified an `ADMIN_SECRET` yet, leave it blank.
 
-Loading the data may take a few seconds. Once it is successful, you can visit the variables explorer (http://localhost:8080/tools/statvar) 
+Loading the data may take a few seconds. Once it is successful, you can visit the timeline explorer (http://localhost:8080/tools/timeline) 
 and other tools again to explore the custom data that you just loaded.
 
 The custom data that was used here was specified in the `docker run` command (`-v $PWD/custom_dc/sample:/userdata`).
@@ -79,10 +81,18 @@ i.e. for the quick start, it was loaded from the `custom_dc/sample` folder.
 
 ### Next steps
 
-As next steps, you can load your actual data and / or customize the look and feel of your custom DC pages by updating the html files under 
+As next steps, you can load your actual data and / or customize the look and feel of your custom DC pages.
+
+You can load your actual data either by copying it to the `custom_dc/sample` folder
+or by updating the `-v` mapping when running Docker to point to a different data folder (i.e. `-v /path/to/your/data/folder:/userdata`)
+
+You can customize the look and feel by updating the html files under 
 `server/templates/custom_dc/custom`.
 
 Congratulations on bringing up your own Custom DC instance!
+
+Now that you have your instance running, consider going through the rest of the sections 
+for more details on Custom DC development.
 
 ## Local Development
 
