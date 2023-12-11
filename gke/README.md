@@ -80,7 +80,7 @@ the file to describe the environment the clusters are being used for.
     # Set up multi-cluster ingress and service WITHOUT nodejs
     ./setup_config_cluster.sh
 
-    # Set up multi-cluster ingress and service WITH nodejså
+    # Set up multi-cluster ingress and service WITH nodejs
     ./setup_config_cluster.sh -n
     ```
 
