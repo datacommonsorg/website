@@ -11,47 +11,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+apiVersion: networking.gke.io/v1
+kind: MultiClusterService
+metadata:
+  name: website-mcs
+  namespace: website
+  annotations:
+    # Refers to the backend config from backendconfig.yaml.
+    # This is to get 60s timeout for the Cloud Load Balancer.
+    cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig"}}'
+spec:
+  template:
+    spec:
+      selector:
+        app: website-app
+      ports:
+        - name: web
+          protocol: TCP
+          port: 8080
+          targetPort: 8080
 
-# Helm config
-project: "datcom-bard"
-cluster_prefix: "website"
-
-namespace:
-  name: "website"
-
-website:
-  flaskEnv: custom
-  replicas: 4
-  redis:
-    enabled: false
-
-serviceAccount:
-  name: website-ksa
-
-ingress:
-  enabled: true
-  internal: true
-
-nl:
-  enabled: true
-
-nodejs:
-  enabled: true
-  replicas: 10
-
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 2
-  node:
-    replicas: 5
-  observation:
-    replicas: 5
-  default:
-    replicas: 3
-
-svg:
-  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
-
-cronTesting:
-  enabled: true
