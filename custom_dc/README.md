@@ -32,6 +32,58 @@ Additionally, a custom DC combines its own local datasets with base DC datasets 
   You can use a sample key `AIzaSyA9RsPS8tBCKwrET3qqAzydhOMWP0Ee8Y8` for local
   development as discussed below.
 
+## Quick Start
+
+Once the prerequisites and api keys from above are in place, 
+here's how you can start a local custom DC instance quickly.
+
+### Env variables
+
+Open [sqlite_env.list](sqlite_env.list) and specify values for `DC_API_KEY` and `MAPS_API_KEY`.
+
+> NOTE: Do not use double-quotes or spaces when specifying the values.
+
+### Run docker
+
+In the root of this repository, run:
+
+```bash
+docker run -it \
+-p 8080:8080 \
+-e DEBUG=true \
+--env-file $PWD/custom_dc/sqlite_env.list \
+-v $PWD/custom_dc/sample:/userdata \
+-v $PWD/server/templates/custom_dc/custom:/workspace/server/templates/custom_dc/custom \
+gcr.io/datcom-ci/datacommons-website-compose:2023_11_30_1
+```
+
+The first time this is run, it will download the docker image (`gcr.io/datcom-ci/datacommons-website-compose:2023_11_30_1`) from the cloud 
+which could take a few minutes. Subsquent runs will use the previously downloaded image on your machine.
+
+### Local website
+
+Once Docker is up and running, you can visit your local custom DC instance in your browser: (http://localhost:8080).
+You can browse the various tools (Variables, Map, Timeline, etc.) and work with the entire base DC dataset in your custom instance.
+
+### Load custom data
+
+To load custom data, point your browser to (http://localhost:8080/admin) and click "Load Data".
+
+Since we've not specified an `ADMIN_SECRET` yet, leave it blank.
+
+Loading the data may take a few seconds. Once it is successful, you can visit the variables explorer (http://localhost:8080/tools/statvar) 
+and other tools again to explore the custom data that you just loaded.
+
+The custom data that was used here was specified in the `docker run` command (`-v $PWD/custom_dc/sample:/userdata`).
+i.e. for the quick start, it was loaded from the `custom_dc/sample` folder.
+
+### Next steps
+
+As next steps, you can load your actual data and / or customize the look and feel of your custom DC pages by updating the html files under 
+`server/templates/custom_dc/custom`.
+
+Congratulations on bringing up your own Custom DC instance!
+
 ## Local Development
 
 Custom Data Commons instance can be developed and tested locally by following
