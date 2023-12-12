@@ -22,6 +22,8 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
+RUN apt install -y nginx
+
 # Docker cache: Download modules
 COPY mixer/go.mod mixer/go.sum ./
 RUN go mod download -x
@@ -124,5 +126,6 @@ ENV DC_API_ROOT=https://api.datacommons.org
 ENV ENABLE_MODEL=false
 
 COPY build/web_compose/compose.sh .
-EXPOSE 6060 8080 8081
+COPY build/web_compose/nginx.conf .
+EXPOSE 8080
 CMD ./compose.sh
