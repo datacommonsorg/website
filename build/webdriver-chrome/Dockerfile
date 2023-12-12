@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM python:3.11.3
+FROM python:3.11.6
 
 WORKDIR /resources
 
@@ -21,6 +21,7 @@ WORKDIR /resources
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 RUN apt -y update
+RUN apt -y upgrade
 RUN apt install -y google-chrome-stable
 
 # Install default fonts
