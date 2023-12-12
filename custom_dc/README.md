@@ -41,9 +41,9 @@ here's how you can start a local custom DC instance quickly.
 
 ### Env variables
 
-Open [sqlite_env.list](sqlite_env.list) and specify values for `DC_API_KEY` and `MAPS_API_KEY`.
+Open [sqlite_env.list](sqlite_env.list) and specify values for `DC_API_KEY` and `MAPS_API_KEY`. Leave `ADMIN_SECRET` blank for now.
 
-> NOTE: Do not use double-quotes or spaces when specifying the values.
+> IMPORTANT: Do not use double-quotes or spaces when specifying the values.
 
 ### Start services
 
@@ -69,15 +69,14 @@ You can browse the various tools (Variables, Map, Timeline, etc.) and work with 
 
 ### Load custom data
 
-To load custom data, point your browser to (http://localhost:8080/admin) and click "Load Data".
+To load custom data, point your browser to the admin page at (http://localhost:8080/admin).
 
-Since we've not specified an `ADMIN_SECRET` yet, leave it blank.
+Since we've not specified an `ADMIN_SECRET` yet, leave it blank. Click on "Load Data".
+
+Clicking the "Load Data" button will load the sample data provided for you in `custom_dc/sample`. The custom data that was used here was specified in the `docker run` command (`-v $PWD/custom_dc/sample:/userdata`).
 
 Loading the data may take a few seconds. Once it is successful, you can visit the timeline explorer (http://localhost:8080/tools/timeline) 
 and other tools again to explore the custom data that you just loaded.
-
-The custom data that was used here was specified in the `docker run` command (`-v $PWD/custom_dc/sample:/userdata`).
-i.e. for the quick start, it was loaded from the `custom_dc/sample` folder.
 
 ### Next steps
 
