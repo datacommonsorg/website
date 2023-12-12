@@ -497,6 +497,7 @@ $selector-footer-height: 40px;
 
     .stat-var-resize-handle {
       background: rgba(0, 0, 0, 0.2);
+
       &:hover {
         width: 3px;
         background: rgba(0, 0, 0, 0.3);
@@ -505,7 +506,7 @@ $selector-footer-height: 40px;
   }
 
   .stat-var-selector-area.collapsed {
-    width: 0px;
+    width: 0;
 
     #explore-menu-toggle {
       color: var(--gm-3-white);
