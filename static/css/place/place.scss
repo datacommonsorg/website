@@ -135,7 +135,7 @@ h3 {
 }
 
 #main p {
-  font-size: .9em;
+  font-size: 0.9em;
 }
 
 #main h2#overview,
@@ -358,5 +358,36 @@ h3 {
 
   .map {
     flex-grow: 1;
+  }
+}
+
+.overview-tile {
+  background-color: rgba(105, 145, 214, 0.03);
+  border-radius: 16px;
+  border: 1px solid #e1e3e1;
+  padding: 24px 27px 24px 27px;
+  gap: 16px;
+  margin-bottom: 44px;
+
+  .parent-places-container {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+
+  .place-highlight-container h4 {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+
+  .place-summary-container {
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
   }
 }
