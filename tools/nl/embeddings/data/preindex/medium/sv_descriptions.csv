@@ -5846,7 +5846,7 @@ dc/tn5kxlgy0shl4,"Count of Mortality Event (Measured Based on Jurisdiction): AID
 dc/topic/AdolescentBirthRate,Adolescent Birth Rate
 dc/topic/AdultCorrectionalFacilitiesResidents,Adult Correctional Facilities Residents
 dc/topic/Age,Age
-dc/topic/AgeDistribution,Age Distribution
+dc/topic/AgeDistribution,Age Distribution;population by age
 dc/topic/AgeMedians,Age Medians
 dc/topic/AgriculturalProduction,Agricultural Output;Agricultural Production;Output from agricultural activities;Total agricultural output
 dc/topic/Agriculture,Agriculture;Agriculture data;Agriculture statistics;Data related to agriculture;Farming;Farming information;Information on farming
@@ -5957,7 +5957,7 @@ dc/topic/Forest,Forest
 dc/topic/FossilFuelOperationsEmissionsByGas,Amount of gases emitted in fossil fuel operations;Emissions from fossil fuel operations;Quantity of greenhouse gases emitted by the burning of fossil fuels;The sum of all gases released by the use of fossil fuels;The volume of emissions produced by the use of fossil fuels;Total amount of gas emissions from fossil fuel operations;Total quantity of gases released by fossil fuel operations
 dc/topic/GDP,gross domestic production
 dc/topic/GDPByIndustry,GDP By Industry;gross domestic product breakdown by industry;gross domestic product by industry
-dc/topic/Gender,Gender
+dc/topic/Gender,Gender;gender of population
 dc/topic/GlobalEconomicActivity,Global Economic Activity
 dc/topic/GlobalElectricityAccess,Access To Electricity;Percentage of People with access to Electricity;electricity access;electrification;people with access to electricity
 dc/topic/GlobalHealth,Global health;World health;health conditions in the world;health in the world
