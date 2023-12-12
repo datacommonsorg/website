@@ -56,10 +56,10 @@ docker run -it \
 --env-file $PWD/custom_dc/sqlite_env.list \
 -v $PWD/custom_dc/sample:/userdata \
 -v $PWD/server/templates/custom_dc/custom:/workspace/server/templates/custom_dc/custom \
-gcr.io/datcom-ci/datacommons-website-compose:2023_11_30_1
+gcr.io/datcom-ci/datacommons-website-compose:stable
 ```
 
-The first time this is run, it will download the docker image (`gcr.io/datcom-ci/datacommons-website-compose:2023_11_30_1`) from the cloud 
+The first time this is run, it will download the latest stable docker image (`gcr.io/datcom-ci/datacommons-website-compose:stable`) from the cloud 
 which could take a few minutes. Subsequent runs will use the previously downloaded image on your machine.
 
 ### Local website
