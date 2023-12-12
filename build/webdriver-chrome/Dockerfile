@@ -36,7 +36,8 @@ RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyri
 RUN apt-get update -y && apt-get install -y google-cloud-sdk
 
 # Install ChromeDriver.
-RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
-RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/bin/
+RUN wget -O /tmp/chromedriver.zip https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/`curl -sS https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE`/linux64/chromedriver-linux64.zip
+RUN unzip /tmp/chromedriver.zip -d /tmp/
+RUN cp /tmp/chromedriver-linux64/chromedriver /usr/bin/
 RUN chown root:root /usr/bin/chromedriver
 RUN chmod +x /usr/bin/chromedriver
