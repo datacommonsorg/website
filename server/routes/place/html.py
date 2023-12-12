@@ -72,21 +72,27 @@ def place(place_dcid=None):
   else:
     place_name = place_dcid
 
-  place_summary = None
-  if os.environ.get('FLASK_ENV') in ['autopush', 'local']:
-    if not category:
-      # Only show summary for Overview
-      place_summary = current_app.config['PLACE_EXPLORER_SUMMARIES'].get(
-          place_dcid, "")
+  place_summary = current_app.config['PLACE_EXPLORER_SUMMARIES'].get(
+      place_dcid, {'summary': ''})
+  show_summary = False
+  if not category:
+    # Only show summary for Overview
+    if os.environ.get('FLASK_ENV') in ['autopush', 'local']:
+      # In autopush or local, show all summaries
+      show_summary = True
+    if os.environ.get('FLASK_ENV') in ['staging', 'prod']:
+      # In staging or prod, only show summaries for places in allow list
+      place_allow_list = current_app.config['PLACE_SUMMARY_ALLOW_LIST'] or []
+      show_summary = place_dcid in place_allow_list
 
-  return flask.render_template(
-      'place.html',
-      place_type=place_type,
-      place_name=place_name,
-      place_dcid=place_dcid,
-      category=category if category else '',
-      place_summary=place_summary['summary'] if place_summary else '',
-      maps_api_key=current_app.config['MAPS_API_KEY'])
+  return flask.render_template('place.html',
+                               place_type=place_type,
+                               place_name=place_name,
+                               place_dcid=place_dcid,
+                               category=category if category else '',
+                               place_summary=place_summary['summary']
+                               if place_summary and show_summary else '',
+                               maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 def place_landing():
