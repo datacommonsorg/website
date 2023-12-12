@@ -40,6 +40,7 @@ import { AppContext } from "./app_context";
 import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
 interface StatVarSelectorPropType {
+  hidden?: boolean;
   selectOnContinue?: boolean;
 }
 
@@ -96,6 +97,7 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
         )}
         {!_.isEmpty(samplePlaces) && (
           <StatVarHierarchy
+            hidden={props.hidden}
             type={visTypeConfig.svHierarchyType}
             entities={samplePlaces}
             selectedSVs={selectedStatVars.map((sv) => sv.dcid)}

@@ -20,13 +20,16 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { createRef, useEffect } from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { NamedNode } from "../../shared/types";
-import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
+import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarInfo } from "../timeline/chart_region";
+
+// Initial sidebar width in px
+const INITIAL_SIDEBAR_WIDTH = 350;
 
 interface StatVarWidgetPropsType {
   // Whether or not modal version of sv hierarchy is opened
@@ -58,6 +61,9 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   // reattached to the modal when it is opened on small screens.
   const svHierarchyModalRef = createRef<HTMLDivElement>();
   const svHierarchyContainerRef = createRef<HTMLDivElement>();
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [width, setWidth] = useState(INITIAL_SIDEBAR_WIDTH);
 
   function onSvModalOpened(): void {
     if (svHierarchyModalRef.current && svHierarchyContainerRef.current) {
@@ -121,15 +127,17 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
 
   return (
     <>
-      <div className="d-none d-lg-flex explore-menu-container" id="explore">
-        {props.collapsible && (
-          <DrawerToggle
-            collapseElemId="explore"
-            visibleElemId="stat-var-hierarchy-section"
-          />
-        )}
+      <div
+        className={`d-none d-lg-flex explore-menu-container ${
+          isCollapsed ? "collapsed" : ""
+        }`}
+        id="explore"
+        ref={sidebarRef}
+        style={{ width }}
+      >
         <div ref={svHierarchyContainerRef} className="full-size">
           <StatVarHierarchy
+            hidden={isCollapsed}
             type={props.svHierarchyType}
             entities={props.sampleEntities}
             selectedSVs={Object.keys(props.selectedSVs)}
@@ -139,6 +147,13 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
             numEntitiesExistence={props.numEntitiesExistence}
           />
         </div>
+        <DrawerResize
+          collapsible={props.collapsible}
+          isCollapsed={isCollapsed}
+          setIsCollapsed={setIsCollapsed}
+          setWidth={setWidth}
+          sidebarRef={sidebarRef}
+        />
       </div>
       <Modal
         isOpen={props.openSvHierarchyModal}
