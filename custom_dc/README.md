@@ -39,6 +39,16 @@ here's how you can start a local custom DC instance quickly.
 
 > Note that this is only a quick start section. See the rest of the sections for more details.
 
+### Clone this repository
+
+If you haven't already, clone this repository and `cd` into the root of the repo folder (`website`).
+References to various files and commands in this section will be relative to this root.
+
+```bash
+git clone https://github.com/datacommonsorg/website.git
+cd website
+```
+
 ### Env variables
 
 Open [sqlite_env.list](sqlite_env.list) and specify values for `DC_API_KEY` and `MAPS_API_KEY`. Leave `ADMIN_SECRET` blank for now.
