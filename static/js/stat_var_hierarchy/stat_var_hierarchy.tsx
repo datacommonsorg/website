@@ -41,10 +41,10 @@ import { loadSpinner, removeSpinner } from "../shared/util";
 import { StatVarGroupNode } from "./stat_var_group_node";
 import { StatVarHierarchySearch } from "./stat_var_search";
 import {
-  SV_HIERARCHY_SECTION_ID,
-  TOOLTIP_ID,
   hideTooltip,
   showTooltip,
+  SV_HIERARCHY_SECTION_ID,
+  TOOLTIP_ID,
 } from "./util";
 
 const ROOT_SVG = globalThis.svgRoot || "dc/g/Root";
