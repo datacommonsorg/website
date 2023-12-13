@@ -140,7 +140,7 @@ function onSearch(q: string): void {
     [GA_PARAM_QUERY]: q,
     [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING,
   });
-  window.location.href = `/explore#q=${encodeURIComponent(q)}&dc=main`;
+  window.location.href = `/explore#q=${encodeURIComponent(q)}`;
 }
 
 function renderPage(): void {
