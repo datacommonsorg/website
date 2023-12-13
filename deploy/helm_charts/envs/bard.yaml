@@ -37,7 +37,7 @@ nl:
 
 nodejs:
   enabled: true
-  replicas: 10
+  replicas: 50
 
 serviceGroups:
   recon: null
