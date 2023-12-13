@@ -191,3 +191,4 @@ export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
 export const GA_VALUE_SEARCH_SOURCE_EXPLORE = "explore";
 export const GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING = "explore_landing";
 export const GA_VALUE_SEARCH_SOURCE_HOMEPAGE = "homepage";
+export const GA_VALUE_SEARCH_SOURCE_PLACE_PAGE = "place";

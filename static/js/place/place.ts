@@ -20,7 +20,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { PageData } from "../chart/types";
+import { NlSearchBar } from "../components/nl_search_bar";
 import { loadLocaleData } from "../i18n/i18n";
+import {
+  GA_EVENT_NL_SEARCH,
+  GA_PARAM_QUERY,
+  GA_PARAM_SOURCE,
+  GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
+  triggerGAEvent,
+} from "../shared/ga_events";
 import { initSearchAutocomplete } from "../shared/place_autocomplete";
 import { ChildPlace } from "./child_places_menu";
 import { MainPane, showOverview } from "./main_pane";
@@ -123,6 +131,18 @@ async function getLandingPageData(
     });
 }
 
+/**
+ * Handler for NL search bar
+ * @param q search query entered by user
+ */
+function onSearch(q: string): void {
+  triggerGAEvent(GA_EVENT_NL_SEARCH, {
+    [GA_PARAM_QUERY]: q,
+    [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
+  });
+  window.location.href = `/explore#q=${encodeURIComponent(q)}`;
+}
+
 function renderPage(): void {
   const urlParams = new URLSearchParams(window.location.search);
   const urlHash = window.location.hash;
@@ -155,6 +175,17 @@ function renderPage(): void {
       loadingElem.style.display = "none";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
+      ReactDOM.render(
+        React.createElement(NlSearchBar, {
+          initialValue: "",
+          inputId: "query-search-input",
+          onSearch,
+          placeholder: `Enter a question about ${placeName} to explore`,
+          shouldAutoFocus: false,
+        }),
+        document.getElementById("nl-search-bar")
+      );
+
       ReactDOM.render(
         React.createElement(Menu, {
           pageChart: data.pageChart,
