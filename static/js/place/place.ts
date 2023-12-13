@@ -26,7 +26,7 @@ import {
   GA_EVENT_NL_SEARCH,
   GA_PARAM_QUERY,
   GA_PARAM_SOURCE,
-  GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING,
+  GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
   triggerGAEvent,
 } from "../shared/ga_events";
 import { initSearchAutocomplete } from "../shared/place_autocomplete";
@@ -138,7 +138,7 @@ async function getLandingPageData(
 function onSearch(q: string): void {
   triggerGAEvent(GA_EVENT_NL_SEARCH, {
     [GA_PARAM_QUERY]: q,
-    [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING,
+    [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
   });
   window.location.href = `/explore#q=${encodeURIComponent(q)}`;
 }
