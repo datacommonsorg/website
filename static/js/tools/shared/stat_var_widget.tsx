@@ -23,11 +23,11 @@ import _ from "lodash";
 import React, { createRef, useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
+import { STAT_VAR_SELECTOR_WIDTH } from "../../constants/tools_constants";
 import { NamedNode } from "../../shared/types";
 import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarInfo } from "../timeline/chart_region";
-import { STAT_VAR_SELECTOR_WIDTH } from "./tools_constants";
 
 interface StatVarWidgetPropsType {
   // Whether or not modal version of sv hierarchy is opened

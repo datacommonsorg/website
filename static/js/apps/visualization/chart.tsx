@@ -19,9 +19,9 @@
  */
 import React, { useContext, useRef, useState } from "react";
 
+import { STAT_VAR_SELECTOR_WIDTH } from "../../constants/tools_constants";
 import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { BqModal } from "../../tools/shared/bq_modal";
-import { STAT_VAR_SELECTOR_WIDTH } from "../../tools/shared/tools_constants";
 import { AppContext } from "./app_context";
 import { StatVarSelector } from "./stat_var_selector";
 import { VIS_TYPE_CONFIG } from "./vis_type_configs";
