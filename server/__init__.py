@@ -149,7 +149,7 @@ def register_routes_admin(app):
 
 
 def register_routes_common(app):
-  # apply the blueprints for main app
+  # apply blueprints for main app
   from server.routes import static
   app.register_blueprint(static.bp)
 
@@ -266,8 +266,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     cache.init_app(app, {'CACHE_TYPE': 'NullCache'})
 
   # Configure ingress
-  ingress_config_path = os.environ.get(
-      'INGRESS_CONFIG_PATH')  # See deployment yamls.
+  # See deployment yamls.
+  ingress_config_path = os.environ.get('INGRESS_CONFIG_PATH')
   if ingress_config_path:
     configure_endpoints_from_ingress(ingress_config_path)
 
