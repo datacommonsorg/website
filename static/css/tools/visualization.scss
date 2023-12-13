@@ -266,6 +266,12 @@ $selector-footer-height: 40px;
   display: flex;
   flex-direction: column;
   cursor: default;
+  // Account for selector padding when setting the width to avoid scroll overflow
+  min-width: $widget-min-width + 2 * 16;
+
+  @include media-breakpoint-down(md) {
+    min-width: 300px;
+  }
 }
 
 .selector-container.disabled {
@@ -411,7 +417,7 @@ $selector-footer-height: 40px;
   }
 
   .info-message {
-    max-width: 400px;
+    max-width: $widget-min-width;
   }
 
   .show-sv-toggle {
@@ -467,7 +473,7 @@ $selector-footer-height: 40px;
     flex-grow: 0;
     flex-shrink: 0;
     position: relative;
-    width: 400px;
+    width: $widget-min-width;
 
     #explore-menu-toggle {
       color: black;

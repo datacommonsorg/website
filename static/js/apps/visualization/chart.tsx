@@ -21,6 +21,7 @@ import React, { useContext, useRef, useState } from "react";
 
 import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { BqModal } from "../../tools/shared/bq_modal";
+import { STAT_VAR_SELECTOR_WIDTH } from "../../tools/shared/tools_constants";
 import { AppContext } from "./app_context";
 import { StatVarSelector } from "./stat_var_selector";
 import { VIS_TYPE_CONFIG } from "./vis_type_configs";
@@ -28,7 +29,7 @@ import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 export function Chart(): JSX.Element {
   const appContext = useContext(AppContext);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [width, setWidth] = useState(0);
+  const [width, setWidth] = useState(STAT_VAR_SELECTOR_WIDTH);
   const sidebarRef = useRef<HTMLDivElement>();
 
   const chartHeight = window.innerHeight * 0.45;
@@ -41,7 +42,7 @@ export function Chart(): JSX.Element {
       <div
         className={`stat-var-selector-area ${isCollapsed ? "collapsed" : ""}`}
         ref={sidebarRef}
-        style={{ width: width && !isCollapsed ? width : undefined }}
+        style={{ width: isCollapsed ? undefined : width }}
       >
         <div id="stat-var-selector-content">
           <div className="section-title">Variables</div>

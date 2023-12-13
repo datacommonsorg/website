@@ -20,7 +20,7 @@
 
 $menu-background: #525252;
 $menu-foreground: #fff;
-$widget-min-width: 375px;
+$widget-min-width: 400px;
 $container-outer-horizontal-margin: 8px;
 $container-outer-vert-margin: 15px;
 // NOTE: timing is also used in drawer_toggle.tsx.
@@ -168,7 +168,13 @@ $resize-handle-width: 5px;
 }
 
 .node-title {
-  min-width: $widget-min-width - 6 * $container-outer-horizontal-margin;
+  /**
+   * Width of line items / nodes in the stat var selector tree
+   * Calculated by taking the entire component width, subtracting margins, and
+   * subtracting the resize handle
+   */
+  min-width: $widget-min-width - 2 * $container-outer-horizontal-margin -
+    $resize-handle-width;
 }
 
 form.node-title {

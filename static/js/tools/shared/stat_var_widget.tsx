@@ -27,9 +27,7 @@ import { NamedNode } from "../../shared/types";
 import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarInfo } from "../timeline/chart_region";
-
-// Initial sidebar width in px
-const INITIAL_SIDEBAR_WIDTH = 350;
+import { STAT_VAR_SELECTOR_WIDTH } from "./tools_constants";
 
 interface StatVarWidgetPropsType {
   // Whether or not modal version of sv hierarchy is opened
@@ -63,7 +61,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   const svHierarchyContainerRef = createRef<HTMLDivElement>();
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [width, setWidth] = useState(INITIAL_SIDEBAR_WIDTH);
+  const [width, setWidth] = useState(STAT_VAR_SELECTOR_WIDTH);
 
   function onSvModalOpened(): void {
     if (svHierarchyModalRef.current && svHierarchyContainerRef.current) {
