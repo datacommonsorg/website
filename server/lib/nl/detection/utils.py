@@ -22,7 +22,9 @@ from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
 from server.lib.nl.fulfillment.types import ChartSpec
@@ -207,3 +209,17 @@ def get_multi_sv(main_vars: List[str], cmp_vars: List[str],
   if not dvars.deduplicate_svs(res.candidates[0]):
     return None
   return res
+
+
+# Gets the query string to use for sv detection.
+def get_sv_detection_query(query: str,
+                           classifications: List[NLClassifier]) -> str:
+  sv_detection_query = query
+  for cl in classifications:
+    # TODO: For now, only removing date trigger strings from the query.
+    # Should look into removing other triggers as well.
+    if cl.type == ClassificationType.DATE and cl.attributes.date_trigger_strings:
+      # Remove the date trigger string from the query.
+      date_trigger = cl.attributes.date_trigger_strings[0]
+      sv_detection_query = sv_detection_query.replace(date_trigger, "", 1)
+  return sv_detection_query

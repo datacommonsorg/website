@@ -24,10 +24,11 @@ YEAR_RE = [
 ]
 
 LAST_YEARS = [
-    r'(?:in|during) the (?:last|past|previous) (\d+) years',
+    r'(?:in|during|over) the (?:last|past|previous) (\d+) years',
+    r'(?:in|during|over) the (?:last|past|previous) (decade)',
 ]
 
-LAST_YEAR = [r'(?:in|during)(?: the)? (?:last|past|previous) year']
+LAST_YEAR = [r'(?:in|during|over)(?: the)? (?:last|past|previous) year']
 
 YEAR_MONTH_RE = [
     r'(in|after|on|before|since|by|util|from|between) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(?:,)? (\d{4})',
@@ -38,6 +39,7 @@ YEAR_MONTH_RE = [
 _SINGLE_DATE_PREPS = ['in', 'on']
 _MIN_MONTH = 1
 _MIN_DOUBLE_DIGIT_MONTH = 10
+_YEARS_STRING_TO_NUM = {'decade': 10}
 
 
 def _is_single_date(dates: list[Date]) -> bool:
@@ -53,6 +55,7 @@ def _is_single_date(dates: list[Date]) -> bool:
 
 def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
   dates = []
+  trigger_strings = []
   for pattern in YEAR_MONTH_RE:
     matches = re.finditer(pattern, query)
     for match in matches:
@@ -63,6 +66,7 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
       except ValueError:
         continue
       dates.append(Date(prep, year, month))
+      trigger_strings.append(query[match.start():match.end()])
 
   for pattern in YEAR_RE:
     matches = re.finditer(pattern, query)
@@ -70,22 +74,27 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
       prep, year_str = match.groups()
       year = int(year_str)
       dates.append(Date(prep, year))
+      trigger_strings.append(query[match.start():match.end()])
 
   for pattern in LAST_YEARS:
     matches = re.finditer(pattern, query)
     for match in matches:
       count, = match.groups()
+      count_num = _YEARS_STRING_TO_NUM.get(count, count)
       year = datetime.date.today().year
-      dates.append(Date('before', year - 1, year_span=int(count)))
+      dates.append(Date('before', year - 1, year_span=int(count_num)))
+      trigger_strings.append(query[match.start():match.end()])
 
   for pattern in LAST_YEAR:
     matches = re.finditer(pattern, query)
     for match in matches:
       year = datetime.date.today().year
       dates.append(Date('before', year - 1, year_span=1))
+      trigger_strings.append(query[match.start():match.end()])
 
   return DateClassificationAttributes(dates=dates,
-                                      is_single_date=_is_single_date(dates))
+                                      is_single_date=_is_single_date(dates),
+                                      date_trigger_strings=trigger_strings)
 
 
 # Gets the date as an ISO-8601 formatted string (i.e., YYYY-MM or YYYY)

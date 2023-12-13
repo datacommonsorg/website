@@ -69,38 +69,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Employed_2022"
-                    ],
-                    "title": "Population With Current Employment in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Employed_2022"
-                    ],
-                    "title": "Population With Current Employment in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population With Current Employment in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Person_PerArea_2022"
                     ],
                     "title": "Population Density in United States",
@@ -162,11 +130,6 @@
             "date": "2022",
             "name": "Population",
             "statVar": "Count_Person"
-          },
-          "Count_Person_Employed_2022": {
-            "date": "2022",
-            "name": "Population With Current Employment",
-            "statVar": "Count_Person_Employed"
           },
           "Count_Person_PerArea_2022": {
             "date": "2022",
@@ -767,5 +730,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Low confidence in understanding your query. Displaying the closest results."
+  "userMessage": ""
 }
