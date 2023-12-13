@@ -1460,7 +1460,7 @@ dc/topic/PM2.5,PM2.5,PM2.5,,pm2.5 pollutant; pm 2.5; pm 2.5 pollutant; 2.5 pm po
 dc/topic/TemperaturePredictions,Temperature Predicitions,Temperature Predicitions,,temperature forecasts; temp forecast; max temp forecast; min temp forecast; temperature prediction; predict temperature;
 dc/topic/YearlyProjectedTemperatureHighs,Projected max temperature for the year,Projected max temperature for the year,,yearly projected max temperature; maximum temperature projected year; temperature highs for the year;
 dc/topic/YearlyProjectedTemperatureLows,Projected min temperature for the year,Projected min temperature for the year,,yearly projected min temperature; minimum temperature projected year; temperature lows for the year;
-dc/topic/AgeDistribution,Age Distribution,Age Distribution,,
+dc/topic/AgeDistribution,Age Distribution,Age Distribution,,population by age;
 dc/topic/AgeMedians,Age Medians,Age Medians,,
 dc/topic/CitizenshipStatus,Citizenship Status,Citizenship Status,,
 dc/topic/Demographics,Demographics,Demographics,,
@@ -1520,7 +1520,7 @@ dc/topic/Emissions_PM2.5_EmissionsbySource,Emissions of PM2.5 By Source,Emission
 dc/topic/Energy_Generation_FossilFuels,Energy Generation From Fossil Fuels,Energy Generation From Fossil Fuels,,energy produced from fossil fuels;
 dc/topic/Fire,Fires,Fires,,fire; fire event; wild fires;
 dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emission,Greenhouse Gas Emissions,,GHG emissions; greenhouse gasses emissions; sources of greenhouse gas emissions; sources of GHG emissions;
-dc/topic/Gender,Gender,Gender,,
+dc/topic/Gender,Gender,Gender,,gender of population;
 dc/topic/CommuteModeByOccupation,Commute Mode By Occupation,Commute Mode By Occupation,,commute options by occupation;
 dc/topic/Race,Race,Race,,racial breakdown;
 dc/topic/Emissions_NitrousOxide_EmissionsbySource,Nitrous Oxide Emissions by Source,Nitrous Oxide Emissions by Source,,source of nitrous oxide emissions; nitrous oxide emissions by source;
