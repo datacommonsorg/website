@@ -177,10 +177,10 @@ function renderPage(): void {
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
       ReactDOM.render(
         React.createElement(NlSearchBar, {
+          initialValue: "",
           inputId: "query-search-input",
           onSearch,
           placeholder: `Enter a question about ${placeName} to explore`,
-          initialValue: "",
           shouldAutoFocus: false,
         }),
         document.getElementById("nl-search-bar")
