@@ -266,6 +266,12 @@ $selector-footer-height: 40px;
   display: flex;
   flex-direction: column;
   cursor: default;
+  // Account for selector padding when setting the width to avoid scroll overflow
+  min-width: $widget-min-width + 2 * 16;
+
+  @include media-breakpoint-down(md) {
+    min-width: 300px;
+  }
 }
 
 .selector-container.disabled {
@@ -406,14 +412,12 @@ $selector-footer-height: 40px;
 // Stat var selector
 
 .stat-var-selector {
-  min-width: 400px;
-
   .selector-body {
     min-height: 350px;
   }
 
   .info-message {
-    max-width: 400px;
+    max-width: $widget-min-width;
   }
 
   .show-sv-toggle {
@@ -464,12 +468,17 @@ $selector-footer-height: 40px;
   flex-grow: 1;
 
   .stat-var-selector-area {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 0;
+    flex-shrink: 0;
     position: relative;
+    width: $widget-min-width;
 
     #explore-menu-toggle {
       color: black;
       left: auto;
-      right: 0;
+      right: $resize-handle-width;
       top: 0;
     }
 
@@ -478,6 +487,8 @@ $selector-footer-height: 40px;
       display: flex;
       flex-direction: column;
       height: 100%;
+      overflow-y: hidden;
+      width: calc(100% - #{$resize-handle-width});
 
       .section-title {
         font-size: 20px;
@@ -489,9 +500,20 @@ $selector-footer-height: 40px;
     #stat-var-selector-content.hidden {
       display: none;
     }
+
+    .stat-var-resize-handle {
+      background: rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        width: 3px;
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
   }
 
   .stat-var-selector-area.collapsed {
+    width: 0;
+
     #explore-menu-toggle {
       color: var(--gm-3-white);
       background-color: var(--gm-3-ref-neutral-neutral-40);
@@ -561,7 +583,7 @@ $selector-footer-height: 40px;
     .source-selector-open-modal-button {
       margin-top: 0;
     }
-    
+
     .footer {
       font-size: 13px;
     }
