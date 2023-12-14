@@ -20,7 +20,7 @@
 
 $menu-background: #525252;
 $menu-foreground: #fff;
-$widget-min-width: 375px;
+$widget-min-width: 400px;
 $container-outer-horizontal-margin: 8px;
 $container-outer-vert-margin: 15px;
 // NOTE: timing is also used in drawer_toggle.tsx.
@@ -31,6 +31,9 @@ $explore-toggle-width: 27px;
 $transparent-gray: rgba(204, 204, 204, 0.2);
 // opaque version of dc-gray-lite
 $transparent-red: rgba(240, 230, 231, 0.2);
+
+// Resize handle
+$resize-handle-width: 5px;
 
 .modal-sv-widget {
   background: $menu-background !important;
@@ -48,45 +51,61 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 }
 
 .explore-menu-container {
+  background: $menu-background;
   direction: initial;
   display: flex;
-  flex-direction: column;
-  width: $widget-min-width;
-  background: $menu-background;
-  letter-spacing: 0;
-  transition: width $transition-animation;
+  flex-direction: row;
   flex-grow: 0;
   flex-shrink: 0;
+  letter-spacing: 0;
+  position: relative;
+  width: $widget-min-width;
+}
+
+.stat-var-resize-handle {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: $resize-handle-width;
+  justify-self: flex-end;
+  cursor: col-resize;
+  resize: horizontal;
+  background: rgba(255, 255, 255, 0.75);
+  &:hover {
+    width: 3px;
+    background: #c1c3c5b4;
+  }
 }
 
 #explore-menu-toggle {
   background: inherit;
   border: none;
   border-radius: 0 5px 5px 0;
-  left: $widget-min-width - 27;
+  right: $resize-handle-width;
   padding: 3px 3px 0 0;
   position: absolute;
   top: 10px;
-  transition: left $transition-animation;
   width: $explore-toggle-width;
   z-index: 2;
 }
 
+.collapsed #explore-menu-toggle {
+  right: -#{$explore-toggle-width} !important;
+}
+
 .explore-menu-container.collapsed {
+  transition: width $transition-animation;
   width: 0 !important;
+  #explore-menu-toggle {
+    transition: right $transition-animation;
+  }
 }
 
 #stat-var-hierarchy-section.hidden {
   visibility: hidden;
 }
 
-.collapsed #explore-menu-toggle {
-  left: 0 !important;
-}
-
 #stat-var-hierarchy-section {
   height: 100%;
-  overflow-y: hidden;
 }
 
 .stat-var-hierarchy-container {
@@ -130,7 +149,7 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 // To allow for scroll only within the hierarchy (and not the search box, etc).
 .modal-sv-widget .full-size,
 #explore .full-size {
-  width: 100%;
+  width: calc(100% - #{$resize-handle-width});
   height: 100%;
 }
 
@@ -149,7 +168,13 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 }
 
 .node-title {
-  min-width: $widget-min-width - 2 * $container-outer-horizontal-margin;
+  /**
+   * Width of line items / nodes in the stat var selector tree
+   * Calculated by taking the entire component width, subtracting margins, and
+   * subtracting the resize handle
+   */
+  min-width: $widget-min-width - 2 * $container-outer-horizontal-margin -
+    $resize-handle-width;
 }
 
 form.node-title {
@@ -160,7 +185,6 @@ form.node-title {
   cursor: pointer;
   background-color: $transparent-gray;
 }
-
 
 #stat-var-hierarchy-section .node-title label {
   font-size: $medium-font-size;
@@ -209,7 +233,8 @@ form.node-title {
   align-items: center;
 }
 
-.toggle-on, .toggle-off {
+.toggle-on,
+.toggle-off {
   cursor: pointer;
   padding-right: 0.3rem;
 }
