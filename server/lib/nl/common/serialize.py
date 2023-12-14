@@ -158,7 +158,8 @@ def dict_to_classification(
       dates = [Date(**d) for d in cdict['dates']]
       attributes = DateClassificationAttributes(dates,
                                                 is_single_date=cdict.get(
-                                                    'is_single_date', False))
+                                                    'is_single_date', False),
+                                                date_trigger_strings=[])
 
     classifications.append(
         NLClassifier(type=ClassificationType(cdict['type']),
