@@ -22,7 +22,9 @@ from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
 from server.lib.nl.fulfillment.types import ChartSpec
@@ -207,3 +209,16 @@ def get_multi_sv(main_vars: List[str], cmp_vars: List[str],
   if not dvars.deduplicate_svs(res.candidates[0]):
     return None
   return res
+
+
+# Removes the string that triggered date classification from the query string.
+def remove_date_from_query(query: str,
+                           classifications: List[NLClassifier]) -> str:
+  processed_query = query
+  for cl in classifications:
+    if cl.type != ClassificationType.DATE or not cl.attributes.date_trigger_strings:
+      continue
+    # Remove the date trigger string from the query.
+    date_trigger = cl.attributes.date_trigger_strings[0]
+    processed_query = processed_query.replace(date_trigger, "", 1)
+  return processed_query

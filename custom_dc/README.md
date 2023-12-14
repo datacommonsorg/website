@@ -319,7 +319,7 @@ geoId/06,2021,555,666
 geoId/08,2021,10,10
 ```
 
-Refer to [sample folder](./sample) for supported example data files.
+Refer to the [examples folder](./examples) for supported example data files.
 
 Put all the input files under a local folder or Google Cloud Storage (GCS)
 folder.
