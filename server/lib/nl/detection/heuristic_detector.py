@@ -82,7 +82,7 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
   # Step 4: Identify the SV matched based on the query.
   sv_threshold = params.sv_threshold(mode)
   svs_scores_dict = dutils.empty_svs_score_dict()
-  sv_detection_query = dutils.get_sv_detection_query(query, classifications)
+  sv_detection_query = dutils.remove_date_from_query(query, classifications)
   try:
     svs_scores_dict = variable.detect_svs(
         sv_detection_query, index_type,

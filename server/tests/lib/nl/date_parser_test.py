@@ -36,6 +36,8 @@ class TestDateParser(unittest.TestCase):
       ('Flood in previous year', [Date('before', 2022, 0, year_span=1)]),
       ('Population over the past decade',
        [Date('before', 2022, 0, year_span=10)]),
+      ('Female population in Dakota', []),
+      ('How has the population in USA changed over time', []),
   ])
   def test_main(self, query, expected):
     ctr = Counters()

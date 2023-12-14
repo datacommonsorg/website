@@ -211,15 +211,14 @@ def get_multi_sv(main_vars: List[str], cmp_vars: List[str],
   return res
 
 
-# Gets the query string to use for sv detection.
-def get_sv_detection_query(query: str,
+# Removes the string that triggered date classification from the query string.
+def remove_date_from_query(query: str,
                            classifications: List[NLClassifier]) -> str:
-  sv_detection_query = query
+  processed_query = query
   for cl in classifications:
-    # TODO: For now, only removing date trigger strings from the query.
-    # Should look into removing other triggers as well.
-    if cl.type == ClassificationType.DATE and cl.attributes.date_trigger_strings:
-      # Remove the date trigger string from the query.
-      date_trigger = cl.attributes.date_trigger_strings[0]
-      sv_detection_query = sv_detection_query.replace(date_trigger, "", 1)
-  return sv_detection_query
+    if cl.type != ClassificationType.DATE or not cl.attributes.date_trigger_strings:
+      continue
+    # Remove the date trigger string from the query.
+    date_trigger = cl.attributes.date_trigger_strings[0]
+    processed_query = processed_query.replace(date_trigger, "", 1)
+  return processed_query
