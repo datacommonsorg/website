@@ -71,7 +71,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_FireIncidentComplex_2022"
+                      "Count_FireIncidentComplex_2022_2791262687"
                     ],
                     "title": "Count of Fire Incident Complex Event in California",
                     "type": "LINE"
@@ -99,7 +99,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_WildfireEvent_2022"
+                      "Count_WildfireEvent_2022_3627417845"
                     ],
                     "title": "Wildfires in California",
                     "type": "LINE"
@@ -160,6 +160,12 @@
             "name": "Count of Fire Incident Complex Event",
             "statVar": "Count_FireIncidentComplex"
           },
+          "Count_FireIncidentComplex_2022_2791262687": {
+            "date": "2022",
+            "facetId": "2791262687",
+            "name": "Count of Fire Incident Complex Event",
+            "statVar": "Count_FireIncidentComplex"
+          },
           "Count_PrescribedFireEvent_2022": {
             "date": "2022",
             "name": "Count of Prescribed Fire Event",
@@ -167,6 +173,12 @@
           },
           "Count_WildfireEvent_2022": {
             "date": "2022",
+            "name": "Wildfires",
+            "statVar": "Count_WildfireEvent"
+          },
+          "Count_WildfireEvent_2022_3627417845": {
+            "date": "2022",
+            "facetId": "3627417845",
             "name": "Wildfires",
             "statVar": "Count_WildfireEvent"
           },

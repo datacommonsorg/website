@@ -10,7 +10,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_2022"
+                      "Count_Person_2022_2176550201"
                     ],
                     "title": "Population in United States",
                     "type": "LINE"
@@ -69,7 +69,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_PerArea_2022"
+                      "Count_Person_PerArea_2022_1151455814"
                     ],
                     "title": "Population Density in United States",
                     "type": "LINE"
@@ -131,8 +131,20 @@
             "name": "Population",
             "statVar": "Count_Person"
           },
+          "Count_Person_2022_2176550201": {
+            "date": "2022",
+            "facetId": "2176550201",
+            "name": "Population",
+            "statVar": "Count_Person"
+          },
           "Count_Person_PerArea_2022": {
             "date": "2022",
+            "name": "Population Density",
+            "statVar": "Count_Person_PerArea"
+          },
+          "Count_Person_PerArea_2022_1151455814": {
+            "date": "2022",
+            "facetId": "1151455814",
             "name": "Population Density",
             "statVar": "Count_Person_PerArea"
           }
