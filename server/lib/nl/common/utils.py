@@ -152,12 +152,14 @@ def _facet_contains_date(facet_data, facet_metadata, date) -> bool:
   return True
 
 
-# Returns a map of existing SVs (as a union across places)
-# keyed by SV DCID with value set to True if the SV has any
-# single data point series (across all places).
+# Returns:
+# 1. a map of existing SVs (as a union across places) keyed by SV DCID with
+# value as a facetId that has data for this SV
+# 2. a map of existing SVs to a map of places to whether or not that SV, place
+# combo has any single data point series
 def sv_existence_for_places_check_single_point(
     places: List[str], svs: List[str], date: types.Date,
-    counters: ctr.Counters) -> Dict[str, bool]:
+    counters: ctr.Counters) -> (Dict[str, str], Dict[str, Dict[str, bool]]):
   if not svs:
     return {}, {}
 
@@ -173,12 +175,13 @@ def sv_existence_for_places_check_single_point(
   for sv, sv_data in series_facet.get('data', {}).items():
     for pl, place_data in sv_data.items():
       for facet_data in place_data:
-        facet_metadata = facet_info.get(facet_data.get('facet', ''), {})
+        facet_id = facet_data.get('facet', '')
+        facet_metadata = facet_info.get(facet_id, {})
         # Check that this facet has data for specified date
         if date and not _facet_contains_date(facet_data, facet_metadata, date):
           continue
         num_obs = facet_data.get('obsCount', 0)
-        existing_svs[sv] = existing_svs.get(sv, False) | (num_obs == 1)
+        existing_svs[sv] = facet_id
         if sv not in existsv2places:
           existsv2places[sv] = {}
         existsv2places[sv][pl] = (num_obs == 1)

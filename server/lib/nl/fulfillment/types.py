@@ -71,6 +71,10 @@ class ChartVars:
   # Set if is_topic_peer_group is set.
   svpg_id: str = ''
 
+  # Map of sv to id of facet that has data for this sv. Only used by LINE tiles
+  # when there is a date specified.
+  sv_exist_facet_id = Dict[str, str]
+
 
 @dataclass
 class SV2Thing:

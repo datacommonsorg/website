@@ -34,6 +34,8 @@ class ChartVarsExistenceCheckState:
   # Existing svs from among chart_vars.svs
   # Note that `chart_vars` is not mutated to point to existing SVs.
   exist_svs: List[str]
+  # Map of existing svs to id of facet that exists for that SV.
+  exist_sv_facet_ids: Dict[str, str]
   # Set only if chart_vars.event is true, to indicate event existence.
   exist_event: bool = False
 
@@ -56,8 +58,8 @@ class ExistenceCheckTracker:
     self.places = sorted(place2keys.keys())
     self.all_svs = set()
     self.exist_sv_states: List[SVExistenceCheckState] = []
-    # Map of existing SVs with key as SV DCID and value as
-    # whether the SV has single-data point.
+    # Map of existing SVs with key as SV DCID and value as an ID to a facet that
+    # has data for that SV.
     self.existing_svs = {}
 
   def _run(self):
@@ -96,6 +98,7 @@ class ExistenceCheckTracker:
         for sv in ecv.chart_vars.svs:
           if sv in self.existing_svs:
             ecv.exist_svs.append(sv)
+            ecv.exist_sv_facet_ids = self.existing_svs
 
   # Get chart-vars for addition to charts
   def get_chart_vars(self,
@@ -103,6 +106,7 @@ class ExistenceCheckTracker:
     cv = cv_existence.chart_vars
     # Set existing SVs.
     cv.svs = cv_existence.exist_svs
+    cv.sv_exist_facet_id = cv_existence.exist_sv_facet_ids
     return cv
 
 
@@ -121,7 +125,8 @@ class MainExistenceCheckTracker(ExistenceCheckTracker):
       exist_state = SVExistenceCheckState(sv=sv, chart_vars_list=[])
       for chart_vars in chart_vars_list:
         exist_cv = ChartVarsExistenceCheckState(chart_vars=chart_vars,
-                                                exist_svs=[])
+                                                exist_svs=[],
+                                                exist_sv_facet_ids={})
         if chart_vars.event:
           exist_cv.exist_event = utils.event_existence_for_place(
               places[0], chart_vars.event, self.state.uttr.counters)
@@ -176,7 +181,8 @@ class ExtensionExistenceCheckTracker(ExistenceCheckTracker):
                 svs=extended_svs,
                 orig_sv_map={sv: extended_svs},
                 is_topic_peer_group=True),
-                                         exist_svs=[]))
+                                         exist_svs=[],
+                                         exist_sv_facet_ids={}))
         self.all_svs.update(extended_svs)
 
       # If we have the main chart-vars or extended-svs, add.
