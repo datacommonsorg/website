@@ -61,7 +61,7 @@ def load_data():
       'python',
       '-m',
       'stats.main',
-      '--input_path',
+      '--input_dir',
       f'{input_dir}',
       '--output_dir',
       f'{output_dir}',
