@@ -102,6 +102,21 @@ class TestFacetContainsDate(unittest.TestCase):
        ],
        [
            None,
+           Date(prep="after", year=2025, month=0, year_span=0),
+           TEST_FACET_DATA_YYYY_MM, TEST_FACET_METADATA_YYYY_MM, True
+       ],
+       [
+           None,
+           Date(prep="before", year=2015, month=3, year_span=0),
+           TEST_FACET_DATA_YYYY_MM, TEST_FACET_METADATA_YYYY, True
+       ],
+       [
+           None,
+           Date(prep="before", year=2025, month=4, year_span=0),
+           TEST_FACET_DATA_YYYY_MM, TEST_FACET_METADATA_YYYY, True
+       ],
+       [
+           None,
            Date(prep="until", year=2013, month=2, year_span=0),
            TEST_FACET_DATA_YYYY_MM, TEST_FACET_METADATA_YYYY_MM, False
        ],
