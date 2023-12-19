@@ -63,6 +63,10 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   state.event_types = utils.get_event_types(uttr)
   state.explore_mode = explore_mode
   state.single_date = utils.get_single_date(uttr)
+  # Only one of single date or date range should be specified, so only get date
+  # range if there is no single date.
+  if not state.single_date:
+    state.date_range = utils.get_date_range(uttr)
 
   if not state.query_types:
     uttr.counters.err('fulfill_empty_querytypes', '')

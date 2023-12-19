@@ -31,12 +31,16 @@ LAST_YEARS = [
 LAST_YEAR = [r'(?:in|during|over)(?: the)? (?:last|past|previous) year']
 
 YEAR_MONTH_RE = [
-    r'(in|after|on|before|since|by|util|from|between) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(?:,)? (\d{4})',
-    r'(in|after|on|before|since|by|util|from|between) (\d{4})(?:,)? (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)',
+    r'(in|after|on|before|since|by|until|from|between) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(?:,)? (\d{4})',
+    r'(in|after|on|before|since|by|until|from|between) (\d{4})(?:,)? (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)',
 ]
 
 # List of date preps that indicate single date
 _SINGLE_DATE_PREPS = ['in', 'on']
+# List of date preps that indicate that the base date is a start date
+_START_DATE_PREPS = ['after', 'since', 'from']
+# List of date preps that indicate that the base date is an end date
+_END_DATE_PREPS = ['before', 'by', 'until']
 _MIN_MONTH = 1
 _MIN_DOUBLE_DIGIT_MONTH = 10
 _YEARS_STRING_TO_NUM = {'decade': 10}
@@ -97,14 +101,42 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
                                       date_trigger_strings=trigger_strings)
 
 
-# Gets the date as an ISO-8601 formatted string (i.e., YYYY-MM or YYYY)
-def get_date_string(date: Date) -> str:
-  if not date or not date.year:
-    return ''
-  year_string = str(date.year)
+def _get_month_string(date: Date) -> str:
   month_string = ''
   if date.month >= _MIN_DOUBLE_DIGIT_MONTH:
     month_string = f'-{date.month}'
   elif date.month >= _MIN_MONTH:
     month_string = f'-0{date.month}'
+  return month_string
+
+
+# Gets the base date as an ISO-8601 formatted string (i.e., YYYY-MM or YYYY)
+def get_date_string(date: Date) -> str:
+  if not date or not date.year:
+    return ''
+  year_string = str(date.year)
+  month_string = _get_month_string(date)
   return year_string + month_string
+
+
+# Gets the date range as 2 ISO-8601 formatted strings (i.e., YYYY-MM or YYYY).
+# First string is the start date and the second string is the end date.
+def get_date_range(date: Date) -> (str, str):
+  start_date = ''
+  end_date = ''
+  if not date or not date.year:
+    return start_date, end_date
+  year_string = str(date.year)
+  month_string = _get_month_string(date)
+  base_date = year_string + month_string
+  if date.prep in _START_DATE_PREPS:
+    start_date = base_date
+    if date.year_span > 0:
+      end_year = date.year + date.year_span
+      end_date = str(end_year) + month_string
+  elif date.prep in _END_DATE_PREPS:
+    end_date = base_date
+    if date.year_span > 0:
+      start_year = date.year - date.year_span
+      start_date = str(start_year) + month_string
+  return start_date, end_date

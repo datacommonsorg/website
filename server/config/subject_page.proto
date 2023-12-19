@@ -246,6 +246,8 @@ message LineTileSpec {
   // and no variable name can be extracted using variableNameRegex, use this 
   // as the variable name.
   string default_variable_name = 4;
+  string start_date = 5;
+  string end_date = 6;
 }
 
 message MapTileSpec {
