@@ -117,15 +117,15 @@ def _facet_contains_date(facet_data, facet_metadata, single_date,
   facet_earliest_date = facet_data.get('earliestDate', '')
   facet_latest_date = facet_data.get('latestDate', '')
   date_length = max(len(start_date), len(end_date))
-  # Check that start date is earlier than the latest facet date. Trim facet date
-  # if it is longer than the start date so that we're only comparing the largest
+  # Check that start date is earlier than the latest facet date. Trim start date
+  # if it is longer than the facet date so that we're only comparing the largest
   # of the two date granularities.
-  if (start_date and start_date > facet_latest_date[0:len(start_date)]):
+  if (start_date and start_date[0:len(facet_latest_date)] > facet_latest_date):
     return False
-  # Check that end date is later than the earliest facet date. Trim end date if
-  # it is longer than the facet date so that we're only comparing the largest
+  # Check that end date is later than the earliest facet date. Trim facet date
+  # if it is longer than the end date so that we're only comparing the largest
   # of the two date granularities.
-  if (end_date and end_date[0:len(facet_earliest_date)] < facet_earliest_date):
+  if (end_date and end_date < facet_earliest_date[0:len(end_date)]):
     return False
   # If not single date, finish checks here. Otherwise, need to also check
   # granularity and use observation period to predict if the date is contained
