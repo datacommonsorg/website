@@ -63,5 +63,5 @@ class TestGetDateRange(unittest.TestCase):
       (None, ('', '')),
   ])
   def test_main(self, query, expected):
-    result = date.get_date_range(query)
+    result = date.get_date_range_strings(query)
     self.assertEqual(result, expected)

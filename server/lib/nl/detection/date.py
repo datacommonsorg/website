@@ -121,7 +121,7 @@ def get_date_string(date: Date) -> str:
 
 # Gets the date range as 2 ISO-8601 formatted strings (i.e., YYYY-MM or YYYY).
 # First string is the start date and the second string is the end date.
-def get_date_range(date: Date) -> (str, str):
+def get_date_range_strings(date: Date) -> (str, str):
   start_date = ''
   end_date = ''
   if not date or not date.year:

@@ -110,7 +110,8 @@ def sv_existence_for_places(places: List[str], svs: List[str],
 
 def _facet_contains_date(facet_data, facet_metadata, single_date,
                          date_range) -> bool:
-  start_date, end_date = server.lib.nl.detection.date.get_date_range(date_range)
+  start_date, end_date = server.lib.nl.detection.date.get_date_range_strings(
+      date_range)
   if single_date:
     date_string = server.lib.nl.detection.date.get_date_string(single_date)
     start_date, end_date = date_string, date_string

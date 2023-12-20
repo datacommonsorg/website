@@ -19,7 +19,7 @@ from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
-from server.lib.nl.detection.date import get_date_range
+from server.lib.nl.detection.date import get_date_range_strings
 from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartSpec
@@ -31,7 +31,7 @@ import server.lib.nl.fulfillment.types as types
 def _set_line_tile_spec(date_range: types.Date, line_tile_spec: LineTileSpec):
   if not date_range:
     return
-  start_date, end_date = get_date_range(date_range)
+  start_date, end_date = get_date_range_strings(date_range)
   line_tile_spec.start_date = start_date
   line_tile_spec.end_date = end_date
 
