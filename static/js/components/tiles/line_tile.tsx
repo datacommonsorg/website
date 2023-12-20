@@ -91,6 +91,10 @@ export interface LineTilePropType {
   placeNameProp?: string;
   // Chart subtitle
   subtitle?: string;
+  // Earliest date to show on the chart.
+  startDate?: string;
+  // Latest date to show on the chart.
+  endDate?: string;
 }
 
 export interface LineChartData {
@@ -339,6 +343,18 @@ function rawToChart(
       if (obsList.length > 0) {
         const dataPoints: DataPoint[] = [];
         for (const obs of obsList) {
+          if (
+            props.startDate &&
+            obs.date < props.startDate.substring(0, obs.date.length)
+          ) {
+            continue;
+          }
+          if (
+            props.endDate &&
+            obs.date.substring(0, props.endDate.length) > props.endDate
+          ) {
+            continue;
+          }
           dataPoints.push({
             label: obs.date,
             time: new Date(obs.date).getTime(),
