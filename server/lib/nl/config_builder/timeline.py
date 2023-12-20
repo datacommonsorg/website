@@ -26,7 +26,7 @@ import server.lib.nl.fulfillment.types as types
 
 
 # Get facet id to use (use a facet id that has data for the sv).
-# Do this only if a date is specified. 
+# Do this only if a date is specified.
 def _get_facet_id(sv: str, date: types.Date, cv: ChartVars) -> str:
   if not date:
     return ''
