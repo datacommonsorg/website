@@ -26,6 +26,14 @@ from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 import server.lib.nl.fulfillment.types as types
 
+# set the line tile spec field. Only set this if there is a date_range
+def _set_line_tile_spec(date_range: types.Date, line_tile_spec: LineTileSpec):
+  if not date_range:
+    return
+  start_date, end_date = get_date_range(date_range)
+  line_tile_spec.start_date = start_date
+  line_tile_spec.end_date = end_date
+
 
 # Get facet id to use
 def _get_facet_id(sv: str, date: types.Date, cv: ChartVars) -> str:
@@ -115,10 +123,7 @@ def single_place_single_var_timeline_block(column, place: Place, sv_dcid: str,
   if facet_id:
     sv_key += f'_{facet_id}'
   tile = Tile(type=Tile.TileType.LINE, title=title, stat_var_key=[sv_key])
-  if date_range:
-    start_date, end_date = get_date_range(date_range)
-    tile.line_tile_spec.start_date = start_date
-    tile.line_tile_spec.end_date = end_date
+  _set_line_tile_spec(date_range, tile.line_tile_spec)
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv_dcid,
                                           name=sv2thing.name[sv_dcid],
                                           unit=sv2thing.unit[sv_dcid],
@@ -156,10 +161,7 @@ def single_place_multiple_var_timeline_block(column,
 
   # Line chart for the stat var
   tile = Tile(type=Tile.TileType.LINE, title=title, stat_var_key=[])
-  if date_range:
-    start_date, end_date = get_date_range(date_range)
-    tile.line_tile_spec.start_date = start_date
-    tile.line_tile_spec.end_date = end_date
+  _set_line_tile_spec(date_range, tile.line_tile_spec)
   date_string = get_date_string(single_date)
   for sv in svs:
     facet_id = _get_facet_id(sv, single_date or date_range, cv)
@@ -213,10 +215,7 @@ def multi_place_single_var_timeline_block(builder: base.Builder,
               title=title,
               stat_var_key=[sv_key],
               comparison_places=[p.dcid for p in places])
-  if cspec.date_range:
-    start_date, end_date = get_date_range(cspec.date_range)
-    tile.line_tile_spec.start_date = start_date
-    tile.line_tile_spec.end_date = end_date
+  _set_line_tile_spec(cspec.date_range, tile.line_tile_spec)
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv,
                                           name=sv2thing.name[sv],
                                           unit=sv2thing.unit[sv],

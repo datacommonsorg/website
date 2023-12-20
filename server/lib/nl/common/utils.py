@@ -152,7 +152,9 @@ def _facet_contains_date(facet_data, facet_metadata, single_date,
     year_diff = single_date.year - int(facet_earliest_date[:4])
     if single_date.month:
       # Difference in number of months between the date of interest
-      # and the earliest date of the facet
+      # and the earliest date of the facet.
+      # Dates are in the format YYYY-MM, so 5 is the index in the string where
+      # the month part begins.
       month_diff = year_diff * 12 + single_date.month - int(
           facet_earliest_date[5:])
       # Check that the difference in months is divisble by the obs period
