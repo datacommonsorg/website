@@ -302,6 +302,8 @@ function renderTiles(
               tile.lineTileSpec?.variableNameRegex,
               tile.lineTileSpec?.defaultVariableName
             )}
+            startDate={tile.lineTileSpec?.startDate}
+            endDate={tile.lineTileSpec?.endDate}
           />
         );
       case "RANKING":
