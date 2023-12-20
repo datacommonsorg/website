@@ -67,7 +67,7 @@ class ExistenceCheckTracker:
     # TODO: Optimize this!
     self.existing_svs, existsv2places = \
       utils.sv_existence_for_places_check_single_point(
-        places=self.places, svs=list(self.all_svs), date=self.state.single_date, counters=self.state.uttr.counters)
+        places=self.places, svs=list(self.all_svs), single_date=self.state.single_date, date_range=self.state.date_range, counters=self.state.uttr.counters)
     # In `state`, set sv -> place Key -> is-single-point
     for sv, pl2sp in existsv2places.items():
       if sv not in self.state.exist_checks:
