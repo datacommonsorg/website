@@ -29,13 +29,13 @@ import {
   GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
   triggerGAEvent,
 } from "../shared/ga_events";
-import { initSearchAutocomplete } from "../shared/place_autocomplete";
 import { ChildPlace } from "./child_places_menu";
 import { MainPane, showOverview } from "./main_pane";
 import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
 import { ParentPlace } from "./parent_breadcrumbs";
 import { PlaceHighlight } from "./place_highlight";
+import { PlaceSearch } from "./place_search";
 import { isPlaceInUsa } from "./util";
 
 // Window scroll position to start fixing the sidebar.
@@ -50,7 +50,6 @@ const Y_SCROLL_MARGIN = 100;
 window.onload = () => {
   try {
     renderPage();
-    initSearchAutocomplete("/place");
     updatePageLayoutState();
     maybeToggleFixedSidebar();
     window.onresize = maybeToggleFixedSidebar;
@@ -184,6 +183,11 @@ function renderPage(): void {
           shouldAutoFocus: false,
         }),
         document.getElementById("nl-search-bar")
+      );
+
+      ReactDOM.render(
+        React.createElement(PlaceSearch, {}),
+        document.getElementById("place-search-container")
       );
 
       ReactDOM.render(

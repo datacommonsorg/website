@@ -19,7 +19,6 @@
 @import "../base";
 @import "../draw";
 @import "../draw_choropleth";
-@import "place_search";
 @import "../shared/story_block.scss";
 @import "../shared/story_chart.scss";
 @import "../shared/modal.scss";
@@ -29,6 +28,11 @@ $vertical-section-border: 1px solid var(--dc-gray-lite);
 $vertical-section-margin: 2rem;
 $sidebar-top-padding: 132px; // Keep in sync with place.ts: Y_SCROLL_LIMIT
 $chart-border: 0.5px solid #dee2e6;
+
+// "Change Place" search bar colors
+$GM3-sys-light-primary: #0b57d0;
+$GM3-sys-light-surface-container-low: #f8fafd;
+$GM3-sys-light-on-surface: #1f1f1f;
 
 // TODO (chejennifer): move this back to shared modal stylesheet
 .modal-dialog {
@@ -87,10 +91,6 @@ h3 {
 
 #main .place-links {
   color: var(--secondary);
-}
-
-#title {
-  min-height: 4em;
 }
 
 #title a,
@@ -392,4 +392,166 @@ h3 {
     font-weight: 400;
     line-height: 20px;
   }
+}
+
+.search-section {
+  // override distance between NL search bar and main content
+  margin-bottom: 44px;
+}
+
+#place-heading-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#place-heading {
+  flex-grow: 3;
+  align-self: flex-end;
+  margin-bottom: 8px;
+}
+
+/** Place Search Style Overrides */
+#place-change-ui {
+  flex-grow: 1;
+  margin-bottom: 4px;
+}
+
+#place-search-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+#change-place {
+  display: flex;
+  justify-content: right;
+  height: fit-content;
+  width: 100%;
+}
+
+#change-place-toggle-text {
+  color: var(--GM3-sys-light-primary, #0b57d0);
+  cursor: pointer;
+  font-family: Google Sans Text;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  height: 48px;
+  justify-content: center;
+  line-height: 20px;
+  margin-left: auto;
+  padding: 10px 12px;
+  text-align: center;
+  width: fit-content;
+}
+
+#search {
+  background: $GM3-sys-light-surface-container-low;
+  border-bottom: 3px solid $GM3-sys-light-primary;
+  color: $GM3-sys-light-primary;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  font-family: Google Sans Text;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  justify-content: space-around;
+  letter-spacing: 0.1px;
+  line-height: 16px;
+  margin-top: -6px;
+  overflow: hidden;
+  padding: 8px 0px;
+  width: 100%;
+  position: relative;
+}
+
+#search-text {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+#search-instructions {
+  cursor: default;
+  padding: 0px 16px;
+}
+
+#location-field {
+  align-items: center;
+  background: $GM3-sys-light-surface-container-low;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#place-list {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  margin-left: 32px;
+}
+
+#close-icon {
+  //background-position: center;
+  background: url("../images/icon-cancel-24px.svg") no-repeat;
+  cursor: pointer;
+  height: 24px;
+  margin-left: auto;
+  //margin-right: -10px; // leave an 8px margin on right from image to border
+  width: 24px;
+  position: absolute;
+  top: 16px;
+  right: 8px;
+}
+
+#place-autocomplete {
+  background: $GM3-sys-light-surface-container-low;
+  border: none;
+  box-sizing: content-box;
+  color: $GM3-sys-light-on-surface;
+  display: flex;
+  flex-grow: 1;
+  font-family: Google Sans Text;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 20px;
+  outline: none;
+  padding: 0px 40px 0px 16px;
+}
+
+#place-autocomplete::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: rgba(0, 0, 0, 0.25);
+}
+
+/* Maps suggestion dropdown overrides */
+.pac-container {
+  background: white;
+  border: none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12);
+  font-weight: 500;
+  font: normal 14px Google Sans Text;
+  line-height: 20px;
+  margin-top: 11px;
+  //transform: translateX(-32px);
+  box-sizing: border-box;
+}
+.pac-item {
+  padding: 10px 16px;
+}
+.pac-icon {
+  display: none;
+}
+.pac-logo:after {
+  display: none;
+}
+
+.hidden {
+  display: none !important;
 }
