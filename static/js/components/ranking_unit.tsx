@@ -93,26 +93,28 @@ function getRank(
 
 // Gets list of list of points to show where each list will be separated by ...
 // and each point will have the rank set.
-function getPointsList(props: RankingUnitPropType): RankingPoint[][] {
+export function getPointsList(
+  topPoints: RankingPoint[],
+  bottomPoints: RankingPoint[],
+  isHighest: boolean,
+  numDataPoints?: number
+): RankingPoint[][] {
   const pointsList = [
-    props.topPoints.map((point, idx) => {
+    topPoints.map((point, idx) => {
       return {
         ...point,
-        rank: point.rank || getRank(props.isHighest, idx, props.numDataPoints),
+        rank: point.rank || getRank(isHighest, idx, numDataPoints),
       };
     }),
   ];
-  if (!_.isEmpty(props.bottomPoints)) {
+  if (!_.isEmpty(bottomPoints)) {
     const startIdx =
-      (props.numDataPoints || props.bottomPoints.length) -
-      props.bottomPoints.length;
+      (numDataPoints || bottomPoints.length) - bottomPoints.length;
     pointsList.push(
-      props.bottomPoints.map((point, idx) => {
+      bottomPoints.map((point, idx) => {
         return {
           ...point,
-          rank:
-            point.rank ||
-            getRank(props.isHighest, startIdx + idx, props.numDataPoints),
+          rank: point.rank || getRank(isHighest, startIdx + idx, numDataPoints),
         };
       })
     );
@@ -122,7 +124,12 @@ function getPointsList(props: RankingUnitPropType): RankingPoint[][] {
 
 export function RankingUnit(props: RankingUnitPropType): JSX.Element {
   const urlFunc = useContext(RankingUnitUrlFuncContext);
-  const pointsList = getPointsList(props);
+  const pointsList = getPointsList(
+    props.topPoints,
+    props.bottomPoints,
+    props.isHighest,
+    props.numDataPoints
+  );
 
   return (
     <div
