@@ -132,11 +132,13 @@ def get_date_range(date: Date) -> (str, str):
   if date.prep in _START_DATE_PREPS:
     start_date = base_date
     if date.year_span > 0:
-      end_year = date.year + date.year_span
+      # The year span includes start and end years so add year span - 1.
+      end_year = date.year + (date.year_span - 1)
       end_date = str(end_year) + month_string
   elif date.prep in _END_DATE_PREPS:
     end_date = base_date
     if date.year_span > 0:
-      start_year = date.year - date.year_span
+      # The year span includes start and end years so subtract year span - 1.
+      start_year = date.year - (date.year_span - 1)
       start_date = str(start_year) + month_string
   return start_date, end_date

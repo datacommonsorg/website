@@ -42,7 +42,7 @@
                   {
                     "lineTileSpec": {
                       "endDate": "2022",
-                      "startDate": "2017"
+                      "startDate": "2018"
                     },
                     "statVarKey": [
                       "LifeExpectancy_Person_3397709707"
@@ -136,7 +136,7 @@
                   {
                     "lineTileSpec": {
                       "endDate": "2022",
-                      "startDate": "2017"
+                      "startDate": "2018"
                     },
                     "statVarKey": [
                       "LifeExpectancy_Person_Female_3397709707",
