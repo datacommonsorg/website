@@ -26,6 +26,7 @@ from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 import server.lib.nl.fulfillment.types as types
 
+
 # set the line tile spec field. Only set this if there is a date_range
 def _set_line_tile_spec(date_range: types.Date, line_tile_spec: LineTileSpec):
   if not date_range:
