@@ -119,12 +119,13 @@ class TestPlaceExplorer(WebdriverBaseTest):
     self.driver.get(self.url_ + USA_URL)
 
     # Wait until "Change Place" toggle has loaded.
-    element_present = EC.visibility_of_element_located((By.ID, 'change-place-toggle-text'))
+    element_present = EC.visibility_of_element_located(
+        (By.ID, 'change-place-toggle-text'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Click on Change place
     change_place_toggle = self.driver.find_element(By.ID,
-                                            'change-place-toggle-text')
+                                                   'change-place-toggle-text')
     change_place_toggle.click()
 
     # Wait until the search bar is visible.
