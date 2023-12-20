@@ -246,7 +246,9 @@ message LineTileSpec {
   // and no variable name can be extracted using variableNameRegex, use this 
   // as the variable name.
   string default_variable_name = 4;
+  // [optional] Earliest date to show on the chart.
   string start_date = 5;
+  // [optional] Latest date to show on the chart.
   string end_date = 6;
 }
 

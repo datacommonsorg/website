@@ -130,6 +130,8 @@ export interface LineTileSpec {
   timeScale?: "YEAR" | "MONTH" | "DAY";
   variableNameRegex?: string;
   defaultVariableName?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface MapTileSpec {
