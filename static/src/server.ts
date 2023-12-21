@@ -101,7 +101,7 @@ const QUERY_MAX_RESULTS = 3;
 // The param value for the client param if the client is Bard. Default is Bard.
 const BARD_CLIENT_URL_PARAM = "bard";
 // Allowed chart types if client is Bard.
-const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING"]);
+const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING", "SCATTER"]);
 // The root to use to form the dc link in the tile results
 // TODO: update this to use bard.datacommons.org
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
