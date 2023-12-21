@@ -40,11 +40,11 @@ export function PlaceSearch(props: PlaceSearchPropType): JSX.Element {
       <div
         id="change-place-toggle-text"
         onClick={() => setShowSearchBar(true)}
-        className={`${showSearchBar ? "hidden" : ""}`}
+        style={{ display: `${showSearchBar ? "none" : ""}` }}
       >
         {toggleText}
       </div>
-      <div id="search" className={`${showSearchBar ? "" : "hidden"}`}>
+      <div id="search" style={{ display: `${showSearchBar ? "" : "none"}` }}>
         <div id="search-text">
           <div id="search-instructions">Enter a place name</div>
           <div id="location-field">
