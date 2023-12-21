@@ -218,7 +218,8 @@ export function getRankingUnitTitle(
 /**
  * Gets the top points and bottom points to display in a ranking unit
  * @param rankingMetadata the RankingTileSpec to get the points for
- * @param isHighest whether or not this ranking unit is showing highest
+ * @param isHighest whether or not this ranking unit is showing the points as
+ *                  highest to lowest or the other way around
  * @param rankingGroup the RankingGroup information to get the points for
  */
 export function getRankingUnitPoints(

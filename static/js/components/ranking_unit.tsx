@@ -91,8 +91,15 @@ function getRank(
   return numberOfTotalDataPoints ? numberOfTotalDataPoints - index : index + 1;
 }
 
-// Gets list of list of points to show where each list will be separated by ...
-// and each point will have the rank set.
+/**
+ * Gets list of list of points to show where each list will be separated by ...
+ * and each point will have the rank set.
+ * @param topPoints list of top points (first list of points) to show
+ * @param bottomPoints list of bottom points (second list of points) to show
+ * @param isHighest whether or not the points are shown as highest to lowest or
+ *                  the other way around
+ * @param numDataPoints total number of points in the data.
+ */
 export function getPointsList(
   topPoints: RankingPoint[],
   bottomPoints: RankingPoint[],
