@@ -64,3 +64,5 @@ class IntegrationTest(unittest.TestCase):
     self.run_test('scatter_non_bard',
                   'obesity vs. poverty in counties of california', "", "dc")
     self.run_test('disaster', 'fires in california')
+    self.run_test('rank_top_only',
+                  'California counties with the highest female population')
