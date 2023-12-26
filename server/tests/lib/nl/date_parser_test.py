@@ -47,3 +47,21 @@ class TestDateParser(unittest.TestCase):
       self.assertEqual(actual, expected)
     else:
       self.assertTrue(not expected)
+
+
+class TestGetDateRange(unittest.TestCase):
+
+  @parameterized.expand([
+      (Date('in', 2021, 5), ('', '')),
+      (Date('before', 2080, 0), ('', '2080')),
+      (Date('after', 2021, 5), ('2021-05', '')),
+      (Date('before', 2022, 0, year_span=5), ('2018', '2022')),
+      (Date('before', 2022, 0, year_span=1), ('2022', '2022')),
+      (Date('after', 2022, 0, year_span=1), ('2022', '2022')),
+      (Date("until", 2017, 2, year_span=0), ('', '2017-02')),
+      (Date("after", 2017, 2, year_span=0), ('2017-02', '')),
+      (None, ('', '')),
+  ])
+  def test_main(self, query, expected):
+    result = date.get_date_range_strings(query)
+    self.assertEqual(result, expected)

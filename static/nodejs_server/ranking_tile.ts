@@ -21,14 +21,15 @@
 import _ from "lodash";
 import ReactDOMServer from "react-dom/server";
 
+import { getPointsList } from "../js/components/ranking_unit";
 import {
   fetchData,
   RankingTilePropType,
 } from "../js/components/tiles/ranking_tile";
 import {
   getRankingUnit,
+  getRankingUnitPoints,
   getRankingUnitTitle,
-  MAX_RANKING_POINTS_IN_CSV,
 } from "../js/components/tiles/sv_ranking_units";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { RankingGroup } from "../js/types/ranking_unit_types";
@@ -108,13 +109,19 @@ function getRankingUnitResult(
   useChartUrl: boolean,
   apiRoot: string
 ): TileResult {
-  let points = isHighest
-    ? rankingGroup.points.slice().reverse()
-    : rankingGroup.points;
-  // Trim to top N.
-  points = points.slice(0, MAX_RANKING_POINTS_IN_CSV);
+  const { topPoints, bottomPoints } = getRankingUnitPoints(
+    tileConfig?.rankingTileSpec,
+    isHighest,
+    rankingGroup
+  );
+  const pointsList = getPointsList(
+    topPoints,
+    bottomPoints,
+    isHighest,
+    rankingGroup.numDataPoints
+  );
   const result: TileResult = {
-    data_csv: rankingPointsToCsv(points, rankingGroup.svName),
+    data_csv: rankingPointsToCsv(pointsList.flat(), rankingGroup.svName),
     srcs: getSources(rankingGroup.sources),
     title: getRankingUnitTitle(
       tileConfig.title,
