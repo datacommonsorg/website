@@ -224,6 +224,8 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
   for _, diff_table_rows in diffs:
     for row in diff_table_rows:
       for info in row:
+        if not info:
+          continue
         info['name'] = sv_names.get(info.get('sv'), '')
 
   # Render the html with the diffs

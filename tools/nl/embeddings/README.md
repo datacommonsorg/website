@@ -9,16 +9,9 @@ There are multiple sizes of indexes: small, medium.
 As of May 2023, the small index has ~1.3K variables and medium index has 5.3K
 variables.
 
-## Curated Input Google Sheet
-
-Latest sheet as of May 2023 is
-[`DC_NL_SVs_Curated`](https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU).
-
-This is a common sheet across the different index sizes.
-
 ## Making a change to the embeddings.
 
-1. For any carefully curated SVs/topics, make edits to the [latest sheet](https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU). The columns in this sheet are:
+1. For any carefully curated SVs/topics, make edits to the [latest sheet](https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU). The columns in this sheet are: <a name="curated-input"></a>
 
    - `dcid`: the StatVar DCID.
    - `Name`: the name of the StatVar
@@ -31,14 +24,10 @@ This is a common sheet across the different index sizes.
 
    Note: This is what distinguishes between the differently sized (small, medium) embeddings.
 
-3. Ensure any updated alternatives, i.e. PaLM alternatives, Other alternatives, are available as csv files: [`palm_alternatives.csv`](data/alternatives/palm_alternatives.csv), [`other_alternatives.csv`](data/alternatives/other_alternatives.csv). The columns in these CSV files are: `dcid`, `Alternatives`. These files are expected to be updated using (currently) separate processes.
+3. Ensure any updated alternatives, i.e. PaLM alternatives, Other alternatives, are available as csv files: [`palm_alternatives.csv`](data/alternatives/main/palm_alternatives.csv), [`other_alternatives.csv`](data/alternatives/main/other_alternatives.csv). The columns in these CSV files are: `dcid`, `Alternatives`. These files are expected to be updated using (currently) separate processes. <a name="alternatives"></a>
 
-4. Run the command below which will both generate a new embeddings csv in
-   `gs://datcom-nl-models`, as well as update the corresponding csv under
-   [`data/curated_input/`](data/curated_input/). Note down the embeddings
-   file version printed at the end of the run. As of 2023 Q3, there are 3
-   embeddings used in PROD and the following are the commands to generate each
-   of them:
+4. Run the command below which will generate a new embeddings csv in
+   `gs://datcom-nl-models`. Note down the embeddings file version printed at the end of the run. As of 2023 Q3, there are 3 embeddings used in PROD and the following are the commands to generate each of them:
 
    To generate the `small` embeddings:
    ```bash
@@ -52,15 +41,17 @@ This is a common sheet across the different index sizes.
 
    To generate the `sdg_ft` embeddings:
    ```bash
-   ./run.sh -c sdg https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU SDG_GOALS_INDICATORS_ONLY data/curated_input/sdg_sheets_svs.csv
+   ./run.sh -c sdg data/curated_input/sdg_sheets_svs.csv data/alternatives/sdg/*.csv
    ```
 
    You can also create custom embeddings (using the finetuned model in PROD):
    ```bash
-   ./run.sh -c <embeddings_size> <sheets_url> <worksheet_name> data/curated_input/sheets_svs.csv
+   ./run.sh -c <embeddings_size> <curated_input_csv_path> <alternatives_filepattern>
    ```
 
-   Note that the last parameter is the name and path of the local file (relative to the current directory) which will have the downloaded data from the <sheets_url> <worksheet_name>. This file should appear under [`curated_input\`](data/curated_input/). Examples are `data/curated_input/sheets_svs.csv` (for the general case) and `data/curated_input/sdg_sheets_svs.csv` for the UN SDG case.
+   Notes:
+   - curated_input_csv_path is the filepath of the CSV with the curated input to use. The format of the CSV should follow the description of [point 1](#curated-input).
+   - alternatives_filepattern is the filepattern of the CSV files with the alternatives to use. The format of the CSVs should follow the description of [point 3](#alternatives).
 
 5. Validate the CSV diffs, update [`embeddings.yaml`](../../../deploy/nl/embeddings.yaml) with the generated embeddings version and test out locally.
 

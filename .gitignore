@@ -70,7 +70,6 @@ experimental/sdg-static/datacommons/ranking.min.css
 experimental/sdg-static/datacommons/nl_interface.min.css
 
 # Custom DC data
-data/
 dc-data/
 
 # Topic cache
