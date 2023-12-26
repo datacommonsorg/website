@@ -39,16 +39,14 @@
 }
 
 #search-icon {
-  background-position: center;
-  background: url("../images/icon-pin.svg") no-repeat;
+  background: center url("../images/icon-pin.svg") no-repeat;
   height: 36px;
   margin-right: -32px;
   width: 36px;
 }
 
 #place-autocomplete {
-  background-position: right 16px top 50%;
-  background: url("../images/icon-search.svg") no-repeat;
+  background: right 16px top 50% url("../images/icon-search.svg") no-repeat;
   border: none;
   box-sizing: border-box;
   color: #202124;
