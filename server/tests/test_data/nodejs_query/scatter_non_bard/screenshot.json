@@ -32,7 +32,7 @@
       "dcUrl": "https://datacommons.org/explore#q=obesity%20vs.%20poverty%20in%20counties%20of%20california"
     },
     {
-      "data_csv": "rank,place,Prevalence of Obesity\r\n1,San Bernardino County,38.1\r\n2,Imperial County,38\r\n3,Fresno County,36.8\r\n4,Kern County,36.6\r\n5,Riverside County,36.2\r\n6,Madera County,35.9\r\n7,Tulare County,35.5\r\n8,Kings County,35.1\r\n9,Stanislaus County,34.8\r\n10,Tehama County,34.2",
+      "data_csv": "rank,place,Prevalence of Obesity\r\n1,San Bernardino County,38.1\r\n2,Imperial County,38\r\n3,Fresno County,36.8\r\n4,Kern County,36.6\r\n5,Riverside County,36.2\r\n54,San Diego County,23.9\r\n55,Marin County,22.9\r\n56,San Mateo County,21\r\n57,San Francisco County,18.7\r\n58,Santa Clara County,18.5",
       "srcs": [
         {
           "name": "cdc.gov",
