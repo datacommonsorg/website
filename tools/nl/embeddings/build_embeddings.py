@@ -146,8 +146,13 @@ def build(ctx, curated_input_path: str, local_merged_filepath: str,
           dup_names_filepath: str, autogen_input_filepattern: str,
           alternative_filepattern: str) -> pd.DataFrame:
   # Read curated sv info.
-  print(f"Reading the curated input file: {curated_input_path}")
-  df_svs = pd.read_csv(curated_input_path)
+  try:
+    print(f"Reading the curated input file: {curated_input_path}")
+    df_svs = pd.read_csv(curated_input_path)
+  except:
+    print(
+        "Error reading curated input file. Continuing with an empty dataframe.")
+    df_svs = pd.DataFrame()
 
   # Append autogen CSVs if any.
   autogen_dfs = []
