@@ -1,0 +1,61 @@
+{
+  "name": "@datacommonsorg/client",
+  "private": true,
+  "typings": "./dist/main.d.ts",
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/main.js",
+      "require": "./dist/main.cjs",
+      "types": "./dist/main.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/main.js",
+  "module": "./dist/main.cjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/datacommonsorg/website",
+    "directory": "packages/client"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.6",
+    "@babel/preset-env": "^7.23.6",
+    "@babel/preset-typescript": "^7.23.3",
+    "@deck.gl/core": "^8.9.33",
+    "@deck.gl/google-maps": "^8.9.33",
+    "@deck.gl/layers": "^8.9.33",
+    "@deck.gl/react": "^8.9.33",
+    "@googlemaps/react-wrapper": "^1.1.35",
+    "@jest/globals": "^29.7.0",
+    "@types/d3-scale": "^4.0.8",
+    "@types/geojson": "^7946.0.13",
+    "@types/google.maps": "^3.54.10",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.17",
+    "@types/react-syntax-highlighter": "^15.5.11",
+    "babel-jest": "^29.7.0",
+    "d3-scale": "^4.0.2",
+    "jest": "^29.7.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-syntax-highlighter": "^15.5.0",
+    "ts-jest": "^29.1.1",
+    "typedoc": "^0.25.4",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.202",
+    "lodash": "^4.17.21"
+  }
+}
