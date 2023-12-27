@@ -43,7 +43,7 @@ flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string('embeddings_size', '', 'Embeddings size')
 
 flags.DEFINE_string('curated_input_path',
-                    'data/curated_input/main_sheets_svs.csv',
+                    'data/curated_input/main/sheets_svs.csv',
                     'Curated input csv (relative) file path')
 
 flags.DEFINE_string(

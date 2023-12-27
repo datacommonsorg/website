@@ -41,7 +41,7 @@ variables.
 
    To generate the `sdg_ft` embeddings:
    ```bash
-   ./run.sh -c sdg data/curated_input/sdg_sheets_svs.csv data/alternatives/sdg/*.csv
+   ./run.sh -c sdg data/curated_input/sdg/sheets_svs.csv data/alternatives/sdg/*.csv
    ```
 
    You can also create custom embeddings (using the finetuned model in PROD):
@@ -52,7 +52,7 @@ variables.
    Notes:
    - curated_input_csv_path is the filepath of the CSV with the curated input to use. The format of the CSV should follow the description of [point 1](#curated-input).
    - alternatives_filepattern is the filepattern of the CSV files with the alternatives to use. The format of the CSVs should follow the description of [point 3](#alternatives).
-   - Example: `./run.sh -c test data/curated_input/test_svs.csv data/alternatives/test/*.csv`
+   - Example: `./run.sh -c test data/curated_input/test/sheets_svs.csv data/alternatives/test/*.csv`
 
 5. Validate the CSV diffs, update [`embeddings.yaml`](../../../deploy/nl/embeddings.yaml) with the generated embeddings version and test out locally.
 
