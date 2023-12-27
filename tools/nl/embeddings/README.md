@@ -11,7 +11,7 @@ variables.
 
 ## Making a change to the embeddings.
 
-1. For any carefully curated SVs/topics, make edits to the [latest sheet](https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU). The columns in this sheet are: <a name="curated-input"></a>
+1. For any carefully curated SVs/topics, make edits to the [curated input CSVs](data/curated_input/). The columns in this sheet are: <a name="curated-input"></a>
 
    - `dcid`: the StatVar DCID.
    - `Name`: the name of the StatVar
@@ -52,6 +52,7 @@ variables.
    Notes:
    - curated_input_csv_path is the filepath of the CSV with the curated input to use. The format of the CSV should follow the description of [point 1](#curated-input).
    - alternatives_filepattern is the filepattern of the CSV files with the alternatives to use. The format of the CSVs should follow the description of [point 3](#alternatives).
+   - Example: `./run.sh -c test data/curated_input/test_svs.csv data/alternatives/test/*.csv`
 
 5. Validate the CSV diffs, update [`embeddings.yaml`](../../../deploy/nl/embeddings.yaml) with the generated embeddings version and test out locally.
 

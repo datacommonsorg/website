@@ -130,9 +130,13 @@ def _get_diff_table(diff_list, base_sv_info, test_sv_info):
     next_diff = None
     if i < len(diff_list) - 1:
       next_diff = diff_list[i + 1]
+    # If the line starts with ?, this means it is not present in either base or test.
+    # https://docs.python.org/3/library/difflib.html#difflib.Differ
+    if diff.startswith('?'):
+      continue
     # If theres no + or -, that means this line is the same in both base and test.
-    if not diff.startswith('+') and not diff.startswith('-'):
-      info = base_sv_info.get(diff_sv, test_sv_info.get(diff_sv))
+    elif not diff.startswith('+') and not diff.startswith('-'):
+      info = base_sv_info.get(diff_sv, test_sv_info.get(diff_sv, {}))
       diff_table_rows.append((info, info))
     # If the line starts with -, this means it was present in base but not in test.
     elif diff.startswith('-'):
@@ -224,8 +228,6 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
   for _, diff_table_rows in diffs:
     for row in diff_table_rows:
       for info in row:
-        if not info:
-          continue
         info['name'] = sv_names.get(info.get('sv'), '')
 
   # Render the html with the diffs
