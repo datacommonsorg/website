@@ -11,7 +11,7 @@ variables.
 
 ## Making a change to the embeddings.
 
-1. For any carefully curated SVs/topics, make edits to the [curated input CSVs](data/curated_input/). The columns in this sheet are: <a name="curated-input"></a>
+1. For any carefully curated SVs/topics, make edits to the [curated input CSVs](data/curated_input/). To easily edit the csv in Google sheets, you can use the command-line tools [here](../../sheets/). The columns in this csv are: <a name="curated-input"></a>
 
    - `dcid`: the StatVar DCID.
    - `Name`: the name of the StatVar
