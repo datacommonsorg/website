@@ -29,18 +29,20 @@ _DEFAULT_OUTPUT_LOCAL_CSV_FILE = "/tmp/sheets2csv.csv"
 _DEFAULT_SHEET_NAME = "Csv2Sheet"
 _NEW_SHEET_ROWS_COLS_BUFFER = 5
 
+
 class Mode:
   CSV_TO_SHEET = "csv2sheet"
   SHEET_TO_CSV = "sheet2csv"
 
-flags.DEFINE_string('local_csv_filepath',
-                    '',
-                    'Local csv (relative) file path')
+
+flags.DEFINE_string('local_csv_filepath', '', 'Local csv (relative) file path')
 flags.DEFINE_string('sheets_url', '', 'Google Sheets Url for the latest SVs')
-flags.DEFINE_string('worksheet_name', '', 'Name of worksheet in the Google Sheets file to use')
+flags.DEFINE_string('worksheet_name', '',
+                    'Name of worksheet in the Google Sheets file to use')
 flags.DEFINE_enum(
     'mode', Mode.CSV_TO_SHEET, [Mode.CSV_TO_SHEET, Mode.SHEET_TO_CSV],
     'Mode of operation to use. Valid values: sheet2csv, csv2sheet')
+
 
 # Copies a csv file to a Google Sheets worksheet
 def csv2sheet(local_csv_filepath: str, sheets_url: str, worksheet_name: str):
@@ -60,18 +62,21 @@ def csv2sheet(local_csv_filepath: str, sheets_url: str, worksheet_name: str):
     worksheet = sheet.get_worksheet(0)
 
   with open(local_csv_filepath, 'r') as f:
-    print(
-        f"Copying CSV file data to Google Sheets from: {local_csv_filepath}"
-    )
+    print(f"Copying CSV file data to Google Sheets from: {local_csv_filepath}")
     reader = csv.reader(f)
     rows = list(reader)
     if not worksheet:
       num_cols = 0
       if len(rows) > 0:
         num_cols = len(rows[0]) + _NEW_SHEET_ROWS_COLS_BUFFER
-      worksheet = sheet.add_worksheet(_DEFAULT_SHEET_NAME, len(rows) + _NEW_SHEET_ROWS_COLS_BUFFER, num_cols)
+      worksheet = sheet.add_worksheet(_DEFAULT_SHEET_NAME,
+                                      len(rows) + _NEW_SHEET_ROWS_COLS_BUFFER,
+                                      num_cols)
     worksheet.update('A1', rows)
-  print(f"CSV file data copied to {sheet.title}: {sheet.url} (worksheet: {worksheet.title})")
+  print(
+      f"CSV file data copied to {sheet.title}: {sheet.url} (worksheet: {worksheet.title})"
+  )
+
 
 # Copies a Google Sheets worksheet to a csv file.
 def sheet2csv(sheets_url: str, worksheet_name: str, local_csv_filepath: str):
@@ -87,13 +92,16 @@ def sheet2csv(sheets_url: str, worksheet_name: str, local_csv_filepath: str):
   worksheet_df.to_csv(local_csv_filepath, index=False)
   print(f"Dataframe saved locally at: {local_csv_filepath}")
 
+
 def main(_):
   if FLAGS.mode == Mode.SHEET_TO_CSV:
     assert FLAGS.sheets_url and FLAGS.worksheet_name
-    sheet2csv(FLAGS.sheets_url, FLAGS.worksheet_name, FLAGS.local_csv_filepath or _DEFAULT_OUTPUT_LOCAL_CSV_FILE)
+    sheet2csv(FLAGS.sheets_url, FLAGS.worksheet_name,
+              FLAGS.local_csv_filepath or _DEFAULT_OUTPUT_LOCAL_CSV_FILE)
   else:
     assert FLAGS.local_csv_filepath
     csv2sheet(FLAGS.local_csv_filepath, FLAGS.sheets_url, FLAGS.worksheet_name)
+
 
 if __name__ == "__main__":
   app.run(main)
