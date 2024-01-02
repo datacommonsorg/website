@@ -6,7 +6,7 @@ These are two command-line tools to copy csv files to and from Google Sheets.
 
 To copy a csv file to Google sheets, run the following command:
 ```bash
-./run.sh -m csv2sheet -l <csv_file_path> -s <sheets_url> -w <worksheet_name>
+./run.sh -m csv2sheet -l <csv_file_path> [-s <sheets_url>] [-w <worksheet_name>]
 ```
 
 Where:
@@ -18,7 +18,7 @@ Where:
 
 To copy a Google sheet to a csv file, run the following command:
 ```bash
-./run.sh -m sheet2csv -l <csv_file_path> -s <sheets_url> -w <worksheet_name>
+./run.sh -m sheet2csv [-l <csv_file_path>] -s <sheets_url> -w <worksheet_name>
 ```
 
 Where:

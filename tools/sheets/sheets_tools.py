@@ -36,13 +36,23 @@ class Mode:
   SHEET_TO_CSV = "sheet2csv"
 
 
-flags.DEFINE_string('local_csv_filepath', '', 'Local csv (relative) file path')
-flags.DEFINE_string('sheets_url', '', 'Google Sheets Url for the latest SVs')
-flags.DEFINE_string('worksheet_name', '',
-                    'Name of worksheet in the Google Sheets file to use')
+flags.DEFINE_string('local_csv_filepath',
+                    '',
+                    'Local csv (relative) file path',
+                    short_name='l')
+flags.DEFINE_string('sheets_url',
+                    '',
+                    'Google Sheets Url for the latest SVs',
+                    short_name='s')
+flags.DEFINE_string('worksheet_name',
+                    '',
+                    'Name of worksheet in the Google Sheets file to use',
+                    short_name='w')
 flags.DEFINE_enum(
-    'mode', Mode.CSV_TO_SHEET, [Mode.CSV_TO_SHEET, Mode.SHEET_TO_CSV],
-    'Mode of operation to use. Valid values: sheet2csv, csv2sheet')
+    'mode',
+    Mode.CSV_TO_SHEET, [Mode.CSV_TO_SHEET, Mode.SHEET_TO_CSV],
+    'Mode of operation to use. Valid values: sheet2csv, csv2sheet',
+    short_name='m')
 
 
 # Copies a csv file to a Google Sheets worksheet
@@ -86,6 +96,7 @@ def sheet2csv(sheets_url: str, worksheet_name: str, local_csv_filepath: str):
       f"Downloading the latest sheets data from: {sheets_url} (worksheet: {worksheet_name})"
   )
   sheet = gs.open_by_url(sheets_url).worksheet(worksheet_name)
+  # Fill empty cells with an empty string so that it reflects how the sheet looks.
   worksheet_df = pd.DataFrame(sheet.get_all_records()).fillna("")
   print(
       f"Downloaded {len(worksheet_df)} rows and {len(worksheet_df.columns)} columns."
