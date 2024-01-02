@@ -29,7 +29,7 @@ def download_file(bucket: str,
                   use_anonymous_client: bool = False) -> str:
   local_embeddings_path = os.path.join(TEMP_DIR, filename)
   if os.path.exists(local_embeddings_path):
-    logging.info("File already exists, skipping GCS download: %s",
+    logging.info("File already exists: %s, skipping GCS download.",
                  local_embeddings_path)
     return local_embeddings_path
 
