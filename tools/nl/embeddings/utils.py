@@ -305,15 +305,13 @@ def _get_default_ft_embeddings_file_name(embeddings_yaml_file_path: str) -> str:
 
 
 def _get_default_ft_model_version(embeddings_yaml_file_path: str) -> str:
-  with open(embeddings_yaml_file_path, "r") as f:
-    data = yaml.full_load(f)
-    if _DEFAULT_EMBEDDINGS_INDEX_TYPE not in data:
-      raise ValueError(f"{_DEFAULT_EMBEDDINGS_INDEX_TYPE} not found.")
-    value = data[_DEFAULT_EMBEDDINGS_INDEX_TYPE]
-    matcher = re.match(_EMBEDDINGS_FILENAME_PATTERN, value)
-    if not matcher:
-      raise ValueError(f"Invalid embeddings filename value: {value}")
-    return matcher.group(1)
+  embeddings_file_name = _get_default_ft_embeddings_file_name(
+      embeddings_yaml_file_path)
+  matcher = re.match(_EMBEDDINGS_FILENAME_PATTERN, embeddings_file_name)
+  if not matcher:
+    raise ValueError(
+        f"Invalid embeddings filename value: {embeddings_file_name}")
+  return matcher.group(1)
 
 
 def validate_embeddings(embeddings_df: pd.DataFrame,
