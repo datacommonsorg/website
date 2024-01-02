@@ -17,9 +17,7 @@
 /** Styles for "Change Place" search bar on place pages */
 
 // "Change Place" search bar colors
-$GM3-sys-light-primary: #0b57d0;
-$GM3-sys-light-surface-container-low: #f8fafd;
-$GM3-sys-light-on-surface: #1f1f1f;
+@import "../base/color";
 
 #place-change-ui {
   flex-grow: 1;
@@ -36,12 +34,11 @@ $GM3-sys-light-on-surface: #1f1f1f;
 #change-place {
   display: flex;
   height: fit-content;
-  justify-content: right;
   width: 100%;
 }
 
-#change-place-toggle-text {
-  color: var(--GM3-sys-light-primary, #0b57d0);
+.change-place-toggle-text {
+  color: var(--gm-3-sys-light-primary, #0b57d0);
   cursor: pointer;
   font-family: Google Sans Text;
   font-size: 14px;
@@ -56,10 +53,10 @@ $GM3-sys-light-on-surface: #1f1f1f;
   width: fit-content;
 }
 
-#search {
-  background: $GM3-sys-light-surface-container-low;
-  border-bottom: 3px solid $GM3-sys-light-primary;
-  color: $GM3-sys-light-primary;
+.search {
+  background: var(--gm-3-sys-light-surface-container-low);
+  border-bottom: 3px solid var(--gm-3-sys-light-primary);
+  color: var(--gm-3-sys-light-primary);
   display: flex;
   flex-direction: row;
   flex-grow: 1;
@@ -77,27 +74,27 @@ $GM3-sys-light-on-surface: #1f1f1f;
   width: 100%;
 }
 
-#search-text {
+.search-text {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   justify-content: space-between;
 }
 
-#search-instructions {
+.search-instructions {
   cursor: default;
   padding: 0px 16px;
 }
 
-#location-field {
+.location-field {
   align-items: center;
-  background: $GM3-sys-light-surface-container-low;
+  background: var(--gm-3-sys-light-surface-container-low);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-#place-list {
+.place-list {
   align-items: center;
   display: flex;
   flex-shrink: 0;
@@ -105,8 +102,8 @@ $GM3-sys-light-on-surface: #1f1f1f;
   margin-left: 32px;
 }
 
-#close-icon {
-  background: url("../images/icon-cancel-24px.svg") no-repeat;
+.close-icon {
+  color: #444746;
   cursor: pointer;
   height: 24px;
   margin-left: auto;
@@ -116,11 +113,11 @@ $GM3-sys-light-on-surface: #1f1f1f;
   width: 24px;
 }
 
-#place-autocomplete {
-  background: $GM3-sys-light-surface-container-low;
+.place-autocomplete-input {
+  background: var(--gm-3-sys-light-surface-container-low);
   border: none;
   box-sizing: content-box;
-  color: $GM3-sys-light-on-surface;
+  color: var(--gm-3-sys-light-on-surface);
   display: flex;
   flex-grow: 1;
   font-family: Google Sans Text;
@@ -134,7 +131,7 @@ $GM3-sys-light-on-surface: #1f1f1f;
   padding: 0px 40px 0px 16px;
 }
 
-#place-autocomplete::-webkit-input-placeholder {
+.place-autocomplete-input::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: rgba(0, 0, 0, 0.25);
 }

@@ -32,26 +32,37 @@ export function PlaceSearch(props: PlaceSearchPropType): JSX.Element {
   const toggleText = props.toggleText || "Change Place";
 
   useEffect(() => {
+    // Mounts to id="place-autocomplete"
     initSearchAutocomplete("/place");
   }, []);
 
   return (
     <div id="change-place">
       <div
-        id="change-place-toggle-text"
+        className="change-place-toggle-text"
         onClick={() => setShowSearchBar(true)}
         style={{ display: `${showSearchBar ? "none" : ""}` }}
       >
         {toggleText}
       </div>
-      <div id="search" style={{ display: `${showSearchBar ? "" : "none"}` }}>
-        <div id="search-text">
-          <div id="search-instructions">Enter a place name</div>
-          <div id="location-field">
-            <input id="place-autocomplete" placeholder="" type="text" />
+      <div
+        className="search"
+        style={{ display: `${showSearchBar ? "" : "none"}` }}
+      >
+        <div className="search-text">
+          <div className="search-instructions">Enter a place name</div>
+          <div className="location-field">
+            <input
+              id="place-autocomplete"
+              className="place-autocomplete-input"
+              placeholder=""
+              type="text"
+            />
           </div>
         </div>
-        <div id="close-icon" onClick={() => setShowSearchBar(false)}></div>
+        <div className="close-icon" onClick={() => setShowSearchBar(false)}>
+          <span className="material-symbols-outlined">cancel</span>
+        </div>
       </div>
     </div>
   );

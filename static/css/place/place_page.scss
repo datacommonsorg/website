@@ -204,6 +204,7 @@ $chart-border: 0.5px solid #dee2e6;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 #place-heading {

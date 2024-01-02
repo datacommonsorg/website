@@ -130,11 +130,11 @@ class TestPlaceExplorer(WebdriverBaseTest):
 
     # Wait until the search bar is visible.
     element_present = EC.visibility_of_element_located(
-        (By.ID, 'place-autocomplete'))
+        (By.CLASS_NAME, 'place-autocomplete'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Search for California in search bar
-    search_box = self.driver.find_element(By.ID, "place-autocomplete")
+    search_box = self.driver.find_element(By.CLASS_NAME, "place-autocomplete")
     search_box.send_keys(PLACE_SEARCH)
 
     # Wait until the place name has loaded.
