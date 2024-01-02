@@ -17,7 +17,7 @@
 # validation.
 
 import csv
-import datetime as datetime
+import os
 
 from absl import app
 from absl import flags
@@ -25,7 +25,8 @@ import gspread
 import pandas as pd
 
 FLAGS = flags.FLAGS
-_DEFAULT_OUTPUT_LOCAL_CSV_FILE = "/tmp/sheets2csv.csv"
+_TEMP_DIR = "/tmp"
+_DEFAULT_OUTPUT_LOCAL_CSV_FILE = "sheets2csv.csv"
 _DEFAULT_SHEET_NAME = "Csv2Sheet"
 _NEW_SHEET_ROWS_COLS_BUFFER = 5
 
@@ -96,8 +97,9 @@ def sheet2csv(sheets_url: str, worksheet_name: str, local_csv_filepath: str):
 def main(_):
   if FLAGS.mode == Mode.SHEET_TO_CSV:
     assert FLAGS.sheets_url and FLAGS.worksheet_name
-    sheet2csv(FLAGS.sheets_url, FLAGS.worksheet_name,
-              FLAGS.local_csv_filepath or _DEFAULT_OUTPUT_LOCAL_CSV_FILE)
+    local_csv_filepath = FLAGS.local_csv_filepath or os.path.join(
+        _TEMP_DIR, _DEFAULT_OUTPUT_LOCAL_CSV_FILE)
+    sheet2csv(FLAGS.sheets_url, FLAGS.worksheet_name, local_csv_filepath)
   else:
     assert FLAGS.local_csv_filepath
     csv2sheet(FLAGS.local_csv_filepath, FLAGS.sheets_url, FLAGS.worksheet_name)
