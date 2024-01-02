@@ -22,7 +22,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Average Income for Family Households\r\n1,Williams County,126095\r\n2,Dunn County,122699\r\n3,Divide County,118649\r\n4,Mountrail County,118316\r\n5,McKenzie County,117604\r\n6,Stark County,116735\r\n7,Burleigh County,115103\r\n8,Cass County,114000\r\n9,Burke County,113710\r\n10,Morton County,111901",
+      "data_csv": "rank,place,Average Income for Family Households\r\n1,Williams County,126095\r\n2,Dunn County,122699\r\n3,Divide County,118649\r\n4,Mountrail County,118316\r\n5,McKenzie County,117604\r\n49,Pierce County,76245\r\n50,McIntosh County,75949\r\n51,Rolette County,72908\r\n52,Benson County,69206\r\n53,Sioux County,56872",
       "srcs": [
         {
           "name": "data.census.gov",
