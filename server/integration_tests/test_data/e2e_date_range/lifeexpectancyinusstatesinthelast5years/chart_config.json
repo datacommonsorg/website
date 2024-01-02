@@ -41,11 +41,11 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2022",
-                      "startDate": "2018"
+                      "endDate": "2023",
+                      "startDate": "2019"
                     },
                     "statVarKey": [
-                      "LifeExpectancy_Person_3397709707"
+                      "LifeExpectancy_Person_3563600999"
                     ],
                     "title": "Life Expectancy in United States",
                     "type": "LINE"
@@ -135,8 +135,8 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2022",
-                      "startDate": "2018"
+                      "endDate": "2023",
+                      "startDate": "2019"
                     },
                     "statVarKey": [
                       "LifeExpectancy_Person_Female_3397709707",
@@ -156,8 +156,8 @@
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
-          "LifeExpectancy_Person_3397709707": {
-            "facetId": "3397709707",
+          "LifeExpectancy_Person_3563600999": {
+            "facetId": "3563600999",
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
