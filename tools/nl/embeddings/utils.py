@@ -164,6 +164,22 @@ def get_texts_dcids(
   return (texts, dcids)
 
 
+def _download_file_from_gcs(ctx: Context, file_name: str) -> str:
+  """Downloads the specified file_name from GCS to the ctx.tmp folder.
+
+  Args:
+    ctx: Context which has the GCS bucket information.
+    file_name: the GCS bucket name for the file.
+  
+  Returns the path to the local directory where the file was downloaded to.
+  ```
+  """
+  local_file_path = os.path.join(ctx.tmp, file_name)
+  blob = ctx.bucket.get_blob(file_name)
+  blob.download_to_filename(local_file_path)
+  return local_file_path
+
+
 def _download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
   # TODO: deprecate this in favor of the function  in nl_server.gcs
   """Downloads a Sentence Tranformer model (or finetuned version) from GCS.
@@ -227,11 +243,34 @@ def get_or_download_model_from_gcs(ctx: Context, model_version: str) -> str:
     tuned_model_path = os.path.join(ctx.tmp, model_version)
     print(f"Model already downloaded at path: {tuned_model_path}")
   else:
-    print("Model not previously downloaded locally. Downloading from GCS.")
+    print(
+        f"Model not previously downloaded locally. Downloading from GCS: {model_version}"
+    )
     tuned_model_path = _download_model_from_gcs(ctx, model_version)
     print(f"Model downloaded locally to: {tuned_model_path}")
 
   return tuned_model_path
+
+
+def get_or_download_file_from_gcs(ctx: Context, file_name: str) -> str:
+  """Returns the local file path, downloading it if needed.
+  
+  If the file is already downloaded, it returns the file path.
+  Otherwise, it downloads the file from GCS to the local file system and returns that path.
+  """
+  local_file_path: str = os.path.join(ctx.tmp, file_name)
+
+  # Check if this model is already downloaded locally.
+  if os.path.exists(local_file_path):
+    print(f"File already downloaded at path: {local_file_path}")
+  else:
+    print(
+        f"File not previously downloaded locally. Downloading from GCS: {file_name}"
+    )
+    local_file_path = _download_file_from_gcs(ctx, file_name)
+    print(f"File downloaded locally to: {local_file_path}")
+
+  return local_file_path
 
 
 def get_ft_model_from_gcs(ctx: Context,
@@ -249,6 +288,20 @@ def get_default_ft_model_version() -> str:
   Example: embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
   """
   return _get_default_ft_model_version(_EMBEDDINGS_YAML_PATH)
+
+
+def get_default_ft_embeddings_file_name() -> str:
+  """Gets the default index's (i.e. 'medium_ft') embeddings file name from embeddings.yaml.
+  """
+  return _get_default_ft_embeddings_file_name(_EMBEDDINGS_YAML_PATH)
+
+
+def _get_default_ft_embeddings_file_name(embeddings_yaml_file_path: str) -> str:
+  with open(embeddings_yaml_file_path, "r") as f:
+    data = yaml.full_load(f)
+    if _DEFAULT_EMBEDDINGS_INDEX_TYPE not in data:
+      raise ValueError(f"{_DEFAULT_EMBEDDINGS_INDEX_TYPE} not found.")
+    return data[_DEFAULT_EMBEDDINGS_INDEX_TYPE]
 
 
 def _get_default_ft_model_version(embeddings_yaml_file_path: str) -> str:
