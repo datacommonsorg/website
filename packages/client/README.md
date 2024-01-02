@@ -21,20 +21,84 @@ npm i @datacommonsorg/client
 Initialize client
 
 ```
-import { DataCommonsWebClient } from "./DataCommonsClient";
+import { DataCommonsClient } from "@datacommonsorg/client";
 
 const client = new DataCommonsClient();
 ```
 
-### Fetch CSV
+### Getting data
+
+`@datacommons/client` fetches Data Commons statistical variable observations about an entity.
+
+[Data Commons](https://datacommons.org) tracks over 175k+ statistical variables, ranging from things like ["Total Population"](https://www.datacommons.org/tools/statvar#sv=Count_Person) to ["Total Number of Education Majors"](https://www.datacommons.org/tools/statvar#sv=Count_Person_BachelorOfEducationMajor). An "entity" is usally a geographic place like [The United States](https://datacommons.org/place/country/USA) or [California.](https://datacommons.org/place/geoId/06) A "variable observation" is the value of a variable for a particular entity (place) at a particular time. For example, [the total population of California in 2021 was 39237836](https://www.datacommons.org/tools/visualization#visType%3Dtimeline%26place%3DgeoId%2F06%26placeType%3DCounty%26sv%3D%7B%22dcid%22%3A%22Count_Person%22%7D) (according to census.gov)
+
+Variables and entities are identified by [Data Commons Identifiers](https://docs.datacommons.org/glossary.html#dcid), or DCIDs.
+
+To find the DCID of a entity or variable:
+
+1. Browse all 175K+ variables with the [Data Commons Statistical Variable Explorer](https://datacommons.org/tools/statvar).
+
+2. Search for entities and variables with the [Data Commons Search](https://datacommons.org/search) page.
+
+3. Use the [Data Commons Graph Browser](https://datacommons.org/browser) to understand the relationship between entities.
+
+### Data Requests
+
+`@datacommonsorg/client`'s `DataCommonsClient` request parameters:
+
+| Parameter           | Type     | Description                                                                                                                   |
+| ------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| entities            | string[] | Entity DCIDs. Required if `parentEntity` and `childType` are empty. Example: `["country/USA", "country/IND"]`                 |
+| parentEntity        | string   | Parent entity DCID. Required if `entities` is empty.                                                                          |
+| childType           | string   | Child entity type. Required if `entities` is empty. Example: `"State"`                                                        |
+| date?               | string   | [optional] Only return observations from this date. Example: `"2023"`                                                         |
+| entityProps?        | string[] | [optional] Fetch these entity properties from the knowledge graph. Default: `["name", "isoCode"]`                             |
+| variableProps?      | string[] | [optional] Fetch these variable properties from the knowledge graph. Default: `["name"]`                                      |
+| perCapitaVariables? | string[] | [optional] Performs per-capita caluclation for all of these variables Must be a subset of `variables` param.                  |
+| geoJsonProperty?    | string   | [optional] [getGeoJSON only] GeoJSON property name in the knowledge graph. Inferred if not provided.                          |
+| rewind?             | boolean  | [optional] [getGeoJSON only] If true, returns "rewound" geometries that are opposite of the right-hand rule. Default: `true`. |
+
+For example, to fetch the median household income for all states in the US:
+
+```ts
+{
+  parentEntity: "country/USA",
+  childType: "State",
+  variables: ["Median_Income_Household"],
+};
+```
+
+Or, for all counties in the US:
+
+```ts
+{
+  parentEntity: "country/USA",
+  childType: "County",
+  variables: ["Median_Income_Household"],
+};
+```
+
+Fetch the number of business majors per-capita in ([California](https://datacommons.org/place/geoId/06), [New York](https://datacommons.org/place/geoId/36), [Texas](https://datacommons.org/place/geoId/48)):
+
+```ts
+{
+  entities: ["geoId/06", "geoId/36", "geoId/48"],
+  variables: ["Count_Person_BachelorOfBusinessMajor"],
+  perCapitaVariables: ["Count_Person_BachelorOfBusinessMajor"]
+};
+```
+
+`@datacommonsorg/client` can fetch data as CSV, JSON, or GeoJSON
+
+### Get CSV data
 
 Fetch total population below the poverty level for each US State
 
-```
+```ts
 const response = await client.getCsv({
   variables: ["Count_Person_BelowPovertyLevelInThePast12Months"],
   parentEntity: "country/USA",
-  childType: "State"
+  childType: "State",
 });
 ```
 
@@ -57,7 +121,7 @@ const response = await client.getCsv({
 
 With per-capita calculation
 
-```
+```ts
 const response = await client.getCsv({
   variables: ["Count_Person_BelowPovertyLevelInThePast12Months"],
   parentEntity: "country/USA",
@@ -83,19 +147,20 @@ const response = await client.getCsv({
 ...
 ```
 
-### Fetch Data Rows (JSON)
+### Get JSON data ("Data Rows")
 
-Get total population below the poverty level for each US State
+Get population per-capita below the poverty level for each US State
 
-```
-const response = await client.getCsv({
+```ts
+const response = await client.getDataRows({
   variables: ["Count_Person_BelowPovertyLevelInThePast12Months"],
   parentEntity: "country/USA",
-  childType: "State"
+  childType: "State",
+  perCapitaVariables: ["Count_Person_BelowPovertyLevelInThePast12Months"],
 });
 ```
 
-```
+```json
 [
   {
     "entity.dcid": "geoId/01",
@@ -131,19 +196,19 @@ const response = await client.getCsv({
 ]
 ```
 
-### Fetch GeoJSON
+### Get GeoJSON data
 
 Get GeoJSON for US States with population data
 
-```
+```ts
 const response = await client.getGeoJSON({
   variables: ["Count_Person"],
   parentEntity: "country/USA",
-  childType: "State"
+  childType: "State",
 });
 ```
 
-```
+```json
 {
   "type": "FeatureCollection",
   "features": [

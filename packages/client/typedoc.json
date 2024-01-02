@@ -3,7 +3,7 @@
   "externalPattern": ["**/*test.ts"],
   "excludeExternals": true,
   "entryPoints": [
-    "src/index.ts",
+    "src/main.ts",
     "src/types.ts",
     "src/DataCommonsClient.ts",
     "src/utils.ts"

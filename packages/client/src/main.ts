@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
-import { DataCommonsWebClient } from "./DataCommonsClient";
+import { DataCommonsClient } from "./data_commons_client";
+import { DataCommonsWebClient } from "./data_commons_web_client";
 
-export { DataCommonsWebClient };
+export { DataCommonsClient, DataCommonsWebClient };

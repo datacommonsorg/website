@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,12 @@
 
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import * as _ from "lodash";
-import { DataCommonsWebClient } from "./DataCommonsClient";
+import { DataCommonsClient } from "./data_commons_client";
 import {
   ApiNodePropvalOutResponse,
   PointApiResponse,
   SeriesApiResponse,
-} from "./types";
+} from "./data_commons_web_client_types";
 import { toURLSearchParams } from "./utils";
 
 /** Returns mocked fetch Response objects */
@@ -31,10 +31,129 @@ const buildFetchResult = (object: any) => {
   });
 };
 
-const buildMockeFetchResponses = (): Record<string, any> => {
-  const mockedResponses: Record<string, any> = {};
+const buildMockedFetchResponses = (): {
+  mockedResponsesGet: Record<string, any>;
+  mockedResponsesPost: Record<string, Record<string, any>>;
+} => {
+  const mockedResponsesGet: Record<string, any> = {};
+  const mockedResponsesPost: Record<string, Record<string, any>> = {};
+
+  // Mock node properties
+  mockedResponsesGet[
+    `/api/node/propvals/out?${toURLSearchParams({
+      dcids: ["No_Data"],
+      prop: "name",
+    })}`
+  ] = {
+    No_Data: [
+      {
+        provenanceId: "Provenance",
+        value: "No Data",
+      },
+    ],
+  } as ApiNodePropvalOutResponse;
+  // Mock node properties
+  mockedResponsesPost["/api/node/propvals/out"] = {};
+  mockedResponsesPost["/api/node/propvals/out"][
+    JSON.stringify({
+      dcids: ["Has_Data", "No_Data"],
+      prop: "name",
+    })
+  ] = {
+    No_Data: [
+      {
+        provenanceId: "Provenance",
+        value: "No Data",
+      },
+    ],
+    Has_Data: [
+      {
+        provenanceId: "Provenance",
+        value: "Has Data",
+      },
+    ],
+  } as ApiNodePropvalOutResponse;
+  mockedResponsesPost["/api/node/propvals/out"][
+    JSON.stringify({
+      dcids: ["state/A", "state/B", "state/C"],
+      prop: "name",
+    })
+  ] = {
+    "state/A": [
+      {
+        provenanceId: "Provenance",
+        value: "State A",
+      },
+    ],
+    "state/B": [
+      {
+        provenanceId: "Provenance",
+        value: "State B",
+      },
+    ],
+    "state/C": [
+      {
+        provenanceId: "Provenance",
+        value: "State C",
+      },
+    ],
+  } as ApiNodePropvalOutResponse;
+  mockedResponsesPost["/api/node/propvals/out"][
+    JSON.stringify({
+      dcids: ["state/A", "state/B", "state/C"],
+      prop: "isoCode",
+    })
+  ] = {
+    "state/A": [
+      {
+        provenanceId: "Provenance",
+        value: "SA",
+      },
+    ],
+    "state/B": [
+      {
+        provenanceId: "Provenance",
+        value: "SB",
+      },
+    ],
+    "state/C": [
+      {
+        provenanceId: "Provenance",
+        value: "SC",
+      },
+    ],
+  } as ApiNodePropvalOutResponse;
+  mockedResponsesPost["/api/node/propvals/out"][
+    JSON.stringify({
+      dcids: ["state/A", "state/B", "state/C"],
+      prop: "geoJsonCoordinatesDP1",
+    })
+  ] = {
+    "state/A": [
+      {
+        provenanceId: "Provenance",
+        value:
+          '{"coordinates":[[[-114.21393177738366,43.08116760127493],[-124.2132268359357,32.54020842922226],[-108.57307761162878,33.13456231344715],[-114.21393177738366,43.08116760127493]]],"type":"Polygon"}',
+      },
+    ],
+    "state/B": [
+      {
+        provenanceId: "Provenance",
+        value:
+          '{"coordinates":[[[-107.41017350242657,43.4186072395388],[-99.18918027725817,35.67665544853281],[-93.00743609426064,45.16777272963719],[-107.41017350242657,43.4186072395388]]],"type":"Polygon"}',
+      },
+    ],
+    "state/C": [
+      {
+        provenanceId: "Provenance",
+        value:
+          '{"coordinates":[[[-89.67405957878238,38.85867674056669],[-82.27438624445035,29.05293979418066],[-75.07130842064042,38.924570398135245],[-89.67405957878238,38.85867674056669]]],"type":"Polygon"}',
+      },
+    ],
+  } as ApiNodePropvalOutResponse;
+
   // Mock point observations
-  mockedResponses[
+  mockedResponsesGet[
     `/api/observations/point/within?${toURLSearchParams({
       parentEntity: "country/MOCK",
       childType: "State",
@@ -72,121 +191,8 @@ const buildMockeFetchResponses = (): Record<string, any> => {
     },
   } as PointApiResponse;
 
-  // Mock node properties
-  mockedResponses[
-    `/api/node/propvals/out?${toURLSearchParams({
-      dcids: ["No_Data"],
-      prop: "name",
-    })}`
-  ] = {
-    No_Data: [
-      {
-        provenanceId: "Provenance",
-        value: "No Data",
-      },
-    ],
-  } as ApiNodePropvalOutResponse;
-  // Mock node properties
-  mockedResponses[
-    `/api/node/propvals/out?${toURLSearchParams({
-      dcids: ["Has_Data", "No_Data"],
-      prop: "name",
-    })}`
-  ] = {
-    No_Data: [
-      {
-        provenanceId: "Provenance",
-        value: "No Data",
-      },
-    ],
-    Has_Data: [
-      {
-        provenanceId: "Provenance",
-        value: "Has Data",
-      },
-    ],
-  } as ApiNodePropvalOutResponse;
-  mockedResponses[
-    `/api/node/propvals/out?${toURLSearchParams({
-      dcids: ["state/A", "state/B", "state/C"],
-      prop: "name",
-    })}`
-  ] = {
-    "state/A": [
-      {
-        provenanceId: "Provenance",
-        value: "State A",
-      },
-    ],
-    "state/B": [
-      {
-        provenanceId: "Provenance",
-        value: "State B",
-      },
-    ],
-    "state/C": [
-      {
-        provenanceId: "Provenance",
-        value: "State C",
-      },
-    ],
-  } as ApiNodePropvalOutResponse;
-  mockedResponses[
-    `/api/node/propvals/out?${toURLSearchParams({
-      dcids: ["state/A", "state/B", "state/C"],
-      prop: "isoCode",
-    })}`
-  ] = {
-    "state/A": [
-      {
-        provenanceId: "Provenance",
-        value: "SA",
-      },
-    ],
-    "state/B": [
-      {
-        provenanceId: "Provenance",
-        value: "SB",
-      },
-    ],
-    "state/C": [
-      {
-        provenanceId: "Provenance",
-        value: "SC",
-      },
-    ],
-  } as ApiNodePropvalOutResponse;
-  mockedResponses[
-    `/api/node/propvals/out?${toURLSearchParams({
-      dcids: ["state/A", "state/B", "state/C"],
-      prop: "geoJsonCoordinatesDP1",
-    })}`
-  ] = {
-    "state/A": [
-      {
-        provenanceId: "Provenance",
-        value:
-          '{"coordinates":[[[-114.21393177738366,43.08116760127493],[-124.2132268359357,32.54020842922226],[-108.57307761162878,33.13456231344715],[-114.21393177738366,43.08116760127493]]],"type":"Polygon"}',
-      },
-    ],
-    "state/B": [
-      {
-        provenanceId: "Provenance",
-        value:
-          '{"coordinates":[[[-107.41017350242657,43.4186072395388],[-99.18918027725817,35.67665544853281],[-93.00743609426064,45.16777272963719],[-107.41017350242657,43.4186072395388]]],"type":"Polygon"}',
-      },
-    ],
-    "state/C": [
-      {
-        provenanceId: "Provenance",
-        value:
-          '{"coordinates":[[[-89.67405957878238,38.85867674056669],[-82.27438624445035,29.05293979418066],[-75.07130842064042,38.924570398135245],[-89.67405957878238,38.85867674056669]]],"type":"Polygon"}',
-      },
-    ],
-  } as ApiNodePropvalOutResponse;
-
   // Mock series
-  mockedResponses[
+  mockedResponsesGet[
     `/api/observations/series/within?${toURLSearchParams({
       parentEntity: ["country/MOCK"],
       childType: ["State"],
@@ -281,26 +287,37 @@ const buildMockeFetchResponses = (): Record<string, any> => {
     },
   } as SeriesApiResponse;
 
-  return mockedResponses;
+  return { mockedResponsesGet, mockedResponsesPost };
 };
 
-global.fetch = jest.fn((url: string) => {
-  const mockedResponses = buildMockeFetchResponses();
-  const urlObject = new URL(url);
-  const path = urlObject.pathname + urlObject.search;
-  const response = mockedResponses[path];
-  if (!response) {
-    console.log("Handlers for\n", Object.keys(mockedResponses).join("\n"));
-    throw new Error(`No mocked handler for ${url}`);
+global.fetch = jest.fn(
+  (url: string, options?: { method?: string; body?: string }) => {
+    const { mockedResponsesGet, mockedResponsesPost } =
+      buildMockedFetchResponses();
+    const urlObject = new URL(url);
+    const path = urlObject.pathname + urlObject.search;
+    const body = options?.method === "post" ? options?.body : undefined;
+    const response = body
+      ? mockedResponsesPost[path][body]
+      : mockedResponsesGet[path];
+    if (!response) {
+      throw new Error(
+        `No mocked handler for ${url}. Get handlers: ${Object.keys(
+          mockedResponsesGet
+        ).join(" ")}, post handlers: ${Object.keys(mockedResponsesPost).join(
+          " "
+        )}`
+      );
+    }
+    return buildFetchResult(response);
   }
-  return buildFetchResult(response);
-}) as jest.Mock<() => Promise<Response>>;
+) as jest.Mock<() => Promise<Response>>;
 
 describe("DataCommonsWebClient", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
-  const client = new DataCommonsWebClient();
+  const client = new DataCommonsClient();
 
   test("Get data rows", async () => {
     const response = await client.getDataRows({
@@ -321,7 +338,6 @@ describe("DataCommonsWebClient", () => {
       parentEntity: "country/MOCK",
       childType: "State",
     });
-    console.log(JSON.stringify(response, null, 2));
     response.features.forEach((row) => {
       expect(_.get(row.properties, "Has_Data.value", 0)).toBeGreaterThan(0);
       expect(_.get(row.properties, "No_Data.value", 0)).toBe(null);

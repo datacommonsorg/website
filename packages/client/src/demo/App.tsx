@@ -27,14 +27,14 @@ import { GeoJsonProperties } from "geojson";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { DataCommonsWebClient } from "../DataCommonsClient";
+import { DataCommonsClient } from "../data_commons_client";
 
 import "./style.css";
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const GOOGLE_MAPS_MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID;
-const client = new DataCommonsWebClient({
-  apiRoot: "http://localhost:8080",
+const client = new DataCommonsClient({
+  apiRoot: "https://datacommons.org",
 });
 
 const App = () => {

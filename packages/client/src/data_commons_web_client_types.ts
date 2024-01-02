@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * Stat API related types.
+ * Interface definitions supporting DataCommonsWebClient
  */
 export interface StatMetadata {
   importName?: string;
@@ -110,29 +110,6 @@ export interface DisplayNameApiResponse {
 export interface PlaceStatDateWithinPlace {
   datePlaceCount: Record<string, number>;
   metadata: StatMetadata;
-}
-
-export interface ObservationDate {
-  date: string;
-  entityCount: {
-    count: number;
-    facet: string;
-  }[];
-}
-
-export interface ObservationDatesWrapper {
-  data: ObservationDate[];
-  facets: FacetStore;
-}
-
-export interface ObservationDatesResponse {
-  datesByVariable: [
-    {
-      variable: string;
-      observationDates: ObservationDate[];
-    }
-  ];
-  facets: FacetStore;
 }
 
 export type FacetStore = Record<string, StatMetadata>;
