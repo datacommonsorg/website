@@ -28,7 +28,7 @@ To use a different model version, specify the `--model-version` flag.
 --output_dir=/tmp
 ```
 
-## Download default FT model and embeddings
+## Download default model and embeddings
 
 The script can be run with `--mode=download` to download the default FT model and base DC embeddings.
 This mode is used when building the custom DC docker image so that the model and embeddings don't need to be downloaded at
