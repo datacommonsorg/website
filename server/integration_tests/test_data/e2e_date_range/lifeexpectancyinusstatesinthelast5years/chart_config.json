@@ -45,7 +45,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "LifeExpectancy_Person_3563600999"
+                      "LifeExpectancy_Person_3397709707"
                     ],
                     "title": "Life Expectancy in United States",
                     "type": "LINE"
@@ -156,8 +156,8 @@
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
-          "LifeExpectancy_Person_3563600999": {
-            "facetId": "3563600999",
+          "LifeExpectancy_Person_3397709707": {
+            "facetId": "3397709707",
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
