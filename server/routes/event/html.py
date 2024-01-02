@@ -128,6 +128,8 @@ def find_best_place_for_config(places: Dict[str, List[str]]) -> str:
     Returns a single place dcid to use for the subject page config (preferring
     the lowest granularity for topic).
     """
+  if not places:
+    return None
   for container in DEFAULT_CONTAINED_PLACE_TYPES.keys():
     for place_dcid, type_list in reversed(list(places.items())):
       if container in type_list:
@@ -143,9 +145,9 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
   node_name = escape(dcid)
   properties = {}
   try:
-    name_results = shared_api.names([dcid])
-    if dcid in name_results.keys():
-      node_name = name_results.get(dcid)
+    name_result = shared_api.names([dcid]).get(dcid, '')
+    if name_result:
+      node_name = name_result
     properties = fetch.triples([dcid]).get(dcid, {})
   except Exception as e:
     logging.info(e)
@@ -161,7 +163,6 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
   subject_config = copy.deepcopy(raw_subject_config)
   places = get_places(properties)
   place_dcid = find_best_place_for_config(places)
-
   subject_page_args = EMPTY_SUBJECT_PAGE_ARGS
   if place_dcid:
     place_metadata = lib_subject_page_config.place_metadata(
