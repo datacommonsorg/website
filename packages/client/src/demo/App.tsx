@@ -89,9 +89,9 @@ const ExampleCsv = () => {
   useEffect(() => {
     (async () => {
       const response = await client.getCsv({
-        variables: ["Count_Person_BelowPovertyLevelInThePast12Months"],
-        parentEntity: "country/USA",
         childType: "State",
+        parentEntity: "country/USA",
+        variables: ["Count_Person_BelowPovertyLevelInThePast12Months"],
       });
       setResponse(response);
     })();
@@ -195,7 +195,7 @@ function MapComponent({
 }: {
   center: google.maps.LatLngLiteral;
   zoom: number;
-}) {
+}): React.ReactNode {
   const ref = useRef<HTMLDivElement>(null);
   const [selectedFeature, setSelectedFeature] =
     useState<google.maps.Data.Feature>();
@@ -208,18 +208,18 @@ function MapComponent({
       return;
     }
     const map = new window.google.maps.Map(ref.current, {
-      tilt: 0,
-      heading: 0,
       center,
-      zoom,
-      mapId: GOOGLE_MAPS_MAP_ID,
       disableDefaultUI: true,
+      heading: 0,
+      mapId: GOOGLE_MAPS_MAP_ID,
+      tilt: 0,
+      zoom,
     });
 
     map.data.addListener(
       "click",
-      function (event: google.maps.Data.MouseEvent) {
-        var feature = event.feature;
+      function (event: google.maps.Data.MouseEvent): void {
+        const feature = event.feature;
         setSelectedFeature(feature);
         setSelectedFeatureLocation(event.latLng || undefined);
       }
@@ -371,12 +371,12 @@ const COLOR_SCALE = scaleThreshold()
   ]);
 
 const INITIAL_VIEW_STATE = {
+  bearing: 0,
   latitude: 49.254,
   longitude: -123.13,
-  zoom: 11,
   maxZoom: 16,
   pitch: 45,
-  bearing: 0,
+  zoom: 11,
 };
 
 const ambientLight = new AmbientLight({
@@ -385,9 +385,9 @@ const ambientLight = new AmbientLight({
 });
 
 const dirLight = new SunLight({
-  timestamp: Date.UTC(2019, 7, 1, 22),
   color: [255, 255, 255],
   intensity: 1.0,
+  timestamp: Date.UTC(2019, 7, 1, 22),
   _shadow: true,
 });
 
@@ -401,7 +401,7 @@ const landCover = [
 ];
 
 // @ts-ignore
-function getTooltip({ object }) {
+function getTooltip({ object }): string {
   return (
     object && {
       html: `\
@@ -415,7 +415,7 @@ function getTooltip({ object }) {
 }
 
 // @ts-ignore
-function getTooltipNyc({ object }) {
+function getTooltipNyc({ object }): string {
   return (
     object && {
       html: `
@@ -509,7 +509,7 @@ function MapComponent3dNyc({
 }: {
   center: google.maps.LatLngLiteral;
   zoom: number;
-}) {
+}): React.ReactNode {
   const ref = useRef<HTMLDivElement>(null);
   const [selectedFeature, setSelectedFeature] =
     useState<google.maps.Data.Feature>();
@@ -549,34 +549,29 @@ function MapComponent3dNyc({
     setMap(map);
     (async () => {
       const response = await client.getGeoJSON({
-        variables: ["Count_Person_BelowPovertyLevelInThePast12Months"],
-        parentEntity: "geoId/36061",
         childType: "CensusTract",
         geoJsonProperty: "geoJsonCoordinates",
+        parentEntity: "geoId/36061",
         perCapitaVariables: ["Count_Person_BelowPovertyLevelInThePast12Months"],
+        variables: ["Count_Person_BelowPovertyLevelInThePast12Months"],
       });
       const deckOverlay = new GoogleMapsOverlay({
-        initialViewState: INITIAL_VIEW_STATE,
         controller: true,
+        effects: [lightingEffect],
         //@ts-ignore
         getTooltip: getTooltipNyc,
-        effects: [lightingEffect],
         layers: [
           new PolygonLayer({
-            id: "ground",
             data: landCover,
-            stroked: false,
-            getPolygon: (f) => f,
             getFillColor: [0, 0, 0, 0],
+            getPolygon: (f) => f,
+            id: "ground",
+            stroked: false,
           }),
           new GeoJsonLayer({
-            id: "geojson",
             data: response,
-            opacity: 0.8,
-            stroked: false,
-            filled: true,
             extruded: true,
-            wireframe: true,
+            filled: true,
             getElevation: (f) =>
               (f.properties || {})[
                 "Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value"
@@ -589,9 +584,14 @@ function MapComponent3dNyc({
                 ]
               ),
             getLineColor: [255, 255, 255],
+            id: "geojson",
+            opacity: 0.8,
             pickable: true,
+            stroked: false,
+            wireframe: true,
           }),
         ],
+        initialViewState: INITIAL_VIEW_STATE,
       });
 
       deckOverlay.setMap(map);
@@ -615,4 +615,4 @@ function MapComponent3dNyc({
   );
 }
 
-export default App;
+export { App };

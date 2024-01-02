@@ -14,13 +14,13 @@ JavaScript client for fetching Data Commons data as CSV, JSON, or GeoJSON.
 
 Install `@datacommonsorg/client`
 
-```
+```bash
 npm i @datacommonsorg/client
 ```
 
 Initialize client
 
-```
+```js
 import { DataCommonsClient } from "@datacommonsorg/client";
 
 const client = new DataCommonsClient();
@@ -37,26 +37,24 @@ Variables and entities are identified by [Data Commons Identifiers](https://docs
 To find the DCID of a entity or variable:
 
 1. Browse all 175K+ variables with the [Data Commons Statistical Variable Explorer](https://datacommons.org/tools/statvar).
-
 2. Search for entities and variables with the [Data Commons Search](https://datacommons.org/search) page.
-
 3. Use the [Data Commons Graph Browser](https://datacommons.org/browser) to understand the relationship between entities.
 
 ### Data Requests
 
 `@datacommonsorg/client`'s `DataCommonsClient` request parameters:
 
-| Parameter           | Type     | Description                                                                                                                   |
-| ------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| entities            | string[] | Entity DCIDs. Required if `parentEntity` and `childType` are empty. Example: `["country/USA", "country/IND"]`                 |
-| parentEntity        | string   | Parent entity DCID. Required if `entities` is empty.                                                                          |
-| childType           | string   | Child entity type. Required if `entities` is empty. Example: `"State"`                                                        |
-| date?               | string   | [optional] Only return observations from this date. Example: `"2023"`                                                         |
-| entityProps?        | string[] | [optional] Fetch these entity properties from the knowledge graph. Default: `["name", "isoCode"]`                             |
-| variableProps?      | string[] | [optional] Fetch these variable properties from the knowledge graph. Default: `["name"]`                                      |
-| perCapitaVariables? | string[] | [optional] Performs per-capita caluclation for all of these variables Must be a subset of `variables` param.                  |
-| geoJsonProperty?    | string   | [optional] [getGeoJSON only] GeoJSON property name in the knowledge graph. Inferred if not provided.                          |
-| rewind?             | boolean  | [optional] [getGeoJSON only] If true, returns "rewound" geometries that are opposite of the right-hand rule. Default: `true`. |
+| Parameter           | Type     | Description                                                                                                                     |
+| ------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| entities            | string[] | Entity DCIDs. Required if `parentEntity` and `childType` are empty. Example: `["country/USA", "country/IND"]`                   |
+| parentEntity        | string   | Parent entity DCID. Required if `entities` is empty.                                                                            |
+| childType           | string   | Child entity type. Required if `entities` is empty. Example: `"State"`                                                          |
+| date?               | string   | \[optional\] Only return observations from this date. Example: `"2023"`                                                         |
+| entityProps?        | string[] | \[optional\] Fetch these entity properties from the knowledge graph. Default: `["name", "isoCode"]`                             |
+| variableProps?      | string[] | \[optional\] Fetch these variable properties from the knowledge graph. Default: `["name"]`                                      |
+| perCapitaVariables? | string[] | \[optional\] Performs per-capita caluclation for all of these variables Must be a subset of `variables` param.                  |
+| geoJsonProperty?    | string   | \[optional\] [getGeoJSON only] GeoJSON property name in the knowledge graph. Inferred if not provided.                          |
+| rewind?             | boolean  | \[optional\] [getGeoJSON only] If true, returns "rewound" geometries that are opposite of the right-hand rule. Default: `true`. |
 
 For example, to fetch the median household income for all states in the US:
 

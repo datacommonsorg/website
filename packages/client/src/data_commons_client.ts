@@ -106,7 +106,6 @@ class DataCommonsClient {
     const shouldRewind = params.rewind === undefined || params.rewind;
 
     const geoJson: FeatureCollection = {
-      type: "FeatureCollection",
       features: dataRows
         .filter((dataRow) => {
           const geometryString = dataRow[`entity.${geoJsonProperty}`];
@@ -121,15 +120,16 @@ class DataCommonsClient {
           const properties = { ...dataRow };
           delete properties[`entity.${geoJsonProperty}`];
           const feature: Feature = {
-            type: "Feature",
-            properties,
             geometry,
+            properties,
+            type: "Feature",
           };
           if (feature.geometry && shouldRewind) {
             return rewind(feature, { reverse: true });
           }
           return feature;
         }),
+      type: "FeatureCollection",
     };
     return geoJson;
   }
@@ -286,7 +286,7 @@ class DataCommonsClient {
     entityPropValues: NodePropValues,
     variablePropValues: NodePropValues,
     populationObservations: SeriesApiResponse
-  ) {
+  ): DataRow[] {
     const dataRows: DataRow[] = [];
     entityDcids.forEach((entityDcid) => {
       const row: DataRow = {

@@ -51,7 +51,6 @@ class DataCommonsWebClient {
   }): Promise<ApiNodePropvalOutResponse> {
     const url = `${this.apiRoot || ""}/api/node/propvals/out`;
     const response = await fetch(url, {
-      method: "post",
       body: JSON.stringify({
         dcids: params.dcids,
         prop: params.prop,
@@ -59,6 +58,7 @@ class DataCommonsWebClient {
       headers: {
         "Content-Type": "application/json",
       },
+      method: "post",
     });
 
     return (await response.json()) as ApiNodePropvalOutResponse;
@@ -128,10 +128,10 @@ class DataCommonsWebClient {
     date?: string;
   }): Promise<PointApiResponse> {
     const queryString = toURLSearchParams({
-      parentEntity: params.parentEntity,
       childType: params.childType,
-      variables: params.variables,
       date: params.date,
+      parentEntity: params.parentEntity,
+      variables: params.variables,
     });
     const url = `${
       this.apiRoot || ""

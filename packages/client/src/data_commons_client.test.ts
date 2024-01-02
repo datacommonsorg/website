@@ -60,16 +60,16 @@ const buildMockedFetchResponses = (): {
       prop: "name",
     })
   ] = {
-    No_Data: [
-      {
-        provenanceId: "Provenance",
-        value: "No Data",
-      },
-    ],
     Has_Data: [
       {
         provenanceId: "Provenance",
         value: "Has Data",
+      },
+    ],
+    No_Data: [
+      {
+        provenanceId: "Provenance",
+        value: "No Data",
       },
     ],
   } as ApiNodePropvalOutResponse;
@@ -155,8 +155,8 @@ const buildMockedFetchResponses = (): {
   // Mock point observations
   mockedResponsesGet[
     `/api/observations/point/within?${toURLSearchParams({
-      parentEntity: "country/MOCK",
       childType: "State",
+      parentEntity: "country/MOCK",
       variables: ["Has_Data", "No_Data"],
     })}`
   ] = {
@@ -194,8 +194,8 @@ const buildMockedFetchResponses = (): {
   // Mock series
   mockedResponsesGet[
     `/api/observations/series/within?${toURLSearchParams({
-      parentEntity: ["country/MOCK"],
       childType: ["State"],
+      parentEntity: ["country/MOCK"],
       variables: ["Count_Person"],
     })}`
   ] = {
@@ -321,9 +321,9 @@ describe("DataCommonsWebClient", () => {
 
   test("Get data rows", async () => {
     const response = await client.getDataRows({
-      variables: ["Has_Data", "No_Data"],
-      parentEntity: "country/MOCK",
       childType: "State",
+      parentEntity: "country/MOCK",
+      variables: ["Has_Data", "No_Data"],
     });
     response.forEach((row) => {
       expect(row["Has_Data.value"]).toBeGreaterThan(0);
