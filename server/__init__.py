@@ -287,8 +287,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   # Load place explorer summaries & allowlist of places to show summaries for
   # Used when rendering place pages
-  app.config['PLACE_SUMMARY_ALLOW_LIST'] = place_summaries.get_place_allowlist()
-  app.config['PLACE_EXPLORER_SUMMARIES'] = place_summaries.get_place_summaries()
+  app.config[
+      'PLACE_SUMMARY_ALLOW_LIST'] = [] if cfg.CUSTOM else place_summaries.get_place_allowlist(
+      )
+  app.config[
+      'PLACE_EXPLORER_SUMMARIES'] = {} if cfg.CUSTOM else place_summaries.get_place_summaries(
+      )
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
