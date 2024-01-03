@@ -38,6 +38,10 @@ import { ParentPlace } from "./parent_breadcrumbs";
 import { PlaceHighlight } from "./place_highlight";
 import { isPlaceInUsa } from "./util";
 
+// Temporarily hide NL search bar on frontend until backend pipelines are
+// implemented.
+const SHOW_NL_SEARCH_BAR = false;
+
 // Window scroll position to start fixing the sidebar.
 let yScrollLimit = 0;
 // Max top position for the sidebar, relative to #sidebar-outer.
@@ -175,16 +179,22 @@ function renderPage(): void {
       loadingElem.style.display = "none";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
-      ReactDOM.render(
-        React.createElement(NlSearchBar, {
-          initialValue: "",
-          inputId: "query-search-input",
-          onSearch,
-          placeholder: `Enter a question about ${placeName} to explore`,
-          shouldAutoFocus: false,
-        }),
-        document.getElementById("nl-search-bar")
-      );
+
+      if (SHOW_NL_SEARCH_BAR) {
+        ReactDOM.render(
+          React.createElement(NlSearchBar, {
+            initialValue: "",
+            inputId: "query-search-input",
+            onSearch,
+            placeholder: `Enter a question to explore`,
+            shouldAutoFocus: false,
+          }),
+          document.getElementById("nl-search-bar")
+        );
+      } else {
+        // when NL search bar is hidden, need to adjust spacing
+        document.getElementById("nl-search-bar").style.height = "2rem";
+      }
 
       ReactDOM.render(
         React.createElement(Menu, {
