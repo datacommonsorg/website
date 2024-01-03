@@ -16,7 +16,10 @@
 
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import * as _ from "lodash";
-import { DataCommonsClient } from "./data_commons_client";
+import {
+  DEFAULT_GEOJSON_PROPERTY_NAME,
+  DataCommonsClient,
+} from "./data_commons_client";
 import {
   ApiNodePropvalOutResponse,
   PointApiResponse,
@@ -126,7 +129,7 @@ const buildMockedFetchResponses = (): {
   mockedResponsesPost["/api/node/propvals/out"][
     JSON.stringify({
       dcids: ["state/A", "state/B", "state/C"],
-      prop: "geoJsonCoordinatesDP1",
+      prop: DEFAULT_GEOJSON_PROPERTY_NAME,
     })
   ] = {
     "state/A": [

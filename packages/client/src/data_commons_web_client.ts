@@ -42,8 +42,9 @@ class DataCommonsWebClient {
 
   /**
    * Fetches all node property values for the given property name
-   * @param params
-   * @returns
+   * Uses /api/node/propvals/out endpoint
+   * @param params.dcids List of DCIDs to fetch property values for
+   * @param params.prop Property name to fetch
    */
   async getNodePropvals(params: {
     dcids: string[];
@@ -66,8 +67,8 @@ class DataCommonsWebClient {
 
   /**
    * Fetches place/entity names
-   * @param entityDcids list of entity DCIDs
-   * @param prop optional entity name property
+   * @param params.dcids list of entity DCIDs
+   * @param params.prop optional entity name property
    */
   async getPlaceNames(params: {
     dcids: string[];
@@ -92,9 +93,9 @@ class DataCommonsWebClient {
 
   /**
    * Gets and processes the data from /api/observations/point endpoint
-   * @param entities list of entitites to get data for
-   * @param variables list of variables to get data for
-   * @param date date to get the data for
+   * @param params.entities list of entitites to get data for
+   * @param params.variables list of variables to get data for
+   * @param params.date date to get the data for
    */
   async getObservationsPoint(params: {
     date?: string;
@@ -116,10 +117,10 @@ class DataCommonsWebClient {
    * that are contained within the specified parentEntity
    *
    * Uses /api/observations/point/within endpoint
-   * @param childType type of entity to get data for
-   * @param parentEntity the parent entity of the entities to get data for
-   * @param variables list of variables to get data for
-   * @param date date to get the data for
+   * @param params.childType type of entity to get data for
+   * @param params.parentEntity the parent entity of the entities to get data for
+   * @param params.variables list of variables to get data for
+   * @param params.date date to get the data for
    */
   async getObservationsPointWithin(params: {
     parentEntity: string;
@@ -142,8 +143,8 @@ class DataCommonsWebClient {
 
   /**
    * Gets the data from /api/observations/series endpoint.
-   * @param entities list of enitites to get data for
-   * @param variables list of variables to get data for
+   * @param params.entities list of enitites to get data for
+   * @param params.variables list of variables to get data for
    */
   async getObservationsSeries(params: {
     entities: string[];
@@ -159,11 +160,11 @@ class DataCommonsWebClient {
   }
 
   /**
-   * Gets the data from /api/observations/series/within endpoint.
-   * @param parentEntity parent place to get the data for
-   * @param childType place type to get the data for
-   * @param variables variables to get data for
-   * @returns
+   * Gets observation series from child places within a parent place
+   * Uses /api/observations/series/within endpoint
+   * @param params.parentEntity parent place dcid to get the data for
+   * @param params.childType place type to get the data for
+   * @param params.variables variable dcids to get data for
    */
   async getObservationsSeriesWithin(params: {
     parentEntity: string;

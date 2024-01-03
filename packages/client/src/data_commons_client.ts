@@ -45,6 +45,8 @@ const ISO_CODE_ATTRIBUTE = "isoCode";
 // Fetch these entity and variable properties by default
 const DEFAULT_ENTITY_PROPS = [NAME_ATTRIBUTE, ISO_CODE_ATTRIBUTE];
 const DEFAULT_VARIABLE_PROPS = [NAME_ATTRIBUTE];
+// GeoJSON is stored in this property name by default
+export const DEFAULT_GEOJSON_PROPERTY_NAME = "geoJsonCoordinatesDP1";
 
 export interface DatacommonsClientParams {
   /** Web api root endpoint. Default: `"https://datacommons.org/"` */
@@ -67,7 +69,7 @@ class DataCommonsClient {
 
   /**
    * Fetches data commons variable values about an entity or entities as CSV.
-   * @param params
+   * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns
    */
   async getCsv(params: GetDataRowsParams): Promise<string> {
@@ -89,11 +91,12 @@ class DataCommonsClient {
   /**
    * Fetches data commons variable values about an entity or entities as GeoJSON.
    * Uses "geoJsonCoordinatesDP1" node property to fetch GeoJSON by default.
-   * @param params
+   * @param params {GetGeoJSONParams} Entities and variables to fetch data for
    * @returns
    */
   async getGeoJSON(params: GetGeoJSONParams): Promise<FeatureCollection> {
-    const geoJsonProperty = params.geoJsonProperty || "geoJsonCoordinatesDP1";
+    const geoJsonProperty =
+      params.geoJsonProperty || DEFAULT_GEOJSON_PROPERTY_NAME;
     const dataRows = await this.getDataRows({
       ...params,
       entityProps: [
@@ -109,10 +112,7 @@ class DataCommonsClient {
       features: dataRows
         .filter((dataRow) => {
           const geometryString = dataRow[`entity.${geoJsonProperty}`];
-          if (typeof geometryString !== "string") {
-            return false;
-          }
-          return true;
+          return typeof geometryString === "string";
         })
         .map((dataRow) => {
           const geometryString = dataRow[`entity.${geoJsonProperty}`] as string;
@@ -136,7 +136,7 @@ class DataCommonsClient {
 
   /**
    * Fetches data commons variable values about an entity or entities.
-   * @param params
+   * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns
    */
   async getDataRows(params: GetDataRowsParams): Promise<DataRow[]> {
@@ -189,8 +189,8 @@ class DataCommonsClient {
 
   /**
    * Fetches the first node property value for the given property name
-   * @param params
-   * @returns
+   * @param params.dcids List of dcids to fetch property values for
+   * @param params.prop Property name to fetch
    */
   async getFirstNodeValues(params: {
     dcids: string[];
@@ -198,10 +198,10 @@ class DataCommonsClient {
   }): Promise<Record<string, string | null>> {
     const nodePropvals = await this.webClient.getNodePropvals(params);
     const nodeValues: Record<string, string | null> = {};
-    Object.keys(nodePropvals).forEach((variableDcid) => {
-      nodeValues[variableDcid] =
-        nodePropvals[variableDcid].length > 0
-          ? nodePropvals[variableDcid][0].value
+    Object.keys(nodePropvals).forEach((nodeDcid) => {
+      nodeValues[nodeDcid] =
+        nodePropvals[nodeDcid].length > 0
+          ? nodePropvals[nodeDcid][0].value
           : null;
     });
     return nodeValues;
@@ -211,7 +211,6 @@ class DataCommonsClient {
    * Fetches node properties from the provided list of dcids
    * @param dcids node dcids
    * @param props properties to fetch
-   * @returns
    */
   private async getNodePropValues(
     dcids: string[],
