@@ -14,7 +14,6 @@
 
 TEMP_DIR = '/tmp/'
 
-import logging
 import os
 
 from google.cloud import storage
@@ -27,12 +26,6 @@ from google.cloud import storage
 def download_file(bucket: str,
                   filename: str,
                   use_anonymous_client: bool = False) -> str:
-  local_embeddings_path = os.path.join(TEMP_DIR, filename)
-  if os.path.exists(local_embeddings_path):
-    logging.info("File already exists: %s, skipping GCS download.",
-                 local_embeddings_path)
-    return local_embeddings_path
-
   if use_anonymous_client:
     storage_client = storage.Client.create_anonymous_client()
   else:
@@ -40,5 +33,22 @@ def download_file(bucket: str,
   bucket = storage_client.bucket(bucket_name=bucket)
   blob = bucket.get_blob(filename)
   # Download
-  blob.download_to_filename(local_embeddings_path)
-  return local_embeddings_path
+  local_file_path = _get_local_path(filename)
+  blob.download_to_filename(local_file_path)
+  return local_file_path
+
+
+def get_or_download_file(bucket: str,
+                         filename: str,
+                         use_anonymous_client: bool = False) -> str:
+  """Returns the local file path if the file already exists. 
+  Otherwise it downloads the file from GCS and returns the path it was downloaded to.
+  """
+  local_file_path = _get_local_path(filename)
+  if os.path.exists(local_file_path):
+    return local_file_path
+  return download_file(bucket, filename, use_anonymous_client)
+
+
+def _get_local_path(filename: str) -> str:
+  return os.path.join(TEMP_DIR, filename)
