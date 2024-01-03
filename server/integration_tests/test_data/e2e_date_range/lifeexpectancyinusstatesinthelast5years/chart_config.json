@@ -41,8 +41,8 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2022",
-                      "startDate": "2018"
+                      "endDate": "2023",
+                      "startDate": "2019"
                     },
                     "statVarKey": [
                       "LifeExpectancy_Person_3397709707"
@@ -135,8 +135,8 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2022",
-                      "startDate": "2018"
+                      "endDate": "2023",
+                      "startDate": "2019"
                     },
                     "statVarKey": [
                       "LifeExpectancy_Person_Female_3397709707",

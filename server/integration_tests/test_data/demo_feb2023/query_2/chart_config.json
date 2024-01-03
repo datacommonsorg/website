@@ -44,7 +44,7 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_WildlandFireEvent_2022"
+                      "Count_WildlandFireEvent_2023"
                     ],
                     "title": "Count of Wildland Fire Event in Counties of California (${date})",
                     "type": "RANKING"
@@ -55,7 +55,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_WildlandFireEvent_2022"
+                      "Count_WildlandFireEvent_2023"
                     ],
                     "title": "Count of Wildland Fire Event in Counties of California (${date})",
                     "type": "MAP"
@@ -70,68 +70,12 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_FireIncidentComplex_2022_2791262687"
-                    ],
-                    "title": "Count of Fire Incident Complex Event in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Fire Incident Complex Event in California",
-                    "statVarKey": [
-                      "Count_FireIncidentComplex_2022"
-                    ],
-                    "title": "Count of Fire Incident Complex Event in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Fire Incident Complex Event"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_WildfireEvent_2022_3627417845"
-                    ],
-                    "title": "Wildfires in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Wildfires in California",
-                    "statVarKey": [
-                      "Count_WildfireEvent_2022"
-                    ],
-                    "title": "Wildfires in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Wildfires"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_PrescribedFireEvent_2022"
+                      "Count_PrescribedFireEvent_2023"
                     ],
                     "title": "Count of Prescribed Fire Event in Counties of California (${date})",
                     "type": "RANKING"
@@ -142,7 +86,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_PrescribedFireEvent_2022"
+                      "Count_PrescribedFireEvent_2023"
                     ],
                     "title": "Count of Prescribed Fire Event in Counties of California (${date})",
                     "type": "MAP"
@@ -155,35 +99,13 @@
           }
         ],
         "statVarSpec": {
-          "Count_FireIncidentComplex_2022": {
-            "date": "2022",
-            "name": "Count of Fire Incident Complex Event",
-            "statVar": "Count_FireIncidentComplex"
-          },
-          "Count_FireIncidentComplex_2022_2791262687": {
-            "date": "2022",
-            "facetId": "2791262687",
-            "name": "Count of Fire Incident Complex Event",
-            "statVar": "Count_FireIncidentComplex"
-          },
-          "Count_PrescribedFireEvent_2022": {
-            "date": "2022",
+          "Count_PrescribedFireEvent_2023": {
+            "date": "2023",
             "name": "Count of Prescribed Fire Event",
             "statVar": "Count_PrescribedFireEvent"
           },
-          "Count_WildfireEvent_2022": {
-            "date": "2022",
-            "name": "Wildfires",
-            "statVar": "Count_WildfireEvent"
-          },
-          "Count_WildfireEvent_2022_3627417845": {
-            "date": "2022",
-            "facetId": "3627417845",
-            "name": "Wildfires",
-            "statVar": "Count_WildfireEvent"
-          },
-          "Count_WildlandFireEvent_2022": {
-            "date": "2022",
+          "Count_WildlandFireEvent_2023": {
+            "date": "2023",
             "name": "Count of Wildland Fire Event",
             "statVar": "Count_WildlandFireEvent"
           }
