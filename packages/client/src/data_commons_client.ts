@@ -70,7 +70,7 @@ class DataCommonsClient {
   /**
    * Fetches data commons variable values about an entity or entities as CSV.
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
-   * @returns
+   * @returns CSV string
    */
   async getCsv(params: GetDataRowsParams): Promise<string> {
     const dataRows = await this.getDataRows(params);
@@ -92,7 +92,7 @@ class DataCommonsClient {
    * Fetches data commons variable values about an entity or entities as GeoJSON.
    * Uses "geoJsonCoordinatesDP1" node property to fetch GeoJSON by default.
    * @param params {GetGeoJSONParams} Entities and variables to fetch data for
-   * @returns
+   * @returns GeoJSON object
    */
   async getGeoJSON(params: GetGeoJSONParams): Promise<FeatureCollection> {
     const geoJsonProperty =
@@ -137,7 +137,7 @@ class DataCommonsClient {
   /**
    * Fetches data commons variable values about an entity or entities.
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
-   * @returns
+   * @returns Data rows list
    */
   async getDataRows(params: GetDataRowsParams): Promise<DataRow[]> {
     // Fetch variable observations
@@ -211,6 +211,7 @@ class DataCommonsClient {
    * Fetches node properties from the provided list of dcids
    * @param dcids node dcids
    * @param props properties to fetch
+   * @returns Nested object mapping property names to dcids to values
    */
   private async getNodePropValues(
     dcids: string[],
