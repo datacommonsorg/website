@@ -32,10 +32,10 @@ class TestDateParser(unittest.TestCase):
       ('How does california GCP in 2020 compare with year 2010',
        [Date('in', 2020, 0), Date('year', 2010, 0)]),
       ('Earthquakes in the last 5 years',
-       [Date('before', 2022, 0, year_span=5)]),
-      ('Flood in previous year', [Date('before', 2022, 0, year_span=1)]),
+       [Date('before', 2023, 0, year_span=5)]),
+      ('Flood in previous year', [Date('before', 2023, 0, year_span=1)]),
       ('Population over the past decade',
-       [Date('before', 2022, 0, year_span=10)]),
+       [Date('before', 2023, 0, year_span=10)]),
       ('Female population in Dakota', []),
       ('How has the population in USA changed over time', []),
   ])

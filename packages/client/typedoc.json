@@ -1,0 +1,11 @@
+{
+  "exclude": ["**/*test.ts"],
+  "externalPattern": ["**/*test.ts"],
+  "excludeExternals": true,
+  "entryPoints": [
+    "src/main.ts",
+    "src/types.ts",
+    "src/DataCommonsClient.ts",
+    "src/utils.ts"
+  ]
+}
