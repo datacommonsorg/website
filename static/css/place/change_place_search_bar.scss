@@ -48,9 +48,14 @@
   justify-content: center;
   line-height: 20px;
   margin-left: auto;
-  padding: 10px 12px;
+  padding: 10px 12px 10px 0;
   text-align: center;
   width: fit-content;
+
+  @media only screen and (max-width: 420px) {
+    margin-left: 0;
+    margin-right: auto;
+  }
 }
 
 .search {

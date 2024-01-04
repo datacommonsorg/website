@@ -205,6 +205,10 @@ $chart-border: 0.5px solid #dee2e6;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  @media only screen and (max-width: 420px) {
+    flex-direction: column;
+  }
 }
 
 #place-heading {
