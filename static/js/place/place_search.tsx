@@ -39,7 +39,8 @@ export function PlaceSearch(props: PlaceSearchPropType): JSX.Element {
   return (
     <div id="change-place">
       <div
-        className="change-place-toggle-text"
+        id="change-place-toggle-text"
+        className="toggle-text"
         onClick={() => setShowSearchBar(true)}
         style={{ display: `${showSearchBar ? "none" : ""}` }}
       >
