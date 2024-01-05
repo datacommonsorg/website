@@ -881,6 +881,14 @@
           "Count_Person_18To24Years_DifferentHouseInDifferentCountySameState",
           "Count_Person_18To24Years_DifferentHouseInSameCounty"
         ]
+      },
+      "Count_Person_1To4Years": {
+        "residentStatus": [
+          "Count_Person_1To4Years_DifferentHouseAbroad",
+          "Count_Person_1To4Years_DifferentHouseInDifferentCountyDifferentState",
+          "Count_Person_1To4Years_DifferentHouseInDifferentCountySameState",
+          "Count_Person_1To4Years_DifferentHouseInSameCounty"
+        ]
       }
     },
     "mainTopics": [
