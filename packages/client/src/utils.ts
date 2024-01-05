@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
+import { Observation } from "./data_commons_web_client_types";
+
 /**
  * Converts an object to URLSearchParams.
  *
@@ -72,4 +75,50 @@ export function encodeCsvRow(items: any[]): string {
       return String(item);
     })
     .join(",");
+}
+
+/**
+ * Given a observation series `num`, computes the ratio of the each
+ * observation value in `num` to the observation value in `denom` with
+ * the closest date value.
+ *
+ * Both `num` and `denom` series are sorted.
+ *
+ * @param num Sorted numerator observation series.
+ * @param denom Sorted denominator time series.
+ *
+ * @returns A list of Observations with the per capita calculation applied to its values.
+ */
+export function computeRatio(
+  num: Observation[],
+  denom: Observation[],
+  scaling = 1
+): Observation[] {
+  if (_.isEmpty(denom)) {
+    return [];
+  }
+  const result: Observation[] = [];
+  let j = 0; // denominator position
+  for (let i = 0; i < num.length; i++) {
+    const numDate = Date.parse(num[i].date);
+    const denomDate = Date.parse(denom[j].date);
+    while (j < denom.length - 1 && numDate > denomDate) {
+      const denomDateNext = Date.parse(denom[j + 1].date);
+      const nextBetter =
+        Math.abs(denomDateNext - numDate) < Math.abs(denomDate - numDate);
+      if (nextBetter) {
+        j++;
+      } else {
+        break;
+      }
+    }
+    let val: number;
+    if (denom[j].value == 0) {
+      val = 0;
+    } else {
+      val = num[i].value / denom[j].value / scaling;
+    }
+    result.push({ date: num[i].date, value: val });
+  }
+  return result;
 }

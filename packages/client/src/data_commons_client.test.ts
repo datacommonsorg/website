@@ -290,6 +290,104 @@ const buildMockedFetchResponses = (): {
     },
   } as SeriesApiResponse;
 
+  mockedResponsesGet[
+    `/api/observations/series/within?${toURLSearchParams({
+      childType: ["State"],
+      parentEntity: ["country/MOCK"],
+      variables: ["Has_Data", "No_Data"],
+    })}`
+  ] = {
+    data: {
+      Has_Data: {
+        "state/A": {
+          facet: "myfacet",
+          series: [
+            {
+              date: "2019",
+              value: 301.9,
+            },
+            {
+              date: "2020",
+              value: 302.0,
+            },
+            {
+              date: "2021",
+              value: 302.1,
+            },
+            {
+              date: "2022",
+              value: 302.2,
+            },
+            {
+              date: "2023",
+              value: 302.3,
+            },
+          ],
+        },
+        "state/B": {
+          facet: "myfacet",
+          series: [
+            {
+              date: "2019",
+              value: 401.9,
+            },
+            {
+              date: "2020",
+              value: 402.0,
+            },
+            {
+              date: "2021",
+              value: 402.1,
+            },
+            {
+              date: "2022",
+              value: 402.2,
+            },
+            {
+              date: "2023",
+              value: 402.3,
+            },
+          ],
+        },
+        "state/C": {
+          facet: "myfacet",
+          series: [
+            {
+              date: "2019",
+              value: 501.9,
+            },
+            {
+              date: "2020",
+              value: 502.0,
+            },
+            {
+              date: "2021",
+              value: 502.1,
+            },
+            {
+              date: "2022",
+              value: 502.2,
+            },
+            {
+              date: "2023",
+              value: 502.3,
+            },
+          ],
+        },
+      },
+      No_Data: {},
+    },
+    facets: {
+      myfacet: {
+        importName: "myimport",
+        measurementMethod: "mymethod",
+        provenanceUrl: "https://example.com",
+        unit: "USD",
+        unitDisplayName: "US Dollars",
+      },
+    },
+  } as SeriesApiResponse;
+
   return { mockedResponsesGet, mockedResponsesPost };
 };
 
@@ -327,6 +425,7 @@ describe("DataCommonsWebClient", () => {
       childType: "State",
       parentEntity: "country/MOCK",
       variables: ["Has_Data", "No_Data"],
+      fieldDelimiter: ".",
     });
     response.forEach((row) => {
       expect(row["Has_Data.value"]).toBeGreaterThan(0);
@@ -340,6 +439,7 @@ describe("DataCommonsWebClient", () => {
       variables: ["Has_Data", "No_Data"],
       parentEntity: "country/MOCK",
       childType: "State",
+      fieldDelimiter: ".",
     });
     response.features.forEach((row) => {
       expect(_.get(row.properties, "Has_Data.value", 0)).toBeGreaterThan(0);
@@ -353,6 +453,7 @@ describe("DataCommonsWebClient", () => {
       variables: ["Has_Data", "No_Data"],
       parentEntity: "country/MOCK",
       childType: "State",
+      fieldDelimiter: ".",
     });
     // CSV result should have 1x header row + 3x data rows
     expect(Object.keys(response.split("\n")).length).toBe(4);
@@ -364,6 +465,7 @@ describe("DataCommonsWebClient", () => {
       parentEntity: "country/MOCK",
       childType: "State",
       perCapitaVariables: ["Has_Data"],
+      fieldDelimiter: ".",
     });
     response.forEach((row) => {
       expect(row["Has_Data.perCapita.value"]).toBeGreaterThan(0);
@@ -371,5 +473,35 @@ describe("DataCommonsWebClient", () => {
       expect(row["entity.name"]).toBeTruthy();
     });
     expect(Object.keys(response).length).toBe(3);
+  });
+
+  test("Get data row series", async () => {
+    const response = await client.getDataRowSeries({
+      variables: ["Has_Data", "No_Data"],
+      parentEntity: "country/MOCK",
+      childType: "State",
+      perCapitaVariables: ["Has_Data"],
+      fieldDelimiter: ".",
+    });
+
+    expect(response.length).toBe(15);
+    response.forEach((row) => {
+      expect(row["variable.dcid"]).toBe("Has_Data");
+      expect(row["variable.unitDisplayName"]).toBe("US Dollars");
+      expect(row["perCapita.value"]).toBeCloseTo(0.1);
+      expect(row["perCapita.populationValue"]).toBeGreaterThan(0);
+    });
+  });
+
+  test("Get csv series", async () => {
+    const response = await client.getCsvSeries({
+      variables: ["Has_Data", "No_Data"],
+      parentEntity: "country/MOCK",
+      childType: "State",
+      perCapitaVariables: ["Has_Data"],
+      fieldDelimiter: ".",
+    });
+    // CSV result should have 1x header row + 15x data rows
+    expect(Object.keys(response.split("\n")).length).toBe(16);
   });
 });

@@ -32,6 +32,13 @@ export interface BaseGetDataRowsParams {
    * Must be a subset of `variables` param.
    */
   perCapitaVariables?: string[];
+  /**
+   * Delimiter for field header.
+   * Example, if fieldDelimiter = ".", entity value header will be "entity.value"
+   *
+   * Default: "__"
+   */
+  fieldDelimiter?: string;
 }
 
 export interface GetDataRowsParamsWithin extends BaseGetDataRowsParams {

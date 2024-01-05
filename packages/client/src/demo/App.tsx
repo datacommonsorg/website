@@ -27,6 +27,9 @@ import { GeoJsonProperties } from "geojson";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import vegaEmbed from "vega-embed";
+import { Config, TopLevelSpec, compile } from "vega-lite";
+
 import { DataCommonsClient } from "../data_commons_client";
 
 import "./style.css";
@@ -44,6 +47,7 @@ const App = () => {
       <ExampleSetup />
       <ExampleCsv />
       <ExampleCsvPerCapita />
+      <ExampleCsvSeries />
       <ExampleJson />
       <ExampleGeoJson />
       <ExampleGoogleMaps />
@@ -131,6 +135,80 @@ const ExampleCsvPerCapita = () => {
       <Code>{code}</Code>
       <h3>Fetch CSV Data Result</h3>
       <Code>{response}</Code>
+    </div>
+  );
+};
+
+const ExampleCsvSeries = () => {
+  const code = `const response = await client.getCsvSeries({
+    variables: [
+      "Count_Person_BelowPovertyLevelInThePast12Months",
+      "Count_CriminalActivities_CombinedCrime",
+    ],
+    parentEntity: "geoId/06",
+    childType: "County",
+    perCapitaVariables: [
+      "Count_Person_BelowPovertyLevelInThePast12Months",
+      "Count_CriminalActivities_CombinedCrime",
+    ],
+  });`;
+
+  const [response, setResponse] = useState("");
+  useEffect(() => {
+    (async () => {
+      const response = await client.getCsvSeries({
+        variables: [
+          "Count_Person_BelowPovertyLevelInThePast12Months",
+          "Count_CriminalActivities_CombinedCrime",
+        ],
+        parentEntity: "geoId/06",
+        childType: "County",
+        perCapitaVariables: [
+          "Count_Person_BelowPovertyLevelInThePast12Months",
+          "Count_CriminalActivities_CombinedCrime",
+        ],
+      });
+      setResponse(response);
+      const dataRowsResponse = await client.getDataRowSeries({
+        variables: [
+          "Count_Person_BelowPovertyLevelInThePast12Months",
+          "Count_CriminalActivities_CombinedCrime",
+        ],
+        parentEntity: "geoId/06",
+        childType: "County",
+        perCapitaVariables: [
+          "Count_Person_BelowPovertyLevelInThePast12Months",
+          "Count_CriminalActivities_CombinedCrime",
+        ],
+      });
+      const vegaLiteSpec: TopLevelSpec = {
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+        data: {
+          values: dataRowsResponse,
+        },
+        mark: "line",
+        encoding: {
+          x: {
+            field: "variable__date",
+            type: "temporal",
+          },
+          y: { field: "variable__value", type: "quantitative" },
+          color: { field: "entity__name", type: "nominal" },
+        },
+      };
+      const config: Config = {};
+      const vegaSpec = compile(vegaLiteSpec, { config }).spec;
+      vegaEmbed("#mychart", vegaSpec);
+    })();
+  });
+  return (
+    <div>
+      <h2>Fetch CSV Data (series, per-capita)</h2>
+      <Code>{code}</Code>
+      <h3>Fetch CSV Data Result</h3>
+      <Code>{response}</Code>
+      <h3>Render on vega-lite line chart</h3>
+      <div id="mychart"></div>
     </div>
   );
 };
@@ -407,8 +485,8 @@ function getTooltip({ object }): string {
       html: `\
   <div><b>Count_Person_BelowPovertyLevelInThePast12Months</b></div>
   <div>${object.properties.Count_Person_BelowPovertyLevelInThePast12Months}</div>
-  <div>${object.properties["Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value"]}</div>
-  <div>${object.properties["Count_Person_BelowPovertyLevelInThePast12Months.perCapita.populationValue"]}</div>
+  <div>${object.properties["Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value"]}</div>
+  <div>${object.properties["Count_Person_BelowPovertyLevelInThePast12Months__perCapita__populationValue"]}</div>
   `,
     }
   );
@@ -419,9 +497,9 @@ function getTooltipNyc({ object }): string {
   return (
     object && {
       html: `
-      <div><b>Count_Person_BelowPovertyLevelInThePast12Months.value</b>: ${object.properties["Count_Person_BelowPovertyLevelInThePast12Months.value"]}</div>
-      <div><b>Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value</b>: ${object.properties["Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value"]}</div>
-      <div><b>Count_Person_BelowPovertyLevelInThePast12Months.perCapita.population</b>: ${object.properties["Count_Person_BelowPovertyLevelInThePast12Months.perCapita.populationValue"]}</div>
+      <div><b>Count_Person_BelowPovertyLevelInThePast12Months__value</b>: ${object.properties["Count_Person_BelowPovertyLevelInThePast12Months__value"]}</div>
+      <div><b>Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value</b>: ${object.properties["Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value"]}</div>
+      <div><b>Count_Person_BelowPovertyLevelInThePast12Months__perCapita__population</b>: ${object.properties["Count_Person_BelowPovertyLevelInThePast12Months__perCapita__populationValue"]}</div>
   `,
     }
   );
@@ -474,12 +552,12 @@ setMap(map);
         wireframe: true,
         getElevation: (f) =>
           (f.properties || {})[
-            "Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value"
+            "Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value"
           ] * 10000,
         getFillColor: (f) =>
           COLOR_SCALE(
             (f.properties || {})[
-              "Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value"
+              "Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value"
             ]
           ),
         getLineColor: [255, 255, 255],
@@ -574,13 +652,13 @@ function MapComponent3dNyc({
             filled: true,
             getElevation: (f) =>
               (f.properties || {})[
-                "Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value"
+                "Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value"
               ] * 10000,
             // @ts-ignore
             getFillColor: (f) =>
               COLOR_SCALE(
                 (f.properties || {})[
-                  "Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value"
+                  "Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value"
                 ]
               ),
             getLineColor: [255, 255, 255],
