@@ -223,7 +223,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
 
     elif cspec.chart_type == ChartType.RANKED_TIMELINE_COLLECTION:
       stat_var_spec_map = timeline.ranked_timeline_collection_block(
-          builder, cspec, sv2thing, cspec.single_date)
+          builder, cspec, sv2thing, cspec.single_date, cspec.date_range)
 
     builder.update_sv_spec(stat_var_spec_map)
 

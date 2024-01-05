@@ -23,7 +23,9 @@ import server.lib.fetch as fetch
 from server.lib.nl.common import variable
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
+from server.lib.nl.detection.date import get_date_range_strings
 import server.lib.nl.detection.types as types
+from server.lib.nl.fulfillment.utils import get_facet_id
 
 # (growth_direction, rank_order) -> reverse
 _TIME_DELTA_SORT_MAP = {
@@ -71,18 +73,21 @@ class GrowthRanks(NamedTuple):
 # Given an SV and list of places, this API ranks the places
 # per the growth rate of the time-series.
 # TODO: Compute per-date Count_Person
-def rank_places_by_series_growth(places: List[str],
-                                 sv: str,
-                                 growth_direction: types.TimeDeltaType,
-                                 rank_order: types.RankingType,
-                                 nopc_vars: Set[str],
-                                 counters: ctr.Counters,
-                                 place_type: str = '',
-                                 min_population: int = 0) -> GrowthRankedLists:
+def rank_places_by_series_growth(
+    places: List[str],
+    sv: str,
+    growth_direction: types.TimeDeltaType,
+    rank_order: types.RankingType,
+    nopc_vars: Set[str],
+    counters: ctr.Counters,
+    place_type: str = '',
+    min_population: int = 0,
+    date_range: types.Date = None,
+    sv_exist_facet_id: Dict[str, Dict[str, str]] = None) -> GrowthRankedLists:
   start = time.time()
   series_data = fetch.series_core(entities=places,
                                   variables=[sv],
-                                  all_facets=False)
+                                  all_facets=bool(date_range))
   place2denom = _compute_place_to_denom(sv, places)
   # Count the RPC section (since we have multiple exit points)
   counters.timeit('rank_places_by_series_growth', start)
@@ -92,7 +97,15 @@ def rank_places_by_series_growth(places: List[str],
 
   places_with_vals = []
   for place, place_data in series_data['data'][sv].items():
-    series = place_data['series']
+    if bool(date_range):
+      sv_facet_id = get_facet_id(sv, date_range, sv_exist_facet_id, [place])
+      series = []
+      for s in place_data:
+        if s.get('facet', '') == sv_facet_id:
+          series = s.get('series', [])
+          break
+    else:
+      series = place_data['series']
     if len(series) < 2:
       continue
 
@@ -102,7 +115,7 @@ def rank_places_by_series_growth(places: List[str],
     if not variable.is_percapita_relevant(sv, nopc_vars):
       denom = 0
     try:
-      net_growth = _compute_series_growth(series, denom)
+      net_growth = _compute_series_growth(series, denom, date_range)
     except Exception as e:
       logging.error('Growth rate computation failed: %s', str(e))
       continue
@@ -120,23 +133,35 @@ def rank_places_by_series_growth(places: List[str],
 
 # Given a place and a list of existing SVs, this API ranks the SVs
 # per the growth rate of the time-series.
-def rank_svs_by_series_growth(place: str, svs: List[str],
-                              growth_direction: types.TimeDeltaType,
-                              rank_order: types.RankingType,
-                              nopc_vars: Set[str],
-                              counters: ctr.Counters) -> GrowthRankedLists:
+def rank_svs_by_series_growth(
+    place: str,
+    svs: List[str],
+    growth_direction: types.TimeDeltaType,
+    rank_order: types.RankingType,
+    nopc_vars: Set[str],
+    counters: ctr.Counters,
+    date_range: types.Date = None,
+    sv_exist_facet_id: Dict[str, Dict[str, str]] = None) -> GrowthRankedLists:
   start = time.time()
   series_data = fetch.series_core(entities=[place],
                                   variables=svs,
-                                  all_facets=False)
+                                  all_facets=bool(date_range))
   place2denom = _compute_place_to_denom(svs[0], [place])
   counters.timeit('rank_svs_by_series_growth', start)
 
   svs_with_vals = []
   for sv, place_data in series_data['data'].items():
+    sv_facet_id = get_facet_id(sv, date_range, sv_exist_facet_id, [place])
     if place not in place_data:
       continue
-    series = place_data[place]['series']
+    if bool(date_range):
+      series = []
+      for s in place_data[place]:
+        if s.get('facet', '') == sv_facet_id:
+          series = s.get('series', [])
+          break
+    else:
+      series = place_data[place]['series']
     if len(series) < 2:
       continue
 
@@ -145,7 +170,7 @@ def rank_svs_by_series_growth(place: str, svs: List[str],
     else:
       denom = 0
     try:
-      net_growth = _compute_series_growth(series, denom)
+      net_growth = _compute_series_growth(series, denom, date_range)
     except Exception as e:
       logging.error('Growth rate computation failed: %s', str(e))
       continue
@@ -163,15 +188,29 @@ def rank_svs_by_series_growth(place: str, svs: List[str],
 
 # Computes net growth-rate for a time-series including only recent (since 2012) observations.
 # Returns a pair of
-def _compute_series_growth(series: List[Dict], denom_val: float) -> GrowthRanks:
-  latest = None
+def _compute_series_growth(series: List[Dict],
+                           denom_val: float,
+                           date_range: types.Date = None) -> GrowthRanks:
   earliest = None
-  # TODO: Apparently series is ordered, so simplify.
-  for s in series:
-    if not latest or s['date'] > latest['date']:
-      latest = s
-    if not earliest or s['date'] < earliest['date']:
-      earliest = s
+  latest = None
+  if date_range:
+    # Get the earliest and latest dates in the series that are within the date
+    # range
+    date_range_start, date_range_end = get_date_range_strings(date_range)
+    for s in series:
+      date = s['date']
+      if date_range_start and date < date_range_start[0:len(date)]:
+        continue
+      if date_range_end and date[0:len(date_range_end)] > date_range_end:
+        break
+      if not latest or date > latest['date']:
+        latest = s
+      if not earliest or date < earliest['date']:
+        earliest = s
+  else:
+    # Series is ordered by earliest to latest date
+    earliest = series[0]
+    latest = series[-1]
 
   if not latest or not earliest:
     raise ValueError('Could not find valid points')

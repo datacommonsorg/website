@@ -23,6 +23,7 @@ from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import Date
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartSpec
@@ -158,3 +159,24 @@ def get_default_contained_in_place(places: List[Place],
   if isinstance(ptype, str):
     ptype = ContainedInPlaceType(ptype)
   return constants.DEFAULT_PARENT_PLACES.get(ptype, None)
+
+
+# Get facet id to use when there is a date specified (use a facet id that has
+# data). Gets the facet id that has data for the most places.
+def get_facet_id(sv: str, date: Date, sv_exist_facet_id: Dict[str, Dict[str,
+                                                                        str]],
+                 places: List[str]) -> str:
+  if not date:
+    return ''
+  sv_facet_ids = sv_exist_facet_id.get(sv, {})
+  facet_id_occurences = {}
+  facet_id_to_use = ""
+  for place in places:
+    place_facet_id = sv_facet_ids.get(place, '')
+    if not place_facet_id:
+      continue
+    place_facet_id_occurences = facet_id_occurences.get(place_facet_id, 0) + 1
+    facet_id_occurences[place_facet_id] = place_facet_id_occurences
+    if place_facet_id_occurences > facet_id_occurences.get(facet_id_to_use, 0):
+      facet_id_to_use = place_facet_id
+  return facet_id_to_use

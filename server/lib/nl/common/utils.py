@@ -179,8 +179,8 @@ def _facet_contains_date(facet_data, facet_metadata, single_date,
 # combo has any single data point series
 def sv_existence_for_places_check_single_point(
     places: List[str], svs: List[str], single_date: types.Date,
-    date_range: types.Date,
-    counters: ctr.Counters) -> (Dict[str, str], Dict[str, Dict[str, bool]]):
+    date_range: types.Date, counters: ctr.Counters
+) -> (Dict[str, Dict[str, str]], Dict[str, Dict[str, bool]]):
   if not svs:
     return {}, {}
 
@@ -204,7 +204,9 @@ def sv_existence_for_places_check_single_point(
                                                    single_date, date_range):
           continue
         num_obs = facet_data.get('obsCount', 0)
-        existing_svs[sv] = facet_id
+        if sv not in existing_svs:
+          existing_svs[sv] = {}
+        existing_svs[sv][pl] = facet_id
         if sv not in existsv2places:
           existsv2places[sv] = {}
         existsv2places[sv][pl] = (num_obs == 1)
