@@ -35,7 +35,7 @@ from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import get_multi_sv
 import shared.lib.detected_variables as dutils
 
-_PALM_API_DETECTORS = [
+_LLM_API_DETECTORS = [
     RequestedDetectorType.LLM.value,
     RequestedDetectorType.Hybrid.value,
     RequestedDetectorType.HybridSafetyCheck.value,
@@ -65,13 +65,13 @@ def detect(
   #
   # In the absence of the PALM API key, fallback to heuristic.
   #
-  if (detector_type in _PALM_API_DETECTORS and
-      'PALM_API_KEY' not in current_app.config):
+  if (detector_type in _LLM_API_DETECTORS and
+      'LLM_API_KEY' not in current_app.config):
     counters.err('failed_palm_keynotfound', '')
     detector_type = RequestedDetectorType.Heuristic.value
 
-  if (detector_type in _PALM_API_DETECTORS and
-      'PALM_PROMPT_TEXT' not in current_app.config):
+  if (detector_type in _LLM_API_DETECTORS and
+      'LLM_PROMPT_TEXT' not in current_app.config):
     counters.err('failed_palm_promptnotfound', '')
     detector_type = RequestedDetectorType.Heuristic.value
 

@@ -168,9 +168,9 @@ def _get_strings_for_translation(page_config: dict) -> list[str]:
 
 def _translate(queries: list[str], source_lang: str,
                target_lang: str) -> list[str]:
-  # The name "PALM_API_KEY" is a misnomer.
+  # The name "LLM_API_KEY" is a misnomer.
   # Both palm and translation apis are enabled under this key.
-  api_key = current_app.config.get("PALM_API_KEY")
+  api_key = current_app.config.get("LLM_API_KEY")
   if not api_key:
     raise RuntimeError("Translation API key not specified.")
 

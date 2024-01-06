@@ -17,7 +17,7 @@ import unittest
 from parameterized import parameterized
 
 from server.lib.nl.common.counters import Counters
-from server.lib.nl.detection import palm_api
+from server.lib.nl.detection import llm_api
 
 _INPUT1 = """
 ```
@@ -106,16 +106,19 @@ class TestParseResponse(unittest.TestCase):
   def test_chat(self, input, want):
     self.maxDiff = None
     response = {'candidates': [{'content': input}]}
-    got = palm_api.parse_response('', response, 'content', Counters())
+    got = llm_api.parse_response('', response, llm_api.extract_palm_response,
+                                 Counters())
     self.assertEqual(got, want)
 
     self.maxDiff = None
-    response = {'candidates': [{'output': input}]}
-    got = palm_api.parse_response('', response, 'output', Counters())
+    response = {'candidates': [{'content': {'parts': [{'text': input}]}}]}
+    got = llm_api.parse_response('', response, llm_api.extract_gemini_response,
+                                 Counters())
     self.assertEqual(got, want)
 
   def test_text_block(self):
     self.maxDiff = None
     response = {'candidates': [], 'filters': [{'reason': 'OTHER'}]}
-    got = palm_api.parse_response('', response, 'output', Counters())
+    got = llm_api.parse_response('', response, llm_api.extract_gemini_response,
+                                 Counters())
     self.assertEqual(got, {'UNSAFE': True})

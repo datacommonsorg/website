@@ -11,12 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Interface to PaLM API for detection"""
+"""Interface to LLM API for detection"""
 
 import json
 import logging
 import time
-from typing import Dict, List
+from typing import Callable, Dict, List
 
 from flask import current_app
 import json5
@@ -24,8 +24,8 @@ import requests
 
 from server.lib.nl.common import counters
 
-_CHAT_API_URL_BASE = "https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage"
-_TEXT_API_URL_BASE = "https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText"
+_GEMINI_PRO_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
+_PALM_URL_BASE = "https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage"
 _API_HEADER = {'content-type': 'application/json'}
 
 _SUFFIX = '\n\nIn your response, include just the JSON adhering to the above schema. Do not add JSON keys outside the schema.  Also, explain why you set specific enum values.'
@@ -35,7 +35,7 @@ _TEMPERATURE = 0.1
 
 _CANDIDATE_COUNT = 1
 
-_CHAT_REQ_DATA = {
+_PALM_REQ_DATA = {
     'prompt': {
         'messages': {},
         'examples': [],
@@ -44,44 +44,43 @@ _CHAT_REQ_DATA = {
     'candidateCount': _CANDIDATE_COUNT,
 }
 
-_TEXT_REQ_DATA = {
-    "prompt": {},
-    "temperature":
-        _TEMPERATURE,
-    "candidateCount":
-        _CANDIDATE_COUNT,
-    "safetySettings": [{
-        "category": "HARM_CATEGORY_UNSPECIFIED",
-        "threshold": "BLOCK_ONLY_HIGH"
-    }, {
-        "category": "HARM_CATEGORY_DEROGATORY",
-        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-    }, {
-        "category": "HARM_CATEGORY_TOXICITY",
-        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-    }, {
-        "category": "HARM_CATEGORY_MEDICAL",
-        "threshold": "BLOCK_ONLY_HIGH"
-    }, {
-        "category": "HARM_CATEGORY_DANGEROUS",
-        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-    }, {
-        "category": "HARM_CATEGORY_VIOLENCE",
-        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-    }, {
-        "category": "HARM_CATEGORY_SEXUAL",
-        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-    }]
+_GEMINI_REQ_DATA = {
+    'contents': [{
+        'parts': [{
+            'text': '',
+        }],
+    }],
+    'generationConfig': {
+        'temperature': _TEMPERATURE,
+    },
+    'safetySettings': [
+        {
+            "category": "HARM_CATEGORY_HARASSMENT",
+            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+        },
+        {
+            "category": "HARM_CATEGORY_HATE_SPEECH",
+            "threshold": "BLOCK_ONLY_HIGH"
+        },
+        {
+            "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+        },
+        {
+            "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+        },
+    ]
 }
 
 _SKIP_BEGIN_CHARS = ['`', '*']
 
 
-def detect_via_text(query: str, history: List[List[str]],
-                    ctr: counters.Counters) -> Dict:
-  req_data = _TEXT_REQ_DATA.copy()
+def detect_with_geminipro(query: str, history: List[List[str]],
+                          ctr: counters.Counters) -> Dict:
+  req_data = _GEMINI_REQ_DATA.copy()
 
-  text = current_app.config['PALM_PROMPT_TEXT'].detection_text + '\n\n'
+  text = current_app.config['LLM_PROMPT_TEXT'].gemini_pro + '\n\n'
   if not history:
     # For the first query in the session.
     text += 'Convert this sentence to JSON: "' + query + '"'
@@ -97,27 +96,34 @@ def detect_via_text(query: str, history: List[List[str]],
     # For subsequent queries in the session.
     text += 'As a follow up to the last sentence, convert this sentence to JSON: "' + query + '"'
 
-  req_data['prompt']['text'] = text
+  req_data['contents'][0]['parts'][0]['text'] = text
 
   start_time = time.time()
   req = json.dumps(req_data)
   # NOTE: llm_detector.detect() caller checks this.
-  api_key = current_app.config['PALM_API_KEY']
-  r = requests.post(f'{_TEXT_API_URL_BASE}?key={api_key}',
+  api_key = current_app.config['LLM_API_KEY']
+  r = requests.post(f'{_GEMINI_PRO_URL_BASE}?key={api_key}',
                     data=req,
                     headers=_API_HEADER)
   resp = r.json()
-  ctr.timeit('palm_api_text_call', start_time)
+  ctr.timeit('gemini_pro_call', start_time)
 
-  return parse_response(query, resp, field='output', ctr=ctr)
+  return parse_response(query,
+                        resp,
+                        get_content_fn=extract_gemini_response,
+                        ctr=ctr)
 
 
-def detect_via_chat(query: str, history: List[List[str]],
-                    ctr: counters.Counters) -> Dict:
-  req_data = _CHAT_REQ_DATA.copy()
+def extract_gemini_response(candidate: str) -> str:
+  # https://ai.google.dev/tutorials/rest_quickstart#text-only_input
+  return candidate.get('content', {}).get('parts', [{}])[0].get('text', '')
 
-  req_data['prompt']['context'] = current_app.config[
-      'PALM_PROMPT_TEXT'].detection_chat
+
+def detect_with_palm(query: str, history: List[List[str]],
+                     ctr: counters.Counters) -> Dict:
+  req_data = _PALM_REQ_DATA.copy()
+
+  req_data['prompt']['context'] = current_app.config['LLM_PROMPT_TEXT'].palm
   if not history:
     # For the first query in the session.
     q = 'Convert this sentence to JSON: "' + query + '"'
@@ -139,26 +145,34 @@ def detect_via_chat(query: str, history: List[List[str]],
   start_time = time.time()
   req = json.dumps(req_data)
   # NOTE: llm_detector.detect() caller checks this.
-  api_key = current_app.config['PALM_API_KEY']
-  r = requests.post(f'{_CHAT_API_URL_BASE}?key={api_key}',
+  api_key = current_app.config['LLM_API_KEY']
+  r = requests.post(f'{_PALM_URL_BASE}?key={api_key}',
                     data=req,
                     headers=_API_HEADER)
   resp = r.json()
-  ctr.timeit('palm_api_chat_call', start_time)
+  ctr.timeit('palm_call', start_time)
 
-  return parse_response(query, resp, field='content', ctr=ctr)
+  return parse_response(query,
+                        resp,
+                        get_content_fn=extract_palm_response,
+                        ctr=ctr)
 
 
-def parse_response(query: str, resp: Dict, field: str,
+def extract_palm_response(candidate: str) -> str:
+  # https://ai.google.dev/palm_docs/curl_quickstart#generate_message
+  return candidate.get('content', '')
+
+
+def parse_response(query: str, resp: Dict, get_content_fn: Callable[[str], str],
                    ctr: counters.Counters) -> Dict:
   if 'candidates' in resp and resp['candidates']:
     raw_content = resp['candidates'][0]
-    content = raw_content[field]
-    ctr.info('info_palm_api_response', raw_content)
+    content = get_content_fn(raw_content)
+    ctr.info('info_llm_api_response', raw_content)
     ans = _extract_answer(content)
     if not ans:
       logging.error(f'ERROR: empty parsed result for {query}')
-      ctr.err('failed_palm_api_emptyparsedresult', content)
+      ctr.err('failed_llm_api_emptyparsedresult', content)
       return {}
 
     try:
@@ -169,19 +183,19 @@ def parse_response(query: str, resp: Dict, field: str,
       ans_json = json5.loads(ans, allow_duplicate_keys=False)
     except Exception as e:
       logging.error(f'ERROR: json decoding failed {e}')
-      ctr.err('failed_palm_api_jsondecodeerror', ans)
+      ctr.err('failed_llm_api_jsondecodeerror', ans)
       return {}
 
     return ans_json
   elif resp.get('filters') and 'reason' in resp['filters'][0]:
-    ctr.err('failed_palm_api_filtered_resp', resp)
+    ctr.err('failed_llm_api_filtered_resp', resp)
     return {'UNSAFE': True}
 
   if "error" not in resp:
     # TODO: Unclear why this occasionally happens.
-    ctr.err('failed_palm_api_empty_noerr', resp)
+    ctr.err('failed_llm_api_empty_noerr', resp)
   else:
-    ctr.err('failed_palm_api_empty', f'{query} -> {resp["error"]}')
+    ctr.err('failed_llm_api_empty', f'{query} -> {resp["error"]}')
   return {}
 
 

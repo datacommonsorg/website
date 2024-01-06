@@ -23,5 +23,5 @@ To debug:
 python3 main.py --num_processes=1 --places_in_file=places-short.json --save_prompts=True
 ```
 
-A PaLM API Key must be specified under an environment variable named `PALM_API_KEY`.
+A GenAI API Key must be specified under an environment variable named `LLM_API_KEY`.
 A Mixer API Key must be specified under an environment variable named `MIXER_API_KEY`.

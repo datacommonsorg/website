@@ -114,11 +114,11 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     place_detector_type = PlaceDetectorType(place_detector_type)
 
   llm_api_type = request.args.get('llm_api',
-                                  default=LlmApiType.Chat.value,
+                                  default=LlmApiType.Palm.value,
                                   type=str).lower()
-  if llm_api_type not in [LlmApiType.Chat, LlmApiType.Text]:
+  if llm_api_type not in [LlmApiType.Palm, LlmApiType.GeminiPro]:
     logging.error(f'Unknown place_detector {place_detector_type}')
-    llm_api_type = LlmApiType.Chat
+    llm_api_type = LlmApiType.Palm
   else:
     llm_api_type = LlmApiType(llm_api_type)
 
