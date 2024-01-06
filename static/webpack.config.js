@@ -45,9 +45,12 @@ const config = {
     mcf_playground: __dirname + "/js/mcf_playground.js",
     place: [
       __dirname + "/js/place/place.ts",
-      __dirname + "/css/place/place.scss",
+      __dirname + "/css/place/place_page.scss",
     ],
-    place_landing: [__dirname + "/js/place/place_landing.ts"],
+    place_landing: [
+      __dirname + "/js/place/place_landing.ts",
+      __dirname + "/css/place/place_landing.scss",
+    ],
     topic_page: [
       __dirname + "/js/apps/topic_page/main.ts",
       __dirname + "/css/topic_page.scss",
