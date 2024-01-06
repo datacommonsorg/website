@@ -23,7 +23,8 @@ limitations under the License.
 {% set place_category = category %}
 
 {% block head %}
-<link rel="stylesheet" href={{url_for('static', filename='css/place.min.css' , t=config['VERSION'])}}>
+<link rel="stylesheet" href={{url_for('static', filename='css/place_page.min.css' , t=config['VERSION'])}}>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 {% endblock %}
 
 {% block content %}
@@ -38,21 +39,16 @@ limitations under the License.
       </div>
     </div>
     <div id="main" class="col-md-9x col-lg-10">
-      <div id="title" class="row" data-dcid="{{ place_dcid }}">
-        <div class="col-12 col-md-6 order-last order-md-2">
-          <h1 id="place-name" data-pn="{{ place_name }}">{{ place_name }}</h1>
-          <h3 id="place-type" data-pt="{{ place_type }}"></h3>
-          <h3 id="locale" data-lc="{{ locale }}"></h3>
-          <div id="place-highlight"></div>
-        </div>
-        <div class="col-12 col-md-6 order-first order-md-last pb-3 pb-md-0">
-          <div class="search border">
-            <div id="location-field">
-              <div id="search-icon"></div>
-              {# TRANSLATORS: A hint shown in the search box, asking users to search for places. #}
-              <input id="place-autocomplete"
-                placeholder="{% trans %}Enter a country, state, county or city{% endtrans %}" type="text" />
-            </div>
+      <div id="title" data-dcid="{{ place_dcid }}">
+        <div id="place-heading-container">
+          <div id="place-heading">
+            <h1 id="place-name" data-pn="{{ place_name }}">{{ place_name }}</h1>
+            <h3 id="place-type" data-pt="{{ place_type }}"></h3>
+            <h3 id="locale" data-lc="{{ locale }}"></h3>
+            <div id="place-highlight"></div>
+          </div>
+          <div id="place-change-ui">
+            <div id="place-search-container"></div>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,27 +14,11 @@
  * limitations under the License.
  */
 
-/* Shared styles for <Modal> */
+/** Styles for /place landing page */
 
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/mixins";
+@import "place";
+@import "place_search";
 
-$border: 0.5px solid #dee2e6;
-
-.modal textarea {
-  background: #efefef;
-  border-radius: 3px;
-  border: $border;
-  display: flex;
-  font-family: monospace;
-  margin: auto;
-  padding: 0.5rem;
-}
-
-.modal-dialog {
-  @include media-breakpoint-down(md) {
-    max-width: calc(100% - 30px);
-    margin: auto;
-  }
+.landing-link {
+  margin-left: 0.25em;
 }
