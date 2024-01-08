@@ -21,7 +21,7 @@ from typing import Dict, List
 from server.lib.nl.common import counters
 from server.lib.nl.common import serialize
 from server.lib.nl.common import utterance
-from server.lib.nl.detection import palm_api
+from server.lib.nl.detection import llm_api
 from server.lib.nl.detection import place
 from server.lib.nl.detection import types
 from server.lib.nl.detection import utils as dutils
@@ -101,10 +101,10 @@ _LLM_OP_TO_QUANTITY_OP = {
 # Returns False if the query fails safety check.
 def check_safety(query: str, llm_api_type: LlmApiType,
                  ctr: counters.Counters) -> Detection:
-  if llm_api_type == LlmApiType.Text:
-    llm_resp = palm_api.detect_via_text(query, [], ctr)
+  if llm_api_type == LlmApiType.GeminiPro:
+    llm_resp = llm_api.detect_with_geminipro(query, [], ctr)
   else:
-    llm_resp = palm_api.detect_via_chat(query, [], ctr)
+    llm_resp = llm_api.detect_with_palm(query, [], ctr)
   if llm_resp.get('UNSAFE') == True:
     return False
   return True
@@ -120,10 +120,10 @@ def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
     history.append((u.query, u.llm_resp))
     u = u.prev_utterance
 
-  if llm_api_type == LlmApiType.Text:
-    llm_resp = palm_api.detect_via_text(query, history, ctr)
+  if llm_api_type == LlmApiType.GeminiPro:
+    llm_resp = llm_api.detect_with_geminipro(query, history, ctr)
   else:
-    llm_resp = palm_api.detect_via_chat(query, history, ctr)
+    llm_resp = llm_api.detect_with_palm(query, history, ctr)
 
   if llm_resp.get('UNSAFE') == True:
     return None
