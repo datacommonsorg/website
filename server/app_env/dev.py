@@ -20,6 +20,6 @@ class Config(_base.Config):
   LOG_QUERY = True
   SHOW_TOPIC = True
   GA_ACCOUNT = 'G-P9M91VX1T3'
-  USE_PALM = True
+  USE_LLM = True
   HIDE_DEBUG = False
   USE_MEMCACHE = False
