@@ -103,7 +103,7 @@ class TestParseResponse(unittest.TestCase):
                          }), (_INPUT5, {
                              'UNSAFE': True
                          })])
-  def test_chat(self, input, want):
+  def test_good(self, input, want):
     self.maxDiff = None
     response = {'candidates': [{'content': input}]}
     got = llm_api.parse_response('', response, llm_api.extract_palm_response,
@@ -116,7 +116,7 @@ class TestParseResponse(unittest.TestCase):
                                  Counters())
     self.assertEqual(got, want)
 
-  def test_text_block(self):
+  def test_unsafe(self):
     self.maxDiff = None
     response = {'candidates': [], 'filters': [{'reason': 'OTHER'}]}
     got = llm_api.parse_response('', response, llm_api.extract_gemini_response,

@@ -67,12 +67,12 @@ def detect(
   #
   if (detector_type in _LLM_API_DETECTORS and
       'LLM_API_KEY' not in current_app.config):
-    counters.err('failed_palm_keynotfound', '')
+    counters.err('failed_llm_keynotfound', '')
     detector_type = RequestedDetectorType.Heuristic.value
 
   if (detector_type in _LLM_API_DETECTORS and
       'LLM_PROMPT_TEXT' not in current_app.config):
-    counters.err('failed_palm_promptnotfound', '')
+    counters.err('failed_llm_promptnotfound', '')
     detector_type = RequestedDetectorType.Heuristic.value
 
   #
