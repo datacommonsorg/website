@@ -22,7 +22,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Average Income for Family Households\r\n1,Williams County,126095\r\n2,Dunn County,122699\r\n3,Divide County,118649\r\n4,Mountrail County,118316\r\n5,McKenzie County,117604\r\n6,Stark County,116735\r\n7,Burleigh County,115103\r\n8,Cass County,114000\r\n9,Burke County,113710\r\n10,Morton County,111901",
+      "data_csv": "rank,place,Average Income for Family Households\r\n1,Williams County,126095\r\n2,Dunn County,122699\r\n3,Divide County,118649\r\n4,Mountrail County,118316\r\n5,McKenzie County,117604\r\n49,Pierce County,76245\r\n50,McIntosh County,75949\r\n51,Rolette County,72908\r\n52,Benson County,69206\r\n53,Sioux County,56872",
       "srcs": [
         {
           "name": "data.census.gov",
@@ -56,7 +56,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Median Family Household Income\r\n1,Dunn County,107625\r\n2,Williams County,100650\r\n3,Mercer County,97866\r\n4,Stark County,96087\r\n5,Burleigh County,95104\r\n6,Burke County,94028\r\n7,Morton County,93092\r\n8,Billings County,92344\r\n9,Foster County,91750\r\n10,Steele County,90179",
+      "data_csv": "rank,place,Median Family Household Income\r\n1,Dunn County,107625\r\n2,Williams County,100650\r\n3,Mercer County,97866\r\n4,Stark County,96087\r\n5,Burleigh County,95104\r\n49,Sheridan County,64000\r\n50,Kidder County,63716\r\n51,Benson County,54962\r\n52,Rolette County,53285\r\n53,Sioux County,42619",
       "srcs": [
         {
           "name": "data.census.gov",
@@ -90,7 +90,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Median Married Couple Family Household Income\r\n1,Williams County,114939\r\n2,Dunn County,110000\r\n3,McKenzie County,109798\r\n4,Burleigh County,108658\r\n5,Stark County,105861\r\n6,Mercer County,105538\r\n7,Billings County,102750\r\n8,Divide County,102540\r\n9,Cass County,101382\r\n10,Morton County,100945",
+      "data_csv": "rank,place,Median Married Couple Family Household Income\r\n1,Williams County,114939\r\n2,Dunn County,110000\r\n3,McKenzie County,109798\r\n4,Burleigh County,108658\r\n5,Stark County,105861\r\n49,Logan County,69342\r\n50,McIntosh County,69010\r\n51,Sheridan County,69000\r\n52,Kidder County,65625\r\n53,Sioux County,63375",
       "srcs": [
         {
           "name": "data.census.gov",
@@ -124,7 +124,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Average Income for Married Couple Family Households\r\n1,Burleigh County,129824\r\n2,Cass County,129532\r\n3,Grand Forks County,111270\r\n4,Ward County,110209",
+      "data_csv": "rank,place,Average Income for Married Couple Family Households\r\n1,Burleigh County,129824\r\n2,Cass County,129532\r\n3,Grand Forks County,111270\r\n4,Ward County,110209\r\n3,Grand Forks County,111270\r\n4,Ward County,110209",
       "srcs": [
         {
           "name": "data.census.gov",
@@ -158,7 +158,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Average Income for Nonfamily Households\r\n1,McKenzie County,83059\r\n2,Williams County,80472\r\n3,Cavalier County,77149\r\n4,Dunn County,73967\r\n5,Mercer County,68320\r\n6,Mountrail County,65007\r\n7,Grant County,62168\r\n8,Steele County,59371\r\n9,Billings County,59074\r\n10,Golden Valley County,57585",
+      "data_csv": "rank,place,Average Income for Nonfamily Households\r\n1,McKenzie County,83059\r\n2,Williams County,80472\r\n3,Cavalier County,77149\r\n4,Dunn County,73967\r\n5,Mercer County,68320\r\n49,Divide County,39224\r\n50,Sioux County,38695\r\n51,Griggs County,37770\r\n52,Nelson County,36831\r\n53,Rolette County,31345",
       "srcs": [
         {
           "name": "data.census.gov",
@@ -192,7 +192,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Household Median Income\r\n1,Burke County,97802\r\n2,Dunn County,84459\r\n3,Divide County,83438\r\n4,Golden Valley County,83295\r\n5,Steele County,81354\r\n6,Williams County,80142\r\n7,Mercer County,78547\r\n8,McKenzie County,78442\r\n9,Mountrail County,76520\r\n10,Bowman County,76447",
+      "data_csv": "rank,place,Household Median Income\r\n1,Burke County,97802\r\n2,Dunn County,84459\r\n3,Divide County,83438\r\n4,Golden Valley County,83295\r\n5,Steele County,81354\r\n49,Kidder County,52419\r\n50,Towner County,51912\r\n51,Rolette County,49434\r\n52,Eddy County,44958\r\n53,Sioux County,39755",
       "srcs": [
         {
           "name": "census.gov",
@@ -226,7 +226,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Individual Median Income\r\n1,Burke County,47431\r\n2,McKenzie County,44009\r\n3,Sargent County,43662\r\n4,Williams County,43408\r\n5,Stark County,42509\r\n6,Steele County,42279\r\n7,Mountrail County,42256\r\n8,Burleigh County,42156\r\n9,Traill County,39759\r\n10,Dunn County,39413",
+      "data_csv": "rank,place,Individual Median Income\r\n1,Burke County,47431\r\n2,McKenzie County,44009\r\n3,Sargent County,43662\r\n4,Williams County,43408\r\n5,Stark County,42509\r\n49,Rolette County,31050\r\n50,Eddy County,29454\r\n51,Logan County,28929\r\n52,Benson County,27188\r\n53,Sioux County,20901",
       "srcs": [
         {
           "name": "census.gov",
@@ -262,7 +262,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,\"People Earning Up to $9,999\"\r\n1,Cass County,19656\r\n2,Grand Forks County,9822\r\n3,Burleigh County,8954\r\n4,Ward County,7335\r\n5,Morton County,3186\r\n6,Stark County,3150\r\n7,Stutsman County,3146\r\n8,Williams County,3050\r\n9,Richland County,2474\r\n10,Rolette County,1579",
+      "data_csv": "rank,place,\"People Earning Up to $9,999\"\r\n1,Cass County,19656\r\n2,Grand Forks County,9822\r\n3,Burleigh County,8954\r\n4,Ward County,7335\r\n5,Morton County,3186\r\n49,Oliver County,170\r\n50,Burke County,156\r\n51,Slope County,110\r\n52,Billings County,103\r\n53,Sheridan County,81",
       "srcs": [
         {
           "name": "census.gov",
@@ -275,7 +275,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,\"People Earning $10,000 and $14,999\"\r\n1,Cass County,9710\r\n2,Burleigh County,5087\r\n3,Grand Forks County,4421\r\n4,Ward County,3836\r\n5,Morton County,1759\r\n6,Stutsman County,1682\r\n7,Stark County,1590\r\n8,Williams County,1203\r\n9,Richland County,1087\r\n10,Ramsey County,922",
+      "data_csv": "rank,place,\"People Earning $10,000 and $14,999\"\r\n1,Cass County,9710\r\n2,Burleigh County,5087\r\n3,Grand Forks County,4421\r\n4,Ward County,3836\r\n5,Morton County,1759\r\n49,Golden Valley County,94\r\n50,Billings County,69\r\n51,Oliver County,68\r\n52,Steele County,62\r\n53,Slope County,54",
       "srcs": [
         {
           "name": "census.gov",
@@ -319,7 +319,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Median Incomes in Real Estate And Rental And Leasing\r\n1,Emmons County,118125\r\n2,McKenzie County,113281\r\n3,Dunn County,93158\r\n4,Walsh County,75938\r\n5,Ransom County,63958\r\n6,McHenry County,61389\r\n7,Ramsey County,61364\r\n8,Williams County,60089\r\n9,Billings County,53281\r\n10,McIntosh County,51875",
+      "data_csv": "rank,place,Median Incomes in Real Estate And Rental And Leasing\r\n1,Emmons County,118125\r\n2,McKenzie County,113281\r\n3,Dunn County,93158\r\n4,Walsh County,75938\r\n5,Ransom County,63958\r\n37,McLean County,10833\r\n38,Bottineau County,8750\r\n39,Barnes County,6563\r\n40,Steele County,4167\r\n41,Dickey County,3125",
       "srcs": [
         {
           "name": "census.gov",
@@ -332,7 +332,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Median Incomes in Health Care And Social Assistance\r\n1,Burke County,59583\r\n2,Steele County,55625\r\n3,Slope County,55417\r\n4,Adams County,46012\r\n5,Pierce County,45417\r\n6,Morton County,43568\r\n7,Burleigh County,43468\r\n8,McHenry County,41667\r\n9,Grand Forks County,40749\r\n10,Rolette County,40625",
+      "data_csv": "rank,place,Median Incomes in Health Care And Social Assistance\r\n1,Burke County,59583\r\n2,Steele County,55625\r\n3,Slope County,55417\r\n4,Adams County,46012\r\n5,Pierce County,45417\r\n49,LaMoure County,27077\r\n50,McIntosh County,26875\r\n51,Divide County,26369\r\n52,Hettinger County,25250\r\n53,Kidder County,23906",
       "srcs": [
         {
           "name": "census.gov",
@@ -385,7 +385,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Mean Income Deficit of Household: Family Household\r\n1,Steele County,25719\r\n2,Ransom County,25146\r\n3,Sioux County,19446\r\n4,Benson County,18693\r\n5,Rolette County,16013\r\n6,Williams County,15870\r\n7,Sargent County,12675\r\n8,Adams County,12516\r\n9,Mountrail County,12251\r\n10,Dunn County,11450",
+      "data_csv": "rank,place,Mean Income Deficit of Household: Family Household\r\n1,Steele County,25719\r\n2,Ransom County,25146\r\n3,Sioux County,19446\r\n4,Benson County,18693\r\n5,Rolette County,16013\r\n46,Burke County,5400\r\n47,Logan County,5108\r\n48,Renville County,4256\r\n49,Slope County,4069\r\n50,Griggs County,1966",
       "srcs": [
         {
           "name": "data.census.gov",
@@ -419,7 +419,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,\"Count of Household: Family Household, Owner Occupied\"\r\n1,Cass County,31049\r\n2,Burleigh County,20308\r\n3,Ward County,12168\r\n4,Grand Forks County,10604\r\n5,Morton County,7392\r\n6,Stark County,6109\r\n7,Williams County,5784\r\n8,Stutsman County,3744\r\n9,Richland County,3261\r\n10,McLean County,2436",
+      "data_csv": "rank,place,\"Count of Household: Family Household, Owner Occupied\"\r\n1,Cass County,31049\r\n2,Burleigh County,20308\r\n3,Ward County,12168\r\n4,Grand Forks County,10604\r\n5,Morton County,7392\r\n49,Logan County,438\r\n50,Sioux County,346\r\n51,Sheridan County,334\r\n52,Slope County,213\r\n53,Billings County,185",
       "srcs": [
         {
           "name": "data.census.gov",
@@ -453,7 +453,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Count of Household: Family Household\r\n1,Cass County,43600\r\n2,Burleigh County,24548\r\n3,Ward County,16828\r\n4,Grand Forks County,15571\r\n5,Williams County,9237\r\n6,Morton County,9019\r\n7,Stark County,7939\r\n8,Stutsman County,4915\r\n9,Richland County,3922\r\n10,McKenzie County,3183",
+      "data_csv": "rank,place,Count of Household: Family Household\r\n1,Cass County,43600\r\n2,Burleigh County,24548\r\n3,Ward County,16828\r\n4,Grand Forks County,15571\r\n5,Williams County,9237\r\n49,Golden Valley County,506\r\n50,Logan County,496\r\n51,Sheridan County,369\r\n52,Slope County,230\r\n53,Billings County,212",
       "srcs": [
         {
           "name": "census.gov",
@@ -487,7 +487,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Average Income for Households\r\n1,Williams County,112921\r\n2,Dunn County,106893\r\n3,McKenzie County,105700\r\n4,Mountrail County,100606\r\n5,Billings County,98764\r\n6,Cavalier County,96680\r\n7,Burke County,93941\r\n8,Stark County,93757\r\n9,Morton County,92356\r\n10,Mercer County,91827",
+      "data_csv": "rank,place,Average Income for Households\r\n1,Williams County,112921\r\n2,Dunn County,106893\r\n3,McKenzie County,105700\r\n4,Mountrail County,100606\r\n5,Billings County,98764\r\n49,Pierce County,65582\r\n50,Benson County,65093\r\n51,Sheridan County,64388\r\n52,Rolette County,61600\r\n53,Sioux County,53928",
       "srcs": [
         {
           "name": "data.census.gov",
@@ -521,7 +521,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Count of Household: Other Family Household\r\n1,Cass County,8771\r\n2,Burleigh County,4877\r\n3,Grand Forks County,3836\r\n4,Ward County,3325\r\n5,Williams County,2133\r\n6,Stark County,1718\r\n7,Morton County,1583\r\n8,Rolette County,1235\r\n9,Richland County,829\r\n10,Stutsman County,805",
+      "data_csv": "rank,place,Count of Household: Other Family Household\r\n1,Cass County,8771\r\n2,Burleigh County,4877\r\n3,Grand Forks County,3836\r\n4,Ward County,3325\r\n5,Williams County,2133\r\n49,Burke County,53\r\n50,Golden Valley County,40\r\n51,Logan County,39\r\n52,Billings County,17\r\n53,Slope County,16",
       "srcs": [
         {
           "name": "census.gov",
@@ -555,7 +555,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Mean Income Deficit of Household: Married Couple Family Household\r\n1,Steele County,25719\r\n2,Ransom County,22740\r\n3,Sioux County,21443\r\n4,Williams County,17531\r\n5,Benson County,17245\r\n6,Divide County,14352\r\n7,Mercer County,13235\r\n8,Rolette County,12933\r\n9,Sargent County,12832\r\n10,Adams County,12516",
+      "data_csv": "rank,place,Mean Income Deficit of Household: Married Couple Family Household\r\n1,Steele County,25719\r\n2,Ransom County,22740\r\n3,Sioux County,21443\r\n4,Williams County,17531\r\n5,Benson County,17245\r\n46,Slope County,4069\r\n47,Bottineau County,3847\r\n48,Burke County,3700\r\n49,Griggs County,2550\r\n50,Renville County,2026",
       "srcs": [
         {
           "name": "data.census.gov",

@@ -97,6 +97,9 @@ class PopulateState:
   quantity: QuantityClassificationAttributes = None
   # A single specified date to get data for.
   single_date: Date = None
+  # A date range to get data for. Only one of this or single_date should be set.
+  # If single_date is set, this will be ignored.
+  date_range: Date = None
   event_types: List[EventType] = field(default_factory=list)
   disable_fallback: bool = False
   # The list of chart-vars to process.  This is keyed by var / topic.
@@ -142,3 +145,4 @@ class ChartSpec:
   chart_origin: ChartOriginType
   is_sdg: bool
   single_date: Date
+  date_range: Date

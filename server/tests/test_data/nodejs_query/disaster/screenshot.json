@@ -22,7 +22,7 @@
       "dcUrl": "https://datacommons.org/explore#q=fires%20in%20california"
     },
     {
-      "data_csv": "rank,place,Count of Wildland Fire Event\r\n1,Riverside County,13\r\n2,San Bernardino County,10\r\n3,El Dorado County,10\r\n4,Tehama County,8\r\n5,Plumas County,7\r\n6,Fresno County,7\r\n7,Ventura County,6\r\n8,Sonoma County,6\r\n9,Shasta County,5\r\n10,Nevada County,5",
+      "data_csv": "rank,place,Count of Wildland Fire Event\r\n1,Riverside County,13\r\n2,San Bernardino County,10\r\n3,El Dorado County,10\r\n4,Tehama County,8\r\n5,Plumas County,7\r\n54,Kings County,1\r\n55,Kern County,1\r\n56,Inyo County,1\r\n57,Del Norte County,1\r\n58,Contra Costa County,1",
       "srcs": [
         {
           "name": "data-nifc.opendata.arcgis.com",

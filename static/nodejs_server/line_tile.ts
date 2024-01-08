@@ -52,6 +52,8 @@ function getTileProp(
     svgChartWidth: SVG_WIDTH,
     title: tileConfig.title,
     comparisonPlaces,
+    startDate: tileConfig.lineTileSpec?.startDate,
+    endDate: tileConfig.lineTileSpec?.endDate,
   };
 }
 

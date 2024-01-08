@@ -24,23 +24,46 @@ import yaml
 
 FLAGS = flags.FLAGS
 
+
+class Mode:
+  BUILD = "build"
+  DOWNLOAD = "download"
+
+
+flags.DEFINE_enum(
+    "mode",
+    Mode.BUILD,
+    [Mode.BUILD, Mode.DOWNLOAD],
+    f"Mode of operation",
+)
+
 flags.DEFINE_string(
     "model_version", None,
     "Existing finetuned model folder name on GCS (e.g. 'ft_final_v20230717230459.all-MiniLM-L6-v2'). If not specified, the version will be parsed from embeddings.yaml."
 )
-flags.DEFINE_string("sv_sentences_csv_path",
-                    None,
-                    "Path to the custom DC SV sentences path.",
-                    required=True)
+flags.DEFINE_string("sv_sentences_csv_path", None,
+                    "Path to the custom DC SV sentences path.")
 flags.DEFINE_string(
-    "output_dir",
-    None,
-    "Output directory where the generated embeddings will be saved.",
-    required=True)
+    "output_dir", None,
+    "Output directory where the generated embeddings will be saved.")
 
 MODELS_BUCKET = 'datcom-nl-models'
 EMBEDDINGS_CSV_FILENAME = "custom_embeddings.csv"
 EMBEDDINGS_YAML_FILE_NAME = "custom_embeddings.yaml"
+
+
+def download():
+  """Downloads the default FT model and embeddings.
+  """
+  ctx = _ctx_no_model()
+
+  # Download model.
+  model_version = utils.get_default_ft_model_version()
+  utils.get_or_download_model_from_gcs(ctx, model_version)
+
+  # Download embeddings.
+  embeddings_file_name = utils.get_default_ft_embeddings_file_name()
+  utils.get_or_download_file_from_gcs(ctx, embeddings_file_name)
 
 
 def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
@@ -90,13 +113,23 @@ def generate_embeddings_yaml(embeddings_csv_path: str,
 
 
 def _download_model(model_version: str) -> utils.Context:
-  bucket = storage.Client.create_anonymous_client().bucket(MODELS_BUCKET)
-  ctx_no_model = utils.Context(gs=None, model=None, bucket=bucket)
+  ctx_no_model = _ctx_no_model()
   model = utils.get_ft_model_from_gcs(ctx_no_model, model_version)
-  return utils.Context(gs=None, model=model, bucket=bucket)
+  return utils.Context(gs=None, model=model, bucket=ctx_no_model.bucket)
+
+
+def _ctx_no_model() -> utils.Context:
+  bucket = storage.Client.create_anonymous_client().bucket(MODELS_BUCKET)
+  return utils.Context(gs=None, model=None, bucket=bucket)
 
 
 def main(_):
+  if FLAGS.mode == Mode.DOWNLOAD:
+    download()
+    return
+
+  assert FLAGS.sv_sentences_csv_path
+  assert FLAGS.output_dir
   model_version = FLAGS.model_version
   if not model_version:
     model_version = utils.get_default_ft_model_version()

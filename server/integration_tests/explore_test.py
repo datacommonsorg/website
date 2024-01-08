@@ -474,3 +474,10 @@ class ExploreTest(NLWebServerTestCase):
         'population in the US in the last year',
         'hispanic women in California in 2001'
     ])
+
+  def test_e2e_date_range(self):
+    self.run_detect_and_fulfill('e2e_date_range', [
+        'Life expectancy in US states in the last 5 years',
+        'Population in California after 2013',
+        'Female population in New York before 2020'
+    ])
