@@ -466,6 +466,16 @@ class ExploreTest(NLWebServerTestCase):
             'how many day beijing snow in december?',
         ],
         mode='strict')
+    
+  def test_e2e_strict_multi_sv(self):
+    self.run_detect_and_fulfill(
+        'explore_strict_multi_var',
+        [
+            # This should fulfill even though there are only multi sv candidates
+            # detected and no single svs passed the detection threshold
+            'Does obesity correlate with lack of sleep in US counties'
+        ],
+        mode='strict')
 
   def test_e2e_single_date(self):
     self.run_detect_and_fulfill('e2e_single_date', [

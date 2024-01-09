@@ -55,7 +55,7 @@ def populate_charts(state: PopulateState) -> bool:
   places = state.uttr.places
   handle_contained_in_type(state, places)
 
-  if not state.uttr.svs:
+  if not state.uttr.svs and not state.uttr.multi_svs:
     state.uttr.counters.err('num_populate_fallbacks', 1)
     state.uttr.sv_source = FulfillmentResult.UNRECOGNIZED
     return False
