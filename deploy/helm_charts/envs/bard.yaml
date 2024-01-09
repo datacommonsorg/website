@@ -21,9 +21,16 @@ namespace:
 
 website:
   flaskEnv: custom
-  replicas: 4
+  replicas: 12
   redis:
-    enabled: false
+    enabled: true
+    configFile: |
+      {
+        "us-central1": {
+          "host": "10.83.62.11",
+          "port": "6379"
+        }
+      }
 
 serviceAccount:
   name: website-ksa
@@ -37,18 +44,18 @@ nl:
 
 nodejs:
   enabled: true
-  replicas: 50
+  replicas: 25
 
 serviceGroups:
   recon: null
   svg:
-    replicas: 2
+    replicas: 6
   node:
-    replicas: 5
+    replicas: 15
   observation:
-    replicas: 5
+    replicas: 15
   default:
-    replicas: 3
+    replicas: 9
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
