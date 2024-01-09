@@ -17,5 +17,5 @@ from server.app_env import _base
 
 class Config(_base.Config):
   GA_ACCOUNT = 'G-KWSES5WXZE'
-  USE_PALM = True
+  USE_LLM = True
   LOG_QUERY = True
