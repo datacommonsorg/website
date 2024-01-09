@@ -55,7 +55,7 @@ def populate_charts(state: PopulateState) -> bool:
   places = state.uttr.places
   handle_contained_in_type(state, places)
 
-  if not state.uttr.svs and not state.uttr.multi_svs:
+  if not state.chart_vars_map:
     state.uttr.counters.err('num_populate_fallbacks', 1)
     state.uttr.sv_source = FulfillmentResult.UNRECOGNIZED
     return False
@@ -64,8 +64,9 @@ def populate_charts(state: PopulateState) -> bool:
 
   if not success:
     state.uttr.counters.err('num_populate_fallbacks', 1)
-    state.uttr.counters.err('failed_populate_main_svs', state.uttr.svs)
-    if state.uttr.svs:
+    state.uttr.counters.err('failed_populate_main_svs',
+                            state.chart_vars_map.keys())
+    if state.chart_vars_map:
       if state.uttr.sv_source == FulfillmentResult.PAST_QUERY:
         # We did not recognize anything in this query, the SV
         # we tried is from the context.
@@ -188,7 +189,7 @@ def _maybe_switch_parent_type(
 def _add_charts_with_existence_check(state: PopulateState,
                                      places: List[Place]) -> bool:
   svs = state.uttr.svs
-  logging.info("Add chart %s %s" % (', '.join(_get_place_names(places)), svs))
+  logging.info("Add chart %s" % (', '.join(_get_place_names(places))))
 
   # This may set state.uttr.place_fallback
   _maybe_set_fallback(state, places)
