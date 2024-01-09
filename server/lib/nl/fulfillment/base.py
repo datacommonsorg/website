@@ -188,9 +188,6 @@ def _maybe_switch_parent_type(
 # Add charts given a place and a list of stat-vars.
 def _add_charts_with_existence_check(state: PopulateState,
                                      places: List[Place]) -> bool:
-  svs = state.uttr.svs
-  logging.info("Add chart %s" % (', '.join(_get_place_names(places))))
-
   # This may set state.uttr.place_fallback
   _maybe_set_fallback(state, places)
 
@@ -251,7 +248,7 @@ def _add_charts_with_existence_check(state: PopulateState,
         not state.ranking_types and num_charts < _MAX_NUM_CHARTS):
       # Note that we want to expand on existing_svs only, and in the
       # order of `svs`
-      ordered_existing_svs = [v for v in svs if v in existing_svs]
+      ordered_existing_svs = [v for v in state.uttr.svs if v in existing_svs]
       found |= _add_charts_for_extended_svs(state=state,
                                             places=places,
                                             svs=ordered_existing_svs,
