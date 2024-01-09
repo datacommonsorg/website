@@ -36,7 +36,8 @@ def _set_line_tile_spec(date_range: types.Date, line_tile_spec: LineTileSpec):
   line_tile_spec.end_date = end_date
 
 
-# Get facet id to use
+# Get facet id to use (use a facet id that has data for the sv).
+# Do this only if a date is specified.
 def _get_facet_id(sv: str, date: types.Date, cv: ChartVars) -> str:
   if not date:
     return ''
