@@ -21,7 +21,7 @@ namespace:
 
 website:
   flaskEnv: custom
-  replicas: 12
+  replicas: 20
   redis:
     enabled: true
     configFile: |
