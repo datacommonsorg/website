@@ -466,7 +466,7 @@ class ExploreTest(NLWebServerTestCase):
             'how many day beijing snow in december?',
         ],
         mode='strict')
-    
+
   def test_e2e_strict_multi_sv(self):
     self.run_detect_and_fulfill(
         'explore_strict_multi_var',
