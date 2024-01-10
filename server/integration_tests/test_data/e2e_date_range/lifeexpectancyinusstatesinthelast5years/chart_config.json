@@ -141,7 +141,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "LifeExpectancy_Person_Female_2776657033",
+                      "LifeExpectancy_Person_Female_3397709707",
                       "LifeExpectancy_Person_Male_3397709707"
                     ],
                     "title": "Life Expectancy by Gender in United States",
@@ -167,8 +167,8 @@
             "name": "Female Life Expectancy",
             "statVar": "LifeExpectancy_Person_Female"
           },
-          "LifeExpectancy_Person_Female_2776657033": {
-            "facetId": "2776657033",
+          "LifeExpectancy_Person_Female_3397709707": {
+            "facetId": "3397709707",
             "name": "Female Life Expectancy",
             "statVar": "LifeExpectancy_Person_Female"
           },

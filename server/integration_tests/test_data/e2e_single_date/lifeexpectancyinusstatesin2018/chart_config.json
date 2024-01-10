@@ -134,7 +134,7 @@
                   {
                     "statVarKey": [
                       "LifeExpectancy_Person_Female_2018_3397709707",
-                      "LifeExpectancy_Person_Male_2018_2776657033"
+                      "LifeExpectancy_Person_Male_2018_3397709707"
                     ],
                     "title": "Life Expectancy by Gender in United States",
                     "type": "LINE"
@@ -173,9 +173,9 @@
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           },
-          "LifeExpectancy_Person_Male_2018_2776657033": {
+          "LifeExpectancy_Person_Male_2018_3397709707": {
             "date": "2018",
-            "facetId": "2776657033",
+            "facetId": "3397709707",
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           }
