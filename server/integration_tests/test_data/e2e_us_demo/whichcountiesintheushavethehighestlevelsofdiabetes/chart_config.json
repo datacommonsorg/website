@@ -149,6 +149,7 @@
                 ]
               }
             ],
+            "description": "Diabetes prevalence refers to the percentage of people ages 20-79 who have type 1 or type 2 diabetes. International diabetes federation, diabetes atlas.",
             "title": "Population: 20-79 Years, Diabetes (As Fraction of Count Person 20 to 79 Years)"
           },
           {
