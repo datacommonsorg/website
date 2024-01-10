@@ -61,6 +61,7 @@
                 ]
               }
             ],
+            "description": "Crude birth rate indicates the number of live births occurring during the year, per 1,000 population estimated at midyear. Subtracting the crude death rate from the crude birth rate provides the rate of natural increase, which is equal to the rate of population change in the absence of migration. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
             "title": "Count of Birth Event: Live Birth (Per Capita)"
           },
           {
@@ -243,6 +244,7 @@
                 ]
               }
             ],
+            "description": "Infant mortality rate, female is the number of female infants dying before reaching one year of age, per 1,000 female live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
             "title": "Female Infant Mortality Rate"
           },
           {
