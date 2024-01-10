@@ -19,8 +19,14 @@
   "context": {},
   "debug": {},
   "entities": [
-    "country/USA"
+    "geoId/06085"
   ],
   "sessionId": "007_999999999",
-  "variables": []
+  "variables": [
+    "Count_CriminalActivities_Robbery",
+    "Count_CriminalActivities_LarcenyTheft",
+    "Count_CriminalActivities_MotorVehicleTheft",
+    "Count_CriminalActivities_PropertyCrime",
+    "Count_CriminalActivities_CombinedCrime"
+  ]
 }
