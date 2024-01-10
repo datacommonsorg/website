@@ -34,7 +34,7 @@ Additionally, a custom DC combines its own local datasets with base DC datasets 
 
 ## Quick Start
 
-Once the prerequisites and api keys from above are in place, 
+Once the prerequisites and api keys from above are in place,
 here's how you can start a local custom DC instance quickly.
 
 > Note that this is only a quick start section. See the rest of the sections for more details.
@@ -61,6 +61,7 @@ To start the custom DC services, in the root of this repository, run Docker as f
 
 ```bash
 docker run -it \
+--pull=always \
 -p 8080:8080 \
 -e DEBUG=true \
 --env-file $PWD/custom_dc/sqlite_env.list \
@@ -69,7 +70,7 @@ docker run -it \
 gcr.io/datcom-ci/datacommons-website-compose:stable
 ```
 
-The first time this is run, it will download the latest stable docker image (`gcr.io/datcom-ci/datacommons-website-compose:stable`) from the cloud 
+The first time this is run, it will download the latest stable docker image (`gcr.io/datcom-ci/datacommons-website-compose:stable`) from the cloud
 which could take a few minutes. Subsequent runs will use the previously downloaded image on your machine.
 
 ### Local website
@@ -83,9 +84,11 @@ To load custom data, point your browser to the admin page at (http://localhost:8
 
 Since we've not specified an `ADMIN_SECRET` yet, leave it blank. Click on "Load Data".
 
-Clicking the "Load Data" button will load the sample data provided for you in `custom_dc/sample`. The custom data that was used here was specified in the `docker run` command (`-v $PWD/custom_dc/sample:/userdata`).
+Clicking the "Load Data" button will load the sample data provided for you in
+`custom_dc/sample`. The custom data that was used here was specified in the
+`docker run` command (`-v $PWD/custom_dc/sample:/userdata`).
 
-Loading the data may take a few seconds. Once it is successful, you can visit the timeline explorer (http://localhost:8080/tools/timeline) 
+Loading the data may take a few seconds. Once it is successful, you can visit the timeline explorer (http://localhost:8080/tools/timeline)
 and other tools again to explore the custom data that you just loaded.
 
 ### Next steps
@@ -95,12 +98,12 @@ As next steps, you can load your actual data and / or customize the look and fee
 You can load your actual data either by copying it to the `custom_dc/sample` folder
 or by updating the `-v` mapping when running Docker to point to a different data folder (i.e. `-v /path/to/your/data/folder:/userdata`)
 
-You can customize the look and feel by updating the html files under 
+You can customize the look and feel by updating the html files under
 `server/templates/custom_dc/custom`.
 
 Congratulations on bringing up your own Custom DC instance!
 
-Now that you have your instance running, consider going through the rest of the sections 
+Now that you have your instance running, consider going through the rest of the sections
 for more details on Custom DC development.
 
 ## Local Development
@@ -125,6 +128,7 @@ In the root of this repository, run:
 
 ```bash
 docker run -it \
+--pull=always \
 --env-file $PWD/custom_dc/sqlite_env.list \
 -p 8080:8080 \
 -e DEBUG=true \
@@ -203,6 +207,7 @@ In the root of this repository, run:
 
 ```bash
 docker run -it \
+--pull=always \
 --env-file $PWD/custom_dc/cloudsql_env.list \
 -p 8080:8080 \
 -e DEBUG=true \
