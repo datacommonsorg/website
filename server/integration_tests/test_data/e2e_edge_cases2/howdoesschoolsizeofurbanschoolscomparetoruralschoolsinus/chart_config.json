@@ -10,57 +10,35 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_EnrolledInKindergarten"
-                    ],
-                    "title": "Population: Enrolled in Kindergarten in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Enrolled in Kindergarten in United States",
-                    "statVarKey": [
-                      "Count_Person_EnrolledInKindergarten"
-                    ],
-                    "title": "Population: Enrolled in Kindergarten in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Enrolled in Kindergarten"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
+                      "Count_Person_EnrolledInKindergarten",
                       "Count_Person_EnrolledInSchool"
                     ],
-                    "title": "Population Currently Enrolled in School in United States",
+                    "title": "Population: Enrolled in Kindergarten and Population Currently Enrolled in School in United States",
                     "type": "LINE"
                   }
                 ]
-              },
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Enrolled in Kindergarten and Population Currently Enrolled in School"
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population Currently Enrolled in School in United States",
                     "statVarKey": [
+                      "Count_Person_DetailedPrimarySchool",
                       "Count_Person_EnrolledInSchool"
                     ],
-                    "title": "Population Currently Enrolled in School in United States",
-                    "type": "HIGHLIGHT"
+                    "title": "Elementary School Students and Population Currently Enrolled in School in United States",
+                    "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Currently Enrolled in School"
+            "title": "Elementary School Students and Population Currently Enrolled in School"
           },
           {
             "columns": [
@@ -68,28 +46,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool"
+                      "Count_Person_DetailedMiddleSchool",
+                      "Count_Person_EnrolledInSchool"
                     ],
-                    "title": "Elementary School Students in United States",
+                    "title": "Middle School Students and Population Currently Enrolled in School in United States",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Elementary School Students in United States",
-                    "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool"
-                    ],
-                    "title": "Elementary School Students in United States",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Elementary School Students"
+            "title": "Middle School Students and Population Currently Enrolled in School"
           },
           {
             "columns": [
@@ -97,57 +64,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_DetailedMiddleSchool"
+                      "Count_Person_DetailedHighSchool",
+                      "Count_Person_EnrolledInSchool"
                     ],
-                    "title": "Middle School Students in United States",
+                    "title": "High School Students and Population Currently Enrolled in School in United States",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Middle School Students in United States",
-                    "statVarKey": [
-                      "Count_Person_DetailedMiddleSchool"
-                    ],
-                    "title": "Middle School Students in United States",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Middle School Students"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_DetailedHighSchool"
-                    ],
-                    "title": "High School Students in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "High School Students in United States",
-                    "statVarKey": [
-                      "Count_Person_DetailedHighSchool"
-                    ],
-                    "title": "High School Students in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "High School Students"
+            "title": "High School Students and Population Currently Enrolled in School"
           }
         ],
         "statVarSpec": {
@@ -199,15 +126,7 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/StudentPopulation",
-        "name": "Student Population",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childTopics": [],
     "exploreMore": {
       "Count_Person_DetailedHighSchool": {
         "race": [
@@ -269,25 +188,9 @@
         ]
       }
     },
-    "mainTopics": [
-      {
-        "dcid": "dc/topic/Schools",
-        "name": "Schools",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "mainTopics": [],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Education",
-        "name": "Education",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "country/BRA",
@@ -388,22 +291,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/EducationalAttainment",
-        "name": "Educational Attainment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/SchoolType",
-        "name": "School Type",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessage": "Low confidence in understanding your query. Displaying the closest results."

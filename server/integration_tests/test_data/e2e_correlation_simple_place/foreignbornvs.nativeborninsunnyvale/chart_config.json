@@ -1,0 +1,499 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn",
+                      "Count_Person_NativeBornOutsideTheUnitedStates"
+                    ],
+                    "title": "Population: Foreign Born and Population: Native Born Outside the United States in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born and Population: Native Born Outside the United States"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person_ForeignBorn": {
+            "name": "Population: Foreign Born",
+            "statVar": "Count_Person_ForeignBorn"
+          },
+          "Count_Person_NativeBornOutsideTheUnitedStates": {
+            "name": "Population: Native Born Outside The United States",
+            "statVar": "Count_Person_NativeBornOutsideTheUnitedStates"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/0677000"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/0677000",
+    "name": "Sunnyvale",
+    "place_type": "City"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/0677000",
+      "name": "Sunnyvale",
+      "place_type": "City"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_ForeignBorn": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn",
+          "Count_Person_18To24Years_ForeignBorn",
+          "Count_Person_25To34Years_ForeignBorn",
+          "Count_Person_35To44Years_ForeignBorn",
+          "Count_Person_45To54Years_ForeignBorn",
+          "Count_Person_55To59Years_ForeignBorn",
+          "Count_Person_5To17Years_ForeignBorn",
+          "Count_Person_60To61Years_ForeignBorn",
+          "Count_Person_62To64Years_ForeignBorn",
+          "Count_Person_65To74Years_ForeignBorn",
+          "Count_Person_75OrMoreYears_ForeignBorn",
+          "Count_Person_Upto5Years_ForeignBorn"
+        ],
+        "income": [
+          "dc/6tec6g9sjcn41",
+          "dc/9ykj7mxpnd377",
+          "dc/b24gfr1kk3vhd",
+          "dc/hrl4g7g9pzej8",
+          "dc/htl9jt7z1e3kh",
+          "dc/myxl9gjwj2vyf",
+          "dc/sk99b62hjx32g",
+          "dc/x14vlvpv64rrc"
+        ],
+        "incomeStatus": [
+          "dc/dyhxtqe2pxhl5",
+          "dc/gvnh5cpl9h1rf"
+        ],
+        "maritalStatus": [
+          "dc/5g7vkrkzfre5g",
+          "dc/jceld0k7ysbw3",
+          "dc/qj9v0vqzp9vlg",
+          "dc/tm2h6clmndl3b",
+          "dc/twlffl9b5vgn3"
+        ]
+      },
+      "Count_Person_NativeBornOutsideTheUnitedStates": {
+        "age": [
+          "Count_Person_15OrMoreYears_NativeBornOutsideTheUnitedStates",
+          "Count_Person_18To24Years_NativeBornOutsideTheUnitedStates",
+          "Count_Person_25To34Years_NativeBornOutsideTheUnitedStates",
+          "Count_Person_35To44Years_NativeBornOutsideTheUnitedStates",
+          "Count_Person_45To54Years_NativeBornOutsideTheUnitedStates",
+          "Count_Person_55To59Years_NativeBornOutsideTheUnitedStates",
+          "Count_Person_5To17Years_NativeBornOutsideTheUnitedStates",
+          "Count_Person_60To61Years_NativeBornOutsideTheUnitedStates",
+          "Count_Person_62To64Years_NativeBornOutsideTheUnitedStates",
+          "Count_Person_65To74Years_NativeBornOutsideTheUnitedStates",
+          "Count_Person_75OrMoreYears_NativeBornOutsideTheUnitedStates",
+          "Count_Person_Upto5Years_NativeBornOutsideTheUnitedStates"
+        ],
+        "income": [
+          "dc/2nwm00615j8p3",
+          "dc/b5cgqzknltjsb",
+          "dc/cdzmrcp0yred5",
+          "dc/hjhm0w8x9ppv7",
+          "dc/hy20s3ev8yy13",
+          "dc/kcs3py61c0qj3",
+          "dc/ql96e1p87wpm1",
+          "dc/sgnln4hpf3yph"
+        ],
+        "incomeStatus": [
+          "dc/1y59h5d6qjq91",
+          "dc/ry2tnmstly7wd"
+        ],
+        "maritalStatus": [
+          "dc/079ewbkwfmswg",
+          "dc/dj7cvhr91sff5",
+          "dc/l2pbn6flhhmq",
+          "dc/rkxgse26ln224",
+          "dc/stp8qcer02x07"
+        ]
+      }
+    },
+    "mainTopics": [],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/3502000",
+        "name": "Albuquerque",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0203000",
+        "name": "Anchorage municipality",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2603000",
+        "name": "Ann Arbor",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1304000",
+        "name": "Atlanta",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4805000",
+        "name": "Austin",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2404000",
+        "name": "Baltimore",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1608830",
+        "name": "Boise",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2507000",
+        "name": "Boston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4513330",
+        "name": "Charleston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3712000",
+        "name": "Charlotte",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1714000",
+        "name": "Chicago",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3915000",
+        "name": "Cincinnati",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3916000",
+        "name": "Cleveland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3918000",
+        "name": "Columbus",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4819000",
+        "name": "Dallas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0820000",
+        "name": "Denver",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2622000",
+        "name": "Detroit",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4824000",
+        "name": "El Paso",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0937000",
+        "name": "Hartford",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4835000",
+        "name": "Houston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1836003",
+        "name": "Indianapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2836000",
+        "name": "Jackson",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1235000",
+        "name": "Jacksonville",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2938000",
+        "name": "Kansas City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3240000",
+        "name": "Las Vegas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0541000",
+        "name": "Little Rock",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0644000",
+        "name": "Los Angeles",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2148006",
+        "name": "Louisville/Jefferson County metro government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5548000",
+        "name": "Madison",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4748000",
+        "name": "Memphis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1245000",
+        "name": "Miami",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5553000",
+        "name": "Milwaukee",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2743000",
+        "name": "Minneapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0649670",
+        "name": "Mountain View",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4752006",
+        "name": "Nashville-Davidson metropolitan government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0952000",
+        "name": "New Haven",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2255000",
+        "name": "New Orleans",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/3651000",
+        "name": "New York",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0653000",
+        "name": "Oakland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4055000",
+        "name": "Oklahoma City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3137000",
+        "name": "Omaha",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1253000",
+        "name": "Orlando",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0655282",
+        "name": "Palo Alto",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4260000",
+        "name": "Philadelphia",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0455000",
+        "name": "Phoenix",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4261000",
+        "name": "Pittsburgh",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4159000",
+        "name": "Portland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5167000",
+        "name": "Richmond",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/0664000",
+        "name": "Sacramento",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4967000",
+        "name": "Salt Lake City",
+        "types": [
+          "City"
+        ]
+      }
+    ],
+    "peerTopics": []
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}
