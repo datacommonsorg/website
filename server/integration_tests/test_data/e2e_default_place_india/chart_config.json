@@ -1,0 +1,724 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Women in India",
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Female, Urban in India",
+                    "statVarKey": [
+                      "Count_Person_Urban_Female"
+                    ],
+                    "title": "Population: Female, Urban in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Urban"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Urban_Female"
+                    ],
+                    "title": "Population: Female, Urban in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Urban in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Female, Rural in India",
+                    "statVarKey": [
+                      "Count_Person_Rural_Female"
+                    ],
+                    "title": "Population: Female, Rural in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Rural"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Rural_Female"
+                    ],
+                    "title": "Population: Female, Rural in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Rural in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/IND"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_multiple_place_bar_block",
+                      "Count_Person_Male_multiple_place_bar_block"
+                    ],
+                    "title": "Population by Gender in India (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male"
+                    ],
+                    "title": "Men in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Gender in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 6 Years or Less, Female, Rural in India",
+                    "statVarKey": [
+                      "Count_Person_YearsUpto6_Rural_Female"
+                    ],
+                    "title": "Population: 6 Years or Less, Female, Rural in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 6 Years or Less, Female, Rural"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_YearsUpto6_Rural_Female"
+                    ],
+                    "title": "Population: 6 Years or Less, Female, Rural in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 6 Years or Less, Female, Rural in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Female, Literate in India",
+                    "statVarKey": [
+                      "Count_Person_Literate_Female"
+                    ],
+                    "title": "Population: Female, Literate in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Literate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Literate_Female"
+                    ],
+                    "title": "Population: Female, Literate in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Literate in Administrative Area 1 Places of India"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person_Female": {
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
+          "Count_Person_Female_multiple_place_bar_block": {
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
+          "Count_Person_Literate_Female": {
+            "name": "Population: Female, Literate",
+            "statVar": "Count_Person_Literate_Female"
+          },
+          "Count_Person_Male": {
+            "name": "Men",
+            "statVar": "Count_Person_Male"
+          },
+          "Count_Person_Male_multiple_place_bar_block": {
+            "name": "Men",
+            "statVar": "Count_Person_Male"
+          },
+          "Count_Person_Rural_Female": {
+            "name": "Population: Female, Rural",
+            "statVar": "Count_Person_Rural_Female"
+          },
+          "Count_Person_Urban_Female": {
+            "name": "Population: Female, Urban",
+            "statVar": "Count_Person_Urban_Female"
+          },
+          "Count_Person_YearsUpto6_Rural_Female": {
+            "name": "Population: 6 Years or Less, Female, Rural",
+            "statVar": "Count_Person_YearsUpto6_Rural_Female"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Country": "AdministrativeArea1"
+      },
+      "placeDcid": [
+        "country/IND"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "India",
+  "place": {
+    "dcid": "country/IND",
+    "name": "India",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "DEFAULT",
+  "places": [
+    {
+      "dcid": "country/IND",
+      "name": "India",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "AdministrativeArea1": [
+        {
+          "dcid": "wikidataId/Q1061",
+          "name": "Gujarat",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1159",
+          "name": "Andhra Pradesh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1162",
+          "name": "Arunachal Pradesh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1164",
+          "name": "Assam",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1165",
+          "name": "Bihar",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1168",
+          "name": "Chhattisgarh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1171",
+          "name": "Goa",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1174",
+          "name": "Haryana",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1177",
+          "name": "Himachal Pradesh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1184",
+          "name": "Jharkhand",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1185",
+          "name": "Karnataka",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1186",
+          "name": "Kerala",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1188",
+          "name": "Madhya Pradesh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1191",
+          "name": "Maharashtra",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1193",
+          "name": "Manipur",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1195",
+          "name": "Meghalaya",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1353",
+          "name": "Delhi",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1356",
+          "name": "West Bengal",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1363",
+          "name": "Tripura",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1437",
+          "name": "Rajasthan",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1445",
+          "name": "Tamil Nadu",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1498",
+          "name": "Uttar Pradesh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1499",
+          "name": "Uttarakhand",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1502",
+          "name": "Mizoram",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1505",
+          "name": "Sikkim",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1599",
+          "name": "Nagaland",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q200667",
+          "name": "Ladakh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q22048",
+          "name": "Odisha",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q22424",
+          "name": "Punjab",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q260713",
+          "name": "Gorkhaland",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q26927",
+          "name": "Lakshadweep",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q40888",
+          "name": "Andaman and Nicobar Islands",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43433",
+          "name": "Chandigarh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q6432969",
+          "name": "Kosal state movement",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q66278313",
+          "name": "Jammu and Kashmir",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q66710",
+          "name": "Daman and Diu",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q677037",
+          "name": "Telangana",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_Female": {
+        "placeOfResidenceClassification": [
+          "Count_Person_Rural_Female",
+          "Count_Person_Urban_Female"
+        ]
+      },
+      "Count_Person_YearsUpto6_Rural_Female": {
+        "religion": [
+          "indianCensus/Count_Person_Religion_Buddhist_YearsUpto6_Rural_Female",
+          "indianCensus/Count_Person_Religion_Christian_YearsUpto6_Rural_Female",
+          "indianCensus/Count_Person_Religion_Hindu_YearsUpto6_Rural_Female",
+          "indianCensus/Count_Person_Religion_Jain_YearsUpto6_Rural_Female",
+          "indianCensus/Count_Person_Religion_Muslim_YearsUpto6_Rural_Female",
+          "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_YearsUpto6_Rural_Female",
+          "indianCensus/Count_Person_Religion_ReligionNotStated_YearsUpto6_Rural_Female",
+          "indianCensus/Count_Person_Religion_Sikh_YearsUpto6_Rural_Female"
+        ],
+        "socialCategory": [
+          "Count_Person_ScheduledCaste_YearsUpto6_Rural_Female",
+          "Count_Person_ScheduledTribe_YearsUpto6_Rural_Female"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Gender",
+        "name": "Gender",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": []
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Could not recognize any place in the query. See relevant statistics for India."
+}

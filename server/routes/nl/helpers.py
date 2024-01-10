@@ -47,15 +47,32 @@ from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
 import server.lib.nl.fulfillment.fulfiller as fulfillment
 import server.lib.nl.fulfillment.utils as futils
+from server.lib.shared import names
 from server.lib.translator import detect_lang_and_translate
 from server.lib.translator import translate_page_config
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
+from server.routes.shared_api.place import get_place_type
 import server.services.bigtable as bt
 from shared.lib.constants import EN_LANG_CODE
 import shared.lib.utils as shared_utils
 
 _SANITY_TEST = 'sanity'
+
+
+# Get the default place to be used for fulfillment. If there is a place in the
+# request, use that. Otherwise, use pre-chosen places.
+def _get_default_place(request: Dict, is_sdg: bool):
+  default_place_dcid = request.args.get('default_place', default='', type=str)
+  if default_place_dcid:
+    place_type = get_place_type(default_place_dcid)
+    place_name = names([default_place_dcid])[default_place_dcid]
+    return Place(default_place_dcid, place_name, place_type)
+  # For SDG use Earth as the default place.
+  elif is_sdg:
+    return constants.EARTH
+  else:
+    return constants.USA
 
 
 #
@@ -195,7 +212,10 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
 
   if utterance:
     utterance.i18n_lang = i18n_lang
-    context.merge_with_context(utterance, is_sdg, use_default_place)
+    default_place = None
+    if use_default_place:
+      default_place = _get_default_place(request, is_sdg)
+    context.merge_with_context(utterance, default_place)
 
   return utterance, None
 

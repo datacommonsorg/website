@@ -69,12 +69,13 @@ class ExploreTest(NLWebServerTestCase):
                              test='',
                              i18n='',
                              i18n_lang='',
-                             mode=''):
+                             mode='',
+                             default_place=''):
     ctx = {}
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill',
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -481,3 +482,12 @@ class ExploreTest(NLWebServerTestCase):
         'Population in California after 2013',
         'Female population in New York before 2020'
     ])
+
+  def test_e2e_default_place(self):
+    self.run_detect_and_fulfill('e2e_no_default_place_specified', [
+        'Female population',
+    ])
+
+    self.run_detect_and_fulfill('e2e_default_place_india',
+                                ['Female population'],
+                                default_place='country/IND')
