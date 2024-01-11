@@ -120,7 +120,8 @@ export function getChartUrl(
   statVarSpec: StatVarSpec[],
   enclosedPlaceType: string,
   eventTypeSpec: Record<string, EventTypeSpec>,
-  urlRoot: string
+  urlRoot: string,
+  apikey?: string
 ): string {
   const paramMapping = {
     [CHART_URL_PARAMS.EVENT_TYPE_SPEC]: JSON.stringify(eventTypeSpec),
@@ -128,6 +129,7 @@ export function getChartUrl(
     [CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE]: enclosedPlaceType,
     [CHART_URL_PARAMS.STAT_VAR_SPEC]: JSON.stringify(statVarSpec),
     [CHART_URL_PARAMS.TILE_CONFIG]: JSON.stringify(tileConfig),
+    [CHART_URL_PARAMS.API_KEY]: apikey,
   };
   let url = `${urlRoot}/nodejs/chart?`;
   Object.keys(paramMapping)

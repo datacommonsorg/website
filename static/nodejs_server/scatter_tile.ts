@@ -72,7 +72,8 @@ export async function getScatterTileResult(
   statVarSpec: StatVarSpec[],
   apiRoot: string,
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  apikey?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -107,7 +108,8 @@ export async function getScatterTileResult(
         statVarSpec,
         enclosedPlaceType,
         null,
-        urlRoot
+        urlRoot,
+        apikey
       );
       return result;
     }
