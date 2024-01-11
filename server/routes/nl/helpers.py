@@ -39,6 +39,7 @@ import server.lib.nl.config_builder.builder as config_builder
 from server.lib.nl.detection import utils as dutils
 import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as detector
+from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import Place
@@ -47,12 +48,10 @@ from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
 import server.lib.nl.fulfillment.fulfiller as fulfillment
 import server.lib.nl.fulfillment.utils as futils
-from server.lib.shared import names
 from server.lib.translator import detect_lang_and_translate
 from server.lib.translator import translate_page_config
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
-from server.routes.shared_api.place import get_place_type
 import server.services.bigtable as bt
 from shared.lib.constants import EN_LANG_CODE
 import shared.lib.utils as shared_utils
@@ -62,19 +61,17 @@ _SANITY_TEST = 'sanity'
 
 # Get the default place to be used for fulfillment. If there is a place in the
 # request, use that. Otherwise, use pre-chosen places.
-def _get_default_place(request: Dict, is_sdg: bool):
+def _get_default_place(request: Dict, is_sdg: bool, debug_logs: Dict):
   default_place_dcid = request.args.get('default_place', default='', type=str)
   # If default place from request is earth, use the Earth place object
   if default_place_dcid == constants.EARTH.dcid:
     return constants.EARTH
-  # If default place from request is something else, create a place object
+  # If default place from request is something else, get the place object for
+  # that dcid
   elif default_place_dcid:
-    if default_place_dcid.startswith(constants.COUNTRY_DCID_PREFIX):
-      place_type = 'Country'
-    else:
-      place_type = get_place_type(default_place_dcid)
-    place_name = names([default_place_dcid])[default_place_dcid]
-    return Place(default_place_dcid, place_name, place_type)
+    places, _ = get_place_from_dcids([default_place_dcid], debug_logs)
+    if len(places) > 0:
+      return places[0]
   # For SDG use Earth as the default place.
   elif is_sdg:
     return constants.EARTH
@@ -221,7 +218,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     utterance.i18n_lang = i18n_lang
     default_place = None
     if use_default_place:
-      default_place = _get_default_place(request, is_sdg)
+      default_place = _get_default_place(request, is_sdg, debug_logs)
     context.merge_with_context(utterance, default_place)
 
   return utterance, None
