@@ -43,7 +43,7 @@ def _set_line_tile_spec(date_range: types.Date, line_tile_spec: LineTileSpec):
 def _get_facet_id(sv: str, date: types.Date, cv: ChartVars) -> str:
   if not date:
     return ''
-  return cv.sv_exist_facet_id.get(sv, '')
+  return cv.sv_exist_facet.get(sv, {}).get('facetId', '')
 
 
 def ranked_timeline_collection_block(builder: base.Builder,
