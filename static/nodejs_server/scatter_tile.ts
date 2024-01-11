@@ -101,7 +101,6 @@ export async function getScatterTileResult(
       ),
       type: "SCATTER",
     };
-    /* Currently drawing scatter chart is having problems
     if (useChartUrl) {
       result.chartUrl = getChartUrl(
         tileConfig,
@@ -119,13 +118,12 @@ export async function getScatterTileResult(
       chartData,
       svgContainer,
       SVG_HEIGHT,
-      null,
+      null /* tooltipHtml */,
       tileConfig.scatterTileSpec,
       SVG_WIDTH
     );
     const svg = getProcessedSvg(svgContainer.querySelector("svg"));
     result.svg = getSvgXml(svg);
-    */
     return result;
   } catch (e) {
     console.log("Failed to get scatter tile result for: " + id);
