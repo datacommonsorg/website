@@ -18,7 +18,6 @@ from typing import Dict, List
 
 from flask import current_app
 
-from server.lib import fetch
 from server.lib import util as libutil
 from server.lib.explore import params
 from server.lib.nl.common import constants
@@ -166,16 +165,13 @@ def get_default_contained_in_place(places: List[Place],
   return constants.DEFAULT_PARENT_PLACES.get(ptype, None)
 
 
-# NOTE: This is only used for correlation query on leaf places, and is
-# not compatible with date/date-range queries
-def is_coplottable(svs: List[str], place: str) -> bool:
+def is_coplottable(chart_vars: ChartVars) -> bool:
   """"
   Function that checks if the given SVs are co-plottable in a timeline/bar.
   That's true if the SVs are all either PC/no-PC, and have the same unit.
 
   Args:
-    place: DC place dcid
-    svs: List of SV dcids
+    chart_vars: ChartVars to be plotted.
   
   Returns:
     Boolean indicating whether the SVs are co-plottable in a timeline/bar chart.
@@ -185,6 +181,7 @@ def is_coplottable(svs: List[str], place: str) -> bool:
   else:
     nopc_vars = current_app.config['NOPC_VARS']
 
+  svs = chart_vars.svs
   # Ensure all SVs have the same per-capita relevance.
   pc_list = [variable.is_percapita_relevant(sv, nopc_vars) for sv in svs]
   if any(pc_list) and not all(pc_list):
@@ -192,18 +189,11 @@ def is_coplottable(svs: List[str], place: str) -> bool:
     return False
 
   # Ensure all SVs have the same unit.
-  # TODO: Consider if we can simplify without relying on place if its
-  #       found to be expensive
-  point_result = fetch.point_core(entities=[place],
-                                  variables=svs,
-                                  date='LATEST',
-                                  all_facets=False)
   unit = None
   for i, sv in enumerate(svs):
-    for point in point_result['data'].get(sv, {}).values():
-      u = point.get('unit', '')
-      if i > 0 and unit != u:
-        return False
-      unit = u
+    u = chart_vars.sv_exist_facet.get(sv, {}).get('unit', '')
+    if i > 0 and unit != u:
+      return False
+    unit = u
 
   return True

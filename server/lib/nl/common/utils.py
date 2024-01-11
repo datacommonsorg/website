@@ -204,7 +204,8 @@ def sv_existence_for_places_check_single_point(
                                                    single_date, date_range):
           continue
         num_obs = facet_data.get('obsCount', 0)
-        existing_svs[sv] = facet_id
+        facet_metadata['facetId'] = facet_id
+        existing_svs[sv] = facet_metadata
         if sv not in existsv2places:
           existsv2places[sv] = {}
         existsv2places[sv][pl] = (num_obs == 1)
