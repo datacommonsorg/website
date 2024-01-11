@@ -580,16 +580,3 @@ def to_dict(data):
     return data
   else:
     return data
-
-
-def get_comparison_or_correlation(
-    uttr: nl_uttr.Utterance) -> ClassificationType:
-  for cl in uttr.classifications:
-    if cl.type in [
-        ClassificationType.COMPARISON, ClassificationType.CORRELATION
-    ]:
-      return cl.type
-  # Mimic NL behavior when there are multiple places.
-  if len(uttr.places) > 1:
-    return ClassificationType.COMPARISON
-  return None

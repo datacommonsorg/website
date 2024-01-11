@@ -501,3 +501,13 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detect_and_fulfill('e2e_default_place_india',
                                 ['Female population'],
                                 default_place='country/IND')
+
+  def test_e2e_correlation_simple_place(self):
+    self.run_detect_and_fulfill(
+        'e2e_correlation_simple_place',
+        [
+            # A comparison timeline chart with 2 variables.
+            'Foreign born vs. native born in Sunnyvale',
+            # No such chart because the two variables are not coplottable.
+            'Native born vs. Median income in Sunnyvale',
+        ])

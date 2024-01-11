@@ -66,14 +66,16 @@ def merge_with_context(uttr: nl_uttr.Utterance, default_place: Place = None):
         NLClassifier(
             type=ClassificationType.CONTAINED_IN,
             attributes=ContainedInClassificationAttributes(
-                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
+                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE,
+                had_default_type=True)))
   if not place_type and utils.get_quantity(uttr):
     # When there is quantity, we add place_type
     uttr.classifications.append(
         NLClassifier(
             type=ClassificationType.CONTAINED_IN,
             attributes=ContainedInClassificationAttributes(
-                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
+                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE,
+                had_default_type=True)))
   if place_type:
     if place_type == ContainedInPlaceType.SCHOOL:
       # HACK: Promote school to public school since we don't have data
