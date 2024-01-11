@@ -165,8 +165,6 @@ def get_default_contained_in_place(places: List[Place],
   return constants.DEFAULT_PARENT_PLACES.get(ptype, None)
 
 
-# NOTE: This is only used for correlation query on leaf places, and is
-# not compatible with date/date-range queries
 def is_coplottable(chart_vars: ChartVars) -> bool:
   """"
   Function that checks if the given SVs are co-plottable in a timeline/bar.
