@@ -260,14 +260,14 @@
                       "Count_Person_Female_1145703171",
                       "Count_Person_Male_1145703171"
                     ],
-                    "title": "Women and More in New York",
+                    "title": "Women and Men in New York",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: Women and More"
+            "title": "Related: Women and Men"
           },
           {
             "columns": [
@@ -281,14 +281,14 @@
                       "Count_Person_85OrMoreYears_Female_1145703171",
                       "Count_Person_85OrMoreYears_Male_1145703171"
                     ],
-                    "title": "Women Over 85 and More in New York",
+                    "title": "Women Over 85 and Men Over 85 in New York",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: Women Over 85 and More"
+            "title": "Related: Women Over 85 and Men Over 85"
           },
           {
             "columns": [
@@ -302,13 +302,13 @@
                       "Median_Age_Person_Female_3795540742",
                       "Median_Age_Person_Male_3795540742"
                     ],
-                    "title": "Women's Median Age and More in New York",
+                    "title": "Women's Median Age and Men's Median Age in New York",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Related: Women's Median Age and More"
+            "title": "Related: Women's Median Age and Men's Median Age"
           },
           {
             "columns": [

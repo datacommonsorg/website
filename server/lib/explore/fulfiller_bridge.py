@@ -97,9 +97,9 @@ def _get_plotted_orig_vars(
       continue
 
     orig_svs = list(osv2svs.keys())
-    if len(osv2svs) == 2 and cs.chart_type != ChartType.SCATTER_CHART:
+    if len(osv2svs) == 2 and len(cs.svs) != 2:
       # This was intended as a correlation query, but we're not plotting
-      # a scatter-chart.  So only add the specific orig SV that we're
+      # a 2-SV chart.  So only add the specific orig SV that we're
       # plotting in the chart.
       if len(cs.svs) > 1:
         continue

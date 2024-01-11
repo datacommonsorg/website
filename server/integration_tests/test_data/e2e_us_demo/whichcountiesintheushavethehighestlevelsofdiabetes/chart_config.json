@@ -131,7 +131,7 @@
                     "statVarKey": [
                       "Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years"
                     ],
-                    "title": "Population: 20-79 Years, Diabetes (As Fraction of Count Person 20 to 79 Years) in United States",
+                    "title": "Fraction of 20-79 Years Old People Who Have Diabetes in United States",
                     "type": "LINE"
                   }
                 ]
@@ -139,18 +139,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 20-79 Years, Diabetes (As Fraction of Count Person 20 to 79 Years) in United States",
+                    "description": "Fraction of 20-79 Years Old People Who Have Diabetes in United States",
                     "statVarKey": [
                       "Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years"
                     ],
-                    "title": "Population: 20-79 Years, Diabetes (As Fraction of Count Person 20 to 79 Years) in United States",
+                    "title": "Fraction of 20-79 Years Old People Who Have Diabetes in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "description": "Diabetes prevalence refers to the percentage of people ages 20-79 who have type 1 or type 2 diabetes. International diabetes federation, diabetes atlas.",
-            "title": "Population: 20-79 Years, Diabetes (As Fraction of Count Person 20 to 79 Years)"
+            "title": "Fraction of 20-79 Years Old People Who Have Diabetes"
           },
           {
             "columns": [
@@ -237,7 +237,7 @@
         ],
         "statVarSpec": {
           "Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years": {
-            "name": "Population: 20 - 79 Years, Diabetes (As Fraction of Count Person 20 To 79 Years)",
+            "name": "Fraction of 20 - 79 Years Old People who have Diabetes",
             "statVar": "Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years"
           },
           "Percent_Person_20OrMoreYears_WithDiabetes": {

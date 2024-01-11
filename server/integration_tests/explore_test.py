@@ -491,3 +491,13 @@ class ExploreTest(NLWebServerTestCase):
         'Population in California after 2013',
         'Female population in New York before 2020'
     ])
+
+  def test_e2e_correlation_simple_place(self):
+    self.run_detect_and_fulfill(
+        'e2e_correlation_simple_place',
+        [
+            # A comparison timeline chart with 2 variables.
+            'Foreign born vs. native born in Sunnyvale',
+            # No such chart because the two variables are not coplottable.
+            'Native born vs. Median income in Sunnyvale',
+        ])

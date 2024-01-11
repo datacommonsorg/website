@@ -7,7 +7,7 @@
     },
     {
       "contained_in_place_type": "DefaultType",
-      "had_default_type": false,
+      "had_default_type": true,
       "type": 4
     }
   ],
