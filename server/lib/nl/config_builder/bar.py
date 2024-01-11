@@ -18,6 +18,8 @@ from server.config.subject_page_pb2 import BarTileSpec
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.config_builder import base
+from server.lib.nl.config_builder.formatting_utils import \
+    title_for_two_or_more_svs
 from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
@@ -45,11 +47,8 @@ def multiple_place_bar_block(column,
     if cv.svpg_id and sv2thing.name.get(cv.svpg_id):
       # This suggests we are comparing against SV peers from SV extension
       orig_title = sv2thing.name[cv.svpg_id]
-    elif sv2thing.name.get(svs[0]):
-      orig_title = f'{sv2thing.name[svs[0]]} and more'
     else:
-      # This should very rarely, if ever, be used.
-      orig_title = "Comparison of related variables"
+      orig_title = title_for_two_or_more_svs(svs, sv2thing.name)
   else:
     # This is the case of multiple places for a single SV
     orig_title = sv2thing.name[svs[0]]

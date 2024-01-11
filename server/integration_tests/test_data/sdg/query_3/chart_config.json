@@ -29,7 +29,7 @@
                 ]
               }
             ],
-            "title": "Deaths Per Capita and More in the World"
+            "title": "Deaths Per Capita and Life Expectancy in the World"
           },
           {
             "columns": [
@@ -187,7 +187,7 @@
                 ]
               }
             ],
-            "title": "Number of Maternal Deaths and More in the World"
+            "title": "Number of Maternal Deaths and Maternal Mortality Ratio in the World"
           },
           {
             "columns": [
