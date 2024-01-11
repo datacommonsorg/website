@@ -126,7 +126,15 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [],
+    "childTopics": [
+      {
+        "dcid": "dc/topic/StudentPopulation",
+        "name": "Student Population",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {
       "Count_Person_DetailedHighSchool": {
         "race": [
@@ -188,9 +196,25 @@
         ]
       }
     },
-    "mainTopics": [],
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Schools",
+        "name": "Schools",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
-    "parentTopics": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Education",
+        "name": "Education",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "peerPlaces": [
       {
         "dcid": "country/BRA",
@@ -291,7 +315,22 @@
         ]
       }
     ],
-    "peerTopics": []
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/EducationalAttainment",
+        "name": "Educational Attainment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/SchoolType",
+        "name": "School Type",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
   "userMessage": "Low confidence in understanding your query. Displaying the closest results."

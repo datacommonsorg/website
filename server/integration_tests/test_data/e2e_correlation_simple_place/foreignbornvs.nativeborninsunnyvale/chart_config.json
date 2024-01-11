@@ -60,7 +60,22 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [],
+    "childTopics": [
+      {
+        "dcid": "dc/topic/PlaceOfBirth",
+        "name": "Place of Birth",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/LanguageSpokenAtHome_ForeignBorn",
+        "name": "Language Spoken by Foreign Born Population",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {
       "Count_Person_ForeignBorn": {
         "age": [
@@ -137,9 +152,25 @@
         ]
       }
     },
-    "mainTopics": [],
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Immigration",
+        "name": "Immigration",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
-    "parentTopics": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Nationality",
+        "name": "Nationality",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "peerPlaces": [
       {
         "dcid": "geoId/3502000",
@@ -492,7 +523,15 @@
         ]
       }
     ],
-    "peerTopics": []
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/CitizenshipStatus",
+        "name": "Citizenship Status",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
   "userMessage": ""
