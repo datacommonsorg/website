@@ -10,27 +10,27 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_ForeignBorn",
-                      "Count_Person_NativeBornOutsideTheUnitedStates"
+                      "Count_Person_5OrMoreYears_ForeignBorn",
+                      "Count_Person_Native"
                     ],
-                    "title": "Population: Foreign Born and Population: Native Born Outside the United States in Sunnyvale",
+                    "title": "Population: Foreign Born and Population: Native in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Foreign Born and Population: Native Born Outside the United States"
+            "title": "Population: Foreign Born and Population: Native"
           }
         ],
         "statVarSpec": {
-          "Count_Person_ForeignBorn": {
+          "Count_Person_5OrMoreYears_ForeignBorn": {
             "name": "Population: Foreign Born",
-            "statVar": "Count_Person_ForeignBorn"
+            "statVar": "Count_Person_5OrMoreYears_ForeignBorn"
           },
-          "Count_Person_NativeBornOutsideTheUnitedStates": {
-            "name": "Population: Native Born Outside The United States",
-            "statVar": "Count_Person_NativeBornOutsideTheUnitedStates"
+          "Count_Person_Native": {
+            "name": "Population: Native",
+            "statVar": "Count_Person_Native"
           }
         }
       }
@@ -76,82 +76,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Count_Person_ForeignBorn": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn",
-          "Count_Person_18To24Years_ForeignBorn",
-          "Count_Person_25To34Years_ForeignBorn",
-          "Count_Person_35To44Years_ForeignBorn",
-          "Count_Person_45To54Years_ForeignBorn",
-          "Count_Person_55To59Years_ForeignBorn",
-          "Count_Person_5To17Years_ForeignBorn",
-          "Count_Person_60To61Years_ForeignBorn",
-          "Count_Person_62To64Years_ForeignBorn",
-          "Count_Person_65To74Years_ForeignBorn",
-          "Count_Person_75OrMoreYears_ForeignBorn",
-          "Count_Person_Upto5Years_ForeignBorn"
-        ],
-        "income": [
-          "dc/6tec6g9sjcn41",
-          "dc/9ykj7mxpnd377",
-          "dc/b24gfr1kk3vhd",
-          "dc/hrl4g7g9pzej8",
-          "dc/htl9jt7z1e3kh",
-          "dc/myxl9gjwj2vyf",
-          "dc/sk99b62hjx32g",
-          "dc/x14vlvpv64rrc"
-        ],
-        "incomeStatus": [
-          "dc/dyhxtqe2pxhl5",
-          "dc/gvnh5cpl9h1rf"
-        ],
-        "maritalStatus": [
-          "dc/5g7vkrkzfre5g",
-          "dc/jceld0k7ysbw3",
-          "dc/qj9v0vqzp9vlg",
-          "dc/tm2h6clmndl3b",
-          "dc/twlffl9b5vgn3"
-        ]
-      },
-      "Count_Person_NativeBornOutsideTheUnitedStates": {
-        "age": [
-          "Count_Person_15OrMoreYears_NativeBornOutsideTheUnitedStates",
-          "Count_Person_18To24Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_25To34Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_35To44Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_45To54Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_55To59Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_5To17Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_60To61Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_62To64Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_65To74Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_75OrMoreYears_NativeBornOutsideTheUnitedStates",
-          "Count_Person_Upto5Years_NativeBornOutsideTheUnitedStates"
-        ],
-        "income": [
-          "dc/2nwm00615j8p3",
-          "dc/b5cgqzknltjsb",
-          "dc/cdzmrcp0yred5",
-          "dc/hjhm0w8x9ppv7",
-          "dc/hy20s3ev8yy13",
-          "dc/kcs3py61c0qj3",
-          "dc/ql96e1p87wpm1",
-          "dc/sgnln4hpf3yph"
-        ],
-        "incomeStatus": [
-          "dc/1y59h5d6qjq91",
-          "dc/ry2tnmstly7wd"
-        ],
-        "maritalStatus": [
-          "dc/079ewbkwfmswg",
-          "dc/dj7cvhr91sff5",
-          "dc/l2pbn6flhhmq",
-          "dc/rkxgse26ln224",
-          "dc/stp8qcer02x07"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Immigration",

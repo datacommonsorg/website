@@ -10,9 +10,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_NativeBornOutsideTheUnitedStates"
+                      "Count_Person_Native"
                     ],
-                    "title": "Population: Native Born Outside the United States in Sunnyvale",
+                    "title": "Population: Native in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -20,18 +20,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Native Born Outside the United States in Sunnyvale",
+                    "description": "Population: Native in Sunnyvale",
                     "statVarKey": [
-                      "Count_Person_NativeBornOutsideTheUnitedStates"
+                      "Count_Person_Native"
                     ],
-                    "title": "Population: Native Born Outside the United States in Sunnyvale",
+                    "title": "Population: Native in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Native Born Outside the United States"
+            "title": "Population: Native"
           },
           {
             "columns": [
@@ -63,9 +63,9 @@
           }
         ],
         "statVarSpec": {
-          "Count_Person_NativeBornOutsideTheUnitedStates": {
-            "name": "Population: Native Born Outside The United States",
-            "statVar": "Count_Person_NativeBornOutsideTheUnitedStates"
+          "Count_Person_Native": {
+            "name": "Population: Native",
+            "statVar": "Count_Person_Native"
           },
           "Median_Income_Person": {
             "name": "Individual Median Income",
@@ -101,49 +101,25 @@
     "childPlaces": {},
     "childTopics": [
       {
-        "dcid": "dc/topic/IndividualIncomeDistribution",
-        "name": "Individual Income Distribution",
+        "dcid": "dc/topic/PlaceOfBirth",
+        "name": "Place of Birth",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/IndividualIncomeByIndustry",
-        "name": "Individual Income by Industry",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HouseholdIncomeDistribution",
-        "name": "Household Income Distribution",
+        "dcid": "dc/topic/LanguageSpokenAtHome_ForeignBorn",
+        "name": "Language Spoken by Foreign Born Population",
         "types": [
           "Topic"
         ]
       }
     ],
-    "exploreMore": {
-      "Count_Person_NativeBornOutsideTheUnitedStates": {
-        "age": [
-          "Count_Person_15OrMoreYears_NativeBornOutsideTheUnitedStates",
-          "Count_Person_18To24Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_25To34Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_35To44Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_45To54Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_55To59Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_5To17Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_60To61Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_62To64Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_65To74Years_NativeBornOutsideTheUnitedStates",
-          "Count_Person_75OrMoreYears_NativeBornOutsideTheUnitedStates",
-          "Count_Person_Upto5Years_NativeBornOutsideTheUnitedStates"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
+        "dcid": "dc/topic/Immigration",
+        "name": "Immigration",
         "types": [
           "Topic"
         ]
@@ -152,8 +128,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
+        "dcid": "dc/topic/Nationality",
+        "name": "Nationality",
         "types": [
           "Topic"
         ]
@@ -513,22 +489,8 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Poverty",
-        "name": "Poverty",
+        "dcid": "dc/topic/CitizenshipStatus",
+        "name": "Citizenship Status",
         "types": [
           "Topic"
         ]
