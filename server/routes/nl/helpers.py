@@ -64,8 +64,15 @@ _SANITY_TEST = 'sanity'
 # request, use that. Otherwise, use pre-chosen places.
 def _get_default_place(request: Dict, is_sdg: bool):
   default_place_dcid = request.args.get('default_place', default='', type=str)
-  if default_place_dcid:
-    place_type = get_place_type(default_place_dcid)
+  # If default place from request is earth, use the Earth place object
+  if default_place_dcid == constants.EARTH.dcid:
+    return constants.EARTH
+  # If default place from request is something else, create a place object
+  elif default_place_dcid:
+    if default_place_dcid.startswith(constants.COUNTRY_DCID_PREFIX):
+      place_type = 'Country'
+    else:
+      place_type = get_place_type(default_place_dcid)
     place_name = names([default_place_dcid])[default_place_dcid]
     return Place(default_place_dcid, place_name, place_type)
   # For SDG use Earth as the default place.
