@@ -26,5 +26,6 @@ class Config(_base.Config):
 class LocalConfig(Config, local.Config):
   pass
 
+
 class ComposeConfig(Config):
   pass
