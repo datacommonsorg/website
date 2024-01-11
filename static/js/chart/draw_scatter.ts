@@ -28,6 +28,7 @@ import { formatNumber } from "../i18n/i18n";
 import { NamedPlace } from "../shared/types";
 import { SHOW_POPULATION_LOG } from "../tools/scatter/context";
 import { wrap } from "./base";
+import { addChartTitle } from "./draw_utils";
 
 /**
  * Represents a point in the scatter plot.
@@ -55,7 +56,6 @@ const STROKE_WIDTH = 1.5;
 const DEFAULT_FILL = "#FFFFFF";
 const DENSITY_LEGEND_FONT_SIZE = "0.7rem";
 const DENSITY_LEGEND_TEXT_HEIGHT = 15;
-const DENSITY_LEGEND_TEXT_PADDING = 5;
 const DENSITY_LEGEND_IMAGE_WIDTH = 10;
 const DENSITY_LEGEND_WIDTH = 75;
 const DEFAULT_MAX_POINT_SIZE = 20;
@@ -316,7 +316,7 @@ function addDensityLegend(
     .attr("width", DENSITY_LEGEND_WIDTH);
   const legendHeight = chartHeight / 2;
 
-  // add legend title
+  // add legend titles
   legend
     .append("g")
     .append("text")
@@ -327,15 +327,10 @@ function addDensityLegend(
   legend
     .append("g")
     .append("text")
-    .attr("dominant-baseline", "hanging")
+    .attr("dominant-baseline", "text-bottom")
     .attr("font-size", DENSITY_LEGEND_FONT_SIZE)
     .text("sparse")
-    .attr(
-      "transform",
-      `translate(0, ${
-        legendHeight - DENSITY_LEGEND_TEXT_HEIGHT + DENSITY_LEGEND_TEXT_PADDING
-      })`
-    );
+    .attr("transform", `translate(0, ${legendHeight})`);
 
   // generate a scale image and append to legend
   const canvas = document.createElement("canvas");
@@ -833,7 +828,8 @@ export function drawScatter(
     yLabel: string,
     xPerCapita: boolean,
     yPerCapita: boolean
-  ) => JSX.Element
+  ) => JSX.Element,
+  chartTitle?: string
 ): void {
   const container = d3.select(svgContainer);
   container.selectAll("*").remove();
@@ -853,13 +849,18 @@ export function drawScatter(
   const xMinMax = d3.extent(Object.values(points), (point) => point.xVal);
   const yMinMax = d3.extent(Object.values(points), (point) => point.yVal);
 
-  let height = properties.height - MARGINS.top - MARGINS.bottom;
+  let marginTop = MARGINS.top;
+  if (chartTitle) {
+    marginTop += addChartTitle(svg, chartTitle, properties.width);
+  }
+
+  let height = properties.height - marginTop - MARGINS.bottom;
   const minXAxisHeight = 30;
   const yAxisLabel = svg.append("g").attr("class", "y-axis-label");
   const yAxisWidth = addYLabel(
     yAxisLabel,
     height - minXAxisHeight,
-    MARGINS.top,
+    marginTop,
     properties.yLabel,
     properties.yUnit
   );
@@ -881,10 +882,7 @@ export function drawScatter(
 
   const g = svg
     .append("g")
-    .attr(
-      "transform",
-      `translate(${MARGINS.left + yAxisWidth},${MARGINS.top})`
-    );
+    .attr("transform", `translate(${MARGINS.left + yAxisWidth},${marginTop})`);
 
   const xScale = addXAxis(
     g,
@@ -927,7 +925,7 @@ export function drawScatter(
       Object.values(points),
       width,
       height,
-      MARGINS.top,
+      marginTop,
       properties.width,
       pointSizeScale
     );

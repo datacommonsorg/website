@@ -262,7 +262,8 @@ export function draw(
   props: LineTilePropType,
   chartData: LineChartData,
   svgContainer: HTMLDivElement,
-  useSvgLegend?: boolean
+  useSvgLegend?: boolean,
+  chartTitle?: string
 ): void {
   // TODO: Remove all cases of setting innerHTML directly.
   svgContainer.innerHTML = "";
@@ -282,6 +283,7 @@ export function draw(
       timeScale: props.timeScale,
       unit: chartData.unit,
       useSvgLegend,
+      title: chartTitle,
     }
   );
   if (!isCompleteLine) {

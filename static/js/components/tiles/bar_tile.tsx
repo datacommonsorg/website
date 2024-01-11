@@ -416,7 +416,8 @@ export function draw(
   chartData: BarChartData,
   svgContainer: HTMLDivElement,
   svgWidth?: number,
-  useSvgLegend?: boolean
+  useSvgLegend?: boolean,
+  chartTitle?: string
 ): void {
   if (chartData.errorMsg) {
     showError(chartData.errorMsg, svgContainer);
@@ -439,6 +440,7 @@ export function draw(
         },
         unit: chartData.unit,
         useSvgLegend,
+        title: chartTitle,
       }
     );
   } else {
@@ -456,6 +458,7 @@ export function draw(
           statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
           useSvgLegend,
+          title: chartTitle,
         }
       );
     } else {
@@ -472,6 +475,7 @@ export function draw(
           statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
           useSvgLegend,
+          title: chartTitle,
         }
       );
     }
