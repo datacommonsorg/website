@@ -89,7 +89,8 @@ export async function getBarTileResult(
   statVarSpec: StatVarSpec[],
   apiRoot: string,
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  apikey?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -123,7 +124,8 @@ export async function getBarTileResult(
         statVarSpec,
         enclosedPlaceType,
         null,
-        urlRoot
+        urlRoot,
+        apikey
       );
       return result;
     }

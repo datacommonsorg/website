@@ -83,7 +83,8 @@ export async function getLineTileResult(
   statVarSpec: StatVarSpec[],
   apiRoot: string,
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  apikey?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(id, tileConfig, place, statVarSpec, apiRoot);
   try {
@@ -137,7 +138,8 @@ export async function getLineTileResult(
         statVarSpec,
         "",
         null,
-        urlRoot
+        urlRoot,
+        apikey
       );
       return result;
     }
