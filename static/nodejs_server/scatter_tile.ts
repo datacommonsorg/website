@@ -72,7 +72,8 @@ export async function getScatterTileResult(
   statVarSpec: StatVarSpec[],
   apiRoot: string,
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  apikey?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -100,6 +101,7 @@ export async function getScatterTileResult(
       ),
       type: "SCATTER",
     };
+    /* Currently drawing scatter chart is having problems
     if (useChartUrl) {
       result.chartUrl = getChartUrl(
         tileConfig,
@@ -107,7 +109,8 @@ export async function getScatterTileResult(
         statVarSpec,
         enclosedPlaceType,
         null,
-        urlRoot
+        urlRoot,
+        apikey
       );
       return result;
     }
@@ -116,12 +119,13 @@ export async function getScatterTileResult(
       chartData,
       svgContainer,
       SVG_HEIGHT,
-      null /* tooltipHtml */,
+      null,
       tileConfig.scatterTileSpec,
       SVG_WIDTH
     );
     const svg = getProcessedSvg(svgContainer.querySelector("svg"));
     result.svg = getSvgXml(svg);
+    */
     return result;
   } catch (e) {
     console.log("Failed to get scatter tile result for: " + id);
