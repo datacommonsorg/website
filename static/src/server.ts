@@ -475,6 +475,10 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const query = req.query.q;
   const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
   const allResults = req.query.allCharts === ALL_CHARTS_URL_PARAM;
+  console.log(`forwarded protcol: ${req.headers['x-forwarded-proto']}`)
+  console.log(`forwarded host: ${req.headers['x-forwarded-host']}`)
+  console.log(`request header host: ${req.headers.host}`)
+  console.log(`request query apikey: ${req.query.apikey}`)
   const urlRoot = `${req.protocol}://${req.get("host")}`;
   const client = req.query.client || BARD_CLIENT_URL_PARAM;
   const allowedTileTypes =
