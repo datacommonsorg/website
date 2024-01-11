@@ -86,7 +86,7 @@ Fetch the number of business majors per-capita in ([California](https://datacomm
 };
 ```
 
-`@datacommonsorg/client` can fetch data as CSV, JSON, or GeoJSON
+`@datacommonsorg/client` can fetch data as CSV, JSON, or GeoJSON.
 
 ### Get CSV data
 
