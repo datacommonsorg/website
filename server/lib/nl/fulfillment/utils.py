@@ -166,6 +166,8 @@ def get_default_contained_in_place(places: List[Place],
   return constants.DEFAULT_PARENT_PLACES.get(ptype, None)
 
 
+# NOTE: This is only used for correlation query on leaf places, and is
+# not compatible with date/date-range queries
 def is_coplottable(svs: List[str], place: str) -> bool:
   """"
   Function that checks if the given SVs are co-plottable in a timeline/bar.
@@ -190,6 +192,8 @@ def is_coplottable(svs: List[str], place: str) -> bool:
     return False
 
   # Ensure all SVs have the same unit.
+  # TODO: Consider if we can simplify without relying on place if its
+  #       found to be expensive
   point_result = fetch.point_core(entities=[place],
                                   variables=svs,
                                   date='LATEST',

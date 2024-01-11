@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import copy
+import time
 from typing import List
 
 import server.lib.explore.existence as exist
@@ -33,14 +34,18 @@ from server.lib.nl.fulfillment.utils import is_coplottable
 #
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, rank: int) -> bool:
+  # Correlation handling only works for 2 SVs, and with places.
   if len(chart_vars.svs) != 2 or not places:
     state.uttr.counters.err('correlation_failed_noplaceorsv', 1)
     return False
 
+  # If there is a child-type and existence passes, we'll try to plot a SCATTER chart.
   if (state.place_type and
       len(exist.svs4children(state, places[0], chart_vars.svs).exist_svs) == 2):
     # Child existence check for both SVs.
     return _scatter(state, chart_vars, places, chart_origin, rank)
+
+  # Otherwise, we'll try to plot simple charts, also pending existence check.
   elif len(exist.svs4place(state, places[0], chart_vars.svs).exist_svs) == 2:
     return _simple(state, chart_vars, places, chart_origin, rank)
 
@@ -68,7 +73,10 @@ def _scatter(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
 def _simple(state: PopulateState, chart_vars: ChartVars, places: List[Place],
             chart_origin: ChartOriginType, rank: int) -> bool:
-  if not is_coplottable(chart_vars.svs, places[0].dcid):
+  start = time.time()
+  coplottable = is_coplottable(chart_vars.svs, places[0].dcid)
+  state.uttr.counters.timeit('coplottable_check', start)
+  if not coplottable:
     # TODO: This should eventually be a User Message
     state.uttr.counters.err('correlation_coplottable_failed', chart_vars.svs)
     return False
