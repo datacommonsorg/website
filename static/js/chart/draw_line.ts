@@ -37,6 +37,7 @@ import {
   XLINKNS,
 } from "./draw_constants";
 import {
+  addChartTitle,
   addTooltip,
   addXAxis,
   addYAxis,
@@ -365,10 +366,15 @@ export function drawLineChart(
   const highlight = svg.append("g").attr("class", "highlight");
   const chart = svg.append("g").attr("class", "chart-area");
 
+  let marginTop = MARGIN.top;
+  if (options?.title) {
+    marginTop += addChartTitle(svg, options?.title, width);
+  }
+
   const yScale = d3
     .scaleLinear()
     .domain([minV, maxV])
-    .range([height - MARGIN.bottom, MARGIN.top])
+    .range([height - MARGIN.bottom, marginTop])
     .nice(NUM_Y_TICKS);
   const leftWidth = addYAxis(
     yAxis,

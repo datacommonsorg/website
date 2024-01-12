@@ -10,5 +10,7 @@
     "name": "",
     "place_type": ""
   },
-  "userMessage": "Sorry, could not complete your request."
+  "userMessage": {
+    "msg": "Sorry, could not complete your request."
+  }
 }

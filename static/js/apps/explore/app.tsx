@@ -263,6 +263,9 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const llmApi = getSingleParam(hashParams[URL_HASH_PARAMS.LLM_API]);
     const testMode = getSingleParam(hashParams[URL_HASH_PARAMS.TEST_MODE]);
     const i18n = getSingleParam(hashParams[URL_HASH_PARAMS.I18N]);
+    const defaultPlace = getSingleParam(
+      hashParams[URL_HASH_PARAMS.DEFAULT_PLACE]
+    );
     let client = getSingleParam(hashParams[URL_HASH_PARAMS.CLIENT]);
 
     let fulfillmentPromise: Promise<any>;
@@ -287,7 +290,8 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         llmApi,
         testMode,
         i18n,
-        client
+        client,
+        defaultPlace
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -395,7 +399,8 @@ const fetchDetectAndFufillData = async (
   llmApi: string,
   testMode: string,
   i18n: string,
-  client: string
+  client: string,
+  defaultPlace: string
 ) => {
   const argsMap = new Map<string, string>();
   if (detector) {
@@ -412,6 +417,9 @@ const fetchDetectAndFufillData = async (
   }
   if (client) {
     argsMap.set(URL_HASH_PARAMS.CLIENT, client);
+  }
+  if (defaultPlace) {
+    argsMap.set(URL_HASH_PARAMS.DEFAULT_PLACE, defaultPlace);
   }
   const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
   try {
