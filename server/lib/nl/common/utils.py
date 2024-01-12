@@ -206,7 +206,8 @@ def sv_existence_for_places_check_single_point(
         num_obs = facet_data.get('obsCount', 0)
         if sv not in existing_svs:
           existing_svs[sv] = {}
-        existing_svs[sv][pl] = facet_id
+        facet_metadata['facetId'] = facet_id
+        existing_svs[sv][pl] = facet_metadata
         if sv not in existsv2places:
           existsv2places[sv] = {}
         existsv2places[sv][pl] = (num_obs == 1)
@@ -582,16 +583,3 @@ def to_dict(data):
     return data
   else:
     return data
-
-
-def get_comparison_or_correlation(
-    uttr: nl_uttr.Utterance) -> ClassificationType:
-  for cl in uttr.classifications:
-    if cl.type in [
-        ClassificationType.COMPARISON, ClassificationType.CORRELATION
-    ]:
-      return cl.type
-  # Mimic NL behavior when there are multiple places.
-  if len(uttr.places) > 1:
-    return ClassificationType.COMPARISON
-  return None

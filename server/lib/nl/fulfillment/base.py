@@ -388,6 +388,10 @@ def _maybe_set_fallback(state: PopulateState, places: List[Place]):
         # when promoting SIMPLE to CONTAINED_IN for example.
         # In this case, skip type matching.
         orig_type = new_type
+      elif state.had_default_place_type:
+        # The user did not request a child-type, so don't
+        # report any message.
+        orig_type = new_type
       else:
         # We are falling back to parent without a sub-type,
         # so make it clear that we are no longer talking about
