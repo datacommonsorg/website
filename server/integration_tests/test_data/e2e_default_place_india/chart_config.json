@@ -27,6 +27,17 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "rankingTileSpec": {
                       "rankingCount": 5,
                       "showHighestLowest": true
@@ -66,6 +77,17 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_Urban_Female"
+                    ],
+                    "title": "Population: Female, Urban in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "rankingTileSpec": {
                       "rankingCount": 5,
                       "showHighestLowest": true
@@ -102,6 +124,17 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Rural_Female"
+                    ],
+                    "title": "Population: Female, Rural in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -152,6 +185,17 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_Male"
+                    ],
+                    "title": "Men in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "rankingTileSpec": {
                       "rankingCount": 5,
                       "showHighestLowest": true
@@ -166,7 +210,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population by Gender in Administrative Area 1 Places of India"
+            "title": "Men in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -188,6 +232,17 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_YearsUpto6_Rural_Female"
+                    ],
+                    "title": "Population: 6 Years or Less, Female, Rural in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -227,6 +282,17 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Literate_Female"
+                    ],
+                    "title": "Population: Female, Literate in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
