@@ -72,6 +72,8 @@ def _get_default_place(request: Dict, is_sdg: bool, debug_logs: Dict):
     places, _ = get_place_from_dcids([default_place_dcid], debug_logs)
     if len(places) > 0:
       return places[0]
+    else:
+      return None
   # For SDG use Earth as the default place.
   elif is_sdg:
     return constants.EARTH
@@ -220,6 +222,17 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     if use_default_place:
       default_place = _get_default_place(request, is_sdg, debug_logs)
     context.merge_with_context(utterance, default_place)
+    if not utterance.places:
+      err_json = helpers.abort(
+          'Sorry, could not complete your request. No place found in the query.',
+          original_query,
+          context_history,
+          debug_logs,
+          counters,
+          test=test,
+          blocked=True,
+          client=client)
+      return None, err_json
 
   return utterance, None
 
@@ -387,7 +400,9 @@ def abort(error_message: str,
       'config': {},
       'context': escaped_context_history,
       'failure': error_message,
-      'userMessage': error_message,
+      'userMessage': {
+          'msg': error_message
+      },
   }
 
   if not counters:

@@ -502,6 +502,10 @@ class ExploreTest(NLWebServerTestCase):
                                 ['Female population'],
                                 default_place='country/IND')
 
+    self.run_detect_and_fulfill('e2e_default_place_bogus',
+                                ['Female population'],
+                                default_place='abcd')
+
   def test_e2e_correlation_simple_place(self):
     self.run_detect_and_fulfill(
         'e2e_correlation_simple_place',

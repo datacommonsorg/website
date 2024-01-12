@@ -1,24 +1,16 @@
 {
+  "blocked": true,
   "client": "test",
   "config": {},
   "context": {},
   "debug": {},
-  "pastSourceContext": "",
+  "failure": "Sorry, could not complete your request. No place found in the query.",
   "place": {
     "dcid": "",
     "name": "",
     "place_type": ""
   },
-  "placeFallback": {},
-  "placeSource": "UNRECOGNIZED",
-  "places": [
-    {
-      "dcid": "",
-      "name": "",
-      "place_type": ""
-    }
-  ],
-  "relatedThings": {},
-  "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": {
+    "msg": "Sorry, could not complete your request. No place found in the query."
+  }
 }
