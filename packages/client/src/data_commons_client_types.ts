@@ -66,8 +66,5 @@ export type GetGeoJSONParams = GetDataRowsParams & {
   rewind?: boolean;
 };
 
-export interface DataRow {
-  [key: string]: string | number | boolean | null;
-}
-
+export type DataRow = Record<string, string | number | boolean | null>;
 export type NodePropValues = Record<string, Record<string, string | null>>;
