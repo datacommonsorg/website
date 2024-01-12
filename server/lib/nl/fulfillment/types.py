@@ -73,7 +73,7 @@ class ChartVars:
 
   # Map of sv to place to facet metadata that has data for this sv. Used by LINE tiles
   # when there is a date specified, and by the "is_coplottable" check.
-  sv_exist_facet = Dict[str, Dict[Dict[str, str]]]
+  sv_exist_facet = Dict[str, Dict[str, Dict[str, str]]]
 
 
 @dataclass

@@ -35,7 +35,7 @@ class ChartVarsExistenceCheckState:
   # Note that `chart_vars` is not mutated to point to existing SVs.
   exist_svs: List[str]
   # Map of existing svs map of place to facet metadata that exists for that SV and place.
-  exist_sv_facets: Dict[str, Dict[str Dict[str, str]]]
+  exist_sv_facets: Dict[str, Dict[str, Dict[str, str]]]
   # Set only if chart_vars.event is true, to indicate event existence.
   exist_event: bool = False
 

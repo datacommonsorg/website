@@ -76,7 +76,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       nopc_vars=nopc_vars,
       counters=state.uttr.counters,
       date_range=state.date_range,
-      sv_exist_facet_id=chart_vars.sv_exist_facet_id)
+      sv_exist_facet=chart_vars.sv_exist_facet)
 
   state.uttr.counters.info(
       'time-delta-across-vars_reranked_svs', {

@@ -173,14 +173,15 @@ def _facet_contains_date(facet_data, facet_metadata, single_date,
 
 
 # Returns:
-# 1. a map of existing SVs (as a union across places) keyed by SV DCID with
-# value as a facetId that has data for this SV
+# 1. a map of existing SVs (keyed by SV DCID) to map of existing places
+# (keyed by place dcid) to facet metadata for a facet that has data for this
+# SV and place
 # 2. a map of existing SVs to a map of places to whether or not that SV, place
 # combo has any single data point series
 def sv_existence_for_places_check_single_point(
     places: List[str], svs: List[str], single_date: types.Date,
     date_range: types.Date, counters: ctr.Counters
-) -> (Dict[str, Dict[str, str]], Dict[str, Dict[str, bool]]):
+) -> (Dict[str, Dict[str, Dict[str, str]]], Dict[str, Dict[str, bool]]):
   if not svs:
     return {}, {}
 

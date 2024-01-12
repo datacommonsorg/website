@@ -83,7 +83,7 @@ def rank_places_by_series_growth(
     place_type: str = '',
     min_population: int = 0,
     date_range: types.Date = None,
-    sv_exist_facet_id: Dict[str, Dict[str, str]] = None) -> GrowthRankedLists:
+    sv_exist_facet: Dict[str, Dict[str, Dict[str, str]]] = None) -> GrowthRankedLists:
   start = time.time()
   series_data = fetch.series_core(entities=places,
                                   variables=[sv],
@@ -98,7 +98,7 @@ def rank_places_by_series_growth(
   places_with_vals = []
   for place, place_data in series_data['data'][sv].items():
     if bool(date_range):
-      sv_facet_id = get_facet_id(sv, date_range, sv_exist_facet_id, [place])
+      sv_facet_id = get_facet_id(sv, date_range, sv_exist_facet, [place])
       series = []
       for s in place_data:
         if s.get('facet', '') == sv_facet_id:
@@ -141,7 +141,7 @@ def rank_svs_by_series_growth(
     nopc_vars: Set[str],
     counters: ctr.Counters,
     date_range: types.Date = None,
-    sv_exist_facet_id: Dict[str, Dict[str, str]] = None) -> GrowthRankedLists:
+    sv_exist_facet: Dict[str, Dict[str, Dict[str, str]]] = None) -> GrowthRankedLists:
   start = time.time()
   series_data = fetch.series_core(entities=[place],
                                   variables=svs,
@@ -151,7 +151,7 @@ def rank_svs_by_series_growth(
 
   svs_with_vals = []
   for sv, place_data in series_data['data'].items():
-    sv_facet_id = get_facet_id(sv, date_range, sv_exist_facet_id, [place])
+    sv_facet_id = get_facet_id(sv, date_range, sv_exist_facet, [place])
     if place not in place_data:
       continue
     if bool(date_range):

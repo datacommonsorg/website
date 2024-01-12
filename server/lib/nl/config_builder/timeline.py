@@ -77,7 +77,7 @@ def ranked_timeline_collection_block(builder: base.Builder,
         chart_title = base.decorate_chart_title(title=sv2thing.name[sv_dcid],
                                                 place=place)
 
-      facet_id = get_facet_id(sv_dcid, single_date, cv.sv_exist_facet_id or {},
+      facet_id = get_facet_id(sv_dcid, single_date, cv.sv_exist_facet or {},
                               [place.dcid])
       # NOTE: It is important to keep the growth-ranking-type in the key.
       # So the same SV can be plotted by itself for the same place multiple
@@ -120,7 +120,7 @@ def single_place_single_var_timeline_block(column, place: Place, sv_dcid: str,
   if date_string:
     sv_key += f'_{date_string}'
   facet_id = get_facet_id(sv_dcid, single_date or date_range,
-                          cv.sv_exist_facet_id or {}, [place.dcid])
+                          cv.sv_exist_facet or {}, [place.dcid])
   if facet_id:
     sv_key += f'_{facet_id}'
   tile = Tile(type=Tile.TileType.LINE, title=title, stat_var_key=[sv_key])
@@ -163,7 +163,7 @@ def single_place_multiple_var_timeline_block(column,
   date_string = get_date_string(single_date)
   for sv in svs:
     facet_id = get_facet_id(sv, single_date or date_range,
-                            cv.sv_exist_facet_id or {}, [place.dcid])
+                            cv.sv_exist_facet or {}, [place.dcid])
     sv_key = sv
     if date_string:
       sv_key += f'_{date_string}'
@@ -207,7 +207,7 @@ def multi_place_single_var_timeline_block(builder: base.Builder,
   date_string = get_date_string(cspec.single_date)
   place_dcids = list(map(lambda x: x.dcid, cspec.places))
   facet_id = get_facet_id(sv, cspec.single_date or cspec.date_range,
-                          cv.sv_exist_facet_id or {}, place_dcids)
+                          cv.sv_exist_facet or {}, place_dcids)
   if date_string:
     sv_key += f'_{date_string}'
   if facet_id:

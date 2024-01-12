@@ -112,7 +112,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       place_type=pt,
       min_population=get_min_population(pt, sv),
       date_range=state.date_range,
-      sv_exist_facet_id=chart_vars.sv_exist_facet_id)
+      sv_exist_facet=chart_vars.sv_exist_facet)
 
   state.uttr.counters.info(
       'time-delta_reranked_places', {
