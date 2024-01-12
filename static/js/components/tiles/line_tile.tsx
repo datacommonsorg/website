@@ -281,9 +281,9 @@ export function draw(
     {
       colors: props.colors,
       timeScale: props.timeScale,
+      title: chartTitle,
       unit: chartData.unit,
       useSvgLegend,
-      title: chartTitle,
     }
   );
   if (!isCompleteLine) {

@@ -438,9 +438,9 @@ export function draw(
           barHeight: props.barHeight,
           yAxisMargin: props.yAxisMargin,
         },
+        title: chartTitle,
         unit: chartData.unit,
         useSvgLegend,
-        title: chartTitle,
       }
     );
   } else {
@@ -456,9 +456,9 @@ export function draw(
           lollipop: props.useLollipop,
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
+          title: chartTitle,
           unit: chartData.unit,
           useSvgLegend,
-          title: chartTitle,
         }
       );
     } else {
@@ -473,9 +473,9 @@ export function draw(
           lollipop: props.useLollipop,
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
+          title: chartTitle,
           unit: chartData.unit,
           useSvgLegend,
-          title: chartTitle,
         }
       );
     }
