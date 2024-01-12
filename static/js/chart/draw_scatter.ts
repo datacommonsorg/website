@@ -45,7 +45,7 @@ export interface Point {
   yPopDate?: string;
 }
 
-const MARGINS = {
+const MARGIN = {
   bottom: 30,
   left: 60,
   right: 30,
@@ -109,7 +109,7 @@ function addYLabel(
     .attr(
       "transform",
       `rotate(-90) translate(${-height / 2 - marginTop}, ${
-        MARGINS.left - Y_AXIS_WIDTH
+        MARGIN.left - Y_AXIS_WIDTH
       })`
     );
   return yAxisLabel.node().getBBox().height;
@@ -849,12 +849,12 @@ export function drawScatter(
   const xMinMax = d3.extent(Object.values(points), (point) => point.xVal);
   const yMinMax = d3.extent(Object.values(points), (point) => point.yVal);
 
-  let marginTop = MARGINS.top;
+  let marginTop = MARGIN.top;
   if (chartTitle) {
     marginTop += addChartTitle(svg, chartTitle, properties.width);
   }
 
-  let height = properties.height - marginTop - MARGINS.bottom;
+  let height = properties.height - marginTop - MARGIN.bottom;
   const minXAxisHeight = 30;
   const yAxisLabel = svg.append("g").attr("class", "y-axis-label");
   const yAxisWidth = addYLabel(
@@ -864,7 +864,7 @@ export function drawScatter(
     properties.yLabel,
     properties.yUnit
   );
-  let width = properties.width - MARGINS.left - MARGINS.right - yAxisWidth;
+  let width = properties.width - MARGIN.left - MARGIN.right - yAxisWidth;
   if (options.showDensity) {
     width = width - DENSITY_LEGEND_WIDTH;
   }
@@ -873,7 +873,7 @@ export function drawScatter(
   const xAxisHeight = addXLabel(
     xAxisLabel,
     width,
-    MARGINS.left + yAxisWidth,
+    MARGIN.left + yAxisWidth,
     properties.height,
     properties.xLabel,
     properties.xUnit
@@ -882,7 +882,7 @@ export function drawScatter(
 
   const g = svg
     .append("g")
-    .attr("transform", `translate(${MARGINS.left + yAxisWidth},${marginTop})`);
+    .attr("transform", `translate(${MARGIN.left + yAxisWidth},${marginTop})`);
 
   const xScale = addXAxis(
     g,

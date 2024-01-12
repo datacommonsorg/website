@@ -285,7 +285,7 @@ export function drawStackBarChart(
 
   let marginTop = MARGIN.top;
   if (options?.title) {
-    marginTop += addChartTitle(svg, options?.title, chartWidth);
+    marginTop += addChartTitle(svg, options.title, chartWidth);
   }
 
   const y = d3
@@ -954,7 +954,7 @@ export function drawGroupBarChart(
 
   let marginTop = MARGIN.top;
   if (options?.title) {
-    marginTop += addChartTitle(svg, options?.title, chartWidth);
+    marginTop += addChartTitle(svg, options.title, chartWidth);
   }
 
   const y = d3
@@ -1114,7 +1114,7 @@ export function drawHorizontalBarChart(
   containerElement.append(svg.node());
 
   if (options?.title) {
-    marginTop += addChartTitle(svg, options?.title, chartWidth);
+    marginTop += addChartTitle(svg, options.title, chartWidth);
   }
 
   if (label) {

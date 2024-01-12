@@ -647,6 +647,7 @@ export function updateXAxis(
  * @param svg svg to add title to
  * @param titleText text of the title to add
  * @param width width of the svg
+ * @returns height of the chart title that was added
  */
 export function addChartTitle(
   svg: d3.Selection<SVGGElement, any, any, any>,
