@@ -230,7 +230,6 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
           debug_logs,
           counters,
           test=test,
-          blocked=True,
           client=client)
       return None, err_json
 
