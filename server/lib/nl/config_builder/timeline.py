@@ -162,8 +162,8 @@ def single_place_multiple_var_timeline_block(column,
   _set_line_tile_spec(date_range, tile.line_tile_spec)
   date_string = get_date_string(single_date)
   for sv in svs:
-    facet_id = get_facet_id(sv, single_date or date_range,
-                            cv.sv_exist_facet or {}, [place.dcid])
+    facet_id = get_facet_id(sv, single_date or date_range, cv.sv_exist_facet or
+                            {}, [place.dcid])
     sv_key = sv
     if date_string:
       sv_key += f'_{date_string}'

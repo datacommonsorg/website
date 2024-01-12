@@ -83,7 +83,8 @@ def rank_places_by_series_growth(
     place_type: str = '',
     min_population: int = 0,
     date_range: types.Date = None,
-    sv_exist_facet: Dict[str, Dict[str, Dict[str, str]]] = None) -> GrowthRankedLists:
+    sv_exist_facet: Dict[str, Dict[str, Dict[str, str]]] = None
+) -> GrowthRankedLists:
   start = time.time()
   series_data = fetch.series_core(entities=places,
                                   variables=[sv],
@@ -141,7 +142,8 @@ def rank_svs_by_series_growth(
     nopc_vars: Set[str],
     counters: ctr.Counters,
     date_range: types.Date = None,
-    sv_exist_facet: Dict[str, Dict[str, Dict[str, str]]] = None) -> GrowthRankedLists:
+    sv_exist_facet: Dict[str, Dict[str, Dict[str, str]]] = None
+) -> GrowthRankedLists:
   start = time.time()
   series_data = fetch.series_core(entities=[place],
                                   variables=svs,

@@ -168,8 +168,7 @@ def get_default_contained_in_place(places: List[Place],
 
 # Get facet id to use when there is a date specified (use a facet id that has
 # data). Gets the facet id that has data for the most places.
-def get_facet_id(sv: str, date: Date, sv_exist_facet: Dict[str, Dict[str,
-                                                                        str]],
+def get_facet_id(sv: str, date: Date, sv_exist_facet: Dict[str, Dict[str, str]],
                  places: List[str]) -> str:
   if not date:
     return ''
@@ -177,7 +176,7 @@ def get_facet_id(sv: str, date: Date, sv_exist_facet: Dict[str, Dict[str,
   facet_id_occurences = {}
   facet_id_to_use = ""
   for place in places:
-    place_facet_id= sv_facets.get(place, {}).get('facetId', '')
+    place_facet_id = sv_facets.get(place, {}).get('facetId', '')
     if not place_facet_id:
       continue
     place_facet_id_occurences = facet_id_occurences.get(place_facet_id, 0) + 1
