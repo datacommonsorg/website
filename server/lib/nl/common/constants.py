@@ -317,6 +317,8 @@ NON_EU_MAP_COUNTRIES = [
 
 ADMIN_AREA_MAP_COUNTRIES = frozenset(list(EU_COUNTRIES) + NON_EU_MAP_COUNTRIES)
 
+COUNTRY_DCID_PREFIX = 'country/'
+
 # Key is SV DCID and value is (denominator SV DCID, name snippet for title).
 ADDITIONAL_DENOMINATOR_VARS = {
     "MapFacts/Count_park": ("SurfaceArea", "per Square Mile"),
