@@ -141,60 +141,201 @@ const ExampleCsvPerCapita = () => {
 
 const ExampleCsvSeries = () => {
   const code = `const response = await client.getCsvSeries({
-    variables: [
-      "Count_Person_BelowPovertyLevelInThePast12Months",
-      "Count_CriminalActivities_CombinedCrime",
+    variables: ["Count_CriminalActivities_CombinedCrime"],
+    entities: [
+      "geoId/0644000",
+      "geoId/0667000",
+      "geoId/0664000",
+      "geoId/0666000",
+      "geoId/0627000",
+      "geoId/0668000",
+      "geoId/0653000",
     ],
-    parentEntity: "geoId/06",
-    childType: "County",
-    perCapitaVariables: [
-      "Count_Person_BelowPovertyLevelInThePast12Months",
-      "Count_CriminalActivities_CombinedCrime",
+    perCapitaVariables: ["Count_CriminalActivities_CombinedCrime"],
+  });
+  setResponse(response);
+  const vegaLiteSpec: TopLevelSpec = {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    data: {
+      values: response,
+      format: {
+        type: "csv",
+      },
+    },
+    encoding: {
+      x: {
+        field: "variable__date",
+        type: "temporal",
+        timeUnit: "year",
+        title: "Date",
+      },
+    },
+    layer: [
+      {
+        encoding: {
+          color: { field: "entity__name", type: "nominal", title: "City" },
+          y: {
+            field: "perCapita__value",
+            type: "quantitative",
+            title: "Criminal Activity Per Capita",
+          },
+        },
+        layer: [
+          { mark: "line" },
+          {
+            transform: [{ filter: { param: "hover", empty: false } }],
+            mark: "point",
+          },
+        ],
+      },
+      {
+        transform: [
+          {
+            pivot: "entity__name",
+            value: "perCapita__value",
+            groupby: ["variable__date"],
+          },
+        ],
+        mark: "rule",
+        encoding: {
+          opacity: {
+            condition: { value: 0.3, param: "hover", empty: false },
+            value: 0,
+          },
+          tooltip: [
+            {
+              field: "variable__date",
+              type: "temporal",
+              timeUnit: "year",
+              title: "Date",
+            },
+            { field: "Fresno", type: "quantitative", format: ".3f" },
+            { field: "Los Angeles", type: "quantitative", format: ".3f" },
+            { field: "Oakland", type: "quantitative", format: ".3f" },
+            { field: "Sacramento", type: "quantitative", format: ".3f" },
+            { field: "San Diego", type: "quantitative", format: ".3f" },
+            { field: "San Francisco", type: "quantitative", format: ".3f" },
+            { field: "San Jose", type: "quantitative", format: ".3f" },
+          ],
+        },
+        params: [
+          {
+            name: "hover",
+            select: {
+              type: "point",
+              fields: ["variable__date"],
+              nearest: true,
+              on: "pointerover",
+              clear: "pointerout",
+            },
+          },
+        ],
+      },
     ],
-  });`;
+    title: "Criminal Activity Per Capita in California Cities",
+    width: "container",
+  };
+  const config: Config = {};
+  const vegaSpec = compile(vegaLiteSpec, { config }).spec;
+  vegaEmbed("#mychart", vegaSpec);`;
 
   const [response, setResponse] = useState("");
   useEffect(() => {
     (async () => {
       const response = await client.getCsvSeries({
-        variables: [
-          "Count_Person_BelowPovertyLevelInThePast12Months",
-          "Count_CriminalActivities_CombinedCrime",
+        variables: ["Count_CriminalActivities_CombinedCrime"],
+        entities: [
+          "geoId/0644000",
+          "geoId/0667000",
+          "geoId/0664000",
+          "geoId/0666000",
+          "geoId/0627000",
+          "geoId/0668000",
+          "geoId/0653000",
         ],
-        parentEntity: "geoId/06",
-        childType: "County",
-        perCapitaVariables: [
-          "Count_Person_BelowPovertyLevelInThePast12Months",
-          "Count_CriminalActivities_CombinedCrime",
-        ],
+        perCapitaVariables: ["Count_CriminalActivities_CombinedCrime"],
       });
       setResponse(response);
-      const dataRowsResponse = await client.getDataRowSeries({
-        variables: [
-          "Count_Person_BelowPovertyLevelInThePast12Months",
-          "Count_CriminalActivities_CombinedCrime",
-        ],
-        parentEntity: "geoId/06",
-        childType: "County",
-        perCapitaVariables: [
-          "Count_Person_BelowPovertyLevelInThePast12Months",
-          "Count_CriminalActivities_CombinedCrime",
-        ],
-      });
       const vegaLiteSpec: TopLevelSpec = {
         $schema: "https://vega.github.io/schema/vega-lite/v5.json",
         data: {
-          values: dataRowsResponse,
+          values: response,
+          format: {
+            type: "csv",
+          },
         },
-        mark: "line",
         encoding: {
           x: {
             field: "variable__date",
             type: "temporal",
+            timeUnit: "year",
+            title: "Date",
           },
-          y: { field: "variable__value", type: "quantitative" },
-          color: { field: "entity__name", type: "nominal" },
         },
+        layer: [
+          {
+            encoding: {
+              color: { field: "entity__name", type: "nominal", title: "City" },
+              y: {
+                field: "perCapita__value",
+                type: "quantitative",
+                title: "Criminal Activity Per Capita",
+              },
+            },
+            layer: [
+              { mark: "line" },
+              {
+                transform: [{ filter: { param: "hover", empty: false } }],
+                mark: "point",
+              },
+            ],
+          },
+          {
+            transform: [
+              {
+                pivot: "entity__name",
+                value: "perCapita__value",
+                groupby: ["variable__date"],
+              },
+            ],
+            mark: "rule",
+            encoding: {
+              opacity: {
+                condition: { value: 0.3, param: "hover", empty: false },
+                value: 0,
+              },
+              tooltip: [
+                {
+                  field: "variable__date",
+                  type: "temporal",
+                  timeUnit: "year",
+                  title: "Date",
+                },
+                { field: "Fresno", type: "quantitative", format: ".3f" },
+                { field: "Los Angeles", type: "quantitative", format: ".3f" },
+                { field: "Oakland", type: "quantitative", format: ".3f" },
+                { field: "Sacramento", type: "quantitative", format: ".3f" },
+                { field: "San Diego", type: "quantitative", format: ".3f" },
+                { field: "San Francisco", type: "quantitative", format: ".3f" },
+                { field: "San Jose", type: "quantitative", format: ".3f" },
+              ],
+            },
+            params: [
+              {
+                name: "hover",
+                select: {
+                  type: "point",
+                  fields: ["variable__date"],
+                  nearest: true,
+                  on: "pointerover",
+                  clear: "pointerout",
+                },
+              },
+            ],
+          },
+        ],
+        title: "Criminal Activity Per Capita in California Cities",
+        width: "container",
       };
       const config: Config = {};
       const vegaSpec = compile(vegaLiteSpec, { config }).spec;
@@ -205,10 +346,10 @@ const ExampleCsvSeries = () => {
     <div>
       <h2>Fetch CSV Data (series, per-capita)</h2>
       <Code>{code}</Code>
-      <h3>Fetch CSV Data Result</h3>
+      <h3>Fetch CSV (series, per-capita) Data Result</h3>
       <Code>{response}</Code>
-      <h3>Render on vega-lite line chart</h3>
-      <div id="mychart"></div>
+      <h3>Render CSV series on vega-lite line chart</h3>
+      <div style={{ width: "100%" }} id="mychart"></div>
     </div>
   );
 };
