@@ -287,8 +287,15 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   # Load place explorer summaries & allowlist of places to show summaries for
   # Used when rendering place pages
-  app.config['PLACE_SUMMARY_ALLOW_LIST'] = place_summaries.get_place_allowlist()
-  app.config['PLACE_EXPLORER_SUMMARIES'] = place_summaries.get_place_summaries()
+  # Won't be loaded for custom DCs at this time.
+  if not cfg.CUSTOM:
+    app.config[
+        'PLACE_SUMMARY_ALLOW_LIST'] = place_summaries.get_place_allowlist()
+    app.config[
+        'PLACE_EXPLORER_SUMMARIES'] = place_summaries.get_place_summaries()
+  else:
+    app.config['PLACE_SUMMARY_ALLOW_LIST'] = []
+    app.config['PLACE_EXPLORER_SUMMARIES'] = {}
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
@@ -363,18 +370,17 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       app.config['NL_TABLE'] = None
 
     # Get the API key from environment first.
-    if cfg.USE_PALM:
-      app.config['PALM_PROMPT_TEXT'] = llm_prompt.get_prompts()
-      if os.environ.get('PALM_API_KEY'):
-        app.config['PALM_API_KEY'] = os.environ.get('PALM_API_KEY')
+    if cfg.USE_LLM:
+      app.config['LLM_PROMPT_TEXT'] = llm_prompt.get_prompts()
+      if os.environ.get('LLM_API_KEY'):
+        app.config['LLM_API_KEY'] = os.environ.get('LLM_API_KEY')
       else:
         secret_client = secretmanager.SecretManagerServiceClient()
         secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                         'palm-api-key',
                                                         'latest')
         secret_response = secret_client.access_secret_version(name=secret_name)
-        app.config['PALM_API_KEY'] = secret_response.payload.data.decode(
-            'UTF-8')
+        app.config['LLM_API_KEY'] = secret_response.payload.data.decode('UTF-8')
     app.config[
         'NL_BAD_WORDS'] = EMPTY_BANNED_WORDS if cfg.CUSTOM else load_bad_words(
         )

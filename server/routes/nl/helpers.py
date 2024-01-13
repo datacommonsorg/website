@@ -39,6 +39,7 @@ import server.lib.nl.config_builder.builder as config_builder
 from server.lib.nl.detection import utils as dutils
 import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as detector
+from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import Place
@@ -56,6 +57,28 @@ from shared.lib.constants import EN_LANG_CODE
 import shared.lib.utils as shared_utils
 
 _SANITY_TEST = 'sanity'
+
+
+# Get the default place to be used for fulfillment. If there is a place in the
+# request, use that. Otherwise, use pre-chosen places.
+def _get_default_place(request: Dict, is_sdg: bool, debug_logs: Dict):
+  default_place_dcid = request.args.get('default_place', default='', type=str)
+  # If default place from request is earth, use the Earth place object
+  if default_place_dcid == constants.EARTH.dcid:
+    return constants.EARTH
+  # If default place from request is something else, get the place object for
+  # that dcid
+  elif default_place_dcid:
+    places, _ = get_place_from_dcids([default_place_dcid], debug_logs)
+    if len(places) > 0:
+      return places[0]
+    else:
+      return None
+  # For SDG use Earth as the default place.
+  elif is_sdg:
+    return constants.EARTH
+  else:
+    return constants.USA
 
 
 #
@@ -114,11 +137,11 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     place_detector_type = PlaceDetectorType(place_detector_type)
 
   llm_api_type = request.args.get('llm_api',
-                                  default=LlmApiType.Chat.value,
+                                  default=LlmApiType.Palm.value,
                                   type=str).lower()
-  if llm_api_type not in [LlmApiType.Chat, LlmApiType.Text]:
+  if llm_api_type not in [LlmApiType.Palm, LlmApiType.GeminiPro]:
     logging.error(f'Unknown place_detector {place_detector_type}')
-    llm_api_type = LlmApiType.Chat
+    llm_api_type = LlmApiType.Palm
   else:
     llm_api_type = LlmApiType(llm_api_type)
 
@@ -195,7 +218,20 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
 
   if utterance:
     utterance.i18n_lang = i18n_lang
-    context.merge_with_context(utterance, is_sdg, use_default_place)
+    default_place = None
+    if use_default_place:
+      default_place = _get_default_place(request, is_sdg, debug_logs)
+    context.merge_with_context(utterance, default_place)
+    if not utterance.places:
+      err_json = helpers.abort(
+          'Sorry, could not complete your request. No place found in the query.',
+          original_query,
+          context_history,
+          debug_logs,
+          counters,
+          test=test,
+          client=client)
+      return None, err_json
 
   return utterance, None
 
@@ -363,7 +399,9 @@ def abort(error_message: str,
       'config': {},
       'context': escaped_context_history,
       'failure': error_message,
-      'userMessage': error_message,
+      'userMessage': {
+          'msg': error_message
+      },
   }
 
   if not counters:

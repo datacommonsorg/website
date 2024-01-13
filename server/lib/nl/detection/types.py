@@ -400,8 +400,8 @@ class RequestedDetectorType(str, Enum):
 
 
 class LlmApiType(str, Enum):
-  Chat = "chat"
-  Text = "text"
+  Palm = "palm"
+  GeminiPro = "geminipro"
   Nop = "nop"
 
 

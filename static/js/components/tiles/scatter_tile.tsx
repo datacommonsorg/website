@@ -435,7 +435,8 @@ export function draw(
   svgChartHeight: number,
   tooltip: HTMLDivElement,
   scatterTileSpec: ScatterTileSpec,
-  svgWidth?: number
+  svgWidth?: number,
+  chartTitle?: string
 ): void {
   if (chartData.errorMsg) {
     showError(chartData.errorMsg, svgContainer);
@@ -486,7 +487,8 @@ export function draw(
     plotOptions,
     chartData.points,
     _.noop,
-    getTooltipElement
+    getTooltipElement,
+    chartTitle
   );
 }
 

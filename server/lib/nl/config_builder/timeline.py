@@ -19,6 +19,8 @@ from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
+from server.lib.nl.config_builder.formatting_utils import \
+    title_for_two_or_more_svs
 from server.lib.nl.detection.date import get_date_range_strings
 from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.detection.types import Place
@@ -36,11 +38,12 @@ def _set_line_tile_spec(date_range: types.Date, line_tile_spec: LineTileSpec):
   line_tile_spec.end_date = end_date
 
 
-# Get facet id to use
+# Get facet id to use (use a facet id that has data for the sv).
+# Do this only if a date is specified.
 def _get_facet_id(sv: str, date: types.Date, cv: ChartVars) -> str:
   if not date:
     return ''
-  return cv.sv_exist_facet_id.get(sv, '')
+  return cv.sv_exist_facet.get(sv, {}).get('facetId', '')
 
 
 def ranked_timeline_collection_block(builder: base.Builder,
@@ -149,11 +152,8 @@ def single_place_multiple_var_timeline_block(column,
   elif len(svs) > 1:
     if cv.svpg_id and sv2thing.name.get(cv.svpg_id):
       orig_title = sv2thing.name[cv.svpg_id]
-    elif sv2thing.name.get(svs[0]):
-      orig_title = f'{sv2thing.name[svs[0]]} and more'
     else:
-      # This should very rarely, if ever, be used.
-      orig_title = "Comparison of related variables"
+      orig_title = title_for_two_or_more_svs(svs, sv2thing.name)
   elif svs:
     # This is the case of multiple places for a single SV
     orig_title = sv2thing.name[svs[0]]

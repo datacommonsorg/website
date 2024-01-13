@@ -23,8 +23,6 @@ from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
-_MAX_VARS_IN_A_CHART = 20
-
 
 #
 # For ranking across vars, we should have detected a ranking, but not contained-in

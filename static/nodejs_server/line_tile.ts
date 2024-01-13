@@ -59,12 +59,13 @@ function getTileProp(
 
 function getLineChartSvg(
   tileProp: LineTilePropType,
-  chartData: LineChartData
+  chartData: LineChartData,
+  chartTitle: string
 ): SVGSVGElement {
   const tileContainer = document.createElement("div");
   tileContainer.setAttribute("id", CHART_ID);
   document.getElementById(DOM_ID).appendChild(tileContainer);
-  draw(tileProp, chartData, tileContainer, true);
+  draw(tileProp, chartData, tileContainer, true, chartTitle);
   return getProcessedSvg(tileContainer.querySelector("svg"));
 }
 
@@ -83,16 +84,21 @@ export async function getLineTileResult(
   statVarSpec: StatVarSpec[],
   apiRoot: string,
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  apikey?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(id, tileConfig, place, statVarSpec, apiRoot);
   try {
     const chartData = await fetchData(tileProp);
+    const chartTitle = getChartTitle(
+      tileConfig.title,
+      getReplacementStrings(tileProp)
+    );
     const result: TileResult = {
       data_csv: dataGroupsToCsv(chartData.dataGroup),
       srcs: getSources(chartData.sources),
       legend: chartData.dataGroup.map((dg) => dg.label || "A"),
-      title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
+      title: chartTitle,
       type: "LINE",
       unit: chartData.unit,
     };
@@ -137,11 +143,12 @@ export async function getLineTileResult(
         statVarSpec,
         "",
         null,
-        urlRoot
+        urlRoot,
+        apikey
       );
       return result;
     }
-    const svg = getLineChartSvg(tileProp, chartData);
+    const svg = getLineChartSvg(tileProp, chartData, chartTitle);
     result.svg = getSvgXml(svg);
     return result;
   } catch (e) {
@@ -172,7 +179,11 @@ export async function getLineChart(
   );
   try {
     const chartData = await fetchData(tileProp);
-    return getLineChartSvg(tileProp, chartData);
+    const chartTitle = getChartTitle(
+      tileConfig.title,
+      getReplacementStrings(tileProp)
+    );
+    return getLineChartSvg(tileProp, chartData, chartTitle);
   } catch (e) {
     console.log("Failed to get line chart");
     return null;
