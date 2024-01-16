@@ -44,17 +44,18 @@ To find the DCID of a entity or variable:
 
 `@datacommonsorg/client`'s `DataCommonsClient` request parameters:
 
-| Parameter           | Type     | Description                                                                                                                     |
-| ------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| entities            | string[] | Entity DCIDs. Required if `parentEntity` and `childType` are empty. Example: `["country/USA", "country/IND"]`                   |
-| parentEntity        | string   | Parent entity DCID. Required if `entities` is empty.                                                                            |
-| childType           | string   | Child entity type. Required if `entities` is empty. Example: `"State"`                                                          |
-| date?               | string   | \[optional\] Only return observations from this date. Example: `"2023"`                                                         |
-| entityProps?        | string[] | \[optional\] Fetch these entity properties from the knowledge graph. Default: `["name", "isoCode"]`                             |
-| variableProps?      | string[] | \[optional\] Fetch these variable properties from the knowledge graph. Default: `["name"]`                                      |
-| perCapitaVariables? | string[] | \[optional\] Performs per-capita caluclation for all of these variables Must be a subset of `variables` param.                  |
-| geoJsonProperty?    | string   | \[optional\] [getGeoJSON only] GeoJSON property name in the knowledge graph. Inferred if not provided.                          |
-| rewind?             | boolean  | \[optional\] [getGeoJSON only] If true, returns "rewound" geometries that are opposite of the right-hand rule. Default: `true`. |
+| Parameter           | Type     | Description                                                                                                                                   |
+| ------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| entities            | string[] | Entity DCIDs. Required if `parentEntity` and `childType` are empty. Example: `["country/USA", "country/IND"]`                                 |
+| parentEntity        | string   | Parent entity DCID. Required if `entities` is empty.                                                                                          |
+| childType           | string   | Child entity type. Required if `entities` is empty. Example: `"State"`                                                                        |
+| date?               | string   | \[optional\] Only return observations from this date. Example: `"2023"`                                                                       |
+| entityProps?        | string[] | \[optional\] Fetch these entity properties from the knowledge graph. Default: `["name", "isoCode"]`                                           |
+| variableProps?      | string[] | \[optional\] Fetch these variable properties from the knowledge graph. Default: `["name"]`                                                    |
+| perCapitaVariables? | string[] | \[optional\] Performs per-capita caluclation for all of these variables Must be a subset of `variables` param.                                |
+| geoJsonProperty?    | string   | \[optional\] [getGeoJSON only] GeoJSON property name in the knowledge graph. Inferred if not provided.                                        |
+| rewind?             | boolean  | \[optional\] [getGeoJSON only] If true, returns "rewound" geometries that are opposite of the right-hand rule. Default: `true`.               |
+| fieldDelimiter?     | string   | \[optional\] Delimiter for column header fields. Example, if fieldDelimiter = ".", entity value header will be "entity.value". Default: `__`. |
 
 For example, to fetch the median household income for all states in the US:
 
@@ -86,9 +87,21 @@ Fetch the number of business majors per-capita in ([California](https://datacomm
 };
 ```
 
-`@datacommonsorg/client` can fetch data as CSV, JSON, or GeoJSON
+`@datacommonsorg/client` can fetch data as CSV, JSON, or GeoJSON.
 
-### Get CSV data
+### `DataCommonsClient` data fetch methods
+
+`DataCommonsClient` fetches either single data observations (`getCsv`, `getDataRows`, `getGeoJson`) or all data observations (`getCsvSeries`, `getDataRowSeries`) about a set of variables and places.
+
+| Method           | Output                                                                                       | Description                                                                                                                 |
+| ---------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| getCsv           | `string`                                                                                     | CSV string with most recent data observations for the specified entities and variables                                      |
+| getCsvSeries     | `string`                                                                                     | CSV string with all data observations for the specified entities and variables                                              |
+| getDataRows      | `Record<string, string \| number \| boolean \| null>[]`                                      | Data row objects with most recent data observations for the specified entities and variables                                |
+| getDataRowSeries | `Record<string, string \| number \| boolean \| null>[]`                                      | Data row objects with all data observations for the specified entities and variables                                        |
+| getGeoJson       | Promise<[FeatureCollection](https://www.jsdocs.io/package/@types/geojson#FeatureCollection)> | GeoJSON feature collection with place geometries and most recent data observations for the specified entities and variables |
+
+### Get CSV data (most recent observations)
 
 Fetch total population below the poverty level for each US State
 
@@ -145,7 +158,59 @@ const response = await client.getCsv({
 ...
 ```
 
-### Get JSON data ("Data Rows")
+### Get CSV data (all observations)
+
+Fetch combined criminal activity for California cities
+
+```ts
+const response = await client.getCsvSeries({
+  variables: ["Count_CriminalActivities_CombinedCrime"],
+  entities: [
+    "geoId/0644000", // Los Angeles
+    "geoId/0667000", // San Francisco
+    "geoId/0664000", // Sacramento
+    "geoId/0666000", // San Diego
+    "geoId/0627000", // Fresno
+    "geoId/0668000", // San Jose
+    "geoId/0653000", // Oakland
+  ],
+  perCapitaVariables: ["Count_CriminalActivities_CombinedCrime"],
+});
+```
+
+```text
+"entity__dcid","entity__isoCode","entity__name","perCapita__date","perCapita__populationValue","perCapita__populationVariable","perCapita__value","variable__date","variable__dcid","variable__name","variable__unit","variable__unitDisplayName","variable__value"
+"geoId/0627000",null,"Fresno","2008",545567,"Count_Person",0.04593752921272731,"2008","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,25062
+"geoId/0627000",null,"Fresno","2009",545567,"Count_Person",0.044207219278292124,"2009","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,24118
+"geoId/0627000",null,"Fresno","2010",545567,"Count_Person",0.05066472128996072,"2010","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,27641
+"geoId/0627000",null,"Fresno","2011",545567,"Count_Person",0.05218790725978661,"2011","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,28472
+"geoId/0627000",null,"Fresno","2012",545567,"Count_Person",0.05245735170932259,"2012","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,28619
+"geoId/0627000",null,"Fresno","2013",545567,"Count_Person",0.04641043171599455,"2013","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,25320
+"geoId/0627000",null,"Fresno","2014",545567,"Count_Person",0.04351802803322048,"2014","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,23742
+"geoId/0627000",null,"Fresno","2015",545567,"Count_Person",0.0453326539178506,"2015","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,24732
+"geoId/0627000",null,"Fresno","2016",545567,"Count_Person",0.0439707680266585,"2016","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,23989
+"geoId/0627000",null,"Fresno","2017",545567,"Count_Person",0.04291131978290476,"2017","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,23411
+"geoId/0627000",null,"Fresno","2018",545567,"Count_Person",0.03849939604118284,"2018","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,21004
+"geoId/0644000",null,"Los Angeles","2008",3822238,"Count_Person",0.03383907543172351,"2008","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,129341
+"geoId/0644000",null,"Los Angeles","2009",3822238,"Count_Person",0.03136146937998105,"2009","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,119871
+"geoId/0644000",null,"Los Angeles","2010",3822238,"Count_Person",0.029440605216106374,"2010","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,112529
+"geoId/0644000",null,"Los Angeles","2011",3822238,"Count_Person",0.028190552236673907,"2011","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,107751
+"geoId/0644000",null,"Los Angeles","2012",3822238,"Count_Person",0.028069157388943337,"2012","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,107287
+"geoId/0644000",null,"Los Angeles","2013",3822238,"Count_Person",0.02715634138952101,"2013","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,103798
+"geoId/0644000",null,"Los Angeles","2014",3822238,"Count_Person",0.027064510373242062,"2014","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,103447
+"geoId/0644000",null,"Los Angeles","2015",3822238,"Count_Person",0.0313402776069936,"2015","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,119790
+"geoId/0644000",null,"Los Angeles","2016",3822238,"Count_Person",0.03380454069055878,"2016","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,129209
+"geoId/0644000",null,"Los Angeles","2017",3822238,"Count_Person",0.03493738485149277,"2017","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,133539
+"geoId/0644000",null,"Los Angeles","2018",3822238,"Count_Person",0.03480866445260604,"2018","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,133047
+"geoId/0644000",null,"Los Angeles","2019",3822238,"Count_Person",0.0331680026204543,"2019","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,126776
+"geoId/0653000",null,"Oakland","2008",430553,"Count_Person",0.06896247384178023,"2008","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,29692
+"geoId/0653000",null,"Oakland","2009",430553,"Count_Person",0.06314901998127989,"2009","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,27189
+"geoId/0653000",null,"Oakland","2010",430553,"Count_Person",0.055173230705627414,"2010","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,23755
+"geoId/0653000",null,"Oakland","2011",430553,"Count_Person",0.06432193016887584,"2011","Count_CriminalActivities_CombinedCrime","Criminal Activities",null,null,27694
+...
+```
+
+### Get Data Rows (JSON, most recent observations)
 
 Get population per-capita below the poverty level for each US State
 
@@ -194,7 +259,243 @@ const response = await client.getDataRows({
 ]
 ```
 
-### Get GeoJSON data
+### Get Data Rows (all observations)
+
+Fetch combined criminal activity for California cities
+
+```ts
+const response = await client.getDataRowSeries({
+  variables: ["Count_CriminalActivities_CombinedCrime"],
+  entities: [
+    "geoId/0644000", // Los Angeles
+    "geoId/0667000", // San Francisco
+    "geoId/0664000", // Sacramento
+    "geoId/0666000", // San Diego
+    "geoId/0627000", // Fresno
+    "geoId/0668000", // San Jose
+    "geoId/0653000", // Oakland
+  ],
+  perCapitaVariables: ["Count_CriminalActivities_CombinedCrime"],
+});
+```
+
+```json
+[
+  {
+    "entity__dcid": "geoId/0627000",
+    "entity__name": "Fresno",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 25062,
+    "variable__date": "2008",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.04593752921272731,
+    "perCapita__date": "2008",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 545567
+  },
+  {
+    "entity__dcid": "geoId/0627000",
+    "entity__name": "Fresno",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 24118,
+    "variable__date": "2009",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.044207219278292124,
+    "perCapita__date": "2009",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 545567
+  },
+  {
+    "entity__dcid": "geoId/0627000",
+    "entity__name": "Fresno",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 27641,
+    "variable__date": "2010",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.05066472128996072,
+    "perCapita__date": "2010",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 545567
+  },
+  {
+    "entity__dcid": "geoId/0627000",
+    "entity__name": "Fresno",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 28472,
+    "variable__date": "2011",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.05218790725978661,
+    "perCapita__date": "2011",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 545567
+  },
+  {
+    "entity__dcid": "geoId/0627000",
+    "entity__name": "Fresno",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 28619,
+    "variable__date": "2012",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.05245735170932259,
+    "perCapita__date": "2012",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 545567
+  },
+  {
+    "entity__dcid": "geoId/0627000",
+    "entity__name": "Fresno",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 25320,
+    "variable__date": "2013",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.04641043171599455,
+    "perCapita__date": "2013",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 545567
+  },
+  {
+    "entity__dcid": "geoId/0627000",
+    "entity__name": "Fresno",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 23742,
+    "variable__date": "2014",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.04351802803322048,
+    "perCapita__date": "2014",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 545567
+  },
+  {
+    "entity__dcid": "geoId/0627000",
+    "entity__name": "Fresno",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 24732,
+    "variable__date": "2015",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.0453326539178506,
+    "perCapita__date": "2015",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 545567
+  },
+  {
+    "entity__dcid": "geoId/0627000",
+    "entity__name": "Fresno",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 23989,
+    "variable__date": "2016",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.0439707680266585,
+    "perCapita__date": "2016",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 545567
+  },
+  {
+    "entity__dcid": "geoId/0627000",
+    "entity__name": "Fresno",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 23411,
+    "variable__date": "2017",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.04291131978290476,
+    "perCapita__date": "2017",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 545567
+  },
+  {
+    "entity__dcid": "geoId/0627000",
+    "entity__name": "Fresno",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 21004,
+    "variable__date": "2018",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.03849939604118284,
+    "perCapita__date": "2018",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 545567
+  },
+  {
+    "entity__dcid": "geoId/0644000",
+    "entity__name": "Los Angeles",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 129341,
+    "variable__date": "2008",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.03383907543172351,
+    "perCapita__date": "2008",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 3822238
+  },
+  {
+    "entity__dcid": "geoId/0644000",
+    "entity__name": "Los Angeles",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 119871,
+    "variable__date": "2009",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.03136146937998105,
+    "perCapita__date": "2009",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 3822238
+  },
+  {
+    "entity__dcid": "geoId/0644000",
+    "entity__name": "Los Angeles",
+    "entity__isoCode": null,
+    "variable__dcid": "Count_CriminalActivities_CombinedCrime",
+    "variable__value": 112529,
+    "variable__date": "2010",
+    "variable__unit": null,
+    "variable__unitDisplayName": null,
+    "variable__name": "Criminal Activities",
+    "perCapita__value": 0.029440605216106374,
+    "perCapita__date": "2010",
+    "perCapita__populationVariable": "Count_Person",
+    "perCapita__populationValue": 3822238
+  },
+  ...
+]
+```
+
+### Get GeoJSON data (most recent observations)
 
 Get GeoJSON for US States with population data
 
