@@ -203,8 +203,8 @@ class DataCommonsClient {
   }
 
   /**
-   * Fetches most recent data commons variable observation about an entity or
-   * entities as CSV.
+   * Fetches all Data Commons variable observation about an entity or entities
+   * as CSV.
    *
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns CSV string

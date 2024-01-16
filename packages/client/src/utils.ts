@@ -82,7 +82,7 @@ export function encodeCsvRow(items: any[]): string {
  * observation value in `num` to the observation value in `denom` with
  * the closest date value.
  *
- * Both `num` and `denom` series are sorted.
+ * Both `num` and `denom` series are sorted ascending by date.
  *
  * @param num Sorted numerator observation series.
  * @param denom Sorted denominator time series.
@@ -102,6 +102,7 @@ export function computeRatio(
   for (let i = 0; i < num.length; i++) {
     const numDate = Date.parse(num[i].date);
     const denomDate = Date.parse(denom[j].date);
+    // Walk through the denom array to find entry with the closest date
     while (j < denom.length - 1 && numDate > denomDate) {
       const denomDateNext = Date.parse(denom[j + 1].date);
       const nextBetter =
