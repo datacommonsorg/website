@@ -152,6 +152,8 @@ export interface ChartOptions {
   // Use an svg version of the legend that is added as part of the svg chart and
   // has no interactions.
   useSvgLegend?: boolean;
+  // If set, adds title to the top of the chart
+  title?: string;
 }
 
 export interface GroupLineChartOptions extends ChartOptions {
