@@ -423,9 +423,9 @@ describe("DataCommonsWebClient", () => {
   test("Get data rows", async () => {
     const response = await client.getDataRows({
       childType: "State",
+      fieldDelimiter: ".",
       parentEntity: "country/MOCK",
       variables: ["Has_Data", "No_Data"],
-      fieldDelimiter: ".",
     });
     response.forEach((row) => {
       expect(row["Has_Data.value"]).toBeGreaterThan(0);
@@ -436,10 +436,10 @@ describe("DataCommonsWebClient", () => {
 
   test("Get GeoJSON", async () => {
     const response = await client.getGeoJSON({
-      variables: ["Has_Data", "No_Data"],
-      parentEntity: "country/MOCK",
       childType: "State",
       fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      variables: ["Has_Data", "No_Data"],
     });
     response.features.forEach((row) => {
       expect(_.get(row.properties, "Has_Data.value", 0)).toBeGreaterThan(0);
@@ -450,10 +450,10 @@ describe("DataCommonsWebClient", () => {
 
   test("Get CSV", async () => {
     const response = await client.getCsv({
-      variables: ["Has_Data", "No_Data"],
-      parentEntity: "country/MOCK",
       childType: "State",
       fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      variables: ["Has_Data", "No_Data"],
     });
     // CSV result should have 1x header row + 3x data rows
     expect(Object.keys(response.split("\n")).length).toBe(4);
@@ -461,11 +461,11 @@ describe("DataCommonsWebClient", () => {
 
   test("Get per capita data rows", async () => {
     const response = await client.getDataRows({
-      variables: ["Has_Data", "No_Data"],
-      parentEntity: "country/MOCK",
       childType: "State",
-      perCapitaVariables: ["Has_Data"],
       fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      perCapitaVariables: ["Has_Data"],
+      variables: ["Has_Data", "No_Data"],
     });
     response.forEach((row) => {
       expect(row["Has_Data.perCapita.value"]).toBeGreaterThan(0);
@@ -477,11 +477,11 @@ describe("DataCommonsWebClient", () => {
 
   test("Get data row series", async () => {
     const response = await client.getDataRowSeries({
-      variables: ["Has_Data", "No_Data"],
-      parentEntity: "country/MOCK",
       childType: "State",
-      perCapitaVariables: ["Has_Data"],
       fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      perCapitaVariables: ["Has_Data"],
+      variables: ["Has_Data", "No_Data"],
     });
 
     expect(response.length).toBe(15);
@@ -495,11 +495,11 @@ describe("DataCommonsWebClient", () => {
 
   test("Get csv series", async () => {
     const response = await client.getCsvSeries({
-      variables: ["Has_Data", "No_Data"],
-      parentEntity: "country/MOCK",
       childType: "State",
-      perCapitaVariables: ["Has_Data"],
       fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      perCapitaVariables: ["Has_Data"],
+      variables: ["Has_Data", "No_Data"],
     });
     // CSV result should have 1x header row + 15x data rows
     expect(Object.keys(response.split("\n")).length).toBe(16);

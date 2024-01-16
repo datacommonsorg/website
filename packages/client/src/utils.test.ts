@@ -109,4 +109,25 @@ describe("Utility methods", () => {
       expect(item.value).toBeCloseTo(1);
     });
   });
+
+  test("computeRatio scaling factor correctly scales", async () => {
+    const result1 = computeRatio(
+      [
+        {
+          date: "1900", // closest to 2010
+          value: 10,
+        },
+        {
+          date: "2010",
+          value: 10,
+        },
+      ],
+      sampleDenom,
+      0.1
+    );
+    expect(result1.length).toBe(2);
+    result1.forEach((item) => {
+      expect(item.value).toBeCloseTo(10);
+    });
+  });
 });

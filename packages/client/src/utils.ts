@@ -86,6 +86,7 @@ export function encodeCsvRow(items: any[]): string {
  *
  * @param num Sorted numerator observation series.
  * @param denom Sorted denominator time series.
+ * @param scaling Scale denominator by dividing by this amount
  *
  * @returns A list of Observations with the per capita calculation applied to its values.
  */

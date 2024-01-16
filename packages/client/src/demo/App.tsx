@@ -243,7 +243,6 @@ const ExampleCsvSeries = () => {
   useEffect(() => {
     (async () => {
       const response = await client.getCsvSeries({
-        variables: ["Count_CriminalActivities_CombinedCrime"],
         entities: [
           "geoId/0644000",
           "geoId/0667000",
@@ -254,22 +253,23 @@ const ExampleCsvSeries = () => {
           "geoId/0653000",
         ],
         perCapitaVariables: ["Count_CriminalActivities_CombinedCrime"],
+        variables: ["Count_CriminalActivities_CombinedCrime"],
       });
       setResponse(response);
       const vegaLiteSpec: TopLevelSpec = {
         $schema: "https://vega.github.io/schema/vega-lite/v5.json",
         data: {
-          values: response,
           format: {
             type: "csv",
           },
+          values: response,
         },
         encoding: {
           x: {
             field: "variable__date",
-            type: "temporal",
             timeUnit: "year",
             title: "Date",
+            type: "temporal",
           },
         },
         layer: [
@@ -278,30 +278,30 @@ const ExampleCsvSeries = () => {
               color: { field: "entity__name", type: "nominal", title: "City" },
               y: {
                 field: "perCapita__value",
-                type: "quantitative",
                 title: "Criminal Activity Per Capita",
+                type: "quantitative",
               },
             },
             layer: [
               { mark: "line" },
               {
-                transform: [{ filter: { param: "hover", empty: false } }],
                 mark: "point",
+                transform: [{ filter: { empty: false, param: "hover" } }],
               },
             ],
           },
           {
             transform: [
               {
+                groupby: ["variable__date"],
                 pivot: "entity__name",
                 value: "perCapita__value",
-                groupby: ["variable__date"],
               },
             ],
             mark: "rule",
             encoding: {
               opacity: {
-                condition: { value: 0.3, param: "hover", empty: false },
+                condition: { empty: false, param: "hover", value: 0.3 },
                 value: 0,
               },
               tooltip: [
