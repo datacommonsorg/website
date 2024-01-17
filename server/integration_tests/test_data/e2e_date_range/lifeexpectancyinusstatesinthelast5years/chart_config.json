@@ -41,7 +41,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2019"
                     },
                     "statVarKey": [
@@ -137,12 +137,12 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2019"
                     },
                     "statVarKey": [
                       "LifeExpectancy_Person_Female_3397709707",
-                      "LifeExpectancy_Person_Male_3397709707"
+                      "LifeExpectancy_Person_Male_2776657033"
                     ],
                     "title": "Life Expectancy by Gender in United States",
                     "type": "LINE"
@@ -176,8 +176,8 @@
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           },
-          "LifeExpectancy_Person_Male_3397709707": {
-            "facetId": "3397709707",
+          "LifeExpectancy_Person_Male_2776657033": {
+            "facetId": "2776657033",
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           }

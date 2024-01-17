@@ -44,7 +44,7 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_WildlandFireEvent_2023"
+                      "Count_WildlandFireEvent"
                     ],
                     "title": "Count of Wildland Fire Event in Counties of California (${date})",
                     "type": "RANKING"
@@ -55,7 +55,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_WildlandFireEvent_2023"
+                      "Count_WildlandFireEvent"
                     ],
                     "title": "Count of Wildland Fire Event in Counties of California (${date})",
                     "type": "MAP"
@@ -75,7 +75,38 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_PrescribedFireEvent_2023"
+                      "Area_WildlandFireEvent"
+                    ],
+                    "title": "Area of Wildland Fire Event in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Area_WildlandFireEvent"
+                    ],
+                    "title": "Area of Wildland Fire Event in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Area of Wildland Fire Event in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_PrescribedFireEvent"
                     ],
                     "title": "Count of Prescribed Fire Event in Counties of California (${date})",
                     "type": "RANKING"
@@ -86,7 +117,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_PrescribedFireEvent_2023"
+                      "Count_PrescribedFireEvent"
                     ],
                     "title": "Count of Prescribed Fire Event in Counties of California (${date})",
                     "type": "MAP"
@@ -96,16 +127,54 @@
             ],
             "denom": "Count_Person",
             "title": "Count of Prescribed Fire Event in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent"
+                    ],
+                    "title": "Annual Expected Loss From Natural Hazard Impact: Wildfire in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent"
+                    ],
+                    "title": "Annual Expected Loss From Natural Hazard Impact: Wildfire in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Expected Loss From Natural Hazard Impact: Wildfire in Counties of California"
           }
         ],
         "statVarSpec": {
-          "Count_PrescribedFireEvent_2023": {
-            "date": "2023",
+          "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent": {
+            "name": "Annual Expected Loss from Natural Hazard Impact: Wildfire",
+            "statVar": "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent"
+          },
+          "Area_WildlandFireEvent": {
+            "name": "Area of Wildland Fire Event",
+            "statVar": "Area_WildlandFireEvent"
+          },
+          "Count_PrescribedFireEvent": {
             "name": "Count of Prescribed Fire Event",
             "statVar": "Count_PrescribedFireEvent"
           },
-          "Count_WildlandFireEvent_2023": {
-            "date": "2023",
+          "Count_WildlandFireEvent": {
             "name": "Count of Wildland Fire Event",
             "statVar": "Count_WildlandFireEvent"
           }
