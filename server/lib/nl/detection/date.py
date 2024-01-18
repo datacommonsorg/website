@@ -15,6 +15,8 @@
 import datetime
 import re
 
+from dateutil.relativedelta import relativedelta
+
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection.types import Date
 from server.lib.nl.detection.types import DateClassificationAttributes
@@ -35,7 +37,8 @@ YEAR_MONTH_RE = [
     r'(in|after|on|before|since|by|until|from|between) (\d{4})(?:,)? (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)',
 ]
 
-# prep to use for LAST_YEAR dates which should include the current year.
+# Placeholder prep to use for LAST_YEAR/LAST_YEARS type dates because they do
+# not depend on the preposition and should all be treated the same way.
 _LAST_YEARS_PREP = 'last_years'
 # List of date preps that indicate single date
 _SINGLE_DATE_PREPS = ['in', 'on', 'year']
@@ -46,7 +49,6 @@ _END_DATE_PREPS = ['before', 'by', 'until', _LAST_YEARS_PREP]
 # List of date preps that exclude the base date
 _EXCLUSIVE_DATE_PREPS = ['before', 'after']
 _MIN_MONTH = 1
-_MAX_MONTH = 12
 _MIN_DOUBLE_DIGIT_MONTH = 10
 _YEARS_STRING_TO_NUM = {'decade': 10}
 
@@ -87,6 +89,8 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
       count, = match.groups()
       count_num = _YEARS_STRING_TO_NUM.get(count, count)
       year = datetime.date.today().year
+      # Use a placeholder prep because all last years dates should be treated
+      # the same way.
       dates.append(Date(_LAST_YEARS_PREP, year, year_span=int(count_num)))
       trigger_strings.append(query[match.start():match.end()])
 
@@ -94,6 +98,8 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
     matches = re.finditer(pattern, query)
     for match in matches:
       year = datetime.date.today().year
+      # Use a placeholder prep because all last year dates should be treated the
+      # same way.
       dates.append(Date(_LAST_YEARS_PREP, year, year_span=1))
       trigger_strings.append(query[match.start():match.end()])
 
@@ -131,9 +137,11 @@ def _get_base_year_month(date: Date) -> (int, int):
     # specified date
     if date.prep in _END_DATE_PREPS:
       # if date is monthly, use date that is one month before the specified date
-      if date.month >= _MIN_MONTH:
-        base_year = base_year - 1 if date.month == _MIN_MONTH else base_year
-        base_month = _MAX_MONTH if date.month == _MIN_MONTH else base_month - 1
+      if base_month >= _MIN_MONTH:
+        base_date = datetime.date(base_year, base_month,
+                                  1) - relativedelta(months=1)
+        base_year = base_date.year
+        base_month = base_date.month
       # otherwise, use date that is one year before the specified date
       else:
         base_year = base_year - 1
@@ -141,9 +149,11 @@ def _get_base_year_month(date: Date) -> (int, int):
     # specified date
     elif date.prep in _START_DATE_PREPS:
       # if date is monthly, use date that is one month after the specified date
-      if date.month >= _MIN_MONTH:
-        base_year = base_year + 1 if date.month == _MAX_MONTH else base_year
-        base_month = _MIN_MONTH if date.month == _MAX_MONTH else base_month + 1
+      if base_month >= _MIN_MONTH:
+        base_date = datetime.date(base_year, base_month,
+                                  1) + relativedelta(months=1)
+        base_year = base_date.year
+        base_month = base_date.month
       # otherwise, use date that is one year after the specified date
       else:
         base_year = base_year + 1
