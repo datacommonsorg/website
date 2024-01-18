@@ -21,14 +21,16 @@ limitations under the License.
 {% set subpage_title = _('Place Explorer') %}
 {% set subpage_url = url_for('place.place') %}
 {% set place_category = category %}
+{% set canonical_base_url = url_for('place.place', place_dcid=place_dcid) %}
+{% set canonical_category_url = url_for('place.place', place_dcid=place_dcid, category=category) %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/place_page.min.css' , t=config['VERSION'])}}>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 {% if category == '' %}
-<link rel="canonical" href="https://{{ request.host }}/place/{{ place_dcid }}" />
+<link rel="canonical" href="https://{{ request.host }}{{ canonical_base_url }}" />
 {% elif category != '' %}
-<link rel="canonical" href="https://{{ request.host }}/place/{{ place_dcid }}?category={{ category }}" />
+<link rel="canonical" href="https://{{ request.host }}{{ canonical_category_url }}" />
 {% endif %}
 {% endblock %}
 
