@@ -32,6 +32,13 @@ export interface BaseGetDataRowsParams {
    * Must be a subset of `variables` param.
    */
   perCapitaVariables?: string[];
+  /**
+   * Delimiter for field header.
+   * Example, if fieldDelimiter = ".", entity value header will be "entity.value"
+   *
+   * Default: "__"
+   */
+  fieldDelimiter?: string;
 }
 
 export interface GetDataRowsParamsWithin extends BaseGetDataRowsParams {
@@ -59,8 +66,5 @@ export type GetGeoJSONParams = GetDataRowsParams & {
   rewind?: boolean;
 };
 
-export interface DataRow {
-  [key: string]: string | number | boolean | null;
-}
-
+export type DataRow = Record<string, string | number | boolean | null>;
 export type NodePropValues = Record<string, Record<string, string | null>>;

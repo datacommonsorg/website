@@ -66,7 +66,7 @@ window.onload = () => {
  *  Make adjustments to sidebar scroll state based on the content.
  */
 function updatePageLayoutState(): void {
-  yScrollLimit = document.getElementById("main-pane").offsetTop;
+  yScrollLimit = document.getElementById("place-summary").offsetTop;
   document.getElementById("sidebar-top-spacer").style.height =
     yScrollLimit + "px";
   const sidebarOuterHeight =
@@ -156,7 +156,6 @@ function renderPage(): void {
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
   const locale = document.getElementById("locale").dataset.lc;
-  const summaryText = document.getElementById("place-summary").dataset.summary;
   const landingPagePromise = getLandingPageData(dcid, category, locale, seed);
 
   Promise.all([
@@ -279,7 +278,6 @@ function renderPage(): void {
           categoryStrings: data.categories,
           locale,
           highlight: data.highlight,
-          summaryText,
         }),
         document.getElementById("main-pane")
       );
