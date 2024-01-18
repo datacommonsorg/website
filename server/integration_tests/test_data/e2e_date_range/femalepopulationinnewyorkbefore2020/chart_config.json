@@ -10,7 +10,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Count_Person_Female_1145703171"
@@ -42,7 +42,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Count_Person_85OrMoreYears_Female_1145703171"
@@ -74,7 +74,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Count_Person_15To19Years_Female_Separated_2369573279"
@@ -106,7 +106,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Count_Person_Female_1145703171",
@@ -127,7 +127,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Median_Age_Person_Female_3795540742"
@@ -158,7 +158,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Count_Person_Female_TwoOrMoreRaces_1145703171"
@@ -190,7 +190,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Count_Person_Female_SomeOtherRaceAlone_1145703171"
@@ -222,7 +222,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Count_Person_WithOwnChildrenUnder18_Female_1293445251"
@@ -254,7 +254,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Count_Person_Female_1145703171",
@@ -275,7 +275,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Count_Person_85OrMoreYears_Female_1145703171",
@@ -296,7 +296,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Median_Age_Person_Female_3795540742",
