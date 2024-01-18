@@ -26,9 +26,9 @@ limitations under the License.
 <link rel="stylesheet" href={{url_for('static', filename='css/place_page.min.css' , t=config['VERSION'])}}>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 {% if category == '' %}
-<link rel="canonical" href="https://datacommons.org/place/{{ place_dcid }}" />
+<link rel="canonical" href="https://{{ request.host }}/place/{{ place_dcid }}" />
 {% elif category != '' %}
-<link rel="canonical" href="https://datacommons.org/place/{{ place_dcid }}?category={{ category }}" />
+<link rel="canonical" href="https://{{ request.host }}/place/{{ place_dcid }}?category={{ category }}" />
 {% endif %}
 {% endblock %}
 
