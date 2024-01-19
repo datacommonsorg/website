@@ -632,6 +632,7 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
   getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
     .then((chart) => {
       sharp(Buffer.from(chart.outerHTML))
+        .resize(1600)
         .png()
         .toBuffer()
         .then((chartPng) => {
