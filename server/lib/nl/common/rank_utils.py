@@ -188,11 +188,11 @@ def rank_svs_by_series_growth(
                                       rank_order)
 
 
-# Computes net growth-rate for a time-series including only recent (since 2012) observations.
-# Returns a pair of
-def _compute_series_growth(series: List[Dict],
-                           denom_val: float,
-                           date_range: types.Date = None) -> GrowthRanks:
+# Gets the earliest and latest observations from a series. If a date range is
+# specified, get the earliest and latest within that date range.
+def _get_earliest_latest_obs(
+    series: List[Dict],
+    date_range: types.Date = None) -> (Dict[str, str], Dict[str, str]):
   earliest = None
   latest = None
   if date_range:
@@ -213,6 +213,15 @@ def _compute_series_growth(series: List[Dict],
     # Series is ordered by earliest to latest date
     earliest = series[0]
     latest = series[-1]
+  return earliest, latest
+
+
+# Computes net growth-rate for a time-series including only recent (since 2012) observations.
+# Returns a pair of
+def _compute_series_growth(series: List[Dict],
+                           denom_val: float,
+                           date_range: types.Date = None) -> GrowthRanks:
+  earliest, latest = _get_earliest_latest_obs(series, date_range)
 
   if not latest or not earliest:
     raise ValueError('Could not find valid points')

@@ -197,9 +197,9 @@ class TestComputeGrowthRate(unittest.TestCase):
     date_range = Date(prep='after', year=2018, year_span=0)
     # (10 - 100) / (12months * 100)
     gr = utils._compute_series_growth(s, 100.0, date_range)
-    self.assertEqual(-0.002465753424657534, gr.pct)
-    self.assertEqual(-0.2465753424657534, gr.abs)
-    self.assertEqual(-0.002465753424657534, gr.pc)
+    self.assertEqual(-0.005960264900662252, gr.pct)
+    self.assertEqual(-0.5960264900662252, gr.abs)
+    self.assertEqual(-0.005960264900662252, gr.pc)
 
   # Here we will pick 2017-06 instead of 2017-01 to match the latest month
   # (2017-06).

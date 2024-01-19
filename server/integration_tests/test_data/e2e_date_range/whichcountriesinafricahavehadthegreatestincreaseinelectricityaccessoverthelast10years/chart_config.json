@@ -19,7 +19,7 @@
                       "country/DZA"
                     ],
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "statVarKey": [
@@ -40,7 +40,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/AGO",
@@ -56,7 +56,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/CIV",
@@ -72,7 +72,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/CMR",
@@ -88,7 +88,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/BEN",
@@ -104,7 +104,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/COD",
@@ -120,7 +120,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/BDI",
@@ -136,7 +136,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/DZA",
@@ -158,7 +158,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/COD",
@@ -174,7 +174,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/AGO",
@@ -190,7 +190,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/BDI",
@@ -206,7 +206,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/BEN",
@@ -222,7 +222,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/CMR",
@@ -238,7 +238,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/CIV",
@@ -254,7 +254,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/DZA",

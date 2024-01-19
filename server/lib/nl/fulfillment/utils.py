@@ -186,13 +186,14 @@ def get_facet_id(sv: str, date: Date, sv_exist_facet: Dict[str, Dict[str, str]],
   return facet_id_to_use
 
 
-def is_coplottable(chart_vars: ChartVars) -> bool:
+def is_coplottable(chart_vars: ChartVars, places: List[Place]) -> bool:
   """"
   Function that checks if the given SVs are co-plottable in a timeline/bar.
   That's true if the SVs are all either PC/no-PC, and have the same unit.
 
   Args:
     chart_vars: ChartVars to be plotted.
+    places: places to be plotted.
   
   Returns:
     Boolean indicating whether the SVs are co-plottable in a timeline/bar chart.
@@ -212,9 +213,11 @@ def is_coplottable(chart_vars: ChartVars) -> bool:
   # Ensure all SVs have the same unit.
   unit = None
   for i, sv in enumerate(svs):
-    u = chart_vars.sv_exist_facet.get(sv, {}).get('unit', '')
-    if i > 0 and unit != u:
-      return False
-    unit = u
+    for place in places:
+      u = chart_vars.sv_exist_facet.get(sv, {}).get(place.dcid,
+                                                    {}).get('unit', '')
+      if i > 0 and unit != u:
+        return False
+      unit = u
 
   return True
