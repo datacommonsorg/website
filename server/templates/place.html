@@ -41,7 +41,7 @@ limitations under the License.
 <link rel="canonical" href="https://{{ request.host }}{{ canonical_category_url }}" />
 {% endif %}
 
-<meta name="description" content="{{ description }}" />
+<meta name="description" content="{{ place_summary or description }}" />
 {% endblock %}
 
 {% block content %}
