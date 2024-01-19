@@ -41,7 +41,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2019"
                     },
                     "statVarKey": [
@@ -137,7 +137,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2023",
+                      "endDate": "2024",
                       "startDate": "2019"
                     },
                     "statVarKey": [
