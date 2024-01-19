@@ -17,7 +17,15 @@ limitations under the License.
 
 {% set main_id = 'dc-places' %}
 {% set page_id = 'page-dc-places' %}
-{% set title = place_name + ' ' + category + ' - ' + _('Place Explorer') %}
+{% set category_title = place_name + ' - ' + category %}
+{% set overview_title = place_name + ' - Economics, Health, Equity, Crime, Education, Demographics, Housing, Environment' %}
+{% if category != '' %}
+  {% set title = category_title %}
+  {% set description = 'Statistics about ' + place_name + ' ' + category %}
+{% else %}
+  {% set title = overview_title %}
+  {% set description = 'Statistics about ' + place_name + ' economics, health, equity, crime, education, demographics, housing, and environment' %}
+{% endif %}
 {% set subpage_title = _('Place Explorer') %}
 {% set subpage_url = url_for('place.place') %}
 {% set place_category = category %}
@@ -32,6 +40,8 @@ limitations under the License.
 {% elif category != '' %}
 <link rel="canonical" href="https://{{ request.host }}{{ canonical_category_url }}" />
 {% endif %}
+
+<meta name="description" content="{{ description }}" />
 {% endblock %}
 
 {% block content %}
