@@ -41,7 +41,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "LifeExpectancy_Person_2018_3397709707"
+                      "LifeExpectancy_Person_2018_3563600999"
                     ],
                     "title": "Life Expectancy in United States",
                     "type": "LINE"
@@ -133,8 +133,8 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "LifeExpectancy_Person_Female_2018_3397709707",
-                      "LifeExpectancy_Person_Male_2018_3397709707"
+                      "LifeExpectancy_Person_Female_2018_2776657033",
+                      "LifeExpectancy_Person_Male_2018_2776657033"
                     ],
                     "title": "Life Expectancy by Gender in United States",
                     "type": "LINE"
@@ -151,9 +151,9 @@
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
-          "LifeExpectancy_Person_2018_3397709707": {
+          "LifeExpectancy_Person_2018_3563600999": {
             "date": "2018",
-            "facetId": "3397709707",
+            "facetId": "3563600999",
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
@@ -162,9 +162,9 @@
             "name": "Female Life Expectancy",
             "statVar": "LifeExpectancy_Person_Female"
           },
-          "LifeExpectancy_Person_Female_2018_3397709707": {
+          "LifeExpectancy_Person_Female_2018_2776657033": {
             "date": "2018",
-            "facetId": "3397709707",
+            "facetId": "2776657033",
             "name": "Female Life Expectancy",
             "statVar": "LifeExpectancy_Person_Female"
           },
@@ -173,9 +173,9 @@
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           },
-          "LifeExpectancy_Person_Male_2018_3397709707": {
+          "LifeExpectancy_Person_Male_2018_2776657033": {
             "date": "2018",
-            "facetId": "3397709707",
+            "facetId": "2776657033",
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           }
