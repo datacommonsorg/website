@@ -94,9 +94,8 @@ const NS_TO_MS_SCALE_FACTOR = BigInt(1000000);
 const MS_TO_S_SCALE_FACTOR = 1000;
 // The param value for the chartUrl param which indicates using svg
 const CHART_URL_PARAM_SVG = "0";
-// The param value for the allCharts param if we should return all charts in
-// /nodejs/query. Otherwise, return QUERY_MAX_RESULTS number of charts.
-const ALL_CHARTS_URL_PARAM = "1";
+// The param value that indicates the param is truthy.
+const URL_PARAM_VALUE_TRUTHY = "1";
 const QUERY_MAX_RESULTS = 3;
 // The param value for the client param if the client is Bard. Default is Bard.
 const BARD_CLIENT_URL_PARAM = "bard";
@@ -482,7 +481,9 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const startTime = process.hrtime.bigint();
   const query = req.query.q;
   const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
-  const allResults = req.query.allCharts === ALL_CHARTS_URL_PARAM;
+  // If the value for allCharts param is truthy, we should return all charts.
+  // Otherwise, return QUERY_MAX_RESULTS number of charts.
+  const allResults = req.query.allCharts === URL_PARAM_VALUE_TRUTHY;
   // If coming from an API proxy, need to get the original protocol and host
   // from the request headers
   const protocol = req.headers["x-forwarded-proto"] || req.protocol;
@@ -628,20 +629,27 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
   const tileConfig = JSON.parse(
     req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
   );
-  res.setHeader("Content-Type", "image/png");
+  const useSvgFormat =
+    req.query[CHART_URL_PARAMS.AS_SVG] === URL_PARAM_VALUE_TRUTHY;
+  const contentType = useSvgFormat ? "image/svg+xml" : "image/png";
+  res.setHeader("Content-Type", contentType);
   getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
     .then((chart) => {
-      sharp(Buffer.from(chart.outerHTML))
-        .resize(1600)
-        .png()
-        .toBuffer()
-        .then((chartPng) => {
-          res.status(200).send(chartPng);
-        })
-        .catch((error) => {
-          console.log("Error getting png:\n", error.message);
-          res.status(500).send(null);
-        });
+      if (useSvgFormat) {
+        res.status(200).send(chart.outerHTML);
+      } else {
+        sharp(Buffer.from(chart.outerHTML))
+          .resize(1600)
+          .png()
+          .toBuffer()
+          .then((chartPng) => {
+            res.status(200).send(chartPng);
+          })
+          .catch((error) => {
+            console.log("Error getting png:\n", error.message);
+            res.status(500).send(null);
+          });
+      }
     })
     .catch((error) => {
       console.log("Error making request:\n", error.message);
