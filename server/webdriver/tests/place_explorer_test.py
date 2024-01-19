@@ -40,7 +40,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
 
   def test_page_serve_usa(self):
     """Test the place explorer page for USA can be loaded successfullly."""
-    TITLE_TEXT = "United States of America - Place Explorer - Data Commons"
+    TITLE_TEXT = "United States of America - Economics, Health, Equity, Crime, Education, Demographics, Housing, Environment - Data Commons"
     PLACE_TYPE_TEXT = "Country in North America"
 
     # Load USA page.
@@ -77,7 +77,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
   def test_page_serve_mtv(self):
     """Test the place explorer page for MTV can be loaded successfullly."""
     PLACE_TYPE_TITLE = "City in Santa Clara County, California, United States of America, North America"
-    TITLE_TEXT = "Mountain View - Place Explorer - Data Commons"
+    TITLE_TEXT = "Mountain View - Economics, Health, Equity, Crime, Education, Demographics, Housing, Environment - Data Commons"
 
     # Load Mountain View Page.
     self.driver.get(self.url_ + MTV_URL)
@@ -114,7 +114,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
 
   def test_place_search(self):
     """Test the place search box can work correctly."""
-    CALIFORNIA_TITLE = "California - Place Explorer - Data Commons"
+    CALIFORNIA_TITLE = "California - Economics, Health, Equity, Crime, Education, Demographics, Housing, Environment - Data Commons"
     # Load USA page.
     self.driver.get(self.url_ + USA_URL)
 
