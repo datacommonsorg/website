@@ -104,6 +104,8 @@ const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING", "SCATTER"]);
 // The root to use to form the dc link in the tile results
 // TODO: update this to use bard.datacommons.org
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
+// Size of the PNG to return for the chart query
+const PNG_WIDTH = 1600;
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -639,7 +641,7 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
         res.status(200).send(chart.outerHTML);
       } else {
         sharp(Buffer.from(chart.outerHTML))
-          .resize(1600)
+          .resize(PNG_WIDTH)
           .png()
           .toBuffer()
           .then((chartPng) => {
