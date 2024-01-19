@@ -16,6 +16,10 @@
 
 /* Shared styles for <Modal> */
 
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
 $border: 0.5px solid #dee2e6;
 
 .modal textarea {
@@ -26,4 +30,11 @@ $border: 0.5px solid #dee2e6;
   font-family: monospace;
   margin: auto;
   padding: 0.5rem;
+}
+
+.modal-dialog {
+  @include media-breakpoint-down(md) {
+    max-width: calc(100% - 30px);
+    margin: auto;
+  }
 }

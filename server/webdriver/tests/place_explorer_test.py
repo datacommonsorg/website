@@ -98,13 +98,18 @@ class TestPlaceExplorer(WebdriverBaseTest):
     # Assert place name is correct.
     self.assertEqual("Mountain View", place_name)
 
+    # Wait until place overview tile has loaded.
+    element_present = EC.presence_of_element_located(
+        (By.CLASS_NAME, 'overview-tile'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
     # Wait until the place type has loaded.
-    element_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
-                                                       PLACE_TYPE_TITLE)
+    element_present = EC.text_to_be_present_in_element(
+        (By.ID, 'place-type-in-overview'), PLACE_TYPE_TITLE)
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert place type is correct.
-    place_type = self.driver.find_element(By.ID, "place-type").text
+    place_type = self.driver.find_element(By.ID, "place-type-in-overview").text
     self.assertEqual(PLACE_TYPE_TITLE, place_type)
 
   def test_place_search(self):
@@ -113,13 +118,23 @@ class TestPlaceExplorer(WebdriverBaseTest):
     # Load USA page.
     self.driver.get(self.url_ + USA_URL)
 
-    # Wait until the place name has loaded.
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'pac-target-input'))
+    # Wait until "Change Place" toggle has loaded.
+    element_present = EC.visibility_of_element_located(
+        (By.ID, 'change-place-toggle-text'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
-    search_box = self.driver.find_element(By.CLASS_NAME, "pac-target-input")
+    # Click on Change place
+    change_place_toggle = self.driver.find_element(By.ID,
+                                                   'change-place-toggle-text')
+    change_place_toggle.click()
 
+    # Wait until the search bar is visible.
+    element_present = EC.visibility_of_element_located(
+        (By.ID, 'place-autocomplete'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
+    # Search for California in search bar
+    search_box = self.driver.find_element(By.ID, "place-autocomplete")
     search_box.send_keys(PLACE_SEARCH)
 
     # Wait until the place name has loaded.

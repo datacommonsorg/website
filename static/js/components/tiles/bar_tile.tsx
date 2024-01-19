@@ -416,7 +416,8 @@ export function draw(
   chartData: BarChartData,
   svgContainer: HTMLDivElement,
   svgWidth?: number,
-  useSvgLegend?: boolean
+  useSvgLegend?: boolean,
+  chartTitle?: string
 ): void {
   if (chartData.errorMsg) {
     showError(chartData.errorMsg, svgContainer);
@@ -437,6 +438,7 @@ export function draw(
           barHeight: props.barHeight,
           yAxisMargin: props.yAxisMargin,
         },
+        title: chartTitle,
         unit: chartData.unit,
         useSvgLegend,
       }
@@ -454,6 +456,7 @@ export function draw(
           lollipop: props.useLollipop,
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
+          title: chartTitle,
           unit: chartData.unit,
           useSvgLegend,
         }
@@ -470,6 +473,7 @@ export function draw(
           lollipop: props.useLollipop,
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
+          title: chartTitle,
           unit: chartData.unit,
           useSvgLegend,
         }

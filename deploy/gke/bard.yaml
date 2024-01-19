@@ -20,5 +20,5 @@ region:
   others:
     -
 cluster_prefix: datacommons
-nodes: 2
+nodes: 3
 storage_project: datcom-store

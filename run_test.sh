@@ -151,7 +151,7 @@ function run_screenshot_test {
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export ENABLE_MODEL=true
   export DC_API_KEY=
-  export PALM_API_KEY=
+  export LLM_API_KEY=
   python3 -m pytest --reruns 2 server/webdriver/screenshot/
 }
 

@@ -108,19 +108,36 @@ def sv_existence_for_places(places: List[str], svs: List[str],
   return existing_svs, existsv2places
 
 
-def _facet_contains_date(facet_data, facet_metadata, date) -> bool:
-  date_string = server.lib.nl.detection.date.get_date_string(date)
+def _facet_contains_date(facet_data, facet_metadata, single_date,
+                         date_range) -> bool:
+  start_date, end_date = server.lib.nl.detection.date.get_date_range_strings(
+      date_range)
+  if single_date:
+    date_string = server.lib.nl.detection.date.get_date_string(single_date)
+    start_date, end_date = date_string, date_string
   facet_earliest_date = facet_data.get('earliestDate', '')
   facet_latest_date = facet_data.get('latestDate', '')
-  # If the facet dates are different granularity, consider facet to not have
-  # the date.
-  # TODO: allow for different granularity but same year.
-  if (len(date_string) != len(facet_earliest_date) or
-      len(date_string) != len(facet_latest_date)):
+  date_length = max(len(start_date), len(end_date))
+  # Check that start date is earlier than the latest facet date. Trim start date
+  # if it is longer than the facet date so that we're only comparing the largest
+  # of the two date granularities.
+  if (start_date and start_date[0:len(facet_latest_date)] > facet_latest_date):
     return False
-  # If the specified date is outside the range of dates of
-  # this facet, move on to next facet
-  if (date_string < facet_earliest_date or date_string > facet_latest_date):
+  # Check that end date is later than the earliest facet date. Trim facet date
+  # if it is longer than the end date so that we're only comparing the largest
+  # of the two date granularities.
+  if (end_date and end_date < facet_earliest_date[0:len(end_date)]):
+    return False
+  # If not single date, finish checks here. Otherwise, need to also check
+  # granularity and use observation period to predict if the date is contained
+  # in the facet.
+  if not single_date:
+    return True
+  # If the facet dates are different granularity, consider facet to not have
+  # the date. Assume start_date and end_date will be the same granularity.
+  # TODO: allow for different granularity but same year.
+  if (date_length != len(facet_earliest_date) or
+      date_length != len(facet_latest_date)):
     return False
   # Use observation period of the facet to predict if facet has data for
   # date of interest.
@@ -133,11 +150,14 @@ def _facet_contains_date(facet_data, facet_metadata, date) -> bool:
     obs_period_num = int(obs_period_num)
     # Difference in years between date of interest and earliest date
     # of the facet
-    year_diff = date.year - int(facet_earliest_date[:4])
-    if date.month:
+    year_diff = single_date.year - int(facet_earliest_date[:4])
+    if single_date.month:
       # Difference in number of months between the date of interest
-      # and the earliest date of the facet
-      month_diff = year_diff * 12 + date.month - int(facet_earliest_date[5:])
+      # and the earliest date of the facet.
+      # Dates are in the format YYYY-MM, so 5 is the index in the string where
+      # the month part begins.
+      month_diff = year_diff * 12 + single_date.month - int(
+          facet_earliest_date[5:])
       # Check that the difference in months is divisble by the obs period
       if month_diff % obs_period_num != 0:
         return False
@@ -145,26 +165,31 @@ def _facet_contains_date(facet_data, facet_metadata, date) -> bool:
     # years is divisible by the obs period
     elif year_diff % obs_period_num != 0:
       return False
-  elif len(date_string) != len(_YEAR_FORMAT):
+  elif len(start_date) != len(_YEAR_FORMAT):
     # Some yearly datasets do not set obsPeriod, so we should only allow empty
     # obsPeriod for a date that is in the year format.
     return False
   return True
 
 
-# Returns a map of existing SVs (as a union across places)
-# keyed by SV DCID with value set to True if the SV has any
-# single data point series (across all places).
+# Returns:
+# 1. a map of existing SVs (keyed by SV DCID) to map of existing places
+# (keyed by place dcid) to facet metadata for a facet that has data for this
+# SV and place
+# 2. a map of existing SVs to a map of places to whether or not that SV, place
+# combo has any single data point series
 def sv_existence_for_places_check_single_point(
-    places: List[str], svs: List[str], date: types.Date,
-    counters: ctr.Counters) -> Dict[str, bool]:
+    places: List[str], svs: List[str], single_date: types.Date,
+    date_range: types.Date, counters: ctr.Counters
+) -> (Dict[str, Dict[str, Dict[str, str]]], Dict[str, Dict[str, bool]]):
   if not svs:
     return {}, {}
 
+  check_date = bool(single_date) | bool(date_range)
   start = time.time()
   series_facet = fetch.series_facet(entities=places,
                                     variables=svs,
-                                    all_facets=bool(date))
+                                    all_facets=check_date)
   counters.timeit('sv_existence_for_places_check_single_point', start)
 
   existing_svs = {}
@@ -173,12 +198,17 @@ def sv_existence_for_places_check_single_point(
   for sv, sv_data in series_facet.get('data', {}).items():
     for pl, place_data in sv_data.items():
       for facet_data in place_data:
-        facet_metadata = facet_info.get(facet_data.get('facet', ''), {})
+        facet_id = facet_data.get('facet', '')
+        facet_metadata = facet_info.get(facet_id, {})
         # Check that this facet has data for specified date
-        if date and not _facet_contains_date(facet_data, facet_metadata, date):
+        if check_date and not _facet_contains_date(facet_data, facet_metadata,
+                                                   single_date, date_range):
           continue
         num_obs = facet_data.get('obsCount', 0)
-        existing_svs[sv] = existing_svs.get(sv, False) | (num_obs == 1)
+        if sv not in existing_svs:
+          existing_svs[sv] = {}
+        facet_metadata['facetId'] = facet_id
+        existing_svs[sv][pl] = facet_metadata
         if sv not in existsv2places:
           existsv2places[sv] = {}
         existsv2places[sv][pl] = (num_obs == 1)
@@ -366,6 +396,17 @@ def get_single_date(uttr: nl_uttr.Utterance) -> types.Date:
   return None
 
 
+def get_date_range(uttr: nl_uttr.Utterance) -> types.Date:
+  classification = futils.classifications_of_type_from_utterance(
+      uttr, types.ClassificationType.DATE)
+  if (classification and isinstance(classification[0].attributes,
+                                    types.DateClassificationAttributes)):
+    # Return the first date in the classification if it is not a single date
+    if not classification[0].attributes.is_single_date:
+      return classification[0].attributes.dates[0]
+  return None
+
+
 def get_time_delta_types(uttr: nl_uttr.Utterance) -> List[types.TimeDeltaType]:
   classification = futils.classifications_of_type_from_utterance(
       uttr, types.ClassificationType.TIME_DELTA)
@@ -543,16 +584,3 @@ def to_dict(data):
     return data
   else:
     return data
-
-
-def get_comparison_or_correlation(
-    uttr: nl_uttr.Utterance) -> ClassificationType:
-  for cl in uttr.classifications:
-    if cl.type in [
-        ClassificationType.COMPARISON, ClassificationType.CORRELATION
-    ]:
-      return cl.type
-  # Mimic NL behavior when there are multiple places.
-  if len(uttr.places) > 1:
-    return ClassificationType.COMPARISON
-  return None

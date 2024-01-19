@@ -39,8 +39,8 @@ class Config:
   SHOW_DISASTER = True
   # Whether to show sustainability page
   SHOW_SUSTAINABILITY = False
-  # Whether to use PaLM API
-  USE_PALM = False
+  # Whether to use GenAI API
+  USE_LLM = False
   # Show per capita option in chart
   ENABLE_PER_CAPITA = True
 

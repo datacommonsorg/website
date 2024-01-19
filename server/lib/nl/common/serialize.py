@@ -158,7 +158,8 @@ def dict_to_classification(
       dates = [Date(**d) for d in cdict['dates']]
       attributes = DateClassificationAttributes(dates,
                                                 is_single_date=cdict.get(
-                                                    'is_single_date', False))
+                                                    'is_single_date', False),
+                                                date_trigger_strings=[])
 
     classifications.append(
         NLClassifier(type=ClassificationType(cdict['type']),
@@ -217,6 +218,8 @@ def _chart_spec_to_dict(charts: List[ChartSpec]) -> List[Dict]:
     cdict['ranking_types'] = c.ranking_types
     if c.single_date:
       cdict['single_date'] = asdict(c.single_date)
+    if c.date_range:
+      cdict['date_range'] = asdict(c.date_range)
     charts_dict.append(cdict)
   return charts_dict
 
@@ -232,6 +235,10 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
       single_date = Date(**cdict['single_date'])
     else:
       single_date = None
+    if cdict.get('date_range'):
+      date_range = Date(**cdict['date_range'])
+    else:
+      date_range = None
     charts.append(
         ChartSpec(
             chart_type=ChartType(cdict['chart_type']),
@@ -244,7 +251,8 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
             ranking_count=0,
             chart_origin=None,
             is_sdg=False,
-            single_date=single_date))
+            single_date=single_date,
+            date_range=date_range))
   return charts
 
 

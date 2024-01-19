@@ -21,13 +21,22 @@ limitations under the License.
 {% set subpage_title = _('Place Explorer') %}
 {% set subpage_url = url_for('place.place') %}
 {% set place_category = category %}
+{% set canonical_base_url = url_for('place.place', place_dcid=place_dcid) %}
+{% set canonical_category_url = url_for('place.place', place_dcid=place_dcid, category=category) %}
 
 {% block head %}
-<link rel="stylesheet" href={{url_for('static', filename='css/place.min.css' , t=config['VERSION'])}}>
+<link rel="stylesheet" href={{url_for('static', filename='css/place_page.min.css' , t=config['VERSION'])}}>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+{% if category == '' %}
+<link rel="canonical" href="https://{{ request.host }}{{ canonical_base_url }}" />
+{% elif category != '' %}
+<link rel="canonical" href="https://{{ request.host }}{{ canonical_category_url }}" />
+{% endif %}
 {% endblock %}
 
 {% block content %}
 <div id="body" class="container-fluid">
+  <div id="nl-search-bar"></div>
   <div id="body-row" class="row">
     <div id="sidebar-outer" class="col-md-3x col-lg-2 order-last order-lg-0">
       <div id="sidebar-top-spacer" class="d-none d-lg-block"></div>
@@ -37,33 +46,21 @@ limitations under the License.
       </div>
     </div>
     <div id="main" class="col-md-9x col-lg-10">
-      <div id="title" class="row" data-dcid="{{ place_dcid }}">
-        <div class="col-12 col-md-6 order-last order-md-2">
-          <h1 id="place-name" data-pn="{{ place_name }}">{{ place_name }}</h1>
-          <h3 id="place-type" data-pt="{{ place_type }}"></h3>
-          <h3 id="locale" data-lc="{{ locale }}"></h3>
-          <div id="place-highlight"></div>
-        </div>
-        <div class="col-12 col-md-6 order-first order-md-last pb-3 pb-md-0">
-          <div class="search border">
-            <div id="location-field">
-              <div id="search-icon"></div>
-              {# TRANSLATORS: A hint shown in the search box, asking users to search for places. #}
-              <input id="place-autocomplete"
-                placeholder="{% trans %}Enter a country, state, county or city{% endtrans %}" type="text" />
-            </div>
+      <div id="title" data-dcid="{{ place_dcid }}">
+        <div id="place-heading-container">
+          <div id="place-heading">
+            <h1 id="place-name" data-pn="{{ place_name }}">{{ place_name }}</h1>
+            <h3 id="place-type" data-pt="{{ place_type }}"></h3>
+            <h3 id="locale" data-lc="{{ locale }}"></h3>
+            <div id="place-highlight"></div>
           </div>
-          <!-- <h4>Graph browser</h4> -->
-          <h4 id="place-dcid" class="mt-3 mt-m-0"><span><a href="/browser/{{place_dcid}}">{% trans %}Graph Browser{%
-                endtrans %} ›</a></span></h4>
+          <div id="place-change-ui">
+            <div id="place-search-container"></div>
+          </div>
         </div>
       </div>
-      {% if place_summary %}
-      <div id="summary" class="row-col">
-        <p>{{ place_summary }}</p>
-      </div>
-      {% endif %}
       <div id="subtitle" class="row"></div>
+      <div id="place-summary" class="row-col place-summary-container">{{ place_summary or '' }}</div>
       <div id="main-pane" class="row"></div>
       {# TRANSLATORS: A message shown on the page while the content is loading. #}
       <div id="page-loading" className="mt-4">{% trans %}Loading...{% endtrans %}</div>

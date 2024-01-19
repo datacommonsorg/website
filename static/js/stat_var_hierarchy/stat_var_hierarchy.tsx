@@ -53,6 +53,7 @@ const TOOLTIP_MARGIN = 5;
 export interface StatVarHierarchyPropType {
   type: string;
   entities: NamedNode[];
+  hidden?: boolean;
   // (Optional) A list of stat vars selected from parent component.
   // For example, in timeline tool, these are stat vars parsed from URL.
   selectedSVs?: string[];
@@ -142,7 +143,12 @@ export class StatVarHierarchy extends React.Component<
       );
     }
     return (
-      <div id={SV_HIERARCHY_SECTION_ID} className="loading-spinner-container">
+      <div
+        id={SV_HIERARCHY_SECTION_ID}
+        className={`loading-spinner-container ${
+          this.props.hidden ? "hidden" : ""
+        }`}
+      >
         {!_.isEmpty(this.state.errorMessage) && (
           <div className="error-message">{this.state.errorMessage}</div>
         )}

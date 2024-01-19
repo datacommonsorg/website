@@ -60,12 +60,13 @@ function getTileProp(
 
 function getBarChartSvg(
   tileProp: BarTilePropType,
-  chartData: BarChartData
+  chartData: BarChartData,
+  chartTitle: string
 ): SVGSVGElement {
   const tileContainer = document.createElement("div");
   tileContainer.setAttribute("id", tileProp.id);
   document.getElementById(DOM_ID).appendChild(tileContainer);
-  draw(tileProp, chartData, tileContainer, SVG_WIDTH, true);
+  draw(tileProp, chartData, tileContainer, SVG_WIDTH, true, chartTitle);
   const chartSvg = tileContainer.querySelector("svg");
   // viewBox attribute throws off sizing in node server
   chartSvg.removeAttribute("viewBox");
@@ -89,7 +90,8 @@ export async function getBarTileResult(
   statVarSpec: StatVarSpec[],
   apiRoot: string,
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  apikey?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -101,6 +103,10 @@ export async function getBarTileResult(
   );
   try {
     const chartData = await fetchData(tileProp);
+    const chartTitle = getChartTitle(
+      tileConfig.title,
+      getReplacementStrings(chartData)
+    );
     let legend = [];
     if (
       !_.isEmpty(chartData.dataGroup) &&
@@ -112,7 +118,7 @@ export async function getBarTileResult(
       data_csv: dataGroupsToCsv(chartData.dataGroup),
       srcs: getSources(chartData.sources),
       legend,
-      title: getChartTitle(tileConfig.title, getReplacementStrings(chartData)),
+      title: chartTitle,
       type: "BAR",
       unit: chartData.unit,
     };
@@ -123,11 +129,12 @@ export async function getBarTileResult(
         statVarSpec,
         enclosedPlaceType,
         null,
-        urlRoot
+        urlRoot,
+        apikey
       );
       return result;
     }
-    const svg = getBarChartSvg(tileProp, chartData);
+    const svg = getBarChartSvg(tileProp, chartData, chartTitle);
     result.svg = getSvgXml(svg);
     return result;
   } catch (e) {
@@ -161,7 +168,11 @@ export async function getBarChart(
   );
   try {
     const chartData = await fetchData(tileProp);
-    return getBarChartSvg(tileProp, chartData);
+    const chartTitle = getChartTitle(
+      tileConfig.title,
+      getReplacementStrings(chartData)
+    );
+    return getBarChartSvg(tileProp, chartData, chartTitle);
   } catch (e) {
     console.log("Failed to get bar chart");
     return null;

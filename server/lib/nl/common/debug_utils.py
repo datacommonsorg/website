@@ -38,6 +38,8 @@ def result_with_debug_info(data_dict: Dict, status: str,
       'MultiSV':
           dvars.multivar_candidates_to_dict(
               query_detection.svs_detected.multi_sv),
+      'Query':
+          query_detection.svs_detected.query
   }
   svs_to_sentences = query_detection.svs_detected.single_sv.sv2sentences
 

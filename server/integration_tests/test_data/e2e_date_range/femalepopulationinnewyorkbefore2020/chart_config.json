@@ -1,0 +1,1104 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_1145703171"
+                    ],
+                    "title": "Women in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women in New York",
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in New York",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female_1145703171"
+                    ],
+                    "title": "Women Over 85 in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Over 85 in New York",
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female"
+                    ],
+                    "title": "Women Over 85 in New York",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Over 85"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_15To19Years_Female_Separated_2369573279"
+                    ],
+                    "title": "Population: 15-19 Years, Female, Separated in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 15-19 Years, Female, Separated in New York",
+                    "statVarKey": [
+                      "Count_Person_15To19Years_Female_Separated"
+                    ],
+                    "title": "Population: 15-19 Years, Female, Separated in New York",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Separated Female Population by Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_1145703171",
+                      "Count_Person_Male_1145703171"
+                    ],
+                    "title": "Population by Gender in New York",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female_3795540742"
+                    ],
+                    "title": "Women's Median Age in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women's Median Age in New York",
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in New York",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_TwoOrMoreRaces_1145703171"
+                    ],
+                    "title": "Women Identifying as Multiracial in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Identifying as Multiracial in New York",
+                    "statVarKey": [
+                      "Count_Person_Female_TwoOrMoreRaces"
+                    ],
+                    "title": "Women Identifying as Multiracial in New York",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Identifying as Multiracial"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_SomeOtherRaceAlone_1145703171"
+                    ],
+                    "title": "Women Identifying as Some Other Race Alone in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Identifying as Some Other Race Alone in New York",
+                    "statVarKey": [
+                      "Count_Person_Female_SomeOtherRaceAlone"
+                    ],
+                    "title": "Women Identifying as Some Other Race Alone in New York",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Identifying as Some Other Race Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithOwnChildrenUnder18_Female_1293445251"
+                    ],
+                    "title": "Population: With Own Children Under 18, Female in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: With Own Children Under 18, Female in New York",
+                    "statVarKey": [
+                      "Count_Person_WithOwnChildrenUnder18_Female"
+                    ],
+                    "title": "Population: With Own Children Under 18, Female in New York",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: With Own Children Under 18, Female"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_1145703171",
+                      "Count_Person_Male_1145703171"
+                    ],
+                    "title": "Women and Men in New York",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Related: Women and Men"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female_1145703171",
+                      "Count_Person_85OrMoreYears_Male_1145703171"
+                    ],
+                    "title": "Women Over 85 and Men Over 85 in New York",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Related: Women Over 85 and Men Over 85"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female_3795540742",
+                      "Median_Age_Person_Male_3795540742"
+                    ],
+                    "title": "Women's Median Age and Men's Median Age in New York",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Related: Women's Median Age and Men's Median Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/3651000"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Count_Person_Female_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_Female_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_Female_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Count_Person_Female_SomeOtherRaceAlone_multiple_place_bar_block",
+                      "Count_Person_Female_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_Female_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                    ],
+                    "title": "Women Identifying as Multiracial and More in New York (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Related: Women Identifying as Multiracial and More"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person_15To19Years_Female_Separated": {
+            "name": "Population: 15 - 19 Years, Female, Separated",
+            "statVar": "Count_Person_15To19Years_Female_Separated"
+          },
+          "Count_Person_15To19Years_Female_Separated_2369573279": {
+            "facetId": "2369573279",
+            "name": "Population: 15 - 19 Years, Female, Separated",
+            "statVar": "Count_Person_15To19Years_Female_Separated"
+          },
+          "Count_Person_85OrMoreYears_Female": {
+            "name": "Women over 85",
+            "statVar": "Count_Person_85OrMoreYears_Female"
+          },
+          "Count_Person_85OrMoreYears_Female_1145703171": {
+            "facetId": "1145703171",
+            "name": "Women over 85",
+            "statVar": "Count_Person_85OrMoreYears_Female"
+          },
+          "Count_Person_85OrMoreYears_Male_1145703171": {
+            "facetId": "1145703171",
+            "name": "Men over 85",
+            "statVar": "Count_Person_85OrMoreYears_Male"
+          },
+          "Count_Person_Female": {
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
+          "Count_Person_Female_1145703171": {
+            "facetId": "1145703171",
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
+          "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "American Indian or Alaska Native Monoracial Women",
+            "statVar": "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_Female_AsianAlone_multiple_place_bar_block": {
+            "name": "Asian Monoracial Women",
+            "statVar": "Count_Person_Female_AsianAlone"
+          },
+          "Count_Person_Female_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Black or African American Monoracial Women",
+            "statVar": "Count_Person_Female_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_Female_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Hispanic Women",
+            "statVar": "Count_Person_Female_HispanicOrLatino"
+          },
+          "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Women Identifying as Native Hawaiian/Other Pacific Islander Alone",
+            "statVar": "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Count_Person_Female_SomeOtherRaceAlone": {
+            "name": "Women Identifying as Some Other Race Alone",
+            "statVar": "Count_Person_Female_SomeOtherRaceAlone"
+          },
+          "Count_Person_Female_SomeOtherRaceAlone_1145703171": {
+            "facetId": "1145703171",
+            "name": "Women Identifying as Some Other Race Alone",
+            "statVar": "Count_Person_Female_SomeOtherRaceAlone"
+          },
+          "Count_Person_Female_SomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Women Identifying as Some Other Race Alone",
+            "statVar": "Count_Person_Female_SomeOtherRaceAlone"
+          },
+          "Count_Person_Female_TwoOrMoreRaces": {
+            "name": "Women Identifying as Multiracial",
+            "statVar": "Count_Person_Female_TwoOrMoreRaces"
+          },
+          "Count_Person_Female_TwoOrMoreRaces_1145703171": {
+            "facetId": "1145703171",
+            "name": "Women Identifying as Multiracial",
+            "statVar": "Count_Person_Female_TwoOrMoreRaces"
+          },
+          "Count_Person_Female_TwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Women Identifying as Multiracial",
+            "statVar": "Count_Person_Female_TwoOrMoreRaces"
+          },
+          "Count_Person_Female_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "White Non Hispanic Women",
+            "statVar": "Count_Person_Female_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_Female_WhiteAlone_multiple_place_bar_block": {
+            "name": "Women Identifying as White Alone",
+            "statVar": "Count_Person_Female_WhiteAlone"
+          },
+          "Count_Person_Male_1145703171": {
+            "facetId": "1145703171",
+            "name": "Men",
+            "statVar": "Count_Person_Male"
+          },
+          "Count_Person_WithOwnChildrenUnder18_Female": {
+            "name": "Population: With Own Children Under 18, Female",
+            "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
+          },
+          "Count_Person_WithOwnChildrenUnder18_Female_1293445251": {
+            "facetId": "1293445251",
+            "name": "Population: With Own Children Under 18, Female",
+            "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
+          },
+          "Median_Age_Person_Female": {
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          },
+          "Median_Age_Person_Female_3795540742": {
+            "facetId": "3795540742",
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          },
+          "Median_Age_Person_Male_3795540742": {
+            "facetId": "3795540742",
+            "name": "Men's Median Age",
+            "statVar": "Median_Age_Person_Male"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/3651000"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/3651000",
+    "name": "New York",
+    "place_type": "City"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/3651000",
+      "name": "New York",
+      "place_type": "City"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_85OrMoreYears_Female": {
+        "race": [
+          "Count_Person_85OrMoreYears_Female_AsianAlone",
+          "Count_Person_85OrMoreYears_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_85OrMoreYears_Female_HispanicOrLatino",
+          "Count_Person_85OrMoreYears_Female_SomeOtherRaceAlone",
+          "Count_Person_85OrMoreYears_Female_TwoOrMoreRaces",
+          "Count_Person_85OrMoreYears_Female_WhiteAlone",
+          "Count_Person_85OrMoreYears_Female_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_85OrMoreYears_Male": {
+        "race": [
+          "Count_Person_85OrMoreYears_Male_AsianAlone",
+          "Count_Person_85OrMoreYears_Male_BlackOrAfricanAmericanAlone",
+          "Count_Person_85OrMoreYears_Male_HispanicOrLatino",
+          "Count_Person_85OrMoreYears_Male_SomeOtherRaceAlone",
+          "Count_Person_85OrMoreYears_Male_TwoOrMoreRaces",
+          "Count_Person_85OrMoreYears_Male_WhiteAlone",
+          "Count_Person_85OrMoreYears_Male_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_Female": {
+        "age": [
+          "Count_Person_15To44Years_Female",
+          "Count_Person_21OrMoreYears_Female",
+          "Count_Person_60OrMoreYears_Female",
+          "Count_Person_62OrMoreYears_Female",
+          "Count_Person_65To66Years_Female",
+          "Count_Person_67To69Years_Female",
+          "Count_Person_85OrMoreYears_Female",
+          "Count_Person_Years5To14_Female"
+        ],
+        "race": [
+          "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_Female_AsianAlone",
+          "Count_Person_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_Female_HispanicOrLatino",
+          "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_Female_SomeOtherRaceAlone",
+          "Count_Person_Female_TwoOrMoreRaces",
+          "Count_Person_Female_WhiteAlone",
+          "Count_Person_Female_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone": {
+        "age": [
+          "Count_Person_15OrMoreYears_Female_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_15To17Years_Female_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_18To19Years_Female_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_25OrMoreYears_Female_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_75To84Years_Female_AmericanIndianOrAlaskaNativeAlone"
+        ]
+      },
+      "Count_Person_Female_AsianAlone": {
+        "age": [
+          "Count_Person_10To14Years_Female_AsianAlone",
+          "Count_Person_15OrMoreYears_Female_AsianAlone",
+          "Count_Person_15To17Years_Female_AsianAlone",
+          "Count_Person_18To19Years_Female_AsianAlone",
+          "Count_Person_20To24Years_Female_AsianAlone",
+          "Count_Person_25OrMoreYears_Female_AsianAlone",
+          "Count_Person_25To29Years_Female_AsianAlone",
+          "Count_Person_30To34Years_Female_AsianAlone",
+          "Count_Person_5To9Years_Female_AsianAlone",
+          "Count_Person_75To84Years_Female_AsianAlone",
+          "Count_Person_85OrMoreYears_Female_AsianAlone"
+        ]
+      },
+      "Count_Person_Female_BlackOrAfricanAmericanAlone": {
+        "age": [
+          "Count_Person_10To14Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_15OrMoreYears_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_15To17Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_18To19Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_20To24Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_25OrMoreYears_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_25To29Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_30To34Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_5To9Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_75To84Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_85OrMoreYears_Female_BlackOrAfricanAmericanAlone"
+        ]
+      },
+      "Count_Person_Female_HispanicOrLatino": {
+        "age": [
+          "Count_Person_10To14Years_Female_HispanicOrLatino",
+          "Count_Person_15OrMoreYears_Female_HispanicOrLatino",
+          "Count_Person_15To17Years_Female_HispanicOrLatino",
+          "Count_Person_18To19Years_Female_HispanicOrLatino",
+          "Count_Person_20To24Years_Female_HispanicOrLatino",
+          "Count_Person_25OrMoreYears_Female_HispanicOrLatino",
+          "Count_Person_25To29Years_Female_HispanicOrLatino",
+          "Count_Person_30To34Years_Female_HispanicOrLatino",
+          "Count_Person_5To9Years_Female_HispanicOrLatino",
+          "Count_Person_75To84Years_Female_HispanicOrLatino",
+          "Count_Person_85OrMoreYears_Female_HispanicOrLatino"
+        ]
+      },
+      "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone": {
+        "age": [
+          "Count_Person_15OrMoreYears_Female_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_15To17Years_Female_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_18To19Years_Female_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_25OrMoreYears_Female_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_75To84Years_Female_NativeHawaiianOrOtherPacificIslanderAlone"
+        ]
+      },
+      "Count_Person_Female_SomeOtherRaceAlone": {
+        "age": [
+          "Count_Person_10To14Years_Female_SomeOtherRaceAlone",
+          "Count_Person_15OrMoreYears_Female_SomeOtherRaceAlone",
+          "Count_Person_15To17Years_Female_SomeOtherRaceAlone",
+          "Count_Person_18To19Years_Female_SomeOtherRaceAlone",
+          "Count_Person_20To24Years_Female_SomeOtherRaceAlone",
+          "Count_Person_25OrMoreYears_Female_SomeOtherRaceAlone",
+          "Count_Person_25To29Years_Female_SomeOtherRaceAlone",
+          "Count_Person_30To34Years_Female_SomeOtherRaceAlone",
+          "Count_Person_5To9Years_Female_SomeOtherRaceAlone",
+          "Count_Person_75To84Years_Female_SomeOtherRaceAlone",
+          "Count_Person_85OrMoreYears_Female_SomeOtherRaceAlone"
+        ]
+      },
+      "Count_Person_Female_TwoOrMoreRaces": {
+        "age": [
+          "Count_Person_10To14Years_Female_TwoOrMoreRaces",
+          "Count_Person_15OrMoreYears_Female_TwoOrMoreRaces",
+          "Count_Person_15To17Years_Female_TwoOrMoreRaces",
+          "Count_Person_18To19Years_Female_TwoOrMoreRaces",
+          "Count_Person_20To24Years_Female_TwoOrMoreRaces",
+          "Count_Person_25OrMoreYears_Female_TwoOrMoreRaces",
+          "Count_Person_25To29Years_Female_TwoOrMoreRaces",
+          "Count_Person_30To34Years_Female_TwoOrMoreRaces",
+          "Count_Person_5To9Years_Female_TwoOrMoreRaces",
+          "Count_Person_75To84Years_Female_TwoOrMoreRaces",
+          "Count_Person_85OrMoreYears_Female_TwoOrMoreRaces"
+        ]
+      },
+      "Count_Person_Female_WhiteAlone": {
+        "age": [
+          "Count_Person_10To14Years_Female_WhiteAlone",
+          "Count_Person_15OrMoreYears_Female_WhiteAlone",
+          "Count_Person_15To17Years_Female_WhiteAlone",
+          "Count_Person_18To19Years_Female_WhiteAlone",
+          "Count_Person_20To24Years_Female_WhiteAlone",
+          "Count_Person_25OrMoreYears_Female_WhiteAlone",
+          "Count_Person_25To29Years_Female_WhiteAlone",
+          "Count_Person_30To34Years_Female_WhiteAlone",
+          "Count_Person_5To9Years_Female_WhiteAlone",
+          "Count_Person_75To84Years_Female_WhiteAlone",
+          "Count_Person_85OrMoreYears_Female_WhiteAlone"
+        ]
+      },
+      "Count_Person_Female_WhiteAloneNotHispanicOrLatino": {
+        "age": [
+          "Count_Person_10To14Years_Female_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_15OrMoreYears_Female_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_15To17Years_Female_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_18To19Years_Female_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_20To24Years_Female_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_25OrMoreYears_Female_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_25To29Years_Female_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_30To34Years_Female_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_5To9Years_Female_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_75To84Years_Female_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_85OrMoreYears_Female_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_Male": {
+        "age": [
+          "Count_Person_15To44Years_Male",
+          "Count_Person_21OrMoreYears_Male",
+          "Count_Person_60OrMoreYears_Male",
+          "Count_Person_62OrMoreYears_Male",
+          "Count_Person_65To66Years_Male",
+          "Count_Person_67To69Years_Male",
+          "Count_Person_85OrMoreYears_Male",
+          "Count_Person_Years5To14_Male"
+        ]
+      },
+      "Median_Age_Person_Female": {
+        "race": [
+          "Median_Age_Person_Female_AmericanIndianOrAlaskaNativeAlone",
+          "Median_Age_Person_Female_AsianAlone",
+          "Median_Age_Person_Female_BlackOrAfricanAmericanAlone",
+          "Median_Age_Person_Female_HispanicOrLatino",
+          "Median_Age_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Median_Age_Person_Female_SomeOtherRaceAlone",
+          "Median_Age_Person_Female_TwoOrMoreRaces",
+          "Median_Age_Person_Female_WhiteAlone",
+          "Median_Age_Person_Female_WhiteAloneNotHispanicOrLatino"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Gender",
+        "name": "Gender",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/3502000",
+        "name": "Albuquerque",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0203000",
+        "name": "Anchorage municipality",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2603000",
+        "name": "Ann Arbor",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1304000",
+        "name": "Atlanta",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4805000",
+        "name": "Austin",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2404000",
+        "name": "Baltimore",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1608830",
+        "name": "Boise",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2507000",
+        "name": "Boston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4513330",
+        "name": "Charleston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3712000",
+        "name": "Charlotte",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1714000",
+        "name": "Chicago",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3915000",
+        "name": "Cincinnati",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3916000",
+        "name": "Cleveland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3918000",
+        "name": "Columbus",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4819000",
+        "name": "Dallas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0820000",
+        "name": "Denver",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2622000",
+        "name": "Detroit",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4824000",
+        "name": "El Paso",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0937000",
+        "name": "Hartford",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4835000",
+        "name": "Houston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1836003",
+        "name": "Indianapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2836000",
+        "name": "Jackson",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1235000",
+        "name": "Jacksonville",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2938000",
+        "name": "Kansas City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3240000",
+        "name": "Las Vegas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0541000",
+        "name": "Little Rock",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0644000",
+        "name": "Los Angeles",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2148006",
+        "name": "Louisville/Jefferson County metro government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5548000",
+        "name": "Madison",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4748000",
+        "name": "Memphis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1245000",
+        "name": "Miami",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5553000",
+        "name": "Milwaukee",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2743000",
+        "name": "Minneapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0649670",
+        "name": "Mountain View",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4752006",
+        "name": "Nashville-Davidson metropolitan government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0952000",
+        "name": "New Haven",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2255000",
+        "name": "New Orleans",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/0653000",
+        "name": "Oakland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4055000",
+        "name": "Oklahoma City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3137000",
+        "name": "Omaha",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1253000",
+        "name": "Orlando",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0655282",
+        "name": "Palo Alto",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4260000",
+        "name": "Philadelphia",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0455000",
+        "name": "Phoenix",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4261000",
+        "name": "Pittsburgh",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4159000",
+        "name": "Portland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5167000",
+        "name": "Richmond",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/0664000",
+        "name": "Sacramento",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4967000",
+        "name": "Salt Lake City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4865000",
+        "name": "San Antonio",
+        "types": [
+          "City"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Age",
+        "name": "Age",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Race",
+        "name": "Population by Race",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Language",
+        "name": "Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MaritalStatus",
+        "name": "Marital Status",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Nationality",
+        "name": "Nationality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Veterans",
+        "name": "Veterans",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}

@@ -640,3 +640,27 @@ export function updateXAxis(
       `translate(0, ${yScale(0) + xAxisHeight - chartHeight})`
     );
 }
+
+/**
+ * Adds a chart title to the top of the svg and returns the height of the chart
+ * title that was added.
+ * @param svg svg to add title to
+ * @param titleText text of the title to add
+ * @param width width of the svg
+ * @returns height of the chart title that was added
+ */
+export function addChartTitle(
+  svg: d3.Selection<SVGGElement, any, any, any>,
+  titleText: string,
+  width: number
+): number {
+  const titleElement = svg
+    .append("g")
+    .attr("class", "chart-title")
+    .append("text")
+    .attr("y", 0)
+    .attr("dominant-baseline", "hanging")
+    .text(titleText)
+    .call(wrap, width);
+  return titleElement.node().getBBox().height;
+}
