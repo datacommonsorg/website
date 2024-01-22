@@ -73,7 +73,7 @@ def _scatter(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
 def _simple(state: PopulateState, chart_vars: ChartVars, places: List[Place],
             chart_origin: ChartOriginType, rank: int) -> bool:
-  if not is_coplottable(chart_vars):
+  if not is_coplottable(chart_vars, places):
     # TODO: This should eventually be a User Message
     state.uttr.counters.err('correlation_coplottable_failed', chart_vars.svs)
     return False
