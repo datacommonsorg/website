@@ -28,6 +28,7 @@ limitations under the License.
 {% set subpage_title = _('Place Explorer') %}
 {% set subpage_url = url_for('place.place') %}
 {% set place_category = category %}
+{% set translated_summary_text = _('{summary}'.format(summary=place_summary)) %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/place_page.min.css' , t=config['VERSION'])}}>
@@ -35,7 +36,7 @@ limitations under the License.
 
 <link rel="canonical" href="https://{{ request.host }}{{ canonical_url }}" />
 
-<meta name="description" content="{{ place_summary or description }}" />
+<meta name="description" content="{{ translated_summary_text or description }}" />
 {% endblock %}
 
 {% block content %}
@@ -65,8 +66,7 @@ limitations under the License.
         </div>
       </div>
       <div id="subtitle" class="row"></div>
-      {# TRANSLATORS: A summary highlight of the information on the page. #}
-      <div id="place-summary" class="row-col place-summary-container">{% trans %}{{ place_summary }}{% endtrans %}</div>
+      <div id="place-summary" class="row-col place-summary-container">{{ translated_summary_text }}</div>
       <div id="main-pane" class="row"></div>
       {# TRANSLATORS: A message shown on the page while the content is loading. #}
       <div id="page-loading" className="mt-4">{% trans %}Loading...{% endtrans %}</div>
