@@ -51,6 +51,7 @@ flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
 flags.DEFINE_string('indextype', '',
                     'The base index type such as small or medium_ft')
 
+_GCS_PREFIX = 'https://storage.mtls.cloud.google.com'
 _TEMPLATE = 'tools/nl/svindex_differ/template.html'
 _REPORT = '/tmp/diff_report.html'
 _FILE_PATTERN_EMBEDDINGS = r'embeddings_.*_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}\.csv'
@@ -130,9 +131,13 @@ def _get_diff_table(diff_list, base_sv_info, test_sv_info):
     next_diff = None
     if i < len(diff_list) - 1:
       next_diff = diff_list[i + 1]
+    # If the line starts with ?, this means it is not present in either base or test.
+    # https://docs.python.org/3/library/difflib.html#difflib.Differ
+    if diff.startswith('?'):
+      continue
     # If theres no + or -, that means this line is the same in both base and test.
-    if not diff.startswith('+') and not diff.startswith('-'):
-      info = base_sv_info.get(diff_sv, test_sv_info.get(diff_sv))
+    elif not diff.startswith('+') and not diff.startswith('-'):
+      info = base_sv_info.get(diff_sv, test_sv_info.get(diff_sv, {}))
       diff_table_rows.append((info, info))
     # If the line starts with -, this means it was present in base but not in test.
     elif diff.startswith('-'):
@@ -244,7 +249,7 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
   # Since the files can be fairly large, use a 10min timeout to be safe.
   blob.upload_from_filename(output_file, timeout=600)
   print("Done uploading to gcs.")
-  print(f"\t Diff report Filename: {gcs_filename}")
+  print(f"\t Diff report Filename: {_GCS_PREFIX}/{_GCS_BUCKET}/{gcs_filename}")
 
 
 def main(_):

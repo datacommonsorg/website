@@ -32,10 +32,10 @@ class TestDateParser(unittest.TestCase):
       ('How does california GCP in 2020 compare with year 2010',
        [Date('in', 2020, 0), Date('year', 2010, 0)]),
       ('Earthquakes in the last 5 years',
-       [Date('before', 2022, 0, year_span=5)]),
-      ('Flood in previous year', [Date('before', 2022, 0, year_span=1)]),
+       [Date('last_years', 2024, 0, year_span=5)]),
+      ('Flood in previous year', [Date('last_years', 2024, 0, year_span=1)]),
       ('Population over the past decade',
-       [Date('before', 2022, 0, year_span=10)]),
+       [Date('last_years', 2024, 0, year_span=10)]),
       ('Female population in Dakota', []),
       ('How has the population in USA changed over time', []),
   ])
@@ -47,3 +47,34 @@ class TestDateParser(unittest.TestCase):
       self.assertEqual(actual, expected)
     else:
       self.assertTrue(not expected)
+
+
+class TestGetDateRange(unittest.TestCase):
+
+  @parameterized.expand([
+      # 'last_years' includes the specified date
+      (Date('last_years', 2024, 0, year_span=1), ('2023', '2024')),
+      (Date('last_years', 2024, 2, year_span=1), ('2023-02', '2024-02')),
+      (Date('last_years', 2024, 0, year_span=5), ('2019', '2024')),
+      (Date('last_years', 2024, 2, year_span=5), ('2019-02', '2024-02')),
+      # 'before' does not include the specified date
+      (Date('before', 2080, 0, year_span=0), ('', '2079')),
+      (Date('before', 2080, 1, year_span=0), ('', '2079-12')),
+      (Date('before', 2080, 2, year_span=0), ('', '2080-01')),
+      # 'after' does not include the specified date
+      (Date('after', 2020, 0, year_span=0), ('2021', '')),
+      (Date('after', 2020, 12, year_span=0), ('2021-01', '')),
+      (Date('after', 2020, 2, year_span=0), ('2020-03', '')),
+      # 'until' includes the specified date
+      (Date('until', 2017, 0, year_span=0), ('', '2017')),
+      (Date('until', 2017, 2, year_span=0), ('', '2017-02')),
+      # 'since' includes the specified date
+      (Date('since', 2017, 0, year_span=0), ('2017', '')),
+      (Date('since', 2017, 2, year_span=0), ('2017-02', '')),
+      # 'in' is not a date range
+      (Date('in', 2021, 5), ('', '')),
+      (None, ('', '')),
+  ])
+  def test_main(self, query, expected):
+    result = date.get_date_range_strings(query)
+    self.assertEqual(result, expected)

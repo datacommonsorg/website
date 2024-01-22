@@ -55,7 +55,7 @@ def populate_charts(state: PopulateState) -> bool:
   places = state.uttr.places
   handle_contained_in_type(state, places)
 
-  if not state.uttr.svs:
+  if not state.chart_vars_map:
     state.uttr.counters.err('num_populate_fallbacks', 1)
     state.uttr.sv_source = FulfillmentResult.UNRECOGNIZED
     return False
@@ -64,8 +64,9 @@ def populate_charts(state: PopulateState) -> bool:
 
   if not success:
     state.uttr.counters.err('num_populate_fallbacks', 1)
-    state.uttr.counters.err('failed_populate_main_svs', state.uttr.svs)
-    if state.uttr.svs:
+    state.uttr.counters.err('failed_populate_main_svs',
+                            state.chart_vars_map.keys())
+    if state.chart_vars_map:
       if state.uttr.sv_source == FulfillmentResult.PAST_QUERY:
         # We did not recognize anything in this query, the SV
         # we tried is from the context.
@@ -187,9 +188,6 @@ def _maybe_switch_parent_type(
 # Add charts given a place and a list of stat-vars.
 def _add_charts_with_existence_check(state: PopulateState,
                                      places: List[Place]) -> bool:
-  svs = state.uttr.svs
-  logging.info("Add chart %s %s" % (', '.join(_get_place_names(places)), svs))
-
   # This may set state.uttr.place_fallback
   _maybe_set_fallback(state, places)
 
@@ -250,7 +248,7 @@ def _add_charts_with_existence_check(state: PopulateState,
         not state.ranking_types and num_charts < _MAX_NUM_CHARTS):
       # Note that we want to expand on existing_svs only, and in the
       # order of `svs`
-      ordered_existing_svs = [v for v in svs if v in existing_svs]
+      ordered_existing_svs = [v for v in state.uttr.svs if v in existing_svs]
       found |= _add_charts_for_extended_svs(state=state,
                                             places=places,
                                             svs=ordered_existing_svs,
@@ -389,6 +387,10 @@ def _maybe_set_fallback(state: PopulateState, places: List[Place]):
         # This is a perfectly legitimate case that happens
         # when promoting SIMPLE to CONTAINED_IN for example.
         # In this case, skip type matching.
+        orig_type = new_type
+      elif state.had_default_place_type:
+        # The user did not request a child-type, so don't
+        # report any message.
         orig_type = new_type
       else:
         # We are falling back to parent without a sub-type,

@@ -25,7 +25,7 @@ class Config(_base.Config):
   LOGO_PATH = "/custom_dc/unsdg/logo.png"
   OVERRIDE_CSS_PATH = '/custom_dc/unsdg/overrides.css'
   SHOW_DISASTER = False
-  USE_PALM = True
+  USE_LLM = True
   ENABLE_PER_CAPITA = False
   MAP_TOOL_FOOTER = "The boundaries and names shown and the designations used on this and other maps throughout this publication do not imply official endorsement or acceptance by the United Nations."
   GEO_JSON_PROP = "geoJsonCoordinatesUN"

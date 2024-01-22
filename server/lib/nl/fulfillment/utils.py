@@ -13,16 +13,22 @@
 # limitations under the License.
 
 import copy
+import os
 from typing import Dict, List
 
+from flask import current_app
+
+from server.lib import util as libutil
 from server.lib.explore import params
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
+from server.lib.nl.common import variable
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import Date
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartSpec
@@ -119,7 +125,8 @@ def add_chart_to_utterance(
                  ranking_count=ranking_count,
                  chart_origin=primary_vs_secondary,
                  is_sdg=is_sdg,
-                 single_date=state.single_date)
+                 single_date=state.single_date,
+                 date_range=state.date_range)
   state.uttr.chartCandidates.append(ch)
   state.uttr.counters.info('num_chart_candidates', 1)
   return True
@@ -157,3 +164,60 @@ def get_default_contained_in_place(places: List[Place],
   if isinstance(ptype, str):
     ptype = ContainedInPlaceType(ptype)
   return constants.DEFAULT_PARENT_PLACES.get(ptype, None)
+
+
+# Get facet id to use when there is a date specified (use a facet id that has
+# data). Gets the facet id that has data for the most places.
+def get_facet_id(sv: str, date: Date, sv_exist_facet: Dict[str, Dict[str, str]],
+                 places: List[str]) -> str:
+  if not date:
+    return ''
+  sv_facets = sv_exist_facet.get(sv, {})
+  facet_id_occurences = {}
+  facet_id_to_use = ""
+  for place in places:
+    place_facet_id = sv_facets.get(place, {}).get('facetId', '')
+    if not place_facet_id:
+      continue
+    place_facet_id_occurences = facet_id_occurences.get(place_facet_id, 0) + 1
+    facet_id_occurences[place_facet_id] = place_facet_id_occurences
+    if place_facet_id_occurences > facet_id_occurences.get(facet_id_to_use, 0):
+      facet_id_to_use = place_facet_id
+  return facet_id_to_use
+
+
+def is_coplottable(chart_vars: ChartVars, places: List[Place]) -> bool:
+  """"
+  Function that checks if the given SVs are co-plottable in a timeline/bar.
+  That's true if the SVs are all either PC/no-PC, and have the same unit.
+
+  Args:
+    chart_vars: ChartVars to be plotted.
+    places: places to be plotted.
+  
+  Returns:
+    Boolean indicating whether the SVs are co-plottable in a timeline/bar chart.
+  """
+  if os.environ.get('FLASK_ENV') == 'test':
+    nopc_vars = libutil.get_nl_no_percapita_vars()
+  else:
+    nopc_vars = current_app.config['NOPC_VARS']
+
+  svs = chart_vars.svs
+  # Ensure all SVs have the same per-capita relevance.
+  pc_list = [variable.is_percapita_relevant(sv, nopc_vars) for sv in svs]
+  if any(pc_list) and not all(pc_list):
+    # Some SV is True, but not all.
+    return False
+
+  # Ensure all SVs have the same unit.
+  unit = None
+  for i, sv in enumerate(svs):
+    for place in places:
+      u = chart_vars.sv_exist_facet.get(sv, {}).get(place.dcid,
+                                                    {}).get('unit', '')
+      if i > 0 and unit != u:
+        return False
+      unit = u
+
+  return True

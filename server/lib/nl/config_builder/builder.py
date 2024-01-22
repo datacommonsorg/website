@@ -93,11 +93,20 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
       if len(cspec.svs) > 1:
         block = builder.new_chart(cspec)
         stat_var_spec_map = timeline.single_place_multiple_var_timeline_block(
-            block.columns.add(), cspec.places[0], cspec.svs, sv2thing, cv,
-            cspec.single_date)
+            column=block.columns.add(),
+            place=cspec.places[0],
+            svs=cspec.svs,
+            sv2thing=sv2thing,
+            cv=cv,
+            single_date=cspec.single_date,
+            date_range=cspec.date_range)
       elif len(cspec.places) > 1:
         stat_var_spec_map = timeline.multi_place_single_var_timeline_block(
-            builder, cspec.places, cspec.svs[0], sv2thing, cspec)
+            builder=builder,
+            places=cspec.places,
+            sv=cspec.svs[0],
+            sv2thing=sv2thing,
+            cspec=cspec)
       else:
         block = builder.new_chart(cspec)
         if cspec.is_sdg:
@@ -107,8 +116,13 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
                                         cspec.svs[0], sv2thing,
                                         cspec.single_date))
         stat_var_spec_map = timeline.single_place_single_var_timeline_block(
-            block.columns.add(), cspec.places[0], cspec.svs[0], sv2thing,
-            cspec.single_date, cv)
+            column=block.columns.add(),
+            place=cspec.places[0],
+            sv_dcid=cspec.svs[0],
+            sv2thing=sv2thing,
+            single_date=cspec.single_date,
+            date_range=cspec.date_range,
+            cv=cv)
         if not cspec.is_sdg:
           stat_var_spec_map.update(
               highlight.highlight_block(block.columns.add(), cspec.places[0],
@@ -209,7 +223,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
 
     elif cspec.chart_type == ChartType.RANKED_TIMELINE_COLLECTION:
       stat_var_spec_map = timeline.ranked_timeline_collection_block(
-          builder, cspec, sv2thing, cspec.single_date)
+          builder, cspec, sv2thing, cspec.single_date, cspec.date_range)
 
     builder.update_sv_spec(stat_var_spec_map)
 

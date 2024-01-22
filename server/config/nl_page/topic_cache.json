@@ -11409,8 +11409,8 @@
         "Health Insurance"
       ],
       "relevantVariableList": [
-        "Count_Person_NoHealthInsurance",
         "Count_Person_WithHealthInsurance",
+        "Count_Person_NoHealthInsurance",
         "dc/topic/HealthInsuranceType",
         "dc/topic/NoHealthInsurance"
       ],

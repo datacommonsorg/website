@@ -18,7 +18,7 @@ from typing import Dict, List
 
 import requests
 
-_API_KEY = os.getenv("PALM_API_KEY")
+_API_KEY = os.getenv("LLM_API_KEY")
 _API_URL = "https://generativelanguage.googleapis.com/v1beta3/models/text-bison-001:generateText"
 _TEMPERATURE = 0.2
 
@@ -60,7 +60,7 @@ Facts:
 Summary:
 """
 
-assert _API_KEY, "$PALM_API_KEY must be specified."
+assert _API_KEY, "$LLM_API_KEY must be specified."
 
 
 def strip_superlatives(label: str) -> str:

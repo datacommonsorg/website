@@ -109,6 +109,12 @@ COPY import/. /workspace/import/
 # Embeddings Tool
 COPY tools/nl/embeddings/. /workspace/tools/nl/embeddings/
 
+# Download model and embeddings
+WORKDIR /workspace/tools/nl/embeddings
+RUN python build_custom_dc_embeddings.py --mode=download
+
+WORKDIR /workspace
+
 
 # Env that should not change
 ENV USE_LOCAL_MIXER=true

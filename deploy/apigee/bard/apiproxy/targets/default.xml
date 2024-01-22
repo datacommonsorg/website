@@ -7,6 +7,9 @@
       <Step>
         <Name>verify-api-key</Name>
       </Step>
+      <Step>
+        <Name>forward-host</Name>
+      </Step>
     </Request>
     <Response/>
   </PreFlow>

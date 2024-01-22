@@ -48,4 +48,5 @@ export const CHART_URL_PARAMS = {
   ENCLOSED_PLACE_TYPE: "enclosedPlaceType",
   STAT_VAR_SPEC: "svSpec",
   EVENT_TYPE_SPEC: "eventTypeSpec",
+  API_KEY: "apikey",
 };

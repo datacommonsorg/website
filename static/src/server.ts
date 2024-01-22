@@ -101,7 +101,7 @@ const QUERY_MAX_RESULTS = 3;
 // The param value for the client param if the client is Bard. Default is Bard.
 const BARD_CLIENT_URL_PARAM = "bard";
 // Allowed chart types if client is Bard.
-const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING"]);
+const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING", "SCATTER"]);
 // The root to use to form the dc link in the tile results
 // TODO: update this to use bard.datacommons.org
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
@@ -240,6 +240,7 @@ function getBlockTileResults(
   svSpec: Record<string, StatVarSpec>,
   urlRoot: string,
   useChartUrl: boolean,
+  apikey: string,
   allowedTilesTypes?: Set<string>
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
@@ -261,7 +262,8 @@ function getBlockTileResults(
               tileSvSpec,
               CONFIG.apiRoot,
               urlRoot,
-              useChartUrl
+              useChartUrl,
+              apikey
             )
           );
           break;
@@ -276,7 +278,8 @@ function getBlockTileResults(
               tileSvSpec,
               CONFIG.apiRoot,
               urlRoot,
-              useChartUrl
+              useChartUrl,
+              apikey
             )
           );
           break;
@@ -291,7 +294,8 @@ function getBlockTileResults(
               tileSvSpec,
               CONFIG.apiRoot,
               urlRoot,
-              useChartUrl
+              useChartUrl,
+              apikey
             )
           );
           break;
@@ -306,7 +310,8 @@ function getBlockTileResults(
               tileSvSpec,
               CONFIG.apiRoot,
               urlRoot,
-              useChartUrl
+              useChartUrl,
+              apikey
             )
           );
           break;
@@ -321,7 +326,8 @@ function getBlockTileResults(
               tileSvSpec,
               CONFIG.apiRoot,
               urlRoot,
-              useChartUrl
+              useChartUrl,
+              apikey
             )
           );
           break;
@@ -342,6 +348,7 @@ function getDisasterBlockTileResults(
   eventTypeSpec: Record<string, EventTypeSpec>,
   urlRoot: string,
   useChartUrl: boolean,
+  apikey: string,
   allowedTilesTypes?: Set<string>
 ): Promise<TileResult>[] {
   const blockEventTypeSpec = getBlockEventTypeSpecs(
@@ -376,7 +383,8 @@ function getDisasterBlockTileResults(
               disasterEventDataPromise,
               CONFIG.apiRoot,
               urlRoot,
-              useChartUrl
+              useChartUrl,
+              apikey
             )
           );
         default:
@@ -475,7 +483,12 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const query = req.query.q;
   const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
   const allResults = req.query.allCharts === ALL_CHARTS_URL_PARAM;
-  const urlRoot = `${req.protocol}://${req.get("host")}`;
+  // If coming from an API proxy, need to get the original protocol and host
+  // from the request headers
+  const protocol = req.headers["x-forwarded-proto"] || req.protocol;
+  const host = req.headers["x-forwarded-host"] || req.headers.host;
+  const apikey = (req.query.apikey as string) || "";
+  const urlRoot = `${protocol}://${host}`;
   const client = req.query.client || BARD_CLIENT_URL_PARAM;
   const allowedTileTypes =
     client === BARD_CLIENT_URL_PARAM ? BARD_ALLOWED_CHARTS : null;
@@ -540,6 +553,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
                 config["metadata"]["eventTypeSpec"],
                 urlRoot,
                 useChartUrl,
+                apikey,
                 allowedTileTypes
               );
               break;
@@ -552,6 +566,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
                 svSpec,
                 urlRoot,
                 useChartUrl,
+                apikey,
                 allowedTileTypes
               );
           }

@@ -71,9 +71,10 @@ class ChartVars:
   # Set if is_topic_peer_group is set.
   svpg_id: str = ''
 
-  # Map of sv to id of facet that has data for this sv. Only used by LINE tiles
-  # when there is a date specified.
-  sv_exist_facet_id = Dict[str, str]
+  # Map of sv to place to facet metadata that has data for this sv. Used by LINE tiles
+  # when there is a date specified, and by the "is_coplottable" check.
+  # TODO: reuse https://github.com/datacommonsorg/website/blob/368d8d7cdfc1cd5086809d15b39c820d1fe763e7/server/lib/nl/fulfillment/types.py#L122-L123 for saving facet metadata.
+  sv_exist_facet = Dict[str, Dict[str, Dict[str, str]]]
 
 
 @dataclass
@@ -97,6 +98,9 @@ class PopulateState:
   quantity: QuantityClassificationAttributes = None
   # A single specified date to get data for.
   single_date: Date = None
+  # A date range to get data for. Only one of this or single_date should be set.
+  # If single_date is set, this will be ignored.
+  date_range: Date = None
   event_types: List[EventType] = field(default_factory=list)
   disable_fallback: bool = False
   # The list of chart-vars to process.  This is keyed by var / topic.
@@ -142,3 +146,4 @@ class ChartSpec:
   chart_origin: ChartOriginType
   is_sdg: bool
   single_date: Date
+  date_range: Date
