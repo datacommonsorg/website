@@ -118,8 +118,9 @@ def write_priority_places_sitemap():
   # Get Top 100 US cities by population from ranking API
   response = requests.get(
       "https://datacommons.org/api/ranking/Count_Person/City/country/USA")
-  city_ranking_data = response.json().get(
-          "Count_Person", {}).get("rankTop1000", {}).get("info", [])
+  city_ranking_data = response.json().get("Count_Person",
+                                          {}).get("rankTop1000",
+                                                  {}).get("info", [])
   for city in city_ranking_data[:100]:
     city_dcid = city.get("placeDcid", None)
     if city_dcid:
