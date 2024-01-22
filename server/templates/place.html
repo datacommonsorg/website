@@ -19,13 +19,14 @@ limitations under the License.
 {% set page_id = 'page-dc-places' %}
 {% if category == '' %}
   {% set title = place_name + ' - ' + _('Place Explorer') %}
-  {% set description = place_summary or 'Statistics about economics, health, equity, crime, education, demographics, housing, and environment in ' + place_name + '.' %}
+  {% set description_text = 'Statistics about economics, health, equity, crime, education, demographics, housing, and environment in {place_name}.'.format(place_name=place_name) %}
   {% set canonical_url = url_for('place.place', place_dcid=place_dcid) %}
 {% else %}
   {% set title = place_name + ' - '+ _('CHART_TITLE-CHART_CATEGORY-{category}'.format(category=category)) + ' - ' + _('Place Explorer') %}
-  {% set description = place_summary or 'Statistics about ' + category + ' in ' place_name + '.' %}
+  {% set description_text = 'Statistics about {category} in {place_name}.'.format(category=category, place_name=place_name) %}
   {% set canonical_url = url_for('place.place', place_dcid=place_dcid, category=category) %}
 {% endif %}
+{% set description = (place_summary or description_text) %}
 {% set subpage_title = _('Place Explorer') %}
 {% set subpage_url = url_for('place.place') %}
 {% set place_category = category %}
