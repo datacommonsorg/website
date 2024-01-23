@@ -72,8 +72,8 @@ export function getProcessedSvg(
   //                 Need to switch to dynamically setting svg size.
   const svgWidth = SVG_WIDTH + 2 * SVG_PADDING;
   const svgHeight = height + 2 * SVG_PADDING;
-  chartSvg.setAttribute("width", `${svgWidth}px`);
-  chartSvg.setAttribute("height", `${svgHeight}px`);
+  chartSvg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
+  chartSvg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   if (!isDisasterMapTile) {
     // Disaster event map tiles are already centered in the SVG.
     // Translate to center all other tile types.
