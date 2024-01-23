@@ -94,6 +94,48 @@
       "scaling": "",
       "name": "cumulative number of COVID-19 deaths",
       "computePerCapita": true
+    },
+    {
+      "sv": "RetailDrugDistribution_DrugDistribution_Oxycodone",
+      "unit": "g",
+      "scaling": "",
+      "name": "amount of oxycodone sold",
+      "computePerCapita": true
+    },
+    {
+      "sv": "RetailDrugDistribution_DrugDistribution_Hydrocodone",
+      "unit": "g",
+      "scaling": "",
+      "name": "amount of hydrocodone sold",
+      "computePerCapita": true
+    },
+    {
+      "sv": "RetailDrugDistribution_DrugDistribution_Codeine",
+      "unit": "g",
+      "scaling": "",
+      "name": "amount of codeine sold",
+      "computePerCapita": true
+    },
+    {
+      "sv": "RetailDrugDistribution_DrugDistribution_Amphetamine",
+      "unit": "g",
+      "scaling": "",
+      "name": "amount of amphetamine sold",
+      "computePerCapita": true
+    },
+    {
+      "sv": "RetailDrugDistribution_DrugDistribution_Morphine",
+      "unit": "g",
+      "scaling": "",
+      "name": "amount of morphine sold",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_NotEnrolledInSchool",
+      "unit": "",
+      "scaling": "",
+      "name": "number of people not enrolled in school",
+      "computePerCapita": true
     }
   ],
   "Crime": [
@@ -344,13 +386,6 @@
       "scaling": "",
       "name": "number of people enrolled in school",
       "computePerCapita": true
-    },
-    {
-      "sv": "Count_Person_NotEnrolledInSchool",
-      "unit": "",
-      "scaling": "",
-      "name": "number of people not enrolled in school",
-      "computePerCapita": true
     }
   ],
   "Health": [
@@ -488,41 +523,6 @@
       "computePerCapita": false
     },
     {
-      "sv": "RetailDrugDistribution_DrugDistribution_Oxycodone",
-      "unit": "g",
-      "scaling": "",
-      "name": "amount of oxycodone sold",
-      "computePerCapita": true
-    },
-    {
-      "sv": "RetailDrugDistribution_DrugDistribution_Hydrocodone",
-      "unit": "g",
-      "scaling": "",
-      "name": "amount of hydrocodone sold",
-      "computePerCapita": true
-    },
-    {
-      "sv": "RetailDrugDistribution_DrugDistribution_Codeine",
-      "unit": "g",
-      "scaling": "",
-      "name": "amount of codeine sold",
-      "computePerCapita": true
-    },
-    {
-      "sv": "RetailDrugDistribution_DrugDistribution_Amphetamine",
-      "unit": "g",
-      "scaling": "",
-      "name": "amount of amphetamine sold",
-      "computePerCapita": true
-    },
-    {
-      "sv": "RetailDrugDistribution_DrugDistribution_Morphine",
-      "unit": "g",
-      "scaling": "",
-      "name": "amount of morphine sold",
-      "computePerCapita": true
-    },
-    {
       "sv": "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears",
       "unit": "L",
       "scaling": "",
@@ -554,8 +554,8 @@
     },
     {
       "sv": "Count_Person_BelowPovertyLevelInThePast12Months",
-      "unit": "%",
-      "scaling": 100,
+      "unit": "",
+      "scaling": "",
       "name": "number of people below poverty level in the past 12 months",
       "computePerCapita": true
     },

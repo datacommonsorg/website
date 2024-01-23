@@ -12,17 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
 import json
 import logging
-import requests
+import os
 from typing import Dict, List
+
+import requests
 
 _API_KEY = os.getenv("MIXER_API_KEY")
 assert _API_KEY, "$MIXER_API_KEY must be specified."
 
+# Where to write output json summaries to
 _OUTPUT_FILENAME = "place_summary_content.json"
 
+# Where to read stat var specs from
 _STAT_VAR_JSON = "stat_vars_detailed.json"
 
 # What rank, top-X or bottom-X to have statistic highlighted.
@@ -32,30 +35,44 @@ _DEFAULT_RANKING_THRESHOLD = 3
 # Number from 0 to 1.
 _DEFAULT_PERCENTAGE_THRESHOLD = 0.10
 
-
 # Categories of variables to skip
 _CATEGORY_SKIP_LIST = [
-  "Ignored", # Presents bad image in summaries
-  "Crime", # Presents bad image in summaries
-  "Education", # Vars not interesting
+    "Ignored",  # Presents bad image in summaries
+    "Crime",  # Presents bad image in summaries
+    "Education",  # Vars not interesting
+]
+
+# List of place types to mention in starting sentence.
+_PLACE_HIERARCHY = [
+  "City",
+  "County",
+  "State",
+  "Country",
+  "Continent",
 ]
 
 # DCID of the variable to use for population / per capita denominator
 _POPULATION_DCID = "Count_Person"
 
+# Template for the first sentence in the summary
 _TEMPLATE_STARTING_SENTENCE = "{place_name} is a {place_type} in {parent_place_name}."
 
+# Template for stat var a place ranks highly in
 _TEMPLATE_RANKING_SENTENCE = "{place_name} ranks {rank} in {parent_place_name} by {stat_var_name} ({value})."
 
+# Template for sharing the value of a stat var
 _TEMPLATE_VALUE_SENTENCE = "The {stat_var_name} in {place_name} is {value}{date_str}."
 
-_DATE_SUFFIX = "({date})"
+# Template for how to display a date in sentences above
+_TEMPLATE_DATE = " ({date})"
 
+# Mapping of suffix to use when displaying a ranking
 _RANK_SUFFIX = {
-  "1" : "st",
-  "2" : "nd",
-  "3" : "rd",
+    "1": "st",
+    "2": "nd",
+    "3": "rd",
 }
+
 
 def get_rank_string(rank: int) -> str:
   """Converts rank number into a string like '1st' """
@@ -64,7 +81,10 @@ def get_rank_string(rank: int) -> str:
   suffix = _RANK_SUFFIX.get(last_digit, "th")
   return rank_str + suffix
 
-def get_ranking(stat_var_dcid: str, place_type: str, parent_place_dcid: str) -> Dict:
+
+def get_ranking(stat_var_dcid: str, place_type: str,
+                parent_place_dcid: str) -> Dict:
+  """Make ranking api call and return response"""
   req_url = f"https://datacommons.org/api/ranking/{stat_var_dcid}/{place_type}/{parent_place_dcid}"
   response = requests.get(req_url)
   if response.status_code == 200:
@@ -73,23 +93,25 @@ def get_ranking(stat_var_dcid: str, place_type: str, parent_place_dcid: str) -> 
     logging.error(f"unable to fetch ranking from {req_url}")
   return {}
 
+
 def get_population(place_dcids: list) -> Dict:
   """Get mapping of place dcid -> population for per capita calculations"""
   raise NotImplementedError
 
+
 def get_names(place_dcids: list) -> Dict:
   """Get mapping of place dcid -> name"""
   req_url = f"https://api.datacommons.org/v1/bulk/property/values/out?property=name&key={_API_KEY}&nodes="
-  nodes = "&nodes=".join(place_dcids)
-  req_url += nodes
+  req_url += "&nodes=".join(place_dcids)
   response = requests.get(req_url)
   if response.status_code == 200:
+    # Format response into dcid -> name dictionary
     names = {}
     res_data = response.json().get("data", [])
     for place in res_data:
-      place_dcid = place.get("node", "")
-      place_name_values = place.get("values", [])
-      place_name = place_name_values[0].get("value", "")
+      place_dcid = place.get("node")
+      place_name_values = place.get("values")
+      place_name = place_name_values[0].get("value", "") if place_name_values else None
       if place_dcid and place_name:
         names[place_dcid] = place_name
     return names
@@ -97,47 +119,69 @@ def get_names(place_dcids: list) -> Dict:
     logging.error(f"unable to fetch names from {req_url}")
   return {}
 
+
 def get_all_places_in(place_type: str, parent_place_dcid: str) -> List:
   """Get list of dcids for all places in a parent place of a certain place type"""
   req_url = f"https://api.datacommons.org/v1/property/values/in/linked/{parent_place_dcid}/containedInPlace?value_node_type={place_type}&key={_API_KEY}"
   response = requests.get(req_url)
   if response.status_code == 200:
+    # Format response into a list of dcids
     child_place_list = response.json().get("values", [])
     all_places_in = []
     for place in child_place_list:
-      place_dcid = place.get("dcid", "")
-      if place_dcid:
-        all_places_in.append(place_dcid)
+      if place.get("dcid"):
+        all_places_in.append(place.get("dcid"))
     return all_places_in
   else:
-    logging.error(f"unable to fetch names from v2/node api")
+    logging.error(f"unable to child places from {req_url}")
   return []
 
-def get_all_parent_places(place_type: str, place_dcids: List[str]) -> List:
-  """Get list of dcids for all parent places of a certain place type"""
-  req_url = f"https://api.datacommons.org/v1/property/values/out/linked/{parent_place_dcid}/containedInPlace?value_node_type={place_type}&key={_API_KEY}"
+
+def get_type_and_all_parent_places(place_dcids: List[str]) -> Dict:
+  """Get a mapping of place to parent places, and its own place type"""
+  req_url = f"https://api.datacommons.org/v1/bulk/info/place?key={_API_KEY}&nodes="
+  req_url += "&nodes=".join(place_dcids)
   response = requests.get(req_url)
   if response.status_code == 200:
-    child_place_list = response.json().get("values", [])
-    all_places_in = []
+    # Format response into a mapping of place -> place type, list of parent dcids
+    child_place_list = response.json().get("data", [])
+    mapping = {}
     for place in child_place_list:
-      place_dcid = place.get("dcid", "")
-      if place_dcid:
-        all_places_in.append(place_dcid)
-    return all_places_in
+      place_dcid = place.get("node", "")
+      place_type = place.get("self", {}).get("type", None)     
+      mapping[place_dcid] = {"type": place_type, "parents": []}
+      parents = place.get("info", {}).get("parents", [])
+      for parent_place in parents:
+        if parent_place.get("type", "") in _PLACE_HIERARCHY:
+          mapping[place_dcid]["parents"].append(parent_place.get("name"))
+    return mapping
   else:
-    logging.error(f"unable to fetch names from v2/node api")
-  return []
+    logging.error(f"unable to fetch parent places from {req_url}")
+  return {}
+
 
 # TODO: assert place type passed in does match DCID provided
-def initialize_summaries(place_dcids: List[str], names: Dict, place_type: str, parent_place_name: str) -> Dict:
+def initialize_summaries(place_dcids: List[str], names: Dict, place_type: str,
+                         parent_place_name: str) -> Dict:
   """Initialize mapping of place dcid -> summary with starter sentence."""
   summaries = {}
   for place_dcid in place_dcids:
     place_name = names[place_dcid]
-    sentence = _TEMPLATE_STARTING_SENTENCE.format(place_name=place_name, place_type=place_type.lower(), parent_place_name=parent_place_name)
+    if place_type.lower() == "state" and place_dcid == "geoId/11":
+      # Special handling for Washington DC
+      # which is a federal district, not a state
+      sentence = _TEMPLATE_STARTING_SENTENCE.format(
+          place_name=place_name,
+          place_type="federal district",
+          parent_place_name=parent_place_name)
+    else:
+      sentence = _TEMPLATE_STARTING_SENTENCE.format(
+          place_name=place_name,
+          place_type=place_type.lower(),
+          parent_place_name=parent_place_name)
     summaries[place_dcid] = sentence
   return summaries
+
 
 def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
   """Format a stat var observation to print nicely in a sentence"""
@@ -161,12 +205,12 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str):
   child_places = get_all_places_in(place_type, parent_place_dcid)
   name_of = get_names(child_places + [parent_place_dcid])
   parent_place_name = name_of[parent_place_dcid]
-  if parent_place_dcid=="country/USA":
+  if parent_place_dcid == "country/USA":
     # USA needs "the" in front in sentences.
     parent_place_name = "the United States of America"
   #population_of = get_population(child_places)
-  summaries = initialize_summaries(child_places, name_of, place_type, parent_place_name)
-
+  summaries = initialize_summaries(child_places, name_of, place_type,
+                                   parent_place_name)
 
   # Process each variable
   with open(_STAT_VAR_JSON) as sv_f:
@@ -179,38 +223,38 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str):
 
       for sv in sv_list:
         # Get ranking for variable
-        sv_rankings = get_ranking(
-          stat_var_dcid=sv["sv"],
-          place_type=place_type,
-          parent_place_dcid=parent_place_dcid)
+        sv_rankings = get_ranking(stat_var_dcid=sv["sv"],
+                                  place_type=place_type,
+                                  parent_place_dcid=parent_place_dcid)
 
-        rank_list = sv_rankings.get(sv["sv"], {}).get("rankAll", {}).get("info", [])
+        rank_list = sv_rankings.get(sv["sv"], {}).get("rankAll",
+                                                      {}).get("info", [])
         rank_list.sort(key=lambda x: x['rank'])
 
         # Add summaries for top places
         for i in range(len(rank_list)):
           rank_item = rank_list[i]
           place_dcid = rank_item['placeDcid']
-          sv_value = format_stat_var_value(value=rank_item['value'], stat_var_data=sv)
+          sv_value = format_stat_var_value(value=rank_item['value'],
+                                           stat_var_data=sv)
           sentence = ""
 
           if i < _DEFAULT_RANKING_THRESHOLD:
             sentence = _TEMPLATE_RANKING_SENTENCE.format(
-              place_name=name_of[place_dcid],
-              rank=get_rank_string(rank_item['rank']),
-              parent_place_name=parent_place_name,
-              stat_var_name=sv['name'],
-              value=sv_value,
+                place_name=name_of[place_dcid],
+                rank=get_rank_string(rank_item['rank']),
+                parent_place_name=parent_place_name,
+                stat_var_name=sv['name'],
+                value=sv_value,
             )
 
-          elif i <= len(rank_list)*_DEFAULT_PERCENTAGE_THRESHOLD:
+          elif i <= len(rank_list) * _DEFAULT_PERCENTAGE_THRESHOLD:
             sentence = _TEMPLATE_VALUE_SENTENCE.format(
-              stat_var_name=sv['name'],
-              place_name=name_of[place_dcid],
-              value=sv_value,
-              date_str=""
-            )
-          
+                stat_var_name=sv['name'],
+                place_name=name_of[place_dcid],
+                value=sv_value,
+                date_str="")
+
           if sentence:
             summaries[place_dcid] += " " + sentence
 
@@ -219,8 +263,9 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str):
     json.dump(summaries, out_file, indent=4)
 
 
+def main():
+  build_ranking_based_summaries(place_type="State",
+                                parent_place_dcid="country/USA")
+
 if __name__ == "__main__":
-  build_ranking_based_summaries(
-    place_type="State",
-    parent_place_dcid="country/USA"
-  )
+  main()
