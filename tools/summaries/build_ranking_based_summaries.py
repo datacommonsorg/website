@@ -45,9 +45,9 @@ _POPULATION_DCID = "Count_Person"
 
 _TEMPLATE_STARTING_SENTENCE = "{place_name} is a {place_type} in {parent_place_name}."
 
-_TEMPLATE_RANKING_SENTENCE = "{place_name} ranks {rank} in {parent_place_name} by {stat_var_name} ({value:,})."
+_TEMPLATE_RANKING_SENTENCE = "{place_name} ranks {rank} in {parent_place_name} by {stat_var_name} ({value})."
 
-_TEMPLATE_VALUE_SENTENCE = "The {stat_var_name} in {place_name} is {value:,}{date_str}."
+_TEMPLATE_VALUE_SENTENCE = "The {stat_var_name} in {place_name} is {value}{date_str}."
 
 _DATE_SUFFIX = "({date})"
 
@@ -141,11 +141,16 @@ def initialize_summaries(place_dcids: List[str], names: Dict, place_type: str, p
 
 def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
   """Format a stat var observation to print nicely in a sentence"""
+  scaling = stat_var_data['scaling']
+  if not scaling:
+    scaling = 1
   # Round to 2nd decimal place
-  rounded_value = round(value, 2)
+  rounded_value = round(value, 2) * scaling
   unit = stat_var_data['unit']
-  value_str = str(rounded_value)
-  raise NotImplementedError
+  if unit == "$":
+    return "{unit}{value:,}".format(unit=unit, value=rounded_value)
+  return "{value:,}{unit}".format(unit=unit, value=rounded_value)
+
 
 def build_ranking_based_summaries(place_type: str, parent_place_dcid: str):
   """Get a summary for all child places of a parent place, based on rankings.
@@ -186,6 +191,8 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str):
         for i in range(len(rank_list)):
           rank_item = rank_list[i]
           place_dcid = rank_item['placeDcid']
+          sv_value = format_stat_var_value(value=rank_item['value'], stat_var_data=sv)
+          sentence = ""
 
           if i < _DEFAULT_RANKING_THRESHOLD:
             sentence = _TEMPLATE_RANKING_SENTENCE.format(
@@ -193,17 +200,18 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str):
               rank=get_rank_string(rank_item['rank']),
               parent_place_name=parent_place_name,
               stat_var_name=sv['name'],
-              value=rank_item['value'],
+              value=sv_value,
             )
-            summaries[place_dcid] += " " + sentence
 
           elif i <= len(rank_list)*_DEFAULT_PERCENTAGE_THRESHOLD:
             sentence = _TEMPLATE_VALUE_SENTENCE.format(
               stat_var_name=sv['name'],
               place_name=name_of[place_dcid],
-              value=rank_item['value'],
+              value=sv_value,
               date_str=""
             )
+          
+          if sentence:
             summaries[place_dcid] += " " + sentence
 
   # Write summaries to file
