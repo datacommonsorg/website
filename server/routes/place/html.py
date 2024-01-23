@@ -30,15 +30,23 @@ CATEGORY_REDIRECTS = {
 
 
 @bp.route('', strict_slashes=False)
-@bp.route('/<path:place_dcid>/', strict_slashes=False)
+@bp.route('/<path:place_dcid>')
 def place(place_dcid=None):
   redirect_args = dict(flask.request.args)
+
+  # Strip trailing slashes from place dcids
   should_redirect = False
+  if place_dcid and place_dcid.endswith('/'):
+    place_dcid = place_dcid.rstrip('/')
+    should_redirect = True
+
+  # Rename legacy "topic" request argument to "category"
   if 'topic' in flask.request.args:
     redirect_args['category'] = flask.request.args.get('topic', '')
     del redirect_args['topic']
     should_redirect = True
 
+  # Rename legacy category request arguments
   category = redirect_args.get('category', None)
   if category in CATEGORY_REDIRECTS:
     redirect_args['category'] = CATEGORY_REDIRECTS[category]
@@ -46,7 +54,8 @@ def place(place_dcid=None):
 
   if should_redirect:
     redirect_args['place_dcid'] = place_dcid
-    return flask.redirect(flask.url_for('place.place', **redirect_args))
+    return flask.redirect(flask.url_for('place.place', **redirect_args),
+                          code=301)
 
   dcid = flask.request.args.get('dcid', None)
   if dcid:
