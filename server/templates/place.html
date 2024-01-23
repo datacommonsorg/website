@@ -19,10 +19,10 @@ limitations under the License.
 {% set page_id = 'page-dc-places' %}
 {% if category == '' %}
   {% set title = place_name + ' - ' + _('Place Explorer') %}
-  {% set description_text = 'Statistics about economics, health, equity, crime, education, demographics, housing, and environment in {place_name}.'.format(place_name=place_name) %}
+  {% set description = 'Statistics about economics, health, equity, crime, education, demographics, housing, and environment in {place_name}.'.format(place_name=place_name) %}
 {% else %}
   {% set title = place_name + ' - '+ _('CHART_TITLE-CHART_CATEGORY-{category}'.format(category=category)) + ' - ' + _('Place Explorer') %}
-  {% set description_text = 'Statistics about {category} in {place_name}.'.format(category=category, place_name=place_name) %}
+  {% set description = 'Statistics about {category} in {place_name}.'.format(category=category, place_name=place_name) %}
 {% endif %}
 {% set description = (place_summary or description_text) %}
 {% set subpage_title = _('Place Explorer') %}
@@ -33,7 +33,10 @@ limitations under the License.
 <link rel="stylesheet" href={{url_for('static', filename='css/place_page.min.css' , t=config['VERSION'])}}>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
-<meta name="description" content="{% trans %}{{ description }}{% endtrans %}" />
+{% if locale == "en" %}
+<meta name="description" content="{{ place_summary or description }}" />
+{% endif %}
+
 {% endblock %}
 
 {% block content %}
@@ -62,7 +65,6 @@ limitations under the License.
         </div>
       </div>
       <div id="subtitle" class="row"></div>
-      {# TRANSLATORS: A summary highlight of the information shown on the page. #}
       <div id="place-summary" class="row-col place-summary-container">{{ place_summary if locale == "en" }}</div>
       <div id="main-pane" class="row"></div>
       {# TRANSLATORS: A message shown on the page while the content is loading. #}
