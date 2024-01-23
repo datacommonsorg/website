@@ -112,6 +112,7 @@ export function wrap(
 ): void {
   textSelection.each(function () {
     const text = d3.select(this);
+    const dominantBaseline = text.attr("dominant-baseline");
     const words = text
       .text()
       .replace(/-/g, "-#") // Handle e.g. "ABC-AB A" -> "ABC-", "AB" "A"
@@ -136,6 +137,12 @@ export function wrap(
         .attr("y", y)
         .attr("dy", lineNumber * lineHeight + dy + "em")
         .text(null);
+      // If the original text selection had a dominant baseline set, also set
+      // the same dominant baseline on each tspan element in order for the
+      // dominant baseline attribute to still hold.
+      if (dominantBaseline) {
+        tspan.attr("dominant-baseline", dominantBaseline);
+      }
       do {
         // Find as many words that fit in each line.
         const word: string = words.pop();
