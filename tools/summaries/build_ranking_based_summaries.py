@@ -88,7 +88,12 @@ def get_ranking(stat_var_dcid: str, place_type: str,
   req_url = f"https://datacommons.org/api/ranking/{stat_var_dcid}/{place_type}/{parent_place_dcid}"
   response = requests.get(req_url)
   if response.status_code == 200:
-    return response.json()
+    response_data = response.json().get(sv["sv"], {})
+    ranking_key = response_data.keys()[0] if response_data.keys() else ""
+    rank_list = response.get(ranking_key, {}).get("info", [])
+    if rank_list:
+        rank_list.sort(key=lambda x: x['rank'])
+    return rank_list
   else:
     logging.error(f"unable to fetch ranking from {req_url}")
   return {}
@@ -179,7 +184,7 @@ def initialize_summaries(place_dcids: List[str], names: Dict, place_type: str,
           place_name=place_name,
           place_type=place_type.lower(),
           parent_place_name=parent_place_name)
-    summaries[place_dcid] = sentence
+    summaries[place_dcid] = [sentence]
   return summaries
 
 
@@ -209,7 +214,7 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str):
     # USA needs "the" in front in sentences.
     parent_place_name = "the United States of America"
   #population_of = get_population(child_places)
-  summaries = initialize_summaries(child_places, name_of, place_type,
+  sentences = initialize_summaries(child_places, name_of, place_type,
                                    parent_place_name)
 
   # Process each variable
@@ -223,13 +228,9 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str):
 
       for sv in sv_list:
         # Get ranking for variable
-        sv_rankings = get_ranking(stat_var_dcid=sv["sv"],
+        rank_list = get_ranking(stat_var_dcid=sv["sv"],
                                   place_type=place_type,
                                   parent_place_dcid=parent_place_dcid)
-
-        rank_list = sv_rankings.get(sv["sv"], {}).get("rankAll",
-                                                      {}).get("info", [])
-        rank_list.sort(key=lambda x: x['rank'])
 
         # Add summaries for top places
         for i in range(len(rank_list)):
@@ -237,7 +238,7 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str):
           place_dcid = rank_item['placeDcid']
           sv_value = format_stat_var_value(value=rank_item['value'],
                                            stat_var_data=sv)
-          sentence = ""
+          sentence = None
 
           if i < _DEFAULT_RANKING_THRESHOLD:
             sentence = _TEMPLATE_RANKING_SENTENCE.format(
@@ -256,7 +257,12 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str):
                 date_str="")
 
           if sentence:
-            summaries[place_dcid] += " " + sentence
+            sentences[place_dcid].append(sentence)
+
+  # Combine sentences into a paragraph:
+  summaries = {}
+  for place, sentence_list in sentences.items():
+    summaries[place] = " ".join(sentence_list)
 
   # Write summaries to file
   with open(_OUTPUT_FILENAME, "w") as out_file:
