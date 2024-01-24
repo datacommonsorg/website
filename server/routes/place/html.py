@@ -21,6 +21,7 @@ from flask import current_app
 from flask import g
 
 import server.routes.shared_api.place as place_api
+import server.lib.place_summaries as place_summaries
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
@@ -81,8 +82,7 @@ def place(place_dcid=None):
   else:
     place_name = place_dcid
 
-  place_summary = current_app.config['PLACE_EXPLORER_SUMMARIES'].get(
-      place_dcid, {'summary': ''})
+  place_summary=place_summaries.get_place_summaries().get(place_dcid, "")
   show_summary = False
   if not category:
     # Only show summary for Overview
@@ -91,7 +91,7 @@ def place(place_dcid=None):
       show_summary = True
     if os.environ.get('FLASK_ENV') in ['staging', 'production']:
       # In staging or prod, only show summaries for places in allow list
-      place_allow_list = current_app.config['PLACE_SUMMARY_ALLOW_LIST'] or []
+      place_allow_list=place_summaries.get_place_allowlist() or []
       show_summary = place_dcid in place_allow_list
 
   return flask.render_template('place.html',
