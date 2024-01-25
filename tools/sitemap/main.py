@@ -17,6 +17,7 @@ import os
 import time
 
 import datacommons as dc
+import requests
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -87,6 +88,51 @@ def write_place_url(place_type):
     time.sleep(10)
 
 
+def write_priority_places_sitemap():
+  """Write a custom sitemap for SEO testing.
+  
+  Writes a sitemap with 50 US states, Washington D.C., and the top 100
+  US cities by population.
+  """
+  # Get US states and Washington DC
+  sparql = '''
+    SELECT ?dcid
+    WHERE {
+      ?a typeOf State .
+      ?a dcid ?dcid
+    }
+    Order By ASC(?dcid)
+    LIMIT 51
+  '''
+  dcids = []
+  try:
+    state_data = dc.query(sparql)
+    for state in state_data:
+      state_dcid = state.get('?dcid', None)
+      if state_dcid:
+        dcids.append(state_dcid)
+  except Exception:
+    logging.exception('Got an error while querying for US states')
+    return
+
+  # Get Top 100 US cities by population from ranking API
+  response = requests.get(
+      "https://datacommons.org/api/ranking/Count_Person/City/country/USA")
+  city_ranking_data = response.json().get("Count_Person",
+                                          {}).get("rankTop1000",
+                                                  {}).get("info", [])
+  for city in city_ranking_data[:100]:
+    city_dcid = city.get("placeDcid", None)
+    if city_dcid:
+      dcids.append(city_dcid)
+
+  # Write to file
+  sitemap_location = os.path.join(SAVE_PATH, "PriorityPlaces.0.txt")
+  with open(sitemap_location, "w") as f:
+    for place_dcid in dcids:
+      f.write(SITE_PREFIX + place_dcid + '\n')
+
+
 def updateRobotTxt():
   with open('../../static/robots.txt', 'w') as robot:
     for f in os.listdir(SAVE_PATH):
@@ -97,6 +143,7 @@ def main():
   dc.set_api_key('noop')
   for place_type in PLACES:
     write_place_url(place_type)
+  write_priority_places_sitemap()
   updateRobotTxt()
 
 

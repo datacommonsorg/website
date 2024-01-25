@@ -49,4 +49,6 @@ export const CHART_URL_PARAMS = {
   STAT_VAR_SPEC: "svSpec",
   EVENT_TYPE_SPEC: "eventTypeSpec",
   API_KEY: "apikey",
+  // If set, returns chart as an svg. Otherwise, returns chart as a png image.
+  AS_SVG: "svg",
 };

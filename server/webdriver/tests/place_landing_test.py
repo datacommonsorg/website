@@ -43,7 +43,7 @@ class TestPlaceLanding(WebdriverBaseTest):
                                         '//*[@id="body"]/ul[1]/li[3]/a[4]')
     self.assertEqual(kentucky.text, 'Kentucky')
     self.assertEqual(kentucky.get_attribute('href'),
-                     self.url_ + '/place/geoId/21/')
+                     self.url_ + '/place/geoId/21')
 
     median_income = self.driver.find_element(
         By.XPATH, '//*[@id="body"]/ul[2]/li[1]/strong')
@@ -83,7 +83,7 @@ class TestPlaceLanding(WebdriverBaseTest):
                                         '//*[@id="body"]/ul[1]/li[3]/a[4]')
     self.assertEqual(kentucky.text, 'Кентукки')
     self.assertEqual(kentucky.get_attribute('href'),
-                     self.url_ + '/place/geoId/21/?hl=ru')
+                     self.url_ + '/place/geoId/21?hl=ru')
 
     median_income = self.driver.find_element(
         By.XPATH, '//*[@id="body"]/ul[2]/li[1]/strong')
