@@ -84,7 +84,6 @@ def place(place_dcid=None):
   else:
     place_name = place_dcid
 
-  show_summary = False
   place_summary = {}
   if not category:
     # Only show summary for Overview
@@ -98,22 +97,15 @@ def place(place_dcid=None):
       logging.info(
           f"Place page summary fetch from GCS took {elapsed_time:.2f} milliseconds."
       )
-      if os.environ.get('FLASK_ENV') in ['staging', 'production']:
-        # In staging or prod, only show summaries for places in allow list
-        place_allow_list = place_summaries.get_place_allowlist() or []
-        show_summary = place_dcid in place_allow_list
-      else:
-        # In autopush, local, or dev, show all summaries
-        show_summary = True
 
-  return flask.render_template('place.html',
-                               place_type=place_type,
-                               place_name=place_name,
-                               place_dcid=place_dcid,
-                               category=category if category else '',
-                               place_summary=place_summary.get("summary")
-                               if place_summary and show_summary else '',
-                               maps_api_key=current_app.config['MAPS_API_KEY'])
+  return flask.render_template(
+      'place.html',
+      place_type=place_type,
+      place_name=place_name,
+      place_dcid=place_dcid,
+      category=category if category else '',
+      place_summary=place_summary.get("summary") if place_summary else '',
+      maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 def place_landing():
