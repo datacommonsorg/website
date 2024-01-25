@@ -84,31 +84,33 @@ def place(place_dcid=None):
   else:
     place_name = place_dcid
 
-  # Fetch summary text from GCS bucket and log timing
-  start_time = time.time()
-  place_summary = place_summaries.get_place_summaries().get(place_dcid, "")
-  elapsed_time = (time.time() - start_time) * 1000
-  logging.info(
-      f"Place page summary fetch from GCS took {elapsed_time:.2f} milliseconds."
-  )
 
   show_summary = False
+  place_summary = {}
   if not category:
     # Only show summary for Overview
-    if os.environ.get('FLASK_ENV') in ['autopush', 'local']:
-      # In autopush or local, show all summaries
-      show_summary = True
-    if os.environ.get('FLASK_ENV') in ['staging', 'production']:
-      # In staging or prod, only show summaries for places in allow list
-      place_allow_list = place_summaries.get_place_allowlist() or []
-      show_summary = place_dcid in place_allow_list
+    if os.environ.get('FLASK_ENV') in ['autopush', 'local', 'staging', 'production']:
+      # Fetch summary text from GCS bucket and log timing
+      start_time = time.time()
+      place_summary = place_summaries.get_place_summaries().get(place_dcid, {})
+      elapsed_time = (time.time() - start_time) * 1000
+      logging.info(
+          f"Place page summary fetch from GCS took {elapsed_time:.2f} milliseconds."
+      )
+      if os.environ.get('FLASK_ENV') in ['staging', 'production']:
+        # In staging or prod, only show summaries for places in allow list
+        place_allow_list = place_summaries.get_place_allowlist() or []
+        show_summary = place_dcid in place_allow_list
+      else:
+        # In autopush or local, show all summaries
+        show_summary = True
 
   return flask.render_template('place.html',
                                place_type=place_type,
                                place_name=place_name,
                                place_dcid=place_dcid,
                                category=category if category else '',
-                               place_summary=place_summary['summary']
+                               place_summary=place_summary.get("summary")
                                if place_summary and show_summary else '',
                                maps_api_key=current_app.config['MAPS_API_KEY'])
 
