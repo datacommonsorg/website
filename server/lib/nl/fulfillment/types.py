@@ -71,11 +71,6 @@ class ChartVars:
   # Set if is_topic_peer_group is set.
   svpg_id: str = ''
 
-  # Map of sv to place to facet metadata that has data for this sv. Used by LINE tiles
-  # when there is a date specified, and by the "is_coplottable" check.
-  # TODO: reuse https://github.com/datacommonsorg/website/blob/368d8d7cdfc1cd5086809d15b39c820d1fe763e7/server/lib/nl/fulfillment/types.py#L122-L123 for saving facet metadata.
-  sv_exist_facet = Dict[str, Dict[str, Dict[str, str]]]
-
 
 @dataclass
 class SV2Thing:
@@ -83,6 +78,12 @@ class SV2Thing:
   unit: Dict
   description: Dict
   footnote: Dict
+
+
+@dataclass
+class ExistInfo:
+  is_single_point: bool = False
+  facet: Dict[str, str] = field(default_factory=dict)
 
 
 # Data structure to store state for a single "populate" call.
@@ -119,9 +120,9 @@ class PopulateState:
   # Ordered list of query types.
   query_types: List[QueryType] = field(default_factory=list)
   # Has the results of existence check.
-  # SV -> Place Keys
+  # SV -> Place Keys -> Existence info
   # Where Place Key may be the place DCID, or place DCID + child-type.
-  exist_checks: Dict[str, Set[str]] = field(default_factory=dict)
+  exist_checks: Dict[str, Dict[str, ExistInfo]] = field(default_factory=dict)
   # Whether this is explore mode of fulfillment.
   explore_mode: bool = False
   # Set to true if utterance has overwritten SVs.  So they should
@@ -147,3 +148,5 @@ class ChartSpec:
   is_sdg: bool
   single_date: Date
   date_range: Date
+  # Dict of sv -> place -> facetid to use
+  sv_place_facet_id: Dict[str, Dict[str, str]]

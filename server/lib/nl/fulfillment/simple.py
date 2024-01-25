@@ -23,6 +23,7 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
+from server.lib.nl.fulfillment.utils import get_sv_place_facet_ids
 
 # Number of variables to plot in a chart (largely Timeline chart)
 _MAX_VARS_PER_CHART = 5
@@ -62,8 +63,16 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       # (than, say, breaking it into multiple timeline charts)
       chart_type = ChartType.BAR_CHART
     chart_type = _maybe_demote(chart_type, eres.is_single_point, state)
-    return add_chart_to_utterance(chart_type, state, chart_vars, places,
-                                  chart_origin)
+    sv_place_facet_ids = None
+    if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT:
+      sv_place_facet_ids = get_sv_place_facet_ids(chart_vars.svs, places,
+                                                  state.exist_checks)
+    return add_chart_to_utterance(chart_type,
+                                  state,
+                                  chart_vars,
+                                  places,
+                                  chart_origin,
+                                  sv_place_facet_ids=sv_place_facet_ids)
   else:
     # If its not a peer-group add one chart at a time.
     added = False
@@ -76,8 +85,16 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
         return False
       chart_type = _maybe_demote(ChartType.TIMELINE_WITH_HIGHLIGHT,
                                  eres.is_single_point, state)
-      added |= add_chart_to_utterance(chart_type, state, chart_vars, places,
-                                      chart_origin)
+      sv_place_facet_ids = None
+      if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT:
+        sv_place_facet_ids = get_sv_place_facet_ids(chart_vars.svs, places,
+                                                    state.exist_checks)
+      added |= add_chart_to_utterance(chart_type,
+                                      state,
+                                      chart_vars,
+                                      places,
+                                      chart_origin,
+                                      sv_place_facet_ids=sv_place_facet_ids)
     return added
 
 

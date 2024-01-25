@@ -34,8 +34,9 @@ def svs4place(state: ftypes.PopulateState, place: dtypes.Place,
   is_single_point = False
   if exist_svs:
     # If any of them has single-point
-    is_single_point = any(
-        [state.exist_checks[sv][place.dcid] for sv in exist_svs])
+    is_single_point = any([
+        state.exist_checks[sv][place.dcid].is_single_point for sv in exist_svs
+    ])
 
   return ExistenceResult(exist_svs, is_single_point)
 
