@@ -490,7 +490,8 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detect_and_fulfill('e2e_date_range', [
         'Life expectancy in US states in the last 5 years',
         'Population in California after 2013',
-        'Female population in New York before 2020'
+        'Female population in New York before 2020',
+        'Which countries in Africa have had the greatest increase in electricity access over the last 10 years?'
     ])
 
   def test_e2e_default_place(self):
