@@ -89,7 +89,7 @@ def place(place_dcid=None):
   place_summary = {}
   if not category:
     # Only show summary for Overview
-    if os.environ.get('FLASK_ENV') in ['autopush', 'local', 'staging', 'production']:
+    if os.environ.get('FLASK_ENV') in ['local', 'autopush', 'dev', 'staging', 'production']:
       # Fetch summary text from GCS bucket and log timing
       start_time = time.time()
       place_summary = place_summaries.get_place_summaries().get(place_dcid, {})
@@ -102,7 +102,7 @@ def place(place_dcid=None):
         place_allow_list = place_summaries.get_place_allowlist() or []
         show_summary = place_dcid in place_allow_list
       else:
-        # In autopush or local, show all summaries
+        # In autopush, local, or dev, show all summaries
         show_summary = True
 
   return flask.render_template('place.html',
