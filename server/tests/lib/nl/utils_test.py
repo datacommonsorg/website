@@ -138,5 +138,5 @@ class TestFacetContainsDate(unittest.TestCase):
   def test_main(self, single_date, date_range, facet_data, facet_metadata,
                 expected):
     result = utils.facet_contains_date(facet_data, facet_metadata, single_date,
-                                        date_range)
+                                       date_range)
     self.assertEqual(result, expected)
