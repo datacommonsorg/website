@@ -34,7 +34,6 @@ import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
 from server.lib.nl.detection import llm_prompt
-import server.lib.place_summaries as place_summaries
 import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
@@ -284,18 +283,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   if app.config['ENABLE_ADMIN']:
     register_routes_admin(app)
-
-  # Load place explorer summaries & allowlist of places to show summaries for
-  # Used when rendering place pages
-  # Won't be loaded for custom DCs at this time.
-  if not cfg.CUSTOM:
-    app.config[
-        'PLACE_SUMMARY_ALLOW_LIST'] = place_summaries.get_place_allowlist()
-    app.config[
-        'PLACE_EXPLORER_SUMMARIES'] = place_summaries.get_place_summaries()
-  else:
-    app.config['PLACE_SUMMARY_ALLOW_LIST'] = []
-    app.config['PLACE_EXPLORER_SUMMARIES'] = {}
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
