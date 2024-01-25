@@ -84,12 +84,13 @@ def place(place_dcid=None):
   else:
     place_name = place_dcid
 
-
   show_summary = False
   place_summary = {}
   if not category:
     # Only show summary for Overview
-    if os.environ.get('FLASK_ENV') in ['local', 'autopush', 'dev', 'staging', 'production']:
+    if os.environ.get('FLASK_ENV') in [
+        'local', 'autopush', 'dev', 'staging', 'production'
+    ]:
       # Fetch summary text from GCS bucket and log timing
       start_time = time.time()
       place_summary = place_summaries.get_place_summaries().get(place_dcid, {})
