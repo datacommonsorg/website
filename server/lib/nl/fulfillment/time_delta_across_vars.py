@@ -24,7 +24,6 @@ from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartVars
-from server.lib.nl.fulfillment.types import ExistInfo
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 from server.lib.nl.fulfillment.utils import get_sv_place_facet_ids
