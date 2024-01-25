@@ -126,6 +126,14 @@ export class DatacommonsLineComponent extends LitElement {
   @property()
   timeScale?: TimeScaleOption;
 
+  // Optional: Only show observations equal to or after this date.
+  @property()
+  startDate?: string;
+
+  // Optional: Only show observations equal to or before this date.
+  @property()
+  endDate?: string;
+
   render(): HTMLElement {
     const lineTileProps: LineTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
@@ -138,6 +146,8 @@ export class DatacommonsLineComponent extends LitElement {
         name: "",
         types: [],
       },
+      startDate: this.startDate,
+      endDate: this.endDate,
       showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
       statVarSpec: this.variables.map((variable) => ({
