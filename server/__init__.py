@@ -23,6 +23,7 @@ from flask import request
 from flask_babel import Babel
 import flask_cors
 from google.cloud import secretmanager
+from google.cloud import storage
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
@@ -44,6 +45,9 @@ propagator = google_cloud_format.GoogleCloudFormatPropagator()
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
 DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
+
+# Filename in GCS storing place summaries
+PLACE_SUMMARY_CONTENT_FILENAME = "place_summary_content.json"
 
 
 def createMiddleWare(app, exporter):
@@ -263,6 +267,18 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     cache.init_app(app)
   else:
     cache.init_app(app, {'CACHE_TYPE': 'NullCache'})
+
+  # Load place summary blob from GCS if on main DC
+  if cfg.ENV in ['local', 'autopush', 'dev', 'staging', 'production']:
+    try:
+      app.config['GCS_CLIENT'] = storage.Client()
+      bucket = app.config['GCS_CLIENT'].bucket(
+          bucket_name=libconfig.GLOBAL_CONFIG_BUCKET)
+      blob = bucket.get_blob(PLACE_SUMMARY_CONTENT_FILENAME)
+      app.config['PLACE_SUMMARY_BLOB'] = blob
+    except Exception as e:
+      logging.error(f"Exception when loading place summary blob from GCS: {e}")
+      app.config['PLACE_SUMMARY_BLOB'] = None
 
   # Configure ingress
   # See deployment yamls.

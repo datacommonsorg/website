@@ -22,14 +22,28 @@ import flask
 from flask import current_app
 from flask import g
 
-import server.lib.place_summaries as place_summaries
+from server import PLACE_SUMMARY_CONTENT_FILENAME
 import server.routes.shared_api.place as place_api
+from shared.lib import gcs
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
 CATEGORY_REDIRECTS = {
     "Climate": "Environment",
 }
+
+
+def get_place_summaries() -> dict:
+  """Load place summary content from GCS"""
+  try:
+    tmp_path = os.path.join('/tmp', PLACE_SUMMARY_CONTENT_FILENAME)
+    current_app.config['PLACE_SUMMARY_BLOB'].download_to_filename(tmp_path)
+    with open(tmp_path) as f:
+      return json.load(f) or {}
+  except Exception as e:
+    logging.error(
+        f"Encountered exception when reading json from place summary blob: {e}")
+    return {}
 
 
 @bp.route('', strict_slashes=False)
@@ -92,7 +106,7 @@ def place(place_dcid=None):
     ]:
       # Fetch summary text from GCS bucket and log timing
       start_time = time.time()
-      place_summary = place_summaries.get_place_summaries().get(place_dcid, {})
+      place_summary = get_place_summaries().get(place_dcid, {})
       elapsed_time = (time.time() - start_time) * 1000
       logging.info(
           f"Place page summary fetch from GCS took {elapsed_time:.2f} milliseconds."
