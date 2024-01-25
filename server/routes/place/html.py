@@ -14,7 +14,9 @@
 """Place Explorer related handlers."""
 
 import json
+import logging
 import os
+import time
 
 import flask
 from flask import current_app
@@ -82,7 +84,14 @@ def place(place_dcid=None):
   else:
     place_name = place_dcid
 
+  # Fetch summary text from GCS bucket and log timing
+  start_time = time.time()
   place_summary = place_summaries.get_place_summaries().get(place_dcid, "")
+  elapsed_time = (time.time() - start_time) * 1000
+  logging.info(
+      f"Place page summary fetch from GCS took {elapsed_time:.2f} milliseconds."
+  )
+
   show_summary = False
   if not category:
     # Only show summary for Overview
