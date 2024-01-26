@@ -40,6 +40,6 @@ metadata:
   name: place-summary-config
   namespace: website
 data:
-  place_summary_content.json: |
-$(cat $ROOT/server/place_summary_content.json | sed 's/^/    /')
+  place_summaries.json: |
+$(cat $ROOT/server/config/summaries/place_summaries.json | sed 's/^/    /')
 EOF

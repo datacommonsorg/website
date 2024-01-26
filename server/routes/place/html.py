@@ -30,7 +30,7 @@ CATEGORY_REDIRECTS = {
     "Climate": "Environment",
 }
 
-PLACE_SUMMARY_GCP_PATH = "/datacommons/place-summary/place_summary_content.json"
+PLACE_SUMMARY_GCP_PATH = "/datacommons/summaries/place_summaries.json"
 
 
 def get_place_summaries() -> dict:
@@ -41,7 +41,8 @@ def get_place_summaries() -> dict:
     with open(PLACE_SUMMARY_GCP_PATH) as f:
       return json.load(f)
   # If no mounted config file, use the config that is in the code base.
-  local_path = os.path.join(current_app.root_path, 'place_summary_content.json')
+  local_path = os.path.join(current_app.root_path,
+                            'config/summaries/place_summaries.json')
   with open(local_path) as f:
     return json.load(f)
 
@@ -107,9 +108,7 @@ def place(place_dcid=None):
     start_time = time.time()
     place_summary = get_place_summaries().get(place_dcid, {})
     elapsed_time = (time.time() - start_time) * 1000
-    logging.info(
-        f"Place page summary took {elapsed_time:.2f} milliseconds."
-    )
+    logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
 
   return flask.render_template(
       'place.html',

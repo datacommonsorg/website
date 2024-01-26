@@ -148,7 +148,7 @@ function deploy_website() {
   --set cronTesting.nodejsApiRoot="$NODEJS_SERVICE_URL" \
   --set-file nl.embeddings=deploy/nl/embeddings.yaml \
   --set-file nl.models=deploy/nl/models.yaml \
-  --set-file website.placeSummary=server/place_summary_content.json
+  --set-file website.placeSummary=server/config/summaries/place_summaries.json
 }
 
 cd $ROOT

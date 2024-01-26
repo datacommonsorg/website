@@ -21,7 +21,7 @@ metadata:
   name: place-summary-config
   namespace: {{ .Values.namespace.name }}
 data:
-  place_summary_content.json: {{ required "Place summary config is required" .Values.website.placeSummary | quote }}
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary | quote }}
 
 
 {{- if .Values.nl.enabled }}
