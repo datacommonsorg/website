@@ -55,6 +55,9 @@ spec:
         - name: blocklist-svg
           configMap:
             name: blocklist-svg
+        - name: place-summary-config
+          configMap:
+            name: place-summary-config
       containers:
         - name: website
           image:  "gcr.io/{{ .Values.website.image.project }}/datacommons-website:{{ .Values.website.image.tag }}"
@@ -88,6 +91,8 @@ spec:
             {{- end }}
             - name: blocklist-svg
               mountPath: /datacommons/svg
+            - name: place-summary-config
+              mountPath: /datacommons/place-summary
           env:
             - name: FLASK_ENV
               value: {{ required "Missing: website.flaskEnv" .Values.website.flaskEnv }}
@@ -134,7 +139,7 @@ spec:
 
 {{- if .Values.nodejs.enabled }}
 ---
-  
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:

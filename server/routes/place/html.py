@@ -14,7 +14,9 @@
 """Place Explorer related handlers."""
 
 import json
+import logging
 import os
+import time
 
 import flask
 from flask import current_app
@@ -28,17 +30,41 @@ CATEGORY_REDIRECTS = {
     "Climate": "Environment",
 }
 
+PLACE_SUMMARY_PATH = "/datacommons/place-summary/place_summaries.json"
+
+
+def get_place_summaries() -> dict:
+  """Load place summary content from disk"""
+  # When deployed in GKE, the config is a config mounted as volume. Check this
+  # first.
+  if os.path.isfile(PLACE_SUMMARY_PATH):
+    with open(PLACE_SUMMARY_PATH) as f:
+      return json.load(f)
+  # If no mounted config file, use the config that is in the code base.
+  local_path = os.path.join(current_app.root_path,
+                            'config/summaries/place_summaries.json')
+  with open(local_path) as f:
+    return json.load(f)
+
 
 @bp.route('', strict_slashes=False)
-@bp.route('/<path:place_dcid>/', strict_slashes=False)
+@bp.route('/<path:place_dcid>')
 def place(place_dcid=None):
   redirect_args = dict(flask.request.args)
+
+  # Strip trailing slashes from place dcids
   should_redirect = False
+  if place_dcid and place_dcid.endswith('/'):
+    place_dcid = place_dcid.rstrip('/')
+    should_redirect = True
+
+  # Rename legacy "topic" request argument to "category"
   if 'topic' in flask.request.args:
     redirect_args['category'] = flask.request.args.get('topic', '')
     del redirect_args['topic']
     should_redirect = True
 
+  # Rename legacy category request arguments
   category = redirect_args.get('category', None)
   if category in CATEGORY_REDIRECTS:
     redirect_args['category'] = CATEGORY_REDIRECTS[category]
@@ -46,7 +72,8 @@ def place(place_dcid=None):
 
   if should_redirect:
     redirect_args['place_dcid'] = place_dcid
-    return flask.redirect(flask.url_for('place.place', **redirect_args))
+    return flask.redirect(flask.url_for('place.place', **redirect_args),
+                          code=301)
 
   dcid = flask.request.args.get('dcid', None)
   if dcid:
@@ -72,27 +99,25 @@ def place(place_dcid=None):
   else:
     place_name = place_dcid
 
-  place_summary = current_app.config['PLACE_EXPLORER_SUMMARIES'].get(
-      place_dcid, {'summary': ''})
-  show_summary = False
-  if not category:
-    # Only show summary for Overview
-    if os.environ.get('FLASK_ENV') in ['autopush', 'local']:
-      # In autopush or local, show all summaries
-      show_summary = True
-    if os.environ.get('FLASK_ENV') in ['staging', 'production']:
-      # In staging or prod, only show summaries for places in allow list
-      place_allow_list = current_app.config['PLACE_SUMMARY_ALLOW_LIST'] or []
-      show_summary = place_dcid in place_allow_list
+  place_summary = {}
+  # Only show summary for Overview page in base DC.
+  if not category and os.environ.get('FLASK_ENV') in [
+      'local', 'autopush', 'dev', 'staging', 'production'
+  ]:
+    # Fetch summary text from mounted volume
+    start_time = time.time()
+    place_summary = get_place_summaries().get(place_dcid, {})
+    elapsed_time = (time.time() - start_time) * 1000
+    logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
 
-  return flask.render_template('place.html',
-                               place_type=place_type,
-                               place_name=place_name,
-                               place_dcid=place_dcid,
-                               category=category if category else '',
-                               place_summary=place_summary['summary']
-                               if place_summary and show_summary else '',
-                               maps_api_key=current_app.config['MAPS_API_KEY'])
+  return flask.render_template(
+      'place.html',
+      place_type=place_type,
+      place_name=place_name,
+      place_dcid=place_dcid,
+      category=category if category else '',
+      place_summary=place_summary.get("summary") if place_summary else '',
+      maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 def place_landing():
