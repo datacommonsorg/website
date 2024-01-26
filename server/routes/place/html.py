@@ -103,7 +103,13 @@ def place(place_dcid=None):
   if not category and os.environ.get('FLASK_ENV') in [
       'local', 'autopush', 'dev', 'staging', 'production'
   ]:
+    # Fetch summary text from mounted volume
+    start_time = time.time()
     place_summary = get_place_summaries().get(place_dcid, {})
+    elapsed_time = (time.time() - start_time) * 1000
+    logging.info(
+        f"Place page summary took {elapsed_time:.2f} milliseconds."
+    )
 
   return flask.render_template(
       'place.html',
