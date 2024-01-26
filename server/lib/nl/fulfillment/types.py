@@ -136,6 +136,12 @@ class PopulateState:
   has_child_type_in_top_basic_charts: bool = False
 
 
+# Dict of place dcid -> facet id
+Place2Facet = Dict[str, str]
+# Dict of sv dcid -> place dcid -> facet id
+Sv2Place2Facet = Dict[str, Place2Facet]
+
+
 @dataclass
 class ChartSpec:
   chart_type: ChartType
@@ -151,4 +157,4 @@ class ChartSpec:
   single_date: Date
   date_range: Date
   # Dict of sv -> place -> facetid to use
-  sv_place_facet_id: Dict[str, Dict[str, str]]
+  sv_place_facet_id: Sv2Place2Facet

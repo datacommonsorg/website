@@ -103,13 +103,10 @@ def ranked_timeline_collection_block(builder: base.Builder,
   return stat_var_spec_map
 
 
-def single_place_single_var_timeline_block(column, place: Place, sv_dcid: str,
-                                           sv2thing: types.SV2Thing,
-                                           single_date: types.Date,
-                                           date_range: types.Date,
-                                           sv_place_facet_id: Dict[str,
-                                                                   Dict[str,
-                                                                        str]]):
+def single_place_single_var_timeline_block(
+    column, place: Place, sv_dcid: str, sv2thing: types.SV2Thing,
+    single_date: types.Date, date_range: types.Date,
+    sv_place_facet_id: types.Sv2Place2Facet):
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
 
@@ -143,7 +140,7 @@ def single_place_multiple_var_timeline_block(
     cv: ChartVars,
     single_date: types.Date = None,
     date_range: types.Date = None,
-    sv_place_facet_id: Dict[str, Dict[str, str]] = None):
+    sv_place_facet_id: types.Sv2Place2Facet = None):
   """A column with two chart, all stat vars and per capita"""
   stat_var_spec_map = {}
 
