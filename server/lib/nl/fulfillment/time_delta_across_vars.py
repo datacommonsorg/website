@@ -19,6 +19,7 @@ from typing import List
 from flask import current_app
 
 from server.lib import util as libutil
+from server.lib.explore.existence import get_sv_place_facet_ids
 from server.lib.nl.common import rank_utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
@@ -68,6 +69,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     nopc_vars = current_app.config['NOPC_VARS']
 
   direction = state.time_delta_types[0]
+  sv_place_facet_ids = get_sv_place_facet_ids(chart_vars.svs, places,
+                                              state.exist_checks)
   ranked_lists = rank_utils.rank_svs_by_series_growth(
       place=places[0].dcid,
       svs=chart_vars.svs,
@@ -76,7 +79,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       nopc_vars=nopc_vars,
       counters=state.uttr.counters,
       date_range=state.date_range,
-      sv_exist_facet=chart_vars.sv_exist_facet)
+      sv_place_facet_ids=sv_place_facet_ids)
 
   state.uttr.counters.info(
       'time-delta-across-vars_reranked_svs', {
@@ -94,10 +97,18 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
     # TODO: Uncomment this once we agree on look and feel.
     if field == 'abs':
-      found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT, state,
-                                      chart_vars, places, chart_origin)
+      found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT,
+                                      state,
+                                      chart_vars,
+                                      places,
+                                      chart_origin,
+                                      sv_place_facet_ids=sv_place_facet_ids)
 
-    found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION, state,
-                                    chart_vars, places, chart_origin)
+    found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION,
+                                    state,
+                                    chart_vars,
+                                    places,
+                                    chart_origin,
+                                    sv_place_facet_ids=sv_place_facet_ids)
 
   return found
