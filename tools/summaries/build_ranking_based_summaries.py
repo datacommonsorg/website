@@ -23,7 +23,7 @@ _API_KEY = os.getenv("MIXER_API_KEY")
 assert _API_KEY, "$MIXER_API_KEY must be specified."
 
 # Where to write output json summaries to
-_OUTPUT_FILENAME = "place_summary_content.json"
+_OUTPUT_FILENAME = "place_summary_content_states.json"
 
 # Where to read stat var specs from
 _STAT_VAR_JSON = "stat_vars_detailed.json"
@@ -88,9 +88,9 @@ def get_ranking(stat_var_dcid: str, place_type: str,
   req_url = f"https://datacommons.org/api/ranking/{stat_var_dcid}/{place_type}/{parent_place_dcid}"
   response = requests.get(req_url)
   if response.status_code == 200:
-    response_data = response.json().get(sv["sv"], {})
-    ranking_key = response_data.keys()[0] if response_data.keys() else ""
-    rank_list = response.get(ranking_key, {}).get("info", [])
+    response_data = response.json().get(stat_var_dcid, {})
+    ranking_key = list(response_data.keys())[0] if response_data.keys() else ""
+    rank_list = response_data.get(ranking_key, {}).get("info", [])
     if rank_list:
         rank_list.sort(key=lambda x: x['rank'])
     return rank_list
@@ -164,6 +164,27 @@ def get_type_and_all_parent_places(place_dcids: List[str]) -> Dict:
     logging.error(f"unable to fetch parent places from {req_url}")
   return {}
 
+def get_sv_values(sv_dcid: str, place_dcids: List[str]) -> Dict:
+  """Get mapping of place_dcid -> value"""
+  # req_url = f"https://api.datacommons.org/v1/bulk/info/place?key={_API_KEY}&nodes="
+  # req_url += "&nodes=".join(place_dcids)
+  # response = requests.get(req_url)
+  # if response.status_code == 200:
+  #   # Format response into a mapping of place -> place type, list of parent dcids
+  #   child_place_list = response.json().get("data", [])
+  #   mapping = {}
+  #   for place in child_place_list:
+  #     place_dcid = place.get("node", "")
+  #     place_type = place.get("self", {}).get("type", None)     
+  #     mapping[place_dcid] = {"type": place_type, "parents": []}
+  #     parents = place.get("info", {}).get("parents", [])
+  #     for parent_place in parents:
+  #       if parent_place.get("type", "") in _PLACE_HIERARCHY:
+  #         mapping[place_dcid]["parents"].append(parent_place.get("name"))
+  #   return mapping
+  # else:
+  #   logging.error(f"unable to fetch parent places from {req_url}")
+  return {}
 
 # TODO: assert place type passed in does match DCID provided
 def initialize_summaries(place_dcids: List[str], names: Dict, place_type: str,
@@ -262,12 +283,82 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str):
   # Combine sentences into a paragraph:
   summaries = {}
   for place, sentence_list in sentences.items():
-    summaries[place] = " ".join(sentence_list)
+    summaries[place] = {"summary": " ".join(sentence_list)}
 
   # Write summaries to file
   with open(_OUTPUT_FILENAME, "w") as out_file:
     json.dump(summaries, out_file, indent=4)
 
+
+# def build_template_summaries(place_list):
+#   name_of = get_names(place_list)
+#   place_info = get_type_and_all_parent_places(place_list)
+
+#   sentences = {}
+#   for place_dcid, info in place_info.items():
+#     place_name = name_of[place_dcid]
+#     place_type = info["type"].lower()
+#     sentence = f"{place_name} is a {place_type} in "
+#     parent_names = []
+#     for parent in info["parents"]:
+#       if place_type == "Country":
+#         raise NotImplementedError
+#       else:
+#         if parent["type"] in ["City", "County", "State", "Country"]:
+#           parent_names.append(parent["name"])
+#     sentence += ", ".join(parent_names)
+#     sentences[place_dcid] = [sentence]
+
+#   # Process each variable
+#   with open(_STAT_VAR_JSON) as sv_f:
+#     sv_data = json.load(sv_f)
+
+#     for category, sv_list in sv_data.items():
+
+#       if category in _CATEGORY_SKIP_LIST:
+#         continue
+
+#       for sv in sv_list:
+#         # Get ranking for variable
+#         rank_list = get_ranking(stat_var_dcid=sv["sv"],
+#                                   place_type=place_type,
+#                                   parent_place_dcid=parent_place_dcid)
+
+#         # Add summaries for top places
+#         for i in range(len(rank_list)):
+#           rank_item = rank_list[i]
+#           place_dcid = rank_item['placeDcid']
+#           sv_value = format_stat_var_value(value=rank_item['value'],
+#                                            stat_var_data=sv)
+#           sentence = None
+
+#           if i < _DEFAULT_RANKING_THRESHOLD:
+#             sentence = _TEMPLATE_RANKING_SENTENCE.format(
+#                 place_name=name_of[place_dcid],
+#                 rank=get_rank_string(rank_item['rank']),
+#                 parent_place_name=parent_place_name,
+#                 stat_var_name=sv['name'],
+#                 value=sv_value,
+#             )
+
+#           else:
+#             sentence = _TEMPLATE_VALUE_SENTENCE.format(
+#                 stat_var_name=sv['name'],
+#                 place_name=name_of[place_dcid],
+#                 value=sv_value,
+#                 date_str="")
+
+#           if sentence:
+#             sentences[place_dcid].append(sentence)
+
+#   # Combine sentences into a paragraph:
+#   summaries = {}
+#   for place, sentence_list in sentences.items():
+#     summaries[place] = " ".join(sentence_list)
+
+#   # Write summaries to file
+#   with open(_OUTPUT_FILENAME, "w") as out_file:
+#     json.dump(summaries, out_file, indent=4)
 
 def main():
   build_ranking_based_summaries(place_type="State",

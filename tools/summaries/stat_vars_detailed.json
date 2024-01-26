@@ -1,4 +1,48 @@
 {
+  "Highlighted": [
+    {
+      "sv": "Count_Person",
+      "unit": "",
+      "scaling": "",
+      "name": "population",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Age_Person",
+      "unit": " years",
+      "scaling": "",
+      "name": "median age",
+      "computePerCapita": false
+    },
+    {
+      "sv": "LifeExpectancy_Person",
+      "unit": " years",
+      "scaling": "",
+      "name": "life expectancy",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Income_Person",
+      "unit": "$",
+      "scaling": "",
+      "name": "median income",
+      "computePerCapita": false
+    },
+    {
+      "sv": "UnemploymentRate_Person",
+      "unit": "",
+      "scaling": "",
+      "name": "unemployment rate",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Amount_Consumption_Energy_PerCapita",
+      "unit": "kg",
+      "scaling": "",
+      "name": "energy consumption per capita",
+      "computePerCapita": false
+    }
+  ],
   "Ignored": [
     {
       "sv": "Count_Person",

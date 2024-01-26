@@ -1,0 +1,91 @@
+{
+  "Demographics": [
+    {
+      "sv": "Count_Person",
+      "unit": "",
+      "scaling": "",
+      "name": "population",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Age_Person",
+      "unit": "",
+      "scaling": "",
+      "name": "median age",
+      "computePerCapita": false
+    }
+  ],
+  "Economics": [
+    {
+      "sv": "Median_Income_Person",
+      "unit": "$",
+      "scaling": "",
+      "name": "median income",
+      "computePerCapita": false
+    },
+    {
+      "sv": "UnemploymentRate_Person",
+      "unit": "%",
+      "scaling": "",
+      "name": "unemployment rate",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
+      "unit": "$",
+      "scaling": "",
+      "name": "nominal GDP per capita",
+      "computePerCapita": false
+    }
+  ],
+  "Equity": [],
+  "Education": [],
+  "Health": [
+    {
+      "sv": "LifeExpectancy_Person",
+      "unit": "",
+      "scaling": "",
+      "name": "life expectancy",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_Obesity",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of people with obesity",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_BingeDrinking",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of people who binge drink",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_Smoking",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of people who smoke",
+      "computePerCapita": false
+    }
+  ],
+  "Energy": [
+    {
+      "sv": "Amount_Consumption_Energy_PerCapita",
+      "unit": "kg",
+      "scaling": "",
+      "name": "energy consumption per capita",
+      "computePerCapita": false
+    }
+  ],
+  "Environment": [
+    {
+      "sv": "Amount_Emissions_CarbonDioxide_PerCapita",
+      "unit": "t",
+      "scaling": "",
+      "name": "carbon dioxide emissions per capita",
+      "computePerCapita": false
+    }
+  ]
+}
