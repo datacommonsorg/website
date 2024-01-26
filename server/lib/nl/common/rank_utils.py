@@ -23,6 +23,7 @@ import server.lib.fetch as fetch
 from server.lib.nl.common import variable
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
+from server.lib.nl.common.utils import facet_contains_date
 from server.lib.nl.detection.date import get_date_range_strings
 import server.lib.nl.detection.types as types
 from server.lib.nl.fulfillment.utils import get_facet_id
@@ -72,6 +73,8 @@ class GrowthRanks(NamedTuple):
 
 # Given an SV and list of places, this API ranks the places
 # per the growth rate of the time-series.
+# Returns a tuple of i) ranked lists of the place dcids, and ii) dict of place
+# dcid to facet id of the facet to use for the place
 # TODO: Compute per-date Count_Person
 def rank_places_by_series_growth(
     places: List[str],
@@ -82,9 +85,7 @@ def rank_places_by_series_growth(
     counters: ctr.Counters,
     place_type: str = '',
     min_population: int = 0,
-    date_range: types.Date = None,
-    sv_exist_facet: Dict[str, Dict[str, Dict[str, str]]] = None
-) -> GrowthRankedLists:
+    date_range: types.Date = None) -> (GrowthRankedLists, Dict[str, str]):
   start = time.time()
   series_data = fetch.series_core(entities=places,
                                   variables=[sv],
@@ -97,16 +98,21 @@ def rank_places_by_series_growth(
     return []
 
   places_with_vals = []
+  place_facet_ids = {}
+  series_facets = series_data.get('facets', {})
   for place, place_data in series_data['data'][sv].items():
     if bool(date_range):
-      sv_facet_id = get_facet_id(sv, date_range, sv_exist_facet, [place])
       series = []
       for s in place_data:
-        if s.get('facet', '') == sv_facet_id:
+        facet_id = s.get('facet', '')
+        if facet_contains_date(s, series_facets.get(facet_id, ''), None,
+                               date_range):
           series = s.get('series', [])
+          place_facet_ids[place] = facet_id
           break
     else:
       series = place_data['series']
+      place_facet_ids[place] = place_data.get('facet', '')
     if len(series) < 2:
       continue
 
@@ -128,8 +134,10 @@ def rank_places_by_series_growth(
 
     places_with_vals.append((place, net_growth))
 
-  return _compute_growth_ranked_lists(places_with_vals, growth_direction,
-                                      rank_order)
+  growth_ranked_lists = _compute_growth_ranked_lists(places_with_vals,
+                                                     growth_direction,
+                                                     rank_order)
+  return growth_ranked_lists, place_facet_ids
 
 
 # Given a place and a list of existing SVs, this API ranks the SVs
@@ -142,8 +150,7 @@ def rank_svs_by_series_growth(
     nopc_vars: Set[str],
     counters: ctr.Counters,
     date_range: types.Date = None,
-    sv_exist_facet: Dict[str, Dict[str, Dict[str, str]]] = None
-) -> GrowthRankedLists:
+    sv_place_facet_ids: Dict[str, Dict[str, str]] = None) -> GrowthRankedLists:
   start = time.time()
   series_data = fetch.series_core(entities=[place],
                                   variables=svs,
@@ -153,7 +160,7 @@ def rank_svs_by_series_growth(
 
   svs_with_vals = []
   for sv, place_data in series_data['data'].items():
-    sv_facet_id = get_facet_id(sv, date_range, sv_exist_facet, [place])
+    sv_facet_id = get_facet_id(sv, date_range, sv_place_facet_ids, [place])
     if place not in place_data:
       continue
     if bool(date_range):
