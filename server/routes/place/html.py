@@ -30,15 +30,15 @@ CATEGORY_REDIRECTS = {
     "Climate": "Environment",
 }
 
-PLACE_SUMMARY_GCP_PATH = "/datacommons/summaries/place_summaries.json"
+PLACE_SUMMARY_PATH = "/datacommons/place-summary/place_summaries.json"
 
 
 def get_place_summaries() -> dict:
   """Load place summary content from disk"""
   # When deployed in GKE, the config is a config mounted as volume. Check this
   # first.
-  if os.path.isfile(PLACE_SUMMARY_GCP_PATH):
-    with open(PLACE_SUMMARY_GCP_PATH) as f:
+  if os.path.isfile(PLACE_SUMMARY_PATH):
+    with open(PLACE_SUMMARY_PATH) as f:
       return json.load(f)
   # If no mounted config file, use the config that is in the code base.
   local_path = os.path.join(current_app.root_path,
