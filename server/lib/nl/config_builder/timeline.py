@@ -12,12 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List
+from typing import List
 
 from server.config.subject_page_pb2 import LineTileSpec
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
-from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder.formatting_utils import \
     title_for_two_or_more_svs
