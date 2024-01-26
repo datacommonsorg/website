@@ -108,8 +108,8 @@ def sv_existence_for_places(places: List[str], svs: List[str],
   return existing_svs, existsv2places
 
 
-def _facet_contains_date(facet_data, facet_metadata, single_date,
-                         date_range) -> bool:
+def facet_contains_date(facet_data, facet_metadata, single_date,
+                        date_range) -> bool:
   start_date, end_date = server.lib.nl.detection.date.get_date_range_strings(
       date_range)
   if single_date:
@@ -201,8 +201,8 @@ def sv_existence_for_places_check_single_point(
         facet_id = facet_data.get('facet', '')
         facet_metadata = facet_info.get(facet_id, {})
         # Check that this facet has data for specified date
-        if check_date and not _facet_contains_date(facet_data, facet_metadata,
-                                                   single_date, date_range):
+        if check_date and not facet_contains_date(facet_data, facet_metadata,
+                                                  single_date, date_range):
           continue
         num_obs = facet_data.get('obsCount', 0)
         if sv not in existing_svs:

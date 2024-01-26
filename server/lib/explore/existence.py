@@ -14,7 +14,7 @@
 """Module for Explore existence checks."""
 
 from dataclasses import dataclass
-from typing import List
+from typing import Dict, List
 
 import server.lib.nl.detection.types as dtypes
 import server.lib.nl.fulfillment.types as ftypes
@@ -34,8 +34,9 @@ def svs4place(state: ftypes.PopulateState, place: dtypes.Place,
   is_single_point = False
   if exist_svs:
     # If any of them has single-point
-    is_single_point = any(
-        [state.exist_checks[sv][place.dcid] for sv in exist_svs])
+    is_single_point = any([
+        state.exist_checks[sv][place.dcid].is_single_point for sv in exist_svs
+    ])
 
   return ExistenceResult(exist_svs, is_single_point)
 
@@ -47,3 +48,17 @@ def svs4children(state: ftypes.PopulateState, place: dtypes.Place,
   place_key = place.dcid + state.place_type.value
   exist_svs = [sv for sv in svs if place_key in state.exist_checks.get(sv, {})]
   return ExistenceResult(exist_svs)
+
+
+# For a list of svs and places, Gets a map of sv -> place -> facetId from
+# the results of an existence check
+def get_sv_place_facet_ids(svs: List[str], places: List[ftypes.Place],
+                           exist_checks: Dict[str, Dict[str,
+                                                        ftypes.ExistInfo]]):
+  sv_place_facet_ids = {}
+  for sv in svs:
+    sv_place_facet_ids[sv] = {}
+    for pl in places:
+      sv_place_facet_ids[sv][pl.dcid] = exist_checks.get(sv, {}).get(
+          pl.dcid, ftypes.ExistInfo()).facet.get('facetId', '')
+  return sv_place_facet_ids
