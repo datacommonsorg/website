@@ -263,20 +263,24 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   if utterance.rankedCharts:
     start = time.time()
     # Call chart config builder.
-    page_config_pb = config_builder.build(state, cb_config)
+    page_config_pb, fulfill_user_msg = config_builder.build(state, cb_config)
     utterance.counters.timeit('build_page_config', start)
   else:
-    page_config_pb = None
+    page_config_pb, fulfill_user_msg = None, ''
 
-  return prepare_response(utterance, page_config_pb, utterance.detection,
-                          debug_logs)
+  return prepare_response(utterance,
+                          page_config_pb,
+                          utterance.detection,
+                          debug_logs,
+                          fulfill_user_msg=fulfill_user_msg)
 
 
 def prepare_response(utterance: nl_utterance.Utterance,
                      chart_pb: SubjectPageConfig,
                      detection: Detection,
                      debug_logs: Dict,
-                     related_things: Dict = {}) -> Dict:
+                     related_things: Dict = {},
+                     fulfill_user_msg: str = '') -> Dict:
   ret_places = []
   if chart_pb:
     page_config = json.loads(MessageToJson(chart_pb))
@@ -307,6 +311,8 @@ def prepare_response(utterance: nl_utterance.Utterance,
     ret_places = [Place(dcid='', name='', place_type='')]
 
   user_message = commentary.user_message(utterance)
+  if fulfill_user_msg:
+    user_message.msg_list.append(fulfill_user_msg)
 
   dbg_counters = utterance.counters.get()
   utterance.counters = None
@@ -329,7 +335,7 @@ def prepare_response(utterance: nl_utterance.Utterance,
       'placeSource': utterance.place_source.value,
       'pastSourceContext': utterance.past_source_context,
       'relatedThings': related_things,
-      'userMessage': user_message.msg
+      'userMessages': user_message.msg_list
   }
   if user_message.show_form:
     data_dict['showForm'] = True

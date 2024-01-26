@@ -40,10 +40,11 @@ from server.lib.nl.fulfillment.types import SV2Thing
 
 #
 # Given an Utterance, build the final Chart config proto.
+# Returns the chart config proto and user message (empty if no message to show).
 #
-def build(state: PopulateState, config: Config) -> SubjectPageConfig:
+def build(state: PopulateState, config: Config) -> (SubjectPageConfig, str):
   if not state.uttr.rankedCharts:
-    return None
+    return None, ''
 
   dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
   # Get names of all SVs
@@ -73,11 +74,24 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
   uttr.counters.timeit('get_sv_details', start)
 
   builder = base.Builder(uttr, sv2thing, config)
+  user_message = ''
+  for idx, cspec in enumerate(uttr.rankedCharts):
+    cspec = cast(ChartSpec, cspec)
+    if idx == 0:
+      user_message = cspec.info_message
+    elif cspec.info_message != user_message:
+      user_message = ''
+      break
 
   # Build chart blocks
   for cspec in uttr.rankedCharts:
     cspec = cast(ChartSpec, cspec)
     cv = cspec.chart_vars
+    # if there is a user message, that means every chart spec had the same info
+    # message and we should show the message at the page level instead of block
+    # level.
+    if bool(user_message):
+      cspec.info_message = ''
     if not cspec.places:
       continue
     stat_var_spec_map = {}
@@ -229,7 +243,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
     builder.update_sv_spec(stat_var_spec_map)
 
   builder.finalize()
-  return builder.page_config
+  return builder.page_config, user_message
 
 
 def _set_un_labels_in_places(state: PopulateState):

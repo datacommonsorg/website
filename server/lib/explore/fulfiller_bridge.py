@@ -40,18 +40,21 @@ from server.lib.nl.fulfillment.types import PopulateState
 class FulfillResp:
   chart_pb: SubjectPageConfig
   related_things: Dict
+  user_message: str
 
 
 def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   state = nl_fulfiller.fulfill(uttr, explore_mode=True)
 
-  config_pb = nl_config_builder.build(state, cb_config)
+  config_pb, user_msg = nl_config_builder.build(state, cb_config)
   if not config_pb:
-    return FulfillResp(chart_pb=None, related_things={})
+    return FulfillResp(chart_pb=None, related_things={}, user_message=user_msg)
 
   if uttr.mode == params.QueryMode.STRICT:
     # No related things for strict mode.
-    return FulfillResp(chart_pb=config_pb, related_things={})
+    return FulfillResp(chart_pb=config_pb,
+                       related_things={},
+                       user_message=user_msg)
 
   plotted_orig_vars = _get_plotted_orig_vars(state)
 
@@ -65,7 +68,9 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   related_things = related.compute_related_things(state, plotted_orig_vars,
                                                   explore_peer_groups)
 
-  return FulfillResp(chart_pb=config_pb, related_things=related_things)
+  return FulfillResp(chart_pb=config_pb,
+                     related_things=related_things,
+                     user_message=user_msg)
 
 
 def _get_plotted_orig_vars(

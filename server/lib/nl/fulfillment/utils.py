@@ -108,7 +108,8 @@ def add_chart_to_utterance(
     places: List[Place],
     primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART,
     ranking_count: int = 0,
-    sv_place_facet_ids: Dict[str, Dict[str, str]] = None) -> bool:
+    sv_place_facet_ids: Dict[str, Dict[str, str]] = None,
+    info_message: str = '') -> bool:
   is_sdg = False
   if state.uttr.insight_ctx and params.is_sdg(state.uttr.insight_ctx):
     is_sdg = True
@@ -129,7 +130,8 @@ def add_chart_to_utterance(
                  is_sdg=is_sdg,
                  single_date=state.single_date,
                  date_range=state.date_range,
-                 sv_place_facet_id=sv_place_facet_ids)
+                 sv_place_facet_id=sv_place_facet_ids,
+                 info_message=info_message)
   state.uttr.chartCandidates.append(ch)
   state.uttr.counters.info('num_chart_candidates', 1)
   return True

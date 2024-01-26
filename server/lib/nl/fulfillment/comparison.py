@@ -24,6 +24,36 @@ from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
+_MISSING_PLACE_MSG = 'Data for "{missing_places}" is currently unavailable. Nonetheless, take a look at the following insights on "{exist_places}"'
+
+
+def _get_place_list_str(places: List[str]):
+  if len(places) < 1:
+    return ''
+  elif len(places) == 1:
+    return places[0]
+  else:
+    return ', '.join(places[0:len(places) - 1]) + f' and {places[-1]}'
+
+
+def _get_info_message(exist_places: List[Place], all_places: List[Place]):
+  if exist_places == all_places:
+    return ''
+  else:
+    exist_place_dcids = list(map(lambda x: x.dcid, exist_places))
+    exist_places_set = set(exist_place_dcids)
+    missing_place_names = []
+    exist_place_names = []
+    for pl in all_places:
+      if not pl.dcid in exist_places_set:
+        missing_place_names.append(pl.name)
+      else:
+        exist_place_names.append(pl.name)
+    missing_places_str = _get_place_list_str(missing_place_names)
+    exist_places_str = _get_place_list_str(exist_place_names)
+    return _MISSING_PLACE_MSG.format(missing_places=missing_places_str,
+                                     exist_places=exist_places_str)
+
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, rank: int) -> bool:
@@ -48,14 +78,19 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       if len(exist_places) <= 1:
         continue
 
+      info_msg = _get_info_message(exist_places, places)
       if i == 0:
         # This is for setting answer places.
         places = exist_places
 
       cv = copy.deepcopy(chart_vars)
       cv.svs = [sv]
-      found |= add_chart_to_utterance(ChartType.BAR_CHART, state, cv,
-                                      exist_places, chart_origin)
+      found |= add_chart_to_utterance(ChartType.BAR_CHART,
+                                      state,
+                                      cv,
+                                      exist_places,
+                                      chart_origin,
+                                      info_message=info_msg)
   else:
     exist_svs = []
     # Pick variables that exist in at least 2 place, so each variable is comparable.
@@ -75,10 +110,15 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       state.uttr.counters.err('comparison_failed_placeexistence', 1)
       return False
 
+    info_msg = _get_info_message(exist_places, places)
     places = exist_places
     chart_vars.svs = exist_svs
-    found |= add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars,
-                                    places, chart_origin)
+    found |= add_chart_to_utterance(ChartType.BAR_CHART,
+                                    state,
+                                    chart_vars,
+                                    places,
+                                    chart_origin,
+                                    info_message=info_msg)
 
   if not found:
     state.uttr.counters.err('failed_comparison_existence', '')
