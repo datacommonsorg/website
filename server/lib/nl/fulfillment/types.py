@@ -83,6 +83,8 @@ class SV2Thing:
 @dataclass
 class ExistInfo:
   is_single_point: bool = False
+  # Facet metadata where keys are metadata keys and values are metadata values.
+  # Keys include 'facetId' and optional 'unit'.
   facet: Dict[str, str] = field(default_factory=dict)
 
 

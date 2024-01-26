@@ -225,16 +225,3 @@ def is_coplottable(svs: List[str], places: List[Place],
       unit = u
 
   return True
-
-
-# For a list of svs and places, Gets a map of sv -> place -> facetId from
-# the results of an existence check
-def get_sv_place_facet_ids(svs: List[str], places: List[Place],
-                           exist_checks: Dict[str, Dict[str, ExistInfo]]):
-  sv_place_facet_ids = {}
-  for sv in svs:
-    sv_place_facet_ids[sv] = {}
-    for pl in places:
-      sv_place_facet_ids[sv][pl.dcid] = exist_checks.get(sv, {}).get(
-          pl.dcid, ExistInfo()).facet.get('facetId', '')
-  return sv_place_facet_ids

@@ -63,6 +63,10 @@ class ExistenceCheckTracker:
     # has data for that SV.
     self.existing_svs = {}
 
+  # Gets a map of sv to place key to the facet that exist most commonly for that
+  # combination of sv and place key. Multiple places can map to the same
+  # place key so this is the facet that exists for the most number of places
+  # of each place key.
   def _get_sv_place_facets(self):
     sv_place_facets = {}
     for sv, pl2f in self.existing_svs.items():

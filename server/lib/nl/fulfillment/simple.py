@@ -23,7 +23,6 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
-from server.lib.nl.fulfillment.utils import get_sv_place_facet_ids
 
 # Number of variables to plot in a chart (largely Timeline chart)
 _MAX_VARS_PER_CHART = 5
@@ -65,8 +64,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     chart_type = _maybe_demote(chart_type, eres.is_single_point, state)
     sv_place_facet_ids = None
     if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT:
-      sv_place_facet_ids = get_sv_place_facet_ids(chart_vars.svs, places,
-                                                  state.exist_checks)
+      sv_place_facet_ids = ext.get_sv_place_facet_ids(chart_vars.svs, places,
+                                                      state.exist_checks)
     return add_chart_to_utterance(chart_type,
                                   state,
                                   chart_vars,
@@ -87,8 +86,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                                  eres.is_single_point, state)
       sv_place_facet_ids = None
       if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT:
-        sv_place_facet_ids = get_sv_place_facet_ids(chart_vars.svs, places,
-                                                    state.exist_checks)
+        sv_place_facet_ids = ext.get_sv_place_facet_ids(chart_vars.svs, places,
+                                                        state.exist_checks)
       added |= add_chart_to_utterance(chart_type,
                                       state,
                                       chart_vars,

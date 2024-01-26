@@ -73,6 +73,8 @@ class GrowthRanks(NamedTuple):
 
 # Given an SV and list of places, this API ranks the places
 # per the growth rate of the time-series.
+# Returns a tuple of i) ranked lists of the place dcids, and ii) dict of place
+# dcid to facet id of the facet to use for the place
 # TODO: Compute per-date Count_Person
 def rank_places_by_series_growth(
     places: List[str],
