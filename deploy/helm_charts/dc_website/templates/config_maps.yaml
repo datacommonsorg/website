@@ -14,7 +14,7 @@ data:
     {{- end }}
   {{- end }}
 
-
+---
 kind: ConfigMap
 apiVersion: v1
 metadata:
