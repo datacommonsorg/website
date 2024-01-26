@@ -30,17 +30,21 @@ CATEGORY_REDIRECTS = {
     "Climate": "Environment",
 }
 
-PLACE_SUMMARY_FILE_PATH = "/datacommons/place-summary/place_summary_content.json"
+PLACE_SUMMARY_GCP_PATH = "/datacommons/place-summary/place_summary_content.json"
 
 
 def get_place_summaries() -> dict:
   """Load place summary content from disk"""
-  if os.path.isfile(PLACE_SUMMARY_FILE_PATH):
-    with open(PLACE_SUMMARY_FILE_PATH) as f:
+  # When deployed in GKE, the config is a config mounted as volume. Check this
+  # first.
+  if os.path.isfile(PLACE_SUMMARY_GCP_PATH):
+    with open(PLACE_SUMMARY_GCP_PATH) as f:
       return json.load(f)
+  # If no mounted config file, use the config that is in the code base.
   local_path = os.path.join(current_app.root_path, 'place_summary_content.json')
   with open(local_path) as f:
     return json.load(f)
+
 
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>')
@@ -95,18 +99,11 @@ def place(place_dcid=None):
     place_name = place_dcid
 
   place_summary = {}
-  if not category:
-    # Only show summary for Overview
-    if os.environ.get('FLASK_ENV') in [
-        'local', 'autopush', 'dev', 'staging', 'production'
-    ]:
-      # Fetch summary text from GCS bucket and log timing
-      start_time = time.time()
-      place_summary = get_place_summaries().get(place_dcid, {})
-      elapsed_time = (time.time() - start_time) * 1000
-      logging.info(
-          f"Place page summary fetch from GCS took {elapsed_time:.2f} milliseconds."
-      )
+  # Only show summary for Overview page in base DC.
+  if not category and os.environ.get('FLASK_ENV') in [
+      'local', 'autopush', 'dev', 'staging', 'production'
+  ]:
+    place_summary = get_place_summaries().get(place_dcid, {})
 
   return flask.render_template(
       'place.html',
