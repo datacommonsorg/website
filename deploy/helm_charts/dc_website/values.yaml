@@ -26,6 +26,8 @@ website:
     enabled: false
     configFile:
 
+  placeSummary:
+
 nameOverride: ""
 fullnameOverride: ""
 
