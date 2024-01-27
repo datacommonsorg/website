@@ -14,8 +14,8 @@
 """Generate summaries using template sentences about a set list of variables."""
 
 import json
-import sys
 import logging
+import sys
 from typing import Dict, List
 
 from absl.flags import FLAGS
@@ -79,7 +79,6 @@ def initialize_summaries(place_info: Dict) -> Dict:
   return sentences
 
 
-
 def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
   """Format a stat var observation to print nicely in a sentence"""
   scaling = stat_var_data['scaling']
@@ -102,7 +101,10 @@ def build_template_summaries(place_dcids: List[str],
   place_info = dc.get_place_info(place_dcids).get("data", {})
 
   # build dcid -> name mapping
-  names = {node.get("node"): node.get("info", {}).get("self", {}).get("name") for node in place_info}
+  names = {
+      node.get("node"): node.get("info", {}).get("self", {}).get("name")
+      for node in place_info
+  }
 
   # Generate the first starter sentence for each place
   sentences = initialize_summaries(place_info)
@@ -114,7 +116,8 @@ def build_template_summaries(place_dcids: List[str],
 
   # Create sentences for each stat var, for each place
   for place_dcid in place_dcids:
-    logging.info(f"Generating summaries for {names[place_dcid]} ({place_dcid})...")
+    logging.info(
+        f"Generating summaries for {names[place_dcid]} ({place_dcid})...")
 
     # Get stat var values for all stat vars to use
     data_series = dc.get_data_series(place_dcid, sv_list)
@@ -125,32 +128,33 @@ def build_template_summaries(place_dcids: List[str],
       sorted_dates = sorted(list(series.keys()), reverse=True)
       latest_date = sorted_dates[0] if sorted_dates else ""
       value = series[latest_date]
-                          
+
       sentence = _TEMPLATE_VALUE_SENTENCE.format(
-        stat_var_name=sv_config.get(sv, {}).get("name"),
-        place_name=names[place_dcid],
-        value=format_stat_var_value(value, sv_config.get(sv,{})),
-        year=latest_date[:4]
-      )
+          stat_var_name=sv_config.get(sv, {}).get("name"),
+          place_name=names[place_dcid],
+          value=format_stat_var_value(value, sv_config.get(sv, {})),
+          year=latest_date[:4])
 
       sentences[place_dcid].append(sentence)
 
   # Create summary dict to write to file
   summaries = {
-      place_dcid: { "summary": " ".join(sentence_list) }
-      for place_dcid, sentence_list in sentences.items()
+      place_dcid: {
+          "summary": " ".join(sentence_list)
+      } for place_dcid, sentence_list in sentences.items()
   }
-  
+
   # Write to output file
   with open(output_file, "w") as out_f:
     json.dump(summaries, out_f, indent=4)
 
   logging.info(f"Wrote summaries to {output_file}!")
 
+
 def main():
   with open(_PLACES_JSON) as f:
     places = json.load(f)
-  
+
   build_template_summaries(place_dcids=places,
                            stat_var_json=_STAT_VAR_JSON,
                            output_file=_OUTPUT_FILENAME)
