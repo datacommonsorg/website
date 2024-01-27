@@ -66,7 +66,7 @@ def get_parent_places(dcids):
   """Get the parent place chain for a list of places.
 
   Args:
-      dcids: A list of place dids.
+      dcids: A list of place dcids.
 
   Returns:
       A dictionary of lists of containedInPlace, keyed by dcid.
@@ -131,3 +131,70 @@ def get_data_series(dcid: str, sv_list):
       data[sv] = series
 
   return data
+
+
+def get_ranking_by_var(stat_var_dcid: str, place_type: str,
+                       parent_place_dcid: str) -> List:
+  """Get rankings of child places in a parent place by a stat var
+  
+  Args:
+    stat_var_dcid: dcid of the stat var to get rankings for
+    place_type: place type of the places to rank
+    parent_place_dcid: dcid of the parent place of all places to rank
+  
+  Returns:
+    A list of { place_name, rank, value } keyed dictionaries, sorted in
+    ascending rank.
+  """
+  req_url = f"https://datacommons.org/api/ranking/{stat_var_dcid}/{place_type}/{parent_place_dcid}"
+  response = requests.get(req_url)
+  # Extract just the nested ranking list from the response
+  if response.status_code == 200:
+    response_data = response.json().get(stat_var_dcid, {})
+    ranking_key = list(response_data.keys())[0] if response_data.keys() else ""
+    rank_list = response_data.get(ranking_key, {}).get("info", [])
+    if rank_list:
+      rank_list.sort(key=lambda x: x['rank'])
+    return rank_list
+  else:
+    logging.error(f"unable to fetch ranking from {req_url}")
+  return {}
+
+
+def get_names(place_dcids: List[str]) -> Dict:
+  """Get mapping of place dcid -> name"""
+  req_url = f"https://api.datacommons.org/v1/bulk/property/values/out?property=name&key={_API_KEY}&nodes="
+  req_url += "&nodes=".join(place_dcids)
+  response = requests.get(req_url)
+  if response.status_code == 200:
+    # Format response into dcid -> name dictionary
+    names = {}
+    res_data = response.json().get("data", [])
+    for place in res_data:
+      place_dcid = place.get("node")
+      place_name_values = place.get("values")
+      place_name = place_name_values[0].get("value",
+                                            "") if place_name_values else None
+      if place_dcid and place_name:
+        names[place_dcid] = place_name
+    return names
+  else:
+    logging.error(f"unable to fetch names from {req_url}")
+  return {}
+
+
+def get_child_places(place_type: str, parent_place_dcid: str) -> List[str]:
+  """Get list of dcids for all places in a parent place of a certain place type"""
+  req_url = f"https://api.datacommons.org/v1/property/values/in/linked/{parent_place_dcid}/containedInPlace?value_node_type={place_type}&key={_API_KEY}"
+  response = requests.get(req_url)
+  if response.status_code == 200:
+    # Format response into a list of dcids
+    child_place_list = response.json().get("values", [])
+    all_places_in = []
+    for place in child_place_list:
+      if place.get("dcid"):
+        all_places_in.append(place.get("dcid"))
+    return all_places_in
+  else:
+    logging.error(f"unable to child places from {req_url}")
+  return []
