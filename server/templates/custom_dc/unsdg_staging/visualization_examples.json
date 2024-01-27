@@ -1,0 +1,77 @@
+{
+  "map": [
+    {
+      "header": "Proportion of fish stocks within biologically sustainable levels",
+      "preposition": "across",
+      "examples": [{
+        "text": "countries in the world",
+        "url": "/tools/visualization#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FER_H2O_FWTL%22%7D"
+      }]
+    }, {
+      "header": "Annual growth rate of real GDP per employed person",
+      "preposition": "across",
+      "examples": [{
+        "text": "countries in Africa",
+        "url": "/tools/visualization#visType%3Dmap%26place%3Dafrica%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FSL_EMP_PCAP%22%7D"
+      }]
+    }, {
+      "header": "Container port traffic, maritime transport",
+      "preposition": "across",
+      "examples": [{
+        "text": "countries in Asia",
+        "url": "/tools/visualization#visType%3Dmap%26place%3Dasia%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FIS_RDP_PORFVOL.MODE_OF_TRANSPORTATION--MOT_SEA%22%7D"
+      }]
+    }
+  ],
+  "scatter": [
+    {
+      "header": "Victims of intentional homicide vs. adults in poverty",
+      "preposition": "for counties",
+      "examples": [{
+        "text": "worldwide",
+        "url": "/tools/visualization#visType%3Dscatter%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FVC_IHR_PSRCN%22%7D___%7B%22dcid%22%3A%22sdg%2FSI_POV_EMP1.AGE--Y_GE25%22%7D"
+      }]
+    }, {
+      "header": "Proportion of women who were married before 15 vs. participation rate in organized learning",
+      "preposition": "for counties",
+      "examples": [{
+        "text": "worldwide",
+        "url": "/tools/visualization#visType%3Dscatter%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FSP_DYN_MRBF15.AGE--Y20T24__SEX--F%22%7D___%7B%22dcid%22%3A%22sdg%2FSE_PRE_PARTN%22%7D"
+      }]
+    }
+  ],
+  "timeline": [
+    {
+      "header": "Prevalence of severe food insecurity",
+      "preposition": "in",
+      "examples": [{
+        "text": "South Sudan, Central African Republic, Congo [Republic]",
+        "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FSSD___country%2FCOG___country%2FCAF%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FAG_PRD_FIESS%22%7D"
+      }]
+    }, {
+      "header": "Neonatal mortality rate",
+      "preposition": "in",
+      "examples": [{
+        "text": "San Marino, Belarus, Estonia",
+        "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FSMR___country%2FBLR___country%2FEST%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FSH_DYN_NMRT.AGE--M0%22%7D"
+      }]
+    }, {
+      "header": "Access to clean fuels and technology",
+      "preposition": "in",
+      "examples": [{
+        "text": "Vietnam, Ukraine, Turkey",
+        "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FUKR___country%2FTUR___country%2FVNM%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FEG_EGY_CLEAN%22%7D"
+      }, {
+        "text": "Worldwide",
+        "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DAdministrativeArea1%26sv%3D%7B%22dcid%22%3A%22sdg%2FEG_EGY_CLEAN%22%7D"
+      }]
+    }, {
+      "header": "Employed population 15-24 years old below international poverty line, by sex",
+      "preposition": "in",
+      "examples": [{
+        "text": "Mexico, Nigeria, Pakistan",
+        "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FMEX___country%2FNGA___country%2FPAK%26sv%3D%7B%22dcid%22%3A%22sdg%2FSI_POV_EMP1.AGE--Y15T24%22%7D___%7B%22dcid%22%3A%22sdg%2FSI_POV_EMP1.AGE--Y15T24__SEX--F%22%7D___%7B%22dcid%22%3A%22sdg%2FSI_POV_EMP1.AGE--Y15T24__SEX--M%22%7D"
+      }]
+    }
+  ]
+}

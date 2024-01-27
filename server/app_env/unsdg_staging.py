@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,25 +12,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
-
 from server.app_env import _base
 from server.app_env import local
 
 
 class Config(_base.Config):
   CUSTOM = True
+  GA_ACCOUNT = 'G-7QE2ET63E5'
+  SHOW_TOPIC = True
   NAME = "Data Commons"
-  OVERRIDE_CSS_PATH = '/custom_dc/custom/overrides.css'
-  LOGO_PATH = "/custom_dc/worldbank/logo.svg"
+  LOG_QUERY = True
+  LOGO_PATH = "/custom_dc/unsdg/logo.png"
+  OVERRIDE_CSS_PATH = '/custom_dc/unsdg/overrides.css'
   SHOW_DISASTER = False
+  USE_LLM = True
+  ENABLE_PER_CAPITA = False
+  MAP_TOOL_FOOTER = "The boundaries and names shown and the designations used on this and other maps throughout this publication do not imply official endorsement or acceptance by the United Nations."
+  GEO_JSON_PROP = "geoJsonCoordinatesUN"
   STAT_VAR_HIERARCHY_CONFIG = {
+      "disableSearch": True,
       "nodes": [{
-          "dcid": "dc/g/Root"
+          "dcid": "dc/g/SDG"
       }, {
-          "dcid": "dc/g/Root",
-          "dataSourceDcid": "dc/s/WorldBank",
-          "name": "World Bank"
+          "dcid": "dc/g/UN"
       }]
   }
 

@@ -74,3 +74,5 @@ class Config:
   MAP_TOOL_FOOTER = ""
   # The default property to use for getting geojsons
   GEO_JSON_PROP = "geoJsonCoordinates"
+  # Typedef in static/js/tools/stat_var/stat_var_hierarchy_config.ts
+  STAT_VAR_HIERARCHY_CONFIG = {"nodes": [{"dcid": "dc/g/Root"}]}
