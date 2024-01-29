@@ -103,7 +103,7 @@ def place(place_dcid=None):
   # Only show summary for Overview page in base DC.
   if not category and os.environ.get('FLASK_ENV') in [
       'local', 'autopush', 'dev', 'staging', 'production'
-  ]:
+  ] and g.locale == "en":
     # Fetch summary text from mounted volume
     start_time = time.time()
     place_summary = get_place_summaries().get(place_dcid, {})
