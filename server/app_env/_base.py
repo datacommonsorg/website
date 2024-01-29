@@ -76,3 +76,7 @@ class Config:
   GEO_JSON_PROP = "geoJsonCoordinates"
   # Typedef in static/js/tools/stat_var/stat_var_hierarchy_config.ts
   STAT_VAR_HIERARCHY_CONFIG = {"nodes": [{"dcid": "dc/g/Root"}]}
+  # Optional: custom dc template folder name:
+  # /server/templates/custom_dc/<CUSTOM_DC_TEMPLATE_FOLDER>/
+  # Defaults to the custom DC application environment name (Config.ENV value)
+  CUSTOM_DC_TEMPLATE_FOLDER = ''
