@@ -32,6 +32,9 @@ CATEGORY_REDIRECTS = {
 
 PLACE_SUMMARY_PATH = "/datacommons/place-summary/place_summaries.json"
 
+# Main DC domain to allow search crawlers to index.
+INDEXED_DOMAIN = "https://datacommons.org/"
+
 
 def get_place_summaries() -> dict:
   """Load place summary content from disk"""
@@ -110,6 +113,10 @@ def place(place_dcid=None):
     elapsed_time = (time.time() - start_time) * 1000
     logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
 
+  # Block pages not on the main DC domain from being indexed.
+  # This prevents crawlers from indexing duplicate versions of the place pages.
+  block_indexing = flask.request.host_url != INDEXED_DOMAIN
+
   return flask.render_template(
       'place.html',
       place_type=place_type,
@@ -117,7 +124,8 @@ def place(place_dcid=None):
       place_dcid=place_dcid,
       category=category if category else '',
       place_summary=place_summary.get("summary") if place_summary else '',
-      maps_api_key=current_app.config['MAPS_API_KEY'])
+      maps_api_key=current_app.config['MAPS_API_KEY'],
+      block_indexing=block_indexing)
 
 
 def place_landing():
