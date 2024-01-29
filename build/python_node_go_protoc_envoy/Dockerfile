@@ -29,7 +29,7 @@ ENV GO111MODULE=on
 ENV PATH="${PATH}:/root/go/bin"
 
 RUN apt update \
-    && apt install -y curl zip wget gcc libc6-dev \
+    && apt install -y --no-install-recommends curl zip wget gcc libc6-dev unzip gpg \
     # Install Node
     && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash \
     && . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION} \
@@ -48,9 +48,10 @@ RUN apt update \
     && go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.30.0 \
     && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.3.0 \
     # Install Envoy
-    && apt install -y debian-keyring debian-archive-keyring apt-transport-https lsb-release \
+    && apt install -y --no-install-recommends debian-keyring debian-archive-keyring apt-transport-https lsb-release \
     && curl -sL 'https://deb.dl.getenvoy.io/public/gpg.8115BA8E629CC074.key' | gpg --dearmor -o /usr/share/keyrings/getenvoy-keyring.gpg \
     && echo a077cb587a1b622e03aa4bf2f3689de14658a9497a9af2c427bba5f4cc3c4723 /usr/share/keyrings/getenvoy-keyring.gpg | sha256sum --check \
     && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/getenvoy-keyring.gpg] https://deb.dl.getenvoy.io/public/deb/debian $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/getenvoy.list \
     && apt update \
-    && apt install -y getenvoy-envoy
+    && apt install -y --no-install-recommends getenvoy-envoy \
+    && rm -rf /var/lib/apt/lists/*
