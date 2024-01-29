@@ -19,6 +19,7 @@ import express, { Request, Response } from "express";
 import { JSDOM } from "jsdom";
 import _ from "lodash";
 import sharp from "sharp";
+import * as zlib from "zlib";
 
 import {
   fetchDisasterEventData,
@@ -36,7 +37,11 @@ import {
 } from "../js/utils/disaster_event_map_utils";
 import { getTileEventTypeSpecs } from "../js/utils/tile_utils";
 import { getBarChart, getBarTileResult } from "../nodejs_server/bar_tile";
-import { CHART_ID, CHART_URL_PARAMS } from "../nodejs_server/constants";
+import {
+  CHART_ID,
+  CHART_URL_PARAMS,
+  COMPRESSED_VAL_ENCODING,
+} from "../nodejs_server/constants";
 import {
   getDisasterMapChart,
   getDisasterMapTileResult,
@@ -616,21 +621,35 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
 });
 
 app.get("/nodejs/chart", (req: Request, res: Response) => {
-  const place = _.escape(req.query[CHART_URL_PARAMS.PLACE] as string);
+  // For each value in the request query, process and decompress it.
+  const decompressedReqVals = {};
+  for (const key in req.query) {
+    let val = req.query[key] as string;
+    // Convert all the manually escaped characters back to their original
+    // characters.
+    for (const c in COMPRESSED_VAL_ENCODING) {
+      val = val.replaceAll(COMPRESSED_VAL_ENCODING[c], c);
+    }
+    // decompress the value
+    val = zlib.inflateSync(Buffer.from(val, "base64")).toString();
+    decompressedReqVals[key] = val;
+  }
+  const place = _.escape(decompressedReqVals[CHART_URL_PARAMS.PLACE]);
   const enclosedPlaceType = _.escape(
-    req.query[CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE] as string
+    decompressedReqVals[CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE] as string
   );
-  const svSpec = JSON.parse(
-    req.query[CHART_URL_PARAMS.STAT_VAR_SPEC] as string
-  );
-  // Need to convert encoded # back to #.
-  const eventTypeSpecVal = (
-    req.query[CHART_URL_PARAMS.EVENT_TYPE_SPEC] as string
-  ).replaceAll("%23", "#");
-  const eventTypeSpec = JSON.parse(eventTypeSpecVal);
-  const tileConfig = JSON.parse(
-    req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
-  );
+  const svSpec =
+    CHART_URL_PARAMS.STAT_VAR_SPEC in decompressedReqVals
+      ? JSON.parse(decompressedReqVals[CHART_URL_PARAMS.STAT_VAR_SPEC])
+      : [];
+  const eventTypeSpec =
+    CHART_URL_PARAMS.EVENT_TYPE_SPEC in decompressedReqVals
+      ? JSON.parse(decompressedReqVals[CHART_URL_PARAMS.EVENT_TYPE_SPEC])
+      : {};
+  const tileConfig =
+    CHART_URL_PARAMS.TILE_CONFIG in decompressedReqVals
+      ? JSON.parse(decompressedReqVals[CHART_URL_PARAMS.TILE_CONFIG])
+      : null;
   const useSvgFormat =
     req.query[CHART_URL_PARAMS.AS_SVG] === URL_PARAM_VALUE_TRUTHY;
   const contentType = useSvgFormat ? "image/svg+xml" : "image/png";

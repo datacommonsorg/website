@@ -44,11 +44,17 @@ export const MAP_LEGEND_CONSTANT_WIDTH =
 // Url params used for getting a single chart
 export const CHART_URL_PARAMS = {
   TILE_CONFIG: "config",
-  PLACE: "place",
-  ENCLOSED_PLACE_TYPE: "enclosedPlaceType",
-  STAT_VAR_SPEC: "svSpec",
-  EVENT_TYPE_SPEC: "eventTypeSpec",
+  PLACE: "pl",
+  ENCLOSED_PLACE_TYPE: "plt",
+  STAT_VAR_SPEC: "sv",
+  EVENT_TYPE_SPEC: "evt",
   API_KEY: "apikey",
   // If set, returns chart as an svg. Otherwise, returns chart as a png image.
   AS_SVG: "svg",
+};
+// Map of compressed value to the html encoding to use for that value.
+export const COMPRESSED_VAL_ENCODING = {
+  "+": "%2B",
+  "/": "%2F",
+  "=": "%3D",
 };

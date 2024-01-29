@@ -18,7 +18,9 @@
  * Util functions used by node js server
  */
 
+import _ from "lodash";
 import * as xmlserializer from "xmlserializer";
+import * as zlib from "zlib";
 
 import { SVGNS, XLINKNS } from "../js/constants/svg_constants";
 import { StatVarSpec } from "../js/shared/types";
@@ -29,6 +31,7 @@ import {
 } from "../js/types/subject_page_proto_types";
 import {
   CHART_URL_PARAMS,
+  COMPRESSED_VAL_ENCODING,
   FONT_FAMILY,
   FONT_SIZE,
   SVG_HEIGHT,
@@ -123,12 +126,18 @@ export function getChartUrl(
   urlRoot: string,
   apikey?: string
 ): string {
+  const tileConfigParamVal = _.cloneDeep(tileConfig);
+  // tile config that gets passed in the url doesn't need statVarKey because
+  // it's used to generate the statVarSpec which itself gets passed in the url.
+  delete tileConfigParamVal.statVarKey;
   const paramMapping = {
-    [CHART_URL_PARAMS.EVENT_TYPE_SPEC]: JSON.stringify(eventTypeSpec),
+    [CHART_URL_PARAMS.EVENT_TYPE_SPEC]: eventTypeSpec
+      ? JSON.stringify(eventTypeSpec)
+      : null,
     [CHART_URL_PARAMS.PLACE]: placeDcid,
     [CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE]: enclosedPlaceType,
     [CHART_URL_PARAMS.STAT_VAR_SPEC]: JSON.stringify(statVarSpec),
-    [CHART_URL_PARAMS.TILE_CONFIG]: JSON.stringify(tileConfig),
+    [CHART_URL_PARAMS.TILE_CONFIG]: JSON.stringify(tileConfigParamVal),
     [CHART_URL_PARAMS.API_KEY]: apikey,
   };
   let url = `${urlRoot}/nodejs/chart?`;
@@ -139,9 +148,13 @@ export function getChartUrl(
       if (!paramVal) {
         return;
       }
-      url += `${idx === 0 ? "" : "&"}${paramKey}=${paramVal}`;
+      let compressedVal = zlib.deflateSync(paramVal).toString("base64");
+      // base64 encoding includes the characters +/= which need to be manually
+      // escaped.
+      for (const c in COMPRESSED_VAL_ENCODING) {
+        compressedVal = compressedVal.replaceAll(c, COMPRESSED_VAL_ENCODING[c]);
+      }
+      url += `${idx === 0 ? "" : "&"}${paramKey}=${compressedVal}`;
     });
-  // manually escape the # because encodeURI will not escape it
-  url = url.replaceAll("#", "%23");
   return encodeURI(url);
 }
