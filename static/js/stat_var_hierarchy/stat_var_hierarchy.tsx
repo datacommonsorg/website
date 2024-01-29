@@ -42,10 +42,10 @@ import { STAT_VAR_HIERARCHY_CONFIG } from "../tools/stat_var/stat_var_hierarchy_
 import { StatVarGroupNode } from "./stat_var_group_node";
 import { StatVarHierarchySearch } from "./stat_var_search";
 import {
-  hideTooltip,
-  showTooltip,
   SV_HIERARCHY_SECTION_ID,
   TOOLTIP_ID,
+  hideTooltip,
+  showTooltip,
 } from "./util";
 
 const TOOLTIP_TOP_OFFSET = 30;
@@ -257,22 +257,22 @@ export class StatVarHierarchy extends React.Component<
     loadSpinner(SV_HIERARCHY_SECTION_ID);
     const entityList = this.props.entities.map((entity) => entity.dcid);
     const variableGroupInfoPromises: Promise<StatVarGroupNodeType>[] =
-      STAT_VAR_HIERARCHY_CONFIG.nodes.map((statVarHierarchyConfigNode) =>
-        axios
+      STAT_VAR_HIERARCHY_CONFIG.nodes.map((statVarHierarchyConfigNode) => {
+        // Filter variable group info result with these data source DCIDs
+        // if specified
+        const dataSourceEntities = statVarHierarchyConfigNode.dataSourceDcid
+          ? [statVarHierarchyConfigNode.dataSourceDcid]
+          : [];
+        return axios
           .post("/api/variable-group/info", {
             dcid: statVarHierarchyConfigNode.dcid,
-            entities: [
-              ...entityList,
-              ...(statVarHierarchyConfigNode.dataSourceDcid
-                ? [statVarHierarchyConfigNode.dataSourceDcid]
-                : []),
-            ],
+            entities: [...entityList, ...dataSourceEntities],
             numEntitiesExistence: this.props.numEntitiesExistence,
           })
           .then((resp) => {
             return resp.data;
-          })
-      );
+          });
+      });
     const statVarPathPromises: Promise<string[]>[] = [];
     const svPath = {};
     if (this.props.selectedSVs) {

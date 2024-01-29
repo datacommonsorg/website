@@ -20,7 +20,8 @@
 export interface StatVarHierarchyConfig {
   disableSearch?: boolean;
   nodes: {
-    // Optional: Node name. Default: absoluteName from /api/variable-group/info endpoint
+    // Optional: Node name to display in hierarchy.
+    // Default: absoluteName from /api/variable-group/info endpoint
     name?: string;
     // Node DCID. Default: "dc/g/Root"
     dcid: string;

@@ -74,6 +74,8 @@ class Config:
   MAP_TOOL_FOOTER = ""
   # The default property to use for getting geojsons
   GEO_JSON_PROP = "geoJsonCoordinates"
+  # Optional: Override the stat var hierarchy root nodes with these filters.
+  # Example: Set to "dc/g/SDG" to only show SDG variables.
   # Typedef in static/js/tools/stat_var/stat_var_hierarchy_config.ts
   STAT_VAR_HIERARCHY_CONFIG = {"nodes": [{"dcid": "dc/g/Root"}]}
   # Optional: custom dc template folder name:
