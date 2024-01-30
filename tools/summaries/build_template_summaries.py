@@ -16,6 +16,7 @@
 To use:
 
   From the tools/summaries directory:
+    $ export MIXER_API_KEY=<your api key>
     $ python3 -m venv .env
     $ source .env/bin/activate
     $ python3 build_template_summaries.py
@@ -109,7 +110,9 @@ def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
     The value formatted by: scaling, rounded to 2 decimal places, and adding the
     unit
   """
-  scaling = stat_var_data.get('scaling', 1)
+  scaling = stat_var_data.get('scaling')
+  if not scaling:
+    scaling = 1
   # Round to 2nd decimal place
   rounded_value = round(value, 2) * scaling
   unit = stat_var_data.get('unit', '')
