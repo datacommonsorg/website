@@ -227,3 +227,13 @@ def is_coplottable(svs: List[str], places: List[Place],
       unit = u
 
   return True
+
+
+# Takes a list of place names and formats it into a single string.
+def get_places_as_string(places: List[str]) -> str:
+  if len(places) < 1:
+    return ''
+  elif len(places) == 1:
+    return places[0]
+  else:
+    return ', '.join(places[0:len(places) - 1]) + f' and {places[-1]}'

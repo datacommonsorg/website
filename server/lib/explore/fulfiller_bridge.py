@@ -46,15 +46,17 @@ class FulfillResp:
 def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   state = nl_fulfiller.fulfill(uttr, explore_mode=True)
 
-  config_pb, user_msg = nl_config_builder.build(state, cb_config)
-  if not config_pb:
-    return FulfillResp(chart_pb=None, related_things={}, user_message=user_msg)
+  builder_result = nl_config_builder.build(state, cb_config)
+  if not builder_result.page_config:
+    return FulfillResp(chart_pb=None,
+                       related_things={},
+                       user_message=builder_result.page_msg)
 
   if uttr.mode == params.QueryMode.STRICT:
     # No related things for strict mode.
-    return FulfillResp(chart_pb=config_pb,
+    return FulfillResp(chart_pb=builder_result.page_config,
                        related_things={},
-                       user_message=user_msg)
+                       user_message=builder_result.page_msg)
 
   plotted_orig_vars = _get_plotted_orig_vars(state)
 
@@ -68,9 +70,9 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   related_things = related.compute_related_things(state, plotted_orig_vars,
                                                   explore_peer_groups)
 
-  return FulfillResp(chart_pb=config_pb,
+  return FulfillResp(chart_pb=builder_result.page_config,
                      related_things=related_things,
-                     user_message=user_msg)
+                     user_message=builder_result.page_msg)
 
 
 def _get_plotted_orig_vars(

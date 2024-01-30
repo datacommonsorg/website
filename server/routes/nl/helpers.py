@@ -35,6 +35,7 @@ import server.lib.nl.common.debug_utils as dbg
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.base as builder_base
+from server.lib.nl.config_builder.builder import BuilderResult
 import server.lib.nl.config_builder.builder as config_builder
 from server.lib.nl.detection import utils as dutils
 import server.lib.nl.detection.context as context
@@ -263,16 +264,16 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   if utterance.rankedCharts:
     start = time.time()
     # Call chart config builder.
-    page_config_pb, fulfill_user_msg = config_builder.build(state, cb_config)
+    builder_result = config_builder.build(state, cb_config)
     utterance.counters.timeit('build_page_config', start)
   else:
-    page_config_pb, fulfill_user_msg = None, ''
+    builder_result = BuilderResult()
 
   return prepare_response(utterance,
-                          page_config_pb,
+                          builder_result.page_config,
                           utterance.detection,
                           debug_logs,
-                          fulfill_user_msg=fulfill_user_msg)
+                          fulfill_user_msg=builder_result.page_msg)
 
 
 def prepare_response(utterance: nl_utterance.Utterance,
