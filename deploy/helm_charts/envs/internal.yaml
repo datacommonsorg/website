@@ -48,5 +48,12 @@ serviceGroups:
   default:
     replicas: 2
 
+kgStoreConfig:
+  customBigtableInfo: |
+    project: datcom-internal
+    instance: dc-graph
+    tables:
+      - internal_2024_01_29_09_12_51
+
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
