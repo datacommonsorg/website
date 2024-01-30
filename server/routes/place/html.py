@@ -27,6 +27,18 @@ import server.routes.shared_api.place as place_api
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
+CATEGORIES = [
+    "Economics",
+    "Health",
+    "Equity",
+    "Crime",
+    "Education",
+    "Demographics",
+    "Housing",
+    "Environment",
+    "Energy",
+]
+
 CATEGORY_REDIRECTS = {
     "Climate": "Environment",
 }
@@ -136,7 +148,7 @@ def place(place_dcid=None):
   for locale_code in AVAILABLE_LANGUAGES:
     canonical_args = {
         'place_dcid': place_dcid,
-        'category': category if category else None,
+        'category': category if category in CATEGORIES else None,
         'hl': locale_code if locale_code != 'en' else None
     }
     localized_url = CANONICAL_ROOT + flask.url_for('place.place', **
