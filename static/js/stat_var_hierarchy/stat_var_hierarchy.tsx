@@ -42,10 +42,10 @@ import { STAT_VAR_HIERARCHY_CONFIG } from "../tools/stat_var/stat_var_hierarchy_
 import { StatVarGroupNode } from "./stat_var_group_node";
 import { StatVarHierarchySearch } from "./stat_var_search";
 import {
-  SV_HIERARCHY_SECTION_ID,
-  TOOLTIP_ID,
   hideTooltip,
   showTooltip,
+  SV_HIERARCHY_SECTION_ID,
+  TOOLTIP_ID,
 } from "./util";
 
 const TOOLTIP_TOP_OFFSET = 30;

@@ -381,7 +381,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()
 
   # Set custom dc template folder if set, otherwise use the environment name
-  custom_dc_template_folder = app.config.get('CUSTOM_DC_TEMPLATE_FOLDER', None) or app.config.get('ENV', None)
+  custom_dc_template_folder = app.config.get(
+      'CUSTOM_DC_TEMPLATE_FOLDER', None) or app.config.get('ENV', None)
 
   # Get and save the blocklisted svgs.
   blocklist_svg = []
@@ -444,7 +445,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   app.jinja_env.globals['BASE_HTML'] = 'base.html'
   if cfg.CUSTOM:
-    custom_path = os.path.join('custom_dc', custom_dc_template_folder, 'base.html')
+    custom_path = os.path.join('custom_dc', custom_dc_template_folder,
+                               'base.html')
     if os.path.exists(os.path.join(app.root_path, 'templates', custom_path)):
       app.jinja_env.globals['BASE_HTML'] = custom_path
     else:
