@@ -94,17 +94,16 @@ function run_py_test {
   python3 -m venv .env
   source .env/bin/activate
   export FLASK_ENV=test
-  python3 -m pytest server/tests/routes/place_test.py
-  # python3 -m pytest server/tests/ -s
-  # python3 -m pytest shared/tests/ -s
-  # python3 -m pytest nl_server/tests/ -s
+  python3 -m pytest server/tests/ -s
+  python3 -m pytest shared/tests/ -s
+  python3 -m pytest nl_server/tests/ -s
 
-  # # Tests within tools/nl/embeddings
-  # echo "Running tests within tools/nl/embeddings:"
-  # cd tools/nl/embeddings
-  # pip3 install -r requirements.txt
-  # python3 -m pytest ./ -s
-  # cd ../../..
+  # Tests within tools/nl/embeddings
+  echo "Running tests within tools/nl/embeddings:"
+  cd tools/nl/embeddings
+  pip3 install -r requirements.txt
+  python3 -m pytest ./ -s
+  cd ../../..
 
   pip3 install yapf==0.33.0 -q
   if ! command -v isort &> /dev/null
