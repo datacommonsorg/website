@@ -107,7 +107,7 @@ def place(place_dcid=None):
   locale = flask.request.args.get('hl')
   if locale not in AVAILABLE_LANGUAGES:
     locale = 'en'
-  
+
   is_overview = (not category) or (category == 'Overview')
 
   place_summary = {}
@@ -131,20 +131,21 @@ def place(place_dcid=None):
           place_summary=place_summary.get('summary') if place_summary else '',
           maps_api_key=current_app.config['MAPS_API_KEY']))
 
-  # Compute localized urls for http header, used by search crawlers
+  # Compute localized canonical urls for http header, used by search crawlers
   link_headers = []
   for locale_code in AVAILABLE_LANGUAGES:
     canonical_args = {
-      'place_dcid': place_dcid,
-      'category': category if category else None,
-      'hl': locale_code if locale_code != 'en' else None
+        'place_dcid': place_dcid,
+        'category': category if category else None,
+        'hl': locale_code if locale_code != 'en' else None
     }
-    localized_url = CANONICAL_ROOT + flask.url_for('place.place', **canonical_args)
+    localized_url = CANONICAL_ROOT + flask.url_for('place.place', **
+                                                   canonical_args)
 
     # Add localized url as a language alternate link to headers
     link_headers.append(
         f'<{localized_url}>; rel="alternate"; hreflang="{locale_code}"')
-    
+
     if locale_code == locale:
       # Set the url of the current locale as the canonical
       link_headers.append(f'<{localized_url}>; rel="canonical"')
