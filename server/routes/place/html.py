@@ -22,6 +22,7 @@ import flask
 from flask import current_app
 from flask import g
 
+from server.lib.i18n import AVAILABLE_LANGUAGES
 import server.routes.shared_api.place as place_api
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
@@ -31,6 +32,9 @@ CATEGORY_REDIRECTS = {
 }
 
 PLACE_SUMMARY_PATH = "/datacommons/place-summary/place_summaries.json"
+
+# Hostname to use for canonical URLs
+CANONICAL_ROOT = 'https://datacommons.org'
 
 
 def get_place_summaries() -> dict:
@@ -99,25 +103,55 @@ def place(place_dcid=None):
   else:
     place_name = place_dcid
 
+  # Default to English page if translation is not available
+  locale = flask.request.args.get('hl')
+  if locale not in AVAILABLE_LANGUAGES:
+    locale = 'en'
+  
+  is_overview = (not category) or (category == 'Overview')
+
   place_summary = {}
-  # Only show summary for Overview page in base DC.
-  if not category and os.environ.get('FLASK_ENV') in [
+  if is_overview and os.environ.get('FLASK_ENV') in [
       'local', 'autopush', 'dev', 'staging', 'production'
-  ] and g.locale == "en":
+  ] and locale == 'en':
+    # Only show summary for Overview page in base DC.
     # Fetch summary text from mounted volume
     start_time = time.time()
     place_summary = get_place_summaries().get(place_dcid, {})
     elapsed_time = (time.time() - start_time) * 1000
     logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
 
-  return flask.render_template(
-      'place.html',
-      place_type=place_type,
-      place_name=place_name,
-      place_dcid=place_dcid,
-      category=category if category else '',
-      place_summary=place_summary.get("summary") if place_summary else '',
-      maps_api_key=current_app.config['MAPS_API_KEY'])
+  response = flask.make_response(
+      flask.render_template(
+          'place.html',
+          place_type=place_type,
+          place_name=place_name,
+          place_dcid=place_dcid,
+          category=category if category else '',
+          place_summary=place_summary.get('summary') if place_summary else '',
+          maps_api_key=current_app.config['MAPS_API_KEY']))
+
+  # Compute localized urls for http header, used by search crawlers
+  link_headers = []
+  for locale_code in AVAILABLE_LANGUAGES:
+    canonical_args = {
+      'place_dcid': place_dcid,
+      'category': category if category else None,
+      'hl': locale_code if locale_code != 'en' else None
+    }
+    localized_url = CANONICAL_ROOT + flask.url_for('place.place', **canonical_args)
+
+    # Add localized url as a language alternate link to headers
+    link_headers.append(
+        f'<{localized_url}>; rel="alternate"; hreflang="{locale_code}"')
+    
+    if locale_code == locale:
+      # Set the url of the current locale as the canonical
+      link_headers.append(f'<{localized_url}>; rel="canonical"')
+
+  response.headers.set('Link', ', '.join(link_headers))
+
+  return response
 
 
 def place_landing():
