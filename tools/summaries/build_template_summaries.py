@@ -11,7 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Generate summaries using template sentences about a set list of variables."""
+"""Generate summaries using template sentences about a set list of variables.
+
+To use:
+
+  From the tools/summaries directory:
+    $ python3 -m venv .env
+    $ source .env/bin/activate
+    $ python3 build_template_summaries.py
+
+"""
 
 import json
 import logging
@@ -41,7 +50,15 @@ _TEMPLATE_VALUE_SENTENCE = "The {stat_var_name} in {place_name} was {value} in {
 
 
 def initialize_summaries(place_info: Dict) -> Dict:
-  """Initialize mapping of place dcid -> summary with starter sentence."""
+  """Initialize mapping of place dcid -> summary with a starter sentence
+  
+  Args:
+    place_info: dict of place_dcid -> {self: {}, parents: {}} from a v1 place
+                info REST API response
+  
+  Returns:
+    A dict of place_dcid -> ["starter sentence"]
+  """
   sentences = {}
   for node in place_info:
     # get info about the place itself
@@ -80,13 +97,22 @@ def initialize_summaries(place_info: Dict) -> Dict:
 
 
 def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
-  """Format a stat var observation to print nicely in a sentence"""
-  scaling = stat_var_data['scaling']
-  if not scaling:
-    scaling = 1
+  """Format a stat var observation to print nicely in a sentence
+  
+  Args:
+    value: numeric value to format
+    stat_var_data: dict of metadata for the stat var measured. May contain
+                   entries for 'scaling', a numeric scaling factor, and 'unit',
+                   the unit to display along side the value.
+  
+  Returns:
+    The value formatted by: scaling, rounded to 2 decimal places, and adding the
+    unit
+  """
+  scaling = stat_var_data.get('scaling', 1)
   # Round to 2nd decimal place
   rounded_value = round(value, 2) * scaling
-  unit = stat_var_data['unit']
+  unit = stat_var_data.get('unit', '')
   if unit == "$":
     return "{unit}{value:,}".format(unit=unit, value=rounded_value)
   return "{value:,}{unit}".format(unit=unit, value=rounded_value)
@@ -95,6 +121,14 @@ def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
 def build_template_summaries(place_dcids: List[str],
                              stat_var_json=str,
                              output_file=str):
+  """Write template-based summaries to file
+  
+  Args:
+    place_dcids: list of dcids of places to generate summaries for
+    stat_var_json: path to a stat var config. Config should map
+                   stat_var_dcid -> {dcid, name, unit, scaling}
+    output_file: path to file to write. Will overwrite existing contents.
+  """
   logging.info("Starting summary generation...")
 
   # fetch info about the places to build summaries for

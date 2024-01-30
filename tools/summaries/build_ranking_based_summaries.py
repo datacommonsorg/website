@@ -74,7 +74,19 @@ def get_rank_string(rank: int) -> str:
 
 def initialize_summaries(place_dcids: List[str], names: Dict, place_type: str,
                          parent_place_name: str) -> Dict:
-  """Initialize mapping of place dcid -> summary with starter sentence."""
+  """Initialize mapping of place dcid -> summary with starter sentence.
+  
+  Args:
+    place_dcids: list of dcids of places to generate summaries for. Must all
+                 be the same place type
+    names: mapping of place_dcid -> place_name
+    place_type: the type of place in place_dcids.
+    parent_place_name: the name of the common parent place to all places
+                       in place_dcids.
+  
+  Returns:
+    Mapping of place_dcid -> ["starter sentence"]
+  """
   summaries = {}
   for place_dcid in place_dcids:
     place_name = names[place_dcid]
@@ -95,7 +107,18 @@ def initialize_summaries(place_dcids: List[str], names: Dict, place_type: str,
 
 
 def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
-  """Format a stat var observation to print nicely in a sentence"""
+  """Format a stat var observation to print nicely in a sentence
+  
+  Args:
+    value: numeric value to format
+    stat_var_data: dict of metadata for the stat var measured. May contain
+                   entries for 'scaling', a numeric scaling factor, and 'unit',
+                   the unit to display along side the value.
+  
+  Returns:
+    The value formatted by: scaling, rounded to 2 decimal places, and adding the
+    unit
+  """
   scaling = stat_var_data['scaling']
   if not scaling:
     scaling = 1
@@ -178,7 +201,7 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str,
     summaries[place] = {"summary": " ".join(sentence_list)}
 
   # Write summaries to file
-  with open(_OUTPUT_FILENAME, "w") as out_file:
+  with open(output_file, "w") as out_file:
     json.dump(summaries, out_file, indent=4)
 
 
