@@ -33,7 +33,7 @@ CATEGORY_REDIRECTS = {
 PLACE_SUMMARY_PATH = "/datacommons/place-summary/place_summaries.json"
 
 # Main DC domain to set as canonical for indexing.
-CANONICAL_ROOT = "https://datacommons.org/"
+CANONICAL_ROOT = "https://datacommons.org"
 
 
 def get_place_summaries() -> dict:
@@ -113,11 +113,10 @@ def place(place_dcid=None):
     elapsed_time = (time.time() - start_time) * 1000
     logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
 
-  # Block pages not on the main DC domain from being indexed.
-  # This prevents crawlers from indexing duplicate versions of the place pages.
-  block_indexing = flask.request.host_url != CANONICAL_ROOT
-  logging.info(f"HOST URL: {flask.request.host_url}")
-  
+  # Block pages from being indexed if not on the main DC domain. This prevents
+  # crawlers from indexing dev or custom DC versions of the place pages.
+  block_indexing = CANONICAL_ROOT not in flask.request.base_url
+
   return flask.render_template(
       'place.html',
       place_type=place_type,
