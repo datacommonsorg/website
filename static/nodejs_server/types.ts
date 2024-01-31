@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
+import { StatVarSpec } from "../js/shared/types";
+import {
+  EventTypeSpec,
+  TileConfig,
+} from "../js/types/subject_page_proto_types";
+
 /**
  * Types used for nodejs server
  */
@@ -43,4 +49,13 @@ export interface TileResult {
   };
   // The link to the data commons explore page for this result.
   dcUrl?: string;
+}
+
+// Properties to use for drawing a single chart
+export interface ChartProps {
+  place: string;
+  enclosedPlaceType: string;
+  statVarSpec: StatVarSpec[];
+  tileConfig: TileConfig;
+  eventTypeSpec: Record<string, EventTypeSpec>;
 }
