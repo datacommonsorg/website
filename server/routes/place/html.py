@@ -62,7 +62,9 @@ def get_place_summaries() -> dict:
   with open(local_path) as f:
     return json.load(f)
 
-def generate_link_headers(place_dcid: str, category: str, current_locale: str) -> str:
+
+def generate_link_headers(place_dcid: str, category: str,
+                          current_locale: str) -> str:
   """Generate canonical and alternate link HTTP headers
   
   Search crawlers look for rel="canonical" link headers to determine which
@@ -70,7 +72,11 @@ def generate_link_headers(place_dcid: str, category: str, current_locale: str) -
 
   Args:
     place_dcid: DCID of the place the page is about
-    
+    category: category of the page
+    current_locale: locale of the page
+  
+  Returns:
+    String to pass as value for 'Link' HTTP header
   """
   link_headers = []
   for locale_code in AVAILABLE_LANGUAGES:
@@ -171,7 +177,8 @@ def place(place_dcid=None):
           category=category if category else '',
           place_summary=place_summary.get('summary') if place_summary else '',
           maps_api_key=current_app.config['MAPS_API_KEY']))
-  response.headers.set('Link', generate_link_headers(place_dcid, category, locale))
+  response.headers.set('Link',
+                       generate_link_headers(place_dcid, category, locale))
 
   return response
 
