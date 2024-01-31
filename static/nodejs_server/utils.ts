@@ -30,7 +30,7 @@ import {
   TileConfig,
 } from "../js/types/subject_page_proto_types";
 import {
-  CHART_URL_PARAMS,
+  CHART_PARAMS,
   COMPRESSED_VAL_ENCODING,
   FONT_FAMILY,
   FONT_SIZE,
@@ -38,6 +38,7 @@ import {
   SVG_PADDING,
   SVG_WIDTH,
 } from "./constants";
+import { ChartProps } from "./types";
 
 /**
  * Gets a list of source objects with name and url from a set of source urls.
@@ -130,15 +131,16 @@ export function getChartUrl(
   // tile config that gets passed in the url doesn't need statVarKey because
   // it's used to generate the statVarSpec which itself gets passed in the url.
   delete tileConfigParamVal.statVarKey;
+  const chartProps: ChartProps = {
+    place: placeDcid,
+    enclosedPlaceType,
+    statVarSpec,
+    tileConfig: tileConfigParamVal,
+    eventTypeSpec,
+  };
   const paramMapping = {
-    [CHART_URL_PARAMS.EVENT_TYPE_SPEC]: eventTypeSpec
-      ? JSON.stringify(eventTypeSpec)
-      : null,
-    [CHART_URL_PARAMS.PLACE]: placeDcid,
-    [CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE]: enclosedPlaceType,
-    [CHART_URL_PARAMS.STAT_VAR_SPEC]: JSON.stringify(statVarSpec),
-    [CHART_URL_PARAMS.TILE_CONFIG]: JSON.stringify(tileConfigParamVal),
-    [CHART_URL_PARAMS.API_KEY]: apikey,
+    [CHART_PARAMS.API_KEY]: apikey,
+    [CHART_PARAMS.PROPS]: compressChartProps(chartProps),
   };
   let url = `${urlRoot}/nodejs/chart?`;
   Object.keys(paramMapping)
@@ -148,13 +150,31 @@ export function getChartUrl(
       if (!paramVal) {
         return;
       }
-      let compressedVal = zlib.deflateSync(paramVal).toString("base64");
-      // base64 encoding includes the characters +/= which need to be manually
-      // escaped.
-      for (const c in COMPRESSED_VAL_ENCODING) {
-        compressedVal = compressedVal.replaceAll(c, COMPRESSED_VAL_ENCODING[c]);
-      }
-      url += `${idx === 0 ? "" : "&"}${paramKey}=${compressedVal}`;
+      url += `${idx === 0 ? "" : "&"}${paramKey}=${paramVal}`;
     });
   return encodeURI(url);
+}
+
+export function compressChartProps(chartProps: ChartProps): string {
+  const chartPropsStr = JSON.stringify(chartProps);
+  let compressedStr = zlib.deflateSync(chartPropsStr).toString("base64");
+  // base64 encoding includes the characters +/= which need to be manually
+  // escaped.
+  for (const c in COMPRESSED_VAL_ENCODING) {
+    compressedStr = compressedStr.replaceAll(c, COMPRESSED_VAL_ENCODING[c]);
+  }
+  return compressedStr;
+}
+
+export function decompressChartProps(propString: string): ChartProps {
+  let decompressedStr = propString;
+  for (const c in COMPRESSED_VAL_ENCODING) {
+    decompressedStr = decompressedStr.replaceAll(COMPRESSED_VAL_ENCODING[c], c);
+  }
+  // Convert all the manually escaped characters back to their original
+  // characters.
+  decompressedStr = zlib
+    .inflateSync(Buffer.from(decompressedStr, "base64"))
+    .toString();
+  return JSON.parse(decompressedStr);
 }

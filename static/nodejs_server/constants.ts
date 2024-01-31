@@ -41,14 +41,19 @@ export const FONT_SIZE = "10px";
 // Width of the constant sized part of the map legend
 export const MAP_LEGEND_CONSTANT_WIDTH =
   LEGEND_IMG_WIDTH + LEGEND_MARGIN_RIGHT + LEGEND_TICK_LABEL_MARGIN;
-// Url params used for getting a single chart
-export const CHART_URL_PARAMS = {
+// Url params used for /nodejs/chart-info endpoint
+export const CHART_INFO_PARAMS = {
   TILE_CONFIG: "config",
-  PLACE: "pl",
-  ENCLOSED_PLACE_TYPE: "plt",
-  STAT_VAR_SPEC: "sv",
-  EVENT_TYPE_SPEC: "evt",
+  PLACE: "place",
+  ENCLOSED_PLACE_TYPE: "enclosedPlaceType",
+  STAT_VAR_SPEC: "svSpec",
+  EVENT_TYPE_SPEC: "eventTypeSpec",
+};
+// Url params used for /nodejs/chart endpoint
+export const CHART_PARAMS = {
   API_KEY: "apikey",
+  // props to use for drawing the chart
+  PROPS: "props",
   // If set, returns chart as an svg. Otherwise, returns chart as a png image.
   AS_SVG: "svg",
 };
