@@ -132,11 +132,11 @@ export function getChartUrl(
   // it's used to generate the statVarSpec which itself gets passed in the url.
   delete tileConfigParamVal.statVarKey;
   const chartProps: ChartProps = {
-    place: placeDcid,
     enclosedPlaceType,
+    eventTypeSpec,
+    place: placeDcid,
     statVarSpec,
     tileConfig: tileConfigParamVal,
-    eventTypeSpec,
   };
   const paramMapping = {
     [CHART_PARAMS.API_KEY]: apikey,

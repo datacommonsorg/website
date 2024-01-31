@@ -20,42 +20,42 @@ const TEST_PLACE = "testPlace";
 const TEST_PLACE_TYPE = "placeType";
 const TEST_SV_SPEC = [
   {
-    name: "sv1",
-    statVar: "svDcid1",
     denom: "denom1",
-    unit: "",
-    scaling: 1,
     log: false,
+    name: "sv1",
+    scaling: 1,
+    statVar: "svDcid1",
+    unit: "",
   },
   {
-    name: "sv2",
-    statVar: "svDcid2",
     denom: "denom2",
-    unit: "",
-    scaling: 1,
     log: false,
+    name: "sv2",
+    scaling: 1,
+    statVar: "svDcid2",
+    unit: "",
   },
 ];
 const TEST_CONFIG = {
-  type: "BAR",
   barTileSpec: { maxPlaces: 15, sort: "DESCENDING" },
   description: "",
   statVarKey: [],
+  type: "BAR",
 };
 const TEST_EVENT_TYPE_SPEC = {
   testSpec: {
-    id: "testSpec",
-    name: "testSpecName",
-    eventTypeDcids: ["stormDcid"],
     color: "blue",
     defaultSeverityFilter: {
+      lowerLimit: 100,
       prop: "area",
       unit: "m2",
       upperLimit: 1000,
-      lowerLimit: 100,
     },
     displayProp: [],
     endDateProp: [],
+    eventTypeDcids: ["stormDcid"],
+    id: "testSpec",
+    name: "testSpecName",
   },
 };
 
