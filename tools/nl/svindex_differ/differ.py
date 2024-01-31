@@ -137,8 +137,9 @@ def _get_diff_table(diff_list, base_sv_info, test_sv_info):
       continue
     # If theres no + or -, that means this line is the same in both base and test.
     elif not diff.startswith('+') and not diff.startswith('-'):
-      info = base_sv_info.get(diff_sv, test_sv_info.get(diff_sv, {}))
-      diff_table_rows.append((info, info))
+      base_info = base_sv_info.get(diff_sv, {})
+      test_info = test_sv_info.get(diff_sv, {})
+      diff_table_rows.append((base_info, test_info))
     # If the line starts with -, this means it was present in base but not in test.
     elif diff.startswith('-'):
       base_info = base_sv_info.get(diff_sv, {})
