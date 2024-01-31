@@ -116,6 +116,7 @@ def place(place_dcid=None):
   # Block pages from being indexed if not on the main DC domain. This prevents
   # crawlers from indexing dev or custom DC versions of the place pages.
   block_indexing = CANONICAL_ROOT not in flask.request.base_url
+  logging.info(f"base_url is {flask.request.base_url}")
 
   return flask.render_template(
       'place.html',
