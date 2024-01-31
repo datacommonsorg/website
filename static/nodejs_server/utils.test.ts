@@ -62,11 +62,11 @@ const TEST_EVENT_TYPE_SPEC = {
 test("compress and decompress chart props", () => {
   const cases: ChartProps[] = [
     {
-      tileConfig: TEST_CONFIG,
+      enclosedPlaceType: TEST_PLACE_TYPE,
       eventTypeSpec: TEST_EVENT_TYPE_SPEC,
       place: TEST_PLACE,
       statVarSpec: TEST_SV_SPEC,
-      enclosedPlaceType: TEST_PLACE_TYPE,
+      tileConfig: TEST_CONFIG,
     },
   ];
 
