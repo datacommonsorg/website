@@ -19,7 +19,6 @@ import express, { Request, Response } from "express";
 import { JSDOM } from "jsdom";
 import _ from "lodash";
 import sharp from "sharp";
-import * as zlib from "zlib";
 
 import {
   fetchDisasterEventData,
