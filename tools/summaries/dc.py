@@ -86,6 +86,19 @@ def get_parent_places(dcids):
   return result
 
 
+def get_parent_places_with_type(dcids):
+  """Get parent place chain for a list of places, and the type of the parent"""
+  result = {dcid: {} for dcid in dcids}
+  place_info = get_place_info(dcids)
+  for item in place_info.get('data', []):
+    if 'node' not in item or 'info' not in item:
+      continue
+    dcid = item['node']
+    parents = item['info'].get('parents', [])
+    result[dcid] = parents
+  return result
+
+
 def get_place_rankings(dcid, variables, ancestor=None, per_capita=False):
   """Returns rankings for a list of SVs, for a single DCID and ancestor pair."""
   url = get_service_url("/v1/place/related")
@@ -161,23 +174,34 @@ def get_ranking_by_var(stat_var_dcid: str, place_type: str,
   return {}
 
 
-def get_names(place_dcids: List[str]) -> Dict:
-  """Get mapping of place dcid -> name"""
-  req_url = f"https://api.datacommons.org/v1/bulk/property/values/out?property=name&key={_API_KEY}&nodes="
+def get_property(property: str,
+                 place_dcids: List[str],
+                 direction="out") -> Dict:
+  """Get mapping of place dcid -> property value"""
+  req_url = f"https://api.datacommons.org/v1/bulk/property/values/{direction}?property={property}&key={_API_KEY}&nodes="
   req_url += "&nodes=".join(place_dcids)
   response = requests.get(req_url)
   if response.status_code == 200:
     # Format response into dcid -> name dictionary
-    names = {}
+    prop_vals = {}
     res_data = response.json().get("data", [])
     for place in res_data:
       place_dcid = place.get("node")
-      place_name_values = place.get("values")
-      place_name = place_name_values[0].get("value",
-                                            "") if place_name_values else None
-      if place_dcid and place_name:
-        names[place_dcid] = place_name
-    return names
+      property_values = place.get("values")
+
+      if property_values:
+        value_metadata = property_values[0]
+        if "value" in value_metadata:
+          property_value = value_metadata.get("value")
+        elif "name" in value_metadata:
+          property_value = value_metadata.get("name")
+        else:
+          property_value = value_metadata.get("dcid")
+
+        if place_dcid and property_value:
+          prop_vals[place_dcid] = property_value
+
+    return prop_vals
   else:
     logging.error(f"unable to fetch names from {req_url}")
   return {}
