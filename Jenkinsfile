@@ -18,7 +18,7 @@ node {
     }
 
     stage('Authenticate docker for GCP access') {
-        pipeline.sh 'gcloud auth configure-docker us-east4-docker.pkg.dev'
+        sh 'gcloud auth configure-docker us-east4-docker.pkg.dev'
     }
 
     stage('Build image') {
