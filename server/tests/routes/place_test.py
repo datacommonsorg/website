@@ -224,6 +224,8 @@ class TestPlacePageHeaders(unittest.TestCase):
         'Link')
     assert '<https://datacommons.org/place/geoId/06?hl=ru>; rel="alternate"; hreflang="ru"' in response.headers.get(
         'Link')
+    assert '<https://datacommons.org/place/geoId/06>; rel="alternate"; hreflang="x-default"' in response.headers.get(
+        'Link')
 
     # Test available languages listed as alternates for category page
     response = app.test_client().get('/place/geoId/06?category=Health',
@@ -234,6 +236,8 @@ class TestPlacePageHeaders(unittest.TestCase):
         'Link')
     assert '<https://datacommons.org/place/geoId/06?category=Health&hl=ru>; rel="alternate"; hreflang="ru"' in response.headers.get(
         'Link')
+    assert '<https://datacommons.org/place/geoId/06?category=Health>; rel="alternate"; hreflang="x-default"' in response.headers.get(
+        'Link')
 
     # Test available languages listed as alternates for localized page
     response = app.test_client().get('/place/geoId/06?category=Health&hl=ru',
@@ -243,4 +247,6 @@ class TestPlacePageHeaders(unittest.TestCase):
     assert '<https://datacommons.org/place/geoId/06?category=Health>; rel="alternate"; hreflang="en"' in response.headers.get(
         'Link')
     assert '<https://datacommons.org/place/geoId/06?category=Health&hl=ru>; rel="alternate"; hreflang="ru"' in response.headers.get(
+        'Link')
+    assert '<https://datacommons.org/place/geoId/06?category=Health>; rel="alternate"; hreflang="x-default"' in response.headers.get(
         'Link')

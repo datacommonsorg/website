@@ -68,7 +68,8 @@ def generate_link_headers(place_dcid: str, category: str,
   """Generate canonical and alternate link HTTP headers
   
   Search crawlers look for rel="canonical" link headers to determine which
-  version of a page to crawl and rel="alternative" link headers
+  version of a page to crawl and rel="alternative" link headers to identify
+  different localized versions of the same page.
 
   Args:
     place_dcid: DCID of the place the page is about
@@ -91,6 +92,11 @@ def generate_link_headers(place_dcid: str, category: str,
     # Add localized url as a language alternate link to headers
     link_headers.append(
         f'<{localized_url}>; rel="alternate"; hreflang="{locale_code}"')
+
+    if locale_code == 'en':
+      # Set English as default if user is in unsupported locale
+      link_headers.append(
+          f'<{localized_url}>; rel="alternate"; hreflang="x-default"')
 
     if locale_code == current_locale:
       # Set the url of the current locale as the canonical
