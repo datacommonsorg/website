@@ -36,7 +36,12 @@ import {
 } from "../js/utils/disaster_event_map_utils";
 import { getTileEventTypeSpecs } from "../js/utils/tile_utils";
 import { getBarChart, getBarTileResult } from "../nodejs_server/bar_tile";
-import { CHART_ID, CHART_URL_PARAMS } from "../nodejs_server/constants";
+import {
+  CHART_ID,
+  CHART_INFO_PARAMS,
+  CHART_PARAMS,
+  COMPRESSED_VAL_ENCODING,
+} from "../nodejs_server/constants";
 import {
   getDisasterMapChart,
   getDisasterMapTileResult,
@@ -49,6 +54,7 @@ import {
   getScatterTileResult,
 } from "../nodejs_server/scatter_tile";
 import { TileResult } from "../nodejs_server/types";
+import { decompressChartProps } from "../nodejs_server/utils";
 const app = express();
 const APP_CONFIGS = {
   local: {
@@ -616,26 +622,20 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
 });
 
 app.get("/nodejs/chart", (req: Request, res: Response) => {
-  const place = _.escape(req.query[CHART_URL_PARAMS.PLACE] as string);
-  const enclosedPlaceType = _.escape(
-    req.query[CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE] as string
-  );
-  const svSpec = JSON.parse(
-    req.query[CHART_URL_PARAMS.STAT_VAR_SPEC] as string
-  );
-  // Need to convert encoded # back to #.
-  const eventTypeSpecVal = (
-    req.query[CHART_URL_PARAMS.EVENT_TYPE_SPEC] as string
-  ).replaceAll("%23", "#");
-  const eventTypeSpec = JSON.parse(eventTypeSpecVal);
-  const tileConfig = JSON.parse(
-    req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
+  const chartProps = decompressChartProps(
+    req.query[CHART_PARAMS.PROPS] as string
   );
   const useSvgFormat =
-    req.query[CHART_URL_PARAMS.AS_SVG] === URL_PARAM_VALUE_TRUTHY;
+    req.query[CHART_PARAMS.AS_SVG] === URL_PARAM_VALUE_TRUTHY;
   const contentType = useSvgFormat ? "image/svg+xml" : "image/png";
   res.setHeader("Content-Type", contentType);
-  getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
+  getTileChart(
+    chartProps.tileConfig,
+    chartProps.place,
+    chartProps.enclosedPlaceType,
+    chartProps.statVarSpec,
+    chartProps.eventTypeSpec
+  )
     .then((chart) => {
       if (useSvgFormat) {
         res.status(200).send(chart.outerHTML);
@@ -661,15 +661,15 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
 
 // TODO: come up with better params
 app.get("/nodejs/chart-info", (req: Request, res: Response) => {
-  const place = _.escape(req.query[CHART_URL_PARAMS.PLACE] as string);
+  const place = _.escape(req.query[CHART_INFO_PARAMS.PLACE] as string);
   const enclosedPlaceType = _.escape(
-    req.query[CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE] as string
+    req.query[CHART_INFO_PARAMS.ENCLOSED_PLACE_TYPE] as string
   );
   const svSpec = JSON.parse(
-    req.query[CHART_URL_PARAMS.STAT_VAR_SPEC] as string
+    req.query[CHART_INFO_PARAMS.STAT_VAR_SPEC] as string
   );
   const tileConfig = JSON.parse(
-    req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
+    req.query[CHART_INFO_PARAMS.TILE_CONFIG] as string
   );
   res.setHeader("Content-Type", "application/json");
   const namedTypedPlace = { dcid: place, name: place, types: [] };
