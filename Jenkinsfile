@@ -12,9 +12,10 @@ node {
     def projectId = 'one-data-commons'
     def repoName = 'datacommons'
     def appName = 'website-compose'
+    def gitCommit
 
     stage('Determine image tag') {
-        def gitCommit = sh(script: "git rev-parse --short=7 HEAD", returnStdout: true).trim()
+        gitCommit = sh(script: "git rev-parse --short=7 HEAD", returnStdout: true).trim()
     }
 
     stage('Authenticate docker for GCP access') {
