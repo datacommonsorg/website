@@ -13,8 +13,9 @@ node {
     def repoName = 'datacommons'
     def appName = 'website-compose'
 
-    // Determine a short commit hash for use as an image tag
-    def gitCommit = pipeline.sh(script: "git rev-parse --short=7 HEAD", returnStdout: true).trim()
+    stage('Determine image tag') {
+        def gitCommit = sh(script: "git rev-parse --short=7 HEAD", returnStdout: true).trim()
+    }
 
     stage('Authenticate docker for GCP access') {
         pipeline.sh 'gcloud auth configure-docker us-east4-docker.pkg.dev'
