@@ -113,7 +113,7 @@ def build_template_summaries(place_dcids: List[str], stat_var_json=str) -> Dict:
   place_info = dc.get_place_info(place_dcids)
   place_types = utils.parse_place_types(place_info)
   parent_places = utils.parse_place_parents(place_info)
-  print(parent_places)
+
   # place info endpoint misses some place names
   # use property value endpoint instead
   place_names = dc.get_property(property="name", place_dcids=place_dcids)
