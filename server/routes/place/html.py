@@ -62,6 +62,35 @@ def get_place_summaries() -> dict:
   with open(local_path) as f:
     return json.load(f)
 
+def generate_link_headers(place_dcid: str, category: str, current_locale: str) -> str:
+  """Generate canonical and alternate link HTTP headers
+  
+  Search crawlers look for rel="canonical" link headers to determine which
+  version of a page to crawl and rel="alternative" link headers
+
+  Args:
+    place_dcid: DCID of the place the page is about
+    
+  """
+  link_headers = []
+  for locale_code in AVAILABLE_LANGUAGES:
+    canonical_args = {
+        'place_dcid': place_dcid,
+        'category': category if category in CATEGORIES else None,
+        'hl': locale_code if locale_code != 'en' else None
+    }
+    localized_url = CANONICAL_ROOT + flask.url_for('place.place', **
+                                                   canonical_args)
+
+    # Add localized url as a language alternate link to headers
+    link_headers.append(
+        f'<{localized_url}>; rel="alternate"; hreflang="{locale_code}"')
+
+    if locale_code == current_locale:
+      # Set the url of the current locale as the canonical
+      link_headers.append(f'<{localized_url}>; rel="canonical"')
+  return ', '.join(link_headers)
+
 
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>')
@@ -142,27 +171,7 @@ def place(place_dcid=None):
           category=category if category else '',
           place_summary=place_summary.get('summary') if place_summary else '',
           maps_api_key=current_app.config['MAPS_API_KEY']))
-
-  # Compute localized canonical urls for http header, used by search crawlers
-  link_headers = []
-  for locale_code in AVAILABLE_LANGUAGES:
-    canonical_args = {
-        'place_dcid': place_dcid,
-        'category': category if category in CATEGORIES else None,
-        'hl': locale_code if locale_code != 'en' else None
-    }
-    localized_url = CANONICAL_ROOT + flask.url_for('place.place', **
-                                                   canonical_args)
-
-    # Add localized url as a language alternate link to headers
-    link_headers.append(
-        f'<{localized_url}>; rel="alternate"; hreflang="{locale_code}"')
-
-    if locale_code == locale:
-      # Set the url of the current locale as the canonical
-      link_headers.append(f'<{localized_url}>; rel="canonical"')
-
-  response.headers.set('Link', ', '.join(link_headers))
+  response.headers.set('Link', generate_link_headers(place_dcid, category, locale))
 
   return response
 
