@@ -29,6 +29,12 @@ class Config(_base.Config):
   ENABLE_PER_CAPITA = False
   MAP_TOOL_FOOTER = "The boundaries and names shown and the designations used on this and other maps throughout this publication do not imply official endorsement or acceptance by the United Nations."
   GEO_JSON_PROP = "geoJsonCoordinatesUN"
+  STAT_VAR_HIERARCHY_CONFIG = {
+      "disableSearch": True,
+      "nodes": [{
+          "dcid": "dc/g/SDG"
+      }]
+  }
 
 
 class LocalConfig(Config, local.Config):

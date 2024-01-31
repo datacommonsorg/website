@@ -72,8 +72,7 @@
   {% endif %}
   <script>
     globalThis.isCustomDC = {{ config['CUSTOM']|int }};
-    globalThis.dataSourceDcid = "{{ config['DATA_SOURCE_DCID']|string }}";
-    globalThis.dataSourceName = "{{ config['DATA_SOURCE_NAME']|string }}";
+    globalThis.STAT_VAR_HIERARCHY_CONFIG = {{ config['STAT_VAR_HIERARCHY_CONFIG'] | tojson }};
   </script>
 </head>
 
