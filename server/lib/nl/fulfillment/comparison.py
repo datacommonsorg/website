@@ -17,6 +17,7 @@ from typing import List
 
 import server.lib.explore.existence as ext
 from server.lib.nl.common import constants
+from server.lib.nl.common.commentary import COMPARISON_MISSING_PLACE_MSG
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
@@ -24,8 +25,6 @@ from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 from server.lib.nl.fulfillment.utils import get_places_as_string
-
-_MISSING_PLACE_MSG = 'Data for "{missing_places}" is currently unavailable. See the following statistics on the other places'
 
 
 def _get_info_message(exist_places: List[Place], all_places: List[Place]):
@@ -39,7 +38,8 @@ def _get_info_message(exist_places: List[Place], all_places: List[Place]):
       if not pl.dcid in exist_places_set:
         missing_place_names.append(pl.name)
     missing_places_str = get_places_as_string(missing_place_names)
-    return _MISSING_PLACE_MSG.format(missing_places=missing_places_str)
+    return COMPARISON_MISSING_PLACE_MSG.format(
+        missing_places=missing_places_str)
 
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
