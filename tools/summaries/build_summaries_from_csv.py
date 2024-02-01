@@ -56,7 +56,7 @@ def process_csv(tsv_path: str,
 
 
 if __name__ == "__main__":
-  tsv_path = "priority-places-bard.csv"
+  tsv_path = "priority-places-bard.tsv"
   save_path = "../../server/config/summaries/place_summaries.json"
   place_column_name = 'DCID'
   summary_column_name = 'Strict'
