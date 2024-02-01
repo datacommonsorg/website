@@ -109,7 +109,9 @@ def is_canonical_domain(url: str) -> bool:
   """Check if a url is on the canonical domain
   
   Used to determine if the request's URL is on the main DC instance.
-  Allows matching of both HTTP and HTTPS urls.
+  Both HTTP and HTTPS urls are matched, and both canonical and staging URLs
+  are matched.
+
 
   Args:
     url: url to check
@@ -117,7 +119,7 @@ def is_canonical_domain(url: str) -> bool:
   Returns:
     True if request is to the canonical domain, False otherwise
   """
-  regex = r"https?://{}".format(CANONICAL_DOMAIN)
+  regex = r"https?://(?:staging.)?{}".format(CANONICAL_DOMAIN)
   return re.match(regex, url) is not None
 
 
@@ -194,6 +196,8 @@ def place(place_dcid=None):
   # Block pages from being indexed if not on the main DC domain. This prevents
   # crawlers from indexing dev or custom DC versions of the place pages.
   block_indexing = not is_canonical_domain(flask.request.base_url)
+  logging.info(f"flask.requests.base_url is {flask.request.base_url}")
+  logging.info(f"Block indexing on place pages? {block_indexing}")
 
   response = flask.make_response(
       flask.render_template(
