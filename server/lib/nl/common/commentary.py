@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
+from typing import List
 
 from server.lib.explore import params
 from server.lib.nl.common import constants
@@ -30,6 +31,8 @@ from shared.lib.constants import SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
 LOW_CONFIDENCE_SCORE_REPORT_THRESHOLD = SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
 LOW_CONFIDENCE_SCORE_MESSAGE = \
   'Low confidence in understanding your query. Displaying the closest results.'
+# Message when there are missing places when showing comparison charts
+COMPARISON_MISSING_PLACE_MSG = 'Data for "{missing_places}" is currently unavailable. See the following statistics on the other places'
 
 
 def place_from_context(u: Utterance) -> str:
@@ -96,12 +99,12 @@ def fallback_place(u: Utterance) -> str:
 
 @dataclass
 class UserMessage:
-  msg: str
+  msg_list: List[str]
   show_form: bool = False
 
 
 #
-# Return a user-message if this response invovle stuff like
+# Return a user-message if this response involve stuff like
 # context lookup, default place or fallback.
 #
 def user_message(uttr: Utterance) -> UserMessage:
@@ -133,7 +136,7 @@ def user_message(uttr: Utterance) -> UserMessage:
     elif uttr.place_source == FulfillmentResult.DEFAULT and uttr.past_source_context != constants.EARTH.name:
       callback = default_place
 
-  msg = ''
+  msg_list = []
 
   # NOTE: Showing multiple messages can be confusing.  So if the SV score is low
   # prefer showing that, since we say our confidence is low...
@@ -144,11 +147,11 @@ def user_message(uttr: Utterance) -> UserMessage:
       < LOW_CONFIDENCE_SCORE_REPORT_THRESHOLD):
     # We're showing charts for SVs in the current user query and the
     # top-score is below the threshold, so report message.
-    msg = LOW_CONFIDENCE_SCORE_MESSAGE
+    msg_list.append(LOW_CONFIDENCE_SCORE_MESSAGE)
   elif callback:
-    msg = callback(uttr)
+    msg_list.append(callback(uttr))
 
-  return UserMessage(msg=msg, show_form=show_form)
+  return UserMessage(msg_list=msg_list, show_form=show_form)
 
 
 def _ctx(connector: str, ctx: str) -> str:

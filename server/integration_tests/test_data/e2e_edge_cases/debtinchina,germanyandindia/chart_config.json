@@ -28,6 +28,7 @@
               }
             ],
             "footnote": "Includes data from the following sources: world bank, international debt statistics.",
+            "infoMessage": "Data for \"Germany\" is currently unavailable. See the following statistics on the other places",
             "title": "External Debt Stocks as a Proportion of GNI"
           },
           {
@@ -54,6 +55,7 @@
               }
             ],
             "footnote": "Includes data from the following sources: world bank, international debt statistics.",
+            "infoMessage": "Data for \"Germany\" is currently unavailable. See the following statistics on the other places",
             "title": "Debt Service as a Proportion of Exports of Goods and Services"
           },
           {
@@ -189,5 +191,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

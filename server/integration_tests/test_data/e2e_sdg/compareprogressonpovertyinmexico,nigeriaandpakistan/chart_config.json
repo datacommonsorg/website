@@ -225,6 +225,7 @@
                 ]
               }
             ],
+            "infoMessage": "Data for \"Pakistan\" is currently unavailable. See the following statistics on the other places",
             "title": "Proportion of Population Living in Multidimensional Poverty, by Age Group"
           },
           {
@@ -278,6 +279,7 @@
               }
             ],
             "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO social security inquiry (SSI); ILO estimates based on country data compled through the ILO social security inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO social security inquiry (SSI). Based on information from federal programmes only.",
+            "infoMessage": "Data for \"Pakistan\" is currently unavailable. See the following statistics on the other places",
             "title": "Proportion of Mothers With Newborns Receiving Maternity Cash Benefit [Female]"
           },
           {
@@ -1036,5 +1038,5 @@
     }
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }
