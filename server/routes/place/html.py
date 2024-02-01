@@ -16,6 +16,7 @@
 import json
 import logging
 import os
+import re
 import time
 
 import flask
@@ -45,8 +46,8 @@ CATEGORY_REDIRECTS = {
 
 PLACE_SUMMARY_PATH = "/datacommons/place-summary/place_summaries.json"
 
-# Hostname to use for canonical URLs
-CANONICAL_ROOT = 'https://datacommons.org'
+# Main DC domain to use for canonical URLs
+CANONICAL_DOMAIN = 'datacommons.org'
 
 
 def get_place_summaries() -> dict:
@@ -86,8 +87,8 @@ def generate_link_headers(place_dcid: str, category: str,
         'category': category if category in CATEGORIES else None,
         'hl': locale_code if locale_code != 'en' else None
     }
-    localized_url = CANONICAL_ROOT + flask.url_for('place.place', **
-                                                   canonical_args)
+    localized_url = "https://" + CANONICAL_DOMAIN + flask.url_for(
+        'place.place', **canonical_args)
 
     # Add localized url as a language alternate link to headers
     link_headers.append(
@@ -102,6 +103,24 @@ def generate_link_headers(place_dcid: str, category: str,
       # Set the url of the current locale as the canonical
       link_headers.append(f'<{localized_url}>; rel="canonical"')
   return ', '.join(link_headers)
+
+
+def is_canonical_domain(url: str) -> bool:
+  """Check if a url is on the canonical domain
+  
+  Used to determine if the request's URL is on the main DC instance.
+  Both HTTP and HTTPS urls are matched, and both canonical and staging URLs
+  are matched.
+
+
+  Args:
+    url: url to check
+  
+  Returns:
+    True if request is to the canonical domain, False otherwise
+  """
+  regex = r"https?://(?:staging.)?{}".format(CANONICAL_DOMAIN)
+  return re.match(regex, url) is not None
 
 
 @bp.route('', strict_slashes=False)
@@ -174,6 +193,12 @@ def place(place_dcid=None):
     elapsed_time = (time.time() - start_time) * 1000
     logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
 
+  # Block pages from being indexed if not on the main DC domain. This prevents
+  # crawlers from indexing dev or custom DC versions of the place pages.
+  block_indexing = not is_canonical_domain(flask.request.base_url)
+  logging.info(f"flask.requests.base_url is {flask.request.base_url}")
+  logging.info(f"Block indexing on place pages? {block_indexing}")
+
   response = flask.make_response(
       flask.render_template(
           'place.html',
@@ -182,7 +207,8 @@ def place(place_dcid=None):
           place_dcid=place_dcid,
           category=category if category else '',
           place_summary=place_summary.get('summary') if place_summary else '',
-          maps_api_key=current_app.config['MAPS_API_KEY']))
+          maps_api_key=current_app.config['MAPS_API_KEY'],
+          block_indexing=block_indexing))
   response.headers.set('Link',
                        generate_link_headers(place_dcid, category, locale))
 
