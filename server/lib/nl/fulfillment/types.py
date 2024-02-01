@@ -158,3 +158,4 @@ class ChartSpec:
   date_range: Date
   # Dict of sv -> place -> facetid to use
   sv_place_facet_id: Sv2Place2Facet
+  info_message: str

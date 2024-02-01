@@ -85,6 +85,7 @@ class Builder:
     if self.block:
       self.category.blocks.append(self.block)
     self.block = Block()
+    self.block.info_message = cspec.info_message
 
     if not skip_title:
       title, description, footnote = self.get_block_strings(cv, override_sv)
