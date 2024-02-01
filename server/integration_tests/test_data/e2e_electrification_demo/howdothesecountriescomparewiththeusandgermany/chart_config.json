@@ -116,7 +116,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Ethiopia, Uganda, Guinea, Mali, Rwanda and Somalia\" is currently unavailable. Nonetheless, take a look at the following insights on \"United States, Germany, Morocco, Kenya, Ghana and Senegal\"",
+            "infoMessage": "Data for \"Ethiopia, Uganda, Guinea, Mali, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places",
             "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas"
           },
           {
@@ -148,7 +148,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Germany, Ethiopia, Mali, Rwanda and Somalia\" is currently unavailable. Nonetheless, take a look at the following insights on \"United States, Morocco, Kenya, Ghana, Uganda, Senegal and Guinea\"",
+            "infoMessage": "Data for \"Germany, Ethiopia, Mali, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places",
             "title": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide"
           },
           {
@@ -175,7 +175,7 @@
               }
             ],
             "footnote": "Includes data from the following sources: UNFCCC.",
-            "infoMessage": "Data for \"Ethiopia, Morocco, Kenya, Ghana, Uganda, Senegal, Guinea, Mali, Rwanda and Somalia\" is currently unavailable. Nonetheless, take a look at the following insights on \"United States and Germany\"",
+            "infoMessage": "Data for \"Ethiopia, Morocco, Kenya, Ghana, Uganda, Senegal, Guinea, Mali, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places",
             "title": "Total Greenhouse Gas Emissions Without LULUCF for Annex I Parties"
           },
           {
@@ -245,7 +245,7 @@
             ],
             "denom": "Count_Person",
             "description": "CO\u2082 emissions from oil and gas production, refining, and coal mining (measured in tonnes).",
-            "infoMessage": "Data for \"Uganda, Guinea, Mali, Rwanda and Somalia\" is currently unavailable. Nonetheless, take a look at the following insights on \"United States, Germany, Ethiopia, Morocco, Kenya, Ghana and Senegal\"",
+            "infoMessage": "Data for \"Uganda, Guinea, Mali, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places",
             "title": "CO\u2082 Emissions From Fossil Fuel Operations"
           },
           {
@@ -417,7 +417,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Germany, Ethiopia, Morocco, Kenya, Uganda, Senegal, Guinea, Mali, Rwanda and Somalia\" is currently unavailable. Nonetheless, take a look at the following insights on \"United States and Ghana\"",
+            "infoMessage": "Data for \"Germany, Ethiopia, Morocco, Kenya, Uganda, Senegal, Guinea, Mali, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places",
             "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas"
           },
           {

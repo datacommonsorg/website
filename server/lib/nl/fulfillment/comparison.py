@@ -25,7 +25,7 @@ from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 from server.lib.nl.fulfillment.utils import get_places_as_string
 
-_MISSING_PLACE_MSG = 'Data for "{missing_places}" is currently unavailable. Nonetheless, take a look at the following insights on "{exist_places}"'
+_MISSING_PLACE_MSG = 'Data for "{missing_places}" is currently unavailable. See the following statistics on the other places'
 
 
 def _get_info_message(exist_places: List[Place], all_places: List[Place]):
@@ -35,16 +35,11 @@ def _get_info_message(exist_places: List[Place], all_places: List[Place]):
     exist_place_dcids = list(map(lambda x: x.dcid, exist_places))
     exist_places_set = set(exist_place_dcids)
     missing_place_names = []
-    exist_place_names = []
     for pl in all_places:
       if not pl.dcid in exist_places_set:
         missing_place_names.append(pl.name)
-      else:
-        exist_place_names.append(pl.name)
     missing_places_str = get_places_as_string(missing_place_names)
-    exist_places_str = get_places_as_string(exist_place_names)
-    return _MISSING_PLACE_MSG.format(missing_places=missing_places_str,
-                                     exist_places=exist_places_str)
+    return _MISSING_PLACE_MSG.format(missing_places=missing_places_str)
 
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],

@@ -65,7 +65,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Trinity County, Siskiyou County, Modoc County and Del Norte County\" is currently unavailable. Nonetheless, take a look at the following insights on \"Lake County, Humboldt County, Tehama County, Madera County, Yuba County and Shasta County\"",
+            "infoMessage": "Data for \"Trinity County, Siskiyou County, Modoc County and Del Norte County\" is currently unavailable. See the following statistics on the other places",
             "title": "Households Without Health Insurance"
           },
           {
@@ -341,7 +341,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Trinity County, Siskiyou County, Modoc County and Del Norte County\" is currently unavailable. Nonetheless, take a look at the following insights on \"Lake County, Humboldt County, Tehama County, Madera County, Yuba County and Shasta County\"",
+            "infoMessage": "Data for \"Trinity County, Siskiyou County, Modoc County and Del Norte County\" is currently unavailable. See the following statistics on the other places",
             "title": "Uninsured by Income"
           },
           {
