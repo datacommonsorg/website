@@ -36,6 +36,10 @@ limitations under the License.
 <meta name="description" content="{{ place_summary or description }}" />
 {% endif %}
 
+{% if block_indexing %}
+<meta name="robots" content="noindex" />
+{% endif %}
+
 {% endblock %}
 
 {% block content %}
