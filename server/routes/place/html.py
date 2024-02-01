@@ -16,8 +16,8 @@
 import json
 import logging
 import os
-import time
 import re
+import time
 
 import flask
 from flask import current_app
@@ -47,7 +47,8 @@ CATEGORY_REDIRECTS = {
 PLACE_SUMMARY_PATH = "/datacommons/place-summary/place_summaries.json"
 
 # Main DC domain to use for canonical URLs
-CANONICAL_DOMAIN = 'dev.datacommons.org'
+CANONICAL_DOMAIN = 'datacommons.org'
+
 
 def get_place_summaries() -> dict:
   """Load place summary content from disk"""
@@ -86,8 +87,8 @@ def generate_link_headers(place_dcid: str, category: str,
         'category': category if category in CATEGORIES else None,
         'hl': locale_code if locale_code != 'en' else None
     }
-    localized_url = "https://" + CANONICAL_DOMAIN + flask.url_for('place.place', **
-                                                   canonical_args)
+    localized_url = "https://" + CANONICAL_DOMAIN + flask.url_for(
+        'place.place', **canonical_args)
 
     # Add localized url as a language alternate link to headers
     link_headers.append(
@@ -107,7 +108,7 @@ def generate_link_headers(place_dcid: str, category: str,
 def is_canonical_domain(url: str) -> bool:
   """Check if a url is on the canonical domain
   
-  Used to determine if a request is being called to the main DC instance.
+  Used to determine if the request's URL is on the main DC instance.
   Allows matching of both HTTP and HTTPS urls.
 
   Args:
@@ -197,15 +198,15 @@ def place(place_dcid=None):
   logging.info(f"Block indexing? {block_indexing}")
 
   response = flask.make_response(
-    flask.render_template(
-        'place.html',
-        place_type=place_type,
-        place_name=place_name,
-        place_dcid=place_dcid,
-        category=category if category else '',
-        place_summary=place_summary.get('summary') if place_summary else '',
-        maps_api_key=current_app.config['MAPS_API_KEY'],
-        block_indexing=block_indexing))
+      flask.render_template(
+          'place.html',
+          place_type=place_type,
+          place_name=place_name,
+          place_dcid=place_dcid,
+          category=category if category else '',
+          place_summary=place_summary.get('summary') if place_summary else '',
+          maps_api_key=current_app.config['MAPS_API_KEY'],
+          block_indexing=block_indexing))
   response.headers.set('Link',
                        generate_link_headers(place_dcid, category, locale))
 
