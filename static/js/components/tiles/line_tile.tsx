@@ -95,6 +95,8 @@ export interface LineTilePropType {
   startDate?: string;
   // Latest date to show on the chart.
   endDate?: string;
+  // Date to highlight on the chart.
+  highlightDate?: string;
 }
 
 export interface LineChartData {
@@ -284,6 +286,7 @@ export function draw(
       title: chartTitle,
       unit: chartData.unit,
       useSvgLegend,
+      highlightDate: props.highlightDate,
     }
   );
   if (!isCompleteLine) {

@@ -483,7 +483,8 @@ class ExploreTest(NLWebServerTestCase):
         'Life expectancy in US states in 2018',
         'What are the projected temperatures in california in 2025',
         'population in the US in the last year',
-        'hispanic women in California in 2001'
+        'hispanic women in California in 2001',
+        "What was the average house price for 2 br house in Mountain View decade ago"
     ])
 
   def test_e2e_date_range(self):

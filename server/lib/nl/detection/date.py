@@ -25,6 +25,8 @@ YEAR_RE = [
     r'(in|after|on|before|year)(?: year)? (\d{4})',
 ]
 
+YEARS_AGO_RE = [r'(decade) ago', r'(\d+) years ago']
+
 LAST_YEARS = [
     r'(?:in|during|over) the (?:last|past|previous) (\d+) years',
     r'(?:in|during|over) the (?:last|past|previous) (decade)',
@@ -101,6 +103,15 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
       # Use a placeholder prep because all last year dates should be treated the
       # same way.
       dates.append(Date(_LAST_YEARS_PREP, year, year_span=1))
+      trigger_strings.append(query[match.start():match.end()])
+
+  for pattern in YEARS_AGO_RE:
+    matches = re.finditer(pattern, query)
+    for match in matches:
+      count, = match.groups()
+      count_num = _YEARS_STRING_TO_NUM.get(count, count)
+      year = datetime.date.today().year - int(count_num)
+      dates.append(Date(_SINGLE_DATE_PREPS[0], year))
       trigger_strings.append(query[match.start():match.end()])
 
   return DateClassificationAttributes(dates=dates,

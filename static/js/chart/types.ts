@@ -178,4 +178,5 @@ export type TimeScaleOption = "year" | "month" | "day";
 export interface LineChartOptions extends ChartOptions {
   handleDotClick?: (dotData: DotDataPoint) => void;
   timeScale?: TimeScaleOption;
+  highlightDate?: string;
 }

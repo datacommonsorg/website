@@ -64,6 +64,7 @@ const YLABEL = {
 };
 // min distance between bottom of the tooltip and a datapoint
 const TOOLTIP_BOTTOM_OFFSET = 5;
+const HIGHLIGHT_DATE_CLASS = "highlight-date";
 
 /**
  * Gets the html content of a tooltip
@@ -236,10 +237,14 @@ function addHighlightOnHover(
   );
   container
     .on("mouseover", () => {
+      // Hide any dots that were originally highlighted on the chart
+      d3.selectAll(`.${HIGHLIGHT_DATE_CLASS}`).style("display", "none");
       highlightArea.style("opacity", "1");
       tooltip.style("display", "block");
     })
     .on("mouseout", () => {
+      // Restore the original highlighted dots
+      d3.selectAll(`.${HIGHLIGHT_DATE_CLASS}`).style("display", "block");
       highlightArea.style("opacity", "0");
       tooltip.style("display", "none");
     })
@@ -440,8 +445,11 @@ export function drawLineChart(
     });
     const hasGap = shouldFillInValues(dataset);
     hasFilledInValues = hasFilledInValues || hasGap;
+    // If there is a specific date to be highlighted on the chart, dont' show
+    // any other dots.
     const shouldAddDots =
-      dataset.length < MIN_POINTS_FOR_DOTS_ON_LINE_CHART || showAllDots;
+      !options.highlightDate &&
+      (dataset.length < MIN_POINTS_FOR_DOTS_ON_LINE_CHART || showAllDots);
     const line = d3
       .line()
       .defined((d) => d[1] !== null) // Ignore points that are null
@@ -502,6 +510,22 @@ export function drawLineChart(
       if (options?.handleDotClick) {
         dots.on("click", options?.handleDotClick);
       }
+    }
+
+    if (options.highlightDate) {
+      const highlightedDot = dataGroup.value.find(
+        (dp) =>
+          dp.label === options.highlightDate ||
+          dp.date === options.highlightDate
+      );
+      chart
+        .append("circle")
+        .attr("class", HIGHLIGHT_DATE_CLASS)
+        .attr("r", HIGHLIGHTING_DOT_R)
+        .style("fill", colorFn(dataGroup.label))
+        .style("stroke", "#fff")
+        .attr("cx", xScale(highlightedDot.time))
+        .attr("cy", yScale(highlightedDot.value));
     }
   }
 
