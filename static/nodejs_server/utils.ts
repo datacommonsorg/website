@@ -78,6 +78,21 @@ export function getProcessedSvg(
   const svgHeight = height + 2 * SVG_PADDING;
   chartSvg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
   chartSvg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+  // Add a white background by adding a white rect element
+  const backgroundElement = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "rect"
+  );
+  backgroundElement.setAttribute("width", `${svgWidth + SVG_PADDING}`);
+  backgroundElement.setAttribute("height", `${svgHeight + SVG_PADDING}`);
+  backgroundElement.setAttribute(
+    "transform",
+    `translate(-${SVG_PADDING}, -${SVG_PADDING})`
+  );
+  backgroundElement.setAttribute("fill", "white");
+  chartSvg.insertBefore(backgroundElement, chartSvg.firstChild);
+
   if (!isDisasterMapTile) {
     // Disaster event map tiles are already centered in the SVG.
     // Translate to center all other tile types.

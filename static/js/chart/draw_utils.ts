@@ -50,7 +50,7 @@ const ROTATE_MARGIN_BOTTOM = 75;
 const TICK_SIZE = 6;
 const LEGEND_CIRCLE_RADIUS = 5;
 const LEGEND_CIRCLE_PADDING = 2;
-const LEGEND_ITEM_PADDING = 5;
+const LEGEND_ITEM_PADDING = 3;
 
 /**
  * Adds tooltip element within a given container.
