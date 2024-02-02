@@ -381,6 +381,8 @@ message Block {
   oneof block_type_spec {
     DisasterBlockSpec disaster_block_spec = 8;
   }
+  // Message to be displayed to the user
+  string info_message = 9;
 }
 
 message Category {
