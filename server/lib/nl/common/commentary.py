@@ -32,7 +32,7 @@ LOW_CONFIDENCE_SCORE_REPORT_THRESHOLD = SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
 LOW_CONFIDENCE_SCORE_MESSAGE = \
   'Low confidence in understanding your query. Displaying the closest results.'
 # Message when there are missing places when showing comparison charts
-COMPARISON_MISSING_PLACE_MSG = 'Data for "{missing_places}" is currently unavailable. See the following statistics on the other places'
+COMPARISON_MISSING_PLACE_MSG = 'Data for "{missing_places}" is currently unavailable. See the following statistics on the other places.'
 
 
 def place_from_context(u: Utterance) -> str:

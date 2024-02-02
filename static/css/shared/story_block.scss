@@ -63,3 +63,16 @@ $subtopic-color: #222;
   flex-direction: column;
   padding: 0.5rem;
 }
+
+.block .block-msg {
+  padding: 0 5px 25px 5px;
+
+  mark {
+    background: var(--gm-3-ref-primary-primary-95);
+    color: var(--gm-3-ref-neutral-neutral-20);
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 24px;
+  }
+}

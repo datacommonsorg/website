@@ -229,9 +229,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       }
     }
     const userMessage = {
-      msg: !_.isEmpty(fulfillData["userMessages"])
-        ? fulfillData["userMessages"][0]
-        : "",
+      msgList: fulfillData["userMessages"] || [],
       showForm: !!fulfillData["showForm"],
     };
     savedContext.current = fulfillData["context"] || [];

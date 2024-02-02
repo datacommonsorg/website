@@ -156,7 +156,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Mariposa County and Siskiyou County\" is currently unavailable. See the following statistics on the other places",
+            "infoMessage": "Data for \"Mariposa County and Siskiyou County\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Emissions: Internal Combustion Engines"
           },
           {
@@ -186,7 +186,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Trinity County, Calaveras County, Mariposa County, Alpine County and Modoc County\" is currently unavailable. See the following statistics on the other places",
+            "infoMessage": "Data for \"Trinity County, Calaveras County, Mariposa County, Alpine County and Modoc County\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Emissions: External Combustion"
           },
           {
@@ -418,7 +418,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Trinity County, Calaveras County, Plumas County, Mariposa County, Tuolumne County, Alpine County and Modoc County\" is currently unavailable. See the following statistics on the other places",
+            "infoMessage": "Data for \"Trinity County, Calaveras County, Plumas County, Mariposa County, Tuolumne County, Alpine County and Modoc County\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Emissions: Waste Disposal"
           },
           {
@@ -447,7 +447,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Trinity County, Calaveras County, Plumas County, Mariposa County, Alpine County and Modoc County\" is currently unavailable. See the following statistics on the other places",
+            "infoMessage": "Data for \"Trinity County, Calaveras County, Plumas County, Mariposa County, Alpine County and Modoc County\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Emissions: Toluene, External Combustion"
           },
           {
