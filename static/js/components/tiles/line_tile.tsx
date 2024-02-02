@@ -282,11 +282,11 @@ export function draw(
     props.showTooltipOnHover,
     {
       colors: props.colors,
+      highlightDate: props.highlightDate,
       timeScale: props.timeScale,
       title: chartTitle,
       unit: chartData.unit,
       useSvgLegend,
-      highlightDate: props.highlightDate,
     }
   );
   if (!isCompleteLine) {

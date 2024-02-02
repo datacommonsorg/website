@@ -238,13 +238,13 @@ function addHighlightOnHover(
   container
     .on("mouseover", () => {
       // Hide any dots that were originally highlighted on the chart
-      d3.selectAll(`.${HIGHLIGHT_DATE_CLASS}`).style("display", "none");
+      container.selectAll(`.${HIGHLIGHT_DATE_CLASS}`).style("display", "none");
       highlightArea.style("opacity", "1");
       tooltip.style("display", "block");
     })
     .on("mouseout", () => {
       // Restore the original highlighted dots
-      d3.selectAll(`.${HIGHLIGHT_DATE_CLASS}`).style("display", "block");
+      container.selectAll(`.${HIGHLIGHT_DATE_CLASS}`).style("display", "block");
       highlightArea.style("opacity", "0");
       tooltip.style("display", "none");
     })
