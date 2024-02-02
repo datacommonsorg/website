@@ -29,14 +29,8 @@ bp = Blueprint('main', __name__, url_prefix='/')
 
 @bp.route('/healthz')
 def healthz():
-  nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(
-      config.DEFAULT_INDEX_TYPE)
-  result = nl_embeddings.detect_svs('life expectancy',
-                                    SV_SCORE_DEFAULT_THRESHOLD,
-                                    skip_multi_sv=True)
-  if result.get('SV'):
-    return 'OK', 200
-  return 'Service Unavailable', 500
+  # TODO: Add a better healthz check
+  return ''
 
 
 @bp.route('/api/search_sv/', methods=['GET'])
