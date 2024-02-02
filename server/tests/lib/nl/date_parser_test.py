@@ -38,6 +38,8 @@ class TestDateParser(unittest.TestCase):
        [Date('last_years', 2024, 0, year_span=10)]),
       ('Female population in Dakota', []),
       ('How has the population in USA changed over time', []),
+      ("Female population in California a decade ago", [Date('in', 2014)]),
+      ('Female population in California 15 years ago', [Date('in', 2009)])
   ])
   def test_main(self, query, expected):
     ctr = Counters()

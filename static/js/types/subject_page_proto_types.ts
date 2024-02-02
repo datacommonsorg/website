@@ -132,6 +132,7 @@ export interface LineTileSpec {
   defaultVariableName?: string;
   startDate?: string;
   endDate?: string;
+  highlightDate?: string;
 }
 
 export interface MapTileSpec {

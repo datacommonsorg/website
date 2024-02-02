@@ -54,6 +54,7 @@ function getTileProp(
     comparisonPlaces,
     startDate: tileConfig.lineTileSpec?.startDate,
     endDate: tileConfig.lineTileSpec?.endDate,
+    highlightDate: tileConfig.lineTileSpec.highlightDate,
   };
 }
 
