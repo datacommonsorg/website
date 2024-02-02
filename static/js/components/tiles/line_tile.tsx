@@ -278,7 +278,6 @@ export function draw(
     props.svgChartWidth || svgContainer.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
-    false,
     props.showTooltipOnHover,
     {
       colors: props.colors,

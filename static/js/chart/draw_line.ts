@@ -329,10 +329,8 @@ function getTickFormatFn(
  * @param width
  * @param height
  * @param dataGroups
- * @param showAllDots
  * @param highlightOnHover
- * @param unit
- * @param handleDotClick
+ * @param options
  *
  * @return false if any series in the chart was filled in
  */
@@ -341,7 +339,6 @@ export function drawLineChart(
   width: number,
   height: number,
   dataGroups: DataGroup[],
-  showAllDots: boolean,
   highlightOnHover: boolean,
   options?: LineChartOptions
 ): boolean {
@@ -445,11 +442,12 @@ export function drawLineChart(
     });
     const hasGap = shouldFillInValues(dataset);
     hasFilledInValues = hasFilledInValues || hasGap;
-    // If there is a specific date to be highlighted on the chart, dont' show
-    // any other dots.
+    // If there is a specific date to be highlighted on the chart, don't show
+    // any other dots unless options.showAllDots is set.
     const shouldAddDots =
-      !options.highlightDate &&
-      (dataset.length < MIN_POINTS_FOR_DOTS_ON_LINE_CHART || showAllDots);
+      (!options.highlightDate &&
+        dataset.length < MIN_POINTS_FOR_DOTS_ON_LINE_CHART) ||
+      options.showAllDots;
     const line = d3
       .line()
       .defined((d) => d[1] !== null) // Ignore points that are null
@@ -519,7 +517,7 @@ export function drawLineChart(
           dp.date === options.highlightDate
       );
       chart
-        .append("circle")
+        .insert("circle", ":first-child")
         .attr("class", HIGHLIGHT_DATE_CLASS)
         .attr("r", HIGHLIGHTING_DOT_R)
         .style("fill", colorFn(dataGroup.label))
