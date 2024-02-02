@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
 import time
-from typing import cast
+from typing import cast, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.explore.params import DCNames
@@ -38,12 +39,34 @@ from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.types import SV2Thing
 
 
+@dataclass
+class BuilderResult:
+  page_config: SubjectPageConfig = None
+  page_msg: str = ''
+
+
+# Given a list of charts, get the page level message to show for these charts.
+# If all charts have the same message, will return that message. Otherwise,
+# return an empty message.
+def _get_page_level_msg(charts: List[ChartSpec]) -> str:
+  msg = ''
+  for idx, cspec in enumerate(charts):
+    cspec = cast(ChartSpec, cspec)
+    if idx == 0:
+      msg = cspec.info_message
+    elif cspec.info_message != msg:
+      msg = ''
+      break
+  return msg
+
+
 #
 # Given an Utterance, build the final Chart config proto.
+# Returns the chart config proto and user message (empty if no message to show).
 #
-def build(state: PopulateState, config: Config) -> SubjectPageConfig:
+def build(state: PopulateState, config: Config) -> BuilderResult:
   if not state.uttr.rankedCharts:
-    return None
+    return BuilderResult()
 
   dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
   # Get names of all SVs
@@ -73,11 +96,17 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
   uttr.counters.timeit('get_sv_details', start)
 
   builder = base.Builder(uttr, sv2thing, config)
+  user_message = _get_page_level_msg(uttr.rankedCharts)
 
   # Build chart blocks
   for cspec in uttr.rankedCharts:
     cspec = cast(ChartSpec, cspec)
     cv = cspec.chart_vars
+    # if there is a user message, that means every chart spec had the same info
+    # message and we should show the message at the page level instead of block
+    # level.
+    if user_message:
+      cspec.info_message = ''
     if not cspec.places:
       continue
     stat_var_spec_map = {}
@@ -229,7 +258,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
     builder.update_sv_spec(stat_var_spec_map)
 
   builder.finalize()
-  return builder.page_config
+  return BuilderResult(page_config=builder.page_config, page_msg=user_message)
 
 
 def _set_un_labels_in_places(state: PopulateState):

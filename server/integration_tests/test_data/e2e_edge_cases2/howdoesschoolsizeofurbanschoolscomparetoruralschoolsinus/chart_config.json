@@ -333,5 +333,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Low confidence in understanding your query. Displaying the closest results."
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
 }
