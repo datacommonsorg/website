@@ -65,6 +65,7 @@ def _is_single_date(dates: list[Date]) -> bool:
 def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
   dates = []
   trigger_strings = []
+  # Looks for matches for a single date of the form YYYY-MM
   for pattern in YEAR_MONTH_RE:
     matches = re.finditer(pattern, query)
     for match in matches:
@@ -77,6 +78,7 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
       dates.append(Date(prep, year, month))
       trigger_strings.append(query[match.start():match.end()])
 
+  # Looks for matches for a single date of the form YYYY
   for pattern in YEAR_RE:
     matches = re.finditer(pattern, query)
     for match in matches:
@@ -85,6 +87,7 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
       dates.append(Date(prep, year))
       trigger_strings.append(query[match.start():match.end()])
 
+  # Looks for matches for a yearly date range that ends in the current year
   for pattern in LAST_YEARS:
     matches = re.finditer(pattern, query)
     for match in matches:
@@ -96,6 +99,7 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
       dates.append(Date(_LAST_YEARS_PREP, year, year_span=int(count_num)))
       trigger_strings.append(query[match.start():match.end()])
 
+  # Looks for matches for a one year range that ends in the current year
   for pattern in LAST_YEAR:
     matches = re.finditer(pattern, query)
     for match in matches:
@@ -105,6 +109,7 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
       dates.append(Date(_LAST_YEARS_PREP, year, year_span=1))
       trigger_strings.append(query[match.start():match.end()])
 
+  # Looks for matches for a single year that is X years back.
   for pattern in YEARS_AGO_RE:
     matches = re.finditer(pattern, query)
     for match in matches:
