@@ -30,7 +30,7 @@ import dc
 import utils
 
 # Where to write output json summaries to
-_OUTPUT_FILENAME = "output_ranking_based_summaries.json"
+_OUTPUT_FILE = "ranking_based_summaries.json"
 
 # Where to read stat var specs from
 _STAT_VAR_JSON = "stat_vars_detailed.json"
@@ -192,10 +192,12 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str,
                 default=_STAT_VAR_JSON,
                 help="path to stat var config file")
 @click.argument('output_file',
-                default=_OUTPUT_FILENAME,
+                default=_OUTPUT_FILE,
                 help="path to write summaries to")
-def main(place_type: str, parent_place_dcid: str, stat_var_json: str,
-         output_file: str):
+def main(place_type: str,
+         parent_place_dcid: str,
+         stat_var_json: str = _STAT_VAR_JSON,
+         output_file: str = _OUTPUT_FILE):
   build_ranking_based_summaries(place_type=place_type,
                                 parent_place_dcid=parent_place_dcid,
                                 stat_var_json=stat_var_json,
@@ -203,4 +205,7 @@ def main(place_type: str, parent_place_dcid: str, stat_var_json: str,
 
 
 if __name__ == "__main__":
-  main()
+  main(place_type="State",
+       parent_place_dcid="country/USA",
+       stat_var_json=_STAT_VAR_JSON,
+       output_file=_OUTPUT_FILE)

@@ -230,8 +230,10 @@ def build_template_summaries_for_sitemap(
 @click.option('--batch_size',
               default=_BATCH_SIZE,
               help='how many places to process at once')
-def main(sitemap_url: str, stat_var_json: str, output_file: str,
-         batch_size: int):
+def main(sitemap_url: str,
+         stat_var_json: str = _STAT_VAR_JSON,
+         output_file: str = _OUTPUT_FILE,
+         batch_size: int = _BATCH_SIZE):
   build_template_summaries_for_sitemap(sitemap_url,
                                        stat_var_json=stat_var_json,
                                        output_file=output_file,
@@ -240,4 +242,4 @@ def main(sitemap_url: str, stat_var_json: str, output_file: str,
 
 if __name__ == "__main__":
   logging.getLogger().setLevel(logging.INFO)
-  main()
+  main("https://datacommons.org/sitemap/PriorityPlaces.0.txt")

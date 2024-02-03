@@ -63,8 +63,11 @@ def process_csv(csv_path: str,
 @click.option('--delimiter',
               default='\t',
               help='character used to delimit columns (Default: Tab)')
-def main(csv_path: str, output_path: str, place_column_name: str,
-         summary_column_name: str, delimiter: str) -> None:
+def main(csv_path: str,
+         output_path: str,
+         place_column_name: str,
+         summary_column_name: str,
+         delimiter: str = '\t') -> None:
   process_csv(csv_path=csv_path,
               output_path=output_path,
               place_column_name=place_column_name,
@@ -73,4 +76,7 @@ def main(csv_path: str, output_path: str, place_column_name: str,
 
 
 if __name__ == "__main__":
-  main()
+  main(csv_path="priority-places-bard.tsv",
+       output_path="generated_summaries/priory_places_summaries.json",
+       place_column_name='DCID',
+       summary_column_name='Strict')

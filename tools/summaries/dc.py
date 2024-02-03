@@ -17,7 +17,6 @@ import logging
 import os
 from typing import Dict, List
 
-from absl import flags
 import requests
 
 # Mixer instance to query
