@@ -109,5 +109,5 @@ def get_places_from_sitemap(sitemap_url: str) -> List[str]:
 
 
 def batched(lst: List, batch_size: int) -> List[List]:
-  '''Get list elements batched into lists of a set batch size'''
+  """Get list elements batched into lists of a set batch size"""
   return [lst[i:i + batch_size] for i in range(0, len(lst), batch_size)]
