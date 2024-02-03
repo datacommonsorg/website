@@ -20,10 +20,8 @@ from typing import Dict, List
 from absl import flags
 import requests
 
-FLAGS = flags.FLAGS
-
-flags.DEFINE_string('dc_base_url', 'https://api.datacommons.org',
-                    'Mixer instance to query')
+# Mixer instance to query
+_DC_BASE_URL = 'https://api.datacommons.org'
 
 _WANTED_PARENT_TYPES = ["County", "State", "Country"]
 
@@ -32,7 +30,7 @@ assert _API_KEY, "$MIXER_API_KEY must be specified."
 
 
 def get_service_url(path):
-  return FLAGS.dc_base_url + path
+  return _DC_BASE_URL + path
 
 
 def post_wrapper(url, req_str: str):

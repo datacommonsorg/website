@@ -25,10 +25,12 @@ highly by that variable.
 import json
 from typing import Dict, List
 
+import click
 import dc
+import utils
 
 # Where to write output json summaries to
-_OUTPUT_FILENAME = "place_summary_content_us_states.json"
+_OUTPUT_FILENAME = "output_ranking_based_summaries.json"
 
 # Where to read stat var specs from
 _STAT_VAR_JSON = "stat_vars_detailed.json"
@@ -106,30 +108,6 @@ def initialize_summaries(place_dcids: List[str], names: Dict, place_type: str,
   return summaries
 
 
-def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
-  """Format a stat var observation to print nicely in a sentence
-  
-  Args:
-    value: numeric value to format
-    stat_var_data: dict of metadata for the stat var measured. May contain
-                   entries for 'scaling', a numeric scaling factor, and 'unit',
-                   the unit to display along side the value.
-  
-  Returns:
-    The value formatted by: scaling, rounded to 2 decimal places, and adding the
-    unit
-  """
-  scaling = stat_var_data['scaling']
-  if not scaling:
-    scaling = 1
-  # Round to 2nd decimal place
-  rounded_value = round(value, 2) * scaling
-  unit = stat_var_data['unit']
-  if unit == "$":
-    return "{unit}{value:,}".format(unit=unit, value=rounded_value)
-  return "{value:,}{unit}".format(unit=unit, value=rounded_value)
-
-
 def build_ranking_based_summaries(place_type: str, parent_place_dcid: str,
                                   stat_var_json: str, output_file: str):
   """Get a summary for all child places of a parent place, based on rankings.
@@ -172,8 +150,8 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str,
         for i in range(len(rank_list)):
           rank_item = rank_list[i]
           place_dcid = rank_item['placeDcid']
-          sv_value = format_stat_var_value(value=rank_item['value'],
-                                           stat_var_data=sv)
+          sv_value = utils.format_stat_var_value(value=rank_item['value'],
+                                                 stat_var_data=sv)
           sentence = None
 
           if i < _DEFAULT_RANKING_THRESHOLD:
@@ -205,11 +183,23 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str,
     json.dump(summaries, out_file, indent=4)
 
 
-def main():
-  build_ranking_based_summaries(place_type="State",
-                                parent_place_dcid="country/USA",
-                                stat_var_json=_STAT_VAR_JSON,
-                                output_file=_OUTPUT_FILENAME)
+@click.command()
+@click.argument('place_type', help="place type to generate summaries for")
+@click.argument(
+    'parent_place_dcid',
+    help="containing parent place of places to generate summaries for")
+@click.argument('stat_var_json',
+                default=_STAT_VAR_JSON,
+                help="path to stat var config file")
+@click.argument('output_file',
+                default=_OUTPUT_FILENAME,
+                help="path to write summaries to")
+def main(place_type: str, parent_place_dcid: str, stat_var_json: str,
+         output_file: str):
+  build_ranking_based_summaries(place_type=place_type,
+                                parent_place_dcid=parent_place_dcid,
+                                stat_var_json=stat_var_json,
+                                output_file=output_file)
 
 
 if __name__ == "__main__":

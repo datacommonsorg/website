@@ -15,16 +15,17 @@
 
 Used for parsing the output of LLM editing (like from Bard).
 """
-
 import csv
-import json
 from typing import Dict
+
+import click
+import utils
 
 
 def read_csv_to_dict(tsv_path: str,
                      place_column_name='dcid',
                      summary_column_name='summary',
-                     delimiter=',') -> Dict:
+                     delimiter='\t') -> Dict:
   """Read a TSV file into a place summary dictionary"""
   summaries = {}
   with open(tsv_path) as tsv:
@@ -37,32 +38,39 @@ def read_csv_to_dict(tsv_path: str,
   return summaries
 
 
-def write_summaries(summaries: Dict, output_path: str) -> None:
-  """Write a place summary dictionary to a JSON file"""
-  with open(output_path, 'w') as out_f:
-    json.dump(summaries, out_f)
-
-
-def process_csv(tsv_path: str,
+def process_csv(csv_path: str,
                 output_path: str,
                 place_column_name='dcid',
                 summary_column_name='summary',
-                delimiter=',') -> None:
+                delimiter='\t') -> None:
   """Convert csv to a summary json file"""
-  summaries = read_csv_to_dict(tsv_path, place_column_name, summary_column_name,
+  summaries = read_csv_to_dict(csv_path, place_column_name, summary_column_name,
                                delimiter)
-  write_summaries(summaries, output_path)
+  utils.write_summaries_to_file(summaries, output_path)
+
+
+@click.command()
+@click.argument('csv_path')
+@click.option('--output_path',
+              default='output_summaries.json',
+              help="file to write summaries to")
+@click.option('--place_column_name',
+              default='dcid',
+              help='name of column containing place dcids')
+@click.option('--summary_column_name',
+              default='summary',
+              help='name of column containing summary text')
+@click.option('--delimiter',
+              default='\t',
+              help='character used to delimit columns (Default: Tab)')
+def main(csv_path: str, output_path: str, place_column_name: str,
+         summary_column_name: str, delimiter: str) -> None:
+  process_csv(csv_path=csv_path,
+              output_path=output_path,
+              place_column_name=place_column_name,
+              summary_column_name=summary_column_name,
+              delimiter=delimiter)
 
 
 if __name__ == "__main__":
-  tsv_path = "priority-places-bard.tsv"
-  save_path = "../../server/config/summaries/place_summaries.json"
-  place_column_name = 'DCID'
-  summary_column_name = 'Strict'
-  delimiter = '\t'
-
-  process_csv(tsv_path=tsv_path,
-              output_path=save_path,
-              place_column_name='DCID',
-              summary_column_name='Strict',
-              delimiter=delimiter)
+  main()
