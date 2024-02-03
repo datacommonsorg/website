@@ -13,33 +13,31 @@
 # limitations under the License.
 '''Main script for generating place page summaries'''
 
-import json
 import logging
 
 import click
 import utils
 
 _FILES_TO_INCLUDE = [
-  'us_states_and_100_cities.json',
-  'us_counties.json',
-  'countries.json'
+    'us_states_and_100_cities.json', 'us_counties.json', 'countries.json'
 ]
 
 _OUTPUT_LOCATION = '../../server/config/summaries/place_summaries.json'
+
 
 @click.command()
 def main():
   # Load all summaries
   summaries = []
   for file in _FILES_TO_INCLUDE:
-    with open(f'generated_summaries/{file}') as f:
-      summaries.append(json.load(f))
+    summaries.append(utils.load_summaries(f'generated_summaries/{file}'))
 
   # Combine into one json
   output_summaries = utils.combine_summaries(summaries)
 
   # Write to file
   utils.write_summaries_to_file(output_summaries, _OUTPUT_LOCATION)
+
 
 if __name__ == '__main__':
   logging.getLogger().setLevel(logging.INFO)

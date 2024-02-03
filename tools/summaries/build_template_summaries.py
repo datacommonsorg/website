@@ -230,7 +230,8 @@ def build_template_summaries_for_sitemap(
 @click.option('--batch_size',
               default=_BATCH_SIZE,
               help='how many places to process at once')
-def main(sitemap_url: str, stat_var_json: str, output_file: str, batch_size: int):
+def main(sitemap_url: str, stat_var_json: str, output_file: str,
+         batch_size: int):
   build_template_summaries_for_sitemap(sitemap_url,
                                        stat_var_json=stat_var_json,
                                        output_file=output_file,
