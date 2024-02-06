@@ -46,7 +46,7 @@ _TEMPLATE_STARTING_SENTENCE = "{place_name} is a {place_type} in {parent_places}
 _TEMPLATE_VALUE_SENTENCE = "The {stat_var_name} in {place_name} was {value} in {year}."
 
 # Where to write intermediate results to
-_TEMP_FILENAME = 'temp_output_batch_{num}.json'
+_TEMP_FILENAME = 'generated_summaries/temp_output_batch_{num}.json'
 
 # Number of places to process at once
 _BATCH_SIZE = 500
@@ -170,7 +170,7 @@ def build_template_summaries(place_dcids: List[str], stat_var_json=str) -> Dict:
 
 
 def build_template_summaries_for_sitemap(
-    sitemap_url: str,
+    sitemap: str,
     stat_var_json: str = _STAT_VAR_JSON,
     batch_size: int = _BATCH_SIZE,
     output_file: str = _OUTPUT_FILE) -> Dict:
@@ -178,13 +178,17 @@ def build_template_summaries_for_sitemap(
   start_time = time.time()
 
   # Extract places to create summaries for from sitemap
-  places = utils.get_places_from_sitemap(sitemap_url)
+  places = utils.get_places_from_sitemap(sitemap)
+  total_num_places = len(places)
+  logging.info(f'Generating summaries for {total_num_places} places')
 
   # Get summaries in batched calls
   batch_num = 0
   batch_start_time = time.time()
+  batches = utils.batched(places, batch_size)
+  total_num_batches = len(batches)
   for batch in utils.batched(places, batch_size):
-    logging.info(f'Processing batch number {batch_num}')
+    logging.info(f'Processing batch number {batch_num+1} out of {total_num_batches}')
     summaries = build_template_summaries(place_dcids=batch,
                                          stat_var_json=stat_var_json)
     # Write intermediate results to a temporary file
@@ -206,8 +210,10 @@ def build_template_summaries_for_sitemap(
       all_data.append(json.load(f))
 
   # Write summary
+  logging.info('Combining batched summaries')
   summaries = utils.combine_summaries(all_data)
   utils.write_summaries_to_file(summaries, output_file)
+  logging.info(f'Wrote {total_num_places} summaries to {output_file}')
 
   # Cleanup temp files
   for i in range(batch_num):
@@ -220,7 +226,7 @@ def build_template_summaries_for_sitemap(
 
 
 @click.command()
-@click.argument('sitemap_url')
+@click.argument('sitemap')
 @click.option('--stat_var_json',
               default=_STAT_VAR_JSON,
               help='path to stat var config')
@@ -230,16 +236,14 @@ def build_template_summaries_for_sitemap(
 @click.option('--batch_size',
               default=_BATCH_SIZE,
               help='how many places to process at once')
-def main(sitemap_url: str,
-         stat_var_json: str = _STAT_VAR_JSON,
-         output_file: str = _OUTPUT_FILE,
-         batch_size: int = _BATCH_SIZE):
-  build_template_summaries_for_sitemap(sitemap_url,
+def main(sitemap: str, stat_var_json: str, output_file: str,
+         batch_size: int):
+  logging.getLogger().setLevel(logging.INFO)
+  build_template_summaries_for_sitemap(sitemap,
                                        stat_var_json=stat_var_json,
                                        output_file=output_file,
                                        batch_size=batch_size)
 
 
 if __name__ == "__main__":
-  logging.getLogger().setLevel(logging.INFO)
-  main("https://datacommons.org/sitemap/PriorityPlaces.0.txt")
+  main()

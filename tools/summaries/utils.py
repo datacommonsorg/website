@@ -60,7 +60,7 @@ def write_summaries_to_file(summaries: Dict, output_file: str):
   # Write to output file
   with open(output_file, "w") as out_f:
     json.dump(summaries, out_f, indent=4)
-  logging.info(f"Wrote summaries to {output_file}!")
+  logging.info(f"Wrote summaries to {output_file}.")
 
 
 def load_summaries(input_file: str) -> Dict:
@@ -92,20 +92,15 @@ def parse_place_parents(place_info_response) -> Dict:
   return mapping
 
 
-def get_places_from_sitemap(sitemap_url: str) -> List[str]:
+def get_places_from_sitemap(sitemap: str) -> List[str]:
   """Get list of places from a sitemap"""
-  response = requests.get(sitemap_url)
-  if response.status_code == 200:
-    sitemap = response.text
-    lines = sitemap.split('\n')
-    places = []
+  places = []
+  with open(sitemap) as f:
+    lines = f.read().splitlines()
     for line in lines:
       if line.startswith(_PLACE_PAGE_BASE_URL):
         places.append(line[len(_PLACE_PAGE_BASE_URL):])
-    return places
-  else:
-    logging.error(f"Error fetching sitemap {sitemap_url}.")
-  return []
+  return places
 
 
 def batched(lst: List, batch_size: int) -> List[List]:

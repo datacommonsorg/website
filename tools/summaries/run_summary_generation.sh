@@ -13,6 +13,8 @@
 # limitations under the License.
 #!/bin/bash
 
+set -e
+
 if [ -z "$MIXER_API_KEY" ]
 then
   echo "ERROR: Environment variable MIXER_API_KEY is not set."
@@ -22,21 +24,28 @@ else
   python3 -m pip install -r requirements.txt
 
   # Get US States + Top 100 Cities summaries from saved Bard output
-  python3 build_summaries_from_csv.py priority-places-bard.tsv \
+  echo "Getting US States and Top 100 US cities summaries from saved Bard output"
+  python3 tsv_place_summaries_to_json.py priority-places-bard.tsv \
     --output_path generated_summaries/us_states_and_100_cities.json \
     --place_column_name DCID \
     --summary_column_name Strict \
 
   # Generate country summaries
-  python3 build_template_summaries.py https://datacommons.org/sitemap/Country.0.txt \
+  echo "Generating country summaries"
+  python3 fetch_place_summaries.py ../../static/sitemap/Country.0.txt \
     --output_file generated_summaries/countries.json
 
   # Generate US county summaries
-  python3 build_template_summaries.py https://datacommons.org/sitemap/Counties.0.txt \
+  echo "Generating US county summaries"
+  python3 fetch_place_summaries.py ../../static/sitemap/County.0.txt \
     --output_file generated_summaries/us_counties.json
 
   # Combine into one output
-  python3 build_summaries.py
+  echo "Combining summaries and writing to config"
+  python3 combine_place_summaries.py \
+    generated_summaries/us_states_and_100_cities.json \
+    generated_summaries/countries.json \
+    generated_summaries/us_counties.json
 fi
 
 

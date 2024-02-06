@@ -11,34 +11,35 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-'''Main script for generating place page summaries'''
+'''Combine place summaries from multiple jsons into one place summary json'''
 
 import logging
+from typing import List
 
 import click
 import utils
-
-_FILES_TO_INCLUDE = [
-    'us_states_and_100_cities.json', 'us_counties.json', 'countries.json'
-]
 
 _OUTPUT_LOCATION = '../../server/config/summaries/place_summaries.json'
 
 
 @click.command()
-def main():
+@click.argument('files', nargs=-1)
+@click.option('--output_location',
+                default=_OUTPUT_LOCATION,
+                help="file path to save summaries to")
+def main(files: List[str], output_location: str):
+  logging.getLogger().setLevel(logging.INFO)
   # Load all summaries
   summaries = []
-  for file in _FILES_TO_INCLUDE:
-    summaries.append(utils.load_summaries(f'generated_summaries/{file}'))
+  for file in files:
+    summaries.append(utils.load_summaries(file))
 
   # Combine into one json
   output_summaries = utils.combine_summaries(summaries)
 
   # Write to file
-  utils.write_summaries_to_file(output_summaries, _OUTPUT_LOCATION)
+  utils.write_summaries_to_file(output_summaries, output_location)
 
 
 if __name__ == '__main__':
-  logging.getLogger().setLevel(logging.INFO)
   main()

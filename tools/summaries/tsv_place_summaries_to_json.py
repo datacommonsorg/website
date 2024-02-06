@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Convert a csv with summaries to a JSON file for the server
+"""Convert a tsv with summaries to a JSON file for the server
 
 Used for parsing the output of LLM editing (like from Bard).
 """
@@ -22,7 +22,7 @@ import click
 import utils
 
 
-def read_csv_to_dict(tsv_path: str,
+def read_tsv_to_dict(tsv_path: str,
                      place_column_name='dcid',
                      summary_column_name='summary',
                      delimiter='\t') -> Dict:
@@ -38,19 +38,8 @@ def read_csv_to_dict(tsv_path: str,
   return summaries
 
 
-def process_csv(csv_path: str,
-                output_path: str,
-                place_column_name='dcid',
-                summary_column_name='summary',
-                delimiter='\t') -> None:
-  """Convert csv to a summary json file"""
-  summaries = read_csv_to_dict(csv_path, place_column_name, summary_column_name,
-                               delimiter)
-  utils.write_summaries_to_file(summaries, output_path)
-
-
 @click.command()
-@click.argument('csv_path')
+@click.argument('tsv_path')
 @click.option('--output_path',
               default='output_summaries.json',
               help="file to write summaries to")
@@ -63,20 +52,12 @@ def process_csv(csv_path: str,
 @click.option('--delimiter',
               default='\t',
               help='character used to delimit columns (Default: Tab)')
-def main(csv_path: str,
-         output_path: str,
-         place_column_name: str,
-         summary_column_name: str,
-         delimiter: str = '\t') -> None:
-  process_csv(csv_path=csv_path,
-              output_path=output_path,
-              place_column_name=place_column_name,
-              summary_column_name=summary_column_name,
-              delimiter=delimiter)
+def main(tsv_path: str, output_path: str, place_column_name: str,
+         summary_column_name: str, delimiter: str) -> None:
+  summaries = read_tsv_to_dict(tsv_path, place_column_name, summary_column_name,
+                               delimiter)
+  utils.write_summaries_to_file(summaries, output_path)
 
 
 if __name__ == "__main__":
-  main(csv_path="priority-places-bard.tsv",
-       output_path="generated_summaries/priory_places_summaries.json",
-       place_column_name='DCID',
-       summary_column_name='Strict')
+  main()

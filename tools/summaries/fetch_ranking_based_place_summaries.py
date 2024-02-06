@@ -14,6 +14,9 @@
 """Generate ranking-based summaries for all child places of a specific place
 type in a parent place.
 
+This was the script used to generate the summaries used in mid-January 2024,
+which are no longer used. 
+
 Will generate summaries like:
   <place name> is a <place type> in <parent place>. <place_name> ranks <rank>
   in <parent place> by <stat var name> (<value>).
@@ -190,14 +193,12 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str,
     help="containing parent place of places to generate summaries for")
 @click.argument('stat_var_json',
                 default=_STAT_VAR_JSON,
-                help="path to stat var config file")
+                help="path to stat var config json")
 @click.argument('output_file',
                 default=_OUTPUT_FILE,
                 help="path to write summaries to")
-def main(place_type: str,
-         parent_place_dcid: str,
-         stat_var_json: str = _STAT_VAR_JSON,
-         output_file: str = _OUTPUT_FILE):
+def main(place_type: str, parent_place_dcid: str, stat_var_json: str,
+         output_file: str):
   build_ranking_based_summaries(place_type=place_type,
                                 parent_place_dcid=parent_place_dcid,
                                 stat_var_json=stat_var_json,
@@ -205,7 +206,4 @@ def main(place_type: str,
 
 
 if __name__ == "__main__":
-  main(place_type="State",
-       parent_place_dcid="country/USA",
-       stat_var_json=_STAT_VAR_JSON,
-       output_file=_OUTPUT_FILE)
+  main()
