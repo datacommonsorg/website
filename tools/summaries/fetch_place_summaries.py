@@ -187,7 +187,7 @@ def build_template_summaries_for_sitemap(
   batch_start_time = time.time()
   batches = utils.batched(places, batch_size)
   total_num_batches = len(batches)
-  for batch in utils.batched(places, batch_size):
+  for batch in batches:
     logging.info(
         f'Processing batch number {batch_num + 1} out of {total_num_batches}')
     summaries = build_template_summaries(place_dcids=batch,
