@@ -62,6 +62,7 @@ PRIORITY_PLACE_SITEMAP = "PriorityPlaces.0.txt"
 # CSV storing BQ query results for queries that are too heavy for sparql
 BQ_CSV = "cities_with_population_over_500k.csv"
 
+
 # Generator to yield chunks from a list
 def chunks(lst, n):
   """Yield successive n-sized chunks from lst."""
@@ -111,9 +112,8 @@ def get_us_states() -> List[str]:
   try:
     state_data = dc.query(sparql)
     for state in state_data:
-      state_dcid = state.get('?dcid')
-      if state_dcid:
-        dcids.append(state_dcid)
+      if '?dcid' in state:
+        dcids.append(state['?dcid'])
   except Exception:
     logging.exception('Got an error while querying for US states')
   return dcids
@@ -125,9 +125,8 @@ def get_global_cities_with_population_over_500k() -> List[str]:
   with open(BQ_CSV) as f:
     cities = csv.DictReader(f)
     for city in cities:
-      city_dcid = city.get('dcid')
-      if city_dcid:
-        dcids.append(city_dcid)
+      if 'dcid' in city:
+        dcids.append(city['dcid'])
   return dcids
 
 
@@ -140,9 +139,8 @@ def get_top_100_us_cities() -> List[str]:
                                           {}).get("rankTop1000",
                                                   {}).get("info", [])
   for city in city_ranking_data[:100]:
-    city_dcid = city.get("placeDcid", None)
-    if city_dcid:
-      dcids.append(city_dcid)
+    if 'placeDcid' in city:
+      dcids.append(city['placeDcid'])
   return dcids
 
 
