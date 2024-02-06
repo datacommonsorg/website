@@ -114,10 +114,9 @@ def get_us_states() -> List[str]:
       state_dcid = state.get('?dcid')
       if state_dcid:
         dcids.append(state_dcid)
-    return
   except Exception:
     logging.exception('Got an error while querying for US states')
-    return []
+  return dcids
 
 
 def get_global_cities_with_population_over_500k() -> List[str]:
@@ -155,8 +154,8 @@ def write_priority_places_sitemap() -> None:
   500k or greater.
   """
   dcids = get_us_states()
-  dcids.append(get_top_100_us_cities())
-  dcids.append(get_global_cities_with_population_over_500k())
+  dcids += get_top_100_us_cities()
+  dcids += get_global_cities_with_population_over_500k()
 
   # Write to file
   sitemap_location = os.path.join(SAVE_PATH, PRIORITY_PLACE_SITEMAP)
