@@ -25,8 +25,8 @@ _OUTPUT_LOCATION = '../../server/config/summaries/place_summaries.json'
 @click.command()
 @click.argument('files', nargs=-1)
 @click.option('--output_location',
-                default=_OUTPUT_LOCATION,
-                help="file path to save summaries to")
+              default=_OUTPUT_LOCATION,
+              help="file path to save summaries to")
 def main(files: List[str], output_location: str):
   logging.getLogger().setLevel(logging.INFO)
   # Load all summaries

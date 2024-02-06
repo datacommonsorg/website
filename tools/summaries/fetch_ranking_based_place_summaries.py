@@ -125,7 +125,7 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str,
     output_file: path to write output to
   """
   child_places = dc.get_child_places(place_type, parent_place_dcid)
-  name_of = dc.get_names(child_places + [parent_place_dcid])
+  name_of = dc.get_property("name", child_places + [parent_place_dcid])
   parent_place_name = name_of[parent_place_dcid]
   if parent_place_dcid == "country/USA":
     # USA needs "the" in front in sentences.
@@ -187,16 +187,18 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str,
 
 
 @click.command()
-@click.argument('place_type', help="place type to generate summaries for")
-@click.argument(
-    'parent_place_dcid',
-    help="containing parent place of places to generate summaries for")
-@click.argument('stat_var_json',
-                default=_STAT_VAR_JSON,
-                help="path to stat var config json")
-@click.argument('output_file',
-                default=_OUTPUT_FILE,
-                help="path to write summaries to")
+@click.argument('place_type')
+@click.argument('parent_place_dcid')
+@click.option(
+    '--stat_var_json',
+    default=_STAT_VAR_JSON,
+    help=
+    '''path to stat var json with dictionary entries for the dcid, name, unit, 
+    and scaling of stat vars to include in summaries. See 
+    stat_vars_detailed.json for an example.''')
+@click.option('--output_file',
+              default=_OUTPUT_FILE,
+              help="path to write summaries to")
 def main(place_type: str, parent_place_dcid: str, stat_var_json: str,
          output_file: str):
   build_ranking_based_summaries(place_type=place_type,

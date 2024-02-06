@@ -188,7 +188,8 @@ def build_template_summaries_for_sitemap(
   batches = utils.batched(places, batch_size)
   total_num_batches = len(batches)
   for batch in utils.batched(places, batch_size):
-    logging.info(f'Processing batch number {batch_num+1} out of {total_num_batches}')
+    logging.info(
+        f'Processing batch number {batch_num + 1} out of {total_num_batches}')
     summaries = build_template_summaries(place_dcids=batch,
                                          stat_var_json=stat_var_json)
     # Write intermediate results to a temporary file
@@ -203,6 +204,7 @@ def build_template_summaries_for_sitemap(
     batch_start_time = time.time()
 
   # Combine intermediate results into one
+  logging.info('Combining batched summaries')
   all_data = []
   for i in range(batch_num):
     filename = _TEMP_FILENAME.format(num=i)
@@ -210,7 +212,6 @@ def build_template_summaries_for_sitemap(
       all_data.append(json.load(f))
 
   # Write summary
-  logging.info('Combining batched summaries')
   summaries = utils.combine_summaries(all_data)
   utils.write_summaries_to_file(summaries, output_file)
   logging.info(f'Wrote {total_num_places} summaries to {output_file}')
@@ -236,8 +237,7 @@ def build_template_summaries_for_sitemap(
 @click.option('--batch_size',
               default=_BATCH_SIZE,
               help='how many places to process at once')
-def main(sitemap: str, stat_var_json: str, output_file: str,
-         batch_size: int):
+def main(sitemap: str, stat_var_json: str, output_file: str, batch_size: int):
   logging.getLogger().setLevel(logging.INFO)
   build_template_summaries_for_sitemap(sitemap,
                                        stat_var_json=stat_var_json,
