@@ -43,15 +43,16 @@ else
   # Generate global cities summaries
   echo "Generating global cities summaries"
   python3 fetch_place_summaries.py ../../static/sitemap/PriorityPlaces.0.txt \
-    --output_file generated_summaries/priority_places.json
+    --output_file generated_summaries/global_cities.json \
+    --num_skip_lines 151
 
   # Combine into one output
   echo "Combining summaries and writing to config"
   python3 combine_place_summaries.py \
-    generated_summaries/priority_places.json \
-    generated_summaries/us_states_and_100_cities.json \
     generated_summaries/countries.json \
-    generated_summaries/us_counties.json
+    generated_summaries/us_counties.json \
+    generated_summaries/global_cities.json \
+    generated_summaries/us_states_and_100_cities.json
 fi
 
 

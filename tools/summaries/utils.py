@@ -59,7 +59,7 @@ def write_summaries_to_file(summaries: Dict, output_file: str):
   """Write summary dict json"""
   # Write to output file
   with open(output_file, "w") as out_f:
-    json.dump(summaries, out_f, indent=4)
+    json.dump(summaries, out_f, indent=4, sort_keys=True)
   logging.info(f"Wrote summaries to {output_file}.")
 
 

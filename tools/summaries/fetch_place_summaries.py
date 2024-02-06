@@ -11,17 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Generate summaries using template sentences about a set list of variables.
-
-To use:
-
-  From the tools/summaries directory:
-    $ export MIXER_API_KEY=<your api key>
-    $ python3 -m venv .env
-    $ source .env/bin/activate
-    $ python3 build_template_summaries.py
-
-"""
+"""Generate summaries using template sentences about a set list of variables."""
 from datetime import timedelta
 import json
 import logging
@@ -243,7 +233,8 @@ def build_template_summaries_for_sitemap(sitemap: str,
 @click.option('--num_skip_lines',
               default=None,
               help='''Number of lines of beginning of sitemap to skip. Useful
-                   for skipping sitemap entries that already have summaries.''')
+                   for skipping sitemap entries that already have summaries.''',
+              type=int)
 def main(sitemap: str, stat_var_json: str, output_file: str, batch_size: int,
          num_skip_lines: int):
   logging.getLogger().setLevel(logging.INFO)
