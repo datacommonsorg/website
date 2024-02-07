@@ -14,6 +14,10 @@
 """Generate ranking-based summaries for all child places of a specific place
 type in a parent place.
 
+This was the script used to generate the summaries used in mid-January 2024,
+which are no longer used. This script is no longer used and has been depreciated
+in favor of fetch_place_summaries.py.
+
 Will generate summaries like:
   <place name> is a <place type> in <parent place>. <place_name> ranks <rank>
   in <parent place> by <stat var name> (<value>).
@@ -25,10 +29,12 @@ highly by that variable.
 import json
 from typing import Dict, List
 
+import click
 import dc
+import utils
 
 # Where to write output json summaries to
-_OUTPUT_FILENAME = "place_summary_content_us_states.json"
+_OUTPUT_FILE = "ranking_based_summaries.json"
 
 # Where to read stat var specs from
 _STAT_VAR_JSON = "stat_vars_detailed.json"
@@ -106,30 +112,6 @@ def initialize_summaries(place_dcids: List[str], names: Dict, place_type: str,
   return summaries
 
 
-def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
-  """Format a stat var observation to print nicely in a sentence
-  
-  Args:
-    value: numeric value to format
-    stat_var_data: dict of metadata for the stat var measured. May contain
-                   entries for 'scaling', a numeric scaling factor, and 'unit',
-                   the unit to display along side the value.
-  
-  Returns:
-    The value formatted by: scaling, rounded to 2 decimal places, and adding the
-    unit
-  """
-  scaling = stat_var_data['scaling']
-  if not scaling:
-    scaling = 1
-  # Round to 2nd decimal place
-  rounded_value = round(value, 2) * scaling
-  unit = stat_var_data['unit']
-  if unit == "$":
-    return "{unit}{value:,}".format(unit=unit, value=rounded_value)
-  return "{value:,}{unit}".format(unit=unit, value=rounded_value)
-
-
 def build_ranking_based_summaries(place_type: str, parent_place_dcid: str,
                                   stat_var_json: str, output_file: str):
   """Get a summary for all child places of a parent place, based on rankings.
@@ -144,7 +126,7 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str,
     output_file: path to write output to
   """
   child_places = dc.get_child_places(place_type, parent_place_dcid)
-  name_of = dc.get_names(child_places + [parent_place_dcid])
+  name_of = dc.get_property("name", child_places + [parent_place_dcid])
   parent_place_name = name_of[parent_place_dcid]
   if parent_place_dcid == "country/USA":
     # USA needs "the" in front in sentences.
@@ -172,8 +154,8 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str,
         for i in range(len(rank_list)):
           rank_item = rank_list[i]
           place_dcid = rank_item['placeDcid']
-          sv_value = format_stat_var_value(value=rank_item['value'],
-                                           stat_var_data=sv)
+          sv_value = utils.format_stat_var_value(value=rank_item['value'],
+                                                 stat_var_data=sv)
           sentence = None
 
           if i < _DEFAULT_RANKING_THRESHOLD:
@@ -205,11 +187,25 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str,
     json.dump(summaries, out_file, indent=4)
 
 
-def main():
-  build_ranking_based_summaries(place_type="State",
-                                parent_place_dcid="country/USA",
-                                stat_var_json=_STAT_VAR_JSON,
-                                output_file=_OUTPUT_FILENAME)
+@click.command()
+@click.argument('place_type')
+@click.argument('parent_place_dcid')
+@click.option(
+    '--stat_var_json',
+    default=_STAT_VAR_JSON,
+    help=
+    '''path to stat var json with dictionary entries for the dcid, name, unit, 
+    and scaling of stat vars to include in summaries. See 
+    stat_vars_detailed.json for an example.''')
+@click.option('--output_file',
+              default=_OUTPUT_FILE,
+              help="path to write summaries to")
+def main(place_type: str, parent_place_dcid: str, stat_var_json: str,
+         output_file: str):
+  build_ranking_based_summaries(place_type=place_type,
+                                parent_place_dcid=parent_place_dcid,
+                                stat_var_json=stat_var_json,
+                                output_file=output_file)
 
 
 if __name__ == "__main__":
