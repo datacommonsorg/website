@@ -22,21 +22,19 @@ To use:
     $ python3 build_template_summaries.py
 
 """
-
+from datetime import timedelta
 import json
 import logging
-import sys
+import os
+import time
 from typing import Dict, List
 
-from absl.flags import FLAGS
+import click
 import dc
 import utils
 
-# Load flags
-FLAGS(sys.argv)
-
 # Where to write output json summaries to
-_OUTPUT_FILENAME = "place_summaries_from_template.json"
+_OUTPUT_FILE = "place_summaries_from_template.json"
 
 # Where to read stat var specs from
 _STAT_VAR_JSON = "stat_vars_to_highlight.json"
@@ -46,6 +44,12 @@ _TEMPLATE_STARTING_SENTENCE = "{place_name} is a {place_type} in {parent_places}
 
 # Template for sharing the value of a stat var
 _TEMPLATE_VALUE_SENTENCE = "The {stat_var_name} in {place_name} was {value} in {year}."
+
+# Where to write intermediate results to
+_TEMP_FILENAME = 'generated_summaries/temp_output_batch_{num}.json'
+
+# Number of places to process at once
+_BATCH_SIZE = 500
 
 
 def initialize_summaries(
@@ -100,7 +104,7 @@ def initialize_summaries(
 
 
 def build_template_summaries(place_dcids: List[str], stat_var_json=str) -> Dict:
-  """Write template-based summaries to file
+  """Generate summaries using template sentences for a list of stat vars
   
   Args:
     place_dcids: list of dcids of places to generate summaries for
@@ -132,7 +136,7 @@ def build_template_summaries(place_dcids: List[str], stat_var_json=str) -> Dict:
     place_name = place_names.get(place_dcid)
 
     if place_name:
-      logging.info(f"Generating summaries for {place_name} ({place_dcid})...")
+      logging.info(f"Generating summary for {place_name} ({place_dcid})")
 
       # Get stat var values for all stat vars to use
       data_series = dc.get_data_series(place_dcid, sv_list)
@@ -155,7 +159,7 @@ def build_template_summaries(place_dcids: List[str], stat_var_json=str) -> Dict:
         else:
           sentences[place_dcid].append(sentence)
 
-  # Create summary dict to write to file
+  # Create summary dict
   summaries = {
       place_dcid: {
           "summary": " ".join(sentence_list)
@@ -165,26 +169,81 @@ def build_template_summaries(place_dcids: List[str], stat_var_json=str) -> Dict:
   return summaries
 
 
-def main():
-  with open("priority-places.json") as f:
-    priority_places = json.load(f)
+def build_template_summaries_for_sitemap(
+    sitemap: str,
+    stat_var_json: str = _STAT_VAR_JSON,
+    batch_size: int = _BATCH_SIZE,
+    output_file: str = _OUTPUT_FILE) -> Dict:
+  """Generate summaries for all places in a sitemap"""
+  start_time = time.time()
 
-  with open("places-countries.json") as f:
-    countries = json.load(f)
+  # Extract places to create summaries for from sitemap
+  places = utils.get_places_from_sitemap(sitemap)
+  total_num_places = len(places)
+  logging.info(f'Generating summaries for {total_num_places} places')
 
-  priority_summaries = build_template_summaries(place_dcids=priority_places,
-                                                stat_var_json=_STAT_VAR_JSON)
+  # Get summaries in batched calls
+  batch_num = 0
+  batch_start_time = time.time()
+  batches = utils.batched(places, batch_size)
+  total_num_batches = len(batches)
+  for batch in batches:
+    logging.info(
+        f'Processing batch number {batch_num + 1} out of {total_num_batches}')
+    summaries = build_template_summaries(place_dcids=batch,
+                                         stat_var_json=stat_var_json)
+    # Write intermediate results to a temporary file
+    # This allows us to save partial progress incase we hit server errors
+    temp_path = _TEMP_FILENAME.format(num=batch_num)
+    utils.write_summaries_to_file(summaries=summaries, output_file=temp_path)
+    logging.info(f'Wrote intermediate results to {temp_path}')
+    logging.info(
+        f'Took {timedelta(seconds=time.time()-batch_start_time)} to write batch'
+    )
+    batch_num += 1
+    batch_start_time = time.time()
 
-  country_summaries = build_template_summaries(place_dcids=countries,
-                                               stat_var_json=_STAT_VAR_JSON)
+  # Combine intermediate results into one
+  logging.info('Combining batched summaries')
+  all_data = []
+  for i in range(batch_num):
+    filename = _TEMP_FILENAME.format(num=i)
+    with open(filename) as f:
+      all_data.append(json.load(f))
 
-  all_summaries = utils.combine_summaries(
-      [priority_summaries, country_summaries])
+  # Write summary
+  summaries = utils.combine_summaries(all_data)
+  utils.write_summaries_to_file(summaries, output_file)
+  logging.info(f'Wrote {total_num_places} summaries to {output_file}')
 
-  utils.write_summaries_to_file(summaries=all_summaries,
-                                output_file=_OUTPUT_FILENAME)
+  # Cleanup temp files
+  for i in range(batch_num):
+    filename = _TEMP_FILENAME.format(num=i)
+    os.remove(filename)
+
+  logging.info('Done!')
+  logging.info(
+      f'Total elapsed time: {timedelta(seconds=time.time()-start_time)}')
+
+
+@click.command()
+@click.argument('sitemap')
+@click.option('--stat_var_json',
+              default=_STAT_VAR_JSON,
+              help='path to stat var config')
+@click.option('--output_file',
+              default=_OUTPUT_FILE,
+              help='output file to write summaries to')
+@click.option('--batch_size',
+              default=_BATCH_SIZE,
+              help='how many places to process at once')
+def main(sitemap: str, stat_var_json: str, output_file: str, batch_size: int):
+  logging.getLogger().setLevel(logging.INFO)
+  build_template_summaries_for_sitemap(sitemap,
+                                       stat_var_json=stat_var_json,
+                                       output_file=output_file,
+                                       batch_size=batch_size)
 
 
 if __name__ == "__main__":
-  logging.getLogger().setLevel(logging.INFO)
   main()
