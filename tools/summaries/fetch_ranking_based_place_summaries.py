@@ -15,7 +15,8 @@
 type in a parent place.
 
 This was the script used to generate the summaries used in mid-January 2024,
-which are no longer used. 
+which are no longer used. This script is no longer used and has been depreciated
+in favor of fetch_place_summaries.py.
 
 Will generate summaries like:
   <place name> is a <place type> in <parent place>. <place_name> ranks <rank>
