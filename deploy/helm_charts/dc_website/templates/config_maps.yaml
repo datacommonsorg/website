@@ -14,14 +14,61 @@ data:
     {{- end }}
   {{- end }}
 
+{{- if .Values.website.placeSummary.enabled }}
 ---
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: place-summary-config
+  name: place-summary-config-country
   namespace: {{ .Values.namespace.name }}
 data:
-  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary | quote }}
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.country_ | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-geoId-0-2
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoId_0_2 | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-geoId-3-5
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoId_3_5 | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-geoId-6-9
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoId_6_9 | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-wikidataId
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.wikidataId_ | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-others
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.others | quote }}
+{{- end }}
 
 
 {{- if .Values.nl.enabled }}

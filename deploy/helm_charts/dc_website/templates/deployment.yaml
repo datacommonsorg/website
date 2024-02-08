@@ -55,9 +55,26 @@ spec:
         - name: blocklist-svg
           configMap:
             name: blocklist-svg
-        - name: place-summary-config
+        {{- if .Values.website.placeSummary.enabled }}
+        - name: place-summary-config-country
           configMap:
-            name: place-summary-config
+            name: place-summary-config-country
+        - name: place-summary-config-geoId-0-2
+          configMap:
+            name: place-summary-config-geoId-0-2
+        - name: place-summary-config-geoId-3-5
+          configMap:
+            name: place-summary-config-geoId-3-5
+        - name: place-summary-config-geoId-6-9
+          configMap:
+            name: place-summary-config-geoId-6-9
+        - name: place-summary-config-wikidataId
+          configMap:
+            name: place-summary-config-wikidataId
+        - name: place-summary-config-others
+          configMap:
+            name: place-summary-config-others
+        {{- end }}
       containers:
         - name: website
           image:  "gcr.io/{{ .Values.website.image.project }}/datacommons-website:{{ .Values.website.image.tag }}"
@@ -91,8 +108,20 @@ spec:
             {{- end }}
             - name: blocklist-svg
               mountPath: /datacommons/svg
-            - name: place-summary-config
+            {{- if .Values.website.placeSummary.enabled }}
+            - name: place-summary-config-country
               mountPath: /datacommons/place-summary
+            - name: place-summary-config-geoId-0-2
+              mountPath: /datacommons/place-summary
+            - name: place-summary-config-geoId-3-5
+              mountPath: /datacommons/place-summary
+            - name: place-summary-config-geoId-6-9
+              mountPath: /datacommons/place-summary
+            - name: place-summary-config-wikidataId
+              mountPath: /datacommons/place-summary
+            - name: place-summary-config-others
+              mountPath: /datacommons/place-summary
+            {{- end }}
           env:
             - name: FLASK_ENV
               value: {{ required "Missing: website.flaskEnv" .Values.website.flaskEnv }}

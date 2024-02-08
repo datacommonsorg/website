@@ -24,8 +24,8 @@ from flask import current_app
 from flask import g
 
 from server.lib.i18n import AVAILABLE_LANGUAGES
-import server.lib.place_summaries as place_summaries
 import server.routes.shared_api.place as place_api
+from tools.summaries.utils import get_shard_filename_by_dcid
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
@@ -47,6 +47,25 @@ CATEGORY_REDIRECTS = {
 
 # Main DC domain to use for canonical URLs
 CANONICAL_DOMAIN = 'datacommons.org'
+
+# Location of place summary jsons on GKE
+PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
+
+
+def get_place_summaries(dcid: str) -> dict:
+  """Load place summary content from disk containing summary for a given dcid"""
+  # When deployed in GKE, the config is a config mounted as volume. Check this
+  # first.
+  filename = get_shard_filename_by_dcid(dcid)
+  filepath = os.path.join(PLACE_SUMMARY_DIR, filename)
+  if os.path.isfile(filepath):
+    with open(filepath) as f:
+      return json.load(f)
+  # If no mounted config file, use the config that is in the code base.
+  local_path = os.path.join(current_app.root_path,
+                            f'config/summaries/{filename}')
+  with open(local_path) as f:
+    return json.load(f)
 
 
 def generate_link_headers(place_dcid: str, category: str,
@@ -174,7 +193,7 @@ def place(place_dcid=None):
     # Only show summary for Overview page in base DC.
     # Fetch summary text from mounted volume
     start_time = time.time()
-    place_summary = place_summaries.get_place_summaries(place_dcid).get(
+    place_summary = get_place_summaries(place_dcid).get(
         place_dcid, {})
     elapsed_time = (time.time() - start_time) * 1000
     logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")

@@ -27,6 +27,15 @@ website:
     configFile:
 
   placeSummary:
+    enabled: false
+    data:
+      country_:
+      geoId_0_2:
+      geoId_3_5:
+      geoId_6_9:
+      wikidataId_:
+      others:
+
 
 nameOverride: ""
 fullnameOverride: ""

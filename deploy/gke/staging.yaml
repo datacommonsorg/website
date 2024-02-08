@@ -21,3 +21,7 @@ region:
     -
 nodes: 2
 storage_project: datcom-store
+
+website:
+  placeSummary:
+    enabled: true
