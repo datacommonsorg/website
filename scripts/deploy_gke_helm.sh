@@ -150,7 +150,7 @@ function deploy_website() {
   --set-file nl.models=deploy/nl/models.yaml \
   --set-file website.placeSummary.data.country_=server/config/summaries/place_summaries_for_country_.json \
   --set-file website.placeSummary.data.geoId_0_2=server/config/summaries/place_summaries_for_geoId_0-2.json \
-  --set-file website.placeSummary.data.geoId_3_5=server/config/summaries/place_summaries_for_geoID_3-5.json \
+  --set-file website.placeSummary.data.geoId_3_5=server/config/summaries/place_summaries_for_geoId_3-5.json \
   --set-file website.placeSummary.data.geoId_6_9=server/config/summaries/place_summaries_for_geoId_6-9.json \
   --set-file website.placeSummary.data.wikidataId_=server/config/summaries/place_summaries_for_wikidataId_.json \
   --set-file website.placeSummary.data.others=server/config/summaries/place_summaries_others.json
