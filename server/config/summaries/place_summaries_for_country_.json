@@ -119,6 +119,9 @@
     "country/BWA": {
         "summary": "Botswana is a country in Africa. The population in Botswana was 2,588,423 in 2021. The nominal GDP per capita in Botswana was $7,238.8 in 2021. The Gini index in Botswana was 53.3 in 2015. The life expectancy in Botswana was 61.14 in 2021. The energy consumption per capita in Botswana was 1,201.8kg in 2014. The carbon dioxide emissions per capita in Botswana was 2.26t in 2020."
     },
+    "country/BYS": {
+        "summary": "The population in Byelorussian SSR was 10,300,000 in 1991."
+    },
     "country/CAF": {
         "summary": "Central African Republic is a country in Africa. The population in Central African Republic was 5,457,154 in 2021. The nominal GDP per capita in Central African Republic was $461.14 in 2021. The Gini index in Central African Republic was 43 in 2021. The life expectancy in Central African Republic was 53.9 in 2021. The carbon dioxide emissions per capita in Central African Republic was 0.04t in 2020."
     },
@@ -164,6 +167,9 @@
     "country/CRI": {
         "summary": "Costa Rica is a country in North America. The population in Costa Rica was 5,153,957 in 2021. The nominal GDP per capita in Costa Rica was $12,537.26 in 2021. The Gini index in Costa Rica was 47.2 in 2022. The life expectancy in Costa Rica was 77.02 in 2021. The energy consumption per capita in Costa Rica was 1,012.68kg in 2014. The carbon dioxide emissions per capita in Costa Rica was 1.36t in 2020."
     },
+    "country/CSK": {
+        "summary": "The population in Czechoslovakia was 15,600,000 in 1993."
+    },
     "country/CTE": {
         "summary": "Canton and Enderbury Islands is a country in Oceania."
     },
@@ -184,6 +190,9 @@
     },
     "country/CZE": {
         "summary": "Czech Republic is a country in Europe. The population in Czech Republic was 10,649,800 in 2019. The unemployment rate in Czech Republic was 2.7% in 2020. The nominal GDP per capita in Czech Republic was $26,822.51 in 2021. The Gini index in Czech Republic was 26.2 in 2020. The life expectancy in Czech Republic was 77.37 in 2021. The energy consumption per capita in Czech Republic was 3,860.0kg in 2015. The carbon dioxide emissions per capita in Czech Republic was 8.3t in 2020."
+    },
+    "country/DDR": {
+        "summary": "The population in German Democratic Republic was 16,111,000 in 1990."
     },
     "country/DEU": {
         "summary": "Germany is a country in Europe. The population in Germany was 83,019,213 in 2019. The unemployment rate in Germany was 3.3% in 2019. The nominal GDP per capita in Germany was $51,203.55 in 2021. The Gini index in Germany was 31.7 in 2019. The life expectancy in Germany was 80.9 in 2021. The energy consumption per capita in Germany was 3,817.55kg in 2015. The carbon dioxide emissions per capita in Germany was 7.26t in 2020."
@@ -587,6 +596,9 @@
     "country/SAU": {
         "summary": "Saudi Arabia is a country in Asia. The population in Saudi Arabia was 35,950,396 in 2021. The nominal GDP per capita in Saudi Arabia was $24,160.68 in 2021. The life expectancy in Saudi Arabia was 76.94 in 2021. The energy consumption per capita in Saudi Arabia was 6,645.96kg in 2014. The carbon dioxide emissions per capita in Saudi Arabia was 14.27t in 2020."
     },
+    "country/SCG": {
+        "summary": "The population in Serbia and Montenegro was 10,832,545 in 2006."
+    },
     "country/SDN": {
         "summary": "Sudan is a country in Africa. The population in Sudan was 45,657,202 in 2021. The nominal GDP per capita in Sudan was $749.71 in 2021. The Gini index in Sudan was 34.2 in 2014. The life expectancy in Sudan was 65.27 in 2021. The energy consumption per capita in Sudan was 405.03kg in 2014. The carbon dioxide emissions per capita in Sudan was 0.47t in 2020."
     },
@@ -631,6 +643,9 @@
     },
     "country/STP": {
         "summary": "S\u00e3o Tom\u00e9 and Pr\u00edncipe is a country in Africa. The population in S\u00e3o Tom\u00e9 and Pr\u00edncipe was 223,107 in 2021. The nominal GDP per capita in S\u00e3o Tom\u00e9 and Pr\u00edncipe was $2,360.54 in 2021. The Gini index in S\u00e3o Tom\u00e9 and Pr\u00edncipe was 40.7 in 2017. The life expectancy in S\u00e3o Tom\u00e9 and Pr\u00edncipe was 67.59 in 2021. The energy consumption per capita in S\u00e3o Tom\u00e9 and Pr\u00edncipe was 259.06kg in 2007. The carbon dioxide emissions per capita in S\u00e3o Tom\u00e9 and Pr\u00edncipe was 0.65t in 2020."
+    },
+    "country/SUN": {
+        "summary": "The population in Union of Soviet Socialist Republics was 293,047,571 in 1991."
     },
     "country/SUR": {
         "summary": "Suriname is a country in South America. The population in Suriname was 612,985 in 2021. The nominal GDP per capita in Suriname was $4,869.13 in 2021. The Gini index in Suriname was 57.9 in 1999. The life expectancy in Suriname was 70.27 in 2021. The energy consumption per capita in Suriname was 1,211.4kg in 2014. The carbon dioxide emissions per capita in Suriname was 4.29t in 2020."
@@ -763,20 +778,5 @@
     },
     "country/ZWE": {
         "summary": "Zimbabwe is a country in Africa. The population in Zimbabwe was 15,993,524 in 2021. The nominal GDP per capita in Zimbabwe was $1,773.92 in 2021. The Gini index in Zimbabwe was 50.3 in 2019. The life expectancy in Zimbabwe was 59.25 in 2021. The energy consumption per capita in Zimbabwe was 832.57kg in 2013. The carbon dioxide emissions per capita in Zimbabwe was 0.53t in 2020."
-    },
-    "country/BYS": {
-        "summary": "The population in Byelorussian SSR was 10,300,000 in 1991."
-    },
-    "country/CSK": {
-        "summary": "The population in Czechoslovakia was 15,600,000 in 1993."
-    },
-    "country/DDR": {
-        "summary": "The population in German Democratic Republic was 16,111,000 in 1990."
-    },
-    "country/SCG": {
-        "summary": "The population in Serbia and Montenegro was 10,832,545 in 2006."
-    },
-    "country/SUN": {
-        "summary": "The population in Union of Soviet Socialist Republics was 293,047,571 in 1991."
     }
 }
