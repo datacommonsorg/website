@@ -59,10 +59,12 @@ def get_place_summaries(dcid: str) -> dict:
   shard_name = get_shard_name(dcid)
   filepath = os.path.join(PLACE_SUMMARY_DIR, shard_name, "place_summaries.json")
   if os.path.isfile(filepath):
+    logging.info(f"loading summaries from {filepath}")
     with open(filepath) as f:
       return json.load(f)
   # If no mounted config file, use the config that is in the code base.
   filename = get_shard_filename_by_dcid(dcid)
+  logging.info(f"loading summaries locally from config/summaries/{filename}")
   local_path = os.path.join(current_app.root_path,
                             f'config/summaries/{filename}')
   with open(local_path) as f:
