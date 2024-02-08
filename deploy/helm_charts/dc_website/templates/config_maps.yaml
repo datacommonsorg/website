@@ -22,7 +22,7 @@ metadata:
   name: place-summary-config-country
   namespace: {{ .Values.namespace.name }}
 data:
-  place_summaries_for_country_.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.country_ | quote }}
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.country_ | quote }}
 
 ---
 kind: ConfigMap
@@ -31,7 +31,7 @@ metadata:
   name: place-summary-config-geoId-0-2
   namespace: {{ .Values.namespace.name }}
 data:
-  place_summaries_for_geoId_0-2.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoId_0_2 | quote }}
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoId_0_2 | quote }}
 
 ---
 kind: ConfigMap
@@ -40,7 +40,7 @@ metadata:
   name: place-summary-config-geoId-3-5
   namespace: {{ .Values.namespace.name }}
 data:
-  place_summaries_for_geoId_3-5.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoId_3_5 | quote }}
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoId_3_5 | quote }}
 
 ---
 kind: ConfigMap
@@ -49,7 +49,7 @@ metadata:
   name: place-summary-config-geoId-6-9
   namespace: {{ .Values.namespace.name }}
 data:
-  place_summaries_for_geoId-6-9.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoId_6_9 | quote }}
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoId_6_9 | quote }}
 
 ---
 kind: ConfigMap
@@ -58,7 +58,7 @@ metadata:
   name: place-summary-config-wikidataId
   namespace: {{ .Values.namespace.name }}
 data:
-  place_summaries_wikidataId_.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.wikidataId_ | quote }}
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.wikidataId_ | quote }}
 
 ---
 kind: ConfigMap
@@ -67,7 +67,7 @@ metadata:
   name: place-summary-config-others
   namespace: {{ .Values.namespace.name }}
 data:
-  place_summaries_others.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.others | quote }}
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.others | quote }}
 {{- end }}
 
 

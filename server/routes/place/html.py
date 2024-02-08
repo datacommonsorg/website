@@ -25,7 +25,7 @@ from flask import g
 
 from server.lib.i18n import AVAILABLE_LANGUAGES
 import server.routes.shared_api.place as place_api
-from tools.summaries.utils import get_shard_filename_by_dcid
+from tools.summaries.utils import get_shard_name, get_shard_filename_by_dcid
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
@@ -56,12 +56,13 @@ def get_place_summaries(dcid: str) -> dict:
   """Load place summary content from disk containing summary for a given dcid"""
   # When deployed in GKE, the config is a config mounted as volume. Check this
   # first.
-  filename = get_shard_filename_by_dcid(dcid)
-  filepath = os.path.join(PLACE_SUMMARY_DIR, filename)
+  shard_name = get_shard_name(dcid)
+  filepath = os.path.join(PLACE_SUMMARY_DIR, shard_name, "place_summaries.json")
   if os.path.isfile(filepath):
     with open(filepath) as f:
       return json.load(f)
   # If no mounted config file, use the config that is in the code base.
+  filename = get_shard_filename_by_dcid(dcid)
   local_path = os.path.join(current_app.root_path,
                             f'config/summaries/{filename}')
   with open(local_path) as f:
