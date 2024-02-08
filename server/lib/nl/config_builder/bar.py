@@ -24,10 +24,27 @@ from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import Sv2Place2Date
 import server.lib.nl.fulfillment.types as types
 
 _MAX_VARIABLE_LIMIT = 15
 _MAX_PLACES_LIMIT = 15
+
+
+# Get best date to use for an sv and list of places.
+def _get_best_date(sv_place_latest_date: Sv2Place2Date, sv: str,
+                   places: List[Place]):
+  dates_seen = {}
+  best_date = ''
+  for place in places:
+    date = sv_place_latest_date.get(sv, {}).get(place.dcid, '')
+    if not date:
+      continue
+    date_occurrences = dates_seen.get(date, 0) + 1
+    dates_seen[date] = date_occurrences
+    if date_occurrences > dates_seen.get(best_date, 0):
+      best_date = date
+  return best_date
 
 
 def multiple_place_bar_block(column,
@@ -36,7 +53,9 @@ def multiple_place_bar_block(column,
                              sv2thing: types.SV2Thing,
                              cv: ChartVars,
                              ranking_types: List[RankingType] = [],
-                             date: types.Date = None):
+                             single_date: types.Date = None,
+                             date_range: types.Date = None,
+                             sv_place_latest_date=None):
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
 
@@ -72,8 +91,12 @@ def multiple_place_bar_block(column,
   tile = Tile(type=Tile.TileType.BAR,
               title=title,
               comparison_places=[x.dcid for x in places])
-  date_string = get_date_string(date)
+  date_string = ''
+  if single_date:
+    date_string = get_date_string(single_date)
   for sv in svs:
+    if date_range:
+      date_string = _get_best_date(sv_place_latest_date, sv, places)
     sv_key = sv + "_multiple_place_bar_block"
     if date_string:
       sv_key += f'_{date_string}'

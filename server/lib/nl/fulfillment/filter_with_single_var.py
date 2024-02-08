@@ -16,10 +16,13 @@ import copy
 import logging
 from typing import List
 
+from server.lib.explore.existence import get_sv_place_latest_date
 from server.lib.nl.common import constants
 from server.lib.nl.common import rank_utils
+from server.lib.nl.common.utils import get_place_key
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
@@ -63,11 +66,21 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   chart_vars = copy.deepcopy(chart_vars)
   chart_vars.svs = [sv]
 
+  place_key = get_place_key(places[0].dcid, state.place_type.value)
+  sv_place_latest_date = get_sv_place_latest_date([sv], [places[0]],
+                                                  state.place_type,
+                                                  state.exist_checks)
+  date = ''
+  if state.single_date:
+    date = get_date_string(state.single_date)
+  elif state.date_range:
+    date = sv_place_latest_date.get(sv, '').get(place_key, '')
   ranked_children = rank_utils.filter_and_rank_places(
       parent_place=places[0],
       child_type=state.place_type,
       sv=sv,
-      filter=state.quantity)
+      filter=state.quantity,
+      date=date)
 
   if not ranked_children:
     state.uttr.counters.err('filter-with-single-var_emptyresults', 1)
@@ -91,8 +104,14 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     last = f'{_MAX_PLACES_TO_RETURN} of {len(ranked_children)}'
     chart_vars.title_suffix = first + ' ' + last
 
-  found |= add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars,
-                                  shortlist, chart_origin)
+  for child in ranked_children:
+    sv_place_latest_date[sv][child.dcid] = sv_place_latest_date[sv][place_key]
+  found |= add_chart_to_utterance(ChartType.BAR_CHART,
+                                  state,
+                                  chart_vars,
+                                  shortlist,
+                                  chart_origin,
+                                  sv_place_latest_date=sv_place_latest_date)
 
   state.uttr.counters.info('filter-with-single-var_ranked_places', {
       'sv': sv,

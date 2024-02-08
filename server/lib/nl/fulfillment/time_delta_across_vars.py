@@ -20,6 +20,7 @@ from flask import current_app
 
 from server.lib import util as libutil
 from server.lib.explore.existence import get_sv_place_facet_ids
+from server.lib.explore.existence import get_sv_place_latest_date
 from server.lib.nl.common import rank_utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
@@ -97,12 +98,15 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
     # TODO: Uncomment this once we agree on look and feel.
     if field == 'abs':
+      sv_place_latest_date = get_sv_place_latest_date(ranked_svs, places, None,
+                                                      state.exist_checks)
       found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT,
                                       state,
                                       chart_vars,
                                       places,
                                       chart_origin,
-                                      sv_place_facet_ids=sv_place_facet_ids)
+                                      sv_place_facet_ids=sv_place_facet_ids,
+                                      sv_place_latest_date=sv_place_latest_date)
 
     found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION,
                                     state,

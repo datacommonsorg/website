@@ -152,8 +152,15 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return False
   chart_vars.svs = exist_svs
 
+  sv_place_latest_date = ext.get_sv_place_latest_date(exist_svs, places,
+                                                      state.place_type,
+                                                      state.exist_checks)
   # No map chart for these.
   chart_vars.skip_map_for_ranking = True
   # We want all the ranking tables lined up in a single block.
-  return add_chart_to_utterance(ChartType.RANKING_WITH_MAP, state, chart_vars,
-                                places, chart_origin)
+  return add_chart_to_utterance(ChartType.RANKING_WITH_MAP,
+                                state,
+                                chart_vars,
+                                places,
+                                chart_origin,
+                                sv_place_latest_date=sv_place_latest_date)

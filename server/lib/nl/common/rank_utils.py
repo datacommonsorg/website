@@ -25,6 +25,7 @@ import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.common.utils import facet_contains_date
 from server.lib.nl.detection.date import get_date_range_strings
+from server.lib.nl.detection.date import get_date_string
 import server.lib.nl.detection.types as types
 from server.lib.nl.fulfillment.utils import get_facet_id
 
@@ -85,7 +86,8 @@ def rank_places_by_series_growth(
     counters: ctr.Counters,
     place_type: str = '',
     min_population: int = 0,
-    date_range: types.Date = None) -> (GrowthRankedLists, Dict[str, str]):
+    date_range: types.Date = None
+) -> (GrowthRankedLists, Dict[str, Dict[str, str]]):
   start = time.time()
   series_data = fetch.series_core(entities=places,
                                   variables=[sv],
@@ -98,21 +100,29 @@ def rank_places_by_series_growth(
     return []
 
   places_with_vals = []
-  place_facet_ids = {}
+  place_facets = {}
   series_facets = series_data.get('facets', {})
   for place, place_data in series_data['data'][sv].items():
     if bool(date_range):
       series = []
       for s in place_data:
         facet_id = s.get('facet', '')
-        if facet_contains_date(s, series_facets.get(facet_id, ''), None,
-                               date_range):
+        facet_metadata = series_facets.get(facet_id, {})
+        if facet_contains_date(s, facet_metadata, None, date_range):
           series = s.get('series', [])
-          place_facet_ids[place] = facet_id
+          facet_metadata['facetId'] = facet_id
+          facet_metadata['earliestDate'] = s.get('earliestDate', '')
+          facet_metadata['latestDate'] = s.get('latestDate', '')
+          place_facets[place] = facet_metadata
           break
     else:
       series = place_data['series']
-      place_facet_ids[place] = place_data.get('facet', '')
+      facet_id = place_data.get('facet', '')
+      facet_metadata = series_facets.get(facet_id, {})
+      facet_metadata['facetId'] = facet_id
+      facet_metadata['earliestDate'] = place_data.get('earliestDate', '')
+      facet_metadata['latestDate'] = place_data.get('latestDate', '')
+      place_facets[place] = facet_metadata
     if len(series) < 2:
       continue
 
@@ -137,7 +147,7 @@ def rank_places_by_series_growth(
   growth_ranked_lists = _compute_growth_ranked_lists(places_with_vals,
                                                      growth_direction,
                                                      rank_order)
-  return growth_ranked_lists, place_facet_ids
+  return growth_ranked_lists, place_facets
 
 
 # Given a place and a list of existing SVs, this API ranks the SVs
@@ -365,9 +375,12 @@ def filter_and_rank_places(
     parent_place: types.Place,
     child_type: types.ContainedInPlaceType,
     sv: str,
-    filter: types.QuantityClassificationAttributes = None) -> List[types.Place]:
+    filter: types.QuantityClassificationAttributes = None,
+    date: str = '') -> List[types.Place]:
+  if not date:
+    date = 'LATEST'
   api_resp = fetch.point_within_core(parent_place.dcid, child_type.value, [sv],
-                                     'LATEST', False)
+                                     date, False)
   sv_data = api_resp.get('data', {}).get(sv, {})
   child_and_value = []
   for child_place, value_data in sv_data.items():

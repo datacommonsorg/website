@@ -45,9 +45,9 @@ _LAST_YEARS_PREP = 'last_years'
 # List of date preps that indicate single date
 _SINGLE_DATE_PREPS = ['in', 'on', 'year']
 # List of date preps that indicate that the base date is a start date
-_START_DATE_PREPS = ['after', 'since', 'from']
+_START_DATE_PREPS = ['after', 'since', 'from', _LAST_YEARS_PREP]
 # List of date preps that indicate that the base date is an end date
-_END_DATE_PREPS = ['before', 'by', 'until', _LAST_YEARS_PREP]
+_END_DATE_PREPS = ['before', 'by', 'until']
 # List of date preps that exclude the base date
 _EXCLUSIVE_DATE_PREPS = ['before', 'after']
 _MIN_MONTH = 1
@@ -96,7 +96,7 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
       year = datetime.date.today().year
       # Use a placeholder prep because all last years dates should be treated
       # the same way.
-      dates.append(Date(_LAST_YEARS_PREP, year, year_span=int(count_num)))
+      dates.append(Date(_LAST_YEARS_PREP, year - int(count_num), year_span=0))
       trigger_strings.append(query[match.start():match.end()])
 
   # Looks for matches for a one year range that ends in the current year
@@ -106,7 +106,7 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
       year = datetime.date.today().year
       # Use a placeholder prep because all last year dates should be treated the
       # same way.
-      dates.append(Date(_LAST_YEARS_PREP, year, year_span=1))
+      dates.append(Date(_LAST_YEARS_PREP, year - 1, year_span=0))
       trigger_strings.append(query[match.start():match.end()])
 
   # Looks for matches for a single year that is X years back.
