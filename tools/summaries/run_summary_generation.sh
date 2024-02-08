@@ -27,7 +27,7 @@ else
   python3 tsv_place_summaries_to_json.py priority-places-bard.tsv \
     --output_path generated_summaries/us_states_and_100_cities.json \
     --place_column_name DCID \
-    --summary_column_name Strict \
+    --summary_column_name Strict
 
   # Generate country summaries
   echo "Generating country summaries"

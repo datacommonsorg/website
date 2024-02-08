@@ -25,7 +25,8 @@ from flask import g
 
 from server.lib.i18n import AVAILABLE_LANGUAGES
 import server.routes.shared_api.place as place_api
-from tools.summaries.utils import get_shard_name, get_shard_filename_by_dcid
+from tools.summaries.utils import get_shard_filename_by_dcid
+from tools.summaries.utils import get_shard_name
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
@@ -196,8 +197,7 @@ def place(place_dcid=None):
     # Only show summary for Overview page in base DC.
     # Fetch summary text from mounted volume
     start_time = time.time()
-    place_summary = get_place_summaries(place_dcid).get(
-        place_dcid, {})
+    place_summary = get_place_summaries(place_dcid).get(place_dcid, {})
     elapsed_time = (time.time() - start_time) * 1000
     logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
 
