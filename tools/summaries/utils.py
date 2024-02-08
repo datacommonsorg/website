@@ -16,6 +16,7 @@
 import json
 import logging
 import os
+import re
 from typing import Dict, List
 
 # Base URL for place pages listed in sitemaps
@@ -128,7 +129,7 @@ def batched(lst: List, batch_size: int) -> List[List]:
 def get_shard_prefix(dcid: str) -> str:
   """Return shard prefix the given DCID matches to, or '' if no match"""
   for prefix in SHARD_DCID_PREFIXES:
-    if dcid.startswith(prefix):
+    if re.match(prefix, dcid):
       return prefix
   return ''
 
