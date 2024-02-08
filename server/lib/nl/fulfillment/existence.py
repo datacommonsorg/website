@@ -14,12 +14,9 @@
 
 from collections import OrderedDict
 from dataclasses import dataclass
-import datetime
 import logging
-import re
 from typing import Dict, List
 
-from dateutil.relativedelta import relativedelta
 
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
@@ -29,7 +26,6 @@ import server.lib.nl.fulfillment.existence as ext
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import ExistInfo
 from server.lib.nl.fulfillment.types import PopulateState
-import server.services.datacommons as dc
 
 
 #

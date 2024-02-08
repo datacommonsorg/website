@@ -25,7 +25,6 @@ import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.common.utils import facet_contains_date
 from server.lib.nl.detection.date import get_date_range_strings
-from server.lib.nl.detection.date import get_date_string
 import server.lib.nl.detection.types as types
 from server.lib.nl.fulfillment.utils import get_facet_id
 
@@ -375,7 +374,7 @@ def filter_and_rank_places(
     parent_place: types.Place,
     child_type: types.ContainedInPlaceType,
     sv: str,
-    filter: types.QuantityClassificationAttributes = None,
+    value_filter: types.QuantityClassificationAttributes = None,
     date: str = '') -> List[types.Place]:
   if not date:
     date = 'LATEST'
@@ -387,7 +386,7 @@ def filter_and_rank_places(
     if 'value' not in value_data:
       continue
     val = value_data['value']
-    if not filter or passes_filter(val, filter):
+    if not value_filter or passes_filter(val, value_filter):
       child_and_value.append((child_place, val))
 
   # Sort place_and_value by value

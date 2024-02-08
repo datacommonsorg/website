@@ -115,7 +115,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       parent_place=places[0],
       child_type=state.place_type,
       sv=sv,
-      filter=state.quantity,
+      value_filter=state.quantity,
       date=date)
 
   if not ranked_children:
