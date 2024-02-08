@@ -15,13 +15,29 @@
 
 import json
 import logging
+import os
 from typing import Dict, List
-
-import requests
 
 # Base URL for place pages listed in sitemaps
 _PLACE_PAGE_BASE_URL = "https://datacommons.org/place/"
 
+# Where to write summary jsons to
+_SUMMARY_OUTPUT_LOCATION = '../../server/config/summaries/'
+
+# Regex Prefixes to use as the groupings for sharding
+SHARD_DCID_PREFIXES = [
+  "geoId/[0-2]",
+  "geoId/[3-5]",
+  "geoId/[6-9]",
+  "country/",
+  "wikidataId/",
+]
+
+# Filename format of sharded json file containing place summaries
+SHARD_FILENAME = "place_summaries_for_{shard}.json"
+
+# Filename for summary json for DCIDs that don't match any other shard
+DEFAULT_FILENAME = "place_summaries_others.json"
 
 def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
   """Format a stat var observation to print nicely in a sentence
@@ -106,3 +122,61 @@ def get_places_from_sitemap(sitemap: str) -> List[str]:
 def batched(lst: List, batch_size: int) -> List[List]:
   """Get list elements batched into lists of a set batch size"""
   return [lst[i:i + batch_size] for i in range(0, len(lst), batch_size)]
+
+
+
+def get_shard_prefix(dcid: str) -> str:
+  """Return shard prefix the given DCID matches to, or '' if no match"""
+  for prefix in SHARD_DCID_PREFIXES:
+    if dcid.startswith(prefix):
+      return prefix
+  return ''
+
+
+def get_shard_filename_by_prefix(prefix: str) -> str:
+  """Get the filename for a place summary json given a DCID prefix"""
+  if prefix in SHARD_DCID_PREFIXES:
+    return SHARD_FILENAME.format(shard=prefix.replace('/', '_').replace('[', '').replace(']', ''))
+  else:
+    return DEFAULT_FILENAME
+
+
+def get_shard_filename_by_dcid(dcid: str) -> str:
+  """Get the filename of the shard containing the summary for a given DCID"""
+  prefix = get_shard_prefix(dcid)
+  if prefix:
+    return get_shard_filename_by_prefix(prefix)
+  return DEFAULT_FILENAME
+
+def shard_summaries(summaries: Dict) -> Dict[str, Dict]:
+  """Split a single summary dict into multiple based on DCID prefixes"""
+  shards = {prefix: {} for prefix in SHARD_DCID_PREFIXES}
+  shards['no-match'] = {}
+
+  for dcid, entry in summaries.items():
+    dcid_prefix = get_shard_prefix(dcid)
+    if dcid_prefix:
+      shards[dcid_prefix][dcid] = entry
+    else:
+      shards['no-match'][dcid] = entry
+
+  return shards
+
+
+def write_shards_to_files(shards: Dict[str, Dict]) -> None:
+  """Write sharded summaries to their respective jsons"""
+  # Write a file for each of the prefixes in SHARD_DCID_PREFIXES
+  for prefix in SHARD_DCID_PREFIXES:
+    summaries = {}
+    if prefix in shards:
+      summaries = shards[prefix]
+    filepath = os.path.join(
+        _SUMMARY_OUTPUT_LOCATION,
+        get_shard_filename_by_prefix(prefix))
+    write_summaries_to_file(summaries, filepath)
+
+  # Write a file for DCIDs that don't match any of the prefixes
+  if 'no-match' in shards:
+    filepath = os.path.join(_SUMMARY_OUTPUT_LOCATION,
+                            DEFAULT_FILENAME)
+    write_summaries_to_file(shards['no-match'], filepath)

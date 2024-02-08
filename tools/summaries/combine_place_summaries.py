@@ -35,10 +35,11 @@ def main(files: List[str], output_location: str):
     summaries.append(utils.load_summaries(file))
 
   # Combine into one json
-  output_summaries = utils.combine_summaries(summaries)
+  combined_summaries = utils.combine_summaries(summaries)
+  sharded_summaries = utils.shard_summaries(combined_summaries)
 
   # Write to file
-  utils.write_summaries_to_file(output_summaries, output_location)
+  utils.write_shards_to_files(sharded_summaries)
 
 
 if __name__ == '__main__':

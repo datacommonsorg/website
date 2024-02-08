@@ -23,22 +23,22 @@ else
   source .env/bin/activate
   python3 -m pip install -r requirements.txt
 
-  # Get US States + Top 100 Cities summaries from saved Bard output
-  echo "Getting US States and Top 100 US cities summaries from saved Bard output"
-  python3 tsv_place_summaries_to_json.py priority-places-bard.tsv \
-    --output_path generated_summaries/us_states_and_100_cities.json \
-    --place_column_name DCID \
-    --summary_column_name Strict \
+  # # Get US States + Top 100 Cities summaries from saved Bard output
+  # echo "Getting US States and Top 100 US cities summaries from saved Bard output"
+  # python3 tsv_place_summaries_to_json.py priority-places-bard.tsv \
+  #   --output_path generated_summaries/us_states_and_100_cities.json \
+  #   --place_column_name DCID \
+  #   --summary_column_name Strict \
 
-  # Generate country summaries
-  echo "Generating country summaries"
-  python3 fetch_place_summaries.py ../../static/sitemap/Country.0.txt \
-    --output_file generated_summaries/countries.json
+  # # Generate country summaries
+  # echo "Generating country summaries"
+  # python3 fetch_place_summaries.py ../../static/sitemap/Country.0.txt \
+  #   --output_file generated_summaries/countries.json
 
-  # Generate US county summaries
-  echo "Generating US county summaries"
-  python3 fetch_place_summaries.py ../../static/sitemap/County.0.txt \
-    --output_file generated_summaries/us_counties.json
+  # # Generate US county summaries
+  # echo "Generating US county summaries"
+  # python3 fetch_place_summaries.py ../../static/sitemap/County.0.txt \
+  #   --output_file generated_summaries/us_counties.json
 
   # Combine into one output
   echo "Combining summaries and writing to config"
