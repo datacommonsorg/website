@@ -17,7 +17,6 @@ from dataclasses import dataclass
 import logging
 from typing import Dict, List
 
-
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.detection.date import get_date_range_strings
