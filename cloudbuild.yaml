@@ -1,0 +1,11 @@
+steps:
+  # Update submodules
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/${_APP_NAME}:${SHORT_SHA}', '-f', 'build/web_compose/Dockerfile', '.']
+images:
+- '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/${_APP_NAME}:${SHORT_SHA}'
+substitutions:
+  _LOCATION: us-east4
+  _REPO_NAME: datacommons
+  _PROJECT_ID: one-data-commons
+  _APP_NAME: website-compose
