@@ -165,8 +165,6 @@ def write_shards_to_files(shards: Dict[str, Dict]) -> None:
   """Write sharded summaries to their respective jsons"""
   # Write a file for each of the prefixes in SHARD_DCID_PREFIXES
   for regex in SHARD_DCID_REGEX:
-    print(regex)
-    print(sanitize_regex(regex))
     summaries = {}
     shard_name = sanitize_regex(regex)
     if shard_name in shards:
