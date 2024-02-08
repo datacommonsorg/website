@@ -18,41 +18,9 @@ import os
 
 from flask import current_app
 
+from tools.summaries.utils import get_shard_filename_by_dcid
+
 PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
-
-# Prefixes to use as the groupings for sharding
-SHARD_DCID_PREFIXES = ["geoId/", "country/"
-                       "wikidataId/"]
-
-# Filename format of sharded json file containing place summaries
-SHARD_FILENAME = "place_summaries_for_{shard}.json"
-
-# Filename for summary json for DCIDs that don't match any other shard
-DEFAULT_FILENAME = "place_summaries_others.json"
-
-
-def get_shard_prefix(dcid: str) -> str:
-  """Return shard prefix the given DCID matches to, or '' if no match"""
-  for prefix in SHARD_DCID_PREFIXES:
-    if dcid.startswith(prefix):
-      return prefix
-  return ''
-
-
-def get_shard_filename_by_prefix(prefix: str) -> str:
-  """Get the filename for a place summary json given a DCID prefix"""
-  if prefix in SHARD_DCID_PREFIXES:
-    return SHARD_FILENAME.format(shard=prefix.replace('/', '-'))
-  else:
-    return DEFAULT_FILENAME
-
-
-def get_shard_filename_by_dcid(dcid: str) -> str:
-  """Get the filename of the shard containing the summary for a given DCID"""
-  prefix = get_shard_prefix(dcid)
-  if prefix:
-    return get_shard_filename_by_prefix(prefix)
-  return DEFAULT_FILENAME
 
 
 def get_place_summaries(dcid: str) -> dict:

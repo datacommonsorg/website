@@ -27,11 +27,11 @@ _SUMMARY_OUTPUT_LOCATION = '../../server/config/summaries/'
 
 # Regex rules on DCIDs to use as the groupings for sharding
 SHARD_DCID_REGEX = [
-  "geoId/[0-2]",
-  "geoId/[3-5]",
-  "geoId/[6-9]",
-  "country/",
-  "wikidataId/",
+    "geoId/[0-2]",
+    "geoId/[3-5]",
+    "geoId/[6-9]",
+    "country/",
+    "wikidataId/",
 ]
 
 # Filename format of sharded json file containing place summaries
@@ -169,13 +169,11 @@ def write_shards_to_files(shards: Dict[str, Dict]) -> None:
     shard_name = sanitize_regex(regex)
     if shard_name in shards:
       summaries = shards[shard_name]
-    filepath = os.path.join(
-        _SUMMARY_OUTPUT_LOCATION,
-        SHARD_FILENAME.format(shard=shard_name))
+    filepath = os.path.join(_SUMMARY_OUTPUT_LOCATION,
+                            SHARD_FILENAME.format(shard=shard_name))
     write_summaries_to_file(summaries, filepath)
 
   # Write a file for DCIDs that don't match any of the prefixes
   if 'no-match' in shards:
-    filepath = os.path.join(_SUMMARY_OUTPUT_LOCATION,
-                            DEFAULT_FILENAME)
+    filepath = os.path.join(_SUMMARY_OUTPUT_LOCATION, DEFAULT_FILENAME)
     write_summaries_to_file(shards['no-match'], filepath)

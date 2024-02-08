@@ -174,7 +174,8 @@ def place(place_dcid=None):
     # Only show summary for Overview page in base DC.
     # Fetch summary text from mounted volume
     start_time = time.time()
-    place_summary = place_summaries.get_place_summaries().get(place_dcid, {})
+    place_summary = place_summaries.get_place_summaries(place_dcid).get(
+        place_dcid, {})
     elapsed_time = (time.time() - start_time) * 1000
     logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
 
