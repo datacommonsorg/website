@@ -163,15 +163,15 @@ def build_template_summaries_for_sitemap(sitemap: str,
                                          stat_var_json: str = _STAT_VAR_JSON,
                                          batch_size: int = _BATCH_SIZE,
                                          output_file: str = _OUTPUT_FILE,
-                                         num_skip_lines: int = None) -> Dict:
+                                         start_index: int = None) -> Dict:
   """Generate summaries for all places in a sitemap"""
   start_time = time.time()
 
   # Extract places to create summaries for from sitemap
   places = utils.get_places_from_sitemap(sitemap)
-  if num_skip_lines:
-    # Skip first num_skip_lines of sitemap
-    places = places[num_skip_lines:]
+  if start_index:
+    # Skip first lines of sitemap to start processing at start_index instead
+    places = places[start_index:]
   total_num_places = len(places)
   logging.info(f'Generating summaries for {total_num_places} places')
 
@@ -230,19 +230,19 @@ def build_template_summaries_for_sitemap(sitemap: str,
 @click.option('--batch_size',
               default=_BATCH_SIZE,
               help='how many places to process at once')
-@click.option('--num_skip_lines',
+@click.option('--start_index',
               default=None,
-              help='''Number of lines of beginning of sitemap to skip. Useful
+              help='''Which line of the sitemap to start from. Useful
                    for skipping sitemap entries that already have summaries.''',
               type=int)
 def main(sitemap: str, stat_var_json: str, output_file: str, batch_size: int,
-         num_skip_lines: int):
+         start_index: int):
   logging.getLogger().setLevel(logging.INFO)
   build_template_summaries_for_sitemap(sitemap,
                                        stat_var_json=stat_var_json,
                                        output_file=output_file,
                                        batch_size=batch_size,
-                                       num_skip_lines=num_skip_lines)
+                                       start_index=start_index)
 
 
 if __name__ == "__main__":

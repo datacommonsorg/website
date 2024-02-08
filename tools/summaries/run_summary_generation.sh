@@ -46,7 +46,7 @@ else
   echo "Generating global cities summaries"
   python3 fetch_place_summaries.py ../../static/sitemap/PriorityPlaces.0.txt \
     --output_file generated_summaries/global_cities.json \
-    --num_skip_lines 151
+    --start_index 151
 
   # Combine into one output
   echo "Combining summaries and writing to config"
