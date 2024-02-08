@@ -40,12 +40,21 @@ else
   # python3 fetch_place_summaries.py ../../static/sitemap/County.0.txt \
   #   --output_file generated_summaries/us_counties.json
 
+  # # Generate global cities summaries
+  # # Skip first 151 places in PriorityPlaces.0.txt
+  # # Those places already have summaries in us_states_and_100_cities.json
+  # echo "Generating global cities summaries"
+  # python3 fetch_place_summaries.py ../../static/sitemap/PriorityPlaces.0.txt \
+  #   --output_file generated_summaries/global_cities.json \
+  #   --start_index 151
+
   # Combine into one output
   echo "Combining summaries and writing to config"
   python3 combine_place_summaries.py \
-    generated_summaries/us_states_and_100_cities.json \
     generated_summaries/countries.json \
-    generated_summaries/us_counties.json
+    generated_summaries/us_counties.json \
+    generated_summaries/global_cities.json \
+    generated_summaries/us_states_and_100_cities.json
 fi
 
 

@@ -11,17 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Generate summaries using template sentences about a set list of variables.
-
-To use:
-
-  From the tools/summaries directory:
-    $ export MIXER_API_KEY=<your api key>
-    $ python3 -m venv .env
-    $ source .env/bin/activate
-    $ python3 build_template_summaries.py
-
-"""
+"""Generate summaries using template sentences about a set list of variables."""
 from datetime import timedelta
 import json
 import logging
@@ -169,16 +159,19 @@ def build_template_summaries(place_dcids: List[str], stat_var_json=str) -> Dict:
   return summaries
 
 
-def build_template_summaries_for_sitemap(
-    sitemap: str,
-    stat_var_json: str = _STAT_VAR_JSON,
-    batch_size: int = _BATCH_SIZE,
-    output_file: str = _OUTPUT_FILE) -> Dict:
+def build_template_summaries_for_sitemap(sitemap: str,
+                                         stat_var_json: str = _STAT_VAR_JSON,
+                                         batch_size: int = _BATCH_SIZE,
+                                         output_file: str = _OUTPUT_FILE,
+                                         start_index: int = None) -> Dict:
   """Generate summaries for all places in a sitemap"""
   start_time = time.time()
 
   # Extract places to create summaries for from sitemap
   places = utils.get_places_from_sitemap(sitemap)
+  if start_index:
+    # Skip first lines of sitemap to start processing at start_index instead
+    places = places[start_index:]
   total_num_places = len(places)
   logging.info(f'Generating summaries for {total_num_places} places')
 
@@ -237,12 +230,19 @@ def build_template_summaries_for_sitemap(
 @click.option('--batch_size',
               default=_BATCH_SIZE,
               help='how many places to process at once')
-def main(sitemap: str, stat_var_json: str, output_file: str, batch_size: int):
+@click.option('--start_index',
+              default=None,
+              help='''Which line of the sitemap to start from. Useful
+                   for skipping sitemap entries that already have summaries.''',
+              type=int)
+def main(sitemap: str, stat_var_json: str, output_file: str, batch_size: int,
+         start_index: int):
   logging.getLogger().setLevel(logging.INFO)
   build_template_summaries_for_sitemap(sitemap,
                                        stat_var_json=stat_var_json,
                                        output_file=output_file,
-                                       batch_size=batch_size)
+                                       batch_size=batch_size,
+                                       start_index=start_index)
 
 
 if __name__ == "__main__":
