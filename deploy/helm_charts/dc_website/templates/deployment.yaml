@@ -118,7 +118,7 @@ spec:
             - name: place-summary-config-geoId-6-9
               mountPath: /datacommons/place-summary/geoId_6-9
             - name: place-summary-config-wikidataId
-              mountPath: /datacommons/place-summary/wikidataId
+              mountPath: /datacommons/place-summary/wikidataId_
             - name: place-summary-config-others
               mountPath: /datacommons/place-summary/others
             {{- end }}

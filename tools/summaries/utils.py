@@ -18,27 +18,15 @@ import logging
 import os
 import re
 from typing import Dict, List
+import shared.lib.place_summaries as lib_summaries
 
 # Base URL for place pages listed in sitemaps
 _PLACE_PAGE_BASE_URL = "https://datacommons.org/place/"
 
 # Where to write summary jsons to
-_SUMMARY_OUTPUT_LOCATION = '../../server/config/summaries/'
+_SUMMARY_OUTPUT_LOCATION = 'server/config/summaries/'
 
-# Regex rules on DCIDs to use as the groupings for sharding
-SHARD_DCID_REGEX = [
-    "geoId/[0-2]",
-    "geoId/[3-5]",
-    "geoId/[6-9]",
-    "country/",
-    "wikidataId/",
-]
 
-# Filename format of sharded json file containing place summaries
-SHARD_FILENAME = "place_summaries_for_{shard}.json"
-
-# Filename for summary json for DCIDs that don't match any other shard
-DEFAULT_FILENAME = "place_summaries_others.json"
 
 
 def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
@@ -126,34 +114,13 @@ def batched(lst: List, batch_size: int) -> List[List]:
   return [lst[i:i + batch_size] for i in range(0, len(lst), batch_size)]
 
 
-def sanitize_regex(regex: str) -> str:
-  """Convert a regex string to a filename friendly string"""
-  return regex.replace('/', '_').replace('[', '').replace(']', '')
-
-
-def get_shard_name(dcid: str) -> str:
-  """Return the name of the shard the given DCID matches to, or '' if no match"""
-  for regex in SHARD_DCID_REGEX:
-    if re.match(regex, dcid):
-      return sanitize_regex(regex)
-  return ''
-
-
-def get_shard_filename_by_dcid(dcid: str) -> str:
-  """Get the filename of the shard containing the summary for a given DCID"""
-  shard_name = get_shard_name(dcid)
-  if shard_name:
-    return SHARD_FILENAME.format(shard=shard_name)
-  return DEFAULT_FILENAME
-
-
 def shard_summaries(summaries: Dict) -> Dict[str, Dict]:
   """Split a single summary dict into multiple based on DCID prefixes"""
-  shards = {sanitize_regex(regex): {} for regex in SHARD_DCID_REGEX}
+  shards = {lib_summaries.sanitize_regex(regex): {} for regex in lib_summaries.SHARD_DCID_REGEX}
   shards['no-match'] = {}
 
   for dcid, entry in summaries.items():
-    shard_name = get_shard_name(dcid)
+    shard_name = lib_summaries.get_shard_name(dcid)
     if shard_name:
       shards[shard_name][dcid] = entry
     else:
@@ -164,16 +131,16 @@ def shard_summaries(summaries: Dict) -> Dict[str, Dict]:
 def write_shards_to_files(shards: Dict[str, Dict]) -> None:
   """Write sharded summaries to their respective jsons"""
   # Write a file for each of the prefixes in SHARD_DCID_PREFIXES
-  for regex in SHARD_DCID_REGEX:
+  for regex in lib_summaries.SHARD_DCID_REGEX:
     summaries = {}
-    shard_name = sanitize_regex(regex)
+    shard_name = lib_summaries.sanitize_regex(regex)
     if shard_name in shards:
       summaries = shards[shard_name]
     filepath = os.path.join(_SUMMARY_OUTPUT_LOCATION,
-                            SHARD_FILENAME.format(shard=shard_name))
+                            lib_summaries.SHARD_FILENAME.format(shard=shard_name))
     write_summaries_to_file(summaries, filepath)
 
   # Write a file for DCIDs that don't match any of the prefixes
   if 'no-match' in shards:
-    filepath = os.path.join(_SUMMARY_OUTPUT_LOCATION, DEFAULT_FILENAME)
+    filepath = os.path.join(_SUMMARY_OUTPUT_LOCATION, lib_summaries.DEFAULT_FILENAME)
     write_summaries_to_file(shards['no-match'], filepath)

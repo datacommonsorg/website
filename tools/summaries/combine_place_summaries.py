@@ -17,7 +17,7 @@ import logging
 from typing import List
 
 import click
-import utils
+from tools.summaries import utils
 
 
 @click.command()
