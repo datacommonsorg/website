@@ -20,6 +20,7 @@ import time
 from typing import Dict, List
 
 import click
+
 from tools.summaries import dc
 from tools.summaries import utils
 

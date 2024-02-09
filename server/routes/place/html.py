@@ -66,7 +66,9 @@ def get_place_summaries(dcid: str) -> dict:
       return json.load(f)
   # If no mounted config file, use the config that is in the code base.
   filename = get_shard_filename_by_dcid(dcid)
-  logging.info(f"ConfigMap not found. Loading summaries locally from config/summaries/{filename}")
+  logging.info(
+      f"ConfigMap not found. Loading summaries locally from config/summaries/{filename}"
+  )
   local_path = os.path.join(current_app.root_path,
                             f'config/summaries/{filename}')
   with open(local_path) as f:

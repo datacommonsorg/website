@@ -16,8 +16,8 @@
 import json
 import logging
 import os
-import re
 from typing import Dict, List
+
 import shared.lib.place_summaries as lib_summaries
 
 # Base URL for place pages listed in sitemaps
@@ -25,8 +25,6 @@ _PLACE_PAGE_BASE_URL = "https://datacommons.org/place/"
 
 # Where to write summary jsons to
 _SUMMARY_OUTPUT_LOCATION = 'server/config/summaries/'
-
-
 
 
 def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
@@ -116,7 +114,10 @@ def batched(lst: List, batch_size: int) -> List[List]:
 
 def shard_summaries(summaries: Dict) -> Dict[str, Dict]:
   """Split a single summary dict into multiple based on DCID prefixes"""
-  shards = {lib_summaries.sanitize_regex(regex): {} for regex in lib_summaries.SHARD_DCID_REGEX}
+  shards = {
+      lib_summaries.sanitize_regex(regex): {}
+      for regex in lib_summaries.SHARD_DCID_REGEX
+  }
   shards['no-match'] = {}
 
   for dcid, entry in summaries.items():
@@ -136,11 +137,13 @@ def write_shards_to_files(shards: Dict[str, Dict]) -> None:
     shard_name = lib_summaries.sanitize_regex(regex)
     if shard_name in shards:
       summaries = shards[shard_name]
-    filepath = os.path.join(_SUMMARY_OUTPUT_LOCATION,
-                            lib_summaries.SHARD_FILENAME.format(shard=shard_name))
+    filepath = os.path.join(
+        _SUMMARY_OUTPUT_LOCATION,
+        lib_summaries.SHARD_FILENAME.format(shard=shard_name))
     write_summaries_to_file(summaries, filepath)
 
   # Write a file for DCIDs that don't match any of the prefixes
   if 'no-match' in shards:
-    filepath = os.path.join(_SUMMARY_OUTPUT_LOCATION, lib_summaries.DEFAULT_FILENAME)
+    filepath = os.path.join(_SUMMARY_OUTPUT_LOCATION,
+                            lib_summaries.DEFAULT_FILENAME)
     write_summaries_to_file(shards['no-match'], filepath)
