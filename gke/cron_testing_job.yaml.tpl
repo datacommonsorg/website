@@ -47,4 +47,14 @@ spec:
                 configMapKeyRef:
                   name: cron-testing-config
                   key: nodejsApiRoot
+            - name: SCREENSHOT_DOMAIN
+              valueFrom: 
+                configMapKeyRef:
+                  name: cron-testing-config
+                  key: screenshotDomain
+            - name: DISABLE_SANITY
+              valueFrom: 
+                configMapKeyRef:
+                  name: cron-testing-config
+                  key: disableSanity
           restartPolicy: Never
