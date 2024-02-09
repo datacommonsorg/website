@@ -27,7 +27,7 @@ website:
     configFile:
 
   placeSummary:
-    enabled: false
+    enabled: true
     data:
       country_:
       geoId_0_2:

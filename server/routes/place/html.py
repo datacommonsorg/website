@@ -58,6 +58,8 @@ def get_place_summaries(dcid: str) -> dict:
   # When deployed in GKE, the config is a config mounted as volume. Check this
   # first.
   shard_name = get_shard_name(dcid)
+  if not shard_name:
+    shard_name = 'others'
   filepath = os.path.join(PLACE_SUMMARY_DIR, shard_name, "place_summaries.json")
   logging.info(f"Attempting to load from ConfigMap mounted at {filepath}")
   if os.path.isfile(filepath):
