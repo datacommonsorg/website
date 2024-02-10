@@ -430,5 +430,7 @@
   ],
   "relatedThings": {},
   "svSource": "PAST_QUERY",
-  "userMessage": "See comparisons with San Bruno and Sunnyvale based on the previous query."
+  "userMessages": [
+    "See comparisons with San Bruno and Sunnyvale based on the previous query."
+  ]
 }

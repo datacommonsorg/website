@@ -155,9 +155,12 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   fresp = nl_fulfillment.fulfill(utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
 
-  return helpers.prepare_response(utterance, fresp.chart_pb,
-                                  utterance.detection, debug_logs,
-                                  fresp.related_things)
+  return helpers.prepare_response(utterance,
+                                  fresp.chart_pb,
+                                  utterance.detection,
+                                  debug_logs,
+                                  fresp.related_things,
+                                  fulfill_user_msg=fresp.user_message)
 
 
 #

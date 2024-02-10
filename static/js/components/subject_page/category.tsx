@@ -144,6 +144,7 @@ function renderBlocks(
               description={block.description}
               place={props.place}
               commonSVSpec={commonSVSpec}
+              infoMessage={block.infoMessage}
             >
               <Block
                 id={id}

@@ -229,7 +229,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       }
     }
     const userMessage = {
-      msg: fulfillData["userMessage"] || "",
+      msgList: fulfillData["userMessages"] || [],
       showForm: !!fulfillData["showForm"],
     };
     savedContext.current = fulfillData["context"] || [];
