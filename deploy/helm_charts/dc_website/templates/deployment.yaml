@@ -125,14 +125,17 @@ spec:
               path: /healthz
               port: 6060
             failureThreshold: 30
+            timeoutSeconds: 5
           readinessProbe:
             httpGet:
               path: /healthz
               port: 6060
+            timeoutSeconds: 5
           livenessProbe:
             httpGet:
               path: /healthz
               port: 6060
+            timeoutSeconds: 5
           ports:
             - containerPort: 6060
         {{- end }}

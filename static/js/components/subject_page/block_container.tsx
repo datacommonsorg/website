@@ -53,6 +53,7 @@ export interface BlockContainerPropType {
   footnote?: string;
   place?: NamedTypedPlace;
   commonSVSpec?: StatVarSpec[];
+  infoMessage?: string;
 }
 
 export function BlockContainer(props: BlockContainerPropType): JSX.Element {
@@ -119,6 +120,11 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
       className={`block subtopic ${title ? "" : "notitle"}`}
       id={props.id}
     >
+      {props.infoMessage && (
+        <div className="block-msg">
+          <mark className="block-msg-txt">{props.infoMessage}</mark>
+        </div>
+      )}
       {title && <h3>{title}</h3>}
       {description && <p className="block-desc">{description}</p>}
       {props.children}

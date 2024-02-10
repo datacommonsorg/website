@@ -1449,19 +1449,6 @@
           "Count_HousingUnit_OccupiedHousingUnit",
           "Count_HousingUnit_VacantHousingUnit"
         ]
-      },
-      "Count_HousingUnit_OwnerOccupied": {
-        "householderRace": [
-          "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceAsianAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceHispanicOrLatino_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceWhiteAlone_OwnerOccupied"
-        ]
       }
     },
     "mainTopics": [
@@ -1881,5 +1868,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Low confidence in understanding your query. Displaying the closest results."
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
 }

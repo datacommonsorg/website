@@ -29,13 +29,16 @@ import server.lib.nl.fulfillment.types as types
 from server.lib.nl.fulfillment.utils import get_facet_id
 
 
-# set the line tile spec field. Only set this if there is a date_range
-def _set_line_tile_spec(date_range: types.Date, line_tile_spec: LineTileSpec):
-  if not date_range:
-    return
-  start_date, end_date = get_date_range_strings(date_range)
-  line_tile_spec.start_date = start_date
-  line_tile_spec.end_date = end_date
+# set the line tile spec field for a date range or a single date.
+def _set_line_tile_spec(date_range: types.Date, single_date: types.Date,
+                        line_tile_spec: LineTileSpec):
+  if date_range:
+    start_date, end_date = get_date_range_strings(date_range)
+    line_tile_spec.start_date = start_date
+    line_tile_spec.end_date = end_date
+  elif single_date:
+    date = get_date_string(single_date)
+    line_tile_spec.highlight_date = date
 
 
 def ranked_timeline_collection_block(builder: base.Builder,
@@ -88,7 +91,7 @@ def ranked_timeline_collection_block(builder: base.Builder,
       tile = Tile(type=Tile.TileType.LINE,
                   title=chart_title,
                   stat_var_key=[sv_key])
-      _set_line_tile_spec(date_range, tile.line_tile_spec)
+      _set_line_tile_spec(date_range, single_date, tile.line_tile_spec)
       stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv_dcid,
                                               name=sv2thing.name[sv_dcid],
                                               unit=sv2thing.unit[sv_dcid],
@@ -121,7 +124,7 @@ def single_place_single_var_timeline_block(
   if facet_id:
     sv_key += f'_{facet_id}'
   tile = Tile(type=Tile.TileType.LINE, title=title, stat_var_key=[sv_key])
-  _set_line_tile_spec(date_range, tile.line_tile_spec)
+  _set_line_tile_spec(date_range, single_date, tile.line_tile_spec)
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv_dcid,
                                           name=sv2thing.name[sv_dcid],
                                           unit=sv2thing.unit[sv_dcid],
@@ -158,7 +161,7 @@ def single_place_multiple_var_timeline_block(
 
   # Line chart for the stat var
   tile = Tile(type=Tile.TileType.LINE, title=title, stat_var_key=[])
-  _set_line_tile_spec(date_range, tile.line_tile_spec)
+  _set_line_tile_spec(date_range, single_date, tile.line_tile_spec)
   date_string = get_date_string(single_date)
   for sv in svs:
     facet_id = get_facet_id(sv, single_date or date_range, sv_place_facet_id,
@@ -215,7 +218,7 @@ def multi_place_single_var_timeline_block(builder: base.Builder,
               title=title,
               stat_var_key=[sv_key],
               comparison_places=[p.dcid for p in places])
-  _set_line_tile_spec(cspec.date_range, tile.line_tile_spec)
+  _set_line_tile_spec(cspec.date_range, cspec.single_date, tile.line_tile_spec)
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv,
                                           name=sv2thing.name[sv],
                                           unit=sv2thing.unit[sv],
