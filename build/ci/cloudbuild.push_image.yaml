@@ -35,10 +35,10 @@ steps:
         # Bundle container with website, esp and mixer.
         docker build -f build/web_compose/Dockerfile \
           --tag gcr.io/$_PROJECT_ID/datacommons-website-compose:${_TAG} \
-          --tag gcr.io/$_PROJECT_ID/datacommons-website-compose:julia-test \
+          --tag gcr.io/$_PROJECT_ID/datacommons-website-compose:latest \
           .
         docker push gcr.io/$_PROJECT_ID/datacommons-website-compose:${_TAG}
-        docker push gcr.io/$_PROJECT_ID/datacommons-website-compose:julia-test
+        docker push gcr.io/$_PROJECT_ID/datacommons-website-compose:latest
     waitFor: ["-"]
 
   - id: push-nl-server
@@ -73,10 +73,10 @@ steps:
         DOCKER_BUILDKIT=1
         docker build -f build/website_cron_testing/Dockerfile \
           --tag gcr.io/$_PROJECT_ID/website-cron-testing:${_TAG} \
-          --tag gcr.io/$_PROJECT_ID/website-cron-testing:julia-test \
+          --tag gcr.io/$_PROJECT_ID/website-cron-testing:latest \
           .
         docker push gcr.io/$_PROJECT_ID/website-cron-testing:${_TAG}
-        docker push gcr.io/$_PROJECT_ID/website-cron-testing:julia-test
+        docker push gcr.io/$_PROJECT_ID/website-cron-testing:latest
     waitFor: ["-"]
 
 timeout: 3600s
