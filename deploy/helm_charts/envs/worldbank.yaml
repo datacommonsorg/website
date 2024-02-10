@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,8 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-# Helm config
 
 project: datcom-karnataka
 
@@ -31,10 +29,8 @@ website:
 mixer:
   useBaseBigtable: false
   useBranchBigtable: false
-  useCustomBigtable: true
-  # TODO: update to https://api.datacommons.org and change the mixer_api_key
-  # in Cloud Secret Manager before launch.
-  remoteMixerDomain: https://autopush.api.datacommons.org
+  useCustomBigtable: false
+  remoteMixerDomain: https://api.datacommons.org
 
 ingress:
   enabled: true
@@ -56,14 +52,7 @@ serviceGroups:
       memoryRequest: "8G"
       memoryLimit: "8G"
 nl:
-  enabled: false
-
-kgStoreConfig:
-  customBigtableInfo: |
-    project:
-    instance: dc-graph
-    tables:
-      -
+  enabled: true
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
