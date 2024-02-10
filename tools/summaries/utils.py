@@ -113,7 +113,16 @@ def batched(lst: List, batch_size: int) -> List[List]:
 
 
 def shard_summaries(summaries: Dict) -> Dict[str, Dict]:
-  """Split a single summary dict into multiple based on DCID prefixes"""
+  """Split a single summary dict into multiple shards based on DCID prefixes
+  
+  Shards are defined in /shared/lib/place_summaries.py
+
+  Args:
+    summaries: a { dcid: summary } mapping
+
+  Returns:
+    A new mapping of { shard: { dcid: summary } }
+  """
   shards = {
       lib_summaries.sanitize_regex(regex): {}
       for regex in lib_summaries.SHARD_DCID_REGEX
@@ -130,7 +139,14 @@ def shard_summaries(summaries: Dict) -> Dict[str, Dict]:
 
 
 def write_shards_to_files(shards: Dict[str, Dict]) -> None:
-  """Write sharded summaries to their respective jsons"""
+  """Write sharded summaries to their respective jsons
+  
+  Filenames to write to are defined in /shared/lib/place_summaries.py
+
+  Args:
+    shards: a { shard: { dcid: summary } } mapping of which { dcid: summary }
+            configs to write to which shard.
+  """
   # Write a file for each of the prefixes in SHARD_DCID_PREFIXES
   for regex in lib_summaries.SHARD_DCID_REGEX:
     summaries = {}

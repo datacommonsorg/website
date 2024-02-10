@@ -11,7 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-'''Combine place summaries from multiple jsons into one place summary json'''
+'''Split summaries from multiple jsons into sharded json files.
+
+Splits summaries into groups (shards) and each shard is written to its own
+json file. This is done to avoid file size limitations when deploying to GKE.
+Each shard is defined based on the regex expressions in
+shared/lib/place_summaries. Sharded summaries are then written to 
+server/config/summaries/.
+'''
 
 import logging
 from typing import List
@@ -30,11 +37,11 @@ def main(files: List[str]):
   for file in files:
     summaries.append(utils.load_summaries(file))
 
-  # Combine into one json
+  # Combine and sort summaries into shards
   combined_summaries = utils.combine_summaries(summaries)
   sharded_summaries = utils.shard_summaries(combined_summaries)
 
-  # Write to file
+  # Write each shard to file
   utils.write_shards_to_files(sharded_summaries)
 
 

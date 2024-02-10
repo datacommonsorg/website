@@ -57,9 +57,9 @@ else
     --stat_var_json $DIR/stat_vars_to_highlight.json \
     --start_index 151
 
-  # Combine into one output
+  # Write all generated summaries to sharded json files.
   echo "Combining summaries and writing to config"
-  python3 -m $MODULE.combine_place_summaries \
+  python3 -m $MODULE.generate_place_summary_shards \
     $DIR/generated_summaries/countries.json \
     $DIR/generated_summaries/us_counties.json \
     $DIR/generated_summaries/global_cities.json \

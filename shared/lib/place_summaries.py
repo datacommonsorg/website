@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Util functions for place summary text manipulation shared by tools and server"""
+"""Place summary config sharding functions shared by tools and server"""
 
 import re
 
@@ -37,7 +37,7 @@ def sanitize_regex(regex: str) -> str:
 
 
 def get_shard_name(dcid: str) -> str:
-  """Return the name of the shard the given DCID matches to, or '' if no match"""
+  """Get the name of the shard the given DCID matches to, or '' if no match"""
   for regex in SHARD_DCID_REGEX:
     if re.match(regex, dcid):
       return sanitize_regex(regex)

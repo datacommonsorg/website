@@ -55,13 +55,15 @@ PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
 
 def get_place_summaries(dcid: str) -> dict:
   """Load place summary content from disk containing summary for a given dcid"""
-  # When deployed in GKE, the config is a config mounted as volume. Check this
-  # first.
+  # Get shard matching the given dcid
   shard_name = get_shard_name(dcid)
   if not shard_name:
     shard_name = 'others'
+  # When deployed in GKE, the config is a config mounted as volume. Check this
+  # first.
   filepath = os.path.join(PLACE_SUMMARY_DIR, shard_name, "place_summaries.json")
-  logging.info(f"Attempting to load from ConfigMap mounted at {filepath}")
+  logging.info(
+      f"Attempting to load summaries from ConfigMap mounted at {filepath}")
   if os.path.isfile(filepath):
     logging.info(f"Loading summaries from {filepath}")
     with open(filepath) as f:
