@@ -20,16 +20,12 @@ namespace:
   name: "website"
 
 website:
-  image:
-    project: "datcom-ci"
-    tag:
   flaskEnv: worldbank
   replicas: 3
 
 mixer:
   useBaseBigtable: false
   useBranchBigtable: false
-  useCustomBigtable: false
   remoteMixerDomain: https://api.datacommons.org
 
 ingress:
