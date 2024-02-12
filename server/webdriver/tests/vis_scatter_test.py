@@ -149,7 +149,7 @@ class TestVisScatter(WebdriverBaseTest):
                                            '.scatter-chart .chart-headers h4')
     self.assertEqual(
         chart_title.text,
-        "Population Without Health Insurance (2021) vs Female Population (2004 to 2020)"
+        "Population Without Health Insurance (2022) vs Female Population (2004 to 2020)"
     )
     chart_source = self.driver.find_element(
         By.CSS_SELECTOR, '.scatter-chart .chart-headers .sources')
