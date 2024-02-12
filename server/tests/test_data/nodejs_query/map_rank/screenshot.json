@@ -35,14 +35,14 @@
       "dcUrl": "https://datacommons.org/explore#q=counties%20in%20california%20with%20highest%20obesity"
     },
     {
-      "data_csv": "rank,place,\"Prevalence: Female, Obesity\"\r\n1,Lassen County,42.9\r\n2,Colusa County,42.2\r\n3,Tulare County,38.2\r\n4,Madera County,36.5\r\n5,Imperial County,35.9\r\n6,Del Norte County,34.8\r\n7,Yuba County,34\r\n8,Tuolumne County,33.5\r\n9,Trinity County,32.6\r\n10,Fresno County,31.8",
+      "data_csv": "rank,place,\"Prevalence: Female, Obesity\"\r\n1,San Bernardino County,39\r\n2,Fresno County,37\r\n3,Stanislaus County,34.8\r\n4,San Joaquin County,34.8\r\n5,Riverside County,33.9\r\n6,Madera County,33.8\r\n7,Kern County,33.6\r\n8,Tulare County,33.2\r\n9,Imperial County,33\r\n10,Sacramento County,31.5",
       "srcs": [
         {
           "name": "gis.cdc.gov",
           "url": "https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html"
         }
       ],
-      "title": "Prevalence: Female, Obesity in Counties of California (2016)",
+      "title": "Prevalence: Female, Obesity in Counties of California (2021)",
       "type": "TABLE",
       "unit": "",
       "dcUrl": "https://datacommons.org/explore#q=counties%20in%20california%20with%20highest%20obesity"
