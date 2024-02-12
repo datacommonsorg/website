@@ -15,18 +15,18 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "geoId/06091",
                       "geoId/06105",
-                      "geoId/06009",
                       "geoId/06063",
+                      "geoId/06009",
                       "geoId/06043",
                       "geoId/06057",
-                      "geoId/06005",
-                      "geoId/06109"
+                      "geoId/06005"
                     ],
                     "statVarKey": [
                       "Median_Age_Person_multiple_place_bar_block"
                     ],
-                    "title": "Median Age of Population (${date}) - Top 7 of 22",
+                    "title": "Median Age of Population (${date}) - Top 7 of 24",
                     "type": "BAR"
                   }
                 ]
@@ -45,7 +45,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/06105"
+        "geoId/06091"
       ]
     }
   },

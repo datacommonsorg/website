@@ -92,7 +92,7 @@ class TestVisScatter(WebdriverBaseTest):
                                            '.scatter-chart .chart-headers h4')
     self.assertEqual(
         chart_title.text,
-        "Population Without Health Insurance (2021) vs Female Population (2021)"
+        "Population Without Health Insurance (2022) vs Female Population (2022)"
     )
     chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
@@ -149,7 +149,7 @@ class TestVisScatter(WebdriverBaseTest):
                                            '.scatter-chart .chart-headers h4')
     self.assertEqual(
         chart_title.text,
-        "Population Without Health Insurance (2021) vs Female Population (2004 to 2020)"
+        "Population Without Health Insurance (2022) vs Female Population (2004 to 2020)"
     )
     chart_source = self.driver.find_element(
         By.CSS_SELECTOR, '.scatter-chart .chart-headers .sources')
@@ -245,7 +245,7 @@ class TestVisScatter(WebdriverBaseTest):
                                            '.scatter-chart .chart-headers h4')
     self.assertEqual(
         chart_title.text,
-        'Median Age of Population (2021) vs Median Income of a Population (2021)'
+        'Median Age of Population (2022) vs Median Income of a Population (2022)'
     )
     chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
