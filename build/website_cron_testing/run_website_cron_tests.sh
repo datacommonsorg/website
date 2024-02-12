@@ -46,8 +46,8 @@ else
   echo "====================================================================================="
 fi
 
-# Run sanity tests if DISABLE_SANITY is not "1"
-if [[ $DISABLE_SANITY != "1" ]]; then
+# Run sanity tests if ENABLE_SANITY is "true"
+if [[ $ENABLE_SANITY == "true" ]]; then
 echo "====================================================================================="
 echo "Starting sanity tests"
 echo "====================================================================================="

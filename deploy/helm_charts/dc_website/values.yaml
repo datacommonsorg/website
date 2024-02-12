@@ -157,5 +157,5 @@ cronTesting:
   # The domain to use for screenshot tests. Screenshot tests will only run if
   # this is set.
   screenshotDomain:
-  # To disable sanity tests, set this value to 1.
-  disableSanity: 0
+  # whether or not sanity tests are enabled
+  enableSanity: true

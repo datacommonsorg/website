@@ -52,9 +52,9 @@ spec:
                 configMapKeyRef:
                   name: cron-testing-config
                   key: screenshotDomain
-            - name: DISABLE_SANITY
+            - name: ENABLE_SANITY
               valueFrom: 
                 configMapKeyRef:
                   name: cron-testing-config
-                  key: disableSanity
+                  key: enableSanity
           restartPolicy: Never

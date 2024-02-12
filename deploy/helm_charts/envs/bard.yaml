@@ -62,4 +62,4 @@ svg:
 
 cronTesting:
   enabled: true
-  disableSanity: 1
+  enableSanity: false
