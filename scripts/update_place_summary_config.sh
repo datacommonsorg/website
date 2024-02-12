@@ -33,13 +33,33 @@ CLUSTER_NAME=$CLUSTER_PREFIX-$LOCATION
 
 gcloud container clusters get-credentials $CLUSTER_NAME --region=$LOCATION --project=$PROJECT_ID
 
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: place-summary-config
-  namespace: website
-data:
-  place_summaries.json: |
-$(cat $ROOT/server/config/summaries/place_summaries.json | sed 's/^/    /')
-EOF
+# Use delete then create pattern because `kubectl apply` has memory limits
+kubectl delete configmap place-summary-config-country -n website --ignore-not-found
+kubectl create configmap place-summary-config-country \
+  --namespace=website \
+  --from-file=place_summaries.json=$ROOT/server/config/summaries/place_summaries_for_country_.json
+
+kubectl delete configmap place-summary-config-geoid-0-2 -n website --ignore-not-found
+kubectl create configmap place-summary-config-geoid-0-2 \
+  --namespace=website \
+  --from-file=place_summaries.json=$ROOT/server/config/summaries/place_summaries_for_geoId_0-2.json
+
+kubectl delete configmap place-summary-config-geoid-3-5 -n website --ignore-not-found
+kubectl create configmap place-summary-config-geoid-3-5 \
+  --namespace=website \
+  --from-file=place_summaries.json=$ROOT/server/config/summaries/place_summaries_for_geoId_3-5.json
+
+kubectl delete configmap place-summary-config-geoid-6-9 -n website --ignore-not-found
+kubectl create configmap place-summary-config-geoid-6-9 \
+  --namespace=website \
+  --from-file=place_summaries.json=$ROOT/server/config/summaries/place_summaries_for_geoId_6-9.json
+
+kubectl delete configmap place-summary-config-wikidataid -n website --ignore-not-found
+kubectl create configmap place-summary-config-wikidataid \
+  --namespace=website \
+  --from-file=place_summaries.json=$ROOT/server/config/summaries/place_summaries_for_wikidataId_.json
+
+kubectl delete configmap place-summary-config-others -n website --ignore-not-found
+kubectl create configmap place-summary-config-others \
+  --namespace=website \
+  --from-file=place_summaries.json=$ROOT/server/config/summaries/place_summaries_others.json
