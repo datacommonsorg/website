@@ -242,17 +242,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Median_Age_Person_Female"
-                    ],
-                    "title": "Women's Median Age in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "description": "Women's Median Age in United States of America",
                     "statVarKey": [
                       "Median_Age_Person_Female"
@@ -1314,6 +1303,12 @@
           "Count_Person_67To69Years_Male",
           "Count_Person_Upto14Years_Male",
           "Count_Person_Years5To14_Male"
+        ]
+      },
+      "Median_Age_Person_Female": {
+        "race": [
+          "Median_Age_Person_Female_SomeOtherRaceAlone",
+          "Median_Age_Person_Female_TwoOrMoreRaces"
         ]
       }
     },
