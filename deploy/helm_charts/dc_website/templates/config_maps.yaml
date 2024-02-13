@@ -116,4 +116,6 @@ metadata:
 data:
   webApiRoot: {{ .Values.cronTesting.webApiRoot | quote }}
   nodejsApiRoot: {{ .Values.cronTesting.nodejsApiRoot | quote }}
+  screenshotDomain: {{ .Values.cronTesting.screenshotDomain | quote }}
+  enableSanity: {{ .Values.cronTesting.enableSanity | quote }}
 {{- end }}

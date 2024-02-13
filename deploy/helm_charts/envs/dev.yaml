@@ -48,3 +48,4 @@ nodejs:
 
 cronTesting:
   enabled: true
+  screenshotDomain: "dev.datacommons.org"

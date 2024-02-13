@@ -87,7 +87,7 @@ class TestVisMap(WebdriverBaseTest):
     # Assert chart is correct.
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertEqual(chart_title.text, "Female Population (2021)")
+    self.assertEqual(chart_title.text, "Female Population (2022)")
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(map_regions), 58)
@@ -118,7 +118,7 @@ class TestVisMap(WebdriverBaseTest):
     ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
                                               '.ranking-list .place-name')
     self.assertEqual(len(ranking_items), 10)
-    self.assertEqual(ranking_items[0].text, 'Butte County, CA')
+    self.assertEqual(ranking_items[0].text, 'Alpine County, CA')
     self.assertEqual(ranking_items[9].text, 'Del Norte County, CA')
 
     # Edit source and assert results are correct.
@@ -217,7 +217,7 @@ class TestVisMap(WebdriverBaseTest):
     shared.wait_for_loading(self.driver)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertEqual(chart_title.text, "Median Age of Population (2021)")
+    self.assertEqual(chart_title.text, "Median Age of Population (2022)")
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(map_regions), 58)
@@ -231,8 +231,8 @@ class TestVisMap(WebdriverBaseTest):
     ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
                                               '.ranking-list .place-name')
     self.assertEqual(len(ranking_items), 10)
-    self.assertEqual(ranking_items[0].text, 'Trinity County, CA')
-    self.assertEqual(ranking_items[9].text, 'Kings County, CA')
+    self.assertEqual(ranking_items[0].text, 'Sierra County, CA')
+    self.assertEqual(ranking_items[9].text, 'Kern County, CA')
 
   def test_landing_page_link(self):
     """Test one of the links on the landing page
