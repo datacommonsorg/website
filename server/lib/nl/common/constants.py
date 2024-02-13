@@ -849,7 +849,7 @@ PROJECTED_TEMP_TOPIC = 'dc/topic/ProjectedClimateExtremes'
 # Set of stat vars that need to check which facet is being used before doing
 # ranking because they have facets that are too fine in granularity.
 # This list of svs are svs in the medium embedding index that have a BLS source.
-# Generated using: https://console.cloud.google.com/bigquery?sq=429015563165:7414cf70660c4d7fbf0731149b2cd7a7
+# Generated using this query in BQ: https://paste.googleplex.com/6342636875546624
 SVS_TO_CHECK_FACET = frozenset([
     "Count_Establishment_NAICSOtherServices",
     "WagesTotal_Worker_NAICSMiningQuarryingOilGasExtraction",
