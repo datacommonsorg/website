@@ -12,17 +12,19 @@
                     "statVarKey": [
                       "Count_Worker_NAICSHealthCareSocialAssistance",
                       "dc/p69tpsldf99h7",
-                      "Count_Worker_NAICSConstruction",
                       "Count_Worker_NAICSAccommodationFoodServices",
+                      "Count_Worker_NAICSConstruction",
                       "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
                       "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-                      "Count_Worker_NAICSEducationalServices",
-                      "Count_Worker_NAICSFinanceInsurance",
-                      "Count_Worker_NAICSOtherServices",
                       "Count_Worker_NAICSArtsEntertainmentRecreation",
+                      "Count_Worker_NAICSEducationalServices",
                       "Count_Worker_NAICSRealEstateRentalLeasing",
-                      "Count_Worker_NAICSWholesaleTrade",
+                      "Count_Worker_NAICSOtherServices",
+                      "Count_Worker_NAICSFinanceInsurance",
                       "Count_Worker_NAICSPublicAdministration",
+                      "Count_Worker_NAICSWholesaleTrade",
+                      "dc/8p97n7l96lgg8",
+                      "Count_Worker_NAICSUtilities",
                       "Count_Worker_NAICSInformation",
                       "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
                     ],
@@ -63,9 +65,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSConstruction_growth_abs"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs"
                     ],
-                    "title": "Construction Industry in Placer County",
+                    "title": "Accomodation/Food Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -74,9 +76,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_abs"
+                      "Count_Worker_NAICSConstruction_growth_abs"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Construction Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -107,42 +109,20 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSEducationalServices_growth_abs"
-                    ],
-                    "title": "Educational Services Industry in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSFinanceInsurance_growth_abs"
-                    ],
-                    "title": "Finance and Insurance Industry in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSOtherServices_growth_abs"
-                    ],
-                    "title": "Other Services (Except Public Admin) in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Worker_NAICSArtsEntertainmentRecreation_growth_abs"
                     ],
                     "title": "Arts, Entertainment, Recreation Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSEducationalServices_growth_abs"
+                    ],
+                    "title": "Educational Services Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -162,9 +142,20 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSWholesaleTrade_growth_abs"
+                      "Count_Worker_NAICSOtherServices_growth_abs"
                     ],
-                    "title": "Wholesale Trade in Placer County",
+                    "title": "Other Services (Except Public Admin) in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSFinanceInsurance_growth_abs"
+                    ],
+                    "title": "Finance and Insurance Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -176,6 +167,39 @@
                       "Count_Worker_NAICSPublicAdministration_growth_abs"
                     ],
                     "title": "Public Administration in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSWholesaleTrade_growth_abs"
+                    ],
+                    "title": "Wholesale Trade in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/8p97n7l96lgg8_growth_abs"
+                    ],
+                    "title": "Transportation and Warehousing in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSUtilities_growth_abs"
+                    ],
+                    "title": "Utilities in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -245,9 +269,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSWholesaleTrade_growth_pct"
+                      "Count_Worker_NAICSArtsEntertainmentRecreation_growth_pct"
                     ],
-                    "title": "Wholesale Trade in Placer County",
+                    "title": "Arts, Entertainment, Recreation Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -256,9 +280,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSFinanceInsurance_growth_pct"
+                      "Count_Worker_NAICSUtilities_growth_pct"
                     ],
-                    "title": "Finance and Insurance Industry in Placer County",
+                    "title": "Utilities in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -278,9 +302,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSArtsEntertainmentRecreation_growth_pct"
+                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pct"
                     ],
-                    "title": "Arts, Entertainment, Recreation Industry in Placer County",
+                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -289,9 +313,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSConstruction_growth_pct"
+                      "dc/8p97n7l96lgg8_growth_pct"
                     ],
-                    "title": "Construction Industry in Placer County",
+                    "title": "Transportation and Warehousing in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -300,9 +324,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/p69tpsldf99h7_growth_pct"
+                      "Count_Worker_NAICSWholesaleTrade_growth_pct"
                     ],
-                    "title": "Retail Trade in Placer County",
+                    "title": "Wholesale Trade in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -322,9 +346,42 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Worker_NAICSConstruction_growth_pct"
+                    ],
+                    "title": "Construction Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Worker_NAICSOtherServices_growth_pct"
                     ],
                     "title": "Other Services (Except Public Admin) in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/p69tpsldf99h7_growth_pct"
+                    ],
+                    "title": "Retail Trade in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSFinanceInsurance_growth_pct"
+                    ],
+                    "title": "Finance and Insurance Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -361,17 +418,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pct"
-                    ],
-                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry in Placer County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "denom": "Count_Person",
@@ -405,9 +451,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSConstruction_growth_pc"
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc"
                     ],
-                    "title": "Construction Industry in Placer County",
+                    "title": "Accomodation/Food Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -416,9 +462,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pc"
+                      "Count_Worker_NAICSConstruction_growth_pc"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Construction Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -449,42 +495,20 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSEducationalServices_growth_pc"
-                    ],
-                    "title": "Educational Services Industry in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSFinanceInsurance_growth_pc"
-                    ],
-                    "title": "Finance and Insurance Industry in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSOtherServices_growth_pc"
-                    ],
-                    "title": "Other Services (Except Public Admin) in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Worker_NAICSArtsEntertainmentRecreation_growth_pc"
                     ],
                     "title": "Arts, Entertainment, Recreation Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSEducationalServices_growth_pc"
+                    ],
+                    "title": "Educational Services Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -504,9 +528,20 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSWholesaleTrade_growth_pc"
+                      "Count_Worker_NAICSOtherServices_growth_pc"
                     ],
-                    "title": "Wholesale Trade in Placer County",
+                    "title": "Other Services (Except Public Admin) in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSFinanceInsurance_growth_pc"
+                    ],
+                    "title": "Finance and Insurance Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -518,6 +553,39 @@
                       "Count_Worker_NAICSPublicAdministration_growth_pc"
                     ],
                     "title": "Public Administration in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSWholesaleTrade_growth_pc"
+                    ],
+                    "title": "Wholesale Trade in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/8p97n7l96lgg8_growth_pc"
+                    ],
+                    "title": "Transportation and Warehousing in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSUtilities_growth_pc"
+                    ],
+                    "title": "Utilities in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -758,6 +826,22 @@
             "name": "Real Estate and Rental and Leasing",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
           },
+          "Count_Worker_NAICSUtilities": {
+            "name": "Utilities",
+            "statVar": "Count_Worker_NAICSUtilities"
+          },
+          "Count_Worker_NAICSUtilities_growth_abs": {
+            "name": "Utilities",
+            "statVar": "Count_Worker_NAICSUtilities"
+          },
+          "Count_Worker_NAICSUtilities_growth_pc": {
+            "name": "Utilities",
+            "statVar": "Count_Worker_NAICSUtilities"
+          },
+          "Count_Worker_NAICSUtilities_growth_pct": {
+            "name": "Utilities",
+            "statVar": "Count_Worker_NAICSUtilities"
+          },
           "Count_Worker_NAICSWholesaleTrade": {
             "name": "Wholesale Trade",
             "statVar": "Count_Worker_NAICSWholesaleTrade"
@@ -773,6 +857,22 @@
           "Count_Worker_NAICSWholesaleTrade_growth_pct": {
             "name": "Wholesale Trade",
             "statVar": "Count_Worker_NAICSWholesaleTrade"
+          },
+          "dc/8p97n7l96lgg8": {
+            "name": "Transportation And Warehousing",
+            "statVar": "dc/8p97n7l96lgg8"
+          },
+          "dc/8p97n7l96lgg8_growth_abs": {
+            "name": "Transportation And Warehousing",
+            "statVar": "dc/8p97n7l96lgg8"
+          },
+          "dc/8p97n7l96lgg8_growth_pc": {
+            "name": "Transportation And Warehousing",
+            "statVar": "dc/8p97n7l96lgg8"
+          },
+          "dc/8p97n7l96lgg8_growth_pct": {
+            "name": "Transportation And Warehousing",
+            "statVar": "dc/8p97n7l96lgg8"
           },
           "dc/p69tpsldf99h7": {
             "name": "Retail Trade",

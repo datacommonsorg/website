@@ -242,6 +242,17 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "description": "Women's Median Age in United States of America",
                     "statVarKey": [
                       "Median_Age_Person_Female"
