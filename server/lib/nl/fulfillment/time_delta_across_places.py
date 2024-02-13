@@ -129,7 +129,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     ranked_places = ranked_places[:constants.MAX_ANSWER_PLACES]
 
     sv_place_facet_ids = {}
-    if state.date_range or sv in rank_utils.SVS_TO_CHECK_FACET:
+    if state.date_range or sv in constants.SVS_TO_CHECK_FACET:
       sv_place_facet_ids = {sv: place_facet_ids}
     # TODO: Uncomment this once we agree on look and feel
     if field == 'abs' and ranked_places:
