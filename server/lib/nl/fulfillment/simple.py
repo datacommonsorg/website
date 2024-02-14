@@ -63,7 +63,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       chart_type = ChartType.BAR_CHART
     chart_type = _maybe_demote(chart_type, eres.is_single_point, state)
     sv_place_facet_ids = None
-    if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT:
+    if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT and (state.date_range or
+                                                            state.single_date):
       sv_place_facet_ids = ext.get_sv_place_facet_ids(chart_vars.svs, places,
                                                       state.exist_checks)
     return add_chart_to_utterance(chart_type,
@@ -85,7 +86,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       chart_type = _maybe_demote(ChartType.TIMELINE_WITH_HIGHLIGHT,
                                  eres.is_single_point, state)
       sv_place_facet_ids = None
-      if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT:
+      if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT and (
+          state.date_range or state.single_date):
         sv_place_facet_ids = ext.get_sv_place_facet_ids(chart_vars.svs, places,
                                                         state.exist_checks)
       added |= add_chart_to_utterance(chart_type,
