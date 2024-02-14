@@ -23,10 +23,12 @@ import yaml
 from nl_server import config
 from nl_server import embeddings_store
 from nl_server.nl_attribute_model import NLAttributeModel
+from shared.lib.gcs import download_gcs_file
+from shared.lib.gcs import is_gcs_path
 
 _MODEL_YAML = 'models.yaml'
 _EMBEDDINGS_YAML = 'embeddings.yaml'
-_CUSTOM_EMBEDDINGS_YAML = 'custom_embeddings.yaml'
+_CUSTOM_EMBEDDINGS_YAML_PATH = 'datacommons/nl/custom_embeddings.yaml'
 
 NL_CACHE_PATH = '~/.datacommons/'
 NL_EMBEDDINGS_CACHE_KEY = 'nl_embeddings'
@@ -147,7 +149,14 @@ def _maybe_load_custom_dc_yaml():
 
   # TODO: Consider reading the base path from a "version.txt" instead
   # of hardcoding `data`
-  file_path = os.path.join(base, f'datacommons/nl/{_CUSTOM_EMBEDDINGS_YAML}')
+  if is_gcs_path(base):
+    gcs_path = f"{base}{'' if base.endswith('/') else '/'}{_CUSTOM_EMBEDDINGS_YAML_PATH}"
+    logging.info("Downloading custom embeddings yaml from GCS path: %s",
+                 gcs_path)
+    file_path = download_gcs_file(gcs_path)
+  else:
+    file_path = os.path.join(base, _CUSTOM_EMBEDDINGS_YAML_PATH)
+
   logging.info("Custom embeddings YAML path: %s", file_path)
 
   if os.path.exists(file_path):
