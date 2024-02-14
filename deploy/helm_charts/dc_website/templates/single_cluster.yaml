@@ -114,9 +114,9 @@ spec:
     {{- if .Values.ingress.internal }}
     - host: website-ilb.website.internal
     {{- end }}
+    {{- if .Values.nodejs.enabled }}
     - http:
         paths:
-        {{- if .Values.nodejs.enabled }}
         - path: /nodejs/*
           pathType: ImplementationSpecific
           backend:
@@ -124,7 +124,7 @@ spec:
               name: website-nodejs-service
               port:
                 number: 8080
-        {{- end }}
+    {{- end }}
 
 
 {{- end }}
