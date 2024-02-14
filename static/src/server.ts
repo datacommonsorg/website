@@ -24,6 +24,7 @@ import {
   fetchDisasterEventData,
   getBlockEventTypeSpecs,
 } from "../js/components/subject_page/disaster_event_block";
+import { StatVarProvider } from "../js/components/subject_page/stat_var_provider";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import {
   BlockConfig,
@@ -54,7 +55,6 @@ import {
 } from "../nodejs_server/scatter_tile";
 import { TileResult } from "../nodejs_server/types";
 import { decompressChartProps } from "../nodejs_server/utils";
-import { StatVarProvider } from "../js/components/subject_page/stat_var_provider";
 const app = express();
 const APP_CONFIGS = {
   local: {
@@ -262,7 +262,7 @@ function getBlockTileResults(
       let tileSvSpec = null;
       switch (tile.type) {
         case "LINE":
-          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom)
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom);
           tilePromises.push(
             getLineTileResult(
               tileId,
@@ -277,7 +277,7 @@ function getBlockTileResults(
           );
           break;
         case "SCATTER":
-          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom)
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom);
           tilePromises.push(
             getScatterTileResult(
               tileId,
@@ -293,7 +293,7 @@ function getBlockTileResults(
           );
           break;
         case "BAR":
-          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom)
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom);
           tilePromises.push(
             getBarTileResult(
               tileId,
@@ -325,7 +325,7 @@ function getBlockTileResults(
           );
           break;
         case "RANKING":
-          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom)
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom);
           tilePromises.push(
             getRankingTileResult(
               tileId,
