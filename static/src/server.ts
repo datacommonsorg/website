@@ -24,6 +24,7 @@ import {
   fetchDisasterEventData,
   getBlockEventTypeSpecs,
 } from "../js/components/subject_page/disaster_event_block";
+import { StatVarProvider } from "../js/components/subject_page/stat_var_provider";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import {
   BlockConfig,
@@ -40,7 +41,6 @@ import {
   CHART_ID,
   CHART_INFO_PARAMS,
   CHART_PARAMS,
-  COMPRESSED_VAL_ENCODING,
 } from "../nodejs_server/constants";
 import {
   getDisasterMapChart,
@@ -251,6 +251,8 @@ function getBlockTileResults(
   allowedTilesTypes?: Set<string>
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
+  const svProvider = new StatVarProvider(svSpec);
+  const blockDenom = block.startWithDenom ? block.denom : "";
   block.columns.forEach((column, colIdx) => {
     column.tiles.forEach((tile, tileIdx) => {
       if (allowedTilesTypes && !allowedTilesTypes.has(tile.type)) {
@@ -260,7 +262,7 @@ function getBlockTileResults(
       let tileSvSpec = null;
       switch (tile.type) {
         case "LINE":
-          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom);
           tilePromises.push(
             getLineTileResult(
               tileId,
@@ -275,7 +277,7 @@ function getBlockTileResults(
           );
           break;
         case "SCATTER":
-          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom);
           tilePromises.push(
             getScatterTileResult(
               tileId,
@@ -291,7 +293,7 @@ function getBlockTileResults(
           );
           break;
         case "BAR":
-          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom);
           tilePromises.push(
             getBarTileResult(
               tileId,
@@ -307,7 +309,7 @@ function getBlockTileResults(
           );
           break;
         case "MAP":
-          tileSvSpec = svSpec[tile.statVarKey[0]];
+          tileSvSpec = svProvider.getSpec(tile.statVarKey[0], blockDenom);
           tilePromises.push(
             getMapTileResult(
               tileId,
@@ -323,7 +325,7 @@ function getBlockTileResults(
           );
           break;
         case "RANKING":
-          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom);
           tilePromises.push(
             getRankingTileResult(
               tileId,
