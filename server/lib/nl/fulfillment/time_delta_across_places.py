@@ -128,6 +128,9 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       ranked_places.append(dcid2place[d])
     ranked_places = ranked_places[:constants.MAX_ANSWER_PLACES]
 
+    sv_place_facet_ids = {}
+    if state.date_range or sv in constants.SVS_TO_CHECK_FACET:
+      sv_place_facet_ids = {sv: place_facet_ids}
     # TODO: Uncomment this once we agree on look and feel
     if field == 'abs' and ranked_places:
       found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT,
@@ -135,7 +138,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                                       chart_vars,
                                       ranked_places,
                                       chart_origin,
-                                      sv_place_facet_ids={sv: place_facet_ids})
+                                      sv_place_facet_ids=sv_place_facet_ids)
 
     if rank == 0 and field == 'abs' and ranked_places:
       ans_places = copy.deepcopy(ranked_places)
@@ -145,13 +148,12 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
     chart_vars.growth_direction = direction
     chart_vars.growth_ranking_type = field
-
     found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION,
                                     state,
                                     chart_vars,
                                     ranked_places,
                                     chart_origin,
-                                    sv_place_facet_ids={sv: place_facet_ids})
+                                    sv_place_facet_ids=sv_place_facet_ids)
 
   if not found:
     state.uttr.counters.err('time-delta-across-places_toofewplaces', '')
