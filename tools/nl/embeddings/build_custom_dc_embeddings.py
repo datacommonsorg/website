@@ -20,6 +20,8 @@ from absl import flags
 from google.cloud import storage
 import pandas as pd
 import utils
+from utils import create_file_handler
+from utils import FileHandler
 import yaml
 
 FLAGS = flags.FLAGS
@@ -73,26 +75,31 @@ def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
   print(
       f"Generating embeddings dataframe from SV sentences CSV: {sv_sentences_csv_path}"
   )
-  embeddings_df = _build_embeddings_dataframe(ctx, sv_sentences_csv_path)
+  sv_sentences_csv_handler = create_file_handler(sv_sentences_csv_path)
+  embeddings_df = _build_embeddings_dataframe(ctx, sv_sentences_csv_handler)
 
   print("Validating embeddings.")
   utils.validate_embeddings(embeddings_df, sv_sentences_csv_path)
 
-  embeddings_csv_path = os.path.join(output_dir, EMBEDDINGS_CSV_FILENAME)
-  embeddings_yaml_path = os.path.join(output_dir, EMBEDDINGS_YAML_FILE_NAME)
+  output_dir_handler = create_file_handler(output_dir)
+  embeddings_csv_handler = create_file_handler(
+      output_dir_handler.join(EMBEDDINGS_CSV_FILENAME))
+  embeddings_yaml_handler = create_file_handler(
+      output_dir_handler.join(EMBEDDINGS_YAML_FILE_NAME))
 
-  print(f"Saving embeddings CSV: {embeddings_csv_path}")
-  embeddings_df.to_csv(embeddings_csv_path, index=False)
+  print(f"Saving embeddings CSV: {embeddings_csv_handler.path}")
+  embeddings_csv = embeddings_df.to_csv(index=False)
+  embeddings_csv_handler.write_string(embeddings_csv)
 
-  print(f"Saving embeddings yaml: {embeddings_yaml_path}")
-  generate_embeddings_yaml(embeddings_csv_path, embeddings_yaml_path)
+  print(f"Saving embeddings yaml: {embeddings_yaml_handler.path}")
+  generate_embeddings_yaml(embeddings_csv_handler, embeddings_yaml_handler)
 
   print("Done building custom DC embeddings.")
 
 
-def _build_embeddings_dataframe(ctx: utils.Context,
-                                sv_sentences_csv_path: str) -> pd.DataFrame:
-  sv_sentences_df = pd.read_csv(sv_sentences_csv_path)
+def _build_embeddings_dataframe(
+    ctx: utils.Context, sv_sentences_csv_handler: FileHandler) -> pd.DataFrame:
+  sv_sentences_df = pd.read_csv(sv_sentences_csv_handler.read_string_io())
 
   # Dedupe texts
   (name2sv_dict, _) = utils.dedup_texts(sv_sentences_df)
@@ -104,12 +111,10 @@ def _build_embeddings_dataframe(ctx: utils.Context,
   return utils.build_embeddings(ctx, texts, dcids)
 
 
-def generate_embeddings_yaml(embeddings_csv_path: str,
-                             embeddings_yaml_path: str):
-  embeddings_csv_path = os.path.abspath(embeddings_csv_path)
-  data = {"custom_ft": embeddings_csv_path}
-  with open(embeddings_yaml_path, "w") as f:
-    yaml.dump(data, f)
+def generate_embeddings_yaml(embeddings_csv_handler: FileHandler,
+                             embeddings_yaml_handler: FileHandler):
+  data = {"custom_ft": embeddings_csv_handler.abspath()}
+  embeddings_yaml_handler.write_string(yaml.dump(data))
 
 
 def _download_model(model_version: str) -> utils.Context:

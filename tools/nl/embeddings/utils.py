@@ -14,11 +14,13 @@
 """Common Utility functions for Embeddings."""
 
 from dataclasses import dataclass
+import io
 import os
 from pathlib import Path
 import re
 from typing import Any, Dict, List, Tuple
 
+from google.cloud import storage
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import yaml
@@ -49,6 +51,8 @@ Example: ft_final_v20230717230459.all-MiniLM-L6-v2
 If a string matches this pattern, the first group is the model version.
 """
 _EMBEDDINGS_FILENAME_PATTERN = r"^[^.]+\.([^.]+\.[^.]+)\.csv$"
+
+_GCS_PATH_PREFIX = "gs://"
 
 
 @dataclass
@@ -317,7 +321,9 @@ def _get_default_ft_model_version(embeddings_yaml_file_path: str) -> str:
 def validate_embeddings(embeddings_df: pd.DataFrame,
                         output_dcid_sentences_filepath: str) -> None:
   # Verify that embeddings were created for all DCIDs and Sentences.
-  dcid_sentence_df = pd.read_csv(output_dcid_sentences_filepath).fillna("")
+  dcid_sentence_df = pd.read_csv(
+      create_file_handler(
+          output_dcid_sentences_filepath).read_string_io()).fillna("")
   sentences = set()
   for alts in dcid_sentence_df["sentence"].values:
     for s in alts.split(";"):
@@ -342,3 +348,87 @@ def validate_embeddings(embeddings_df: pd.DataFrame,
   # Verify that the number of columns = length of the embeddings vector + one each for the
   # dcid and sentence columns.
   assert len(embeddings_df.columns), 384 + 2
+
+
+class FileHandler:
+  """(Abstract) base class that should be extended by concrete implementations."""
+
+  def __init__(self, path: str, isdir: bool) -> None:
+    self.path = path
+    self.isdir = isdir
+
+  def __str__(self) -> str:
+    return self.path
+
+  def read_string(self) -> str:
+    pass
+
+  def read_string_io(self) -> io.StringIO:
+    return io.StringIO(self.read_string())
+
+  def write_string(self, content: str) -> None:
+    pass
+
+  def join(self, subpath: str) -> str:
+    return os.path.join(self.path, subpath)
+
+  def abspath(self) -> str:
+    return self.path
+
+
+class LocalFileHandler(FileHandler):
+
+  def __init__(self, path: str) -> None:
+    isdir = os.path.isdir(path)
+    super().__init__(path, isdir)
+
+  def read_string(self) -> str:
+    with open(self.path, "r") as f:
+      return f.read()
+
+  def write_string(self, content: str) -> None:
+    with open(self.path, "w") as f:
+      f.write(content)
+
+  def abspath(self) -> str:
+    return os.path.abspath(self.path)
+
+
+class GcsMeta(type):
+
+  @property
+  def gcs_client(cls) -> storage.Client:
+    if getattr(cls, "_GCS_CLIENT", None) is None:
+      gcs_client = storage.Client()
+      print("Using GCS project: %s", gcs_client.project)
+      cls._GCS_CLIENT = gcs_client
+    return cls._GCS_CLIENT
+
+
+class GcsFileHandler(FileHandler, metaclass=GcsMeta):
+
+  def __init__(self, path: str) -> None:
+    bucket_name, blob_name = path[len(_GCS_PATH_PREFIX):].split('/', 1)
+    self.bucket = GcsFileHandler.gcs_client.bucket(bucket_name)
+    self.blob = self.bucket.blob(blob_name)
+    isdir = path.endswith("/")
+    super().__init__(path, isdir)
+
+  def read_string(self) -> str:
+    return self.blob.download_as_string().decode("utf-8")
+
+  def write_string(self, content: str) -> None:
+    self.blob.upload_from_string(content)
+
+  def join(self, subpath: str) -> str:
+    return f"{self.path}{'' if self.path.endswith('/') else '/'}{subpath}"
+
+
+def is_gcs_path(path: str) -> bool:
+  return path.startswith(_GCS_PATH_PREFIX)
+
+
+def create_file_handler(path: str) -> FileHandler:
+  if is_gcs_path(path):
+    return GcsFileHandler(path)
+  return LocalFileHandler(path)
