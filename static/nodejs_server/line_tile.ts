@@ -100,10 +100,10 @@ export async function getLineTileResult(
       legend: chartData.dataGroup.map((dg) => dg.label || "A"),
       places: tileProp.comparisonPlaces || [place.dcid],
       srcs: getSources(chartData.sources),
-      vars: statVarSpec.map((spec) => spec.statVar),
       title: chartTitle,
       type: "LINE",
       unit: chartData.unit,
+      vars: statVarSpec.map((spec) => spec.statVar),
     };
     // If it is a single line chart, add highlight information.
     if (chartData.dataGroup && chartData.dataGroup.length === 1) {

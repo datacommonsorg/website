@@ -98,12 +98,12 @@ export async function getScatterTileResult(
         chartData.yStatVar.denom,
         chartData.points
       ),
-      places: [place.dcid],
       placeType: enclosedPlaceType,
+      places: [place.dcid],
       srcs: getSources(chartData.sources),
-      vars: statVarSpec.map((spec) => spec.statVar),
       title: chartTitle,
       type: "SCATTER",
+      vars: statVarSpec.map((spec) => spec.statVar),
     };
     if (useChartUrl) {
       result.chartUrl = getChartUrl(

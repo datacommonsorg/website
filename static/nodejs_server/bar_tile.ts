@@ -120,14 +120,14 @@ export async function getBarTileResult(
     }
     const result: TileResult = {
       data_csv: dataGroupsToCsv(chartData.dataGroup),
-      places: getPlaces(tileConfig, place),
       placeType: enclosedPlaceType,
+      places: getPlaces(tileConfig, place),
       srcs: getSources(chartData.sources),
-      vars: statVarSpec.map((spec) => spec.statVar),
       legend,
       title: chartTitle,
       type: "BAR",
       unit: chartData.unit,
+      vars: statVarSpec.map((spec) => spec.statVar),
     };
     if (useChartUrl) {
       result.chartUrl = getChartUrl(
