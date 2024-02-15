@@ -124,7 +124,10 @@ export async function getDisasterMapTileResult(
     const chartData = await fetchChartData(tileProp);
     const result: TileResult = {
       legend: Object.values(eventTypeSpec).map((spec) => spec.name),
+      places: [place.dcid],
+      placeType: enclosedPlaceType,
       srcs: getSources(chartData.sources),
+      svs: [],
       title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
       type: "EVENT_MAP",
     };

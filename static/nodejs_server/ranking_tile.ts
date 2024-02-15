@@ -123,7 +123,10 @@ function getRankingUnitResult(
   );
   const result: TileResult = {
     data_csv: rankingPointsToCsv(pointsList.flat(), rankingGroup.svName),
+    places: [place],
+    placeType: enclosedPlaceType,
     srcs: getSources(rankingGroup.sources),
+    svs: statVarSpec.map((spec) => spec.statVar),
     title: getRankingUnitTitle(
       tileConfig.title,
       tileConfig.rankingTileSpec,
