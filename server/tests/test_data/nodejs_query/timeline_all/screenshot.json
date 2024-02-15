@@ -171,7 +171,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "label,Household Median Income\r\n2021,68131\r\n2020,65315\r\n2019,64894\r\n2018,63473\r\n2017,61285\r\n2016,59114\r\n2015,57181\r\n2014,55579\r\n2013,53741\r\n2012,51641\r\n2011,49415",
+      "data_csv": "label,Household Median Income\r\n2022,73959\r\n2021,68131\r\n2020,65315\r\n2019,64894\r\n2018,63473\r\n2017,61285\r\n2016,59114\r\n2015,57181\r\n2014,55579\r\n2013,53741\r\n2012,51641\r\n2011,49415",
       "srcs": [
         {
           "name": "census.gov",
@@ -185,27 +185,27 @@
       "type": "LINE",
       "unit": "USD",
       "highlight": {
-        "date": "2021",
-        "value": 68131
+        "date": "2022",
+        "value": 73959
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Household Median Income\r\n1,Burke County,97802\r\n2,Dunn County,84459\r\n3,Divide County,83438\r\n4,Golden Valley County,83295\r\n5,Steele County,81354\r\n49,Kidder County,52419\r\n50,Towner County,51912\r\n51,Rolette County,49434\r\n52,Eddy County,44958\r\n53,Sioux County,39755",
+      "data_csv": "rank,place,Household Median Income\r\n1,Divide County,95938\r\n2,Burke County,94583\r\n3,Dunn County,91758\r\n4,Williams County,86139\r\n5,Steele County,85750\r\n49,Kidder County,57240\r\n50,Grant County,57069\r\n51,Rolette County,53806\r\n52,Eddy County,50375\r\n53,Sioux County,41201",
       "srcs": [
         {
           "name": "census.gov",
           "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
         }
       ],
-      "title": "Household Median Income in Counties of North Dakota (2021)",
+      "title": "Household Median Income in Counties of North Dakota (2022)",
       "type": "TABLE",
       "unit": "USD",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "label,Individual Median Income\r\n2021,37861\r\n2020,36316\r\n2019,35499\r\n2018,34036\r\n2017,32336\r\n2016,31273\r\n2015,30422\r\n2014,29391\r\n2013,28157\r\n2012,27090\r\n2011,25925",
+      "data_csv": "label,Individual Median Income\r\n2022,41128\r\n2021,37861\r\n2020,36316\r\n2019,35499\r\n2018,34036\r\n2017,32336\r\n2016,31273\r\n2015,30422\r\n2014,29391\r\n2013,28157\r\n2012,27090\r\n2011,25925",
       "srcs": [
         {
           "name": "census.gov",
@@ -219,27 +219,27 @@
       "type": "LINE",
       "unit": "USD",
       "highlight": {
-        "date": "2021",
-        "value": 37861
+        "date": "2022",
+        "value": 41128
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Individual Median Income\r\n1,Burke County,47431\r\n2,McKenzie County,44009\r\n3,Sargent County,43662\r\n4,Williams County,43408\r\n5,Stark County,42509\r\n49,Rolette County,31050\r\n50,Eddy County,29454\r\n51,Logan County,28929\r\n52,Benson County,27188\r\n53,Sioux County,20901",
+      "data_csv": "rank,place,Individual Median Income\r\n1,Burke County,50841\r\n2,McKenzie County,49086\r\n3,Sargent County,46367\r\n4,Stark County,45838\r\n5,Burleigh County,45812\r\n49,Slope County,33088\r\n50,Kidder County,32436\r\n51,Eddy County,32143\r\n52,Logan County,32069\r\n53,Sioux County,22860",
       "srcs": [
         {
           "name": "census.gov",
           "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
         }
       ],
-      "title": "Individual Median Income in Counties of North Dakota (2021)",
+      "title": "Individual Median Income in Counties of North Dakota (2022)",
       "type": "TABLE",
       "unit": "USD",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "label,North Dakota\r\n\"People Earning Up to $9,999\",83404\r\n\"People Earning $10,000 and $14,999\",43114\r\n\"People Earning $25,000 and $34,999\",69499\r\n\"People Earning $35,000 and $49,999\",92525\r\n\"People Earning Between $50,000 and $64,999\",72679\r\n\"People Earning Between $65,000 and $74,999\",32440\r\n\"People Earning $75,000 or More\",103625",
+      "data_csv": "label,North Dakota\r\n\"People Earning Up to $9,999\",78582\r\n\"People Earning $10,000 and $14,999\",42620\r\n\"People Earning $25,000 and $34,999\",61544\r\n\"People Earning $35,000 and $49,999\",89194\r\n\"People Earning Between $50,000 and $64,999\",75899\r\n\"People Earning Between $65,000 and $74,999\",35093\r\n\"People Earning $75,000 or More\",122253",
       "srcs": [
         {
           "name": "census.gov",
@@ -255,40 +255,40 @@
         "People Earning Between $65,000 and $74,999",
         "People Earning $75,000 or More"
       ],
-      "title": "Population by Income Level in North Dakota (2021)",
+      "title": "Population by Income Level in North Dakota (2022)",
       "type": "BAR",
       "unit": "",
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,\"People Earning Up to $9,999\"\r\n1,Cass County,19656\r\n2,Grand Forks County,9822\r\n3,Burleigh County,8954\r\n4,Ward County,7335\r\n5,Morton County,3186\r\n49,Oliver County,170\r\n50,Burke County,156\r\n51,Slope County,110\r\n52,Billings County,103\r\n53,Sheridan County,81",
+      "data_csv": "rank,place,\"People Earning Up to $9,999\"\r\n1,Cass County,19302\r\n2,Grand Forks County,9219\r\n3,Burleigh County,8390\r\n4,Ward County,6851\r\n5,Stark County,3233\r\n49,Towner County,149\r\n50,Burke County,138\r\n51,Slope County,112\r\n52,Billings County,109\r\n53,Sheridan County,100",
       "srcs": [
         {
           "name": "census.gov",
           "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
         }
       ],
-      "title": "People Earning Up to $9,999 in Counties of North Dakota (2021)",
+      "title": "People Earning Up to $9,999 in Counties of North Dakota (2022)",
       "type": "TABLE",
       "unit": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,\"People Earning $10,000 and $14,999\"\r\n1,Cass County,9710\r\n2,Burleigh County,5087\r\n3,Grand Forks County,4421\r\n4,Ward County,3836\r\n5,Morton County,1759\r\n49,Golden Valley County,94\r\n50,Billings County,69\r\n51,Oliver County,68\r\n52,Steele County,62\r\n53,Slope County,54",
+      "data_csv": "rank,place,\"People Earning $10,000 and $14,999\"\r\n1,Cass County,9817\r\n2,Burleigh County,5097\r\n3,Grand Forks County,4124\r\n4,Ward County,3774\r\n5,Morton County,1744\r\n49,Burke County,97\r\n50,Slope County,77\r\n51,Steele County,63\r\n52,Oliver County,60\r\n53,Billings County,48",
       "srcs": [
         {
           "name": "census.gov",
           "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
         }
       ],
-      "title": "People Earning $10,000 and $14,999 in Counties of North Dakota (2021)",
+      "title": "People Earning $10,000 and $14,999 in Counties of North Dakota (2022)",
       "type": "TABLE",
       "unit": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "label,North Dakota\r\nMedian Incomes in Real Estate And Rental And Leasing,44618\r\nMedian Incomes in Health Care And Social Assistance,38807\r\nMedian Income of Manufacturing,50265\r\nMedian Incomes in Administrative And Support And Waste Management Services,31344\r\nMedian Incomes in Retail Trade,27079\r\nMedian Incomes in Public Administration,56174\r\nMedian Incomes in Accommodation And Food Services,18729\r\n\"Median Incomes in Mining, Quarrying, And Oil And Gas Extraction\",89117\r\nMedian Incomes in Educational Services,42253\r\n\"Median Incomes in Other Services, Except Public Administration\",34561\r\nMedian Incomes in Construction,51225\r\nMedian Incomes in Management of Companies And Enterprises,50404\r\nMedian Incomes in Information industry,48381\r\n\"Median Incomes in Agriculture, Forestry, Fishing And Hunting\",45144\r\nMedian Incomes in Transportation And Warehousing,51311",
+      "data_csv": "label,North Dakota\r\nMedian Incomes in Real Estate And Rental And Leasing,49452\r\nMedian Incomes in Health Care And Social Assistance,42212\r\nMedian Income of Manufacturing,51134\r\nMedian Incomes in Administrative And Support And Waste Management Services,33747\r\nMedian Incomes in Retail Trade,29893\r\nMedian Incomes in Public Administration,60643\r\nMedian Incomes in Accommodation And Food Services,19695\r\n\"Median Incomes in Mining, Quarrying, And Oil And Gas Extraction\",91728\r\nMedian Incomes in Educational Services,45357\r\n\"Median Incomes in Other Services, Except Public Administration\",38355\r\nMedian Incomes in Construction,55838\r\nMedian Incomes in Management of Companies And Enterprises,58576\r\nMedian Incomes in Information industry,52721\r\n\"Median Incomes in Agriculture, Forestry, Fishing And Hunting\",48991\r\nMedian Incomes in Transportation And Warehousing,54343",
       "srcs": [
         {
           "name": "census.gov",
@@ -312,34 +312,34 @@
         "Median Incomes in Agriculture, Forestry, Fishing And Hunting",
         "Median Incomes in Transportation And Warehousing"
       ],
-      "title": "Individual Income by Industry Type in North Dakota (2021)",
+      "title": "Individual Income by Industry Type in North Dakota (2022)",
       "type": "BAR",
       "unit": "USD",
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Median Incomes in Real Estate And Rental And Leasing\r\n1,Emmons County,118125\r\n2,McKenzie County,113281\r\n3,Dunn County,93158\r\n4,Walsh County,75938\r\n5,Ransom County,63958\r\n37,McLean County,10833\r\n38,Bottineau County,8750\r\n39,Barnes County,6563\r\n40,Steele County,4167\r\n41,Dickey County,3125",
+      "data_csv": "rank,place,Median Incomes in Real Estate And Rental And Leasing\r\n1,Emmons County,128393\r\n2,McKenzie County,123816\r\n3,Dunn County,100655\r\n4,Walsh County,92188\r\n5,Traill County,66000\r\n37,Stark County,12167\r\n38,Bottineau County,11667\r\n39,McLean County,10833\r\n40,Steele County,4167\r\n41,Dickey County,3125",
       "srcs": [
         {
           "name": "census.gov",
           "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
         }
       ],
-      "title": "Median Incomes in Real Estate and Rental and Leasing in Counties of North Dakota (2011 to 2021)",
+      "title": "Median Incomes in Real Estate and Rental and Leasing in Counties of North Dakota (2011 to 2022)",
       "type": "TABLE",
       "unit": "USD",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Median Incomes in Health Care And Social Assistance\r\n1,Burke County,59583\r\n2,Steele County,55625\r\n3,Slope County,55417\r\n4,Adams County,46012\r\n5,Pierce County,45417\r\n49,LaMoure County,27077\r\n50,McIntosh County,26875\r\n51,Divide County,26369\r\n52,Hettinger County,25250\r\n53,Kidder County,23906",
+      "data_csv": "rank,place,Median Incomes in Health Care And Social Assistance\r\n1,Burke County,77594\r\n2,Morton County,54282\r\n3,Slope County,51000\r\n4,Oliver County,51000\r\n5,Adams County,48854\r\n49,LaMoure County,29303\r\n50,Dickey County,28819\r\n51,Kidder County,25909\r\n52,Towner County,25357\r\n53,Divide County,24648",
       "srcs": [
         {
           "name": "census.gov",
           "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
         }
       ],
-      "title": "Median Incomes in Health Care and Social Assistance in Counties of North Dakota (2021)",
+      "title": "Median Incomes in Health Care and Social Assistance in Counties of North Dakota (2022)",
       "type": "TABLE",
       "unit": "USD",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
@@ -432,7 +432,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "label,Count of Household: Family Household\r\n2021,187742\r\n2020,189465\r\n2019,189400\r\n2018,188288\r\n2017,187057\r\n2016,183466\r\n2015,181864\r\n2014,178003\r\n2013,175638\r\n2012,173196\r\n2011,171622",
+      "data_csv": "label,Count of Household: Family Household\r\n2022,188317\r\n2021,187742\r\n2020,189465\r\n2019,189400\r\n2018,188288\r\n2017,187057\r\n2016,183466\r\n2015,181864\r\n2014,178003\r\n2013,175638\r\n2012,173196\r\n2011,171622",
       "srcs": [
         {
           "name": "census.gov",
@@ -446,21 +446,21 @@
       "type": "LINE",
       "unit": "",
       "highlight": {
-        "date": "2021",
-        "value": 187742
+        "date": "2022",
+        "value": 188317
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Count of Household: Family Household\r\n1,Cass County,43600\r\n2,Burleigh County,24548\r\n3,Ward County,16828\r\n4,Grand Forks County,15571\r\n5,Williams County,9237\r\n49,Golden Valley County,506\r\n50,Logan County,496\r\n51,Sheridan County,369\r\n52,Slope County,230\r\n53,Billings County,212",
+      "data_csv": "rank,place,Count of Household: Family Household\r\n1,Cass County,43738\r\n2,Burleigh County,24714\r\n3,Ward County,16729\r\n4,Grand Forks County,15628\r\n5,Williams County,9538\r\n49,Logan County,494\r\n50,Steele County,457\r\n51,Sheridan County,384\r\n52,Slope County,253\r\n53,Billings County,229",
       "srcs": [
         {
           "name": "census.gov",
           "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
         }
       ],
-      "title": "Count of Household: Family Household in Counties of North Dakota (2021)",
+      "title": "Count of Household: Family Household in Counties of North Dakota (2022)",
       "type": "TABLE",
       "unit": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
@@ -500,7 +500,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "label,Count of Household: Other Family Household\r\n2021,37394\r\n2020,36814\r\n2019,37493\r\n2018,37074\r\n2017,36572\r\n2016,36463\r\n2015,36097\r\n2014,34454\r\n2013,33338\r\n2012,32370\r\n2011,30908",
+      "data_csv": "label,Count of Household: Other Family Household\r\n2022,36750\r\n2021,37394\r\n2020,36814\r\n2019,37493\r\n2018,37074\r\n2017,36572\r\n2016,36463\r\n2015,36097\r\n2014,34454\r\n2013,33338\r\n2012,32370\r\n2011,30908",
       "srcs": [
         {
           "name": "census.gov",
@@ -514,21 +514,21 @@
       "type": "LINE",
       "unit": "",
       "highlight": {
-        "date": "2021",
-        "value": 37394
+        "date": "2022",
+        "value": 36750
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Count of Household: Other Family Household\r\n1,Cass County,8771\r\n2,Burleigh County,4877\r\n3,Grand Forks County,3836\r\n4,Ward County,3325\r\n5,Williams County,2133\r\n49,Burke County,53\r\n50,Golden Valley County,40\r\n51,Logan County,39\r\n52,Billings County,17\r\n53,Slope County,16",
+      "data_csv": "rank,place,Count of Household: Other Family Household\r\n1,Cass County,8677\r\n2,Burleigh County,4470\r\n3,Grand Forks County,3697\r\n4,Ward County,3106\r\n5,Williams County,2525\r\n49,Burke County,52\r\n50,Steele County,45\r\n51,Logan County,31\r\n52,Billings County,23\r\n53,Slope County,14",
       "srcs": [
         {
           "name": "census.gov",
           "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
         }
       ],
-      "title": "Count of Household: Other Family Household in Counties of North Dakota (2021)",
+      "title": "Count of Household: Other Family Household in Counties of North Dakota (2022)",
       "type": "TABLE",
       "unit": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
