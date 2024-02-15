@@ -23,7 +23,13 @@ _GCS_PATH_PREFIX = "gs://"
 
 
 def is_gcs_path(path: str) -> bool:
-  return path.startswith(_GCS_PATH_PREFIX)
+  return path.strip().startswith(_GCS_PATH_PREFIX)
+
+
+def join_gcs_path(base_path: str, sub_path: str) -> str:
+  if base_path.endswith('/'):
+    return f'{base_path}{sub_path}'
+  return f'{base_path}/{sub_path}'
 
 
 def download_gcs_file(gcs_path: str, use_anonymous_client: bool = False) -> str:
@@ -31,6 +37,8 @@ def download_gcs_file(gcs_path: str, use_anonymous_client: bool = False) -> str:
   to a local path and returns the latter.
   """
   bucket_name, blob_name = gcs_path[len(_GCS_PATH_PREFIX):].split('/', 1)
+  if not blob_name:
+    return ''
   return download_file(bucket_name, blob_name, use_anonymous_client)
 
 

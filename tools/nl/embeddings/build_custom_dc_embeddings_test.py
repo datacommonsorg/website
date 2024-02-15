@@ -19,9 +19,9 @@ import unittest
 from build_custom_dc_embeddings import EMBEDDINGS_CSV_FILENAME
 from build_custom_dc_embeddings import EMBEDDINGS_YAML_FILE_NAME
 import build_custom_dc_embeddings as builder
+from file_util import create_file_handler
 from sentence_transformers import SentenceTransformer
 import utils
-from utils import create_file_handler
 
 MODEL_NAME = "all-MiniLM-L6-v2"
 INPUT_DIR = "testdata/custom_dc/input"

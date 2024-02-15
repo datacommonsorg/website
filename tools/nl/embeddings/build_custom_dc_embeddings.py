@@ -17,11 +17,11 @@ import os
 
 from absl import app
 from absl import flags
+from file_util import create_file_handler
+from file_util import FileHandler
 from google.cloud import storage
 import pandas as pd
 import utils
-from utils import create_file_handler
-from utils import FileHandler
 import yaml
 
 FLAGS = flags.FLAGS
