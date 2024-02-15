@@ -51,6 +51,8 @@ class DCNames(str, Enum):
 class QueryMode(str, Enum):
   # NOTE: This mode is incompatible with LLM detector
   STRICT = 'strict'
+  # This is a special mode to be used for toolformer experiments.
+  # This mode does not detect topics and has a sv score threshold of 0.8.
   TOOLFORMER = 'toolformer'
 
 
@@ -62,7 +64,7 @@ class Clients(str, Enum):
 def sv_threshold(mode: str) -> bool:
   if mode == QueryMode.STRICT:
     return constants.SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
-  elif mode == mode == QueryMode.TOOLFORMER:
+  elif mode == QueryMode.TOOLFORMER:
     return constants.SV_SCORE_TOOLFORMER_THRESHOLD
   else:
     return constants.SV_SCORE_DEFAULT_THRESHOLD

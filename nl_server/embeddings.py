@@ -36,7 +36,7 @@ _NUM_CANDIDATES_PER_NSPLIT = 3
 # Number of matches to find within the SV index.
 _NUM_SV_INDEX_MATCHES = 40
 # Number of matches to find within the SV index if skipping topics.
-_SKIP_TOPICS_NUM_SV_INDEX_MATCHES = 60
+_NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS = 60
 
 # Prefix string for dcids that are topics
 _TOPIC_PREFIX = 'dc/topic/'
@@ -88,7 +88,7 @@ class Embeddings:
     query_embeddings = self.model.encode(queries, show_progress_bar=False)
     top_k = _NUM_SV_INDEX_MATCHES
     if skip_topics:
-      top_k = _SKIP_TOPICS_NUM_SV_INDEX_MATCHES
+      top_k = _NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings,
                            top_k=top_k)
