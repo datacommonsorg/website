@@ -83,10 +83,12 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
   sv_threshold = params.sv_threshold(mode)
   svs_scores_dict = dutils.empty_svs_score_dict()
   sv_detection_query = dutils.remove_date_from_query(query, classifications)
+  skip_topics = mode == params.QueryMode.TOOLFORMER
   try:
     svs_scores_dict = variable.detect_svs(
         sv_detection_query, index_type,
-        query_detection_debug_logs["query_transformations"], sv_threshold)
+        query_detection_debug_logs["query_transformations"], sv_threshold,
+        skip_topics)
   except ValueError as e:
     logging.info(e)
     logging.info("Using an empty svs_scores_dict")

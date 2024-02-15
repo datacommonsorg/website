@@ -35,6 +35,11 @@ _NUM_CANDIDATES_PER_NSPLIT = 3
 
 # Number of matches to find within the SV index.
 _NUM_SV_INDEX_MATCHES = 40
+# Number of matches to find within the SV index if skipping topics.
+_SKIP_TOPICS_NUM_SV_INDEX_MATCHES = 60
+
+# Prefix string for dcids that are topics
+_TOPIC_PREFIX = 'dc/topic/'
 
 
 class Embeddings:
@@ -76,12 +81,17 @@ class Embeddings:
   # Given a list of queries, searches the in-memory embeddings index
   # and returns a map of candidates keyed by input queries.
   #
-  def _search_embeddings(self,
-                         queries: List[str]) -> Dict[str, vars.VarCandidates]:
+  def _search_embeddings(
+      self,
+      queries: List[str],
+      skip_topics: bool = False) -> Dict[str, vars.VarCandidates]:
     query_embeddings = self.model.encode(queries, show_progress_bar=False)
+    top_k = _NUM_SV_INDEX_MATCHES
+    if skip_topics:
+      top_k = _SKIP_TOPICS_NUM_SV_INDEX_MATCHES
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings,
-                           top_k=_NUM_SV_INDEX_MATCHES)
+                           top_k=top_k)
 
     # A map from input query -> SV DCID -> matched sentence -> score for that match
     query2sv2sentence2score: Dict[str, Dict[str, Dict[str, float]]] = {}
@@ -94,6 +104,8 @@ class Embeddings:
       for ent in hit:
         score = ent['score']
         for dcid in self.dcids[ent['corpus_id']].split(','):
+          if skip_topics and dcid.startswith(_TOPIC_PREFIX):
+            continue
           # Prefer the top score.
           if dcid not in query2sv2score[q]:
             query2sv2score[q][dcid] = score
@@ -138,20 +150,23 @@ class Embeddings:
   def detect_svs(self,
                  orig_query: str,
                  threshold: float = constants.SV_SCORE_DEFAULT_THRESHOLD,
-                 skip_multi_sv: bool = False) -> Dict[str, Union[Dict, List]]:
+                 skip_multi_sv: bool = False,
+                 skip_topics: bool = False) -> Dict[str, Union[Dict, List]]:
     # Remove all stop-words.
     query_monovar = utils.remove_stop_words(orig_query,
                                             query_util.ALL_STOP_WORDS)
 
     # Search embeddings for a single SV.
-    result_monovar = self._search_embeddings([query_monovar])[query_monovar]
+    result_monovar = self._search_embeddings([query_monovar],
+                                             skip_topics)[query_monovar]
 
     multi_sv = {}
     if not skip_multi_sv:
       # Try to detect multiple SVs.  Use the original query so that
       # the logic can rely on stop-words like `vs`, `and`, etc as hints
       # for SV delimiters.
-      result_multivar = self._detect_multiple_svs(orig_query, threshold)
+      result_multivar = self._detect_multiple_svs(orig_query, threshold,
+                                                  skip_topics)
       multi_sv = vars.multivar_candidates_to_dict(result_multivar)
 
     # TODO: Rename SV_to_Sentences for consistency.
@@ -166,8 +181,11 @@ class Embeddings:
   # Detects one or more SVs from the query.
   # TODO: Fix the query upstream to ensure the punctuations aren't stripped.
   #
-  def _detect_multiple_svs(self, query: str,
-                           threshold: float) -> vars.MultiVarCandidates:
+  def _detect_multiple_svs(
+      self,
+      query: str,
+      threshold: float,
+      skip_topics: bool = False) -> vars.MultiVarCandidates:
     #
     # Prepare a combination of query-sets.
     #
@@ -184,7 +202,7 @@ class Embeddings:
     if not all_queries:
       return result
 
-    query2result = self._search_embeddings(list(all_queries))
+    query2result = self._search_embeddings(list(all_queries), skip_topics)
 
     #
     # A queryset is the set of all combinations of query
