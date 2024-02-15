@@ -112,6 +112,8 @@ const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING", "SCATTER"]);
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
 // Size of the PNG to return for the chart query
 const PNG_WIDTH = 1600;
+// Default mode to use when making nl calls
+const DEFAULT_NL_MODE = "strict";
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -503,12 +505,13 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const client = req.query.client || BARD_CLIENT_URL_PARAM;
   const allowedTileTypes =
     client === BARD_CLIENT_URL_PARAM ? BARD_ALLOWED_CHARTS : null;
+  const mode = req.query.mode || DEFAULT_NL_MODE;
   res.setHeader("Content-Type", "application/json");
   axios
     // Set "mode=strict" to use heuristic detector, disable using default place,
     // use a higher SV threshold and avoid multi-verb queries
     .post(
-      `${CONFIG.apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=strict&client=${client}`,
+      `${CONFIG.apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=${mode}&client=${client}`,
       {}
     )
     .then((resp) => {

@@ -1,34 +1,16 @@
 {
-  "childEntityType": "State",
-  "classifications": [
-    {
-      "ranking_type": [
-        1
-      ],
-      "type": 2
-    },
-    {
-      "contained_in_place_type": "State",
-      "had_default_type": false,
-      "type": 4
-    }
-  ],
+  "blocked": true,
   "client": "test_detect",
-  "comparisonEntities": [],
-  "comparisonVariables": [],
+  "config": {},
   "context": {},
   "debug": {},
-  "entities": [
-    "country/USA"
-  ],
-  "sessionId": "007_999999999",
-  "variables": [
-    "Count_Person_EducationalAttainmentDoctorateDegree",
-    "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Male",
-    "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female",
-    "Count_Person_25OrMoreYears_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears",
-    "Count_Person_25OrMoreYears_Female_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears_Female",
-    "Count_Person_EducationalAttainmentProfessionalSchoolDegree",
-    "Count_Person_EducationalAttainmentGraduateOrProfessionalDegree"
-  ]
+  "failure": "Sorry, could not complete your request.",
+  "place": {
+    "dcid": "",
+    "name": "",
+    "place_type": ""
+  },
+  "userMessage": {
+    "msg": "Sorry, could not complete your request."
+  }
 }
