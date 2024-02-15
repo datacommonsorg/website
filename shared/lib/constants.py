@@ -447,6 +447,10 @@ SV_SCORE_DEFAULT_THRESHOLD = 0.5
 # are considered a high confidence match.
 SV_SCORE_HIGH_CONFIDENCE_THRESHOLD = 0.7
 
+# The default Cosine score threshold beyond which Stat Vars
+# are considered a match in toolformer mode.
+SV_SCORE_TOOLFORMER_THRESHOLD = 0.8
+
 # A cosine score differential we use to indicate if scores
 # that differ by up to this amount are "near" SVs.
 # In Multi-SV detection, if the difference between successive scores exceeds

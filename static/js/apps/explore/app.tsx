@@ -266,6 +266,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const defaultPlace = getSingleParam(
       hashParams[URL_HASH_PARAMS.DEFAULT_PLACE]
     );
+    const mode = getSingleParam(hashParams[URL_HASH_PARAMS.MODE]);
     let client = getSingleParam(hashParams[URL_HASH_PARAMS.CLIENT]);
 
     let fulfillmentPromise: Promise<any>;
@@ -291,7 +292,8 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         testMode,
         i18n,
         client,
-        defaultPlace
+        defaultPlace,
+        mode
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -400,7 +402,8 @@ const fetchDetectAndFufillData = async (
   testMode: string,
   i18n: string,
   client: string,
-  defaultPlace: string
+  defaultPlace: string,
+  mode: string
 ) => {
   const argsMap = new Map<string, string>();
   if (detector) {
@@ -420,6 +423,9 @@ const fetchDetectAndFufillData = async (
   }
   if (defaultPlace) {
     argsMap.set(URL_HASH_PARAMS.DEFAULT_PLACE, defaultPlace);
+  }
+  if (mode) {
+    argsMap.set(URL_HASH_PARAMS.MODE, mode);
   }
   const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
   try {
