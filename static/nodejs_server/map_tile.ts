@@ -142,7 +142,7 @@ export async function getMapTileResult(
       places: [place.dcid],
       placeType: enclosedPlaceType,
       srcs: getSources(chartData.sources),
-      svs: [statVarSpec.statVar],
+      vars: [statVarSpec.statVar],
       title: getChartTitle(
         tileConfig.title,
         getReplacementStrings(tileProp, chartData)

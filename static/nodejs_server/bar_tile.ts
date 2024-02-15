@@ -123,7 +123,7 @@ export async function getBarTileResult(
       places: getPlaces(tileConfig, place),
       placeType: enclosedPlaceType,
       srcs: getSources(chartData.sources),
-      svs: statVarSpec.map((spec) => spec.statVar),
+      vars: statVarSpec.map((spec) => spec.statVar),
       legend,
       title: chartTitle,
       type: "BAR",

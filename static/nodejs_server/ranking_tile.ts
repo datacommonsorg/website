@@ -126,7 +126,7 @@ function getRankingUnitResult(
     places: [place],
     placeType: enclosedPlaceType,
     srcs: getSources(rankingGroup.sources),
-    svs: statVarSpec.map((spec) => spec.statVar),
+    vars: statVarSpec.map((spec) => spec.statVar),
     title: getRankingUnitTitle(
       tileConfig.title,
       tileConfig.rankingTileSpec,

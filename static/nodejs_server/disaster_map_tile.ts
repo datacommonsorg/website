@@ -127,7 +127,7 @@ export async function getDisasterMapTileResult(
       places: [place.dcid],
       placeType: enclosedPlaceType,
       srcs: getSources(chartData.sources),
-      svs: [],
+      vars: [],
       title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
       type: "EVENT_MAP",
     };

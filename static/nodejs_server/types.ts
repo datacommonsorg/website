@@ -33,7 +33,7 @@ export interface TileResult {
   // The type of the tile
   type: string;
   // Dcids of the stat vars shown in the chart
-  svs: string[];
+  vars: string[];
   // Dcids of the places shown in the chart. If it's a chart that shows children
   // places such as map or ranking, this is the dcid of the parent place.
   places: string[];

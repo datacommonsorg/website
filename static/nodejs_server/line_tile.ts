@@ -100,7 +100,7 @@ export async function getLineTileResult(
       legend: chartData.dataGroup.map((dg) => dg.label || "A"),
       places: tileProp.comparisonPlaces || [place.dcid],
       srcs: getSources(chartData.sources),
-      svs: statVarSpec.map((spec) => spec.statVar),
+      vars: statVarSpec.map((spec) => spec.statVar),
       title: chartTitle,
       type: "LINE",
       unit: chartData.unit,
