@@ -1,0 +1,49 @@
+steps:
+  # Configure the SSH client
+- name: 'gcr.io/cloud-builders/git'
+  secretEnv: ['SSH_KEY']
+  entrypoint: 'bash'
+  args:
+  - -c
+  - |
+    echo "$$SSH_KEY" >> /root/.ssh/id_rsa
+    chmod 400 /root/.ssh/id_rsa
+    cp known_hosts.github /root/.ssh/known_hosts
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+  # Update submodules
+- name: gcr.io/cloud-builders/git
+  args: ['submodule', 'update', '--init', '--recursive']
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+  # Build the image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/${_APP_NAME}:${SHORT_SHA}', '-f', 'build/web_compose/Dockerfile', '.']
+  # Push the image to Artifact Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/${_APP_NAME}:${SHORT_SHA}']
+  # Deploy the image to staging
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+  - 'run'
+  - 'deploy'
+  - 'website-compose'
+  - '--image'
+  - '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/${_APP_NAME}:${SHORT_SHA}'
+  - '--region'
+  - '${_LOCATION}'
+images:
+- '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/${_APP_NAME}:${SHORT_SHA}'
+substitutions:
+  _LOCATION: us-east4
+  _REPO_NAME: datacommons
+  _PROJECT_ID: one-data-commons
+  _APP_NAME: website-compose
+availableSecrets:
+  secretManager:
+  - versionName: projects/$PROJECT_ID/secrets/github-ssh-key/versions/latest
+    env: 'SSH_KEY'
+
