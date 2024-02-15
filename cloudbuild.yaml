@@ -18,8 +18,23 @@ steps:
   volumes:
   - name: 'ssh'
     path: /root/.ssh
+  # Build the image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/${_APP_NAME}:${SHORT_SHA}', '-f', 'build/web_compose/Dockerfile', '.']
+  # Push the image to Artifact Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/${_APP_NAME}:${SHORT_SHA}']
+  # Deploy the image to staging
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+  - 'run'
+  - 'deploy'
+  - 'website-compose'
+  - '--image'
+  - '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/${_APP_NAME}:${SHORT_SHA}'
+  - '--region'
+  - '${_LOCATION}'
 images:
 - '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/${_APP_NAME}:${SHORT_SHA}'
 substitutions:
