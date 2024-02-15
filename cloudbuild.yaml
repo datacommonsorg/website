@@ -15,6 +15,9 @@ steps:
   # Update submodules
 - name: gcr.io/cloud-builders/git
   args: ['submodule', 'update', '--init', '--recursive']
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag', '${_LOCATION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/${_APP_NAME}:${SHORT_SHA}', '-f', 'build/web_compose/Dockerfile', '.']
 images:
