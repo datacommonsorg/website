@@ -49,16 +49,16 @@ function getTileProp(
 ): BarTilePropType {
   const barTileSpec = tileConfig.barTileSpec || {};
   return {
-    id,
-    title: tileConfig.title,
-    places: getPlaces(tileConfig, place),
-    enclosedPlaceType,
-    variables: statVarSpec,
     apiRoot,
-    svgChartHeight: SVG_HEIGHT,
-    useLollipop: barTileSpec.useLollipop || false,
-    stacked: barTileSpec.stacked || false,
+    id,
+    enclosedPlaceType,
     horizontal: barTileSpec.horizontal || false,
+    places: getPlaces(tileConfig, place),
+    stacked: barTileSpec.stacked || false,
+    svgChartHeight: SVG_HEIGHT,
+    title: tileConfig.title,
+    useLollipop: barTileSpec.useLollipop || false,
+    variables: statVarSpec,
   };
 }
 
