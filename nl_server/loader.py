@@ -159,7 +159,7 @@ def _maybe_load_custom_dc_yaml():
       logging.info(
           "Custom embeddings yaml in GCS not found: %s. Custom embeddings will not be loaded.",
           gcs_path)
-      return
+      return None
   else:
     file_path = os.path.join(base, _CUSTOM_EMBEDDINGS_YAML_PATH)
 
