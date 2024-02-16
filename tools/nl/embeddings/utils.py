@@ -19,6 +19,7 @@ from pathlib import Path
 import re
 from typing import Any, Dict, List, Tuple
 
+from file_util import create_file_handler
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import yaml
@@ -317,7 +318,9 @@ def _get_default_ft_model_version(embeddings_yaml_file_path: str) -> str:
 def validate_embeddings(embeddings_df: pd.DataFrame,
                         output_dcid_sentences_filepath: str) -> None:
   # Verify that embeddings were created for all DCIDs and Sentences.
-  dcid_sentence_df = pd.read_csv(output_dcid_sentences_filepath).fillna("")
+  dcid_sentence_df = pd.read_csv(
+      create_file_handler(
+          output_dcid_sentences_filepath).read_string_io()).fillna("")
   sentences = set()
   for alts in dcid_sentence_df["sentence"].values:
     for s in alts.split(";"):
