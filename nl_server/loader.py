@@ -157,7 +157,7 @@ def _maybe_load_custom_dc_yaml():
     file_path = download_gcs_file(gcs_path)
     if not file_path:
       logging.info(
-          "Custom embeddings yaml in GCS not found: %s. Custom embeddings will not be loaded",
+          "Custom embeddings yaml in GCS not found: %s. Custom embeddings will not be loaded.",
           gcs_path)
       return
   else:
