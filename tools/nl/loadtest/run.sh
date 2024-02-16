@@ -16,4 +16,19 @@
 python3 -m venv .env
 source .env/bin/activate
 pip3 install -r requirements.txt
-python3 loadtest.py --queryset=queryset.csv
+
+RUN_ASYNC=False
+
+while [[ "$#" -gt 0 ]]; do
+  case "$1" in
+    -a)
+        RUN_ASYNC=True
+        ;;
+    *)
+        echo "Unknown option: $1. Running loadtest with no arguments."
+        ;;
+    esac
+    shift 1
+done
+
+python3 loadtest.py --queryset=queryset.csv --run_async=$RUN_ASYNC

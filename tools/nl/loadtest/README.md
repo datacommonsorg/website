@@ -8,3 +8,9 @@ Run it as:
 ```
 ./run.sh
 ```
+
+To run the queries in the load test asynchronously, Run it as:
+
+```
+./run.sh -a
+```

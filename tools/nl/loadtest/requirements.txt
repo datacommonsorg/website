@@ -1,2 +1,4 @@
 absl-py
 requests
+asyncio
+aiohttp
