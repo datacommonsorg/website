@@ -97,6 +97,11 @@ def _parse(embeddings_map: Dict[str, str]) -> List[EmbeddingsIndex]:
     elif is_gcs_path(value):
       logging.info('Downloading embeddings from GCS path: %s', value)
       local_path = download_gcs_file(value)
+      if not local_path:
+        logging.warning(
+            'Embeddings not downloaded from GCS and will be ignored. Please check the path: %s',
+            value)
+        continue
       file_name = value
     else:
       file_name = value
