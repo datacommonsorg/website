@@ -84,7 +84,7 @@ def run_query(query):
     }
 
 
-# Runs regular load test where each query is requested one by one
+# Runs the load test
 def load_test(query_file, output_file, run_async):
   # Get the list of queries
   query_list = []
