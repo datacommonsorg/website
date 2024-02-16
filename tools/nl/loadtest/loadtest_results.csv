@@ -1,51 +1,51 @@
 Result,Query,NumCharts,ChartTypes,NLTime,TileLoadTime,TotalTime
-SUCCESS,family earnings in california,3,"['TABLE', 'LINE']",0.663,0.111,0.774
-SUCCESS,What are the projected temperature extremes across California,3,['TABLE'],0.742,0.279,1.021
-SUCCESS,Where were the major fires in the last year in California,2,"['TABLE', 'LINE']",0.475,0.063,0.539
-EMPTY,Tell me about Placer County,0,,0,0,0
-SUCCESS,What were the most common jobs in Placer County,1,['BAR'],0.649,0.096,0.745
-SUCCESS,Which jobs have grown the most in Placer County,18,['LINE'],0.774,0.507,1.281
-SUCCESS,What are the most common health issues in Placer County,3,"['BAR', 'TABLE']",0.707,0.117,0.824
-SUCCESS,Which counties in california have the highest levels of blood pressure,3,"['TABLE', 'LINE']",0.559,0.083,0.642
-SUCCESS,Which counties in the USA have the highest levels of blood pressure,3,"['TABLE', 'LINE']",2.259,0.716,2.976
-SUCCESS,How does blood pressure correlate with income across USA,3,"['TABLE', 'SCATTER']",0.487,0.174,0.661
-EMPTY,What is the meaning of life,0,,0,0,0
-SUCCESS,How big are the public schools in Sunnyvale,3,['TABLE'],0.505,0.069,0.575
-SUCCESS,What is the prevalence of asthma in Sunnyvale,2,"['BAR', 'LINE']",0.588,0.066,0.654
-SUCCESS,What is the commute pattern in Sunnyvale,3,['BAR'],0.568,0.076,0.645
-SUCCESS,How does the commute pattern in Sunnyvale compare with San Bruno,3,['BAR'],0.424,0.072,0.497
-SUCCESS,Which cities in the SF Bay Area have the highest larceny,1,['TABLE'],0.42,0.093,0.514
-SUCCESS,What countries in Africa had the greatest increase in life expectancy,11,['LINE'],0.632,0.108,0.741
-EMPTY,Number of Shakespeare fans in San Francisco and Chicago.,0,,0,0,0
-SUCCESS,Crime in California and Florida,2,['BAR'],0.312,0.192,0.504
-SUCCESS,counties in California with highest crime,2,"['BAR', 'LINE']",0.393,0.067,0.46
-SUCCESS,obesity in California,3,"['TABLE', 'LINE']",0.389,0.061,0.451
-SUCCESS,GDP of countries in the US,3,"['BAR', 'LINE']",0.651,0.105,0.756
-SUCCESS,Poverty vs. Obesity in California,3,"['TABLE', 'SCATTER']",0.574,0.157,0.732
-SUCCESS,Poverty vs. Obesity in California and Florida,3,['BAR'],0.51,0.067,0.577
-SUCCESS,California cities with hispanic population over 10000,1,['BAR'],0.889,0.071,0.961
-SUCCESS,Prevalence of Asthma in California cities with hispanic population over 10000,1,['BAR'],0.878,0.066,0.945
-SUCCESS,Where are the most rural districts in India,3,"['TABLE', 'LINE']",0.698,0.229,0.928
-SUCCESS,Life expectancy across provinces of China,3,"['TABLE', 'LINE']",0.66,0.1,0.761
-SUCCESS,GDP of counties in the United Kingdom,3,"['TABLE', 'LINE']",0.408,0.119,0.527
-SUCCESS,Districts in Turkey with the highest fertility rate,2,"['TABLE', 'LINE']",0.615,0.164,0.779
-SUCCESS,Floods in Brazil,3,"['TABLE', 'LINE']",0.402,0.113,0.516
-SUCCESS,Drought in Africa,3,"['TABLE', 'LINE']",0.43,0.26,0.691
-SUCCESS,tell me about poverty in africa,3,"['TABLE', 'LINE']",0.453,0.101,0.554
-SUCCESS,which countries in Africa have show the greatest reduction in poverty?,11,['LINE'],0.726,0.131,0.857
-SUCCESS,health in the world,3,"['TABLE', 'LINE']",0.703,0.152,0.855
-SUCCESS,Which countries emit the most greenhouse gases?,3,['TABLE'],0.756,0.181,0.938
-EMPTY,tell me about palo alto,0,,0,0,0
-SUCCESS,US states which have that the cheapest houses,3,"['TABLE', 'BAR']",0.746,0.063,0.81
-SUCCESS,what about cheapest houses in florida,3,"['BAR', 'TABLE']",0.482,0.082,0.565
-SUCCESS,how do the cheapest houses compare across california and new york state and washington state,3,['BAR'],0.413,0.107,0.52
-SUCCESS,show me the population of mexico city,2,['LINE'],0.687,0.091,0.779
-SUCCESS,counties in the US with the most poverty,3,"['TABLE', 'LINE']",1.286,0.631,1.918
-SUCCESS,population by age in the US,3,"['BAR', 'TABLE']",0.488,0.071,0.56
-SUCCESS,population by gender in the US,3,"['TABLE', 'LINE']",0.668,0.064,0.733
-SUCCESS,population of females in US a decade ago,3,"['TABLE', 'LINE']",0.594,0.081,0.675
-SUCCESS,which industries have grown the most in California,26,['LINE'],0.571,0.323,0.895
-SUCCESS,Richest and poorest countries by GDP,3,"['TABLE', 'LINE']",0.458,0.129,0.588
-SUCCESS,What is the correlation between obesity and poverty across counties in the US,3,"['TABLE', 'SCATTER']",0.898,3.671,4.57
-SUCCESS,Compare the population of kansas with the population of nebraska over the past decade,3,['BAR'],0.789,0.077,0.867
-SUCCESS,Breakdown of businesses by type in the US,3,"['TABLE', 'LINE', 'BAR']",0.618,0.086,0.704
+SUCCESS,family earnings in california,3,"['LINE', 'TABLE']",0.679,0.101,0.781
+SUCCESS,What are the projected temperature extremes across California,3,['TABLE'],0.742,0.135,0.878
+SUCCESS,Where were the major fires in the last year in California,2,"['LINE', 'TABLE']",0.454,0.075,0.529
+EMPTY,Tell me about Placer County,0,[],0,0,0
+SUCCESS,What were the most common jobs in Placer County,1,['BAR'],0.54,0.072,0.612
+SUCCESS,Which jobs have grown the most in Placer County,18,['LINE'],0.523,0.637,1.16
+SUCCESS,What are the most common health issues in Placer County,3,"['TABLE', 'BAR']",0.741,0.094,0.835
+SUCCESS,Which counties in california have the highest levels of blood pressure,3,"['LINE', 'TABLE']",0.61,0.072,0.682
+SUCCESS,Which counties in the USA have the highest levels of blood pressure,3,"['LINE', 'TABLE']",2.491,0.771,3.262
+SUCCESS,How does blood pressure correlate with income across USA,3,"['SCATTER', 'TABLE']",0.63,0.205,0.836
+EMPTY,What is the meaning of life,0,[],0,0,0
+SUCCESS,How big are the public schools in Sunnyvale,3,['TABLE'],0.464,0.058,0.523
+SUCCESS,What is the prevalence of asthma in Sunnyvale,2,"['LINE', 'BAR']",0.505,0.066,0.572
+SUCCESS,What is the commute pattern in Sunnyvale,3,['BAR'],0.458,0.066,0.524
+SUCCESS,How does the commute pattern in Sunnyvale compare with San Bruno,3,['BAR'],0.574,0.074,0.648
+SUCCESS,Which cities in the SF Bay Area have the highest larceny,1,['TABLE'],0.603,0.08,0.684
+SUCCESS,What countries in Africa had the greatest increase in life expectancy,11,['LINE'],0.73,0.099,0.83
+EMPTY,Number of Shakespeare fans in San Francisco and Chicago.,0,[],0,0,0
+SUCCESS,Crime in California and Florida,2,['BAR'],0.275,0.063,0.339
+SUCCESS,counties in California with highest crime,2,"['LINE', 'BAR']",0.328,0.053,0.381
+SUCCESS,obesity in California,3,"['LINE', 'TABLE']",0.389,0.064,0.453
+SUCCESS,GDP of countries in the US,3,"['LINE', 'BAR']",0.622,0.155,0.778
+SUCCESS,Poverty vs. Obesity in California,3,"['SCATTER', 'TABLE']",0.478,0.159,0.638
+SUCCESS,Poverty vs. Obesity in California and Florida,3,['BAR'],0.447,0.07,0.517
+SUCCESS,California cities with hispanic population over 10000,1,['BAR'],1.106,0.067,1.174
+SUCCESS,Prevalence of Asthma in California cities with hispanic population over 10000,1,['BAR'],0.909,0.061,0.97
+SUCCESS,Where are the most rural districts in India,3,"['LINE', 'TABLE']",0.643,0.337,0.981
+SUCCESS,Life expectancy across provinces of China,3,"['LINE', 'TABLE']",0.703,0.107,0.81
+SUCCESS,GDP of counties in the United Kingdom,3,"['LINE', 'TABLE']",1.367,0.135,1.503
+SUCCESS,Districts in Turkey with the highest fertility rate,2,"['LINE', 'TABLE']",0.558,0.079,0.638
+SUCCESS,Floods in Brazil,3,"['LINE', 'TABLE']",0.457,0.128,0.586
+SUCCESS,Drought in Africa,3,"['LINE', 'TABLE']",0.419,0.177,0.597
+SUCCESS,tell me about poverty in africa,3,"['LINE', 'TABLE']",0.395,1.152,1.547
+SUCCESS,which countries in Africa have show the greatest reduction in poverty?,11,['LINE'],0.629,0.139,0.768
+SUCCESS,health in the world,3,"['LINE', 'TABLE']",0.431,0.11,0.542
+SUCCESS,Which countries emit the most greenhouse gases?,3,['TABLE'],0.805,0.194,1
+EMPTY,tell me about palo alto,0,[],0,0,0
+SUCCESS,US states which have that the cheapest houses,3,"['TABLE', 'BAR']",0.606,0.085,0.691
+SUCCESS,what about cheapest houses in florida,3,"['TABLE', 'BAR']",0.504,0.095,0.6
+SUCCESS,how do the cheapest houses compare across california and new york state and washington state,3,['BAR'],0.629,0.099,0.728
+SUCCESS,show me the population of mexico city,2,['LINE'],0.658,0.086,0.745
+SUCCESS,counties in the US with the most poverty,3,"['LINE', 'TABLE']",2.532,0.669,3.201
+SUCCESS,population by age in the US,3,"['TABLE', 'BAR']",0.465,0.076,0.541
+SUCCESS,population by gender in the US,3,"['LINE', 'TABLE']",0.72,0.077,0.798
+SUCCESS,population of females in US a decade ago,3,"['LINE', 'TABLE']",0.77,0.06,0.83
+SUCCESS,which industries have grown the most in California,26,['LINE'],0.943,0.203,1.146
+SUCCESS,Richest and poorest countries by GDP,3,"['LINE', 'TABLE']",0.484,0.118,0.603
+SUCCESS,What is the correlation between obesity and poverty across counties in the US,3,"['SCATTER', 'TABLE']",1.098,4.36,5.458
+SUCCESS,Compare the population of kansas with the population of nebraska over the past decade,3,['BAR'],0.439,0.071,0.511
+SUCCESS,Breakdown of businesses by type in the US,3,"['LINE', 'TABLE', 'BAR']",0.561,0.084,0.646
