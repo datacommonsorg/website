@@ -14,6 +14,7 @@
 
 TEMP_DIR = '/tmp/'
 
+import logging
 import os
 from pathlib import Path
 
@@ -39,7 +40,11 @@ def download_gcs_file(gcs_path: str, use_anonymous_client: bool = False) -> str:
   bucket_name, blob_name = gcs_path[len(_GCS_PATH_PREFIX):].split('/', 1)
   if not blob_name:
     return ''
-  return download_file(bucket_name, blob_name, use_anonymous_client)
+  try:
+    return download_file(bucket_name, blob_name, use_anonymous_client)
+  except Exception as e:
+    logging.warning("Unable to download gcs file: %s (%s)", gcs_path, str(e))
+    return ''
 
 
 #
