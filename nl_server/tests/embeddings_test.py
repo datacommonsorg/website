@@ -79,36 +79,40 @@ class TestEmbeddings(unittest.TestCase):
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
-      ["number of people", ["Count_Person"]],
-      ["population of", ["dc/topic/Population", "Count_Person"]],
-      ["economy of the state", ["dc/topic/Economy"]],
-      ["household income", ["Median_Income_Household"]],
+      ["number of people", False, ["Count_Person"]],
+      ["population of", False, ["dc/topic/Population", "Count_Person"]],
+      ["economy of the state", False, ["dc/topic/Economy"]],
+      ["household income", False, ["Median_Income_Household"]],
       [
-          "life expectancy in USA",
+          "life expectancy in USA", False,
           ["dc/topic/LifeExpectancy", "LifeExpectancy_Person"]
       ],
-      ["GDP", ["Amount_EconomicActivity_GrossDomesticProduction_Nominal"]],
-      ["auto theft", ["Count_CriminalActivities_MotorVehicleTheft"]],
-      ["agriculture", ["dc/topic/Agriculture"]],
       [
-          "agricultural output",
+          "GDP", False,
+          ["Amount_EconomicActivity_GrossDomesticProduction_Nominal"]
+      ],
+      ["auto theft", False, ["Count_CriminalActivities_MotorVehicleTheft"]],
+      ["agriculture", False, ["dc/topic/Agriculture"]],
+      [
+          "agricultural output", False,
           ["dc/g/FarmInventory", 'dc/topic/AgriculturalProduction']
       ],
       [
-          "agriculture workers",
+          "agriculture workers", False,
           ["dc/hlxvn1t8b9bhh", "Count_Person_MainWorker_AgriculturalLabourers"]
       ],
       [
-          "heart disease",
+          "heart disease", False,
           [
               "dc/topic/HeartDisease",
               "dc/topic/PopulationWithDiseasesOfHeartByAge",
               "Percent_Person_WithCoronaryHeartDisease"
           ]
       ],
+      ["heart disease", True, ["Percent_Person_WithCoronaryHeartDisease"]],
   ])
-  def test_sv_detection(self, query_str, expected_list):
-    got = self.nl_embeddings.detect_svs(query_str)
+  def test_sv_detection(self, query_str, skip_topics, expected_list):
+    got = self.nl_embeddings.detect_svs(query_str, skip_topics=skip_topics)
 
     # Check that all expected fields are present.
     for key in ["SV", "CosineScore", "SV_to_Sentences", "MultiSV"]:

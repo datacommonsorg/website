@@ -68,8 +68,12 @@ def search_sv():
   if request.args.get('skip_multi_sv'):
     skip_multi_sv = True
 
+  skip_topics = False
+  if request.args.get('skip_topics'):
+    skip_topics = True
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(idx)
-  return json.dumps(nl_embeddings.detect_svs(query, threshold, skip_multi_sv))
+  return json.dumps(
+      nl_embeddings.detect_svs(query, threshold, skip_multi_sv, skip_topics))
 
 
 @bp.route('/api/search_places/', methods=['GET'])

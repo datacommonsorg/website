@@ -517,3 +517,9 @@ class ExploreTest(NLWebServerTestCase):
             # No such chart because the two variables are not coplottable.
             'Native born vs. Median income in Sunnyvale',
         ])
+
+  def test_e2e_toolformer_mode(self):
+    self.run_detect_and_fulfill(
+        'e2e_toolformer_mode',
+        ['what is the infant mortality rate in massachusetts'],
+        mode='toolformer')
