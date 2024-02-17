@@ -55,6 +55,12 @@ variables.
    ./run.sh -c sdg data/curated_input/sdg/sheets_svs.csv data/alternatives/sdg/*.csv
    ```
 
+   To generate the `undata_ft` embeddings:
+   ```bash
+   ./run.sh -c undata data/curated_input/undata/sheets_svs.csv data/alternatives/undata/*.csv
+   ```
+   TODO: Add improved alternative descriptions to undata topics
+
    You can also create custom embeddings (using the finetuned model in PROD):
    ```bash
    ./run.sh -c <embeddings_size> <curated_input_csv_path> <alternatives_filepattern>
