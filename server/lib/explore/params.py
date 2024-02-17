@@ -89,4 +89,6 @@ def is_sdg(insight_ctx: Dict) -> bool:
 def dc_to_embedding_type(dc: str, embeddings_type: str) -> str:
   if dc in [DCNames.SDG_DC.value, DCNames.SDG_MINI_DC.value]:
     return 'sdg_ft'
+  elif dc in [DCNames.UNDATA_DC.value]:
+    return 'undata_ft'
   return embeddings_type
