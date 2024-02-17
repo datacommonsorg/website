@@ -62,7 +62,7 @@ _SANITY_TEST = 'sanity'
 
 # Get the default place to be used for fulfillment. If there is a place in the
 # request, use that. Otherwise, use pre-chosen places.
-def _get_default_place(request: Dict, is_sdg: bool, debug_logs: Dict):
+def _get_default_place(request: Dict, is_special_dc: bool, debug_logs: Dict):
   default_place_dcid = request.args.get('default_place', default='', type=str)
   # If default place from request is earth, use the Earth place object
   if default_place_dcid == constants.EARTH.dcid:
@@ -76,7 +76,7 @@ def _get_default_place(request: Dict, is_sdg: bool, debug_logs: Dict):
     else:
       return None
   # For SDG use Earth as the default place.
-  elif is_sdg:
+  elif is_special_dc:
     return constants.EARTH
   else:
     return constants.USA
@@ -111,9 +111,8 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   context_history = []
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
-  is_sdg = request.get_json().get('dc', '').startswith('sdg')
-  if is_sdg:
-    embeddings_index_type = 'sdg_ft'
+  dc = request.get_json().get('dc', '')
+  embeddings_index_type = params.dc_to_embedding_type(dc, embeddings_index_type)
 
   detector_type = request.args.get(
       'detector',
@@ -221,7 +220,8 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     utterance.i18n_lang = i18n_lang
     default_place = None
     if use_default_place:
-      default_place = _get_default_place(request, is_sdg, debug_logs)
+      is_special_dc = params.is_special_dc_str(dc)
+      default_place = _get_default_place(request, is_special_dc, debug_logs)
     context.merge_with_context(utterance, default_place)
     if not utterance.places:
       err_json = helpers.abort(

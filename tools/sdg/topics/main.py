@@ -21,16 +21,28 @@ import os
 import re
 from typing import Dict, List, Set
 
+from absl import app
+from absl import flags
 import requests
 
+FLAGS = flags.FLAGS
+
+flags.DEFINE_string('dc', '', 'Type of index to build')
+
 logging.getLogger().setLevel(logging.INFO)
+
+_TMP_DIR = '/tmp'
 
 _SDG_ROOT = "dc/g/SDG"
 _SDG_TOPIC_JSON = '../../../server/config/nl_page/sdg_topic_cache.json'
 _SDG_NON_COUNTRY_VARS = '../../../server/config/nl_page/sdg_non_country_vars.json'
-_TMP_DIR = '/tmp'
-_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_sdg.mcf')
-_VARIABLES_FILE = 'variable_grouping.csv'
+_SDG_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_sdg.mcf')
+_SDG_VARIABLES_FILE = 'variable_grouping.csv'
+
+_UNDATA_ROOT = "dc/g/UN"
+_UNDATA_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_undata.mcf')
+_UNDATA_TOPIC_JSON = '../../../server/config/nl_page/undata_topic_cache.json'
+
 API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
 API_PATH_PV = API_ROOT + '/v1/bulk/property/values/out'
@@ -77,7 +89,8 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
     members = []
     for csv in info.get('childStatVars', []):
       svid = csv.get('id')
-      if not csv.get('hasData') or not svid or svid not in filter_vars:
+      if (not csv.get('hasData') or not svid or
+          (filter_vars and svid not in filter_vars)):
         continue
       members.append(csv['id'])
 
@@ -102,9 +115,9 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
     download_svg_recursive(sorted(list(recurse_nodes)), nodes, filter_vars)
 
 
-def download_sdg_svgs(filter_vars: Set[str]):
+def download_svgs(init_nodes: List[str], filter_vars: Set[str]):
   nodes = {}
-  download_svg_recursive([_SDG_ROOT], nodes, filter_vars)
+  download_svg_recursive(init_nodes, nodes, filter_vars)
   return nodes
 
 
@@ -117,13 +130,8 @@ class Variables:
   all_vars: Set[str]
 
 
-def load_variables():
-  vars = Variables(series2group2vars={},
-                   grouped_vars=set(),
-                   group_descriptions={},
-                   non_country_vars=set(),
-                   all_vars=set())
-  with open(_VARIABLES_FILE) as fp:
+def load_sdg_variables(vars: Variables):
+  with open(_SDG_VARIABLES_FILE) as fp:
     for row in csv.DictReader(fp):
       if not row.get('VARIABLE_CODE'):
         continue
@@ -176,8 +184,6 @@ def load_variables():
     if srs in vars.series2group2vars and not vars.series2group2vars[srs]:
       del vars.series2group2vars[srs]
 
-  return vars
-
 
 # As a result of creating SVPG nodes we might have dropped some empty Topic
 # nodes that in turn led to "dangling" references.
@@ -220,8 +226,8 @@ def drop_dangling_topic_refs(nodes: List[Dict]):
   return new_nodes
 
 
-def generate(sdg_vars: Variables):
-  nodes = download_sdg_svgs(sdg_vars.all_vars)
+def generate(init_nodes: List[str], filter_vars: Variables):
+  nodes = download_svgs(init_nodes, filter_vars.all_vars)
 
   final_nodes = []
   for topic, node in nodes.items():
@@ -231,15 +237,15 @@ def generate(sdg_vars: Variables):
     pruned_members = []
     # Skip members in SVPG groups.
     for m in node['relevantVariableList']:
-      if m not in sdg_vars.grouped_vars:
+      if m not in filter_vars.grouped_vars:
         pruned_members.append(m)
 
     # Add SVPGs in its place.
-    for svpg, members in sdg_vars.series2group2vars.get(topic, {}).items():
+    for svpg, members in filter_vars.series2group2vars.get(topic, {}).items():
       pruned_members.append(svpg)
 
-      if sdg_vars.group_descriptions.get(svpg):
-        names = [sdg_vars.group_descriptions[svpg]]
+      if filter_vars.group_descriptions.get(svpg):
+        names = [filter_vars.group_descriptions[svpg]]
       else:
         names = node['name']
       final_nodes.append({
@@ -249,15 +255,15 @@ def generate(sdg_vars: Variables):
           'typeOf': ['StatVarPeerGroup']
       })
 
-    if topic in sdg_vars.series2group2vars:
-      del sdg_vars.series2group2vars[topic]
+    if topic in filter_vars.series2group2vars:
+      del filter_vars.series2group2vars[topic]
 
     if pruned_members:
       node['relevantVariableList'] = pruned_members
       final_nodes.append(node)
 
   # Assert we have consumed everything!
-  assert not sdg_vars.series2group2vars, sdg_vars.series2group2vars
+  assert not filter_vars.series2group2vars, filter_vars.series2group2vars
 
   final_nodes = drop_dangling_topic_refs(final_nodes)
 
@@ -265,21 +271,21 @@ def generate(sdg_vars: Variables):
   return final_nodes
 
 
-def write_non_country_vars(sdg_vars: Variables):
+def write_sdg_non_country_vars(sdg_vars: Variables):
   js = {'variables': sorted(list(sdg_vars.non_country_vars))}
   with open(_SDG_NON_COUNTRY_VARS, 'w') as fp:
     json.dump(js, fp, indent=2)
 
 
-def write_topic_json(nodes):
-  with open(_SDG_TOPIC_JSON, 'w') as fp:
+def write_topic_json(topic_file: str, nodes: list):
+  with open(topic_file, 'w') as fp:
     json.dump({'nodes': nodes}, fp, indent=2)
 
 
-def write_topic_mcf(nodes: list[dict]) -> None:
-  logging.info("Writing MCF to: %s", _MCF_PATH)
+def write_topic_mcf(mcf_file: str, nodes: list[dict]) -> None:
+  logging.info("Writing MCF to: %s", mcf_file)
   os.makedirs(_TMP_DIR, exist_ok=True)
-  with open(_MCF_PATH, 'w') as out:
+  with open(mcf_file, 'w') as out:
     for node in nodes:
       out.write(_write_mcf_node(node))
 
@@ -306,14 +312,25 @@ def _write_mcf_node(node: dict) -> str:
   return "\n".join(lines)
 
 
-def main():
-  sdg_vars = load_variables()
-  print(f'Found {len(sdg_vars.all_vars)} vars')
-  nodes = generate(sdg_vars)
-  write_topic_json(nodes)
-  write_non_country_vars(sdg_vars)
-  write_topic_mcf(nodes)
+def main(_):
+  assert FLAGS.dc
+  filter_vars = Variables(series2group2vars={},
+                          grouped_vars=set(),
+                          group_descriptions={},
+                          non_country_vars=set(),
+                          all_vars=set())
+  if FLAGS.dc == 'sdg':
+    load_sdg_variables(filter_vars)
+    print(f'Found {len(sdg_vars.all_vars)} vars')
+    nodes = generate([_SDG_ROOT], filter_vars)
+    write_sdg_non_country_vars(filter_vars)
+    write_topic_mcf(_SDG_MCF_PATH, nodes)
+    write_topic_json(_SDG_TOPIC_JSON, nodes)
+  elif FLAGS.dc == 'undata':
+    nodes = generate([_UNDATA_ROOT], filter_vars)
+    write_topic_mcf(_UNDATA_MCF_PATH, nodes)
+    write_topic_json(_UNDATA_TOPIC_JSON, nodes)
 
 
 if __name__ == "__main__":
-  main()
+  app.run(main)

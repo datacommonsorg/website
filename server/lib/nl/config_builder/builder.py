@@ -18,7 +18,7 @@ from typing import cast, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.explore.params import DCNames
-from server.lib.explore.params import is_sdg
+from server.lib.explore.params import is_special_dc
 from server.lib.explore.params import Params
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
@@ -91,7 +91,7 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
   )
   state.sv2thing = sv2thing
   # In SDG mode, override the place names with `unDataLabel` values.
-  if is_sdg(state.uttr.insight_ctx):
+  if is_special_dc(state.uttr.insight_ctx):
     _set_un_labels_in_places(state)
   uttr.counters.timeit('get_sv_details', start)
 
@@ -139,7 +139,7 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
             cspec=cspec)
       else:
         block = builder.new_chart(cspec)
-        if cspec.is_sdg:
+        if cspec.is_special_dc:
           # Return highlight before timeline for SDG.
           stat_var_spec_map.update(
               highlight.highlight_block(block.columns.add(), cspec.places[0],
@@ -153,7 +153,7 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
             single_date=cspec.single_date,
             date_range=cspec.date_range,
             sv_place_facet_id=cspec.sv_place_facet_id)
-        if not cspec.is_sdg:
+        if not cspec.is_special_dc:
           stat_var_spec_map.update(
               highlight.highlight_block(block.columns.add(), cspec.places[0],
                                         cspec.svs[0], sv2thing,

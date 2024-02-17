@@ -1,0 +1,697 @@
+{
+  "client": "test_fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Human Development Index Rank in United States of America",
+                    "statVarKey": [
+                      "who/CCO_2"
+                    ],
+                    "title": "Human Development Index Rank in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Human development index rank.",
+            "title": "Human Development Index Rank"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Hemoglobin Level of Children Aged 6-59 Months in United States of America",
+                    "statVarKey": [
+                      "who/HEMOGLOBINLEVEL_CHILDREN_MEAN"
+                    ],
+                    "title": "Mean Hemoglobin Level of Children Aged 6-59 Months in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Mean hemoglobin level of children aged 6-59 months.",
+            "title": "Mean Hemoglobin Level of Children Aged 6-59 Months"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Hemoglobin Level of Non-Pregnant Women in United States of America",
+                    "statVarKey": [
+                      "who/HEMOGLOBINLEVEL_NONPREGNANT_MEAN"
+                    ],
+                    "title": "Mean Hemoglobin Level of Non-Pregnant Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Mean hemoglobin level of non-pregnant women (aged 15-49 years).",
+            "title": "Mean Hemoglobin Level of Non-Pregnant Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Hemoglobin Level of Pregnant Women in United States of America",
+                    "statVarKey": [
+                      "who/HEMOGLOBINLEVEL_PREGNANT_MEAN"
+                    ],
+                    "title": "Mean Hemoglobin Level of Pregnant Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Mean hemoglobin level of pregnant women (aged 15-49 years).",
+            "title": "Mean Hemoglobin Level of Pregnant Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Hemoglobin Level of Women of Reproductive Age in United States of America",
+                    "statVarKey": [
+                      "who/HEMOGLOBINLEVEL_REPRODUCTIVEAGE_MEAN"
+                    ],
+                    "title": "Mean Hemoglobin Level of Women of Reproductive Age in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Mean hemoglobin level of women of reproductive age (aged 15-49 years).",
+            "title": "Mean Hemoglobin Level of Women of Reproductive Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Availability of Estimates on Impoverishment Due to Out-Of-Pocket Health Expenditures in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMPOV_ESTIMATE_AVAILABLE"
+                    ],
+                    "title": "Availability of Estimates on Impoverishment Due to Out-Of-Pocket Health Expenditures in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Availability of estimates on impoverishment due to out-of-pocket health expenditures.",
+            "footnote": "Includes data from the following sources: POVAFG2007; POVAGO2008; POVALB2002; POVALB2005; POVALB2008; POVALB2012; POVARG1996; POVARG2004; POVARM2010; POVARM2011; POVARM2012; POVARM2013; POVAUS2010; POVAZE2002; POVAZE2003; POVAZE2004; POVAZE2005; POVBDI2006; POVBEL2010; POVBEN2003; POVBFA1998; POVBFA2003; POVBFA2009; POVBGD2000; POVBGD2005; POVBGD2010; POVBGR1997; POVBGR2000; POVBGR2001; POVBGR2007; POVBGR2010; POVBIH2001; POVBIH2004; POVBIH2007; POVBIH2011; POVBLR1998; POVBLR1999; POVBLR2000; PO...5589 more chars",
+            "title": "Availability of Estimates on Impoverishment Due to Out-Of-Pocket Health Expenditures"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Availability of Estimates on Large Health Expenditures as a Share of Total Expenditure or Income in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_CATA_ESTIMATE_AVAILABLE"
+                    ],
+                    "title": "Availability of Estimates on Large Health Expenditures as a Share of Total Expenditure or Income in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Availability of estimates on large health expenditures as a share of total expenditure or income.",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAGO2008; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPARG1996; FPARG2004; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPAUS2010; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE2005; FPBDI2006; FPBEL1997; FPBEL2010; FPBEN2003; FPBFA1998; FPBFA2003; FPBFA2009; FPBGD2000; FPBGD2005; FPBGD2010; FPBGR1997; FPBGR2000; FPBGR2001; FPBGR2007; FPBGR2010; FPBIH2001; FPBIH2004; FPBIH2007; FPBIH2011; FPBLR1998; FPBLR1999; FPBLR2000; FPBLR2001; FPBLR20...5503 more chars",
+            "title": "Availability of Estimates on Large Health Expenditures as a Share of Total Expenditure or Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of a Relative Poverty Line - 60% of Median Daily Per Capita Consumption or Income in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_PG_RELPL_STD"
+                    ],
+                    "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of a Relative Poverty Line - 60% of Median Daily Per Capita Consumption or Income in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Increase in poverty gap due to household health expenditures, expressed as a proportion of a relative poverty line (60% of median daily per capita consumption or income) (%).",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2016; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARG1996; FPARG2004; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE20...9783 more chars",
+            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of a Relative Poverty Line - 60% of Median Daily Per Capita Consumption or Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $1.90 A-Day Poverty Line in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_PG_190_STD"
+                    ],
+                    "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $1.90 A-Day Poverty Line in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Increase in poverty gap due to household health expenditures, expressed as a proportion of the $1.90 a-day poverty line (%).",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE2005; FPBDI1998; FPBDI2006; FPBDI20...9121 more chars",
+            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $1.90 A-Day Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $2.15 A-Day Poverty Line in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_PG_215_STD"
+                    ],
+                    "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $2.15 A-Day Poverty Line in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Increase in poverty gap due to household health expenditures, expressed as a proportion of the $2.15 a-day poverty line (%, national, rural, urban).",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE2005; FPBDI1998; FPBDI2006; FPBDI20...9109 more chars",
+            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $2.15 A-Day Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $3.20 A-Day Poverty Line in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_PG_310_STD"
+                    ],
+                    "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $3.20 A-Day Poverty Line in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Increase in poverty gap due to household health expenditures, expressed as a proportion of the 3.10 a-day poverty line (%).",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE2005; FPBDI1998; FPBDI2006; FPBDI20...9154 more chars",
+            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $3.20 A-Day Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $3.65 A-Day Poverty Line in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_PG_365_STD"
+                    ],
+                    "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $3.65 A-Day Poverty Line in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Increase in poverty gap due to household health expenditures, expressed as a proportion of the $3.65 a-day poverty line (%, national, rural, urban).",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE2005; FPBDI1998; FPBDI2006; FPBDI20...9142 more chars",
+            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $3.65 A-Day Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population Pushed Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_NPRELPL_POP"
+                    ],
+                    "title": "Population Pushed Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Population pushed below a relative poverty line by household health expenditures (60% of median daily per capita consumption or income) (%).",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2016; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARG1996; FPARG2004; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE20...9794 more chars",
+            "title": "Population Pushed Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population Pushed Below the $1.90 a Day Poverty Line by Household Health Expenditures in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_NP190_POP"
+                    ],
+                    "title": "Population Pushed Below the $1.90 a Day Poverty Line by Household Health Expenditures in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Population pushed below the $1.90 a day poverty line by household health expenditures (%).",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE2005; FPBDI1998; FPBDI2006; FPBDI20...8725 more chars",
+            "title": "Population Pushed Below the $1.90 a Day Poverty Line by Household Health Expenditures"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population Pushed Below the $2.15 a Day Poverty Line by Household Health Expenditures in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_NP215_POP"
+                    ],
+                    "title": "Population Pushed Below the $2.15 a Day Poverty Line by Household Health Expenditures in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Population pushed below the $2.15 a day poverty line by household health expenditures (%, national, rural, urban).",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE2005; FPBDI1998; FPBDI2006; FPBDI20...9087 more chars",
+            "title": "Population Pushed Below the $2.15 a Day Poverty Line by Household Health Expenditures"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population Pushed Below the $3.20 a Day Poverty Line by Household Health Expenditures in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_NP310_POP"
+                    ],
+                    "title": "Population Pushed Below the $3.20 a Day Poverty Line by Household Health Expenditures in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Population pushed below the $3.10 a day poverty line by household health expenditures (%).",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE2005; FPBDI1998; FPBDI2006; FPBDI20...8791 more chars",
+            "title": "Population Pushed Below the $3.20 a Day Poverty Line by Household Health Expenditures"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population Pushed Below the $3.65 a Day Poverty Line by Household Health Expenditures in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_NP365_POP"
+                    ],
+                    "title": "Population Pushed Below the $3.65 a Day Poverty Line by Household Health Expenditures in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Population pushed below the $3.65 a day poverty line by household health expenditures (%, national, rural, urban).",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE2005; FPBDI1998; FPBDI2006; FPBDI20...9109 more chars",
+            "title": "Population Pushed Below the $3.65 a Day Poverty Line by Household Health Expenditures"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_PRELPL_POP"
+                    ],
+                    "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Population pushed further below a relative poverty line by household health expenditures - 60% of median daily per capita consumption or income (%, national, rural, urban).",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2016; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARG1996; FPARG2004; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE20...9761 more chars",
+            "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income [60+ Years, Head of the Household] in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_PRELPL_POP.AGE--Y_GE60__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD"
+                    ],
+                    "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income [60+ Years, Head of the Household] in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2016; FPAFG2020; FPAGO2008; FPAGO2018; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPARG2004; FPARM2002; FPARM2003; FPBEL2009; FPBEN2003; FPBEN2018; FPBFA2003; FPBFA2014; FPBFA2018; FPBGD2000; FPBGD2005; FPBGD2010; FPBGD2016; FPBGR1997; FPBGR2015; FPBGR2016; FPBGR2017; FPBGR2018; FPBLR2002_IMPOV; FPBLR2003_IMPOV; FPBLR2004_IMPOV; FPBLR2005_IMPOV; FPBLR2006_IMPOV; FPBLR2007_IMPOV; FPBLR2008_IMPOV; FPBLR2009_IMPOV; FPBLR2010_IMPO...4267 more chars",
+            "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income [60+ Years, Head of the Household]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income [Below 60 Years Old, Head of the Household] in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_PRELPL_POP.AGE--Y0T59__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD"
+                    ],
+                    "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income [Below 60 Years Old, Head of the Household] in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2016; FPAFG2020; FPAGO2008; FPAGO2018; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPARG2004; FPARM2002; FPARM2003; FPBEL2009; FPBEN2003; FPBEN2018; FPBFA2003; FPBFA2014; FPBFA2018; FPBGD2000; FPBGD2005; FPBGD2010; FPBGD2016; FPBGR1997; FPBGR2015; FPBGR2016; FPBGR2017; FPBGR2018; FPBLR2002_IMPOV; FPBLR2003_IMPOV; FPBLR2004_IMPOV; FPBLR2005_IMPOV; FPBLR2006_IMPOV; FPBLR2007_IMPOV; FPBLR2008_IMPOV; FPBLR2009_IMPOV; FPBLR2010_IMPO...4267 more chars",
+            "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income [Below 60 Years Old, Head of the Household]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income [Head of the Household, Female] in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_PRELPL_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--F"
+                    ],
+                    "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income [Head of the Household, Female] in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "footnote": "Includes data from the following sources: FPAFG2016; FPAFG2020; FPAGO2008; FPAGO2018; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPARG2004; FPARM2002; FPARM2003; FPBEL2009; FPBEN2003; FPBEN2018; FPBFA2003; FPBFA2014; FPBFA2018; FPBGD2000; FPBGD2005; FPBGD2010; FPBGD2016; FPBGR1997; FPBGR2015; FPBGR2016; FPBGR2017; FPBGR2018; FPBLR2002_IMPOV; FPBLR2003_IMPOV; FPBLR2004_IMPOV; FPBLR2005_IMPOV; FPBLR2006_IMPOV; FPBLR2007_IMPOV; FPBLR2008_IMPOV; FPBLR2009_IMPOV; FPBLR2010_IMPOV; FPBLR2011_IMPOV; FP...4377 more chars",
+            "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income [Head of the Household, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income [Head of the Household, Male] in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_PRELPL_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--M"
+                    ],
+                    "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income [Head of the Household, Male] in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "footnote": "Includes data from the following sources: FPAFG2016; FPAFG2020; FPAGO2008; FPAGO2018; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPARG2004; FPARM2002; FPARM2003; FPBEL2009; FPBEN2003; FPBEN2018; FPBFA2003; FPBFA2014; FPBFA2018; FPBGD2000; FPBGD2005; FPBGD2010; FPBGD2016; FPBGR1997; FPBGR2015; FPBGR2016; FPBGR2017; FPBGR2018; FPBLR2002_IMPOV; FPBLR2003_IMPOV; FPBLR2004_IMPOV; FPBLR2005_IMPOV; FPBLR2006_IMPOV; FPBLR2007_IMPOV; FPBLR2008_IMPOV; FPBLR2009_IMPOV; FPBLR2010_IMPOV; FPBLR2011_IMPOV; FP...4377 more chars",
+            "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income [Head of the Household, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population Pushed Further Below the $1.90 a Day Poverty Line by Household Health Expenditures in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_P190_POP"
+                    ],
+                    "title": "Population Pushed Further Below the $1.90 a Day Poverty Line by Household Health Expenditures in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Population pushed further below the $1.90 a day poverty line by household health expenditures (%, national, rural, urban).",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE2005; FPBDI1998; FPBDI2006; FPBDI20...8659 more chars",
+            "title": "Population Pushed Further Below the $1.90 a Day Poverty Line by Household Health Expenditures"
+          }
+        ],
+        "statVarSpec": {
+          "who/CCO_2": {
+            "name": "Human development index rank",
+            "statVar": "who/CCO_2"
+          },
+          "who/FINPROTECTION_CATA_ESTIMATE_AVAILABLE": {
+            "name": "Availability of estimates on large health expenditures as a share of total expenditure or income",
+            "statVar": "who/FINPROTECTION_CATA_ESTIMATE_AVAILABLE"
+          },
+          "who/FINPROTECTION_IMPOV_ESTIMATE_AVAILABLE": {
+            "name": "Availability of estimates on impoverishment due to out-of-pocket health expenditures",
+            "statVar": "who/FINPROTECTION_IMPOV_ESTIMATE_AVAILABLE"
+          },
+          "who/FINPROTECTION_IMP_NP190_POP": {
+            "name": "Population pushed below the $1.90 a day poverty line by household health expenditures",
+            "statVar": "who/FINPROTECTION_IMP_NP190_POP"
+          },
+          "who/FINPROTECTION_IMP_NP215_POP": {
+            "name": "Population pushed below the $2.15 a day poverty line by household health expenditures",
+            "statVar": "who/FINPROTECTION_IMP_NP215_POP"
+          },
+          "who/FINPROTECTION_IMP_NP310_POP": {
+            "name": "Population pushed below the $3.20 a day poverty line by household health expenditures",
+            "statVar": "who/FINPROTECTION_IMP_NP310_POP"
+          },
+          "who/FINPROTECTION_IMP_NP365_POP": {
+            "name": "Population pushed below the $3.65 a day poverty line by household health expenditures",
+            "statVar": "who/FINPROTECTION_IMP_NP365_POP"
+          },
+          "who/FINPROTECTION_IMP_NPRELPL_POP": {
+            "name": "Population pushed below a relative poverty line by household health expenditures - 60% of median daily per capita consumption or income",
+            "statVar": "who/FINPROTECTION_IMP_NPRELPL_POP"
+          },
+          "who/FINPROTECTION_IMP_P190_POP": {
+            "name": "Population pushed further below the $1.90 a day poverty line by household health expenditures",
+            "statVar": "who/FINPROTECTION_IMP_P190_POP"
+          },
+          "who/FINPROTECTION_IMP_PG_190_STD": {
+            "name": "Increase in poverty gap due to household health expenditures, expressed as a proportion of the $1.90 a-day poverty line",
+            "statVar": "who/FINPROTECTION_IMP_PG_190_STD"
+          },
+          "who/FINPROTECTION_IMP_PG_215_STD": {
+            "name": "Increase in poverty gap due to household health expenditures, expressed as a proportion of the $2.15 a-day poverty line",
+            "statVar": "who/FINPROTECTION_IMP_PG_215_STD"
+          },
+          "who/FINPROTECTION_IMP_PG_310_STD": {
+            "name": "Increase in poverty gap due to household health expenditures, expressed as a proportion of the $3.20 a-day poverty line",
+            "statVar": "who/FINPROTECTION_IMP_PG_310_STD"
+          },
+          "who/FINPROTECTION_IMP_PG_365_STD": {
+            "name": "Increase in poverty gap due to household health expenditures, expressed as a proportion of the $3.65 a-day poverty line",
+            "statVar": "who/FINPROTECTION_IMP_PG_365_STD"
+          },
+          "who/FINPROTECTION_IMP_PG_RELPL_STD": {
+            "name": "Increase in poverty gap due to household health expenditures, expressed as a proportion of a relative poverty line - 60% of median daily per capita consumption or income",
+            "statVar": "who/FINPROTECTION_IMP_PG_RELPL_STD"
+          },
+          "who/FINPROTECTION_IMP_PRELPL_POP": {
+            "name": "Population pushed further below a relative poverty line by household health expenditures - 60% of median daily per capita consumption or income",
+            "statVar": "who/FINPROTECTION_IMP_PRELPL_POP"
+          },
+          "who/FINPROTECTION_IMP_PRELPL_POP.AGE--Y0T59__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD": {
+            "name": "Population pushed further below a relative poverty line by household health expenditures - 60% of median daily per capita consumption or income [Below 60 years old, Head of the household]",
+            "statVar": "who/FINPROTECTION_IMP_PRELPL_POP.AGE--Y0T59__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD"
+          },
+          "who/FINPROTECTION_IMP_PRELPL_POP.AGE--Y_GE60__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD": {
+            "name": "Population pushed further below a relative poverty line by household health expenditures - 60% of median daily per capita consumption or income [60+ years, Head of the household]",
+            "statVar": "who/FINPROTECTION_IMP_PRELPL_POP.AGE--Y_GE60__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD"
+          },
+          "who/FINPROTECTION_IMP_PRELPL_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--F": {
+            "name": "Population pushed further below a relative poverty line by household health expenditures - 60% of median daily per capita consumption or income [Head of the household, Female]",
+            "statVar": "who/FINPROTECTION_IMP_PRELPL_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--F"
+          },
+          "who/FINPROTECTION_IMP_PRELPL_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--M": {
+            "name": "Population pushed further below a relative poverty line by household health expenditures - 60% of median daily per capita consumption or income [Head of the household, Male]",
+            "statVar": "who/FINPROTECTION_IMP_PRELPL_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--M"
+          },
+          "who/HEMOGLOBINLEVEL_CHILDREN_MEAN": {
+            "name": "Mean hemoglobin level of children aged 6-59 months",
+            "statVar": "who/HEMOGLOBINLEVEL_CHILDREN_MEAN"
+          },
+          "who/HEMOGLOBINLEVEL_NONPREGNANT_MEAN": {
+            "name": "Mean hemoglobin level of non-pregnant women",
+            "statVar": "who/HEMOGLOBINLEVEL_NONPREGNANT_MEAN"
+          },
+          "who/HEMOGLOBINLEVEL_PREGNANT_MEAN": {
+            "name": "Mean hemoglobin level of pregnant women",
+            "statVar": "who/HEMOGLOBINLEVEL_PREGNANT_MEAN"
+          },
+          "who/HEMOGLOBINLEVEL_REPRODUCTIVEAGE_MEAN": {
+            "name": "Mean hemoglobin level of women of reproductive age",
+            "statVar": "who/HEMOGLOBINLEVEL_REPRODUCTIVEAGE_MEAN"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/UN_THEME_1",
+        "name": "1: Poverty and food security",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": []
+  },
+  "svSource": "UNKNOWN",
+  "userMessages": []
+}

@@ -46,6 +46,7 @@ class DCNames(str, Enum):
   MAIN_DC = 'main'
   SDG_DC = 'sdg'
   SDG_MINI_DC = 'sdgmini'
+  UNDATA_DC = 'undata'
 
 
 class QueryMode(str, Enum):
@@ -70,6 +71,22 @@ def sv_threshold(mode: str) -> bool:
     return constants.SV_SCORE_DEFAULT_THRESHOLD
 
 
+def is_special_dc_str(dc: str) -> bool:
+  return dc in [
+      DCNames.SDG_DC.value, DCNames.SDG_MINI_DC.value, DCNames.UNDATA_DC.value
+  ]
+
+
+def is_special_dc(insight_ctx: Dict) -> bool:
+  return is_special_dc_str(insight_ctx.get(Params.DC.value))
+
+
 def is_sdg(insight_ctx: Dict) -> bool:
   return insight_ctx.get(
       Params.DC.value) in [DCNames.SDG_DC.value, DCNames.SDG_MINI_DC.value]
+
+
+def dc_to_embedding_type(dc: str, embeddings_type: str) -> str:
+  if dc in [DCNames.SDG_DC.value, DCNames.SDG_MINI_DC.value]:
+    return 'sdg_ft'
+  return embeddings_type
