@@ -241,6 +241,14 @@ class ExploreTest(NLWebServerTestCase):
     }
     self.run_fulfillment('fulfillment_api_sdg', req)
 
+  def test_fulfillment_undata(self):
+    req = {
+        'entities': ['country/USA'],
+        'variables': ['dc/topic/UN_THEME_1'],
+        'dc': 'undata'
+    }
+    self.run_fulfillment('fulfillment_api_undata', req)
+
   def test_fulfillment_sdg_global(self):
     req = {
         'entities': ['Earth'],

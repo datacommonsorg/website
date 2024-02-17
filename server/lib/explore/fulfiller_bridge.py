@@ -62,7 +62,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
 
   explore_peer_groups = {}
   if (not state.uttr.insight_ctx.get(params.Params.EXP_MORE_DISABLED) and
-      not params.is_sdg(state.uttr.insight_ctx)):
+      not params.is_special_dc(state.uttr.insight_ctx)):
     explore_more_chart_vars_map = _get_explore_more_chart_vars(state)
     explore_peer_groups = extension.chart_vars_to_explore_peer_groups(
         state, explore_more_chart_vars_map)

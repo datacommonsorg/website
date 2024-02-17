@@ -39,7 +39,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   # Do not mutate the original.
   chart_vars = copy.deepcopy(chart_vars)
 
-  is_sdg = params.is_sdg(state.uttr.insight_ctx)
+  is_special_dc = params.is_special_dc(state.uttr.insight_ctx)
 
   if chart_vars.event:
     # This can happen if an event is part of a topic and it can be triggered
@@ -54,7 +54,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       return False
     chart_vars.svs = eres.exist_svs
 
-    if is_sdg or len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
+    if is_special_dc or len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
       # For fewer SVs, comparing trends over time is nicer.
       chart_type = ChartType.TIMELINE_WITH_HIGHLIGHT
     else:
