@@ -304,6 +304,7 @@ function renderTiles(
             )}
             startDate={tile.lineTileSpec?.startDate}
             endDate={tile.lineTileSpec?.endDate}
+            highlightDate={tile.lineTileSpec?.highlightDate}
           />
         );
       case "RANKING":

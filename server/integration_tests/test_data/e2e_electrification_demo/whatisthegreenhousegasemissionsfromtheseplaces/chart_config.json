@@ -110,6 +110,7 @@
               }
             ],
             "denom": "Count_Person",
+            "infoMessage": "Data for \"Ethiopia, Uganda, Guinea, Mali, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas"
           },
           {
@@ -140,6 +141,7 @@
               }
             ],
             "denom": "Count_Person",
+            "infoMessage": "Data for \"Ethiopia, Mali, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide"
           },
           {
@@ -173,6 +175,7 @@
               }
             ],
             "footnote": "Includes data from the following sources: UNFCCC.",
+            "infoMessage": "Data for \"Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Total Greenhouse Gas Emissions Without LULUCF for non-Annex I Parties"
           },
           {
@@ -238,6 +241,7 @@
             ],
             "denom": "Count_Person",
             "description": "CO\u2082 emissions from oil and gas production, refining, and coal mining (measured in tonnes).",
+            "infoMessage": "Data for \"Uganda, Guinea, Mali, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "CO\u2082 Emissions From Fossil Fuel Operations"
           },
           {
@@ -899,5 +903,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See comparison based on places in the previous answer."
+  "userMessages": [
+    "See comparison based on places in the previous answer."
+  ]
 }

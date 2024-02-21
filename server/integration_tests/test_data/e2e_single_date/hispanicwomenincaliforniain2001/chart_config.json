@@ -9,6 +9,9 @@
               {
                 "tiles": [
                   {
+                    "lineTileSpec": {
+                      "highlightDate": "2001"
+                    },
                     "statVarKey": [
                       "Count_Person_Female_HispanicOrLatino_2001_3545552300"
                     ],
@@ -70,6 +73,9 @@
               {
                 "tiles": [
                   {
+                    "lineTileSpec": {
+                      "highlightDate": "2001"
+                    },
                     "statVarKey": [
                       "Count_Person_Female_NotHispanicOrLatino_2001_3545552300"
                     ],
@@ -131,6 +137,9 @@
               {
                 "tiles": [
                   {
+                    "lineTileSpec": {
+                      "highlightDate": "2001"
+                    },
                     "statVarKey": [
                       "Count_Person_Female_HispanicOrLatino_AsianAlone_2001_2745060518"
                     ],
@@ -192,6 +201,9 @@
               {
                 "tiles": [
                   {
+                    "lineTileSpec": {
+                      "highlightDate": "2001"
+                    },
                     "statVarKey": [
                       "Count_Person_Female_WhiteAloneNotHispanicOrLatino_2001_2745060518"
                     ],
@@ -253,6 +265,9 @@
               {
                 "tiles": [
                   {
+                    "lineTileSpec": {
+                      "highlightDate": "2001"
+                    },
                     "statVarKey": [
                       "Count_Person_Female_HispanicOrLatino_WhiteAlone_2001_2745060518"
                     ],
@@ -314,6 +329,9 @@
               {
                 "tiles": [
                   {
+                    "lineTileSpec": {
+                      "highlightDate": "2001"
+                    },
                     "statVarKey": [
                       "Count_Person_Female_HispanicOrLatino_TwoOrMoreRaces_2001_2745060518"
                     ],
@@ -1485,5 +1503,5 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

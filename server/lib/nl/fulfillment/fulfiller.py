@@ -165,7 +165,7 @@ def _produce_query_types(uttr: Utterance) -> List[QueryType]:
   while query_types[-1] != None:
     query_types.append(handlers.next_query_type(query_types))
 
-  if params.is_sdg(uttr.insight_ctx):
+  if params.is_special_dc(uttr.insight_ctx):
     # Prune out query_types that aren't relevant.
     pruned_types = []
     for qt in query_types:

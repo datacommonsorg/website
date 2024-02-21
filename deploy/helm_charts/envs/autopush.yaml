@@ -50,3 +50,4 @@ nodejs:
 
 cronTesting:
   enabled: true
+  screenshotDomain: "autopush.datacommons.org"

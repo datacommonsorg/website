@@ -123,6 +123,8 @@ function getRankingUnitResult(
   );
   const result: TileResult = {
     data_csv: rankingPointsToCsv(pointsList.flat(), rankingGroup.svName),
+    placeType: enclosedPlaceType,
+    places: [place],
     srcs: getSources(rankingGroup.sources),
     title: getRankingUnitTitle(
       tileConfig.title,
@@ -136,6 +138,7 @@ function getRankingUnitResult(
       !_.isEmpty(rankingGroup.unit) && rankingGroup.unit.length == 1
         ? rankingGroup.unit[0]
         : "",
+    vars: statVarSpec.map((spec) => spec.statVar),
   };
   // Currently cannot draw ranking table in nodejs
   /*

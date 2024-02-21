@@ -80,6 +80,6 @@ export interface DebugInfo {
 }
 
 export interface UserMessageInfo {
-  msg: string;
+  msgList: string[];
   showForm: boolean;
 }

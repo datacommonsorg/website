@@ -95,6 +95,8 @@ export interface LineTilePropType {
   startDate?: string;
   // Latest date to show on the chart.
   endDate?: string;
+  // Date to highlight on the chart.
+  highlightDate?: string;
 }
 
 export interface LineChartData {
@@ -276,10 +278,10 @@ export function draw(
     props.svgChartWidth || svgContainer.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
-    false,
     props.showTooltipOnHover,
     {
       colors: props.colors,
+      highlightDate: props.highlightDate,
       timeScale: props.timeScale,
       title: chartTitle,
       unit: chartData.unit,

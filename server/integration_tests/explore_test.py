@@ -241,6 +241,14 @@ class ExploreTest(NLWebServerTestCase):
     }
     self.run_fulfillment('fulfillment_api_sdg', req)
 
+  def test_fulfillment_undata(self):
+    req = {
+        'entities': ['country/USA'],
+        'variables': ['dc/topic/UN_THEME_1'],
+        'dc': 'undata'
+    }
+    self.run_fulfillment('fulfillment_api_undata', req)
+
   def test_fulfillment_sdg_global(self):
     req = {
         'entities': ['Earth'],
@@ -420,6 +428,11 @@ class ExploreTest(NLWebServerTestCase):
     ],
                                 dc='sdg')
 
+  def test_e2e_undata(self):
+    self.run_detect_and_fulfill('e2e_undata', [
+        'Culture in Iran',
+    ], dc='undata')
+
     self.run_detect_and_fulfill('e2e_sdg_main_dc', [
         'Hunger in Nigeria',
         'Compare progress on poverty in Mexico, Nigeria and Pakistan'
@@ -483,7 +496,8 @@ class ExploreTest(NLWebServerTestCase):
         'Life expectancy in US states in 2018',
         'What are the projected temperatures in california in 2025',
         'population in the US in the last year',
-        'hispanic women in California in 2001'
+        'hispanic women in California in 2001',
+        "What was the average house price for 2 br house in Mountain View decade ago"
     ])
 
   def test_e2e_date_range(self):
@@ -516,3 +530,9 @@ class ExploreTest(NLWebServerTestCase):
             # No such chart because the two variables are not coplottable.
             'Native born vs. Median income in Sunnyvale',
         ])
+
+  def test_e2e_toolformer_mode(self):
+    self.run_detect_and_fulfill(
+        'e2e_toolformer_mode',
+        ['what is the infant mortality rate in massachusetts'],
+        mode='toolformer')

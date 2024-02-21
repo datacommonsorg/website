@@ -46,11 +46,15 @@ class DCNames(str, Enum):
   MAIN_DC = 'main'
   SDG_DC = 'sdg'
   SDG_MINI_DC = 'sdgmini'
+  UNDATA_DC = 'undata'
 
 
 class QueryMode(str, Enum):
   # NOTE: This mode is incompatible with LLM detector
   STRICT = 'strict'
+  # This is a special mode to be used for toolformer experiments.
+  # This mode does not detect topics and has a sv score threshold of 0.8.
+  TOOLFORMER = 'toolformer'
 
 
 class Clients(str, Enum):
@@ -61,10 +65,30 @@ class Clients(str, Enum):
 def sv_threshold(mode: str) -> bool:
   if mode == QueryMode.STRICT:
     return constants.SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
+  elif mode == QueryMode.TOOLFORMER:
+    return constants.SV_SCORE_TOOLFORMER_THRESHOLD
   else:
     return constants.SV_SCORE_DEFAULT_THRESHOLD
+
+
+def is_special_dc_str(dc: str) -> bool:
+  return dc in [
+      DCNames.SDG_DC.value, DCNames.SDG_MINI_DC.value, DCNames.UNDATA_DC.value
+  ]
+
+
+def is_special_dc(insight_ctx: Dict) -> bool:
+  return is_special_dc_str(insight_ctx.get(Params.DC.value))
 
 
 def is_sdg(insight_ctx: Dict) -> bool:
   return insight_ctx.get(
       Params.DC.value) in [DCNames.SDG_DC.value, DCNames.SDG_MINI_DC.value]
+
+
+def dc_to_embedding_type(dc: str, embeddings_type: str) -> str:
+  if dc in [DCNames.SDG_DC.value, DCNames.SDG_MINI_DC.value]:
+    return 'sdg_ft'
+  elif dc in [DCNames.UNDATA_DC.value]:
+    return 'undata_ft'
+  return embeddings_type

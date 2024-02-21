@@ -14,31 +14,148 @@
 """Place Explorer related handlers."""
 
 import json
+import logging
 import os
+import re
+import time
 
 import flask
 from flask import current_app
 from flask import g
 
+from server.lib.i18n import AVAILABLE_LANGUAGES
 import server.routes.shared_api.place as place_api
+from shared.lib.place_summaries import get_shard_filename_by_dcid
+from shared.lib.place_summaries import get_shard_name
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
+
+CATEGORIES = [
+    "Economics",
+    "Health",
+    "Equity",
+    "Crime",
+    "Education",
+    "Demographics",
+    "Housing",
+    "Environment",
+    "Energy",
+]
 
 CATEGORY_REDIRECTS = {
     "Climate": "Environment",
 }
 
+# Main DC domain to use for canonical URLs
+CANONICAL_DOMAIN = 'datacommons.org'
+
+# Location of place summary jsons on GKE
+PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
+
+
+def get_place_summaries(dcid: str) -> dict:
+  """Load place summary content from disk containing summary for a given dcid"""
+  # Get shard matching the given dcid
+  shard_name = get_shard_name(dcid)
+  if not shard_name:
+    shard_name = 'others'
+  # When deployed in GKE, the config is a config mounted as volume. Check this
+  # first.
+  filepath = os.path.join(PLACE_SUMMARY_DIR, shard_name, "place_summaries.json")
+  logging.info(
+      f"Attempting to load summaries from ConfigMap mounted at {filepath}")
+  if os.path.isfile(filepath):
+    logging.info(f"Loading summaries from {filepath}")
+    with open(filepath) as f:
+      return json.load(f)
+  # If no mounted config file, use the config that is in the code base.
+  filename = get_shard_filename_by_dcid(dcid)
+  logging.info(
+      f"ConfigMap not found. Loading summaries locally from config/summaries/{filename}"
+  )
+  local_path = os.path.join(current_app.root_path,
+                            f'config/summaries/{filename}')
+  with open(local_path) as f:
+    return json.load(f)
+
+
+def generate_link_headers(place_dcid: str, category: str,
+                          current_locale: str) -> str:
+  """Generate canonical and alternate link HTTP headers
+  
+  Search crawlers look for rel="canonical" link headers to determine which
+  version of a page to crawl and rel="alternative" link headers to identify
+  different localized versions of the same page.
+
+  Args:
+    place_dcid: DCID of the place the page is about
+    category: category of the page
+    current_locale: locale of the page
+  
+  Returns:
+    String to pass as value for 'Link' HTTP header
+  """
+  link_headers = []
+  for locale_code in AVAILABLE_LANGUAGES:
+    canonical_args = {
+        'place_dcid': place_dcid,
+        'category': category if category in CATEGORIES else None,
+        'hl': locale_code if locale_code != 'en' else None
+    }
+    localized_url = "https://" + CANONICAL_DOMAIN + flask.url_for(
+        'place.place', **canonical_args)
+
+    # Add localized url as a language alternate link to headers
+    link_headers.append(
+        f'<{localized_url}>; rel="alternate"; hreflang="{locale_code}"')
+
+    if locale_code == 'en':
+      # Set English as default if user is in unsupported locale
+      link_headers.append(
+          f'<{localized_url}>; rel="alternate"; hreflang="x-default"')
+
+    if locale_code == current_locale:
+      # Set the url of the current locale as the canonical
+      link_headers.append(f'<{localized_url}>; rel="canonical"')
+  return ', '.join(link_headers)
+
+
+def is_canonical_domain(url: str) -> bool:
+  """Check if a url is on the canonical domain
+  
+  Used to determine if the request's URL is on the main DC instance.
+  Both HTTP and HTTPS urls are matched, and both canonical and staging URLs
+  are matched.
+
+
+  Args:
+    url: url to check
+  
+  Returns:
+    True if request is to the canonical domain, False otherwise
+  """
+  regex = r"https?://(?:staging.)?{}".format(CANONICAL_DOMAIN)
+  return re.match(regex, url) is not None
+
 
 @bp.route('', strict_slashes=False)
-@bp.route('/<path:place_dcid>/', strict_slashes=False)
+@bp.route('/<path:place_dcid>')
 def place(place_dcid=None):
   redirect_args = dict(flask.request.args)
+
+  # Strip trailing slashes from place dcids
   should_redirect = False
+  if place_dcid and place_dcid.endswith('/'):
+    place_dcid = place_dcid.rstrip('/')
+    should_redirect = True
+
+  # Rename legacy "topic" request argument to "category"
   if 'topic' in flask.request.args:
     redirect_args['category'] = flask.request.args.get('topic', '')
     del redirect_args['topic']
     should_redirect = True
 
+  # Rename legacy category request arguments
   category = redirect_args.get('category', None)
   if category in CATEGORY_REDIRECTS:
     redirect_args['category'] = CATEGORY_REDIRECTS[category]
@@ -46,7 +163,8 @@ def place(place_dcid=None):
 
   if should_redirect:
     redirect_args['place_dcid'] = place_dcid
-    return flask.redirect(flask.url_for('place.place', **redirect_args))
+    return flask.redirect(flask.url_for('place.place', **redirect_args),
+                          code=301)
 
   dcid = flask.request.args.get('dcid', None)
   if dcid:
@@ -72,27 +190,44 @@ def place(place_dcid=None):
   else:
     place_name = place_dcid
 
-  place_summary = current_app.config['PLACE_EXPLORER_SUMMARIES'].get(
-      place_dcid, {'summary': ''})
-  show_summary = False
-  if not category:
-    # Only show summary for Overview
-    if os.environ.get('FLASK_ENV') in ['autopush', 'local']:
-      # In autopush or local, show all summaries
-      show_summary = True
-    if os.environ.get('FLASK_ENV') in ['staging', 'production']:
-      # In staging or prod, only show summaries for places in allow list
-      place_allow_list = current_app.config['PLACE_SUMMARY_ALLOW_LIST'] or []
-      show_summary = place_dcid in place_allow_list
+  # Default to English page if translation is not available
+  locale = flask.request.args.get('hl')
+  if locale not in AVAILABLE_LANGUAGES:
+    locale = 'en'
 
-  return flask.render_template('place.html',
-                               place_type=place_type,
-                               place_name=place_name,
-                               place_dcid=place_dcid,
-                               category=category if category else '',
-                               place_summary=place_summary['summary']
-                               if place_summary and show_summary else '',
-                               maps_api_key=current_app.config['MAPS_API_KEY'])
+  is_overview = (not category) or (category == 'Overview')
+
+  place_summary = {}
+  if is_overview and os.environ.get('FLASK_ENV') in [
+      'local', 'autopush', 'dev', 'staging', 'production'
+  ] and locale == 'en':
+    # Only show summary for Overview page in base DC.
+    # Fetch summary text from mounted volume
+    start_time = time.time()
+    place_summary = get_place_summaries(place_dcid).get(place_dcid, {})
+    elapsed_time = (time.time() - start_time) * 1000
+    logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
+
+  # Block pages from being indexed if not on the main DC domain. This prevents
+  # crawlers from indexing dev or custom DC versions of the place pages.
+  block_indexing = not is_canonical_domain(flask.request.base_url)
+  logging.info(f"flask.requests.base_url is {flask.request.base_url}")
+  logging.info(f"Block indexing on place pages? {block_indexing}")
+
+  response = flask.make_response(
+      flask.render_template(
+          'place.html',
+          place_type=place_type,
+          place_name=place_name,
+          place_dcid=place_dcid,
+          category=category if category else '',
+          place_summary=place_summary.get('summary') if place_summary else '',
+          maps_api_key=current_app.config['MAPS_API_KEY'],
+          block_indexing=block_indexing))
+  response.headers.set('Link',
+                       generate_link_headers(place_dcid, category, locale))
+
+  return response
 
 
 def place_landing():

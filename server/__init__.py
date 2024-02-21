@@ -34,7 +34,6 @@ import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
 from server.lib.nl.detection import llm_prompt
-import server.lib.place_summaries as place_summaries
 import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
@@ -285,18 +284,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   if app.config['ENABLE_ADMIN']:
     register_routes_admin(app)
 
-  # Load place explorer summaries & allowlist of places to show summaries for
-  # Used when rendering place pages
-  # Won't be loaded for custom DCs at this time.
-  if not cfg.CUSTOM:
-    app.config[
-        'PLACE_SUMMARY_ALLOW_LIST'] = place_summaries.get_place_allowlist()
-    app.config[
-        'PLACE_EXPLORER_SUMMARIES'] = place_summaries.get_place_summaries()
-  else:
-    app.config['PLACE_SUMMARY_ALLOW_LIST'] = []
-    app.config['PLACE_EXPLORER_SUMMARIES'] = {}
-
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
   app.config['TOPIC_PAGE_CONFIG'] = topic_page_configs
@@ -393,6 +380,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()
 
+  # Set custom dc template folder if set, otherwise use the environment name
+  custom_dc_template_folder = app.config.get(
+      'CUSTOM_DC_TEMPLATE_FOLDER', None) or app.config.get('ENV', None)
+
   # Get and save the blocklisted svgs.
   blocklist_svg = []
   if os.path.isfile(BLOCKLIST_SVG_FILE):
@@ -416,6 +407,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     # Add commonly used config flags.
     g.env = app.config.get('ENV', None)
     g.custom = app.config.get('CUSTOM', False)
+    g.custom_dc_template_folder = custom_dc_template_folder
 
     scheme = request.headers.get('X-Forwarded-Proto')
     if scheme and scheme == 'http' and request.url.startswith('http://'):
@@ -453,7 +445,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   app.jinja_env.globals['BASE_HTML'] = 'base.html'
   if cfg.CUSTOM:
-    custom_path = os.path.join('custom_dc', cfg.ENV, 'base.html')
+    custom_path = os.path.join('custom_dc', custom_dc_template_folder,
+                               'base.html')
     if os.path.exists(os.path.join(app.root_path, 'templates', custom_path)):
       app.jinja_env.globals['BASE_HTML'] = custom_path
     else:

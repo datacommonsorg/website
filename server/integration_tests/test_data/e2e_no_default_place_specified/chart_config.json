@@ -1315,6 +1315,12 @@
           "Count_Person_Upto14Years_Male",
           "Count_Person_Years5To14_Male"
         ]
+      },
+      "Median_Age_Person_Female": {
+        "race": [
+          "Median_Age_Person_Female_SomeOtherRaceAlone",
+          "Median_Age_Person_Female_TwoOrMoreRaces"
+        ]
       }
     },
     "mainTopics": [
@@ -1482,5 +1488,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Could not recognize any place in the query. See relevant statistics for United States of America."
+  "userMessages": [
+    "Could not recognize any place in the query. See relevant statistics for United States of America."
+  ]
 }
