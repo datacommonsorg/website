@@ -42,11 +42,6 @@ spec:
         - name: ingress-config
           configMap:
             name: ingress-config
-        {{- if .Values.nl.enabled }}
-        - name: nl-config
-          configMap:
-            name: nl-config
-        {{- end }}
         {{- if .Values.website.redis.enabled }}
         - name: redis-config
           configMap:
@@ -135,9 +130,40 @@ spec:
             # or data config change.
             - name: BOUNCE
               value: "dummy"
-        {{- if .Values.nl.enabled }}
+
+{{- if .Values.nl.enabled }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website-nodejs-app
+  namespace: {{ .Values.namespace.name }}
+spec:
+  replicas: {{ .Values.nl.replicas}}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: {{ .Values.nl.replicas 4 | add 1 }}
+      maxUnavailable: {{ .Values.nl.replicas 4 | add 1 }}
+  selector:
+    matchLabels:
+      app: website-nl-app
+  template:
+    metadata:
+      labels:
+        app: website-nl-app
+      annotations:
+        timestamp: {{ now | quote }}
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      volumes:
+        - name: nl-config
+          configMap:
+            name: nl-config
+      containers:
         - name: nl
           image: gcr.io/datcom-ci/datacommons-nl:{{ .Values.website.image.tag }}
+          imagePullPolicy: {{ .Values.website.image.pullPolicy }}
           resources:
             limits:
               memory: "2G"
@@ -167,7 +193,7 @@ spec:
             timeoutSeconds: 5
           ports:
             - containerPort: 6060
-        {{- end }}
+{{- end }}
 
 {{- if .Values.nodejs.enabled }}
 ---
