@@ -438,8 +438,9 @@ def clear_fallback(state: PopulateState):
 
 
 def _get_max_num_charts(state: PopulateState) -> int:
-  # For non-SDG special DCs use a much higher limit of #charts.
-  # NOTE: This is a hack to allow mix of topics from multiple
+  # For non-SDG special DCs use a much higher limit of charts
+  # shown. NOTE: This is a hack to allow mix of topics from
+  # multiple sources.
   if (params.is_special_dc(state.uttr.insight_ctx) and
       not params.is_sdg(state.uttr.insight_ctx)):
     return _EXTREME_MAX_NUM_CHARTS
