@@ -13,7 +13,7 @@
 # limitations under the License.
 
 project: datcom-website-dev
-ip: 130.211.4.131
+ip: 34.149.114.214
 domain: dev.datacommons.org
 region:
   primary: us-central1
