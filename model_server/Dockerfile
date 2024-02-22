@@ -17,7 +17,7 @@
 FROM us-docker.pkg.dev/vertex-ai/prediction/pytorch-gpu.2-1:latest
 
 # Install necessary dependencies
-RUN pip install flask
+RUN pip install Flask==2.3.2
 RUN pip install sentence-transformers==2.3.1
 
 # Working directory in the container

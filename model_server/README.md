@@ -34,7 +34,7 @@ command like below:
 ```bash
 ENDPOINT_ID="7753749402006585344"
 PROJECT_ID="443333369001"
-INPUT_DATA_FILE="data.json"
+INPUT_DATA_FILE="test_request.json"
 
 curl \
 -X POST \
