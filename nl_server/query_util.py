@@ -15,9 +15,11 @@
 
 from dataclasses import dataclass
 import itertools
+import logging
 import re
 from typing import List
 
+from shared.lib import constants
 from shared.lib import utils
 
 # TODO: decouple words removal from detected attributes. Today, the removal
