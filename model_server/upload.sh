@@ -16,13 +16,18 @@
 set -e
 
 MODEL_NAME=$1
-DISPLAY_NAME=$(echo "$MODEL_NAME" | tr '[:upper:]/' '[:lower:]_')
+
+REGISTRY=us-central1-docker.pkg.dev/datcom-ci/models/embedding-model
+
+WEBSITE_HASH=$(git rev-parse --short=7 HEAD)
+
+DISPLAY_NAME=$(echo "${MODEL_NAME}_${WEBSITE_HASH}" | tr '[:upper:]/' '[:lower:]_')
 
 gcloud ai models upload \
   --project=google.com:datcom-store-dev \
   --region=us-central1 \
   --display-name=$DISPLAY_NAME \
-  --container-image-uri=us-central1-docker.pkg.dev/datcom-ci/models/dc-sentence-transformer:latest \
+  --container-image-uri=$REGISTRY:$WEBSITE_HASH \
   --container-env-vars=MODEL_NAME=$MODEL_NAME \
   --container-predict-route=/predict \
   --container-health-route=/healthz

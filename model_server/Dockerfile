@@ -13,18 +13,14 @@
 # limitations under the License.
 
 
-# Base image
 FROM us-docker.pkg.dev/vertex-ai/prediction/pytorch-gpu.2-1:latest
 
-# Install necessary dependencies
-RUN pip install Flask==2.3.2
-RUN pip install sentence-transformers==2.3.1
-
-# Working directory in the container
 WORKDIR /app
 
-# Copy your application code
+COPY requirements.txt /app
+RUN pip install -r requirements.txt
+
+
 COPY . /app
 
-# Define the entry point to start your serving mechanism
 ENTRYPOINT ["python", "serve.py"]
