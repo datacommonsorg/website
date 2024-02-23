@@ -17,5 +17,7 @@ To run it:
 
 ```bash
 export DC_API_KEY=<AUTOPUSH KEY>
-./run.sh [sdg | undata]
+./run.sh [--dc=sdg | --dc=undata]
 ```
+
+TODO: Since this is more general than sdg, move this to `tools/un/topics`.

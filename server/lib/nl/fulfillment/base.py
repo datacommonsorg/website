@@ -67,7 +67,7 @@ def populate_charts(state: PopulateState) -> bool:
   if not success:
     state.uttr.counters.err('num_populate_fallbacks', 1)
     state.uttr.counters.err('failed_populate_main_svs',
-                            state.chart_vars_map.keys())
+                            list(state.chart_vars_map.keys()))
     if state.chart_vars_map:
       if state.uttr.sv_source == FulfillmentResult.PAST_QUERY:
         # We did not recognize anything in this query, the SV
