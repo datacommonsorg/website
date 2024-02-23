@@ -49,10 +49,8 @@ flags.DEFINE_enum(
     f"Mode of operation",
 )
 
-flags.DEFINE_string(
-    "base_url",
-    "https://datcom-un-sdg.ue.r.appspot.com/UNSDWebsite/undatacommons/sdgs",
-    "Base URL of the SDG website.")
+flags.DEFINE_string("base_url", "http://45.79.10.25/UNSDWebsite/undatacommons",
+                    "Base URL of the SDG website.")
 
 flags.DEFINE_string(
     "country_dcid",
@@ -92,15 +90,23 @@ COUNTRIES: dict[str, dict] = load_countries()
 class PageType(StrEnum):
   UNKNOWN = "Unknown"
   HOME = "Home"
+  SDG_HOME = "SDG Home"
   COUNTRY = "Country"
 
 
-class HomeConstants:
+class SdgHomeConstants:
   NUM_GOAL_ITEMS = 18
   GOAL_ITEM_CSS_CLASS_NAME = "goal-item"
   SEARCH_CLASS_NAME = "-dc-place-search"
   COUNTRY_DROPDOWN_CSS_SELECTOR = (
       "div[class*='ant-select-item ant-select-item-option']")
+
+
+class HomeConstants:
+  SEARCH_CLASS_NAME = "-dc-search-bar"
+  # A "-dc-*" should be used on the page instead of this one to make finding it deterministic.
+  AREAS_CLASS_NAME = "sc-HjNCl"
+  MIN_AREA_ELEMS = 12
 
 
 class CountryConstants:
@@ -157,7 +163,7 @@ class SdgWebsiteSanityTest:
 
   def __enter__(self):
     chrome_options = Options()
-    # chrome_options.add_argument("--headless=new")
+    chrome_options.add_argument("--headless=new")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     self.driver = webdriver.Chrome(options=chrome_options)
@@ -207,21 +213,54 @@ class SdgWebsiteSanityTest:
 
     page.title = self.driver.title
 
-    # goal items
-    countries = find_elems(self.driver, By.CLASS_NAME,
-                           HomeConstants.GOAL_ITEM_CSS_CLASS_NAME)
-    num_goal_items = len(countries)
-    if num_goal_items != HomeConstants.NUM_GOAL_ITEMS:
+    # search
+    search_bar = find_elem(self.driver, By.CLASS_NAME,
+                           HomeConstants.SEARCH_CLASS_NAME)
+    if not search_bar:
+      self.add_result(fail_result(
+          page,
+          "Search bar not found.",
+      ))
+      return
+
+    # area links
+    area_elems = find_elems(self.driver, By.CLASS_NAME,
+                            HomeConstants.AREAS_CLASS_NAME) or []
+    num_area_elems = len(area_elems)
+    if num_area_elems < HomeConstants.MIN_AREA_ELEMS:
       self.add_result(
           fail_result(
               page,
-              f"Goal items mismatch. Required {HomeConstants.NUM_GOAL_ITEMS}, found {num_goal_items}.",
+              f"Area elements mismatch. Min. required {HomeConstants.MIN_AREA_ELEMS}, found {num_area_elems}.",
+          ))
+      return
+
+    # Pass
+    self.add_result(pass_result(page))
+
+  def sdg_home(self):
+    page = self.new_page(PageType.SDG_HOME, "")
+    logging.info("Running: %s", page.url)
+
+    self.driver.get(page.url)
+
+    page.title = self.driver.title
+
+    # goal items
+    countries = find_elems(self.driver, By.CLASS_NAME,
+                           SdgHomeConstants.GOAL_ITEM_CSS_CLASS_NAME)
+    num_goal_items = len(countries)
+    if num_goal_items != SdgHomeConstants.NUM_GOAL_ITEMS:
+      self.add_result(
+          fail_result(
+              page,
+              f"Goal items mismatch. Required {SdgHomeConstants.NUM_GOAL_ITEMS}, found {num_goal_items}.",
           ))
       return
 
     # search
     search_container = find_elem(self.driver, By.CLASS_NAME,
-                                 HomeConstants.SEARCH_CLASS_NAME)
+                                 SdgHomeConstants.SEARCH_CLASS_NAME)
     if not search_container:
       self.add_result(fail_result(
           page,
@@ -237,7 +276,7 @@ class SdgWebsiteSanityTest:
 
     # countries
     countries = find_elems(self.driver, By.CSS_SELECTOR,
-                           HomeConstants.COUNTRY_DROPDOWN_CSS_SELECTOR)
+                           SdgHomeConstants.COUNTRY_DROPDOWN_CSS_SELECTOR)
     if len(countries) == 0:
       self.add_result(fail_result(
           page,
