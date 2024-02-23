@@ -75,7 +75,7 @@ def _get_default_place(request: Dict, is_special_dc: bool, debug_logs: Dict):
       return places[0]
     else:
       return None
-  # For SDG use Earth as the default place.
+  # For Special DC use Earth as the default place.
   elif is_special_dc:
     return constants.EARTH
   else:
