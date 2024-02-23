@@ -24,6 +24,7 @@ import urllib.parse
 
 from absl import app
 from absl import flags
+import requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -67,21 +68,18 @@ flags.DEFINE_string(
 
 OUTPUT_DIR = "output"
 
-COUNTRIES_JSON_FILE = "../../../../experimental/sdg-tracker-un/frontend-tester/UNSD-Website-skeleton/UNSD.Website/ClientApp/src/templates/DataCommons/config/countries.json"
+COUNTRIES_JSON_FILE = "https://code.officialstatistics.org/undata2/data-commons/frontend-tester/-/raw/main/UNSD-Website-skeleton/UNSD.Website/ClientApp/src/templates/DataCommons/config/countries.json?ref_type=heads&inline=false"
 REGIONS_JSON_FILE = "sdg_regions.json"
 
 
 def load_countries() -> dict[str, dict]:
   countries = {}
-  with open(COUNTRIES_JSON_FILE, "r") as file:
-    country_config = json.load(file)
-    for country in country_config["countries"]:
-      if country["is_un_member_or_observer"]:
-        countries[country["dcid"]] = country
-
-  with open(REGIONS_JSON_FILE, "r") as file:
-    region_config = json.load(file)
-    countries.update(region_config["regions"])
+  country_config = requests.get(COUNTRIES_JSON_FILE).json()
+  for country in country_config["countries"]:
+    if country["is_un_member_or_observer"]:
+      countries[country["dcid"]] = country
+  for region in country_config["regions"]:
+    countries[region["dcid"]] = region
 
   # Printing instead of logging since the logger is not initialized when this function is called.
   print("# UN countries and regions loaded: ", len(countries))
