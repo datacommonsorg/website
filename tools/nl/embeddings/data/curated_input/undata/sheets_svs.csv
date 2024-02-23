@@ -425,19 +425,19 @@ dc/topic/sdg_17.8,"Fully operationalize the technology bank and science, technol
 dc/topic/sdg_17.8.1,Proportion of individuals using the Internet,,,sdg 17.8.1;sdg 1781;sdg1781;sdg 17 8 1;sdg Proportion of individuals using the Internet;sustainable development goal Proportion of individuals using the Internet;internet access;people with internet access;people who are online;percentage of online people;internet access by genders;proportion of women online;proportion of men online;men with internet access;women with internet access;population with internet access
 dc/topic/sdg_17.9,"Enhance international support for implementing effective and targeted capacity-building in developing countries to support national plans to implement all the Sustainable Development Goals, including through North-South, South-South and triangular cooperation",,,"sdg 17.9;sdg 179;sdg179;sdg 17 9;sdg Enhance international support for implementing effective and targeted capacity-building in developing countries to support national plans to implement all the Sustainable Development Goals, including through North-South, South-South and triangular cooperation;sustainable development goal Enhance international support for implementing effective and targeted capacity-building in developing countries to support national plans to implement all the Sustainable Development Goals, including through North-South, South-South and triangular cooperation"
 dc/topic/sdg_17.9.1,"Dollar value of financial and technical assistance (including through North-South, South-South and triangular cooperation) committed to developing countries",,,"sdg 17.9.1;sdg 1791;sdg1791;sdg 17 9 1;sdg Dollar value of financial and technical assistance (including through North-South, South-South and triangular cooperation) committed to developing countries;sustainable development goal Dollar value of financial and technical assistance (including through North-South, South-South and triangular cooperation) committed to developing countries"
-dc/topic/UN_THEME_1,"1: Poverty and food security",,,
-dc/topic/UN_THEME_2,"2: Health",,,
-dc/topic/UN_THEME_3,"3: Children and youth",,,
-dc/topic/UN_THEME_4,"4: Education and culture",,,
-dc/topic/UN_THEME_5,"5: Equality and human rights",,,
-dc/topic/UN_THEME_6,"6: Economic development",,,
-dc/topic/UN_THEME_7,"7: Urbanization and human settlements",,,
-dc/topic/UN_THEME_8,"8: Drinking water, sanitation and hygiene",,,
-dc/topic/UN_THEME_9,"9: Climate and the environment",,,
-dc/topic/UN_THEME_10,"10: Population and demography",,,
-dc/topic/UN_THEME_11,"11: Disasters and humanitarian action",,,
-dc/topic/UN_THEME_12,"12: Governance and peace",,,
-dc/topic/UN_SUB_THEME_13,"Poverty",,,
+dc/topic/UN_THEME_1,"Poverty and food security",,,poverty rates;food security indices;progress toward a hunger-free future for all
+dc/topic/UN_THEME_2,"Global Health",,,health indicators;disease prevalence;healthcare access;factors influencing global well-being
+dc/topic/UN_THEME_3,"Children and youth",,,challenges and opportunities shaping the lives of children and youth globally
+dc/topic/UN_THEME_4,"Education and culture",,,global education systems;cultural heritage
+dc/topic/UN_THEME_5,"Equality and human rights",,,gender equality;human rights;social justice issues promoting a more equitable and harmonious global society
+dc/topic/UN_THEME_6,"Economic development",,,economic dynamics;public sector findings;trade patterns
+dc/topic/UN_THEME_7,"Urbanization and human settlements",,,population trends;housing conditions;global markers of an evolving urban landscape
+dc/topic/UN_THEME_8,"Drinking water, sanitation and hygiene",,,access to clean water;access to sanitation facilities;access to fundamental necessities for communities
+dc/topic/UN_THEME_9,"Climate and the environment",,,climate change impacts;biodiversity;sustainable ecosystems
+dc/topic/UN_THEME_10,"Population and demography",,,population trends;migration patterns;demographic indicators
+dc/topic/UN_THEME_11,"Disasters and humanitarian action",,,impact of disasters;humanitarian efforts to enhance resilience and recovery from crises
+dc/topic/UN_THEME_12,"Governance and peace",,,governance;human rights topics;goverment policies;worldwide conflict-related data
+dc/topic/UN_SUB_THEME_13,"Global Poverty",,,
 dc/topic/UN_SUB_THEME_14,"Inequality and social protection",,,
 dc/topic/UN_SUB_THEME_15,"Food insecurity",,,
 dc/topic/UN_SUB_THEME_16,"Nutrition",,,
@@ -465,7 +465,7 @@ dc/topic/UN_SUB_THEME_37,"Culture",,,
 dc/topic/UN_SUB_THEME_38,"Science, technology and innovation",,,
 dc/topic/UN_SUB_THEME_39,"Gender equality",,,
 dc/topic/UN_SUB_THEME_40,"Human rights and social justice",,,
-dc/topic/UN_SUB_THEME_41,"Inequality",,,
+dc/topic/UN_SUB_THEME_41,"Global Inequality",,,
 dc/topic/UN_SUB_THEME_42,"Work and employment",,,
 dc/topic/UN_SUB_THEME_43,"Infrastructure",,,
 dc/topic/UN_SUB_THEME_44,"Macroeconomic conditions",,,
@@ -482,14 +482,14 @@ dc/topic/UN_SUB_THEME_54,"Drinking water",,,
 dc/topic/UN_SUB_THEME_55,"Sanitation",,,
 dc/topic/UN_SUB_THEME_56,"Hygiene",,,
 dc/topic/UN_SUB_THEME_57,"Climate Change",,,
-dc/topic/UN_SUB_THEME_58,"Energy",,,
+dc/topic/UN_SUB_THEME_58,"Global Energy",,,
 dc/topic/UN_SUB_THEME_59,"Biodiversity",,,
 dc/topic/UN_SUB_THEME_60,"Land use and forests",,,
 dc/topic/UN_SUB_THEME_61,"Air quality and waste management",,,
 dc/topic/UN_SUB_THEME_62,"Freshwater",,,
 dc/topic/UN_SUB_THEME_63,"Oceans and marine resources",,,
 dc/topic/UN_SUB_THEME_64,"Sustainable consumption and production",,,
-dc/topic/UN_SUB_THEME_65,"Population",,,
+dc/topic/UN_SUB_THEME_65,"Global Population",,,
 dc/topic/UN_SUB_THEME_66,"Migration",,,
 dc/topic/UN_SUB_THEME_67,"Ageing and longevity",,,
 dc/topic/UN_SUB_THEME_68,"Workforce",,,
