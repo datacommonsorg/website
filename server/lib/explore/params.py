@@ -61,6 +61,11 @@ class Clients(str, Enum):
   DEFAULT = 'default'
 
 
+SDG_DC_LIST = [DCNames.SDG_DC, DCNames.SDG_MINI_DC]
+
+SPECIAL_DC_LIST = SDG_DC_LIST + [DCNames.UNDATA_DC]
+
+
 # Get the SV score threshold for the given mode.
 def sv_threshold(mode: str) -> bool:
   if mode == QueryMode.STRICT:
@@ -71,10 +76,12 @@ def sv_threshold(mode: str) -> bool:
     return constants.SV_SCORE_DEFAULT_THRESHOLD
 
 
+#
+# A list of special backends that have common handling w.r.t
+# embeddings-index, default places, etc.
+#
 def is_special_dc_str(dc: str) -> bool:
-  return dc in [
-      DCNames.SDG_DC.value, DCNames.SDG_MINI_DC.value, DCNames.UNDATA_DC.value
-  ]
+  return dc in SPECIAL_DC_LIST
 
 
 def is_special_dc(insight_ctx: Dict) -> bool:
@@ -82,13 +89,12 @@ def is_special_dc(insight_ctx: Dict) -> bool:
 
 
 def is_sdg(insight_ctx: Dict) -> bool:
-  return insight_ctx.get(
-      Params.DC.value) in [DCNames.SDG_DC.value, DCNames.SDG_MINI_DC.value]
+  return insight_ctx.get(Params.DC.value) in SDG_DC_LIST
 
 
 def dc_to_embedding_type(dc: str, embeddings_type: str) -> str:
-  if dc in [DCNames.SDG_DC.value, DCNames.SDG_MINI_DC.value]:
+  if dc in SDG_DC_LIST:
     return 'sdg_ft'
-  elif dc in [DCNames.UNDATA_DC.value]:
+  elif dc == DCNames.UNDATA_DC.value:
     return 'undata_ft'
   return embeddings_type
