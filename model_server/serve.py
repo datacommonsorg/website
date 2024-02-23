@@ -22,22 +22,24 @@ from sentence_transformers import SentenceTransformer
 # A full list of model name can be found in model.list
 model_name = os.environ['MODEL_NAME']
 
-def create_model(model_name):
+# def create_model(model_name):
 
-    if model_name == 'sentence-transformers/all-MiniLM-L6-v2':
-        model = SentenceTransformer(model_name)
-    elif model_name == 'Salesforce/SFR-Embedding-Mistral':
-        model = SentenceTransformer(model_name, device='cuda')
-    elif model_name == 'WhereIsAI/UAE-Large-V1':
-        from angle_emb import AnglE, Prompts
-        model = AnglE.from_pretrained('WhereIsAI/UAE-Large-V1', pooling_strategy='cls').cuda()
-        model.set_prompt(prompt=Prompts.C)
-        return model
-    else:
-        raise ValueError(f'Invalid model name: {model_name}')
-    return model
+#     if model_name == 'sentence-transformers/all-MiniLM-L6-v2':
+#         model = SentenceTransformer(model_name)
+#     elif model_name == 'Salesforce/SFR-Embedding-Mistral':
+#         model = SentenceTransformer(model_name, device='cuda')
+#     elif model_name == 'WhereIsAI/UAE-Large-V1':
+#         from angle_emb import AnglE, Prompts
+#         model = AnglE.from_pretrained('WhereIsAI/UAE-Large-V1', pooling_strategy='cls').cuda()
+#         model.set_prompt(prompt=Prompts.C)
+#         return model
+#     else:
+#         raise ValueError(f'Invalid model name: {model_name}')
+#     return model
 
-model = create_model(model_name)
+# model = create_model(model_name)
+
+model = SentenceTransformer(model_name)
 
 app = Flask(__name__)
 
