@@ -76,8 +76,11 @@ def load_countries() -> dict[str, dict]:
   for country in country_config["countries"]:
     if country["is_un_member_or_observer"]:
       countries[country["dcid"]] = country
-  for region in country_config["regions"]:
-    countries[region["dcid"]] = region
+
+  with open(REGIONS_JSON_FILE, "r") as f:
+    region_config = json.load(f)
+    for dcid, region in region_config["regions"].items():
+      countries[dcid] = region
 
   # Printing instead of logging since the logger is not initialized when this function is called.
   print("# UN countries and regions loaded: ", len(countries))
