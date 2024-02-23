@@ -146,6 +146,22 @@ function onSearch(q: string): void {
   window.location.href = `/explore#q=${encodeURIComponent(q)}`;
 }
 
+/**
+ * Set the text in the page-loading div to a sorry message.
+ * Set the text to empty if summary text is present on the page.
+ */
+function setErrorMessage(): void {
+  const summaryText = document.getElementById("place-summary").innerText;
+  const loadingElem = document.getElementById("page-loading");
+  if (summaryText) {
+    // If summary text is present, suppress "Sorry" message
+    loadingElem.innerHTML = "";
+  } else {
+    loadingElem.innerText =
+      "Sorry, there was an error loading charts for this place.";
+  }
+}
+
 function renderPage(): void {
   const urlParams = new URLSearchParams(window.location.search);
   const urlHash = window.location.hash;
@@ -168,12 +184,11 @@ function renderPage(): void {
     ]),
   ])
     .then(([landingPageData]) => {
-      const loadingElem = document.getElementById("page-loading");
       if (_.isEmpty(landingPageData)) {
-        loadingElem.innerText =
-          "Sorry, we don't have any charts to show for this place.";
+        setErrorMessage();
         return;
       }
+      const loadingElem = document.getElementById("page-loading");
       loadingElem.style.display = "none";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
@@ -285,9 +300,7 @@ function renderPage(): void {
       window.location.hash = urlHash;
     })
     .catch(() => {
-      const loadingElem = document.getElementById("page-loading");
-      loadingElem.innerText =
-        "Sorry, there was an error loading charts for this place.";
+      setErrorMessage();
     });
 }
 
