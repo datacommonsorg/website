@@ -67,8 +67,7 @@ flags.DEFINE_string(
 OUTPUT_DIR = "output"
 
 COUNTRIES_JSON_FILE = "https://code.officialstatistics.org/undata2/data-commons/frontend-tester/-/raw/main/UNSD-Website-skeleton/UNSD.Website/ClientApp/src/templates/DataCommons/config/countries.json?ref_type=heads&inline=false"
-REGIONS_JSON_FILE = "https://code.officialstatistics.org/undata2/data-commons/frontend-tester/-/raw/main/UNSD-Website-skeleton/UNSD.Website/ClientApp/src/templates/DataCommons/config/geo_regions.json?ref_type=heads&inline=false"
-OTHER_REGIONS = ["UNGeoRegion", "ContinentalUnion", "Continent"]
+REGIONS_JSON_FILE = "sdg_regions.json"
 
 
 def load_countries() -> dict[str, dict]:
@@ -77,11 +76,11 @@ def load_countries() -> dict[str, dict]:
   for country in country_config["countries"]:
     if country["is_un_member_or_observer"]:
       countries[country["dcid"]] = country
-  region_config = requests.get(REGIONS_JSON_FILE).json()
-  for region in region_config:
-    countries[region["dcid"]] = region
-  for region in OTHER_REGIONS:
-    countries[region] = region
+
+  with open(REGIONS_JSON_FILE, "r") as f:
+    region_config = json.load(f)
+    for dcid, region in region_config["regions"].items():
+      countries[dcid] = region
 
   # Printing instead of logging since the logger is not initialized when this function is called.
   print("# UN countries and regions loaded: ", len(countries))
