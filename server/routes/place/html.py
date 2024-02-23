@@ -184,11 +184,7 @@ def place(place_dcid=None):
     return place_landing()
 
   place_type = place_api.get_place_type(place_dcid)
-  place_names = place_api.get_i18n_name([place_dcid])
-  if place_names and place_names.get(place_dcid):
-    place_name = place_names[place_dcid]
-  else:
-    place_name = place_dcid
+  place_display_name = place_api.get_place_name_with_containment(place_dcid)
 
   # Default to English page if translation is not available
   locale = flask.request.args.get('hl')
@@ -218,7 +214,7 @@ def place(place_dcid=None):
       flask.render_template(
           'place.html',
           place_type=place_type,
-          place_name=place_name,
+          place_name=place_display_name,
           place_dcid=place_dcid,
           category=category if category else '',
           place_summary=place_summary.get('summary') if place_summary else '',

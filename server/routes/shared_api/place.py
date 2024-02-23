@@ -48,6 +48,13 @@ ALL_WANTED_PLACE_TYPES = [
     "AdministrativeArea3", "AdministrativeArea4", "AdministrativeArea5"
 ]
 
+# Parent place types to include in place page titles
+WANTED_PARENT_PLACE_TYPES = [
+    'State',
+    'AdministrativeArea1',
+    'Country',
+]
+
 # These place types are equivalent: prefer the key.
 EQUIVALENT_PLACE_TYPES = {
     "Country": "AdministrativeArea1",
@@ -350,11 +357,12 @@ def api_parent_places():
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-def parent_places(dcids):
+def parent_places(dcids, exclude_admin_areas=True):
   """ Get the parent place chain for a list of places.
 
   Args:
-      dcids: A list of place dids.
+      dcids: A list of place dcids.
+      filter_admin_areas: Whether to exclude 'AdministrativeAreaN' from results.
 
   Returns:
       A dictionary of lists of containedInPlace, keyed by dcid.
@@ -367,8 +375,8 @@ def parent_places(dcids):
     dcid = item['node']
     parents = item['info'].get('parents', [])
     parents = [
-        x for x in parents
-        if ('type' in x and not x['type'].startswith('AdministrativeArea'))
+        x for x in parents if ('type' in x and not (
+            exclude_admin_areas and x['type'].startswith('AdministrativeArea')))
     ]
     result[dcid] = parents
   return result
@@ -599,6 +607,20 @@ def api_display_name():
     dcids = request.json.get('dcids', [])
   result = get_display_name(dcids)
   return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+def get_place_name_with_containment(dcid: str) -> str:
+  """Get localized, comma-separated place and parent place names for a given DCID"""
+  parents = parent_places(dcids=[dcid], exclude_admin_areas=False)[dcid]
+  parent_dcids = [
+      parent['dcid']
+      for parent in parents
+      if 'dcid' in parent and parent.get('type') in WANTED_PARENT_PLACE_TYPES
+  ]
+  display_dcids = [dcid] + parent_dcids
+  i18n_names = get_i18n_name(display_dcids)
+  display_names = [i18n_names[display_dcid] for display_dcid in display_dcids]
+  return ', '.join(display_names)
 
 
 @bp.route('/descendent')
