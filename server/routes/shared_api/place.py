@@ -362,7 +362,7 @@ def parent_places(dcids, exclude_admin_areas=True):
 
   Args:
       dcids: A list of place dcids.
-      filter_admin_areas: Whether to exclude 'AdministrativeAreaN' from results.
+      exclude_admin_areas: Whether to exclude 'AdministrativeAreaN' from results.
 
   Returns:
       A dictionary of lists of containedInPlace, keyed by dcid.
