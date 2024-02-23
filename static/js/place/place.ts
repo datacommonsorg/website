@@ -150,7 +150,7 @@ function onSearch(q: string): void {
  * Set the text in the page-loading div to a sorry message.
  * Set the text to empty if summary text is present on the page.
  */
-function setSorryMessage(): void {
+function setErrorMessage(): void {
   const summaryText = document.getElementById("place-summary").innerText;
   const loadingElem = document.getElementById("page-loading");
   if (summaryText) {
@@ -185,7 +185,7 @@ function renderPage(): void {
   ])
     .then(([landingPageData]) => {
       if (_.isEmpty(landingPageData)) {
-        setSorryMessage();
+        setErrorMessage();
         return;
       }
       const loadingElem = document.getElementById("page-loading");
@@ -300,7 +300,7 @@ function renderPage(): void {
       window.location.hash = urlHash;
     })
     .catch(() => {
-      setSorryMessage();
+      setErrorMessage();
     });
 }
 
