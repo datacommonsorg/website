@@ -67,7 +67,7 @@ flags.DEFINE_string(
 
 OUTPUT_DIR = "output"
 
-COUNTRIES_JSON_FILE = "../../../../experimental/sdg-tracker/src/config/countries.json"
+COUNTRIES_JSON_FILE = "../../../../experimental/sdg-tracker-un/frontend-tester/UNSD-Website-skeleton/UNSD.Website/ClientApp/src/templates/DataCommons/config/countries.json"
 REGIONS_JSON_FILE = "sdg_regions.json"
 
 
