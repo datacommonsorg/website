@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -42,6 +42,10 @@ _SDG_VARIABLES_FILE = 'variable_grouping.csv'
 _UNDATA_ROOT = "dc/g/UN"
 _UNDATA_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_undata.mcf')
 _UNDATA_TOPIC_JSON = '../../../server/config/nl_page/undata_topic_cache.json'
+_UNDATA_DROP_VARS = [
+    'who/FINPROTECTION_CATA_ESTIMATE_AVAILABLE',
+    'who/FINPROTECTION_IMPOV_ESTIMATE_AVAILABLE'
+]
 
 API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
@@ -69,7 +73,7 @@ def _svg2t(svg):
 
 
 def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
-                           filter_vars: Set[str]):
+                           keep_vars: Set[str], drop_vars: Set[str]):
   resp = call_api(API_PATH_SVG_INFO, {'nodes': svgs})
 
   recurse_nodes = set()
@@ -90,7 +94,7 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
     for csv in info.get('childStatVars', []):
       svid = csv.get('id')
       if (not csv.get('hasData') or not svid or
-          (filter_vars and svid not in filter_vars)):
+          (keep_vars and svid not in keep_vars) or (svid in drop_vars)):
         continue
       members.append(csv['id'])
 
@@ -112,12 +116,14 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
     }
 
   if recurse_nodes:
-    download_svg_recursive(sorted(list(recurse_nodes)), nodes, filter_vars)
+    download_svg_recursive(sorted(list(recurse_nodes)), nodes, keep_vars,
+                           drop_vars)
 
 
-def download_svgs(init_nodes: List[str], filter_vars: Set[str]):
+def download_svgs(init_nodes: List[str], keep_vars: Set[str],
+                  drop_vars: Set[str]):
   nodes = {}
-  download_svg_recursive(init_nodes, nodes, filter_vars)
+  download_svg_recursive(init_nodes, nodes, keep_vars, drop_vars)
   return nodes
 
 
@@ -127,7 +133,8 @@ class Variables:
   grouped_vars: Set[str]
   group_descriptions: Dict[str, str]
   non_country_vars: Set[str]
-  all_vars: Set[str]
+  keep_vars: Set[str]
+  drop_vars: Set[str]
 
 
 def load_sdg_variables(vars: Variables):
@@ -144,7 +151,7 @@ def load_sdg_variables(vars: Variables):
         elif 'do not display in country pages' in row['SELECT'].lower():
           vars.non_country_vars.add(var)
 
-      vars.all_vars.add(var)
+      vars.keep_vars.add(var)
 
       if not row.get('GROUPING ID') or not row.get('SERIES_CODE'):
         continue
@@ -227,7 +234,8 @@ def drop_dangling_topic_refs(nodes: List[Dict]):
 
 
 def generate(init_nodes: List[str], filter_vars: Variables):
-  nodes = download_svgs(init_nodes, filter_vars.all_vars)
+  nodes = download_svgs(init_nodes, filter_vars.keep_vars,
+                        filter_vars.drop_vars)
 
   final_nodes = []
   for topic, node in nodes.items():
@@ -318,15 +326,17 @@ def main(_):
                           grouped_vars=set(),
                           group_descriptions={},
                           non_country_vars=set(),
-                          all_vars=set())
+                          keep_vars=set(),
+                          drop_vars=set())
   if FLAGS.dc == 'sdg':
     load_sdg_variables(filter_vars)
-    print(f'Found {len(sdg_vars.all_vars)} vars')
+    print(f'Found {len(filter_vars.all_vars)} vars')
     nodes = generate([_SDG_ROOT], filter_vars)
     write_sdg_non_country_vars(filter_vars)
     write_topic_mcf(_SDG_MCF_PATH, nodes)
     write_topic_json(_SDG_TOPIC_JSON, nodes)
   elif FLAGS.dc == 'undata':
+    filter_vars.drop_vars = set(_UNDATA_DROP_VARS)
     nodes = generate([_UNDATA_ROOT], filter_vars)
     write_topic_mcf(_UNDATA_MCF_PATH, nodes)
     write_topic_json(_UNDATA_TOPIC_JSON, nodes)

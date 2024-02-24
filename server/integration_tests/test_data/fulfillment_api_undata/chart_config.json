@@ -104,46 +104,6 @@
               {
                 "tiles": [
                   {
-                    "description": "Availability of Estimates on Impoverishment Due to Out-Of-Pocket Health Expenditures in United States of America",
-                    "statVarKey": [
-                      "who/FINPROTECTION_IMPOV_ESTIMATE_AVAILABLE"
-                    ],
-                    "title": "Availability of Estimates on Impoverishment Due to Out-Of-Pocket Health Expenditures in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "Availability of estimates on impoverishment due to out-of-pocket health expenditures.",
-            "footnote": "Includes data from the following sources: POVAFG2007; POVAGO2008; POVALB2002; POVALB2005; POVALB2008; POVALB2012; POVARG1996; POVARG2004; POVARM2010; POVARM2011; POVARM2012; POVARM2013; POVAUS2010; POVAZE2002; POVAZE2003; POVAZE2004; POVAZE2005; POVBDI2006; POVBEL2010; POVBEN2003; POVBFA1998; POVBFA2003; POVBFA2009; POVBGD2000; POVBGD2005; POVBGD2010; POVBGR1997; POVBGR2000; POVBGR2001; POVBGR2007; POVBGR2010; POVBIH2001; POVBIH2004; POVBIH2007; POVBIH2011; POVBLR1998; POVBLR1999; POVBLR2000; PO...5589 more chars",
-            "title": "Availability of Estimates on Impoverishment Due to Out-Of-Pocket Health Expenditures"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Availability of Estimates on Large Health Expenditures as a Share of Total Expenditure or Income in United States of America",
-                    "statVarKey": [
-                      "who/FINPROTECTION_CATA_ESTIMATE_AVAILABLE"
-                    ],
-                    "title": "Availability of Estimates on Large Health Expenditures as a Share of Total Expenditure or Income in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "Availability of estimates on large health expenditures as a share of total expenditure or income.",
-            "footnote": "Includes data from the following sources: FPAFG2007; FPAGO2008; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPARG1996; FPARG2004; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPAUS2010; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE2005; FPBDI2006; FPBEL1997; FPBEL2010; FPBEN2003; FPBFA1998; FPBFA2003; FPBFA2009; FPBGD2000; FPBGD2005; FPBGD2010; FPBGR1997; FPBGR2000; FPBGR2001; FPBGR2007; FPBGR2010; FPBIH2001; FPBIH2004; FPBIH2007; FPBIH2011; FPBLR1998; FPBLR1999; FPBLR2000; FPBLR2001; FPBLR20...5503 more chars",
-            "title": "Availability of Estimates on Large Health Expenditures as a Share of Total Expenditure or Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "description": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of a Relative Poverty Line - 60% of Median Daily Per Capita Consumption or Income in United States of America",
                     "statVarKey": [
                       "who/FINPROTECTION_IMP_PG_RELPL_STD"
@@ -454,20 +414,32 @@
             "description": "Population pushed further below the $1.90 a day poverty line by household health expenditures (%, national, rural, urban).",
             "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE2005; FPBDI1998; FPBDI2006; FPBDI20...8659 more chars",
             "title": "Population Pushed Further Below the $1.90 a Day Poverty Line by Household Health Expenditures"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population Pushed Further Below the $2.15 a Day Poverty Line by Household Health Expenditures in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_P215_POP"
+                    ],
+                    "title": "Population Pushed Further Below the $2.15 a Day Poverty Line by Household Health Expenditures in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Population pushed further below the $2.15 a day poverty line by household health expenditures (%, national, rural, urban).",
+            "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE2003; FPAZE2004; FPAZE2005; FPBDI1998; FPBDI2006; FPBDI20...9054 more chars",
+            "title": "Population Pushed Further Below the $2.15 a Day Poverty Line by Household Health Expenditures"
           }
         ],
         "statVarSpec": {
           "who/CCO_2": {
             "name": "Human development index rank",
             "statVar": "who/CCO_2"
-          },
-          "who/FINPROTECTION_CATA_ESTIMATE_AVAILABLE": {
-            "name": "Availability of estimates on large health expenditures as a share of total expenditure or income",
-            "statVar": "who/FINPROTECTION_CATA_ESTIMATE_AVAILABLE"
-          },
-          "who/FINPROTECTION_IMPOV_ESTIMATE_AVAILABLE": {
-            "name": "Availability of estimates on impoverishment due to out-of-pocket health expenditures",
-            "statVar": "who/FINPROTECTION_IMPOV_ESTIMATE_AVAILABLE"
           },
           "who/FINPROTECTION_IMP_NP190_POP": {
             "name": "Population pushed below the $1.90 a day poverty line by household health expenditures",
@@ -492,6 +464,10 @@
           "who/FINPROTECTION_IMP_P190_POP": {
             "name": "Population pushed further below the $1.90 a day poverty line by household health expenditures",
             "statVar": "who/FINPROTECTION_IMP_P190_POP"
+          },
+          "who/FINPROTECTION_IMP_P215_POP": {
+            "name": "Population pushed further below the $2.15 a day poverty line by household health expenditures",
+            "statVar": "who/FINPROTECTION_IMP_P215_POP"
           },
           "who/FINPROTECTION_IMP_PG_190_STD": {
             "name": "Increase in poverty gap due to household health expenditures, expressed as a proportion of the $1.90 a-day poverty line",

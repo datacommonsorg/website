@@ -1435,16 +1435,6 @@
           "Count_HousingUnit_HomeValueUpto10000USDollar",
           "Count_HousingUnit_HomeValueUpto49999USDollar"
         ],
-        "numberOfRooms": [
-          "Count_HousingUnit_WithTotal2Rooms",
-          "Count_HousingUnit_WithTotal3Rooms",
-          "Count_HousingUnit_WithTotal4Rooms",
-          "Count_HousingUnit_WithTotal5Rooms",
-          "Count_HousingUnit_WithTotal6Rooms",
-          "Count_HousingUnit_WithTotal7Rooms",
-          "Count_HousingUnit_WithTotal8Rooms",
-          "Count_HousingUnit_WithTotal9OrMoreRooms"
-        ],
         "occupancyStatus": [
           "Count_HousingUnit_OccupiedHousingUnit",
           "Count_HousingUnit_VacantHousingUnit"
