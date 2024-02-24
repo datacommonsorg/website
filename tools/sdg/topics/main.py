@@ -37,15 +37,13 @@ _SDG_ROOT = "dc/g/SDG"
 _SDG_TOPIC_JSON = '../../../server/config/nl_page/sdg_topic_cache.json'
 _SDG_NON_COUNTRY_VARS = '../../../server/config/nl_page/sdg_non_country_vars.json'
 _SDG_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_sdg.mcf')
-_SDG_VARIABLES_FILE = 'variable_grouping.csv'
+_SDG_VARIABLES_FILE = 'sdg_variable_grouping.csv'
 
 _UNDATA_ROOT = "dc/g/UN"
-_UNDATA_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_undata.mcf')
 _UNDATA_TOPIC_JSON = '../../../server/config/nl_page/undata_topic_cache.json'
-_UNDATA_DROP_VARS = [
-    'who/FINPROTECTION_CATA_ESTIMATE_AVAILABLE',
-    'who/FINPROTECTION_IMPOV_ESTIMATE_AVAILABLE'
-]
+_UNDATA_NON_COUNTRY_VARS = '../../../server/config/nl_page/undata_non_country_vars.json'
+_UNDATA_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_undata.mcf')
+_UNDATA_VARIABLES_FILE = 'undata_variable_grouping.csv'
 
 API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
@@ -73,7 +71,7 @@ def _svg2t(svg):
 
 
 def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
-                           keep_vars: Set[str], drop_vars: Set[str]):
+                           keep_vars: Set[str]):
   resp = call_api(API_PATH_SVG_INFO, {'nodes': svgs})
 
   recurse_nodes = set()
@@ -94,7 +92,7 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
     for csv in info.get('childStatVars', []):
       svid = csv.get('id')
       if (not csv.get('hasData') or not svid or
-          (keep_vars and svid not in keep_vars) or (svid in drop_vars)):
+          (keep_vars and svid not in keep_vars)):
         continue
       members.append(csv['id'])
 
@@ -116,14 +114,12 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
     }
 
   if recurse_nodes:
-    download_svg_recursive(sorted(list(recurse_nodes)), nodes, keep_vars,
-                           drop_vars)
+    download_svg_recursive(sorted(list(recurse_nodes)), nodes, keep_vars)
 
 
-def download_svgs(init_nodes: List[str], keep_vars: Set[str],
-                  drop_vars: Set[str]):
+def download_svgs(init_nodes: List[str], keep_vars: Set[str]):
   nodes = {}
-  download_svg_recursive(init_nodes, nodes, keep_vars, drop_vars)
+  download_svg_recursive(init_nodes, nodes, keep_vars)
   return nodes
 
 
@@ -134,15 +130,19 @@ class Variables:
   group_descriptions: Dict[str, str]
   non_country_vars: Set[str]
   keep_vars: Set[str]
-  drop_vars: Set[str]
 
 
-def load_sdg_variables(vars: Variables):
-  with open(_SDG_VARIABLES_FILE) as fp:
+def load_variables(vars_file: str, vars: Variables, var_prefix: str,
+                   topic_prefix: str, svpg_prefix: str):
+  with open(vars_file) as fp:
     for row in csv.DictReader(fp):
-      if not row.get('VARIABLE_CODE'):
+      if row.get('VARIABLE_CODE'):
+        var = var_prefix + row['VARIABLE_CODE'].replace('@', '.').replace(
+            ' ', '')
+      elif row.get('VARIABLE'):
+        var = row['VARIABLE'].strip()
+      else:
         continue
-      var = 'sdg/' + row['VARIABLE_CODE'].replace('@', '.').replace(' ', '')
 
       if row.get('SELECT'):
         if 'drop' in row['SELECT'].lower():
@@ -153,10 +153,17 @@ def load_sdg_variables(vars: Variables):
 
       vars.keep_vars.add(var)
 
-      if not row.get('GROUPING ID') or not row.get('SERIES_CODE'):
+      if row.get('SERIES_CODE'):
+        srs = topic_prefix + row['SERIES_CODE'].replace('_', '').replace(
+            '-', '')
+      elif row.get('POPULATION_TYPE'):
+        srs = topic_prefix + row['POPULATION_TYPE'].replace('_', '').replace(
+            '-', '')
+      else:
         continue
-      srs = 'dc/topic/sdg' + row['SERIES_CODE'].replace('_', '')
-      grp = 'dc/svpg/SDG' + row['GROUPING ID'].replace('_', '')
+      if not row.get('GROUPING ID'):
+        continue
+      grp = svpg_prefix + row['GROUPING ID'].replace('_', '').replace('-', '')
 
       if grp not in vars.group_descriptions:
         desc = row.get('GROUPING DESCRIPTION', '')
@@ -234,8 +241,7 @@ def drop_dangling_topic_refs(nodes: List[Dict]):
 
 
 def generate(init_nodes: List[str], filter_vars: Variables):
-  nodes = download_svgs(init_nodes, filter_vars.keep_vars,
-                        filter_vars.drop_vars)
+  nodes = download_svgs(init_nodes, filter_vars.keep_vars)
 
   final_nodes = []
   for topic, node in nodes.items():
@@ -279,9 +285,9 @@ def generate(init_nodes: List[str], filter_vars: Variables):
   return final_nodes
 
 
-def write_sdg_non_country_vars(sdg_vars: Variables):
-  js = {'variables': sorted(list(sdg_vars.non_country_vars))}
-  with open(_SDG_NON_COUNTRY_VARS, 'w') as fp:
+def write_non_country_vars(non_country_vars_file: str, vars: Variables):
+  js = {'variables': sorted(list(vars.non_country_vars))}
+  with open(non_country_vars_file, 'w') as fp:
     json.dump(js, fp, indent=2)
 
 
@@ -322,24 +328,33 @@ def _write_mcf_node(node: dict) -> str:
 
 def main(_):
   assert FLAGS.dc
-  filter_vars = Variables(series2group2vars={},
-                          grouped_vars=set(),
-                          group_descriptions={},
-                          non_country_vars=set(),
-                          keep_vars=set(),
-                          drop_vars=set())
+  vars = Variables(series2group2vars={},
+                   grouped_vars=set(),
+                   group_descriptions={},
+                   non_country_vars=set(),
+                   keep_vars=set())
   if FLAGS.dc == 'sdg':
-    load_sdg_variables(filter_vars)
-    print(f'Found {len(filter_vars.all_vars)} vars')
-    nodes = generate([_SDG_ROOT], filter_vars)
-    write_sdg_non_country_vars(filter_vars)
+    load_variables(vars_file=_SDG_VARIABLES_FILE,
+                   vars=vars,
+                   var_prefix='sdg/',
+                   topic_prefix='dc/topic/sdg',
+                   svpg_prefix='dc/svpg/SDG')
+    nodes = generate([_SDG_ROOT], vars)
+    write_non_country_vars(_SDG_NON_COUNTRY_VARS, vars)
     write_topic_mcf(_SDG_MCF_PATH, nodes)
     write_topic_json(_SDG_TOPIC_JSON, nodes)
   elif FLAGS.dc == 'undata':
-    filter_vars.drop_vars = set(_UNDATA_DROP_VARS)
-    nodes = generate([_UNDATA_ROOT], filter_vars)
+    # TODO: When we have one more past WHO, needs some work.
+    load_variables(vars_file=_UNDATA_VARIABLES_FILE,
+                   vars=vars,
+                   var_prefix='',
+                   topic_prefix='dc/topic/',
+                   svpg_prefix='dc/svpg/WHO')
+    write_non_country_vars(_UNDATA_NON_COUNTRY_VARS, vars)
+    nodes = generate([_UNDATA_ROOT], vars)
     write_topic_mcf(_UNDATA_MCF_PATH, nodes)
     write_topic_json(_UNDATA_TOPIC_JSON, nodes)
+  print(f'Found {len(vars.keep_vars)} vars')
 
 
 if __name__ == "__main__":
