@@ -150,6 +150,9 @@ def load_variables(vars_file: str, vars: Variables, var_prefix: str,
           continue
         elif 'do not display in country pages' in row['SELECT'].lower():
           vars.non_country_vars.add(var)
+      if row.get('DISPLAY'):
+        if 'do not display in country pages' in row['DISPLAY'].lower():
+          vars.non_country_vars.add(var)
 
       vars.keep_vars.add(var)
 
