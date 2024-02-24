@@ -57,12 +57,13 @@ def predict():
         'Salesforce/SFR-Embedding-Mistral',
     ]:
         embeddings = model.encode(instances)
-        return jsonify(embeddings.tolist()), 200
+        return jsonify({'predictions': embeddings.tolist()}), 200
     if model_name == 'WhereIsAI/UAE-Large-V1':
         instances = [{'text': instance} for instance in instances]
         embeddings = model.encode(instances, to_numpy=True)
-        return jsonify(embeddings.tolist()), 200
-    return 'No valid model to serve', 400
+        return jsonify({'predictions': embeddings.tolist()}), 200
+    logging.error('Invalid model name: %s', model_name)
+    return{'predictions': []}, 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
