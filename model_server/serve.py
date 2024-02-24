@@ -19,12 +19,7 @@ import os
 from flask import Flask, request, jsonify
 from sentence_transformers import SentenceTransformer
 
-logging.basicConfig(
-    level=logging.INFO,
-    format=
-    "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
-    datefmt="%H:%M:%S",
-)
+logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
 
 # A full list of model name can be found in model.list
