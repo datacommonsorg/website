@@ -31,10 +31,10 @@ def create_model(model_name):
     if model_name == 'sentence-transformers/all-MiniLM-L6-v2':
         model = SentenceTransformer(model_name)
     elif model_name == 'Salesforce/SFR-Embedding-Mistral':
-        model = SentenceTransformer(model_name, device='cuda')
+        model = SentenceTransformer(model_name)
     elif model_name == 'WhereIsAI/UAE-Large-V1':
         from angle_emb import AnglE, Prompts
-        model = AnglE.from_pretrained('WhereIsAI/UAE-Large-V1', pooling_strategy='cls').cuda()
+        model = AnglE.from_pretrained('WhereIsAI/UAE-Large-V1', pooling_strategy='cls')
         model.set_prompt(prompt=Prompts.C)
     else:
         raise ValueError(f'Invalid model name: {model_name}')
