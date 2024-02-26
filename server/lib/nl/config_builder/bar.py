@@ -17,13 +17,16 @@ from typing import List
 from server.config.subject_page_pb2 import BarTileSpec
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
+from server.lib.explore.params import is_special_dc
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder.formatting_utils import \
     title_for_two_or_more_svs
 from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
+from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
 import server.lib.nl.fulfillment.types as types
 
 _MAX_VARIABLE_LIMIT = 15
@@ -35,7 +38,7 @@ def multiple_place_bar_block(column,
                              svs: List[str],
                              sv2thing: types.SV2Thing,
                              cv: ChartVars,
-                             ranking_types: List[RankingType] = [],
+                             sort_order: any = None,
                              date: types.Date = None):
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
@@ -85,9 +88,22 @@ def multiple_place_bar_block(column,
 
   tile.bar_tile_spec.max_variables = _MAX_VARIABLE_LIMIT
   tile.bar_tile_spec.max_places = _MAX_PLACES_LIMIT
-  # Always show top ones by default since we truncate #vars.
-  tile.bar_tile_spec.sort = BarTileSpec.DESCENDING
-  if RankingType.LOW in ranking_types and RankingType.HIGH not in ranking_types:
-    tile.bar_tile_spec.sort = BarTileSpec.ASCENDING
+  if sort_order:
+    tile.bar_tile_spec.sort = sort_order
   column.tiles.append(tile)
   return stat_var_spec_map
+
+
+def get_sort_order(state: PopulateState, cspec: ChartSpec):
+  # Use no default sort_order for special DC, since UN
+  # want the order to be as provided in variable groupings.
+  sort_order = None if is_special_dc(state.uttr.insight_ctx) \
+    else BarTileSpec.DESCENDING
+
+  if (RankingType.LOW in cspec.ranking_types and
+      RankingType.HIGH not in cspec.ranking_types):
+    sort_order = BarTileSpec.ASCENDING
+  elif RankingType.HIGH in cspec.ranking_types:
+    sort_order = BarTileSpec.DESCENDING
+
+  return sort_order

@@ -174,7 +174,7 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
             svs=cspec.svs,
             sv2thing=sv2thing,
             cv=cv,
-            ranking_types=cspec.ranking_types,
+            sort_order=bar.get_sort_order(state, cspec),
             date=cspec.single_date)
 
     elif cspec.chart_type == ChartType.MAP_CHART:

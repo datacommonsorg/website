@@ -44,6 +44,37 @@
                       "showHighest": true
                     },
                     "statVarKey": [
+                      "Count_FireEvent"
+                    ],
+                    "title": "Count of Fire Event in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FireEvent"
+                    ],
+                    "title": "Count of Fire Event in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Fire Event in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
                       "Count_WildlandFireEvent"
                     ],
                     "title": "Count of Wildland Fire Event in Counties of California (${date})",
@@ -169,6 +200,10 @@
           "Area_WildlandFireEvent": {
             "name": "Area of Wildland Fire Event",
             "statVar": "Area_WildlandFireEvent"
+          },
+          "Count_FireEvent": {
+            "name": "Count of Fire Event",
+            "statVar": "Count_FireEvent"
           },
           "Count_PrescribedFireEvent": {
             "name": "Count of Prescribed Fire Event",
