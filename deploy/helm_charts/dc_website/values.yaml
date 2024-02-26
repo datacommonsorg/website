@@ -131,9 +131,8 @@ nl:
   enabled: false
   embeddings:
   models:
-  image:
-    name: "datacommons-nl"
-    memory: "2G"
+  memory: "2G"
+  workers: 1
 
 ###############################################################################
 # Config for Stat Var Groups which is shared between Website and Mixer

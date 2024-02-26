@@ -34,4 +34,4 @@ COPY shared/. /workspace/shared/
 
 # Run server
 WORKDIR /workspace
-CMD exec gunicorn --timeout 60 --bind :6060 nl_app:app
+CMD exec gunicorn --timeout 1000 --bind :6060 -w $((NUM_WORKERS + 0)) nl_app:app

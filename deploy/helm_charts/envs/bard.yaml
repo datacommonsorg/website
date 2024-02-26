@@ -42,9 +42,8 @@ ingress:
 
 nl:
   enabled: true
-  image:
-    name: "datacommons-nl-bard"
-    memory: "10G"
+  memory: "10G"
+  workers: 3
 
 nodejs:
   enabled: true

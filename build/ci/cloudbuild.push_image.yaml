@@ -52,17 +52,6 @@ steps:
         docker push gcr.io/$_PROJECT_ID/datacommons-nl:${_TAG}
     waitFor: ["-"]
 
-  - id: push-nl-server-bard
-    name: gcr.io/cloud-builders/docker
-    entrypoint: "bash"
-    args:
-      - -c
-      - |
-        set -e
-        DOCKER_BUILDKIT=1 docker build -f build/nl_server_bard/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-nl-bard:${_TAG} .
-        docker push gcr.io/$_PROJECT_ID/datacommons-nl-bard:${_TAG}
-    waitFor: ["-"]
-
   - id: push-nodejs-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
