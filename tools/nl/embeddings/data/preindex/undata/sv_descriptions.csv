@@ -7,7 +7,7 @@ dc/topic/UN_SUB_THEME_17,Sustainable food and agriculture
 dc/topic/UN_SUB_THEME_18,Child and youth health
 dc/topic/UN_SUB_THEME_19,Environmental and other health risks
 dc/topic/UN_SUB_THEME_20,"Health systems, policies and financing"
-dc/topic/UN_SUB_THEME_21,Infectious diseases
+dc/topic/UN_SUB_THEME_21,Infectious diseases;communicable diseases
 dc/topic/UN_SUB_THEME_22,Non-communicable diseases
 dc/topic/UN_SUB_THEME_23,Mental health
 dc/topic/UN_SUB_THEME_24,Reproductive and maternal health
@@ -78,6 +78,229 @@ dc/topic/UN_THEME_6,Economic development;economic dynamics;public sector finding
 dc/topic/UN_THEME_7,Urbanization and human settlements;global markers of an evolving urban landscape;housing conditions;population trends
 dc/topic/UN_THEME_8,"Drinking water, sanitation and hygiene;access to clean water;access to fundamental necessities for communities;access to sanitation facilities"
 dc/topic/UN_THEME_9,Climate and the environment;biodiversity;climate change impacts;sustainable ecosystems
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE001,"Impact of Infectious, parasitic, neonatal and nutritional diseases"
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE003,Impact of Tuberculosis
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE004,Impact of Sexually-transmitted diseases (STDs) excluding HIV
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE010,Impact of HIV/AIDS
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE011,Impact of Diarrhoeal diseases
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE019,Impact of Acute hepatitis B
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE022,Impact of Malaria
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE024,Impact of Chagas disease
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE025,Impact of Schistosomiasis
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE026,Impact of Leishmaniasis
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE027,Impact of Lymphatic filariasis
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE028,Impact of Onchocerciasis
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE030,Impact of Dengue
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE031,Impact of Trachoma
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE033,Impact of Intestinal nematode infections
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE037,Impact of Other infectious diseases
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE039,Impact of Lower respiratory infections
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE040,Impact of Upper respiratory infections and otitis
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE049,Impact of Neonatal conditions
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE055,Impact of Protein-energy malnutrition
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE060,Impact of Noncommunicable diseases
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE068,"Impact of Trachea, bronchus, lung cancers"
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE078,Impact of Other cancers
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE083,Impact of Unipolar depressive disorders
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE084,Impact of Bipolar disorder
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE085,Impact of Schizophrenia
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE086,Impact of Alcohol use disorders
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE087,Impact of Drug use disorders
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE088,Impact of Anxiety disorders
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE089,Impact of Eating disorders
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE090,Impact of Pervasive developmental disorders
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE091,Impact of Childhood behavioural disorders
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE092,Impact of Idiopathic intellectual disability
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE095,Impact of Alzheimer's disease and other dementias
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE096,Impact of Parkinson's disease
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE097,Impact of Epilepsy
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE098,Impact of Multiple sclerosis
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE099,Impact of Migraine
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE100,Impact of Non-migraine headache
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE101,"Impact of Other mental, behavioural and neurological conditions"
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE102,Impact of Sense organ diseases
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE104,Impact of Cataracts
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE108,Impact of Other hearing loss
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE110,Impact of Cardiovascular diseases
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE111,Impact of Rheumatic heart disease
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE112,Impact of Hypertensive heart disease
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE113,Impact of Ischaemic heart disease
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE114,Impact of Stroke
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE116,Impact of Other circulatory diseases
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE118,Impact of Chronic obstructive pulmonary disease
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE119,Impact of Asthma
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE127,Impact of Kidney diseases
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE135,Impact of Rheumatoid arthritis
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE136,Impact of Osteoarthritis
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE138,Impact of Back and neck pain
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE139,Impact of Other musculoskeletal disorders
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE140,Impact of Congenital anomalies
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE151,Impact of Injuries
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE153,Impact of Road injury
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE154,Impact of Poisonings
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE155,Impact of Falls
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE156,"Impact of Fire, heat and hot substances"
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE157,Impact of Drowning
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE159,Impact of Other unintentional injuries
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE161,Impact of Self-harm
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE162,Impact of Interpersonal violence
+dc/topic/WHO_GhecausesEnum_GHE001,Communicable & other Group I diseases
+dc/topic/WHO_GhecausesEnum_GHE002,Infectious and parasitic diseases
+dc/topic/WHO_GhecausesEnum_GHE003,Tuberculosis
+dc/topic/WHO_GhecausesEnum_GHE004,STDs excluding HIV
+dc/topic/WHO_GhecausesEnum_GHE005,Syphilis
+dc/topic/WHO_GhecausesEnum_GHE006,Chlamydia
+dc/topic/WHO_GhecausesEnum_GHE007,Gonorrhoea
+dc/topic/WHO_GhecausesEnum_GHE008,Trichomoniasis
+dc/topic/WHO_GhecausesEnum_GHE009,Other STDs
+dc/topic/WHO_GhecausesEnum_GHE010,HIV/AIDS
+dc/topic/WHO_GhecausesEnum_GHE011,Diarrhoeal diseases
+dc/topic/WHO_GhecausesEnum_GHE012,Childhood-cluster diseases
+dc/topic/WHO_GhecausesEnum_GHE013,Whooping cough
+dc/topic/WHO_GhecausesEnum_GHE014,Diphtheria
+dc/topic/WHO_GhecausesEnum_GHE015,Measles
+dc/topic/WHO_GhecausesEnum_GHE016,Tetanus
+dc/topic/WHO_GhecausesEnum_GHE017,Meningitis
+dc/topic/WHO_GhecausesEnum_GHE018,Encephalitis
+dc/topic/WHO_GhecausesEnum_GHE019,Acute hepatitis B
+dc/topic/WHO_GhecausesEnum_GHE020,Acute hepatitis C
+dc/topic/WHO_GhecausesEnum_GHE021,Parasitic and vector diseases
+dc/topic/WHO_GhecausesEnum_GHE022,Malaria
+dc/topic/WHO_GhecausesEnum_GHE023,Trypanosomiasis
+dc/topic/WHO_GhecausesEnum_GHE024,Chagas disease
+dc/topic/WHO_GhecausesEnum_GHE025,Schistosomiasis
+dc/topic/WHO_GhecausesEnum_GHE026,Leishmaniasis
+dc/topic/WHO_GhecausesEnum_GHE027,Lymphatic filariasis
+dc/topic/WHO_GhecausesEnum_GHE028,Onchocerciasis
+dc/topic/WHO_GhecausesEnum_GHE029,Leprosy
+dc/topic/WHO_GhecausesEnum_GHE030,Dengue
+dc/topic/WHO_GhecausesEnum_GHE031,Trachoma
+dc/topic/WHO_GhecausesEnum_GHE032,Rabies
+dc/topic/WHO_GhecausesEnum_GHE033,Intestinal nematode infections
+dc/topic/WHO_GhecausesEnum_GHE034,Ascariasis
+dc/topic/WHO_GhecausesEnum_GHE035,Trichuriasis
+dc/topic/WHO_GhecausesEnum_GHE036,Hookworm disease
+dc/topic/WHO_GhecausesEnum_GHE037,Other infectious diseases
+dc/topic/WHO_GhecausesEnum_GHE038,Respiratory infections
+dc/topic/WHO_GhecausesEnum_GHE039,Lower respiratory infections
+dc/topic/WHO_GhecausesEnum_GHE040,Upper respiratory infections
+dc/topic/WHO_GhecausesEnum_GHE041,Otitis media
+dc/topic/WHO_GhecausesEnum_GHE042,Maternal conditions
+dc/topic/WHO_GhecausesEnum_GHE049,Neonatal conditions
+dc/topic/WHO_GhecausesEnum_GHE050,Preterm birth complications
+dc/topic/WHO_GhecausesEnum_GHE051,Birth asphyxia and birth trauma
+dc/topic/WHO_GhecausesEnum_GHE052,Neonatal sepsis and infections
+dc/topic/WHO_GhecausesEnum_GHE053,Other neonatal conditions
+dc/topic/WHO_GhecausesEnum_GHE054,Nutritional deficiencies
+dc/topic/WHO_GhecausesEnum_GHE055,Protein-energy malnutrition
+dc/topic/WHO_GhecausesEnum_GHE056,Iodine deficiency
+dc/topic/WHO_GhecausesEnum_GHE057,Vitamin A deficiency
+dc/topic/WHO_GhecausesEnum_GHE058,Iron-deficiency anaemia
+dc/topic/WHO_GhecausesEnum_GHE059,Other nutritional deficiencies
+dc/topic/WHO_GhecausesEnum_GHE060,Noncommunicable diseases
+dc/topic/WHO_GhecausesEnum_GHE061,Malignant neoplasms
+dc/topic/WHO_GhecausesEnum_GHE062,Mouth and oropharynx cancers
+dc/topic/WHO_GhecausesEnum_GHE063,Oesophagus cancer
+dc/topic/WHO_GhecausesEnum_GHE064,Stomach cancer
+dc/topic/WHO_GhecausesEnum_GHE065,Colon and rectum cancers
+dc/topic/WHO_GhecausesEnum_GHE066,Liver cancer
+dc/topic/WHO_GhecausesEnum_GHE067,Pancreas cancer
+dc/topic/WHO_GhecausesEnum_GHE068,"Trachea, bronchus, lung cancers"
+dc/topic/WHO_GhecausesEnum_GHE069,Melanoma and other skin cancers
+dc/topic/WHO_GhecausesEnum_GHE070,Breast cancer
+dc/topic/WHO_GhecausesEnum_GHE071,Cervix uteri cancer
+dc/topic/WHO_GhecausesEnum_GHE072,Corpus uteri cancer
+dc/topic/WHO_GhecausesEnum_GHE073,Ovary cancer
+dc/topic/WHO_GhecausesEnum_GHE074,Prostate cancer
+dc/topic/WHO_GhecausesEnum_GHE075,Bladder cancer
+dc/topic/WHO_GhecausesEnum_GHE076,"Lymphomas, multiple myeloma"
+dc/topic/WHO_GhecausesEnum_GHE077,Leukaemia
+dc/topic/WHO_GhecausesEnum_GHE078,Other malignant neoplasms
+dc/topic/WHO_GhecausesEnum_GHE079,Other neoplasms
+dc/topic/WHO_GhecausesEnum_GHE080,Diabetes mellitus
+dc/topic/WHO_GhecausesEnum_GHE081,"Endocrine, blood, immune disorders"
+dc/topic/WHO_GhecausesEnum_GHE082,Mental and behavioral disorders
+dc/topic/WHO_GhecausesEnum_GHE083,Unipolar depressive disorders
+dc/topic/WHO_GhecausesEnum_GHE084,Bipolar disorder
+dc/topic/WHO_GhecausesEnum_GHE085,Schizophrenia
+dc/topic/WHO_GhecausesEnum_GHE086,Alcohol use disorders
+dc/topic/WHO_GhecausesEnum_GHE087,Drug use disorders
+dc/topic/WHO_GhecausesEnum_GHE088,Anxiety disorders
+dc/topic/WHO_GhecausesEnum_GHE089,Eating disorders
+dc/topic/WHO_GhecausesEnum_GHE090,Pervasive developmental disorders
+dc/topic/WHO_GhecausesEnum_GHE091,Childhood behavioural disorders
+dc/topic/WHO_GhecausesEnum_GHE092,Idiopathic intellectual disability
+dc/topic/WHO_GhecausesEnum_GHE093,Other mental and behavioural disorders
+dc/topic/WHO_GhecausesEnum_GHE094,Neurological conditions
+dc/topic/WHO_GhecausesEnum_GHE095,Alzheimer's disease and other dementias
+dc/topic/WHO_GhecausesEnum_GHE096,Parkinson's disease
+dc/topic/WHO_GhecausesEnum_GHE097,Epilepsy
+dc/topic/WHO_GhecausesEnum_GHE098,Multiple sclerosis
+dc/topic/WHO_GhecausesEnum_GHE099,Migraine
+dc/topic/WHO_GhecausesEnum_GHE100,Non-migraine headache
+dc/topic/WHO_GhecausesEnum_GHE101,Other neurological conditions
+dc/topic/WHO_GhecausesEnum_GHE102,Sense organ diseases
+dc/topic/WHO_GhecausesEnum_GHE103,Glaucoma
+dc/topic/WHO_GhecausesEnum_GHE104,Cataracts
+dc/topic/WHO_GhecausesEnum_GHE105,Refractive errors
+dc/topic/WHO_GhecausesEnum_GHE106,Macular degeneration
+dc/topic/WHO_GhecausesEnum_GHE107,Other vision loss
+dc/topic/WHO_GhecausesEnum_GHE108,Other hearing loss
+dc/topic/WHO_GhecausesEnum_GHE109,other sense organ disorders
+dc/topic/WHO_GhecausesEnum_GHE110,Cardiovascular diseases
+dc/topic/WHO_GhecausesEnum_GHE111,Rheumatic heart disease
+dc/topic/WHO_GhecausesEnum_GHE112,Hypertensive heart disease
+dc/topic/WHO_GhecausesEnum_GHE113,Ischaemic heart disease
+dc/topic/WHO_GhecausesEnum_GHE114,Stroke
+dc/topic/WHO_GhecausesEnum_GHE115,"Cardiomyopathy, myocarditis, endocarditis"
+dc/topic/WHO_GhecausesEnum_GHE116,Other circulatory diseases
+dc/topic/WHO_GhecausesEnum_GHE117,Chronic respiratory diseases
+dc/topic/WHO_GhecausesEnum_GHE118,Chronic obstructive pulmonary disease
+dc/topic/WHO_GhecausesEnum_GHE119,Asthma
+dc/topic/WHO_GhecausesEnum_GHE120,Other respiratory diseases
+dc/topic/WHO_GhecausesEnum_GHE121,Digestive diseases
+dc/topic/WHO_GhecausesEnum_GHE122,Peptic ulcer disease
+dc/topic/WHO_GhecausesEnum_GHE123,Cirrhosis of the liver
+dc/topic/WHO_GhecausesEnum_GHE124,Appendicitis
+dc/topic/WHO_GhecausesEnum_GHE125,Other digestive diseases
+dc/topic/WHO_GhecausesEnum_GHE126,Genitourinary diseases
+dc/topic/WHO_GhecausesEnum_GHE127,Kidney diseases
+dc/topic/WHO_GhecausesEnum_GHE128,Hyperplasia of prostate
+dc/topic/WHO_GhecausesEnum_GHE129,Urolithiasis
+dc/topic/WHO_GhecausesEnum_GHE130,Other genitourinary diseases
+dc/topic/WHO_GhecausesEnum_GHE131,Infertility
+dc/topic/WHO_GhecausesEnum_GHE132,Gynecological diseases
+dc/topic/WHO_GhecausesEnum_GHE133,Skin diseases
+dc/topic/WHO_GhecausesEnum_GHE134,Musculoskeletal diseases
+dc/topic/WHO_GhecausesEnum_GHE135,Rheumatoid arthritis
+dc/topic/WHO_GhecausesEnum_GHE136,Osteoarthritis
+dc/topic/WHO_GhecausesEnum_GHE137,Gout
+dc/topic/WHO_GhecausesEnum_GHE138,Back and neck pain
+dc/topic/WHO_GhecausesEnum_GHE139,Other musculoskeletal disorders
+dc/topic/WHO_GhecausesEnum_GHE140,Congenital anomalies
+dc/topic/WHO_GhecausesEnum_GHE141,Neural tube defects
+dc/topic/WHO_GhecausesEnum_GHE142,Cleft lip and cleft palate
+dc/topic/WHO_GhecausesEnum_GHE143,Down's syndrome
+dc/topic/WHO_GhecausesEnum_GHE144,Congenital heart anomalies
+dc/topic/WHO_GhecausesEnum_GHE145,Other chromosomal anomalies
+dc/topic/WHO_GhecausesEnum_GHE146,Other congenital anomalies
+dc/topic/WHO_GhecausesEnum_GHE147,Oral conditions
+dc/topic/WHO_GhecausesEnum_GHE148,Dental caries
+dc/topic/WHO_GhecausesEnum_GHE149,Periodontal disease
+dc/topic/WHO_GhecausesEnum_GHE150,Edentulism
+dc/topic/WHO_GhecausesEnum_GHE151,Injuries
+dc/topic/WHO_GhecausesEnum_GHE152,Unintentional injuries
+dc/topic/WHO_GhecausesEnum_GHE153,Road injury
+dc/topic/WHO_GhecausesEnum_GHE154,Poisonings
+dc/topic/WHO_GhecausesEnum_GHE155,Falls
+dc/topic/WHO_GhecausesEnum_GHE156,"Fire, heat and hot substances"
+dc/topic/WHO_GhecausesEnum_GHE157,Drowning
+dc/topic/WHO_GhecausesEnum_GHE158,Exposure to forces of nature
+dc/topic/WHO_GhecausesEnum_GHE159,Other unintentional injuries
+dc/topic/WHO_GhecausesEnum_GHE160,Intentional injuries
+dc/topic/WHO_GhecausesEnum_GHE161,Self-harm
+dc/topic/WHO_GhecausesEnum_GHE162,Interpersonal violence
+dc/topic/WHO_GhecausesEnum_GHE163,Collective violence and legal intervention
 dc/topic/sdg,Sustainable Development Goals;sdg;sdg Sustainable Development Goals;sustainable development goal Sustainable Development Goals
 dc/topic/sdg_1,No Poverty;a world where everyone is free from want;a world without poverty;eliminate poverty;eradicate poverty;poverty;poverty rate;sdg 1;sdg No Poverty;sdg1;sustainable development goal No Poverty
 dc/topic/sdg_1.1,"By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day;eliminate extreme poverty for everyone, everywhere, by 2030 currently, this means people living on less than $125 a day;end extreme poverty for everyone, everywhere, by 2030 currently, this means people living on less than $125 a day;make extreme poverty history for everyone, everywhere, by 2030 currently, this means people living on less than $125 a day;sdg 1 1;sdg 1.1;sdg By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day;sustainable development goal By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day;wipe out extreme poverty for everyone, everywhere, by 2030 currently, this means people living on less than $125 a day"
