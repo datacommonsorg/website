@@ -717,3 +717,10 @@ Health worker density [Type of occupation = Pharmacists],sdg/SH_MED_DEN.OCCUPATI
 Adolescent birth rate [Age = 15 to 19 years old | Sex = Female],sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F,,Birth rate for adolescent women,Birth rate for adolescent women
 Age-standardized prevalence of current tobacco use among persons aged 15 years and older [Age = 15 years old and over],sdg/SH_PRV_SMOK.AGE--Y_GE15,,Prevalence of tobacco use among 15 years or older,Prevalence of tobacco use among 15 years or older
 "Alcohol use disorders, 12-month prevalence [Age = 15 years old and over]",sdg/SH_SUD_ALCOL.AGE--Y_GE15,,Prevalence of alcohol use disorder among 15 years or older,Prevalence of alcohol use disorder among 15 years or older
+Number of conflict-related deaths,sdg/VC_DTH_TOCVN,,Number of conflict-related deaths (civilians),Number of conflict-related deaths (civilians)
+Number of conflict-related deaths [Age = 18 years old and over],sdg/VC_DTH_TOCVN.AGE--Y_GE18,,Number of conflict-related deaths (civilians) [Age = 18 years old and over],Number of conflict-related deaths (civilians) [Age = 18 years old and over]
+Number of conflict-related deaths [Age = under 18 years old],sdg/VC_DTH_TOCVN.AGE--Y0T17,,Number of conflict-related deaths (civilians) [Age = under 18 years old],Number of conflict-related deaths (civilians) [Age = under 18 years old]
+Number of conflict-related deaths [Sex = Female],sdg/VC_DTH_TOCVN.SEX--F,,Number of conflict-related deaths (civilians) [Sex = Female],Number of conflict-related deaths (civilians) [Sex = Female]
+Number of conflict-related deaths [Sex = Male],sdg/VC_DTH_TOCVN.SEX--M,,Number of conflict-related deaths (civilians) [Sex = Male],Number of conflict-related deaths (civilians) [Sex = Male]
+Number of conflict-related deaths,sdg/VC_DTH_TONCVN,,Number of conflict-related deaths (non-civilians),Number of conflict-related deaths (non-civilians)
+Number of conflict-related deaths,sdg/VC_DTH_TOUNN,,Number of conflict-related deaths (unknown),Number of conflict-related deaths (unknown)
