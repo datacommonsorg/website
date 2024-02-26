@@ -185,6 +185,7 @@ def place(place_dcid=None):
 
   place_type = place_api.get_place_type(place_dcid)
   place_name = place_api.get_place_name_with_containment(place_dcid)
+  place_name = place_api.get_display_name([place_dcid], add_country_code=True)[place_dcid]
 
   # Default to English page if translation is not available
   locale = flask.request.args.get('hl')

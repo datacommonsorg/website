@@ -536,7 +536,7 @@ def api_ranking(dcid):
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-def get_state_code(dcids):
+def get_display_iso_code(dcids):
   """Get state codes for a list of places that are state equivalents
 
   Args:
@@ -551,18 +551,20 @@ def get_state_code(dcids):
   iso_codes = fetch.property_values(dcids, 'isoCode')
 
   for dcid in dcids:
-    state_code = None
+    display_code = None
     iso_code = iso_codes[dcid]
     if iso_code:
       split_iso_code = iso_code[0].split("-")
       if len(split_iso_code) > 1 and split_iso_code[0] == US_ISO_CODE_PREFIX:
-        state_code = split_iso_code[1]
-    result[dcid] = state_code
+        display_code = split_iso_code[1]
+      else:
+        display_code = iso_code[0]
+    result[dcid] = display_code
 
   return result
 
 
-def get_display_name(dcids):
+def get_display_name(dcids, add_country_code=False):
   """ Get display names for a list of places.
 
   Display name is place name with state code if it has a parent place that is a state.
@@ -583,13 +585,13 @@ def get_display_name(dcids):
     for parent_place in parents[dcid]:
       parent_dcid = parent_place['dcid']
       place_type = parent_place['type']
-      if place_type in STATE_EQUIVALENTS:
+      if (dcid not in dcid_state_mapping) and ((place_type in STATE_EQUIVALENTS) or (add_country_code and place_type == 'Country')):
         dcid_state_mapping[dcid] = parent_dcid
     result[dcid] = place_names[dcid]
 
   states_lookup = set(dcid_state_mapping.values())
   if g.locale == "en":
-    state_codes = get_state_code(states_lookup)
+    state_codes = get_display_iso_code(states_lookup)
   else:
     state_codes = get_i18n_name(list(states_lookup), True)
   for dcid in dcid_state_mapping.keys():
@@ -617,7 +619,7 @@ def get_place_name_with_containment(dcid: str) -> str:
       for parent in parents
       if 'dcid' in parent and parent.get('type') in WANTED_PARENT_PLACE_TYPES
   ]
-  display_dcids = [dcid] + parent_dcids
+  display_dcids = [dcid, parent_dcids[0]]
   i18n_names = get_i18n_name(display_dcids)
   display_names = [i18n_names[display_dcid] for display_dcid in display_dcids]
   return ', '.join(display_names)
