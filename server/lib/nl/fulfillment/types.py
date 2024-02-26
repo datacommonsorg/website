@@ -160,7 +160,7 @@ class ChartSpec:
   ranking_types: List[RankingType]
   ranking_count: int
   chart_origin: ChartOriginType
-  is_sdg: bool
+  is_special_dc: bool
   single_date: Date
   date_range: Date
   # Dict of sv -> place -> facetid to use

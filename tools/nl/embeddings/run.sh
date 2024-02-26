@@ -35,7 +35,7 @@ while getopts bflc OPTION; do
     f)
         echo -e "### Using the finetuned model from prod"
         FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/models.yaml | awk '$1=="tuned_model:"{ print $2; }')
-        if [ "$FINETUNED_MODEL" == "" ]; then
+        if [[ "$FINETUNED_MODEL" == "" ]]; then
           echo "Using option -f but could not retrieve an existing finetuned model from prod."
           exit 1
         else
@@ -45,7 +45,7 @@ while getopts bflc OPTION; do
     l)
         echo -e "### Using the provided local model"
         LOCAL_MODEL_PATH="$3"
-        if [ "$LOCAL_MODEL_PATH" == "" ]; then
+        if [[ "$LOCAL_MODEL_PATH" == "" ]]; then
           help
           exit 1
         else
@@ -56,21 +56,21 @@ while getopts bflc OPTION; do
     c) 
       echo -e "### Using the finetuned model from prod with custom embeddings-size"
       CURATED_INPUT_PATH="$3"
-      if [ "$CURATED_INPUT_PATH" == "" ]; then
+      if [[ "$CURATED_INPUT_PATH" == "" ]]; then
         help  
         exit 1
       else 
         echo "Using the following local filename as curated input: $CURATED_INPUT_PATH"
       fi
       FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/models.yaml | awk '$1=="tuned_model:"{ print $2; }')
-      if [ "$FINETUNED_MODEL" == "" ]; then
+      if [[ "$FINETUNED_MODEL" == "" ]]; then
         echo "Using option -c but could not retrieve an existing finetuned model from prod."
         exit 1
       else
         echo "Found finetuned model on prod: $FINETUNED_MODEL"
       fi
       ALTERNATIVES_FILE_PATTERN="$4"
-      if [ "$ALTERNATIVES_FILE_PATTERN" == ""]; then
+      if [[ "$ALTERNATIVES_FILE_PATTERN" == "" ]]; then
         echo "No alternatives files used."
       else
         echo "Using the following filepattern for files with alternatives: $ALTERNATIVES_FILE_PATTERN"
@@ -87,11 +87,11 @@ python3 -m pip install --upgrade pip setuptools light-the-torch
 ltt install torch --cpuonly
 pip3 install -r requirements.txt
 
-if [ "$CURATED_INPUT_PATH" != "" ]; then
+if [[ "$CURATED_INPUT_PATH" != "" ]]; then
   python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --curated_input_path=$CURATED_INPUT_PATH --alternatives_filepattern=$ALTERNATIVES_FILE_PATTERN
-elif [ "$FINETUNED_MODEL" != "" ]; then
+elif [[ "$FINETUNED_MODEL" != "" ]]; then
   python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL
-elif [ "$LOCAL_MODEL_PATH" != "" ]; then
+elif [[ "$LOCAL_MODEL_PATH" != "" ]]; then
   python3 build_embeddings.py --embeddings_size=$2 --existing_model_path=$LOCAL_MODEL_PATH
 else
   python3 build_embeddings.py --embeddings_size=$2

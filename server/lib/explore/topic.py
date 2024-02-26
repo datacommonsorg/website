@@ -20,6 +20,7 @@ from typing import List
 
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import is_sdg
+from server.lib.explore.params import is_special_dc
 from server.lib.explore.params import Params
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as cutils
@@ -31,6 +32,7 @@ _MAX_CORRELATION_SVS_PER_TOPIC = 4
 _MAX_SUBTOPIC_SV_LIMIT = 3
 # Pick a higher limit for SDG
 _MAX_SUBTOPIC_SV_LIMIT_SDG = 500
+_MAX_SUBTOPIC_SV_LIMIT_SPECIAL_DC = 100
 
 
 @dataclass
@@ -275,4 +277,6 @@ def _direct_chart_vars(svs: List[str], svpgs: List[str], source_topic: str,
 def _max_subtopic_sv_limit(state: ftypes.PopulateState) -> int:
   if is_sdg(state.uttr.insight_ctx):
     return _MAX_SUBTOPIC_SV_LIMIT_SDG
+  if is_special_dc(state.uttr.insight_ctx):
+    return _MAX_SUBTOPIC_SV_LIMIT_SPECIAL_DC
   return _MAX_SUBTOPIC_SV_LIMIT

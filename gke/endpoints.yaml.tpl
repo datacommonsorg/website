@@ -34,3 +34,10 @@ usage:
   # All methods can be called without an API Key.
   - selector: "*"
     allow_unregistered_calls: true
+
+
+backend:
+  rules:
+    - selector: "datacommons.Mixer.*"
+      # Timeout for the ESP and mixer GRPC server.
+      deadline: 60

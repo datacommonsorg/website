@@ -81,7 +81,8 @@ def detect(
   if detector_type == RequestedDetectorType.LLM.value:
     llm_detection = llm_detector.detect(original_query, prev_utterance,
                                         embeddings_index_type, llm_api_type,
-                                        query_detection_debug_logs, counters)
+                                        query_detection_debug_logs, mode,
+                                        counters)
     return llm_detection
 
   #
@@ -115,7 +116,8 @@ def detect(
 
   llm_detection = llm_detector.detect(original_query, prev_utterance,
                                       embeddings_index_type, llm_api_type,
-                                      query_detection_debug_logs, counters)
+                                      query_detection_debug_logs, mode,
+                                      counters)
   if not llm_detection:
     counters.err('info_llm_blocked', '')
     return None

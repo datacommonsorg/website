@@ -56,6 +56,10 @@ _TIME_DELTA_SORT_MAP = {
         False,
 }
 
+_DEFAULT_FACET_RANK = 10
+# Prefer lower ranking number
+_RANKED_OBS_PERIOD = {'P1Y': 0, 'P3M': 1, 'P1M': _DEFAULT_FACET_RANK}
+
 
 # List of vars or places ranked by abs and pct growth.
 class GrowthRankedLists(NamedTuple):
@@ -88,9 +92,26 @@ def rank_places_by_series_growth(
     date_range: types.Date = None
 ) -> (GrowthRankedLists, Dict[str, Dict[str, str]]):
   start = time.time()
+  facet_to_fetch = ''
+  if sv in constants.SVS_TO_CHECK_FACET:
+    series_facets = fetch.series_facet(entities=places,
+                                       variables=[sv],
+                                       all_facets=True)
+    for facet_id, facet_metadata in series_facets.get('facets', {}).items():
+      if not facet_metadata:
+        continue
+      obs_period_rank = _RANKED_OBS_PERIOD.get(
+          facet_metadata.get('observationPeriod', ''), _DEFAULT_FACET_RANK)
+      chosen_facet_rank = _RANKED_OBS_PERIOD.get(facet_to_fetch,
+                                                 _DEFAULT_FACET_RANK)
+      # Choose better ranked facet
+      if obs_period_rank < chosen_facet_rank:
+        facet_to_fetch = facet_id
+  facet_ids = [facet_to_fetch] if facet_to_fetch else None
   series_data = fetch.series_core(entities=places,
                                   variables=[sv],
-                                  all_facets=bool(date_range))
+                                  all_facets=bool(date_range),
+                                  facet_ids=facet_ids)
   place2denom = _compute_place_to_denom(sv, places)
   # Count the RPC section (since we have multiple exit points)
   counters.timeit('rank_places_by_series_growth', start)
@@ -169,7 +190,7 @@ def rank_svs_by_series_growth(
 
   svs_with_vals = []
   for sv, place_data in series_data['data'].items():
-    sv_facet_id = get_facet_id(sv, date_range, sv_place_facet_ids, [place])
+    sv_facet_id = get_facet_id(sv, sv_place_facet_ids, [place])
     if place not in place_data:
       continue
     if bool(date_range):

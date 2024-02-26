@@ -1101,8 +1101,7 @@
           "Count_MortalityEvent_AllOtherFormsOfChronicIschemicHeartDisease_Female",
           "Count_MortalityEvent_AllOtherFormsOfHeartDisease_Female",
           "Count_MortalityEvent_AlzheimersDisease_Female",
-          "Count_MortalityEvent_AorticAneurysmAndDissection_Female",
-          "Count_MortalityEvent_Assault(Homicide)ByDischargeOfFirearms_Female"
+          "Count_MortalityEvent_AorticAneurysmAndDissection_Female"
         ]
       },
       "Count_Death_Female_AsAFractionOf_Count_Person_Female": {
@@ -1125,8 +1124,7 @@
           "Count_MortalityEvent_AllOtherFormsOfChronicIschemicHeartDisease_Female_AsAFractionOf_Count_Person_Female",
           "Count_MortalityEvent_AllOtherFormsOfHeartDisease_Female_AsAFractionOf_Count_Person_Female",
           "Count_MortalityEvent_AlzheimersDisease_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AorticAneurysmAndDissection_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_Assault(Homicide)ByDischargeOfFirearms_Female_AsAFractionOf_Count_Person_Female"
+          "Count_MortalityEvent_AorticAneurysmAndDissection_Female_AsAFractionOf_Count_Person_Female"
         ]
       },
       "Count_Person_85OrMoreYears_Female": {
@@ -1314,6 +1312,12 @@
           "Count_Person_67To69Years_Male",
           "Count_Person_Upto14Years_Male",
           "Count_Person_Years5To14_Male"
+        ]
+      },
+      "Median_Age_Person_Female": {
+        "race": [
+          "Median_Age_Person_Female_SomeOtherRaceAlone",
+          "Median_Age_Person_Female_TwoOrMoreRaces"
         ]
       }
     },

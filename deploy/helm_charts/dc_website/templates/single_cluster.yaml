@@ -32,7 +32,7 @@ metadata:
     {{- if .Values.ingress.internal }}
     cloud.google.com/neg: '{"ingress": true}'
     {{- end }}
-    cloud.google.com/backend-config: '{"ports": {"8081":"backendconfig"}}'
+    cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig"}}'
 spec:
   type: NodePort
   ports:
@@ -105,20 +105,18 @@ metadata:
     ingress.gcp.kubernetes.io/pre-shared-cert: {{ .Values.ingress.certName }}
     {{- end }}
 spec:
+  defaultBackend:
+    service:
+      name: website-service
+      port:
+        number: 8080
   rules:
     {{- if .Values.ingress.internal }}
     - host: website-ilb.website.internal
     {{- end }}
+    {{- if .Values.nodejs.enabled }}
     - http:
         paths:
-        - path: /*
-          pathType: ImplementationSpecific
-          backend:
-            service:
-              name: website-service
-              port:
-                number: 8080
-        {{- if .Values.nodejs.enabled }}
         - path: /nodejs/*
           pathType: ImplementationSpecific
           backend:
@@ -126,7 +124,7 @@ spec:
               name: website-nodejs-service
               port:
                 number: 8080
-        {{- end }}
+    {{- end }}
 
 
 {{- end }}

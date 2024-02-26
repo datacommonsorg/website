@@ -46,7 +46,7 @@
                     },
                     "placeDcidOverride": "country/KEN",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_3629701879"
                     ],
                     "title": "Kenya",
                     "type": "LINE"
@@ -61,7 +61,7 @@
                     },
                     "placeDcidOverride": "country/RWA",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_3629701879"
                     ],
                     "title": "Rwanda",
                     "type": "LINE"
@@ -76,7 +76,7 @@
                     },
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_3629701879"
                     ],
                     "title": "Ethiopia",
                     "type": "LINE"
@@ -91,7 +91,7 @@
                     },
                     "placeDcidOverride": "country/UGA",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_3629701879"
                     ],
                     "title": "Uganda",
                     "type": "LINE"
@@ -106,7 +106,7 @@
                     },
                     "placeDcidOverride": "country/TZA",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_3629701879"
                     ],
                     "title": "Tanzania",
                     "type": "LINE"
@@ -121,7 +121,7 @@
                     },
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_3629701879"
                     ],
                     "title": "Mali",
                     "type": "LINE"
@@ -136,7 +136,7 @@
                     },
                     "placeDcidOverride": "country/ZMB",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_3629701879"
                     ],
                     "title": "Zambia",
                     "type": "LINE"
@@ -151,7 +151,7 @@
                     },
                     "placeDcidOverride": "country/SDN",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_3629701879"
                     ],
                     "title": "Sudan",
                     "type": "LINE"
@@ -166,7 +166,7 @@
                     },
                     "placeDcidOverride": "country/ZWE",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_3629701879"
                     ],
                     "title": "Zimbabwe",
                     "type": "LINE"
@@ -181,7 +181,7 @@
                     },
                     "placeDcidOverride": "country/AGO",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs_3629701879"
                     ],
                     "title": "Angola",
                     "type": "LINE"
@@ -202,7 +202,7 @@
                     },
                     "placeDcidOverride": "country/RWA",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct_3629701879"
                     ],
                     "title": "Rwanda",
                     "type": "LINE"
@@ -217,7 +217,7 @@
                     },
                     "placeDcidOverride": "country/UGA",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct_3629701879"
                     ],
                     "title": "Uganda",
                     "type": "LINE"
@@ -232,7 +232,7 @@
                     },
                     "placeDcidOverride": "country/KEN",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct_3629701879"
                     ],
                     "title": "Kenya",
                     "type": "LINE"
@@ -247,7 +247,7 @@
                     },
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct_3629701879"
                     ],
                     "title": "Ethiopia",
                     "type": "LINE"
@@ -262,7 +262,7 @@
                     },
                     "placeDcidOverride": "country/TZA",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct_3629701879"
                     ],
                     "title": "Tanzania",
                     "type": "LINE"
@@ -277,7 +277,7 @@
                     },
                     "placeDcidOverride": "country/SSD",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct_3629701879"
                     ],
                     "title": "South Sudan",
                     "type": "LINE"
@@ -292,7 +292,7 @@
                     },
                     "placeDcidOverride": "country/ZMB",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct_3629701879"
                     ],
                     "title": "Zambia",
                     "type": "LINE"
@@ -307,7 +307,7 @@
                     },
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct_3629701879"
                     ],
                     "title": "Mali",
                     "type": "LINE"
@@ -322,7 +322,7 @@
                     },
                     "placeDcidOverride": "country/COD",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct_3629701879"
                     ],
                     "title": "Congo [DRC]",
                     "type": "LINE"
@@ -337,7 +337,7 @@
                     },
                     "placeDcidOverride": "country/MDG",
                     "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct_3629701879"
                     ],
                     "title": "Madagascar",
                     "type": "LINE"
@@ -355,11 +355,13 @@
             "name": "Population With Electricity Access (%)",
             "statVar": "worldBank/EG_ELC_ACCS_ZS"
           },
-          "worldBank/EG_ELC_ACCS_ZS_growth_abs": {
+          "worldBank/EG_ELC_ACCS_ZS_growth_abs_3629701879": {
+            "facetId": "3629701879",
             "name": "Population With Electricity Access (%)",
             "statVar": "worldBank/EG_ELC_ACCS_ZS"
           },
-          "worldBank/EG_ELC_ACCS_ZS_growth_pct": {
+          "worldBank/EG_ELC_ACCS_ZS_growth_pct_3629701879": {
+            "facetId": "3629701879",
             "name": "Population With Electricity Access (%)",
             "statVar": "worldBank/EG_ELC_ACCS_ZS"
           }

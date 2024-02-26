@@ -70,8 +70,10 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     nopc_vars = current_app.config['NOPC_VARS']
 
   direction = state.time_delta_types[0]
-  sv_place_facet_ids = get_sv_place_facet_ids(chart_vars.svs, places,
-                                              state.exist_checks)
+  sv_place_facet_ids = {}
+  if state.date_range:
+    sv_place_facet_ids = get_sv_place_facet_ids(chart_vars.svs, places,
+                                                state.exist_checks)
   ranked_lists = rank_utils.rank_svs_by_series_growth(
       place=places[0].dcid,
       svs=chart_vars.svs,
