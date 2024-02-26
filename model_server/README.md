@@ -2,18 +2,21 @@
 
 ## Build Docker Container
 
-Builds a custom Docker container for sentence transformer model. This updates a
-container to `us-central1-docker.pkg.dev/datcom-ci/models/dc-sentence-transformer:latest`
+Builds a custom Docker container for deploying embedding models. This updates a
+container to
+`us-central1-docker.pkg.dev/datcom-ci/models/embedding-model:<TAG>`.
+Note the TAG is the current git hash.
 
 ```bash
 ./push_image.sh
 ```
 
+Update the container tag in `upload.sh` for the new container to be deployed.
+
 ## Upload Model to Vertex AI
 
-Uploads a sentence transformer model to Vertex AI Model Registry. The
-`MODEL_NAME` here should be a full qualified sentence transformer name like
-`sentence-transformers/all-MiniLM-L6-v2`.
+Uploads an embedding model to Vertex AI Model Registry. The supported
+`MODEL_NAME` can be found in `model.list`.
 
 ```bash
 ./upload.sh <MODEL_NAME>
@@ -34,7 +37,7 @@ command like below:
 ```bash
 ENDPOINT_ID="7753749402006585344"
 PROJECT_ID="443333369001"
-INPUT_DATA_FILE="test_request.json"
+INPUT_DATA_FILE="example_request.json"
 
 curl \
 -X POST \
