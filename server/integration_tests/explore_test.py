@@ -431,6 +431,7 @@ class ExploreTest(NLWebServerTestCase):
   def test_e2e_undata(self):
     self.run_detect_and_fulfill('e2e_undata', [
         'Culture in Iran',
+        'Pulmonary diseases in the world'
     ], dc='undata')
 
     self.run_detect_and_fulfill('e2e_sdg_main_dc', [
