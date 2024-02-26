@@ -5,7 +5,7 @@
         "dc/svpg/WHOAIR10"
       ],
       "name": [
-        "Burden of lower respoiratory infections attributable to ambient air pollution in terms of disability-adjusted life years per 100'000 children under 5 years"
+        "Burden of lower respiratory infections attributable to ambient air pollution in terms of disability-adjusted life years per 100'000 children under 5 years"
       ],
       "memberList": [
         "who/AIR_10.ENVCAUSE--ENVCAUSE039__SEX--F",
@@ -2912,7 +2912,7 @@
         "dc/svpg/WHOAIR45.1"
       ],
       "name": [
-        "Burden of disease attributable to ambient air pollution in terms of number of years of lilfe lost"
+        "Burden of disease attributable to ambient air pollution in terms of number of years of life lost"
       ],
       "memberList": [
         "who/AIR_45.SEX--F",
@@ -2928,7 +2928,7 @@
         "dc/svpg/WHOAIR45.10"
       ],
       "name": [
-        "Burden of Lower respiratory infections attributable to ambient air pollution in terms of number of years of lilfe lost : Total"
+        "Burden of Lower respiratory infections attributable to ambient air pollution in terms of number of years of life lost : Total"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y0T4__ENVCAUSE--ENVCAUSE039",
@@ -2959,7 +2959,7 @@
         "dc/svpg/WHOAIR45.11"
       ],
       "name": [
-        "Burden of Stroke attributable to ambient air pollution in terms of number of years of lilfe lost : Female"
+        "Burden of Stroke attributable to ambient air pollution in terms of number of years of life lost : Female"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y25T29__ENVCAUSE--ENVCAUSE114__SEX--F",
@@ -2985,7 +2985,7 @@
         "dc/svpg/WHOAIR45.12"
       ],
       "name": [
-        "Burden of Stroke attributable to ambient air pollution in terms of number of years of lilfe lost : Male"
+        "Burden of Stroke attributable to ambient air pollution in terms of number of years of life lost : Male"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y25T29__ENVCAUSE--ENVCAUSE114__SEX--M",
@@ -3011,7 +3011,7 @@
         "dc/svpg/WHOAIR45.13"
       ],
       "name": [
-        "Burden of Stroke attributable to ambient air pollution in terms of number of years of lilfe lost : Total"
+        "Burden of Stroke attributable to ambient air pollution in terms of number of years of life lost : Total"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y25T29__ENVCAUSE--ENVCAUSE114",
@@ -3037,7 +3037,7 @@
         "dc/svpg/WHOAIR45.14"
       ],
       "name": [
-        "Burden of Trachea, bronchus, lung cancers attributable to ambient air pollution in terms of number of years of lilfe lost : Female"
+        "Burden of Trachea, bronchus, lung cancers attributable to ambient air pollution in terms of number of years of life lost : Female"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y25T29__ENVCAUSE--ENVCAUSE068__SEX--F",
@@ -3063,7 +3063,7 @@
         "dc/svpg/WHOAIR45.15"
       ],
       "name": [
-        "Burden of Trachea, bronchus, lung cancers attributable to ambient air pollution in terms of number of years of lilfe lost : Male"
+        "Burden of Trachea, bronchus, lung cancers attributable to ambient air pollution in terms of number of years of life lost : Male"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y25T29__ENVCAUSE--ENVCAUSE068__SEX--M",
@@ -3089,7 +3089,7 @@
         "dc/svpg/WHOAIR45.16"
       ],
       "name": [
-        "Burden of Trachea, bronchus, lung cancers attributable to ambient air pollution in terms of number of years of lilfe lost : Total"
+        "Burden of Trachea, bronchus, lung cancers attributable to ambient air pollution in terms of number of years of life lost : Total"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y25T29__ENVCAUSE--ENVCAUSE068",
@@ -3115,7 +3115,7 @@
         "dc/svpg/WHOAIR45.2"
       ],
       "name": [
-        "Burden of Chronic obstructive pulmonary disease attributable to ambient air pollution in terms of number of years of lilfe lost : Female"
+        "Burden of Chronic obstructive pulmonary disease attributable to ambient air pollution in terms of number of years of life lost : Female"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y25T29__ENVCAUSE--ENVCAUSE118__SEX--F",
@@ -3141,7 +3141,7 @@
         "dc/svpg/WHOAIR45.3"
       ],
       "name": [
-        "Burden of Chronic obstructive pulmonary disease attributable to ambient air pollution in terms of number of years of lilfe lost : Male"
+        "Burden of Chronic obstructive pulmonary disease attributable to ambient air pollution in terms of number of years of life lost : Male"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y25T29__ENVCAUSE--ENVCAUSE118__SEX--M",
@@ -3167,7 +3167,7 @@
         "dc/svpg/WHOAIR45.4"
       ],
       "name": [
-        "Burden of Chronic obstructive pulmonary disease attributable to ambient air pollution in terms of number of years of lilfe lost : Total"
+        "Burden of Chronic obstructive pulmonary disease attributable to ambient air pollution in terms of number of years of life lost : Total"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y25T29__ENVCAUSE--ENVCAUSE118",
@@ -3193,7 +3193,7 @@
         "dc/svpg/WHOAIR45.5"
       ],
       "name": [
-        "Burden of Ischaemic heart disease attributable to ambient air pollution in terms of number of years of lilfe lost : Female"
+        "Burden of Ischaemic heart disease attributable to ambient air pollution in terms of number of years of life lost : Female"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y25T29__ENVCAUSE--ENVCAUSE113__SEX--F",
@@ -3219,7 +3219,7 @@
         "dc/svpg/WHOAIR45.6"
       ],
       "name": [
-        "Burden of Ischaemic heart disease attributable to ambient air pollution in terms of number of years of lilfe lost : Male"
+        "Burden of Ischaemic heart disease attributable to ambient air pollution in terms of number of years of life lost : Male"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y25T29__ENVCAUSE--ENVCAUSE113__SEX--M",
@@ -3245,7 +3245,7 @@
         "dc/svpg/WHOAIR45.7"
       ],
       "name": [
-        "Burden of Ischaemic heart disease attributable to ambient air pollution in terms of number of years of lilfe lost : Total"
+        "Burden of Ischaemic heart disease attributable to ambient air pollution in terms of number of years of life lost : Total"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y25T29__ENVCAUSE--ENVCAUSE113",
@@ -3271,7 +3271,7 @@
         "dc/svpg/WHOAIR45.8"
       ],
       "name": [
-        "Burden of Lower respiratory infections attributable to ambient air pollution in terms of number of years of lilfe lost : Female"
+        "Burden of Lower respiratory infections attributable to ambient air pollution in terms of number of years of life lost : Female"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y0T4__ENVCAUSE--ENVCAUSE039__SEX--F",
@@ -3302,7 +3302,7 @@
         "dc/svpg/WHOAIR45.9"
       ],
       "name": [
-        "Burden of Lower respiratory infections attributable to ambient air pollution in terms of number of years of lilfe lost : Male"
+        "Burden of Lower respiratory infections attributable to ambient air pollution in terms of number of years of life lost : Male"
       ],
       "memberList": [
         "who/AIR_45.AGE--Y0T4__ENVCAUSE--ENVCAUSE039__SEX--M",
@@ -5049,7 +5049,7 @@
         "dc/svpg/WHOAIR71"
       ],
       "name": [
-        "Burden of Lower respoiratory infections attributable to ambient air pollution in terms of number of disability-adjusted life years in children under 15 years"
+        "Burden of Lower respiratory infections attributable to ambient air pollution in terms of number of disability-adjusted life years in children under 15 years"
       ],
       "memberList": [
         "who/AIR_71.ENVCAUSE--ENVCAUSE039__SEX--F",
@@ -5065,7 +5065,7 @@
         "dc/svpg/WHOAIR72"
       ],
       "name": [
-        "Deaths in children under 15 years due to lower respoiratory infections attributable to ambient air pollution"
+        "Deaths in children under 15 years due to lower respiratory infections attributable to ambient air pollution"
       ],
       "memberList": [
         "who/AIR_72.ENVCAUSE--ENVCAUSE039__SEX--F",
@@ -5145,7 +5145,7 @@
         "dc/svpg/WHOAIR9.1"
       ],
       "name": [
-        "Burden of disease attributable to ambien air pollution in terms of number of disability-adjusted life years"
+        "Burden of disease attributable to ambient air pollution in terms of number of disability-adjusted life years"
       ],
       "memberList": [
         "who/AIR_9.SEX--F",
@@ -5161,7 +5161,7 @@
         "dc/svpg/WHOAIR9.10"
       ],
       "name": [
-        "Burden of Lower respiratory infections attributable to ambien air pollution in terms of number of disability-adjusted life years : Total"
+        "Burden of Lower respiratory infections attributable to ambient air pollution in terms of number of disability-adjusted life years : Total"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y0T4__ENVCAUSE--ENVCAUSE039",
@@ -5192,7 +5192,7 @@
         "dc/svpg/WHOAIR9.11"
       ],
       "name": [
-        "Burden of Stroke attributable to ambien air pollution in terms of number of disability-adjusted life years : Female"
+        "Burden of Stroke attributable to ambient air pollution in terms of number of disability-adjusted life years : Female"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y25T29__ENVCAUSE--ENVCAUSE114__SEX--F",
@@ -5218,7 +5218,7 @@
         "dc/svpg/WHOAIR9.12"
       ],
       "name": [
-        "Burden of Stroke attributable to ambien air pollution in terms of number of disability-adjusted life years : Male"
+        "Burden of Stroke attributable to ambient air pollution in terms of number of disability-adjusted life years : Male"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y25T29__ENVCAUSE--ENVCAUSE114__SEX--M",
@@ -5244,7 +5244,7 @@
         "dc/svpg/WHOAIR9.13"
       ],
       "name": [
-        "Burden of Stroke attributable to ambien air pollution in terms of number of disability-adjusted life years : Total"
+        "Burden of Stroke attributable to ambient air pollution in terms of number of disability-adjusted life years : Total"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y25T29__ENVCAUSE--ENVCAUSE114",
@@ -5270,7 +5270,7 @@
         "dc/svpg/WHOAIR9.14"
       ],
       "name": [
-        "Burden of Trachea, bronchus, lung cancers attributable to ambien air pollution in terms of number of disability-adjusted life years : Female"
+        "Burden of Trachea, bronchus, lung cancers attributable to ambient air pollution in terms of number of disability-adjusted life years : Female"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y25T29__ENVCAUSE--ENVCAUSE068__SEX--F",
@@ -5296,7 +5296,7 @@
         "dc/svpg/WHOAIR9.15"
       ],
       "name": [
-        "Burden of Trachea, bronchus, lung cancers attributable to ambien air pollution in terms of number of disability-adjusted life years : Male"
+        "Burden of Trachea, bronchus, lung cancers attributable to ambient air pollution in terms of number of disability-adjusted life years : Male"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y25T29__ENVCAUSE--ENVCAUSE068__SEX--M",
@@ -5322,7 +5322,7 @@
         "dc/svpg/WHOAIR9.16"
       ],
       "name": [
-        "Burden of Trachea, bronchus, lung cancers attributable to ambien air pollution in terms of number of disability-adjusted life years : Total"
+        "Burden of Trachea, bronchus, lung cancers attributable to ambient air pollution in terms of number of disability-adjusted life years : Total"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y25T29__ENVCAUSE--ENVCAUSE068",
@@ -5348,7 +5348,7 @@
         "dc/svpg/WHOAIR9.2"
       ],
       "name": [
-        "Burden of Chronic obstructive pulmonary disease attributable to ambien air pollution in terms of number of disability-adjusted life years : Female"
+        "Burden of Chronic obstructive pulmonary disease attributable to ambient air pollution in terms of number of disability-adjusted life years : Female"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y25T29__ENVCAUSE--ENVCAUSE118__SEX--F",
@@ -5374,7 +5374,7 @@
         "dc/svpg/WHOAIR9.3"
       ],
       "name": [
-        "Burden of Chronic obstructive pulmonary disease attributable to ambien air pollution in terms of number of disability-adjusted life years : Male"
+        "Burden of Chronic obstructive pulmonary disease attributable to ambient air pollution in terms of number of disability-adjusted life years : Male"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y25T29__ENVCAUSE--ENVCAUSE118__SEX--M",
@@ -5400,7 +5400,7 @@
         "dc/svpg/WHOAIR9.4"
       ],
       "name": [
-        "Burden of Chronic obstructive pulmonary disease attributable to ambien air pollution in terms of number of disability-adjusted life years : Total"
+        "Burden of Chronic obstructive pulmonary disease attributable to ambient air pollution in terms of number of disability-adjusted life years : Total"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y25T29__ENVCAUSE--ENVCAUSE118",
@@ -5426,7 +5426,7 @@
         "dc/svpg/WHOAIR9.5"
       ],
       "name": [
-        "Burden of Ischaemic heart disease attributable to ambien air pollution in terms of number of disability-adjusted life years : Female"
+        "Burden of Ischaemic heart disease attributable to ambient air pollution in terms of number of disability-adjusted life years : Female"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y25T29__ENVCAUSE--ENVCAUSE113__SEX--F",
@@ -5452,7 +5452,7 @@
         "dc/svpg/WHOAIR9.6"
       ],
       "name": [
-        "Burden of Ischaemic heart disease attributable to ambien air pollution in terms of number of disability-adjusted life years : Male"
+        "Burden of Ischaemic heart disease attributable to ambient air pollution in terms of number of disability-adjusted life years : Male"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y25T29__ENVCAUSE--ENVCAUSE113__SEX--M",
@@ -5478,7 +5478,7 @@
         "dc/svpg/WHOAIR9.7"
       ],
       "name": [
-        "Burden of Ischaemic heart disease attributable to ambien air pollution in terms of number of disability-adjusted life years : Total"
+        "Burden of Ischaemic heart disease attributable to ambient air pollution in terms of number of disability-adjusted life years : Total"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y25T29__ENVCAUSE--ENVCAUSE113",
@@ -5504,7 +5504,7 @@
         "dc/svpg/WHOAIR9.8"
       ],
       "name": [
-        "Burden of Lower respiratory infections attributable to ambien air pollution in terms of number of disability-adjusted life years : Female"
+        "Burden of Lower respiratory infections attributable to ambient air pollution in terms of number of disability-adjusted life years : Female"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y0T4__ENVCAUSE--ENVCAUSE039__SEX--F",
@@ -5535,7 +5535,7 @@
         "dc/svpg/WHOAIR9.9"
       ],
       "name": [
-        "Burden of Lower respiratory infections attributable to ambien air pollution in terms of number of disability-adjusted life years : Male"
+        "Burden of Lower respiratory infections attributable to ambient air pollution in terms of number of disability-adjusted life years : Male"
       ],
       "memberList": [
         "who/AIR_9.AGE--Y0T4__ENVCAUSE--ENVCAUSE039__SEX--M",
@@ -6374,7 +6374,7 @@
         "dc/svpg/WHOASSISTIVETECHSATISFACTIONSERVICES.3"
       ],
       "name": [
-        "Assistive technology indicators: Satisfaction with assistive products,excluding spectacles, and related services"
+        "Assistive technology indicators: Satisfaction with assistive products, excluding spectacles, and related services"
       ],
       "memberList": [
         "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_assessment",
@@ -59153,7 +59153,7 @@
         "dc/svpg/WHONCDCHOLMEANNONHDLC"
       ],
       "name": [
-        "Mean non high-density lipoprotein cholesterol, cruded estimate"
+        "Mean non high-density lipoprotein cholesterol, crude estimate"
       ],
       "memberList": [
         "who/NCD_CHOL_MEANNONHDL_C.SEX--F",
@@ -59900,7 +59900,7 @@
         "dc/svpg/WHOTOTENV3.1"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors )"
+        "Disease burden attributable to environmental risk factors )"
       ],
       "memberList": [
         "who/TOTENV_3.AGE--Y0T4",
@@ -59915,7 +59915,7 @@
         "dc/svpg/WHOTOTENV3.10"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ) among children 0-4 years of age: Musculoskeletal diseases"
+        "Disease burden attributable to environmental risk factors ) among children 0-4 years of age: Musculoskeletal diseases"
       ],
       "memberList": [
         "who/TOTENV_3.AGE--Y0T4__ENVCAUSE--ENVCAUSE138",
@@ -59932,7 +59932,7 @@
         "dc/svpg/WHOTOTENV3.12"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ) among children 0-4 years of age: Neurological conditions"
+        "Disease burden attributable to environmental risk factors ) among children 0-4 years of age: Neurological conditions"
       ],
       "memberList": [
         "who/TOTENV_3.AGE--Y0T4__ENVCAUSE--ENVCAUSE095",
@@ -59952,7 +59952,7 @@
         "dc/svpg/WHOTOTENV3.13"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ) among children 0-4 years of age: Parasitic and vector diseases"
+        "Disease burden attributable to environmental risk factors ) among children 0-4 years of age: Parasitic and vector diseases"
       ],
       "memberList": [
         "who/TOTENV_3.AGE--Y0T4__ENVCAUSE--ENVCAUSE024",
@@ -59973,7 +59973,7 @@
         "dc/svpg/WHOTOTENV3.15"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ) among children 0-4 years of age: Respiratory infections"
+        "Disease burden attributable to environmental risk factors ) among children 0-4 years of age: Respiratory infections"
       ],
       "memberList": [
         "who/TOTENV_3.AGE--Y0T4__ENVCAUSE--ENVCAUSE039",
@@ -59988,7 +59988,7 @@
         "dc/svpg/WHOTOTENV3.16"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ) among children 0-4 years of age: Sense organ diseases"
+        "Disease burden attributable to environmental risk factors ) among children 0-4 years of age: Sense organ diseases"
       ],
       "memberList": [
         "who/TOTENV_3.AGE--Y0T4__ENVCAUSE--ENVCAUSE104",
@@ -60004,7 +60004,7 @@
         "dc/svpg/WHOTOTENV3.17"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ) among children 0-4 years of age: Unintentional injuries"
+        "Disease burden attributable to environmental risk factors ) among children 0-4 years of age: Unintentional injuries"
       ],
       "memberList": [
         "who/TOTENV_3.AGE--Y0T4__ENVCAUSE--ENVCAUSE157",
@@ -60023,7 +60023,7 @@
         "dc/svpg/WHOTOTENV3.18"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ): Cardiovascular diseases"
+        "Disease burden attributable to environmental risk factors ): Cardiovascular diseases"
       ],
       "memberList": [
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE112",
@@ -60041,7 +60041,7 @@
         "dc/svpg/WHOTOTENV3.19"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ): Chronic respiratory diseases"
+        "Disease burden attributable to environmental risk factors ): Chronic respiratory diseases"
       ],
       "memberList": [
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE119",
@@ -60056,7 +60056,7 @@
         "dc/svpg/WHOTOTENV3.2"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ) among children 0-4 years of age: Cardiovascular diseases"
+        "Disease burden attributable to environmental risk factors ) among children 0-4 years of age: Cardiovascular diseases"
       ],
       "memberList": [
         "who/TOTENV_3.AGE--Y0T4__ENVCAUSE--ENVCAUSE112",
@@ -60074,7 +60074,7 @@
         "dc/svpg/WHOTOTENV3.21"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ): Infectious and parasitic diseases"
+        "Disease burden attributable to environmental risk factors ): Infectious and parasitic diseases"
       ],
       "memberList": [
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE019",
@@ -60094,7 +60094,7 @@
         "dc/svpg/WHOTOTENV3.22"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ): Intentional injuries"
+        "Disease burden attributable to environmental risk factors ): Intentional injuries"
       ],
       "memberList": [
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE162",
@@ -60109,7 +60109,7 @@
         "dc/svpg/WHOTOTENV3.24"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ): Malignant neoplasms"
+        "Disease burden attributable to environmental risk factors ): Malignant neoplasms"
       ],
       "memberList": [
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE078",
@@ -60124,7 +60124,7 @@
         "dc/svpg/WHOTOTENV3.25"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ): Mental and behavioral disorders"
+        "Disease burden attributable to environmental risk factors ): Mental and behavioral disorders"
       ],
       "memberList": [
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE086",
@@ -60147,7 +60147,7 @@
         "dc/svpg/WHOTOTENV3.26"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ): Musculoskeletal diseases"
+        "Disease burden attributable to environmental risk factors ): Musculoskeletal diseases"
       ],
       "memberList": [
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE138",
@@ -60164,7 +60164,7 @@
         "dc/svpg/WHOTOTENV3.28"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ): Neurological conditions"
+        "Disease burden attributable to environmental risk factors ): Neurological conditions"
       ],
       "memberList": [
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE095",
@@ -60184,7 +60184,7 @@
         "dc/svpg/WHOTOTENV3.29"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ): Parasitic and vector diseases"
+        "Disease burden attributable to environmental risk factors ): Parasitic and vector diseases"
       ],
       "memberList": [
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE024",
@@ -60205,7 +60205,7 @@
         "dc/svpg/WHOTOTENV3.3"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ) among children 0-4 years of age: Chronic respiratory diseases"
+        "Disease burden attributable to environmental risk factors ) among children 0-4 years of age: Chronic respiratory diseases"
       ],
       "memberList": [
         "who/TOTENV_3.AGE--Y0T4__ENVCAUSE--ENVCAUSE119",
@@ -60220,7 +60220,7 @@
         "dc/svpg/WHOTOTENV3.31"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ): Respiratory infections"
+        "Disease burden attributable to environmental risk factors ): Respiratory infections"
       ],
       "memberList": [
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE039",
@@ -60235,7 +60235,7 @@
         "dc/svpg/WHOTOTENV3.32"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ): Sense organ diseases"
+        "Disease burden attributable to environmental risk factors ): Sense organ diseases"
       ],
       "memberList": [
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE104",
@@ -60250,7 +60250,7 @@
         "dc/svpg/WHOTOTENV3.33"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ): Unintentional injuries"
+        "Disease burden attributable to environmental risk factors ): Unintentional injuries"
       ],
       "memberList": [
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE157",
@@ -60269,7 +60269,7 @@
         "dc/svpg/WHOTOTENV3.5"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ) among children 0-4 years of age: Infectious and parasitic diseases"
+        "Disease burden attributable to environmental risk factors ) among children 0-4 years of age: Infectious and parasitic diseases"
       ],
       "memberList": [
         "who/TOTENV_3.AGE--Y0T4__ENVCAUSE--ENVCAUSE019",
@@ -60289,7 +60289,7 @@
         "dc/svpg/WHOTOTENV3.6"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ) among children 0-4 years of age: Intentional injuries"
+        "Disease burden attributable to environmental risk factors ) among children 0-4 years of age: Intentional injuries"
       ],
       "memberList": [
         "who/TOTENV_3.AGE--Y0T4__ENVCAUSE--ENVCAUSE162",
@@ -60304,7 +60304,7 @@
         "dc/svpg/WHOTOTENV3.8"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ) among children 0-4 years of age: Malignant neoplasms"
+        "Disease burden attributable to environmental risk factors ) among children 0-4 years of age: Malignant neoplasms"
       ],
       "memberList": [
         "who/TOTENV_3.AGE--Y0T4__ENVCAUSE--ENVCAUSE078",
@@ -60319,7 +60319,7 @@
         "dc/svpg/WHOTOTENV3.9"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors ) among children 0-4 years of age: Mental and behavioral disorders"
+        "Disease burden attributable to environmental risk factors ) among children 0-4 years of age: Mental and behavioral disorders"
       ],
       "memberList": [
         "who/TOTENV_3.AGE--Y0T4__ENVCAUSE--ENVCAUSE086",
@@ -60342,7 +60342,7 @@
         "dc/svpg/WHOTOTENV4.1"
       ],
       "name": [
-        "Disease burden attributable to enviromental risk factors per 100 000 population)"
+        "Disease burden attributable to environmental risk factors per 100 000 population)"
       ],
       "memberList": [
         "who/TOTENV_4.ENVCAUSE--ENVCAUSE001",
@@ -60374,7 +60374,7 @@
         "dc/svpg/WHOTOTENV6.1"
       ],
       "name": [
-        "Percentage of total disease burden that is attributable to enviromental risk factors )"
+        "Percentage of total disease burden that is attributable to environmental risk factors )"
       ],
       "memberList": [
         "who/TOTENV_6.AGE--Y0T4",
@@ -60466,24 +60466,50 @@
     },
     {
       "dcid": [
-        "dc/svpg/WHOWHS4106"
+        "dc/svpg/WHOWHS4106.2"
       ],
       "name": [
         "Percentage of children younger than 5 years with symptoms of acute respiratory infection, by education of mother"
       ],
       "memberList": [
-        "who/WHS4_106.EDUCATIONLEVEL--NHLM",
         "who/WHS4_106.EDUCATIONLEVEL--PRLM",
         "who/WHS4_106.EDUCATIONLEVEL--SHLM",
         "who/WHS4_106.RESIDENCEAREATYPE--RUR",
-        "who/WHS4_106.RESIDENCEAREATYPE--URB",
+        "who/WHS4_106.RESIDENCEAREATYPE--URB"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOWHS4106.3"
+      ],
+      "name": [
+        "Percentage of children younger than 5 years with symptoms of acute respiratory infection, by sex"
+      ],
+      "memberList": [
         "who/WHS4_106.SEX--F",
-        "who/WHS4_106.SEX--M",
+        "who/WHS4_106.SEX--M"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOWHS4106.4"
+      ],
+      "name": [
+        "Percentage of children younger than 5 years with symptoms of acute respiratory infection, by wealth quintile"
+      ],
+      "memberList": [
         "who/WHS4_106.WEALTHQUINTILE--WQ1",
         "who/WHS4_106.WEALTHQUINTILE--WQ2",
         "who/WHS4_106.WEALTHQUINTILE--WQ3",
         "who/WHS4_106.WEALTHQUINTILE--WQ4",
-        "who/WHS4_106.WEALTHQUINTILE--WQ5"
+        "who/WHS4_106.WEALTHQUINTILE--WQ5",
+        "who/WHS4_106"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -60694,7 +60720,7 @@
         "dc/svpg/WHOWSHSANITATIONOD"
       ],
       "name": [
-        "Population practising open defecation"
+        "Population practicing open defecation"
       ],
       "memberList": [
         "who/WSH_SANITATION_OD.RESIDENCEAREATYPE--RUR",
@@ -61510,7 +61536,7 @@
         "dc/svpg/WHOcarep.1"
       ],
       "name": [
-        "Children aged < 5 years with pneumonia symptoms taken to a health facility, by mother\u2019s current age"
+        "Children aged < 5 years with pneumonia symptoms taken to a health facility, by mother's current age"
       ],
       "memberList": [
         "who/carep.AGE--Y15T19",
@@ -61525,7 +61551,7 @@
         "dc/svpg/WHOcarep.2"
       ],
       "name": [
-        "Children aged < 5 years with pneumonia symptoms taken to a health facility, by mother\u2019s education"
+        "Children aged < 5 years with pneumonia symptoms taken to a health facility, by mother's education"
       ],
       "memberList": [
         "who/carep.EDUCATIONLEVEL--NHLM",
@@ -62101,7 +62127,7 @@
         "dc/svpg/WHOfps.5"
       ],
       "name": [
-        "Demand for family planning satisfied: modern and traditional methods, by weealth quintile"
+        "Demand for family planning satisfied: modern and traditional methods, by wealth quintile"
       ],
       "memberList": [
         "who/fps.WEALTHQUINTILE--WQ1",
@@ -62668,7 +62694,7 @@
         "dc/svpg/WHOors.6"
       ],
       "name": [
-        "Children aged < 5 years with diarrhoea receiving oral rehydration salts, by wealth quitile"
+        "Children aged < 5 years with diarrhoea receiving oral rehydration salts, by wealth quintile"
       ],
       "memberList": [
         "who/ors.WEALTHQUINTILE--WQ1",
@@ -63376,7 +63402,7 @@
         "dc/svpg/WHOvbcg.6"
       ],
       "name": [
-        "Coverage of BCG immunization for tuberculosis among one-year-olds, by weatlh decile"
+        "Coverage of BCG immunization for tuberculosis among one-year-olds, by wealth decile"
       ],
       "memberList": [
         "who/vbcg.WEALTHDECILE--WEALTHDECILE01",
@@ -69401,7 +69427,7 @@
         "dc/topic/WHOGHEYLLRATE_age-WHOAgeEnumYGE70"
       ],
       "name": [
-        "Years of Life Lost From Mortality With Age = 70 Plus  Years of Age (please Delete. It Does Not Work With Menu.xml)"
+        "Years of Life Lost From Mortality With Age = 70 Plus Years of Age"
       ],
       "typeOf": [
         "Topic"
@@ -69416,7 +69442,7 @@
         "dc/topic/WHOGHEYLLRATE_age-WHOAgeEnumYGE70_whoghecauses"
       ],
       "name": [
-        "Years of Life Lost From Mortality With Age = 70 Plus  Years of Age (please Delete. It Does Not Work With Menu.xml), Ghecauses"
+        "Years of Life Lost From Mortality With Age = 70 Plus Years of Age, Ghecauses"
       ],
       "typeOf": [
         "Topic"
@@ -69430,7 +69456,7 @@
         "dc/topic/WHOGHEYLLRATE_age-WHOAgeEnumYGE70_whoghecauses-WHOGhecausesEnumGHE105"
       ],
       "name": [
-        "Years of Life Lost From Mortality With Age = 70 Plus  Years of Age (please Delete. It Does Not Work With Menu.xml), Ghecauses = Refractive Errors"
+        "Years of Life Lost From Mortality With Age = 70 Plus Years of Age, Ghecauses = Refractive Errors"
       ],
       "typeOf": [
         "Topic"
@@ -69444,7 +69470,7 @@
         "dc/topic/WHOGHEYLLRATE_age-WHOAgeEnumYGE70_whoghecauses-WHOGhecausesEnumGHE105_whosex"
       ],
       "name": [
-        "Years of Life Lost From Mortality With Age = 70 Plus  Years of Age (please Delete. It Does Not Work With Menu.xml), Ghecauses = Refractive Errors, Sex"
+        "Years of Life Lost From Mortality With Age = 70 Plus Years of Age, Ghecauses = Refractive Errors, Sex"
       ],
       "typeOf": [
         "Topic"
@@ -69458,7 +69484,7 @@
         "dc/topic/WHOGHEYLLRATE_age-WHOAgeEnumYGE70_whoghecauses_whosex-WHOSexEnumM"
       ],
       "name": [
-        "Years of Life Lost From Mortality With Age = 70 Plus  Years of Age (please Delete. It Does Not Work With Menu.xml), Ghecauses, Sex = Male"
+        "Years of Life Lost From Mortality With Age = 70 Plus Years of Age, Ghecauses, Sex = Male"
       ],
       "typeOf": [
         "Topic"
@@ -69472,7 +69498,7 @@
         "dc/topic/WHOGHEYLLRATE_age-WHOAgeEnumYGE70_whosex"
       ],
       "name": [
-        "Years of Life Lost From Mortality With Age = 70 Plus  Years of Age (please Delete. It Does Not Work With Menu.xml), Sex"
+        "Years of Life Lost From Mortality With Age = 70 Plus Years of Age, Sex"
       ],
       "typeOf": [
         "Topic"
@@ -69486,7 +69512,7 @@
         "dc/topic/WHOGHEYLLRATE_age-WHOAgeEnumYGE70_whosex-WHOSexEnumM"
       ],
       "name": [
-        "Years of Life Lost From Mortality With Age = 70 Plus  Years of Age (please Delete. It Does Not Work With Menu.xml), Sex = Male"
+        "Years of Life Lost From Mortality With Age = 70 Plus Years of Age, Sex = Male"
       ],
       "typeOf": [
         "Topic"
@@ -70674,8 +70700,24 @@
         "Topic"
       ],
       "relevantVariableList": [
-        "who/WHS4_106",
-        "dc/svpg/WHOWHS4106"
+        "dc/topic/WHOWHS4106_whoeducationlevel",
+        "dc/svpg/WHOWHS4106.2",
+        "dc/svpg/WHOWHS4106.3",
+        "dc/svpg/WHOWHS4106.4"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOWHS4106_whoeducationlevel"
+      ],
+      "name": [
+        "Care-seeking for Children With Symptoms of Acute Respiratory Infection by Educationlevel"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "who/WHS4_106.EDUCATIONLEVEL--NHLM"
       ]
     },
     {
