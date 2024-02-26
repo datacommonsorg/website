@@ -9470,7 +9470,7 @@
       key: "sdg/VC_DTH_TOUNN"
       value {
         stat_var: "sdg/VC_DTH_TOUNN"
-        name: "Number of conflict-related death (unknown)"
+        name: "Number of conflict-related deaths (unknown)"
       }
     }
     stat_var_spec {
