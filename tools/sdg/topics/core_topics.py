@@ -23,7 +23,7 @@ from typing import Dict, List, Set
 
 from absl import app
 from absl import flags
-import requests
+import common
 
 FLAGS = flags.FLAGS
 
@@ -50,21 +50,6 @@ API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
 API_PATH_PV = API_ROOT + '/v1/bulk/property/values/out'
 
 
-def call_api(url, req):
-  headers = {'Content-Type': 'application/json'}
-  # Set DC_API_KEY to the autopush API key
-  dc_api_key = os.environ.get('DC_API_KEY', '')
-  if dc_api_key:
-    headers['x-api-key'] = dc_api_key
-  # Send the request and verify the request succeeded
-  response = requests.post(url, json=req, headers=headers)
-  if response.status_code != 200:
-    raise ValueError(
-        'An HTTP {} code ({}) was returned by the mixer: "{}"'.format(
-            response.status_code, response.reason, response.content))
-  return response.json()
-
-
 def _svg2t(svg):
   # NOTE: Use small "sdg" to avoid overlap with prior topics.
   return svg.replace('dc/g/SDG', 'dc/topic/sdg').replace('dc/g/', 'dc/topic/')
@@ -72,7 +57,7 @@ def _svg2t(svg):
 
 def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
                            keep_vars: Set[str]):
-  resp = call_api(API_PATH_SVG_INFO, {'nodes': svgs})
+  resp = common.call_api(API_PATH_SVG_INFO, {'nodes': svgs})
 
   recurse_nodes = set()
   for data in resp.get('data', []):
@@ -294,41 +279,6 @@ def write_non_country_vars(non_country_vars_file: str, vars: Variables):
     json.dump(js, fp, indent=2)
 
 
-def write_topic_json(topic_file: str, nodes: list):
-  with open(topic_file, 'w') as fp:
-    json.dump({'nodes': nodes}, fp, indent=2)
-
-
-def write_topic_mcf(mcf_file: str, nodes: list[dict]) -> None:
-  logging.info("Writing MCF to: %s", mcf_file)
-  os.makedirs(_TMP_DIR, exist_ok=True)
-  with open(mcf_file, 'w') as out:
-    for node in nodes:
-      out.write(_write_mcf_node(node))
-
-
-def _write_mcf_node(node: dict) -> str:
-  lines = []
-
-  if node['typeOf'][0] == 'Topic':
-    prop = 'relevantVariable'
-  else:
-    prop = 'member'
-  list_prop = prop + 'List'
-
-  lines.append(f"Node: dcid:{node['dcid'][0]}")
-
-  if node[list_prop]:
-    refs_str = ", ".join([f"dcid:{var}" for var in node[list_prop]])
-    lines.append(f"{prop}: {refs_str}")
-
-  lines.append(f'name: "{node["name"][0]}"')
-  lines.append(f"typeOf: dcid:{node['typeOf'][0]}")
-
-  lines.append("\n")
-  return "\n".join(lines)
-
-
 def main(_):
   assert FLAGS.dc
   vars = Variables(series2group2vars={},
@@ -344,8 +294,8 @@ def main(_):
                    svpg_prefix='dc/svpg/SDG')
     nodes = generate([_SDG_ROOT], vars)
     write_non_country_vars(_SDG_NON_COUNTRY_VARS, vars)
-    write_topic_mcf(_SDG_MCF_PATH, nodes)
-    write_topic_json(_SDG_TOPIC_JSON, nodes)
+    common.write_topic_mcf(_SDG_MCF_PATH, nodes)
+    common.write_topic_json(_SDG_TOPIC_JSON, nodes)
   elif FLAGS.dc == 'undata':
     # TODO: When we have one more past WHO, needs some work.
     load_variables(vars_file=_UNDATA_VARIABLES_FILE,
@@ -355,8 +305,8 @@ def main(_):
                    svpg_prefix='dc/svpg/WHO')
     write_non_country_vars(_UNDATA_NON_COUNTRY_VARS, vars)
     nodes = generate([_UNDATA_ROOT], vars)
-    write_topic_mcf(_UNDATA_MCF_PATH, nodes)
-    write_topic_json(_UNDATA_TOPIC_JSON, nodes)
+    common.write_topic_mcf(_UNDATA_MCF_PATH, nodes)
+    common.write_topic_json(_UNDATA_TOPIC_JSON, nodes)
   print(f'Found {len(vars.keep_vars)} vars')
 
 
