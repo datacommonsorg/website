@@ -9287,6 +9287,34 @@
     "blocklist": [],
     "title": "Shipments or Receipts of Establishments With Payroll: Nonmetallic Mineral Product Manufacturing"
   },
+  "sdg/VC_DTH_TOCVN": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians)"
+  },
+  "sdg/VC_DTH_TOCVN.AGE--Y0T17": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians) [Age = under 18 years old]"
+  },
+  "sdg/VC_DTH_TOCVN.AGE--Y_GE18": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians) [Age = 18 years old and over]"
+  },
+  "sdg/VC_DTH_TOCVN.SEX--F": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians) [Sex = Female]"
+  },
+  "sdg/VC_DTH_TOCVN.SEX--M": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians) [Sex = Male]"
+  },
+  "sdg/VC_DTH_TONCVN": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (non-civilians)"
+  },
+  "sdg/VC_DTH_TOUNN": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (unknown)"
+  },
   "worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT": {
     "blocklist": [],
     "title": "Total Electricity Output (GWh)"

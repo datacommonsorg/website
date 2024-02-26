@@ -5024,54 +5024,5 @@
       "sdgmini"
     ],
     "title": "Population With Destroyed Dwellings From Disasters"
-  },
-  "sdg/VC_DTH_TOCVN": {
-    "blocklist": [
-      "sdg",
-      "sdgmini"
-    ],
-    "title": "Number of conflict-related deaths (civilians)"
-  },
-  "sdg/VC_DTH_TOCVN.AGE--Y0T17": {
-    "blocklist": [
-      "sdg",
-      "sdgmini"
-    ],
-    "title": "Number of conflict-related deaths (civilians) [Age = under 18 years old]"
-  },
-  "sdg/VC_DTH_TOCVN.AGE--Y_GE18": {
-    "blocklist": [
-      "sdg",
-      "sdgmini"
-    ],
-    "title": "Number of conflict-related deaths (civilians) [Age = 18 years old and over]"
-  },
-  "sdg/VC_DTH_TOCVN.SEX--F": {
-    "blocklist": [
-      "sdg",
-      "sdgmini"
-    ],
-    "title": "Number of conflict-related deaths (civilians) [Sex = Female]"
-  },
-  "sdg/VC_DTH_TOCVN.SEX--M": {
-    "blocklist": [
-      "sdg",
-      "sdgmini"
-    ],
-    "title": "Number of conflict-related deaths (civilians) [Sex = Male]"
-  },
-  "sdg/VC_DTH_TONCVN": {
-    "blocklist": [
-      "sdg",
-      "sdgmini"
-    ],
-    "title": "Number of conflict-related deaths (non-civilians)"
-  },
-  "sdg/VC_DTH_TOUNN": {
-    "blocklist": [
-      "sdg",
-      "sdgmini"
-    ],
-    "title": "Number of conflict-related deaths (unknown)"
   }
 }
