@@ -31,6 +31,7 @@ website:
           "port": "6379"
         }
       }
+  nodeSelector: "default-pool"
 
 serviceAccount:
   name: website-ksa
@@ -41,21 +42,29 @@ ingress:
 
 nl:
   enabled: true
+  image:
+    name: "datacommons-nl-bard"
+    memory: "10G"
 
 nodejs:
   enabled: true
-  replicas: 25
+  replicas: 50
+  nodePool: "default-pool"
 
 serviceGroups:
   recon: null
   svg:
     replicas: 6
+    nodePool: "default-pool"
   node:
-    replicas: 15
+    replicas: 25
+    nodePool: "pool-e2-cpu"
   observation:
     replicas: 15
+    nodePool: "default-pool"
   default:
     replicas: 9
+    nodePool: "default-pool"
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
