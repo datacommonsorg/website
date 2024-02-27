@@ -80,8 +80,8 @@ dc/topic/UN_THEME_8,"Drinking water, sanitation and hygiene;access to clean wate
 dc/topic/UN_THEME_9,Climate and the environment;biodiversity;climate change impacts;sustainable ecosystems
 dc/topic/WHO_EnvcauseEnum_ENVCAUSE001,"Impact of Infectious, parasitic, neonatal and nutritional diseases"
 dc/topic/WHO_EnvcauseEnum_ENVCAUSE003,Impact of Tuberculosis
-dc/topic/WHO_EnvcauseEnum_ENVCAUSE004,Impact of Sexually-transmitted diseases (STDs) excluding HIV
-dc/topic/WHO_EnvcauseEnum_ENVCAUSE010,Impact of HIV/AIDS
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE004,Impact of Sexually transmitted diseases (STDs)
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE010,Impact of AIDS;Impact of HIV;Impact of HIV AIDS
 dc/topic/WHO_EnvcauseEnum_ENVCAUSE011,Impact of Diarrhoeal diseases
 dc/topic/WHO_EnvcauseEnum_ENVCAUSE019,Impact of Acute hepatitis B
 dc/topic/WHO_EnvcauseEnum_ENVCAUSE022,Impact of Malaria
@@ -147,13 +147,13 @@ dc/topic/WHO_EnvcauseEnum_ENVCAUSE162,Impact of Interpersonal violence
 dc/topic/WHO_GhecausesEnum_GHE001,Communicable & other Group I diseases
 dc/topic/WHO_GhecausesEnum_GHE002,Infectious and parasitic diseases
 dc/topic/WHO_GhecausesEnum_GHE003,Tuberculosis
-dc/topic/WHO_GhecausesEnum_GHE004,STDs excluding HIV
+dc/topic/WHO_GhecausesEnum_GHE004,Sexually Transmitted Diseases STDs
 dc/topic/WHO_GhecausesEnum_GHE005,Syphilis
 dc/topic/WHO_GhecausesEnum_GHE006,Chlamydia
 dc/topic/WHO_GhecausesEnum_GHE007,Gonorrhoea
 dc/topic/WHO_GhecausesEnum_GHE008,Trichomoniasis
 dc/topic/WHO_GhecausesEnum_GHE009,Other STDs
-dc/topic/WHO_GhecausesEnum_GHE010,HIV/AIDS
+dc/topic/WHO_GhecausesEnum_GHE010,AIDS;HIV;HIV AIDS
 dc/topic/WHO_GhecausesEnum_GHE011,Diarrhoeal diseases
 dc/topic/WHO_GhecausesEnum_GHE012,Childhood-cluster diseases
 dc/topic/WHO_GhecausesEnum_GHE013,Whooping cough
@@ -564,7 +564,7 @@ dc/topic/sdg_3.2,"By 2030, end preventable deaths of newborns and children under
 dc/topic/sdg_3.2.1,Under‑5 mortality rate;sdg 3 2 1;sdg 3.2.1;sdg 321;sdg Under‑5 mortality rate;sdg321;sustainable development goal Under‑5 mortality rate;the percentage of children under the age of five who die;the probability of death for children under the age of five;the rate of death among children under the age of five;the risk of death for children under the age of five
 dc/topic/sdg_3.2.2,Neonatal mortality rate;sdg 3 2 2;sdg 3.2.2;sdg 322;sdg Neonatal mortality rate;sdg322;sustainable development goal Neonatal mortality rate;the number of babies who die in the first 28 days of life;the percentage of babies who die within the first 28 days of life;the rate of death among newborns;the risk of a baby dying in the first 28 days of life
 dc/topic/sdg_3.3,"By 2030, end the epidemics of AIDS, tuberculosis, malaria and neglected tropical diseases and combat hepatitis, water-borne diseases and other communicable diseases;eliminate aids, tuberculosis, malaria, and neglected tropical diseases by 2030;end the aids, tuberculosis, malaria, and neglected tropical diseases epidemics by 2030;fight hepatitis, waterborne diseases, and other communicable diseases by 2030;sdg 3 3;sdg 3.3;sdg 33;sdg By 2030, end the epidemics of AIDS, tuberculosis, malaria and neglected tropical diseases and combat hepatitis, water-borne diseases and other communicable diseases;sdg33;sustainable development goal By 2030, end the epidemics of AIDS, tuberculosis, malaria and neglected tropical diseases and combat hepatitis, water-borne diseases and other communicable diseases;tackle hepatitis, waterborne diseases, and other communicable diseases by 2030"
-dc/topic/sdg_3.3.1,"Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations;hiv incidence rate per 1,000 uninfected people, by sex, age, and key populations;hiv infection rate per 1,000 uninfected people, by sex, age, and key populations;number of new hiv cases per 1,000 uninfected people, by sex, age, and key populations;number of new hiv infections per 1,000 uninfected people, by sex, age, and key populations;sdg 3 3 1;sdg 3.3.1;sdg 331;sdg Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations;sdg331;sustainable development goal Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations"
+dc/topic/sdg_3.3.1,"Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations;hiv incidence rate per 1,000 uninfected people, by sex, age, and key populations;hiv infection rate per 1,000 uninfected people, by sex, age, and key populations;number of new hiv cases per 1,000 uninfected people, by sex, age, and key populations;number of new hiv infections per 1,000 uninfected people, by sex, age, and key populations;sdg 3 3 1;sdg 3.3.1;sdg 331;sdg Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations;sdg331;sustainable development goal Number of new AIDS cases per 1,000 uninfected population, by sex, age and key populations"
 dc/topic/sdg_3.3.2,"Tuberculosis incidence per 100K population;sdg 3 3 2;sdg 3.3.2;sdg 332;sdg Tuberculosis incidence per 100K population;sdg332;sustainable development goal Tuberculosis incidence per 100K population;the incidence of tuberculosis in the united states;the number of people who get tuberculosis per 100,000 people in the united states;the prevalence of tuberculosis in the united states;the rate of tuberculosis in the united states"
 dc/topic/sdg_3.3.3,"Malaria incidence per 1,000 population;malaria cases per 1,000 people;malaria incidence rate per 1,000 people;malaria prevalence per 1,000 people;malaria rate per 1,000 people;sdg 3 3 3;sdg 3.3.3;sdg 333;sdg Malaria incidence per 1,000 population;sdg333;sustainable development goal Malaria incidence per 1,000 population"
 dc/topic/sdg_3.3.4,"Hepatitis B incidence per 100K population;hepatitis b cases per 100,000 people in the united states;sdg 3 3 4;sdg 3.3.4;sdg 334;sdg Hepatitis B incidence per 100K population;sdg334;sustainable development goal Hepatitis B incidence per 100K population;the number of people in the united states who have been diagnosed with hepatitis b per 100,000 people;the prevalence of hepatitis b in the united states;the rate of hepatitis b infection in the united states"
