@@ -1,4 +1,4 @@
-# Copyright 2024 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import csv
+import json
 
 from absl import app
 from absl import flags
@@ -22,7 +23,7 @@ FLAGS = flags.FLAGS
 
 flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
 
-_OUTPUT_FILE = 'latency_results.csv'
+_OUTPUT_FILE = 'loadtest_results.csv'
 _URL = 'https://dev.datacommons.org/nodejs/query?q='
 
 

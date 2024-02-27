@@ -60,7 +60,7 @@ steps:
         docker push gcr.io/datcom-ci/datacommons-nl:$SHORT_SHA
         docker push gcr.io/datcom-ci/datacommons-nl:latest
     waitFor: ["-"]
-  
+
   - id: push-nodejs-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
