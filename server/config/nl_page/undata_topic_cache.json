@@ -60977,7 +60977,6 @@
       ],
       "memberList": [
         "who/anc1.WEALTHDECILE--WEALTHDECILE01",
-        "who/anc1.WEALTHDECILE--WEALTHDECILE10",
         "who/anc1.WEALTHDECILE--WEALTHDECILE02",
         "who/anc1.WEALTHDECILE--WEALTHDECILE03",
         "who/anc1.WEALTHDECILE--WEALTHDECILE04",
@@ -60985,7 +60984,8 @@
         "who/anc1.WEALTHDECILE--WEALTHDECILE06",
         "who/anc1.WEALTHDECILE--WEALTHDECILE07",
         "who/anc1.WEALTHDECILE--WEALTHDECILE08",
-        "who/anc1.WEALTHDECILE--WEALTHDECILE09"
+        "who/anc1.WEALTHDECILE--WEALTHDECILE09",
+        "who/anc1.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -61064,7 +61064,6 @@
       ],
       "memberList": [
         "who/anc15.WEALTHDECILE--WEALTHDECILE01",
-        "who/anc15.WEALTHDECILE--WEALTHDECILE10",
         "who/anc15.WEALTHDECILE--WEALTHDECILE02",
         "who/anc15.WEALTHDECILE--WEALTHDECILE03",
         "who/anc15.WEALTHDECILE--WEALTHDECILE04",
@@ -61072,7 +61071,8 @@
         "who/anc15.WEALTHDECILE--WEALTHDECILE06",
         "who/anc15.WEALTHDECILE--WEALTHDECILE07",
         "who/anc15.WEALTHDECILE--WEALTHDECILE08",
-        "who/anc15.WEALTHDECILE--WEALTHDECILE09"
+        "who/anc15.WEALTHDECILE--WEALTHDECILE09",
+        "who/anc15.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -61151,7 +61151,6 @@
       ],
       "memberList": [
         "who/anc4.WEALTHDECILE--WEALTHDECILE01",
-        "who/anc4.WEALTHDECILE--WEALTHDECILE10",
         "who/anc4.WEALTHDECILE--WEALTHDECILE02",
         "who/anc4.WEALTHDECILE--WEALTHDECILE03",
         "who/anc4.WEALTHDECILE--WEALTHDECILE04",
@@ -61159,7 +61158,8 @@
         "who/anc4.WEALTHDECILE--WEALTHDECILE06",
         "who/anc4.WEALTHDECILE--WEALTHDECILE07",
         "who/anc4.WEALTHDECILE--WEALTHDECILE08",
-        "who/anc4.WEALTHDECILE--WEALTHDECILE09"
+        "who/anc4.WEALTHDECILE--WEALTHDECILE09",
+        "who/anc4.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -61256,7 +61256,6 @@
       ],
       "memberList": [
         "who/anc45.WEALTHDECILE--WEALTHDECILE01",
-        "who/anc45.WEALTHDECILE--WEALTHDECILE10",
         "who/anc45.WEALTHDECILE--WEALTHDECILE02",
         "who/anc45.WEALTHDECILE--WEALTHDECILE03",
         "who/anc45.WEALTHDECILE--WEALTHDECILE04",
@@ -61264,7 +61263,8 @@
         "who/anc45.WEALTHDECILE--WEALTHDECILE06",
         "who/anc45.WEALTHDECILE--WEALTHDECILE07",
         "who/anc45.WEALTHDECILE--WEALTHDECILE08",
-        "who/anc45.WEALTHDECILE--WEALTHDECILE09"
+        "who/anc45.WEALTHDECILE--WEALTHDECILE09",
+        "who/anc45.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -61310,7 +61310,6 @@
         "Adolescent fertility rate (per 1000 women aged 15-19 years) by decile"
       ],
       "memberList": [
-        "who/asfr1.WEALTHDECILE--WEALTHDECILE10",
         "who/asfr1.WEALTHDECILE--WEALTHDECILE02",
         "who/asfr1.WEALTHDECILE--WEALTHDECILE03",
         "who/asfr1.WEALTHDECILE--WEALTHDECILE04",
@@ -61318,7 +61317,8 @@
         "who/asfr1.WEALTHDECILE--WEALTHDECILE06",
         "who/asfr1.WEALTHDECILE--WEALTHDECILE07",
         "who/asfr1.WEALTHDECILE--WEALTHDECILE08",
-        "who/asfr1.WEALTHDECILE--WEALTHDECILE09"
+        "who/asfr1.WEALTHDECILE--WEALTHDECILE09",
+        "who/asfr1.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -61412,7 +61412,6 @@
       ],
       "memberList": [
         "who/bfearly.WEALTHDECILE--WEALTHDECILE01",
-        "who/bfearly.WEALTHDECILE--WEALTHDECILE10",
         "who/bfearly.WEALTHDECILE--WEALTHDECILE02",
         "who/bfearly.WEALTHDECILE--WEALTHDECILE03",
         "who/bfearly.WEALTHDECILE--WEALTHDECILE04",
@@ -61420,7 +61419,8 @@
         "who/bfearly.WEALTHDECILE--WEALTHDECILE06",
         "who/bfearly.WEALTHDECILE--WEALTHDECILE07",
         "who/bfearly.WEALTHDECILE--WEALTHDECILE08",
-        "who/bfearly.WEALTHDECILE--WEALTHDECILE09"
+        "who/bfearly.WEALTHDECILE--WEALTHDECILE09",
+        "who/bfearly.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -61499,7 +61499,6 @@
       ],
       "memberList": [
         "who/bmi30wm.WEALTHDECILE--WEALTHDECILE01",
-        "who/bmi30wm.WEALTHDECILE--WEALTHDECILE10",
         "who/bmi30wm.WEALTHDECILE--WEALTHDECILE02",
         "who/bmi30wm.WEALTHDECILE--WEALTHDECILE03",
         "who/bmi30wm.WEALTHDECILE--WEALTHDECILE04",
@@ -61507,7 +61506,8 @@
         "who/bmi30wm.WEALTHDECILE--WEALTHDECILE06",
         "who/bmi30wm.WEALTHDECILE--WEALTHDECILE07",
         "who/bmi30wm.WEALTHDECILE--WEALTHDECILE08",
-        "who/bmi30wm.WEALTHDECILE--WEALTHDECILE09"
+        "who/bmi30wm.WEALTHDECILE--WEALTHDECILE09",
+        "who/bmi30wm.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -61601,7 +61601,6 @@
       ],
       "memberList": [
         "who/carep.WEALTHDECILE--WEALTHDECILE01",
-        "who/carep.WEALTHDECILE--WEALTHDECILE10",
         "who/carep.WEALTHDECILE--WEALTHDECILE02",
         "who/carep.WEALTHDECILE--WEALTHDECILE03",
         "who/carep.WEALTHDECILE--WEALTHDECILE04",
@@ -61609,7 +61608,8 @@
         "who/carep.WEALTHDECILE--WEALTHDECILE06",
         "who/carep.WEALTHDECILE--WEALTHDECILE07",
         "who/carep.WEALTHDECILE--WEALTHDECILE08",
-        "who/carep.WEALTHDECILE--WEALTHDECILE09"
+        "who/carep.WEALTHDECILE--WEALTHDECILE09",
+        "who/carep.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -61673,7 +61673,6 @@
       ],
       "memberList": [
         "who/cci.WEALTHDECILE--WEALTHDECILE01",
-        "who/cci.WEALTHDECILE--WEALTHDECILE10",
         "who/cci.WEALTHDECILE--WEALTHDECILE02",
         "who/cci.WEALTHDECILE--WEALTHDECILE03",
         "who/cci.WEALTHDECILE--WEALTHDECILE04",
@@ -61681,7 +61680,8 @@
         "who/cci.WEALTHDECILE--WEALTHDECILE06",
         "who/cci.WEALTHDECILE--WEALTHDECILE07",
         "who/cci.WEALTHDECILE--WEALTHDECILE08",
-        "who/cci.WEALTHDECILE--WEALTHDECILE09"
+        "who/cci.WEALTHDECILE--WEALTHDECILE09",
+        "who/cci.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -61760,7 +61760,6 @@
       ],
       "memberList": [
         "who/cpmowho.WEALTHDECILE--WEALTHDECILE01",
-        "who/cpmowho.WEALTHDECILE--WEALTHDECILE10",
         "who/cpmowho.WEALTHDECILE--WEALTHDECILE02",
         "who/cpmowho.WEALTHDECILE--WEALTHDECILE03",
         "who/cpmowho.WEALTHDECILE--WEALTHDECILE04",
@@ -61768,7 +61767,8 @@
         "who/cpmowho.WEALTHDECILE--WEALTHDECILE06",
         "who/cpmowho.WEALTHDECILE--WEALTHDECILE07",
         "who/cpmowho.WEALTHDECILE--WEALTHDECILE08",
-        "who/cpmowho.WEALTHDECILE--WEALTHDECILE09"
+        "who/cpmowho.WEALTHDECILE--WEALTHDECILE09",
+        "who/cpmowho.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -61847,7 +61847,6 @@
       ],
       "memberList": [
         "who/cpmt.WEALTHDECILE--WEALTHDECILE01",
-        "who/cpmt.WEALTHDECILE--WEALTHDECILE10",
         "who/cpmt.WEALTHDECILE--WEALTHDECILE02",
         "who/cpmt.WEALTHDECILE--WEALTHDECILE03",
         "who/cpmt.WEALTHDECILE--WEALTHDECILE04",
@@ -61855,7 +61854,8 @@
         "who/cpmt.WEALTHDECILE--WEALTHDECILE06",
         "who/cpmt.WEALTHDECILE--WEALTHDECILE07",
         "who/cpmt.WEALTHDECILE--WEALTHDECILE08",
-        "who/cpmt.WEALTHDECILE--WEALTHDECILE09"
+        "who/cpmt.WEALTHDECILE--WEALTHDECILE09",
+        "who/cpmt.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -61934,7 +61934,6 @@
       ],
       "memberList": [
         "who/csection.WEALTHDECILE--WEALTHDECILE01",
-        "who/csection.WEALTHDECILE--WEALTHDECILE10",
         "who/csection.WEALTHDECILE--WEALTHDECILE02",
         "who/csection.WEALTHDECILE--WEALTHDECILE03",
         "who/csection.WEALTHDECILE--WEALTHDECILE04",
@@ -61942,7 +61941,8 @@
         "who/csection.WEALTHDECILE--WEALTHDECILE06",
         "who/csection.WEALTHDECILE--WEALTHDECILE07",
         "who/csection.WEALTHDECILE--WEALTHDECILE08",
-        "who/csection.WEALTHDECILE--WEALTHDECILE09"
+        "who/csection.WEALTHDECILE--WEALTHDECILE09",
+        "who/csection.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -62021,7 +62021,6 @@
         "Births by caesarean section (in the five years preceding the survey), by wealth decile (%)"
       ],
       "memberList": [
-        "who/csection5.WEALTHDECILE--WEALTHDECILE10",
         "who/csection5.WEALTHDECILE--WEALTHDECILE02",
         "who/csection5.WEALTHDECILE--WEALTHDECILE03",
         "who/csection5.WEALTHDECILE--WEALTHDECILE04",
@@ -62029,7 +62028,8 @@
         "who/csection5.WEALTHDECILE--WEALTHDECILE06",
         "who/csection5.WEALTHDECILE--WEALTHDECILE07",
         "who/csection5.WEALTHDECILE--WEALTHDECILE08",
-        "who/csection5.WEALTHDECILE--WEALTHDECILE09"
+        "who/csection5.WEALTHDECILE--WEALTHDECILE09",
+        "who/csection5.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -62108,7 +62108,6 @@
       ],
       "memberList": [
         "who/fps.WEALTHDECILE--WEALTHDECILE01",
-        "who/fps.WEALTHDECILE--WEALTHDECILE10",
         "who/fps.WEALTHDECILE--WEALTHDECILE02",
         "who/fps.WEALTHDECILE--WEALTHDECILE03",
         "who/fps.WEALTHDECILE--WEALTHDECILE04",
@@ -62116,7 +62115,8 @@
         "who/fps.WEALTHDECILE--WEALTHDECILE06",
         "who/fps.WEALTHDECILE--WEALTHDECILE07",
         "who/fps.WEALTHDECILE--WEALTHDECILE08",
-        "who/fps.WEALTHDECILE--WEALTHDECILE09"
+        "who/fps.WEALTHDECILE--WEALTHDECILE09",
+        "who/fps.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -62195,7 +62195,6 @@
       ],
       "memberList": [
         "who/fpsmowho.WEALTHDECILE--WEALTHDECILE01",
-        "who/fpsmowho.WEALTHDECILE--WEALTHDECILE10",
         "who/fpsmowho.WEALTHDECILE--WEALTHDECILE02",
         "who/fpsmowho.WEALTHDECILE--WEALTHDECILE03",
         "who/fpsmowho.WEALTHDECILE--WEALTHDECILE04",
@@ -62203,7 +62202,8 @@
         "who/fpsmowho.WEALTHDECILE--WEALTHDECILE06",
         "who/fpsmowho.WEALTHDECILE--WEALTHDECILE07",
         "who/fpsmowho.WEALTHDECILE--WEALTHDECILE08",
-        "who/fpsmowho.WEALTHDECILE--WEALTHDECILE09"
+        "who/fpsmowho.WEALTHDECILE--WEALTHDECILE09",
+        "who/fpsmowho.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -62297,7 +62297,6 @@
       ],
       "memberList": [
         "who/imr.WEALTHDECILE--WEALTHDECILE01",
-        "who/imr.WEALTHDECILE--WEALTHDECILE10",
         "who/imr.WEALTHDECILE--WEALTHDECILE02",
         "who/imr.WEALTHDECILE--WEALTHDECILE03",
         "who/imr.WEALTHDECILE--WEALTHDECILE04",
@@ -62305,7 +62304,8 @@
         "who/imr.WEALTHDECILE--WEALTHDECILE06",
         "who/imr.WEALTHDECILE--WEALTHDECILE07",
         "who/imr.WEALTHDECILE--WEALTHDECILE08",
-        "who/imr.WEALTHDECILE--WEALTHDECILE09"
+        "who/imr.WEALTHDECILE--WEALTHDECILE09",
+        "who/imr.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -62384,7 +62384,6 @@
       ],
       "memberList": [
         "who/itnch.WEALTHDECILE--WEALTHDECILE01",
-        "who/itnch.WEALTHDECILE--WEALTHDECILE10",
         "who/itnch.WEALTHDECILE--WEALTHDECILE02",
         "who/itnch.WEALTHDECILE--WEALTHDECILE03",
         "who/itnch.WEALTHDECILE--WEALTHDECILE04",
@@ -62392,7 +62391,8 @@
         "who/itnch.WEALTHDECILE--WEALTHDECILE06",
         "who/itnch.WEALTHDECILE--WEALTHDECILE07",
         "who/itnch.WEALTHDECILE--WEALTHDECILE08",
-        "who/itnch.WEALTHDECILE--WEALTHDECILE09"
+        "who/itnch.WEALTHDECILE--WEALTHDECILE09",
+        "who/itnch.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -62471,7 +62471,6 @@
       ],
       "memberList": [
         "who/itnwm.WEALTHDECILE--WEALTHDECILE01",
-        "who/itnwm.WEALTHDECILE--WEALTHDECILE10",
         "who/itnwm.WEALTHDECILE--WEALTHDECILE02",
         "who/itnwm.WEALTHDECILE--WEALTHDECILE03",
         "who/itnwm.WEALTHDECILE--WEALTHDECILE04",
@@ -62479,7 +62478,8 @@
         "who/itnwm.WEALTHDECILE--WEALTHDECILE06",
         "who/itnwm.WEALTHDECILE--WEALTHDECILE07",
         "who/itnwm.WEALTHDECILE--WEALTHDECILE08",
-        "who/itnwm.WEALTHDECILE--WEALTHDECILE09"
+        "who/itnwm.WEALTHDECILE--WEALTHDECILE09",
+        "who/itnwm.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -62573,7 +62573,6 @@
       ],
       "memberList": [
         "who/nmr.WEALTHDECILE--WEALTHDECILE01",
-        "who/nmr.WEALTHDECILE--WEALTHDECILE10",
         "who/nmr.WEALTHDECILE--WEALTHDECILE02",
         "who/nmr.WEALTHDECILE--WEALTHDECILE03",
         "who/nmr.WEALTHDECILE--WEALTHDECILE04",
@@ -62581,7 +62580,8 @@
         "who/nmr.WEALTHDECILE--WEALTHDECILE06",
         "who/nmr.WEALTHDECILE--WEALTHDECILE07",
         "who/nmr.WEALTHDECILE--WEALTHDECILE08",
-        "who/nmr.WEALTHDECILE--WEALTHDECILE09"
+        "who/nmr.WEALTHDECILE--WEALTHDECILE09",
+        "who/nmr.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -62675,7 +62675,6 @@
       ],
       "memberList": [
         "who/ors.WEALTHDECILE--WEALTHDECILE01",
-        "who/ors.WEALTHDECILE--WEALTHDECILE10",
         "who/ors.WEALTHDECILE--WEALTHDECILE02",
         "who/ors.WEALTHDECILE--WEALTHDECILE03",
         "who/ors.WEALTHDECILE--WEALTHDECILE04",
@@ -62683,7 +62682,8 @@
         "who/ors.WEALTHDECILE--WEALTHDECILE06",
         "who/ors.WEALTHDECILE--WEALTHDECILE07",
         "who/ors.WEALTHDECILE--WEALTHDECILE08",
-        "who/ors.WEALTHDECILE--WEALTHDECILE09"
+        "who/ors.WEALTHDECILE--WEALTHDECILE09",
+        "who/ors.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -62777,7 +62777,6 @@
       ],
       "memberList": [
         "who/ort.WEALTHDECILE--WEALTHDECILE01",
-        "who/ort.WEALTHDECILE--WEALTHDECILE10",
         "who/ort.WEALTHDECILE--WEALTHDECILE02",
         "who/ort.WEALTHDECILE--WEALTHDECILE03",
         "who/ort.WEALTHDECILE--WEALTHDECILE04",
@@ -62785,7 +62784,8 @@
         "who/ort.WEALTHDECILE--WEALTHDECILE06",
         "who/ort.WEALTHDECILE--WEALTHDECILE07",
         "who/ort.WEALTHDECILE--WEALTHDECILE08",
-        "who/ort.WEALTHDECILE--WEALTHDECILE09"
+        "who/ort.WEALTHDECILE--WEALTHDECILE09",
+        "who/ort.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -63184,7 +63184,6 @@
       ],
       "memberList": [
         "who/tfr.WEALTHDECILE--WEALTHDECILE01",
-        "who/tfr.WEALTHDECILE--WEALTHDECILE10",
         "who/tfr.WEALTHDECILE--WEALTHDECILE02",
         "who/tfr.WEALTHDECILE--WEALTHDECILE03",
         "who/tfr.WEALTHDECILE--WEALTHDECILE04",
@@ -63192,7 +63191,8 @@
         "who/tfr.WEALTHDECILE--WEALTHDECILE06",
         "who/tfr.WEALTHDECILE--WEALTHDECILE07",
         "who/tfr.WEALTHDECILE--WEALTHDECILE08",
-        "who/tfr.WEALTHDECILE--WEALTHDECILE09"
+        "who/tfr.WEALTHDECILE--WEALTHDECILE09",
+        "who/tfr.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -63286,7 +63286,6 @@
       ],
       "memberList": [
         "who/u5mr.WEALTHDECILE--WEALTHDECILE01",
-        "who/u5mr.WEALTHDECILE--WEALTHDECILE10",
         "who/u5mr.WEALTHDECILE--WEALTHDECILE02",
         "who/u5mr.WEALTHDECILE--WEALTHDECILE03",
         "who/u5mr.WEALTHDECILE--WEALTHDECILE04",
@@ -63294,7 +63293,8 @@
         "who/u5mr.WEALTHDECILE--WEALTHDECILE06",
         "who/u5mr.WEALTHDECILE--WEALTHDECILE07",
         "who/u5mr.WEALTHDECILE--WEALTHDECILE08",
-        "who/u5mr.WEALTHDECILE--WEALTHDECILE09"
+        "who/u5mr.WEALTHDECILE--WEALTHDECILE09",
+        "who/u5mr.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -63406,7 +63406,6 @@
       ],
       "memberList": [
         "who/vbcg.WEALTHDECILE--WEALTHDECILE01",
-        "who/vbcg.WEALTHDECILE--WEALTHDECILE10",
         "who/vbcg.WEALTHDECILE--WEALTHDECILE02",
         "who/vbcg.WEALTHDECILE--WEALTHDECILE03",
         "who/vbcg.WEALTHDECILE--WEALTHDECILE04",
@@ -63414,7 +63413,8 @@
         "who/vbcg.WEALTHDECILE--WEALTHDECILE06",
         "who/vbcg.WEALTHDECILE--WEALTHDECILE07",
         "who/vbcg.WEALTHDECILE--WEALTHDECILE08",
-        "who/vbcg.WEALTHDECILE--WEALTHDECILE09"
+        "who/vbcg.WEALTHDECILE--WEALTHDECILE09",
+        "who/vbcg.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -63490,7 +63490,6 @@
       ],
       "memberList": [
         "who/vdpt.WEALTHDECILE--WEALTHDECILE01",
-        "who/vdpt.WEALTHDECILE--WEALTHDECILE10",
         "who/vdpt.WEALTHDECILE--WEALTHDECILE02",
         "who/vdpt.WEALTHDECILE--WEALTHDECILE03",
         "who/vdpt.WEALTHDECILE--WEALTHDECILE04",
@@ -63498,7 +63497,8 @@
         "who/vdpt.WEALTHDECILE--WEALTHDECILE06",
         "who/vdpt.WEALTHDECILE--WEALTHDECILE07",
         "who/vdpt.WEALTHDECILE--WEALTHDECILE08",
-        "who/vdpt.WEALTHDECILE--WEALTHDECILE09"
+        "who/vdpt.WEALTHDECILE--WEALTHDECILE09",
+        "who/vdpt.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -63592,7 +63592,6 @@
       ],
       "memberList": [
         "who/vfull.WEALTHDECILE--WEALTHDECILE01",
-        "who/vfull.WEALTHDECILE--WEALTHDECILE10",
         "who/vfull.WEALTHDECILE--WEALTHDECILE02",
         "who/vfull.WEALTHDECILE--WEALTHDECILE03",
         "who/vfull.WEALTHDECILE--WEALTHDECILE04",
@@ -63600,7 +63599,8 @@
         "who/vfull.WEALTHDECILE--WEALTHDECILE06",
         "who/vfull.WEALTHDECILE--WEALTHDECILE07",
         "who/vfull.WEALTHDECILE--WEALTHDECILE08",
-        "who/vfull.WEALTHDECILE--WEALTHDECILE09"
+        "who/vfull.WEALTHDECILE--WEALTHDECILE09",
+        "who/vfull.WEALTHDECILE--WEALTHDECILE10"
       ],
       "typeOf": [
         "StatVarPeerGroup"
