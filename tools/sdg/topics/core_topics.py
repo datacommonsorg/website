@@ -155,8 +155,8 @@ def load_variables(vars_file: str, vars: Variables, var_prefix: str,
 
       if grp not in vars.group_descriptions:
         desc = row.get('GROUPING DESCRIPTION', '')
-        # Drop the stuff within () and [].
-        desc = re.sub("[\(\[].*?[\)\]]", '', desc)
+        # Drop the stuff within [].  It has stuff like [ILO].
+        desc = re.sub("[\[].*?[\]]", '', desc)
         # Remove the extra spaces.
         desc = ' '.join(desc.strip().split())
         desc = desc.replace(' ,', ',')
