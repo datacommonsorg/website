@@ -15,8 +15,10 @@
 
 set -e
 
+REGISTRY=us-central1-docker.pkg.dev/datcom-ci/models/embedding-model
 
-docker build --tag us-central1-docker.pkg.dev/datcom-ci/models/dc-sentence-transformer:latest \
-  -f Dockerfile .
+WEBSITE_HASH=$(git rev-parse --short=7 HEAD)
 
-docker push us-central1-docker.pkg.dev/datcom-ci/models/dc-sentence-transformer:latest
+docker build --tag $REGISTRY:$WEBSITE_HASH -f Dockerfile .
+
+docker push $REGISTRY:$WEBSITE_HASH
