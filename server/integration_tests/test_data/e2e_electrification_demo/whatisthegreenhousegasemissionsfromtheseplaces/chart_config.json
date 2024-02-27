@@ -20,8 +20,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
                       "country/GIN",
+                      "country/SEN",
                       "country/MLI",
                       "country/RWA",
                       "country/SOM"
@@ -55,8 +55,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
                       "country/GIN",
+                      "country/SEN",
                       "country/MLI",
                       "country/RWA",
                       "country/SOM"
@@ -128,8 +128,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
-                      "country/GIN"
+                      "country/GIN",
+                      "country/SEN"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse_multiple_place_bar_block"
@@ -160,8 +160,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
                       "country/GIN",
+                      "country/SEN",
                       "country/MLI",
                       "country/RWA"
                     ],
@@ -194,8 +194,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
                       "country/GIN",
+                      "country/SEN",
                       "country/MLI",
                       "country/RWA",
                       "country/SOM"
@@ -260,8 +260,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
                       "country/GIN",
+                      "country/SEN",
                       "country/MLI",
                       "country/RWA",
                       "country/SOM"
@@ -294,8 +294,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
                       "country/GIN",
+                      "country/SEN",
                       "country/MLI",
                       "country/RWA",
                       "country/SOM"
@@ -328,8 +328,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
                       "country/GIN",
+                      "country/SEN",
                       "country/MLI",
                       "country/RWA",
                       "country/SOM"
@@ -362,8 +362,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
                       "country/GIN",
+                      "country/SEN",
                       "country/MLI",
                       "country/RWA",
                       "country/SOM"
@@ -395,8 +395,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
                       "country/GIN",
+                      "country/SEN",
                       "country/MLI",
                       "country/RWA",
                       "country/SOM"
@@ -436,8 +436,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
                       "country/GIN",
+                      "country/SEN",
                       "country/MLI",
                       "country/RWA",
                       "country/SOM"
@@ -470,8 +470,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
                       "country/GIN",
+                      "country/SEN",
                       "country/MLI",
                       "country/RWA",
                       "country/SOM"
@@ -504,8 +504,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
                       "country/GIN",
+                      "country/SEN",
                       "country/MLI",
                       "country/RWA",
                       "country/SOM"
@@ -538,8 +538,8 @@
                       "country/KEN",
                       "country/GHA",
                       "country/UGA",
-                      "country/SEN",
                       "country/GIN",
+                      "country/SEN",
                       "country/MLI",
                       "country/RWA",
                       "country/SOM"
@@ -732,13 +732,13 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/SEN",
-      "name": "Senegal",
+      "dcid": "country/GIN",
+      "name": "Guinea",
       "place_type": "Country"
     },
     {
-      "dcid": "country/GIN",
-      "name": "Guinea",
+      "dcid": "country/SEN",
+      "name": "Senegal",
       "place_type": "Country"
     },
     {
