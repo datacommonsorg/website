@@ -61,17 +61,11 @@ def register_routes_base_dc(app):
   from server.routes.dev import html as dev_html
   app.register_blueprint(dev_html.bp)
 
-  from server.routes.disease import html as disease_html
-  app.register_blueprint(disease_html.bp)
-
   from server.routes.import_wizard import html as import_wizard_html
   app.register_blueprint(import_wizard_html.bp)
 
   from server.routes.place_list import html as place_list_html
   app.register_blueprint(place_list_html.bp)
-
-  from server.routes.protein import html as protein_html
-  app.register_blueprint(protein_html.bp)
 
   from server.routes import redirects
   app.register_blueprint(redirects.bp)
@@ -86,17 +80,26 @@ def register_routes_base_dc(app):
   from server.routes.topic_page import html as topic_page_html
   app.register_blueprint(topic_page_html.bp)
 
+  from server.routes.import_detection import detection as detection_api
+  app.register_blueprint(detection_api.bp)
+
+
+def register_routes_biomedical_dc(app):
+  # Apply the blueprints specific to biomedical dc
+  from server.routes.biomedical import html as bio_html
+  app.register_blueprint(bio_html.bp)
+
   from server.routes.disease import api as disease_api
   app.register_blueprint(disease_api.bp)
+
+  from server.routes.disease import html as disease_html
+  app.register_blueprint(disease_html.bp)
 
   from server.routes.protein import api as protein_api
   app.register_blueprint(protein_api.bp)
 
-  from server.routes.import_detection import detection as detection_api
-  app.register_blueprint(detection_api.bp)
-
-  from server.routes.disaster import api as disaster_api
-  app.register_blueprint(disaster_api.bp)
+  from server.routes.protein import html as protein_html
+  app.register_blueprint(protein_html.bp)
 
 
 def register_routes_custom_dc(app):
@@ -273,6 +276,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   register_routes_common(app)
   if cfg.CUSTOM:
     register_routes_custom_dc(app)
+  else:
+    # Only register biomedical DC routes if in main DC
+    register_routes_biomedical_dc(app)
 
   register_routes_base_dc(app)
   if cfg.SHOW_DISASTER:
