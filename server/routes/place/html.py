@@ -152,7 +152,7 @@ def get_parent_places_links(dcid: str) -> str:
   place_type = place_api.get_place_type(dcid)
   place_type_display_name = place_api.get_place_type_display_name(place_type)
   parents = place_api.parent_places([dcid],
-                                    exclude_admin_areas=False).get(dcid, [])
+                                    include_admin_areas=True).get(dcid, [])
   parent_links = []
   for parent in parents:
     if parent['type'] in WANTED_PARENT_PLACE_TYPES:
