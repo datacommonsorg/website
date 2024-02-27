@@ -39,7 +39,7 @@ def scatter_chart_block(builder: base.Builder, cspec: ChartSpec):
     date_strings[0] = get_date_string(cspec.single_date)
     date_strings[1] = date_strings[0]
   elif cspec.date_range:
-    place_key = get_place_key(pri_place.dcid + child_type)
+    place_key = get_place_key(pri_place.dcid, child_type)
     date_strings[0] = cspec.sv_place_latest_date.get(sv_pair[0],
                                                      {}).get(place_key, '')
     date_strings[1] = cspec.sv_place_latest_date.get(sv_pair[1],
