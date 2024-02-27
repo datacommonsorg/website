@@ -57,6 +57,7 @@ serviceGroups:
     nodePool: "default-pool"
   node:
     replicas: 25
+    # Use a machine with more CPU for node pods
     nodePool: "pool-e2-cpu"
   observation:
     replicas: 15
