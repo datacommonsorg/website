@@ -243,7 +243,8 @@ def _get_max_valid_date_idx(obs_dates: List[Dict[str, any]], start_date: str,
       hi = mid - 1
   # If date found is earlier than start date, return -1 because date is not
   # not valid
-  if obs_dates[max_valid_idx].get('date', '') < start_date:
+  if max_valid_idx > -1 and obs_dates[max_valid_idx].get('date',
+                                                         '') < start_date:
     max_valid_idx = -1
   return max_valid_idx
 

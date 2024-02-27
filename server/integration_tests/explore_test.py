@@ -505,6 +505,7 @@ class ExploreTest(NLWebServerTestCase):
         'Life expectancy in US states in the last 5 years',
         'Population in California after 2013',
         'Female population in New York before 2020',
+        'Female population in California counties before 2020',
         'Which countries in Africa have had the greatest increase in electricity access over the last 10 years?'
     ])
 
