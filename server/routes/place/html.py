@@ -22,6 +22,7 @@ import time
 import flask
 from flask import current_app
 from flask import g
+from flask_babel import gettext
 
 from server.lib.i18n import AVAILABLE_LANGUAGES
 import server.routes.shared_api.place as place_api
@@ -56,8 +57,10 @@ PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
 WANTED_PARENT_PLACE_TYPES = [
     'County',
     'AdministrativeArea2',
+    'EurostatNUTS2',
     'State',
     'AdministrativeArea1',
+    'EurostatNUTS1',
     'Country',
 ]
 
@@ -149,18 +152,25 @@ def is_canonical_domain(url: str) -> bool:
 
 def get_parent_places_links(dcid: str) -> str:
   """Get '<place type> in <parent places>' with html links for a given DCID"""
+  # Get place type in human-readable format
   place_type = place_api.get_place_type(dcid)
-  place_type_display_name = place_api.get_place_type_display_name(place_type)
+  place_type_display_name = place_api.get_place_type_i18n_name(place_type)
+
+  # Generate <a href=place page url> tag for each parent place
   parents = place_api.parent_places([dcid],
                                     include_admin_areas=True).get(dcid, [])
   parent_links = []
   for parent in parents:
     if parent['type'] in WANTED_PARENT_PLACE_TYPES:
-      parent_name = parent['name']
-      parent_page_url = flask.url_for('place.place', place_dcid=parent['dcid'])
-      parent_links.append(f'<a href="{parent_page_url}">{parent_name}</a>')
+      parent_name = place_api.get_i18n_name([parent['dcid']])[parent['dcid']]
+      if parent['type'] == 'Continent':
+        parent_links.append(f'{parent_name}')
+      else:
+        parent_page_url = flask.url_for('place.place', place_dcid=parent['dcid'])
+        parent_links.append(f'<a href="{parent_page_url}">{parent_name}</a>')
+
   if parent_links:
-    return f"{place_type_display_name.capitalize()} in {', '.join(parent_links)}"
+    return gettext('%(placeType)s in %(parentPlaces)s', placeType=place_type_display_name, parentPlaces=', '.join(parent_links))
   return ''
 
 

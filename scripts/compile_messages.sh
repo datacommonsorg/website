@@ -19,14 +19,14 @@ set -e
 
 LOCALES="de en es fr hi it ja ko ru"
 
-cd static
-npm list @formatjs/cli || npm install formatjs
+# cd static
+# npm list @formatjs/cli || npm install formatjs
 
-for LOCALE in $LOCALES;
-do
-  npm run compile -- js/i18n/strings/$LOCALE --ast js/i18n/compiled-lang/$LOCALE
-done
-cd ..
+# for LOCALE in $LOCALES;
+# do
+#   npm run compile -- js/i18n/strings/$LOCALE --ast js/i18n/compiled-lang/$LOCALE
+# done
+# cd ..
 
 python3 -m venv .env
 source .env/bin/activate
