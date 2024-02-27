@@ -87,7 +87,8 @@ class ExistInfo:
   # Keys include 'facetId'. 'earliestDate', 'latestDate', and optional 'unit'
   # and 'observationPeriod'.
   facet: Dict[str, str] = field(default_factory=dict)
-  # Latest valid date that there exists data for.
+  # Latest valid date that there exists data for. This is only used and only set
+  # when there is a date/date range asked for in the query.
   latest_valid_date: str = ''
 
 
@@ -163,8 +164,11 @@ class ChartSpec:
   is_special_dc: bool
   single_date: Date
   date_range: Date
-  # Dict of sv -> place -> facetid to use
+  # Dict of sv -> place -> facetid to use.
+  # This is used by timeline charts when there is a date/date range in the query
   sv_place_facet_id: Sv2Place2Facet
   info_message: str
   # Dict of sv -> place key -> latest valid date
+  # This is used by charts that show a single data point (e.g., bar, map,
+  # ranking, highlight, scatter) when there is a date range in the query
   sv_place_latest_date: Sv2Place2Date

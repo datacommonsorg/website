@@ -186,7 +186,7 @@ def facet_contains_date(facet_data, facet_metadata, single_date,
 def sv_existence_for_places_check_single_point(
     places: List[str], svs: List[str], single_date: types.Date,
     date_range: types.Date, counters: ctr.Counters
-) -> (Dict[str, Dict[str, Dict[str, str]]], Dict[str, Dict[str, bool]]):
+) -> tuple[Dict[str, Dict[str, Dict[str, str]]], Dict[str, Dict[str, bool]]]:
   if not svs:
     return {}, {}
 
@@ -225,6 +225,29 @@ def sv_existence_for_places_check_single_point(
   return existing_svs, existsv2places
 
 
+# From a list of obs dates (which are objects with a date field and additional
+# info about that date), get the index of the latest date that is less than or
+# equal to the end_date and greater than or equal to the start_date.
+# Returns -1 if no valid date found.
+def _get_max_valid_date_idx(obs_dates: List[Dict[str, any]], start_date: str,
+                            end_date: str) -> int:
+  max_valid_idx = -1
+  lo = 0
+  hi = len(obs_dates) - 1
+  while lo <= hi:
+    mid = (lo + hi) // 2
+    if obs_dates[mid].get('date', '')[0:len(end_date)] <= end_date:
+      max_valid_idx = mid
+      lo = mid + 1
+    else:
+      hi = mid - 1
+  # If date found is earlier than start date, return -1 because date is not
+  # not valid
+  if obs_dates[max_valid_idx].get('date', '') < start_date:
+    max_valid_idx = -1
+  return max_valid_idx
+
+
 # For each place and sv, gets the best available date (most entities with data
 # for this date and within _MAX_DATES_FOR_EXISTENCE dates of the date range) to
 # use as the latest date for the children of that place.
@@ -247,22 +270,9 @@ def get_contained_in_latest_date(places: List[str],
       if sv not in sv_place_latest_date:
         sv_place_latest_date[sv] = {}
       obs_dates = dates_by_variable.get('observationDates', [])
-      # Search the dates to get the index of the latest date that is less than
-      # or equal to the end_date in the date range
-      lo = 0
-      hi = len(obs_dates) - 1
-      max_valid_idx = -1
-      while lo <= hi:
-        mid = (lo + hi) // 2
-        if obs_dates[mid].get('date', '')[0:len(end_date)] <= end_date:
-          max_valid_idx = mid
-          lo = mid + 1
-        else:
-          hi = mid - 1
-      # If no date found or date found is earlier than start date, move on to
-      # next variable
-      if max_valid_idx < 0 or obs_dates[max_valid_idx].get('date',
-                                                           '') < start_date:
+      max_valid_idx = _get_max_valid_date_idx(obs_dates, start_date, end_date)
+      # If no valid date found, move on to the next variable
+      if max_valid_idx < 0:
         continue
       # Starting at max_valid_idx, check _MAX_DATES_FOR_EXISTENCE number of
       # earlier dates to get the best date to use

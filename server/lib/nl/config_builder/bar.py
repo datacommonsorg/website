@@ -26,8 +26,8 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
-from server.lib.nl.fulfillment.types import Sv2Place2Date
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.types import Sv2Place2Date
 import server.lib.nl.fulfillment.types as types
 
 _MAX_VARIABLE_LIMIT = 15

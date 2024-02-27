@@ -75,6 +75,15 @@ class GrowthRanks(NamedTuple):
   pc: float
 
 
+# Updates facet metadata from API response to have additional fields:
+# facetId, earliestDate, and latestDate
+def _update_facet_metdata(facet_metadata: Dict[str, any], facet_id: str,
+                          place_data: Dict[str, any]):
+  facet_metadata['facetId'] = facet_id
+  facet_metadata['earliestDate'] = place_data.get('earliestDate', '')
+  facet_metadata['latestDate'] = place_data.get('latestDate', '')
+
+
 # Given an SV and list of places, this API ranks the places
 # per the growth rate of the time-series.
 # Returns a tuple of i) ranked lists of the place dcids, and ii) dict of place
@@ -90,7 +99,7 @@ def rank_places_by_series_growth(
     place_type: str = '',
     min_population: int = 0,
     date_range: types.Date = None
-) -> (GrowthRankedLists, Dict[str, Dict[str, str]]):
+) -> tuple[GrowthRankedLists, Dict[str, Dict[str, str]]]:
   start = time.time()
   facet_to_fetch = ''
   if sv in constants.SVS_TO_CHECK_FACET:
@@ -108,9 +117,10 @@ def rank_places_by_series_growth(
       if obs_period_rank < chosen_facet_rank:
         facet_to_fetch = facet_id
   facet_ids = [facet_to_fetch] if facet_to_fetch else None
+  get_all_facets = bool(date_range) and not facet_ids
   series_data = fetch.series_core(entities=places,
                                   variables=[sv],
-                                  all_facets=bool(date_range),
+                                  all_facets=get_all_facets,
                                   facet_ids=facet_ids)
   place2denom = _compute_place_to_denom(sv, places)
   # Count the RPC section (since we have multiple exit points)
@@ -119,29 +129,31 @@ def rank_places_by_series_growth(
   if 'data' not in series_data or sv not in series_data['data']:
     return []
 
+  # List of GrowthRanks for each place
   places_with_vals = []
+  # Map of place to facet metadata of the series used to calculate the
+  # GrowthRanks of that place
   place_facets = {}
   series_facets = series_data.get('facets', {})
+  # Loop through the data for each place to add information to place_with_vals
+  # and place_facets for that place
   for place, place_data in series_data['data'][sv].items():
-    if bool(date_range):
+    # Get the series to use for calculation.
+    if get_all_facets:
       series = []
       for s in place_data:
         facet_id = s.get('facet', '')
         facet_metadata = series_facets.get(facet_id, {})
         if facet_contains_date(s, facet_metadata, None, date_range):
           series = s.get('series', [])
-          facet_metadata['facetId'] = facet_id
-          facet_metadata['earliestDate'] = s.get('earliestDate', '')
-          facet_metadata['latestDate'] = s.get('latestDate', '')
+          _update_facet_metdata(facet_metadata, facet_id, s)
           place_facets[place] = facet_metadata
           break
     else:
       series = place_data['series']
       facet_id = place_data.get('facet', '')
       facet_metadata = series_facets.get(facet_id, {})
-      facet_metadata['facetId'] = facet_id
-      facet_metadata['earliestDate'] = place_data.get('earliestDate', '')
-      facet_metadata['latestDate'] = place_data.get('latestDate', '')
+      _update_facet_metdata(facet_metadata, facet_id, place_data)
       place_facets[place] = facet_metadata
     if len(series) < 2:
       continue
@@ -229,7 +241,7 @@ def rank_svs_by_series_growth(
 # specified, get the earliest and latest within that date range.
 def _get_earliest_latest_obs(
     series: List[Dict],
-    date_range: types.Date = None) -> (Dict[str, str], Dict[str, str]):
+    date_range: types.Date = None) -> tuple[Dict[str, str], Dict[str, str]]:
   earliest = None
   latest = None
   if date_range:

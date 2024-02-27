@@ -53,9 +53,10 @@ def svs4children(state: ftypes.PopulateState, place: dtypes.Place,
 
 # For a list of svs and places, Gets a map of sv -> place -> facetId from
 # the results of an existence check
-def get_sv_place_facet_ids(svs: List[str], places: List[ftypes.Place],
-                           exist_checks: Dict[str, Dict[str,
-                                                        ftypes.ExistInfo]]):
+def get_sv_place_facet_ids(
+    svs: List[str], places: List[ftypes.Place],
+    exist_checks: Dict[str, Dict[str,
+                                 ftypes.ExistInfo]]) -> ftypes.Sv2Place2Facet:
   sv_place_facet_ids = {}
   for sv in svs:
     sv_place_facet_ids[sv] = {}
@@ -66,11 +67,15 @@ def get_sv_place_facet_ids(svs: List[str], places: List[ftypes.Place],
 
 
 # For a list of svs, places and an optional place type, gets a map of
-# sv -> placekey -> latest valid date from the results of an existence check
-def get_sv_place_latest_date(svs: List[str], places: List[ftypes.Place],
-                             place_type: ftypes.ContainedInPlaceType,
-                             exist_checks: Dict[str, Dict[str,
-                                                          ftypes.ExistInfo]]):
+# sv -> placekey -> latest valid date from the results of an existence check.
+# Latest valid date is only retrieved during an existence check when there is a
+# date range in the query, so if there was no date range in the query, all
+# sv and placekey combinations will be mapped to empty string.
+def get_sv_place_latest_date(
+    svs: List[str], places: List[ftypes.Place],
+    place_type: ftypes.ContainedInPlaceType,
+    exist_checks: Dict[str, Dict[str,
+                                 ftypes.ExistInfo]]) -> ftypes.Sv2Place2Date:
   sv_place_latest_date = {}
   for sv in svs:
     sv_place_latest_date[sv] = {}
