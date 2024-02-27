@@ -52,6 +52,15 @@ CANONICAL_DOMAIN = 'datacommons.org'
 # Location of place summary jsons on GKE
 PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
 
+# Parent place types to include in place page titles
+WANTED_PARENT_PLACE_TYPES = [
+    'County',
+    'AdministrativeArea2',
+    'State',
+    'AdministrativeArea1',
+    'Country',
+]
+
 
 def get_place_summaries(dcid: str) -> dict:
   """Load place summary content from disk containing summary for a given dcid"""
@@ -138,6 +147,23 @@ def is_canonical_domain(url: str) -> bool:
   return re.match(regex, url) is not None
 
 
+def get_parent_places_links(dcid: str) -> str:
+  """Get '<place type> in <parent places>' with html links for a given DCID"""
+  place_type = place_api.get_place_type(dcid)
+  place_type_display_name = place_api.get_place_type_display_name(place_type)
+  parents = place_api.parent_places([dcid],
+                                    exclude_admin_areas=False).get(dcid, [])
+  parent_links = []
+  for parent in parents:
+    if parent['type'] in WANTED_PARENT_PLACE_TYPES:
+      parent_name = parent['name']
+      parent_page_url = flask.url_for('place.place', place_dcid=parent['dcid'])
+      parent_links.append(f'<a href="{parent_page_url}">{parent_name}</a>')
+  if parent_links:
+    return f"{place_type_display_name.capitalize()} in {', '.join(parent_links)}"
+  return ''
+
+
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>')
 def place(place_dcid=None):
@@ -184,8 +210,12 @@ def place(place_dcid=None):
     return place_landing()
 
   place_type = place_api.get_place_type(place_dcid)
-  place_name = place_api.get_place_name_with_containment(place_dcid)
-  place_name = place_api.get_display_name([place_dcid], add_country_code=True)[place_dcid]
+  parent_places_links = get_parent_places_links(place_dcid)
+  place_names = place_api.get_i18n_name([place_dcid])
+  if place_names and place_names.get(place_dcid):
+    place_name = place_names[place_dcid]
+  else:
+    place_name = place_dcid
 
   # Default to English page if translation is not available
   locale = flask.request.args.get('hl')
@@ -217,13 +247,13 @@ def place(place_dcid=None):
           place_type=place_type,
           place_name=place_name,
           place_dcid=place_dcid,
+          parent_places_links=parent_places_links,
           category=category if category else '',
           place_summary=place_summary.get('summary') if place_summary else '',
           maps_api_key=current_app.config['MAPS_API_KEY'],
           block_indexing=block_indexing))
   response.headers.set('Link',
                        generate_link_headers(place_dcid, category, locale))
-
   return response
 
 

@@ -15,6 +15,7 @@
 import collections
 import json
 import logging
+import re
 
 from flask import Blueprint
 from flask import g
@@ -46,13 +47,6 @@ ALL_WANTED_PLACE_TYPES = [
     "Borough", "CensusZipCodeTabulationArea", "EurostatNUTS1", "EurostatNUTS2",
     "EurostatNUTS3", "AdministrativeArea1", "AdministrativeArea2",
     "AdministrativeArea3", "AdministrativeArea4", "AdministrativeArea5"
-]
-
-# Parent place types to include in place page titles
-WANTED_PARENT_PLACE_TYPES = [
-    'State',
-    'AdministrativeArea1',
-    'Country',
 ]
 
 # These place types are equivalent: prefer the key.
@@ -137,6 +131,24 @@ def get_place_types(place_dcids):
         chosen_type = place_type
     ret[escape(dcid)] = chosen_type
   return ret
+
+
+def get_place_type_display_name(place_type: str) -> str:
+  """For a given place type, get its human-readable name for display"""
+  if place_type == 'AdministrativeArea':
+    return 'Administrative area'
+  elif place_type.startswith('AdministrativeArea'):
+    level = place_type[-1]
+    return f'Administrative area {level}'
+  elif place_type.startswith('EurostatNUTS'):
+    level = place_type[-1]
+    return f'Eurostat NUTS {level}'
+  else:
+    # Return place type un-camel-cased
+    words = re.findall(r'[A-Z](?:[a-z]+|[A-Z]*(?=[A-Z]|$))', place_type)
+    logging.info(f"place_type was {place_type}")
+    logging.info(f"Split words was {words}")
+    return ' '.join(words).capitalize()
 
 
 @bp.route('/type/<path:place_dcid>')
@@ -536,7 +548,7 @@ def api_ranking(dcid):
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-def get_display_iso_code(dcids):
+def get_state_code(dcids):
   """Get state codes for a list of places that are state equivalents
 
   Args:
@@ -551,20 +563,18 @@ def get_display_iso_code(dcids):
   iso_codes = fetch.property_values(dcids, 'isoCode')
 
   for dcid in dcids:
-    display_code = None
+    state_code = None
     iso_code = iso_codes[dcid]
     if iso_code:
       split_iso_code = iso_code[0].split("-")
       if len(split_iso_code) > 1 and split_iso_code[0] == US_ISO_CODE_PREFIX:
-        display_code = split_iso_code[1]
-      else:
-        display_code = iso_code[0]
-    result[dcid] = display_code
+        state_code = split_iso_code[1]
+    result[dcid] = state_code
 
   return result
 
 
-def get_display_name(dcids, add_country_code=False):
+def get_display_name(dcids):
   """ Get display names for a list of places.
 
   Display name is place name with state code if it has a parent place that is a state.
@@ -585,13 +595,13 @@ def get_display_name(dcids, add_country_code=False):
     for parent_place in parents[dcid]:
       parent_dcid = parent_place['dcid']
       place_type = parent_place['type']
-      if (dcid not in dcid_state_mapping) and ((place_type in STATE_EQUIVALENTS) or (add_country_code and place_type == 'Country')):
+      if place_type in STATE_EQUIVALENTS:
         dcid_state_mapping[dcid] = parent_dcid
     result[dcid] = place_names[dcid]
 
   states_lookup = set(dcid_state_mapping.values())
   if g.locale == "en":
-    state_codes = get_display_iso_code(states_lookup)
+    state_codes = get_state_code(states_lookup)
   else:
     state_codes = get_i18n_name(list(states_lookup), True)
   for dcid in dcid_state_mapping.keys():

@@ -225,17 +225,6 @@ function renderPage(): void {
       );
 
       if (!showOverview(isUsaPlace, placeType, category)) {
-        // Earth has no parent places.
-        if (data.parentPlaces.length > 0) {
-          ReactDOM.render(
-            React.createElement(ParentPlace, {
-              names: data.names,
-              parentPlaces: data.parentPlaces,
-              placeType,
-            }),
-            document.getElementById("place-type")
-          );
-        }
         ReactDOM.render(
           React.createElement(PlaceHighlight, {
             dcid,
