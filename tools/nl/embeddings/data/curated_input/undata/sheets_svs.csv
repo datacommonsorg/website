@@ -48,7 +48,7 @@ dc/topic/sdg_3.2,"By 2030, end preventable deaths of newborns and children under
 dc/topic/sdg_3.2.1,Under‑5 mortality rate,,,sdg 3.2.1;sdg 321;sdg321;sdg 3 2 1;sdg Under‑5 mortality rate;sustainable development goal Under‑5 mortality rate
 dc/topic/sdg_3.2.2,Neonatal mortality rate,,,sdg 3.2.2;sdg 322;sdg322;sdg 3 2 2;sdg Neonatal mortality rate;sustainable development goal Neonatal mortality rate
 dc/topic/sdg_3.3,"By 2030, end the epidemics of AIDS, tuberculosis, malaria and neglected tropical diseases and combat hepatitis, water-borne diseases and other communicable diseases",,,"sdg 3.3;sdg 33;sdg33;sdg 3 3;sdg By 2030, end the epidemics of AIDS, tuberculosis, malaria and neglected tropical diseases and combat hepatitis, water-borne diseases and other communicable diseases;sustainable development goal By 2030, end the epidemics of AIDS, tuberculosis, malaria and neglected tropical diseases and combat hepatitis, water-borne diseases and other communicable diseases"
-dc/topic/sdg_3.3.1,"Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations",,,"sdg 3.3.1;sdg 331;sdg331;sdg 3 3 1;sdg Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations;sustainable development goal Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations"
+dc/topic/sdg_3.3.1,"Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations",,,"sdg 3.3.1;sdg 331;sdg331;sdg 3 3 1;sdg Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations;sustainable development goal Number of new AIDS cases per 1,000 uninfected population, by sex, age and key populations"
 dc/topic/sdg_3.3.2,Tuberculosis incidence per 100K population,,,sdg 3.3.2;sdg 332;sdg332;sdg 3 3 2;sdg Tuberculosis incidence per 100K population;sustainable development goal Tuberculosis incidence per 100K population
 dc/topic/sdg_3.3.3,"Malaria incidence per 1,000 population",,,"sdg 3.3.3;sdg 333;sdg333;sdg 3 3 3;sdg Malaria incidence per 1,000 population;sustainable development goal Malaria incidence per 1,000 population"
 dc/topic/sdg_3.3.4,Hepatitis B incidence per 100K population,,,sdg 3.3.4;sdg 334;sdg334;sdg 3 3 4;sdg Hepatitis B incidence per 100K population;sustainable development goal Hepatitis B incidence per 100K population
@@ -507,13 +507,13 @@ dc/topic/UN_SUB_THEME_79,"International cooperation",,,
 dc/topic/WHO_GhecausesEnum_GHE001,Communicable & other Group I diseases,,,
 dc/topic/WHO_GhecausesEnum_GHE002,Infectious and parasitic diseases,,,
 dc/topic/WHO_GhecausesEnum_GHE003,Tuberculosis,,,
-dc/topic/WHO_GhecausesEnum_GHE004,STDs excluding HIV,,,
+dc/topic/WHO_GhecausesEnum_GHE004,Sexually Transmitted Diseases STDs,,,
 dc/topic/WHO_GhecausesEnum_GHE005,Syphilis,,,
 dc/topic/WHO_GhecausesEnum_GHE006,Chlamydia,,,
 dc/topic/WHO_GhecausesEnum_GHE007,Gonorrhoea,,,
 dc/topic/WHO_GhecausesEnum_GHE008,Trichomoniasis,,,
 dc/topic/WHO_GhecausesEnum_GHE009,Other STDs,,,
-dc/topic/WHO_GhecausesEnum_GHE010,HIV/AIDS,,,
+dc/topic/WHO_GhecausesEnum_GHE010,HIV AIDS,,,HIV;AIDS
 dc/topic/WHO_GhecausesEnum_GHE011,Diarrhoeal diseases,,,
 dc/topic/WHO_GhecausesEnum_GHE012,Childhood-cluster diseases,,,
 dc/topic/WHO_GhecausesEnum_GHE013,Whooping cough,,,
@@ -663,8 +663,8 @@ dc/topic/WHO_GhecausesEnum_GHE162,Interpersonal violence,,,
 dc/topic/WHO_GhecausesEnum_GHE163,Collective violence and legal intervention,,,
 dc/topic/WHO_EnvcauseEnum_ENVCAUSE001,"Impact of Infectious, parasitic, neonatal and nutritional diseases",,,
 dc/topic/WHO_EnvcauseEnum_ENVCAUSE003,Impact of Tuberculosis,,,
-dc/topic/WHO_EnvcauseEnum_ENVCAUSE004,Impact of Sexually-transmitted diseases (STDs) excluding HIV,,,
-dc/topic/WHO_EnvcauseEnum_ENVCAUSE010,Impact of HIV/AIDS,,,
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE004,Impact of Sexually transmitted diseases (STDs),,,
+dc/topic/WHO_EnvcauseEnum_ENVCAUSE010,Impact of HIV AIDS,,,Impact of HIV;Impact of AIDS
 dc/topic/WHO_EnvcauseEnum_ENVCAUSE011,Impact of Diarrhoeal diseases,,,
 dc/topic/WHO_EnvcauseEnum_ENVCAUSE019,Impact of Acute hepatitis B,,,
 dc/topic/WHO_EnvcauseEnum_ENVCAUSE022,Impact of Malaria,,,
