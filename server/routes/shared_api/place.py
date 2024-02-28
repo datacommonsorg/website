@@ -109,19 +109,19 @@ PLACE_OVERRIDE = {
 
 # Place type to the message id that holds its translation
 PLACE_TYPE_TO_LOCALE_MESSAGE = {
-  "AdministrativeArea": "singular_administrative_area",
-  "AdministrativeArea<Level>": "singular_administrative_area_level",
-  "Borough": "singular_borough",
-  "City": "singular_city",
-  "Country": "singular_country",
-  "County": "singular_county",
-  "EurostatNUTS": "singular_eurostat_nuts",
-  "Neighborhood": "singular_neighborhood",
-  "Place": "singular_place",
-  "State": "singular_state",
-  "Town": "singular_town",
-  "Village": "singular_village",
-  "ZipCodeTabulationArea": "singular_zip_code",
+    "AdministrativeArea": "singular_administrative_area",
+    "AdministrativeArea<Level>": "singular_administrative_area_level",
+    "Borough": "singular_borough",
+    "City": "singular_city",
+    "Country": "singular_country",
+    "County": "singular_county",
+    "EurostatNUTS": "singular_eurostat_nuts",
+    "Neighborhood": "singular_neighborhood",
+    "Place": "singular_place",
+    "State": "singular_state",
+    "Town": "singular_town",
+    "Village": "singular_village",
+    "CensusZipCodeTabulationArea": "singular_zip_code",
 }
 
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
@@ -156,7 +156,8 @@ def get_place_type_i18n_name(place_type: str) -> str:
     return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE[place_type])
   elif place_type.startswith('AdministrativeArea'):
     level = place_type[-1]
-    return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE['AdministrativeArea<Level>'], level=level)
+    return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE['AdministrativeArea<Level>'],
+                   level=level)
   elif place_type.startswith('EurostatNUTS'):
     level = place_type[-1]
     return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE['EurostatNUTS'], level=level)

@@ -53,7 +53,7 @@ CANONICAL_DOMAIN = 'datacommons.org'
 # Location of place summary jsons on GKE
 PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
 
-# Parent place types to include in place page titles
+# Parent place types to include in listing of containing places
 WANTED_PARENT_PLACE_TYPES = [
     'County',
     'AdministrativeArea2',
@@ -62,6 +62,7 @@ WANTED_PARENT_PLACE_TYPES = [
     'AdministrativeArea1',
     'EurostatNUTS1',
     'Country',
+    'Continent',
 ]
 
 
@@ -152,7 +153,7 @@ def is_canonical_domain(url: str) -> bool:
 
 def get_parent_places_links(dcid: str) -> str:
   """Get '<place type> in <parent places>' with html links for a given DCID"""
-  # Get place type in human-readable format
+  # Get place type in localized, human-readable format
   place_type = place_api.get_place_type(dcid)
   place_type_display_name = place_api.get_place_type_i18n_name(place_type)
 
@@ -162,15 +163,22 @@ def get_parent_places_links(dcid: str) -> str:
   parent_links = []
   for parent in parents:
     if parent['type'] in WANTED_PARENT_PLACE_TYPES:
-      parent_name = place_api.get_i18n_name([parent['dcid']])[parent['dcid']]
-      if parent['type'] == 'Continent':
-        parent_links.append(f'{parent_name}')
-      else:
-        parent_page_url = flask.url_for('place.place', place_dcid=parent['dcid'])
-        parent_links.append(f'<a href="{parent_page_url}">{parent_name}</a>')
+      parent_dcid = parent['dcid']
+      parent_name = place_api.get_i18n_name([parent_dcid]).get(parent_dcid)
+      if parent_name:
+        if parent['type'] == 'Continent':
+          # We do not have continent-level place pages
+          # Show just text instead of a link
+          parent_links.append(parent_name)
+        else:
+          parent_page_url = flask.url_for('place.place',
+                                          place_dcid=parent['dcid'])
+          parent_links.append(f'<a href="{parent_page_url}">{parent_name}</a>')
 
   if parent_links:
-    return gettext('%(placeType)s in %(parentPlaces)s', placeType=place_type_display_name, parentPlaces=', '.join(parent_links))
+    return gettext('%(placeType)s in %(parentPlaces)s',
+                   placeType=place_type_display_name,
+                   parentPlaces=', '.join(parent_links))
   return ''
 
 
