@@ -22,13 +22,14 @@ import requests
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_integer('parallel_requests', 0,
+flags.DEFINE_integer('parallel_requests', 1,
                      'Number of requests to run in parallel')
-flags.DEFINE_integer('total_requests', 0, 'Total number of requests to run')
+flags.DEFINE_integer('total_requests', None, 'Total number of requests to run')
+flags.DEFINE_string('apikey', '', "apikey to use when making query requests.")
 
 _OUTPUT_FILE = 'load_results.json'
 _QUERY_FILE = 'queryset.csv'
-_URL = 'https://bard.datacommons.org/nodejs/query?apikey=s5URv2M1vU3dfOjlDRHQj99fvvn8uQzqWLGxTrxOXBjGaTEZ&q='
+_URL = 'https://bard.datacommons.org/nodejs/query?apikey={apikey}&q={query}'
 _RESULT_KEY_CODE = 'code'
 _RESULT_KEY_ERROR_CONTENT = 'errorContent'
 _RESULT_KEY_NL_TIME = 'nlTime'
@@ -42,8 +43,8 @@ def _run_query(query):
   # Make the API request
   print(f'Running query: {query}')
   try:
-    response = session.get(_URL + query, timeout=None)
-    # response = session.get(_URL, timeout=None)
+    response = session.get(_URL.format(apikey=FLAGS.apikey, query=query),
+                           timeout=None)
     if response.status_code == 200:
       debug_timing = response.json().get('debug', {}).get('timing', {})
       return {
@@ -75,37 +76,30 @@ def _get_query_list():
   return query_list
 
 
+# Gets an empty time result object used for the output
+def _get_empty_time_result():
+  return {'avg': 0, 'max': 0, 'min': 0}
+
+
 # Take the list of results from running the queries and get the result output
 # object.
 def _get_result_output(run_results):
   response_codes = {}
   times_seen = {}
   result = {
-      _RESULT_KEY_NL_TIME: {
-          'avg': 0,
-          'max': 0,
-          'min': 0
-      },
-      _RESULT_KEY_TILE_TIME: {
-          'avg': 0,
-          'max': 0,
-          'min': 0
-      },
-      _RESULT_KEY_TOTAL_TIME: {
-          'avg': 0,
-          'max': 0,
-          'min': 0
-      },
+      _RESULT_KEY_NL_TIME: _get_empty_time_result(),
+      _RESULT_KEY_TILE_TIME: _get_empty_time_result(),
+      _RESULT_KEY_TOTAL_TIME: _get_empty_time_result(),
   }
   error_content = {}
   for r in run_results:
-    code = r.get('code')
+    code = r.get(_RESULT_KEY_CODE)
     occ = response_codes.get(code, 0) + 1
     response_codes[code] = occ
-    if r.get('errorContent'):
+    if r.get(_RESULT_KEY_ERROR_CONTENT):
       if not code in error_content:
         error_content[code] = {}
-      content = r.get('errorContent')
+      content = r.get(_RESULT_KEY_ERROR_CONTENT)
       content_occurence = error_content[code].get(content, 0) + 1
       error_content[code][content] = content_occurence
     for k in [
@@ -132,19 +126,25 @@ def _get_result_output(run_results):
 def run_load(total_requests, parallel_requests):
   query_list = _get_query_list()
   query_list_to_run = []
-  # Using the query_list, generate a list of queries that is total requests long
-  while len(query_list_to_run) < total_requests:
-    num_missing = total_requests - len(query_list_to_run)
-    query_list_to_run += query_list[0:min(num_missing, len(query_list))]
+  # If number of total requests is specified, generate a list of queries that is
+  # total requests long
+  if total_requests:
+    while len(query_list_to_run) < total_requests or len(query_list):
+      num_missing = total_requests - len(query_list_to_run)
+      query_list_to_run += query_list[0:min(num_missing, len(query_list))]
+  else:
+    query_list_to_run = query_list
+
   # Run each query, parallel_requests number of queries at a time & collect the
   # response codes from runnign each query.
   results = []
   with concurrent.futures.ThreadPoolExecutor(parallel_requests) as executor:
     results = executor.map(_run_query, query_list_to_run)
+
   # build the output json
   result_output = _get_result_output(results)
 
-  # Write the occurence of each response code to the output file.
+  # Write the output json to the output file
   with open(_OUTPUT_FILE, 'w') as outf:
     outf.write(json.dumps(result_output))
 
