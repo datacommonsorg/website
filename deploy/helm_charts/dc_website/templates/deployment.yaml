@@ -37,6 +37,10 @@ spec:
       annotations:
         timestamp: {{ now | quote }}
     spec:
+      {{- if .Values.website.nodePool }}
+      nodeSelector:
+        cloud.google.com/gke-nodepool: {{ .Values.website.nodePool }}
+      {{- end }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
       volumes:
         - name: ingress-config
@@ -140,12 +144,14 @@ spec:
           image: gcr.io/datcom-ci/datacommons-nl:{{ .Values.website.image.tag }}
           resources:
             limits:
-              memory: "2G"
+              memory: {{ .Values.nl.memory }}
             requests:
-              memory: "2G"
+              memory: {{ .Values.nl.memory }}
           env:
             - name: FLASK_ENV
               value: {{ required "Missing: website.flaskEnv" .Values.website.flaskEnv }}
+            - name: NUM_WORKERS
+              value: {{ .Values.nl.workers | quote }}
           volumeMounts:
             - name: nl-config
               mountPath: /datacommons/nl
@@ -159,12 +165,16 @@ spec:
             httpGet:
               path: /healthz
               port: 6060
-            timeoutSeconds: 5
+            # long timeout here (and in the liveness probe) because NL server
+            # can only take NUM_WORKERS number of requests at a time, so when
+            # there's already NUM_WORKERS number of requests, need to wait
+            # before /healthz can be served.
+            timeoutSeconds: 300
           livenessProbe:
             httpGet:
               path: /healthz
               port: 6060
-            timeoutSeconds: 5
+            timeoutSeconds: 300
           ports:
             - containerPort: 6060
         {{- end }}
@@ -198,6 +208,10 @@ spec:
       annotations:
         timestamp: {{ now | quote }}
     spec:
+      {{- if .Values.nodejs.nodePool }}
+      nodeSelector:
+        cloud.google.com/gke-nodepool: {{ .Values.nodejs.nodePool }}
+      {{- end }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
       containers:
         - name: nodejs
