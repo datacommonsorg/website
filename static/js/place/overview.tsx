@@ -105,7 +105,10 @@ class Overview extends React.Component<OverviewPropType> {
             </div>
           )}
           {this.props.highlight && (
-            <div className="place-highlight-container">
+            <div
+              id="place-highlight-in-overview"
+              className="place-highlight-container"
+            >
               <PlaceHighlight
                 dcid={this.props.dcid}
                 highlight={this.props.highlight}

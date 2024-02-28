@@ -63,9 +63,9 @@ class TestPlacePage(unittest.TestCase):
 
   @patch('server.routes.shared_api.place.get_i18n_name')
   @patch('server.routes.shared_api.place.get_place_type')
-  @patch('server.routes.shared_api.place.get_place_type_display_name')
+  @patch('server.routes.shared_api.place.get_place_type_i18n_name')
   @patch('server.routes.shared_api.place.parent_places')
-  def test_place(self, mock_parent_places, mock_get_place_type_display_name,
+  def test_place(self, mock_parent_places, mock_get_place_type_i18n_name,
                  mock_get_place_type, mock_get_i18n_name):
     mock_parent_places.return_value = {
         'geoId/06': [{
@@ -74,7 +74,7 @@ class TestPlacePage(unittest.TestCase):
             'name': 'United States'
         }]
     }
-    mock_get_place_type_display_name.return_value = 'State'
+    mock_get_place_type_i18n_name.return_value = 'State'
     mock_get_i18n_name.return_value = {'geoId/06': 'California'}
     mock_get_place_type.return_value = 'State'
 
@@ -152,10 +152,10 @@ class TestPlacePageHeaders(unittest.TestCase):
 
   @patch('server.routes.shared_api.place.get_i18n_name')
   @patch('server.routes.shared_api.place.get_place_type')
-  @patch('server.routes.shared_api.place.get_place_type_display_name')
+  @patch('server.routes.shared_api.place.get_place_type_i18n_name')
   @patch('server.routes.shared_api.place.parent_places')
   def test_place_page_canonical_header(self, mock_parent_places,
-                                       mock_get_place_type_display_name,
+                                       mock_get_place_type_i18n_name,
                                        mock_get_place_type, mock_get_i18n_name):
     mock_parent_places.return_value = {
         'geoId/06': [{
@@ -164,7 +164,7 @@ class TestPlacePageHeaders(unittest.TestCase):
             'name': 'United States'
         }]
     }
-    mock_get_place_type_display_name.return_value = 'State'
+    mock_get_place_type_i18n_name.return_value = 'State'
     mock_get_i18n_name.return_value = {'geoId/06': 'California'}
     mock_get_place_type.return_value = 'State'
 
@@ -233,10 +233,10 @@ class TestPlacePageHeaders(unittest.TestCase):
 
   @patch('server.routes.shared_api.place.get_i18n_name')
   @patch('server.routes.shared_api.place.get_place_type')
-  @patch('server.routes.shared_api.place.get_place_type_display_name')
+  @patch('server.routes.shared_api.place.get_place_type_i18n_name')
   @patch('server.routes.shared_api.place.parent_places')
   def test_place_page_alternate_header(self, mock_parent_places,
-                                       mock_get_place_type_display_name,
+                                       mock_get_place_type_i18n_name,
                                        mock_get_place_type, mock_get_i18n_name):
     mock_parent_places.return_value = {
         'geoId/06': [{
@@ -245,7 +245,7 @@ class TestPlacePageHeaders(unittest.TestCase):
             'name': 'United States'
         }]
     }
-    mock_get_place_type_display_name.return_value = 'State'
+    mock_get_place_type_i18n_name.return_value = 'State'
     mock_get_i18n_name.return_value = {'geoId/06': 'California'}
     mock_get_place_type.return_value = 'State'
 

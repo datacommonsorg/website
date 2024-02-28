@@ -70,8 +70,8 @@ class TestPlaceExplorer(WebdriverBaseTest):
     title = self.driver.find_element(By.ID, "place-name")
     self.assertEqual("United States of America", title.text)
 
-    # Assert place type is correct.
-    subtitle = self.driver.find_element(By.ID, "place-type")
+    # Assert place type and parent places is correct.
+    subtitle = self.driver.find_element(By.ID, "parent-places")
     self.assertEqual("Country in North America", subtitle.text)
 
   def test_page_serve_mtv(self):
@@ -98,18 +98,28 @@ class TestPlaceExplorer(WebdriverBaseTest):
     # Assert place name is correct.
     self.assertEqual("Mountain View", place_name)
 
+    # Wait until the place type and parent places has loaded.
+    element_present = EC.text_to_be_present_in_element((By.ID, 'parent-places'),
+                                                       PLACE_TYPE_TITLE)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
+    # Assert place type is correct.
+    place_type = self.driver.find_element(By.ID, "parent-places").text
+    self.assertEqual(PLACE_TYPE_TITLE, place_type)
+
     # Wait until place overview tile has loaded.
     element_present = EC.presence_of_element_located(
         (By.CLASS_NAME, 'overview-tile'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
-    # Wait until the place type has loaded.
+    # Wait until the population highlight has loaded.
     element_present = EC.text_to_be_present_in_element(
-        (By.ID, 'place-type-in-overview'), PLACE_TYPE_TITLE)
+        (By.ID, 'place-highlight-in-overview'), PLACE_TYPE_TITLE)
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert place type is correct.
-    place_type = self.driver.find_element(By.ID, "place-type-in-overview").text
+    place_type = self.driver.find_element(By.ID,
+                                          "place-highlight-in-overview").text
     self.assertEqual(PLACE_TYPE_TITLE, place_type)
 
   def test_place_search(self):
