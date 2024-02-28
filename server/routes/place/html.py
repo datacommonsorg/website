@@ -151,7 +151,7 @@ def is_canonical_domain(url: str) -> bool:
   return re.match(regex, url) is not None
 
 
-def get_parent_places_links(dcid: str) -> str:
+def get_place_type_with_parent_places_links(dcid: str) -> str:
   """Get '<place type> in <parent places>' with html links for a given DCID"""
   # Get place type in localized, human-readable format
   place_type = place_api.get_place_type(dcid)
@@ -228,7 +228,8 @@ def place(place_dcid=None):
     return place_landing()
 
   place_type = place_api.get_place_type(place_dcid)
-  parent_places_links = get_parent_places_links(place_dcid)
+  place_type_with_parent_places_links = get_place_type_with_parent_places_links(
+      place_dcid)
   place_names = place_api.get_i18n_name([place_dcid])
   if place_names and place_names.get(place_dcid):
     place_name = place_names[place_dcid]
@@ -265,7 +266,8 @@ def place(place_dcid=None):
           place_type=place_type,
           place_name=place_name,
           place_dcid=place_dcid,
-          parent_places_links=parent_places_links,
+          place_type_with_parent_places_links=
+          place_type_with_parent_places_links,
           category=category if category else '',
           place_summary=place_summary.get('summary') if place_summary else '',
           maps_api_key=current_app.config['MAPS_API_KEY'],

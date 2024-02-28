@@ -115,7 +115,7 @@ PLACE_TYPE_TO_LOCALE_MESSAGE = {
     "City": "singular_city",
     "Country": "singular_country",
     "County": "singular_county",
-    "EurostatNUTS": "singular_eurostat_nuts",
+    "EurostatNUTS<Level>": "singular_eurostat_nuts",
     "Neighborhood": "singular_neighborhood",
     "Place": "singular_place",
     "State": "singular_state",
@@ -160,7 +160,8 @@ def get_place_type_i18n_name(place_type: str) -> str:
                    level=level)
   elif place_type.startswith('EurostatNUTS'):
     level = place_type[-1]
-    return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE['EurostatNUTS'], level=level)
+    return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE['EurostatNUTS<Level>'],
+                   level=level)
   else:
     # Return place type un-camel-cased
     words = re.findall(r'[A-Z](?:[a-z]+|[A-Z]*(?=[A-Z]|$))', place_type)

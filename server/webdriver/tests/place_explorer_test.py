@@ -61,8 +61,8 @@ class TestPlaceExplorer(WebdriverBaseTest):
                   self.TIMEOUT_SEC).until(EC.title_contains(TITLE_TEXT))
     self.assertEqual(TITLE_TEXT, self.driver.title)
 
-    # Wait until the place-type and parent places is correct.
-    element_present = EC.text_to_be_present_in_element((By.ID, 'parent-places'),
+    # Wait until the place-type is correct.
+    element_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
                                                        PLACE_TYPE_TEXT)
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
@@ -70,8 +70,8 @@ class TestPlaceExplorer(WebdriverBaseTest):
     title = self.driver.find_element(By.ID, "place-name")
     self.assertEqual("United States of America", title.text)
 
-    # Assert place type and parent places is correct.
-    subtitle = self.driver.find_element(By.ID, "parent-places")
+    # Assert place type is correct.
+    subtitle = self.driver.find_element(By.ID, "place-type")
     self.assertEqual("Country in North America", subtitle.text)
 
   def test_page_serve_mtv(self):
@@ -98,13 +98,13 @@ class TestPlaceExplorer(WebdriverBaseTest):
     # Assert place name is correct.
     self.assertEqual("Mountain View", place_name)
 
-    # Wait until the place type and parent places has loaded.
-    element_present = EC.text_to_be_present_in_element((By.ID, 'parent-places'),
+    # Wait until the place type has loaded.
+    element_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
                                                        PLACE_TYPE_TITLE)
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
-    # Assert place type and parent places is correct.
-    place_type = self.driver.find_element(By.ID, "parent-places").text
+    # Assert place type is correct.
+    place_type = self.driver.find_element(By.ID, "place-type").text
     self.assertEqual(PLACE_TYPE_TITLE, place_type)
 
     # Wait until place overview tile has loaded.
