@@ -34,7 +34,7 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
                                                           '日本')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_name_present)
 
-    place_type_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
+    place_type_present = EC.text_to_be_present_in_element((By.ID, 'parent-places'),
                                                           'アジア 内の 国')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_type_present)
 

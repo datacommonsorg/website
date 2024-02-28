@@ -390,7 +390,7 @@ def parent_places(dcids, include_admin_areas=False):
 
   Args:
       dcids: A list of place dcids.
-      include_admin_areas: Whether to include 'AdministrativeAreaN' in results.
+      include_admin_areas: Whether to include administrative areas in results.
 
   Returns:
       A dictionary of lists of containedInPlace, keyed by dcid.

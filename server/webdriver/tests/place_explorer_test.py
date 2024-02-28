@@ -46,11 +46,6 @@ class TestPlaceExplorer(WebdriverBaseTest):
     # Load USA page.
     self.driver.get(self.url_ + USA_URL)
 
-    # Wait until the place-type is correct.
-    element_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
-                                                       PLACE_TYPE_TEXT)
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-
     # Assert 200 HTTP code: successful page load.
     req = urllib.request.Request(self.driver.current_url)
     with urllib.request.urlopen(req) as response:
@@ -65,6 +60,11 @@ class TestPlaceExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(EC.title_contains(TITLE_TEXT))
     self.assertEqual(TITLE_TEXT, self.driver.title)
+
+    # Wait until the place-type and parent places is correct.
+    element_present = EC.text_to_be_present_in_element((By.ID, 'parent-places'),
+                                                       PLACE_TYPE_TEXT)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert place title is correct.
     title = self.driver.find_element(By.ID, "place-name")
@@ -103,7 +103,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
                                                        PLACE_TYPE_TITLE)
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
-    # Assert place type is correct.
+    # Assert place type and parent places is correct.
     place_type = self.driver.find_element(By.ID, "parent-places").text
     self.assertEqual(PLACE_TYPE_TITLE, place_type)
 
@@ -113,14 +113,14 @@ class TestPlaceExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Wait until the population highlight has loaded.
-    element_present = EC.text_to_be_present_in_element(
-        (By.ID, 'place-highlight-in-overview'), PLACE_TYPE_TITLE)
+    element_present = EC.presence_of_element_located(
+        (By.ID, 'place-highlight-in-overview'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert place type is correct.
     place_type = self.driver.find_element(By.ID,
                                           "place-highlight-in-overview").text
-    self.assertEqual(PLACE_TYPE_TITLE, place_type)
+    self.assertTrue(place_type.startswith("Population:"))
 
   def test_place_search(self):
     """Test the place search box can work correctly."""
