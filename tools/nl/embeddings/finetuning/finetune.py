@@ -320,8 +320,8 @@ def main(_):
     model_intermediate = finetune_model(
         model_base, _generate_training_examples_from_alternatives(df_svs))
 
-    ctx = utils.Context(gs=gs,
-                        model=model_intermediate,
+    ctx = utils.Context(model=model_intermediate,
+                        model_endpoint=None,
                         bucket=bucket,
                         tmp='/tmp')
 
@@ -348,7 +348,10 @@ def main(_):
     print(
         f"Loading the pre-finetuned Intermediate model: {model_intermediate_name}"
     )
-    ctx = utils.Context(gs=gs, model=None, bucket=bucket, tmp='/tmp')
+    ctx = utils.Context(model=None,
+                        model_endpoint=None,
+                        bucket=bucket,
+                        tmp='/tmp')
     model_intermediate = utils.get_ft_model_from_gcs(ctx,
                                                      model_intermediate_name)
 
@@ -367,8 +370,8 @@ def main(_):
       _generate_training_examples_from_sentence_pairs(df_sentence_pairs))
 
   # Step 4. Upload the final finetuned model to the NL model server's GCS bucket.
-  ctx = utils.Context(gs=gs,
-                      model=model_final_finetuned,
+  ctx = utils.Context(model=model_final_finetuned,
+                      model_endpoint=None,
                       bucket=bucket,
                       tmp='/tmp')
   model_final_folder_name = _save_finetuned_model(ctx, "final",

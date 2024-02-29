@@ -117,12 +117,14 @@ def generate_embeddings_yaml(embeddings_csv_handler: FileHandler,
 def _download_model(model_version: str) -> utils.Context:
   ctx_no_model = _ctx_no_model()
   model = utils.get_ft_model_from_gcs(ctx_no_model, model_version)
-  return utils.Context(gs=None, model=model, bucket=ctx_no_model.bucket)
+  return utils.Context(model=model,
+                       model_endpoint=None,
+                       bucket=ctx_no_model.bucket)
 
 
 def _ctx_no_model() -> utils.Context:
   bucket = storage.Client.create_anonymous_client().bucket(MODELS_BUCKET)
-  return utils.Context(gs=None, model=None, bucket=bucket)
+  return utils.Context(model=None, model_endpoint=None, bucket=bucket)
 
 
 def main(_):

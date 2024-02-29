@@ -111,12 +111,12 @@ function run_py_test {
     pip3 install isort -q
   fi
   echo -e "#### Checking Python style"
-  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=.env/*; then
+  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.env/**; then
     echo "Fix Python lint errors by running ./run_test.sh -f"
     exit 1
   fi
 
-  if ! isort server/ nl_server/ tools/ -c --skip-glob *pb2.py --profile google; then
+  if ! isort server/ nl_server/ tools/ -c --skip-glob *pb2.py --skip-glob **/.env/** --profile google; then
     echo "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
