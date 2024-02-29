@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2020 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,4 +16,4 @@
 python3 -m venv .env
 source .env/bin/activate
 pip3 install -r requirements.txt
-python3 loadtest.py --queryset=queryset.csv
+python3 load.py "$@"

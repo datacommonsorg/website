@@ -12,14 +12,14 @@
                     "statVarKey": [
                       "who/AIR_43.GHECAUSES--GHE118"
                     ],
-                    "title": "Ambient Air Pollution Attributable DALYs [Chronic Obstructive Pulmonary Disease] in the World (${date})",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable DALYs [Chronic Obstructive Pulmonary Disease] in the World"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
             "columns": [
@@ -29,14 +29,14 @@
                     "statVarKey": [
                       "who/AIR_43.GHECAUSES--GHE118__SEX--F"
                     ],
-                    "title": "Ambient Air Pollution Attributable DALYs [Chronic Obstructive Pulmonary Disease, Female] in the World (${date})",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable DALYs [Chronic Obstructive Pulmonary Disease, Female] in the World"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
             "columns": [
@@ -46,27 +46,27 @@
                     "statVarKey": [
                       "who/AIR_43.GHECAUSES--GHE118__SEX--M"
                     ],
-                    "title": "Ambient Air Pollution Attributable DALYs [Chronic Obstructive Pulmonary Disease, Male] in the World (${date})",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable DALYs [Chronic Obstructive Pulmonary Disease, Male] in the World"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World"
           }
         ],
         "statVarSpec": {
           "who/AIR_43.GHECAUSES--GHE118": {
-            "name": "Ambient air pollution attributable DALYs [Chronic obstructive pulmonary disease]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_43.GHECAUSES--GHE118"
           },
           "who/AIR_43.GHECAUSES--GHE118__SEX--F": {
-            "name": "Ambient air pollution attributable DALYs [Chronic obstructive pulmonary disease, Female]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Female]",
             "statVar": "who/AIR_43.GHECAUSES--GHE118__SEX--F"
           },
           "who/AIR_43.GHECAUSES--GHE118__SEX--M": {
-            "name": "Ambient air pollution attributable DALYs [Chronic obstructive pulmonary disease, Male]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_43.GHECAUSES--GHE118__SEX--M"
           }
         }
