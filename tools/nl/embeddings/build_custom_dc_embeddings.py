@@ -102,13 +102,10 @@ def _build_embeddings_dataframe(
   sv_sentences_df = pd.read_csv(sv_sentences_csv_handler.read_string_io())
 
   # Dedupe texts
-  (name2sv_dict, _) = utils.dedup_texts(sv_sentences_df)
-
-  print("Getting texts and dcids.")
-  (texts, dcids) = utils.get_texts_dcids(name2sv_dict)
+  (text2sv_dict, _) = utils.dedup_texts(sv_sentences_df)
 
   print("Building custom DC embeddings")
-  return utils.build_embeddings(ctx, texts, dcids)
+  return utils.build_embeddings(ctx, text2sv_dict)
 
 
 def generate_embeddings_yaml(embeddings_csv_handler: FileHandler,

@@ -19,16 +19,21 @@
 import csv
 import datetime as datetime
 import glob
+import json
+import logging
 import os
 from typing import Dict, List
 
 from absl import app
 from absl import flags
+from google.cloud import aiplatform
 from google.cloud import storage
-import gspread
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import utils
+
+VERTEX_AI_PROJECT = 'datcom-website-dev'
+VERTEX_AI_PROJECT_LOCATION = 'us-central1'
 
 FLAGS = flags.FLAGS
 
@@ -38,6 +43,8 @@ flags.DEFINE_string('finetuned_model_gcs', '',
                     'Existing finetuned model folder name on GCS')
 flags.DEFINE_string('existing_model_path', '',
                     'Path to an existing model (local)')
+flags.DEFINE_string('vertex_ai_prediction_endpoint_id', '',
+                    'The ID of vertext AI prediction endpoint')
 flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string('embeddings_size', '', 'Embeddings size')
@@ -54,6 +61,8 @@ flags.DEFINE_string(
 flags.DEFINE_string('alternatives_filepattern', 'data/alternatives/main/*.csv',
                     'File pattern (relative) for CSVs with alternatives')
 
+flags.DEFINE_bool('dry_run', False, 'Dry run')
+
 #
 # curated_input/ + autogen_input/ + alternatives/ => preindex/ => embeddings
 #
@@ -65,14 +74,15 @@ MAX_ALTERNATIVES_LIMIT = 50
 def _make_gcs_embeddings_filename(embeddings_size: str,
                                   model_version: str) -> str:
   now = datetime.datetime.now()
+  formatted_date_string = now.strftime("%y_%m_%d_%H_%M_%S")
+  return f"embeddings_{embeddings_size}_{formatted_date_string}.{model_version}.csv"
 
-  month_str = utils.two_digits(now.month)
-  day_str = utils.two_digits(now.day)
-  hour_str = utils.two_digits(now.hour)
-  minute_str = utils.two_digits(now.minute)
-  second_str = utils.two_digits(now.second)
 
-  return f"embeddings_{embeddings_size}_{now.year}_{month_str}_{day_str}_{hour_str}_{minute_str}_{second_str}.{model_version}.csv"
+def _make_embeddings_index_filename(embeddings_size: str,
+                                    model_endpoint_id: str) -> str:
+  now = datetime.datetime.now()
+  formatted_date_string = now.strftime("%y_%m_%d_%H_%M_%S")
+  return f"embeddings_{embeddings_size}_{formatted_date_string}.{model_endpoint_id}.json"
 
 
 def _write_intermediate_output(name2sv_dict: Dict[str, str],
@@ -129,17 +139,14 @@ def get_embeddings(ctx, df_svs: pd.DataFrame, local_merged_filepath: str,
   df_svs = df_svs[[utils.DCID_COL, utils.COL_ALTERNATIVES]]
 
   # Dedupe texts
-  (name2sv_dict, dup_sv_rows) = utils.dedup_texts(df_svs)
+  (text2sv_dict, dup_sv_rows) = utils.dedup_texts(df_svs)
 
   # Write dcid -> texts and dups to intermediate files.
-  _write_intermediate_output(name2sv_dict, dup_sv_rows, local_merged_filepath,
+  _write_intermediate_output(text2sv_dict, dup_sv_rows, local_merged_filepath,
                              dup_names_filepath)
 
-  print("Getting texts, dcids and embeddings.")
-  (texts, dcids) = utils.get_texts_dcids(name2sv_dict)
-
   print("Building embeddings")
-  return utils.build_embeddings(ctx, texts, dcids)
+  return utils.build_embeddings(ctx, text2sv_dict)
 
 
 def build(ctx, curated_input_path: str, local_merged_filepath: str,
@@ -174,7 +181,9 @@ def build(ctx, curated_input_path: str, local_merged_filepath: str,
 
 
 def main(_):
-  assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2 and FLAGS.curated_input_path
+  assert FLAGS.vertex_ai_prediction_endpoint_id or (FLAGS.model_name_v2 and
+                                                    FLAGS.bucket_name_v2 and
+                                                    FLAGS.curated_input_path)
 
   assert os.path.exists(os.path.join('data'))
 
@@ -183,13 +192,14 @@ def main(_):
 
   use_finetuned_model = False
   use_local_model = False
-  model_version = FLAGS.model_name_v2
-  if FLAGS.finetuned_model_gcs:
-    use_finetuned_model = True
-    model_version = FLAGS.finetuned_model_gcs
-  elif FLAGS.existing_model_path:
-    use_local_model = True
-    model_version = os.path.basename(FLAGS.existing_model_path)
+  if not FLAGS.vertex_ai_prediction_endpoint_id:
+    model_version = FLAGS.model_name_v2
+    if FLAGS.finetuned_model_gcs:
+      use_finetuned_model = True
+      model_version = FLAGS.finetuned_model_gcs
+    elif FLAGS.existing_model_path:
+      use_local_model = True
+      model_version = os.path.basename(FLAGS.existing_model_path)
 
   if not os.path.exists(os.path.join('data', 'preindex',
                                      FLAGS.embeddings_size)):
@@ -202,29 +212,46 @@ def main(_):
     os.mkdir(os.path.join(FLAGS.autogen_input_basedir, FLAGS.embeddings_size))
   autogen_input_filepattern = f'{FLAGS.autogen_input_basedir}/{FLAGS.embeddings_size}/*.csv'
 
-  gs = gspread.oauth()
   sc = storage.Client()
   bucket = sc.bucket(FLAGS.bucket_name_v2)
+  model_endpoint = None
 
   if use_finetuned_model:
-    ctx_no_model = utils.Context(gs=gs, model=None, bucket=bucket, tmp='/tmp')
+    ctx_no_model = utils.Context(model=None,
+                                 model_endpoint=None,
+                                 bucket=bucket,
+                                 tmp='/tmp')
     model = utils.get_ft_model_from_gcs(ctx_no_model, model_version)
-
   elif use_local_model:
-    print(f"Use the local model at: {FLAGS.existing_model_path}")
-    print(f"Extracted model version: {model_version}")
+    logging.info("Use the local model at: %s", FLAGS.existing_model_path)
+    logging.info("Extracted model version: %s", model_version)
     model = SentenceTransformer(FLAGS.existing_model_path)
-
+  elif FLAGS.vertex_ai_prediction_endpoint_id:
+    model = None
+    aiplatform.init(project=VERTEX_AI_PROJECT,
+                    location=VERTEX_AI_PROJECT_LOCATION)
+    model_endpoint = aiplatform.Endpoint(FLAGS.vertex_ai_prediction_endpoint_id)
   else:
     model = SentenceTransformer(FLAGS.model_name_v2)
 
-  ctx = utils.Context(gs=gs, model=model, bucket=bucket, tmp='/tmp')
+  ctx = utils.Context(model=model,
+                      model_endpoint=model_endpoint,
+                      bucket=bucket,
+                      tmp='/tmp')
+
+  if FLAGS.vertex_ai_prediction_endpoint_id:
+    model_version = FLAGS.vertex_ai_prediction_endpoint_id
+    embeddings_index_json_filename = _make_embeddings_index_filename(
+        FLAGS.embeddings_size, FLAGS.vertex_ai_prediction_endpoint_id)
+    embeddings_index_tmp_out_path = os.path.join(
+        ctx.tmp, embeddings_index_json_filename)
 
   gcs_embeddings_filename = _make_gcs_embeddings_filename(
       FLAGS.embeddings_size, model_version)
   gcs_tmp_out_path = os.path.join(ctx.tmp, gcs_embeddings_filename)
 
-  # Process all the data, produce the final dataframes, build the embeddings and return the embeddings dataframe.
+  # Process all the data, produce the final dataframes, build the embeddings and
+  # return the embeddings dataframe.
   # During this process, the downloaded latest SVs and Descriptions data and the
   # final dataframe with SVs and Alternates are also written to local_merged_dir.
   embeddings_df = build(ctx, FLAGS.curated_input_path, local_merged_filepath,
@@ -234,20 +261,39 @@ def main(_):
   print(f"Saving locally to {gcs_tmp_out_path}")
   embeddings_df.to_csv(gcs_tmp_out_path, index=False)
 
-  # Before uploading embeddings to GCS, validate them.
-  print("Validating the built embeddings.")
-  utils.validate_embeddings(embeddings_df, local_merged_filepath)
-  print("Embeddings DataFrame is validated.")
+  if not FLAGS.dry_run:
+    # Before uploading embeddings to GCS, validate them.
+    print("Validating the built embeddings.")
+    utils.validate_embeddings(embeddings_df, local_merged_filepath)
+    print("Embeddings DataFrame is validated.")
 
-  # Finally, upload to the NL embeddings server's GCS bucket
-  print("Attempting to write to GCS")
-  print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_embeddings_filename}")
-  blob = ctx.bucket.blob(gcs_embeddings_filename)
-  # Since the files can be fairly large, use a 10min timeout to be safe.
-  blob.upload_from_filename(gcs_tmp_out_path, timeout=600)
-  print("Done uploading to gcs.")
-  print(f"\t Embeddings Filename: {gcs_embeddings_filename}")
-  print("\nNOTE: Please update embeddings.yaml with the Embeddings Filename")
+    # Finally, upload to the NL embeddings server's GCS bucket
+    print("Attempting to write to GCS")
+    print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_embeddings_filename}")
+    blob = ctx.bucket.blob(gcs_embeddings_filename)
+    # Since the files can be fairly large, use a 10min timeout to be safe.
+    blob.upload_from_filename(gcs_tmp_out_path, timeout=600)
+    print("Done uploading to gcs.")
+    print(f"\t Embeddings Filename: {gcs_embeddings_filename}")
+    print("\nNOTE: Please update embeddings.yaml with the Embeddings Filename")
+
+  if FLAGS.vertex_ai_prediction_endpoint_id:
+    with open(embeddings_index_tmp_out_path, 'w') as f:
+      for _, row in embeddings_df.iterrows():
+        dcid = row[utils.DCID_COL]  # Get the DCID value
+        text = row[utils.COL_ALTERNATIVES]  # Get the text
+        embedding = row.drop([utils.DCID_COL, utils.COL_ALTERNATIVES
+                             ]).tolist()  # Get the embeddings as a list
+        f.write(
+            json.dumps({
+                'id': text,
+                'embedding': embedding,
+                'restricts': [{
+                    'namespace': 'dcid',
+                    'allow': [dcid]
+                }]
+            }))
+        f.write('\n')
 
 
 if __name__ == "__main__":

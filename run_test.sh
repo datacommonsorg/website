@@ -57,13 +57,13 @@ function run_lint_fix {
   echo -e "#### Fixing Python code"
   python3 -m venv .env
   source .env/bin/activate
-  pip3 install yapf==0.33.0 -q
+  pip3 install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
   then
     pip3 install isort -q
   fi
-  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/*
-  isort server/ nl_server/ shared/ tools/  --skip-glob *pb2.py  --profile google
+  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/**
+  isort server/ nl_server/ shared/ tools/  --skip-glob *pb2.py  --skip-glob **/.env/** --profile google
   deactivate
 }
 
@@ -105,7 +105,7 @@ function run_py_test {
   python3 -m pytest ./ -s
   cd ../../..
 
-  pip3 install yapf==0.33.0 -q
+  pip3 install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
   then
     pip3 install isort -q

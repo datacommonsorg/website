@@ -101,14 +101,8 @@ def _upload_to_gcs(ctx: utils.Context,
 
 def _make_gcs_model_folder(stage: str, base_model_name: str) -> str:
   now = datetime.now()
-
-  month_str = utils.two_digits(now.month)
-  day_str = utils.two_digits(now.day)
-  hour_str = utils.two_digits(now.hour)
-  minute_str = utils.two_digits(now.minute)
-  second_str = utils.two_digits(now.second)
-
-  prefix = f"ft_{stage}_v{now.year}{month_str}{day_str}{hour_str}{minute_str}{second_str}"
+  formatted_date_string = now.strftime("%Y%m%d%H%M%S")
+  prefix = f"ft_{stage}_v{formatted_date_string}"
   if base_model_name:
     return f"{prefix}.{base_model_name}"
   else:
