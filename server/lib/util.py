@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import csv
+from datetime import date
 from datetime import datetime
 import gzip
 import hashlib
@@ -27,6 +28,8 @@ from flask import make_response
 from google.protobuf import text_format
 
 from server.config import subject_page_pb2
+import server.lib.fetch as fetch
+import server.services.datacommons as dc
 
 _ready_check_timeout = 120  # seconds
 _ready_check_sleep_seconds = 5
@@ -500,3 +503,89 @@ def gzip_compress_response(raw_content, is_json):
   if is_json:
     response.headers['Content-Type'] = 'application/json'
   return response
+
+
+def fetch_highest_coverage(parent_entity: str,
+                           child_type: str,
+                           variables: List[str],
+                           all_facets: bool,
+                           facet_ids: List[str] = None):
+  """
+  Fetches the latest available data with the best coverage for the given a
+  parent entity, child type, variables, and facets
+
+  Response format:
+  {
+    "facets": {
+      <facet_id>: {<facet object>}
+    },
+    "data": {
+      <var_dcid>: {
+        <entity_dcid>: {
+          <observation point(s)>
+        }
+      }
+    }
+  }
+  """
+  # Heuristic for fetching "latest data with best coverage":
+  # Choose the date with the most data coverage from either:
+  # (1) last 5 observation dates
+  # (2) 5 years from the most recent observation date
+  # whichever set is greater
+  FETCH_HIGHEST_COVERAGE_FROM_DATES = 5
+  FETCH_HIGHEST_COVERAGE_FROM_YEARS = 5
+  point_responses = []
+  series_dates_response = dc.get_series_dates(parent_entity, child_type,
+                                              variables)
+  facet_ids_set = set(facet_ids or [])
+  for variable_date_item in series_dates_response['datesByVariable']:
+    # Each variable_date_item contains the observation counts by date
+    variable = variable_date_item['variable']
+    # Get observation dates in descending order, and filter out dates in the
+    # future (to exclude erroneous data)
+    next_year = str(date.today().year + 1)
+    descending_observation_dates = [
+        observation_date for observation_date in list(
+            reversed(variable_date_item.get('observationDates', [])))
+        if observation_date['date'] < next_year
+    ]
+    if len(descending_observation_dates) == 0:
+      continue
+    # Heuristic to fetch the "FETCH_HIGHEST_COVERAGE_FROM_DATES" most recent
+    # observation dates or observation dates going back
+    # "FETCH_HIGHEST_COVERAGE_FROM_YEARS" years, whichever is greater
+    cutoff_year = str(date.today().year - FETCH_HIGHEST_COVERAGE_FROM_YEARS)
+    latest_observation_dates_from_year = [
+        o for o in descending_observation_dates if o['date'] > cutoff_year
+    ]
+    latest_observation_dates = descending_observation_dates[:
+                                                            FETCH_HIGHEST_COVERAGE_FROM_DATES]
+    observation_dates = latest_observation_dates_from_year if len(
+        latest_observation_dates_from_year) > len(
+            latest_observation_dates) else latest_observation_dates
+
+    # finds the greatest entity (observation) count among all facets in the
+    # given list of observation dates
+    date_counts = [{
+        'date':
+            obs['date'],
+        'count':
+            max([
+                entity_count_item
+                for entity_count_item in obs['entityCount']
+                if (all_facets or len(facet_ids_set) == 0 or
+                    entity_count_item['facet'] in facet_ids_set)
+            ],
+                key=lambda item: item['count'])['count']
+    }
+                   for obs in observation_dates]
+    best_coverage = max(date_counts, key=lambda date_count: date_count['count'])
+    point_responses.append(
+        fetch.point_within_core(parent_entity, child_type, [variable],
+                                best_coverage['date'], all_facets, facet_ids))
+  combined_point_response = {"facets": {}, "data": {}}
+  for point_response in point_responses:
+    combined_point_response["facets"].update(point_response.get("facets", {}))
+    combined_point_response["data"].update(point_response.get("data", {}))
+  return combined_point_response

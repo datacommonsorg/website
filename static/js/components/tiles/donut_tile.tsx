@@ -172,7 +172,9 @@ export const fetchData = async (props: DonutTilePropType) => {
     popPoints = popPoints.slice(0, NUM_PLACES);
     const placeNames = await getPlaceNames(
       Array.from(popPoints).map((x) => x.placeDcid),
-      props.apiRoot
+      {
+        apiRoot: props.apiRoot,
+      }
     );
     const statVarDcidToName = await getStatVarNames(
       props.statVarSpec,

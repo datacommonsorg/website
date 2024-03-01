@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import queryString from "query-string";
 import React, { useEffect, useRef, useState } from "react";
+import { RawIntlProvider } from "react-intl";
 import { Container } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
@@ -31,6 +32,7 @@ import {
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
+import { intl } from "../../i18n/i18n";
 import {
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
@@ -124,44 +126,50 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     ? null
     : savedContext.current[0]["insightCtx"];
   return (
-    <Container className="explore-container">
-      {props.isDemo && (
-        <AutoPlay
-          autoPlayQuery={autoPlayQuery}
-          inputQuery={setQuery}
-          disableDelay={loadingStatus === LoadingStatus.DEMO_INIT}
-        />
-      )}
-      {loadingStatus === LoadingStatus.FAILED && (
-        <ErrorResult
-          query={query}
-          debugData={debugData}
-          exploreContext={exploreContext}
-          queryResult={queryResult}
-          userMessage={userMessage}
-        />
-      )}
-      {loadingStatus === LoadingStatus.LOADING && (
-        <div>
-          <Spinner isOpen={true} />
-        </div>
-      )}
-      {loadingStatus === LoadingStatus.DEMO_INIT && (
-        <div className="row explore-charts">
-          <SearchSection query={query} debugData={null} exploreContext={null} />
-        </div>
-      )}
-      {loadingStatus === LoadingStatus.SUCCESS && (
-        <SuccessResult
-          query={query}
-          debugData={debugData}
-          exploreContext={exploreContext}
-          queryResult={queryResult}
-          pageMetadata={pageMetadata}
-          userMessage={userMessage}
-        />
-      )}
-    </Container>
+    <RawIntlProvider value={intl}>
+      <Container className="explore-container">
+        {props.isDemo && (
+          <AutoPlay
+            autoPlayQuery={autoPlayQuery}
+            inputQuery={setQuery}
+            disableDelay={loadingStatus === LoadingStatus.DEMO_INIT}
+          />
+        )}
+        {loadingStatus === LoadingStatus.FAILED && (
+          <ErrorResult
+            query={query}
+            debugData={debugData}
+            exploreContext={exploreContext}
+            queryResult={queryResult}
+            userMessage={userMessage}
+          />
+        )}
+        {loadingStatus === LoadingStatus.LOADING && (
+          <div>
+            <Spinner isOpen={true} />
+          </div>
+        )}
+        {loadingStatus === LoadingStatus.DEMO_INIT && (
+          <div className="row explore-charts">
+            <SearchSection
+              query={query}
+              debugData={null}
+              exploreContext={null}
+            />
+          </div>
+        )}
+        {loadingStatus === LoadingStatus.SUCCESS && (
+          <SuccessResult
+            query={query}
+            debugData={debugData}
+            exploreContext={exploreContext}
+            queryResult={queryResult}
+            pageMetadata={pageMetadata}
+            userMessage={userMessage}
+          />
+        )}
+      </Container>
+    </RawIntlProvider>
   );
 
   function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {

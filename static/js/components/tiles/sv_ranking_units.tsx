@@ -55,6 +55,7 @@ interface SvRankingUnitsProps {
   hideFooter?: boolean;
   onHoverToggled?: (placeDcid: string, hover: boolean) => void;
   errorMsg?: string;
+  footnote?: string;
 }
 
 /**
@@ -95,7 +96,6 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       rankingGroup.svName
     );
   }
-
   return (
     <React.Fragment>
       {rankingMetadata.showHighestLowest || props.errorMsg ? (
@@ -120,6 +120,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   ? getExploreLink(props, true)
                   : null
               }
+              footnote={props.footnote}
             >
               <NlChartFeedback id={props.tileId} />
             </ChartFooter>
@@ -171,6 +172,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   exploreLink={
                     props.showExploreMore ? getExploreLink(props, false) : null
                   }
+                  footnote={props.footnote}
                 >
                   <NlChartFeedback id={props.tileId} />
                 </ChartFooter>

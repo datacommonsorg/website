@@ -459,3 +459,10 @@ MULTI_SV_SCORE_DIFFERENTIAL = 0.05
 
 # English language code.
 EN_LANG_CODE = 'en'
+
+# date query param value for requesting latest observations from REST v2 API
+DATE_LATEST = 'LATEST'
+
+# date query param value for requesting latest overall available for
+# /api/observations/point/* endpoints
+DATE_HIGHEST_COVERAGE = 'HIGHEST_COVERAGE'
