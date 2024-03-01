@@ -18,8 +18,8 @@ from flask import request
 from server import cache
 from server.lib import fetch
 from server.lib.util import fetch_highest_coverage
-from shared.lib.constants import DATE_LATEST
 from shared.lib.constants import DATE_HIGHEST_COVERAGE
+from shared.lib.constants import DATE_LATEST
 
 # Define blueprint
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
@@ -81,8 +81,8 @@ def point_within():
                                   all_facets=False,
                                   facet_ids=facet_ids)
   # Fetch observations from a specific date or date = 'LATEST'
-  return fetch.point_within_core(parent_entity, child_type, variables,
-                                 date, False, facet_ids)
+  return fetch.point_within_core(parent_entity, child_type, variables, date,
+                                 False, facet_ids)
 
 
 @bp.route('/within/all')
@@ -111,5 +111,5 @@ def point_within_all():
                                   variables=variables,
                                   all_facets=True)
   # Fetch observations from a specific date or date = 'LATEST'
-  return fetch.point_within_core(parent_entity, child_type, variables,
-                                 date, True)
+  return fetch.point_within_core(parent_entity, child_type, variables, date,
+                                 True)

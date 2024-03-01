@@ -528,7 +528,7 @@ def fetch_highest_coverage(parent_entity: str,
     }
   }
   """
-  # Heuristic for fetching "latest data with best coverage":
+  # Heuristic for fetching "latest data with highest coverage":
   # Choose the date with the most data coverage from either:
   # (1) last 5 observation dates
   # (2) 5 years from the most recent observation date
