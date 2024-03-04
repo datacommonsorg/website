@@ -101,6 +101,38 @@
               {
                 "tiles": [
                   {
+                    "lineTileSpec": {
+                      "endDate": "2024",
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "Count_WildfireEvent_973116817"
+                    ],
+                    "title": "Wildfires in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Wildfires in California",
+                    "statVarKey": [
+                      "Count_WildfireEvent"
+                    ],
+                    "title": "Wildfires in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Wildfires"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showHighest": true
@@ -208,6 +240,15 @@
           "Count_PrescribedFireEvent": {
             "name": "Count of Prescribed Fire Event",
             "statVar": "Count_PrescribedFireEvent"
+          },
+          "Count_WildfireEvent": {
+            "name": "Wildfires",
+            "statVar": "Count_WildfireEvent"
+          },
+          "Count_WildfireEvent_973116817": {
+            "facetId": "973116817",
+            "name": "Wildfires",
+            "statVar": "Count_WildfireEvent"
           },
           "Count_WildlandFireEvent": {
             "name": "Count of Wildland Fire Event",
