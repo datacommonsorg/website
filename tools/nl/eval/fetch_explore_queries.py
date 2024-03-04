@@ -38,6 +38,8 @@ def call_dc(query):
   if 'MultiSV' in debug['sv_matching']:
     for candidate in debug['sv_matching']['MultiSV']['Candidates']:
       if candidate['DelimBased'] and len(candidate['Parts']) == 2:
+        # 0.05 matches the logic in
+        # https://github.com/datacommonsorg/website/blob/12f305f6525bd5d34d45d564503f827dcad2a9ee/shared/lib/constants.py#L458
         if candidate['AggCosineScore'] + 0.05 > single_sv_best_score:
           use_single_sv = False
           multi_sv_candidate = candidate
@@ -85,7 +87,7 @@ def main(_):
                   'query': item['query'],
                   'used_query': item['used_query'],
                   'sv': sv,
-                  'sentences': item['sv_to_sentences'].get(sv, ''),
+                  'sentences': item['sv_to_sentences'].get(sv, []),
               })
 
   df = pd.DataFrame.from_records(records)
