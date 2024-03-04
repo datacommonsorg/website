@@ -33,7 +33,6 @@ import { ChildPlace } from "./child_places_menu";
 import { MainPane, showOverview } from "./main_pane";
 import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
-import { ParentPlace } from "./parent_breadcrumbs";
 import { PlaceHighlight } from "./place_highlight";
 import { PlaceSearch } from "./place_search";
 import { isPlaceInUsa } from "./util";

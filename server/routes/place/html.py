@@ -31,7 +31,7 @@ from shared.lib.place_summaries import get_shard_name
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
-CATEGORIES = [
+CATEGORIES = {
     "Economics",
     "Health",
     "Equity",
@@ -41,7 +41,7 @@ CATEGORIES = [
     "Housing",
     "Environment",
     "Energy",
-]
+}
 
 CATEGORY_REDIRECTS = {
     "Climate": "Environment",
@@ -53,8 +53,8 @@ CANONICAL_DOMAIN = 'datacommons.org'
 # Location of place summary jsons on GKE
 PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
 
-# Parent place types to include in listing of containing places
-WANTED_PARENT_PLACE_TYPES = [
+# Parent place types to include in listing of containing places at top of page
+PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
     'County',
     'AdministrativeArea2',
     'EurostatNUTS2',
@@ -63,7 +63,7 @@ WANTED_PARENT_PLACE_TYPES = [
     'EurostatNUTS1',
     'Country',
     'Continent',
-]
+}
 
 
 def get_place_summaries(dcid: str) -> dict:
@@ -151,34 +151,40 @@ def is_canonical_domain(url: str) -> bool:
   return re.match(regex, url) is not None
 
 
+def get_place_html_link(place_dcid: str, place_name: str) -> str:
+  """Get <a href-place page url> tag linking to the place page for a place"""
+  url = flask.url_for('place.place', place_dcid=place_dcid)
+  return f'<a href="{url}">{place_name}</a>'
+
+
 def get_place_type_with_parent_places_links(dcid: str) -> str:
   """Get '<place type> in <parent places>' with html links for a given DCID"""
   # Get place type in localized, human-readable format
   place_type = place_api.get_place_type(dcid)
   place_type_display_name = place_api.get_place_type_i18n_name(place_type)
 
-  # Generate <a href=place page url> tag for each parent place
-  parents = place_api.parent_places([dcid],
-                                    include_admin_areas=True).get(dcid, [])
-  parent_links = []
-  for parent in parents:
-    if parent['type'] in WANTED_PARENT_PLACE_TYPES:
-      parent_dcid = parent['dcid']
-      parent_name = place_api.get_i18n_name([parent_dcid]).get(parent_dcid)
-      if parent_name:
-        if parent['type'] == 'Continent':
-          # We do not have continent-level place pages
-          # Show just text instead of a link
-          parent_links.append(parent_name)
-        else:
-          parent_page_url = flask.url_for('place.place',
-                                          place_dcid=parent['dcid'])
-          parent_links.append(f'<a href="{parent_page_url}">{parent_name}</a>')
+  # Get parent places and their localized names
+  all_parents = place_api.parent_places([dcid],
+                                        include_admin_areas=True).get(dcid, [])
+  parents_to_include = [
+      parent for parent in all_parents
+      if parent['type'] in PARENT_PLACE_TYPES_TO_HIGHLIGHT
+  ]
+  parent_dcids = [parent['dcid'] for parent in parents_to_include]
+  localized_names = place_api.get_i18n_name(parent_dcids)
 
-  if parent_links:
+  # Generate <a href=place page url> tag for each parent place
+  links = [
+      get_place_html_link(place_dcid=parent['dcid'],
+                          place_name=localized_names[parent['dcid']])
+      if parent['type'] != 'Continent' else localized_names[parent['dcid']]
+      for parent in parents_to_include
+  ]
+
+  if links:
     return gettext('%(placeType)s in %(parentPlaces)s',
                    placeType=place_type_display_name,
-                   parentPlaces=', '.join(parent_links))
+                   parentPlaces=', '.join(links))
   return ''
 
 
