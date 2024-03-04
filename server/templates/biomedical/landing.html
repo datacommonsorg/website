@@ -19,24 +19,112 @@
  {% set main_id = 'bio_landing' %}
  {% set page_id = 'page-bio_landing' %}
  {% set title = 'Biomedical Data Commons' %}
- {# TODO: Find what values to use for subpage_title and subpage_url #}
- {% set subpage_title = 'Biomedical Data Commons' %}
- {% set subpage_url = url_for('bio.main') %}
+ {% set subpage_title = 'Biomedical' %}
+ {% set subpage_url = url_for('biomedical.main') %}
+ {% set is_hide_full_footer = true %}
+
  
  {% block head %}
-   <link rel="stylesheet" href={{url_for('static', filename='css/disease.min.css', t=config['VERSION'])}} >
+   <link rel="stylesheet" href={{url_for('static', filename='css/biomedical_landing.min.css', t=config['VERSION'])}} >
  {% endblock %}
  
  {% block content %}
-   <div class="container">
-      <h1 class="mb-4">Data Commons Biomedical</h1>
-      <p>
-        A bridge to open biomedical data
-      </p>
-      <p>
-        Find relationships between 25 different categories of biomedical data like genes, proteins, diseases, and more
-      </p>
+   <section id="homepage-top" class="background-highlight">
+      <div class="title-content-container container">
+        <div class="title-content">
+          <h1>Data Commons • Biomedical</h1>
+          <h2>A bridge to open biomedical data</h2>
+          <h3>Find relationships between 25 different categories of biomedical data like genes, proteins, diseases, and more</h3>
+        </div>
+        <div class="thematic-image">  
+          <img src="/images/biomedical/person-reading-genome.svg" />         
+        </div>
+      </div>
+  </section>
 
-   </div>
+  <section id="numbers-callout">
+    <div class="numbers-callout-container container">
+      <div class="number-callout">
+        <span>Proteins</span>
+        <span class="number-highlight">38,120</span>
+      </div>
+      <div class="number-callout">
+        <span>Diseases</span>
+        <span class="number-highlight">13,955</span>
+      </div>
+      <div class="number-callout">
+        <span>Genes</span>
+        <span class="number-highlight">681,043</span>
+      </div>
+      <div class="number-callout">
+        <span>Drugs</span><span class="number-highlight">63,328,433</span>
+      </div>
+      <div class="number-callout">
+        <span>Over 195 million entities</span>
+        <span class="number-highlight">& counting</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="sample-questions" class="background-highlight">
+    <div class="blurb-container container">
+      <h2>Sample questions you can find answers for</h2>
+      <div id="sample-questions-card-container"></div> 
+    </div>
+  </section>
+
+  <section id="sample-analysis">
+    <div class="blurb-container container">
+      <h2>Spend less time wrangling data, more time on research</h2>
+      <div class="blurb-text">
+        <div class="text-column">
+          <p>
+            The Biomedical Data Commons streamlines biological research by
+            overcoming data fragmentation. It cleans, joins, and stores data in a
+            unified knowledge graph, providing researchers with improved access to
+            information from multiple biomedical fields in a machine- and
+            human-readable format. This enhanced accessibility simplifies the
+            analysis of complex systems. See how this works in the Python
+            notebooks below.
+          </p>
+        </div>
+        <div class="blurb-side-note"></div>
+      </div>
+
+      <div id="sample-analysis-card-container"></div>
+    </div>
+
+  </section>
+  
+  <section id="data-sources">
+    <div class="blurb-container container">
+      <h2>Data Sources</h2>
+      <div class="blurb-text">
+        <div class="text-column">
+          <p>
+            The Biomedical Data Commons is a comprehensive repository that
+            integrates data from over 
+            <a href="https://docs.datacommons.org/datasets/Biomedical.html">
+              18 different trusted sources
+            </a>
+            like NIH NCBI and EMBL-EBI. Including commonly used open-source
+            datasets such as ChEMBL, ClinVar, Gene, GTEx, MeSH, PharmGKB, and
+            UniProt. This collaborative effort unifies and harmonizes diverse
+            biomedical data, enabling innovative research that transcends the
+            limitations of isolated sources.
+          </p>
+        </div>
+        <div class="blurb-side-note">
+          This collaborative effort unifies and harmonizes diverse biomedical
+          data, enabling innovative research that transcends the limitations of
+          isolated sources.
+        </div>
+      </div>
+    </div>
+  </section>
  {% endblock %}
  
+{% block footer %}
+<div id="config-data" data-config='{{ config_data | tojson }}'></div>
+<script src={{url_for('static', filename='biomedical_landing.js' , t=config['VERSION'])}}></script>
+{% endblock %}
