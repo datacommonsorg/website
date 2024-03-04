@@ -44,6 +44,9 @@ _UNDATA_TOPIC_JSON = '../../../server/config/nl_page/undata_topic_cache.json'
 _UNDATA_NON_COUNTRY_VARS = '../../../server/config/nl_page/undata_non_country_vars.json'
 _UNDATA_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_undata.mcf')
 _UNDATA_VARIABLES_FILE = 'undata_variable_grouping.csv'
+_UNDATA_SERIES_TOPICS_FILE = 'un_who_series_topics.csv'
+_UNDATA_NL_DESCRIPTIONS_FILE = os.path.join(_TMP_DIR,
+                                            'undata_nl_descriptions.csv')
 
 API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
@@ -279,6 +282,58 @@ def write_non_country_vars(non_country_vars_file: str, vars: Variables):
     json.dump(js, fp, indent=2)
 
 
+def alt_nl_name(name: str):
+  new_name = ''
+  for f, t in [('DALYs', 'disability-adjusted life years'),
+               ('DALY', 'disability-adjusted life years'),
+               ('YLLs', 'years of life lost'), ('YLL', 'years of life lost')]:
+    if f in name:
+      new_name = name.replace(f, t)
+      break
+  return new_name
+
+
+def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
+                          undata_series_topics_file: str):
+  with open(nl_desc_file, 'w') as fp:
+    csvw = csv.DictWriter(fp,
+                          fieldnames=[
+                              'dcid', 'Name', 'Description',
+                              'Override_Alternatives', 'Curated_Alternatives'
+                          ])
+    csvw.writeheader()
+
+    series_topics = set()
+    for n in nodes:
+      dcid = n.get('dcid', [''])[0]
+      name = n.get('name', [''])[0]
+      if 'dc/topic/' not in dcid or 'dc/topic/UN' in dcid:
+        continue
+      series_topics.add(dcid)
+      csvw.writerow({
+          'dcid': dcid,
+          'Name': name,
+          'Description': '',
+          'Override_Alternatives': '',
+          'Curated_Alternatives': alt_nl_name(name)
+      })
+
+    with open(undata_series_topics_file) as fp:
+      for row in csv.DictReader(fp):
+        if row['NVars'] == '1':
+          csvw.writerow({
+              'dcid': row['Vars'],
+              'Name': row['Name'],
+              'Description': '',
+              'Override_Alternatives': '',
+              'Curated_Alternatives': alt_nl_name(row['Name']),
+          })
+        else:
+          id = row['SeriesTopic']
+          if id not in series_topics:
+            logging.error(f'ERROR: Missing topic {id}')
+
+
 def main(_):
   assert FLAGS.dc
   vars = Variables(series2group2vars={},
@@ -307,6 +362,8 @@ def main(_):
     nodes = generate([_UNDATA_ROOT], vars)
     common.write_topic_mcf(_UNDATA_MCF_PATH, nodes)
     common.write_topic_json(_UNDATA_TOPIC_JSON, nodes)
+    write_nl_descriptions(_UNDATA_NL_DESCRIPTIONS_FILE, nodes,
+                          _UNDATA_SERIES_TOPICS_FILE)
   print(f'Found {len(vars.keep_vars)} vars')
 
 

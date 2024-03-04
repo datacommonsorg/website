@@ -54,6 +54,208 @@
             ],
             "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/TB_new_sn"
+                    ],
+                    "title": "New Tuberculosis Cases: Pulmonary Smear-Negative in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "New cases: pulmonary smear-negative.",
+            "title": "New Tuberculosis Cases: Pulmonary Smear-Negative in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "New Tuberculosis Cases: Pulmonary, Smear-Positive in the World",
+                    "statVarKey": [
+                      "who/TB_new_sp"
+                    ],
+                    "title": "New Tuberculosis Cases: Pulmonary, Smear-Positive in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "New cases: pulmonary, smear-positive.",
+            "title": "New Tuberculosis Cases: Pulmonary, Smear-Positive"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/TB_new_sp"
+                    ],
+                    "title": "New Tuberculosis Cases: Pulmonary, Smear-Positive in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "New cases: pulmonary, smear-positive.",
+            "title": "New Tuberculosis Cases: Pulmonary, Smear-Positive in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "New Tuberculosis Cases: Pulmonary, Smear-Negative/Unknown/Not Done and Other New Cases in the World",
+                    "statVarKey": [
+                      "who/TB_new_snsuoth"
+                    ],
+                    "title": "New Tuberculosis Cases: Pulmonary, Smear-Negative/Unknown/Not Done and Other New Cases in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "New cases: pulmonary, smear-negative/unknown/not done and other new cases.",
+            "title": "New Tuberculosis Cases: Pulmonary, Smear-Negative/Unknown/Not Done and Other New Cases"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/TB_new_snsuoth"
+                    ],
+                    "title": "New Tuberculosis Cases: Pulmonary, Smear-Negative/Unknown/Not Done and Other New Cases in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "New cases: pulmonary, smear-negative/unknown/not done and other new cases.",
+            "title": "New Tuberculosis Cases: Pulmonary, Smear-Negative/Unknown/Not Done and Other New Cases in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Relapse Tuberculosis Cases: Pulmonary, Clinically Diagnosed in the World",
+                    "statVarKey": [
+                      "who/TB_ret_rel_clindx"
+                    ],
+                    "title": "Relapse Tuberculosis Cases: Pulmonary, Clinically Diagnosed in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Relapse cases: pulmonary, clinically diagnosed.",
+            "title": "Relapse Tuberculosis Cases: Pulmonary, Clinically Diagnosed"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/TB_ret_rel_clindx"
+                    ],
+                    "title": "Relapse Tuberculosis Cases: Pulmonary, Clinically Diagnosed in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Relapse cases: pulmonary, clinically diagnosed.",
+            "title": "Relapse Tuberculosis Cases: Pulmonary, Clinically Diagnosed in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/TB_new_su"
+                    ],
+                    "title": "New Tuberculosis Cases: Pulmonary Smear Unknown/Not Done in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "New cases: pulmonary smear unknown/not done.",
+            "title": "New Tuberculosis Cases: Pulmonary Smear Unknown/Not Done in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Relapse Tuberculosis Cases: Pulmonary, Bacteriologically Confirmed in the World",
+                    "statVarKey": [
+                      "who/TB_ret_rel_labconf"
+                    ],
+                    "title": "Relapse Tuberculosis Cases: Pulmonary, Bacteriologically Confirmed in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Relapse cases: pulmonary, bacteriologically confirmed.",
+            "title": "Relapse Tuberculosis Cases: Pulmonary, Bacteriologically Confirmed"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/TB_ret_rel_labconf"
+                    ],
+                    "title": "Relapse Tuberculosis Cases: Pulmonary, Bacteriologically Confirmed in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Relapse cases: pulmonary, bacteriologically confirmed.",
+            "title": "Relapse Tuberculosis Cases: Pulmonary, Bacteriologically Confirmed in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/HWF_0001"
+                    ],
+                    "title": "Medical Doctors in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Medical doctors (per 10,000).",
+            "title": "Medical Doctors in the World"
           }
         ],
         "statVarSpec": {
@@ -68,6 +270,34 @@
           "who/AIR_43.GHECAUSES--GHE118__SEX--M": {
             "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_43.GHECAUSES--GHE118__SEX--M"
+          },
+          "who/HWF_0001": {
+            "name": "Medical doctors",
+            "statVar": "who/HWF_0001"
+          },
+          "who/TB_new_sn": {
+            "name": "New tuberculosis cases: pulmonary smear-negative",
+            "statVar": "who/TB_new_sn"
+          },
+          "who/TB_new_snsuoth": {
+            "name": "New tuberculosis cases: Pulmonary, smear-negative/unknown/not done and other new cases",
+            "statVar": "who/TB_new_snsuoth"
+          },
+          "who/TB_new_sp": {
+            "name": "New tuberculosis cases: Pulmonary, smear-positive",
+            "statVar": "who/TB_new_sp"
+          },
+          "who/TB_new_su": {
+            "name": "New tuberculosis cases: pulmonary smear unknown/not done",
+            "statVar": "who/TB_new_su"
+          },
+          "who/TB_ret_rel_clindx": {
+            "name": "Relapse tuberculosis cases: Pulmonary, clinically diagnosed",
+            "statVar": "who/TB_ret_rel_clindx"
+          },
+          "who/TB_ret_rel_labconf": {
+            "name": "Relapse tuberculosis cases: Pulmonary, bacteriologically confirmed",
+            "statVar": "who/TB_ret_rel_labconf"
           }
         }
       }

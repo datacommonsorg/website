@@ -102,13 +102,10 @@ def _build_embeddings_dataframe(
   sv_sentences_df = pd.read_csv(sv_sentences_csv_handler.read_string_io())
 
   # Dedupe texts
-  (name2sv_dict, _) = utils.dedup_texts(sv_sentences_df)
-
-  print("Getting texts and dcids.")
-  (texts, dcids) = utils.get_texts_dcids(name2sv_dict)
+  (text2sv_dict, _) = utils.dedup_texts(sv_sentences_df)
 
   print("Building custom DC embeddings")
-  return utils.build_embeddings(ctx, texts, dcids)
+  return utils.build_embeddings(ctx, text2sv_dict)
 
 
 def generate_embeddings_yaml(embeddings_csv_handler: FileHandler,
@@ -120,12 +117,14 @@ def generate_embeddings_yaml(embeddings_csv_handler: FileHandler,
 def _download_model(model_version: str) -> utils.Context:
   ctx_no_model = _ctx_no_model()
   model = utils.get_ft_model_from_gcs(ctx_no_model, model_version)
-  return utils.Context(gs=None, model=model, bucket=ctx_no_model.bucket)
+  return utils.Context(model=model,
+                       model_endpoint=None,
+                       bucket=ctx_no_model.bucket)
 
 
 def _ctx_no_model() -> utils.Context:
   bucket = storage.Client.create_anonymous_client().bucket(MODELS_BUCKET)
-  return utils.Context(gs=None, model=None, bucket=bucket)
+  return utils.Context(model=None, model_endpoint=None, bucket=bucket)
 
 
 def main(_):
