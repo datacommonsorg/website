@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
 import json
-from absl import app
+import os
 from urllib.parse import quote
-import requests
+
+from absl import app
 import pandas as pd
+import requests
 
 EXPLORE_CONFIG_RELATIVE_PATH = '../../../static/js/apps/explore_landing/topics.json'
 NODEJS_URL = 'https://bard.datacommons.org/nodejs/query'
