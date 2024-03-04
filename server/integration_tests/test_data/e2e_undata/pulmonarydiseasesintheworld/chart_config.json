@@ -152,43 +152,6 @@
               {
                 "tiles": [
                   {
-                    "description": "Relapse Tuberculosis Cases: Pulmonary, Clinically Diagnosed in the World",
-                    "statVarKey": [
-                      "who/TB_ret_rel_clindx"
-                    ],
-                    "title": "Relapse Tuberculosis Cases: Pulmonary, Clinically Diagnosed in the World",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "Relapse cases: pulmonary, clinically diagnosed.",
-            "title": "Relapse Tuberculosis Cases: Pulmonary, Clinically Diagnosed"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "who/TB_ret_rel_clindx"
-                    ],
-                    "title": "Relapse Tuberculosis Cases: Pulmonary, Clinically Diagnosed in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "Relapse cases: pulmonary, clinically diagnosed.",
-            "title": "Relapse Tuberculosis Cases: Pulmonary, Clinically Diagnosed in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
                       "who/TB_new_su"
                     ],
@@ -201,61 +164,6 @@
             "denom": "Count_Person",
             "description": "New cases: pulmonary smear unknown/not done.",
             "title": "New Tuberculosis Cases: Pulmonary Smear Unknown/Not Done in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Relapse Tuberculosis Cases: Pulmonary, Bacteriologically Confirmed in the World",
-                    "statVarKey": [
-                      "who/TB_ret_rel_labconf"
-                    ],
-                    "title": "Relapse Tuberculosis Cases: Pulmonary, Bacteriologically Confirmed in the World",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "Relapse cases: pulmonary, bacteriologically confirmed.",
-            "title": "Relapse Tuberculosis Cases: Pulmonary, Bacteriologically Confirmed"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "who/TB_ret_rel_labconf"
-                    ],
-                    "title": "Relapse Tuberculosis Cases: Pulmonary, Bacteriologically Confirmed in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "Relapse cases: pulmonary, bacteriologically confirmed.",
-            "title": "Relapse Tuberculosis Cases: Pulmonary, Bacteriologically Confirmed in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "who/HWF_0001"
-                    ],
-                    "title": "Medical Doctors in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "Medical doctors (per 10,000).",
-            "title": "Medical Doctors in the World"
           }
         ],
         "statVarSpec": {
@@ -270,10 +178,6 @@
           "who/AIR_43.GHECAUSES--GHE118__SEX--M": {
             "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_43.GHECAUSES--GHE118__SEX--M"
-          },
-          "who/HWF_0001": {
-            "name": "Medical doctors",
-            "statVar": "who/HWF_0001"
           },
           "who/TB_new_sn": {
             "name": "New tuberculosis cases: pulmonary smear-negative",
@@ -290,14 +194,6 @@
           "who/TB_new_su": {
             "name": "New tuberculosis cases: pulmonary smear unknown/not done",
             "statVar": "who/TB_new_su"
-          },
-          "who/TB_ret_rel_clindx": {
-            "name": "Relapse tuberculosis cases: Pulmonary, clinically diagnosed",
-            "statVar": "who/TB_ret_rel_clindx"
-          },
-          "who/TB_ret_rel_labconf": {
-            "name": "Relapse tuberculosis cases: Pulmonary, bacteriologically confirmed",
-            "statVar": "who/TB_ret_rel_labconf"
           }
         }
       }

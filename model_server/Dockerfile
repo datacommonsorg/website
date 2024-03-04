@@ -20,6 +20,7 @@ WORKDIR /app
 COPY requirements.txt /app
 RUN pip install -r requirements.txt
 
+COPY ft_final_v20230717230459.all-MiniLM-L6-v2/ /app/ft_final_v20230717230459.all-MiniLM-L6-v2/
 
 COPY serve.py /app
 
