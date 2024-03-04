@@ -301,6 +301,11 @@ def main(_):
     with open(embeddings_index_tmp_out_path, 'w') as f:
       for _, row in embeddings_df.iterrows():
         write_row_to_jsonl(f, row)
+    if not FLAGS.dry_run:
+      # Update the jsonl file to GCS.
+      # TODO: figure out which bucket to upload to and maybe include the
+      # index building step here.
+      pass
 
 
 if __name__ == "__main__":

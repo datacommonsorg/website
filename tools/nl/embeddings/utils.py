@@ -52,7 +52,7 @@ If a string matches this pattern, the first group is the model version.
 """
 _EMBEDDINGS_FILENAME_PATTERN = r"^[^.]+\.([^.]+\.[^.]+)\.csv$"
 
-_CHUNK_SIZE = 50
+_CHUNK_SIZE = 100
 
 _MODEL_ENDPOINT_RETRYS = 3
 
