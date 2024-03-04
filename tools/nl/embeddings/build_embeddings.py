@@ -77,14 +77,14 @@ MAX_ALTERNATIVES_LIMIT = 50
 def _make_gcs_embeddings_filename(embeddings_size: str,
                                   model_version: str) -> str:
   now = datetime.datetime.now()
-  formatted_date_string = now.strftime("%y_%m_%d_%H_%M_%S")
+  formatted_date_string = now.strftime("%Y_%m_%d_%H_%M_%S")
   return f"embeddings_{embeddings_size}_{formatted_date_string}.{model_version}.csv"
 
 
 def _make_embeddings_index_filename(embeddings_size: str,
                                     model_endpoint_id: str) -> str:
   now = datetime.datetime.now()
-  formatted_date_string = now.strftime("%y_%m_%d_%H_%M_%S")
+  formatted_date_string = now.strftime("%Y_%m_%d_%H_%M_%S")
   return f"embeddings_{embeddings_size}_{formatted_date_string}.{model_endpoint_id}.json"
 
 
