@@ -12,58 +12,66 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 import logging
 import os
 
 from flask import Flask, request, jsonify
 from sentence_transformers import SentenceTransformer
+from angle_emb import AnglE, Prompts
 
 logging.getLogger('werkzeug').setLevel(logging.ERROR)
-
 
 # A full list of model name can be found in model.list
 model_name = os.environ['MODEL_NAME']
 logging.info(model_name)
 
-def create_model(model_name):
-    logging.info(f'create model {model_name}')
-    if model_name == 'sentence-transformers/all-MiniLM-L6-v2':
-        model = SentenceTransformer(model_name)
-    elif model_name == 'Salesforce/SFR-Embedding-Mistral':
-        model = SentenceTransformer(model_name)
-    elif model_name == 'WhereIsAI/UAE-Large-V1':
-        from angle_emb import AnglE, Prompts
-        model = AnglE.from_pretrained('WhereIsAI/UAE-Large-V1', pooling_strategy='cls')
-        model.set_prompt(prompt=Prompts.C)
-    else:
-        raise ValueError(f'Invalid model name: {model_name}')
-    logging.info(f'create model completed')
-    return model
 
-model = create_model(model_name)
+def create_model(model_name):
+  logging.info('create model: %s', model_name)
+  if model_name == 'dc/all-MiniLM-L6-v2-ft':
+    model = SentenceTransformer(
+        '/app/ft_final_v20230717230459.all-MiniLM-L6-v2')
+  elif model_name == 'sentence-transformers/all-MiniLM-L6-v2':
+    model = SentenceTransformer(model_name)
+  elif model_name == 'Salesforce/SFR-Embedding-Mistral':
+    model = SentenceTransformer(model_name)
+  elif model_name == 'WhereIsAI/UAE-Large-V1':
+    model = AnglE.from_pretrained('WhereIsAI/UAE-Large-V1',
+                                  pooling_strategy='cls')
+    model.set_prompt(prompt=Prompts.C)
+  else:
+    raise ValueError(f'Invalid model name: {model_name}')
+  logging.info('create model completed')
+  return model
+
+
+embedding_model = create_model(model_name)
 
 app = Flask(__name__)
 
+
 @app.route('/healthz')
 def healthz():
-    return "OK", 200
+  return "OK", 200
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    instances = request.json['instances']
-    if model_name in [
-        'sentence-transformers/all-MiniLM-L6-v2',
-        'Salesforce/SFR-Embedding-Mistral',
-    ]:
-        embeddings = model.encode(instances)
-        return jsonify({'predictions': embeddings.tolist()}), 200
-    if model_name == 'WhereIsAI/UAE-Large-V1':
-        instances = [{'text': instance} for instance in instances]
-        embeddings = model.encode(instances, to_numpy=True)
-        return jsonify({'predictions': embeddings.tolist()}), 200
-    logging.error('Invalid model name: %s', model_name)
-    return{'predictions': []}, 200
+  instances = request.json['instances']
+  if model_name in [
+      'dc/all-MiniLM-L6-v2-ft',
+      'sentence-transformers/all-MiniLM-L6-v2',
+      'Salesforce/SFR-Embedding-Mistral',
+  ]:
+    embeddings = embedding_model.encode(instances)
+    return jsonify({'predictions': embeddings.tolist()}), 200
+  if model_name == 'WhereIsAI/UAE-Large-V1':
+    instances = [{'text': instance} for instance in instances]
+    embeddings = embedding_model.encode(instances, to_numpy=True)
+    return jsonify({'predictions': embeddings.tolist()}), 200
+  logging.error('Invalid model name: %s', model_name)
+  return {'predictions': []}, 200
+
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+  app.run(host='0.0.0.0', port=8080)
