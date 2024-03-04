@@ -50,9 +50,13 @@
   }
 
   td.ranking-date-cell {
-    margin-left: 8px;
-    width: 50px;
+    padding-left: 8px;
+    width: 85px;
+    max-width: 85px;
     color: var(--gm-3-ref-neutral-neutral-60);
     text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 }

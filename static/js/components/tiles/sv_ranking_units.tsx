@@ -147,6 +147,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   exploreLink={
                     props.showExploreMore ? getExploreLink(props, true) : null
                   }
+                  footnote={props.footnote}
                 >
                   <NlChartFeedback id={props.tileId} />
                 </ChartFooter>
