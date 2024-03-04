@@ -172,13 +172,16 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   ]
   parent_dcids = [parent['dcid'] for parent in parents_to_include]
   localized_names = place_api.get_i18n_name(parent_dcids)
-
+  places_with_names = [
+      parent for parent in parents_to_include
+      if parent['dcid'] in localized_names.keys()
+  ]
   # Generate <a href=place page url> tag for each parent place
   links = [
       get_place_html_link(place_dcid=parent['dcid'],
-                          place_name=localized_names[parent['dcid']])
-      if parent['type'] != 'Continent' else localized_names[parent['dcid']]
-      for parent in parents_to_include
+                          place_name=localized_names.get(parent['dcid']))
+      if parent['type'] != 'Continent' else localized_names.get(parent['dcid'])
+      for parent in places_with_names
   ]
 
   if links:
