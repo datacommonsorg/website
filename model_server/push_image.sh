@@ -19,6 +19,10 @@ REGISTRY=us-central1-docker.pkg.dev/datcom-ci/models/embedding-model
 
 WEBSITE_HASH=$(git rev-parse --short=7 HEAD)
 
-docker build --tag $REGISTRY:$WEBSITE_HASH -f Dockerfile .
+gsutil cp -r gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ ./
+
+docker build \
+  --tag $REGISTRY:$WEBSITE_HASH \
+  -f Dockerfile .
 
 docker push $REGISTRY:$WEBSITE_HASH
