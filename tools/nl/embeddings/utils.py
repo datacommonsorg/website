@@ -54,6 +54,8 @@ _EMBEDDINGS_FILENAME_PATTERN = r"^[^.]+\.([^.]+\.[^.]+)\.csv$"
 
 _CHUNK_SIZE = 50
 
+_MODEL_ENDPOINT_RETRYS = 3
+
 
 @dataclass
 class Context:
@@ -223,8 +225,8 @@ def build_embeddings(ctx, text2sv: Dict[str, str]) -> pd.DataFrame:
   else:
     embeddings = []
     for i, chuck in enumerate(chunk_list(texts, _CHUNK_SIZE)):
-      logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE)
-      for i in range(3):
+      logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE - 1)
+      for i in range(_MODEL_ENDPOINT_RETRYS):
         try:
           resp = ctx.model_endpoint.predict(instances=chuck).predictions
           embeddings.extend(resp)

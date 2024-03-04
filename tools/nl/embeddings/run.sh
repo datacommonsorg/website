@@ -14,11 +14,12 @@
 # limitations under the License.
 
 function help {
-  echo "Usage: -bflc <embeddings-size>"
+  echo "Usage: -bflce <embeddings-size>"
   echo "$0 -b <embeddings-size> # 'small' or 'medium'. This option uses the base default sentence_transformer model."
   echo "$0 -f <embeddings-size> # 'small' or 'medium'. This option uses the finetuned model on PROD."
   echo "$0 -l <embeddings-size> <local_model_path> # 'small' or 'medium'. This option uses the locally stored model to build the embeddings."
   echo "$0 -c <embeddings-size> <curated_input_path> <alternatives_filepattern> # This option creates custom embeddings (using the finetuned model in PROD)."
+  echo "$0 -e <embeddings-size> <vertex_ai_endpoint_id> # This option creates embeddings using a Vertex AI model endpoint."
 }
 
 if [[ $# -le 1 ]]; then

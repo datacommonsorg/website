@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,8 +43,11 @@ flags.DEFINE_string('finetuned_model_gcs', '',
                     'Existing finetuned model folder name on GCS')
 flags.DEFINE_string('existing_model_path', '',
                     'Path to an existing model (local)')
-flags.DEFINE_string('vertex_ai_prediction_endpoint_id', '',
-                    'The ID of vertext AI prediction endpoint')
+flags.DEFINE_string(
+    'vertex_ai_prediction_endpoint_id', '',
+    'The ID of vertext AI prediction endpoint.' +
+    ' Not set for local Sentence Transformers based index, must be set for API-based index'
+)
 flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string('embeddings_size', '', 'Embeddings size')
@@ -180,6 +183,23 @@ def build(ctx, curated_input_path: str, local_merged_filepath: str,
   return get_embeddings(ctx, df_svs, local_merged_filepath, dup_names_filepath)
 
 
+def write_row_to_jsonl(f, row):
+  dcid = row[utils.DCID_COL]  # Get the DCID value
+  text = row[utils.COL_ALTERNATIVES]  # Get the text
+  embedding = row.drop([utils.DCID_COL, utils.COL_ALTERNATIVES
+                       ]).tolist()  # Get the embeddings as a list
+  f.write(
+      json.dumps({
+          'id': text,
+          'embedding': embedding,
+          'restricts': [{
+              'namespace': 'dcid',
+              'allow': [dcid]
+          }]
+      }))
+  f.write('\n')
+
+
 def main(_):
   assert FLAGS.vertex_ai_prediction_endpoint_id or (FLAGS.model_name_v2 and
                                                     FLAGS.bucket_name_v2 and
@@ -261,12 +281,12 @@ def main(_):
   print(f"Saving locally to {gcs_tmp_out_path}")
   embeddings_df.to_csv(gcs_tmp_out_path, index=False)
 
-  if not FLAGS.dry_run:
-    # Before uploading embeddings to GCS, validate them.
-    print("Validating the built embeddings.")
-    utils.validate_embeddings(embeddings_df, local_merged_filepath)
-    print("Embeddings DataFrame is validated.")
+  # Before uploading embeddings to GCS, validate them.
+  print("Validating the built embeddings.")
+  utils.validate_embeddings(embeddings_df, local_merged_filepath)
+  print("Embeddings DataFrame is validated.")
 
+  if not FLAGS.dry_run:
     # Finally, upload to the NL embeddings server's GCS bucket
     print("Attempting to write to GCS")
     print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_embeddings_filename}")
@@ -280,20 +300,7 @@ def main(_):
   if FLAGS.vertex_ai_prediction_endpoint_id:
     with open(embeddings_index_tmp_out_path, 'w') as f:
       for _, row in embeddings_df.iterrows():
-        dcid = row[utils.DCID_COL]  # Get the DCID value
-        text = row[utils.COL_ALTERNATIVES]  # Get the text
-        embedding = row.drop([utils.DCID_COL, utils.COL_ALTERNATIVES
-                             ]).tolist()  # Get the embeddings as a list
-        f.write(
-            json.dumps({
-                'id': text,
-                'embedding': embedding,
-                'restricts': [{
-                    'namespace': 'dcid',
-                    'allow': [dcid]
-                }]
-            }))
-        f.write('\n')
+        write_row_to_jsonl(f, row)
 
 
 if __name__ == "__main__":
