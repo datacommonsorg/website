@@ -13,11 +13,20 @@
 # limitations under the License.
 
 import logging
+from enum import Enum
 import os
 
 from flask import Flask, request, jsonify
 from sentence_transformers import SentenceTransformer
 from angle_emb import AnglE, Prompts
+
+
+class Model(str, Enum):
+  FT_PROD = 'dc/all-MiniLM-L6-v2-ft'
+  MINILM = 'sentence-transformers/all-MiniLM-L6-v2'
+  SFR_MISTRAL = 'Salesforce/SFR-Embedding-Mistral'
+  UAE_LARGE = 'WhereIsAI/UAE-Large-V1'
+
 
 logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
@@ -28,16 +37,15 @@ logging.info(model_name)
 
 def create_model(model_name):
   logging.info('create model: %s', model_name)
-  if model_name == 'dc/all-MiniLM-L6-v2-ft':
+  if model_name == Model.FT_PROD:
     model = SentenceTransformer(
         '/app/ft_final_v20230717230459.all-MiniLM-L6-v2')
-  elif model_name == 'sentence-transformers/all-MiniLM-L6-v2':
+  elif model_name == Model.MINILM:
     model = SentenceTransformer(model_name)
-  elif model_name == 'Salesforce/SFR-Embedding-Mistral':
+  elif model_name == Model.SFR_MISTRAL:
     model = SentenceTransformer(model_name)
-  elif model_name == 'WhereIsAI/UAE-Large-V1':
-    model = AnglE.from_pretrained('WhereIsAI/UAE-Large-V1',
-                                  pooling_strategy='cls')
+  elif model_name == Model.UAE_LARGE:
+    model = AnglE.from_pretrained(model_name, pooling_strategy='cls')
     model.set_prompt(prompt=Prompts.C)
   else:
     raise ValueError(f'Invalid model name: {model_name}')
@@ -59,13 +67,13 @@ def healthz():
 def predict():
   instances = request.json['instances']
   if model_name in [
-      'dc/all-MiniLM-L6-v2-ft',
-      'sentence-transformers/all-MiniLM-L6-v2',
-      'Salesforce/SFR-Embedding-Mistral',
+      Model.FT_PROD,
+      Model.MINILM,
+      Model.SFR_MISTRAL,
   ]:
     embeddings = embedding_model.encode(instances)
     return jsonify({'predictions': embeddings.tolist()}), 200
-  if model_name == 'WhereIsAI/UAE-Large-V1':
+  if model_name == Model.UAE_LARGE:
     instances = [{'text': instance} for instance in instances]
     embeddings = embedding_model.encode(instances, to_numpy=True)
     return jsonify({'predictions': embeddings.tolist()}), 200
