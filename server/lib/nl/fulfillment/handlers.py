@@ -83,11 +83,11 @@ QUERY_HANDLERS = {
     QueryType.FILTER_WITH_SINGLE_VAR:
         QueryHandlerConfig(module=filter_with_single_var,
                            rank=8,
-                           direct_fallback=QueryType.BASIC),
+                           direct_fallback=QueryType.TIME_DELTA_ACROSS_PLACES),
     QueryType.FILTER_WITH_DUAL_VARS:
         QueryHandlerConfig(module=filter_with_dual_vars,
                            rank=9,
-                           direct_fallback=QueryType.BASIC),
+                           direct_fallback=QueryType.CORRELATION_ACROSS_VARS),
 
     # Overview trumps everything else ("tell us about"), and
     # has no fallback.
