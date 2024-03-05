@@ -22,6 +22,7 @@ import time
 import flask
 from flask import current_app
 from flask import g
+from flask_babel import gettext
 
 from server.lib.i18n import AVAILABLE_LANGUAGES
 import server.routes.shared_api.place as place_api
@@ -30,7 +31,7 @@ from shared.lib.place_summaries import get_shard_name
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
-CATEGORIES = [
+CATEGORIES = {
     "Economics",
     "Health",
     "Equity",
@@ -40,7 +41,7 @@ CATEGORIES = [
     "Housing",
     "Environment",
     "Energy",
-]
+}
 
 CATEGORY_REDIRECTS = {
     "Climate": "Environment",
@@ -51,6 +52,18 @@ CANONICAL_DOMAIN = 'datacommons.org'
 
 # Location of place summary jsons on GKE
 PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
+
+# Parent place types to include in listing of containing places at top of page
+PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
+    'County',
+    'AdministrativeArea2',
+    'EurostatNUTS2',
+    'State',
+    'AdministrativeArea1',
+    'EurostatNUTS1',
+    'Country',
+    'Continent',
+}
 
 
 def get_place_summaries(dcid: str) -> dict:
@@ -138,6 +151,46 @@ def is_canonical_domain(url: str) -> bool:
   return re.match(regex, url) is not None
 
 
+def get_place_html_link(place_dcid: str, place_name: str) -> str:
+  """Get <a href-place page url> tag linking to the place page for a place"""
+  url = flask.url_for('place.place', place_dcid=place_dcid)
+  return f'<a href="{url}">{place_name}</a>'
+
+
+def get_place_type_with_parent_places_links(dcid: str) -> str:
+  """Get '<place type> in <parent places>' with html links for a given DCID"""
+  # Get place type in localized, human-readable format
+  place_type = place_api.get_place_type(dcid)
+  place_type_display_name = place_api.get_place_type_i18n_name(place_type)
+
+  # Get parent places and their localized names
+  all_parents = place_api.parent_places([dcid],
+                                        include_admin_areas=True).get(dcid, [])
+  parents_to_include = [
+      parent for parent in all_parents
+      if parent['type'] in PARENT_PLACE_TYPES_TO_HIGHLIGHT
+  ]
+  parent_dcids = [parent['dcid'] for parent in parents_to_include]
+  localized_names = place_api.get_i18n_name(parent_dcids)
+  places_with_names = [
+      parent for parent in parents_to_include
+      if parent['dcid'] in localized_names.keys()
+  ]
+  # Generate <a href=place page url> tag for each parent place
+  links = [
+      get_place_html_link(place_dcid=parent['dcid'],
+                          place_name=localized_names.get(parent['dcid']))
+      if parent['type'] != 'Continent' else localized_names.get(parent['dcid'])
+      for parent in places_with_names
+  ]
+
+  if links:
+    return gettext('%(placeType)s in %(parentPlaces)s',
+                   placeType=place_type_display_name,
+                   parentPlaces=', '.join(links))
+  return ''
+
+
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>')
 def place(place_dcid=None):
@@ -184,6 +237,8 @@ def place(place_dcid=None):
     return place_landing()
 
   place_type = place_api.get_place_type(place_dcid)
+  place_type_with_parent_places_links = get_place_type_with_parent_places_links(
+      place_dcid)
   place_names = place_api.get_i18n_name([place_dcid])
   if place_names and place_names.get(place_dcid):
     place_name = place_names[place_dcid]
@@ -220,13 +275,14 @@ def place(place_dcid=None):
           place_type=place_type,
           place_name=place_name,
           place_dcid=place_dcid,
+          place_type_with_parent_places_links=
+          place_type_with_parent_places_links,
           category=category if category else '',
           place_summary=place_summary.get('summary') if place_summary else '',
           maps_api_key=current_app.config['MAPS_API_KEY'],
           block_indexing=block_indexing))
   response.headers.set('Link',
                        generate_link_headers(place_dcid, category, locale))
-
   return response
 
 
