@@ -65,6 +65,14 @@ variables.
    ./run.sh -c undata data/curated_input/undata/sheets_svs.csv data/alternatives/undata/*.csv
    ```
 
+   To generate the `bio_ft` embeddings:
+
+   ```bash
+   ./run.sh -c bio data/curated_input/bio/sheets_svs.csv data/alternatives/main/*.csv
+   ```
+
+   Note: Bio embeddings uses the alternatives from main dc for now.
+
    To generate the embeddings using vertex AI model endpoint at various size:
 
    ```bash
