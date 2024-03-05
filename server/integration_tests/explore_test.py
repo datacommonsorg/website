@@ -536,3 +536,9 @@ class ExploreTest(NLWebServerTestCase):
         'e2e_toolformer_mode',
         ['what is the infant mortality rate in massachusetts'],
         mode='toolformer')
+
+  def test_e2e_entity_pv(self):
+    self.run_detect_and_fulfill(
+        'e2e_entity_pv',
+        ['What is the strand orientation of FGFR1', 'How about APOE'],
+        dc='bio')

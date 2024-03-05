@@ -40,6 +40,10 @@ class ChartSpec:
   pass
 
 
+class EntityPvConfig:
+  pass
+
+
 # Primary charts are about variables/places directly requested by the user.
 # Secondary charts are ones about expansions of the primary variables/places.
 class ChartOriginType(IntEnum):
@@ -64,7 +68,8 @@ class QueryType(IntEnum):
   FILTER_WITH_SINGLE_VAR = 12
   # This is [median age in cities with population over 1M]
   FILTER_WITH_DUAL_VARS = 13
-  UNKNOWN = 14
+  PROPVALS = 14
+  UNKNOWN = 15
 
 
 # Type of chart.
@@ -140,6 +145,8 @@ class Utterance:
   places: List[Place]
   # Primary variables
   svs: List[str]
+  # Primary entities
+  entities: List[Place]
   # List of detected classifications
   classifications: List[NLClassifier]
   # Computed chart candidates.
@@ -182,3 +189,5 @@ class Utterance:
   client: str = ''
   # The mode for caller (currently just STRICT)
   mode: QueryMode = None
+  # Config for handling entities and property values.
+  entityPvConfig: EntityPvConfig = None

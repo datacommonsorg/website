@@ -31,6 +31,9 @@ class Place:
   name: str
   place_type: str
   country: str = None
+  # This is a temporary field to use as we test out treating other entities as
+  # a place.
+  is_place: bool = True
 
 
 @dataclass

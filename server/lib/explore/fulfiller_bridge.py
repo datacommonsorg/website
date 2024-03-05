@@ -33,6 +33,7 @@ import server.lib.nl.fulfillment.fulfiller as nl_fulfiller
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartType
 from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import EntityPvConfig
 from server.lib.nl.fulfillment.types import PopulateState
 
 
@@ -41,10 +42,19 @@ class FulfillResp:
   chart_pb: SubjectPageConfig
   related_things: Dict
   user_message: str
+  entity_pv_config: EntityPvConfig = None
 
 
 def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   state = nl_fulfiller.fulfill(uttr, explore_mode=True)
+
+  # For now, response will only return one of entity config.
+  # If entity config found, return that.
+  if uttr.entityPvConfig:
+    return FulfillResp(chart_pb=None,
+                       related_things={},
+                       user_message="",
+                       entity_pv_config=uttr.entityPvConfig)
 
   builder_result = nl_config_builder.build(state, cb_config)
   if not builder_result.page_config:

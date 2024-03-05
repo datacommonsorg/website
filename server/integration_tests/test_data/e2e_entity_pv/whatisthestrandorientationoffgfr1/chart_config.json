@@ -1,0 +1,57 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {},
+  "context": {},
+  "debug": {},
+  "entityPvConfig": {
+    "entities": [
+      {
+        "country": null,
+        "dcid": "bio/hg38_FGFR1",
+        "is_place": false,
+        "name": "FGFR1",
+        "place_type": ""
+      }
+    ],
+    "properties": [
+      {
+        "dcid": "strandOrientation",
+        "name": "strandOrientation"
+      }
+    ],
+    "propertyValues": {
+      "bio/hg38_FGFR1": {
+        "strandOrientation": [
+          {
+            "dcid": "StrandOrientationNegative",
+            "name": "Negative",
+            "provenanceId": "dc/base/Gene_RNATranscript_UCSC",
+            "types": [
+              "StrandOrientationEnum"
+            ],
+            "value": ""
+          }
+        ]
+      }
+    },
+    "title": "The strandOrientation for FGFR1 is:"
+  },
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "",
+    "name": "",
+    "place_type": ""
+  },
+  "placeFallback": {},
+  "placeSource": "UNRECOGNIZED",
+  "places": [
+    {
+      "dcid": "",
+      "name": "",
+      "place_type": ""
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessages": []
+}

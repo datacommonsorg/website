@@ -1097,6 +1097,7 @@
   },
   "context": {},
   "debug": {},
+  "entityPvConfig": null,
   "pastSourceContext": "",
   "place": {
     "dcid": "country/NGA",

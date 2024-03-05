@@ -688,6 +688,7 @@
   },
   "context": {},
   "debug": {},
+  "entityPvConfig": null,
   "pastSourceContext": "United States of America",
   "place": {
     "dcid": "country/USA",

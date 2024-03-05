@@ -55,7 +55,7 @@ def merge_with_context(uttr: nl_uttr.Utterance, default_place: Place = None):
   # TODO: Confirm type for ranking
   place_type = utils.get_contained_in_type(uttr)
 
-  if not place_type and not uttr.svs and not uttr.places:
+  if not place_type and not uttr.svs and not uttr.places and not uttr.entities:
     # Evertyhing is empty, don't look into context.
     uttr.insight_ctx = {}
     return

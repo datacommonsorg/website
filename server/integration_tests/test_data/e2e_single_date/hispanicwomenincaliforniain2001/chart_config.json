@@ -470,6 +470,7 @@
   },
   "context": {},
   "debug": {},
+  "entityPvConfig": null,
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",

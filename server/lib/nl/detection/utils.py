@@ -182,13 +182,22 @@ def create_utterance(query_detection: Detection,
                    llm_resp=query_detection.llm_resp,
                    test=test,
                    client=client,
-                   mode=mode)
+                   mode=mode,
+                   entities=[])
   uttr.counters.info('filtered_svs', filtered_svs)
 
   # Add detected places.
   if (query_detection.places_detected) and (
       query_detection.places_detected.places_found):
-    uttr.places.extend(query_detection.places_detected.places_found)
+    places = []
+    entities = []
+    for place in query_detection.places_detected.places_found:
+      if place.is_place:
+        places.append(place)
+      else:
+        entities.append(place)
+    uttr.places.extend(places)
+    uttr.entities.extend(entities)
 
   return uttr
 

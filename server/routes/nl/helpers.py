@@ -71,7 +71,7 @@ def _get_default_place(request: Dict, is_special_dc: bool, debug_logs: Dict):
   # that dcid
   elif default_place_dcid:
     places, _ = get_place_from_dcids([default_place_dcid], debug_logs)
-    if len(places) > 0:
+    if len(places) > 0 and places[0].is_place:
       return places[0]
     else:
       return None
@@ -208,6 +208,10 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     return None, err_json
   counters.timeit('query_detection', start)
 
+  allow_non_place = False
+  if dc == params.DCNames.BIO_DC.value:
+    allow_non_place = True
+    use_default_place = False
   utterance = create_utterance(query_detection,
                                prev_utterance,
                                counters,
@@ -223,15 +227,20 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
       is_special_dc = params.is_special_dc_str(dc)
       default_place = _get_default_place(request, is_special_dc, debug_logs)
     context.merge_with_context(utterance, default_place)
+    error_msg = ''
     if not utterance.places:
-      err_json = helpers.abort(
-          'Sorry, could not complete your request. No place found in the query.',
-          original_query,
-          context_history,
-          debug_logs,
-          counters,
-          test=test,
-          client=client)
+      if not allow_non_place:
+        error_msg = 'Sorry, could not complete your request. No place found in the query.'
+      elif not utterance.entities:
+        error_msg = 'Sorry, could not complete your request. No entity found in the query.'
+    if error_msg:
+      err_json = helpers.abort(error_msg,
+                               original_query,
+                               context_history,
+                               debug_logs,
+                               counters,
+                               test=test,
+                               client=client)
       return None, err_json
 
   return utterance, None
@@ -327,7 +336,7 @@ def prepare_response(utterance: nl_utterance.Utterance,
         'place_type': p.place_type
     })
   data_dict = {
-      'place': ret_places_dict[0],
+      'place': ret_places_dict[0] if len(ret_places) > 0 else {},
       'places': ret_places_dict,
       'config': page_config,
       'context': context_history,
@@ -336,7 +345,8 @@ def prepare_response(utterance: nl_utterance.Utterance,
       'placeSource': utterance.place_source.value,
       'pastSourceContext': utterance.past_source_context,
       'relatedThings': related_things,
-      'userMessages': user_message.msg_list
+      'userMessages': user_message.msg_list,
+      'entityPvConfig': utterance.entityPvConfig
   }
   if user_message.show_form:
     data_dict['showForm'] = True

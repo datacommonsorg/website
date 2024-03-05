@@ -45,6 +45,7 @@ from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaType
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import EntityPvConfig
 
 # How far back does the context go back.
 CTX_LOOKBACK_LIMIT = 15
@@ -311,6 +312,7 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
     udict['query_type'] = u.query_type
     udict['svs'] = u.svs
     udict['places'] = _place_to_dict(u.places)
+    udict['entities'] = _place_to_dict(u.entities)
     udict['classifications'] = classification_to_dict(u.classifications)
     udict['ranked_charts'] = _chart_spec_to_dict(u.rankedCharts)
     udict['session_id'] = u.session_id
@@ -341,6 +343,7 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
         query_type=QueryType(udict['query_type']),
         svs=udict['svs'],
         places=_dict_to_place(udict['places']),
+        entities=_dict_to_place(udict['entities']),
         classifications=dict_to_classification(udict['classifications']),
         rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
         answerPlaces=_dict_to_place(udict.get('answerPlaces', [])),

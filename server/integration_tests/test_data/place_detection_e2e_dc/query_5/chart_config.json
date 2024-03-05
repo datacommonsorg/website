@@ -114,6 +114,7 @@
   },
   "context": {},
   "debug": {},
+  "entityPvConfig": null,
   "pastSourceContext": "",
   "place": {
     "dcid": "wikidataId/Q1489",

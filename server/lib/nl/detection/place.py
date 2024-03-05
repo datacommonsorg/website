@@ -16,6 +16,7 @@ import logging
 import re
 from typing import Dict, List
 
+from server.lib.fetch import property_values
 from server.lib.nl.detection.place_recon import infer_place_dcids
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import PlaceDetection
@@ -274,6 +275,16 @@ def get_place_from_dcids(place_dcids: List[str], debug_logs: Dict) -> any:
                              name=name,
                              place_type=ptype,
                              country=country)
+
+  # If there were detected places that there wasn't any place info for, assume
+  # they are non-place entities and get info through property values.
+  missing_place_info = [p for p in place_dcids if not dcid2place.get(p)]
+  if missing_place_info:
+    names = property_values(missing_place_info, 'name')
+    for p in missing_place_info:
+      pNames = names.get(p, [])
+      pName = pNames[0] if len(pNames) > 0 else p
+      dcid2place[p] = Place(dcid=p, name=pName, place_type='', is_place=False)
 
   places = []
   dc_resolve_failures = []
