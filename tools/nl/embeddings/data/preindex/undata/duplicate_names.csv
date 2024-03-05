@@ -92,3 +92,29 @@ dc/topic/sdg_17.11,dc/topic/sdg_17.1.1,sdg 1711
 dc/topic/sdg_17.11,dc/topic/sdg_17.1.1,sdg1711
 dc/topic/sdg_17.12,dc/topic/sdg_17.1.2,sdg 1712
 dc/topic/sdg_17.12,dc/topic/sdg_17.1.2,sdg1712
+dc/topic/sdg_5,dc/topic/UN_THEME_5,gender equality
+dc/topic/UN_THEME_7,dc/topic/UN_THEME_10,population trends
+dc/topic/WHOBP03,dc/topic/WHOBP04,Raised Blood Pressure
+dc/topic/WHOBP05,dc/topic/WHOBP06,Mean Systolic Blood Pressure
+dc/topic/WHOGHEDALYNUM,dc/topic/WHOGHEDALYRATE,Disease Burden
+dc/topic/WHOGHEYLDNUM,dc/topic/WHOGHEYLDRATE,Years of Healthy Life Lost Due To Disability
+dc/topic/WHOGHEYLLNUM,dc/topic/WHOGHEYLLRATE,Years of Life Lost From Mortality
+dc/topic/WHOMORT100,dc/topic/WHOMORT200,"Deaths in Children Aged <5 Years, by Cause"
+dc/topic/WHOcsection,dc/topic/WHOcsection5,Births by Caesarean Section
+dc/topic/WHOpncall3,dc/topic/WHOpncall5,Postnatal Care Visit Within Two Days of Birth
+dc/topic/WHOpnchome3,dc/topic/WHOpnchome5,Postnatal Care Visit Within Two Days of Birth - Born Outside A Health Facility
+who/FINPROTECTION_CATA_TOT_10_LEVEL_SH,who/FINPROTECTION_CATA_TOT_10_LEVEL_MILLION,Population with household spending on health greater than 10% of total household budget
+who/FINPROTECTION_CATA_TOT_25_LEVEL_SH,who/FINPROTECTION_CATA_TOT_25_LEVEL_MILLION,Population with household spending on health greater than 25% of total household budget
+who/FINPROTECTION_IMP_NP_190_LEVEL_SH,who/FINPROTECTION_IMP_NP_190_LEVEL_MILLION,Total population pushed below the $1.90 a day poverty line by household health expenditures
+who/FINPROTECTION_IMP_NP_215_LEVEL_SH,who/FINPROTECTION_IMP_NP_215_LEVEL_MILLION,Total population pushed below the $2.15 a day poverty line by household health expenditures
+who/FINPROTECTION_IMP_NP_310_LEVEL_SH,who/FINPROTECTION_IMP_NP_310_LEVEL_MILLION,Total population pushed below the $3.20 a day poverty line by household health expenditures
+who/FINPROTECTION_IMP_NP_365_LEVEL_SH,who/FINPROTECTION_IMP_NP_365_LEVEL_MILLION,Total population pushed below the $3.65 a day poverty line by household health expenditures
+who/FINPROTECTION_IMP_NP_REL_LEVEL_SH,who/FINPROTECTION_IMP_NP_REL_LEVEL_MILLION,Total population pushed below a relative poverty line by household health expenditures - 60% of median daily per capita consumption or income
+who/FINPROTECTION_IMP_P190_LEVEL_SH,who/FINPROTECTION_IMP_P190_LEVEL_MILLION,Total population pushed further below the $1.90 a day poverty line by household health expenditures
+who/FINPROTECTION_IMP_P310_LEVEL_SH,who/FINPROTECTION_IMP_P310_LEVEL_MILLION,Total population pushed further below the $3.20 a day poverty line by household health expenditures
+who/FINPROTECTION_IMP_PREL_LEVEL_SH,who/FINPROTECTION_IMP_PREL_LEVEL_MILLION,Total population pushed further below a relative poverty line by household health expenditures - 60% of median daily per capita consumption or income
+who/FINPROTECTION_IMP_P_215_LEVEL_SH,who/FINPROTECTION_IMP_P_215_LEVEL_MILLION,Total population pushed further below the $2.15 a day poverty line by household health expenditures
+who/FINPROTECTION_IMP_P_365_LEVEL_SH,who/FINPROTECTION_IMP_P_365_LEVEL_MILLION,Total population pushed further below the $3.65 a day poverty line by household health expenditures
+who/LEAD_5,who/LEAD_7,Number of deaths attributable to exposure to lead
+who/LEAD_6,who/LEAD_8,Burden of disease attributable to exposure to lead measured in Disability-Adusted Life Years
+who/LEAD_9,who/LEAD_10,Burden of disease in children under 5 years attributable to exposure to lead measured in Disability-Adusted Life Years

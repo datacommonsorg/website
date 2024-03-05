@@ -122,8 +122,8 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   else:
     state.chart_vars_map = topic.compute_chart_vars(state)
 
-  if params.is_sdg(state.uttr.insight_ctx):
-    _prune_non_country_sdg_vars(state)
+  if params.is_special_dc(state.uttr.insight_ctx):
+    _prune_non_country_special_dc_vars(state)
 
   # Call populate_charts.
   if not base.populate_charts(state):
@@ -190,22 +190,22 @@ def _rank_charts(utterance: Utterance):
   utterance.rankedCharts = utterance.chartCandidates
 
 
-def _prune_non_country_sdg_vars(state: PopulateState):
+def _prune_non_country_special_dc_vars(state: PopulateState):
   places = state.uttr.places
   if not places or all([p.place_type != 'Country' for p in places]):
     # The main places are not countries, nothing to do.
     return
 
-  if not current_app.config.get('SDG_NON_COUNTRY_ONLY_VARS'):
-    state.uttr.counters.err('failed_missing_sdg_noncountry_vars', '')
+  if not current_app.config.get('SPECIAL_DC_NON_COUNTRY_ONLY_VARS'):
+    state.uttr.counters.err('failed_missing_special_dc_noncountry_vars', '')
     return
-  sdg_non_country_vars = current_app.config['SDG_NON_COUNTRY_ONLY_VARS']
+  sdc_non_country_vars = current_app.config['SPECIAL_DC_NON_COUNTRY_ONLY_VARS']
 
   # Go over the chart_vars_map and drop
   pruned_chart_vars_map = {}
   dropped_vars = set()
   for var, chart_vars_list in state.chart_vars_map.items():
-    if var in sdg_non_country_vars:
+    if var in sdc_non_country_vars:
       dropped_vars.add(var)
       continue
     pruned_chart_vars_list = []
@@ -213,7 +213,7 @@ def _prune_non_country_sdg_vars(state: PopulateState):
       pruned_cv = copy.deepcopy(cv)
       pruned_cv.svs = []
       for v in cv.svs:
-        if v in sdg_non_country_vars:
+        if v in sdc_non_country_vars:
           dropped_vars.add(v)
           continue
         pruned_cv.svs.append(v)

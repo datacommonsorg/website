@@ -374,12 +374,14 @@ def get_sdg_percent_vars():
     return sdg_percent_vars
 
 
-def get_sdg_non_country_only_vars():
-  filepath = os.path.join(get_repo_root(), "config", "nl_page",
-                          "sdg_non_country_vars.json")
-  with open(filepath, 'r') as fp:
-    data = json.load(fp)
-  return set(data.get('variables', []))
+def get_special_dc_non_countery_only_vars():
+  vars = set()
+  for fname in ['sdg_non_country_vars.json', 'undata_non_country_vars.json']:
+    filepath = os.path.join(get_repo_root(), "config", "nl_page", fname)
+    with open(filepath, 'r') as fp:
+      data = json.load(fp)
+    vars.update(data.get('variables', []))
+  return vars
 
 
 # Returns common event_type_spec for all disaster event related pages.

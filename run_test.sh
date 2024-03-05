@@ -57,13 +57,13 @@ function run_lint_fix {
   echo -e "#### Fixing Python code"
   python3 -m venv .env
   source .env/bin/activate
-  pip3 install yapf==0.33.0 -q
+  pip3 install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
   then
     pip3 install isort -q
   fi
-  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/*
-  isort server/ nl_server/ shared/ tools/  --skip-glob *pb2.py  --profile google
+  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/**
+  isort server/ nl_server/ shared/ tools/  --skip-glob *pb2.py  --skip-glob **/.env/** --profile google
   deactivate
 }
 
@@ -105,18 +105,18 @@ function run_py_test {
   python3 -m pytest ./ -s
   cd ../../..
 
-  pip3 install yapf==0.33.0 -q
+  pip3 install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
   then
     pip3 install isort -q
   fi
   echo -e "#### Checking Python style"
-  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=.env/*; then
+  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.env/**; then
     echo "Fix Python lint errors by running ./run_test.sh -f"
     exit 1
   fi
 
-  if ! isort server/ nl_server/ tools/ -c --skip-glob *pb2.py --profile google; then
+  if ! isort server/ nl_server/ tools/ -c --skip-glob *pb2.py --skip-glob **/.env/** --profile google; then
     echo "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi

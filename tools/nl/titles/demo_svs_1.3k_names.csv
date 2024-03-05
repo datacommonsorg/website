@@ -2524,3 +2524,10 @@ Mean Monthly Wages,Mean_WagesMonthly_Worker,,Mean Monthly Wages,,Mean Monthly Wa
 ,dc/sythffk3c3ne7,,,,Revenue of Establishments With Payroll: Warehousing And Storage
 ,dc/sz9ckd47e35b4,,,,Shipments or Receipts of Establishments With Payroll: Electrical Equipment And Appliance Mfg.
 ,dc/zkmdz1rhlt7q8,,,,Shipments or Receipts of Establishments With Payroll: Nonmetallic Mineral Product Manufacturing
+Number of conflict-related deaths,sdg/VC_DTH_TOCVN,,,Number of conflict-related deaths (civilians),Number of conflict-related deaths (civilians)
+Number of conflict-related deaths [Age = 18 years old and over],sdg/VC_DTH_TOCVN.AGE--Y_GE18,,,Number of conflict-related deaths (civilians) [Age = 18 years old and over],Number of conflict-related deaths (civilians) [Age = 18 years old and over]
+Number of conflict-related deaths [Age = under 18 years old],sdg/VC_DTH_TOCVN.AGE--Y0T17,,,Number of conflict-related deaths (civilians) [Age = under 18 years old],Number of conflict-related deaths (civilians) [Age = under 18 years old]
+Number of conflict-related deaths [Sex = Female],sdg/VC_DTH_TOCVN.SEX--F,,,Number of conflict-related deaths (civilians) [Sex = Female],Number of conflict-related deaths (civilians) [Sex = Female]
+Number of conflict-related deaths [Sex = Male],sdg/VC_DTH_TOCVN.SEX--M,,,Number of conflict-related deaths (civilians) [Sex = Male],Number of conflict-related deaths (civilians) [Sex = Male]
+Number of conflict-related deaths,sdg/VC_DTH_TONCVN,,,Number of conflict-related deaths (non-civilians),Number of conflict-related deaths (non-civilians)
+Number of conflict-related deaths,sdg/VC_DTH_TOUNN,,,Number of conflict-related deaths (unknown),Number of conflict-related deaths (unknown)

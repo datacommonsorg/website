@@ -87,10 +87,8 @@ class TestEndToEnd(unittest.TestCase):
     # the expected column names not found.
     be.get_sheets_data = mock.Mock(return_value=pd.DataFrame())
 
-    # Given that the get_sheets_data() function is mocked, the Context
-    # object does not need a valid `gs` and `bucket` field.
-    ctx = utils.Context(gs=None,
-                        model=SentenceTransformer("all-MiniLM-L6-v2"),
+    ctx = utils.Context(model=SentenceTransformer("all-MiniLM-L6-v2"),
+                        model_endpoint=None,
                         bucket="",
                         tmp="/tmp")
 
@@ -116,8 +114,8 @@ class TestEndToEnd(unittest.TestCase):
 
     # Given that the get_sheets_data() function is mocked, the Context
     # object does not need a valid `gs` and `bucket` field.
-    ctx = utils.Context(gs=None,
-                        model=SentenceTransformer("all-MiniLM-L6-v2"),
+    ctx = utils.Context(model=SentenceTransformer("all-MiniLM-L6-v2"),
+                        model_endpoint=None,
                         bucket="",
                         tmp="/tmp")
 
