@@ -30,12 +30,12 @@ export interface PlaceFallback {
 export interface QueryResult {
   place: NamedTypedPlace;
   config: SubjectPageConfig;
-  entityPvConfig: EntityPvConfig;
   sessionId?: string;
   svSource: string;
   placeSource: string;
   placeFallback?: PlaceFallback;
   pastSourceContext?: string;
+  entityPvConfig?: EntityPvConfig;
 }
 
 export interface MultiSVCandidatePart {
