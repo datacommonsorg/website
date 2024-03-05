@@ -114,16 +114,16 @@ article.category {
   }
 
   .form-check-input {
+    height: 18px;
     margin: 0;
     position: relative;
-    height: 18px;
     width: 18px;
   }
 
   span {
-    font-size: 14px;
-    display: flex;
     align-items: center;
+    display: flex;
+    font-size: 14px;
   }
   .material-icons {
     color: var(--gm-3-ref-neutral-neutral-40);
@@ -286,9 +286,6 @@ article.category {
 }
 
 .dc-tooltip {
-  .show {
-    opacity: 0.99;
-  }
   .bs-tooltip-auto[x-placement^="bottom"] .arrow::before {
     border-bottom-color: var(--gm-3-ref-neutral-neutral-40) !important;
   }
@@ -300,6 +297,9 @@ article.category {
   }
   .bs-tooltip-auto[x-placement^="top"] .arrow::before {
     border-top-color: var(--gm-3-ref-neutral-neutral-40) !important;
+  }
+  .show {
+    opacity: 0.99;
   }
   .tooltip-inner {
     background-color: var(--gm-3-ref-neutral-neutral-40);

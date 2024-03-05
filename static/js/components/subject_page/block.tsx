@@ -114,6 +114,36 @@ const rankingTileLatestDataAvailableFooter = intl.formatMessage({
   id: "ranking-tile-latest-data-available-footer",
 });
 
+/**
+ * Helper for determining if we should show the "Snap to date with highest
+ * coverage" checkbox.
+ *
+ * Only show the checkbox if:
+ * (1) No date is set in the chart config columns (meaning date is "LATEST")
+ * (2) Chart types are map and/or ranking
+ * @returns boolean
+ */
+function shouldShowSnapToLatestData(
+  columns: ColumnConfig[],
+  statVarProvider: StatVarProvider
+): boolean {
+  const statVarKeys = _.flatten(
+    _.flatten(columns.map((c) => c.tiles.map((tile) => tile.statVarKey)))
+  );
+  const tileTypes = _.flatten(
+    _.flatten(columns.map((c) => c.tiles.map((tile) => tile.type)))
+  );
+  const statVarSpecs = statVarProvider.getSpecList(statVarKeys);
+
+  const showSnapToLatestData =
+    !_.find<StatVarSpec>(statVarSpecs, (statVarSpec) => !!statVarSpec.date) &&
+    !_.find(
+      tileTypes,
+      (tileType) => tileType !== "MAP" && tileType !== "RANKING"
+    );
+  return showSnapToLatestData;
+}
+
 export function Block(props: BlockPropType): JSX.Element {
   const minIdxToHide = getMinTileIdxToHide();
   const columnWidth = getColumnWidth(props.columns);
@@ -149,22 +179,10 @@ export function Block(props: BlockPropType): JSX.Element {
       });
   }, [props]);
 
-  const statVarKeys = _.flatten(
-    _.flatten(props.columns.map((c) => c.tiles.map((tile) => tile.statVarKey)))
+  const showSnapToLatestData = shouldShowSnapToLatestData(
+    props.columns,
+    props.statVarProvider
   );
-  const tileTypes = _.flatten(
-    _.flatten(props.columns.map((c) => c.tiles.map((tile) => tile.type)))
-  );
-  const statVarSpecs = props.statVarProvider.getSpecList(statVarKeys);
-  // Only show the "Snap to date with highest coverage" checkbox if
-  // (1) No date is set (e.g., date is "LATEST")
-  // (2) Chart types are map and/or ranking
-  const showSnapToLatestData =
-    !_.find<StatVarSpec>(statVarSpecs, (statVarSpec) => !!statVarSpec.date) &&
-    !_.find(
-      tileTypes,
-      (tileType) => tileType !== "MAP" && tileType !== "RANKING"
-    );
   return (
     <>
       <div className="block-controls">
@@ -318,10 +336,6 @@ function renderTiles(
       : props.place;
     const comparisonPlaces = getComparisonPlaces(tile, place);
     const className = classNameList.join(" ");
-    const statVarSpecs = props.statVarProvider.getSpecList(tile.statVarKey, {
-      blockDenom,
-      blockDate,
-    });
     switch (tile.type) {
       case "HIGHLIGHT":
         return (
@@ -402,7 +416,10 @@ function renderTiles(
             title={tile.title}
             parentPlace={place.dcid}
             enclosedPlaceType={enclosedPlaceType}
-            variables={statVarSpecs}
+            variables={props.statVarProvider.getSpecList(tile.statVarKey, {
+              blockDenom,
+              blockDate,
+            })}
             rankingMetadata={tile.rankingTileSpec}
             className={className}
             showExploreMore={props.showExploreMore}
