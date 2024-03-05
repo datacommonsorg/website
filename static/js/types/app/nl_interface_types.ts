@@ -18,7 +18,8 @@
  * Types for the NL interface.
  */
 
-import { NamedTypedPlace } from "../../shared/types";
+import { Node, PropertyValues } from "../../shared/api_response_types";
+import { NamedNode, NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 
 export interface PlaceFallback {
@@ -29,6 +30,7 @@ export interface PlaceFallback {
 export interface QueryResult {
   place: NamedTypedPlace;
   config: SubjectPageConfig;
+  entityPvConfig: EntityPvConfig;
   sessionId?: string;
   svSource: string;
   placeSource: string;
@@ -82,4 +84,11 @@ export interface DebugInfo {
 export interface UserMessageInfo {
   msgList: string[];
   showForm: boolean;
+}
+
+export interface EntityPvConfig {
+  entities: NamedNode[];
+  properties: NamedNode[];
+  propertyValues: Record<string, Record<string, Node[]>>;
+  title: string;
 }
