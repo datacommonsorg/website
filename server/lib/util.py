@@ -541,16 +541,24 @@ def fetch_highest_coverage(parent_entity: str,
   for observation_entity_counts_by_date in series_dates_response[
       'datesByVariable']:
     # Each observation_entity_counts_by_date contains the observation counts by date
+    variable = observation_entity_counts_by_date['variable']
     best_coverage_date = _get_highest_coverage_date(
         observation_entity_counts_by_date=observation_entity_counts_by_date,
         facet_ids=facet_ids_set,
         max_dates_to_check=MAX_DATES_TO_CHECK,
         max_years_to_check=MAX_YEARS_TO_CHECK)
     if not best_coverage_date:
+      # No best coverage date means we couldn't find any variable observations
+      # Add a blank point response in this case
+      point_responses.append({
+        'data': {
+          variable : {}
+        }
+      })
       continue
     point_responses.append(
         fetch.point_within_core(parent_entity, child_type,
-                                [observation_entity_counts_by_date['variable']],
+                                [variable],
                                 best_coverage_date, all_facets, facet_ids))
   combined_point_response = {"facets": {}, "data": {}}
   for point_response in point_responses:
@@ -567,12 +575,12 @@ def _get_highest_coverage_date(observation_entity_counts_by_date,
   Choose the date with the most data coverage from either:
   (1) last N observation dates
   (2) M years from the most recent observation date
-  whichever set is greater
+  whichever set has more dates
 
   Args:
     observation_entity_counts_by_date: Part of "dc.get_series_dates" response
       containing variable observation counts by date and entity
-    facet_ids: (optional) Only consider observation counts from this facet
+    facet_ids: (optional) Only consider observation counts from these facets
     max_dates_to_check: Only consider entity counts going back this number of
       observation groups
     max_years_to_check: Only consider entity counts going back this number of
