@@ -709,6 +709,780 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "who/AIR_43.GHECAUSES--GHE039"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_43.GHECAUSES--GHE039__SEX--F"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_43.GHECAUSES--GHE039__SEX--M"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_10.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections] in the World",
+                    "statVarKey": [
+                      "who/AIR_11.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_12.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Household Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World",
+                    "statVarKey": [
+                      "who/AIR_15.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_16.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World",
+                    "statVarKey": [
+                      "who/AIR_17.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World",
+                    "statVarKey": [
+                      "who/AIR_39.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_4.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections] in the World",
+                    "statVarKey": [
+                      "who/AIR_41.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections] in the World",
+                    "statVarKey": [
+                      "who/AIR_42.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections] in the World",
+                    "statVarKey": [
+                      "who/AIR_45.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_46.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections] in the World",
+                    "statVarKey": [
+                      "who/AIR_5.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections] in the World",
+                    "statVarKey": [
+                      "who/AIR_51.ENVCAUSE--ENVCAUSE039"
+                    ],
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_10.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Female] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_10.ENVCAUSE--ENVCAUSE039__SEX--M"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Male] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_11.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_11.ENVCAUSE--ENVCAUSE039__SEX--M"
+                    ],
+                    "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_12.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Household Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Female] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_12.ENVCAUSE--ENVCAUSE039__SEX--M"
+                    ],
+                    "title": "Household Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Male] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_15.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_15.ENVCAUSE--ENVCAUSE039__SEX--M"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_16.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections, Female] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_16.ENVCAUSE--ENVCAUSE039__SEX--M"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections, Male] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_17.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_17.ENVCAUSE--ENVCAUSE039__SEX--M"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_39.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_39.ENVCAUSE--ENVCAUSE039__SEX--M"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_4.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Female] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_4.ENVCAUSE--ENVCAUSE039__SEX--M"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Male] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_41.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_41.ENVCAUSE--ENVCAUSE039__SEX--M"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_42.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_42.ENVCAUSE--ENVCAUSE039__SEX--M"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_45.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_45.ENVCAUSE--ENVCAUSE039__SEX--M"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_46.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections, Female] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections, Female] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/AIR_46.ENVCAUSE--ENVCAUSE039__SEX--M"
+                    ],
+                    "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections, Male] in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections, Male] in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_5.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_5.ENVCAUSE--ENVCAUSE039__SEX--M"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_51.ENVCAUSE--ENVCAUSE039__SEX--F"
+                    ],
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "who/TB_new_sn"
                     ],
                     "title": "New Tuberculosis Cases: Pulmonary Smear-Negative in the World (${date})",
@@ -815,6 +1589,30 @@
           }
         ],
         "statVarSpec": {
+          "who/AIR_10.ENVCAUSE--ENVCAUSE039": {
+            "name": "Ambient air pollution attributable disability-adjusted life years per 100'000 children under 5 years [Lower respiratory infections]",
+            "statVar": "who/AIR_10.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_10.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Ambient air pollution attributable disability-adjusted life years per 100'000 children under 5 years [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_10.ENVCAUSE--ENVCAUSE039__SEX--F"
+          },
+          "who/AIR_10.ENVCAUSE--ENVCAUSE039__SEX--M": {
+            "name": "Ambient air pollution attributable disability-adjusted life years per 100'000 children under 5 years [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_10.ENVCAUSE--ENVCAUSE039__SEX--M"
+          },
+          "who/AIR_11.ENVCAUSE--ENVCAUSE039": {
+            "name": "Household air pollution attributable deaths [Lower respiratory infections]",
+            "statVar": "who/AIR_11.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_11.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Household air pollution attributable deaths [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_11.ENVCAUSE--ENVCAUSE039__SEX--F"
+          },
+          "who/AIR_11.ENVCAUSE--ENVCAUSE039__SEX--M": {
+            "name": "Household air pollution attributable deaths [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_11.ENVCAUSE--ENVCAUSE039__SEX--M"
+          },
           "who/AIR_11.ENVCAUSE--ENVCAUSE118": {
             "name": "Household air pollution attributable deaths [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_11.ENVCAUSE--ENVCAUSE118"
@@ -826,6 +1624,30 @@
           "who/AIR_11.ENVCAUSE--ENVCAUSE118__SEX--M": {
             "name": "Household air pollution attributable deaths [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_11.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_12.ENVCAUSE--ENVCAUSE039": {
+            "name": "Household air pollution attributable deaths in children under 5 years [Lower respiratory infections]",
+            "statVar": "who/AIR_12.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_12.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Household air pollution attributable deaths in children under 5 years [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_12.ENVCAUSE--ENVCAUSE039__SEX--F"
+          },
+          "who/AIR_12.ENVCAUSE--ENVCAUSE039__SEX--M": {
+            "name": "Household air pollution attributable deaths in children under 5 years [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_12.ENVCAUSE--ENVCAUSE039__SEX--M"
+          },
+          "who/AIR_15.ENVCAUSE--ENVCAUSE039": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections]",
+            "statVar": "who/AIR_15.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_15.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_15.ENVCAUSE--ENVCAUSE039__SEX--F"
+          },
+          "who/AIR_15.ENVCAUSE--ENVCAUSE039__SEX--M": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_15.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_15.ENVCAUSE--ENVCAUSE118": {
             "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
@@ -839,6 +1661,30 @@
             "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_15.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
+          "who/AIR_16.ENVCAUSE--ENVCAUSE039": {
+            "name": "Household air pollution attributable number of disability-adjusted life years in children under 5 years [Lower respiratory infections]",
+            "statVar": "who/AIR_16.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_16.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Household air pollution attributable number of disability-adjusted life years in children under 5 years [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_16.ENVCAUSE--ENVCAUSE039__SEX--F"
+          },
+          "who/AIR_16.ENVCAUSE--ENVCAUSE039__SEX--M": {
+            "name": "Household air pollution attributable number of disability-adjusted life years in children under 5 years [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_16.ENVCAUSE--ENVCAUSE039__SEX--M"
+          },
+          "who/AIR_17.ENVCAUSE--ENVCAUSE039": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections]",
+            "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_17.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE039__SEX--F"
+          },
+          "who/AIR_17.ENVCAUSE--ENVCAUSE039__SEX--M": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE039__SEX--M"
+          },
           "who/AIR_17.ENVCAUSE--ENVCAUSE118": {
             "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE118"
@@ -850,6 +1696,18 @@
           "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--M": {
             "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_39.ENVCAUSE--ENVCAUSE039": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections]",
+            "statVar": "who/AIR_39.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_39.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_39.ENVCAUSE--ENVCAUSE039__SEX--F"
+          },
+          "who/AIR_39.ENVCAUSE--ENVCAUSE039__SEX--M": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_39.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_39.ENVCAUSE--ENVCAUSE118": {
             "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
@@ -863,6 +1721,30 @@
             "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_39.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
+          "who/AIR_4.ENVCAUSE--ENVCAUSE039": {
+            "name": "Ambient air pollution attributable deaths in children under 5 years [Lower respiratory infections]",
+            "statVar": "who/AIR_4.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_4.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Ambient air pollution attributable deaths in children under 5 years [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_4.ENVCAUSE--ENVCAUSE039__SEX--F"
+          },
+          "who/AIR_4.ENVCAUSE--ENVCAUSE039__SEX--M": {
+            "name": "Ambient air pollution attributable deaths in children under 5 years [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_4.ENVCAUSE--ENVCAUSE039__SEX--M"
+          },
+          "who/AIR_41.ENVCAUSE--ENVCAUSE039": {
+            "name": "Ambient air pollution attributable deaths [Lower respiratory infections]",
+            "statVar": "who/AIR_41.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_41.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Ambient air pollution attributable deaths [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_41.ENVCAUSE--ENVCAUSE039__SEX--F"
+          },
+          "who/AIR_41.ENVCAUSE--ENVCAUSE039__SEX--M": {
+            "name": "Ambient air pollution attributable deaths [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_41.ENVCAUSE--ENVCAUSE039__SEX--M"
+          },
           "who/AIR_41.ENVCAUSE--ENVCAUSE118": {
             "name": "Ambient air pollution attributable deaths [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_41.ENVCAUSE--ENVCAUSE118"
@@ -874,6 +1756,18 @@
           "who/AIR_41.ENVCAUSE--ENVCAUSE118__SEX--M": {
             "name": "Ambient air pollution attributable deaths [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_41.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_42.ENVCAUSE--ENVCAUSE039": {
+            "name": "Ambient air pollution attributable death rate [Lower respiratory infections]",
+            "statVar": "who/AIR_42.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_42.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Ambient air pollution attributable death rate [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_42.ENVCAUSE--ENVCAUSE039__SEX--F"
+          },
+          "who/AIR_42.ENVCAUSE--ENVCAUSE039__SEX--M": {
+            "name": "Ambient air pollution attributable death rate [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_42.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_42.ENVCAUSE--ENVCAUSE118": {
             "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease]",
@@ -887,6 +1781,18 @@
             "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_42.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
+          "who/AIR_43.GHECAUSES--GHE039": {
+            "name": "Ambient air pollution attributable number of disability-adjusted life years [Lower respiratory infections]",
+            "statVar": "who/AIR_43.GHECAUSES--GHE039"
+          },
+          "who/AIR_43.GHECAUSES--GHE039__SEX--F": {
+            "name": "Ambient air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_43.GHECAUSES--GHE039__SEX--F"
+          },
+          "who/AIR_43.GHECAUSES--GHE039__SEX--M": {
+            "name": "Ambient air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_43.GHECAUSES--GHE039__SEX--M"
+          },
           "who/AIR_43.GHECAUSES--GHE118": {
             "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_43.GHECAUSES--GHE118"
@@ -898,6 +1804,18 @@
           "who/AIR_43.GHECAUSES--GHE118__SEX--M": {
             "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_43.GHECAUSES--GHE118__SEX--M"
+          },
+          "who/AIR_45.ENVCAUSE--ENVCAUSE039": {
+            "name": "Ambient air pollution attributable number of years life lost [Lower respiratory infections]",
+            "statVar": "who/AIR_45.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_45.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Ambient air pollution attributable number of years life lost [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_45.ENVCAUSE--ENVCAUSE039__SEX--F"
+          },
+          "who/AIR_45.ENVCAUSE--ENVCAUSE039__SEX--M": {
+            "name": "Ambient air pollution attributable number of years life lost [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_45.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_45.ENVCAUSE--ENVCAUSE118": {
             "name": "Ambient air pollution attributable number of years life lost [Chronic obstructive pulmonary disease]",
@@ -911,6 +1829,30 @@
             "name": "Ambient air pollution attributable number of years life lost [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_45.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
+          "who/AIR_46.ENVCAUSE--ENVCAUSE039": {
+            "name": "Years life lost attributable to ambient air pollution [Lower respiratory infections]",
+            "statVar": "who/AIR_46.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_46.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Years life lost attributable to ambient air pollution [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_46.ENVCAUSE--ENVCAUSE039__SEX--F"
+          },
+          "who/AIR_46.ENVCAUSE--ENVCAUSE039__SEX--M": {
+            "name": "Years life lost attributable to ambient air pollution [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_46.ENVCAUSE--ENVCAUSE039__SEX--M"
+          },
+          "who/AIR_5.ENVCAUSE--ENVCAUSE039": {
+            "name": "Ambient air pollution attributable death rate [Lower respiratory infections]",
+            "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_5.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Ambient air pollution attributable death rate [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE039__SEX--F"
+          },
+          "who/AIR_5.ENVCAUSE--ENVCAUSE039__SEX--M": {
+            "name": "Ambient air pollution attributable death rate [Lower respiratory infections, Male]",
+            "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE039__SEX--M"
+          },
           "who/AIR_5.ENVCAUSE--ENVCAUSE118": {
             "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE118"
@@ -922,6 +1864,14 @@
           "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--M": {
             "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_51.ENVCAUSE--ENVCAUSE039": {
+            "name": "Household air pollution: Household air pollution attributable death rate [Lower respiratory infections]",
+            "statVar": "who/AIR_51.ENVCAUSE--ENVCAUSE039"
+          },
+          "who/AIR_51.ENVCAUSE--ENVCAUSE039__SEX--F": {
+            "name": "Household air pollution: Household air pollution attributable death rate [Lower respiratory infections, Female]",
+            "statVar": "who/AIR_51.ENVCAUSE--ENVCAUSE039__SEX--F"
           },
           "who/AIR_51.ENVCAUSE--ENVCAUSE118": {
             "name": "Household air pollution: Household air pollution attributable death rate [Chronic obstructive pulmonary disease]",
