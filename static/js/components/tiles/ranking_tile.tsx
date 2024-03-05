@@ -308,9 +308,9 @@ function pointApiToPerSvRankingData(
     for (const place in statData.data[spec.statVar]) {
       const statPoint = statData.data[spec.statVar][place];
       const rankingPoint = {
+        date: statPoint.date,
         placeDcid: place,
         value: statPoint.value,
-        date: statPoint.date,
       };
       if (_.isUndefined(rankingPoint.value)) {
         console.log(`Skipping ${place}, missing ${spec.statVar}`);

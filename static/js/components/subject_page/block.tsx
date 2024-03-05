@@ -344,8 +344,8 @@ function renderTiles(
             description={tile.description}
             place={place}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
-              blockDenom,
               blockDate,
+              blockDenom,
             })}
           />
         );
@@ -359,8 +359,8 @@ function renderTiles(
             place={place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
-              blockDenom,
               blockDate,
+              blockDenom,
             })}
             svgChartHeight={props.svgChartHeight}
             className={className}
@@ -388,8 +388,8 @@ function renderTiles(
             place={place}
             comparisonPlaces={comparisonPlaces}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDenom,
               blockDate,
+              blockDenom,
             })}
             svgChartHeight={props.svgChartHeight}
             className={className}
@@ -417,8 +417,8 @@ function renderTiles(
             parentPlace={place.dcid}
             enclosedPlaceType={enclosedPlaceType}
             variables={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDenom,
               blockDate,
+              blockDenom,
             })}
             rankingMetadata={tile.rankingTileSpec}
             className={className}
@@ -457,8 +457,8 @@ function renderTiles(
             title={tile.title}
             useLollipop={tile.barTileSpec?.useLollipop}
             variables={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDenom,
               blockDate,
+              blockDenom,
             })}
             xLabelLinkRoot={tile.barTileSpec?.xLabelLinkRoot}
             yAxisMargin={tile.barTileSpec?.yAxisMargin}
@@ -479,8 +479,8 @@ function renderTiles(
             place={place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDenom,
               blockDate,
+              blockDenom,
             })}
             svgChartHeight={
               isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
@@ -501,8 +501,8 @@ function renderTiles(
             place={place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDenom,
               blockDate,
+              blockDenom,
             })}
             svgChartHeight={props.svgChartHeight}
             className={className}
@@ -523,8 +523,8 @@ function renderTiles(
               min: tile.gaugeTileSpec.range.min || 0,
             }}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
-              blockDenom,
               blockDate,
+              blockDenom,
             })}
             svgChartHeight={props.svgChartHeight}
             title={tile.title}
@@ -541,8 +541,8 @@ function renderTiles(
             pie={tile.donutTileSpec?.pie}
             place={place}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDenom,
               blockDate,
+              blockDenom,
             })}
             svgChartHeight={props.svgChartHeight}
             title={tile.title}
@@ -602,8 +602,8 @@ function renderWebComponents(
             place={place.dcid}
             variable={
               props.statVarProvider.getSpec(tile.statVarKey[0], {
-                blockDenom,
                 blockDate,
+                blockDenom,
               }).statVar
             }
           />
@@ -619,8 +619,8 @@ function renderWebComponents(
             childPlaceType={enclosedPlaceType}
             variable={
               props.statVarProvider.getSpec(tile.statVarKey[0], {
-                blockDenom,
                 blockDate,
+                blockDenom,
               }).statVar
             }
             className={className}
@@ -654,7 +654,7 @@ function renderWebComponents(
               ? { places: comparisonPlaces.join(" ") }
               : {})}
             variables={props.statVarProvider
-              .getSpecList(tile.statVarKey, { blockDenom, blockDate })
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
               .map((sv) => sv.statVar)
               .join(" ")}
             className={className}
@@ -680,7 +680,7 @@ function renderWebComponents(
             parentPlace={place.dcid}
             childPlaceType={enclosedPlaceType}
             variables={props.statVarProvider
-              .getSpecList(tile.statVarKey, { blockDenom, blockDate })
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
               .map((sv) => sv.statVar)
               .join(" ")}
             {...(tile.rankingTileSpec?.highestTitle
@@ -735,7 +735,7 @@ function renderWebComponents(
             header={tile.title}
             {...(tile.barTileSpec?.useLollipop ? { useLollipop: true } : {})}
             variables={props.statVarProvider
-              .getSpecList(tile.statVarKey, { blockDenom, blockDate })
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
               .map((sv) => sv.statVar)
               .join(" ")}
             xLabelLinkRoot={tile.barTileSpec?.xLabelLinkRoot}
@@ -759,11 +759,11 @@ function renderWebComponents(
             parentPlace={place.dcid}
             childPlaceType={enclosedPlaceType}
             variables={props.statVarProvider
-              .getSpecList(tile.statVarKey, { blockDenom, blockDate })
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
               .map((sv) => sv.statVar)
               .join(" ")}
             usePerCapita={props.statVarProvider
-              .getSpecList(tile.statVarKey, { blockDenom, blockDate })
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
               .map((sv) => (sv.denom ? sv.statVar : ""))
               .join(" ")}
             className={className}
@@ -798,8 +798,8 @@ function renderWebComponents(
             place={place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDenom,
               blockDate,
+              blockDenom,
             })}
             svgChartHeight={props.svgChartHeight}
             className={className}
@@ -820,8 +820,8 @@ function renderWebComponents(
             max={tile.gaugeTileSpec?.range.max}
             variable={
               props.statVarProvider.getSpec(tile.statVarKey[0], {
-                blockDenom,
                 blockDate,
+                blockDenom,
               }).statVar
             }
             header={tile.title}
@@ -839,7 +839,7 @@ function renderWebComponents(
             donut={!tile.donutTileSpec?.pie}
             place={place.dcid}
             variables={props.statVarProvider
-              .getSpecList(tile.statVarKey, { blockDenom, blockDate })
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
               .map((sv) => sv.statVar)
               .join(" ")}
             header={tile.title}

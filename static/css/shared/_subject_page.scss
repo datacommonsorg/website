@@ -106,11 +106,12 @@ article.category {
   align-items: center;
   display: flex;
   padding: 14px 0;
+
   label {
     align-items: center;
     display: flex;
     gap: 8px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
   .form-check-input {
@@ -125,6 +126,7 @@ article.category {
     display: flex;
     font-size: 14px;
   }
+
   .material-icons {
     color: var(--gm-3-ref-neutral-neutral-40);
     cursor: default;
@@ -289,18 +291,23 @@ article.category {
   .bs-tooltip-auto[x-placement^="bottom"] .arrow::before {
     border-bottom-color: var(--gm-3-ref-neutral-neutral-40) !important;
   }
+
   .bs-tooltip-auto[x-placement^="left"] .arrow::before {
     border-left-color: var(--gm-3-ref-neutral-neutral-40) !important;
   }
+
   .bs-tooltip-auto[x-placement^="right"] .arrow::before {
     border-right-color: var(--gm-3-ref-neutral-neutral-40) !important;
   }
+
   .bs-tooltip-auto[x-placement^="top"] .arrow::before {
     border-top-color: var(--gm-3-ref-neutral-neutral-40) !important;
   }
+
   .show {
     opacity: 0.99;
   }
+
   .tooltip-inner {
     background-color: var(--gm-3-ref-neutral-neutral-40);
     color: white;
