@@ -41,8 +41,8 @@ class TestEndToEnd(unittest.TestCase):
   def test_build_embeddings_dataframe(self):
     self.maxDiff = None
 
-    ctx = utils.Context(gs=None,
-                        model=SentenceTransformer(MODEL_NAME),
+    ctx = utils.Context(model=SentenceTransformer(MODEL_NAME),
+                        model_endpoint=None,
                         bucket=None,
                         tmp="/tmp")
 
@@ -66,8 +66,8 @@ class TestEndToEnd(unittest.TestCase):
                      expected_dcids_sentences_csv_path)
 
   def test_build_embeddings_dataframe_and_validate(self):
-    ctx = utils.Context(gs=None,
-                        model=SentenceTransformer(MODEL_NAME),
+    ctx = utils.Context(model=SentenceTransformer(MODEL_NAME),
+                        model_endpoint=None,
                         bucket=None,
                         tmp="/tmp")
 

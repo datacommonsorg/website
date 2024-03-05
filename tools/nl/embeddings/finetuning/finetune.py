@@ -101,14 +101,8 @@ def _upload_to_gcs(ctx: utils.Context,
 
 def _make_gcs_model_folder(stage: str, base_model_name: str) -> str:
   now = datetime.now()
-
-  month_str = utils.two_digits(now.month)
-  day_str = utils.two_digits(now.day)
-  hour_str = utils.two_digits(now.hour)
-  minute_str = utils.two_digits(now.minute)
-  second_str = utils.two_digits(now.second)
-
-  prefix = f"ft_{stage}_v{now.year}{month_str}{day_str}{hour_str}{minute_str}{second_str}"
+  formatted_date_string = now.strftime("%Y%m%d%H%M%S")
+  prefix = f"ft_{stage}_v{formatted_date_string}"
   if base_model_name:
     return f"{prefix}.{base_model_name}"
   else:
@@ -326,8 +320,8 @@ def main(_):
     model_intermediate = finetune_model(
         model_base, _generate_training_examples_from_alternatives(df_svs))
 
-    ctx = utils.Context(gs=gs,
-                        model=model_intermediate,
+    ctx = utils.Context(model=model_intermediate,
+                        model_endpoint=None,
                         bucket=bucket,
                         tmp='/tmp')
 
@@ -354,7 +348,10 @@ def main(_):
     print(
         f"Loading the pre-finetuned Intermediate model: {model_intermediate_name}"
     )
-    ctx = utils.Context(gs=gs, model=None, bucket=bucket, tmp='/tmp')
+    ctx = utils.Context(model=None,
+                        model_endpoint=None,
+                        bucket=bucket,
+                        tmp='/tmp')
     model_intermediate = utils.get_ft_model_from_gcs(ctx,
                                                      model_intermediate_name)
 
@@ -373,8 +370,8 @@ def main(_):
       _generate_training_examples_from_sentence_pairs(df_sentence_pairs))
 
   # Step 4. Upload the final finetuned model to the NL model server's GCS bucket.
-  ctx = utils.Context(gs=gs,
-                      model=model_final_finetuned,
+  ctx = utils.Context(model=model_final_finetuned,
+                      model_endpoint=None,
                       bucket=bucket,
                       tmp='/tmp')
   model_final_folder_name = _save_finetuned_model(ctx, "final",
