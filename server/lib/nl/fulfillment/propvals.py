@@ -12,17 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.lib.fetch import property_values
 from server.lib.fetch import triples
-from server.lib.nl.common.utterance import ChartOriginType
 import server.lib.nl.common.utterance as nl_uttr
-from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import EntityPvConfig
-from server.lib.nl.fulfillment.types import Place
-from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.types import Property
 from server.lib.nl.fulfillment.types import PropertyValue
-from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 #
 # Handler for Entity propval queries.

@@ -45,7 +45,6 @@ from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaType
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
-from server.lib.nl.fulfillment.types import EntityPvConfig
 
 # How far back does the context go back.
 CTX_LOOKBACK_LIMIT = 15
