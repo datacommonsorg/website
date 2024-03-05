@@ -511,7 +511,7 @@ def fetch_highest_coverage(parent_entity: str,
                            child_type: str,
                            variables: List[str],
                            all_facets: bool,
-                           facet_ids: List[str] = []):
+                           facet_ids: List[str] = None):
   """
   Fetches the latest available data with the best coverage for the given a
   parent entity, child type, variables, and facets. If multiple variables are
@@ -537,7 +537,7 @@ def fetch_highest_coverage(parent_entity: str,
   point_responses = []
   series_dates_response = dc.get_series_dates(parent_entity, child_type,
                                               variables)
-  facet_ids_set = set(facet_ids)
+  facet_ids_set = set(facet_ids or [])
   for observation_entity_counts_by_date in series_dates_response[
       'datesByVariable']:
     # Each observation_entity_counts_by_date contains the observation counts by date
