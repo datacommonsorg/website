@@ -22,8 +22,10 @@
 import "../../../library";
 
 import axios from "axios";
+import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
-import { Input } from "reactstrap";
+import { FormattedMessage } from "react-intl";
+import { Input, UncontrolledTooltip } from "reactstrap";
 
 import { getVariableNameProcessingFn } from "../../../library/utils";
 import { TimeScaleOption } from "../../chart/types";
@@ -34,7 +36,9 @@ import {
   HIDE_TILE_CLASS,
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
-import { NamedPlace, NamedTypedPlace } from "../../shared/types";
+import { intl } from "../../i18n/i18n";
+import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
+import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { isNlInterface } from "../../utils/nl_interface_utils";
@@ -95,6 +99,50 @@ export interface BlockPropType {
 }
 
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
+const rankingTileLatestDataFooter = intl.formatMessage({
+  defaultMessage:
+    "This ranking includes data from several years for a comprehensive view of places.",
+  description:
+    "Description of a chart that shows data points from various years.",
+  id: "ranking-tile-latest-data-footer",
+});
+const rankingTileLatestDataAvailableFooter = intl.formatMessage({
+  defaultMessage:
+    "Ranking based on latest data available. Some places may be missing due to incomplete reporting that year.",
+  description:
+    "Description of a chart that shows the most recently available data.",
+  id: "ranking-tile-latest-data-available-footer",
+});
+
+/**
+ * Helper for determining if we should show the "Snap to date with highest
+ * coverage" checkbox.
+ *
+ * Only show the checkbox if:
+ * (1) No date is set in the chart config columns (meaning date is "LATEST")
+ * (2) Chart types are map and/or ranking
+ * @returns boolean
+ */
+function shouldShowSnapToLatestData(
+  columns: ColumnConfig[],
+  statVarProvider: StatVarProvider
+): boolean {
+  const statVarKeys = _.flatten(
+    _.flatten(columns.map((c) => c.tiles.map((tile) => tile.statVarKey)))
+  );
+  const tileTypes = _.flatten(
+    _.flatten(columns.map((c) => c.tiles.map((tile) => tile.type)))
+  );
+  const statVarSpecs = statVarProvider.getSpecList(statVarKeys);
+
+  const showSnapToLatestData =
+    !_.find<StatVarSpec>(statVarSpecs, (statVarSpec) => !!statVarSpec.date) &&
+    !_.find(
+      tileTypes,
+      (tileType) => tileType !== "MAP" && tileType !== "RANKING"
+    );
+  return showSnapToLatestData;
+}
 
 export function Block(props: BlockPropType): JSX.Element {
   const minIdxToHide = getMinTileIdxToHide();
@@ -102,8 +150,10 @@ export function Block(props: BlockPropType): JSX.Element {
   const [overridePlaceTypes, setOverridePlaceTypes] =
     useState<Record<string, NamedTypedPlace>>();
   const [useDenom, setUseDenom] = useState(props.startWithDenom);
+  const [snapToLatestData, setSnapToLatestData] = useState(true);
   const columnSectionRef = useRef(null);
   const expandoRef = useRef(null);
+  const snapToLatestDataInfoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const overridePlaces = props.columns
@@ -129,18 +179,58 @@ export function Block(props: BlockPropType): JSX.Element {
       });
   }, [props]);
 
+  const showSnapToLatestData = shouldShowSnapToLatestData(
+    props.columns,
+    props.statVarProvider
+  );
   return (
     <>
-      {props.denom && (
-        <div className="block-per-capita-toggle">
-          <Input
-            type="checkbox"
-            checked={useDenom}
-            onChange={() => setUseDenom(!useDenom)}
-          />
-          <span>See per capita</span>
-        </div>
-      )}
+      <div className="block-controls">
+        {props.denom && (
+          <span className="block-toggle">
+            <label>
+              <Input
+                type="checkbox"
+                checked={useDenom}
+                onChange={() => setUseDenom(!useDenom)}
+              />
+              <span>See per capita</span>
+            </label>
+          </span>
+        )}
+        {showSnapToLatestData && (
+          <span className="block-toggle">
+            <label>
+              <Input
+                type="checkbox"
+                checked={snapToLatestData}
+                onChange={() => setSnapToLatestData(!snapToLatestData)}
+              />
+              <span>
+                <FormattedMessage
+                  description="Checkbox label for an option that tells a chart visualization to show the latest data available"
+                  defaultMessage="Snap to date with highest coverage"
+                  id="snap-to-latest-data-checkbox-label"
+                />
+              </span>
+            </label>
+            <span className="material-icons" ref={snapToLatestDataInfoRef}>
+              help_outlined
+            </span>
+            <UncontrolledTooltip
+              className="dc-tooltip"
+              placement="auto"
+              target={snapToLatestDataInfoRef}
+            >
+              <FormattedMessage
+                description="Informational message for a checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart."
+                defaultMessage="'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year."
+                id="snap-to-latest-data-help-tooltip"
+              />
+            </UncontrolledTooltip>
+          </span>
+        )}
+      </div>
       <div className="block-body row" ref={columnSectionRef}>
         {props.columns &&
           props.columns.map((column, idx) => {
@@ -163,7 +253,12 @@ export function Block(props: BlockPropType): JSX.Element {
                         minIdxToHide,
                         overridePlaceTypes,
                         columnTileClassName,
-                        useDenom ? props.denom : ""
+                        useDenom ? props.denom : "",
+                        showSnapToLatestData
+                          ? snapToLatestData
+                            ? DATE_HIGHEST_COVERAGE
+                            : DATE_LATEST
+                          : undefined
                       )
                     : renderTiles(
                         column.tiles,
@@ -172,7 +267,12 @@ export function Block(props: BlockPropType): JSX.Element {
                         minIdxToHide,
                         overridePlaceTypes,
                         columnTileClassName,
-                        useDenom ? props.denom : ""
+                        useDenom ? props.denom : "",
+                        showSnapToLatestData
+                          ? snapToLatestData
+                            ? DATE_HIGHEST_COVERAGE
+                            : DATE_LATEST
+                          : undefined
                       )
                 }
               />
@@ -215,7 +315,8 @@ function renderTiles(
   minIdxToHide: number,
   overridePlaces: Record<string, NamedTypedPlace>,
   tileClassName?: string,
-  blockDenom?: string
+  blockDenom?: string,
+  blockDate?: string
 ): JSX.Element {
   if (!tiles || !overridePlaces) {
     return <></>;
@@ -242,10 +343,10 @@ function renderTiles(
             key={id}
             description={tile.description}
             place={place}
-            statVarSpec={props.statVarProvider.getSpec(
-              tile.statVarKey[0],
-              blockDenom
-            )}
+            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
+              blockDate,
+              blockDenom,
+            })}
           />
         );
       case "MAP":
@@ -257,10 +358,10 @@ function renderTiles(
             subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpec(
-              tile.statVarKey[0],
-              blockDenom
-            )}
+            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
+              blockDate,
+              blockDenom,
+            })}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={
@@ -286,10 +387,10 @@ function renderTiles(
             subtitle={tile.subtitle}
             place={place}
             comparisonPlaces={comparisonPlaces}
-            statVarSpec={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
+              blockDate,
+              blockDenom,
+            })}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -315,14 +416,21 @@ function renderTiles(
             title={tile.title}
             parentPlace={place.dcid}
             enclosedPlaceType={enclosedPlaceType}
-            variables={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
+            variables={props.statVarProvider.getSpecList(tile.statVarKey, {
+              blockDate,
+              blockDenom,
+            })}
             rankingMetadata={tile.rankingTileSpec}
             className={className}
             showExploreMore={props.showExploreMore}
             hideFooter={tile.hideFooter}
+            footnote={
+              blockDate == DATE_LATEST
+                ? rankingTileLatestDataFooter
+                : blockDate === DATE_HIGHEST_COVERAGE
+                ? rankingTileLatestDataAvailableFooter
+                : undefined
+            }
           />
         );
       case "BAR":
@@ -348,10 +456,10 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={tile.title}
             useLollipop={tile.barTileSpec?.useLollipop}
-            variables={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
+            variables={props.statVarProvider.getSpecList(tile.statVarKey, {
+              blockDate,
+              blockDenom,
+            })}
             xLabelLinkRoot={tile.barTileSpec?.xLabelLinkRoot}
             yAxisMargin={tile.barTileSpec?.yAxisMargin}
             placeNameProp={tile.placeNameProp}
@@ -370,10 +478,10 @@ function renderTiles(
             subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
+              blockDate,
+              blockDenom,
+            })}
             svgChartHeight={
               isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
             }
@@ -392,10 +500,10 @@ function renderTiles(
             title={tile.title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
+              blockDate,
+              blockDenom,
+            })}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -414,10 +522,10 @@ function renderTiles(
               max: tile.gaugeTileSpec.range.max,
               min: tile.gaugeTileSpec.range.min || 0,
             }}
-            statVarSpec={props.statVarProvider.getSpec(
-              tile.statVarKey[0],
-              blockDenom
-            )}
+            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
+              blockDate,
+              blockDenom,
+            })}
             svgChartHeight={props.svgChartHeight}
             title={tile.title}
             subtitle={tile.subtitle}
@@ -432,10 +540,10 @@ function renderTiles(
             id={id}
             pie={tile.donutTileSpec?.pie}
             place={place}
-            statVarSpec={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
+              blockDate,
+              blockDenom,
+            })}
             svgChartHeight={props.svgChartHeight}
             title={tile.title}
             subtitle={tile.subtitle}
@@ -463,7 +571,8 @@ function renderWebComponents(
   minIdxToHide: number,
   overridePlaces: Record<string, NamedTypedPlace>,
   tileClassName?: string,
-  blockDenom?: string
+  blockDenom?: string,
+  blockDate?: string
 ): JSX.Element {
   if (!tiles || !overridePlaces) {
     return <></>;
@@ -492,8 +601,10 @@ function renderWebComponents(
             description={tile.description}
             place={place.dcid}
             variable={
-              props.statVarProvider.getSpec(tile.statVarKey[0], blockDenom)
-                .statVar
+              props.statVarProvider.getSpec(tile.statVarKey[0], {
+                blockDate,
+                blockDenom,
+              }).statVar
             }
           />
         );
@@ -507,8 +618,10 @@ function renderWebComponents(
             parentPlace={place.dcid}
             childPlaceType={enclosedPlaceType}
             variable={
-              props.statVarProvider.getSpec(tile.statVarKey[0], blockDenom)
-                .statVar
+              props.statVarProvider.getSpec(tile.statVarKey[0], {
+                blockDate,
+                blockDenom,
+              }).statVar
             }
             className={className}
             {...(props.showExploreMore &&
@@ -541,7 +654,7 @@ function renderWebComponents(
               ? { places: comparisonPlaces.join(" ") }
               : {})}
             variables={props.statVarProvider
-              .getSpecList(tile.statVarKey, blockDenom)
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
               .map((sv) => sv.statVar)
               .join(" ")}
             className={className}
@@ -567,7 +680,7 @@ function renderWebComponents(
             parentPlace={place.dcid}
             childPlaceType={enclosedPlaceType}
             variables={props.statVarProvider
-              .getSpecList(tile.statVarKey, blockDenom)
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
               .map((sv) => sv.statVar)
               .join(" ")}
             {...(tile.rankingTileSpec?.highestTitle
@@ -622,7 +735,7 @@ function renderWebComponents(
             header={tile.title}
             {...(tile.barTileSpec?.useLollipop ? { useLollipop: true } : {})}
             variables={props.statVarProvider
-              .getSpecList(tile.statVarKey, blockDenom)
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
               .map((sv) => sv.statVar)
               .join(" ")}
             xLabelLinkRoot={tile.barTileSpec?.xLabelLinkRoot}
@@ -646,11 +759,11 @@ function renderWebComponents(
             parentPlace={place.dcid}
             childPlaceType={enclosedPlaceType}
             variables={props.statVarProvider
-              .getSpecList(tile.statVarKey, blockDenom)
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
               .map((sv) => sv.statVar)
               .join(" ")}
             usePerCapita={props.statVarProvider
-              .getSpecList(tile.statVarKey, blockDenom)
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
               .map((sv) => (sv.denom ? sv.statVar : ""))
               .join(" ")}
             className={className}
@@ -684,10 +797,10 @@ function renderWebComponents(
             title={tile.title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
+              blockDate,
+              blockDenom,
+            })}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -706,8 +819,10 @@ function renderWebComponents(
             min={tile.gaugeTileSpec?.range.min || 0}
             max={tile.gaugeTileSpec?.range.max}
             variable={
-              props.statVarProvider.getSpec(tile.statVarKey[0], blockDenom)
-                .statVar
+              props.statVarProvider.getSpec(tile.statVarKey[0], {
+                blockDate,
+                blockDenom,
+              }).statVar
             }
             header={tile.title}
             subheader={tile.subtitle}
@@ -724,7 +839,7 @@ function renderWebComponents(
             donut={!tile.donutTileSpec?.pie}
             place={place.dcid}
             variables={props.statVarProvider
-              .getSpecList(tile.statVarKey, blockDenom)
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
               .map((sv) => sv.statVar)
               .join(" ")}
             header={tile.title}

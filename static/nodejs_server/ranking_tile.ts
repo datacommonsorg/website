@@ -31,7 +31,7 @@ import {
   getRankingUnitPoints,
   getRankingUnitTitle,
 } from "../js/components/tiles/sv_ranking_units";
-import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
+import { StatVarSpec } from "../js/shared/types";
 import { RankingGroup } from "../js/types/ranking_unit_types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { rankingPointsToCsv } from "../js/utils/chart_csv_utils";
@@ -45,7 +45,7 @@ import {
   SVG_WIDTH,
 } from "./constants";
 import { TileResult } from "./types";
-import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
+import { getProcessedSvg, getSources } from "./utils";
 
 function getTileProp(
   id: string,
@@ -215,7 +215,7 @@ export async function getRankingTileResult(
         placeDcids.add(point.placeDcid);
       });
     });
-    const placeNames = await getPlaceNames(Array.from(placeDcids), apiRoot);
+    const placeNames = await getPlaceNames(Array.from(placeDcids), { apiRoot });
     const tileResults: TileResult[] = [];
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = _.cloneDeep(rankingData[sv]);

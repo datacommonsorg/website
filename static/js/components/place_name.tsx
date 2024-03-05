@@ -20,6 +20,7 @@
 
 import React, { useEffect, useState } from "react";
 
+import { ABORT_CONTROLLER_CANCELLED } from "../shared/constants";
 import { isUSACountyOrCity } from "../tools/shared_util";
 import { getPlaceDisplayNames, getPlaceNames } from "../utils/place_utils";
 
@@ -33,9 +34,16 @@ export function PlaceName(props: PlaceNameProp): JSX.Element {
   // parent place is USA
   const [name, setName] = useState<string>("");
   useEffect(() => {
+    const controller = new AbortController();
     const placeNamesPromise = isUSACountyOrCity(props.dcid)
-      ? getPlaceDisplayNames([props.dcid], props.apiRoot)
-      : getPlaceNames([props.dcid], props.apiRoot);
+      ? getPlaceDisplayNames([props.dcid], {
+          apiRoot: props.apiRoot,
+          signal: controller.signal,
+        })
+      : getPlaceNames([props.dcid], {
+          apiRoot: props.apiRoot,
+          signal: controller.signal,
+        });
 
     placeNamesPromise
       .then((resp) => {
@@ -45,9 +53,17 @@ export function PlaceName(props: PlaceNameProp): JSX.Element {
           setName(props.dcid);
         }
       })
-      .catch(() => {
+      .catch((e) => {
+        if (e?.code === ABORT_CONTROLLER_CANCELLED) {
+          return;
+        }
         setName(props.dcid);
       });
+
+    return () => {
+      // Abort async requests when component is unmounted
+      controller.abort();
+    };
   }, [props.dcid, props.apiRoot]);
 
   return <>{name}</>;
