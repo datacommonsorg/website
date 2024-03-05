@@ -68,7 +68,7 @@ variables.
    To generate the `bio_ft` embeddings:
 
    ```bash
-   ./run.sh -c bio data/curated_input/bio/sheets_svs.csv data/alternatives/main/*.csv
+   ./run.sh -c bio data/curated_input/bio/sheets_svs.csv,data/curated_input/main/sheets_svs.csv data/alternatives/main/*.csv
    ```
 
    Note: Bio embeddings uses the alternatives from main dc for now.
@@ -86,12 +86,12 @@ variables.
    You can also create custom embeddings (using the finetuned model in PROD):
 
    ```bash
-   ./run.sh -c <embeddings_size> <curated_input_csv_path> <alternatives_filepattern>
+   ./run.sh -c <embeddings_size> <curated_input_csv_paths> <alternatives_filepattern>
    ```
 
    Notes:
 
-   - curated_input_csv_path is the filepath of the CSV with the curated input to use. The format of the CSV should follow the description of [point 1](#curated-input).
+   - curated_input_csv_paths is a list of filepaths separated by `,` of the CSVs with the curated inputs to use. The format of the CSVs should follow the description of [point 1](#curated-input).
    - alternatives_filepattern is the filepattern of the CSV files with the alternatives to use. The format of the CSVs should follow the description of [point 3](#alternatives).
    - Example: `./run.sh -c test data/curated_input/test/sheets_svs.csv data/alternatives/test/*.csv`
 
