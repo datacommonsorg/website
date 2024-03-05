@@ -288,5 +288,7 @@ def _max_topics_to_open(uttr: ftypes.Utterance) -> int:
   elif uttr.places and cutils.is_us_place(uttr.places[0]):
     max_topics = _MAX_TOPICS_TO_OPEN - 1
   else:
+    # Have a slightly higher limit for non-US places than US places,
+    # since there are fewer vars.
     max_topics = _MAX_TOPICS_TO_OPEN
   return max_topics
