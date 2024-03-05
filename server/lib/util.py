@@ -550,15 +550,10 @@ def fetch_highest_coverage(parent_entity: str,
     if not best_coverage_date:
       # No best coverage date means we couldn't find any variable observations
       # Add a blank point response in this case
-      point_responses.append({
-        'data': {
-          variable : {}
-        }
-      })
+      point_responses.append({'data': {variable: {}}})
       continue
     point_responses.append(
-        fetch.point_within_core(parent_entity, child_type,
-                                [variable],
+        fetch.point_within_core(parent_entity, child_type, [variable],
                                 best_coverage_date, all_facets, facet_ids))
   combined_point_response = {"facets": {}, "data": {}}
   for point_response in point_responses:
