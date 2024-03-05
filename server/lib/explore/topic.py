@@ -30,9 +30,12 @@ _MAX_CORRELATION_SVS_PER_TOPIC = 4
 
 # This is for main.
 _MAX_SUBTOPIC_SV_LIMIT = 3
-# Pick a higher limit for SDG
+_MAX_TOPICS_TO_OPEN = 3
+
+# Pick a higher limit for SDG / Special DC
 _MAX_SUBTOPIC_SV_LIMIT_SDG = 500
 _MAX_SUBTOPIC_SV_LIMIT_SPECIAL_DC = 100
+_MAX_TOPICS_TO_OPEN_SPECIAL_DC = 5
 
 
 @dataclass
@@ -44,10 +47,7 @@ class TopicMembers:
 
 def compute_chart_vars(
     state: ftypes.PopulateState) -> OrderedDict[str, List[ftypes.ChartVars]]:
-  # Have a slightly higher limit for non-US places since there are fewer vars.
-  num_topics_limit = 3
-  if state.uttr.places and cutils.is_us_place(state.uttr.places[0]):
-    num_topics_limit = 2
+  num_topics_limit = _max_topics_to_open(state.uttr)
 
   dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
   chart_vars_map = OrderedDict()
@@ -280,3 +280,13 @@ def _max_subtopic_sv_limit(state: ftypes.PopulateState) -> int:
   if is_special_dc(state.uttr.insight_ctx):
     return _MAX_SUBTOPIC_SV_LIMIT_SPECIAL_DC
   return _MAX_SUBTOPIC_SV_LIMIT
+
+
+def _max_topics_to_open(uttr: ftypes.Utterance) -> int:
+  if not is_sdg(uttr.insight_ctx) and is_special_dc(uttr.insight_ctx):
+    max_topics = _MAX_TOPICS_TO_OPEN_SPECIAL_DC
+  elif uttr.places and cutils.is_us_place(uttr.places[0]):
+    max_topics = _MAX_TOPICS_TO_OPEN - 1
+  else:
+    max_topics = _MAX_TOPICS_TO_OPEN
+  return max_topics

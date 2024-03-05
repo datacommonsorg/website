@@ -60,6 +60,654 @@
               {
                 "tiles": [
                   {
+                    "description": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease] in the World",
+                    "statVarKey": [
+                      "who/AIR_11.ENVCAUSE--ENVCAUSE118"
+                    ],
+                    "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "statVarKey": [
+                      "who/AIR_15.ENVCAUSE--ENVCAUSE118"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "statVarKey": [
+                      "who/AIR_17.ENVCAUSE--ENVCAUSE118"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "statVarKey": [
+                      "who/AIR_39.ENVCAUSE--ENVCAUSE118"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease] in the World",
+                    "statVarKey": [
+                      "who/AIR_41.ENVCAUSE--ENVCAUSE118"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "statVarKey": [
+                      "who/AIR_42.ENVCAUSE--ENVCAUSE118"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease] in the World",
+                    "statVarKey": [
+                      "who/AIR_45.ENVCAUSE--ENVCAUSE118"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "statVarKey": [
+                      "who/AIR_5.ENVCAUSE--ENVCAUSE118"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "statVarKey": [
+                      "who/AIR_51.ENVCAUSE--ENVCAUSE118"
+                    ],
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "statVarKey": [
+                      "who/AIR_52.ENVCAUSE--ENVCAUSE118"
+                    ],
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "statVarKey": [
+                      "who/AIR_7.ENVCAUSE--ENVCAUSE118"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "statVarKey": [
+                      "who/AIR_9.ENVCAUSE--ENVCAUSE118"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_11.ENVCAUSE--ENVCAUSE118__SEX--F"
+                    ],
+                    "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_11.ENVCAUSE--ENVCAUSE118__SEX--M"
+                    ],
+                    "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_15.ENVCAUSE--ENVCAUSE118__SEX--F"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_15.ENVCAUSE--ENVCAUSE118__SEX--M"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--F"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--M"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_39.ENVCAUSE--ENVCAUSE118__SEX--F"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_39.ENVCAUSE--ENVCAUSE118__SEX--M"
+                    ],
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_41.ENVCAUSE--ENVCAUSE118__SEX--F"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_41.ENVCAUSE--ENVCAUSE118__SEX--M"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_42.ENVCAUSE--ENVCAUSE118__SEX--F"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_42.ENVCAUSE--ENVCAUSE118__SEX--M"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_45.ENVCAUSE--ENVCAUSE118__SEX--F"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_45.ENVCAUSE--ENVCAUSE118__SEX--M"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--F"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--M"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_51.ENVCAUSE--ENVCAUSE118__SEX--F"
+                    ],
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_51.ENVCAUSE--ENVCAUSE118__SEX--M"
+                    ],
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_52.ENVCAUSE--ENVCAUSE118__SEX--F"
+                    ],
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_52.ENVCAUSE--ENVCAUSE118__SEX--M"
+                    ],
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_7.ENVCAUSE--ENVCAUSE118__SEX--F"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_7.ENVCAUSE--ENVCAUSE118__SEX--M"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "statVarKey": [
+                      "who/AIR_9.ENVCAUSE--ENVCAUSE118__SEX--F"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "statVarKey": [
+                      "who/AIR_9.ENVCAUSE--ENVCAUSE118__SEX--M"
+                    ],
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "who/TB_new_sn"
                     ],
@@ -167,6 +815,78 @@
           }
         ],
         "statVarSpec": {
+          "who/AIR_11.ENVCAUSE--ENVCAUSE118": {
+            "name": "Household air pollution attributable deaths [Chronic obstructive pulmonary disease]",
+            "statVar": "who/AIR_11.ENVCAUSE--ENVCAUSE118"
+          },
+          "who/AIR_11.ENVCAUSE--ENVCAUSE118__SEX--F": {
+            "name": "Household air pollution attributable deaths [Chronic obstructive pulmonary disease, Female]",
+            "statVar": "who/AIR_11.ENVCAUSE--ENVCAUSE118__SEX--F"
+          },
+          "who/AIR_11.ENVCAUSE--ENVCAUSE118__SEX--M": {
+            "name": "Household air pollution attributable deaths [Chronic obstructive pulmonary disease, Male]",
+            "statVar": "who/AIR_11.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_15.ENVCAUSE--ENVCAUSE118": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
+            "statVar": "who/AIR_15.ENVCAUSE--ENVCAUSE118"
+          },
+          "who/AIR_15.ENVCAUSE--ENVCAUSE118__SEX--F": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Female]",
+            "statVar": "who/AIR_15.ENVCAUSE--ENVCAUSE118__SEX--F"
+          },
+          "who/AIR_15.ENVCAUSE--ENVCAUSE118__SEX--M": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
+            "statVar": "who/AIR_15.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_17.ENVCAUSE--ENVCAUSE118": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
+            "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE118"
+          },
+          "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--F": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Female]",
+            "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--F"
+          },
+          "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--M": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
+            "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_39.ENVCAUSE--ENVCAUSE118": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
+            "statVar": "who/AIR_39.ENVCAUSE--ENVCAUSE118"
+          },
+          "who/AIR_39.ENVCAUSE--ENVCAUSE118__SEX--F": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Female]",
+            "statVar": "who/AIR_39.ENVCAUSE--ENVCAUSE118__SEX--F"
+          },
+          "who/AIR_39.ENVCAUSE--ENVCAUSE118__SEX--M": {
+            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
+            "statVar": "who/AIR_39.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_41.ENVCAUSE--ENVCAUSE118": {
+            "name": "Ambient air pollution attributable deaths [Chronic obstructive pulmonary disease]",
+            "statVar": "who/AIR_41.ENVCAUSE--ENVCAUSE118"
+          },
+          "who/AIR_41.ENVCAUSE--ENVCAUSE118__SEX--F": {
+            "name": "Ambient air pollution attributable deaths [Chronic obstructive pulmonary disease, Female]",
+            "statVar": "who/AIR_41.ENVCAUSE--ENVCAUSE118__SEX--F"
+          },
+          "who/AIR_41.ENVCAUSE--ENVCAUSE118__SEX--M": {
+            "name": "Ambient air pollution attributable deaths [Chronic obstructive pulmonary disease, Male]",
+            "statVar": "who/AIR_41.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_42.ENVCAUSE--ENVCAUSE118": {
+            "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease]",
+            "statVar": "who/AIR_42.ENVCAUSE--ENVCAUSE118"
+          },
+          "who/AIR_42.ENVCAUSE--ENVCAUSE118__SEX--F": {
+            "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease, Female]",
+            "statVar": "who/AIR_42.ENVCAUSE--ENVCAUSE118__SEX--F"
+          },
+          "who/AIR_42.ENVCAUSE--ENVCAUSE118__SEX--M": {
+            "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease, Male]",
+            "statVar": "who/AIR_42.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
           "who/AIR_43.GHECAUSES--GHE118": {
             "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_43.GHECAUSES--GHE118"
@@ -178,6 +898,78 @@
           "who/AIR_43.GHECAUSES--GHE118__SEX--M": {
             "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_43.GHECAUSES--GHE118__SEX--M"
+          },
+          "who/AIR_45.ENVCAUSE--ENVCAUSE118": {
+            "name": "Ambient air pollution attributable number of years life lost [Chronic obstructive pulmonary disease]",
+            "statVar": "who/AIR_45.ENVCAUSE--ENVCAUSE118"
+          },
+          "who/AIR_45.ENVCAUSE--ENVCAUSE118__SEX--F": {
+            "name": "Ambient air pollution attributable number of years life lost [Chronic obstructive pulmonary disease, Female]",
+            "statVar": "who/AIR_45.ENVCAUSE--ENVCAUSE118__SEX--F"
+          },
+          "who/AIR_45.ENVCAUSE--ENVCAUSE118__SEX--M": {
+            "name": "Ambient air pollution attributable number of years life lost [Chronic obstructive pulmonary disease, Male]",
+            "statVar": "who/AIR_45.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_5.ENVCAUSE--ENVCAUSE118": {
+            "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease]",
+            "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE118"
+          },
+          "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--F": {
+            "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease, Female]",
+            "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--F"
+          },
+          "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--M": {
+            "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease, Male]",
+            "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_51.ENVCAUSE--ENVCAUSE118": {
+            "name": "Household air pollution: Household air pollution attributable death rate [Chronic obstructive pulmonary disease]",
+            "statVar": "who/AIR_51.ENVCAUSE--ENVCAUSE118"
+          },
+          "who/AIR_51.ENVCAUSE--ENVCAUSE118__SEX--F": {
+            "name": "Household air pollution: Household air pollution attributable death rate [Chronic obstructive pulmonary disease, Female]",
+            "statVar": "who/AIR_51.ENVCAUSE--ENVCAUSE118__SEX--F"
+          },
+          "who/AIR_51.ENVCAUSE--ENVCAUSE118__SEX--M": {
+            "name": "Household air pollution: Household air pollution attributable death rate [Chronic obstructive pulmonary disease, Male]",
+            "statVar": "who/AIR_51.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_52.ENVCAUSE--ENVCAUSE118": {
+            "name": "Household air pollution: Household air pollution attributable death rate [Chronic obstructive pulmonary disease]",
+            "statVar": "who/AIR_52.ENVCAUSE--ENVCAUSE118"
+          },
+          "who/AIR_52.ENVCAUSE--ENVCAUSE118__SEX--F": {
+            "name": "Household air pollution: Household air pollution attributable death rate [Chronic obstructive pulmonary disease, Female]",
+            "statVar": "who/AIR_52.ENVCAUSE--ENVCAUSE118__SEX--F"
+          },
+          "who/AIR_52.ENVCAUSE--ENVCAUSE118__SEX--M": {
+            "name": "Household air pollution: Household air pollution attributable death rate [Chronic obstructive pulmonary disease, Male]",
+            "statVar": "who/AIR_52.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_7.ENVCAUSE--ENVCAUSE118": {
+            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
+            "statVar": "who/AIR_7.ENVCAUSE--ENVCAUSE118"
+          },
+          "who/AIR_7.ENVCAUSE--ENVCAUSE118__SEX--F": {
+            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Female]",
+            "statVar": "who/AIR_7.ENVCAUSE--ENVCAUSE118__SEX--F"
+          },
+          "who/AIR_7.ENVCAUSE--ENVCAUSE118__SEX--M": {
+            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
+            "statVar": "who/AIR_7.ENVCAUSE--ENVCAUSE118__SEX--M"
+          },
+          "who/AIR_9.ENVCAUSE--ENVCAUSE118": {
+            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
+            "statVar": "who/AIR_9.ENVCAUSE--ENVCAUSE118"
+          },
+          "who/AIR_9.ENVCAUSE--ENVCAUSE118__SEX--F": {
+            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Female]",
+            "statVar": "who/AIR_9.ENVCAUSE--ENVCAUSE118__SEX--F"
+          },
+          "who/AIR_9.ENVCAUSE--ENVCAUSE118__SEX--M": {
+            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
+            "statVar": "who/AIR_9.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
           "who/TB_new_sn": {
             "name": "New tuberculosis cases: pulmonary smear-negative",
