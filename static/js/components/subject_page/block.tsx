@@ -290,7 +290,7 @@ export function Block(props: BlockPropType): JSX.Element {
               ) : (
                 <FormattedMessage
                   description="Informational message for a disabled checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart. The message is explaining that the checkbox is disabled because the highest coverage data overlaps with the most recent data available."
-                  defaultMessage="The latest data available for this chart overlaps with the data with highest coverage."
+                  defaultMessage="The highest coverage data is also the latest data available for this chart."
                   id="snap-to-latest-data-overlap-help-tooltip"
                 />
               )}
