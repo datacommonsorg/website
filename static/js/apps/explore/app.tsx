@@ -172,13 +172,18 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     </RawIntlProvider>
   );
 
+  function isFulfillDataValid(fulfillData: any): boolean {
+    if (!fulfillData) {
+      return false;
+    }
+    const hasPlace = fulfillData["place"] && fulfillData["place"]["dcid"];
+    // Fulfill data needs to have either a place or entityPvConfig
+    return hasPlace || fulfillData["entityPvConfig"];
+  }
+
   function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
     setDebugData(fulfillData["debug"]);
-    if (
-      !fulfillData ||
-      !fulfillData["place"] ||
-      !fulfillData["place"]["dcid"]
-    ) {
+    if (!isFulfillDataValid) {
       setUserMessage(fulfillData["userMessage"]);
       setLoadingStatus(LoadingStatus.FAILED);
       return;
@@ -243,7 +248,6 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     savedContext.current = fulfillData["context"] || [];
     setPageMetadata(pageMetadata);
     setUserMessage(userMessage);
-    setLoadingStatus(LoadingStatus.SUCCESS);
     setQueryResult({
       place: mainPlace,
       config: pageMetadata.pageConfig,
@@ -252,7 +256,9 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       placeFallback: fulfillData["placeFallback"],
       pastSourceContext: fulfillData["pastSourceContext"],
       sessionId: pageMetadata.sessionId,
+      entityPvConfig: fulfillData["entityPvConfig"],
     });
+    setLoadingStatus(LoadingStatus.SUCCESS);
   }
 
   function handleHashChange(): void {
