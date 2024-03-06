@@ -40,6 +40,7 @@ import { intl } from "../../i18n/i18n";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
+import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
 import { isNlInterface } from "../../utils/nl_interface_utils";
 import {
@@ -115,33 +116,64 @@ const rankingTileLatestDataAvailableFooter = intl.formatMessage({
 });
 
 /**
- * Helper for determining if we should show the "Snap to date with highest
- * coverage" checkbox.
+ * Helper for determining if we should snap the charts in this block to the
+ * best available coverage
  *
  * Only show the checkbox if:
  * (1) No date is set in the chart config columns (meaning date is "LATEST")
  * (2) Chart types are map and/or ranking
  * @returns boolean
  */
-function shouldShowSnapToLatestData(
+function eligibleForSnapToHighestCoverage(
   columns: ColumnConfig[],
   statVarProvider: StatVarProvider
 ): boolean {
-  const statVarKeys = _.flatten(
-    _.flatten(columns.map((c) => c.tiles.map((tile) => tile.statVarKey)))
-  );
+  const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
+  const statVarKeys = _.flatten(tiles.map((tile) => tile.statVarKey));
   const tileTypes = _.flatten(
     _.flatten(columns.map((c) => c.tiles.map((tile) => tile.type)))
   );
   const statVarSpecs = statVarProvider.getSpecList(statVarKeys);
 
-  const showSnapToLatestData =
+  const isEligibleForSnapToHighestCoverage =
     !_.find<StatVarSpec>(statVarSpecs, (statVarSpec) => !!statVarSpec.date) &&
     !_.find(
       tileTypes,
       (tileType) => tileType !== "MAP" && tileType !== "RANKING"
     );
-  return showSnapToLatestData;
+  return isEligibleForSnapToHighestCoverage;
+}
+
+/**
+ * Helper for determining if we should enable the "Snap to highest coverage"
+ * checkbox.
+ *
+ * Only enable the checkbox if the observations returned from highest coverage
+ * are different from those returned by the latest observation date
+ * (when date=LATEST)
+ * @returns boolean
+ */
+async function shouldEnableSnapToHighestCoverage(
+  placeDcid: string,
+  enclosedPlaceType: string,
+  columns: ColumnConfig[],
+  statVarProvider: StatVarProvider
+): Promise<boolean> {
+  // Check if highest coverage & latest date observations are the same
+  const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
+  const statVarKeys = _.flatten(tiles.map((tile) => tile.statVarKey));
+  const statVarSpecs = statVarProvider.getSpecList(statVarKeys);
+  const variableDcids = statVarSpecs.map((svs) => svs.statVar);
+  const isHighestCoverageDateEqualToLatestDates =
+    await highestCoverageDatesEqualLatestDates(
+      placeDcid,
+      enclosedPlaceType,
+      variableDcids
+    );
+
+  // Only enable the snap to highest coverage checkbox if the highest coverage
+  // and latest date observations are different
+  return !isHighestCoverageDateEqualToLatestDates;
 }
 
 export function Block(props: BlockPropType): JSX.Element {
@@ -150,7 +182,18 @@ export function Block(props: BlockPropType): JSX.Element {
   const [overridePlaceTypes, setOverridePlaceTypes] =
     useState<Record<string, NamedTypedPlace>>();
   const [useDenom, setUseDenom] = useState(props.startWithDenom);
-  const [snapToLatestData, setSnapToLatestData] = useState(true);
+  const isEligibleForSnapToHighestCoverage = eligibleForSnapToHighestCoverage(
+    props.columns,
+    props.statVarProvider
+  );
+  const [snapToHighestCoverage, setSnapToHighestCoverage] = useState(
+    isEligibleForSnapToHighestCoverage
+  );
+  const [
+    showSnapToHighestCoverageCheckbox,
+    setShowSnapToHighestCoverageCheckbox,
+  ] = useState(false);
+  const [enableSnapToLatestData, setEnableSnapToLatestData] = useState(true);
   const columnSectionRef = useRef(null);
   const expandoRef = useRef(null);
   const snapToLatestDataInfoRef = useRef<HTMLDivElement>(null);
@@ -179,10 +222,23 @@ export function Block(props: BlockPropType): JSX.Element {
       });
   }, [props]);
 
-  const showSnapToLatestData = shouldShowSnapToLatestData(
-    props.columns,
-    props.statVarProvider
-  );
+  useEffect(() => {
+    if (!isEligibleForSnapToHighestCoverage) {
+      return;
+    }
+    (async () => {
+      const enableSnapToHighestCoverage =
+        await shouldEnableSnapToHighestCoverage(
+          props.place.dcid,
+          props.enclosedPlaceType,
+          props.columns,
+          props.statVarProvider
+        );
+      setEnableSnapToLatestData(enableSnapToHighestCoverage);
+      setShowSnapToHighestCoverageCheckbox(true);
+    })();
+  }, [props]);
+
   return (
     <>
       <div className="block-controls">
@@ -198,15 +254,18 @@ export function Block(props: BlockPropType): JSX.Element {
             </label>
           </span>
         )}
-        {showSnapToLatestData && (
+        {showSnapToHighestCoverageCheckbox && (
           <span className="block-toggle">
             <label>
               <Input
+                checked={snapToHighestCoverage}
+                disabled={!enableSnapToLatestData}
+                onChange={() =>
+                  setSnapToHighestCoverage(!snapToHighestCoverage)
+                }
                 type="checkbox"
-                checked={snapToLatestData}
-                onChange={() => setSnapToLatestData(!snapToLatestData)}
               />
-              <span>
+              <span className={enableSnapToLatestData ? "" : "label-disabled"}>
                 <FormattedMessage
                   description="Checkbox label for an option that tells a chart visualization to show the latest data available"
                   defaultMessage="Snap to date with highest coverage"
@@ -222,11 +281,19 @@ export function Block(props: BlockPropType): JSX.Element {
               placement="auto"
               target={snapToLatestDataInfoRef}
             >
-              <FormattedMessage
-                description="Informational message for a checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart."
-                defaultMessage="'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year."
-                id="snap-to-latest-data-help-tooltip"
-              />
+              {enableSnapToLatestData ? (
+                <FormattedMessage
+                  description="Informational message for a checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart."
+                  defaultMessage="'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year."
+                  id="snap-to-latest-data-help-tooltip"
+                />
+              ) : (
+                <FormattedMessage
+                  description="Informational message for a disabled checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart. The message is explaining that the checkbox is disabled because the highest coverage data overlaps with the most recent data available."
+                  defaultMessage="The latest data available for this chart overlaps with the data with highest coverage."
+                  id="snap-to-latest-data-overlap-help-tooltip"
+                />
+              )}
             </UncontrolledTooltip>
           </span>
         )}
@@ -254,8 +321,8 @@ export function Block(props: BlockPropType): JSX.Element {
                         overridePlaceTypes,
                         columnTileClassName,
                         useDenom ? props.denom : "",
-                        showSnapToLatestData
-                          ? snapToLatestData
+                        enableSnapToLatestData
+                          ? snapToHighestCoverage
                             ? DATE_HIGHEST_COVERAGE
                             : DATE_LATEST
                           : undefined
@@ -268,8 +335,8 @@ export function Block(props: BlockPropType): JSX.Element {
                         overridePlaceTypes,
                         columnTileClassName,
                         useDenom ? props.denom : "",
-                        showSnapToLatestData
-                          ? snapToLatestData
+                        enableSnapToLatestData
+                          ? snapToHighestCoverage
                             ? DATE_HIGHEST_COVERAGE
                             : DATE_LATEST
                           : undefined
