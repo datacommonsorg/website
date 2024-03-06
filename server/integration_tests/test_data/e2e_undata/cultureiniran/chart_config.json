@@ -9,11 +9,11 @@
               {
                 "tiles": [
                   {
-                    "description": "ICT Development Index in Iran (Islamic Republic Of)",
+                    "description": "ICT Development Index (IDI) in Iran (Islamic Republic Of)",
                     "statVarKey": [
                       "who/ITU_IDI"
                     ],
-                    "title": "ICT Development Index in Iran (Islamic Republic Of)",
+                    "title": "ICT Development Index (IDI) in Iran (Islamic Republic Of)",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -21,18 +21,18 @@
             ],
             "denom": "Count_Person",
             "description": "ICT development index (IDI).",
-            "title": "ICT Development Index"
+            "title": "ICT Development Index (IDI)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "ICT Development Index Rank in Iran (Islamic Republic Of)",
+                    "description": "ICT Development Index (IDI) Rank in Iran (Islamic Republic Of)",
                     "statVarKey": [
                       "who/ITU_IDI_RANK"
                     ],
-                    "title": "ICT Development Index Rank in Iran (Islamic Republic Of)",
+                    "title": "ICT Development Index (IDI) Rank in Iran (Islamic Republic Of)",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -40,7 +40,7 @@
             ],
             "denom": "Count_Person",
             "description": "ICT development index (IDI) rank.",
-            "title": "ICT Development Index Rank"
+            "title": "ICT Development Index (IDI) Rank"
           },
           {
             "columns": [
@@ -668,411 +668,411 @@
         ],
         "statVarSpec": {
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECHBARRIER_ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [Other, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Other, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECHBARRIER_ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECHBARRIER_ASSISTIVETECH_Other_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [Other]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Other]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECHBARRIER_ASSISTIVETECH_Other"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Cant_afford__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [Can't afford, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Can't afford, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Cant_afford__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Cant_afford_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [Can't afford]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Can't afford]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Cant_afford"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_support__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [No support, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [No support, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_support__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_support_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [No support]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [No support]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_support"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_time__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [No time, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [No time, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_time__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_time_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [No time]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [No time]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_time"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_available__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [Not available, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Not available, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_available__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_available_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [Not available]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Not available]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_available"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_suitable__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [Not suitable, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Not suitable, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_suitable__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_suitable_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [Not suitable]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Not suitable]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_suitable"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Stigma__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [Stigma, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Stigma, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Stigma__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Stigma_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [Stigma]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Stigma]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Stigma"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Too_far__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [Too far, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Too far, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Too_far__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Too_far_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products [Too far]",
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Too far]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Too_far"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y0T04__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [0-4 years, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [0-4 years, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y0T04__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y0T04_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [0-4 years]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [0-4 years]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y0T04"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y18T29__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [18-29 years, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [18-29 years, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y18T29__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y18T29_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [18-29 years]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [18-29 years]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y18T29"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y30T39__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [30-39 years, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [30-39 years, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y30T39__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y30T39_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [30-39 years]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [30-39 years]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y30T39"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y40T49__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [40-49 years, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [40-49 years, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y40T49__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y40T49_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [40-49 years]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [40-49 years]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y40T49"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y50T59__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [50-59  years, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [50-59 years, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y50T59__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y50T59_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [50-59  years]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [50-59 years]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y50T59"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y5T17__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [5-17 years, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [5-17 years, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y5T17__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y5T17_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [5-17 years]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [5-17 years]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y5T17"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y60T69__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [60-69  years, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [60-69 years, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y60T69__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y60T69_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [60-69  years]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [60-69 years]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y60T69"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y70T79__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [70-79 years, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [70-79 years, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y70T79__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y70T79_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [70-79 years]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [70-79 years]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y70T79"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y_GE80__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [80+ years, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [80+ years, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y_GE80__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_METNEED.AGE--Y_GE80_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [80+ years]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [80+ years]",
             "statVar": "who/ASSISTIVETECH_METNEED.AGE--Y_GE80"
           },
           "who/ASSISTIVETECH_METNEED.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__RESIDENCEAREATYPE--RUR_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [Total, excluding spectacles, Rural]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [Total, excluding spectacles, Rural]",
             "statVar": "who/ASSISTIVETECH_METNEED.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__RESIDENCEAREATYPE--RUR"
           },
           "who/ASSISTIVETECH_METNEED.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__RESIDENCEAREATYPE--URB_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [Total, excluding spectacles, Urban]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [Total, excluding spectacles, Urban]",
             "statVar": "who/ASSISTIVETECH_METNEED.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__RESIDENCEAREATYPE--URB"
           },
           "who/ASSISTIVETECH_METNEED.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__SEX--F_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [Total, excluding spectacles, Female]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [Total, excluding spectacles, Female]",
             "statVar": "who/ASSISTIVETECH_METNEED.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__SEX--F"
           },
           "who/ASSISTIVETECH_METNEED.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__SEX--M_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [Total, excluding spectacles, Male]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [Total, excluding spectacles, Male]",
             "statVar": "who/ASSISTIVETECH_METNEED.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__SEX--M"
           },
           "who/ASSISTIVETECH_METNEED.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_METNEED.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_METNEED.RESIDENCEAREATYPE--RUR_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [Rural]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [Rural]",
             "statVar": "who/ASSISTIVETECH_METNEED.RESIDENCEAREATYPE--RUR"
           },
           "who/ASSISTIVETECH_METNEED.RESIDENCEAREATYPE--URB_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [Urban]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [Urban]",
             "statVar": "who/ASSISTIVETECH_METNEED.RESIDENCEAREATYPE--URB"
           },
           "who/ASSISTIVETECH_METNEED.SEX--F_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [Female]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [Female]",
             "statVar": "who/ASSISTIVETECH_METNEED.SEX--F"
           },
           "who/ASSISTIVETECH_METNEED.SEX--M_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products [Male]",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%) [Male]",
             "statVar": "who/ASSISTIVETECH_METNEED.SEX--M"
           },
           "who/ASSISTIVETECH_METNEED_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Prevalence of met need of assistive products",
+            "name": "Assistive technology indicators: Prevalence of met need of assistive products (%)",
             "statVar": "who/ASSISTIVETECH_METNEED"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Employer_school__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [Employer/school, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [Employer/school, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Employer_school__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Employer_school_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [Employer/school]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [Employer/school]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Employer_school"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Friends_or_family__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [Friends or family, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [Friends or family, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Friends_or_family__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Friends_or_family_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [Friends or family]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [Friends or family]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Friends_or_family"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Government__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [Government, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [Government, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Government__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Government_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [Government]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [Government]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Government"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Insurance__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [Insurance, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [Insurance, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Insurance__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Insurance_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [Insurance]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [Insurance]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Insurance"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_NGO__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [NGO, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [NGO, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_NGO__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_NGO_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [NGO]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [NGO]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_NGO"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Oop__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [Out-of-pocket, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [Out-of-pocket, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Oop__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Oop_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [Out-of-pocket]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [Out-of-pocket]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Oop"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [Other, Total, excluding spectacles]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [Other, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
           },
           "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Other_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Funding for assistive products [Other]",
+            "name": "Assistive technology indicators: Funding for assistive products (%) [Other]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Other"
           },
           "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities [Total, excluding spectacles, Participation in activities]",
+            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Total, excluding spectacles, Participation in activities]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities"
           },
           "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities [Total, excluding spectacles, Home environment]",
+            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Total, excluding spectacles, Home environment]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home"
           },
           "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities [Total, excluding spectacles, Public environment]",
+            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Total, excluding spectacles, Public environment]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public"
           },
           "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities [Participation in activities]",
+            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Participation in activities]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities"
           },
           "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities [Home environment]",
+            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Home environment]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home"
           },
           "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities [Public environment]",
+            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Public environment]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public"
           },
           "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_APs_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products and related services [Total, excluding spectacles, Assistive product(s)]",
+            "name": "Assistive technology indicators: Satisfaction with assistive products and related services (%) [Total, excluding spectacles, Assistive product(s)]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_APs"
           },
           "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_assessment_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products and related services [Total, excluding spectacles, Assessment and training]",
+            "name": "Assistive technology indicators: Satisfaction with assistive products and related services (%) [Total, excluding spectacles, Assessment and training]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_assessment"
           },
           "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_repair_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products and related services [Total, excluding spectacles, Mainteinance and repair]",
+            "name": "Assistive technology indicators: Satisfaction with assistive products and related services (%) [Total, excluding spectacles, Mainteinance and repair]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_repair"
           },
           "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_APs_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products and related services [Assistive product(s)]",
+            "name": "Assistive technology indicators: Satisfaction with assistive products and related services (%) [Assistive product(s)]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_APs"
           },
           "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_assessment_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products and related services [Assessment and training]",
+            "name": "Assistive technology indicators: Satisfaction with assistive products and related services (%) [Assessment and training]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_assessment"
           },
           "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_repair_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products and related services [Mainteinance and repair]",
+            "name": "Assistive technology indicators: Satisfaction with assistive products and related services (%) [Mainteinance and repair]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_repair"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_NGO_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products [Total, excluding spectacles, NGO]",
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Total, excluding spectacles, NGO]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_NGO"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_Other_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products [Total, excluding spectacles, Other]",
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Total, excluding spectacles, Other]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_Other"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products [Total, excluding spectacles, Friends and family]",
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Total, excluding spectacles, Friends and family]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Private_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products [Total, excluding spectacles, Private]",
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Total, excluding spectacles, Private]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Private"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Public_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products [Total, excluding spectacles, Public]",
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Total, excluding spectacles, Public]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Public"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Self-made_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products [Total, excluding spectacles, Self-made]",
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Total, excluding spectacles, Self-made]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Self-made"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_NGO_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products [NGO]",
+            "name": "Assistive technology indicators: Sources of assistive products (%) [NGO]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_NGO"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_Other_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products [Other]",
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Other]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_Other"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products [Friends and family]",
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Friends and family]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Private_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products [Private]",
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Private]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Private"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Public_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products [Public]",
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Public]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Public"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Self-made_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products [Self-made]",
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Self-made]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Self-made"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [Total, excluding spectacles, 100+km]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [Total, excluding spectacles, 100+km]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [Total, excluding spectacles, 26-50km]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [Total, excluding spectacles, 26-50km]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [Total, excluding spectacles, 51-100km]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [Total, excluding spectacles, 51-100km]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [Total, excluding spectacles, 6-25km]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [Total, excluding spectacles, 6-25km]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [Total, excluding spectacles, <5km]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [Total, excluding spectacles, <5km]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm__RESIDENCEAREATYPE--RUR_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [100+km, Rural]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [100+km, Rural]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm__RESIDENCEAREATYPE--RUR"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm__RESIDENCEAREATYPE--URB_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [100+km, Urban]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [100+km, Urban]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm__RESIDENCEAREATYPE--URB"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [100+km]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [100+km]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km__RESIDENCEAREATYPE--RUR_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [26-50km, Rural]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [26-50km, Rural]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km__RESIDENCEAREATYPE--RUR"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km__RESIDENCEAREATYPE--URB_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [26-50km, Urban]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [26-50km, Urban]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km__RESIDENCEAREATYPE--URB"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [26-50km]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [26-50km]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km__RESIDENCEAREATYPE--RUR_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [51-100km, Rural]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [51-100km, Rural]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km__RESIDENCEAREATYPE--RUR"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km__RESIDENCEAREATYPE--URB_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [51-100km, Urban]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [51-100km, Urban]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km__RESIDENCEAREATYPE--URB"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [51-100km]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [51-100km]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km__RESIDENCEAREATYPE--RUR_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [6-25km, Rural]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [6-25km, Rural]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km__RESIDENCEAREATYPE--RUR"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km__RESIDENCEAREATYPE--URB_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [6-25km, Urban]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [6-25km, Urban]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km__RESIDENCEAREATYPE--URB"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [6-25km]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [6-25km]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km__RESIDENCEAREATYPE--RUR_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [<5km, Rural]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [<5km, Rural]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km__RESIDENCEAREATYPE--RUR"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km__RESIDENCEAREATYPE--URB_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [<5km, Urban]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [<5km, Urban]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km__RESIDENCEAREATYPE--URB"
           },
           "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Travel distance to obtain assistive products [<5km]",
+            "name": "Assistive technology indicators: Travel distance to obtain assistive products (%) [<5km]",
             "statVar": "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km"
           },
           "who/ITU_ICT_1": {
@@ -1084,11 +1084,11 @@
             "statVar": "who/ITU_ICT_2"
           },
           "who/ITU_IDI": {
-            "name": "ICT Development Index",
+            "name": "ICT Development Index (IDI)",
             "statVar": "who/ITU_IDI"
           },
           "who/ITU_IDI_RANK": {
-            "name": "ICT Development Index rank",
+            "name": "ICT Development Index (IDI) rank",
             "statVar": "who/ITU_IDI_RANK"
           }
         }
@@ -1102,7 +1102,6 @@
   },
   "context": {},
   "debug": {},
-  "entityPvConfig": null,
   "pastSourceContext": "",
   "place": {
     "dcid": "country/IRN",

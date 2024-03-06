@@ -12,14 +12,14 @@
                     "statVarKey": [
                       "who/AIR_43.GHECAUSES--GHE118"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World (${date})",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
             "columns": [
@@ -29,14 +29,14 @@
                     "statVarKey": [
                       "who/AIR_43.GHECAUSES--GHE118__SEX--F"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World (${date})",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Female] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
             "columns": [
@@ -46,14 +46,14 @@
                     "statVarKey": [
                       "who/AIR_43.GHECAUSES--GHE118__SEX--M"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World (${date})",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Male] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
             "columns": [
@@ -78,54 +78,54 @@
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease] in the World",
                     "statVarKey": [
                       "who/AIR_15.ENVCAUSE--ENVCAUSE118"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
                     "statVarKey": [
                       "who/AIR_17.ENVCAUSE--ENVCAUSE118"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease] in the World",
                     "statVarKey": [
                       "who/AIR_39.ENVCAUSE--ENVCAUSE118"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease]"
           },
           {
             "columns": [
@@ -150,126 +150,126 @@
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "description": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease] in the World",
                     "statVarKey": [
                       "who/AIR_42.ENVCAUSE--ENVCAUSE118"
                     ],
-                    "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease]"
+            "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease] in the World",
+                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease] in the World",
                     "statVarKey": [
                       "who/AIR_45.ENVCAUSE--ENVCAUSE118"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease] in the World",
+                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease]"
+            "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "description": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
                     "statVarKey": [
                       "who/AIR_5.ENVCAUSE--ENVCAUSE118"
                     ],
-                    "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease]"
+            "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
                     "statVarKey": [
                       "who/AIR_51.ENVCAUSE--ENVCAUSE118"
                     ],
-                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease]"
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease] in the World",
                     "statVarKey": [
                       "who/AIR_52.ENVCAUSE--ENVCAUSE118"
                     ],
-                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease] in the World",
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease]"
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease] in the World",
                     "statVarKey": [
                       "who/AIR_7.ENVCAUSE--ENVCAUSE118"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
                     "statVarKey": [
                       "who/AIR_9.ENVCAUSE--ENVCAUSE118"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease]"
           },
           {
             "columns": [
@@ -312,108 +312,108 @@
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "statVarKey": [
                       "who/AIR_15.ENVCAUSE--ENVCAUSE118__SEX--F"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "statVarKey": [
                       "who/AIR_15.ENVCAUSE--ENVCAUSE118__SEX--M"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "statVarKey": [
                       "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--F"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "statVarKey": [
                       "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--M"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "statVarKey": [
                       "who/AIR_39.ENVCAUSE--ENVCAUSE118__SEX--F"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "statVarKey": [
                       "who/AIR_39.ENVCAUSE--ENVCAUSE118__SEX--M"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
             "columns": [
@@ -456,252 +456,252 @@
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "description": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "statVarKey": [
                       "who/AIR_42.ENVCAUSE--ENVCAUSE118__SEX--F"
                     ],
-                    "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female]"
+            "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "description": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "statVarKey": [
                       "who/AIR_42.ENVCAUSE--ENVCAUSE118__SEX--M"
                     ],
-                    "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male]"
+            "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "statVarKey": [
                       "who/AIR_45.ENVCAUSE--ENVCAUSE118__SEX--F"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Female]"
+            "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "statVarKey": [
                       "who/AIR_45.ENVCAUSE--ENVCAUSE118__SEX--M"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Male]"
+            "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "description": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "statVarKey": [
                       "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--F"
                     ],
-                    "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female]"
+            "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "description": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "statVarKey": [
                       "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--M"
                     ],
-                    "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male]"
+            "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "statVarKey": [
                       "who/AIR_51.ENVCAUSE--ENVCAUSE118__SEX--F"
                     ],
-                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female]"
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "statVarKey": [
                       "who/AIR_51.ENVCAUSE--ENVCAUSE118__SEX--M"
                     ],
-                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male]"
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "statVarKey": [
                       "who/AIR_52.ENVCAUSE--ENVCAUSE118__SEX--F"
                     ],
-                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female]"
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "statVarKey": [
                       "who/AIR_52.ENVCAUSE--ENVCAUSE118__SEX--M"
                     ],
-                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male]"
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "statVarKey": [
                       "who/AIR_7.ENVCAUSE--ENVCAUSE118__SEX--F"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "statVarKey": [
                       "who/AIR_7.ENVCAUSE--ENVCAUSE118__SEX--M"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "statVarKey": [
                       "who/AIR_9.ENVCAUSE--ENVCAUSE118__SEX--F"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "description": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "statVarKey": [
                       "who/AIR_9.ENVCAUSE--ENVCAUSE118__SEX--M"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
             "columns": [
@@ -711,14 +711,14 @@
                     "statVarKey": [
                       "who/AIR_43.GHECAUSES--GHE039"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World (${date})",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections] in the World"
           },
           {
             "columns": [
@@ -728,14 +728,14 @@
                     "statVarKey": [
                       "who/AIR_43.GHECAUSES--GHE039__SEX--F"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World (${date})",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Female] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Female] in the World"
           },
           {
             "columns": [
@@ -745,14 +745,14 @@
                     "statVarKey": [
                       "who/AIR_43.GHECAUSES--GHE039__SEX--M"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World (${date})",
+                    "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Male] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World"
+            "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Male] in the World"
           },
           {
             "columns": [
@@ -762,14 +762,14 @@
                     "statVarKey": [
                       "who/AIR_10.ENVCAUSE--ENVCAUSE039"
                     ],
-                    "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections] in the World (${date})",
+                    "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years (DALYs) Per 100'000 Children Under 5 Years [Lower Respiratory Infections] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections] in the World"
+            "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years (DALYs) Per 100'000 Children Under 5 Years [Lower Respiratory Infections] in the World"
           },
           {
             "columns": [
@@ -811,18 +811,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections] in the World",
                     "statVarKey": [
                       "who/AIR_15.ENVCAUSE--ENVCAUSE039"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections]"
           },
           {
             "columns": [
@@ -832,50 +832,50 @@
                     "statVarKey": [
                       "who/AIR_16.ENVCAUSE--ENVCAUSE039"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections] in the World (${date})",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) in Children Under 5 Years [Lower Respiratory Infections] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections] in the World"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) in Children Under 5 Years [Lower Respiratory Infections] in the World"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections] in the World",
                     "statVarKey": [
                       "who/AIR_17.ENVCAUSE--ENVCAUSE039"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections] in the World",
                     "statVarKey": [
                       "who/AIR_39.ENVCAUSE--ENVCAUSE039"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections]"
           },
           {
             "columns": [
@@ -917,36 +917,36 @@
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections] in the World",
+                    "description": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections] in the World",
                     "statVarKey": [
                       "who/AIR_42.ENVCAUSE--ENVCAUSE039"
                     ],
-                    "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections] in the World",
+                    "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections]"
+            "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections] in the World",
+                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections] in the World",
                     "statVarKey": [
                       "who/AIR_45.ENVCAUSE--ENVCAUSE039"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections] in the World",
+                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections]"
+            "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections]"
           },
           {
             "columns": [
@@ -956,50 +956,50 @@
                     "statVarKey": [
                       "who/AIR_46.ENVCAUSE--ENVCAUSE039"
                     ],
-                    "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections] in the World (${date})",
+                    "title": "Years Life Lost (YLLs) Attributable to Ambient Air Pollution (Age-Standardized) [Lower Respiratory Infections] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections] in the World"
+            "title": "Years Life Lost (YLLs) Attributable to Ambient Air Pollution (Age-Standardized) [Lower Respiratory Infections] in the World"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections] in the World",
+                    "description": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections] in the World",
                     "statVarKey": [
                       "who/AIR_5.ENVCAUSE--ENVCAUSE039"
                     ],
-                    "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections] in the World",
+                    "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections]"
+            "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections] in the World",
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections] in the World",
                     "statVarKey": [
                       "who/AIR_51.ENVCAUSE--ENVCAUSE039"
                     ],
-                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections] in the World",
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections]"
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections]"
           },
           {
             "columns": [
@@ -1009,14 +1009,14 @@
                     "statVarKey": [
                       "who/AIR_10.ENVCAUSE--ENVCAUSE039__SEX--F"
                     ],
-                    "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Female] in the World (${date})",
+                    "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years (DALYs) Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Female] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
+            "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years (DALYs) Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
           },
           {
             "columns": [
@@ -1026,14 +1026,14 @@
                     "statVarKey": [
                       "who/AIR_10.ENVCAUSE--ENVCAUSE039__SEX--M"
                     ],
-                    "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Male] in the World (${date})",
+                    "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years (DALYs) Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Male] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
+            "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years (DALYs) Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
           },
           {
             "columns": [
@@ -1110,36 +1110,36 @@
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Female] in the World",
                     "statVarKey": [
                       "who/AIR_15.ENVCAUSE--ENVCAUSE039__SEX--F"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Male] in the World",
                     "statVarKey": [
                       "who/AIR_15.ENVCAUSE--ENVCAUSE039__SEX--M"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Male]"
           },
           {
             "columns": [
@@ -1149,14 +1149,14 @@
                     "statVarKey": [
                       "who/AIR_16.ENVCAUSE--ENVCAUSE039__SEX--F"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections, Female] in the World (${date})",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) in Children Under 5 Years [Lower Respiratory Infections, Female] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) in Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
           },
           {
             "columns": [
@@ -1166,86 +1166,86 @@
                     "statVarKey": [
                       "who/AIR_16.ENVCAUSE--ENVCAUSE039__SEX--M"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections, Male] in the World (${date})",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) in Children Under 5 Years [Lower Respiratory Infections, Male] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) in Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections, Female] in the World",
                     "statVarKey": [
                       "who/AIR_17.ENVCAUSE--ENVCAUSE039__SEX--F"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections, Male] in the World",
                     "statVarKey": [
                       "who/AIR_17.ENVCAUSE--ENVCAUSE039__SEX--M"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections, Male]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections, Female] in the World",
                     "statVarKey": [
                       "who/AIR_39.ENVCAUSE--ENVCAUSE039__SEX--F"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World",
+                    "description": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections, Male] in the World",
                     "statVarKey": [
                       "who/AIR_39.ENVCAUSE--ENVCAUSE039__SEX--M"
                     ],
-                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World",
+                    "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male]"
+            "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections, Male]"
           },
           {
             "columns": [
@@ -1322,72 +1322,72 @@
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female] in the World",
+                    "description": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections, Female] in the World",
                     "statVarKey": [
                       "who/AIR_42.ENVCAUSE--ENVCAUSE039__SEX--F"
                     ],
-                    "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female] in the World",
+                    "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female]"
+            "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male] in the World",
+                    "description": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections, Male] in the World",
                     "statVarKey": [
                       "who/AIR_42.ENVCAUSE--ENVCAUSE039__SEX--M"
                     ],
-                    "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male] in the World",
+                    "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male]"
+            "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections, Male]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Female] in the World",
+                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections, Female] in the World",
                     "statVarKey": [
                       "who/AIR_45.ENVCAUSE--ENVCAUSE039__SEX--F"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Female] in the World",
+                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Female]"
+            "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Male] in the World",
+                    "description": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections, Male] in the World",
                     "statVarKey": [
                       "who/AIR_45.ENVCAUSE--ENVCAUSE039__SEX--M"
                     ],
-                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Male] in the World",
+                    "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Male]"
+            "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections, Male]"
           },
           {
             "columns": [
@@ -1397,14 +1397,14 @@
                     "statVarKey": [
                       "who/AIR_46.ENVCAUSE--ENVCAUSE039__SEX--F"
                     ],
-                    "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections, Female] in the World (${date})",
+                    "title": "Years Life Lost (YLLs) Attributable to Ambient Air Pollution (Age-Standardized) [Lower Respiratory Infections, Female] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections, Female] in the World"
+            "title": "Years Life Lost (YLLs) Attributable to Ambient Air Pollution (Age-Standardized) [Lower Respiratory Infections, Female] in the World"
           },
           {
             "columns": [
@@ -1414,68 +1414,68 @@
                     "statVarKey": [
                       "who/AIR_46.ENVCAUSE--ENVCAUSE039__SEX--M"
                     ],
-                    "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections, Male] in the World (${date})",
+                    "title": "Years Life Lost (YLLs) Attributable to Ambient Air Pollution (Age-Standardized) [Lower Respiratory Infections, Male] in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections, Male] in the World"
+            "title": "Years Life Lost (YLLs) Attributable to Ambient Air Pollution (Age-Standardized) [Lower Respiratory Infections, Male] in the World"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female] in the World",
+                    "description": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Female] in the World",
                     "statVarKey": [
                       "who/AIR_5.ENVCAUSE--ENVCAUSE039__SEX--F"
                     ],
-                    "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female] in the World",
+                    "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female]"
+            "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Female]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male] in the World",
+                    "description": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Male] in the World",
                     "statVarKey": [
                       "who/AIR_5.ENVCAUSE--ENVCAUSE039__SEX--M"
                     ],
-                    "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male] in the World",
+                    "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male]"
+            "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Male]"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female] in the World",
+                    "description": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Female] in the World",
                     "statVarKey": [
                       "who/AIR_51.ENVCAUSE--ENVCAUSE039__SEX--F"
                     ],
-                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female] in the World",
+                    "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Female] in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female]"
+            "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Female]"
           },
           {
             "columns": [
@@ -1590,15 +1590,15 @@
         ],
         "statVarSpec": {
           "who/AIR_10.ENVCAUSE--ENVCAUSE039": {
-            "name": "Ambient air pollution attributable disability-adjusted life years per 100'000 children under 5 years [Lower respiratory infections]",
+            "name": "Ambient air pollution attributable disability-adjusted life years (DALYs) per 100'000 children under 5 years [Lower respiratory infections]",
             "statVar": "who/AIR_10.ENVCAUSE--ENVCAUSE039"
           },
           "who/AIR_10.ENVCAUSE--ENVCAUSE039__SEX--F": {
-            "name": "Ambient air pollution attributable disability-adjusted life years per 100'000 children under 5 years [Lower respiratory infections, Female]",
+            "name": "Ambient air pollution attributable disability-adjusted life years (DALYs) per 100'000 children under 5 years [Lower respiratory infections, Female]",
             "statVar": "who/AIR_10.ENVCAUSE--ENVCAUSE039__SEX--F"
           },
           "who/AIR_10.ENVCAUSE--ENVCAUSE039__SEX--M": {
-            "name": "Ambient air pollution attributable disability-adjusted life years per 100'000 children under 5 years [Lower respiratory infections, Male]",
+            "name": "Ambient air pollution attributable disability-adjusted life years (DALYs) per 100'000 children under 5 years [Lower respiratory infections, Male]",
             "statVar": "who/AIR_10.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_11.ENVCAUSE--ENVCAUSE039": {
@@ -1638,87 +1638,87 @@
             "statVar": "who/AIR_12.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_15.ENVCAUSE--ENVCAUSE039": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) [Lower respiratory infections]",
             "statVar": "who/AIR_15.ENVCAUSE--ENVCAUSE039"
           },
           "who/AIR_15.ENVCAUSE--ENVCAUSE039__SEX--F": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Female]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) [Lower respiratory infections, Female]",
             "statVar": "who/AIR_15.ENVCAUSE--ENVCAUSE039__SEX--F"
           },
           "who/AIR_15.ENVCAUSE--ENVCAUSE039__SEX--M": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Male]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) [Lower respiratory infections, Male]",
             "statVar": "who/AIR_15.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_15.ENVCAUSE--ENVCAUSE118": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_15.ENVCAUSE--ENVCAUSE118"
           },
           "who/AIR_15.ENVCAUSE--ENVCAUSE118__SEX--F": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Female]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) [Chronic obstructive pulmonary disease, Female]",
             "statVar": "who/AIR_15.ENVCAUSE--ENVCAUSE118__SEX--F"
           },
           "who/AIR_15.ENVCAUSE--ENVCAUSE118__SEX--M": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_15.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
           "who/AIR_16.ENVCAUSE--ENVCAUSE039": {
-            "name": "Household air pollution attributable number of disability-adjusted life years in children under 5 years [Lower respiratory infections]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) in children under 5 years [Lower respiratory infections]",
             "statVar": "who/AIR_16.ENVCAUSE--ENVCAUSE039"
           },
           "who/AIR_16.ENVCAUSE--ENVCAUSE039__SEX--F": {
-            "name": "Household air pollution attributable number of disability-adjusted life years in children under 5 years [Lower respiratory infections, Female]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) in children under 5 years [Lower respiratory infections, Female]",
             "statVar": "who/AIR_16.ENVCAUSE--ENVCAUSE039__SEX--F"
           },
           "who/AIR_16.ENVCAUSE--ENVCAUSE039__SEX--M": {
-            "name": "Household air pollution attributable number of disability-adjusted life years in children under 5 years [Lower respiratory infections, Male]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) in children under 5 years [Lower respiratory infections, Male]",
             "statVar": "who/AIR_16.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_17.ENVCAUSE--ENVCAUSE039": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000 population) [Lower respiratory infections]",
             "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE039"
           },
           "who/AIR_17.ENVCAUSE--ENVCAUSE039__SEX--F": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Female]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000 population) [Lower respiratory infections, Female]",
             "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE039__SEX--F"
           },
           "who/AIR_17.ENVCAUSE--ENVCAUSE039__SEX--M": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Male]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000 population) [Lower respiratory infections, Male]",
             "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_17.ENVCAUSE--ENVCAUSE118": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000 population) [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE118"
           },
           "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--F": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Female]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000 population) [Chronic obstructive pulmonary disease, Female]",
             "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--F"
           },
           "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--M": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000 population) [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_17.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
           "who/AIR_39.ENVCAUSE--ENVCAUSE039": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000, age-standardized) [Lower respiratory infections]",
             "statVar": "who/AIR_39.ENVCAUSE--ENVCAUSE039"
           },
           "who/AIR_39.ENVCAUSE--ENVCAUSE039__SEX--F": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Female]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000, age-standardized) [Lower respiratory infections, Female]",
             "statVar": "who/AIR_39.ENVCAUSE--ENVCAUSE039__SEX--F"
           },
           "who/AIR_39.ENVCAUSE--ENVCAUSE039__SEX--M": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Male]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000, age-standardized) [Lower respiratory infections, Male]",
             "statVar": "who/AIR_39.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_39.ENVCAUSE--ENVCAUSE118": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000, age-standardized) [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_39.ENVCAUSE--ENVCAUSE118"
           },
           "who/AIR_39.ENVCAUSE--ENVCAUSE118__SEX--F": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Female]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000, age-standardized) [Chronic obstructive pulmonary disease, Female]",
             "statVar": "who/AIR_39.ENVCAUSE--ENVCAUSE118__SEX--F"
           },
           "who/AIR_39.ENVCAUSE--ENVCAUSE118__SEX--M": {
-            "name": "Household air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
+            "name": "Household air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000, age-standardized) [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_39.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
           "who/AIR_4.ENVCAUSE--ENVCAUSE039": {
@@ -1758,167 +1758,167 @@
             "statVar": "who/AIR_41.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
           "who/AIR_42.ENVCAUSE--ENVCAUSE039": {
-            "name": "Ambient air pollution attributable death rate [Lower respiratory infections]",
+            "name": "Ambient air pollution attributable death rate (per 100 000 population, age-standardized) [Lower respiratory infections]",
             "statVar": "who/AIR_42.ENVCAUSE--ENVCAUSE039"
           },
           "who/AIR_42.ENVCAUSE--ENVCAUSE039__SEX--F": {
-            "name": "Ambient air pollution attributable death rate [Lower respiratory infections, Female]",
+            "name": "Ambient air pollution attributable death rate (per 100 000 population, age-standardized) [Lower respiratory infections, Female]",
             "statVar": "who/AIR_42.ENVCAUSE--ENVCAUSE039__SEX--F"
           },
           "who/AIR_42.ENVCAUSE--ENVCAUSE039__SEX--M": {
-            "name": "Ambient air pollution attributable death rate [Lower respiratory infections, Male]",
+            "name": "Ambient air pollution attributable death rate (per 100 000 population, age-standardized) [Lower respiratory infections, Male]",
             "statVar": "who/AIR_42.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_42.ENVCAUSE--ENVCAUSE118": {
-            "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease]",
+            "name": "Ambient air pollution attributable death rate (per 100 000 population, age-standardized) [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_42.ENVCAUSE--ENVCAUSE118"
           },
           "who/AIR_42.ENVCAUSE--ENVCAUSE118__SEX--F": {
-            "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease, Female]",
+            "name": "Ambient air pollution attributable death rate (per 100 000 population, age-standardized) [Chronic obstructive pulmonary disease, Female]",
             "statVar": "who/AIR_42.ENVCAUSE--ENVCAUSE118__SEX--F"
           },
           "who/AIR_42.ENVCAUSE--ENVCAUSE118__SEX--M": {
-            "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease, Male]",
+            "name": "Ambient air pollution attributable death rate (per 100 000 population, age-standardized) [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_42.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
           "who/AIR_43.GHECAUSES--GHE039": {
-            "name": "Ambient air pollution attributable number of disability-adjusted life years [Lower respiratory infections]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years (DALYs) [Lower respiratory infections]",
             "statVar": "who/AIR_43.GHECAUSES--GHE039"
           },
           "who/AIR_43.GHECAUSES--GHE039__SEX--F": {
-            "name": "Ambient air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Female]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years (DALYs) [Lower respiratory infections, Female]",
             "statVar": "who/AIR_43.GHECAUSES--GHE039__SEX--F"
           },
           "who/AIR_43.GHECAUSES--GHE039__SEX--M": {
-            "name": "Ambient air pollution attributable number of disability-adjusted life years [Lower respiratory infections, Male]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years (DALYs) [Lower respiratory infections, Male]",
             "statVar": "who/AIR_43.GHECAUSES--GHE039__SEX--M"
           },
           "who/AIR_43.GHECAUSES--GHE118": {
-            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years (DALYs) [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_43.GHECAUSES--GHE118"
           },
           "who/AIR_43.GHECAUSES--GHE118__SEX--F": {
-            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Female]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years (DALYs) [Chronic obstructive pulmonary disease, Female]",
             "statVar": "who/AIR_43.GHECAUSES--GHE118__SEX--F"
           },
           "who/AIR_43.GHECAUSES--GHE118__SEX--M": {
-            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years (DALYs) [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_43.GHECAUSES--GHE118__SEX--M"
           },
           "who/AIR_45.ENVCAUSE--ENVCAUSE039": {
-            "name": "Ambient air pollution attributable number of years life lost [Lower respiratory infections]",
+            "name": "Ambient air pollution attributable number of years life lost (YLLs) [Lower respiratory infections]",
             "statVar": "who/AIR_45.ENVCAUSE--ENVCAUSE039"
           },
           "who/AIR_45.ENVCAUSE--ENVCAUSE039__SEX--F": {
-            "name": "Ambient air pollution attributable number of years life lost [Lower respiratory infections, Female]",
+            "name": "Ambient air pollution attributable number of years life lost (YLLs) [Lower respiratory infections, Female]",
             "statVar": "who/AIR_45.ENVCAUSE--ENVCAUSE039__SEX--F"
           },
           "who/AIR_45.ENVCAUSE--ENVCAUSE039__SEX--M": {
-            "name": "Ambient air pollution attributable number of years life lost [Lower respiratory infections, Male]",
+            "name": "Ambient air pollution attributable number of years life lost (YLLs) [Lower respiratory infections, Male]",
             "statVar": "who/AIR_45.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_45.ENVCAUSE--ENVCAUSE118": {
-            "name": "Ambient air pollution attributable number of years life lost [Chronic obstructive pulmonary disease]",
+            "name": "Ambient air pollution attributable number of years life lost (YLLs) [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_45.ENVCAUSE--ENVCAUSE118"
           },
           "who/AIR_45.ENVCAUSE--ENVCAUSE118__SEX--F": {
-            "name": "Ambient air pollution attributable number of years life lost [Chronic obstructive pulmonary disease, Female]",
+            "name": "Ambient air pollution attributable number of years life lost (YLLs) [Chronic obstructive pulmonary disease, Female]",
             "statVar": "who/AIR_45.ENVCAUSE--ENVCAUSE118__SEX--F"
           },
           "who/AIR_45.ENVCAUSE--ENVCAUSE118__SEX--M": {
-            "name": "Ambient air pollution attributable number of years life lost [Chronic obstructive pulmonary disease, Male]",
+            "name": "Ambient air pollution attributable number of years life lost (YLLs) [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_45.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
           "who/AIR_46.ENVCAUSE--ENVCAUSE039": {
-            "name": "Years life lost attributable to ambient air pollution [Lower respiratory infections]",
+            "name": "Years life lost (YLLs) attributable to ambient air pollution (age-standardized) [Lower respiratory infections]",
             "statVar": "who/AIR_46.ENVCAUSE--ENVCAUSE039"
           },
           "who/AIR_46.ENVCAUSE--ENVCAUSE039__SEX--F": {
-            "name": "Years life lost attributable to ambient air pollution [Lower respiratory infections, Female]",
+            "name": "Years life lost (YLLs) attributable to ambient air pollution (age-standardized) [Lower respiratory infections, Female]",
             "statVar": "who/AIR_46.ENVCAUSE--ENVCAUSE039__SEX--F"
           },
           "who/AIR_46.ENVCAUSE--ENVCAUSE039__SEX--M": {
-            "name": "Years life lost attributable to ambient air pollution [Lower respiratory infections, Male]",
+            "name": "Years life lost (YLLs) attributable to ambient air pollution (age-standardized) [Lower respiratory infections, Male]",
             "statVar": "who/AIR_46.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_5.ENVCAUSE--ENVCAUSE039": {
-            "name": "Ambient air pollution attributable death rate [Lower respiratory infections]",
+            "name": "Ambient air pollution attributable death rate (per 100 000 population) [Lower respiratory infections]",
             "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE039"
           },
           "who/AIR_5.ENVCAUSE--ENVCAUSE039__SEX--F": {
-            "name": "Ambient air pollution attributable death rate [Lower respiratory infections, Female]",
+            "name": "Ambient air pollution attributable death rate (per 100 000 population) [Lower respiratory infections, Female]",
             "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE039__SEX--F"
           },
           "who/AIR_5.ENVCAUSE--ENVCAUSE039__SEX--M": {
-            "name": "Ambient air pollution attributable death rate [Lower respiratory infections, Male]",
+            "name": "Ambient air pollution attributable death rate (per 100 000 population) [Lower respiratory infections, Male]",
             "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE039__SEX--M"
           },
           "who/AIR_5.ENVCAUSE--ENVCAUSE118": {
-            "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease]",
+            "name": "Ambient air pollution attributable death rate (per 100 000 population) [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE118"
           },
           "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--F": {
-            "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease, Female]",
+            "name": "Ambient air pollution attributable death rate (per 100 000 population) [Chronic obstructive pulmonary disease, Female]",
             "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--F"
           },
           "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--M": {
-            "name": "Ambient air pollution attributable death rate [Chronic obstructive pulmonary disease, Male]",
+            "name": "Ambient air pollution attributable death rate (per 100 000 population) [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_5.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
           "who/AIR_51.ENVCAUSE--ENVCAUSE039": {
-            "name": "Household air pollution: Household air pollution attributable death rate [Lower respiratory infections]",
+            "name": "Household air pollution: Household air pollution attributable death rate (per 100 000 population) [Lower respiratory infections]",
             "statVar": "who/AIR_51.ENVCAUSE--ENVCAUSE039"
           },
           "who/AIR_51.ENVCAUSE--ENVCAUSE039__SEX--F": {
-            "name": "Household air pollution: Household air pollution attributable death rate [Lower respiratory infections, Female]",
+            "name": "Household air pollution: Household air pollution attributable death rate (per 100 000 population) [Lower respiratory infections, Female]",
             "statVar": "who/AIR_51.ENVCAUSE--ENVCAUSE039__SEX--F"
           },
           "who/AIR_51.ENVCAUSE--ENVCAUSE118": {
-            "name": "Household air pollution: Household air pollution attributable death rate [Chronic obstructive pulmonary disease]",
+            "name": "Household air pollution: Household air pollution attributable death rate (per 100 000 population) [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_51.ENVCAUSE--ENVCAUSE118"
           },
           "who/AIR_51.ENVCAUSE--ENVCAUSE118__SEX--F": {
-            "name": "Household air pollution: Household air pollution attributable death rate [Chronic obstructive pulmonary disease, Female]",
+            "name": "Household air pollution: Household air pollution attributable death rate (per 100 000 population) [Chronic obstructive pulmonary disease, Female]",
             "statVar": "who/AIR_51.ENVCAUSE--ENVCAUSE118__SEX--F"
           },
           "who/AIR_51.ENVCAUSE--ENVCAUSE118__SEX--M": {
-            "name": "Household air pollution: Household air pollution attributable death rate [Chronic obstructive pulmonary disease, Male]",
+            "name": "Household air pollution: Household air pollution attributable death rate (per 100 000 population) [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_51.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
           "who/AIR_52.ENVCAUSE--ENVCAUSE118": {
-            "name": "Household air pollution: Household air pollution attributable death rate [Chronic obstructive pulmonary disease]",
+            "name": "Household air pollution: Household air pollution attributable death rate (per 100 000 population, age-standardized) [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_52.ENVCAUSE--ENVCAUSE118"
           },
           "who/AIR_52.ENVCAUSE--ENVCAUSE118__SEX--F": {
-            "name": "Household air pollution: Household air pollution attributable death rate [Chronic obstructive pulmonary disease, Female]",
+            "name": "Household air pollution: Household air pollution attributable death rate (per 100 000 population, age-standardized) [Chronic obstructive pulmonary disease, Female]",
             "statVar": "who/AIR_52.ENVCAUSE--ENVCAUSE118__SEX--F"
           },
           "who/AIR_52.ENVCAUSE--ENVCAUSE118__SEX--M": {
-            "name": "Household air pollution: Household air pollution attributable death rate [Chronic obstructive pulmonary disease, Male]",
+            "name": "Household air pollution: Household air pollution attributable death rate (per 100 000 population, age-standardized) [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_52.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
           "who/AIR_7.ENVCAUSE--ENVCAUSE118": {
-            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years (DALYs) [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_7.ENVCAUSE--ENVCAUSE118"
           },
           "who/AIR_7.ENVCAUSE--ENVCAUSE118__SEX--F": {
-            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Female]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years (DALYs) [Chronic obstructive pulmonary disease, Female]",
             "statVar": "who/AIR_7.ENVCAUSE--ENVCAUSE118__SEX--F"
           },
           "who/AIR_7.ENVCAUSE--ENVCAUSE118__SEX--M": {
-            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years (DALYs) [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_7.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
           "who/AIR_9.ENVCAUSE--ENVCAUSE118": {
-            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000 population) [Chronic obstructive pulmonary disease]",
             "statVar": "who/AIR_9.ENVCAUSE--ENVCAUSE118"
           },
           "who/AIR_9.ENVCAUSE--ENVCAUSE118__SEX--F": {
-            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Female]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000 population) [Chronic obstructive pulmonary disease, Female]",
             "statVar": "who/AIR_9.ENVCAUSE--ENVCAUSE118__SEX--F"
           },
           "who/AIR_9.ENVCAUSE--ENVCAUSE118__SEX--M": {
-            "name": "Ambient air pollution attributable number of disability-adjusted life years [Chronic obstructive pulmonary disease, Male]",
+            "name": "Ambient air pollution attributable number of disability-adjusted life years (DALYs) (per 100 000 population) [Chronic obstructive pulmonary disease, Male]",
             "statVar": "who/AIR_9.ENVCAUSE--ENVCAUSE118__SEX--M"
           },
           "who/TB_new_sn": {
@@ -1951,7 +1951,6 @@
   },
   "context": {},
   "debug": {},
-  "entityPvConfig": null,
   "pastSourceContext": "",
   "place": {
     "dcid": "Earth",
