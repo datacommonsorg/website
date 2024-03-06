@@ -101,7 +101,7 @@ function renderBlocks(
           continue;
         }
         for (const k of tile.statVarKey) {
-          const svSpec = svProvider.getSpec(k, block.denom);
+          const svSpec = svProvider.getSpec(k, { blockDenom: block.denom });
           if (visitedSV.has(svSpec.statVar)) {
             continue;
           }

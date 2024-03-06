@@ -44,10 +44,15 @@ _UNDATA_TOPIC_JSON = '../../../server/config/nl_page/undata_topic_cache.json'
 _UNDATA_NON_COUNTRY_VARS = '../../../server/config/nl_page/undata_non_country_vars.json'
 _UNDATA_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_undata.mcf')
 _UNDATA_VARIABLES_FILE = 'undata_variable_grouping.csv'
+_UNDATA_SERIES_TOPICS_FILE = 'un_who_series_topics.csv'
+# Drop this once the schema is updated
+_UNDATA_NL_SV_NAME_OVERRIDE_FILE = 'undata_nl_name_overrides.csv'
+_UNDATA_NL_DESCRIPTIONS_FILE = os.path.join(_TMP_DIR,
+                                            'undata_nl_descriptions.csv')
 
 API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
-API_PATH_PV = API_ROOT + '/v1/bulk/property/values/out'
+API_PATH_PROP_OUT = API_ROOT + '/v1/bulk/property/values/out'
 
 
 def _svg2t(svg):
@@ -155,8 +160,8 @@ def load_variables(vars_file: str, vars: Variables, var_prefix: str,
 
       if grp not in vars.group_descriptions:
         desc = row.get('GROUPING DESCRIPTION', '')
-        # Drop the stuff within () and [].
-        desc = re.sub("[\(\[].*?[\)\]]", '', desc)
+        # Drop the stuff within [].  It has stuff like [ILO].
+        desc = re.sub("[\[].*?[\]]", '', desc)
         # Remove the extra spaces.
         desc = ' '.join(desc.strip().split())
         desc = desc.replace(' ,', ',')
@@ -279,6 +284,85 @@ def write_non_country_vars(non_country_vars_file: str, vars: Variables):
     json.dump(js, fp, indent=2)
 
 
+def alt_nl_name(name: str):
+  new_name = ''
+  for f, t in [('DALYs', 'disability-adjusted life years'),
+               ('DALY', 'disability-adjusted life years'),
+               ('YLLs', 'years of life lost'), ('YLL', 'years of life lost')]:
+    if f in name and t not in name:
+      new_name = name.replace(f, t)
+      break
+  return new_name
+
+
+def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
+                          undata_series_topics_file: str):
+  # TODO: Drop this once we have the stuff in schema.
+  name_overrides = {}
+  with open(_UNDATA_NL_SV_NAME_OVERRIDE_FILE) as fp:
+    for row in csv.DictReader(fp):
+      id = row['Var']
+      name = row['Name']
+      name_overrides[id] = name
+      # convert to topic
+      topic = 'dc/topic/' + id.replace('who', 'WHO').replace('/', '').replace(
+          '_', '').replace('-', '')
+      name_overrides[topic] = name
+
+  with open(nl_desc_file, 'w') as fp:
+    csvw = csv.DictWriter(fp,
+                          fieldnames=[
+                              'dcid', 'Name', 'Description',
+                              'Override_Alternatives', 'Curated_Alternatives'
+                          ])
+    csvw.writeheader()
+
+    series_topics = set()
+    for n in nodes:
+      dcid = n.get('dcid', [''])[0]
+      name = n.get('name', [''])[0]
+      if 'dc/topic/' not in dcid or 'dc/topic/UN' in dcid:
+        continue
+      series_topics.add(dcid)
+      if dcid in name_overrides:
+        name = name_overrides[dcid]
+      csvw.writerow({
+          'dcid': dcid,
+          'Name': name,
+          'Description': '',
+          'Override_Alternatives': '',
+          'Curated_Alternatives': alt_nl_name(name)
+      })
+
+    sv_dcids = set()
+    with open(undata_series_topics_file) as fp:
+      for row in csv.DictReader(fp):
+        if row['NVars'] == '1':
+          sv_dcids.add(row['Vars'])
+        else:
+          id = row['SeriesTopic']
+          if id not in series_topics:
+            logging.error(f'ERROR: Missing topic {id}')
+
+    resp = common.call_api(API_PATH_PROP_OUT, {
+        'nodes': sorted(list(sv_dcids)),
+        'property': 'name'
+    })
+    for n in resp.get('data', []):
+      sv = n.get('node')
+      name = n.get('values', [{}])[0].get('value')
+      if name:
+        if sv in name_overrides:
+          name = name_overrides[sv]
+        csvw.writerow({
+            'dcid': sv,
+            'Name': name,
+            'Description': '',
+            'Override_Alternatives': '',
+            'Curated_Alternatives': alt_nl_name(name),
+        })
+
+
 def main(_):
   assert FLAGS.dc
   vars = Variables(series2group2vars={},
@@ -307,6 +391,8 @@ def main(_):
     nodes = generate([_UNDATA_ROOT], vars)
     common.write_topic_mcf(_UNDATA_MCF_PATH, nodes)
     common.write_topic_json(_UNDATA_TOPIC_JSON, nodes)
+    write_nl_descriptions(_UNDATA_NL_DESCRIPTIONS_FILE, nodes,
+                          _UNDATA_SERIES_TOPICS_FILE)
   print(f'Found {len(vars.keep_vars)} vars')
 
 

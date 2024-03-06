@@ -33,7 +33,6 @@ import { ChildPlace } from "./child_places_menu";
 import { MainPane, showOverview } from "./main_pane";
 import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
-import { ParentPlace } from "./parent_breadcrumbs";
 import { PlaceHighlight } from "./place_highlight";
 import { PlaceSearch } from "./place_search";
 import { isPlaceInUsa } from "./util";
@@ -225,17 +224,6 @@ function renderPage(): void {
       );
 
       if (!showOverview(isUsaPlace, placeType, category)) {
-        // Earth has no parent places.
-        if (data.parentPlaces.length > 0) {
-          ReactDOM.render(
-            React.createElement(ParentPlace, {
-              names: data.names,
-              parentPlaces: data.parentPlaces,
-              placeType,
-            }),
-            document.getElementById("place-type")
-          );
-        }
         ReactDOM.render(
           React.createElement(PlaceHighlight, {
             dcid,

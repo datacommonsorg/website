@@ -35,7 +35,8 @@ website:
       geoid_6_9:
       wikidataId:
       others:
-
+  
+  nodePool:
 
 nameOverride: ""
 fullnameOverride: ""
@@ -97,6 +98,7 @@ serviceGroups:
       memoryRequest: "8G"
       memoryLimit: "8G"
     cacheSVG: true
+    nodePool:
   observation:
     urlPaths:
       - "/v2/observation"
@@ -104,13 +106,15 @@ serviceGroups:
     resources:
       memoryRequest: "2G"
       memoryLimit: "2G"
+    nodePool:
   node:
     urlPaths:
       - "/v2/node"
     replicas: 1
     resources:
-      memoryRequest: "2G"
-      memoryLimit: "2G"
+      memoryRequest: "3G"
+      memoryLimit: "3G"
+    nodePool:
   default:
     urlPaths:
       - "/*"
@@ -118,6 +122,7 @@ serviceGroups:
     resources:
       memoryRequest: "2G"
       memoryLimit: "2G"
+    nodePool:
 
 ###############################################################################
 # Config for NL
@@ -126,6 +131,8 @@ nl:
   enabled: false
   embeddings:
   models:
+  memory: "2G"
+  workers: 1
 
 ###############################################################################
 # Config for Stat Var Groups which is shared between Website and Mixer
@@ -144,6 +151,7 @@ nodejs:
   env: "gke"
   replicas:
   apiRoot:
+  nodePool:
 
 ###############################################################################
 # Config for Periodic Testing CronJob

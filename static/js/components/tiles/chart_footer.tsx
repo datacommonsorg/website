@@ -28,7 +28,7 @@ import {
 } from "../../shared/ga_events";
 
 // Number of characters in footnote to show before "show more"
-const FOOTNOTE_CHAR_LIMIT = 100;
+const FOOTNOTE_CHAR_LIMIT = 150;
 
 interface ChartFooterPropType {
   handleEmbed?: () => void;

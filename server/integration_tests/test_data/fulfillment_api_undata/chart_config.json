@@ -164,11 +164,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population With Household Expenditures on Health Greater Than 10% of Total Household Expenditure or Income in United States of America",
+                    "description": "Population With Household Spending on Health Greater Than 10% of Total Household Budget in United States of America",
                     "statVarKey": [
                       "who/FINPROTECTION_CATA_TOT_10_POP"
                     ],
-                    "title": "Population With Household Expenditures on Health Greater Than 10% of Total Household Expenditure or Income in United States of America",
+                    "title": "Population With Household Spending on Health Greater Than 10% of Total Household Budget in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -177,7 +177,7 @@
             "denom": "Count_Person",
             "description": "Population with household expenditures on health greater than 10% of total household expenditure or income (SDG 3.8.2) (%).",
             "footnote": "Includes data from the following sources: FPAFG2007; FPAFG2013; FPAFG2016; FPAFG2020; FPAGO2008; FPAGO2018; FPALB1996; FPALB2002; FPALB2005; FPALB2008; FPALB2012; FPALB2017; FPARE2019; FPARG1996; FPARG2004; FPARG2017; FPARM1999; FPARM2001; FPARM2002; FPARM2003; FPARM2004; FPARM2005; FPARM2006; FPARM2007; FPARM2008; FPARM2009; FPARM2010; FPARM2011; FPARM2012; FPARM2013; FPARM2014; FPARM2015; FPARM2016; FPARM2017; FPARM2019; FPARM2020; FPARM2021; FPAUS2009; FPAUS2015; FPAUT1999; FPAZE2002; FPAZE20...10310 more chars",
-            "title": "Population With Household Expenditures on Health Greater Than 10% of Total Household Expenditure or Income"
+            "title": "Population With Household Spending on Health Greater Than 10% of Total Household Budget"
           },
           {
             "columns": [
@@ -195,7 +195,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of a Relative Poverty Line - 60% of Median Daily Per Capita Consumption or Income"
+            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of a Relative Poverty Line - 60% of Median Daily Per Capita Consumption or Income (%)"
           },
           {
             "columns": [
@@ -213,7 +213,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $1.90 A-Day Poverty Line"
+            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $1.90 A-Day Poverty Line (%)"
           },
           {
             "columns": [
@@ -231,25 +231,25 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $2.15 A-Day Poverty Line"
+            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $2.15 A-Day Poverty Line (%)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $3.20 A-Day Poverty Line in United States of America",
+                    "description": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $ 3.20 A-Day Poverty Line in United States of America",
                     "statVarKey": [
                       "who/FINPROTECTION_IMP_PG_310_STD"
                     ],
-                    "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $3.20 A-Day Poverty Line in United States of America",
+                    "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $ 3.20 A-Day Poverty Line in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $ 3.20 A-Day Poverty Line"
+            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $ 3.20 A-Day Poverty Line (%)"
           },
           {
             "columns": [
@@ -267,7 +267,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $3.65 A-Day Poverty Line"
+            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $3.65 A-Day Poverty Line (%)"
           },
           {
             "columns": [
@@ -285,7 +285,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Pushed Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income"
+            "title": "Population Pushed Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income (%)"
           },
           {
             "columns": [
@@ -303,7 +303,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Pushed Below the $1.90 a Day Poverty Line by Household Health Expenditures"
+            "title": "Population Pushed Below the $1.90 a Day Poverty Line by Household Health Expenditures (%)"
           },
           {
             "columns": [
@@ -321,7 +321,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Pushed Below the $2.15 a Day Poverty Line by Household Health Expenditures"
+            "title": "Population Pushed Below the $2.15 a Day Poverty Line by Household Health Expenditures (%)"
           },
           {
             "columns": [
@@ -339,7 +339,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Pushed Below the $3.10 a Day Poverty Line by Household Health Expenditures"
+            "title": "Population Pushed Below the $3.10 a Day Poverty Line by Household Health Expenditures (%)"
           },
           {
             "columns": [
@@ -357,7 +357,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Pushed Below the $3.65 a Day Poverty Line by Household Health Expenditures"
+            "title": "Population Pushed Below the $3.65 a Day Poverty Line by Household Health Expenditures (%)"
           },
           {
             "columns": [
@@ -375,14 +375,14 @@
                       "who/FINPROTECTION_IMP_PRELPL_POP.AGE--Y_GE60__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD_multiple_place_bar_block",
                       "who/FINPROTECTION_IMP_PRELPL_POP.AGE--Y0T59__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD_multiple_place_bar_block"
                     ],
-                    "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income, by Age of Head of the Household in United States of America (${date})",
+                    "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income (%), by Age of Head of the Household in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income, by Age of Head of the Household"
+            "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income (%), by Age of Head of the Household"
           },
           {
             "columns": [
@@ -400,14 +400,14 @@
                       "who/FINPROTECTION_IMP_PRELPL_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--F_multiple_place_bar_block",
                       "who/FINPROTECTION_IMP_PRELPL_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--M_multiple_place_bar_block"
                     ],
-                    "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income, by Sex of Head of the Household in United States of America (${date})",
+                    "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income (%), by Sex of Head of the Household in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income, by Sex of Head of the Household"
+            "title": "Population Pushed Further Below a Relative Poverty Line by Household Health Expenditures - 60% of Median Daily Per Capita Consumption or Income (%), by Sex of Head of the Household"
           },
           {
             "columns": [
@@ -425,7 +425,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Pushed Further Below the $3.20 a Day Poverty Line by Household Health Expenditures, by Rural/Urban Location"
+            "title": "Population Pushed Further Below the $3.20 a Day Poverty Line by Household Health Expenditures (%), by Rural/Urban Location"
           },
           {
             "columns": [
@@ -443,7 +443,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Pushed Further Below the $3.65 a Day Poverty Line by Household Health Expenditures, by Rural/Urban Location"
+            "title": "Population Pushed Further Below the $3.65 a Day Poverty Line by Household Health Expenditures (%), by Rural/Urban Location"
           },
           {
             "columns": [
@@ -461,14 +461,14 @@
                       "who/FINPROTECTION_CATA_TOT_10_POP.AGE--Y_GE60__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD_multiple_place_bar_block",
                       "who/FINPROTECTION_CATA_TOT_10_POP.AGE--Y0T59__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD_multiple_place_bar_block"
                     ],
-                    "title": "Population With Household Spending on Health Greater Than 10% of Total Household Budget, by Age of the Head of the Household in United States of America (${date})",
+                    "title": "Population With Household Spending on Health Greater Than 10% of Total Household Budget (SDG 3.8.2, Reported Data) (%), by Age of the Head of the Household in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population With Household Spending on Health Greater Than 10% of Total Household Budget, by Age of the Head of the Household"
+            "title": "Population With Household Spending on Health Greater Than 10% of Total Household Budget (SDG 3.8.2, Reported Data) (%), by Age of the Head of the Household"
           },
           {
             "columns": [
@@ -486,32 +486,32 @@
                       "who/FINPROTECTION_CATA_TOT_10_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--F_multiple_place_bar_block",
                       "who/FINPROTECTION_CATA_TOT_10_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--M_multiple_place_bar_block"
                     ],
-                    "title": "Population With Household Spending on Health Greater Than 10% of Total Household Budget, by Sex of Head of the Household in United States of America (${date})",
+                    "title": "Population With Household Spending on Health Greater Than 10% of Total Household Budget (SDG 3.8.2, Reported Data) (%), by Sex of Head of the Household in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population With Household Spending on Health Greater Than 10% of Total Household Budget, by Sex of Head of the Household"
+            "title": "Population With Household Spending on Health Greater Than 10% of Total Household Budget (SDG 3.8.2, Reported Data) (%), by Sex of Head of the Household"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Population With Household Expenditures on Health Greater Than 25% of Total Household Expenditure or Income in United States of America",
+                    "description": "Population With Household Spending on Health Greater Than 25% of Total Household Budget in United States of America",
                     "statVarKey": [
                       "who/FINPROTECTION_CATA_TOT_25_POP"
                     ],
-                    "title": "Population With Household Expenditures on Health Greater Than 25% of Total Household Expenditure or Income in United States of America",
+                    "title": "Population With Household Spending on Health Greater Than 25% of Total Household Budget in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population With Household Spending on Health Greater Than 25% of Total Household Budget"
+            "title": "Population With Household Spending on Health Greater Than 25% of Total Household Budget (SDG 3.8.2, Reported Data) (%)"
           }
         ],
         "statVarSpec": {
@@ -520,27 +520,27 @@
             "statVar": "who/CCO_2"
           },
           "who/FINPROTECTION_CATA_TOT_10_POP": {
-            "name": "Population with household expenditures on health greater than 10% of total household expenditure or income",
+            "name": "Population with household spending on health greater than 10% of total household budget",
             "statVar": "who/FINPROTECTION_CATA_TOT_10_POP"
           },
           "who/FINPROTECTION_CATA_TOT_10_POP.AGE--Y0T59__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD_multiple_place_bar_block": {
-            "name": "Population with household expenditures on health greater than 10% of total household expenditure or income [Below 60 years old, Head of the household]",
+            "name": "Population with household spending on health greater than 10% of total household budget [Below 60 years old, Head of the household]",
             "statVar": "who/FINPROTECTION_CATA_TOT_10_POP.AGE--Y0T59__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD"
           },
           "who/FINPROTECTION_CATA_TOT_10_POP.AGE--Y_GE60__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD_multiple_place_bar_block": {
-            "name": "Population with household expenditures on health greater than 10% of total household expenditure or income [60+ years, Head of the household]",
+            "name": "Population with household spending on health greater than 10% of total household budget [60+ years, Head of the household]",
             "statVar": "who/FINPROTECTION_CATA_TOT_10_POP.AGE--Y_GE60__POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD"
           },
           "who/FINPROTECTION_CATA_TOT_10_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--F_multiple_place_bar_block": {
-            "name": "Population with household expenditures on health greater than 10% of total household expenditure or income [Head of the household, Female]",
+            "name": "Population with household spending on health greater than 10% of total household budget [Head of the household, Female]",
             "statVar": "who/FINPROTECTION_CATA_TOT_10_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--F"
           },
           "who/FINPROTECTION_CATA_TOT_10_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--M_multiple_place_bar_block": {
-            "name": "Population with household expenditures on health greater than 10% of total household expenditure or income [Head of the household, Male]",
+            "name": "Population with household spending on health greater than 10% of total household budget [Head of the household, Male]",
             "statVar": "who/FINPROTECTION_CATA_TOT_10_POP.POP_TYPE--POP_TYPE_HOUSEHOLD_HEAD__SEX--M"
           },
           "who/FINPROTECTION_CATA_TOT_25_POP": {
-            "name": "Population with household expenditures on health greater than 25% of total household expenditure or income",
+            "name": "Population with household spending on health greater than 25% of total household budget",
             "statVar": "who/FINPROTECTION_CATA_TOT_25_POP"
           },
           "who/FINPROTECTION_IMP_NP190_POP": {
@@ -588,7 +588,7 @@
             "statVar": "who/FINPROTECTION_IMP_PG_215_STD"
           },
           "who/FINPROTECTION_IMP_PG_310_STD": {
-            "name": "Increase in poverty gap due to household health expenditures, expressed as a proportion of the $3.20 a-day poverty line",
+            "name": "Increase in poverty gap due to household health expenditures, expressed as a proportion of the $ 3.20 a-day poverty line",
             "statVar": "who/FINPROTECTION_IMP_PG_310_STD"
           },
           "who/FINPROTECTION_IMP_PG_365_STD": {
@@ -663,7 +663,29 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [],
+    "childTopics": [
+      {
+        "dcid": "dc/topic/UN_SUB_THEME_14",
+        "name": "Inequality and social protection",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_SUB_THEME_16",
+        "name": "Nutrition",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_SUB_THEME_13",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {},
     "mainTopics": [
       {
@@ -675,7 +697,15 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/UN",
+        "name": "12 UN Data Thematic Areas",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "peerPlaces": [
       {
         "dcid": "country/BRA",
@@ -776,7 +806,78 @@
         ]
       }
     ],
-    "peerTopics": []
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/UN_THEME_2",
+        "name": "2: Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_3",
+        "name": "3: Children and youth",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_4",
+        "name": "4: Education and culture",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_5",
+        "name": "5: Equality and human rights",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_6",
+        "name": "6: Economic development",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_8",
+        "name": "8: Drinking water, sanitation and hygiene",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_9",
+        "name": "9: Climate and the environment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_10",
+        "name": "10: Population and demography",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_11",
+        "name": "11: Disasters and humanitarian action",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_12",
+        "name": "12: Governance and peace",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "UNKNOWN",
   "userMessages": []
