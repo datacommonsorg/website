@@ -99,7 +99,7 @@ export async function highestCoverageDatesEqualLatestDates(
   const highestCoverageVariableDcids = Object.keys(
     highestCoverageObservations.data
   );
-  for (var i = 0; i < highestCoverageVariableDcids.length; i++) {
+  for (let i = 0; i < highestCoverageVariableDcids.length; i++) {
     const variableDcid = highestCoverageVariableDcids[i];
     const entityDcid = Object.keys(
       highestCoverageObservations.data[variableDcid]
