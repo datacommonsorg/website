@@ -83,6 +83,9 @@ def register_routes_base_dc(app):
   from server.routes.import_detection import detection as detection_api
   app.register_blueprint(detection_api.bp)
 
+  from server.routes.disaster import api as disaster_api
+  app.register_blueprint(disaster_api.bp)
+
 
 def register_routes_biomedical_dc(app):
   # Apply the blueprints specific to biomedical dc
