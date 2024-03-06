@@ -86,8 +86,10 @@ while getopts beflc OPTION; do
     esac
 done
 
+cd ../../..
 python3 -m venv .env
 source .env/bin/activate
+cd tools/nl/embeddings
 python3 -m pip install --upgrade pip setuptools light-the-torch
 ltt install torch --cpuonly
 pip3 install -r requirements.txt
