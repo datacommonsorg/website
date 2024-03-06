@@ -15,7 +15,7 @@
  */
 
 /**
- * Sample Question Card Wall for the Biomedical DC landing page
+ * A grid of clickable Cards for the Biomedical DC landing page
  */
 
 import React from "react";
@@ -27,8 +27,7 @@ import { Card, CardProps } from "./card";
 const WRAP_BREAKPOINT = "768px";
 
 const CardContainer = styled.div`
-  align-self: stretch;
-  flex-basis: 100%;
+  width: 100%;
 `;
 
 const Column = styled.div`
@@ -40,6 +39,7 @@ const Column = styled.div`
 
 const Row = styled.div`
   display: flex;
+  flex-basis: 100%;
   flex-direction: row;
   gap: 24px;
 

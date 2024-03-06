@@ -13,24 +13,24 @@
 # limitations under the License.
 """Biomedical Data Commons main routes"""
 
-import os
 import json
+import os
 
 import flask
 from flask import Blueprint
 from flask import current_app
 from flask import render_template
 
-
 bp = Blueprint('biomedical', __name__, url_prefix='/bio')
 
-
 PAGE_CONFIG_FILE = "config/biomedical_landing_page/display_items.json"
+
 
 def get_page_config() -> dict:
   path = os.path.join(current_app.root_path, PAGE_CONFIG_FILE)
   with open(path) as f:
     return json.load(f)
+
 
 @bp.route('/')
 def main():

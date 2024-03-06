@@ -21,6 +21,7 @@
 
 $section-background-color: rgba(187, 236, 233, 0.1);
 
+/** Font styling for larger screens */
 :root {
   --title-font-size: 36px;
   --title-font-weight: 400;
@@ -54,6 +55,7 @@ $section-background-color: rgba(187, 236, 233, 0.1);
   --card-text-line-height: 32px;
 }
 
+/** Font styling for smaller screens */
 @include media-breakpoint-down(sm) {
   :root {
     --title-font-size: 28px;

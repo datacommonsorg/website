@@ -29,7 +29,6 @@ interface NlSearchBarPropType {
   placeholder: string;
   shouldAutoFocus?: boolean;
   feedbackLink?: string;
-  hideEarlyPreviewTag?: boolean;
 }
 
 export function NlSearchBar(props: NlSearchBarPropType): JSX.Element {
@@ -43,10 +42,7 @@ export function NlSearchBar(props: NlSearchBarPropType): JSX.Element {
   return (
     <div className="search-section">
       <div className="search-bar-tags">
-        {!props.hideEarlyPreviewTag && (
-          <div className="early-preview-tag">Early preview</div>
-        )}
-
+        <div className="early-preview-tag">Early preview</div>
         {props.feedbackLink && (
           <>
             <span>|</span>

@@ -36,19 +36,19 @@ export function BiomedicalSearchBox(props: BiomedicalSearchProps): JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Dynamically resize search box height to show entire query
-  const fitSearchBoxHeight = () => {
+  const setSearchBoxHeight = () => {
     inputRef.current.style.height = "inherit";
     inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
   };
 
   // Adjust search box height when window is resized
   useEffect(() => {
-    window.addEventListener("resize", fitSearchBoxHeight);
+    window.addEventListener("resize", setSearchBoxHeight);
   });
 
   // Adjust search box height while query is being entered
   useEffect(() => {
-    fitSearchBoxHeight();
+    setSearchBoxHeight();
   }, [props.placeholderText, value]);
 
   return (
