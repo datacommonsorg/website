@@ -35,8 +35,9 @@
           <h1>Data Commons • Biomedical</h1>
           <h2>A bridge to open biomedical data</h2>
           <h3>Find relationships between 25 different categories of biomedical data like genes, proteins, diseases, and more</h3>
+          <div id="biomedical-search-container"></div>
         </div>
-        <div class="thematic-image">  
+        <div class="thematic-image d-none d-md-block">  
           <img src="/images/biomedical/person-reading-genome.svg" />         
         </div>
       </div>
@@ -74,10 +75,10 @@
   </section>
 
   <section id="sample-analysis">
-    <div class="blurb-container container">
+    <div class="sample-analyses-container container">
       <h2>Spend less time wrangling data, more time on research</h2>
-      <div class="blurb-text">
-        <div class="text-column">
+      <div class="blurb-text row">
+        <div class="text-column col-lg-8">
           <p>
             The Biomedical Data Commons streamlines biological research by
             overcoming data fragmentation. It cleans, joins, and stores data in a
@@ -88,9 +89,8 @@
             notebooks below.
           </p>
         </div>
-        <div class="blurb-side-note"></div>
+        <div class="blurb-side-note col-lg-4"></div>
       </div>
-
       <div id="sample-analysis-card-container"></div>
     </div>
 
@@ -99,8 +99,8 @@
   <section id="data-sources">
     <div class="blurb-container container">
       <h2>Data Sources</h2>
-      <div class="blurb-text">
-        <div class="text-column">
+      <div class="blurb-text row">
+        <div class="text-column col-lg-8">
           <p>
             The Biomedical Data Commons is a comprehensive repository that
             integrates data from over 
@@ -114,12 +114,18 @@
             limitations of isolated sources.
           </p>
         </div>
-        <div class="blurb-side-note">
+        <div class="blurb-side-note col-lg-4">
           This collaborative effort unifies and harmonizes diverse biomedical
           data, enabling innovative research that transcends the limitations of
           isolated sources.
         </div>
       </div>
+      <a href="/browser/bio" class="explore-structure-link">
+        <span class="material-icons-outlined">
+          account_tree
+        </span>
+        Explore the structure
+      </a>
     </div>
   </section>
  {% endblock %}

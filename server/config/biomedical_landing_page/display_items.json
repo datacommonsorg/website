@@ -1,48 +1,41 @@
 {
-  "callouts": {
-    "proteins": "38,120",
-    "diseases": "13,955",
-    "Genes": "681,043",
-    "Drugs": "63,328,433",
-    "Over 195 mission entities": "& counting"
-  },
   "sample-questions": {
-      "Ecology": [
-        {
-          "text": "How many species are there of Chlamydia?"
-        },
-        {
-          "text": "What type of genome do adenoviruses have?"
-        },
-        {
-          "text": "What does Cyperus strigosus look like?"
-        }
-      ],
-      "Diseases": [
-        {
-          "text": "What genetic variants are significantly associated with FGFR1?"
-        },
-        {
-          "text": "How many clinical variants associated with FGFR1 have clinical pathogenicity?"
-        },
-        {
-          "text": "What genes are associated with rs13317?"
-        }
-      ],
-      "Pharmacology": [
-        {
-          "text": "What is the pharmacologic action of Diltiazem?"
-        },
-        {
-          "text": "What drugs is rs559628884 associated with?"
-        },
-        {
-          "text": "What is the active ingredient of Bactocill?"
-        }
-      ]
+    "Ecology": [
+      {
+        "text": "How many species are there of Chlamydia?"
+      },
+      {
+        "text": "What type of genome do adenoviruses have?"
+      },
+      {
+        "text": "What does Cyperus strigosus look like?"
+      }
+    ],
+    "Diseases": [
+      {
+        "text": "What genetic variants are significantly associated with FGFR1?"
+      },
+      {
+        "text": "How many clinical variants associated with FGFR1 have clinical pathogenicity?"
+      },
+      {
+        "text": "What genes are associated with rs13317?"
+      }
+    ],
+    "Pharmacology": [
+      {
+        "text": "What is the pharmacologic action of Diltiazem?"
+      },
+      {
+        "text": "What drugs is rs559628884 associated with?"
+      },
+      {
+        "text": "What is the active ingredient of Bactocill?"
+      }
+    ]
   },
   "sample-analysis": {
-    "Notebook • Case Study" : [
+    "Notebook • Case Study": [
       {
         "text": "Covid-19 feature exploration analysis (by Google Health)",
         "url": "https://colab.research.google.com/github/datacommonsorg/api-python/blob/master/notebooks/COVID_19_Feature_Exploration_Analysis_with_Data_Commons.ipynb"

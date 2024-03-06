@@ -15,19 +15,90 @@
  */
 
 /* Styles for the biomedical homepage */
+@import "bootstrap/scss/mixins/_breakpoints";
 @import "../base";
 @import "./shared";
 
-$highlight-text-color: #146C2E;
-$main-text-color: #303030;
-$section-background-color: #F8FDFA;
-$title-text-color: #072711;
-$title-text-color-light: #757575;
+$section-background-color: rgba(187, 236, 233, 0.1);
+
+:root {
+  --title-font-size: 36px;
+  --title-font-weight: 400;
+  --title-line-height: 44px;
+  --subtitle-font-size: 22px;
+  --subtitle-font-weight: 400;
+  --subtitle-line-height: 28px;
+  --title-caption-font-size: 22px;
+  --title-caption-font-weight: 400;
+  --title-caption-line-height: 28px;
+  --search-box-font-size: 16px;
+  --search-box-font-weight: 500;
+  --search-box-line-height: 24px;
+  --search-box-margin-bottom: 100px;
+  --search-box-margin-top: 48px;
+  --number-callout-label-font-size: 22px;
+  --number-callout-label-font-weight: 400;
+  --number-callout-label-line-height: 28px;
+  --number-callout-gap: 16px;
+  --number-callout-highlight-font-size: 45px;
+  --number-callout-highlight-font-weight: 400;
+  --number-callout-highlight-line-height: 52px;
+  --blurb-header-font-size: 32px;
+  --blurb-header-font-weight: 400;
+  --blurb-header-line-height: 40px;
+  --blurb-text-font-size: 22px;
+  --blurb-text-font-weight: 400;
+  --blurb-text-line-height: 28px;
+  --card-text-font-size: 24px;
+  --card-text-font-weight: 400;
+  --card-text-line-height: 32px;
+}
+
+@include media-breakpoint-down(sm) {
+  :root {
+    --title-font-size: 28px;
+    --title-line-height: 36px;
+    --subtitle-font-size: 18px;
+    --subtitle-font-weight: 500;
+    --subtitle-line-height: 28px;
+    --title-caption-font-size: 16px;
+    --title-caption-line-height: 24px;
+    --search-box-font-size: 14px;
+    --search-box-line-height: 18px;
+    --search-box-margin-bottom: 48px;
+    --search-box-margin-top: 22px;
+    --number-callout-label-font-size: 16px;
+    --number-callout-label-font-weight: 500;
+    --number-callout-label-line-height: 20px;
+    --number-callout-gap: 2px;
+    --number-callout-highlight-font-size: 28px;
+    --number-callout-highlight-line-height: 36px;
+    --blurb-header-font-size: 24px;
+    --blurb-header-line-height: 32px;
+    --blurb-text-font-size: 18px;
+    --blurb-text-line-height: 28px;
+    --card-text-font-size: 20px;
+    --card-text-line-height: 28px;
+  }
+}
+
+/**
+ * Override base styles
+ */
+
+#main-footer {
+  background-color: white;
+  //padding: 0px;
+}
 
 .main-content {
-  // start content at top
-  margin: 0px;
+  // start content at top, but leave room for box shadow on #main-header
+  margin: 3px;
 }
+
+/** 
+ * Landing page specific styles
+ */
 
 .background-highlight {
   background: $section-background-color;
@@ -37,38 +108,36 @@ $title-text-color-light: #757575;
   color: $main-text-color;
   display: flex;
   flex-direction: column;
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 28px;
-  padding: 64px 0px;
+  font-size: var(--blurb-text-font-size);
+  font-weight: var(--blurb-text-font-weight);
+  line-height: var(--blurb-text-line-height);
+  padding: 64px 15px;
 
   a {
     color: $highlight-text-color;
-    text-decoration-line: underline;
   }
 
   h2 {
-    color: $title-text-color;
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 40px;
+    color: $header-text-color;
+    font-size: var(--blurb-header-font-size);
+    font-weight: var(--blurb-header-font-weight);
+    line-height: var(--blurb-header-line-height);
     margin-bottom: 22px;
   }
 
   .blurb-text {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
+    margin-bottom: 22px;
 
-    .text-column {
-      flex-grow: 2;
+    a {
+      text-decoration-line: underline;
     }
-
-    .blurb-side-note {
-      flex-grow: 1;
-    }
-
   }
+}
+
+a.explore-structure-link {
+  align-items: center;
+  display: flex;
+  gap: 8px;
 }
 
 .numbers-callout-container {
@@ -82,24 +151,32 @@ $title-text-color-light: #757575;
   .number-callout {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--number-callout-gap);
+    font-size: var(--number-callout-label-font-size);
+    font-weight: var(--number-callout-label-font-weight);
+    line-height: var(--number-callout-label-line-height);
   }
 
   .number-highlight {
     color: $highlight-text-color;
-    font-size: 45px;
-    font-weight: 400;
-    line-height: 52px;
+    font-size: var(--number-callout-highlight-font-size);
+    font-weight: var(--number-callout-highlight-font-weight);
+    line-height: var(--number-callout-highlight-line-height);
   }
 }
 
 #sample-questions h2 {
-  padding-bottom: 64px;
+  padding-bottom: 22px;
+}
+
+.sample-analyses-container {
+  @extend .blurb-container;
+  margin-top: 24px;
 }
 
 .title-content-container {
   @extend .blurb-container;
-  border-bottom: 1px solid #DDE3EA;
+  border-bottom: 1px solid #dde3ea;
   box-sizing: border-box;
   flex-direction: row;
   gap: 64px;
@@ -109,31 +186,78 @@ $title-text-color-light: #757575;
     flex-grow: 1;
 
     h1 {
-      color: $title-text-color;
-      font-size: 36px;
-      font-weight: 400;
-      line-height: 44px;
+      color: $header-text-color;
+      font-size: var(--title-font-size);
+      font-weight: var(--title-font-weight);
+      line-height: var(--title-line-height);
       margin-bottom: 8px;
     }
 
     h2 {
-      color: $title-text-color;
-      font-size: 22px;
-      font-weight: 400;
-      line-height: 28px;
+      color: $header-text-color;
+      font-size: var(--subtitle-font-size);
+      font-weight: var(--subtitle-font-weight);
+      line-height: var(--subtitle-line-height);
       margin-bottom: 8px;
     }
 
     h3 {
-      color: $title-text-color-light;
-      font-size: 22px;
-      font-weight: 400;
-      line-height: 28px;
+      color: $header-text-color-light;
+      font-size: var(--title-caption-font-size);
+      font-weight: var(--title-caption-font-weight);
+      line-height: var(--title-caption-line-height);
     }
   }
 
   .thematic-image {
     margin-top: auto;
   }
+}
 
+.card {
+  font-size: var(--card-text-font-size);
+  font-weight: var(--card-text-font-weight);
+  line-height: var(--card-text-line-height);
+}
+
+/**
+ * Search Bar
+ */
+
+#search-icon {
+  align-items: center;
+  display: flex;
+  margin-left: 4px;
+  padding: 8px;
+}
+
+.search-bar-content {
+  display: flex;
+  border-radius: 28px;
+  border: 1px solid #303030;
+  background-color: white;
+  margin: var(--search-box-margin-top) 0px var(--search-box-margin-bottom) 0px;
+  min-height: 78px;
+  padding: 8px 0px;
+}
+
+.search-bar-content:focus-within {
+  // highlight search bar when user clicks into it
+  outline: $highlight-color solid 3px;
+}
+
+.form-control:focus {
+  // override default box-shadow for input elements
+  box-shadow: none !important;
+}
+
+.search-input {
+  border: none;
+  color: $header-text-color-light;
+  font-size: var(--search-box-font-size);
+  font-weight: var(--search-box-font-weight);
+  line-height: var(--search-box-line-height);
+  overflow: hidden;
+  margin-right: 20px;
+  resize: none;
 }

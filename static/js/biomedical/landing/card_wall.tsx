@@ -23,6 +23,14 @@ import styled from "styled-components";
 
 import { Card, CardProps } from "./card";
 
+// Breakpoint width to wrap the cards in the wall
+const WRAP_BREAKPOINT = "768px";
+
+const CardContainer = styled.div`
+  align-self: stretch;
+  flex-basis: 100%;
+`;
+
 const Column = styled.div`
   display: flex;
   flex-basis: 100%;
@@ -30,23 +38,30 @@ const Column = styled.div`
   gap: 24px;
 `;
 
-const Container = styled.div`
-  display: flex;
-  gap: 24px;
-`;
-
 const Row = styled.div`
   display: flex;
-  flex-basis: 100%;
   flex-direction: row;
   gap: 24px;
+
+  @media (max-width: ${WRAP_BREAKPOINT}) {
+    flex-wrap: wrap;
+  }
+`;
+
+const WallContainer = styled.div`
+  display: flex;
+  gap: 24px;
+
+  @media (max-width: ${WRAP_BREAKPOINT}) {
+    flex-wrap: wrap;
+  }
 `;
 
 interface CardStackProps {
-  // Direction to stack. One of "row" or "column". Defaults to "row".
-  direction?: string;
   // Specs of cards in the stack
   cardSpecs: CardProps[];
+  // Direction to stack. One of "row" or "column". Defaults to "row".
+  direction?: string;
 }
 
 interface CardWallProps {
@@ -61,13 +76,15 @@ interface CardWallProps {
 function CardStack(props: CardStackProps): JSX.Element {
   const cards = props.cardSpecs.map((card, index) => {
     return (
-      <Card
-        key={`Card-${index}`}
-        tag={card.tag}
-        theme={card.theme}
-        text={card.text}
-        url={card.url}
-      />
+      <CardContainer key={`CardContainer-${index}`}>
+        <Card
+          key={`Card-${index}`}
+          tag={card.tag}
+          theme={card.theme}
+          text={card.text}
+          url={card.url}
+        />
+      </CardContainer>
     );
   });
   if (props.direction == "column") {
@@ -80,7 +97,7 @@ function CardStack(props: CardStackProps): JSX.Element {
 /** A tiled wall of Cards */
 export function CardWall(props: CardWallProps): JSX.Element {
   return (
-    <Container>
+    <WallContainer>
       {props.cards.map((cardSpecs, index) => {
         return (
           <CardStack
@@ -90,6 +107,6 @@ export function CardWall(props: CardWallProps): JSX.Element {
           />
         );
       })}
-    </Container>
+    </WallContainer>
   );
 }

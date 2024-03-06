@@ -19,15 +19,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { BiomedicalSearchBox } from "./biomedical_search_box";
 import { CardProps, CardTheme } from "./card";
 import { CardWall } from "./card_wall";
 
-const BIOMEDICAL_SEARCH_URL = "https://datacommons.org/explore/#q=";
+// Search url for biomedical searches
+const BIOMEDICAL_SEARCH_URL = "/explore/#q=";
+
+// Mapping of categories to color theme to apply to cards in that category
 const CATEGORIES_TO_THEME = {
-  Ecology: "green",
+  Ecology: "muted-blue",
   Diseases: "blue",
   Pharmacology: "red",
 };
+
+// Order to show card categories in, from left to right
+const CARD_CATEGORY_ORDER = ["Ecology", "Diseases", "Pharmacology"];
+
+// Starting text in the search box
+const SEARCH_BOX_PLACEHOLDER_TEXT =
+  "E.g. What disease are the following genetic variances associated with? rs7903146, rs2237897, rs4712524, rs6769511, rs5219";
 
 /**
  * Get colors to apply to a Card as a theme, based on name of theme
@@ -50,28 +61,37 @@ function getColorTheme(themeName: string): CardTheme {
         textColor: "#00639B",
       };
 
-    default:
-      // Default to 'green'
+    case "green":
       return {
         tagBackgroundColor: "#C4EED0",
         tagLabelColor: "#072711",
         textColor: "#146C2E",
       };
+
+    default:
+      // default to "muted-blue"
+      return {
+        tagBackgroundColor: "#BBECE9",
+        tagLabelColor: "#00201F",
+        textColor: "#386668",
+      };
   }
 }
 
 /**
- * Convert config values into card specs
- * @param config config to process
- * @param sectionName section of the config to process
- * @param addSearchUrl whether to make card url a search result
- * @returns a list of cardspecs to render
+ * Convert config values into CardProps to render in a CardWall
+ * @param config config to process, maps page section -> card category -> cards
+ * @param sectionName page section of the config to process
+ * @param addSearchUrl whether to make the card's text a biomedical search query
+ *                     when clicked
+ * @returns a grid of CardProps to render on the page
  */
 function getCardSpecsFromConfig(
-  config: any,
+  config: Record<string, Record<string, CardProps[]>>,
   sectionName: string,
   addSearchUrl: boolean
 ): CardProps[][] {
+  // Build card specs for each entry in config
   const sectionConfig = config[sectionName];
   for (const category in sectionConfig) {
     sectionConfig[category].forEach((cardSpec) => {
@@ -82,10 +102,25 @@ function getCardSpecsFromConfig(
       cardSpec.theme = getColorTheme(CATEGORIES_TO_THEME[category]);
     });
   }
-  return Object.values(sectionConfig);
+  // Return cards in order by category
+  const categoriesInOrder = Object.keys(sectionConfig).sort((a, b) => {
+    return CARD_CATEGORY_ORDER.indexOf(a) - CARD_CATEGORY_ORDER.indexOf(b);
+  });
+  return categoriesInOrder.map((category) => sectionConfig[category]);
 }
 
 window.onload = () => {
+  // Render search box
+  ReactDOM.render(
+    React.createElement(BiomedicalSearchBox, {
+      onSearch: (query) => {
+        window.location.href = `${BIOMEDICAL_SEARCH_URL}${query}`;
+      },
+      placeholderText: SEARCH_BOX_PLACEHOLDER_TEXT,
+    }),
+    document.getElementById("biomedical-search-container")
+  );
+
   // Read config from DOM
   const config = JSON.parse(
     document.getElementById("config-data").dataset.config

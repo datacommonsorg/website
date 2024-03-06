@@ -29,8 +29,10 @@ const Button = styled.button`
     0px 1px 2px 0px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 24px;
+  justify-content: space-between;
   padding: 24px;
+  width: 100%;
 `;
 
 const Text = styled.div`
