@@ -24,4 +24,4 @@ COPY ft_final_v20230717230459.all-MiniLM-L6-v2/ /app/ft_final_v20230717230459.al
 
 COPY serve.py /app
 
-CMD exec gunicorn --preload --timeout 1000 --bind :8080 -w 4 serve:app
+CMD exec gunicorn --timeout 1000 --bind :8080 -w 4 serve:app
