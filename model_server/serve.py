@@ -60,6 +60,8 @@ app = Flask(__name__)
 
 
 def normalize(embeddings):
+  # vector from model should be normalized to 1 with l2 norm so the similarity
+  # search dot product will be normalized to between 0 to 1
   return [(e / np.linalg.norm(e)).tolist() for e in embeddings]
 
 
