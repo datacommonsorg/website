@@ -100,6 +100,9 @@ export async function highestCoverageDatesEqualLatestDates(
     highestCoverageObservations.data
   );
   for (const variableDcid of highestCoverageVariableDcids) {
+    // Get the date of highest coverage for this variable. all entites are
+    // guaranteed to have the same date, so just check the first entity for its
+    // date
     const entityDcid = Object.keys(
       highestCoverageObservations.data[variableDcid]
     ).pop();
@@ -108,8 +111,11 @@ export async function highestCoverageDatesEqualLatestDates(
     }
     const highestCoverageDate =
       highestCoverageObservations.data[variableDcid][entityDcid].date;
+
+    // Ensure that all "latest observation" dates match the highest coverage
+    // date.
     const latestObservationEntityDcids = Object.keys(
-      latestObservations.data[variableDcid]
+      latestObservations.data[variableDcid] || {}
     );
     const highestCoverageDateDiffersFromLatestObservationDate =
       !!latestObservationEntityDcids.find(
