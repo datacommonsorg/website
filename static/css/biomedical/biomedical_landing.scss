@@ -23,27 +23,6 @@ $section-background-color: rgba(187, 236, 233, 0.1);
 
 /** Font styling for larger screens */
 :root {
-  --title-font-size: 36px;
-  --title-font-weight: 400;
-  --title-line-height: 44px;
-  --subtitle-font-size: 22px;
-  --subtitle-font-weight: 400;
-  --subtitle-line-height: 28px;
-  --title-caption-font-size: 22px;
-  --title-caption-font-weight: 400;
-  --title-caption-line-height: 28px;
-  --search-box-font-size: 16px;
-  --search-box-font-weight: 500;
-  --search-box-line-height: 24px;
-  --search-box-margin-bottom: 100px;
-  --search-box-margin-top: 48px;
-  --number-callout-label-font-size: 22px;
-  --number-callout-label-font-weight: 400;
-  --number-callout-label-line-height: 28px;
-  --number-callout-gap: 16px;
-  --number-callout-highlight-font-size: 45px;
-  --number-callout-highlight-font-weight: 400;
-  --number-callout-highlight-line-height: 52px;
   --blurb-header-font-size: 32px;
   --blurb-header-font-weight: 400;
   --blurb-header-line-height: 40px;
@@ -53,34 +32,55 @@ $section-background-color: rgba(187, 236, 233, 0.1);
   --card-text-font-size: 24px;
   --card-text-font-weight: 400;
   --card-text-line-height: 32px;
+  --number-callout-gap: 16px;
+  --number-callout-highlight-font-size: 45px;
+  --number-callout-highlight-font-weight: 400;
+  --number-callout-highlight-line-height: 52px;
+  --number-callout-label-font-size: 22px;
+  --number-callout-label-font-weight: 400;
+  --number-callout-label-line-height: 28px;
+  --search-box-font-size: 16px;
+  --search-box-font-weight: 500;
+  --search-box-line-height: 24px;
+  --search-box-margin-bottom: 100px;
+  --search-box-margin-top: 48px;
+  --subtitle-font-size: 22px;
+  --subtitle-font-weight: 400;
+  --subtitle-line-height: 28px;
+  --title-caption-font-size: 22px;
+  --title-caption-font-weight: 400;
+  --title-caption-line-height: 28px;
+  --title-font-size: 36px;
+  --title-font-weight: 400;
+  --title-line-height: 44px;
 }
 
 /** Font styling for smaller screens */
 @include media-breakpoint-down(sm) {
   :root {
-    --title-font-size: 28px;
-    --title-line-height: 36px;
-    --subtitle-font-size: 18px;
-    --subtitle-font-weight: 500;
-    --subtitle-line-height: 28px;
-    --title-caption-font-size: 16px;
-    --title-caption-line-height: 24px;
-    --search-box-font-size: 14px;
-    --search-box-line-height: 18px;
-    --search-box-margin-bottom: 48px;
-    --search-box-margin-top: 22px;
-    --number-callout-label-font-size: 16px;
-    --number-callout-label-font-weight: 500;
-    --number-callout-label-line-height: 20px;
-    --number-callout-gap: 2px;
-    --number-callout-highlight-font-size: 28px;
-    --number-callout-highlight-line-height: 36px;
     --blurb-header-font-size: 24px;
     --blurb-header-line-height: 32px;
     --blurb-text-font-size: 18px;
     --blurb-text-line-height: 28px;
     --card-text-font-size: 20px;
     --card-text-line-height: 28px;
+    --number-callout-gap: 2px;
+    --number-callout-highlight-font-size: 28px;
+    --number-callout-highlight-line-height: 36px;
+    --number-callout-label-font-size: 16px;
+    --number-callout-label-font-weight: 500;
+    --number-callout-label-line-height: 20px;
+    --search-box-font-size: 14px;
+    --search-box-line-height: 18px;
+    --search-box-margin-bottom: 48px;
+    --search-box-margin-top: 22px;
+    --subtitle-font-size: 18px;
+    --subtitle-font-weight: 500;
+    --subtitle-line-height: 28px;
+    --title-caption-font-size: 16px;
+    --title-caption-line-height: 24px;
+    --title-font-size: 28px;
+    --title-line-height: 36px;
   }
 }
 
@@ -234,10 +234,10 @@ a.explore-structure-link {
 }
 
 .search-bar-content {
-  display: flex;
+  background-color: white;
   border-radius: 28px;
   border: 1px solid #303030;
-  background-color: white;
+  display: flex;
   margin: var(--search-box-margin-top) 0px var(--search-box-margin-bottom) 0px;
   min-height: 78px;
   padding: 8px 0px;
@@ -259,7 +259,7 @@ a.explore-structure-link {
   font-size: var(--search-box-font-size);
   font-weight: var(--search-box-font-weight);
   line-height: var(--search-box-line-height);
-  overflow: hidden;
   margin-right: 20px;
+  overflow: hidden;
   resize: none;
 }
