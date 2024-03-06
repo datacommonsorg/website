@@ -25,7 +25,7 @@ interface BiomedicalSearchProps {
   // Whether to allow searching for an empty string
   allowEmptySearch?: boolean;
   // Function to run on search
-  onSearch: (string) => void;
+  onSearch: (query: string) => void;
   // Placeholder query to show
   placeholderText?: string;
 }

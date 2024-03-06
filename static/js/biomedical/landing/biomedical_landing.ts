@@ -28,8 +28,8 @@ const BIOMEDICAL_SEARCH_URL = "/explore/#q=";
 
 // Mapping of categories to color theme to apply to cards in that category
 const CATEGORIES_TO_THEME = {
-  Ecology: "muted-blue",
   Diseases: "blue",
+  Ecology: "muted-blue",
   Pharmacology: "red",
 };
 

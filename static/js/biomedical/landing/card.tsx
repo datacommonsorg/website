@@ -77,7 +77,7 @@ export interface CardProps {
 }
 
 export function Card(props: CardProps): JSX.Element {
-  function handleClick() {
+  function handleClick(): void {
     if (props.url) {
       window.open(props.url, "_blank").focus();
     }
