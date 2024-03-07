@@ -73,6 +73,8 @@ variables.
 
    Note: Bio embeddings uses the alternatives from main dc for now.
 
+   TODO: instead of listing all the files needed for each custom dc (undata, bio, sdg), should just have a mapping of index to files.
+
    To generate the embeddings using vertex AI model endpoint at various size:
 
    ```bash

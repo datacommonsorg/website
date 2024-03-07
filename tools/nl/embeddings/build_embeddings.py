@@ -165,8 +165,13 @@ def build(ctx, curated_input_paths: List[str], local_merged_filepath: str,
     except:
       print("Error reading curated input file: {file_path}")
 
-  df_svs = pd.concat(curated_input_df_list,
-                     join="inner") if curated_input_df_list else pd.DataFrame()
+  if curated_input_df_list:
+    # Use inner join to only add rows that have the same headings (which all
+    # curated inputs should have the same headings)
+    df_svs = pd.concat(curated_input_df_list, join="inner")
+  else:
+    df_svs =  pd.DataFrame()
+
   # Append autogen CSVs if any.
   autogen_dfs = []
   for autogen_csv in sorted(glob.glob(autogen_input_filepattern)):
