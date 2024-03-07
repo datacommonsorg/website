@@ -120,6 +120,7 @@ class Variables:
   group_descriptions: Dict[str, str]
   non_country_vars: Set[str]
   keep_vars: Set[str]
+  dropped_vars: Set[str]
 
 
 def load_variables(vars_file: str, vars: Variables, var_prefix: str,
@@ -137,6 +138,7 @@ def load_variables(vars_file: str, vars: Variables, var_prefix: str,
       if row.get('SELECT'):
         if 'drop' in row['SELECT'].lower():
           print(f'Dropping variable {var}')
+          vars.dropped_vars.add(var)
           continue
         elif 'do not display in country pages' in row['SELECT'].lower():
           vars.non_country_vars.add(var)
@@ -288,15 +290,15 @@ def alt_nl_name(name: str):
   new_name = ''
   for f, t in [('DALYs', 'disability-adjusted life years'),
                ('DALY', 'disability-adjusted life years'),
-               ('YLLs', 'years of life lost'), ('YLL', 'years of life lost')]:
-    if f in name and t not in name:
+               ('YLLs', 'years life lost'), ('YLL', 'years life lost')]:
+    if f in name and t not in name.lower():
       new_name = name.replace(f, t)
       break
   return new_name
 
 
 def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
-                          undata_series_topics_file: str):
+                          undata_series_topics_file: str, vars: Variables):
   # TODO: Drop this once we have the stuff in schema.
   name_overrides = {}
   with open(_UNDATA_NL_SV_NAME_OVERRIDE_FILE) as fp:
@@ -338,7 +340,11 @@ def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
     with open(undata_series_topics_file) as fp:
       for row in csv.DictReader(fp):
         if row['NVars'] == '1':
-          sv_dcids.add(row['Vars'])
+          var = row['Vars']
+          if var in vars.dropped_vars:
+            logging.error(f'WARNING: skipping dropped var {var} from NL index')
+            continue
+          sv_dcids.add(var)
         else:
           id = row['SeriesTopic']
           if id not in series_topics:
@@ -369,7 +375,8 @@ def main(_):
                    grouped_vars=set(),
                    group_descriptions={},
                    non_country_vars=set(),
-                   keep_vars=set())
+                   keep_vars=set(),
+                   dropped_vars=set())
   if FLAGS.dc == 'sdg':
     load_variables(vars_file=_SDG_VARIABLES_FILE,
                    vars=vars,
@@ -392,7 +399,7 @@ def main(_):
     common.write_topic_mcf(_UNDATA_MCF_PATH, nodes)
     common.write_topic_json(_UNDATA_TOPIC_JSON, nodes)
     write_nl_descriptions(_UNDATA_NL_DESCRIPTIONS_FILE, nodes,
-                          _UNDATA_SERIES_TOPICS_FILE)
+                          _UNDATA_SERIES_TOPICS_FILE, vars)
   print(f'Found {len(vars.keep_vars)} vars')
 
 
