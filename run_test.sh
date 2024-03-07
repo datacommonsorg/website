@@ -29,6 +29,8 @@ function setup_python {
 function run_npm_test {
   cd packages/web-components
   npm install --update
+  cd ../client
+  npm install --update
   cd ../../static
   npm install --update
   npm run test
@@ -75,11 +77,15 @@ function run_npm_build () {
     echo -e "#### Only installing production dependencies"
     cd packages/web-components/
     npm install --omit=dev
+    cd ../client
+    npm install --omit=dev
     cd ../../static
     npm install --omit=dev
     npm run-script build
   else
     cd packages/web-components/
+    npm install
+    cd ../client
     npm install
     cd ../../static
     npm install
