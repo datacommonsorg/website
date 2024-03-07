@@ -52,9 +52,9 @@ flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string('embeddings_size', '', 'Embeddings size')
 
-flags.DEFINE_string('curated_input_path',
-                    'data/curated_input/main/sheets_svs.csv',
-                    'Curated input csv (relative) file path')
+flags.DEFINE_list('curated_input_paths',
+                  ['data/curated_input/main/sheets_svs.csv'],
+                  'Curated input csv (relative) file path')
 
 flags.DEFINE_string(
     'autogen_input_basedir', 'data/autogen_input',
@@ -152,16 +152,24 @@ def get_embeddings(ctx, df_svs: pd.DataFrame, local_merged_filepath: str,
   return utils.build_embeddings(ctx, text2sv_dict)
 
 
-def build(ctx, curated_input_path: str, local_merged_filepath: str,
+def build(ctx, curated_input_paths: List[str], local_merged_filepath: str,
           dup_names_filepath: str, autogen_input_filepattern: str,
           alternative_filepattern: str) -> pd.DataFrame:
+  curated_input_df_list = list()
   # Read curated sv info.
-  try:
-    print(f"Reading the curated input file: {curated_input_path}")
-    df_svs = pd.read_csv(curated_input_path)
-  except:
-    print(
-        "Error reading curated input file. Continuing with an empty dataframe.")
+  for file_path in curated_input_paths:
+    try:
+      print(f"Reading the curated input file: {file_path}")
+      file_df = pd.read_csv(file_path, na_filter=False)
+      curated_input_df_list.append(file_df)
+    except:
+      print("Error reading curated input file: {file_path}")
+
+  if curated_input_df_list:
+    # Use inner join to only add rows that have the same headings (which all
+    # curated inputs should have the same headings)
+    df_svs = pd.concat(curated_input_df_list, join="inner")
+  else:
     df_svs = pd.DataFrame()
 
   # Append autogen CSVs if any.
@@ -203,7 +211,7 @@ def write_row_to_jsonl(f, row):
 def main(_):
   assert FLAGS.vertex_ai_prediction_endpoint_id or (FLAGS.model_name_v2 and
                                                     FLAGS.bucket_name_v2 and
-                                                    FLAGS.curated_input_path)
+                                                    FLAGS.curated_input_paths)
 
   assert os.path.exists(os.path.join('data'))
 
@@ -274,7 +282,7 @@ def main(_):
   # return the embeddings dataframe.
   # During this process, the downloaded latest SVs and Descriptions data and the
   # final dataframe with SVs and Alternates are also written to local_merged_dir.
-  embeddings_df = build(ctx, FLAGS.curated_input_path, local_merged_filepath,
+  embeddings_df = build(ctx, FLAGS.curated_input_paths, local_merged_filepath,
                         dup_names_filepath, autogen_input_filepattern,
                         FLAGS.alternatives_filepattern)
 

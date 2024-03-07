@@ -92,8 +92,8 @@ class TestEndToEnd(unittest.TestCase):
                         bucket="",
                         tmp="/tmp")
 
-    # input sheets filepath can be empty.
-    input_sheets_svs = ""
+    # input sheets filepaths can be empty.
+    input_sheets_svs = []
 
     # Filepaths all correspond to the testdata folder.
     input_dir = "testdata/input"
@@ -125,7 +125,7 @@ class TestEndToEnd(unittest.TestCase):
     input_alternatives_filepattern = os.path.join(input_dir,
                                                   "*_alternatives.csv")
     input_autogen_filepattern = os.path.join(input_dir, "autogen_*.csv")
-    input_sheets_csv_filepath = os.path.join(input_dir, "sheets_data.csv")
+    input_sheets_csv_filepath = [os.path.join(input_dir, "sheets_data.csv")]
     expected_local_merged_filepath = os.path.join(expected_dir,
                                                   "merged_data.csv")
     expected_dcid_sentence_csv_filepath = os.path.join(
