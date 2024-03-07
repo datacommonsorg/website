@@ -32,8 +32,8 @@ from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
-from server.lib.nl.detection.utils import get_multi_sv
 from server.lib.nl.detection.utils import empty_var_candidates
+from server.lib.nl.detection.utils import get_multi_sv
 import shared.lib.detected_variables as dutils
 
 _LLM_API_DETECTORS = [

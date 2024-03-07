@@ -18,6 +18,7 @@
 from typing import Dict, List
 
 from server.lib.explore.params import QueryMode
+from server.lib.fetch import property_values
 from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.common.utterance import QueryType
@@ -31,7 +32,6 @@ from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartType
 from shared.lib import constants as shared_constants
 from shared.lib import detected_variables as dvars
-from server.lib.fetch import property_values
 
 
 #

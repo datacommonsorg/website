@@ -18,8 +18,8 @@ from typing import Dict, List
 
 from server.lib.fetch import property_values
 from server.lib.nl.detection.place_recon import infer_place_dcids
-from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import Entity
+from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import PlaceDetection
 import server.services.datacommons as dc
 import shared.lib.utils as utils

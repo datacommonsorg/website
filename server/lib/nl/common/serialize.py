@@ -27,12 +27,12 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import CorrelationClassificationAttributes
 from server.lib.nl.detection.types import Date
 from server.lib.nl.detection.types import DateClassificationAttributes
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import EventClassificationAttributes
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import GeneralClassificationAttributes
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
-from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import QCmpType
 from server.lib.nl.detection.types import Quantity
 from server.lib.nl.detection.types import QuantityClassificationAttributes

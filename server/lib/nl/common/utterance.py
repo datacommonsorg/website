@@ -26,9 +26,9 @@ from server.lib.explore.params import QueryMode
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
-from server.lib.nl.detection.types import Entity
 from shared.lib.detected_variables import MultiVarCandidates
 
 
