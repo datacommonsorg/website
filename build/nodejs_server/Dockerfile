@@ -30,7 +30,7 @@ COPY packages/. /workspace/packages/
 RUN npm --prefix /workspace/packages/web-components install --omit=dev
 RUN npm --prefix /workspace/packages/web-components run build
 
-# Build datacommonsorg/client dependency5
+# Build datacommonsorg/client dependency
 COPY packages/client/package.json /workspace/packages/client/package.json
 COPY packages/client/package-lock.json /workspace/packages/client/package-lock.json
 RUN npm --prefix /workspace/packages/client install
