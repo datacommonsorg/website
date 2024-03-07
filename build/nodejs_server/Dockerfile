@@ -34,6 +34,7 @@ RUN npm --prefix /workspace/packages/web-components run build
 COPY packages/client/package.json /workspace/packages/client/package.json
 COPY packages/client/package-lock.json /workspace/packages/client/package-lock.json
 RUN npm --prefix /workspace/packages/client install
+RUN npm --prefix /workspace/packages/client run build
 
 # Install nodejs server dependencies
 COPY static/package.json /workspace/static/package.json
