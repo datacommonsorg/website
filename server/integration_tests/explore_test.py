@@ -172,8 +172,10 @@ class ExploreTest(NLWebServerTestCase):
           self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
           self.assertEqual(dbg["entities_resolved"],
                            expected["entities_resolved"])
-          self.assertEqual(dbg["sv_matching"], expected["sv_matching"])
-          self.assertEqual(dbg["props_matching"], expected["props_matching"])
+          self.assertEqual(dbg["sv_matching"]["SV"],
+                           expected["sv_matching"]["SV"])
+          self.assertEqual(dbg["props_matching"]["SV"],
+                           expected["props_matching"]["SV"])
 
   def handle_i18n_response(self, resp, i18n_lang):
     """The translation API does not always return the same translations.
