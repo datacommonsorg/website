@@ -7,26 +7,6 @@
   "main_place_name": "<None>",
   "entities_resolved": "(name: Volvox, dcid: dc/003ye83smktt7); ",
   "sv_matching": {
-    "CosineScore": [
-      0.3551088869571686,
-      0.3126292824745178,
-      0.27900320291519165,
-      0.27285581827163696,
-      0.27124929428100586,
-      0.26562047004699707,
-      0.26280486583709717,
-      0.25592702627182007,
-      0.2552155554294586,
-      0.2551817297935486,
-      0.2533870339393616,
-      0.2529027462005615,
-      0.2526083290576935,
-      0.2521708607673645
-    ],
-    "MultiSV": {
-      "Candidates": []
-    },
-    "Query": "what is the phylum of",
     "SV": [
       "dc/topic/SDGBiodiversity",
       "Amount_FarmInventory_BarleyForGrain",
@@ -42,76 +22,9 @@
       "Area_Farm_BarleyForGrain",
       "Amount_FarmInventory_PimaCotton",
       "dc/topic/NonEnglishLanguageAtHome"
-    ],
-    "SV_to_Sentences": {
-      "Amount_FarmInventory_BarleyForGrain": [
-        "Total barley grown (0.3126)",
-        "Amount of Barley Grown (0.2663)"
-      ],
-      "Amount_FarmInventory_DurumWheatForGrain": [
-        "Total durum wheat grown (0.279)"
-      ],
-      "Amount_FarmInventory_PimaCotton": [
-        "Total Pima cotton grown (0.2526)"
-      ],
-      "Amount_FarmInventory_Rice": [
-        "Total rice grown (0.2552)"
-      ],
-      "Amount_FarmInventory_SorghumForGrain": [
-        "Total sorghum grown (0.2656)"
-      ],
-      "Amount_FarmInventory_SorghumForSilageOrGreenchop": [
-        "Amount of Sorghum for Silage or Greenchop Grown (0.2729)",
-        "Farm inventory of sorghum for silage or greenchop (0.2583)"
-      ],
-      "Amount_FarmInventory_WheatForGrain": [
-        "Total wheat grown (0.2628)"
-      ],
-      "Area_Farm_BarleyForGrain": [
-        "Area of Farm: Barley for Grain (0.2529)"
-      ],
-      "Imports_EconomicActivity_Pharmaceutical": [
-        "import of pharmaceuicals (0.2534)"
-      ],
-      "dc/topic/Dengue": [
-        "Dengue (0.2559)"
-      ],
-      "dc/topic/Language": [
-        "Language (0.2712)"
-      ],
-      "dc/topic/NonEnglishLanguageAtHome": [
-        "other languages spoken at home (0.2522)"
-      ],
-      "dc/topic/SDGBiodiversity": [
-        "bio diversity (0.3551)",
-        "Biodiversity (0.3221)"
-      ],
-      "dc/topic/Sustainability": [
-        "green (0.2552)"
-      ]
-    }
+    ]
   },
   "props_matching": {
-    "CosineScore": [
-      1.0,
-      0.47528401017189026,
-      0.3615419268608093,
-      0.3293306827545166,
-      0.31845155358314514,
-      0.31466996669769287,
-      0.30839523673057556,
-      0.3079405128955841,
-      0.30463019013404846,
-      0.2827085256576538,
-      0.281875342130661,
-      0.28082767128944397,
-      0.28045275807380676,
-      0.2742983102798462,
-      0.2715049386024475,
-      0.2707182466983795,
-      0.2695464491844177,
-      0.25990092754364014
-    ],
     "SV": [
       "phylum",
       "chemblID",
@@ -131,67 +44,6 @@
       "strandOrientation",
       "ncbiDNASequenceName",
       "referenceSNPClusterID<-GeneticVariantGeneAssociation->geneSymbol"
-    ],
-    "SV_to_Sentences": {
-      "chemblID": [
-        "chemblID (0.4753)",
-        "ChEMBL identifier (0.3564)"
-      ],
-      "chromosomeSize": [
-        "chromosomeSize (0.2819)"
-      ],
-      "ensemblID": [
-        "ensemblID (0.3147)"
-      ],
-      "fullName": [
-        "full name of the gene (0.3185)"
-      ],
-      "geneID": [
-        "geneID (0.3615)",
-        "gene id (0.2626)"
-      ],
-      "geneticVariantFunctionalCategory": [
-        "geneticVariantFunctionalCategory (0.3079)"
-      ],
-      "genomicCoordinates": [
-        "genomicCoordinates (0.2827)"
-      ],
-      "hg19GenomicPosition": [
-        "hg19GenomicPosition (0.2743)"
-      ],
-      "hg38GenomicPosition": [
-        "hg38GenomicPosition (0.2805)"
-      ],
-      "imageUrl": [
-        "url to an image of what the biological specimen looks like (0.3046)"
-      ],
-      "ncbiDNASequenceName": [
-        "NCBI defined segment of DNA sequence name (0.2695)",
-        "Name used by NIH NCBI to refer to a segment of DNA sequence (0.258)"
-      ],
-      "observedAllele": [
-        "The sequences of the observed alleles from rs-fasta files. (0.2808)"
-      ],
-      "phylum": [
-        "phylum (1.0)"
-      ],
-      "referenceSNPClusterID<-GeneticVariantGeneAssociation->geneSymbol": [
-        "GeneticVariantGeneAssociation (0.2599)"
-      ],
-      "simplifiedMolecularInputLineEntrySystem": [
-        "simplifiedMolecularInputLineEntrySystem (0.3084)"
-      ],
-      "strandOrientation": [
-        "The strand on which a given annotation is located (0.2707)",
-        "strandOrientation (0.262)"
-      ],
-      "typeOfGene": [
-        "The type of gene (0.3293)",
-        "typeOfGene (0.255)"
-      ],
-      "virusHost": [
-        "A specific organism or taxonomic group of organisms that are susceptible to be infected by a virus (0.2715)"
-      ]
-    }
+    ]
   }
 }

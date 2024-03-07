@@ -132,8 +132,12 @@ class ExploreTest(NLWebServerTestCase):
               "main_place_dcid": dbg["main_place_dcid"],
               "main_place_name": dbg["main_place_name"],
               "entities_resolved": dbg["entities_resolved"],
-              "sv_matching": dbg["sv_matching"],
-              "props_matching": dbg["props_matching"]
+              "sv_matching": {
+                "SV": dbg["sv_matching"]["SV"]
+              },
+              "props_matching": {
+                "SV": dbg["props_matching"]["SV"]
+              },
           }
           infile.write(json.dumps(dbg_to_write, indent=2))
     else:
