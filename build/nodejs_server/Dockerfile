@@ -25,10 +25,12 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
-# Build web components dependency
+# Build packages/web-components and packages/client dependencies
 COPY packages/. /workspace/packages/
 RUN npm --prefix /workspace/packages/web-components install --omit=dev
 RUN npm --prefix /workspace/packages/web-components run build
+RUN npm --prefix /workspace/packages/client install
+RUN npm --prefix /workspace/packages/client run build
 
 # Install nodejs server dependencies
 COPY static/package.json /workspace/static/package.json
