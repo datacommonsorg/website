@@ -11,10 +11,10 @@ frozendict==2.3.4
 geojson_rewind==1.0.1
 google-auth==2.28.1
 google-auth-oauthlib==1.2.0
-google-cloud-bigtable==2.15.0
-google-cloud-core==2.3.2
+google-cloud-bigtable==2.23.0
+google-cloud-core==2.4.1
 google-cloud-secret-manager==2.18.3
-google-cloud-storage==2.11.0
+google-cloud-storage==2.15.0
 gunicorn==20.1.0
 isort==5.10.0
 jinja2==3.1.3
