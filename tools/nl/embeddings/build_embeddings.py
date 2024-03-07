@@ -170,7 +170,7 @@ def build(ctx, curated_input_paths: List[str], local_merged_filepath: str,
     # curated inputs should have the same headings)
     df_svs = pd.concat(curated_input_df_list, join="inner")
   else:
-    df_svs =  pd.DataFrame()
+    df_svs = pd.DataFrame()
 
   # Append autogen CSVs if any.
   autogen_dfs = []
