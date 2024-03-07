@@ -23,13 +23,13 @@ embeddings](../embeddings/README.md).
 Once model and embeddings endpoints are avaiable, record the endpoints id in
 `vertex_ai_endpoints.yaml` file.
 
-## Evalutation Unit
+## Eval Unit
 
 One evaluation unit locates in a sub folder that contains a `golden.json` file
 that is a mapping between golden query and ranked stat vars to be matched from
 the vector store. Note there is logic to get to ranked stat vars from ranked
 embedding vectors. Right now it's simply based on the stat vars for a
-description embedding. This can be changed in the future. Multiple evalutation
+description embedding. This can be changed in the future. Multiple evaluation
 unit could exist for different eval sets (like UNSDG, WHO).
 
 ## Run Eval
