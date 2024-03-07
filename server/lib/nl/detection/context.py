@@ -42,6 +42,7 @@ _MAX_RETURNED_VARS = 20
 # context in both the utterance inline and in `insight_ctx`.
 #
 # TODO: Handle OVERVIEW query (for Explore)
+# TODO: Handle entities and properties
 def merge_with_context(uttr: nl_uttr.Utterance, default_place: Place = None):
   data_dict = {}
 

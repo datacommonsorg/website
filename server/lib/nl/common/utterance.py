@@ -28,6 +28,7 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import Entity
 from shared.lib.detected_variables import MultiVarCandidates
 
 
@@ -37,10 +38,6 @@ class Utterance:
 
 
 class ChartSpec:
-  pass
-
-
-class EntityPvConfig:
   pass
 
 
@@ -68,8 +65,7 @@ class QueryType(IntEnum):
   FILTER_WITH_SINGLE_VAR = 12
   # This is [median age in cities with population over 1M]
   FILTER_WITH_DUAL_VARS = 13
-  PROPVALS = 14
-  UNKNOWN = 15
+  UNKNOWN = 14
 
 
 # Type of chart.
@@ -146,7 +142,9 @@ class Utterance:
   # Primary variables
   svs: List[str]
   # Primary entities
-  entities: List[Place]
+  entities: List[Entity]
+  # Primary properties
+  properties: List[str]
   # List of detected classifications
   classifications: List[NLClassifier]
   # Computed chart candidates.
@@ -189,5 +187,3 @@ class Utterance:
   client: str = ''
   # The mode for caller (currently just STRICT)
   mode: QueryMode = None
-  # Config for handling entities and property values.
-  entityPvConfig: EntityPvConfig = None

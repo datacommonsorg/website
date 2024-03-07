@@ -71,7 +71,7 @@ def _get_default_place(request: Dict, is_special_dc: bool, debug_logs: Dict):
   # that dcid
   elif default_place_dcid:
     places, _ = get_place_from_dcids([default_place_dcid], debug_logs)
-    if len(places) > 0 and places[0].is_place:
+    if len(places) > 0:
       return places[0]
     else:
       return None
@@ -346,7 +346,6 @@ def prepare_response(utterance: nl_utterance.Utterance,
       'pastSourceContext': utterance.past_source_context,
       'relatedThings': related_things,
       'userMessages': user_message.msg_list,
-      'entityPvConfig': utterance.entityPvConfig
   }
   if user_message.show_form:
     data_dict['showForm'] = True
@@ -375,6 +374,7 @@ def prepare_response_common(data_dict: Dict,
                             client: str = '') -> Dict:
   data_dict = dbg.result_with_debug_info(data_dict, status_str, detection,
                                          dbg_counters, debug_logs)
+  print(data_dict)
   # Convert data_dict to pure json.
   data_dict = utils.to_dict(data_dict)
   if test:

@@ -33,6 +33,7 @@ from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import get_multi_sv
+from server.lib.nl.detection.utils import empty_var_candidates
 import shared.lib.detected_variables as dutils
 
 _LLM_API_DETECTORS = [
@@ -213,9 +214,9 @@ def construct_for_explore(entities: List[str], vars: List[str], child_type: str,
                                    main_place=places[0],
                                    parent_places=parent_map.get(main_dcid, []),
                                    peer_places=[],
-                                   child_places=[])
+                                   child_places=[],
+                                   entities_found=[])
   add_child_and_peer_places(places, child_type, counters, place_detection)
-
   if not cmp_entities and cmp_vars:
     # Multi SV case.
     sv_detection = types.SVDetection(query='',
@@ -223,6 +224,7 @@ def construct_for_explore(entities: List[str], vars: List[str], child_type: str,
                                          svs=vars,
                                          scores=[0.51] * len(vars),
                                          sv2sentences={}),
+                                     non_sv=empty_var_candidates(),
                                      multi_sv=get_multi_sv(vars, cmp_vars, 1.0))
   else:
     sv_detection = types.SVDetection(query='',
@@ -230,6 +232,7 @@ def construct_for_explore(entities: List[str], vars: List[str], child_type: str,
                                          svs=vars,
                                          scores=[1.0] * len(vars),
                                          sv2sentences={}),
+                                     non_sv=empty_var_candidates(),
                                      multi_sv=None)
   return types.Detection(original_query=query,
                          cleaned_query=query,

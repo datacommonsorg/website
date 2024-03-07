@@ -159,27 +159,3 @@ class ChartSpec:
   # Dict of sv -> place -> facetid to use
   sv_place_facet_id: Sv2Place2Facet
   info_message: str
-
-
-@dataclass
-class PropertyValue:
-  dcid: str
-  name: str
-  value: str
-  provenanceId: str
-  types: str
-
-
-@dataclass
-class Property:
-  dcid: str
-  name: str
-
-
-@dataclass
-class EntityPvConfig:
-  entities: List[Place]
-  properties: List[Property]
-  # dict of entity dcid -> property id -> values for that property and entity
-  propertyValues: Dict[str, Dict[str, PropertyValue]]
-  title: str

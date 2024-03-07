@@ -30,7 +30,6 @@ from server.lib.nl.fulfillment import base
 from server.lib.nl.fulfillment import event
 from server.lib.nl.fulfillment import filter_with_dual_vars
 from server.lib.nl.fulfillment import overview
-from server.lib.nl.fulfillment import propvals
 from server.lib.nl.fulfillment import superlative
 import server.lib.nl.fulfillment.handlers as handlers
 from server.lib.nl.fulfillment.types import PopulateState
@@ -96,8 +95,6 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
     elif main_qt == QueryType.COMPARISON_ACROSS_PLACES:
       # There are multiple places so we don't fallback.
       state.disable_fallback = True
-    elif main_qt == QueryType.PROPVALS:
-      done = propvals.populate(uttr)
 
     # All done if successful
     if success:
@@ -164,12 +161,7 @@ def _perform_strict_mode_checks(uttr: Utterance) -> bool:
 
 
 def _produce_query_types(uttr: Utterance) -> List[QueryType]:
-  query_types = []
-  if params.is_bio(uttr.insight_ctx) and uttr.entities:
-    query_types.append(QueryType.PROPVALS)
-    if not uttr.places:
-      return query_types
-  query_types.append(handlers.first_query_type(uttr))
+  query_types = [handlers.first_query_type(uttr)]
   while query_types[-1] != None:
     query_types.append(handlers.next_query_type(query_types))
 

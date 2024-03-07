@@ -32,6 +32,7 @@ from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import GeneralClassificationAttributes
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import QCmpType
 from server.lib.nl.detection.types import Quantity
 from server.lib.nl.detection.types import QuantityClassificationAttributes
@@ -299,6 +300,27 @@ def _dict_to_place_fallback(pfb_dict: Dict) -> PlaceFallback:
                        newStr=pfb_dict['newStr'])
 
 
+def _entity_to_dict(entities: List[Entity]) -> List[Dict]:
+  if not entities:
+    return []
+  entities_dict = []
+  for e in entities:
+    edict = {}
+    edict['dcid'] = e.dcid
+    edict['name'] = e.name
+    edict['type'] = e.type
+    entities_dict.append(edict)
+  return entities_dict
+
+
+def _dict_to_entity(entities_dict: List[Dict]) -> List[Entity]:
+  entities = []
+  for edict in entities_dict:
+    entities.append(
+        Entity(dcid=edict['dcid'], name=edict['name'], type=edict['type']))
+  return entities
+
+
 # Given the latest Utterance, saves the full list of utterances into a
 # dict.  The latest utterance is in the front.
 def save_utterance(uttr: Utterance) -> List[Dict]:
@@ -310,8 +332,9 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
     udict['query'] = u.query
     udict['query_type'] = u.query_type
     udict['svs'] = u.svs
+    udict['properties'] = u.properties
     udict['places'] = _place_to_dict(u.places)
-    udict['entities'] = _place_to_dict(u.entities)
+    udict['entities'] = _entity_to_dict(u.entities)
     udict['classifications'] = classification_to_dict(u.classifications)
     udict['ranked_charts'] = _chart_spec_to_dict(u.rankedCharts)
     udict['session_id'] = u.session_id
@@ -342,7 +365,8 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
         query_type=QueryType(udict['query_type']),
         svs=udict['svs'],
         places=_dict_to_place(udict['places']),
-        entities=_dict_to_place(udict['entities']),
+        entities=_dict_to_entity(udict['entities']),
+        properties=udict['properties'],
         classifications=dict_to_classification(udict['classifications']),
         rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
         answerPlaces=_dict_to_place(udict.get('answerPlaces', [])),

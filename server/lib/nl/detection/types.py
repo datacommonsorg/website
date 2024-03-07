@@ -31,9 +31,14 @@ class Place:
   name: str
   place_type: str
   country: str = None
-  # This is a temporary field to use as we test out treating other entities as
-  # a place.
-  is_place: bool = True
+
+
+@dataclass
+class Entity:
+  """Entity attributes."""
+  dcid: str
+  name: str
+  type: str
 
 
 @dataclass
@@ -45,6 +50,7 @@ class PlaceDetection:
   # identified as possible places.
   query_places_mentioned: List[str]
   places_found: List[Place]
+  entities_found: List[Entity]
   main_place: Place
   peer_places: List[Place] = field(default_factory=list)
   parent_places: List[Place] = field(default_factory=list)
@@ -59,6 +65,8 @@ class SVDetection:
   query: str
   # Single SV detection.
   single_sv: dvars.VarCandidates
+  # Detected variables that are not Statistical Variable or Topic.
+  non_sv: dvars.VarCandidates
   # Multi SV detection.
   multi_sv: dvars.MultiVarCandidates
   # Input SV Threshold
