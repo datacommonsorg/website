@@ -22,6 +22,6 @@ RUN pip install --no-cache-dir  -r requirements.txt
 
 COPY ft_final_v20230717230459.all-MiniLM-L6-v2/ /app/ft_final_v20230717230459.all-MiniLM-L6-v2/
 
-COPY serve.py /app
+COPY main.py /app
 
-ENTRYPOINT ["python", "server.py"]
+ENTRYPOINT ["python", "main.py"]
