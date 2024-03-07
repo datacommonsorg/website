@@ -155,8 +155,8 @@ def _get_sv_and_non_sv_candidates(
     # if the sv starts with dc/topic
     if sv.startswith('dc/topic/'):
       is_sv = True
-    for type in sv_type_list:
-      if type in ['StatisticalVariable', 'Topic']:
+    for sv_type in sv_type_list:
+      if sv_type in ['StatisticalVariable', 'Topic']:
         is_sv = True
         break
     candidate_to_add = sv_candidates if is_sv else non_sv_candidates

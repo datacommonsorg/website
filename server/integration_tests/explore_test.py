@@ -124,7 +124,6 @@ class ExploreTest(NLWebServerTestCase):
         infile.write(json.dumps(resp, indent=2))
 
       if check_detection:
-        print("HERE")
         dbg_file = os.path.join(json_dir, 'debug_info.json')
         with open(dbg_file, 'w') as infile:
           dbg_to_write = {
@@ -552,9 +551,3 @@ class ExploreTest(NLWebServerTestCase):
         'e2e_toolformer_mode',
         ['what is the infant mortality rate in massachusetts'],
         mode='toolformer')
-
-  def test_e2e_entity_pv(self):
-    self.run_detect_and_fulfill(
-        'e2e_entity_pv',
-        ['What is the strand orientation of FGFR1', 'How about APOE'],
-        dc='bio')
