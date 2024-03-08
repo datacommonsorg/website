@@ -202,6 +202,24 @@
               {
                 "tiles": [
                   {
+                    "description": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $ 3.20 A-Day Poverty Line (%, National, Rural, Urban) in United States of America",
+                    "statVarKey": [
+                      "who/FINPROTECTION_IMP_PG_310_STD"
+                    ],
+                    "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $ 3.20 A-Day Poverty Line (%, National, Rural, Urban) in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $ 3.20 A-Day Poverty Line (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "description": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $1.90 A-Day Poverty Line (%, National, Rural, Urban) in United States of America",
                     "statVarKey": [
                       "who/FINPROTECTION_IMP_PG_190_STD"
@@ -232,24 +250,6 @@
             ],
             "denom": "Count_Person",
             "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $2.15 A-Day Poverty Line (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $ 3.20 A-Day Poverty Line (%, National, Rural, Urban) in United States of America",
-                    "statVarKey": [
-                      "who/FINPROTECTION_IMP_PG_310_STD"
-                    ],
-                    "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $ 3.20 A-Day Poverty Line (%, National, Rural, Urban) in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Increase in Poverty Gap Due to Household Health Expenditures, Expressed as a Proportion of the $ 3.20 A-Day Poverty Line (%)"
           },
           {
             "columns": [

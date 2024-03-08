@@ -62,7 +62,7 @@ QUERY_HANDLERS = {
     QueryType.CORRELATION_ACROSS_VARS:
         QueryHandlerConfig(module=correlation,
                            rank=3,
-                           direct_fallback=QueryType.BASIC),
+                           direct_fallback=QueryType.COMPARISON_ACROSS_PLACES),
     QueryType.SUPERLATIVE:
         QueryHandlerConfig(module=superlative,
                            rank=4,
