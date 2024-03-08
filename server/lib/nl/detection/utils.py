@@ -158,7 +158,9 @@ def _get_sv_and_prop_candidates(
   for i, sv in enumerate(svs_scores_dict['SV']):
     sv_type_list = sv_types.get(sv, [])
     # a sv is considered a sv if any of its types are Statistical Variable or
-    # Topic.
+    # Topic. We want to check if a sv is type Statistical Variable or Topic
+    # because we are adding properties that aren't actually properties but
+    # indicate a link using ->.
     is_sv = False
     # We have some curated topics that are not a node in the kg, so assume topic
     # if the sv starts with dc/topic
