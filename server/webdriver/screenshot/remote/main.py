@@ -31,6 +31,12 @@ parser.add_argument("-d",
                     help="Domain to take the screenshot for",
                     type=str,
                     required=True)
+parser.add_argument("-u",
+                    "--url",
+                    help="Base url to use to take the screenshots",
+                    type=str,
+                    required=True,
+                    default="")
 
 logging.getLogger().setLevel(logging.WARNING)
 
@@ -44,7 +50,7 @@ lock = Lock()
 global_var = Value('i', 0)
 
 
-def worker(total, domain, page):
+def worker(total, domain, page, base_url):
   start = time.time()
   p = current_process()
   process_counter = p._identity[0]
@@ -53,7 +59,9 @@ def worker(total, domain, page):
   attempts = 0
   while attempts < max_attempts:
     try:
-      runner.run(driver, 'https://' + domain, page)
+      # If no base_url specified, use the domain
+      runner_url = base_url or f'https://{domain}'
+      runner.run(driver, runner_url, page)
       break
     except Exception as e:
       logging.error("Error: %s, %s", page['url'], e)
@@ -75,7 +83,7 @@ if __name__ == "__main__":
   for page in pages:
     file_name = '{}.png'.format(uuid.uuid4().hex)
     page['file_name'] = file_name
-    params.append((len(pages), args.domain, page))
+    params.append((len(pages), args.domain, page, args.url))
     screenshot_url[file_name] = page['url']
   with open("screenshots/screenshot_url.json", "w") as json_file:
     json.dump(screenshot_url, json_file)
