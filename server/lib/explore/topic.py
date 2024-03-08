@@ -30,9 +30,17 @@ _MAX_CORRELATION_SVS_PER_TOPIC = 4
 
 # This is for main.
 _MAX_SUBTOPIC_SV_LIMIT = 3
-# Pick a higher limit for SDG
+_MAX_TOPICS_TO_OPEN = 3
+
+# Pick a higher limit for SDG / Special DC
 _MAX_SUBTOPIC_SV_LIMIT_SDG = 500
+
+# We open many more topics for Special DC because
+# it combines topics from multiple sources (WHO, SDG,
+# ILO, etc).  But as a limit we have a total #var limit.
+_MAX_TOPICS_TO_OPEN_SPECIAL_DC = 10
 _MAX_SUBTOPIC_SV_LIMIT_SPECIAL_DC = 100
+_MAX_SVS_TO_PROCESS_SPECIAL_DC = 500
 
 
 @dataclass
@@ -44,14 +52,14 @@ class TopicMembers:
 
 def compute_chart_vars(
     state: ftypes.PopulateState) -> OrderedDict[str, List[ftypes.ChartVars]]:
-  # Have a slightly higher limit for non-US places since there are fewer vars.
-  num_topics_limit = 3
-  if state.uttr.places and cutils.is_us_place(state.uttr.places[0]):
-    num_topics_limit = 2
+  num_topics_limit = _max_topics_to_open(state.uttr)
+  # Only Special DC has an SV limit.
+  num_svs_limit = _max_svs_to_process(state.uttr)
 
   dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
   chart_vars_map = OrderedDict()
   num_topics_opened = 0
+  num_svs_processed = 0
   for sv in state.uttr.svs:
     cv = []
     if cutils.is_sv(sv):
@@ -67,7 +75,11 @@ def compute_chart_vars(
       if cv:
         num_topics_opened += 1
     if cv:
+      for e in cv:
+        num_svs_processed += len(e.svs)
       chart_vars_map[sv] = cv
+    if num_svs_limit and num_svs_processed >= num_svs_limit:
+      break
   return chart_vars_map
 
 
@@ -280,3 +292,22 @@ def _max_subtopic_sv_limit(state: ftypes.PopulateState) -> int:
   if is_special_dc(state.uttr.insight_ctx):
     return _MAX_SUBTOPIC_SV_LIMIT_SPECIAL_DC
   return _MAX_SUBTOPIC_SV_LIMIT
+
+
+def _max_topics_to_open(uttr: ftypes.Utterance) -> int:
+  if not is_sdg(uttr.insight_ctx) and is_special_dc(uttr.insight_ctx):
+    max_topics = _MAX_TOPICS_TO_OPEN_SPECIAL_DC
+  elif uttr.places and cutils.is_us_place(uttr.places[0]):
+    max_topics = _MAX_TOPICS_TO_OPEN - 1
+  else:
+    # Have a slightly higher limit for non-US places than US places,
+    # since there are fewer vars.
+    max_topics = _MAX_TOPICS_TO_OPEN
+  return max_topics
+
+
+def _max_svs_to_process(uttr: ftypes.Utterance) -> int:
+  if not is_sdg(uttr.insight_ctx) and is_special_dc(uttr.insight_ctx):
+    return _MAX_SVS_TO_PROCESS_SPECIAL_DC
+  # No special limit
+  return 0

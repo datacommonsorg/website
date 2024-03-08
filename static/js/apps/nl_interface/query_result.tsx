@@ -21,11 +21,13 @@
 import axios from "axios";
 import queryString from "query-string";
 import React, { createRef, memo, useEffect, useRef } from "react";
+import { RawIntlProvider } from "react-intl";
 import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
+import { intl } from "../../i18n/i18n";
 import { NlSessionContext } from "../../shared/context";
 import {
   CHART_FEEDBACK_SENTIMENT,
@@ -105,7 +107,7 @@ export const QueryResult = memo(function QueryResult(
   const maxBlock = parseInt(maxBlockParam as string);
 
   return (
-    <>
+    <RawIntlProvider value={intl}>
       <div className="nl-query" ref={scrollRef}>
         <Container>
           <div className="nl-user-query">
@@ -178,7 +180,7 @@ export const QueryResult = memo(function QueryResult(
           )}
         </Container>
       </div>
-    </>
+    </RawIntlProvider>
   );
 
   function onEmojiClick(sentiment: string): void {

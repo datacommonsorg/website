@@ -252,8 +252,10 @@ export const fetchData = async (props: BarTilePropType) => {
 
     const placeNames = await getPlaceNames(
       Array.from(popPoints).map((x) => x.placeDcid),
-      props.apiRoot,
-      props.placeNameProp
+      {
+        apiRoot: props.apiRoot,
+        prop: props.placeNameProp,
+      }
     );
     const placeType =
       "enclosedPlaceType" in props

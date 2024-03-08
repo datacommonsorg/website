@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,42 +14,6 @@
  * limitations under the License.
  */
 
-@import "base";
-@import "draw";
+import { DataCommonsWebClient } from "@datacommonsorg/client";
 
-h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-}
-
-h3 {
-  font-size: 1.2rem;
-  color: var(--secondary);
-  line-height: 1.4rem;
-  margin-bottom: 1rem;
-}
-
-h3 a {
-  float: right;
-  font-size: 1rem;
-  line-height: 1.4rem;
-  margin-left: 0.5rem;
-  vertical-align: baseline;
-}
-
-.chart-container {
-  width: 100%;
-  height: 280px;
-}
-
-#main-pane th,
-#main-pane td {
-  font-size: 1rem;
-  padding: 0.5rem;
-}
-
-td .num-value {
-  display: inline-block;
-  width: 140px;
-  text-align: right;
-}
+export const datacommonsWebClient = new DataCommonsWebClient({ apiRoot: "/" });
