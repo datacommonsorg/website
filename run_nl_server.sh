@@ -20,18 +20,18 @@
 
 set -e
 
-python3 -m venv .env
+function cleanup {
+  echo "Cleaning up before exit..."
+  deactivate
+  exit 1
+}
+trap cleanup SIGINT
+
 source .env/bin/activate
 
 PORT=6060
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 export FLASK_ENV=local
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
-
-cd nl_server/
-python3 -m pip install --upgrade pip setuptools  light-the-torch
-ltt install torch --cpuonly
-pip3 install -r requirements.txt -q
-cd ..
 
 python3 nl_app.py $PORT $1
