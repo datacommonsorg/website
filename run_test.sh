@@ -22,6 +22,7 @@ function setup_python {
   pip3 install -r server/requirements.txt
   pip3 install torch==2.2.1 --extra-index-url https://download.pytorch.org/whl/cpu
   pip3 install -r nl_server/requirements.txt
+  deactivate
 }
 
 # Run test for client side code.
@@ -56,7 +57,6 @@ function run_lint_fix {
   cd ..
 
   echo -e "#### Fixing Python code"
-  python3 -m venv .env
   source .env/bin/activate
   pip3 install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
@@ -96,7 +96,6 @@ function run_npm_build () {
 # Run test and check lint for Python code.
 function run_py_test {
   # Run server pytest.
-  python3 -m venv .env
   source .env/bin/activate
   export FLASK_ENV=test
   python3 -m pytest server/tests/ -s
@@ -125,11 +124,11 @@ function run_py_test {
     echo "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
+  deactivate
 }
 
 # Run test for webdriver automation test codes.
 function run_webdriver_test {
-  python3 -m venv .env
   source .env/bin/activate
   printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
   if [ ! -d server/dist  ]
@@ -140,11 +139,11 @@ function run_webdriver_test {
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   python3 -m pytest -n 10 --reruns 2 server/webdriver/tests/
+  deactivate
 }
 
 # Run test for screenshot test codes.
 function run_screenshot_test {
-  python3 -m venv .env
   source .env/bin/activate
   printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
   if [ ! -d server/dist  ]
@@ -158,22 +157,22 @@ function run_screenshot_test {
   export DC_API_KEY=
   export LLM_API_KEY=
   python3 -m pytest --reruns 2 server/webdriver/screenshot/
+  deactivate
 }
 
 # Run integration test for NL and explore interface
 # The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
-  python3 -m venv .env
   source .env/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=test
   python3 -m pytest -vv --reruns 2 server/integration_tests/$1
+  deactivate
 }
 
 function update_integration_test_golden {
-  python3 -m venv .env
   source .env/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
