@@ -157,8 +157,8 @@ def _get_sv_and_prop_candidates(
   sv_types = property_values(svs_scores_dict['SV'], 'typeOf')
   for i, sv in enumerate(svs_scores_dict['SV']):
     sv_type_list = sv_types.get(sv, [])
-    # a sv is considered a sv if any of its types are Statistical Variable or
-    # Topic. We want to check if a sv is type Statistical Variable or Topic
+    # an sv is considered an sv if any of its types are Statistical Variable or
+    # Topic. We want to check if an sv is type Statistical Variable or Topic
     # because we are adding properties that aren't actually properties but
     # indicate a link using ->.
     is_sv = False
