@@ -182,10 +182,9 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  query_detection = detector.detect(detector_type,
-                                    original_query, query, prev_utterance,
-                                    embeddings_index_type, llm_api_type,
-                                    debug_logs, mode, counters)
+  query_detection = detector.detect(detector_type, original_query, query,
+                                    prev_utterance, embeddings_index_type,
+                                    llm_api_type, debug_logs, mode, counters)
   if not query_detection:
     err_json = helpers.abort('Sorry, could not complete your request.',
                              original_query,
