@@ -44,7 +44,6 @@ from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import Place
-from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
 import server.lib.nl.fulfillment.fulfiller as fulfillment
@@ -127,20 +126,11 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     detector_type = RequestedDetectorType.Heuristic.value
     use_default_place = False
 
-  place_detector_type = request.args.get('place_detector',
-                                         default='dc',
-                                         type=str).lower()
-  if place_detector_type not in [PlaceDetectorType.NER, PlaceDetectorType.DC]:
-    logging.error(f'Unknown place_detector {place_detector_type}')
-    place_detector_type = PlaceDetectorType.NER
-  else:
-    place_detector_type = PlaceDetectorType(place_detector_type)
-
   llm_api_type = request.args.get('llm_api',
                                   default=LlmApiType.GeminiPro.value,
                                   type=str).lower()
   if llm_api_type not in [LlmApiType.Palm, LlmApiType.GeminiPro]:
-    logging.error(f'Unknown place_detector {place_detector_type}')
+    logging.error(f'Unknown llm_api_type {llm_api_type}')
     llm_api_type = LlmApiType.GeminiPro
   else:
     llm_api_type = LlmApiType(llm_api_type)
@@ -192,7 +182,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  query_detection = detector.detect(detector_type, place_detector_type,
+  query_detection = detector.detect(detector_type,
                                     original_query, query, prev_utterance,
                                     embeddings_index_type, llm_api_type,
                                     debug_logs, mode, counters)

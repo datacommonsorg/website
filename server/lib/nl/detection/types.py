@@ -405,15 +405,6 @@ class LlmApiType(str, Enum):
   Nop = "nop"
 
 
-class PlaceDetectorType(str, Enum):
-  # Represents the open-source NER implementation
-  NER = "ner"
-  # Represents the home-grown RecognizePlaces Recon API
-  DC = "dc"
-  # The case of no detector involved
-  NOP = "nop"
-
-
 @dataclass
 class Detection:
   """Detection attributes."""
@@ -424,5 +415,4 @@ class Detection:
   classifications: List[NLClassifier]
   llm_resp: Dict = field(default_factory=dict)
   detector: ActualDetectorType = ActualDetectorType.HybridHeuristic
-  place_detector: PlaceDetectorType = PlaceDetectorType.DC
   llm_api: LlmApiType = LlmApiType.Nop
