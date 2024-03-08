@@ -35,7 +35,7 @@ class Place:
 
 @dataclass
 class Entity:
-  """Entity attributes."""
+  """Non Place Entity attributes."""
   dcid: str
   name: str
   type: str
@@ -65,8 +65,8 @@ class SVDetection:
   query: str
   # Single SV detection.
   single_sv: dvars.VarCandidates
-  # Detected variables that are not Statistical Variable or Topic.
-  non_sv: dvars.VarCandidates
+  # Detected variables that are properties.
+  prop: dvars.VarCandidates
   # Multi SV detection.
   multi_sv: dvars.MultiVarCandidates
   # Input SV Threshold

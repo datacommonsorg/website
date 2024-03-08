@@ -189,13 +189,18 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     else:
       session_id = constants.TEST_SESSION_ID
 
+  allow_triples = False
+  if dc == params.DCNames.BIO_DC.value:
+    allow_triples = True
+    use_default_place = False
+
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
   query_detection = detector.detect(detector_type, place_detector_type,
                                     original_query, query, prev_utterance,
                                     embeddings_index_type, llm_api_type,
-                                    debug_logs, mode, counters)
+                                    debug_logs, mode, counters, allow_triples)
   if not query_detection:
     err_json = helpers.abort('Sorry, could not complete your request.',
                              original_query,
@@ -208,10 +213,6 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     return None, err_json
   counters.timeit('query_detection', start)
 
-  allow_non_place = False
-  if dc == params.DCNames.BIO_DC.value:
-    allow_non_place = True
-    use_default_place = False
   utterance = create_utterance(query_detection,
                                prev_utterance,
                                counters,
@@ -229,7 +230,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     context.merge_with_context(utterance, default_place)
     error_msg = ''
     if not utterance.places:
-      if not allow_non_place:
+      if not allow_triples:
         error_msg = 'Sorry, could not complete your request. No place found in the query.'
       elif not utterance.entities:
         error_msg = 'Sorry, could not complete your request. No entity found in the query.'
@@ -374,7 +375,6 @@ def prepare_response_common(data_dict: Dict,
                             client: str = '') -> Dict:
   data_dict = dbg.result_with_debug_info(data_dict, status_str, detection,
                                          dbg_counters, debug_logs)
-  print(data_dict)
   # Convert data_dict to pure json.
   data_dict = utils.to_dict(data_dict)
   if test:

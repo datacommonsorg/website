@@ -140,11 +140,20 @@ def empty_var_candidates():
 
 # Takes the detected svs and returns
 # 1. sv candidates: svs that are Statistical Variable or Topic
-# 2. non sv candidates: any other detected svs.
-def _get_sv_and_non_sv_candidates(
-    svs_scores_dict: Dict) -> tuple[dvars.VarCandidates, dvars.VarCandidates]:
+# 2. prop candidates: any other detected svs.
+def _get_sv_and_prop_candidates(
+    svs_scores_dict: Dict,
+    allow_triples: bool = False
+) -> tuple[dvars.VarCandidates, dvars.VarCandidates]:
   sv_candidates = empty_var_candidates()
-  non_sv_candidates = empty_var_candidates()
+  prop_candidates = empty_var_candidates()
+  if not allow_triples:
+    # If triples are not allowed, assume all detected svs are sv type
+    sv_candidates = dvars.VarCandidates(
+        svs=svs_scores_dict['SV'],
+        scores=svs_scores_dict['CosineScore'],
+        sv2sentences=svs_scores_dict['SV_to_Sentences'])
+    return sv_candidates, prop_candidates
   sv_types = property_values(svs_scores_dict['SV'], 'typeOf')
   for i, sv in enumerate(svs_scores_dict['SV']):
     sv_type_list = sv_types.get(sv, [])
@@ -159,27 +168,27 @@ def _get_sv_and_non_sv_candidates(
       if sv_type in ['StatisticalVariable', 'Topic']:
         is_sv = True
         break
-    candidate_to_add = sv_candidates if is_sv else non_sv_candidates
+    candidate_to_add = sv_candidates if is_sv else prop_candidates
     candidate_to_add.svs.append(sv)
     candidate_to_add.scores.append(svs_scores_dict['CosineScore'][i])
     candidate_to_add.sv2sentences[sv] = svs_scores_dict['SV_to_Sentences'].get(
         sv, [])
-  return sv_candidates, non_sv_candidates
+  return sv_candidates, prop_candidates
 
 
 def create_sv_detection(
     query: str,
     svs_scores_dict: Dict,
-    sv_threshold: float = shared_constants.SV_SCORE_DEFAULT_THRESHOLD
-) -> SVDetection:
-  sv_candidates, non_sv_candidates = _get_sv_and_non_sv_candidates(
-      svs_scores_dict)
+    sv_threshold: float = shared_constants.SV_SCORE_DEFAULT_THRESHOLD,
+    allow_triples: bool = False) -> SVDetection:
+  sv_candidates, prop_candidates = _get_sv_and_prop_candidates(
+      svs_scores_dict, allow_triples)
 
   return SVDetection(query=query,
                      single_sv=sv_candidates,
                      multi_sv=dvars.dict_to_multivar_candidates(
                          svs_scores_dict['MultiSV']),
-                     non_sv=non_sv_candidates,
+                     prop=prop_candidates,
                      sv_threshold=sv_threshold)
 
 
@@ -203,7 +212,7 @@ def create_utterance(query_detection: Detection,
                             query_detection.svs_detected.sv_threshold, counters)
   # Treat detected variables that are not Statistical Variable or Topic as
   # properties.
-  filtered_properties = filter_svs(query_detection.svs_detected.non_sv,
+  filtered_properties = filter_svs(query_detection.svs_detected.prop,
                                    query_detection.svs_detected.sv_threshold,
                                    counters)
 

@@ -43,11 +43,11 @@ def result_with_debug_info(data_dict: Dict, status: str,
   }
   svs_to_sentences = query_detection.svs_detected.single_sv.sv2sentences
   props_dict = {
-      'SV': query_detection.svs_detected.non_sv.svs,
-      'CosineScore': query_detection.svs_detected.non_sv.scores,
-      'SV_to_Sentences': query_detection.svs_detected.non_sv.sv2sentences
+      'PROP': query_detection.svs_detected.prop.svs,
+      'CosineScore': query_detection.svs_detected.prop.scores,
+      'PROP_to_Sentences': query_detection.svs_detected.prop.sv2sentences
   }
-  props_to_sentences = query_detection.svs_detected.non_sv.sv2sentences
+  props_to_sentences = query_detection.svs_detected.prop.sv2sentences
 
   if svs_dict is None or not svs_dict:
     svs_dict = _empty_svs_score_dict()

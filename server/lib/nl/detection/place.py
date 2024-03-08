@@ -33,8 +33,10 @@ MAX_IDENTICAL_NAME_PLACES = 5
 #
 # Uses NER to detect place names, recons to DCIDs, produces PlaceDetection object.
 #
-def detect_from_query_ner(cleaned_query: str, orig_query: str,
-                          query_detection_debug_logs: Dict) -> PlaceDetection:
+def detect_from_query_ner(cleaned_query: str,
+                          orig_query: str,
+                          query_detection_debug_logs: Dict,
+                          allow_triples: bool = False) -> PlaceDetection:
   # Step 1: find all relevant places and the name/type of the main place found.
   places_str_found = _detect_places(cleaned_query)
 
@@ -63,8 +65,9 @@ def detect_from_query_ner(cleaned_query: str, orig_query: str,
   if place_dcids:
     resolved_places, parent_map = get_place_from_dcids(
         place_dcids.values(), query_detection_debug_logs["place_resolution"])
-    resolved_entities = _get_non_place_entities(place_dcids.values(),
-                                                resolved_places)
+    if allow_triples:
+      resolved_entities = _get_non_place_entities(place_dcids.values(),
+                                                  resolved_places)
     logging.info(
         f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
 
@@ -105,7 +108,9 @@ def detect_from_query_ner(cleaned_query: str, orig_query: str,
 #
 # Uses NER to detect place names, recons to DCIDs, produces PlaceDetection object.
 #
-def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
+def detect_from_query_dc(orig_query: str,
+                         debug_logs: Dict,
+                         allow_triples: bool = False) -> PlaceDetection:
   # Recognize Places uses comma as a signal for contained-in-place.
   query = utils.remove_punctuations(orig_query, include_comma=True)
 
@@ -148,7 +153,8 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
   if mains:
     resolved_places, parent_map = get_place_from_dcids(
         mains, debug_logs["place_resolution"])
-    resolved_entities = _get_non_place_entities(mains, resolved_places)
+    if allow_triples:
+      resolved_entities = _get_non_place_entities(mains, resolved_places)
 
   main_place = None
   peers = []
@@ -181,9 +187,11 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
 # The entry point for building PlaceDetection if we've already detected place names.
 # Uses recon to map to DCIDs.
 #
-def detect_from_names(place_names: List[str], query_without_places: str,
+def detect_from_names(place_names: List[str],
+                      query_without_places: str,
                       orig_query: str,
-                      query_detection_debug_logs: Dict) -> PlaceDetection:
+                      query_detection_debug_logs: Dict,
+                      allow_triples: bool = False) -> PlaceDetection:
   place_dcids = []
   main_place = None
   resolved_places = []
@@ -204,8 +212,9 @@ def detect_from_names(place_names: List[str], query_without_places: str,
   if place_dcids:
     resolved_places, parent_map = get_place_from_dcids(
         place_dcids.values(), query_detection_debug_logs["place_resolution"])
-    resolved_entities = _get_non_place_entities(place_dcids.values(),
-                                                resolved_places)
+    if allow_triples:
+      resolved_entities = _get_non_place_entities(place_dcids.values(),
+                                                  resolved_places)
   if resolved_places:
     main_place = resolved_places[0]
     parent_places = parent_map.get(main_place.dcid, [])
@@ -322,10 +331,11 @@ def _get_non_place_entities(all_entities: List[str],
   non_place_entities = [e for e in all_entities if not e in places]
   if non_place_entities:
     names = property_values(non_place_entities, 'name')
+    # TODO: get type as well for downstream decisions
     for e in non_place_entities:
-      eNames = names.get(e, [])
-      eName = eNames[0] if len(eNames) > 0 else e
-      entities.append(Entity(dcid=e, name=eName, type=''))
+      e_names = names.get(e, [])
+      e_name = e_names[0] if len(e_names) > 0 else e
+      entities.append(Entity(dcid=e, name=e_name, type=''))
   return entities
 
 

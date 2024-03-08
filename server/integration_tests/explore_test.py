@@ -136,7 +136,7 @@ class ExploreTest(NLWebServerTestCase):
                   "SV": dbg["sv_matching"]["SV"]
               },
               "props_matching": {
-                  "SV": dbg["props_matching"]["SV"]
+                  "PROP": dbg["props_matching"]["PROP"]
               },
           }
           infile.write(json.dumps(dbg_to_write, indent=2))
@@ -174,8 +174,8 @@ class ExploreTest(NLWebServerTestCase):
                            expected["entities_resolved"])
           self.assertEqual(dbg["sv_matching"]["SV"],
                            expected["sv_matching"]["SV"])
-          self.assertEqual(dbg["props_matching"]["SV"],
-                           expected["props_matching"]["SV"])
+          self.assertEqual(dbg["props_matching"]["PROP"],
+                           expected["props_matching"]["PROP"])
 
   def handle_i18n_response(self, resp, i18n_lang):
     """The translation API does not always return the same translations.
