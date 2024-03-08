@@ -19,7 +19,7 @@
 import numpy as np
 
 
-def calculate_relevance_scores(baseline_list):
+def _calculate_relevance_scores(baseline_list):
   num_tokens = len(baseline_list)
   return {token: num_tokens - i for i, token in enumerate(baseline_list)}
 
@@ -27,12 +27,13 @@ def calculate_relevance_scores(baseline_list):
 def dcg(scores, k=None):
   if k is None:
     k = len(scores)
+  # https://en.wikipedia.org/wiki/Discounted_cumulative_gain
   return sum(
       (2**score - 1) / np.log2(idx + 2) for idx, score in enumerate(scores[:k]))
 
 
 def ndcg(new_list, baseline_list):
-  relevance_scores = calculate_relevance_scores(baseline_list)
+  relevance_scores = _calculate_relevance_scores(baseline_list)
   new_scores = [relevance_scores.get(token, 0) for token in new_list]
   baseline_scores = [relevance_scores[token] for token in baseline_list]
   dcg_new = dcg(new_scores)

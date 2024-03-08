@@ -25,7 +25,7 @@ import yaml
 
 PROJECT = 'datcom-website-dev'
 LOCATION = 'us-central1'
-VECTOR_SERACH_ENDPOINT = "302175072.us-central1-496370955550.vdb.vertexai.goog"
+VECTOR_SEARCH_ENDPOINT = "302175072.us-central1-496370955550.vdb.vertexai.goog"
 INDEX_ENDPOINT = "projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128"
 NEIGHBOR_COUNT = 30
 
@@ -55,7 +55,7 @@ def vector_search(model_endpoints, query):
   prediction_endpoint = aiplatform.Endpoint(
       model_info['prediction_endpoint_id'])
   vector_search_client = aiplatform_v1.MatchServiceClient(
-      client_options={"api_endpoint": VECTOR_SERACH_ENDPOINT},)
+      client_options={"api_endpoint": VECTOR_SEARCH_ENDPOINT},)
   query_vector = prediction_endpoint.predict(instances=[query]).predictions[0]
   vector_datapoint = aiplatform_v1.IndexDatapoint(feature_vector=query_vector)
   vector_search_query = aiplatform_v1.FindNeighborsRequest.Query(

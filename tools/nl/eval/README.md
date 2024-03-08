@@ -17,7 +17,7 @@ deployed to Vertex AI. Concrete steps can be found in
 [model server](../../../model_server/README.md).
 
 Once a model is deployed, generate embeddings and index them in Vertex AI vector
-search. Concreate steps can be found in [build
+search. Concrete steps can be found in [build
 embeddings](../embeddings/README.md).
 
 Once model and embeddings endpoints are avaiable, record the endpoints id in
@@ -45,5 +45,7 @@ Example commands: `./run.sh -m dc-all-minilm-l6-v2 -f base`
 This produces `debug.json` and `report.csv` in the `result` folder of the eval
 unit folder.
 
-The `report.csv` contains query and the ndcg score per row. `debug.json`
-contains the matched embeddings description, stat var dcid and the cosine score.
+The `report.csv` contains query and the [ndcg
+score](https://en.wikipedia.org/wiki/Discounted_cumulative_gain) per row.
+`debug.json` contains the matched embeddings description, stat var dcid and the
+cosine score.
