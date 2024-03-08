@@ -228,7 +228,8 @@ def build_embeddings(ctx, text2sv: Dict[str, str]) -> pd.DataFrame:
       logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE - 1)
       for i in range(_MODEL_ENDPOINT_RETRYS):
         try:
-          resp = ctx.model_endpoint.predict(instances=chuck).predictions
+          resp = ctx.model_endpoint.predict(instances=chuck,
+                                            timeout=600).predictions
           embeddings.extend(resp)
           break
         except Exception as e:
