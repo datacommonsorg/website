@@ -21,7 +21,6 @@ from absl import flags
 from google.cloud import aiplatform
 from google.cloud import aiplatform_v1
 import ndcg
-import numpy as np
 import yaml
 
 PROJECT = 'datcom-website-dev'
@@ -41,7 +40,7 @@ flags.DEFINE_string(
     'The folder for a eval unit. It should contain a golden.json file')
 
 
-def _load_models():
+def _load_model_endpoints():
   with open('vertex_ai_endpoints.yaml') as f:
     return yaml.full_load(f)
 
@@ -51,35 +50,39 @@ def _load_baseline():
     return json.load(f)
 
 
-def main(_):
-  aiplatform.init(project=PROJECT, location=LOCATION)
-  base_line = _load_baseline()
-  models = _load_models()
-  if FLAGS.model_name not in models:
-    print('Model not found')
-    return
-  model_info = models.get(FLAGS.model_name)
+def vector_search(model_endpoints, query):
+  model_info = model_endpoints.get(FLAGS.model_name)
   prediction_endpoint = aiplatform.Endpoint(
       model_info['prediction_endpoint_id'])
   vector_search_client = aiplatform_v1.MatchServiceClient(
       client_options={"api_endpoint": VECTOR_SERACH_ENDPOINT},)
+  query_vector = prediction_endpoint.predict(instances=[query]).predictions[0]
+  vector_datapoint = aiplatform_v1.IndexDatapoint(feature_vector=query_vector)
+  vector_search_query = aiplatform_v1.FindNeighborsRequest.Query(
+      datapoint=vector_datapoint, neighbor_count=NEIGHBOR_COUNT)
+  vector_search_req = aiplatform_v1.FindNeighborsRequest(
+      index_endpoint=INDEX_ENDPOINT,
+      deployed_index_id=model_info['index_id'],
+      queries=[vector_search_query],
+      return_full_datapoint=True,
+  )
+  vector_search_resp = vector_search_client.find_neighbors(vector_search_req)
+  return vector_search_resp
+
+
+def main(_):
+  aiplatform.init(project=PROJECT, location=LOCATION)
+  base_line = _load_baseline()
+  model_endpoints = _load_model_endpoints()
+  if FLAGS.model_name not in model_endpoints:
+    print('Model not found from the config')
+    return
 
   debug = {}
   report = []
   for query, base_line_matches in base_line.items():
     print(query)
-    query_vector = prediction_endpoint.predict(instances=[query]).predictions[0]
-    query_norm = np.linalg.norm(query_vector)
-    vector_datapoint = aiplatform_v1.IndexDatapoint(feature_vector=query_vector)
-    vector_search_query = aiplatform_v1.FindNeighborsRequest.Query(
-        datapoint=vector_datapoint, neighbor_count=NEIGHBOR_COUNT)
-    vector_search_req = aiplatform_v1.FindNeighborsRequest(
-        index_endpoint=INDEX_ENDPOINT,
-        deployed_index_id=model_info['index_id'],
-        queries=[vector_search_query],
-        return_full_datapoint=True,
-    )
-    vector_search_resp = vector_search_client.find_neighbors(vector_search_req)
+    vector_search_resp = vector_search(model_endpoints, query)
     ranked_stat_vars = []
     debug[query] = {'vector_search': []}
     for n in vector_search_resp.nearest_neighbors[0].neighbors:
@@ -87,11 +90,10 @@ def main(_):
       stat_var = dp.restricts[0].allow_list[0]
       if stat_var not in ranked_stat_vars:
         ranked_stat_vars.append(stat_var)
-      dp_norm = np.linalg.norm(dp.feature_vector)
       debug[query]['vector_search'].append({
           'sentence': dp.datapoint_id,
           'stat_var': dp.restricts[0].allow_list[0],
-          'distance': n.distance / dp_norm / query_norm
+          'distance': n.distance
       })
     if len(ranked_stat_vars) > len(base_line_matches):
       ranked_stat_vars = ranked_stat_vars[:len(base_line_matches)]

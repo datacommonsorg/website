@@ -33,8 +33,8 @@ def dcg(scores, k=None):
 
 def ndcg(new_list, baseline_list):
   relevance_scores = calculate_relevance_scores(baseline_list)
-  new_list_scores = [relevance_scores.get(token, 0) for token in new_list]
+  new_scores = [relevance_scores.get(token, 0) for token in new_list]
   baseline_scores = [relevance_scores[token] for token in baseline_list]
-  dcg_new = dcg(new_list_scores)
-  idcg = dcg(baseline_scores)
-  return dcg_new / idcg if idcg > 0 else 0
+  dcg_new = dcg(new_scores)
+  dcg_base = dcg(baseline_scores)
+  return dcg_new / dcg_base if dcg_base > 0 else 0
