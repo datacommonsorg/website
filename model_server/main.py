@@ -33,7 +33,6 @@ logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
 # A full list of model name can be found in model.list
 model_name = os.environ['MODEL_NAME']
-logging.info(model_name)
 
 
 def create_model(model_name):

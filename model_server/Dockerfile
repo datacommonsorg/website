@@ -13,15 +13,15 @@
 # limitations under the License.
 
 
-FROM us-docker.pkg.dev/vertex-ai/prediction/pytorch-gpu.2-1:latest
+FROM us-docker.pkg.dev/vertex-ai/prediction/pytorch-cpu.2-1:dlenvx_build_20240225_1000_RC00
 
 WORKDIR /app
 
 COPY requirements.txt /app
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir  -r requirements.txt
 
 COPY ft_final_v20230717230459.all-MiniLM-L6-v2/ /app/ft_final_v20230717230459.all-MiniLM-L6-v2/
 
-COPY serve.py /app
+COPY main.py /app
 
-ENTRYPOINT ["python", "serve.py"]
+ENTRYPOINT ["python", "main.py"]

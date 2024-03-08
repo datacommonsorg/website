@@ -47,7 +47,7 @@ nl:
 
 nodejs:
   enabled: true
-  replicas: 50
+  replicas: 25
   nodePool: "default-pool"
 
 serviceGroups:
