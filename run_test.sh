@@ -20,8 +20,7 @@ function setup_python {
   python3 -m venv .env
   source .env/bin/activate
   pip3 install -r server/requirements.txt
-  python3 -m pip install --upgrade pip setuptools light-the-torch
-  ltt install torch --cpuonly
+  pip3 install torch==2.2.1 --extra-index-url https://download.pytorch.org/whl/cpu
   pip3 install -r nl_server/requirements.txt
 }
 
