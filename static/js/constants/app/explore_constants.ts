@@ -38,6 +38,8 @@ export const URL_HASH_PARAMS = {
   TEST_MODE: "test",
   I18N: "i18n",
   CLIENT: "client",
+  DEFAULT_PLACE: "default_place",
+  MODE: "mode",
 };
 export const CLIENT_TYPES = {
   // User typed in a p=X&t=Y URL

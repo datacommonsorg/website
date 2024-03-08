@@ -1,0 +1,455 @@
+{
+    "geoId/01": {
+        "summary": "Alabama is a state located in the southeastern United States. In 2022, Alabama had a population of 5,074,296. The median age in Alabama was 39.3 years in 2021, and the median income was $28,741 that same year. In 2023, the state's unemployment rate stood at 2.5%.  Alabama's life expectancy was 73.2 years in 2020. Additionally, in 2021, 39.9% of the population was classified as obese, 15.08% of adults reported binge drinking, and 18.26% were smokers."
+    },
+    "geoId/02": {
+        "summary": "Alaska is a state located in the northwestern United States. Its population was 733,583 in 2022. In 2021, the median age in Alaska was 35 years, and the median income was $37,368.  The unemployment rate in 2023 was 4.4%. Life expectancy in Alaska was 76.6 years in 2020. Additionally, in 2021, 33.89% of Alaskans were classified as obese, while 18.43% reported binge drinking, and 17.97% were smokers."
+    },
+    "geoId/0203000": {
+        "summary": "Anchorage municipality is a city located within the state of Alaska. In 2022, its population was 287,145. The median age in 2021 was 34.3 years, and the median income that same year was $40,966. The unemployment rate in Anchorage municipality stood at 3.5% in 2023. Additionally, in 2021, 32.9% of the population was classified as obese, 18% reported binge drinking, and 15.2% were smokers."
+    },
+    "geoId/04": {
+        "summary": "Arizona, a southwestern U.S. state, had a population of 7,359,197 in 2022. The median age in 2021 was 38.1 years, with a median income of $33,786. In 2023, Arizona's unemployment rate was 4%. Life expectancy in the state was 76.3 years in 2020. Additionally, in 2021, 32.07% of Arizonans were classified as obese, 17.47% reported binge drinking, and 15.31% were smokers."
+    },
+    "geoId/0412000": {
+        "summary": "Chandler, a city within Arizona's Maricopa County, had a population of 280,711 in 2022. The median age in 2021 was 36.9 years, and the median income that year was $45,273. In 2023, the city's unemployment rate stood at 3.2%. Additionally, in 2021, 27.9% of the population was classified as obese, 18.2% reported binge drinking, and 11.8% were smokers."
+    },
+    "geoId/0427400": {
+        "summary": "Gilbert, a city located in Maricopa County, Arizona, had a population of 275,346 in 2022. In 2021, the median age was 35.3 years, with a median income of $48,177. Gilbert's unemployment rate in 2023 was 2.8%. Additionally, in 2021, 27.2% of the population was classified as obese, 19.1% reported binge drinking, and 11.3% were smokers."
+    },
+    "geoId/0427820": {
+        "summary": "Glendale, a city located in Maricopa County, Arizona, had a population of 252,136 in 2022. In 2021, the median age was 33.7 years, with a median income of $31,387. The following year, the city's unemployment rate stood at 3.7%. Additionally, in 2021, 32.9% of Glendale's population was classified as obese, 16.8% reported binge drinking, and 17.2% were smokers."
+    },
+    "geoId/0446000": {
+        "summary": "Mesa, a city in Arizona's Maricopa County, had a population of 512,498 in 2022. The median age in Mesa was 36.6 years in 2021, and the median income that year was $34,440. In 2023, the city's unemployment rate stood at 3.5%. Additionally, in 2021, 31.6% of Mesa's population was classified as obese, 17.8% reported binge drinking, and 15.8% were smokers."
+    },
+    "geoId/0455000": {
+        "summary": "Phoenix, a city within Maricopa County, Arizona, had a population of 1,644,409 in 2022. The median age was 34.1 years in 2021, with a median income of $34,427 that same year. In 2023, Phoenix's unemployment rate was 3.6%. Additionally, in 2021, 32.6% of the population was classified as obese, 16.9% reported binge drinking, and 16% were smokers."
+    },
+    "geoId/0465000": {
+        "summary": "Scottsdale, a city in Arizona's Maricopa County, had a population of 243,050 in 2022. In 2021, the median age in Scottsdale was 47.9 years, and the median income was $53,287. Scottsdale's unemployment rate in 2023 stood at 3%. Additionally, in 2021, 26.5% of the population was classified as obese, 19.3% reported binge drinking, and 10.2% were smokers."
+    },
+    "geoId/0477000": {
+        "summary": "Tucson, a city located in Arizona's Pima County, had a population of 546,574 in 2022. The median age in Tucson was 34.2 years in 2021, with a median income of $27,334 that same year. In 2023, the city's unemployment rate was 4%. Additionally, in 2021, 34.9% of Tucson's population was classified as obese, 16.5% reported binge drinking, and 17.8% were smokers."
+    },
+    "geoId/05": {
+        "summary": "Arkansas, a state in the southern United States, had a population of 3,045,637 in 2022. The median age in 2021 was 38.3 years, with a median income of $27,980. In 2023, Arkansas's unemployment rate stood at 3.1%. Life expectancy in the state was 73.8 years in 2020. Additionally, in 2021, 38.39% of the population was classified as obese, 14.41% reported binge drinking, and 20.77% were smokers."
+    },
+    "geoId/06": {
+        "summary": "California, a state on the U.S. west coast, had a population of 39,029,342 in 2022. The median age in 2021 was 37 years, with a median income of $36,281 that year. In 2023, California's unemployment rate stood at 4.9%. Life expectancy in 2020 was 79 years. Additionally, in 2021, 28.76% of the population was classified as obese, 15.77% reported binge drinking, and 11.47% were smokers."
+    },
+    "geoId/0602000": {
+        "summary": "Anaheim, a city located in Orange County, California, had a population of 344,461 in 2022. The median age in Anaheim was 35.3 years in 2021, with a median income of $32,837 that same year. In 2023, the city's unemployment rate was 3.8%. Additionally, in 2021, 28.6% of Anaheim's population was classified as obese, 15.4% reported binge drinking, and 11.9% were smokers."
+    },
+    "geoId/0603526": {
+        "summary": "Bakersfield, a city located in Kern County, California, had a population of 410,647 in 2022. In 2021, the median age was 31.3 years, and the median income was $31,767. Bakersfield's unemployment rate stood at 6.1% in 2023. Additionally, in 2021, 35.2% of the population was classified as obese, 15.9% reported binge drinking, and 15.6% were smokers."
+    },
+    "geoId/0613392": {
+        "summary": "Chula Vista, a city in San Diego County, California, had a population of 279,170 in 2022. The median age in 2021 was 36.3 years, with a median income of $37,511 that year. In 2023, Chula Vista's unemployment rate stood at 4.7%. Additionally, in 2021, 24.9% of the population was classified as obese, 17.4% reported binge drinking, and 10.5% were smokers."
+    },
+    "geoId/0627000": {
+        "summary": "Fresno, a city located in Fresno County, California, had a population of 545,567 in 2022. The median age in Fresno was 31.7 years in 2021, with a median income of $27,435 that year. In 2023, the unemployment rate stood at 6.3%. Additionally, in 2021, 37.3% of Fresno's population was classified as obese, 13.7% reported binge drinking, and 15.5% were smokers."
+    },
+    "geoId/0636770": {
+        "summary": "Irvine, a city in Orange County, California, had a population of 313,685 in 2022. The median age in 2021 was 33.8 years, with a median income of $55,547. In 2023, Irvine's unemployment rate was 4%. Additionally, in 2021, 21% of the population was classified as obese, 14.9% reported binge drinking, and 7.5% were smokers."
+    },
+    "geoId/0643000": {
+        "summary": "Long Beach, a city in Los Angeles County, California, had a population of 451,307 in 2022. The median age in 2021 was 35.9 years, with a median income of $33,731. In 2023, Long Beach's unemployment rate stood at 4.7%. Additionally, in 2021, 29.3% of the population was classified as obese, 14.9% reported binge drinking, and 12% were smokers."
+    },
+    "geoId/0644000": {
+        "summary": "Los Angeles, a city within Los Angeles County, California, had a population of 3,822,238 in 2022. In 2021, the median age was 36.2 years, and the median income was $31,822. The city's unemployment rate in 2023 stood at 5.3%. Additionally, in 2021, 29.5% of the population was classified as obese, 14.9% reported binge drinking, and 11.8% were smokers."
+    },
+    "geoId/0653000": {
+        "summary": "Oakland, a city in Alameda County, California, had a population of 430,553 in 2022. The median age was 36.9 years in 2021, with a median income of $43,043 that year. In 2023, Oakland's unemployment rate stood at 5%. Additionally, in 2021, 30.5% of the population was classified as obese, 14.7% reported binge drinking, and 12% were smokers."
+    },
+    "geoId/0662000": {
+        "summary": "Riverside, a city in Riverside County, California, had a population of 320,764 in 2022. The median age in 2021 was 31.9 years, with a median income of $30,590. In 2023, Riverside's unemployment rate stood at 4.8%. Additionally, in 2021, 36.2% of the population was classified as obese, 16.1% reported binge drinking, and 13.2% were smokers."
+    },
+    "geoId/0664000": {
+        "summary": "Sacramento, a city within Sacramento County, California, had a population of 528,001 in 2022. The median age in Sacramento was 35.2 years in 2021, with a median income of $35,811. In 2023, the unemployment rate stood at 4.8%. Additionally, in 2021, 32.7% of the population was classified as obese, 14.5% reported binge drinking, and 13.7% were smokers."
+    },
+    "geoId/0666000": {
+        "summary": "San Diego, a city located in San Diego County, California, had a population of 1,381,162 in 2022. The median age in 2021 was 35.4 years, with a median income of $41,491. In 2023, the city's unemployment rate stood at 4.1%. Additionally, in 2021, 23.2% of San Diego's population was classified as obese, 18.1% reported binge drinking, and 10.5% were smokers."
+    },
+    "geoId/0667000": {
+        "summary": "San Francisco, a consolidated city-county in California, had a population of 808,437 in 2022. The median age in 2021 was 38.7 years, with a median income of $59,017. The city's unemployment rate in 2023 stood at 3.5%. Additionally, in 2021, 19.1% of the population was classified as obese, 16.4% reported binge drinking, and 9.2% were smokers."
+    },
+    "geoId/0668000": {
+        "summary": "San Jose, a city in Santa Clara County, California, had a population of 971,233 in 2022. The median age in 2021 was 37.5 years, with a median income of $46,298. In 2023, the city's unemployment rate stood at 4%. Additionally, in 2021, 20.6% of San Jose's population was classified as obese, 13.8% reported binge drinking, and 8.7% were smokers."
+    },
+    "geoId/0669000": {
+        "summary": "Santa Ana, a city in Orange County, California, had a population of 308,189 in 2022. The median age in 2021 was 33 years, with a median income of $28,617.  In 2023, Santa Ana's unemployment rate was 3.8%. Additionally, in 2021, 31.6% of the population was classified as obese, 14.6% reported binge drinking, and 13.4% were smokers."
+    },
+    "geoId/0675000": {
+        "summary": "Stockton, a city in San Joaquin County, California, had a population of 321,819 in 2022. The median age in 2021 was 33 years, with a median income of $29,198. In 2023, Stockton's unemployment rate stood at 7.2%. Additionally, in 2021, 34.4% of the population was classified as obese, 14% reported binge drinking, and 15% were smokers."
+    },
+    "geoId/08": {
+        "summary": "Colorado, a western U.S. state, had a population of 5,839,926 in 2022. The median age in 2021 was 37.1 years, with a median income of $40,259. Colorado's unemployment rate in 2023 stood at 3.2%. Life expectancy in the state was 78.3 years in 2020. Additionally, in 2021, 25.81% of the population was classified as obese, 19.37% reported binge drinking, and 13.61% were smokers."
+    },
+    "geoId/0804000": {
+        "summary": "Aurora, a city spanning Douglas, Arapahoe, and Adams counties in Colorado, had a population of 393,537 in 2022. The median age in 2021 was 35 years, and the median income was $37,150. The unemployment rate in Aurora stood at 3.3% in 2023. Additionally, in 2021, 28.2% of the population was classified as obese, 17.7% reported binge drinking, and 15.8% were smokers."
+    },
+    "geoId/0816000": {
+        "summary": "Colorado Springs, a city located in El Paso County, Colorado, had a population of 486,248 in 2022. The median age in 2021 was 34.9 years, with a median income of $36,432. In 2023, Colorado Springs' unemployment rate was 3.2%. Additionally, in 2021, 28.4% of the population was classified as obese, 15.8% reported binge drinking, and 14.5% were smokers."
+    },
+    "geoId/0820000": {
+        "summary": "Denver, a city within Denver County, Colorado, had a population of 713,252 in 2022. The median age in 2021 was 34.8 years, with a median income of $45,457. In 2023, the unemployment rate stood at 3.4%. Additionally, in 2021, 22.4% of Denver's population was classified as obese, 21% reported binge drinking, and 13% were smokers."
+    },
+    "geoId/09": {
+        "summary": "Connecticut, a state in the northeastern United States, had a population of 3,626,205 in 2022. In 2021, the median age was 41 years, with a median income of $40,682. Connecticut's unemployment rate in 2023 was 3.5%. Life expectancy in 2020 was 78.4 years. Additionally, in 2021, 30.66% of the population was classified as obese, 15.86% reported binge drinking, and 14.17% were smokers."
+    },
+    "geoId/10": {
+        "summary": "Delaware, a state in the eastern United States, had a population of 1,018,396 in 2022. The median age in 2021 was 41.1 years, with a median income of $36,872. In 2023, Delaware's unemployment rate stood at 3.8%. Life expectancy in 2020 was 76.7 years. Additionally, in 2021, 36.46% of the population was classified as obese, 15.28% reported binge drinking, and 15.32% were smokers."
+    },
+    "geoId/11": {
+        "summary": "The District of Columbia, a federal district in the United States, had a population of 671,803 in 2022. The median age in 2021 was 34.3 years, with a median income of $58,142. The unemployment rate in 2023 stood at 4.8%. Life expectancy in the District was 78 years in 2019. Additionally, in 2021, 25.23% of the population was classified as obese, 20.7% reported binge drinking, and 12.03% were smokers."
+    },
+    "geoId/1150000": {
+        "summary": "Washington D.C., the capital of the United States, had a population of 671,803 in 2022.  The median age in 2021 was 34.3 years, with a median income of $58,142. In 2023, the city's unemployment rate was 4.8%. Additionally, in 2021, 25.6% of the population was classified as obese, 20.7% reported binge drinking, and 12.4% were smokers."
+    },
+    "geoId/12": {
+        "summary": "Florida, a state in the southeastern United States, had a population of 22,244,823 in 2022. The median age in Florida was 42.3 years in 2021, and the median income was $31,169 that same year. The state's unemployment rate in 2023  was 2.9%. Life expectancy in Florida was 77.5 years in 2020. Additionally, in 2020, 31.22% of the population was classified as obese, 15.78% reported binge drinking, and 17.86% were smokers."
+    },
+    "geoId/1235000": {
+        "summary": "Jacksonville, a city located in Duval and Nassau counties, Florida, had a population of 971,319 in 2022. The median age in 2021 was 36.2 years, with a median income of $32,471. In 2023, Jacksonville's unemployment rate stood at 3.1%. Additionally, in 2020, 35.2% of the population was classified as obese, 16.3% reported binge drinking, and 20% were smokers."
+    },
+    "geoId/1245000": {
+        "summary": "Miami, a city within Miami-Dade County, Florida, had a population of 449,514 in 2022. The median age in 2021 was 39.9 years, with a median income of $25,638. In 2023, the city's unemployment rate stood at a remarkably low 1.3%. Additionally, in 2020, 31.8% of Miami's population was classified as obese, 13.6% reported binge drinking, and 17.1% were smokers."
+    },
+    "geoId/1253000": {
+        "summary": "Orlando, a city located in Orange County, Florida, had a population of 316,081 in 2022. In 2021, the median age was 34.4 years, with a median income of $31,578. Orlando's unemployment rate stood at 2.9% in 2023. Additionally, in 2020, 31.1% of the population was classified as obese, 14.1% reported binge drinking, and 17.7% were smokers."
+    },
+    "geoId/1263000": {
+        "summary": "St. Petersburg, a city located in Pinellas County, Florida, had a population of 261,256 in 2022. The median age in 2021 was 42.9 years, with a median income of $35,308 that same year. In 2023, the  unemployment rate in St. Petersburg was 2.8%. Additionally, in 2020, 28.7% of the population was classified as obese, 16.9% reported binge drinking, and 19.5% were smokers."
+    },
+    "geoId/1271000": {
+        "summary": "Tampa, a city located within Hillsborough County, Florida, had a population of 398,173 in 2022. The median age in 2021 was 35.9 years, with a median income of $33,225. Tampa's unemployment rate stood at 3.2% in 2023. Additionally, in 2020, 31.6% of the population was classified as obese, 15.8% reported binge drinking, and 18% were smokers."
+    },
+    "geoId/13": {
+        "summary": "Georgia, a southeastern U.S. state, had a population of 10,912,876 in 2022. The median age in 2021 was 37.1 years, with a median income of $32,657. In 2023, Georgia's unemployment rate stood at 3%. Life expectancy in 2020 was 75.6 years. Additionally, in 2021, 35.07% of the population was classified as obese, 15.13% reported binge drinking, and 16.32% were smokers."
+    },
+    "geoId/1304000": {
+        "summary": "Atlanta, a city spanning Fulton, DeKalb, and Cobb counties in Georgia, had a population of 499,127 in 2022. In 2021, the median age in Atlanta was 33.4 years, with a median income of $40,384. The city's unemployment rate in 2023 stood at 3.9%. Additionally, in 2021, 32.5% of the population was classified as obese, 15.6% reported binge drinking, and 15.7% were smokers."
+    },
+    "geoId/15": {
+        "summary": "Hawaii, a U.S. state in the Pacific Ocean, had a population of 1,440,196 in 2022. The median age in 2021 was 39.6 years, with a median income of $38,869. Hawaii's unemployment rate in 2023 was 2.9%. Life expectancy in 2020 was 80.7 years. Additionally, in 2021, 24.82% of the population was classified as obese, 18.37% reported binge drinking, and 11.85% were smokers."
+    },
+    "geoId/1517000": {
+        "summary": "Honolulu, a city in Honolulu County, Hawaii, United States, had a population of 395,327 in 1999. "
+    },
+    "geoId/1571550": {
+        "summary": "Urban Honolulu, a city within Honolulu County, Hawaii, had a population of 343,421 in 2022. In 2021, the median age was 42.1 years, and the median income was $38,985. Additionally, in 2021, 22.9% of the population was classified as obese, 16.5% reported binge drinking, and 11.4% were smokers."
+    },
+    "geoId/16": {
+        "summary": "Idaho, a state in the northwestern United States, had a population of 1,939,033 in 2022. The median age in 2021 was 36.8 years, with a median income of $30,621. Idaho's unemployment rate stood at 3.1% in 2023. Life expectancy in the state was 78.4 years in 2020. Additionally, in 2021, 32.93% of the population was classified as obese, 16.04% reported binge drinking, and 15.64% were smokers."
+    },
+    "geoId/17": {
+        "summary": "Illinois, a state in the midwestern United States, had a population of 12,582,032 in 2022. The median age in 2021 was 38.5 years, and the median income was $36,729 that year. In 2023, the unemployment rate stood at 4.2%. Life expectancy in Illinois was 76.8 years in 2020. Additionally, in 2021, 33.66% of the population was classified as obese, 17.2% reported binge drinking, and 14.62% were smokers."
+    },
+    "geoId/1714000": {
+        "summary": "Chicago, a city located primarily in Cook County, Illinois (with a small portion in DuPage County), had a population of 2,665,039 in 2022. The median age in 2021 was 35.1 years, with a median income of $36,261. In 2023, Chicago's unemployment rate stood at 4.9%. Additionally, in 2021, 34.1% of the population was classified as obese, 16.5% reported binge drinking, and 15.1% were smokers."
+    },
+    "geoId/18": {
+        "summary": "Indiana, a state in the midwestern United States, had a population of 6,833,037 in 2022. The median age in 2021 was 37.9 years, with a median income of $32,716. In 2023, the state's unemployment rate stood at 3.4%. Life expectancy in Indiana was 75 years in 2020. Additionally, in 2021, 37.68% of the population was classified as obese, 16.78% reported binge drinking, and 19.04% were smokers."
+    },
+    "geoId/1825000": {
+        "summary": "Fort Wayne, a city in Allen County, Indiana, had a population of 267,927 in 2022. The median age was 35.1 years in 2021, with a median income of $30,762. Fort Wayne's unemployment rate stood at 3.4% in 2023. Additionally, in 2021, 39.9% of the population was classified as obese, 16% reported binge drinking, and 19.2% were smokers."
+    },
+    "geoId/1836003": {
+        "summary": "Indianapolis, a city in Marion County, Indiana, had a population of 880,621 in 2022. In 2021, the median age was 34.3 years, with a median income of $32,733. The city's unemployment rate in 2023 stood at 3.4%. Additionally, in 2021, 37.4% of the population was classified as obese, 16.7 % reported binge drinking, and 20.7% were smokers."
+    },
+    "geoId/19": {
+        "summary": "Iowa, a Midwestern U.S. state, had a population of 3,200,517 in 2022. The median age in 2021 was 38.3 years, with a median income of $34,784. The unemployment rate in 2023 was 2.9%. Life expectancy in 2020 was 77.5 years. Additionally, in 2021, 37.07% of the population was classified as obese, 21.33% reported binge drinking, and 16.79% were smokers."
+    },
+    "geoId/20": {
+        "summary": "Kansas, a state in the Midwestern United States, had a population of 2,937,150 in 2022. The median age in 2021 was 37 years, and the median income that year was $34,153. Kansas' unemployment rate in 2023 stood at a low 2.1%. Life expectancy in the state was 76.4 years in 2020. Additionally, in 2021, 37.12% of the population was classified as obese, 18.55% reported binge drinking, and 16.78% were smokers."
+    },
+    "geoId/2079000": {
+        "summary": "Wichita, a city in Sedgwick County, Kansas, had a population of 396,192 in 2022. The median age in 2021 was 35.4 years, with a median income of $31,228. Wichita's unemployment rate in 2023 stood at 2.7%. Additionally, in 2021, 40.4% of the population was classified as obese, 16.6% reported binge drinking, and 20% were smokers."
+    },
+    "geoId/21": {
+        "summary": "Kentucky, a state in the eastern United States, had a population of 4,512,310 in 2022. The median age in 2021 was 39 years, with a median income of $29,523. Kentucky's unemployment rate in 2023 stood at 3.9%. Life expectancy in the state was 73.5 years in 2020. Additionally, in 2021, 38.49% of the population was classified as obese, 15.43% reported binge drinking, and 20.8% were smokers."
+    },
+    "geoId/2146027": {
+        "summary": "Lexington, a city within Fayette County, Kentucky, had a population of 320,347 in 2022.  In 2021, the median age was 35 years with a median income of $32,712. The unemployment rate in Lexington stood at 3.2% in 2023. Additionally, in 2021, 36% of the population was classified as obese, 15.9% reported binge drinking, and 17% were smokers."
+    },
+    "geoId/2148000": {
+        "summary": "Louisville, a city in Jefferson County, Kentucky, had a population of 253,128 in 1999.  More recently, in 2021, 41.4% of the population was classified as obese, 14.7% reported binge drinking, and 23.3% were smokers."
+    },
+    "geoId/2148006": {
+        "summary": "Louisville/Jefferson County metro government (balance), a statistical entity in Kentucky, had a population of 624,444 in 2022. In 2021, the median age was 37.6 years, with a median income of $32,864. Additionally, in 2021, 36.2% of the population was classified as obese, 16.7% reported binge drinking, and 18.5% were smokers."
+    },
+    "geoId/22": {
+        "summary": "Louisiana, a state in the southern United States, had a population of 4,590,241 in 2022. The median age in 2021 was 37.4 years, and the median income that year was $28,462. Louisiana's unemployment rate in 2023 stood at 3.5%. Life expectancy in 2020 was 73.1 years. Additionally, in 2021, 38.82% of the population was classified as obese, 17.8% reported binge drinking, and 21.32% were smokers."
+    },
+    "geoId/2255000": {
+        "summary": "New Orleans, a city within Orleans Parish, Louisiana, had a population of 369,749 in 2022.  The median age in 2021 was 37.7 years, with a median income of $27,682. The unemployment rate in New Orleans stood at 4.2% in 2023. Additionally, in 2021, 34.6% of the population was classified as obese, 21% reported binge drinking, and 19.4% were smokers."
+    },
+    "geoId/23": {
+        "summary": "Maine, a state in the northeastern United States, had a population of 1,385,340 in 2022. The median age in 2021 was 44.7 years, with a median income of $32,861. Maine's unemployment rate in 2023 was 3.2%. Life expectancy in 2020 was 77.8 years. Additionally, in 2021, 32.26% of the population was classified as obese, 17.86% reported binge drinking, and 16.71% were smokers."
+    },
+    "geoId/24": {
+        "summary": "Maryland, a state in the Mid-Atlantic region of the United States, had a population of 6,164,660 in 2022. The median age in 2021 was 38.9 years, with a median income of $43,983. Maryland's unemployment rate in 2023 stood at a low 1.8%. Life expectancy in the state was 76.8 years in 2020. Additionally, in 2021, 34.44% of the population was classified as obese, 14.62% reported binge drinking, and 12.87% were smokers."
+    },
+    "geoId/2404000": {
+        "summary": "Baltimore, an independent city in Maryland, had a population of 569,931 in 2022. In 2021, the median age was 35.7 years, and the median income was $32,686. Baltimore's unemployment rate in 2023 stood at 2.5%. Additionally, in 2021, 37.1% of the population was classified as obese, 15.4% reported binge drinking, and 19.8% were smokers."
+    },
+    "geoId/25": {
+        "summary": "Massachusetts, a state in the northeastern United States, had a population of 6,981,974 in 2022. The median age in 2021 was 39.6 years, and the median income that year was $42,076. The unemployment rate in 2023 stood at 2.8%. Life expectancy in the state was 79 years in 2020. Additionally, in 2021, 28.16% of the population was classified as obese, 17.8% reported binge drinking, and 13.18% were smokers."
+    },
+    "geoId/2507000": {
+        "summary": "Boston, a city located in Suffolk County, Massachusetts, had a population of 650,706 in 2022. In 2021, the median age was 32.6 years, with a median income of $40,319. Boston's unemployment rate in 2023 stood at 2.7%. Additionally, in 2021, 25.6% of the population was classified as obese, 17.8% reported binge drinking, and 13.3% were smokers."
+    },
+    "geoId/26": {
+        "summary": "Michigan, a state in the Great Lakes region of the United States, had a population of 10,034,113 in 2022. The median age in 2021 was 39.8 years, with a median income of $32,451. Michigan's unemployment rate in 2023 stood at 3.6%. Life expectancy in the state was 76 years in 2020. Additionally, in 2021, 35.93% of the population was classified as obese, 17.45% reported binge drinking, and 18.55% were smokers."
+    },
+    "geoId/2622000": {
+        "summary": "Detroit, a city in Wayne County, Michigan, had a population of 620,376 in 2022. The median age in 2021 was 35 years, with a median income of $21,862. Detroit's unemployment rate in 2023 stood at 8.2%. Additionally, in 2021, 45.9% of the population was classified as obese, 12.9% reported binge drinking, and 29.1% were smokers."
+    },
+    "geoId/27": {
+        "summary": "Minnesota, a state in the midwestern United States, had a population of 5,717,184 in 2022. The median age in 2021 was 38.2 years, with a median income of $39,756. Minnesota's unemployment rate in 2023 stood at an impressively low 1.9%. Life expectancy in the state was 79.1 years in 2020. Additionally, in 2021, 32.98% of the population was classified as obese, 19.72% reported binge drinking, and 15.24% were smokers."
+    },
+    "geoId/2743000": {
+        "summary": "Minneapolis, a city located within Hennepin County, Minnesota, had a population of 425,096 in 2022. The median age in 2021 was 32.7 years, and the median income was $38,360. The city's unemployment rate in 2023 stood at a low 2%. Additionally, in 2021, 30.4% of Minneapolis' population was classified as obese, 19.3% reported binge drinking, and 14.8% were smokers."
+    },
+    "geoId/2758000": {
+        "summary": "Saint Paul, a city within Ramsey County, Minnesota, had a population of 303,176 in 2022. The median age in 2021 was 32.7 years, with a median income of $34,197. The city's unemployment rate in 2023 was 2%. Additionally, in 2021, 33.7% of the population was classified as obese, 17.3% reported binge drinking, and 16.9% were smokers."
+    },
+    "geoId/28": {
+        "summary": "Mississippi, a southern U.S. state, had a population of 2,940,057 in 2022. The median age in 2021 was 37.8 years, and the median income that year was $26,510. The unemployment rate in Mississippi stood at 2.6% in 2023. Life expectancy in 2020 was 71.9 years. Additionally, in 2021, 40.9% of the population was classified as obese, 13.67% reported binge drinking, and 20.12% were smokers."
+    },
+    "geoId/29": {
+        "summary": "Missouri, a state in the Midwestern United States, had a population of 6,177,957 in 2022. The median age in 2021 was 38.8 years, with a median income of $32,362. Missouri's unemployment rate in 2023 stood at 2.9%. Life expectancy in the state was 75.1 years in 2020. Additionally, in 2021, 37.72% of the population was classified as obese, 18.27% reported binge drinking, and 19.31% were smokers."
+    },
+    "geoId/2938000": {
+        "summary": "Kansas City, a city spanning Platte, Jackson, Clay, and Cass counties in Missouri, had a population of 509,297 in 2022. The median age in 2021 was 35.4 years, with a median income of $34,843. The city's unemployment rate in 2023 stood at 3.2%. Additionally, in 2021, 40.9% of the population was classified as obese, 18.2% reported binge drinking, and 18.7% were smokers."
+    },
+    "geoId/2965000": {
+        "summary": "St. Louis, an independent city in Missouri, had a population of 286,578 in 2022. In 2021, the median age was 36.3 years, with a median income of $31,804. St. Louis' unemployment rate in 2023 stood at 3.5%. Additionally, in 2021, 37.5% of the population was classified as obese, 18.1% reported binge drinking, and 21.7% were smokers."
+    },
+    "geoId/30": {
+        "summary": "Montana, a state in the western United States, had a population of 1,122,867 in 2022. The median age in 2021 was 40 years, with a median income of $31,459. The state's unemployment rate in 2023 was 3%. Life expectancy in Montana was 76.8 years in 2020. Additionally, in 2021, 32.17% of the population was classified as obese, 22.59% reported binge drinking, and 16.6% were smokers."
+    },
+    "geoId/31": {
+        "summary": "Nebraska, a state in the Midwestern United States, had a population of 1,967,923 in 2022. The median age in 2021 was 36.7 years, with a median income of $35,128. Nebraska's unemployment rate in 2023 stood at an impressively low 2%. Life expectancy in the state was 77.7 years in 2020. Additionally, in 2021, 37.22% of the population was classified as obese, 20.91% reported binge drinking, and 15.22% were smokers."
+    },
+    "geoId/3128000": {
+        "summary": "Lincoln, a city within Lancaster County, Nebraska, had a population of 292,627 in 2022. The median age in 2021 was 33 years, with a median income of $33,132. Lincoln's unemployment rate in 2023 stood at a low 2%. Additionally, in 2021, 34.4% of the population was classified as obese, 21.7% reported binge drinking, and 14.7% were smokers."
+    },
+    "geoId/3137000": {
+        "summary": "Omaha, a city located in Douglas County, Nebraska, had a population of 485,153 in 2022. The median age in 2021 was 35 years, with a median income of $36,186.  The city's unemployment rate in 2023 stood at 2.4%. Additionally, in 2021, 36.3% of the population was classified as obese, 20.4% reported binge drinking, and 15.4% were smokers."
+    },
+    "geoId/32": {
+        "summary": "Nevada, a state in the western United States, had a population of 3,177,772 in 2022. The median age in 2021 was 38.3 years, with a median income of $33,832. In 2023, the unemployment rate in Nevada was 4.8%. Life expectancy in the state was 76.3 years in 2020. Additionally, in 2021, 31.17% of the population was classified as obese, 14.38% reported binge drinking, and 16.88% were smokers."
+    },
+    "geoId/3231900": {
+        "summary": "Henderson, a city located within Clark County, Nevada, had a population of 331,415 in 2022. The median age in 2021 was 42.3 years, with a median income of $40,013. Henderson's unemployment rate in 2023 stood at 4.7%. Additionally, in 2021, 28.6% of the population was classified as obese, 14.7% reported binge drinking, and 14.7% were smokers."
+    },
+    "geoId/3240000": {
+        "summary": "Las Vegas, a city in Clark County, Nevada, had a population of 656,274 in 2022. The median age in 2021 was 37.9 years, with a median income of $32,603. The unemployment rate in Las Vegas stood at 5.3% in 2023. Additionally, in 2021, 32.3% of the population was classified as obese, 13.4% reported binge drinking, and 18% were smokers."
+    },
+    "geoId/3251800": {
+        "summary": "North Las Vegas, a city in Clark County, Nevada, had a population of 280,543 in 2022.  In 2021, the median age was 33.3 years, with a median income of $31,987. The city's unemployment rate in 2023 stood at 6%. Additionally, in 2021, 33.8% of the population was classified as obese, 12.8% reported binge drinking, and 18.7% were smokers."
+    },
+    "geoId/3260600": {
+        "summary": "Reno, a city located in Washoe County, Nevada, had a population of 273,448 in 2022. The median age in 2021 was 36.4 years, with a median income of $35,646. Reno's unemployment rate in 2023 stood at 3.8%. Additionally, in 2021, 28.7% of the population was classified as obese, 17.6% reported binge drinking, and 16.8% were smokers."
+    },
+    "geoId/33": {
+        "summary": "New Hampshire, a state in the northeastern United States, had a population of 1,395,231 in 2022. The median age in 2021 was 43 years, with a median income of $39,627. The state's unemployment rate in 2023 was 2.5%. Life expectancy in New Hampshire was 79 years in 2020. Additionally, in 2021, 31.74% of the population was classified as obese, 17.06% reported binge drinking, and 14.36% were smokers."
+    },
+    "geoId/34": {
+        "summary": "New Jersey, a state in the northeastern United States, had a population of 9,261,699 in 2022.  The median age in 2021 was 40 years, and the median income that year was $41,837. New Jersey's unemployment rate in 2023 stood at 4.3%. Life expectancy in 2020 was 77.5 years. Additionally, in 2021, 29.36% of the population was classified as obese, 16.6% reported binge drinking, and 13.3% were smokers."
+    },
+    "geoId/3436000": {
+        "summary": "Jersey City, a city within Hudson County, New Jersey, had a population of 286,670 in 2022. The median age in 2021 was 34.5 years, with a median income of $43,778. Jersey City's unemployment rate in 2023 stood at 4.9%. Additionally, in 2021, 25.3% of the population was classified as obese, 14.1% reported binge drinking, and 13% were smokers."
+    },
+    "geoId/3451000": {
+        "summary": "Newark, a city in Essex County, New Jersey, had a population of 305,344 in 2022. The median age in 2021 was 34.7 years, with a median income of $25,422. The city's unemployment rate in 2023 stood at 6.9%. Additionally, in 2021, 38.5% of the population was classified as obese, 13.9% reported binge drinking, and 19.5% were smokers."
+    },
+    "geoId/35": {
+        "summary": "New Mexico, a southwestern U.S. state, had a population of 2,113,344 in 2022. The median age in 2021 was 38.3 years, with a median income of $28,284. The state's unemployment rate in 2023 was 3.7%. Life expectancy in New Mexico was 74.5 years in 2020. Additionally, in 2021, 34.34% of the population was classified as obese, 14.76% reported binge drinking, and 15.7% were smokers."
+    },
+    "geoId/3502000": {
+        "summary": "Albuquerque, a city within Bernalillo County, New Mexico, had a population of 561,008 in 2022. In 2021, the median age was 37.5 years, with a median income of $32,184.  Albuquerque's unemployment rate in 2023 stood at 3.5%. Additionally, in 2021, 31.4% of the population was classified as obese, 15.5% reported binge drinking, and 14.3% were smokers."
+    },
+    "geoId/36": {
+        "summary": "New York, a state in the northeastern United States, had a population of 19,677,151 in 2022. The median age in 2021 was 39.2 years, with a median income of $37,469. The state's unemployment rate in 2023 stood at 4%. Life expectancy in New York was 77.7 years in 2020. Additionally, in 2021, 29.92% of the population was classified as obese, 16.76% reported binge drinking, and 15.08% were smokers."
+    },
+    "geoId/3610000": {
+        "summary": "Brookhaven, a town in Suffolk County, New York, had a population of approximately 482,436 in 2018. The unemployment rate in Brookhaven was 3.4% in 2023. "
+    },
+    "geoId/3611000": {
+        "summary": "Buffalo, a city in Erie County, New York, had a population of 276,486 in 2022. The median age in 2021 was 33.9 years, with a median income of $26,277. Buffalo's unemployment rate in 2023 stood at 5.4%. Additionally, in 2021, 41.7% of the population was classified as obese, 17.1% reported binge drinking, and 23.9% were smokers."
+    },
+    "geoId/3634000": {
+        "summary": "Hempstead, a town in Nassau County, New York, had an estimated population of 768,103 in 2018. The unemployment rate in Hempstead was 3.4% in 2023. "
+    },
+    "geoId/3638000": {
+        "summary": "Islip, a town in Suffolk County, New York, had a population of approximately 330,914 in 2018. The unemployment rate in Islip was 3.4% in 2023. "
+    },
+    "geoId/3651000": {
+        "summary": "New York City, located within the state of New York, had a population of 8,335,897 in 2022. The median age in 2021 was 37.3 years, with a median income of $36,302. The unemployment rate in 2023 was 4.7%. Additionally, in 2021, 27.4% of the population was classified as obese, 16.1% reported binge drinking, and 14.1% were smokers."
+    },
+    "geoId/3656000": {
+        "summary": "Oyster Bay, a town in Nassau County, New York, had an estimated population of 298,388 in 2018. The unemployment rate in Oyster Bay was 3% in 2023."
+    },
+    "geoId/37": {
+        "summary": "North Carolina, a state in the southeastern United States, had a population of 10,698,973 in 2022. The median age in 2021 was 39 years, with a median income of $31,840. North Carolina's unemployment rate in 2023 stood at 3.4%. Life expectancy in the state was 76.1 years in 2020. Additionally, in 2021, 35.54% of the population was classified as obese, 17.29% reported binge drinking, and 15.8% were smokers."
+    },
+    "geoId/3712000": {
+        "summary": "Charlotte, a city within Mecklenburg County, North Carolina, had a population of 897,720 in 2022. The median age in 2021 was 34.5 years, with a median income of $37,925. The city's unemployment rate in 2023 stood at 3.3%. Additionally, in 2021, 34.7% of the population was classified as obese, 17.5% reported binge drinking, and 13.9% were smokers."
+    },
+    "geoId/3719000": {
+        "summary": "Durham, a city spanning Wake, Orange, and Durham counties in North Carolina, had a population of 291,928 in 2022. The median age in 2021 was 34.6 years, with a median income of $37,774. The unemployment rate in Durham stood at 3% in 2023. Additionally, in 2021, 31.7% of the population was classified as obese, 16.7% reported binge drinking, and 14.7% were smokers."
+    },
+    "geoId/3728000": {
+        "summary": "Greensboro, a city within Guilford County, North Carolina, had a population of 301,115 in 2022. The median age in 2021 was 34.5 years, with a median income of $30,363. The city's unemployment rate in 2023 stood at 3.9%. Additionally, in 2021, 36.5% of the population was classified as obese, 15.5% reported binge drinking, and 15.6% were smokers."
+    },
+    "geoId/3755000": {
+        "summary": "Raleigh, a city primarily in Wake County, North Carolina (with a small portion in Durham County), had a population of 476,587 in 2022. The median age in 2021 was 34.2 years, with a median income of $39,484. Raleigh's unemployment rate in 2023 stood at 3.2%. Additionally, in 2021, 34.2% of the population was classified as obese, 18.7% reported binge drinking, and 12.1% were smokers."
+    },
+    "geoId/3775000": {
+        "summary": "Winston-Salem, a city within Forsyth County, North Carolina, had a population of 251,350 in 2022. The median age in 2021 was 35.9 years, with a median income of $29,102. The city's unemployment rate in 2023 stood at 3.6%. Additionally, in 2021, 36.7% of the population was classified as obese, 15.2% reported binge drinking, and 17.7% were smokers."
+    },
+    "geoId/38": {
+        "summary": "North Dakota, a state in the northern United States, had a population of 779,261 in 2022. The median age in 2021 was 35.2 years, with a median income of $37,861. The unemployment rate in North Dakota was an impressively low 1.4% in 2023. Life expectancy in the state was 76.9 years in 2020. Additionally, in 2021, 37.05% of the population was classified as obese, 21.66% reported binge drinking, and 15.77% were smokers."
+    },
+    "geoId/39": {
+        "summary": "Ohio, a state in the Midwestern United States, had a population of 11,756,058 in 2022. The median age in 2021 was 39.4 years, with a median income of $32,980. Ohio's unemployment rate in 2023 stood at 3%. Life expectancy in the state was 75.3 years in 2020. Additionally, in 2021, 39.1% of the population was classified as obese, 18% reported binge drinking, and 19.72% were smokers."
+    },
+    "geoId/3915000": {
+        "summary": "Cincinnati, a city within Hamilton County, Ohio, had a population of 309,513 in 2022. The median age in 2021 was 32.7 years, with a median income of $28,803. Cincinnati's unemployment rate in 2023 stood at 3.3%. Additionally, in 2021, 39.8% of the population was classified as obese, 18.2% reported binge drinking, and 21.3% were smokers."
+    },
+    "geoId/3916000": {
+        "summary": "Cleveland, a city in Cuyahoga County, Ohio, had a population of 361,607 in 2022. The median age in 2021 was 36.2 years, with a median income of $22,837. Cleveland's unemployment rate in 2023 stood at 3.6%. Additionally, in 2021, 42.1% of the population was classified as obese, 14.8% reported binge drinking, and 27.1% were smokers."
+    },
+    "geoId/3918000": {
+        "summary": "Columbus, a city spanning Franklin, Fairfield, and Delaware counties in Ohio, had a population of 907,971 in 2022. The median age in 2021 was 32.5 years, with a median income of $34,153. The city's unemployment rate in 2023 stood at 2.9%. Additionally, in 2021, 38% of the population was classified as obese, 17.7% reported binge drinking, and 19.6% were smokers."
+    },
+    "geoId/3977000": {
+        "summary": "Toledo, a city in Lucas County, Ohio, had a population of 266,301 in 2022. The median age in 2021 was 35.5 years, with a median income of $25,711. The city's unemployment rate in 2023 stood at 4.4%. Additionally, in 2021, 45.1% of the population was classified as obese, 14.8% reported binge drinking, and 24.5% were smokers."
+    },
+    "geoId/40": {
+        "summary": "Oklahoma, a state in the United States, had a population of 4,019,800 in 2022. The median age in 2021 was 36.8 years, with a median income of $30,736. The unemployment rate in Oklahoma stood at 3.2% in 2023. Life expectancy in the state was 74.1 years in 2020. Additionally, in 2021, 39.22% of the population was classified as obese, 14.15% reported binge drinking, and 19.04% were smokers."
+    },
+    "geoId/4055000": {
+        "summary": "Oklahoma City, spanning Pottawatomie, Oklahoma, Cleveland, and Canadian counties in Oklahoma, had a population of 694,800 in 2022. The median age in 2021 was 34.9 years, with a median income of $34,017. The city's unemployment rate in 2023 stood at 3.1%. Additionally, in 2021, 38% of the population was classified as obese, 13.1% reported binge drinking, and 18.2% were smokers."
+    },
+    "geoId/4075000": {
+        "summary": "Tulsa, a city spanning Tulsa, Osage, Rogers, and Wagoner counties in Oklahoma, had a population of 411,867 in 2022.  In 2021, the median age was 35.6 years, with a median income of $30,946. Tulsa's unemployment rate in 2023 stood at 3.5%. Additionally, in 2021, 38.1% of the population was classified as obese, 13.3% reported binge drinking, and 18.7% were smokers."
+    },
+    "geoId/41": {
+        "summary": "Oregon, a state in the Pacific Northwest region of the United States, had a population of 4,240,137 in 2022. The median age in 2021 was 39.6 years, and the median income that year was $34,478. Oregon's unemployment rate in 2023 stood at 3.4%. Life expectancy in 2020 was 78.8 years. Additionally, in 2021, 31.52% of the population was classified as obese, 17.86% reported binge drinking, and 14.21% were smokers."
+    },
+    "geoId/4159000": {
+        "summary": "Portland, a city spanning Multnomah, Clackamas, and Washington counties in Oregon, had a population of 635,067 in 2022. The median age in 2021 was 37.9 years, with a median income of $40,576. The city's unemployment rate in 2023 stood at 3.4%. Additionally, in 2021, 25.6% of the population was classified as obese, 20.8% reported binge drinking, and 13% were smokers."
+    },
+    "geoId/42": {
+        "summary": "Pennsylvania, a state in the northeastern United States, had a population of 12,972,008 in 2022. The median age in 2021 was 40.8 years, with a median income of $34,229. Pennsylvania's unemployment rate in 2023 stood at 2.9%. Life expectancy in the state was 76.8 years in 2020. Additionally, in 2021, 34.4% of the population was classified as obese, 18.03% reported binge drinking, and 18.1% were smokers."
+    },
+    "geoId/4260000": {
+        "summary": "Philadelphia, a city and county in Pennsylvania, had a population of 1,567,258 in 2022. The median age in 2021 was 34.8 years, with a median income of $30,080. The city's unemployment rate in 2023 stood at 3.9%. Additionally, in 2021, 32.1% of the population was classified as obese, 17.1% reported binge drinking, and 20.4% were smokers."
+    },
+    "geoId/4261000": {
+        "summary": "Pittsburgh, a city within Allegheny County, Pennsylvania, had a population of 302,898 in 2022. In 2021, the median age was 33.7 years, with a median income of $31,010. Pittsburgh's unemployment rate in 2023 stood at 2.5%. Additionally, in 2021, 35% of the population was classified as obese, 19.3% reported binge drinking, and 18.8% were smokers."
+    },
+    "geoId/44": {
+        "summary": "Rhode Island, a state in the northeastern United States, had a population of 1,093,734 in 2022. The median age in 2021 was 40 years, with a median income of $35,705. The state's unemployment rate in 2023 stood at 3.2%. Life expectancy in Rhode Island was 78.2 years in 2020. Additionally, in 2021, 31.13% of the population was classified as obese, 17.81% reported binge drinking, and 14.76% were smokers."
+    },
+    "geoId/45": {
+        "summary": "South Carolina, a state in the southeastern United States, had a population of 5,282,634 in 2022. The median age in 2021 was 39.8 years, with a median income of $30,649. The unemployment rate in South Carolina stood at 2.9% in 2023. Life expectancy in the state was 74.8 years in 2020. Additionally, in 2021, 36.65% of the population was classified as obese, 17.57% reported binge drinking, and 17.55% were smokers."
+    },
+    "geoId/46": {
+        "summary": "South Dakota, a state in the Midwestern United States, had a population of 909,824 in 2022. The median age in 2021 was 37.1 years, with a median income of $33,961. The state's unemployment rate in 2023 was an impressively low 1.7%. Life expectancy in South Dakota was 76.7 years in 2020. Additionally, in 2021, 36.35% of the population was classified as obese, 20.34% reported binge drinking, and 17.21% were smokers."
+    },
+    "geoId/47": {
+        "summary": "Tennessee, a state in the southeastern United States, had a population of 7,051,339 in 2022. The median age in 2021 was 38.8 years, with a median income of $30,955. The state's unemployment rate in 2023 stood at 3.4%. Life expectancy in Tennessee was 73.8 years in 2020. Additionally, in 2021, 35.92% of the population was classified as obese, 15.42% reported binge drinking, and 20.06% were smokers."
+    },
+    "geoId/4748000": {
+        "summary": "Memphis, a city within Shelby County, Tennessee, had a population of 621,056 in 2022. The median age in 2021 was 34.2 years, with a median income of $27,564. The city's unemployment rate in 2023 stood at 4.9%. Additionally, in 2021, 41.2% of the population was classified as obese, 13.7% reported binge drinking, and 23% were smokers."
+    },
+    "geoId/4752000": {
+        "summary": "Nashville, a city in Davidson County, Tennessee, United States, had a population of 692,587 in 2018."
+    },
+    "geoId/4752006": {
+        "summary": "Nashville-Davidson metropolitan government (balance), a statistical entity in Davidson County, Tennessee, had a population of 683,622 in 2022. The median age in 2021 was 34.5 years, with a median income of $36,307. Additionally, in 2021, 33.1% of the population was classified as obese, 16.6% reported binge drinking, and 18.3% were smokers."
+    },
+    "geoId/48": {
+        "summary": "Texas, a state in the southern United States, had a population of 30,029,572 in 2022. The median age in 2021 was 35 years, with a median income of $33,644. The state's unemployment rate in 2023 stood at 3.5%. Life expectancy in Texas was 76.5 years in 2020. Additionally, in 2021, 36.29% of the population was classified as obese, 17.5% reported binge drinking, and 15.33% were smokers."
+    },
+    "geoId/4804000": {
+        "summary": "Arlington, a city within Tarrant County, Texas, had a population of 394,602 in 2022. The median age in 2021 was 33.1 years, with a median income of $33,562. The city's unemployment rate in 2023 stood at 3.3%. Additionally, in 2021, 35.2% of the population was classified as obese, 16.2% reported binge drinking, and 15.8% were smokers."
+    },
+    "geoId/4805000": {
+        "summary": "Austin, a city spanning Williamson, Travis, Hays, and Bastrop counties in Texas, had a population of 974,447 in 2022. The median age in 2021 was 33.9 years, with a median income of $43,993. The city's unemployment rate in 2023 stood at 2.9%. Additionally, in 2021, 28.8% of the population was classified as obese, 19.4% reported binge drinking, and 11.2% were smokers."
+    },
+    "geoId/4817000": {
+        "summary": "Corpus Christi, a city spanning San Patricio, Nueces, Kleberg, and Aransas counties in Texas, had a population of 316,239 in 2022. The median age in 2021 was 35.6 years, with a median income of $30,463. The city's unemployment rate in 2023 stood at 3.7%. Additionally, in 2021, 40.4% of the population was classified as obese, 19.2% reported binge drinking, and 16% were smokers."
+    },
+    "geoId/4819000": {
+        "summary": "Dallas, a city spanning Rockwall, Kaufman, Denton, Dallas, and Collin counties in Texas, had a population of 1,299,544 in 2022. The median age in 2021 was 33.1 years, with a median income of $34,120. The city's unemployment rate in 2023 stood at 3.4%. Additionally, in 2021, 36.6% of the population was classified as obese, 17.2% reported binge drinking, and 17.4% were smokers."
+    },
+    "geoId/4824000": {
+        "summary": "El Paso, a city in El Paso County, Texas, had a population of 677,456 in 2022. The median age in 2021 was 33.5 years, with a median income of $25,732. The city's unemployment rate in 2023 stood at 3.8%. Additionally, in 2021, 37.6% of the population was classified as obese, 15.7% reported binge drinking, and 15.2% were smokers."
+    },
+    "geoId/4827000": {
+        "summary": "Fort Worth, a city spanning Wise, Tarrant, Parker, Johnson, and Denton counties in Texas, had a population of 956,709 in 2022. The median age in 2021 was 33 years, with a median income of $34,728. The city's unemployment rate in 2023 stood at 3.5%. Additionally, in 2021, 36.7% of the population was classified as obese, 16.2% reported binge drinking, and 16.7% were smokers."
+    },
+    "geoId/4835000": {
+        "summary": "Houston, a city spanning Waller, Montgomery, Harris, and Fort Bend counties in Texas, had a population of 2,302,878 in 2022. The median age in 2021 was 33.7 years, with a median income of $31,672. The city's unemployment rate in 2023 stood at 4.2%. Additionally, in 2021, 38% of the population was classified as obese, 17.1% reported binge drinking, and 17.2% were smokers."
+    },
+    "geoId/4841464": {
+        "summary": "Laredo, a city in Webb County, Texas, had a population of 256,187 in 2022. The median age in 2021 was 29.1 years, with a median income of $25,165. The city's unemployment rate in 2023 stood at 3.5%. Additionally, in 2021, 45% of the population was classified as obese, 15.2% reported binge drinking, and 17.3% were smokers."
+    },
+    "geoId/4845000": {
+        "summary": "Lubbock, a city in Lubbock County, Texas, had a population of 263,930 in 2022. The median age in 2021 was 29.8 years, with a median income of $27,857. The city's unemployment rate in 2023 stood at 2.9%. Additionally, in 2021, 40.3% of the population was classified as obese, 18.2% reported binge drinking, and 17.6% were smokers."
+    },
+    "geoId/4858016": {
+        "summary": "Plano, a city spanning Denton and Collin counties in Texas, had a population of 289,547 in 2022. The median age in 2021 was 38.8 years, with a median income of $50,289. The city's unemployment rate in 2023 stood at 3.1%. Additionally, in 2021, 26.4% of the population was classified as obese, 17.1% reported binge drinking, and 10.4% were smokers."
+    },
+    "geoId/4865000": {
+        "summary": "San Antonio, a city spanning Medina, Comal, and Bexar counties in Texas, had a population of 1,472,909 in 2022. The median age in 2021 was 33.9 years, with a median income of $29,688. The city's unemployment rate in 2023 stood at 3.2%. Additionally, in 2021, 39.9% of the population was classified as obese, 16.9% reported binge drinking, and 14.6% were smokers."
+    },
+    "geoId/49": {
+        "summary": "Utah, a state in the western United States, had a population of 3,380,800 in 2022. The median age in 2021 was 31.3 years, with a median income of $34,103. The state's unemployment rate in 2023 stood at 2.6%. Life expectancy in Utah was 78.6 years in 2020. Additionally, in 2021, 31.99% of the population was classified as obese, 12.58% reported binge drinking, and 9.02% were smokers."
+    },
+    "geoId/50": {
+        "summary": "Vermont, a state in the northeastern United States, had a population of 647,064 in 2022. The median age in 2021 was 42.7 years, with a median income of $34,798. Vermont's unemployment rate in 2023 was 2%. Life expectancy in the state was 78.8 years in 2020. Additionally, in 2021, 29.2% of the population was classified as obese, 19.07% reported binge drinking, and 15.3% were smokers."
+    },
+    "geoId/51": {
+        "summary": "Virginia, a state in the southeastern United States, had a population of 8,683,619 in 2022. The median age in 2021 was 38.5 years, with a median income of $39,236. Virginia's unemployment rate in 2023 was 2.9%. Life expectancy in 2020 was 77.6 years. Additionally, in 2021, 34.67% of the population was classified as obese, 16.74% reported binge drinking, and 14.37% were smokers."
+    },
+    "geoId/5116000": {
+        "summary": "Chesapeake, an independent city in Virginia, had a population of 252,488 in 2022. The median age in 2021 was 37.1 years, with a median income of $41,392. Chesapeake's unemployment rate in 2023 stood at 3%. Additionally, in 2021, 36.1% of the population was classified as obese, 16.1% reported binge drinking, and 14.8% were smokers."
+    },
+    "geoId/5157000": {
+        "summary": "Norfolk, an independent city in Virginia, had a population of 232,995 in 2022. The median age in 2021 was 30.9 years, with a median income of $29,582. The city's unemployment rate in 2023 stood at 3.4%. Additionally, in 2021, 42.9% of the population was classified as obese, 17.5% reported binge drinking, and 18.9% were smokers."
+    },
+    "geoId/5182000": {
+        "summary": "Virginia Beach, an independent city in Virginia, had a population of 455,618 in 2022. The median age in 2021 was 36.7 years, with a median income of $41,436. The city's unemployment rate in 2023 stood at 2.9%. Additionally, in 2021, 31.6% of the population was classified as obese, 17% reported binge drinking, and 14.2% were smokers."
+    },
+    "geoId/53": {
+        "summary": "Washington, a state in the Pacific Northwest region of the United States, had a population of 7,785,786 in 2022.  The median age in 2021 was 37.9 years, with a median income of $40,404. Washington's unemployment rate in 2023 stood at 4.2%. Life expectancy in 2020 was 79.2 years. Additionally, in 2021, 29.78% of the population was classified as obese, 17.07% reported binge drinking, and 12.57% were smokers."
+    },
+    "geoId/5363000": {
+        "summary": "Seattle, a city within King County, Washington, had a population of 749,256 in 2022. The median age in 2021 was 35.3 years, with a median income of $56,758. Seattle's unemployment rate in 2023 stood at 3.7%. Additionally, in 2021, 23.8% of the population was classified as obese, 17.6% reported binge drinking, and 8.6% were smokers."
+    },
+    "geoId/54": {
+        "summary": "West Virginia, a state in the Appalachian region of the United States, had a population of 1,775,156 in 2022. The median age in 2021 was 42.6 years, with a median income of $27,302. The unemployment rate in West Virginia stood at 3.6% in 2023. Life expectancy in the state was 72.8 years in 2020. Additionally, in 2021, 40.64% of the population was classified as obese, 13.94% reported binge drinking, and 21.88% were smokers."
+    },
+    "geoId/55": {
+        "summary": "Wisconsin, a state in the Midwestern United States, had a population of 5,892,539 in 2022. The median age in 2021 was 39.6 years, with a median income of $36,247. The state's unemployment rate in 2023 stood at 2.7%. Life expectancy in Wisconsin was 77.7 years in 2020. Additionally, in 2021, 34.94% of the population was classified as obese, 23.89% reported binge drinking, and 15.26% were smokers."
+    },
+    "geoId/5548000": {
+        "summary": "Madison, a city in Dane County, Wisconsin, had a population of 272,903 in 2022. The median age in 2021 was 31.5 years, with a median income of $38,595. Madison's unemployment rate in 2023 stood at 2.1%. Additionally, in 2021, 28.5% of the population was classified as obese, 22.6% reported binge drinking, and 12.1% were smokers."
+    },
+    "geoId/5553000": {
+        "summary": "Milwaukee, a city spanning Waukesha, Washington, and Milwaukee counties in Wisconsin, had a population of 563,305 in 2022. The median age in 2021 was 31.6 years, with a median income of $27,686. The city's unemployment rate in 2023 stood at 4.1%. Additionally, in 2021, 41.6% of the population was classified as obese, 21.3% reported binge drinking, and 21% were smokers."
+    },
+    "geoId/56": {
+        "summary": "Wyoming, a state in the western United States, had a population of 581,381 in 2022. The median age in 2021 was 38.2 years, with a median income of $34,678. The unemployment rate in Wyoming was 3% in 2023. Life expectancy in the state was 76.3 years in 2020. Additionally, in 2021, 31.97% of the population was classified as obese, 17.78% reported binge drinking, and 16.88% were smokers."
+    },
+    "geoId/7276770": {
+        "summary": "San Juan zona urbana, an urban area within the municipality of San Juan, Puerto Rico, had a population of 325,343 in 2021. The median age in San Juan zona urbana was 44.2 years, with a median income of $17,105 in 2021."
+    }
+}

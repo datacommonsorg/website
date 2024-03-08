@@ -33,7 +33,6 @@ import { NlChartFeedback } from "../nl_feedback";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
 
-export const MAX_RANKING_POINTS_IN_CSV = 10;
 const RANKING_COUNT = 5;
 
 interface SvRankingUnitsProps {
@@ -56,6 +55,7 @@ interface SvRankingUnitsProps {
   hideFooter?: boolean;
   onHoverToggled?: (placeDcid: string, hover: boolean) => void;
   errorMsg?: string;
+  footnote?: string;
 }
 
 /**
@@ -96,7 +96,6 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       rankingGroup.svName
     );
   }
-
   return (
     <React.Fragment>
       {rankingMetadata.showHighestLowest || props.errorMsg ? (
@@ -121,6 +120,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   ? getExploreLink(props, true)
                   : null
               }
+              footnote={props.footnote}
             >
               <NlChartFeedback id={props.tileId} />
             </ChartFooter>
@@ -147,6 +147,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   exploreLink={
                     props.showExploreMore ? getExploreLink(props, true) : null
                   }
+                  footnote={props.footnote}
                 >
                   <NlChartFeedback id={props.tileId} />
                 </ChartFooter>
@@ -172,6 +173,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   exploreLink={
                     props.showExploreMore ? getExploreLink(props, false) : null
                   }
+                  footnote={props.footnote}
                 >
                   <NlChartFeedback id={props.tileId} />
                 </ChartFooter>
@@ -217,6 +219,34 @@ export function getRankingUnitTitle(
 }
 
 /**
+ * Gets the top points and bottom points to display in a ranking unit
+ * @param rankingMetadata the RankingTileSpec to get the points for
+ * @param isHighest whether or not this ranking unit is showing the points as
+ *                  highest to lowest or the other way around
+ * @param rankingGroup the RankingGroup information to get the points for
+ */
+export function getRankingUnitPoints(
+  rankingMetadata: RankingTileSpec,
+  isHighest: boolean,
+  rankingGroup: RankingGroup
+): { topPoints: RankingPoint[]; bottomPoints: RankingPoint[] } {
+  const rankingCount = rankingMetadata.rankingCount || RANKING_COUNT;
+  const topPoints = isHighest
+    ? rankingGroup.points.slice(-rankingCount).reverse()
+    : rankingGroup.points.slice(0, rankingCount);
+  let bottomPoints = null;
+  if (rankingMetadata.showHighestLowest) {
+    // we want a gap of at least 1 point between the top and bottom points
+    const numBottomPoints = Math.min(
+      rankingGroup.points.length - rankingCount - 1,
+      rankingCount
+    );
+    bottomPoints = rankingGroup.points.slice(0, numBottomPoints).reverse();
+  }
+  return { topPoints, bottomPoints };
+}
+
+/**
  * Gets a ranking unit as an element
  * @param tileConfigTitle title of the tile
  * @param statVar dcid of the statVar to get the ranking unit for
@@ -237,19 +267,11 @@ export function getRankingUnit(
   onHoverToggled?: (placeDcid: string, hover: boolean) => void,
   errorMsg?: string
 ): JSX.Element {
-  const rankingCount = rankingMetadata.rankingCount || RANKING_COUNT;
-  const topPoints = isHighest
-    ? rankingGroup.points.slice(-rankingCount).reverse()
-    : rankingGroup.points.slice(0, rankingCount);
-  let bottomPoints = null;
-  if (rankingMetadata.showHighestLowest) {
-    // we want a gap of at least 1 point between the top and bottom points
-    const numBottomPoints = Math.min(
-      rankingGroup.points.length - rankingCount - 1,
-      rankingCount
-    );
-    bottomPoints = rankingGroup.points.slice(0, numBottomPoints).reverse();
-  }
+  const { topPoints, bottomPoints } = getRankingUnitPoints(
+    rankingMetadata,
+    isHighest,
+    rankingGroup
+  );
   const title = getRankingUnitTitle(
     tileConfigTitle,
     rankingMetadata,

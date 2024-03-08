@@ -535,3 +535,55 @@ categories {
     }
   }
 }
+
+
+categories {
+  title: "Test line with date range"
+  blocks {
+    title: "Test line with with date range"
+    columns {
+      tiles {
+        type: LINE
+        title: "Population in ${placeName} after 2012"
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+        line_tile_spec {
+          start_date: '2012-01'
+        }
+      }
+      tiles {
+        type: LINE
+        title: "Population in ${placeName} before 2020"
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+        line_tile_spec {
+          end_date: '2020-01'
+        }
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Population in ${placeName} between 2014 and 2019"
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+        line_tile_spec {
+          start_date: '2014'
+          end_date: '2019'
+        }
+      }
+    }
+  }
+  stat_var_spec {
+    key: 'female_population'
+    value {
+      stat_var: "Count_Person_Female"
+    }
+  }
+  stat_var_spec {
+    key: 'male_population'
+    value {
+      stat_var: "Count_Person_Male"
+    }
+  }
+}

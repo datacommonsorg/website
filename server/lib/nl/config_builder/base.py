@@ -85,6 +85,7 @@ class Builder:
     if self.block:
       self.category.blocks.append(self.block)
     self.block = Block()
+    self.block.info_message = cspec.info_message
 
     if not skip_title:
       title, description, footnote = self.get_block_strings(cv, override_sv)
@@ -289,6 +290,5 @@ def _process_title_desc_footnote(builder: Builder,
     description = builder.sv2thing.description.get(cv.svs[0], '')
     footnote = builder.sv2thing.footnote.get(cv.svs[0], '')
   elif len(cv.svs) > 1 and builder.sv2thing.name.get(cv.svs[0]):
-    title = builder.sv2thing.name[cv.svs[0]] + ' and more'
-
+    title = formatting.title_for_two_or_more_svs(cv.svs, builder.sv2thing.name)
   return title, description, footnote

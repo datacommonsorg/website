@@ -72,7 +72,8 @@ export async function getScatterTileResult(
   statVarSpec: StatVarSpec[],
   apiRoot: string,
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  apikey?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -85,6 +86,10 @@ export async function getScatterTileResult(
 
   try {
     const chartData = await fetchData(tileProp);
+    const chartTitle = getChartTitle(
+      tileConfig.title,
+      getReplacementStrings(tileProp, chartData)
+    );
     const result: TileResult = {
       data_csv: scatterDataToCsv(
         chartData.xStatVar.statVar,
@@ -93,12 +98,12 @@ export async function getScatterTileResult(
         chartData.yStatVar.denom,
         chartData.points
       ),
+      placeType: enclosedPlaceType,
+      places: [place.dcid],
       srcs: getSources(chartData.sources),
-      title: getChartTitle(
-        tileConfig.title,
-        getReplacementStrings(tileProp, chartData)
-      ),
+      title: chartTitle,
       type: "SCATTER",
+      vars: statVarSpec.map((spec) => spec.statVar),
     };
     if (useChartUrl) {
       result.chartUrl = getChartUrl(
@@ -107,7 +112,8 @@ export async function getScatterTileResult(
         statVarSpec,
         enclosedPlaceType,
         null,
-        urlRoot
+        urlRoot,
+        apikey
       );
       return result;
     }
@@ -118,7 +124,8 @@ export async function getScatterTileResult(
       SVG_HEIGHT,
       null /* tooltipHtml */,
       tileConfig.scatterTileSpec,
-      SVG_WIDTH
+      SVG_WIDTH,
+      chartTitle
     );
     const svg = getProcessedSvg(svgContainer.querySelector("svg"));
     result.svg = getSvgXml(svg);
@@ -154,6 +161,10 @@ export async function getScatterChart(
   );
   try {
     const chartData = await fetchData(tileProp);
+    const chartTitle = getChartTitle(
+      tileConfig.title,
+      getReplacementStrings(tileProp, chartData)
+    );
     const svgContainer = document.createElement("div");
     draw(
       chartData,
@@ -161,7 +172,8 @@ export async function getScatterChart(
       SVG_HEIGHT,
       null /* tooltipHtml */,
       tileConfig.scatterTileSpec,
-      SVG_WIDTH
+      SVG_WIDTH,
+      chartTitle
     );
     return getProcessedSvg(svgContainer.querySelector("svg"));
   } catch (e) {

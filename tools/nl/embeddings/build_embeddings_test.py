@@ -87,16 +87,13 @@ class TestEndToEnd(unittest.TestCase):
     # the expected column names not found.
     be.get_sheets_data = mock.Mock(return_value=pd.DataFrame())
 
-    # Given that the get_sheets_data() function is mocked, the Context
-    # object does not need a valid `gs` and `bucket` field.
-    ctx = utils.Context(gs=None,
-                        model=SentenceTransformer("all-MiniLM-L6-v2"),
+    ctx = utils.Context(model=SentenceTransformer("all-MiniLM-L6-v2"),
+                        model_endpoint=None,
                         bucket="",
                         tmp="/tmp")
 
-    # Smilarly, sheets_url and worksheet_name can be empty strings.
-    sheets_url = ""
-    worksheet_name = ""
+    # input sheets filepaths can be empty.
+    input_sheets_svs = []
 
     # Filepaths all correspond to the testdata folder.
     input_dir = "testdata/input"
@@ -105,11 +102,9 @@ class TestEndToEnd(unittest.TestCase):
     input_autogen_filepattern = os.path.join(input_dir, 'unknown_*.csv')
 
     with tempfile.TemporaryDirectory() as tmp_dir, self.assertRaises(KeyError):
-      tmp_local_sheets_csv_filepath = os.path.join(tmp_dir, "sheets_data.csv")
       tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
-      be.build(ctx, sheets_url, [worksheet_name], tmp_local_sheets_csv_filepath,
-               tmp_local_merged_filepath, "", input_autogen_filepattern,
-               input_alternatives_filepattern)
+      be.build(ctx, input_sheets_svs, tmp_local_merged_filepath, "",
+               input_autogen_filepattern, input_alternatives_filepattern)
 
   def testSuccess(self):
     self.maxDiff = None
@@ -119,14 +114,10 @@ class TestEndToEnd(unittest.TestCase):
 
     # Given that the get_sheets_data() function is mocked, the Context
     # object does not need a valid `gs` and `bucket` field.
-    ctx = utils.Context(gs=None,
-                        model=SentenceTransformer("all-MiniLM-L6-v2"),
+    ctx = utils.Context(model=SentenceTransformer("all-MiniLM-L6-v2"),
+                        model_endpoint=None,
                         bucket="",
                         tmp="/tmp")
-
-    # Smilarly, sheets_url and worksheet_name can be empty strings.
-    sheets_url = ""
-    worksheet_name = ""
 
     # Filepaths all correspond to the testdata folder.
     input_dir = "testdata/input"
@@ -134,21 +125,18 @@ class TestEndToEnd(unittest.TestCase):
     input_alternatives_filepattern = os.path.join(input_dir,
                                                   "*_alternatives.csv")
     input_autogen_filepattern = os.path.join(input_dir, "autogen_*.csv")
-    expected_local_sheets_csv_filepath = os.path.join(expected_dir,
-                                                      "sheets_data.csv")
+    input_sheets_csv_filepath = [os.path.join(input_dir, "sheets_data.csv")]
     expected_local_merged_filepath = os.path.join(expected_dir,
                                                   "merged_data.csv")
     expected_dcid_sentence_csv_filepath = os.path.join(
         expected_dir, "final_dcid_sentences_csv.csv")
 
     with tempfile.TemporaryDirectory() as tmp_dir:
-      tmp_local_sheets_csv_filepath = os.path.join(tmp_dir, "sheets_data.csv")
       tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
       tmp_dcid_sentence_csv = os.path.join(tmp_dir,
                                            "final_dcid_sentences_csv.csv")
 
-      embeddings_df = be.build(ctx, sheets_url, [worksheet_name],
-                               tmp_local_sheets_csv_filepath,
+      embeddings_df = be.build(ctx, input_sheets_csv_filepath,
                                tmp_local_merged_filepath, "",
                                input_autogen_filepattern,
                                input_alternatives_filepattern)
@@ -157,8 +145,6 @@ class TestEndToEnd(unittest.TestCase):
       embeddings_df[['dcid', 'sentence']].to_csv(tmp_dcid_sentence_csv)
 
       # Compare the output files.
-      _compare_files(self, tmp_local_sheets_csv_filepath,
-                     expected_local_sheets_csv_filepath)
       _compare_files(self, tmp_local_merged_filepath,
                      expected_local_merged_filepath)
       _compare_files(self, tmp_dcid_sentence_csv,
@@ -170,7 +156,7 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
   @parameterized.expand(["small", "medium"])
   def testInputFilesValidations(self, sz):
     # Verify that the required files exist.
-    sheets_filepath = "data/curated_input/sheets_svs.csv"
+    sheets_filepath = "data/curated_input/main/sheets_svs.csv"
     # TODO: Fix palm_batch13k_alternatives.csv to not have duplicate
     # descriptions.  Its technically okay since build_embeddings will take
     # care of dups.

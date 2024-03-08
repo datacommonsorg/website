@@ -8,9 +8,8 @@ Commons instance.
 
 ## Custom and Base DCs
 
-<img src="https://github.com/datacommonsorg/website/assets/1221814/63efdb88-580c-4bc2-967b-5dce61844eea"
-     alt="Custom Data Commons"
-     style="width: 40vw;"/>
+![Custom Data Commons](./system_diagram.jpg)
+
 The diagram above is a high-level view of the relationship between custom and base DC instances.
 As indicated, custom and base DCs largely share the same software stack.
 Additionally, a custom DC combines its own local datasets with base DC datasets to provide a unified view.
@@ -32,6 +31,90 @@ Additionally, a custom DC combines its own local datasets with base DC datasets 
   guide](https://developers.google.com/maps/documentation/javascript/get-api-key).
   You can use a sample key `AIzaSyA9RsPS8tBCKwrET3qqAzydhOMWP0Ee8Y8` for local
   development as discussed below.
+
+## Quick Start
+
+Once the prerequisites and api keys from above are in place,
+here's how you can start a local custom DC instance quickly.
+
+> Note that this is only a quick start section. See the rest of the sections for more details.
+
+### Clone this repository
+
+If you haven't already, clone this repository and `cd` into the root of the repo folder (`website`).
+References to various files and commands in this section will be relative to this root.
+
+```bash
+git clone https://github.com/datacommonsorg/website.git
+cd website
+```
+
+### Env variables
+
+Open [sqlite_env.list](sqlite_env.list) and specify values for `DC_API_KEY` and `MAPS_API_KEY`. Leave `ADMIN_SECRET` blank for now.
+
+> IMPORTANT: Do not use double-quotes or spaces when specifying the values.
+
+### Start services
+
+To start the custom DC services, in the root of this repository, run Docker as follows:
+
+```bash
+docker run -it \
+--pull=always \
+-p 8080:8080 \
+-e DEBUG=true \
+--env-file $PWD/custom_dc/sqlite_env.list \
+-v $PWD/custom_dc/sample:/userdata \
+-v $PWD/server/templates/custom_dc/custom:/workspace/server/templates/custom_dc/custom \
+gcr.io/datcom-ci/datacommons-website-compose:stable
+```
+
+The first time this is run, it will download the latest stable docker image (`gcr.io/datcom-ci/datacommons-website-compose:stable`) from the cloud
+which could take a few minutes. Subsequent runs will use the previously downloaded image on your machine.
+
+### Local website
+
+Once Docker is up and running, you can visit your local custom DC instance in your browser: (http://localhost:8080).
+You can browse the various tools (Variables, Map, Timeline, etc.) and work with the entire base DC dataset in your custom instance.
+
+### Load custom data
+
+To load custom data, point your browser to the admin page at (http://localhost:8080/admin).
+
+Since we've not specified an `ADMIN_SECRET` yet, leave it blank. Click on "Load Data".
+
+Clicking the "Load Data" button will load the sample data provided for you in
+`custom_dc/sample`. The custom data that was used here was specified in the
+`docker run` command (`-v $PWD/custom_dc/sample:/userdata`).
+
+Loading the data may take a few seconds. Once it is successful, you can visit the timeline explorer (http://localhost:8080/tools/timeline)
+and other tools again to explore the custom data that you just loaded.
+
+### Enable NL
+
+To enable the NL (Natural Language) interface, update the `ENABLE_MODEL` flag in [sqlite_env.list](sqlite_env.list) from `false` to `true`. Then restart the server and reload the data.
+
+Note that enabling NL will increase the startup time of your server.
+
+With NL enabled, you can browse to http://localhost:8080/explore and try NL queries against 
+datasets in main DC (e.g. "Jobs in Texas") or 
+against the custom data you just loaded (e.g. "Average annual wages in Europe").
+
+### Next steps
+
+As next steps, you can load your actual data and / or customize the look and feel of your custom DC pages.
+
+You can load your actual data either by copying it to the `custom_dc/sample` folder
+or by updating the `-v` mapping when running Docker to point to a different data folder (i.e. `-v /path/to/your/data/folder:/userdata`)
+
+You can customize the look and feel by updating the html files under
+`server/templates/custom_dc/custom`.
+
+Congratulations on bringing up your own Custom DC instance!
+
+Now that you have your instance running, consider going through the rest of the sections
+for more details on Custom DC development.
 
 ## Local Development
 
@@ -55,6 +138,7 @@ In the root of this repository, run:
 
 ```bash
 docker run -it \
+--pull=always \
 --env-file $PWD/custom_dc/sqlite_env.list \
 -p 8080:8080 \
 -e DEBUG=true \
@@ -133,6 +217,7 @@ In the root of this repository, run:
 
 ```bash
 docker run -it \
+--pull=always \
 --env-file $PWD/custom_dc/cloudsql_env.list \
 -p 8080:8080 \
 -e DEBUG=true \
@@ -249,7 +334,7 @@ geoId/06,2021,555,666
 geoId/08,2021,10,10
 ```
 
-Refer to [sample folder](./sample) for supported example data files.
+Refer to the [examples folder](./examples) for supported example data files.
 
 Put all the input files under a local folder or Google Cloud Storage (GCS)
 folder.

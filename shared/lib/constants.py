@@ -447,6 +447,10 @@ SV_SCORE_DEFAULT_THRESHOLD = 0.5
 # are considered a high confidence match.
 SV_SCORE_HIGH_CONFIDENCE_THRESHOLD = 0.7
 
+# The default Cosine score threshold beyond which Stat Vars
+# are considered a match in toolformer mode.
+SV_SCORE_TOOLFORMER_THRESHOLD = 0.8
+
 # A cosine score differential we use to indicate if scores
 # that differ by up to this amount are "near" SVs.
 # In Multi-SV detection, if the difference between successive scores exceeds
@@ -455,3 +459,15 @@ MULTI_SV_SCORE_DIFFERENTIAL = 0.05
 
 # English language code.
 EN_LANG_CODE = 'en'
+
+# date query param value for requesting latest observations from REST v2 API
+# Observations for a particular variable and place may have different dates
+# (will return the most recently available data for particular place/variable
+# combination)
+DATE_LATEST = 'LATEST'
+
+# date query param value for requesting observations with the 'best coverage'
+# overall from /api/observations/point/* endpoints
+# Observations for a particular variable and place will always have the same
+# date
+DATE_HIGHEST_COVERAGE = 'HIGHEST_COVERAGE'

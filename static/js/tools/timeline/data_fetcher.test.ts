@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { expect } from "@jest/globals";
 import axios from "axios";
 import { when } from "jest-when";
 
@@ -219,7 +220,11 @@ function axiosMock(): void {
     });
 
   when(axios.post)
-    .calledWith("/api/place/displayname", { dcids: ["geoId/05", "geoId/06"] })
+    .calledWith(
+      "/api/place/displayname",
+      { dcids: ["geoId/05", "geoId/06"] },
+      expect.anything()
+    )
     .mockResolvedValue({
       data: {
         "geoId/05": "Arkansas",

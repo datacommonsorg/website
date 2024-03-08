@@ -20,10 +20,10 @@
 # Ignored by the build system
 /setup.cfg
 
-**/node_modules/**
+static/node_modules/
 
-.env/
+server/dist/
+
+**/.env/
 
 screenshots/*.png
-
-.env/

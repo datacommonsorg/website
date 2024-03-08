@@ -22,7 +22,7 @@ from multiprocessing import Value
 import time
 import uuid
 
-from server.webdriver import base
+from server.webdriver.base_utils import create_driver
 from server.webdriver.screenshot import runner
 
 parser = argparse.ArgumentParser()
@@ -38,7 +38,7 @@ NUM_WORKER = 5
 
 drivers = []
 for i in range(NUM_WORKER):
-  drivers.append(base.create_driver())
+  drivers.append(create_driver())
 
 lock = Lock()
 global_var = Value('i', 0)

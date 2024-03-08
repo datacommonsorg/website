@@ -13,6 +13,7 @@ You should have owner/editor role to perform the following tasks.
   - `domain`: domain of the the website
   - `region.primary`: region for Kubernetes cluster
   - `storage-project`: base Data Commons project (set this to `datcom-store`)
+  - `control-project`: set this to `datcom-204919`
 
 - Install the following tools:
 
@@ -24,7 +25,7 @@ You should have owner/editor role to perform the following tasks.
 
 ### One time setup
 
-1. Run the following scripts sequentially. Retry any script if errors occur.
+1.  Run the following scripts sequentially. Retry any script if errors occur.
 
     ```bash
     # Update gcloud
@@ -34,7 +35,7 @@ You should have owner/editor role to perform the following tasks.
     # Enable GCP services
     ./enable_services.sh
 
-    # Create a static IP for the domain
+    # Create a static IP for the domain (Skip this step if you are using apigee proxy)
     ./create_ip.sh
 
     # Create api key for web client maps and places API
@@ -54,16 +55,21 @@ You should have owner/editor role to perform the following tasks.
 
     # Deploy esp service
     ./setup_esp.sh
+
+    # [For apigee configurations only] Configure internal load balancer network and dns settings
+    ./configure_internal_load_balancer.sh
     ```
 
-1. Copy the `config.yaml` file into the `/deploy/gke` folder. Rename
-the file to describe the environment the clusters are being used for.
+1.  Copy the `config.yaml` file into the `/deploy/gke` folder. Rename
+    the file to describe the environment the clusters are being used for.
 
-    > The filename used will be the `<ENV>` in subsequent commands. E.g. if you
-    > named the yaml file `staging.yaml`, then the `ENV` below is `staging`.
+    ```text
+      > The filename used will be the `<ENV>` in subsequent commands. E.g. if you
+      > named the yaml file `staging.yaml`, then the `ENV` below is `staging`.
+    ```
 
-1. Run the following scripts sequentially.
-  
+1.  Run the following scripts sequentially.
+
     ```bash
     # Create clusters
     ./create_all_clusters.sh <ENV>
@@ -73,11 +79,14 @@ the file to describe the environment the clusters are being used for.
     ```
 
 1. (Optional) If you're using multiple clusters, run the following script to
-   setup multi-cluster ingress and services.
+   setup multi-cluster ingress and services. Use the "-n" flag to include the nodejs server in the setup.
 
     ```bash
-    # Set up multi-cluster ingress and service
+    # Set up multi-cluster ingress and service WITHOUT nodejs
     ./setup_config_cluster.sh
+
+    # Set up multi-cluster ingress and service WITH nodejs
+    ./setup_config_cluster.sh -n
     ```
 
 ### DNS setup
@@ -112,11 +121,11 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 
 ## Update cluster config
 
-If multi-cluster ingress and service needs to be updated, then for each region that needs to be updated, run:
+If multi-cluster ingress and service needs to be updated, then for each region that needs to be updated, run the following commands. The "-n" flag determines whether or not to set up a nodejs server (include "-n" to setup nodejs).
 
 ```bash
 gcloud config set project <PROJECT>
-./update_config_cluster.sh -e <ENV> -l <REGION>
+./update_config_cluster.sh -e <ENV> -l <REGION> -n
 ```
 
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
@@ -126,8 +135,24 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 To add a cronjob to run periodic testing against a cluster, run:
 
 ```bash
-./setup_periodic_testing.sh -e <ENV> -l <REGION>
+./setup_cron_testing.sh -e <ENV> -l <REGION>
 ```
 
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
 If the region is not set, it will default to us-central-1
+
+## (Optional) Configure Apigee
+
+Use [Apigee](https://cloud.google.com/apigee) for API key management, throttling, and logging.
+
+- Open GCP console
+- Navigate to Apigee console
+- Click "Enable" button (wait ~1 hour to complete)
+- Deploy proxy configuration
+
+```bash
+../deploy_proxy.sh <ENV>
+```
+
+- In the apigee console, [create an "API Product", "App", and "Developer" to instance to generate an API Key](https://cloud.google.com/apigee/docs/api-platform/security/api-keys).
+- Include your API key in URL to access Data Commons. Visit https://<your-host>/?apikey=<your-api-key>

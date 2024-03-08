@@ -17,7 +17,7 @@
 import React from "react";
 import { RawIntlProvider } from "react-intl";
 
-import { ChartBlockData, PageChart } from "../chart/types";
+import { ChartBlockData, PageChart, PageHighlight } from "../chart/types";
 import { intl } from "../i18n/i18n";
 import { randDomId } from "../shared/util";
 import { ChartBlock } from "./chart_block";
@@ -70,20 +70,24 @@ interface MainPanePropType {
    * The locale of the page.
    */
   locale: string;
+  /**
+   * Highlighted data to show in overview
+   */
+  highlight?: PageHighlight;
+}
+
+export function showOverview(
+  isUsaPlace: boolean,
+  placeType: string,
+  category: string
+): boolean {
+  // Only Show map and ranking for US places.
+  return isUsaPlace && placeType !== "Country" && category === "Overview";
 }
 
 class MainPane extends React.Component<MainPanePropType> {
   constructor(props: MainPanePropType) {
     super(props);
-  }
-
-  private showOverview(): boolean {
-    // Only Show map and ranking for US places.
-    return (
-      this.props.isUsaPlace &&
-      this.props.placeType !== "Country" &&
-      this.props.category === "Overview"
-    );
   }
 
   renderChartBlock(data: ChartBlockData, category: string): JSX.Element {
@@ -110,11 +114,18 @@ class MainPane extends React.Component<MainPanePropType> {
     const topics = Object.keys(categoryData);
     return (
       <RawIntlProvider value={intl}>
-        {this.showOverview() && (
+        {showOverview(
+          this.props.isUsaPlace,
+          this.props.placeType,
+          this.props.category
+        ) && (
           <Overview
             dcid={this.props.dcid}
             showRanking={true}
             locale={this.props.locale}
+            highlight={this.props.highlight}
+            names={this.props.names}
+            placeType={this.props.placeType}
           />
         )}
         {topics.map((topic: string, index: number) => {

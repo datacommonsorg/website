@@ -31,6 +31,8 @@ gke/config.yaml
 gke/endpoints.yaml
 gke/mci.yaml
 endpoints.yaml
+gke/*.crt
+gke/*.key
 
 mixer-grpc.*.pb
 deploy/overlays/**/endpoints.yaml
@@ -40,6 +42,8 @@ deploy/overlays/kustomization.yaml
 
 deploy/git/mixer_hash.txt
 deploy/git/website_hash.txt
+
+deploy/apigee/**/*.zip
 
 # Helm
 build/helm/**/*.tgz
@@ -67,7 +71,6 @@ experimental/sdg-static/datacommons/ranking.min.css
 experimental/sdg-static/datacommons/nl_interface.min.css
 
 # Custom DC data
-data/
 dc-data/
 
 # Topic cache
@@ -80,6 +83,10 @@ output/
 # wireit files
 .wireit
 .envvars
+
+# finetuned model
+ft_final_v20230717230459.all-MiniLM-L6-v2/
+custom_dc/sample/datacommons/**
 
 # idea files
 .idea/

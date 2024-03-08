@@ -148,7 +148,7 @@ def register_routes_admin(app):
 
 
 def register_routes_common(app):
-  # apply the blueprints for main app
+  # apply blueprints for main app
   from server.routes import static
   app.register_blueprint(static.bp)
 
@@ -266,8 +266,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     cache.init_app(app, {'CACHE_TYPE': 'NullCache'})
 
   # Configure ingress
-  ingress_config_path = os.environ.get(
-      'INGRESS_CONFIG_PATH')  # See deployment yamls.
+  # See deployment yamls.
+  ingress_config_path = os.environ.get('INGRESS_CONFIG_PATH')
   if ingress_config_path:
     configure_endpoints_from_ingress(ingress_config_path)
 
@@ -284,9 +284,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   if app.config['ENABLE_ADMIN']:
     register_routes_admin(app)
-
-  # Load place explorer summaries
-  app.config['PLACE_EXPLORER_SUMMARIES'] = libutil.get_place_summaries()
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
@@ -361,29 +358,32 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       app.config['NL_TABLE'] = None
 
     # Get the API key from environment first.
-    if cfg.USE_PALM:
-      app.config['PALM_PROMPT_TEXT'] = llm_prompt.get_prompts()
-      if os.environ.get('PALM_API_KEY'):
-        app.config['PALM_API_KEY'] = os.environ.get('PALM_API_KEY')
+    if cfg.USE_LLM:
+      app.config['LLM_PROMPT_TEXT'] = llm_prompt.get_prompts()
+      if os.environ.get('LLM_API_KEY'):
+        app.config['LLM_API_KEY'] = os.environ.get('LLM_API_KEY')
       else:
         secret_client = secretmanager.SecretManagerServiceClient()
         secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                         'palm-api-key',
                                                         'latest')
         secret_response = secret_client.access_secret_version(name=secret_name)
-        app.config['PALM_API_KEY'] = secret_response.payload.data.decode(
-            'UTF-8')
+        app.config['LLM_API_KEY'] = secret_response.payload.data.decode('UTF-8')
     app.config[
         'NL_BAD_WORDS'] = EMPTY_BANNED_WORDS if cfg.CUSTOM else load_bad_words(
         )
     app.config['NL_CHART_TITLES'] = libutil.get_nl_chart_titles()
     app.config['TOPIC_CACHE'] = topic_cache.load(app.config['NL_CHART_TITLES'])
     app.config['SDG_PERCENT_VARS'] = libutil.get_sdg_percent_vars()
-    app.config[
-        'SDG_NON_COUNTRY_ONLY_VARS'] = libutil.get_sdg_non_country_only_vars()
+    app.config['SPECIAL_DC_NON_COUNTRY_ONLY_VARS'] = \
+      libutil.get_special_dc_non_countery_only_vars()
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()
+
+  # Set custom dc template folder if set, otherwise use the environment name
+  custom_dc_template_folder = app.config.get(
+      'CUSTOM_DC_TEMPLATE_FOLDER', None) or app.config.get('ENV', None)
 
   # Get and save the blocklisted svgs.
   blocklist_svg = []
@@ -408,6 +408,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     # Add commonly used config flags.
     g.env = app.config.get('ENV', None)
     g.custom = app.config.get('CUSTOM', False)
+    g.custom_dc_template_folder = custom_dc_template_folder
 
     scheme = request.headers.get('X-Forwarded-Proto')
     if scheme and scheme == 'http' and request.url.startswith('http://'):
@@ -445,7 +446,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   app.jinja_env.globals['BASE_HTML'] = 'base.html'
   if cfg.CUSTOM:
-    custom_path = os.path.join('custom_dc', cfg.ENV, 'base.html')
+    custom_path = os.path.join('custom_dc', custom_dc_template_folder,
+                               'base.html')
     if os.path.exists(os.path.join(app.root_path, 'templates', custom_path)):
       app.jinja_env.globals['BASE_HTML'] = custom_path
     else:

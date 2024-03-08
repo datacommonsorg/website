@@ -14,68 +14,68 @@
  * limitations under the License.
  */
 
+/** Styles for place search bar on place landing page */
+
 .search {
   border-radius: 8px;
-  overflow: hidden;
   margin-top: -6px;
+  overflow: hidden;
 }
 
 #location-field {
-  display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  flex-direction: row;
   background: #fff;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 #place-list {
-  flex-shrink: 0;
-  margin-left: 32px;
-  display: flex;
   align-items: center;
+  display: flex;
+  flex-shrink: 0;
   flex-wrap: wrap;
+  margin-left: 32px;
 }
 
-
 #search-icon {
-  width: 36px;
+  background: center url("../images/icon-pin.svg") no-repeat;
   height: 36px;
   margin-right: -32px;
-  background: url('../images/icon-pin.svg') no-repeat;
-  background-position: center;
+  width: 36px;
 }
 
 #place-autocomplete {
-  display: flex;
-  flex-grow: 1;
-  height: 44px;
-  margin-left: 28px;
+  background: right 16px top 50% url("../images/icon-search.svg") no-repeat;
   border: none;
   box-sizing: border-box;
-  outline: none;
+  color: #202124;
+  display: flex;
+  flex-grow: 1;
   font-family: "Roboto";
   font-size: 14px;
-  color: #202124;
+  height: 44px;
   letter-spacing: 0;
-  background: url('../images/icon-search.svg') no-repeat;
-  background-position: right 16px top 50%;
+  margin-left: 28px;
+  outline: none;
 }
 
-#place-autocomplete::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+#place-autocomplete::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
   color: rgba(0, 0, 0, 0.25);
 }
 
 /* Maps suggestion dropdown overrides */
 .pac-container {
-  position: absolute;
-  font: normal 14px Roboto;
   background: white;
-  width: 420px;
-  border: none;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12);
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12);
+  font: normal 14px Roboto;
+  position: absolute;
   transform: translateX(-16px);
+  width: 420px;
 }
 .pac-item {
   padding: 4px 16px;

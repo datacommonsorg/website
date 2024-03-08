@@ -11,8 +11,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -24,13 +23,13 @@
                       "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F_multiple_place_bar_block",
                       "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M_multiple_place_bar_block"
                     ],
-                    "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex (${date})",
+                    "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex (%) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex"
+            "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex (%)"
           },
           {
             "columns": [
@@ -39,8 +38,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -52,13 +50,13 @@
                       "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F_multiple_place_bar_block",
                       "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M_multiple_place_bar_block"
                     ],
-                    "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex (${date})",
+                    "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex (%) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex"
+            "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex (%)"
           },
           {
             "columns": [
@@ -67,8 +65,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -80,13 +77,13 @@
                       "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F_multiple_place_bar_block",
                       "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M_multiple_place_bar_block"
                     ],
-                    "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex (${date})",
+                    "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex (%) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex"
+            "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex (%)"
           },
           {
             "columns": [
@@ -95,8 +92,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -113,13 +109,13 @@
                       "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block",
                       "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Population Below International Poverty Line (${date})",
+                    "title": "Proportion of Population Below International Poverty Line (%) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Population Below International Poverty Line"
+            "title": "Proportion of Population Below International Poverty Line (%)"
           },
           {
             "columns": [
@@ -128,8 +124,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -155,8 +150,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -172,7 +166,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Population Living Below the National Poverty Line"
+            "title": "Proportion of Population Living Below the National Poverty Line (%)"
           },
           {
             "columns": [
@@ -181,8 +175,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -194,13 +187,13 @@
                       "sdg/SD_MDP_ANDI.URBANISATION--R_multiple_place_bar_block",
                       "sdg/SD_MDP_ANDI.URBANISATION--U_multiple_place_bar_block"
                     ],
-                    "title": "Average Proportion of Deprivations for People Multidimensionally Poor (${date})",
+                    "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Average Proportion of Deprivations for People Multidimensionally Poor"
+            "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%)"
           },
           {
             "columns": [
@@ -209,8 +202,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -225,7 +217,8 @@
                 ]
               }
             ],
-            "title": "Proportion of Population Living in Multidimensional Poverty, by Age Group"
+            "infoMessage": "Data for \"Pakistan\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Proportion of Population Living in Multidimensional Poverty, by Age Group (%)"
           },
           {
             "columns": [
@@ -234,8 +227,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -246,13 +238,13 @@
                       "sdg/SD_MDP_MUHC.URBANISATION--R_multiple_place_bar_block",
                       "sdg/SD_MDP_MUHC.URBANISATION--U_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Population Living in Multidimensional Poverty, by Location (${date})",
+                    "title": "Proportion of Population Living in Multidimensional Poverty, by Location (%) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Population Living in Multidimensional Poverty, by Location"
+            "title": "Proportion of Population Living in Multidimensional Poverty, by Location (%)"
           },
           {
             "columns": [
@@ -261,8 +253,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -278,6 +269,7 @@
               }
             ],
             "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO social security inquiry (SSI); ILO estimates based on country data compled through the ILO social security inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO social security inquiry (SSI). Based on information from federal programmes only.",
+            "infoMessage": "Data for \"Pakistan\" is currently unavailable. See the following statistics on the other places.",
             "title": "Proportion of Mothers With Newborns Receiving Maternity Cash Benefit [Female]"
           },
           {
@@ -287,8 +279,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -304,7 +295,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex"
+            "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex (%)"
           },
           {
             "columns": [
@@ -313,8 +304,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -330,7 +320,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex"
+            "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex (%)"
           },
           {
             "columns": [
@@ -339,8 +329,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -356,7 +345,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex"
+            "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex (%)"
           },
           {
             "columns": [
@@ -365,8 +354,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -382,7 +370,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex"
+            "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex (%)"
           },
           {
             "columns": [
@@ -391,8 +379,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -408,7 +395,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Population Covered by at Least One Social Protection Benefit, by Sex"
+            "title": "Proportion of Population Covered by at Least One Social Protection Benefit, by Sex (%)"
           }
         ],
         "statVarSpec": {
@@ -1036,5 +1023,5 @@
     }
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

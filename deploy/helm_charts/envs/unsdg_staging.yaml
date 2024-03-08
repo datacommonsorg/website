@@ -20,7 +20,7 @@ namespace:
   name: "website"
 
 website:
-  flaskEnv: unsdg
+  flaskEnv: unsdg_staging
   replicas: 4
   redis:
     enabled: false
@@ -30,6 +30,9 @@ serviceAccount:
 
 ingress:
   enabled: true
+
+mixer:
+  useCustomBigtable: true
 
 nl:
   enabled: true
@@ -44,6 +47,12 @@ serviceGroups:
     replicas: 5
   default:
     replicas: 3
+
+kgStoreConfig:
+  customBigtableInfo: |
+    project: datcom-un-staging
+    instance: dc-graph
+    tables:
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

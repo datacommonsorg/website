@@ -29,5 +29,5 @@ class DCConfig(Config):
   LOG_QUERY = True
   SHOW_TOPIC = True
   SHOW_SUSTAINABILITY = True
-  USE_PALM = True
+  USE_LLM = True
   HIDE_DEBUG = False

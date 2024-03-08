@@ -12,8 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import os
-import subprocess
+from subprocess import CalledProcessError
+from subprocess import PIPE
+from subprocess import Popen
 import time
 
 from flask import Blueprint
@@ -46,9 +49,7 @@ def load_data():
   output_dir = os.path.join(user_data_path, 'datacommons')
   nl_dir = os.path.join(output_dir, 'nl')
   sentences_path = os.path.join(nl_dir, 'sentences.csv')
-  # TODO: Enable NL for GCS paths once we add support for it.
-  enable_model = os.environ.get('ENABLE_MODEL', '').lower() == 'true'
-  load_nl = enable_model and not user_data_path.startswith('gs://')
+  load_nl = os.environ.get('ENABLE_MODEL', '').lower() == 'true'
 
   # This will add a trailing "/" if the path does not end in one.
   input_dir = os.path.join(user_data_path, "")
@@ -58,7 +59,7 @@ def load_data():
       'python',
       '-m',
       'stats.main',
-      '--input_path',
+      '--input_dir',
       f'{input_dir}',
       '--output_dir',
       f'{output_dir}',
@@ -106,18 +107,23 @@ def load_data():
         })
         continue
 
-      result = subprocess.run(command,
-                              capture_output=True,
-                              text=True,
-                              check=True,
-                              cwd=cwd)
-      output.append({
-          'stage': stage,
-          'status': 'success',
-          'durationSeconds': _duration(),
-          'stdout': result.stdout.strip().splitlines()
-      })
-    except subprocess.CalledProcessError as cpe:
+      with Popen(command,
+                 cwd=cwd,
+                 stdout=PIPE,
+                 universal_newlines=True,
+                 bufsize=1) as proc:
+        lines = []
+        for line in proc.stdout:
+          print(line, end='')
+          lines.append(line)
+        logging.info("Stage %s done.", stage)
+        output.append({
+            'stage': stage,
+            'status': 'success',
+            'durationSeconds': _duration(),
+            'stdout': lines
+        })
+    except CalledProcessError as cpe:
       return jsonify({
           'stage': stage,
           'status': 'failure',

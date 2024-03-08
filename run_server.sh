@@ -31,7 +31,7 @@ function help {
   exit 1
 }
 
-while getopts ":e:p?m?d?l" OPTION; do
+while getopts ":e:p:m?d?l" OPTION; do
   case $OPTION in
     e)
       export FLASK_ENV=$OPTARG

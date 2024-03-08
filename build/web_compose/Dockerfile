@@ -81,6 +81,10 @@ COPY packages/web-components/package.json /workspace/packages/web-components/pac
 COPY packages/web-components/package-lock.json /workspace/packages/web-components/package-lock.json
 RUN npm --prefix /workspace/packages/web-components install --omit=dev
 
+COPY packages/client/package.json /workspace/packages/client/package.json
+COPY packages/client/package-lock.json /workspace/packages/client/package-lock.json
+RUN npm --prefix /workspace/packages/client install
+
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
 RUN npm --prefix /workspace/static install --omit=dev
@@ -108,6 +112,12 @@ COPY import/. /workspace/import/
 
 # Embeddings Tool
 COPY tools/nl/embeddings/. /workspace/tools/nl/embeddings/
+
+# Download model and embeddings
+WORKDIR /workspace/tools/nl/embeddings
+RUN python build_custom_dc_embeddings.py --mode=download
+
+WORKDIR /workspace
 
 
 # Env that should not change
