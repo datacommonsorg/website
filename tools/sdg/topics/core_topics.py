@@ -286,15 +286,25 @@ def write_non_country_vars(non_country_vars_file: str, vars: Variables):
     json.dump(js, fp, indent=2)
 
 
+def strip_parens(name: str):
+  return name.replace('(', '').replace(')', '')
+
+
 def alt_nl_name(name: str):
   new_name = ''
   for f, t in [('DALYs', 'disability-adjusted life years'),
                ('DALY', 'disability-adjusted life years'),
                ('YLLs', 'years life lost'), ('YLL', 'years life lost')]:
-    if f in name and t not in name.lower():
-      new_name = name.replace(f, t)
+    if f in name:
+      if t not in name.lower():
+        new_name = name.replace(f, t)
+        name = name.lower()
+      else:
+        new_name = name.replace(f, '')
+        name = name.lower().replace(t, '')
       break
-  return new_name
+
+  return strip_parens(new_name), strip_parens(name)
 
 
 def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
@@ -328,12 +338,13 @@ def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
       series_topics.add(dcid)
       if dcid in name_overrides:
         name = name_overrides[dcid]
+      alt_name, name = alt_nl_name(name)
       csvw.writerow({
           'dcid': dcid,
           'Name': name,
           'Description': '',
           'Override_Alternatives': '',
-          'Curated_Alternatives': alt_nl_name(name)
+          'Curated_Alternatives': alt_name
       })
 
     sv_dcids = set()
@@ -360,12 +371,13 @@ def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
       if name:
         if sv in name_overrides:
           name = name_overrides[sv]
+        alt_name, name = alt_nl_name(name)
         csvw.writerow({
             'dcid': sv,
             'Name': name,
             'Description': '',
             'Override_Alternatives': '',
-            'Curated_Alternatives': alt_nl_name(name),
+            'Curated_Alternatives': alt_name,
         })
 
 
