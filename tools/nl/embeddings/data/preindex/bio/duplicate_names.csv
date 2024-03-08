@@ -1,4 +1,18 @@
 PreferredSV,DroppedSV,DuplicateName
+Amount_EconomicActivity_GrossDomesticProduction_Nominal,dc/topic/GDP,GDP
+dc/topic/Mortality,dc/topic/WHOMortality,Mortality
+dc/topic/EconomicActivity,dc/topic/GlobalEconomicActivity,Economic Activity
+UnemploymentRate_Person,dc/topic/UnemploymentRate,Unemployment Rate
+UnemploymentRate_Person,dc/topic/UnemploymentRate,unemployment
+dc/topic/EducationalAttainment,dc/topic/LevelOfEducationalAttainment,education attainment level
+Count_Person_DetailedHighSchool,dc/topic/StudentsInHighSchool,high school students
+Count_Person_DetailedPrimarySchool,dc/topic/StudentsInPrimarySchool,primary school students
+Count_Person_DetailedMiddleSchool,dc/topic/StudentsInMiddleSchool,middle school students
+Annual_Emissions_GreenhouseGas,dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emissions
+dc/topic/FoodInsecurity,dc/topic/sdg_2.1.2,food security
+dc/topic/GlobalElectricityAccess,dc/topic/sdg_7.1.1,electricity access
+Amount_EconomicActivity_GrossDomesticProduction_Nominal,dc/topic/sdg_8.1.1,GDP
+Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita,dc/topic/sdg_8.1.1,GDP per capita
 dc/topic/sdg_8.10,dc/topic/sdg_8.10.1,sdg 8 10
 dc/topic/sdg_8.10,dc/topic/sdg_8.10.1,sdg 8.10
 dc/topic/sdg_8.10,dc/topic/sdg_8.10.1,sdg 810
@@ -92,6 +106,3 @@ dc/topic/sdg_17.11,dc/topic/sdg_17.1.1,sdg 1711
 dc/topic/sdg_17.11,dc/topic/sdg_17.1.1,sdg1711
 dc/topic/sdg_17.12,dc/topic/sdg_17.1.2,sdg 1712
 dc/topic/sdg_17.12,dc/topic/sdg_17.1.2,sdg1712
-dc/topic/sdg_5,dc/topic/UN_THEME_5,gender equality
-dc/topic/UN_THEME_7,dc/topic/UN_THEME_10,population trends
-dc/topic/WHOAIR7,dc/topic/WHOAIR43,ambient air pollution attributable number of  dalys
