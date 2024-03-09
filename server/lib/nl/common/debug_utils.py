@@ -42,6 +42,12 @@ def result_with_debug_info(data_dict: Dict, status: str,
           query_detection.svs_detected.query
   }
   svs_to_sentences = query_detection.svs_detected.single_sv.sv2sentences
+  props_dict = {
+      'PROP': query_detection.svs_detected.prop.svs,
+      'CosineScore': query_detection.svs_detected.prop.scores,
+      'PROP_to_Sentences': query_detection.svs_detected.prop.sv2sentences
+  }
+  props_to_sentences = query_detection.svs_detected.prop.sv2sentences
 
   if svs_dict is None or not svs_dict:
     svs_dict = _empty_svs_score_dict()
@@ -105,6 +111,8 @@ def result_with_debug_info(data_dict: Dict, status: str,
       'place_detection_type': 'DC',
       'sv_matching': svs_dict,
       'svs_to_sentences': svs_to_sentences,
+      'props_matching': props_dict,
+      'props_to_sentences': props_to_sentences,
       'ranking_classification': ranking_classification,
       'general_classification': general_classification,
       'superlative_classification': superlative_classification,
@@ -122,12 +130,17 @@ def result_with_debug_info(data_dict: Dict, status: str,
   places_found_formatted = ""
   for place in query_detection.places_detected.places_found:
     places_found_formatted += f"(name: {place.name}, dcid: {place.dcid}); "
+  entities_found_formatted = ""
+  for entity in query_detection.places_detected.entities_found:
+    entities_found_formatted += f"(name: {entity.name}, dcid: {entity.dcid}); "
 
   debug_info.update({
       'places_detected':
           query_detection.places_detected.query_places_mentioned,
       'places_resolved':
           places_found_formatted,
+      'entities_resolved':
+          entities_found_formatted,
       'query_with_places_removed':
           query_detection.places_detected.query_without_place_substr,
       'query_detection_debug_logs':

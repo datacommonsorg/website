@@ -30,9 +30,13 @@ from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import SimpleClassificationAttributes
 
 
-def detect(orig_query: str, cleaned_query: str, index_type: str,
-           query_detection_debug_logs: Dict, mode: str,
-           counters: ctr.Counters) -> Detection:
+def detect(orig_query: str,
+           cleaned_query: str,
+           index_type: str,
+           query_detection_debug_logs: Dict,
+           mode: str,
+           counters: ctr.Counters,
+           allow_triples: bool = False) -> Detection:
   place_detection = place.detect_from_query_dc(orig_query,
                                                query_detection_debug_logs)
 
@@ -88,7 +92,7 @@ def detect(orig_query: str, cleaned_query: str, index_type: str,
     logging.info("Using an empty svs_scores_dict")
   # Set the SVDetection.
   sv_detection = dutils.create_sv_detection(sv_detection_query, svs_scores_dict,
-                                            sv_threshold)
+                                            sv_threshold, allow_triples)
 
   return Detection(original_query=orig_query,
                    cleaned_query=cleaned_query,

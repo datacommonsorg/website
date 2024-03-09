@@ -26,6 +26,7 @@ from server.lib.explore.params import QueryMode
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 from shared.lib.detected_variables import MultiVarCandidates
@@ -140,6 +141,10 @@ class Utterance:
   places: List[Place]
   # Primary variables
   svs: List[str]
+  # Primary entities
+  entities: List[Entity]
+  # Primary properties
+  properties: List[str]
   # List of detected classifications
   classifications: List[NLClassifier]
   # Computed chart candidates.
