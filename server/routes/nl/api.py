@@ -25,6 +25,7 @@ from server.lib.explore.params import Clients
 from server.lib.explore.params import Params
 from server.routes.nl import helpers
 import server.services.bigtable as bt
+import shared.model.vector_search as vector_search
 
 bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 
@@ -80,3 +81,28 @@ def feedback():
   except Exception as e:
     logging.error(e)
     return 'Failed to record feedback data', 500
+
+
+@bp.route('/vector-search')
+def predict():
+  if not current_app.config['VERTEX_AI_MODELS']:
+    flask.abort(404)
+  sentence = request.args.get('sentence')
+  model_name = request.args.get('model_name')
+  if not sentence:
+    flask.abort(400, f'Bad sentence: {sentence}')
+  if model_name not in current_app.config['VERTEX_AI_MODELS']:
+    flask.abort(400, f'Bad model name: {model_name}')
+  vector_search_resp = vector_search.search(
+      current_app.config['VERTEX_AI_MODELS'][model_name], sentence)
+
+  result = []
+  for n in vector_search_resp.nearest_neighbors[0].neighbors:
+    dp = n.datapoint
+    stat_var = dp.restricts[0].allow_list[0]
+    result.append({
+        'sentence': dp.datapoint_id,
+        'stat_var': stat_var,
+        'distance': n.distance
+    })
+  return result

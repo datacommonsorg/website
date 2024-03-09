@@ -14,6 +14,11 @@
 # limitations under the License.
 
 
+set -e
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+ROOT="${DIR%/*/*/*}"
+
 function help {
   echo "Usage: $0 -mf"
   echo "-m The model name to be used. Options can be found in vertex_ai_endpoints.yaml"
@@ -35,10 +40,9 @@ while getopts ":m:f:" OPTION; do
   esac
 done
 
-cd ../../..
+cd $ROOT
 source .env/bin/activate
-cd tools/nl/eval
-pip3 install -r requirements.txt
-python3 main.py --model_name=$MODEL_NAME --eval_folder=$FOLDER
+pip3 install -r $DIR/requirements.txt
+python3  -m tools.nl.eval.main --model_name=$MODEL_NAME --eval_folder=$FOLDER
 deactivate
-
+cd $ROOT

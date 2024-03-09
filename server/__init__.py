@@ -323,6 +323,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
+  if os.environ.get('ENABLE_EMBEDDING_PLAYGROUND') == 'true':
+    import shared.model.loader as model_loader
+    app.config['VERTEX_AI_MODELS'] = model_loader.load()
+
   # Enable the NL model.
   if os.environ.get('ENABLE_MODEL') == 'true':
     libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
