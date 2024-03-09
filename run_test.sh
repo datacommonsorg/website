@@ -166,7 +166,8 @@ function run_integration_test {
   source .env/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
-  export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  export ENV_PREFIX=Staging
+  export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   export TEST_MODE=test
   python3 -m pytest -vv --reruns 2 server/integration_tests/$1
   deactivate

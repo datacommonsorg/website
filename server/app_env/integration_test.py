@@ -21,3 +21,9 @@ class Config(_base.Config):
   SECRET_PROJECT = 'datcom-website-dev'
   SCHEME = 'http'
   USE_LLM = True
+
+
+# Used by NL tests
+class StagingConfig(Config):
+  API_ROOT = 'https://staging.api.datacommons.org'
+  SECRET_PROJECT = 'datcom-website-staging'
