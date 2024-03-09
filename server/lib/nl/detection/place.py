@@ -15,6 +15,8 @@
 import logging
 from typing import Dict, List
 
+from server.lib.fetch import property_values
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import PlaceDetection
 import server.services.datacommons as dc
@@ -27,7 +29,9 @@ MAX_IDENTICAL_NAME_PLACES = 5
 # The main entrypoint for place detection using DC's Place
 # Recognition API from a cleaned (no punctuations) query.
 #
-def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
+def detect_from_query_dc(orig_query: str,
+                         debug_logs: Dict,
+                         allow_triples: bool = False) -> PlaceDetection:
   # Recognize Places uses comma as a signal for contained-in-place.
   query = utils.remove_punctuations(orig_query, include_comma=True)
 
@@ -65,10 +69,13 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
       nonplace_query_parts.append(item['span'].lower())
 
   resolved_places = []
+  resolved_entities = []
   parent_map = {}
   if mains:
     resolved_places, parent_map = get_place_from_dcids(
         mains, debug_logs["place_resolution"])
+    if allow_triples:
+      resolved_entities = _get_non_place_entities(mains, resolved_places)
 
   main_place = None
   peers = []
@@ -86,7 +93,8 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
       places_found=resolved_places,
       main_place=main_place,
       peer_places=peers,
-      parent_places=parent_places)
+      parent_places=parent_places,
+      entities_found=resolved_entities)
   _set_query_detection_debug_logs(place_detection, debug_logs)
   # This only makes sense for this flow.
   debug_logs["query_transformations"] = {
@@ -100,12 +108,16 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
 # The entry point for building PlaceDetection if we've already detected place names.
 # Uses recon to map to DCIDs.
 #
-def detect_from_names(place_names: List[str], query_without_places: str,
+def detect_from_names(place_names: List[str],
+                      query_without_places: str,
                       orig_query: str,
-                      query_detection_debug_logs: Dict) -> PlaceDetection:
+                      query_detection_debug_logs: Dict,
+                      allow_triples: bool = False) -> PlaceDetection:
   place_dcids = []
   main_place = None
   resolved_places = []
+  # entities that were detected that are not a place
+  resolved_entities = []
   parent_map = {}
   parent_places = []
 
@@ -121,7 +133,9 @@ def detect_from_names(place_names: List[str], query_without_places: str,
   if place_dcids:
     resolved_places, parent_map = get_place_from_dcids(
         place_dcids.values(), query_detection_debug_logs["place_resolution"])
-
+    if allow_triples:
+      resolved_entities = _get_non_place_entities(place_dcids.values(),
+                                                  resolved_places)
   if resolved_places:
     main_place = resolved_places[0]
     parent_places = parent_map.get(main_place.dcid, [])
@@ -133,7 +147,8 @@ def detect_from_names(place_names: List[str], query_without_places: str,
       query_places_mentioned=place_names,
       places_found=resolved_places,
       main_place=main_place,
-      parent_places=parent_places)
+      parent_places=parent_places,
+      entities_found=resolved_entities)
 
   _set_query_detection_debug_logs(place_detection, query_detection_debug_logs)
   return place_detection
@@ -201,6 +216,24 @@ def get_place_from_dcids(place_dcids: List[str], debug_logs: Dict) -> any:
       "dc_resolved_places": places,
   })
   return places, parent_places
+
+
+#
+# Helper function to get resolved entities that are not places.
+#
+def _get_non_place_entities(all_entities: List[str],
+                            resolved_places: List[Place]) -> List[Entity]:
+  entities = []
+  places = set([p.dcid for p in resolved_places])
+  non_place_entities = [e for e in all_entities if not e in places]
+  if non_place_entities:
+    names = property_values(non_place_entities, 'name')
+    # TODO: get type as well for downstream decisions
+    for e in non_place_entities:
+      e_names = names.get(e, [])
+      e_name = e_names[0] if len(e_names) > 0 else e
+      entities.append(Entity(dcid=e, name=e_name, type=''))
+  return entities
 
 
 def _set_query_detection_debug_logs(d: PlaceDetection,
