@@ -34,6 +34,14 @@ class Place:
 
 
 @dataclass
+class Entity:
+  """Non Place Entity attributes."""
+  dcid: str
+  name: str
+  type: str
+
+
+@dataclass
 class PlaceDetection:
   """Various attributes of place detection."""
   query_original: str
@@ -42,6 +50,7 @@ class PlaceDetection:
   # identified as possible places.
   query_places_mentioned: List[str]
   places_found: List[Place]
+  entities_found: List[Entity]
   main_place: Place
   peer_places: List[Place] = field(default_factory=list)
   parent_places: List[Place] = field(default_factory=list)
@@ -56,6 +65,8 @@ class SVDetection:
   query: str
   # Single SV detection.
   single_sv: dvars.VarCandidates
+  # Detected variables that are properties.
+  prop: dvars.VarCandidates
   # Multi SV detection.
   multi_sv: dvars.MultiVarCandidates
   # Input SV Threshold
