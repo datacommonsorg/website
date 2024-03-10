@@ -235,6 +235,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.config['NL_ROOT'] = nl_root
   app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
 
+  if os.environ.get('ENABLE_EMBEDDING_PLAYGROUND') == 'true':
+    from server.file_cache import file_cache
+    import shared.model.loader as model_loader
+    app.config['VERTEX_AI_MODELS'] = model_loader.load()
+    file_cache.init_app(app)
+
   # Init extentions
   from server.cache import cache
 
@@ -322,10 +328,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   babel = Babel(app, default_domain='all')
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
-
-  if os.environ.get('ENABLE_EMBEDDING_PLAYGROUND') == 'true':
-    import shared.model.loader as model_loader
-    app.config['VERTEX_AI_MODELS'] = model_loader.load()
 
   # Enable the NL model.
   if os.environ.get('ENABLE_MODEL') == 'true':

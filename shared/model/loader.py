@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import os
 
 from google.cloud import aiplatform
@@ -27,6 +28,7 @@ def _load_model_endpoints():
 
 
 def load():
+  logging.info("start model loading...")
   model_endpoints = _load_model_endpoints()
   models = {}
   for model_name, model_info in model_endpoints.items():
@@ -42,4 +44,5 @@ def load():
         'index_endpoint': model_info['index_endpoint'],
         'index_id': model_info['index_id']
     }
+  logging.info("finish model loading...")
   return models

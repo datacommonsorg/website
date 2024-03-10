@@ -35,7 +35,6 @@ import Papa from "papaparse";
 import {
   NL_DETECTOR_VALS,
   NL_INDEX_VALS,
-  NL_MODE_VALS,
   NL_PLACE_DETECTOR_VALS,
   NL_URL_PARAMS,
 } from "../../constants/app/nl_interface_constants";

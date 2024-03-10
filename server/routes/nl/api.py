@@ -21,6 +21,8 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 
+from server import cache
+from server import file_cache
 from server.lib.explore.params import Clients
 from server.lib.explore.params import Params
 from server.routes.nl import helpers
@@ -83,12 +85,20 @@ def feedback():
     return 'Failed to record feedback data', 500
 
 
+@bp.route('/model-names')
+def model_names():
+  if not current_app.config['VERTEX_AI_MODELS']:
+    flask.abort(404)
+  return json.dumps(list(current_app.config['VERTEX_AI_MODELS'].keys()))
+
+
 @bp.route('/vector-search')
+@file_cache.file_cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def predict():
   if not current_app.config['VERTEX_AI_MODELS']:
     flask.abort(404)
   sentence = request.args.get('sentence')
-  model_name = request.args.get('model_name')
+  model_name = request.args.get('modelName')
   if not sentence:
     flask.abort(400, f'Bad sentence: {sentence}')
   if model_name not in current_app.config['VERTEX_AI_MODELS']:

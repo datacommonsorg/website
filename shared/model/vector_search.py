@@ -12,12 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
+
 from google.cloud import aiplatform_v1
 
-NEIGHBOR_COUNT = 30
+NEIGHBOR_COUNT = 20
 
 
 def search(model_info, query):
+  logging.info(f'query: {query}, index_id: {model_info["index_id"]}')
   query_vector = model_info['prediction_client'].predict(
       instances=[query]).predictions[0]
   vector_datapoint = aiplatform_v1.IndexDatapoint(feature_vector=query_vector)
