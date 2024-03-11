@@ -3,7 +3,13 @@
   "config": {},
   "context": {},
   "debug": {},
-  "entities": [],
+  "entities": [
+    {
+      "dcid": "dc/003ye83smktt7",
+      "name": "Volvox",
+      "type": ""
+    }
+  ],
   "pastSourceContext": "",
   "place": {
     "dcid": "",
@@ -20,6 +26,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY",
+  "svSource": "UNKNOWN",
   "userMessages": []
 }

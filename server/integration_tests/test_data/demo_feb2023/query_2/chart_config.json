@@ -299,6 +299,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "California",
   "place": {
     "dcid": "geoId/06",

@@ -360,6 +360,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "India",
   "place": {
     "dcid": "country/IND",

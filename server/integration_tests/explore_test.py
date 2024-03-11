@@ -557,3 +557,9 @@ class ExploreTest(NLWebServerTestCase):
         'e2e_toolformer_mode',
         ['what is the infant mortality rate in massachusetts'],
         mode='toolformer')
+
+  def test_e2e_triple(self):
+    self.run_detect_and_fulfill(
+        'e2e_triple',
+        ['What is the phylum of volvox?'],
+        dc='bio')
