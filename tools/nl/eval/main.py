@@ -20,8 +20,8 @@ from absl import app
 from absl import flags
 
 import shared.lib.ndcg as ndcg
-import shared.model.loader as model_loader
 import shared.model.api as model_api
+import shared.model.loader as model_loader
 
 FLAGS = flags.FLAGS
 
