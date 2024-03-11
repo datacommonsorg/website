@@ -1583,6 +1583,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "World",
   "place": {
     "dcid": "Earth",
