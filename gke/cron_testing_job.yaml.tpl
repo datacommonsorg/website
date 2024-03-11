@@ -29,6 +29,8 @@ spec:
       template:
         spec:
           serviceAccountName:
+          nodeSelector:
+            cloud.google.com/gke-nodepool:
           containers:
           - name: cron-testing-container
             image: "gcr.io/datcom-ci/website-cron-testing:latest"
