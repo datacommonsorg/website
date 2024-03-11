@@ -38,7 +38,8 @@ def detect(orig_query: str,
            counters: ctr.Counters,
            allow_triples: bool = False) -> Detection:
   place_detection = place.detect_from_query_dc(orig_query,
-                                               query_detection_debug_logs)
+                                               query_detection_debug_logs,
+                                               allow_triples)
 
   query = place_detection.query_without_place_substr
 
