@@ -30,7 +30,6 @@ from server.lib.nl.detection.place_utils import get_similar
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import PlaceDetection
-from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import empty_var_candidates
 from server.lib.nl.detection.utils import get_multi_sv
@@ -52,7 +51,6 @@ MAX_CHILD_LIMIT = 50
 # based on `need_llm()`, decides to call the LLM detector.
 #
 def detect(detector_type: str,
-           place_detector_type: PlaceDetectorType,
            original_query: str,
            no_punct_query: str,
            prev_utterance: Utterance,
@@ -88,8 +86,7 @@ def detect(detector_type: str,
   #
   # Heuristic detection.
   #
-  heuristic_detection = heuristic_detector.detect(place_detector_type,
-                                                  original_query,
+  heuristic_detection = heuristic_detector.detect(original_query,
                                                   no_punct_query,
                                                   embeddings_index_type,
                                                   query_detection_debug_logs,
@@ -241,8 +238,7 @@ def construct_for_explore(entities: List[str], vars: List[str], child_type: str,
                          places_detected=place_detection,
                          svs_detected=sv_detection,
                          classifications=classifications,
-                         detector=ActualDetectorType.NOP,
-                         place_detector=PlaceDetectorType.NOP), None
+                         detector=ActualDetectorType.NOP), None
 
 
 # In this flow, we already have the Utterance with detection, just set it up
