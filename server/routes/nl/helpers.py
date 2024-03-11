@@ -329,6 +329,7 @@ def prepare_response(utterance: nl_utterance.Utterance,
   data_dict = {
       'place': ret_places_dict[0] if len(ret_places) > 0 else {},
       'places': ret_places_dict,
+      'entities': utterance.entities,
       'config': page_config,
       'context': context_history,
       'placeFallback': context_history[0]['placeFallback'],
