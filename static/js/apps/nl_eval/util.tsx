@@ -39,11 +39,9 @@ function calculateRelevanceScores(baselineList: string[]): {
 }
 
 function dcg(scores: number[], k?: number): number {
-  if (k === undefined) {
-    k = scores.length;
-  }
+  const numComparison = k || scores.length;
   // https://en.wikipedia.org/wiki/Discounted_cumulative_gain
-  return scores.slice(0, k).reduce((acc, score, idx) => {
+  return scores.slice(0, numComparison).reduce((acc, score, idx) => {
     return acc + (Math.pow(2, score) - 1) / Math.log2(idx + 2);
   }, 0);
 }

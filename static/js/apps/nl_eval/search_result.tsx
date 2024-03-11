@@ -34,7 +34,7 @@ interface SearchResultProps {
   overrideStatVars: EmbeddingObject[];
 }
 
-function dotProduct(a, b): number {
+function dotProduct(a: number[], b: number[]): number {
   return a.map((x, i) => a[i] * b[i]).reduce((m, n) => m + n);
 }
 
@@ -47,16 +47,16 @@ function findKNearestEmbeddings(
   for (const emb of objects) {
     const dist = dotProduct(emb.embeddings, targetEmbedding);
     result.push({
+      distance: dist,
       sentence: emb.sentence,
       statVar: emb.statVar,
-      distance: dist,
     });
   }
   result.sort((a, b) => a.distance - b.distance);
   return result.slice(0, k);
 }
 
-export function SearchResult(props: SearchResultProps) {
+export function SearchResult(props: SearchResultProps): JSX.Element {
   const [statVarMatch, setStatVarMatch] = useState<MatchObject[]>([]);
   const [rankedStatVars, setRankedStatVars] = useState<StatVar[]>([]);
 
@@ -176,7 +176,7 @@ export function SearchResult(props: SearchResultProps) {
 
 const fetchData = async (sentence: string, modelName: string) => {
   return axios
-    .get<any>(`/api/nl/vector-search`, {
+    .get(`/api/nl/vector-search`, {
       params: { sentence, modelName },
       paramsSerializer: stringifyFn,
     })

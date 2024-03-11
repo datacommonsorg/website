@@ -26,7 +26,7 @@ export interface SentenceSectionProps {
   overrideStatVars: Record<string, EmbeddingObject[]>;
 }
 
-export function SentenceSection(props: SentenceSectionProps) {
+export function SentenceSection(props: SentenceSectionProps): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleTableVisibility = () => {
     setIsExpanded(!isExpanded);

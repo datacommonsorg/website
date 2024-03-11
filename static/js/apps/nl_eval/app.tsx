@@ -123,7 +123,7 @@ const fetchEmbeddings = async (input: string, modelNames: string[]) => {
   const requests = modelNames.flatMap((modelName) =>
     allText.map((sentence) =>
       axios
-        .get<any>(`/api/nl/encode-vector`, {
+        .get(`/api/nl/encode-vector`, {
           params: { sentence, modelName },
           paramsSerializer: stringifyFn,
         })
@@ -138,9 +138,9 @@ const fetchEmbeddings = async (input: string, modelNames: string[]) => {
     for (let i = 0; i < allText.length; i++) {
       const sentence = allText[i];
       const item: EmbeddingObject = {
+        embeddings: data[i],
         sentence,
         statVar: text2sv[sentence],
-        embeddings: data[i],
       };
       acc[modelName].push(item);
     }
