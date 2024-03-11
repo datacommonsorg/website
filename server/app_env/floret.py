@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from server.app_env import _base
+from server.app_env import local
 
 
 class Config(_base.Config):
@@ -24,4 +25,8 @@ class Config(_base.Config):
 
 
 class ComposeConfig(Config):
+  pass
+
+
+class LocalConfig(Config, local.Config):
   pass

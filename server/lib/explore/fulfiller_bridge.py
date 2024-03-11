@@ -40,24 +40,29 @@ from server.lib.nl.fulfillment.types import PopulateState
 class FulfillResp:
   chart_pb: SubjectPageConfig
   related_things: Dict
+  user_message: str
 
 
 def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   state = nl_fulfiller.fulfill(uttr, explore_mode=True)
 
-  config_pb = nl_config_builder.build(state, cb_config)
-  if not config_pb:
-    return FulfillResp(chart_pb=None, related_things={})
+  builder_result = nl_config_builder.build(state, cb_config)
+  if not builder_result.page_config:
+    return FulfillResp(chart_pb=None,
+                       related_things={},
+                       user_message=builder_result.page_msg)
 
   if uttr.mode == params.QueryMode.STRICT:
     # No related things for strict mode.
-    return FulfillResp(chart_pb=config_pb, related_things={})
+    return FulfillResp(chart_pb=builder_result.page_config,
+                       related_things={},
+                       user_message=builder_result.page_msg)
 
   plotted_orig_vars = _get_plotted_orig_vars(state)
 
   explore_peer_groups = {}
   if (not state.uttr.insight_ctx.get(params.Params.EXP_MORE_DISABLED) and
-      not params.is_sdg(state.uttr.insight_ctx)):
+      not params.is_special_dc(state.uttr.insight_ctx)):
     explore_more_chart_vars_map = _get_explore_more_chart_vars(state)
     explore_peer_groups = extension.chart_vars_to_explore_peer_groups(
         state, explore_more_chart_vars_map)
@@ -65,7 +70,9 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   related_things = related.compute_related_things(state, plotted_orig_vars,
                                                   explore_peer_groups)
 
-  return FulfillResp(chart_pb=config_pb, related_things=related_things)
+  return FulfillResp(chart_pb=builder_result.page_config,
+                     related_things=related_things,
+                     user_message=builder_result.page_msg)
 
 
 def _get_plotted_orig_vars(
@@ -97,9 +104,9 @@ def _get_plotted_orig_vars(
       continue
 
     orig_svs = list(osv2svs.keys())
-    if len(osv2svs) == 2 and cs.chart_type != ChartType.SCATTER_CHART:
+    if len(osv2svs) == 2 and len(cs.svs) != 2:
       # This was intended as a correlation query, but we're not plotting
-      # a scatter-chart.  So only add the specific orig SV that we're
+      # a 2-SV chart.  So only add the specific orig SV that we're
       # plotting in the chart.
       if len(cs.svs) > 1:
         continue

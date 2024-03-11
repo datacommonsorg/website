@@ -42,8 +42,7 @@ _MAX_RETURNED_VARS = 20
 # context in both the utterance inline and in `insight_ctx`.
 #
 # TODO: Handle OVERVIEW query (for Explore)
-def merge_with_context(uttr: nl_uttr.Utterance, is_sdg: bool,
-                       use_default_place: bool):
+def merge_with_context(uttr: nl_uttr.Utterance, default_place: Place = None):
   data_dict = {}
 
   # 1. Route comparison vs. correlation query.
@@ -67,14 +66,16 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_sdg: bool,
         NLClassifier(
             type=ClassificationType.CONTAINED_IN,
             attributes=ContainedInClassificationAttributes(
-                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
+                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE,
+                had_default_type=True)))
   if not place_type and utils.get_quantity(uttr):
     # When there is quantity, we add place_type
     uttr.classifications.append(
         NLClassifier(
             type=ClassificationType.CONTAINED_IN,
             attributes=ContainedInClassificationAttributes(
-                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
+                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE,
+                had_default_type=True)))
   if place_type:
     if place_type == ContainedInPlaceType.SCHOOL:
       # HACK: Promote school to public school since we don't have data
@@ -92,9 +93,7 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_sdg: bool,
       uttr,
       place_type,
       query_type == nl_uttr.QueryType.COMPARISON_ACROSS_PLACES,
-      is_sdg=is_sdg,
-      use_default_place=use_default_place,
-  )
+      default_place=default_place)
 
   # 5. Detect SVs leveraging context.
   main_vars, cmp_vars = _detect_vars(
@@ -179,9 +178,10 @@ def _get_multi_sv_pair(uttr: nl_uttr.Utterance) -> List[str]:
   return parts[0].svs, parts[1].svs
 
 
-def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
-                   is_cmp: bool, is_sdg: bool,
-                   use_default_place: bool) -> List[str]:
+def _detect_places(uttr: nl_uttr.Utterance,
+                   child_type: ContainedInPlaceType,
+                   is_cmp: bool,
+                   default_place: Place = None) -> List[str]:
   places = []
   cmp_places = []
   #
@@ -279,18 +279,11 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
       uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
       uttr.past_source_context = default_place.name
 
-  if not places:
-    # For SDG use Earth as the default place.
-    if is_sdg:
-      uttr.places = [constants.EARTH]
-      places = [constants.EARTH_DCID]
-      uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
-      uttr.past_source_context = constants.EARTH.name
-    elif use_default_place:
-      uttr.places = [constants.USA]
-      places = [constants.USA.dcid]
-      uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
-      uttr.past_source_context = constants.USA.name
+  if not places and default_place:
+    uttr.places = [default_place]
+    places = [default_place.dcid]
+    uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
+    uttr.past_source_context = default_place.name
 
   return places, cmp_places
 

@@ -36,6 +36,7 @@ import { DatasetSelector } from "./dataset_selector";
 import { Explorer } from "./explorer";
 import { Info } from "./info";
 import { SV_URL_PARAMS } from "./stat_var_constants";
+import { STAT_VAR_HIERARCHY_CONFIG } from "./stat_var_hierarchy_config";
 
 interface PageStateType {
   // DCID of selected dataset.
@@ -181,15 +182,26 @@ class Page extends Component<unknown, PageStateType> {
           return;
         }
         const sources = resp.data["Source"];
-        const variable = globalThis.svgRoot || "dc/g/Root";
+        const variables = STAT_VAR_HIERARCHY_CONFIG.nodes.map((n) => n.dcid);
         axios
           .post("/api/observation/existence", {
             entities: resp.data["Source"].map((s) => s.dcid),
-            variables: [variable],
+            variables,
           })
           .then((exResp) => {
-            const existence = exResp.data[variable];
-            const filteredSources = sources.filter((s) => existence[s.dcid]);
+            const filteredSources: NamedTypedNode[] = [];
+            const sourcesSeen = new Set<string>();
+            variables.forEach((variable) => {
+              const existence = exResp.data[variable];
+              const variableSources = sources.filter((s) => existence[s.dcid]);
+              variableSources.forEach((variableSource) => {
+                if (sourcesSeen.has(variableSource.dcid)) {
+                  return;
+                }
+                sourcesSeen.add(variableSource.dcid);
+                filteredSources.push(variableSource);
+              });
+            });
             this.setState({ sources: filteredSources });
           });
       })

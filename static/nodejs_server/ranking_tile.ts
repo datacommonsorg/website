@@ -21,16 +21,17 @@
 import _ from "lodash";
 import ReactDOMServer from "react-dom/server";
 
+import { getPointsList } from "../js/components/ranking_unit";
 import {
   fetchData,
   RankingTilePropType,
 } from "../js/components/tiles/ranking_tile";
 import {
   getRankingUnit,
+  getRankingUnitPoints,
   getRankingUnitTitle,
-  MAX_RANKING_POINTS_IN_CSV,
 } from "../js/components/tiles/sv_ranking_units";
-import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
+import { StatVarSpec } from "../js/shared/types";
 import { RankingGroup } from "../js/types/ranking_unit_types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { rankingPointsToCsv } from "../js/utils/chart_csv_utils";
@@ -44,7 +45,7 @@ import {
   SVG_WIDTH,
 } from "./constants";
 import { TileResult } from "./types";
-import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
+import { getProcessedSvg, getSources } from "./utils";
 
 function getTileProp(
   id: string,
@@ -106,15 +107,24 @@ function getRankingUnitResult(
   statVarSpec: StatVarSpec[],
   urlRoot: string,
   useChartUrl: boolean,
-  apiRoot: string
+  apiRoot: string,
+  apikey?: string
 ): TileResult {
-  let points = isHighest
-    ? rankingGroup.points.slice().reverse()
-    : rankingGroup.points;
-  // Trim to top N.
-  points = points.slice(0, MAX_RANKING_POINTS_IN_CSV);
+  const { topPoints, bottomPoints } = getRankingUnitPoints(
+    tileConfig?.rankingTileSpec,
+    isHighest,
+    rankingGroup
+  );
+  const pointsList = getPointsList(
+    topPoints,
+    bottomPoints,
+    isHighest,
+    rankingGroup.numDataPoints
+  );
   const result: TileResult = {
-    data_csv: rankingPointsToCsv(points, rankingGroup.svName),
+    data_csv: rankingPointsToCsv(pointsList.flat(), rankingGroup.svName),
+    placeType: enclosedPlaceType,
+    places: [place],
     srcs: getSources(rankingGroup.sources),
     title: getRankingUnitTitle(
       tileConfig.title,
@@ -128,6 +138,7 @@ function getRankingUnitResult(
       !_.isEmpty(rankingGroup.unit) && rankingGroup.unit.length == 1
         ? rankingGroup.unit[0]
         : "",
+    vars: statVarSpec.map((spec) => spec.statVar),
   };
   // Currently cannot draw ranking table in nodejs
   /*
@@ -152,7 +163,8 @@ function getRankingUnitResult(
       urlSvSpec,
       enclosedPlaceType,
       null,
-      urlRoot
+      urlRoot,
+      apikey
     );
     return result;
   }
@@ -184,7 +196,8 @@ export async function getRankingTileResult(
   statVarSpec: StatVarSpec[],
   apiRoot: string,
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  apikey?: string
 ): Promise<TileResult[]> {
   const tileProp = getTileProp(
     id,
@@ -202,7 +215,7 @@ export async function getRankingTileResult(
         placeDcids.add(point.placeDcid);
       });
     });
-    const placeNames = await getPlaceNames(Array.from(placeDcids), apiRoot);
+    const placeNames = await getPlaceNames(Array.from(placeDcids), { apiRoot });
     const tileResults: TileResult[] = [];
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = _.cloneDeep(rankingData[sv]);
@@ -224,7 +237,8 @@ export async function getRankingTileResult(
             statVarSpec,
             urlRoot,
             useChartUrl,
-            apiRoot
+            apiRoot,
+            apikey
           )
         );
       }

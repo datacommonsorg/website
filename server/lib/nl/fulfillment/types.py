@@ -80,6 +80,14 @@ class SV2Thing:
   footnote: Dict
 
 
+@dataclass
+class ExistInfo:
+  is_single_point: bool = False
+  # Facet metadata where keys are metadata keys and values are metadata values.
+  # Keys include 'facetId' and optional 'unit'.
+  facet: Dict[str, str] = field(default_factory=dict)
+
+
 # Data structure to store state for a single "populate" call.
 @dataclass
 class PopulateState:
@@ -93,6 +101,9 @@ class PopulateState:
   quantity: QuantityClassificationAttributes = None
   # A single specified date to get data for.
   single_date: Date = None
+  # A date range to get data for. Only one of this or single_date should be set.
+  # If single_date is set, this will be ignored.
+  date_range: Date = None
   event_types: List[EventType] = field(default_factory=list)
   disable_fallback: bool = False
   # The list of chart-vars to process.  This is keyed by var / topic.
@@ -111,9 +122,9 @@ class PopulateState:
   # Ordered list of query types.
   query_types: List[QueryType] = field(default_factory=list)
   # Has the results of existence check.
-  # SV -> Place Keys
+  # SV -> Place Keys -> Existence info
   # Where Place Key may be the place DCID, or place DCID + child-type.
-  exist_checks: Dict[str, Set[str]] = field(default_factory=dict)
+  exist_checks: Dict[str, Dict[str, ExistInfo]] = field(default_factory=dict)
   # Whether this is explore mode of fulfillment.
   explore_mode: bool = False
   # Set to true if utterance has overwritten SVs.  So they should
@@ -123,6 +134,12 @@ class PopulateState:
   # BASIC.  This is a hack around the fact that BASIC type combines
   # contained-in, ranking and simple.
   has_child_type_in_top_basic_charts: bool = False
+
+
+# Dict of place dcid -> facet id
+Place2Facet = Dict[str, str]
+# Dict of sv dcid -> place dcid -> facet id
+Sv2Place2Facet = Dict[str, Place2Facet]
 
 
 @dataclass
@@ -136,5 +153,9 @@ class ChartSpec:
   ranking_types: List[RankingType]
   ranking_count: int
   chart_origin: ChartOriginType
-  is_sdg: bool
+  is_special_dc: bool
   single_date: Date
+  date_range: Date
+  # Dict of sv -> place -> facetid to use
+  sv_place_facet_id: Sv2Place2Facet
+  info_message: str

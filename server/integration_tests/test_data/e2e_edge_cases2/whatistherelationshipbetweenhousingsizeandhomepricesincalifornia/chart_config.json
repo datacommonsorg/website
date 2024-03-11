@@ -1435,32 +1435,22 @@
           "Count_HousingUnit_HomeValueUpto10000USDollar",
           "Count_HousingUnit_HomeValueUpto49999USDollar"
         ],
-        "numberOfRooms": [
-          "Count_HousingUnit_WithTotal2Rooms",
-          "Count_HousingUnit_WithTotal3Rooms",
-          "Count_HousingUnit_WithTotal4Rooms",
-          "Count_HousingUnit_WithTotal5Rooms",
-          "Count_HousingUnit_WithTotal6Rooms",
-          "Count_HousingUnit_WithTotal7Rooms",
-          "Count_HousingUnit_WithTotal8Rooms",
-          "Count_HousingUnit_WithTotal9OrMoreRooms"
-        ],
         "occupancyStatus": [
           "Count_HousingUnit_OccupiedHousingUnit",
           "Count_HousingUnit_VacantHousingUnit"
         ]
       },
-      "Count_HousingUnit_OwnerOccupied": {
+      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
         "householderRace": [
-          "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceAsianAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceHispanicOrLatino_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceWhiteAlone_OwnerOccupied"
+          "Median_HomeValue_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceAsianAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceHispanicOrLatino_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceSomeOtherRaceAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceTwoOrMoreRaces_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceWhiteAlone_OccupiedHousingUnit_OwnerOccupied"
         ]
       }
     },
@@ -1881,5 +1871,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Low confidence in understanding your query. Displaying the closest results."
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
 }

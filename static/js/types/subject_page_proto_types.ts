@@ -130,6 +130,9 @@ export interface LineTileSpec {
   timeScale?: "YEAR" | "MONTH" | "DAY";
   variableNameRegex?: string;
   defaultVariableName?: string;
+  startDate?: string;
+  endDate?: string;
+  highlightDate?: string;
 }
 
 export interface MapTileSpec {
@@ -177,6 +180,7 @@ export interface BlockConfig {
   denom?: string;
   startWithDenom?: boolean;
   disasterBlockSpec?: DisasterBlockSpec;
+  infoMessage?: string;
 }
 
 export type StatVarSpecMap = Record<string, StatVarSpec>;

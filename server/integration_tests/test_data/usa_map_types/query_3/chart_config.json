@@ -86,26 +86,14 @@
                     "statVarKey": [
                       "Count_Person_DidNotWork"
                     ],
-                    "title": "Population: 16-64 Years, Did Not Work in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 16-64 Years, Did Not Work in Washington",
-                    "statVarKey": [
-                      "Count_Person_DidNotWork"
-                    ],
-                    "title": "Population: 16-64 Years, Did Not Work in Washington",
-                    "type": "HIGHLIGHT"
+                    "title": "Population: 16-64 Years, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16-64 Years, Did Not Work"
+            "title": "Population: 16-64 Years, Did Not Work in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -115,26 +103,14 @@
                     "statVarKey": [
                       "Count_Person_Male_DidNotWork"
                     ],
-                    "title": "Population: 16-64 Years, Male, Did Not Work in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 16-64 Years, Male, Did Not Work in Washington",
-                    "statVarKey": [
-                      "Count_Person_Male_DidNotWork"
-                    ],
-                    "title": "Population: 16-64 Years, Male, Did Not Work in Washington",
-                    "type": "HIGHLIGHT"
+                    "title": "Population: 16-64 Years, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16-64 Years, Male, Did Not Work"
+            "title": "Population: 16-64 Years, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -243,5 +219,5 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

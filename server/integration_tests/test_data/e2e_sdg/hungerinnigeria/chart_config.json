@@ -187,13 +187,13 @@
                       "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex in Nigeria",
+                    "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex"
+            "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People)"
           },
           {
             "columns": [
@@ -204,13 +204,13 @@
                       "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex in Nigeria",
+                    "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex"
+            "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People)"
           },
           {
             "columns": [
@@ -221,13 +221,13 @@
                       "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex in Nigeria",
+                    "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex"
+            "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%)"
           },
           {
             "columns": [
@@ -238,13 +238,13 @@
                       "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex in Nigeria",
+                    "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex"
+            "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%)"
           },
           {
             "columns": [
@@ -517,13 +517,13 @@
                       "sdg/PD_AGR_LSFP.SEX--F",
                       "sdg/PD_AGR_LSFP.SEX--M"
                     ],
-                    "title": "Productivity of Large-Scale Food Producers in Nigeria",
+                    "title": "Productivity of Large-Scale Food Producers (Agricultural Output Per Labour Day, PPP) (Constant 2017 International $) in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Productivity of Large-Scale Food Producers"
+            "title": "Productivity of Large-Scale Food Producers (Agricultural Output Per Labour Day, PPP) (Constant 2017 International $)"
           },
           {
             "columns": [
@@ -535,13 +535,13 @@
                       "sdg/PD_AGR_SSFP.SEX--F",
                       "sdg/PD_AGR_SSFP.SEX--M"
                     ],
-                    "title": "Productivity of Small-Scale Food Producers in Nigeria",
+                    "title": "Productivity of Small-Scale Food Producers (Agricultural Output Per Labour Day, PPP) (Constant 2017 International $) in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Productivity of Small-Scale Food Producers"
+            "title": "Productivity of Small-Scale Food Producers (Agricultural Output Per Labour Day, PPP) (Constant 2017 International $)"
           },
           {
             "columns": [
@@ -553,13 +553,13 @@
                       "sdg/SI_AGR_LSFP.SEX--F",
                       "sdg/SI_AGR_LSFP.SEX--M"
                     ],
-                    "title": "Average Income of Large-Scale Food Producers, PPP in Nigeria",
+                    "title": "Average Income of Large-Scale Food Producers, PPP (Constant 2017 International $) in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Average Income of Large-Scale Food Producers, PPP"
+            "title": "Average Income of Large-Scale Food Producers, PPP (Constant 2017 International $)"
           },
           {
             "columns": [
@@ -571,13 +571,13 @@
                       "sdg/SI_AGR_SSFP.SEX--F",
                       "sdg/SI_AGR_SSFP.SEX--M"
                     ],
-                    "title": "Average Income of Small-Scale Food Producers, PPP in Nigeria",
+                    "title": "Average Income of Small-Scale Food Producers, PPP (Constant 2017 International $) in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Average Income of Small-Scale Food Producers, PPP"
+            "title": "Average Income of Small-Scale Food Producers, PPP (Constant 2017 International $)"
           },
           {
             "columns": [
@@ -880,13 +880,13 @@
                       "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114",
                       "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118"
                     ],
-                    "title": "Indicator of Food Price Anomalies, by Type of Product in Nigeria",
+                    "title": "Indicator of Food Price Anomalies (IFPA), by Type of Product in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Indicator of Food Price Anomalies, by Type of Product"
+            "title": "Indicator of Food Price Anomalies (IFPA), by Type of Product"
           }
         ],
         "statVarSpec": {
@@ -1844,5 +1844,5 @@
     }
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

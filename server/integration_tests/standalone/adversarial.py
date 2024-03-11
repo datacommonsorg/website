@@ -52,9 +52,9 @@ flags.DEFINE_string(
 
 flags.DEFINE_enum(
     "llm_api",
-    "chat",
-    ["chat", "text"],
-    f"Value for the llm_api parameter. Valid values: chat, text.",
+    "geminipro",
+    ["palm", "geminipro"],
+    f"Value for the llm_api parameter. Valid values: palm, geminipro.",
 )
 
 flags.DEFINE_string(

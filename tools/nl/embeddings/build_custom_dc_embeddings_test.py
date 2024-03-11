@@ -19,6 +19,7 @@ import unittest
 from build_custom_dc_embeddings import EMBEDDINGS_CSV_FILENAME
 from build_custom_dc_embeddings import EMBEDDINGS_YAML_FILE_NAME
 import build_custom_dc_embeddings as builder
+from file_util import create_file_handler
 from sentence_transformers import SentenceTransformer
 import utils
 
@@ -40,8 +41,8 @@ class TestEndToEnd(unittest.TestCase):
   def test_build_embeddings_dataframe(self):
     self.maxDiff = None
 
-    ctx = utils.Context(gs=None,
-                        model=SentenceTransformer(MODEL_NAME),
+    ctx = utils.Context(model=SentenceTransformer(MODEL_NAME),
+                        model_endpoint=None,
                         bucket=None,
                         tmp="/tmp")
 
@@ -55,7 +56,7 @@ class TestEndToEnd(unittest.TestCase):
           temp_dir, "final_dcids_sentences.csv")
 
       embeddings_df = builder._build_embeddings_dataframe(
-          ctx, input_dcids_sentences_csv_path)
+          ctx, create_file_handler(input_dcids_sentences_csv_path))
 
       embeddings_df[['dcid',
                      'sentence']].to_csv(actual_dcids_sentences_csv_path,
@@ -65,8 +66,8 @@ class TestEndToEnd(unittest.TestCase):
                      expected_dcids_sentences_csv_path)
 
   def test_build_embeddings_dataframe_and_validate(self):
-    ctx = utils.Context(gs=None,
-                        model=SentenceTransformer(MODEL_NAME),
+    ctx = utils.Context(model=SentenceTransformer(MODEL_NAME),
+                        model_endpoint=None,
                         bucket=None,
                         tmp="/tmp")
 
@@ -74,7 +75,7 @@ class TestEndToEnd(unittest.TestCase):
                                                   "dcids_sentences.csv")
 
     embeddings_df = builder._build_embeddings_dataframe(
-        ctx, input_dcids_sentences_csv_path)
+        ctx, create_file_handler(input_dcids_sentences_csv_path))
 
     # Test success == no failures during validation
     utils.validate_embeddings(embeddings_df, input_dcids_sentences_csv_path)
@@ -88,8 +89,9 @@ class TestEndToEnd(unittest.TestCase):
       actual_embeddings_yaml_path = os.path.join(temp_dir,
                                                  EMBEDDINGS_YAML_FILE_NAME)
 
-      builder.generate_embeddings_yaml(fake_embeddings_csv_path,
-                                       actual_embeddings_yaml_path)
+      builder.generate_embeddings_yaml(
+          create_file_handler(fake_embeddings_csv_path),
+          create_file_handler(actual_embeddings_yaml_path))
 
       _compare_files(self, actual_embeddings_yaml_path,
                      expected_embeddings_yaml_path)

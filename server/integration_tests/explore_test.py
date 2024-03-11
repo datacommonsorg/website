@@ -69,12 +69,13 @@ class ExploreTest(NLWebServerTestCase):
                              test='',
                              i18n='',
                              i18n_lang='',
-                             mode=''):
+                             mode='',
+                             default_place=''):
     ctx = {}
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill',
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -239,6 +240,14 @@ class ExploreTest(NLWebServerTestCase):
         'dc': 'sdg'
     }
     self.run_fulfillment('fulfillment_api_sdg', req)
+
+  def test_fulfillment_undata(self):
+    req = {
+        'entities': ['country/USA'],
+        'variables': ['dc/topic/UN_THEME_1'],
+        'dc': 'undata'
+    }
+    self.run_fulfillment('fulfillment_api_undata', req)
 
   def test_fulfillment_sdg_global(self):
     req = {
@@ -419,6 +428,11 @@ class ExploreTest(NLWebServerTestCase):
     ],
                                 dc='sdg')
 
+  def test_e2e_undata(self):
+    self.run_detect_and_fulfill(
+        'e2e_undata', ['Culture in Iran', 'Pulmonary diseases in the world'],
+        dc='undata')
+
     self.run_detect_and_fulfill('e2e_sdg_main_dc', [
         'Hunger in Nigeria',
         'Compare progress on poverty in Mexico, Nigeria and Pakistan'
@@ -467,9 +481,58 @@ class ExploreTest(NLWebServerTestCase):
         ],
         mode='strict')
 
+  def test_e2e_strict_multi_sv(self):
+    self.run_detect_and_fulfill(
+        'explore_strict_multi_var',
+        [
+            # This should fulfill even though there are only multi sv candidates
+            # detected and no single svs passed the detection threshold
+            'Does obesity correlate with lack of sleep in US counties'
+        ],
+        mode='strict')
+
   def test_e2e_single_date(self):
     self.run_detect_and_fulfill('e2e_single_date', [
         'Life expectancy in US states in 2018',
         'What are the projected temperatures in california in 2025',
-        'population in the US in the last year'
+        'population in the US in the last year',
+        'hispanic women in California in 2001',
+        "What was the average house price for 2 br house in Mountain View decade ago"
     ])
+
+  def test_e2e_date_range(self):
+    self.run_detect_and_fulfill('e2e_date_range', [
+        'Life expectancy in US states in the last 5 years',
+        'Population in California after 2013',
+        'Female population in New York before 2020',
+        'Which countries in Africa have had the greatest increase in electricity access over the last 10 years?'
+    ])
+
+  def test_e2e_default_place(self):
+    self.run_detect_and_fulfill('e2e_no_default_place_specified', [
+        'Female population',
+    ])
+
+    self.run_detect_and_fulfill('e2e_default_place_india',
+                                ['Female population'],
+                                default_place='country/IND')
+
+    self.run_detect_and_fulfill('e2e_default_place_bogus',
+                                ['Female population'],
+                                default_place='abcd')
+
+  def test_e2e_correlation_simple_place(self):
+    self.run_detect_and_fulfill(
+        'e2e_correlation_simple_place',
+        [
+            # A comparison timeline chart with 2 variables.
+            'Foreign born vs. native born in Sunnyvale',
+            # No such chart because the two variables are not coplottable.
+            'Native born vs. Median income in Sunnyvale',
+        ])
+
+  def test_e2e_toolformer_mode(self):
+    self.run_detect_and_fulfill(
+        'e2e_toolformer_mode',
+        ['what is the infant mortality rate in massachusetts'],
+        mode='toolformer')

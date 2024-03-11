@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy name="root">
+  <DisplayName/>
+  <Description/>
+  <CreatedAt>1701461015819</CreatedAt>
+  <LastModifiedAt>1701461119471</LastModifiedAt>
+  <BasePaths>/</BasePaths>
+  <Policies>
+    <Policy>verify-api-key</Policy>
+    <Policy>forward-host</Policy>
+  </Policies>
+  <ProxyEndpoints>
+    <ProxyEndpoint>default</ProxyEndpoint>
+  </ProxyEndpoints>
+  <TargetEndpoints>
+    <TargetEndpoint>default</TargetEndpoint>
+  </TargetEndpoints>
+</APIProxy>

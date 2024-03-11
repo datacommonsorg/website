@@ -23,7 +23,7 @@ import { displayNameForPlaceType } from "./util";
 interface ParentPlacePropsType {
   parentPlaces: string[];
   placeType: string;
-  names: { string: string };
+  names: { [key: string]: string };
 }
 
 class ParentPlace extends React.Component<ParentPlacePropsType> {

@@ -62,13 +62,14 @@
                     "statVarKey": [
                       "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block"
                     ],
-                    "title": "Count of Birth Event: Live Birth (Per Capita) (${date})",
+                    "title": "Crude Birth Rate (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Count of Birth Event: Live Birth (Per Capita)"
+            "description": "Crude birth rate indicates the number of live births occurring during the year, per 1,000 population estimated at midyear. Subtracting the crude death rate from the crude birth rate provides the rate of natural increase, which is equal to the rate of population change in the absence of migration. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Crude Birth Rate"
           },
           {
             "columns": [
@@ -135,6 +136,7 @@
               }
             ],
             "denom": "Count_Person",
+            "infoMessage": "Data for \"South Sudan\" is currently unavailable. See the following statistics on the other places.",
             "title": "Prematurity and Low Birth Rate, Per 100,000"
           },
           {
@@ -236,6 +238,7 @@
               }
             ],
             "denom": "Count_Person",
+            "infoMessage": "Data for \"South Sudan\" is currently unavailable. See the following statistics on the other places.",
             "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000"
           },
           {
@@ -269,6 +272,7 @@
                 ]
               }
             ],
+            "description": "Infant mortality rate, female is the number of female infants dying before reaching one year of age, per 1,000 female live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
             "title": "Female Infant Mortality Rate"
           },
           {
@@ -307,7 +311,7 @@
         ],
         "statVarSpec": {
           "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block": {
-            "name": "Count of Birth Event: Live Birth (Per Capita)",
+            "name": "Crude Birth Rate",
             "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
           },
           "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female_multiple_place_bar_block": {
@@ -415,5 +419,7 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See comparison based on places in the previous answer."
+  "userMessages": [
+    "See comparison based on places in the previous answer."
+  ]
 }

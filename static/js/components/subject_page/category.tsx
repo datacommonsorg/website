@@ -101,7 +101,7 @@ function renderBlocks(
           continue;
         }
         for (const k of tile.statVarKey) {
-          const svSpec = svProvider.getSpec(k, block.denom);
+          const svSpec = svProvider.getSpec(k, { blockDenom: block.denom });
           if (visitedSV.has(svSpec.statVar)) {
             continue;
           }
@@ -144,6 +144,7 @@ function renderBlocks(
               description={block.description}
               place={props.place}
               commonSVSpec={commonSVSpec}
+              infoMessage={block.infoMessage}
             >
               <Block
                 id={id}

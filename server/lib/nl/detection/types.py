@@ -333,6 +333,11 @@ class DateClassificationAttributes(ClassificationAttributes):
   dates: List[Date]
   is_single_date: bool
 
+  # List of strings which made this a date query. The order of strings matches
+  # the order of dates that it triggered.
+  # e.g., "in 2013", "in the last 5 years", "over the past decade", etc.
+  date_trigger_strings: List[str]
+
 
 @dataclass
 class DetailedActionClassificationAttributes(ClassificationAttributes):
@@ -395,8 +400,8 @@ class RequestedDetectorType(str, Enum):
 
 
 class LlmApiType(str, Enum):
-  Chat = "chat"
-  Text = "text"
+  Palm = "palm"
+  GeminiPro = "geminipro"
   Nop = "nop"
 
 

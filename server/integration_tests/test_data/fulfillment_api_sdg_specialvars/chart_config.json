@@ -160,6 +160,8 @@
     "varToTopics": {}
   },
   "showForm": true,
-  "svSource": "UNFULFILLED",
-  "userMessage": "Sorry, there were no relevant statistics about the topic for United States of America."
+  "svSource": "UNRECOGNIZED",
+  "userMessages": [
+    "Could not recognize any topic from the query."
+  ]
 }

@@ -35,7 +35,7 @@ from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import get_multi_sv
 import shared.lib.detected_variables as dutils
 
-_PALM_API_DETECTORS = [
+_LLM_API_DETECTORS = [
     RequestedDetectorType.LLM.value,
     RequestedDetectorType.Hybrid.value,
     RequestedDetectorType.HybridSafetyCheck.value,
@@ -65,14 +65,14 @@ def detect(
   #
   # In the absence of the PALM API key, fallback to heuristic.
   #
-  if (detector_type in _PALM_API_DETECTORS and
-      'PALM_API_KEY' not in current_app.config):
-    counters.err('failed_palm_keynotfound', '')
+  if (detector_type in _LLM_API_DETECTORS and
+      'LLM_API_KEY' not in current_app.config):
+    counters.err('failed_llm_keynotfound', '')
     detector_type = RequestedDetectorType.Heuristic.value
 
-  if (detector_type in _PALM_API_DETECTORS and
-      'PALM_PROMPT_TEXT' not in current_app.config):
-    counters.err('failed_palm_promptnotfound', '')
+  if (detector_type in _LLM_API_DETECTORS and
+      'LLM_PROMPT_TEXT' not in current_app.config):
+    counters.err('failed_llm_promptnotfound', '')
     detector_type = RequestedDetectorType.Heuristic.value
 
   #
@@ -81,7 +81,8 @@ def detect(
   if detector_type == RequestedDetectorType.LLM.value:
     llm_detection = llm_detector.detect(original_query, prev_utterance,
                                         embeddings_index_type, llm_api_type,
-                                        query_detection_debug_logs, counters)
+                                        query_detection_debug_logs, mode,
+                                        counters)
     return llm_detection
 
   #
@@ -115,7 +116,8 @@ def detect(
 
   llm_detection = llm_detector.detect(original_query, prev_utterance,
                                       embeddings_index_type, llm_api_type,
-                                      query_detection_debug_logs, counters)
+                                      query_detection_debug_logs, mode,
+                                      counters)
   if not llm_detection:
     counters.err('info_llm_blocked', '')
     return None

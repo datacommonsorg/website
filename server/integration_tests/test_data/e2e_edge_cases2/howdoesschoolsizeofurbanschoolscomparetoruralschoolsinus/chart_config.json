@@ -10,156 +10,107 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_EnrolledInKindergarten"
-                    ],
-                    "title": "Population: Enrolled in Kindergarten in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Enrolled in Kindergarten in United States",
-                    "statVarKey": [
-                      "Count_Person_EnrolledInKindergarten"
-                    ],
-                    "title": "Population: Enrolled in Kindergarten in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Enrolled in Kindergarten"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
+                      "Count_Person_EnrolledInKindergarten",
                       "Count_Person_EnrolledInSchool"
                     ],
-                    "title": "Population Currently Enrolled in School in United States",
+                    "title": "Population: Enrolled in Kindergarten and Population Currently Enrolled in School in United States",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population Currently Enrolled in School in United States",
-                    "statVarKey": [
-                      "Count_Person_EnrolledInSchool"
-                    ],
-                    "title": "Population Currently Enrolled in School in United States",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Currently Enrolled in School"
+            "title": "Population: Enrolled in Kindergarten and Population Currently Enrolled in School"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
                     ],
-                    "title": "Elementary School Students in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Elementary School Students in United States",
                     "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool"
+                      "Count_Person_DetailedPrimarySchool_multiple_place_bar_block",
+                      "Count_Person_EnrolledInSchool_multiple_place_bar_block"
                     ],
-                    "title": "Elementary School Students in United States",
-                    "type": "HIGHLIGHT"
+                    "title": "Elementary School Students and Population Currently Enrolled in School in United States (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Elementary School Students"
+            "title": "Elementary School Students and Population Currently Enrolled in School"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_Person_DetailedMiddleSchool"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
                     ],
-                    "title": "Middle School Students in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Middle School Students in United States",
                     "statVarKey": [
-                      "Count_Person_DetailedMiddleSchool"
+                      "Count_Person_DetailedMiddleSchool_multiple_place_bar_block",
+                      "Count_Person_EnrolledInSchool_multiple_place_bar_block"
                     ],
-                    "title": "Middle School Students in United States",
-                    "type": "HIGHLIGHT"
+                    "title": "Middle School Students and Population Currently Enrolled in School in United States (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Middle School Students"
+            "title": "Middle School Students and Population Currently Enrolled in School"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_Person_DetailedHighSchool"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
                     ],
-                    "title": "High School Students in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "High School Students in United States",
                     "statVarKey": [
-                      "Count_Person_DetailedHighSchool"
+                      "Count_Person_DetailedHighSchool_multiple_place_bar_block",
+                      "Count_Person_EnrolledInSchool_multiple_place_bar_block"
                     ],
-                    "title": "High School Students in United States",
-                    "type": "HIGHLIGHT"
+                    "title": "High School Students and Population Currently Enrolled in School in United States (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "High School Students"
+            "title": "High School Students and Population Currently Enrolled in School"
           }
         ],
         "statVarSpec": {
-          "Count_Person_DetailedHighSchool": {
+          "Count_Person_DetailedHighSchool_multiple_place_bar_block": {
             "name": "High School Students",
             "statVar": "Count_Person_DetailedHighSchool"
           },
-          "Count_Person_DetailedMiddleSchool": {
+          "Count_Person_DetailedMiddleSchool_multiple_place_bar_block": {
             "name": "Middle School Students",
             "statVar": "Count_Person_DetailedMiddleSchool"
           },
-          "Count_Person_DetailedPrimarySchool": {
+          "Count_Person_DetailedPrimarySchool_multiple_place_bar_block": {
             "name": "Elementary School Students",
             "statVar": "Count_Person_DetailedPrimarySchool"
           },
@@ -168,6 +119,10 @@
             "statVar": "Count_Person_EnrolledInKindergarten"
           },
           "Count_Person_EnrolledInSchool": {
+            "name": "Population Currently Enrolled in School",
+            "statVar": "Count_Person_EnrolledInSchool"
+          },
+          "Count_Person_EnrolledInSchool_multiple_place_bar_block": {
             "name": "Population Currently Enrolled in School",
             "statVar": "Count_Person_EnrolledInSchool"
           }
@@ -406,5 +361,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Low confidence in understanding your query. Displaying the closest results."
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
 }

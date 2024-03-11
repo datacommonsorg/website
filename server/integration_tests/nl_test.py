@@ -332,13 +332,17 @@ class NLTest(NLWebServerTestCase):
             # These queries do not have a default place, so should fail.
             'what does a diet for diabetes look like?',
             'how to earn money online without investment',
+        ],
+        mode='strict',
+        failure='could not complete')
+
+  def test_strict_low_confidence(self):
+    self.run_sequence(
+        'strict_low_confidence',
+        [
             # This query should return empty result because we don't
             # return low-confidence results.
             'number of headless drivers in california',
         ],
         mode='strict',
-        expected_detectors=[
-            'Heuristic Based',
-            'Heuristic Based',
-            'Heuristic Based',
-        ])
+        expected_detectors=['Heuristic Based'])

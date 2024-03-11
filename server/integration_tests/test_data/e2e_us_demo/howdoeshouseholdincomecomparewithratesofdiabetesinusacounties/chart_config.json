@@ -501,6 +501,13 @@
         ]
       },
       {
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income by Industry",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
         "dcid": "dc/topic/HouseholdIncomeDistribution",
         "name": "Household Income Distribution",
         "types": [
@@ -765,5 +772,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

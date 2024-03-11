@@ -35,10 +35,12 @@ import server.lib.nl.common.debug_utils as dbg
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.base as builder_base
+from server.lib.nl.config_builder.builder import BuilderResult
 import server.lib.nl.config_builder.builder as config_builder
 from server.lib.nl.detection import utils as dutils
 import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as detector
+from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import Place
@@ -56,6 +58,28 @@ from shared.lib.constants import EN_LANG_CODE
 import shared.lib.utils as shared_utils
 
 _SANITY_TEST = 'sanity'
+
+
+# Get the default place to be used for fulfillment. If there is a place in the
+# request, use that. Otherwise, use pre-chosen places.
+def _get_default_place(request: Dict, is_special_dc: bool, debug_logs: Dict):
+  default_place_dcid = request.args.get('default_place', default='', type=str)
+  # If default place from request is earth, use the Earth place object
+  if default_place_dcid == constants.EARTH.dcid:
+    return constants.EARTH
+  # If default place from request is something else, get the place object for
+  # that dcid
+  elif default_place_dcid:
+    places, _ = get_place_from_dcids([default_place_dcid], debug_logs)
+    if len(places) > 0:
+      return places[0]
+    else:
+      return None
+  # For Special DC use Earth as the default place.
+  elif is_special_dc:
+    return constants.EARTH
+  else:
+    return constants.USA
 
 
 #
@@ -87,9 +111,8 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   context_history = []
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
-  is_sdg = request.get_json().get('dc', '').startswith('sdg')
-  if is_sdg:
-    embeddings_index_type = 'sdg_ft'
+  dc = request.get_json().get('dc', '')
+  embeddings_index_type = params.dc_to_embedding_type(dc, embeddings_index_type)
 
   detector_type = request.args.get(
       'detector',
@@ -114,11 +137,11 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     place_detector_type = PlaceDetectorType(place_detector_type)
 
   llm_api_type = request.args.get('llm_api',
-                                  default=LlmApiType.Chat.value,
+                                  default=LlmApiType.GeminiPro.value,
                                   type=str).lower()
-  if llm_api_type not in [LlmApiType.Chat, LlmApiType.Text]:
+  if llm_api_type not in [LlmApiType.Palm, LlmApiType.GeminiPro]:
     logging.error(f'Unknown place_detector {place_detector_type}')
-    llm_api_type = LlmApiType.Chat
+    llm_api_type = LlmApiType.GeminiPro
   else:
     llm_api_type = LlmApiType(llm_api_type)
 
@@ -195,7 +218,21 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
 
   if utterance:
     utterance.i18n_lang = i18n_lang
-    context.merge_with_context(utterance, is_sdg, use_default_place)
+    default_place = None
+    if use_default_place:
+      is_special_dc = params.is_special_dc_str(dc)
+      default_place = _get_default_place(request, is_special_dc, debug_logs)
+    context.merge_with_context(utterance, default_place)
+    if not utterance.places:
+      err_json = helpers.abort(
+          'Sorry, could not complete your request. No place found in the query.',
+          original_query,
+          context_history,
+          debug_logs,
+          counters,
+          test=test,
+          client=client)
+      return None, err_json
 
   return utterance, None
 
@@ -227,20 +264,24 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   if utterance.rankedCharts:
     start = time.time()
     # Call chart config builder.
-    page_config_pb = config_builder.build(state, cb_config)
+    builder_result = config_builder.build(state, cb_config)
     utterance.counters.timeit('build_page_config', start)
   else:
-    page_config_pb = None
+    builder_result = BuilderResult()
 
-  return prepare_response(utterance, page_config_pb, utterance.detection,
-                          debug_logs)
+  return prepare_response(utterance,
+                          builder_result.page_config,
+                          utterance.detection,
+                          debug_logs,
+                          fulfill_user_msg=builder_result.page_msg)
 
 
 def prepare_response(utterance: nl_utterance.Utterance,
                      chart_pb: SubjectPageConfig,
                      detection: Detection,
                      debug_logs: Dict,
-                     related_things: Dict = {}) -> Dict:
+                     related_things: Dict = {},
+                     fulfill_user_msg: str = '') -> Dict:
   ret_places = []
   if chart_pb:
     page_config = json.loads(MessageToJson(chart_pb))
@@ -271,6 +312,8 @@ def prepare_response(utterance: nl_utterance.Utterance,
     ret_places = [Place(dcid='', name='', place_type='')]
 
   user_message = commentary.user_message(utterance)
+  if fulfill_user_msg:
+    user_message.msg_list.append(fulfill_user_msg)
 
   dbg_counters = utterance.counters.get()
   utterance.counters = None
@@ -293,7 +336,7 @@ def prepare_response(utterance: nl_utterance.Utterance,
       'placeSource': utterance.place_source.value,
       'pastSourceContext': utterance.past_source_context,
       'relatedThings': related_things,
-      'userMessage': user_message.msg
+      'userMessages': user_message.msg_list
   }
   if user_message.show_form:
     data_dict['showForm'] = True
@@ -363,7 +406,9 @@ def abort(error_message: str,
       'config': {},
       'context': escaped_context_history,
       'failure': error_message,
-      'userMessage': error_message,
+      'userMessage': {
+          'msg': error_message
+      },
   }
 
   if not counters:

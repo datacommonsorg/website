@@ -187,7 +187,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     mainPlaceName: props.debugData["main_place_name"],
     queryWithoutPlaces: props.debugData["query_with_places_removed"],
     queryDetectionDebugLogs: props.debugData["query_detection_debug_logs"],
-    svScores: props.debugData["sv_matching"],
+    svScores: props.debugData["sv_matching"] || {},
     svSentences: props.debugData["svs_to_sentences"],
     rankingClassification: props.debugData["ranking_classification"],
     generalClassification: props.debugData["general_classification"],
@@ -242,8 +242,12 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <b>Blocked:</b> {debugInfo.blocked.toString()}
           </Row>
           <Row>
-            <b>Query used for variable detection: </b>
+            <b>Query without places: </b>
             {debugInfo.queryWithoutPlaces}
+          </Row>
+          <Row>
+            <b>Query used for variable detection: </b>
+            {debugInfo.svScores.Query || ""}
           </Row>
           <Row>
             <b>Place Detection:</b>

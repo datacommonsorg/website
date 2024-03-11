@@ -44,22 +44,7 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
 
   query = place_detection.query_without_place_substr
 
-  sv_threshold = params.sv_threshold(mode)
-  # Step 3: Identify the SV matched based on the query.
-  svs_scores_dict = dutils.empty_svs_score_dict()
-  try:
-    svs_scores_dict = variable.detect_svs(
-        query, index_type, query_detection_debug_logs["query_transformations"],
-        sv_threshold)
-  except ValueError as e:
-    logging.info(e)
-    logging.info("Using an empty svs_scores_dict")
-
-  # Set the SVDetection.
-  sv_detection = dutils.create_sv_detection(query, svs_scores_dict,
-                                            sv_threshold)
-
-  # Step 4: find query classifiers.
+  # Step 3: find query classifiers.
   classifications = [
       heuristic_classifiers.ranking(query),
       heuristic_classifiers.comparison(query),
@@ -93,6 +78,23 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
     classifications.append(
         NLClassifier(type=ClassificationType.UNKNOWN,
                      attributes=SimpleClassificationAttributes()))
+
+  # Step 4: Identify the SV matched based on the query.
+  sv_threshold = params.sv_threshold(mode)
+  svs_scores_dict = dutils.empty_svs_score_dict()
+  sv_detection_query = dutils.remove_date_from_query(query, classifications)
+  skip_topics = mode == params.QueryMode.TOOLFORMER
+  try:
+    svs_scores_dict = variable.detect_svs(
+        sv_detection_query, index_type,
+        query_detection_debug_logs["query_transformations"], sv_threshold,
+        skip_topics)
+  except ValueError as e:
+    logging.info(e)
+    logging.info("Using an empty svs_scores_dict")
+  # Set the SVDetection.
+  sv_detection = dutils.create_sv_detection(sv_detection_query, svs_scores_dict,
+                                            sv_threshold)
 
   return Detection(original_query=orig_query,
                    cleaned_query=cleaned_query,

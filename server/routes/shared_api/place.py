@@ -15,6 +15,7 @@
 import collections
 import json
 import logging
+import re
 
 from flask import Blueprint
 from flask import g
@@ -106,6 +107,23 @@ PLACE_OVERRIDE = {
     "wikidataId/Q281796": "wikidataId/Q2981389",
 }
 
+# Place type to the message id that holds its translation
+PLACE_TYPE_TO_LOCALE_MESSAGE = {
+    "AdministrativeArea": "singular_administrative_area",
+    "AdministrativeArea<Level>": "singular_administrative_area_level",
+    "Borough": "singular_borough",
+    "City": "singular_city",
+    "Country": "singular_country",
+    "County": "singular_county",
+    "EurostatNUTS<Level>": "singular_eurostat_nuts",
+    "Neighborhood": "singular_neighborhood",
+    "Place": "singular_place",
+    "State": "singular_state",
+    "Town": "singular_town",
+    "Village": "singular_village",
+    "CensusZipCodeTabulationArea": "singular_zip_code",
+}
+
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
 ENGLISH_LANG = 'en'
@@ -130,6 +148,24 @@ def get_place_types(place_dcids):
         chosen_type = place_type
     ret[escape(dcid)] = chosen_type
   return ret
+
+
+def get_place_type_i18n_name(place_type: str) -> str:
+  """For a given place type, get its localized name for display"""
+  if place_type in PLACE_TYPE_TO_LOCALE_MESSAGE:
+    return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE[place_type])
+  elif place_type.startswith('AdministrativeArea'):
+    level = place_type[-1]
+    return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE['AdministrativeArea<Level>'],
+                   level=level)
+  elif place_type.startswith('EurostatNUTS'):
+    level = place_type[-1]
+    return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE['EurostatNUTS<Level>'],
+                   level=level)
+  else:
+    # Return place type un-camel-cased
+    words = re.findall(r'[A-Z](?:[a-z]+|[A-Z]*(?=[A-Z]|$))', place_type)
+    return ' '.join(words).capitalize()
 
 
 @bp.route('/type/<path:place_dcid>')
@@ -350,11 +386,12 @@ def api_parent_places():
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-def parent_places(dcids):
+def parent_places(dcids, include_admin_areas=False):
   """ Get the parent place chain for a list of places.
 
   Args:
-      dcids: A list of place dids.
+      dcids: A list of place dcids.
+      include_admin_areas: Whether to include administrative areas in results.
 
   Returns:
       A dictionary of lists of containedInPlace, keyed by dcid.
@@ -368,7 +405,8 @@ def parent_places(dcids):
     parents = item['info'].get('parents', [])
     parents = [
         x for x in parents
-        if ('type' in x and not x['type'].startswith('AdministrativeArea'))
+        if ('type' in x and (include_admin_areas or
+                             not x['type'].startswith('AdministrativeArea')))
     ]
     result[dcid] = parents
   return result

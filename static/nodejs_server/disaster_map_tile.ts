@@ -102,7 +102,8 @@ export async function getDisasterMapTileResult(
   disasterEventDataPromise: Promise<Record<string, DisasterEventPointData>>,
   apiRoot: string,
   urlRoot: string,
-  useChartUrl: boolean
+  useChartUrl: boolean,
+  apikey?: string
 ): Promise<TileResult> {
   let tileEventData = null;
   try {
@@ -123,9 +124,12 @@ export async function getDisasterMapTileResult(
     const chartData = await fetchChartData(tileProp);
     const result: TileResult = {
       legend: Object.values(eventTypeSpec).map((spec) => spec.name),
+      placeType: enclosedPlaceType,
+      places: [place.dcid],
       srcs: getSources(chartData.sources),
       title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
       type: "EVENT_MAP",
+      vars: [],
     };
     if (useChartUrl) {
       result.chartUrl = getChartUrl(
@@ -134,7 +138,8 @@ export async function getDisasterMapTileResult(
         [],
         enclosedPlaceType,
         eventTypeSpec,
-        urlRoot
+        urlRoot,
+        apikey
       );
       return result;
     }

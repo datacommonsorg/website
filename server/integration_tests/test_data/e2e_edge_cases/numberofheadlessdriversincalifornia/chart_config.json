@@ -684,34 +684,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "dc/0gettc3bc60cb": {
-        "hasOccupation": [
-          "dc/b9plt3q5k6gyb",
-          "dc/jszfr5wd4f7pb",
-          "dc/k33ngtzpqxql6",
-          "dc/kt900ezddrf79",
-          "dc/r0delcsw86kc6",
-          "dc/wqbf0ppbmly7"
-        ]
-      },
-      "dc/k3hehk50ch012": {
-        "establishmentOwnership": [
-          "dc/606prkyq9yx7f",
-          "dc/njp8y559jz0p4"
-        ]
-      },
-      "dc/wc8q05drd74bd": {
-        "hasOccupation": [
-          "dc/80q8jrnkvwtt3",
-          "dc/dj7khl7q78412",
-          "dc/j7pej9wer7lkd",
-          "dc/jxsx1rb4xg84f",
-          "dc/m54m06x6r5xm9",
-          "dc/m615rq99fwf2c"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Crime",
@@ -1078,5 +1051,7 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Low confidence in understanding your query. Displaying the closest results."
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
 }
