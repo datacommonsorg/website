@@ -16,6 +16,18 @@
 
 export const BASE_URL = "https://datacommons.org/browser";
 
+export type EmbeddingObject = {
+  statVar: string;
+  sentence: string;
+  embeddings: number[];
+};
+
+export type MatchObject = {
+  sentence: string;
+  statVar: string;
+  distance: number;
+};
+
 function calculateRelevanceScores(baselineList: string[]): {
   [key: string]: number;
 } {

@@ -19,7 +19,11 @@ from google.cloud import aiplatform_v1
 NEIGHBOR_COUNT = 20
 
 
-def search(model_info, query):
+def predict(model_info, queries):
+  return model_info['prediction_client'].predict(instances=queries).predictions
+
+
+def vector_search(model_info, query):
   logging.info(f'query: {query}, index_id: {model_info["index_id"]}')
   query_vector = model_info['prediction_client'].predict(
       instances=[query]).predictions[0]
@@ -34,4 +38,4 @@ def search(model_info, query):
   )
   vector_search_resp = model_info['vector_search_client'].find_neighbors(
       vector_search_req)
-  return vector_search_resp
+  return query_vector, vector_search_resp

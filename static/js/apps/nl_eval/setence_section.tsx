@@ -17,12 +17,13 @@
 import React, { useState } from "react";
 
 import { SearchResult } from "./search_result";
-import { BASE_URL } from "./util";
+import { BASE_URL, EmbeddingObject } from "./util";
 
 export interface SentenceSectionProps {
   sentence: string;
   modelNames: string[];
   goldenStatVars: string[];
+  overrideStatVars: Record<string, EmbeddingObject[]>;
 }
 
 export function SentenceSection(props: SentenceSectionProps) {
@@ -63,6 +64,7 @@ export function SentenceSection(props: SentenceSectionProps) {
               modelName={modelName}
               isExpanded={isExpanded}
               goldenStatVars={props.goldenStatVars}
+              overrideStatVars={props.overrideStatVars[modelName]}
             />
           );
         })}

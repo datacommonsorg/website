@@ -95,13 +95,25 @@ li a {
   font-size: 20px;
 }
 
-.custom-sentence form {
-  margin-bottom: 40px;
+.app-section {
+  margin-bottom: 50px;
 }
 
-.custom-sentence input {
+.app-section form,
+.app-section textarea {
+  margin-bottom: 20px;
+}
+
+.app-section input {
   display: block;
-  line-height: 40px;
+  line-height: 30px;
+  width: 800px;
+  margin-bottom: 10px;
+}
+
+.app-section textarea {
+  display: block;
+  height: 60px;
   width: 800px;
   margin-bottom: 10px;
 }

@@ -27,7 +27,7 @@ from server.lib.explore.params import Clients
 from server.lib.explore.params import Params
 from server.routes.nl import helpers
 import server.services.bigtable as bt
-import shared.model.vector_search as vector_search
+import shared.model.api as model_api
 
 bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 
@@ -85,16 +85,21 @@ def feedback():
     return 'Failed to record feedback data', 500
 
 
-@bp.route('/model-names')
-def model_names():
+@bp.route('/encode-vector')
+@file_cache.file_cache.cached(timeout=cache.TIMEOUT, query_string=True)
+def encode_vector():
   if not current_app.config['VERTEX_AI_MODELS']:
     flask.abort(404)
-  return json.dumps(list(current_app.config['VERTEX_AI_MODELS'].keys()))
+  sentence = request.args.get('sentence')
+  model_name = request.args.get('modelName')
+  return json.dumps(
+      model_api.predict(current_app.config['VERTEX_AI_MODELS'][model_name],
+                        [sentence]))
 
 
 @bp.route('/vector-search')
 @file_cache.file_cache.cached(timeout=cache.TIMEOUT, query_string=True)
-def predict():
+def vector_search():
   if not current_app.config['VERTEX_AI_MODELS']:
     flask.abort(404)
   sentence = request.args.get('sentence')
@@ -103,16 +108,16 @@ def predict():
     flask.abort(400, f'Bad sentence: {sentence}')
   if model_name not in current_app.config['VERTEX_AI_MODELS']:
     flask.abort(400, f'Bad model name: {model_name}')
-  vector_search_resp = vector_search.search(
+  query_vector, vector_search_resp = model_api.vector_search(
       current_app.config['VERTEX_AI_MODELS'][model_name], sentence)
 
-  result = []
+  result = {'embeddings': query_vector, 'matches': []}
   for n in vector_search_resp.nearest_neighbors[0].neighbors:
     dp = n.datapoint
     stat_var = dp.restricts[0].allow_list[0]
-    result.append({
+    result['matches'].append({
         'sentence': dp.datapoint_id,
-        'stat_var': stat_var,
+        'statVar': stat_var,
         'distance': n.distance
     })
   return result

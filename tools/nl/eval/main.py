@@ -21,7 +21,7 @@ from absl import flags
 
 import shared.lib.ndcg as ndcg
 import shared.model.loader as model_loader
-import shared.model.vector_search as vector_search
+import shared.model.api as model_api
 
 FLAGS = flags.FLAGS
 
@@ -53,7 +53,7 @@ def main(_):
   report = []
   for query, base_line_matches in base_line.items():
     print(query)
-    vector_search_resp = vector_search.search(model_info, query)
+    vector_search_resp = model_api.vector_search(model_info, query)
     debug[query] = {'vector_search': vector_search_resp}
     ranked_stat_vars = []
     for item in vector_search_resp:

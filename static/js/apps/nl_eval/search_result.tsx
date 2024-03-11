@@ -18,7 +18,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { stringifyFn } from "../../utils/axios";
-import { BASE_URL, ndcg } from "./util";
+import { BASE_URL, EmbeddingObject, MatchObject, ndcg } from "./util";
 
 interface StatVar {
   dcid: string;
@@ -31,36 +31,90 @@ interface SearchResultProps {
   modelName: string;
   isExpanded: boolean;
   goldenStatVars: string[];
+  overrideStatVars: EmbeddingObject[];
+}
+
+function dotProduct(a, b): number {
+  return a.map((x, i) => a[i] * b[i]).reduce((m, n) => m + n);
+}
+
+function findKNearestEmbeddings(
+  targetEmbedding: number[],
+  objects: EmbeddingObject[],
+  k: number
+): MatchObject[] {
+  const result = [];
+  for (const emb of objects) {
+    const dist = dotProduct(emb.embeddings, targetEmbedding);
+    result.push({
+      sentence: emb.sentence,
+      statVar: emb.statVar,
+      distance: dist,
+    });
+  }
+  result.sort((a, b) => a.distance - b.distance);
+  return result.slice(0, k);
 }
 
 export function SearchResult(props: SearchResultProps) {
-  const [statVarMatch, setStatVarMatch] = useState<any>([]);
+  const [statVarMatch, setStatVarMatch] = useState<MatchObject[]>([]);
   const [rankedStatVars, setRankedStatVars] = useState<StatVar[]>([]);
 
   useEffect(() => {
     (async () => {
       const data = await fetchData(props.sentence, props.modelName);
+      const embeddings = data["embeddings"];
+      let matches: MatchObject[] = data["matches"];
+      const originalMatchCount = matches.length;
+      // Use override stat var embeddings
+      if (props.overrideStatVars) {
+        const overrideSV = new Set(
+          props.overrideStatVars.map((x) => x.statVar)
+        );
+        matches = matches.filter((x) => !overrideSV.has(x.statVar));
+        let newMatchCount = originalMatchCount - matches.length;
+        if (newMatchCount == 0) {
+          newMatchCount = 5;
+        }
+        const overrideMatches = findKNearestEmbeddings(
+          embeddings,
+          props.overrideStatVars,
+          newMatchCount
+        );
+        overrideMatches.filter(
+          (x) => !(x.distance > matches.slice(-1)[0].distance)
+        );
+        matches = matches.concat(overrideMatches);
+        matches.sort((a, b) => b.distance - a.distance);
+      }
+
       const statVarInfo: Record<string, StatVar> = {};
-      for (const item of data) {
-        if (item["stat_var"] in statVarInfo) {
-          statVarInfo[item["stat_var"]].scores.push(item["distance"]);
+      for (const item of matches) {
+        if (item.statVar in statVarInfo) {
+          statVarInfo[item.statVar].scores.push(item.distance);
         } else {
-          statVarInfo[item["stat_var"]] = {
-            dcid: item["stat_var"],
+          statVarInfo[item.statVar] = {
+            dcid: item.statVar,
             rank: Object.keys(statVarInfo).length,
-            scores: [item["distance"]],
+            scores: [item.distance],
           };
         }
       }
       const rankedStatVarMatch = Object.values(statVarInfo).sort((a, b) => {
         return a.rank - b.rank;
       });
-      setStatVarMatch(data);
+
+      setStatVarMatch(matches);
       setRankedStatVars(rankedStatVarMatch);
     })();
-  }, [props.sentence, props.modelName]);
+  }, [
+    props.goldenStatVars,
+    props.sentence,
+    props.modelName,
+    props.overrideStatVars,
+  ]);
 
-  // Crop the rankedStatVars to the length of goldenStatVars. Need to evalute
+  // Crop the rankedStatVars to the length of goldenStatVars. Need to evaluate
   // this further.
   const evalScore = ndcg(
     rankedStatVars.slice(0, props.goldenStatVars.length).map((x) => x.dcid),
@@ -107,10 +161,10 @@ export function SearchResult(props: SearchResultProps) {
           </thead>
           <tbody>
             {statVarMatch.map((match) => (
-              <tr key={match["sentence"]}>
-                <td className="sentence-column">{match["sentence"]}</td>
-                <td>{Number(match["distance"]).toFixed(3)}</td>
-                <td className="stat-var-column">{match["stat_var"]}</td>
+              <tr key={match.sentence}>
+                <td className="sentence-column">{match.sentence}</td>
+                <td>{Number(match.distance).toFixed(3)}</td>
+                <td className="stat-var-column">{match.statVar}</td>
               </tr>
             ))}
           </tbody>
