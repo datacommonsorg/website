@@ -2353,15 +2353,15 @@
   },
   "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person": {
     "blocklist": [],
-    "title": "% of Suicide Events"
+    "title": "Suicide Mortality Rate"
   },
   "Count_Death_IntentionalSelfHarm_Female_AsFractionOf_Count_Person_Female": {
     "blocklist": [],
-    "title": "% of Female Suicide Events"
+    "title": "Female Suicide Mortality Rate"
   },
   "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male": {
     "blocklist": [],
-    "title": "% of Male Suicide Events"
+    "title": "Male Suicide Mortality Rate"
   },
   "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male": {
     "blocklist": [],

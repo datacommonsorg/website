@@ -1936,7 +1936,7 @@ Mean Monthly Wages,Mean_WagesMonthly_Worker,,Mean Monthly Wages,,Mean Monthly Wa
 ,Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery,,,,Annual Emissions: Waste Dispotsal Treatment and Recovery
 ,Annual_Amount_Emissions_SCC_27_NaturalSources,,,,Annual Emissions: Natural Sources
 ,Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources,,,,Annual Emissions: Misc
-,Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person,,,,% of Suicide Events
+,Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person,,,,Suicide Mortality Rate
 ,RetailDrugDistribution_DrugDistribution_dea/9809,,,,Retail Drug Distribution: Opium Combination Product 25 Mg/du
 ,Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person,,,,"Economic Activity: Nominal GDP (Nominal, Per Capita)"
 ,Count_Person_HispanicOrLatino_AsianOrPacificIslander,,,,Hispanic Asian/Pacific Islander Population
@@ -2013,8 +2013,8 @@ Mean Monthly Wages,Mean_WagesMonthly_Worker,,Mean Monthly Wages,,Mean Monthly Wa
 ,Count_Establishment_USC_MerchantWholesalers_NAICSWholesaleTrade_WithPayroll,,,,Number of Establishments: Merchant Wholesalers
 ,Sales_Establishment_USC_MerchantWholesalers_NAICSWholesaleTrade_WithPayroll,,,,Revenue of Establishments: Merchant Wholesalers
 ,Sales_Establishment_ManufacturerSalesBranchesAndOffices_NAICSWholesaleTrade_WithPayroll,,,,Revenue of Establishments: Mfg Sales Branches and Offices - Wholesale Trade
-,Count_Death_IntentionalSelfHarm_Female_AsFractionOf_Count_Person_Female,,,,% of Female Suicide Events
-,Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male,,,,% of Male Suicide Events
+,Count_Death_IntentionalSelfHarm_Female_AsFractionOf_Count_Person_Female,,,,Female Suicide Mortality Rate
+,Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male,,,,Male Suicide Mortality Rate
 ,Count_Person_Male_ForeignBorn_ResidesInCollegeOrUniversityStudentHousing,,,,Foreign Born Men in College/University Student Housing
 ,Count_Person_Male_ForeignBorn_ResidesInMilitaryQuartersOrMilitaryShips,,,,Foreign-Born Men in Military Quarters/on Ships
 ,Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthMexico,,,,"Count of Household: With Earnings, Mexican Born"
