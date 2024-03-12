@@ -16,7 +16,7 @@
 # https://en.wikipedia.org/wiki/Discounted_cumulative_gain metric to score
 # ranked stat vars compared with a golden list.
 
-import numpy as np
+import math
 
 
 def _calculate_relevance_scores(baseline_list):
@@ -28,8 +28,8 @@ def dcg(scores, k=None):
   if k is None:
     k = len(scores)
   # https://en.wikipedia.org/wiki/Discounted_cumulative_gain
-  return sum(
-      (2**score - 1) / np.log2(idx + 2) for idx, score in enumerate(scores[:k]))
+  return sum((2**score - 1) / math.log(idx + 2, 2)
+             for idx, score in enumerate(scores[:k]))
 
 
 def ndcg(new_list, baseline_list):
