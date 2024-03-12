@@ -27,11 +27,12 @@ from flask import send_file
 from flask import url_for
 from geojson_rewind import rewind
 
-from server import cache
+from server.lib.cache import cache
 import server.lib.fetch as fetch
 from server.lib.shared import is_float
 import server.lib.shared as shared
 import server.lib.util as lib_util
+from server.routes import TIMEOUT
 import server.routes.place.api as landing_page_api
 from server.routes.shared_api.place import EQUIVALENT_PLACE_TYPES
 import server.routes.shared_api.place as place_api
@@ -83,7 +84,7 @@ MULTIPOLYGON_GEOJSON_TYPE = "MultiPolygon"
 POLYGON_GEOJSON_TYPE = "Polygon"
 
 
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 def get_choropleth_display_level(geoDcid):
   """ Get the display level of places to show on a choropleth chart for a
   given place.
@@ -228,7 +229,7 @@ def process_cached_geojson(cached_geojson, place_name_prop):
 
 
 @bp.route('/geojson')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def geojson():
   """Get geoJson data for places enclosed within the given dcid"""
   place_dcid = request.args.get("placeDcid")
@@ -472,7 +473,7 @@ def choropleth_data(dcid):
 
 
 @bp.route('/map-points')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def get_map_points():
   """Get map point data for the given place type enclosed within the given dcid
   """

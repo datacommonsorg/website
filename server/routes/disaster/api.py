@@ -21,9 +21,10 @@ from flask import current_app
 from flask import request
 from flask import Response
 
-from server import cache
+from server.lib.cache import cache
 import server.lib.fetch as fetch
 import server.lib.util as lib_util
+from server.routes import TIMEOUT
 
 # Define blueprint
 bp = Blueprint("disaster_api", __name__, url_prefix='/api/disaster-dashboard')
@@ -199,7 +200,7 @@ def json_event_data():
 
 
 @bp.route('/event-data')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def event_data():
   """Gets the event data for a given eventType, date range, place, and
       filter information (filter prop, unit, lower limit, and upper limit).
