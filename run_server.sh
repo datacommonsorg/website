@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2020 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,16 +29,17 @@ PORT=8080
 ENABLE_MODEL=false
 
 function help {
-  echo "Usage: $0 -epm"
+  echo "Usage: $0 -epmxdl"
   echo "-e       Run with a specified environment. Options are: lite custom or any configured env. Default: local"
   echo "-p       Run on a specified port. Default: 8080"
   echo "-m       Enable language models"
+  echo "-x       Enable embedding eval playground"
   echo "-d       [Local dev] Enable disaster JSON cache"
   echo "-l       [Local dev] Use local mixer"
   exit 1
 }
 
-while getopts ":e:p:m?d?l" OPTION; do
+while getopts ":e:p:m?d?l?x" OPTION; do
   case $OPTION in
     e)
       export FLASK_ENV=$OPTARG
@@ -48,6 +49,9 @@ while getopts ":e:p:m?d?l" OPTION; do
       ;;
     m)
       export ENABLE_MODEL=true
+      ;;
+    x)
+      export ENABLE_EVAL_TOOL=true
       ;;
     d)
       export ENABLE_DISASTER_JSON=true
