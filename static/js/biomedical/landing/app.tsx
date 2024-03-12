@@ -27,6 +27,7 @@ import { HeaderAndSearchBox } from "./header_and_search_section";
 import { HighlightsSection } from "./highlights_section";
 import { SampleAnalysesSection } from "./sample_analyses_section";
 import {
+  BIOMEDICAL_SEARCH_QUERY_PARAM,
   BIOMEDICAL_SEARCH_URL,
   COLOR_TO_CARD_THEME,
   CSS_THEME,
@@ -65,7 +66,7 @@ function getCardSpecsFromConfig(
   for (const categoryConfig of sectionConfig) {
     categoryConfig.cards.forEach((cardSpec) => {
       if (!cardSpec.url && addSearchUrl) {
-        cardSpec.url = `${BIOMEDICAL_SEARCH_URL}${cardSpec.text}`;
+        cardSpec.url = `${BIOMEDICAL_SEARCH_URL}${BIOMEDICAL_SEARCH_QUERY_PARAM}=${cardSpec.text}`;
       }
       cardSpec.tag = categoryConfig.category;
       cardSpec.theme =

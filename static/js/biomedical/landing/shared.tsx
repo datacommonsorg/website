@@ -114,4 +114,7 @@ export const COLOR_TO_CARD_THEME: Record<string, CardTheme> = {
 export const DEFAULT_CARD_COLOR_THEME = "mutedBlue";
 
 // Search url for biomedical searches
-export const BIOMEDICAL_SEARCH_URL = "/explore/#q=";
+export const BIOMEDICAL_SEARCH_URL = "/explore/#";
+
+// Query parameter for biomedical searches
+export const BIOMEDICAL_SEARCH_QUERY_PARAM = "q";

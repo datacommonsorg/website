@@ -23,6 +23,7 @@ import { styled } from "styled-components";
 
 import { BiomedicalSearchBox } from "./biomedical_search_box";
 import {
+  BIOMEDICAL_SEARCH_QUERY_PARAM,
   BIOMEDICAL_SEARCH_URL,
   BREAKPOINTS,
   ContentContainer,
@@ -91,6 +92,17 @@ const ThematicImage = styled.div`
   }
 `;
 
+/**
+ * Callback function to handle search
+ * @param query search query entered by the user
+ */
+function onSearch(query: string): void {
+  // Sanitize query to prevent cross-site scripting attacks
+  const urlSearchParams = new URLSearchParams();
+  urlSearchParams.set(BIOMEDICAL_SEARCH_QUERY_PARAM, query);
+  window.location.href = `${BIOMEDICAL_SEARCH_URL}${urlSearchParams.toString()}`;
+}
+
 export function HeaderAndSearchBox(): JSX.Element {
   return (
     <SectionWithBackground>
@@ -103,9 +115,7 @@ export function HeaderAndSearchBox(): JSX.Element {
             data like genes, proteins, diseases, and more
           </h3>
           <BiomedicalSearchBox
-            onSearch={(query) => {
-              window.location.href = `${BIOMEDICAL_SEARCH_URL}${query}`;
-            }}
+            onSearch={onSearch}
             placeholderText={SEARCH_BOX_PLACEHOLDER_TEXT}
           />
         </StyledText>
