@@ -31,14 +31,14 @@ export const BREAKPOINTS = {
 };
 
 export const CSS_THEME = {
-  highlightColors: {
-    light: "rgba(187, 236, 233, 0.1)", // main highlight with opacity 0.1
-    main: "#BBECE9",
-    dark: "#386668",
-  },
   header: {
     textColor: "#00201f",
     textColorLight: "#757575",
+  },
+  highlightColors: {
+    dark: "#386668",
+    light: "rgba(187, 236, 233, 0.1)", // main highlight with opacity 0.1
+    main: "#BBECE9",
   },
   text: {
     textColor: "#303030",
