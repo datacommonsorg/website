@@ -45,8 +45,6 @@ _UNDATA_NON_COUNTRY_VARS = '../../../server/config/nl_page/undata_non_country_va
 _UNDATA_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_undata.mcf')
 _UNDATA_VARIABLES_FILE = 'undata_variable_grouping.csv'
 _UNDATA_SERIES_TOPICS_FILE = 'un_who_series_topics.csv'
-# Drop this once the schema is updated
-_UNDATA_NL_SV_NAME_OVERRIDE_FILE = 'undata_nl_name_overrides.csv'
 _UNDATA_NL_DESCRIPTIONS_FILE = os.path.join(_TMP_DIR,
                                             'undata_nl_descriptions.csv')
 
@@ -147,6 +145,9 @@ def load_variables(vars_file: str, vars: Variables, var_prefix: str,
           vars.non_country_vars.add(var)
 
       vars.keep_vars.add(var)
+      # TODO: Remove me
+      if var in vars.grouped_vars:
+        continue
 
       if row.get('SERIES_CODE'):
         srs = topic_prefix + row['SERIES_CODE'].replace('_', '').replace(
@@ -174,8 +175,12 @@ def load_variables(vars_file: str, vars: Variables, var_prefix: str,
         vars.series2group2vars[srs][grp] = []
       vars.series2group2vars[srs][grp].append(var)
 
-      assert var not in vars.grouped_vars
+      assert var not in vars.grouped_vars, var
       vars.grouped_vars.add(var)
+    assert vars.grouped_vars and vars.keep_vars
+    print(
+        f'TOTAL:  Loaded {len(vars.keep_vars)} vars, {len(vars.grouped_vars)} grouped'
+    )
 
   # Prune out the single-member stuff.
   deletions = {}
@@ -309,18 +314,6 @@ def alt_nl_name(name: str):
 
 def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
                           undata_series_topics_file: str, vars: Variables):
-  # TODO: Drop this once we have the stuff in schema.
-  name_overrides = {}
-  with open(_UNDATA_NL_SV_NAME_OVERRIDE_FILE) as fp:
-    for row in csv.DictReader(fp):
-      id = row['Var']
-      name = row['Name']
-      name_overrides[id] = name
-      # convert to topic
-      topic = 'dc/topic/' + id.replace('who', 'WHO').replace('/', '').replace(
-          '_', '').replace('-', '')
-      name_overrides[topic] = name
-
   with open(nl_desc_file, 'w') as fp:
     csvw = csv.DictWriter(fp,
                           fieldnames=[
@@ -335,9 +328,10 @@ def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
       name = n.get('name', [''])[0]
       if 'dc/topic/' not in dcid or 'dc/topic/UN' in dcid:
         continue
+      if '-' in dcid:
+        print(f'WARNING: Found non-series topic {dcid}, dropping')
+        continue
       series_topics.add(dcid)
-      if dcid in name_overrides:
-        name = name_overrides[dcid]
       alt_name, name = alt_nl_name(name)
       csvw.writerow({
           'dcid': dcid,
@@ -368,9 +362,7 @@ def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
     for n in resp.get('data', []):
       sv = n.get('node')
       name = n.get('values', [{}])[0].get('value')
-      if name:
-        if sv in name_overrides:
-          name = name_overrides[sv]
+      if name and name != sv:
         alt_name, name = alt_nl_name(name)
         csvw.writerow({
             'dcid': sv,
