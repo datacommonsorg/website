@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.config.subject_page_pb2 import AnswerMessageTileSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.config_builder import base
 from server.lib.nl.fulfillment.types import ChartSpec
