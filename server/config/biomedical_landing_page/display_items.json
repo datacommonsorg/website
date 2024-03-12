@@ -1,53 +1,86 @@
 {
-  "sample-questions": {
-    "Ecology": [
-      {
-        "text": "How many species are there of Chlamydia?"
-      },
-      {
-        "text": "What type of genome do adenoviruses have?"
-      },
-      {
-        "text": "What does Cyperus strigosus look like?"
-      }
-    ],
-    "Diseases": [
-      {
-        "text": "What genetic variants are significantly associated with FGFR1?"
-      },
-      {
-        "text": "How many clinical variants associated with FGFR1 have clinical pathogenicity?"
-      },
-      {
-        "text": "What genes are associated with rs13317?"
-      }
-    ],
-    "Pharmacology": [
-      {
-        "text": "What is the pharmacologic action of Diltiazem?"
-      },
-      {
-        "text": "What drugs is rs559628884 associated with?"
-      },
-      {
-        "text": "What is the active ingredient of Bactocill?"
-      }
-    ]
-  },
-  "sample-analysis": {
-    "Notebook • Case Study": [
-      {
-        "text": "Covid-19 feature exploration analysis (by Google Health)",
-        "url": "https://colab.research.google.com/github/datacommonsorg/api-python/blob/master/notebooks/COVID_19_Feature_Exploration_Analysis_with_Data_Commons.ipynb"
-      },
-      {
-        "text": "Analyzing Genomic Data with Biomedical Data Commons",
-        "url": "https://colab.research.google.com/github/datacommonsorg/api-python/blob/master/notebooks/analyzing_genomic_data.ipynb"
-      },
-      {
-        "text": "Drug Discovery with Biomedical Data Commons",
-        "url": "https://colab.research.google.com/github/datacommonsorg/api-python/blob/master/notebooks/Drug_Discovery_With_Data_Commons.ipynb"
-      }
-    ]
-  }
+  "highlights": [
+    {
+      "Proteins": 38120
+    },
+    {
+      "Diseases": 13955
+    },
+    {
+      "Genes": 681043
+    },
+    {
+      "Drugs": 63328433
+    },
+    {
+      "Entities": 195000000
+    }
+  ],
+  "sample-questions": [
+    {
+      "category": "Ecology",
+      "themeColor": "mutedBlue",
+      "cards": [
+        {
+          "text": "How many species are there of Chlamydia?"
+        },
+        {
+          "text": "What type of genome do adenoviruses have?"
+        },
+        {
+          "text": "What does Cyperus strigosus look like?"
+        }
+      ]
+    },
+    {
+      "category": "Diseases",
+      "themeColor": "blue",
+      "cards": [
+        {
+          "text": "What genetic variants are significantly associated with FGFR1?"
+        },
+        {
+          "text": "How many clinical variants associated with FGFR1 have clinical pathogenicity?"
+        },
+        {
+          "text": "What genes are associated with rs13317?"
+        }
+      ]
+    },
+    {
+      "category": "Pharmacology",
+      "themeColor": "red",
+      "cards": [
+        {
+          "text": "What is the pharmacologic action of Diltiazem?"
+        },
+        {
+          "text": "What drugs is rs559628884 associated with?"
+        },
+        {
+          "text": "What is the active ingredient of Bactocill?"
+        }
+      ]
+    }
+  ],
+  "sample-analysis": [
+    {
+      "category": "Notebook • Case Study",
+      "themeColor": "mutedBlue",
+      "cards": [
+        {
+          "text": "Covid-19 feature exploration analysis (by Google Health)",
+          "url": "https://colab.research.google.com/github/datacommonsorg/api-python/blob/master/notebooks/COVID_19_Feature_Exploration_Analysis_with_Data_Commons.ipynb"
+        },
+        {
+          "text": "Analyzing Genomic Data with Biomedical Data Commons",
+          "url": "https://colab.research.google.com/github/datacommonsorg/api-python/blob/master/notebooks/analyzing_genomic_data.ipynb"
+        },
+        {
+          "text": "Drug Discovery with Biomedical Data Commons",
+          "url": "https://colab.research.google.com/github/datacommonsorg/api-python/blob/master/notebooks/Drug_Discovery_With_Data_Commons.ipynb"
+        }
+      ]
+    }
+  ]
 }

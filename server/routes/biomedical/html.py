@@ -23,18 +23,19 @@ from flask import render_template
 
 bp = Blueprint('biomedical', __name__, url_prefix='/bio')
 
-PAGE_CONFIG_FILE = "config/biomedical_landing_page/display_items.json"
+_PAGE_CONFIG_FILE = "config/biomedical_landing_page/display_items.json"
 
 
 def get_page_config() -> dict:
-  path = os.path.join(current_app.root_path, PAGE_CONFIG_FILE)
+  """Load JSON config of page content"""
+  path = os.path.join(current_app.root_path, _PAGE_CONFIG_FILE)
   with open(path) as f:
     return json.load(f)
 
 
 @bp.route('/')
 def main():
-  if os.environ.get('FLASK_ENV') == 'production':
+  if os.environ.get('FLASK_ENV') not in ['autopush', 'dev', 'local']:
     flask.abort(404)
 
   config_data = get_page_config()

@@ -14,30 +14,16 @@
  * limitations under the License.
  */
 
-/* Styles shared across the Biomedical DC site */
+/** Entrypoint for Biomedical DC Landing Page */
 
-.tooltip {
-  width: 100;
-  height: 100;
-  background-color: rgba(0, 0, 0, 0.8);
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  border: solid;
-  border-radius: 1px;
-  color: #fff;
-  box-sizing: border-box;
-  font-size: 8px;
-  position: absolute;
-  text-align: center;
-  opacity: 1;
-}
+import React from "react";
+import ReactDOM from "react-dom";
 
-.axis-label {
-  text-anchor: middle;
-  font-size: 12px;
-}
+import { App } from "./app";
 
-.legend-label {
-  font-size: 10px;
-}
+window.onload = () => {
+  ReactDOM.render(
+    React.createElement(App),
+    document.getElementById("main-content")
+  );
+};

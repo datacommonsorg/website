@@ -21,7 +21,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = styled.button`
+import { BREAKPOINTS } from "./shared";
+
+const CardContainer = styled.a`
   align-items: flex-start;
   background: #f8fafd;
   border-radius: 32px;
@@ -33,14 +35,24 @@ const Button = styled.button`
   justify-content: space-between;
   padding: 24px;
   width: 100%;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: none;
+  }
 `;
 
 const Text = styled.div`
   color: ${(props) => props.theme.textColor || "#146C2E"};
-  font-size: ${(props) => props.theme.textSize || "24px"};
+  font-size: 24px;
   font-weight: 400;
   line-height: 32px;
   text-align: left;
+
+  @media ${BREAKPOINTS.md} {
+    font-size: 20px;
+    line-height: 28px;
+  }
 `;
 
 const Tag = styled.div`
@@ -61,8 +73,6 @@ export interface CardTheme {
   tagLabelColor?: string;
   // CSS color of main text
   textColor?: string;
-  // CSS font size of main text
-  textSize?: string;
 }
 
 export interface CardProps {
@@ -83,13 +93,9 @@ export function Card(props: CardProps): JSX.Element {
     }
   }
   return (
-    <Button className="card" onClick={handleClick}>
-      <Text className="card-text" theme={props.theme}>
-        {props.text}
-      </Text>
-      <Tag className="card-tag" theme={props.theme}>
-        {props.tag}
-      </Tag>
-    </Button>
+    <CardContainer onClick={handleClick}>
+      <Text theme={props.theme}>{props.text}</Text>
+      <Tag theme={props.theme}>{props.tag}</Tag>
+    </CardContainer>
   );
 }

@@ -22,9 +22,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Card, CardProps } from "./card";
-
-// Breakpoint width to wrap the cards in the wall
-const WRAP_BREAKPOINT = "768px";
+import { BREAKPOINTS } from "./shared";
 
 const CardContainer = styled.div`
   width: 100%;
@@ -43,7 +41,7 @@ const Row = styled.div`
   flex-direction: row;
   gap: 24px;
 
-  @media (max-width: ${WRAP_BREAKPOINT}) {
+  @media ${BREAKPOINTS.md} {
     flex-wrap: wrap;
   }
 `;
@@ -52,7 +50,7 @@ const WallContainer = styled.div`
   display: flex;
   gap: 24px;
 
-  @media (max-width: ${WRAP_BREAKPOINT}) {
+  @media ${BREAKPOINTS.md} {
     flex-wrap: wrap;
   }
 `;
@@ -65,11 +63,11 @@ interface CardStackProps {
 }
 
 interface CardWallProps {
-  // List of cardSpecs for each of the CardStacks that make up the wall
+  // Stacks of cards to show
   cards: CardProps[][];
-  // Direction to group categories by.
+  // Direction to lay out each stack of cards
   // One of "row" or "column". Defaults to "row".
-  direction: string;
+  direction?: string;
 }
 
 /** A single row or column in the wall of cards */

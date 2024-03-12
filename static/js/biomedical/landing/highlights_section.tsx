@@ -1,0 +1,92 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Section calling out Biomedical KG stats on the Biomedical DC landing page.
+ */
+
+import React from "react";
+import { styled } from "styled-components";
+
+import { BREAKPOINTS, ContentContainer } from "./shared";
+
+const HighlightsContainer = styled(ContentContainer)`
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: space-evenly;
+  text-align: center;
+`;
+
+const Label = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 22px;
+  font-weight: 400;
+  gap: 16px;
+  line-height: 28px;
+
+  @media ${BREAKPOINTS.md} {
+    font-size: 16px;
+    line-height: 20px;
+  }
+`;
+
+const Highlight = styled.div`
+  color: ${(props) => props.theme.highlightColors.dark};
+  font-size: 45px;
+  font-weight: 400;
+  line-height: 52px;
+
+  @media ${BREAKPOINTS.md} {
+    font-size: 28px;
+    line-height: 36px;
+  }
+`;
+
+interface HighlightsSectionProps {
+  config: Record<string, number>[];
+  locale: string;
+}
+
+export function HighlightsSection(props: HighlightsSectionProps): JSX.Element {
+  return (
+    <HighlightsContainer className="container">
+      {props.config.map((callout, index) => {
+        const label = Object.keys(callout)[0];
+        if (label === "Entities") {
+          const value = Intl.NumberFormat(props.locale, {
+            compactDisplay: "long",
+            notation: "compact",
+          }).format(callout[label]);
+          return (
+            <Label key={index}>
+              Over {value} entities
+              <Highlight>& counting</Highlight>
+            </Label>
+          );
+        }
+        const value = Intl.NumberFormat(props.locale).format(callout[label]);
+        return (
+          <Label key={index}>
+            {label}
+            <Highlight>{value}</Highlight>
+          </Label>
+        );
+      })}
+    </HighlightsContainer>
+  );
+}

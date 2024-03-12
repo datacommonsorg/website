@@ -15,15 +15,61 @@
  */
 
 /**
- * Search Box for the Biomedical DC landing page
+ * Search box for the Biomedical DC landing page
  */
 
 import React, { useEffect, useRef, useState } from "react";
 import { Input, InputGroup } from "reactstrap";
+import { styled } from "styled-components";
+
+import { BREAKPOINTS } from "./shared";
+
+const SearchIcon = styled.div`
+  align-items: center;
+  display: flex;
+  margin-left: 4px;
+  padding: 8px;
+`;
+
+const StyledInputGroup = styled(InputGroup)`
+  background-color: white;
+  border-radius: 28px;
+  border: 1px solid #303030;
+  display: flex;
+  margin: 48px 0px 100px 0px;
+  padding: 8px 0px;
+
+  &:focus-within {
+    outline: 3px solid ${(props) => props.theme.highlightColors.main};
+  }
+
+  @media ${BREAKPOINTS.md} {
+    margin: 22px 0px 48px 0px;
+  }
+`;
+
+const StyledInput = styled(Input)`
+  border: none;
+  color: ${(props) => props.theme.header.textColorLight};
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  margin-right: 20px;
+  overflow: hidden;
+  resize: none;
+
+  @media ${BREAKPOINTS.md} {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+  }
+
+  &:focus {
+    box-shadow: none !important;
+  }
+`;
 
 interface BiomedicalSearchProps {
-  // Whether to allow searching for an empty string
-  allowEmptySearch?: boolean;
   // Function to run on search
   onSearch: (query: string) => void;
   // Placeholder query to show
@@ -52,31 +98,34 @@ export function BiomedicalSearchBox(props: BiomedicalSearchProps): JSX.Element {
   }, [props.placeholderText, value]);
 
   return (
-    <InputGroup className="search-bar-content">
-      <div id="search-icon">
+    <StyledInputGroup>
+      <SearchIcon>
         <span className="material-icons-outlined">search</span>
-      </div>
-      <Input
+      </SearchIcon>
+      <StyledInput
         autoComplete="off"
         autoFocus={false}
-        className="pac-target-input search-input"
-        id="search-input"
         innerRef={inputRef}
         invalid={invalid}
         onChange={(e) => {
           setValue(e.target.value);
           setInvalid(false);
         }}
-        onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            handleSearch();
+          }
+        }}
         placeholder={props.placeholderText}
         type="textarea"
         value={value}
-      ></Input>
-    </InputGroup>
+      ></StyledInput>
+    </StyledInputGroup>
   );
 
   function handleSearch(): void {
-    if (!props.allowEmptySearch && !value) {
+    if (!value) {
       setInvalid(true);
       return;
     }

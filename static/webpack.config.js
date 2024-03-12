@@ -76,7 +76,7 @@ const config = {
       __dirname + "/css/browser.scss",
     ],
     biomedical_landing: [
-      __dirname + "/js/biomedical/landing/biomedical_landing.ts",
+      __dirname + "/js/biomedical/landing/main.ts",
       __dirname + "/css/biomedical/biomedical_landing.scss",
     ],
     disease: [
