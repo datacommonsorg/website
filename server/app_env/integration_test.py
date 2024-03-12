@@ -23,7 +23,9 @@ class AutopushConfig(_base.Config):
   USE_LLM = True
 
 
-# Used by NL tests
-class StagingConfig(Config):
+class StagingConfig(_base.Config):
+  INTEGRATION = True
   API_ROOT = 'https://staging.api.datacommons.org'
   SECRET_PROJECT = 'datcom-website-staging'
+  SCHEME = 'http'
+  USE_LLM = True
