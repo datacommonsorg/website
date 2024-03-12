@@ -145,9 +145,6 @@ def load_variables(vars_file: str, vars: Variables, var_prefix: str,
           vars.non_country_vars.add(var)
 
       vars.keep_vars.add(var)
-      # TODO: Remove me
-      if var in vars.grouped_vars:
-        continue
 
       if row.get('SERIES_CODE'):
         srs = topic_prefix + row['SERIES_CODE'].replace('_', '').replace(
