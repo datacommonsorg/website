@@ -210,7 +210,7 @@ _SV_PARTIAL_DCID_NO_PC = [
     "Median_",
     "LifeExpectancy_",
     "AsFractionOf",
-    "AsAFractionOfCount",
+    "AsAFractionOf",
     "UnemploymentRate_",
     "Mean_Income_",
     "GenderIncomeInequality_",
