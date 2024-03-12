@@ -40,7 +40,6 @@ def main(_):
   if not eval_folder:
     eval_folder = os.path.join(Path(__file__).parents[3], 'shared/eval/base')
   base_line = None
-  print(eval_folder)
   with open(os.path.join(eval_folder, 'golden.json')) as f:
     base_line = json.load(f)
   models = model_loader.load()
