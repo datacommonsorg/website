@@ -59,7 +59,9 @@ gcloud container clusters get-credentials $CLUSTER_NAME \
 cp cron_testing_job.yaml.tpl cron_testing_job.yaml
 yq eval -i '.spec.jobTemplate.spec.template.spec.containers[0].env += [{"name": "TESTING_ENV", "value": "'"$ENV"'"}]' cron_testing_job.yaml
 export SERVICE_ACCOUNT_NAME=$(yq eval '.serviceAccount.name' ../deploy/helm_charts/envs/$ENV.yaml)
+export NODE_POOL=$(yq eval '.cronTesting.nodePool' ../deploy/helm_charts/envs/$ENV.yaml)
 yq eval -i '.spec.jobTemplate.spec.template.spec.serviceAccountName = env(SERVICE_ACCOUNT_NAME)' cron_testing_job.yaml
+yq eval -i '.spec.jobTemplate.spec.template.spec.nodeSelector."cloud.google.com/gke-nodepool" = env(NODE_POOL)' cron_testing_job.yaml
 
 # Apply config
 kubectl apply -f cron_testing_job.yaml

@@ -688,6 +688,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "United States of America",
   "place": {
     "dcid": "country/USA",

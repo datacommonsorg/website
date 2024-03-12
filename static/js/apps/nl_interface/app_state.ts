@@ -122,7 +122,6 @@ interface NLAppConfig {
   detector: string;
   indexType: string;
   placeholderQuery: string;
-  placeDetector: string;
   topic: string;
 
   /**
@@ -193,7 +192,6 @@ const nlAppModel: NLAppModel = {
     detector: NL_DETECTOR_VALS.HYBRID,
     indexType: NL_INDEX_VALS.MEDIUM_FT,
     placeholderQuery: "family earnings in california",
-    placeDetector: NL_PLACE_DETECTOR_VALS.DC,
     topic: null,
     urlPrompts: [],
   },
@@ -234,10 +232,6 @@ const nlAppActions: NLAppActions = {
       indexType:
         htmlIndexType ||
         getUrlTokenOrDefault(NL_URL_PARAMS.IDX, NL_INDEX_VALS.MEDIUM_FT),
-      placeDetector: getUrlTokenOrDefault(
-        NL_URL_PARAMS.PLACE_DETECTOR,
-        NL_PLACE_DETECTOR_VALS.DC
-      ),
       topic: getUrlToken("topic"),
       urlPrompts: _.compact((getUrlToken("q") || "").split(";")),
     });
@@ -302,9 +296,6 @@ const nlAppActions: NLAppActions = {
       }
       if (config.detector) {
         params["detector"] = config.detector;
-      }
-      if (config.placeDetector) {
-        params["place_detector"] = config.placeDetector;
       }
       if (config.mode) {
         params["mode"] = config.mode;
