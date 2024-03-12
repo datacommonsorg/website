@@ -97,7 +97,7 @@
             ],
             "denom": "Count_Person",
             "description": "Mean hemoglobin level of women of reproductive age (aged 15-49 years).",
-            "title": "Mean Hemoglobin Level of Women of Reproductive Age (Aged 15-49 Years)"
+            "title": "Mean Hemoglobin Level of Women of Reproductive Age"
           }
         ],
         "statVarSpec": {
