@@ -264,6 +264,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "United States",
   "place": {
     "dcid": "country/USA",

@@ -31,7 +31,7 @@ website:
           "port": "6379"
         }
       }
-  nodeSelector: "default-pool"
+  nodePool: "default-pool"
 
 serviceAccount:
   name: website-ksa
