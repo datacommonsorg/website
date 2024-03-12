@@ -3,7 +3,7 @@
 ## Produce Eval Golden Data from Explore Landing Pages
 
 ```bash
-export NODEJS_API_KEY=<api_key_for_bard.datacommons.org>
+export NODEJS_API_KEY=<api key for bard.datacommons.org>
 python3 fetch_explore_queries.py
 ```
 
@@ -21,7 +21,7 @@ search. Concrete steps can be found in [build
 embeddings](../embeddings/README.md).
 
 Once model and embeddings endpoints are avaiable, record the endpoints id in
-`vertex_ai_endpoints.yaml` file.
+[vertex_ai_endpoints.yaml](../../../shared/model/vertex_ai_endpoints.yaml) file.
 
 ## Setup Eval
 
@@ -29,12 +29,15 @@ To setup a eval, create a sub folder that contains a `golden.json` file
 that maps a query stentence to a list of ordered stat vars. Note there is a
 logic to get to ranked stat vars from ranked descriptions (embeddings). Right
 now it's simply based on the highest ranked description of a stat var (which is
-the logic in NL server). This can be changed in the future. Multiple evaluation
-unit could exist for different eval sets (like UNSDG, WHO).
+the logic in NL server). This can be changed in the future.
+
+Multiple eval could exist for different eval sets (like UNSDG, WHO).
 
 ## Run Eval
 
-Choose a model from `vertex_ai_endpoints.yaml` and eval unit folder and run:
+Choose a model from
+[vertex_ai_endpoints.yaml](../../../shared/model/vertex_ai_endpoints.yaml), set
+up a eval folder as described above, and run:
 
 ```bash
 ./run.sh -m <model_name> -f <folder>
@@ -42,8 +45,7 @@ Choose a model from `vertex_ai_endpoints.yaml` and eval unit folder and run:
 
 Example commands: `./run.sh -m dc-all-minilm-l6-v2 -f base`
 
-This produces `debug.json` and `report.csv` in the `result` folder of the eval
-unit folder.
+This produces `debug.json` and `report.csv` in a `result` sub folder.
 
 The `report.csv` contains query and the [ndcg
 score](https://en.wikipedia.org/wiki/Discounted_cumulative_gain) per row.

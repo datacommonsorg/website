@@ -18,16 +18,10 @@ import os
 
 from absl import app
 from absl import flags
-from google.cloud import aiplatform
-from google.cloud import aiplatform_v1
-import ndcg
-import yaml
 
-PROJECT = 'datcom-website-dev'
-LOCATION = 'us-central1'
-VECTOR_SEARCH_ENDPOINT = "302175072.us-central1-496370955550.vdb.vertexai.goog"
-INDEX_ENDPOINT = "projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128"
-NEIGHBOR_COUNT = 30
+import shared.lib.ndcg as ndcg
+import shared.model.api as model_api
+import shared.model.loader as model_loader
 
 FLAGS = flags.FLAGS
 
@@ -39,73 +33,46 @@ flags.DEFINE_string(
     'eval_folder', 'base',
     'The folder for a eval unit. It should contain a golden.json file')
 
-
-def _load_model_endpoints():
-  with open('vertex_ai_endpoints.yaml') as f:
-    return yaml.full_load(f)
+curr_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)))
 
 
 def _load_baseline():
-  with open(os.path.join(FLAGS.eval_folder, 'golden.json')) as f:
+  with open(os.path.join(curr_dir, FLAGS.eval_folder, 'golden.json')) as f:
     return json.load(f)
 
 
-def vector_search(model_endpoints, query):
-  model_info = model_endpoints.get(FLAGS.model_name)
-  prediction_endpoint = aiplatform.Endpoint(
-      model_info['prediction_endpoint_id'])
-  vector_search_client = aiplatform_v1.MatchServiceClient(
-      client_options={"api_endpoint": VECTOR_SEARCH_ENDPOINT},)
-  query_vector = prediction_endpoint.predict(instances=[query]).predictions[0]
-  vector_datapoint = aiplatform_v1.IndexDatapoint(feature_vector=query_vector)
-  vector_search_query = aiplatform_v1.FindNeighborsRequest.Query(
-      datapoint=vector_datapoint, neighbor_count=NEIGHBOR_COUNT)
-  vector_search_req = aiplatform_v1.FindNeighborsRequest(
-      index_endpoint=INDEX_ENDPOINT,
-      deployed_index_id=model_info['index_id'],
-      queries=[vector_search_query],
-      return_full_datapoint=True,
-  )
-  vector_search_resp = vector_search_client.find_neighbors(vector_search_req)
-  return vector_search_resp
-
-
 def main(_):
-  aiplatform.init(project=PROJECT, location=LOCATION)
   base_line = _load_baseline()
-  model_endpoints = _load_model_endpoints()
-  if FLAGS.model_name not in model_endpoints:
+  models = model_loader.load()
+  if FLAGS.model_name not in models:
     print('Model not found from the config')
     return
+  model_info = models[FLAGS.model_name]
 
   debug = {}
   report = []
   for query, base_line_matches in base_line.items():
     print(query)
-    vector_search_resp = vector_search(model_endpoints, query)
+    vector_search_resp = model_api.vector_search(model_info, query)
+    debug[query] = {'vector_search': vector_search_resp}
     ranked_stat_vars = []
-    debug[query] = {'vector_search': []}
-    for n in vector_search_resp.nearest_neighbors[0].neighbors:
-      dp = n.datapoint
-      stat_var = dp.restricts[0].allow_list[0]
-      if stat_var not in ranked_stat_vars:
-        ranked_stat_vars.append(stat_var)
-      debug[query]['vector_search'].append({
-          'sentence': dp.datapoint_id,
-          'stat_var': dp.restricts[0].allow_list[0],
-          'distance': n.distance
-      })
+    for item in vector_search_resp:
+      if item['stat_var'] not in ranked_stat_vars:
+        ranked_stat_vars.append(item['stat_var'])
     if len(ranked_stat_vars) > len(base_line_matches):
       ranked_stat_vars = ranked_stat_vars[:len(base_line_matches)]
     debug[query]['ranked_stat_vars'] = ranked_stat_vars
     ranking_score = ndcg.ndcg(ranked_stat_vars, base_line_matches)
     report.append([query, ranking_score])
 
-  folder = os.path.join(FLAGS.eval_folder, 'result')
-  with open(os.path.join(folder, f'report_{FLAGS.model_name}.csv'), 'w') as f:
+  result_folder = os.path.join(curr_dir, FLAGS.eval_folder, 'result')
+  os.makedirs(result_folder, exist_ok=True)
+  with open(os.path.join(result_folder, f'report_{FLAGS.model_name}.csv'),
+            'w') as f:
     writer = csv.writer(f)
     writer.writerows(report)
-  with open(os.path.join(folder, f'debug_{FLAGS.model_name}.json'), 'w') as f:
+  with open(os.path.join(result_folder, f'debug_{FLAGS.model_name}.json'),
+            'w') as f:
     json.dump(debug, f)
 
 
