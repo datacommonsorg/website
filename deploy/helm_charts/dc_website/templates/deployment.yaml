@@ -134,7 +134,7 @@ spec:
             - name: ENABLE_MODEL
               value: {{ .Values.nl.enabled | quote }}
             - name: ENABLE_EVAL_TOOL
-              value: {{ .Values.evalTool.enabled | quote }}
+              value: {{ .Values.website.evalTool.enabled | quote }}
             - name: INGRESS_CONFIG_PATH
               value: /datacommons/ingress/rules
             # A dummy config used to bounce the server without any docker image
