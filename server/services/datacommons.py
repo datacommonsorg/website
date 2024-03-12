@@ -343,12 +343,6 @@ def nl_detect_verbs(query):
   return get(url)
 
 
-def nl_detect_place_ner(query):
-  """Detect places from NL server."""
-  url = f'{current_app.config["NL_ROOT"]}/api/search_places?q={query}'
-  return get(url).get('places', [])
-
-
 def nl_embeddings_version_map():
   return get(f'{current_app.config["NL_ROOT"]}/api/embeddings_version_map')
 

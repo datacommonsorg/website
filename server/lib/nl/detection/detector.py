@@ -30,8 +30,8 @@ from server.lib.nl.detection.place_utils import get_similar
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import PlaceDetection
-from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
+from server.lib.nl.detection.utils import empty_var_candidates
 from server.lib.nl.detection.utils import get_multi_sv
 import shared.lib.detected_variables as dutils
 
@@ -50,18 +50,16 @@ MAX_CHILD_LIMIT = 50
 # For `hybrid` detection, it first calls Heuristic detector, and
 # based on `need_llm()`, decides to call the LLM detector.
 #
-def detect(
-    detector_type: str,
-    place_detector_type: PlaceDetectorType,
-    original_query: str,
-    no_punct_query: str,
-    prev_utterance: Utterance,
-    embeddings_index_type: str,
-    llm_api_type: LlmApiType,
-    query_detection_debug_logs: Dict,
-    mode: str,
-    counters: Counters,
-) -> types.Detection:
+def detect(detector_type: str,
+           original_query: str,
+           no_punct_query: str,
+           prev_utterance: Utterance,
+           embeddings_index_type: str,
+           llm_api_type: LlmApiType,
+           query_detection_debug_logs: Dict,
+           mode: str,
+           counters: Counters,
+           allow_triples: bool = False) -> types.Detection:
   #
   # In the absence of the PALM API key, fallback to heuristic.
   #
@@ -82,15 +80,17 @@ def detect(
     llm_detection = llm_detector.detect(original_query, prev_utterance,
                                         embeddings_index_type, llm_api_type,
                                         query_detection_debug_logs, mode,
-                                        counters)
+                                        counters, allow_triples)
     return llm_detection
 
   #
   # Heuristic detection.
   #
-  heuristic_detection = heuristic_detector.detect(
-      place_detector_type, original_query, no_punct_query,
-      embeddings_index_type, query_detection_debug_logs, mode, counters)
+  heuristic_detection = heuristic_detector.detect(original_query,
+                                                  no_punct_query,
+                                                  embeddings_index_type,
+                                                  query_detection_debug_logs,
+                                                  mode, counters, allow_triples)
   if detector_type == RequestedDetectorType.Heuristic.value:
     return heuristic_detection
 
@@ -117,7 +117,7 @@ def detect(
   llm_detection = llm_detector.detect(original_query, prev_utterance,
                                       embeddings_index_type, llm_api_type,
                                       query_detection_debug_logs, mode,
-                                      counters)
+                                      counters, allow_triples)
   if not llm_detection:
     counters.err('info_llm_blocked', '')
     return None
@@ -213,9 +213,9 @@ def construct_for_explore(entities: List[str], vars: List[str], child_type: str,
                                    main_place=places[0],
                                    parent_places=parent_map.get(main_dcid, []),
                                    peer_places=[],
-                                   child_places=[])
+                                   child_places=[],
+                                   entities_found=[])
   add_child_and_peer_places(places, child_type, counters, place_detection)
-
   if not cmp_entities and cmp_vars:
     # Multi SV case.
     sv_detection = types.SVDetection(query='',
@@ -223,6 +223,7 @@ def construct_for_explore(entities: List[str], vars: List[str], child_type: str,
                                          svs=vars,
                                          scores=[0.51] * len(vars),
                                          sv2sentences={}),
+                                     prop=empty_var_candidates(),
                                      multi_sv=get_multi_sv(vars, cmp_vars, 1.0))
   else:
     sv_detection = types.SVDetection(query='',
@@ -230,14 +231,14 @@ def construct_for_explore(entities: List[str], vars: List[str], child_type: str,
                                          svs=vars,
                                          scores=[1.0] * len(vars),
                                          sv2sentences={}),
+                                     prop=empty_var_candidates(),
                                      multi_sv=None)
   return types.Detection(original_query=query,
                          cleaned_query=query,
                          places_detected=place_detection,
                          svs_detected=sv_detection,
                          classifications=classifications,
-                         detector=ActualDetectorType.NOP,
-                         place_detector=PlaceDetectorType.NOP), None
+                         detector=ActualDetectorType.NOP), None
 
 
 # In this flow, we already have the Utterance with detection, just set it up

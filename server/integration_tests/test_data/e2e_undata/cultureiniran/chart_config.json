@@ -98,7 +98,6 @@
                       "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_time__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
                       "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_available__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
                       "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_suitable__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECHBARRIER_ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
                       "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Stigma__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
                       "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Too_far__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block"
                     ],
@@ -129,7 +128,6 @@
                       "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_time_multiple_place_bar_block",
                       "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_available_multiple_place_bar_block",
                       "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_suitable_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECHBARRIER_ASSISTIVETECH_Other_multiple_place_bar_block",
                       "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Stigma_multiple_place_bar_block",
                       "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Too_far_multiple_place_bar_block"
                     ],
@@ -509,8 +507,6 @@
                     ],
                     "statVarKey": [
                       "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_NGO_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_Other_multiple_place_bar_block",
                       "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Private_multiple_place_bar_block",
                       "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Public_multiple_place_bar_block",
                       "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Self-made_multiple_place_bar_block"
@@ -538,8 +534,6 @@
                     ],
                     "statVarKey": [
                       "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_NGO_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_Other_multiple_place_bar_block",
                       "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Private_multiple_place_bar_block",
                       "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Public_multiple_place_bar_block",
                       "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Self-made_multiple_place_bar_block"
@@ -667,14 +661,6 @@
           }
         ],
         "statVarSpec": {
-          "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECHBARRIER_ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Other, Total, excluding spectacles]",
-            "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECHBARRIER_ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
-          },
-          "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECHBARRIER_ASSISTIVETECH_Other_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Other]",
-            "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECHBARRIER_ASSISTIVETECH_Other"
-          },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Cant_afford__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
             "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Can't afford, Total, excluding spectacles]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Cant_afford__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
@@ -947,14 +933,6 @@
             "name": "Assistive technology indicators: Satisfaction with assistive products and related services (%) [Mainteinance and repair]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_repair"
           },
-          "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_NGO_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products (%) [Total, excluding spectacles, NGO]",
-            "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_NGO"
-          },
-          "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_Other_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products (%) [Total, excluding spectacles, Other]",
-            "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_Other"
-          },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family_multiple_place_bar_block": {
             "name": "Assistive technology indicators: Sources of assistive products (%) [Total, excluding spectacles, Friends and family]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family"
@@ -970,14 +948,6 @@
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Self-made_multiple_place_bar_block": {
             "name": "Assistive technology indicators: Sources of assistive products (%) [Total, excluding spectacles, Self-made]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Self-made"
-          },
-          "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_NGO_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products (%) [NGO]",
-            "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_NGO"
-          },
-          "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_Other_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Sources of assistive products (%) [Other]",
-            "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_Other"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family_multiple_place_bar_block": {
             "name": "Assistive technology indicators: Sources of assistive products (%) [Friends and family]",
@@ -1102,6 +1072,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/IRN",
@@ -1119,15 +1090,7 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/UN_SUB_THEME_38",
-        "name": "Science, technology and innovation",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
       {
@@ -1139,15 +1102,7 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/UN",
-        "name": "12 UN Data Thematic Areas",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "country/BRA",
@@ -1255,78 +1210,7 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/UN_THEME_1",
-        "name": "1: Poverty and food security",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/UN_THEME_2",
-        "name": "2: Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/UN_THEME_3",
-        "name": "3: Children and youth",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/UN_THEME_5",
-        "name": "5: Equality and human rights",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/UN_THEME_6",
-        "name": "6: Economic development",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/UN_THEME_8",
-        "name": "8: Drinking water, sanitation and hygiene",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/UN_THEME_9",
-        "name": "9: Climate and the environment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/UN_THEME_10",
-        "name": "10: Population and demography",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/UN_THEME_11",
-        "name": "11: Disasters and humanitarian action",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/UN_THEME_12",
-        "name": "12: Governance and peace",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []
