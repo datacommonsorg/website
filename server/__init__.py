@@ -241,6 +241,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.config['NL_ROOT'] = nl_root
   app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
 
+  if os.environ.get('ENABLE_EVAL_TOOL') == 'true':
+    from server.file_cache import file_cache
+    import shared.model.loader as model_loader
+    app.config['VERTEX_AI_MODELS'] = model_loader.load()
+    file_cache.init_app(app)
+
   # Init extentions
   from server.cache import cache
 
