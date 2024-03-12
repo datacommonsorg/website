@@ -15,7 +15,7 @@
 from server.app_env import _base
 
 
-class Config(_base.Config):
+class AutopushConfig(_base.Config):
   INTEGRATION = True
   API_ROOT = 'https://autopush.api.datacommons.org'
   SECRET_PROJECT = 'datcom-website-dev'

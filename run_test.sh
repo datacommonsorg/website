@@ -184,7 +184,7 @@ function update_integration_test_golden {
   export DC_API_KEY=
   export LLM_API_KEY=
 
-  export ENV_PREFIX=
+  export ENV_PREFIX=Autopush
   python3 -m pytest -vv server/integration_tests/topic_cache
   python3 -m pytest -vv server/tests/nodejs_e2e_test.py
   export ENV_PREFIX=Staging
