@@ -20,7 +20,6 @@ import hashlib
 import json
 import logging
 import os
-import re
 import time
 from typing import List, Set
 import urllib
@@ -356,9 +355,7 @@ def get_nl_no_percapita_vars():
     for row in csv.DictReader(f):
       sv = row['DCID'].strip()
       yn = row['isPerCapitaValid'].strip().lower()
-
-      # "Per #" SVs should not have per capita.
-      if sv and (yn in ['n', 'no'] or re.search(r'(P|p)er [0-9]+', sv)):
+      if sv and yn in ['n', 'no']:
         nopc_vars.add(sv)
     return nopc_vars
 
