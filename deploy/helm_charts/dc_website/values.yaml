@@ -35,8 +35,11 @@ website:
       geoid_6_9:
       wikidataId:
       others:
-  
+
   nodePool:
+
+  evalTool:
+    enabled: false
 
 nameOverride: ""
 fullnameOverride: ""
