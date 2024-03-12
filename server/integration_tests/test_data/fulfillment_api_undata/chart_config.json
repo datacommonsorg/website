@@ -19,7 +19,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "Human development index rank.",
             "title": "Human Development Index Rank"
           },
@@ -38,7 +37,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "Mean hemoglobin level of children aged 6-59 months.",
             "title": "Mean Hemoglobin Level of Children Aged 6-59 Months"
           },
@@ -57,7 +55,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "Mean hemoglobin level of non-pregnant women (aged 15-49 years).",
             "title": "Mean Hemoglobin Level of Non-Pregnant Women (Aged 15-49 Years)"
           },
@@ -76,7 +73,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "Mean hemoglobin level of pregnant women (aged 15-49 years).",
             "title": "Mean Hemoglobin Level of Pregnant Women (Aged 15-49 Years)"
           },
@@ -95,7 +91,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "Mean hemoglobin level of women of reproductive age (aged 15-49 years).",
             "title": "Mean Hemoglobin Level of Women of Reproductive Age (Aged 15-49 Years)"
           }

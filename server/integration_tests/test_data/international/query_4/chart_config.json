@@ -139,7 +139,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Prematurity and Low Birth Rate, Per 100,000"
           },
           {
@@ -215,7 +214,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000"
           },
           {

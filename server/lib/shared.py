@@ -195,8 +195,8 @@ def merge_responses(resp_1: dict, resp_2: dict) -> dict:
 
 
 _SV_PARTIAL_DCID_NO_PC = [
-    'Temperature',
-    'Precipitation',
+    "Temperature",
+    "Precipitation",
     "BarometricPressure",
     "CloudCover",
     "PrecipitableWater",
@@ -229,6 +229,8 @@ _SV_PARTIAL_DCID_NO_PC = [
     "IncrementalCount_",
     "HouseholdSize_",
     "LmpGestationalAge_",
+    "who/",
+    "WHO/",
 ]
 
 
