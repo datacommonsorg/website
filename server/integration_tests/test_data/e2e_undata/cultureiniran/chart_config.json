@@ -85,31 +85,36 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "country/IRN"
-                    ],
+                    "description": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) [Total, Excluding Spectacles, Home Environment] in Iran (Islamic Republic Of)",
                     "statVarKey": [
-                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Cant_afford__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_support__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_time__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_available__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_suitable__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECHBARRIER_ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Stigma__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Too_far__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block"
+                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home"
                     ],
-                    "title": "Assistive Technology Indicators: Barriers to Accessing Assistive Products, Excluding Spectacles (%) in Iran (Islamic Republic Of) (${date})",
-                    "type": "BAR"
+                    "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) [Total, Excluding Spectacles, Home Environment] in Iran (Islamic Republic Of)",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Assistive Technology Indicators: Barriers to Accessing Assistive Products, Excluding Spectacles (%)"
+            "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) [Total, Excluding Spectacles, Home Environment]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) [Participation in Activities] in Iran (Islamic Republic Of)",
+                    "statVarKey": [
+                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities"
+                    ],
+                    "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) [Participation in Activities] in Iran (Islamic Republic Of)",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) [Participation in Activities]"
           },
           {
             "columns": [
@@ -131,7 +136,8 @@
                       "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_suitable_multiple_place_bar_block",
                       "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECHBARRIER_ASSISTIVETECH_Other_multiple_place_bar_block",
                       "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Stigma_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Too_far_multiple_place_bar_block"
+                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Too_far_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Other_multiple_place_bar_block"
                     ],
                     "title": "Assistive Technology Indicators: Barriers to Accessing Assistive Products (%) in Iran (Islamic Republic Of) (${date})",
                     "type": "BAR"
@@ -155,13 +161,44 @@
                       "country/IRN"
                     ],
                     "statVarKey": [
+                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Cant_afford__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_support__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_No_time__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_available__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_suitable__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Stigma__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Too_far__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block"
+                    ],
+                    "title": "Assistive Technology Indicators: Barriers to Accessing Assistive Products, Excluding Spectacles (%) in Iran (Islamic Republic Of) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Assistive Technology Indicators: Barriers to Accessing Assistive Products, Excluding Spectacles (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/IRN"
+                    ],
+                    "statVarKey": [
                       "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Employer_school_multiple_place_bar_block",
                       "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Friends_or_family_multiple_place_bar_block",
                       "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Government_multiple_place_bar_block",
                       "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Insurance_multiple_place_bar_block",
                       "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_NGO_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Other_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Oop_multiple_place_bar_block"
+                      "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Oop_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Other_multiple_place_bar_block"
                     ],
                     "title": "Assistive Technology Indicators: Funding for Assistive Products (%) in Iran (Islamic Republic Of) (${date})",
                     "type": "BAR"
@@ -190,8 +227,8 @@
                       "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Government__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
                       "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Insurance__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
                       "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_NGO__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Oop__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block"
+                      "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Oop__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block"
                     ],
                     "title": "Assistive Technology Indicators: Funding for Assistive Products, Excluding Spectacles (%) in Iran (Islamic Republic Of) (${date})",
                     "type": "BAR"
@@ -240,56 +277,24 @@
                       "country/IRN"
                     ],
                     "statVarKey": [
-                      "who/ASSISTIVETECH_METNEED.AGE--Y0T04__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_METNEED.AGE--Y18T29__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_METNEED.AGE--Y30T39__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_METNEED.AGE--Y40T49__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_METNEED.AGE--Y50T59__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_METNEED.AGE--Y5T17__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_METNEED.AGE--Y60T69__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_METNEED.AGE--Y70T79__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_METNEED.AGE--Y_GE80__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block"
-                    ],
-                    "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products, Excluding Spectacles, by Age (%) in Iran (Islamic Republic Of) (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products, Excluding Spectacles, by Age (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "country/IRN"
-                    ],
-                    "statVarKey": [
                       "who/ASSISTIVETECH_METNEED.AGE--Y0T04_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_METNEED.AGE--Y5T17_multiple_place_bar_block",
                       "who/ASSISTIVETECH_METNEED.AGE--Y18T29_multiple_place_bar_block",
                       "who/ASSISTIVETECH_METNEED.AGE--Y30T39_multiple_place_bar_block",
                       "who/ASSISTIVETECH_METNEED.AGE--Y40T49_multiple_place_bar_block",
                       "who/ASSISTIVETECH_METNEED.AGE--Y50T59_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_METNEED.AGE--Y5T17_multiple_place_bar_block",
                       "who/ASSISTIVETECH_METNEED.AGE--Y60T69_multiple_place_bar_block",
                       "who/ASSISTIVETECH_METNEED.AGE--Y70T79_multiple_place_bar_block",
                       "who/ASSISTIVETECH_METNEED.AGE--Y_GE80_multiple_place_bar_block"
                     ],
-                    "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products, by Age (%) in Iran (Islamic Republic Of) (${date})",
+                    "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products (%), by Age in Iran (Islamic Republic Of) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products, by Age (%)"
+            "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products (%), by Age"
           },
           {
             "columns": [
@@ -354,6 +359,38 @@
                       "country/IRN"
                     ],
                     "statVarKey": [
+                      "who/ASSISTIVETECH_METNEED.AGE--Y0T04__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_METNEED.AGE--Y5T17__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_METNEED.AGE--Y18T29__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_METNEED.AGE--Y30T39__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_METNEED.AGE--Y40T49__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_METNEED.AGE--Y50T59__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_METNEED.AGE--Y60T69__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_METNEED.AGE--Y70T79__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_METNEED.AGE--Y_GE80__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block"
+                    ],
+                    "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products, Excluding Spectacles (%), by Age in Iran (Islamic Republic Of) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products, Excluding Spectacles (%), by Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/IRN"
+                    ],
+                    "statVarKey": [
                       "who/ASSISTIVETECH_METNEED.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__RESIDENCEAREATYPE--RUR_multiple_place_bar_block",
                       "who/ASSISTIVETECH_METNEED.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__RESIDENCEAREATYPE--URB_multiple_place_bar_block"
                     ],
@@ -404,32 +441,6 @@
                       "country/IRN"
                     ],
                     "statVarKey": [
-                      "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_assessment_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_APs_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_repair_multiple_place_bar_block"
-                    ],
-                    "title": "Assistive Technology Indicators: Satisfaction With Assistive Products, Excluding Spectacles, and Related Services (%) in Iran (Islamic Republic Of) (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Assistive Technology Indicators: Satisfaction With Assistive Products, Excluding Spectacles, and Related Services (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "country/IRN"
-                    ],
-                    "statVarKey": [
                       "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_assessment_multiple_place_bar_block",
                       "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_APs_multiple_place_bar_block",
                       "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_repair_multiple_place_bar_block"
@@ -456,18 +467,18 @@
                       "country/IRN"
                     ],
                     "statVarKey": [
-                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public_multiple_place_bar_block"
+                      "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_assessment_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_APs_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_repair_multiple_place_bar_block"
                     ],
-                    "title": "Assistive Technology Indicators: Satisfaction With Assistive Products, Excluding Spectacles, for Different Environments and Activities (%) in Iran (Islamic Republic Of) (${date})",
+                    "title": "Assistive Technology Indicators: Satisfaction With Assistive Products, Excluding Spectacles, and Related Services (%) in Iran (Islamic Republic Of) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Assistive Technology Indicators: Satisfaction With Assistive Products, Excluding Spectacles, for Different Environments and Activities (%)"
+            "title": "Assistive Technology Indicators: Satisfaction With Assistive Products, Excluding Spectacles, and Related Services (%)"
           },
           {
             "columns": [
@@ -482,67 +493,12 @@
                       "country/IRN"
                     ],
                     "statVarKey": [
-                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public_multiple_place_bar_block"
-                    ],
-                    "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) in Iran (Islamic Republic Of) (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "country/IRN"
-                    ],
-                    "statVarKey": [
-                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_NGO_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_Other_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Private_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Public_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Self-made_multiple_place_bar_block"
-                    ],
-                    "title": "Assistive Technology Indicators: Sources of Assistive Products, Excluding Spectacles (%) in Iran (Islamic Republic Of) (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Assistive Technology Indicators: Sources of Assistive Products, Excluding Spectacles (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "country/IRN"
-                    ],
-                    "statVarKey": [
+                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_NGO_multiple_place_bar_block",
                       "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_NGO_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_Other_multiple_place_bar_block",
                       "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Private_multiple_place_bar_block",
                       "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Public_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Self-made_multiple_place_bar_block"
+                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Self-made_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Other_multiple_place_bar_block"
                     ],
                     "title": "Assistive Technology Indicators: Sources of Assistive Products (%) in Iran (Islamic Republic Of) (${date})",
                     "type": "BAR"
@@ -566,20 +522,51 @@
                       "country/IRN"
                     ],
                     "statVarKey": [
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km__RESIDENCEAREATYPE--URB_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm__RESIDENCEAREATYPE--URB_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km__RESIDENCEAREATYPE--URB_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km__RESIDENCEAREATYPE--URB_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km__RESIDENCEAREATYPE--URB_multiple_place_bar_block"
+                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_NGO_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_NGO_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECHSOURCE_ASSISTIVETECH_Other_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Private_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Public_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Self-made_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Other_multiple_place_bar_block"
                     ],
-                    "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products in Urban Areas (%) in Iran (Islamic Republic Of) (${date})",
+                    "title": "Assistive Technology Indicators: Sources of Assistive Products, Excluding Spectacles (%) in Iran (Islamic Republic Of) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products in Urban Areas (%)"
+            "title": "Assistive Technology Indicators: Sources of Assistive Products, Excluding Spectacles (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/IRN"
+                    ],
+                    "statVarKey": [
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm_multiple_place_bar_block"
+                    ],
+                    "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products (%) in Iran (Islamic Republic Of) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products (%)"
           },
           {
             "columns": [
@@ -595,10 +582,10 @@
                     ],
                     "statVarKey": [
                       "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km__RESIDENCEAREATYPE--RUR_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm__RESIDENCEAREATYPE--RUR_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km__RESIDENCEAREATYPE--RUR_multiple_place_bar_block",
                       "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km__RESIDENCEAREATYPE--RUR_multiple_place_bar_block",
                       "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km__RESIDENCEAREATYPE--RUR_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km__RESIDENCEAREATYPE--RUR_multiple_place_bar_block"
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm__RESIDENCEAREATYPE--RUR_multiple_place_bar_block"
                     ],
                     "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products in Rural Areas (%) in Iran (Islamic Republic Of) (${date})",
                     "type": "BAR"
@@ -622,20 +609,20 @@
                       "country/IRN"
                     ],
                     "statVarKey": [
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km_multiple_place_bar_block"
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km__RESIDENCEAREATYPE--URB_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km__RESIDENCEAREATYPE--URB_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km__RESIDENCEAREATYPE--URB_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km__RESIDENCEAREATYPE--URB_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm__RESIDENCEAREATYPE--URB_multiple_place_bar_block"
                     ],
-                    "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products, Excluding Spectacles (%) in Iran (Islamic Republic Of) (${date})",
+                    "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products in Urban Areas (%) in Iran (Islamic Republic Of) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products, Excluding Spectacles (%)"
+            "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products in Urban Areas (%)"
           },
           {
             "columns": [
@@ -650,20 +637,20 @@
                       "country/IRN"
                     ],
                     "statVarKey": [
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km_multiple_place_bar_block",
-                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km_multiple_place_bar_block"
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_LESSTHAN5km_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_6-25km_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_26-50km_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_51-100km_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_TRAVELDISTANCEAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHTRAVELDISTANCE--ASSISTIVETECH_100PLUSkm_multiple_place_bar_block"
                     ],
-                    "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products (%) in Iran (Islamic Republic Of) (${date})",
+                    "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products, Excluding Spectacles (%) in Iran (Islamic Republic Of) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products (%)"
+            "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products, Excluding Spectacles (%)"
           }
         ],
         "statVarSpec": {
@@ -714,6 +701,14 @@
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_suitable_multiple_place_bar_block": {
             "name": "Assistive technology indicators: Barriers to accessing assistive products [Not suitable]",
             "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Not_suitable"
+          },
+          "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Other, Total, excluding spectacles]",
+            "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
+          },
+          "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Other_multiple_place_bar_block": {
+            "name": "Assistive technology indicators: Barriers to accessing assistive products (%) [Other]",
+            "statVar": "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Other"
           },
           "who/ASSISTIVETECH_BARRIERAT.ASSISTIVETECHBARRIER--ASSISTIVETECH_Stigma__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS_multiple_place_bar_block": {
             "name": "Assistive technology indicators: Barriers to accessing assistive products [Stigma, Total, excluding spectacles]",
@@ -899,29 +894,13 @@
             "name": "Assistive technology indicators: Funding for assistive products [Other]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Other"
           },
-          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities [Total, excluding spectacles, Participation in activities]",
-            "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities"
-          },
-          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities [Total, excluding spectacles, Home environment]",
+          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home": {
+            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Total, excluding spectacles, Home environment]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home"
           },
-          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities [Total, excluding spectacles, Public environment]",
-            "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public"
-          },
-          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities [Participation in activities]",
+          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities": {
+            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Participation in activities]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities"
-          },
-          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities [Home environment]",
-            "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home"
-          },
-          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public_multiple_place_bar_block": {
-            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities [Public environment]",
-            "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public"
           },
           "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_APs_multiple_place_bar_block": {
             "name": "Assistive technology indicators: Satisfaction with assistive products and related services [Total, excluding spectacles, Assistive product(s)]",
@@ -959,6 +938,14 @@
             "name": "Assistive technology indicators: Sources of assistive products [Total, excluding spectacles, Friends and family]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family"
           },
+          "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_NGO_multiple_place_bar_block": {
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Total, excluding spectacles, NGO]",
+            "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_NGO"
+          },
+          "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Other_multiple_place_bar_block": {
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Total, excluding spectacles, Other]",
+            "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Other"
+          },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Private_multiple_place_bar_block": {
             "name": "Assistive technology indicators: Sources of assistive products [Total, excluding spectacles, Private]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSOURCE--ASSISTIVETECH_Private"
@@ -982,6 +969,14 @@
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family_multiple_place_bar_block": {
             "name": "Assistive technology indicators: Sources of assistive products [Friends and family]",
             "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Friends_and_family"
+          },
+          "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_NGO_multiple_place_bar_block": {
+            "name": "Assistive technology indicators: Sources of assistive products (%) [NGO]",
+            "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_NGO"
+          },
+          "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Other_multiple_place_bar_block": {
+            "name": "Assistive technology indicators: Sources of assistive products (%) [Other]",
+            "statVar": "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Other"
           },
           "who/ASSISTIVETECH_SOURCESOFAT.ASSISTIVETECHSOURCE--ASSISTIVETECH_Private_multiple_place_bar_block": {
             "name": "Assistive technology indicators: Sources of assistive products [Private]",

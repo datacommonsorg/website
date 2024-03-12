@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
 # limitations under the License.
 """Data Commons NL Interface routes"""
 
+import json
 import os
 
 import flask
@@ -45,3 +46,17 @@ def sdg_page():
                          placeholder_query=placeholder_query,
                          index_type="sdg_ft",
                          website_hash=os.environ.get("WEBSITE_HASH"))
+
+
+@bp.route('/eval')
+def eval_page():
+  if not current_app.config['VERTEX_AI_MODELS']:
+    flask.abort(404)
+
+  model_names = list(current_app.config['VERTEX_AI_MODELS'].keys())
+  eval_file = os.path.join(os.path.dirname(current_app.root_path),
+                           'tools/nl/eval/base/golden.json')
+  with open(eval_file) as f:
+    return render_template('/nl_eval.html',
+                           model_names=json.dumps(model_names),
+                           eval_golden=json.dumps(json.load(f)))
