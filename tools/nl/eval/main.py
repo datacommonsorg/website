@@ -15,6 +15,7 @@
 import csv
 import json
 import os
+from pathlib import Path
 
 from absl import app
 from absl import flags
@@ -30,19 +31,18 @@ flags.DEFINE_string(
     'Model name used for eval. Full list can be found in endpoints.yaml')
 
 flags.DEFINE_string(
-    'eval_folder', 'base',
-    'The folder for a eval unit. It should contain a golden.json file')
-
-curr_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-
-
-def _load_baseline():
-  with open(os.path.join(curr_dir, FLAGS.eval_folder, 'golden.json')) as f:
-    return json.load(f)
+    'eval_folder', '',
+    'The folder for a eval run. It should contain a golden.json file')
 
 
 def main(_):
-  base_line = _load_baseline()
+  eval_folder = FLAGS.eval_folder
+  if not eval_folder:
+    eval_folder = os.path.join(Path(__file__).parents[3], 'shared/eval/base')
+  base_line = None
+  print(eval_folder)
+  with open(os.path.join(eval_folder, 'golden.json')) as f:
+    base_line = json.load(f)
   models = model_loader.load()
   if FLAGS.model_name not in models:
     print('Model not found from the config')
@@ -53,19 +53,19 @@ def main(_):
   report = []
   for query, base_line_matches in base_line.items():
     print(query)
-    vector_search_resp = model_api.vector_search(model_info, query)
-    debug[query] = {'vector_search': vector_search_resp}
+    vector_matches = model_api.vector_search(model_info, query)['matches']
+    debug[query] = {'vectorSearch': vector_matches}
     ranked_stat_vars = []
-    for item in vector_search_resp:
-      if item['stat_var'] not in ranked_stat_vars:
-        ranked_stat_vars.append(item['stat_var'])
+    for item in vector_matches:
+      if item['statVar'] not in ranked_stat_vars:
+        ranked_stat_vars.append(item['statVar'])
     if len(ranked_stat_vars) > len(base_line_matches):
       ranked_stat_vars = ranked_stat_vars[:len(base_line_matches)]
-    debug[query]['ranked_stat_vars'] = ranked_stat_vars
+    debug[query]['rankedStatVars'] = ranked_stat_vars
     ranking_score = ndcg.ndcg(ranked_stat_vars, base_line_matches)
     report.append([query, ranking_score])
 
-  result_folder = os.path.join(curr_dir, FLAGS.eval_folder, 'result')
+  result_folder = os.path.join(eval_folder, 'result')
   os.makedirs(result_folder, exist_ok=True)
   with open(os.path.join(result_folder, f'report_{FLAGS.model_name}.csv'),
             'w') as f:
