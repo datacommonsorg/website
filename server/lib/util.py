@@ -20,6 +20,7 @@ import hashlib
 import json
 import logging
 import os
+import re
 import time
 from typing import List, Set
 import urllib
@@ -348,7 +349,6 @@ def get_nl_chart_titles():
 # Returns a set of SVs that should not have Per-capita.
 # TODO: Eventually read this from KG.
 def get_nl_no_percapita_vars():
-  # NOTE: This is a checked-in version of https://shorturl.at/afpMY
   filepath = os.path.join(get_repo_root(), "config", "nl_page",
                           "nl_vars_percapita_ranking.csv")
   nopc_vars = set()
@@ -356,7 +356,9 @@ def get_nl_no_percapita_vars():
     for row in csv.DictReader(f):
       sv = row['DCID'].strip()
       yn = row['isPerCapitaValid'].strip().lower()
-      if sv and yn in ['n', 'no']:
+
+      # "Per #" SVs should not have per capita.
+      if sv and (yn in ['n', 'no'] or re.search(r'(P|p)er [0-9]+', sv)):
         nopc_vars.add(sv)
     return nopc_vars
 
