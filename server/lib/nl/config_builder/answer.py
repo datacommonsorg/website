@@ -31,4 +31,3 @@ def answer_message_block(builder: base.Builder, cspec: ChartSpec):
   tile.answer_message_tile_spec.property.direction = "out"
   block = builder.new_chart(cspec, skip_title=True)
   block.columns.add().tiles.append(tile)
-
