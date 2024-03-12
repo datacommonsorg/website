@@ -23,7 +23,7 @@ export interface SentenceSectionProps {
   sentence: string;
   modelNames: string[];
   goldenStatVars: string[];
-  overrideStatVars: Record<string, EmbeddingObject[]>;
+  customDescription: Record<string, EmbeddingObject[]>;
 }
 
 export function SentenceSection(props: SentenceSectionProps): JSX.Element {
@@ -32,7 +32,7 @@ export function SentenceSection(props: SentenceSectionProps): JSX.Element {
     setIsExpanded(!isExpanded);
   };
   return (
-    <div className="setence-container">
+    <div className="sentence-container">
       <h3>{props.sentence}</h3>
       <button onClick={toggleTableVisibility}>
         {isExpanded ? "Collapse" : "Expand"}
@@ -64,7 +64,7 @@ export function SentenceSection(props: SentenceSectionProps): JSX.Element {
               modelName={modelName}
               isExpanded={isExpanded}
               goldenStatVars={props.goldenStatVars}
-              overrideStatVars={props.overrideStatVars[modelName]}
+              overrideStatVars={props.customDescription[modelName]}
             />
           );
         })}

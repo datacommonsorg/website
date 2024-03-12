@@ -88,6 +88,10 @@ def feedback():
 @bp.route('/encode-vector')
 @file_cache.file_cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def encode_vector():
+  """Retrieves the embedding vector for a given sentence and model.
+
+    Valid model name can be found from `shared/model/vertex_ai_endpoints.yaml`
+  """
   if not current_app.config['VERTEX_AI_MODELS']:
     flask.abort(404)
   sentence = request.args.get('sentence')
@@ -100,6 +104,10 @@ def encode_vector():
 @bp.route('/vector-search')
 @file_cache.file_cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def vector_search():
+  """Performs vector search for a given sentence and model.
+
+    Valid model name can be found from `shared/model/vertex_ai_endpoints.yaml`
+  """
   if not current_app.config['VERTEX_AI_MODELS']:
     flask.abort(404)
   sentence = request.args.get('sentence')

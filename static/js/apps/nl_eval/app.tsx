@@ -27,69 +27,74 @@ interface AppPropType {
 }
 
 export function App(props: AppPropType): JSX.Element {
-  const [customSentence, setCustomSentence] = useState("");
+  const [customQuery, setCustomQuery] = useState("");
   const [customGolden, setCustomGolden] = useState<string[]>([]);
-  const [overrideStatVars, setOverrideStatVars] = useState<
+  const [customDescription, setCustomDescription] = useState<
     Record<string, EmbeddingObject[]>
   >({});
 
-  const handleStatVarSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleCustomDescription = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const overrideInput = form.override ? form.override.value : "";
     fetchEmbeddings(overrideInput, props.modelNames).then((embeddings) => {
-      setOverrideStatVars(embeddings);
+      setCustomDescription(embeddings);
     });
   };
 
-  const handleQuerySubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleCustomQuery = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const sentenceInput = form.sentence.value;
     const statVarsInput = form.statVars ? form.statVars.value : "";
-    setCustomSentence(sentenceInput);
+    setCustomQuery(sentenceInput);
     setCustomGolden(statVarsInput.split(",").map((s) => s.trim()));
   };
 
   return (
     <div>
       <div className="app-section">
-        <h1>Override Stat Var Descriptions</h1>
-        <form onSubmit={handleStatVarSubmit}>
-          <textarea
-            name="override"
-            placeholder="One row per stat var like: `<dcid>,<description1;description2;...>`"
-          />
-          <button type="submit">Submit</button>
+        <h3>Try Your Own Stat Var Descriptions</h3>
+        <p>
+          These descriptions override existing descriptions and takes effect in
+          all the results below
+        </p>
+        <p>
+          Each row is in the form of
+          &quot;stat_var_dcid,description1;description2;...&quot;
+        </p>
+        <form onSubmit={handleCustomDescription}>
+          <textarea name="override" />
+          <button type="submit">Apply</button>
         </form>
       </div>
       <div className="app-section">
-        <h1> New Custom Query</h1>
-        <form onSubmit={handleQuerySubmit}>
-          <input
-            type="text"
-            name="sentence"
-            placeholder="Enter a custom sentence"
-          />
+        <h3> Try Your Own Query</h3>
+        <p>
+          You can see the stat var search results below and the matching score
+          based on your ranked golden stat vars.
+        </p>
+        <form onSubmit={handleCustomQuery}>
+          <input type="text" name="sentence" placeholder="Enter a query" />
           <input
             type="text"
             name="stat var list"
-            placeholder="Enter custom golden stat vars (comma-separated)"
+            placeholder="Enter golden stat vars (comma-separated)"
           />
-          <button type="submit">Submit</button>
+          <button type="submit">Apply</button>
         </form>
-        {customSentence && (
+        {customQuery && (
           <SentenceSection
-            key={customSentence}
-            sentence={customSentence}
+            key={customQuery}
+            sentence={customQuery}
             modelNames={props.modelNames}
             goldenStatVars={customGolden}
-            overrideStatVars={overrideStatVars}
+            customDescription={customDescription}
           />
         )}
       </div>
       <div className="app-section">
-        <h1> Golden Eval Set</h1>
+        <h3> Existing Eval Results for a collection of queries</h3>
         {Object.keys(props.evalGolden).map((sentence) => {
           return (
             <SentenceSection
@@ -97,7 +102,7 @@ export function App(props: AppPropType): JSX.Element {
               sentence={sentence}
               modelNames={props.modelNames}
               goldenStatVars={props.evalGolden[sentence]}
-              overrideStatVars={overrideStatVars}
+              customDescription={customDescription}
             />
           );
         })}

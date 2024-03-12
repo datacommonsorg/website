@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Module to hold Flask file caching configuration. This is only used for caching
+# model prediction results.
+#
+# TODO: clean up and refactor this module and cache.py
+
 import os
 
 from flask_caching import Cache

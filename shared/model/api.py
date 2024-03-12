@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Module to hold API wrappers for model endpoints.
+
 import logging
 
 from google.cloud import aiplatform_v1
@@ -20,10 +22,14 @@ NEIGHBOR_COUNT = 20
 
 
 def predict(model_info, queries):
+  """Retrieve embedding vectors from model given queries.
+  """
   return model_info['prediction_client'].predict(instances=queries).predictions
 
 
 def vector_search(model_info, query):
+  """Perform embedding vector search on model.
+  """
   logging.info(f'query: {query}, index_id: {model_info["index_id"]}')
   query_vector = model_info['prediction_client'].predict(
       instances=[query]).predictions[0]

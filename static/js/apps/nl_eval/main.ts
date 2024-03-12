@@ -15,7 +15,7 @@
  */
 
 /**
- * Entrypoint for DC Explore page.
+ * Entrypoint for NL Eval page.
  */
 
 import React from "react";

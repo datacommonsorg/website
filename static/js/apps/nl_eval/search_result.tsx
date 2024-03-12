@@ -20,6 +20,8 @@ import React, { useEffect, useState } from "react";
 import { stringifyFn } from "../../utils/axios";
 import { BASE_URL, EmbeddingObject, MatchObject, ndcg } from "./util";
 
+const NEW_MATCH_COUNT = 5;
+
 interface StatVar {
   dcid: string;
   rank: number;
@@ -35,6 +37,10 @@ interface SearchResultProps {
 }
 
 function dotProduct(a: number[], b: number[]): number {
+  // We expect same length vector for dot product.
+  if (a.length !== b.length) {
+    return NaN;
+  }
   return a.map((x, i) => a[i] * b[i]).reduce((m, n) => m + n);
 }
 
@@ -74,7 +80,7 @@ export function SearchResult(props: SearchResultProps): JSX.Element {
         matches = matches.filter((x) => !overrideSV.has(x.statVar));
         let newMatchCount = originalMatchCount - matches.length;
         if (newMatchCount == 0) {
-          newMatchCount = 5;
+          newMatchCount = NEW_MATCH_COUNT;
         }
         const overrideMatches = findKNearestEmbeddings(
           embeddings,
