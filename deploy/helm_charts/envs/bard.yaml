@@ -31,7 +31,7 @@ website:
           "port": "6379"
         }
       }
-  nodeSelector: "default-pool"
+  nodePool: "default-pool"
 
 serviceAccount:
   name: website-ksa
@@ -47,7 +47,7 @@ nl:
 
 nodejs:
   enabled: true
-  replicas: 50
+  replicas: 25
   nodePool: "default-pool"
 
 serviceGroups:

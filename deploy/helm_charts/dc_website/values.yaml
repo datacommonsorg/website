@@ -167,3 +167,5 @@ cronTesting:
   screenshotDomain:
   # whether or not sanity tests are enabled
   enableSanity: true
+  # node pool to use
+  nodePool:

@@ -112,6 +112,10 @@ article.category {
     display: flex;
     gap: 8px;
     margin-bottom: 0;
+
+    .label-disabled {
+      color: var(--gm-3-ref-neutral-neutral-50);
+    }
   }
 
   .form-check-input {

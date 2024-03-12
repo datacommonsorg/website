@@ -17,6 +17,7 @@ from enum import Enum
 import os
 
 from flask import Flask, request, jsonify
+import numpy as np
 from sentence_transformers import SentenceTransformer
 from angle_emb import AnglE, Prompts
 
@@ -32,7 +33,6 @@ logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
 # A full list of model name can be found in model.list
 model_name = os.environ['MODEL_NAME']
-logging.info(model_name)
 
 
 def create_model(model_name):
@@ -58,6 +58,12 @@ embedding_model = create_model(model_name)
 app = Flask(__name__)
 
 
+def normalize(embeddings):
+  # vector from model should be normalized to 1 with l2 norm so the similarity
+  # search dot product will be normalized to between 0 to 1
+  return [(e / np.linalg.norm(e)).tolist() for e in embeddings]
+
+
 @app.route('/healthz')
 def healthz():
   return "OK", 200
@@ -72,11 +78,11 @@ def predict():
       Model.SFR_MISTRAL,
   ]:
     embeddings = embedding_model.encode(instances)
-    return jsonify({'predictions': embeddings.tolist()}), 200
+    return jsonify({'predictions': normalize(embeddings)}), 200
   if model_name == Model.UAE_LARGE:
     instances = [{'text': instance} for instance in instances]
     embeddings = embedding_model.encode(instances, to_numpy=True)
-    return jsonify({'predictions': embeddings.tolist()}), 200
+    return jsonify({'predictions': normalize(embeddings)}), 200
   logging.error('Invalid model name: %s', model_name)
   return {'predictions': []}, 200
 

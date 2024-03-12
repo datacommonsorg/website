@@ -1,0 +1,31 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {},
+  "context": {},
+  "debug": {},
+  "entities": [
+    {
+      "dcid": "dc/003ye83smktt7",
+      "name": "Volvox",
+      "type": ""
+    }
+  ],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "",
+    "name": "",
+    "place_type": ""
+  },
+  "placeFallback": {},
+  "placeSource": "UNRECOGNIZED",
+  "places": [
+    {
+      "dcid": "",
+      "name": "",
+      "place_type": ""
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "UNKNOWN",
+  "userMessages": []
+}

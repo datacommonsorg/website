@@ -23,9 +23,6 @@ from flask import request
 from flask_babel import Babel
 import flask_cors
 from google.cloud import secretmanager
-from opencensus.ext.flask.flask_middleware import FlaskMiddleware
-from opencensus.trace.propagation import google_cloud_format
-from opencensus.trace.samplers import AlwaysOnSampler
 
 from server.lib import topic_cache
 import server.lib.config as libconfig
@@ -39,21 +36,9 @@ import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
 
-propagator = google_cloud_format.GoogleCloudFormatPropagator()
-
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
 DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
-
-
-def createMiddleWare(app, exporter):
-  # Configure a flask middleware that listens for each request and applies
-  # automatic tracing. This needs to be set up before the application starts.
-  middleware = FlaskMiddleware(app,
-                               exporter=exporter,
-                               propagator=propagator,
-                               sampler=AlwaysOnSampler())
-  return middleware
 
 
 def register_routes_base_dc(app):
@@ -103,11 +88,6 @@ def register_routes_biomedical_dc(app):
 
   from server.routes.protein import html as protein_html
   app.register_blueprint(protein_html.bp)
-
-
-def register_routes_custom_dc(app):
-  ## apply the blueprints for custom dc instances
-  pass
 
 
 def register_routes_disasters(app):
@@ -277,9 +257,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     configure_endpoints_from_ingress(ingress_config_path)
 
   register_routes_common(app)
-  if cfg.CUSTOM:
-    register_routes_custom_dc(app)
-  else:
+  if not cfg.CUSTOM:
     # Only register biomedical DC routes if in main DC
     register_routes_biomedical_dc(app)
 
