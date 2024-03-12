@@ -328,7 +328,8 @@ def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
       name = n.get('name', [''])[0]
       if 'dc/topic/' not in dcid or 'dc/topic/UN' in dcid:
         continue
-      if '-' in dcid:
+      if '-' in dcid or '_' in dcid:
+        # Series topics do not have any of these.
         print(f'WARNING: Found non-series topic {dcid}, dropping')
         continue
       series_topics.add(dcid)

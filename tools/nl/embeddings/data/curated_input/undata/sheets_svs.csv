@@ -734,9 +734,6 @@ dc/topic/WHOAIR15,household air pollution attributable number of  dalys,,,Househ
 dc/topic/WHOAIR16,household air pollution attributable number of  dalys in children under 5 years,,,Household Air Pollution Attributable Number of Disability-adjusted Life Years  in Children Under 5 Years
 dc/topic/WHOAIR17,household air pollution attributable number of  dalys per 100 000 population,,,Household Air Pollution Attributable Number of Disability-adjusted Life Years  per 100 000 Population
 dc/topic/WHOAIR39,"household air pollution attributable number of  dalys per 100 000, age-standardized",,,"Household Air Pollution Attributable Number of Disability-adjusted Life Years  per 100 000, Age-standardized"
-dc/topic/WHOAIR39_age,"household air pollution attributable number of  dalys per 100 000, age-standardized by age",,,"Household Air Pollution Attributable Number of Disability-adjusted Life Years  per 100 000, Age-standardized by Age"
-dc/topic/WHOAIR39_whoenvcause,"household air pollution attributable number of  dalys per 100 000, age-standardized by envcause",,,"Household Air Pollution Attributable Number of Disability-adjusted Life Years  per 100 000, Age-standardized by Envcause"
-dc/topic/WHOAIR39_whosex,"household air pollution attributable number of  dalys per 100 000, age-standardized by sex",,,"Household Air Pollution Attributable Number of Disability-adjusted Life Years  per 100 000, Age-standardized by Sex"
 dc/topic/WHOAIR4,Ambient Air Pollution Attributable Deaths in Children Under 5 Years,,,
 dc/topic/WHOAIR41,Ambient Air Pollution Attributable Deaths,,,
 dc/topic/WHOAIR42,"Ambient Air Pollution Attributable Death Rate per 100 000 Population, Age-standardized",,,
@@ -769,8 +766,6 @@ dc/topic/WHOASSISTIVETECHBARRIERAT,Assistive Technology Indicators: Barriers To 
 dc/topic/WHOASSISTIVETECHMETNEED,Assistive Technology Indicators: Prevalence of Met Need of Assistive Products %,,,
 dc/topic/WHOASSISTIVETECHPAYERSAT,Assistive Technology Indicators: Funding for Assistive Products %,,,
 dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES,Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments And Activities %,,,
-dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechproduct,Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments And Activities % by Assistivetechproduct,,,
-dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechsatiactivity,Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments And Activities % by Assistivetechsatiactivity,,,
 dc/topic/WHOASSISTIVETECHSATISFACTIONSERVICES,Assistive Technology Indicators: Satisfaction With Assistive Products And Related Services %,,,
 dc/topic/WHOASSISTIVETECHSOURCESOFAT,Assistive Technology Indicators: Sources of Assistive Products %,,,
 dc/topic/WHOASSISTIVETECHTRAVELDISTANCEAT,Assistive Technology Indicators: Travel Distance To Obtain Assistive Products %,,,
@@ -861,11 +856,8 @@ dc/topic/WHOPHEHHAIRPROPPOPCATEGORYFUELS,"Proportion of Population With Primary 
 dc/topic/WHOPHEHHAIRPROPPOPCLEANFUELS,Proportion of Population With Primary Reliance on Clean Fuels And Technologies for Cooking %,,,
 dc/topic/WHOPHEHHAIRPROPPOPPOLLUTINGFUELS,Proportion of Population With Primary Reliance on Polluting Fuels And Technologies for Cooking %,,,
 dc/topic/WHOTOTENV1,Deaths Attributable To The Environment,,,
-dc/topic/WHOTOTENV1_whoenvcause,Deaths Attributable To The Environment by Envcause,,,
 dc/topic/WHOTOTENV2,Age-standardized Deaths Attributable To The Environment per 100 000 Population,,,
 dc/topic/WHOTOTENV3,disease burden attributable to environmental risk factors number of  dalys ,,,Disease Burden Attributable To Environmental Risk Factors number of Disability-adjusted Life Years  
-dc/topic/WHOTOTENV3_age,disease burden attributable to environmental risk factors number of  dalys  by age,,,Disease Burden Attributable To Environmental Risk Factors number of Disability-adjusted Life Years   by Age
-dc/topic/WHOTOTENV3_whoenvcause,disease burden attributable to environmental risk factors number of  dalys  by envcause,,,Disease Burden Attributable To Environmental Risk Factors number of Disability-adjusted Life Years   by Envcause
 dc/topic/WHOTOTENV4,disease burden attributable to environmental risk factors number of age-standardized  dalys per 100 000 population,,,Disease Burden Attributable To Environmental Risk Factors number of Age-standardized Disability-adjusted Life Years  Per 100 000 Population
 dc/topic/WHOTOTENV5,Deaths Attributable To The Environment %,,,
 dc/topic/WHOTOTENV6,percentage of total disease burden that is attributable to environmental risk factors % of total number of  dalys ,,,Percentage of Total Disease Burden That is Attributable To Environmental Risk Factors % of Total Number of Disability-adjusted Life Years  
