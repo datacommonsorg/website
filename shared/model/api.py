@@ -44,4 +44,13 @@ def vector_search(model_info, query):
   )
   vector_search_resp = model_info['vector_search_client'].find_neighbors(
       vector_search_req)
-  return query_vector, vector_search_resp
+  matches = []
+  for n in vector_search_resp.nearest_neighbors[0].neighbors:
+    dp = n.datapoint
+    stat_var = dp.restricts[0].allow_list[0]
+    matches.append({
+        'sentence': dp.datapoint_id,
+        'statVar': stat_var,
+        'distance': n.distance
+    })
+  return {'embeddings': query_vector, 'matches': matches}

@@ -116,16 +116,5 @@ def vector_search():
     flask.abort(400, f'Bad sentence: {sentence}')
   if model_name not in current_app.config['VERTEX_AI_MODELS']:
     flask.abort(400, f'Bad model name: {model_name}')
-  query_vector, vector_search_resp = model_api.vector_search(
+  return model_api.vector_search(
       current_app.config['VERTEX_AI_MODELS'][model_name], sentence)
-
-  result = {'embeddings': query_vector, 'matches': []}
-  for n in vector_search_resp.nearest_neighbors[0].neighbors:
-    dp = n.datapoint
-    stat_var = dp.restricts[0].allow_list[0]
-    result['matches'].append({
-        'sentence': dp.datapoint_id,
-        'statVar': stat_var,
-        'distance': n.distance
-    })
-  return result
