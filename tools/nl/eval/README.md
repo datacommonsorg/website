@@ -41,7 +41,7 @@ Choose a model from
 up a eval folder as described above, and run:
 
 ```bash
-./run.sh -m <model_name> -f <folder>
+./run.sh -m <model_name> -f <folder_path>
 ```
 
 Example commands: `./run.sh -m dc-all-minilm-l6-v2 -f <repo_root>/shared/eval/base`
