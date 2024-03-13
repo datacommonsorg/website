@@ -9,3 +9,5 @@
 .env
 
 pytest_log.txt
+
+**/eval/**/result

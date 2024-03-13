@@ -22,7 +22,7 @@ ROOT="${DIR%/*/*/*}"
 function help {
   echo "Usage: $0 -mf"
   echo "-m The model name to be used. Options can be found in vertex_ai_endpoints.yaml"
-  echo "-f The sub folder name of a eval. The folder should have a golden.json file"
+  echo "-f The eval folder path. The folder should have a golden.json file"
   exit 1
 }
 
