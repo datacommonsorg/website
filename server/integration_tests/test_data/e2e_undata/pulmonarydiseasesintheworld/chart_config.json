@@ -18,7 +18,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -35,7 +34,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -52,7 +50,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -70,7 +67,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -88,7 +84,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -106,7 +101,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -124,7 +118,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -142,7 +135,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -160,7 +152,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -178,7 +169,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -196,7 +186,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -214,7 +203,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -232,7 +220,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -250,7 +237,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -268,7 +254,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -286,7 +271,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -304,7 +288,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -322,7 +305,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -340,7 +322,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -358,7 +339,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -376,7 +356,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -394,7 +373,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -412,7 +390,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -430,7 +407,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -448,7 +424,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -466,7 +441,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -484,7 +458,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -502,7 +475,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -520,7 +492,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -538,7 +509,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -556,7 +526,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -574,7 +543,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -592,7 +560,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -610,7 +577,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -628,7 +594,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -646,7 +611,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -664,7 +628,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -682,7 +645,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -700,7 +662,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -717,7 +678,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections] in the World"
           },
           {
@@ -734,7 +694,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -751,7 +710,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -768,7 +726,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections] in the World"
           },
           {
@@ -786,7 +743,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections]"
           },
           {
@@ -803,7 +759,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections] in the World"
           },
           {
@@ -821,7 +776,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections]"
           },
           {
@@ -838,7 +792,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections] in the World"
           },
           {
@@ -856,7 +809,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections]"
           },
           {
@@ -874,7 +826,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections]"
           },
           {
@@ -891,7 +842,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections] in the World"
           },
           {
@@ -909,7 +859,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections]"
           },
           {
@@ -927,7 +876,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections]"
           },
           {
@@ -945,7 +893,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections]"
           },
           {
@@ -962,7 +909,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections] in the World"
           },
           {
@@ -980,7 +926,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections]"
           },
           {
@@ -998,7 +943,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections]"
           },
           {
@@ -1015,7 +959,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -1032,7 +975,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -1050,7 +992,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections, Female]"
           },
           {
@@ -1068,7 +1009,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections, Male]"
           },
           {
@@ -1085,7 +1025,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -1102,7 +1041,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -1120,7 +1058,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female]"
           },
           {
@@ -1138,7 +1075,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male]"
           },
           {
@@ -1155,7 +1091,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -1172,7 +1107,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years in Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -1190,7 +1124,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female]"
           },
           {
@@ -1208,7 +1141,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male]"
           },
           {
@@ -1226,7 +1158,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Female]"
           },
           {
@@ -1244,7 +1175,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years [Lower Respiratory Infections, Male]"
           },
           {
@@ -1261,7 +1191,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -1278,7 +1207,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -1296,7 +1224,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections, Female]"
           },
           {
@@ -1314,7 +1241,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections, Male]"
           },
           {
@@ -1332,7 +1258,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female]"
           },
           {
@@ -1350,7 +1275,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male]"
           },
           {
@@ -1368,7 +1292,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Female]"
           },
           {
@@ -1386,7 +1309,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost [Lower Respiratory Infections, Male]"
           },
           {
@@ -1403,7 +1325,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -1420,7 +1341,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years Life Lost Attributable to Ambient Air Pollution [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -1438,7 +1358,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female]"
           },
           {
@@ -1456,7 +1375,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate [Lower Respiratory Infections, Male]"
           },
           {
@@ -1474,7 +1392,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate [Lower Respiratory Infections, Female]"
           },
           {
@@ -1491,7 +1408,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "New cases: pulmonary smear-negative.",
             "title": "New Tuberculosis Cases: Pulmonary Smear-Negative in the World"
           },
@@ -1510,7 +1426,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "New cases: pulmonary, smear-positive.",
             "title": "New Tuberculosis Cases: Pulmonary, Smear-Positive"
           },
@@ -1528,7 +1443,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "New cases: pulmonary, smear-positive.",
             "title": "New Tuberculosis Cases: Pulmonary, Smear-Positive in the World"
           },
@@ -1547,7 +1461,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "New cases: pulmonary, smear-negative/unknown/not done and other new cases.",
             "title": "New Tuberculosis Cases: Pulmonary, Smear-Negative/Unknown/Not Done and Other New Cases"
           },
@@ -1565,7 +1478,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "New cases: pulmonary, smear-negative/unknown/not done and other new cases.",
             "title": "New Tuberculosis Cases: Pulmonary, Smear-Negative/Unknown/Not Done and Other New Cases in the World"
           },
@@ -1583,7 +1495,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "New cases: pulmonary smear unknown/not done.",
             "title": "New Tuberculosis Cases: Pulmonary Smear Unknown/Not Done in the World"
           }
