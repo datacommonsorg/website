@@ -65,5 +65,3 @@ Apache 2.0
 For general questions or issues, please open an issue on our
 [issues](https://github.com/datacommonsorg/website/issues) page. For all other
 questions, please send an email to `support@datacommons.org`.
-
-**Note** - This is not an officially supported Google product.
