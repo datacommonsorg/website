@@ -348,6 +348,9 @@ def get_nl_chart_titles():
 # Returns a set of SVs that should not have Per-capita.
 # TODO: Eventually read this from KG.
 def get_nl_no_percapita_vars():
+  # These SVs include both manually curated dcids and those that have a
+  # measurementDenominator, excluding those from _SV_PARTIAL_DCID_NO_PC,
+  # which are already filtered in is_percapita_relevant (in shared.py).
   filepath = os.path.join(get_repo_root(), "config", "nl_page",
                           "nl_vars_percapita_ranking.csv")
   nopc_vars = set()
