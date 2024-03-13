@@ -951,6 +951,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
@@ -1435,19 +1436,22 @@
           "Count_HousingUnit_HomeValueUpto10000USDollar",
           "Count_HousingUnit_HomeValueUpto49999USDollar"
         ],
-        "numberOfRooms": [
-          "Count_HousingUnit_WithTotal2Rooms",
-          "Count_HousingUnit_WithTotal3Rooms",
-          "Count_HousingUnit_WithTotal4Rooms",
-          "Count_HousingUnit_WithTotal5Rooms",
-          "Count_HousingUnit_WithTotal6Rooms",
-          "Count_HousingUnit_WithTotal7Rooms",
-          "Count_HousingUnit_WithTotal8Rooms",
-          "Count_HousingUnit_WithTotal9OrMoreRooms"
-        ],
         "occupancyStatus": [
           "Count_HousingUnit_OccupiedHousingUnit",
           "Count_HousingUnit_VacantHousingUnit"
+        ]
+      },
+      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
+        "householderRace": [
+          "Median_HomeValue_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceAsianAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceHispanicOrLatino_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceSomeOtherRaceAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceTwoOrMoreRaces_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceWhiteAlone_OccupiedHousingUnit_OwnerOccupied"
         ]
       }
     },

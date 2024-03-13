@@ -18,6 +18,7 @@ import logging
 import sys
 from typing import Dict, List
 
+from server.lib.explore import params
 from server.lib.nl.common import counters
 from server.lib.nl.common import serialize
 from server.lib.nl.common import utterance
@@ -110,9 +111,14 @@ def check_safety(query: str, llm_api_type: LlmApiType,
   return True
 
 
-def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
-           llm_api_type: LlmApiType, query_detection_debug_logs: Dict,
-           ctr: counters.Counters) -> Detection:
+def detect(query: str,
+           prev_utterance: utterance.Utterance,
+           index_type: str,
+           llm_api_type: LlmApiType,
+           query_detection_debug_logs: Dict,
+           mode: str,
+           ctr: counters.Counters,
+           allow_triples: bool = False) -> Detection:
   # History
   history = []
   u = prev_utterance
@@ -151,7 +157,8 @@ def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
       place_names=places_str_found,
       query_without_places=' ; '.join(sv_list),
       orig_query=query,
-      query_detection_debug_logs=query_detection_debug_logs)
+      query_detection_debug_logs=query_detection_debug_logs,
+      allow_triples=allow_triples)
 
   query_detection_debug_logs["llm_response"] = llm_resp
   query_detection_debug_logs["query_transformations"] = {
@@ -161,13 +168,20 @@ def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
   # SV Detection.
   svs_score_dicts = []
   dummy_dict = {}
+  skip_topics = mode == params.QueryMode.TOOLFORMER
   for sv in sv_list:
     try:
-      svs_score_dicts.append(variable.detect_svs(sv, index_type, dummy_dict))
+      svs_score_dicts.append(
+          variable.detect_svs(sv,
+                              index_type,
+                              dummy_dict,
+                              skip_topics=skip_topics))
     except ValueError as e:
       logging.info(e)
   svs_scores_dict = _merge_sv_dicts(sv_list, svs_score_dicts)
-  sv_detection = dutils.create_sv_detection(query, svs_scores_dict)
+  sv_detection = dutils.create_sv_detection(query,
+                                            svs_scores_dict,
+                                            allow_triples=allow_triples)
 
   classifications = _build_classifications(llm_resp, filter_type)
 

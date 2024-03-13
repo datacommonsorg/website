@@ -110,9 +110,9 @@ def add_chart_to_utterance(
     ranking_count: int = 0,
     sv_place_facet_ids: Dict[str, Dict[str, str]] = None,
     info_message: str = '') -> bool:
-  is_sdg = False
-  if state.uttr.insight_ctx and params.is_sdg(state.uttr.insight_ctx):
-    is_sdg = True
+  is_special_dc = False
+  if state.uttr.insight_ctx and params.is_special_dc(state.uttr.insight_ctx):
+    is_special_dc = True
   place_type = state.place_type
   if place_type and isinstance(place_type, ContainedInPlaceType):
     # TODO: What's the flow where the instance is string?
@@ -127,7 +127,7 @@ def add_chart_to_utterance(
                  ranking_types=copy.deepcopy(state.ranking_types),
                  ranking_count=ranking_count,
                  chart_origin=primary_vs_secondary,
-                 is_sdg=is_sdg,
+                 is_special_dc=is_special_dc,
                  single_date=state.single_date,
                  date_range=state.date_range,
                  sv_place_facet_id=sv_place_facet_ids,
@@ -171,12 +171,11 @@ def get_default_contained_in_place(places: List[Place],
   return constants.DEFAULT_PARENT_PLACES.get(ptype, None)
 
 
-# Get facet id to use when there is a date specified (use a facet id that has
-# data). Gets the facet id that has data for the most places.
-def get_facet_id(sv: str, date: Date, sv_place_facet_ids: Dict[str, Dict[str,
-                                                                         str]],
+# Get facet id to use when there are sv_place_facet_ids specified. Gets the
+# facet id that has data for the most places.
+def get_facet_id(sv: str, sv_place_facet_ids: Dict[str, Dict[str, str]],
                  places: List[str]) -> str:
-  if not date or not sv_place_facet_ids:
+  if not sv_place_facet_ids:
     return ''
   sv_facets = sv_place_facet_ids.get(sv, {})
   facet_id_occurences = {}

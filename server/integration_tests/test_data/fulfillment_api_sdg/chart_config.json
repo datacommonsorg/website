@@ -30,7 +30,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Population Below International Poverty Line"
+            "title": "Proportion of Population Below International Poverty Line (%)"
           },
           {
             "columns": [
@@ -39,8 +39,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/USA"
@@ -50,13 +49,13 @@
                       "sdg/SI_COV_CHLD.SEX--F_multiple_place_bar_block",
                       "sdg/SI_COV_CHLD.SEX--M_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex in United States of America (${date})",
+                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex (%) in United States of America (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex"
+            "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex (%)"
           },
           {
             "columns": [
@@ -84,7 +83,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex"
+            "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex (%)"
           },
           {
             "columns": [
@@ -101,7 +100,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex"
+            "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex (%)"
           },
           {
             "columns": [
@@ -113,13 +112,13 @@
                       "sdg/SI_COV_PENSN.SEX--F",
                       "sdg/SI_COV_PENSN.SEX--M"
                     ],
-                    "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex in United States of America",
+                    "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex (%) in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex"
+            "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex (%)"
           },
           {
             "columns": [
@@ -147,7 +146,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Population Covered by at Least One Social Protection Benefit, by Sex"
+            "title": "Proportion of Population Covered by at Least One Social Protection Benefit, by Sex (%)"
           },
           {
             "columns": [
@@ -159,13 +158,13 @@
                       "sdg/SI_COV_DISAB.SEX--F",
                       "sdg/SI_COV_DISAB.SEX--M"
                     ],
-                    "title": "Proportion of Population With Severe Disabilities Receiving Disability Cash Benefit, by Sex in United States of America",
+                    "title": "Proportion of Population With Severe Disabilities Receiving Disability Cash Benefit, by Sex (%) in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Population With Severe Disabilities Receiving Disability Cash Benefit, by Sex"
+            "title": "Proportion of Population With Severe Disabilities Receiving Disability Cash Benefit, by Sex (%)"
           },
           {
             "columns": [
@@ -193,7 +192,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Unemployed Persons Receiving Unemployment Cash Benefit, by Sex"
+            "title": "Proportion of Unemployed Persons Receiving Unemployment Cash Benefit, by Sex (%)"
           },
           {
             "columns": [
@@ -221,7 +220,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Vulnerable Population Receiving Social Assistance Cash Benefit, by Sex"
+            "title": "Proportion of Vulnerable Population Receiving Social Assistance Cash Benefit, by Sex (%)"
           },
           {
             "columns": [
@@ -233,13 +232,13 @@
                       "sdg/SP_ACS_BSRVH2O.URBANISATION--R",
                       "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
                     ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in United States of America",
+                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location (%) in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Population Using Basic Drinking Water Services, by Location"
+            "title": "Proportion of Population Using Basic Drinking Water Services, by Location (%)"
           },
           {
             "columns": [
@@ -251,13 +250,13 @@
                       "sdg/SP_ACS_BSRVSAN.URBANISATION--R",
                       "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
                     ],
-                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in United States of America",
+                    "title": "Proportion of Population Using Basic Sanitation Services, by Location (%) in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Population Using Basic Sanitation Services, by Location"
+            "title": "Proportion of Population Using Basic Sanitation Services, by Location (%)"
           },
           {
             "columns": [
@@ -983,6 +982,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",

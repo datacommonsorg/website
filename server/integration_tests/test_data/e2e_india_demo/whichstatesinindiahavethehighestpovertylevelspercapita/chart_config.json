@@ -318,7 +318,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Population Living Below the National Poverty Line"
+            "title": "Proportion of Population Living Below the National Poverty Line (%)"
           },
           {
             "columns": [
@@ -512,6 +512,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/IND",

@@ -42,6 +42,15 @@ TOPIC_CACHE_FILES = {
     DCNames.SDG_MINI_DC.value: [
         'server/config/nl_page/sdgmini_topic_cache.json'
     ],
+    DCNames.UNDATA_DC.value: [
+        'server/config/nl_page/sdg_topic_cache.json',
+        'server/config/nl_page/undata_topic_cache.json',
+        'server/config/nl_page/undata_enum_topic_cache.json',
+    ],
+    DCNames.BIO_DC.value: [
+        'server/config/nl_page/topic_cache.json',
+        'server/config/nl_page/sdg_topic_cache.json'
+    ]
 }
 
 # TODO: Move this to schema

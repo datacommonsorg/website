@@ -244,11 +244,10 @@ export const fetchData = async (props: LineTilePropType) => {
     props.apiRoot,
     props.getProcessedSVNameFn
   );
-  const placeNames = await getPlaceNames(
-    placeDcids,
-    props.apiRoot,
-    props.placeNameProp
-  );
+  const placeNames = await getPlaceNames(placeDcids, {
+    apiRoot: props.apiRoot,
+    prop: props.placeNameProp,
+  });
   // How legend labels should be set
   // If neither options are set, default to showing stat vars in legend labels
   const options = {

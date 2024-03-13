@@ -63,7 +63,7 @@ def unknown_topic(u: Utterance) -> str:
     return ''
   place_str = u.places[0].name
 
-  if params.is_sdg(u.insight_ctx):
+  if params.is_special_dc(u.insight_ctx):
     return 'Could not recognize any topic from the query.'
 
   return f'Could not recognize any topic from the query. See available topic categories for {place_str}.'
@@ -74,7 +74,7 @@ def nodata_topic(u: Utterance) -> str:
     return ''
   place_str = u.places[0].name
 
-  if params.is_sdg(u.insight_ctx):
+  if params.is_special_dc(u.insight_ctx):
     return f'Sorry, there were no relevant statistics about the topic for {place_str}.'
 
   return 'Sorry, there were no relevant statistics about the topic for ' \

@@ -2353,15 +2353,15 @@
   },
   "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person": {
     "blocklist": [],
-    "title": "% of Suicide Events"
+    "title": "Suicide Mortality Rate"
   },
   "Count_Death_IntentionalSelfHarm_Female_AsFractionOf_Count_Person_Female": {
     "blocklist": [],
-    "title": "% of Female Suicide Events"
+    "title": "Female Suicide Mortality Rate"
   },
   "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male": {
     "blocklist": [],
-    "title": "% of Male Suicide Events"
+    "title": "Male Suicide Mortality Rate"
   },
   "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male": {
     "blocklist": [],
@@ -9286,6 +9286,34 @@
   "dc/zkmdz1rhlt7q8": {
     "blocklist": [],
     "title": "Shipments or Receipts of Establishments With Payroll: Nonmetallic Mineral Product Manufacturing"
+  },
+  "sdg/VC_DTH_TOCVN": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians)"
+  },
+  "sdg/VC_DTH_TOCVN.AGE--Y0T17": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians) [Age = under 18 years old]"
+  },
+  "sdg/VC_DTH_TOCVN.AGE--Y_GE18": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians) [Age = 18 years old and over]"
+  },
+  "sdg/VC_DTH_TOCVN.SEX--F": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians) [Sex = Female]"
+  },
+  "sdg/VC_DTH_TOCVN.SEX--M": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians) [Sex = Male]"
+  },
+  "sdg/VC_DTH_TONCVN": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (non-civilians)"
+  },
+  "sdg/VC_DTH_TOUNN": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (unknown)"
   },
   "worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT": {
     "blocklist": [],

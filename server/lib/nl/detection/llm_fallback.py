@@ -111,7 +111,8 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
 
 
 def _has_no_sv(d: Detection, ctr: counters.Counters) -> bool:
-  return not dutils.filter_svs(d.svs_detected, ctr)
+  return not dutils.filter_svs(d.svs_detected.single_sv,
+                               d.svs_detected.sv_threshold, ctr)
 
 
 def _has_no_place(d: Detection) -> bool:

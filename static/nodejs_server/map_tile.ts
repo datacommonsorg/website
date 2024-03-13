@@ -139,6 +139,8 @@ export async function getMapTileResult(
     const chartData = await fetchData(tileProp);
     const result: TileResult = {
       data_csv: mapDataToCsv(chartData.layerData),
+      placeType: enclosedPlaceType,
+      places: [place.dcid],
       srcs: getSources(chartData.sources),
       title: getChartTitle(
         tileConfig.title,
@@ -146,6 +148,7 @@ export async function getMapTileResult(
       ),
       type: "MAP",
       unit: !_.isEmpty(chartData.layerData) ? chartData.layerData[0].unit : "",
+      vars: [statVarSpec.statVar],
     };
     if (useChartUrl) {
       result.chartUrl = getChartUrl(

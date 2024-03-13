@@ -97,11 +97,13 @@ export async function getLineTileResult(
     );
     const result: TileResult = {
       data_csv: dataGroupsToCsv(chartData.dataGroup),
-      srcs: getSources(chartData.sources),
       legend: chartData.dataGroup.map((dg) => dg.label || "A"),
+      places: tileProp.comparisonPlaces || [place.dcid],
+      srcs: getSources(chartData.sources),
       title: chartTitle,
       type: "LINE",
       unit: chartData.unit,
+      vars: statVarSpec.map((spec) => spec.statVar),
     };
     // If it is a single line chart, add highlight information.
     if (chartData.dataGroup && chartData.dataGroup.length === 1) {

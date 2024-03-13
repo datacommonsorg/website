@@ -22,13 +22,16 @@ import time
 import flask
 from flask import current_app
 from flask import g
+from flask_babel import gettext
 
 from server.lib.i18n import AVAILABLE_LANGUAGES
 import server.routes.shared_api.place as place_api
+from shared.lib.place_summaries import get_shard_filename_by_dcid
+from shared.lib.place_summaries import get_shard_name
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
-CATEGORIES = [
+CATEGORIES = {
     "Economics",
     "Health",
     "Equity",
@@ -38,28 +41,53 @@ CATEGORIES = [
     "Housing",
     "Environment",
     "Energy",
-]
+}
 
 CATEGORY_REDIRECTS = {
     "Climate": "Environment",
 }
 
-PLACE_SUMMARY_PATH = "/datacommons/place-summary/place_summaries.json"
-
 # Main DC domain to use for canonical URLs
 CANONICAL_DOMAIN = 'datacommons.org'
 
+# Location of place summary jsons on GKE
+PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
 
-def get_place_summaries() -> dict:
-  """Load place summary content from disk"""
+# Parent place types to include in listing of containing places at top of page
+PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
+    'County',
+    'AdministrativeArea2',
+    'EurostatNUTS2',
+    'State',
+    'AdministrativeArea1',
+    'EurostatNUTS1',
+    'Country',
+    'Continent',
+}
+
+
+def get_place_summaries(dcid: str) -> dict:
+  """Load place summary content from disk containing summary for a given dcid"""
+  # Get shard matching the given dcid
+  shard_name = get_shard_name(dcid)
+  if not shard_name:
+    shard_name = 'others'
   # When deployed in GKE, the config is a config mounted as volume. Check this
   # first.
-  if os.path.isfile(PLACE_SUMMARY_PATH):
-    with open(PLACE_SUMMARY_PATH) as f:
+  filepath = os.path.join(PLACE_SUMMARY_DIR, shard_name, "place_summaries.json")
+  logging.info(
+      f"Attempting to load summaries from ConfigMap mounted at {filepath}")
+  if os.path.isfile(filepath):
+    logging.info(f"Loading summaries from {filepath}")
+    with open(filepath) as f:
       return json.load(f)
   # If no mounted config file, use the config that is in the code base.
+  filename = get_shard_filename_by_dcid(dcid)
+  logging.info(
+      f"ConfigMap not found. Loading summaries locally from config/summaries/{filename}"
+  )
   local_path = os.path.join(current_app.root_path,
-                            'config/summaries/place_summaries.json')
+                            f'config/summaries/{filename}')
   with open(local_path) as f:
     return json.load(f)
 
@@ -123,6 +151,46 @@ def is_canonical_domain(url: str) -> bool:
   return re.match(regex, url) is not None
 
 
+def get_place_html_link(place_dcid: str, place_name: str) -> str:
+  """Get <a href-place page url> tag linking to the place page for a place"""
+  url = flask.url_for('place.place', place_dcid=place_dcid)
+  return f'<a href="{url}">{place_name}</a>'
+
+
+def get_place_type_with_parent_places_links(dcid: str) -> str:
+  """Get '<place type> in <parent places>' with html links for a given DCID"""
+  # Get place type in localized, human-readable format
+  place_type = place_api.get_place_type(dcid)
+  place_type_display_name = place_api.get_place_type_i18n_name(place_type)
+
+  # Get parent places and their localized names
+  all_parents = place_api.parent_places([dcid],
+                                        include_admin_areas=True).get(dcid, [])
+  parents_to_include = [
+      parent for parent in all_parents
+      if parent['type'] in PARENT_PLACE_TYPES_TO_HIGHLIGHT
+  ]
+  parent_dcids = [parent['dcid'] for parent in parents_to_include]
+  localized_names = place_api.get_i18n_name(parent_dcids)
+  places_with_names = [
+      parent for parent in parents_to_include
+      if parent['dcid'] in localized_names.keys()
+  ]
+  # Generate <a href=place page url> tag for each parent place
+  links = [
+      get_place_html_link(place_dcid=parent['dcid'],
+                          place_name=localized_names.get(parent['dcid']))
+      if parent['type'] != 'Continent' else localized_names.get(parent['dcid'])
+      for parent in places_with_names
+  ]
+
+  if links:
+    return gettext('%(placeType)s in %(parentPlaces)s',
+                   placeType=place_type_display_name,
+                   parentPlaces=', '.join(links))
+  return ''
+
+
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>')
 def place(place_dcid=None):
@@ -169,6 +237,8 @@ def place(place_dcid=None):
     return place_landing()
 
   place_type = place_api.get_place_type(place_dcid)
+  place_type_with_parent_places_links = get_place_type_with_parent_places_links(
+      place_dcid)
   place_names = place_api.get_i18n_name([place_dcid])
   if place_names and place_names.get(place_dcid):
     place_name = place_names[place_dcid]
@@ -189,7 +259,7 @@ def place(place_dcid=None):
     # Only show summary for Overview page in base DC.
     # Fetch summary text from mounted volume
     start_time = time.time()
-    place_summary = get_place_summaries().get(place_dcid, {})
+    place_summary = get_place_summaries(place_dcid).get(place_dcid, {})
     elapsed_time = (time.time() - start_time) * 1000
     logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
 
@@ -205,13 +275,14 @@ def place(place_dcid=None):
           place_type=place_type,
           place_name=place_name,
           place_dcid=place_dcid,
+          place_type_with_parent_places_links=
+          place_type_with_parent_places_links,
           category=category if category else '',
           place_summary=place_summary.get('summary') if place_summary else '',
           maps_api_key=current_app.config['MAPS_API_KEY'],
           block_indexing=block_indexing))
   response.headers.set('Link',
                        generate_link_headers(place_dcid, category, locale))
-
   return response
 
 

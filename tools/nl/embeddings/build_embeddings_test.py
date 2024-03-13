@@ -87,15 +87,13 @@ class TestEndToEnd(unittest.TestCase):
     # the expected column names not found.
     be.get_sheets_data = mock.Mock(return_value=pd.DataFrame())
 
-    # Given that the get_sheets_data() function is mocked, the Context
-    # object does not need a valid `gs` and `bucket` field.
-    ctx = utils.Context(gs=None,
-                        model=SentenceTransformer("all-MiniLM-L6-v2"),
+    ctx = utils.Context(model=SentenceTransformer("all-MiniLM-L6-v2"),
+                        model_endpoint=None,
                         bucket="",
                         tmp="/tmp")
 
-    # input sheets filepath can be empty.
-    input_sheets_svs = ""
+    # input sheets filepaths can be empty.
+    input_sheets_svs = []
 
     # Filepaths all correspond to the testdata folder.
     input_dir = "testdata/input"
@@ -116,8 +114,8 @@ class TestEndToEnd(unittest.TestCase):
 
     # Given that the get_sheets_data() function is mocked, the Context
     # object does not need a valid `gs` and `bucket` field.
-    ctx = utils.Context(gs=None,
-                        model=SentenceTransformer("all-MiniLM-L6-v2"),
+    ctx = utils.Context(model=SentenceTransformer("all-MiniLM-L6-v2"),
+                        model_endpoint=None,
                         bucket="",
                         tmp="/tmp")
 
@@ -127,7 +125,7 @@ class TestEndToEnd(unittest.TestCase):
     input_alternatives_filepattern = os.path.join(input_dir,
                                                   "*_alternatives.csv")
     input_autogen_filepattern = os.path.join(input_dir, "autogen_*.csv")
-    input_sheets_csv_filepath = os.path.join(input_dir, "sheets_data.csv")
+    input_sheets_csv_filepath = [os.path.join(input_dir, "sheets_data.csv")]
     expected_local_merged_filepath = os.path.join(expected_dir,
                                                   "merged_data.csv")
     expected_dcid_sentence_csv_filepath = os.path.join(

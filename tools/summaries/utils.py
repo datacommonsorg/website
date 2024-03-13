@@ -15,12 +15,16 @@
 
 import json
 import logging
+import os
 from typing import Dict, List
 
-import requests
+import shared.lib.place_summaries as lib_summaries
 
 # Base URL for place pages listed in sitemaps
 _PLACE_PAGE_BASE_URL = "https://datacommons.org/place/"
+
+# Where to write summary jsons to
+_SUMMARY_OUTPUT_LOCATION = 'server/config/summaries/'
 
 
 def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
@@ -106,3 +110,56 @@ def get_places_from_sitemap(sitemap: str) -> List[str]:
 def batched(lst: List, batch_size: int) -> List[List]:
   """Get list elements batched into lists of a set batch size"""
   return [lst[i:i + batch_size] for i in range(0, len(lst), batch_size)]
+
+
+def shard_summaries(summaries: Dict) -> Dict[str, Dict]:
+  """Split a single summary dict into multiple shards based on DCID prefixes
+  
+  Shards are defined in /shared/lib/place_summaries.py
+
+  Args:
+    summaries: a { dcid: summary } mapping
+
+  Returns:
+    A new mapping of { shard: { dcid: summary } }
+  """
+  shards = {
+      lib_summaries.sanitize_regex(regex): {}
+      for regex in lib_summaries.SHARD_DCID_REGEX
+  }
+  shards['no-match'] = {}
+
+  for dcid, entry in summaries.items():
+    shard_name = lib_summaries.get_shard_name(dcid)
+    if shard_name:
+      shards[shard_name][dcid] = entry
+    else:
+      shards['no-match'][dcid] = entry
+  return shards
+
+
+def write_shards_to_files(shards: Dict[str, Dict]) -> None:
+  """Write sharded summaries to their respective jsons
+  
+  Filenames to write to are defined in /shared/lib/place_summaries.py
+
+  Args:
+    shards: a { shard: { dcid: summary } } mapping of which { dcid: summary }
+            configs to write to which shard.
+  """
+  # Write a file for each of the prefixes in SHARD_DCID_PREFIXES
+  for regex in lib_summaries.SHARD_DCID_REGEX:
+    summaries = {}
+    shard_name = lib_summaries.sanitize_regex(regex)
+    if shard_name in shards:
+      summaries = shards[shard_name]
+    filepath = os.path.join(
+        _SUMMARY_OUTPUT_LOCATION,
+        lib_summaries.SHARD_FILENAME.format(shard=shard_name))
+    write_summaries_to_file(summaries, filepath)
+
+  # Write a file for DCIDs that don't match any of the prefixes
+  if 'no-match' in shards:
+    filepath = os.path.join(_SUMMARY_OUTPUT_LOCATION,
+                            lib_summaries.DEFAULT_FILENAME)
+    write_summaries_to_file(shards['no-match'], filepath)

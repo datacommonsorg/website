@@ -16,6 +16,7 @@
 
 jest.mock("axios");
 
+import { expect } from "@jest/globals";
 import axios from "axios";
 import * as d3 from "d3";
 import { when } from "jest-when";
@@ -157,9 +158,13 @@ export function axiosMock(): void {
 
   // get place names, geoId/05
   when(axios.post)
-    .calledWith("/api/place/name", {
-      dcids: ["geoId/05"],
-    })
+    .calledWith(
+      "/api/place/name",
+      {
+        dcids: ["geoId/05"],
+      },
+      expect.anything()
+    )
     .mockResolvedValue({ data: { "geoId/05": "Place" } });
 
   // get data, geoId/05,Count_Person
@@ -352,7 +357,11 @@ export function axiosMock(): void {
     });
 
   when(axios.post)
-    .calledWith("/api/place/displayname", { dcids: ["geoId/05"] })
+    .calledWith(
+      "/api/place/displayname",
+      { dcids: ["geoId/05"] },
+      expect.anything()
+    )
     .mockResolvedValue({
       data: {
         "geoId/05": "Arkansas",
