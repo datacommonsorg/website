@@ -291,8 +291,6 @@ message AnswerMessageTileSpec {
     PropertySpec property = 1;
     DisplayValueSpec display_value = 2;
   }
-  // The entity to display the answer for
-  string entity = 3;
 }
 
 message AnswerTableTileSpec {
@@ -305,13 +303,6 @@ message AnswerTableTileSpec {
   }
   // List of columns to show in the tile
   repeated TableColumn column = 1;
-  // List of entities to show as rows in the tile
-  repeated string entity = 2;
-}
-
-message EntityOverviewTileSpec {
-  // The entity to display the overview for
-  string entity = 1;
 }
 
 message Tile {
@@ -378,6 +369,10 @@ message Tile {
   string subtitle = 18;
   // [optional] knowledge graph property containing the place name
   string place_name_prop = 19;
+  // List of entities to use in the tile.
+  // Only used in ANSWER_MESSAGE, ANSWER_TABLE, and ENTITY_OVERVIEW for now.
+  // TODO: use this for all other tile types as well.
+  repeated string entity = 22;
 
   // specs for specific tile types
   oneof tile_type_spec {
@@ -393,7 +388,6 @@ message Tile {
     MapTileSpec map_tile_spec = 16;
     AnswerMessageTileSpec answer_message_tile_spec = 20;
     AnswerTableTileSpec answer_table_tile_spec = 21;
-    EntityOverviewTileSpec entity_overview_tile_spec = 22;
   }
 }
 

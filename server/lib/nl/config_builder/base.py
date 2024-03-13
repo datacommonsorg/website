@@ -239,7 +239,7 @@ def place_overview_block(column):
 def entity_overview_block(column, entity):
   tile = column.tiles.add()
   tile.type = Tile.TileType.ENTITY_OVERVIEW
-  tile.entity_overview_tile_spec.entity = entity.dcid
+  tile.entity.extend([entity.dcid])
 
 
 # Delete duplicate charts and cleanup any empties.

@@ -10,12 +10,14 @@
                 "tiles": [
                   {
                     "answerMessageTileSpec": {
-                      "entity": "dc/003ye83smktt7",
                       "property": {
                         "direction": "OUT",
                         "property": "phylum"
                       }
                     },
+                    "entity": [
+                      "dc/003ye83smktt7"
+                    ],
                     "title": "The phylum for Volvox is:",
                     "type": "ANSWER_MESSAGE"
                   }
@@ -28,9 +30,9 @@
               {
                 "tiles": [
                   {
-                    "entityOverviewTileSpec": {
-                      "entity": "dc/003ye83smktt7"
-                    },
+                    "entity": [
+                      "dc/003ye83smktt7"
+                    ],
                     "type": "ENTITY_OVERVIEW"
                   }
                 ]

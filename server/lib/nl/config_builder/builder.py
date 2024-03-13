@@ -112,6 +112,8 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
     if cspec.chart_type == ChartType.ANSWER_WITH_ENTITY_OVERVIEW:
       if len(cspec.props) > 1 or len(cspec.entities) > 1:
         # TODO: handle this case
+        state.uttr.counters.err(
+            "answer_with_entity_overview_failed_unsupported_case", 1)
         continue
       else:
         answer.answer_message_block(builder, cspec)

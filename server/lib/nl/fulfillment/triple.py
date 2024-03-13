@@ -27,16 +27,20 @@ from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 def populate(uttr: nl_uttr.Utterance) -> bool:
   if not uttr.entities:
     uttr.counters.err('triple_failed_no_entities', 1)
+    return False
   if not uttr.properties:
     uttr.counters.err('triple_failed_no_properties', 1)
+    return False
 
   for prop in uttr.properties:
     # TODO: handle properties that are links that use ->
     if '->' in prop or '<-' in prop:
+      uttr.counters.err('triple_property_unsupported', prop)
       continue
     entity_dcids = [e.dcid for e in uttr.entities]
     prop_values = raw_property_values(entity_dcids, prop)
     if not any(prop_values.values()):
+      uttr.counters.err('triple_property_failed_existence', prop)
       continue
     state = PopulateState(uttr=uttr)
     chart_vars = ChartVars(props=[prop])
@@ -44,6 +48,4 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
                                   state,
                                   chart_vars, [],
                                   entities=uttr.entities)
-
-  uttr.counters.err('triple_failed_no_properties_exist', 1)
   return False

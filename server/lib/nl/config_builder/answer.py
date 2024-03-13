@@ -25,10 +25,9 @@ def answer_message_block(builder: base.Builder, cspec: ChartSpec):
   entity = cspec.entities[0]
   title = _SINGULAR_TITLE.format(property=prop,
                                  entity=entity.name or entity.dcid)
-  tile = Tile(type=Tile.TileType.ANSWER_MESSAGE, title=title)
-  tile.answer_message_tile_spec.entity = entity.dcid
+  tile = Tile(type=Tile.TileType.ANSWER_MESSAGE, title=title, entity=[entity.dcid])
   tile.answer_message_tile_spec.property.property = prop
-  # Only handling out arcs for now
+  # Only handling out arcs for now 
   tile.answer_message_tile_spec.property.direction = PropertySpec.PropertyDirection.OUT
   block = builder.new_chart(cspec, skip_title=True)
   block.columns.add().tiles.append(tile)
