@@ -55,7 +55,7 @@ def eval_page():
 
   model_names = list(current_app.config['VERTEX_AI_MODELS'].keys())
   eval_file = os.path.join(os.path.dirname(current_app.root_path),
-                           'tools/nl/eval/base/golden.json')
+                           'shared/eval/base/golden.json')
   with open(eval_file) as f:
     return render_template('/nl_eval.html',
                            model_names=json.dumps(model_names),

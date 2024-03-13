@@ -25,11 +25,12 @@ Once model and embeddings endpoints are avaiable, record the endpoints id in
 
 ## Setup Eval
 
-To setup a eval, create a sub folder that contains a `golden.json` file
-that maps a query stentence to a list of ordered stat vars. Note there is a
-logic to get to ranked stat vars from ranked descriptions (embeddings). Right
-now it's simply based on the highest ranked description of a stat var (which is
-the logic in NL server). This can be changed in the future.
+To setup a eval, create a sub folder under [shared/eval/](../../../shared/eval/)
+that contains a `golden.json` file which maps a query sentence to a list of
+ordered stat vars. Note there is a logic to get to ranked stat vars from ranked
+descriptions (embeddings). Right now it's simply based on the highest ranked
+description of a stat var (which is the logic in NL server). This can be changed
+in the future.
 
 Multiple eval could exist for different eval sets (like UNSDG, WHO).
 
@@ -40,10 +41,10 @@ Choose a model from
 up a eval folder as described above, and run:
 
 ```bash
-./run.sh -m <model_name> -f <folder>
+./run.sh -m <model_name> -f <folder_path>
 ```
 
-Example commands: `./run.sh -m dc-all-minilm-l6-v2 -f base`
+Example commands: `./run.sh -m dc-all-minilm-l6-v2 -f <repo_root>/shared/eval/base`
 
 This produces `debug.json` and `report.csv` in a `result` sub folder.
 
