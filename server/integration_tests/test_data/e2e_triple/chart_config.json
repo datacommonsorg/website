@@ -12,7 +12,7 @@
                     "answerMessageTileSpec": {
                       "entity": "dc/003ye83smktt7",
                       "property": {
-                        "direction": "out",
+                        "direction": "OUT",
                         "property": "phylum"
                       }
                     },

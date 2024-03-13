@@ -263,35 +263,54 @@ message MapTileSpec {
 
 // Spec for getting value from property values api call
 message PropertySpec {
+  enum PropertyDirection {
+    TYPE_NONE = 0;
+    IN = 1;
+    OUT = 2;
+  }
+  // Dcid of the property to get value for
   string property = 1;
-  string direction = 2;
-  string type = 3;
+  // Whether we are looking for an "in" or "out" property
+  PropertyDirection direction = 2;
+  // [optional] if set, only keep the values that have this as their typeof.
+  // Otherwise, keep all values.
+  repeated string type = 3;
 }
 
 // Spec for just displaying a value
 message DisplayValueSpec {
+  // The value(s) to display
   repeated string value = 1;
+  // The source(s) of the values
   repeated string source = 2;
 }
 
 message AnswerMessageTileSpec {
+  // The answer to display in the tile
   oneof answer {
     PropertySpec property = 1;
     DisplayValueSpec display_value = 2;
   }
+  // The entity to display the answer for
   string entity = 3;
 }
 
 message AnswerTableTileSpec {
+  // A single column in a table
   message TableColumn {
+    // The header to use for the column
     string header = 1;
+    // The spec for getting the values in the column
     PropertySpec property = 2;
   }
+  // List of columns to show in the tile
   repeated TableColumn column = 1;
+  // List of entities to show as rows in the tile
   repeated string entity = 2;
 }
 
 message EntityOverviewTileSpec {
+  // The entity to display the overview for
   string entity = 1;
 }
 

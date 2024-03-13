@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from server.config.subject_page_pb2 import Tile
+from server.config.subject_page_pb2 import PropertySpec
 from server.lib.nl.config_builder import base
 from server.lib.nl.fulfillment.types import ChartSpec
 
@@ -28,6 +29,6 @@ def answer_message_block(builder: base.Builder, cspec: ChartSpec):
   tile.answer_message_tile_spec.entity = entity.dcid
   tile.answer_message_tile_spec.property.property = prop
   # Only handling out arcs for now
-  tile.answer_message_tile_spec.property.direction = "out"
+  tile.answer_message_tile_spec.property.direction = PropertySpec.PropertyDirection.OUT
   block = builder.new_chart(cspec, skip_title=True)
   block.columns.add().tiles.append(tile)
