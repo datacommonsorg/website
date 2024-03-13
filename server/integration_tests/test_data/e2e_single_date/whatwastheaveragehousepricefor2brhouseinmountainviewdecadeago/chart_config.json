@@ -667,6 +667,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/0649670",

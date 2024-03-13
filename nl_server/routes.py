@@ -68,26 +68,12 @@ def search_sv():
   if request.args.get('skip_multi_sv'):
     skip_multi_sv = True
 
+  skip_topics = False
+  if request.args.get('skip_topics'):
+    skip_topics = True
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(idx)
-  return json.dumps(nl_embeddings.detect_svs(query, threshold, skip_multi_sv))
-
-
-@bp.route('/api/search_places/', methods=['GET'])
-def search_places():
-  """Returns a dictionary with the following keys and values
-
-  {
-    'places': List[str]
-  }
-  """
-  query = str(escape(request.args.get('q')))
-  nl_model = current_app.config[config.NL_MODEL_KEY]
-  try:
-    res = nl_model.detect_places_ner(query)
-    return json.dumps({'places': res})
-  except Exception as e:
-    logging.error(f'NER place detection failed with error: {e}')
-    return json.dumps({'places': []})
+  return json.dumps(
+      nl_embeddings.detect_svs(query, threshold, skip_multi_sv, skip_topics))
 
 
 @bp.route('/api/detect_verbs/', methods=['GET'])

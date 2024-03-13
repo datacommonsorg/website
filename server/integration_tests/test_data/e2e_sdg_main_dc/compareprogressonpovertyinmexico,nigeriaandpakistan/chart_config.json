@@ -245,7 +245,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Population Living Below the National Poverty Line"
+            "title": "Proportion of Population Living Below the National Poverty Line (%)"
           },
           {
             "columns": [
@@ -267,13 +267,13 @@
                       "sdg/SD_MDP_ANDI.URBANISATION--R_multiple_place_bar_block",
                       "sdg/SD_MDP_ANDI.URBANISATION--U_multiple_place_bar_block"
                     ],
-                    "title": "Average Proportion of Deprivations for People Multidimensionally Poor (${date})",
+                    "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Average Proportion of Deprivations for People Multidimensionally Poor"
+            "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%)"
           }
         ],
         "statVarSpec": {
@@ -356,6 +356,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/MEX",

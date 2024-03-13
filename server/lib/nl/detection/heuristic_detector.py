@@ -27,20 +27,19 @@ from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import NLClassifier
-from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import SimpleClassificationAttributes
 
 
-def detect(place_detector_type: PlaceDetectorType, orig_query: str,
-           cleaned_query: str, index_type: str,
-           query_detection_debug_logs: Dict, mode: str,
-           counters: ctr.Counters) -> Detection:
-  if place_detector_type == PlaceDetectorType.DC:
-    place_detection = place.detect_from_query_dc(orig_query,
-                                                 query_detection_debug_logs)
-  else:
-    place_detection = place.detect_from_query_ner(cleaned_query, orig_query,
-                                                  query_detection_debug_logs)
+def detect(orig_query: str,
+           cleaned_query: str,
+           index_type: str,
+           query_detection_debug_logs: Dict,
+           mode: str,
+           counters: ctr.Counters,
+           allow_triples: bool = False) -> Detection:
+  place_detection = place.detect_from_query_dc(orig_query,
+                                               query_detection_debug_logs,
+                                               allow_triples)
 
   query = place_detection.query_without_place_substr
 
@@ -83,21 +82,22 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
   sv_threshold = params.sv_threshold(mode)
   svs_scores_dict = dutils.empty_svs_score_dict()
   sv_detection_query = dutils.remove_date_from_query(query, classifications)
+  skip_topics = mode == params.QueryMode.TOOLFORMER
   try:
     svs_scores_dict = variable.detect_svs(
         sv_detection_query, index_type,
-        query_detection_debug_logs["query_transformations"], sv_threshold)
+        query_detection_debug_logs["query_transformations"], sv_threshold,
+        skip_topics)
   except ValueError as e:
     logging.info(e)
     logging.info("Using an empty svs_scores_dict")
   # Set the SVDetection.
   sv_detection = dutils.create_sv_detection(sv_detection_query, svs_scores_dict,
-                                            sv_threshold)
+                                            sv_threshold, allow_triples)
 
   return Detection(original_query=orig_query,
                    cleaned_query=cleaned_query,
                    places_detected=place_detection,
                    svs_detected=sv_detection,
                    classifications=classifications,
-                   detector=ActualDetectorType.Heuristic,
-                   place_detector=place_detector_type)
+                   detector=ActualDetectorType.Heuristic)

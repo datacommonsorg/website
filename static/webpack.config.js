@@ -67,6 +67,10 @@ const config = {
       __dirname + "/js/apps/nl_interface/main.ts",
       __dirname + "/css/nl_interface.scss",
     ],
+    nl_eval: [
+      __dirname + "/js/apps/nl_eval/main.ts",
+      __dirname + "/css/nl_eval.scss",
+    ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
       __dirname + "/css/ranking.scss",
@@ -124,6 +128,10 @@ const config = {
     datacommons: [__dirname + "/library/index.ts"],
     homepage: [
       __dirname + "/js/apps/homepage/main.ts",
+      __dirname + "/css/homepage.scss",
+    ],
+    homepage_custom_dc: [
+      __dirname + "/js/apps/homepage/main_custom_dc.ts",
       __dirname + "/css/homepage.scss",
     ],
     visualization: [

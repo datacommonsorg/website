@@ -19,7 +19,8 @@ import csv
 from typing import Dict
 
 import click
-import utils
+
+from tools.summaries import utils
 
 
 def read_tsv_to_dict(tsv_path: str,

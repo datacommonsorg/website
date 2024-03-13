@@ -20,8 +20,9 @@ import time
 from typing import Dict, List
 
 import click
-import dc
-import utils
+
+from tools.summaries import dc
+from tools.summaries import utils
 
 # Where to write output json summaries to
 _OUTPUT_FILE = "place_summaries_from_template.json"

@@ -23,9 +23,6 @@ from flask import request
 from flask_babel import Babel
 import flask_cors
 from google.cloud import secretmanager
-from opencensus.ext.flask.flask_middleware import FlaskMiddleware
-from opencensus.trace.propagation import google_cloud_format
-from opencensus.trace.samplers import AlwaysOnSampler
 
 from server.lib import topic_cache
 import server.lib.config as libconfig
@@ -39,21 +36,9 @@ import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
 
-propagator = google_cloud_format.GoogleCloudFormatPropagator()
-
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
 DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
-
-
-def createMiddleWare(app, exporter):
-  # Configure a flask middleware that listens for each request and applies
-  # automatic tracing. This needs to be set up before the application starts.
-  middleware = FlaskMiddleware(app,
-                               exporter=exporter,
-                               propagator=propagator,
-                               sampler=AlwaysOnSampler())
-  return middleware
 
 
 def register_routes_base_dc(app):
@@ -97,11 +82,6 @@ def register_routes_base_dc(app):
 
   from server.routes.disaster import api as disaster_api
   app.register_blueprint(disaster_api.bp)
-
-
-def register_routes_custom_dc(app):
-  ## apply the blueprints for custom dc instances
-  pass
 
 
 def register_routes_disasters(app):
@@ -255,6 +235,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.config['NL_ROOT'] = nl_root
   app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
 
+  if os.environ.get('ENABLE_EVAL_TOOL') == 'true':
+    from server.file_cache import file_cache
+    import shared.model.loader as model_loader
+    app.config['VERTEX_AI_MODELS'] = model_loader.load()
+    file_cache.init_app(app)
+
   # Init extentions
   from server.cache import cache
 
@@ -271,8 +257,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     configure_endpoints_from_ingress(ingress_config_path)
 
   register_routes_common(app)
-  if cfg.CUSTOM:
-    register_routes_custom_dc(app)
 
   register_routes_base_dc(app)
   if cfg.SHOW_DISASTER:
@@ -374,8 +358,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     app.config['NL_CHART_TITLES'] = libutil.get_nl_chart_titles()
     app.config['TOPIC_CACHE'] = topic_cache.load(app.config['NL_CHART_TITLES'])
     app.config['SDG_PERCENT_VARS'] = libutil.get_sdg_percent_vars()
-    app.config[
-        'SDG_NON_COUNTRY_ONLY_VARS'] = libutil.get_sdg_non_country_only_vars()
+    app.config['SPECIAL_DC_NON_COUNTRY_ONLY_VARS'] = \
+      libutil.get_special_dc_non_countery_only_vars()
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()

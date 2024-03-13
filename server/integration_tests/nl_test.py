@@ -39,7 +39,6 @@ class NLTest(NLWebServerTestCase):
                    detector='hybridsafety',
                    check_place_detection=False,
                    expected_detectors=[],
-                   place_detector='dc',
                    failure='',
                    test='',
                    i18n='',
@@ -56,7 +55,7 @@ class NLTest(NLWebServerTestCase):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(
           self.get_server_url() +
-          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}&i18n={i18n}&mode={mode}&client=test',
+          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&test={test}&i18n={i18n}&mode={mode}&client=test',
           json={
               'contextHistory': ctx
           }).json()

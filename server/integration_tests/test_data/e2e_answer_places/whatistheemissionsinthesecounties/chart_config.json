@@ -15,16 +15,124 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "geoId/06049",
+                      "geoId/06041"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_NonBiogenic_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Emissions of Non Biogenic Greenhouse Gases (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "infoMessage": "Data for \"Sierra County, Trinity County, Plumas County, Calaveras County, Mariposa County, Nevada County, Amador County and Tuolumne County\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Annual Emissions of Non Biogenic Greenhouse Gases"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06049",
+                      "geoId/06041"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_NonBiogenic_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Emissions of Non Biogenic Carbon Dioxide (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "infoMessage": "Data for \"Sierra County, Trinity County, Plumas County, Calaveras County, Mariposa County, Nevada County, Amador County and Tuolumne County\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Annual Emissions of Non Biogenic Carbon Dioxide"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06049",
+                      "geoId/06041"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_Methane_NonBiogenic_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Emissions of Non Biogenic Methane (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "infoMessage": "Data for \"Sierra County, Trinity County, Plumas County, Calaveras County, Mariposa County, Nevada County, Amador County and Tuolumne County\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Methane Emissions by Source"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06049",
+                      "geoId/06041"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_NitrousOxide_NonBiogenic_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Emissions of Non Biogenic Nitrous Oxide (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "infoMessage": "Data for \"Sierra County, Trinity County, Plumas County, Calaveras County, Mariposa County, Nevada County, Amador County and Tuolumne County\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Nitrous Oxide Emissions by Source"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06091",
                       "geoId/06105",
-                      "geoId/06009",
                       "geoId/06063",
+                      "geoId/06009",
                       "geoId/06043",
                       "geoId/06057",
                       "geoId/06005",
                       "geoId/06109",
-                      "geoId/06003",
                       "geoId/06049",
-                      "geoId/06093"
+                      "geoId/06041"
                     ],
                     "statVarKey": [
                       "Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion_multiple_place_bar_block",
@@ -60,21 +168,22 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "geoId/06091",
                       "geoId/06105",
-                      "geoId/06009",
                       "geoId/06063",
+                      "geoId/06009",
                       "geoId/06043",
                       "geoId/06057",
                       "geoId/06005",
                       "geoId/06109",
-                      "geoId/06003",
                       "geoId/06049",
-                      "geoId/06093"
+                      "geoId/06041"
                     ],
                     "statVarKey": [
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses_multiple_place_bar_block",
@@ -103,16 +212,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "geoId/06091",
                       "geoId/06105",
-                      "geoId/06009",
                       "geoId/06063",
+                      "geoId/06009",
                       "geoId/06043",
                       "geoId/06057",
                       "geoId/06005",
                       "geoId/06109",
-                      "geoId/06003",
                       "geoId/06049",
-                      "geoId/06093"
+                      "geoId/06041"
                     ],
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block"
@@ -138,13 +247,13 @@
                     },
                     "comparisonPlaces": [
                       "geoId/06105",
-                      "geoId/06009",
                       "geoId/06063",
+                      "geoId/06009",
                       "geoId/06057",
                       "geoId/06005",
                       "geoId/06109",
-                      "geoId/06003",
-                      "geoId/06049"
+                      "geoId/06049",
+                      "geoId/06041"
                     ],
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines_multiple_place_bar_block"
@@ -156,7 +265,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Mariposa County and Siskiyou County\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Sierra County and Mariposa County\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Emissions: Internal Combustion Engines"
           },
           {
@@ -170,11 +279,12 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "geoId/06091",
                       "geoId/06063",
                       "geoId/06057",
                       "geoId/06005",
                       "geoId/06109",
-                      "geoId/06093"
+                      "geoId/06041"
                     ],
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_1_ExternalCombustion_multiple_place_bar_block"
@@ -186,7 +296,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Trinity County, Calaveras County, Mariposa County, Alpine County and Modoc County\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Trinity County, Calaveras County, Mariposa County and Modoc County\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Emissions: External Combustion"
           },
           {
@@ -200,16 +310,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "geoId/06091",
                       "geoId/06105",
-                      "geoId/06009",
                       "geoId/06063",
+                      "geoId/06009",
                       "geoId/06043",
                       "geoId/06057",
                       "geoId/06005",
                       "geoId/06109",
-                      "geoId/06003",
                       "geoId/06049",
-                      "geoId/06093"
+                      "geoId/06041"
                     ],
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_27_NaturalSources_multiple_place_bar_block"
@@ -234,16 +344,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "geoId/06091",
                       "geoId/06105",
-                      "geoId/06009",
                       "geoId/06063",
+                      "geoId/06009",
                       "geoId/06043",
                       "geoId/06057",
                       "geoId/06005",
                       "geoId/06109",
-                      "geoId/06003",
                       "geoId/06049",
-                      "geoId/06093"
+                      "geoId/06041"
                     ],
                     "statVarKey": [
                       "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_CarbonMonoxide_multiple_place_bar_block"
@@ -268,16 +378,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "geoId/06091",
                       "geoId/06105",
-                      "geoId/06009",
                       "geoId/06063",
+                      "geoId/06009",
                       "geoId/06043",
                       "geoId/06057",
                       "geoId/06005",
                       "geoId/06109",
-                      "geoId/06003",
                       "geoId/06049",
-                      "geoId/06093"
+                      "geoId/06041"
                     ],
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_25_StorageAndTransport_multiple_place_bar_block"
@@ -302,16 +412,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "geoId/06091",
                       "geoId/06105",
-                      "geoId/06009",
                       "geoId/06063",
+                      "geoId/06009",
                       "geoId/06043",
                       "geoId/06057",
                       "geoId/06005",
                       "geoId/06109",
-                      "geoId/06003",
                       "geoId/06049",
-                      "geoId/06093"
+                      "geoId/06041"
                     ],
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block"
@@ -336,16 +446,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "geoId/06091",
                       "geoId/06105",
-                      "geoId/06009",
                       "geoId/06063",
+                      "geoId/06009",
                       "geoId/06043",
                       "geoId/06057",
                       "geoId/06005",
                       "geoId/06109",
-                      "geoId/06003",
                       "geoId/06049",
-                      "geoId/06093"
+                      "geoId/06041"
                     ],
                     "statVarKey": [
                       "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia_multiple_place_bar_block"
@@ -370,16 +480,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
+                      "geoId/06091",
                       "geoId/06105",
-                      "geoId/06009",
                       "geoId/06063",
+                      "geoId/06009",
                       "geoId/06043",
                       "geoId/06057",
                       "geoId/06005",
                       "geoId/06109",
-                      "geoId/06003",
                       "geoId/06049",
-                      "geoId/06093"
+                      "geoId/06041"
                     ],
                     "statVarKey": [
                       "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_SulfurDioxide_multiple_place_bar_block"
@@ -392,138 +502,9 @@
             ],
             "denom": "Count_Person",
             "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Sulfur Dioxide"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06057",
-                      "geoId/06005",
-                      "geoId/06093"
-                    ],
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_5_WasteDisposal_multiple_place_bar_block"
-                    ],
-                    "title": "Annual Emissions: Waste Disposal (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "infoMessage": "Data for \"Trinity County, Calaveras County, Plumas County, Mariposa County, Tuolumne County, Alpine County and Modoc County\" is currently unavailable. See the following statistics on the other places.",
-            "title": "Annual Emissions: Waste Disposal"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06057",
-                      "geoId/06005",
-                      "geoId/06109",
-                      "geoId/06093"
-                    ],
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_Toluene_SCC_1_ExternalCombustion_multiple_place_bar_block"
-                    ],
-                    "title": "Annual Emissions: Toluene, External Combustion (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "infoMessage": "Data for \"Trinity County, Calaveras County, Plumas County, Mariposa County, Alpine County and Modoc County\" is currently unavailable. See the following statistics on the other places.",
-            "title": "Annual Emissions: Toluene, External Combustion"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06009",
-                      "geoId/06063",
-                      "geoId/06043",
-                      "geoId/06057",
-                      "geoId/06005",
-                      "geoId/06109",
-                      "geoId/06003",
-                      "geoId/06049",
-                      "geoId/06093"
-                    ],
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_CarbonMonoxide_multiple_place_bar_block"
-                    ],
-                    "title": "Annual Amount of Emissions: Non Road Engines and Vehicles, Non Biogenic Emission Source, Carbon Monoxide (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Non Road Engines and Vehicles, Non Biogenic Emission Source, Carbon Monoxide"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06009",
-                      "geoId/06063",
-                      "geoId/06043",
-                      "geoId/06057",
-                      "geoId/06005",
-                      "geoId/06109",
-                      "geoId/06003",
-                      "geoId/06049",
-                      "geoId/06093"
-                    ],
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_23_IndustrialProcesses_multiple_place_bar_block"
-                    ],
-                    "title": "Annual Emissions: Industrial Processes (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Emissions: Industrial Processes"
           }
         ],
         "statVarSpec": {
-          "Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_CarbonMonoxide_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Non Road Engines And Vehicles, Non Biogenic Emission Source, Carbon Monoxide",
-            "statVar": "Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_CarbonMonoxide"
-          },
           "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia_multiple_place_bar_block": {
             "name": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia",
             "statVar": "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia"
@@ -588,10 +569,6 @@
             "name": "Annual Emissions: External Combustion",
             "statVar": "Annual_Amount_Emissions_SCC_1_ExternalCombustion"
           },
-          "Annual_Amount_Emissions_SCC_23_IndustrialProcesses_multiple_place_bar_block": {
-            "name": "Annual Emissions: Industrial Processes",
-            "statVar": "Annual_Amount_Emissions_SCC_23_IndustrialProcesses"
-          },
           "Annual_Amount_Emissions_SCC_25_StorageAndTransport_multiple_place_bar_block": {
             "name": "Annual Emissions: Storage and Transport",
             "statVar": "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
@@ -611,10 +588,6 @@
           "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines_multiple_place_bar_block": {
             "name": "Annual Emissions: Internal Combustion Engines",
             "statVar": "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
-          },
-          "Annual_Amount_Emissions_SCC_5_WasteDisposal_multiple_place_bar_block": {
-            "name": "Annual Emissions: Waste Disposal",
-            "statVar": "Annual_Amount_Emissions_SCC_5_WasteDisposal"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion_multiple_place_bar_block": {
             "name": "Annual Emissions: Sulfur Dioxide, External Combustion",
@@ -656,78 +629,55 @@
             "name": "Annual Emissions: Sulfur Dioxide, Industrial Processes",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses"
           },
-          "Annual_Amount_Emissions_Toluene_SCC_1_ExternalCombustion_multiple_place_bar_block": {
-            "name": "Annual Emissions: Toluene, External Combustion",
-            "statVar": "Annual_Amount_Emissions_Toluene_SCC_1_ExternalCombustion"
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal_multiple_place_bar_block": {
+            "name": "Annual Emissions: Sulfur Dioxide, Waste Disposal",
+            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal"
+          },
+          "Annual_Emissions_CarbonDioxide_NonBiogenic_multiple_place_bar_block": {
+            "name": "Annual Emissions of Non Biogenic Carbon Dioxide",
+            "statVar": "Annual_Emissions_CarbonDioxide_NonBiogenic"
+          },
+          "Annual_Emissions_GreenhouseGas_NonBiogenic_multiple_place_bar_block": {
+            "name": "Annual Emissions of Non Biogenic Greenhouse Gases",
+            "statVar": "Annual_Emissions_GreenhouseGas_NonBiogenic"
+          },
+          "Annual_Emissions_Methane_NonBiogenic_multiple_place_bar_block": {
+            "name": "Annual Emissions of Non Biogenic Methane",
+            "statVar": "Annual_Emissions_Methane_NonBiogenic"
+          },
+          "Annual_Emissions_NitrousOxide_NonBiogenic_multiple_place_bar_block": {
+            "name": "Annual Emissions of Non Biogenic Nitrous Oxide",
+            "statVar": "Annual_Emissions_NitrousOxide_NonBiogenic"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/06105"
+        "geoId/06049"
       ]
     }
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "geoId/06105",
-    "name": "Trinity County",
+    "dcid": "geoId/06049",
+    "name": "Modoc County",
     "place_type": "County"
   },
   "placeFallback": {},
   "placeSource": "PAST_ANSWER",
   "places": [
     {
-      "dcid": "geoId/06105",
-      "name": "Trinity County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06009",
-      "name": "Calaveras County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06063",
-      "name": "Plumas County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06043",
-      "name": "Mariposa County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06057",
-      "name": "Nevada County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06005",
-      "name": "Amador County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06109",
-      "name": "Tuolumne County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06003",
-      "name": "Alpine County",
-      "place_type": "County"
-    },
-    {
       "dcid": "geoId/06049",
       "name": "Modoc County",
       "place_type": "County"
     },
     {
-      "dcid": "geoId/06093",
-      "name": "Siskiyou County",
+      "dcid": "geoId/06041",
+      "name": "Marin County",
       "place_type": "County"
     }
   ],
@@ -771,34 +721,28 @@
       }
     ],
     "exploreMore": {
-      "Annual_Amount_Emissions_SCC_23_IndustrialProcesses": {
+      "Annual_Amount_Emissions_SCC_1_ExternalCombustion": {
         "emittedThing": [
-          "Annual_Amount_Emissions_Acetaldehyde_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Arsenic_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Benzene_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Cadmium_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_CarbonMonoxide_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Chlorine_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Chromium_6_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Cobalt_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Formaldehyde_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Hexane_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Lead_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Manganese_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Mercury_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Naphthalene_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Nickel_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_OxidesOfNitrogen_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_PM10_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Phenol_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Phosphorus_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Pyrene_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Selenium_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_Toluene_SCC_23_IndustrialProcesses",
-          "Annual_Amount_Emissions_VolatileOrganicCompound_SCC_23_IndustrialProcesses"
+          "Annual_Amount_Emissions_Acetaldehyde_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_Arsenic_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_Benzene_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_Cadmium_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_CarbonMonoxide_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_Chromium_6_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_Formaldehyde_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_Lead_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_Manganese_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_Mercury_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_Naphthalene_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_Nickel_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_OxidesOfNitrogen_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_PM10_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_Phenol_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_Selenium_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion",
+          "Annual_Amount_Emissions_VolatileOrganicCompound_SCC_1_ExternalCombustion"
         ]
       },
       "Annual_Amount_Emissions_SCC_25_StorageAndTransport": {
@@ -897,23 +841,6 @@
           "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources",
           "Annual_Amount_Emissions_Toluene_SCC_28_MiscellaneousAreaSources",
           "Annual_Amount_Emissions_VolatileOrganicCompound_SCC_28_MiscellaneousAreaSources"
-        ]
-      },
-      "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines": {
-        "emittedThing": [
-          "Annual_Amount_Emissions_Acetaldehyde_SCC_2_InternalCombustionEngines",
-          "Annual_Amount_Emissions_Benzene_SCC_2_InternalCombustionEngines",
-          "Annual_Amount_Emissions_CarbonMonoxide_SCC_2_InternalCombustionEngines",
-          "Annual_Amount_Emissions_Formaldehyde_SCC_2_InternalCombustionEngines",
-          "Annual_Amount_Emissions_Mercury_SCC_2_InternalCombustionEngines",
-          "Annual_Amount_Emissions_Naphthalene_SCC_2_InternalCombustionEngines",
-          "Annual_Amount_Emissions_OxidesOfNitrogen_SCC_2_InternalCombustionEngines",
-          "Annual_Amount_Emissions_PM10_SCC_2_InternalCombustionEngines",
-          "Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines",
-          "Annual_Amount_Emissions_Pyrene_SCC_2_InternalCombustionEngines",
-          "Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines",
-          "Annual_Amount_Emissions_Toluene_SCC_2_InternalCombustionEngines",
-          "Annual_Amount_Emissions_VolatileOrganicCompound_SCC_2_InternalCombustionEngines"
         ]
       }
     },

@@ -122,6 +122,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
@@ -496,6 +497,13 @@
       {
         "dcid": "dc/topic/IndividualIncomeDistribution",
         "name": "Individual Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income by Industry",
         "types": [
           "Topic"
         ]
