@@ -19,7 +19,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "ICT development index (IDI).",
             "title": "ICT Development Index"
           },
@@ -38,7 +37,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "ICT development index (IDI) rank.",
             "title": "ICT Development Index Rank"
           },
@@ -57,7 +55,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "Mobile-cellular telephone subscriptions per 100 inhabitants.",
             "title": "Mobile-cellular Telephone Subscriptions Per 100 Inhabitants"
           },
@@ -76,7 +73,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "Percentage of individuals using the internet.",
             "title": "Percentage of Individuals Using the Internet"
           },
@@ -95,7 +91,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities [Total, Excluding Spectacles, Home Environment]"
           },
           {
@@ -113,7 +108,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities [Participation in Activities]"
           },
           {
@@ -143,7 +137,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Barriers to Accessing Assistive Products (%)"
           },
           {
@@ -173,7 +166,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Barriers to Accessing Assistive Products, Excluding Spectacles (%)"
           },
           {
@@ -203,7 +195,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Funding for Assistive Products (%)"
           },
           {
@@ -233,7 +224,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Funding for Assistive Products, Excluding Spectacles (%)"
           },
           {
@@ -258,7 +248,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products (%)"
           },
           {
@@ -290,7 +279,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products (%), by Age"
           },
           {
@@ -315,7 +303,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products (%), by Rural/Urban Location"
           },
           {
@@ -340,7 +327,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products (%), by Sex"
           },
           {
@@ -372,7 +358,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products, Excluding Spectacles (%), by Age"
           },
           {
@@ -397,7 +382,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products, Excluding Spectacles (%), by Rural/Urban Location"
           },
           {
@@ -422,7 +406,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Prevalence of Met Need of Assistive Products, Excluding Spectacles (%), by Sex"
           },
           {
@@ -448,7 +431,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Satisfaction With Assistive Products and Related Services (%)"
           },
           {
@@ -474,7 +456,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Satisfaction With Assistive Products, Excluding Spectacles, and Related Services (%)"
           },
           {
@@ -501,7 +482,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Sources of Assistive Products (%)"
           },
           {
@@ -528,7 +508,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Sources of Assistive Products, Excluding Spectacles (%)"
           },
           {
@@ -556,7 +535,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products (%)"
           },
           {
@@ -584,7 +562,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products in Rural Areas (%)"
           },
           {
@@ -612,7 +589,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products in Urban Areas (%)"
           },
           {
@@ -640,7 +616,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Assistive Technology Indicators: Travel Distance to Obtain Assistive Products, Excluding Spectacles (%)"
           }
         ],
