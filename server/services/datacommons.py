@@ -59,12 +59,12 @@ def post(url: str, req: Dict):
 @cache.cache.memoize(timeout=cache.TIMEOUT)
 def post_wrapper(url, req_str: str):
   req = json.loads(req_str)
-  call_logger = log.ExtremeCallLogger(req)
   headers = {'Content-Type': 'application/json'}
   dc_api_key = current_app.config.get('DC_API_KEY', '')
   if dc_api_key:
     headers['x-api-key'] = dc_api_key
   # Send the request and verify the request succeeded
+  call_logger = log.ExtremeCallLogger(req)
   response = requests.post(url, json=req, headers=headers)
   call_logger.finish(response)
   if response.status_code != 200:
