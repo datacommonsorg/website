@@ -37,10 +37,13 @@ def detect_from_query_dc(orig_query: str,
 
   query_items = dc.recognize_places(query)
 
-  nonplace_query_parts = []
-  places_str = []
   mains = []
   main2corrections = {}
+  # Dictionary of dcid to the query substring that matched to the dcid
+  main2substr = {}
+  # List of parts in the query where parts are replaced by their matched dcid if
+  # there was a match.
+  query_parts_with_dcids = []
 
   debug_logs["place_dcid_inference"] = {}
   debug_logs["place_resolution"] = {}
@@ -53,7 +56,8 @@ def detect_from_query_dc(orig_query: str,
       # Use the first DCID for now.
       main = item['places'][0]['dcid']
       mains.append(main)
-      places_str.append(item['span'].lower())
+      query_parts_with_dcids.append(main)
+      main2substr[main] = item['span'].lower()
 
       related = []
       for rp in item['places'][1:MAX_IDENTICAL_NAME_PLACES + 1]:
@@ -66,7 +70,7 @@ def detect_from_query_dc(orig_query: str,
           d['dcid'] for d in item['places'] if 'dcid' in d
       ]
     else:
-      nonplace_query_parts.append(item['span'].lower())
+      query_parts_with_dcids.append(item['span'].lower())
 
   resolved_places = []
   resolved_entities = []
@@ -76,6 +80,7 @@ def detect_from_query_dc(orig_query: str,
         mains, debug_logs["place_resolution"])
     if allow_triples:
       resolved_entities = _get_non_place_entities(mains, resolved_places)
+  resolved_place_dcids = set([p.dcid for p in resolved_places])
 
   main_place = None
   peers = []
@@ -85,6 +90,16 @@ def detect_from_query_dc(orig_query: str,
     parent_places = parent_map.get(main_place.dcid, [])
 
   # Set PlaceDetection.
+  places_str = [
+      main2substr[p]
+      for p in query_parts_with_dcids
+      if p in resolved_place_dcids
+  ]
+  nonplace_query_parts = []
+  for p in query_parts_with_dcids:
+    if p in resolved_place_dcids:
+      continue
+    nonplace_query_parts.append(main2substr.get(p, p))
   query_without_place_substr = ' '.join(nonplace_query_parts)
   place_detection = PlaceDetection(
       query_original=query,

@@ -1,7 +1,5 @@
 {
-  "places_detected": [
-    "volvox"
-  ],
+  "places_detected": [],
   "places_resolved": "",
   "main_place_dcid": "<None>",
   "main_place_name": "<None>",
@@ -9,19 +7,9 @@
   "sv_matching": {
     "SV": [
       "dc/topic/SDGBiodiversity",
-      "Amount_FarmInventory_BarleyForGrain",
-      "Amount_FarmInventory_DurumWheatForGrain",
-      "Amount_FarmInventory_SorghumForSilageOrGreenchop",
-      "dc/topic/Language",
-      "Amount_FarmInventory_SorghumForGrain",
-      "Amount_FarmInventory_WheatForGrain",
-      "dc/topic/Dengue",
-      "dc/topic/Sustainability",
-      "Amount_FarmInventory_Rice",
       "Imports_EconomicActivity_Pharmaceutical",
-      "Area_Farm_BarleyForGrain",
-      "Amount_FarmInventory_PimaCotton",
-      "dc/topic/NonEnglishLanguageAtHome"
+      "dc/topic/Emissions_Methane_EmissionsbySource",
+      "dc/topic/Cholesterol"
     ]
   },
   "props_matching": {
@@ -29,21 +17,26 @@
       "phylum",
       "chemblID",
       "geneID",
+      "geneticVariantFunctionalCategory",
       "typeOfGene",
+      "hg38GenomicPosition",
       "fullName",
       "ensemblID",
-      "simplifiedMolecularInputLineEntrySystem",
-      "geneticVariantFunctionalCategory",
-      "imageUrl",
-      "genomicCoordinates",
-      "chromosomeSize",
-      "observedAllele",
-      "hg38GenomicPosition",
       "hg19GenomicPosition",
-      "virusHost",
-      "strandOrientation",
+      "hg38GenomicLocation",
       "ncbiDNASequenceName",
-      "referenceSNPClusterID<-GeneticVariantGeneAssociation->geneSymbol"
+      "hg19GenomicLocation",
+      "strandOrientation",
+      "alleleOrigin",
+      "referenceSNPClusterID<-GeneticVariantGeneAssociation->geneSymbol",
+      "ofVirusSpecies",
+      "antigenType",
+      "chromosomeSize",
+      "ncbiTaxonID",
+      "simplifiedMolecularInputLineEntrySystem",
+      "ncbiProteinAccessionNumber",
+      "virusHost",
+      "imageUrl"
     ]
   }
 }

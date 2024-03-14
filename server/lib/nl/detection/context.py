@@ -56,8 +56,8 @@ def merge_with_context(uttr: nl_uttr.Utterance, default_place: Place = None):
   # TODO: Confirm type for ranking
   place_type = utils.get_contained_in_type(uttr)
 
-  if not place_type and not uttr.svs and not uttr.places and not uttr.entities:
-    # Evertyhing is empty, don't look into context.
+  if not place_type and not uttr.svs and not uttr.places and not uttr.entities and not uttr.properties:
+    # Everything is empty, don't look into context.
     uttr.insight_ctx = {}
     return
 
@@ -100,12 +100,17 @@ def merge_with_context(uttr: nl_uttr.Utterance, default_place: Place = None):
   main_vars, cmp_vars = _detect_vars(
       uttr, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS)
 
+  # 6. Detect entities leveraging context
+  entities = _detect_entities(uttr)
+
+  # 7. Detect properties leveraging context
+  properties = _detect_props(uttr)
+
   # 6. Populate the returned dict
   data_dict.update({
       Params.ENTITIES.value:
-          places,
-      Params.VARS.value:
-          main_vars[:_MAX_RETURNED_VARS],
+          places + entities,
+      Params.VARS.value: (main_vars + properties)[:_MAX_RETURNED_VARS],
       Params.SESSION_ID.value:
           uttr.session_id,
       Params.CMP_ENTITIES.value:
@@ -149,8 +154,8 @@ def _detect_vars(uttr: nl_uttr.Utterance, is_cmp: bool) -> List[str]:
       svs = uttr.svs
       uttr.sv_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
     else:
-      # Try to get svs from context.
-      if uttr.prev_utterance and uttr.prev_utterance.svs:
+      # Try to get svs from context if no properties in current query.
+      if uttr.prev_utterance and uttr.prev_utterance.svs and not uttr.properties:
         svs = uttr.prev_utterance.svs
         uttr.svs = svs
         uttr.counters.info('insight_var_ctx', svs)
@@ -217,8 +222,9 @@ def _detect_places(uttr: nl_uttr.Utterance,
       if _handle_answer_places(uttr, child_type, places, cmp_places):
         return places, cmp_places
     else:
-      # There are NO places, so if there are answer places, bail.
-      if _handle_answer_places(uttr, child_type, places, cmp_places):
+      # There are NO places, so if there are answer places or entities, bail.
+      if _handle_answer_places(uttr, child_type, places,
+                               cmp_places) or uttr.entities:
         return places, cmp_places
 
       # Completely in context.
@@ -244,8 +250,9 @@ def _detect_places(uttr: nl_uttr.Utterance,
       if _handle_answer_places(uttr, child_type, places, cmp_places):
         return places, cmp_places
     else:
-      # There are NO places, so if there are answer places, bail.
-      if _handle_answer_places(uttr, child_type, places, cmp_places):
+      # There are NO places, so if there are answer places or entities, bail.
+      if _handle_answer_places(uttr, child_type, places,
+                               cmp_places) or uttr.entities:
         return places, cmp_places
 
       # Match NL behavior in `populate_charts()` by not using context
@@ -327,3 +334,35 @@ def _append(src: List[Place], dst: List[str]):
   for p in src:
     if p.dcid not in dst:
       dst.append(p.dcid)
+
+
+def _detect_entities(uttr: nl_uttr.Utterance) -> List[str]:
+  entities = [e.dcid for e in uttr.entities]
+  if uttr.entities:
+    uttr.entities_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
+  # If places were detected in the current query, don't try to use any past entities
+  elif uttr.places and uttr.place_source != nl_uttr.FulfillmentResult.PAST_QUERY:
+    uttr.entities_source = nl_uttr.FulfillmentResult.UNFULFILLED
+  else:
+    if uttr.prev_utterance and uttr.prev_utterance.entities:
+      entities = uttr.prev_utterance.entities
+      uttr.entities = entities
+      uttr.counters.info('insight_entity_ctx', entities)
+      uttr.entities_source = nl_uttr.FulfillmentResult.PAST_QUERY
+  return entities
+
+
+def _detect_props(uttr: nl_uttr.Utterance) -> List[str]:
+  props = []
+  if uttr.properties:
+    props = uttr.properties
+    uttr.properties_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
+  # If svs were detected in the current query, don't try to use any past entities
+  elif uttr.svs and uttr.sv_source != nl_uttr.FulfillmentResult.PAST_QUERY:
+    uttr.entities_source = nl_uttr.FulfillmentResult.UNFULFILLED
+  elif uttr.prev_utterance and uttr.prev_utterance.properties:
+    props = uttr.prev_utterance.properties
+    uttr.properties = props
+    uttr.counters.info('insight_prop_ctx', props)
+    uttr.properties_source = nl_uttr.FulfillmentResult.PAST_QUERY
+  return props
