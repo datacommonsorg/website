@@ -21,6 +21,7 @@ import urllib.parse
 from flask import current_app
 import requests
 
+from server.lib import log
 from server.lib.cache import cache
 import server.lib.config as libconfig
 from server.routes import TIMEOUT
@@ -37,7 +38,9 @@ def get(url: str):
   if dc_api_key:
     headers['x-api-key'] = dc_api_key
   # Send the request and verify the request succeeded
+  call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
+  call_logger.finish(response)
   if response.status_code != 200:
     raise ValueError(
         'Response error: An HTTP {} code ({}) was returned by the mixer.'
@@ -62,7 +65,9 @@ def post_wrapper(url, req_str: str):
   if dc_api_key:
     headers['x-api-key'] = dc_api_key
   # Send the request and verify the request succeeded
+  call_logger = log.ExtremeCallLogger(req)
   response = requests.post(url, json=req, headers=headers)
+  call_logger.finish(response)
   if response.status_code != 200:
     raise ValueError(
         'An HTTP {} code ({}) was returned by the mixer: "{}"'.format(
