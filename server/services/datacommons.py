@@ -21,16 +21,17 @@ import urllib.parse
 from flask import current_app
 import requests
 
-from server import cache
 from server.lib import log
+from server.lib.cache import cache
 import server.lib.config as libconfig
+from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
 
 cfg = libconfig.get_config()
 
 
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 def get(url: str):
   headers = {'Content-Type': 'application/json'}
   dc_api_key = current_app.config.get('DC_API_KEY', '')
@@ -56,7 +57,7 @@ def post(url: str, req: Dict):
   return post_wrapper(url, req_str)
 
 
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 def post_wrapper(url, req_str: str):
   req = json.loads(req_str)
   headers = {'Content-Type': 'application/json'}

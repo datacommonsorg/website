@@ -35,7 +35,7 @@ while getopts beflc OPTION; do
         ;;
     e)
         MODEL_ENDPOINT_ID="$3"
-        echo -e "### Using Vertext AI model endpoint $MODEL_ENDPOINT_ID"
+        echo -e "### Using Vertex AI model endpoint $MODEL_ENDPOINT_ID"
         ;;
     f)
         echo -e "### Using the finetuned model from prod"

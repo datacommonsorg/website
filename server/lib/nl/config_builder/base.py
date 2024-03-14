@@ -55,15 +55,16 @@ class Builder:
 
     metadata = self.page_config.metadata
     # TODO: Revisit this choice.
-    main_place = uttr.rankedCharts[0].places[0]
-    metadata.place_dcid.append(main_place.dcid)
-    for ch in uttr.rankedCharts:
-      if (ch.chart_type == ChartType.MAP_CHART or
-          ch.chart_type == ChartType.RANKING_WITH_MAP or
-          ch.chart_type == ChartType.SCATTER_CHART):
-        metadata.contained_place_types[main_place.place_type] = \
-          ch.place_type
-        break
+    if uttr.rankedCharts[0].places:
+      main_place = uttr.rankedCharts[0].places[0]
+      metadata.place_dcid.append(main_place.dcid)
+      for ch in uttr.rankedCharts:
+        if (ch.chart_type == ChartType.MAP_CHART or
+            ch.chart_type == ChartType.RANKING_WITH_MAP or
+            ch.chart_type == ChartType.SCATTER_CHART):
+          metadata.contained_place_types[main_place.place_type] = \
+            ch.place_type
+          break
 
     self.category = self.page_config.categories.add()
     self.block = None
@@ -233,6 +234,12 @@ def is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
 def place_overview_block(column):
   tile = column.tiles.add()
   tile.type = Tile.TileType.PLACE_OVERVIEW
+
+
+def entity_overview_block(column, entity):
+  tile = column.tiles.add()
+  tile.type = Tile.TileType.ENTITY_OVERVIEW
+  tile.entity.extend([entity.dcid])
 
 
 # Delete duplicate charts and cleanup any empties.

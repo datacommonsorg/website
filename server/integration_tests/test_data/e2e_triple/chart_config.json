@@ -1,6 +1,48 @@
 {
   "client": "test_detect-and-fulfill",
-  "config": {},
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "answerMessageTileSpec": {
+                      "property": {
+                        "direction": "OUT",
+                        "property": "phylum"
+                      }
+                    },
+                    "entity": [
+                      "dc/003ye83smktt7"
+                    ],
+                    "title": "The phylum for Volvox is:",
+                    "type": "ANSWER_MESSAGE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "entity": [
+                      "dc/003ye83smktt7"
+                    ],
+                    "type": "ENTITY_OVERVIEW"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "context": {},
   "debug": {},
   "entities": [
@@ -11,21 +53,20 @@
     }
   ],
   "pastSourceContext": "",
-  "place": {
-    "dcid": "",
-    "name": "",
-    "place_type": ""
-  },
+  "place": {},
   "placeFallback": {},
-  "placeSource": "UNRECOGNIZED",
-  "places": [
-    {
-      "dcid": "",
-      "name": "",
-      "place_type": ""
-    }
-  ],
-  "relatedThings": {},
+  "placeSource": "UNKNOWN",
+  "places": [],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
   "svSource": "UNKNOWN",
   "userMessages": []
 }

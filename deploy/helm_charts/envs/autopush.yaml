@@ -25,6 +25,15 @@ website:
   nodePool: "default-pool"
   evalTool:
     enabled: true
+  redis:
+    enabled: true
+    configFile: |
+      {
+        "us-central1": {
+          "host": "10.135.60.155",
+          "port": "6379"
+        }
+      }
 
 mixer:
   hostProject:

@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,35 +15,24 @@
 import json
 import os
 
-from flask_caching import Cache
 import requests
 
-# Cache expires set to 7 days
-TIMEOUT = 3600 * 24 * 7
+# Per GCP region Redis config. This is a mounted volume for the website container.
+_REDIS_CONFIG = '/datacommons/redis/redis.json'
 
-# Per GCP region redis config. This is a mounted volume for the website container.
-REDIS_CONFIG = '/datacommons/redis/redis.json'
 
-# TODO(boxu): delete this after migrating to gke
-if os.path.isfile(REDIS_CONFIG):
-  with open(REDIS_CONFIG) as f:
+def get_redis_config():
+  if not os.path.isfile(_REDIS_CONFIG):
+    return None
+  with open(_REDIS_CONFIG) as f:
     redis = json.load(f)
     metadata_url = "http://metadata.google.internal/computeMetadata/v1/instance/zone"
     metadata_flavor = {'Metadata-Flavor': 'Google'}
     zone = requests.get(metadata_url, headers=metadata_flavor).text
     # zone is in the format of projects/projectnum/zones/zone
     region = '-'.join(zone.split('/')[3].split('-')[0:2])
-    if region in redis:
-      host = redis[region]["host"]
-      port = redis[region]["port"]
-      cache = Cache(
-          config={
-              'CACHE_TYPE': 'RedisCache',
-              'CACHE_REDIS_HOST': host,
-              'CACHE_REDIS_PORT': port,
-              'CACHE_REDIS_URL': 'redis://{}:{}'.format(host, port)
-          })
-    else:
-      cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
-else:
-  cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
+    if not region or region not in redis:
+      return None
+    host = redis[region]["host"]
+    port = redis[region]["port"]
+    return {"host": host, "port": port}
