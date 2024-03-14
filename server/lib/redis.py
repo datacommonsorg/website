@@ -31,10 +31,8 @@ def get_redis_config():
     zone = requests.get(metadata_url, headers=metadata_flavor).text
     # zone is in the format of projects/projectnum/zones/zone
     region = '-'.join(zone.split('/')[3].split('-')[0:2])
-    if not region:
+    if not region or region not in redis:
       return None
-    if region in redis:
-      host = redis[region]["host"]
-      port = redis[region]["port"]
-      return {"host": host, "port": port}
-    return None
+    host = redis[region]["host"]
+    port = redis[region]["port"]
+    return {"host": host, "port": port}

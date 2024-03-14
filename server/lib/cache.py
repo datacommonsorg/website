@@ -27,7 +27,7 @@ _redis_cache = None
 # cache is the default flask cache for endpoints.
 cache = None
 
-# model_cache is flask cache for endpoints that invoke vertext models.
+# model_cache is flask cache for endpoints that invoke vertex models.
 model_cache = None
 
 redis_config = lib_redis.get_redis_config()
