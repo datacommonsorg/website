@@ -111,7 +111,7 @@ def add_chart_to_utterance(
     places: List[Place],
     primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART,
     ranking_count: int = 0,
-    sv_place_facet_ids: Dict[str, Dict[str, str]] = None,
+    sv_place_facet_ids: Sv2Place2Facet = None,
     info_message: str = '',
     entities: List[Entity] = [],
     sv_place_latest_date: Sv2Place2Date = None) -> bool:
