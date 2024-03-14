@@ -31,6 +31,7 @@ from server.lib.nl.fulfillment import event
 from server.lib.nl.fulfillment import filter_with_dual_vars
 from server.lib.nl.fulfillment import overview
 from server.lib.nl.fulfillment import superlative
+from server.lib.nl.fulfillment import triple
 import server.lib.nl.fulfillment.handlers as handlers
 from server.lib.nl.fulfillment.types import PopulateState
 import server.lib.nl.fulfillment.utils as futils
@@ -95,6 +96,13 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
     elif main_qt == QueryType.COMPARISON_ACROSS_PLACES:
       # There are multiple places so we don't fallback.
       state.disable_fallback = True
+    elif main_qt == QueryType.TRIPLE:
+      # We currently only want one of triple or regular charts, so consider the
+      # fulfillment to be done if triple is successful. This assumes preference
+      # for triples fulfillment.
+      # TODO: decide to fulfill as a triple vs fulfill as a regular sv depending
+      # on the variable score match.
+      done = triple.populate(uttr)
 
     # All done if successful
     if success:
@@ -161,7 +169,13 @@ def _perform_strict_mode_checks(uttr: Utterance) -> bool:
 
 
 def _produce_query_types(uttr: Utterance) -> List[QueryType]:
-  query_types = [handlers.first_query_type(uttr)]
+  query_types = []
+  if params.is_bio(uttr.insight_ctx) and uttr.entities and uttr.properties:
+    query_types.append(QueryType.TRIPLE)
+  # The remaining query types require places to be set
+  if not uttr.places:
+    return query_types
+  query_types.append(handlers.first_query_type(uttr))
   while query_types[-1] != None:
     query_types.append(handlers.next_query_type(query_types))
 

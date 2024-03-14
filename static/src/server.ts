@@ -264,7 +264,7 @@ function getBlockTileResults(
       let tileSvSpec = null;
       switch (tile.type) {
         case "LINE":
-          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom);
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, { blockDenom });
           tilePromises.push(
             getLineTileResult(
               tileId,
@@ -279,7 +279,7 @@ function getBlockTileResults(
           );
           break;
         case "SCATTER":
-          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom);
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, { blockDenom });
           tilePromises.push(
             getScatterTileResult(
               tileId,
@@ -295,7 +295,7 @@ function getBlockTileResults(
           );
           break;
         case "BAR":
-          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom);
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, { blockDenom });
           tilePromises.push(
             getBarTileResult(
               tileId,
@@ -311,7 +311,7 @@ function getBlockTileResults(
           );
           break;
         case "MAP":
-          tileSvSpec = svProvider.getSpec(tile.statVarKey[0], blockDenom);
+          tileSvSpec = svProvider.getSpec(tile.statVarKey[0], { blockDenom });
           tilePromises.push(
             getMapTileResult(
               tileId,
@@ -327,7 +327,7 @@ function getBlockTileResults(
           );
           break;
         case "RANKING":
-          tileSvSpec = svProvider.getSpecList(tile.statVarKey, blockDenom);
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, { blockDenom });
           tilePromises.push(
             getRankingTileResult(
               tileId,

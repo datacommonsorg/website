@@ -125,7 +125,6 @@ class MainPane extends React.Component<MainPanePropType> {
             locale={this.props.locale}
             highlight={this.props.highlight}
             names={this.props.names}
-            parentPlaces={this.props.parentPlaces}
             placeType={this.props.placeType}
           />
         )}

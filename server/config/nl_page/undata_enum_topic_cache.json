@@ -1666,6 +1666,7 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE060",
         "who/GHE_YLLNUM.GHECAUSES--GHE060",
         "who/GHE_YLLRATE.GHECAUSES--GHE060",
+        "who/NCD_DTH_TOT.GHECAUSES--GHE060",
         "who/WHS2_126.GHECAUSES--GHE060",
         "who/GHE_DALYNUM.GHECAUSES--GHE060__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE060__SEX--M",
@@ -1678,7 +1679,9 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE060__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE060__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE060__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE060__SEX--M"
+        "who/GHE_YLLRATE.GHECAUSES--GHE060__SEX--M",
+        "who/NCD_DTH_TOT.GHECAUSES--GHE060__SEX--F",
+        "who/NCD_DTH_TOT.GHECAUSES--GHE060__SEX--M"
       ]
     },
     {
@@ -4899,7 +4902,9 @@
         "Topic"
       ],
       "relevantVariableList": [
+        "who/TOTENV_1.ENVCAUSE--ENVCAUSE001",
         "who/TOTENV_2.ENVCAUSE--ENVCAUSE001",
+        "who/TOTENV_3.ENVCAUSE--ENVCAUSE001",
         "who/TOTENV_4.ENVCAUSE--ENVCAUSE001"
       ]
     },
@@ -5238,7 +5243,9 @@
         "Topic"
       ],
       "relevantVariableList": [
+        "who/TOTENV_1.ENVCAUSE--ENVCAUSE060",
         "who/TOTENV_2.ENVCAUSE--ENVCAUSE060",
+        "who/TOTENV_3.ENVCAUSE--ENVCAUSE060",
         "who/TOTENV_4.ENVCAUSE--ENVCAUSE060"
       ]
     },
@@ -5931,7 +5938,9 @@
         "Topic"
       ],
       "relevantVariableList": [
+        "who/TOTENV_1.ENVCAUSE--ENVCAUSE151",
         "who/TOTENV_2.ENVCAUSE--ENVCAUSE151",
+        "who/TOTENV_3.ENVCAUSE--ENVCAUSE151",
         "who/TOTENV_4.ENVCAUSE--ENVCAUSE151"
       ]
     },

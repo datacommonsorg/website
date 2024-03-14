@@ -24,6 +24,7 @@ from server.lib.nl.common import utils
 from server.lib.nl.common import variable
 from server.lib.nl.common.constants import PROJECTED_TEMP_TOPIC
 from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.config_builder import answer
 from server.lib.nl.config_builder import bar
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import event
@@ -107,6 +108,18 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
     # level.
     if user_message:
       cspec.info_message = ''
+
+    if cspec.chart_type == ChartType.ANSWER_WITH_ENTITY_OVERVIEW:
+      if len(cspec.props) > 1 or len(cspec.entities) > 1:
+        # TODO: handle this case
+        state.uttr.counters.err(
+            "answer_with_entity_overview_failed_unsupported_case", 1)
+        continue
+      else:
+        answer.answer_message_block(builder, cspec)
+        block = builder.new_chart(cspec, skip_title=True)
+        base.entity_overview_block(block.columns.add(), cspec.entities[0])
+
     if not cspec.places:
       continue
     stat_var_spec_map = {}

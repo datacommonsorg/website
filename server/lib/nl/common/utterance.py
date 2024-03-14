@@ -26,6 +26,7 @@ from server.lib.explore.params import QueryMode
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 from shared.lib.detected_variables import MultiVarCandidates
@@ -64,7 +65,8 @@ class QueryType(IntEnum):
   FILTER_WITH_SINGLE_VAR = 12
   # This is [median age in cities with population over 1M]
   FILTER_WITH_DUAL_VARS = 13
-  UNKNOWN = 14
+  TRIPLE = 14
+  UNKNOWN = 15
 
 
 # Type of chart.
@@ -77,6 +79,8 @@ class ChartType(IntEnum):
   SCATTER_CHART = 5
   EVENT_CHART = 6
   RANKED_TIMELINE_COLLECTION = 7
+  # Represents an answer with an optional overview tile
+  ANSWER_WITH_ENTITY_OVERVIEW = 8
 
 
 class FulfillmentResult(str, Enum):
@@ -140,6 +144,10 @@ class Utterance:
   places: List[Place]
   # Primary variables
   svs: List[str]
+  # Primary entities
+  entities: List[Entity]
+  # Primary properties
+  properties: List[str]
   # List of detected classifications
   classifications: List[NLClassifier]
   # Computed chart candidates.

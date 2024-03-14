@@ -14,11 +14,12 @@
 # limitations under the License.
 
 function help {
-  echo "Usage: -bflc <embeddings-size>"
+  echo "Usage: -bflce <embeddings-size>"
   echo "$0 -b <embeddings-size> # 'small' or 'medium'. This option uses the base default sentence_transformer model."
   echo "$0 -f <embeddings-size> # 'small' or 'medium'. This option uses the finetuned model on PROD."
   echo "$0 -l <embeddings-size> <local_model_path> # 'small' or 'medium'. This option uses the locally stored model to build the embeddings."
-  echo "$0 -c <embeddings-size> <curated_input_path> <alternatives_filepattern> # This option creates custom embeddings (using the finetuned model in PROD)."
+  echo "$0 -c <embeddings-size> <curated_input_paths> <alternatives_filepattern> # This option creates custom embeddings (using the finetuned model in PROD)."
+  echo "$0 -e <embeddings-size> <vertex_ai_endpoint_id> # This option creates embeddings using a Vertex AI model endpoint."
 }
 
 if [[ $# -le 1 ]]; then
@@ -26,11 +27,15 @@ if [[ $# -le 1 ]]; then
   exit 1
 fi
 
-while getopts bflc OPTION; do
+while getopts beflc OPTION; do
   case $OPTION in
     b)
         echo -e "### Using the base default sentence_transformer model"
         FINETUNED_MODEL=""
+        ;;
+    e)
+        MODEL_ENDPOINT_ID="$3"
+        echo -e "### Using Vertex AI model endpoint $MODEL_ENDPOINT_ID"
         ;;
     f)
         echo -e "### Using the finetuned model from prod"
@@ -53,14 +58,14 @@ while getopts bflc OPTION; do
         fi
         ;;
 
-    c) 
+    c)
       echo -e "### Using the finetuned model from prod with custom embeddings-size"
-      CURATED_INPUT_PATH="$3"
-      if [[ "$CURATED_INPUT_PATH" == "" ]]; then
-        help  
+      CURATED_INPUT_PATHS="$3"
+      if [[ "$CURATED_INPUT_PATHS" == "" ]]; then
+        help
         exit 1
-      else 
-        echo "Using the following local filename as curated input: $CURATED_INPUT_PATH"
+      else
+        echo "Using the following local filenames as curated input: $CURATED_INPUT_PATHS"
       fi
       FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/models.yaml | awk '$1=="tuned_model:"{ print $2; }')
       if [[ "$FINETUNED_MODEL" == "" ]]; then
@@ -81,14 +86,18 @@ while getopts bflc OPTION; do
     esac
 done
 
+cd ../../..
 python3 -m venv .env
 source .env/bin/activate
+cd tools/nl/embeddings
 python3 -m pip install --upgrade pip setuptools light-the-torch
 ltt install torch --cpuonly
 pip3 install -r requirements.txt
 
-if [[ "$CURATED_INPUT_PATH" != "" ]]; then
-  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --curated_input_path=$CURATED_INPUT_PATH --alternatives_filepattern=$ALTERNATIVES_FILE_PATTERN
+if [[ "$MODEL_ENDPOINT_ID" != "" ]];then
+  python3 build_embeddings.py --embeddings_size=$2 --vertex_ai_prediction_endpoint_id=$MODEL_ENDPOINT_ID --dry_run=True
+elif [[ "$CURATED_INPUT_PATHS" != "" ]]; then
+  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --curated_input_paths=$CURATED_INPUT_PATHS --alternatives_filepattern=$ALTERNATIVES_FILE_PATTERN
 elif [[ "$FINETUNED_MODEL" != "" ]]; then
   python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL
 elif [[ "$LOCAL_MODEL_PATH" != "" ]]; then

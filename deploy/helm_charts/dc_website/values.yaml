@@ -35,8 +35,11 @@ website:
       geoid_6_9:
       wikidataId:
       others:
-  
+
   nodePool:
+
+  evalTool:
+    enabled: false
 
 nameOverride: ""
 fullnameOverride: ""
@@ -167,3 +170,5 @@ cronTesting:
   screenshotDomain:
   # whether or not sanity tests are enabled
   enableSanity: true
+  # node pool to use
+  nodePool:

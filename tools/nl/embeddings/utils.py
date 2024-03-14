@@ -14,24 +14,25 @@
 """Common Utility functions for Embeddings."""
 
 from dataclasses import dataclass
+import itertools
+import logging
 import os
 from pathlib import Path
 import re
 from typing import Any, Dict, List, Tuple
 
 from file_util import create_file_handler
+from google.cloud import aiplatform
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import yaml
 
 # Col names in the input files/sheets.
 DCID_COL = 'dcid'
-
 NAME_COL = 'Name'
 DESCRIPTION_COL = 'Description'
 CURATED_ALTERNATIVES_COL = 'Curated_Alternatives'
 OVERRIDE_COL = 'Override_Alternatives'
-
 ALTERNATIVES_COL = 'Alternatives'
 
 # Col names in the concatenated dataframe.
@@ -51,21 +52,26 @@ If a string matches this pattern, the first group is the model version.
 """
 _EMBEDDINGS_FILENAME_PATTERN = r"^[^.]+\.([^.]+\.[^.]+)\.csv$"
 
+_CHUNK_SIZE = 100
+
+_MODEL_ENDPOINT_RETRYS = 3
+
 
 @dataclass
 class Context:
-  # gspread client
-  gs: Any
   # Model
   model: Any
+  # Vertex AI model endpoint url
+  model_endpoint: aiplatform.Endpoint
   # GCS storage bucket
   bucket: Any
   # Temp dir
   tmp: str = "/tmp"
 
 
-def two_digits(number: int) -> str:
-  return str(number).zfill(2)
+def chunk_list(data, chunk_size):
+  it = iter(data)
+  return iter(lambda: tuple(itertools.islice(it, chunk_size)), ())
 
 
 def get_local_alternatives(local_filename: str,
@@ -158,20 +164,13 @@ def dedup_texts(df: pd.DataFrame) -> Tuple[Dict[str, str], List[List[str]]]:
   return (text2sv_dict, dup_sv_rows)
 
 
-def get_texts_dcids(
-    text2sv_dict: Dict[str, str]) -> Tuple[List[str], List[str]]:
-  texts = sorted(list(text2sv_dict.keys()))
-  dcids = [text2sv_dict[k] for k in texts]
-  return (texts, dcids)
-
-
 def _download_file_from_gcs(ctx: Context, file_name: str) -> str:
   """Downloads the specified file_name from GCS to the ctx.tmp folder.
 
   Args:
     ctx: Context which has the GCS bucket information.
     file_name: the GCS bucket name for the file.
-  
+
   Returns the path to the local directory where the file was downloaded to.
   ```
   """
@@ -188,7 +187,7 @@ def _download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
   Args:
     ctx: Context which has the GCS bucket information.
     model_folder_name: the GCS bucket name for the model.
-  
+
   Returns the path to the local directory where the model was downloaded to.
   The downloaded model can then be loaded as:
 
@@ -214,26 +213,36 @@ def _download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
   return os.path.join(local_dir, model_folder_name)
 
 
-def build_embeddings(ctx, texts: List[str], dcids: List[str]) -> pd.DataFrame:
+def build_embeddings(ctx, text2sv: Dict[str, str]) -> pd.DataFrame:
   """Builds the embeddings dataframe.
-  
-  Texts and dcids should be of equal length such that
-  a text at a given index corresponds to the dcid at that index.
 
   The output dataframe contains the embeddings columns (typically 384) + dcid + sentence.
   """
-  assert len(texts) == len(dcids)
+  texts = sorted(list(text2sv.keys()))
 
-  embeddings = ctx.model.encode(texts, show_progress_bar=True)
+  if ctx.model:
+    embeddings = ctx.model.encode(texts, show_progress_bar=True)
+  else:
+    embeddings = []
+    for i, chuck in enumerate(chunk_list(texts, _CHUNK_SIZE)):
+      logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE - 1)
+      for i in range(_MODEL_ENDPOINT_RETRYS):
+        try:
+          resp = ctx.model_endpoint.predict(instances=chuck,
+                                            timeout=600).predictions
+          embeddings.extend(resp)
+          break
+        except Exception as e:
+          logging.info('Exception %s', e)
   embeddings = pd.DataFrame(embeddings)
-  embeddings[DCID_COL] = dcids
+  embeddings[DCID_COL] = [text2sv[t] for t in texts]
   embeddings[COL_ALTERNATIVES] = texts
   return embeddings
 
 
 def get_or_download_model_from_gcs(ctx: Context, model_version: str) -> str:
   """Returns the local model path, downloading it if needed.
-  
+
   If the model is already downloaded, it returns the model path.
   Otherwise, it downloads the model to the local file system and returns that path.
   """
@@ -255,7 +264,7 @@ def get_or_download_model_from_gcs(ctx: Context, model_version: str) -> str:
 
 def get_or_download_file_from_gcs(ctx: Context, file_name: str) -> str:
   """Returns the local file path, downloading it if needed.
-  
+
   If the file is already downloaded, it returns the file path.
   Otherwise, it downloads the file from GCS to the local file system and returns that path.
   """
@@ -282,7 +291,7 @@ def get_ft_model_from_gcs(ctx: Context,
 
 def get_default_ft_model_version() -> str:
   """Gets the default index's (i.e. 'medium_ft') model version from embeddings.yaml.
-  
+
   It will raise an error if the file or default index is not found or
   if the value does not conform to the pattern:
   <embeddings_version>.<fine-tuned-model-version>.<base-model>.csv

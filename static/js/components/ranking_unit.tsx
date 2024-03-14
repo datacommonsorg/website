@@ -260,6 +260,9 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                               </span>
                             </td>
                           ))}
+                        <td className="ranking-date-cell" title={point.date}>
+                          {point.date}
+                        </td>
                       </tr>
                     );
                   })}

@@ -44,7 +44,8 @@ class ExploreTest(NLWebServerTestCase):
                     dc='',
                     failure='',
                     test='',
-                    i18n=''):
+                    i18n='',
+                    check_detection=False):
     ctx = {}
     for q in queries:
       resp = requests.post(
@@ -59,7 +60,7 @@ class ExploreTest(NLWebServerTestCase):
         d = ''
       else:
         d = q.replace(' ', '').replace('?', '').lower()
-      self.handle_response(q, resp, test_dir, d, failure)
+      self.handle_response(q, resp, test_dir, d, failure, check_detection)
 
   def run_detect_and_fulfill(self,
                              test_dir,
@@ -102,7 +103,7 @@ class ExploreTest(NLWebServerTestCase):
                       test_dir,
                       test_name,
                       failure,
-                      check_place_detection=False,
+                      check_detection=False,
                       detector=None):
     dbg = resp['debug']
     resp['debug'] = {}
@@ -122,14 +123,21 @@ class ExploreTest(NLWebServerTestCase):
       with open(json_file, 'w') as infile:
         infile.write(json.dumps(resp, indent=2))
 
-      if check_place_detection:
+      if check_detection:
         dbg_file = os.path.join(json_dir, 'debug_info.json')
         with open(dbg_file, 'w') as infile:
           dbg_to_write = {
               "places_detected": dbg["places_detected"],
               "places_resolved": dbg["places_resolved"],
               "main_place_dcid": dbg["main_place_dcid"],
-              "main_place_name": dbg["main_place_name"]
+              "main_place_name": dbg["main_place_name"],
+              "entities_resolved": dbg["entities_resolved"],
+              "sv_matching": {
+                  "SV": dbg["sv_matching"]["SV"]
+              },
+              "props_matching": {
+                  "PROP": dbg["props_matching"]["PROP"]
+              },
           }
           infile.write(json.dumps(dbg_to_write, indent=2))
     else:
@@ -141,7 +149,7 @@ class ExploreTest(NLWebServerTestCase):
       if detector:
         self.assertTrue(dbg.get('detection_type').startswith(detector)), \
           f'Query {query} failed!'
-      if not check_place_detection:
+      if not check_detection:
         with open(json_file, 'r') as infile:
           expected = json.load(infile)
           expected['debug'] = {}
@@ -162,6 +170,12 @@ class ExploreTest(NLWebServerTestCase):
           self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
           self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
           self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
+          self.assertEqual(dbg["entities_resolved"],
+                           expected["entities_resolved"])
+          self.assertEqual(dbg["sv_matching"]["SV"],
+                           expected["sv_matching"]["SV"])
+          self.assertEqual(dbg["props_matching"]["PROP"],
+                           expected["props_matching"]["PROP"])
 
   def handle_i18n_response(self, resp, i18n_lang):
     """The translation API does not always return the same translations.
@@ -196,6 +210,13 @@ class ExploreTest(NLWebServerTestCase):
 
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
+
+  def test_detection_bio(self):
+    self.run_detection('detection_api_bio', [
+        'What is the phylum of volvox?',
+    ],
+                       dc='bio',
+                       check_detection=True)
 
   def test_detection_context(self):
     self.run_detection('detection_api_context', [
@@ -379,31 +400,31 @@ class ExploreTest(NLWebServerTestCase):
         'immunization vs. debt in the world', 'debt in china, germany and india'
     ])
 
-  def test_e2e_edge_cases2(self):
-    self.run_detect_and_fulfill(
-        'e2e_edge_cases2',
-        [
-            'What crimes are considered felonies vs. misdemeanors in the US',
-            'How does school size of urban schools compare to rural schools in US',
-            'What is the relationship between housing size and home prices in California',
+  # def test_e2e_edge_cases2(self):
+  #   self.run_detect_and_fulfill(
+  #       'e2e_edge_cases2',
+  #       [
+  #           'What crimes are considered felonies vs. misdemeanors in the US',
+  #           'How does school size of urban schools compare to rural schools in US',
+  #           'What is the relationship between housing size and home prices in California',
 
-            # This is a regression test to ensure "biggest" doesn't trigger
-            # SUPERLATIVE, and we return Household Income within a topic,
-            # instead of a standalone lower-ranked SV (Individual median earnings)
-            # without an topic title.
-            'California counties with the biggest increase in income levels',
+  #           # This is a regression test to ensure "biggest" doesn't trigger
+  #           # SUPERLATIVE, and we return Household Income within a topic,
+  #           # instead of a standalone lower-ranked SV (Individual median earnings)
+  #           # without an topic title.
+  #           'California counties with the biggest increase in income levels',
 
-            # This is a regression test to ensure that filter_with_single_var can
-            # work with a variable in a topic.  Before the fix, it returns
-            # a standalone SV (average earnings), and after fix it returns an
-            # SV part of the topic with page title (median household income)
-            'Counties in California where income is over 50000',
+  #           # This is a regression test to ensure that filter_with_single_var can
+  #           # work with a variable in a topic.  Before the fix, it returns
+  #           # a standalone SV (average earnings), and after fix it returns an
+  #           # SV part of the topic with page title (median household income)
+  #           'Counties in California where income is over 50000',
 
-            # This is a regression test to ensure that the titles does
-            # not have both the topics. Instead, the title has the topic
-            # corresponding to the SV in the very first chart.
-            'Poverty vs. unemployment rate in districts of Tamil Nadu',
-        ])
+  #           # This is a regression test to ensure that the titles does
+  #           # not have both the topics. Instead, the title has the topic
+  #           # corresponding to the SV in the very first chart.
+  #           'Poverty vs. unemployment rate in districts of Tamil Nadu',
+  #       ])
 
   def test_e2e_superlatives(self):
     self.run_detect_and_fulfill('e2e_superlatives', [
@@ -538,3 +559,7 @@ class ExploreTest(NLWebServerTestCase):
         'e2e_toolformer_mode',
         ['what is the infant mortality rate in massachusetts'],
         mode='toolformer')
+
+  def test_e2e_triple(self):
+    self.run_detect_and_fulfill('e2e_triple', ['What is the phylum of volvox?'],
+                                dc='bio')

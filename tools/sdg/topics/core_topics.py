@@ -44,10 +44,13 @@ _UNDATA_TOPIC_JSON = '../../../server/config/nl_page/undata_topic_cache.json'
 _UNDATA_NON_COUNTRY_VARS = '../../../server/config/nl_page/undata_non_country_vars.json'
 _UNDATA_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_undata.mcf')
 _UNDATA_VARIABLES_FILE = 'undata_variable_grouping.csv'
+_UNDATA_SERIES_TOPICS_FILE = 'un_who_series_topics.csv'
+_UNDATA_NL_DESCRIPTIONS_FILE = os.path.join(_TMP_DIR,
+                                            'undata_nl_descriptions.csv')
 
 API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
-API_PATH_PV = API_ROOT + '/v1/bulk/property/values/out'
+API_PATH_PROP_OUT = API_ROOT + '/v1/bulk/property/values/out'
 
 
 def _svg2t(svg):
@@ -115,6 +118,7 @@ class Variables:
   group_descriptions: Dict[str, str]
   non_country_vars: Set[str]
   keep_vars: Set[str]
+  dropped_vars: Set[str]
 
 
 def load_variables(vars_file: str, vars: Variables, var_prefix: str,
@@ -132,6 +136,7 @@ def load_variables(vars_file: str, vars: Variables, var_prefix: str,
       if row.get('SELECT'):
         if 'drop' in row['SELECT'].lower():
           print(f'Dropping variable {var}')
+          vars.dropped_vars.add(var)
           continue
         elif 'do not display in country pages' in row['SELECT'].lower():
           vars.non_country_vars.add(var)
@@ -167,8 +172,12 @@ def load_variables(vars_file: str, vars: Variables, var_prefix: str,
         vars.series2group2vars[srs][grp] = []
       vars.series2group2vars[srs][grp].append(var)
 
-      assert var not in vars.grouped_vars
+      assert var not in vars.grouped_vars, var
       vars.grouped_vars.add(var)
+    assert vars.grouped_vars and vars.keep_vars
+    print(
+        f'TOTAL:  Loaded {len(vars.keep_vars)} vars, {len(vars.grouped_vars)} grouped'
+    )
 
   # Prune out the single-member stuff.
   deletions = {}
@@ -279,13 +288,97 @@ def write_non_country_vars(non_country_vars_file: str, vars: Variables):
     json.dump(js, fp, indent=2)
 
 
+def strip_parens(name: str):
+  return name.replace('(', '').replace(')', '')
+
+
+def alt_nl_name(name: str):
+  new_name = ''
+  for f, t in [('DALYs', 'disability-adjusted life years'),
+               ('DALY', 'disability-adjusted life years'),
+               ('YLLs', 'years life lost'), ('YLL', 'years life lost')]:
+    if f in name:
+      if t not in name.lower():
+        new_name = name.replace(f, t)
+        name = name.lower()
+      else:
+        new_name = name.replace(f, '')
+        name = name.lower().replace(t, '')
+      break
+
+  return strip_parens(new_name), strip_parens(name)
+
+
+def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
+                          undata_series_topics_file: str, vars: Variables):
+  with open(nl_desc_file, 'w') as fp:
+    csvw = csv.DictWriter(fp,
+                          fieldnames=[
+                              'dcid', 'Name', 'Description',
+                              'Override_Alternatives', 'Curated_Alternatives'
+                          ])
+    csvw.writeheader()
+
+    series_topics = set()
+    for n in nodes:
+      dcid = n.get('dcid', [''])[0]
+      name = n.get('name', [''])[0]
+      if 'dc/topic/' not in dcid or 'dc/topic/UN' in dcid:
+        continue
+      if '-' in dcid or '_' in dcid:
+        # Series topics do not have any of these.
+        print(f'WARNING: Found non-series topic {dcid}, dropping')
+        continue
+      series_topics.add(dcid)
+      alt_name, name = alt_nl_name(name)
+      csvw.writerow({
+          'dcid': dcid,
+          'Name': name,
+          'Description': '',
+          'Override_Alternatives': '',
+          'Curated_Alternatives': alt_name
+      })
+
+    sv_dcids = set()
+    with open(undata_series_topics_file) as fp:
+      for row in csv.DictReader(fp):
+        if row['NVars'] == '1':
+          var = row['Vars']
+          if var in vars.dropped_vars:
+            logging.error(f'WARNING: skipping dropped var {var} from NL index')
+            continue
+          sv_dcids.add(var)
+        else:
+          id = row['SeriesTopic']
+          if id not in series_topics:
+            logging.error(f'ERROR: Missing topic {id}')
+
+    resp = common.call_api(API_PATH_PROP_OUT, {
+        'nodes': sorted(list(sv_dcids)),
+        'property': 'name'
+    })
+    for n in resp.get('data', []):
+      sv = n.get('node')
+      name = n.get('values', [{}])[0].get('value')
+      if name and name != sv:
+        alt_name, name = alt_nl_name(name)
+        csvw.writerow({
+            'dcid': sv,
+            'Name': name,
+            'Description': '',
+            'Override_Alternatives': '',
+            'Curated_Alternatives': alt_name,
+        })
+
+
 def main(_):
   assert FLAGS.dc
   vars = Variables(series2group2vars={},
                    grouped_vars=set(),
                    group_descriptions={},
                    non_country_vars=set(),
-                   keep_vars=set())
+                   keep_vars=set(),
+                   dropped_vars=set())
   if FLAGS.dc == 'sdg':
     load_variables(vars_file=_SDG_VARIABLES_FILE,
                    vars=vars,
@@ -307,6 +400,8 @@ def main(_):
     nodes = generate([_UNDATA_ROOT], vars)
     common.write_topic_mcf(_UNDATA_MCF_PATH, nodes)
     common.write_topic_json(_UNDATA_TOPIC_JSON, nodes)
+    write_nl_descriptions(_UNDATA_NL_DESCRIPTIONS_FILE, nodes,
+                          _UNDATA_SERIES_TOPICS_FILE, vars)
   print(f'Found {len(vars.keep_vars)} vars')
 
 
