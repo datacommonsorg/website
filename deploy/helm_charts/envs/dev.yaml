@@ -21,7 +21,7 @@ namespace:
 
 website:
   flaskEnv: dev
-  replicas: 10
+  replicas: 5
   redis:
     enabled: false
 
@@ -31,11 +31,11 @@ serviceAccount:
 serviceGroups:
   recon: null
   svg:
-    replicas: 5
+    replicas: 2
   observation:
-    replicas: 10
-  node:
     replicas: 5
+  node:
+    replicas: 10
   default:
     replicas: 5
 
@@ -44,7 +44,7 @@ nl:
 
 nodejs:
   enabled: true
-  replicas: 50
+  replicas: 5
 
 cronTesting:
   enabled: true

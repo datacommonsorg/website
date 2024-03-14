@@ -21,6 +21,7 @@ import sys
 import threading
 import time
 import google.cloud.logging
+from flask.logging import default_handler
 
 import requests
 
@@ -37,6 +38,7 @@ client = google.cloud.logging.Client()
 client.setup_logging()
 
 app = create_app()
+app.logger.removeHandler(default_handler)
 
 WARM_UP_ENDPOINTS = [
     "/api/choropleth/geojson?placeDcid=country/USA&placeType=County",
