@@ -49,7 +49,7 @@ class ExtremeCallLogger:
 
   def finish(self, resp: requests.Response = None):
     # Don't log on PROD.
-    if os.environ.get('FLASK_ENV') == 'production':
+    if os.environ.get('FLASK_ENV') in ['production', 'custom']:
       return
 
     # Error msgs
@@ -70,7 +70,7 @@ class ExtremeCallLogger:
         nvars = len(self.request.get('variable', {}).get('dcids', []))
       if nents > _THING_LIMIT:
         cases.append(f'big-req: {nents} entities')
-      elif nvars > _THING_LIMIT:
+      if nvars > _THING_LIMIT:
         cases.append(f'big-req: {nvars} vars')
 
     # If response is set, check byte limit
