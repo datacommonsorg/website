@@ -21,8 +21,8 @@ import sys
 import threading
 import time
 import google.cloud.logging
-from google.cloud.logging.handlers import CloudLoggingHandler
 
+from google.cloud.logging.handlers import CloudLoggingHandler
 import requests
 
 from server.__init__ import create_app
@@ -35,6 +35,11 @@ logging.basicConfig(
 )
 client = google.cloud.logging.Client()
 client.setup_logging()
+root_logger = logging.getLogger()
+root_logger.handlers = [
+    handler for handler in root_logger.handlers
+    if isinstance(handler, CloudLoggingHandler)
+]
 
 app = create_app()
 
