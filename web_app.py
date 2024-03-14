@@ -20,6 +20,7 @@ import logging
 import sys
 import threading
 import time
+import google.cloud.logging
 
 import requests
 
@@ -31,6 +32,9 @@ logging.basicConfig(
     "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
     datefmt="%H:%M:%S",
 )
+
+client = google.cloud.logging.Client()
+client.setup_logging()
 
 app = create_app()
 
