@@ -48,7 +48,6 @@ class ExtremeCallLogger:
     self.start = time.time()
 
   def finish(self, resp: requests.Response = None):
-    # Don't log on PROD.
     if os.environ.get('FLASK_ENV') in ['production', 'custom']:
       return
 
