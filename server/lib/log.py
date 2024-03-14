@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,8 +25,8 @@ import traceback
 
 import requests
 
-# 500 is a bit high,  but there are known paths
-# (like ranking across counties in US) that exercise this path.
+# 500 may seem high,  but there are known paths (like ranking across
+# counties in US) ask for many more things (3K).
 _THING_LIMIT = 500
 _BYTE_LIMIT = 5 << 20  # 5 MB
 _MAX_DURATION_SECS = 2
