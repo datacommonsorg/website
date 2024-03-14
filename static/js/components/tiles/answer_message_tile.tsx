@@ -102,7 +102,6 @@ const fetchData = (
         })
         .then((resp) => {
           return {
-            value: Array.from(values),
             source: provIdList
               .map((provId) => {
                 const urlValues = resp.data[provId];
@@ -113,6 +112,7 @@ const fetchData = (
                 }
               })
               .filter((url) => !!url),
+            value: Array.from(values),
           };
         });
     })
