@@ -23,6 +23,7 @@ import time
 import google.cloud.logging
 
 from google.cloud.logging.handlers import CloudLoggingHandler
+from google.cloud.logging_v2.handlers import setup_logging
 import requests
 
 from server.__init__ import create_app
@@ -33,13 +34,10 @@ logging.basicConfig(
     "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
     datefmt="%H:%M:%S",
 )
+
 client = google.cloud.logging.Client()
-client.setup_logging()
-root_logger = logging.getLogger()
-root_logger.handlers = [
-    handler for handler in root_logger.handlers
-    if isinstance(handler, CloudLoggingHandler)
-]
+handler = CloudLoggingHandler(client)
+setup_logging(handler)
 
 app = create_app()
 

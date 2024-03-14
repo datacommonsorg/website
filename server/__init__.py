@@ -415,7 +415,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   @app.teardown_request
   def log_unhandled(e):
     if e is not None:
-      logging.error('Error thrown for request: %s, error: %s', request, e)
+      app.logger.error('Error thrown for request: %s, error: %s', request, e)
 
   # Jinja env
   app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
