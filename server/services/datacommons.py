@@ -22,6 +22,7 @@ from flask import current_app
 import requests
 
 from server import cache
+from server.lib import log
 import server.lib.config as libconfig
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -36,7 +37,9 @@ def get(url: str):
   if dc_api_key:
     headers['x-api-key'] = dc_api_key
   # Send the request and verify the request succeeded
+  call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
+  call_logger.finish(response)
   if response.status_code != 200:
     raise ValueError(
         'Response error: An HTTP {} code ({}) was returned by the mixer.'
@@ -56,12 +59,14 @@ def post(url: str, req: Dict):
 @cache.cache.memoize(timeout=cache.TIMEOUT)
 def post_wrapper(url, req_str: str):
   req = json.loads(req_str)
+  call_logger = log.ExtremeCallLogger(req)
   headers = {'Content-Type': 'application/json'}
   dc_api_key = current_app.config.get('DC_API_KEY', '')
   if dc_api_key:
     headers['x-api-key'] = dc_api_key
   # Send the request and verify the request succeeded
   response = requests.post(url, json=req, headers=headers)
+  call_logger.finish(response)
   if response.status_code != 200:
     raise ValueError(
         'An HTTP {} code ({}) was returned by the mixer: "{}"'.format(
