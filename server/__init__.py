@@ -16,6 +16,7 @@ import json
 import logging
 import os
 
+from flask.logging import default_handler
 from flask import Flask
 from flask import g
 from flask import redirect
@@ -225,6 +226,8 @@ def register_routes_common(app):
 
 def create_app(nl_root=DEFAULT_NL_ROOT):
   app = Flask(__name__, static_folder='dist', static_url_path='')
+
+  app.logger.removeHandler(default_handler)
 
   # Setup flask config
   app.config.from_object(cfg)
