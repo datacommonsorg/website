@@ -29,9 +29,10 @@ from google.cloud import secretmanager
 from google.cloud import storage
 from markupsafe import escape
 
-from server import cache
+from server.lib.cache import cache
 from server.lib.gcs import list_folder
 from server.lib.gcs import read_blob
+from server.routes import TIMEOUT
 from server.routes.screenshot.diff import img_diff
 
 SCREENSHOT_BUCKET = 'datcom-website-screenshot'
@@ -172,7 +173,7 @@ def home():
 
 
 @bp.route('/commit/<path:sha>')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def commit(sha):
   if not env_valid():
     flask.abort(404)
@@ -182,7 +183,7 @@ def commit(sha):
 
 
 @bp.route('/date/<path:date>')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def date(date):
   if not env_valid():
     flask.abort(404)
@@ -193,7 +194,7 @@ def date(date):
 
 
 @bp.route('/compare/<path:compare>')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def compare(compare):
   """
   compare is an expression in the form of "githash1...githash2".
@@ -223,7 +224,7 @@ def compare(compare):
 
 
 @bp.route('/api/diff')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def diff():
   blob1 = request.args.get('blob1')
   blob2 = request.args.get('blob2')
