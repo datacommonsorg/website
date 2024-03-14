@@ -20,11 +20,20 @@ from flask_caching import Cache
 import server.lib.config as lib_config
 import server.lib.redis as lib_redis
 
+# _redis_cache is a redis cache client when a redis config is available.
+# It will be used by the regular flask "cache" and/or the flask "model_cache".
 _redis_cache = None
+
+# cache is the default flask cache for endpoints.
 cache = None
+
+# model_cache is flask cache for endpoints that invoke vertext models.
 model_cache = None
 
 redis_config = lib_redis.get_redis_config()
+
+# Setup model_cache, use redis if available, otherwise use filesystem cache
+# which is good for local development.
 if redis_config:
   redis_host = redis_config['host']
   redis_port = redis_config['port']
@@ -45,6 +54,7 @@ else:
 
 cfg = lib_config.get_config()
 if cfg.USE_MEMCACHE:
+  # Setup regular flask cache. Use Redis if available, otherwise use SimpleCache.
   if _redis_cache:
     cache = _redis_cache
   else:

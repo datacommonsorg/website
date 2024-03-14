@@ -33,6 +33,8 @@ def get_redis_config():
     region = '-'.join(zone.split('/')[3].split('-')[0:2])
     if not region:
       return None
-    host = redis[region]["host"]
-    port = redis[region]["port"]
-    return {"host": host, "port": port}
+    if region in redis:
+      host = redis[region]["host"]
+      port = redis[region]["port"]
+      return {"host": host, "port": port}
+    return None
