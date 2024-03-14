@@ -51,9 +51,11 @@ import {
   getMinTileIdxToHide,
 } from "../../utils/subject_page_utils";
 import { getComparisonPlaces } from "../../utils/tile_utils";
+import { AnswerMessageTile } from "../tiles/answer_message_tile";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
 import { DonutTile } from "../tiles/donut_tile";
+import { EntityOverviewTile } from "../tiles/entity_overview_tile";
 import { GaugeTile } from "../tiles/gauge_tile";
 import { HighlightTile } from "../tiles/highlight_tile";
 import { LineTile } from "../tiles/line_tile";
@@ -624,6 +626,23 @@ function renderTiles(
         );
       case "PLACE_OVERVIEW":
         return <PlaceOverviewTile key={id} place={place} />;
+      case "ANSWER_MESSAGE":
+        return (
+          <AnswerMessageTile
+            key={id}
+            title={tile.title}
+            entity={!_.isEmpty(tile.entity) ? tile.entity[0] : ""}
+            property={tile.answerMessageTileSpec.property}
+            displayValue={tile.answerMessageTileSpec.displayValue}
+          />
+        );
+      case "ENTITY_OVERVIEW":
+        return (
+          <EntityOverviewTile
+            key={id}
+            entity={!_.isEmpty(tile.entity) ? tile.entity[0] : ""}
+          />
+        );
       default:
         console.log("Tile type not supported:" + tile.type);
     }

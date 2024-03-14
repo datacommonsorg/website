@@ -140,6 +140,31 @@ export interface MapTileSpec {
   geoJsonProp?: string;
 }
 
+export interface PropertySpec {
+  property: string;
+  direction: "IN" | "OUT";
+  type?: string;
+}
+
+export interface DisplayValueSpec {
+  value: string[];
+  source: string[];
+}
+
+export interface AnswerMessageTileSpec {
+  property?: PropertySpec;
+  displayValue?: DisplayValueSpec;
+}
+
+interface TableColumn {
+  header: string;
+  property: PropertySpec;
+}
+
+export interface AnswerTableTileSpec {
+  column: TableColumn[];
+}
+
 export interface TileConfig {
   title?: string;
   description: string;
@@ -150,6 +175,7 @@ export interface TileConfig {
   hideFooter?: boolean;
   subtitle?: string;
   placeNameProp?: string;
+  entity?: string[];
   rankingTileSpec?: RankingTileSpec;
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
   topEventTileSpec?: TopEventTileSpec;
@@ -160,6 +186,8 @@ export interface TileConfig {
   donutTileSpec?: DonutTileSpec;
   lineTileSpec?: LineTileSpec;
   mapTileSpec?: MapTileSpec;
+  answerMessageTileSpec?: AnswerMessageTileSpec;
+  answerTableTileSpec?: AnswerTableTileSpec;
 }
 
 export interface ColumnConfig {
@@ -188,7 +216,7 @@ export type StatVarSpecMap = Record<string, StatVarSpec>;
 export interface CategoryConfig {
   title: string;
   description?: string;
-  statVarSpec: StatVarSpecMap;
+  statVarSpec?: StatVarSpecMap;
   blocks: BlockConfig[];
   dcid?: string;
   url?: string;
