@@ -16,13 +16,14 @@
 # When there are extreme RPC calls - in terms of number of requested
 # entities/variables, response bytes, duration, or failures - log some
 # debug info including the function call stack.
-# 
+#
 
 import logging
 import os
-import requests
 import time
-import traceback 
+import traceback
+
+import requests
 
 # 500 is a bit high,  but there are known paths
 # (like ranking across counties in US) that exercise this path.
@@ -49,8 +50,8 @@ class ExtremeCallLogger:
   def finish(self, resp: requests.Response = None):
     # Don't log on PROD.
     if os.environ.get('FLASK_ENV') == 'production':
-        return
-    
+      return
+
     # Error msgs
     cases = []
 
@@ -76,11 +77,12 @@ class ExtremeCallLogger:
     if resp:
       if resp.status_code != 200:
         cases.append(
-          f'failed-call: {resp.reason} - {nents} entities, {nvars} vars - {resp.content}')
+            f'failed-call: {resp.reason} - {nents} entities, {nvars} vars - {resp.content}'
+        )
       else:
         if len(resp.text) > _BYTE_LIMIT:
           cases.append(f'big-resp: {len(resp.text)} bytes')
-    
+
     if cases:
       msg = ' | '.join(cases)
       stack = ''.join(traceback.format_stack(limit=15))
