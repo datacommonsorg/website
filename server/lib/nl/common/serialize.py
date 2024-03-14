@@ -213,6 +213,8 @@ def _chart_spec_to_dict(charts: List[ChartSpec]) -> List[Dict]:
     cdict['chart_type'] = c.chart_type
     cdict['places'] = _place_to_dict(c.places)
     cdict['svs'] = c.svs
+    cdict['entities'] = _entity_to_dict(c.entities)
+    cdict['props'] = c.props
     cdict['event'] = c.event
     cdict['place_type'] = c.place_type
     cdict['chart_vars'] = asdict(c.chart_vars)
@@ -248,6 +250,8 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
             chart_type=ChartType(cdict['chart_type']),
             places=_dict_to_place(cdict['places']),
             svs=cdict['svs'],
+            entities=_dict_to_entity(cdict['entities']),
+            props=cdict['props'],
             event=cdict['event'],
             chart_vars=cv,
             place_type=cdict.get('place_type'),
