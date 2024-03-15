@@ -1995,3 +1995,43 @@ dc/topic/sdg_17.8,"Fully operationalize the technology bank and science, technol
 dc/topic/sdg_17.8.1,Proportion of individuals using the Internet,,,sdg 17.8.1;sdg 1781;sdg1781;sdg 17 8 1;sdg Proportion of individuals using the Internet;sustainable development goal Proportion of individuals using the Internet;internet access;people with internet access;people who are online;percentage of online people;internet access by genders;proportion of women online;proportion of men online;men with internet access;women with internet access;population with internet access
 dc/topic/sdg_17.9,"Enhance international support for implementing effective and targeted capacity-building in developing countries to support national plans to implement all the Sustainable Development Goals, including through North-South, South-South and triangular cooperation",,,"sdg 17.9;sdg 179;sdg179;sdg 17 9;sdg Enhance international support for implementing effective and targeted capacity-building in developing countries to support national plans to implement all the Sustainable Development Goals, including through North-South, South-South and triangular cooperation;sustainable development goal Enhance international support for implementing effective and targeted capacity-building in developing countries to support national plans to implement all the Sustainable Development Goals, including through North-South, South-South and triangular cooperation"
 dc/topic/sdg_17.9.1,"Dollar value of financial and technical assistance (including through North-South, South-South and triangular cooperation) committed to developing countries",,,"sdg 17.9.1;sdg 1791;sdg1791;sdg 17 9 1;sdg Dollar value of financial and technical assistance (including through North-South, South-South and triangular cooperation) committed to developing countries;sustainable development goal Dollar value of financial and technical assistance (including through North-South, South-South and triangular cooperation) committed to developing countries"
+Amount_FarmInventory_Wheat,Production of Wheat,,,
+Amount_FarmInventory_FoodGrain,Produciton of food grains,,,
+Amount_FarmInventory_JuteOrMesta,Production of jute and mesta,,,
+Amount_FarmInventory_Sugarcane,Production of sugarcane,,,
+Amount_FarmInventory_Pulses,Production of pulses,,,
+Area_LandCover_Forest,Area of Land Cover: Forest,,,land covered by forest
+Area_LandCover_Tree,Area of Land Cover: Tree,,,land covered by trees
+Mean_Inflation_EconomicActivity_ConsumerPriceIndex_GeneralSector,Average inflation in consumer price index by General Sector.,,,inflation in consumer prices in general sector
+Mean_Inflation_EconomicActivity_ConsumerPriceIndex_FuelAndLightSector,Average inflation in consumer price index by Fuel and Light Sector.,,,inflation in consumer prices in fuel and light sector
+Mean_Inflation_EconomicActivity_ConsumerPriceIndex_FoodAndDrinksSector,Average inflation in consumer price index by Food and Beverages Sector.,,,inflation in consumer prices in food and drinks sector
+Mean_Inflation_EconomicActivity_ConsumerPriceIndex_UrbanHousingSector,Average inflation in consumer price index by Urban Housing Sector.,,,inflation in consumer prices in urban housing sector
+Length_Transportation_NationalHighway,Length of national highway,,,
+Length_Transportation_Road,Length of road,,,
+Length_Transportation_StateHighway,Length of state highway,,,
+Length_Transportation_Railroad,Length of railway route,,,
+Count_Person_Aadhaar_Enrolled,Total population enrolled for Aadhaar,,,aadhaar enrollment
+Monthly_Count_FinancialTransaction_FinancialProduct_UPI,Number of UPI transactions per month,,,
+Monthly_Amount_FinancialTransaction_FinancialProduct_UPI,Total value of UPI transactions per month,,,
+Monthly_Count_FinancialTransaction_AadhaarEnabledPaymentSystemFundsTransfer,Number of Monthly Aadhaar Enabled Payment System Funds Transfer transactions,,,number of aadhar enabled fund transfers
+Monthly_Amount_FinancialTransaction_AadhaarEnabledPaymentSystemFundsTransfer,Total Value of Monthly Aadhaar Enabled Payment System Funds Transfer transactions,,,amount of aadhar enabled fund transfers
+Nominal_Amount_EconomicActivity_GrossValueAdded_Agriculture,Gross Value Added in Agriculture by Constant Prices.,,,value of goods produced in agriculture sector
+Nominal_Amount_EconomicActivity_GrossValueAdded_BankingAndInsuranceSector,Gross Value Added in Banking and Insurance by Constant Prices.,,,value of goods produced in banking and insurance sector
+Nominal_Amount_EconomicActivity_GrossValueAdded_Construction,Gross Value Added in Construction by Constant Prices.,,,value of goods produced in construction sector
+Nominal_Amount_EconomicActivity_GrossValueAdded_Industry,Gross Value Added in Industry by Constant Prices.,,,value of goods produced in industry sector
+Nominal_Amount_EconomicActivity_GrossValueAdded_ManufacturingSector,Gross Value Added in Manufacture by Constant Prices.,,,value of goods produced in manufacturing sector
+Nominal_Amount_EconomicActivity_GrossValueAdded_Services,Gross Value Added in Services by Constant Prices.,,,value of goods produced in services sector
+Annual_WithdrawalRate_Water_AsAFractionOf_Annual_Reserve_Water,Annual ground water withdrawal against net annual availability (%),,,water withdrawal percentage
+Capacity_Electricity_Renewables_AsAFractionOf_Capacity_Electricity,Renewable share of installed generating capacity (%),,,electricity from renewable energy
+Count_DeliveryEvent_Safe_AsFractionOf_Count_DeliveryEvent,Percentage of safe deliveries to total reported deliveries,,,percentage of safe child deliveries
+Count_WasteGenerated_Processed_AsAFractionOf_Count_WasteGenerated,Waste processed (%),,,percentage of waste processed
+UnemploymentRate_Person_Rural,Unemployment Rate: Rural,,,
+UnemploymentRate_Person_Rural_Female,"Unemployment Rate: Female, Rural",,,
+UnemploymentRate_Person_Rural_Male,"Unemployment Rate: Male, Rural",,,
+UnemploymentRate_Person_Urban,Unemployment Rate: Urban,,,
+UnemploymentRate_Person_Urban_Female,"Unemployment Rate: Female, Urban",,,
+UnemploymentRate_Person_Urban_Male,"Unemployment Rate: Male, Urban",,,
+Count_CivicStructure_AgriculturalFacility,Count of Civic Structure: Agricultural Facility,,,number of agricultural facilities
+Count_CivicStructure_EducationFacility,Count of Civic Structure: Education Facility,,,number of educational facilities
+Count_CivicStructure_MedicalFacility,Count of Civic Structure: Medical Facility,,,number of medical facilities
+Count_CivicStructure_TransportOrAdminFacility,Count of Civic Structure: Transport or Admin Facility,,,number of transport or admin facilities
