@@ -53,6 +53,9 @@ export interface HighlightTilePropType {
   place: NamedTypedPlace;
   // Variable to get data for
   statVarSpec: StatVarSpec;
+  // Add "Per Capita" in front of the date
+  // Used when toggling "See per capita" in subject pages.
+  addPerCapita?: boolean;
 }
 
 interface HighlightData extends Observation {
@@ -81,9 +84,14 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   };
   let description = "";
   if (props.description) {
-    description = rs.date
-      ? formatString(props.description + " (${date})", rs)
-      : formatString(props.description, rs);
+    const dateString = rs.date
+      ? props.addPerCapita
+        ? " (Per Capita in ${date})"
+        : " (${date})"
+      : props.addPerCapita
+      ? " (Per Capita)"
+      : "";
+    description = formatString(props.description + dateString, rs);
   }
   // TODO: The {...{ part: "container"}} syntax to set a part is a hacky
   // workaround to add a "part" attribute to a React element without npm errors.

@@ -49,6 +49,11 @@ export class DatacommonsHighlightComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Optional: Whether to add "Per capita" to the description
+  // Used when toggling "See per capita" checkbox on subject pages.
+  @property()
+  addPerCapita?: boolean;
+
   // Optional: API root to use to fetch data
   // Defaults to https://datacommons.org
   @property()
@@ -87,6 +92,7 @@ export class DatacommonsHighlightComponent extends LitElement {
 
   render(): HTMLElement {
     const highlightTileProps: HighlightTilePropType = {
+      addPerCapita: this.addPerCapita,
       apiRoot: getApiRoot(this.apiRoot),
       description: this.header || this.description,
       place: {

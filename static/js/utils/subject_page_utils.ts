@@ -24,7 +24,7 @@ import {
   NL_NUM_TILES_SHOWN,
   NL_SMALL_TILE_CLASS,
 } from "../constants/app/nl_interface_constants";
-import { NamedPlace, NamedTypedPlace } from "../shared/types";
+import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
   ColumnConfig,
   SubjectPageConfig,
@@ -209,4 +209,76 @@ export function trimCategory(
     pageConfig.categories = categories;
   }
   return pageConfig;
+}
+
+/**
+ * Add "Per Capita" to a chart title.
+ *
+ * If the "date" replacement string is present, will add "Per Capita in" inside
+ * the same parentheses as the date. If date is not present, will add
+ * "(Per Capita)" to the end of the title.
+ *
+ * Assumes chart titles have the format <StatVarName> (${date}). Used for
+ * updating the chart titles when the "See per capita" checkbox is checked.
+ *
+ * @param title title of the chart to edit
+ * @param dateString format of the date replacement string to look for
+ * @returns new chart title that includes the string "Per Capita"
+ */
+export function addPerCapitaToTitle(
+  title: string,
+  dateString = "date"
+): string {
+  if (title.includes(`(\$\{${dateString}\})`)) {
+    console.log(`(${dateString}) found`);
+    const regex = `\(\$\{${dateString}\}\)`;
+    return title.replace(regex, `(Per Capita in $\{${dateString}})`);
+  }
+  return title + " (Per Capita)";
+}
+
+/**
+ * Add "Per Capita" to a chart title that compares two stat vars
+ *
+ * Adds "Per Capita" to the variables that have a denom in their spec. If xDate
+ * or yDate replacement strings are present, will add "Per Capita" inside the
+ * same parentheses as the corresponding variable date. If xDate or yDate is
+ * not present, will add "(Per Capita)" after the variable name instead.
+ *
+ * Assumes the first stat var in statVarSpecs is shown on the y-axis, and
+ * the second stat var in statVarSpecs is shown on the x-axis. Assumes the
+ * format of the title originally is "<y-axis stat var> Vs. <x-axis stat var> in
+ * <placeType> of <parentPlace>" or "<y-axis stat var> Vs. <x-axis stat var>".
+ *
+ * @param title title of chart to edit
+ * @param statVarSpecs stat vars being plotted by the chart
+ * @returns new chart title that includes "Per Capita" for vars with denom
+ */
+export function addPerCapitaToVersusTitle(
+  title: string,
+  statVarSpecs: StatVarSpec[]
+): string {
+  // Split title into constituent parts via regex groups:
+  //   xVar -> x-axis stat var
+  //   yVar -> y-axis stat var
+  //   vs -> " Vs. " or " vs. " or " Vs " or " vs "
+  //   location -> "in <placeType> of <place>", if present
+  const regex =
+    /^(?<yVar>.*)(?<vs>\s[Vv]s\.?\s)(?<xVar>.*)(?<location>\s+in\s.*)?$/;
+  const titleParts = title.match(regex).groups;
+  if (titleParts) {
+    // Edit xVar and yVar parts to include "Per Capita"
+    if (statVarSpecs?.[0].denom) {
+      titleParts.yVar = addPerCapitaToTitle(titleParts.yVar, "yDate");
+    }
+    if (statVarSpecs?.[1].denom) {
+      titleParts.xVar = addPerCapitaToTitle(titleParts.xVar, "xDate");
+    }
+    // Stitch parts back to form the full title
+    return `${titleParts.yVar}${titleParts.vs}${titleParts.xVar}${
+      titleParts.location || ""
+    }`;
+  }
+
+  return title;
 }
