@@ -18,6 +18,7 @@ from server.config.subject_page_pb2 import RankingTileSpec
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 import server.lib.nl.common.constants as constants
+from server.lib.nl.common.utils import get_place_key
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import map
 from server.lib.nl.detection.date import get_date_string
@@ -112,7 +113,9 @@ def ranking_chart_block_climate_extremes(builder: base.Builder,
                             sv,
                             cspec.place_type,
                             sv2thing,
-                            date=cspec.single_date))
+                            single_date=cspec.single_date,
+                            date_range=cspec.date_range,
+                            sv_place_latest_date=cspec.sv_place_latest_date))
     map_column.tiles[0].title = sv2thing.name[
         sv]  # override decorated title (too long).
 
@@ -126,11 +129,17 @@ def ranking_chart_block_climate_extremes(builder: base.Builder,
 def ranking_chart_block(column, pri_place: Place, pri_sv: str, child_type: str,
                         sv2thing: types.SV2Thing,
                         ranking_types: List[RankingType], ranking_count: int,
-                        date: types.Date):
+                        single_date: types.Date, date_range: types.Date,
+                        sv_place_latest_date):
   # The main tile
   tile = column.tiles.add()
   sv_key = pri_sv
-  date_string = get_date_string(date)
+  date_string = ''
+  if single_date:
+    date_string = get_date_string(single_date)
+  elif date_range:
+    place_key = get_place_key(pri_place.dcid, child_type)
+    date_string = sv_place_latest_date.get(pri_sv, {}).get(place_key, '')
   if date_string:
     sv_key += f'_{date_string}'
   tile.stat_var_key.append(sv_key)

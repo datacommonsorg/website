@@ -16,6 +16,7 @@
 from dataclasses import dataclass
 from typing import Dict, List
 
+from server.lib.nl.common.utils import get_place_key
 import server.lib.nl.detection.types as dtypes
 import server.lib.nl.fulfillment.types as ftypes
 
@@ -52,9 +53,10 @@ def svs4children(state: ftypes.PopulateState, place: dtypes.Place,
 
 # For a list of svs and places, Gets a map of sv -> place -> facetId from
 # the results of an existence check
-def get_sv_place_facet_ids(svs: List[str], places: List[ftypes.Place],
-                           exist_checks: Dict[str, Dict[str,
-                                                        ftypes.ExistInfo]]):
+def get_sv_place_facet_ids(
+    svs: List[str], places: List[ftypes.Place],
+    exist_checks: Dict[str, Dict[str,
+                                 ftypes.ExistInfo]]) -> ftypes.Sv2Place2Facet:
   sv_place_facet_ids = {}
   for sv in svs:
     sv_place_facet_ids[sv] = {}
@@ -62,3 +64,28 @@ def get_sv_place_facet_ids(svs: List[str], places: List[ftypes.Place],
       sv_place_facet_ids[sv][pl.dcid] = exist_checks.get(sv, {}).get(
           pl.dcid, ftypes.ExistInfo()).facet.get('facetId', '')
   return sv_place_facet_ids
+
+
+# For a list of svs, places and an optional place type, gets a map of
+# sv -> placekey -> latest valid date from the results of an existence check.
+# Latest valid date is only retrieved during an existence check when there is a
+# date range in the query, so if there was no date range in the query, all
+# sv and placekey combinations will be mapped to empty string.
+def get_sv_place_latest_date(
+    svs: List[str], places: List[ftypes.Place],
+    place_type: ftypes.ContainedInPlaceType,
+    exist_checks: Dict[str, Dict[str,
+                                 ftypes.ExistInfo]]) -> ftypes.Sv2Place2Date:
+  sv_place_latest_date = {}
+  for sv in svs:
+    sv_place_latest_date[sv] = {}
+    for pl in places:
+      # Get the latest date for each place
+      sv_place_latest_date[sv][pl.dcid] = exist_checks.get(sv, {}).get(
+          pl.dcid, ftypes.ExistInfo()).latest_valid_date
+      # If there is a place type, also get latest date for each place + place type
+      if place_type:
+        pl_key = get_place_key(pl.dcid, place_type.value)
+        sv_place_latest_date[sv][pl_key] = exist_checks.get(sv, {}).get(
+            pl_key, ftypes.ExistInfo()).latest_valid_date
+  return sv_place_latest_date

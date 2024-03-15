@@ -72,12 +72,15 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
       cv = copy.deepcopy(chart_vars)
       cv.svs = [sv]
+      sv_place_latest_date = ext.get_sv_place_latest_date([sv], places, None,
+                                                          state.exist_checks)
       found |= add_chart_to_utterance(ChartType.BAR_CHART,
                                       state,
                                       cv,
                                       exist_places,
                                       chart_origin,
-                                      info_message=info_msg)
+                                      info_message=info_msg,
+                                      sv_place_latest_date=sv_place_latest_date)
   else:
     exist_svs = []
     # Pick variables that exist in at least 2 place, so each variable is comparable.
@@ -100,12 +103,15 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     info_msg = _get_info_message(exist_places, places)
     places = exist_places
     chart_vars.svs = exist_svs
+    sv_place_latest_date = ext.get_sv_place_latest_date(exist_svs, places, None,
+                                                        state.exist_checks)
     found |= add_chart_to_utterance(ChartType.BAR_CHART,
                                     state,
                                     chart_vars,
                                     places,
                                     chart_origin,
-                                    info_message=info_msg)
+                                    info_message=info_msg,
+                                    sv_place_latest_date=sv_place_latest_date)
 
   if not found:
     state.uttr.counters.err('failed_comparison_existence', '')

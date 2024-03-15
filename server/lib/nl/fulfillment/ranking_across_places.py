@@ -89,12 +89,17 @@ def populate(state: PopulateState,
 
     if not utils.has_map(state.place_type, places[0]):
       chart_vars.skip_map_for_ranking = True
+
+    sv_place_latest_date = ext.get_sv_place_latest_date(chart_vars.svs, places,
+                                                        state.place_type,
+                                                        state.exist_checks)
     return add_chart_to_utterance(ChartType.RANKING_WITH_MAP,
                                   state,
                                   chart_vars,
                                   places,
                                   chart_origin,
-                                  ranking_count=ranking_count)
+                                  ranking_count=ranking_count,
+                                  sv_place_latest_date=sv_place_latest_date)
 
 
 def _compute_answer_places(state: PopulateState, place: List[Place], sv: str):

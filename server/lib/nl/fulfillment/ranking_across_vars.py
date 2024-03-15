@@ -66,5 +66,11 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return False
   chart_vars.svs = eres.exist_svs
 
-  return add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
-                                chart_origin)
+  sv_place_latest_date = ext.get_sv_place_latest_date(chart_vars.svs, places,
+                                                      None, state.exist_checks)
+  return add_chart_to_utterance(ChartType.BAR_CHART,
+                                state,
+                                chart_vars,
+                                places,
+                                chart_origin,
+                                sv_place_latest_date=sv_place_latest_date)

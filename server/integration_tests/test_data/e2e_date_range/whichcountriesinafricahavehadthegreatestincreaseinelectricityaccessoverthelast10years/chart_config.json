@@ -22,7 +22,6 @@
                       "country/AGO"
                     ],
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "statVarKey": [
@@ -43,7 +42,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/KEN",
@@ -59,7 +57,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/RWA",
@@ -75,7 +72,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/ETH",
@@ -91,7 +87,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/UGA",
@@ -107,7 +102,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/TZA",
@@ -123,7 +117,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/MLI",
@@ -139,7 +132,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/ZMB",
@@ -155,7 +147,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/SDN",
@@ -171,7 +162,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/ZWE",
@@ -187,7 +177,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/AGO",
@@ -209,7 +198,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/RWA",
@@ -225,7 +213,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/UGA",
@@ -241,7 +228,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/KEN",
@@ -257,7 +243,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/ETH",
@@ -273,7 +258,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/TZA",
@@ -289,7 +273,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/SSD",
@@ -305,7 +288,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/ZMB",
@@ -321,7 +303,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/MLI",
@@ -337,7 +318,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/COD",
@@ -353,7 +333,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2014"
                     },
                     "placeDcidOverride": "country/MDG",

@@ -14,6 +14,7 @@
 
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
+from server.lib.nl.common.utils import get_place_key
 from server.lib.nl.config_builder import base
 from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.detection.types import Place
@@ -25,11 +26,18 @@ def map_chart_block(column,
                     pri_sv: str,
                     child_type: str,
                     sv2thing: types.SV2Thing,
-                    date: types.Date = None):
+                    single_date: types.Date = None,
+                    date_range: types.Date = None,
+                    sv_place_latest_date=None):
   # The main tile
   tile = column.tiles.add()
   sv_key = pri_sv
-  date_string = get_date_string(date)
+  date_string = ''
+  if single_date:
+    date_string = get_date_string(single_date)
+  elif date_range:
+    place_key = get_place_key(place.dcid, child_type)
+    date_string = sv_place_latest_date.get(pri_sv, {}).get(place_key, '')
   if date_string:
     sv_key += f'_{date_string}'
   tile.stat_var_key.append(sv_key)
