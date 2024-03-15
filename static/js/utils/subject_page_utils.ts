@@ -229,9 +229,8 @@ export function addPerCapitaToTitle(
   title: string,
   dateString = "date"
 ): string {
-  if (title.includes(`(\$\{${dateString}\})`)) {
-    console.log(`(${dateString}) found`);
-    const regex = `\(\$\{${dateString}\}\)`;
+  if (title.includes(`(\${${dateString}})`)) {
+    const regex = new RegExp(`\\(\\$\\{${dateString}\\}\\)`);
     return title.replace(regex, `(Per Capita in $\{${dateString}})`);
   }
   return title + " (Per Capita)";
