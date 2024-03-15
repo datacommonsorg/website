@@ -93,6 +93,7 @@ steps:
         git add website/autopush/commit_hash.txt
         git commit -m "Deployed website to autopush at commit https://github.com/datacommonsorg/website/commit/$SHORT_SHA"
         git push origin master
+    waitFor: ["push-web-server", "push-nl-server", "push-nodejs-server"]
 
 timeout: 3600s
 

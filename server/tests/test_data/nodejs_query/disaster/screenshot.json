@@ -1,7 +1,7 @@
 {
   "charts": [
     {
-      "data_csv": "label,Count of Fire Event\r\n2024-02,186\r\n2024-01,296",
+      "data_csv": "label,Count of Fire Event\r\n2024-03,41\r\n2024-02,234\r\n2024-01,296",
       "legend": [
         "Count of Fire Event"
       ],
@@ -21,14 +21,14 @@
         "Count_FireEvent"
       ],
       "highlight": {
-        "date": "2024-02",
-        "value": 186
+        "date": "2024-03",
+        "value": 41
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=fires%20in%20california"
     },
     {
-      "data_csv": "rank,place,Count of Fire Event\r\n1,Los Angeles County,24\r\n2,San Bernardino County,20\r\n3,Contra Costa County,14\r\n4,Madera County,9\r\n5,Santa Clara County,8\r\n49,Inyo County,1\r\n50,Fresno County,1\r\n51,Colusa County,1\r\n52,Amador County,1\r\n53,Alameda County,1",
+      "data_csv": "rank,place,Count of Fire Event\r\n1,Los Angeles County,9\r\n2,Butte County,8\r\n3,Solano County,7\r\n4,Tuolumne County,5\r\n5,Plumas County,5\r\n50,Kings County,1\r\n51,Kern County,1\r\n52,Inyo County,1\r\n53,Alpine County,1\r\n54,Alameda County,1",
       "placeType": "County",
       "places": [
         "geoId/06"
@@ -39,7 +39,7 @@
           "url": "https://firms.modaps.eosdis.nasa.gov/active_fire/"
         }
       ],
-      "title": "Count of Fire Event in Counties of California (Jan, 2024 to Feb, 2024)",
+      "title": "Count of Fire Event in Counties of California (Jan, 2024 to Mar, 2024)",
       "type": "TABLE",
       "unit": "",
       "vars": [

@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,13 +24,6 @@ import time
 import requests
 
 from server.__init__ import create_app
-
-logging.basicConfig(
-    level=logging.INFO,
-    format=
-    "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
-    datefmt="%H:%M:%S",
-)
 
 app = create_app()
 
