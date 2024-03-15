@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,19 +16,8 @@
 import sys
 
 import logging
-import google.cloud.logging
 
 from nl_server.__init__ import create_app
-
-logging.basicConfig(
-    level=logging.INFO,
-    format=
-    "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
-    datefmt="%H:%M:%S",
-)
-
-client = google.cloud.logging.Client()
-client.setup_logging()
 
 app = create_app()
 

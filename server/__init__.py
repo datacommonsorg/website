@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
 import logging
+import json
 import os
 
-from flask.logging import default_handler
 from flask import Flask
 from flask import g
 from flask import redirect
@@ -24,6 +23,7 @@ from flask import request
 from flask_babel import Babel
 import flask_cors
 from google.cloud import secretmanager
+import google.cloud.logging
 
 from server.lib import topic_cache
 import server.lib.cache as lib_cache
@@ -41,8 +41,6 @@ from server.services.discovery import get_health_check_urls
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
 DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
-
-cfg = lib_config.get_config()
 
 
 def register_routes_base_dc(app):
@@ -227,7 +225,18 @@ def register_routes_common(app):
 def create_app(nl_root=DEFAULT_NL_ROOT):
   app = Flask(__name__, static_folder='dist', static_url_path='')
 
-  app.logger.removeHandler(default_handler)
+  cfg = lib_config.get_config()
+
+  if not cfg.LOCAL:
+    client = google.cloud.logging.Client()
+    client.setup_logging()
+  logging.basicConfig(
+      level=logging.INFO,
+      format=
+      "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
+      datefmt="%H:%M:%S",
+  )
+  logging.getLogger('werkzeug').setLevel(logging.WARNING)
 
   # Setup flask config
   app.config.from_object(cfg)
@@ -415,7 +424,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   @app.teardown_request
   def log_unhandled(e):
     if e is not None:
-      app.logger.error('Error thrown for request: %s, error: %s', request, e)
+      app.logger.error('Error thrown for request: %s\nerror: %s', request.url,
+                       e)
 
   # Jinja env
   app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']

@@ -14,14 +14,27 @@
 
 import sys
 
+import logging
 from flask import Flask
 import torch
 
 import nl_server.loader as loader
 import nl_server.routes as routes
+import google.cloud.logging
 
 
 def create_app():
+
+  client = google.cloud.logging.Client()
+  client.setup_logging()
+
+  logging.basicConfig(
+      level=logging.INFO,
+      format=
+      "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
+      datefmt="%H:%M:%S",
+  )
+
   app = Flask(__name__)
   app.register_blueprint(routes.bp)
 
