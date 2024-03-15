@@ -604,16 +604,16 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
  */
 
 .answer-message-tile {
-  margin-top: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-top: 0;
 
   .answer-message {
     display: flex;
     flex-direction: column;
-    gap: 16px;
     font-size: 32px;
+    gap: 16px;
   }
 
   .source {

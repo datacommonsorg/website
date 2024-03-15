@@ -147,8 +147,8 @@ export interface PropertySpec {
 }
 
 export interface DisplayValueSpec {
-  value: string[];
-  source: string[];
+  values: string[];
+  sources: string[];
 }
 
 export interface AnswerMessageTileSpec {
@@ -162,7 +162,7 @@ interface TableColumn {
 }
 
 export interface AnswerTableTileSpec {
-  column: TableColumn[];
+  columns: TableColumn[];
 }
 
 export interface TileConfig {
@@ -175,7 +175,7 @@ export interface TileConfig {
   hideFooter?: boolean;
   subtitle?: string;
   placeNameProp?: string;
-  entity?: string[];
+  entities?: string[];
   rankingTileSpec?: RankingTileSpec;
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
   topEventTileSpec?: TopEventTileSpec;

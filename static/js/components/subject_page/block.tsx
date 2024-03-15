@@ -631,7 +631,7 @@ function renderTiles(
           <AnswerMessageTile
             key={id}
             title={tile.title}
-            entity={!_.isEmpty(tile.entity) ? tile.entity[0] : ""}
+            entity={!_.isEmpty(tile.entities) ? tile.entities[0] : ""}
             property={tile.answerMessageTileSpec.property}
             displayValue={tile.answerMessageTileSpec.displayValue}
           />
@@ -640,7 +640,7 @@ function renderTiles(
         return (
           <EntityOverviewTile
             key={id}
-            entity={!_.isEmpty(tile.entity) ? tile.entity[0] : ""}
+            entity={!_.isEmpty(tile.entities) ? tile.entities[0] : ""}
           />
         );
       default:

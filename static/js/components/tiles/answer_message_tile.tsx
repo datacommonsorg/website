@@ -67,56 +67,53 @@ export function AnswerMessageTile(
     >
       <div className={`answer-message ${ASYNC_ELEMENT_CLASS}`}>
         <span>{props.title}</span>
-        <span>{answerData.value.join(", ")}</span>
+        <span>{answerData.values.join(", ")}</span>
       </div>
-      <div className="source">source: {answerData.source.join(", ")}</div>
+      <div className="source">source: {answerData.sources.join(", ")}</div>
     </div>
   );
 }
 
-const fetchData = (
+const fetchData = async (
   props: AnswerMessageTilePropType
 ): Promise<DisplayValueSpec> => {
   if (props.displayValue || _.isEmpty(props.property)) {
     return Promise.resolve(props.displayValue);
   }
-
-  return axios
-    .get(`/api/node/propvals/${getPropertyDirection(props.property)}`, {
-      params: { dcids: [props.entity], prop: props.property.property },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      const respValues = resp.data[props.entity] || [];
-      const values: Set<string> = new Set();
-      const provIds: Set<string> = new Set();
-      respValues.forEach((respVal) => {
-        values.add(respVal.name || respVal.dcid || respVal.value);
-        provIds.add(respVal.provenanceId);
-      });
-      const provIdList = Array.from(provIds);
-      return axios
-        .get(`/api/node/propvals/out`, {
-          params: { dcids: provIdList, prop: "url" },
-          paramsSerializer: stringifyFn,
-        })
-        .then((resp) => {
-          return {
-            source: provIdList
-              .map((provId) => {
-                const urlValues = resp.data[provId];
-                if (!_.isEmpty(urlValues)) {
-                  return new URL(urlValues[0].value).host;
-                } else {
-                  return "";
-                }
-              })
-              .filter((url) => !!url),
-            value: Array.from(values),
-          };
-        });
-    })
-    .catch(() => {
-      return null;
+  try {
+    const propResp = await axios.get(
+      `/api/node/propvals/${getPropertyDirection(props.property)}`,
+      {
+        params: { dcids: [props.entity], prop: props.property.property },
+        paramsSerializer: stringifyFn,
+      }
+    );
+    const respValues = propResp.data[props.entity] || [];
+    const values: Set<string> = new Set();
+    const provIds: Set<string> = new Set();
+    respValues.forEach((respVal) => {
+      values.add(respVal.name || respVal.value || respVal.dcid);
+      provIds.add(respVal.provenanceId);
     });
+    const provIdList = Array.from(provIds);
+    const provIdUrlResp = await axios.get(`/api/node/propvals/out`, {
+      params: { dcids: provIdList, prop: "url" },
+      paramsSerializer: stringifyFn,
+    });
+    return {
+      sources: provIdList
+        .map((provId) => {
+          const urlValues = provIdUrlResp.data[provId];
+          if (!_.isEmpty(urlValues)) {
+            return new URL(urlValues[0].value).host;
+          } else {
+            return "";
+          }
+        })
+        .filter((url) => !!url),
+      values: Array.from(values),
+    };
+  } catch (e) {
+    return null;
+  }
 };
