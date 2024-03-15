@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import sys
 
-import logging
 from flask import Flask
+import google.cloud.logging
 import torch
 
 import nl_server.loader as loader
 import nl_server.routes as routes
-import google.cloud.logging
 
 
 def create_app():
