@@ -70,6 +70,8 @@ def detect_from_query_dc(orig_query: str,
           d['dcid'] for d in item['places'] if 'dcid' in d
       ]
     else:
+      # there was no DCID recognized from the span, so add the span (which is
+      # just a substring from the query)
       query_parts_with_dcids.append(item['span'].lower())
 
   resolved_places = []
@@ -90,16 +92,16 @@ def detect_from_query_dc(orig_query: str,
     parent_places = parent_map.get(main_place.dcid, [])
 
   # Set PlaceDetection.
-  places_str = [
-      main2substr[p]
-      for p in query_parts_with_dcids
-      if p in resolved_place_dcids
-  ]
+  places_str = []
   nonplace_query_parts = []
   for p in query_parts_with_dcids:
     if p in resolved_place_dcids:
-      continue
-    nonplace_query_parts.append(main2substr.get(p, p))
+      # The query part is a place dcid so add its original string to places_str
+      places_str.append(main2substr[p])
+    else:
+      # The query part is not a place dcid, so add its original string to
+      # nonplace_query_parts
+      nonplace_query_parts.append(main2substr.get(p, p))
   query_without_place_substr = ' '.join(nonplace_query_parts)
   place_detection = PlaceDetection(
       query_original=query,

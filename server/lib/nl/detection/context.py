@@ -109,8 +109,13 @@ def merge_with_context(uttr: nl_uttr.Utterance, default_place: Place = None):
   # 6. Populate the returned dict
   data_dict.update({
       Params.ENTITIES.value:
-          places + entities,
-      Params.VARS.value: (main_vars + properties)[:_MAX_RETURNED_VARS],
+          places,
+      Params.NON_PLACE_ENTITIES.value:
+          entities,
+      Params.VARS.value:
+          main_vars[:_MAX_RETURNED_VARS],
+      Params.PROPS.value:
+          properties[:_MAX_RETURNED_VARS],
       Params.SESSION_ID.value:
           uttr.session_id,
       Params.CMP_ENTITIES.value:
@@ -222,7 +227,8 @@ def _detect_places(uttr: nl_uttr.Utterance,
       if _handle_answer_places(uttr, child_type, places, cmp_places):
         return places, cmp_places
     else:
-      # There are NO places, so if there are answer places or entities, bail.
+      # There are NO places, so if there are answer places or entities detected,
+      # bail.
       if _handle_answer_places(uttr, child_type, places,
                                cmp_places) or uttr.entities:
         return places, cmp_places
@@ -342,7 +348,7 @@ def _detect_entities(uttr: nl_uttr.Utterance) -> List[str]:
     uttr.entities_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
   # If places were detected in the current query, don't try to use any past entities
   elif uttr.places and uttr.place_source != nl_uttr.FulfillmentResult.PAST_QUERY:
-    uttr.entities_source = nl_uttr.FulfillmentResult.UNFULFILLED
+    uttr.entities_source = nl_uttr.FulfillmentResult.UNRECOGNIZED
   else:
     if uttr.prev_utterance and uttr.prev_utterance.entities:
       entities = uttr.prev_utterance.entities
@@ -359,7 +365,7 @@ def _detect_props(uttr: nl_uttr.Utterance) -> List[str]:
     uttr.properties_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
   # If svs were detected in the current query, don't try to use any past entities
   elif uttr.svs and uttr.sv_source != nl_uttr.FulfillmentResult.PAST_QUERY:
-    uttr.entities_source = nl_uttr.FulfillmentResult.UNFULFILLED
+    uttr.properties_source = nl_uttr.FulfillmentResult.UNRECOGNIZED
   elif uttr.prev_utterance and uttr.prev_utterance.properties:
     props = uttr.prev_utterance.properties
     uttr.properties = props

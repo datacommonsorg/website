@@ -15,6 +15,8 @@
   "entities": [
     "geoId/06085"
   ],
+  "nonPlaceEntities": [],
+  "properties": [],
   "sessionId": "007_999999999",
   "variables": [
     "Median_Income_Person",

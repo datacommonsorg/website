@@ -34,6 +34,8 @@
   "entities": [
     "geoId/32"
   ],
+  "nonPlaceEntities": [],
+  "properties": [],
   "sessionId": "007_999999999",
   "variables": [
     "dc/topic/Asthma",

@@ -10,12 +10,14 @@
   "comparisonVariables": [],
   "context": {},
   "debug": {},
-  "entities": [
+  "entities": [],
+  "nonPlaceEntities": [
     "dc/003ye83smktt7"
   ],
-  "sessionId": "007_999999999",
-  "variables": [
+  "properties": [
     "phylum",
     "chemblID"
-  ]
+  ],
+  "sessionId": "007_999999999",
+  "variables": []
 }
