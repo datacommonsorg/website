@@ -14,7 +14,6 @@
 """LLM based detector."""
 
 import copy
-import logging
 import sys
 from typing import Dict, List
 
@@ -177,7 +176,7 @@ def detect(query: str,
                               dummy_dict,
                               skip_topics=skip_topics))
     except ValueError as e:
-      logging.info(e)
+      ctr.err('llm_detect_svs_value_error', {'q': sv, 'err': str(e)})
   svs_scores_dict = _merge_sv_dicts(sv_list, svs_score_dicts)
   sv_detection = dutils.create_sv_detection(query,
                                             svs_scores_dict,

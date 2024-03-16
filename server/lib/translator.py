@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 import re
 
 from flask import current_app
@@ -51,7 +50,6 @@ def detect_lang_and_translate(query, counters: Counters) -> (str, str):
     counters.err("empty_query_translation_error", {"query": query})
     return lang, query
   except Exception as e:
-    logging.error(e)
     counters.err("query_translation_error", {"query": query, "error": str(e)})
     return EN_LANG_CODE, query
 
@@ -124,7 +122,6 @@ def translate_page_config(page_config: dict, i18n_lang: str,
 
     return page_config
   except Exception as e:
-    logging.error(e)
     counters.err("translate_page_config_error", {"error": str(e)})
     return page_config
 
