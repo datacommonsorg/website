@@ -14,7 +14,6 @@
 """Module for NL page data spec"""
 
 import copy
-import logging
 from typing import cast, List
 
 from flask import current_app
@@ -199,8 +198,6 @@ def _produce_query_types(uttr: Utterance) -> List[QueryType]:
 #
 # TODO: Maybe improve in future.
 def _rank_charts(utterance: Utterance):
-  for chart in utterance.chartCandidates:
-    logging.info("Chart: %s %s\n" % (chart.places, chart.svs))
   utterance.rankedCharts = utterance.chartCandidates
 
 
