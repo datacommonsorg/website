@@ -83,7 +83,7 @@ export interface CardProps {
   // main text to display on card
   text: string;
   // url to link to when card is clicked
-  url?: string;
+  url: string;
 }
 
 export function Card(props: CardProps): JSX.Element {
