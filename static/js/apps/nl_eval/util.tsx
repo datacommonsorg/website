@@ -54,3 +54,15 @@ export function ndcg(newList: string[], baselineList: string[]): number {
   const dcgBase = dcg(baselineScores);
   return dcgBase > 0 ? dcgNew / dcgBase : 0;
 }
+
+export function accuracy(newList: string[], baselineList: string[]): number {
+  newList = newList.slice(0, baselineList.length);
+  const baseLineSet = new Set(baselineList);
+  let numMatch = 0;
+  for (const token of newList) {
+    if (baseLineSet.has(token)) {
+      numMatch += 1;
+    }
+  }
+  return numMatch / baselineList.length;
+}

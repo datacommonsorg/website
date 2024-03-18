@@ -3,19 +3,13 @@
     "dc/topic/EconomicEquity",
     "GiniIndex_EconomicActivity",
     "dc/topic/IncomeEquity",
-    "dc/topic/IndividualIncomeByIndustry",
-    "dc/topic/IndustriesByRevenue",
-    "dc/topic/PovertyLevels"
+    "dc/topic/EmploymentEquity"
   ],
   "health equity": [
     "dc/topic/HealthEquity",
     "dc/topic/sdg_3.8",
-    "Amount_EconomicActivity_ExpenditureActivity_HealthcareExpenditure_AsFractionOf_Count_Person",
-    "dc/topic/HealthWorkerDensity",
-    "dc/topic/sdg_3.c.1",
-    "dc/topic/HealthcareExpenditure",
-    "dc/topic/sdg_3.8.2",
-    "dc/topic/NoHealthInsuranceByIncome"
+    "dc/topic/NoHealthInsuranceByIncome",
+    "dc/topic/HealthInsuranceByRace"
   ],
   "poor hispanic women": [
     "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
@@ -23,31 +17,17 @@
   "unemployment rate": [
     "UnemploymentRate_Person",
     "dc/topic/UnemploymentRate",
-    "dc/topic/sdg_8.5.2",
-    "UnemploymentRate_Person_Male",
-    "UnemploymentRate_Person_Female"
+    "dc/topic/sdg_8.5.2"
   ],
-  "rates uninsured": [
-    "dc/topic/NoHealthInsurance",
-    "Percent_Person_18To64Years_ReceivedNoHealthInsurance",
-    "dc/topic/NoHealthInsuranceByIncome",
-    "Count_Household_NoHealthInsurance"
-  ],
-  "breakdown incarceration rates race": [
-    "dc/rmwl11tzy7vkh",
-    "dc/ptp31y11913b6",
-    "dc/fs27m9j4vpvc7",
-    "dc/510pv6eq2vtw7",
-    "dc/03ewbkyh6zey2",
-    "dc/yneg81m4e49z6"
-  ],
+  "rates uninsured": ["Percent_Person_18To64Years_ReceivedNoHealthInsurance"],
   "gini index": ["GiniIndex_EconomicActivity"],
   "diabetes": ["dc/topic/Diabetes", "Percent_Person_WithDiabetes"],
   "poverty": [
     "dc/topic/Poverty",
     "Count_Person_BelowPovertyLevelInThePast12Months",
+    "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
     "dc/topic/PovertyLevels",
-    "dc/topic/sdg_1.2"
+    "dc/topic/SDG_1"
   ],
   "common jobs": ["dc/topic/Jobs"],
   "median income": [
@@ -55,8 +35,7 @@
     "Median_Earnings_Person",
     "Median_Income_Household",
     "Mean_Income_Household",
-    "dc/topic/Income",
-    "Median_Income_Household_FamilyHousehold"
+    "dc/topic/Income"
   ],
   "industries": [
     "dc/topic/IndustriesByRevenue",
@@ -69,66 +48,45 @@
   ],
   "poor": [
     "dc/topic/Poverty",
-    "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
     "Count_Person_BelowPovertyLevelInThePast12Months",
-    "dc/topic/sdg_1.2",
-    "dc/topic/PovertyLevels"
+    "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
+    "dc/topic/PovertyLevels",
+    "dc/topic/SDG_1"
   ],
   "economy": [
     "dc/topic/Economy",
     "dc/topic/EconomicActivity",
     "dc/topic/Businesses",
-    "dc/topic/EconomicEquity",
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
-    "dc/topic/IndividualIncomeByIndustry"
+    "dc/topic/GlobalEconomicActivity"
   ],
   "gdp": [
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
     "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
     "InflationAdjustedGDP",
-    "dc/topic/GDP",
-    "dc/topic/GDPByIndustry",
-    "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
-    "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+    "dc/topic/GDP"
   ],
-  "income": ["dc/topic/Income"],
-  "health insurance": [
-    "dc/topic/HealthInsurance",
-    "dc/topic/HealthInsuranceType",
-    "dc/topic/PrivateHealthInsuranceType",
-    "dc/topic/PublicHealthInsuranceType"
+  "income": [
+    "dc/topic/Income",
+    "Median_Income_Household",
+    "Mean_WagesMonthly_Worker",
+    "Median_Income_Person"
   ],
+  "health insurance": ["dc/topic/HealthInsurance"],
   "remittances": ["dc/topic/Remittance"],
   "incoming remittances": [
     "Amount_Remittance_InwardRemittance",
     "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
   ],
   "obesity": ["Percent_Person_Obesity"],
-  "debt gdp": [
-    "dc/topic/Debt",
-    "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
-    "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
-    "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
-  ],
-  "education expenditure": [
-    "dc/topic/EducationExpenditure",
-    "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal",
-    "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government"
-  ],
+  "debt": ["dc/topic/Debt"],
+  "education expenditure": ["dc/topic/EducationExpenditure"],
   "leading causes death": [
     "dc/topic/WHOMortalityCauses",
     "dc/topic/CausesOfDeath"
   ],
-  "health issues": [
-    "dc/topic/HealthConditions",
-    "dc/topic/Health",
-    "dc/topic/GlobalHealth"
-  ],
-  "prevalance asthma": [
-    "Percent_Person_WithAsthma",
-    "dc/topic/Asthma",
-    "dc/topic/PopulationWithAsthmaByAge"
-  ],
+  "health issues": ["dc/topic/HealthConditions", "dc/topic/HeatIllnesses"],
+  "prevalance asthma": ["Percent_Person_WithAsthma", "dc/topic/Asthma"],
   "rates child immunization": [
     "dc/topic/WHOChildImmunization",
     "dc/topic/WHOChildImmunizationsByGender",
