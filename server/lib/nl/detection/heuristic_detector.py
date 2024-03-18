@@ -13,7 +13,6 @@
 # limitations under the License.
 """Heuristics based detector"""
 
-import logging
 from typing import Dict
 
 from server.lib.explore import params
@@ -89,8 +88,10 @@ def detect(orig_query: str,
         query_detection_debug_logs["query_transformations"], sv_threshold,
         skip_topics)
   except ValueError as e:
-    logging.info(e)
-    logging.info("Using an empty svs_scores_dict")
+    counters.err('detect_svs_value_error', {
+        'q': sv_detection_query,
+        'err': str(e)
+    })
   # Set the SVDetection.
   sv_detection = dutils.create_sv_detection(sv_detection_query, svs_scores_dict,
                                             sv_threshold, allow_triples)
