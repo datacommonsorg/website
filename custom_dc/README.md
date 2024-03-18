@@ -25,7 +25,9 @@ Additionally, a custom DC combines its own local datasets with base DC datasets 
 ## API Key
 
 - A custom Data Commons needs to connect with main Data Commons. Get API key for
-  Data Commons by sending an email to `support@datacommons.org`.
+  Data Commons by submitting this [form](https://docs.google.com/forms/d/e/1FAIpQLSePrkVfss9lUIHFClQsVPwPcAVWvX7WaZZyZjJWS99wRQNW4Q/viewform?resourcekey=0-euQU6Kly7YIWVRNS2p4zjw).
+
+  Note that typical turnaround times are 24-48 hours. Wait to obtain the key before continuing with subsequent steps.
 
 - Obtain a Google Maps API key following [this
   guide](https://developers.google.com/maps/documentation/javascript/get-api-key).

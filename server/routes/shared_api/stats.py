@@ -19,9 +19,10 @@ from flask import current_app
 from flask import request
 from flask import Response
 
-from server import cache
 from server.lib import fetch
 from server.lib import shared
+from server.lib.cache import cache
+from server.routes import TIMEOUT
 import server.services.datacommons as dc
 
 # TODO(shifucun): add unittest for this module
@@ -98,7 +99,7 @@ def stat_var_property():
 
 
 @bp.route('/stat-var-search')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def search_statvar():
   """Gets the statvars and statvar groups that match the tokens in the query."""
   query = request.args.get("query")

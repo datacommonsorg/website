@@ -23,9 +23,11 @@ from flask import request
 from flask_babel import Babel
 import flask_cors
 from google.cloud import secretmanager
+import google.cloud.logging
 
 from server.lib import topic_cache
-import server.lib.config as libconfig
+import server.lib.cache as lib_cache
+import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
@@ -229,8 +231,20 @@ def register_routes_common(app):
 def create_app(nl_root=DEFAULT_NL_ROOT):
   app = Flask(__name__, static_folder='dist', static_url_path='')
 
+  cfg = lib_config.get_config()
+
+  if not cfg.LOCAL:
+    client = google.cloud.logging.Client()
+    client.setup_logging()
+  logging.basicConfig(
+      level=logging.INFO,
+      format=
+      "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
+      datefmt="%H:%M:%S",
+  )
+  logging.getLogger('werkzeug').setLevel(logging.WARNING)
+
   # Setup flask config
-  cfg = libconfig.get_config()
   app.config.from_object(cfg)
 
   # Check DC_API_KEY is set for local dev.
@@ -242,19 +256,11 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
 
   if os.environ.get('ENABLE_EVAL_TOOL') == 'true':
-    from server.file_cache import file_cache
     import shared.model.loader as model_loader
     app.config['VERTEX_AI_MODELS'] = model_loader.load()
-    file_cache.init_app(app)
 
-  # Init extentions
-  from server.cache import cache
-
-  # For some instance with fast updated data, we may not want to use memcache.
-  if app.config['USE_MEMCACHE']:
-    cache.init_app(app)
-  else:
-    cache.init_app(app, {'CACHE_TYPE': 'NullCache'})
+  lib_cache.cache.init_app(app)
+  lib_cache.model_cache.init_app(app)
 
   # Configure ingress
   # See deployment yamls.
@@ -427,7 +433,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   @app.teardown_request
   def log_unhandled(e):
     if e is not None:
-      logging.error('Error thrown for request: %s, error: %s', request, e)
+      app.logger.error('Error thrown for request: %s\nerror: %s', request.url,
+                       e)
 
   # Jinja env
   app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']

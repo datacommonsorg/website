@@ -405,7 +405,7 @@ class ExploreTest(NLWebServerTestCase):
         'e2e_edge_cases2',
         [
             'What crimes are considered felonies vs. misdemeanors in the US',
-            'How does school size of urban schools compare to rural schools in US',
+            'How does school size of urban schools compare to rural schools in Colorado',
             'What is the relationship between housing size and home prices in California',
 
             # This is a regression test to ensure "biggest" doesn't trigger

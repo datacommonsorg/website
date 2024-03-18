@@ -18,7 +18,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -36,7 +35,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -54,7 +52,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -72,7 +69,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -90,7 +86,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -108,7 +103,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -126,7 +120,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -143,7 +136,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -160,7 +152,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -178,7 +169,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -196,7 +186,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -214,7 +203,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -232,7 +220,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -250,7 +237,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -268,7 +254,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -286,7 +271,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -304,7 +288,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -322,7 +305,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -340,7 +322,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -358,7 +339,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -376,7 +356,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -394,7 +373,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Other Respiratory Diseases]"
           },
           {
@@ -412,7 +390,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Other Respiratory Diseases]"
           },
           {
@@ -430,7 +407,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Other Respiratory Diseases]"
           },
           {
@@ -448,7 +424,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Other Respiratory Diseases]"
           },
           {
@@ -466,7 +441,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Other Respiratory Diseases]"
           },
           {
@@ -484,7 +458,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Other Respiratory Diseases]"
           },
           {
@@ -502,7 +475,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Other Respiratory Diseases, Female]"
           },
           {
@@ -520,7 +492,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Other Respiratory Diseases, Male]"
           },
           {
@@ -538,7 +509,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Other Respiratory Diseases, Female]"
           },
           {
@@ -556,7 +526,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Other Respiratory Diseases, Male]"
           },
           {
@@ -574,7 +543,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Other Respiratory Diseases, Female]"
           },
           {
@@ -592,7 +560,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Other Respiratory Diseases, Male]"
           },
           {
@@ -610,7 +577,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Other Respiratory Diseases, Female]"
           },
           {
@@ -628,7 +594,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Other Respiratory Diseases, Male]"
           },
           {
@@ -646,7 +611,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Other Respiratory Diseases, Female]"
           },
           {
@@ -664,7 +628,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Other Respiratory Diseases, Male]"
           },
           {
@@ -682,7 +645,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Other Respiratory Diseases, Female]"
           },
           {
@@ -700,7 +662,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Other Respiratory Diseases, Male]"
           },
           {
@@ -718,7 +679,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Respiratory Diseases]"
           },
           {
@@ -736,7 +696,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Respiratory Diseases]"
           },
           {
@@ -754,7 +713,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Respiratory Diseases]"
           },
           {
@@ -772,7 +730,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Respiratory Diseases]"
           },
           {
@@ -790,7 +747,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Chronic Respiratory Diseases]"
           },
           {
@@ -808,7 +764,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Respiratory Diseases]"
           },
           {
@@ -826,7 +781,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Respiratory Diseases, Female]"
           },
           {
@@ -844,7 +798,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Respiratory Diseases, Male]"
           },
           {
@@ -862,7 +815,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Respiratory Diseases, Female]"
           },
           {
@@ -880,7 +832,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Respiratory Diseases, Male]"
           },
           {
@@ -898,7 +849,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Respiratory Diseases, Female]"
           },
           {
@@ -916,7 +866,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Respiratory Diseases, Male]"
           },
           {
@@ -934,7 +883,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Respiratory Diseases, Female]"
           },
           {
@@ -952,7 +900,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Respiratory Diseases, Male]"
           },
           {
@@ -970,7 +917,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Chronic Respiratory Diseases, Female]"
           },
           {
@@ -988,7 +934,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Chronic Respiratory Diseases, Male]"
           },
           {
@@ -1006,7 +951,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Respiratory Diseases, Female]"
           },
           {
@@ -1024,7 +968,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Respiratory Diseases, Male]"
           },
           {
@@ -1042,7 +985,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -1059,7 +1001,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -1077,7 +1018,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -1094,7 +1034,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -1112,7 +1051,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -1129,7 +1067,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -1147,7 +1084,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -1164,7 +1100,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -1182,7 +1117,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -1199,7 +1133,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -1217,7 +1150,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -1234,7 +1166,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -1252,7 +1183,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -1269,7 +1199,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -1287,7 +1216,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -1304,7 +1232,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -1322,7 +1249,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -1339,7 +1265,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -1357,7 +1282,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -1374,7 +1298,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -1392,7 +1315,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -1409,7 +1331,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -1427,7 +1348,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease]"
           },
           {
@@ -1444,7 +1364,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World"
           },
           {
@@ -1462,7 +1381,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -1479,7 +1397,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -1497,7 +1414,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -1514,7 +1430,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -1532,7 +1447,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -1549,7 +1463,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -1567,7 +1480,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -1584,7 +1496,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -1602,7 +1513,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -1619,7 +1529,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -1637,7 +1546,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -1654,7 +1562,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -1672,7 +1579,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -1689,7 +1595,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -1707,7 +1612,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -1724,7 +1628,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -1742,7 +1645,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -1759,7 +1661,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -1777,7 +1678,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -1794,7 +1694,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -1812,7 +1711,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -1829,7 +1727,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -1847,7 +1744,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -1864,7 +1760,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -1882,7 +1777,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -1899,7 +1793,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -1917,7 +1810,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -1934,7 +1826,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -1952,7 +1843,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -1969,7 +1859,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -1987,7 +1876,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -2004,7 +1892,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -2022,7 +1909,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -2039,7 +1925,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -2057,7 +1942,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -2074,7 +1958,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -2092,7 +1975,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -2109,7 +1991,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -2127,7 +2008,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -2144,7 +2024,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -2162,7 +2041,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -2179,7 +2057,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -2197,7 +2074,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -2214,7 +2090,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -2232,7 +2107,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
           },
           {
@@ -2249,7 +2123,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World"
           },
           {
@@ -2267,7 +2140,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male]"
           },
           {
@@ -2284,7 +2156,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World"
           },
           {
@@ -2302,7 +2173,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Respiratory Infections]"
           },
           {
@@ -2320,7 +2190,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Respiratory Infections]"
           },
           {
@@ -2338,7 +2207,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Respiratory Infections]"
           },
           {
@@ -2356,7 +2224,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Respiratory Infections]"
           },
           {
@@ -2374,7 +2241,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Respiratory Infections]"
           },
           {
@@ -2392,7 +2258,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Respiratory Infections]"
           },
           {
@@ -2410,7 +2275,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Respiratory Infections, Female]"
           },
           {
@@ -2428,7 +2292,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Respiratory Infections, Male]"
           },
           {
@@ -2446,7 +2309,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Respiratory Infections, Female]"
           },
           {
@@ -2464,7 +2326,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Respiratory Infections, Male]"
           },
           {
@@ -2482,7 +2343,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Respiratory Infections, Female]"
           },
           {
@@ -2500,7 +2360,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Respiratory Infections, Male]"
           },
           {
@@ -2518,7 +2377,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Respiratory Infections, Female]"
           },
           {
@@ -2536,7 +2394,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Respiratory Infections, Male]"
           },
           {
@@ -2554,7 +2411,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Respiratory Infections, Female]"
           },
           {
@@ -2572,7 +2428,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Respiratory Infections, Male]"
           },
           {
@@ -2590,7 +2445,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Respiratory Infections, Female]"
           },
           {
@@ -2608,7 +2462,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Respiratory Infections, Male]"
           },
           {
@@ -2625,7 +2478,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections] in the World"
           },
           {
@@ -2643,7 +2495,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Lower Respiratory Infections]"
           },
           {
@@ -2661,7 +2512,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Lower Respiratory Infections]"
           },
           {
@@ -2679,7 +2529,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Lower Respiratory Infections]"
           },
           {
@@ -2697,7 +2546,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Lower Respiratory Infections]"
           },
           {
@@ -2715,7 +2563,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Lower Respiratory Infections]"
           },
           {
@@ -2733,7 +2580,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Lower Respiratory Infections]"
           },
           {
@@ -2750,7 +2596,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -2767,7 +2612,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -2785,7 +2629,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Lower Respiratory Infections, Female]"
           },
           {
@@ -2803,7 +2646,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Lower Respiratory Infections, Male]"
           },
           {
@@ -2821,7 +2663,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Lower Respiratory Infections, Female]"
           },
           {
@@ -2839,7 +2680,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Lower Respiratory Infections, Male]"
           },
           {
@@ -2857,7 +2697,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Lower Respiratory Infections, Female]"
           },
           {
@@ -2875,7 +2714,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Lower Respiratory Infections, Male]"
           },
           {
@@ -2893,7 +2731,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Lower Respiratory Infections, Female]"
           },
           {
@@ -2911,7 +2748,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Lower Respiratory Infections, Male]"
           },
           {
@@ -2929,7 +2765,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Lower Respiratory Infections, Female]"
           },
           {
@@ -2947,7 +2782,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Lower Respiratory Infections, Male]"
           },
           {
@@ -2965,7 +2799,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Lower Respiratory Infections, Female]"
           },
           {
@@ -2983,7 +2816,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Lower Respiratory Infections, Male]"
           },
           {
@@ -3001,7 +2833,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Upper Respiratory Infections]"
           },
           {
@@ -3019,7 +2850,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Upper Respiratory Infections]"
           },
           {
@@ -3037,7 +2867,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Upper Respiratory Infections]"
           },
           {
@@ -3055,7 +2884,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Upper Respiratory Infections]"
           },
           {
@@ -3073,7 +2901,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Upper Respiratory Infections]"
           },
           {
@@ -3091,7 +2918,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Upper Respiratory Infections]"
           },
           {
@@ -3109,7 +2935,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Upper Respiratory Infections, Female]"
           },
           {
@@ -3127,7 +2952,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Upper Respiratory Infections, Male]"
           },
           {
@@ -3145,7 +2969,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Upper Respiratory Infections, Female]"
           },
           {
@@ -3163,7 +2986,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Upper Respiratory Infections, Male]"
           },
           {
@@ -3181,7 +3003,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Upper Respiratory Infections, Female]"
           },
           {
@@ -3199,7 +3020,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Upper Respiratory Infections, Male]"
           },
           {
@@ -3217,7 +3037,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Upper Respiratory Infections, Female]"
           },
           {
@@ -3235,7 +3054,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Upper Respiratory Infections, Male]"
           },
           {
@@ -3253,7 +3071,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Upper Respiratory Infections, Female]"
           },
           {
@@ -3271,7 +3088,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Upper Respiratory Infections, Male]"
           },
           {
@@ -3289,7 +3105,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Upper Respiratory Infections, Female]"
           },
           {
@@ -3307,7 +3122,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Upper Respiratory Infections, Male]"
           },
           {
@@ -3324,7 +3138,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years (DALYs) Per 100'000 Children Under 5 Years [Lower Respiratory Infections] in the World"
           },
           {
@@ -3342,7 +3155,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections]"
           },
           {
@@ -3359,7 +3171,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections] in the World"
           },
           {
@@ -3376,7 +3187,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections] in the World"
           },
           {
@@ -3394,7 +3204,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections]"
           },
           {
@@ -3411,7 +3220,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections] in the World"
           },
           {
@@ -3428,7 +3236,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) in Children Under 5 Years [Lower Respiratory Infections] in the World"
           },
           {
@@ -3446,7 +3253,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections]"
           },
           {
@@ -3463,7 +3269,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections] in the World"
           },
           {
@@ -3481,7 +3286,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections]"
           },
           {
@@ -3498,7 +3302,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections] in the World"
           },
           {
@@ -3515,7 +3318,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections] in the World"
           },
           {
@@ -3533,7 +3335,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections]"
           },
           {
@@ -3550,7 +3351,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections] in the World"
           },
           {
@@ -3568,7 +3368,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections]"
           },
           {
@@ -3585,7 +3384,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections] in the World"
           },
           {
@@ -3603,7 +3401,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections]"
           },
           {
@@ -3620,7 +3417,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections] in the World"
           },
           {
@@ -3637,7 +3433,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years Life Lost (YLLs) Attributable to Ambient Air Pollution (Age-Standardized) [Lower Respiratory Infections] in the World"
           },
           {
@@ -3655,7 +3450,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections]"
           },
           {
@@ -3672,7 +3466,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections] in the World"
           },
           {
@@ -3690,7 +3483,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections]"
           },
           {
@@ -3707,7 +3499,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections] in the World"
           },
           {
@@ -3724,7 +3515,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years (DALYs) Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -3741,7 +3531,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Disability-Adjusted Life Years (DALYs) Per 100'000 Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -3759,7 +3548,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections, Female]"
           },
           {
@@ -3776,7 +3564,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -3794,7 +3581,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections, Male]"
           },
           {
@@ -3811,7 +3597,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -3828,7 +3613,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -3845,7 +3629,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -3863,7 +3646,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Female]"
           },
           {
@@ -3880,7 +3662,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -3898,7 +3679,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Male]"
           },
           {
@@ -3915,7 +3695,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -3932,7 +3711,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) in Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -3949,7 +3727,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) in Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -3967,7 +3744,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections, Female]"
           },
           {
@@ -3984,7 +3760,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -4002,7 +3777,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections, Male]"
           },
           {
@@ -4019,7 +3793,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000 Population) [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -4037,7 +3810,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections, Female]"
           },
           {
@@ -4054,7 +3826,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -4072,7 +3843,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections, Male]"
           },
           {
@@ -4089,7 +3859,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution Attributable Number of Disability-Adjusted Life Years (DALYs) (Per 100 000, Age-Standardized) [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -4106,7 +3875,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -4123,7 +3891,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths in Children Under 5 Years [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -4141,7 +3908,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections, Female]"
           },
           {
@@ -4158,7 +3924,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -4176,7 +3941,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections, Male]"
           },
           {
@@ -4193,7 +3957,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Deaths [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -4211,7 +3974,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections, Female]"
           },
           {
@@ -4228,7 +3990,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -4246,7 +4007,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections, Male]"
           },
           {
@@ -4263,7 +4023,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population, Age-Standardized) [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -4281,7 +4040,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections, Female]"
           },
           {
@@ -4298,7 +4056,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -4316,7 +4073,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections, Male]"
           },
           {
@@ -4333,7 +4089,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Number of Years Life Lost (YLLs) [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -4350,7 +4105,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years Life Lost (YLLs) Attributable to Ambient Air Pollution (Age-Standardized) [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -4367,7 +4121,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years Life Lost (YLLs) Attributable to Ambient Air Pollution (Age-Standardized) [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -4385,7 +4138,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Female]"
           },
           {
@@ -4402,7 +4154,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -4420,7 +4171,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Male]"
           },
           {
@@ -4437,7 +4187,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Ambient Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Male] in the World"
           },
           {
@@ -4455,7 +4204,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Female]"
           },
           {
@@ -4472,7 +4220,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Household Air Pollution: Household Air Pollution Attributable Death Rate (Per 100 000 Population) [Lower Respiratory Infections, Female] in the World"
           },
           {
@@ -4490,7 +4237,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Asthma]"
           },
           {
@@ -4508,7 +4254,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Asthma]"
           },
           {
@@ -4526,7 +4271,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Asthma]"
           },
           {
@@ -4544,7 +4288,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Asthma]"
           },
           {
@@ -4562,7 +4305,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Asthma]"
           },
           {
@@ -4580,7 +4322,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Asthma]"
           },
           {
@@ -4598,7 +4339,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Asthma, Female]"
           },
           {
@@ -4616,7 +4356,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Asthma, Male]"
           },
           {
@@ -4634,7 +4373,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Asthma, Female]"
           },
           {
@@ -4652,7 +4390,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Asthma, Male]"
           },
           {
@@ -4670,7 +4407,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Asthma, Female]"
           },
           {
@@ -4688,7 +4424,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Asthma, Male]"
           },
           {
@@ -4706,7 +4441,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Asthma, Female]"
           },
           {
@@ -4724,7 +4458,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Asthma, Male]"
           },
           {
@@ -4742,7 +4475,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Asthma, Female]"
           },
           {
@@ -4760,7 +4492,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Asthma, Male]"
           },
           {
@@ -4778,7 +4509,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Asthma, Female]"
           },
           {
@@ -4796,7 +4526,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Asthma, Male]"
           },
           {
@@ -4814,7 +4543,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Whooping Cough]"
           },
           {
@@ -4832,7 +4560,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Whooping Cough]"
           },
           {
@@ -4850,7 +4577,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Whooping Cough]"
           },
           {
@@ -4868,7 +4594,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Whooping Cough]"
           },
           {
@@ -4886,7 +4611,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Whooping Cough]"
           },
           {
@@ -4904,7 +4628,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Whooping Cough]"
           },
           {
@@ -4922,7 +4645,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Whooping Cough, Female]"
           },
           {
@@ -4940,7 +4662,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Whooping Cough, Male]"
           },
           {
@@ -4958,7 +4679,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Whooping Cough, Female]"
           },
           {
@@ -4976,7 +4696,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Whooping Cough, Male]"
           },
           {
@@ -4994,7 +4713,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Whooping Cough, Female]"
           },
           {
@@ -5012,7 +4730,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Whooping Cough, Male]"
           },
           {
@@ -5030,7 +4747,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Whooping Cough, Female]"
           },
           {
@@ -5048,7 +4764,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Whooping Cough, Male]"
           },
           {
@@ -5066,7 +4781,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Whooping Cough, Female]"
           },
           {
@@ -5084,7 +4798,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) [Whooping Cough, Male]"
           },
           {
@@ -5102,7 +4815,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Whooping Cough, Female]"
           },
           {
@@ -5120,7 +4832,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Whooping Cough, Male]"
           },
           {
@@ -5137,7 +4848,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "New cases: pulmonary smear-negative.",
             "title": "New Tuberculosis Cases: Pulmonary Smear-Negative in the World"
           },
@@ -5156,7 +4866,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "New cases: pulmonary, smear-positive.",
             "title": "New Tuberculosis Cases: Pulmonary, Smear-Positive"
           },
@@ -5174,7 +4883,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "New cases: pulmonary, smear-positive.",
             "title": "New Tuberculosis Cases: Pulmonary, Smear-Positive in the World"
           },
@@ -5193,7 +4901,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "New cases: pulmonary, smear-negative/unknown/not done and other new cases.",
             "title": "New Tuberculosis Cases: Pulmonary, Smear-Negative/Unknown/Not Done and Other New Cases"
           },
@@ -5211,7 +4918,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "New cases: pulmonary, smear-negative/unknown/not done and other new cases.",
             "title": "New Tuberculosis Cases: Pulmonary, Smear-Negative/Unknown/Not Done and Other New Cases in the World"
           },
@@ -5229,7 +4935,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "New cases: pulmonary smear unknown/not done.",
             "title": "New Tuberculosis Cases: Pulmonary Smear Unknown/Not Done in the World"
           }

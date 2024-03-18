@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import copy
-import logging
 from typing import List
 
 from server.lib.nl.common import constants
@@ -35,7 +34,6 @@ _MAX_PLACES_TO_RETURN = 7
 #
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, rank: int) -> bool:
-  logging.info('populate_cb for filter_with_single_var')
   if chart_vars.event:
     state.uttr.counters.err('filter-with-single-var_failed_cb_events', 1)
     return False
@@ -58,7 +56,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
   found = False
 
-  logging.info('Attempting to filter places')
   sv = chart_vars.svs[0]
   chart_vars = copy.deepcopy(chart_vars)
   chart_vars.svs = [sv]
