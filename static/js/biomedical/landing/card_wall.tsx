@@ -22,7 +22,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Card, CardProps } from "./card";
-import { BREAKPOINTS } from "./shared";
+import { BREAKPOINTS } from "./constants";
 
 const CardContainer = styled.div`
   width: 100%;
@@ -58,16 +58,16 @@ const WallContainer = styled.div`
 interface CardStackProps {
   // Specs of cards in the stack
   cardSpecs: CardProps[];
-  // Direction to stack. One of "row" or "column". Defaults to "row".
-  direction?: string;
+  // Direction to stack. Defaults to "row".
+  direction?: "column" | "row";
 }
 
 interface CardWallProps {
   // Stacks of cards to show
   cards: CardProps[][];
   // Direction to lay out each stack of cards
-  // One of "row" or "column". Defaults to "row".
-  direction?: string;
+  // Defaults to "row".
+  direction?: "row" | "column";
 }
 
 /** A single row or column in the wall of cards */

@@ -22,7 +22,7 @@ import React from "react";
 
 import { CardProps } from "./card";
 import { CardWall } from "./card_wall";
-import { ContentContainer, TextBlock } from "./shared";
+import { ContentContainer, TextBlock } from "./shared_styled_components";
 
 interface SampleAnalysesSectionProps {
   cards: CardProps[][];

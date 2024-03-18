@@ -21,7 +21,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { BREAKPOINTS } from "./shared";
+import { BREAKPOINTS } from "./constants";
 
 const CardContainer = styled.a`
   align-items: flex-start;
@@ -87,13 +87,8 @@ export interface CardProps {
 }
 
 export function Card(props: CardProps): JSX.Element {
-  function handleClick(): void {
-    if (props.url) {
-      window.open(props.url, "_blank").focus();
-    }
-  }
   return (
-    <CardContainer onClick={handleClick}>
+    <CardContainer href={props.url} target="_blank">
       <Text theme={props.theme}>{props.text}</Text>
       <Tag theme={props.theme}>{props.tag}</Tag>
     </CardContainer>

@@ -21,7 +21,7 @@
 import React from "react";
 import { styled } from "styled-components";
 
-import { ContentContainer, TextBlock } from "./shared";
+import { ContentContainer, TextBlock } from "./shared_styled_components";
 
 const UnderlinedLink = styled.a`
   text-decoration-line: underline;

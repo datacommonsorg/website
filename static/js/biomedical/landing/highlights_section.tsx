@@ -21,7 +21,8 @@
 import React from "react";
 import { styled } from "styled-components";
 
-import { BREAKPOINTS, ContentContainer } from "./shared";
+import { BREAKPOINTS } from "./constants";
+import { ContentContainer } from "./shared_styled_components";
 
 const HighlightsContainer = styled(ContentContainer)`
   flex-direction: row;
@@ -57,35 +58,50 @@ const Highlight = styled.div`
   }
 `;
 
+interface HighlightConfigEntry {
+  label: string;
+  value: string | number;
+}
 interface HighlightsSectionProps {
-  config: Record<string, number>[];
+  config: HighlightConfigEntry[];
   locale: string;
+}
+
+function formatNumber(
+  number: number,
+  locale: string,
+  useWords?: boolean
+): string {
+  const formatOptions: Intl.NumberFormatOptions = useWords
+    ? { compactDisplay: "long", notation: "compact" }
+    : { compactDisplay: "short", notation: "standard" };
+  return Intl.NumberFormat(locale, formatOptions).format(number);
 }
 
 export function HighlightsSection(props: HighlightsSectionProps): JSX.Element {
   return (
     <HighlightsContainer className="container">
       {props.config.map((callout, index) => {
-        const label = Object.keys(callout)[0];
-        if (label === "Entities") {
-          const value = Intl.NumberFormat(props.locale, {
-            compactDisplay: "long",
-            notation: "compact",
-          }).format(callout[label]);
+        const isEntities = callout.label === "Entities";
+        const value =
+          typeof callout.value === "number"
+            ? formatNumber(callout.value, props.locale, isEntities)
+            : callout.value;
+        if (isEntities) {
           return (
             <Label key={index}>
               Over {value} entities
               <Highlight>& counting</Highlight>
             </Label>
           );
+        } else {
+          return (
+            <Label key={index}>
+              {callout.label}
+              <Highlight>{value}</Highlight>
+            </Label>
+          );
         }
-        const value = Intl.NumberFormat(props.locale).format(callout[label]);
-        return (
-          <Label key={index}>
-            {label}
-            <Highlight>{value}</Highlight>
-          </Label>
-        );
       })}
     </HighlightsContainer>
   );

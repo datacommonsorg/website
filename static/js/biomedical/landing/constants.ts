@@ -15,12 +15,15 @@
  */
 
 /**
- * Shared styling, components, and constants for the biomedical landing pages
+ * Shared constants for the biomedical landing pages
  */
-
-import { styled } from "styled-components";
-
 import { CardTheme } from "./card";
+
+// Search url for biomedical searches
+export const BIOMEDICAL_SEARCH_URL = "/explore/#";
+
+// Query parameter for biomedical searches
+export const BIOMEDICAL_SEARCH_QUERY_PARAM = "q";
 
 // Screen breakpoints for responsive design
 export const BREAKPOINTS = {
@@ -30,6 +33,7 @@ export const BREAKPOINTS = {
   lg: "(max-width: 1440px)",
 };
 
+// CSS colors shared across landing page components
 export const CSS_THEME = {
   header: {
     textColor: "#00201f",
@@ -44,47 +48,6 @@ export const CSS_THEME = {
     textColor: "#303030",
   },
 };
-
-export const SectionWithBackground = styled.section`
-  background: ${(props) => props.theme.highlightColors.light};
-`;
-
-export const ContentContainer = styled.div`
-  color: ${(props) => props.theme.text.textColor};
-  display: flex;
-  flex-direction: column;
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 28px;
-  margin-bottom: 22px;
-  padding: 64px 15px;
-
-  @media ${BREAKPOINTS.md} {
-    font-size: 18px;
-    line-height: 32px;
-  }
-
-  a {
-    color: ${(props) => props.theme.highlightColors.dark};
-  }
-
-  h2 {
-    color: ${(props) => props.theme.header.textColor};
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 40px;
-    margin-bottom: 22px;
-
-    @media ${BREAKPOINTS.md} {
-      font-size: 24px;
-      line-height: 32px;
-    }
-  }
-`;
-
-export const TextBlock = styled.div`
-  margin-bottom: 22px;
-`;
 
 // Maps color theme name to card theme values
 export const COLOR_TO_CARD_THEME: Record<string, CardTheme> = {
@@ -112,9 +75,3 @@ export const COLOR_TO_CARD_THEME: Record<string, CardTheme> = {
 
 // Card color theme to default to
 export const DEFAULT_CARD_COLOR_THEME = "mutedBlue";
-
-// Search url for biomedical searches
-export const BIOMEDICAL_SEARCH_URL = "/explore/#";
-
-// Query parameter for biomedical searches
-export const BIOMEDICAL_SEARCH_QUERY_PARAM = "q";

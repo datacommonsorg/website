@@ -21,18 +21,18 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 
 import { CardProps } from "./card";
-import { DataSourcesSection } from "./data_sources_section";
-import { ExampleQueriesSection } from "./example_queries_section";
-import { HeaderAndSearchBox } from "./header_and_search_section";
-import { HighlightsSection } from "./highlights_section";
-import { SampleAnalysesSection } from "./sample_analyses_section";
 import {
   BIOMEDICAL_SEARCH_QUERY_PARAM,
   BIOMEDICAL_SEARCH_URL,
   COLOR_TO_CARD_THEME,
   CSS_THEME,
   DEFAULT_CARD_COLOR_THEME,
-} from "./shared";
+} from "./constants";
+import { DataSourcesSection } from "./data_sources_section";
+import { ExampleQueriesSection } from "./example_queries_section";
+import { HeaderAndSearchBox } from "./header_and_search_section";
+import { HighlightsSection } from "./highlights_section";
+import { SampleAnalysesSection } from "./sample_analyses_section";
 
 /**
  * Defines the specs for a category of cards
@@ -61,23 +61,25 @@ function getCardSpecsFromConfig(
   sectionName: string,
   addSearchUrl: boolean
 ): CardProps[][] {
-  // Build card specs for each entry in config
-  const sectionConfig = config[sectionName];
+  const cards: CardProps[][] = [];
+  const sectionConfig = config[sectionName] || [];
   for (const categoryConfig of sectionConfig) {
-    categoryConfig.cards.forEach((cardSpec) => {
+    const categoryCards = categoryConfig.cards.map((cardSpec) => {
+      // Build card specs for each entry in the config
+      const card: CardProps = { ...cardSpec };
       if (!cardSpec.url && addSearchUrl) {
-        cardSpec.url = `${BIOMEDICAL_SEARCH_URL}${BIOMEDICAL_SEARCH_QUERY_PARAM}=${cardSpec.text}`;
+        card.url = `${BIOMEDICAL_SEARCH_URL}${BIOMEDICAL_SEARCH_QUERY_PARAM}=${cardSpec.text}`;
       }
-      cardSpec.tag = categoryConfig.category;
-      cardSpec.theme =
+      card.tag = categoryConfig.category;
+      card.theme =
         COLOR_TO_CARD_THEME[
           categoryConfig.themeColor || DEFAULT_CARD_COLOR_THEME
         ];
+      return card;
     });
+    cards.push(categoryCards);
   }
-  return sectionConfig.map((categoryConfig) => {
-    return categoryConfig.cards;
-  });
+  return cards;
 }
 
 export function App(): JSX.Element {

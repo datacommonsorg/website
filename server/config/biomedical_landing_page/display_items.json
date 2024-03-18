@@ -1,19 +1,24 @@
 {
   "highlights": [
     {
-      "Proteins": 38120
+      "label": "Proteins",
+      "value": 38120
     },
     {
-      "Diseases": 13955
+      "label": "Diseases",
+      "Value": 13955
     },
     {
-      "Genes": 681043
+      "label": "Genes",
+      "value": 681043
     },
     {
-      "Drugs": 63328433
+      "label": "Drugs",
+      "value": 63328433
     },
     {
-      "Entities": 195000000
+      "label": "Entities",
+      "value": 195000000
     }
   ],
   "sample-questions": [

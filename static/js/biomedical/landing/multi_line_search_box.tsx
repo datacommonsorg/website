@@ -22,10 +22,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { Input, InputGroup } from "reactstrap";
 import { styled } from "styled-components";
 
-import { BREAKPOINTS } from "./shared";
+import { BREAKPOINTS } from "./constants";
 
 const SearchIcon = styled.div`
   align-items: center;
+  cursor: pointer;
   display: flex;
   margin-left: 4px;
   padding: 8px;
@@ -39,12 +40,12 @@ const StyledInputGroup = styled(InputGroup)`
   margin: 48px 0px 100px 0px;
   padding: 8px 0px;
 
-  &:focus-within {
-    outline: 3px solid ${(props) => props.theme.highlightColors.main};
-  }
-
   @media ${BREAKPOINTS.md} {
     margin: 22px 0px 48px 0px;
+  }
+
+  &:focus-within {
+    outline: 3px solid ${(props) => props.theme.highlightColors.main};
   }
 `;
 
@@ -69,15 +70,16 @@ const StyledInput = styled(Input)`
   }
 `;
 
-interface BiomedicalSearchProps {
+interface MultiLineSearchBoxProps {
   // Function to run on search
   onSearch: (query: string) => void;
   // Placeholder query to show
   placeholderText?: string;
 }
 
-export function BiomedicalSearchBox(props: BiomedicalSearchProps): JSX.Element {
-  const [invalid, setInvalid] = useState(false);
+export function MultiLineSearchBox(
+  props: MultiLineSearchBoxProps
+): JSX.Element {
   const [value, setValue] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -99,21 +101,20 @@ export function BiomedicalSearchBox(props: BiomedicalSearchProps): JSX.Element {
 
   return (
     <StyledInputGroup>
-      <SearchIcon>
+      <SearchIcon onClick={handleSearch}>
         <span className="material-icons-outlined">search</span>
       </SearchIcon>
       <StyledInput
         autoComplete="off"
         autoFocus={false}
         innerRef={inputRef}
-        invalid={invalid}
+        invalid={false}
         onChange={(e) => {
           setValue(e.target.value);
-          setInvalid(false);
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            e.preventDefault();
+            e.preventDefault(); // don't add \n to search query
             handleSearch();
           }
         }}
@@ -126,7 +127,7 @@ export function BiomedicalSearchBox(props: BiomedicalSearchProps): JSX.Element {
 
   function handleSearch(): void {
     if (!value) {
-      setInvalid(true);
+      // disallow searching for an empty string
       return;
     }
 

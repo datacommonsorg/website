@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,16 @@
 import React from "react";
 import { styled } from "styled-components";
 
-import { BiomedicalSearchBox } from "./biomedical_search_box";
 import {
   BIOMEDICAL_SEARCH_QUERY_PARAM,
   BIOMEDICAL_SEARCH_URL,
   BREAKPOINTS,
+} from "./constants";
+import { MultiLineSearchBox } from "./multi_line_search_box";
+import {
   ContentContainer,
   SectionWithBackground,
-} from "./shared";
+} from "./shared_styled_components";
 
 // Starting text in the search box
 const SEARCH_BOX_PLACEHOLDER_TEXT =
@@ -114,7 +116,7 @@ export function HeaderAndSearchBox(): JSX.Element {
             Find relationships between 25 different categories of biomedical
             data like genes, proteins, diseases, and more
           </h3>
-          <BiomedicalSearchBox
+          <MultiLineSearchBox
             onSearch={onSearch}
             placeholderText={SEARCH_BOX_PLACEHOLDER_TEXT}
           />

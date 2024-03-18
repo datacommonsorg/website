@@ -23,7 +23,10 @@ import { styled } from "styled-components";
 
 import { CardProps } from "./card";
 import { CardWall } from "./card_wall";
-import { ContentContainer, SectionWithBackground } from "./shared";
+import {
+  ContentContainer,
+  SectionWithBackground,
+} from "./shared_styled_components";
 
 const StyledHeader = styled.h2`
   padding-bottom: 22px;
