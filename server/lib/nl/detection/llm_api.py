@@ -14,7 +14,6 @@
 """Interface to LLM API for detection"""
 
 import json
-import logging
 import time
 from typing import Callable, Dict, List
 
@@ -171,7 +170,6 @@ def parse_response(query: str, resp: Dict, get_content_fn: Callable[[str], str],
     ctr.info('info_llm_api_response', raw_content)
     ans = _extract_answer(content)
     if not ans:
-      logging.error(f'ERROR: empty parsed result for {query}')
       ctr.err('failed_llm_api_emptyparsedresult', content)
       return {}
 
@@ -182,7 +180,6 @@ def parse_response(query: str, resp: Dict, get_content_fn: Callable[[str], str],
       # But with current LLM latencies that's fine.
       ans_json = json5.loads(ans, allow_duplicate_keys=False)
     except Exception as e:
-      logging.error(f'ERROR: json decoding failed {e}')
       ctr.err('failed_llm_api_jsondecodeerror', ans)
       return {}
 
