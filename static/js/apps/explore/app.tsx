@@ -177,8 +177,8 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       return false;
     }
     const hasPlace = fulfillData["place"] && fulfillData["place"]["dcid"];
-    // Fulfill data needs to have either a place or entityPvConfig
-    return hasPlace || fulfillData["entityPvConfig"];
+    // Fulfill data needs to have either a place or entities
+    return hasPlace || fulfillData["entities"];
   }
 
   function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
@@ -256,7 +256,6 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       placeFallback: fulfillData["placeFallback"],
       pastSourceContext: fulfillData["pastSourceContext"],
       sessionId: pageMetadata.sessionId,
-      entityPvConfig: fulfillData["entityPvConfig"],
     });
     setLoadingStatus(LoadingStatus.SUCCESS);
   }
