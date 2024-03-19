@@ -18,7 +18,7 @@ import axios from "axios";
 import React, { useState } from "react";
 
 import { stringifyFn } from "../../utils/axios";
-import { OneQuerySection } from "./one_query_section";
+import { QuerySection } from "./query_section";
 import { EmbeddingObject } from "./util";
 
 interface AppPropType {
@@ -84,7 +84,7 @@ export function App(props: AppPropType): JSX.Element {
           <button type="submit">Apply</button>
         </form>
         {customQuery && (
-          <OneQuerySection
+          <QuerySection
             key={customQuery}
             sentence={customQuery}
             modelNames={props.modelNames}
@@ -97,7 +97,7 @@ export function App(props: AppPropType): JSX.Element {
         <h3> Existing Eval Results for a collection of queries</h3>
         {Object.keys(props.evalGolden).map((sentence) => {
           return (
-            <OneQuerySection
+            <QuerySection
               key={sentence}
               sentence={sentence}
               modelNames={props.modelNames}

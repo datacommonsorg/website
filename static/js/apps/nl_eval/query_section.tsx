@@ -16,23 +16,23 @@
 
 import React, { useState } from "react";
 
-import { ModelMatchBox } from "./model_match_box";
+import { ModelScoreBox } from "./model_score_box";
 import { BASE_URL, EmbeddingObject } from "./util";
 
-export interface OneQuerySectionProps {
+export interface QuerySectionProps {
   sentence: string;
   modelNames: string[];
   goldenStatVars: string[];
   customDescription: Record<string, EmbeddingObject[]>;
 }
 
-export function OneQuerySection(props: OneQuerySectionProps): JSX.Element {
+export function QuerySection(props: QuerySectionProps): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleTableVisibility = () => {
     setIsExpanded(!isExpanded);
   };
   return (
-    <div className="one-query-section">
+    <div className="query-section">
       <h3>{props.sentence}</h3>
       <button onClick={toggleTableVisibility}>
         {isExpanded ? "Collapse" : "Expand"}
@@ -58,7 +58,7 @@ export function OneQuerySection(props: OneQuerySectionProps): JSX.Element {
         </div>
         {props.modelNames.map((modelName) => {
           return (
-            <ModelMatchBox
+            <ModelScoreBox
               key={modelName}
               sentence={props.sentence}
               modelName={modelName}
