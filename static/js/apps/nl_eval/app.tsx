@@ -15,11 +15,59 @@
  */
 
 import axios from "axios";
-import React, { useState } from "react";
+import _ from "lodash";
+import React, { useEffect, useRef, useState } from "react";
 
 import { stringifyFn } from "../../utils/axios";
 import { QuerySection } from "./query_section";
 import { EmbeddingObject } from "./util";
+
+function OverallScoreTable(props: {
+  data: Record<string, Record<string, number>>;
+  count: number;
+}) {
+  const [mark, setMark] = useState(null);
+  useEffect(() => {
+    // Check if data is complete. If so, set mark to an empty string so that no
+    // new render is triggered.
+    if (Object.values(Object.values(props.data)[0]).length === props.count) {
+      setMark("");
+      return;
+    }
+    // Update mark to be a new timestamp frequently if data is not complete
+    const timerId = setInterval(() => {
+      setMark(new Date().toLocaleTimeString());
+    }, 100);
+    return () => clearInterval(timerId);
+  }, [props.count, props.data, mark]);
+
+  return (
+    <table className="overall-score-table">
+      <thead>
+        <tr>
+          <th>Model Name</th>
+          <th>Total Average Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.keys(props.data).map((modelName) => {
+          const scoreArray = Object.values(props.data[modelName]);
+          // Only render rows where the score array length matches props.count
+          if (scoreArray.length !== props.count) {
+            return null;
+          }
+          const meanScore = _.mean(scoreArray).toFixed(3);
+          return (
+            <tr key={modelName}>
+              <td>{modelName}</td>
+              <td>{meanScore}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+}
 
 interface AppPropType {
   evalGolden: Record<string, string[]>;
@@ -32,6 +80,10 @@ export function App(props: AppPropType): JSX.Element {
   const [customDescription, setCustomDescription] = useState<
     Record<string, EmbeddingObject[]>
   >({});
+  const overallScore = useRef({});
+  props.modelNames.forEach((modelName) => {
+    overallScore.current[modelName] = {};
+  });
 
   const handleCustomDescription = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,6 +101,16 @@ export function App(props: AppPropType): JSX.Element {
     const statVarsInput = form.statVars ? form.statVars.value : "";
     setCustomQuery(queryInput);
     setCustomGolden(statVarsInput.split(",").map((s) => s.trim()));
+  };
+
+  const handleUpdateOverallScore = (
+    model: string,
+    sentence: string,
+    score: number
+  ) => {
+    if (overallScore.current[model] != undefined) {
+      overallScore.current[model][sentence] = score;
+    }
   };
 
   return (
@@ -90,11 +152,16 @@ export function App(props: AppPropType): JSX.Element {
             modelNames={props.modelNames}
             goldenStatVars={customGolden}
             customDescription={customDescription}
+            setScore={handleUpdateOverallScore}
           />
         )}
       </div>
       <div className="app-section">
         <h3> Existing Eval Results for a collection of queries</h3>
+        <OverallScoreTable
+          data={overallScore.current}
+          count={Object.keys(props.evalGolden).length}
+        />
         {Object.keys(props.evalGolden).map((sentence) => {
           return (
             <QuerySection
@@ -103,6 +170,7 @@ export function App(props: AppPropType): JSX.Element {
               modelNames={props.modelNames}
               goldenStatVars={props.evalGolden[sentence]}
               customDescription={customDescription}
+              setScore={handleUpdateOverallScore}
             />
           );
         })}
