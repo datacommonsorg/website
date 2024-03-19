@@ -20,7 +20,7 @@ from pathlib import Path
 from absl import app
 from absl import flags
 
-import shared.lib.eval as eval
+import shared.lib.eval as lib_eval
 import shared.model.api as model_api
 import shared.model.loader as model_loader
 
@@ -61,7 +61,7 @@ def main(_):
     if len(ranked_stat_vars) > len(base_line_matches):
       ranked_stat_vars = ranked_stat_vars[:len(base_line_matches)]
     debug[query]['rankedStatVars'] = ranked_stat_vars
-    ranking_score = eval.accuracy(ranked_stat_vars, base_line_matches)
+    ranking_score = lib_eval.accuracy(ranked_stat_vars, base_line_matches)
     report.append([query, ranking_score])
 
   result_folder = os.path.join(eval_folder, 'result')

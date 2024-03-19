@@ -56,10 +56,9 @@ export function ndcg(newList: string[], baselineList: string[]): number {
 }
 
 export function accuracy(newList: string[], baselineList: string[]): number {
-  newList = newList.slice(0, baselineList.length);
   const baseLineSet = new Set(baselineList);
   let numMatch = 0;
-  for (const token of newList) {
+  for (const token of newList.slice(0, baselineList.length)) {
     if (baseLineSet.has(token)) {
       numMatch += 1;
     }
