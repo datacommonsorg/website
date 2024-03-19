@@ -18,7 +18,7 @@ import axios from "axios";
 import React, { useState } from "react";
 
 import { stringifyFn } from "../../utils/axios";
-import { SentenceSection } from "./setence_section";
+import { OneQuerySection } from "./one_query_section";
 import { EmbeddingObject } from "./util";
 
 interface AppPropType {
@@ -45,9 +45,9 @@ export function App(props: AppPropType): JSX.Element {
   const handleCustomQuery = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const sentenceInput = form.sentence.value;
+    const queryInput = form.query.value;
     const statVarsInput = form.statVars ? form.statVars.value : "";
-    setCustomQuery(sentenceInput);
+    setCustomQuery(queryInput);
     setCustomGolden(statVarsInput.split(",").map((s) => s.trim()));
   };
 
@@ -75,7 +75,7 @@ export function App(props: AppPropType): JSX.Element {
           based on your ranked golden stat vars.
         </p>
         <form onSubmit={handleCustomQuery}>
-          <input type="text" name="sentence" placeholder="Enter a query" />
+          <input type="text" name="query" placeholder="Enter a query" />
           <input
             type="text"
             name="stat var list"
@@ -84,7 +84,7 @@ export function App(props: AppPropType): JSX.Element {
           <button type="submit">Apply</button>
         </form>
         {customQuery && (
-          <SentenceSection
+          <OneQuerySection
             key={customQuery}
             sentence={customQuery}
             modelNames={props.modelNames}
@@ -97,7 +97,7 @@ export function App(props: AppPropType): JSX.Element {
         <h3> Existing Eval Results for a collection of queries</h3>
         {Object.keys(props.evalGolden).map((sentence) => {
           return (
-            <SentenceSection
+            <OneQuerySection
               key={sentence}
               sentence={sentence}
               modelNames={props.modelNames}

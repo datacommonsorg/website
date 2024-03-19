@@ -16,29 +16,29 @@
 
 import React, { useState } from "react";
 
-import { SearchResult } from "./search_result";
+import { ModelMatchBox } from "./model_match_box";
 import { BASE_URL, EmbeddingObject } from "./util";
 
-export interface SentenceSectionProps {
+export interface OneQuerySectionProps {
   sentence: string;
   modelNames: string[];
   goldenStatVars: string[];
   customDescription: Record<string, EmbeddingObject[]>;
 }
 
-export function SentenceSection(props: SentenceSectionProps): JSX.Element {
+export function OneQuerySection(props: OneQuerySectionProps): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleTableVisibility = () => {
     setIsExpanded(!isExpanded);
   };
   return (
-    <div className="sentence-container">
+    <div className="one-query-section">
       <h3>{props.sentence}</h3>
       <button onClick={toggleTableVisibility}>
         {isExpanded ? "Collapse" : "Expand"}
       </button>
       <div className="model-result-container">
-        <div className="search-result">
+        <div className="golden-stat-vars">
           <div className="golden-label">Golden Stat Vars</div>
           <ul>
             {props.goldenStatVars.map((statVar) => {
@@ -58,7 +58,7 @@ export function SentenceSection(props: SentenceSectionProps): JSX.Element {
         </div>
         {props.modelNames.map((modelName) => {
           return (
-            <SearchResult
+            <ModelMatchBox
               key={modelName}
               sentence={props.sentence}
               modelName={modelName}

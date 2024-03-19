@@ -28,7 +28,7 @@ interface StatVar {
   scores: number[];
 }
 
-interface SearchResultProps {
+interface ModelMatchBoxProps {
   sentence: string;
   modelName: string;
   isExpanded: boolean;
@@ -62,7 +62,7 @@ function findKNearestEmbeddings(
   return result.slice(0, k);
 }
 
-export function SearchResult(props: SearchResultProps): JSX.Element {
+export function ModelMatchBox(props: ModelMatchBoxProps): JSX.Element {
   const [statVarMatch, setStatVarMatch] = useState<MatchObject[]>([]);
   const [rankedStatVars, setRankedStatVars] = useState<StatVar[]>([]);
 
@@ -126,7 +126,7 @@ export function SearchResult(props: SearchResultProps): JSX.Element {
   );
 
   return (
-    <div className="search-result">
+    <div className="model-match-box">
       <div className="model-name">
         {props.modelName}{" "}
         <span className="eval-score">(accuracy: {evalScore.toFixed(2)})</span>
