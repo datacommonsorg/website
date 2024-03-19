@@ -92,26 +92,16 @@ export function HighlightsSection(props: HighlightsSectionProps): JSX.Element {
   return (
     <HighlightsContainer className="container">
       {props.config.map((callout, index) => {
-        const isEntities = callout.label === "Entities";
         const value =
           typeof callout.value === "number"
-            ? formatNumber(callout.value, props.locale, isEntities)
+            ? formatNumber(callout.value, props.locale)
             : callout.value;
-        if (isEntities) {
-          return (
-            <Label key={index}>
-              Over {value} entities
-              <Highlight>& counting</Highlight>
-            </Label>
-          );
-        } else {
-          return (
-            <Label key={index}>
-              {callout.label}
-              <Highlight>{value}</Highlight>
-            </Label>
-          );
-        }
+        return (
+          <Label key={index}>
+            {callout.label}
+            <Highlight>{value}</Highlight>
+          </Label>
+        );
       })}
     </HighlightsContainer>
   );
