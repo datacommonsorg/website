@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import copy
-import logging
 import os
 from typing import List
 
@@ -44,7 +43,6 @@ def get_min_population(place_type: str, sv: str):
 #
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, rank: int) -> bool:
-  logging.info('populate_cb for time_delta_across_places')
   if chart_vars.event:
     state.uttr.counters.err('time-delta-across-places_failed_cb_events', 1)
     return False
@@ -72,8 +70,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   found = False
   # Compute time-delta ranks.
   rank_order = state.ranking_types[0] if state.ranking_types else None
-
-  logging.info('Attempting to compute growth rate stats')
 
   # Get place DCIDs.
   if len(places) > 1:
