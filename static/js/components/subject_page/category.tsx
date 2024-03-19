@@ -55,7 +55,7 @@ export interface CategoryPropType {
 export const Category = memo(function Category(
   props: CategoryPropType
 ): JSX.Element {
-  const svProvider = new StatVarProvider(props.config.statVarSpec);
+  const svProvider = new StatVarProvider(props.config.statVarSpec || {});
   const rs: ReplacementStrings = {
     placeName: props.place.name,
     placeDcid: props.place ? props.place.dcid : "",

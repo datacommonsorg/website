@@ -35,7 +35,6 @@ export interface QueryResult {
   placeSource: string;
   placeFallback?: PlaceFallback;
   pastSourceContext?: string;
-  entityPvConfig?: EntityPvConfig;
 }
 
 export interface MultiSVCandidatePart {
@@ -84,12 +83,4 @@ export interface DebugInfo {
 export interface UserMessageInfo {
   msgList: string[];
   showForm: boolean;
-}
-
-export interface EntityPvConfig {
-  entities: NamedNode[];
-  properties: NamedNode[];
-  // Map of entity dcid -> property id -> values for that property and entity
-  propertyValues: Record<string, Record<string, Node[]>>;
-  title: string;
 }

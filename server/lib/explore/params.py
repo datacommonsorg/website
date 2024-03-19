@@ -20,7 +20,9 @@ from shared.lib import constants
 
 class Params(str, Enum):
   ENTITIES = 'entities'
+  NON_PLACE_ENTITIES = 'nonPlaceEntities'
   VARS = 'variables'
+  PROPS = 'properties'
   CHILD_TYPE = 'childEntityType'
   CMP_ENTITIES = 'comparisonEntities'
   CMP_VARS = 'comparisonVariables'

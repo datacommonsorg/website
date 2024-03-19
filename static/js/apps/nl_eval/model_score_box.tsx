@@ -18,7 +18,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { stringifyFn } from "../../utils/axios";
-import { BASE_URL, EmbeddingObject, MatchObject, ndcg } from "./util";
+import { accuracy, BASE_URL, EmbeddingObject, MatchObject } from "./util";
 
 const NEW_MATCH_COUNT = 5;
 
@@ -28,7 +28,7 @@ interface StatVar {
   scores: number[];
 }
 
-interface SearchResultProps {
+interface ModelScoreBoxProps {
   sentence: string;
   modelName: string;
   isExpanded: boolean;
@@ -62,7 +62,7 @@ function findKNearestEmbeddings(
   return result.slice(0, k);
 }
 
-export function SearchResult(props: SearchResultProps): JSX.Element {
+export function ModelScoreBox(props: ModelScoreBoxProps): JSX.Element {
   const [statVarMatch, setStatVarMatch] = useState<MatchObject[]>([]);
   const [rankedStatVars, setRankedStatVars] = useState<StatVar[]>([]);
 
@@ -120,18 +120,16 @@ export function SearchResult(props: SearchResultProps): JSX.Element {
     props.overrideStatVars,
   ]);
 
-  // Crop the rankedStatVars to the length of goldenStatVars. Need to evaluate
-  // this further.
-  const evalScore = ndcg(
-    rankedStatVars.slice(0, props.goldenStatVars.length).map((x) => x.dcid),
+  const evalScore = accuracy(
+    rankedStatVars.map((x) => x.dcid),
     props.goldenStatVars
   );
 
   return (
-    <div className="search-result">
+    <div className="model-score-box">
       <div className="model-name">
         {props.modelName}{" "}
-        <span className="ndcg-score">(ndcg: {evalScore.toFixed(2)})</span>
+        <span className="eval-score">(accuracy: {evalScore.toFixed(2)})</span>
       </div>
       <p>Matched stat vars with top 2 cosine scores</p>
       <ul>

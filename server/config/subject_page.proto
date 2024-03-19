@@ -280,9 +280,9 @@ message PropertySpec {
 // Spec for just displaying a value
 message DisplayValueSpec {
   // The value(s) to display
-  repeated string value = 1;
+  repeated string values = 1;
   // The source(s) of the values
-  repeated string source = 2;
+  repeated string sources = 2;
 }
 
 message AnswerMessageTileSpec {
@@ -302,7 +302,7 @@ message AnswerTableTileSpec {
     PropertySpec property = 2;
   }
   // List of columns to show in the tile
-  repeated TableColumn column = 1;
+  repeated TableColumn columns = 1;
 }
 
 message Tile {
@@ -372,7 +372,7 @@ message Tile {
   // List of entities to use in the tile.
   // Only used in ANSWER_MESSAGE, ANSWER_TABLE, and ENTITY_OVERVIEW for now.
   // TODO: use this for all other tile types as well.
-  repeated string entity = 22;
+  repeated string entities = 22;
 
   // specs for specific tile types
   oneof tile_type_spec {

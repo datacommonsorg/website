@@ -12,13 +12,13 @@
                     "answerMessageTileSpec": {
                       "property": {
                         "direction": "OUT",
-                        "property": "phylum"
+                        "property": "strandOrientation"
                       }
                     },
                     "entities": [
-                      "dc/003ye83smktt7"
+                      "bio/hg38_FGFR1"
                     ],
-                    "title": "The phylum for Volvox is:",
+                    "title": "The strandOrientation for FGFR1 is:",
                     "type": "ANSWER_MESSAGE"
                   }
                 ]
@@ -31,7 +31,7 @@
                 "tiles": [
                   {
                     "entities": [
-                      "dc/003ye83smktt7"
+                      "bio/hg38_FGFR1"
                     ],
                     "type": "ENTITY_OVERVIEW"
                   }
@@ -47,8 +47,8 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "dc/003ye83smktt7",
-      "name": "Volvox",
+      "dcid": "bio/hg38_FGFR1",
+      "name": "FGFR1",
       "type": ""
     }
   ],
