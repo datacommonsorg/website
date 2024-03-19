@@ -559,5 +559,8 @@ class ExploreTest(NLWebServerTestCase):
         mode='toolformer')
 
   def test_e2e_triple(self):
-    self.run_detect_and_fulfill('e2e_triple', ['What is the phylum of volvox?'],
+    self.run_detect_and_fulfill('e2e_triple', [
+        'What is the phylum of volvox?', 'How about Corylus cornuta Marshall',
+        'What strand orientation does FGFR1 have?', 'What type of gene is it'
+    ],
                                 dc='bio')

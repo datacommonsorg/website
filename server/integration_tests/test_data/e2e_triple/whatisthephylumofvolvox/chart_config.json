@@ -1,0 +1,72 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "answerMessageTileSpec": {
+                      "property": {
+                        "direction": "OUT",
+                        "property": "phylum"
+                      }
+                    },
+                    "entities": [
+                      "dc/003ye83smktt7"
+                    ],
+                    "title": "The phylum for Volvox is:",
+                    "type": "ANSWER_MESSAGE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "entities": [
+                      "dc/003ye83smktt7"
+                    ],
+                    "type": "ENTITY_OVERVIEW"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "context": {},
+  "debug": {},
+  "entities": [
+    {
+      "dcid": "dc/003ye83smktt7",
+      "name": "Volvox",
+      "type": ""
+    }
+  ],
+  "pastSourceContext": "",
+  "place": {},
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "UNKNOWN",
+  "userMessages": []
+}
