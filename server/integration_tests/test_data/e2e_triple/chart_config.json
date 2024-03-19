@@ -15,7 +15,7 @@
                         "property": "phylum"
                       }
                     },
-                    "entity": [
+                    "entities": [
                       "dc/003ye83smktt7"
                     ],
                     "title": "The phylum for Volvox is:",
@@ -30,7 +30,7 @@
               {
                 "tiles": [
                   {
-                    "entity": [
+                    "entities": [
                       "dc/003ye83smktt7"
                     ],
                     "type": "ENTITY_OVERVIEW"
