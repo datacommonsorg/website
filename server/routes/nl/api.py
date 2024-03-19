@@ -14,7 +14,6 @@
 """Endpoints for Datacommons NL"""
 
 import json
-import logging
 
 import flask
 from flask import Blueprint
@@ -81,7 +80,6 @@ def feedback():
     bt.write_feedback(session_id, feedback_data)
     return '', 200
   except Exception as e:
-    logging.error(e)
     return 'Failed to record feedback data', 500
 
 

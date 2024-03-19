@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 from typing import Dict, List
 
 from server.lib.fetch import property_values
@@ -221,9 +220,6 @@ def get_place_from_dcids(place_dcids: List[str], debug_logs: Dict) -> any:
     added.add(p_dcid)
 
     if p_dcid not in dcid2place:
-      logging.info(
-          f"Place DCID ({p_dcid}) did not correspond to a place_type and/or place name."
-      )
       dc_resolve_failures.append(p_dcid)
     else:
       places.append(dcid2place[p_dcid])

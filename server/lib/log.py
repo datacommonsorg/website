@@ -25,9 +25,10 @@ import traceback
 
 import requests
 
-# 500 may seem high,  but there are known paths (like ranking across
-# counties in US) ask for many more things (3K).
-_THING_LIMIT = 500
+# 3500 may seem v high,  but there are known paths (like ranking across
+# counties in US) ask for very many entities (3.2K)
+_ENTITY_LIMIT = 3500
+_VAR_LIMIT = 500
 _BYTE_LIMIT = 5 << 20  # 5 MB
 _MAX_DURATION_SECS = 2
 
@@ -67,9 +68,9 @@ class ExtremeCallLogger:
       if not nents:
         nents = len(self.request.get('entity', {}).get('dcids', []))
         nvars = len(self.request.get('variable', {}).get('dcids', []))
-      if nents > _THING_LIMIT:
+      if nents > _ENTITY_LIMIT:
         cases.append(f'big-req: {nents} entities')
-      if nvars > _THING_LIMIT:
+      if nvars > _VAR_LIMIT:
         cases.append(f'big-req: {nvars} vars')
 
     # If response is set, check byte limit

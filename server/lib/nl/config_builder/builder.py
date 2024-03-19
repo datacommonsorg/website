@@ -192,6 +192,7 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
 
     elif cspec.chart_type == ChartType.MAP_CHART:
       if not base.is_map_or_ranking_compatible(cspec):
+        state.uttr.counters.err('chart_builder_map_incompatible', 1)
         continue
       block = builder.new_chart(cspec,
                                 place=cspec.places[0],
@@ -207,6 +208,7 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
 
     elif cspec.chart_type == ChartType.RANKING_WITH_MAP:
       if not base.is_map_or_ranking_compatible(cspec):
+        state.uttr.counters.err('chart_builder_ranking_incompatible', 1)
         continue
       pri_place = cspec.places[0]
 
