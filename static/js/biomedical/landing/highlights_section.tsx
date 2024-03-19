@@ -72,19 +72,13 @@ interface HighlightsSectionProps {
  * Localizes the value highlighted to the given locale
  * @param number number to format
  * @param locale locale to localize number to
- * @param useWords whether to format a number using words. For example, for the
- *                 number 3000000 if useWords is true, will format to
- *                 "3 million". If false, will format to 3,000,000 in en locale.
  * @returns formatted number for display.
  */
-function formatNumber(
-  number: number,
-  locale: string,
-  useWords?: boolean
-): string {
-  const formatOptions: Intl.NumberFormatOptions = useWords
-    ? { compactDisplay: "long", notation: "compact" }
-    : { compactDisplay: "short", notation: "standard" };
+function formatNumber(number: number, locale: string): string {
+  const formatOptions: Intl.NumberFormatOptions = {
+    compactDisplay: "short",
+    notation: "standard",
+  };
   return Intl.NumberFormat(locale, formatOptions).format(number);
 }
 
