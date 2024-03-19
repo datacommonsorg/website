@@ -117,8 +117,9 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
         continue
       else:
         answer.answer_message_block(builder, cspec)
-        block = builder.new_chart(cspec, skip_title=True)
-        base.entity_overview_block(block.columns.add(), cspec.entities[0])
+        if not cspec.chart_vars.skip_overview_for_entity_answer:
+          block = builder.new_chart(cspec, skip_title=True)
+          base.entity_overview_block(block.columns.add(), cspec.entities[0])
 
     if not cspec.places:
       continue
