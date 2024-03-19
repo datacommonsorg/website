@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
 from typing import Dict, List
 
 from server.lib.fetch import property_values
@@ -24,6 +25,7 @@ import shared.lib.utils as utils
 MAX_IDENTICAL_NAME_PLACES = 5
 
 
+@dataclass
 class QueryPart:
   # The actual substring from the query for this part of the query.
   substr: str
