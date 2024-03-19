@@ -15,7 +15,7 @@
                         "property": "strandOrientation"
                       }
                     },
-                    "entity": [
+                    "entities": [
                       "bio/hg38_FGFR1"
                     ],
                     "title": "The strandOrientation for FGFR1 is:",
@@ -30,7 +30,7 @@
               {
                 "tiles": [
                   {
-                    "entity": [
+                    "entities": [
                       "bio/hg38_FGFR1"
                     ],
                     "type": "ENTITY_OVERVIEW"

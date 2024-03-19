@@ -15,7 +15,7 @@
                         "property": "phylum"
                       }
                     },
-                    "entity": [
+                    "entities": [
                       "dc/004pn4gc3h683"
                     ],
                     "title": "The phylum for Corylus cornuta Marshall is:",
@@ -30,7 +30,7 @@
               {
                 "tiles": [
                   {
-                    "entity": [
+                    "entities": [
                       "dc/004pn4gc3h683"
                     ],
                     "type": "ENTITY_OVERVIEW"
