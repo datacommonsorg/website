@@ -350,6 +350,7 @@ def _detect_entities(uttr: nl_uttr.Utterance) -> List[str]:
   elif uttr.places and uttr.place_source != nl_uttr.FulfillmentResult.PAST_QUERY:
     uttr.entities_source = nl_uttr.FulfillmentResult.UNRECOGNIZED
   else:
+    # If there were entities detected in the previous query, use those entities
     if uttr.prev_utterance and uttr.prev_utterance.entities:
       entities = uttr.prev_utterance.entities
       uttr.entities = entities
@@ -363,9 +364,10 @@ def _detect_props(uttr: nl_uttr.Utterance) -> List[str]:
   if uttr.properties:
     props = uttr.properties
     uttr.properties_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
-  # If svs were detected in the current query, don't try to use any past entities
+  # If svs were detected in the current query, don't try to use any past props
   elif uttr.svs and uttr.sv_source != nl_uttr.FulfillmentResult.PAST_QUERY:
     uttr.properties_source = nl_uttr.FulfillmentResult.UNRECOGNIZED
+  # If there were props detected in the previous query, use those props
   elif uttr.prev_utterance and uttr.prev_utterance.properties:
     props = uttr.prev_utterance.properties
     uttr.properties = props

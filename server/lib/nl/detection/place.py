@@ -24,6 +24,13 @@ import shared.lib.utils as utils
 MAX_IDENTICAL_NAME_PLACES = 5
 
 
+class QueryPart:
+  # The actual substring from the query for this part of the query.
+  substr: str
+  # The dcid this query part matched to. Empty if it didn't match to a dcid.
+  dcid: str = ''
+
+
 #
 # The main entrypoint for place detection using DC's Place
 # Recognition API from a cleaned (no punctuations) query.
@@ -38,11 +45,8 @@ def detect_from_query_dc(orig_query: str,
 
   mains = []
   main2corrections = {}
-  # Dictionary of dcid to the query substring that matched to the dcid
-  main2substr = {}
-  # List of parts in the query where parts are replaced by their matched dcid if
-  # there was a match.
-  query_parts_with_dcids = []
+  # List of parts in the query
+  query_parts: List[QueryPart] = []
 
   debug_logs["place_dcid_inference"] = {}
   debug_logs["place_resolution"] = {}
@@ -55,8 +59,7 @@ def detect_from_query_dc(orig_query: str,
       # Use the first DCID for now.
       main = item['places'][0]['dcid']
       mains.append(main)
-      query_parts_with_dcids.append(main)
-      main2substr[main] = item['span'].lower()
+      query_parts.append(QueryPart(substr=item['span'].lower(), dcid=main))
 
       related = []
       for rp in item['places'][1:MAX_IDENTICAL_NAME_PLACES + 1]:
@@ -69,9 +72,7 @@ def detect_from_query_dc(orig_query: str,
           d['dcid'] for d in item['places'] if 'dcid' in d
       ]
     else:
-      # there was no DCID recognized from the span, so add the span (which is
-      # just a substring from the query)
-      query_parts_with_dcids.append(item['span'].lower())
+      query_parts.append(QueryPart(substr=item['span'].lower()))
 
   resolved_places = []
   resolved_entities = []
@@ -93,14 +94,14 @@ def detect_from_query_dc(orig_query: str,
   # Set PlaceDetection.
   places_str = []
   nonplace_query_parts = []
-  for p in query_parts_with_dcids:
-    if p in resolved_place_dcids:
+  for p in query_parts:
+    if p.dcid in resolved_place_dcids:
       # The query part is a place dcid so add its original string to places_str
-      places_str.append(main2substr[p])
+      places_str.append(p.substr)
     else:
       # The query part is not a place dcid, so add its original string to
       # nonplace_query_parts
-      nonplace_query_parts.append(main2substr.get(p, p))
+      nonplace_query_parts.append(p.substr)
   query_without_place_substr = ' '.join(nonplace_query_parts)
   place_detection = PlaceDetection(
       query_original=query,
