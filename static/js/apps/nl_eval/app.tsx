@@ -25,7 +25,7 @@ import { EmbeddingObject } from "./util";
 function OverallScoreTable(props: {
   data: Record<string, Record<string, number>>;
   count: number;
-}) {
+}): JSX.Element {
   const [mark, setMark] = useState(null);
   useEffect(() => {
     // Check if data is complete. If so, set mark to an empty string so that no
