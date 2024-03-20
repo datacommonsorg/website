@@ -143,6 +143,12 @@ dc/topic/WHOCHILDVIOL,Indicator 16.2.1: Proportion of Children Aged 1-17 Years W
 dc/topic/WHOCM01,Number of Under-five Deaths
 dc/topic/WHOCM02,Number of Infant Deaths
 dc/topic/WHOCM04,Number of Deaths Among Children Ages 5 To 9 Years
+dc/topic/WHOEMFLIMITELECTRIC,Exposure Limit for Electromagnetic Fields: Electric Field kV/m
+dc/topic/WHOEMFLIMITELECTRICLF,"Electromagnetic Fields: Exposure Limits for Low-frequency Fields, Electric Field kV/m"
+dc/topic/WHOEMFLIMITELECTRICRF,"Electromagnetic Fields: Exposure Limits for Radio-frequency Fields, Electric Field V/m"
+dc/topic/WHOEMFLIMITMAGNETIC,Exposure Limit for Electromagnetic Field: Magnetic Flux Density microT
+dc/topic/WHOEMFLIMITPOWERDENSITY,Exposure Limit for Electromagnetic Field: Power Density W/m^2
+dc/topic/WHOEMFSAR,Exposure Limit for Electromagnetic Field: Specific Absorption Rate SAR W/kg
 dc/topic/WHOFINPROTECTIONCATACTPFHU40HH,"Households With Out-of-pocket Payments Greater Than 40% of Capacity To Pay for Health Care food, Housing And Utilities Approach - Developed by WHO/Europe"
 dc/topic/WHOFINPROTECTIONCATATOT10POP,"Population With Household Spending on Health Greater Than 10% of Total Household Budget SDG 3.8.2, Reported Data %"
 dc/topic/WHOFINPROTECTIONCATATOT25POP,"Population With Household Spending on Health Greater Than 25% of Total Household Budget SDG 3.8.2, Reported Data %"
@@ -974,6 +980,7 @@ who/E6_compliance,Compliance of ban on tobacco advertising at point of sale
 who/E9_compliance,Compliance of ban on free distribution of tobacco products in the mail or through other means
 who/EC_direct_compliance,Compliance with bans on direct tobacco advertising
 who/EC_indirect_compliance,Compliance with bans on tobacco promotion and sponsorship
+who/E_Group,"Implementation status of bans on tobacco advertising, promotion and sponsorship E measure of the MPOWER package"
 who/FAMILYPLANNINGUNPDUHC,"Women of reproductive age 15-49 years who are married or in-union who have their need for family planning satisfied with modern methods %, UNPD"
 who/FINPROTECTION_CATA_TOT_10_LEVEL_MILLION,"Population with household spending on health greater than 10% of total household budget SDG 3.8.2, estimated data millions"
 who/FINPROTECTION_CATA_TOT_10_LEVEL_SH,"Population with household spending on health greater than 10% of total household budget SDG 3.8.2, estimated data %"
@@ -1012,14 +1019,29 @@ who/GASPTICFM,Number of isolates tested for cefixime reported to the Gonococcal 
 who/GASPTICIP,Number of isolates tested for ciprofloxacin reported to the Gonococcal Antimicrobial Surveillance Programme GASP
 who/GASPTICRO,Number of isolates tested for ceftriaxone reported to the Gonococcal Antimicrobial Surveillance Programme GASP
 who/GASPTIESC,Number of isolates tested for extended-spectrum cephalosporins reported to the Gonococcal Antimicrobial Surveillance Programme GASP
+who/GDO_q12x2x1x3,Estimated number of dementia carers receiving training and education
+who/GDO_q12x2x2x3,Estimated number of dementia carers receiving psycho-social supports
+who/GDO_q12x2x3x3,Estimated number of dementia carers receiving respite care
+who/GDO_q12x2x5x3,Estimated number of dementia carers receiving financial benefits/social protection
+who/GDO_q18x2x1_1,"Total expenditure on dementia research local currency, self-report"
+who/GDO_q18x2x3_1,"Total expenditure on dementia basic research local currency, self-report"
+who/GDO_q18x2x3_2,"Total expenditure on dementia clinical/translational research local currency, self-report"
+who/GDO_q18x2x3_3,"Total expenditure on dementia implementation research local currency, self-report"
+who/GDO_q19x3x1_1,Number of investigational pharmaceutical trials for dementia
 who/GDO_q20,Total number of published dementia research output
+who/GDO_q2x3x1_1,Percentage of sub-national regions covered by dementia plan
 who/GDO_q35,Estimated population-based prevalence of depression
+who/GDO_q6x1_2,Number of neurologists per 100K
+who/GDO_q6x1_3,Number of geriatricians or psychogeriatricians per 100K
 who/GDO_q9x1_3,"Dementia-specific hospital beds per 10,000 population"
 who/GDO_q9x1_4,"Geriatric-specific hospital beds per 10,000 population"
 who/GDO_q9x1_5,Total dementia hospital admissions per 100K
+who/GDO_q9x1_7,Estimated percentage of hospitals following national dementia standards
 who/GDO_q9x2_1,Density of residential long-term care facilities per 100K population
 who/GDO_q9x2_2,Residential long-term care beds per 10 000 population
 who/GDO_q9x2_3,"Dementia-specific residential long-term care beds per 10,000 population"
+who/GDO_q9x2_4,Estimated number of people with dementia living in residential long-term care
+who/GDO_q9x2_5,Estimated percentage of residential long-term care facilities following national dementia standards
 who/GDO_q9x3_1,Density of hospice centres per 100K population
 who/GDO_q9x3_2,Hospice centre beds per 10 000 population
 who/GDO_q9x3_3,"Dementia-specific hospice care beds per 10,000 population"
@@ -1027,7 +1049,9 @@ who/GDO_q9x4_1,Density of adult day centres per 100K population
 who/GDO_q9x4_2,"Adult day centre places per 10,000 population"
 who/GDO_q9x4_3,"Dementia-specific adult day centre places per 10,000 population"
 who/GDO_q9x5_1,Density of outpatient health centres per 100K population
+who/GDO_q9x5_2,Estimated number of people with dementia receiving services at outpatient health centre
 who/GDO_q9x6_1,Density of outpatient social centres per 100K population
+who/GDO_q9x6_2,Estimated number of people with dementia receiving services at outpatient social centre
 who/GHED_CHEGDP_SHA2011,Current health expenditure CHE as percentage of gross domestic product GDP %
 who/GHED_CHE_pc_US_SHA2011,Current health expenditure CHE per capita in US$
 who/GHED_EXTCHE_SHA2011,External health expenditure EXT as percentage of current health expenditure CHE %

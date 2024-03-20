@@ -15,9 +15,10 @@
  */
 
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { stringifyFn } from "../../utils/axios";
+import { OverallScoreTable } from "./overall_score_table";
 import { QuerySection } from "./query_section";
 import { EmbeddingObject } from "./util";
 
@@ -32,6 +33,9 @@ export function App(props: AppPropType): JSX.Element {
   const [customDescription, setCustomDescription] = useState<
     Record<string, EmbeddingObject[]>
   >({});
+  const [completedOverallScore, setCompletedOverallScore] = useState({});
+
+  const overallScore = useRef({});
 
   const handleCustomDescription = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,6 +53,27 @@ export function App(props: AppPropType): JSX.Element {
     const statVarsInput = form.statVars ? form.statVars.value : "";
     setCustomQuery(queryInput);
     setCustomGolden(statVarsInput.split(",").map((s) => s.trim()));
+  };
+
+  const handleUpdateOverallScore = (
+    model: string,
+    sentence: string,
+    score: number
+  ) => {
+    if (overallScore.current[model] === undefined) {
+      overallScore.current[model] = {};
+    }
+    overallScore.current[model][sentence] = score;
+    for (const modelName in overallScore.current) {
+      if (
+        Object.values(overallScore.current[modelName]).length !==
+        Object.keys(props.evalGolden).length
+      ) {
+        return;
+      }
+    }
+    // Only update when all models have the scores for all the eval queries.
+    setCompletedOverallScore(overallScore.current);
   };
 
   return (
@@ -90,11 +115,13 @@ export function App(props: AppPropType): JSX.Element {
             modelNames={props.modelNames}
             goldenStatVars={customGolden}
             customDescription={customDescription}
+            onScoreUpdated={handleUpdateOverallScore}
           />
         )}
       </div>
       <div className="app-section">
         <h3> Existing Eval Results for a collection of queries</h3>
+        <OverallScoreTable data={completedOverallScore} />
         {Object.keys(props.evalGolden).map((sentence) => {
           return (
             <QuerySection
@@ -103,6 +130,7 @@ export function App(props: AppPropType): JSX.Element {
               modelNames={props.modelNames}
               goldenStatVars={props.evalGolden[sentence]}
               customDescription={customDescription}
+              onScoreUpdated={handleUpdateOverallScore}
             />
           );
         })}
