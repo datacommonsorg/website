@@ -97,6 +97,8 @@ export interface LineTilePropType {
   endDate?: string;
   // Date to highlight on the chart.
   highlightDate?: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 export interface LineChartData {
@@ -138,7 +140,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
-      sources={chartData && chartData.sources}
+      sources={props.sources || (chartData && chartData.sources)}
       replacementStrings={getReplacementStrings(props)}
       className={`${props.className} line-chart`}
       allowEmbed={true}
