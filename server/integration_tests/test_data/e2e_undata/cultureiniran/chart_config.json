@@ -81,40 +81,6 @@
               {
                 "tiles": [
                   {
-                    "description": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) [Total, Excluding Spectacles, Home Environment] in Iran (Islamic Republic Of)",
-                    "statVarKey": [
-                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home"
-                    ],
-                    "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) [Total, Excluding Spectacles, Home Environment] in Iran (Islamic Republic Of)",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) [Total, Excluding Spectacles, Home Environment]"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) [Participation in Activities] in Iran (Islamic Republic Of)",
-                    "statVarKey": [
-                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities"
-                    ],
-                    "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) [Participation in Activities] in Iran (Islamic Republic Of)",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) [Participation in Activities]"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15
@@ -459,6 +425,56 @@
               }
             ],
             "title": "Assistive Technology Indicators: Satisfaction With Assistive Products, Excluding Spectacles, and Related Services (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/IRN"
+                    ],
+                    "statVarKey": [
+                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public_multiple_place_bar_block"
+                    ],
+                    "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%) in Iran (Islamic Republic Of) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments and Activities (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/IRN"
+                    ],
+                    "statVarKey": [
+                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home_multiple_place_bar_block",
+                      "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public_multiple_place_bar_block"
+                    ],
+                    "title": "Assistive Technology Indicators: Satisfaction With Assistive Products, Excluding Spectacles, for Different Environments and Activities (%) in Iran (Islamic Republic Of) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Assistive Technology Indicators: Satisfaction With Assistive Products, Excluding Spectacles, for Different Environments and Activities (%)"
           },
           {
             "columns": [
@@ -858,13 +874,29 @@
             "name": "Assistive technology indicators: Funding for assistive products (%) [Other]",
             "statVar": "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Other"
           },
-          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home": {
+          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities_multiple_place_bar_block": {
+            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Total, excluding spectacles, Participation in activities]",
+            "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities"
+          },
+          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home_multiple_place_bar_block": {
             "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Total, excluding spectacles, Home environment]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home"
           },
-          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities": {
+          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public_multiple_place_bar_block": {
+            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Total, excluding spectacles, Public environment]",
+            "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public"
+          },
+          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities_multiple_place_bar_block": {
             "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Participation in activities]",
             "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities"
+          },
+          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home_multiple_place_bar_block": {
+            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Home environment]",
+            "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home"
+          },
+          "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public_multiple_place_bar_block": {
+            "name": "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%) [Public environment]",
+            "statVar": "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public"
           },
           "who/ASSISTIVETECH_SATISFACTIONSERVICES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATISERVICE--ASSISTIVETECH_sati_APs_multiple_place_bar_block": {
             "name": "Assistive technology indicators: Satisfaction with assistive products and related services (%) [Total, excluding spectacles, Assistive product(s)]",
