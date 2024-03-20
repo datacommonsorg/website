@@ -27,11 +27,11 @@ import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { dataPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import {
-  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
+  ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";

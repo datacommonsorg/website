@@ -25,11 +25,11 @@ import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import {
-  ReplacementStrings,
-  TileSources,
   formatString,
   getChartTitle,
   getMergedSvg,
+  ReplacementStrings,
+  TileSources,
 } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
