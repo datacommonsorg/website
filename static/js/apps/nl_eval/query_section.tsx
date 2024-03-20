@@ -24,7 +24,7 @@ export interface QuerySectionProps {
   modelNames: string[];
   goldenStatVars: string[];
   customDescription: Record<string, EmbeddingObject[]>;
-  setScore: (modelName: string, sentence: string, score: number) => void;
+  onScoreUpdated: (modelName: string, sentence: string, score: number) => void;
 }
 
 export function QuerySection(props: QuerySectionProps): JSX.Element {
@@ -66,7 +66,7 @@ export function QuerySection(props: QuerySectionProps): JSX.Element {
               isExpanded={isExpanded}
               goldenStatVars={props.goldenStatVars}
               overrideStatVars={props.customDescription[modelName]}
-              setScore={props.setScore}
+              onScoreUpdated={props.onScoreUpdated}
             />
           );
         })}

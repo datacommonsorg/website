@@ -60,7 +60,9 @@ interface ModelScoreBoxProps {
   isExpanded: boolean;
   goldenStatVars: string[];
   overrideStatVars: EmbeddingObject[];
-  setScore: (modelName: string, sentence: string, score: number) => void;
+  // Callback function when the eval score of a model with respect to the golden
+  // stat vars is computed.
+  onScoreUpdated: (modelName: string, sentence: string, score: number) => void;
 }
 
 export function ModelScoreBox(props: ModelScoreBoxProps): JSX.Element {
@@ -120,7 +122,7 @@ export function ModelScoreBox(props: ModelScoreBoxProps): JSX.Element {
       setEvalScore(evalScore);
       setStatVarMatch(matches);
       setRankedStatVars(rankedStatVarMatch);
-      props.setScore(props.modelName, props.sentence, evalScore);
+      props.onScoreUpdated(props.modelName, props.sentence, evalScore);
     })();
   }, [props]);
 
