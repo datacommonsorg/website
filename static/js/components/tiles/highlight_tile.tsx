@@ -53,9 +53,6 @@ export interface HighlightTilePropType {
   place: NamedTypedPlace;
   // Variable to get data for
   statVarSpec: StatVarSpec;
-  // Add "Per Capita" in front of the date
-  // Used when toggling "See per capita" in subject pages.
-  addPerCapita?: boolean;
 }
 
 interface HighlightData extends Observation {
@@ -84,12 +81,12 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   };
   let description = "";
   if (props.description) {
-    const dateString = rs.date
-      ? props.addPerCapita
+    const dateString = props.statVarSpec.denom
+      ? rs.date
         ? " (Per Capita in ${date})"
-        : " (${date})"
-      : props.addPerCapita
-      ? " (Per Capita)"
+        : " (Per Capita)"
+      : rs.date
+      ? " (${date})"
       : "";
     description = formatString(props.description + dateString, rs);
   }
