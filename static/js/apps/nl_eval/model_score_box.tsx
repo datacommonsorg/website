@@ -22,20 +22,6 @@ import { accuracy, BASE_URL, EmbeddingObject, MatchObject } from "./util";
 
 const NEW_MATCH_COUNT = 5;
 
-interface StatVar {
-  dcid: string;
-  rank: number;
-  scores: number[];
-}
-
-interface ModelScoreBoxProps {
-  sentence: string;
-  modelName: string;
-  isExpanded: boolean;
-  goldenStatVars: string[];
-  overrideStatVars: EmbeddingObject[];
-}
-
 function dotProduct(a: number[], b: number[]): number {
   // We expect same length vector for dot product.
   if (a.length !== b.length) {
@@ -62,9 +48,27 @@ function findKNearestEmbeddings(
   return result.slice(0, k);
 }
 
+interface StatVar {
+  dcid: string;
+  rank: number;
+  scores: number[];
+}
+
+interface ModelScoreBoxProps {
+  sentence: string;
+  modelName: string;
+  isExpanded: boolean;
+  goldenStatVars: string[];
+  overrideStatVars: EmbeddingObject[];
+  // Callback function when the eval score of a model with respect to the golden
+  // stat vars is computed.
+  onScoreUpdated: (modelName: string, sentence: string, score: number) => void;
+}
+
 export function ModelScoreBox(props: ModelScoreBoxProps): JSX.Element {
   const [statVarMatch, setStatVarMatch] = useState<MatchObject[]>([]);
   const [rankedStatVars, setRankedStatVars] = useState<StatVar[]>([]);
+  const [evalScore, setEvalScore] = useState<number>();
 
   useEffect(() => {
     (async () => {
@@ -110,26 +114,23 @@ export function ModelScoreBox(props: ModelScoreBoxProps): JSX.Element {
         return a.rank - b.rank;
       });
 
+      const evalScore = accuracy(
+        rankedStatVarMatch.map((x) => x.dcid),
+        props.goldenStatVars
+      );
+
+      setEvalScore(evalScore);
       setStatVarMatch(matches);
       setRankedStatVars(rankedStatVarMatch);
+      props.onScoreUpdated(props.modelName, props.sentence, evalScore);
     })();
-  }, [
-    props.goldenStatVars,
-    props.sentence,
-    props.modelName,
-    props.overrideStatVars,
-  ]);
-
-  const evalScore = accuracy(
-    rankedStatVars.map((x) => x.dcid),
-    props.goldenStatVars
-  );
+  }, [props]);
 
   return (
     <div className="model-score-box">
       <div className="model-name">
         {props.modelName}{" "}
-        <span className="eval-score">(accuracy: {evalScore.toFixed(2)})</span>
+        <span className="eval-score">(accuracy: {evalScore?.toFixed(2)})</span>
       </div>
       <p>Matched stat vars with top 2 cosine scores</p>
       <ul>
