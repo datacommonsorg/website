@@ -79,8 +79,8 @@ class ChartType(IntEnum):
   SCATTER_CHART = 5
   EVENT_CHART = 6
   RANKED_TIMELINE_COLLECTION = 7
-  # Represents an answer with an optional overview tile
-  ANSWER_WITH_ENTITY_OVERVIEW = 8
+  ANSWER = 8
+  ENTITY_OVERVIEW = 9
 
 
 class FulfillmentResult(str, Enum):

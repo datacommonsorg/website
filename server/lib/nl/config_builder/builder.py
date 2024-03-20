@@ -109,17 +109,17 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
     if user_message:
       cspec.info_message = ''
 
-    if cspec.chart_type == ChartType.ANSWER_WITH_ENTITY_OVERVIEW:
+    if cspec.chart_type == ChartType.ANSWER:
       if len(cspec.props) > 1 or len(cspec.entities) > 1:
         # TODO: handle this case
-        state.uttr.counters.err(
-            "answer_with_entity_overview_failed_unsupported_case", 1)
+        state.uttr.counters.err("answer_failed_unsupported_case", 1)
         continue
       else:
         answer.answer_message_block(builder, cspec)
-        if not cspec.chart_vars.skip_overview_for_entity_answer:
-          block = builder.new_chart(cspec, skip_title=True)
-          base.entity_overview_block(block.columns.add(), cspec.entities[0])
+
+    if cspec.chart_type == ChartType.ENTITY_OVERVIEW:
+      block = builder.new_chart(cspec, skip_title=True)
+      base.entity_overview_block(block.columns.add(), cspec.entities[0])
 
     if not cspec.places:
       continue

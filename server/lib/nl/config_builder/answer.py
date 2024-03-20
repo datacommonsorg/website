@@ -15,6 +15,7 @@
 from server.config.subject_page_pb2 import PropertySpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.config_builder import base
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.fulfillment.types import ChartSpec
 
 _ARROW_TO_DIRECTION = {
@@ -24,6 +25,13 @@ _ARROW_TO_DIRECTION = {
 _PROP_ARROW_LENGTH = 2
 _OUT_TITLE = 'The {property} for {entity} is:'
 _IN_TITLE = '{entity} is the {property} for:'
+
+
+def _get_title(entity: Entity, prop: str,
+               direction: PropertySpec.PropertyDirection) -> str:
+  title_format_str = _OUT_TITLE if direction == PropertySpec.PropertyDirection.OUT else _IN_TITLE
+  return title_format_str.format(property=prop,
+                                 entity=entity.name or entity.dcid)
 
 
 def _get_prop_and_direction(
@@ -36,9 +44,7 @@ def _get_prop_and_direction(
 def answer_message_block(builder: base.Builder, cspec: ChartSpec):
   entity = cspec.entities[0]
   prop, direction = _get_prop_and_direction(cspec.props[0])
-  title_format_str = _OUT_TITLE if direction == PropertySpec.PropertyDirection.OUT else _IN_TITLE
-  title = title_format_str.format(property=prop,
-                                  entity=entity.name or entity.dcid)
+  title = _get_title(entity, prop, direction)
   tile = Tile(type=Tile.TileType.ANSWER_MESSAGE,
               title=title,
               entities=[entity.dcid])
