@@ -16,7 +16,6 @@ from server.config.subject_page_pb2 import PropertySpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.config_builder import base
 from server.lib.nl.fulfillment.types import ChartSpec
-from server.lib.nl.fulfillment.types import Entity
 
 _ARROW_TO_DIRECTION = {
     '->': PropertySpec.PropertyDirection.OUT,

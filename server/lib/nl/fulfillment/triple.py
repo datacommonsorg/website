@@ -12,12 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List
-
 from server.lib.fetch import raw_property_values
 from server.lib.nl.common.utterance import ChartType
 import server.lib.nl.common.utterance as nl_uttr
-from server.lib.nl.detection.types import Entity
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
