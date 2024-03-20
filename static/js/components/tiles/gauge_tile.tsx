@@ -27,11 +27,11 @@ import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { dataPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -61,6 +61,8 @@ export interface GaugeTilePropType {
   title: string;
   // Chart subtitle
   subtitle?: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 export interface GaugeChartData {
@@ -112,7 +114,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
-      sources={gaugeData && gaugeData.sources}
+      sources={props.sources || (gaugeData && gaugeData.sources)}
       replacementStrings={replacementStrings}
       allowEmbed={true}
       className={`bar-chart`}

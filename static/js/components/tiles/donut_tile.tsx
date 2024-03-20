@@ -31,11 +31,11 @@ import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -69,6 +69,8 @@ export interface DonutTilePropType {
   title: string;
   // Chart subtitle
   subtitle?: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 interface DonutChartData {
@@ -108,7 +110,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
-      sources={donutChartData && donutChartData.sources}
+      sources={props.sources || (donutChartData && donutChartData.sources)}
       replacementStrings={getReplacementStrings(props, donutChartData)}
       className={`${props.className} bar-chart`}
       allowEmbed={true}

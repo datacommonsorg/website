@@ -25,18 +25,18 @@ import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import {
+  ReplacementStrings,
+  TileSources,
   formatString,
   getChartTitle,
   getMergedSvg,
-  getSourcesJsx,
-  ReplacementStrings,
 } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 interface ChartTileContainerProp {
   id: string;
   title: string;
-  sources: Set<string>;
+  sources: Set<string> | string[];
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
   // Whether or not to allow chart embedding action.
@@ -92,7 +92,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
               <div className="subheader">{props.subtitle}</div>
             ) : null}
           </slot>
-          {showSources && getSourcesJsx(props.sources)}
+          {showSources && <TileSources sources={props.sources} />}
         </div>
         {props.children}
       </div>

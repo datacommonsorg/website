@@ -141,6 +141,10 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   variables?: string[];
 
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
+
   render(): HTMLElement {
     const variables = this.variables || [this.variable];
     const statVarSpecs = variables.map((statVar) => {
@@ -173,6 +177,7 @@ export class DatacommonsRankingComponent extends LitElement {
         showMultiColumn: this.showMultiColumn,
       },
       showExploreMore: this.showExploreMore,
+      sources: this.sources,
       variables: statVarSpecs,
       title: this.header || this.title,
     };

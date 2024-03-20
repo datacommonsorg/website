@@ -81,6 +81,8 @@ export interface ScatterTilePropType {
   placeNameProp?: string;
   // Chart subtitle
   subtitle?: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 interface RawData {
@@ -149,7 +151,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
-      sources={scatterChartData && scatterChartData.sources}
+      sources={props.sources || (scatterChartData && scatterChartData.sources)}
       replacementStrings={getReplacementStrings(props, scatterChartData)}
       className={`${props.className} scatter-chart`}
       allowEmbed={true}
