@@ -33,6 +33,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE118"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Obstructive Pulmonary Disease]"
@@ -48,6 +59,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE118"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -67,6 +89,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE118"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Obstructive Pulmonary Disease]"
@@ -82,6 +115,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE118"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -101,6 +145,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE118"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Chronic Obstructive Pulmonary Disease]"
@@ -116,6 +171,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE118"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -167,6 +233,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE118__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Obstructive Pulmonary Disease, Female]"
@@ -182,6 +259,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE118__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -201,6 +289,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE118__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
@@ -216,6 +315,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE118__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -235,6 +345,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE118__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Obstructive Pulmonary Disease, Female]"
@@ -250,6 +371,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE118__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -269,6 +401,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE118__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
@@ -284,6 +427,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE118__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -303,6 +457,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE118__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Chronic Obstructive Pulmonary Disease, Female]"
@@ -318,6 +483,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE118__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -337,6 +513,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE118__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Female]"
@@ -352,6 +539,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE118__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Obstructive Pulmonary Disease, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -371,6 +569,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE120"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Other Respiratory Diseases] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Other Respiratory Diseases]"
@@ -386,6 +595,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Other Respiratory Diseases] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE120"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Other Respiratory Diseases] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -405,6 +625,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE120"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Other Respiratory Diseases] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Other Respiratory Diseases]"
@@ -420,6 +651,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Other Respiratory Diseases] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE120"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Other Respiratory Diseases] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -439,6 +681,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE120"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Other Respiratory Diseases] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Other Respiratory Diseases]"
@@ -454,6 +707,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Other Respiratory Diseases] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE120"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Other Respiratory Diseases] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -473,6 +737,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE120__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Other Respiratory Diseases, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Other Respiratory Diseases, Female]"
@@ -488,6 +763,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Other Respiratory Diseases, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE120__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Other Respiratory Diseases, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -507,6 +793,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE120__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Other Respiratory Diseases, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Other Respiratory Diseases, Female]"
@@ -522,6 +819,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Other Respiratory Diseases, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE120__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Other Respiratory Diseases, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -541,6 +849,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE120__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Other Respiratory Diseases, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Other Respiratory Diseases, Female]"
@@ -556,6 +875,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Other Respiratory Diseases, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE120__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Other Respiratory Diseases, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -575,6 +905,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE120__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Other Respiratory Diseases, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Other Respiratory Diseases, Female]"
@@ -590,6 +931,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Other Respiratory Diseases, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE120__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Other Respiratory Diseases, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -609,6 +961,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE120__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Other Respiratory Diseases, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Other Respiratory Diseases, Female]"
@@ -624,6 +987,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) [Other Respiratory Diseases, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE120__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Other Respiratory Diseases, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -643,6 +1017,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE120__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Other Respiratory Diseases, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Other Respiratory Diseases, Female]"
@@ -658,6 +1043,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Other Respiratory Diseases, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE120__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Other Respiratory Diseases, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -677,6 +1073,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE117"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Respiratory Diseases] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Respiratory Diseases]"
@@ -692,6 +1099,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Respiratory Diseases] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE117"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Respiratory Diseases] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -711,6 +1129,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE117"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Respiratory Diseases] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Respiratory Diseases]"
@@ -726,6 +1155,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Respiratory Diseases] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE117"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Respiratory Diseases] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -745,6 +1185,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE117"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Chronic Respiratory Diseases] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Chronic Respiratory Diseases]"
@@ -760,6 +1211,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Respiratory Diseases] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE117"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Respiratory Diseases] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -779,6 +1241,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE117__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Respiratory Diseases, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Respiratory Diseases, Female]"
@@ -794,6 +1267,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Respiratory Diseases, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE117__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Chronic Respiratory Diseases, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -813,6 +1297,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE117__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Respiratory Diseases, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Respiratory Diseases, Female]"
@@ -828,6 +1323,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Respiratory Diseases, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE117__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Chronic Respiratory Diseases, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -847,6 +1353,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE117__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Respiratory Diseases, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Respiratory Diseases, Female]"
@@ -862,6 +1379,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Respiratory Diseases, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE117__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Chronic Respiratory Diseases, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -881,6 +1409,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE117__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Respiratory Diseases, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Respiratory Diseases, Female]"
@@ -896,6 +1435,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Respiratory Diseases, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE117__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Chronic Respiratory Diseases, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -915,6 +1465,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE117__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Chronic Respiratory Diseases, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Chronic Respiratory Diseases, Female]"
@@ -930,6 +1491,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) [Chronic Respiratory Diseases, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE117__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Chronic Respiratory Diseases, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -949,6 +1521,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE117__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Respiratory Diseases, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Respiratory Diseases, Female]"
@@ -964,6 +1547,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Respiratory Diseases, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE117__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Chronic Respiratory Diseases, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2171,6 +2765,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE038"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Respiratory Infections] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Respiratory Infections]"
@@ -2186,6 +2791,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE038"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Respiratory Infections] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2205,6 +2821,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE038"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Respiratory Infections] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Respiratory Infections]"
@@ -2220,6 +2847,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE038"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Respiratory Infections] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2239,6 +2877,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE038"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Respiratory Infections] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Respiratory Infections]"
@@ -2254,6 +2903,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE038"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Respiratory Infections] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2273,6 +2933,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE038__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Respiratory Infections, Female]"
@@ -2288,6 +2959,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE038__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2307,6 +2989,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE038__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Respiratory Infections, Female]"
@@ -2322,6 +3015,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE038__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2341,6 +3045,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE038__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Respiratory Infections, Female]"
@@ -2356,6 +3071,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE038__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2375,6 +3101,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE038__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Respiratory Infections, Female]"
@@ -2390,6 +3127,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE038__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2409,6 +3157,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE038__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Respiratory Infections, Female]"
@@ -2424,6 +3183,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) [Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE038__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2443,6 +3213,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE038__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Respiratory Infections, Female]"
@@ -2458,6 +3239,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE038__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2493,6 +3285,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE039"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Lower Respiratory Infections] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Lower Respiratory Infections]"
@@ -2508,6 +3311,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Lower Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE039"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Lower Respiratory Infections] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2527,6 +3341,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE039"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Lower Respiratory Infections] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Lower Respiratory Infections]"
@@ -2542,6 +3367,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Lower Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE039"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Lower Respiratory Infections] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2561,6 +3397,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE039"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Lower Respiratory Infections] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Lower Respiratory Infections]"
@@ -2576,6 +3423,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Lower Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE039"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Lower Respiratory Infections] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2627,6 +3485,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE039__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Lower Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Lower Respiratory Infections, Female]"
@@ -2642,6 +3511,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Lower Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE039__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Lower Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2661,6 +3541,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE039__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Lower Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Lower Respiratory Infections, Female]"
@@ -2676,6 +3567,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Lower Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE039__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Lower Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2695,6 +3597,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE039__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Lower Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Lower Respiratory Infections, Female]"
@@ -2710,6 +3623,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Lower Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE039__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Lower Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2729,6 +3653,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE039__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Lower Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Lower Respiratory Infections, Female]"
@@ -2744,6 +3679,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Lower Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE039__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Lower Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2763,6 +3709,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE039__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Lower Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Lower Respiratory Infections, Female]"
@@ -2778,6 +3735,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) [Lower Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE039__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Lower Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2797,6 +3765,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE039__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Lower Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Lower Respiratory Infections, Female]"
@@ -2812,6 +3791,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Lower Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE039__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Lower Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2831,6 +3821,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE040"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Upper Respiratory Infections] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Upper Respiratory Infections]"
@@ -2846,6 +3847,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Upper Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE040"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Upper Respiratory Infections] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2865,6 +3877,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE040"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Upper Respiratory Infections] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Upper Respiratory Infections]"
@@ -2880,6 +3903,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Upper Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE040"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Upper Respiratory Infections] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2899,6 +3933,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE040"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Upper Respiratory Infections] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Upper Respiratory Infections]"
@@ -2914,6 +3959,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Upper Respiratory Infections] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE040"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Upper Respiratory Infections] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2933,6 +3989,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE040__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Upper Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Upper Respiratory Infections, Female]"
@@ -2948,6 +4015,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Upper Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE040__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Upper Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -2967,6 +4045,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE040__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Upper Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Upper Respiratory Infections, Female]"
@@ -2982,6 +4071,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Upper Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE040__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Upper Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -3001,6 +4101,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE040__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Upper Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Upper Respiratory Infections, Female]"
@@ -3016,6 +4127,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Upper Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE040__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Upper Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -3035,6 +4157,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE040__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Upper Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Upper Respiratory Infections, Female]"
@@ -3050,6 +4183,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Upper Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE040__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Upper Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -3069,6 +4213,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE040__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Upper Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Upper Respiratory Infections, Female]"
@@ -3084,6 +4239,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) [Upper Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE040__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Upper Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -3103,6 +4269,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE040__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Upper Respiratory Infections, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Upper Respiratory Infections, Female]"
@@ -3118,6 +4295,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Upper Respiratory Infections, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE040__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Upper Respiratory Infections, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4235,6 +5423,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE119"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Asthma] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Asthma]"
@@ -4250,6 +5449,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Asthma] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE119"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Asthma] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4269,6 +5479,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE119"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Asthma] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Asthma]"
@@ -4284,6 +5505,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Asthma] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE119"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Asthma] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4303,6 +5535,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE119"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Asthma] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Asthma]"
@@ -4318,6 +5561,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Asthma] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE119"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Asthma] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4337,6 +5591,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE119__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Asthma, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Asthma, Female]"
@@ -4352,6 +5617,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Asthma, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE119__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Asthma, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4371,6 +5647,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE119__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Asthma, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Asthma, Female]"
@@ -4386,6 +5673,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Asthma, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE119__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Asthma, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4405,6 +5703,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE119__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Asthma, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Asthma, Female]"
@@ -4420,6 +5729,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Asthma, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE119__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Asthma, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4439,6 +5759,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE119__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Asthma, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Asthma, Female]"
@@ -4454,6 +5785,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Asthma, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE119__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Asthma, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4473,6 +5815,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE119__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Asthma, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Asthma, Female]"
@@ -4488,6 +5841,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) [Asthma, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE119__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Asthma, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4507,6 +5871,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE119__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Asthma, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Asthma, Female]"
@@ -4522,6 +5897,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Asthma, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE119__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Asthma, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4541,6 +5927,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE013"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Whooping Cough] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Whooping Cough]"
@@ -4556,6 +5953,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Whooping Cough] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE013"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Whooping Cough] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4575,6 +5983,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE013"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Whooping Cough] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Whooping Cough]"
@@ -4590,6 +6009,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Whooping Cough] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE013"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Whooping Cough] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4609,6 +6039,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE013"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Whooping Cough] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Whooping Cough]"
@@ -4624,6 +6065,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Whooping Cough] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE013"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Whooping Cough] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4643,6 +6095,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE013__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Whooping Cough, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Whooping Cough, Female]"
@@ -4658,6 +6121,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Whooping Cough, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYNUM.GHECAUSES--GHE013__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years, DALYs) [Whooping Cough, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4677,6 +6151,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE013__SEX--F"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Whooping Cough, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Whooping Cough, Female]"
@@ -4692,6 +6177,17 @@
                     ],
                     "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Whooping Cough, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_DALYRATE.GHECAUSES--GHE013__SEX--M"
+                    ],
+                    "title": "Disease Burden (Number of Disability-Adjusted Life Years (DALYs) Per 100 000 Population) [Whooping Cough, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4711,6 +6207,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE013__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Whooping Cough, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Whooping Cough, Female]"
@@ -4726,6 +6233,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Whooping Cough, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDNUM.GHECAUSES--GHE013__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) [Whooping Cough, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4745,6 +6263,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE013__SEX--F"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Whooping Cough, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Whooping Cough, Female]"
@@ -4760,6 +6289,17 @@
                     ],
                     "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Whooping Cough, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLDRATE.GHECAUSES--GHE013__SEX--M"
+                    ],
+                    "title": "Years of Healthy Life Lost Due to Disability (YLDs) (Per 100 000 Population) [Whooping Cough, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4779,6 +6319,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE013__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Whooping Cough, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) [Whooping Cough, Female]"
@@ -4794,6 +6345,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) [Whooping Cough, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLNUM.GHECAUSES--GHE013__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) [Whooping Cough, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4813,6 +6375,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE013__SEX--F"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Whooping Cough, Female] in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Whooping Cough, Female]"
@@ -4828,6 +6401,17 @@
                     ],
                     "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Whooping Cough, Male] in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/GHE_YLLRATE.GHECAUSES--GHE013__SEX--M"
+                    ],
+                    "title": "Years of Life Lost From Mortality (YLLs) (Per 100 000 Population) [Whooping Cough, Male] in the World",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -4864,6 +6448,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/TB_new_sp"
+                    ],
+                    "title": "New Tuberculosis Cases: Pulmonary, Smear-Positive in the World",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "description": "New cases: pulmonary, smear-positive.",
@@ -4897,6 +6492,17 @@
                     ],
                     "title": "New Tuberculosis Cases: Pulmonary, Smear-Negative/Unknown/Not Done and Other New Cases in the World",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/TB_new_snsuoth"
+                    ],
+                    "title": "New Tuberculosis Cases: Pulmonary, Smear-Negative/Unknown/Not Done and Other New Cases in the World",
+                    "type": "LINE"
                   }
                 ]
               }
