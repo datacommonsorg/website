@@ -66,6 +66,7 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
     return False
 
   chart_added = False
+  # TODO: consider messaging if top matches fail existence
   for prop in uttr.properties:
     # TODO: handle properties that are links that use ->
     if '->' in prop or '<-' in prop:
@@ -76,9 +77,12 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
         chart_added = True
         # Currently only handling one prop, so if populate succeeds for any one
         # prop, return.
+        # TODO: revisit how we want to handle multiple props
         break
   # If we are populating for a single entity and we've added an answer for this
   # entity, also add an entity overview chart
+  # TODO: consider if we want to always add an entity overview chart when there
+  # are entities
   if chart_added and len(uttr.entities) == 1:
     add_chart_to_utterance(ChartType.ENTITY_OVERVIEW,
                            PopulateState(uttr=uttr),
