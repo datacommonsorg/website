@@ -10,10 +10,7 @@
                 "tiles": [
                   {
                     "answerMessageTileSpec": {
-                      "property": {
-                        "direction": "OUT",
-                        "property": "strandOrientation"
-                      }
+                      "propertyExpr": "->strandOrientation"
                     },
                     "entities": [
                       "bio/hg38_FGFR1"

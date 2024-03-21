@@ -27,7 +27,6 @@ import {
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import {
   ColumnConfig,
-  PropertySpec,
   SubjectPageConfig,
 } from "../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "./../types/subject_page_types";
@@ -210,12 +209,4 @@ export function trimCategory(
     pageConfig.categories = categories;
   }
   return pageConfig;
-}
-
-/**
- * Gets the proeprty direction from a property spec.
- * @param propSpec the spec to get the direction from
- */
-export function getPropertyDirection(propSpec: PropertySpec): string {
-  return propSpec.direction.toLowerCase();
 }

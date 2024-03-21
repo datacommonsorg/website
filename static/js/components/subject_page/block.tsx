@@ -632,7 +632,7 @@ function renderTiles(
             key={id}
             title={tile.title}
             entity={!_.isEmpty(tile.entities) ? tile.entities[0] : ""}
-            property={tile.answerMessageTileSpec.property}
+            propertyExpr={tile.answerMessageTileSpec.propertyExpr}
             displayValue={tile.answerMessageTileSpec.displayValue}
           />
         );

@@ -10,10 +10,7 @@
                 "tiles": [
                   {
                     "answerMessageTileSpec": {
-                      "property": {
-                        "direction": "OUT",
-                        "property": "typeOfGene"
-                      }
+                      "propertyExpr": "->typeOfGene"
                     },
                     "entities": [
                       "bio/hg38_FGFR1"

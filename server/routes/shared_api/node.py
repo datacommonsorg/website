@@ -14,6 +14,7 @@
 """Node data endpoints."""
 
 import json
+import re
 
 import flask
 from flask import request
@@ -22,6 +23,11 @@ from flask import Response
 from server.lib import fetch
 
 bp = flask.Blueprint('api_node', __name__, url_prefix='/api/node')
+
+# Regex for a relation expression for a property
+# https://docs.datacommons.org/api/rest/v2#relation-expressions
+_PROPERTY_EXPRESSION_RE = r'(->|<-)([a-zA-Z]+)({[a-zA-Z]+:[a-zA-Z]+})*'
+_OUT_ARROW = '->'
 
 
 @bp.route('/triples/<path:direction>/<path:dcid>')
@@ -45,3 +51,59 @@ def get_property_value(direction):
     prop = request.json['prop']
   response = fetch.raw_property_values(dcids, prop, direction == 'out')
   return Response(json.dumps(response), 200, mimetype='application/json')
+
+
+@bp.route('/propvals', methods=['GET', 'POST'])
+def expression_property_value():
+  """
+  Returns the property values for given node dcids and a relation expression for
+  a property (https://docs.datacommons.org/api/rest/v2#relation-expressions)
+  """
+  dcids = request.args.getlist('dcids')
+  if not dcids:
+    dcids = request.json['dcids']
+  prop_expression = request.args.get('propExpr')
+  if not prop_expression:
+    prop_expression = request.json['propExpr']
+  if not dcids:
+    return 'error: must provide a `dcids` field', 400
+  if not prop_expression:
+    return 'error: must provide a `propExpr` field', 400
+  response = get_expression_property_value(dcids, prop_expression)
+  return Response(json.dumps(response), 200, mimetype='application/json')
+
+
+def get_expression_property_value(dcids, expression):
+  """
+  Returns the property values for given node dcids and a relation expression for
+  a property (https://docs.datacommons.org/api/rest/v2#relation-expressions)
+  """
+  # Get a list of single property relation expressions (the expression passed to
+  # this function can chain multiple relation expressions)
+  expression_matches = re.finditer(_PROPERTY_EXPRESSION_RE, expression)
+  results = {}
+  # the list of dcids to use to fetch the next round of property values
+  curr_dcids = dcids
+  # map of dcids from curr_dcids to the original dcid passed to this function
+  curr2orig_dcids = {dcid: dcid for dcid in curr_dcids}
+  for match in expression_matches:
+    direction, prop, constraints = match.groups()
+    resp = fetch.raw_property_values(curr_dcids,
+                                     prop,
+                                     out=direction == _OUT_ARROW,
+                                     constraints=constraints or '')
+    # Regenerate the results from the newly fetched data
+    results = {}
+    for dcid in resp.keys():
+      # Get the original node dcid these values should apply to
+      orig_dcid = curr2orig_dcids[dcid]
+      results[orig_dcid] = results.get(orig_dcid, []) + resp.get(dcid, [])
+      # for each value that has a dcid, add it to curr_dcids for next round of
+      # property value fetching
+      for val in resp.get(dcid, []):
+        val_dcid = val.get('dcid', '')
+        if not val_dcid:
+          continue
+        curr_dcids.append(val_dcid)
+        curr2orig_dcids[val_dcid] = orig_dcid
+  return results

@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.lib.fetch import raw_property_values
 from server.lib.nl.common.utterance import ChartType
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
+from server.routes.shared_api.node import get_expression_property_value
 
 #
 # Handler for TRIPLE queries.
@@ -25,18 +25,29 @@ from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 _OUT_ARROW = '->'
 _IN_ARROW = '<-'
+_OUT_TITLE = 'The {property} for {entity} is:'
+_IN_TITLE = '{entity} is the {property} for:'
+
+
+# Gets the chart title for a list of entities, the property string,
+# and direction of the property
+def _get_title(entities, prop: str, out: bool) -> str:
+  title_format_str = _OUT_TITLE if out else _IN_TITLE
+  entity_str = ', '.join([e.name or e.dcid for e in entities])
+  return title_format_str.format(property=prop, entity=entity_str)
 
 
 # Gets the chart vars for a property and direction if values exist for that
 # property and direction,
 def _get_chart_vars(uttr: nl_uttr.Utterance, prop: str, out: bool) -> ChartVars:
   entity_dcids = [e.dcid for e in uttr.entities]
-  prop_values = raw_property_values(entity_dcids, prop, out)
   prop_with_direction = f'{_OUT_ARROW}{prop}' if out else f'{_IN_ARROW}{prop}'
+  prop_values = get_expression_property_value(entity_dcids, prop_with_direction)
   if not any(prop_values.values()):
     uttr.counters.err('triple_property_failed_existence', prop_with_direction)
     return None
-  chart_vars = ChartVars(props=[prop_with_direction])
+  title = _get_title(uttr.entities, prop, out)
+  chart_vars = ChartVars(props=[prop_with_direction], title=title)
   return chart_vars
 
 
