@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 import re
 
 from flask import current_app
@@ -168,9 +167,9 @@ def _get_strings_for_translation(page_config: dict) -> list[str]:
 
 def _translate(queries: list[str], source_lang: str,
                target_lang: str) -> list[str]:
-  # The name "PALM_API_KEY" is a misnomer.
-  # Both palm and translation apis are enabled under this key.
-  api_key = current_app.config.get("PALM_API_KEY")
+  # The name "LLM_API_KEY" is a misnomer.
+  # Both LLM and translation apis are enabled under this key.
+  api_key = current_app.config.get("LLM_API_KEY")
   if not api_key:
     raise RuntimeError("Translation API key not specified.")
 

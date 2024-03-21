@@ -24,6 +24,7 @@ import {
   fetchDisasterEventData,
   getBlockEventTypeSpecs,
 } from "../js/components/subject_page/disaster_event_block";
+import { StatVarProvider } from "../js/components/subject_page/stat_var_provider";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import {
   BlockConfig,
@@ -36,7 +37,11 @@ import {
 } from "../js/utils/disaster_event_map_utils";
 import { getTileEventTypeSpecs } from "../js/utils/tile_utils";
 import { getBarChart, getBarTileResult } from "../nodejs_server/bar_tile";
-import { CHART_ID, CHART_URL_PARAMS } from "../nodejs_server/constants";
+import {
+  CHART_ID,
+  CHART_INFO_PARAMS,
+  CHART_PARAMS,
+} from "../nodejs_server/constants";
 import {
   getDisasterMapChart,
   getDisasterMapTileResult,
@@ -49,6 +54,7 @@ import {
   getScatterTileResult,
 } from "../nodejs_server/scatter_tile";
 import { TileResult } from "../nodejs_server/types";
+import { decompressChartProps } from "../nodejs_server/utils";
 const app = express();
 const APP_CONFIGS = {
   local: {
@@ -94,17 +100,20 @@ const NS_TO_MS_SCALE_FACTOR = BigInt(1000000);
 const MS_TO_S_SCALE_FACTOR = 1000;
 // The param value for the chartUrl param which indicates using svg
 const CHART_URL_PARAM_SVG = "0";
-// The param value for the allCharts param if we should return all charts in
-// /nodejs/query. Otherwise, return QUERY_MAX_RESULTS number of charts.
-const ALL_CHARTS_URL_PARAM = "1";
+// The param value that indicates the param is truthy.
+const URL_PARAM_VALUE_TRUTHY = "1";
 const QUERY_MAX_RESULTS = 3;
 // The param value for the client param if the client is Bard. Default is Bard.
 const BARD_CLIENT_URL_PARAM = "bard";
 // Allowed chart types if client is Bard.
-const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING"]);
+const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING", "SCATTER"]);
 // The root to use to form the dc link in the tile results
 // TODO: update this to use bard.datacommons.org
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
+// Size of the PNG to return for the chart query
+const PNG_WIDTH = 1600;
+// Default mode to use when making nl calls
+const DEFAULT_NL_MODE = "strict";
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -240,9 +249,12 @@ function getBlockTileResults(
   svSpec: Record<string, StatVarSpec>,
   urlRoot: string,
   useChartUrl: boolean,
+  apikey: string,
   allowedTilesTypes?: Set<string>
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
+  const svProvider = new StatVarProvider(svSpec);
+  const blockDenom = block.startWithDenom ? block.denom : "";
   block.columns.forEach((column, colIdx) => {
     column.tiles.forEach((tile, tileIdx) => {
       if (allowedTilesTypes && !allowedTilesTypes.has(tile.type)) {
@@ -252,7 +264,7 @@ function getBlockTileResults(
       let tileSvSpec = null;
       switch (tile.type) {
         case "LINE":
-          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, { blockDenom });
           tilePromises.push(
             getLineTileResult(
               tileId,
@@ -261,12 +273,13 @@ function getBlockTileResults(
               tileSvSpec,
               CONFIG.apiRoot,
               urlRoot,
-              useChartUrl
+              useChartUrl,
+              apikey
             )
           );
           break;
         case "SCATTER":
-          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, { blockDenom });
           tilePromises.push(
             getScatterTileResult(
               tileId,
@@ -276,12 +289,13 @@ function getBlockTileResults(
               tileSvSpec,
               CONFIG.apiRoot,
               urlRoot,
-              useChartUrl
+              useChartUrl,
+              apikey
             )
           );
           break;
         case "BAR":
-          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, { blockDenom });
           tilePromises.push(
             getBarTileResult(
               tileId,
@@ -291,12 +305,13 @@ function getBlockTileResults(
               tileSvSpec,
               CONFIG.apiRoot,
               urlRoot,
-              useChartUrl
+              useChartUrl,
+              apikey
             )
           );
           break;
         case "MAP":
-          tileSvSpec = svSpec[tile.statVarKey[0]];
+          tileSvSpec = svProvider.getSpec(tile.statVarKey[0], { blockDenom });
           tilePromises.push(
             getMapTileResult(
               tileId,
@@ -306,12 +321,13 @@ function getBlockTileResults(
               tileSvSpec,
               CONFIG.apiRoot,
               urlRoot,
-              useChartUrl
+              useChartUrl,
+              apikey
             )
           );
           break;
         case "RANKING":
-          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+          tileSvSpec = svProvider.getSpecList(tile.statVarKey, { blockDenom });
           tilePromises.push(
             getRankingTileResult(
               tileId,
@@ -321,7 +337,8 @@ function getBlockTileResults(
               tileSvSpec,
               CONFIG.apiRoot,
               urlRoot,
-              useChartUrl
+              useChartUrl,
+              apikey
             )
           );
           break;
@@ -342,6 +359,7 @@ function getDisasterBlockTileResults(
   eventTypeSpec: Record<string, EventTypeSpec>,
   urlRoot: string,
   useChartUrl: boolean,
+  apikey: string,
   allowedTilesTypes?: Set<string>
 ): Promise<TileResult>[] {
   const blockEventTypeSpec = getBlockEventTypeSpecs(
@@ -376,7 +394,8 @@ function getDisasterBlockTileResults(
               disasterEventDataPromise,
               CONFIG.apiRoot,
               urlRoot,
-              useChartUrl
+              useChartUrl,
+              apikey
             )
           );
         default:
@@ -474,17 +493,25 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const startTime = process.hrtime.bigint();
   const query = req.query.q;
   const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
-  const allResults = req.query.allCharts === ALL_CHARTS_URL_PARAM;
-  const urlRoot = `${req.protocol}://${req.get("host")}`;
+  // If the value for allCharts param is truthy, we should return all charts.
+  // Otherwise, return QUERY_MAX_RESULTS number of charts.
+  const allResults = req.query.allCharts === URL_PARAM_VALUE_TRUTHY;
+  // If coming from an API proxy, need to get the original protocol and host
+  // from the request headers
+  const protocol = req.headers["x-forwarded-proto"] || req.protocol;
+  const host = req.headers["x-forwarded-host"] || req.headers.host;
+  const apikey = (req.query.apikey as string) || "";
+  const urlRoot = `${protocol}://${host}`;
   const client = req.query.client || BARD_CLIENT_URL_PARAM;
   const allowedTileTypes =
     client === BARD_CLIENT_URL_PARAM ? BARD_ALLOWED_CHARTS : null;
+  const mode = req.query.mode || DEFAULT_NL_MODE;
   res.setHeader("Content-Type", "application/json");
   axios
     // Set "mode=strict" to use heuristic detector, disable using default place,
     // use a higher SV threshold and avoid multi-verb queries
     .post(
-      `${CONFIG.apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=strict&client=${client}`,
+      `${CONFIG.apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=${mode}&client=${client}`,
       {}
     )
     .then((resp) => {
@@ -540,6 +567,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
                 config["metadata"]["eventTypeSpec"],
                 urlRoot,
                 useChartUrl,
+                apikey,
                 allowedTileTypes
               );
               break;
@@ -552,6 +580,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
                 svSpec,
                 urlRoot,
                 useChartUrl,
+                apikey,
                 allowedTileTypes
               );
           }
@@ -598,34 +627,36 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
 });
 
 app.get("/nodejs/chart", (req: Request, res: Response) => {
-  const place = _.escape(req.query[CHART_URL_PARAMS.PLACE] as string);
-  const enclosedPlaceType = _.escape(
-    req.query[CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE] as string
+  const chartProps = decompressChartProps(
+    req.query[CHART_PARAMS.PROPS] as string
   );
-  const svSpec = JSON.parse(
-    req.query[CHART_URL_PARAMS.STAT_VAR_SPEC] as string
-  );
-  // Need to convert encoded # back to #.
-  const eventTypeSpecVal = (
-    req.query[CHART_URL_PARAMS.EVENT_TYPE_SPEC] as string
-  ).replaceAll("%23", "#");
-  const eventTypeSpec = JSON.parse(eventTypeSpecVal);
-  const tileConfig = JSON.parse(
-    req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
-  );
-  res.setHeader("Content-Type", "image/png");
-  getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
+  const useSvgFormat =
+    req.query[CHART_PARAMS.AS_SVG] === URL_PARAM_VALUE_TRUTHY;
+  const contentType = useSvgFormat ? "image/svg+xml" : "image/png";
+  res.setHeader("Content-Type", contentType);
+  getTileChart(
+    chartProps.tileConfig,
+    chartProps.place,
+    chartProps.enclosedPlaceType,
+    chartProps.statVarSpec,
+    chartProps.eventTypeSpec
+  )
     .then((chart) => {
-      sharp(Buffer.from(chart.outerHTML))
-        .png()
-        .toBuffer()
-        .then((chartPng) => {
-          res.status(200).send(chartPng);
-        })
-        .catch((error) => {
-          console.log("Error getting png:\n", error.message);
-          res.status(500).send(null);
-        });
+      if (useSvgFormat) {
+        res.status(200).send(chart.outerHTML);
+      } else {
+        sharp(Buffer.from(chart.outerHTML))
+          .resize(PNG_WIDTH)
+          .png()
+          .toBuffer()
+          .then((chartPng) => {
+            res.status(200).send(chartPng);
+          })
+          .catch((error) => {
+            console.log("Error getting png:\n", error.message);
+            res.status(500).send(null);
+          });
+      }
     })
     .catch((error) => {
       console.log("Error making request:\n", error.message);
@@ -635,15 +666,15 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
 
 // TODO: come up with better params
 app.get("/nodejs/chart-info", (req: Request, res: Response) => {
-  const place = _.escape(req.query[CHART_URL_PARAMS.PLACE] as string);
+  const place = _.escape(req.query[CHART_INFO_PARAMS.PLACE] as string);
   const enclosedPlaceType = _.escape(
-    req.query[CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE] as string
+    req.query[CHART_INFO_PARAMS.ENCLOSED_PLACE_TYPE] as string
   );
   const svSpec = JSON.parse(
-    req.query[CHART_URL_PARAMS.STAT_VAR_SPEC] as string
+    req.query[CHART_INFO_PARAMS.STAT_VAR_SPEC] as string
   );
   const tileConfig = JSON.parse(
-    req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
+    req.query[CHART_INFO_PARAMS.TILE_CONFIG] as string
   );
   res.setHeader("Content-Type", "application/json");
   const namedTypedPlace = { dcid: place, name: place, types: [] };

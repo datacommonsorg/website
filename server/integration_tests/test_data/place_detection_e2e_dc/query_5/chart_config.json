@@ -58,7 +58,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Population Density"
           },
           {
@@ -114,6 +113,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "wikidataId/Q1489",
@@ -131,5 +131,5 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

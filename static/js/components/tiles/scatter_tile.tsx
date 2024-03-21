@@ -81,6 +81,8 @@ export interface ScatterTilePropType {
   placeNameProp?: string;
   // Chart subtitle
   subtitle?: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 interface RawData {
@@ -149,7 +151,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
-      sources={scatterChartData && scatterChartData.sources}
+      sources={props.sources || (scatterChartData && scatterChartData.sources)}
       replacementStrings={getReplacementStrings(props, scatterChartData)}
       className={`${props.className} scatter-chart`}
       allowEmbed={true}
@@ -435,7 +437,8 @@ export function draw(
   svgChartHeight: number,
   tooltip: HTMLDivElement,
   scatterTileSpec: ScatterTileSpec,
-  svgWidth?: number
+  svgWidth?: number,
+  chartTitle?: string
 ): void {
   if (chartData.errorMsg) {
     showError(chartData.errorMsg, svgContainer);
@@ -486,7 +489,8 @@ export function draw(
     plotOptions,
     chartData.points,
     _.noop,
-    getTooltipElement
+    getTooltipElement,
+    chartTitle
   );
 }
 

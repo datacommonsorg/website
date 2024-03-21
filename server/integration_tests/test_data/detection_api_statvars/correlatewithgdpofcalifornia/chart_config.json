@@ -7,7 +7,7 @@
     },
     {
       "contained_in_place_type": "DefaultType",
-      "had_default_type": false,
+      "had_default_type": true,
       "type": 4
     }
   ],
@@ -26,6 +26,8 @@
   "entities": [
     "geoId/06"
   ],
+  "nonPlaceEntities": [],
+  "properties": [],
   "sessionId": "007_999999999",
   "variables": [
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
@@ -41,7 +43,7 @@
     "dc/topic/Economy",
     "dc/topic/sdg_17.1.1",
     "dc/topic/EconomicEquity",
-    "dc/topic/GDP",
-    "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+    "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
+    "dc/topic/GDP"
   ]
 }

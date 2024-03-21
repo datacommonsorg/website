@@ -14,11 +14,12 @@
 # limitations under the License.
 
 function help {
-  echo "Usage: -bflc <embeddings-size>"
+  echo "Usage: -bflce <embeddings-size>"
   echo "$0 -b <embeddings-size> # 'small' or 'medium'. This option uses the base default sentence_transformer model."
   echo "$0 -f <embeddings-size> # 'small' or 'medium'. This option uses the finetuned model on PROD."
   echo "$0 -l <embeddings-size> <local_model_path> # 'small' or 'medium'. This option uses the locally stored model to build the embeddings."
-  echo "$0 -c <embeddings-size> <sheets_url> <worksheet_name> <local_file_for_sheets_data_download> # This option creates custom embeddings (using the finetuned model in PROD)."
+  echo "$0 -c <embeddings-size> <curated_input_paths> <alternatives_filepattern> # This option creates custom embeddings (using the finetuned model in PROD)."
+  echo "$0 -e <embeddings-size> <vertex_ai_endpoint_id> # This option creates embeddings using a Vertex AI model endpoint."
 }
 
 if [[ $# -le 1 ]]; then
@@ -26,16 +27,20 @@ if [[ $# -le 1 ]]; then
   exit 1
 fi
 
-while getopts bflc OPTION; do
+while getopts beflc OPTION; do
   case $OPTION in
     b)
         echo -e "### Using the base default sentence_transformer model"
         FINETUNED_MODEL=""
         ;;
+    e)
+        MODEL_ENDPOINT_ID="$3"
+        echo -e "### Using Vertex AI model endpoint $MODEL_ENDPOINT_ID"
+        ;;
     f)
         echo -e "### Using the finetuned model from prod"
         FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/models.yaml | awk '$1=="tuned_model:"{ print $2; }')
-        if [ "$FINETUNED_MODEL" == "" ]; then
+        if [[ "$FINETUNED_MODEL" == "" ]]; then
           echo "Using option -f but could not retrieve an existing finetuned model from prod."
           exit 1
         else
@@ -45,7 +50,7 @@ while getopts bflc OPTION; do
     l)
         echo -e "### Using the provided local model"
         LOCAL_MODEL_PATH="$3"
-        if [ "$LOCAL_MODEL_PATH" == "" ]; then
+        if [[ "$LOCAL_MODEL_PATH" == "" ]]; then
           help
           exit 1
         else
@@ -53,35 +58,27 @@ while getopts bflc OPTION; do
         fi
         ;;
 
-    c) 
+    c)
       echo -e "### Using the finetuned model from prod with custom embeddings-size"
-      SHEETS_URL="$3"
-      if [ "$SHEETS_URL" == "" ]; then
+      CURATED_INPUT_PATHS="$3"
+      if [[ "$CURATED_INPUT_PATHS" == "" ]]; then
         help
         exit 1
-      else  
-        echo "Using the sheets url: $SHEETS_URL"
-      fi  
-      WORKSHEET_NAME="$4"
-      if [ "$WORKSHEET_NAME" == "" ]; then
-        help  
-        exit 1
-      else 
-        echo "Using the worksheet name: $WORKSHEET_NAME"
-      fi
-      LOCAL_CSV_FILE_FOR_SHEETS_DATA_DOWNLOAD="$5"
-      if [ "$LOCAL_CSV_FILE_FOR_SHEETS_DATA_DOWNLOAD" == "" ]; then
-        help  
-        exit 1
-      else 
-        echo "Using the following local filename to download the latest sheets data to: $LOCAL_CSV_FILE_FOR_SHEETS_DATA_DOWNLOAD"
+      else
+        echo "Using the following local filenames as curated input: $CURATED_INPUT_PATHS"
       fi
       FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/models.yaml | awk '$1=="tuned_model:"{ print $2; }')
-      if [ "$FINETUNED_MODEL" == "" ]; then
+      if [[ "$FINETUNED_MODEL" == "" ]]; then
         echo "Using option -c but could not retrieve an existing finetuned model from prod."
         exit 1
       else
         echo "Found finetuned model on prod: $FINETUNED_MODEL"
+      fi
+      ALTERNATIVES_FILE_PATTERN="$4"
+      if [[ "$ALTERNATIVES_FILE_PATTERN" == "" ]]; then
+        echo "No alternatives files used."
+      else
+        echo "Using the following filepattern for files with alternatives: $ALTERNATIVES_FILE_PATTERN"
       fi
       ;;
     *)
@@ -89,17 +86,21 @@ while getopts bflc OPTION; do
     esac
 done
 
+cd ../../..
 python3 -m venv .env
 source .env/bin/activate
-python3 -m pip install --upgrade pip setuptools light-the-torch
-ltt install torch --cpuonly
+cd tools/nl/embeddings
+python3 -m pip install --upgrade pip
+pip3 install torch==2.2.1 --extra-index-url https://download.pytorch.org/whl/cpu
 pip3 install -r requirements.txt
 
-if [ "$SHEETS_URL" != "" ]; then
-  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --sheets_url=$SHEETS_URL --worksheet_names=$WORKSHEET_NAME --local_sheets_csv_filepath=$LOCAL_CSV_FILE_FOR_SHEETS_DATA_DOWNLOAD
-elif [ "$FINETUNED_MODEL" != "" ]; then
+if [[ "$MODEL_ENDPOINT_ID" != "" ]];then
+  python3 build_embeddings.py --embeddings_size=$2 --vertex_ai_prediction_endpoint_id=$MODEL_ENDPOINT_ID --dry_run=True
+elif [[ "$CURATED_INPUT_PATHS" != "" ]]; then
+  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --curated_input_paths=$CURATED_INPUT_PATHS --alternatives_filepattern=$ALTERNATIVES_FILE_PATTERN
+elif [[ "$FINETUNED_MODEL" != "" ]]; then
   python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL
-elif [ "$LOCAL_MODEL_PATH" != "" ]; then
+elif [[ "$LOCAL_MODEL_PATH" != "" ]]; then
   python3 build_embeddings.py --embeddings_size=$2 --existing_model_path=$LOCAL_MODEL_PATH
 else
   python3 build_embeddings.py --embeddings_size=$2

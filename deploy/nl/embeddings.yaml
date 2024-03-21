@@ -1,4 +1,4 @@
-small: embeddings_small_2023_05_24_23_17_03.csv
-medium_ft: embeddings_medium_2023_11_01_14_28_49.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
-sdg_ft: embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
-
+medium_ft: embeddings_medium_2024_03_14_16_38_53.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+sdg_ft: embeddings_sdg_2023_12_26_10_03_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+undata_ft: embeddings_undata_2024_03_20_11_01_12.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+bio_ft: embeddings_bio_2024_03_19_16_39_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv

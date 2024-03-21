@@ -358,6 +358,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "wikidataId/Q1165",
@@ -512,5 +513,7 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See relevant statistics based on the previous query."
+  "userMessages": [
+    "See relevant statistics based on the previous query."
+  ]
 }

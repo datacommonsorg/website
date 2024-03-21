@@ -1583,6 +1583,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "World",
   "place": {
     "dcid": "Earth",
@@ -1601,5 +1602,5 @@
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
   "test": "unittest",
-  "userMessage": ""
+  "userMessages": []
 }

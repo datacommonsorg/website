@@ -91,6 +91,14 @@ export interface LineTilePropType {
   placeNameProp?: string;
   // Chart subtitle
   subtitle?: string;
+  // Earliest date to show on the chart.
+  startDate?: string;
+  // Latest date to show on the chart.
+  endDate?: string;
+  // Date to highlight on the chart.
+  highlightDate?: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 export interface LineChartData {
@@ -132,7 +140,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
-      sources={chartData && chartData.sources}
+      sources={props.sources || (chartData && chartData.sources)}
       replacementStrings={getReplacementStrings(props)}
       className={`${props.className} line-chart`}
       allowEmbed={true}
@@ -238,11 +246,10 @@ export const fetchData = async (props: LineTilePropType) => {
     props.apiRoot,
     props.getProcessedSVNameFn
   );
-  const placeNames = await getPlaceNames(
-    placeDcids,
-    props.apiRoot,
-    props.placeNameProp
-  );
+  const placeNames = await getPlaceNames(placeDcids, {
+    apiRoot: props.apiRoot,
+    prop: props.placeNameProp,
+  });
   // How legend labels should be set
   // If neither options are set, default to showing stat vars in legend labels
   const options = {
@@ -258,7 +265,8 @@ export function draw(
   props: LineTilePropType,
   chartData: LineChartData,
   svgContainer: HTMLDivElement,
-  useSvgLegend?: boolean
+  useSvgLegend?: boolean,
+  chartTitle?: string
 ): void {
   // TODO: Remove all cases of setting innerHTML directly.
   svgContainer.innerHTML = "";
@@ -271,11 +279,12 @@ export function draw(
     props.svgChartWidth || svgContainer.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
-    false,
     props.showTooltipOnHover,
     {
       colors: props.colors,
+      highlightDate: props.highlightDate,
       timeScale: props.timeScale,
+      title: chartTitle,
       unit: chartData.unit,
       useSvgLegend,
     }
@@ -339,6 +348,18 @@ function rawToChart(
       if (obsList.length > 0) {
         const dataPoints: DataPoint[] = [];
         for (const obs of obsList) {
+          if (
+            props.startDate &&
+            obs.date < props.startDate.substring(0, obs.date.length)
+          ) {
+            continue;
+          }
+          if (
+            props.endDate &&
+            obs.date.substring(0, props.endDate.length) > props.endDate
+          ) {
+            continue;
+          }
           dataPoints.push({
             label: obs.date,
             time: new Date(obs.date).getTime(),

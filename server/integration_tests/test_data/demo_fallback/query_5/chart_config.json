@@ -207,14 +207,14 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
                       "Amount_EconomicActivity_GrossValueAdded_RealValue"
                     ],
-                    "title": "GDP (Real Value) and More in United States",
+                    "title": "GDP (Real Value) and Amount of Economic Activity (Real Value): Gross Value Added in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: GDP (Real Value) and More"
+            "title": "Related: GDP (Real Value) and Amount of Economic Activity (Real Value): Gross Value Added"
           }
         ],
         "statVarSpec": {
@@ -321,6 +321,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
@@ -338,5 +339,5 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

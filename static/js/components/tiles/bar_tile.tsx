@@ -132,13 +132,12 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   }, [props, barChartData]);
 
   useDrawOnResize(drawFn, chartContainerRef.current);
-
   return (
     <ChartTileContainer
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
-      sources={barChartData && barChartData.sources}
+      sources={props.sources || (barChartData && barChartData.sources)}
       replacementStrings={getReplacementStrings(barChartData)}
       className={`${props.className} bar-chart`}
       allowEmbed={true}
@@ -252,8 +251,10 @@ export const fetchData = async (props: BarTilePropType) => {
 
     const placeNames = await getPlaceNames(
       Array.from(popPoints).map((x) => x.placeDcid),
-      props.apiRoot,
-      props.placeNameProp
+      {
+        apiRoot: props.apiRoot,
+        prop: props.placeNameProp,
+      }
     );
     const placeType =
       "enclosedPlaceType" in props
@@ -416,7 +417,8 @@ export function draw(
   chartData: BarChartData,
   svgContainer: HTMLDivElement,
   svgWidth?: number,
-  useSvgLegend?: boolean
+  useSvgLegend?: boolean,
+  chartTitle?: string
 ): void {
   if (chartData.errorMsg) {
     showError(chartData.errorMsg, svgContainer);
@@ -437,6 +439,7 @@ export function draw(
           barHeight: props.barHeight,
           yAxisMargin: props.yAxisMargin,
         },
+        title: chartTitle,
         unit: chartData.unit,
         useSvgLegend,
       }
@@ -454,6 +457,7 @@ export function draw(
           lollipop: props.useLollipop,
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
+          title: chartTitle,
           unit: chartData.unit,
           useSvgLegend,
         }
@@ -470,6 +474,7 @@ export function draw(
           lollipop: props.useLollipop,
           showTooltipOnHover: props.showTooltipOnHover,
           statVarColorOrder: chartData.statVarOrder,
+          title: chartTitle,
           unit: chartData.unit,
           useSvgLegend,
         }

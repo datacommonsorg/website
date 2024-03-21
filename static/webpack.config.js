@@ -45,9 +45,12 @@ const config = {
     mcf_playground: __dirname + "/js/mcf_playground.js",
     place: [
       __dirname + "/js/place/place.ts",
-      __dirname + "/css/place/place.scss",
+      __dirname + "/css/place/place_page.scss",
     ],
-    place_landing: [__dirname + "/js/place/place_landing.ts"],
+    place_landing: [
+      __dirname + "/js/place/place_landing.ts",
+      __dirname + "/css/place/place_landing.scss",
+    ],
     topic_page: [
       __dirname + "/js/apps/topic_page/main.ts",
       __dirname + "/css/topic_page.scss",
@@ -64,6 +67,10 @@ const config = {
       __dirname + "/js/apps/nl_interface/main.ts",
       __dirname + "/css/nl_interface.scss",
     ],
+    nl_eval: [
+      __dirname + "/js/apps/nl_eval/main.ts",
+      __dirname + "/css/nl_eval.scss",
+    ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
       __dirname + "/css/ranking.scss",
@@ -71,6 +78,10 @@ const config = {
     browser: [
       __dirname + "/js/browser/browser.ts",
       __dirname + "/css/browser.scss",
+    ],
+    biomedical_landing: [
+      __dirname + "/js/biomedical/landing/main.ts",
+      __dirname + "/css/biomedical/biomedical_landing.scss",
     ],
     disease: [
       __dirname + "/js/biomedical/disease/disease.ts",
@@ -121,6 +132,10 @@ const config = {
     datacommons: [__dirname + "/library/index.ts"],
     homepage: [
       __dirname + "/js/apps/homepage/main.ts",
+      __dirname + "/css/homepage.scss",
+    ],
+    homepage_custom_dc: [
+      __dirname + "/js/apps/homepage/main_custom_dc.ts",
       __dirname + "/css/homepage.scss",
     ],
     visualization: [

@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a Docker image based on gcr.io/datcom-ci/webdriver-chrome:2023-06-17, but comes with:
+This is a Docker image based on gcr.io/datcom-ci/webdriver-chrome, but comes with:
 
 - Script (and files required by the script) to run the website cron tests
 

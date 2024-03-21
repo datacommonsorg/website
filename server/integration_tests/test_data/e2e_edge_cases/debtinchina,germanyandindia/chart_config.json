@@ -28,6 +28,7 @@
               }
             ],
             "footnote": "Includes data from the following sources: world bank, international debt statistics.",
+            "infoMessage": "Data for \"Germany\" is currently unavailable. See the following statistics on the other places.",
             "title": "External Debt Stocks as a Proportion of GNI"
           },
           {
@@ -54,6 +55,7 @@
               }
             ],
             "footnote": "Includes data from the following sources: world bank, international debt statistics.",
+            "infoMessage": "Data for \"Germany\" is currently unavailable. See the following statistics on the other places.",
             "title": "Debt Service as a Proportion of Exports of Goods and Services"
           },
           {
@@ -80,6 +82,7 @@
                 ]
               }
             ],
+            "description": "Gini index measures the extent to which the distribution of income (or, in some cases, consumption expenditure) among individuals or households within an economy deviates from a perfectly equal distribution. A lorenz curve plots the cumulative percentages of total income received against the cumulative number of recipients, starting with the poorest individual or household. The gini index measures the area between the lorenz curve and a hypothetical line of absolute equality, expressed as a percentage of the maximum area under the line. Thus a gini index of 0 represents perfect equality, while an index of 100 implies perfect inequality. World bank, development research group. Data are based on primary household survey data obtained from government statistical agencies and world bank country departments. For more information and methodology, please see PovcalNet (http://iresearch.Worldbank.org/PovcalNet/index.Htm).",
             "title": "Gini Index of Economic Activity of a Population"
           }
         ],
@@ -107,6 +110,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/CHN",
@@ -188,5 +192,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

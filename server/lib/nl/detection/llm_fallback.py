@@ -62,8 +62,8 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
   need_sv = False
   need_place = False
 
-  # 1. If there was no SV.
-  if _has_no_sv(heuristic, ctr):
+  # 1. If there was no SV or prop.
+  if _has_no_sv(heuristic, ctr) and _has_no_prop(heuristic, ctr):
 
     # For OVERVIEW/SUPERLATIVE/EVENT_TYPE classifications, we don't have SVs,
     # exclude those.
@@ -77,12 +77,12 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
 
     # Check if the context had SVs.
     if not has_sv_classification and not futils.has_sv(
-        prev_uttr) and has_more_words:
+        prev_uttr) and not futils.has_prop(prev_uttr) and has_more_words:
       ctr.info('info_fallback_no_sv_found', '')
       need_sv = True
 
-  # 2. If there was no place.
-  if _has_no_place(heuristic):
+  # 2. If there was no place or entity.
+  if _has_no_place(heuristic) and _has_no_entity(heuristic):
 
     # For COUNTRY contained-in type, Earth is assumed
     # (e.g., countries with worst health), so exclude that.
@@ -90,7 +90,7 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
     # Also confirm there was no place in the context.
     ptype = utils.get_contained_in_type(heuristic.classifications)
     if ptype != ContainedInPlaceType.COUNTRY and not futils.has_place(
-        prev_uttr):
+        prev_uttr) and not futils.has_entity(prev_uttr):
       ctr.info('info_fallback_no_place_found', '')
       need_place = True
 
@@ -111,11 +111,21 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
 
 
 def _has_no_sv(d: Detection, ctr: counters.Counters) -> bool:
-  return not dutils.filter_svs(d.svs_detected, ctr)
+  return not d.svs_detected or not dutils.filter_svs(
+      d.svs_detected.single_sv, d.svs_detected.sv_threshold, ctr)
 
 
 def _has_no_place(d: Detection) -> bool:
   return not d.places_detected or not d.places_detected.places_found
+
+
+def _has_no_prop(d: Detection, ctr: counters.Counters) -> bool:
+  return not d.svs_detected or not dutils.filter_svs(
+      d.svs_detected.prop, d.svs_detected.sv_threshold, ctr)
+
+
+def _has_no_entity(d: Detection) -> bool:
+  return not d.places_detected or not d.places_detected.entities_found
 
 
 #

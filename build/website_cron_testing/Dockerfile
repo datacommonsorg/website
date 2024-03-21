@@ -12,17 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM gcr.io/datcom-ci/webdriver-chrome:2023-06-17
+FROM gcr.io/datcom-ci/webdriver-chrome:2023-12-11
 
 WORKDIR /resources
 
 # Install python requirements
 COPY build/website_cron_testing/requirements.txt .
 RUN python3 -m pip install --upgrade pip setuptools
-RUN pip3 install -r /resources/requirements.txt
+RUN pip3 install -r requirements.txt
 
-# Copy script for running the cron tests
+# Copy scripts for running each of the tests
 COPY server/integration_tests/standalone/nodejs_query.py .
+COPY server/integration_tests/standalone/adversarial.py .
 COPY server/webdriver/tests/standalone/sanity.py .
+COPY server/webdriver/screenshot/remote/main.py screenshot.py
+# Screenshot tests save screenshots to a folder called screenshots so add
+# this folder
+RUN mkdir screenshots
+# Screenshot test requires other files from the webdriver folder so copy
+# the whole folder over
+COPY server/webdriver/. server/webdriver/
+# Copy and make executable the script for running all the tests
 COPY build/website_cron_testing/run_website_cron_tests.sh .
-RUN chmod +x /resources/run_website_cron_tests.sh
+RUN chmod +x run_website_cron_tests.sh

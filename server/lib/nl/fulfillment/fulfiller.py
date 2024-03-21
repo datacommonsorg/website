@@ -14,7 +14,6 @@
 """Module for NL page data spec"""
 
 import copy
-import logging
 from typing import cast, List
 
 from flask import current_app
@@ -31,6 +30,7 @@ from server.lib.nl.fulfillment import event
 from server.lib.nl.fulfillment import filter_with_dual_vars
 from server.lib.nl.fulfillment import overview
 from server.lib.nl.fulfillment import superlative
+from server.lib.nl.fulfillment import triple
 import server.lib.nl.fulfillment.handlers as handlers
 from server.lib.nl.fulfillment.types import PopulateState
 import server.lib.nl.fulfillment.utils as futils
@@ -63,6 +63,10 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   state.event_types = utils.get_event_types(uttr)
   state.explore_mode = explore_mode
   state.single_date = utils.get_single_date(uttr)
+  # Only one of single date or date range should be specified, so only get date
+  # range if there is no single date.
+  if not state.single_date:
+    state.date_range = utils.get_date_range(uttr)
 
   if not state.query_types:
     uttr.counters.err('fulfill_empty_querytypes', '')
@@ -91,6 +95,13 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
     elif main_qt == QueryType.COMPARISON_ACROSS_PLACES:
       # There are multiple places so we don't fallback.
       state.disable_fallback = True
+    elif main_qt == QueryType.TRIPLE:
+      # We currently only want one of triple or regular charts, so consider the
+      # fulfillment to be done if triple is successful. This assumes preference
+      # for triples fulfillment.
+      # TODO: decide to fulfill as a triple vs fulfill as a regular sv depending
+      # on the variable score match.
+      done = triple.populate(uttr)
 
     # All done if successful
     if success:
@@ -118,8 +129,8 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   else:
     state.chart_vars_map = topic.compute_chart_vars(state)
 
-  if params.is_sdg(state.uttr.insight_ctx):
-    _prune_non_country_sdg_vars(state)
+  if params.is_special_dc(state.uttr.insight_ctx):
+    _prune_non_country_special_dc_vars(state)
 
   # Call populate_charts.
   if not base.populate_charts(state):
@@ -157,11 +168,17 @@ def _perform_strict_mode_checks(uttr: Utterance) -> bool:
 
 
 def _produce_query_types(uttr: Utterance) -> List[QueryType]:
-  query_types = [handlers.first_query_type(uttr)]
+  query_types = []
+  if params.is_bio(uttr.insight_ctx) and uttr.entities and uttr.properties:
+    query_types.append(QueryType.TRIPLE)
+  # The remaining query types require places to be set
+  if not uttr.places:
+    return query_types
+  query_types.append(handlers.first_query_type(uttr))
   while query_types[-1] != None:
     query_types.append(handlers.next_query_type(query_types))
 
-  if params.is_sdg(uttr.insight_ctx):
+  if params.is_special_dc(uttr.insight_ctx):
     # Prune out query_types that aren't relevant.
     pruned_types = []
     for qt in query_types:
@@ -181,27 +198,25 @@ def _produce_query_types(uttr: Utterance) -> List[QueryType]:
 #
 # TODO: Maybe improve in future.
 def _rank_charts(utterance: Utterance):
-  for chart in utterance.chartCandidates:
-    logging.info("Chart: %s %s\n" % (chart.places, chart.svs))
   utterance.rankedCharts = utterance.chartCandidates
 
 
-def _prune_non_country_sdg_vars(state: PopulateState):
+def _prune_non_country_special_dc_vars(state: PopulateState):
   places = state.uttr.places
   if not places or all([p.place_type != 'Country' for p in places]):
     # The main places are not countries, nothing to do.
     return
 
-  if not current_app.config.get('SDG_NON_COUNTRY_ONLY_VARS'):
-    state.uttr.counters.err('failed_missing_sdg_noncountry_vars', '')
+  if not current_app.config.get('SPECIAL_DC_NON_COUNTRY_ONLY_VARS'):
+    state.uttr.counters.err('failed_missing_special_dc_noncountry_vars', '')
     return
-  sdg_non_country_vars = current_app.config['SDG_NON_COUNTRY_ONLY_VARS']
+  sdc_non_country_vars = current_app.config['SPECIAL_DC_NON_COUNTRY_ONLY_VARS']
 
   # Go over the chart_vars_map and drop
   pruned_chart_vars_map = {}
   dropped_vars = set()
   for var, chart_vars_list in state.chart_vars_map.items():
-    if var in sdg_non_country_vars:
+    if var in sdc_non_country_vars:
       dropped_vars.add(var)
       continue
     pruned_chart_vars_list = []
@@ -209,7 +224,7 @@ def _prune_non_country_sdg_vars(state: PopulateState):
       pruned_cv = copy.deepcopy(cv)
       pruned_cv.svs = []
       for v in cv.svs:
-        if v in sdg_non_country_vars:
+        if v in sdc_non_country_vars:
           dropped_vars.add(v)
           continue
         pruned_cv.svs.append(v)

@@ -127,7 +127,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Population Living Below the National Poverty Line in Countries of Africa"
+            "title": "Proportion of Population Living Below the National Poverty Line (%) in Countries of Africa"
           },
           {
             "columns": [
@@ -165,7 +165,7 @@
                 ]
               }
             ],
-            "title": "Average Proportion of Deprivations for People Multidimensionally Poor in Countries of Africa"
+            "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%) in Countries of Africa"
           },
           {
             "columns": [
@@ -203,7 +203,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Children Living in Child-Specific Multidimensional Poverty in Countries of Africa"
+            "title": "Proportion of Children Living in Child-Specific Multidimensional Poverty (%) in Countries of Africa"
           },
           {
             "columns": [
@@ -366,6 +366,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "africa",
@@ -383,5 +384,5 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

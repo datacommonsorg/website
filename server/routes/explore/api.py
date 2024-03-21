@@ -14,9 +14,6 @@
 """Endpoints for Datacommons NL"""
 
 import copy
-import json
-import logging
-import os
 import time
 from typing import Dict
 
@@ -85,8 +82,6 @@ def detect():
 @bp.route('/fulfill', methods=['POST'])
 def fulfill():
   """Data handler."""
-  logging.info('NL Chart API: Enter')
-
   debug_logs = {}
   counters = ctr.Counters()
   return _fulfill_with_insight_ctx(request, debug_logs, counters)
@@ -142,8 +137,6 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     disaster_config = get_nl_disaster_config()
-  else:
-    logging.info('Unable to load event configs!')
 
   cb_config = config_builder.Config(
       event_config=disaster_config,
@@ -155,9 +148,12 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   fresp = nl_fulfillment.fulfill(utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
 
-  return helpers.prepare_response(utterance, fresp.chart_pb,
-                                  utterance.detection, debug_logs,
-                                  fresp.related_things)
+  return helpers.prepare_response(utterance,
+                                  fresp.chart_pb,
+                                  utterance.detection,
+                                  debug_logs,
+                                  fresp.related_things,
+                                  fulfill_user_msg=fresp.user_message)
 
 
 #

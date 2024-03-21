@@ -39,8 +39,8 @@ class Config:
   SHOW_DISASTER = True
   # Whether to show sustainability page
   SHOW_SUSTAINABILITY = False
-  # Whether to use PaLM API
-  USE_PALM = False
+  # Whether to use GenAI API
+  USE_LLM = False
   # Show per capita option in chart
   ENABLE_PER_CAPITA = True
 
@@ -74,3 +74,11 @@ class Config:
   MAP_TOOL_FOOTER = ""
   # The default property to use for getting geojsons
   GEO_JSON_PROP = "geoJsonCoordinates"
+  # Optional: Override the stat var hierarchy root nodes with these filters.
+  # Example: Set to "dc/g/SDG" to only show SDG variables.
+  # Typedef in static/js/tools/stat_var/stat_var_hierarchy_config.ts
+  STAT_VAR_HIERARCHY_CONFIG = {"nodes": [{"dcid": "dc/g/Root"}]}
+  # Optional: custom dc template folder name:
+  # /server/templates/custom_dc/<CUSTOM_DC_TEMPLATE_FOLDER>/
+  # Defaults to the custom DC application environment name (Config.ENV value)
+  CUSTOM_DC_TEMPLATE_FOLDER = ''

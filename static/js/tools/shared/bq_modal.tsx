@@ -74,6 +74,16 @@ export function BqModal(props: BqModalPropType): JSX.Element {
             <li>
               <a
                 href={
+                  "https://console.cloud.google.com/bigquery/analytics-hub/exchanges?_ga=2.164894780.-2077428924.1706763820"
+                }
+              >
+                Enable Analytics Hub in your Google Cloud Project
+              </a>
+              .
+            </li>
+            <li>
+              <a
+                href={
                   "https://console.cloud.google.com/bigquery/analytics-hub/exchanges(analyticshub:projects/841968438789/locations/us/dataExchanges/data_commons_17d0b72b0b2/listings/data_commons_1803e67fbc9)"
                 }
               >

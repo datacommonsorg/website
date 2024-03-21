@@ -14,7 +14,6 @@
 
 from collections import OrderedDict
 from dataclasses import dataclass
-import logging
 from typing import Dict, List
 
 from server.lib.nl.common import constants
@@ -22,6 +21,7 @@ from server.lib.nl.common import utils
 from server.lib.nl.detection.types import Place
 import server.lib.nl.fulfillment.existence as ext
 from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import ExistInfo
 from server.lib.nl.fulfillment.types import PopulateState
 
 
@@ -34,6 +34,8 @@ class ChartVarsExistenceCheckState:
   # Existing svs from among chart_vars.svs
   # Note that `chart_vars` is not mutated to point to existing SVs.
   exist_svs: List[str]
+  # Map of existing svs map of place to facet metadata that exists for that SV and place.
+  exist_sv_facets: Dict[str, Dict[str, Dict[str, str]]]
   # Set only if chart_vars.event is true, to indicate event existence.
   exist_event: bool = False
 
@@ -56,29 +58,61 @@ class ExistenceCheckTracker:
     self.places = sorted(place2keys.keys())
     self.all_svs = set()
     self.exist_sv_states: List[SVExistenceCheckState] = []
-    # Map of existing SVs with key as SV DCID and value as
-    # whether the SV has single-data point.
+    # Map of existing SVs with key as SV DCID and value as an ID to a facet that
+    # has data for that SV.
     self.existing_svs = {}
+
+  # Gets a map of sv to place key to the facet that exist most commonly for that
+  # combination of sv and place key. Multiple places can map to the same
+  # place key so this is the facet that exists for the most number of places
+  # of each place key.
+  def _get_sv_place_facets(self):
+    sv_place_facets = {}
+    for sv, pl2f in self.existing_svs.items():
+      # place key -> facet id -> number of place keys that have this facet id
+      place_facet_occurences = {}
+      # place key -> most common facet for that key
+      place_facets = {}
+      for pl, facet in pl2f.items():
+        place_facet_id = facet.get('facetId', '')
+        if not place_facet_id:
+          continue
+        k = self.place2keys[pl]
+        if not k in place_facet_occurences:
+          place_facet_occurences[k] = {}
+        place_facet_id_occurences = place_facet_occurences[k].get(
+            place_facet_id, 0) + 1
+        place_facet_occurences[k][place_facet_id] = place_facet_id_occurences
+        # Check if current facet we are looking at occurs more often than the
+        # facet that's saved for the place key. If so, replace the saved facet
+        saved_facet_id = place_facets.get(k, {}).get('facetId', '')
+        if place_facet_id_occurences > place_facet_occurences.get(k, {}).get(
+            saved_facet_id, 0):
+          place_facets[k] = facet
+      sv_place_facets[sv] = place_facets
+    return sv_place_facets
 
   def _run(self):
     # Perform batch existence check.
     # TODO: Optimize this!
     self.existing_svs, existsv2places = \
       utils.sv_existence_for_places_check_single_point(
-        places=self.places, svs=list(self.all_svs), date=self.state.single_date, counters=self.state.uttr.counters)
-    # In `state`, set sv -> place Key -> is-single-point
+        places=self.places, svs=list(self.all_svs), single_date=self.state.single_date, date_range=self.state.date_range, counters=self.state.uttr.counters)
+
+    sv_place_facets = self._get_sv_place_facets()
+    # In `state`, set sv -> place Key -> ExistInfo
     for sv, pl2sp in existsv2places.items():
       if sv not in self.state.exist_checks:
         self.state.exist_checks[sv] = {}
       for pl, is_singlepoint in pl2sp.items():
         k = self.place2keys[pl]
+        k_facet = sv_place_facets.get(sv, {}).get(k, {})
         if k not in self.state.exist_checks[sv]:
-          self.state.exist_checks[sv][k] = False
-        self.state.exist_checks[sv][k] |= is_singlepoint
+          self.state.exist_checks[sv][k] = ExistInfo(is_single_point=False,
+                                                     facet=k_facet)
+        self.state.exist_checks[sv][k].is_single_point |= is_singlepoint
 
     if not self.existing_svs:
-      logging.info('Existence check failed for %s - %s', ', '.join(self.places),
-                   ', '.join(self.all_svs))
       self.state.uttr.counters.err(
           'failed_existence_check', {
               'places': self.places[:constants.DBG_LIST_LIMIT],
@@ -96,6 +130,7 @@ class ExistenceCheckTracker:
         for sv in ecv.chart_vars.svs:
           if sv in self.existing_svs:
             ecv.exist_svs.append(sv)
+            ecv.exist_sv_facets = self.existing_svs
 
   # Get chart-vars for addition to charts
   def get_chart_vars(self,
@@ -121,7 +156,8 @@ class MainExistenceCheckTracker(ExistenceCheckTracker):
       exist_state = SVExistenceCheckState(sv=sv, chart_vars_list=[])
       for chart_vars in chart_vars_list:
         exist_cv = ChartVarsExistenceCheckState(chart_vars=chart_vars,
-                                                exist_svs=[])
+                                                exist_svs=[],
+                                                exist_sv_facets={})
         if chart_vars.event:
           exist_cv.exist_event = utils.event_existence_for_place(
               places[0], chart_vars.event, self.state.uttr.counters)
@@ -176,7 +212,8 @@ class ExtensionExistenceCheckTracker(ExistenceCheckTracker):
                 svs=extended_svs,
                 orig_sv_map={sv: extended_svs},
                 is_topic_peer_group=True),
-                                         exist_svs=[]))
+                                         exist_svs=[],
+                                         exist_sv_facets={}))
         self.all_svs.update(extended_svs)
 
       # If we have the main chart-vars or extended-svs, add.

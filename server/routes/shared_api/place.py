@@ -15,6 +15,7 @@
 import collections
 import json
 import logging
+import re
 
 from flask import Blueprint
 from flask import g
@@ -24,10 +25,11 @@ from flask import url_for
 from flask_babel import gettext
 from markupsafe import escape
 
-from server import cache
 from server.lib import fetch
+from server.lib.cache import cache
 import server.lib.i18n as i18n
 from server.lib.shared import names
+from server.routes import TIMEOUT
 import server.services.datacommons as dc
 
 CHILD_PLACE_LIMIT = 50
@@ -106,6 +108,23 @@ PLACE_OVERRIDE = {
     "wikidataId/Q281796": "wikidataId/Q2981389",
 }
 
+# Place type to the message id that holds its translation
+PLACE_TYPE_TO_LOCALE_MESSAGE = {
+    "AdministrativeArea": "singular_administrative_area",
+    "AdministrativeArea<Level>": "singular_administrative_area_level",
+    "Borough": "singular_borough",
+    "City": "singular_city",
+    "Country": "singular_country",
+    "County": "singular_county",
+    "EurostatNUTS<Level>": "singular_eurostat_nuts",
+    "Neighborhood": "singular_neighborhood",
+    "Place": "singular_place",
+    "State": "singular_state",
+    "Town": "singular_town",
+    "Village": "singular_village",
+    "CensusZipCodeTabulationArea": "singular_zip_code",
+}
+
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
 ENGLISH_LANG = 'en'
@@ -132,8 +151,26 @@ def get_place_types(place_dcids):
   return ret
 
 
+def get_place_type_i18n_name(place_type: str) -> str:
+  """For a given place type, get its localized name for display"""
+  if place_type in PLACE_TYPE_TO_LOCALE_MESSAGE:
+    return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE[place_type])
+  elif place_type.startswith('AdministrativeArea'):
+    level = place_type[-1]
+    return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE['AdministrativeArea<Level>'],
+                   level=level)
+  elif place_type.startswith('EurostatNUTS'):
+    level = place_type[-1]
+    return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE['EurostatNUTS<Level>'],
+                   level=level)
+  else:
+    # Return place type un-camel-cased
+    words = re.findall(r'[A-Z](?:[a-z]+|[A-Z]*(?=[A-Z]|$))', place_type)
+    return ' '.join(words).capitalize()
+
+
 @bp.route('/type/<path:place_dcid>')
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 def get_place_type(place_dcid):
   return get_place_types([place_dcid])[place_dcid]
 
@@ -272,7 +309,7 @@ def get_place_variable_count():
 
 
 @bp.route('/child/<path:dcid>')
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 def child(dcid):
   """Get top child places for a place."""
   child_places = child_fetch(dcid)
@@ -282,7 +319,7 @@ def child(dcid):
   return Response(json.dumps(child_places), 200, mimetype='application/json')
 
 
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 def child_fetch(parent_dcid):
   # Get contained places
   contained_response = fetch.property_values([parent_dcid], 'containedInPlace',
@@ -343,18 +380,19 @@ def child_fetch(parent_dcid):
 
 
 @bp.route('/parent')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def api_parent_places():
   dcid = request.args.get("dcid")
   result = parent_places([dcid])[dcid]
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-def parent_places(dcids):
+def parent_places(dcids, include_admin_areas=False):
   """ Get the parent place chain for a list of places.
 
   Args:
-      dcids: A list of place dids.
+      dcids: A list of place dcids.
+      include_admin_areas: Whether to include administrative areas in results.
 
   Returns:
       A dictionary of lists of containedInPlace, keyed by dcid.
@@ -368,13 +406,14 @@ def parent_places(dcids):
     parents = item['info'].get('parents', [])
     parents = [
         x for x in parents
-        if ('type' in x and not x['type'].startswith('AdministrativeArea'))
+        if ('type' in x and (include_admin_areas or
+                             not x['type'].startswith('AdministrativeArea')))
     ]
     result[dcid] = parents
   return result
 
 
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 @bp.route('/mapinfo/<path:dcid>')
 def api_mapinfo(dcid):
   """
@@ -441,8 +480,8 @@ def get_ranking_url(containing_dcid,
   return url
 
 
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 @bp.route('/ranking/<path:dcid>')
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def api_ranking(dcid):
   """Get the ranking information for a given place."""
   current_place_type = get_place_type(dcid)
@@ -614,7 +653,7 @@ def descendent():
 
 
 @bp.route('/descendent/name')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def descendent_names():
   """Gets names of places of a certain type contained in a place.
 

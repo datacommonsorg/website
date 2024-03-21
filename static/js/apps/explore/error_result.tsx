@@ -40,7 +40,7 @@ interface ErrorResultPropType {
 
 export function ErrorResult(props: ErrorResultPropType): JSX.Element {
   const userMessage = {
-    msg: props.userMessage?.msg || DEFAULT_USER_MSG,
+    msgList: props.userMessage?.msgList || [DEFAULT_USER_MSG],
     showForm: props.userMessage?.showForm,
   };
   return (

@@ -42,8 +42,8 @@ _MAX_RETURNED_VARS = 20
 # context in both the utterance inline and in `insight_ctx`.
 #
 # TODO: Handle OVERVIEW query (for Explore)
-def merge_with_context(uttr: nl_uttr.Utterance, is_sdg: bool,
-                       use_default_place: bool):
+# TODO: Handle entities and properties
+def merge_with_context(uttr: nl_uttr.Utterance, default_place: Place = None):
   data_dict = {}
 
   # 1. Route comparison vs. correlation query.
@@ -56,8 +56,8 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_sdg: bool,
   # TODO: Confirm type for ranking
   place_type = utils.get_contained_in_type(uttr)
 
-  if not place_type and not uttr.svs and not uttr.places:
-    # Evertyhing is empty, don't look into context.
+  if not place_type and not uttr.svs and not uttr.places and not uttr.entities and not uttr.properties:
+    # Everything is empty, don't look into context.
     uttr.insight_ctx = {}
     return
 
@@ -67,14 +67,16 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_sdg: bool,
         NLClassifier(
             type=ClassificationType.CONTAINED_IN,
             attributes=ContainedInClassificationAttributes(
-                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
+                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE,
+                had_default_type=True)))
   if not place_type and utils.get_quantity(uttr):
     # When there is quantity, we add place_type
     uttr.classifications.append(
         NLClassifier(
             type=ClassificationType.CONTAINED_IN,
             attributes=ContainedInClassificationAttributes(
-                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
+                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE,
+                had_default_type=True)))
   if place_type:
     if place_type == ContainedInPlaceType.SCHOOL:
       # HACK: Promote school to public school since we don't have data
@@ -92,20 +94,28 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_sdg: bool,
       uttr,
       place_type,
       query_type == nl_uttr.QueryType.COMPARISON_ACROSS_PLACES,
-      is_sdg=is_sdg,
-      use_default_place=use_default_place,
-  )
+      default_place=default_place)
 
   # 5. Detect SVs leveraging context.
   main_vars, cmp_vars = _detect_vars(
       uttr, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS)
 
+  # 6. Detect entities leveraging context
+  entities = _detect_entities(uttr)
+
+  # 7. Detect properties leveraging context
+  properties = _detect_props(uttr)
+
   # 6. Populate the returned dict
   data_dict.update({
       Params.ENTITIES.value:
           places,
+      Params.NON_PLACE_ENTITIES.value:
+          entities,
       Params.VARS.value:
           main_vars[:_MAX_RETURNED_VARS],
+      Params.PROPS.value:
+          properties[:_MAX_RETURNED_VARS],
       Params.SESSION_ID.value:
           uttr.session_id,
       Params.CMP_ENTITIES.value:
@@ -149,8 +159,8 @@ def _detect_vars(uttr: nl_uttr.Utterance, is_cmp: bool) -> List[str]:
       svs = uttr.svs
       uttr.sv_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
     else:
-      # Try to get svs from context.
-      if uttr.prev_utterance and uttr.prev_utterance.svs:
+      # Try to get svs from context if no properties in current query.
+      if uttr.prev_utterance and uttr.prev_utterance.svs and not uttr.properties:
         svs = uttr.prev_utterance.svs
         uttr.svs = svs
         uttr.counters.info('insight_var_ctx', svs)
@@ -179,9 +189,10 @@ def _get_multi_sv_pair(uttr: nl_uttr.Utterance) -> List[str]:
   return parts[0].svs, parts[1].svs
 
 
-def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
-                   is_cmp: bool, is_sdg: bool,
-                   use_default_place: bool) -> List[str]:
+def _detect_places(uttr: nl_uttr.Utterance,
+                   child_type: ContainedInPlaceType,
+                   is_cmp: bool,
+                   default_place: Place = None) -> List[str]:
   places = []
   cmp_places = []
   #
@@ -216,8 +227,10 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
       if _handle_answer_places(uttr, child_type, places, cmp_places):
         return places, cmp_places
     else:
-      # There are NO places, so if there are answer places, bail.
-      if _handle_answer_places(uttr, child_type, places, cmp_places):
+      # There are NO places, so if there are answer places or entities detected,
+      # bail.
+      if _handle_answer_places(uttr, child_type, places,
+                               cmp_places) or uttr.entities:
         return places, cmp_places
 
       # Completely in context.
@@ -243,8 +256,9 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
       if _handle_answer_places(uttr, child_type, places, cmp_places):
         return places, cmp_places
     else:
-      # There are NO places, so if there are answer places, bail.
-      if _handle_answer_places(uttr, child_type, places, cmp_places):
+      # There are NO places, so if there are answer places or entities, bail.
+      if _handle_answer_places(uttr, child_type, places,
+                               cmp_places) or uttr.entities:
         return places, cmp_places
 
       # Match NL behavior in `populate_charts()` by not using context
@@ -279,18 +293,11 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
       uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
       uttr.past_source_context = default_place.name
 
-  if not places:
-    # For SDG use Earth as the default place.
-    if is_sdg:
-      uttr.places = [constants.EARTH]
-      places = [constants.EARTH_DCID]
-      uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
-      uttr.past_source_context = constants.EARTH.name
-    elif use_default_place:
-      uttr.places = [constants.USA]
-      places = [constants.USA.dcid]
-      uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
-      uttr.past_source_context = constants.USA.name
+  if not places and default_place:
+    uttr.places = [default_place]
+    places = [default_place.dcid]
+    uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
+    uttr.past_source_context = default_place.name
 
   return places, cmp_places
 
@@ -333,3 +340,37 @@ def _append(src: List[Place], dst: List[str]):
   for p in src:
     if p.dcid not in dst:
       dst.append(p.dcid)
+
+
+def _detect_entities(uttr: nl_uttr.Utterance) -> List[str]:
+  entities = [e.dcid for e in uttr.entities]
+  if uttr.entities:
+    uttr.entities_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
+  # If places were detected in the current query, don't try to use any past entities
+  elif uttr.places and uttr.place_source != nl_uttr.FulfillmentResult.PAST_QUERY:
+    uttr.entities_source = nl_uttr.FulfillmentResult.UNRECOGNIZED
+  else:
+    # If there were entities detected in the previous query, use those entities
+    if uttr.prev_utterance and uttr.prev_utterance.entities:
+      entities = uttr.prev_utterance.entities
+      uttr.entities = entities
+      uttr.counters.info('insight_entity_ctx', entities)
+      uttr.entities_source = nl_uttr.FulfillmentResult.PAST_QUERY
+  return entities
+
+
+def _detect_props(uttr: nl_uttr.Utterance) -> List[str]:
+  props = []
+  if uttr.properties:
+    props = uttr.properties
+    uttr.properties_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
+  # If svs were detected in the current query, don't try to use any past props
+  elif uttr.svs and uttr.sv_source != nl_uttr.FulfillmentResult.PAST_QUERY:
+    uttr.properties_source = nl_uttr.FulfillmentResult.UNRECOGNIZED
+  # If there were props detected in the previous query, use those props
+  elif uttr.prev_utterance and uttr.prev_utterance.properties:
+    props = uttr.prev_utterance.properties
+    uttr.properties = props
+    uttr.counters.info('insight_prop_ctx', props)
+    uttr.properties_source = nl_uttr.FulfillmentResult.PAST_QUERY
+  return props

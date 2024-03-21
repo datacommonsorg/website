@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import queryString from "query-string";
 import React, { useEffect, useRef, useState } from "react";
+import { RawIntlProvider } from "react-intl";
 import { Container } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
@@ -31,6 +32,7 @@ import {
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
+import { intl } from "../../i18n/i18n";
 import {
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
@@ -124,53 +126,64 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     ? null
     : savedContext.current[0]["insightCtx"];
   return (
-    <Container className="explore-container">
-      {props.isDemo && (
-        <AutoPlay
-          autoPlayQuery={autoPlayQuery}
-          inputQuery={setQuery}
-          disableDelay={loadingStatus === LoadingStatus.DEMO_INIT}
-        />
-      )}
-      {loadingStatus === LoadingStatus.FAILED && (
-        <ErrorResult
-          query={query}
-          debugData={debugData}
-          exploreContext={exploreContext}
-          queryResult={queryResult}
-          userMessage={userMessage}
-        />
-      )}
-      {loadingStatus === LoadingStatus.LOADING && (
-        <div>
-          <Spinner isOpen={true} />
-        </div>
-      )}
-      {loadingStatus === LoadingStatus.DEMO_INIT && (
-        <div className="row explore-charts">
-          <SearchSection query={query} debugData={null} exploreContext={null} />
-        </div>
-      )}
-      {loadingStatus === LoadingStatus.SUCCESS && (
-        <SuccessResult
-          query={query}
-          debugData={debugData}
-          exploreContext={exploreContext}
-          queryResult={queryResult}
-          pageMetadata={pageMetadata}
-          userMessage={userMessage}
-        />
-      )}
-    </Container>
+    <RawIntlProvider value={intl}>
+      <Container className="explore-container">
+        {props.isDemo && (
+          <AutoPlay
+            autoPlayQuery={autoPlayQuery}
+            inputQuery={setQuery}
+            disableDelay={loadingStatus === LoadingStatus.DEMO_INIT}
+          />
+        )}
+        {loadingStatus === LoadingStatus.FAILED && (
+          <ErrorResult
+            query={query}
+            debugData={debugData}
+            exploreContext={exploreContext}
+            queryResult={queryResult}
+            userMessage={userMessage}
+          />
+        )}
+        {loadingStatus === LoadingStatus.LOADING && (
+          <div>
+            <Spinner isOpen={true} />
+          </div>
+        )}
+        {loadingStatus === LoadingStatus.DEMO_INIT && (
+          <div className="row explore-charts">
+            <SearchSection
+              query={query}
+              debugData={null}
+              exploreContext={null}
+            />
+          </div>
+        )}
+        {loadingStatus === LoadingStatus.SUCCESS && (
+          <SuccessResult
+            query={query}
+            debugData={debugData}
+            exploreContext={exploreContext}
+            queryResult={queryResult}
+            pageMetadata={pageMetadata}
+            userMessage={userMessage}
+          />
+        )}
+      </Container>
+    </RawIntlProvider>
   );
+
+  function isFulfillDataValid(fulfillData: any): boolean {
+    if (!fulfillData) {
+      return false;
+    }
+    const hasPlace = fulfillData["place"] && fulfillData["place"]["dcid"];
+    // Fulfill data needs to have either a place or entities
+    return hasPlace || fulfillData["entities"];
+  }
 
   function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
     setDebugData(fulfillData["debug"]);
-    if (
-      !fulfillData ||
-      !fulfillData["place"] ||
-      !fulfillData["place"]["dcid"]
-    ) {
+    if (!isFulfillDataValid) {
       setUserMessage(fulfillData["userMessage"]);
       setLoadingStatus(LoadingStatus.FAILED);
       return;
@@ -229,13 +242,12 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       }
     }
     const userMessage = {
-      msg: fulfillData["userMessage"] || "",
+      msgList: fulfillData["userMessages"] || [],
       showForm: !!fulfillData["showForm"],
     };
     savedContext.current = fulfillData["context"] || [];
     setPageMetadata(pageMetadata);
     setUserMessage(userMessage);
-    setLoadingStatus(LoadingStatus.SUCCESS);
     setQueryResult({
       place: mainPlace,
       config: pageMetadata.pageConfig,
@@ -245,6 +257,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       pastSourceContext: fulfillData["pastSourceContext"],
       sessionId: pageMetadata.sessionId,
     });
+    setLoadingStatus(LoadingStatus.SUCCESS);
   }
 
   function handleHashChange(): void {
@@ -263,6 +276,10 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const llmApi = getSingleParam(hashParams[URL_HASH_PARAMS.LLM_API]);
     const testMode = getSingleParam(hashParams[URL_HASH_PARAMS.TEST_MODE]);
     const i18n = getSingleParam(hashParams[URL_HASH_PARAMS.I18N]);
+    const defaultPlace = getSingleParam(
+      hashParams[URL_HASH_PARAMS.DEFAULT_PLACE]
+    );
+    const mode = getSingleParam(hashParams[URL_HASH_PARAMS.MODE]);
     let client = getSingleParam(hashParams[URL_HASH_PARAMS.CLIENT]);
 
     let fulfillmentPromise: Promise<any>;
@@ -287,7 +304,9 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         llmApi,
         testMode,
         i18n,
-        client
+        client,
+        defaultPlace,
+        mode
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -395,7 +414,9 @@ const fetchDetectAndFufillData = async (
   llmApi: string,
   testMode: string,
   i18n: string,
-  client: string
+  client: string,
+  defaultPlace: string,
+  mode: string
 ) => {
   const argsMap = new Map<string, string>();
   if (detector) {
@@ -412,6 +433,12 @@ const fetchDetectAndFufillData = async (
   }
   if (client) {
     argsMap.set(URL_HASH_PARAMS.CLIENT, client);
+  }
+  if (defaultPlace) {
+    argsMap.set(URL_HASH_PARAMS.DEFAULT_PLACE, defaultPlace);
+  }
+  if (mode) {
+    argsMap.set(URL_HASH_PARAMS.MODE, mode);
   }
   const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
   try {

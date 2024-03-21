@@ -7,7 +7,7 @@
     },
     {
       "contained_in_place_type": "DefaultType",
-      "had_default_type": false,
+      "had_default_type": true,
       "type": 4
     }
   ],
@@ -34,6 +34,8 @@
   "entities": [
     "geoId/32"
   ],
+  "nonPlaceEntities": [],
+  "properties": [],
   "sessionId": "007_999999999",
   "variables": [
     "dc/topic/Asthma",

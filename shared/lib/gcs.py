@@ -14,9 +14,37 @@
 
 TEMP_DIR = '/tmp/'
 
+import logging
 import os
+from pathlib import Path
 
 from google.cloud import storage
+
+_GCS_PATH_PREFIX = "gs://"
+
+
+def is_gcs_path(path: str) -> bool:
+  return path.strip().startswith(_GCS_PATH_PREFIX)
+
+
+def join_gcs_path(base_path: str, sub_path: str) -> str:
+  if base_path.endswith('/'):
+    return f'{base_path}{sub_path}'
+  return f'{base_path}/{sub_path}'
+
+
+def download_gcs_file(gcs_path: str, use_anonymous_client: bool = False) -> str:
+  """Downloads the file from the full GCS path (i.e. gs://bucket/path/to/file) 
+  to a local path and returns the latter.
+  """
+  bucket_name, blob_name = gcs_path[len(_GCS_PATH_PREFIX):].split('/', 1)
+  if not blob_name:
+    return ''
+  try:
+    return download_file(bucket_name, blob_name, use_anonymous_client)
+  except Exception as e:
+    logging.warning("Unable to download gcs file: %s (%s)", gcs_path, str(e))
+    return ''
 
 
 #
@@ -33,6 +61,26 @@ def download_file(bucket: str,
   bucket = storage_client.bucket(bucket_name=bucket)
   blob = bucket.get_blob(filename)
   # Download
-  local_embeddings_path = os.path.join(TEMP_DIR, filename)
-  blob.download_to_filename(local_embeddings_path)
-  return local_embeddings_path
+  local_file_path = _get_local_path(filename)
+  # Create directory to file if it does not exist.
+  parent_dir = Path(local_file_path).parent
+  if not parent_dir.exists():
+    parent_dir.mkdir(parents=True, exist_ok=True)
+  blob.download_to_filename(local_file_path)
+  return local_file_path
+
+
+def get_or_download_file(bucket: str,
+                         filename: str,
+                         use_anonymous_client: bool = False) -> str:
+  """Returns the local file path if the file already exists. 
+  Otherwise it downloads the file from GCS and returns the path it was downloaded to.
+  """
+  local_file_path = _get_local_path(filename)
+  if os.path.exists(local_file_path):
+    return local_file_path
+  return download_file(bucket, filename, use_anonymous_client)
+
+
+def _get_local_path(filename: str) -> str:
+  return os.path.join(TEMP_DIR, filename)

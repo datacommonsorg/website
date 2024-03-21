@@ -29,7 +29,7 @@
                 ]
               }
             ],
-            "title": "Deaths Per Capita and More in the World"
+            "title": "Deaths Per Capita and Life Expectancy in the World"
           },
           {
             "columns": [
@@ -143,7 +143,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Health Behaviors in the World"
           },
           {
@@ -187,7 +186,7 @@
                 ]
               }
             ],
-            "title": "Number of Maternal Deaths and More in the World"
+            "title": "Number of Maternal Deaths and Maternal Mortality Ratio in the World"
           },
           {
             "columns": [
@@ -225,7 +224,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Child Mortality in the World"
           },
           {
@@ -440,11 +438,21 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Disability-Adjusted Life-Years in the World"
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/NTD_1"
+                    ],
+                    "title": "New Cases of Buruli Ulcer in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -490,7 +498,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Cases of Neglected Troplical Diseases in the World"
           },
           {
@@ -573,7 +580,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Non-communicable Diseases Among Children in the World"
           },
           {
@@ -634,7 +640,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Deaths Due to Non-communicable Diseases in the World"
           }
         ],
@@ -694,6 +699,10 @@
           "WHO/NCD_PAC": {
             "name": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate)",
             "statVar": "WHO/NCD_PAC"
+          },
+          "WHO/NTD_1": {
+            "name": "New Cases Of Buruli Ulcer",
+            "statVar": "WHO/NTD_1"
           },
           "WHO/NTD_4": {
             "name": "New Cases Of Human African Trypanosomiasis",
@@ -861,6 +870,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "Earth",
@@ -878,5 +888,5 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

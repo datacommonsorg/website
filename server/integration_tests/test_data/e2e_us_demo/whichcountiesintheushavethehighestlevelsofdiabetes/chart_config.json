@@ -120,7 +120,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Non-Communicable Disease Deaths, by Disease & Sex, Diabetes Mellitus"
           },
           {
@@ -131,7 +130,7 @@
                     "statVarKey": [
                       "Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years"
                     ],
-                    "title": "Population: 20-79 Years, Diabetes (As Fraction of Count Person 20 to 79 Years) in United States",
+                    "title": "Fraction of 20-79 Years Old People Who Have Diabetes in United States",
                     "type": "LINE"
                   }
                 ]
@@ -139,17 +138,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 20-79 Years, Diabetes (As Fraction of Count Person 20 to 79 Years) in United States",
+                    "description": "Fraction of 20-79 Years Old People Who Have Diabetes in United States",
                     "statVarKey": [
                       "Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years"
                     ],
-                    "title": "Population: 20-79 Years, Diabetes (As Fraction of Count Person 20 to 79 Years) in United States",
+                    "title": "Fraction of 20-79 Years Old People Who Have Diabetes in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Population: 20-79 Years, Diabetes (As Fraction of Count Person 20 to 79 Years)"
+            "description": "Diabetes prevalence refers to the percentage of people ages 20-79 who have type 1 or type 2 diabetes. International diabetes federation, diabetes atlas.",
+            "title": "Fraction of 20-79 Years Old People Who Have Diabetes"
           },
           {
             "columns": [
@@ -166,7 +166,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Diabetes Mellitus, Per 100,000"
           },
           {
@@ -236,7 +235,7 @@
         ],
         "statVarSpec": {
           "Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years": {
-            "name": "Population: 20 - 79 Years, Diabetes (As Fraction of Count Person 20 To 79 Years)",
+            "name": "Fraction of 20 - 79 Years Old People who have Diabetes",
             "statVar": "Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years"
           },
           "Percent_Person_20OrMoreYears_WithDiabetes": {
@@ -279,6 +278,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
@@ -844,5 +844,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

@@ -49,9 +49,7 @@ def load_data():
   output_dir = os.path.join(user_data_path, 'datacommons')
   nl_dir = os.path.join(output_dir, 'nl')
   sentences_path = os.path.join(nl_dir, 'sentences.csv')
-  # TODO: Enable NL for GCS paths once we add support for it.
-  enable_model = os.environ.get('ENABLE_MODEL', '').lower() == 'true'
-  load_nl = enable_model and not user_data_path.startswith('gs://')
+  load_nl = os.environ.get('ENABLE_MODEL', '').lower() == 'true'
 
   # This will add a trailing "/" if the path does not end in one.
   input_dir = os.path.join(user_data_path, "")
@@ -61,7 +59,7 @@ def load_data():
       'python',
       '-m',
       'stats.main',
-      '--input_path',
+      '--input_dir',
       f'{input_dir}',
       '--output_dir',
       f'{output_dir}',

@@ -14,14 +14,14 @@
 """LLM based detector."""
 
 import copy
-import logging
 import sys
 from typing import Dict, List
 
+from server.lib.explore import params
 from server.lib.nl.common import counters
 from server.lib.nl.common import serialize
 from server.lib.nl.common import utterance
-from server.lib.nl.detection import palm_api
+from server.lib.nl.detection import llm_api
 from server.lib.nl.detection import place
 from server.lib.nl.detection import types
 from server.lib.nl.detection import utils as dutils
@@ -101,18 +101,23 @@ _LLM_OP_TO_QUANTITY_OP = {
 # Returns False if the query fails safety check.
 def check_safety(query: str, llm_api_type: LlmApiType,
                  ctr: counters.Counters) -> Detection:
-  if llm_api_type == LlmApiType.Text:
-    llm_resp = palm_api.detect_via_text(query, [], ctr)
+  if llm_api_type == LlmApiType.GeminiPro:
+    llm_resp = llm_api.detect_with_geminipro(query, [], ctr)
   else:
-    llm_resp = palm_api.detect_via_chat(query, [], ctr)
+    llm_resp = llm_api.detect_with_palm(query, [], ctr)
   if llm_resp.get('UNSAFE') == True:
     return False
   return True
 
 
-def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
-           llm_api_type: LlmApiType, query_detection_debug_logs: Dict,
-           ctr: counters.Counters) -> Detection:
+def detect(query: str,
+           prev_utterance: utterance.Utterance,
+           index_type: str,
+           llm_api_type: LlmApiType,
+           query_detection_debug_logs: Dict,
+           mode: str,
+           ctr: counters.Counters,
+           allow_triples: bool = False) -> Detection:
   # History
   history = []
   u = prev_utterance
@@ -120,10 +125,10 @@ def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
     history.append((u.query, u.llm_resp))
     u = u.prev_utterance
 
-  if llm_api_type == LlmApiType.Text:
-    llm_resp = palm_api.detect_via_text(query, history, ctr)
+  if llm_api_type == LlmApiType.GeminiPro:
+    llm_resp = llm_api.detect_with_geminipro(query, history, ctr)
   else:
-    llm_resp = palm_api.detect_via_chat(query, history, ctr)
+    llm_resp = llm_api.detect_with_palm(query, history, ctr)
 
   if llm_resp.get('UNSAFE') == True:
     return None
@@ -151,7 +156,8 @@ def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
       place_names=places_str_found,
       query_without_places=' ; '.join(sv_list),
       orig_query=query,
-      query_detection_debug_logs=query_detection_debug_logs)
+      query_detection_debug_logs=query_detection_debug_logs,
+      allow_triples=allow_triples)
 
   query_detection_debug_logs["llm_response"] = llm_resp
   query_detection_debug_logs["query_transformations"] = {
@@ -161,13 +167,20 @@ def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
   # SV Detection.
   svs_score_dicts = []
   dummy_dict = {}
+  skip_topics = mode == params.QueryMode.TOOLFORMER
   for sv in sv_list:
     try:
-      svs_score_dicts.append(variable.detect_svs(sv, index_type, dummy_dict))
+      svs_score_dicts.append(
+          variable.detect_svs(sv,
+                              index_type,
+                              dummy_dict,
+                              skip_topics=skip_topics))
     except ValueError as e:
-      logging.info(e)
+      ctr.err('llm_detect_svs_value_error', {'q': sv, 'err': str(e)})
   svs_scores_dict = _merge_sv_dicts(sv_list, svs_score_dicts)
-  sv_detection = dutils.create_sv_detection(query, svs_scores_dict)
+  sv_detection = dutils.create_sv_detection(query,
+                                            svs_scores_dict,
+                                            allow_triples=allow_triples)
 
   classifications = _build_classifications(llm_resp, filter_type)
 

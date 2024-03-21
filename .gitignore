@@ -70,7 +70,6 @@ experimental/sdg-static/datacommons/ranking.min.css
 experimental/sdg-static/datacommons/nl_interface.min.css
 
 # Custom DC data
-data/
 dc-data/
 
 # Topic cache
@@ -83,5 +82,13 @@ output/
 # wireit files
 .wireit
 
+# finetuned model
+ft_final_v20230717230459.all-MiniLM-L6-v2/
+
+# model eval output
+
+**/eval/**/result
 
 custom_dc/sample/datacommons/**
+
+.cache/

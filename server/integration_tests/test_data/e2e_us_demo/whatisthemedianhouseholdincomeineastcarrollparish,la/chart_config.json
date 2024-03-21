@@ -611,6 +611,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/22035",
@@ -673,12 +674,6 @@
         "householdType": [
           "Mean_Income_Household_FamilyHousehold",
           "Mean_Income_Household_NonfamilyHousehold"
-        ]
-      },
-      "Median_Income_Household": {
-        "benefitsStatus": [
-          "Median_Income_Household_WithFoodStampsInThePast12Months",
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
         ]
       }
     },
@@ -945,5 +940,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }
