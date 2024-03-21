@@ -1,4 +1,6 @@
 PreferredSV,DroppedSV,DuplicateName
+<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol,<-geneSymbol{typeOf:GeneticVariantGeneAssociation}->referenceSNPClusterID,GeneticVariantGeneAssociation
+<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID,<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID,DiseaseGeneAssociation
 Amount_EconomicActivity_GrossDomesticProduction_Nominal,dc/topic/GDP,GDP
 dc/topic/Mortality,dc/topic/WHOMortality,Mortality
 dc/topic/EconomicActivity,dc/topic/GlobalEconomicActivity,Economic Activity
