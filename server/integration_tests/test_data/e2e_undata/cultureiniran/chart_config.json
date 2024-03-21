@@ -17,6 +17,17 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/ITU_IDI"
+                    ],
+                    "title": "ICT Development Index (IDI) in Iran (Islamic Republic Of)",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "description": "ICT development index (IDI).",
@@ -33,6 +44,17 @@
                     ],
                     "title": "ICT Development Index (IDI) Rank in Iran (Islamic Republic Of)",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/ITU_IDI_RANK"
+                    ],
+                    "title": "ICT Development Index (IDI) Rank in Iran (Islamic Republic Of)",
+                    "type": "LINE"
                   }
                 ]
               }
