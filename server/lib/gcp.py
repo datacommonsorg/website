@@ -19,11 +19,14 @@ url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
 
 
 def in_google_network():
+  '''Check whether the instance runs in GCP. Cache this call if it's called
+  multiple times.
+  '''
   try:
     req = urllib.request.Request(url, headers={"Metadata-Flavor": "Google"})
     resp = urllib.request.urlopen(req)
     resp.read().decode()
     return True
   except Exception as e:
-    logging.warning('Not in Google network: ', e)
+    logging.info('Not in Google network: ', e)
     return False
