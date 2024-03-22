@@ -100,9 +100,9 @@ def _get_data_for_pv_expression(dcids, expression):
   for match in expression_matches:
     direction, prop, constraints = match.groups()
     results = fetch.raw_property_values(curr_dcids,
-                                             prop,
-                                             out=direction == _OUT_ARROW,
-                                             constraints=constraints or '')
+                                        prop,
+                                        out=direction == _OUT_ARROW,
+                                        constraints=constraints or '')
     curr_dcids = []
     for dcid in results.keys():
       # Get the original node dcid these values should apply to
