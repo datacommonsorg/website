@@ -16,6 +16,8 @@ import unittest
 from unittest import mock
 
 from server.routes.shared_api.node import get_property_value_from_expression
+from server.routes.shared_api.node import parse_property_expression
+from server.routes.shared_api.node import PropertySpec
 
 _PV_FETCH_RESULT_1 = {
     'rs13317': [{
@@ -95,3 +97,46 @@ class TestGetPropertyValueFromExpression(unittest.TestCase):
     ], '<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol'
                                                )
     assert result == _EXPRESSION_PV_RESULT
+
+
+class TestParsePropertyExpression(unittest.TestCase):
+
+  def test_parse_property_expression(self):
+
+    cases = [{
+        'expr': '->prop1',
+        'expected': [PropertySpec(prop='prop1', out=True, constraints='')]
+    }, {
+        'expr': '<-prop1',
+        'expected': [PropertySpec(prop='prop1', out=False, constraints='')]
+    }, {
+        'expr':
+            '->prop1{typeOf:typeA}',
+        'expected': [
+            PropertySpec(prop='prop1', out=True, constraints='{typeOf:typeA}')
+        ]
+    }, {
+        'expr':
+            '->prop1<-prop2',
+        'expected': [
+            PropertySpec(prop='prop1', out=True, constraints=''),
+            PropertySpec(prop='prop2', out=False, constraints='')
+        ]
+    }, {
+        'expr':
+            '<-prop1{typeOf:typeA}->prop2',
+        'expected': [
+            PropertySpec(prop='prop1', out=False, constraints='{typeOf:typeA}'),
+            PropertySpec(prop='prop2', out=True, constraints='')
+        ]
+    }, {
+        'expr':
+            '<-prop1{typeOf:typeA}->prop2{typeOf:typeB}',
+        'expected': [
+            PropertySpec(prop='prop1', out=False, constraints='{typeOf:typeA}'),
+            PropertySpec(prop='prop2', out=True, constraints='{typeOf:typeB}')
+        ]
+    }]
+    for c in cases:
+      parsed_result = parse_property_expression(c['expr'])
+      assert parsed_result == c['expected']
