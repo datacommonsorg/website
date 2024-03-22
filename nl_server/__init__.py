@@ -21,12 +21,14 @@ import torch
 
 import nl_server.loader as loader
 import nl_server.routes as routes
+import server.lib.gcp as lib_gcp
 
 
 def create_app():
 
-  client = google.cloud.logging.Client()
-  client.setup_logging()
+  if lib_gcp.in_google_network():
+    client = google.cloud.logging.Client()
+    client.setup_logging()
 
   logging.basicConfig(
       level=logging.INFO,
