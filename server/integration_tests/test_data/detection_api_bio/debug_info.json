@@ -16,6 +16,7 @@
     "PROP": [
       "phylum",
       "chemblID",
+      "virusGenus",
       "geneID",
       "geneticVariantFunctionalCategory",
       "typeOfGene",
@@ -28,15 +29,13 @@
       "hg19GenomicLocation",
       "strandOrientation",
       "alleleOrigin",
-      "referenceSNPClusterID<-GeneticVariantGeneAssociation->geneSymbol",
+      "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol",
       "ofVirusSpecies",
       "antigenType",
       "chromosomeSize",
       "ncbiTaxonID",
       "simplifiedMolecularInputLineEntrySystem",
-      "ncbiProteinAccessionNumber",
-      "virusHost",
-      "imageUrl"
+      "ncbiProteinAccessionNumber"
     ]
   }
 }
