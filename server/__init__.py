@@ -29,6 +29,7 @@ from server.lib import topic_cache
 import server.lib.cache as lib_cache
 import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
+import server.lib.gcp as lib_gcp
 import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
@@ -233,7 +234,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   cfg = lib_config.get_config()
 
-  if not cfg.LOCAL:
+  if lib_gcp.in_google_network():
     client = google.cloud.logging.Client()
     client.setup_logging()
   logging.basicConfig(
