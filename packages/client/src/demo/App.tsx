@@ -39,8 +39,6 @@ const GOOGLE_MAPS_MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID;
 const client = new DataCommonsClient({
   apiRoot: "https://datacommons.org",
 });
-// @ts-ignore
-window.client = client;
 
 const App = () => {
   return (

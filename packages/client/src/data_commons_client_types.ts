@@ -66,10 +66,6 @@ export type GetDataRowsParams =
   | GetDataRowsParamsWithin
   | GetDataRowsParamsEntities;
 
-export type GetDataRowSeriesParams =
-  | GetDataRowsParamsWithin
-  | GetDataRowsParamsEntities;
-
 export type GetGeoJSONParams = GetDataRowsParams & {
   /** GeoJSON property name in the knowledge graph. Inferred if not provided. */
   geoJsonProperty?: string;
@@ -80,15 +76,27 @@ export type GetGeoJSONParams = GetDataRowsParams & {
   rewind?: boolean;
 };
 
+/**
+ * Data row helper interface for storing observation values
+ */
 export type DataRowObservation = {
   date: string | null;
   value: number | null;
   metadata: StatMetadata;
 };
+
+/**
+ * Data row helper interface for storing node property names and values
+ */
 export type DataRowNodeProperties = {
   name: string;
   [propertyName: string]: string | number | boolean | null;
 };
+
+/**
+ * Data row helper interface for storing variable, observation, and denominator
+ * values
+ */
 export type DataRowVariable = {
   dcid: string;
   properties: DataRowNodeProperties;
@@ -100,6 +108,10 @@ export type DataRowVariable = {
     quotientValue: number | null;
   };
 };
+
+/**
+ * Data row about a single entity and single variable
+ */
 export type DataRow = {
   entity: {
     dcid: string;
@@ -107,6 +119,10 @@ export type DataRow = {
   };
   variable: DataRowVariable;
 };
+
+/**
+ * Data row about a single entity and multiple variable observations
+ */
 export type EntityGroupedDataRow = {
   entity: {
     dcid: string;
@@ -116,6 +132,10 @@ export type EntityGroupedDataRow = {
     [variableName: string]: DataRowVariable;
   };
 };
+
+/**
+ * Object of property names to node DCIDs to property values
+ */
 export type NodePropValues = {
   [propertyName: string]: {
     [nodeDcid: string]: string | null;

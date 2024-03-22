@@ -15,7 +15,12 @@
  */
 
 import _ from "lodash";
-import { QuotientObservation } from "./data_commons_client_types";
+import { DEFAULT_FIELD_DELIMITER } from "./data_commons_client";
+import {
+  DataRow,
+  EntityGroupedDataRow,
+  QuotientObservation,
+} from "./data_commons_client_types";
 import { Observation } from "./data_commons_web_client_types";
 
 /**
@@ -182,4 +187,38 @@ export function flattenNestedObject(
     helper([key], object[key]);
   });
   return resultObject;
+}
+
+/**
+ * Converts the passed in data rows to a CSV string.
+ * Flattens data row structure using the specified file delimiter.
+ *
+ * @param dataRows Data rows
+ * @param fieldDelimiter Delimiter for flattening nested data row items
+ * @returns
+ */
+export function dataRowsToCsv(
+  dataRows: DataRow[] | EntityGroupedDataRow[],
+  fieldDelimiter: string = DEFAULT_FIELD_DELIMITER
+) {
+  if (dataRows.length === 0) {
+    return "";
+  }
+  // Build CSV header while flattening data rows
+  const headerSet = new Set<string>();
+  const flattenedDataRows = dataRows.map((dataRow) => {
+    const flattenedDataRow = flattenNestedObject(dataRow, fieldDelimiter);
+    Object.keys(flattenedDataRow).forEach((columnName) => {
+      headerSet.add(columnName);
+    });
+    return flattenedDataRow;
+  });
+
+  const header = Array.from(headerSet).sort();
+  const rows = flattenedDataRows.map((flattenedDataRow) =>
+    header.map((column) => flattenedDataRow[column])
+  );
+  const csvRows = [header, ...rows];
+  const csvLines = csvRows.map(encodeCsvRow);
+  return csvLines.join("\n");
 }
