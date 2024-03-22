@@ -140,25 +140,19 @@ export interface MapTileSpec {
   geoJsonProp?: string;
 }
 
-export interface PropertySpec {
-  property: string;
-  direction: "IN" | "OUT";
-  type?: string;
-}
-
 export interface DisplayValueSpec {
   values: string[];
   sources: string[];
 }
 
 export interface AnswerMessageTileSpec {
-  property?: PropertySpec;
+  propertyExpr?: string;
   displayValue?: DisplayValueSpec;
 }
 
 interface TableColumn {
   header: string;
-  property: PropertySpec;
+  propertyExpr: string;
 }
 
 export interface AnswerTableTileSpec {

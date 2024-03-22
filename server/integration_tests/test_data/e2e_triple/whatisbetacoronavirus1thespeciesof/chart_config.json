@@ -10,10 +10,7 @@
                 "tiles": [
                   {
                     "answerMessageTileSpec": {
-                      "property": {
-                        "direction": "IN",
-                        "property": "ofVirusSpecies"
-                      }
+                      "propertyExpr": "<-ofVirusSpecies"
                     },
                     "entities": [
                       "bio/Betacoronavirus1"

@@ -26,20 +26,16 @@ import {
   ASYNC_ELEMENT_CLASS,
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../../constants/css_constants";
-import {
-  DisplayValueSpec,
-  PropertySpec,
-} from "../../types/subject_page_proto_types";
+import { DisplayValueSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
-import { getPropertyDirection } from "../../utils/subject_page_utils";
 
 export interface AnswerMessageTilePropType {
   // Title to use
   title: string;
   // Dcid of the entity to show the answer for
   entity: string;
-  // Property to show as the answer
-  property?: PropertySpec;
+  // Relation expression for a property to show as the answer
+  propertyExpr?: string;
   // Inline value to show as the answer
   displayValue?: DisplayValueSpec;
 }
@@ -77,17 +73,14 @@ export function AnswerMessageTile(
 const fetchData = async (
   props: AnswerMessageTilePropType
 ): Promise<DisplayValueSpec> => {
-  if (props.displayValue || _.isEmpty(props.property)) {
+  if (props.displayValue || _.isEmpty(props.propertyExpr)) {
     return Promise.resolve(props.displayValue);
   }
   try {
-    const propResp = await axios.get(
-      `/api/node/propvals/${getPropertyDirection(props.property)}`,
-      {
-        params: { dcids: [props.entity], prop: props.property.property },
-        paramsSerializer: stringifyFn,
-      }
-    );
+    const propResp = await axios.get(`/api/node/propvals`, {
+      params: { dcids: [props.entity], propExpr: props.propertyExpr },
+      paramsSerializer: stringifyFn,
+    });
     const respValues = propResp.data[props.entity] || [];
     const values: Set<string> = new Set();
     const provIds: Set<string> = new Set();
