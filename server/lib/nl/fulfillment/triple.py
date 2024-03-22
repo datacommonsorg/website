@@ -17,7 +17,7 @@ import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
-from server.routes.shared_api.node import get_expression_property_value
+from server.routes.shared_api.node import get_property_value_from_expression
 
 #
 # Handler for TRIPLE queries.
@@ -42,7 +42,7 @@ def _get_title(entities, prop: str, out: bool) -> str:
 def _get_chart_vars(uttr: nl_uttr.Utterance, prop: str, out: bool) -> ChartVars:
   entity_dcids = [e.dcid for e in uttr.entities]
   prop_with_direction = f'{_OUT_ARROW}{prop}' if out else f'{_IN_ARROW}{prop}'
-  prop_values = get_expression_property_value(entity_dcids, prop_with_direction)
+  prop_values = get_property_value_from_expression(entity_dcids, prop_with_direction)
   if not any(prop_values.values()):
     uttr.counters.err('triple_property_failed_existence', prop_with_direction)
     return None
