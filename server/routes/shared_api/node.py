@@ -120,8 +120,6 @@ def _get_values_for_property_list(dcids: List[str], props: List[PropertySpec]):
     result_values = []
     for val in values:
       val_dcid = val.get('dcid', '')
-      if val_dcid not in remaining_prop_results:
-        continue
       result_values.extend(remaining_prop_results.get(val_dcid, []))
     result[dcid] = result_values
   return result
