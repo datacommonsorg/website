@@ -37,6 +37,7 @@ WARM_UP_ENDPOINTS = [
 
 def send_warmup_requests():
   for endpoint in WARM_UP_ENDPOINTS:
+    # Rery 10 times before giving up, with 5 second intervals
     for _ in range(10):
       try:
         logging.info("Sending warm up requests: %s", endpoint)
@@ -45,7 +46,6 @@ def send_warmup_requests():
           break
       except Exception as e:
         logging.error(e)
-        pass
       time.sleep(5)
 
 
