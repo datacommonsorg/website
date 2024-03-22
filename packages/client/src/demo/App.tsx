@@ -39,6 +39,8 @@ const GOOGLE_MAPS_MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID;
 const client = new DataCommonsClient({
   apiRoot: "https://datacommons.org",
 });
+// @ts-ignore
+window.client = client;
 
 const App = () => {
   return (
@@ -141,7 +143,6 @@ const ExampleCsvPerCapita = () => {
 
 const ExampleCsvSeries = () => {
   const code = `const response = await client.getCsvSeries({
-    variables: ["Count_CriminalActivities_CombinedCrime"],
     entities: [
       "geoId/0644000",
       "geoId/0667000",
@@ -152,59 +153,65 @@ const ExampleCsvSeries = () => {
       "geoId/0653000",
     ],
     perCapitaVariables: ["Count_CriminalActivities_CombinedCrime"],
+    variables: ["Count_CriminalActivities_CombinedCrime"],
+    fieldDelimiter: "__",
   });
   setResponse(response);
   const vegaLiteSpec: TopLevelSpec = {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
     data: {
-      values: response,
       format: {
         type: "csv",
       },
+      values: response,
     },
     encoding: {
       x: {
-        field: "variable__date",
-        type: "temporal",
+        field: "variable__observation__date",
         timeUnit: "year",
         title: "Date",
+        type: "temporal",
       },
     },
     layer: [
       {
         encoding: {
-          color: { field: "entity__name", type: "nominal", title: "City" },
+          color: {
+            field: "entity__properties__name",
+            type: "nominal",
+            title: "City",
+          },
           y: {
-            field: "perCapita__value",
-            type: "quantitative",
+            field: "variable__denominator__quotientValue",
             title: "Criminal Activity Per Capita",
+            type: "quantitative",
           },
         },
         layer: [
           { mark: "line" },
           {
-            transform: [{ filter: { param: "hover", empty: false } }],
             mark: "point",
+            transform: [{ filter: { empty: false, param: "hover" } }],
           },
         ],
       },
       {
         transform: [
           {
-            pivot: "entity__name",
-            value: "perCapita__value",
-            groupby: ["variable__date"],
+            groupby: ["variable__observation__date"],
+            pivot: "entity__properties__name",
+            value: "variable__denominator__quotientValue",
           },
         ],
         mark: "rule",
         encoding: {
           opacity: {
-            condition: { value: 0.3, param: "hover", empty: false },
+            condition: { empty: false, param: "hover", value: 0.3 },
             value: 0,
           },
           tooltip: [
             {
-              field: "variable__date",
+              field: "variable__observation__date",
               type: "temporal",
               timeUnit: "year",
               title: "Date",
@@ -223,7 +230,7 @@ const ExampleCsvSeries = () => {
             name: "hover",
             select: {
               type: "point",
-              fields: ["variable__date"],
+              fields: ["variable__observation__date"],
               nearest: true,
               on: "pointerover",
               clear: "pointerout",
@@ -254,6 +261,7 @@ const ExampleCsvSeries = () => {
         ],
         perCapitaVariables: ["Count_CriminalActivities_CombinedCrime"],
         variables: ["Count_CriminalActivities_CombinedCrime"],
+        fieldDelimiter: "__",
       });
       setResponse(response);
       const vegaLiteSpec: TopLevelSpec = {
@@ -266,7 +274,7 @@ const ExampleCsvSeries = () => {
         },
         encoding: {
           x: {
-            field: "variable__date",
+            field: "variable__observation__date",
             timeUnit: "year",
             title: "Date",
             type: "temporal",
@@ -275,9 +283,13 @@ const ExampleCsvSeries = () => {
         layer: [
           {
             encoding: {
-              color: { field: "entity__name", type: "nominal", title: "City" },
+              color: {
+                field: "entity__properties__name",
+                type: "nominal",
+                title: "City",
+              },
               y: {
-                field: "perCapita__value",
+                field: "variable__denominator__quotientValue",
                 title: "Criminal Activity Per Capita",
                 type: "quantitative",
               },
@@ -293,9 +305,9 @@ const ExampleCsvSeries = () => {
           {
             transform: [
               {
-                groupby: ["variable__date"],
-                pivot: "entity__name",
-                value: "perCapita__value",
+                groupby: ["variable__observation__date"],
+                pivot: "entity__properties__name",
+                value: "variable__denominator__quotientValue",
               },
             ],
             mark: "rule",
@@ -306,7 +318,7 @@ const ExampleCsvSeries = () => {
               },
               tooltip: [
                 {
-                  field: "variable__date",
+                  field: "variable__observation__date",
                   type: "temporal",
                   timeUnit: "year",
                   title: "Date",
@@ -325,7 +337,7 @@ const ExampleCsvSeries = () => {
                 name: "hover",
                 select: {
                   type: "point",
-                  fields: ["variable__date"],
+                  fields: ["variable__observation__date"],
                   nearest: true,
                   on: "pointerover",
                   clear: "pointerout",
@@ -620,27 +632,14 @@ const landCover = [
 ];
 
 // @ts-ignore
-function getTooltip({ object }): string {
-  return (
-    object && {
-      html: `\
-  <div><b>Count_Person_BelowPovertyLevelInThePast12Months</b></div>
-  <div>${object.properties.Count_Person_BelowPovertyLevelInThePast12Months}</div>
-  <div>${object.properties["Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value"]}</div>
-  <div>${object.properties["Count_Person_BelowPovertyLevelInThePast12Months__perCapita__populationValue"]}</div>
-  `,
-    }
-  );
-}
-
-// @ts-ignore
 function getTooltipNyc({ object }): string {
   return (
     object && {
       html: `
-      <div><b>Count_Person_BelowPovertyLevelInThePast12Months__value</b>: ${object.properties["Count_Person_BelowPovertyLevelInThePast12Months__value"]}</div>
-      <div><b>Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value</b>: ${object.properties["Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value"]}</div>
-      <div><b>Count_Person_BelowPovertyLevelInThePast12Months__perCapita__population</b>: ${object.properties["Count_Person_BelowPovertyLevelInThePast12Months__perCapita__populationValue"]}</div>
+      <div><b>Census Tract:</b>: ${object.properties["entity.properties.name"]}</div>
+      <div><b>Population</b>: ${object.properties["variables.Count_Person_BelowPovertyLevelInThePast12Months.denominator.observation.value"]}</div>
+      <div><b>Number of people below the poverty line in the last 12 months</b>: ${object.properties["variables.Count_Person_BelowPovertyLevelInThePast12Months.observation.value"]}</div>
+      <div><b>People below the poverty line per capita</b>: ${object.properties["variables.Count_Person_BelowPovertyLevelInThePast12Months.denominator.quotientValue"]}</div>
   `,
     }
   );
@@ -793,13 +792,13 @@ function MapComponent3dNyc({
             filled: true,
             getElevation: (f) =>
               (f.properties || {})[
-                "Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value"
+                "variables.Count_Person_BelowPovertyLevelInThePast12Months.denominator.quotientValue"
               ] * 10000,
             // @ts-ignore
             getFillColor: (f) =>
               COLOR_SCALE(
                 (f.properties || {})[
-                  "Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value"
+                  "variables.Count_Person_BelowPovertyLevelInThePast12Months.denominator.quotientValue"
                 ]
               ),
             getLineColor: [255, 255, 255],

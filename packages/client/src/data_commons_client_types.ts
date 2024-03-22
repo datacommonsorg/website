@@ -14,9 +14,19 @@
  * limitations under the License.
  */
 
+import { Observation, StatMetadata } from "./data_commons_web_client_types";
+
 /**
  * Interface definitions supporting DataCommonsClient
  */
+
+/**
+ * Observation with calculated quotient value (for per-capita values)
+ */
+export interface QuotientObservation extends Observation {
+  /** Derived quotient value */
+  quotientValue: number;
+}
 
 export interface BaseGetDataRowsParams {
   /** Variable DCIDs */
@@ -56,6 +66,10 @@ export type GetDataRowsParams =
   | GetDataRowsParamsWithin
   | GetDataRowsParamsEntities;
 
+export type GetDataRowSeriesParams =
+  | GetDataRowsParamsWithin
+  | GetDataRowsParamsEntities;
+
 export type GetGeoJSONParams = GetDataRowsParams & {
   /** GeoJSON property name in the knowledge graph. Inferred if not provided. */
   geoJsonProperty?: string;
@@ -66,5 +80,44 @@ export type GetGeoJSONParams = GetDataRowsParams & {
   rewind?: boolean;
 };
 
-export type DataRow = Record<string, string | number | boolean | null>;
-export type NodePropValues = Record<string, Record<string, string | null>>;
+export type DataRowObservation = {
+  date: string | null;
+  value: number | null;
+  metadata: StatMetadata;
+};
+export type DataRowNodeProperties = {
+  name: string;
+  [propertyName: string]: string | number | boolean | null;
+};
+export type DataRowVariable = {
+  dcid: string;
+  properties: DataRowNodeProperties;
+  observation: DataRowObservation;
+  denominator?: {
+    dcid: string;
+    properties: DataRowNodeProperties;
+    observation: DataRowObservation;
+    quotientValue: number | null;
+  };
+};
+export type DataRow = {
+  entity: {
+    dcid: string;
+    properties: DataRowNodeProperties;
+  };
+  variable: DataRowVariable;
+};
+export type EntityGroupedDataRow = {
+  entity: {
+    dcid: string;
+    properties: DataRowNodeProperties;
+  };
+  variables: {
+    [variableName: string]: DataRowVariable;
+  };
+};
+export type NodePropValues = {
+  [propertyName: string]: {
+    [nodeDcid: string]: string | null;
+  };
+};
