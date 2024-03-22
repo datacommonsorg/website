@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import urllib.request
 
 url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
@@ -23,5 +24,6 @@ def in_google_network():
     resp = urllib.request.urlopen(req)
     resp.read().decode()
     return True
-  except Exception:
+  except Exception as e:
+    logging.warning('Not in Google network: ', e)
     return False
