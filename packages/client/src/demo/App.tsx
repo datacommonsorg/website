@@ -257,9 +257,9 @@ const ExampleCsvSeries = () => {
           "geoId/0668000",
           "geoId/0653000",
         ],
+        fieldDelimiter: "__",
         perCapitaVariables: ["Count_CriminalActivities_CombinedCrime"],
         variables: ["Count_CriminalActivities_CombinedCrime"],
-        fieldDelimiter: "__",
       });
       setResponse(response);
       const vegaLiteSpec: TopLevelSpec = {
@@ -283,8 +283,8 @@ const ExampleCsvSeries = () => {
             encoding: {
               color: {
                 field: "entity__properties__name",
-                type: "nominal",
                 title: "City",
+                type: "nominal",
               },
               y: {
                 field: "variable__denominator__quotientValue",
@@ -334,11 +334,11 @@ const ExampleCsvSeries = () => {
               {
                 name: "hover",
                 select: {
-                  type: "point",
+                  clear: "pointerout",
                   fields: ["variable__observation__date"],
                   nearest: true,
                   on: "pointerover",
-                  clear: "pointerout",
+                  type: "point",
                 },
               },
             ],

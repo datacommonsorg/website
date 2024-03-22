@@ -260,13 +260,13 @@ class DataCommonsClient {
       variablesSet.forEach((variableDcid) => {
         entityGroupedDataRow.variables[variableDcid] = {
           dcid: variableDcid,
-          properties: {
-            name: "",
-          },
           observation: {
             date: null,
-            value: null,
             metadata: {},
+            value: null,
+          },
+          properties: {
+            name: "",
           },
         };
         Object.keys(variablePropValues).forEach((propName) => {
@@ -504,7 +504,6 @@ class DataCommonsClient {
             },
             observation: {
               date: observation.date,
-              value: observation.value,
               metadata: {
                 unit: _.get(facet, "unit", null),
                 unitDisplayName: _.get(
@@ -513,6 +512,7 @@ class DataCommonsClient {
                   _.get(facet, "unitDisplayName", null)
                 ),
               },
+              value: observation.value,
             },
           },
         };

@@ -163,20 +163,20 @@ export function computeRatio(
  */
 export function flattenNestedObject(
   object: any,
-  delimiter: string = "."
+  delimiter = "."
 ): Record<string, string | number | boolean> {
   const resultObject: Record<string, string | number | boolean> = {};
-  const helper = (keyParts: string[], value: any) => {
+  const flattenNestedObjectHelper = (keyParts: string[], value: any) => {
     if (value !== null && typeof value === "object" && _.isEmpty(value)) {
       // Exclude empty objects and empty arrays
       return;
     } else if (Array.isArray(value)) {
       value.forEach((subValue, index) => {
-        helper([...keyParts, `${index}`], subValue);
+        flattenNestedObjectHelper([...keyParts, `${index}`], subValue);
       });
     } else if (value !== null && typeof value === "object") {
       Object.keys(value).forEach((key) => {
-        helper([...keyParts, key], value[key]);
+        flattenNestedObjectHelper([...keyParts, key], value[key]);
       });
     } else {
       resultObject[keyParts.join(delimiter)] = value;
@@ -184,7 +184,7 @@ export function flattenNestedObject(
   };
 
   Object.keys(object).forEach((key) => {
-    helper([key], object[key]);
+    flattenNestedObjectHelper([key], object[key]);
   });
   return resultObject;
 }
