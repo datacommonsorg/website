@@ -86,9 +86,14 @@ output/
 
 # finetuned model
 ft_final_v20230717230459.all-MiniLM-L6-v2/
+
+# model eval output
+
+**/eval/**/result
+
 custom_dc/sample/datacommons/**
+
+.cache/
 
 # idea files
 .idea/
-
-*.list

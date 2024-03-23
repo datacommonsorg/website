@@ -120,7 +120,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Non-Communicable Disease Deaths, by Disease & Sex, Diabetes Mellitus"
           },
           {
@@ -167,7 +166,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Diabetes Mellitus, Per 100,000"
           },
           {
@@ -280,6 +278,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",

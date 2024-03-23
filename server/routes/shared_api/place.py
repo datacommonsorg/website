@@ -25,10 +25,11 @@ from flask import url_for
 from flask_babel import gettext
 from markupsafe import escape
 
-from server import cache
 from server.lib import fetch
+from server.lib.cache import cache
 import server.lib.i18n as i18n
 from server.lib.shared import names
+from server.routes import TIMEOUT
 import server.services.datacommons as dc
 
 CHILD_PLACE_LIMIT = 50
@@ -169,7 +170,7 @@ def get_place_type_i18n_name(place_type: str) -> str:
 
 
 @bp.route('/type/<path:place_dcid>')
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 def get_place_type(place_dcid):
   return get_place_types([place_dcid])[place_dcid]
 
@@ -308,7 +309,7 @@ def get_place_variable_count():
 
 
 @bp.route('/child/<path:dcid>')
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 def child(dcid):
   """Get top child places for a place."""
   child_places = child_fetch(dcid)
@@ -318,7 +319,7 @@ def child(dcid):
   return Response(json.dumps(child_places), 200, mimetype='application/json')
 
 
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 def child_fetch(parent_dcid):
   # Get contained places
   contained_response = fetch.property_values([parent_dcid], 'containedInPlace',
@@ -379,7 +380,7 @@ def child_fetch(parent_dcid):
 
 
 @bp.route('/parent')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def api_parent_places():
   dcid = request.args.get("dcid")
   result = parent_places([dcid])[dcid]
@@ -412,7 +413,7 @@ def parent_places(dcids, include_admin_areas=False):
   return result
 
 
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 @bp.route('/mapinfo/<path:dcid>')
 def api_mapinfo(dcid):
   """
@@ -479,8 +480,8 @@ def get_ranking_url(containing_dcid,
   return url
 
 
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 @bp.route('/ranking/<path:dcid>')
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def api_ranking(dcid):
   """Get the ranking information for a given place."""
   current_place_type = get_place_type(dcid)
@@ -652,7 +653,7 @@ def descendent():
 
 
 @bp.route('/descendent/name')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def descendent_names():
   """Gets names of places of a certain type contained in a place.
 

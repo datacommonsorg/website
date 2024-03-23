@@ -20,7 +20,9 @@ from shared.lib import constants
 
 class Params(str, Enum):
   ENTITIES = 'entities'
+  NON_PLACE_ENTITIES = 'nonPlaceEntities'
   VARS = 'variables'
+  PROPS = 'properties'
   CHILD_TYPE = 'childEntityType'
   CMP_ENTITIES = 'comparisonEntities'
   CMP_VARS = 'comparisonVariables'
@@ -47,6 +49,7 @@ class DCNames(str, Enum):
   SDG_DC = 'sdg'
   SDG_MINI_DC = 'sdgmini'
   UNDATA_DC = 'undata'
+  BIO_DC = 'bio'
 
 
 class QueryMode(str, Enum):
@@ -92,9 +95,15 @@ def is_sdg(insight_ctx: Dict) -> bool:
   return insight_ctx.get(Params.DC.value) in SDG_DC_LIST
 
 
+def is_bio(insight_ctx: Dict) -> bool:
+  return insight_ctx.get(Params.DC.value) == DCNames.BIO_DC.value
+
+
 def dc_to_embedding_type(dc: str, embeddings_type: str) -> str:
   if dc in SDG_DC_LIST:
     return 'sdg_ft'
   elif dc == DCNames.UNDATA_DC.value:
     return 'undata_ft'
+  elif dc == DCNames.BIO_DC.value:
+    return 'bio_ft'
   return embeddings_type

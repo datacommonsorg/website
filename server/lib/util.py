@@ -31,7 +31,7 @@ from server.config import subject_page_pb2
 import server.lib.fetch as fetch
 import server.services.datacommons as dc
 
-_ready_check_timeout = 120  # seconds
+_ready_check_timeout = 300  # seconds
 _ready_check_sleep_seconds = 5
 
 # This has to be in sync with static/js/shared/util.ts
@@ -351,7 +351,9 @@ def get_nl_chart_titles():
 # Returns a set of SVs that should not have Per-capita.
 # TODO: Eventually read this from KG.
 def get_nl_no_percapita_vars():
-  # NOTE: This is a checked-in version of https://shorturl.at/afpMY
+  # These SVs include both manually curated dcids and those that have a
+  # measurementDenominator, excluding those from _SV_PARTIAL_DCID_NO_PC,
+  # which are already filtered in is_percapita_relevant (in shared.py).
   filepath = os.path.join(get_repo_root(), "config", "nl_page",
                           "nl_vars_percapita_ranking.csv")
   nopc_vars = set()

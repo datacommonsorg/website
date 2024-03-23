@@ -35,7 +35,7 @@ while getopts beflc OPTION; do
         ;;
     e)
         MODEL_ENDPOINT_ID="$3"
-        echo -e "### Using Vertext AI model endpoint $MODEL_ENDPOINT_ID"
+        echo -e "### Using Vertex AI model endpoint $MODEL_ENDPOINT_ID"
         ;;
     f)
         echo -e "### Using the finetuned model from prod"
@@ -86,10 +86,12 @@ while getopts beflc OPTION; do
     esac
 done
 
+cd ../../..
 python3 -m venv .env
 source .env/bin/activate
-python3 -m pip install --upgrade pip setuptools light-the-torch
-ltt install torch --cpuonly
+cd tools/nl/embeddings
+python3 -m pip install --upgrade pip
+pip3 install torch==2.2.1 --extra-index-url https://download.pytorch.org/whl/cpu
 pip3 install -r requirements.txt
 
 if [[ "$MODEL_ENDPOINT_ID" != "" ]];then

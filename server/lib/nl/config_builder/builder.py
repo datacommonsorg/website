@@ -24,6 +24,7 @@ from server.lib.nl.common import utils
 from server.lib.nl.common import variable
 from server.lib.nl.common.constants import PROJECTED_TEMP_TOPIC
 from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.config_builder import answer
 from server.lib.nl.config_builder import bar
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import event
@@ -107,6 +108,19 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
     # level.
     if user_message:
       cspec.info_message = ''
+
+    if cspec.chart_type == ChartType.ANSWER:
+      if len(cspec.props) > 1 or len(cspec.entities) > 1:
+        # TODO: handle this case
+        state.uttr.counters.err("answer_failed_unsupported_case", 1)
+        continue
+      else:
+        answer.answer_message_block(builder, cspec)
+
+    if cspec.chart_type == ChartType.ENTITY_OVERVIEW:
+      block = builder.new_chart(cspec, skip_title=True)
+      base.entity_overview_block(block.columns.add(), cspec.entities[0])
+
     if not cspec.places:
       continue
     stat_var_spec_map = {}
@@ -179,6 +193,7 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
 
     elif cspec.chart_type == ChartType.MAP_CHART:
       if not base.is_map_or_ranking_compatible(cspec):
+        state.uttr.counters.err('chart_builder_map_incompatible', 1)
         continue
       block = builder.new_chart(cspec,
                                 place=cspec.places[0],
@@ -194,6 +209,7 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
 
     elif cspec.chart_type == ChartType.RANKING_WITH_MAP:
       if not base.is_map_or_ranking_compatible(cspec):
+        state.uttr.counters.err('chart_builder_ranking_incompatible', 1)
         continue
       pri_place = cspec.places[0]
 

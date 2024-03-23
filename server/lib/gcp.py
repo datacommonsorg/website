@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,15 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Tests for some NL constants which need validation."""
 
-import unittest
+import logging
+import urllib.request
 
-import shared.lib.constants as constants
+url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
 
 
-class TestConstants(unittest.TestCase):
-
-  def test_place_detected_string_replacement(self):
-    for k, v in constants.SHORTEN_PLACE_DETECTION_STRING.items():
-      self.assertTrue(v in k)
+def in_google_network():
+  '''Check whether the instance runs in GCP. Cache this call if it's called
+  multiple times.
+  '''
+  try:
+    req = urllib.request.Request(url, headers={"Metadata-Flavor": "Google"})
+    resp = urllib.request.urlopen(req)
+    resp.read().decode()
+    return True
+  except Exception as e:
+    logging.info('Not in Google network: ', e)
+    return False

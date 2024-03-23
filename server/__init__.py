@@ -23,13 +23,13 @@ from flask import request
 from flask_babel import Babel
 import flask_cors
 from google.cloud import secretmanager
-from opencensus.ext.flask.flask_middleware import FlaskMiddleware
-from opencensus.trace.propagation import google_cloud_format
-from opencensus.trace.samplers import AlwaysOnSampler
+import google.cloud.logging
 
 from server.lib import topic_cache
-import server.lib.config as libconfig
+import server.lib.cache as lib_cache
+import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
+import server.lib.gcp as lib_gcp
 import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
@@ -39,21 +39,9 @@ import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
 
-propagator = google_cloud_format.GoogleCloudFormatPropagator()
-
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
 DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
-
-
-def createMiddleWare(app, exporter):
-  # Configure a flask middleware that listens for each request and applies
-  # automatic tracing. This needs to be set up before the application starts.
-  middleware = FlaskMiddleware(app,
-                               exporter=exporter,
-                               propagator=propagator,
-                               sampler=AlwaysOnSampler())
-  return middleware
 
 
 def register_routes_base_dc(app):
@@ -61,17 +49,11 @@ def register_routes_base_dc(app):
   from server.routes.dev import html as dev_html
   app.register_blueprint(dev_html.bp)
 
-  from server.routes.disease import html as disease_html
-  app.register_blueprint(disease_html.bp)
-
   from server.routes.import_wizard import html as import_wizard_html
   app.register_blueprint(import_wizard_html.bp)
 
   from server.routes.place_list import html as place_list_html
   app.register_blueprint(place_list_html.bp)
-
-  from server.routes.protein import html as protein_html
-  app.register_blueprint(protein_html.bp)
 
   from server.routes import redirects
   app.register_blueprint(redirects.bp)
@@ -86,12 +68,6 @@ def register_routes_base_dc(app):
   from server.routes.topic_page import html as topic_page_html
   app.register_blueprint(topic_page_html.bp)
 
-  from server.routes.disease import api as disease_api
-  app.register_blueprint(disease_api.bp)
-
-  from server.routes.protein import api as protein_api
-  app.register_blueprint(protein_api.bp)
-
   from server.routes.import_detection import detection as detection_api
   app.register_blueprint(detection_api.bp)
 
@@ -99,9 +75,22 @@ def register_routes_base_dc(app):
   app.register_blueprint(disaster_api.bp)
 
 
-def register_routes_custom_dc(app):
-  ## apply the blueprints for custom dc instances
-  pass
+def register_routes_biomedical_dc(app):
+  # Apply the blueprints specific to biomedical dc
+  from server.routes.biomedical import html as bio_html
+  app.register_blueprint(bio_html.bp)
+
+  from server.routes.disease import api as disease_api
+  app.register_blueprint(disease_api.bp)
+
+  from server.routes.disease import html as disease_html
+  app.register_blueprint(disease_html.bp)
+
+  from server.routes.protein import api as protein_api
+  app.register_blueprint(protein_api.bp)
+
+  from server.routes.protein import html as protein_html
+  app.register_blueprint(protein_html.bp)
 
 
 def register_routes_disasters(app):
@@ -243,8 +232,20 @@ def register_routes_common(app):
 def create_app(nl_root=DEFAULT_NL_ROOT):
   app = Flask(__name__, static_folder='dist', static_url_path='')
 
+  cfg = lib_config.get_config()
+
+  if lib_gcp.in_google_network():
+    client = google.cloud.logging.Client()
+    client.setup_logging()
+  logging.basicConfig(
+      level=logging.INFO,
+      format=
+      "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
+      datefmt="%H:%M:%S",
+  )
+  logging.getLogger('werkzeug').setLevel(logging.WARNING)
+
   # Setup flask config
-  cfg = libconfig.get_config()
   app.config.from_object(cfg)
 
   # Check DC_API_KEY is set for local dev.
@@ -256,14 +257,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
   app.config['DEBUG'] = os.environ.get('DEBUG', '') == 'true'
 
-  # Init extentions
-  from server.cache import cache
+  if os.environ.get('ENABLE_EVAL_TOOL') == 'true':
+    import shared.model.loader as model_loader
+    app.config['VERTEX_AI_MODELS'] = model_loader.load()
 
-  # For some instance with fast updated data, we may not want to use memcache.
-  if app.config['USE_MEMCACHE']:
-    cache.init_app(app)
-  else:
-    cache.init_app(app, {'CACHE_TYPE': 'NullCache'})
+  lib_cache.cache.init_app(app)
+  lib_cache.model_cache.init_app(app)
 
   # Configure ingress
   # See deployment yamls.
@@ -272,8 +271,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     configure_endpoints_from_ingress(ingress_config_path)
 
   register_routes_common(app)
-  if cfg.CUSTOM:
-    register_routes_custom_dc(app)
+  if not cfg.CUSTOM:
+    # Only register biomedical DC routes if in main DC
+    register_routes_biomedical_dc(app)
 
   register_routes_base_dc(app)
   if cfg.SHOW_DISASTER:
@@ -435,7 +435,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   @app.teardown_request
   def log_unhandled(e):
     if e is not None:
-      logging.error('Error thrown for request: %s, error: %s', request, e)
+      app.logger.error('Error thrown for request: %s\nerror: %s', request.url,
+                       e)
 
   # Jinja env
   app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']

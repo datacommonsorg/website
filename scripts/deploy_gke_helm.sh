@@ -87,7 +87,6 @@ function deploy_mixer() {
   cd $ROOT
   helm upgrade --install dc-mixer mixer/deploy/helm_charts/mixer \
   --atomic \
-  --debug \
   --timeout 10m \
   --force  \
   -f "deploy/helm_charts/envs/$ENV.yaml" \
@@ -139,7 +138,6 @@ function deploy_website() {
   helm upgrade --install dc-website deploy/helm_charts/dc_website \
   -f "deploy/helm_charts/envs/$ENV.yaml" \
   --atomic \
-  --debug \
   --timeout 10m \
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \

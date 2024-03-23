@@ -182,6 +182,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/IND",
@@ -636,6 +637,13 @@
       {
         "dcid": "dc/topic/Income",
         "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
         "types": [
           "Topic"
         ]

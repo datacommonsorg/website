@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from dataclasses import asdict
-import logging
 from typing import Dict, List
 
 from server.lib.nl.common.utterance import ChartType
@@ -27,6 +26,7 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import CorrelationClassificationAttributes
 from server.lib.nl.detection.types import Date
 from server.lib.nl.detection.types import DateClassificationAttributes
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import EventClassificationAttributes
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import GeneralClassificationAttributes
@@ -212,6 +212,8 @@ def _chart_spec_to_dict(charts: List[ChartSpec]) -> List[Dict]:
     cdict['chart_type'] = c.chart_type
     cdict['places'] = _place_to_dict(c.places)
     cdict['svs'] = c.svs
+    cdict['entities'] = _entity_to_dict(c.entities)
+    cdict['props'] = c.props
     cdict['event'] = c.event
     cdict['place_type'] = c.place_type
     cdict['chart_vars'] = asdict(c.chart_vars)
@@ -247,6 +249,8 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
             chart_type=ChartType(cdict['chart_type']),
             places=_dict_to_place(cdict['places']),
             svs=cdict['svs'],
+            entities=_dict_to_entity(cdict['entities']),
+            props=cdict['props'],
             event=cdict['event'],
             chart_vars=cv,
             place_type=cdict.get('place_type'),
@@ -299,6 +303,27 @@ def _dict_to_place_fallback(pfb_dict: Dict) -> PlaceFallback:
                        newStr=pfb_dict['newStr'])
 
 
+def _entity_to_dict(entities: List[Entity]) -> List[Dict]:
+  if not entities:
+    return []
+  entities_dict = []
+  for e in entities:
+    edict = {}
+    edict['dcid'] = e.dcid
+    edict['name'] = e.name
+    edict['type'] = e.type
+    entities_dict.append(edict)
+  return entities_dict
+
+
+def _dict_to_entity(entities_dict: List[Dict]) -> List[Entity]:
+  entities = []
+  for edict in entities_dict:
+    entities.append(
+        Entity(dcid=edict['dcid'], name=edict['name'], type=edict['type']))
+  return entities
+
+
 # Given the latest Utterance, saves the full list of utterances into a
 # dict.  The latest utterance is in the front.
 def save_utterance(uttr: Utterance) -> List[Dict]:
@@ -310,7 +335,9 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
     udict['query'] = u.query
     udict['query_type'] = u.query_type
     udict['svs'] = u.svs
+    udict['properties'] = u.properties
     udict['places'] = _place_to_dict(u.places)
+    udict['entities'] = _entity_to_dict(u.entities)
     udict['classifications'] = classification_to_dict(u.classifications)
     udict['ranked_charts'] = _chart_spec_to_dict(u.rankedCharts)
     udict['session_id'] = u.session_id
@@ -328,9 +355,6 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
 # Given a list of dicts previously saved by `save_utterance()`, loads
 # them into Utterance structures and returns the latest one.
 def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
-  if len(uttr_dicts) > CTX_LOOKBACK_LIMIT:
-    logging.error('Too many past utterances found: %d', len(uttr_dicts))
-
   uttr = None
   prev_uttr = None
   for i in range(len(uttr_dicts)):
@@ -341,6 +365,8 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
         query_type=QueryType(udict['query_type']),
         svs=udict['svs'],
         places=_dict_to_place(udict['places']),
+        entities=_dict_to_entity(udict['entities']),
+        properties=udict['properties'],
         classifications=dict_to_classification(udict['classifications']),
         rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
         answerPlaces=_dict_to_place(udict.get('answerPlaces', [])),
@@ -353,4 +379,8 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
         place_fallback=_dict_to_place_fallback(udict['placeFallback']),
         insight_ctx=udict.get('insightCtx', {}))
     prev_uttr = uttr
+
+  if len(uttr_dicts) > CTX_LOOKBACK_LIMIT:
+    uttr.counters.err('too_many_past_utterances', len(uttr_dicts))
+
   return uttr

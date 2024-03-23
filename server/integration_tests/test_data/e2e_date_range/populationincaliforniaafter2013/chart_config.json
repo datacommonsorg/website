@@ -95,7 +95,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Population Density"
           },
           {
@@ -419,6 +418,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",

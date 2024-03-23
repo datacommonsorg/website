@@ -22,6 +22,18 @@ namespace:
 website:
   flaskEnv: autopush
   replicas: 15
+  nodePool: "default-pool"
+  evalTool:
+    enabled: true
+  redis:
+    enabled: true
+    configFile: |
+      {
+        "us-central1": {
+          "host": "10.135.60.155",
+          "port": "6379"
+        }
+      }
 
 mixer:
   hostProject:
@@ -51,3 +63,4 @@ nodejs:
 cronTesting:
   enabled: true
   screenshotDomain: "autopush.datacommons.org"
+  nodePool: "pool-1"

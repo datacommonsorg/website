@@ -261,6 +261,37 @@ message MapTileSpec {
   string geo_json_prop = 3;
 }
 
+// Spec for just displaying a value
+message DisplayValueSpec {
+  // The value(s) to display
+  repeated string values = 1;
+  // The source(s) of the values
+  repeated string sources = 2;
+}
+
+message AnswerMessageTileSpec {
+  // The answer to display in the tile
+  oneof answer {
+    // Relation expression that describes a property
+    // (https://docs.datacommons.org/api/rest/v2#relation-expressions)
+    string property_expr = 1;
+    DisplayValueSpec display_value = 2;
+  }
+}
+
+message AnswerTableTileSpec {
+  // A single column in a table
+  message TableColumn {
+    // The header to use for the column
+    string header = 1;
+    // Relation expression that describes a property
+    // (https://docs.datacommons.org/api/rest/v2#relation-expressions)
+    string property_expr = 2;
+  }
+  // List of columns to show in the tile
+  repeated TableColumn columns = 1;
+}
+
 message Tile {
   // When adding a new TileType:
   // - make sure to update verify_tile in subject_page_config_content_test.py
@@ -291,12 +322,18 @@ message Tile {
     DONUT = 14;
     // allowed in BlockTypes: TYPE_NONE
     HISTOGRAM = 10;
-    // allowed in BlockTypes: DISASTER_EVENT
+    // allowed in BlockTypes: TYPE_NONE
     PLACE_OVERVIEW = 11;
     // allowed in BlockTypes: DISASTER_EVENT
     TOP_EVENT = 12;
     // allowed in BlockTypes: DISASTER_EVENT
     DISASTER_EVENT_MAP = 9;
+    // allowed in BlockTypes: TYPE_NONE
+    ENTITY_OVERVIEW = 15;
+    // allowed in BlockTypes: TYPE_NONE
+    ANSWER_MESSAGE = 16;
+    // allowed in BlockTypes: TYPE_NONE
+    ANSWER_TABLE = 17;
   }
   // Must be specified for all visual tiles. Supports ${statVar}, ${placeName} placeholders.
   // For map, bar, ranking: supports ${date} placeholder.
@@ -319,6 +356,10 @@ message Tile {
   string subtitle = 18;
   // [optional] knowledge graph property containing the place name
   string place_name_prop = 19;
+  // List of entities to use in the tile.
+  // Only used in ANSWER_MESSAGE, ANSWER_TABLE, and ENTITY_OVERVIEW for now.
+  // TODO: use this for all other tile types as well.
+  repeated string entities = 22;
 
   // specs for specific tile types
   oneof tile_type_spec {
@@ -332,6 +373,8 @@ message Tile {
     DonutTileSpec donut_tile_spec = 14;
     LineTileSpec line_tile_spec = 15;
     MapTileSpec map_tile_spec = 16;
+    AnswerMessageTileSpec answer_message_tile_spec = 20;
+    AnswerTableTileSpec answer_table_tile_spec = 21;
   }
 }
 

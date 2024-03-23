@@ -67,6 +67,10 @@ const config = {
       __dirname + "/js/apps/nl_interface/main.ts",
       __dirname + "/css/nl_interface.scss",
     ],
+    nl_eval: [
+      __dirname + "/js/apps/nl_eval/main.ts",
+      __dirname + "/css/nl_eval.scss",
+    ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
       __dirname + "/css/ranking.scss",
@@ -74,6 +78,10 @@ const config = {
     browser: [
       __dirname + "/js/browser/browser.ts",
       __dirname + "/css/browser.scss",
+    ],
+    biomedical_landing: [
+      __dirname + "/js/biomedical/landing/main.ts",
+      __dirname + "/css/biomedical/biomedical_landing.scss",
     ],
     disease: [
       __dirname + "/js/biomedical/disease/disease.ts",

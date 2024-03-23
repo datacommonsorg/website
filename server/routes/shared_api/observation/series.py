@@ -15,9 +15,10 @@
 from flask import Blueprint
 from flask import request
 
-from server import cache
 from server.lib import fetch
 from server.lib import shared
+from server.lib.cache import cache
+from server.routes import TIMEOUT
 
 # Maximum number of concurrent series the server will fetch
 _MAX_BATCH_SIZE = 5000
@@ -38,7 +39,7 @@ bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
 
 
 @bp.route('', strict_slashes=False)
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def series():
   """Handler to get preferred time series given multiple stat vars and entities."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
@@ -52,7 +53,7 @@ def series():
 
 
 @bp.route('/all')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def series_all():
   """Handler to get all the time series given multiple stat vars and places."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
@@ -65,7 +66,7 @@ def series_all():
 
 
 @bp.route('/within')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def series_within():
   """Gets the observation for child entities of a certain place
   type contained in a parent entity at a given date.
@@ -101,7 +102,7 @@ def series_within():
 
 
 @bp.route('/within/all')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def series_within_all():
   """Gets the observation for child entities of a certain place
   type contained in a parent entity at a given date.

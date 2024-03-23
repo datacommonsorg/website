@@ -13,8 +13,6 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-import logging
-import re
 from typing import Dict, Set, Tuple
 
 from server.config.subject_page_pb2 import Block
@@ -55,15 +53,16 @@ class Builder:
 
     metadata = self.page_config.metadata
     # TODO: Revisit this choice.
-    main_place = uttr.rankedCharts[0].places[0]
-    metadata.place_dcid.append(main_place.dcid)
-    for ch in uttr.rankedCharts:
-      if (ch.chart_type == ChartType.MAP_CHART or
-          ch.chart_type == ChartType.RANKING_WITH_MAP or
-          ch.chart_type == ChartType.SCATTER_CHART):
-        metadata.contained_place_types[main_place.place_type] = \
-          ch.place_type
-        break
+    if uttr.rankedCharts[0].places:
+      main_place = uttr.rankedCharts[0].places[0]
+      metadata.place_dcid.append(main_place.dcid)
+      for ch in uttr.rankedCharts:
+        if (ch.chart_type == ChartType.MAP_CHART or
+            ch.chart_type == ChartType.RANKING_WITH_MAP or
+            ch.chart_type == ChartType.SCATTER_CHART):
+          metadata.contained_place_types[main_place.place_type] = \
+            ch.place_type
+          break
 
     self.category = self.page_config.categories.add()
     self.block = None
@@ -222,10 +221,8 @@ def is_sv_percapita(sv_name: str, sv_dcid: str) -> bool:
 
 def is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
   if len(cspec.places) > 1:
-    logging.error(f'Incompatible MAP/RANKING: too-many-places {cspec}')
     return False
   if not cspec.place_type:
-    logging.error(f'Incompatible MAP/RANKING: missing-place-type {cspec}')
     return False
   return True
 
@@ -233,6 +230,12 @@ def is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
 def place_overview_block(column):
   tile = column.tiles.add()
   tile.type = Tile.TileType.PLACE_OVERVIEW
+
+
+def entity_overview_block(column, entity):
+  tile = column.tiles.add()
+  tile.type = Tile.TileType.ENTITY_OVERVIEW
+  tile.entities.extend([entity.dcid])
 
 
 # Delete duplicate charts and cleanup any empties.
