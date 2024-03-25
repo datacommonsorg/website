@@ -345,6 +345,14 @@ def get_nl_chart_titles():
   return chart_titles
 
 
+# Returns display titles for properties used in NL
+def get_nl_prop_titles():
+  filepath = os.path.join(get_repo_root(), "config", "nl_page",
+                          "prop_titles.json")
+  with open(filepath, 'r') as f:
+    return json.load(f)
+
+
 # Returns a set of SVs that should not have Per-capita.
 # TODO: Eventually read this from KG.
 def get_nl_no_percapita_vars():

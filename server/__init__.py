@@ -376,6 +376,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     app.config['SDG_PERCENT_VARS'] = libutil.get_sdg_percent_vars()
     app.config['SPECIAL_DC_NON_COUNTRY_ONLY_VARS'] = \
       libutil.get_special_dc_non_countery_only_vars()
+    app.config['NL_PROP_TITLES'] = libutil.get_nl_prop_titles()
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()

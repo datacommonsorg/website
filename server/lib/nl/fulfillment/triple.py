@@ -14,7 +14,8 @@
 
 from typing import List
 
-from server.lib.nl.common.constants import OUT_PROP_DISPLAY_NAME
+from flask import current_app
+
 from server.lib.nl.common.utterance import ChartType
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.fulfillment.types import ChartVars
@@ -37,15 +38,17 @@ _IN_TITLE = '{entity} is the {property} for:'
 # TODO: revisit how titles should be displayed
 def _get_title(entities: List[Entity], prop_expression: str) -> str:
   entity_str = ', '.join([e.name or e.dcid for e in entities])
-  if prop_expression in OUT_PROP_DISPLAY_NAME or prop_expression.startswith(
-      _OUT_ARROW):
-    prop_display_name = OUT_PROP_DISPLAY_NAME.get(
-        prop_expression, prop_expression[len(_OUT_ARROW):])
-    title_format_str = _OUT_TITLE
-  else:
+  override_title_format = current_app.config['NL_PROP_TITLES'].get(
+      prop_expression, {}).get('titleFormat', '')
+  if override_title_format:
+    return override_title_format.format(entity=entity_str)
+  elif prop_expression.startswith(_OUT_ARROW):
+    prop_display_name = prop_expression[len(_OUT_ARROW):]
+    return _OUT_TITLE.format(property=prop_display_name, entity=entity_str)
+  elif prop_expression.startswith(_IN_ARROW):
     prop_display_name = prop_expression[len(_IN_ARROW):]
-    title_format_str = _IN_TITLE
-  return title_format_str.format(property=prop_display_name, entity=entity_str)
+    return _IN_TITLE.format(property=prop_display_name, entity=entity_str)
+  return ''
 
 
 # Adds chart for a property expression if values exist for that expression
@@ -77,7 +80,7 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
   chart_added = False
   # TODO: consider messaging if top matches fail existence
   for prop in uttr.properties:
-    if '->' in prop or '<-' in prop:
+    if _OUT_ARROW in prop or _IN_ARROW in prop:
       chart_added |= _populate_prop_expression(uttr, prop)
     else:
       for direction_arrow in [_OUT_ARROW, _IN_ARROW]:
