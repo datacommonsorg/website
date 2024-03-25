@@ -21,7 +21,7 @@ import torch
 
 import nl_server.loader as loader
 import nl_server.routes as routes
-import server.lib.gcp as lib_gcp
+import shared.lib.gcp as lib_gcp
 
 
 def create_app():

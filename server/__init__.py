@@ -29,7 +29,6 @@ from server.lib import topic_cache
 import server.lib.cache as lib_cache
 import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
-import server.lib.gcp as lib_gcp
 import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
@@ -38,6 +37,7 @@ import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
+import shared.lib.gcp as lib_gcp
 
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
