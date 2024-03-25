@@ -35,6 +35,10 @@ import { CHART_ID, DOM_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
 import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 
+function getPlaces(tileConfig: TileConfig, place: string): string[] {
+  return tileConfig.comparisonPlaces || [place];
+}
+
 function getTileProp(
   id: string,
   tileConfig: TileConfig,
@@ -45,16 +49,16 @@ function getTileProp(
 ): BarTilePropType {
   const barTileSpec = tileConfig.barTileSpec || {};
   return {
-    id,
-    title: tileConfig.title,
-    places: tileConfig.comparisonPlaces || [place],
-    enclosedPlaceType,
-    variables: statVarSpec,
     apiRoot,
-    svgChartHeight: SVG_HEIGHT,
-    useLollipop: barTileSpec.useLollipop || false,
-    stacked: barTileSpec.stacked || false,
+    id,
+    enclosedPlaceType,
     horizontal: barTileSpec.horizontal || false,
+    places: getPlaces(tileConfig, place),
+    stacked: barTileSpec.stacked || false,
+    svgChartHeight: SVG_HEIGHT,
+    title: tileConfig.title,
+    useLollipop: barTileSpec.useLollipop || false,
+    variables: statVarSpec,
   };
 }
 
@@ -116,11 +120,14 @@ export async function getBarTileResult(
     }
     const result: TileResult = {
       data_csv: dataGroupsToCsv(chartData.dataGroup),
+      placeType: enclosedPlaceType,
+      places: getPlaces(tileConfig, place),
       srcs: getSources(chartData.sources),
       legend,
       title: chartTitle,
       type: "BAR",
       unit: chartData.unit,
+      vars: statVarSpec.map((spec) => spec.statVar),
     };
     if (useChartUrl) {
       result.chartUrl = getChartUrl(

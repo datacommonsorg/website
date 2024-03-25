@@ -18,7 +18,9 @@
  * Util functions used by node js server
  */
 
+import _ from "lodash";
 import * as xmlserializer from "xmlserializer";
+import * as zlib from "zlib";
 
 import { SVGNS, XLINKNS } from "../js/constants/svg_constants";
 import { StatVarSpec } from "../js/shared/types";
@@ -28,13 +30,15 @@ import {
   TileConfig,
 } from "../js/types/subject_page_proto_types";
 import {
-  CHART_URL_PARAMS,
+  CHART_PARAMS,
+  COMPRESSED_VAL_ENCODING,
   FONT_FAMILY,
   FONT_SIZE,
   SVG_HEIGHT,
   SVG_PADDING,
   SVG_WIDTH,
 } from "./constants";
+import { ChartProps } from "./types";
 
 /**
  * Gets a list of source objects with name and url from a set of source urls.
@@ -72,8 +76,23 @@ export function getProcessedSvg(
   //                 Need to switch to dynamically setting svg size.
   const svgWidth = SVG_WIDTH + 2 * SVG_PADDING;
   const svgHeight = height + 2 * SVG_PADDING;
-  chartSvg.setAttribute("width", `${svgWidth}px`);
-  chartSvg.setAttribute("height", `${svgHeight}px`);
+  chartSvg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
+  chartSvg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+  // Add a white background by adding a white rect element
+  const backgroundElement = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "rect"
+  );
+  backgroundElement.setAttribute("width", `${svgWidth + SVG_PADDING}`);
+  backgroundElement.setAttribute("height", `${svgHeight + SVG_PADDING}`);
+  backgroundElement.setAttribute(
+    "transform",
+    `translate(-${SVG_PADDING}, -${SVG_PADDING})`
+  );
+  backgroundElement.setAttribute("fill", "white");
+  chartSvg.insertBefore(backgroundElement, chartSvg.firstChild);
+
   if (!isDisasterMapTile) {
     // Disaster event map tiles are already centered in the SVG.
     // Translate to center all other tile types.
@@ -123,13 +142,20 @@ export function getChartUrl(
   urlRoot: string,
   apikey?: string
 ): string {
+  const tileConfigParamVal = _.cloneDeep(tileConfig);
+  // tile config that gets passed in the url doesn't need statVarKey because
+  // it's used to generate the statVarSpec which itself gets passed in the url.
+  delete tileConfigParamVal.statVarKey;
+  const chartProps: ChartProps = {
+    enclosedPlaceType,
+    eventTypeSpec,
+    place: placeDcid,
+    statVarSpec,
+    tileConfig: tileConfigParamVal,
+  };
   const paramMapping = {
-    [CHART_URL_PARAMS.EVENT_TYPE_SPEC]: JSON.stringify(eventTypeSpec),
-    [CHART_URL_PARAMS.PLACE]: placeDcid,
-    [CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE]: enclosedPlaceType,
-    [CHART_URL_PARAMS.STAT_VAR_SPEC]: JSON.stringify(statVarSpec),
-    [CHART_URL_PARAMS.TILE_CONFIG]: JSON.stringify(tileConfig),
-    [CHART_URL_PARAMS.API_KEY]: apikey,
+    [CHART_PARAMS.API_KEY]: apikey,
+    [CHART_PARAMS.PROPS]: compressChartProps(chartProps),
   };
   let url = `${urlRoot}/nodejs/chart?`;
   Object.keys(paramMapping)
@@ -141,7 +167,29 @@ export function getChartUrl(
       }
       url += `${idx === 0 ? "" : "&"}${paramKey}=${paramVal}`;
     });
-  // manually escape the # because encodeURI will not escape it
-  url = url.replaceAll("#", "%23");
   return encodeURI(url);
+}
+
+export function compressChartProps(chartProps: ChartProps): string {
+  const chartPropsStr = JSON.stringify(chartProps);
+  let compressedStr = zlib.deflateSync(chartPropsStr).toString("base64");
+  // base64 encoding includes the characters +/= which need to be manually
+  // escaped.
+  for (const c in COMPRESSED_VAL_ENCODING) {
+    compressedStr = compressedStr.replaceAll(c, COMPRESSED_VAL_ENCODING[c]);
+  }
+  return compressedStr;
+}
+
+export function decompressChartProps(propString: string): ChartProps {
+  let decompressedStr = propString;
+  for (const c in COMPRESSED_VAL_ENCODING) {
+    decompressedStr = decompressedStr.replaceAll(COMPRESSED_VAL_ENCODING[c], c);
+  }
+  // Convert all the manually escaped characters back to their original
+  // characters.
+  decompressedStr = zlib
+    .inflateSync(Buffer.from(decompressedStr, "base64"))
+    .toString();
+  return JSON.parse(decompressedStr);
 }

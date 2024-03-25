@@ -132,13 +132,12 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   }, [props, barChartData]);
 
   useDrawOnResize(drawFn, chartContainerRef.current);
-
   return (
     <ChartTileContainer
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
-      sources={barChartData && barChartData.sources}
+      sources={props.sources || (barChartData && barChartData.sources)}
       replacementStrings={getReplacementStrings(barChartData)}
       className={`${props.className} bar-chart`}
       allowEmbed={true}
@@ -252,8 +251,10 @@ export const fetchData = async (props: BarTilePropType) => {
 
     const placeNames = await getPlaceNames(
       Array.from(popPoints).map((x) => x.placeDcid),
-      props.apiRoot,
-      props.placeNameProp
+      {
+        apiRoot: props.apiRoot,
+        prop: props.placeNameProp,
+      }
     );
     const placeType =
       "enclosedPlaceType" in props

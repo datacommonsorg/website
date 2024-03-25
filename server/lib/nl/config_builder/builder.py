@@ -12,17 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
 import time
-from typing import cast
+from typing import cast, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.explore.params import DCNames
-from server.lib.explore.params import is_sdg
+from server.lib.explore.params import is_special_dc
 from server.lib.explore.params import Params
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
 from server.lib.nl.common.constants import PROJECTED_TEMP_TOPIC
 from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.config_builder import answer
 from server.lib.nl.config_builder import bar
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import event
@@ -38,12 +40,34 @@ from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.types import SV2Thing
 
 
+@dataclass
+class BuilderResult:
+  page_config: SubjectPageConfig = None
+  page_msg: str = ''
+
+
+# Given a list of charts, get the page level message to show for these charts.
+# If all charts have the same message, will return that message. Otherwise,
+# return an empty message.
+def _get_page_level_msg(charts: List[ChartSpec]) -> str:
+  msg = ''
+  for idx, cspec in enumerate(charts):
+    cspec = cast(ChartSpec, cspec)
+    if idx == 0:
+      msg = cspec.info_message
+    elif cspec.info_message != msg:
+      msg = ''
+      break
+  return msg
+
+
 #
 # Given an Utterance, build the final Chart config proto.
+# Returns the chart config proto and user message (empty if no message to show).
 #
-def build(state: PopulateState, config: Config) -> SubjectPageConfig:
+def build(state: PopulateState, config: Config) -> BuilderResult:
   if not state.uttr.rankedCharts:
-    return None
+    return BuilderResult()
 
   dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
   # Get names of all SVs
@@ -68,16 +92,35 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
   )
   state.sv2thing = sv2thing
   # In SDG mode, override the place names with `unDataLabel` values.
-  if is_sdg(state.uttr.insight_ctx):
+  if is_special_dc(state.uttr.insight_ctx):
     _set_un_labels_in_places(state)
   uttr.counters.timeit('get_sv_details', start)
 
   builder = base.Builder(uttr, sv2thing, config)
+  user_message = _get_page_level_msg(uttr.rankedCharts)
 
   # Build chart blocks
   for cspec in uttr.rankedCharts:
     cspec = cast(ChartSpec, cspec)
     cv = cspec.chart_vars
+    # if there is a user message, that means every chart spec had the same info
+    # message and we should show the message at the page level instead of block
+    # level.
+    if user_message:
+      cspec.info_message = ''
+
+    if cspec.chart_type == ChartType.ANSWER:
+      if len(cspec.props) > 1 or len(cspec.entities) > 1:
+        # TODO: handle this case
+        state.uttr.counters.err("answer_failed_unsupported_case", 1)
+        continue
+      else:
+        answer.answer_message_block(builder, cspec)
+
+    if cspec.chart_type == ChartType.ENTITY_OVERVIEW:
+      block = builder.new_chart(cspec, skip_title=True)
+      base.entity_overview_block(block.columns.add(), cspec.entities[0])
+
     if not cspec.places:
       continue
     stat_var_spec_map = {}
@@ -99,7 +142,8 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
             sv2thing=sv2thing,
             cv=cv,
             single_date=cspec.single_date,
-            date_range=cspec.date_range)
+            date_range=cspec.date_range,
+            sv_place_facet_id=cspec.sv_place_facet_id)
       elif len(cspec.places) > 1:
         stat_var_spec_map = timeline.multi_place_single_var_timeline_block(
             builder=builder,
@@ -109,7 +153,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
             cspec=cspec)
       else:
         block = builder.new_chart(cspec)
-        if cspec.is_sdg:
+        if cspec.is_special_dc:
           # Return highlight before timeline for SDG.
           stat_var_spec_map.update(
               highlight.highlight_block(block.columns.add(), cspec.places[0],
@@ -122,8 +166,8 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
             sv2thing=sv2thing,
             single_date=cspec.single_date,
             date_range=cspec.date_range,
-            cv=cv)
-        if not cspec.is_sdg:
+            sv_place_facet_id=cspec.sv_place_facet_id)
+        if not cspec.is_special_dc:
           stat_var_spec_map.update(
               highlight.highlight_block(block.columns.add(), cspec.places[0],
                                         cspec.svs[0], sv2thing,
@@ -144,11 +188,12 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
             svs=cspec.svs,
             sv2thing=sv2thing,
             cv=cv,
-            ranking_types=cspec.ranking_types,
+            sort_order=bar.get_sort_order(state, cspec),
             date=cspec.single_date)
 
     elif cspec.chart_type == ChartType.MAP_CHART:
       if not base.is_map_or_ranking_compatible(cspec):
+        state.uttr.counters.err('chart_builder_map_incompatible', 1)
         continue
       block = builder.new_chart(cspec,
                                 place=cspec.places[0],
@@ -164,6 +209,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
 
     elif cspec.chart_type == ChartType.RANKING_WITH_MAP:
       if not base.is_map_or_ranking_compatible(cspec):
+        state.uttr.counters.err('chart_builder_ranking_incompatible', 1)
         continue
       pri_place = cspec.places[0]
 
@@ -228,7 +274,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
     builder.update_sv_spec(stat_var_spec_map)
 
   builder.finalize()
-  return builder.page_config
+  return BuilderResult(page_config=builder.page_config, page_msg=user_message)
 
 
 def _set_un_labels_in_places(state: PopulateState):

@@ -1,0 +1,3251 @@
+{
+    "wikidataId/Q11725": {
+        "summary": "Chongqing is a city in China. The population in Chongqing was 30,453,000 in 2016."
+    },
+    "wikidataId/Q8686": {
+        "summary": "Shanghai is a city in China. The population in Shanghai was 24,890,000 in 2021. The life expectancy in Shanghai was 80.26 in 2010."
+    },
+    "wikidataId/Q956": {
+        "summary": "Beijing is a city in China. The population in Beijing was 22,427,000 in 2016."
+    },
+    "wikidataId/Q1486": {
+        "summary": "Buenos Aires is a city in Argentina. The population in Buenos Aires was 17,296,000 in 2016."
+    },
+    "wikidataId/Q406": {
+        "summary": "Istanbul is a city in Turkey. The population in Istanbul was 15,462,452 in 2020."
+    },
+    "wikidataId/Q8660": {
+        "summary": "Karachi is a city in Pakistan. The population in Karachi was 14,910,352 in 2017."
+    },
+    "wikidataId/Q1490": {
+        "summary": "Tokyo is a city in Japan. The population in Tokyo was 14,047,594 in 2020."
+    },
+    "wikidataId/Q7473516": {
+        "summary": "Tokyo is a city in Japan. The population in Tokyo was 14,038,000 in 2022. The life expectancy in Tokyo was 84.2 in 2015."
+    },
+    "wikidataId/Q11736": {
+        "summary": "Tianjin is a city in China. The population in Tianjin was 13,730,000 in 2021. The life expectancy in Tianjin was 78.89 in 2010."
+    },
+    "wikidataId/Q649": {
+        "summary": "Moscow is a city in Russia. The population in Moscow was 12,678,100 in 2020. The life expectancy in Moscow was 78.4 in 2019."
+    },
+    "wikidataId/Q174": {
+        "summary": "S\u00e3o Paulo is a city in Brazil. The population in S\u00e3o Paulo was 12,200,180 in 2022."
+    },
+    "wikidataId/Q1156": {
+        "summary": "Mumbai is a city in Maharashtra, India. The population in Mumbai was 11,978,450 in 2001."
+    },
+    "wikidataId/Q42622": {
+        "summary": "Suzhou is a city in China. The population in Suzhou was 10,721,700 in 2018."
+    },
+    "wikidataId/Q3630": {
+        "summary": "Jakarta is a city in Indonesia. The population in Jakarta was 10,680,000 in 2022."
+    },
+    "wikidataId/Q4970": {
+        "summary": "Hangzhou is a city in China. The population in Hangzhou was 10,360,000 in 2019."
+    },
+    "wikidataId/Q1861": {
+        "summary": "Bangkok is a city in Thailand. The population in Bangkok was 9,414,000 in 2016."
+    },
+    "wikidataId/Q8684": {
+        "summary": "Seoul is a city in South Korea. The population in Seoul was 9,411,440 in 2022. The life expectancy in Seoul was 84.8 in 2020."
+    },
+    "wikidataId/Q1489": {
+        "summary": "Mexico City is a city in Mexico. The population in Mexico City was 9,209,944 in 2020. The median age in Mexico City was 35 in 2020. The life expectancy in Mexico City was 76.8 in 2022."
+    },
+    "wikidataId/Q84": {
+        "summary": "London is a city in United Kingdom. The population in London was 8,908,081 in 2018."
+    },
+    "wikidataId/Q1354": {
+        "summary": "Dhaka is a city in Bangladesh. The population in Dhaka was 8,906,035 in 2011."
+    },
+    "wikidataId/Q3616": {
+        "summary": "Tehran is a city in Iran. The population in Tehran was 8,693,706 in 2016."
+    },
+    "wikidataId/Q2868": {
+        "summary": "Lima is a city in Peru. The population in Lima was 8,574,974 in 2017."
+    },
+    "wikidataId/Q16572": {
+        "summary": "Guangzhou is a city in China. The population in Guangzhou was 8,524,826 in 2000."
+    },
+    "wikidataId/Q360584": {
+        "summary": "Fuyang is a city in China. The population in Fuyang was 8,360,000 in 2007."
+    },
+    "geoId/3651000": {
+        "summary": "New York City is a city in New York, United States. The population in New York City was 8,335,897 in 2022. The median age in New York City was 37.3 in 2021. The median income in New York City was $36,302 in 2021. The unemployment rate in New York City was 5.1% in 2023. The percentage of people with obesity in New York City was 27.4% in 2021. The percentage of people who binge drink in New York City was 16.1% in 2021. The percentage of people who smoke in New York City was 14.1% in 2021."
+    },
+    "wikidataId/Q11746": {
+        "summary": "Wuhan is a city in China. The population in Wuhan was 8,312,700 in 2000."
+    },
+    "wikidataId/Q68481": {
+        "summary": "Fuzhou is a city in China. The population in Fuzhou was 7,740,000 in 2018."
+    },
+    "wikidataId/Q134635": {
+        "summary": "Saitama is a city in Japan. The population in Saitama was 7,337,000 in 2022. The life expectancy in Saitama was 83.7 in 2015."
+    },
+    "wikidataId/Q15174": {
+        "summary": "Shenzhen is a city in China. The population in Shenzhen was 7,008,831 in 2000."
+    },
+    "wikidataId/Q125293": {
+        "summary": "Puebla City is a city in Mexico. The population in Puebla City was 6,730,470 in 2022. The life expectancy in Puebla City was 75 in 2021."
+    },
+    "wikidataId/Q8678": {
+        "summary": "Rio de Janeiro is a city in Brazil. The population in Rio de Janeiro was 6,625,849 in 2022."
+    },
+    "wikidataId/Q59218": {
+        "summary": "Dongguan is a city in China. The population in Dongguan was 6,445,777 in 2000."
+    },
+    "wikidataId/Q2887": {
+        "summary": "Santiago is a city in Chile. The population in Santiago was 6,113,930 in 2022."
+    },
+    "wikidataId/Q571918": {
+        "summary": "Yulin is a city in China. The population in Yulin was 5,756,000 in 2016."
+    },
+    "wikidataId/Q360643": {
+        "summary": "Suzhou is a city in China. The population in Suzhou was 5,690,000 in 2007."
+    },
+    "wikidataId/Q3640": {
+        "summary": "Ankara is a city in Turkey. The population in Ankara was 5,663,322 in 2020."
+    },
+    "wikidataId/Q125378": {
+        "summary": "Pudong is a city in China. The population in Pudong was 5,599,600 in 2018."
+    },
+    "wikidataId/Q656": {
+        "summary": "Saint Petersburg is a city in Russia. The population in Saint Petersburg was 5,398,060 in 2020. The life expectancy in Saint Petersburg was 76.3 in 2019."
+    },
+    "wikidataId/Q1963": {
+        "summary": "Khartoum is a city in Sudan. The population in Khartoum was 639,598 in 2014."
+    },
+    "wikidataId/Q11720": {
+        "summary": "Shenyang is a city in China. The population in Shenyang was 5,303,053 in 2000."
+    },
+    "wikidataId/Q3130": {
+        "summary": "Sydney is a city in Australia. The population in Sydney was 5,298,600 in 2022. The life expectancy in Sydney was 84.2 in 2019."
+    },
+    "wikidataId/Q404116": {
+        "summary": "Pingdingshan is a city in China. The population in Pingdingshan was 5,207,700 in 2019."
+    },
+    "wikidataId/Q8673": {
+        "summary": "Lagos is a city in Nigeria. The population in Lagos was 5,195,247 in 1991."
+    },
+    "wikidataId/Q3692": {
+        "summary": "Riyadh is a city in Saudi Arabia. The population in Riyadh was 5,188,286 in 2010."
+    },
+    "wikidataId/Q26600": {
+        "summary": "Fukuoka is a city in Japan. The population in Fukuoka was 5,116,000 in 2022. The life expectancy in Fukuoka was 84.1 in 2015."
+    },
+    "wikidataId/Q497341": {
+        "summary": "Xianyang is a city in China. The population in Xianyang was 5,040,000 in 2003."
+    },
+    "wikidataId/Q3141": {
+        "summary": "Melbourne is a city in Australia. The population in Melbourne was 5,026,080 in 2022. The life expectancy in Melbourne was 84.3 in 2019."
+    },
+    "wikidataId/Q57818": {
+        "summary": "Huai'an is a city in China. The population in Huai'an was 4,799,889 in 2010."
+    },
+    "wikidataId/Q363262": {
+        "summary": "Ji'an is a city in China. The population in Ji'an was 4,759,000 in 2007."
+    },
+    "wikidataId/Q1348": {
+        "summary": "Kolkata is a city in West Bengal, India. The population in Kolkata was 4,572,876 in 2001."
+    },
+    "wikidataId/Q5838": {
+        "summary": "Kabul is a city in Afghanistan. The population in Kabul was 4,434,550 in 2020."
+    },
+    "wikidataId/Q7903": {
+        "summary": "Casablanca is a city in Morocco. The population in Casablanca was 3,359,818 in 2014."
+    },
+    "wikidataId/Q35997": {
+        "summary": "\u0130zmir is a city in Turkey. The population in \u0130zmir was 4,367,251 in 2019."
+    },
+    "wikidataId/Q1960": {
+        "summary": "Dar es Salaam is a city in Tanzania. The population in Dar es Salaam was 4,364,541 in 2012."
+    },
+    "wikidataId/Q1352": {
+        "summary": "Chennai is a city in Tamil Nadu, India. The population in Chennai was 4,343,645 in 2001."
+    },
+    "wikidataId/Q30002": {
+        "summary": "Chengdu is a city in China. The population in Chengdu was 4,333,541 in 2000."
+    },
+    "wikidataId/Q1355": {
+        "summary": "Bengaluru is a city in Karnataka, India. The population in Bengaluru was 4,301,326 in 2001."
+    },
+    "wikidataId/Q87": {
+        "summary": "Alexandria is a city in Egypt. The population in Alexandria was 4,030,582 in 2006."
+    },
+    "wikidataId/Q3805": {
+        "summary": "Amman is a city in Jordan. The population in Amman was 4,007,526 in 2015."
+    },
+    "wikidataId/Q363391": {
+        "summary": "Fuzhou is a city in China. The population in Fuzhou was 3,850,000 in 2007."
+    },
+    "geoId/0644000": {
+        "summary": "Los Angeles is a city in California, United States. The population in Los Angeles was 3,822,238 in 2022. The median age in Los Angeles was 36.2 in 2021. The median income in Los Angeles was $31,822 in 2021. The unemployment rate in Los Angeles was 5.3% in 2023. The percentage of people with obesity in Los Angeles was 29.5% in 2021. The percentage of people who binge drink in Los Angeles was 14.9% in 2021. The percentage of people who smoke in Los Angeles was 11.8% in 2021."
+    },
+    "wikidataId/Q3624": {
+        "summary": "Addis Ababa is a city in Ethiopia. The population in Addis Ababa was 3,804,000 in 2016."
+    },
+    "wikidataId/Q38283": {
+        "summary": "Yokohama is a city in Japan. The population in Yokohama was 3,777,491 in 2020."
+    },
+    "wikidataId/Q61302": {
+        "summary": "Chihuahua is a city in Mexico. The population in Chihuahua was 3,777,480 in 2022. The life expectancy in Chihuahua was 75.5 in 2021."
+    },
+    "nuts/DE3": {
+        "summary": "Berlin is a city in Germany. The population in Berlin was 3,644,826 in 2019. The life expectancy in Berlin was 81 in 2021."
+    },
+    "wikidataId/Q1361": {
+        "summary": "Hyderabad is a city in Telangana, India. The population in Hyderabad was 3,637,483 in 2001."
+    },
+    "wikidataId/Q16666": {
+        "summary": "Nanjing is a city in China. The population in Nanjing was 3,624,234 in 2000."
+    },
+    "wikidataId/Q3787": {
+        "summary": "Abuja is a city in Nigeria. The population in Abuja was 3,564,126 in 2016. The unemployment rate in Abuja was 11.8% in 2010."
+    },
+    "wikidataId/Q1070": {
+        "summary": "Ahmedabad is a city in Gujarat, India. The population in Ahmedabad was 3,520,085 in 2001."
+    },
+    "wikidataId/Q73186": {
+        "summary": "L\u00fcliang is a city in China. The population in L\u00fcliang was 3,500,000 in 2003."
+    },
+    "wikidataId/Q42956": {
+        "summary": "Harbin is a city in China. The population in Harbin was 3,481,504 in 2000."
+    },
+    "wikidataId/Q374365": {
+        "summary": "Jeddah is a city in Saudi Arabia. The population in Jeddah was 3,430,697 in 2010."
+    },
+    "wikidataId/Q16520": {
+        "summary": "Busan is a city in South Korea. The population in Busan was 3,366,000 in 2016."
+    },
+    "wikidataId/Q612": {
+        "summary": "Dubai is a city in United Arab Emirates. The population in Dubai was 3,331,420 in 2019."
+    },
+    "wikidataId/Q74881": {
+        "summary": "Dalian is a city in China. The population in Dalian was 3,245,191 in 2000."
+    },
+    "wikidataId/Q92161": {
+        "summary": "Changchun is a city in China. The population in Changchun was 3,225,557 in 2000."
+    },
+    "wikidataId/Q2807": {
+        "summary": "Madrid is a city in Spain. The population in Madrid was 3,223,334 in 2018."
+    },
+    "wikidataId/Q173985": {
+        "summary": "Faisalabad is a city in Pakistan. The population in Faisalabad was 3,203,846 in 2017."
+    },
+    "wikidataId/Q3870": {
+        "summary": "Nairobi is a city in Kenya. The population in Nairobi was 3,133,518 in 2009."
+    },
+    "wikidataId/Q57958": {
+        "summary": "Zhenjiang is a city in China. The population in Zhenjiang was 3,113,384 in 2010."
+    },
+    "wikidataId/Q3579": {
+        "summary": "Tripoli is a city in Libya. The population in Tripoli was 3,072,000 in 2019."
+    },
+    "wikidataId/Q182852": {
+        "summary": "Kunming is a city in China. The population in Kunming was 3,035,406 in 2000."
+    },
+    "wikidataId/Q172": {
+        "summary": "Toronto is a city in Canada. The population in Toronto was 3,025,650 in 2022."
+    },
+    "wikidataId/Q121157": {
+        "summary": "Mashhad is a city in Iran. The population in Mashhad was 3,001,184 in 2016."
+    },
+    "wikidataId/Q170247": {
+        "summary": "Jinan is a city in China. The population in Jinan was 2,999,934 in 2000."
+    },
+    "wikidataId/Q40738": {
+        "summary": "Bursa is a city in Turkey. The population in Bursa was 2,994,521 in 2018."
+    },
+    "wikidataId/Q192271": {
+        "summary": "Guiyang is a city in China. The population in Guiyang was 2,985,105 in 2000."
+    },
+    "wikidataId/Q1475": {
+        "summary": "Quezon City is a city in Philippines. The population in Quezon City was 2,936,116 in 2015."
+    },
+    "wikidataId/Q1899": {
+        "summary": "Kiev is a city in Ukraine. The population in Kiev was 2,935,239 in 2019."
+    },
+    "wikidataId/Q186006": {
+        "summary": "Dingxi is a city in China. The population in Dingxi was 2,930,000 in 2007."
+    },
+    "wikidataId/Q20934": {
+        "summary": "Incheon is a city in South Korea. The population in Incheon was 2,877,000 in 2016."
+    },
+    "wikidataId/Q220": {
+        "summary": "Rome is a city in Italy. The population in Rome was 2,873,494 in 2017."
+    },
+    "wikidataId/Q204271": {
+        "summary": "San Luis Potos\u00ed is a city in Mexico. The population in San Luis Potos\u00ed was 2,862,950 in 2022. The life expectancy in San Luis Potos\u00ed was 75 in 2021."
+    },
+    "wikidataId/Q198370": {
+        "summary": "Zibo is a city in China. The population in Zibo was 2,817,479 in 2000."
+    },
+    "wikidataId/Q245023": {
+        "summary": "Taichung is a city in Taiwan. The population in Taichung was 2,816,667 in 2020."
+    },
+    "wikidataId/Q180921": {
+        "summary": "Omdurman is a city in Sudan. The population in Omdurman was 2,805,396 in 2012."
+    },
+    "wikidataId/Q269": {
+        "summary": "Tashkent is a city in Uzbekistan. The population in Tashkent was 2,794,000 in 2016."
+    },
+    "wikidataId/Q181557": {
+        "summary": "Kaohsiung is a city in Taiwan. The population in Kaohsiung was 2,773,127 in 2019."
+    },
+    "wikidataId/Q110218": {
+        "summary": "Mwanza is a city in Tanzania. The population in Mwanza was 2,772,509 in 2012."
+    },
+    "wikidataId/Q11462": {
+        "summary": "Surabaya is a city in Indonesia. The population in Surabaya was 2,765,487 in 2010."
+    },
+    "wikidataId/Q35765": {
+        "summary": "\u014csaka is a city in Japan. The population in \u014csaka was 2,752,412 in 2020."
+    },
+    "wikidataId/Q170322": {
+        "summary": "Qingdao is a city in China. The population in Qingdao was 2,720,972 in 2000."
+    },
+    "wikidataId/Q3561": {
+        "summary": "Algiers is a city in Algeria. The population in Algiers was 2,712,944 in 2008."
+    },
+    "geoId/1714000": {
+        "summary": "Chicago is a city in Illinois, United States. The population in Chicago was 2,665,039 in 2022. The median age in Chicago was 35.1 in 2021. The median income in Chicago was $36,261 in 2021. The unemployment rate in Chicago was 4.9% in 2023. The percentage of people with obesity in Chicago was 34.1% in 2021. The percentage of people who binge drink in Chicago was 16.5% in 2021. The percentage of people who smoke in Chicago was 15.1% in 2021."
+    },
+    "wikidataId/Q1867": {
+        "summary": "Taipei is a city in Taiwan. The population in Taipei was 2,646,204 in 2019."
+    },
+    "wikidataId/Q42136": {
+        "summary": "Icheon is a city in South Korea. The population in Icheon was 2,645,189 in 2009."
+    },
+    "wikidataId/Q519810": {
+        "summary": "Longnan is a city in China. The population in Longnan was 2,614,000 in 2007."
+    },
+    "wikidataId/Q36947": {
+        "summary": "Salvador is a city in Brazil. The population in Salvador was 2,610,987 in 2022."
+    },
+    "wikidataId/Q43463": {
+        "summary": "Fortaleza is a city in Brazil. The population in Fortaleza was 2,596,157 in 2022."
+    },
+    "wikidataId/Q376749": {
+        "summary": "Chittagong is a city in Bangladesh. The population in Chittagong was 2,591,681 in 2011."
+    },
+    "wikidataId/Q10392": {
+        "summary": "Bekasi is a city in Indonesia. The population in Bekasi was 2,590,000 in 2022."
+    },
+    "wikidataId/Q30340": {
+        "summary": "Zhengzhou is a city in China. The population in Zhengzhou was 2,589,387 in 2000."
+    },
+    "wikidataId/Q81788": {
+        "summary": "Giza is a city in Egypt. The population in Giza was 2,572,581 in 2006."
+    },
+    "wikidataId/Q3897": {
+        "summary": "Luanda is a city in Angola. The population in Luanda was 2,571,861 in 2020."
+    },
+    "wikidataId/Q72778": {
+        "summary": "Taiyuan is a city in China. The population in Taiyuan was 2,558,382 in 2000."
+    },
+    "wikidataId/Q66568": {
+        "summary": "Kanpur is a city in Uttar Pradesh, India. The population in Kanpur was 2,551,337 in 2001."
+    },
+    "wikidataId/Q571033": {
+        "summary": "Hulunbuir is a city in China. The population in Hulunbuir was 2,549,000 in 2010."
+    },
+    "wikidataId/Q1538": {
+        "summary": "Pune is a city in Maharashtra, India. The population in Pune was 2,538,473 in 2001."
+    },
+    "wikidataId/Q37995": {
+        "summary": "Yangon is a city in Myanmar. The population in Yangon was 2,513,023 in 1983."
+    },
+    "wikidataId/Q533764": {
+        "summary": "Qingyang is a city in China. The population in Qingyang was 2,500,000 in 2007."
+    },
+    "wikidataId/Q708605": {
+        "summary": "Binhai New Area is a city in China. The population in Binhai New Area was 2,482,065 in 2010."
+    },
+    "wikidataId/Q2844": {
+        "summary": "Bras\u00edlia is a city in Brazil. The population in Bras\u00edlia was 2,481,272 in 2010."
+    },
+    "wikidataId/Q20927": {
+        "summary": "Daegu is a city in South Korea. The population in Daegu was 2,465,268 in 2017."
+    },
+    "wikidataId/Q10389": {
+        "summary": "Bandung is a city in Indonesia. The population in Bandung was 2,462,000 in 2022."
+    },
+    "wikidataId/Q6487": {
+        "summary": "Antalya is a city in Turkey. The population in Antalya was 2,426,356 in 2018."
+    },
+    "wikidataId/Q42800": {
+        "summary": "Belo Horizonte is a city in Brazil. The population in Belo Horizonte was 2,392,678 in 2022."
+    },
+    "wikidataId/Q572231": {
+        "summary": "Chongzuo is a city in China. The population in Chongzuo was 2,369,000 in 2007."
+    },
+    "wikidataId/Q496837": {
+        "summary": "Lincang is a city in China. The population in Lincang was 2,368,000 in 2007."
+    },
+    "wikidataId/Q59223": {
+        "summary": "Zhongshan is a city in China. The population in Zhongshan was 2,363,322 in 2000."
+    },
+    "wikidataId/Q34932": {
+        "summary": "Brisbane is a city in Australia. The population in Brisbane was 2,360,241 in 2016."
+    },
+    "wikidataId/Q11751": {
+        "summary": "Nagoya is a city in Japan. The population in Nagoya was 2,332,176 in 2020."
+    },
+    "wikidataId/Q66485": {
+        "summary": "Jaipur is a city in Rajasthan, India. The population in Jaipur was 2,322,575 in 2001."
+    },
+    "geoId/4835000": {
+        "summary": "Houston is a city in Texas, United States. The population in Houston was 2,302,878 in 2022. The median age in Houston was 33.7 in 2021. The median income in Houston was $31,672 in 2021. The unemployment rate in Houston was 4.2% in 2023. The percentage of people with obesity in Houston was 38% in 2021. The percentage of people who binge drink in Houston was 17.1% in 2021. The percentage of people who smoke in Houston was 17.2% in 2021."
+    },
+    "wikidataId/Q43509": {
+        "summary": "Guayaquil is a city in Ecuador. The population in Guayaquil was 2,291,158 in 2010."
+    },
+    "wikidataId/Q572140": {
+        "summary": "Laibin is a city in China. The population in Laibin was 2,272,000 in 2007."
+    },
+    "wikidataId/Q115256": {
+        "summary": "Taoyuan City is a city in Taiwan. The population in Taoyuan City was 2,245,059 in 2019."
+    },
+    "wikidataId/Q79857": {
+        "summary": "Konya is a city in Turkey. The population in Konya was 2,161,303 in 2016."
+    },
+    "wikidataId/Q3183": {
+        "summary": "Perth is a city in Australia. The population in Perth was 2,220,490 in 2022. The life expectancy in Perth was 83.9 in 2019."
+    },
+    "wikidataId/Q48278": {
+        "summary": "Medell\u00edn is a city in Colombia. The population in Medell\u00edn was 2,183,557 in 2005."
+    },
+    "wikidataId/Q182984": {
+        "summary": "Kano is a city in Nigeria. The population in Kano was 2,166,554 in 1991."
+    },
+    "wikidataId/Q179691": {
+        "summary": "Niigata is a city in Japan. The population in Niigata was 2,153,000 in 2022. The life expectancy in Niigata was 84.1 in 2015."
+    },
+    "wikidataId/Q1563": {
+        "summary": "Havana is a city in Cuba. The population in Havana was 2,129,553 in 2017."
+    },
+    "wikidataId/Q10396": {
+        "summary": "Depok is a city in Indonesia. The population in Depok was 2,123,000 in 2022."
+    },
+    "wikidataId/Q174091": {
+        "summary": "Changsha is a city in China. The population in Changsha was 2,122,873 in 2000."
+    },
+    "wikidataId/Q2449": {
+        "summary": "Mogadishu is a city in Somalia. The population in Mogadishu was 2,120,000 in 2015."
+    },
+    "nuts/FR101": {
+        "summary": "Paris is a city in France. The population in Paris was 2,160,928 in 2019. The life expectancy in Paris was 82.76 in 2020."
+    },
+    "wikidataId/Q5972": {
+        "summary": "Medan is a city in Indonesia. The population in Medan was 2,097,610 in 2010."
+    },
+    "wikidataId/Q183584": {
+        "summary": "Lanzhou is a city in China. The population in Lanzhou was 2,087,759 in 2000."
+    },
+    "wikidataId/Q3866": {
+        "summary": "Dodoma is a city in Tanzania. The population in Dodoma was 2,083,588 in 2012."
+    },
+    "wikidataId/Q3766": {
+        "summary": "Damascus is a city in Syria. The population in Damascus was 2,079,000 in 2019."
+    },
+    "wikidataId/Q40236": {
+        "summary": "Manaus is a city in Brazil. The population in Manaus was 2,054,731 in 2022."
+    },
+    "wikidataId/Q68744": {
+        "summary": "Xiamen is a city in China. The population in Xiamen was 2,053,070 in 2000."
+    },
+    "wikidataId/Q1513": {
+        "summary": "Nagpur is a city in Maharashtra, India. The population in Nagpur was 2,052,066 in 2001."
+    },
+    "wikidataId/Q51103": {
+        "summary": "Cali is a city in Colombia. The population in Cali was 2,039,626 in 2005."
+    },
+    "wikidataId/Q570937": {
+        "summary": "Ordos City is a city in China. The population in Ordos City was 2,035,653 in 2014."
+    },
+    "wikidataId/Q133118": {
+        "summary": "\u015eanl\u0131urfa is a city in Turkey. The population in \u015eanl\u0131urfa was 2,031,425 in 2018."
+    },
+    "wikidataId/Q243322": {
+        "summary": "Gujranwala is a city in Pakistan. The population in Gujranwala was 2,027,001 in 2017."
+    },
+    "wikidataId/Q128849": {
+        "summary": "Nagano is a city in Japan. The population in Nagano was 2,020,000 in 2022. The life expectancy in Nagano was 84.8 in 2015."
+    },
+    "wikidataId/Q147187": {
+        "summary": "Zaozhuang is a city in China. The population in Zaozhuang was 1,996,798 in 2000."
+    },
+    "wikidataId/Q2280": {
+        "summary": "Minsk is a city in Belarus. The population in Minsk was 1,974,819 in 2017."
+    },
+    "wikidataId/Q37951": {
+        "summary": "Sapporo is a city in Japan. The population in Sapporo was 1,973,395 in 2020."
+    },
+    "wikidataId/Q1113311": {
+        "summary": "Peshawar is a city in Pakistan. The population in Peshawar was 1,970,042 in 2017."
+    },
+    "wikidataId/Q58401": {
+        "summary": "Shijiazhuang is a city in China. The population in Shijiazhuang was 1,969,975 in 2000."
+    },
+    "wikidataId/Q42053": {
+        "summary": "Isfahan is a city in Iran. The population in Isfahan was 1,961,260 in 2016."
+    },
+    "wikidataId/Q92277": {
+        "summary": "Jilin City is a city in China. The population in Jilin City was 1,953,134 in 2000."
+    },
+    "wikidataId/Q744673": {
+        "summary": "Gode is a city in Ethiopia. The population in Gode was 1,950,782 in 2016."
+    },
+    "wikidataId/Q1342853": {
+        "summary": "Pizhou is a city in China. The population in Pizhou was 1,943,600 in 2018."
+    },
+    "wikidataId/Q373346": {
+        "summary": "Linyi is a city in China. The population in Linyi was 1,938,510 in 2000."
+    },
+    "nuts/AT13": {
+        "summary": "Vienna is a city in Austria. The population in Vienna was 1,897,491 in 2019. The life expectancy in Vienna was 80.19 in 2021."
+    },
+    "wikidataId/Q72818": {
+        "summary": "Haiphong is a city in Vietnam. The population in Haiphong was 1,927,000 in 2016."
+    },
+    "wikidataId/Q42635": {
+        "summary": "Wenzhou is a city in China. The population in Wenzhou was 1,915,548 in 2000."
+    },
+    "wikidataId/Q44830": {
+        "summary": "Tochigi is a city in Japan. The population in Tochigi was 1,909,000 in 2022. The life expectancy in Tochigi was 83.2 in 2015."
+    },
+    "wikidataId/Q132830": {
+        "summary": "Douala is a city in Cameroon. The population in Douala was 1,907,479 in 2005."
+    },
+    "wikidataId/Q10127": {
+        "summary": "Tangerang is a city in Indonesia. The population in Tangerang was 1,895,486 in 2020."
+    },
+    "wikidataId/Q19660": {
+        "summary": "Bucharest is a city in Romania. The population in Bucharest was 1,883,425 in 2011."
+    },
+    "wikidataId/Q140631": {
+        "summary": "Tainan is a city in Taiwan. The population in Tainan was 1,881,204 in 2019."
+    },
+    "wikidataId/Q185453": {
+        "summary": "Multan is a city in Pakistan. The population in Multan was 1,871,843 in 2017."
+    },
+    "wikidataId/Q4361": {
+        "summary": "Curitiba is a city in Brazil. The population in Curitiba was 1,871,789 in 2022."
+    },
+    "wikidataId/Q112813": {
+        "summary": "Durango is a city in Mexico. The population in Durango was 1,863,200 in 2022. The life expectancy in Durango was 75.3 in 2021."
+    },
+    "nuts/DE6": {
+        "summary": "Hamburg is a city in Germany. The population in Hamburg was 1,841,179 in 2019. The life expectancy in Hamburg was 81.1 in 2021."
+    },
+    "wikidataId/Q171943": {
+        "summary": "Nanchang is a city in China. The population in Nanchang was 1,844,253 in 2000."
+    },
+    "wikidataId/Q362865": {
+        "summary": "Pingxiang is a city in China. The population in Pingxiang was 1,840,000 in 2007."
+    },
+    "wikidataId/Q183298": {
+        "summary": "Ibadan is a city in Nigeria. The population in Ibadan was 1,835,300 in 1991."
+    },
+    "wikidataId/Q41183": {
+        "summary": "Aleppo is a city in Syria. The population in Aleppo was 1,850,000 in 2018."
+    },
+    "wikidataId/Q3844": {
+        "summary": "Brazzaville is a city in Congo [Republic]. The population in Brazzaville was 1,827,000 in 2014."
+    },
+    "wikidataId/Q3808": {
+        "summary": "Yaound\u00e9 is a city in Cameroon. The population in Yaound\u00e9 was 1,817,524 in 2005."
+    },
+    "wikidataId/Q134291": {
+        "summary": "Mersin is a city in Turkey. The population in Mersin was 955,106 in 2014."
+    },
+    "wikidataId/Q83387": {
+        "summary": "Diyarbak\u0131r is a city in Turkey. The population in Diyarbak\u0131r was 1,783,431 in 2020."
+    },
+    "wikidataId/Q1461": {
+        "summary": "Manila is a city in Philippines. The population in Manila was 1,780,148 in 2015."
+    },
+    "wikidataId/Q35493": {
+        "summary": "Almaty is a city in Kazakhstan. The population in Almaty was 1,776,650 in 2017."
+    },
+    "wikidataId/Q426996": {
+        "summary": "Nanchong is a city in China. The population in Nanchong was 1,771,920 in 2000."
+    },
+    "wikidataId/Q194165": {
+        "summary": "Irbid is a city in Jordan. The population in Irbid was 1,770,158 in 2015."
+    },
+    "wikidataId/Q38545": {
+        "summary": "Adana is a city in Turkey. The population in Adana was 1,768,860 in 2019."
+    },
+    "wikidataId/Q179608": {
+        "summary": "Nanning is a city in China. The population in Nanning was 1,766,701 in 2000."
+    },
+    "nuts/PL127": {
+        "summary": "Warsaw is a city in Poland. The population in Warsaw was 1,764,615 in 2017."
+    },
+    "wikidataId/Q15235969": {
+        "summary": "Khajuraho Hanuman inscription is a city in Madhya Pradesh, India. The population in Khajuraho Hanuman inscription was 1,762,857 in 2011."
+    },
+    "wikidataId/Q1207076": {
+        "summary": "Tengzhou is a city in China. The population in Tengzhou was 1,756,300 in 2019."
+    },
+    "nuts/HU101": {
+        "summary": "Budapest is a city in Hungary. The population in Budapest was 1,756,056 in 2016."
+    },
+    "wikidataId/Q16959": {
+        "summary": "\u00dcr\u00fcmqi is a city in China. The population in \u00dcr\u00fcmqi was 1,753,298 in 2000."
+    },
+    "wikidataId/Q3881": {
+        "summary": "Lusaka is a city in Zambia. The population in Lusaka was 1,747,152 in 2010."
+    },
+    "wikidataId/Q571126": {
+        "summary": "Bayannur is a city in China. The population in Bayannur was 1,741,900 in 2007."
+    },
+    "wikidataId/Q1640079": {
+        "summary": "Hyderabad is a city in Pakistan. The population in Hyderabad was 1,732,693 in 2017."
+    },
+    "wikidataId/Q71468": {
+        "summary": "Tianmen City is a city in China. The population in Tianmen City was 1,731,482 in 2014."
+    },
+    "wikidataId/Q182059": {
+        "summary": "Kumasi is a city in Ghana. The population in Kumasi was 1,730,249 in 2010."
+    },
+    "wikidataId/Q984788": {
+        "summary": "Haidong is a city in China. The population in Haidong was 1,726,100 in 2019."
+    },
+    "wikidataId/Q210493": {
+        "summary": "Yantai is a city in China. The population in Yantai was 1,724,404 in 2000."
+    },
+    "wikidataId/Q199889": {
+        "summary": "Kumamoto is a city in Japan. The population in Kumamoto was 1,718,000 in 2022. The life expectancy in Kumamoto was 84.5 in 2015."
+    },
+    "wikidataId/Q58422": {
+        "summary": "Tangshan is a city in China. The population in Tangshan was 1,711,311 in 2000."
+    },
+    "wikidataId/Q57719": {
+        "summary": "Xuzhou is a city in China. The population in Xuzhou was 1,679,626 in 2000."
+    },
+    "wikidataId/Q569907": {
+        "summary": "Baotou is a city in China. The population in Baotou was 1,671,181 in 2000."
+    },
+    "wikidataId/Q11025": {
+        "summary": "Semarang is a city in Indonesia. The population in Semarang was 1,660,000 in 2022."
+    },
+    "wikidataId/Q185684": {
+        "summary": "Hefei is a city in China. The population in Hefei was 1,659,075 in 2000."
+    },
+    "wikidataId/Q37100": {
+        "summary": "Auckland is a city in New Zealand. The population in Auckland was 1,657,200 in 2017."
+    },
+    "wikidataId/Q171632": {
+        "summary": "Maracaibo is a city in Venezuela. The population in Maracaibo was 1,653,215 in 2015."
+    },
+    "geoId/0455000": {
+        "summary": "Phoenix is a city in Arizona, United States. The population in Phoenix was 1,644,409 in 2022. The median age in Phoenix was 34.1 in 2021. The median income in Phoenix was $34,427 in 2021. The unemployment rate in Phoenix was 3.6% in 2023. The percentage of people with obesity in Phoenix was 32.6% in 2021. The percentage of people who binge drink in Phoenix was 16.9% in 2021. The percentage of people who smoke in Phoenix was 16% in 2021."
+    },
+    "wikidataId/Q1492": {
+        "summary": "Barcelona is a city in Spain. The population in Barcelona was 1,620,343 in 2018."
+    },
+    "wikidataId/Q2900": {
+        "summary": "Quito is a city in Ecuador. The population in Quito was 1,619,146 in 2010."
+    },
+    "wikidataId/Q71401": {
+        "summary": "Suizhou is a city in China. The population in Suizhou was 1,598,752 in 2000."
+    },
+    "wikidataId/Q3761": {
+        "summary": "Accra is a city in Ghana. The population in Accra was 1,594,419 in 2010."
+    },
+    "wikidataId/Q36529": {
+        "summary": "Karaj is a city in Iran. The population in Karaj was 1,592,492 in 2016."
+    },
+    "wikidataId/Q404763": {
+        "summary": "Nanyang is a city in China. The population in Nanyang was 1,584,715 in 2000."
+    },
+    "wikidataId/Q1478": {
+        "summary": "Caloocan is a city in Philippines. The population in Caloocan was 1,583,978 in 2015."
+    },
+    "wikidataId/Q1990163": {
+        "summary": "Narayanganj is a city in Bangladesh. The population in Narayanganj was 1,572,386 in 2012."
+    },
+    "wikidataId/Q42780": {
+        "summary": "Ningbo is a city in China. The population in Ningbo was 1,567,499 in 2000."
+    },
+    "geoId/4260000": {
+        "summary": "Philadelphia is a city in Pennsylvania, United States. The population in Philadelphia was 1,567,258 in 2022. The median age in Philadelphia was 34.8 in 2021. The median income in Philadelphia was $30,080 in 2021. The unemployment rate in Philadelphia was 3.9% in 2023. The percentage of people with obesity in Philadelphia was 32.1% in 2021. The percentage of people who binge drink in Philadelphia was 17.1% in 2021. The percentage of people who smoke in Philadelphia was 20.4% in 2021."
+    },
+    "wikidataId/Q6397066": {
+        "summary": "Shiraz is a city in Iran. The population in Shiraz was 1,565,572 in 2016."
+    },
+    "wikidataId/Q360702": {
+        "summary": "Lu'an is a city in China. The population in Lu'an was 1,559,037 in 2000."
+    },
+    "wikidataId/Q80053": {
+        "summary": "Tabriz is a city in Iran. The population in Tabriz was 1,558,693 in 2016."
+    },
+    "wikidataId/Q74957": {
+        "summary": "Anshan is a city in China. The population in Anshan was 1,556,285 in 2000."
+    },
+    "wikidataId/Q159273": {
+        "summary": "Arequipa is a city in Peru. The population in Arequipa was 1,553,990 in 2022. The life expectancy in Arequipa was 76.27 in 2013."
+    },
+    "wikidataId/Q1028116": {
+        "summary": "Xinghua is a city in China. The population in Xinghua was 1,542,600 in 2019."
+    },
+    "wikidataId/Q205922": {
+        "summary": "Qiqihar is a city in China. The population in Qiqihar was 1,540,089 in 2000."
+    },
+    "wikidataId/Q164234": {
+        "summary": "Kawasaki is a city in Japan. The population in Kawasaki was 1,538,262 in 2020."
+    },
+    "wikidataId/Q217681": {
+        "summary": "Tai'an is a city in China. The population in Tai'an was 1,538,211 in 2000."
+    },
+    "wikidataId/Q5806": {
+        "summary": "Mecca is a city in Saudi Arabia. The population in Mecca was 1,534,731 in 2010."
+    },
+    "wikidataId/Q72877": {
+        "summary": "Datong is a city in China. The population in Datong was 1,526,744 in 2000."
+    },
+    "wikidataId/Q48320": {
+        "summary": "K\u014dbe is a city in Japan. The population in K\u014dbe was 1,525,152 in 2020."
+    },
+    "wikidataId/Q1015805": {
+        "summary": "Changshu is a city in China. The population in Changshu was 1,515,900 in 2018."
+    },
+    "wikidataId/Q883": {
+        "summary": "Novosibirsk is a city in Russia. The population in Novosibirsk was 1,511,369 in 2012."
+    },
+    "wikidataId/Q9022": {
+        "summary": "Guadalajara is a city in Mexico. The population in Guadalajara was 1,509,338 in 2021."
+    },
+    "wikidataId/Q3894": {
+        "summary": "Kampala is a city in Uganda. The population in Kampala was 1,507,114 in 2014."
+    },
+    "wikidataId/Q706161": {
+        "summary": "Cixi City is a city in China. The population in Cixi City was 1,502,000 in 2017."
+    },
+    "wikidataId/Q814748": {
+        "summary": "Beiliu is a city in China. The population in Beiliu was 1,500,000 in 2016."
+    },
+    "wikidataId/Q48344": {
+        "summary": "Recife is a city in Brazil. The population in Recife was 1,494,586 in 2022."
+    },
+    "wikidataId/Q340": {
+        "summary": "Montreal is a city in Canada. The population in Montreal was 1,492,520 in 2021."
+    },
+    "wikidataId/Q58273": {
+        "summary": "Taizhou is a city in China. The population in Taizhou was 1,491,963 in 2000."
+    },
+    "wikidataId/Q187136": {
+        "summary": "Luoyang is a city in China. The population in Luoyang was 1,491,680 in 2000."
+    },
+    "nuts/DE212": {
+        "summary": "Munich is a city in Germany. The population in Munich was 1,471,508 in 2019. The life expectancy in Munich was 83.11 in 2020."
+    },
+    "wikidataId/Q3921": {
+        "summary": "Harare is a city in Zimbabwe. The population in Harare was 1,485,231 in 2012."
+    },
+    "wikidataId/Q1375351": {
+        "summary": "Fengcheng is a city in China. The population in Fengcheng was 1,480,000 in 2019."
+    },
+    "wikidataId/Q1374728": {
+        "summary": "Lianjiang is a city in China. The population in Lianjiang was 1,476,200 in 2013."
+    },
+    "wikidataId/Q3777": {
+        "summary": "Ouagadougou is a city in Burkina Faso. The population in Ouagadougou was 1,475,223 in 2006."
+    },
+    "geoId/4865000": {
+        "summary": "San Antonio is a city in Texas, United States. The population in San Antonio was 1,472,909 in 2022. The median age in San Antonio was 33.9 in 2021. The median income in San Antonio was $29,688 in 2021. The unemployment rate in San Antonio was 3.2% in 2023. The percentage of people with obesity in San Antonio was 39.9% in 2021. The percentage of people who binge drink in San Antonio was 16.9% in 2021. The percentage of people who smoke in San Antonio was 14.6% in 2021."
+    },
+    "wikidataId/Q20921": {
+        "summary": "Daejeon is a city in South Korea. The population in Daejeon was 1,471,560 in 2022. The life expectancy in Daejeon was 83.5 in 2020."
+    },
+    "wikidataId/Q328615": {
+        "summary": "Okinawa is a city in Japan. The population in Okinawa was 1,468,000 in 2022. The life expectancy in Okinawa was 83.9 in 2015."
+    },
+    "wikidataId/Q34600": {
+        "summary": "Kyoto is a city in Japan. The population in Kyoto was 1,463,723 in 2020."
+    },
+    "wikidataId/Q41283": {
+        "summary": "Gwangju is a city in South Korea. The population in Gwangju was 1,463,410 in 2022. The life expectancy in Gwangju was 83 in 2020."
+    },
+    "wikidataId/Q8131": {
+        "summary": "Palembang is a city in Indonesia. The population in Palembang was 1,455,284 in 2010."
+    },
+    "wikidataId/Q205119": {
+        "summary": "Cajamarca is a city in Peru. The population in Cajamarca was 1,454,220 in 2022. The life expectancy in Cajamarca was 72.94 in 2013."
+    },
+    "wikidataId/Q23430": {
+        "summary": "Ulaanbaatar is a city in Mongolia. The population in Ulaanbaatar was 1,451,710 in 2017."
+    },
+    "wikidataId/Q1519": {
+        "summary": "Abu Dhabi is a city in United Arab Emirates. The population in Abu Dhabi was 1,450,000 in 2018."
+    },
+    "wikidataId/Q80989": {
+        "summary": "Bhopal is a city in Madhya Pradesh, India. The population in Bhopal was 1,437,354 in 2001."
+    },
+    "wikidataId/Q75026": {
+        "summary": "Fushun is a city in China. The population in Fushun was 1,434,447 in 2000."
+    },
+    "wikidataId/Q404817": {
+        "summary": "Shangqiu is a city in China. The population in Shangqiu was 1,428,983 in 2000."
+    },
+    "wikidataId/Q14634": {
+        "summary": "Makassar is a city in Indonesia. The population in Makassar was 1,427,600 in 2021."
+    },
+    "wikidataId/Q604625": {
+        "summary": "Guyuan is a city in China. The population in Guyuan was 1,426,000 in 2007."
+    },
+    "wikidataId/Q42651": {
+        "summary": "Wuxi is a city in China. The population in Wuxi was 1,425,766 in 2000."
+    },
+    "wikidataId/Q713357": {
+        "summary": "Rui'an is a city in China. The population in Rui'an was 1,424,667 in 2010."
+    },
+    "wikidataId/Q42308": {
+        "summary": "Kharkiv is a city in Ukraine. The population in Kharkiv was 1,419,469 in 2017."
+    },
+    "wikidataId/Q5112": {
+        "summary": "Adelaide is a city in Australia. The population in Adelaide was 1,415,880 in 2022. The life expectancy in Adelaide was 83 in 2019."
+    },
+    "wikidataId/Q83189": {
+        "summary": "Goi\u00e2nia is a city in Brazil. The population in Goi\u00e2nia was 1,414,483 in 2022."
+    },
+    "wikidataId/Q571808": {
+        "summary": "Guigang is a city in China. The population in Guigang was 1,413,128 in 2000."
+    },
+    "wikidataId/Q535534": {
+        "summary": "Hohhot is a city in China. The population in Hohhot was 1,406,955 in 2000."
+    },
+    "wikidataId/Q40269": {
+        "summary": "Porto Alegre is a city in Brazil. The population in Porto Alegre was 1,404,269 in 2022."
+    },
+    "wikidataId/Q200123": {
+        "summary": "Ludhiana is a city in Punjab, India. The population in Ludhiana was 1,398,467 in 2001."
+    },
+    "wikidataId/Q426756": {
+        "summary": "Neijiang is a city in China. The population in Neijiang was 1,391,931 in 2000."
+    },
+    "wikidataId/Q48338": {
+        "summary": "Kayseri is a city in Turkey. The population in Kayseri was 1,061,942 in 2014."
+    },
+    "wikidataId/Q699777": {
+        "summary": "Yueqing is a city in China. The population in Yueqing was 1,389,332 in 2010."
+    },
+    "wikidataId/Q887": {
+        "summary": "Yekaterinburg is a city in Russia. The population in Yekaterinburg was 1,386,909 in 2012."
+    },
+    "wikidataId/Q184409": {
+        "summary": "Guarulhos is a city in Brazil. The population in Guarulhos was 1,383,272 in 2022."
+    },
+    "wikidataId/Q1335": {
+        "summary": "Montevideo is a city in Uruguay. The population in Montevideo was 1,381,228 in 2017."
+    },
+    "geoId/0666000": {
+        "summary": "San Diego is a city in California, United States. The population in San Diego was 1,381,162 in 2022. The median age in San Diego was 35.4 in 2021. The median income in San Diego was $41,491 in 2021. The unemployment rate in San Diego was 4.1% in 2023. The percentage of people with obesity in San Diego was 23.2% in 2021. The percentage of people who binge drink in San Diego was 18.1% in 2021. The percentage of people who smoke in San Diego was 10.5% in 2021."
+    },
+    "wikidataId/Q262208": {
+        "summary": "Fuqing is a city in China. The population in Fuqing was 1,381,000 in 2018."
+    },
+    "wikidataId/Q5582862": {
+        "summary": "Cusco is a city in Peru. The population in Cusco was 1,380,590 in 2022. The life expectancy in Cusco was 70.31 in 2013."
+    },
+    "wikidataId/Q217698": {
+        "summary": "Weifang is a city in China. The population in Weifang was 1,380,300 in 2000."
+    },
+    "wikidataId/Q304848": {
+        "summary": "Daqing is a city in China. The population in Daqing was 1,380,051 in 2000."
+    },
+    "wikidataId/Q2060398": {
+        "summary": "Pingdu is a city in China. The population in Pingdu was 1,377,900 in 2019."
+    },
+    "wikidataId/Q3711": {
+        "summary": "Belgrade is a city in Serbia. The population in Belgrade was 1,374,445 in 2016."
+    },
+    "wikidataId/Q2640092": {
+        "summary": "Jun\u00edn is a city in Peru. The population in Jun\u00edn was 1,374,220 in 2022. The life expectancy in Jun\u00edn was 71.85 in 2013."
+    },
+    "wikidataId/Q3889": {
+        "summary": "Maputo is a city in Mozambique. The population in Maputo was 1,373,000 in 2016."
+    },
+    "nuts/NL310": {
+        "summary": "Utrecht is a city in Netherlands. The population in Utrecht was 1,306,912 in 2019."
+    },
+    "wikidataId/Q1374884": {
+        "summary": "Ningxiang City is a city in China. The population in Ningxiang City was 1,368,117 in 2012."
+    },
+    "wikidataId/Q12829733": {
+        "summary": "Bel\u00e9m is a city in Brazil. The population in Bel\u00e9m was 1,367,336 in 2022."
+    },
+    "wikidataId/Q524250": {
+        "summary": "Wenling is a city in China. The population in Wenling was 1,366,794 in 2010."
+    },
+    "wikidataId/Q80484": {
+        "summary": "Patna is a city in Bihar, India. The population in Patna was 1,366,444 in 2001."
+    },
+    "wikidataId/Q1187144": {
+        "summary": "Dengzhou is a city in China. The population in Dengzhou was 1,366,000 in 2019."
+    },
+    "wikidataId/Q360178": {
+        "summary": "Huainan is a city in China. The population in Huainan was 1,357,228 in 2000."
+    },
+    "wikidataId/Q426644": {
+        "summary": "Suining is a city in China. The population in Suining was 1,355,388 in 2000."
+    },
+    "wikidataId/Q10128": {
+        "summary": "South Tangerang is a city in Indonesia. The population in South Tangerang was 1,354,350 in 2020."
+    },
+    "wikidataId/Q360769": {
+        "summary": "Bozhou is a city in China. The population in Bozhou was 1,351,939 in 2000."
+    },
+    "wikidataId/Q490": {
+        "summary": "Milan is a city in Italy. The population in Milan was 1,351,562 in 2017."
+    },
+    "wikidataId/Q59144": {
+        "summary": "Zhanjiang is a city in China. The population in Zhanjiang was 1,350,665 in 2000."
+    },
+    "wikidataId/Q3859": {
+        "summary": "Kigali is a city in Rwanda. The population in Kigali was 1,348,000 in 2016."
+    },
+    "wikidataId/Q160450": {
+        "summary": "Samsun is a city in Turkey. The population in Samsun was 605,319 in 2013."
+    },
+    "wikidataId/Q58570": {
+        "summary": "Handan is a city in China. The population in Handan was 1,329,734 in 2000."
+    },
+    "wikidataId/Q130514": {
+        "summary": "Luxor is a city in Egypt. The population in Luxor was 1,328,429 in 2020."
+    },
+    "wikidataId/Q26590": {
+        "summary": "Ciudad Ju\u00e1rez is a city in Mexico. The population in Ciudad Ju\u00e1rez was 1,321,004 in 2010."
+    },
+    "wikidataId/Q1022251": {
+        "summary": "Yushu is a city in China. The population in Yushu was 1,304,436 in 2010."
+    },
+    "wikidataId/Q124739": {
+        "summary": "Tijuana is a city in Mexico. The population in Tijuana was 1,300,983 in 2010."
+    },
+    "geoId/4819000": {
+        "summary": "Dallas is a city in Texas, United States. The population in Dallas was 1,299,544 in 2022. The median age in Dallas was 33.1 in 2021. The median income in Dallas was $34,120 in 2021. The unemployment rate in Dallas was 3.4% in 2023. The percentage of people with obesity in Dallas was 36.6% in 2021. The percentage of people who binge drink in Dallas was 17.2% in 2021. The percentage of people who smoke in Dallas was 17.4% in 2021."
+    },
+    "wikidataId/Q2471": {
+        "summary": "Sana'a is a city in Yemen. The population in Sana'a was 1,288,000 in 2016."
+    },
+    "wikidataId/Q38234": {
+        "summary": "Nagasaki is a city in Japan. The population in Nagasaki was 1,283,000 in 2022. The life expectancy in Nagasaki was 83.9 in 2015."
+    },
+    "wikidataId/Q332753": {
+        "summary": "Heze is a city in China. The population in Heze was 1,280,031 in 2000."
+    },
+    "nuts/CZ01": {
+        "summary": "Prague is a city in Czech Republic. The population in Prague was 1,308,632 in 2019. The life expectancy in Prague was 79.2 in 2021."
+    },
+    "wikidataId/Q42941": {
+        "summary": "Agra is a city in Uttar Pradesh, India. The population in Agra was 1,275,134 in 2001."
+    },
+    "wikidataId/Q289693": {
+        "summary": "Sharjah is a city in United Arab Emirates. The population in Sharjah was 1,274,749 in 2019."
+    },
+    "wikidataId/Q1344683": {
+        "summary": "Xintai is a city in China. The population in Xintai was 1,274,200 in 2017."
+    },
+    "wikidataId/Q59100": {
+        "summary": "Shantou is a city in China. The population in Shantou was 1,270,112 in 2000."
+    },
+    "wikidataId/Q10103": {
+        "summary": "Batam is a city in Indonesia. The population in Batam was 1,269,400 in 2022."
+    },
+    "wikidataId/Q207749": {
+        "summary": "Thane is a city in Maharashtra, India. The population in Thane was 1,262,551 in 2001."
+    },
+    "wikidataId/Q862611": {
+        "summary": "Bok\u00e9 Region is a city in Guinea. The population in Bok\u00e9 Region was 1,261,000 in 2016."
+    },
+    "wikidataId/Q197377": {
+        "summary": "Zhangjiagang is a city in China. The population in Zhangjiagang was 1,260,600 in 2018."
+    },
+    "wikidataId/Q891": {
+        "summary": "Nizhny Novgorod is a city in Russia. The population in Nizhny Novgorod was 1,257,260 in 2012."
+    },
+    "wikidataId/Q404873": {
+        "summary": "Xinyang is a city in China. The population in Xinyang was 1,255,750 in 2000."
+    },
+    "wikidataId/Q425492": {
+        "summary": "Luzhou is a city in China. The population in Luzhou was 1,252,884 in 2000."
+    },
+    "wikidataId/Q19316": {
+        "summary": "Bi\u00ean H\u00f2a is a city in Vietnam. The population in Bi\u00ean H\u00f2a was 1,250,800 in 2018."
+    },
+    "wikidataId/Q645183": {
+        "summary": "Dingzhou is a city in China. The population in Dingzhou was 1,249,000 in 2017."
+    },
+    "wikidataId/Q1023796": {
+        "summary": "Rugao is a city in China. The population in Rugao was 1,241,700 in 2018."
+    },
+    "wikidataId/Q1199067": {
+        "summary": "Yongcheng is a city in China. The population in Yongcheng was 1,241,500 in 2019."
+    },
+    "wikidataId/Q1015823": {
+        "summary": "Jiangyin is a city in China. The population in Jiangyin was 1,241,045 in 2010."
+    },
+    "wikidataId/Q189128": {
+        "summary": "Le\u00f3n is a city in Mexico. The population in Le\u00f3n was 1,238,962 in 2010."
+    },
+    "nuts/SOF46": {
+        "summary": "Sofia is a city in Bulgaria. The population in Sofia was 1,236,047 in 2017."
+    },
+    "wikidataId/Q1011138": {
+        "summary": "Yiwu is a city in China. The population in Yiwu was 1,234,015 in 2010."
+    },
+    "wikidataId/Q373234": {
+        "summary": "Laiwu is a city in China. The population in Laiwu was 1,233,525 in 2000."
+    },
+    "wikidataId/Q416669": {
+        "summary": "Yiyang is a city in China. The population in Yiyang was 1,228,881 in 2000."
+    },
+    "wikidataId/Q199723": {
+        "summary": "Bal\u0131kesir is a city in Turkey. The population in Bal\u0131kesir was 1,228,620 in 2019."
+    },
+    "wikidataId/Q216075": {
+        "summary": "C\u1ea7n Th\u01a1 is a city in Vietnam. The population in C\u1ea7n Th\u01a1 was 1,227,000 in 2016."
+    },
+    "wikidataId/Q232842": {
+        "summary": "Puno is a city in Peru. The population in Puno was 1,226,350 in 2022. The life expectancy in Puno was 70.35 in 2013."
+    },
+    "wikidataId/Q580876": {
+        "summary": "Vasai-Virar is a city in Maharashtra, India. The population in Vasai-Virar was 1,221,233 in 2011."
+    },
+    "wikidataId/Q38968": {
+        "summary": "Liuzhou is a city in China. The population in Liuzhou was 1,220,392 in 2000."
+    },
+    "wikidataId/Q205914": {
+        "summary": "Lijiang is a city in China. The population in Lijiang was 1,216,000 in 2007."
+    },
+    "wikidataId/Q3674": {
+        "summary": "Niamey is a city in Niger. The population in Niamey was 1,212,000 in 2016."
+    },
+    "wikidataId/Q8156": {
+        "summary": "Bandar Lampung is a city in Indonesia. The population in Bandar Lampung was 1,209,937 in 2022."
+    },
+    "wikidataId/Q170573": {
+        "summary": "Qom is a city in Iran. The population in Qom was 1,201,158 in 2016."
+    },
+    "wikidataId/Q34664": {
+        "summary": "Hiroshima is a city in Japan. The population in Hiroshima was 1,200,754 in 2020."
+    },
+    "wikidataId/Q68695": {
+        "summary": "Quanzhou is a city in China. The population in Quanzhou was 1,192,286 in 2000."
+    },
+    "wikidataId/Q178945": {
+        "summary": "Bazhong is a city in China. The population in Bazhong was 1,185,862 in 2000."
+    },
+    "wikidataId/Q1365433": {
+        "summary": "Taixing is a city in China. The population in Taixing was 1,185,600 in 2017."
+    },
+    "wikidataId/Q170366": {
+        "summary": "Ahvaz is a city in Iran. The population in Ahvaz was 1,184,788 in 2016."
+    },
+    "wikidataId/Q71247": {
+        "summary": "Jingzhou is a city in China. The population in Jingzhou was 1,177,150 in 2000."
+    },
+    "wikidataId/Q197922": {
+        "summary": "Zhongwei is a city in China. The population in Zhongwei was 1,174,600 in 2019."
+    },
+    "wikidataId/Q105037": {
+        "summary": "Callao is a city in Peru. The population in Callao was 1,171,650 in 2022. The life expectancy in Callao was 77.68 in 2013."
+    },
+    "wikidataId/Q894": {
+        "summary": "Samara is a city in Russia. The population in Samara was 1,170,381 in 2012."
+    },
+    "wikidataId/Q171617": {
+        "summary": "Campinas is a city in Brazil. The population in Campinas was 1,170,247 in 2022."
+    },
+    "wikidataId/Q900": {
+        "summary": "Kazan is a city in Russia. The population in Kazan was 1,168,745 in 2012."
+    },
+    "wikidataId/Q1344848": {
+        "summary": "Yuzhou is a city in China. The population in Yuzhou was 1,167,000 in 2019."
+    },
+    "wikidataId/Q131818": {
+        "summary": "Oran is a city in Algeria. The population in Oran was 1,165,687 in 2008."
+    },
+    "wikidataId/Q1015788": {
+        "summary": "Yixing is a city in China. The population in Yixing was 1,164,275 in 2000."
+    },
+    "wikidataId/Q426130": {
+        "summary": "Mianyang is a city in China. The population in Mianyang was 1,162,962 in 2000."
+    },
+    "wikidataId/Q898": {
+        "summary": "Omsk is a city in Russia. The population in Omsk was 1,158,627 in 2012."
+    },
+    "wikidataId/Q198222": {
+        "summary": "Zhuji is a city in China. The population in Zhuji was 1,157,938 in 2010."
+    },
+    "wikidataId/Q3238": {
+        "summary": "Tegucigalpa is a city in Honduras. The population in Tegucigalpa was 1,157,509 in 2013."
+    },
+    "wikidataId/Q44210": {
+        "summary": "C\u00f3rdoba is a city in Argentina. The population in C\u00f3rdoba was 1,157,507 in 1991."
+    },
+    "wikidataId/Q1026088": {
+        "summary": "Yushu City is a city in China. The population in Yushu City was 1,155,670 in 2000."
+    },
+    "wikidataId/Q227034": {
+        "summary": "Zoucheng is a city in China. The population in Zoucheng was 1,155,400 in 2019."
+    },
+    "wikidataId/Q570829": {
+        "summary": "Chifeng is a city in China. The population in Chifeng was 1,153,723 in 2000."
+    },
+    "wikidataId/Q1284453": {
+        "summary": "Sivasagar is a city in Assam, India. The population in Sivasagar was 1,151,050 in 2011."
+    },
+    "wikidataId/Q80985": {
+        "summary": "Fez is a city in Morocco. The population in Fez was 1,150,131 in 2014."
+    },
+    "wikidataId/Q906": {
+        "summary": "Chelyabinsk is a city in Russia. The population in Chelyabinsk was 1,149,829 in 2012."
+    },
+    "wikidataId/Q373101": {
+        "summary": "Rizhao is a city in China. The population in Rizhao was 1,148,190 in 2000."
+    },
+    "wikidataId/Q533157": {
+        "summary": "Tianshui is a city in China. The population in Tianshui was 1,146,986 in 2000."
+    },
+    "wikidataId/Q42664": {
+        "summary": "Huzhou is a city in China. The population in Huzhou was 1,145,414 in 2000."
+    },
+    "nuts/UKG31": {
+        "summary": "Birmingham is a city in United Kingdom. The population in Birmingham was 1,148,862 in 2019."
+    },
+    "wikidataId/Q147402": {
+        "summary": "Zapopan is a city in Mexico. The population in Zapopan was 1,142,483 in 2010."
+    },
+    "wikidataId/Q1011073": {
+        "summary": "Haicheng is a city in China. The population in Haicheng was 1,142,000 in 2017."
+    },
+    "wikidataId/Q81033": {
+        "summary": "Monterrey is a city in Mexico. The population in Monterrey was 1,135,512 in 2010."
+    },
+    "wikidataId/Q486319": {
+        "summary": "Bijie is a city in China. The population in Bijie was 1,128,230 in 2000."
+    },
+    "wikidataId/Q1344902": {
+        "summary": "Xinyi is a city in China. The population in Xinyi was 1,123,200 in 2019."
+    },
+    "wikidataId/Q426868": {
+        "summary": "Leshan is a city in China. The population in Leshan was 1,120,158 in 2000."
+    },
+    "wikidataId/Q604609": {
+        "summary": "Liling is a city in China. The population in Liling was 1,116,000 in 2017."
+    },
+    "wikidataId/Q713340": {
+        "summary": "Qidong is a city in China. The population in Qidong was 1,115,900 in 2017."
+    },
+    "wikidataId/Q170688": {
+        "summary": "Santa Cruz de la Sierra is a city in Bolivia. The population in Santa Cruz de la Sierra was 1,113,582 in 2001."
+    },
+    "wikidataId/Q41278": {
+        "summary": "Ulsan is a city in South Korea. The population in Ulsan was 1,112,810 in 2022. The life expectancy in Ulsan was 82.7 in 2020."
+    },
+    "wikidataId/Q62823": {
+        "summary": "Barranquilla is a city in Colombia. The population in Barranquilla was 1,109,067 in 2005."
+    },
+    "wikidataId/Q198184": {
+        "summary": "Zhucheng is a city in China. The population in Zhucheng was 1,109,000 in 2018."
+    },
+    "wikidataId/Q199609": {
+        "summary": "\u014cita is a city in Japan. The population in \u014cita was 1,107,000 in 2022. The life expectancy in \u014cita was 84.4 in 2015."
+    },
+    "wikidataId/Q210307": {
+        "summary": "Ciudad Nezahualc\u00f3yotl is a city in Mexico. The population in Ciudad Nezahualc\u00f3yotl was 1,104,585 in 2010."
+    },
+    "wikidataId/Q1357984": {
+        "summary": "Shouguang is a city in China. The population in Shouguang was 1,103,110 in 2018."
+    },
+    "wikidataId/Q18459": {
+        "summary": "Yongin is a city in South Korea. The population in Yongin was 1,100,115 in 2021."
+    },
+    "wikidataId/Q35484": {
+        "summary": "Medina is a city in Saudi Arabia. The population in Medina was 1,100,093 in 2010."
+    },
+    "wikidataId/Q908": {
+        "summary": "Rostov-on-Don is a city in Russia. The population in Rostov-on-Don was 1,100,091 in 2012."
+    },
+    "wikidataId/Q1027889": {
+        "summary": "Dongtai is a city in China. The population in Dongtai was 1,098,100 in 2018."
+    },
+    "wikidataId/Q46747": {
+        "summary": "Sendai is a city in Japan. The population in Sendai was 1,096,704 in 2020."
+    },
+    "wikidataId/Q1011201": {
+        "summary": "Yuyao City is a city in China. The population in Yuyao City was 1,095,000 in 2017."
+    },
+    "wikidataId/Q427367": {
+        "summary": "Guang'an is a city in China. The population in Guang'an was 1,093,103 in 2000."
+    },
+    "wikidataId/Q79980": {
+        "summary": "Varanasi is a city in Uttar Pradesh, India. The population in Varanasi was 1,091,918 in 2001."
+    },
+    "wikidataId/Q57970": {
+        "summary": "Changzhou is a city in China. The population in Changzhou was 1,081,845 in 2000."
+    },
+    "wikidataId/Q200235": {
+        "summary": "Nashik is a city in Maharashtra, India. The population in Nashik was 1,077,236 in 2001."
+    },
+    "wikidataId/Q911": {
+        "summary": "Ufa is a city in Russia. The population in Ufa was 1,075,007 in 2012."
+    },
+    "nuts/DEA23": {
+        "summary": "Cologne is a city in Germany. The population in Cologne was 1,085,664 in 2019. The life expectancy in Cologne was 81.08 in 2020."
+    },
+    "wikidataId/Q1207108": {
+        "summary": "Gongzhuling is a city in China. The population in Gongzhuling was 1,073,000 in 2017."
+    },
+    "wikidataId/Q1880": {
+        "summary": "Concepci\u00f3n is a city in Chile. The population in Concepci\u00f3n was 1,072,100 in 2022."
+    },
+    "wikidataId/Q1930": {
+        "summary": "Ottawa is a city in Canada. The population in Ottawa was 1,071,870 in 2022."
+    },
+    "wikidataId/Q36312": {
+        "summary": "Calgary is a city in Canada. The population in Calgary was 1,070,930 in 2021."
+    },
+    "wikidataId/Q200237": {
+        "summary": "Meerut is a city in Uttar Pradesh, India. The population in Meerut was 1,068,772 in 2001."
+    },
+    "wikidataId/Q10393": {
+        "summary": "Bogor is a city in Indonesia. The population in Bogor was 1,064,000 in 2022."
+    },
+    "wikidataId/Q28441": {
+        "summary": "S\u00e3o Lu\u00eds is a city in Brazil. The population in S\u00e3o Lu\u00eds was 1,061,374 in 2022."
+    },
+    "wikidataId/Q3718": {
+        "summary": "Dakar is a city in Senegal. The population in Dakar was 1,056,009 in 2011."
+    },
+    "wikidataId/Q3780": {
+        "summary": "Freetown is a city in Sierra Leone. The population in Freetown was 1,055,964 in 2015."
+    },
+    "wikidataId/Q200663": {
+        "summary": "Faridabad is a city in Haryana, India. The population in Faridabad was 1,055,938 in 2001."
+    },
+    "wikidataId/Q3274": {
+        "summary": "Managua is a city in Nicaragua. The population in Managua was 1,052,217 in 2019."
+    },
+    "wikidataId/Q29015": {
+        "summary": "Zigong is a city in China. The population in Zigong was 1,051,384 in 2000."
+    },
+    "wikidataId/Q1953": {
+        "summary": "Yerevan is a city in Armenia. The population in Yerevan was 1,049,000 in 2016."
+    },
+    "wikidataId/Q25282": {
+        "summary": "Da Nang is a city in Vietnam. The population in Da Nang was 1,049,000 in 2016."
+    },
+    "wikidataId/Q774508": {
+        "summary": "Jianyang, Sichuan is a city in China. The population in Jianyang, Sichuan was 1,481,180 in 2012."
+    },
+    "wikidataId/Q571766": {
+        "summary": "Qinzhou is a city in China. The population in Qinzhou was 1,035,504 in 2000."
+    },
+    "wikidataId/Q713317": {
+        "summary": "Linhai is a city in China. The population in Linhai was 1,028,813 in 2010."
+    },
+    "wikidataId/Q269960": {
+        "summary": "Shubra El-Kheima is a city in Egypt. The population in Shubra El-Kheima was 1,025,569 in 2006."
+    },
+    "wikidataId/Q616048": {
+        "summary": "Wafangdian is a city in China. The population in Wafangdian was 1,024,876 in 2010."
+    },
+    "wikidataId/Q128883": {
+        "summary": "Jinjiang is a city in China. The population in Jinjiang was 1,024,000 in 2003."
+    },
+    "wikidataId/Q71305": {
+        "summary": "Ezhou is a city in China. The population in Ezhou was 1,023,285 in 2000."
+    },
+    "wikidataId/Q197919": {
+        "summary": "Zhongxiang City is a city in China. The population in Zhongxiang City was 1,022,514 in 2010."
+    },
+    "wikidataId/Q914": {
+        "summary": "Volgograd is a city in Russia. The population in Volgograd was 1,018,762 in 2012."
+    },
+    "wikidataId/Q207030": {
+        "summary": "Ziyang is a city in China. The population in Ziyang was 1,016,034 in 2000."
+    },
+    "wikidataId/Q1362": {
+        "summary": "Islamabad is a city in Pakistan. The population in Islamabad was 1,014,825 in 2017."
+    },
+    "wikidataId/Q217646": {
+        "summary": "Mudanjiang is a city in China. The population in Mudanjiang was 1,014,206 in 2000."
+    },
+    "wikidataId/Q1179105": {
+        "summary": "Daye is a city in China. The population in Daye was 1,014,000 in 2017."
+    },
+    "wikidataId/Q119219": {
+        "summary": "Pimpri-Chinchwad is a city in Maharashtra, India. The population in Pimpri-Chinchwad was 1,012,472 in 2001."
+    },
+    "wikidataId/Q205697": {
+        "summary": "Howrah is a city in West Bengal, India. The population in Howrah was 1,007,532 in 2001."
+    },
+    "wikidataId/Q7786": {
+        "summary": "Pekanbaru is a city in Indonesia. The population in Pekanbaru was 1,007,500 in 2022."
+    },
+    "wikidataId/Q915": {
+        "summary": "Perm is a city in Russia. The population in Perm was 1,007,272 in 2012."
+    },
+    "wikidataId/Q919": {
+        "summary": "Krasnoyarsk is a city in Russia. The population in Krasnoyarsk was 1,006,856 in 2012."
+    },
+    "wikidataId/Q147171": {
+        "summary": "Zaoyang City is a city in China. The population in Zaoyang City was 1,004,741 in 2010."
+    },
+    "wikidataId/Q3037": {
+        "summary": "Kathmandu is a city in Nepal. The population in Kathmandu was 1,003,285 in 2011."
+    },
+    "wikidataId/Q1520": {
+        "summary": "Nur-Sultan is a city in Kazakhstan. The population in Nur-Sultan was 1,001,634 in 2017."
+    },
+    "wikidataId/Q185458": {
+        "summary": "Quetta is a city in Pakistan. The population in Quetta was 1,001,205 in 2017."
+    },
+    "wikidataId/Q678701": {
+        "summary": "Haimen is a city in China. The population in Haimen was 998,200 in 2017."
+    },
+    "wikidataId/Q3426": {
+        "summary": "Voronezh is a city in Russia. The population in Voronezh was 997,447 in 2012."
+    },
+    "wikidataId/Q485918": {
+        "summary": "Liupanshui is a city in China. The population in Liupanshui was 995,055 in 2000."
+    },
+    "wikidataId/Q208318": {
+        "summary": "Kaduna is a city in Nigeria. The population in Kaduna was 993,642 in 1991."
+    },
+    "wikidataId/Q1024662": {
+        "summary": "Xinzheng is a city in China. The population in Xinzheng was 989,900 in 2019."
+    },
+    "wikidataId/Q200016": {
+        "summary": "Visakhapatnam is a city in Andhra Pradesh, India. The population in Visakhapatnam was 982,904 in 2001."
+    },
+    "wikidataId/Q42773": {
+        "summary": "Kunshan is a city in China. The population in Kunshan was 981,300 in 2019."
+    },
+    "wikidataId/Q75091": {
+        "summary": "Benxi is a city in China. The population in Benxi was 980,069 in 2000."
+    },
+    "wikidataId/Q197495": {
+        "summary": "Zhaodong is a city in China. The population in Zhaodong was 980,000 in 2010."
+    },
+    "wikidataId/Q994": {
+        "summary": "Tbilisi is a city in Georgia. The population in Tbilisi was 978,000 in 2016."
+    },
+    "wikidataId/Q9361": {
+        "summary": "Bishkek is a city in Kyrgyzstan. The population in Bishkek was 976,734 in 2017."
+    },
+    "wikidataId/Q266014": {
+        "summary": "Yongzhou is a city in China. The population in Yongzhou was 976,539 in 2000."
+    },
+    "wikidataId/Q162442": {
+        "summary": "Allahabad is a city in Uttar Pradesh, India. The population in Allahabad was 975,393 in 2001."
+    },
+    "wikidataId/Q170616": {
+        "summary": "Chiba is a city in Japan. The population in Chiba was 974,951 in 2020."
+    },
+    "geoId/4805000": {
+        "summary": "Austin is a city in Texas, United States. The population in Austin was 974,447 in 2022. The median age in Austin was 33.9 in 2021. The median income in Austin was $43,993 in 2021. The unemployment rate in Austin was 2.9% in 2023. The percentage of people with obesity in Austin was 28.8% in 2021. The percentage of people who binge drink in Austin was 19.4% in 2021. The percentage of people who smoke in Austin was 11.2% in 2021."
+    },
+    "wikidataId/Q425804": {
+        "summary": "Renqiu is a city in China. The population in Renqiu was 974,000 in 2017."
+    },
+    "wikidataId/Q1359958": {
+        "summary": "Xiangcheng City is a city in China. The population in Xiangcheng City was 973,200 in 2019."
+    },
+    "geoId/1235000": {
+        "summary": "Jacksonville is a city in Florida, United States. The population in Jacksonville was 971,319 in 2022. The median age in Jacksonville was 36.2 in 2021. The median income in Jacksonville was $32,471 in 2021. The unemployment rate in Jacksonville was 3.1% in 2023. The percentage of people with obesity in Jacksonville was 35.2% in 2020. The percentage of people who binge drink in Jacksonville was 16.3% in 2020. The percentage of people who smoke in Jacksonville was 20% in 2020."
+    },
+    "geoId/0668000": {
+        "summary": "San Jose is a city in California, United States. The population in San Jose was 971,233 in 2022. The median age in San Jose was 37.5 in 2021. The median income in San Jose was $46,298 in 2021. The unemployment rate in San Jose was 4% in 2023. The percentage of people with obesity in San Jose was 20.6% in 2021. The percentage of people who binge drink in San Jose was 13.8% in 2021. The percentage of people who smoke in San Jose was 8.7% in 2021."
+    },
+    "wikidataId/Q1207131": {
+        "summary": "Ruzhou is a city in China. The population in Ruzhou was 968,400 in 2019."
+    },
+    "wikidataId/Q207098": {
+        "summary": "Ghaziabad is a city in Uttar Pradesh, India. The population in Ghaziabad was 968,256 in 2001."
+    },
+    "wikidataId/Q1198379": {
+        "summary": "Feicheng is a city in China. The population in Feicheng was 968,100 in 2019."
+    },
+    "wikidataId/Q11854": {
+        "summary": "Rajkot is a city in Gujarat, India. The population in Rajkot was 967,476 in 2001."
+    },
+    "wikidataId/Q48403": {
+        "summary": "Amritsar is a city in Punjab, India. The population in Amritsar was 966,862 in 2001."
+    },
+    "wikidataId/Q34820": {
+        "summary": "Santo Domingo is a city in Dominican Republic. The population in Santo Domingo was 965,040 in 2010."
+    },
+    "wikidataId/Q1360781": {
+        "summary": "Qingzhou is a city in China. The population in Qingzhou was 963,600 in 2017."
+    },
+    "wikidataId/Q170967": {
+        "summary": "Denizli is a city in Turkey. The population in Denizli was 1,027,783 in 2012."
+    },
+    "wikidataId/Q568514": {
+        "summary": "Anqiu is a city in China. The population in Anqiu was 962,000 in 2019."
+    },
+    "wikidataId/Q168888": {
+        "summary": "Macei\u00f3 is a city in Brazil. The population in Macei\u00f3 was 960,667 in 2022."
+    },
+    "wikidataId/Q189138": {
+        "summary": "Hermosillo is a city in Mexico. The population in Hermosillo was 958,425 in 2021."
+    },
+    "wikidataId/Q3838": {
+        "summary": "The population in Kinshasa was 17,071,000 in 2021."
+    },
+    "wikidataId/Q4092880": {
+        "summary": "The population in Greater Tehran was 13,805,000 in 2016."
+    },
+    "wikidataId/Q11739": {
+        "summary": "The population in Lahore was 11,126,285 in 2017."
+    },
+    "wikidataId/Q12184118": {
+        "summary": "The population in Metropolitan Municipality of Lima was 10,986,000 in 2022. The life expectancy in Metropolitan Municipality of Lima was 77.15 in 2013."
+    },
+    "wikidataId/Q2841": {
+        "summary": "The population in Bogot\u00e1 was 7,901,650 in 2022. The life expectancy in Bogot\u00e1 was 79.61 in 2021."
+    },
+    "wikidataId/Q85": {
+        "summary": "The population in Cairo was 7,771,617 in 2006."
+    },
+    "wikidataId/Q1858": {
+        "summary": "The population in Hanoi was 7,542,000 in 2016."
+    },
+    "wikidataId/Q1530": {
+        "summary": "The population in Baghdad was 3,841,268 in 1987."
+    },
+    "wikidataId/Q319660": {
+        "summary": "The population in Mbuji-Mayi was 3,367,582 in 2015."
+    },
+    "wikidataId/Q18808": {
+        "summary": "The population in Pyongyang was 2,863,000 in 2015."
+    },
+    "wikidataId/Q3703": {
+        "summary": "The population in Bamako was 2,523,000 in 2016."
+    },
+    "wikidataId/Q4629": {
+        "summary": "The population in Surat was 2,433,835 in 2001."
+    },
+    "wikidataId/Q47916": {
+        "summary": "The population in Lucknow was 2,185,927 in 2001."
+    },
+    "wikidataId/Q93230": {
+        "summary": "The population in Rawalpindi was 2,098,231 in 2017."
+    },
+    "wikidataId/Q1533": {
+        "summary": "The population in Caracas was 2,082,130 in 2015."
+    },
+    "wikidataId/Q93338": {
+        "summary": "The population in Gaziantep was 2,069,364 in 2019."
+    },
+    "wikidataId/Q205327": {
+        "summary": "The population in Kananga was 1,271,704 in 2015."
+    },
+    "wikidataId/Q3733": {
+        "summary": "The population in Conakry was 1,945,000 in 2016."
+    },
+    "wikidataId/Q168652": {
+        "summary": "The population in Hargeisa was 1,200,000 in 2019."
+    },
+    "wikidataId/Q187593": {
+        "summary": "The population in Lubumbashi was 1,794,118 in 2015."
+    },
+    "wikidataId/Q1850": {
+        "summary": "The population in Phnom Penh was 1,699,000 in 2016."
+    },
+    "wikidataId/Q1473": {
+        "summary": "The population in Davao City was 1,632,991 in 2015."
+    },
+    "wikidataId/Q146723": {
+        "summary": "The population in Kisangani was 1,602,144 in 2015."
+    },
+    "wikidataId/Q15674": {
+        "summary": "The population in Kagoshima was 1,563,000 in 2022. The life expectancy in Kagoshima was 83.6 in 2015."
+    },
+    "wikidataId/Q66616": {
+        "summary": "The population in Indore was 1,474,968 in 2001."
+    },
+    "wikidataId/Q1761": {
+        "summary": "The population in Dublin was 1,458,154 in 2022."
+    },
+    "wikidataId/Q11909": {
+        "summary": "The population in Vadodara was 1,306,227 in 2001."
+    },
+    "wikidataId/Q211070": {
+        "summary": "The population in Mbandaka was 1,187,837 in 2015."
+    },
+    "wikidataId/Q204308": {
+        "summary": "The population in Miyazaki was 1,052,000 in 2022. The life expectancy in Miyazaki was 83.9 in 2015."
+    },
+    "wikidataId/Q1874": {
+        "summary": "The population in Odessa was 993,120 in 2017."
+    },
+    "wikidataId/Q34261": {
+        "summary": "The population in Port-au-Prince was 987,310 in 2015."
+    },
+    "wikidataId/Q48256": {
+        "summary": "The population in Dnipro was 966,400 in 2017."
+    },
+    "geoId/4827000": {
+        "summary": "Fort Worth is a city in Texas, United States. The population in Fort Worth was 956,709 in 2022. The median age in Fort Worth was 33 in 2021. The median income in Fort Worth was $34,728 in 2021. The unemployment rate in Fort Worth was 3.5% in 2023. The percentage of people with obesity in Fort Worth was 36.7% in 2021. The percentage of people who binge drink in Fort Worth was 16.2% in 2021. The percentage of people who smoke in Fort Worth was 16.7% in 2021."
+    },
+    "wikidataId/Q373564": {
+        "summary": "Liaocheng is a city in China. The population in Liaocheng was 950,319 in 2000."
+    },
+    "wikidataId/Q20714": {
+        "summary": "Suwon is a city in South Korea. The population in Suwon was 946,704 in 2000."
+    },
+    "wikidataId/Q180078": {
+        "summary": "Kermanshah is a city in Iran. The population in Kermanshah was 946,651 in 2016."
+    },
+    "wikidataId/Q249007": {
+        "summary": "Wuwei is a city in China. The population in Wuwei was 946,506 in 2000."
+    },
+    "wikidataId/Q1207051": {
+        "summary": "Xiangxiang is a city in China. The population in Xiangxiang was 946,000 in 2017."
+    },
+    "wikidataId/Q61301": {
+        "summary": "Campeche is a city in Mexico. The population in Campeche was 942,597 in 2022. The life expectancy in Campeche was 74.9 in 2021."
+    },
+    "wikidataId/Q1555": {
+        "summary": "Guatemala City is a city in Guatemala. The population in Guatemala City was 942,348 in 2002."
+    },
+    "wikidataId/Q168929": {
+        "summary": "Campo Grande is a city in Brazil. The population in Campo Grande was 942,140 in 2022."
+    },
+    "wikidataId/Q1273644": {
+        "summary": "Pikine is a city in Senegal. The population in Pikine was 941,245 in 2011."
+    },
+    "wikidataId/Q164904": {
+        "summary": "Taishan is a city in China. The population in Taishan was 941,095 in 2010."
+    },
+    "wikidataId/Q188806": {
+        "summary": "Kitaky\u016bsh\u016b is a city in Japan. The population in Kitaky\u016bsh\u016b was 939,029 in 2020."
+    },
+    "wikidataId/Q310114": {
+        "summary": "Khartoum North is a city in Sudan. The population in Khartoum North was 936,349 in 2012."
+    },
+    "wikidataId/Q200878": {
+        "summary": "Jabalpur is a city in Madhya Pradesh, India. The population in Jabalpur was 932,484 in 2001."
+    },
+    "wikidataId/Q485496": {
+        "summary": "Shymkent is a city in Kazakhstan. The population in Shymkent was 932,235 in 2017."
+    },
+    "wikidataId/Q9885": {
+        "summary": "Coimbatore is a city in Tamil Nadu, India. The population in Coimbatore was 930,882 in 2001."
+    },
+    "wikidataId/Q228405": {
+        "summary": "Madurai is a city in Tamil Nadu, India. The population in Madurai was 928,869 in 2001."
+    },
+    "wikidataId/Q101625": {
+        "summary": "Marrakesh is a city in Morocco. The population in Marrakesh was 928,850 in 2014."
+    },
+    "wikidataId/Q363326": {
+        "summary": "Yichun is a city in China. The population in Yichun was 920,357 in 2000."
+    },
+    "wikidataId/Q225641": {
+        "summary": "Mombasa is a city in Kenya. The population in Mombasa was 915,101 in 2009."
+    },
+    "wikidataId/Q42108": {
+        "summary": "Seongnam is a city in South Korea. The population in Seongnam was 914,590 in 2000."
+    },
+    "wikidataId/Q971230": {
+        "summary": "Lichuan is a city in China. The population in Lichuan was 913,700 in 2017."
+    },
+    "wikidataId/Q151958": {
+        "summary": "Yueyang is a city in China. The population in Yueyang was 912,993 in 2000."
+    },
+    "wikidataId/Q28979": {
+        "summary": "Jixi is a city in China. The population in Jixi was 910,782 in 2000."
+    },
+    "geoId/3918000": {
+        "summary": "Columbus is a city in Ohio, United States. The population in Columbus was 907,971 in 2022. The median age in Columbus was 32.5 in 2021. The median income in Columbus was $34,153 in 2021. The unemployment rate in Columbus was 2.9% in 2023. The percentage of people with obesity in Columbus was 38% in 2021. The percentage of people who binge drink in Columbus was 17.7% in 2021. The percentage of people who smoke in Columbus was 19.6% in 2021."
+    },
+    "wikidataId/Q52535": {
+        "summary": "Rosario is a city in Argentina. The population in Rosario was 907,718 in 1991."
+    },
+    "wikidataId/Q289051": {
+        "summary": "Jiaozhou City is a city in China. The population in Jiaozhou City was 907,500 in 2019."
+    },
+    "wikidataId/Q426237": {
+        "summary": "Guangyuan is a city in China. The population in Guangyuan was 905,057 in 2000."
+    },
+    "wikidataId/Q217426": {
+        "summary": "Soweto is a city in South Africa. The population in Soweto was 904,165 in 1996."
+    },
+    "wikidataId/Q58650": {
+        "summary": "Zhangjiakou is a city in China. The population in Zhangjiakou was 903,348 in 2000."
+    },
+    "wikidataId/Q160320": {
+        "summary": "Dammam is a city in Saudi Arabia. The population in Dammam was 903,312 in 2010."
+    },
+    "wikidataId/Q5869": {
+        "summary": "Lhasa is a city in China. The population in Lhasa was 902,500 in 2015."
+    },
+    "wikidataId/Q58584": {
+        "summary": "Baoding is a city in China. The population in Baoding was 902,496 in 2000."
+    },
+    "wikidataId/Q75379": {
+        "summary": "Huludao is a city in China. The population in Huludao was 900,936 in 2000."
+    },
+    "wikidataId/Q170115": {
+        "summary": "Srinagar is a city in Jammu and Kashmir, India. The population in Srinagar was 898,440 in 2001."
+    },
+    "geoId/3712000": {
+        "summary": "Charlotte is a city in North Carolina, United States. The population in Charlotte was 897,720 in 2022. The median age in Charlotte was 34.5 in 2021. The median income in Charlotte was $37,925 in 2021. The unemployment rate in Charlotte was 3.3% in 2023. The percentage of people with obesity in Charlotte was 34.7% in 2021. The percentage of people who binge drink in Charlotte was 17.5% in 2021. The percentage of people who smoke in Charlotte was 13.9% in 2021."
+    },
+    "wikidataId/Q651101": {
+        "summary": "Gaomi is a city in China. The population in Gaomi was 896,444 in 2018."
+    },
+    "wikidataId/Q1601618": {
+        "summary": "Hejian is a city in China. The population in Hejian was 895,000 in 2017."
+    },
+    "wikidataId/Q1344742": {
+        "summary": "Lianyuan is a city in China. The population in Lianyuan was 894,000 in 2017."
+    },
+    "wikidataId/Q167436": {
+        "summary": "Jo\u00e3o Pessoa is a city in Brazil. The population in Jo\u00e3o Pessoa was 889,618 in 2022."
+    },
+    "wikidataId/Q126995": {
+        "summary": "Weinan is a city in China. The population in Weinan was 888,866 in 2000."
+    },
+    "wikidataId/Q54880": {
+        "summary": "Valencia is a city in Venezuela. The population in Valencia was 888,109 in 2015."
+    },
+    "wikidataId/Q168866": {
+        "summary": "Eski\u015fehir is a city in Turkey. The population in Eski\u015fehir was 887,475 in 2019."
+    },
+    "wikidataId/Q495": {
+        "summary": "Turin is a city in Italy. The population in Turin was 886,837 in 2017."
+    },
+    "wikidataId/Q71339": {
+        "summary": "Xiaogan is a city in China. The population in Xiaogan was 883,123 in 2000."
+    },
+    "wikidataId/Q58178": {
+        "summary": "Jiaxing is a city in China. The population in Jiaxing was 881,923 in 2000."
+    },
+    "wikidataId/Q4709": {
+        "summary": "Barquisimeto is a city in Venezuela. The population in Barquisimeto was 881,127 in 2015."
+    },
+    "wikidataId/Q131323": {
+        "summary": "Misrata is a city in Libya. The population in Misrata was 881,000 in 2020."
+    },
+    "geoId/1836003": {
+        "summary": "Indianapolis city (balance) is a city in Indiana, United States. The population in Indianapolis city (balance) was 880,621 in 2022. The median age in Indianapolis city (balance) was 34.3 in 2021. The median income in Indianapolis city (balance) was $32,733 in 2021. The unemployment rate in Indianapolis city (balance) was 3.4% in 2023. The percentage of people with obesity in Indianapolis city (balance) was 37.4% in 2021. The percentage of people who binge drink in Indianapolis city (balance) was 16.7% in 2021. The percentage of people who smoke in Indianapolis city (balance) was 20.7% in 2021."
+    },
+    "wikidataId/Q198266": {
+        "summary": "Zhuzhou is a city in China. The population in Zhuzhou was 879,996 in 2000."
+    },
+    "wikidataId/Q144663": {
+        "summary": "Hengyang is a city in China. The population in Hengyang was 879,051 in 2000."
+    },
+    "wikidataId/Q1229428": {
+        "summary": "Gao'an is a city in China. The population in Gao'an was 878,300 in 2018."
+    },
+    "wikidataId/Q1359268": {
+        "summary": "Honghu is a city in China. The population in Honghu was 877,775 in 2000."
+    },
+    "wikidataId/Q507080": {
+        "summary": "Ciudad Guayana is a city in Venezuela. The population in Ciudad Guayana was 877,547 in 2015."
+    },
+    "wikidataId/Q200713": {
+        "summary": "Aurangabad is a city in Maharashtra, India. The population in Aurangabad was 873,311 in 2001."
+    },
+    "wikidataId/Q237847": {
+        "summary": "Solapur is a city in Maharashtra, India. The population in Solapur was 872,478 in 2001."
+    },
+    "wikidataId/Q371640": {
+        "summary": "Laiyang is a city in China. The population in Laiyang was 872,000 in 2020."
+    },
+    "wikidataId/Q71284": {
+        "summary": "Xiangyang is a city in China. The population in Xiangyang was 871,388 in 2000."
+    },
+    "wikidataId/Q165341": {
+        "summary": "Teresina is a city in Brazil. The population in Teresina was 868,523 in 2022."
+    },
+    "wikidataId/Q271619": {
+        "summary": "Ipoh is a city in Malaysia. The population in Ipoh was 866,772 in 2016."
+    },
+    "wikidataId/Q1367949": {
+        "summary": "Wuxue is a city in China. The population in Wuxue was 864,000 in 2017."
+    },
+    "wikidataId/Q1371411": {
+        "summary": "Hai'an is a city in China. The population in Hai'an was 863,000 in 2019."
+    },
+    "wikidataId/Q23482": {
+        "summary": "Marseille is a city in Metropolitan France, France. The population in Marseille was 861,635 in 2015."
+    },
+    "wikidataId/Q29003": {
+        "summary": "Jiamusi is a city in China. The population in Jiamusi was 859,944 in 2000."
+    },
+    "wikidataId/Q3871": {
+        "summary": "Coquimbo is a city in Chile. The population in Coquimbo was 858,769 in 2022. The life expectancy in Coquimbo was 81.98 in 2021."
+    },
+    "wikidataId/Q1375613": {
+        "summary": "Wu'an is a city in China. The population in Wu'an was 857,000 in 2017."
+    },
+    "wikidataId/Q244004": {
+        "summary": "S\u00e9tif is a city in Algeria. The population in S\u00e9tif was 856,457 in 2008."
+    },
+    "wikidataId/Q69060": {
+        "summary": "Xining is a city in China. The population in Xining was 854,466 in 2000."
+    },
+    "wikidataId/Q200017": {
+        "summary": "Vijayawada is a city in Andhra Pradesh, India. The population in Vijayawada was 851,282 in 2001."
+    },
+    "wikidataId/Q940829": {
+        "summary": "Sirohi is a city in Rajasthan, India. The population in Sirohi was 851,107 in 2012."
+    },
+    "wikidataId/Q466046": {
+        "summary": "Sal\u00e9 is a city in Morocco. The population in Sal\u00e9 was 850,403 in 2014."
+    },
+    "wikidataId/Q572014": {
+        "summary": "Hezhou is a city in China. The population in Hezhou was 850,023 in 2000."
+    },
+    "wikidataId/Q1278514": {
+        "summary": "Hailun is a city in China. The population in Hailun was 850,000 in 2010."
+    },
+    "wikidataId/Q174461": {
+        "summary": "Ranchi is a city in Jharkhand, India. The population in Ranchi was 847,093 in 2001."
+    },
+    "wikidataId/Q496576": {
+        "summary": "Baoshan is a city in China. The population in Baoshan was 846,865 in 2000."
+    },
+    "wikidataId/Q657461": {
+        "summary": "Cartagena is a city in Colombia. The population in Cartagena was 845,801 in 2005."
+    },
+    "wikidataId/Q1211183": {
+        "summary": "Shigatse is a city in China. The population in Shigatse was 845,300 in 2017."
+    },
+    "wikidataId/Q1359997": {
+        "summary": "Gongyi is a city in China. The population in Gongyi was 843,900 in 2019."
+    },
+    "wikidataId/Q666700": {
+        "summary": "Laizhou is a city in China. The population in Laizhou was 843,600 in 2018."
+    },
+    "wikidataId/Q515846": {
+        "summary": "Ankang is a city in China. The population in Ankang was 843,426 in 2000."
+    },
+    "wikidataId/Q1344873": {
+        "summary": "Wugang is a city in China. The population in Wugang was 843,000 in 2017."
+    },
+    "wikidataId/Q3792": {
+        "summary": "Lom\u00e9 is a city in Togo. The population in Lom\u00e9 was 839,566 in 2010."
+    },
+    "wikidataId/Q1357999": {
+        "summary": "Songzi is a city in China. The population in Songzi was 839,000 in 2017."
+    },
+    "wikidataId/Q5332": {
+        "summary": "Saratov is a city in Russia. The population in Saratov was 838,321 in 2012."
+    },
+    "wikidataId/Q171771": {
+        "summary": "Bhubaneswar is a city in Odisha, India. The population in Bhubaneswar was 837,321 in 2011."
+    },
+    "wikidataId/Q1015132": {
+        "summary": "Danzhou is a city in China. The population in Danzhou was 835,465 in 2000."
+    },
+    "wikidataId/Q1018527": {
+        "summary": "Jieshou is a city in China. The population in Jieshou was 834,000 in 2019."
+    },
+    "wikidataId/Q59095": {
+        "summary": "Zhuhai is a city in China. The population in Zhuhai was 833,908 in 2000."
+    },
+    "wikidataId/Q7253": {
+        "summary": "Padang is a city in Indonesia. The population in Padang was 833,562 in 2010."
+    },
+    "wikidataId/Q184403": {
+        "summary": "S\u00e3o Bernardo do Campo is a city in Brazil. The population in S\u00e3o Bernardo do Campo was 832,347 in 2022."
+    },
+    "wikidataId/Q42147": {
+        "summary": "Cheongju is a city in South Korea. The population in Cheongju was 831,635 in 2015."
+    },
+    "wikidataId/Q189823": {
+        "summary": "Haikou is a city in China. The population in Haikou was 830,192 in 2000."
+    },
+    "wikidataId/Q9365": {
+        "summary": "Dushanbe is a city in Tajikistan. The population in Dushanbe was 828,000 in 2016."
+    },
+    "wikidataId/Q158467": {
+        "summary": "Gwalior is a city in Madhya Pradesh, India. The population in Gwalior was 827,026 in 2001."
+    },
+    "wikidataId/Q2096": {
+        "summary": "Edmonton is a city in Canada. The population in Edmonton was 826,785 in 2021."
+    },
+    "wikidataId/Q193428": {
+        "summary": "Sakai is a city in Japan. The population in Sakai was 826,161 in 2020."
+    },
+    "wikidataId/Q2794758": {
+        "summary": "Djelfa is a city in Algeria. The population in Djelfa was 825,411 in 2008."
+    },
+    "wikidataId/Q360942": {
+        "summary": "Xuancheng is a city in China. The population in Xuancheng was 822,707 in 2000."
+    },
+    "wikidataId/Q33986": {
+        "summary": "Valpara\u00edso is a city in Chile. The population in Valpara\u00edso was 821,796 in 2022."
+    },
+    "wikidataId/Q727": {
+        "summary": "Amsterdam is a city in Netherlands. The population in Amsterdam was 821,752 in 2015."
+    },
+    "wikidataId/Q9326": {
+        "summary": "Vientiane is a city in Laos. The population in Vientiane was 820,924 in 2015."
+    },
+    "wikidataId/Q11445": {
+        "summary": "Malang is a city in Indonesia. The population in Malang was 820,243 in 2010."
+    },
+    "wikidataId/Q1374948": {
+        "summary": "Yuanjiang is a city in China. The population in Yuanjiang was 819,000 in 2017."
+    },
+    "wikidataId/Q58560": {
+        "summary": "Qinhuangdao is a city in China. The population in Qinhuangdao was 817,487 in 2000."
+    },
+    "wikidataId/Q1337399": {
+        "summary": "Xinmi is a city in China. The population in Xinmi was 817,000 in 2019."
+    },
+    "wikidataId/Q1204548": {
+        "summary": "Tongxiang is a city in China. The population in Tongxiang was 815,848 in 2010."
+    },
+    "wikidataId/Q1198639": {
+        "summary": "Linzhou is a city in China. The population in Linzhou was 815,000 in 2019."
+    },
+    "wikidataId/Q349976": {
+        "summary": "Yichun is a city in China. The population in Yichun was 814,016 in 2000."
+    },
+    "wikidataId/Q1016726": {
+        "summary": "Qian'an is a city in China. The population in Qian'an was 810,000 in 2017."
+    },
+    "wikidataId/Q199605": {
+        "summary": "Guwahati is a city in Assam, India. The population in Guwahati was 809,895 in 2001."
+    },
+    "wikidataId/Q360069": {
+        "summary": "Bengbu is a city in China. The population in Bengbu was 809,399 in 2000."
+    },
+    "wikidataId/Q427265": {
+        "summary": "Yibin is a city in China. The population in Yibin was 809,099 in 2000."
+    },
+    "geoId/0667000": {
+        "summary": "San Francisco is a city in California, United States. The population in San Francisco was 808,437 in 2022. The median age in San Francisco was 38.7 in 2021. The median income in San Francisco was $59,017 in 2021. The unemployment rate in San Francisco was 3.5% in 2023. The percentage of people with obesity in San Francisco was 19.1% in 2021. The percentage of people who binge drink in San Francisco was 16.4% in 2021. The percentage of people who smoke in San Francisco was 9.2% in 2021."
+    },
+    "wikidataId/Q227061": {
+        "summary": "Zouping is a city in China. The population in Zouping was 808,300 in 2019."
+    },
+    "wikidataId/Q211243": {
+        "summary": "Yinchuan is a city in China. The population in Yinchuan was 807,487 in 2000."
+    },
+    "wikidataId/Q286266": {
+        "summary": "Haining City is a city in China. The population in Haining City was 806,966 in 2017."
+    },
+    "wikidataId/Q925293": {
+        "summary": "Danyang is a city in China. The population in Danyang was 806,300 in 2018."
+    },
+    "wikidataId/Q1643": {
+        "summary": "Taguig is a city in Philippines. The population in Taguig was 804,915 in 2015."
+    },
+    "wikidataId/Q189633": {
+        "summary": "Guilin is a city in China. The population in Guilin was 804,571 in 2000."
+    },
+    "wikidataId/Q855220": {
+        "summary": "Chaohu is a city in China. The population in Chaohu was 803,200 in 2019."
+    },
+    "wikidataId/Q840610": {
+        "summary": "Yamanashi is a city in Japan. The population in Yamanashi was 802,000 in 2022. The life expectancy in Yamanashi was 84.1 in 2015."
+    },
+    "wikidataId/Q188693": {
+        "summary": "Blantyre is a city in Malawi. The population in Blantyre was 800,264 in 2018."
+    },
+    "wikidataId/Q349985": {
+        "summary": "Suihua is a city in China. The population in Suihua was 800,207 in 2000."
+    },
+    "wikidataId/Q185940": {
+        "summary": "Fuyu is a city in China. The population in Fuyu was 800,000 in 2017."
+    },
+    "wikidataId/Q427097": {
+        "summary": "Meishan is a city in China. The population in Meishan was 799,309 in 2000."
+    },
+    "wikidataId/Q2711899": {
+        "summary": "Greater Noida is a city in Uttar Pradesh, India. The population in Greater Noida was 798,395 in 2019."
+    },
+    "wikidataId/Q1012419": {
+        "summary": "Chamdo is a city in China. The population in Chamdo was 798,067 in 2019."
+    },
+    "wikidataId/Q1253949": {
+        "summary": "Gaoyou is a city in China. The population in Gaoyou was 797,752 in 2000."
+    },
+    "wikidataId/Q3861": {
+        "summary": "Doha is a city in Qatar. The population in Doha was 796,947 in 2010."
+    },
+    "wikidataId/Q208471": {
+        "summary": "Kaifeng is a city in China. The population in Kaifeng was 796,171 in 2000."
+    },
+    "wikidataId/Q230146": {
+        "summary": "Zunhua is a city in China. The population in Zunhua was 794,000 in 2017."
+    },
+    "wikidataId/Q570884": {
+        "summary": "Tongliao is a city in China. The population in Tongliao was 793,913 in 2000."
+    },
+    "wikidataId/Q8818": {
+        "summary": "Valencia is a city in Spain. The population in Valencia was 791,413 in 2018."
+    },
+    "wikidataId/Q185125": {
+        "summary": "Hamamatsu is a city in Japan. The population in Hamamatsu was 790,718 in 2020."
+    },
+    "wikidataId/Q1491": {
+        "summary": "La Paz is a city in Bolivia. The population in La Paz was 789,585 in 2001."
+    },
+    "wikidataId/Q1062184": {
+        "summary": "Changyuan City is a city in China. The population in Changyuan City was 789,300 in 2019."
+    },
+    "wikidataId/Q39121": {
+        "summary": "Leeds is a city in United Kingdom. The population in Leeds was 789,194 in 2018."
+    },
+    "wikidataId/Q1754": {
+        "summary": "Stockholm is a city in Sweden. The population in Stockholm was 789,024 in 2007."
+    },
+    "wikidataId/Q372414": {
+        "summary": "Dongying is a city in China. The population in Dongying was 788,844 in 2000."
+    },
+    "wikidataId/Q33412": {
+        "summary": "Hubli is a city in Karnataka, India. The population in Hubli was 786,195 in 2001."
+    },
+    "wikidataId/Q193021": {
+        "summary": "Duque de Caxias is a city in Brazil. The population in Duque de Caxias was 782,799 in 2022."
+    },
+    "wikidataId/Q75110": {
+        "summary": "Dandong is a city in China. The population in Dandong was 780,414 in 2000."
+    },
+    "nuts/PL213": {
+        "summary": "Krak\u00f3w is a city in Poland. The population in Krak\u00f3w was 766,683 in 2019."
+    },
+    "wikidataId/Q362959": {
+        "summary": "Xinyu is a city in China. The population in Xinyu was 778,391 in 2000."
+    },
+    "wikidataId/Q165204": {
+        "summary": "Merida is a city in Mexico. The population in Merida was 777,615 in 2010."
+    },
+    "wikidataId/Q4035": {
+        "summary": "Osasco is a city in Brazil. The population in Osasco was 777,048 in 2022."
+    },
+    "wikidataId/Q191652": {
+        "summary": "Santo Andr\u00e9 is a city in Brazil. The population in Santo Andr\u00e9 was 776,640 in 2022."
+    },
+    "wikidataId/Q812672": {
+        "summary": "Bazhou is a city in China. The population in Bazhou was 776,000 in 2017."
+    },
+    "wikidataId/Q404362": {
+        "summary": "Xinxiang is a city in China. The population in Xinxiang was 775,941 in 2000."
+    },
+    "wikidataId/Q131301": {
+        "summary": "Homs is a city in Syria. The population in Homs was 775,404 in 2017."
+    },
+    "wikidataId/Q125434": {
+        "summary": "Port Elizabeth is a city in South Africa. The population in Port Elizabeth was 775,255 in 1996."
+    },
+    "wikidataId/Q3646": {
+        "summary": "Krasnodar is a city in Russia. The population in Krasnodar was 773,970 in 2012."
+    },
+    "wikidataId/Q57947": {
+        "summary": "Nantong is a city in China. The population in Nantong was 771,386 in 2000."
+    },
+    "wikidataId/Q1360118": {
+        "summary": "Pengzhou is a city in China. The population in Pengzhou was 770,500 in 2014."
+    },
+    "wikidataId/Q324293": {
+        "summary": "Anyang is a city in China. The population in Anyang was 768,992 in 2000."
+    },
+    "wikidataId/Q34412": {
+        "summary": "Foshan is a city in China. The population in Foshan was 768,656 in 2000."
+    },
+    "wikidataId/Q338844": {
+        "summary": "Batna is a city in Algeria. The population in Batna was 768,444 in 2008."
+    },
+    "geoId/3634000": {
+        "summary": "Hempstead is a city in New York, United States. The population in Hempstead was 768,103 in 2018. The unemployment rate in Hempstead was 3.4% in 2023."
+    },
+    "wikidataId/Q122803": {
+        "summary": "Erzurum is a city in Turkey. The population in Erzurum was 767,848 in 2018."
+    },
+    "wikidataId/Q486149": {
+        "summary": "Anshun is a city in China. The population in Anshun was 767,307 in 2000."
+    },
+    "wikidataId/Q234600": {
+        "summary": "Al Ain is a city in United Arab Emirates. The population in Al Ain was 766,936 in 2017."
+    },
+    "wikidataId/Q42061": {
+        "summary": "Goyang is a city in South Korea. The population in Goyang was 763,971 in 2000."
+    },
+    "wikidataId/Q755763": {
+        "summary": "Jijiga is a city in Ethiopia. The population in Jijiga was 763,509 in 2020."
+    },
+    "wikidataId/Q320704": {
+        "summary": "Benin City is a city in Nigeria. The population in Benin City was 762,719 in 1991."
+    },
+    "wikidataId/Q1365505": {
+        "summary": "Liyang is a city in China. The population in Liyang was 762,500 in 2017."
+    },
+    "wikidataId/Q1198038": {
+        "summary": "Laixi is a city in China. The population in Laixi was 762,400 in 2019."
+    },
+    "wikidataId/Q42099": {
+        "summary": "Bucheon is a city in South Korea. The population in Bucheon was 761,389 in 2000."
+    },
+    "wikidataId/Q1207058": {
+        "summary": "Huixian is a city in China. The population in Huixian was 759,900 in 2019."
+    },
+    "nuts/DE712": {
+        "summary": "Frankfurt am Main is a city in Germany. The population in Frankfurt am Main was 753,056 in 2019. The life expectancy in Frankfurt am Main was 81.89 in 2020."
+    },
+    "wikidataId/Q1207099": {
+        "summary": "Linqing is a city in China. The population in Linqing was 759,100 in 2019."
+    },
+    "wikidataId/Q930230": {
+        "summary": "Guangshui is a city in China. The population in Guangshui was 755,910 in 2010."
+    },
+    "wikidataId/Q1028110": {
+        "summary": "Enshi City is a city in China. The population in Enshi City was 755,725 in 2000."
+    },
+    "wikidataId/Q10086": {
+        "summary": "Mysore is a city in Karnataka, India. The population in Mysore was 755,379 in 2001."
+    },
+    "wikidataId/Q1624": {
+        "summary": "Pasig is a city in Philippines. The population in Pasig was 755,300 in 2015."
+    },
+    "wikidataId/Q504394": {
+        "summary": "Hu\u00e1nuco is a city in Peru. The population in Hu\u00e1nuco was 755,213 in 2022. The life expectancy in Hu\u00e1nuco was 71.52 in 2013."
+    },
+    "wikidataId/Q207754": {
+        "summary": "Trichy is a city in Tamil Nadu, India. The population in Trichy was 752,066 in 2001."
+    },
+    "wikidataId/Q132381": {
+        "summary": "Sanhe is a city in China. The population in Sanhe was 752,000 in 2017."
+    },
+    "wikidataId/Q131620": {
+        "summary": "Natal is a city in Brazil. The population in Natal was 751,932 in 2022."
+    },
+    "geoId/5363000": {
+        "summary": "Seattle is a city in Washington, United States. The population in Seattle was 749,256 in 2022. The median age in Seattle was 35.3 in 2021. The median income in Seattle was $56,758 in 2021. The unemployment rate in Seattle was 3.7% in 2023. The percentage of people with obesity in Seattle was 23.8% in 2021. The percentage of people who binge drink in Seattle was 17.6% in 2021. The percentage of people who smoke in Seattle was 8.6% in 2021."
+    },
+    "wikidataId/Q404429": {
+        "summary": "Jiaozuo is a city in China. The population in Jiaozuo was 747,299 in 2000."
+    },
+    "wikidataId/Q157835": {
+        "summary": "Zaporizhzhia is a city in Ukraine. The population in Zaporizhzhia was 746,749 in 2017."
+    },
+    "wikidataId/Q61320": {
+        "summary": "Colima is a city in Mexico. The population in Colima was 744,421 in 2022. The life expectancy in Colima was 75.6 in 2021."
+    },
+    "wikidataId/Q360268": {
+        "summary": "Huaibei is a city in China. The population in Huaibei was 741,195 in 2000."
+    },
+    "wikidataId/Q459360": {
+        "summary": "Cabinda is a city in Angola. The population in Cabinda was 739,182 in 2020."
+    },
+    "wikidataId/Q1020474": {
+        "summary": "Rongcheng is a city in China. The population in Rongcheng was 738,600 in 2019."
+    },
+    "wikidataId/Q188901": {
+        "summary": "Sorocaba is a city in Brazil. The population in Sorocaba was 738,128 in 2022."
+    },
+    "wikidataId/Q1025428": {
+        "summary": "Longhai City is a city in China. The population in Longhai City was 736,400 in 2016."
+    },
+    "wikidataId/Q1198819": {
+        "summary": "Lingbao City is a city in China. The population in Lingbao City was 736,300 in 2019."
+    },
+    "wikidataId/Q997623": {
+        "summary": "Jiyuan is a city in China. The population in Jiyuan was 733,700 in 2019."
+    },
+    "wikidataId/Q10399": {
+        "summary": "Tasikmalaya is a city in Indonesia. The population in Tasikmalaya was 733,000 in 2022."
+    },
+    "wikidataId/Q1200170": {
+        "summary": "Langzhong is a city in China. The population in Langzhong was 728,935 in 2010."
+    },
+    "wikidataId/Q75203": {
+        "summary": "Liaoyang is a city in China. The population in Liaoyang was 728,492 in 2000."
+    },
+    "wikidataId/Q197519": {
+        "summary": "Zhaotong is a city in China. The population in Zhaotong was 727,959 in 2000."
+    },
+    "wikidataId/Q14499": {
+        "summary": "Samarinda is a city in Indonesia. The population in Samarinda was 727,500 in 2010."
+    },
+    "wikidataId/Q11506": {
+        "summary": "Denpasar is a city in Indonesia. The population in Denpasar was 726,800 in 2022."
+    },
+    "wikidataId/Q194328": {
+        "summary": "Uberl\u00e2ndia is a city in Brazil. The population in Uberl\u00e2ndia was 725,536 in 2022."
+    },
+    "wikidataId/Q209779": {
+        "summary": "Sagamihara is a city in Japan. The population in Sagamihara was 725,493 in 2020."
+    },
+    "wikidataId/Q191642": {
+        "summary": "S\u00e3o Jos\u00e9 dos Campos is a city in Brazil. The population in S\u00e3o Jos\u00e9 dos Campos was 725,419 in 2022."
+    },
+    "wikidataId/Q200078": {
+        "summary": "Okayama is a city in Japan. The population in Okayama was 724,691 in 2020."
+    },
+    "wikidataId/Q73156": {
+        "summary": "Linfen is a city in China. The population in Linfen was 724,403 in 2000."
+    },
+    "wikidataId/Q200805": {
+        "summary": "Aguascalientes City is a city in Mexico. The population in Aguascalientes City was 722,250 in 2010."
+    },
+    "wikidataId/Q36036": {
+        "summary": "Lviv is a city in Ukraine. The population in Lviv was 721,301 in 2017."
+    },
+    "wikidataId/Q557934": {
+        "summary": "Anlu is a city in China. The population in Anlu was 720,000 in 2016."
+    },
+    "wikidataId/Q1341": {
+        "summary": "Tolyatti is a city in Russia. The population in Tolyatti was 719,363 in 2012."
+    },
+    "wikidataId/Q274584": {
+        "summary": "San Pedro Sula is a city in Honduras. The population in San Pedro Sula was 719,064 in 2013."
+    },
+    "wikidataId/Q213026": {
+        "summary": "Bareilly is a city in Uttar Pradesh, India. The population in Bareilly was 718,395 in 2001."
+    },
+    "wikidataId/Q198244": {
+        "summary": "Zhuozhou is a city in China. The population in Zhuozhou was 718,000 in 2017."
+    },
+    "wikidataId/Q187346": {
+        "summary": "Constantine is a city in Algeria. The population in Constantine was 717,646 in 2008."
+    },
+    "wikidataId/Q877609": {
+        "summary": "Dengfeng is a city in China. The population in Dengfeng was 717,400 in 2019."
+    },
+    "wikidataId/Q42117": {
+        "summary": "Ansan is a city in South Korea. The population in Ansan was 716,785 in 2018."
+    },
+    "wikidataId/Q58324": {
+        "summary": "Zhoushan is a city in China. The population in Zhoushan was 715,685 in 2000."
+    },
+    "wikidataId/Q938835": {
+        "summary": "Guadalupe is a city in Mexico. The population in Guadalupe was 715,442 in 2021."
+    },
+    "wikidataId/Q58710": {
+        "summary": "Langfang is a city in China. The population in Langfang was 715,388 in 2000."
+    },
+    "wikidataId/Q155277": {
+        "summary": "Tlaquepaque is a city in Mexico. The population in Tlaquepaque was 715,140 in 2021."
+    },
+    "geoId/0820000": {
+        "summary": "Denver is a city in Colorado, United States. The population in Denver was 713,252 in 2022. The median age in Denver was 34.8 in 2021. The median income in Denver was $45,457 in 2021. The unemployment rate in Denver was 3.4% in 2023. The percentage of people with obesity in Denver was 22.4% in 2021. The percentage of people who binge drink in Denver was 21% in 2021. The percentage of people who smoke in Denver was 13% in 2021."
+    },
+    "wikidataId/Q207322": {
+        "summary": "Huambo is a city in Angola. The population in Huambo was 713,134 in 2014."
+    },
+    "wikidataId/Q71266": {
+        "summary": "Yichang is a city in China. The population in Yichang was 712,738 in 2000."
+    },
+    "wikidataId/Q57906": {
+        "summary": "Yangzhou is a city in China. The population in Yangzhou was 711,993 in 2000."
+    },
+    "wikidataId/Q170521": {
+        "summary": "Kashgar City is a city in China. The population in Kashgar City was 711,300 in 2019."
+    },
+    "wikidataId/Q53077": {
+        "summary": "Saltillo is a city in Mexico. The population in Saltillo was 709,671 in 2010."
+    },
+    "wikidataId/Q3612": {
+        "summary": "Antofagasta is a city in Chile. The population in Antofagasta was 709,637 in 2022. The life expectancy in Antofagasta was 79.15 in 2021."
+    },
+    "wikidataId/Q215755": {
+        "summary": "Xiangtan is a city in China. The population in Xiangtan was 707,783 in 2000."
+    },
+    "wikidataId/Q33377": {
+        "summary": "Jalandhar is a city in Punjab, India. The population in Jalandhar was 706,043 in 2001."
+    },
+    "wikidataId/Q61445": {
+        "summary": "Navi Mumbai is a city in Maharashtra, India. The population in Navi Mumbai was 704,002 in 2001."
+    },
+    "wikidataId/Q1331447": {
+        "summary": "Gaizhou is a city in China. The population in Gaizhou was 704,000 in 2017."
+    },
+    "wikidataId/Q14492": {
+        "summary": "Balikpapan is a city in Indonesia. The population in Balikpapan was 703,600 in 2022."
+    },
+    "wikidataId/Q217432": {
+        "summary": "Port Harcourt is a city in Nigeria. The population in Port Harcourt was 703,421 in 1991."
+    },
+    "wikidataId/Q1205127": {
+        "summary": "Shulan is a city in China. The population in Shulan was 703,000 in 2017."
+    },
+    "wikidataId/Q188892": {
+        "summary": "Ribeir\u00e3o Preto is a city in Brazil. The population in Ribeir\u00e3o Preto was 702,739 in 2022."
+    },
+    "wikidataId/Q200030": {
+        "summary": "Latakia is a city in Syria. The population in Latakia was 700,000 in 2009."
+    },
+    "wikidataId/Q1062018": {
+        "summary": "Changge is a city in China. The population in Changge was 698,600 in 2019."
+    },
+    "wikidataId/Q75150": {
+        "summary": "Yingkou is a city in China. The population in Yingkou was 698,059 in 2000."
+    },
+    "wikidataId/Q1171889": {
+        "summary": "Dashiqiao is a city in China. The population in Dashiqiao was 698,000 in 2017."
+    },
+    "wikidataId/Q359990": {
+        "summary": "Wuhu is a city in China. The population in Wuhu was 697,197 in 2000."
+    },
+    "wikidataId/Q9863": {
+        "summary": "Salem is a city in Tamil Nadu, India. The population in Salem was 696,760 in 2001."
+    },
+    "wikidataId/Q580": {
+        "summary": "\u0141\u00f3d\u017a is a city in Poland. The population in \u0141\u00f3d\u017a was 696,708 in 2016."
+    },
+    "geoId/4055000": {
+        "summary": "Oklahoma City is a city in Oklahoma, United States. The population in Oklahoma City was 694,800 in 2022. The median age in Oklahoma City was 34.9 in 2021. The median income in Oklahoma City was $34,017 in 2021. The unemployment rate in Oklahoma City was 3.1% in 2023. The percentage of people with obesity in Oklahoma City was 38% in 2021. The percentage of people who binge drink in Oklahoma City was 13.1% in 2021. The percentage of people who smoke in Oklahoma City was 18.2% in 2021."
+    },
+    "wikidataId/Q349982": {
+        "summary": "Hegang is a city in China. The population in Hegang was 694,640 in 2000."
+    },
+    "wikidataId/Q330531": {
+        "summary": "Kota is a city in Rajasthan, India. The population in Kota was 694,316 in 2001."
+    },
+    "wikidataId/Q170762": {
+        "summary": "Cuiab\u00e1 is a city in Brazil. The population in Cuiab\u00e1 was 694,244 in 2022."
+    },
+    "wikidataId/Q174691": {
+        "summary": "Shizuoka is a city in Japan. The population in Shizuoka was 693,389 in 2020."
+    },
+    "geoId/4752000": {
+        "summary": "Nashville is a city in Tennessee, United States. The population in Nashville was 692,587 in 2018."
+    },
+    "wikidataId/Q10126": {
+        "summary": "Serang is a city in Indonesia. The population in Serang was 692,101 in 2020."
+    },
+    "wikidataId/Q28994": {
+        "summary": "Zunyi is a city in China. The population in Zunyi was 691,694 in 2000."
+    },
+    "wikidataId/Q425415": {
+        "summary": "Panzhihua is a city in China. The population in Panzhihua was 690,739 in 2000."
+    },
+    "wikidataId/Q199440": {
+        "summary": "Mexicali is a city in Mexico. The population in Mexicali was 689,775 in 2010."
+    },
+    "wikidataId/Q599514": {
+        "summary": "Kaiping is a city in China. The population in Kaiping was 688,242 in 2017."
+    },
+    "wikidataId/Q57756": {
+        "summary": "Lianyungang is a city in China. The population in Lianyungang was 687,242 in 2000."
+    },
+    "wikidataId/Q1197854": {
+        "summary": "Tongcheng is a city in China. The population in Tongcheng was 686,000 in 2019."
+    },
+    "wikidataId/Q1023886": {
+        "summary": "Miluo City is a city in China. The population in Miluo City was 685,000 in 2017."
+    },
+    "wikidataId/Q428587": {
+        "summary": "Jingjiang is a city in China. The population in Jingjiang was 684,600 in 2019."
+    },
+    "wikidataId/Q57866": {
+        "summary": "Yancheng is a city in China. The population in Yancheng was 683,663 in 2000."
+    },
+    "geoId/4752006": {
+        "summary": "Nashville-Davidson metropolitan government (balance) is a city in Tennessee, United States. The population in Nashville-Davidson metropolitan government (balance) was 683,622 in 2022. The median age in Nashville-Davidson metropolitan government (balance) was 34.5 in 2021. The median income in Nashville-Davidson metropolitan government (balance) was $36,307 in 2021. The percentage of people with obesity in Nashville-Davidson metropolitan government (balance) was 33.1% in 2021. The percentage of people who binge drink in Nashville-Davidson metropolitan government (balance) was 16.6% in 2021. The percentage of people who smoke in Nashville-Davidson metropolitan government (balance) was 18.3% in 2021."
+    },
+    "wikidataId/Q214173": {
+        "summary": "Trujillo is a city in Peru. The population in Trujillo was 682,834 in 2007."
+    },
+    "nuts/NO011": {
+        "summary": "Oslo is a city in Norway. The population in Oslo was 681,067 in 2019. The life expectancy in Oslo was 80.25 in 2008."
+    },
+    "wikidataId/Q178373": {
+        "summary": "Rasht is a city in Iran. The population in Rasht was 679,995 in 2016."
+    },
+    "wikidataId/Q1023802": {
+        "summary": "Shengzhou is a city in China. The population in Shengzhou was 679,762 in 2010."
+    },
+    "wikidataId/Q1636": {
+        "summary": "Antipolo is a city in Philippines. The population in Antipolo was 677,741 in 2010."
+    },
+    "geoId/4824000": {
+        "summary": "El Paso is a city in Texas, United States. The population in El Paso was 677,456 in 2022. The median age in El Paso was 33.5 in 2021. The median income in El Paso was $25,732 in 2021. The unemployment rate in El Paso was 3.8% in 2023. The percentage of people with obesity in El Paso was 37.6% in 2021. The percentage of people who binge drink in El Paso was 15.7% in 2021. The percentage of people who smoke in El Paso was 15.2% in 2021."
+    },
+    "wikidataId/Q1026399": {
+        "summary": "Laoling is a city in China. The population in Laoling was 676,000 in 2019."
+    },
+    "wikidataId/Q2656": {
+        "summary": "Palermo is a city in Italy. The population in Palermo was 673,735 in 2017."
+    },
+    "wikidataId/Q81398": {
+        "summary": "Acapulco is a city in Mexico. The population in Acapulco was 673,479 in 2010."
+    },
+    "wikidataId/Q185134": {
+        "summary": "Tlemcen is a city in Algeria. The population in Tlemcen was 672,490 in 2008."
+    },
+    "wikidataId/Q706228": {
+        "summary": "Pinghu is a city in China. The population in Pinghu was 671,834 in 2010."
+    },
+    "geoId/1150000": {
+        "summary": "Washington is a city in District of Columbia, United States. The population in Washington was 671,803 in 2022. The median age in Washington was 34.3 in 2021. The median income in Washington was $58,142 in 2021. The unemployment rate in Washington was 4.8% in 2023. The percentage of people with obesity in Washington was 25.6% in 2021. The percentage of people who binge drink in Washington was 20.7% in 2021. The percentage of people who smoke in Washington was 12.4% in 2021."
+    },
+    "wikidataId/Q1023900": {
+        "summary": "Dujiangyan City is a city in China. The population in Dujiangyan City was 671,200 in 2014."
+    },
+    "wikidataId/Q504215": {
+        "summary": "Ayacucho is a city in Peru. The population in Ayacucho was 670,579 in 2022. The life expectancy in Ayacucho was 70.81 in 2013."
+    },
+    "wikidataId/Q14168": {
+        "summary": "Pontianak is a city in Indonesia. The population in Pontianak was 670,000 in 2022."
+    },
+    "wikidataId/Q201832": {
+        "summary": "Aligarh is a city in Uttar Pradesh, India. The population in Aligarh was 669,087 in 2001."
+    },
+    "wikidataId/Q3876": {
+        "summary": "Lilongwe is a city in Malawi. The population in Lilongwe was 669,021 in 2008."
+    },
+    "wikidataId/Q14182": {
+        "summary": "Banjarmasin is a city in Indonesia. The population in Banjarmasin was 667,489 in 2022."
+    },
+    "wikidataId/Q10305": {
+        "summary": "Zaragoza is a city in Spain. The population in Zaragoza was 666,880 in 2018."
+    },
+    "wikidataId/Q17182": {
+        "summary": "Para\u00f1aque is a city in Philippines. The population in Para\u00f1aque was 665,822 in 2015."
+    },
+    "wikidataId/Q243325": {
+        "summary": "Khulna is a city in Bangladesh. The population in Khulna was 664,728 in 2011."
+    },
+    "wikidataId/Q83317": {
+        "summary": "Mosul is a city in Iraq. The population in Mosul was 664,221 in 1987."
+    },
+    "wikidataId/Q1524": {
+        "summary": "Athens is a city in Greece. The population in Athens was 664,046 in 2011."
+    },
+    "wikidataId/Q1076195": {
+        "summary": "Chongzhou is a city in China. The population in Chongzhou was 663,800 in 2014."
+    },
+    "wikidataId/Q140075": {
+        "summary": "Gold Coast is a city in Australia. The population in Gold Coast was 662,660 in 2022. The life expectancy in Gold Coast was 83.3 in 2019."
+    },
+    "wikidataId/Q42084": {
+        "summary": "Namyangju is a city in South Korea. The population in Namyangju was 662,154 in 2016."
+    },
+    "wikidataId/Q1015480": {
+        "summary": "Xinji is a city in China. The population in Xinji was 662,000 in 2017."
+    },
+    "wikidataId/Q1207090": {
+        "summary": "Huanghua is a city in China. The population in Huanghua was 662,000 in 2017."
+    },
+    "wikidataId/Q1337641": {
+        "summary": "Haiyang is a city in China. The population in Haiyang was 658,000 in 2017."
+    },
+    "wikidataId/Q52607": {
+        "summary": "Mar del Plata is a city in Argentina. The population in Mar del Plata was 656,456 in 2020."
+    },
+    "geoId/3240000": {
+        "summary": "Las Vegas is a city in Nevada, United States. The population in Las Vegas was 656,274 in 2022. The median age in Las Vegas was 37.9 in 2021. The median income in Las Vegas was $32,603 in 2021. The unemployment rate in Las Vegas was 5.3% in 2023. The percentage of people with obesity in Las Vegas was 32.3% in 2021. The percentage of people who binge drink in Las Vegas was 13.4% in 2021. The percentage of people who smoke in Las Vegas was 18% in 2021."
+    },
+    "wikidataId/Q42160": {
+        "summary": "Hwaseong is a city in South Korea. The population in Hwaseong was 655,350 in 2016."
+    },
+    "wikidataId/Q72907": {
+        "summary": "Yangquan is a city in China. The population in Yangquan was 655,317 in 2000."
+    },
+    "wikidataId/Q416748": {
+        "summary": "Chenzhou is a city in China. The population in Chenzhou was 655,014 in 2000."
+    },
+    "wikidataId/Q71204": {
+        "summary": "Huangshi is a city in China. The population in Huangshi was 653,722 in 2000."
+    },
+    "wikidataId/Q193250": {
+        "summary": "Bulawayo is a city in Zimbabwe. The population in Bulawayo was 653,337 in 2012."
+    },
+    "wikidataId/Q210287": {
+        "summary": "Qufu is a city in China. The population in Qufu was 653,000 in 2017."
+    },
+    "geoId/2507000": {
+        "summary": "Boston is a city in Massachusetts, United States. The population in Boston was 650,706 in 2022. The median age in Boston was 32.6 in 2021. The median income in Boston was $40,319 in 2021. The unemployment rate in Boston was 2.7% in 2023. The percentage of people with obesity in Boston was 25.6% in 2021. The percentage of people who binge drink in Boston was 17.8% in 2021. The percentage of people who smoke in Boston was 13.3% in 2021."
+    },
+    "wikidataId/Q1344777": {
+        "summary": "Yingcheng City is a city in China. The population in Yingcheng City was 650,200 in 2018."
+    },
+    "wikidataId/Q72945": {
+        "summary": "Changzhi is a city in China. The population in Changzhi was 648,981 in 2000."
+    },
+    "wikidataId/Q496405": {
+        "summary": "Qujing is a city in China. The population in Qujing was 648,956 in 2000."
+    },
+    "wikidataId/Q1360089": {
+        "summary": "Xingyang is a city in China. The population in Xingyang was 648,700 in 2019."
+    },
+    "wikidataId/Q13139252": {
+        "summary": "Samut Prakan is a city in Thailand. The population in Samut Prakan was 648,360 in 2000."
+    },
+    "wikidataId/Q30996": {
+        "summary": "El Alto is a city in Bolivia. The population in El Alto was 647,350 in 2001."
+    },
+    "wikidataId/Q35381": {
+        "summary": "Colombo is a city in Sri Lanka. The population in Colombo was 647,100 in 2001."
+    },
+    "wikidataId/Q606344": {
+        "summary": "Tweed Heads is a city in Australia. The population in Tweed Heads was 646,983 in 2016."
+    },
+    "wikidataId/Q1333417": {
+        "summary": "Lingyuan is a city in China. The population in Lingyuan was 646,000 in 2017."
+    },
+    "wikidataId/Q1199327": {
+        "summary": "Jingshan is a city in China. The population in Jingshan was 645,900 in 2016."
+    },
+    "wikidataId/Q1334907": {
+        "summary": "Mingguang is a city in China. The population in Mingguang was 645,000 in 2018."
+    },
+    "wikidataId/Q38927": {
+        "summary": "Maoming is a city in China. The population in Maoming was 644,301 in 2000."
+    },
+    "wikidataId/Q967746": {
+        "summary": "Mor\u00f3n is a city in Argentina. The population in Mor\u00f3n was 643,553 in 1991."
+    },
+    "wikidataId/Q271417": {
+        "summary": "Funabashi is a city in Japan. The population in Funabashi was 642,907 in 2020."
+    },
+    "nuts/PL514": {
+        "summary": "Miasto Wroc\u0142aw is a city in Poland. The population in Miasto Wroc\u0142aw was 638,659 in 2019."
+    },
+    "wikidataId/Q330643": {
+        "summary": "Muradabad is a city in Uttar Pradesh, India. The population in Muradabad was 641,583 in 2001."
+    },
+    "wikidataId/Q1335331": {
+        "summary": "Guixi is a city in China. The population in Guixi was 640,000 in 2018."
+    },
+    "wikidataId/Q713362": {
+        "summary": "Yanji is a city in China. The population in Yanji was 639,000 in 2017."
+    },
+    "wikidataId/Q3572": {
+        "summary": "Tunis is a city in Tunisia. The population in Tunis was 638,845 in 2014."
+    },
+    "wikidataId/Q894763": {
+        "summary": "Botou is a city in China. The population in Botou was 638,000 in 2017."
+    },
+    "wikidataId/Q565568": {
+        "summary": "Tiaret is a city in Algeria. The population in Tiaret was 637,991 in 2008."
+    },
+    "wikidataId/Q1207037": {
+        "summary": "Longkou is a city in China. The population in Longkou was 635,839 in 2018."
+    },
+    "geoId/4159000": {
+        "summary": "Portland is a city in Oregon, United States. The population in Portland was 635,067 in 2022. The median age in Portland was 37.9 in 2021. The median income in Portland was $40,576 in 2021. The unemployment rate in Portland was 3.4% in 2023. The percentage of people with obesity in Portland was 25.6% in 2021. The percentage of people who binge drink in Portland was 20.8% in 2021. The percentage of people who smoke in Portland was 13% in 2021."
+    },
+    "wikidataId/Q42142": {
+        "summary": "Jeju is a city in South Korea. The population in Jeju was 634,161 in 2017."
+    },
+    "wikidataId/Q26323": {
+        "summary": "Jieyang is a city in China. The population in Jieyang was 633,570 in 2000."
+    },
+    "wikidataId/Q42666": {
+        "summary": "Shaoxing is a city in China. The population in Shaoxing was 633,118 in 2000."
+    },
+    "wikidataId/Q178663": {
+        "summary": "Meknes is a city in Morocco. The population in Meknes was 632,079 in 2014."
+    },
+    "wikidataId/Q1757": {
+        "summary": "Helsinki is a city in Finland. The population in Helsinki was 631,695 in 2016."
+    },
+    "wikidataId/Q40816": {
+        "summary": "Benghazi is a city in Libya. The population in Benghazi was 631,555 in 2011."
+    },
+    "wikidataId/Q5426": {
+        "summary": "Izhevsk is a city in Russia. The population in Izhevsk was 631,182 in 2012."
+    },
+    "wikidataId/Q1342058": {
+        "summary": "Jingxi City is a city in China. The population in Jingxi City was 629,800 in 2011."
+    },
+    "wikidataId/Q1022909": {
+        "summary": "Tianchang is a city in China. The population in Tianchang was 628,900 in 2019."
+    },
+    "wikidataId/Q425996": {
+        "summary": "Deyang is a city in China. The population in Deyang was 628,876 in 2000."
+    },
+    "wikidataId/Q8969": {
+        "summary": "Canc\u00fan is a city in Mexico. The population in Canc\u00fan was 628,306 in 2010."
+    },
+    "wikidataId/Q34750": {
+        "summary": "Fuxin is a city in China. The population in Fuxin was 627,855 in 2000."
+    },
+    "nuts/UKM34": {
+        "summary": "Glasgow is a city in United Kingdom. The population in Glasgow was 598,830 in 2011."
+    },
+    "nuts/DE111": {
+        "summary": "Stuttgart is a city in Germany. The population in Stuttgart was 634,830 in 2019. The life expectancy in Stuttgart was 83 in 2020."
+    },
+    "wikidataId/Q1334109": {
+        "summary": "Jurong is a city in China. The population in Jurong was 625,800 in 2016."
+    },
+    "wikidataId/Q6014": {
+        "summary": "Barnaul is a city in Russia. The population in Barnaul was 625,679 in 2012."
+    },
+    "wikidataId/Q2135": {
+        "summary": "Winnipeg is a city in Canada. The population in Winnipeg was 625,260 in 2021."
+    },
+    "geoId/2148006": {
+        "summary": "Louisville/Jefferson County metro government (balance) is a city in Kentucky, United States. The population in Louisville/Jefferson County metro government (balance) was 624,444 in 2022. The median age in Louisville/Jefferson County metro government (balance) was 37.6 in 2021. The median income in Louisville/Jefferson County metro government (balance) was $32,864 in 2021. The percentage of people with obesity in Louisville/Jefferson County metro government (balance) was 36.2% in 2021. The percentage of people who binge drink in Louisville/Jefferson County metro government (balance) was 16.7% in 2021. The percentage of people who smoke in Louisville/Jefferson County metro government (balance) was 18.5% in 2021."
+    },
+    "wikidataId/Q34370": {
+        "summary": "Rotterdam is a city in Netherlands. The population in Rotterdam was 623,652 in 2015."
+    },
+    "wikidataId/Q5584396": {
+        "summary": "Gorakhpur is a city in Uttar Pradesh, India. The population in Gorakhpur was 622,701 in 2001."
+    },
+    "wikidataId/Q1359073": {
+        "summary": "Qixia is a city in China. The population in Qixia was 622,000 in 2017."
+    },
+    "wikidataId/Q5815": {
+        "summary": "Tyumen is a city in Russia. The population in Tyumen was 621,918 in 2012."
+    },
+    "geoId/4748000": {
+        "summary": "Memphis is a city in Tennessee, United States. The population in Memphis was 621,056 in 2022. The median age in Memphis was 34.2 in 2021. The median income in Memphis was $27,564 in 2021. The unemployment rate in Memphis was 4.9% in 2023. The percentage of people with obesity in Memphis was 41.2% in 2021. The percentage of people who binge drink in Memphis was 13.7% in 2021. The percentage of people who smoke in Memphis was 23% in 2021."
+    },
+    "wikidataId/Q1623": {
+        "summary": "Valenzuela is a city in Philippines. The population in Valenzuela was 620,422 in 2015."
+    },
+    "geoId/2622000": {
+        "summary": "Detroit is a city in Michigan, United States. The population in Detroit was 620,376 in 2022. The median age in Detroit was 35 in 2021. The median income in Detroit was $21,862 in 2021. The unemployment rate in Detroit was 8.2% in 2023. The percentage of people with obesity in Detroit was 45.9% in 2021. The percentage of people who binge drink in Detroit was 12.9% in 2021. The percentage of people who smoke in Detroit was 29.1% in 2021."
+    },
+    "wikidataId/Q7578": {
+        "summary": "Jambi is a city in Indonesia. The population in Jambi was 619,600 in 2022."
+    },
+    "nuts/DEA11": {
+        "summary": "D\u00fcsseldorf is a city in Germany. The population in D\u00fcsseldorf was 619,294 in 2019. The life expectancy in D\u00fcsseldorf was 81.41 in 2020."
+    },
+    "wikidataId/Q600693": {
+        "summary": "Thi\u00e8s is a city in Senegal. The population in Thi\u00e8s was 618,436 in 2011."
+    },
+    "wikidataId/Q1062186": {
+        "summary": "Changyi is a city in China. The population in Changyi was 618,400 in 2018."
+    },
+    "wikidataId/Q221436": {
+        "summary": "Maiduguri is a city in Nigeria. The population in Maiduguri was 618,278 in 1991."
+    },
+    "wikidataId/Q971498": {
+        "summary": "Meihekou is a city in China. The population in Meihekou was 618,251 in 2010."
+    },
+    "wikidataId/Q1209143": {
+        "summary": "Qionglai City is a city in China. The population in Qionglai City was 617,700 in 2014."
+    },
+    "wikidataId/Q1371422": {
+        "summary": "Yuhuan City is a city in China. The population in Yuhuan City was 616,346 in 2010."
+    },
+    "wikidataId/Q5627": {
+        "summary": "Ulyanovsk is a city in Russia. The population in Ulyanovsk was 614,878 in 2012."
+    },
+    "wikidataId/Q36175": {
+        "summary": "Thanh H\u00f3a is a city in Vietnam. The population in Thanh H\u00f3a was 614,500 in 2018."
+    },
+    "wikidataId/Q109356": {
+        "summary": "Hamhung is a city in North Korea. The population in Hamhung was 614,198 in 2008."
+    },
+    "wikidataId/Q45604": {
+        "summary": "Kandahar is a city in Afghanistan. The population in Kandahar was 614,118 in 2019."
+    },
+    "wikidataId/Q1362440": {
+        "summary": "Shenzhou City is a city in China. The population in Shenzhou City was 613,000 in 2017."
+    },
+    "wikidataId/Q147975": {
+        "summary": "Zaria is a city in Nigeria. The population in Zaria was 612,257 in 1991."
+    },
+    "wikidataId/Q738303": {
+        "summary": "Reynosa is a city in Mexico. The population in Reynosa was 612,183 in 2012."
+    },
+    "wikidataId/Q197394": {
+        "summary": "Zhangshu is a city in China. The population in Zhangshu was 609,771 in 2017."
+    },
+    "wikidataId/Q373023": {
+        "summary": "Weihai is a city in China. The population in Weihai was 609,219 in 2000."
+    },
+    "wikidataId/Q1241371": {
+        "summary": "Donggang is a city in China. The population in Donggang was 609,000 in 2017."
+    },
+    "wikidataId/Q386991": {
+        "summary": "Torre\u00f3n is a city in Mexico. The population in Torre\u00f3n was 608,836 in 2010."
+    },
+    "wikidataId/Q50816": {
+        "summary": "Mississauga is a city in Canada. The population in Mississauga was 608,645 in 2021."
+    },
+    "wikidataId/Q194531": {
+        "summary": "Shaoyang is a city in China. The population in Shaoyang was 607,868 in 2000."
+    },
+    "wikidataId/Q57931": {
+        "summary": "Taizhou is a city in China. The population in Taizhou was 607,660 in 2000."
+    },
+    "nuts/LV006": {
+        "summary": "Riga is a city in Latvia. The population in Riga was 632,614 in 2019. The life expectancy in Riga was 73.9 in 2021."
+    },
+    "wikidataId/Q372773": {
+        "summary": "Raipur is a city in Chhattisgarh, India. The population in Raipur was 605,747 in 2001."
+    },
+    "wikidataId/Q1019431": {
+        "summary": "M'Bour is a city in Senegal. The population in M'Bour was 605,346 in 2011."
+    },
+    "wikidataId/Q170578": {
+        "summary": "Aracaju is a city in Brazil. The population in Aracaju was 605,309 in 2022."
+    },
+    "wikidataId/Q73073": {
+        "summary": "Yuncheng is a city in China. The population in Yuncheng was 604,381 in 2000."
+    },
+    "wikidataId/Q75230": {
+        "summary": "Panjin is a city in China. The population in Panjin was 602,541 in 2000."
+    },
+    "wikidataId/Q1748": {
+        "summary": "Copenhagen is a city in Denmark, Kingdom of Denmark. The population in Copenhagen was 602,481 in 2017."
+    },
+    "wikidataId/Q6576": {
+        "summary": "Irkutsk is a city in Russia. The population in Irkutsk was 601,993 in 2012."
+    },
+    "nuts/DED51": {
+        "summary": "Leipzig is a city in Germany. The population in Leipzig was 587,857 in 2019. The life expectancy in Leipzig was 80.86 in 2020."
+    },
+    "wikidataId/Q373687": {
+        "summary": "Binzhou is a city in China. The population in Binzhou was 600,883 in 2000."
+    },
+    "wikidataId/Q514796": {
+        "summary": "Baoji is a city in China. The population in Baoji was 600,377 in 2000."
+    },
+    "wikidataId/Q1000918": {
+        "summary": "Kaiyuan is a city in China. The population in Kaiyuan was 600,000 in 2017."
+    },
+    "wikidataId/Q959": {
+        "summary": "Vladivostok is a city in Russia. The population in Vladivostok was 598,927 in 2012."
+    },
+    "wikidataId/Q645725": {
+        "summary": "Bhiwandi is a city in Maharashtra, India. The population in Bhiwandi was 598,741 in 2001."
+    },
+    "wikidataId/Q2423": {
+        "summary": "Yaroslavl is a city in Russia. The population in Yaroslavl was 597,161 in 2012."
+    },
+    "wikidataId/Q2145": {
+        "summary": "Quebec City is a city in Canada. The population in Quebec City was 597,089 in 2022."
+    },
+    "wikidataId/Q42120": {
+        "summary": "Anyang is a city in South Korea. The population in Anyang was 595,644 in 2016."
+    },
+    "wikidataId/Q5468": {
+        "summary": "Durban is a city in South Africa. The population in Durban was 595,061 in 2011."
+    },
+    "wikidataId/Q387136": {
+        "summary": "Kawaguchi is a city in Japan. The population in Kawaguchi was 594,274 in 2020."
+    },
+    "wikidataId/Q59173": {
+        "summary": "Huizhou is a city in China. The population in Huizhou was 591,686 in 2000."
+    },
+    "wikidataId/Q24639": {
+        "summary": "Vancouver is a city in Canada. The population in Vancouver was 591,675 in 2021."
+    },
+    "wikidataId/Q71227": {
+        "summary": "Shiyan is a city in China. The population in Shiyan was 589,824 in 2000."
+    },
+    "wikidataId/Q4454": {
+        "summary": "Khabarovsk is a city in Russia. The population in Khabarovsk was 589,596 in 2012."
+    },
+    "wikidataId/Q8854": {
+        "summary": "Las Pi\u00f1as is a city in Philippines. The population in Las Pi\u00f1as was 588,894 in 2015."
+    },
+    "wikidataId/Q252959": {
+        "summary": "Gaobeidian is a city in China. The population in Gaobeidian was 588,000 in 2017."
+    },
+    "wikidataId/Q140561": {
+        "summary": "Zahedan is a city in Iran. The population in Zahedan was 587,730 in 2016."
+    },
+    "nuts/DEA52": {
+        "summary": "Dortmund is a city in Germany. The population in Dortmund was 587,010 in 2019. The life expectancy in Dortmund was 79.95 in 2020."
+    },
+    "wikidataId/Q1449": {
+        "summary": "Genoa is a city in Italy. The population in Genoa was 583,601 in 2017."
+    },
+    "wikidataId/Q71323": {
+        "summary": "Jingmen City is a city in China. The population in Jingmen City was 583,373 in 2000."
+    },
+    "wikidataId/Q360374": {
+        "summary": "Anqing is a city in China. The population in Anqing was 582,751 in 2000."
+    },
+    "wikidataId/Q1508": {
+        "summary": "Makati is a city in Philippines. The population in Makati was 582,602 in 2015."
+    },
+    "wikidataId/Q1792": {
+        "summary": "Gda\u0144sk is a city in Poland. The population in Gda\u0144sk was 582,205 in 2017."
+    },
+    "wikidataId/Q939420": {
+        "summary": "Jinzhou is a city in China. The population in Jinzhou was 582,000 in 2017."
+    },
+    "wikidataId/Q1362431": {
+        "summary": "Fengcheng is a city in China. The population in Fengcheng was 580,000 in 2017."
+    },
+    "wikidataId/Q182640": {
+        "summary": "Ta'if is a city in Saudi Arabia. The population in Ta'if was 579,970 in 2010."
+    },
+    "nuts/DEA13": {
+        "summary": "Essen is a city in Germany. The population in Essen was 583,109 in 2019. The life expectancy in Essen was 80.01 in 2020."
+    },
+    "wikidataId/Q34692": {
+        "summary": "Kingston is a city in Jamaica. The population in Kingston was 579,137 in 2001."
+    },
+    "wikidataId/Q61089": {
+        "summary": "Melaka City is a city in Malaysia. The population in Melaka City was 579,000 in 2019."
+    },
+    "wikidataId/Q3551": {
+        "summary": "Rabat is a city in Morocco. The population in Rabat was 577,827 in 2014."
+    },
+    "wikidataId/Q814826": {
+        "summary": "Beipiao is a city in China. The population in Beipiao was 576,000 in 2017."
+    },
+    "wikidataId/Q63139": {
+        "summary": "Dasmari\u00f1as is a city in Philippines. The population in Dasmari\u00f1as was 575,817 in 2010."
+    },
+    "wikidataId/Q5168": {
+        "summary": "Makhachkala is a city in Russia. The population in Makhachkala was 575,243 in 2012."
+    },
+    "wikidataId/Q10394": {
+        "summary": "Cimahi is a city in Indonesia. The population in Cimahi was 575,000 in 2022."
+    },
+    "wikidataId/Q132997": {
+        "summary": "Florian\u00f3polis is a city in Brazil. The population in Florian\u00f3polis was 574,200 in 2022."
+    },
+    "wikidataId/Q200054": {
+        "summary": "Jamshedpur is a city in Jharkhand, India. The population in Jamshedpur was 573,096 in 2001."
+    },
+    "wikidataId/Q1337479": {
+        "summary": "Yanshi is a city in China. The population in Yanshi was 572,900 in 2019."
+    },
+    "wikidataId/Q842779": {
+        "summary": "Matur\u00edn is a city in Venezuela. The population in Matur\u00edn was 571,276 in 2015."
+    },
+    "wikidataId/Q134509": {
+        "summary": "Port Said is a city in Egypt. The population in Port Said was 570,603 in 2006."
+    },
+    "wikidataId/Q220445": {
+        "summary": "Kuching is a city in Malaysia. The population in Kuching was 570,407 in 2019."
+    },
+    "wikidataId/Q1025442": {
+        "summary": "Linxiang is a city in China. The population in Linxiang was 570,000 in 2017."
+    },
+    "geoId/2404000": {
+        "summary": "Baltimore is a city in Maryland, United States. The population in Baltimore was 569,931 in 2022. The median age in Baltimore was 35.7 in 2021. The median income in Baltimore was $32,686 in 2021. The unemployment rate in Baltimore was 2.5% in 2023. The percentage of people with obesity in Baltimore was 37.1% in 2021. The percentage of people who binge drink in Baltimore was 15.4% in 2021. The percentage of people who smoke in Baltimore was 19.8% in 2021."
+    },
+    "wikidataId/Q8851": {
+        "summary": "Malaga is a city in Spain. The population in Malaga was 569,005 in 2016."
+    },
+    "wikidataId/Q68814": {
+        "summary": "Zhangzhou is a city in China. The population in Zhangzhou was 567,884 in 2000."
+    },
+    "wikidataId/Q71373": {
+        "summary": "Xianning is a city in China. The population in Xianning was 567,598 in 2000."
+    },
+    "wikidataId/Q360235": {
+        "summary": "Ma'anshan is a city in China. The population in Ma'anshan was 567,576 in 2000."
+    },
+    "wikidataId/Q138589": {
+        "summary": "Chon Buri is a city in Thailand. The population in Chon Buri was 566,877 in 2000."
+    },
+    "wikidataId/Q216847": {
+        "summary": "C\u00facuta is a city in Colombia. The population in C\u00facuta was 566,244 in 2005."
+    },
+    "wikidataId/Q3054408": {
+        "summary": "Simcoe is a city in Canada. The population in Simcoe was 564,946 in 2022."
+    },
+    "wikidataId/Q73020": {
+        "summary": "Shuozhou is a city in China. The population in Shuozhou was 563,896 in 2000."
+    },
+    "geoId/5553000": {
+        "summary": "Milwaukee is a city in Wisconsin, United States. The population in Milwaukee was 563,305 in 2022. The median age in Milwaukee was 31.6 in 2021. The median income in Milwaukee was $27,686 in 2021. The unemployment rate in Milwaukee was 4.1% in 2023. The percentage of people with obesity in Milwaukee was 41.6% in 2021. The percentage of people who binge drink in Milwaukee was 21.3% in 2021. The percentage of people who smoke in Milwaukee was 21% in 2021."
+    },
+    "nuts/DE501": {
+        "summary": "Bremen is a city in Germany. The population in Bremen was 569,352 in 2019. The life expectancy in Bremen was 80.46 in 2020."
+    },
+    "wikidataId/Q312759": {
+        "summary": "Biskra is a city in Algeria. The population in Biskra was 563,245 in 2008."
+    },
+    "wikidataId/Q3604": {
+        "summary": "Djibouti is a city in Djibouti. The population in Djibouti was 562,000 in 2018."
+    },
+    "wikidataId/Q214248": {
+        "summary": "Benguela is a city in Angola. The population in Benguela was 561,775 in 2014."
+    },
+    "geoId/3502000": {
+        "summary": "Albuquerque is a city in New Mexico, United States. The population in Albuquerque was 561,008 in 2022. The median age in Albuquerque was 37.5 in 2021. The median income in Albuquerque was $32,184 in 2021. The unemployment rate in Albuquerque was 3.5% in 2023. The percentage of people with obesity in Albuquerque was 31.4% in 2021. The percentage of people who binge drink in Albuquerque was 15.5% in 2021. The percentage of people who smoke in Albuquerque was 14.3% in 2021."
+    },
+    "wikidataId/Q1023793": {
+        "summary": "Lanxi is a city in China. The population in Lanxi was 560,514 in 2010."
+    },
+    "wikidataId/Q1375588": {
+        "summary": "Yizheng is a city in China. The population in Yizheng was 560,258 in 2018."
+    },
+    "wikidataId/Q197524": {
+        "summary": "Zhaoyuan, Shandong is a city in China. The population in Zhaoyuan, Shandong was 560,234 in 2019."
+    },
+    "wikidataId/Q1159699": {
+        "summary": "Dangyang is a city in China. The population in Dangyang was 560,000 in 2016."
+    },
+    "wikidataId/Q59975": {
+        "summary": "Beja\u00efa is a city in Algeria. The population in Beja\u00efa was 559,981 in 2008."
+    },
+    "wikidataId/Q210365": {
+        "summary": "Beihai is a city in China. The population in Beihai was 558,635 in 2000."
+    },
+    "wikidataId/Q38811": {
+        "summary": "Nasiriyah is a city in Iraq. The population in Nasiriyah was 558,400 in 2018."
+    },
+    "wikidataId/Q242144": {
+        "summary": "Bhilai is a city in Chhattisgarh, India. The population in Bhilai was 556,366 in 2001."
+    },
+    "wikidataId/Q1201091": {
+        "summary": "Xingping is a city in China. The population in Xingping was 556,088 in 2018."
+    },
+    "wikidataId/Q37701": {
+        "summary": "Bloemfontein is a city in South Africa. The population in Bloemfontein was 556,000 in 2018."
+    },
+    "wikidataId/Q360870": {
+        "summary": "Chizhou is a city in China. The population in Chizhou was 555,489 in 2000."
+    },
+    "wikidataId/Q5337": {
+        "summary": "Orenburg is a city in Russia. The population in Orenburg was 555,420 in 2012."
+    },
+    "nuts/DED21": {
+        "summary": "Dresden is a city in Germany. The population in Dresden was 554,649 in 2019. The life expectancy in Dresden was 82.47 in 2020."
+    },
+    "wikidataId/Q28587": {
+        "summary": "Hamadan is a city in Iran. The population in Hamadan was 554,406 in 2016."
+    },
+    "nuts/UKE32": {
+        "summary": "Sheffield is a city in United Kingdom. The population in Sheffield was 584,028 in 2019."
+    },
+    "wikidataId/Q162880": {
+        "summary": "Dezhou is a city in China. The population in Dezhou was 552,445 in 2000."
+    },
+    "wikidataId/Q193802": {
+        "summary": "Oujda is a city in Morocco. The population in Oujda was 494,252 in 2014."
+    },
+    "wikidataId/Q216077": {
+        "summary": "Jiujiang is a city in China. The population in Jiujiang was 551,329 in 2000."
+    },
+    "nuts/UKD33": {
+        "summary": "Manchester is a city in United Kingdom. The population in Manchester was 553,230 in 2019."
+    },
+    "wikidataId/Q182049": {
+        "summary": "Rustenburg is a city in South Africa. The population in Rustenburg was 549,575 in 2011."
+    },
+    "wikidataId/Q93910": {
+        "summary": "Novokuznetsk is a city in Russia. The population in Novokuznetsk was 549,383 in 2012."
+    },
+    "nuts/UKE41": {
+        "summary": "Bradford is a city in United Kingdom. The population in Bradford was 536,986 in 2019."
+    },
+    "wikidataId/Q384": {
+        "summary": "Skopje is a city in Macedonia [FYROM]. The population in Skopje was 546,824 in 2016."
+    },
+    "geoId/0477000": {
+        "summary": "Tucson is a city in Arizona, United States. The population in Tucson was 546,574 in 2022. The median age in Tucson was 34.2 in 2021. The median income in Tucson was $27,334 in 2021. The unemployment rate in Tucson was 4% in 2023. The percentage of people with obesity in Tucson was 34.9% in 2021. The percentage of people who binge drink in Tucson was 16.5% in 2021. The percentage of people who smoke in Tucson was 17.8% in 2021."
+    },
+    "wikidataId/Q1375638": {
+        "summary": "Xingcheng is a city in China. The population in Xingcheng was 546,176 in 2010."
+    },
+    "geoId/0627000": {
+        "summary": "Fresno is a city in California, United States. The population in Fresno was 545,567 in 2022. The median age in Fresno was 31.7 in 2021. The median income in Fresno was $27,435 in 2021. The unemployment rate in Fresno was 6.3% in 2023. The percentage of people with obesity in Fresno was 37.3% in 2021. The percentage of people who binge drink in Fresno was 13.7% in 2021. The percentage of people who smoke in Fresno was 15.5% in 2021."
+    },
+    "wikidataId/Q216": {
+        "summary": "Vilnius is a city in Lithuania. The population in Vilnius was 544,386 in 2016."
+    },
+    "wikidataId/Q200731": {
+        "summary": "Tottori is a city in Japan. The population in Tottori was 544,000 in 2022. The life expectancy in Tottori was 83.9 in 2015."
+    },
+    "wikidataId/Q68862": {
+        "summary": "Longyan is a city in China. The population in Longyan was 543,731 in 2000."
+    },
+    "wikidataId/Q976": {
+        "summary": "Tomsk is a city in Russia. The population in Tomsk was 543,596 in 2012."
+    },
+    "wikidataId/Q2292517": {
+        "summary": "Skikda is a city in Algeria. The population in Skikda was 543,402 in 2008."
+    },
+    "wikidataId/Q268": {
+        "summary": "Pozna\u0144 is a city in Poland. The population in Pozna\u0144 was 540,365 in 2016."
+    },
+    "wikidataId/Q768864": {
+        "summary": "Nonthaburi is a city in Thailand. The population in Nonthaburi was 539,504 in 2000."
+    },
+    "wikidataId/Q44198": {
+        "summary": "Brampton is a city in Canada. The population in Brampton was 538,825 in 2021."
+    },
+    "wikidataId/Q92364": {
+        "summary": "Songyuan is a city in China. The population in Songyuan was 538,469 in 2000."
+    },
+    "wikidataId/Q6066": {
+        "summary": "Kemerovo is a city in Russia. The population in Kemerovo was 538,188 in 2012."
+    },
+    "wikidataId/Q59209": {
+        "summary": "Yangjiang is a city in China. The population in Yangjiang was 538,069 in 2000."
+    },
+    "wikidataId/Q633036": {
+        "summary": "Nakhon Ratchasima is a city in Thailand. The population in Nakhon Ratchasima was 537,883 in 2000."
+    },
+    "wikidataId/Q171714": {
+        "summary": "Kerman is a city in Iran. The population in Kerman was 537,718 in 2016."
+    },
+    "wikidataId/Q207429": {
+        "summary": "Tuxtla Guti\u00e9rrez is a city in Mexico. The population in Tuxtla Guti\u00e9rrez was 537,102 in 2010."
+    },
+    "wikidataId/Q271000": {
+        "summary": "Bouak\u00e9 is a city in C\u00f4te d'Ivoire. The population in Bouak\u00e9 was 536,719 in 2014."
+    },
+    "wikidataId/Q59132": {
+        "summary": "Jiangmen is a city in China. The population in Jiangmen was 536,317 in 2000."
+    },
+    "wikidataId/Q58576": {
+        "summary": "Xingtai is a city in China. The population in Xingtai was 536,282 in 2000."
+    },
+    "wikidataId/Q3688": {
+        "summary": "The population in Nouakchott was 958,399 in 2013."
+    },
+    "wikidataId/Q34647": {
+        "summary": "The population in Johannesburg was 957,441 in 2011."
+    },
+    "wikidataId/Q271911": {
+        "summary": "The population in Dispur was 957,352 in 2011."
+    },
+    "wikidataId/Q1467": {
+        "summary": "The population in Cebu City was 922,611 in 2015."
+    },
+    "wikidataId/Q43070": {
+        "summary": "The population in Donetsk was 918,536 in 2017."
+    },
+    "wikidataId/Q1218": {
+        "summary": "The population in Jerusalem was 874,186 in 2016."
+    },
+    "wikidataId/Q222279": {
+        "summary": "The population in Bukavu was 870,954 in 2016."
+    },
+    "wikidataId/Q1629": {
+        "summary": "The population in Zamboanga City was 861,799 in 2015."
+    },
+    "wikidataId/Q200019": {
+        "summary": "The population in Jodhpur was 851,051 in 2001."
+    },
+    "wikidataId/Q1198123": {
+        "summary": "The population in Jiaonan was 827,771 in 2000."
+    },
+    "wikidataId/Q209766": {
+        "summary": "The population in Saga was 801,000 in 2022. The life expectancy in Saga was 84.1 in 2015."
+    },
+    "wikidataId/Q506578": {
+        "summary": "The population in Baidoa was 792,182 in 2014."
+    },
+    "wikidataId/Q948448": {
+        "summary": "The population in Burao was 750,211 in 2020."
+    },
+    "wikidataId/Q167715": {
+        "summary": "The population in Thiruvananthapuram was 744,983 in 2001."
+    },
+    "wikidataId/Q179665": {
+        "summary": "The population in Urmia was 736,224 in 2016."
+    },
+    "wikidataId/Q3915": {
+        "summary": "The population in Antananarivo was 710,236 in 1993."
+    },
+    "wikidataId/Q8717": {
+        "summary": "The population in Seville was 688,711 in 2018."
+    },
+    "wikidataId/Q1645": {
+        "summary": "The population in Cagayan de Oro was 675,950 in 2015."
+    },
+    "wikidataId/Q21197": {
+        "summary": "The population in Chi\u0219in\u0103u was 669,694 in 2012."
+    },
+    "wikidataId/Q27136": {
+        "summary": "The population in Hofuf was 660,788 in 2010."
+    },
+    "wikidataId/Q18780": {
+        "summary": "The population in Likasi was 635,463 in 2015."
+    },
+    "wikidataId/Q157137": {
+        "summary": "The population in Kryvyi Rih was 634,780 in 2017."
+    },
+    "wikidataId/Q771345": {
+        "summary": "The population in Barcelona was 619,293 in 2006."
+    },
+    "wikidataId/Q42140": {
+        "summary": "The population in Jeonju was 616,468 in 2000."
+    },
+    "wikidataId/Q109336": {
+        "summary": "The population in Chongjin was 614,892 in 2008."
+    },
+    "wikidataId/Q133116": {
+        "summary": "The population in Hamilton was 597,010 in 2022."
+    },
+    "wikidataId/Q1800": {
+        "summary": "The population in Kochi was 595,575 in 2001."
+    },
+    "wikidataId/Q594275": {
+        "summary": "The population in General Santos was 594,446 in 2015."
+    },
+    "wikidataId/Q208863": {
+        "summary": "The population in Hachi\u014dji was 579,355 in 2020."
+    },
+    "wikidataId/Q271404": {
+        "summary": "The population in Kolwezi was 572,942 in 2015."
+    },
+    "wikidataId/Q5217": {
+        "summary": "The population in Bacolod was 561,875 in 2015."
+    },
+    "wikidataId/Q686813": {
+        "summary": "Kassala is a city in Sudan. The population in Kassala was 536,009 in 2010."
+    },
+    "wikidataId/Q59107": {
+        "summary": "Shaoguan is a city in China. The population in Shaoguan was 535,979 in 2000."
+    },
+    "wikidataId/Q19491": {
+        "summary": "Nha Trang is a city in Vietnam. The population in Nha Trang was 535,000 in 2018."
+    },
+    "wikidataId/Q207324": {
+        "summary": "Cuttack is a city in Odisha, India. The population in Cuttack was 534,654 in 2001."
+    },
+    "wikidataId/Q73045": {
+        "summary": "Jinzhong is a city in China. The population in Jinzhong was 534,357 in 2000."
+    },
+    "wikidataId/Q185518": {
+        "summary": "Mandalay is a city in Myanmar. The population in Mandalay was 532,949 in 1983."
+    },
+    "nuts/DE921": {
+        "summary": "Hanover is a city in Germany. The population in Hanover was 532,163 in 2016."
+    },
+    "wikidataId/Q587085": {
+        "summary": "Ilorin is a city in Nigeria. The population in Ilorin was 532,089 in 1991."
+    },
+    "wikidataId/Q1362450": {
+        "summary": "Linghai is a city in China. The population in Linghai was 532,000 in 2017."
+    },
+    "wikidataId/Q3659": {
+        "summary": "N'Djamena is a city in Chad. The population in N'Djamena was 530,965 in 1993."
+    },
+    "wikidataId/Q209801": {
+        "summary": "Himeji is a city in Japan. The population in Himeji was 530,495 in 2020."
+    },
+    "wikidataId/Q200718": {
+        "summary": "Bikaner is a city in Rajasthan, India. The population in Bikaner was 529,690 in 2001."
+    },
+    "wikidataId/Q182394": {
+        "summary": "Yazd YO DUDE is a city in Iran. The population in Yazd YO DUDE was 529,673 in 2016."
+    },
+    "wikidataId/Q180103": {
+        "summary": "Ardabil is a city in Iran. The population in Ardabil was 529,374 in 2016."
+    },
+    "geoId/0664000": {
+        "summary": "Sacramento is a city in California, United States. The population in Sacramento was 528,001 in 2022. The median age in Sacramento was 35.2 in 2021. The median income in Sacramento was $35,811 in 2021. The unemployment rate in Sacramento was 4.8% in 2023. The percentage of people with obesity in Sacramento was 32.7% in 2021. The percentage of people who binge drink in Sacramento was 14.5% in 2021. The percentage of people who smoke in Sacramento was 13.7% in 2021."
+    },
+    "wikidataId/Q1361953": {
+        "summary": "Panshi is a city in China. The population in Panshi was 528,000 in 2017."
+    },
+    "wikidataId/Q21194": {
+        "summary": "V\u0169ng T\u00e0u is a city in Vietnam. The population in V\u0169ng T\u00e0u was 527,025 in 2018."
+    },
+    "wikidataId/Q2746": {
+        "summary": "Ryazan is a city in Russia. The population in Ryazan was 526,919 in 2012."
+    },
+    "wikidataId/Q95041": {
+        "summary": "Naberezhnye Chelny is a city in Russia. The population in Naberezhnye Chelny was 526,750 in 2016."
+    },
+    "wikidataId/Q154814": {
+        "summary": "Bandar Abbas is a city in Iran. The population in Bandar Abbas was 526,648 in 2016."
+    },
+    "wikidataId/Q466221": {
+        "summary": "Sylhet is a city in Bangladesh. The population in Sylhet was 526,412 in 2011."
+    },
+    "wikidataId/Q3927": {
+        "summary": "Astrakhan is a city in Russia. The population in Astrakhan was 526,363 in 2012."
+    },
+    "wikidataId/Q1331388": {
+        "summary": "Yuanping is a city in China. The population in Yuanping was 526,000 in 2017."
+    },
+    "wikidataId/Q1390081": {
+        "summary": "Santa Teresa del Tuy is a city in Venezuela. The population in Santa Teresa del Tuy was 525,321 in 2011."
+    },
+    "wikidataId/Q260911": {
+        "summary": "Chiclayo is a city in Peru. The population in Chiclayo was 524,442 in 2007."
+    },
+    "wikidataId/Q178725": {
+        "summary": "Niter\u00f3i is a city in Brazil. The population in Niter\u00f3i was 523,664 in 2022."
+    },
+    "wikidataId/Q4803": {
+        "summary": "Surakarta is a city in Indonesia. The population in Surakarta was 523,000 in 2022."
+    },
+    "wikidataId/Q1014384": {
+        "summary": "Nangong is a city in China. The population in Nangong was 523,000 in 2017."
+    },
+    "wikidataId/Q1375307": {
+        "summary": "Qianshan is a city in China. The population in Qianshan was 522,000 in 2019."
+    },
+    "wikidataId/Q44059": {
+        "summary": "La Plata is a city in Argentina. The population in La Plata was 521,936 in 1991."
+    },
+    "wikidataId/Q855228": {
+        "summary": "Dali is a city in China. The population in Dali was 521,169 in 2000."
+    },
+    "wikidataId/Q212628": {
+        "summary": "Arak is a city in Iran. The population in Arak was 520,944 in 2016."
+    },
+    "wikidataId/Q740477": {
+        "summary": "Tultitl\u00e1n de Mariano Escobedo is a city in Mexico. The population in Tultitl\u00e1n de Mariano Escobedo was 520,557 in 2015."
+    },
+    "wikidataId/Q1006343": {
+        "summary": "Mira-Bhayandar is a city in Maharashtra, India. The population in Mira-Bhayandar was 520,388 in 2001."
+    },
+    "wikidataId/Q63129": {
+        "summary": "Bacoor is a city in Philippines. The population in Bacoor was 520,216 in 2010."
+    },
+    "wikidataId/Q489631": {
+        "summary": "Anda is a city in China. The population in Anda was 520,000 in 2010."
+    },
+    "wikidataId/Q5540": {
+        "summary": "Penza is a city in Russia. The population in Penza was 519,948 in 2012."
+    },
+    "wikidataId/Q1982137": {
+        "summary": "M\u00e9d\u00e9a is a city in Algeria. The population in M\u00e9d\u00e9a was 519,383 in 2008."
+    },
+    "wikidataId/Q5753": {
+        "summary": "Samarkand is a city in Uzbekistan. The population in Samarkand was 519,231 in 2016."
+    },
+    "wikidataId/Q1027327": {
+        "summary": "Xinle City is a city in China. The population in Xinle City was 519,000 in 2017."
+    },
+    "wikidataId/Q200589": {
+        "summary": "Utsunomiya is a city in Japan. The population in Utsunomiya was 518,757 in 2020."
+    },
+    "wikidataId/Q852276": {
+        "summary": "Sidi Bel Abb\u00e8s is a city in Algeria. The population in Sidi Bel Abb\u00e8s was 517,836 in 2008."
+    },
+    "wikidataId/Q239580": {
+        "summary": "Kitwe is a city in Zambia. The population in Kitwe was 517,543 in 2010."
+    },
+    "wikidataId/Q243327": {
+        "summary": "Changwon is a city in South Korea. The population in Changwon was 517,410 in 2000."
+    },
+    "wikidataId/Q183124": {
+        "summary": "Cochabamba is a city in Bolivia. The population in Cochabamba was 516,683 in 2001."
+    },
+    "wikidataId/Q984575": {
+        "summary": "T\u00e9bessa is a city in Algeria. The population in T\u00e9bessa was 515,786 in 2008."
+    },
+    "wikidataId/Q36600": {
+        "summary": "The Hague is a city in Netherlands. The population in The Hague was 514,861 in 2015."
+    },
+    "wikidataId/Q3120966": {
+        "summary": "Guntur is a city in Andhra Pradesh, India. The population in Guntur was 514,461 in 2001."
+    },
+    "wikidataId/Q1198528": {
+        "summary": "Yucheng is a city in China. The population in Yucheng was 514,300 in 2019."
+    },
+    "wikidataId/Q2933": {
+        "summary": "Asunci\u00f3n is a city in Paraguay. The population in Asunci\u00f3n was 513,399 in 2002."
+    },
+    "wikidataId/Q244232": {
+        "summary": "Tabuk is a city in Saudi Arabia. The population in Tabuk was 512,629 in 2010."
+    },
+    "wikidataId/Q1199240": {
+        "summary": "Yicheng is a city in China. The population in Yicheng was 512,530 in 2010."
+    },
+    "geoId/0446000": {
+        "summary": "Mesa is a city in Arizona, United States. The population in Mesa was 512,498 in 2022. The median age in Mesa was 36.6 in 2021. The median income in Mesa was $34,440 in 2021. The unemployment rate in Mesa was 3.5% in 2023. The percentage of people with obesity in Mesa was 31.6% in 2021. The percentage of people who binge drink in Mesa was 17.8% in 2021. The percentage of people who smoke in Mesa was 15.8% in 2021."
+    },
+    "wikidataId/Q134514": {
+        "summary": "Suez is a city in Egypt. The population in Suez was 512,135 in 2006."
+    },
+    "wikidataId/Q828782": {
+        "summary": "Quilmes is a city in Argentina. The population in Quilmes was 511,234 in 1991."
+    },
+    "wikidataId/Q200022": {
+        "summary": "Matsuyama is a city in Japan. The population in Matsuyama was 511,192 in 2020."
+    },
+    "wikidataId/Q242992": {
+        "summary": "Bhavnagar is a city in Gujarat, India. The population in Bhavnagar was 511,085 in 2001."
+    },
+    "nuts/DE254": {
+        "summary": "Nuremberg is a city in Germany. The population in Nuremberg was 518,365 in 2019. The life expectancy in Nuremberg was 80.57 in 2020."
+    },
+    "wikidataId/Q321079": {
+        "summary": "Jos is a city in Nigeria. The population in Jos was 510,300 in 1991."
+    },
+    "wikidataId/Q71": {
+        "summary": "Geneva is a city in Switzerland. The population in Geneva was 509,448 in 2022."
+    },
+    "geoId/2938000": {
+        "summary": "Kansas City is a city in Missouri, United States. The population in Kansas City was 509,297 in 2022. The median age in Kansas City was 35.4 in 2021. The median income in Kansas City was $34,843 in 2021. The unemployment rate in Kansas City was 3.2% in 2023. The percentage of people with obesity in Kansas City was 40.9% in 2021. The percentage of people who binge drink in Kansas City was 18.2% in 2021. The percentage of people who smoke in Kansas City was 18.7% in 2021."
+    },
+    "wikidataId/Q2678": {
+        "summary": "Gomel is a city in Belarus. The population in Gomel was 508,839 in 2013."
+    },
+    "wikidataId/Q3490": {
+        "summary": "Lipetsk is a city in Russia. The population in Lipetsk was 508,585 in 2012."
+    },
+    "wikidataId/Q1198031": {
+        "summary": "Guangde is a city in China. The population in Guangde was 508,000 in 2019."
+    },
+    "wikidataId/Q59164": {
+        "summary": "Zhaoqing is a city in China. The population in Zhaoqing was 507,834 in 2000."
+    },
+    "wikidataId/Q36354": {
+        "summary": "H\u1ea3i D\u01b0\u01a1ng is a city in Vietnam. The population in H\u1ea3i D\u01b0\u01a1ng was 507,469 in 2019."
+    },
+    "wikidataId/Q59213": {
+        "summary": "Qingyuan is a city in China. The population in Qingyuan was 506,680 in 2000."
+    },
+    "wikidataId/Q597": {
+        "summary": "Lisbon is a city in Portugal. The population in Lisbon was 504,718 in 2016."
+    },
+    "wikidataId/Q17176": {
+        "summary": "Muntinlupa is a city in Philippines. The population in Muntinlupa was 504,509 in 2015."
+    },
+    "wikidataId/Q515573": {
+        "summary": "Hanzhong is a city in China. The population in Hanzhong was 503,871 in 2000."
+    },
+    "wikidataId/Q1090087": {
+        "summary": "Chuxiong City is a city in China. The population in Chuxiong City was 503,682 in 2000."
+    },
+    "wikidataId/Q231318": {
+        "summary": "Johor Bahru is a city in Malaysia. The population in Johor Bahru was 502,900 in 2017."
+    },
+    "wikidataId/Q243766": {
+        "summary": "Bucaramanga is a city in Colombia. The population in Bucaramanga was 502,654 in 2005."
+    },
+    "wikidataId/Q33469": {
+        "summary": "Bu\u00f4n Ma Thu\u1ed9t is a city in Vietnam. The population in Bu\u00f4n Ma Thu\u1ed9t was 502,170 in 2018."
+    },
+    "wikidataId/Q33428": {
+        "summary": "Vinh is a city in Vietnam. The population in Vinh was 502,140 in 2018."
+    },
+    "wikidataId/Q61985": {
+        "summary": "Taicang is a city in China. The population in Taicang was 501,700 in 2019."
+    },
+    "wikidataId/Q484706": {
+        "summary": "Karaganda is a city in Kazakhstan. The population in Karaganda was 500,826 in 2017."
+    },
+    "wikidataId/Q42154": {
+        "summary": "Pyeongtaek is a city in South Korea. The population in Pyeongtaek was 500,787 in 2019."
+    },
+    "wikidataId/Q202162": {
+        "summary": "Aba is a city in Nigeria. The population in Aba was 500,183 in 1991."
+    },
+    "wikidataId/Q6809713": {
+        "summary": "Mari Abad is a city in Pakistan. The population in Mari Abad was 500,000 in 2018."
+    },
+    "wikidataId/Q25563103": {
+        "summary": "The population in Warangal was 530,636 in 2001."
+    },
+    "wikidataId/Q11194": {
+        "summary": "The population in Sarajevo was 527,049 in 1991."
+    },
+    "wikidataId/Q42157": {
+        "summary": "The population in Pohang was 515,714 in 2000."
+    },
+    "wikidataId/Q456": {
+        "summary": "The population in Lyon was 513,275 in 2015."
+    },
+    "wikidataId/Q986207": {
+        "summary": "The population in Carrefour was 511,345 in 2015."
+    }
+}

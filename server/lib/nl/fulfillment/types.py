@@ -18,7 +18,7 @@
 
 from dataclasses import dataclass
 from dataclasses import field
-from typing import Dict, List, Set
+from typing import Dict, List
 
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
@@ -26,6 +26,7 @@ from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Date
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import QuantityClassificationAttributes
@@ -46,8 +47,9 @@ from server.lib.nl.detection.types import TimeDeltaType
 #    this is used to decide the "main" topic for the page.
 @dataclass
 class ChartVars:
-  # Only one of svs or events is set.
+  # Only one of svs, props, or events is set.
   svs: List[str] = field(default_factory=list)
+  props: List[str] = field(default_factory=list)
   # Represents a grouping of charts on the resulting display.
   title: str = ""
   description: str = ""
@@ -70,11 +72,8 @@ class ChartVars:
 
   # Set if is_topic_peer_group is set.
   svpg_id: str = ''
-
-  # Map of sv to place to facet metadata that has data for this sv. Used by LINE tiles
-  # when there is a date specified, and by the "is_coplottable" check.
-  # TODO: reuse https://github.com/datacommonsorg/website/blob/368d8d7cdfc1cd5086809d15b39c820d1fe763e7/server/lib/nl/fulfillment/types.py#L122-L123 for saving facet metadata.
-  sv_exist_facet = Dict[str, Dict[str, Dict[str, str]]]
+  # Skips adding an overview tile for ANSWER_WITH_ENTITY_OVERVIEW chart type.
+  skip_overview_for_entity_answer: bool = False
 
 
 @dataclass
@@ -83,6 +82,14 @@ class SV2Thing:
   unit: Dict
   description: Dict
   footnote: Dict
+
+
+@dataclass
+class ExistInfo:
+  is_single_point: bool = False
+  # Facet metadata where keys are metadata keys and values are metadata values.
+  # Keys include 'facetId' and optional 'unit'.
+  facet: Dict[str, str] = field(default_factory=dict)
 
 
 # Data structure to store state for a single "populate" call.
@@ -119,9 +126,9 @@ class PopulateState:
   # Ordered list of query types.
   query_types: List[QueryType] = field(default_factory=list)
   # Has the results of existence check.
-  # SV -> Place Keys
+  # SV -> Place Keys -> Existence info
   # Where Place Key may be the place DCID, or place DCID + child-type.
-  exist_checks: Dict[str, Set[str]] = field(default_factory=dict)
+  exist_checks: Dict[str, Dict[str, ExistInfo]] = field(default_factory=dict)
   # Whether this is explore mode of fulfillment.
   explore_mode: bool = False
   # Set to true if utterance has overwritten SVs.  So they should
@@ -133,17 +140,28 @@ class PopulateState:
   has_child_type_in_top_basic_charts: bool = False
 
 
+# Dict of place dcid -> facet id
+Place2Facet = Dict[str, str]
+# Dict of sv dcid -> place dcid -> facet id
+Sv2Place2Facet = Dict[str, Place2Facet]
+
+
 @dataclass
 class ChartSpec:
   chart_type: ChartType
   places: List[Place]
+  entities: List[Entity]
   svs: List[str]
+  props: List[str]
   event: EventType
   chart_vars: ChartVars
   place_type: str
   ranking_types: List[RankingType]
   ranking_count: int
   chart_origin: ChartOriginType
-  is_sdg: bool
+  is_special_dc: bool
   single_date: Date
   date_range: Date
+  # Dict of sv -> place -> facetid to use
+  sv_place_facet_id: Sv2Place2Facet
+  info_message: str

@@ -65,6 +65,7 @@
               }
             ],
             "denom": "Count_Person",
+            "infoMessage": "Data for \"Trinity County, Siskiyou County, Modoc County and Del Norte County\" is currently unavailable. See the following statistics on the other places.",
             "title": "Households Without Health Insurance"
           },
           {
@@ -340,6 +341,7 @@
               }
             ],
             "denom": "Count_Person",
+            "infoMessage": "Data for \"Trinity County, Siskiyou County, Modoc County and Del Norte County\" is currently unavailable. See the following statistics on the other places.",
             "title": "Uninsured by Income"
           },
           {
@@ -639,6 +641,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06105",
@@ -721,7 +724,6 @@
       "Count_Person_Female_NoHealthInsurance": {
         "age": [
           "Count_Person_18To64Years_Female_NoHealthInsurance",
-          "Count_Person_21To64Years_Female_NoHealthInsurance",
           "dc/001qmh9sdqzeb",
           "dc/0flj62fpwwxd",
           "dc/bhlcb3wz4b3v2",
@@ -738,8 +740,6 @@
       },
       "Count_Person_Male_NoHealthInsurance": {
         "age": [
-          "Count_Person_18To64Years_Male_NoHealthInsurance",
-          "Count_Person_21To64Years_Male_NoHealthInsurance",
           "dc/1qdvp8x0t3l11",
           "dc/260gxgmeglpb",
           "dc/33z5t6xqjepp1",
@@ -758,12 +758,6 @@
         "age": [
           "Count_Person_18OrMoreYears_NoHealthInsurance",
           "Count_Person_18To24Years_NoHealthInsurance",
-          "Count_Person_18To64Years_NoHealthInsurance",
-          "Count_Person_19To25Years_NoHealthInsurance",
-          "Count_Person_19To64Years_NoHealthInsurance",
-          "Count_Person_21To64Years_NoHealthInsurance",
-          "Count_Person_25OrMoreYears_NoHealthInsurance",
-          "Count_Person_25To34Years_NoHealthInsurance",
           "dc/6cd3lft0vm4f5",
           "dc/e8e2b0m921k68",
           "dc/kk8cqe86becs4"
@@ -771,21 +765,6 @@
         "gender": [
           "Count_Person_Female_NoHealthInsurance",
           "Count_Person_Male_NoHealthInsurance"
-        ],
-        "householdIncome": [
-          "Count_Person_NoHealthInsurance_100000OrMoreInflationAdjustedUSDCurrentYear_ResidesInHousehold",
-          "Count_Person_NoHealthInsurance_25000OrLessInflationAdjustedUSDCurrentYear_ResidesInHousehold",
-          "Count_Person_NoHealthInsurance_25000To49999InflationAdjustedUSDCurrentYear_ResidesInHousehold",
-          "Count_Person_NoHealthInsurance_50000To74999InflationAdjustedUSDCurrentYear_ResidesInHousehold",
-          "Count_Person_NoHealthInsurance_75000To99999InflationAdjustedUSDCurrentYear_ResidesInHousehold"
-        ],
-        "householdType": [
-          "Count_Person_NoHealthInsurance_FamilyHousehold",
-          "Count_Person_NoHealthInsurance_MarriedCoupleFamilyHousehold",
-          "Count_Person_NoHealthInsurance_NonfamilyHouseholdAndOtherLivingArrangements",
-          "Count_Person_NoHealthInsurance_OtherFamilyHousehold",
-          "Count_Person_NoHealthInsurance_SingleFatherFamilyHousehold",
-          "Count_Person_NoHealthInsurance_SingleMotherFamilyHousehold"
         ],
         "race": [
           "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone",
@@ -822,38 +801,7 @@
       "Count_Person_WithHealthInsurance": {
         "age": [
           "Count_Person_18OrMoreYears_WithHealthInsurance",
-          "Count_Person_18To24Years_WithHealthInsurance",
-          "Count_Person_18To64Years_WithHealthInsurance",
-          "Count_Person_19To25Years_WithHealthInsurance",
-          "Count_Person_19To64Years_WithHealthInsurance",
-          "Count_Person_21To64Years_WithHealthInsurance",
-          "Count_Person_25OrMoreYears_WithHealthInsurance"
-        ],
-        "race": [
-          "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_WithHealthInsurance_AsianAlone",
-          "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone"
-        ]
-      },
-      "Count_Person_WithMedicareCoverage": {
-        "age": [
-          "Count_Person_18OrLessYears_WithMedicareCoverage",
-          "Count_Person_18To64Years_WithMedicareCoverage",
-          "Count_Person_19OrLessYears_WithMedicareCoverage",
-          "Count_Person_19To64Years_WithMedicareCoverage",
-          "Count_Person_65OrMoreYears_WithMedicareCoverage"
-        ]
-      },
-      "Count_Person_WithPrivateHealthInsurance": {
-        "age": [
-          "Count_Person_18To24Years_WithPrivateHealthInsurance",
-          "Count_Person_19To25Years_WithPrivateHealthInsurance"
-        ]
-      },
-      "Count_Person_WithPublicHealthInsurance": {
-        "age": [
-          "Count_Person_18To24Years_WithPublicHealthInsurance",
-          "Count_Person_19To25Years_WithPublicHealthInsurance"
+          "Count_Person_18To24Years_WithHealthInsurance"
         ]
       },
       "Percent_Person_18To64Years_Female_NoHealthInsurance": {
@@ -918,5 +866,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See relevant statistics based on the previous query."
+  "userMessages": [
+    "See relevant statistics based on the previous query."
+  ]
 }

@@ -149,6 +149,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/0677000",
@@ -199,5 +200,7 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Sorry, there were no relevant statistics for census tracts in Sunnyvale. See results for Sunnyvale."
+  "userMessages": [
+    "Sorry, there were no relevant statistics for census tracts in Sunnyvale. See results for Sunnyvale."
+  ]
 }

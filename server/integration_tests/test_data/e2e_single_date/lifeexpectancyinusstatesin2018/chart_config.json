@@ -40,6 +40,9 @@
               {
                 "tiles": [
                   {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
                     "statVarKey": [
                       "LifeExpectancy_Person_2018_3563600999"
                     ],
@@ -132,6 +135,9 @@
               {
                 "tiles": [
                   {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
                     "statVarKey": [
                       "LifeExpectancy_Person_Female_2018_2776657033",
                       "LifeExpectancy_Person_Male_2018_2776657033"
@@ -193,6 +199,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
@@ -716,5 +723,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

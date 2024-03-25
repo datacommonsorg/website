@@ -26,6 +26,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06061",
@@ -43,5 +44,5 @@
   ],
   "relatedThings": {},
   "svSource": "UNKNOWN",
-  "userMessage": ""
+  "userMessages": []
 }

@@ -15,6 +15,8 @@
 
 cd packages/web-components
 npm install --update
+cd ../client
+npm install --update
 cd ../../static
 npm install --update
 npm run-script watch

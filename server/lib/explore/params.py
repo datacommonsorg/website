@@ -20,7 +20,9 @@ from shared.lib import constants
 
 class Params(str, Enum):
   ENTITIES = 'entities'
+  NON_PLACE_ENTITIES = 'nonPlaceEntities'
   VARS = 'variables'
+  PROPS = 'properties'
   CHILD_TYPE = 'childEntityType'
   CMP_ENTITIES = 'comparisonEntities'
   CMP_VARS = 'comparisonVariables'
@@ -46,25 +48,62 @@ class DCNames(str, Enum):
   MAIN_DC = 'main'
   SDG_DC = 'sdg'
   SDG_MINI_DC = 'sdgmini'
+  UNDATA_DC = 'undata'
+  BIO_DC = 'bio'
 
 
 class QueryMode(str, Enum):
   # NOTE: This mode is incompatible with LLM detector
   STRICT = 'strict'
+  # This is a special mode to be used for toolformer experiments.
+  # This mode does not detect topics and has a sv score threshold of 0.8.
+  TOOLFORMER = 'toolformer'
 
 
 class Clients(str, Enum):
   DEFAULT = 'default'
 
 
+SDG_DC_LIST = [DCNames.SDG_DC, DCNames.SDG_MINI_DC]
+
+SPECIAL_DC_LIST = SDG_DC_LIST + [DCNames.UNDATA_DC]
+
+
 # Get the SV score threshold for the given mode.
 def sv_threshold(mode: str) -> bool:
   if mode == QueryMode.STRICT:
     return constants.SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
+  elif mode == QueryMode.TOOLFORMER:
+    return constants.SV_SCORE_TOOLFORMER_THRESHOLD
   else:
     return constants.SV_SCORE_DEFAULT_THRESHOLD
 
 
+#
+# A list of special backends that have common handling w.r.t
+# embeddings-index, default places, etc.
+#
+def is_special_dc_str(dc: str) -> bool:
+  return dc in SPECIAL_DC_LIST
+
+
+def is_special_dc(insight_ctx: Dict) -> bool:
+  return is_special_dc_str(insight_ctx.get(Params.DC.value))
+
+
 def is_sdg(insight_ctx: Dict) -> bool:
-  return insight_ctx.get(
-      Params.DC.value) in [DCNames.SDG_DC.value, DCNames.SDG_MINI_DC.value]
+  return insight_ctx.get(Params.DC.value) in SDG_DC_LIST
+
+
+def is_bio(insight_ctx: Dict) -> bool:
+  return insight_ctx.get(Params.DC.value) == DCNames.BIO_DC.value
+
+
+def dc_to_embedding_type(dc: str, embeddings_type: str) -> str:
+  if dc in SDG_DC_LIST:
+    return 'sdg_ft'
+  elif dc == DCNames.UNDATA_DC.value:
+    return 'undata_ft'
+  elif dc == DCNames.BIO_DC.value:
+    return 'bio_ft'
+  return embeddings_type

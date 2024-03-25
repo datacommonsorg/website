@@ -161,7 +161,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
           placeUrlVal={placeUrlVal}
           shouldShowTopics={placeOverviewOnly}
         />
-        {props.pageMetadata && props.pageMetadata.pageConfig && (
+        {props.pageMetadata && !_.isEmpty(props.pageMetadata.pageConfig) && (
           <>
             {!placeOverviewOnly && (
               <ResultHeaderSection

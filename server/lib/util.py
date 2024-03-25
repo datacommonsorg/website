@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import csv
+from datetime import date
 from datetime import datetime
 import gzip
 import hashlib
@@ -20,15 +21,17 @@ import json
 import logging
 import os
 import time
-from typing import List
+from typing import List, Set
 import urllib
 
 from flask import make_response
 from google.protobuf import text_format
 
 from server.config import subject_page_pb2
+import server.lib.fetch as fetch
+import server.services.datacommons as dc
 
-_ready_check_timeout = 120  # seconds
+_ready_check_timeout = 300  # seconds
 _ready_check_sleep_seconds = 5
 
 # This has to be in sync with static/js/shared/util.ts
@@ -345,7 +348,9 @@ def get_nl_chart_titles():
 # Returns a set of SVs that should not have Per-capita.
 # TODO: Eventually read this from KG.
 def get_nl_no_percapita_vars():
-  # NOTE: This is a checked-in version of https://shorturl.at/afpMY
+  # These SVs include both manually curated dcids and those that have a
+  # measurementDenominator, excluding those from _SV_PARTIAL_DCID_NO_PC,
+  # which are already filtered in is_percapita_relevant (in shared.py).
   filepath = os.path.join(get_repo_root(), "config", "nl_page",
                           "nl_vars_percapita_ranking.csv")
   nopc_vars = set()
@@ -371,12 +376,14 @@ def get_sdg_percent_vars():
     return sdg_percent_vars
 
 
-def get_sdg_non_country_only_vars():
-  filepath = os.path.join(get_repo_root(), "config", "nl_page",
-                          "sdg_non_country_vars.json")
-  with open(filepath, 'r') as fp:
-    data = json.load(fp)
-  return set(data.get('variables', []))
+def get_special_dc_non_countery_only_vars():
+  vars = set()
+  for fname in ['sdg_non_country_vars.json', 'undata_non_country_vars.json']:
+    filepath = os.path.join(get_repo_root(), "config", "nl_page", fname)
+    with open(filepath, 'r') as fp:
+      data = json.load(fp)
+    vars.update(data.get('variables', []))
+  return vars
 
 
 # Returns common event_type_spec for all disaster event related pages.
@@ -500,3 +507,115 @@ def gzip_compress_response(raw_content, is_json):
   if is_json:
     response.headers['Content-Type'] = 'application/json'
   return response
+
+
+def fetch_highest_coverage(parent_entity: str,
+                           child_type: str,
+                           variables: List[str],
+                           all_facets: bool,
+                           facet_ids: List[str] = None):
+  """
+  Fetches the latest available data with the best coverage for the given a
+  parent entity, child type, variables, and facets. If multiple variables are
+  passed in, selects dates with highest coverage independently for each
+  variable.
+
+  Response format:
+  {
+    "facets": {
+      <facet_id>: {<facet object>}
+    },
+    "data": {
+      <var_dcid>: {
+        <entity_dcid>: {
+          <observation point(s)>
+        }
+      }
+    }
+  }
+  """
+  MAX_DATES_TO_CHECK = 5
+  MAX_YEARS_TO_CHECK = 5
+  point_responses = []
+  series_dates_response = dc.get_series_dates(parent_entity, child_type,
+                                              variables)
+  facet_ids_set = set(facet_ids or [])
+  for observation_entity_counts_by_date in series_dates_response[
+      'datesByVariable']:
+    # Each observation_entity_counts_by_date contains the observation counts by date
+    variable = observation_entity_counts_by_date['variable']
+    best_coverage_date = _get_highest_coverage_date(
+        observation_entity_counts_by_date=observation_entity_counts_by_date,
+        facet_ids=facet_ids_set,
+        max_dates_to_check=MAX_DATES_TO_CHECK,
+        max_years_to_check=MAX_YEARS_TO_CHECK)
+    if not best_coverage_date:
+      # No best coverage date means we couldn't find any variable observations
+      # Add a blank point response in this case
+      point_responses.append({'data': {variable: {}}})
+      continue
+    point_responses.append(
+        fetch.point_within_core(parent_entity, child_type, [variable],
+                                best_coverage_date, all_facets, facet_ids))
+  combined_point_response = {"facets": {}, "data": {}}
+  for point_response in point_responses:
+    combined_point_response["facets"].update(point_response.get("facets", {}))
+    combined_point_response["data"].update(point_response.get("data", {}))
+  return combined_point_response
+
+
+def _get_highest_coverage_date(observation_entity_counts_by_date,
+                               facet_ids: Set[str], max_dates_to_check: int,
+                               max_years_to_check: int) -> str | None:
+  """
+  Heuristic for fetching "latest data with highest coverage":
+  Choose the date with the most data coverage from either:
+  (1) last N observation dates
+  (2) M years from the most recent observation date
+  whichever set has more dates
+
+  Args:
+    observation_entity_counts_by_date: Part of "dc.get_series_dates" response
+      containing variable observation counts by date and entity
+    facet_ids: (optional) Only consider observation counts from these facets
+    max_dates_to_check: Only consider entity counts going back this number of
+      observation groups
+    max_years_to_check: Only consider entity counts going back this number of
+      years
+  """
+  # Get observation dates in descending order, and filter out dates in the
+  # future (to exclude erroneous data)
+  todays_date = str(date.today())
+  descending_observation_dates = [
+      observation_date for observation_date in list(
+          reversed(observation_entity_counts_by_date.get(
+              'observationDates', [])))
+      if observation_date['date'] < todays_date
+  ]
+  if len(descending_observation_dates) == 0:
+    return None
+  # Heuristic to fetch the "max_dates_to_check" most recent
+  # observation dates or observation dates going back
+  # "max_years_to_check" years, whichever is greater
+  cutoff_year = str(date.today().year - max_years_to_check)
+  latest_observation_dates_from_year = [
+      o for o in descending_observation_dates if o['date'] > cutoff_year
+  ]
+  obs_dates_cutoff = max(len(latest_observation_dates_from_year),
+                         max_dates_to_check)
+  observation_dates = descending_observation_dates[:obs_dates_cutoff]
+
+  # finds the greatest entity (observation) count among all facets in the
+  # given list of observation dates
+  date_counts = [{
+      'date':
+          obs['date'],
+      'count':
+          max([
+              entity_count_item for entity_count_item in obs['entityCount'] if
+              (len(facet_ids) == 0 or entity_count_item['facet'] in facet_ids)
+          ],
+              key=lambda item: item['count'])['count']
+  } for obs in observation_dates]
+  best_coverage = max(date_counts, key=lambda date_count: date_count['count'])
+  return best_coverage['date']

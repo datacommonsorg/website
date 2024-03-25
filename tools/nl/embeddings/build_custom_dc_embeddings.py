@@ -17,6 +17,8 @@ import os
 
 from absl import app
 from absl import flags
+from file_util import create_file_handler
+from file_util import FileHandler
 from google.cloud import storage
 import pandas as pd
 import utils
@@ -73,54 +75,56 @@ def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
   print(
       f"Generating embeddings dataframe from SV sentences CSV: {sv_sentences_csv_path}"
   )
-  embeddings_df = _build_embeddings_dataframe(ctx, sv_sentences_csv_path)
+  sv_sentences_csv_handler = create_file_handler(sv_sentences_csv_path)
+  embeddings_df = _build_embeddings_dataframe(ctx, sv_sentences_csv_handler)
 
   print("Validating embeddings.")
   utils.validate_embeddings(embeddings_df, sv_sentences_csv_path)
 
-  embeddings_csv_path = os.path.join(output_dir, EMBEDDINGS_CSV_FILENAME)
-  embeddings_yaml_path = os.path.join(output_dir, EMBEDDINGS_YAML_FILE_NAME)
+  output_dir_handler = create_file_handler(output_dir)
+  embeddings_csv_handler = create_file_handler(
+      output_dir_handler.join(EMBEDDINGS_CSV_FILENAME))
+  embeddings_yaml_handler = create_file_handler(
+      output_dir_handler.join(EMBEDDINGS_YAML_FILE_NAME))
 
-  print(f"Saving embeddings CSV: {embeddings_csv_path}")
-  embeddings_df.to_csv(embeddings_csv_path, index=False)
+  print(f"Saving embeddings CSV: {embeddings_csv_handler.path}")
+  embeddings_csv = embeddings_df.to_csv(index=False)
+  embeddings_csv_handler.write_string(embeddings_csv)
 
-  print(f"Saving embeddings yaml: {embeddings_yaml_path}")
-  generate_embeddings_yaml(embeddings_csv_path, embeddings_yaml_path)
+  print(f"Saving embeddings yaml: {embeddings_yaml_handler.path}")
+  generate_embeddings_yaml(embeddings_csv_handler, embeddings_yaml_handler)
 
   print("Done building custom DC embeddings.")
 
 
-def _build_embeddings_dataframe(ctx: utils.Context,
-                                sv_sentences_csv_path: str) -> pd.DataFrame:
-  sv_sentences_df = pd.read_csv(sv_sentences_csv_path)
+def _build_embeddings_dataframe(
+    ctx: utils.Context, sv_sentences_csv_handler: FileHandler) -> pd.DataFrame:
+  sv_sentences_df = pd.read_csv(sv_sentences_csv_handler.read_string_io())
 
   # Dedupe texts
-  (name2sv_dict, _) = utils.dedup_texts(sv_sentences_df)
-
-  print("Getting texts and dcids.")
-  (texts, dcids) = utils.get_texts_dcids(name2sv_dict)
+  (text2sv_dict, _) = utils.dedup_texts(sv_sentences_df)
 
   print("Building custom DC embeddings")
-  return utils.build_embeddings(ctx, texts, dcids)
+  return utils.build_embeddings(ctx, text2sv_dict)
 
 
-def generate_embeddings_yaml(embeddings_csv_path: str,
-                             embeddings_yaml_path: str):
-  embeddings_csv_path = os.path.abspath(embeddings_csv_path)
-  data = {"custom_ft": embeddings_csv_path}
-  with open(embeddings_yaml_path, "w") as f:
-    yaml.dump(data, f)
+def generate_embeddings_yaml(embeddings_csv_handler: FileHandler,
+                             embeddings_yaml_handler: FileHandler):
+  data = {"custom_ft": embeddings_csv_handler.abspath()}
+  embeddings_yaml_handler.write_string(yaml.dump(data))
 
 
 def _download_model(model_version: str) -> utils.Context:
   ctx_no_model = _ctx_no_model()
   model = utils.get_ft_model_from_gcs(ctx_no_model, model_version)
-  return utils.Context(gs=None, model=model, bucket=ctx_no_model.bucket)
+  return utils.Context(model=model,
+                       model_endpoint=None,
+                       bucket=ctx_no_model.bucket)
 
 
 def _ctx_no_model() -> utils.Context:
   bucket = storage.Client.create_anonymous_client().bucket(MODELS_BUCKET)
-  return utils.Context(gs=None, model=None, bucket=bucket)
+  return utils.Context(model=None, model_endpoint=None, bucket=bucket)
 
 
 def main(_):

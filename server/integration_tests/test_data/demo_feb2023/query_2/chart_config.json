@@ -44,6 +44,37 @@
                       "showHighest": true
                     },
                     "statVarKey": [
+                      "Count_FireEvent"
+                    ],
+                    "title": "Count of Fire Event in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FireEvent"
+                    ],
+                    "title": "Count of Fire Event in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Fire Event in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
                       "Count_WildlandFireEvent"
                     ],
                     "title": "Count of Wildland Fire Event in Counties of California (${date})",
@@ -64,6 +95,38 @@
               }
             ],
             "title": "Count of Wildland Fire Event in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2024",
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "Count_WildfireEvent_973116817"
+                    ],
+                    "title": "Wildfires in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Wildfires in California",
+                    "statVarKey": [
+                      "Count_WildfireEvent"
+                    ],
+                    "title": "Wildfires in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Wildfires"
           },
           {
             "columns": [
@@ -170,9 +233,22 @@
             "name": "Area of Wildland Fire Event",
             "statVar": "Area_WildlandFireEvent"
           },
+          "Count_FireEvent": {
+            "name": "Count of Fire Event",
+            "statVar": "Count_FireEvent"
+          },
           "Count_PrescribedFireEvent": {
             "name": "Count of Prescribed Fire Event",
             "statVar": "Count_PrescribedFireEvent"
+          },
+          "Count_WildfireEvent": {
+            "name": "Wildfires",
+            "statVar": "Count_WildfireEvent"
+          },
+          "Count_WildfireEvent_973116817": {
+            "facetId": "973116817",
+            "name": "Wildfires",
+            "statVar": "Count_WildfireEvent"
           },
           "Count_WildlandFireEvent": {
             "name": "Count of Wildland Fire Event",
@@ -223,6 +299,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "California",
   "place": {
     "dcid": "geoId/06",
@@ -240,5 +317,7 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See relevant statistics for California based on the previous query."
+  "userMessages": [
+    "See relevant statistics for California based on the previous query."
+  ]
 }

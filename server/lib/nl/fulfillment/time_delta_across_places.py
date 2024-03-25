@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import copy
-import logging
 import os
 from typing import List
 
@@ -44,7 +43,6 @@ def get_min_population(place_type: str, sv: str):
 #
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, rank: int) -> bool:
-  logging.info('populate_cb for time_delta_across_places')
   if chart_vars.event:
     state.uttr.counters.err('time-delta-across-places_failed_cb_events', 1)
     return False
@@ -73,8 +71,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   # Compute time-delta ranks.
   rank_order = state.ranking_types[0] if state.ranking_types else None
 
-  logging.info('Attempting to compute growth rate stats')
-
   # Get place DCIDs.
   if len(places) > 1:
     # This is place comparison!
@@ -102,7 +98,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   chart_vars = copy.deepcopy(chart_vars)
   chart_vars.svs = [sv]
 
-  ranked_children = rank_utils.rank_places_by_series_growth(
+  ranked_children, place_facet_ids = rank_utils.rank_places_by_series_growth(
       places=dcids,
       sv=sv,
       growth_direction=direction,
@@ -111,8 +107,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       nopc_vars=nopc_vars,
       place_type=pt,
       min_population=get_min_population(pt, sv),
-      date_range=state.date_range,
-      sv_exist_facet=chart_vars.sv_exist_facet)
+      date_range=state.date_range)
 
   state.uttr.counters.info(
       'time-delta_reranked_places', {
@@ -129,10 +124,17 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       ranked_places.append(dcid2place[d])
     ranked_places = ranked_places[:constants.MAX_ANSWER_PLACES]
 
+    sv_place_facet_ids = {}
+    if state.date_range or sv in constants.SVS_TO_CHECK_FACET:
+      sv_place_facet_ids = {sv: place_facet_ids}
     # TODO: Uncomment this once we agree on look and feel
     if field == 'abs' and ranked_places:
-      found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT, state,
-                                      chart_vars, ranked_places, chart_origin)
+      found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT,
+                                      state,
+                                      chart_vars,
+                                      ranked_places,
+                                      chart_origin,
+                                      sv_place_facet_ids=sv_place_facet_ids)
 
     if rank == 0 and field == 'abs' and ranked_places:
       ans_places = copy.deepcopy(ranked_places)
@@ -142,9 +144,12 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
     chart_vars.growth_direction = direction
     chart_vars.growth_ranking_type = field
-
-    found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION, state,
-                                    chart_vars, ranked_places, chart_origin)
+    found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION,
+                                    state,
+                                    chart_vars,
+                                    ranked_places,
+                                    chart_origin,
+                                    sv_place_facet_ids=sv_place_facet_ids)
 
   if not found:
     state.uttr.counters.err('time-delta-across-places_toofewplaces', '')

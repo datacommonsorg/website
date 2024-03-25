@@ -14,7 +14,6 @@
 
 import copy
 from dataclasses import dataclass
-import logging
 from typing import List
 
 import server.lib.explore.existence as ext
@@ -131,7 +130,6 @@ def set_overrides(state: PopulateState) -> bool:
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, _: int) -> bool:
-  logging.info('populate_cb for size_across_entities')
   if not state.ranking_types:
     state.uttr.counters.err('superlatives_failed_cb_norankingtypes', 1)
     return False

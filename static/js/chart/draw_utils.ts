@@ -50,6 +50,7 @@ const ROTATE_MARGIN_BOTTOM = 75;
 const TICK_SIZE = 6;
 const LEGEND_CIRCLE_RADIUS = 5;
 const LEGEND_CIRCLE_PADDING = 2;
+const LEGEND_ITEM_PADDING = 3;
 
 /**
  * Adds tooltip element within a given container.
@@ -385,7 +386,7 @@ export function appendSvgLegendElem(
     lgGroup.attr("transform", `translate(${xOffset}, ${yOffset})`);
     // xOffset for the next item will be the current offset + width of the
     // current item
-    xOffset += lgGroupWidth;
+    xOffset += lgGroupWidth + LEGEND_ITEM_PADDING;
     // If current y offset + height of the current item is greater than the
     // nextYOffset, update nextYOffset
     nextYOffset = Math.max(nextYOffset, yOffset + lgGroupHeight);

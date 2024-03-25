@@ -46,11 +46,6 @@ class TestPlaceExplorer(WebdriverBaseTest):
     # Load USA page.
     self.driver.get(self.url_ + USA_URL)
 
-    # Wait until the place-type is correct.
-    element_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
-                                                       PLACE_TYPE_TEXT)
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-
     # Assert 200 HTTP code: successful page load.
     req = urllib.request.Request(self.driver.current_url)
     with urllib.request.urlopen(req) as response:
@@ -65,6 +60,11 @@ class TestPlaceExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(EC.title_contains(TITLE_TEXT))
     self.assertEqual(TITLE_TEXT, self.driver.title)
+
+    # Wait until the place type is correct.
+    element_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
+                                                       PLACE_TYPE_TEXT)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert place title is correct.
     title = self.driver.find_element(By.ID, "place-name")
@@ -98,19 +98,29 @@ class TestPlaceExplorer(WebdriverBaseTest):
     # Assert place name is correct.
     self.assertEqual("Mountain View", place_name)
 
+    # Wait until the place type has loaded.
+    element_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
+                                                       PLACE_TYPE_TITLE)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
+    # Assert place type is correct.
+    place_type = self.driver.find_element(By.ID, "place-type").text
+    self.assertEqual(PLACE_TYPE_TITLE, place_type)
+
     # Wait until place overview tile has loaded.
     element_present = EC.presence_of_element_located(
         (By.CLASS_NAME, 'overview-tile'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
-    # Wait until the place type has loaded.
-    element_present = EC.text_to_be_present_in_element(
-        (By.ID, 'place-type-in-overview'), PLACE_TYPE_TITLE)
+    # Wait until the population highlight has loaded.
+    element_present = EC.presence_of_element_located(
+        (By.ID, 'place-highlight-in-overview'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
-    # Assert place type is correct.
-    place_type = self.driver.find_element(By.ID, "place-type-in-overview").text
-    self.assertEqual(PLACE_TYPE_TITLE, place_type)
+    # Assert population highlight is correct.
+    place_type = self.driver.find_element(By.ID,
+                                          "place-highlight-in-overview").text
+    self.assertTrue(place_type.startswith("Population:"))
 
   def test_place_search(self):
     """Test the place search box can work correctly."""
@@ -156,7 +166,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
 
   def test_demographics_link(self):
     """Test the demographics link can work correctly."""
-    CHART_TITLE = "Median age by gender: states near California(2021)"
+    CHART_TITLE = "Median age by gender: states near California(2022)"
     # Load California page.
     self.driver.get(self.url_ + CA_URL)
 
@@ -206,7 +216,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         By.XPATH, '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4').text
 
     # Assert chart title is correct.
-    self.assertEqual("Median age by gender: states near California(2021)",
+    self.assertEqual("Median age by gender: states near California(2022)",
                      chart_title)
 
   def test_ranking_chart_present(self):

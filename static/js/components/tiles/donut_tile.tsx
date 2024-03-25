@@ -69,6 +69,8 @@ export interface DonutTilePropType {
   title: string;
   // Chart subtitle
   subtitle?: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 interface DonutChartData {
@@ -108,7 +110,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
-      sources={donutChartData && donutChartData.sources}
+      sources={props.sources || (donutChartData && donutChartData.sources)}
       replacementStrings={getReplacementStrings(props, donutChartData)}
       className={`${props.className} bar-chart`}
       allowEmbed={true}
@@ -172,7 +174,9 @@ export const fetchData = async (props: DonutTilePropType) => {
     popPoints = popPoints.slice(0, NUM_PLACES);
     const placeNames = await getPlaceNames(
       Array.from(popPoints).map((x) => x.placeDcid),
-      props.apiRoot
+      {
+        apiRoot: props.apiRoot,
+      }
     );
     const statVarDcidToName = await getStatVarNames(
       props.statVarSpec,

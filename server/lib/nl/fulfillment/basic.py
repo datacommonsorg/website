@@ -77,7 +77,7 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
 
   # For peer-groups, add multi-line charts.
   max_rank_and_map_charts = _get_max_rank_and_map_charts(chart_vars, state)
-  is_sdg = params.is_sdg(state.uttr.insight_ctx)
+  is_special_dc = params.is_special_dc(state.uttr.insight_ctx)
 
   # If user specified an explicit child place type, show child charts
   # (map, ranking) before main (bars, timelines).
@@ -100,7 +100,7 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
     if state.place_type:
       # If this is SDG, unless user has asked for ranking, do not return!
       added_child_type_charts = False
-      if not is_sdg or state.ranking_types:
+      if not is_special_dc or state.ranking_types:
         ranking_orig = state.ranking_types
         if not state.ranking_types:
           state.ranking_types = [RankingType.HIGH, RankingType.LOW]
@@ -113,7 +113,7 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
             ranking_count=_get_ranking_count_by_type(state.place_type,
                                                      ranking_orig))
         state.ranking_types = ranking_orig
-      elif is_sdg:
+      elif is_special_dc:
         # Return only map.
         added_child_type_charts = containedin.populate(state, cv, places,
                                                        chart_origin, rank)

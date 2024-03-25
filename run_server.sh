@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2020 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,23 +15,31 @@
 
 set -e
 
-python3 -m venv .env
+function cleanup {
+  echo "Cleaning up before exit..."
+  deactivate
+  exit 1
+}
+trap cleanup SIGINT
+
+
 source .env/bin/activate
 
 PORT=8080
 ENABLE_MODEL=false
 
 function help {
-  echo "Usage: $0 -epm"
+  echo "Usage: $0 -epmxdl"
   echo "-e       Run with a specified environment. Options are: lite custom or any configured env. Default: local"
   echo "-p       Run on a specified port. Default: 8080"
   echo "-m       Enable language models"
+  echo "-x       Enable embedding eval playground"
   echo "-d       [Local dev] Enable disaster JSON cache"
   echo "-l       [Local dev] Use local mixer"
   exit 1
 }
 
-while getopts ":e:p:m?d?l" OPTION; do
+while getopts ":e:p:m?d?l?x" OPTION; do
   case $OPTION in
     e)
       export FLASK_ENV=$OPTARG
@@ -41,6 +49,9 @@ while getopts ":e:p:m?d?l" OPTION; do
       ;;
     m)
       export ENABLE_MODEL=true
+      ;;
+    x)
+      export ENABLE_EVAL_TOOL=true
       ;;
     d)
       export ENABLE_DISASTER_JSON=true
@@ -65,8 +76,5 @@ else
 fi
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
-python3 -m pip install --upgrade pip
-pip3 install --upgrade setuptools
-pip3 install -r server/requirements.txt -q
 protoc -I=./server/config/ --python_out=./server/config ./server/config/subject_page.proto
 python3 web_app.py $PORT

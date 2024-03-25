@@ -1,7 +1,11 @@
 {
   "charts": [
     {
-      "data_csv": "placeName,placeDcid,xDate,xValue-Count_Person_BelowPovertyLevelInThePast12Months,yDate,yValue-Percent_Person_Obesity\r\n\"Alameda County, CA\",geoId/06001,2021,146763,2021,24.8\r\n\"Alpine County, CA\",geoId/06003,2021,174,2021,29.1\r\n\"Amador County, CA\",geoId/06005,2021,2891,2021,29.6\r\n\"Butte County, CA\",geoId/06007,2021,37731,2021,31\r\n\"Calaveras County, CA\",geoId/06009,2021,6346,2021,30.6\r\n\"Colusa County, CA\",geoId/06011,2021,2807,2021,33.4\r\n\"Contra Costa County, CA\",geoId/06013,2021,94523,2021,24.3\r\n\"Del Norte County, CA\",geoId/06015,2021,4284,2021,32.7\r\n\"El Dorado County, CA\",geoId/06017,2021,16394,2021,28.1\r\n\"Fresno County, CA\",geoId/06019,2021,198793,2021,36.8\r\n\"Glenn County, CA\",geoId/06021,2021,4272,2021,31.8\r\n\"Humboldt County, CA\",geoId/06023,2021,27116,2021,33.2\r\n\"Imperial County, CA\",geoId/06025,2021,35711,2021,38\r\n\"Inyo County, CA\",geoId/06027,2021,1989,2021,29.4\r\n\"Kern County, CA\",geoId/06029,2021,169289,2021,36.6\r\n\"Kings County, CA\",geoId/06031,2021,22449,2021,35.1\r\n\"Lake County, CA\",geoId/06033,2021,11173,2021,33.7\r\n\"Lassen County, CA\",geoId/06035,2021,3196,2021,32.1\r\n\"Los Angeles County, CA\",geoId/06037,2021,1366544,2021,28.5\r\n\"Madera County, CA\",geoId/06039,2021,28921,2021,35.9\r\n\"Marin County, CA\",geoId/06041,2021,17840,2021,22.9\r\n\"Mariposa County, CA\",geoId/06043,2021,2236,2021,30\r\n\"Mendocino County, CA\",geoId/06045,2021,14246,2021,31.5\r\n\"Merced County, CA\",geoId/06047,2021,52771,2021,33\r\n\"Modoc County, CA\",geoId/06049,2021,1664,2021,33.1\r\n\"Mono County, CA\",geoId/06051,2021,1312,2021,29.6\r\n\"Monterey County, CA\",geoId/06053,2021,51288,2021,27.5\r\n\"Napa County, CA\",geoId/06055,2021,10394,2021,28\r\n\"Nevada County, CA\",geoId/06057,2021,10567,2021,27.5\r\n\"Orange County, CA\",geoId/06059,2021,311294,2021,25.3\r\n\"Placer County, CA\",geoId/06061,2021,27629,2021,26.3\r\n\"Plumas County, CA\",geoId/06063,2021,2287,2021,29.5\r\n\"Riverside County, CA\",geoId/06065,2021,283249,2021,36.2\r\n\"Sacramento County, CA\",geoId/06067,2021,205590,2021,31.7\r\n\"San Benito County, CA\",geoId/06069,2021,4875,2021,31\r\n\"San Bernardino County, CA\",geoId/06071,2021,302798,2021,38.1\r\n\"San Diego County, CA\",geoId/06073,2021,344458,2021,23.9\r\n\"San Francisco County, CA\",geoId/06075,2021,87874,2021,18.7\r\n\"San Joaquin County, CA\",geoId/06077,2021,101951,2021,33.3\r\n\"San Luis Obispo County, CA\",geoId/06079,2021,32077,2021,30.5\r\n\"San Mateo County, CA\",geoId/06081,2021,46644,2021,21\r\n\"Santa Barbara County, CA\",geoId/06083,2021,57269,2021,30.1\r\n\"Santa Clara County, CA\",geoId/06085,2021,126551,2021,18.5\r\n\"Santa Cruz County, CA\",geoId/06087,2021,28396,2021,25.2\r\n\"Shasta County, CA\",geoId/06089,2021,25365,2021,30.9\r\n\"Sierra County, CA\",geoId/06091,2021,249,2021,29.8\r\n\"Siskiyou County, CA\",geoId/06093,2021,7309,2021,32.8\r\n\"Solano County, CA\",geoId/06095,2021,39020,2021,29.9\r\n\"Sonoma County, CA\",geoId/06097,2021,42142,2021,28.6\r\n\"Stanislaus County, CA\",geoId/06099,2021,74272,2021,34.8\r\n\"Sutter County, CA\",geoId/06101,2021,12383,2021,31.6\r\n\"Tehama County, CA\",geoId/06103,2021,11597,2021,34.2\r\n\"Trinity County, CA\",geoId/06105,2021,3512,2021,33\r\n\"Tulare County, CA\",geoId/06107,2021,91866,2021,35.5\r\n\"Tuolumne County, CA\",geoId/06109,2021,5119,2021,29.5\r\n\"Ventura County, CA\",geoId/06111,2021,73740,2021,27\r\n\"Yolo County, CA\",geoId/06113,2021,36036,2021,27.8\r\n\"Yuba County, CA\",geoId/06115,2021,11939,2021,33.9",
+      "data_csv": "placeName,placeDcid,xDate,xValue-Count_Person_BelowPovertyLevelInThePast12Months,yDate,yValue-Percent_Person_Obesity\r\n\"Alameda County, CA\",geoId/06001,2022,149843,2021,24.8\r\n\"Alpine County, CA\",geoId/06003,2022,208,2021,29.1\r\n\"Amador County, CA\",geoId/06005,2022,2945,2021,29.6\r\n\"Butte County, CA\",geoId/06007,2022,38015,2021,31\r\n\"Calaveras County, CA\",geoId/06009,2022,5915,2021,30.6\r\n\"Colusa County, CA\",geoId/06011,2022,2364,2021,33.4\r\n\"Contra Costa County, CA\",geoId/06013,2022,95255,2021,24.3\r\n\"Del Norte County, CA\",geoId/06015,2022,3585,2021,32.7\r\n\"El Dorado County, CA\",geoId/06017,2022,16364,2021,28.1\r\n\"Fresno County, CA\",geoId/06019,2022,193675,2021,36.8\r\n\"Glenn County, CA\",geoId/06021,2022,4335,2021,31.8\r\n\"Humboldt County, CA\",geoId/06023,2022,26394,2021,33.2\r\n\"Imperial County, CA\",geoId/06025,2022,36092,2021,38\r\n\"Inyo County, CA\",geoId/06027,2022,2199,2021,29.4\r\n\"Kern County, CA\",geoId/06029,2022,170013,2021,36.6\r\n\"Kings County, CA\",geoId/06031,2022,22634,2021,35.1\r\n\"Lake County, CA\",geoId/06033,2022,11065,2021,33.7\r\n\"Lassen County, CA\",geoId/06035,2022,3645,2021,32.1\r\n\"Los Angeles County, CA\",geoId/06037,2022,1343978,2021,28.5\r\n\"Madera County, CA\",geoId/06039,2022,30154,2021,35.9\r\n\"Marin County, CA\",geoId/06041,2022,17809,2021,22.9\r\n\"Mariposa County, CA\",geoId/06043,2022,2712,2021,30\r\n\"Mendocino County, CA\",geoId/06045,2022,14483,2021,31.5\r\n\"Merced County, CA\",geoId/06047,2022,51272,2021,33\r\n\"Modoc County, CA\",geoId/06049,2022,1430,2021,33.1\r\n\"Mono County, CA\",geoId/06051,2022,1478,2021,29.6\r\n\"Monterey County, CA\",geoId/06053,2022,51913,2021,27.5\r\n\"Napa County, CA\",geoId/06055,2022,10620,2021,28\r\n\"Nevada County, CA\",geoId/06057,2022,10505,2021,27.5\r\n\"Orange County, CA\",geoId/06059,2022,303810,2021,25.3\r\n\"Placer County, CA\",geoId/06061,2022,27446,2021,26.3\r\n\"Plumas County, CA\",geoId/06063,2022,2101,2021,29.5\r\n\"Riverside County, CA\",geoId/06065,2022,272432,2021,36.2\r\n\"Sacramento County, CA\",geoId/06067,2022,204388,2021,31.7\r\n\"San Benito County, CA\",geoId/06069,2022,4832,2021,31\r\n\"San Bernardino County, CA\",geoId/06071,2022,294246,2021,38.1\r\n\"San Diego County, CA\",geoId/06073,2022,338752,2021,23.9\r\n\"San Francisco County, CA\",geoId/06075,2022,87849,2021,18.7\r\n\"San Joaquin County, CA\",geoId/06077,2022,98352,2021,33.3\r\n\"San Luis Obispo County, CA\",geoId/06079,2022,33728,2021,30.5\r\n\"San Mateo County, CA\",geoId/06081,2022,48137,2021,21\r\n\"Santa Barbara County, CA\",geoId/06083,2022,57513,2021,30.1\r\n\"Santa Clara County, CA\",geoId/06085,2022,129834,2021,18.5\r\n\"Santa Cruz County, CA\",geoId/06087,2022,29302,2021,25.2\r\n\"Shasta County, CA\",geoId/06089,2022,23753,2021,30.9\r\n\"Sierra County, CA\",geoId/06091,2022,359,2021,29.8\r\n\"Siskiyou County, CA\",geoId/06093,2022,7289,2021,32.8\r\n\"Solano County, CA\",geoId/06095,2022,39705,2021,29.9\r\n\"Sonoma County, CA\",geoId/06097,2022,42925,2021,28.6\r\n\"Stanislaus County, CA\",geoId/06099,2022,75125,2021,34.8\r\n\"Sutter County, CA\",geoId/06101,2022,13065,2021,31.6\r\n\"Tehama County, CA\",geoId/06103,2022,10483,2021,34.2\r\n\"Trinity County, CA\",geoId/06105,2022,3457,2021,33\r\n\"Tulare County, CA\",geoId/06107,2022,86391,2021,35.5\r\n\"Tuolumne County, CA\",geoId/06109,2022,5887,2021,29.5\r\n\"Ventura County, CA\",geoId/06111,2022,74315,2021,27\r\n\"Yolo County, CA\",geoId/06113,2022,36521,2021,27.8\r\n\"Yuba County, CA\",geoId/06115,2022,12375,2021,33.9",
+      "placeType": "County",
+      "places": [
+        "geoId/06"
+      ],
       "srcs": [
         {
           "name": "census.gov",
@@ -12,13 +16,21 @@
           "url": "https://www.cdc.gov/places/index.html"
         }
       ],
-      "title": "Prevalence of Obesity (2021) Vs. Population Below Poverty Line (2021) in Counties of California",
+      "title": "Prevalence of Obesity (2021) Vs. Population Below Poverty Line (2022) in Counties of California",
       "type": "SCATTER",
+      "vars": [
+        "Percent_Person_Obesity",
+        "Count_Person_BelowPovertyLevelInThePast12Months"
+      ],
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=obesity%20vs.%20poverty%20in%20counties%20of%20california"
     },
     {
       "data_csv": "label,variable,data\r\n\"Alameda County, CA\",Prevalence of Obesity,24.8\r\n\"Alpine County, CA\",Prevalence of Obesity,29.1\r\n\"Amador County, CA\",Prevalence of Obesity,29.6\r\n\"Butte County, CA\",Prevalence of Obesity,31\r\n\"Calaveras County, CA\",Prevalence of Obesity,30.6\r\n\"Colusa County, CA\",Prevalence of Obesity,33.4\r\n\"Contra Costa County, CA\",Prevalence of Obesity,24.3\r\n\"Del Norte County, CA\",Prevalence of Obesity,32.7\r\n\"El Dorado County, CA\",Prevalence of Obesity,28.1\r\n\"Fresno County, CA\",Prevalence of Obesity,36.8\r\n\"Glenn County, CA\",Prevalence of Obesity,31.8\r\n\"Humboldt County, CA\",Prevalence of Obesity,33.2\r\n\"Imperial County, CA\",Prevalence of Obesity,38\r\n\"Inyo County, CA\",Prevalence of Obesity,29.4\r\n\"Kern County, CA\",Prevalence of Obesity,36.6\r\n\"Kings County, CA\",Prevalence of Obesity,35.1\r\n\"Lake County, CA\",Prevalence of Obesity,33.7\r\n\"Lassen County, CA\",Prevalence of Obesity,32.1\r\n\"Los Angeles County, CA\",Prevalence of Obesity,28.5\r\n\"Madera County, CA\",Prevalence of Obesity,35.9\r\n\"Marin County, CA\",Prevalence of Obesity,22.9\r\n\"Mariposa County, CA\",Prevalence of Obesity,30\r\n\"Mendocino County, CA\",Prevalence of Obesity,31.5\r\n\"Merced County, CA\",Prevalence of Obesity,33\r\n\"Modoc County, CA\",Prevalence of Obesity,33.1\r\n\"Mono County, CA\",Prevalence of Obesity,29.6\r\n\"Monterey County, CA\",Prevalence of Obesity,27.5\r\n\"Napa County, CA\",Prevalence of Obesity,28\r\n\"Nevada County, CA\",Prevalence of Obesity,27.5\r\n\"Orange County, CA\",Prevalence of Obesity,25.3\r\n\"Placer County, CA\",Prevalence of Obesity,26.3\r\n\"Plumas County, CA\",Prevalence of Obesity,29.5\r\n\"Riverside County, CA\",Prevalence of Obesity,36.2\r\n\"Sacramento County, CA\",Prevalence of Obesity,31.7\r\n\"San Benito County, CA\",Prevalence of Obesity,31\r\n\"San Bernardino County, CA\",Prevalence of Obesity,38.1\r\n\"San Diego County, CA\",Prevalence of Obesity,23.9\r\n\"San Francisco County, CA\",Prevalence of Obesity,18.7\r\n\"San Joaquin County, CA\",Prevalence of Obesity,33.3\r\n\"San Luis Obispo County, CA\",Prevalence of Obesity,30.5\r\n\"San Mateo County, CA\",Prevalence of Obesity,21\r\n\"Santa Barbara County, CA\",Prevalence of Obesity,30.1\r\n\"Santa Clara County, CA\",Prevalence of Obesity,18.5\r\n\"Santa Cruz County, CA\",Prevalence of Obesity,25.2\r\n\"Shasta County, CA\",Prevalence of Obesity,30.9\r\n\"Sierra County, CA\",Prevalence of Obesity,29.8\r\n\"Siskiyou County, CA\",Prevalence of Obesity,32.8\r\n\"Solano County, CA\",Prevalence of Obesity,29.9\r\n\"Sonoma County, CA\",Prevalence of Obesity,28.6\r\n\"Stanislaus County, CA\",Prevalence of Obesity,34.8\r\n\"Sutter County, CA\",Prevalence of Obesity,31.6\r\n\"Tehama County, CA\",Prevalence of Obesity,34.2\r\n\"Trinity County, CA\",Prevalence of Obesity,33\r\n\"Tulare County, CA\",Prevalence of Obesity,35.5\r\n\"Tuolumne County, CA\",Prevalence of Obesity,29.5\r\n\"Ventura County, CA\",Prevalence of Obesity,27\r\n\"Yolo County, CA\",Prevalence of Obesity,27.8\r\n\"Yuba County, CA\",Prevalence of Obesity,33.9",
+      "placeType": "County",
+      "places": [
+        "geoId/06"
+      ],
       "srcs": [
         {
           "name": "cdc.gov",
@@ -28,11 +40,18 @@
       "title": "Prevalence of Obesity in Counties of California (2021)",
       "type": "MAP",
       "unit": "%",
+      "vars": [
+        "Percent_Person_Obesity"
+      ],
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=obesity%20vs.%20poverty%20in%20counties%20of%20california"
     },
     {
       "data_csv": "rank,place,Prevalence of Obesity\r\n1,San Bernardino County,38.1\r\n2,Imperial County,38\r\n3,Fresno County,36.8\r\n4,Kern County,36.6\r\n5,Riverside County,36.2\r\n54,San Diego County,23.9\r\n55,Marin County,22.9\r\n56,San Mateo County,21\r\n57,San Francisco County,18.7\r\n58,Santa Clara County,18.5",
+      "placeType": "County",
+      "places": [
+        "geoId/06"
+      ],
       "srcs": [
         {
           "name": "cdc.gov",
@@ -42,6 +61,9 @@
       "title": "Prevalence of Obesity in Counties of California (2021)",
       "type": "TABLE",
       "unit": "%",
+      "vars": [
+        "Percent_Person_Obesity"
+      ],
       "dcUrl": "https://datacommons.org/explore#q=obesity%20vs.%20poverty%20in%20counties%20of%20california"
     }
   ]
