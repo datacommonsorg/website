@@ -559,5 +559,17 @@ class ExploreTest(NLWebServerTestCase):
         mode='toolformer')
 
   def test_e2e_triple(self):
-    self.run_detect_and_fulfill('e2e_triple', ['What is the phylum of volvox?'],
-                                dc='bio')
+    self.run_detect_and_fulfill(
+        'e2e_triple',
+        [
+            # Should all have 'out' properties as answer
+            'What is the phylum of volvox?',
+            'How about Corylus cornuta Marshall',
+            'What strand orientation does FGFR1 have?',
+            'What type of gene is it',
+            # Should have 'in' properties as answer
+            'What is Betacoronavirus 1 the species of',
+            # Should have both 'in' and 'out' properties in the answer
+            'What is Diltiazem a mesh descriptor for'
+        ],
+        dc='bio')

@@ -15,7 +15,6 @@
 
 import dataclasses
 import datetime
-import logging
 import random
 import re
 import time
@@ -88,7 +87,10 @@ def sv_existence_for_places(places: List[str], svs: List[str],
   sv_existence = fetch.observation_existence(svs, places)
   counters.timeit('sv_existence_for_places', start)
   if not sv_existence:
-    logging.error("Existence checks for SVs failed.")
+    counters.err('sv_existence_for_places_failed', {
+        'nplaces': len(places),
+        'svs': len(svs)
+    })
     return [], {}
 
   existing_svs = []

@@ -22,6 +22,8 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
+RUN apt install -y nginx
+
 # Docker cache: Download modules
 COPY mixer/go.mod mixer/go.sum ./
 RUN go mod download -x
@@ -64,8 +66,8 @@ RUN pip3 install -r /workspace/server/requirements.txt
 COPY nl_app.py /workspace/nl_app.py
 COPY deploy/nl/. /datacommons/nl/
 COPY nl_server/requirements.txt /workspace/nl_server/requirements.txt
-RUN pip install --upgrade pip setuptools light-the-torch
-RUN ltt install torch --cpuonly
+RUN pip install --upgrade pip
+RUN pip3 install torch==2.2.1 --extra-index-url https://download.pytorch.org/whl/cpu
 RUN pip3 install -r /workspace/nl_server/requirements.txt
 
 # Import Tool
@@ -134,5 +136,6 @@ ENV DC_API_ROOT=https://api.datacommons.org
 ENV ENABLE_MODEL=false
 
 COPY build/web_compose/compose.sh .
-EXPOSE 6060 8080 8081
+COPY build/web_compose/nginx.conf .
+EXPOSE 8080
 CMD ./compose.sh

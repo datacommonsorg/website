@@ -43,7 +43,6 @@ import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { DebugInfo } from "../nl_interface/debug_info";
-import { EntityPvSection } from "./entity_pv_section";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
 import { SearchSection } from "./search_section";
@@ -162,9 +161,6 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
           placeUrlVal={placeUrlVal}
           shouldShowTopics={placeOverviewOnly}
         />
-        {props.queryResult.entityPvConfig && (
-          <EntityPvSection config={props.queryResult.entityPvConfig} />
-        )}
         {props.pageMetadata && !_.isEmpty(props.pageMetadata.pageConfig) && (
           <>
             {!placeOverviewOnly && (

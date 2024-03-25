@@ -68,6 +68,32 @@ def has_place(uttr: Utterance) -> bool:
   return False
 
 
+def has_prop(uttr: Utterance) -> bool:
+  if not uttr:
+    return False
+
+  if uttr.properties:
+    return True
+
+  if uttr.insight_ctx and uttr.insight_ctx.get('properties'):
+    return True
+
+  return False
+
+
+def has_entity(uttr: Utterance) -> bool:
+  if not uttr:
+    return False
+
+  if uttr.places:
+    return True
+
+  if uttr.insight_ctx and uttr.insight_ctx.get('nonPlaceEntities'):
+    return True
+
+  return False
+
+
 def classifications_of_type_from_utterance(
     uttr: Utterance, ctype: ClassificationType) -> List[NLClassifier]:
   return [cl for cl in uttr.classifications if cl.type == ctype]

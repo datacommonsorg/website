@@ -13,8 +13,6 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-import logging
-import re
 from typing import Dict, Set, Tuple
 
 from server.config.subject_page_pb2 import Block
@@ -223,10 +221,8 @@ def is_sv_percapita(sv_name: str, sv_dcid: str) -> bool:
 
 def is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
   if len(cspec.places) > 1:
-    logging.error(f'Incompatible MAP/RANKING: too-many-places {cspec}')
     return False
   if not cspec.place_type:
-    logging.error(f'Incompatible MAP/RANKING: missing-place-type {cspec}')
     return False
   return True
 
@@ -239,7 +235,7 @@ def place_overview_block(column):
 def entity_overview_block(column, entity):
   tile = column.tiles.add()
   tile.type = Tile.TileType.ENTITY_OVERVIEW
-  tile.entity.extend([entity.dcid])
+  tile.entities.extend([entity.dcid])
 
 
 # Delete duplicate charts and cleanup any empties.

@@ -12,24 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.config.subject_page_pb2 import PropertySpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.config_builder import base
 from server.lib.nl.fulfillment.types import ChartSpec
 
-_SINGULAR_TITLE = 'The {property} for {entity} is:'
-
 
 def answer_message_block(builder: base.Builder, cspec: ChartSpec):
-  prop = cspec.props[0]
   entity = cspec.entities[0]
-  title = _SINGULAR_TITLE.format(property=prop,
-                                 entity=entity.name or entity.dcid)
   tile = Tile(type=Tile.TileType.ANSWER_MESSAGE,
-              title=title,
-              entity=[entity.dcid])
-  tile.answer_message_tile_spec.property.property = prop
-  # Only handling out arcs for now
-  tile.answer_message_tile_spec.property.direction = PropertySpec.PropertyDirection.OUT
+              title=cspec.chart_vars.title,
+              entities=[entity.dcid])
+  tile.answer_message_tile_spec.property_expr = cspec.props[0]
   block = builder.new_chart(cspec, skip_title=True)
   block.columns.add().tiles.append(tile)
