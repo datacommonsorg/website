@@ -998,3 +998,15 @@ SVS_TO_CHECK_FACET = frozenset([
     "dc/evcytmdmc9xgd",
     "WagesTotal_Worker_NAICSNonclassifiable",
 ])
+
+# Map of property expression to display name used in an out arc title.
+OUT_PROP_DISPLAY_NAME = {
+    '<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol':
+        'associated genes',
+    '<-geneSymbol{typeOf:GeneticVariantGeneAssociation}->referenceSNPClusterID':
+        'associated genetic variants',
+    '<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID':
+        'associated genes',
+    '<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID':
+        'associated diseases'
+}
