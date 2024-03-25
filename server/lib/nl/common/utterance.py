@@ -65,7 +65,8 @@ class QueryType(IntEnum):
   FILTER_WITH_SINGLE_VAR = 12
   # This is [median age in cities with population over 1M]
   FILTER_WITH_DUAL_VARS = 13
-  UNKNOWN = 14
+  TRIPLE = 14
+  UNKNOWN = 15
 
 
 # Type of chart.
@@ -78,6 +79,8 @@ class ChartType(IntEnum):
   SCATTER_CHART = 5
   EVENT_CHART = 6
   RANKED_TIMELINE_COLLECTION = 7
+  ANSWER = 8
+  ENTITY_OVERVIEW = 9
 
 
 class FulfillmentResult(str, Enum):
@@ -170,6 +173,8 @@ class Utterance:
   llm_resp: Dict
   sv_source: FulfillmentResult = FulfillmentResult.UNKNOWN
   place_source: FulfillmentResult = FulfillmentResult.UNKNOWN
+  properties_source: FulfillmentResult = FulfillmentResult.UNKNOWN
+  entities_source: FulfillmentResult = FulfillmentResult.UNKNOWN
   # This is more details on the *_source if it is from PAST query.
   # This is important for knowing the original place for a query
   # like [poverty across africa] -> [which countries have shown the greatest increase].

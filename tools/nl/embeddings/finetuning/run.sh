@@ -34,7 +34,7 @@ while getopts bfi OPTION; do
         echo -e "### Finetuning an existing tuned_alternatives model (final stage only)"
         START_FROM="intermediate"
         GENERATE="final"
-        
+
         # Determine the intermediate model.
         if [ "$2" != "" ]; then
             INTERMEDIATE_FINETUNED_MODEL="$2"
@@ -63,7 +63,7 @@ fi
 cd ../
 python3 -m venv .env
 source .env/bin/activate
-python3 -m pip install --upgrade pip setuptools light-the-torch
-ltt install torch --cpuonly
+python3 -m pip install --upgrade pip
+pip3 install torch==2.2.1 --extra-index-url https://download.pytorch.org/whl/cpu
 pip3 install -r requirements.txt
 python3 -m finetuning.finetune --start_from="$START_FROM" --generate="$GENERATE" --pretuned_model="$INTERMEDIATE_FINETUNED_MODEL"

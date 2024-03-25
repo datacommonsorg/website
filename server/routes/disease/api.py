@@ -20,8 +20,9 @@ from json import JSONEncoder
 import flask
 from flask import Response
 
-from server import cache
 from server.lib import fetch
+from server.lib.cache import cache
+from server.routes import TIMEOUT
 import server.services.datacommons as dc
 
 bp = flask.Blueprint('api_disease', __name__, url_prefix='/api/disease')
@@ -44,7 +45,7 @@ class DiseaseParentEncoder(JSONEncoder):
     return o.__dict__
 
 
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 @bp.route('/<path:dcid>')
 def get_node(dcid):
   """Returns data given a disease node."""

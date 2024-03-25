@@ -61,7 +61,7 @@ _MODEL_ENDPOINT_RETRYS = 3
 class Context:
   # Model
   model: Any
-  # Vertext AI model endpoint url
+  # Vertex AI model endpoint url
   model_endpoint: aiplatform.Endpoint
   # GCS storage bucket
   bucket: Any

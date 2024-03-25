@@ -45,7 +45,7 @@ flags.DEFINE_string('existing_model_path', '',
                     'Path to an existing model (local)')
 flags.DEFINE_string(
     'vertex_ai_prediction_endpoint_id', '',
-    'The ID of vertext AI prediction endpoint.' +
+    'The ID of vertex AI prediction endpoint.' +
     ' Not set for local Sentence Transformers based index, must be set for API-based index'
 )
 flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')

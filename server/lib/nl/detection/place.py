@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
+from dataclasses import dataclass
 from typing import Dict, List
 
 from server.lib.fetch import property_values
@@ -23,6 +23,14 @@ import server.services.datacommons as dc
 import shared.lib.utils as utils
 
 MAX_IDENTICAL_NAME_PLACES = 5
+
+
+@dataclass
+class QueryPart:
+  # The actual substring from the query for this part of the query.
+  substr: str
+  # The dcid this query part matched to. Empty if it didn't match to a dcid.
+  dcid: str = ''
 
 
 #
@@ -37,10 +45,10 @@ def detect_from_query_dc(orig_query: str,
 
   query_items = dc.recognize_places(query)
 
-  nonplace_query_parts = []
-  places_str = []
   mains = []
   main2corrections = {}
+  # List of parts in the query
+  query_parts: List[QueryPart] = []
 
   debug_logs["place_dcid_inference"] = {}
   debug_logs["place_resolution"] = {}
@@ -53,7 +61,7 @@ def detect_from_query_dc(orig_query: str,
       # Use the first DCID for now.
       main = item['places'][0]['dcid']
       mains.append(main)
-      places_str.append(item['span'].lower())
+      query_parts.append(QueryPart(substr=item['span'].lower(), dcid=main))
 
       related = []
       for rp in item['places'][1:MAX_IDENTICAL_NAME_PLACES + 1]:
@@ -66,7 +74,7 @@ def detect_from_query_dc(orig_query: str,
           d['dcid'] for d in item['places'] if 'dcid' in d
       ]
     else:
-      nonplace_query_parts.append(item['span'].lower())
+      query_parts.append(QueryPart(substr=item['span'].lower()))
 
   resolved_places = []
   resolved_entities = []
@@ -76,6 +84,7 @@ def detect_from_query_dc(orig_query: str,
         mains, debug_logs["place_resolution"])
     if allow_triples:
       resolved_entities = _get_non_place_entities(mains, resolved_places)
+  resolved_place_dcids = set([p.dcid for p in resolved_places])
 
   main_place = None
   peers = []
@@ -85,6 +94,16 @@ def detect_from_query_dc(orig_query: str,
     parent_places = parent_map.get(main_place.dcid, [])
 
   # Set PlaceDetection.
+  places_str = []
+  nonplace_query_parts = []
+  for p in query_parts:
+    if p.dcid in resolved_place_dcids:
+      # The query part is a place dcid so add its original string to places_str
+      places_str.append(p.substr)
+    else:
+      # The query part is not a place dcid, so add its original string to
+      # nonplace_query_parts
+      nonplace_query_parts.append(p.substr)
   query_without_place_substr = ' '.join(nonplace_query_parts)
   place_detection = PlaceDetection(
       query_original=query,
@@ -204,9 +223,6 @@ def get_place_from_dcids(place_dcids: List[str], debug_logs: Dict) -> any:
     added.add(p_dcid)
 
     if p_dcid not in dcid2place:
-      logging.info(
-          f"Place DCID ({p_dcid}) did not correspond to a place_type and/or place name."
-      )
       dc_resolve_failures.append(p_dcid)
     else:
       places.append(dcid2place[p_dcid])

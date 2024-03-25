@@ -14,17 +14,16 @@
 """Endpoints for Datacommons NL"""
 
 import json
-import logging
 
 import flask
 from flask import Blueprint
 from flask import current_app
 from flask import request
 
-from server import cache
-from server import file_cache
+from server.lib.cache import model_cache
 from server.lib.explore.params import Clients
 from server.lib.explore.params import Params
+from server.routes import TIMEOUT
 from server.routes.nl import helpers
 import server.services.bigtable as bt
 import shared.model.api as model_api
@@ -81,12 +80,11 @@ def feedback():
     bt.write_feedback(session_id, feedback_data)
     return '', 200
   except Exception as e:
-    logging.error(e)
     return 'Failed to record feedback data', 500
 
 
 @bp.route('/encode-vector')
-@file_cache.file_cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@model_cache.cached(timeout=TIMEOUT, query_string=True)
 def encode_vector():
   """Retrieves the embedding vector for a given sentence and model.
 
@@ -102,7 +100,7 @@ def encode_vector():
 
 
 @bp.route('/vector-search')
-@file_cache.file_cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@model_cache.cached(timeout=TIMEOUT, query_string=True)
 def vector_search():
   """Performs vector search for a given sentence and model.
 

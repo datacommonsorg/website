@@ -18,7 +18,7 @@
 
 from dataclasses import dataclass
 from dataclasses import field
-from typing import Dict, List, Set
+from typing import Dict, List
 
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
@@ -26,6 +26,7 @@ from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Date
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import QuantityClassificationAttributes
@@ -46,8 +47,9 @@ from server.lib.nl.detection.types import TimeDeltaType
 #    this is used to decide the "main" topic for the page.
 @dataclass
 class ChartVars:
-  # Only one of svs or events is set.
+  # Only one of svs, props, or events is set.
   svs: List[str] = field(default_factory=list)
+  props: List[str] = field(default_factory=list)
   # Represents a grouping of charts on the resulting display.
   title: str = ""
   description: str = ""
@@ -70,6 +72,8 @@ class ChartVars:
 
   # Set if is_topic_peer_group is set.
   svpg_id: str = ''
+  # Skips adding an overview tile for ANSWER_WITH_ENTITY_OVERVIEW chart type.
+  skip_overview_for_entity_answer: bool = False
 
 
 @dataclass
@@ -146,7 +150,9 @@ Sv2Place2Facet = Dict[str, Place2Facet]
 class ChartSpec:
   chart_type: ChartType
   places: List[Place]
+  entities: List[Entity]
   svs: List[str]
+  props: List[str]
   event: EventType
   chart_vars: ChartVars
   place_type: str

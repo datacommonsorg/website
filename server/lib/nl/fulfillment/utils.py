@@ -29,6 +29,7 @@ from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Date
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartSpec
@@ -62,6 +63,32 @@ def has_place(uttr: Utterance) -> bool:
     return True
 
   if uttr.insight_ctx and uttr.insight_ctx.get('entities'):
+    return True
+
+  return False
+
+
+def has_prop(uttr: Utterance) -> bool:
+  if not uttr:
+    return False
+
+  if uttr.properties:
+    return True
+
+  if uttr.insight_ctx and uttr.insight_ctx.get('properties'):
+    return True
+
+  return False
+
+
+def has_entity(uttr: Utterance) -> bool:
+  if not uttr:
+    return False
+
+  if uttr.places:
+    return True
+
+  if uttr.insight_ctx and uttr.insight_ctx.get('nonPlaceEntities'):
     return True
 
   return False
@@ -109,7 +136,8 @@ def add_chart_to_utterance(
     primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART,
     ranking_count: int = 0,
     sv_place_facet_ids: Dict[str, Dict[str, str]] = None,
-    info_message: str = '') -> bool:
+    info_message: str = '',
+    entities: List[Entity] = []) -> bool:
   is_special_dc = False
   if state.uttr.insight_ctx and params.is_special_dc(state.uttr.insight_ctx):
     is_special_dc = True
@@ -120,6 +148,8 @@ def add_chart_to_utterance(
   # Make a copy of chart-vars since it change.
   ch = ChartSpec(chart_type=chart_type,
                  svs=copy.deepcopy(chart_vars.svs),
+                 props=copy.deepcopy(chart_vars.props),
+                 entities=copy.deepcopy(entities),
                  event=chart_vars.event,
                  places=copy.deepcopy(places),
                  chart_vars=copy.deepcopy(chart_vars),

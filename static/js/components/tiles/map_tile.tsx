@@ -121,6 +121,8 @@ export interface MapTilePropType {
   subtitle?: string;
   // Function used to get processed stat var names.
   getProcessedSVNameFn?: (name: string) => string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 // Api responses associated with a single layer of the map
@@ -245,7 +247,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
-      sources={mapChartData && mapChartData.sources}
+      sources={props.sources || (mapChartData && mapChartData.sources)}
       replacementStrings={
         mapChartData && getReplacementStrings(props, mapChartData)
       }

@@ -215,6 +215,10 @@ export class DatacommonsBarComponent extends LitElement {
   @property()
   placeNameProp!: string;
 
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
+
   render(): HTMLElement {
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
@@ -250,6 +254,7 @@ export class DatacommonsBarComponent extends LitElement {
       showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
       sort: this.sort,
+      sources: this.sources,
       stacked: this.stacked,
       variables: statVarSpec,
       svgChartHeight: 200,

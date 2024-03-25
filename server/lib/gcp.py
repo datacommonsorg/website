@@ -12,18 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Module to hold Flask file caching configuration. This is only used for caching
-# model prediction results.
-#
-# TODO: clean up and refactor this module and cache.py
+import logging
+import urllib.request
 
-import os
+url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
 
-from flask_caching import Cache
 
-root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-file_cache = Cache(config={
-    'CACHE_TYPE': 'FileSystemCache',
-    'CACHE_DIR': os.path.join(root_dir, '.cache')
-})
+def in_google_network():
+  '''Check whether the instance runs in GCP. Cache this call if it's called
+  multiple times.
+  '''
+  try:
+    req = urllib.request.Request(url, headers={"Metadata-Flavor": "Google"})
+    resp = urllib.request.urlopen(req)
+    resp.read().decode()
+    return True
+  except Exception as e:
+    logging.info('Not in Google network: ', e)
+    return False

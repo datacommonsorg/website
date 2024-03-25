@@ -2,6 +2,7 @@ datasets==2.18.0
 diskcache==5.4.0
 Flask==2.3.2
 fsspec==2024.2.0
+google-cloud-logging==3.10.0
 google-cloud-pubsub==2.14.0
 google-cloud-storage==2.15.0
 gunicorn==20.1.0
