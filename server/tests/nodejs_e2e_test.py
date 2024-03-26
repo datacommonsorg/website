@@ -11,6 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# Disabled nodejs test to avoid dependency on dev 
+"""
 import json
 import os
 import unittest
@@ -66,3 +69,4 @@ class IntegrationTest(unittest.TestCase):
     self.run_test('disaster', 'fires in california')
     self.run_test('rank_top_only',
                   'California counties with the highest female population')
+"""
