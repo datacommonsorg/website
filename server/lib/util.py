@@ -345,16 +345,10 @@ def get_nl_chart_titles():
   return chart_titles
 
 
-class NlPropTitle:
-  # Display name for the prop
-  displayName: str
-  # String format to use when using the prop in a title
-  titleFormat: str
-
-
-# Returns display titles for properties used in NL
+# Returns display titles for properties used in NL as a dict of property dcid
+# to a dict with different strings to use including displayName and titleFormat
 # TODO: need to validate that every titleFormat has entity in it
-def get_nl_prop_titles() -> Dict[str, NlPropTitle]:
+def get_nl_prop_titles() -> Dict[str, Dict[str, str]]:
   filepath = os.path.join(get_repo_root(), "config", "nl_page",
                           "prop_titles.json")
   with open(filepath, 'r') as f:
