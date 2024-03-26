@@ -41,28 +41,28 @@ import { isNlInterface } from "./nl_interface_utils";
 
 const TITLE_MESSAGES = defineMessages({
   titleWithPerCapitaAndDate: {
-    id: "chart-title-with-per-capita-and-date",
     defaultMessage: "{variableName} (Per Capita in {date})",
     description:
       "Chart title for a chart with variable values that are per capita for a specific date",
+    id: "chart-title-with-per-capita-and-date",
   },
   titleWithPerCapitaOnly: {
-    id: "chart-title-with-per-capita-no-date",
     defaultMessage: "{variableName} (Per Capita)",
     description:
       "Chart title for a chart with variable values that are per capita",
+    id: "chart-title-with-per-capita-no-date",
   },
   titleWithTwoVariables: {
-    id: "chart-title-with-two-variables",
     defaultMessage: "{variable1} Vs. {variable2}",
     description:
       "Chart title for a chart comparing two different variables. For example, this could be Obesity Rate vs. Median Income.",
+    id: "chart-title-with-two-variables",
   },
   titleWithTwoVariablesAndLocation: {
-    id: "chart-title-with-two-variables-and-location",
     defaultMessage: "{variable1} Vs. {variable2} in {placeType} of {place}",
     description:
       "Chart title for a chart comparing two different variables, for places of a specific type within a place. For example, this could be Obesity Rate Vs. Income in States of USA, or Housing vs Poverty in Countries of Europe.",
+    id: "chart-title-with-two-variables-and-location",
   },
 });
 
@@ -264,8 +264,8 @@ export function addPerCapitaToTitle(
     // extract part before ${date} to pass into formatMessage
     const statVarName = title.slice(0, title.indexOf(dateStringPattern));
     return intl.formatMessage(TITLE_MESSAGES.titleWithPerCapitaAndDate, {
-      variableName: statVarName,
       date: `\${${dateString}}`,
+      variableName: statVarName,
     });
   }
   // title does not include date, just add (Per Capita) to the end
@@ -316,10 +316,10 @@ export function addPerCapitaToVersusTitle(
       return intl.formatMessage(
         TITLE_MESSAGES.titleWithTwoVariablesAndLocation,
         {
-          variable1: titleParts.yVar,
-          variable2: titleParts.xVar,
           place: titleParts.parentPlace,
           placeType: titleParts.placeType,
+          variable1: titleParts.yVar,
+          variable2: titleParts.xVar,
         }
       );
     } else {
