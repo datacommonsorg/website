@@ -10,10 +10,7 @@
                 "tiles": [
                   {
                     "answerMessageTileSpec": {
-                      "property": {
-                        "direction": "OUT",
-                        "property": "medicalSubjectHeadingDescriptorID"
-                      }
+                      "propertyExpr": "->medicalSubjectHeadingDescriptorID"
                     },
                     "entities": [
                       "bio/D004110"
@@ -31,10 +28,7 @@
                 "tiles": [
                   {
                     "answerMessageTileSpec": {
-                      "property": {
-                        "direction": "IN",
-                        "property": "medicalSubjectHeadingDescriptorID"
-                      }
+                      "propertyExpr": "<-medicalSubjectHeadingDescriptorID"
                     },
                     "entities": [
                       "bio/D004110"

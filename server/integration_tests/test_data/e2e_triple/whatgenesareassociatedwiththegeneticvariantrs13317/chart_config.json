@@ -10,12 +10,12 @@
                 "tiles": [
                   {
                     "answerMessageTileSpec": {
-                      "propertyExpr": "<-ofVirusSpecies"
+                      "propertyExpr": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol"
                     },
                     "entities": [
-                      "bio/Betacoronavirus1"
+                      "bio/rs13317"
                     ],
-                    "title": "Betacoronavirus 1 is the ofVirusSpecies for:",
+                    "title": "The associated genes for rs13317 are",
                     "type": "ANSWER_MESSAGE"
                   }
                 ]
@@ -28,7 +28,7 @@
                 "tiles": [
                   {
                     "entities": [
-                      "bio/Betacoronavirus1"
+                      "bio/rs13317"
                     ],
                     "type": "ENTITY_OVERVIEW"
                   }
@@ -44,8 +44,8 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/Betacoronavirus1",
-      "name": "Betacoronavirus 1",
+      "dcid": "bio/rs13317",
+      "name": "rs13317",
       "type": ""
     }
   ],

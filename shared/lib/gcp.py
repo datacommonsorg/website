@@ -12,16 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.config.subject_page_pb2 import Tile
-from server.lib.nl.config_builder import base
-from server.lib.nl.fulfillment.types import ChartSpec
+import logging
+import urllib.request
+
+url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
 
 
-def answer_message_block(builder: base.Builder, cspec: ChartSpec):
-  entity = cspec.entities[0]
-  tile = Tile(type=Tile.TileType.ANSWER_MESSAGE,
-              title=cspec.chart_vars.title,
-              entities=[entity.dcid])
-  tile.answer_message_tile_spec.property_expr = cspec.props[0]
-  block = builder.new_chart(cspec, skip_title=True)
-  block.columns.add().tiles.append(tile)
+def in_google_network():
+  '''Check whether the instance runs in GCP. Cache this call if it's called
+  multiple times.
+  '''
+  try:
+    req = urllib.request.Request(url, headers={"Metadata-Flavor": "Google"})
+    resp = urllib.request.urlopen(req)
+    resp.read().decode()
+    return True
+  except Exception as e:
+    logging.info('Not in Google network: ', e)
+    return False

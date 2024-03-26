@@ -10,10 +10,7 @@
                 "tiles": [
                   {
                     "answerMessageTileSpec": {
-                      "property": {
-                        "direction": "OUT",
-                        "property": "phylum"
-                      }
+                      "propertyExpr": "->phylum"
                     },
                     "entities": [
                       "dc/004pn4gc3h683"

@@ -37,6 +37,7 @@ import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
+import shared.lib.gcp as lib_gcp
 
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
@@ -233,7 +234,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   cfg = lib_config.get_config()
 
-  if not cfg.LOCAL:
+  if lib_gcp.in_google_network():
     client = google.cloud.logging.Client()
     client.setup_logging()
   logging.basicConfig(
@@ -375,6 +376,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     app.config['SDG_PERCENT_VARS'] = libutil.get_sdg_percent_vars()
     app.config['SPECIAL_DC_NON_COUNTRY_ONLY_VARS'] = \
       libutil.get_special_dc_non_countery_only_vars()
+    # TODO: need to handle singular vs plural in the titles
+    app.config['NL_PROP_TITLES'] = libutil.get_nl_prop_titles()
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()
