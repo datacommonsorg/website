@@ -24,6 +24,7 @@ import * as _ from "lodash";
 
 import {
   DataRow,
+  DataRowDenominator,
   EntityGroupedDataRow,
   GetDataRowsParams,
   GetGeoJSONParams,
@@ -520,7 +521,7 @@ class DataCommonsClient {
                 ? observation.value / closestPopulationObservation?.value
                 : 0,
           };
-          row.variable.denominator = this.buildVariableDenominator(
+          row.variable.denominator = this.buildDataRowVariableDenominator(
             perCapitaQuotientObservation,
             populationPropValues
           );
@@ -536,12 +537,12 @@ class DataCommonsClient {
    * its associated properties
    * @param denominatorObservation denominator quotient observation
    * @param denominatorPropValues denominator property values
-   * @returns
+   * @returns data row denominator
    */
-  private buildVariableDenominator(
+  private buildDataRowVariableDenominator(
     denominatorObservation: QuotientObservation,
     denominatorPropValues: NodePropValues
-  ) {
+  ): DataRowDenominator {
     return {
       dcid: TOTAL_POPULATION_VARIABLE,
       properties: {
@@ -623,7 +624,7 @@ class DataCommonsClient {
             const perCapitaObservation =
               perCapitaObservations[observationIndex];
 
-            row.variable.denominator = this.buildVariableDenominator(
+            row.variable.denominator = this.buildDataRowVariableDenominator(
               perCapitaObservation,
               populationPropValues
             );

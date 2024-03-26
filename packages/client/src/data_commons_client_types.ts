@@ -98,6 +98,17 @@ export type DataRowNodeProperties = {
 };
 
 /**
+ * Data row helper interface for storing a denominator observation and
+ * derived quotient value
+ */
+export type DataRowDenominator = {
+  dcid: string;
+  properties: DataRowNodeProperties;
+  observation: DataRowObservation;
+  quotientValue: number | null;
+};
+
+/**
  * Data row helper interface for storing variable, observation, and denominator
  * values
  */
@@ -105,12 +116,7 @@ export type DataRowVariable = {
   dcid: string;
   properties: DataRowNodeProperties;
   observation: DataRowObservation;
-  denominator?: {
-    dcid: string;
-    properties: DataRowNodeProperties;
-    observation: DataRowObservation;
-    quotientValue: number | null;
-  };
+  denominator?: DataRowDenominator;
 };
 
 /**
