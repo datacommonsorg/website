@@ -21,7 +21,7 @@ import json
 import logging
 import os
 import time
-from typing import List, Set
+from typing import Dict, List, Set
 import urllib
 
 from flask import make_response
@@ -345,8 +345,16 @@ def get_nl_chart_titles():
   return chart_titles
 
 
+class NlPropTitle:
+  # Display name for the prop
+  displayName: str
+  # String format to use when using the prop in a title
+  titleFormat: str
+
+
 # Returns display titles for properties used in NL
-def get_nl_prop_titles():
+# TODO: need to validate that every titleFormat has entity in it
+def get_nl_prop_titles() -> Dict[str, NlPropTitle]:
   filepath = os.path.join(get_repo_root(), "config", "nl_page",
                           "prop_titles.json")
   with open(filepath, 'r') as f:

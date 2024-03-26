@@ -38,8 +38,9 @@ _IN_TITLE = '{entity} is the {property} for:'
 # TODO: revisit how titles should be displayed
 def _get_title(entities: List[Entity], prop_expression: str) -> str:
   entity_str = ', '.join([e.name or e.dcid for e in entities])
-  override_title_format = current_app.config['NL_PROP_TITLES'].get(
-      prop_expression, {}).get('titleFormat', '')
+  override_prop_titles = current_app.config['NL_PROP_TITLES']
+  override_title_format = override_prop_titles.get(prop_expression,
+                                                   {}).get('titleFormat', '')
   if override_title_format:
     return override_title_format.format(entity=entity_str)
   elif prop_expression.startswith(_OUT_ARROW):
@@ -52,39 +53,38 @@ def _get_title(entities: List[Entity], prop_expression: str) -> str:
 
 
 # Adds chart for a property expression if values exist for that expression
-def _populate_prop_expression(uttr: nl_uttr.Utterance,
+def _populate_prop_expression(state: PopulateState,
                               prop_expression: str) -> bool:
-  entity_dcids = [e.dcid for e in uttr.entities]
+  entity_dcids = [e.dcid for e in state.uttr.entities]
   prop_values = get_property_value_from_expression(entity_dcids,
                                                    prop_expression)
   if not any(prop_values.values()):
-    uttr.counters.err('triple_property_failed_existence', prop_expression)
+    state.uttr.counters.err('triple_property_failed_existence', prop_expression)
     return False
-  title = _get_title(uttr.entities, prop_expression)
+  title = _get_title(state.uttr.entities, prop_expression)
   cv = ChartVars(props=[prop_expression], title=title)
-  state = PopulateState(uttr=uttr)
   return add_chart_to_utterance(ChartType.ANSWER,
                                 state,
                                 cv, [],
-                                entities=uttr.entities)
+                                entities=state.uttr.entities)
 
 
-def populate(uttr: nl_uttr.Utterance) -> bool:
-  if not uttr.entities:
-    uttr.counters.err('triple_failed_no_entities', 1)
+def populate(state: PopulateState) -> bool:
+  if not state.uttr.entities:
+    state.uttr.counters.err('triple_failed_no_entities', 1)
     return False
-  if not uttr.properties:
-    uttr.counters.err('triple_failed_no_properties', 1)
+  if not state.uttr.properties:
+    state.uttr.counters.err('triple_failed_no_properties', 1)
     return False
 
   chart_added = False
   # TODO: consider messaging if top matches fail existence
-  for prop in uttr.properties:
+  for prop in state.uttr.properties:
     if _OUT_ARROW in prop or _IN_ARROW in prop:
-      chart_added |= _populate_prop_expression(uttr, prop)
+      chart_added |= _populate_prop_expression(state, prop)
     else:
       for direction_arrow in [_OUT_ARROW, _IN_ARROW]:
-        chart_added |= _populate_prop_expression(uttr, direction_arrow + prop)
+        chart_added |= _populate_prop_expression(state, direction_arrow + prop)
     if chart_added:
       # Currently only handling one prop, so if populate succeeds for any one
       # prop, return.
@@ -94,9 +94,9 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
   # entity, also add an entity overview chart
   # TODO: consider if we want to always add an entity overview chart when there
   # are entities
-  if chart_added and len(uttr.entities) == 1:
+  if chart_added and len(state.uttr.entities) == 1:
     add_chart_to_utterance(ChartType.ENTITY_OVERVIEW,
-                           PopulateState(uttr=uttr),
+                           state,
                            ChartVars(), [],
-                           entities=uttr.entities)
+                           entities=state.uttr.entities)
   return chart_added
