@@ -880,12 +880,6 @@ export function drawScatter(
     svgContainerWidth < Y_LABEL_WRAP_SVG_WIDTH_BREAKPOINT
       ? Y_LABEL_WRAP_MAX_LINES_SMALL
       : undefined;
-  console.log(
-    "yAxisLabelMaxLines= ",
-    yAxisLabelMaxLines,
-    "svgContainerWidth=",
-    svgContainerWidth
-  );
   const yAxisWidth = addYLabel(
     yAxisLabel,
     height - minXAxisHeight,
