@@ -236,7 +236,10 @@ class DataCommonsClient {
       (r) => r.entity.dcid
     );
 
-    // Fetch variable property values for filling in empty entity variables
+    // Fetch variable property values. Used to fill in properties for entities
+    // that do not have an observation for the particular variable.
+    // TODO: make this more efficient as these variable properties were already
+    // fetched once in getDataRows
     const variablePropValues = await this.getNodePropValues(
       params.variables,
       params.variableProps || DEFAULT_VARIABLE_PROPS
@@ -246,12 +249,15 @@ class DataCommonsClient {
     const entityGroupedDataRows: EntityGroupedDataRow[] = [];
     Object.keys(dataRowsGroupedByEntityDcid).forEach((entityDcid) => {
       const variablesSet = new Set(params.variables);
-      const dataRows = dataRowsGroupedByEntityDcid[entityDcid];
+      const dataRowsForEntity = dataRowsGroupedByEntityDcid[entityDcid];
+      if (dataRowsForEntity.length === 0) {
+        return;
+      }
       const entityGroupedDataRow: EntityGroupedDataRow = {
-        entity: dataRows[0].entity,
+        entity: dataRowsForEntity[0].entity,
         variables: {},
       };
-      dataRows.forEach((dataRow) => {
+      dataRowsForEntity.forEach((dataRow) => {
         variablesSet.delete(dataRow.variable.dcid);
         entityGroupedDataRow.variables[dataRow.variable.dcid] =
           dataRow.variable;
@@ -269,6 +275,7 @@ class DataCommonsClient {
             name: "",
           },
         };
+        // Fill in variable property values
         Object.keys(variablePropValues).forEach((propName) => {
           entityGroupedDataRow.variables[variableDcid].properties[propName] =
             variablePropValues[propName][variableDcid];
@@ -631,7 +638,6 @@ class DataCommonsClient {
               },
               observation: {
                 date: observation.date,
-                value: observation.value,
                 metadata: {
                   unit: _.get(facet, "unit", null),
                   unitDisplayName: _.get(
@@ -640,6 +646,7 @@ class DataCommonsClient {
                     _.get(facet, "unitDisplayName", null)
                   ),
                 },
+                value: observation.value,
               },
             },
           };

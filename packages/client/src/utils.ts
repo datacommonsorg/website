@@ -135,8 +135,8 @@ export function computeRatio(
 }
 
 /**
- * Flattens a nested JavaScript object to a single level if key/values.
- * Combines keys using the specified delimiter
+ * Flattens a nested JavaScript object to a single level, preserving key/value
+ * pairs. Combines keys using the specified delimiter
  *
  * Example:
  * object = {
@@ -160,12 +160,16 @@ export function computeRatio(
  *   "arrayKey.0.arrayItem": "arrayItem1Value",
  *   "arrayKey.1.arrayItem": "arrayItem2Value"
  * }
+ * @param value object to flatten
+ * @param delimiter delimiter used to combine key names
+ * @return flattened object
  */
 export function flattenNestedObject(
   object: any,
   delimiter = "."
 ): Record<string, string | number | boolean> {
   const resultObject: Record<string, string | number | boolean> = {};
+  // Recursion helper
   const flattenNestedObjectHelper = (keyParts: string[], value: any) => {
     if (value !== null && typeof value === "object" && _.isEmpty(value)) {
       // Exclude empty objects and empty arrays
@@ -195,7 +199,7 @@ export function flattenNestedObject(
  *
  * @param dataRows Data rows
  * @param fieldDelimiter Delimiter for flattening nested data row items
- * @returns
+ * @returns CSV string
  */
 export function dataRowsToCsv(
   dataRows: DataRow[] | EntityGroupedDataRow[],

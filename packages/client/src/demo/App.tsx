@@ -152,6 +152,8 @@ const ExampleCsvSeries = () => {
     ],
     perCapitaVariables: ["Count_CriminalActivities_CombinedCrime"],
     variables: ["Count_CriminalActivities_CombinedCrime"],
+    // Vega lite doesn't allow dots in CSV header items, so use a different
+    // delimiter instead
     fieldDelimiter: "__",
   });
   setResponse(response);
@@ -257,6 +259,8 @@ const ExampleCsvSeries = () => {
           "geoId/0668000",
           "geoId/0653000",
         ],
+        // Vega lite doesn't allow dots in CSV header items, so use a different
+        // delimiter instead
         fieldDelimiter: "__",
         perCapitaVariables: ["Count_CriminalActivities_CombinedCrime"],
         variables: ["Count_CriminalActivities_CombinedCrime"],
@@ -690,12 +694,12 @@ setMap(map);
         wireframe: true,
         getElevation: (f) =>
           (f.properties || {})[
-            "Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value"
+            "Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value"
           ] * 10000,
         getFillColor: (f) =>
           COLOR_SCALE(
             (f.properties || {})[
-              "Count_Person_BelowPovertyLevelInThePast12Months__perCapita__value"
+              "Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value"
             ]
           ),
         getLineColor: [255, 255, 255],

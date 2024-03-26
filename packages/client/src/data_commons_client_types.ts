@@ -21,7 +21,11 @@ import { Observation, StatMetadata } from "./data_commons_web_client_types";
  */
 
 /**
- * Observation with calculated quotient value (for per-capita values)
+ * Denominator observation with calculated quotient value. Used for storing
+ * per-capita derived values along side the original population observation.
+ * "date' and "value" fields from the parent Observation interface will be set
+ * to the original observation dates and values, and quotientValue is the
+ * derived (per-capita) value.
  */
 export interface QuotientObservation extends Observation {
   /** Derived quotient value */
@@ -90,7 +94,7 @@ export type DataRowObservation = {
  */
 export type DataRowNodeProperties = {
   name: string;
-  [propertyName: string]: string | number | boolean | null;
+  [propertyDcid: string]: string | number | boolean | null;
 };
 
 /**
@@ -137,7 +141,7 @@ export type EntityGroupedDataRow = {
  * Object of property names to node DCIDs to property values
  */
 export type NodePropValues = {
-  [propertyName: string]: {
+  [propertyDcid: string]: {
     [nodeDcid: string]: string | null;
   };
 };

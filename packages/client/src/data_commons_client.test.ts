@@ -446,7 +446,7 @@ describe("DataCommonsWebClient", () => {
     expect(Object.keys(response).length).toBe(3);
   });
 
-  test("Get data rows", async () => {
+  test("Get data rows grouped by entity", async () => {
     const response = await client.getDataRowsGroupedByEntity({
       childType: "State",
       fieldDelimiter: ".",
@@ -525,6 +525,8 @@ describe("DataCommonsWebClient", () => {
       expect(row.variable.observation.metadata.unitDisplayName).toBe(
         "US Dollars"
       );
+      // Mock Has_Data values are set to 1/10th of the population values, so
+      // quotientValue (per-capita) should be 0.1
       expect(row.variable.denominator?.quotientValue).toBeCloseTo(0.1);
       expect(row.variable.denominator?.observation.value).toBeGreaterThan(0);
     });
