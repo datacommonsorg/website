@@ -36,16 +36,17 @@ WARM_UP_ENDPOINTS = [
 
 
 def send_warmup_requests():
-  logging.info("Sending warm up requests:")
   for endpoint in WARM_UP_ENDPOINTS:
-    while True:
+    # Rery 10 times before giving up, with 5 second intervals
+    for _ in range(10):
       try:
+        logging.info("Sending warm up requests: %s", endpoint)
         resp = requests.get("http://127.0.0.1:8080" + endpoint)
         if resp.status_code == 200:
           break
-      except:
-        pass
-      time.sleep(1)
+      except Exception as e:
+        logging.error(e)
+      time.sleep(5)
 
 
 if not (app.config["TEST"] or app.config["WEBDRIVER"] or app.config["LOCAL"]):

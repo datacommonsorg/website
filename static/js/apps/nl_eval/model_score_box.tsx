@@ -18,23 +18,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { stringifyFn } from "../../utils/axios";
-import { BASE_URL, EmbeddingObject, MatchObject, ndcg } from "./util";
+import { accuracy, BASE_URL, EmbeddingObject, MatchObject } from "./util";
 
 const NEW_MATCH_COUNT = 5;
-
-interface StatVar {
-  dcid: string;
-  rank: number;
-  scores: number[];
-}
-
-interface SearchResultProps {
-  sentence: string;
-  modelName: string;
-  isExpanded: boolean;
-  goldenStatVars: string[];
-  overrideStatVars: EmbeddingObject[];
-}
 
 function dotProduct(a: number[], b: number[]): number {
   // We expect same length vector for dot product.
@@ -62,9 +48,27 @@ function findKNearestEmbeddings(
   return result.slice(0, k);
 }
 
-export function SearchResult(props: SearchResultProps): JSX.Element {
+interface StatVar {
+  dcid: string;
+  rank: number;
+  scores: number[];
+}
+
+interface ModelScoreBoxProps {
+  sentence: string;
+  modelName: string;
+  isExpanded: boolean;
+  goldenStatVars: string[];
+  overrideStatVars: EmbeddingObject[];
+  // Callback function when the eval score of a model with respect to the golden
+  // stat vars is computed.
+  onScoreUpdated: (modelName: string, sentence: string, score: number) => void;
+}
+
+export function ModelScoreBox(props: ModelScoreBoxProps): JSX.Element {
   const [statVarMatch, setStatVarMatch] = useState<MatchObject[]>([]);
   const [rankedStatVars, setRankedStatVars] = useState<StatVar[]>([]);
+  const [evalScore, setEvalScore] = useState<number>();
 
   useEffect(() => {
     (async () => {
@@ -110,28 +114,23 @@ export function SearchResult(props: SearchResultProps): JSX.Element {
         return a.rank - b.rank;
       });
 
+      const evalScore = accuracy(
+        rankedStatVarMatch.map((x) => x.dcid),
+        props.goldenStatVars
+      );
+
+      setEvalScore(evalScore);
       setStatVarMatch(matches);
       setRankedStatVars(rankedStatVarMatch);
+      props.onScoreUpdated(props.modelName, props.sentence, evalScore);
     })();
-  }, [
-    props.goldenStatVars,
-    props.sentence,
-    props.modelName,
-    props.overrideStatVars,
-  ]);
-
-  // Crop the rankedStatVars to the length of goldenStatVars. Need to evaluate
-  // this further.
-  const evalScore = ndcg(
-    rankedStatVars.slice(0, props.goldenStatVars.length).map((x) => x.dcid),
-    props.goldenStatVars
-  );
+  }, [props]);
 
   return (
-    <div className="search-result">
+    <div className="model-score-box">
       <div className="model-name">
         {props.modelName}{" "}
-        <span className="ndcg-score">(ndcg: {evalScore.toFixed(2)})</span>
+        <span className="eval-score">(accuracy: {evalScore?.toFixed(2)})</span>
       </div>
       <p>Matched stat vars with top 2 cosine scores</p>
       <ul>

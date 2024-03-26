@@ -134,6 +134,10 @@ export class DatacommonsLineComponent extends LitElement {
   @property()
   endDate?: string;
 
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
+
   render(): HTMLElement {
     const lineTileProps: LineTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
@@ -150,6 +154,7 @@ export class DatacommonsLineComponent extends LitElement {
       endDate: this.endDate,
       showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
+      sources: this.sources,
       statVarSpec: this.variables.map((variable) => ({
         denom:
           this.perCapita && this.perCapita.includes(variable)

@@ -140,7 +140,6 @@ In the root of this repository, run:
 
 ```bash
 docker run -it \
---pull=always \
 --env-file $PWD/custom_dc/sqlite_env.list \
 -p 8080:8080 \
 -e DEBUG=true \
@@ -219,7 +218,6 @@ In the root of this repository, run:
 
 ```bash
 docker run -it \
---pull=always \
 --env-file $PWD/custom_dc/cloudsql_env.list \
 -p 8080:8080 \
 -e DEBUG=true \

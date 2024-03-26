@@ -72,6 +72,8 @@ class ChartVars:
 
   # Set if is_topic_peer_group is set.
   svpg_id: str = ''
+  # Skips adding an overview tile for ANSWER_WITH_ENTITY_OVERVIEW chart type.
+  skip_overview_for_entity_answer: bool = False
 
 
 @dataclass

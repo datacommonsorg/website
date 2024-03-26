@@ -79,8 +79,8 @@ class ChartType(IntEnum):
   SCATTER_CHART = 5
   EVENT_CHART = 6
   RANKED_TIMELINE_COLLECTION = 7
-  # Represents an answer with an optional overview tile
-  ANSWER_WITH_ENTITY_OVERVIEW = 8
+  ANSWER = 8
+  ENTITY_OVERVIEW = 9
 
 
 class FulfillmentResult(str, Enum):
@@ -173,6 +173,8 @@ class Utterance:
   llm_resp: Dict
   sv_source: FulfillmentResult = FulfillmentResult.UNKNOWN
   place_source: FulfillmentResult = FulfillmentResult.UNKNOWN
+  properties_source: FulfillmentResult = FulfillmentResult.UNKNOWN
+  entities_source: FulfillmentResult = FulfillmentResult.UNKNOWN
   # This is more details on the *_source if it is from PAST query.
   # This is important for knowing the original place for a query
   # like [poverty across africa] -> [which countries have shown the greatest increase].

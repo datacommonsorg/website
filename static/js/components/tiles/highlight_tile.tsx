@@ -34,9 +34,9 @@ import {
   formatString,
   getDenomInfo,
   getNoDataErrorMsg,
-  getSourcesJsx,
   getStatFormat,
   ReplacementStrings,
+  TileSources,
 } from "../../utils/tile_utils";
 
 // units that should be formatted as part of the number
@@ -53,6 +53,8 @@ export interface HighlightTilePropType {
   place: NamedTypedPlace;
   // Variable to get data for
   statVarSpec: StatVarSpec;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 interface HighlightData extends Observation {
@@ -122,9 +124,9 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
       {highlightData && highlightData.errorMsg && (
         <span>{highlightData.errorMsg}</span>
       )}
-      {!_.isEmpty(highlightData.sources) &&
-        !highlightData.errorMsg &&
-        getSourcesJsx(highlightData.sources)}
+      {!_.isEmpty(highlightData.sources) && !highlightData.errorMsg && (
+        <TileSources sources={props.sources || highlightData.sources} />
+      )}
     </div>
   );
 }

@@ -39,3 +39,8 @@ def ndcg(new_list, baseline_list):
   dcg_new = dcg(new_scores)
   dcg_base = dcg(baseline_scores)
   return dcg_new / dcg_base if dcg_base > 0 else 0
+
+
+def accuracy(new_list, baseline_list):
+  new_list = new_list[:len(baseline_list)]
+  return len(set(new_list) & set(baseline_list)) / len(baseline_list)
