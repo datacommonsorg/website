@@ -73,6 +73,9 @@ const MIN_HIGHLIGHT_POINTS = 4;
 const MIN_TEXT_LABEL_HEIGHT = 10;
 const MIN_TEXT_LABEL_LENGTH = 95;
 
+// Truncate x label text after wrapping this many times
+const X_LABEL_WRAP_MAX_LINES = 3;
+
 // If SVG goes smaller than Y_LABEL_WRAP_SVG_WIDTH_BREAKPOINT, reduce the number
 // of wrapped lines to this value
 const Y_LABEL_WRAP_MAX_LINES_SMALL = 3;
@@ -140,7 +143,8 @@ function addXLabel(
   marginLeft: number,
   containerHeight: number,
   label: string,
-  unit?: string
+  unit?: string,
+  maxLines?: number
 ): number {
   const unitLabelString = unit ? ` (${unit})` : "";
   const padding = 5;
@@ -149,7 +153,9 @@ function addXLabel(
     .attr("text-anchor", "middle")
     .attr("y", 0)
     .text(label + unitLabelString)
-    .call(wrap, width);
+    .call((d, width) => {
+      wrap(d, width, maxLines);
+    }, width);
   const xAxisHeight = xAxisLabel.node().getBBox().height + padding;
   xAxisLabel.attr(
     "transform",
@@ -871,9 +877,15 @@ export function drawScatter(
   const yAxisLabel = svg.append("g").attr("class", "y-axis-label");
   // Number of lines to show in the y axis label before truncating
   const yAxisLabelMaxLines =
-    svgContainerWidth < Y_LABEL_WRAP_MAX_LINES_SMALL
+    svgContainerWidth < Y_LABEL_WRAP_SVG_WIDTH_BREAKPOINT
       ? Y_LABEL_WRAP_MAX_LINES_SMALL
       : undefined;
+  console.log(
+    "yAxisLabelMaxLines= ",
+    yAxisLabelMaxLines,
+    "svgContainerWidth=",
+    svgContainerWidth
+  );
   const yAxisWidth = addYLabel(
     yAxisLabel,
     height - minXAxisHeight,
@@ -897,7 +909,8 @@ export function drawScatter(
     MARGIN.left + yAxisWidth,
     properties.height,
     properties.xLabel,
-    properties.xUnit
+    properties.xUnit,
+    X_LABEL_WRAP_MAX_LINES
   );
   height = Math.max(0, height - xAxisHeight);
 
