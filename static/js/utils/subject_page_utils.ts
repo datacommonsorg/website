@@ -16,6 +16,7 @@
 import { ChartSortOption } from "@datacommonsorg/web-components";
 import axios from "axios";
 import _ from "lodash";
+import { defineMessages } from "react-intl";
 
 import { GeoJsonData } from "../chart/types";
 import {
@@ -24,6 +25,7 @@ import {
   NL_NUM_TILES_SHOWN,
   NL_SMALL_TILE_CLASS,
 } from "../constants/app/nl_interface_constants";
+import { intl } from "../i18n/i18n";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
   ColumnConfig,
@@ -36,6 +38,33 @@ import { isNlInterface } from "./nl_interface_utils";
 /**
  * Util functions used by subject page components.
  */
+
+const TITLE_MESSAGES = defineMessages({
+  titleWithPerCapitaAndDate: {
+    id: "chart-title-with-per-capita-and-date",
+    defaultMessage: "{variableName} (Per Capita in {date})",
+    description:
+      "Chart title for a chart with variable values that are per capita for a specific date",
+  },
+  titleWithPerCapitaOnly: {
+    id: "chart-title-with-per-capita-no-date",
+    defaultMessage: "{variableName} (Per Capita)",
+    description:
+      "Chart title for a chart with variable values that are per capita",
+  },
+  titleWithTwoVariables: {
+    id: "chart-title-with-two-variables",
+    defaultMessage: "{variable1} Vs. {variable2}",
+    description:
+      "Chart title for a chart comparing two different variables. For example, this could be Obesity Rate vs. Median Income.",
+  },
+  titleWithTwoVariablesAndLocation: {
+    id: "chart-title-with-two-variables-and-location",
+    defaultMessage: "{variable1} Vs. {variable2} in {placeType} of {place}",
+    description:
+      "Chart title for a chart comparing two different variables, for places of a specific type within a place. For example, this could be Obesity Rate Vs. Income in States of USA, or Housing vs Poverty in Countries of Europe.",
+  },
+});
 
 /**
  * Gets the relative link using the title of a section on the subject page
@@ -229,11 +258,20 @@ export function addPerCapitaToTitle(
   title: string,
   dateString = "date"
 ): string {
-  if (title.includes(`(\${${dateString}})`)) {
-    const regex = new RegExp(`\\(\\$\\{${dateString}\\}\\)`);
-    return title.replace(regex, `(Per Capita in $\{${dateString}})`);
+  const dateStringPattern = `(\${${dateString}})`;
+  if (title.includes(dateStringPattern)) {
+    // title includes date
+    // extract part before ${date} to pass into formatMessage
+    const statVarName = title.slice(0, title.indexOf(dateStringPattern));
+    return intl.formatMessage(TITLE_MESSAGES.titleWithPerCapitaAndDate, {
+      variableName: statVarName,
+      date: `\${${dateString}}`,
+    });
   }
-  return title + " (Per Capita)";
+  // title does not include date, just add (Per Capita) to the end
+  return intl.formatMessage(TITLE_MESSAGES.titleWithPerCapitaOnly, {
+    variableName: title,
+  });
 }
 
 /**
@@ -263,7 +301,7 @@ export function addPerCapitaToVersusTitle(
   //   vs -> " Vs. " or " vs. " or " Vs " or " vs "
   //   location -> "in <placeType> of <place>", if present
   const regex =
-    /^(?<yVar>.*)(?<vs>\s[Vv]s\.?\s)(?<xVar>.*)(?<location>\s+in\s.*)?$/;
+    /^(?<yVar>.*?)(?<vs>\s[Vv]s\.?\s)(?<xVar>.*?)(?<location>\s+in\s(?<placeType>.*?)\sof\s(?<parentPlace>.*?))?$/;
   const titleParts = title.match(regex).groups;
   if (titleParts) {
     // Edit xVar and yVar parts to include "Per Capita"
@@ -273,11 +311,24 @@ export function addPerCapitaToVersusTitle(
     if (statVarSpecs?.[1].denom) {
       titleParts.xVar = addPerCapitaToTitle(titleParts.xVar, "xDate");
     }
-    // Stitch parts back to form the full title
-    return `${titleParts.yVar}${titleParts.vs}${titleParts.xVar}${
-      titleParts.location || ""
-    }`;
+    if (titleParts.placeType && titleParts.parentPlace) {
+      // include location in title if "in placeType of place" was found
+      return intl.formatMessage(
+        TITLE_MESSAGES.titleWithTwoVariablesAndLocation,
+        {
+          variable1: titleParts.yVar,
+          variable2: titleParts.xVar,
+          place: titleParts.parentPlace,
+          placeType: titleParts.placeType,
+        }
+      );
+    } else {
+      // otherwise, just return "y-axis stat var Vs. x-axis stat var"
+      return intl.formatMessage(TITLE_MESSAGES.titleWithTwoVariables, {
+        variable1: titleParts.yVar,
+        variable2: titleParts.xVar,
+      });
+    }
   }
-
   return title;
 }

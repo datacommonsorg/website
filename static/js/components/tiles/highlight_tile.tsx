@@ -81,13 +81,8 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   };
   let description = "";
   if (props.description) {
-    const dateString = props.statVarSpec.denom
-      ? rs.date
-        ? " (Per Capita in ${date})"
-        : " (Per Capita)"
-      : rs.date
-      ? " (${date})"
-      : "";
+    const dateString =
+      !props.description.includes("${date}") && rs.date ? " (${date})" : "";
     description = formatString(props.description + dateString, rs);
   }
   // TODO: The {...{ part: "container"}} syntax to set a part is a hacky

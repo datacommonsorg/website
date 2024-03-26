@@ -407,19 +407,26 @@ function renderTiles(
     const className = classNameList.join(" ");
     let title = blockDenom ? addPerCapitaToTitle(tile.title) : tile.title;
     switch (tile.type) {
-      case "HIGHLIGHT":
+      case "HIGHLIGHT": {
+        let description = tile.description.includes("${date}")
+          ? tile.description
+          : tile.description + " (${date})";
+        description = blockDenom
+          ? addPerCapitaToTitle(description)
+          : description;
         return (
           <HighlightTile
             key={id}
-            description={tile.description}
+            description={description}
             place={place}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
               blockDate,
               blockDenom,
             })}
-            addPerCapita={!!blockDenom}
           />
         );
+      }
+
       case "MAP":
         return (
           <MapTile
@@ -676,12 +683,18 @@ function renderWebComponents(
     const className = classNameList.join(" ");
     const title = blockDenom ? addPerCapitaToTitle(tile.title) : tile.title;
     switch (tile.type) {
-      case "HIGHLIGHT":
+      case "HIGHLIGHT": {
+        let description = tile.description.includes("${date}")
+          ? tile.description
+          : tile.description + " (${date})";
+        description = blockDenom
+          ? addPerCapitaToTitle(description)
+          : description;
         return (
           <datacommons-highlight
             key={id}
             id={id}
-            description={tile.description}
+            description={description}
             place={place.dcid}
             variable={
               props.statVarProvider.getSpec(tile.statVarKey[0], {
@@ -689,9 +702,9 @@ function renderWebComponents(
                 blockDenom,
               }).statVar
             }
-            addPerCapita={!!blockDenom}
           />
         );
+      }
       case "MAP":
         return (
           <datacommons-map
