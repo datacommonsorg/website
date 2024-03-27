@@ -101,7 +101,7 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
       # for triples fulfillment.
       # TODO: decide to fulfill as a triple vs fulfill as a regular sv depending
       # on the variable score match.
-      done = triple.populate(uttr)
+      done = triple.populate(state)
 
     # All done if successful
     if success:
