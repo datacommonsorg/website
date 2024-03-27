@@ -22,13 +22,13 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
+import { URI_PREFIX } from "../../browser/constants";
 import {
   ASYNC_ELEMENT_CLASS,
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../../constants/css_constants";
 import { AnswerTableColumn } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
-import { URI_PREFIX } from "../../browser/constants";
 export interface AnswerTableTilePropType {
   // Title to use
   title: string;
@@ -39,14 +39,12 @@ export interface AnswerTableTilePropType {
 }
 
 interface AnswerTableData {
-  entityNames: Record<string, string>
-  values: Record<string, Record<string, string[]>>
-  sources: string[]
+  entityNames: Record<string, string>;
+  values: Record<string, Record<string, string[]>>;
+  sources: string[];
 }
 
-export function AnswerTableTile(
-  props: AnswerTableTilePropType
-): JSX.Element {
+export function AnswerTableTile(props: AnswerTableTilePropType): JSX.Element {
   const [answerData, setAnswerData] = useState<AnswerTableData>(null);
 
   useEffect(() => {
@@ -69,21 +67,33 @@ export function AnswerTableTile(
           <thead>
             <tr>
               <th></th>
-              {props.columns.map((col) => {return (<th>{col.header}</th>)})}
+              {props.columns.map((col) => {
+                return <th>{col.header}</th>;
+              })}
             </tr>
           </thead>
           <tbody>
             {props.entities.map((entity) => {
               return (
                 <tr>
-                  <td><a href={URI_PREFIX + entity}>{answerData.entityNames[entity] || entity}<span className="material-icons-outlined">arrow_forward</span></a></td>
-                  {props.columns.map(col => {
-                    return <td>{answerData.values[entity][col.propertyExpr].join(', ')}</td>
+                  <td>
+                    <a href={URI_PREFIX + entity}>
+                      {answerData.entityNames[entity] || entity}
+                      <span className="material-icons-outlined">
+                        arrow_forward
+                      </span>
+                    </a>
+                  </td>
+                  {props.columns.map((col) => {
+                    return (
+                      <td>
+                        {answerData.values[entity][col.propertyExpr].join(", ")}
+                      </td>
+                    );
                   })}
                 </tr>
-              )
+              );
             })}
-
           </tbody>
         </table>
       </div>
@@ -95,44 +105,52 @@ export function AnswerTableTile(
 const fetchData = async (
   props: AnswerTableTilePropType
 ): Promise<AnswerTableData> => {
-  const propertyPromises = []
+  const propertyPromises = [];
   for (const column of props.columns) {
-    propertyPromises.push(axios.get(`/api/node/propvals`, {
-      params: { dcids: [props.entities], propExpr: column.propertyExpr },
-      paramsSerializer: stringifyFn,
-    }))
+    propertyPromises.push(
+      axios.get(`/api/node/propvals`, {
+        params: { dcids: [props.entities], propExpr: column.propertyExpr },
+        paramsSerializer: stringifyFn,
+      })
+    );
   }
   // Also get the names for the entities
-  propertyPromises.push(axios.get(`/api/node/propvals`, {
-    params: { dcids: [props.entities], propExpr: '->name' },
-    paramsSerializer: stringifyFn,
-  }))
-  try {
-    const propResp = await Promise.all(propertyPromises)
-    const entityNames = {}
-    const values = {}
-    props.entities.forEach((entity) => {
-      values[entity] = {}
+  propertyPromises.push(
+    axios.get(`/api/node/propvals`, {
+      params: { dcids: [props.entities], propExpr: "->name" },
+      paramsSerializer: stringifyFn,
     })
+  );
+  try {
+    const propResp = await Promise.all(propertyPromises);
+    const entityNames = {};
+    const values = {};
+    props.entities.forEach((entity) => {
+      values[entity] = {};
+    });
     const provIds: Set<string> = new Set();
     propResp.forEach((resp, i) => {
       if (i >= props.columns.length) {
         Object.keys(resp.data).forEach((entity) => {
-          const val = resp.data[entity]
-          entityNames[entity] = !_.isEmpty(val) ? val[0].name || val[0].value || val[0].dcid : entity;
-        })
+          const val = resp.data[entity];
+          entityNames[entity] = !_.isEmpty(val)
+            ? val[0].name || val[0].value || val[0].dcid
+            : entity;
+        });
       } else {
         Object.keys(resp.data).forEach((entity) => {
-          const val = resp.data[entity]
-          const entityResults = []
-          val.forEach(singleVal => {
-            entityResults.push(singleVal.name || singleVal.value || singleVal.dcid)
-            provIds.add(singleVal.provenanceId)
+          const val = resp.data[entity];
+          const entityResults = [];
+          val.forEach((singleVal) => {
+            entityResults.push(
+              singleVal.name || singleVal.value || singleVal.dcid
+            );
+            provIds.add(singleVal.provenanceId);
           });
-          values[entity][props.columns[i].propertyExpr] = entityResults
-        })
+          values[entity][props.columns[i].propertyExpr] = entityResults;
+        });
       }
-    })
+    });
 
     const provIdList = Array.from(provIds);
     const provIdUrlResp = await axios.get(`/api/node/propvals/out`, {
@@ -151,7 +169,7 @@ const fetchData = async (
         })
         .filter((url) => !!url),
       values,
-      entityNames
+      entityNames,
     };
   } catch (e) {
     return null;

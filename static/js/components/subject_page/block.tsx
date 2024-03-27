@@ -52,6 +52,7 @@ import {
 } from "../../utils/subject_page_utils";
 import { getComparisonPlaces } from "../../utils/tile_utils";
 import { AnswerMessageTile } from "../tiles/answer_message_tile";
+import { AnswerTableTile } from "../tiles/answer_table_tile";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
 import { DonutTile } from "../tiles/donut_tile";
@@ -65,7 +66,6 @@ import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
-import { AnswerTableTile } from "../tiles/answer_table_tile";
 
 /**
  * Translates the line tile's timeScale enum to the TimeScaleOption type
