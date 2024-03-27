@@ -16,6 +16,7 @@
 PROJECT_ID=$1
 CLUSTER_NAME=$2
 LOCATION=$3
+# Optional: Set REDIS_REGION if it is different from the cluster LOCATION arg
 REDIS_REGION=$4
 
 # Exit the script if there's an error
