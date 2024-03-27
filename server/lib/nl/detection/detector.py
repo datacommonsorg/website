@@ -214,7 +214,8 @@ def construct_for_explore(entities: List[str], vars: List[str], child_type: str,
                                    parent_places=parent_map.get(main_dcid, []),
                                    peer_places=[],
                                    child_places=[],
-                                   entities_found=[])
+                                   entities_found=[],
+                                   query_entities_mentioned=[])
   add_child_and_peer_places(places, child_type, counters, place_detection)
   if not cmp_entities and cmp_vars:
     # Multi SV case.
