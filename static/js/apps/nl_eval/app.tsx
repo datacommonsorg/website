@@ -171,7 +171,6 @@ const fetchEmbeddings = async (input: string, modelNames: string[]) => {
   );
 
   const responses = await Promise.all(requests);
-  console.log(responses);
 
   const result = {};
   for (const response of responses) {
