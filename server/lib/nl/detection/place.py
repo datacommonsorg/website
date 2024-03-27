@@ -23,7 +23,10 @@ import server.services.datacommons as dc
 import shared.lib.utils as utils
 
 MAX_IDENTICAL_NAME_PLACES = 5
-# Max number of entities to keep in the query before removing all entities.
+# Max number of non-place entities to keep in the query before removing all
+# entities. We by default keep non-place entities in the query because these may
+# be part of the variables being asked for. If there are many non-place entities
+# then we assume they are being asked for as the entities in the query.
 _MAX_ENTITIES_QUERY = 2
 
 
@@ -99,20 +102,24 @@ def detect_from_query_dc(orig_query: str,
   # Set PlaceDetection.
   places_str = []
   entities_str = []
-  nonplace_query_parts = []
+  stripped_query_parts = []
   for p in query_parts:
+    retain_in_stripped_query = True
     if p.dcid in resolved_entity_dcids:
       # The query part is an entity dcid so add its original string to entities_str
       entities_str.append(p.substr)
+      if len(resolved_entity_dcids) > _MAX_ENTITIES_QUERY:
+        # Remove the query part if there are more than _MAX_ENTITIES_QUERY
+        # number of non place entities resolved
+        retain_in_stripped_query = False
     if p.dcid in resolved_place_dcids:
       # The query part is a place dcid so add its original string to places_str
       places_str.append(p.substr)
-    elif p.dcid not in resolved_entity_dcids or len(
-        resolved_entity_dcids) <= _MAX_ENTITIES_QUERY:
-      # Always remove places from the query, but only remove entities from the
-      # query if there is _MAX_ENTITIES_QUERY or more number of entities.
-      nonplace_query_parts.append(p.substr)
-  query_without_place_substr = ' '.join(nonplace_query_parts)
+      # Always remove the query part if it is a place
+      retain_in_stripped_query = False
+    if retain_in_stripped_query:
+      stripped_query_parts.append(p.substr)
+  query_without_place_substr = ' '.join(stripped_query_parts)
   place_detection = PlaceDetection(
       query_original=query,
       query_without_place_substr=query_without_place_substr,
@@ -141,7 +148,7 @@ def detect_from_names(place_names: List[str],
                       orig_query: str,
                       query_detection_debug_logs: Dict,
                       allow_triples: bool = False) -> PlaceDetection:
-  place_dcids = {}
+  place_or_entity_dcids = {}
   main_place = None
   resolved_places = []
   # entities that were detected that are not a place
@@ -156,25 +163,27 @@ def detect_from_names(place_names: List[str],
   # Look to find place DCIDs.
   if place_names:
     name2dcids = dc.find_entities(place_names)
-    place_dcids = {n: d[0] for n, d in name2dcids.items() if d}
+    place_or_entity_dcids = {n: d[0] for n, d in name2dcids.items() if d}
 
-  if place_dcids:
+  if place_or_entity_dcids:
     resolved_places, parent_map = get_place_from_dcids(
-        place_dcids.values(), query_detection_debug_logs["place_resolution"])
+        place_or_entity_dcids.values(),
+        query_detection_debug_logs["place_resolution"])
     if allow_triples:
-      resolved_entities = _get_non_place_entities(place_dcids.values(),
-                                                  resolved_places)
+      resolved_entities = _get_non_place_entities(
+          place_or_entity_dcids.values(), resolved_places)
   if resolved_places:
     main_place = resolved_places[0]
     parent_places = parent_map.get(main_place.dcid, [])
 
-  resolved_entity_dcids = set([e.dcid for e in resolved_entities])
-  entities_str = [
-      n for n, d in place_dcids.items() if d in resolved_entity_dcids
-  ]
-  places_str = [
-      n for n, d in place_dcids.items() if d not in resolved_entity_dcids
-  ]
+  resolved_place_dcids = set([e.dcid for e in resolved_places])
+  entities_str = []
+  places_str = []
+  for n, d in place_or_entity_dcids.items():
+    if d in resolved_place_dcids:
+      places_str.append(n)
+    else:
+      entities_str.append(n)
 
   # Set PlaceDetection.
   place_detection = PlaceDetection(

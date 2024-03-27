@@ -45,7 +45,7 @@ class Entity:
 class PlaceDetection:
   """Various attributes of place detection."""
   query_original: str
-  # This will also remove non place entiites if there are 3 or more non
+  # This will also remove non place entities if there are 3 or more non
   # place entities found.
   query_without_place_substr: str
   # `query_places_mentioned` is a list of words in the query
