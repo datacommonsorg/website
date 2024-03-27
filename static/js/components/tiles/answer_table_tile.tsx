@@ -67,15 +67,15 @@ export function AnswerTableTile(props: AnswerTableTilePropType): JSX.Element {
           <thead>
             <tr>
               <th></th>
-              {props.columns.map((col) => {
-                return <th>{col.header}</th>;
+              {props.columns.map((col, idx) => {
+                return <th key={`col-header-${idx}`}>{col.header}</th>;
               })}
             </tr>
           </thead>
           <tbody>
-            {props.entities.map((entity) => {
+            {props.entities.map((entity, rowIdx) => {
               return (
-                <tr>
+                <tr key={`row-${rowIdx}`}>
                   <td>
                     <a href={URI_PREFIX + entity}>
                       {answerData.entityNames[entity] || entity}
@@ -84,9 +84,9 @@ export function AnswerTableTile(props: AnswerTableTilePropType): JSX.Element {
                       </span>
                     </a>
                   </td>
-                  {props.columns.map((col) => {
+                  {props.columns.map((col, colIdx) => {
                     return (
-                      <td>
+                      <td key={`row-${rowIdx}-col-${colIdx}`}>
                         {answerData.values[entity][col.propertyExpr].join(", ")}
                       </td>
                     );
