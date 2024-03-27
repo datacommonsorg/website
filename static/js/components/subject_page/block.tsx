@@ -65,6 +65,7 @@ import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
+import { AnswerTableTile } from "../tiles/answer_table_tile";
 
 /**
  * Translates the line tile's timeScale enum to the TimeScaleOption type
@@ -634,6 +635,15 @@ function renderTiles(
             entity={!_.isEmpty(tile.entities) ? tile.entities[0] : ""}
             propertyExpr={tile.answerMessageTileSpec.propertyExpr}
             displayValue={tile.answerMessageTileSpec.displayValue}
+          />
+        );
+      case "ANSWER_TABLE":
+        return (
+          <AnswerTableTile
+            key={id}
+            title={tile.title}
+            entities={tile.entities}
+            columns={tile.answerTableTileSpec.columns}
           />
         );
       case "ENTITY_OVERVIEW":
