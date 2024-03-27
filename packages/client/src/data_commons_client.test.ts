@@ -154,6 +154,16 @@ const buildMockedFetchResponses = (): {
       },
     ],
   } as ApiNodePropvalOutResponse;
+  mockedResponsesPost["/api/node/propvals/out"][
+    JSON.stringify({ dcids: ["Count_Person"], prop: "name" })
+  ] = {
+    Count_Person: [
+      {
+        provenanceId: "Provenance",
+        value: "Total Population",
+      },
+    ],
+  } as ApiNodePropvalOutResponse;
 
   // Mock point observations
   mockedResponsesGet[
@@ -403,10 +413,12 @@ global.fetch = jest.fn(
       : mockedResponsesGet[path];
     if (!response) {
       throw new Error(
-        `No mocked handler for ${url}. Get handlers: ${Object.keys(
-          mockedResponsesGet
-        ).join(" ")}, post handlers: ${Object.keys(mockedResponsesPost).join(
-          " "
+        `No mocked handler for "${options?.method}" ${url}.\n\nBODY=${
+          options?.body
+        }\n\n** GET handlers ** \n  ${Object.keys(mockedResponsesGet).join(
+          "\n  "
+        )}\n\n** POST handlers ** \n  ${Object.keys(mockedResponsesPost).join(
+          "\n  "
         )}`
       );
     }
@@ -423,13 +435,27 @@ describe("DataCommonsWebClient", () => {
   test("Get data rows", async () => {
     const response = await client.getDataRows({
       childType: "State",
+      parentEntity: "country/MOCK",
+      variables: ["Has_Data", "No_Data"],
+    });
+    response.forEach((row) => {
+      expect(
+        ["Has_Data", "No_Data"].indexOf(row.variable.dcid)
+      ).toBeGreaterThanOrEqual(0);
+    });
+    expect(Object.keys(response).length).toBe(3);
+  });
+
+  test("Get data rows grouped by entity", async () => {
+    const response = await client.getDataRowsGroupedByEntity({
+      childType: "State",
       fieldDelimiter: ".",
       parentEntity: "country/MOCK",
       variables: ["Has_Data", "No_Data"],
     });
     response.forEach((row) => {
-      expect(row["Has_Data.value"]).toBeGreaterThan(0);
-      expect(row["No_Data.value"]).toBe(null);
+      expect(row.variables["Has_Data"].observation.value).toBeGreaterThan(0);
+      expect(row.variables["No_Data"].observation.value).toBe(null);
     });
     expect(Object.keys(response).length).toBe(3);
   });
@@ -442,8 +468,12 @@ describe("DataCommonsWebClient", () => {
       variables: ["Has_Data", "No_Data"],
     });
     response.features.forEach((row) => {
-      expect(_.get(row.properties, "Has_Data.value", 0)).toBeGreaterThan(0);
-      expect(_.get(row.properties, "No_Data.value", 0)).toBe(null);
+      expect(
+        _.get(row.properties, "variables.Has_Data.observation.value", 0)
+      ).toBeGreaterThan(0);
+      expect(
+        _.get(row.properties, "variables.No_Data.observation.value", 0)
+      ).toBe(null);
     });
     expect(Object.keys(response.features).length).toBe(3);
   });
@@ -460,7 +490,7 @@ describe("DataCommonsWebClient", () => {
   });
 
   test("Get per capita data rows", async () => {
-    const response = await client.getDataRows({
+    const response = await client.getDataRowsGroupedByEntity({
       childType: "State",
       fieldDelimiter: ".",
       parentEntity: "country/MOCK",
@@ -468,9 +498,14 @@ describe("DataCommonsWebClient", () => {
       variables: ["Has_Data", "No_Data"],
     });
     response.forEach((row) => {
-      expect(row["Has_Data.perCapita.value"]).toBeGreaterThan(0);
-      expect(row["No_Data.perCapita.value"]).toBe(null);
-      expect(row["entity.name"]).toBeTruthy();
+      expect(
+        row.variables["Has_Data"].denominator?.quotientValue
+      ).toBeGreaterThan(0);
+
+      expect(row.variables["No_Data"].denominator?.quotientValue).toBe(
+        undefined
+      );
+      expect(row.entity.properties.name).toBeTruthy();
     });
     expect(Object.keys(response).length).toBe(3);
   });
@@ -486,10 +521,14 @@ describe("DataCommonsWebClient", () => {
 
     expect(response.length).toBe(15);
     response.forEach((row) => {
-      expect(row["variable.dcid"]).toBe("Has_Data");
-      expect(row["variable.unitDisplayName"]).toBe("US Dollars");
-      expect(row["perCapita.value"]).toBeCloseTo(0.1);
-      expect(row["perCapita.populationValue"]).toBeGreaterThan(0);
+      expect(row.variable.dcid).toBe("Has_Data");
+      expect(row.variable.observation.metadata.unitDisplayName).toBe(
+        "US Dollars"
+      );
+      // Mock Has_Data values are set to 1/10th of the population values, so
+      // quotientValue (per-capita) should be 0.1
+      expect(row.variable.denominator?.quotientValue).toBeCloseTo(0.1);
+      expect(row.variable.denominator?.observation.value).toBeGreaterThan(0);
     });
   });
 
