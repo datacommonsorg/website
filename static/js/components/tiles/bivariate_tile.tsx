@@ -30,8 +30,7 @@ import { GeoJsonData } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
-import { NamedPlace, NamedTypedPlace } from "../../shared/types";
-import { StatVarSpec } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getStatWithinPlace } from "../../tools/scatter/util";
 import {
   isChildPlaceOf,
@@ -41,16 +40,16 @@ import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
-import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getSeriesWithin } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
-  ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -127,18 +126,15 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       replacementStrings={rs}
       className={`${props.className} bivariate-chart`}
       allowEmbed={true}
-      getDataCsv={
-        bivariateChartData
-          ? () =>
-              scatterDataToCsv(
-                bivariateChartData.xStatVar.statVar,
-                bivariateChartData.xStatVar.denom,
-                bivariateChartData.yStatVar.statVar,
-                bivariateChartData.yStatVar.denom,
-                bivariateChartData.points
-              )
-          : null
-      }
+      getDataCsv={() => {
+        const denoms = props.statVarSpec.map((v) => (v.denom ? v.statVar : ""));
+        return datacommonsClient.getCsv({
+          parentEntity: props.place.dcid,
+          childType: props.enclosedPlaceType,
+          variables: props.statVarSpec.map((v) => v.statVar),
+          perCapitaVariables: _.uniq(denoms),
+        });
+      }}
       isInitialLoading={_.isNull(bivariateChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={bivariateChartData && !!bivariateChartData.errorMsg}

@@ -34,19 +34,19 @@ import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
-import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import {
   getBestUnit,
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
+  ReplacementStrings,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -144,7 +144,28 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       replacementStrings={getReplacementStrings(props)}
       className={`${props.className} line-chart`}
       allowEmbed={true}
-      getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
+      getDataCsv={() => {
+        const denoms = props.statVarSpec.map((v) => (v.denom ? v.statVar : ""));
+        const entityProps = props.placeNameProp
+          ? [props.placeNameProp, "isoCode"]
+          : undefined;
+        if (!("comparisonPlaces" in props)) {
+          return datacommonsClient.getCsvSeries({
+            parentEntity: props.place.dcid,
+            childType: props.enclosedPlaceType,
+            variables: props.statVarSpec.map((v) => v.statVar),
+            perCapitaVariables: _.uniq(denoms),
+            entityProps,
+          });
+        } else {
+          return datacommonsClient.getCsvSeries({
+            entities: props.comparisonPlaces,
+            variables: props.statVarSpec.map((v) => v.statVar),
+            perCapitaVariables: _.uniq(denoms),
+            entityProps,
+          });
+        }
+      }}
       isInitialLoading={_.isNull(chartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={chartData && !!chartData.errorMsg}

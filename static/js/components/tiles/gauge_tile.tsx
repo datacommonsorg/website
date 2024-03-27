@@ -24,14 +24,14 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { drawGaugeChart } from "../../chart/draw_gauge";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { dataPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import {
+  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -118,14 +118,16 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       replacementStrings={replacementStrings}
       allowEmbed={true}
       className={`bar-chart`}
-      getDataCsv={
-        gaugeData
-          ? () =>
-              dataPointsToCsv([
-                { value: gaugeData.value, label: props.place.dcid },
-              ])
-          : null
-      }
+      getDataCsv={() => {
+        return datacommonsClient.getCsv({
+          entities: [props.place.dcid],
+          variables: [props.statVarSpec.statVar],
+          perCapitaVariables: props.statVarSpec.denom
+            ? [props.statVarSpec.denom]
+            : undefined,
+          date: props.statVarSpec.date,
+        });
+      }}
       hasErrorMsg={gaugeData && !!gaugeData.errorMsg}
       footnote={props.footnote}
     >

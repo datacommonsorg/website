@@ -26,16 +26,16 @@ import { drawDonutChart } from "../../chart/draw_donut";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
-import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -114,9 +114,14 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       replacementStrings={getReplacementStrings(props, donutChartData)}
       className={`${props.className} bar-chart`}
       allowEmbed={true}
-      getDataCsv={
-        donutChartData ? () => dataGroupsToCsv(donutChartData.dataGroup) : null
-      }
+      getDataCsv={() => {
+        const denoms = props.statVarSpec.map((v) => (v.denom ? v.statVar : ""));
+        return datacommonsClient.getCsv({
+          entities: [props.place.dcid],
+          variables: props.statVarSpec.map((v) => v.statVar),
+          perCapitaVariables: _.uniq(denoms),
+        });
+      }}
       isInitialLoading={_.isNull(donutChartData)}
       hasErrorMsg={donutChartData && !!donutChartData.errorMsg}
       footnote={props.footnote}

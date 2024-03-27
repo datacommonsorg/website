@@ -356,7 +356,8 @@ class ChartEmbed extends React.Component<
    */
   public onDownloadSvg(): void {
     triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_IMG, {});
-    saveToFile("chart.svg", this.state.chartDownloadXml);
+    const basename = this.state.chartTitle || "chart";
+    saveToFile(`${basename}.svg`, this.state.chartDownloadXml);
   }
 
   /**
@@ -368,11 +369,7 @@ class ChartEmbed extends React.Component<
     saveToFile(`${basename}.csv`, this.state.dataCsv);
   }
 
-  async componentDidUpdate(
-    prevProps: Readonly<ChartEmbedPropsType>,
-    prevState: Readonly<ChartEmbedStateType>,
-    snapshot?: any
-  ) {
+  async componentDidUpdate() {
     if (!this.state.dataCsv && this.state.getDataCsv) {
       try {
         const dataCsv = await this.state.getDataCsv();

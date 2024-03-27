@@ -42,8 +42,8 @@ import {
   getHash,
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
-import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getSeriesWithin } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
@@ -155,18 +155,25 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       replacementStrings={getReplacementStrings(props, scatterChartData)}
       className={`${props.className} scatter-chart`}
       allowEmbed={true}
-      getDataCsv={
-        scatterChartData
-          ? () =>
-              scatterDataToCsv(
-                scatterChartData.xStatVar.statVar,
-                scatterChartData.xStatVar.denom,
-                scatterChartData.yStatVar.statVar,
-                scatterChartData.yStatVar.denom,
-                scatterChartData.points
-              )
-          : null
-      }
+      getDataCsv={() => {
+        const denoms = [
+          scatterChartData.xStatVar,
+          scatterChartData.yStatVar,
+        ].map((v) => (v.denom ? v.statVar : ""));
+        const entityProps = props.placeNameProp
+          ? [props.placeNameProp, "isoCode"]
+          : undefined;
+        return datacommonsClient.getCsv({
+          parentEntity: props.place.dcid,
+          childType: props.enclosedPlaceType,
+          variables: [
+            scatterChartData.xStatVar.statVar,
+            scatterChartData.yStatVar.statVar,
+          ],
+          perCapitaVariables: _.uniq(denoms),
+          entityProps,
+        });
+      }}
       isInitialLoading={_.isNull(scatterChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={scatterChartData && !!scatterChartData.errorMsg}

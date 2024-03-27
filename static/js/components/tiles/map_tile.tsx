@@ -61,8 +61,8 @@ import {
   getHash,
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
-import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
@@ -253,9 +253,21 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       }
       className={`${props.className} map-chart`}
       allowEmbed={true}
-      getDataCsv={
-        mapChartData ? () => mapDataToCsv(mapChartData.layerData) : null
-      }
+      getDataCsv={() => {
+        const entityProps = props.placeNameProp
+          ? [props.placeNameProp, "isoCode"]
+          : undefined;
+        return datacommonsClient.getCsv({
+          parentEntity: props.place.dcid,
+          childType: props.enclosedPlaceType,
+          variables: [props.statVarSpec.statVar],
+          perCapitaVariables: props.statVarSpec.denom
+            ? [props.statVarSpec.statVar]
+            : undefined,
+          entityProps,
+          date: props.statVarSpec.date,
+        });
+      }}
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={!_.isEmpty(mapChartData) && !!mapChartData.errorMsg}

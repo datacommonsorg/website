@@ -43,9 +43,7 @@ interface SvRankingUnitsProps {
     chartHeight: number,
     chartHtml: string,
     chartTitle: string,
-    rankingPoints: RankingPoint[],
-    sources: string[],
-    svNames: string[]
+    sources: string[]
   ) => void;
   statVar: string;
   entityType: string;
@@ -95,9 +93,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       chartHeight,
       chartHtml,
       chartTitle,
-      points,
-      props.sources || Array.from(rankingGroup.sources),
-      rankingGroup.svName
+      props.sources || Array.from(rankingGroup.sources)
     );
   }
   const chartTitle = getDownloadFilename(title, rankingGroup);

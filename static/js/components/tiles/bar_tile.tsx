@@ -37,21 +37,21 @@ import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
-import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import {
   getPoint,
   getPointWithin,
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -141,9 +141,28 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       replacementStrings={getReplacementStrings(barChartData)}
       className={`${props.className} bar-chart`}
       allowEmbed={true}
-      getDataCsv={
-        barChartData ? () => dataGroupsToCsv(barChartData.dataGroup) : null
-      }
+      getDataCsv={() => {
+        const denoms = props.variables.map((v) => (v.denom ? v.statVar : ""));
+        const entityProps = props.placeNameProp
+          ? [props.placeNameProp, "isoCode"]
+          : undefined;
+        if ("parentPlace" in props) {
+          return datacommonsClient.getCsv({
+            parentEntity: props.parentPlace,
+            childType: props.enclosedPlaceType,
+            variables: props.variables.map((v) => v.statVar),
+            perCapitaVariables: _.uniq(denoms),
+            entityProps,
+          });
+        } else {
+          return datacommonsClient.getCsv({
+            entities: props.places,
+            variables: props.variables.map((v) => v.statVar),
+            perCapitaVariables: _.uniq(denoms),
+            entityProps,
+          });
+        }
+      }}
       isInitialLoading={_.isNull(barChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={barChartData && !!barChartData.errorMsg}

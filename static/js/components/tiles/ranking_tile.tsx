@@ -100,9 +100,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     chartHeight: number,
     chartHtml: string,
     chartTitle: string,
-    rankingPoints: RankingPoint[],
-    sources: string[],
-    svNames: string[]
+    sources: string[]
   ): void {
     embedModalElement.current.show(
       "",
@@ -170,7 +168,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
             />
           );
         })}
-      <ChartEmbed ref={embedModalElement} />
+      <ChartEmbed container={chartContainer.current} ref={embedModalElement} />
       {props.showLoadingSpinner && (
         <div id={getSpinnerId()}>
           <div className="screen">
