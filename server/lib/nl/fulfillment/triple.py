@@ -53,7 +53,7 @@ def _get_entity_string(entities: List[Entity]) -> str:
     # If not all entities are named in the title, get the number of unnamed
     # entities and add that to the title
     num_unnamed = len(entities) - max_entries + 1
-    entity_str += f' and {num_unnamed} more'
+    entity_str += f' and {num_unnamed} more other'
   else:
     # Otherwise just add the last entity name to the title.
     entity_str += f' and {_entity_name(entities[max_entries - 1])}'
