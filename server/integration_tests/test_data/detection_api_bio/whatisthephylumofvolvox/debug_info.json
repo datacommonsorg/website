@@ -1,0 +1,45 @@
+{
+  "places_detected": [],
+  "places_resolved": "",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>",
+  "entities_detected": [
+    "volvox"
+  ],
+  "entities_resolved": "(name: Volvox, dcid: dc/003ye83smktt7); ",
+  "query_with_places_removed": "what is the phylum of volvox",
+  "sv_matching": {
+    "SV": [
+      "dc/topic/SDGBiodiversity",
+      "Imports_EconomicActivity_Pharmaceutical",
+      "dc/topic/Emissions_Methane_EmissionsbySource",
+      "dc/topic/Cholesterol"
+    ]
+  },
+  "props_matching": {
+    "PROP": [
+      "phylum",
+      "chemblID",
+      "virusGenus",
+      "geneID",
+      "geneticVariantFunctionalCategory",
+      "typeOfGene",
+      "hg38GenomicPosition",
+      "fullName",
+      "ensemblID",
+      "hg19GenomicPosition",
+      "hg38GenomicLocation",
+      "ncbiDNASequenceName",
+      "hg19GenomicLocation",
+      "strandOrientation",
+      "alleleOrigin",
+      "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol",
+      "ofVirusSpecies",
+      "antigenType",
+      "chromosomeSize",
+      "ncbiTaxonID",
+      "simplifiedMolecularInputLineEntrySystem",
+      "ncbiProteinAccessionNumber"
+    ]
+  }
+}

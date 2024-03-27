@@ -1,0 +1,23 @@
+{
+  "childEntityType": "",
+  "classifications": [
+    {
+      "type": 100
+    }
+  ],
+  "client": "test_detect",
+  "comparisonEntities": [],
+  "comparisonVariables": [],
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "nonPlaceEntities": [
+    "dc/003ye83smktt7"
+  ],
+  "properties": [
+    "phylum",
+    "chemblID"
+  ],
+  "sessionId": "007_999999999",
+  "variables": []
+}

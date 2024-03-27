@@ -45,10 +45,15 @@ class Entity:
 class PlaceDetection:
   """Various attributes of place detection."""
   query_original: str
+  # This will also remove non place entities if there are 3 or more non
+  # place entities found.
   query_without_place_substr: str
   # `query_places_mentioned` is a list of words in the query
   # identified as possible places.
   query_places_mentioned: List[str]
+  # `query_entities_mentioned` is a list of words in the query
+  # identified as possible entities.
+  query_entities_mentioned: List[str]
   places_found: List[Place]
   entities_found: List[Entity]
   main_place: Place

@@ -139,6 +139,8 @@ def result_with_debug_info(data_dict: Dict, status: str,
           query_detection.places_detected.query_places_mentioned,
       'places_resolved':
           places_found_formatted,
+      'entities_detected':
+          query_detection.places_detected.query_entities_mentioned,
       'entities_resolved':
           entities_found_formatted,
       'query_with_places_removed':

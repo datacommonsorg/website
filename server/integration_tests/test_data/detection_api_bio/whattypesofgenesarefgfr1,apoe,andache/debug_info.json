@@ -1,0 +1,46 @@
+{
+  "places_detected": [],
+  "places_resolved": "",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>",
+  "entities_detected": [
+    "fgfr1",
+    "apoe",
+    "ache"
+  ],
+  "entities_resolved": "(name: FGFR1, dcid: bio/hg38_FGFR1); (name: APOE, dcid: bio/hg38_APOE); (name: ACHE, dcid: bio/ACHE); ",
+  "query_with_places_removed": "what types of genes are , , and",
+  "sv_matching": {
+    "SV": [
+      "dc/topic/SDGBiodiversity",
+      "dc/topic/sdg_2.5.1",
+      "dc/topic/sdg_15.6",
+      "dc/topic/sdg_2.5"
+    ]
+  },
+  "props_matching": {
+    "PROP": [
+      "typeOfGene",
+      "geneticVariantFunctionalCategory",
+      "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol",
+      "<-geneSymbol{typeOf:GeneticVariantGeneAssociation}->referenceSNPClusterID",
+      "fullName",
+      "geneID",
+      "<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID",
+      "genomicCoordinates",
+      "<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID",
+      "alleleType",
+      "antigenType",
+      "hasRNATranscript",
+      "hg19GenomicPosition",
+      "hg38GenomicPosition",
+      "hg19GenomicLocation",
+      "hg38GenomicLocation",
+      "antibodyType",
+      "chromosomeSize",
+      "referenceAlleleNCBI",
+      "observedAllele",
+      "ncbiDNASequenceName"
+    ]
+  }
+}

@@ -200,7 +200,8 @@ def empty_place_detection() -> PlaceDetection:
                         query_places_mentioned=[],
                         places_found=[],
                         main_place=None,
-                        entities_found=[])
+                        entities_found=[],
+                        query_entities_mentioned=[])
 
 
 def create_utterance(query_detection: Detection,
