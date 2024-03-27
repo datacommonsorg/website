@@ -37,7 +37,8 @@ def _place():
                         query_places_mentioned=['california'],
                         places_found=[Place('geoId/06', 'CA', 'State')],
                         main_place=None,
-                        entities_found=[])
+                        entities_found=[],
+                        query_entities_mentioned=[])
 
 
 def _sv(v=[], delim=False, above_thres=False):
