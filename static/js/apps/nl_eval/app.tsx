@@ -15,6 +15,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React, { useRef, useState } from "react";
 
 import { stringifyFn } from "../../utils/axios";
@@ -153,30 +154,37 @@ const fetchEmbeddings = async (input: string, modelNames: string[]) => {
     }
   }
   const allText = Object.keys(text2sv);
-  const requests = modelNames.flatMap((modelName) =>
-    allText.map((sentence) =>
-      axios
-        .get(`/api/nl/encode-vector`, {
-          params: { sentence, modelName },
-          paramsSerializer: stringifyFn,
-        })
-        .then((resp) => ({ modelName, data: resp.data }))
-    )
+
+  const modelAndTextList = _.flatMap(modelNames, (modelName) => {
+    return _.map(allText, (text) => {
+      return [modelName, text];
+    });
+  });
+
+  const requests = modelAndTextList.flatMap((modelAndText) =>
+    axios
+      .get(`/api/nl/encode-vector`, {
+        params: { modelName: modelAndText[0], sentence: modelAndText[1] },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => ({ modelAndText, data: resp.data }))
   );
 
-  const results = await Promise.all(requests);
+  const responses = await Promise.all(requests);
 
-  return results.reduce((acc, { modelName, data }) => {
-    acc[modelName] = [] as EmbeddingObject[];
-    for (let i = 0; i < allText.length; i++) {
-      const sentence = allText[i];
-      const item: EmbeddingObject = {
-        embeddings: data[i],
-        sentence,
-        statVar: text2sv[sentence],
-      };
-      acc[modelName].push(item);
+  const result = {};
+  for (const response of responses) {
+    const { modelAndText, data } = response;
+    const [modelName, text] = modelAndText;
+    if (result[modelName] === undefined) {
+      result[modelName] = [];
     }
-    return acc;
-  }, {});
+    const item: EmbeddingObject = {
+      embeddings: data[0],
+      sentence: text,
+      statVar: text2sv[text],
+    };
+    result[modelName].push(item);
+  }
+  return result;
 };
