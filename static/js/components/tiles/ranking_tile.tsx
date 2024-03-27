@@ -37,8 +37,8 @@ import {
   RankingPoint,
 } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
-import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
@@ -99,22 +99,31 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     chartWidth: number,
     chartHeight: number,
     chartHtml: string,
+    chartTitle: string,
     rankingPoints: RankingPoint[],
     sources: string[],
     svNames: string[]
   ): void {
     embedModalElement.current.show(
       "",
-      rankingPointsToCsv(rankingPoints, svNames),
+      "",
       chartWidth,
       chartHeight,
       chartHtml,
+      chartTitle,
       "",
-      "",
-      props.sources || Array.from(sources)
+      props.sources || Array.from(sources),
+      () => {
+        const denoms = props.variables.map((v) => (v.denom ? v.statVar : ""));
+        return datacommonsClient.getCsv({
+          parentEntity: props.parentPlace,
+          childType: props.enclosedPlaceType,
+          variables: props.variables.map((v) => v.statVar),
+          perCapitaVariables: _.uniq(denoms),
+        });
+      }
     );
   }
-
   return (
     <div
       className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${props.className}`}

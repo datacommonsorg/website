@@ -15,7 +15,7 @@
  */
 
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
-import { computeRatio, flattenNestedObject } from "./utils";
+import { computeRatio, encodeCsvRow, flattenNestedObject } from "./utils";
 
 describe("Utility methods", () => {
   beforeEach(() => {
@@ -48,6 +48,14 @@ describe("Utility methods", () => {
       value: 20,
     },
   ];
+
+  test("encodeCsvRow should convert null to empty strings", () => {
+    expect(encodeCsvRow([1, null, "3"])).toBe(`1,"","3"`);
+  });
+
+  test("encodeCsvRow should replace double quotes with two double-quotes", () => {
+    expect(encodeCsvRow([1, 'Number "3"', "3"])).toBe(`1,"Number ""3""","3"`);
+  });
 
   test("computeRatio base cases", async () => {
     // Empty num & denom should return empty result

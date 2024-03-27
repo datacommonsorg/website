@@ -184,6 +184,10 @@ class DataCommonsClient {
       params.variables,
       params.variableProps || DEFAULT_VARIABLE_PROPS
     );
+    const validPerCapitaVariables = _.intersection(
+      params.perCapitaVariables,
+      params.variables
+    );
     const populationPropValues = !_.isEmpty(params.perCapitaVariables)
       ? await this.getNodePropValues(
           [TOTAL_POPULATION_VARIABLE],
@@ -193,7 +197,7 @@ class DataCommonsClient {
 
     // Fetch population data for per capita calculations
     let populationObservations: SeriesApiResponse = { data: {}, facets: {} };
-    if (!_.isEmpty(params.perCapitaVariables)) {
+    if (!_.isEmpty(validPerCapitaVariables)) {
       populationObservations =
         "parentEntity" in params
           ? await this.webClient.getObservationsSeriesWithin({
@@ -341,6 +345,10 @@ class DataCommonsClient {
       params.variables,
       params.variableProps || DEFAULT_VARIABLE_PROPS
     );
+    const validPerCapitaVariables = _.intersection(
+      params.perCapitaVariables,
+      params.variables
+    );
     const populationPropValues = !_.isEmpty(params.perCapitaVariables)
       ? await this.getNodePropValues(
           [TOTAL_POPULATION_VARIABLE],
@@ -350,7 +358,7 @@ class DataCommonsClient {
 
     // Fetch population data for per capita calculations
     let populationObservations: SeriesApiResponse = { data: {}, facets: {} };
-    if (!_.isEmpty(params.perCapitaVariables)) {
+    if (!_.isEmpty(validPerCapitaVariables)) {
       populationObservations =
         "parentEntity" in params
           ? await this.webClient.getObservationsSeriesWithin({
@@ -507,6 +515,11 @@ class DataCommonsClient {
         ) {
           const series =
             populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid];
+          const populationFacet = _.get(
+            populationObservations.facets,
+            series.facet || "",
+            {} as StatMetadata
+          );
 
           const closestPopulationObservation = this.getClosestObservationToDate(
             series.series,
@@ -523,7 +536,8 @@ class DataCommonsClient {
           };
           row.variable.denominator = this.buildDataRowVariableDenominator(
             perCapitaQuotientObservation,
-            populationPropValues
+            populationPropValues,
+            populationFacet
           );
         }
         dataRows.push(row);
@@ -541,7 +555,8 @@ class DataCommonsClient {
    */
   private buildDataRowVariableDenominator(
     denominatorObservation: QuotientObservation,
-    denominatorPropValues: NodePropValues
+    denominatorPropValues: NodePropValues,
+    populationFacet: StatMetadata
   ): DataRowDenominator {
     return {
       dcid: TOTAL_POPULATION_VARIABLE,
@@ -551,20 +566,20 @@ class DataCommonsClient {
           "",
       },
       observation: {
-        date:
-          denominatorObservation && !_.isEmpty(denominatorObservation)
-            ? denominatorObservation.date
-            : null,
-        value:
-          denominatorObservation && !_.isEmpty(denominatorObservation)
-            ? denominatorObservation.value
-            : null,
-        metadata: {},
+        date: denominatorObservation.date,
+        value: denominatorObservation.value,
+        metadata: {
+          importName: _.get(populationFacet, "importName", null),
+          provenanceUrl: _.get(populationFacet, "provenanceUrl", null),
+          unit: _.get(populationFacet, "unit", null),
+          unitDisplayName: _.get(
+            denominatorObservation,
+            "unitDisplayName",
+            _.get(populationFacet, "unitDisplayName", null)
+          ),
+        },
       },
-      quotientValue:
-        denominatorObservation && !_.isEmpty(denominatorObservation)
-          ? denominatorObservation.quotientValue
-          : null,
+      quotientValue: denominatorObservation.quotientValue,
     };
   }
 
@@ -617,16 +632,24 @@ class DataCommonsClient {
             observation,
             facet
           );
-
           // Set per-capita data
           if (perCapitaObservations.length === series.series.length) {
             // perCapitaObservations is a parallel array with the data series
+            const populationFacetName =
+              populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid]
+                .facet;
+            const populationFacet = _.get(
+              populationObservations.facets,
+              populationFacetName || "",
+              {} as StatMetadata
+            );
+
             const perCapitaObservation =
               perCapitaObservations[observationIndex];
-
             row.variable.denominator = this.buildDataRowVariableDenominator(
               perCapitaObservation,
-              populationPropValues
+              populationPropValues,
+              populationFacet
             );
           }
           dataRows.push(row);
@@ -678,6 +701,8 @@ class DataCommonsClient {
         observation: {
           date: observation.date,
           metadata: {
+            importName: _.get(facet, "importName", null),
+            provenanceUrl: _.get(facet, "provenanceUrl", null),
             unit: _.get(facet, "unit", null),
             unitDisplayName: _.get(
               observation,

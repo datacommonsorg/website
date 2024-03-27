@@ -78,6 +78,9 @@ export function encodeCsvRow(items: any[]): string {
         // Quote strings and replace all double quotes (") with double-double quotes ("")
         return `"${item.replace(/"/g, '""')}"`;
       }
+      if (item === null) {
+        return `""`;
+      }
       return String(item);
     })
     .join(",");
