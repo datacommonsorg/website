@@ -1,6 +1,6 @@
-absl-py
-datasets
-google-cloud-storage
-gspread
-parameterized
-sentence-transformers
+absl-py==1.4.0
+datasets==2.18.0
+google-cloud-storage==2.15.0
+parameterized==0.8.1
+sentence-transformers==2.2.2
+google-cloud-aiplatform==1.42.1

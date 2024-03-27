@@ -26,6 +26,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
@@ -44,5 +45,7 @@
   "relatedThings": {},
   "showForm": true,
   "svSource": "UNRECOGNIZED",
-  "userMessage": "Could not recognize any topic from the query. See available topic categories for California."
+  "userMessages": [
+    "Could not recognize any topic from the query. See available topic categories for California."
+  ]
 }

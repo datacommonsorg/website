@@ -869,6 +869,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
@@ -1322,25 +1323,7 @@
           "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_DifferentHouseInSameCounty"
         ]
       },
-      "Count_Person_AbovePovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To17Years_AbovePovertyLevelInThePast12Months",
-          "Count_Person_18To59Years_AbovePovertyLevelInThePast12Months",
-          "Count_Person_60To74Years_AbovePovertyLevelInThePast12Months",
-          "Count_Person_75To84Years_AbovePovertyLevelInThePast12Months",
-          "Count_Person_85OrMoreYears_AbovePovertyLevelInThePast12Months",
-          "Count_Person_Upto6Years_AbovePovertyLevelInThePast12Months"
-        ]
-      },
       "Count_Person_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months",
-          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Upto6Years_BelowPovertyLevelInThePast12Months"
-        ],
         "gender": [
           "Count_Person_Female_BelowPovertyLevelInThePast12Months",
           "Count_Person_Male_BelowPovertyLevelInThePast12Months"
@@ -1354,6 +1337,86 @@
           "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
           "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
           "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_AsianAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_WhiteAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
         ]
       },
       "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
@@ -1804,5 +1867,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

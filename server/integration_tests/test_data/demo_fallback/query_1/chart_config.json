@@ -26,6 +26,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/0667000",
@@ -49,5 +50,7 @@
   "relatedThings": {},
   "showForm": true,
   "svSource": "UNRECOGNIZED",
-  "userMessage": "Could not recognize any topic from the query. See available topic categories for San Francisco."
+  "userMessages": [
+    "Could not recognize any topic from the query. See available topic categories for San Francisco."
+  ]
 }

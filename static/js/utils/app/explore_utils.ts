@@ -22,7 +22,9 @@ import {
   DEFAULT_TOPIC,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
+import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { datacommonsWebClient } from "../datacommons_client";
 import { getUpdatedHash } from "../url_utils";
 
 /**
@@ -60,4 +62,70 @@ export function getTopics(
     }
   }
   return topicList;
+}
+
+/**
+ * Returns true if highest point coverage for a given parent entity, child type,
+ * and variable is equal to the latest observation dates for the same parent
+ * entity, child type, variable combination.
+ *
+ * Put another way, returns true if calling /api/observations/point/within with
+ * DATE_HIGHEST_COVERAGE gives the same result as DATE_LATEST
+ *
+ * @returns boolean
+ */
+export async function highestCoverageDatesEqualLatestDates(
+  parentEntity: string,
+  childType: string,
+  variables: string[]
+): Promise<boolean> {
+  const highestCoverageObservations =
+    await datacommonsWebClient.getObservationsPointWithin({
+      parentEntity,
+      childType,
+      variables,
+      date: DATE_HIGHEST_COVERAGE,
+    });
+  const latestObservations =
+    await datacommonsWebClient.getObservationsPointWithin({
+      parentEntity,
+      childType,
+      variables,
+      date: DATE_LATEST,
+    });
+
+  // Return false if we find any "latest observation dates" that differ from the
+  // "highest coverage date"
+  const highestCoverageVariableDcids = Object.keys(
+    highestCoverageObservations.data
+  );
+  for (const variableDcid of highestCoverageVariableDcids) {
+    // Get the date of highest coverage for this variable. all entites are
+    // guaranteed to have the same date, so just check the first entity for its
+    // date
+    const entityDcid = Object.keys(
+      highestCoverageObservations.data[variableDcid]
+    ).pop();
+    if (!entityDcid) {
+      continue;
+    }
+    const highestCoverageDate =
+      highestCoverageObservations.data[variableDcid][entityDcid].date;
+
+    // Ensure that all "latest observation" dates match the highest coverage
+    // date.
+    const latestObservationEntityDcids = Object.keys(
+      latestObservations.data[variableDcid] || {}
+    );
+    const highestCoverageDateDiffersFromLatestObservationDate =
+      !!latestObservationEntityDcids.find(
+        (entityDcid) =>
+          latestObservations.data[variableDcid][entityDcid].date !==
+          highestCoverageDate
+      );
+    if (highestCoverageDateDiffersFromLatestObservationDate) {
+      return false;
+    }
+  }
+  return true;
 }

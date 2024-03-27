@@ -44,7 +44,8 @@ class ExploreTest(NLWebServerTestCase):
                     dc='',
                     failure='',
                     test='',
-                    i18n=''):
+                    i18n='',
+                    check_detection=False):
     ctx = {}
     for q in queries:
       resp = requests.post(
@@ -59,7 +60,7 @@ class ExploreTest(NLWebServerTestCase):
         d = ''
       else:
         d = q.replace(' ', '').replace('?', '').lower()
-      self.handle_response(q, resp, test_dir, d, failure)
+      self.handle_response(q, resp, test_dir, d, failure, check_detection)
 
   def run_detect_and_fulfill(self,
                              test_dir,
@@ -102,7 +103,7 @@ class ExploreTest(NLWebServerTestCase):
                       test_dir,
                       test_name,
                       failure,
-                      check_place_detection=False,
+                      check_detection=False,
                       detector=None):
     dbg = resp['debug']
     resp['debug'] = {}
@@ -122,14 +123,23 @@ class ExploreTest(NLWebServerTestCase):
       with open(json_file, 'w') as infile:
         infile.write(json.dumps(resp, indent=2))
 
-      if check_place_detection:
+      if check_detection:
         dbg_file = os.path.join(json_dir, 'debug_info.json')
         with open(dbg_file, 'w') as infile:
           dbg_to_write = {
               "places_detected": dbg["places_detected"],
               "places_resolved": dbg["places_resolved"],
               "main_place_dcid": dbg["main_place_dcid"],
-              "main_place_name": dbg["main_place_name"]
+              "main_place_name": dbg["main_place_name"],
+              "entities_detected": dbg["entities_detected"],
+              "entities_resolved": dbg["entities_resolved"],
+              "query_with_places_removed": dbg["query_with_places_removed"],
+              "sv_matching": {
+                  "SV": dbg["sv_matching"]["SV"]
+              },
+              "props_matching": {
+                  "PROP": dbg["props_matching"]["PROP"]
+              },
           }
           infile.write(json.dumps(dbg_to_write, indent=2))
     else:
@@ -141,7 +151,7 @@ class ExploreTest(NLWebServerTestCase):
       if detector:
         self.assertTrue(dbg.get('detection_type').startswith(detector)), \
           f'Query {query} failed!'
-      if not check_place_detection:
+      if not check_detection:
         with open(json_file, 'r') as infile:
           expected = json.load(infile)
           expected['debug'] = {}
@@ -162,6 +172,12 @@ class ExploreTest(NLWebServerTestCase):
           self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
           self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
           self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
+          self.assertEqual(dbg["entities_resolved"],
+                           expected["entities_resolved"])
+          self.assertEqual(dbg["sv_matching"]["SV"],
+                           expected["sv_matching"]["SV"])
+          self.assertEqual(dbg["props_matching"]["PROP"],
+                           expected["props_matching"]["PROP"])
 
   def handle_i18n_response(self, resp, i18n_lang):
     """The translation API does not always return the same translations.
@@ -196,6 +212,14 @@ class ExploreTest(NLWebServerTestCase):
 
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
+
+  def test_detection_bio(self):
+    self.run_detection('detection_api_bio', [
+        'What is the phylum of volvox?',
+        'What types of genes are FGFR1, APOE, and ACHE?',
+    ],
+                       dc='bio',
+                       check_detection=True)
 
   def test_detection_context(self):
     self.run_detection('detection_api_context', [
@@ -240,6 +264,14 @@ class ExploreTest(NLWebServerTestCase):
         'dc': 'sdg'
     }
     self.run_fulfillment('fulfillment_api_sdg', req)
+
+  def test_fulfillment_undata(self):
+    req = {
+        'entities': ['country/USA'],
+        'variables': ['dc/topic/UN_THEME_1'],
+        'dc': 'undata'
+    }
+    self.run_fulfillment('fulfillment_api_undata', req)
 
   def test_fulfillment_sdg_global(self):
     req = {
@@ -376,7 +408,7 @@ class ExploreTest(NLWebServerTestCase):
         'e2e_edge_cases2',
         [
             'What crimes are considered felonies vs. misdemeanors in the US',
-            'How does school size of urban schools compare to rural schools in US',
+            'How does school size of urban schools compare to rural schools in Colorado',
             'What is the relationship between housing size and home prices in California',
 
             # This is a regression test to ensure "biggest" doesn't trigger
@@ -419,6 +451,11 @@ class ExploreTest(NLWebServerTestCase):
         'Compare progress on poverty in Mexico, Nigeria and Pakistan'
     ],
                                 dc='sdg')
+
+  def test_e2e_undata(self):
+    self.run_detect_and_fulfill(
+        'e2e_undata', ['Culture in Iran', 'Pulmonary diseases in the world'],
+        dc='undata')
 
     self.run_detect_and_fulfill('e2e_sdg_main_dc', [
         'Hunger in Nigeria',
@@ -483,7 +520,8 @@ class ExploreTest(NLWebServerTestCase):
         'Life expectancy in US states in 2018',
         'What are the projected temperatures in california in 2025',
         'population in the US in the last year',
-        'hispanic women in California in 2001'
+        'hispanic women in California in 2001',
+        "What was the average house price for 2 br house in Mountain View decade ago"
     ])
 
   def test_e2e_date_range(self):
@@ -516,3 +554,25 @@ class ExploreTest(NLWebServerTestCase):
             # No such chart because the two variables are not coplottable.
             'Native born vs. Median income in Sunnyvale',
         ])
+
+  def test_e2e_toolformer_mode(self):
+    self.run_detect_and_fulfill(
+        'e2e_toolformer_mode',
+        ['what is the infant mortality rate in massachusetts'],
+        mode='toolformer')
+
+  def test_e2e_triple(self):
+    self.run_detect_and_fulfill(
+        'e2e_triple',
+        [
+            # Should all have 'out' properties as answer
+            'What is the phylum of volvox?',
+            'How about Corylus cornuta Marshall',
+            'What strand orientation does FGFR1 have?',
+            'What type of gene is it',
+            # Should have 'in' properties as answer
+            'What is Betacoronavirus 1 the species of',
+            # Should have a chained property in the answer
+            'What genes are associated with the genetic variant rs13317?'
+        ],
+        dc='bio')

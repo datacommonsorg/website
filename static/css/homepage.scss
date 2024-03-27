@@ -77,7 +77,8 @@ $search-answer-bottom: 48px;
   margin-bottom: 1.5rem;
 }
 
-#homepage h3, #homepage #data-size li {
+#homepage h3,
+#homepage #data-size li {
   color: var(--gm-3-ref-neutral-neutral-20);
   font-family: $headings-font-family;
   font-weight: 400;
@@ -90,7 +91,8 @@ $search-answer-bottom: 48px;
 }
 
 @include media-breakpoint-down(xs) {
-  #homepage h3, #homepage #data-size li {
+  #homepage h3,
+  #homepage #data-size li {
     font-size: 24px;
     line-height: 32px;
   }
@@ -99,7 +101,8 @@ $search-answer-bottom: 48px;
   }
 }
 @include media-breakpoint-up(sm) {
-  #homepage h3, #homepage #data-size li {
+  #homepage h3,
+  #homepage #data-size li {
     font-size: 28px;
     line-height: 36px;
   }
@@ -108,7 +111,8 @@ $search-answer-bottom: 48px;
   }
 }
 @include media-breakpoint-up(md) {
-  #homepage h3, #homepage #data-size li {
+  #homepage h3,
+  #homepage #data-size li {
     font-size: 32px;
     line-height: 40px;
   }
@@ -334,7 +338,7 @@ $search-answer-bottom: 48px;
 }
 
 #search-animation-toggle {
-  color:#bbb;
+  color: #bbb;
   cursor: pointer;
   font-size: 18px;
   margin-bottom: $topics-section-vmargin !important;

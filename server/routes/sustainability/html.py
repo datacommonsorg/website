@@ -23,9 +23,10 @@ from flask import redirect
 from flask import url_for
 from google.protobuf.json_format import MessageToJson
 
-from server import cache
+from server.lib.cache import cache
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
+from server.routes import TIMEOUT
 
 DEFAULT_CONTAINED_PLACE_TYPES = {
     "Continent": "Country",
@@ -40,7 +41,7 @@ bp = Blueprint("sustainability", __name__, url_prefix='/sustainability')
 
 @bp.route('/')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def sustainability_explorer(place_dcid=None):
   if not place_dcid:
     return redirect(url_for(

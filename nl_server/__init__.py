@@ -12,16 +12,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import sys
 
 from flask import Flask
+import google.cloud.logging
 import torch
 
 import nl_server.loader as loader
 import nl_server.routes as routes
+import shared.lib.gcp as lib_gcp
 
 
 def create_app():
+
+  if lib_gcp.in_google_network():
+    client = google.cloud.logging.Client()
+    client.setup_logging()
+
+  logging.basicConfig(
+      level=logging.INFO,
+      format=
+      "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
+      datefmt="%H:%M:%S",
+  )
+
   app = Flask(__name__)
   app.register_blueprint(routes.bp)
 

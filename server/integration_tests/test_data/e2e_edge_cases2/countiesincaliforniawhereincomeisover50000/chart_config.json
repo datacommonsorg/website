@@ -21,12 +21,12 @@
                       "geoId/06075",
                       "geoId/06001",
                       "geoId/06013",
-                      "geoId/06059"
+                      "geoId/06061"
                     ],
                     "statVarKey": [
                       "Median_Income_Household_multiple_place_bar_block"
                     ],
-                    "title": "Household Median Income (${date}) - Top 7 of 55",
+                    "title": "Household Median Income (${date}) - Top 7 of 57",
                     "type": "BAR"
                   }
                 ]
@@ -51,6 +51,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
@@ -869,5 +870,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

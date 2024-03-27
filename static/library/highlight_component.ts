@@ -85,6 +85,10 @@ export class DatacommonsHighlightComponent extends LitElement {
   @property()
   variable!: string;
 
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
+
   render(): HTMLElement {
     const highlightTileProps: HighlightTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
@@ -94,6 +98,7 @@ export class DatacommonsHighlightComponent extends LitElement {
         name: "",
         types: [],
       },
+      sources: this.sources,
       statVarSpec: {
         date: this.date,
         denom:

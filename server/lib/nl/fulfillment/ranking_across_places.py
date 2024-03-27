@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import copy
-import logging
 import os
 from typing import List
 
@@ -49,7 +48,6 @@ def populate(state: PopulateState,
              chart_origin: ChartOriginType,
              rank: int,
              ranking_count: int = 0) -> bool:
-  logging.info('populate_cb for ranking_across_places')
   if not state.ranking_types:
     state.uttr.counters.err('ranking-across-places_failed_cb_norankingtypes', 1)
     return False

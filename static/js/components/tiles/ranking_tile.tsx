@@ -62,6 +62,9 @@ export interface RankingTilePropType
   onHoverToggled?: (placeDcid: string, hover: boolean) => void;
   rankingMetadata: RankingTileSpec;
   showLoadingSpinner?: boolean;
+  footnote?: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -108,7 +111,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
       chartHtml,
       "",
       "",
-      Array.from(sources)
+      props.sources || Array.from(sources)
     );
   }
 
@@ -144,6 +147,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               rankingData={rankingData}
               rankingMetadata={props.rankingMetadata}
               showChartEmbed={showChartEmbed}
+              sources={props.sources}
               statVar={statVar}
               entityType={props.enclosedPlaceType}
               title={props.title}
@@ -153,6 +157,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               onHoverToggled={props.onHoverToggled}
               tileId={props.id}
               errorMsg={errorMsg}
+              footnote={props.footnote}
             />
           );
         })}
@@ -297,7 +302,7 @@ function pointApiToPerSvRankingData(
     if (!(spec.statVar in statData.data)) {
       continue;
     }
-    const arr = [];
+    const rankingPoints: RankingPoint[] = [];
     // Note: this returns sources and dates for all places, even those which
     // might not display.
     const sources = new Set<string>();
@@ -306,6 +311,7 @@ function pointApiToPerSvRankingData(
     for (const place in statData.data[spec.statVar]) {
       const statPoint = statData.data[spec.statVar][place];
       const rankingPoint = {
+        date: statPoint.date,
         placeDcid: place,
         value: statPoint.value,
       };
@@ -322,7 +328,7 @@ function pointApiToPerSvRankingData(
         rankingPoint.value /= denomInfo.value;
         sources.add(denomInfo.source);
       }
-      arr.push(rankingPoint);
+      rankingPoints.push(rankingPoint);
       dates.add(statPoint.date);
       if (statPoint.facet && statData.facets[statPoint.facet]) {
         const statPointSource = statData.facets[statPoint.facet].provenanceUrl;
@@ -331,12 +337,12 @@ function pointApiToPerSvRankingData(
         }
       }
     }
-    arr.sort((a, b) => {
+    rankingPoints.sort((a, b) => {
       return a.value - b.value;
     });
-    const numDataPoints = arr.length;
+    const numDataPoints = rankingPoints.length;
     rankingData[spec.statVar] = {
-      points: arr,
+      points: rankingPoints,
       unit: [unit],
       scaling: [scaling],
       numDataPoints,

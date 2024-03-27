@@ -135,7 +135,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
+            "infoMessage": "Data for \"South Sudan\" is currently unavailable. See the following statistics on the other places.",
             "title": "Prematurity and Low Birth Rate, Per 100,000"
           },
           {
@@ -236,7 +236,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
+            "infoMessage": "Data for \"South Sudan\" is currently unavailable. See the following statistics on the other places.",
             "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000"
           },
           {
@@ -355,6 +355,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/DZA",
@@ -417,5 +418,7 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See comparison based on places in the previous answer."
+  "userMessages": [
+    "See comparison based on places in the previous answer."
+  ]
 }

@@ -14,8 +14,6 @@
 """Utility functions for use by the NL modules."""
 
 import datetime
-import logging
-import sys
 import time
 from typing import Dict, List, NamedTuple, Set, Tuple
 
@@ -23,6 +21,7 @@ import server.lib.fetch as fetch
 from server.lib.nl.common import variable
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
+from server.lib.nl.common.utils import facet_contains_date
 from server.lib.nl.detection.date import get_date_range_strings
 import server.lib.nl.detection.types as types
 from server.lib.nl.fulfillment.utils import get_facet_id
@@ -55,6 +54,10 @@ _TIME_DELTA_SORT_MAP = {
         False,
 }
 
+_DEFAULT_FACET_RANK = 10
+# Prefer lower ranking number
+_RANKED_OBS_PERIOD = {'P1Y': 0, 'P3M': 1, 'P1M': _DEFAULT_FACET_RANK}
+
 
 # List of vars or places ranked by abs and pct growth.
 class GrowthRankedLists(NamedTuple):
@@ -72,6 +75,8 @@ class GrowthRanks(NamedTuple):
 
 # Given an SV and list of places, this API ranks the places
 # per the growth rate of the time-series.
+# Returns a tuple of i) ranked lists of the place dcids, and ii) dict of place
+# dcid to facet id of the facet to use for the place
 # TODO: Compute per-date Count_Person
 def rank_places_by_series_growth(
     places: List[str],
@@ -82,13 +87,28 @@ def rank_places_by_series_growth(
     counters: ctr.Counters,
     place_type: str = '',
     min_population: int = 0,
-    date_range: types.Date = None,
-    sv_exist_facet: Dict[str, Dict[str, Dict[str, str]]] = None
-) -> GrowthRankedLists:
+    date_range: types.Date = None) -> (GrowthRankedLists, Dict[str, str]):
   start = time.time()
+  facet_to_fetch = ''
+  if sv in constants.SVS_TO_CHECK_FACET:
+    series_facets = fetch.series_facet(entities=places,
+                                       variables=[sv],
+                                       all_facets=True)
+    for facet_id, facet_metadata in series_facets.get('facets', {}).items():
+      if not facet_metadata:
+        continue
+      obs_period_rank = _RANKED_OBS_PERIOD.get(
+          facet_metadata.get('observationPeriod', ''), _DEFAULT_FACET_RANK)
+      chosen_facet_rank = _RANKED_OBS_PERIOD.get(facet_to_fetch,
+                                                 _DEFAULT_FACET_RANK)
+      # Choose better ranked facet
+      if obs_period_rank < chosen_facet_rank:
+        facet_to_fetch = facet_id
+  facet_ids = [facet_to_fetch] if facet_to_fetch else None
   series_data = fetch.series_core(entities=places,
                                   variables=[sv],
-                                  all_facets=bool(date_range))
+                                  all_facets=bool(date_range),
+                                  facet_ids=facet_ids)
   place2denom = _compute_place_to_denom(sv, places)
   # Count the RPC section (since we have multiple exit points)
   counters.timeit('rank_places_by_series_growth', start)
@@ -97,16 +117,21 @@ def rank_places_by_series_growth(
     return []
 
   places_with_vals = []
+  place_facet_ids = {}
+  series_facets = series_data.get('facets', {})
   for place, place_data in series_data['data'][sv].items():
     if bool(date_range):
-      sv_facet_id = get_facet_id(sv, date_range, sv_exist_facet, [place])
       series = []
       for s in place_data:
-        if s.get('facet', '') == sv_facet_id:
+        facet_id = s.get('facet', '')
+        if facet_contains_date(s, series_facets.get(facet_id, ''), None,
+                               date_range):
           series = s.get('series', [])
+          place_facet_ids[place] = facet_id
           break
     else:
       series = place_data['series']
+      place_facet_ids[place] = place_data.get('facet', '')
     if len(series) < 2:
       continue
 
@@ -118,7 +143,7 @@ def rank_places_by_series_growth(
     try:
       net_growth = _compute_series_growth(series, denom, date_range)
     except Exception as e:
-      logging.error('Growth rate computation failed: %s', str(e))
+      counters.err('place_growth_ranking_computation_failed', str(e))
       continue
 
     if net_growth.abs > 0 and growth_direction == types.TimeDeltaType.DECREASE:
@@ -128,8 +153,10 @@ def rank_places_by_series_growth(
 
     places_with_vals.append((place, net_growth))
 
-  return _compute_growth_ranked_lists(places_with_vals, growth_direction,
-                                      rank_order)
+  growth_ranked_lists = _compute_growth_ranked_lists(places_with_vals,
+                                                     growth_direction,
+                                                     rank_order)
+  return growth_ranked_lists, place_facet_ids
 
 
 # Given a place and a list of existing SVs, this API ranks the SVs
@@ -142,8 +169,7 @@ def rank_svs_by_series_growth(
     nopc_vars: Set[str],
     counters: ctr.Counters,
     date_range: types.Date = None,
-    sv_exist_facet: Dict[str, Dict[str, Dict[str, str]]] = None
-) -> GrowthRankedLists:
+    sv_place_facet_ids: Dict[str, Dict[str, str]] = None) -> GrowthRankedLists:
   start = time.time()
   series_data = fetch.series_core(entities=[place],
                                   variables=svs,
@@ -153,7 +179,7 @@ def rank_svs_by_series_growth(
 
   svs_with_vals = []
   for sv, place_data in series_data['data'].items():
-    sv_facet_id = get_facet_id(sv, date_range, sv_exist_facet, [place])
+    sv_facet_id = get_facet_id(sv, sv_place_facet_ids, [place])
     if place not in place_data:
       continue
     if bool(date_range):
@@ -174,7 +200,7 @@ def rank_svs_by_series_growth(
     try:
       net_growth = _compute_series_growth(series, denom, date_range)
     except Exception as e:
-      logging.error('Growth rate computation failed: %s', str(e))
+      counters.err('sv_growth_ranking_computation_failed', str(e))
       continue
 
     if net_growth.abs > 0 and growth_direction == types.TimeDeltaType.DECREASE:
@@ -248,12 +274,7 @@ def _compute_growth(earliest: Dict, latest: Dict, series: List[Dict],
         new_earliest = v
         break
     if new_earliest and new_earliest_date != latest['date']:
-      logging.info('Changing start month from %s to %s to match %s',
-                   earliest['date'], new_earliest_date, latest['date'])
       earliest = new_earliest
-    else:
-      logging.info('First and last months diverge: %s vs. %s', earliest['date'],
-                   latest['date'])
 
   val_delta = latest['value'] - earliest['value']
   date_delta = _datestr_to_date(latest['date']) - _datestr_to_date(

@@ -33,12 +33,11 @@ ALL_STOP_WORDS = shared_utils.combine_stop_words()
 # calls the NL Server and returns a dict with both single-SV and multi-SV
 # (if relevant) detections.  For more details see create_sv_detection().
 #
-def detect_svs(
-    query: str,
-    index_type: str,
-    debug_logs: Dict,
-    threshold: float = SV_SCORE_DEFAULT_THRESHOLD
-) -> Dict[str, Union[Dict, List]]:
+def detect_svs(query: str,
+               index_type: str,
+               debug_logs: Dict,
+               threshold: float = SV_SCORE_DEFAULT_THRESHOLD,
+               skip_topics: bool = False) -> Dict[str, Union[Dict, List]]:
   # Remove stop words.
   # Check comment at the top of this file above `ALL_STOP_WORDS` to understand
   # the potential areas for improvement. For now, this removal blanket removes
@@ -50,4 +49,4 @@ def detect_svs(
       shared_utils.remove_stop_words(query, ALL_STOP_WORDS)
 
   # Make API call to the NL models/embeddings server.
-  return dc.nl_search_sv(query, index_type, threshold)
+  return dc.nl_search_sv(query, index_type, threshold, skip_topics)

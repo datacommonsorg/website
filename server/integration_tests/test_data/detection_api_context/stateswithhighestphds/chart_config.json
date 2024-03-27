@@ -21,6 +21,8 @@
   "entities": [
     "country/USA"
   ],
+  "nonPlaceEntities": [],
+  "properties": [],
   "sessionId": "007_999999999",
   "variables": [
     "Count_Person_EducationalAttainmentDoctorateDegree",

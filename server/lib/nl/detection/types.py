@@ -34,14 +34,28 @@ class Place:
 
 
 @dataclass
+class Entity:
+  """Non Place Entity attributes."""
+  dcid: str
+  name: str
+  type: str
+
+
+@dataclass
 class PlaceDetection:
   """Various attributes of place detection."""
   query_original: str
+  # This will also remove non place entities if there are 3 or more non
+  # place entities found.
   query_without_place_substr: str
   # `query_places_mentioned` is a list of words in the query
   # identified as possible places.
   query_places_mentioned: List[str]
+  # `query_entities_mentioned` is a list of words in the query
+  # identified as possible entities.
+  query_entities_mentioned: List[str]
   places_found: List[Place]
+  entities_found: List[Entity]
   main_place: Place
   peer_places: List[Place] = field(default_factory=list)
   parent_places: List[Place] = field(default_factory=list)
@@ -56,6 +70,8 @@ class SVDetection:
   query: str
   # Single SV detection.
   single_sv: dvars.VarCandidates
+  # Detected variables that are properties.
+  prop: dvars.VarCandidates
   # Multi SV detection.
   multi_sv: dvars.MultiVarCandidates
   # Input SV Threshold
@@ -405,15 +421,6 @@ class LlmApiType(str, Enum):
   Nop = "nop"
 
 
-class PlaceDetectorType(str, Enum):
-  # Represents the open-source NER implementation
-  NER = "ner"
-  # Represents the home-grown RecognizePlaces Recon API
-  DC = "dc"
-  # The case of no detector involved
-  NOP = "nop"
-
-
 @dataclass
 class Detection:
   """Detection attributes."""
@@ -424,5 +431,4 @@ class Detection:
   classifications: List[NLClassifier]
   llm_resp: Dict = field(default_factory=dict)
   detector: ActualDetectorType = ActualDetectorType.HybridHeuristic
-  place_detector: PlaceDetectorType = PlaceDetectorType.DC
   llm_api: LlmApiType = LlmApiType.Nop

@@ -168,6 +168,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06105",
@@ -270,5 +271,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See comparison based on places in the previous answer."
+  "userMessages": [
+    "See comparison based on places in the previous answer."
+  ]
 }

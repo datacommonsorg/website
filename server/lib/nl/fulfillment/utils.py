@@ -29,10 +29,12 @@ from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Date
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import ExistInfo
 from server.lib.nl.fulfillment.types import PopulateState
 
 #
@@ -61,6 +63,32 @@ def has_place(uttr: Utterance) -> bool:
     return True
 
   if uttr.insight_ctx and uttr.insight_ctx.get('entities'):
+    return True
+
+  return False
+
+
+def has_prop(uttr: Utterance) -> bool:
+  if not uttr:
+    return False
+
+  if uttr.properties:
+    return True
+
+  if uttr.insight_ctx and uttr.insight_ctx.get('properties'):
+    return True
+
+  return False
+
+
+def has_entity(uttr: Utterance) -> bool:
+  if not uttr:
+    return False
+
+  if uttr.places:
+    return True
+
+  if uttr.insight_ctx and uttr.insight_ctx.get('nonPlaceEntities'):
     return True
 
   return False
@@ -106,10 +134,13 @@ def add_chart_to_utterance(
     chart_vars: ChartVars,
     places: List[Place],
     primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART,
-    ranking_count: int = 0) -> bool:
-  is_sdg = False
-  if state.uttr.insight_ctx and params.is_sdg(state.uttr.insight_ctx):
-    is_sdg = True
+    ranking_count: int = 0,
+    sv_place_facet_ids: Dict[str, Dict[str, str]] = None,
+    info_message: str = '',
+    entities: List[Entity] = []) -> bool:
+  is_special_dc = False
+  if state.uttr.insight_ctx and params.is_special_dc(state.uttr.insight_ctx):
+    is_special_dc = True
   place_type = state.place_type
   if place_type and isinstance(place_type, ContainedInPlaceType):
     # TODO: What's the flow where the instance is string?
@@ -117,6 +148,8 @@ def add_chart_to_utterance(
   # Make a copy of chart-vars since it change.
   ch = ChartSpec(chart_type=chart_type,
                  svs=copy.deepcopy(chart_vars.svs),
+                 props=copy.deepcopy(chart_vars.props),
+                 entities=copy.deepcopy(entities),
                  event=chart_vars.event,
                  places=copy.deepcopy(places),
                  chart_vars=copy.deepcopy(chart_vars),
@@ -124,9 +157,11 @@ def add_chart_to_utterance(
                  ranking_types=copy.deepcopy(state.ranking_types),
                  ranking_count=ranking_count,
                  chart_origin=primary_vs_secondary,
-                 is_sdg=is_sdg,
+                 is_special_dc=is_special_dc,
                  single_date=state.single_date,
-                 date_range=state.date_range)
+                 date_range=state.date_range,
+                 sv_place_facet_id=sv_place_facet_ids,
+                 info_message=info_message)
   state.uttr.chartCandidates.append(ch)
   state.uttr.counters.info('num_chart_candidates', 1)
   return True
@@ -166,17 +201,17 @@ def get_default_contained_in_place(places: List[Place],
   return constants.DEFAULT_PARENT_PLACES.get(ptype, None)
 
 
-# Get facet id to use when there is a date specified (use a facet id that has
-# data). Gets the facet id that has data for the most places.
-def get_facet_id(sv: str, date: Date, sv_exist_facet: Dict[str, Dict[str, str]],
+# Get facet id to use when there are sv_place_facet_ids specified. Gets the
+# facet id that has data for the most places.
+def get_facet_id(sv: str, sv_place_facet_ids: Dict[str, Dict[str, str]],
                  places: List[str]) -> str:
-  if not date:
+  if not sv_place_facet_ids:
     return ''
-  sv_facets = sv_exist_facet.get(sv, {})
+  sv_facets = sv_place_facet_ids.get(sv, {})
   facet_id_occurences = {}
   facet_id_to_use = ""
   for place in places:
-    place_facet_id = sv_facets.get(place, {}).get('facetId', '')
+    place_facet_id = sv_facets.get(place, '')
     if not place_facet_id:
       continue
     place_facet_id_occurences = facet_id_occurences.get(place_facet_id, 0) + 1
@@ -186,7 +221,8 @@ def get_facet_id(sv: str, date: Date, sv_exist_facet: Dict[str, Dict[str, str]],
   return facet_id_to_use
 
 
-def is_coplottable(chart_vars: ChartVars, places: List[Place]) -> bool:
+def is_coplottable(svs: List[str], places: List[Place],
+                   exist_checks: Dict[str, Dict[str, ExistInfo]]) -> bool:
   """"
   Function that checks if the given SVs are co-plottable in a timeline/bar.
   That's true if the SVs are all either PC/no-PC, and have the same unit.
@@ -203,7 +239,6 @@ def is_coplottable(chart_vars: ChartVars, places: List[Place]) -> bool:
   else:
     nopc_vars = current_app.config['NOPC_VARS']
 
-  svs = chart_vars.svs
   # Ensure all SVs have the same per-capita relevance.
   pc_list = [variable.is_percapita_relevant(sv, nopc_vars) for sv in svs]
   if any(pc_list) and not all(pc_list):
@@ -213,11 +248,21 @@ def is_coplottable(chart_vars: ChartVars, places: List[Place]) -> bool:
   # Ensure all SVs have the same unit.
   unit = None
   for i, sv in enumerate(svs):
+    sv_exist_checks = exist_checks.get(sv, {})
     for place in places:
-      u = chart_vars.sv_exist_facet.get(sv, {}).get(place.dcid,
-                                                    {}).get('unit', '')
+      u = sv_exist_checks.get(place.dcid, ExistInfo()).facet.get('unit', '')
       if i > 0 and unit != u:
         return False
       unit = u
 
   return True
+
+
+# Takes a list of place names and formats it into a single string.
+def get_places_as_string(places: List[str]) -> str:
+  if len(places) < 1:
+    return ''
+  elif len(places) == 1:
+    return places[0]
+  else:
+    return ', '.join(places[0:len(places) - 1]) + f' and {places[-1]}'

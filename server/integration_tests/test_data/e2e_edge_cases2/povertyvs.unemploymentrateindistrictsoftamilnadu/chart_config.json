@@ -82,6 +82,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "wikidataId/Q1445",
@@ -154,8 +155,22 @@
         ]
       },
       {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
         "dcid": "dc/topic/Income",
         "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
         "types": [
           "Topic"
         ]
@@ -163,5 +178,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Sorry, there were no relevant statistics for administrative area 2 places in Tamil Nadu. See results for Tamil Nadu."
+  "userMessages": [
+    "Sorry, there were no relevant statistics for administrative area 2 places in Tamil Nadu. See results for Tamil Nadu."
+  ]
 }

@@ -16,16 +16,21 @@ FROM node:18.14.0-slim
 
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y python3 pkg-config build-essential libpixman-1-dev libcairo2-dev libpango1.0-dev
+# install roboto font in the container so that nodejs server can use it when
+# drawing the charts.
+RUN apt-get install -y fonts-roboto
 
 ARG ENV
 ENV ENV=${ENV}
 
 WORKDIR /workspace
 
-# Build web components dependency
+# Build packages/web-components and packages/client dependencies
 COPY packages/. /workspace/packages/
 RUN npm --prefix /workspace/packages/web-components install --omit=dev
 RUN npm --prefix /workspace/packages/web-components run build
+RUN npm --prefix /workspace/packages/client install
+RUN npm --prefix /workspace/packages/client run build
 
 # Install nodejs server dependencies
 COPY static/package.json /workspace/static/package.json

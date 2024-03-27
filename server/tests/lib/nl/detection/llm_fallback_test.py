@@ -27,6 +27,7 @@ from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
+from server.lib.nl.detection.utils import empty_var_candidates
 from shared.lib import detected_variables as dvars
 
 
@@ -35,14 +36,17 @@ def _place():
                         query_without_place_substr='foo bar',
                         query_places_mentioned=['california'],
                         places_found=[Place('geoId/06', 'CA', 'State')],
-                        main_place=None)
+                        main_place=None,
+                        entities_found=[],
+                        query_entities_mentioned=[])
 
 
 def _sv(v=[], delim=False, above_thres=False):
   if len(v) == 1:
     return SVDetection(query='',
                        single_sv=dvars.VarCandidates(v, [1.0], {}),
-                       multi_sv=None)
+                       multi_sv=None,
+                       prop=empty_var_candidates())
   if len(v) == 2:
     if above_thres:
       scores = [0.9]
@@ -59,9 +63,11 @@ def _sv(v=[], delim=False, above_thres=False):
                            ],
                                                    aggregate_score=0.7,
                                                    delim_based=delim)
-                       ]))
+                       ]),
+                       prop=empty_var_candidates())
   return SVDetection(query='',
-                     single_sv=dvars.VarCandidates([], [], {}),
+                     single_sv=empty_var_candidates(),
+                     prop=empty_var_candidates(),
                      multi_sv=None)
 
 

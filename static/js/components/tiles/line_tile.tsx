@@ -95,6 +95,10 @@ export interface LineTilePropType {
   startDate?: string;
   // Latest date to show on the chart.
   endDate?: string;
+  // Date to highlight on the chart.
+  highlightDate?: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 export interface LineChartData {
@@ -136,7 +140,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
-      sources={chartData && chartData.sources}
+      sources={props.sources || (chartData && chartData.sources)}
       replacementStrings={getReplacementStrings(props)}
       className={`${props.className} line-chart`}
       allowEmbed={true}
@@ -242,11 +246,10 @@ export const fetchData = async (props: LineTilePropType) => {
     props.apiRoot,
     props.getProcessedSVNameFn
   );
-  const placeNames = await getPlaceNames(
-    placeDcids,
-    props.apiRoot,
-    props.placeNameProp
-  );
+  const placeNames = await getPlaceNames(placeDcids, {
+    apiRoot: props.apiRoot,
+    prop: props.placeNameProp,
+  });
   // How legend labels should be set
   // If neither options are set, default to showing stat vars in legend labels
   const options = {
@@ -276,10 +279,10 @@ export function draw(
     props.svgChartWidth || svgContainer.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
-    false,
     props.showTooltipOnHover,
     {
       colors: props.colors,
+      highlightDate: props.highlightDate,
       timeScale: props.timeScale,
       title: chartTitle,
       unit: chartData.unit,

@@ -470,6 +470,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/3651000",
@@ -519,8 +520,7 @@
           "Count_Person_62OrMoreYears_Female",
           "Count_Person_65To66Years_Female",
           "Count_Person_67To69Years_Female",
-          "Count_Person_85OrMoreYears_Female",
-          "Count_Person_Years5To14_Female"
+          "Count_Person_85OrMoreYears_Female"
         ],
         "race": [
           "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone",
@@ -665,8 +665,7 @@
           "Count_Person_62OrMoreYears_Male",
           "Count_Person_65To66Years_Male",
           "Count_Person_67To69Years_Male",
-          "Count_Person_85OrMoreYears_Male",
-          "Count_Person_Years5To14_Male"
+          "Count_Person_85OrMoreYears_Male"
         ]
       },
       "Median_Age_Person_Female": {
@@ -1100,5 +1099,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

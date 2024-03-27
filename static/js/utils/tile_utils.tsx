@@ -333,34 +333,34 @@ export function getTileEventTypeSpecs(
 /**
  * Gets the JSX element for displaying a list of sources.
  */
-export function getSourcesJsx(sources: Set<string>): JSX.Element {
+export function TileSources(props: {
+  sources: Set<string> | string[];
+}): JSX.Element {
+  const { sources } = props;
   if (!sources) {
     return null;
   }
 
   const sourceList: string[] = Array.from(sources);
-  const seenSourceText = new Set();
+  //const seenSourceText = new Set();
   const sourcesJsx = sourceList.map((source, index) => {
     // HACK for updating source for NL interface
-    let processedSource = source;
+    let sourceUrl = source;
     if (isNlInterface()) {
-      processedSource = NL_SOURCE_REPLACEMENTS[source] || source;
+      sourceUrl = NL_SOURCE_REPLACEMENTS[source] || source;
     }
-    const sourceText = urlToDisplayText(processedSource);
-    if (seenSourceText.has(sourceText)) {
-      return null;
-    }
-    seenSourceText.add(sourceText);
+    const sourceText = urlToDisplayText(sourceUrl);
     return (
-      <span key={processedSource} {...{ part: "source" }}>
+      <span key={sourceUrl}>
         {index > 0 ? ", " : ""}
         <a
-          href={processedSource}
+          href={sourceUrl}
           rel="noreferrer"
           target="_blank"
+          title={sourceUrl}
           onClick={(event) => {
             triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
-              [GA_PARAM_URL]: processedSource,
+              [GA_PARAM_URL]: sourceUrl,
             });
             return true;
           }}

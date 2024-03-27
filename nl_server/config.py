@@ -13,10 +13,13 @@
 # limitations under the License.
 
 from dataclasses import dataclass
+import logging
 import os
 from typing import Dict, List
 
 from nl_server import gcs
+from shared.lib.gcs import download_gcs_file
+from shared.lib.gcs import is_gcs_path
 
 # Index constants.  Passed in `url=`
 CUSTOM_DC_INDEX: str = 'custom_ft'
@@ -91,6 +94,15 @@ def _parse(embeddings_map: Dict[str, str]) -> List[EmbeddingsIndex]:
       # Value is an absolute path
       file_name = os.path.basename(value)
       local_path = value
+    elif is_gcs_path(value):
+      logging.info('Downloading embeddings from GCS path: %s', value)
+      local_path = download_gcs_file(value)
+      if not local_path:
+        logging.warning(
+            'Embeddings not downloaded from GCS and will be ignored. Please check the path: %s',
+            value)
+        continue
+      file_name = value
     else:
       file_name = value
       local_path = ''

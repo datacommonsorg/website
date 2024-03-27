@@ -264,6 +264,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "United States",
   "place": {
     "dcid": "country/USA",
@@ -281,5 +282,5 @@
   ],
   "relatedThings": {},
   "svSource": "PARTIAL_PAST_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

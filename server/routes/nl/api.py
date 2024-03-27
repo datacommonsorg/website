@@ -14,17 +14,19 @@
 """Endpoints for Datacommons NL"""
 
 import json
-import logging
 
 import flask
 from flask import Blueprint
 from flask import current_app
 from flask import request
 
+from server.lib.cache import model_cache
 from server.lib.explore.params import Clients
 from server.lib.explore.params import Params
+from server.routes import TIMEOUT
 from server.routes.nl import helpers
 import server.services.bigtable as bt
+import shared.model.api as model_api
 
 bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 
@@ -78,5 +80,39 @@ def feedback():
     bt.write_feedback(session_id, feedback_data)
     return '', 200
   except Exception as e:
-    logging.error(e)
     return 'Failed to record feedback data', 500
+
+
+@bp.route('/encode-vector')
+@model_cache.cached(timeout=TIMEOUT, query_string=True)
+def encode_vector():
+  """Retrieves the embedding vector for a given sentence and model.
+
+    Valid model name can be found from `shared/model/vertex_ai_endpoints.yaml`
+  """
+  if not current_app.config['VERTEX_AI_MODELS']:
+    flask.abort(404)
+  sentence = request.args.get('sentence')
+  model_name = request.args.get('modelName')
+  return json.dumps(
+      model_api.predict(current_app.config['VERTEX_AI_MODELS'][model_name],
+                        [sentence]))
+
+
+@bp.route('/vector-search')
+@model_cache.cached(timeout=TIMEOUT, query_string=True)
+def vector_search():
+  """Performs vector search for a given sentence and model.
+
+    Valid model name can be found from `shared/model/vertex_ai_endpoints.yaml`
+  """
+  if not current_app.config['VERTEX_AI_MODELS']:
+    flask.abort(404)
+  sentence = request.args.get('sentence')
+  model_name = request.args.get('modelName')
+  if not sentence:
+    flask.abort(400, f'Bad sentence: {sentence}')
+  if model_name not in current_app.config['VERTEX_AI_MODELS']:
+    flask.abort(400, f'Bad model name: {model_name}')
+  return model_api.vector_search(
+      current_app.config['VERTEX_AI_MODELS'][model_name], sentence)
