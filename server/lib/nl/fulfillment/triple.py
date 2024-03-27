@@ -33,22 +33,36 @@ _IN_ARROW = '<-'
 _OUT_TITLE = 'The {property} for {entity} is:'
 _IN_TITLE = '{entity} is the {property} for:'
 _MULTI_ENTITY_TITLE = 'The {property} for {entity} are as follows:'
-_MAX_ENTITIES_IN_TITLE = 2
+_MAX_ENTITIES_IN_TITLE = 3
+
+
+# Gets the name for an entity
+def _entity_name(entity: Entity) -> str:
+  return entity.name or entity.dcid
 
 
 # Gets a title string for a list of entities
 def _get_entity_string(entities: List[Entity]) -> str:
   if len(entities) == 1:
-    return entities[0].name or entities[0].dcid
-  entities_cutoff_idx = min(_MAX_ENTITIES_IN_TITLE, len(entities) - 1)
-  entity_str = ', '.join(
-      [e.name or e.dcid for e in entities[:entities_cutoff_idx]])
-  entity_str += f' and {entities[entities_cutoff_idx].name or entities[entities_cutoff_idx].dcid}'
+    return _entity_name(entities[0])
+  entity_str = ''
+  max_entries = min(_MAX_ENTITIES_IN_TITLE, len(entities))
+  # Join together the first max_entries - 1 number of entities with a ', '
+  entity_str = ', '.join([_entity_name(e) for e in entities[:max_entries - 1]])
+  if max_entries < len(entities):
+    # If not all entities are named in the title, get the number of unnamed
+    # entities and add that to the title
+    num_unnamed = len(entities) - max_entries + 1
+    entity_str += f' and {num_unnamed} more'
+  else:
+    # Otherwise just add the last entity name to the title.
+    entity_str += f' and {_entity_name(entities[max_entries - 1])}'
   return entity_str
 
 
 # Gets the chart title for a list of entities and a property expression
 # TODO: revisit how titles should be displayed
+# TODO: move getting title to config_builder: https://github.com/datacommonsorg/website/blob/master/server/lib/nl/config_builder/base.py
 def _get_title(entities: List[Entity], prop_expression: str) -> str:
   entity_str = _get_entity_string(entities)
   override_prop_titles = current_app.config['NL_PROP_TITLES']
