@@ -85,7 +85,6 @@ echo "==========================================================================
 mkdir -p input
 gsutil cp gs://datcom-website-adversarial/input/frequent/* input/
 dc_list=("main" "sdg")
-date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
 for dc in "${dc_list[@]}"
 do
   echo "====================================================================================="

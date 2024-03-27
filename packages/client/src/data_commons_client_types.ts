@@ -14,9 +14,27 @@
  * limitations under the License.
  */
 
+import { Observation, StatMetadata } from "./data_commons_web_client_types";
+
 /**
  * Interface definitions supporting DataCommonsClient
  */
+
+/**
+ * Denominator observation with calculated quotient value. Used for storing
+ * per-capita derived values along side the original population observation.
+ * "date' and "value" fields from the parent Observation interface will be set
+ * to the original observation dates and values, and quotientValue is the
+ * derived (per-capita) value.
+ *
+ * TODO(dwnoble): Revisit how this interface is structured to be more intuitive.
+ * Maybe: calculate quotient value on the fly and only store the population
+ * observation here.
+ */
+export interface QuotientObservation extends Observation {
+  /** Derived quotient value */
+  quotientValue: number;
+}
 
 export interface BaseGetDataRowsParams {
   /** Variable DCIDs */
@@ -66,5 +84,74 @@ export type GetGeoJSONParams = GetDataRowsParams & {
   rewind?: boolean;
 };
 
-export type DataRow = Record<string, string | number | boolean | null>;
-export type NodePropValues = Record<string, Record<string, string | null>>;
+/**
+ * Data row helper interface for storing observation values
+ */
+export type DataRowObservation = {
+  date: string | null;
+  value: number | null;
+  metadata: StatMetadata;
+};
+
+/**
+ * Data row helper interface for storing node property dcids and values
+ */
+export type DataRowNodeProperties = {
+  name: string;
+  [propertyDcid: string]: string | number | boolean | null;
+};
+
+/**
+ * Data row helper interface for storing a denominator observation and
+ * derived quotient value
+ */
+export type DataRowDenominator = {
+  dcid: string;
+  properties: DataRowNodeProperties;
+  observation: DataRowObservation;
+  quotientValue: number | null;
+};
+
+/**
+ * Data row helper interface for storing variable, observation, and denominator
+ * values
+ */
+export type DataRowVariable = {
+  dcid: string;
+  properties: DataRowNodeProperties;
+  observation: DataRowObservation;
+  denominator?: DataRowDenominator;
+};
+
+/**
+ * Data row about a single entity and single variable
+ */
+export type DataRow = {
+  entity: {
+    dcid: string;
+    properties: DataRowNodeProperties;
+  };
+  variable: DataRowVariable;
+};
+
+/**
+ * Data row about a single entity and multiple variable observations
+ */
+export type EntityGroupedDataRow = {
+  entity: {
+    dcid: string;
+    properties: DataRowNodeProperties;
+  };
+  variables: {
+    [variableName: string]: DataRowVariable;
+  };
+};
+
+/**
+ * Object of property dcids to node DCIDs to property values
+ */
+export type NodePropValues = {
+  [propertyDcid: string]: {
+    [nodeDcid: string]: string | null;
+  };
+};

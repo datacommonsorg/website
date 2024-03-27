@@ -15,6 +15,12 @@
  */
 
 import _ from "lodash";
+import { DEFAULT_FIELD_DELIMITER } from "./data_commons_client";
+import {
+  DataRow,
+  EntityGroupedDataRow,
+  QuotientObservation,
+} from "./data_commons_client_types";
 import { Observation } from "./data_commons_web_client_types";
 
 /**
@@ -94,11 +100,11 @@ export function computeRatio(
   num: Observation[],
   denom: Observation[],
   scaling = 1
-): Observation[] {
+): QuotientObservation[] {
   if (_.isEmpty(denom)) {
     return [];
   }
-  const result: Observation[] = [];
+  const result: QuotientObservation[] = [];
   let j = 0; // denominator position
   for (let i = 0; i < num.length; i++) {
     const numDate = Date.parse(num[i].date);
@@ -114,13 +120,109 @@ export function computeRatio(
         break;
       }
     }
-    let val: number;
+    let quotientValue: number;
     if (denom[j].value == 0) {
-      val = 0;
+      quotientValue = 0;
     } else {
-      val = num[i].value / denom[j].value / scaling;
+      quotientValue = num[i].value / denom[j].value / scaling;
     }
-    result.push({ date: num[i].date, value: val });
+    result.push({
+      ...denom[j],
+      quotientValue,
+    });
   }
   return result;
+}
+
+/**
+ * Flattens a nested JavaScript object to a single level, preserving key/value
+ * pairs. Combines keys using the specified delimiter
+ *
+ * Example:
+ * object = {
+ *   key1 : {
+ *     key2 : "key2value"
+ *   },
+ *   arrayKey : [
+ *     {
+ *       arrayItem: "arrayItem1Value"
+ *     },
+ *     {
+ *       arrayItem: "arrayItem2Value"
+ *     }
+ *   ]
+ * }
+ * delimiter = "."
+ *
+ * Result:
+ * {
+ *   "key1.key2": "key2value",
+ *   "arrayKey.0.arrayItem": "arrayItem1Value",
+ *   "arrayKey.1.arrayItem": "arrayItem2Value"
+ * }
+ * @param value object to flatten
+ * @param delimiter delimiter used to combine key names
+ * @return flattened object
+ */
+export function flattenNestedObject(
+  object: any,
+  delimiter = "."
+): Record<string, string | number | boolean> {
+  const resultObject: Record<string, string | number | boolean> = {};
+  // Recursion helper
+  const flattenNestedObjectHelper = (keyParts: string[], value: any) => {
+    if (value !== null && typeof value === "object" && _.isEmpty(value)) {
+      // Exclude empty objects and empty arrays
+      return;
+    } else if (Array.isArray(value)) {
+      value.forEach((subValue, index) => {
+        flattenNestedObjectHelper([...keyParts, `${index}`], subValue);
+      });
+    } else if (value !== null && typeof value === "object") {
+      Object.keys(value).forEach((key) => {
+        flattenNestedObjectHelper([...keyParts, key], value[key]);
+      });
+    } else {
+      resultObject[keyParts.join(delimiter)] = value;
+    }
+  };
+
+  Object.keys(object).forEach((key) => {
+    flattenNestedObjectHelper([key], object[key]);
+  });
+  return resultObject;
+}
+
+/**
+ * Converts the passed in data rows to a CSV string.
+ * Flattens data row structure using the specified file delimiter.
+ *
+ * @param dataRows Data rows
+ * @param fieldDelimiter Delimiter for flattening nested data row items
+ * @returns CSV string
+ */
+export function dataRowsToCsv(
+  dataRows: DataRow[] | EntityGroupedDataRow[],
+  fieldDelimiter: string = DEFAULT_FIELD_DELIMITER
+) {
+  if (dataRows.length === 0) {
+    return "";
+  }
+  // Build CSV header while flattening data rows
+  const headerSet = new Set<string>();
+  const flattenedDataRows = dataRows.map((dataRow) => {
+    const flattenedDataRow = flattenNestedObject(dataRow, fieldDelimiter);
+    Object.keys(flattenedDataRow).forEach((columnName) => {
+      headerSet.add(columnName);
+    });
+    return flattenedDataRow;
+  });
+
+  const header = Array.from(headerSet).sort();
+  const rows = flattenedDataRows.map((flattenedDataRow) =>
+    header.map((column) => flattenedDataRow[column])
+  );
+  const csvRows = [header, ...rows];
+  const csvLines = csvRows.map(encodeCsvRow);
+  return csvLines.join("\n");
 }
