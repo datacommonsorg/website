@@ -15,10 +15,11 @@
  */
 
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { stringifyFn } from "../../utils/axios";
-import { SentenceSection } from "./setence_section";
+import { OverallScoreTable } from "./overall_score_table";
+import { QuerySection } from "./query_section";
 import { EmbeddingObject } from "./util";
 
 interface AppPropType {
@@ -32,6 +33,9 @@ export function App(props: AppPropType): JSX.Element {
   const [customDescription, setCustomDescription] = useState<
     Record<string, EmbeddingObject[]>
   >({});
+  const [completedOverallScore, setCompletedOverallScore] = useState({});
+
+  const overallScore = useRef({});
 
   const handleCustomDescription = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,10 +49,31 @@ export function App(props: AppPropType): JSX.Element {
   const handleCustomQuery = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const sentenceInput = form.sentence.value;
+    const queryInput = form.query.value;
     const statVarsInput = form.statVars ? form.statVars.value : "";
-    setCustomQuery(sentenceInput);
+    setCustomQuery(queryInput);
     setCustomGolden(statVarsInput.split(",").map((s) => s.trim()));
+  };
+
+  const handleUpdateOverallScore = (
+    model: string,
+    sentence: string,
+    score: number
+  ) => {
+    if (overallScore.current[model] === undefined) {
+      overallScore.current[model] = {};
+    }
+    overallScore.current[model][sentence] = score;
+    for (const modelName in overallScore.current) {
+      if (
+        Object.values(overallScore.current[modelName]).length !==
+        Object.keys(props.evalGolden).length
+      ) {
+        return;
+      }
+    }
+    // Only update when all models have the scores for all the eval queries.
+    setCompletedOverallScore(overallScore.current);
   };
 
   return (
@@ -75,7 +100,7 @@ export function App(props: AppPropType): JSX.Element {
           based on your ranked golden stat vars.
         </p>
         <form onSubmit={handleCustomQuery}>
-          <input type="text" name="sentence" placeholder="Enter a query" />
+          <input type="text" name="query" placeholder="Enter a query" />
           <input
             type="text"
             name="stat var list"
@@ -84,25 +109,28 @@ export function App(props: AppPropType): JSX.Element {
           <button type="submit">Apply</button>
         </form>
         {customQuery && (
-          <SentenceSection
+          <QuerySection
             key={customQuery}
             sentence={customQuery}
             modelNames={props.modelNames}
             goldenStatVars={customGolden}
             customDescription={customDescription}
+            onScoreUpdated={handleUpdateOverallScore}
           />
         )}
       </div>
       <div className="app-section">
         <h3> Existing Eval Results for a collection of queries</h3>
+        <OverallScoreTable data={completedOverallScore} />
         {Object.keys(props.evalGolden).map((sentence) => {
           return (
-            <SentenceSection
+            <QuerySection
               key={sentence}
               sentence={sentence}
               modelNames={props.modelNames}
               goldenStatVars={props.evalGolden[sentence]}
               customDescription={customDescription}
+              onScoreUpdated={handleUpdateOverallScore}
             />
           );
         })}

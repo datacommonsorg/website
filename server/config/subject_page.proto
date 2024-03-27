@@ -261,34 +261,20 @@ message MapTileSpec {
   string geo_json_prop = 3;
 }
 
-// Spec for getting value from property values api call
-message PropertySpec {
-  enum PropertyDirection {
-    TYPE_NONE = 0;
-    IN = 1;
-    OUT = 2;
-  }
-  // Dcid of the property to get value for
-  string property = 1;
-  // Whether we are looking for an "in" or "out" property
-  PropertyDirection direction = 2;
-  // [optional] if set, only keep the values that have this as their typeof.
-  // Otherwise, keep all values.
-  repeated string type = 3;
-}
-
 // Spec for just displaying a value
 message DisplayValueSpec {
   // The value(s) to display
-  repeated string value = 1;
+  repeated string values = 1;
   // The source(s) of the values
-  repeated string source = 2;
+  repeated string sources = 2;
 }
 
 message AnswerMessageTileSpec {
   // The answer to display in the tile
   oneof answer {
-    PropertySpec property = 1;
+    // Relation expression that describes a property
+    // (https://docs.datacommons.org/api/rest/v2#relation-expressions)
+    string property_expr = 1;
     DisplayValueSpec display_value = 2;
   }
 }
@@ -298,11 +284,12 @@ message AnswerTableTileSpec {
   message TableColumn {
     // The header to use for the column
     string header = 1;
-    // The spec for getting the values in the column
-    PropertySpec property = 2;
+    // Relation expression that describes a property
+    // (https://docs.datacommons.org/api/rest/v2#relation-expressions)
+    string property_expr = 2;
   }
   // List of columns to show in the tile
-  repeated TableColumn column = 1;
+  repeated TableColumn columns = 1;
 }
 
 message Tile {
@@ -372,7 +359,7 @@ message Tile {
   // List of entities to use in the tile.
   // Only used in ANSWER_MESSAGE, ANSWER_TABLE, and ENTITY_OVERVIEW for now.
   // TODO: use this for all other tile types as well.
-  repeated string entity = 22;
+  repeated string entities = 22;
 
   // specs for specific tile types
   oneof tile_type_spec {

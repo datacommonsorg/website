@@ -37,6 +37,7 @@ import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
+import shared.lib.gcp as lib_gcp
 
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
@@ -48,17 +49,11 @@ def register_routes_base_dc(app):
   from server.routes.dev import html as dev_html
   app.register_blueprint(dev_html.bp)
 
-  from server.routes.disease import html as disease_html
-  app.register_blueprint(disease_html.bp)
-
   from server.routes.import_wizard import html as import_wizard_html
   app.register_blueprint(import_wizard_html.bp)
 
   from server.routes.place_list import html as place_list_html
   app.register_blueprint(place_list_html.bp)
-
-  from server.routes.protein import html as protein_html
-  app.register_blueprint(protein_html.bp)
 
   from server.routes import redirects
   app.register_blueprint(redirects.bp)
@@ -73,17 +68,29 @@ def register_routes_base_dc(app):
   from server.routes.topic_page import html as topic_page_html
   app.register_blueprint(topic_page_html.bp)
 
-  from server.routes.disease import api as disease_api
-  app.register_blueprint(disease_api.bp)
-
-  from server.routes.protein import api as protein_api
-  app.register_blueprint(protein_api.bp)
-
   from server.routes.import_detection import detection as detection_api
   app.register_blueprint(detection_api.bp)
 
   from server.routes.disaster import api as disaster_api
   app.register_blueprint(disaster_api.bp)
+
+
+def register_routes_biomedical_dc(app):
+  # Apply the blueprints specific to biomedical dc
+  from server.routes.biomedical import html as bio_html
+  app.register_blueprint(bio_html.bp)
+
+  from server.routes.disease import api as disease_api
+  app.register_blueprint(disease_api.bp)
+
+  from server.routes.disease import html as disease_html
+  app.register_blueprint(disease_html.bp)
+
+  from server.routes.protein import api as protein_api
+  app.register_blueprint(protein_api.bp)
+
+  from server.routes.protein import html as protein_html
+  app.register_blueprint(protein_html.bp)
 
 
 def register_routes_disasters(app):
@@ -227,7 +234,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   cfg = lib_config.get_config()
 
-  if not cfg.LOCAL:
+  if lib_gcp.in_google_network():
     client = google.cloud.logging.Client()
     client.setup_logging()
   logging.basicConfig(
@@ -263,6 +270,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     configure_endpoints_from_ingress(ingress_config_path)
 
   register_routes_common(app)
+  if not cfg.CUSTOM:
+    # Only register biomedical DC routes if in main DC
+    register_routes_biomedical_dc(app)
 
   register_routes_base_dc(app)
   if cfg.SHOW_DISASTER:
@@ -366,6 +376,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     app.config['SDG_PERCENT_VARS'] = libutil.get_sdg_percent_vars()
     app.config['SPECIAL_DC_NON_COUNTRY_ONLY_VARS'] = \
       libutil.get_special_dc_non_countery_only_vars()
+    # TODO: need to handle singular vs plural in the titles
+    app.config['NL_PROP_TITLES'] = libutil.get_nl_prop_titles()
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()

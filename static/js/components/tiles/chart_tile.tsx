@@ -28,15 +28,15 @@ import {
   formatString,
   getChartTitle,
   getMergedSvg,
-  getSourcesJsx,
   ReplacementStrings,
+  TileSources,
 } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 interface ChartTileContainerProp {
   id: string;
   title: string;
-  sources: Set<string>;
+  sources: Set<string> | string[];
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
   // Whether or not to allow chart embedding action.
@@ -92,7 +92,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
               <div className="subheader">{props.subtitle}</div>
             ) : null}
           </slot>
-          {showSources && getSourcesJsx(props.sources)}
+          {showSources && <TileSources sources={props.sources} />}
         </div>
         {props.children}
       </div>

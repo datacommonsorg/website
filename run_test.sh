@@ -98,7 +98,8 @@ function run_py_test {
   # Run server pytest.
   source .env/bin/activate
   export FLASK_ENV=test
-  python3 -m pytest server/tests/ -s
+  # Disabled nodejs e2e test to avoid dependency on dev
+  python3 -m pytest server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py
   python3 -m pytest shared/tests/ -s
   python3 -m pytest nl_server/tests/ -s
 
@@ -186,7 +187,8 @@ function update_integration_test_golden {
 
   export ENV_PREFIX=Autopush
   python3 -m pytest -vv server/integration_tests/topic_cache
-  python3 -m pytest -vv server/tests/nodejs_e2e_test.py
+  # Disabled nodejs e2e test to avoid dependency on dev
+  # python3 -m pytest -vv server/tests/nodejs_e2e_test.py
   export ENV_PREFIX=Staging
   python3 -m pytest -vv -n 5 --reruns 2 server/integration_tests/
 }

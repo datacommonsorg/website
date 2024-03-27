@@ -63,6 +63,8 @@ export interface RankingTilePropType
   rankingMetadata: RankingTileSpec;
   showLoadingSpinner?: boolean;
   footnote?: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -109,7 +111,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
       chartHtml,
       "",
       "",
-      Array.from(sources)
+      props.sources || Array.from(sources)
     );
   }
 
@@ -145,6 +147,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               rankingData={rankingData}
               rankingMetadata={props.rankingMetadata}
               showChartEmbed={showChartEmbed}
+              sources={props.sources}
               statVar={statVar}
               entityType={props.enclosedPlaceType}
               title={props.title}

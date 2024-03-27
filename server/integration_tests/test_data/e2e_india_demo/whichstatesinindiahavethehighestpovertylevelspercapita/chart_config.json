@@ -988,6 +988,13 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
+        "types": [
+          "Topic"
+        ]
       }
     ]
   },
