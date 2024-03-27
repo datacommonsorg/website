@@ -18,13 +18,13 @@
  * Interface definitions supporting DataCommonsWebClient
  */
 export interface StatMetadata {
-  importName?: string;
-  provenanceUrl?: string;
-  measurementMethod?: string;
-  observationPeriod?: string;
-  scalingFactor?: string;
-  unit?: string;
-  unitDisplayName?: string;
+  importName?: string | null;
+  provenanceUrl?: string | null;
+  measurementMethod?: string | null;
+  observationPeriod?: string | null;
+  scalingFactor?: string | null;
+  unit?: string | null;
+  unitDisplayName?: string | null;
 }
 
 export interface Observation {

@@ -15,7 +15,7 @@
  */
 
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
-import { computeRatio } from "./utils";
+import { computeRatio, flattenNestedObject } from "./utils";
 
 describe("Utility methods", () => {
   beforeEach(() => {
@@ -106,7 +106,7 @@ describe("Utility methods", () => {
     );
     expect(result1.length).toBe(6);
     result1.forEach((item) => {
-      expect(item.value).toBeCloseTo(1);
+      expect(item.quotientValue).toBeCloseTo(1);
     });
   });
 
@@ -127,7 +127,35 @@ describe("Utility methods", () => {
     );
     expect(result1.length).toBe(2);
     result1.forEach((item) => {
-      expect(item.value).toBeCloseTo(10);
+      expect(item.quotientValue).toBeCloseTo(10);
+    });
+  });
+
+  test("flattenNestedObject flattens nested objects", () => {
+    const flattendObject = flattenNestedObject({
+      a: {
+        b1: "val1",
+        b2: "val2",
+        c: {
+          d: "val3",
+        },
+        e: null,
+      },
+      x: {
+        y: [1, 2, 3],
+        z: [{ z1: 1, z2: 2 }],
+      },
+    });
+    expect(flattendObject).toEqual({
+      "a.b1": "val1",
+      "a.b2": "val2",
+      "a.c.d": "val3",
+      "a.e": null,
+      "x.y.0": 1,
+      "x.y.1": 2,
+      "x.y.2": 3,
+      "x.z.0.z1": 1,
+      "x.z.0.z2": 2,
     });
   });
 });
