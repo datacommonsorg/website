@@ -25,3 +25,13 @@ def answer_message_block(builder: base.Builder, cspec: ChartSpec):
   tile.answer_message_tile_spec.property_expr = cspec.props[0]
   block = builder.new_chart(cspec, skip_title=True)
   block.columns.add().tiles.append(tile)
+
+
+def answer_table_block(builder: base.Builder, cspec: ChartSpec):
+  tile = Tile(type=Tile.TileType.ANSWER_TABLE, title=cspec.chart_vars.title, entities=[e.dcid for e in cspec.entities])
+  for prop in cspec.props:
+    column = tile.answer_table_tile_spec.columns.add()
+    column.header = prop
+    column.property_expr = prop
+  block = builder.new_chart(cspec, skip_title=True)
+  block.columns.add().tiles.append(tile)

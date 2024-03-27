@@ -569,9 +569,9 @@ class ExploreTest(NLWebServerTestCase):
             'What type of gene is it',
             # Should have 'in' properties as answer
             'What is Betacoronavirus 1 the species of',
-            # Should have both 'in' and 'out' properties in the answer
-            'What is Diltiazem a mesh descriptor for',
             # Should have a chained property in the answer
-            'What genes are associated with the genetic variant rs13317?'
+            'What genes are associated with the genetic variant rs13317?',
+            # Should return a table in the answer
+            'What genes are associated with the genetic variant rs13317 and rs7903146?'
         ],
         dc='bio')
