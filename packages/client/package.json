@@ -2,7 +2,7 @@
   "name": "@datacommonsorg/client",
   "private": false,
   "typings": "./dist/main.d.ts",
-  "version": "0.0.1-alpha9",
+  "version": "0.1.0-alpha",
   "exports": {
     ".": {
       "import": "./dist/main.mjs",
