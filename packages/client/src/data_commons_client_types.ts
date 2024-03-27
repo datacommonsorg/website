@@ -26,6 +26,10 @@ import { Observation, StatMetadata } from "./data_commons_web_client_types";
  * "date' and "value" fields from the parent Observation interface will be set
  * to the original observation dates and values, and quotientValue is the
  * derived (per-capita) value.
+ *
+ * TODO(dwnoble): Revisit how this interface is structured to be more intuitive.
+ * Maybe: calculate quotient value on the fly and only store the population
+ * observation here.
  */
 export interface QuotientObservation extends Observation {
   /** Derived quotient value */
@@ -90,7 +94,7 @@ export type DataRowObservation = {
 };
 
 /**
- * Data row helper interface for storing node property names and values
+ * Data row helper interface for storing node property dcids and values
  */
 export type DataRowNodeProperties = {
   name: string;
@@ -144,7 +148,7 @@ export type EntityGroupedDataRow = {
 };
 
 /**
- * Object of property names to node DCIDs to property values
+ * Object of property dcids to node DCIDs to property values
  */
 export type NodePropValues = {
   [propertyDcid: string]: {
