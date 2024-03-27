@@ -24,9 +24,12 @@ import * as _ from "lodash";
 
 import {
   DataRow,
+  DataRowDenominator,
+  EntityGroupedDataRow,
   GetDataRowsParams,
   GetGeoJSONParams,
   NodePropValues,
+  QuotientObservation,
 } from "./data_commons_client_types";
 import { DataCommonsWebClient } from "./data_commons_web_client";
 import {
@@ -34,8 +37,14 @@ import {
   PointApiResponse,
   Series,
   SeriesApiResponse,
+  StatMetadata,
 } from "./data_commons_web_client_types";
-import { computeRatio, encodeCsvRow } from "./utils";
+import {
+  computeRatio,
+  dataRowsToCsv,
+  encodeCsvRow,
+  flattenNestedObject,
+} from "./utils";
 
 // Total population stat var
 const TOTAL_POPULATION_VARIABLE = "Count_Person";
@@ -49,7 +58,7 @@ const DEFAULT_VARIABLE_PROPS = [NAME_ATTRIBUTE];
 // GeoJSON is stored in this property name by default
 export const DEFAULT_GEOJSON_PROPERTY_NAME = "geoJsonCoordinatesDP1";
 // Delimit fields
-export const DEFAULT_FIELD_DELIMITER = "__";
+export const DEFAULT_FIELD_DELIMITER = ".";
 
 export interface DatacommonsClientParams {
   /** Web api root endpoint. Default: `"https://datacommons.org/"` */
@@ -79,18 +88,20 @@ class DataCommonsClient {
    */
   async getCsv(params: GetDataRowsParams): Promise<string> {
     const dataRows = await this.getDataRows(params);
+    return dataRowsToCsv(dataRows, params.fieldDelimiter);
+  }
 
-    if (dataRows.length === 0) {
-      return "";
-    }
-
-    const header = Object.keys(dataRows[0]).sort();
-    const rows = dataRows.map((dataRow) =>
-      header.map((column) => dataRow[column])
-    );
-    const csvRows = [header, ...rows];
-    const csvLines = csvRows.map(encodeCsvRow);
-    return csvLines.join("\n");
+  /**
+   * Fetches most recent data commons variable observation(s) about an entity or
+   * entities as CSV. Each result row has data about a single entity and all
+   * requested variable observations
+   *
+   * @param params {GetDataRowsParams} Entities and variables to fetch data for
+   * @returns CSV string
+   */
+  async getCsvGroupedByEntity(params: GetDataRowsParams): Promise<string> {
+    const dataRows = await this.getDataRowsGroupedByEntity(params);
+    return dataRowsToCsv(dataRows, params.fieldDelimiter);
   }
 
   /**
@@ -105,7 +116,7 @@ class DataCommonsClient {
   async getGeoJSON(params: GetGeoJSONParams): Promise<FeatureCollection> {
     const geoJsonProperty =
       params.geoJsonProperty || DEFAULT_GEOJSON_PROPERTY_NAME;
-    const dataRows = await this.getDataRows({
+    const dataRows = await this.getDataRowsGroupedByEntity({
       ...params,
       entityProps: [
         geoJsonProperty,
@@ -120,20 +131,19 @@ class DataCommonsClient {
     const geoJson: FeatureCollection = {
       features: dataRows
         .filter((dataRow) => {
-          const geometryString =
-            dataRow[`entity${fieldDelimiter}${geoJsonProperty}`];
+          const geometryString = dataRow.entity.properties[geoJsonProperty];
           return typeof geometryString === "string";
         })
         .map((dataRow) => {
-          const geometryString = dataRow[
-            `entity${fieldDelimiter}${geoJsonProperty}`
+          const geometryString = dataRow.entity.properties[
+            geoJsonProperty
           ] as string;
           const geometry = JSON.parse(geometryString) as Geometry;
-          const properties = { ...dataRow };
-          delete properties[`entity${fieldDelimiter}${geoJsonProperty}`];
+          const dataRowCopy = _.cloneDeep(dataRow);
+          delete dataRowCopy.entity.properties[geoJsonProperty];
           const feature: Feature = {
             geometry,
-            properties,
+            properties: flattenNestedObject(dataRowCopy, fieldDelimiter),
             type: "Feature",
           };
           if (feature.geometry && shouldRewind) {
@@ -148,7 +158,8 @@ class DataCommonsClient {
 
   /**
    * Fetches most recent data commons variable observation(s) about an entity or
-   * entities.
+   * entities. Each result row has data about a single entity and single variable
+   * observation
    *
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns Data rows list
@@ -173,6 +184,12 @@ class DataCommonsClient {
       params.variables,
       params.variableProps || DEFAULT_VARIABLE_PROPS
     );
+    const populationPropValues = !_.isEmpty(params.perCapitaVariables)
+      ? await this.getNodePropValues(
+          [TOTAL_POPULATION_VARIABLE],
+          DEFAULT_VARIABLE_PROPS
+        )
+      : ({} as NodePropValues);
 
     // Fetch population data for per capita calculations
     let populationObservations: SeriesApiResponse = { data: {}, facets: {} };
@@ -188,37 +205,109 @@ class DataCommonsClient {
               variables: [TOTAL_POPULATION_VARIABLE],
             });
     }
-
-    const dataRows = this.getDataRowsFromPointObservations(
+    const rows = this.getDataRowsFromPointObservations(
       entityDcids,
       params.variables,
       pointApiResponse,
       entityPropValues,
       variablePropValues,
-      populationObservations,
-      params.fieldDelimiter || DEFAULT_FIELD_DELIMITER
+      populationPropValues,
+      populationObservations
+    );
+    return Promise.resolve(rows);
+  }
+
+  /**
+   * Fetches most recent data commons variable observation(s) about an entity or
+   * entities. Each result row has data about a single entity and all requested
+   * variable observations
+   *
+   * @param params {GetDataRowsParams} Entities and variables to fetch data for
+   * @returns List of data rows grouped by entity
+   */
+  async getDataRowsGroupedByEntity(
+    params: GetDataRowsParams
+  ): Promise<EntityGroupedDataRow[]> {
+    // Fetch data rows with one entity and variable observation per row
+    const dataRows = await this.getDataRows(params);
+
+    // Group rows by entity dcid
+    const dataRowsGroupedByEntityDcid = _.groupBy(
+      dataRows,
+      (r) => r.entity.dcid
     );
 
-    return Promise.resolve(dataRows);
+    // Fetch variable property values. Used to fill in properties for entities
+    // that do not have an observation for the particular variable.
+    // TODO: make this more efficient as these variable properties were already
+    // fetched once in getDataRows
+    const variablePropValues = await this.getNodePropValues(
+      params.variables,
+      params.variableProps || DEFAULT_VARIABLE_PROPS
+    );
+
+    // Combine grouped rows into `EntityGroupedDataRow`s
+    const entityGroupedDataRows: EntityGroupedDataRow[] = [];
+    Object.keys(dataRowsGroupedByEntityDcid).forEach((entityDcid) => {
+      const variablesSet = new Set(params.variables);
+      const dataRowsForEntity = dataRowsGroupedByEntityDcid[entityDcid];
+      if (dataRowsForEntity.length === 0) {
+        return;
+      }
+      const entityGroupedDataRow: EntityGroupedDataRow = {
+        entity: dataRowsForEntity[0].entity,
+        variables: {},
+      };
+      dataRowsForEntity.forEach((dataRow) => {
+        variablesSet.delete(dataRow.variable.dcid);
+        entityGroupedDataRow.variables[dataRow.variable.dcid] =
+          dataRow.variable;
+      });
+      // Add empty variable entries if this entity had no applicable values
+      variablesSet.forEach((variableDcid) => {
+        entityGroupedDataRow.variables[variableDcid] = {
+          dcid: variableDcid,
+          observation: {
+            date: null,
+            metadata: {},
+            value: null,
+          },
+          properties: {
+            name: "",
+          },
+        };
+        // Fill in variable property values
+        Object.keys(variablePropValues).forEach((propName) => {
+          entityGroupedDataRow.variables[variableDcid].properties[propName] =
+            variablePropValues[propName][variableDcid];
+        });
+      });
+      entityGroupedDataRows.push(entityGroupedDataRow);
+    });
+    return entityGroupedDataRows;
   }
 
   /**
    * Fetches all Data Commons variable observation about an entity or entities
-   * as CSV.
+   * as CSV. Each result row has data about a single entity and single variable
+   * observation.
    *
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns CSV string
    */
   async getCsvSeries(params: GetDataRowsParams): Promise<string> {
     const dataRows = await this.getDataRowSeries(params);
-
     if (dataRows.length === 0) {
       return "";
     }
 
-    const header = Object.keys(dataRows[0]).sort();
-    const rows = dataRows.map((dataRow) =>
-      header.map((column) => dataRow[column])
+    const flattenedDataRows = dataRows.map((dataRow) =>
+      flattenNestedObject(dataRow, params.fieldDelimiter)
+    );
+
+    const header = Object.keys(flattenedDataRows[0]).sort();
+    const rows = flattenedDataRows.map((flattenedDataRow) =>
+      header.map((column) => flattenedDataRow[column])
     );
     const csvRows = [header, ...rows];
     const csvLines = csvRows.map(encodeCsvRow);
@@ -226,7 +315,9 @@ class DataCommonsClient {
   }
 
   /**
-   * Fetches data commons observation series about an entity or entities.
+   * Fetches data commons observation series about an entity or entities. Each
+   * result row has data about a single entity and single variable observation.
+   *
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns Data rows list
    */
@@ -250,6 +341,12 @@ class DataCommonsClient {
       params.variables,
       params.variableProps || DEFAULT_VARIABLE_PROPS
     );
+    const populationPropValues = !_.isEmpty(params.perCapitaVariables)
+      ? await this.getNodePropValues(
+          [TOTAL_POPULATION_VARIABLE],
+          DEFAULT_VARIABLE_PROPS
+        )
+      : ({} as NodePropValues);
 
     // Fetch population data for per capita calculations
     let populationObservations: SeriesApiResponse = { data: {}, facets: {} };
@@ -265,15 +362,14 @@ class DataCommonsClient {
               variables: [TOTAL_POPULATION_VARIABLE],
             });
     }
-
     const dataRows = this.getDataRowsFromSeriesObservations(
       entityDcids,
       params.variables,
       seriesApiResponse,
       entityPropValues,
       variablePropValues,
-      populationObservations,
-      params.fieldDelimiter || DEFAULT_FIELD_DELIMITER
+      populationPropValues,
+      populationObservations
     );
 
     return Promise.resolve(dataRows);
@@ -331,7 +427,7 @@ class DataCommonsClient {
   private getClosestObservationToDate(
     observations: Observation[],
     targetDate: string
-  ): Observation | undefined {
+  ): Observation {
     // If no target date is passed in, return the most recent observation
     if (!targetDate) {
       return observations[observations.length - 1];
@@ -377,54 +473,37 @@ class DataCommonsClient {
     pointApiResponse: PointApiResponse,
     entityPropValues: NodePropValues,
     variablePropValues: NodePropValues,
-    populationObservations: SeriesApiResponse,
-    fieldDelimiter: string
+    populationPropValues: NodePropValues,
+    populationObservations: SeriesApiResponse
   ): DataRow[] {
     const dataRows: DataRow[] = [];
     entityDcids.forEach((entityDcid) => {
-      const row: DataRow = {
-        [`entity${fieldDelimiter}dcid`]: entityDcid,
-      };
-      Object.keys(entityPropValues).forEach((entityProp) => {
-        row[`entity${fieldDelimiter}${entityProp}`] =
-          entityPropValues[entityProp][entityDcid];
-      });
       variableDcids.forEach((variableDcid) => {
         const observation =
           pointApiResponse.data[variableDcid][entityDcid] || {};
+        if (_.isEmpty(observation)) {
+          return;
+        }
         const facet = _.get(
           pointApiResponse.facets,
           observation.facet || "",
-          {}
+          {} as StatMetadata
         );
-        row[`${variableDcid}${fieldDelimiter}value`] = _.get(
+        const row: DataRow = this.buildDataRow(
+          entityDcid,
+          entityPropValues,
+          variableDcid,
+          variablePropValues,
           observation,
-          "value",
-          null
+          facet
         );
-        row[`${variableDcid}${fieldDelimiter}date`] = _.get(
-          observation,
-          "date",
-          null
-        );
-        row[`${variableDcid}${fieldDelimiter}unit`] = _.get(
-          facet,
-          "unit",
-          null
-        );
-        row[`${variableDcid}${fieldDelimiter}unitDisplayName`] = _.get(
-          observation,
-          "unitDisplayName",
-          _.get(facet, "unitDisplayName", null)
-        );
-        Object.keys(variablePropValues).forEach((variableProp) => {
-          row[`${variableDcid}${fieldDelimiter}${variableProp}`] =
-            variablePropValues[variableProp][variableDcid];
-        });
         // Set per-capita data
         if (
           TOTAL_POPULATION_VARIABLE in populationObservations.data &&
-          entityDcid in populationObservations.data[TOTAL_POPULATION_VARIABLE]
+          entityDcid in
+            populationObservations.data[TOTAL_POPULATION_VARIABLE] &&
+          populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid]
+            .series.length > 0
         ) {
           const series =
             populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid];
@@ -433,33 +512,60 @@ class DataCommonsClient {
             series.series,
             observation.date
           );
-          row[
-            `${variableDcid}${fieldDelimiter}perCapita${fieldDelimiter}value`
-          ] =
-            closestPopulationObservation && !_.isEmpty(observation)
-              ? observation.value / closestPopulationObservation.value
-              : null;
-          row[
-            `${variableDcid}${fieldDelimiter}perCapita${fieldDelimiter}populationVariable`
-          ] = TOTAL_POPULATION_VARIABLE;
-          row[
-            `${variableDcid}${fieldDelimiter}perCapita${fieldDelimiter}date`
-          ] =
-            closestPopulationObservation && !_.isEmpty(observation)
-              ? closestPopulationObservation.date
-              : null;
-          row[
-            `${variableDcid}${fieldDelimiter}perCapita${fieldDelimiter}populationValue`
-          ] =
-            closestPopulationObservation && !_.isEmpty(observation)
-              ? closestPopulationObservation.value
-              : null;
+          const perCapitaQuotientObservation: QuotientObservation = {
+            ...closestPopulationObservation,
+            quotientValue:
+              closestPopulationObservation &&
+              !_.isEmpty(closestPopulationObservation) &&
+              closestPopulationObservation?.value > 0
+                ? observation.value / closestPopulationObservation?.value
+                : 0,
+          };
+          row.variable.denominator = this.buildDataRowVariableDenominator(
+            perCapitaQuotientObservation,
+            populationPropValues
+          );
         }
+        dataRows.push(row);
       });
-
-      dataRows.push(row);
     });
     return dataRows;
+  }
+
+  /**
+   * Build DataRow variable denominator object from a QuotientObservation and
+   * its associated properties
+   * @param denominatorObservation denominator quotient observation
+   * @param denominatorPropValues denominator property values
+   * @returns data row denominator
+   */
+  private buildDataRowVariableDenominator(
+    denominatorObservation: QuotientObservation,
+    denominatorPropValues: NodePropValues
+  ): DataRowDenominator {
+    return {
+      dcid: TOTAL_POPULATION_VARIABLE,
+      properties: {
+        name:
+          denominatorPropValues[NAME_ATTRIBUTE][TOTAL_POPULATION_VARIABLE] ||
+          "",
+      },
+      observation: {
+        date:
+          denominatorObservation && !_.isEmpty(denominatorObservation)
+            ? denominatorObservation.date
+            : null,
+        value:
+          denominatorObservation && !_.isEmpty(denominatorObservation)
+            ? denominatorObservation.value
+            : null,
+        metadata: {},
+      },
+      quotientValue:
+        denominatorObservation && !_.isEmpty(denominatorObservation)
+          ? denominatorObservation.quotientValue
+          : null,
+    };
   }
 
   /**
@@ -478,8 +584,8 @@ class DataCommonsClient {
     seriesApiResponse: SeriesApiResponse,
     entityPropValues: NodePropValues,
     variablePropValues: NodePropValues,
-    populationObservations: SeriesApiResponse,
-    fieldDelimiter: string
+    populationPropValues: NodePropValues,
+    populationObservations: SeriesApiResponse
   ): DataRow[] {
     const dataRows: DataRow[] = [];
     entityDcids.forEach((entityDcid) => {
@@ -489,7 +595,7 @@ class DataCommonsClient {
           return;
         }
         const facet = _.get(seriesApiResponse.facets, series.facet || "", {});
-        let perCapitaObservations: Observation[] = [];
+        let perCapitaObservations: QuotientObservation[] = [];
         let populationSeries: Series | null = null;
         if (
           TOTAL_POPULATION_VARIABLE in populationObservations.data &&
@@ -503,46 +609,95 @@ class DataCommonsClient {
           );
         }
         series.series.forEach((observation, observationIndex) => {
-          const row: DataRow = {
-            [`entity${fieldDelimiter}dcid`]: entityDcid,
-          };
-          Object.keys(entityPropValues).forEach((entityProp) => {
-            row[`entity${fieldDelimiter}${entityProp}`] =
-              entityPropValues[entityProp][entityDcid];
-          });
-          row[`variable${fieldDelimiter}dcid`] = variableDcid;
-          row[`variable${fieldDelimiter}value`] = observation.value;
-          row[`variable${fieldDelimiter}date`] = observation.date;
-          row[`variable${fieldDelimiter}unit`] = _.get(facet, "unit", null);
-          row[`variable${fieldDelimiter}unitDisplayName`] = _.get(
+          const row: DataRow = this.buildDataRow(
+            entityDcid,
+            entityPropValues,
+            variableDcid,
+            variablePropValues,
             observation,
-            "unitDisplayName",
-            _.get(facet, "unitDisplayName", null)
+            facet
           );
-          Object.keys(variablePropValues).forEach((variableProp) => {
-            row[`variable${fieldDelimiter}${variableProp}`] =
-              variablePropValues[variableProp][variableDcid];
-          });
 
           // Set per-capita data
           if (perCapitaObservations.length === series.series.length) {
+            // perCapitaObservations is a parallel array with the data series
             const perCapitaObservation =
               perCapitaObservations[observationIndex];
-            row[`perCapita${fieldDelimiter}value`] = perCapitaObservation.value;
-            row[`perCapita${fieldDelimiter}date`] = perCapitaObservation.date;
-            row[`perCapita${fieldDelimiter}populationVariable`] =
-              TOTAL_POPULATION_VARIABLE;
-            // Compute population using population = observationValue / perCapitaValue
-            row[`perCapita${fieldDelimiter}populationValue`] =
-              perCapitaObservation.value > 0
-                ? Math.round(observation.value / perCapitaObservation.value)
-                : null;
+
+            row.variable.denominator = this.buildDataRowVariableDenominator(
+              perCapitaObservation,
+              populationPropValues
+            );
           }
           dataRows.push(row);
         });
       });
     });
     return dataRows;
+  }
+
+  /**
+   * Helper for building a DataRow from entity, variable, and observation
+   * building blocks.
+   * @param entityDcid Entity DCID
+   * @param entityPropValues Entity property values
+   * @param variableDcid Variable DCID
+   * @param variablePropValues Variable property values
+   * @param observation Variable observation
+   * @param facet Observation facet metadata
+   * @returns data row
+   */
+  private buildDataRow(
+    entityDcid: string,
+    entityPropValues: NodePropValues,
+    variableDcid: string,
+    variablePropValues: NodePropValues,
+    observation: Observation,
+    facet: StatMetadata
+  ): DataRow {
+    const row: DataRow = {
+      entity: {
+        dcid: entityDcid,
+        properties: {
+          name: _.get(
+            _.get(entityPropValues, NAME_ATTRIBUTE, {}),
+            entityDcid,
+            ""
+          ),
+        },
+      },
+      variable: {
+        dcid: variableDcid,
+        properties: {
+          name: _.get(
+            _.get(variablePropValues, NAME_ATTRIBUTE, {}),
+            variableDcid,
+            ""
+          ),
+        },
+        observation: {
+          date: observation.date,
+          metadata: {
+            unit: _.get(facet, "unit", null),
+            unitDisplayName: _.get(
+              observation,
+              "unitDisplayName",
+              _.get(facet, "unitDisplayName", null)
+            ),
+          },
+          value: observation.value,
+        },
+      },
+    };
+    Object.keys(entityPropValues).forEach((entityProp) => {
+      row.entity.properties[entityProp] =
+        entityPropValues[entityProp][entityDcid];
+    });
+    Object.keys(variablePropValues).forEach((variableProp) => {
+      row.variable.properties[variableProp] =
+        variablePropValues[variableProp][variableDcid];
+    });
+    return row;
   }
 }
 export { DataCommonsClient };

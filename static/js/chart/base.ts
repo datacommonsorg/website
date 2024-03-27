@@ -28,6 +28,7 @@ const DEFAULT_COLOR = "#000";
 
 const MAX_PREDICTION_COLORS = ["#dc3545", "#fac575"];
 const MIN_PREDICTION_COLORS = ["#007bff", "#66c2a5"];
+const DEFAULT_WRAP_MAX_LINES = 10;
 export class DataPoint {
   value: number;
   label: string;
@@ -108,13 +109,14 @@ function joinLineForWrap(line: string[]): string {
  */
 export function wrap(
   textSelection: d3.Selection<SVGTextElement, any, any, any>,
-  width: number
+  width: number,
+  maxLines: number = DEFAULT_WRAP_MAX_LINES
 ): void {
   textSelection.each(function () {
     const text = d3.select(this);
     const dominantBaseline = text.attr("dominant-baseline");
-    const words = text
-      .text()
+    const textString = text.text();
+    const words = textString
       .replace(/-/g, "-#") // Handle e.g. "ABC-AB A" -> "ABC-", "AB" "A"
       .split(/[\s#]/)
       .filter((w) => w.trim() != "")
@@ -126,11 +128,17 @@ export function wrap(
     const dy = parseFloat(text.attr("dy") || "0");
 
     let lineToFit: string[] = [];
+
+    // Set text title in for hover-over in case the text display is truncated
+    text.append("title").text(textString);
     for (
       let lineNumber = 0;
       words.length > 0 || lineToFit.length > 0;
       lineNumber++
     ) {
+      if (lineNumber == maxLines) {
+        break;
+      }
       const tspan = text
         .append("tspan")
         .attr("x", 0)
@@ -159,6 +167,10 @@ export function wrap(
       } while (tspan.node().getComputedTextLength() < width);
       // Can't fit - prepare for the next line.
       const word = lineToFit.pop();
+      // If the last line will be cut off, add an elipsis
+      if (word && lineNumber === maxLines - 1) {
+        lineToFit.push("...");
+      }
       if (lineToFit.length) {
         tspan.text(joinLineForWrap(lineToFit));
         lineToFit = [word];

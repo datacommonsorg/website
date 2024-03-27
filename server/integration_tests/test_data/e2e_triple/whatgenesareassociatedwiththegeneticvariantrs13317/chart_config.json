@@ -10,30 +10,12 @@
                 "tiles": [
                   {
                     "answerMessageTileSpec": {
-                      "propertyExpr": "->medicalSubjectHeadingDescriptorID"
+                      "propertyExpr": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol"
                     },
                     "entities": [
-                      "bio/D004110"
+                      "bio/rs13317"
                     ],
-                    "title": "The medicalSubjectHeadingDescriptorID for Diltiazem is:",
-                    "type": "ANSWER_MESSAGE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "answerMessageTileSpec": {
-                      "propertyExpr": "<-medicalSubjectHeadingDescriptorID"
-                    },
-                    "entities": [
-                      "bio/D004110"
-                    ],
-                    "title": "Diltiazem is the medicalSubjectHeadingDescriptorID for:",
+                    "title": "The associated genes for rs13317 are",
                     "type": "ANSWER_MESSAGE"
                   }
                 ]
@@ -46,7 +28,7 @@
                 "tiles": [
                   {
                     "entities": [
-                      "bio/D004110"
+                      "bio/rs13317"
                     ],
                     "type": "ENTITY_OVERVIEW"
                   }
@@ -62,8 +44,8 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/D004110",
-      "name": "Diltiazem",
+      "dcid": "bio/rs13317",
+      "name": "rs13317",
       "type": ""
     }
   ],
