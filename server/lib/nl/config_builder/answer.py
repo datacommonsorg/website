@@ -28,7 +28,9 @@ def answer_message_block(builder: base.Builder, cspec: ChartSpec):
 
 
 def answer_table_block(builder: base.Builder, cspec: ChartSpec):
-  tile = Tile(type=Tile.TileType.ANSWER_TABLE, title=cspec.chart_vars.title, entities=[e.dcid for e in cspec.entities])
+  tile = Tile(type=Tile.TileType.ANSWER_TABLE,
+              title=cspec.chart_vars.title,
+              entities=[e.dcid for e in cspec.entities])
   for prop in cspec.props:
     column = tile.answer_table_tile_spec.columns.add()
     column.header = prop

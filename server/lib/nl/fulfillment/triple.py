@@ -32,17 +32,34 @@ _OUT_ARROW = '->'
 _IN_ARROW = '<-'
 _OUT_TITLE = 'The {property} for {entity} is:'
 _IN_TITLE = '{entity} is the {property} for:'
+_MULTI_ENTITY_TITLE = 'The {property} for {entity} are as follows:'
+_MAX_ENTITIES_IN_TITLE = 2
+
+
+# Gets a title string for a list of entities
+def _get_entity_string(entities: List[Entity]) -> str:
+  if len(entities) == 1:
+    return entities[0].name or entities[0].dcid
+  entities_cutoff_idx = min(_MAX_ENTITIES_IN_TITLE, len(entities) - 1)
+  entity_str = ', '.join(
+      [e.name or e.dcid for e in entities[:entities_cutoff_idx]])
+  entity_str += f' and {entities[entities_cutoff_idx].name or entities[entities_cutoff_idx].dcid}'
+  return entity_str
 
 
 # Gets the chart title for a list of entities and a property expression
 # TODO: revisit how titles should be displayed
 def _get_title(entities: List[Entity], prop_expression: str) -> str:
-  entity_str = ', '.join([e.name or e.dcid for e in entities])
+  entity_str = _get_entity_string(entities)
   override_prop_titles = current_app.config['NL_PROP_TITLES']
   override_title_format = override_prop_titles.get(prop_expression,
                                                    {}).get('titleFormat', '')
   if override_title_format:
     return override_title_format.format(entity=entity_str)
+  elif len(entities) > 1:
+    prop_display_name = prop_expression[len(_OUT_ARROW):]
+    return _MULTI_ENTITY_TITLE.format(property=prop_display_name,
+                                      entity=entity_str)
   elif prop_expression.startswith(_OUT_ARROW):
     prop_display_name = prop_expression[len(_OUT_ARROW):]
     return _OUT_TITLE.format(property=prop_display_name, entity=entity_str)
