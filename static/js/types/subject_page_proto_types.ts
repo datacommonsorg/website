@@ -150,13 +150,13 @@ export interface AnswerMessageTileSpec {
   displayValue?: DisplayValueSpec;
 }
 
-interface TableColumn {
+export interface AnswerTableColumn {
   header: string;
   propertyExpr: string;
 }
 
 export interface AnswerTableTileSpec {
-  columns: TableColumn[];
+  columns: AnswerTableColumn[];
 }
 
 export interface TileConfig {

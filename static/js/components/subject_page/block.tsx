@@ -54,6 +54,7 @@ import {
 } from "../../utils/subject_page_utils";
 import { getComparisonPlaces } from "../../utils/tile_utils";
 import { AnswerMessageTile } from "../tiles/answer_message_tile";
+import { AnswerTableTile } from "../tiles/answer_table_tile";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
 import { DonutTile } from "../tiles/donut_tile";
@@ -656,6 +657,15 @@ function renderTiles(
             entity={!_.isEmpty(tile.entities) ? tile.entities[0] : ""}
             propertyExpr={tile.answerMessageTileSpec.propertyExpr}
             displayValue={tile.answerMessageTileSpec.displayValue}
+          />
+        );
+      case "ANSWER_TABLE":
+        return (
+          <AnswerTableTile
+            key={id}
+            title={tile.title}
+            entities={tile.entities}
+            columns={tile.answerTableTileSpec.columns}
           />
         );
       case "ENTITY_OVERVIEW":
