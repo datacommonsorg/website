@@ -15,7 +15,7 @@
  */
 
 import _ from "lodash";
-import { DEFAULT_FIELD_DELIMITER } from "./data_commons_client";
+import { DEFAULT_FIELD_DELIMITER } from "./constants";
 import {
   DataRow,
   EntityGroupedDataRow,

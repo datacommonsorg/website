@@ -120,12 +120,12 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       className={`bar-chart`}
       getDataCsv={() => {
         return datacommonsClient.getCsv({
+          date: props.statVarSpec.date,
           entities: [props.place.dcid],
-          variables: [props.statVarSpec.statVar],
           perCapitaVariables: props.statVarSpec.denom
             ? [props.statVarSpec.denom]
             : undefined,
-          date: props.statVarSpec.date,
+          variables: [props.statVarSpec.statVar],
         });
       }}
       hasErrorMsg={gaugeData && !!gaugeData.errorMsg}

@@ -115,11 +115,15 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       className={`${props.className} bar-chart`}
       allowEmbed={true}
       getDataCsv={() => {
+        // Assume all variables will have the same date
+        const date =
+          props.statVarSpec.length > 0 ? props.statVarSpec[0].date : undefined;
         const denoms = props.statVarSpec.map((v) => (v.denom ? v.statVar : ""));
         return datacommonsClient.getCsv({
+          date,
           entities: [props.place.dcid],
-          variables: props.statVarSpec.map((v) => v.statVar),
           perCapitaVariables: _.uniq(denoms),
+          variables: props.statVarSpec.map((v) => v.statVar),
         });
       }}
       isInitialLoading={_.isNull(donutChartData)}

@@ -21,6 +21,7 @@
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw_line";
@@ -147,22 +148,30 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       getDataCsv={() => {
         const denoms = props.statVarSpec.map((v) => (v.denom ? v.statVar : ""));
         const entityProps = props.placeNameProp
-          ? [props.placeNameProp, "isoCode"]
+          ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
           : undefined;
-        if (!("comparisonPlaces" in props)) {
+        if ("enclosedPlaceType" in props && props.enclosedPlaceType) {
           return datacommonsClient.getCsvSeries({
-            parentEntity: props.place.dcid,
             childType: props.enclosedPlaceType,
-            variables: props.statVarSpec.map((v) => v.statVar),
-            perCapitaVariables: _.uniq(denoms),
             entityProps,
+            parentEntity: props.place.dcid,
+            perCapitaVariables: _.uniq(denoms),
+            startDate: props.startDate,
+            endDate: props.endDate,
+            variables: props.statVarSpec.map((v) => v.statVar),
           });
         } else {
+          const entities =
+            props.comparisonPlaces && props.comparisonPlaces.length > 0
+              ? props.comparisonPlaces
+              : [props.place.dcid];
           return datacommonsClient.getCsvSeries({
-            entities: props.comparisonPlaces,
-            variables: props.statVarSpec.map((v) => v.statVar),
-            perCapitaVariables: _.uniq(denoms),
+            entities,
             entityProps,
+            perCapitaVariables: _.uniq(denoms),
+            startDate: props.startDate,
+            endDate: props.endDate,
+            variables: props.statVarSpec.map((v) => v.statVar),
           });
         }
       }}

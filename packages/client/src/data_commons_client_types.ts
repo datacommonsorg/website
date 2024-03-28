@@ -36,11 +36,9 @@ export interface QuotientObservation extends Observation {
   quotientValue: number;
 }
 
-export interface BaseGetDataRowsParams {
+export interface BaseGetDataRowsVariableParams {
   /** Variable DCIDs */
   variables: string[];
-  /** Example: 2023 */
-  date?: string;
   /** Fetch these entity properties from the knowledge graph. Default: `["name", "isoCode"]` */
   entityProps?: string[];
   /** Fetch these variable properties from the knowledge graph. Default: `["name"]` */
@@ -59,22 +57,45 @@ export interface BaseGetDataRowsParams {
   fieldDelimiter?: string;
 }
 
-export interface GetDataRowsParamsWithin extends BaseGetDataRowsParams {
+export interface DataRowsDateFilter {
+  date?: string;
+}
+
+export interface DataRowsDateRangeFilter {
+  startDate?: string;
+  endDate?: string;
+}
+
+export interface BaseGetDataRowsParamsWithin
+  extends BaseGetDataRowsVariableParams {
   /** Parent entity DCID. Example: `"country/USA"` */
   parentEntity: string;
   /** Child node type. Example: `"State"` */
   childType: string;
 }
 
-export interface GetDataRowsParamsEntities extends BaseGetDataRowsParams {
+export interface BaseGetDataRowsParamsEntities
+  extends BaseGetDataRowsVariableParams {
   /** Entity DCIDs. Example: `["country/USA", "country/IND"]` */
   entities: string[];
 }
-export type GetDataRowsParams =
-  | GetDataRowsParamsWithin
-  | GetDataRowsParamsEntities;
 
-export type GetGeoJSONParams = GetDataRowsParams & {
+export type BaseGetDataRowsParams =
+  | BaseGetDataRowsParamsWithin
+  | BaseGetDataRowsParamsEntities;
+
+/**
+ * Parameters for data commons client getDataRow and getCsv methods
+ */
+export type GetDataRowsParams = BaseGetDataRowsParams & DataRowsDateFilter;
+
+/**
+ * Parameters for etDataRowSeries and getCsvSeries methods
+ */
+export type GetDataRowSeriesParams = BaseGetDataRowsParams &
+  DataRowsDateRangeFilter;
+
+export type GetGeoJSONParams = BaseGetDataRowsParams & {
   /** GeoJSON property name in the knowledge graph. Inferred if not provided. */
   geoJsonProperty?: string;
   /**

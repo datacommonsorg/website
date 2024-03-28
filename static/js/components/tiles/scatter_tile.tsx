@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
   drawScatter,
@@ -156,22 +157,26 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       className={`${props.className} scatter-chart`}
       allowEmbed={true}
       getDataCsv={() => {
+        // Assume both variables will have the same date
+        const date =
+          props.statVarSpec.length > 0 ? props.statVarSpec[0].date : undefined;
         const denoms = [
           scatterChartData.xStatVar,
           scatterChartData.yStatVar,
         ].map((v) => (v.denom ? v.statVar : ""));
         const entityProps = props.placeNameProp
-          ? [props.placeNameProp, "isoCode"]
+          ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
           : undefined;
         return datacommonsClient.getCsv({
-          parentEntity: props.place.dcid,
           childType: props.enclosedPlaceType,
+          date,
+          entityProps,
+          parentEntity: props.place.dcid,
+          perCapitaVariables: _.uniq(denoms),
           variables: [
             scatterChartData.xStatVar.statVar,
             scatterChartData.yStatVar.statVar,
           ],
-          perCapitaVariables: _.uniq(denoms),
-          entityProps,
         });
       }}
       isInitialLoading={_.isNull(scatterChartData)}

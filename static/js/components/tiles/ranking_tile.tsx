@@ -104,13 +104,6 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   ): void {
     embedModalElement.current.show(
       "",
-      "",
-      chartWidth,
-      chartHeight,
-      chartHtml,
-      chartTitle,
-      "",
-      props.sources || Array.from(sources),
       () => {
         const denoms = props.variables.map((v) => (v.denom ? v.statVar : ""));
         return datacommonsClient.getCsv({
@@ -119,7 +112,13 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           variables: props.variables.map((v) => v.statVar),
           perCapitaVariables: _.uniq(denoms),
         });
-      }
+      },
+      chartWidth,
+      chartHeight,
+      chartHtml,
+      chartTitle,
+      "",
+      props.sources || Array.from(sources)
     );
   }
   return (

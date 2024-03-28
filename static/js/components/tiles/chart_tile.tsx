@@ -117,14 +117,13 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     const { svgXml, height, width } = getMergedSvg(containerRef.current);
     embedModalElement.current.show(
       svgXml,
-      "",
+      props.getDataCsv,
       width,
       height,
       "",
       chartTitle,
       "",
-      Array.from(props.sources),
-      props.getDataCsv
+      Array.from(props.sources)
     );
   }
 }

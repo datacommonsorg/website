@@ -23,6 +23,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
   drawD3Map,
@@ -255,7 +256,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       allowEmbed={true}
       getDataCsv={() => {
         const entityProps = props.placeNameProp
-          ? [props.placeNameProp, "isoCode"]
+          ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
           : undefined;
         return datacommonsClient.getCsv({
           parentEntity: props.place.dcid,

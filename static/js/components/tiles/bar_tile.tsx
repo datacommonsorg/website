@@ -22,6 +22,7 @@ import { ChartSortOption } from "@datacommonsorg/web-components";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
@@ -142,24 +143,29 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       className={`${props.className} bar-chart`}
       allowEmbed={true}
       getDataCsv={() => {
+        // Assume all variables will have the same date
+        const date =
+          props.variables.length > 0 ? props.variables[0].date : undefined;
         const denoms = props.variables.map((v) => (v.denom ? v.statVar : ""));
         const entityProps = props.placeNameProp
-          ? [props.placeNameProp, "isoCode"]
+          ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
           : undefined;
         if ("parentPlace" in props) {
           return datacommonsClient.getCsv({
-            parentEntity: props.parentPlace,
             childType: props.enclosedPlaceType,
-            variables: props.variables.map((v) => v.statVar),
-            perCapitaVariables: _.uniq(denoms),
+            date,
             entityProps,
+            parentEntity: props.parentPlace,
+            perCapitaVariables: _.uniq(denoms),
+            variables: props.variables.map((v) => v.statVar),
           });
         } else {
           return datacommonsClient.getCsv({
-            entities: props.places,
-            variables: props.variables.map((v) => v.statVar),
-            perCapitaVariables: _.uniq(denoms),
+            date,
             entityProps,
+            entities: props.places,
+            perCapitaVariables: _.uniq(denoms),
+            variables: props.variables.map((v) => v.statVar),
           });
         }
       }}

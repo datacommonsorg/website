@@ -49,7 +49,9 @@ To find the DCID of a entity or variable:
 | entities            | string[] | Entity DCIDs. Required if `parentEntity` and `childType` are empty. Example: `["country/USA", "country/IND"]`                                |
 | parentEntity        | string   | Parent entity DCID. Required if `entities` is empty.                                                                                         |
 | childType           | string   | Child entity type. Required if `entities` is empty. Example: `"State"`                                                                       |
-| date?               | string   | \[optional\] Only return observations from this date. Example: `"2023"`                                                                      |
+| date?               | string   | \[optional\] [getDataRow, getCsv, and getGeoJSON only] Only return observations from this date. Example: `"2023"`                            |
+| startDate?          | string   | \[optional\] [getDataRowSeries and getCsvSeries only] Only return observations equal to or after this date. Example: `"2015"`                |
+| endDate?            | string   | \[optional\] [getDataRowSeries and getCsvSeries only] Only return observations equal to or before this date. Example: `"2020"`               |
 | entityProps?        | string[] | \[optional\] Fetch these entity properties from the knowledge graph. Default: `["name", "isoCode"]`                                          |
 | variableProps?      | string[] | \[optional\] Fetch these variable properties from the knowledge graph. Default: `["name"]`                                                   |
 | perCapitaVariables? | string[] | \[optional\] Performs per-capita caluclation for all of these variables Must be a subset of `variables` param.                               |

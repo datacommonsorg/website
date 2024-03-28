@@ -26,12 +26,12 @@ import { drawLineChart } from "../chart/draw_line";
 import { generateLegendSvg, getColorScale } from "../chart/draw_map_utils";
 import {
   ChartBlockData,
-  chartTypeEnum,
   ChoroplethDataGroup,
   GeoJsonData,
   GeoJsonFeatureProperties,
   SnapshotData,
   TrendData,
+  chartTypeEnum,
 } from "../chart/types";
 import { RankingUnit } from "../components/ranking_unit";
 import { MapLayerData } from "../components/tiles/map_tile";
@@ -41,9 +41,9 @@ import {
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../constants/css_constants";
 import {
+  LocalizedLink,
   formatNumber,
   intl,
-  LocalizedLink,
   localizeSearchParams,
 } from "../i18n/i18n";
 import {
@@ -58,11 +58,7 @@ import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { isDateTooFar, urlToDisplayText } from "../shared/util";
 import { RankingGroup, RankingPoint } from "../types/ranking_unit_types";
-import {
-  dataGroupsToCsv,
-  mapDataToCsv,
-  rankingPointsToCsv,
-} from "../utils/chart_csv_utils";
+import { datacommonsClient } from "../utils/datacommons_client";
 import { ChartEmbed } from "./chart_embed";
 import { getChoroplethData, getGeoJsonData } from "./fetch";
 import { updatePageLayoutState } from "./place";
@@ -129,9 +125,9 @@ interface ChartPropType {
    */
   isUsaPlace: boolean;
   /**
-   * The place type for the ranking chart.
+   * The place type for the ranking or map chart.
    */
-  rankingPlaceType?: string;
+  enclosedPlaceType?: string;
   /**
    * The parent place dcid for ranking chart.
    */
@@ -412,31 +408,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   }
 
   /**
-   * Returns data used to draw chart as a CSV.
-   */
-  private dataCsv(): string {
-    // TODO(beets): Handle this.state.dataPoints too.
-    const dp = this.state.dataPoints;
-    if (dp && dp.length > 0) {
-      console.log("Implement CSV function for data points");
-      return;
-    }
-    if (this.state.choroplethDataGroup && this.state.geoJson) {
-      return mapDataToCsv([
-        {
-          dataValues: this.state.choroplethDataGroup.data,
-          geoJson: this.state.geoJson,
-        },
-      ]);
-    }
-    if (this.state.rankingGroup) {
-      const data = this.state.rankingGroup.points;
-      return rankingPointsToCsv(data, ["data"]);
-    }
-    return dataGroupsToCsv(this.state.dataGroups);
-  }
-
-  /**
    * Handle clicks on "embed chart" link.
    */
   private _handleEmbed(
@@ -451,7 +422,34 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
     this.embedModalElement.current.show(
       svgXml,
-      this.dataCsv(),
+      () => {
+        // Fetch data from "nearby" places if present, otherwise use primary
+        // place dcid
+        const entities = this.props.snapshot
+          ? this.props.snapshot.data.map((d) => d.dcid)
+          : [this.props.dcid];
+        if (this.props.chartType === chartTypeEnum.LINE) {
+          // For line charts, return CSV series data
+          return datacommonsClient.getCsvSeries({
+            entities,
+            variables: this.props.statsVars,
+          });
+        } else if (this.props.parentPlaceDcid && this.props.enclosedPlaceType) {
+          // Ranking & map charts set parentPlaceDcid and rankingPlaceType
+          // Return csv results associated with this parent/child combination
+          return datacommonsClient.getCsv({
+            parentEntity: this.props.parentPlaceDcid,
+            childType: this.props.enclosedPlaceType,
+            variables: this.props.statsVars,
+          });
+        }
+        // All other charts should fetch data about specific entities and
+        // variables
+        return datacommonsClient.getCsv({
+          entities,
+          variables: this.props.statsVars,
+        });
+      },
       this.svgContainerElement.current.offsetWidth,
       CHART_HEIGHT,
       "",
@@ -666,7 +664,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         // fetch, hence setting a dummy value here.
         fetchData({
           id: "",
-          enclosedPlaceType: this.props.rankingPlaceType,
+          enclosedPlaceType: this.props.enclosedPlaceType,
           parentPlace: this.props.parentPlaceDcid,
           rankingMetadata: {
             showHighest: true,
@@ -719,7 +717,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     if (this.props.chartType === chartTypeEnum.RANKING) {
       return (
         `/ranking/${this.statsVars[0]}` +
-        `/${this.props.rankingPlaceType}/${this.props.parentPlaceDcid}` +
+        `/${this.props.enclosedPlaceType}/${this.props.parentPlaceDcid}` +
         `?h=${this.props.dcid}&unit=${this.props.unit || ""}&scaling=${
           this.props.scaling || ""
         }`

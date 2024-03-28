@@ -23,9 +23,18 @@ import { Feature, FeatureCollection, Geometry } from "geojson";
 import * as _ from "lodash";
 
 import {
+  DEFAULT_ENTITY_PROPS,
+  DEFAULT_FIELD_DELIMITER,
+  DEFAULT_GEOJSON_PROPERTY_NAME,
+  DEFAULT_VARIABLE_PROPS,
+  NAME_ATTRIBUTE,
+  TOTAL_POPULATION_VARIABLE,
+} from "./constants";
+import {
   DataRow,
   DataRowDenominator,
   EntityGroupedDataRow,
+  GetDataRowSeriesParams,
   GetDataRowsParams,
   GetGeoJSONParams,
   NodePropValues,
@@ -45,20 +54,6 @@ import {
   encodeCsvRow,
   flattenNestedObject,
 } from "./utils";
-
-// Total population stat var
-const TOTAL_POPULATION_VARIABLE = "Count_Person";
-// Name attribute for entities and variables
-const NAME_ATTRIBUTE = "name";
-// ISO 3166-2 code property name for place entities
-const ISO_CODE_ATTRIBUTE = "isoCode";
-// Fetch these entity and variable properties by default
-const DEFAULT_ENTITY_PROPS = [NAME_ATTRIBUTE, ISO_CODE_ATTRIBUTE];
-const DEFAULT_VARIABLE_PROPS = [NAME_ATTRIBUTE];
-// GeoJSON is stored in this property name by default
-export const DEFAULT_GEOJSON_PROPERTY_NAME = "geoJsonCoordinatesDP1";
-// Delimit fields
-export const DEFAULT_FIELD_DELIMITER = ".";
 
 export interface DatacommonsClientParams {
   /** Web api root endpoint. Default: `"https://datacommons.org/"` */
@@ -299,7 +294,7 @@ class DataCommonsClient {
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns CSV string
    */
-  async getCsvSeries(params: GetDataRowsParams): Promise<string> {
+  async getCsvSeries(params: GetDataRowSeriesParams): Promise<string> {
     const dataRows = await this.getDataRowSeries(params);
     if (dataRows.length === 0) {
       return "";
@@ -325,7 +320,7 @@ class DataCommonsClient {
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns Data rows list
    */
-  async getDataRowSeries(params: GetDataRowsParams): Promise<DataRow[]> {
+  async getDataRowSeries(params: GetDataRowSeriesParams): Promise<DataRow[]> {
     // Fetch variable observations
     const seriesApiResponse =
       "parentEntity" in params
@@ -379,6 +374,25 @@ class DataCommonsClient {
       populationPropValues,
       populationObservations
     );
+
+    // Filter by start/end date if specified
+    if (params.startDate || params.endDate) {
+      return Promise.resolve(
+        dataRows.filter((dataRow) => {
+          const observationDate = dataRow.variable.observation.date;
+          if (!observationDate) {
+            return false;
+          }
+          if (params.startDate && params.startDate > observationDate) {
+            return false;
+          }
+          if (params.endDate && params.endDate < observationDate) {
+            return false;
+          }
+          return true;
+        })
+      );
+    }
 
     return Promise.resolve(dataRows);
   }

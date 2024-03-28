@@ -16,10 +16,8 @@
 
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import * as _ from "lodash";
-import {
-  DEFAULT_GEOJSON_PROPERTY_NAME,
-  DataCommonsClient,
-} from "./data_commons_client";
+import { DEFAULT_GEOJSON_PROPERTY_NAME } from "./constants";
+import { DataCommonsClient } from "./data_commons_client";
 import {
   ApiNodePropvalOutResponse,
   PointApiResponse,
@@ -529,6 +527,69 @@ describe("DataCommonsWebClient", () => {
       // quotientValue (per-capita) should be 0.1
       expect(row.variable.denominator?.quotientValue).toBeCloseTo(0.1);
       expect(row.variable.denominator?.observation.value).toBeGreaterThan(0);
+    });
+  });
+
+  test("Get data row series filtered by date", async () => {
+    const response1 = await client.getDataRowSeries({
+      childType: "State",
+      fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      perCapitaVariables: ["Has_Data"],
+      variables: ["Has_Data", "No_Data"],
+      startDate: "2020",
+      endDate: "2020",
+    });
+    expect(response1.length).toBe(3);
+    response1.forEach((row) => {
+      const observationDate = row.variable.observation.date || "";
+      expect(observationDate >= "2020").toBeTruthy();
+      expect(observationDate <= "2020").toBeTruthy();
+    });
+
+    const response2 = await client.getDataRowSeries({
+      childType: "State",
+      fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      perCapitaVariables: ["Has_Data"],
+      variables: ["Has_Data", "No_Data"],
+      startDate: "2020",
+      endDate: "2021",
+    });
+    expect(response2.length).toBe(6);
+    response2.forEach((row) => {
+      const observationDate = row.variable.observation.date || "";
+      expect(observationDate >= "2020").toBeTruthy();
+      expect(observationDate <= "2021").toBeTruthy();
+    });
+
+    const response3 = await client.getDataRowSeries({
+      childType: "State",
+      fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      perCapitaVariables: ["Has_Data"],
+      variables: ["Has_Data", "No_Data"],
+      startDate: "2020",
+    });
+    expect(response3.length).toBe(12);
+    response3.forEach((row) => {
+      const observationDate = row.variable.observation.date || "";
+      expect(observationDate >= "2020").toBeTruthy();
+      expect(observationDate <= "2023").toBeTruthy();
+    });
+    const response4 = await client.getDataRowSeries({
+      childType: "State",
+      fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      perCapitaVariables: ["Has_Data"],
+      variables: ["Has_Data", "No_Data"],
+      endDate: "2020",
+    });
+    expect(response4.length).toBe(6);
+    response4.forEach((row) => {
+      const observationDate = row.variable.observation.date || "";
+      expect(observationDate >= "2019").toBeTruthy();
+      expect(observationDate <= "2020").toBeTruthy();
     });
   });
 

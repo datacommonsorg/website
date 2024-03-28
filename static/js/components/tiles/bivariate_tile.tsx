@@ -127,12 +127,16 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       className={`${props.className} bivariate-chart`}
       allowEmbed={true}
       getDataCsv={() => {
+        // Assume all variables will have the same date
+        const date =
+          props.statVarSpec.length > 0 ? props.statVarSpec[0].date : undefined;
         const denoms = props.statVarSpec.map((v) => (v.denom ? v.statVar : ""));
         return datacommonsClient.getCsv({
-          parentEntity: props.place.dcid,
           childType: props.enclosedPlaceType,
-          variables: props.statVarSpec.map((v) => v.statVar),
+          date,
+          parentEntity: props.place.dcid,
           perCapitaVariables: _.uniq(denoms),
+          variables: props.statVarSpec.map((v) => v.statVar),
         });
       }}
       isInitialLoading={_.isNull(bivariateChartData)}
