@@ -41,9 +41,10 @@ export function getTopics(
   placeUrlVal: string
 ): Item[] {
   const topicList = [];
-  const topics = pageMetadata?.childTopics
-    .concat(pageMetadata?.peerTopics)
-    .concat(pageMetadata?.parentTopics);
+  const topics = []
+    .concat(pageMetadata?.childTopics || [])
+    .concat(pageMetadata?.peerTopics || [])
+    .concat(pageMetadata?.parentTopics || []);
   if (!_.isEmpty(topics)) {
     for (const topic of topics) {
       if (topic.dcid == DEFAULT_TOPIC || !topic.name) {
