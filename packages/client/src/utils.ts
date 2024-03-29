@@ -25,10 +25,10 @@ import {
 import { Observation } from "./data_commons_web_client_types";
 
 /**
- * Default override for stat metadata for particular unit dcids.
+ * Default override for facets / stat metadata for particular unit dcids.
  * Used by DataCommonsClient (DataCommonsWebClient will still return raw values)
  */
-export const DEFAULT_STAT_METADATA_OVERRIDE: FacetOverride = {
+export const DEFAULT_FACET_OVERRIDE: FacetOverride = {
   SDG_CON_USD_M: {
     scalingFactor: 1 / 1000000,
   },

@@ -51,7 +51,7 @@ import {
   StatMetadata,
 } from "./data_commons_web_client_types";
 import {
-  DEFAULT_STAT_METADATA_OVERRIDE,
+  DEFAULT_FACET_OVERRIDE,
   computeRatio,
   dataRowsToCsv,
   encodeCsvRow,
@@ -79,7 +79,7 @@ class DataCommonsClient {
       apiRoot: this.apiRoot,
     });
     if (p.facetOverride === undefined) {
-      this.facetOverride = DEFAULT_STAT_METADATA_OVERRIDE;
+      this.facetOverride = DEFAULT_FACET_OVERRIDE;
     } else {
       this.facetOverride = p.facetOverride || {};
     }
