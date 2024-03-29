@@ -82,23 +82,7 @@ def download_model_folder(model_folder: str) -> str:
   # Only download if needed.
   model_path = os.path.join(directory, model_folder)
   if os.path.exists(model_path):
-    if os.environ.get('FLASK_ENV') not in [
-        'local', 'test', 'integration_test', 'webdriver'
-    ]:
-      # If a production or production-like enrivonment,
-      # just return the model_path.
-      return model_path
-
-    # Check if this path can still be loaded as a Sentence Transformer
-    # model. If not, delete it and download anew.
-    try:
-      _ = SentenceTransformer(model_path)
-      return model_path
-    except:
-      print(f"Could not load the model from ({model_path}).")
-      print("Deleting this path and re-downloading.")
-      shutil.rmtree(model_path)
-      assert (not os.path.exists(model_path))
+    return model_path
 
   print(
       f"Model ({model_folder}) was either not previously downloaded or cannot successfully be loaded. Downloading to: {model_path}"

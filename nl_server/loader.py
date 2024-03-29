@@ -14,7 +14,7 @@
 
 import logging
 import os
-from typing import Any, Dict
+from typing import Dict
 
 from diskcache import Cache
 from flask import Flask
