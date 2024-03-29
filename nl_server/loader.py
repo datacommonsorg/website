@@ -14,7 +14,7 @@
 
 import logging
 import os
-from typing import Any, Dict
+from typing import Dict
 
 from diskcache import Cache
 from flask import Flask
@@ -26,7 +26,6 @@ from nl_server.nl_attribute_model import NLAttributeModel
 from shared.lib.gcs import download_gcs_file
 from shared.lib.gcs import is_gcs_path
 from shared.lib.gcs import join_gcs_path
-from guppy import hpy
 
 _MODEL_YAML = 'models.yaml'
 _EMBEDDINGS_YAML = 'embeddings.yaml'
@@ -45,9 +44,7 @@ _NL_CACHE_SIZE_LIMIT = 16e9  # 16Gb local cache size
 def load_server_state(app: Flask):
   flask_env = os.environ.get('FLASK_ENV')
 
-  heap = hpy()
   embeddings_map, models_map = _load_yamls(flask_env)
-  print(f'LOADER INIT:\n{heap.heap()}')
 
   # In local dev, cache the embeddings on disk so each hot reload won't download
   # the embeddings again.
@@ -63,14 +60,10 @@ def load_server_state(app: Flask):
 
   nl_embeddings = embeddings_store.Store(config.load(embeddings_map,
                                                      models_map))
-  print(f'STORE:\n{heap.heap()}')
   nl_model = NLAttributeModel()
-  print(f'NLAttributeModel:\n{heap.heap()}')
   _update_app_config(app, nl_model, nl_embeddings, embeddings_map)
-  print(f'UpdateAppConfig:\n{heap.heap()}')
 
   _maybe_update_cache(flask_env, nl_embeddings, nl_model)
-  print(f'UpdateCache:\n{heap.heap()}')
 
 
 def load_custom_embeddings(app: Flask):

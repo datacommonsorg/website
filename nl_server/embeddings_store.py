@@ -25,7 +25,6 @@ from nl_server.config import DEFAULT_INDEX_TYPE
 from nl_server.config import EmbeddingsIndex
 from nl_server.embeddings import Embeddings
 from nl_server.embeddings import load_model
-from guppy import hpy
 
 
 #
@@ -47,9 +46,6 @@ class Store:
       default_idx.embeddings_local_path = _merge_custom_index(
           default_idx, custom_idx)
 
-    heap = hpy()
-    print(f'INIT:\n{heap.heap()}')
-
     # Pre-load models once.
     self.name2model = {}
     model2path = {
@@ -57,7 +53,6 @@ class Store:
     }
     for model_name, model_path in model2path.items():
       self.name2model[model_name] = load_model(model_path)
-      print(f'{model_name}:\n{heap.heap()}')
 
     # NOTE: Not excluding CUSTOM_DC_INDEX from the map, so should the
     # custom DC customers want queries to work within their variables
@@ -65,7 +60,6 @@ class Store:
     for idx in indexes:
       self.embeddings_map[idx.name] = Embeddings(
           idx.embeddings_local_path, self.name2model[idx.tuned_model])
-      print(f'{idx.name}:\n{heap.heap()}')
 
   # Note: The caller takes care of exceptions.
   def get(self, index_type: str = DEFAULT_INDEX_TYPE) -> Embeddings:
