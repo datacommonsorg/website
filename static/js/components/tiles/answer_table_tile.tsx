@@ -163,6 +163,7 @@ const fetchData = async (
       paramsSerializer: stringifyFn,
     });
     return {
+      entityNames,
       sources: provIdList
         .map((provId) => {
           const urlValues = provIdUrlResp.data[provId];
@@ -174,7 +175,6 @@ const fetchData = async (
         })
         .filter((url) => !!url),
       values,
-      entityNames,
     };
   } catch (e) {
     return null;
