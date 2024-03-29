@@ -156,7 +156,7 @@ const fetchData = async (
       });
     });
 
-    // Get hte URLs for the provenances that we got data from
+    // Get the URLs for the provenances that we got data from
     const provIdList = Array.from(provIds);
     const provIdUrlResp = await axios.get(`/api/node/propvals/out`, {
       params: { dcids: provIdList, prop: "url" },
