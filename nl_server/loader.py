@@ -78,22 +78,23 @@ def load_custom_embeddings(app: Flask):
   """
   flask_env = os.environ.get('FLASK_ENV')
   embeddings_map, _ = _load_yamls(flask_env)
-  # TODO: call config._parse() to parse embeddings and assert that the path is local.
-  custom_embeddings_local_path = embeddings_map.get(config.CUSTOM_DC_INDEX)
-  if not custom_embeddings_local_path:
+  custom_embeddings_path = embeddings_map.get(config.CUSTOM_DC_INDEX)
+  if not custom_embeddings_path:
     logging.warning("No custom DC embeddings found, so none will be loaded.")
     return
-
-  custom_idx = config.EmbeddingsIndex(
-      name=config.CUSTOM_DC_INDEX,
-      embeddings_file_name=os.path.basename(custom_embeddings_local_path),
-      embeddings_local_path=custom_embeddings_local_path)
+  # Construct the Custom EmbeddingsIndex by calling into parse() to
+  # set fields like tuned_model correctly.
+  custom_idx_list = config.parse(
+      {config.CUSTOM_DC_INDEX: custom_embeddings_path})
+  if not custom_idx_list:
+    logging.warning(f"Unable to parse {custom_embeddings_path}")
+    return
 
   # This lookup will raise an error if embeddings weren't already initialized previously.
   # This is intentional.
   nl_embeddings: embeddings_store.Store = app.config[config.NL_EMBEDDINGS_KEY]
   # Merge custom index with default embeddings.
-  nl_embeddings.merge_custom_index(custom_idx)
+  nl_embeddings.merge_custom_index(custom_idx_list[0])
 
   # Update app config.
   _update_app_config(app, app.config[config.NL_MODEL_KEY], nl_embeddings,

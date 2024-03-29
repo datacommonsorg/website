@@ -42,17 +42,19 @@ _NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS = 60
 _TOPIC_PREFIX = 'dc/topic/'
 
 
+def load_model(existing_model_path: str = ""):
+  if existing_model_path:
+    logging.info(f'Loading tuned model from: {existing_model_path}')
+    return SentenceTransformer(existing_model_path)
+  logging.info(f'Loading base model {config.EMBEDDINGS_BASE_MODEL_NAME}')
+  return SentenceTransformer(config.EMBEDDINGS_BASE_MODEL_NAME)
+
+
 class Embeddings:
   """Manages the embeddings."""
 
-  def __init__(self,
-               embeddings_path: str,
-               existing_model_path: str = "") -> None:
-    if existing_model_path:
-      assert os.path.exists(existing_model_path)
-      self.model = SentenceTransformer(existing_model_path)
-    else:
-      self.model = SentenceTransformer(config.EMBEDDINGS_BASE_MODEL_NAME)
+  def __init__(self, embeddings_path: str, model: any) -> None:
+    self.model = model
     self.dataset_embeddings: torch.Tensor = None
     self.dcids: List[str] = []
     self.sentences: List[str] = []
@@ -65,17 +67,16 @@ class Embeddings:
       logging.error(error_str)
       raise Exception("No embedding could be loaded.")
 
-    self.df = ds["train"].to_pandas()
-    self.dcids = self.df['dcid'].values.tolist()
-    self.df = self.df.drop('dcid', axis=1)
+    df = ds["train"].to_pandas()
+    self.dcids = df['dcid'].values.tolist()
+    df = df.drop('dcid', axis=1)
     # Also get the sentence mappings.
     self.sentences = []
-    if 'sentence' in self.df:
-      self.sentences = self.df['sentence'].values.tolist()
-      self.df = self.df.drop('sentence', axis=1)
+    if 'sentence' in df:
+      self.sentences = df['sentence'].values.tolist()
+      df = df.drop('sentence', axis=1)
 
-    self.dataset_embeddings = torch.from_numpy(self.df.to_numpy()).to(
-        torch.float)
+    self.dataset_embeddings = torch.from_numpy(df.to_numpy()).to(torch.float)
 
   #
   # Given a list of queries, searches the in-memory embeddings index
