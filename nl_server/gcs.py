@@ -82,8 +82,6 @@ def download_model_folder(model_folder: str) -> str:
   # Only download if needed.
   model_path = os.path.join(directory, model_folder)
   if os.path.exists(model_path):
-    # If a production or production-like enrivonment,
-    # just return the model_path.
     return model_path
 
   print(
