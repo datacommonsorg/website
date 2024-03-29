@@ -39,8 +39,11 @@ export interface AnswerTableTilePropType {
 }
 
 interface AnswerTableData {
+  // Map of entity dcid to entity name
   entityNames: Record<string, string>;
+  // Map of entity dcid to property expression to list of values
   values: Record<string, Record<string, string[]>>;
+  // List of sources that the data came from
   sources: string[];
 }
 
@@ -106,6 +109,13 @@ const fetchData = async (
   props: AnswerTableTilePropType
 ): Promise<AnswerTableData> => {
   const propertyPromises = [];
+  // Get the names for the entities
+  propertyPromises.push(
+    axios.get(`/api/node/propvals`, {
+      params: { dcids: [props.entities], propExpr: "->name" },
+      paramsSerializer: stringifyFn,
+    })
+  );
   for (const column of props.columns) {
     propertyPromises.push(
       axios.get(`/api/node/propvals`, {
@@ -114,44 +124,39 @@ const fetchData = async (
       })
     );
   }
-  // Also get the names for the entities
-  propertyPromises.push(
-    axios.get(`/api/node/propvals`, {
-      params: { dcids: [props.entities], propExpr: "->name" },
-      paramsSerializer: stringifyFn,
-    })
-  );
   try {
-    const propResp = await Promise.all(propertyPromises);
+    const resp = await Promise.all(propertyPromises);
     const entityNames = {};
+    // The first promise was a promise to get the entity names
+    const nameResp = resp[0];
+    Object.keys(nameResp.data).forEach((entity) => {
+      const val = nameResp.data[entity];
+      entityNames[entity] = !_.isEmpty(val)
+        ? val[0].name || val[0].value || val[0].dcid
+        : entity;
+    });
+    // The rest of the promises are for column values
+    const propResp = resp.slice(1);
     const values = {};
     props.entities.forEach((entity) => {
       values[entity] = {};
     });
     const provIds: Set<string> = new Set();
     propResp.forEach((resp, i) => {
-      if (i >= props.columns.length) {
-        Object.keys(resp.data).forEach((entity) => {
-          const val = resp.data[entity];
-          entityNames[entity] = !_.isEmpty(val)
-            ? val[0].name || val[0].value || val[0].dcid
-            : entity;
+      Object.keys(resp.data).forEach((entity) => {
+        const val = resp.data[entity];
+        const entityResults = [];
+        val.forEach((singleVal) => {
+          entityResults.push(
+            singleVal.name || singleVal.value || singleVal.dcid
+          );
+          provIds.add(singleVal.provenanceId);
         });
-      } else {
-        Object.keys(resp.data).forEach((entity) => {
-          const val = resp.data[entity];
-          const entityResults = [];
-          val.forEach((singleVal) => {
-            entityResults.push(
-              singleVal.name || singleVal.value || singleVal.dcid
-            );
-            provIds.add(singleVal.provenanceId);
-          });
-          values[entity][props.columns[i].propertyExpr] = entityResults;
-        });
-      }
+        values[entity][props.columns[i].propertyExpr] = entityResults;
+      });
     });
 
+    // Get hte URLs for the provenances that we got data from
     const provIdList = Array.from(provIds);
     const provIdUrlResp = await axios.get(`/api/node/propvals/out`, {
       params: { dcids: provIdList, prop: "url" },

@@ -662,10 +662,10 @@ function renderTiles(
       case "ANSWER_TABLE":
         return (
           <AnswerTableTile
+            columns={tile.answerTableTileSpec.columns}
+            entities={tile.entities}
             key={id}
             title={tile.title}
-            entities={tile.entities}
-            columns={tile.answerTableTileSpec.columns}
           />
         );
       case "ENTITY_OVERVIEW":
