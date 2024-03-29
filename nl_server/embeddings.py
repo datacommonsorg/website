@@ -67,17 +67,16 @@ class Embeddings:
       logging.error(error_str)
       raise Exception("No embedding could be loaded.")
 
-    self.df = ds["train"].to_pandas()
-    self.dcids = self.df['dcid'].values.tolist()
-    self.df = self.df.drop('dcid', axis=1)
+    df = ds["train"].to_pandas()
+    self.dcids = df['dcid'].values.tolist()
+    df = df.drop('dcid', axis=1)
     # Also get the sentence mappings.
     self.sentences = []
-    if 'sentence' in self.df:
-      self.sentences = self.df['sentence'].values.tolist()
-      self.df = self.df.drop('sentence', axis=1)
+    if 'sentence' in df:
+      self.sentences = df['sentence'].values.tolist()
+      df = df.drop('sentence', axis=1)
 
-    self.dataset_embeddings = torch.from_numpy(self.df.to_numpy()).to(
-        torch.float)
+    self.dataset_embeddings = torch.from_numpy(df.to_numpy()).to(torch.float)
 
   #
   # Given a list of queries, searches the in-memory embeddings index
