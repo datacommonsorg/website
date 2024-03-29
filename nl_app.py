@@ -27,8 +27,6 @@ if __name__ == '__main__':
   logging.info("Run nl server in local mode")
 
   if len(sys.argv) == 3 and sys.argv[2] == 'opt':
-    log = logging.getLogger('werkzeug')
-    log.setLevel(logging.ERROR)
     app.run(host='127.0.0.1', port=int(sys.argv[1]))
   else:
     app.run(host='127.0.0.1', port=int(sys.argv[1]), debug=True)
