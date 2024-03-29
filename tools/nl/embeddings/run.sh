@@ -91,7 +91,7 @@ python3 -m venv .env
 source .env/bin/activate
 cd tools/nl/embeddings
 python3 -m pip install --upgrade pip
-pip3 install torch==2.2.1 --extra-index-url https://download.pytorch.org/whl/cpu
+pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
 pip3 install -r requirements.txt
 
 if [[ "$MODEL_ENDPOINT_ID" != "" ]];then
