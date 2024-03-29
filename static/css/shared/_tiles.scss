@@ -630,3 +630,62 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   border-radius: var(--border-radius-primary);
   padding: 32px;
  }
+
+ /**
+  * Answer table tile
+  */
+
+.answer-table-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 0;
+  
+  .answer-table-title {
+    font-size: 32px;
+  }
+
+  .answer-table {
+    border: 1px solid #DEE2E6;
+    border-radius: 3px;
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 48px;
+
+    thead {
+      background-color: #F0F0F0;
+
+      th {
+        font-weight: 400;
+        padding: 8px 0;
+      }
+    }
+
+    tbody {
+      tr:nth-child(even) {
+        background-color: #F0F0F0;
+      }
+
+      tr td:nth-child(1) {
+        padding-left: 80px;
+        white-space: nowrap;
+        width: auto;
+      }
+
+      td {
+        padding: 8px 80px 8px 0;
+        width: 100%;
+
+        a {
+          align-items: center;
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+  
+  .source {
+      font-size: 14px;
+  }
+}
