@@ -125,6 +125,7 @@ class TestEmbeddings(unittest.TestCase):
                                  embeddings_file_name=_CUSTOM_FILE,
                                  embeddings_local_path=os.path.join(
                                      TEMP_DIR, _CUSTOM_FILE))
+
     embeddings.merge_custom_index(custom_idx)
 
     _test_query(self, embeddings.get("medium_ft"), "money", "dc/topic/sdg_1")
