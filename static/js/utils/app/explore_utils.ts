@@ -40,6 +40,9 @@ export function getTopics(
   pageMetadata: SubjectPageMetadata,
   placeUrlVal: string
 ): Item[] {
+  if (_.isEmpty(pageMetadata?.childTopics)) {
+    return [];
+  }
   const topicList = [];
   const topics = pageMetadata?.childTopics
     .concat(pageMetadata?.peerTopics)
