@@ -78,16 +78,13 @@ def load_custom_embeddings(app: Flask):
   """
   flask_env = os.environ.get('FLASK_ENV')
   embeddings_map, _ = _load_yamls(flask_env)
-  # TODO: call config._parse() to parse embeddings and assert that the path is local.
-  custom_embeddings_local_path = embeddings_map.get(config.CUSTOM_DC_INDEX)
-  if not custom_embeddings_local_path:
+  custom_embeddings_path = embeddings_map.get(config.CUSTOM_DC_INDEX)
+  if not custom_embeddings_path:
     logging.warning("No custom DC embeddings found, so none will be loaded.")
     return
-
-  custom_idx = config.EmbeddingsIndex(
-      name=config.CUSTOM_DC_INDEX,
-      embeddings_file_name=os.path.basename(custom_embeddings_local_path),
-      embeddings_local_path=custom_embeddings_local_path)
+  # Construct the Custom EmbeddingsIndex by calling into parse() to
+  # set fields like tuned_model correctly.
+  custom_idx = config.parse({config.CUSTOM_DC_INDEX: custom_embeddings_path})[0]
 
   # This lookup will raise an error if embeddings weren't already initialized previously.
   # This is intentional.

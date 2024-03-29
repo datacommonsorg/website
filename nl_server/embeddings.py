@@ -42,17 +42,19 @@ _NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS = 60
 _TOPIC_PREFIX = 'dc/topic/'
 
 
+def load_model(existing_model_path: str = ""):
+  if existing_model_path:
+    logging.info(f'Loading tuned model from: {existing_model_path}')
+    return SentenceTransformer(existing_model_path)
+  logging.info(f'Loading base model {config.EMBEDDINGS_BASE_MODEL_NAME}')
+  return SentenceTransformer(config.EMBEDDINGS_BASE_MODEL_NAME)
+
+
 class Embeddings:
   """Manages the embeddings."""
 
-  def __init__(self,
-               embeddings_path: str,
-               existing_model_path: str = "") -> None:
-    if existing_model_path:
-      assert os.path.exists(existing_model_path)
-      self.model = SentenceTransformer(existing_model_path)
-    else:
-      self.model = SentenceTransformer(config.EMBEDDINGS_BASE_MODEL_NAME)
+  def __init__(self, embeddings_path: str, model: any) -> None:
+    self.model = model
     self.dataset_embeddings: torch.Tensor = None
     self.dcids: List[str] = []
     self.sentences: List[str] = []

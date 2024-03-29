@@ -24,6 +24,7 @@ from nl_server.config import CUSTOM_DC_INDEX
 from nl_server.config import DEFAULT_INDEX_TYPE
 from nl_server.config import EmbeddingsIndex
 from nl_server.embeddings import Embeddings
+from nl_server.embeddings import load_model
 
 
 #
@@ -45,12 +46,20 @@ class Store:
       default_idx.embeddings_local_path = _merge_custom_index(
           default_idx, custom_idx)
 
+    # Pre-load models once.
+    self.name2model = {}
+    model2path = {
+        idx.tuned_model: idx.tuned_model_local_path for idx in indexes
+    }
+    for model_name, model_path in model2path.items():
+      self.name2model[model_name] = load_model(model_path)
+
     # NOTE: Not excluding CUSTOM_DC_INDEX from the map, so should the
     # custom DC customers want queries to work within their variables
     # they can set `idx=custom`.
     for idx in indexes:
-      self.embeddings_map[idx.name] = Embeddings(idx.embeddings_local_path,
-                                                 idx.tuned_model_local_path)
+      self.embeddings_map[idx.name] = Embeddings(
+          idx.embeddings_local_path, self.name2model[idx.tuned_model])
 
   # Note: The caller takes care of exceptions.
   def get(self, index_type: str = DEFAULT_INDEX_TYPE) -> Embeddings:
@@ -65,13 +74,18 @@ class Store:
     default_idx = copy.deepcopy(self.original_default_idx)
     default_idx.embeddings_local_path = _merge_custom_index(
         default_idx, custom_idx)
+
+    if custom_idx.tuned_model not in self.name2model:
+      self.name2model[custom_idx.tuned_model] = \
+        load_model(custom_idx.tuned_model_local_path)
+
     self.embeddings_map.update({
         custom_idx.name:
             Embeddings(custom_idx.embeddings_local_path,
-                       custom_idx.tuned_model_local_path),
+                       self.name2model[custom_idx.tuned_model]),
         default_idx.name:
             Embeddings(default_idx.embeddings_local_path,
-                       default_idx.tuned_model_local_path)
+                       self.name2model[default_idx.tuned_model])
     })
 
 
@@ -104,7 +118,7 @@ def _get_default_and_custom(
 def _merge_custom_index(default: EmbeddingsIndex,
                         custom: EmbeddingsIndex) -> str:
   # If model version is encoded in the embeddings file name, it should match the default model.
-  # If none is encoded, tuned_model will be falsy and assumed to have used the same version.
+  # If none is encoded, tuned_model will be false and assumed to have used the same version.
   assert not custom.tuned_model or default.tuned_model == custom.tuned_model, \
     f'Main ({default.tuned_model}) vs. custom ({custom.tuned_model}) not using the same embeddings'
 
