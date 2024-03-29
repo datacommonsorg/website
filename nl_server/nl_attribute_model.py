@@ -15,13 +15,13 @@
 
 from typing import List
 
-import en_core_web_lg
+import en_core_web_sm
 
 
 class NLAttributeModel:
 
   def __init__(self) -> None:
-    self.spacy_model_ = en_core_web_lg.load()
+    self.spacy_model_ = en_core_web_sm.load()
 
   def detect_verbs(self, query: str) -> List[str]:
     try:

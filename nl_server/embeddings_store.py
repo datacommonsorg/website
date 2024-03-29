@@ -47,6 +47,9 @@ class Store:
       default_idx.embeddings_local_path = _merge_custom_index(
           default_idx, custom_idx)
 
+    heap = hpy()
+    print(f'INIT:\n{heap.heap()}')
+
     # Pre-load models once.
     self.name2model = {}
     model2path = {
@@ -54,12 +57,11 @@ class Store:
     }
     for model_name, model_path in model2path.items():
       self.name2model[model_name] = load_model(model_path)
+      print(f'{model_name}:\n{heap.heap()}')
 
     # NOTE: Not excluding CUSTOM_DC_INDEX from the map, so should the
     # custom DC customers want queries to work within their variables
     # they can set `idx=custom`.
-    heap = hpy()
-    print(f'INIT:\n{heap.heap()}')
     for idx in indexes:
       self.embeddings_map[idx.name] = Embeddings(
           idx.embeddings_local_path, self.name2model[idx.tuned_model])
