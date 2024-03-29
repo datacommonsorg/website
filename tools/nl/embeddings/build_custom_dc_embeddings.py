@@ -48,13 +48,17 @@ flags.DEFINE_string("sv_sentences_csv_path", None,
 flags.DEFINE_string(
     "output_dir", None,
     "Output directory where the generated embeddings will be saved.")
+flags.DEFINE_string(
+    "embeddings_yaml_path", "/datacommons/nl/embeddings.yaml",
+    "Path where the default FT embeddings.yaml will be saved for Custom DC in download mode."
+)
 
 MODELS_BUCKET = 'datcom-nl-models'
 EMBEDDINGS_CSV_FILENAME = "custom_embeddings.csv"
 EMBEDDINGS_YAML_FILE_NAME = "custom_embeddings.yaml"
 
 
-def download():
+def download(embeddings_yaml_path: str):
   """Downloads the default FT model and embeddings.
   """
   ctx = _ctx_no_model()
@@ -66,6 +70,11 @@ def download():
   # Download embeddings.
   embeddings_file_name = utils.get_default_ft_embeddings_file_name()
   utils.get_or_download_file_from_gcs(ctx, embeddings_file_name)
+
+  # The prod embeddings.yaml includes multiple embeddings (default, biomed, UN)
+  # For custom DC, we only want the default.
+  utils.save_embeddings_yaml_with_only_default_ft_embeddings(
+      embeddings_yaml_path, embeddings_file_name)
 
 
 def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
@@ -129,7 +138,7 @@ def _ctx_no_model() -> utils.Context:
 
 def main(_):
   if FLAGS.mode == Mode.DOWNLOAD:
-    download()
+    download(FLAGS.embeddings_yaml_path)
     return
 
   assert FLAGS.sv_sentences_csv_path

@@ -324,6 +324,13 @@ def _get_default_ft_model_version(embeddings_yaml_file_path: str) -> str:
   return matcher.group(1)
 
 
+def save_embeddings_yaml_with_only_default_ft_embeddings(
+    embeddings_yaml_file_path: str, default_ft_embeddings_file_name: str):
+  data = {_DEFAULT_EMBEDDINGS_INDEX_TYPE: default_ft_embeddings_file_name}
+  with open(embeddings_yaml_file_path, "w") as f:
+    yaml.dump(data, f)
+
+
 def validate_embeddings(embeddings_df: pd.DataFrame,
                         output_dcid_sentences_filepath: str) -> None:
   # Verify that embeddings were created for all DCIDs and Sentences.
