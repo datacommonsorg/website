@@ -40,13 +40,11 @@ export function getTopics(
   pageMetadata: SubjectPageMetadata,
   placeUrlVal: string
 ): Item[] {
-  if (_.isEmpty(pageMetadata?.childTopics)) {
-    return [];
-  }
   const topicList = [];
-  const topics = pageMetadata?.childTopics
-    .concat(pageMetadata?.peerTopics)
-    .concat(pageMetadata?.parentTopics);
+  const topics = []
+    .concat(pageMetadata?.childTopics || [])
+    .concat(pageMetadata?.peerTopics || [])
+    .concat(pageMetadata?.parentTopics || []);
   if (!_.isEmpty(topics)) {
     for (const topic of topics) {
       if (topic.dcid == DEFAULT_TOPIC || !topic.name) {
