@@ -18,12 +18,12 @@
  * Component for rendering a map type tile.
  */
 
+import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
   drawD3Map,

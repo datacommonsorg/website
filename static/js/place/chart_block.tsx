@@ -25,8 +25,8 @@ import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
 import { shouldMakeChoroplethCalls } from "./fetch";
 import {
-  USA_PLACE_TYPES_WITH_CHOROPLETH,
   displayNameForPlaceType,
+  USA_PLACE_TYPES_WITH_CHOROPLETH,
 } from "./util";
 
 const EARTH_ENCLOSED_PLACE_TYPE = "Country";
