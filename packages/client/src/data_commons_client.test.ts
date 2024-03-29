@@ -490,7 +490,6 @@ describe("DataCommonsWebClient", () => {
   test("Get per capita data rows", async () => {
     const response = await client.getDataRowsGroupedByEntity({
       childType: "State",
-      fieldDelimiter: ".",
       parentEntity: "country/MOCK",
       perCapitaVariables: ["Has_Data"],
       variables: ["Has_Data", "No_Data"],
@@ -511,7 +510,6 @@ describe("DataCommonsWebClient", () => {
   test("Get data row series", async () => {
     const response = await client.getDataRowSeries({
       childType: "State",
-      fieldDelimiter: ".",
       parentEntity: "country/MOCK",
       perCapitaVariables: ["Has_Data"],
       variables: ["Has_Data", "No_Data"],
@@ -603,5 +601,61 @@ describe("DataCommonsWebClient", () => {
     });
     // CSV result should have 1x header row + 15x data rows
     expect(Object.keys(response.split("\n")).length).toBe(16);
+  });
+
+  test("Specifying facet override should override returned facets", async () => {
+    const response = await client.getDataRows({
+      childType: "State",
+      parentEntity: "country/MOCK",
+      variables: ["Has_Data", "No_Data"],
+    });
+    response.forEach((row) => {
+      expect(row.variable.observation.metadata.scalingFactor).toBe(null);
+    });
+    const facetOverrideClient = new DataCommonsClient({
+      facetOverride: {
+        USD: {
+          scalingFactor: 123,
+        },
+      },
+    });
+    const facetOverrideResponse = await facetOverrideClient.getDataRows({
+      childType: "State",
+      parentEntity: "country/MOCK",
+      variables: ["Has_Data", "No_Data"],
+    });
+    facetOverrideResponse.forEach((row) => {
+      expect(row.variable.observation.metadata.scalingFactor).toBe(123);
+    });
+  });
+
+  test("Per capita quotientValue should use scaling factor", async () => {
+    const facetOverrideClient = new DataCommonsClient({
+      facetOverride: {
+        USD: {
+          scalingFactor: 0.05,
+        },
+      },
+    });
+    const facetOverrideResponse = await facetOverrideClient.getDataRowSeries({
+      childType: "State",
+      fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      perCapitaVariables: ["Has_Data"],
+      variables: ["Has_Data", "No_Data"],
+    });
+    expect(facetOverrideResponse.length).toBe(15);
+    facetOverrideResponse.forEach((row) => {
+      expect(row.variable.dcid).toBe("Has_Data");
+      expect(row.variable.observation.metadata.unitDisplayName).toBe(
+        "US Dollars"
+      );
+      // Mock Has_Data values are set to 1/10th of the population values, so
+      // quotientValue (per-capita) should equal:
+      // quotientValue =  N / (N * 10 ) / scalingFactor
+      // Since scaling factor is 0.005, quotientValue = 0.1 / 0.05 = 2
+      expect(row.variable.denominator?.quotientValue).toBeCloseTo(2);
+      expect(row.variable.denominator?.observation.value).toBeGreaterThan(0);
+    });
   });
 });

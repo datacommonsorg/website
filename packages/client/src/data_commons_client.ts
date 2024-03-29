@@ -34,6 +34,7 @@ import {
   DataRow,
   DataRowDenominator,
   EntityGroupedDataRow,
+  FacetOverride,
   GetDataRowSeriesParams,
   GetDataRowsParams,
   GetGeoJSONParams,
@@ -42,6 +43,7 @@ import {
 } from "./data_commons_client_types";
 import { DataCommonsWebClient } from "./data_commons_web_client";
 import {
+  FacetStore,
   Observation,
   PointApiResponse,
   Series,
@@ -49,6 +51,7 @@ import {
   StatMetadata,
 } from "./data_commons_web_client_types";
 import {
+  DEFAULT_STAT_METADATA_OVERRIDE,
   computeRatio,
   dataRowsToCsv,
   encodeCsvRow,
@@ -58,11 +61,14 @@ import {
 export interface DatacommonsClientParams {
   /** Web api root endpoint. Default: `"https://datacommons.org/"` */
   apiRoot?: string;
+  /** Overrides observation facet StatMetadata values by unit DCID. */
+  facetOverride?: FacetOverride | null;
 }
 
 class DataCommonsClient {
   apiRoot?: string;
   webClient: DataCommonsWebClient;
+  facetOverride: FacetOverride;
 
   constructor(params?: DatacommonsClientParams) {
     const p = params || {};
@@ -72,6 +78,11 @@ class DataCommonsClient {
     this.webClient = new DataCommonsWebClient({
       apiRoot: this.apiRoot,
     });
+    if (p.facetOverride === undefined) {
+      this.facetOverride = DEFAULT_STAT_METADATA_OVERRIDE;
+    } else {
+      this.facetOverride = p.facetOverride || {};
+    }
   }
 
   /**
@@ -168,6 +179,7 @@ class DataCommonsClient {
     if (!pointApiResponse) {
       return [];
     }
+    pointApiResponse.facets = this.overrideFacetValues(pointApiResponse.facets);
     const entityDcids =
       this.getEntityDcidsFromObservationApiResponse(pointApiResponse);
     // Fetch relevant entity and variable property values
@@ -329,6 +341,10 @@ class DataCommonsClient {
     if (!seriesApiResponse) {
       return [];
     }
+
+    seriesApiResponse.facets = this.overrideFacetValues(
+      seriesApiResponse.facets
+    );
     const entityDcids =
       this.getEntityDcidsFromObservationApiResponse(seriesApiResponse);
     // Fetch relevant entity and variable property values
@@ -398,6 +414,30 @@ class DataCommonsClient {
   }
 
   /**
+   * Overrides any of the passed in facets with values from statMetadataOverride
+   * @param facets
+   * @returns facets with overriden values
+   */
+  overrideFacetValues(facets: FacetStore): FacetStore {
+    if (!this.facetOverride || Object.keys(this.facetOverride).length === 0) {
+      return facets;
+    }
+    const newFacets = {
+      ...facets,
+    };
+    Object.keys(newFacets).forEach((facetId) => {
+      const facet = newFacets[facetId];
+      if (facet.unit && facet.unit in this.facetOverride) {
+        newFacets[facetId] = {
+          ...facet,
+          ...this.facetOverride[facet.unit],
+        };
+      }
+    });
+    return newFacets;
+  }
+
+  /**
    * Fetches the first node property value for the given property name
    * @param params.dcids List of dcids to fetch property values for
    * @param params.prop Property name to fetch
@@ -459,6 +499,11 @@ class DataCommonsClient {
       { value: 0, date: targetDate },
       (o) => o.date
     );
+    // sortedIndexBy can return i === arr.length, meaning the target date is
+    // closest to the last observation
+    if (index >= observations.length) {
+      return observations[observations.length - 1];
+    }
     return observations[index];
   }
 
@@ -539,14 +584,18 @@ class DataCommonsClient {
             series.series,
             observation.date
           );
+          const scalingFactor = facet.scalingFactor || 1;
+          const quotientValue =
+            closestPopulationObservation &&
+            !_.isEmpty(closestPopulationObservation) &&
+            closestPopulationObservation?.value > 0
+              ? observation.value /
+                closestPopulationObservation?.value /
+                scalingFactor
+              : 0;
           const perCapitaQuotientObservation: QuotientObservation = {
             ...closestPopulationObservation,
-            quotientValue:
-              closestPopulationObservation &&
-              !_.isEmpty(closestPopulationObservation) &&
-              closestPopulationObservation?.value > 0
-                ? observation.value / closestPopulationObservation?.value
-                : 0,
+            quotientValue,
           };
           row.variable.denominator = this.buildDataRowVariableDenominator(
             perCapitaQuotientObservation,
@@ -584,6 +633,7 @@ class DataCommonsClient {
         value: denominatorObservation.value,
         metadata: {
           importName: _.get(populationFacet, "importName", null),
+          scalingFactor: _.get(populationFacet, "scalingFactor", null),
           provenanceUrl: _.get(populationFacet, "provenanceUrl", null),
           unit: _.get(populationFacet, "unit", null),
           unitDisplayName: _.get(
@@ -623,7 +673,11 @@ class DataCommonsClient {
         if (_.isEmpty(series)) {
           return;
         }
-        const facet = _.get(seriesApiResponse.facets, series.facet || "", {});
+        const facet = _.get(
+          seriesApiResponse.facets,
+          series.facet || "",
+          {} as StatMetadata
+        );
         let perCapitaObservations: QuotientObservation[] = [];
         let populationSeries: Series | null = null;
         if (
@@ -634,7 +688,8 @@ class DataCommonsClient {
             populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid];
           perCapitaObservations = computeRatio(
             series.series,
-            populationSeries.series
+            populationSeries.series,
+            facet.scalingFactor || 1
           );
         }
         series.series.forEach((observation, observationIndex) => {
@@ -717,6 +772,7 @@ class DataCommonsClient {
           metadata: {
             importName: _.get(facet, "importName", null),
             provenanceUrl: _.get(facet, "provenanceUrl", null),
+            scalingFactor: _.get(facet, "scalingFactor", null),
             unit: _.get(facet, "unit", null),
             unitDisplayName: _.get(
               observation,

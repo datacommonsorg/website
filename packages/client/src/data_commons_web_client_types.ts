@@ -22,7 +22,7 @@ export interface StatMetadata {
   provenanceUrl?: string | null;
   measurementMethod?: string | null;
   observationPeriod?: string | null;
-  scalingFactor?: string | null;
+  scalingFactor?: number | null;
   unit?: string | null;
   unitDisplayName?: string | null;
 }

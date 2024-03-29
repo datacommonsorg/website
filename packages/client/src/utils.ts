@@ -19,9 +19,41 @@ import { DEFAULT_FIELD_DELIMITER } from "./constants";
 import {
   DataRow,
   EntityGroupedDataRow,
+  FacetOverride,
   QuotientObservation,
 } from "./data_commons_client_types";
 import { Observation } from "./data_commons_web_client_types";
+
+/**
+ * Default override for stat metadata for particular unit dcids.
+ * Used by DataCommonsClient (DataCommonsWebClient will still return raw values)
+ */
+export const DEFAULT_STAT_METADATA_OVERRIDE: FacetOverride = {
+  SDG_CON_USD_M: {
+    scalingFactor: 1 / 1000000,
+  },
+  SDG_CUR_LCU_M: {
+    scalingFactor: 1 / 1000000,
+  },
+  SDG_CU_USD_B: {
+    scalingFactor: 1 / 1000000000,
+  },
+  SDG_CU_USD_M: {
+    scalingFactor: 1 / 1000000,
+  },
+  SDG_HA_TH: {
+    scalingFactor: 1 / 1000,
+  },
+  SDG_NUM_M: {
+    scalingFactor: 1 / 1000000,
+  },
+  SDG_NUM_TH: {
+    scalingFactor: 1 / 1000,
+  },
+  SDG_TONNES_M: {
+    scalingFactor: 1 / 1000000,
+  },
+};
 
 /**
  * Converts an object to URLSearchParams.

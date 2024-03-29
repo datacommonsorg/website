@@ -176,3 +176,12 @@ export type NodePropValues = {
     [nodeDcid: string]: string | null;
   };
 };
+
+/**
+ * Overrides observation facet StatMetadata values by unit DCID.
+ * Use this as a temporary shim for corrections to observation facets
+ * while knowledge graph fixes are pending.
+ */
+export interface FacetOverride {
+  [unitDcid: string]: StatMetadata;
+}
