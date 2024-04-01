@@ -65,40 +65,44 @@ export function AnswerTableTile(props: AnswerTableTilePropType): JSX.Element {
       className={`chart-container answer-table-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
     >
       <div className={`answer-table-content ${ASYNC_ELEMENT_CLASS}`}>
-        <div className="answer-table-title">{props.title}</div>
-        <table className="answer-table">
-          <thead>
-            <tr>
-              <th></th>
-              {props.columns.map((col, idx) => {
-                return <th key={`col-header-${idx}`}>{col.header}</th>;
+        {props.title && <div className="answer-table-title">{props.title}</div>}
+        <div className="table-container">
+          <table className="table">
+            <thead>
+              <tr>
+                <th></th>
+                {props.columns.map((col, idx) => {
+                  return <th key={`col-header-${idx}`}>{col.header}</th>;
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {props.entities.map((entity, rowIdx) => {
+                return (
+                  <tr key={`row-${rowIdx}`}>
+                    <td>
+                      <a href={URI_PREFIX + entity}>
+                        {answerData.entityNames[entity] || entity}
+                        <span className="material-icons-outlined">
+                          arrow_forward
+                        </span>
+                      </a>
+                    </td>
+                    {props.columns.map((col, colIdx) => {
+                      return (
+                        <td key={`row-${rowIdx}-col-${colIdx}`}>
+                          {answerData.values[entity][col.propertyExpr].join(
+                            ", "
+                          )}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
               })}
-            </tr>
-          </thead>
-          <tbody>
-            {props.entities.map((entity, rowIdx) => {
-              return (
-                <tr key={`row-${rowIdx}`}>
-                  <td>
-                    <a href={URI_PREFIX + entity}>
-                      {answerData.entityNames[entity] || entity}
-                      <span className="material-icons-outlined">
-                        arrow_forward
-                      </span>
-                    </a>
-                  </td>
-                  {props.columns.map((col, colIdx) => {
-                    return (
-                      <td key={`row-${rowIdx}-col-${colIdx}`}>
-                        {answerData.values[entity][col.propertyExpr].join(", ")}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className="source">source: {answerData.sources.join(", ")}</div>
     </div>
