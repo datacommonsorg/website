@@ -54,7 +54,7 @@ flags.DEFINE_string(
 )
 
 MODELS_BUCKET = 'datcom-nl-models'
-EMBEDDINGS_CSV_FILENAME = "custom_embeddings.csv"
+EMBEDDINGS_CSV_FILENAME_PREFIX = "custom_embeddings"
 EMBEDDINGS_YAML_FILE_NAME = "custom_embeddings.yaml"
 
 
@@ -92,7 +92,8 @@ def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
 
   output_dir_handler = create_file_handler(output_dir)
   embeddings_csv_handler = create_file_handler(
-      output_dir_handler.join(EMBEDDINGS_CSV_FILENAME))
+      output_dir_handler.join(
+          f"{EMBEDDINGS_CSV_FILENAME_PREFIX}.{model_version}.csv"))
   embeddings_yaml_handler = create_file_handler(
       output_dir_handler.join(EMBEDDINGS_YAML_FILE_NAME))
 

@@ -16,7 +16,7 @@ import os
 import tempfile
 import unittest
 
-from build_custom_dc_embeddings import EMBEDDINGS_CSV_FILENAME
+from build_custom_dc_embeddings import EMBEDDINGS_CSV_FILENAME_PREFIX
 from build_custom_dc_embeddings import EMBEDDINGS_YAML_FILE_NAME
 import build_custom_dc_embeddings as builder
 from file_util import create_file_handler
@@ -83,7 +83,7 @@ class TestEndToEnd(unittest.TestCase):
   def test_generate_yaml(self):
     expected_embeddings_yaml_path = os.path.join(EXPECTED_DIR,
                                                  EMBEDDINGS_YAML_FILE_NAME)
-    fake_embeddings_csv_path = f"/fake/path/to/{EMBEDDINGS_CSV_FILENAME}"
+    fake_embeddings_csv_path = f"/fake/path/to/{EMBEDDINGS_CSV_FILENAME_PREFIX}.csv"
 
     with tempfile.TemporaryDirectory() as temp_dir:
       actual_embeddings_yaml_path = os.path.join(temp_dir,
