@@ -33,6 +33,10 @@
   text-transform: none;
 }
 
+#stat-var-explorer a {
+  text-decoration: underline;
+}
+
 #stat-var-explorer .description-text {
   color: var(--secondary);
   font-size: 1rem;
