@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,4 +14,4 @@
 # limitations under the License.
 
 SCRIPT_PATH=`dirname $0`
-$SCRIPT_PATH/run.sh datcom-website-dev website-us-central1 us-central1
+$SCRIPT_PATH/run.sh datcom-recon-autopush datacommons-us-central1-a us-central1-a us-central1
