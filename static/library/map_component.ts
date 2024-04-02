@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { ChartEventDetail } from "@datacommonsorg/web-components";
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
@@ -171,6 +170,7 @@ export class DatacommonsMapComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  /*
   firstUpdated(): void {
     if (this.subscribe) {
       this.parentElement.addEventListener(
@@ -183,6 +183,7 @@ export class DatacommonsMapComponent extends LitElement {
       );
     }
   }
+  */
 
   render(): HTMLElement {
     let dataSpecs: ContainedInPlaceSingleVariableDataSpec[] = [];
@@ -273,6 +274,7 @@ export class DatacommonsMapComponent extends LitElement {
       title: this.header || this.title,
       placeNameProp: this.placeNameProp,
       geoJsonProp: this.geoJsonProp,
+      subscribe: this.subscribe,
     };
     return createWebComponentElement(MapTile, mapTileProps);
   }
