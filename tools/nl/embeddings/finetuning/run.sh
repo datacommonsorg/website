@@ -64,6 +64,6 @@ cd ../
 python3 -m venv .env
 source .env/bin/activate
 python3 -m pip install --upgrade pip
-pip3 install torch==2.2.1 --extra-index-url https://download.pytorch.org/whl/cpu
+pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
 pip3 install -r requirements.txt
 python3 -m finetuning.finetune --start_from="$START_FROM" --generate="$GENERATE" --pretuned_model="$INTERMEDIATE_FINETUNED_MODEL"

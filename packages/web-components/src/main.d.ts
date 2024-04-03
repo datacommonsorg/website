@@ -85,6 +85,7 @@ export interface HighlightComponentProps
     React.HTMLAttributes<HTMLElement>,
     HTMLElement
   > {
+  addPerCapita?: boolean;
   apiRoot?: string;
   date?: string;
   description?: string;

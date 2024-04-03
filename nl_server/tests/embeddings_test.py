@@ -24,6 +24,7 @@ import yaml
 from nl_server import embeddings_store as store
 from nl_server import gcs
 from nl_server.embeddings import Embeddings
+from nl_server.embeddings import load_model
 from nl_server.loader import NL_CACHE_PATH
 from nl_server.loader import NL_EMBEDDINGS_CACHE_KEY
 
@@ -73,7 +74,7 @@ class TestEmbeddings(unittest.TestCase):
         tuned_model_path = _get_tuned_model_path()
 
       cls.nl_embeddings = Embeddings(_get_embeddings_file_path(),
-                                     tuned_model_path)
+                                     load_model(tuned_model_path))
     else:
       cls.nl_embeddings = embeddings_store.get()
 

@@ -237,12 +237,13 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   if lib_gcp.in_google_network():
     client = google.cloud.logging.Client()
     client.setup_logging()
-  logging.basicConfig(
-      level=logging.INFO,
-      format=
-      "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
-      datefmt="%H:%M:%S",
-  )
+  else:
+    logging.basicConfig(
+        level=logging.INFO,
+        format=
+        "[%(asctime)s][%(levelname)-8s][%(filename)s:%(lineno)s] %(message)s ",
+        datefmt="%H:%M:%S",
+    )
   logging.getLogger('werkzeug').setLevel(logging.WARNING)
 
   # Setup flask config
