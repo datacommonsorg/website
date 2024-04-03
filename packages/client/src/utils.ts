@@ -20,7 +20,7 @@ import {
   DataRow,
   EntityGroupedDataRow,
   FacetOverride,
-  QuotientObservation,
+  PerCapitaObservation,
 } from "./data_commons_client_types";
 import { Observation } from "./data_commons_web_client_types";
 
@@ -119,34 +119,35 @@ export function encodeCsvRow(items: any[]): string {
 }
 
 /**
- * Given a observation series `num`, computes the ratio of the each
- * observation value in `num` to the observation value in `denom` with
- * the closest date value.
+ * Calculated per-capita values for the given variable observations using the
+ * closest population observation by date to the passed in population
+ * observations.
  *
  * Both `num` and `denom` series are sorted ascending by date.
  *
- * @param num Sorted numerator observation series.
- * @param denom Sorted denominator time series.
- * @param scaling Scale denominator by dividing by this amount
+ * @param variableObservations Sorted numerator observation series.
+ * @param populationObservations Sorted population observation series.
+ * @param scaling Scale per capita value by dividing by this amount
  *
- * @returns A list of Observations with the per capita calculation applied to its values.
+ * @returns A list of population observations along with calculated per capita
+ *          values
  */
-export function computeRatio(
-  num: Observation[],
-  denom: Observation[],
+export function computePerCapitaRatio(
+  variableObservations: Observation[],
+  populationObservations: Observation[],
   scaling = 1
-): QuotientObservation[] {
-  if (_.isEmpty(denom)) {
+): PerCapitaObservation[] {
+  if (_.isEmpty(populationObservations)) {
     return [];
   }
-  const result: QuotientObservation[] = [];
+  const result: PerCapitaObservation[] = [];
   let j = 0; // denominator position
-  for (let i = 0; i < num.length; i++) {
-    const numDate = Date.parse(num[i].date);
-    const denomDate = Date.parse(denom[j].date);
+  for (let i = 0; i < variableObservations.length; i++) {
+    const numDate = Date.parse(variableObservations[i].date);
+    const denomDate = Date.parse(populationObservations[j].date);
     // Walk through the denom array to find entry with the closest date
-    while (j < denom.length - 1 && numDate > denomDate) {
-      const denomDateNext = Date.parse(denom[j + 1].date);
+    while (j < populationObservations.length - 1 && numDate > denomDate) {
+      const denomDateNext = Date.parse(populationObservations[j + 1].date);
       const nextBetter =
         Math.abs(denomDateNext - numDate) < Math.abs(denomDate - numDate);
       if (nextBetter) {
@@ -156,14 +157,17 @@ export function computeRatio(
       }
     }
     let quotientValue: number;
-    if (denom[j].value == 0) {
+    if (populationObservations[j].value == 0) {
       quotientValue = 0;
     } else {
-      quotientValue = num[i].value / denom[j].value / scaling;
+      quotientValue =
+        variableObservations[i].value /
+        populationObservations[j].value /
+        scaling;
     }
     result.push({
-      ...denom[j],
-      quotientValue,
+      ...populationObservations[j],
+      perCapitaValue: quotientValue,
     });
   }
   return result;
@@ -234,11 +238,13 @@ export function flattenNestedObject(
  *
  * @param dataRows Data rows
  * @param fieldDelimiter Delimiter for flattening nested data row items
+ * @param transformHeader Optional callback for transforming header text
  * @returns CSV string
  */
 export function dataRowsToCsv(
   dataRows: DataRow[] | EntityGroupedDataRow[],
-  fieldDelimiter: string = DEFAULT_FIELD_DELIMITER
+  fieldDelimiter: string = DEFAULT_FIELD_DELIMITER,
+  transformHeader?: (columnHeader: string) => string
 ) {
   if (dataRows.length === 0) {
     return "";
@@ -257,7 +263,10 @@ export function dataRowsToCsv(
   const rows = flattenedDataRows.map((flattenedDataRow) =>
     header.map((column) => flattenedDataRow[column])
   );
-  const csvRows = [header, ...rows];
+  const transformedHeader = transformHeader
+    ? header.map(transformHeader)
+    : header;
+  const csvRows = [transformedHeader, ...rows];
   const csvLines = csvRows.map(encodeCsvRow);
   return csvLines.join("\n");
 }

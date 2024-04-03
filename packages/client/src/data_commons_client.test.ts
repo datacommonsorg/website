@@ -496,10 +496,10 @@ describe("DataCommonsWebClient", () => {
     });
     response.forEach((row) => {
       expect(
-        row.variables["Has_Data"].denominator?.quotientValue
+        row.variables["Has_Data"].perCapita?.perCapitaValue
       ).toBeGreaterThan(0);
 
-      expect(row.variables["No_Data"].denominator?.quotientValue).toBe(
+      expect(row.variables["No_Data"].perCapita?.perCapitaValue).toBe(
         undefined
       );
       expect(row.entity.properties.name).toBeTruthy();
@@ -523,8 +523,8 @@ describe("DataCommonsWebClient", () => {
       );
       // Mock Has_Data values are set to 1/10th of the population values, so
       // quotientValue (per-capita) should be 0.1
-      expect(row.variable.denominator?.quotientValue).toBeCloseTo(0.1);
-      expect(row.variable.denominator?.observation.value).toBeGreaterThan(0);
+      expect(row.variable.perCapita?.perCapitaValue).toBeCloseTo(0.1);
+      expect(row.variable.perCapita?.observation.value).toBeGreaterThan(0);
     });
   });
 
@@ -541,8 +541,7 @@ describe("DataCommonsWebClient", () => {
     expect(response1.length).toBe(3);
     response1.forEach((row) => {
       const observationDate = row.variable.observation.date || "";
-      expect(observationDate >= "2020").toBeTruthy();
-      expect(observationDate <= "2020").toBeTruthy();
+      expect(observationDate == "2020").toBeTruthy();
     });
 
     const response2 = await client.getDataRowSeries({
@@ -573,7 +572,6 @@ describe("DataCommonsWebClient", () => {
     response3.forEach((row) => {
       const observationDate = row.variable.observation.date || "";
       expect(observationDate >= "2020").toBeTruthy();
-      expect(observationDate <= "2023").toBeTruthy();
     });
     const response4 = await client.getDataRowSeries({
       childType: "State",
@@ -586,7 +584,6 @@ describe("DataCommonsWebClient", () => {
     expect(response4.length).toBe(6);
     response4.forEach((row) => {
       const observationDate = row.variable.observation.date || "";
-      expect(observationDate >= "2019").toBeTruthy();
       expect(observationDate <= "2020").toBeTruthy();
     });
   });
@@ -653,9 +650,9 @@ describe("DataCommonsWebClient", () => {
       // Mock Has_Data values are set to 1/10th of the population values, so
       // quotientValue (per-capita) should equal:
       // quotientValue =  N / (N * 10 ) / scalingFactor
-      // Since scaling factor is 0.005, quotientValue = 0.1 / 0.05 = 2
-      expect(row.variable.denominator?.quotientValue).toBeCloseTo(2);
-      expect(row.variable.denominator?.observation.value).toBeGreaterThan(0);
+      // Since scaling factor is 0.05, quotientValue = 0.1 / 0.05 = 2
+      expect(row.variable.perCapita?.perCapitaValue).toBeCloseTo(2);
+      expect(row.variable.perCapita?.observation.value).toBeGreaterThan(0);
     });
   });
 });

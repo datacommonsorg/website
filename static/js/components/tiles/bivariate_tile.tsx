@@ -28,6 +28,7 @@ import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
 import { Point } from "../../chart/draw_scatter";
 import { GeoJsonData } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -45,12 +46,14 @@ import { datacommonsClient } from "../../utils/datacommons_client";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
+  getFirstStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
-  ReplacementStrings,
   showError,
+  transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -126,19 +129,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       replacementStrings={rs}
       className={`${props.className} bivariate-chart`}
       allowEmbed={true}
-      getDataCsv={() => {
-        // Assume all variables will have the same date
-        const date =
-          props.statVarSpec.length > 0 ? props.statVarSpec[0].date : undefined;
-        const denoms = props.statVarSpec.map((v) => (v.denom ? v.statVar : ""));
-        return datacommonsClient.getCsv({
-          childType: props.enclosedPlaceType,
-          date,
-          parentEntity: props.place.dcid,
-          perCapitaVariables: _.uniq(denoms),
-          variables: props.statVarSpec.map((v) => v.statVar),
-        });
-      }}
+      getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(bivariateChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={bivariateChartData && !!bivariateChartData.errorMsg}
@@ -152,6 +143,32 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       <div id="bivariate-legend-container" ref={legend} />
     </ChartTileContainer>
   );
+}
+
+/**
+ * Returns callback for fetching chart CSV data
+ * @param props Chart properties
+ * @returns Async function for fetching chart CSV
+ */
+function getDataCsvCallback(
+  props: BivariateTilePropType
+): () => Promise<string> {
+  return () => {
+    // Assume all variables will have the same date
+    const date = getFirstStatVarSpecDate(props.statVarSpec);
+    const perCapitaVariables = props.statVarSpec
+      .filter((v) => v.denom)
+      .map((v) => v.statVar);
+    return datacommonsClient.getCsv({
+      childType: props.enclosedPlaceType,
+      date,
+      fieldDelimiter: CSV_FIELD_DELIMITER,
+      parentEntity: props.place.dcid,
+      perCapitaVariables: perCapitaVariables,
+      transformHeader: transformCsvHeader,
+      variables: props.statVarSpec.map((v) => v.statVar),
+    });
+  };
 }
 
 function getPopulationPromise(

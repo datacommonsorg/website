@@ -34,6 +34,7 @@ import {
 import { drawLegendSvg, getTooltipHtmlFn } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import {
@@ -72,6 +73,7 @@ import {
   getStatVarNames,
   ReplacementStrings,
   showError,
+  transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { ContainedInPlaceSingleVariableDataSpec } from "./tile_types";
@@ -259,14 +261,16 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
           : undefined;
         return datacommonsClient.getCsv({
-          parentEntity: props.place.dcid,
           childType: props.enclosedPlaceType,
-          variables: [props.statVarSpec.statVar],
+          date: props.statVarSpec.date,
+          entityProps,
+          fieldDelimiter: CSV_FIELD_DELIMITER,
+          parentEntity: props.place.dcid,
           perCapitaVariables: props.statVarSpec.denom
             ? [props.statVarSpec.statVar]
             : undefined,
-          entityProps,
-          date: props.statVarSpec.date,
+          transformHeader: transformCsvHeader,
+          variables: [props.statVarSpec.statVar],
         });
       }}
       isInitialLoading={_.isNull(mapChartData)}

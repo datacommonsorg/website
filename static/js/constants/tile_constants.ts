@@ -22,3 +22,5 @@
 export const SVG_CHART_HEIGHT = 200;
 // CSS class for initial loading treatment
 export const INITIAL_LOADING_CLASS = "initial-loading-placeholder";
+// CSV column field delimiter when exporting data
+export const CSV_FIELD_DELIMITER = " ";

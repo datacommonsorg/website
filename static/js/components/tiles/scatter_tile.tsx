@@ -32,6 +32,7 @@ import {
 } from "../../chart/draw_scatter";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
@@ -55,6 +56,7 @@ import {
   getStatVarNames,
   ReplacementStrings,
   showError,
+  transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -156,29 +158,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       replacementStrings={getReplacementStrings(props, scatterChartData)}
       className={`${props.className} scatter-chart`}
       allowEmbed={true}
-      getDataCsv={() => {
-        // Assume both variables will have the same date
-        const date =
-          props.statVarSpec.length > 0 ? props.statVarSpec[0].date : undefined;
-        const denoms = [
-          scatterChartData.xStatVar,
-          scatterChartData.yStatVar,
-        ].map((v) => (v.denom ? v.statVar : ""));
-        const entityProps = props.placeNameProp
-          ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
-          : undefined;
-        return datacommonsClient.getCsv({
-          childType: props.enclosedPlaceType,
-          date,
-          entityProps,
-          parentEntity: props.place.dcid,
-          perCapitaVariables: _.uniq(denoms),
-          variables: [
-            scatterChartData.xStatVar.statVar,
-            scatterChartData.yStatVar.statVar,
-          ],
-        });
-      }}
+      getDataCsv={getDataCsvCallback(props, scatterChartData)}
       isInitialLoading={_.isNull(scatterChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={scatterChartData && !!scatterChartData.errorMsg}
@@ -224,6 +204,42 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
     ];
     return _.isEqual(oldDataProps, newDataProps);
   }
+}
+
+/**
+ * Returns callback for fetching chart CSV data
+ * @param props Chart properties
+ * @returns Async function for fetching chart CSV
+ */
+function getDataCsvCallback(
+  props: ScatterTilePropType,
+  scatterChartData: ScatterChartData
+): () => Promise<string> {
+  return () => {
+    // Assume both variables will have the same date
+    const date =
+      props.statVarSpec.length > 0 ? props.statVarSpec[0].date : undefined;
+    const perCapitaVariables = [
+      scatterChartData.xStatVar,
+      scatterChartData.yStatVar,
+    ].map((v) => (v.denom ? v.statVar : ""));
+    const entityProps = props.placeNameProp
+      ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
+      : undefined;
+    return datacommonsClient.getCsv({
+      childType: props.enclosedPlaceType,
+      date,
+      entityProps,
+      fieldDelimiter: CSV_FIELD_DELIMITER,
+      parentEntity: props.place.dcid,
+      perCapitaVariables: _.uniq(perCapitaVariables),
+      transformHeader: transformCsvHeader,
+      variables: [
+        scatterChartData.xStatVar.statVar,
+        scatterChartData.yStatVar.statVar,
+      ],
+    });
+  };
 }
 
 // Get the ReplacementStrings object used for formatting the title

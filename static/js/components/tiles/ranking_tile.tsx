@@ -22,7 +22,10 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
-import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
+import {
+  CSV_FIELD_DELIMITER,
+  INITIAL_LOADING_CLASS,
+} from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
@@ -45,6 +48,7 @@ import {
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
+  transformCsvHeader,
 } from "../../utils/tile_utils";
 import { SvRankingUnits } from "./sv_ranking_units";
 import { ContainedInPlaceMultiVariableTileProp } from "./tile_types";
@@ -105,12 +109,16 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     embedModalElement.current.show(
       "",
       () => {
-        const denoms = props.variables.map((v) => (v.denom ? v.statVar : ""));
+        const perCapitaVariables = props.variables
+          .filter((v) => v.denom)
+          .map((v) => v.statVar);
         return datacommonsClient.getCsv({
-          parentEntity: props.parentPlace,
           childType: props.enclosedPlaceType,
+          fieldDelimiter: CSV_FIELD_DELIMITER,
+          parentEntity: props.parentPlace,
+          perCapitaVariables: perCapitaVariables,
+          transformHeader: transformCsvHeader,
           variables: props.variables.map((v) => v.statVar),
-          perCapitaVariables: _.uniq(denoms),
         });
       },
       chartWidth,

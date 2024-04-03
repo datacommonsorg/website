@@ -44,20 +44,20 @@ To find the DCID of a entity or variable:
 
 `@datacommonsorg/client`'s `DataCommonsClient` request parameters:
 
-| Parameter           | Type     | Description                                                                                                                                  |
-| ------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| entities            | string[] | Entity DCIDs. Required if `parentEntity` and `childType` are empty. Example: `["country/USA", "country/IND"]`                                |
-| parentEntity        | string   | Parent entity DCID. Required if `entities` is empty.                                                                                         |
-| childType           | string   | Child entity type. Required if `entities` is empty. Example: `"State"`                                                                       |
-| date?               | string   | \[optional\] [getDataRow, getCsv, and getGeoJSON only] Only return observations from this date. Example: `"2023"`                            |
-| startDate?          | string   | \[optional\] [getDataRowSeries and getCsvSeries only] Only return observations equal to or after this date. Example: `"2015"`                |
-| endDate?            | string   | \[optional\] [getDataRowSeries and getCsvSeries only] Only return observations equal to or before this date. Example: `"2020"`               |
-| entityProps?        | string[] | \[optional\] Fetch these entity properties from the knowledge graph. Default: `["name", "isoCode"]`                                          |
-| variableProps?      | string[] | \[optional\] Fetch these variable properties from the knowledge graph. Default: `["name"]`                                                   |
-| perCapitaVariables? | string[] | \[optional\] Performs per-capita caluclation for all of these variables Must be a subset of `variables` param.                               |
-| geoJsonProperty?    | string   | \[optional\] [getGeoJSON only] GeoJSON property name in the knowledge graph. Inferred if not provided.                                       |
-| rewind?             | boolean  | \[optional\] [getGeoJSON only] If true, returns "rewound" geometries that are opposite of the right-hand rule. Default: `true`.              |
-| fieldDelimiter?     | string   | \[optional\] Delimiter for column header fields. Example, if fieldDelimiter = ".", entity value header will be "entity.value". Default: `.`. |
+| Parameter           | Type     | Description                                                                                                                                                                                                             |
+| ------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| entities            | string[] | Entity DCIDs. Required if `parentEntity` and `childType` are empty. Example: `["country/USA", "country/IND"]`                                                                                                           |
+| parentEntity        | string   | Parent entity DCID. Required if `entities` is empty.                                                                                                                                                                    |
+| childType           | string   | Child entity type. Required if `entities` is empty. Example: `"State"`                                                                                                                                                  |
+| date?               | string   | \[optional\] [getDataRow, getCsv, and getGeoJSON only] Only return observations from exactly this date. Example: `"2023"` would return return observations from `2023` but not `2022`, `2024` or dates like `2023-06-1` |
+| startDate?          | string   | \[optional\] [getDataRowSeries and getCsvSeries only] Only return observations equal to or after this date. Example: `"2015"`                                                                                           |
+| endDate?            | string   | \[optional\] [getDataRowSeries and getCsvSeries only] Only return observations equal to or before this date. Example: `"2020"`                                                                                          |
+| entityProps?        | string[] | \[optional\] Fetch these entity properties from the knowledge graph. Default: `["name", "isoCode"]`                                                                                                                     |
+| variableProps?      | string[] | \[optional\] Fetch these variable properties from the knowledge graph. Default: `["name"]`                                                                                                                              |
+| perCapitaVariables? | string[] | \[optional\] Performs per-capita caluclation for all of these variables Must be a subset of `variables` param.                                                                                                          |
+| geoJsonProperty?    | string   | \[optional\] [getGeoJSON only] GeoJSON property name in the knowledge graph. Inferred if not provided.                                                                                                                  |
+| rewind?             | boolean  | \[optional\] [getGeoJSON only] If true, returns "rewound" geometries that are opposite of the right-hand rule. Default: `true`.                                                                                         |
+| fieldDelimiter?     | string   | \[optional\] Delimiter for column header fields. Example, if fieldDelimiter = ".", entity value header will be "entity.value". Default: `.`.                                                                            |
 
 For example, to fetch the median household income for all states in the US:
 
@@ -143,7 +143,7 @@ const response = await client.getCsv({
 ```
 
 ```
-"entity.dcid","entity.properties.isoCode","entity.properties.name","variable.dcid","variable.denominator.dcid","variable.denominator.observation.date","variable.denominator.observation.value","variable.denominator.properties.name","variable.denominator.quotientValue","variable.observation.date","variable.observation.value","variable.properties.name"
+"entity.dcid","entity.properties.isoCode","entity.properties.name","variable.dcid","variable.perCapita.dcid","variable.perCapita.observation.date","variable.perCapita.observation.value","variable.perCapita.properties.name","variable.perCapita.perCapitaValue","variable.observation.date","variable.observation.value","variable.properties.name"
 "geoId/01","US-AL","Alabama","Count_Person_BelowPovertyLevelInThePast12Months","Count_Person","2022",5074296,"Total Population",0.15152781784901787,"2022",768897,"Population Below Poverty Level Status in Past Year"
 "geoId/02","US-AK","Alaska","Count_Person_BelowPovertyLevelInThePast12Months","Count_Person","2022",733583,"Total Population",0.10254736001243213,"2022",75227,"Population Below Poverty Level Status in Past Year"
 "geoId/04","US-AZ","Arizona","Count_Person_BelowPovertyLevelInThePast12Months","Count_Person","2022",7359197,"Total Population",0.12458913655932842,"2022",916876,"Population Below Poverty Level Status in Past Year"
@@ -210,7 +210,7 @@ const response = await client.getCsvSeries({
 ```
 
 ```text
-"entity.dcid","entity.properties.name","variable.dcid","variable.denominator.dcid","variable.denominator.observation.date","variable.denominator.observation.value","variable.denominator.properties.name","variable.denominator.quotientValue","variable.observation.date","variable.observation.value","variable.properties.name"
+"entity.dcid","entity.properties.name","variable.dcid","variable.perCapita.dcid","variable.perCapita.observation.date","variable.perCapita.observation.value","variable.perCapita.properties.name","variable.perCapita.perCapitaValue","variable.observation.date","variable.observation.value","variable.properties.name"
 "geoId/0627000","Fresno","Count_CriminalActivities_CombinedCrime","Count_Person","2022",545567,"Total Population",0.04593752921272731,"2008",25062,"Criminal Activities"
 "geoId/0627000","Fresno","Count_CriminalActivities_CombinedCrime","Count_Person","2022",545567,"Total Population",0.044207219278292124,"2009",24118,"Criminal Activities"
 "geoId/0627000","Fresno","Count_CriminalActivities_CombinedCrime","Count_Person","2022",545567,"Total Population",0.05066472128996072,"2010",27641,"Criminal Activities"
@@ -274,7 +274,7 @@ const response = await client.getDataRows({
           "unitDisplayName": null
         }
       },
-      "denominator": {
+      "perCapita": {
         "dcid": "Count_Person",
         "properties": {
           "name": "Total Population"
@@ -284,7 +284,7 @@ const response = await client.getDataRows({
           "value": 5074296,
           "metadata": {}
         },
-        "quotientValue": 0.15152781784901787
+        "perCapitaValue": 0.15152781784901787
       }
     }
   },
@@ -309,7 +309,7 @@ const response = await client.getDataRows({
           "unitDisplayName": null
         }
       },
-      "denominator": {
+      "perCapita": {
         "dcid": "Count_Person",
         "properties": {
           "name": "Total Population"
@@ -319,7 +319,7 @@ const response = await client.getDataRows({
           "value": 733583,
           "metadata": {}
         },
-        "quotientValue": 0.10254736001243213
+        "perCapitaValue": 0.10254736001243213
       }
     }
   },
@@ -344,7 +344,7 @@ const response = await client.getDataRows({
           "unitDisplayName": null
         }
       },
-      "denominator": {
+      "perCapita": {
         "dcid": "Count_Person",
         "properties": {
           "name": "Total Population"
@@ -354,7 +354,7 @@ const response = await client.getDataRows({
           "value": 7359197,
           "metadata": {}
         },
-        "quotientValue": 0.12458913655932842
+        "perCapitaValue": 0.12458913655932842
       }
     }
   },

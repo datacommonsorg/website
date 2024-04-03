@@ -28,5 +28,5 @@ export const DEFAULT_ENTITY_PROPS = [NAME_ATTRIBUTE, ISO_CODE_ATTRIBUTE];
 export const DEFAULT_VARIABLE_PROPS = [NAME_ATTRIBUTE];
 // GeoJSON is stored in this property name by default
 export const DEFAULT_GEOJSON_PROPERTY_NAME = "geoJsonCoordinatesDP1";
-// Delimit fields
+// Default csv header field delimiter
 export const DEFAULT_FIELD_DELIMITER = ".";

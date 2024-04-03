@@ -26,12 +26,12 @@ import { drawLineChart } from "../chart/draw_line";
 import { generateLegendSvg, getColorScale } from "../chart/draw_map_utils";
 import {
   ChartBlockData,
-  chartTypeEnum,
   ChoroplethDataGroup,
   GeoJsonData,
   GeoJsonFeatureProperties,
   SnapshotData,
   TrendData,
+  chartTypeEnum,
 } from "../chart/types";
 import { RankingUnit } from "../components/ranking_unit";
 import { MapLayerData } from "../components/tiles/map_tile";
@@ -40,10 +40,11 @@ import {
   ASYNC_ELEMENT_CLASS,
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../constants/css_constants";
+import { CSV_FIELD_DELIMITER } from "../constants/tile_constants";
 import {
+  LocalizedLink,
   formatNumber,
   intl,
-  LocalizedLink,
   localizeSearchParams,
 } from "../i18n/i18n";
 import {
@@ -59,6 +60,7 @@ import { NamedPlace } from "../shared/types";
 import { isDateTooFar, urlToDisplayText } from "../shared/util";
 import { RankingGroup, RankingPoint } from "../types/ranking_unit_types";
 import { datacommonsClient } from "../utils/datacommons_client";
+import { transformCsvHeader } from "../utils/tile_utils";
 import { ChartEmbed } from "./chart_embed";
 import { getChoroplethData, getGeoJsonData } from "./fetch";
 import { updatePageLayoutState } from "./place";
@@ -432,14 +434,18 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           // For line charts, return CSV series data
           return datacommonsClient.getCsvSeries({
             entities,
+            fieldDelimiter: CSV_FIELD_DELIMITER,
+            transformHeader: transformCsvHeader,
             variables: this.props.statsVars,
           });
         } else if (this.props.parentPlaceDcid && this.props.enclosedPlaceType) {
           // Ranking & map charts set parentPlaceDcid and rankingPlaceType
           // Return csv results associated with this parent/child combination
           return datacommonsClient.getCsv({
-            parentEntity: this.props.parentPlaceDcid,
             childType: this.props.enclosedPlaceType,
+            fieldDelimiter: CSV_FIELD_DELIMITER,
+            parentEntity: this.props.parentPlaceDcid,
+            transformHeader: transformCsvHeader,
             variables: this.props.statsVars,
           });
         }
@@ -447,6 +453,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         // variables
         return datacommonsClient.getCsv({
           entities,
+          fieldDelimiter: CSV_FIELD_DELIMITER,
+          transformHeader: transformCsvHeader,
           variables: this.props.statsVars,
         });
       },

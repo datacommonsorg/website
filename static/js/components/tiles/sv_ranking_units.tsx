@@ -28,7 +28,7 @@ import {
 } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { getHash } from "../../utils/app/visualization_utils";
-import { formatString, TileSources } from "../../utils/tile_utils";
+import { TileSources, formatString } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
@@ -96,7 +96,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       props.sources || Array.from(rankingGroup.sources)
     );
   }
-  const chartTitle = getDownloadFilename(title, rankingGroup);
+  const chartTitle = getChartTitle(title, rankingGroup);
   return (
     <React.Fragment>
       {rankingMetadata.showHighestLowest || props.errorMsg ? (
@@ -226,10 +226,14 @@ export function getRankingUnitTitle(
   return formatString(title, rs);
 }
 
-function getDownloadFilename(
-  tileConfigTitle: string,
-  rankingGroup: RankingGroup
-) {
+/**
+ * Returns title of overall chart
+ *
+ * @param tileConfigTitle Title from tile with format strings.
+ * @param rankingGroup Chart ranking group
+ * @returns formatted title
+ */
+function getChartTitle(tileConfigTitle: string, rankingGroup: RankingGroup) {
   const rs = {
     date: rankingGroup.dateRange,
     placeName: "",

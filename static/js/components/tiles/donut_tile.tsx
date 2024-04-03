@@ -23,6 +23,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawDonutChart } from "../../chart/draw_donut";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
@@ -31,12 +32,14 @@ import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
+  getFirstStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
+  transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -114,18 +117,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       replacementStrings={getReplacementStrings(props, donutChartData)}
       className={`${props.className} bar-chart`}
       allowEmbed={true}
-      getDataCsv={() => {
-        // Assume all variables will have the same date
-        const date =
-          props.statVarSpec.length > 0 ? props.statVarSpec[0].date : undefined;
-        const denoms = props.statVarSpec.map((v) => (v.denom ? v.statVar : ""));
-        return datacommonsClient.getCsv({
-          date,
-          entities: [props.place.dcid],
-          perCapitaVariables: _.uniq(denoms),
-          variables: props.statVarSpec.map((v) => v.statVar),
-        });
-      }}
+      getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(donutChartData)}
       hasErrorMsg={donutChartData && !!donutChartData.errorMsg}
       footnote={props.footnote}
@@ -140,6 +132,29 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
   );
 }
 
+/**
+ * Returns callback for fetching chart CSV data
+ * @param props Chart properties
+ * @returns Async function for fetching chart CSV
+ */
+function getDataCsvCallback(props: DonutTilePropType): () => Promise<string> {
+  return () => {
+    // Assume all variables will have the same date
+    const date = getFirstStatVarSpecDate(props.statVarSpec);
+    const perCapitaVariables = props.statVarSpec
+      .filter((v) => v.denom)
+      .map((v) => v.statVar);
+    return datacommonsClient.getCsv({
+      date,
+      entities: [props.place.dcid],
+      fieldDelimiter: CSV_FIELD_DELIMITER,
+      perCapitaVariables: perCapitaVariables,
+      transformHeader: transformCsvHeader,
+      variables: props.statVarSpec.map((v) => v.statVar),
+    });
+  };
+}
+
 // Get the ReplacementStrings object used for formatting the title
 export function getReplacementStrings(
   props: DonutTilePropType,
@@ -152,6 +167,8 @@ export function getReplacementStrings(
 }
 
 export const fetchData = async (props: DonutTilePropType) => {
+  // Assume all variables will have the same date
+  const date = getFirstStatVarSpecDate(props.statVarSpec);
   const statSvs = props.statVarSpec
     .map((spec) => spec.statVar)
     .filter((sv) => !!sv);
@@ -163,7 +180,7 @@ export const fetchData = async (props: DonutTilePropType) => {
       props.apiRoot,
       [props.place.dcid],
       [statSvs, FILTER_STAT_VAR].flat(1),
-      "",
+      date,
       [statSvs]
     );
     const denomResp = _.isEmpty(denomSvs)

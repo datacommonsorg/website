@@ -21,19 +21,19 @@ import { Observation, StatMetadata } from "./data_commons_web_client_types";
  */
 
 /**
- * Denominator observation with calculated quotient value. Used for storing
- * per-capita derived values along side the original population observation.
- * "date' and "value" fields from the parent Observation interface will be set
- * to the original observation dates and values, and quotientValue is the
- * derived (per-capita) value.
+ * Observation with calculated per capita quotient value. Stores derived per
+ * capita values along side the original population observation. "date' and
+ * "value" fields from the parent Observation interface will be set to the
+ * original observation dates and values, and quotientValue is the derived
+ * (per-capita) value.
  *
  * TODO(dwnoble): Revisit how this interface is structured to be more intuitive.
  * Maybe: calculate quotient value on the fly and only store the population
  * observation here.
  */
-export interface QuotientObservation extends Observation {
-  /** Derived quotient value */
-  quotientValue: number;
+export interface PerCapitaObservation extends Observation {
+  /** Derived per capita quotient value */
+  perCapitaValue: number;
 }
 
 export interface BaseGetDataRowsVariableParams {
@@ -84,16 +84,31 @@ export type BaseGetDataRowsParams =
   | BaseGetDataRowsParamsWithin
   | BaseGetDataRowsParamsEntities;
 
+export type BaseGetCsvParams = {
+  // Optional callback to transform and format a column header
+  transformHeader?: (columnHeader: string) => string;
+};
+
 /**
- * Parameters for data commons client getDataRow and getCsv methods
+ * Parameters for data commons client getDataRow method
  */
 export type GetDataRowsParams = BaseGetDataRowsParams & DataRowsDateFilter;
 
 /**
- * Parameters for etDataRowSeries and getCsvSeries methods
+ * Parameters for data commons client getCsv method
+ */
+export type GetCsvParams = GetDataRowsParams & BaseGetCsvParams;
+
+/**
+ * Parameters for getDataRowSeries method
  */
 export type GetDataRowSeriesParams = BaseGetDataRowsParams &
   DataRowsDateRangeFilter;
+
+/**
+ * Parameters for getCsvSeries method
+ */
+export type GetCsvSeriesParams = GetDataRowSeriesParams & BaseGetCsvParams;
 
 export type GetGeoJSONParams = BaseGetDataRowsParams & {
   /** GeoJSON property name in the knowledge graph. Inferred if not provided. */
@@ -123,25 +138,25 @@ export type DataRowNodeProperties = {
 };
 
 /**
- * Data row helper interface for storing a denominator observation and
+ * Data row helper interface for storing a per capita observation and
  * derived quotient value
  */
-export type DataRowDenominator = {
+export type DataRowPerCapitaVariable = {
   dcid: string;
   properties: DataRowNodeProperties;
   observation: DataRowObservation;
-  quotientValue: number | null;
+  perCapitaValue: number | null;
 };
 
 /**
- * Data row helper interface for storing variable, observation, and denominator
+ * Data row helper interface for storing variable, observation, and per capita
  * values
  */
 export type DataRowVariable = {
   dcid: string;
   properties: DataRowNodeProperties;
   observation: DataRowObservation;
-  denominator?: DataRowDenominator;
+  perCapita?: DataRowPerCapitaVariable;
 };
 
 /**

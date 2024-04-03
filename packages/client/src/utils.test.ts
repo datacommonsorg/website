@@ -15,7 +15,11 @@
  */
 
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
-import { computeRatio, encodeCsvRow, flattenNestedObject } from "./utils";
+import {
+  computePerCapitaRatio,
+  encodeCsvRow,
+  flattenNestedObject,
+} from "./utils";
 
 describe("Utility methods", () => {
   beforeEach(() => {
@@ -59,11 +63,11 @@ describe("Utility methods", () => {
 
   test("computeRatio base cases", async () => {
     // Empty num & denom should return empty result
-    const emptyResult1 = computeRatio([], []);
+    const emptyResult1 = computePerCapitaRatio([], []);
     expect(emptyResult1.length).toBe(0);
 
     // Empty num and non-empty denom should return empty result
-    const emptyResult2 = computeRatio([], sampleDenom);
+    const emptyResult2 = computePerCapitaRatio([], sampleDenom);
     expect(emptyResult2.length).toBe(0);
 
     const sampleNum = [
@@ -78,12 +82,12 @@ describe("Utility methods", () => {
     ];
 
     // Non-empty num & empty denom should return empty result
-    const result3 = computeRatio(sampleNum, []);
+    const result3 = computePerCapitaRatio(sampleNum, []);
     expect(result3.length).toBe(0);
   });
 
   test("computeRatio finds closest dates", async () => {
-    const result1 = computeRatio(
+    const result1 = computePerCapitaRatio(
       [
         {
           date: "1900", // closest to 2010
@@ -114,12 +118,12 @@ describe("Utility methods", () => {
     );
     expect(result1.length).toBe(6);
     result1.forEach((item) => {
-      expect(item.quotientValue).toBeCloseTo(1);
+      expect(item.perCapitaValue).toBeCloseTo(1);
     });
   });
 
   test("computeRatio scaling factor correctly scales", async () => {
-    const result1 = computeRatio(
+    const result1 = computePerCapitaRatio(
       [
         {
           date: "1900", // closest to 2010
@@ -135,7 +139,7 @@ describe("Utility methods", () => {
     );
     expect(result1.length).toBe(2);
     result1.forEach((item) => {
-      expect(item.quotientValue).toBeCloseTo(10);
+      expect(item.perCapitaValue).toBeCloseTo(10);
     });
   });
 

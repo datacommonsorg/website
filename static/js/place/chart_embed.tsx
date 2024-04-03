@@ -122,6 +122,8 @@ class ChartEmbed extends React.Component<
       chartHtml,
       chartTitle,
       chartDate,
+      // Clear cached dataCSV to force CSV to refresh
+      dataCsv: "",
       getDataCsv,
       modal: true,
       sources,
