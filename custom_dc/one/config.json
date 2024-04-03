@@ -1,0 +1,73 @@
+{
+  "variables": {
+    "HivNewInfectionsPeople": {
+      "name": "New HIV infections",
+      "description": "Number of people newly infected with HIV/AIDS",
+      "group": "ONE/Health/HIV AIDS/New infections (number of people)",
+      "typeOf": "StatisticalVariable",
+      "properties": {
+        "populationType": "Person",
+        "measuredProperty": "value",
+        "statType": "measuredValue"
+      },
+      "nlSentences": [
+        "New HIV infections is defined as the number of people who have been newly infected with HIV (human immunodeficiency virus) in a given year."
+      ]
+    },
+    "HivNewInfectionsMalePeople": {
+      "name": "New HIV infections - male",
+      "description": "New HIV infections for males in a given year (number of people)",
+      "group": "ONE/Health/HIV AIDS/New infections (number of people)/Gender",
+      "properties": {
+        "populationType": "Person",
+        "gender": "Male",
+        "measuredProperty": "value",
+        "statType": "measuredValue",
+        "memberOf": "HivNewInfectionsPeople"
+      },
+      "nlSentences": [
+        "New male HIV infections is defined as the number of men who have been newly infected with HIV (human immunodeficiency virus) in a given year.",
+        "Number of new (previously uninfected) men infected with HIV/AIDS."
+      ]
+    },
+    "HivNewInfectionsFemalePeople": {
+      "name": "New HIV infections - female",
+      "description": "New HIV infections - female (number of people)",
+      "typeOf": "StatisticalVariable",
+      "group": "ONE/Health/HIV AIDS/New infections (number of people)/Gender",
+      "properties": {
+        "gender": "Female",
+        "populationType": "Person",
+        "measuredProperty": "value",
+        "statType": "measuredValue",
+        "memberOf": "HivNewInfectionsPeople"
+      },
+      "nlSentences": [
+        "New female HIV infections is defined as the number of women who have been newly infected with HIV (human immunodeficiency virus) in a given year.",
+        "Number of new (previously uninfected) women infected with HIV/AIDS."
+      ]
+    }
+  },
+  "inputFiles": {
+    "HivNewInfectionsFemalePeople.csv": {
+      "entityType": "Country",
+      "provenance": "ONE Data"
+    },
+    "HivNewInfectionsMalePeople.csv": {
+      "entityType": "Country",
+      "provenance": "ONE Data"
+    },
+    "HivNewInfectionsPeople.csv": {
+      "entityType": "Country",
+      "provenance": "ONE Data"
+    }
+  },
+  "sources": {
+    "datacommons.one.org": {
+      "url": "https://datacommons.one.org",
+      "provenances": {
+        "ONE Data": "https://data.one.org/"
+      }
+    }
+  }
+}
