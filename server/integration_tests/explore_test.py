@@ -131,7 +131,9 @@ class ExploreTest(NLWebServerTestCase):
               "places_resolved": dbg["places_resolved"],
               "main_place_dcid": dbg["main_place_dcid"],
               "main_place_name": dbg["main_place_name"],
+              "entities_detected": dbg["entities_detected"],
               "entities_resolved": dbg["entities_resolved"],
+              "query_with_places_removed": dbg["query_with_places_removed"],
               "sv_matching": {
                   "SV": dbg["sv_matching"]["SV"]
               },
@@ -214,6 +216,7 @@ class ExploreTest(NLWebServerTestCase):
   def test_detection_bio(self):
     self.run_detection('detection_api_bio', [
         'What is the phylum of volvox?',
+        'What types of genes are FGFR1, APOE, and ACHE?',
     ],
                        dc='bio',
                        check_detection=True)
@@ -569,7 +572,9 @@ class ExploreTest(NLWebServerTestCase):
             'What type of gene is it',
             # Should have 'in' properties as answer
             'What is Betacoronavirus 1 the species of',
-            # Should have both 'in' and 'out' properties in the answer
-            'What is Diltiazem a mesh descriptor for'
+            # Should have a chained property in the answer
+            'What genes are associated with the genetic variant rs13317?',
+            # Should return a table in the answer
+            'What genes are associated with the genetic variant rs13317 and rs7903146?'
         ],
         dc='bio')

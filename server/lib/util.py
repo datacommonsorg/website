@@ -21,7 +21,7 @@ import json
 import logging
 import os
 import time
-from typing import List, Set
+from typing import Dict, List, Set
 import urllib
 
 from flask import make_response
@@ -346,6 +346,16 @@ def get_nl_chart_titles():
     with open(filepath, 'r') as f:
       chart_titles.update(json.load(f))
   return chart_titles
+
+
+# Returns display titles for properties used in NL as a dict of property dcid
+# to a dict with different strings to use including displayName and titleFormat
+# TODO: need to validate that every titleFormat has entity in it
+def get_nl_prop_titles() -> Dict[str, Dict[str, str]]:
+  filepath = os.path.join(get_repo_root(), "config", "nl_page",
+                          "prop_titles.json")
+  with open(filepath, 'r') as f:
+    return json.load(f)
 
 
 # Returns a set of SVs that should not have Per-capita.

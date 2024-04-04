@@ -11,22 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Main entry module for NL app."""
 
-import sys
+import urllib.request
 
-import logging
+url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
 
-from nl_server.__init__ import create_app
 
-app = create_app()
-
-if __name__ == '__main__':
-  # This is used when running locally only. When deploying to GKE,
-  # a webserver process such as Gunicorn will serve the app.
-  logging.info("Run nl server in local mode")
-
-  if len(sys.argv) == 3 and sys.argv[2] == 'opt':
-    app.run(host='127.0.0.1', port=int(sys.argv[1]))
-  else:
-    app.run(host='127.0.0.1', port=int(sys.argv[1]), debug=True)
+def in_google_network():
+  '''Check whether the instance runs in GCP. Cache this call if it's called
+  multiple times.
+  '''
+  try:
+    req = urllib.request.Request(url, headers={"Metadata-Flavor": "Google"})
+    resp = urllib.request.urlopen(req)
+    resp.read().decode()
+    return True
+  except Exception as e:
+    # Do not use logging here otherwise logging.baseConfig won't have effect
+    print('Not in Google network: ', e)
+    return False

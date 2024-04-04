@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,21 +13,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
-import urllib.request
-
-url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
-
-
-def in_google_network():
-  '''Check whether the instance runs in GCP. Cache this call if it's called
-  multiple times.
-  '''
-  try:
-    req = urllib.request.Request(url, headers={"Metadata-Flavor": "Google"})
-    resp = urllib.request.urlopen(req)
-    resp.read().decode()
-    return True
-  except Exception as e:
-    logging.info('Not in Google network: ', e)
-    return False
+SCRIPT_PATH=`dirname $0`
+$SCRIPT_PATH/run.sh datcom-recon-autopush datacommons-us-central1-a us-central1-a us-central1
