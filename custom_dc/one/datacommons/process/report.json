@@ -1,22 +1,22 @@
 {
   "status": "SUCCESS",
-  "startTime": "2024-03-29 15:00:47.618597",
-  "lastUpdate": "2024-03-29 15:00:47.784767",
+  "startTime": "2024-04-04 08:14:00.909101",
+  "lastUpdate": "2024-04-04 08:14:01.123682",
   "importFiles": {
     "HivNewInfectionsFemalePeople.csv": {
       "status": "SUCCESS",
-      "startTime": "2024-03-29 15:00:47.626629",
-      "lastUpdate": "2024-03-29 15:00:47.705497"
+      "startTime": "2024-04-04 08:14:00.920164",
+      "lastUpdate": "2024-04-04 08:14:01.030160"
     },
     "HivNewInfectionsMalePeople.csv": {
       "status": "SUCCESS",
-      "startTime": "2024-03-29 15:00:47.710428",
-      "lastUpdate": "2024-03-29 15:00:47.741011"
+      "startTime": "2024-04-04 08:14:01.038274",
+      "lastUpdate": "2024-04-04 08:14:01.079884"
     },
     "HivNewInfectionsPeople.csv": {
       "status": "SUCCESS",
-      "startTime": "2024-03-29 15:00:47.743201",
-      "lastUpdate": "2024-03-29 15:00:47.772516"
+      "startTime": "2024-04-04 08:14:01.082351",
+      "lastUpdate": "2024-04-04 08:14:01.111965"
     }
   }
 }
