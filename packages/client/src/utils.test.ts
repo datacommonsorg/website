@@ -19,6 +19,7 @@ import {
   computePerCapitaRatio,
   encodeCsvRow,
   flattenNestedObject,
+  isDateInRange,
 } from "./utils";
 
 describe("Utility methods", () => {
@@ -169,5 +170,17 @@ describe("Utility methods", () => {
       "x.z.0.z1": 1,
       "x.z.0.z2": 2,
     });
+  });
+
+  test("isDateInRange returns correct values if date is in range", () => {
+    expect(isDateInRange("2024", undefined, undefined)).toBe(true);
+    expect(isDateInRange("2024", "2023", undefined)).toBe(true);
+    expect(isDateInRange("2024", "2024", undefined)).toBe(true);
+    expect(isDateInRange("2024", undefined, "2024")).toBe(true);
+    expect(isDateInRange("2024", undefined, "2025")).toBe(true);
+    // Test truncating observation date
+    expect(isDateInRange("2024-05-05", "2022", "2025")).toBe(true);
+    expect(isDateInRange("2024-05-05", "2022", "2024")).toBe(true);
+    expect(isDateInRange("2024-05-05", "2022", "2023")).toBe(false);
   });
 });

@@ -22,6 +22,7 @@ import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { isDateInRange } from "@datacommonsorg/client";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw_line";
@@ -392,16 +393,7 @@ function rawToChart(
       if (obsList.length > 0) {
         const dataPoints: DataPoint[] = [];
         for (const obs of obsList) {
-          if (
-            props.startDate &&
-            obs.date < props.startDate.substring(0, obs.date.length)
-          ) {
-            continue;
-          }
-          if (
-            props.endDate &&
-            obs.date.substring(0, props.endDate.length) > props.endDate
-          ) {
+          if (!isDateInRange(obs.date, props.startDate, props.endDate)) {
             continue;
           }
           dataPoints.push({

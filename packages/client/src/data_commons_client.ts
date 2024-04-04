@@ -57,6 +57,7 @@ import {
   computePerCapitaRatio,
   dataRowsToCsv,
   flattenNestedObject,
+  isDateInRange,
 } from "./utils";
 
 export interface DatacommonsClientParams {
@@ -402,13 +403,11 @@ class DataCommonsClient {
           if (!observationDate) {
             return false;
           }
-          if (params.startDate && params.startDate > observationDate) {
-            return false;
-          }
-          if (params.endDate && params.endDate < observationDate) {
-            return false;
-          }
-          return true;
+          return isDateInRange(
+            observationDate,
+            params.startDate,
+            params.endDate
+          );
         })
       );
     }

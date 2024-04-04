@@ -270,3 +270,46 @@ export function dataRowsToCsv(
   const csvLines = csvRows.map(encodeCsvRow);
   return csvLines.join("\n");
 }
+
+/**
+ * Returns true if an observation date falls between the specified startDate and
+ * endDate. Also returns true if no startDate or endDate are specified.
+ *
+ * Dates are specified as ISO-8601 (Example: "2023", "2023-01-01")
+ *
+ * Truncates observate date length to match the start and end date length for
+ * respective comparisons.
+ *
+ * Example:
+ *
+ * observationDate = "2024-05-6"
+ * startDate = "2023"
+ * endDate = "2024-05"
+ *
+ * Truncating the observationDate when comparing to startDate gives us "2024"
+ * Truncating the observation date when comparing to endDate gives us "2024-05"
+ * Result is true because:
+ *   truncatedObservationDate <= endDate (i.e., "2024-05 <= "2024-05)
+ *   AND truncatedObservationDate >= startDate (i.e., "2024" >= "2023")
+ *
+ * @param observationDate Observation date string
+ * @param startDate Start date string
+ * @param endDate End date string
+ * @returns
+ */
+export function isDateInRange(
+  observationDate: string,
+  startDate: string | undefined,
+  endDate: string | undefined
+): boolean {
+  if (!startDate && !endDate) {
+    return true;
+  }
+  if (startDate && startDate > observationDate.slice(0, startDate.length)) {
+    return false;
+  }
+  if (endDate && endDate < observationDate.slice(0, endDate.length)) {
+    return false;
+  }
+  return true;
+}
