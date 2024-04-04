@@ -19,10 +19,10 @@
  */
 
 import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
+import { isDateInRange } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { isDateInRange } from "@datacommonsorg/client";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw_line";
@@ -46,10 +46,10 @@ import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
-  ReplacementStrings,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
+  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
@@ -190,7 +190,7 @@ function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
         entityProps,
         fieldDelimiter: CSV_FIELD_DELIMITER,
         parentEntity: props.place.dcid,
-        perCapitaVariables: perCapitaVariables,
+        perCapitaVariables,
         startDate: props.startDate,
         transformHeader: transformCsvHeader,
         variables: props.statVarSpec.map((v) => v.statVar),

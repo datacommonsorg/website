@@ -116,7 +116,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           childType: props.enclosedPlaceType,
           fieldDelimiter: CSV_FIELD_DELIMITER,
           parentEntity: props.parentPlace,
-          perCapitaVariables: perCapitaVariables,
+          perCapitaVariables,
           transformHeader: transformCsvHeader,
           variables: props.variables.map((v) => v.statVar),
         });

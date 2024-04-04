@@ -32,12 +32,12 @@ import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
-  ReplacementStrings,
   getDenomInfo,
   getFirstStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
+  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
@@ -148,7 +148,7 @@ function getDataCsvCallback(props: DonutTilePropType): () => Promise<string> {
       date,
       entities: [props.place.dcid],
       fieldDelimiter: CSV_FIELD_DELIMITER,
-      perCapitaVariables: perCapitaVariables,
+      perCapitaVariables,
       transformHeader: transformCsvHeader,
       variables: props.statVarSpec.map((v) => v.statVar),
     });

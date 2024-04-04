@@ -273,11 +273,11 @@ export function dataRowsToCsv(
 
 /**
  * Returns true if an observation date falls between the specified startDate and
- * endDate. Also returns true if no startDate or endDate are specified.
+ * endDate. Also returns true if neither startDate nor endDate are specified.
  *
- * Dates are specified as ISO-8601 (Example: "2023", "2023-01-01")
+ * Dates are specified as ISO-8601 (Examples: "2023", "2023-01-01")
  *
- * Truncates observate date length to match the start and end date length for
+ * Truncates observation date length to match the start and end date lengths for
  * respective comparisons.
  *
  * Example:
@@ -295,7 +295,7 @@ export function dataRowsToCsv(
  * @param observationDate Observation date string
  * @param startDate Start date string
  * @param endDate End date string
- * @returns
+ * @returns boolean
  */
 export function isDateInRange(
   observationDate: string,

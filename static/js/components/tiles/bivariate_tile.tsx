@@ -46,12 +46,12 @@ import { datacommonsClient } from "../../utils/datacommons_client";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
-  ReplacementStrings,
   getDenomInfo,
   getFirstStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
+  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
@@ -164,7 +164,7 @@ function getDataCsvCallback(
       date,
       fieldDelimiter: CSV_FIELD_DELIMITER,
       parentEntity: props.place.dcid,
-      perCapitaVariables: perCapitaVariables,
+      perCapitaVariables,
       transformHeader: transformCsvHeader,
       variables: props.statVarSpec.map((v) => v.statVar),
     });
