@@ -154,4 +154,4 @@ class TestPrepareMultivarQuerysets(unittest.TestCase):
   ])
   def test_prepare_multivar_querysets(self, query, expected):
     self.maxDiff = None
-    self.assertEqual(prepare_multivar_querysets(query), expected)
+    self.assertEqual(prepare_multivar_querysets(query, max_svs=4), expected)

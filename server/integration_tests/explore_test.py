@@ -240,6 +240,11 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detection('detection_translate_chinese', ['圣克拉拉县哪些城市的盗窃率最高？'],
                        i18n='true')
 
+  def test_detection_bugs(self):
+    self.run_detection('detection_api_bugs', [
+        'What is the relationship between housing size and home prices in California'
+    ])
+
   def test_fulfillment_basic(self):
     req = {
         'entities': ['geoId/06085'],
@@ -429,8 +434,13 @@ class ExploreTest(NLWebServerTestCase):
             'Poverty vs. unemployment rate in districts of Tamil Nadu',
         ])
 
+  def test_e2e_correlation_bugs(self):
+    self.run_detect_and_fulfill('e2e_correlation_bugs',
+                                ['diabetes vs. poor latinos in california'])
+
   def test_e2e_superlatives(self):
     self.run_detect_and_fulfill('e2e_superlatives', [
+        'asthma in Nevada',
         'Richest counties in california',
         'List schools in Sunnyvale',
     ],
