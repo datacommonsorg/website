@@ -117,8 +117,7 @@ def set_overrides(state: PopulateState) -> bool:
   # `SUPERLATIVE` heuristic override.
   # TODO: Find a better approach
   #
-  if (not utils.is_non_geo_place_type(place_type) and
-      state.uttr.svs and
+  if (not utils.is_non_geo_place_type(place_type) and state.uttr.svs and
       state.uttr.sv_source == FulfillmentResult.CURRENT_QUERY):
     state.uttr.counters.err('superlatives_failed_foundvars', state.uttr.svs)
     return False

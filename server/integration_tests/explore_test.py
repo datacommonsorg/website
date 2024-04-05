@@ -430,11 +430,8 @@ class ExploreTest(NLWebServerTestCase):
         ])
 
   def test_e2e_correlation_bugs(self):
-    self.run_detect_and_fulfill(
-        'e2e_correlation_bugs', [
-          'diabetes vs. poor latinos in california'
-        ]
-    )
+    self.run_detect_and_fulfill('e2e_correlation_bugs',
+                                ['diabetes vs. poor latinos in california'])
 
   def test_e2e_superlatives(self):
     self.run_detect_and_fulfill('e2e_superlatives', [
