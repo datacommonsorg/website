@@ -46,6 +46,7 @@ def search_vars():
   }
   """
   queries = request.json.get('queries', [])
+  queries = [str(escape(q)) for q in queries]
 
   idx = str(escape(request.args.get('idx', config.DEFAULT_INDEX_TYPE)))
   if not idx:
