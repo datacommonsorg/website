@@ -88,7 +88,7 @@ def detect(orig_query: str,
         query_detection_debug_logs["query_transformations"], sv_threshold,
         skip_topics)
   except ValueError as e:
-    counters.err('detect_svs_value_error', {
+    counters.err('detect_vars_value_error', {
         'q': sv_detection_query,
         'err': str(e)
     })

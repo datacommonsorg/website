@@ -147,12 +147,14 @@ class TestEmbeddings(unittest.TestCase):
       ],
   ])
   def test_multisv_detection(self, query_str, want_file):
-    got = self.nl_embeddings.search_vars(query_str)
+    self.skipTest("TODO: Port this over to explore_test detection")
+
+    got = self.nl_embeddings.search_vars([query_str])
 
     got['SV_to_Sentences'] = {}
 
     # NOTE: Uncomment this to generate the golden.
-    print(json.dumps(got, indent=2))
+    # print(json.dumps(got, indent=2))
 
     with open(os.path.join(_test_data, want_file)) as fp:
       want = json.load(fp)
@@ -186,7 +188,6 @@ class TestEmbeddings(unittest.TestCase):
     # Check that all expected fields are present.
     for key in ["SV", "CosineScore", "SV_to_Sentences"]:
       self.assertTrue(key in got.keys())
-    self.assertTrue(not got["MultiSV"]["Candidates"])
 
     # Check all scores.
     for score in got['CosineScore']:

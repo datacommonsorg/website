@@ -177,7 +177,7 @@ def detect(query: str,
                                dummy_dict,
                                skip_topics=skip_topics))
     except ValueError as e:
-      ctr.err('llm_detect_svs_value_error', {'q': sv, 'err': str(e)})
+      ctr.err('llm_detect_vars_value_error', {'q': sv, 'err': str(e)})
   merged_var_detection = _merge_sv_dicts(sv_list, var_detection_results)
   sv_detection = dutils.create_sv_detection(query,
                                             merged_var_detection,
