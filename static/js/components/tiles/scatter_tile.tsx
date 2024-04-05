@@ -35,7 +35,11 @@ import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { loadSpinner, removeSpinner } from "../../shared/util";
+import {
+  getFirstCappedStatVarSpecDate,
+  loadSpinner,
+  removeSpinner,
+} from "../../shared/util";
 import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
 import { getStatWithinPlace } from "../../tools/scatter/util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
@@ -217,8 +221,8 @@ function getDataCsvCallback(
 ): () => Promise<string> {
   return () => {
     // Assume both variables will have the same date
-    const date =
-      props.statVarSpec.length > 0 ? props.statVarSpec[0].date : undefined;
+    // TODO: Update getCsv to handle different dates for different variables
+    const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
     const perCapitaVariables = [
       scatterChartData.xStatVar,
       scatterChartData.yStatVar,

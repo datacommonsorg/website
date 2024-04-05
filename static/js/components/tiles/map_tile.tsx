@@ -257,12 +257,16 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       className={`${props.className} map-chart`}
       allowEmbed={true}
       getDataCsv={() => {
+        const date = getCappedStatVarDate(
+          props.statVarSpec.statVar,
+          props.statVarSpec.date
+        );
         const entityProps = props.placeNameProp
           ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
           : undefined;
         return datacommonsClient.getCsv({
           childType: props.enclosedPlaceType,
-          date: props.statVarSpec.date,
+          date,
           entityProps,
           fieldDelimiter: CSV_FIELD_DELIMITER,
           parentEntity: props.place.dcid,
@@ -382,8 +386,10 @@ export const fetchData = async (
         nodes: [layer.parentPlace],
       })
       .then((resp) => resp.data);
-    const dataDate =
-      layer.variable.date || getCappedStatVarDate(layer.variable.statVar);
+    const dataDate = getCappedStatVarDate(
+      layer.variable.statVar,
+      layer.variable.date
+    );
     const facetIds = layer.variable.facetId ? [layer.variable.facetId] : null;
     const placeStatPromise: Promise<PointApiResponse> = getPointWithin(
       props.apiRoot,

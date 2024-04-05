@@ -17,6 +17,7 @@
 import _ from "lodash";
 
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
+import { StatVarSpec } from "./types";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -114,28 +115,59 @@ export function isDateTooFar(date: string): boolean {
   return date.slice(0, 4) > MAX_YEAR;
 }
 
-export function getCappedStatVarDate(statVar: string): string {
+/**
+ * Hack for handling stat vars with dates with (predicted) dates in the future.
+ * If a defaultDate is specified, always return that.
+ * If variable has future observations, return either MAX_YEAR or MAX_DATE
+ * Otherwise, return ""
+ * TODO: Find a better way to accomodate variables with dates in the future
+ */
+export function getCappedStatVarDate(
+  statVarDcid: string,
+  defaultDate: string = ""
+): string {
+  if (defaultDate) {
+    return defaultDate;
+  }
   // Only want to cap stat var date for stat vars with RCP or SSP.
-  if (!statVar.includes("_RCP") && !statVar.includes("_SSP")) {
+  if (!statVarDcid.includes("_RCP") && !statVarDcid.includes("_SSP")) {
     return "";
   }
   for (const svSubstring of NO_DATE_CAP_RCP_STATVARS) {
-    if (statVar.includes(svSubstring)) {
+    if (statVarDcid.includes(svSubstring)) {
       return "";
     }
   }
   // Wet bulb temperature is observed at P1Y, so need to use year for the date.
   if (
-    statVar.includes("WetBulbTemperature") ||
-    statVar.includes("AggregateMin_Percentile") ||
-    statVar.includes("AggregateMax_Percentile") ||
-    statVar.includes("AggregateMin_Median") ||
-    statVar.includes("AggregateMax_Median") ||
-    statVar.includes("NumberOfMonths_")
+    statVarDcid.includes("WetBulbTemperature") ||
+    statVarDcid.includes("AggregateMin_Percentile") ||
+    statVarDcid.includes("AggregateMax_Percentile") ||
+    statVarDcid.includes("AggregateMin_Median") ||
+    statVarDcid.includes("AggregateMax_Median") ||
+    statVarDcid.includes("NumberOfMonths_")
   ) {
     return MAX_YEAR;
   }
   return MAX_DATE;
+}
+
+/**
+ * Gets the first date from a list of stat var spec objects
+ *
+ * Tiles in the subject config page currently operate with the assumption that
+ * all dates set for a subject page config will have the same date
+ *
+ * @param variables stat var spec variables
+ * @returns first date found or undefined if stat var spec list is empty
+ */
+export function getFirstCappedStatVarSpecDate(
+  variables: StatVarSpec[]
+): string {
+  if (variables.length === 0) {
+    return "";
+  }
+  return getCappedStatVarDate(variables[0].statVar, variables[0].date);
 }
 
 /**

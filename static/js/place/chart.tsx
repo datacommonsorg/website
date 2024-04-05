@@ -26,12 +26,12 @@ import { drawLineChart } from "../chart/draw_line";
 import { generateLegendSvg, getColorScale } from "../chart/draw_map_utils";
 import {
   ChartBlockData,
-  chartTypeEnum,
   ChoroplethDataGroup,
   GeoJsonData,
   GeoJsonFeatureProperties,
   SnapshotData,
   TrendData,
+  chartTypeEnum,
 } from "../chart/types";
 import { RankingUnit } from "../components/ranking_unit";
 import { MapLayerData } from "../components/tiles/map_tile";
@@ -42,9 +42,9 @@ import {
 } from "../constants/css_constants";
 import { CSV_FIELD_DELIMITER } from "../constants/tile_constants";
 import {
+  LocalizedLink,
   formatNumber,
   intl,
-  LocalizedLink,
   localizeSearchParams,
 } from "../i18n/i18n";
 import {
@@ -430,6 +430,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         const entities = this.props.snapshot
           ? this.props.snapshot.data.map((d) => d.dcid)
           : [this.props.dcid];
+        // TODO: Address per-capita calculations, including calculations that
+        // use non-"Count_Person" denominators.
+        // Example: The "Marital Status Distribution" chart here:
+        // https://datacommons.org/place/geoId/06?category=Demographics
         if (this.props.chartType === chartTypeEnum.LINE) {
           // For line charts, return CSV series data
           return datacommonsClient.getCsvSeries({

@@ -26,18 +26,18 @@ import { drawDonutChart } from "../../chart/draw_donut";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { getFirstCappedStatVarSpecDate } from "../../shared/util";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
-  getFirstStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
@@ -140,7 +140,8 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
 function getDataCsvCallback(props: DonutTilePropType): () => Promise<string> {
   return () => {
     // Assume all variables will have the same date
-    const date = getFirstStatVarSpecDate(props.statVarSpec);
+    // TODO: Update getCsv to handle different dates for different variables
+    const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
     const perCapitaVariables = props.statVarSpec
       .filter((v) => v.denom)
       .map((v) => v.statVar);
@@ -168,7 +169,8 @@ export function getReplacementStrings(
 
 export const fetchData = async (props: DonutTilePropType) => {
   // Assume all variables will have the same date
-  const date = getFirstStatVarSpecDate(props.statVarSpec);
+  // TODO: Handle different dates for different variables
+  const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
   const statSvs = props.statVarSpec
     .map((spec) => spec.statVar)
     .filter((sv) => !!sv);

@@ -34,6 +34,7 @@ import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { PLACE_TYPES } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
+import { getFirstCappedStatVarSpecDate } from "../../shared/util";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
   getContextStatVar,
@@ -49,12 +50,11 @@ import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
-  getFirstStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
@@ -169,7 +169,8 @@ export function BarTile(props: BarTilePropType): JSX.Element {
 function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
   return () => {
     // Assume all variables will have the same date
-    const date = getFirstStatVarSpecDate(props.variables);
+    // TODO: Handle different dates for different variables
+    const date = getFirstCappedStatVarSpecDate(props.variables);
     const perCapitaVariables = props.variables
       .filter((v) => v.denom)
       .map((v) => v.statVar);
@@ -220,7 +221,8 @@ export const fetchData = async (props: BarTilePropType) => {
     .map((spec) => spec.denom)
     .filter((sv) => !!sv);
   // Assume all variables will have the same date
-  const date = getFirstStatVarSpecDate(props.variables);
+  // TODO: Update getCsv to handle different dates for different variables
+  const date = getFirstCappedStatVarSpecDate(props.variables);
   const apiRoot = props.apiRoot || "";
   let statPromise: Promise<PointApiResponse>;
   let denomPromise: Promise<SeriesApiResponse>;

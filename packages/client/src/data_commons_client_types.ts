@@ -21,18 +21,17 @@ import { Observation, StatMetadata } from "./data_commons_web_client_types";
  */
 
 /**
- * Observation with calculated per capita quotient value. Stores derived per
- * capita values along side the original population observation. "date' and
- * "value" fields from the parent Observation interface will be set to the
- * original observation dates and values, and quotientValue is the derived
- * (per-capita) value.
+ * Observation with calculated per capita value. The "date' and "value" fields
+ * (from the parent Observation interface) will be set to the population
+ * observation's respective values, and perCapitaValue is the statistical
+ * variable observation value divided by the population observation value.
  *
  * TODO(dwnoble): Revisit how this interface is structured to be more intuitive.
  * Maybe: calculate quotient value on the fly and only store the population
  * observation here.
  */
 export interface PerCapitaObservation extends Observation {
-  /** Derived per capita quotient value */
+  /** Derived per capita value */
   perCapitaValue: number;
 }
 

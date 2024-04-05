@@ -32,6 +32,7 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { getFirstCappedStatVarSpecDate } from "../../shared/util";
 import { getStatWithinPlace } from "../../tools/scatter/util";
 import {
   isChildPlaceOf,
@@ -46,12 +47,11 @@ import { datacommonsClient } from "../../utils/datacommons_client";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
-  getFirstStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
-  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
@@ -155,7 +155,8 @@ function getDataCsvCallback(
 ): () => Promise<string> {
   return () => {
     // Assume all variables will have the same date
-    const date = getFirstStatVarSpecDate(props.statVarSpec);
+    // TODO: Update getCsv to handle different dates for different variables
+    const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
     const perCapitaVariables = props.statVarSpec
       .filter((v) => v.denom)
       .map((v) => v.statVar);

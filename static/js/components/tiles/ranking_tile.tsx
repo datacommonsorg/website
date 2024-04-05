@@ -31,6 +31,7 @@ import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
 import {
   getCappedStatVarDate,
+  getFirstCappedStatVarSpecDate,
   loadSpinner,
   removeSpinner,
 } from "../../shared/util";
@@ -109,11 +110,15 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     embedModalElement.current.show(
       "",
       () => {
+        // Assume all variables will have the same date
+        // TODO: Update getCsv to handle multiple dates
+        const date = getFirstCappedStatVarSpecDate(props.variables);
         const perCapitaVariables = props.variables
           .filter((v) => v.denom)
           .map((v) => v.statVar);
         return datacommonsClient.getCsv({
           childType: props.enclosedPlaceType,
+          date,
           fieldDelimiter: CSV_FIELD_DELIMITER,
           parentEntity: props.parentPlace,
           perCapitaVariables,
@@ -202,8 +207,7 @@ export async function fetchData(
     },
   };
   for (const spec of props.variables) {
-    const variableDate =
-      spec.date || getCappedStatVarDate(spec.statVar) || LATEST_DATE_KEY;
+    const variableDate = getCappedStatVarDate(spec.statVar, spec.date);
     const variableFacetId = spec.facetId || EMPTY_FACET_ID_KEY;
     if (!dateFacetToVariable[variableDate]) {
       dateFacetToVariable[variableDate] = {};

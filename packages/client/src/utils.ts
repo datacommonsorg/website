@@ -302,9 +302,6 @@ export function isDateInRange(
   startDate: string | undefined,
   endDate: string | undefined
 ): boolean {
-  if (!startDate && !endDate) {
-    return true;
-  }
   if (startDate && startDate > observationDate.slice(0, startDate.length)) {
     return false;
   }

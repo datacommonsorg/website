@@ -26,7 +26,6 @@ import {
 import { DataCommonsClient } from "./data_commons_client";
 import { DataCommonsWebClient } from "./data_commons_web_client";
 import { isDateInRange } from "./utils";
-}
 
 export {
   DEFAULT_ENTITY_PROPS,
@@ -38,5 +37,5 @@ export {
   ISO_CODE_ATTRIBUTE,
   NAME_ATTRIBUTE,
   TOTAL_POPULATION_VARIABLE,
-  isDateInRange
+  isDateInRange,
 };

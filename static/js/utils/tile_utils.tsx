@@ -565,19 +565,3 @@ export function transformCsvHeader(columnHeader: string) {
     `${CSV_FIELD_DELIMITER}DCID`
   );
 }
-
-/**
- * Gets the first date from a list of stat var spec objects
- *
- * Tiles in the subject config page currently operate with the assumption that
- * all dates set for a subject page config will have the same date
- *
- * @param variables stat var spec variables
- * @returns first date found or undefined if stat var spec list is empty
- */
-export function getFirstStatVarSpecDate(variables: StatVarSpec[]): string {
-  if (variables.length === 0) {
-    return undefined;
-  }
-  return variables[0].date;
-}
