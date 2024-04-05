@@ -34,7 +34,7 @@ flags.DEFINE_string('run_name', 'foo',
 
 CONFIG = 'idx=medium_ft&skip_multi_sv=1'
 
-URL = 'http://localhost:6060/api/search_sv?' + CONFIG
+URL = 'http://localhost:6060/api/search_vars?' + CONFIG
 
 OUT_HEADER = [
     'Query',
