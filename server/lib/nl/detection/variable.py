@@ -35,6 +35,7 @@ _INIT_SCORE = (_HIGHEST_SCORE + 0.1)
 
 _NUM_CANDIDATES_PER_NSPLIT = 3
 
+_MAX_MULTIVAR_PARTS = 2
 
 #
 # The main entry point into SV detection. Given a query (with places removed)
@@ -100,7 +101,8 @@ def _prepare_multivar_queries(
   #
   # Prepare a combination of query-sets.
   #
-  querysets = query_util.prepare_multivar_querysets(query)
+  querysets = query_util.prepare_multivar_querysets(query,
+                                                    max_svs=_MAX_MULTIVAR_PARTS)
 
   # Make a unique list of query strings
   all_queries = set()
