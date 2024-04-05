@@ -62,8 +62,7 @@ export async function getStatWithinPlace(
   parentPlace: string,
   childType: string,
   statVars: { statVarDcid: string; date?: string; facetId?: string }[],
-  apiRoot?: string,
-  dateOverride?: string
+  apiRoot?: string
 ): Promise<PointApiResponse> {
   // There are two stat vars for scatter plot.
   //
