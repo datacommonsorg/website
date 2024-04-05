@@ -17,10 +17,10 @@ import unittest
 
 from parameterized import parameterized
 
-from nl_server.query_util import get_parts_via_delimiters
-from nl_server.query_util import prepare_multivar_querysets
-from nl_server.query_util import QuerySet
-from nl_server.query_util import QuerySplit
+from server.lib.nl.detection.query_util import get_parts_via_delimiters
+from server.lib.nl.detection.query_util import prepare_multivar_querysets
+from server.lib.nl.detection.query_util import QuerySet
+from server.lib.nl.detection.query_util import QuerySplit
 
 
 class TestGetPartsViaDelimiters(unittest.TestCase):

@@ -113,10 +113,11 @@ class TestEmbeddings(unittest.TestCase):
       ["heart disease", True, ["Percent_Person_WithCoronaryHeartDisease"]],
   ])
   def test_sv_detection(self, query_str, skip_topics, expected_list):
-    got = self.nl_embeddings.detect_svs(query_str, skip_topics=skip_topics)
+    got = self.nl_embeddings.search_vars([query_str],
+                                         skip_topics=skip_topics)[query_str]
 
     # Check that all expected fields are present.
-    for key in ["SV", "CosineScore", "SV_to_Sentences", "MultiSV"]:
+    for key in ["SV", "CosineScore", "SV_to_Sentences"]:
       self.assertTrue(key in got.keys())
 
     # Check that the first SV found is among the expected_list.
@@ -146,7 +147,7 @@ class TestEmbeddings(unittest.TestCase):
       ],
   ])
   def test_multisv_detection(self, query_str, want_file):
-    got = self.nl_embeddings.detect_svs(query_str)
+    got = self.nl_embeddings.search_vars(query_str)
 
     got['SV_to_Sentences'] = {}
 
@@ -180,10 +181,10 @@ class TestEmbeddings(unittest.TestCase):
   # For these queries, the match score should be low (< 0.45).
   @parameterized.expand(["random random", "", "who where why", "__124__abc"])
   def test_low_score_matches(self, query_str):
-    got = self.nl_embeddings.detect_svs(query_str)
+    got = self.nl_embeddings.search_vars([query_str])[query_str]
 
     # Check that all expected fields are present.
-    for key in ["SV", "CosineScore", "SV_to_Sentences", "MultiSV"]:
+    for key in ["SV", "CosineScore", "SV_to_Sentences"]:
       self.assertTrue(key in got.keys())
     self.assertTrue(not got["MultiSV"]["Candidates"])
 

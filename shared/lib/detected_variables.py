@@ -51,6 +51,12 @@ class MultiVarCandidates:
   candidates: List[MultiVarCandidate]
 
 
+@dataclass
+class VarDetectionResult:
+  single_var: VarCandidates
+  multi_var: MultiVarCandidates
+
+
 def multivar_candidates_to_dict(candidates: MultiVarCandidates) -> Dict:
   if not candidates:
     return {}
