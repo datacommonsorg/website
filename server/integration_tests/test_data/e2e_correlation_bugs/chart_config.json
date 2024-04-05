@@ -13,17 +13,17 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter"
+                      "Percent_Person_WithDiabetes_scatter",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_scatter"
                     ],
-                    "title": "Women Below Poverty Line (${yDate}) Vs. Males in Poverty (In Last Year) (${xDate}) in Counties of California",
+                    "title": "Diabetes (${yDate}) Vs. Hispanic or Latino Americans Below Poverty Line (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Women below Poverty Line vs. Males in Poverty (in last year)"
+            "title": "Diabetes vs. Hispanic or Latino Americans Below Poverty Line"
           },
           {
             "columns": [
@@ -31,9 +31,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+                      "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Women Below Poverty Line in Counties of California (${date})",
+                    "title": "Diabetes in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -46,16 +46,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+                      "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Women Below Poverty Line in Counties of California (${date})",
+                    "title": "Diabetes in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Women Below Poverty Line in Counties of California"
+            "title": "Diabetes in Counties of California"
           },
           {
             "columns": [
@@ -63,9 +62,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
                     ],
-                    "title": "Males in Poverty (In Last Year) in Counties of California (${date})",
+                    "title": "Hispanic or Latino Americans Below Poverty Line in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -78,34 +77,36 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
                     ],
-                    "title": "Males in Poverty (In Last Year) in Counties of California (${date})",
+                    "title": "Hispanic or Latino Americans Below Poverty Line in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Males in Poverty (In Last Year) in Counties of California"
+            "title": "Hispanic or Latino Americans Below Poverty Line in Counties of California"
           }
         ],
         "statVarSpec": {
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
-            "name": "Women below Poverty Line",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+            "name": "Hispanic or Latino Americans Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
           },
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter": {
-            "name": "Women below Poverty Line",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_scatter": {
+            "name": "Hispanic or Latino Americans Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
           },
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
-            "name": "Males in Poverty (in last year)",
-            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+          "Percent_Person_WithDiabetes": {
+            "name": "Diabetes",
+            "statVar": "Percent_Person_WithDiabetes",
+            "unit": "%"
           },
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter": {
-            "name": "Males in Poverty (in last year)",
-            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+          "Percent_Person_WithDiabetes_scatter": {
+            "name": "Diabetes",
+            "noPerCapita": true,
+            "statVar": "Percent_Person_WithDiabetes",
+            "unit": "%"
           }
         }
       }
@@ -492,10 +493,28 @@
         }
       ]
     },
-    "childTopics": [
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_6To11Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+        ],
+        "gender": [
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+        ]
+      }
+    },
+    "mainTopics": [
       {
-        "dcid": "dc/topic/PovertyByGender",
-        "name": "Poverty by Gender",
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
         "types": [
           "Topic"
         ]
@@ -506,95 +525,27 @@
         "types": [
           "Topic"
         ]
-      },
-      {
-        "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
-        "name": "Poverty by Language Spoken At Home",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_25To34Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_35To44Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_45To54Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_55To64Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_5Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_65To74Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_6To11Years_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_75OrMoreYears_Female_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Upto5Years_Female_BelowPovertyLevelInThePast12Months"
-        ],
-        "maritalStatus": [
-          "Count_Person_Female_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Female_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
-        ],
-        "race": [
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-        ]
-      },
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
-        "age": [
-          "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_25To34Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_35To44Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_45To54Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_55To64Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_5Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_65To74Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_6To11Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_75OrMoreYears_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Upto5Years_Male_BelowPovertyLevelInThePast12Months"
-        ],
-        "maritalStatus": [
-          "Count_Person_Male_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Male_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
-        ],
-        "race": [
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-        ]
-      }
-    },
-    "mainTopics": [
-      {
-        "dcid": "dc/topic/Poverty",
-        "name": "Poverty",
-        "types": [
-          "Topic"
-        ]
       }
     ],
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EconomicEquity",
+        "name": "Economic Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
         "types": [
           "Topic"
         ]
@@ -954,43 +905,99 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
+        "dcid": "dc/topic/Asthma",
+        "name": "Asthma",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
+        "dcid": "dc/topic/BloodPressure",
+        "name": "Blood Pressure",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeatIllnesses",
+        "name": "Heat Illnesses",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByGender",
+        "name": "Poverty by Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Benefits",
+        "name": "Benefits",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/IncomeEquity",
+        "name": "Income Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EmploymentEquity",
+        "name": "Employment Equity",
         "types": [
           "Topic"
         ]
