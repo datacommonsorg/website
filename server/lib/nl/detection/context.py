@@ -136,23 +136,24 @@ def _detect_vars(uttr: nl_uttr.Utterance, is_cmp: bool) -> List[str]:
   svs = []
   cmp_svs = []
   if is_cmp:
-    # Comparison
-    if dutils.is_multi_sv(uttr.detection):
+    # SV Comparison
+    if (not dutils.is_multi_sv(uttr.detection) and uttr.svs and
+        uttr.prev_utterance and uttr.prev_utterance.svs):
+      # This NOT multi-sv, and we have SVs in this query and
+      # in context, so do context-svs vs. current-svs.
+      svs = uttr.svs
+      cmp_svs = uttr.prev_utterance.svs
+      # Set a very basic score. Since this is only used by correlation
+      # which will do so regardless of the score.
+      uttr.multi_svs = dutils.get_multi_sv(svs, cmp_svs, 0.51)
+      # Important to set in detection since `correlation.py` refers to that.
+      uttr.detection.svs_detected.multi_sv = uttr.multi_svs
+      uttr.sv_source = nl_uttr.FulfillmentResult.PARTIAL_PAST_QUERY
+    else:
       # This comes from multi-var detection which would have deduped.
       # Already multi-sv, nothing to do in `uttr`
       svs, cmp_svs = _get_multi_sv_pair(uttr)
       uttr.sv_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
-    else:
-      if uttr.svs and uttr.prev_utterance and uttr.prev_utterance.svs:
-        # Set `multi-sv`
-        svs = uttr.svs
-        cmp_svs = uttr.prev_utterance.svs
-        # Set a very basic score. Since this is only used by correlation
-        # which will do so regardless of the score.
-        uttr.multi_svs = dutils.get_multi_sv(svs, cmp_svs, 0.51)
-        # Important to set in detection since `correlation.py` refers to that.
-        uttr.detection.svs_detected.multi_sv = uttr.multi_svs
-        uttr.sv_source = nl_uttr.FulfillmentResult.PARTIAL_PAST_QUERY
   else:
     # No comparison.
     if uttr.svs:
