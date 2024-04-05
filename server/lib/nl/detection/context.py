@@ -224,7 +224,8 @@ def _detect_places(uttr: nl_uttr.Utterance,
       uttr.counters.info('insight_cmp_partial_place_ctx', cmp_places)
       if cmp_places:
         uttr.place_source = nl_uttr.FulfillmentResult.PARTIAL_PAST_QUERY
-
+      else:
+        uttr.place_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
       if _handle_answer_places(uttr, child_type, places, cmp_places):
         return places, cmp_places
     else:
