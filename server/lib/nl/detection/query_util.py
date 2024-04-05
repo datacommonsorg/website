@@ -26,8 +26,6 @@ from shared.lib import utils
 # This may not always be the best thing to do.
 ALL_STOP_WORDS = utils.combine_stop_words()
 
-_MAX_SVS = 4
-
 # Use comma, "vs.", semi-colon, "and", ampersand as delimiters.
 _REGEX_DELIMITERS = r',|vs|;|and|&'
 # Regex to extract out substrings within double quotes.
@@ -125,7 +123,7 @@ def _prepare_queryset_via_delimiters(query: str,
 #
 # Returns combinations of |query| string parts of upto _MAX_SVS splits.
 #
-def prepare_multivar_querysets(query: str) -> List[QuerySet]:
+def prepare_multivar_querysets(query: str, max_svs: int) -> List[QuerySet]:
   querysets: List[QuerySet] = []
 
   delim_nsplits = _prepare_queryset_via_delimiters(query, querysets)
@@ -134,7 +132,7 @@ def prepare_multivar_querysets(query: str) -> List[QuerySet]:
   query = utils.remove_stop_words(query, ALL_STOP_WORDS)
 
   query_parts = [x.strip() for x in query.split(' ') if x.strip()]
-  max_splits = min(_MAX_SVS, len(query_parts))
+  max_splits = min(max_svs, len(query_parts))
   for nsplits in range(2, max_splits + 1):
     if delim_nsplits == nsplits:
       continue
