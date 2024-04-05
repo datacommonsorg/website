@@ -38,6 +38,8 @@ _NUM_SV_INDEX_MATCHES = 40
 # Number of matches to find within the SV index if skipping topics.
 _NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS = 60
 
+_MAX_MULTIVAR_PARTS = 2
+
 # Prefix string for dcids that are topics
 _TOPIC_PREFIX = 'dc/topic/'
 
@@ -190,7 +192,8 @@ class Embeddings:
     #
     # Prepare a combination of query-sets.
     #
-    querysets = query_util.prepare_multivar_querysets(query)
+    querysets = query_util.prepare_multivar_querysets(
+        query, max_svs=_MAX_MULTIVAR_PARTS)
 
     result = vars.MultiVarCandidates(candidates=[])
 
