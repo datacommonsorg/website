@@ -74,7 +74,7 @@ class Embeddings:
   #
   def search_vars(self,
                   queries: List[str],
-                  skip_topics: bool = False) -> Dict[str, vars.VarCandidates]:
+                  skip_topics: bool = False) -> Dict[str, Dict]:
     query_embeddings = self.model.encode(queries, show_progress_bar=False)
     top_k = _NUM_SV_INDEX_MATCHES
     if skip_topics:

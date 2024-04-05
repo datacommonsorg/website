@@ -37,6 +37,7 @@ _NUM_CANDIDATES_PER_NSPLIT = 3
 
 _MAX_MULTIVAR_PARTS = 2
 
+
 #
 # The main entry point into SV detection. Given a query (with places removed)
 # calls the NL Server and returns a dict with both single-SV and multi-SV
