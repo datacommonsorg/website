@@ -31,7 +31,6 @@ import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
 import {
   getCappedStatVarDate,
-  getFirstCappedStatVarSpecDate,
   loadSpinner,
   removeSpinner,
 } from "../../shared/util";
@@ -46,6 +45,7 @@ import { datacommonsClient } from "../../utils/datacommons_client";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
+  getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,

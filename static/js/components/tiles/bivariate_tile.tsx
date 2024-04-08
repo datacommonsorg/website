@@ -32,7 +32,6 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { getFirstCappedStatVarSpecDate } from "../../shared/util";
 import { getStatWithinPlace } from "../../tools/scatter/util";
 import {
   isChildPlaceOf,
@@ -48,6 +47,7 @@ import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
   getDenomInfo,
+  getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,

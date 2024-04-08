@@ -35,11 +35,7 @@ import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import {
-  getFirstCappedStatVarSpecDate,
-  loadSpinner,
-  removeSpinner,
-} from "../../shared/util";
+import { loadSpinner, removeSpinner } from "../../shared/util";
 import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
 import { getStatWithinPlace } from "../../tools/scatter/util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
@@ -55,6 +51,7 @@ import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
+  getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
