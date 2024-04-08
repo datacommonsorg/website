@@ -11,6 +11,14 @@
   "entities_resolved": "(name: FGFR1, dcid: bio/hg38_FGFR1); (name: APOE, dcid: bio/hg38_APOE); (name: ACHE, dcid: bio/ACHE); ",
   "query_with_places_removed": "what types of genes are , , and",
   "sv_matching": {
+    "CosineScore": [
+      0.568561315536499,
+      0.45555993914604187,
+      0.433528333902359,
+      0.42893120646476746
+    ],
+    "MultiSV": {},
+    "Query": "what types of genes are , , and",
     "SV": [
       "dc/topic/SDGBiodiversity",
       "dc/topic/sdg_2.5.1",
@@ -19,6 +27,29 @@
     ]
   },
   "props_matching": {
+    "CosineScore": [
+      0.9092137217521667,
+      0.753936767578125,
+      0.7323256731033325,
+      0.7198987007141113,
+      0.7104771733283997,
+      0.6725701093673706,
+      0.6473848819732666,
+      0.6187168955802917,
+      0.610543429851532,
+      0.6055111289024353,
+      0.5906316637992859,
+      0.5630466341972351,
+      0.5404141545295715,
+      0.5375767946243286,
+      0.5305068492889404,
+      0.5225515961647034,
+      0.5173617005348206,
+      0.48026153445243835,
+      0.44743838906288147,
+      0.419861763715744,
+      0.4127855896949768
+    ],
     "PROP": [
       "typeOfGene",
       "geneticVariantFunctionalCategory",

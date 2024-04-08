@@ -25,6 +25,7 @@ import React from "react";
 
 import { NL_SOURCE_REPLACEMENTS } from "../constants/app/nl_interface_constants";
 import { SELF_PLACE_DCID_PLACEHOLDER } from "../constants/subject_page_constants";
+import { CSV_FIELD_DELIMITER } from "../constants/tile_constants";
 import {
   GA_EVENT_TILE_EXPLORE_MORE,
   GA_PARAM_URL,
@@ -33,7 +34,7 @@ import {
 import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
-import { urlToDisplayText } from "../shared/util";
+import { getCappedStatVarDate, urlToDisplayText } from "../shared/util";
 import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
@@ -543,4 +544,42 @@ export function getComparisonPlaces(
   return tileConfig.comparisonPlaces.map((p) =>
     p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
   );
+}
+
+/**
+ * Transforms CSV column headers to make them more readable. Specifically:
+ * - Capitalizes header
+ * - Changes "dcid" to "DCID" (Example: "Entity dcid" -> "Entity DCID")
+ *
+ * @param columnHeader CSV column header
+ * @returns capitalized column header
+ */
+export function transformCsvHeader(columnHeader: string) {
+  if (columnHeader.length === 0) {
+    return columnHeader;
+  }
+  const capitalizedColumnHeader =
+    columnHeader[0].toUpperCase() + columnHeader.slice(1);
+  return capitalizedColumnHeader.replace(
+    `${CSV_FIELD_DELIMITER}dcid`,
+    `${CSV_FIELD_DELIMITER}DCID`
+  );
+}
+
+/**
+ * Gets the first date from a list of stat var spec objects
+ *
+ * Tiles in the subject config page currently operate with the assumption that
+ * all dates set for a subject page config will have the same date
+ *
+ * @param variables stat var spec variables
+ * @returns first date found or undefined if stat var spec list is empty
+ */
+export function getFirstCappedStatVarSpecDate(
+  variables: StatVarSpec[]
+): string {
+  if (variables.length === 0) {
+    return "";
+  }
+  return getCappedStatVarDate(variables[0].statVar, variables[0].date);
 }

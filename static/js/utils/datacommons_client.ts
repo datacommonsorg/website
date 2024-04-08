@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
-import { DataCommonsWebClient } from "@datacommonsorg/client";
+import {
+  DataCommonsClient,
+  DataCommonsWebClient,
+} from "@datacommonsorg/client";
 
 export const datacommonsWebClient = new DataCommonsWebClient({ apiRoot: "/" });
+export const datacommonsClient = new DataCommonsClient({ apiRoot: "/" });

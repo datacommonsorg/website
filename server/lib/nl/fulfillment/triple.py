@@ -16,6 +16,7 @@ from typing import List
 
 from flask import current_app
 
+from server.lib.fetch import properties
 from server.lib.nl.common.utterance import ChartType
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.fulfillment.types import ChartVars
@@ -100,6 +101,21 @@ def _populate_prop_expression(state: PopulateState,
                                 entities=state.uttr.entities)
 
 
+# The overview chart when there is more than 1 entity should be a table with
+# all the out arcs of the entities.
+def _add_multi_entity_overview(state: PopulateState) -> bool:
+  entity_dcids = [e.dcid for e in state.uttr.entities]
+  prop_set = set()
+  for prop_list in properties(entity_dcids).values():
+    prop_set.update(prop_list)
+  prop_list = [f'{_OUT_ARROW}{prop}' for prop in sorted(list(prop_set))]
+  cv = ChartVars(props=prop_list)
+  return add_chart_to_utterance(ChartType.ANSWER,
+                                state,
+                                cv, [],
+                                entities=state.uttr.entities)
+
+
 def populate(state: PopulateState) -> bool:
   if not state.uttr.entities:
     state.uttr.counters.err('triple_failed_no_entities', 1)
@@ -121,13 +137,14 @@ def populate(state: PopulateState) -> bool:
       # prop, return.
       # TODO: revisit how we want to handle multiple props
       break
-  # If we are populating for a single entity and we've added an answer for this
-  # entity, also add an entity overview chart
-  # TODO: consider if we want to always add an entity overview chart when there
-  # are entities
-  if chart_added and len(state.uttr.entities) == 1:
-    add_chart_to_utterance(ChartType.ENTITY_OVERVIEW,
-                           state,
-                           ChartVars(), [],
-                           entities=state.uttr.entities)
+  # If there is a single entity, always add an entity overview chart
+  if len(state.uttr.entities) == 1:
+    chart_added |= add_chart_to_utterance(ChartType.ENTITY_OVERVIEW,
+                                          state,
+                                          ChartVars(), [],
+                                          entities=state.uttr.entities)
+  elif not chart_added:
+    # If there is more than 1 entity and no charts added yet, add an overview
+    chart_added = _add_multi_entity_overview(state)
+
   return chart_added
