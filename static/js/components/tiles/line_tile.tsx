@@ -18,6 +18,8 @@
  * Component for rendering a line type tile.
  */
 
+import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
+import { isDateInRange } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -26,6 +28,7 @@ import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw_line";
 import { TimeScaleOption } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
@@ -34,12 +37,12 @@ import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
-import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import {
   getBestUnit,
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
@@ -48,6 +51,7 @@ import {
   getStatVarNames,
   ReplacementStrings,
   showError,
+  transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -144,7 +148,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       replacementStrings={getReplacementStrings(props)}
       className={`${props.className} line-chart`}
       allowEmbed={true}
-      getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
+      getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(chartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={chartData && !!chartData.errorMsg}
@@ -164,6 +168,60 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       </div>
     </ChartTileContainer>
   );
+}
+
+/**
+ * Returns callback for fetching chart CSV data
+ * @param props Chart properties
+ * @returns Async function for fetching chart CSV
+ */
+function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
+  return () => {
+    const perCapitaVariables = props.statVarSpec
+      .filter((v) => v.denom)
+      .map((v) => v.statVar);
+    const entityProps = props.placeNameProp
+      ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
+      : undefined;
+    if (props.enclosedPlaceType) {
+      return datacommonsClient.getCsvSeries({
+        childType: props.enclosedPlaceType,
+        endDate: props.endDate,
+        entityProps,
+        fieldDelimiter: CSV_FIELD_DELIMITER,
+        parentEntity: props.place.dcid,
+        perCapitaVariables,
+        startDate: props.startDate,
+        transformHeader: transformCsvHeader,
+        variables: props.statVarSpec.map((v) => v.statVar),
+      });
+    } else {
+      const entities = getPlaceDcids(props);
+      return datacommonsClient.getCsvSeries({
+        endDate: props.endDate,
+        entities,
+        entityProps,
+        fieldDelimiter: CSV_FIELD_DELIMITER,
+        perCapitaVariables: _.uniq(perCapitaVariables),
+        startDate: props.startDate,
+        transformHeader: transformCsvHeader,
+        variables: props.statVarSpec.map((v) => v.statVar),
+      });
+    }
+  };
+}
+
+/**
+ * Returns list of comparison places or a list with just the specified place
+ * dcid
+ *
+ * @param props LineTile props
+ * @returns Array of place dcids
+ */
+function getPlaceDcids(props: LineTilePropType) {
+  return props.comparisonPlaces && props.comparisonPlaces.length > 0
+    ? props.comparisonPlaces
+    : [props.place.dcid];
 }
 
 // Get the ReplacementStrings object used for formatting the title
@@ -197,16 +255,7 @@ export const fetchData = async (props: LineTilePropType) => {
     if (facetId !== EMPTY_FACET_ID_KEY) {
       facetIds = [facetId];
     }
-    if (!_.isEmpty(props.comparisonPlaces)) {
-      dataPromises.push(
-        getSeries(
-          props.apiRoot,
-          props.comparisonPlaces,
-          facetToVariable[facetId],
-          facetIds
-        )
-      );
-    } else if (props.enclosedPlaceType) {
+    if (props.enclosedPlaceType) {
       dataPromises.push(
         getSeriesWithin(
           props.apiRoot,
@@ -217,13 +266,9 @@ export const fetchData = async (props: LineTilePropType) => {
         )
       );
     } else {
+      const placeDcids = getPlaceDcids(props);
       dataPromises.push(
-        getSeries(
-          props.apiRoot,
-          [props.place.dcid],
-          facetToVariable[facetId],
-          facetIds
-        )
+        getSeries(props.apiRoot, placeDcids, facetToVariable[facetId], facetIds)
       );
     }
   }
@@ -348,16 +393,7 @@ function rawToChart(
       if (obsList.length > 0) {
         const dataPoints: DataPoint[] = [];
         for (const obs of obsList) {
-          if (
-            props.startDate &&
-            obs.date < props.startDate.substring(0, obs.date.length)
-          ) {
-            continue;
-          }
-          if (
-            props.endDate &&
-            obs.date.substring(0, props.endDate.length) > props.endDate
-          ) {
+          if (!isDateInRange(obs.date, props.startDate, props.endDate)) {
             continue;
           }
           dataPoints.push({
@@ -400,7 +436,7 @@ function getExploreLink(props: LineTilePropType): {
 } {
   const hash = getHash(
     VisType.TIMELINE,
-    props.comparisonPlaces || [props.place.dcid],
+    getPlaceDcids(props),
     "",
     props.statVarSpec.map((spec) => getContextStatVar(spec)),
     {}
