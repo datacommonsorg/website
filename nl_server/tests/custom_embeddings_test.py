@@ -50,7 +50,7 @@ def _test_query(test: unittest.TestCase, idx: Embeddings, query: str,
                 expected: str):
   trimmed_svs = []
   if idx:
-    got = idx.detect_svs(query)
+    got = idx.search_vars([query])[query]
     for i in range(len(got['SV'])):
       if got['CosineScore'][i] >= SV_SCORE_DEFAULT_THRESHOLD:
         trimmed_svs.append(got['SV'][i])

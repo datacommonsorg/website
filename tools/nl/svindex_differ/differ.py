@@ -217,8 +217,8 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
       if not query or query.startswith('#') or query.startswith('//'):
         continue
       assert ';' not in query, 'Multiple query not yet supported'
-      base_svs, base_sv_info = _prune(base.detect_svs(query))
-      test_svs, test_sv_info = _prune(test.detect_svs(query))
+      base_svs, base_sv_info = _prune(base.search_vars(query)[query])
+      test_svs, test_sv_info = _prune(test.search_vars(query)[query])
       for sv in base_svs + test_svs:
         all_svs.add(sv)
       if base_svs != test_svs:
