@@ -28,7 +28,11 @@ import React, {
   useState,
 } from "react";
 
-import { loadSpinner, removeSpinner } from "../../shared/util";
+import {
+  getCappedStatVarDate,
+  loadSpinner,
+  removeSpinner,
+} from "../../shared/util";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";
 import { setUpBqButton } from "../shared/bq_utils";
@@ -60,8 +64,7 @@ import { PlaceDetails } from "./place_details";
 import { useRenderReady } from "./ready_hooks";
 import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
-import { CHART_LOADER_SCREEN, getDate, getRankingLink } from "./util";
-import { shouldShowBorder } from "./util";
+import { CHART_LOADER_SCREEN, getRankingLink, shouldShowBorder } from "./util";
 
 export function ChartLoader(): JSX.Element {
   // +++++++  Context
@@ -211,7 +214,7 @@ export function ChartLoader(): JSX.Element {
       );
     }
 
-    const date = getDate(statVar.value.dcid, dateCtx.value);
+    const date = getCappedStatVarDate(statVar.value.dcid, dateCtx.value);
     const rankingLink = getRankingLink(
       statVar.value,
       placeInfo.value.selectedPlace.dcid,
