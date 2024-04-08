@@ -9,43 +9,148 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06085",
-                      "geoId/06081",
-                      "geoId/06041",
-                      "geoId/06075",
-                      "geoId/06001",
-                      "geoId/06013",
-                      "geoId/06061"
-                    ],
                     "statVarKey": [
-                      "Median_Income_Household_multiple_place_bar_block"
+                      "Percent_Person_Children_WithAsthma"
                     ],
-                    "title": "Household Median Income (${date}) - Top 7 of 57",
-                    "type": "BAR"
+                    "title": "Percent of Children That Have Asthma in Counties of Nevada (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Counties of Nevada (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income"
+            "title": "Percent of Children That Have Asthma in Counties of Nevada"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Nevada",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Asthma in Nevada",
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Nevada",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Asthma"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Counties of Nevada (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Counties of Nevada (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Asthma in Counties of Nevada"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheRespiratorySystem"
+                    ],
+                    "title": "Deaths From Diseases of the Respiratory System in Counties of Nevada (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheRespiratorySystem"
+                    ],
+                    "title": "Deaths From Diseases of the Respiratory System in Counties of Nevada (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths From Diseases of the Respiratory System in Counties of Nevada"
           }
         ],
         "statVarSpec": {
-          "Median_Income_Household_multiple_place_bar_block": {
-            "name": "Household Median Income",
-            "statVar": "Median_Income_Household"
+          "Count_Death_DiseasesOfTheRespiratorySystem": {
+            "name": "Deaths From Diseases of the Respiratory System",
+            "statVar": "Count_Death_DiseasesOfTheRespiratorySystem"
+          },
+          "Percent_Person_Children_WithAsthma": {
+            "name": "Percent of Children That Have Asthma",
+            "statVar": "Percent_Person_Children_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_WithAsthma": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "State": "County"
+      },
       "placeDcid": [
-        "geoId/06085"
+        "geoId/32"
       ]
     }
   },
@@ -54,16 +159,16 @@
   "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "geoId/06",
-    "name": "California",
+    "dcid": "geoId/32",
+    "name": "Nevada",
     "place_type": "State"
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
   "places": [
     {
-      "dcid": "geoId/06",
-      "name": "California",
+      "dcid": "geoId/32",
+      "name": "Nevada",
       "place_type": "State"
     }
   ],
@@ -71,392 +176,132 @@
     "childPlaces": {
       "County": [
         {
-          "dcid": "geoId/06001",
-          "name": "Alameda",
+          "dcid": "geoId/32001",
+          "name": "Churchill",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06003",
-          "name": "Alpine",
+          "dcid": "geoId/32003",
+          "name": "Clark",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06005",
-          "name": "Amador",
+          "dcid": "geoId/32005",
+          "name": "Douglas",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06007",
-          "name": "Butte",
+          "dcid": "geoId/32007",
+          "name": "Elko",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06009",
-          "name": "Calaveras",
+          "dcid": "geoId/32009",
+          "name": "Esmeralda",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06011",
-          "name": "Colusa",
+          "dcid": "geoId/32011",
+          "name": "Eureka",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06013",
-          "name": "Contra Costa",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06015",
-          "name": "Del Norte",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06017",
-          "name": "El Dorado",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06019",
-          "name": "Fresno",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06021",
-          "name": "Glenn",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06023",
+          "dcid": "geoId/32013",
           "name": "Humboldt",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06025",
-          "name": "Imperial",
+          "dcid": "geoId/32015",
+          "name": "Lander",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06027",
-          "name": "Inyo",
+          "dcid": "geoId/32017",
+          "name": "Lincoln",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06029",
-          "name": "Kern",
+          "dcid": "geoId/32019",
+          "name": "Lyon",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06031",
-          "name": "Kings",
+          "dcid": "geoId/32021",
+          "name": "Mineral",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06033",
-          "name": "Lake",
+          "dcid": "geoId/32023",
+          "name": "Nye",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06035",
-          "name": "Lassen",
+          "dcid": "geoId/32027",
+          "name": "Pershing",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06037",
-          "name": "Los Angeles",
+          "dcid": "geoId/32029",
+          "name": "Storey",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06039",
-          "name": "Madera",
+          "dcid": "geoId/32031",
+          "name": "Washoe",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06041",
-          "name": "Marin",
+          "dcid": "geoId/32033",
+          "name": "White Pine",
           "types": [
             "County"
           ]
         },
         {
-          "dcid": "geoId/06043",
-          "name": "Mariposa",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06045",
-          "name": "Mendocino",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06047",
-          "name": "Merced",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06049",
-          "name": "Modoc",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06051",
-          "name": "Mono",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06053",
-          "name": "Monterey",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06055",
-          "name": "Napa",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06057",
-          "name": "Nevada",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06059",
-          "name": "Orange",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06061",
-          "name": "Placer",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06063",
-          "name": "Plumas",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06065",
-          "name": "Riverside",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06067",
-          "name": "Sacramento",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06069",
-          "name": "San Benito",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06071",
-          "name": "San Bernardino",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06073",
-          "name": "San Diego",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06075",
-          "name": "San Francisco",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06077",
-          "name": "San Joaquin",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06079",
-          "name": "San Luis Obispo",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06081",
-          "name": "San Mateo",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06083",
-          "name": "Santa Barbara",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06085",
-          "name": "Santa Clara",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06087",
-          "name": "Santa Cruz",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06089",
-          "name": "Shasta",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06091",
-          "name": "Sierra",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06093",
-          "name": "Siskiyou",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06095",
-          "name": "Solano",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06097",
-          "name": "Sonoma",
-          "types": [
-            "County"
-          ]
-        },
-        {
-          "dcid": "geoId/06099",
-          "name": "Stanislaus",
+          "dcid": "geoId/32510",
+          "name": "Carson City",
           "types": [
             "County"
           ]
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/IndividualIncomeDistribution",
-        "name": "Individual Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/IndividualIncomeByIndustry",
-        "name": "Individual Income by Industry",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HouseholdIncomeDistribution",
-        "name": "Household Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "Median_Income_Household": {
-        "benefitsStatus": [
-          "Median_Income_Household_WithFoodStampsInThePast12Months",
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-        ]
-      }
-    },
+    "childTopics": [],
+    "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
+        "dcid": "dc/topic/Asthma",
+        "name": "Asthma",
         "types": [
           "Topic"
         ]
@@ -465,8 +310,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
         "types": [
           "Topic"
         ]
@@ -497,6 +342,13 @@
       {
         "dcid": "geoId/05",
         "name": "Arkansas",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/06",
+        "name": "California",
         "types": [
           "AdministrativeArea1"
         ]
@@ -663,13 +515,6 @@
         ]
       },
       {
-        "dcid": "geoId/32",
-        "name": "Nevada",
-        "types": [
-          "AdministrativeArea1"
-        ]
-      },
-      {
         "dcid": "geoId/33",
         "name": "New Hampshire",
         "types": [
@@ -826,43 +671,71 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
+        "dcid": "dc/topic/BloodPressure",
+        "name": "Blood Pressure",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Poverty",
-        "name": "Poverty",
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeatIllnesses",
+        "name": "Heat Illnesses",
         "types": [
           "Topic"
         ]
@@ -870,5 +743,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
+  "test": "unittest",
   "userMessages": []
 }
