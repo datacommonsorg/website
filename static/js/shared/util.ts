@@ -17,7 +17,6 @@
 import _ from "lodash";
 
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
-import { StatVarSpec } from "./types";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -124,7 +123,7 @@ export function isDateTooFar(date: string): boolean {
  */
 export function getCappedStatVarDate(
   statVarDcid: string,
-  defaultDate: string = ""
+  defaultDate = ""
 ): string {
   if (defaultDate) {
     return defaultDate;
@@ -150,24 +149,6 @@ export function getCappedStatVarDate(
     return MAX_YEAR;
   }
   return MAX_DATE;
-}
-
-/**
- * Gets the first date from a list of stat var spec objects
- *
- * Tiles in the subject config page currently operate with the assumption that
- * all dates set for a subject page config will have the same date
- *
- * @param variables stat var spec variables
- * @returns first date found or undefined if stat var spec list is empty
- */
-export function getFirstCappedStatVarSpecDate(
-  variables: StatVarSpec[]
-): string {
-  if (variables.length === 0) {
-    return "";
-  }
-  return getCappedStatVarDate(variables[0].statVar, variables[0].date);
 }
 
 /**

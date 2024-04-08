@@ -70,7 +70,7 @@ export async function getStatWithinPlace(
   // always send two requests for each stat var.
   const promises: Promise<PointApiResponse>[] = [];
   for (const statVar of statVars) {
-    let dataDate = getCappedStatVarDate(statVar.statVarDcid, statVar.date);
+    const dataDate = getCappedStatVarDate(statVar.statVarDcid, statVar.date);
     const facetIds = statVar.facetId ? [statVar.facetId] : null;
     promises.push(
       getPointWithin(
@@ -117,7 +117,7 @@ export async function getStatAllWithinPlace(
   // always send two requests for each stat var.
   const promises: Promise<PointAllApiResponse>[] = [];
   for (const statVar of statVars) {
-    let dataDate = getCappedStatVarDate(statVar.statVarDcid, statVar.date);
+    const dataDate = getCappedStatVarDate(statVar.statVarDcid, statVar.date);
     promises.push(
       axios
         .get<PointAllApiResponse>("/api/observations/point/within/all", {

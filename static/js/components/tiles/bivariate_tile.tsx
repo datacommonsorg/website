@@ -47,11 +47,11 @@ import { datacommonsClient } from "../../utils/datacommons_client";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
-  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
+  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";

@@ -26,12 +26,12 @@ import { drawLineChart } from "../chart/draw_line";
 import { generateLegendSvg, getColorScale } from "../chart/draw_map_utils";
 import {
   ChartBlockData,
+  chartTypeEnum,
   ChoroplethDataGroup,
   GeoJsonData,
   GeoJsonFeatureProperties,
   SnapshotData,
   TrendData,
-  chartTypeEnum,
 } from "../chart/types";
 import { RankingUnit } from "../components/ranking_unit";
 import { MapLayerData } from "../components/tiles/map_tile";
@@ -42,9 +42,9 @@ import {
 } from "../constants/css_constants";
 import { CSV_FIELD_DELIMITER } from "../constants/tile_constants";
 import {
-  LocalizedLink,
   formatNumber,
   intl,
+  LocalizedLink,
   localizeSearchParams,
 } from "../i18n/i18n";
 import {

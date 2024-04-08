@@ -34,7 +34,7 @@ import {
 import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
-import { urlToDisplayText } from "../shared/util";
+import { getCappedStatVarDate, urlToDisplayText } from "../shared/util";
 import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
@@ -564,4 +564,22 @@ export function transformCsvHeader(columnHeader: string) {
     `${CSV_FIELD_DELIMITER}dcid`,
     `${CSV_FIELD_DELIMITER}DCID`
   );
+}
+
+/**
+ * Gets the first date from a list of stat var spec objects
+ *
+ * Tiles in the subject config page currently operate with the assumption that
+ * all dates set for a subject page config will have the same date
+ *
+ * @param variables stat var spec variables
+ * @returns first date found or undefined if stat var spec list is empty
+ */
+export function getFirstCappedStatVarSpecDate(
+  variables: StatVarSpec[]
+): string {
+  if (variables.length === 0) {
+    return "";
+  }
+  return getCappedStatVarDate(variables[0].statVar, variables[0].date);
 }

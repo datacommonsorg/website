@@ -33,11 +33,11 @@ import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
-  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
+  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
