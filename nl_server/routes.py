@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+from typing import List
 
 from flask import Blueprint
 from flask import current_app
@@ -21,6 +22,7 @@ from markupsafe import escape
 
 from nl_server import config
 from nl_server import loader
+from shared.lib.detected_variables import VarCandidates
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -29,8 +31,8 @@ bp = Blueprint('main', __name__, url_prefix='/')
 def healthz():
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(
       config.DEFAULT_INDEX_TYPE)
-  result = nl_embeddings.search_vars(['life expectancy'])['life expectancy']
-  if result.get('SV'):
+  result: VarCandidates = nl_embeddings.search_vars(['life expectancy'])[0]
+  if result.svs:
     return 'OK', 200
   return 'Service Unavailable', 500
 
@@ -57,7 +59,15 @@ def search_vars():
     skip_topics = True
 
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(idx)
-  return json.dumps(nl_embeddings.search_vars(queries, skip_topics))
+  results: List[VarCandidates] = nl_embeddings.search_vars(queries, skip_topics)
+  json_result = {}
+  for i, q in enumerate(queries):
+    json_result[q] = {
+        'SV': results[i].svs,
+        'CosineScore': results[i].scores,
+        'SV_to_Sentences': results[i].sv2sentences
+    }
+  return json.dumps(json_result)
 
 
 @bp.route('/api/detect_verbs/', methods=['GET'])

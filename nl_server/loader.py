@@ -21,7 +21,7 @@ from flask import Flask
 import yaml
 
 from nl_server import config
-from nl_server import embeddings_store
+import nl_server.embeddings_map as emb_map
 from nl_server.nl_attribute_model import NLAttributeModel
 from shared.lib.gcs import download_gcs_file
 from shared.lib.gcs import is_gcs_path
@@ -58,8 +58,7 @@ def load_server_state(app: Flask):
       _update_app_config(app, nl_model, nl_embeddings, embeddings_map)
       return
 
-  nl_embeddings = embeddings_store.Store(config.load(embeddings_map,
-                                                     models_map))
+  nl_embeddings = emb_map.EmbeddingsMap(config.load(embeddings_map, models_map))
   nl_model = NLAttributeModel()
   _update_app_config(app, nl_model, nl_embeddings, embeddings_map)
 
@@ -92,7 +91,7 @@ def load_custom_embeddings(app: Flask):
 
   # This lookup will raise an error if embeddings weren't already initialized previously.
   # This is intentional.
-  nl_embeddings: embeddings_store.Store = app.config[config.NL_EMBEDDINGS_KEY]
+  nl_embeddings: emb_map.EmbeddingsMap = app.config[config.NL_EMBEDDINGS_KEY]
   # Merge custom index with default embeddings.
   nl_embeddings.merge_custom_index(custom_idx_list[0])
 
@@ -120,14 +119,14 @@ def _load_yamls(flask_env: str) -> tuple[Dict[str, str], Dict[str, str]]:
 
 
 def _update_app_config(app: Flask, nl_model: NLAttributeModel,
-                       nl_embeddings: embeddings_store.Store,
+                       nl_embeddings: emb_map.EmbeddingsMap,
                        embeddings_map: Dict[str, str]):
   app.config[config.NL_MODEL_KEY] = nl_model
   app.config[config.NL_EMBEDDINGS_KEY] = nl_embeddings
   app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_map
 
 
-def _maybe_update_cache(flask_env: str, nl_embeddings: embeddings_store.Store,
+def _maybe_update_cache(flask_env: str, nl_embeddings: emb_map.EmbeddingsMap,
                         nl_model: NLAttributeModel):
   if not nl_embeddings and not nl_model:
     return
