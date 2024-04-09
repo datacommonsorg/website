@@ -20,7 +20,6 @@ import csv
 import datetime as datetime
 import glob
 import json
-import lancedb
 import logging
 import os
 from typing import Dict, List
@@ -29,6 +28,7 @@ from absl import app
 from absl import flags
 from google.cloud import aiplatform
 from google.cloud import storage
+import lancedb
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import utils
@@ -50,10 +50,8 @@ flags.DEFINE_string(
     ' Not set for local Sentence Transformers based index, must be set for API-based index'
 )
 flags.DEFINE_string(
-    'lancedb_output_path', '',
-    'The output path to produce LanceDB index. ' +
-    'Currently always uses SentenceTransformer model.'
-)
+    'lancedb_output_path', '', 'The output path to produce LanceDB index. ' +
+    'Currently always uses SentenceTransformer model.')
 flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string('embeddings_size', '', 'Embeddings size')
@@ -216,6 +214,18 @@ def write_row_to_jsonl(f, row):
   f.write('\n')
 
 
+def get_lancedb_records(df) -> List[Dict]:
+  dcids = df[utils.DCID_COL].values.tolist()
+  sentences = df[utils.COL_ALTERNATIVES].values.tolist()
+  df = df.drop(utils.DCID_COL, axis=1)
+  df = df.drop(utils.COL_ALTERNATIVES, axis=1)
+  vectors = df.to_numpy().tolist()
+  records = []
+  for d, s, v in zip(dcids, sentences, vectors):
+    records.append({'dcid': d, 'sentence': s, 'vector': v})
+  return records
+
+
 def main(_):
   assert FLAGS.vertex_ai_prediction_endpoint_id or (FLAGS.model_name_v2 and
                                                     FLAGS.bucket_name_v2 and
@@ -322,20 +332,17 @@ def main(_):
       # TODO: figure out which bucket to upload to and maybe include the
       # index building step here.
       pass
-  
+
   if FLAGS.lancedb_output_path:
-    version_dir = os.path.join(FLAGS.lancedb_output_path, 
-                               gcs_embeddings_filename.removesuffix('.csv'))
-    db = lancedb.connect(version_dir)
-    records = []
-    for _, row in embeddings_df.iterrows():
-      records.append({
-        'dcid': row[utils.DCID_COL],
-        'sentence': row[utils.COL_ALTERNATIVES],
-        'vector': row.drop([utils.DCID_COL, utils.COL_ALTERNATIVES]).tolist()
-      })
+    version_dir = f'lancedb_{gcs_embeddings_filename.removesuffix(".csv")}'
+    version_path = os.path.join(FLAGS.lancedb_output_path, version_dir)
+    db = lancedb.connect(version_path)
+    records = get_lancedb_records(embeddings_df)
+    if not FLAGS.dry_run:
+      # TODO: Upload to GCS
+      pass
     db.create_table(_LANCEDB_TABLE, records)
-    print(f'Generated LanceDB index in: {version_dir}')
+    print(f'Generated LanceDB index in: {version_path}')
 
 
 if __name__ == "__main__":

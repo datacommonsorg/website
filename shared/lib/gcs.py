@@ -33,11 +33,15 @@ def join_gcs_path(base_path: str, sub_path: str) -> str:
   return f'{base_path}/{sub_path}'
 
 
+def get_gcs_parts(gcs_path: str) -> tuple[str, str]:
+  return gcs_path[len(_GCS_PATH_PREFIX):].split('/', 1)
+
+
 def download_gcs_file(gcs_path: str, use_anonymous_client: bool = False) -> str:
   """Downloads the file from the full GCS path (i.e. gs://bucket/path/to/file) 
   to a local path and returns the latter.
   """
-  bucket_name, blob_name = gcs_path[len(_GCS_PATH_PREFIX):].split('/', 1)
+  bucket_name, blob_name = get_gcs_parts(gcs_path)
   if not blob_name:
     return ''
   try:

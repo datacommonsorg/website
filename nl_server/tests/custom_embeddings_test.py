@@ -69,15 +69,27 @@ class TestEmbeddings(unittest.TestCase):
     cls.custom_file = _copy(_CUSTOM_FILE)
 
     cls.main = emb_map.EmbeddingsMap(
-        config.load({'medium_ft': cls.default_file},
-                    {'tuned_model': _TUNED_MODEL}))
+        config.load({
+            'medium_ft': {
+                'embeddings': cls.default_file,
+                'store': 'MEMORY',
+                'model': _TUNED_MODEL
+            }
+        }))
 
     cls.custom = emb_map.EmbeddingsMap(
-        config.load(
-            {
-                'medium_ft': cls.default_file,
-                'custom_ft': cls.custom_file,
-            }, {'tuned_model': _TUNED_MODEL}))
+        config.load({
+            'medium_ft': {
+                'embeddings': cls.default_file,
+                'store': 'MEMORY',
+                'model': _TUNED_MODEL
+            },
+            'custom_ft': {
+                'embeddings': cls.custom_file,
+                'store': 'MEMORY',
+                'model': _TUNED_MODEL
+            }
+        }))
 
   def test_entries(self):
     self.assertEqual(1, len(self.main.get('medium_ft').store.dcids))
@@ -115,13 +127,19 @@ class TestEmbeddings(unittest.TestCase):
 
   def test_merge_custom_embeddings(self):
     embeddings = emb_map.EmbeddingsMap(
-        config.load({'medium_ft': self.default_file},
-                    {'tuned_model': _TUNED_MODEL}))
+        config.load({
+            'medium_ft': {
+                'embeddings': self.default_file,
+                'store': 'MEMORY',
+                'model': _TUNED_MODEL
+            }
+        }))
 
     _test_query(self, embeddings.get("medium_ft"), "money", "dc/topic/sdg_1")
     _test_query(self, embeddings.get("medium_ft"), "food", "")
 
     custom_idx = EmbeddingsIndex(name="custom_ft",
+                                 store_type='MEMORY',
                                  embeddings_path=_CUSTOM_FILE,
                                  embeddings_local_path=os.path.join(
                                      TEMP_DIR, _CUSTOM_FILE))
