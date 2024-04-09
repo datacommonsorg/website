@@ -26,6 +26,8 @@ from nl_server import wrapper
 class SentenceTransformerModel(wrapper.EmbeddingsModel):
 
   def __init__(self, existing_model_path: str = ""):
+    super().__init__(returns_tensor=True)
+
     if existing_model_path:
       logging.info(f'Loading tuned model from: {existing_model_path}')
       self.model = SentenceTransformer(existing_model_path)

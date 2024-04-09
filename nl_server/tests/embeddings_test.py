@@ -13,7 +13,6 @@
 # limitations under the License.
 """Tests for Embeddings (in nl_embeddings.py)."""
 
-import json
 import os
 import unittest
 
@@ -31,9 +30,6 @@ from nl_server.wrapper import Embeddings
 
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-_test_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                          'test_data')
 
 
 # TODO(pradh): Expand tests to other index sizes.
