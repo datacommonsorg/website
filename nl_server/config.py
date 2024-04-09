@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
+from enum import Enum
 import logging
 import os
 from typing import Dict, List
@@ -34,6 +35,11 @@ NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
 NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
 
 
+class StoreType(str, Enum):
+  MEMORY = 'MEMORY'
+  LANCEDB = 'LANCEDB'
+
+
 # Defines one embeddings index config.
 @dataclass
 class EmbeddingsIndex:
@@ -41,7 +47,7 @@ class EmbeddingsIndex:
   name: str
 
   # Values are: MEMORY, LANCEDB
-  store_type: str
+  store_type: StoreType
 
   # File name provided in the yaml file.
   embeddings_path: str
@@ -75,9 +81,9 @@ def load(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
   #
   for idx in indexes:
     if not idx.embeddings_local_path:
-      if idx.store_type == 'MEMORY':
+      if idx.store_type == StoreType.MEMORY:
         idx.embeddings_local_path = gcs.download_embeddings(idx.embeddings_path)
-      elif idx.store_type == 'LANCEDB':
+      elif idx.store_type == StoreType.LANCEDB:
         idx.embeddings_local_path = gcs.download_folder(idx.embeddings_path)
   return indexes
 
@@ -86,18 +92,20 @@ def parse(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
   indexes: List[EmbeddingsIndex] = []
 
   for key, value_map in embeddings_map.items():
+    # Let this fail if the enum isn't valid.
+    store_type = StoreType(value_map['store'])
     path = value_map['embeddings']
-    store_type = value_map['store']
     model_name = value_map['model']
+
     if path.startswith('/'):
       # Value is an absolute path
       file_name = os.path.basename(path)
       local_path = path
     elif is_gcs_path(path):
       logging.info('Downloading embeddings from GCS path: %s', path)
-      if store_type == 'MEMORY':
+      if store_type == StoreType.MEMORY:
         local_path = download_gcs_file(path)
-      elif store_type == 'LANCEDB':
+      elif store_type == StoreType.LANCEDB:
         local_path = gcs.download_folder(path)
       if not local_path:
         logging.warning(

@@ -23,6 +23,7 @@ import pandas as pd
 from nl_server.config import CUSTOM_DC_INDEX
 from nl_server.config import DEFAULT_INDEX_TYPE
 from nl_server.config import EmbeddingsIndex
+from nl_server.config import StoreType
 from nl_server.model.sentence_transformer import SentenceTransformerModel
 from nl_server.store.lancedb import LanceDBStore
 from nl_server.store.memory import MemoryEmbeddingsStore
@@ -61,11 +62,11 @@ class EmbeddingsMap:
     # custom DC customers want queries to work within their variables
     # they can set `idx=custom`.
     for idx in indexes:
-      if idx.store_type == 'MEMORY':
+      if idx.store_type == StoreType.MEMORY:
         self.embeddings_map[idx.name] = Embeddings(
             model=self.name2model[idx.tuned_model],
             store=MemoryEmbeddingsStore(idx.embeddings_local_path))
-      elif idx.store_type == 'LANCEDB':
+      elif idx.store_type == StoreType.LANCEDB:
         self.embeddings_map[idx.name] = Embeddings(
             model=self.name2model[idx.tuned_model],
             store=LanceDBStore(idx.embeddings_local_path))
