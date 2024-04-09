@@ -16,5 +16,5 @@ bio_ft:
   model: ft_final_v20230717230459.all-MiniLM-L6-v2
 medium_lance_ft:
   store: LANCEDB
-  embeddings: /tmp/lancedb/embeddings_medium_2024_04_09_00_54_48.ft_final_v20230717230459.all-MiniLM-L6-v2
+  embeddings: gs://datcom-nl-models-dev/lancedb/lancedb_embeddings_medium_2024_04_09_07_22_21.ft_final_v20230717230459.all-MiniLM-L6-v2
   model: ft_final_v20230717230459.all-MiniLM-L6-v2

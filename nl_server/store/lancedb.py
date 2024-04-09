@@ -12,16 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import lancedb
-import logging
-
 from typing import Dict, List
+
+import lancedb
 
 from nl_server import wrapper
 from shared.lib import detected_variables as vars
 
 TABLE_NAME = 'datacommons'
-SCORE_BOOST = 0.7
 
 
 class LanceDBStore(wrapper.EmbeddingsStore):
@@ -33,18 +31,18 @@ class LanceDBStore(wrapper.EmbeddingsStore):
     self.db = lancedb.connect(lance_db_dir)
     self.table = self.db.open_table(TABLE_NAME)
 
-  def vector_search(self,
-                    query_embeddings: List[List[float]], top_k: int) -> List[wrapper.VarCandidates]:
+  def vector_search(self, query_embeddings: List[List[float]],
+                    top_k: int) -> List[wrapper.VarCandidates]:
     results: List[vars.VarCandidates] = []
     for emb in query_embeddings:
       sv2score: Dict[str, float] = {}
       sv2sentence2score: Dict[str, Dict[str, float]] = {}
 
       matches = self.table.search(emb).metric('cosine').limit(top_k).to_list()
-      matches.sort(key=lambda item: item['_distance'], reverse=True)
-      logging.error([m['_distance'] for m in matches])
       for match in matches:
-        score = match['_distance'] + SCORE_BOOST
+        # We want to return cosine-similarity, but LanceDB
+        # returns distance.
+        score = 1 - match['_distance']
         dcid = match['dcid']
         sentence = match['sentence']
         if dcid not in sv2score:
@@ -64,7 +62,6 @@ class LanceDBStore(wrapper.EmbeddingsStore):
           score = round(score, 4)
           result.sv2sentences[sv].append(f'{sentence} ({score})')
 
-      logging.error(sv2score)
       results.append(result)
 
     return results

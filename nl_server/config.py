@@ -76,11 +76,9 @@ def load(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
   for idx in indexes:
     if not idx.embeddings_local_path:
       if idx.store_type == 'MEMORY':
-        idx.embeddings_local_path = gcs.download_embeddings(
-            idx.embeddings_path)
+        idx.embeddings_local_path = gcs.download_embeddings(idx.embeddings_path)
       elif idx.store_type == 'LANCEDB':
-        idx.embeddings_local_path = gcs.download_folder(
-            idx.embeddings_path)
+        idx.embeddings_local_path = gcs.download_folder(idx.embeddings_path)
   return indexes
 
 
@@ -97,7 +95,10 @@ def parse(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
       local_path = path
     elif is_gcs_path(path):
       logging.info('Downloading embeddings from GCS path: %s', path)
-      local_path = download_gcs_file(path)
+      if store_type == 'MEMORY':
+        local_path = download_gcs_file(path)
+      elif store_type == 'LANCEDB':
+        local_path = gcs.download_folder(path)
       if not local_path:
         logging.warning(
             'Embeddings not downloaded from GCS and will be ignored. Please check the path: %s',

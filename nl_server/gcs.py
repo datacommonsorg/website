@@ -70,17 +70,24 @@ def download_model_from_gcs(gcs_bucket: Any, local_dir: str,
   return os.path.join(local_dir, model_folder_name)
 
 
-# Downloads the `model_folder` from GCS to /tmp/
+# Downloads the `folder` or gs:// path from GCS to /tmp/
 # and return its path.
-def download_folder(base_name: str) -> str:
+def download_folder(path: str) -> str:
   # Using an anonymous client because
   # Custom DCs need to download models without DC creds.
   sc = storage.Client.create_anonymous_client()
-  bucket = sc.bucket(bucket_name=BUCKET)
+
+  if gcs_lib.is_gcs_path(path):
+    bucket_name, base_name = gcs_lib.get_gcs_parts(path)
+    bucket = sc.bucket(bucket_name=bucket_name)
+  else:
+    bucket = sc.bucket(bucket_name=BUCKET)
+    base_name = path
   directory = gcs_lib.TEMP_DIR
+  local_dir = os.path.basename(base_name) if '/' in base_name else base_name
 
   # Only download if needed.
-  local_path = os.path.join(directory, base_name)
+  local_path = os.path.join(directory, local_dir)
   if os.path.exists(local_path):
     return local_path
 
