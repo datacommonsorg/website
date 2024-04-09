@@ -20,6 +20,7 @@ import csv
 import datetime as datetime
 import glob
 import json
+import lancedb
 import logging
 import os
 from typing import Dict, List
@@ -48,6 +49,11 @@ flags.DEFINE_string(
     'The ID of vertex AI prediction endpoint.' +
     ' Not set for local Sentence Transformers based index, must be set for API-based index'
 )
+flags.DEFINE_string(
+    'lancedb_output_path', '',
+    'The output path to produce LanceDB index. ' +
+    'Currently always uses SentenceTransformer model.'
+)
 flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string('embeddings_size', '', 'Embeddings size')
@@ -72,6 +78,8 @@ flags.DEFINE_bool('dry_run', False, 'Dry run')
 
 # Setting to a very high number right for now.
 MAX_ALTERNATIVES_LIMIT = 50
+
+_LANCEDB_TABLE = 'datacommons'
 
 
 def _make_gcs_embeddings_filename(embeddings_size: str,
@@ -314,6 +322,20 @@ def main(_):
       # TODO: figure out which bucket to upload to and maybe include the
       # index building step here.
       pass
+  
+  if FLAGS.lancedb_output_path:
+    version_dir = os.path.join(FLAGS.lancedb_output_path, 
+                               gcs_embeddings_filename.removesuffix('.csv'))
+    db = lancedb.connect(version_dir)
+    records = []
+    for _, row in embeddings_df.iterrows():
+      records.append({
+        'dcid': row[utils.DCID_COL],
+        'sentence': row[utils.COL_ALTERNATIVES],
+        'vector': row.drop([utils.DCID_COL, utils.COL_ALTERNATIVES]).tolist()
+      })
+    db.create_table(_LANCEDB_TABLE, records)
+    print(f'Generated LanceDB index in: {version_dir}')
 
 
 if __name__ == "__main__":

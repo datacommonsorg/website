@@ -25,6 +25,7 @@ from nl_server.config import DEFAULT_INDEX_TYPE
 from nl_server.config import EmbeddingsIndex
 from nl_server.model.sentence_transformer import SentenceTransformerModel
 from nl_server.store.memory import MemoryEmbeddingsStore
+from nl_server.store.lancedb import LanceDBStore
 from nl_server.wrapper import Embeddings
 from nl_server.wrapper import EmbeddingsModel
 
@@ -60,12 +61,18 @@ class EmbeddingsMap:
     # custom DC customers want queries to work within their variables
     # they can set `idx=custom`.
     for idx in indexes:
-      self.embeddings_map[idx.name] = Embeddings(
-          model=self.name2model[idx.tuned_model],
-          store=MemoryEmbeddingsStore(idx.embeddings_local_path))
+      if idx.store_type == 'MEMORY':
+        self.embeddings_map[idx.name] = Embeddings(
+            model=self.name2model[idx.tuned_model],
+            store=MemoryEmbeddingsStore(idx.embeddings_local_path))
+      elif idx.store_type == 'LANCEDB':
+        self.embeddings_map[idx.name] = Embeddings(
+            model=self.name2model[idx.tuned_model],
+            store=LanceDBStore(idx.embeddings_local_path))
 
   # Note: The caller takes care of exceptions.
   def get(self, index_type: str = DEFAULT_INDEX_TYPE) -> Embeddings:
+    logging.error(f'Index type: {index_type}')
     return self.embeddings_map.get(index_type)
 
   def merge_custom_index(self, custom_idx: EmbeddingsIndex):

@@ -183,7 +183,7 @@ def _extract_model_name(embeddings_name: str, embeddings_file_path: str) -> str:
     parts = embeddings_name.split(".")
     model_name = ".".join(parts[1:-1])
     print(f"finetuned model_name: {model_name}")
-    model_path = gcs.download_model_folder(model_name)
+    model_path = gcs.download_folder(model_name)
 
     assert "ft_final" in model_path
     assert len(model_path.split(".")) >= 2
