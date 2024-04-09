@@ -38,7 +38,7 @@ def _get_embeddings_file_path() -> str:
   with open(embeddings_config_path) as f:
     embeddings = yaml.full_load(f)
     embeddings_file = embeddings[emb_map.DEFAULT_INDEX_TYPE]
-    return gcs.download_embeddings(embeddings_file)
+    return gcs.download_embeddings(embeddings_file['embeddings'])
 
 
 def _get_tuned_model_path() -> str:
