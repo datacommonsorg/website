@@ -23,19 +23,13 @@ import torch
 from nl_server import wrapper
 from shared.lib import detected_variables as vars
 
-# Number of matches to find within the SV index.
-_NUM_SV_INDEX_MATCHES = 40
-# Number of matches to find within the SV index if skipping topics.
-_NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS = 60
-
-# Prefix string for dcids that are topics
-_TOPIC_PREFIX = 'dc/topic/'
-
 
 class MemoryEmbeddingsStore(wrapper.EmbeddingsStore):
   """Manages the embeddings."""
 
   def __init__(self, embeddings_path: str) -> None:
+    super().__init__(needs_tensor=True)
+
     self.dataset_embeddings: torch.Tensor = None
     self.dcids: List[str] = []
     self.sentences: List[str] = []
@@ -63,12 +57,8 @@ class MemoryEmbeddingsStore(wrapper.EmbeddingsStore):
   # Given a list of query embeddings, searches the in-memory embeddings index
   # and returns a list of candidates in the same order as original queries.
   #
-  def vector_search(self,
-                    query_embeddings: torch.Tensor,
-                    skip_topics: bool = False) -> List[vars.VarCandidates]:
-    top_k = _NUM_SV_INDEX_MATCHES
-    if skip_topics:
-      top_k = _NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS
+  def vector_search(self, query_embeddings: torch.Tensor,
+                    top_k: int) -> List[vars.VarCandidates]:
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings,
                            top_k=top_k)
@@ -83,8 +73,6 @@ class MemoryEmbeddingsStore(wrapper.EmbeddingsStore):
       for ent in hit:
         score = ent['score']
         for dcid in self.dcids[ent['corpus_id']].split(','):
-          if skip_topics and dcid.startswith(_TOPIC_PREFIX):
-            continue
           # Prefer the top score.
           if dcid not in query_indexed_sv2score[i]:
             query_indexed_sv2score[i][dcid] = score
