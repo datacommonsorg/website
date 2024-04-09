@@ -23,16 +23,29 @@ import { Feature, FeatureCollection, Geometry } from "geojson";
 import * as _ from "lodash";
 
 import {
+  DEFAULT_ENTITY_PROPS,
+  DEFAULT_FIELD_DELIMITER,
+  DEFAULT_GEOJSON_PROPERTY_NAME,
+  DEFAULT_VARIABLE_PROPS,
+  NAME_ATTRIBUTE,
+  TOTAL_POPULATION_VARIABLE,
+} from "./constants";
+import {
   DataRow,
-  DataRowDenominator,
+  DataRowPerCapitaVariable,
   EntityGroupedDataRow,
+  FacetOverride,
+  GetCsvParams,
+  GetCsvSeriesParams,
+  GetDataRowSeriesParams,
   GetDataRowsParams,
   GetGeoJSONParams,
   NodePropValues,
-  QuotientObservation,
+  PerCapitaObservation,
 } from "./data_commons_client_types";
 import { DataCommonsWebClient } from "./data_commons_web_client";
 import {
+  FacetStore,
   Observation,
   PointApiResponse,
   Series,
@@ -40,34 +53,24 @@ import {
   StatMetadata,
 } from "./data_commons_web_client_types";
 import {
-  computeRatio,
+  DEFAULT_FACET_OVERRIDE,
+  computePerCapitaRatio,
   dataRowsToCsv,
-  encodeCsvRow,
   flattenNestedObject,
+  isDateInRange,
 } from "./utils";
-
-// Total population stat var
-const TOTAL_POPULATION_VARIABLE = "Count_Person";
-// Name attribute for entities and variables
-const NAME_ATTRIBUTE = "name";
-// ISO 3166-2 code property name for place entities
-const ISO_CODE_ATTRIBUTE = "isoCode";
-// Fetch these entity and variable properties by default
-const DEFAULT_ENTITY_PROPS = [NAME_ATTRIBUTE, ISO_CODE_ATTRIBUTE];
-const DEFAULT_VARIABLE_PROPS = [NAME_ATTRIBUTE];
-// GeoJSON is stored in this property name by default
-export const DEFAULT_GEOJSON_PROPERTY_NAME = "geoJsonCoordinatesDP1";
-// Delimit fields
-export const DEFAULT_FIELD_DELIMITER = ".";
 
 export interface DatacommonsClientParams {
   /** Web api root endpoint. Default: `"https://datacommons.org/"` */
   apiRoot?: string;
+  /** Overrides observation facet StatMetadata values by unit DCID. */
+  facetOverride?: FacetOverride | null;
 }
 
 class DataCommonsClient {
   apiRoot?: string;
   webClient: DataCommonsWebClient;
+  facetOverride: FacetOverride;
 
   constructor(params?: DatacommonsClientParams) {
     const p = params || {};
@@ -77,6 +80,11 @@ class DataCommonsClient {
     this.webClient = new DataCommonsWebClient({
       apiRoot: this.apiRoot,
     });
+    if (p.facetOverride === undefined) {
+      this.facetOverride = DEFAULT_FACET_OVERRIDE;
+    } else {
+      this.facetOverride = p.facetOverride || {};
+    }
   }
 
   /**
@@ -86,9 +94,13 @@ class DataCommonsClient {
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns CSV string
    */
-  async getCsv(params: GetDataRowsParams): Promise<string> {
+  async getCsv(params: GetCsvParams): Promise<string> {
     const dataRows = await this.getDataRows(params);
-    return dataRowsToCsv(dataRows, params.fieldDelimiter);
+    return dataRowsToCsv(
+      dataRows,
+      params.fieldDelimiter,
+      params.transformHeader
+    );
   }
 
   /**
@@ -99,9 +111,13 @@ class DataCommonsClient {
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns CSV string
    */
-  async getCsvGroupedByEntity(params: GetDataRowsParams): Promise<string> {
+  async getCsvGroupedByEntity(params: GetCsvParams): Promise<string> {
     const dataRows = await this.getDataRowsGroupedByEntity(params);
-    return dataRowsToCsv(dataRows, params.fieldDelimiter);
+    return dataRowsToCsv(
+      dataRows,
+      params.fieldDelimiter,
+      params.transformHeader
+    );
   }
 
   /**
@@ -173,6 +189,10 @@ class DataCommonsClient {
     if (!pointApiResponse) {
       return [];
     }
+    pointApiResponse.facets = this.overrideFacetValues(
+      pointApiResponse.facets,
+      this.facetOverride
+    );
     const entityDcids =
       this.getEntityDcidsFromObservationApiResponse(pointApiResponse);
     // Fetch relevant entity and variable property values
@@ -184,6 +204,10 @@ class DataCommonsClient {
       params.variables,
       params.variableProps || DEFAULT_VARIABLE_PROPS
     );
+    const validPerCapitaVariables = _.intersection(
+      params.perCapitaVariables,
+      params.variables
+    );
     const populationPropValues = !_.isEmpty(params.perCapitaVariables)
       ? await this.getNodePropValues(
           [TOTAL_POPULATION_VARIABLE],
@@ -193,7 +217,7 @@ class DataCommonsClient {
 
     // Fetch population data for per capita calculations
     let populationObservations: SeriesApiResponse = { data: {}, facets: {} };
-    if (!_.isEmpty(params.perCapitaVariables)) {
+    if (!_.isEmpty(validPerCapitaVariables)) {
       populationObservations =
         "parentEntity" in params
           ? await this.webClient.getObservationsSeriesWithin({
@@ -295,23 +319,13 @@ class DataCommonsClient {
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns CSV string
    */
-  async getCsvSeries(params: GetDataRowsParams): Promise<string> {
+  async getCsvSeries(params: GetCsvSeriesParams): Promise<string> {
     const dataRows = await this.getDataRowSeries(params);
-    if (dataRows.length === 0) {
-      return "";
-    }
-
-    const flattenedDataRows = dataRows.map((dataRow) =>
-      flattenNestedObject(dataRow, params.fieldDelimiter)
+    return dataRowsToCsv(
+      dataRows,
+      params.fieldDelimiter,
+      params.transformHeader
     );
-
-    const header = Object.keys(flattenedDataRows[0]).sort();
-    const rows = flattenedDataRows.map((flattenedDataRow) =>
-      header.map((column) => flattenedDataRow[column])
-    );
-    const csvRows = [header, ...rows];
-    const csvLines = csvRows.map(encodeCsvRow);
-    return csvLines.join("\n");
   }
 
   /**
@@ -321,7 +335,7 @@ class DataCommonsClient {
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns Data rows list
    */
-  async getDataRowSeries(params: GetDataRowsParams): Promise<DataRow[]> {
+  async getDataRowSeries(params: GetDataRowSeriesParams): Promise<DataRow[]> {
     // Fetch variable observations
     const seriesApiResponse =
       "parentEntity" in params
@@ -330,6 +344,11 @@ class DataCommonsClient {
     if (!seriesApiResponse) {
       return [];
     }
+
+    seriesApiResponse.facets = this.overrideFacetValues(
+      seriesApiResponse.facets,
+      this.facetOverride
+    );
     const entityDcids =
       this.getEntityDcidsFromObservationApiResponse(seriesApiResponse);
     // Fetch relevant entity and variable property values
@@ -341,6 +360,10 @@ class DataCommonsClient {
       params.variables,
       params.variableProps || DEFAULT_VARIABLE_PROPS
     );
+    const validPerCapitaVariables = _.intersection(
+      params.perCapitaVariables,
+      params.variables
+    );
     const populationPropValues = !_.isEmpty(params.perCapitaVariables)
       ? await this.getNodePropValues(
           [TOTAL_POPULATION_VARIABLE],
@@ -350,7 +373,7 @@ class DataCommonsClient {
 
     // Fetch population data for per capita calculations
     let populationObservations: SeriesApiResponse = { data: {}, facets: {} };
-    if (!_.isEmpty(params.perCapitaVariables)) {
+    if (!_.isEmpty(validPerCapitaVariables)) {
       populationObservations =
         "parentEntity" in params
           ? await this.webClient.getObservationsSeriesWithin({
@@ -372,7 +395,55 @@ class DataCommonsClient {
       populationObservations
     );
 
+    // Filter by start/end date if specified
+    if (params.startDate || params.endDate) {
+      return Promise.resolve(
+        dataRows.filter((dataRow) => {
+          const observationDate = dataRow.variable.observation.date;
+          if (!observationDate) {
+            return false;
+          }
+          return isDateInRange(
+            observationDate,
+            params.startDate,
+            params.endDate
+          );
+        })
+      );
+    }
+
     return Promise.resolve(dataRows);
+  }
+
+  /**
+   * Overrides facet from a series or point API response's FacetStore
+   * object with values from facetOverride. Overrides values in FacetStore based
+   * on the facet / StatMetadata unit.
+   *
+   * @param facets Facets for an api response keyed by facet ID
+   * @param facetOverride Facets to override keyed by facet unit
+   * @returns facets with overridden values
+   */
+  overrideFacetValues(
+    facets: FacetStore,
+    facetOverride: FacetOverride | undefined
+  ): FacetStore {
+    if (_.isEmpty(facetOverride)) {
+      return facets;
+    }
+    const newFacets = {
+      ...facets,
+    };
+    Object.keys(newFacets).forEach((facetId) => {
+      const facet = newFacets[facetId];
+      if (facet.unit && facet.unit in this.facetOverride) {
+        newFacets[facetId] = {
+          ...facet,
+          ...this.facetOverride[facet.unit],
+        };
+      }
+    });
+    return newFacets;
   }
 
   /**
@@ -437,6 +508,11 @@ class DataCommonsClient {
       { value: 0, date: targetDate },
       (o) => o.date
     );
+    // sortedIndexBy can return i === arr.length, meaning the target date is
+    // closest to the last observation
+    if (index >= observations.length) {
+      return observations[observations.length - 1];
+    }
     return observations[index];
   }
 
@@ -507,23 +583,32 @@ class DataCommonsClient {
         ) {
           const series =
             populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid];
+          const populationFacet = _.get(
+            populationObservations.facets,
+            series.facet || "",
+            {} as StatMetadata
+          );
 
           const closestPopulationObservation = this.getClosestObservationToDate(
             series.series,
             observation.date
           );
-          const perCapitaQuotientObservation: QuotientObservation = {
+          const scalingFactor = facet.scalingFactor || 1;
+          const quotientValue =
+            !_.isEmpty(closestPopulationObservation) &&
+            closestPopulationObservation?.value > 0
+              ? observation.value /
+                closestPopulationObservation?.value /
+                scalingFactor
+              : 0;
+          const perCapitaQuotientObservation: PerCapitaObservation = {
             ...closestPopulationObservation,
-            quotientValue:
-              closestPopulationObservation &&
-              !_.isEmpty(closestPopulationObservation) &&
-              closestPopulationObservation?.value > 0
-                ? observation.value / closestPopulationObservation?.value
-                : 0,
+            perCapitaValue: quotientValue,
           };
-          row.variable.denominator = this.buildDataRowVariableDenominator(
+          row.variable.perCapita = this.buildDataRowPerCapitaVariable(
             perCapitaQuotientObservation,
-            populationPropValues
+            populationPropValues,
+            populationFacet
           );
         }
         dataRows.push(row);
@@ -533,38 +618,43 @@ class DataCommonsClient {
   }
 
   /**
-   * Build DataRow variable denominator object from a QuotientObservation and
+   * Build DataRow per capita variable object from a PerCapitaObservation and
    * its associated properties
-   * @param denominatorObservation denominator quotient observation
-   * @param denominatorPropValues denominator property values
-   * @returns data row denominator
+   * @param perCapitaObservation Per capita and population observation
+   * @param perCapitaVariablePropValues per capita population variable property
+   *        values
+   * @param perCapitaFacet facet for per capita population observation
+   * @returns data row per capita variable
    */
-  private buildDataRowVariableDenominator(
-    denominatorObservation: QuotientObservation,
-    denominatorPropValues: NodePropValues
-  ): DataRowDenominator {
+  private buildDataRowPerCapitaVariable(
+    perCapitaObservation: PerCapitaObservation,
+    perCapitaVariablePropValues: NodePropValues,
+    perCapitaFacet: StatMetadata
+  ): DataRowPerCapitaVariable {
     return {
       dcid: TOTAL_POPULATION_VARIABLE,
       properties: {
         name:
-          denominatorPropValues[NAME_ATTRIBUTE][TOTAL_POPULATION_VARIABLE] ||
-          "",
+          perCapitaVariablePropValues[NAME_ATTRIBUTE][
+            TOTAL_POPULATION_VARIABLE
+          ] || "",
       },
       observation: {
-        date:
-          denominatorObservation && !_.isEmpty(denominatorObservation)
-            ? denominatorObservation.date
-            : null,
-        value:
-          denominatorObservation && !_.isEmpty(denominatorObservation)
-            ? denominatorObservation.value
-            : null,
-        metadata: {},
+        date: perCapitaObservation.date,
+        value: perCapitaObservation.value,
+        metadata: {
+          importName: _.get(perCapitaFacet, "importName", null),
+          scalingFactor: _.get(perCapitaFacet, "scalingFactor", null),
+          provenanceUrl: _.get(perCapitaFacet, "provenanceUrl", null),
+          unit: _.get(perCapitaFacet, "unit", null),
+          unitDisplayName: _.get(
+            perCapitaObservation,
+            "unitDisplayName",
+            _.get(perCapitaFacet, "unitDisplayName", null)
+          ),
+        },
       },
-      quotientValue:
-        denominatorObservation && !_.isEmpty(denominatorObservation)
-          ? denominatorObservation.quotientValue
-          : null,
+      perCapitaValue: perCapitaObservation.perCapitaValue,
     };
   }
 
@@ -594,8 +684,12 @@ class DataCommonsClient {
         if (_.isEmpty(series)) {
           return;
         }
-        const facet = _.get(seriesApiResponse.facets, series.facet || "", {});
-        let perCapitaObservations: QuotientObservation[] = [];
+        const facet = _.get(
+          seriesApiResponse.facets,
+          series.facet || "",
+          {} as StatMetadata
+        );
+        let perCapitaObservations: PerCapitaObservation[] = [];
         let populationSeries: Series | null = null;
         if (
           TOTAL_POPULATION_VARIABLE in populationObservations.data &&
@@ -603,9 +697,10 @@ class DataCommonsClient {
         ) {
           populationSeries =
             populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid];
-          perCapitaObservations = computeRatio(
+          perCapitaObservations = computePerCapitaRatio(
             series.series,
-            populationSeries.series
+            populationSeries.series,
+            facet.scalingFactor || 1
           );
         }
         series.series.forEach((observation, observationIndex) => {
@@ -617,16 +712,24 @@ class DataCommonsClient {
             observation,
             facet
           );
-
           // Set per-capita data
           if (perCapitaObservations.length === series.series.length) {
             // perCapitaObservations is a parallel array with the data series
+            const populationFacetName =
+              populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid]
+                .facet;
+            const populationFacet = _.get(
+              populationObservations.facets,
+              populationFacetName || "",
+              {} as StatMetadata
+            );
+
             const perCapitaObservation =
               perCapitaObservations[observationIndex];
-
-            row.variable.denominator = this.buildDataRowVariableDenominator(
+            row.variable.perCapita = this.buildDataRowPerCapitaVariable(
               perCapitaObservation,
-              populationPropValues
+              populationPropValues,
+              populationFacet
             );
           }
           dataRows.push(row);
@@ -678,6 +781,9 @@ class DataCommonsClient {
         observation: {
           date: observation.date,
           metadata: {
+            importName: _.get(facet, "importName", null),
+            provenanceUrl: _.get(facet, "provenanceUrl", null),
+            scalingFactor: _.get(facet, "scalingFactor", null),
             unit: _.get(facet, "unit", null),
             unitDisplayName: _.get(
               observation,

@@ -47,5 +47,5 @@ export interface RankingGroup {
 }
 
 export interface RankingData {
-  [key: string]: RankingGroup; // Key is main statVarDcid.
+  [statVarDcid: string]: RankingGroup;
 }

@@ -616,6 +616,8 @@ class ExploreTest(NLWebServerTestCase):
             # Should have a chained property in the answer
             'What genes are associated with the genetic variant rs13317?',
             # Should return a table in the answer
-            'What genes are associated with the genetic variant rs13317 and rs7903146?'
+            'What genes are associated with the genetic variant rs13317 and rs7903146?',
+            # Should return a table with all the out arcs of the two entities
+            'what virus species are rs13317 and rs7903146'
         ],
         dc='bio')
