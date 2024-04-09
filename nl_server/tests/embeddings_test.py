@@ -47,7 +47,7 @@ def _get_tuned_model_path() -> str:
   models_config_path = os.path.join(_root_dir, 'deploy/nl/models.yaml')
   with open(models_config_path) as f:
     models_map = yaml.full_load(f)
-    return gcs.download_model_folder(models_map['tuned_model'])
+    return gcs.download_folder(models_map['tuned_model'])
 
 
 def _get_contents(
