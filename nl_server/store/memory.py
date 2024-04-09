@@ -21,7 +21,6 @@ from sentence_transformers.util import semantic_search
 import torch
 
 from nl_server import wrapper
-from nl_server.model import sentence_transformer
 from shared.lib import detected_variables as vars
 
 # Number of matches to find within the SV index.
@@ -65,7 +64,7 @@ class MemoryEmbeddingsStore(wrapper.EmbeddingsStore):
   # and returns a list of candidates in the same order as original queries.
   #
   def vector_search(self,
-                    query_embeddings: List[List[float]],
+                    query_embeddings: torch.Tensor,
                     skip_topics: bool = False) -> List[vars.VarCandidates]:
     top_k = _NUM_SV_INDEX_MATCHES
     if skip_topics:
