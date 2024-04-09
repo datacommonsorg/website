@@ -139,7 +139,7 @@ class TestEmbeddings(unittest.TestCase):
     _test_query(self, embeddings.get("medium_ft"), "food", "")
 
     custom_idx = EmbeddingsIndex(name="custom_ft",
-                                 store_type='MEMORY',
+                                 store_type=config.StoreType.MEMORY,
                                  embeddings_path=_CUSTOM_FILE,
                                  embeddings_local_path=os.path.join(
                                      TEMP_DIR, _CUSTOM_FILE))

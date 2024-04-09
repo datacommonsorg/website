@@ -21,7 +21,13 @@ from shared.lib import detected_variables as vars
 
 TABLE_NAME = 'datacommons'
 
+# TODO: Share these with build_embeddings logic.
+DCID_COL = 'dcid'
+SENTENCE_COL = 'sentence'
+DISTANCE_COL = '_distance'
 
+
+# TODO: Switch to async API for concurrent lookups.
 class LanceDBStore(wrapper.EmbeddingsStore):
   """Manages the embeddings."""
 
@@ -42,9 +48,9 @@ class LanceDBStore(wrapper.EmbeddingsStore):
       for match in matches:
         # We want to return cosine-similarity, but LanceDB
         # returns distance.
-        score = 1 - match['_distance']
-        dcid = match['dcid']
-        sentence = match['sentence']
+        score = 1 - match[DISTANCE_COL]
+        dcid = match[DCID_COL]
+        sentence = match[SENTENCE_COL]
         if dcid not in sv2score:
           sv2score[dcid] = score
           sv2sentence2score[dcid] = {}
