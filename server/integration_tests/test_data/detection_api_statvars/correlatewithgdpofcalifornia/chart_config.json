@@ -26,6 +26,8 @@
   "entities": [
     "geoId/06"
   ],
+  "nonPlaceEntities": [],
+  "properties": [],
   "sessionId": "007_999999999",
   "variables": [
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal",

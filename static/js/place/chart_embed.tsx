@@ -53,6 +53,7 @@ interface ChartEmbedStateType {
   chartWidth: number;
   sources: string[];
   chartDownloadXml: string;
+  getDataCsv?: () => Promise<string>;
 }
 
 /**
@@ -80,6 +81,7 @@ class ChartEmbed extends React.Component<
       chartWidth: 0,
       sources: [],
       chartDownloadXml: "",
+      getDataCsv: undefined,
     };
     this.modalId = randDomId();
     this.svgContainerElement = React.createRef();
@@ -106,7 +108,7 @@ class ChartEmbed extends React.Component<
    */
   public show(
     svgXml: string,
-    dataCsv: string,
+    getDataCsv: () => Promise<string>,
     chartWidth: number,
     chartHeight: number,
     chartHtml: string,
@@ -120,7 +122,9 @@ class ChartEmbed extends React.Component<
       chartHtml,
       chartTitle,
       chartDate,
-      dataCsv,
+      // Clear cached dataCSV to force CSV to refresh
+      dataCsv: "",
+      getDataCsv,
       modal: true,
       sources,
       svgXml,
@@ -337,9 +341,19 @@ class ChartEmbed extends React.Component<
   }
 
   /**
-   * On click handler on the text area - auto-selects all the text.
+   * On click handler on the text area.
+   * - If the user clicks on the text area and doesn't drag the mouse,
+   *   select all of the text (to help them copy and paste)
+   * - If the user clicks and drags, don't select all of the text and allow them
+   *   to make their selection
    */
   public onClickTextarea(): void {
+    const selection = window.getSelection().toString();
+    // User is trying to select specific text.
+    if (selection) {
+      return;
+    }
+    // User single-clicked without dragging. Select the entire CSV text
     this.textareaElement.current.focus();
     this.textareaElement.current.setSelectionRange(
       0,
@@ -352,7 +366,8 @@ class ChartEmbed extends React.Component<
    */
   public onDownloadSvg(): void {
     triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_IMG, {});
-    saveToFile("chart.svg", this.state.chartDownloadXml);
+    const basename = this.state.chartTitle || "chart";
+    saveToFile(`${basename}.svg`, this.state.chartDownloadXml);
   }
 
   /**
@@ -360,7 +375,29 @@ class ChartEmbed extends React.Component<
    */
   public onDownloadData(): void {
     triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_CSV, {});
-    saveToFile("export.csv", this.state.dataCsv);
+    const basename = this.state.chartTitle || "export";
+    saveToFile(`${basename}.csv`, this.state.dataCsv);
+  }
+
+  async componentDidUpdate() {
+    if (!this.state.dataCsv && this.state.getDataCsv) {
+      try {
+        const dataCsv = await this.state.getDataCsv();
+        if (!dataCsv) {
+          this.setState({
+            dataCsv: "Error fetching CSV",
+          });
+          return;
+        }
+        this.setState({
+          dataCsv,
+        });
+      } catch (e) {
+        this.setState({
+          dataCsv: "Error fetching CSV",
+        });
+      }
+    }
   }
 
   public render(): JSX.Element {
@@ -387,7 +424,7 @@ class ChartEmbed extends React.Component<
             className={`modal-chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
           ></div>
           <textarea
-            className="copy-svg mt-3"
+            className="copy-svg modal-textarea mt-3"
             value={this.state.dataCsv}
             readOnly
             ref={this.textareaElement}
@@ -407,7 +444,11 @@ class ChartEmbed extends React.Component<
               </Button>{" "}
             </>
           )}
-          <Button color="primary" onClick={this.onDownloadData}>
+          <Button
+            color="primary"
+            onClick={this.onDownloadData}
+            disabled={!this.state.dataCsv}
+          >
             {intl.formatMessage({
               id: "embed_download_csv_link",
               defaultMessage: "Download Data as CSV",

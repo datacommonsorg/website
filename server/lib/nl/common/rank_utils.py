@@ -14,8 +14,6 @@
 """Utility functions for use by the NL modules."""
 
 import datetime
-import logging
-import sys
 import time
 from typing import Dict, List, NamedTuple, Set, Tuple
 
@@ -166,7 +164,7 @@ def rank_places_by_series_growth(
     try:
       net_growth = _compute_series_growth(series, denom, date_range)
     except Exception as e:
-      logging.error('Growth rate computation failed: %s', str(e))
+      counters.err('place_growth_ranking_computation_failed', str(e))
       continue
 
     if net_growth.abs > 0 and growth_direction == types.TimeDeltaType.DECREASE:
@@ -223,7 +221,7 @@ def rank_svs_by_series_growth(
     try:
       net_growth = _compute_series_growth(series, denom, date_range)
     except Exception as e:
-      logging.error('Growth rate computation failed: %s', str(e))
+      counters.err('sv_growth_ranking_computation_failed', str(e))
       continue
 
     if net_growth.abs > 0 and growth_direction == types.TimeDeltaType.DECREASE:
@@ -297,12 +295,7 @@ def _compute_growth(earliest: Dict, latest: Dict, series: List[Dict],
         new_earliest = v
         break
     if new_earliest and new_earliest_date != latest['date']:
-      logging.info('Changing start month from %s to %s to match %s',
-                   earliest['date'], new_earliest_date, latest['date'])
       earliest = new_earliest
-    else:
-      logging.info('First and last months diverge: %s vs. %s', earliest['date'],
-                   latest['date'])
 
   val_delta = latest['value'] - earliest['value']
   date_delta = _datestr_to_date(latest['date']) - _datestr_to_date(

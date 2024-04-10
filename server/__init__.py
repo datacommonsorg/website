@@ -23,6 +23,7 @@ from flask import request
 from flask_babel import Babel
 import flask_cors
 from google.cloud import secretmanager
+import google.cloud.logging
 
 from server.lib import topic_cache
 import server.lib.cache as lib_cache
@@ -36,12 +37,11 @@ import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
+import shared.lib.gcp as lib_gcp
 
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
 DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
-
-cfg = lib_config.get_config()
 
 
 def register_routes_base_dc(app):
@@ -49,17 +49,11 @@ def register_routes_base_dc(app):
   from server.routes.dev import html as dev_html
   app.register_blueprint(dev_html.bp)
 
-  from server.routes.disease import html as disease_html
-  app.register_blueprint(disease_html.bp)
-
   from server.routes.import_wizard import html as import_wizard_html
   app.register_blueprint(import_wizard_html.bp)
 
   from server.routes.place_list import html as place_list_html
   app.register_blueprint(place_list_html.bp)
-
-  from server.routes.protein import html as protein_html
-  app.register_blueprint(protein_html.bp)
 
   from server.routes import redirects
   app.register_blueprint(redirects.bp)
@@ -74,17 +68,29 @@ def register_routes_base_dc(app):
   from server.routes.topic_page import html as topic_page_html
   app.register_blueprint(topic_page_html.bp)
 
-  from server.routes.disease import api as disease_api
-  app.register_blueprint(disease_api.bp)
-
-  from server.routes.protein import api as protein_api
-  app.register_blueprint(protein_api.bp)
-
   from server.routes.import_detection import detection as detection_api
   app.register_blueprint(detection_api.bp)
 
   from server.routes.disaster import api as disaster_api
   app.register_blueprint(disaster_api.bp)
+
+
+def register_routes_biomedical_dc(app):
+  # Apply the blueprints specific to biomedical dc
+  from server.routes.biomedical import html as bio_html
+  app.register_blueprint(bio_html.bp)
+
+  from server.routes.disease import api as disease_api
+  app.register_blueprint(disease_api.bp)
+
+  from server.routes.disease import html as disease_html
+  app.register_blueprint(disease_html.bp)
+
+  from server.routes.protein import api as protein_api
+  app.register_blueprint(protein_api.bp)
+
+  from server.routes.protein import html as protein_html
+  app.register_blueprint(protein_html.bp)
 
 
 def register_routes_disasters(app):
@@ -226,6 +232,20 @@ def register_routes_common(app):
 def create_app(nl_root=DEFAULT_NL_ROOT):
   app = Flask(__name__, static_folder='dist', static_url_path='')
 
+  cfg = lib_config.get_config()
+
+  if lib_gcp.in_google_network():
+    client = google.cloud.logging.Client()
+    client.setup_logging()
+  else:
+    logging.basicConfig(
+        level=logging.INFO,
+        format=
+        "[%(asctime)s][%(levelname)-8s][%(filename)s:%(lineno)s] %(message)s ",
+        datefmt="%H:%M:%S",
+    )
+  logging.getLogger('werkzeug').setLevel(logging.WARNING)
+
   # Setup flask config
   app.config.from_object(cfg)
 
@@ -251,6 +271,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     configure_endpoints_from_ingress(ingress_config_path)
 
   register_routes_common(app)
+  if not cfg.CUSTOM:
+    # Only register biomedical DC routes if in main DC
+    register_routes_biomedical_dc(app)
 
   register_routes_base_dc(app)
   if cfg.SHOW_DISASTER:
@@ -354,6 +377,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     app.config['SDG_PERCENT_VARS'] = libutil.get_sdg_percent_vars()
     app.config['SPECIAL_DC_NON_COUNTRY_ONLY_VARS'] = \
       libutil.get_special_dc_non_countery_only_vars()
+    # TODO: need to handle singular vs plural in the titles
+    app.config['NL_PROP_TITLES'] = libutil.get_nl_prop_titles()
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()
@@ -412,7 +437,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   @app.teardown_request
   def log_unhandled(e):
     if e is not None:
-      logging.error('Error thrown for request: %s, error: %s', request, e)
+      app.logger.error('Error thrown for request: %s\nerror: %s', request.url,
+                       e)
 
   # Jinja env
   app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']

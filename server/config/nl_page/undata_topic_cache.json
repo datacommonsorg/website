@@ -523,7 +523,7 @@
         "dc/svpg/WHOAIR15.001"
       ],
       "name": [
-        "Burden of attributable to household air pollution in terms of disability-adjusted life years (DALYs)"
+        "Burden of disease attributable to household air pollution in terms of disability-adjusted life years (DALYs)"
       ],
       "memberList": [
         "who/AIR_15.SEX--F",
@@ -1641,7 +1641,7 @@
         "dc/svpg/WHOAIR39.001"
       ],
       "name": [
-        "Burden of attributable to household air pollution in terms of number of disability-adjusted life years (DALYs) (per 100 000, age-standardized)"
+        "Burden of disease attributable to household air pollution in terms of number of disability-adjusted life years (DALYs) (per 100 000, age-standardized)"
       ],
       "memberList": [
         "who/AIR_39.SEX--F",
@@ -2783,9 +2783,11 @@
         "who/AIR_42.AGE--Y45T49__ENVCAUSE--ENVCAUSE114__SEX--F",
         "who/AIR_42.AGE--Y50T54__ENVCAUSE--ENVCAUSE114__SEX--F",
         "who/AIR_42.AGE--Y55T59__ENVCAUSE--ENVCAUSE114__SEX--F",
+        "who/AIR_42.AGE--Y60T64__ENVCAUSE--ENVCAUSE114__SEX--F",
         "who/AIR_42.AGE--Y65T69__ENVCAUSE--ENVCAUSE114__SEX--F",
         "who/AIR_42.AGE--Y70T74__ENVCAUSE--ENVCAUSE114__SEX--F",
-        "who/AIR_42.AGE--Y_GE80__ENVCAUSE--ENVCAUSE114__SEX--F"
+        "who/AIR_42.AGE--Y_GE80__ENVCAUSE--ENVCAUSE114__SEX--F",
+        "who/AIR_42.AGE--Y75T79__ENVCAUSE--ENVCAUSE114__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -2911,9 +2913,11 @@
         "who/AIR_42.AGE--Y45T49__ENVCAUSE--ENVCAUSE114__SEX--M",
         "who/AIR_42.AGE--Y50T54__ENVCAUSE--ENVCAUSE114__SEX--M",
         "who/AIR_42.AGE--Y55T59__ENVCAUSE--ENVCAUSE114__SEX--M",
+        "who/AIR_42.AGE--Y60T64__ENVCAUSE--ENVCAUSE114__SEX--M",
         "who/AIR_42.AGE--Y65T69__ENVCAUSE--ENVCAUSE114__SEX--M",
         "who/AIR_42.AGE--Y70T74__ENVCAUSE--ENVCAUSE114__SEX--M",
-        "who/AIR_42.AGE--Y75T79__ENVCAUSE--ENVCAUSE114__SEX--M"
+        "who/AIR_42.AGE--Y75T79__ENVCAUSE--ENVCAUSE114__SEX--M",
+        "who/AIR_42.AGE--Y_GE80__ENVCAUSE--ENVCAUSE114__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -6924,8 +6928,8 @@
       "memberList": [
         "who/AMRGLASS_QA04.AMRGLASSCATEGORY--AMRGLASS_UNKNOWN",
         "who/AMRGLASS_QA04.AMRGLASSCATEGORY--AMRGLASS_PATHOGENSCOVERED01",
-        "who/AMRGLASS_QA04.AMRGLASSCATEGORY--AMRGLASS_PATHOGENSCOVERED03",
-        "who/AMRGLASS_QA04.AMRGLASSCATEGORY--AMRGLASS_PATHOGENSCOVERED02"
+        "who/AMRGLASS_QA04.AMRGLASSCATEGORY--AMRGLASS_PATHOGENSCOVERED02",
+        "who/AMRGLASS_QA04.AMRGLASSCATEGORY--AMRGLASS_PATHOGENSCOVERED03"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7146,6 +7150,38 @@
         "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_NGO__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS",
         "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Oop__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS",
         "who/ASSISTIVETECH_PAYERSAT.ASSISTIVETECHFUNDING--ASSISTIVETECH_Other__ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOASSISTIVETECHSATISFACTIONACTIVITIES.001"
+      ],
+      "name": [
+        "Assistive technology indicators: Satisfaction with assistive products for different environments and activities (%)"
+      ],
+      "memberList": [
+        "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities",
+        "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home",
+        "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOASSISTIVETECHSATISFACTIONACTIVITIES.002"
+      ],
+      "name": [
+        "Assistive technology indicators: Satisfaction with assistive products, excluding spectacles, for different environments and activities (%)"
+      ],
+      "memberList": [
+        "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities",
+        "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home",
+        "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_public"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7872,6 +7908,128 @@
     },
     {
       "dcid": [
+        "dc/svpg/WHOEMFLIMITELECTRIC.002"
+      ],
+      "name": [
+        "Exposure limit for electromagnetic fields for the public: Electric field (kV/m)"
+      ],
+      "memberList": [
+        "who/EMFLIMITELECTRIC.EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFSTATIC",
+        "who/EMFLIMITELECTRIC.EMFEXPOSED--EMFWORKER__EMFFREQUENCY--EMFSTATIC"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOEMFLIMITELECTRICLF.001"
+      ],
+      "name": [
+        "Exposure limits for low-frequency electromagnetic fields for the public: Electric field (kV/m)"
+      ],
+      "memberList": [
+        "who/EMFLIMITELECTRICLF.EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFLOW",
+        "who/EMFLIMITELECTRICLF.EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFSTATIC"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOEMFLIMITELECTRICRF.001"
+      ],
+      "name": [
+        "Exposure limits for radio-frequency electromagnetic fields for the public: Electric field (V/m)"
+      ],
+      "memberList": [
+        "who/EMFLIMITELECTRICRF.EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFRADIO__EMFRADIOBAND--EMFFREQ1800",
+        "who/EMFLIMITELECTRICRF.EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFRADIO__EMFRADIOBAND--EMFFREQ0900"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOEMFLIMITELECTRICRF.002"
+      ],
+      "name": [
+        "Exposure limits for radio-frequency electromagnetic fields for workers: Electric field (V/m)"
+      ],
+      "memberList": [
+        "who/EMFLIMITELECTRICRF.EMFEXPOSED--EMFWORKER__EMFFREQUENCY--EMFRADIO__EMFRADIOBAND--EMFFREQ1800",
+        "who/EMFLIMITELECTRICRF.EMFEXPOSED--EMFWORKER__EMFFREQUENCY--EMFRADIO__EMFRADIOBAND--EMFFREQ0900"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOEMFLIMITPOWERDENSITY.001"
+      ],
+      "name": [
+        "['\"Exposure limit for radio-frequency electromagnetic field for the public: Power density (W/m^2)"
+      ],
+      "memberList": [
+        "who/EMFLIMITPOWERDENSITY.EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFRADIO__EMFRADIOBAND--EMFFREQ1800",
+        "who/EMFLIMITPOWERDENSITY.EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFRADIO__EMFRADIOBAND--EMFFREQ0900"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOEMFLIMITPOWERDENSITY.002"
+      ],
+      "name": [
+        "['\"Exposure limit for radio-frequency electromagnetic field for workeers: Power density (W/m^2)"
+      ],
+      "memberList": [
+        "who/EMFLIMITPOWERDENSITY.EMFEXPOSED--EMFWORKER__EMFFREQUENCY--EMFRADIO__EMFRADIOBAND--EMFFREQ1800",
+        "who/EMFLIMITPOWERDENSITY.EMFEXPOSED--EMFWORKER__EMFFREQUENCY--EMFRADIO__EMFRADIOBAND--EMFFREQ0900"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOEMFSAR.001"
+      ],
+      "name": [
+        "Exposure limit for electromagnetic field for the public: Specific absorption rate (SAR)(W/kg), by body part"
+      ],
+      "memberList": [
+        "who/EMFSAR.EMFBODYPART--EMFHEAD__EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFRADIO",
+        "who/EMFSAR.EMFBODYPART--EMFLIMBS__EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFRADIO",
+        "who/EMFSAR.EMFBODYPART--EMFWHOLE__EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFRADIO"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOEMFSAR.002"
+      ],
+      "name": [
+        "Exposure limit for electromagnetic field for workers: Specific absorption rate (SAR)(W/kg), by body part"
+      ],
+      "memberList": [
+        "who/EMFSAR.EMFBODYPART--EMFHEAD__EMFEXPOSED--EMFWORKER__EMFFREQUENCY--EMFRADIO",
+        "who/EMFSAR.EMFBODYPART--EMFLIMBS__EMFEXPOSED--EMFWORKER__EMFFREQUENCY--EMFRADIO",
+        "who/EMFSAR.EMFBODYPART--EMFWHOLE__EMFEXPOSED--EMFWORKER__EMFFREQUENCY--EMFRADIO"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/WHOFINPROTECTIONCATACTPFHU40HH.001"
       ],
       "name": [
@@ -8349,8 +8507,8 @@
         "Population pushed further below a relative poverty line by household health expenditures - 60% of median daily per capita consumption or income (%), by age of head of the household"
       ],
       "memberList": [
-        "who/FINPROTECTION_IMP_PRELPL_POP.AGE--Y_GE60__POP_TYPE--HOUSEHOLD_HEAD",
-        "who/FINPROTECTION_IMP_PRELPL_POP.AGE--Y0T59__POP_TYPE--HOUSEHOLD_HEAD"
+        "who/FINPROTECTION_IMP_PRELPL_POP.AGE--Y0T59__POP_TYPE--HOUSEHOLD_HEAD",
+        "who/FINPROTECTION_IMP_PRELPL_POP.AGE--Y_GE60__POP_TYPE--HOUSEHOLD_HEAD"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -10268,8 +10426,8 @@
       "memberList": [
         "who/GHE_DALYNUM.GHECAUSES--GHE124__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE123__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE125__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE122__SEX--F"
+        "who/GHE_DALYNUM.GHECAUSES--GHE122__SEX--F",
+        "who/GHE_DALYNUM.GHECAUSES--GHE125__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -10285,8 +10443,8 @@
       "memberList": [
         "who/GHE_DALYNUM.GHECAUSES--GHE124__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE123__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE125__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE122__SEX--M"
+        "who/GHE_DALYNUM.GHECAUSES--GHE122__SEX--M",
+        "who/GHE_DALYNUM.GHECAUSES--GHE125__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -10302,8 +10460,8 @@
       "memberList": [
         "who/GHE_DALYNUM.GHECAUSES--GHE124",
         "who/GHE_DALYNUM.GHECAUSES--GHE123",
-        "who/GHE_DALYNUM.GHECAUSES--GHE125",
-        "who/GHE_DALYNUM.GHECAUSES--GHE122"
+        "who/GHE_DALYNUM.GHECAUSES--GHE122",
+        "who/GHE_DALYNUM.GHECAUSES--GHE125"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -12368,12 +12526,12 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE069__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE062__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE063__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE078__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE073__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE067__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE074__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE064__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE068__SEX--F"
+        "who/GHE_DALYNUM.GHECAUSES--GHE068__SEX--F",
+        "who/GHE_DALYNUM.GHECAUSES--GHE078__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -12398,12 +12556,12 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE069__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE062__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE063__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE078__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE073__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE067__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE074__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE064__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE068__SEX--M"
+        "who/GHE_DALYNUM.GHECAUSES--GHE068__SEX--M",
+        "who/GHE_DALYNUM.GHECAUSES--GHE078__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -12428,12 +12586,12 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE069",
         "who/GHE_DALYNUM.GHECAUSES--GHE062",
         "who/GHE_DALYNUM.GHECAUSES--GHE063",
-        "who/GHE_DALYNUM.GHECAUSES--GHE078",
         "who/GHE_DALYNUM.GHECAUSES--GHE073",
         "who/GHE_DALYNUM.GHECAUSES--GHE067",
         "who/GHE_DALYNUM.GHECAUSES--GHE074",
         "who/GHE_DALYNUM.GHECAUSES--GHE064",
-        "who/GHE_DALYNUM.GHECAUSES--GHE068"
+        "who/GHE_DALYNUM.GHECAUSES--GHE068",
+        "who/GHE_DALYNUM.GHECAUSES--GHE078"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -12664,10 +12822,10 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE087__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE089__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE092__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE093__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE090__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE085__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE083__SEX--F"
+        "who/GHE_DALYNUM.GHECAUSES--GHE083__SEX--F",
+        "who/GHE_DALYNUM.GHECAUSES--GHE093__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -12688,10 +12846,10 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE087__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE089__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE092__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE093__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE090__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE085__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE083__SEX--M"
+        "who/GHE_DALYNUM.GHECAUSES--GHE083__SEX--M",
+        "who/GHE_DALYNUM.GHECAUSES--GHE093__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -12712,10 +12870,10 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE087",
         "who/GHE_DALYNUM.GHECAUSES--GHE089",
         "who/GHE_DALYNUM.GHECAUSES--GHE092",
-        "who/GHE_DALYNUM.GHECAUSES--GHE093",
         "who/GHE_DALYNUM.GHECAUSES--GHE090",
         "who/GHE_DALYNUM.GHECAUSES--GHE085",
-        "who/GHE_DALYNUM.GHECAUSES--GHE083"
+        "who/GHE_DALYNUM.GHECAUSES--GHE083",
+        "who/GHE_DALYNUM.GHECAUSES--GHE093"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -12901,8 +13059,8 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE137__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE134__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE136__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE139__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE135__SEX--F"
+        "who/GHE_DALYNUM.GHECAUSES--GHE135__SEX--F",
+        "who/GHE_DALYNUM.GHECAUSES--GHE139__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -12920,8 +13078,8 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE137__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE134__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE136__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE139__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE135__SEX--M"
+        "who/GHE_DALYNUM.GHECAUSES--GHE135__SEX--M",
+        "who/GHE_DALYNUM.GHECAUSES--GHE139__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -12939,8 +13097,8 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE137",
         "who/GHE_DALYNUM.GHECAUSES--GHE134",
         "who/GHE_DALYNUM.GHECAUSES--GHE136",
-        "who/GHE_DALYNUM.GHECAUSES--GHE139",
-        "who/GHE_DALYNUM.GHECAUSES--GHE135"
+        "who/GHE_DALYNUM.GHECAUSES--GHE135",
+        "who/GHE_DALYNUM.GHECAUSES--GHE139"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -13178,8 +13336,8 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE099__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE098__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE100__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE101__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE096__SEX--F"
+        "who/GHE_DALYNUM.GHECAUSES--GHE096__SEX--F",
+        "who/GHE_DALYNUM.GHECAUSES--GHE101__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -13198,8 +13356,8 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE099__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE098__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE100__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE101__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE096__SEX--M"
+        "who/GHE_DALYNUM.GHECAUSES--GHE096__SEX--M",
+        "who/GHE_DALYNUM.GHECAUSES--GHE101__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -13218,8 +13376,8 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE099",
         "who/GHE_DALYNUM.GHECAUSES--GHE098",
         "who/GHE_DALYNUM.GHECAUSES--GHE100",
-        "who/GHE_DALYNUM.GHECAUSES--GHE101",
-        "who/GHE_DALYNUM.GHECAUSES--GHE096"
+        "who/GHE_DALYNUM.GHECAUSES--GHE096",
+        "who/GHE_DALYNUM.GHECAUSES--GHE101"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -13286,9 +13444,9 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE082__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE094__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE147__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE079__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE102__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE133__SEX--F"
+        "who/GHE_DALYNUM.GHECAUSES--GHE133__SEX--F",
+        "who/GHE_DALYNUM.GHECAUSES--GHE079__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -13313,9 +13471,9 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE082__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE094__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE147__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE079__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE102__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE133__SEX--M"
+        "who/GHE_DALYNUM.GHECAUSES--GHE133__SEX--M",
+        "who/GHE_DALYNUM.GHECAUSES--GHE079__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -13340,9 +13498,9 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE082",
         "who/GHE_DALYNUM.GHECAUSES--GHE094",
         "who/GHE_DALYNUM.GHECAUSES--GHE147",
-        "who/GHE_DALYNUM.GHECAUSES--GHE079",
         "who/GHE_DALYNUM.GHECAUSES--GHE102",
-        "who/GHE_DALYNUM.GHECAUSES--GHE133"
+        "who/GHE_DALYNUM.GHECAUSES--GHE133",
+        "who/GHE_DALYNUM.GHECAUSES--GHE079"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -13442,9 +13600,9 @@
       "memberList": [
         "who/GHE_DALYNUM.GHECAUSES--GHE056__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE058__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE059__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE055__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE057__SEX--F"
+        "who/GHE_DALYNUM.GHECAUSES--GHE057__SEX--F",
+        "who/GHE_DALYNUM.GHECAUSES--GHE059__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -13460,9 +13618,9 @@
       "memberList": [
         "who/GHE_DALYNUM.GHECAUSES--GHE056__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE058__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE059__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE055__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE057__SEX--M"
+        "who/GHE_DALYNUM.GHECAUSES--GHE057__SEX--M",
+        "who/GHE_DALYNUM.GHECAUSES--GHE059__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -13478,9 +13636,9 @@
       "memberList": [
         "who/GHE_DALYNUM.GHECAUSES--GHE056",
         "who/GHE_DALYNUM.GHECAUSES--GHE058",
-        "who/GHE_DALYNUM.GHECAUSES--GHE059",
         "who/GHE_DALYNUM.GHECAUSES--GHE055",
-        "who/GHE_DALYNUM.GHECAUSES--GHE057"
+        "who/GHE_DALYNUM.GHECAUSES--GHE057",
+        "who/GHE_DALYNUM.GHECAUSES--GHE059"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -15552,10 +15710,10 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE104__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE103__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE106__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE108__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE109__SEX--F",
+        "who/GHE_DALYNUM.GHECAUSES--GHE105__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE107__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE105__SEX--F"
+        "who/GHE_DALYNUM.GHECAUSES--GHE108__SEX--F",
+        "who/GHE_DALYNUM.GHECAUSES--GHE109__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -15572,10 +15730,10 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE104__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE103__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE106__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE108__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE109__SEX--M",
+        "who/GHE_DALYNUM.GHECAUSES--GHE105__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE107__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE105__SEX--M"
+        "who/GHE_DALYNUM.GHECAUSES--GHE108__SEX--M",
+        "who/GHE_DALYNUM.GHECAUSES--GHE109__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -15592,10 +15750,10 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE104",
         "who/GHE_DALYNUM.GHECAUSES--GHE103",
         "who/GHE_DALYNUM.GHECAUSES--GHE106",
-        "who/GHE_DALYNUM.GHECAUSES--GHE108",
-        "who/GHE_DALYNUM.GHECAUSES--GHE109",
+        "who/GHE_DALYNUM.GHECAUSES--GHE105",
         "who/GHE_DALYNUM.GHECAUSES--GHE107",
-        "who/GHE_DALYNUM.GHECAUSES--GHE105"
+        "who/GHE_DALYNUM.GHECAUSES--GHE108",
+        "who/GHE_DALYNUM.GHECAUSES--GHE109"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -15695,9 +15853,9 @@
       "memberList": [
         "who/GHE_DALYNUM.GHECAUSES--GHE006__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE007__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE009__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE005__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE008__SEX--F"
+        "who/GHE_DALYNUM.GHECAUSES--GHE008__SEX--F",
+        "who/GHE_DALYNUM.GHECAUSES--GHE009__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -15713,9 +15871,9 @@
       "memberList": [
         "who/GHE_DALYNUM.GHECAUSES--GHE006__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE007__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE009__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE005__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE008__SEX--M"
+        "who/GHE_DALYNUM.GHECAUSES--GHE008__SEX--M",
+        "who/GHE_DALYNUM.GHECAUSES--GHE009__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -15731,9 +15889,9 @@
       "memberList": [
         "who/GHE_DALYNUM.GHECAUSES--GHE006",
         "who/GHE_DALYNUM.GHECAUSES--GHE007",
-        "who/GHE_DALYNUM.GHECAUSES--GHE009",
         "who/GHE_DALYNUM.GHECAUSES--GHE005",
-        "who/GHE_DALYNUM.GHECAUSES--GHE008"
+        "who/GHE_DALYNUM.GHECAUSES--GHE008",
+        "who/GHE_DALYNUM.GHECAUSES--GHE009"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -16213,9 +16371,9 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE158__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE155__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE156__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE159__SEX--F",
         "who/GHE_DALYNUM.GHECAUSES--GHE154__SEX--F",
-        "who/GHE_DALYNUM.GHECAUSES--GHE153__SEX--F"
+        "who/GHE_DALYNUM.GHECAUSES--GHE153__SEX--F",
+        "who/GHE_DALYNUM.GHECAUSES--GHE159__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -16233,9 +16391,9 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE158__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE155__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE156__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE159__SEX--M",
         "who/GHE_DALYNUM.GHECAUSES--GHE154__SEX--M",
-        "who/GHE_DALYNUM.GHECAUSES--GHE153__SEX--M"
+        "who/GHE_DALYNUM.GHECAUSES--GHE153__SEX--M",
+        "who/GHE_DALYNUM.GHECAUSES--GHE159__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -16253,9 +16411,9 @@
         "who/GHE_DALYNUM.GHECAUSES--GHE158",
         "who/GHE_DALYNUM.GHECAUSES--GHE155",
         "who/GHE_DALYNUM.GHECAUSES--GHE156",
-        "who/GHE_DALYNUM.GHECAUSES--GHE159",
         "who/GHE_DALYNUM.GHECAUSES--GHE154",
-        "who/GHE_DALYNUM.GHECAUSES--GHE153"
+        "who/GHE_DALYNUM.GHECAUSES--GHE153",
+        "who/GHE_DALYNUM.GHECAUSES--GHE159"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -18170,8 +18328,8 @@
       "memberList": [
         "who/GHE_DALYRATE.GHECAUSES--GHE124__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE123__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE125__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE122__SEX--F"
+        "who/GHE_DALYRATE.GHECAUSES--GHE122__SEX--F",
+        "who/GHE_DALYRATE.GHECAUSES--GHE125__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -18187,8 +18345,8 @@
       "memberList": [
         "who/GHE_DALYRATE.GHECAUSES--GHE124__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE123__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE125__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE122__SEX--M"
+        "who/GHE_DALYRATE.GHECAUSES--GHE122__SEX--M",
+        "who/GHE_DALYRATE.GHECAUSES--GHE125__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -18204,8 +18362,8 @@
       "memberList": [
         "who/GHE_DALYRATE.GHECAUSES--GHE124",
         "who/GHE_DALYRATE.GHECAUSES--GHE123",
-        "who/GHE_DALYRATE.GHECAUSES--GHE125",
-        "who/GHE_DALYRATE.GHECAUSES--GHE122"
+        "who/GHE_DALYRATE.GHECAUSES--GHE122",
+        "who/GHE_DALYRATE.GHECAUSES--GHE125"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20102,12 +20260,12 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE069__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE062__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE063__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE078__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE073__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE067__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE074__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE064__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE068__SEX--F"
+        "who/GHE_DALYRATE.GHECAUSES--GHE068__SEX--F",
+        "who/GHE_DALYRATE.GHECAUSES--GHE078__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20132,12 +20290,12 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE069__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE062__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE063__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE078__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE073__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE067__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE074__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE064__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE068__SEX--M"
+        "who/GHE_DALYRATE.GHECAUSES--GHE068__SEX--M",
+        "who/GHE_DALYRATE.GHECAUSES--GHE078__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20162,12 +20320,12 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE069",
         "who/GHE_DALYRATE.GHECAUSES--GHE062",
         "who/GHE_DALYRATE.GHECAUSES--GHE063",
-        "who/GHE_DALYRATE.GHECAUSES--GHE078",
         "who/GHE_DALYRATE.GHECAUSES--GHE073",
         "who/GHE_DALYRATE.GHECAUSES--GHE067",
         "who/GHE_DALYRATE.GHECAUSES--GHE074",
         "who/GHE_DALYRATE.GHECAUSES--GHE064",
-        "who/GHE_DALYRATE.GHECAUSES--GHE068"
+        "who/GHE_DALYRATE.GHECAUSES--GHE068",
+        "who/GHE_DALYRATE.GHECAUSES--GHE078"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20378,10 +20536,10 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE087__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE089__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE092__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE093__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE090__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE085__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE083__SEX--F"
+        "who/GHE_DALYRATE.GHECAUSES--GHE083__SEX--F",
+        "who/GHE_DALYRATE.GHECAUSES--GHE093__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20402,10 +20560,10 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE087__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE089__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE092__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE093__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE090__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE085__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE083__SEX--M"
+        "who/GHE_DALYRATE.GHECAUSES--GHE083__SEX--M",
+        "who/GHE_DALYRATE.GHECAUSES--GHE093__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20426,10 +20584,10 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE087",
         "who/GHE_DALYRATE.GHECAUSES--GHE089",
         "who/GHE_DALYRATE.GHECAUSES--GHE092",
-        "who/GHE_DALYRATE.GHECAUSES--GHE093",
         "who/GHE_DALYRATE.GHECAUSES--GHE090",
         "who/GHE_DALYRATE.GHECAUSES--GHE085",
-        "who/GHE_DALYRATE.GHECAUSES--GHE083"
+        "who/GHE_DALYRATE.GHECAUSES--GHE083",
+        "who/GHE_DALYRATE.GHECAUSES--GHE093"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20599,8 +20757,8 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE137__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE134__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE136__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE139__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE135__SEX--F"
+        "who/GHE_DALYRATE.GHECAUSES--GHE135__SEX--F",
+        "who/GHE_DALYRATE.GHECAUSES--GHE139__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20618,8 +20776,8 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE137__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE134__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE136__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE139__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE135__SEX--M"
+        "who/GHE_DALYRATE.GHECAUSES--GHE135__SEX--M",
+        "who/GHE_DALYRATE.GHECAUSES--GHE139__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20637,8 +20795,8 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE137",
         "who/GHE_DALYRATE.GHECAUSES--GHE134",
         "who/GHE_DALYRATE.GHECAUSES--GHE136",
-        "who/GHE_DALYRATE.GHECAUSES--GHE139",
-        "who/GHE_DALYRATE.GHECAUSES--GHE135"
+        "who/GHE_DALYRATE.GHECAUSES--GHE135",
+        "who/GHE_DALYRATE.GHECAUSES--GHE139"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20860,8 +21018,8 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE099__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE098__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE100__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE101__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE096__SEX--F"
+        "who/GHE_DALYRATE.GHECAUSES--GHE096__SEX--F",
+        "who/GHE_DALYRATE.GHECAUSES--GHE101__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20880,8 +21038,8 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE099__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE098__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE100__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE101__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE096__SEX--M"
+        "who/GHE_DALYRATE.GHECAUSES--GHE096__SEX--M",
+        "who/GHE_DALYRATE.GHECAUSES--GHE101__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20900,8 +21058,8 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE099",
         "who/GHE_DALYRATE.GHECAUSES--GHE098",
         "who/GHE_DALYRATE.GHECAUSES--GHE100",
-        "who/GHE_DALYRATE.GHECAUSES--GHE101",
-        "who/GHE_DALYRATE.GHECAUSES--GHE096"
+        "who/GHE_DALYRATE.GHECAUSES--GHE096",
+        "who/GHE_DALYRATE.GHECAUSES--GHE101"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20964,9 +21122,9 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE082__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE094__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE147__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE079__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE102__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE133__SEX--F"
+        "who/GHE_DALYRATE.GHECAUSES--GHE133__SEX--F",
+        "who/GHE_DALYRATE.GHECAUSES--GHE079__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -20991,9 +21149,9 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE082__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE094__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE147__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE079__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE102__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE133__SEX--M"
+        "who/GHE_DALYRATE.GHECAUSES--GHE133__SEX--M",
+        "who/GHE_DALYRATE.GHECAUSES--GHE079__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -21018,9 +21176,9 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE082",
         "who/GHE_DALYRATE.GHECAUSES--GHE094",
         "who/GHE_DALYRATE.GHECAUSES--GHE147",
-        "who/GHE_DALYRATE.GHECAUSES--GHE079",
         "who/GHE_DALYRATE.GHECAUSES--GHE102",
-        "who/GHE_DALYRATE.GHECAUSES--GHE133"
+        "who/GHE_DALYRATE.GHECAUSES--GHE133",
+        "who/GHE_DALYRATE.GHECAUSES--GHE079"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -21112,9 +21270,9 @@
       "memberList": [
         "who/GHE_DALYRATE.GHECAUSES--GHE056__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE058__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE059__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE055__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE057__SEX--F"
+        "who/GHE_DALYRATE.GHECAUSES--GHE057__SEX--F",
+        "who/GHE_DALYRATE.GHECAUSES--GHE059__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -21130,9 +21288,9 @@
       "memberList": [
         "who/GHE_DALYRATE.GHECAUSES--GHE056__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE058__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE059__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE055__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE057__SEX--M"
+        "who/GHE_DALYRATE.GHECAUSES--GHE057__SEX--M",
+        "who/GHE_DALYRATE.GHECAUSES--GHE059__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -21148,9 +21306,9 @@
       "memberList": [
         "who/GHE_DALYRATE.GHECAUSES--GHE056",
         "who/GHE_DALYRATE.GHECAUSES--GHE058",
-        "who/GHE_DALYRATE.GHECAUSES--GHE059",
         "who/GHE_DALYRATE.GHECAUSES--GHE055",
-        "who/GHE_DALYRATE.GHECAUSES--GHE057"
+        "who/GHE_DALYRATE.GHECAUSES--GHE057",
+        "who/GHE_DALYRATE.GHECAUSES--GHE059"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -23042,10 +23200,10 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE104__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE103__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE106__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE108__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE109__SEX--F",
+        "who/GHE_DALYRATE.GHECAUSES--GHE105__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE107__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE105__SEX--F"
+        "who/GHE_DALYRATE.GHECAUSES--GHE108__SEX--F",
+        "who/GHE_DALYRATE.GHECAUSES--GHE109__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -23062,10 +23220,10 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE104__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE103__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE106__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE108__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE109__SEX--M",
+        "who/GHE_DALYRATE.GHECAUSES--GHE105__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE107__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE105__SEX--M"
+        "who/GHE_DALYRATE.GHECAUSES--GHE108__SEX--M",
+        "who/GHE_DALYRATE.GHECAUSES--GHE109__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -23082,10 +23240,10 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE104",
         "who/GHE_DALYRATE.GHECAUSES--GHE103",
         "who/GHE_DALYRATE.GHECAUSES--GHE106",
-        "who/GHE_DALYRATE.GHECAUSES--GHE108",
-        "who/GHE_DALYRATE.GHECAUSES--GHE109",
+        "who/GHE_DALYRATE.GHECAUSES--GHE105",
         "who/GHE_DALYRATE.GHECAUSES--GHE107",
-        "who/GHE_DALYRATE.GHECAUSES--GHE105"
+        "who/GHE_DALYRATE.GHECAUSES--GHE108",
+        "who/GHE_DALYRATE.GHECAUSES--GHE109"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -23177,9 +23335,9 @@
       "memberList": [
         "who/GHE_DALYRATE.GHECAUSES--GHE006__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE007__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE009__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE005__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE008__SEX--F"
+        "who/GHE_DALYRATE.GHECAUSES--GHE008__SEX--F",
+        "who/GHE_DALYRATE.GHECAUSES--GHE009__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -23195,9 +23353,9 @@
       "memberList": [
         "who/GHE_DALYRATE.GHECAUSES--GHE006__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE007__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE009__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE005__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE008__SEX--M"
+        "who/GHE_DALYRATE.GHECAUSES--GHE008__SEX--M",
+        "who/GHE_DALYRATE.GHECAUSES--GHE009__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -23213,9 +23371,9 @@
       "memberList": [
         "who/GHE_DALYRATE.GHECAUSES--GHE006",
         "who/GHE_DALYRATE.GHECAUSES--GHE007",
-        "who/GHE_DALYRATE.GHECAUSES--GHE009",
         "who/GHE_DALYRATE.GHECAUSES--GHE005",
-        "who/GHE_DALYRATE.GHECAUSES--GHE008"
+        "who/GHE_DALYRATE.GHECAUSES--GHE008",
+        "who/GHE_DALYRATE.GHECAUSES--GHE009"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -23699,9 +23857,9 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE158__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE155__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE156__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE159__SEX--F",
         "who/GHE_DALYRATE.GHECAUSES--GHE154__SEX--F",
-        "who/GHE_DALYRATE.GHECAUSES--GHE153__SEX--F"
+        "who/GHE_DALYRATE.GHECAUSES--GHE153__SEX--F",
+        "who/GHE_DALYRATE.GHECAUSES--GHE159__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -23719,9 +23877,9 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE158__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE155__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE156__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE159__SEX--M",
         "who/GHE_DALYRATE.GHECAUSES--GHE154__SEX--M",
-        "who/GHE_DALYRATE.GHECAUSES--GHE153__SEX--M"
+        "who/GHE_DALYRATE.GHECAUSES--GHE153__SEX--M",
+        "who/GHE_DALYRATE.GHECAUSES--GHE159__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -23739,9 +23897,9 @@
         "who/GHE_DALYRATE.GHECAUSES--GHE158",
         "who/GHE_DALYRATE.GHECAUSES--GHE155",
         "who/GHE_DALYRATE.GHECAUSES--GHE156",
-        "who/GHE_DALYRATE.GHECAUSES--GHE159",
         "who/GHE_DALYRATE.GHECAUSES--GHE154",
-        "who/GHE_DALYRATE.GHECAUSES--GHE153"
+        "who/GHE_DALYRATE.GHECAUSES--GHE153",
+        "who/GHE_DALYRATE.GHECAUSES--GHE159"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -25784,8 +25942,8 @@
       "memberList": [
         "who/GHE_YLDNUM.GHECAUSES--GHE124__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE123__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE125__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE122__SEX--F"
+        "who/GHE_YLDNUM.GHECAUSES--GHE122__SEX--F",
+        "who/GHE_YLDNUM.GHECAUSES--GHE125__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -25801,8 +25959,8 @@
       "memberList": [
         "who/GHE_YLDNUM.GHECAUSES--GHE124__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE123__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE125__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE122__SEX--M"
+        "who/GHE_YLDNUM.GHECAUSES--GHE122__SEX--M",
+        "who/GHE_YLDNUM.GHECAUSES--GHE125__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -25818,8 +25976,8 @@
       "memberList": [
         "who/GHE_YLDNUM.GHECAUSES--GHE124",
         "who/GHE_YLDNUM.GHECAUSES--GHE123",
-        "who/GHE_YLDNUM.GHECAUSES--GHE125",
-        "who/GHE_YLDNUM.GHECAUSES--GHE122"
+        "who/GHE_YLDNUM.GHECAUSES--GHE122",
+        "who/GHE_YLDNUM.GHECAUSES--GHE125"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -27884,12 +28042,12 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE069__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE062__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE063__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE078__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE073__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE067__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE074__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE064__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE068__SEX--F"
+        "who/GHE_YLDNUM.GHECAUSES--GHE068__SEX--F",
+        "who/GHE_YLDNUM.GHECAUSES--GHE078__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -27914,12 +28072,12 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE069__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE062__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE063__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE078__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE073__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE067__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE074__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE064__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE068__SEX--M"
+        "who/GHE_YLDNUM.GHECAUSES--GHE068__SEX--M",
+        "who/GHE_YLDNUM.GHECAUSES--GHE078__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -27944,12 +28102,12 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE069",
         "who/GHE_YLDNUM.GHECAUSES--GHE062",
         "who/GHE_YLDNUM.GHECAUSES--GHE063",
-        "who/GHE_YLDNUM.GHECAUSES--GHE078",
         "who/GHE_YLDNUM.GHECAUSES--GHE073",
         "who/GHE_YLDNUM.GHECAUSES--GHE067",
         "who/GHE_YLDNUM.GHECAUSES--GHE074",
         "who/GHE_YLDNUM.GHECAUSES--GHE064",
-        "who/GHE_YLDNUM.GHECAUSES--GHE068"
+        "who/GHE_YLDNUM.GHECAUSES--GHE068",
+        "who/GHE_YLDNUM.GHECAUSES--GHE078"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28180,10 +28338,10 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE087__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE089__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE092__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE093__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE090__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE085__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE083__SEX--F"
+        "who/GHE_YLDNUM.GHECAUSES--GHE083__SEX--F",
+        "who/GHE_YLDNUM.GHECAUSES--GHE093__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28204,10 +28362,10 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE087__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE089__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE092__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE093__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE090__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE085__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE083__SEX--M"
+        "who/GHE_YLDNUM.GHECAUSES--GHE083__SEX--M",
+        "who/GHE_YLDNUM.GHECAUSES--GHE093__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28228,10 +28386,10 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE087",
         "who/GHE_YLDNUM.GHECAUSES--GHE089",
         "who/GHE_YLDNUM.GHECAUSES--GHE092",
-        "who/GHE_YLDNUM.GHECAUSES--GHE093",
         "who/GHE_YLDNUM.GHECAUSES--GHE090",
         "who/GHE_YLDNUM.GHECAUSES--GHE085",
-        "who/GHE_YLDNUM.GHECAUSES--GHE083"
+        "who/GHE_YLDNUM.GHECAUSES--GHE083",
+        "who/GHE_YLDNUM.GHECAUSES--GHE093"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28417,8 +28575,8 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE137__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE134__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE136__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE139__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE135__SEX--F"
+        "who/GHE_YLDNUM.GHECAUSES--GHE135__SEX--F",
+        "who/GHE_YLDNUM.GHECAUSES--GHE139__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28436,8 +28594,8 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE137__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE134__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE136__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE139__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE135__SEX--M"
+        "who/GHE_YLDNUM.GHECAUSES--GHE135__SEX--M",
+        "who/GHE_YLDNUM.GHECAUSES--GHE139__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28455,8 +28613,8 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE137",
         "who/GHE_YLDNUM.GHECAUSES--GHE134",
         "who/GHE_YLDNUM.GHECAUSES--GHE136",
-        "who/GHE_YLDNUM.GHECAUSES--GHE139",
-        "who/GHE_YLDNUM.GHECAUSES--GHE135"
+        "who/GHE_YLDNUM.GHECAUSES--GHE135",
+        "who/GHE_YLDNUM.GHECAUSES--GHE139"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28694,8 +28852,8 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE099__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE098__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE100__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE101__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE096__SEX--F"
+        "who/GHE_YLDNUM.GHECAUSES--GHE096__SEX--F",
+        "who/GHE_YLDNUM.GHECAUSES--GHE101__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28714,8 +28872,8 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE099__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE098__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE100__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE101__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE096__SEX--M"
+        "who/GHE_YLDNUM.GHECAUSES--GHE096__SEX--M",
+        "who/GHE_YLDNUM.GHECAUSES--GHE101__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28734,8 +28892,8 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE099",
         "who/GHE_YLDNUM.GHECAUSES--GHE098",
         "who/GHE_YLDNUM.GHECAUSES--GHE100",
-        "who/GHE_YLDNUM.GHECAUSES--GHE101",
-        "who/GHE_YLDNUM.GHECAUSES--GHE096"
+        "who/GHE_YLDNUM.GHECAUSES--GHE096",
+        "who/GHE_YLDNUM.GHECAUSES--GHE101"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28802,9 +28960,9 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE082__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE094__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE147__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE079__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE102__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE133__SEX--F"
+        "who/GHE_YLDNUM.GHECAUSES--GHE133__SEX--F",
+        "who/GHE_YLDNUM.GHECAUSES--GHE079__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28829,9 +28987,9 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE082__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE094__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE147__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE079__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE102__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE133__SEX--M"
+        "who/GHE_YLDNUM.GHECAUSES--GHE133__SEX--M",
+        "who/GHE_YLDNUM.GHECAUSES--GHE079__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28856,9 +29014,9 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE082",
         "who/GHE_YLDNUM.GHECAUSES--GHE094",
         "who/GHE_YLDNUM.GHECAUSES--GHE147",
-        "who/GHE_YLDNUM.GHECAUSES--GHE079",
         "who/GHE_YLDNUM.GHECAUSES--GHE102",
-        "who/GHE_YLDNUM.GHECAUSES--GHE133"
+        "who/GHE_YLDNUM.GHECAUSES--GHE133",
+        "who/GHE_YLDNUM.GHECAUSES--GHE079"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28958,9 +29116,9 @@
       "memberList": [
         "who/GHE_YLDNUM.GHECAUSES--GHE056__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE058__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE059__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE055__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE057__SEX--F"
+        "who/GHE_YLDNUM.GHECAUSES--GHE057__SEX--F",
+        "who/GHE_YLDNUM.GHECAUSES--GHE059__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28976,9 +29134,9 @@
       "memberList": [
         "who/GHE_YLDNUM.GHECAUSES--GHE056__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE058__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE059__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE055__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE057__SEX--M"
+        "who/GHE_YLDNUM.GHECAUSES--GHE057__SEX--M",
+        "who/GHE_YLDNUM.GHECAUSES--GHE059__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -28994,9 +29152,9 @@
       "memberList": [
         "who/GHE_YLDNUM.GHECAUSES--GHE056",
         "who/GHE_YLDNUM.GHECAUSES--GHE058",
-        "who/GHE_YLDNUM.GHECAUSES--GHE059",
         "who/GHE_YLDNUM.GHECAUSES--GHE055",
-        "who/GHE_YLDNUM.GHECAUSES--GHE057"
+        "who/GHE_YLDNUM.GHECAUSES--GHE057",
+        "who/GHE_YLDNUM.GHECAUSES--GHE059"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -31068,10 +31226,10 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE104__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE103__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE106__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE108__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE109__SEX--F",
+        "who/GHE_YLDNUM.GHECAUSES--GHE105__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE107__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE105__SEX--F"
+        "who/GHE_YLDNUM.GHECAUSES--GHE108__SEX--F",
+        "who/GHE_YLDNUM.GHECAUSES--GHE109__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -31088,10 +31246,10 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE104__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE103__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE106__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE108__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE109__SEX--M",
+        "who/GHE_YLDNUM.GHECAUSES--GHE105__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE107__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE105__SEX--M"
+        "who/GHE_YLDNUM.GHECAUSES--GHE108__SEX--M",
+        "who/GHE_YLDNUM.GHECAUSES--GHE109__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -31108,10 +31266,10 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE104",
         "who/GHE_YLDNUM.GHECAUSES--GHE103",
         "who/GHE_YLDNUM.GHECAUSES--GHE106",
-        "who/GHE_YLDNUM.GHECAUSES--GHE108",
-        "who/GHE_YLDNUM.GHECAUSES--GHE109",
+        "who/GHE_YLDNUM.GHECAUSES--GHE105",
         "who/GHE_YLDNUM.GHECAUSES--GHE107",
-        "who/GHE_YLDNUM.GHECAUSES--GHE105"
+        "who/GHE_YLDNUM.GHECAUSES--GHE108",
+        "who/GHE_YLDNUM.GHECAUSES--GHE109"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -31211,9 +31369,9 @@
       "memberList": [
         "who/GHE_YLDNUM.GHECAUSES--GHE006__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE007__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE009__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE005__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE008__SEX--F"
+        "who/GHE_YLDNUM.GHECAUSES--GHE008__SEX--F",
+        "who/GHE_YLDNUM.GHECAUSES--GHE009__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -31229,9 +31387,9 @@
       "memberList": [
         "who/GHE_YLDNUM.GHECAUSES--GHE006__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE007__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE009__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE005__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE008__SEX--M"
+        "who/GHE_YLDNUM.GHECAUSES--GHE008__SEX--M",
+        "who/GHE_YLDNUM.GHECAUSES--GHE009__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -31247,9 +31405,9 @@
       "memberList": [
         "who/GHE_YLDNUM.GHECAUSES--GHE006",
         "who/GHE_YLDNUM.GHECAUSES--GHE007",
-        "who/GHE_YLDNUM.GHECAUSES--GHE009",
         "who/GHE_YLDNUM.GHECAUSES--GHE005",
-        "who/GHE_YLDNUM.GHECAUSES--GHE008"
+        "who/GHE_YLDNUM.GHECAUSES--GHE008",
+        "who/GHE_YLDNUM.GHECAUSES--GHE009"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -31777,9 +31935,9 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE158__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE155__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE156__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE159__SEX--F",
         "who/GHE_YLDNUM.GHECAUSES--GHE154__SEX--F",
-        "who/GHE_YLDNUM.GHECAUSES--GHE153__SEX--F"
+        "who/GHE_YLDNUM.GHECAUSES--GHE153__SEX--F",
+        "who/GHE_YLDNUM.GHECAUSES--GHE159__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -31797,9 +31955,9 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE158__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE155__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE156__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE159__SEX--M",
         "who/GHE_YLDNUM.GHECAUSES--GHE154__SEX--M",
-        "who/GHE_YLDNUM.GHECAUSES--GHE153__SEX--M"
+        "who/GHE_YLDNUM.GHECAUSES--GHE153__SEX--M",
+        "who/GHE_YLDNUM.GHECAUSES--GHE159__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -31817,9 +31975,9 @@
         "who/GHE_YLDNUM.GHECAUSES--GHE158",
         "who/GHE_YLDNUM.GHECAUSES--GHE155",
         "who/GHE_YLDNUM.GHECAUSES--GHE156",
-        "who/GHE_YLDNUM.GHECAUSES--GHE159",
         "who/GHE_YLDNUM.GHECAUSES--GHE154",
-        "who/GHE_YLDNUM.GHECAUSES--GHE153"
+        "who/GHE_YLDNUM.GHECAUSES--GHE153",
+        "who/GHE_YLDNUM.GHECAUSES--GHE159"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -33718,8 +33876,8 @@
       "memberList": [
         "who/GHE_YLDRATE.GHECAUSES--GHE124__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE123__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE125__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE122__SEX--F"
+        "who/GHE_YLDRATE.GHECAUSES--GHE122__SEX--F",
+        "who/GHE_YLDRATE.GHECAUSES--GHE125__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -33735,8 +33893,8 @@
       "memberList": [
         "who/GHE_YLDRATE.GHECAUSES--GHE124__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE123__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE125__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE122__SEX--M"
+        "who/GHE_YLDRATE.GHECAUSES--GHE122__SEX--M",
+        "who/GHE_YLDRATE.GHECAUSES--GHE125__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -33752,8 +33910,8 @@
       "memberList": [
         "who/GHE_YLDRATE.GHECAUSES--GHE124",
         "who/GHE_YLDRATE.GHECAUSES--GHE123",
-        "who/GHE_YLDRATE.GHECAUSES--GHE125",
-        "who/GHE_YLDRATE.GHECAUSES--GHE122"
+        "who/GHE_YLDRATE.GHECAUSES--GHE122",
+        "who/GHE_YLDRATE.GHECAUSES--GHE125"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -35650,12 +35808,12 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE069__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE062__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE063__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE078__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE073__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE067__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE074__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE064__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE068__SEX--F"
+        "who/GHE_YLDRATE.GHECAUSES--GHE068__SEX--F",
+        "who/GHE_YLDRATE.GHECAUSES--GHE078__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -35680,12 +35838,12 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE069__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE062__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE063__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE078__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE073__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE067__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE074__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE064__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE068__SEX--M"
+        "who/GHE_YLDRATE.GHECAUSES--GHE068__SEX--M",
+        "who/GHE_YLDRATE.GHECAUSES--GHE078__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -35710,12 +35868,12 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE069",
         "who/GHE_YLDRATE.GHECAUSES--GHE062",
         "who/GHE_YLDRATE.GHECAUSES--GHE063",
-        "who/GHE_YLDRATE.GHECAUSES--GHE078",
         "who/GHE_YLDRATE.GHECAUSES--GHE073",
         "who/GHE_YLDRATE.GHECAUSES--GHE067",
         "who/GHE_YLDRATE.GHECAUSES--GHE074",
         "who/GHE_YLDRATE.GHECAUSES--GHE064",
-        "who/GHE_YLDRATE.GHECAUSES--GHE068"
+        "who/GHE_YLDRATE.GHECAUSES--GHE068",
+        "who/GHE_YLDRATE.GHECAUSES--GHE078"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -35926,10 +36084,10 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE087__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE089__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE092__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE093__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE090__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE085__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE083__SEX--F"
+        "who/GHE_YLDRATE.GHECAUSES--GHE083__SEX--F",
+        "who/GHE_YLDRATE.GHECAUSES--GHE093__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -35950,10 +36108,10 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE087__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE089__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE092__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE093__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE090__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE085__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE083__SEX--M"
+        "who/GHE_YLDRATE.GHECAUSES--GHE083__SEX--M",
+        "who/GHE_YLDRATE.GHECAUSES--GHE093__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -35974,10 +36132,10 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE087",
         "who/GHE_YLDRATE.GHECAUSES--GHE089",
         "who/GHE_YLDRATE.GHECAUSES--GHE092",
-        "who/GHE_YLDRATE.GHECAUSES--GHE093",
         "who/GHE_YLDRATE.GHECAUSES--GHE090",
         "who/GHE_YLDRATE.GHECAUSES--GHE085",
-        "who/GHE_YLDRATE.GHECAUSES--GHE083"
+        "who/GHE_YLDRATE.GHECAUSES--GHE083",
+        "who/GHE_YLDRATE.GHECAUSES--GHE093"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -36147,8 +36305,8 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE137__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE134__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE136__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE139__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE135__SEX--F"
+        "who/GHE_YLDRATE.GHECAUSES--GHE135__SEX--F",
+        "who/GHE_YLDRATE.GHECAUSES--GHE139__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -36166,8 +36324,8 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE137__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE134__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE136__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE139__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE135__SEX--M"
+        "who/GHE_YLDRATE.GHECAUSES--GHE135__SEX--M",
+        "who/GHE_YLDRATE.GHECAUSES--GHE139__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -36185,8 +36343,8 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE137",
         "who/GHE_YLDRATE.GHECAUSES--GHE134",
         "who/GHE_YLDRATE.GHECAUSES--GHE136",
-        "who/GHE_YLDRATE.GHECAUSES--GHE139",
-        "who/GHE_YLDRATE.GHECAUSES--GHE135"
+        "who/GHE_YLDRATE.GHECAUSES--GHE135",
+        "who/GHE_YLDRATE.GHECAUSES--GHE139"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -36408,8 +36566,8 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE099__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE098__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE100__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE101__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE096__SEX--F"
+        "who/GHE_YLDRATE.GHECAUSES--GHE096__SEX--F",
+        "who/GHE_YLDRATE.GHECAUSES--GHE101__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -36428,8 +36586,8 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE099__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE098__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE100__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE101__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE096__SEX--M"
+        "who/GHE_YLDRATE.GHECAUSES--GHE096__SEX--M",
+        "who/GHE_YLDRATE.GHECAUSES--GHE101__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -36448,8 +36606,8 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE099",
         "who/GHE_YLDRATE.GHECAUSES--GHE098",
         "who/GHE_YLDRATE.GHECAUSES--GHE100",
-        "who/GHE_YLDRATE.GHECAUSES--GHE101",
-        "who/GHE_YLDRATE.GHECAUSES--GHE096"
+        "who/GHE_YLDRATE.GHECAUSES--GHE096",
+        "who/GHE_YLDRATE.GHECAUSES--GHE101"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -36512,9 +36670,9 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE082__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE094__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE147__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE079__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE102__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE133__SEX--F"
+        "who/GHE_YLDRATE.GHECAUSES--GHE133__SEX--F",
+        "who/GHE_YLDRATE.GHECAUSES--GHE079__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -36539,9 +36697,9 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE082__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE094__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE147__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE079__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE102__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE133__SEX--M"
+        "who/GHE_YLDRATE.GHECAUSES--GHE133__SEX--M",
+        "who/GHE_YLDRATE.GHECAUSES--GHE079__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -36566,9 +36724,9 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE082",
         "who/GHE_YLDRATE.GHECAUSES--GHE094",
         "who/GHE_YLDRATE.GHECAUSES--GHE147",
-        "who/GHE_YLDRATE.GHECAUSES--GHE079",
         "who/GHE_YLDRATE.GHECAUSES--GHE102",
-        "who/GHE_YLDRATE.GHECAUSES--GHE133"
+        "who/GHE_YLDRATE.GHECAUSES--GHE133",
+        "who/GHE_YLDRATE.GHECAUSES--GHE079"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -36660,9 +36818,9 @@
       "memberList": [
         "who/GHE_YLDRATE.GHECAUSES--GHE056__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE058__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE059__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE055__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE057__SEX--F"
+        "who/GHE_YLDRATE.GHECAUSES--GHE057__SEX--F",
+        "who/GHE_YLDRATE.GHECAUSES--GHE059__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -36678,9 +36836,9 @@
       "memberList": [
         "who/GHE_YLDRATE.GHECAUSES--GHE056__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE058__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE059__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE055__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE057__SEX--M"
+        "who/GHE_YLDRATE.GHECAUSES--GHE057__SEX--M",
+        "who/GHE_YLDRATE.GHECAUSES--GHE059__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -36696,9 +36854,9 @@
       "memberList": [
         "who/GHE_YLDRATE.GHECAUSES--GHE056",
         "who/GHE_YLDRATE.GHECAUSES--GHE058",
-        "who/GHE_YLDRATE.GHECAUSES--GHE059",
         "who/GHE_YLDRATE.GHECAUSES--GHE055",
-        "who/GHE_YLDRATE.GHECAUSES--GHE057"
+        "who/GHE_YLDRATE.GHECAUSES--GHE057",
+        "who/GHE_YLDRATE.GHECAUSES--GHE059"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -38590,10 +38748,10 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE104__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE103__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE106__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE108__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE109__SEX--F",
+        "who/GHE_YLDRATE.GHECAUSES--GHE105__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE107__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE105__SEX--F"
+        "who/GHE_YLDRATE.GHECAUSES--GHE108__SEX--F",
+        "who/GHE_YLDRATE.GHECAUSES--GHE109__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -38610,10 +38768,10 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE104__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE103__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE106__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE108__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE109__SEX--M",
+        "who/GHE_YLDRATE.GHECAUSES--GHE105__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE107__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE105__SEX--M"
+        "who/GHE_YLDRATE.GHECAUSES--GHE108__SEX--M",
+        "who/GHE_YLDRATE.GHECAUSES--GHE109__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -38630,10 +38788,10 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE104",
         "who/GHE_YLDRATE.GHECAUSES--GHE103",
         "who/GHE_YLDRATE.GHECAUSES--GHE106",
-        "who/GHE_YLDRATE.GHECAUSES--GHE108",
-        "who/GHE_YLDRATE.GHECAUSES--GHE109",
+        "who/GHE_YLDRATE.GHECAUSES--GHE105",
         "who/GHE_YLDRATE.GHECAUSES--GHE107",
-        "who/GHE_YLDRATE.GHECAUSES--GHE105"
+        "who/GHE_YLDRATE.GHECAUSES--GHE108",
+        "who/GHE_YLDRATE.GHECAUSES--GHE109"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -38725,9 +38883,9 @@
       "memberList": [
         "who/GHE_YLDRATE.GHECAUSES--GHE006__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE007__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE009__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE005__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE008__SEX--F"
+        "who/GHE_YLDRATE.GHECAUSES--GHE008__SEX--F",
+        "who/GHE_YLDRATE.GHECAUSES--GHE009__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -38743,9 +38901,9 @@
       "memberList": [
         "who/GHE_YLDRATE.GHECAUSES--GHE006__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE007__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE009__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE005__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE008__SEX--M"
+        "who/GHE_YLDRATE.GHECAUSES--GHE008__SEX--M",
+        "who/GHE_YLDRATE.GHECAUSES--GHE009__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -38761,9 +38919,9 @@
       "memberList": [
         "who/GHE_YLDRATE.GHECAUSES--GHE006",
         "who/GHE_YLDRATE.GHECAUSES--GHE007",
-        "who/GHE_YLDRATE.GHECAUSES--GHE009",
         "who/GHE_YLDRATE.GHECAUSES--GHE005",
-        "who/GHE_YLDRATE.GHECAUSES--GHE008"
+        "who/GHE_YLDRATE.GHECAUSES--GHE008",
+        "who/GHE_YLDRATE.GHECAUSES--GHE009"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -39250,9 +39408,9 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE158__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE155__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE156__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE159__SEX--F",
         "who/GHE_YLDRATE.GHECAUSES--GHE154__SEX--F",
-        "who/GHE_YLDRATE.GHECAUSES--GHE153__SEX--F"
+        "who/GHE_YLDRATE.GHECAUSES--GHE153__SEX--F",
+        "who/GHE_YLDRATE.GHECAUSES--GHE159__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -39270,9 +39428,9 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE158__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE155__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE156__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE159__SEX--M",
         "who/GHE_YLDRATE.GHECAUSES--GHE154__SEX--M",
-        "who/GHE_YLDRATE.GHECAUSES--GHE153__SEX--M"
+        "who/GHE_YLDRATE.GHECAUSES--GHE153__SEX--M",
+        "who/GHE_YLDRATE.GHECAUSES--GHE159__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -39290,9 +39448,9 @@
         "who/GHE_YLDRATE.GHECAUSES--GHE158",
         "who/GHE_YLDRATE.GHECAUSES--GHE155",
         "who/GHE_YLDRATE.GHECAUSES--GHE156",
-        "who/GHE_YLDRATE.GHECAUSES--GHE159",
         "who/GHE_YLDRATE.GHECAUSES--GHE154",
-        "who/GHE_YLDRATE.GHECAUSES--GHE153"
+        "who/GHE_YLDRATE.GHECAUSES--GHE153",
+        "who/GHE_YLDRATE.GHECAUSES--GHE159"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -41319,8 +41477,8 @@
       "memberList": [
         "who/GHE_YLLNUM.GHECAUSES--GHE124__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE123__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE125__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE122__SEX--F"
+        "who/GHE_YLLNUM.GHECAUSES--GHE122__SEX--F",
+        "who/GHE_YLLNUM.GHECAUSES--GHE125__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -41336,8 +41494,8 @@
       "memberList": [
         "who/GHE_YLLNUM.GHECAUSES--GHE124__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE123__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE125__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE122__SEX--M"
+        "who/GHE_YLLNUM.GHECAUSES--GHE122__SEX--M",
+        "who/GHE_YLLNUM.GHECAUSES--GHE125__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -41353,8 +41511,8 @@
       "memberList": [
         "who/GHE_YLLNUM.GHECAUSES--GHE124",
         "who/GHE_YLLNUM.GHECAUSES--GHE123",
-        "who/GHE_YLLNUM.GHECAUSES--GHE125",
-        "who/GHE_YLLNUM.GHECAUSES--GHE122"
+        "who/GHE_YLLNUM.GHECAUSES--GHE122",
+        "who/GHE_YLLNUM.GHECAUSES--GHE125"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -43419,12 +43577,12 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE069__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE062__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE063__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE078__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE073__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE067__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE074__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE064__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE068__SEX--F"
+        "who/GHE_YLLNUM.GHECAUSES--GHE068__SEX--F",
+        "who/GHE_YLLNUM.GHECAUSES--GHE078__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -43449,12 +43607,12 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE069__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE062__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE063__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE078__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE073__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE067__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE074__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE064__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE068__SEX--M"
+        "who/GHE_YLLNUM.GHECAUSES--GHE068__SEX--M",
+        "who/GHE_YLLNUM.GHECAUSES--GHE078__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -43479,12 +43637,12 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE069",
         "who/GHE_YLLNUM.GHECAUSES--GHE062",
         "who/GHE_YLLNUM.GHECAUSES--GHE063",
-        "who/GHE_YLLNUM.GHECAUSES--GHE078",
         "who/GHE_YLLNUM.GHECAUSES--GHE073",
         "who/GHE_YLLNUM.GHECAUSES--GHE067",
         "who/GHE_YLLNUM.GHECAUSES--GHE074",
         "who/GHE_YLLNUM.GHECAUSES--GHE064",
-        "who/GHE_YLLNUM.GHECAUSES--GHE068"
+        "who/GHE_YLLNUM.GHECAUSES--GHE068",
+        "who/GHE_YLLNUM.GHECAUSES--GHE078"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -43715,10 +43873,10 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE087__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE089__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE092__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE093__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE090__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE085__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE083__SEX--F"
+        "who/GHE_YLLNUM.GHECAUSES--GHE083__SEX--F",
+        "who/GHE_YLLNUM.GHECAUSES--GHE093__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -43739,10 +43897,10 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE087__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE089__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE092__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE093__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE090__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE085__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE083__SEX--M"
+        "who/GHE_YLLNUM.GHECAUSES--GHE083__SEX--M",
+        "who/GHE_YLLNUM.GHECAUSES--GHE093__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -43763,10 +43921,10 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE087",
         "who/GHE_YLLNUM.GHECAUSES--GHE089",
         "who/GHE_YLLNUM.GHECAUSES--GHE092",
-        "who/GHE_YLLNUM.GHECAUSES--GHE093",
         "who/GHE_YLLNUM.GHECAUSES--GHE090",
         "who/GHE_YLLNUM.GHECAUSES--GHE085",
-        "who/GHE_YLLNUM.GHECAUSES--GHE083"
+        "who/GHE_YLLNUM.GHECAUSES--GHE083",
+        "who/GHE_YLLNUM.GHECAUSES--GHE093"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -43952,8 +44110,8 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE137__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE134__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE136__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE139__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE135__SEX--F"
+        "who/GHE_YLLNUM.GHECAUSES--GHE135__SEX--F",
+        "who/GHE_YLLNUM.GHECAUSES--GHE139__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -43971,8 +44129,8 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE137__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE134__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE136__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE139__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE135__SEX--M"
+        "who/GHE_YLLNUM.GHECAUSES--GHE135__SEX--M",
+        "who/GHE_YLLNUM.GHECAUSES--GHE139__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -43990,8 +44148,8 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE137",
         "who/GHE_YLLNUM.GHECAUSES--GHE134",
         "who/GHE_YLLNUM.GHECAUSES--GHE136",
-        "who/GHE_YLLNUM.GHECAUSES--GHE139",
-        "who/GHE_YLLNUM.GHECAUSES--GHE135"
+        "who/GHE_YLLNUM.GHECAUSES--GHE135",
+        "who/GHE_YLLNUM.GHECAUSES--GHE139"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -44229,8 +44387,8 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE099__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE098__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE100__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE101__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE096__SEX--F"
+        "who/GHE_YLLNUM.GHECAUSES--GHE096__SEX--F",
+        "who/GHE_YLLNUM.GHECAUSES--GHE101__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -44249,8 +44407,8 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE099__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE098__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE100__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE101__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE096__SEX--M"
+        "who/GHE_YLLNUM.GHECAUSES--GHE096__SEX--M",
+        "who/GHE_YLLNUM.GHECAUSES--GHE101__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -44269,8 +44427,8 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE099",
         "who/GHE_YLLNUM.GHECAUSES--GHE098",
         "who/GHE_YLLNUM.GHECAUSES--GHE100",
-        "who/GHE_YLLNUM.GHECAUSES--GHE101",
-        "who/GHE_YLLNUM.GHECAUSES--GHE096"
+        "who/GHE_YLLNUM.GHECAUSES--GHE096",
+        "who/GHE_YLLNUM.GHECAUSES--GHE101"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -44337,9 +44495,9 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE082__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE094__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE147__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE079__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE102__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE133__SEX--F"
+        "who/GHE_YLLNUM.GHECAUSES--GHE133__SEX--F",
+        "who/GHE_YLLNUM.GHECAUSES--GHE079__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -44364,9 +44522,9 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE082__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE094__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE147__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE079__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE102__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE133__SEX--M"
+        "who/GHE_YLLNUM.GHECAUSES--GHE133__SEX--M",
+        "who/GHE_YLLNUM.GHECAUSES--GHE079__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -44391,9 +44549,9 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE082",
         "who/GHE_YLLNUM.GHECAUSES--GHE094",
         "who/GHE_YLLNUM.GHECAUSES--GHE147",
-        "who/GHE_YLLNUM.GHECAUSES--GHE079",
         "who/GHE_YLLNUM.GHECAUSES--GHE102",
-        "who/GHE_YLLNUM.GHECAUSES--GHE133"
+        "who/GHE_YLLNUM.GHECAUSES--GHE133",
+        "who/GHE_YLLNUM.GHECAUSES--GHE079"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -44493,9 +44651,9 @@
       "memberList": [
         "who/GHE_YLLNUM.GHECAUSES--GHE056__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE058__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE059__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE055__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE057__SEX--F"
+        "who/GHE_YLLNUM.GHECAUSES--GHE057__SEX--F",
+        "who/GHE_YLLNUM.GHECAUSES--GHE059__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -44511,9 +44669,9 @@
       "memberList": [
         "who/GHE_YLLNUM.GHECAUSES--GHE056__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE058__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE059__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE055__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE057__SEX--M"
+        "who/GHE_YLLNUM.GHECAUSES--GHE057__SEX--M",
+        "who/GHE_YLLNUM.GHECAUSES--GHE059__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -44529,9 +44687,9 @@
       "memberList": [
         "who/GHE_YLLNUM.GHECAUSES--GHE056",
         "who/GHE_YLLNUM.GHECAUSES--GHE058",
-        "who/GHE_YLLNUM.GHECAUSES--GHE059",
         "who/GHE_YLLNUM.GHECAUSES--GHE055",
-        "who/GHE_YLLNUM.GHECAUSES--GHE057"
+        "who/GHE_YLLNUM.GHECAUSES--GHE057",
+        "who/GHE_YLLNUM.GHECAUSES--GHE059"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -46603,10 +46761,10 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE104__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE103__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE106__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE108__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE109__SEX--F",
+        "who/GHE_YLLNUM.GHECAUSES--GHE105__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE107__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE105__SEX--F"
+        "who/GHE_YLLNUM.GHECAUSES--GHE108__SEX--F",
+        "who/GHE_YLLNUM.GHECAUSES--GHE109__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -46623,10 +46781,10 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE104__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE103__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE106__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE108__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE109__SEX--M",
+        "who/GHE_YLLNUM.GHECAUSES--GHE105__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE107__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE105__SEX--M"
+        "who/GHE_YLLNUM.GHECAUSES--GHE108__SEX--M",
+        "who/GHE_YLLNUM.GHECAUSES--GHE109__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -46643,10 +46801,10 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE104",
         "who/GHE_YLLNUM.GHECAUSES--GHE103",
         "who/GHE_YLLNUM.GHECAUSES--GHE106",
-        "who/GHE_YLLNUM.GHECAUSES--GHE108",
-        "who/GHE_YLLNUM.GHECAUSES--GHE109",
+        "who/GHE_YLLNUM.GHECAUSES--GHE105",
         "who/GHE_YLLNUM.GHECAUSES--GHE107",
-        "who/GHE_YLLNUM.GHECAUSES--GHE105"
+        "who/GHE_YLLNUM.GHECAUSES--GHE108",
+        "who/GHE_YLLNUM.GHECAUSES--GHE109"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -46746,9 +46904,9 @@
       "memberList": [
         "who/GHE_YLLNUM.GHECAUSES--GHE006__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE007__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE009__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE005__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE008__SEX--F"
+        "who/GHE_YLLNUM.GHECAUSES--GHE008__SEX--F",
+        "who/GHE_YLLNUM.GHECAUSES--GHE009__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -46764,9 +46922,9 @@
       "memberList": [
         "who/GHE_YLLNUM.GHECAUSES--GHE006__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE007__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE009__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE005__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE008__SEX--M"
+        "who/GHE_YLLNUM.GHECAUSES--GHE008__SEX--M",
+        "who/GHE_YLLNUM.GHECAUSES--GHE009__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -46782,9 +46940,9 @@
       "memberList": [
         "who/GHE_YLLNUM.GHECAUSES--GHE006",
         "who/GHE_YLLNUM.GHECAUSES--GHE007",
-        "who/GHE_YLLNUM.GHECAUSES--GHE009",
         "who/GHE_YLLNUM.GHECAUSES--GHE005",
-        "who/GHE_YLLNUM.GHECAUSES--GHE008"
+        "who/GHE_YLLNUM.GHECAUSES--GHE008",
+        "who/GHE_YLLNUM.GHECAUSES--GHE009"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -47315,9 +47473,9 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE158__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE155__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE156__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE159__SEX--F",
         "who/GHE_YLLNUM.GHECAUSES--GHE154__SEX--F",
-        "who/GHE_YLLNUM.GHECAUSES--GHE153__SEX--F"
+        "who/GHE_YLLNUM.GHECAUSES--GHE153__SEX--F",
+        "who/GHE_YLLNUM.GHECAUSES--GHE159__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -47335,9 +47493,9 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE158__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE155__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE156__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE159__SEX--M",
         "who/GHE_YLLNUM.GHECAUSES--GHE154__SEX--M",
-        "who/GHE_YLLNUM.GHECAUSES--GHE153__SEX--M"
+        "who/GHE_YLLNUM.GHECAUSES--GHE153__SEX--M",
+        "who/GHE_YLLNUM.GHECAUSES--GHE159__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -47355,9 +47513,9 @@
         "who/GHE_YLLNUM.GHECAUSES--GHE158",
         "who/GHE_YLLNUM.GHECAUSES--GHE155",
         "who/GHE_YLLNUM.GHECAUSES--GHE156",
-        "who/GHE_YLLNUM.GHECAUSES--GHE159",
         "who/GHE_YLLNUM.GHECAUSES--GHE154",
-        "who/GHE_YLLNUM.GHECAUSES--GHE153"
+        "who/GHE_YLLNUM.GHECAUSES--GHE153",
+        "who/GHE_YLLNUM.GHECAUSES--GHE159"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -49256,8 +49414,8 @@
       "memberList": [
         "who/GHE_YLLRATE.GHECAUSES--GHE124__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE123__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE125__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE122__SEX--F"
+        "who/GHE_YLLRATE.GHECAUSES--GHE122__SEX--F",
+        "who/GHE_YLLRATE.GHECAUSES--GHE125__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -49273,8 +49431,8 @@
       "memberList": [
         "who/GHE_YLLRATE.GHECAUSES--GHE124__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE123__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE125__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE122__SEX--M"
+        "who/GHE_YLLRATE.GHECAUSES--GHE122__SEX--M",
+        "who/GHE_YLLRATE.GHECAUSES--GHE125__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -49290,8 +49448,8 @@
       "memberList": [
         "who/GHE_YLLRATE.GHECAUSES--GHE124",
         "who/GHE_YLLRATE.GHECAUSES--GHE123",
-        "who/GHE_YLLRATE.GHECAUSES--GHE125",
-        "who/GHE_YLLRATE.GHECAUSES--GHE122"
+        "who/GHE_YLLRATE.GHECAUSES--GHE122",
+        "who/GHE_YLLRATE.GHECAUSES--GHE125"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -51188,12 +51346,12 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE069__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE062__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE063__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE078__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE073__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE067__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE074__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE064__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE068__SEX--F"
+        "who/GHE_YLLRATE.GHECAUSES--GHE068__SEX--F",
+        "who/GHE_YLLRATE.GHECAUSES--GHE078__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -51218,12 +51376,12 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE069__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE062__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE063__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE078__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE073__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE067__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE074__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE064__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE068__SEX--M"
+        "who/GHE_YLLRATE.GHECAUSES--GHE068__SEX--M",
+        "who/GHE_YLLRATE.GHECAUSES--GHE078__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -51248,12 +51406,12 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE069",
         "who/GHE_YLLRATE.GHECAUSES--GHE062",
         "who/GHE_YLLRATE.GHECAUSES--GHE063",
-        "who/GHE_YLLRATE.GHECAUSES--GHE078",
         "who/GHE_YLLRATE.GHECAUSES--GHE073",
         "who/GHE_YLLRATE.GHECAUSES--GHE067",
         "who/GHE_YLLRATE.GHECAUSES--GHE074",
         "who/GHE_YLLRATE.GHECAUSES--GHE064",
-        "who/GHE_YLLRATE.GHECAUSES--GHE068"
+        "who/GHE_YLLRATE.GHECAUSES--GHE068",
+        "who/GHE_YLLRATE.GHECAUSES--GHE078"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -51464,10 +51622,10 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE087__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE089__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE092__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE093__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE090__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE085__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE083__SEX--F"
+        "who/GHE_YLLRATE.GHECAUSES--GHE083__SEX--F",
+        "who/GHE_YLLRATE.GHECAUSES--GHE093__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -51488,10 +51646,10 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE087__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE089__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE092__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE093__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE090__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE085__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE083__SEX--M"
+        "who/GHE_YLLRATE.GHECAUSES--GHE083__SEX--M",
+        "who/GHE_YLLRATE.GHECAUSES--GHE093__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -51512,10 +51670,10 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE087",
         "who/GHE_YLLRATE.GHECAUSES--GHE089",
         "who/GHE_YLLRATE.GHECAUSES--GHE092",
-        "who/GHE_YLLRATE.GHECAUSES--GHE093",
         "who/GHE_YLLRATE.GHECAUSES--GHE090",
         "who/GHE_YLLRATE.GHECAUSES--GHE085",
-        "who/GHE_YLLRATE.GHECAUSES--GHE083"
+        "who/GHE_YLLRATE.GHECAUSES--GHE083",
+        "who/GHE_YLLRATE.GHECAUSES--GHE093"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -51685,8 +51843,8 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE137__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE134__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE136__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE139__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE135__SEX--F"
+        "who/GHE_YLLRATE.GHECAUSES--GHE135__SEX--F",
+        "who/GHE_YLLRATE.GHECAUSES--GHE139__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -51708,10 +51866,10 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE134__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE136",
         "who/GHE_YLLRATE.GHECAUSES--GHE136__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE139",
-        "who/GHE_YLLRATE.GHECAUSES--GHE139__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE135",
-        "who/GHE_YLLRATE.GHECAUSES--GHE135__SEX--M"
+        "who/GHE_YLLRATE.GHECAUSES--GHE135__SEX--M",
+        "who/GHE_YLLRATE.GHECAUSES--GHE139",
+        "who/GHE_YLLRATE.GHECAUSES--GHE139__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -51933,8 +52091,8 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE099__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE098__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE100__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE101__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE096__SEX--F"
+        "who/GHE_YLLRATE.GHECAUSES--GHE096__SEX--F",
+        "who/GHE_YLLRATE.GHECAUSES--GHE101__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -51953,8 +52111,8 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE099__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE098__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE100__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE101__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE096__SEX--M"
+        "who/GHE_YLLRATE.GHECAUSES--GHE096__SEX--M",
+        "who/GHE_YLLRATE.GHECAUSES--GHE101__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -51973,8 +52131,8 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE099",
         "who/GHE_YLLRATE.GHECAUSES--GHE098",
         "who/GHE_YLLRATE.GHECAUSES--GHE100",
-        "who/GHE_YLLRATE.GHECAUSES--GHE101",
-        "who/GHE_YLLRATE.GHECAUSES--GHE096"
+        "who/GHE_YLLRATE.GHECAUSES--GHE096",
+        "who/GHE_YLLRATE.GHECAUSES--GHE101"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -52037,9 +52195,9 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE082__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE094__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE147__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE079__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE102__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE133__SEX--F"
+        "who/GHE_YLLRATE.GHECAUSES--GHE133__SEX--F",
+        "who/GHE_YLLRATE.GHECAUSES--GHE079__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -52064,9 +52222,9 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE082__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE094__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE147__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE079__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE102__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE133__SEX--M"
+        "who/GHE_YLLRATE.GHECAUSES--GHE133__SEX--M",
+        "who/GHE_YLLRATE.GHECAUSES--GHE079__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -52091,9 +52249,9 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE082",
         "who/GHE_YLLRATE.GHECAUSES--GHE094",
         "who/GHE_YLLRATE.GHECAUSES--GHE147",
-        "who/GHE_YLLRATE.GHECAUSES--GHE079",
         "who/GHE_YLLRATE.GHECAUSES--GHE102",
-        "who/GHE_YLLRATE.GHECAUSES--GHE133"
+        "who/GHE_YLLRATE.GHECAUSES--GHE133",
+        "who/GHE_YLLRATE.GHECAUSES--GHE079"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -52185,9 +52343,9 @@
       "memberList": [
         "who/GHE_YLLRATE.GHECAUSES--GHE056__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE058__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE059__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE055__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE057__SEX--F"
+        "who/GHE_YLLRATE.GHECAUSES--GHE057__SEX--F",
+        "who/GHE_YLLRATE.GHECAUSES--GHE059__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -52203,9 +52361,9 @@
       "memberList": [
         "who/GHE_YLLRATE.GHECAUSES--GHE056__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE058__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE059__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE055__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE057__SEX--M"
+        "who/GHE_YLLRATE.GHECAUSES--GHE057__SEX--M",
+        "who/GHE_YLLRATE.GHECAUSES--GHE059__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -52221,9 +52379,9 @@
       "memberList": [
         "who/GHE_YLLRATE.GHECAUSES--GHE056",
         "who/GHE_YLLRATE.GHECAUSES--GHE058",
-        "who/GHE_YLLRATE.GHECAUSES--GHE059",
         "who/GHE_YLLRATE.GHECAUSES--GHE055",
-        "who/GHE_YLLRATE.GHECAUSES--GHE057"
+        "who/GHE_YLLRATE.GHECAUSES--GHE057",
+        "who/GHE_YLLRATE.GHECAUSES--GHE059"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -54115,10 +54273,10 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE104__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE103__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE106__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE108__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE109__SEX--F",
+        "who/GHE_YLLRATE.GHECAUSES--GHE105__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE107__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE105__SEX--F"
+        "who/GHE_YLLRATE.GHECAUSES--GHE108__SEX--F",
+        "who/GHE_YLLRATE.GHECAUSES--GHE109__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -54135,10 +54293,10 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE104__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE103__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE106__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE108__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE109__SEX--M",
+        "who/GHE_YLLRATE.GHECAUSES--GHE105__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE107__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE105__SEX--M"
+        "who/GHE_YLLRATE.GHECAUSES--GHE108__SEX--M",
+        "who/GHE_YLLRATE.GHECAUSES--GHE109__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -54155,10 +54313,10 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE104",
         "who/GHE_YLLRATE.GHECAUSES--GHE103",
         "who/GHE_YLLRATE.GHECAUSES--GHE106",
-        "who/GHE_YLLRATE.GHECAUSES--GHE108",
-        "who/GHE_YLLRATE.GHECAUSES--GHE109",
+        "who/GHE_YLLRATE.GHECAUSES--GHE105",
         "who/GHE_YLLRATE.GHECAUSES--GHE107",
-        "who/GHE_YLLRATE.GHECAUSES--GHE105"
+        "who/GHE_YLLRATE.GHECAUSES--GHE108",
+        "who/GHE_YLLRATE.GHECAUSES--GHE109"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -54250,9 +54408,9 @@
       "memberList": [
         "who/GHE_YLLRATE.GHECAUSES--GHE006__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE007__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE009__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE005__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE008__SEX--F"
+        "who/GHE_YLLRATE.GHECAUSES--GHE008__SEX--F",
+        "who/GHE_YLLRATE.GHECAUSES--GHE009__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -54268,9 +54426,9 @@
       "memberList": [
         "who/GHE_YLLRATE.GHECAUSES--GHE006__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE007__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE009__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE005__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE008__SEX--M"
+        "who/GHE_YLLRATE.GHECAUSES--GHE008__SEX--M",
+        "who/GHE_YLLRATE.GHECAUSES--GHE009__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -54286,9 +54444,9 @@
       "memberList": [
         "who/GHE_YLLRATE.GHECAUSES--GHE006",
         "who/GHE_YLLRATE.GHECAUSES--GHE007",
-        "who/GHE_YLLRATE.GHECAUSES--GHE009",
         "who/GHE_YLLRATE.GHECAUSES--GHE005",
-        "who/GHE_YLLRATE.GHECAUSES--GHE008"
+        "who/GHE_YLLRATE.GHECAUSES--GHE008",
+        "who/GHE_YLLRATE.GHECAUSES--GHE009"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -54775,9 +54933,9 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE158__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE155__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE156__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE159__SEX--F",
         "who/GHE_YLLRATE.GHECAUSES--GHE154__SEX--F",
-        "who/GHE_YLLRATE.GHECAUSES--GHE153__SEX--F"
+        "who/GHE_YLLRATE.GHECAUSES--GHE153__SEX--F",
+        "who/GHE_YLLRATE.GHECAUSES--GHE159__SEX--F"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -54795,9 +54953,9 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE158__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE155__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE156__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE159__SEX--M",
         "who/GHE_YLLRATE.GHECAUSES--GHE154__SEX--M",
-        "who/GHE_YLLRATE.GHECAUSES--GHE153__SEX--M"
+        "who/GHE_YLLRATE.GHECAUSES--GHE153__SEX--M",
+        "who/GHE_YLLRATE.GHECAUSES--GHE159__SEX--M"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -54815,9 +54973,9 @@
         "who/GHE_YLLRATE.GHECAUSES--GHE158",
         "who/GHE_YLLRATE.GHECAUSES--GHE155",
         "who/GHE_YLLRATE.GHECAUSES--GHE156",
-        "who/GHE_YLLRATE.GHECAUSES--GHE159",
         "who/GHE_YLLRATE.GHECAUSES--GHE154",
-        "who/GHE_YLLRATE.GHECAUSES--GHE153"
+        "who/GHE_YLLRATE.GHECAUSES--GHE153",
+        "who/GHE_YLLRATE.GHECAUSES--GHE159"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -56367,6 +56525,23 @@
     },
     {
       "dcid": [
+        "dc/svpg/WHOPHEHHAIRPROPPOPCATEGORYFUELS"
+      ],
+      "name": [
+        "Proportion of population with primary reliance on fuels and technologies for cooking, by fuel type and location (%)"
+      ],
+      "memberList": [
+        "who/PHE_HHAIR_PROP_POP_CATEGORY_FUELS.HOUSEHOLDCOOKINGFUEL--FUEL_CHARCOAL",
+        "who/PHE_HHAIR_PROP_POP_CATEGORY_FUELS.HOUSEHOLDCOOKINGFUEL--FUEL_ELECTRICITY",
+        "who/PHE_HHAIR_PROP_POP_CATEGORY_FUELS.HOUSEHOLDCOOKINGFUEL--FUEL_ELECTRICITY__RESIDENCEAREATYPE--URB",
+        "who/PHE_HHAIR_PROP_POP_CATEGORY_FUELS.HOUSEHOLDCOOKINGFUEL--FUEL_KEROSENE__RESIDENCEAREATYPE--RUR"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/WHOPHEHHAIRPROPPOPCATEGORYFUELS.001"
       ],
       "name": [
@@ -56583,8 +56758,8 @@
       "memberList": [
         "who/TOTENV_1.ENVCAUSE--ENVCAUSE138",
         "who/TOTENV_1.ENVCAUSE--ENVCAUSE136",
-        "who/TOTENV_1.ENVCAUSE--ENVCAUSE139",
-        "who/TOTENV_1.ENVCAUSE--ENVCAUSE135"
+        "who/TOTENV_1.ENVCAUSE--ENVCAUSE135",
+        "who/TOTENV_1.ENVCAUSE--ENVCAUSE139"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -56687,9 +56862,9 @@
         "who/TOTENV_1.ENVCAUSE--ENVCAUSE157",
         "who/TOTENV_1.ENVCAUSE--ENVCAUSE155",
         "who/TOTENV_1.ENVCAUSE--ENVCAUSE156",
-        "who/TOTENV_1.ENVCAUSE--ENVCAUSE159",
         "who/TOTENV_1.ENVCAUSE--ENVCAUSE154",
-        "who/TOTENV_1.ENVCAUSE--ENVCAUSE153"
+        "who/TOTENV_1.ENVCAUSE--ENVCAUSE153",
+        "who/TOTENV_1.ENVCAUSE--ENVCAUSE159"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -56697,34 +56872,95 @@
     },
     {
       "dcid": [
-        "dc/svpg/WHOTOTENV1.018"
+        "dc/svpg/WHOTOTENV1.019"
       ],
       "name": [
-        "Deaths Attributable To The Environment"
+        "Deaths among children aged 0-4 years due to cardiovascular diseases attributable to the environment"
       ],
       "memberList": [
-        "who/TOTENV_1.AGE--Y0T4",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE111",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE112",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE113",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE114",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE116"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOTOTENV1.020"
+      ],
+      "name": [
+        "Deaths among children aged 0-4 years due to chronic respiratory diseases attributable to the environment"
+      ],
+      "memberList": [
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE118",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE119"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOTOTENV1.023"
+      ],
+      "name": [
+        "Deaths among children aged 0-4 years due to infectious and parasitic diseases attributable to the environment"
+      ],
+      "memberList": [
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE003",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE004",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE010",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE011",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE019",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE022",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE024",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE025",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE026",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE027",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE028",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE030",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE031",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE033",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE037",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE039",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE040",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE049",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE055",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE037"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOTOTENV1.024"
+      ],
+      "name": [
+        "Deaths among children aged 0-4 years due to intentional injuries attributable to the environment"
+      ],
+      "memberList": [
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE161",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE162"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOTOTENV1.025"
+      ],
+      "name": [
+        "Deaths among children aged 0-4 years due to malignant neoplasms attributable to the environment"
+      ],
+      "memberList": [
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE068",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE078",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE078"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOTOTENV1.026"
+      ],
+      "name": [
+        "Deaths among children aged 0-4 years due to mental and behavioral disorders attributable to the environment"
+      ],
+      "memberList": [
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE083",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE084",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE085",
@@ -56735,37 +56971,128 @@
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE090",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE091",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE092",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE101"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOTOTENV1.027"
+      ],
+      "name": [
+        "Deaths among children aged 0-4 years due to musculoskeletal diseases attributable to the environment"
+      ],
+      "memberList": [
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE135",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE136",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE138",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE139"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOTOTENV1.028"
+      ],
+      "name": [
+        "Deaths among children aged 0-4 years due to neurological conditions attributable to the environment"
+      ],
+      "memberList": [
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE095",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE096",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE097",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE098",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE099",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE100",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE101",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE104",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE108",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE100"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOTOTENV1.029"
+      ],
+      "name": [
+        "Deaths among children aged 0-4 years due to noncommunicable diseases attributable to the environment"
+      ],
+      "memberList": [
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE110",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE111",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE112",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE113",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE114",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE116",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE118",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE119",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE127",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE135",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE136",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE138",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE139",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE140",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE140"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOTOTENV1.031"
+      ],
+      "name": [
+        "Deaths among children aged 0-4 years due to parasitic and vector diseases attributable to the environment"
+      ],
+      "memberList": [
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE022",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE024",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE025",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE026",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE027",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE028",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE030",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE031"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOTOTENV1.032"
+      ],
+      "name": [
+        "Deaths among children aged 0-4 years due to respiratory infections attributable to the environment"
+      ],
+      "memberList": [
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE039",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE040"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOTOTENV1.033"
+      ],
+      "name": [
+        "Deaths among children aged 0-4 years due to sense organ diseases attributable to the environment"
+      ],
+      "memberList": [
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE104",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE108"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/WHOTOTENV1.034"
+      ],
+      "name": [
+        "Deaths among children aged 0-4 years due to unintentional injuries attributable to the environment"
+      ],
+      "memberList": [
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE153",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE154",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE155",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE156",
         "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE157",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE159",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE161",
-        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE162"
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE159"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -57148,8 +57475,8 @@
       "memberList": [
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE138",
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE136",
-        "who/TOTENV_3.ENVCAUSE--ENVCAUSE139",
-        "who/TOTENV_3.ENVCAUSE--ENVCAUSE135"
+        "who/TOTENV_3.ENVCAUSE--ENVCAUSE135",
+        "who/TOTENV_3.ENVCAUSE--ENVCAUSE139"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -57237,9 +57564,9 @@
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE157",
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE155",
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE156",
-        "who/TOTENV_3.ENVCAUSE--ENVCAUSE159",
         "who/TOTENV_3.ENVCAUSE--ENVCAUSE154",
-        "who/TOTENV_3.ENVCAUSE--ENVCAUSE153"
+        "who/TOTENV_3.ENVCAUSE--ENVCAUSE153",
+        "who/TOTENV_3.ENVCAUSE--ENVCAUSE159"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -57350,9 +57677,9 @@
         "Percentage of children younger than 5 years with symptoms of acute respiratory infection, by education of mother"
       ],
       "memberList": [
-        "who/WHS4_106.EDUCATIONLEVEL--NHLM",
         "who/WHS4_106.EDUCATIONLEVEL--PRLM",
-        "who/WHS4_106.EDUCATIONLEVEL--SHLM"
+        "who/WHS4_106.EDUCATIONLEVEL--SHLM",
+        "who/WHS4_106.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -57852,9 +58179,9 @@
         "Antenatal care coverage: at least one visit in the two or three years preceding the survey (%), by level of education"
       ],
       "memberList": [
-        "who/anc1.EDUCATIONLEVEL--NHLM",
         "who/anc1.EDUCATIONLEVEL--PRLM",
-        "who/anc1.EDUCATIONLEVEL--SHLM"
+        "who/anc1.EDUCATIONLEVEL--SHLM",
+        "who/anc1.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -57939,9 +58266,9 @@
         "Antenatal care coverage: at least one visit in the five years preceding the survey (%), by level of education"
       ],
       "memberList": [
-        "who/anc15.EDUCATIONLEVEL--NHLM",
         "who/anc15.EDUCATIONLEVEL--PRLM",
-        "who/anc15.EDUCATIONLEVEL--SHLM"
+        "who/anc15.EDUCATIONLEVEL--SHLM",
+        "who/anc15.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -58026,9 +58353,9 @@
         "Antenatal care coverage: at least four visits in the two or three years preceding the survey (%), by education"
       ],
       "memberList": [
-        "who/anc4.EDUCATIONLEVEL--NHLM",
         "who/anc4.EDUCATIONLEVEL--PRLM",
-        "who/anc4.EDUCATIONLEVEL--SHLM"
+        "who/anc4.EDUCATIONLEVEL--SHLM",
+        "who/anc4.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -58113,9 +58440,9 @@
         "Antenatal care coverage: at least four visits in the five years preceding the survey (%), by education"
       ],
       "memberList": [
-        "who/anc45.EDUCATIONLEVEL--NHLM",
         "who/anc45.EDUCATIONLEVEL--PRLM",
-        "who/anc45.EDUCATIONLEVEL--SHLM"
+        "who/anc45.EDUCATIONLEVEL--SHLM",
+        "who/anc45.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -58184,9 +58511,9 @@
         "Adolescent fertility rate (per 1000 women aged 15-19 years), by education"
       ],
       "memberList": [
-        "who/asfr1.EDUCATIONLEVEL--NHLM",
         "who/asfr1.EDUCATIONLEVEL--PRLM",
-        "who/asfr1.EDUCATIONLEVEL--SHLM"
+        "who/asfr1.EDUCATIONLEVEL--SHLM",
+        "who/asfr1.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -58272,9 +58599,9 @@
         "Percentage of women with a live birth in the two years prior to the survey who put the newborn infant to the breast within one hour of birth, by education level (%)"
       ],
       "memberList": [
-        "who/bfearly.EDUCATIONLEVEL--NHLM",
         "who/bfearly.EDUCATIONLEVEL--PRLM",
-        "who/bfearly.EDUCATIONLEVEL--SHLM"
+        "who/bfearly.EDUCATIONLEVEL--SHLM",
+        "who/bfearly.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -58374,9 +58701,9 @@
         "Obesity prevalence in non-pregnant women aged 15-49 years, BMI >= 30 (%), by level of education"
       ],
       "memberList": [
-        "who/bmi30wm.EDUCATIONLEVEL--NHLM",
         "who/bmi30wm.EDUCATIONLEVEL--PRLM",
-        "who/bmi30wm.EDUCATIONLEVEL--SHLM"
+        "who/bmi30wm.EDUCATIONLEVEL--SHLM",
+        "who/bmi30wm.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -58438,9 +58765,9 @@
         "Children aged < 5 years with pneumonia symptoms taken to a health facility, by mother's education (%)"
       ],
       "memberList": [
-        "who/carep.EDUCATIONLEVEL--NHLM",
         "who/carep.EDUCATIONLEVEL--PRLM",
-        "who/carep.EDUCATIONLEVEL--SHLM"
+        "who/carep.EDUCATIONLEVEL--SHLM",
+        "who/carep.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -58525,9 +58852,9 @@
         "Reproductive, maternal, newborn and child health interventions (RMNCH), combined: Composite coverage index, by education level (%)"
       ],
       "memberList": [
-        "who/cci.EDUCATIONLEVEL--NHLM",
         "who/cci.EDUCATIONLEVEL--PRLM",
-        "who/cci.EDUCATIONLEVEL--SHLM"
+        "who/cci.EDUCATIONLEVEL--SHLM",
+        "who/cci.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -58597,9 +58924,9 @@
         "Reproductive, maternal, newborn and child health interventions (RMNCH), combined: Composite coverage index (%), by education level"
       ],
       "memberList": [
-        "who/cci2030.EDUCATIONLEVEL--NHLM",
         "who/cci2030.EDUCATIONLEVEL--PRLM",
-        "who/cci2030.EDUCATIONLEVEL--SHLM"
+        "who/cci2030.EDUCATIONLEVEL--SHLM",
+        "who/cci2030.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -58661,9 +58988,9 @@
         "Contraceptive prevalence: modern methods, by education (%)"
       ],
       "memberList": [
-        "who/cpmowho.EDUCATIONLEVEL--NHLM",
         "who/cpmowho.EDUCATIONLEVEL--PRLM",
-        "who/cpmowho.EDUCATIONLEVEL--SHLM"
+        "who/cpmowho.EDUCATIONLEVEL--SHLM",
+        "who/cpmowho.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -58748,9 +59075,9 @@
         "Contraceptive prevalence: modern and traditional methods, by education (%)"
       ],
       "memberList": [
-        "who/cpmt.EDUCATIONLEVEL--NHLM",
         "who/cpmt.EDUCATIONLEVEL--PRLM",
-        "who/cpmt.EDUCATIONLEVEL--SHLM"
+        "who/cpmt.EDUCATIONLEVEL--SHLM",
+        "who/cpmt.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -58835,9 +59162,9 @@
         "Births by caesarean section (in the two or three years preceding the survey), by education (%)"
       ],
       "memberList": [
-        "who/csection.EDUCATIONLEVEL--NHLM",
         "who/csection.EDUCATIONLEVEL--PRLM",
-        "who/csection.EDUCATIONLEVEL--SHLM"
+        "who/csection.EDUCATIONLEVEL--SHLM",
+        "who/csection.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -58922,9 +59249,9 @@
         "Births by caesarean section (in the five years preceding the survey), by education (%)"
       ],
       "memberList": [
-        "who/csection5.EDUCATIONLEVEL--NHLM",
         "who/csection5.EDUCATIONLEVEL--PRLM",
-        "who/csection5.EDUCATIONLEVEL--SHLM"
+        "who/csection5.EDUCATIONLEVEL--SHLM",
+        "who/csection5.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -59009,9 +59336,9 @@
         "Demand for family planning satisfied: modern and traditional methods (%), by education"
       ],
       "memberList": [
-        "who/fps.EDUCATIONLEVEL--NHLM",
         "who/fps.EDUCATIONLEVEL--PRLM",
-        "who/fps.EDUCATIONLEVEL--SHLM"
+        "who/fps.EDUCATIONLEVEL--SHLM",
+        "who/fps.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -59096,9 +59423,9 @@
         "Demand for family planning satisfied: use of modern methods (%), by education"
       ],
       "memberList": [
-        "who/fpsmowho.EDUCATIONLEVEL--NHLM",
         "who/fpsmowho.EDUCATIONLEVEL--PRLM",
-        "who/fpsmowho.EDUCATIONLEVEL--SHLM"
+        "who/fpsmowho.EDUCATIONLEVEL--SHLM",
+        "who/fpsmowho.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -59183,9 +59510,9 @@
         "Infant mortality rate (deaths per 1000 live births), by education"
       ],
       "memberList": [
-        "who/imr.EDUCATIONLEVEL--NHLM",
         "who/imr.EDUCATIONLEVEL--PRLM",
-        "who/imr.EDUCATIONLEVEL--SHLM"
+        "who/imr.EDUCATIONLEVEL--SHLM",
+        "who/imr.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -59270,9 +59597,9 @@
         "Proportion of children under five years of age sleeping under an insecticide-treated mosquito net, by education"
       ],
       "memberList": [
-        "who/itnch.EDUCATIONLEVEL--NHLM",
         "who/itnch.EDUCATIONLEVEL--PRLM",
-        "who/itnch.EDUCATIONLEVEL--SHLM"
+        "who/itnch.EDUCATIONLEVEL--SHLM",
+        "who/itnch.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -59372,9 +59699,9 @@
         "Proportion of pregnant women sleeping under insecticide-treated mosquito nets, by education"
       ],
       "memberList": [
-        "who/itnwm.EDUCATIONLEVEL--NHLM",
         "who/itnwm.EDUCATIONLEVEL--PRLM",
-        "who/itnwm.EDUCATIONLEVEL--SHLM"
+        "who/itnwm.EDUCATIONLEVEL--SHLM",
+        "who/itnwm.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -59459,9 +59786,9 @@
         "Neonatal mortality rate (deaths per 1000 live births), by education"
       ],
       "memberList": [
-        "who/nmr.EDUCATIONLEVEL--NHLM",
         "who/nmr.EDUCATIONLEVEL--PRLM",
-        "who/nmr.EDUCATIONLEVEL--SHLM"
+        "who/nmr.EDUCATIONLEVEL--SHLM",
+        "who/nmr.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -59546,9 +59873,9 @@
         "Children aged < 5 years with diarrhoea receiving oral rehydration salts (%), by education of mother"
       ],
       "memberList": [
-        "who/ors.EDUCATIONLEVEL--NHLM",
         "who/ors.EDUCATIONLEVEL--PRLM",
-        "who/ors.EDUCATIONLEVEL--SHLM"
+        "who/ors.EDUCATIONLEVEL--SHLM",
+        "who/ors.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -59630,7 +59957,7 @@
         "dc/svpg/WHOors.007"
       ],
       "name": [
-        "Children Aged < 5 Years With Diarrhoea Receiving Oral Rehydration Salts (%)"
+        "Children aged < 5 years with diarrhoea receiving oral rehydration salts (%), by age of mother"
       ],
       "memberList": [
         "who/ors.AGE--Y15T19",
@@ -59648,9 +59975,9 @@
         "Children aged < 5 years with diarrhoea receiving oral rehydration therapy and continued feeding (%), by education of mother"
       ],
       "memberList": [
-        "who/ort.EDUCATIONLEVEL--NHLM",
         "who/ort.EDUCATIONLEVEL--PRLM",
-        "who/ort.EDUCATIONLEVEL--SHLM"
+        "who/ort.EDUCATIONLEVEL--SHLM",
+        "who/ort.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -59732,7 +60059,7 @@
         "dc/svpg/WHOort.007"
       ],
       "name": [
-        "Children Aged < 5 Years With Diarrhoea Receiving Oral Rehydration Therapy And Continued Feeding (%)"
+        "Children aged < 5 years with diarrhoea receiving oral rehydration therapy and continued feeding (%), by age of mother"
       ],
       "memberList": [
         "who/ort.AGE--Y15T19",
@@ -59750,9 +60077,9 @@
         "Overweight prevalence in children aged <five years (%), by education of mother"
       ],
       "memberList": [
-        "who/overwgt5.EDUCATIONLEVEL--NHLM",
         "who/overwgt5.EDUCATIONLEVEL--PRLM",
-        "who/overwgt5.EDUCATIONLEVEL--SHLM"
+        "who/overwgt5.EDUCATIONLEVEL--SHLM",
+        "who/overwgt5.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -59811,7 +60138,7 @@
         "dc/svpg/WHOoverwgt5.006"
       ],
       "name": [
-        "Overweight Prevalence in Children Aged <five Years (%)"
+        "Overweight prevalence in children aged <five years (%), by age"
       ],
       "memberList": [
         "who/overwgt5.AGE--Y0T01",
@@ -59829,9 +60156,9 @@
         "Postnatal care visit within two days of birth (in the three years preceding the survey) (%), by level of education"
       ],
       "memberList": [
-        "who/pncall3.EDUCATIONLEVEL--NHLM",
         "who/pncall3.EDUCATIONLEVEL--PRLM",
-        "who/pncall3.EDUCATIONLEVEL--SHLM"
+        "who/pncall3.EDUCATIONLEVEL--SHLM",
+        "who/pncall3.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -59893,9 +60220,9 @@
         "Postnatal care visit within two days of birth (in the five years preceding the survey) (%), by level of education"
       ],
       "memberList": [
-        "who/pncall5.EDUCATIONLEVEL--NHLM",
         "who/pncall5.EDUCATIONLEVEL--PRLM",
-        "who/pncall5.EDUCATIONLEVEL--SHLM"
+        "who/pncall5.EDUCATIONLEVEL--SHLM",
+        "who/pncall5.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -59957,9 +60284,9 @@
         "Postnatal care visit within two days of birth - born outside a health facility (in the three years preceding the survey) (%), by level of education"
       ],
       "memberList": [
-        "who/pnchome3.EDUCATIONLEVEL--NHLM",
         "who/pnchome3.EDUCATIONLEVEL--PRLM",
-        "who/pnchome3.EDUCATIONLEVEL--SHLM"
+        "who/pnchome3.EDUCATIONLEVEL--SHLM",
+        "who/pnchome3.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -60021,9 +60348,9 @@
         "Postnatal care visit within two days of birth - born outside a health facility (in the five years preceding the survey) (%), by level of education"
       ],
       "memberList": [
-        "who/pnchome5.EDUCATIONLEVEL--NHLM",
         "who/pnchome5.EDUCATIONLEVEL--PRLM",
-        "who/pnchome5.EDUCATIONLEVEL--SHLM"
+        "who/pnchome5.EDUCATIONLEVEL--SHLM",
+        "who/pnchome5.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -60085,9 +60412,9 @@
         "Total fertility rate (per woman), by education"
       ],
       "memberList": [
-        "who/tfr.EDUCATIONLEVEL--NHLM",
         "who/tfr.EDUCATIONLEVEL--PRLM",
-        "who/tfr.EDUCATIONLEVEL--SHLM"
+        "who/tfr.EDUCATIONLEVEL--SHLM",
+        "who/tfr.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -60172,9 +60499,9 @@
         "Under-five mortality rate (deaths per 1000 live births), by education"
       ],
       "memberList": [
-        "who/u5mr.EDUCATIONLEVEL--NHLM",
         "who/u5mr.EDUCATIONLEVEL--PRLM",
-        "who/u5mr.EDUCATIONLEVEL--SHLM"
+        "who/u5mr.EDUCATIONLEVEL--SHLM",
+        "who/u5mr.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -60274,9 +60601,9 @@
         "Coverage of BCG immunization for tuberculosis among one-year-olds (%), by education"
       ],
       "memberList": [
-        "who/vbcg.EDUCATIONLEVEL--NHLM",
         "who/vbcg.EDUCATIONLEVEL--PRLM",
-        "who/vbcg.EDUCATIONLEVEL--SHLM"
+        "who/vbcg.EDUCATIONLEVEL--SHLM",
+        "who/vbcg.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -60376,9 +60703,9 @@
         "Coverage of diphtheria, tetanus toxoid and pertussis (DTP3) immunization among one-year-olds (%), by education"
       ],
       "memberList": [
-        "who/vdpt.EDUCATIONLEVEL--NHLM",
         "who/vdpt.EDUCATIONLEVEL--PRLM",
-        "who/vdpt.EDUCATIONLEVEL--SHLM"
+        "who/vdpt.EDUCATIONLEVEL--SHLM",
+        "who/vdpt.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -60478,9 +60805,9 @@
         "Full immunization coverage among one-year-olds (%), by education of mother"
       ],
       "memberList": [
-        "who/vfull.EDUCATIONLEVEL--NHLM",
         "who/vfull.EDUCATIONLEVEL--PRLM",
-        "who/vfull.EDUCATIONLEVEL--SHLM"
+        "who/vfull.EDUCATIONLEVEL--SHLM",
+        "who/vfull.EDUCATIONLEVEL--NHLM"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -60820,6 +61147,8 @@
         "dc/topic/WHOTOTENV5",
         "dc/topic/WHOTOTENV4",
         "dc/topic/WHOTOTENV3",
+        "dc/topic/WHOEMFLIMITELECTRICLF",
+        "dc/topic/WHOEMFLIMITELECTRICRF",
         "dc/topic/WHOMEstcigcurr",
         "dc/topic/WHOMEstcigcurrstd",
         "dc/topic/WHOMEstsmkcurr",
@@ -60827,6 +61156,10 @@
         "dc/topic/WHOMEsttobcurr",
         "dc/topic/WHOMEsttobcurrstd",
         "dc/topic/WHOLIFE0000000035",
+        "dc/topic/WHOEMFLIMITMAGNETIC",
+        "dc/topic/WHOEMFLIMITPOWERDENSITY",
+        "dc/topic/WHOEMFSAR",
+        "dc/topic/WHOEMFLIMITELECTRIC",
         "dc/topic/WHOAIR11",
         "dc/topic/WHOAIR12",
         "dc/topic/WHOAIR15",
@@ -60954,6 +61287,15 @@
         "who/GHED_PVT-D_pc_US_SHA2011",
         "who/HWF_0018",
         "who/HWF_0017",
+        "who/GDO_q12x2x5x3",
+        "who/GDO_q12x2x2x3",
+        "who/GDO_q12x2x3x3",
+        "who/GDO_q12x2x1x3",
+        "who/GDO_q9x2_4",
+        "who/GDO_q9x5_2",
+        "who/GDO_q9x6_2",
+        "who/GDO_q9x1_7",
+        "who/GDO_q9x2_5",
         "who/GDO_q35",
         "who/GHED_EXTCHE_SHA2011",
         "who/GHED_EXT_pc_US_SHA2011",
@@ -60969,6 +61311,7 @@
         "who/FINPROTECTION_IMP_BNLFHU_FURIMP_HH",
         "who/FINPROTECTION_IMP_BNLFHU_TOT_HH",
         "who/ICD11_IMPL_LVL",
+        "who/E_Group",
         "who/IHRSPAR_CAPACITY12.IHRSPARCAPACITYLEVEL--IHRSPARCAPLEVEL12_LEVEL_C12",
         "who/IHRSPAR_CAPACITY04.IHRSPARCAPACITYLEVEL--IHRSPARCAPLEVEL04_LEVEL_C4",
         "who/IHRSPAR_CAPACITY09.IHRSPARCAPACITYLEVEL--IHRSPARCAPLEVEL09_LEVEL_C9",
@@ -61008,6 +61351,8 @@
         "who/HWF_0009",
         "who/HRH_44",
         "who/HRH_46",
+        "who/GDO_q6x1_3",
+        "who/GDO_q19x3x1_1",
         "who/GASPTIAZM",
         "who/GASPTICFM",
         "who/GASPTICRO",
@@ -61016,11 +61361,13 @@
         "who/HRH_43",
         "who/HRH_42",
         "who/HRH_41",
+        "who/GDO_q6x1_2",
         "who/HWF_0007",
         "who/HWF_0006",
         "who/HWF_0008",
         "who/GHED_OOP_pc_US_SHA2011",
         "who/GHED_OOPSCHE_SHA2011",
+        "who/GDO_q2x3x1_1",
         "who/HWF_0016",
         "who/HWF_0015",
         "who/HWF_0014",
@@ -61041,6 +61388,10 @@
         "who/WHS6_102",
         "who/GLASSAMC_TC",
         "who/GDO_q9x1_5",
+        "who/GDO_q18x2x3_1",
+        "who/GDO_q18x2x3_2",
+        "who/GDO_q18x2x3_3",
+        "who/GDO_q18x2x1_1",
         "who/GDO_q20",
         "who/FINPROTECTION_IMP_NP_REL_LEVEL_SH",
         "who/FINPROTECTION_IMP_NP_REL_LEVEL_MILLION",
@@ -61076,6 +61427,12 @@
         "dc/topic/WHOGHEDALYRATE",
         "dc/topic/WHOGHEDALYNUM",
         "dc/topic/WHOCATARACTSURGICALEFFECTIVE",
+        "dc/topic/WHOEMFLIMITELECTRICLF",
+        "dc/topic/WHOEMFLIMITELECTRICRF",
+        "dc/topic/WHOEMFLIMITMAGNETIC",
+        "dc/topic/WHOEMFLIMITPOWERDENSITY",
+        "dc/topic/WHOEMFSAR",
+        "dc/topic/WHOEMFLIMITELECTRIC",
         "dc/topic/WHOAMRGLASSCOORD01",
         "dc/topic/WHOAMRGLASSCOORD02",
         "dc/topic/WHOAMRGLASSCOORD04",
@@ -61158,7 +61515,6 @@
         "who/WHS3_42",
         "who/WHS3_62",
         "who/MCV2",
-        "who/MH_20",
         "who/WHS3_53",
         "who/WHS3_56",
         "who/TB_new_snsuoth",
@@ -61287,11 +61643,29 @@
         "who/GDO_q9x1_3",
         "who/GDO_q9x2_3",
         "who/GDO_q9x2_1",
+        "who/GDO_q12x2x5x3",
+        "who/GDO_q12x2x2x3",
+        "who/GDO_q12x2x3x3",
+        "who/GDO_q12x2x1x3",
+        "who/GDO_q9x2_4",
+        "who/GDO_q9x5_2",
+        "who/GDO_q9x6_2",
+        "who/GDO_q9x1_7",
+        "who/GDO_q9x2_5",
         "who/GDO_q35",
         "who/GDO_q9x1_4",
         "who/GDO_q9x3_2",
+        "who/MH_20",
+        "who/GDO_q6x1_3",
+        "who/GDO_q19x3x1_1",
+        "who/GDO_q6x1_2",
+        "who/GDO_q2x3x1_1",
         "who/GDO_q9x2_2",
         "who/GDO_q9x1_5",
+        "who/GDO_q18x2x3_1",
+        "who/GDO_q18x2x3_2",
+        "who/GDO_q18x2x3_3",
+        "who/GDO_q18x2x1_1",
         "who/GDO_q20",
         "dc/topic/WHOCHILDVIOL"
       ]
@@ -61360,6 +61734,20 @@
     },
     {
       "dcid": [
+        "dc/topic/UN_SUB_THEME_27"
+      ],
+      "name": [
+        "Technical and vocational education and training"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "who/GDO_q12x2x1x3"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/UN_SUB_THEME_29"
       ],
       "name": [
@@ -61387,7 +61775,12 @@
         "who/ITU_IDI",
         "who/ITU_IDI_RANK",
         "who/ITU_ICT_2",
+        "who/GDO_q19x3x1_1",
         "who/ITU_ICT_1",
+        "who/GDO_q18x2x3_1",
+        "who/GDO_q18x2x3_2",
+        "who/GDO_q18x2x3_3",
+        "who/GDO_q18x2x1_1",
         "who/GDO_q20",
         "dc/topic/WHOASSISTIVETECHBARRIERAT",
         "dc/topic/WHOASSISTIVETECHPAYERSAT",
@@ -61552,6 +61945,7 @@
         "who/DEVICES04",
         "who/GDO_q9x2_1",
         "who/DEVICES05",
+        "who/GDO_q9x1_7",
         "who/GDO_q9x1_4",
         "who/GDO_q9x3_2",
         "who/ITU_IDI",
@@ -61774,6 +62168,10 @@
         "Topic"
       ],
       "relevantVariableList": [
+        "who/GDO_q12x2x5x3",
+        "who/GDO_q12x2x2x3",
+        "who/GDO_q12x2x3x3",
+        "who/GDO_q12x2x1x3",
         "dc/topic/WHOLIFE0000000029",
         "dc/topic/WHOLIFE0000000035",
         "dc/topic/WHOWHOSIS000007",
@@ -62009,7 +62407,8 @@
       "relevantVariableList": [
         "dc/topic/UN_SUB_THEME_18",
         "dc/topic/UN_SUB_THEME_25",
-        "dc/topic/UN_SUB_THEME_29"
+        "dc/topic/UN_SUB_THEME_29",
+        "dc/topic/UN_SUB_THEME_27"
       ]
     },
     {
@@ -62023,7 +62422,8 @@
         "Topic"
       ],
       "relevantVariableList": [
-        "dc/topic/UN_SUB_THEME_38"
+        "dc/topic/UN_SUB_THEME_38",
+        "dc/topic/UN_SUB_THEME_27"
       ]
     },
     {
@@ -63173,93 +63573,8 @@
         "Topic"
       ],
       "relevantVariableList": [
-        "dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechproduct",
-        "dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechsatiactivity"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechproduct"
-      ],
-      "name": [
-        "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments And Activities (%) by Assistivetechproduct"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechproduct-WHOAssistivetechproductEnumASSISTIVETECHTOTALNOSPECS"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechproduct-WHOAssistivetechproductEnumASSISTIVETECHTOTALNOSPECS"
-      ],
-      "name": [
-        "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments And Activities (%) With Assistivetechproduct = Total, Excluding Spectacles"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechproduct-WHOAssistivetechproductEnumASSISTIVETECHTOTALNOSPECS_whoassistivetechsatiactivity"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechproduct-WHOAssistivetechproductEnumASSISTIVETECHTOTALNOSPECS_whoassistivetechsatiactivity"
-      ],
-      "name": [
-        "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments And Activities (%) With Assistivetechproduct = Total, Excluding Spectacles, Assistivetechsatiactivity"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechsatiactivity"
-      ],
-      "name": [
-        "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments And Activities (%) by Assistivetechsatiactivity"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechsatiactivity-WHOAssistivetechsatiactivityEnumASSISTIVETECHsatihome",
-        "dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechsatiactivity-WHOAssistivetechsatiactivityEnumASSISTIVETECHsatiactivities"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechsatiactivity-WHOAssistivetechsatiactivityEnumASSISTIVETECHsatiactivities"
-      ],
-      "name": [
-        "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments And Activities (%) With Assistivetechsatiactivity = Participation in Activities"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_activities"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/WHOASSISTIVETECHSATISFACTIONACTIVITIES_whoassistivetechsatiactivity-WHOAssistivetechsatiactivityEnumASSISTIVETECHsatihome"
-      ],
-      "name": [
-        "Assistive Technology Indicators: Satisfaction With Assistive Products for Different Environments And Activities (%) With Assistivetechsatiactivity = Home Environment"
-      ],
-      "typeOf": [
-        "Topic"
-      ],
-      "relevantVariableList": [
-        "who/ASSISTIVETECH_SATISFACTIONACTIVITIES.ASSISTIVETECHPRODUCT--ASSISTIVETECH_TOTAL_NOSPECS__ASSISTIVETECHSATIACTIVITY--ASSISTIVETECH_sati_home"
+        "dc/svpg/WHOASSISTIVETECHSATISFACTIONACTIVITIES.001",
+        "dc/svpg/WHOASSISTIVETECHSATISFACTIONACTIVITIES.002"
       ]
     },
     {
@@ -63654,6 +63969,268 @@
       ],
       "relevantVariableList": [
         "dc/svpg/WHOCM04.001"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITELECTRIC"
+      ],
+      "name": [
+        "Exposure Limit for Electromagnetic Fields: Electric Field (kV/m)"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/WHOEMFLIMITELECTRIC_whoemfexposed",
+        "dc/topic/WHOEMFLIMITELECTRIC_whoemffrequency",
+        "dc/svpg/WHOEMFLIMITELECTRIC.002"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITELECTRICLF"
+      ],
+      "name": [
+        "Electromagnetic Fields: Exposure Limits for Low-frequency Fields, Electric Field (kV/m)"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/WHOEMFLIMITELECTRICLF_whoemfexposed",
+        "dc/topic/WHOEMFLIMITELECTRICLF_whoemffrequency",
+        "dc/svpg/WHOEMFLIMITELECTRICLF.001"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITELECTRICLF_whoemfexposed"
+      ],
+      "name": [
+        "Electromagnetic Fields: Exposure Limits for Low-frequency Fields, Electric Field (kV/m) by Emfexposed"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "who/EMFLIMITELECTRICLF.EMFEXPOSED--EMFWORKER__EMFFREQUENCY--EMFLOW"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITELECTRICLF_whoemfexposed_whoemffrequency-WHOEmffrequencyEnumEMFLOW"
+      ],
+      "name": [
+        "Electromagnetic Fields: Exposure Limits for Low-frequency Fields, Electric Field (kV/m) With Emfexposed, Emffrequency = Low-frequency"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "who/EMFLIMITELECTRICLF.EMFEXPOSED--EMFWORKER__EMFFREQUENCY--EMFLOW"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITELECTRICLF_whoemffrequency"
+      ],
+      "name": [
+        "Electromagnetic Fields: Exposure Limits for Low-frequency Fields, Electric Field (kV/m) by Emffrequency"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/WHOEMFLIMITELECTRICLF_whoemffrequency-WHOEmffrequencyEnumEMFLOW"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITELECTRICLF_whoemffrequency-WHOEmffrequencyEnumEMFLOW"
+      ],
+      "name": [
+        "Electromagnetic Fields: Exposure Limits for Low-frequency Fields, Electric Field (kV/m) With Emffrequency = Low-frequency"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/WHOEMFLIMITELECTRICLF_whoemfexposed_whoemffrequency-WHOEmffrequencyEnumEMFLOW"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITELECTRICRF"
+      ],
+      "name": [
+        "Electromagnetic Fields: Exposure Limits for Radio-frequency Fields, Electric Field (V/m)"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/WHOEMFLIMITELECTRICRF.001",
+        "dc/svpg/WHOEMFLIMITELECTRICRF.002"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITELECTRIC_whoemfexposed"
+      ],
+      "name": [
+        "Exposure Limit for Electromagnetic Fields: Electric Field (kV/m) by Emfexposed"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/WHOEMFLIMITELECTRIC_whoemfexposed-WHOEmfexposedEnumEMFPUBLIC"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITELECTRIC_whoemfexposed-WHOEmfexposedEnumEMFPUBLIC"
+      ],
+      "name": [
+        "Exposure Limit for Electromagnetic Fields: Electric Field (kV/m) With Emfexposed = Public"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/WHOEMFLIMITELECTRIC_whoemfexposed-WHOEmfexposedEnumEMFPUBLIC_whoemffrequency"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITELECTRIC_whoemfexposed-WHOEmfexposedEnumEMFPUBLIC_whoemffrequency"
+      ],
+      "name": [
+        "Exposure Limit for Electromagnetic Fields: Electric Field (kV/m) With Emfexposed = Public, Emffrequency"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "who/EMFLIMITELECTRIC.EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFLOW"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITELECTRIC_whoemffrequency"
+      ],
+      "name": [
+        "Exposure Limit for Electromagnetic Fields: Electric Field (kV/m) by Emffrequency"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "who/EMFLIMITELECTRIC.EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFLOW"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITMAGNETIC"
+      ],
+      "name": [
+        "Exposure Limit for Electromagnetic Field: Magnetic Flux Density (microT)"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/WHOEMFLIMITMAGNETIC_whoemfexposed",
+        "dc/topic/WHOEMFLIMITMAGNETIC_whoemffrequency"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITMAGNETIC_whoemfexposed"
+      ],
+      "name": [
+        "Exposure Limit for Electromagnetic Field: Magnetic Flux Density (microT) by Emfexposed"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "who/EMFLIMITMAGNETIC.EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFLOW",
+        "who/EMFLIMITMAGNETIC.EMFEXPOSED--EMFWORKER__EMFFREQUENCY--EMFLOW"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITMAGNETIC_whoemfexposed_whoemffrequency-WHOEmffrequencyEnumEMFLOW"
+      ],
+      "name": [
+        "Exposure Limit for Electromagnetic Field: Magnetic Flux Density (microT) With Emfexposed, Emffrequency = Low-frequency"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "who/EMFLIMITMAGNETIC.EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFLOW",
+        "who/EMFLIMITMAGNETIC.EMFEXPOSED--EMFWORKER__EMFFREQUENCY--EMFLOW"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITMAGNETIC_whoemffrequency"
+      ],
+      "name": [
+        "Exposure Limit for Electromagnetic Field: Magnetic Flux Density (microT) by Emffrequency"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/WHOEMFLIMITMAGNETIC_whoemffrequency-WHOEmffrequencyEnumEMFLOW"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITMAGNETIC_whoemffrequency-WHOEmffrequencyEnumEMFLOW"
+      ],
+      "name": [
+        "Exposure Limit for Electromagnetic Field: Magnetic Flux Density (microT) With Emffrequency = Low-frequency"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/WHOEMFLIMITMAGNETIC_whoemfexposed_whoemffrequency-WHOEmffrequencyEnumEMFLOW"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFLIMITPOWERDENSITY"
+      ],
+      "name": [
+        "Exposure Limit for Electromagnetic Field: Power Density (W/m^2)"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/WHOEMFLIMITPOWERDENSITY.001",
+        "dc/svpg/WHOEMFLIMITPOWERDENSITY.002"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOEMFSAR"
+      ],
+      "name": [
+        "Exposure Limit for Electromagnetic Field: Specific Absorption Rate (SAR) (W/kg)"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/WHOEMFSAR.001",
+        "dc/svpg/WHOEMFSAR.002"
       ]
     },
     {
@@ -66873,6 +67450,7 @@
         "Topic"
       ],
       "relevantVariableList": [
+        "dc/svpg/WHOPHEHHAIRPROPPOPCATEGORYFUELS",
         "dc/svpg/WHOPHEHHAIRPROPPOPCATEGORYFUELS.001",
         "dc/svpg/WHOPHEHHAIRPROPPOPCATEGORYFUELS.002",
         "dc/svpg/WHOPHEHHAIRPROPPOPCATEGORYFUELS.003"
@@ -66917,6 +67495,7 @@
         "Topic"
       ],
       "relevantVariableList": [
+        "dc/topic/WHOTOTENV1_age",
         "dc/topic/WHOTOTENV1_whoenvcause",
         "dc/svpg/WHOTOTENV1.001",
         "dc/svpg/WHOTOTENV1.002",
@@ -66932,7 +67511,64 @@
         "dc/svpg/WHOTOTENV1.015",
         "dc/svpg/WHOTOTENV1.016",
         "dc/svpg/WHOTOTENV1.017",
-        "dc/svpg/WHOTOTENV1.018"
+        "dc/svpg/WHOTOTENV1.019",
+        "dc/svpg/WHOTOTENV1.020",
+        "dc/svpg/WHOTOTENV1.023",
+        "dc/svpg/WHOTOTENV1.024",
+        "dc/svpg/WHOTOTENV1.025",
+        "dc/svpg/WHOTOTENV1.026",
+        "dc/svpg/WHOTOTENV1.027",
+        "dc/svpg/WHOTOTENV1.028",
+        "dc/svpg/WHOTOTENV1.029",
+        "dc/svpg/WHOTOTENV1.031",
+        "dc/svpg/WHOTOTENV1.032",
+        "dc/svpg/WHOTOTENV1.033",
+        "dc/svpg/WHOTOTENV1.034"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOTOTENV1_age"
+      ],
+      "name": [
+        "Deaths Attributable To The Environment by Age"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/WHOTOTENV1_age-WHOAgeEnumY0T4"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOTOTENV1_age-WHOAgeEnumY0T4"
+      ],
+      "name": [
+        "Deaths Attributable To The Environment With Age = <5 Years of Age"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "who/TOTENV_1.AGE--Y0T4",
+        "dc/topic/WHOTOTENV1_age-WHOAgeEnumY0T4_whoenvcause"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WHOTOTENV1_age-WHOAgeEnumY0T4_whoenvcause"
+      ],
+      "name": [
+        "Deaths Attributable To The Environment With Age = <5 Years of Age, Envcause"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE127",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE049",
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE055"
       ]
     },
     {
@@ -66962,6 +67598,7 @@
         "Topic"
       ],
       "relevantVariableList": [
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE049",
         "who/TOTENV_1.ENVCAUSE--ENVCAUSE049"
       ]
     },
@@ -66976,6 +67613,7 @@
         "Topic"
       ],
       "relevantVariableList": [
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE055",
         "who/TOTENV_1.ENVCAUSE--ENVCAUSE055"
       ]
     },
@@ -66990,6 +67628,7 @@
         "Topic"
       ],
       "relevantVariableList": [
+        "who/TOTENV_1.AGE--Y0T4__ENVCAUSE--ENVCAUSE127",
         "who/TOTENV_1.ENVCAUSE--ENVCAUSE127"
       ]
     },

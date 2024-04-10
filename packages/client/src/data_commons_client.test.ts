@@ -16,10 +16,8 @@
 
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import * as _ from "lodash";
-import {
-  DEFAULT_GEOJSON_PROPERTY_NAME,
-  DataCommonsClient,
-} from "./data_commons_client";
+import { DEFAULT_GEOJSON_PROPERTY_NAME } from "./constants";
+import { DataCommonsClient } from "./data_commons_client";
 import {
   ApiNodePropvalOutResponse,
   PointApiResponse,
@@ -151,6 +149,16 @@ const buildMockedFetchResponses = (): {
         provenanceId: "Provenance",
         value:
           '{"coordinates":[[[-89.67405957878238,38.85867674056669],[-82.27438624445035,29.05293979418066],[-75.07130842064042,38.924570398135245],[-89.67405957878238,38.85867674056669]]],"type":"Polygon"}',
+      },
+    ],
+  } as ApiNodePropvalOutResponse;
+  mockedResponsesPost["/api/node/propvals/out"][
+    JSON.stringify({ dcids: ["Count_Person"], prop: "name" })
+  ] = {
+    Count_Person: [
+      {
+        provenanceId: "Provenance",
+        value: "Total Population",
       },
     ],
   } as ApiNodePropvalOutResponse;
@@ -403,10 +411,12 @@ global.fetch = jest.fn(
       : mockedResponsesGet[path];
     if (!response) {
       throw new Error(
-        `No mocked handler for ${url}. Get handlers: ${Object.keys(
-          mockedResponsesGet
-        ).join(" ")}, post handlers: ${Object.keys(mockedResponsesPost).join(
-          " "
+        `No mocked handler for "${options?.method}" ${url}.\n\nBODY=${
+          options?.body
+        }\n\n** GET handlers ** \n  ${Object.keys(mockedResponsesGet).join(
+          "\n  "
+        )}\n\n** POST handlers ** \n  ${Object.keys(mockedResponsesPost).join(
+          "\n  "
         )}`
       );
     }
@@ -423,13 +433,27 @@ describe("DataCommonsWebClient", () => {
   test("Get data rows", async () => {
     const response = await client.getDataRows({
       childType: "State",
+      parentEntity: "country/MOCK",
+      variables: ["Has_Data", "No_Data"],
+    });
+    response.forEach((row) => {
+      expect(
+        ["Has_Data", "No_Data"].indexOf(row.variable.dcid)
+      ).toBeGreaterThanOrEqual(0);
+    });
+    expect(Object.keys(response).length).toBe(3);
+  });
+
+  test("Get data rows grouped by entity", async () => {
+    const response = await client.getDataRowsGroupedByEntity({
+      childType: "State",
       fieldDelimiter: ".",
       parentEntity: "country/MOCK",
       variables: ["Has_Data", "No_Data"],
     });
     response.forEach((row) => {
-      expect(row["Has_Data.value"]).toBeGreaterThan(0);
-      expect(row["No_Data.value"]).toBe(null);
+      expect(row.variables["Has_Data"].observation.value).toBeGreaterThan(0);
+      expect(row.variables["No_Data"].observation.value).toBe(null);
     });
     expect(Object.keys(response).length).toBe(3);
   });
@@ -442,8 +466,12 @@ describe("DataCommonsWebClient", () => {
       variables: ["Has_Data", "No_Data"],
     });
     response.features.forEach((row) => {
-      expect(_.get(row.properties, "Has_Data.value", 0)).toBeGreaterThan(0);
-      expect(_.get(row.properties, "No_Data.value", 0)).toBe(null);
+      expect(
+        _.get(row.properties, "variables.Has_Data.observation.value", 0)
+      ).toBeGreaterThan(0);
+      expect(
+        _.get(row.properties, "variables.No_Data.observation.value", 0)
+      ).toBe(null);
     });
     expect(Object.keys(response.features).length).toBe(3);
   });
@@ -460,17 +488,21 @@ describe("DataCommonsWebClient", () => {
   });
 
   test("Get per capita data rows", async () => {
-    const response = await client.getDataRows({
+    const response = await client.getDataRowsGroupedByEntity({
       childType: "State",
-      fieldDelimiter: ".",
       parentEntity: "country/MOCK",
       perCapitaVariables: ["Has_Data"],
       variables: ["Has_Data", "No_Data"],
     });
     response.forEach((row) => {
-      expect(row["Has_Data.perCapita.value"]).toBeGreaterThan(0);
-      expect(row["No_Data.perCapita.value"]).toBe(null);
-      expect(row["entity.name"]).toBeTruthy();
+      expect(
+        row.variables["Has_Data"].perCapita?.perCapitaValue
+      ).toBeGreaterThan(0);
+
+      expect(row.variables["No_Data"].perCapita?.perCapitaValue).toBe(
+        undefined
+      );
+      expect(row.entity.properties.name).toBeTruthy();
     });
     expect(Object.keys(response).length).toBe(3);
   });
@@ -478,7 +510,6 @@ describe("DataCommonsWebClient", () => {
   test("Get data row series", async () => {
     const response = await client.getDataRowSeries({
       childType: "State",
-      fieldDelimiter: ".",
       parentEntity: "country/MOCK",
       perCapitaVariables: ["Has_Data"],
       variables: ["Has_Data", "No_Data"],
@@ -486,10 +517,74 @@ describe("DataCommonsWebClient", () => {
 
     expect(response.length).toBe(15);
     response.forEach((row) => {
-      expect(row["variable.dcid"]).toBe("Has_Data");
-      expect(row["variable.unitDisplayName"]).toBe("US Dollars");
-      expect(row["perCapita.value"]).toBeCloseTo(0.1);
-      expect(row["perCapita.populationValue"]).toBeGreaterThan(0);
+      expect(row.variable.dcid).toBe("Has_Data");
+      expect(row.variable.observation.metadata.unitDisplayName).toBe(
+        "US Dollars"
+      );
+      // Mock Has_Data values are set to 1/10th of the population values, so
+      // quotientValue (per-capita) should be 0.1
+      expect(row.variable.perCapita?.perCapitaValue).toBeCloseTo(0.1);
+      expect(row.variable.perCapita?.observation.value).toBeGreaterThan(0);
+    });
+  });
+
+  test("Get data row series filtered by date", async () => {
+    const response1 = await client.getDataRowSeries({
+      childType: "State",
+      fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      perCapitaVariables: ["Has_Data"],
+      variables: ["Has_Data", "No_Data"],
+      startDate: "2020",
+      endDate: "2020",
+    });
+    expect(response1.length).toBe(3);
+    response1.forEach((row) => {
+      const observationDate = row.variable.observation.date || "";
+      expect(observationDate == "2020").toBeTruthy();
+    });
+
+    const response2 = await client.getDataRowSeries({
+      childType: "State",
+      fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      perCapitaVariables: ["Has_Data"],
+      variables: ["Has_Data", "No_Data"],
+      startDate: "2020",
+      endDate: "2021",
+    });
+    expect(response2.length).toBe(6);
+    response2.forEach((row) => {
+      const observationDate = row.variable.observation.date || "";
+      expect(observationDate >= "2020").toBeTruthy();
+      expect(observationDate <= "2021").toBeTruthy();
+    });
+
+    const response3 = await client.getDataRowSeries({
+      childType: "State",
+      fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      perCapitaVariables: ["Has_Data"],
+      variables: ["Has_Data", "No_Data"],
+      startDate: "2020",
+    });
+    expect(response3.length).toBe(12);
+    response3.forEach((row) => {
+      const observationDate = row.variable.observation.date || "";
+      expect(observationDate >= "2020").toBeTruthy();
+    });
+    const response4 = await client.getDataRowSeries({
+      childType: "State",
+      fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      perCapitaVariables: ["Has_Data"],
+      variables: ["Has_Data", "No_Data"],
+      endDate: "2020",
+    });
+    expect(response4.length).toBe(6);
+    response4.forEach((row) => {
+      const observationDate = row.variable.observation.date || "";
+      expect(observationDate <= "2020").toBeTruthy();
     });
   });
 
@@ -503,5 +598,61 @@ describe("DataCommonsWebClient", () => {
     });
     // CSV result should have 1x header row + 15x data rows
     expect(Object.keys(response.split("\n")).length).toBe(16);
+  });
+
+  test("Specifying facet override should override returned facets", async () => {
+    const response = await client.getDataRows({
+      childType: "State",
+      parentEntity: "country/MOCK",
+      variables: ["Has_Data", "No_Data"],
+    });
+    response.forEach((row) => {
+      expect(row.variable.observation.metadata.scalingFactor).toBe(null);
+    });
+    const facetOverrideClient = new DataCommonsClient({
+      facetOverride: {
+        USD: {
+          scalingFactor: 123,
+        },
+      },
+    });
+    const facetOverrideResponse = await facetOverrideClient.getDataRows({
+      childType: "State",
+      parentEntity: "country/MOCK",
+      variables: ["Has_Data", "No_Data"],
+    });
+    facetOverrideResponse.forEach((row) => {
+      expect(row.variable.observation.metadata.scalingFactor).toBe(123);
+    });
+  });
+
+  test("Per capita quotientValue should use scaling factor", async () => {
+    const facetOverrideClient = new DataCommonsClient({
+      facetOverride: {
+        USD: {
+          scalingFactor: 0.05,
+        },
+      },
+    });
+    const facetOverrideResponse = await facetOverrideClient.getDataRowSeries({
+      childType: "State",
+      fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      perCapitaVariables: ["Has_Data"],
+      variables: ["Has_Data", "No_Data"],
+    });
+    expect(facetOverrideResponse.length).toBe(15);
+    facetOverrideResponse.forEach((row) => {
+      expect(row.variable.dcid).toBe("Has_Data");
+      expect(row.variable.observation.metadata.unitDisplayName).toBe(
+        "US Dollars"
+      );
+      // Mock Has_Data values are set to 1/10th of the population values, so
+      // quotientValue (per-capita) should equal:
+      // quotientValue =  N / (N * 10 ) / scalingFactor
+      // Since scaling factor is 0.05, quotientValue = 0.1 / 0.05 = 2
+      expect(row.variable.perCapita?.perCapitaValue).toBeCloseTo(2);
+      expect(row.variable.perCapita?.observation.value).toBeGreaterThan(0);
+    });
   });
 });

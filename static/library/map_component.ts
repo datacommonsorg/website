@@ -167,6 +167,10 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   geoJsonProp: string;
 
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
+
   firstUpdated(): void {
     if (this.subscribe) {
       this.parentElement.addEventListener(
@@ -255,6 +259,7 @@ export class DatacommonsMapComponent extends LitElement {
         types: [],
       },
       showExploreMore: this.showExploreMore,
+      sources: this.sources,
       statVarSpec: {
         denom: "",
         log: false,

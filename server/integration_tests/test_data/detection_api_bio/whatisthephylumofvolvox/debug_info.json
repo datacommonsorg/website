@@ -1,0 +1,77 @@
+{
+  "places_detected": [],
+  "places_resolved": "",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>",
+  "entities_detected": [
+    "volvox"
+  ],
+  "entities_resolved": "(name: Volvox, dcid: dc/003ye83smktt7); ",
+  "query_with_places_removed": "what is the phylum of volvox",
+  "sv_matching": {
+    "CosineScore": [
+      0.32274702191352844,
+      0.3015122711658478,
+      0.29428091645240784,
+      0.28463014960289
+    ],
+    "MultiSV": {},
+    "Query": "what is the phylum of volvox",
+    "SV": [
+      "dc/topic/SDGBiodiversity",
+      "Imports_EconomicActivity_Pharmaceutical",
+      "dc/topic/Emissions_Methane_EmissionsbySource",
+      "dc/topic/Cholesterol"
+    ]
+  },
+  "props_matching": {
+    "CosineScore": [
+      0.7460117936134338,
+      0.5208505392074585,
+      0.387745201587677,
+      0.3761913776397705,
+      0.3749557137489319,
+      0.3745027780532837,
+      0.3641783595085144,
+      0.36196959018707275,
+      0.3544491231441498,
+      0.3443385064601898,
+      0.33863040804862976,
+      0.31872931122779846,
+      0.30644240975379944,
+      0.3041526973247528,
+      0.2969612181186676,
+      0.29609739780426025,
+      0.295796275138855,
+      0.2900783121585846,
+      0.2770145535469055,
+      0.27679428458213806,
+      0.2757420241832733,
+      0.2749294936656952
+    ],
+    "PROP": [
+      "phylum",
+      "chemblID",
+      "virusGenus",
+      "geneID",
+      "geneticVariantFunctionalCategory",
+      "typeOfGene",
+      "hg38GenomicPosition",
+      "fullName",
+      "ensemblID",
+      "hg19GenomicPosition",
+      "hg38GenomicLocation",
+      "ncbiDNASequenceName",
+      "hg19GenomicLocation",
+      "strandOrientation",
+      "alleleOrigin",
+      "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol",
+      "ofVirusSpecies",
+      "antigenType",
+      "chromosomeSize",
+      "ncbiTaxonID",
+      "simplifiedMolecularInputLineEntrySystem",
+      "ncbiProteinAccessionNumber"
+    ]
+  }
+}

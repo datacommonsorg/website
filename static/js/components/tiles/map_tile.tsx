@@ -18,6 +18,7 @@
  * Component for rendering a map type tile.
  */
 
+import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
@@ -33,6 +34,7 @@ import {
 import { drawLegendSvg, getTooltipHtmlFn } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import {
@@ -61,8 +63,8 @@ import {
   getHash,
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
-import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
@@ -71,6 +73,7 @@ import {
   getStatVarNames,
   ReplacementStrings,
   showError,
+  transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { ContainedInPlaceSingleVariableDataSpec } from "./tile_types";
@@ -121,6 +124,8 @@ export interface MapTilePropType {
   subtitle?: string;
   // Function used to get processed stat var names.
   getProcessedSVNameFn?: (name: string) => string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 // Api responses associated with a single layer of the map
@@ -245,15 +250,33 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
-      sources={mapChartData && mapChartData.sources}
+      sources={props.sources || (mapChartData && mapChartData.sources)}
       replacementStrings={
         mapChartData && getReplacementStrings(props, mapChartData)
       }
       className={`${props.className} map-chart`}
       allowEmbed={true}
-      getDataCsv={
-        mapChartData ? () => mapDataToCsv(mapChartData.layerData) : null
-      }
+      getDataCsv={() => {
+        const date = getCappedStatVarDate(
+          props.statVarSpec.statVar,
+          props.statVarSpec.date
+        );
+        const entityProps = props.placeNameProp
+          ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
+          : undefined;
+        return datacommonsClient.getCsv({
+          childType: props.enclosedPlaceType,
+          date,
+          entityProps,
+          fieldDelimiter: CSV_FIELD_DELIMITER,
+          parentEntity: props.place.dcid,
+          perCapitaVariables: props.statVarSpec.denom
+            ? [props.statVarSpec.statVar]
+            : undefined,
+          transformHeader: transformCsvHeader,
+          variables: [props.statVarSpec.statVar],
+        });
+      }}
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={!_.isEmpty(mapChartData) && !!mapChartData.errorMsg}
@@ -363,8 +386,10 @@ export const fetchData = async (
         nodes: [layer.parentPlace],
       })
       .then((resp) => resp.data);
-    const dataDate =
-      layer.variable.date || getCappedStatVarDate(layer.variable.statVar);
+    const dataDate = getCappedStatVarDate(
+      layer.variable.statVar,
+      layer.variable.date
+    );
     const facetIds = layer.variable.facetId ? [layer.variable.facetId] : null;
     const placeStatPromise: Promise<PointApiResponse> = getPointWithin(
       props.apiRoot,

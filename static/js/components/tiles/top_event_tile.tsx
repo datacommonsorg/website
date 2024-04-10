@@ -43,7 +43,7 @@ import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { formatPropertyValue } from "../../utils/property_value_utils";
-import { getSourcesJsx } from "../../utils/tile_utils";
+import { TileSources } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 
@@ -133,7 +133,7 @@ export const TopEventTile = memo(function TopEventTile(
         <div className={`ranking-list top-event-content `}>
           <div className="ranking-header-section">
             {<h4>{!isInitialLoading && props.title}</h4>}
-            {showChart && getSourcesJsx(sources)}
+            {showChart && <TileSources sources={sources} />}
           </div>
           {!showChart && !isInitialLoading && (
             <p>There were no severe events in that time period.</p>
@@ -386,7 +386,9 @@ export const TopEventTile = memo(function TopEventTile(
     });
     embedModalElement.current.show(
       "",
-      rankingPointsToCsv(rankingPoints, ["data"]),
+      () => {
+        return Promise.resolve(rankingPointsToCsv(rankingPoints, ["data"]));
+      },
       chartContainer.current.offsetWidth,
       0,
       "",

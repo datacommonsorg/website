@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from dataclasses import asdict
-import logging
 from typing import Dict, List
 
 from server.lib.nl.common.utterance import ChartType
@@ -359,9 +358,6 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
 # Given a list of dicts previously saved by `save_utterance()`, loads
 # them into Utterance structures and returns the latest one.
 def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
-  if len(uttr_dicts) > CTX_LOOKBACK_LIMIT:
-    logging.error('Too many past utterances found: %d', len(uttr_dicts))
-
   uttr = None
   prev_uttr = None
   for i in range(len(uttr_dicts)):
@@ -386,4 +382,8 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
         place_fallback=_dict_to_place_fallback(udict['placeFallback']),
         insight_ctx=udict.get('insightCtx', {}))
     prev_uttr = uttr
+
+  if len(uttr_dicts) > CTX_LOOKBACK_LIMIT:
+    uttr.counters.err('too_many_past_utterances', len(uttr_dicts))
+
   return uttr

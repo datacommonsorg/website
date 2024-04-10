@@ -3,19 +3,13 @@
     "dc/topic/EconomicEquity",
     "GiniIndex_EconomicActivity",
     "dc/topic/IncomeEquity",
-    "dc/topic/IndividualIncomeByIndustry",
-    "dc/topic/IndustriesByRevenue",
-    "dc/topic/PovertyLevels"
+    "dc/topic/EmploymentEquity"
   ],
   "health equity": [
     "dc/topic/HealthEquity",
     "dc/topic/sdg_3.8",
-    "Amount_EconomicActivity_ExpenditureActivity_HealthcareExpenditure_AsFractionOf_Count_Person",
-    "dc/topic/HealthWorkerDensity",
-    "dc/topic/sdg_3.c.1",
-    "dc/topic/HealthcareExpenditure",
-    "dc/topic/sdg_3.8.2",
-    "dc/topic/NoHealthInsuranceByIncome"
+    "dc/topic/NoHealthInsuranceByIncome",
+    "dc/topic/HealthInsuranceByRace"
   ],
   "poor hispanic women": [
     "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
@@ -23,31 +17,17 @@
   "unemployment rate": [
     "UnemploymentRate_Person",
     "dc/topic/UnemploymentRate",
-    "dc/topic/sdg_8.5.2",
-    "UnemploymentRate_Person_Male",
-    "UnemploymentRate_Person_Female"
+    "dc/topic/sdg_8.5.2"
   ],
-  "rates uninsured": [
-    "dc/topic/NoHealthInsurance",
-    "Percent_Person_18To64Years_ReceivedNoHealthInsurance",
-    "dc/topic/NoHealthInsuranceByIncome",
-    "Count_Household_NoHealthInsurance"
-  ],
-  "breakdown incarceration rates race": [
-    "dc/rmwl11tzy7vkh",
-    "dc/ptp31y11913b6",
-    "dc/fs27m9j4vpvc7",
-    "dc/510pv6eq2vtw7",
-    "dc/03ewbkyh6zey2",
-    "dc/yneg81m4e49z6"
-  ],
+  "rates uninsured": ["Percent_Person_18To64Years_ReceivedNoHealthInsurance"],
   "gini index": ["GiniIndex_EconomicActivity"],
   "diabetes": ["dc/topic/Diabetes", "Percent_Person_WithDiabetes"],
   "poverty": [
     "dc/topic/Poverty",
     "Count_Person_BelowPovertyLevelInThePast12Months",
+    "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
     "dc/topic/PovertyLevels",
-    "dc/topic/sdg_1.2"
+    "dc/topic/SDG_1"
   ],
   "common jobs": ["dc/topic/Jobs"],
   "median income": [
@@ -55,8 +35,7 @@
     "Median_Earnings_Person",
     "Median_Income_Household",
     "Mean_Income_Household",
-    "dc/topic/Income",
-    "Median_Income_Household_FamilyHousehold"
+    "dc/topic/Income"
   ],
   "industries": [
     "dc/topic/IndustriesByRevenue",
@@ -69,154 +48,81 @@
   ],
   "poor": [
     "dc/topic/Poverty",
-    "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
     "Count_Person_BelowPovertyLevelInThePast12Months",
-    "dc/topic/sdg_1.2",
+    "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
     "dc/topic/PovertyLevels"
   ],
   "economy": [
     "dc/topic/Economy",
     "dc/topic/EconomicActivity",
     "dc/topic/Businesses",
-    "dc/topic/EconomicEquity",
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
-    "dc/topic/IndividualIncomeByIndustry"
+    "dc/topic/GlobalEconomicActivity"
   ],
   "gdp": [
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
     "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
     "InflationAdjustedGDP",
-    "dc/topic/GDP",
-    "dc/topic/GDPByIndustry",
-    "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
-    "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+    "dc/topic/GDP"
   ],
-  "income": ["dc/topic/Income"],
-  "health insurance": [
-    "dc/topic/HealthInsurance",
-    "dc/topic/HealthInsuranceType",
-    "dc/topic/PrivateHealthInsuranceType",
-    "dc/topic/PublicHealthInsuranceType"
+  "income": [
+    "dc/topic/Income",
+    "Median_Income_Household",
+    "Mean_WagesMonthly_Worker",
+    "Median_Income_Person"
   ],
+  "health insurance": ["dc/topic/HealthInsurance"],
   "remittances": ["dc/topic/Remittance"],
   "incoming remittances": [
     "Amount_Remittance_InwardRemittance",
     "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
   ],
   "obesity": ["Percent_Person_Obesity"],
-  "debt gdp": [
-    "dc/topic/Debt",
-    "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
-    "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
-    "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
-  ],
-  "education expenditure": [
-    "dc/topic/EducationExpenditure",
-    "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal",
-    "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government"
-  ],
+  "debt": ["dc/topic/Debt"],
+  "education expenditure": ["dc/topic/EducationExpenditure"],
   "leading causes death": [
     "dc/topic/WHOMortalityCauses",
     "dc/topic/CausesOfDeath"
   ],
-  "health issues": [
-    "dc/topic/HealthConditions",
-    "dc/topic/Health",
-    "dc/topic/GlobalHealth"
-  ],
-  "prevalance asthma": [
-    "Percent_Person_WithAsthma",
-    "dc/topic/Asthma",
-    "dc/topic/PopulationWithAsthmaByAge"
-  ],
+  "health issues": ["dc/topic/HealthConditions", "dc/topic/HeatIllnesses"],
+  "prevalance asthma": ["Percent_Person_WithAsthma", "dc/topic/Asthma"],
   "rates child immunization": [
     "dc/topic/WHOChildImmunization",
-    "dc/topic/WHOChildImmunizationsByGender",
-    "WHO/fullv_Rural",
-    "WHO/fullv_Urban"
+    "dc/topic/WHOChildImmunizationsByGender"
   ],
-  "life expectancy vary": [
-    "dc/topic/LifeExpectancy",
-    "LifeExpectancy_Person",
-    "LifeExpectancy_Person_Male",
-    "LifeExpectancy_Person_Female"
-  ],
-  "seen number cancer deaths": [
-    "Count_Death_Neoplasms",
-    "Count_Death_Neoplasms_Male",
-    "Count_Death_Neoplasms_Female",
-    "dc/topic/PopulationWithCancerByAge"
-  ],
+  "life expectancy vary": ["dc/topic/LifeExpectancy", "LifeExpectancy_Person"],
+  "seen number cancer deaths": ["Count_Death_Neoplasms"],
   "mortality": [
     "dc/topic/Mortality",
     "dc/topic/WHOMortality",
-    "Count_Death_AsAFractionOfCount_Person",
-    "dc/topic/WHOMortalityCauses",
-    "dc/topic/CausesOfDeath",
-    "dc/topic/MortalityByGender",
-    "dc/topic/InfantMortality"
+    "Count_Death_AsAFractionOfCount_Person"
   ],
   "unemployment": ["UnemploymentRate_Person"],
-  "child immunizations life expectancy": [
-    "dc/topic/WHOChildImmunization",
-    "dc/topic/WHOChildImmunizationsByUrbanRural",
-    "WHO/fullv_Rural",
-    "dc/topic/WHOChildImmunizationsByGender"
-  ],
+  "child immunizations": ["dc/topic/WHOChildImmunization"],
   "health conditions": ["dc/topic/HealthConditions"],
   "median age": ["Median_Age_Person", "dc/topic/AgeMedians"],
-  "obesity lack sleep": [
-    "Percent_Person_SleepLessThan7Hours",
-    "Percent_Person_Obesity"
-  ],
-  "immunization rates": [
-    "dc/topic/WHOImmunization",
-    "dc/topic/WHOChildImmunization",
-    "dc/topic/WHOChildImmunizationsByUrbanRural",
-    "dc/topic/WHOChildImmunizationsByGender"
-  ],
+  "lack sleep": ["Percent_Person_SleepLessThan7Hours"],
+  "immunization rates": ["dc/topic/WHOImmunization"],
   "infant mortality": [
     "dc/topic/InfantMortality",
     "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth",
-    "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent",
-    "Count_Death_Infant",
-    "WHO/CM_02",
-    "WHO/CM_03"
+    "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
   ],
-  "maternal mortality": [
-    "dc/topic/WHOMaternalMortality",
-    "dc/topic/sdg_3.1.1",
-    "sdg/SH_STA_MORT.SEX--F",
-    "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female"
-  ],
+  "maternal mortality": ["dc/topic/WHOMaternalMortality"],
   "college educated": [
-    "Count_Person_EducationalAttainmentSomeCollegeOrAssociatesDegree",
-    "Count_Person_EnrolledInCollegeUndergraduateYears"
+    "Count_Person_EducationalAttainmentSomeCollegeOrAssociatesDegree"
   ],
-  "grades enrollment schools": [
-    "dc/topic/StudentEnrollmentLevels",
-    "dc/topic/StudentsInHighSchool"
-  ],
+  "grades enrollment schools": ["dc/topic/StudentEnrollmentLevels"],
   "much time people spend commuting": ["dc/topic/CommuteTime"],
   "common bachelors majors": ["dc/topic/BachelorsMajor"],
-  "demographics students": [
-    "dc/topic/StudentPopulationDemographics",
-    "dc/topic/PopulationEnrolledInSchoolTypeByRace",
-    "dc/topic/EducationalAttainmentByRaceAndLevel",
-    "dc/jhjdplbeg26k1"
-  ],
-  "number phds": [
-    "Count_Person_EducationalAttainmentDoctorateDegree",
-    "Count_Person_25OrMoreYears_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears"
-  ],
+  "demographics students": ["dc/topic/StudentPopulationDemographics"],
+  "number phds": ["Count_Person_EducationalAttainmentDoctorateDegree"],
   "houses built": ["dc/topic/HousesByDateofBuild"],
   "work home population": ["dc/6rltk4kf75612"],
   "number rooms per house": ["dc/topic/HousesByRoomCount"],
-  "educational attainment poverty": [
+  "educational attainment": [
     "dc/topic/EducationalAttainment",
-    "dc/topic/LevelOfEducationalAttainment",
-    "dc/topic/PovertyLevels",
-    "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+    "dc/topic/LevelOfEducationalAttainment"
   ],
   "median home value": [
     "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
@@ -228,123 +134,45 @@
     "dc/topic/NonEnglishLanguageAtHome"
   ],
   "tamil speakers": ["Count_Person_5OrMoreYears_TamilSpokenAtHome"],
-  "immigrants": [
-    "Count_Person_5OrMoreYears_ForeignBorn",
-    "dc/topic/Immigration"
-  ],
+  "immigrants": ["dc/topic/Immigration"],
   "old people": ["dc/topic/VeryOldAndVeryYoungPopulation"],
   "statistics married people": ["dc/topic/MarriedPopulationByDemographic"],
   "people caribbean origin": ["Count_Person_ForeignBorn_PlaceOfBirthCaribbean"],
-  "demographics divorced people": [
-    "dc/topic/DivorcedPopulationByDemographic",
-    "Count_Person_Divorced",
-    "Count_Person_DivorcedOrSeparated"
-  ],
+  "demographics divorced people": ["dc/topic/DivorcedPopulationByDemographic"],
   "foreign born population": ["Count_Person_5OrMoreYears_ForeignBorn"],
-  "spanish speakers": [
-    "Count_Person_5OrMoreYears_SpanishSpokenAtHome",
-    "Count_Person_5OrMoreYears_SpanishSpokenAtHome_Native"
-  ],
-  "immigration": [
-    "dc/topic/Immigration",
-    "Count_Person_5OrMoreYears_ForeignBorn"
-  ],
+  "spanish speakers": ["Count_Person_5OrMoreYears_SpanishSpokenAtHome"],
+  "immigration": ["dc/topic/Immigration"],
   "racial breakdown population": ["dc/topic/Race"],
   "citizenship": ["dc/topic/CitizenshipStatus"],
   "obesity prevalence": ["Percent_Person_Obesity"],
   "phd holders": ["Count_Person_EducationalAttainmentDoctorateDegree"],
-  "sources greenhouse gas emissions": [
-    "dc/topic/GreenhouseGasEmissions",
-    "Annual_Emissions_GreenhouseGas"
-  ],
+  "sources greenhouse gas emissions": ["dc/topic/GreenhouseGasEmissions"],
   "emissions": ["dc/topic/Emissions"],
-  "pollution": ["dc/topic/Pollutants", "dc/topic/AmbientAirPollution"],
+  "pollution": ["dc/topic/Pollutants"],
   "projected temperature": [
     "dc/topic/ProjectedClimateExtremes",
-    "dc/topic/TemperaturePredictions",
-    "dc/topic/YearlyProjectedTemperatureLows",
-    "dc/topic/YearlyProjectedTemperatureHighs"
+    "dc/topic/TemperaturePredictions"
   ],
   "electricity usage": [
     "dc/topic/Electricity_Consumption",
-    "Annual_Consumption_Electricity",
-    "mount_Consumption_Electricity_PerCapita",
-    "Annual_Count_ElectricityConsumer",
-    "Monthly_Count_ElectricityConsumer"
+    "Annual_Consumption_Electricity"
   ],
-  "floods": [
-    "dc/topic/Flood",
-    "Count_FloodEvent",
-    "Area_FloodEvent",
-    "dc/topic/CoastalFlood"
-  ],
+  "floods": ["dc/topic/Flood"],
   "solar energy consumption": [
     "dc/topic/SolarConsumption",
     "Annual_Consumption_Energy_SolarThermal"
   ],
   "smoke pollution": [
     "dc/topic/SmokePM2.5",
-    "Concentration_AirPollutant_SmokePM25",
-    "Mean_Concentration_AirPollutant_SmokePM25",
-    "Max_PopulationWeighted_Concentration_AirPollutant_SmokePM25",
-    "Mean_PopulationWeighted_Concentration_AirPollutant_SmokePM25"
+    "Concentration_AirPollutant_SmokePM25"
   ],
   "sources co2 emissions": ["dc/topic/CO2Emissions"],
   "greenhouse gas emissions": [
     "Annual_Emissions_GreenhouseGas",
-    "dc/topic/GreenhouseGasEmissions",
-    "dc/topic/sdg_13.2.2"
+    "dc/topic/GreenhouseGasEmissions"
   ],
-  "pm2.5 asthma": [
-    "dc/topic/Asthma",
-    "Percent_Person_WithAsthma",
-    "dc/topic/PM2.5",
-    "Mean_Concentration_AirPollutant_PM2.5",
-    "Median_Concentration_AirPollutant_PM2.5"
-  ],
-  "solar installations median income": [
-    "dc/topic/SolarConsumption",
-    "Count_SolarInstallation"
-  ],
+  "pm2.5": ["dc/topic/PM2.5"],
+  "solar installations": ["Count_SolarInstallation"],
   "aqi": ["AirQualityIndex_AirPollutant"],
-  "blood pressure": ["dc/topic/BloodPressure"],
-  "hunger": ["dc/topic/sdg_2.1", "dc/topic/sdg_2", "dc/topic/sdg_2.1.2"],
-  "sdg goals gender equality": [
-    "dc/topic/sdg_5",
-    "dc/topic/sdg_5.c",
-    "dc/topic/sdg_5.5",
-    "dc/topic/sdg_5.1"
-  ],
-  "women managerial positions": ["dc/topic/sdg_5.5.2"],
-  "access clean drinking water": [
-    "dc/topic/sdg_6.1.1",
-    "dc/topic/sdg_6",
-    "dc/topic/sdg_6.1"
-  ],
-  "access primary school education": ["dc/topic/sdg_4.1"],
-  "combating unregulated fishing": [
-    "dc/topic/sdg_14.6.1",
-    "dc/topic/sdg_14.4",
-    "dc/topic/sdg_14.6"
-  ],
-  "access electricity improved": [
-    "dc/topic/GlobalElectricityAccess",
-    "dc/topic/sdg_7.1.1",
-    "worldBank/EG_ELC_ACCS_ZS"
-  ],
-  "informal employment": ["dc/topic/sdg_8.3.1"],
-  "much food goes wasted around": ["sdg/AG_FOOD_WST", "sdg/AG_FOOD_WST_PC"],
-  "progress poverty": [
-    "dc/topic/Poverty",
-    "dc/topic/SDG_1",
-    "dc/topic/PovertyLevels",
-    "Count_Person_BelowPovertyLevelInThePast12Months",
-    "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
-    "dc/topic/sdg_1.1"
-  ],
-  "sdg goals climate change": [
-    "dc/topic/sdg_13",
-    "dc/topic/sdg_13.2",
-    "dc/topic/sdg_13.3"
-  ]
+  "blood pressure": ["dc/topic/BloodPressure"]
 }

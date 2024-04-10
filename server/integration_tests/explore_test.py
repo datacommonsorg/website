@@ -120,26 +120,26 @@ class ExploreTest(NLWebServerTestCase):
       json_dir = os.path.dirname(json_file)
       if not os.path.isdir(json_dir):
         os.makedirs(json_dir)
-      with open(json_file, 'w') as infile:
-        infile.write(json.dumps(resp, indent=2))
-
       if check_detection:
         dbg_file = os.path.join(json_dir, 'debug_info.json')
         with open(dbg_file, 'w') as infile:
+          del dbg["sv_matching"]["SV_to_Sentences"]
+          del dbg["props_matching"]["PROP_to_Sentences"]
           dbg_to_write = {
               "places_detected": dbg["places_detected"],
               "places_resolved": dbg["places_resolved"],
               "main_place_dcid": dbg["main_place_dcid"],
               "main_place_name": dbg["main_place_name"],
+              "entities_detected": dbg["entities_detected"],
               "entities_resolved": dbg["entities_resolved"],
-              "sv_matching": {
-                  "SV": dbg["sv_matching"]["SV"]
-              },
-              "props_matching": {
-                  "PROP": dbg["props_matching"]["PROP"]
-              },
+              "query_with_places_removed": dbg["query_with_places_removed"],
+              "sv_matching": dbg["sv_matching"],
+              "props_matching": dbg["props_matching"]
           }
           infile.write(json.dumps(dbg_to_write, indent=2))
+      else:
+        with open(json_file, 'w') as infile:
+          infile.write(json.dumps(resp, indent=2))
     else:
       if failure:
         self.assertTrue(failure in resp["failure"]), resp["failure"]
@@ -161,7 +161,7 @@ class ExploreTest(NLWebServerTestCase):
           self.maxDiff = None
           self.assertEqual(a, b)
       else:
-        # Look in the debugInfo file to match places detected.
+        # Look in the debugInfo file to match things detected.
         dbg_file = os.path.join(_dir, _TEST_DATA, test_dir, test_name,
                                 'debug_info.json')
         with open(dbg_file, 'r') as infile:
@@ -176,6 +176,29 @@ class ExploreTest(NLWebServerTestCase):
                            expected["sv_matching"]["SV"])
           self.assertEqual(dbg["props_matching"]["PROP"],
                            expected["props_matching"]["PROP"])
+          self._check_multivars(dbg["sv_matching"], expected["sv_matching"])
+
+  def _check_multivars(self, got, want):
+    self.assertEqual(got['SV'][0], want['SV'][0])
+
+    got_multisv = got['MultiSV'].get('Candidates', [])
+    want_multisv = want['MultiSV'].get('Candidates', [])
+    self.assertEqual(len(want_multisv), len(got_multisv))
+    for i in range(len(want_multisv)):
+      want_parts = want_multisv[i]['Parts']
+      got_parts = got_multisv[i]['Parts']
+      self.assertEqual(len(want_parts), len(got_parts))
+      for i in range(len(got_parts)):
+        self.assertEqual(got_parts[i]['QueryPart'], want_parts[i]['QueryPart'])
+        self.assertEqual(got_parts[i]['SV'][0], want_parts[i]['SV'][0])
+
+    if not want_multisv:
+      return
+
+    if want['CosineScore'][0] > want_multisv[0]['AggCosineScore']:
+      self.assertTrue(got['CosineScore'][0] > got_multisv[0]['AggCosineScore'])
+    else:
+      self.assertTrue(got['CosineScore'][0] < got_multisv[0]['AggCosineScore'])
 
   def handle_i18n_response(self, resp, i18n_lang):
     """The translation API does not always return the same translations.
@@ -214,8 +237,19 @@ class ExploreTest(NLWebServerTestCase):
   def test_detection_bio(self):
     self.run_detection('detection_api_bio', [
         'What is the phylum of volvox?',
+        'What types of genes are FGFR1, APOE, and ACHE?',
     ],
                        dc='bio',
+                       check_detection=True)
+
+  def test_detection_multivar(self):
+    self.run_detection('detection_api_multivar', [
+        'number of poor hispanic women with phd',
+        'compare obesity vs. poverty',
+        'show me the impact of climate change on drought',
+        'how are factors like obesity, blood pressure and asthma impacted by climate change',
+        'Compare "Male population" with "Female Population"',
+    ],
                        check_detection=True)
 
   def test_detection_context(self):
@@ -236,6 +270,11 @@ class ExploreTest(NLWebServerTestCase):
     # Chinese query for "which cities in the Santa Clara County have the highest larceny?"
     self.run_detection('detection_translate_chinese', ['圣克拉拉县哪些城市的盗窃率最高？'],
                        i18n='true')
+
+  def test_detection_bugs(self):
+    self.run_detection('detection_api_bugs', [
+        'What is the relationship between housing size and home prices in California'
+    ])
 
   def test_fulfillment_basic(self):
     req = {
@@ -400,34 +439,39 @@ class ExploreTest(NLWebServerTestCase):
         'immunization vs. debt in the world', 'debt in china, germany and india'
     ])
 
-  # def test_e2e_edge_cases2(self):
-  #   self.run_detect_and_fulfill(
-  #       'e2e_edge_cases2',
-  #       [
-  #           'What crimes are considered felonies vs. misdemeanors in the US',
-  #           'How does school size of urban schools compare to rural schools in US',
-  #           'What is the relationship between housing size and home prices in California',
+  def test_e2e_edge_cases2(self):
+    self.run_detect_and_fulfill(
+        'e2e_edge_cases2',
+        [
+            'What crimes are considered felonies vs. misdemeanors in the US',
+            'How does school size of urban schools compare to rural schools in Colorado',
+            'What is the relationship between housing size and home prices in California',
 
-  #           # This is a regression test to ensure "biggest" doesn't trigger
-  #           # SUPERLATIVE, and we return Household Income within a topic,
-  #           # instead of a standalone lower-ranked SV (Individual median earnings)
-  #           # without an topic title.
-  #           'California counties with the biggest increase in income levels',
+            # This is a regression test to ensure "biggest" doesn't trigger
+            # SUPERLATIVE, and we return Household Income within a topic,
+            # instead of a standalone lower-ranked SV (Individual median earnings)
+            # without an topic title.
+            'California counties with the biggest increase in income levels',
 
-  #           # This is a regression test to ensure that filter_with_single_var can
-  #           # work with a variable in a topic.  Before the fix, it returns
-  #           # a standalone SV (average earnings), and after fix it returns an
-  #           # SV part of the topic with page title (median household income)
-  #           'Counties in California where income is over 50000',
+            # This is a regression test to ensure that filter_with_single_var can
+            # work with a variable in a topic.  Before the fix, it returns
+            # a standalone SV (average earnings), and after fix it returns an
+            # SV part of the topic with page title (median household income)
+            'Counties in California where income is over 50000',
 
-  #           # This is a regression test to ensure that the titles does
-  #           # not have both the topics. Instead, the title has the topic
-  #           # corresponding to the SV in the very first chart.
-  #           'Poverty vs. unemployment rate in districts of Tamil Nadu',
-  #       ])
+            # This is a regression test to ensure that the titles does
+            # not have both the topics. Instead, the title has the topic
+            # corresponding to the SV in the very first chart.
+            'Poverty vs. unemployment rate in districts of Tamil Nadu',
+        ])
+
+  def test_e2e_correlation_bugs(self):
+    self.run_detect_and_fulfill('e2e_correlation_bugs',
+                                ['diabetes vs. poor latinos in california'])
 
   def test_e2e_superlatives(self):
     self.run_detect_and_fulfill('e2e_superlatives', [
+        'asthma in Nevada',
         'Richest counties in california',
         'List schools in Sunnyvale',
     ],
@@ -561,5 +605,21 @@ class ExploreTest(NLWebServerTestCase):
         mode='toolformer')
 
   def test_e2e_triple(self):
-    self.run_detect_and_fulfill('e2e_triple', ['What is the phylum of volvox?'],
-                                dc='bio')
+    self.run_detect_and_fulfill(
+        'e2e_triple',
+        [
+            # Should all have 'out' properties as answer
+            'What is the phylum of volvox?',
+            'How about Corylus cornuta Marshall',
+            'What strand orientation does FGFR1 have?',
+            'What type of gene is it',
+            # Should have 'in' properties as answer
+            'What is Betacoronavirus 1 the species of',
+            # Should have a chained property in the answer
+            'What genes are associated with the genetic variant rs13317?',
+            # Should return a table in the answer
+            'What genes are associated with the genetic variant rs13317 and rs7903146?',
+            # Should return a table with all the out arcs of the two entities
+            'what virus species are rs13317 and rs7903146'
+        ],
+        dc='bio')

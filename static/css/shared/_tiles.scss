@@ -598,3 +598,121 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   opacity: 0.3;
   user-select: none;
 }
+
+/**
+ * Answer message tile
+ */
+
+.answer-message-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 0;
+
+  .answer-message {
+    display: flex;
+    flex-direction: column;
+    font-size: 32px;
+    gap: 16px;
+  }
+
+  .source {
+    font-size: 14px;
+  }
+}
+
+/**
+ * Entity overview tile
+ */
+
+ .entity-overview-tile {
+  border: var(--border-primary);
+  border-radius: var(--border-radius-primary);
+  padding: 32px;
+ }
+
+ /**
+  * Answer table tile
+  */
+
+.answer-table-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 0;
+  
+  .answer-table-title {
+    font-size: 32px;
+    margin-bottom: 48px;
+  }
+
+  .table-container {
+    overflow: scroll;
+    max-height: 50vH;
+  }
+
+  .table {
+    border: 1px solid #DEE2E6;
+    border-radius: 3px;
+    font-size: 24px;
+    font-weight: 400;
+
+    thead {
+      background-color: #F0F0F0;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+
+      th {
+        font-weight: 400;
+        padding: 8px 0;
+        padding-right: 16px;
+        white-space: nowrap;
+      }
+
+      th:first-child {
+        background-color: #F0F0F0;
+        left: 0;
+        position: sticky;
+        top: 0;
+        z-index: 3;
+      }
+    }
+
+    tbody {
+      tr:nth-child(even),
+      tr:nth-child(even) td:first-child {
+        background-color: #F0F0F0;
+      }
+
+      tr:nth-child(odd),
+      tr:nth-child(odd) td:first-child {
+        background-color: var(--gm-3-white);
+      }
+
+      tr td:first-child {
+        left: 0;
+        padding-left: 80px;
+        position: sticky;
+        white-space: nowrap;
+        width: auto;
+        z-index: 1;
+      }
+
+      td {
+        padding: 8px 80px 8px 0;
+        width: 100%;
+
+        a {
+          align-items: center;
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+  
+  .source {
+      font-size: 14px;
+  }
+}

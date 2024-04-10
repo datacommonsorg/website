@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 from typing import List
 
 import server.lib.explore.existence as ext
@@ -35,7 +34,6 @@ from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 #
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, _: int) -> bool:
-  logging.info('populate_cb for ranking_across_vars')
   if chart_vars.event:
     state.uttr.counters.err('ranking-across-vars_failed_cb_events', 1)
     return False

@@ -14,7 +14,6 @@
 
 from collections import OrderedDict
 from dataclasses import dataclass
-import logging
 from typing import Dict, List
 
 from server.lib.nl.common import constants
@@ -160,8 +159,6 @@ class ExistenceCheckTracker:
         self.state.exist_checks[sv][k].is_single_point |= is_singlepoint
 
     if not self.existing_svs:
-      logging.info('Existence check failed for %s - %s', ', '.join(self.places),
-                   ', '.join(self.all_svs))
       self.state.uttr.counters.err(
           'failed_existence_check', {
               'places': self.places[:constants.DBG_LIST_LIMIT],

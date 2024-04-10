@@ -14,13 +14,13 @@
 
 import copy
 from dataclasses import dataclass
-import logging
 from typing import List
 
 import server.lib.explore.existence as ext
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
@@ -107,7 +107,8 @@ def set_overrides(state: PopulateState) -> bool:
     return False
 
   #
-  # Only if there are no SVs detected, do we consider SUPERLATIVE classification.
+  # Only if there are no SVs detected in this query,
+  # do we consider SUPERLATIVE classification.
   #
   # BUT NOTE: The is_non_geo_place_type check is there for non-geo places
   # like schools which are not removed as stop-words for SV query.
@@ -116,7 +117,8 @@ def set_overrides(state: PopulateState) -> bool:
   # `SUPERLATIVE` heuristic override.
   # TODO: Find a better approach
   #
-  if not utils.is_non_geo_place_type(place_type) and state.uttr.svs:
+  if (not utils.is_non_geo_place_type(place_type) and state.uttr.svs and
+      state.uttr.sv_source == FulfillmentResult.CURRENT_QUERY):
     state.uttr.counters.err('superlatives_failed_foundvars', state.uttr.svs)
     return False
 
@@ -131,7 +133,6 @@ def set_overrides(state: PopulateState) -> bool:
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, _: int) -> bool:
-  logging.info('populate_cb for size_across_entities')
   if not state.ranking_types:
     state.uttr.counters.err('superlatives_failed_cb_norankingtypes', 1)
     return False

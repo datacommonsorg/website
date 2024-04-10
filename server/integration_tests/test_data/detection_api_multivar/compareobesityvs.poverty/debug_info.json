@@ -1,0 +1,76 @@
+{
+  "places_detected": [],
+  "places_resolved": "",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>",
+  "entities_detected": [],
+  "entities_resolved": "",
+  "query_with_places_removed": "compare obesity vs poverty",
+  "sv_matching": {
+    "CosineScore": [
+      0.8119865655899048,
+      0.7225803732872009,
+      0.7164517045021057,
+      0.6980435848236084,
+      0.6908259987831116,
+      0.6851560473442078,
+      0.6847792267799377,
+      0.6683325171470642,
+      0.665703535079956,
+      0.6602823734283447,
+      0.6422472596168518,
+      0.6345549821853638,
+      0.6318433284759521,
+      0.6279776692390442
+    ],
+    "MultiSV": {
+      "Candidates": [
+        {
+          "AggCosineScore": 0.953,
+          "DelimBased": true,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.9060242176055908
+              ],
+              "QueryPart": "obesity",
+              "SV": [
+                "Percent_Person_Obesity"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.9999998807907104
+              ],
+              "QueryPart": "poverty",
+              "SV": [
+                "dc/topic/Poverty"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Query": "compare obesity vs poverty",
+    "SV": [
+      "Percent_Person_Obesity",
+      "dc/topic/Poverty",
+      "dc/topic/Malnutrition",
+      "Count_Person_BelowPovertyLevelInThePast12Months",
+      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
+      "dc/topic/PovertyLevels",
+      "dc/topic/sdg_1.2",
+      "WHO/NCD_BMI_30A",
+      "Count_Person_Upto4Years_Overweight_AsFractionOf_Count_Person_Upto4Years",
+      "dc/topic/SDG_1",
+      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad",
+      "dc/4lvmzr1h1ylk1",
+      "dc/topic/sdg_2.2.2",
+      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
+    ]
+  },
+  "props_matching": {
+    "CosineScore": [],
+    "PROP": []
+  }
+}

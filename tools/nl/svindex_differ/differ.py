@@ -31,6 +31,7 @@ import requests
 
 from nl_server import gcs
 from nl_server.embeddings import Embeddings
+from nl_server.embeddings import load_model
 
 _SV_THRESHOLD = 0.5
 _NUM_SVS = 10
@@ -197,12 +198,12 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
   print(
       f"Setting up the Base Embeddings from: {base_file}; Base model from: {base_model_path}"
   )
-  base = Embeddings(base_file, base_model_path)
+  base = Embeddings(base_file, load_model(base_model_path))
   print("=================================")
   print(
       f"Setting up the Test Embeddings from: {test_file}; Test model from: {test_model_path}"
   )
-  test = Embeddings(test_file, test_model_path)
+  test = Embeddings(test_file, load_model(test_model_path))
   print("=================================")
 
   # Get the list of diffs
@@ -216,8 +217,8 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
       if not query or query.startswith('#') or query.startswith('//'):
         continue
       assert ';' not in query, 'Multiple query not yet supported'
-      base_svs, base_sv_info = _prune(base.detect_svs(query))
-      test_svs, test_sv_info = _prune(test.detect_svs(query))
+      base_svs, base_sv_info = _prune(base.search_vars(query)[query])
+      test_svs, test_sv_info = _prune(test.search_vars(query)[query])
       for sv in base_svs + test_svs:
         all_svs.add(sv)
       if base_svs != test_svs:

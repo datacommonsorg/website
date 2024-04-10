@@ -48,7 +48,6 @@ Example commands: `./run.sh -m dc-all-minilm-l6-v2 -f <repo_root>/shared/eval/ba
 
 This produces `debug.json` and `report.csv` in a `result` sub folder.
 
-The `report.csv` contains query and the [ndcg
-score](https://en.wikipedia.org/wiki/Discounted_cumulative_gain) per row.
+The `report.csv` contains query and the accuracy score per row.
 `debug.json` contains the matched embeddings description, stat var dcid and the
 cosine score.

@@ -81,6 +81,10 @@ beforeEach(() => {
   // JSDom does not define SVGTSpanElements, and use SVGElement instead. Defines
   // a shim for getComputedTextLength where each character is 1 px wide.
   (window.SVGElement as any).prototype.getComputedTextLength = function () {
+    // Title elements don't contribute to width
+    if (this.tagName === "title") {
+      return 0;
+    }
     return this.textContent.length;
   };
 
@@ -122,7 +126,10 @@ describe("wrap tests", () => {
     document.body.innerHTML = `<svg width=100><text>${label}</text></svg>`;
     wrap(d3.selectAll("text"), width);
 
-    expect(d3.selectAll("text").text()).toBe(expectedLabels.join(""));
+    d3.selectAll("tspan").each(function (a, i) {
+      const tspanText = d3.select(this).text();
+      expect(tspanText).toBe(expectedLabels[i]);
+    });
     expect(d3.selectAll("tspan").size()).toBe(expectedLabels.length);
     d3.selectAll("tspan").each(function (d, i) {
       expect(d3.select(this).text()).toBe(expectedLabels[i]);

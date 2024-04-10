@@ -2,7 +2,7 @@
   "name": "@datacommonsorg/client",
   "private": false,
   "typings": "./dist/main.d.ts",
-  "version": "0.0.1-alpha9",
+  "version": "0.1.1-alpha",
   "exports": {
     ".": {
       "import": "./dist/main.mjs",
@@ -59,7 +59,7 @@
     "typedoc": "^0.25.4",
     "vega-embed": "^6.24.0",
     "vega-lite": "^5.16.3",
-    "vite": "^4.4.5"
+    "vite": "^4.5.2"
   },
   "dependencies": {
     "lodash": "^4.17.21",

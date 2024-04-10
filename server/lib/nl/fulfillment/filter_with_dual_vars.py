@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import copy
-import logging
 from typing import List
 
 from server.lib.nl.common import rank_utils
@@ -81,7 +80,6 @@ def set_overrides(state: PopulateState):
 # TODO: Consider deduping with filter_with_single_var.populate.
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, _: int) -> bool:
-  logging.info('populate_cb for filter_with_dual_vars')
   if chart_vars.event:
     state.uttr.counters.err('filter-with-dual-vars_failed_cb_events', 1)
     return False
@@ -102,7 +100,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     # Just report we're done.
     return True
 
-  logging.info('Attempting to filter places')
   sv = chart_vars.svs[0]
   date = ''
   if state.single_date:
@@ -126,7 +123,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   if show_lowest:
     ranked_children.reverse()
   shortlist = ranked_children[:_MAX_PLACES_TO_RETURN]
-  logging.info(f'shortlist is {shortlist}')
 
   place_dcids = [p.dcid for p in shortlist]
 
@@ -154,7 +150,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     state.uttr.counters.err('filter-with-dual-vars_selectedexistencefailed',
                             selected_svs)
     return False
-  logging.info(f'post-existence check vars: {selected_svs}')
 
   # Compute title suffix.
   if len(ranked_children) > _MAX_PLACES_TO_RETURN:
@@ -166,14 +161,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   for sv in selected_svs:
     cv = copy.deepcopy(chart_vars)
     cv.svs = [sv]
-    logging.info(f'adding to dual-sv chart: {sv}')
-    found |= add_chart_to_utterance(
-        ChartType.BAR_CHART,
-        state,
-        cv,
-        shortlist,
-        chart_origin,
-        sv_place_latest_date={sv: sv_place_latest_date.get('sv', {})})
+    found |= add_chart_to_utterance(ChartType.BAR_CHART, state, cv, shortlist,
+                                    chart_origin)
 
   state.uttr.counters.info(
       'filter-with-dual-vars_ranked_places', {

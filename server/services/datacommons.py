@@ -21,6 +21,7 @@ import urllib.parse
 from flask import current_app
 import requests
 
+from server.lib import log
 from server.lib.cache import cache
 import server.lib.config as libconfig
 from server.routes import TIMEOUT
@@ -37,7 +38,9 @@ def get(url: str):
   if dc_api_key:
     headers['x-api-key'] = dc_api_key
   # Send the request and verify the request succeeded
+  call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
+  call_logger.finish(response)
   if response.status_code != 200:
     raise ValueError(
         'Response error: An HTTP {} code ({}) was returned by the mixer.'
@@ -62,7 +65,9 @@ def post_wrapper(url, req_str: str):
   if dc_api_key:
     headers['x-api-key'] = dc_api_key
   # Send the request and verify the request succeeded
+  call_logger = log.ExtremeCallLogger(req)
   response = requests.post(url, json=req, headers=headers)
+  call_logger.finish(response)
   if response.status_code != 200:
     raise ValueError(
         'An HTTP {} code ({}) was returned by the mixer: "{}"'.format(
@@ -330,12 +335,12 @@ def resolve(nodes, prop):
   return post(url, {'nodes': nodes, 'property': prop})
 
 
-def nl_search_sv(query, index_type, threshold, skip_topics=False):
+def nl_search_vars(queries, index_type, skip_topics=False):
   """Search sv from NL server."""
-  url = f'{current_app.config["NL_ROOT"]}/api/search_sv?q={query}&idx={index_type}&threshold={threshold}'
+  url = f'{current_app.config["NL_ROOT"]}/api/search_vars?idx={index_type}'
   if skip_topics:
-    url += f'&skip_topics={skip_topics}'
-  return get(url)
+    url = f'{url}&skip_topics={skip_topics}'
+  return post(url, {'queries': queries})
 
 
 def nl_detect_verbs(query):

@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import json
-import logging
 
 from flask import Blueprint
 from flask import current_app
@@ -22,7 +21,6 @@ from markupsafe import escape
 
 from nl_server import config
 from nl_server import loader
-from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -31,17 +29,15 @@ bp = Blueprint('main', __name__, url_prefix='/')
 def healthz():
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(
       config.DEFAULT_INDEX_TYPE)
-  result = nl_embeddings.detect_svs('life expectancy',
-                                    SV_SCORE_DEFAULT_THRESHOLD,
-                                    skip_multi_sv=True)
+  result = nl_embeddings.search_vars(['life expectancy'])['life expectancy']
   if result.get('SV'):
     return 'OK', 200
   return 'Service Unavailable', 500
 
 
-@bp.route('/api/search_sv/', methods=['GET'])
-def search_sv():
-  """Returns a dictionary with the following keys and values
+@bp.route('/api/search_vars/', methods=['POST'])
+def search_vars():
+  """Returns a dictionary with each input query as key and value as:
 
   {
     'SV': List[str]
@@ -49,31 +45,19 @@ def search_sv():
     'SV_to_Sentences': Dict[str, str]
   }
   """
-  query = str(escape(request.args.get('q')))
+  queries = request.json.get('queries', [])
+  queries = [str(escape(q)) for q in queries]
+
   idx = str(escape(request.args.get('idx', config.DEFAULT_INDEX_TYPE)))
   if not idx:
     idx = config.DEFAULT_INDEX_TYPE
 
-  threshold = escape(request.args.get('threshold'))
-  if threshold:
-    try:
-      threshold = float(threshold)
-    except Exception:
-      logging.error(f'Found non-float threshold value: {threshold}')
-      threshold = SV_SCORE_DEFAULT_THRESHOLD
-  else:
-    threshold = SV_SCORE_DEFAULT_THRESHOLD
-
-  skip_multi_sv = False
-  if request.args.get('skip_multi_sv'):
-    skip_multi_sv = True
-
   skip_topics = False
   if request.args.get('skip_topics'):
     skip_topics = True
+
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(idx)
-  return json.dumps(
-      nl_embeddings.detect_svs(query, threshold, skip_multi_sv, skip_topics))
+  return json.dumps(nl_embeddings.search_vars(queries, skip_topics))
 
 
 @bp.route('/api/detect_verbs/', methods=['GET'])

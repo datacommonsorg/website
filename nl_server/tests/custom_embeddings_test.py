@@ -50,7 +50,7 @@ def _test_query(test: unittest.TestCase, idx: Embeddings, query: str,
                 expected: str):
   trimmed_svs = []
   if idx:
-    got = idx.detect_svs(query)
+    got = idx.search_vars([query])[query]
     for i in range(len(got['SV'])):
       if got['CosineScore'][i] >= SV_SCORE_DEFAULT_THRESHOLD:
         trimmed_svs.append(got['SV'][i])
@@ -125,6 +125,7 @@ class TestEmbeddings(unittest.TestCase):
                                  embeddings_file_name=_CUSTOM_FILE,
                                  embeddings_local_path=os.path.join(
                                      TEMP_DIR, _CUSTOM_FILE))
+
     embeddings.merge_custom_index(custom_idx)
 
     _test_query(self, embeddings.get("medium_ft"), "money", "dc/topic/sdg_1")

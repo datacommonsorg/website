@@ -22,7 +22,10 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
-import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
+import {
+  CSV_FIELD_DELIMITER,
+  INITIAL_LOADING_CLASS,
+} from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
@@ -37,14 +40,16 @@ import {
   RankingPoint,
 } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
-import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
+  getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
+  transformCsvHeader,
 } from "../../utils/tile_utils";
 import { SvRankingUnits } from "./sv_ranking_units";
 import { ContainedInPlaceMultiVariableTileProp } from "./tile_types";
@@ -63,6 +68,8 @@ export interface RankingTilePropType
   rankingMetadata: RankingTileSpec;
   showLoadingSpinner?: boolean;
   footnote?: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -97,22 +104,36 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     chartWidth: number,
     chartHeight: number,
     chartHtml: string,
-    rankingPoints: RankingPoint[],
-    sources: string[],
-    svNames: string[]
+    chartTitle: string,
+    sources: string[]
   ): void {
     embedModalElement.current.show(
       "",
-      rankingPointsToCsv(rankingPoints, svNames),
+      () => {
+        // Assume all variables will have the same date
+        // TODO: Update getCsv to handle multiple dates
+        const date = getFirstCappedStatVarSpecDate(props.variables);
+        const perCapitaVariables = props.variables
+          .filter((v) => v.denom)
+          .map((v) => v.statVar);
+        return datacommonsClient.getCsv({
+          childType: props.enclosedPlaceType,
+          date,
+          fieldDelimiter: CSV_FIELD_DELIMITER,
+          parentEntity: props.parentPlace,
+          perCapitaVariables,
+          transformHeader: transformCsvHeader,
+          variables: props.variables.map((v) => v.statVar),
+        });
+      },
       chartWidth,
       chartHeight,
       chartHtml,
+      chartTitle,
       "",
-      "",
-      Array.from(sources)
+      props.sources || Array.from(sources)
     );
   }
-
   return (
     <div
       className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${props.className}`}
@@ -145,6 +166,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               rankingData={rankingData}
               rankingMetadata={props.rankingMetadata}
               showChartEmbed={showChartEmbed}
+              sources={props.sources}
               statVar={statVar}
               entityType={props.enclosedPlaceType}
               title={props.title}
@@ -158,7 +180,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
             />
           );
         })}
-      <ChartEmbed ref={embedModalElement} />
+      <ChartEmbed container={chartContainer.current} ref={embedModalElement} />
       {props.showLoadingSpinner && (
         <div id={getSpinnerId()}>
           <div className="screen">
@@ -185,8 +207,7 @@ export async function fetchData(
     },
   };
   for (const spec of props.variables) {
-    const variableDate =
-      spec.date || getCappedStatVarDate(spec.statVar) || LATEST_DATE_KEY;
+    const variableDate = getCappedStatVarDate(spec.statVar, spec.date);
     const variableFacetId = spec.facetId || EMPTY_FACET_ID_KEY;
     if (!dateFacetToVariable[variableDate]) {
       dateFacetToVariable[variableDate] = {};

@@ -14,7 +14,6 @@
 
 import asyncio
 import json
-import logging
 import time
 from typing import Dict, List
 
@@ -88,7 +87,6 @@ def _get_default_place(request: Dict, is_special_dc: bool, debug_logs: Dict):
 def parse_query_and_detect(request: Dict, backend: str, client: str,
                            debug_logs: Dict):
   if not current_app.config.get('NL_BAD_WORDS'):
-    logging.error('Missing NL_BAD_WORDS config!')
     flask.abort(404)
   nl_bad_words = current_app.config['NL_BAD_WORDS']
 
@@ -130,7 +128,6 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
                                   default=LlmApiType.GeminiPro.value,
                                   type=str).lower()
   if llm_api_type not in [LlmApiType.Palm, LlmApiType.GeminiPro]:
-    logging.error(f'Unknown llm_api_type {llm_api_type}')
     llm_api_type = LlmApiType.GeminiPro
   else:
     llm_api_type = LlmApiType(llm_api_type)
@@ -247,8 +244,6 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     disaster_config = get_nl_disaster_config()
-  else:
-    logging.info('Unable to load event configs!')
 
   cb_config = builder_base.Config(
       event_config=disaster_config,
@@ -422,7 +417,7 @@ def abort(error_message: str,
                               cleaned_query=query,
                               places_detected=dutils.empty_place_detection(),
                               svs_detected=dutils.create_sv_detection(
-                                  query, dutils.empty_svs_score_dict()),
+                                  query, dutils.empty_var_detection_result()),
                               classifications=[],
                               llm_resp={})
   data_dict = dbg.result_with_debug_info(data_dict=res,
@@ -438,7 +433,6 @@ def abort(error_message: str,
   if blocked:
     _set_blocked(data_dict)
 
-  logging.info('NL Data API: Empty Exit')
   if (current_app.config['LOG_QUERY'] and (not test or test == _SANITY_TEST)):
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()

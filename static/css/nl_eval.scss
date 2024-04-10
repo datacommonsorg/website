@@ -35,7 +35,7 @@ button {
   text-align: right;
 }
 
-.sentence-container {
+.query-section {
   margin-bottom: 20px;
   border: 1px solid #ccc; /* Light grey border */
   padding: 10px;
@@ -47,12 +47,8 @@ button {
   width: auto;
 }
 
-.sentence-section {
-  margin: 20px;
-  padding: 10px;
-}
-
-.search-result {
+.model-score-box,
+.golden-stat-vars {
   background-color: #f0f0f0; /* Light grey background */
   border: 1px solid #ccc; /* Light grey border */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Horizontal offset, vertical offset, blur radius, color */
@@ -91,7 +87,7 @@ li a {
   text-decoration: underline;
 }
 
-.ndcg-score {
+.eval-score {
   font-size: 20px;
 }
 
@@ -116,4 +112,8 @@ li a {
   height: 60px;
   width: 800px;
   margin-bottom: 10px;
+}
+
+.overall-score-table {
+  margin: 20px 0;
 }
