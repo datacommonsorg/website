@@ -403,6 +403,7 @@ def filter_and_rank_places(
     value_filter: types.QuantityClassificationAttributes = None,
     date: str = '') -> List[types.Place]:
   if not date:
+    # When there's no date specified, use latest date
     date = 'LATEST'
   api_resp = fetch.point_within_core(parent_place.dcid, child_type.value, [sv],
                                      date, False)

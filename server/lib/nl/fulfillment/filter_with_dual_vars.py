@@ -161,8 +161,13 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   for sv in selected_svs:
     cv = copy.deepcopy(chart_vars)
     cv.svs = [sv]
-    found |= add_chart_to_utterance(ChartType.BAR_CHART, state, cv, shortlist,
-                                    chart_origin)
+    found |= add_chart_to_utterance(
+        ChartType.BAR_CHART,
+        state,
+        cv,
+        shortlist,
+        chart_origin,
+        sv_place_latest_date={sv: sv_place_latest_date.get(sv, {})})
 
   state.uttr.counters.info(
       'filter-with-dual-vars_ranked_places', {

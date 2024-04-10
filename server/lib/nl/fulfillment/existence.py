@@ -96,16 +96,20 @@ class ExistenceCheckTracker:
   def _get_sv_place_latest_dates(self, sv_place_facets):
     sv_place_latest_dates = {}
     _, end_date = get_date_range_strings(self.state.date_range)
+
     # If there is no end date in the date range, don't need to calculate latest
     # date because by default we show the latest date available
     if not end_date:
       return sv_place_latest_dates
+
+    # If there are no svs, return
     sv_list = list(sv_place_facets.keys())
     if not sv_list:
       return sv_place_latest_dates
-    place_keys = list(set(self.place2keys.values()))
+
     # Using place_keys and child type, get the list of place dcids associated
     # with the child type
+    place_keys = list(set(self.place2keys.values()))
     places_with_child_type = []
     if self.state.place_type and self.state.place_type.value:
       child_type = self.state.place_type.value
@@ -115,13 +119,16 @@ class ExistenceCheckTracker:
         parent_place = plk.split(child_type)[0]
         if parent_place:
           places_with_child_type.append(parent_place)
+
     # Update sv_place_latest_dates with latest dates retrieved for contained in places
     sv_place_latest_dates = utils.get_contained_in_latest_date(
         places_with_child_type, self.state.place_type, sv_list,
         self.state.date_range)
+
     # Get predicted latest dates for the svs and place keys in sv_place_facets
     predicted_latest_dates = utils.get_predicted_latest_date(
         sv_place_facets, self.state.date_range)
+
     # Go through the list of svs and place keys. If latest date is missing, try
     # to use a predicted latest date.
     for sv in sv_list:
@@ -131,6 +138,7 @@ class ExistenceCheckTracker:
         if sv in predicted_latest_dates and plk in predicted_latest_dates[sv]:
           sv_place_latest_dates[sv] = sv_place_latest_dates.get(sv, {})
           sv_place_latest_dates[sv][plk] = predicted_latest_dates[sv][plk]
+
     return sv_place_latest_dates
 
   def _run(self):

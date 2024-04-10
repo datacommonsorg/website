@@ -272,11 +272,13 @@ def get_contained_in_latest_date(places: List[str],
       sv = dates_by_variable.get('variable', '')
       if sv not in sv_place_latest_date:
         sv_place_latest_date[sv] = {}
+
       obs_dates = dates_by_variable.get('observationDates', [])
       max_valid_idx = _get_max_valid_date_idx(obs_dates, start_date, end_date)
       # If no valid date found, move on to the next variable
       if max_valid_idx < 0:
         continue
+
       # Starting at max_valid_idx, check _MAX_DATES_FOR_EXISTENCE number of
       # earlier dates to get the best date to use
       max_entity_count = 0
@@ -294,11 +296,15 @@ def get_contained_in_latest_date(places: List[str],
         if entity_count > max_entity_count:
           max_entity_count = entity_count
           sv_place_latest_date[sv][place_key] = date
+
   return sv_place_latest_date
 
 
 # For each sv and place key in sv_place_facets, predict the latest date that is
-# within the date range.
+# within the date range by either:
+# a. taking the latest date for the sv and place if it is within the date range
+# b. starting at the latest date for the sv and place and using the observation
+#    period to find an available date that is within the date range
 def get_predicted_latest_date(sv_place_facets, date_range):
   sv_place_latest_date = {}
   start_date, end_date = server.lib.nl.detection.date.get_date_range_strings(
@@ -307,6 +313,7 @@ def get_predicted_latest_date(sv_place_facets, date_range):
     sv_place_latest_date[sv] = {}
     for plk, facet in place_facet.items():
       latest_date_str = facet.get('latestDate', '')
+
       # Every facet in sv_place_facets is a valid facet for the date range so
       # as long as the latest date is earlier than the end date, we know it must
       # be a valid date.
@@ -314,6 +321,7 @@ def get_predicted_latest_date(sv_place_facets, date_range):
         date = facet.get('latestDate')
         sv_place_latest_date[sv][plk] = date
         continue
+
       obs_period = facet.get('observationPeriod', '')
       obs_period_match = re.match(_FACET_OBS_PERIOD_RE, obs_period)
       # If there is a valid observation period, use the observation period to
@@ -321,6 +329,7 @@ def get_predicted_latest_date(sv_place_facets, date_range):
       if obs_period_match:
         obs_period_num, granularity = obs_period_match.groups()
         obs_period_num = int(obs_period_num)
+
         # Get the latest date as a date object
         latest_date_parts = latest_date_str.split('-')
         latest_date_year = int(latest_date_parts[0])
@@ -330,13 +339,16 @@ def get_predicted_latest_date(sv_place_facets, date_range):
             latest_date_parts[2])
         latest_date = datetime.date(latest_date_year, latest_date_month,
                                     latest_date_day)
+
         # Get the date change to use to find the latest valid date
         if granularity == _MONTH_GRANULARITY:
           change_step = relativedelta(months=obs_period_num)
         else:
           change_step = relativedelta(years=obs_period_num)
+
         # The earliest date that could be used
         date_limit = min(start_date, facet.get('earliestDate', ''))
+
         # Starting at latest date, go back change_step dates and check if the
         # date is valid for the date range. If valid date, save it as the
         # latest date for the sv + place key combination.
@@ -354,6 +366,7 @@ def get_predicted_latest_date(sv_place_facets, date_range):
       # of the end date as the latest date.
       elif len(latest_date_str) == len(_YEAR_FORMAT):
         sv_place_latest_date[sv][plk] = end_date[0:len(_YEAR_FORMAT)]
+
   return sv_place_latest_date
 
 
