@@ -177,7 +177,9 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
     const entityProps = props.placeNameProp
       ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
       : undefined;
-    if ("parentPlace" in props) {
+    // Check for !("places" in props) because parentPlace can be set even if
+    // "places" is also set
+    if (!("places" in props)) {
       return datacommonsClient.getCsv({
         childType: props.enclosedPlaceType,
         date,
@@ -194,7 +196,7 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
         entityProps,
         entities: props.places,
         fieldDelimiter: CSV_FIELD_DELIMITER,
-        perCapitaVariables: _.uniq(perCapitaVariables),
+        perCapitaVariables,
         transformHeader: transformCsvHeader,
         variables: props.variables.map((v) => v.statVar),
       });
