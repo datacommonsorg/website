@@ -281,17 +281,22 @@ export class DatacommonsSliderComponent extends LitElement {
           : this.defaultHeader()}
         <div class="row slider ${this._showLatestChecked ? "disabled" : ""}">
           <div class="label">${startDate}</div>
-          <input
-            class="slider"
-            max="${this._dates.length - 1}"
-            min="0"
-            title="${this.getValueText()}"
-            type="range"
-            value="${this._value}"
-            @change=${this.onSliderChange}
-            @input=${this.onSliderInput}
-            ?disabled=${this._showLatestChecked}
-          />
+          <div>
+            <input
+              class="slider"
+              max="${this._dates.length - 1}"
+              min="0"
+              title="${this.getValueText()}"
+              type="range"
+              value="${this._value}"
+              @change=${this.onSliderChange}
+              @input=${this.onSliderInput}
+              ?disabled=${this._showLatestChecked}
+            />
+            <div class="slider-label">
+              <span class="slider-label-text">${this.getValueText()}</span>
+            </div>
+          </div>
           <div class="label">${endDate}</div>
         </div>
         <div class="row options">
