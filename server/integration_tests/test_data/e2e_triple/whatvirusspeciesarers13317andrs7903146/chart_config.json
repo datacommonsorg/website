@@ -1,0 +1,257 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "->alignmentQuality",
+                          "propertyExpr": "->alignmentQuality"
+                        },
+                        {
+                          "header": "->alleleOrigin",
+                          "propertyExpr": "->alleleOrigin"
+                        },
+                        {
+                          "header": "->averageHeterozygosity",
+                          "propertyExpr": "->averageHeterozygosity"
+                        },
+                        {
+                          "header": "->averageHeterozygositySE",
+                          "propertyExpr": "->averageHeterozygositySE"
+                        },
+                        {
+                          "header": "->class",
+                          "propertyExpr": "->class"
+                        },
+                        {
+                          "header": "->clinVarAlleleID",
+                          "propertyExpr": "->clinVarAlleleID"
+                        },
+                        {
+                          "header": "->clinVarReviewStatus",
+                          "propertyExpr": "->clinVarReviewStatus"
+                        },
+                        {
+                          "header": "->clinVarVariationID",
+                          "propertyExpr": "->clinVarVariationID"
+                        },
+                        {
+                          "header": "->clinicalSignificance",
+                          "propertyExpr": "->clinicalSignificance"
+                        },
+                        {
+                          "header": "->clinicalSource",
+                          "propertyExpr": "->clinicalSource"
+                        },
+                        {
+                          "header": "->diseaseName",
+                          "propertyExpr": "->diseaseName"
+                        },
+                        {
+                          "header": "->exceptions",
+                          "propertyExpr": "->exceptions"
+                        },
+                        {
+                          "header": "->functionalCategory",
+                          "propertyExpr": "->functionalCategory"
+                        },
+                        {
+                          "header": "->geneID",
+                          "propertyExpr": "->geneID"
+                        },
+                        {
+                          "header": "->geneSymbol",
+                          "propertyExpr": "->geneSymbol"
+                        },
+                        {
+                          "header": "->geneticVariantAttribute",
+                          "propertyExpr": "->geneticVariantAttribute"
+                        },
+                        {
+                          "header": "->geneticVariantClass",
+                          "propertyExpr": "->geneticVariantClass"
+                        },
+                        {
+                          "header": "->geneticVariantFunctionalCategory",
+                          "propertyExpr": "->geneticVariantFunctionalCategory"
+                        },
+                        {
+                          "header": "->geneticVariantMolecularType",
+                          "propertyExpr": "->geneticVariantMolecularType"
+                        },
+                        {
+                          "header": "->hg19GenomicLocation",
+                          "propertyExpr": "->hg19GenomicLocation"
+                        },
+                        {
+                          "header": "->hg19GenomicPosition",
+                          "propertyExpr": "->hg19GenomicPosition"
+                        },
+                        {
+                          "header": "->hg38GenomicLocation",
+                          "propertyExpr": "->hg38GenomicLocation"
+                        },
+                        {
+                          "header": "->hg38GenomicPosition",
+                          "propertyExpr": "->hg38GenomicPosition"
+                        },
+                        {
+                          "header": "->hgvsNomenclature",
+                          "propertyExpr": "->hgvsNomenclature"
+                        },
+                        {
+                          "header": "->humanPhenotypeOntologyID",
+                          "propertyExpr": "->humanPhenotypeOntologyID"
+                        },
+                        {
+                          "header": "->inChromosome",
+                          "propertyExpr": "->inChromosome"
+                        },
+                        {
+                          "header": "->locType",
+                          "propertyExpr": "->locType"
+                        },
+                        {
+                          "header": "->medGenID",
+                          "propertyExpr": "->medGenID"
+                        },
+                        {
+                          "header": "->mondoID",
+                          "propertyExpr": "->mondoID"
+                        },
+                        {
+                          "header": "->nAllelesWithFreq",
+                          "propertyExpr": "->nAllelesWithFreq"
+                        },
+                        {
+                          "header": "->name",
+                          "propertyExpr": "->name"
+                        },
+                        {
+                          "header": "->ncbiGeneID",
+                          "propertyExpr": "->ncbiGeneID"
+                        },
+                        {
+                          "header": "->observedAllele",
+                          "propertyExpr": "->observedAllele"
+                        },
+                        {
+                          "header": "->ofSpecies",
+                          "propertyExpr": "->ofSpecies"
+                        },
+                        {
+                          "header": "->omimID",
+                          "propertyExpr": "->omimID"
+                        },
+                        {
+                          "header": "->orphaNumber",
+                          "propertyExpr": "->orphaNumber"
+                        },
+                        {
+                          "header": "->pharmGKBID",
+                          "propertyExpr": "->pharmGKBID"
+                        },
+                        {
+                          "header": "->provenance",
+                          "propertyExpr": "->provenance"
+                        },
+                        {
+                          "header": "->referenceAlleleNCBI",
+                          "propertyExpr": "->referenceAlleleNCBI"
+                        },
+                        {
+                          "header": "->referenceAllleUCSC",
+                          "propertyExpr": "->referenceAllleUCSC"
+                        },
+                        {
+                          "header": "->referenceSNPClusterID",
+                          "propertyExpr": "->referenceSNPClusterID"
+                        },
+                        {
+                          "header": "->rsID",
+                          "propertyExpr": "->rsID"
+                        },
+                        {
+                          "header": "->sequenceOntologyID",
+                          "propertyExpr": "->sequenceOntologyID"
+                        },
+                        {
+                          "header": "->snomedCT",
+                          "propertyExpr": "->snomedCT"
+                        },
+                        {
+                          "header": "->strandOrientation",
+                          "propertyExpr": "->strandOrientation"
+                        },
+                        {
+                          "header": "->submitter",
+                          "propertyExpr": "->submitter"
+                        },
+                        {
+                          "header": "->submitterCount",
+                          "propertyExpr": "->submitterCount"
+                        },
+                        {
+                          "header": "->typeOf",
+                          "propertyExpr": "->typeOf"
+                        },
+                        {
+                          "header": "->validationStatus",
+                          "propertyExpr": "->validationStatus"
+                        }
+                      ]
+                    },
+                    "entities": [
+                      "bio/rs13317",
+                      "bio/rs7903146"
+                    ],
+                    "type": "ANSWER_TABLE"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "context": {},
+  "debug": {},
+  "entities": [
+    {
+      "dcid": "bio/rs13317",
+      "name": "rs13317",
+      "type": ""
+    },
+    {
+      "dcid": "bio/rs7903146",
+      "name": "rs7903146",
+      "type": ""
+    }
+  ],
+  "pastSourceContext": "",
+  "place": {},
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "UNKNOWN",
+  "userMessages": []
+}

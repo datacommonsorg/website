@@ -20,6 +20,7 @@ import server.lib.explore.existence as ext
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
@@ -106,7 +107,8 @@ def set_overrides(state: PopulateState) -> bool:
     return False
 
   #
-  # Only if there are no SVs detected, do we consider SUPERLATIVE classification.
+  # Only if there are no SVs detected in this query,
+  # do we consider SUPERLATIVE classification.
   #
   # BUT NOTE: The is_non_geo_place_type check is there for non-geo places
   # like schools which are not removed as stop-words for SV query.
@@ -115,7 +117,8 @@ def set_overrides(state: PopulateState) -> bool:
   # `SUPERLATIVE` heuristic override.
   # TODO: Find a better approach
   #
-  if not utils.is_non_geo_place_type(place_type) and state.uttr.svs:
+  if (not utils.is_non_geo_place_type(place_type) and state.uttr.svs and
+      state.uttr.sv_source == FulfillmentResult.CURRENT_QUERY):
     state.uttr.counters.err('superlatives_failed_foundvars', state.uttr.svs)
     return False
 
@@ -150,8 +153,15 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return False
   chart_vars.svs = exist_svs
 
+  sv_place_latest_date = ext.get_sv_place_latest_date(exist_svs, places,
+                                                      state.place_type,
+                                                      state.exist_checks)
   # No map chart for these.
   chart_vars.skip_map_for_ranking = True
   # We want all the ranking tables lined up in a single block.
-  return add_chart_to_utterance(ChartType.RANKING_WITH_MAP, state, chart_vars,
-                                places, chart_origin)
+  return add_chart_to_utterance(ChartType.RANKING_WITH_MAP,
+                                state,
+                                chart_vars,
+                                places,
+                                chart_origin,
+                                sv_place_latest_date=sv_place_latest_date)

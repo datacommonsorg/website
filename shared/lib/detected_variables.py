@@ -51,8 +51,31 @@ class MultiVarCandidates:
   candidates: List[MultiVarCandidate]
 
 
+@dataclass
+class VarDetectionResult:
+  single_var: VarCandidates
+  multi_var: MultiVarCandidates
+
+
+def var_detection_result_to_dict(res: VarDetectionResult) -> Dict:
+  result = {'SV': res.single_var.svs, 'CosineScore': res.single_var.scores}
+  if res.single_var.sv2sentences:
+    result['SV_to_Sentences'] = res.single_var.sv2sentences
+  if res.multi_var:
+    result['MultiSV'] = multivar_candidates_to_dict(res.multi_var)
+  return result
+
+
+def dict_to_var_detection_result(input: Dict) -> VarDetectionResult:
+  return VarDetectionResult(
+      single_var=VarCandidates(svs=input.get('SV', []),
+                               scores=input.get('CosineScore', []),
+                               sv2sentences=input.get('SV_to_Sentences', {})),
+      multi_var=dict_to_multivar_candidates(input.get('MultiSV', {})))
+
+
 def multivar_candidates_to_dict(candidates: MultiVarCandidates) -> Dict:
-  if not candidates:
+  if not candidates or not candidates.candidates:
     return {}
   result = {'Candidates': []}
   for c in candidates.candidates:

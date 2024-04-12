@@ -55,18 +55,18 @@ QUERY_HANDLERS = {
         QueryHandlerConfig(module=basic,
                            rank=1,
                            direct_fallback=QueryType.OVERVIEW),
+    QueryType.SUPERLATIVE:
+        QueryHandlerConfig(module=superlative,
+                           rank=2,
+                           direct_fallback=QueryType.BASIC),
     QueryType.COMPARISON_ACROSS_PLACES:
         QueryHandlerConfig(module=comparison,
-                           rank=2,
+                           rank=3,
                            direct_fallback=QueryType.BASIC),
     QueryType.CORRELATION_ACROSS_VARS:
         QueryHandlerConfig(module=correlation,
-                           rank=3,
-                           direct_fallback=QueryType.COMPARISON_ACROSS_PLACES),
-    QueryType.SUPERLATIVE:
-        QueryHandlerConfig(module=superlative,
                            rank=4,
-                           direct_fallback=QueryType.BASIC),
+                           direct_fallback=QueryType.COMPARISON_ACROSS_PLACES),
     # TODO: Consider falling back to each other since they're quite similar.
     # TODO: When we fallback from TIME_DELTA we should report why to user.
     QueryType.TIME_DELTA_ACROSS_VARS:
@@ -84,10 +84,13 @@ QUERY_HANDLERS = {
         QueryHandlerConfig(module=filter_with_single_var,
                            rank=8,
                            direct_fallback=QueryType.TIME_DELTA_ACROSS_PLACES),
+    # TODO: Not clear if this needs to fallback to CORRELATION_ACROSS_VARS,
+    #       but given the sparsely triggered nature of this, falling back to
+    #       BASIC to keep it simple.
     QueryType.FILTER_WITH_DUAL_VARS:
         QueryHandlerConfig(module=filter_with_dual_vars,
                            rank=9,
-                           direct_fallback=QueryType.CORRELATION_ACROSS_VARS),
+                           direct_fallback=QueryType.BASIC),
 
     # Overview trumps everything else ("tell us about"), and
     # has no fallback.

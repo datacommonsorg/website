@@ -36,6 +36,8 @@ from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import ExistInfo
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.types import Sv2Place2Date
+from server.lib.nl.fulfillment.types import Sv2Place2Facet
 
 #
 # General utilities for retrieving stuff from past context.
@@ -135,9 +137,10 @@ def add_chart_to_utterance(
     places: List[Place],
     primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART,
     ranking_count: int = 0,
-    sv_place_facet_ids: Dict[str, Dict[str, str]] = None,
+    sv_place_facet_ids: Sv2Place2Facet = None,
     info_message: str = '',
-    entities: List[Entity] = []) -> bool:
+    entities: List[Entity] = [],
+    sv_place_latest_date: Sv2Place2Date = None) -> bool:
   is_special_dc = False
   if state.uttr.insight_ctx and params.is_special_dc(state.uttr.insight_ctx):
     is_special_dc = True
@@ -161,7 +164,8 @@ def add_chart_to_utterance(
                  single_date=state.single_date,
                  date_range=state.date_range,
                  sv_place_facet_id=sv_place_facet_ids,
-                 info_message=info_message)
+                 info_message=info_message,
+                 sv_place_latest_date=sv_place_latest_date)
   state.uttr.chartCandidates.append(ch)
   state.uttr.counters.info('num_chart_candidates', 1)
   return True

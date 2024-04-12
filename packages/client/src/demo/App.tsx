@@ -182,7 +182,7 @@ const ExampleCsvSeries = () => {
             title: "City",
           },
           y: {
-            field: "variable__denominator__quotientValue",
+            field: "variable__perCapita__perCapitaValue",
             title: "Criminal Activity Per Capita",
             type: "quantitative",
           },
@@ -200,7 +200,7 @@ const ExampleCsvSeries = () => {
           {
             groupby: ["variable__observation__date"],
             pivot: "entity__properties__name",
-            value: "variable__denominator__quotientValue",
+            value: "variable__perCapita__perCapitaValue",
           },
         ],
         mark: "rule",
@@ -291,7 +291,7 @@ const ExampleCsvSeries = () => {
                 type: "nominal",
               },
               y: {
-                field: "variable__denominator__quotientValue",
+                field: "variable__perCapita__perCapitaValue",
                 title: "Criminal Activity Per Capita",
                 type: "quantitative",
               },
@@ -309,7 +309,7 @@ const ExampleCsvSeries = () => {
               {
                 groupby: ["variable__observation__date"],
                 pivot: "entity__properties__name",
-                value: "variable__denominator__quotientValue",
+                value: "variable__perCapita__perCapitaValue",
               },
             ],
             mark: "rule",
@@ -639,9 +639,9 @@ function getTooltipNyc({ object }): string {
     object && {
       html: `
       <div><b>Census Tract:</b>: ${object.properties["entity.properties.name"]}</div>
-      <div><b>Population</b>: ${object.properties["variables.Count_Person_BelowPovertyLevelInThePast12Months.denominator.observation.value"]}</div>
+      <div><b>Population</b>: ${object.properties["variables.Count_Person_BelowPovertyLevelInThePast12Months.perCapita.observation.value"]}</div>
       <div><b>Number of people below the poverty line in the last 12 months</b>: ${object.properties["variables.Count_Person_BelowPovertyLevelInThePast12Months.observation.value"]}</div>
-      <div><b>People below the poverty line per capita</b>: ${object.properties["variables.Count_Person_BelowPovertyLevelInThePast12Months.denominator.quotientValue"]}</div>
+      <div><b>People below the poverty line per capita</b>: ${object.properties["variables.Count_Person_BelowPovertyLevelInThePast12Months.perCapita.perCapitaValue"]}</div>
   `,
     }
   );
@@ -794,13 +794,13 @@ function MapComponent3dNyc({
             filled: true,
             getElevation: (f) =>
               (f.properties || {})[
-                "variables.Count_Person_BelowPovertyLevelInThePast12Months.denominator.quotientValue"
+                "variables.Count_Person_BelowPovertyLevelInThePast12Months.perCapita.perCapitaValue"
               ] * 10000,
             // @ts-ignore
             getFillColor: (f) =>
               COLOR_SCALE(
                 (f.properties || {})[
-                  "variables.Count_Person_BelowPovertyLevelInThePast12Months.denominator.quotientValue"
+                  "variables.Count_Person_BelowPovertyLevelInThePast12Months.perCapita.perCapitaValue"
                 ]
               ),
             getLineColor: [255, 255, 255],
