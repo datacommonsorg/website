@@ -396,6 +396,10 @@ h6{
 .search__form{
   display:flex;
   margin-top:1.5rem;
+  background-color:rgba(255, 255, 255, 0.9);
+  max-width:360px;
+  padding:6px 16px;
+  border-radius:24px;
 }
 .search__label{
   position:absolute;
@@ -415,17 +419,16 @@ h6{
   font-size:1rem;
   font-weight:400;
   line-height:1.5;
-  color:var(--dc-primary);
-  border:1px solid var(--dc-primary);
+  color:#000;
+  border:none;
   border-radius:0;
-  transition:border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   outline:none;
-  outline-offset:0;
+  background:transparent;
 }
 .search__input:focus{
-  border-color:var(--dc-highlight);
+  border:none;
   outline:0;
-  box-shadow:0 0 0 0.25rem rgba(90, 199, 244, 0.25);
+  box-shadow:none;
 }
 .search__submit{
   border:none;
