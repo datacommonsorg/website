@@ -417,7 +417,7 @@ def abort(error_message: str,
                               cleaned_query=query,
                               places_detected=dutils.empty_place_detection(),
                               svs_detected=dutils.create_sv_detection(
-                                  query, dutils.empty_svs_score_dict()),
+                                  query, dutils.empty_var_detection_result()),
                               classifications=[],
                               llm_resp={})
   data_dict = dbg.result_with_debug_info(data_dict=res,
