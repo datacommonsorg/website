@@ -417,17 +417,10 @@ export const fetchData = async (
         nodes: [layer.parentPlace],
       })
       .then((resp) => resp.data);
-<<<<<<< HEAD
-    const dataDate =
-      dateOverride ||
-      layer.variable.date ||
-      getCappedStatVarDate(layer.variable.statVar);
-=======
     const dataDate = getCappedStatVarDate(
       layer.variable.statVar,
       layer.variable.date
     );
->>>>>>> 27901a83a33dc0b17a728820e27c3bcdc5aa05b8
     const facetIds = layer.variable.facetId ? [layer.variable.facetId] : null;
     const placeStatPromise: Promise<PointApiResponse> = getPointWithin(
       props.apiRoot,
