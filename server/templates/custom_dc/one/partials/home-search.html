@@ -1,33 +1,21 @@
 {% block head %}
-    <link rel="stylesheet" href={{url_for('static', filename='css/homepage.min.css', t=config['VERSION'])}}>
-    <script src={{url_for('static', filename='homepage.js', t=config['VERSION'])}} async></script>
+<script>
+window.addEventListener('DOMContentLoaded', (event) => {
+  document.getElementById("search-form").addEventListener("submit",function(event) {
+    event.preventDefault();
+    var query = document.getElementById("search-form-query").value;
+    if (!query) {
+      return;
+    }
+    window.location = "/explore/#q="+ encodeURI(query);
+  })
+}) </script>
 {% endblock %}
 
-<section id="homepage-top">
-    <div id="search-container" class="container">
-    </div>
-  </section>
-  <section id="search-animation">
-    <div id="search-animation-container" class="container">
-      <div id="default-text">
-        <div class="content">
-          <h3 class="header">Data tells interesting stories</h3>
-          <h4 class="sub-header invisible" id="header-prompt">Ask a question like...</h4>
-          <h4 class="sub-header hidden" id="header-mission">Data Commons, an initiative from Google,<br />organizes the world’s publicly available data<br />and makes it more accessible and useful</h4>
-        </div>
-      </div>
-      <div id="search-sequence" class="hidden">
-        <input id="animation-search-input" placeholder="" autocomplete="off" type="text" class="pac-target-input search-input-text form-control" aria-invalid="false" value="" readonly>
-        <div id="result-svg" class="">
-          <div class="result hidden" data-query="Which countries in Africa have had the greatest increase in electricity access?" style="background-image: url('/images/home-answers/access-electricity.svg')"></div>
-          <div class="result hidden" data-query="How does income correlate with diabetes in US counties?" style="background-image: url('/images/home-answers/income-diabetes.svg')"></div>
-          <div class="result hidden" data-query="Which counties in the US have the highest levels of diabetes?" style="background-image: url('/images/home-answers/diabetes.svg')"></div>
-          <div class="result hidden" data-query="Tell me about greenhouse gas emissions from the US" style="background-image: url('/images/home-answers/emissions.svg')"></div>
-          <div class="result hidden" data-query="Show me agricultural income by US county" style="background-image: url('/images/home-answers/farm-income.svg')"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <div id="search-animation-toggle">
-    <span class="material-icons-outlined">keyboard_double_arrow_up</span>
-  </div>
+<form method="get" id="search-form" class="search__form">
+  <label for="search-form-query" class="search__label">Search Site</label>
+  <input name="q" type="text" id="search-form-query" class="search__input" placeholder="Search here..." />
+  <button type="submit" value="Submit" class="search__submit" aria-label="Search">
+    <span style="display: none;">Search</span>
+  </button>
+</form>
