@@ -125,7 +125,13 @@ def get_global_cities_with_population_over_500k() -> List[str]:
   with open(BQ_CSV) as f:
     cities = csv.DictReader(f)
     for city in cities:
-      if 'dcid' in city:
+      # Filter out West Berlin, does not have charts and as a historical city
+      # will not get any new charts added.
+      # TODO (juliawu): This is a temporary change to cleanup our sitemaps
+      #                 while the node in the KG is being fixed. Once the
+      #                 KG is updated, replace this fix with an updated
+      #                 BQ query which filters out nodes with a dissolutionDate.
+      if 'dcid' in city and city['dcid'] != "nuts/DE301":
         dcids.append(city['dcid'])
   return dcids
 
@@ -170,8 +176,8 @@ def updateRobotTxt():
 
 def main():
   dc.set_api_key('noop')
-  for place_type in PLACES:
-    write_place_url(place_type)
+  # for place_type in PLACES:
+  #   write_place_url(place_type)
   write_priority_places_sitemap()
   updateRobotTxt()
 
