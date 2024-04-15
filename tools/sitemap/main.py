@@ -125,8 +125,8 @@ def get_global_cities_with_population_over_500k() -> List[str]:
   with open(BQ_CSV) as f:
     cities = csv.DictReader(f)
     for city in cities:
-      # Filter out West Berlin, does not have charts and as a historical city
-      # will not get any new charts added.
+      # Filter out West Berlin, which does not have charts and because it no
+      # longer exists, it will not get any new charts added.
       # TODO (juliawu): This is a temporary change to cleanup our sitemaps
       #                 while the node in the KG is being fixed. Once the
       #                 KG is updated, replace this fix with an updated
@@ -176,8 +176,8 @@ def updateRobotTxt():
 
 def main():
   dc.set_api_key('noop')
-  # for place_type in PLACES:
-  #   write_place_url(place_type)
+  for place_type in PLACES:
+    write_place_url(place_type)
   write_priority_places_sitemap()
   updateRobotTxt()
 
