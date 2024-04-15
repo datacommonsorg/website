@@ -24,23 +24,30 @@ _GCS_BUCKET = 'datcom-website-periodic-testing'
 _GOLDEN_FOLDER = 'golden'
 FLAGS = flags.FLAGS
 
+
 class Mode:
   FETCH = "fetch"
   PUSH = "push"
 
-flags.DEFINE_string(
-    'env', 'autopush',
-    'The environment of the responses to run the differ on. Defaults to autopush.', short_name='e'
-)
 
 flags.DEFINE_string(
-    'new_golden_folder', '',
-    'The folder holding the responses to test. Defaults to last folder in gs://datcom-website-periodic-testing/<FLAGS.env>', short_name='g'
-)
+    'env',
+    'autopush',
+    'The environment of the responses to run the differ on. Defaults to autopush.',
+    short_name='e')
+
+flags.DEFINE_string(
+    'new_golden_folder',
+    '',
+    'The folder holding the responses to test. Defaults to last folder in gs://datcom-website-periodic-testing/<FLAGS.env>',
+    short_name='g')
 
 flags.DEFINE_enum(
-  'mode', Mode.FETCH, [Mode.FETCH, Mode.PUSH], 'Valid values are fetch and update. Fetch will fetch the newest goldens and update the local goldens folder. Push will update the goldens on gcs with the ones in the local folder.', short_name='m'
-)
+    'mode',
+    Mode.FETCH, [Mode.FETCH, Mode.PUSH],
+    'Valid values are fetch and update. Fetch will fetch the newest goldens and update the local goldens folder. Push will update the goldens on gcs with the ones in the local folder.',
+    short_name='m')
+
 
 def _get_new_goldens_folder(bucket):
   """Gets the name of the folder with the new goldens to update to"""
@@ -64,7 +71,8 @@ def fetch_new_goldens(gcs_bucket):
   """Fetch new golden files from gcs and save locally"""
   new_golden_folder = _get_new_goldens_folder(gcs_bucket)
   if not new_golden_folder:
-    logging.info("Could not get new_golden_folder name, please enter one manually.")
+    logging.info(
+        "Could not get new_golden_folder name, please enter one manually.")
     return
   new_golden_folder = f'{FLAGS.env}/{new_golden_folder}/nodejs_query/'
   new_golden_blobs = gcs_bucket.list_blobs(prefix=new_golden_folder)
