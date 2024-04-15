@@ -104,8 +104,7 @@ def output_results(results, gcs_bucket) -> str:
     with blob.open('w') as f:
       f.write(json.dumps(results))
     results_path = f'gs://{_GCS_BUCKET}/{gcs_filename}'
-    logging.info(
-        f'Diff results saved to gcs path: {results_path}')
+    logging.info(f'Diff results saved to gcs path: {results_path}')
     return results_path
   else:
     with open(_OUTPUT_FILE, 'w') as f:
