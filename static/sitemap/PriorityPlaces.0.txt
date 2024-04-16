@@ -324,7 +324,6 @@ https://datacommons.org/place/wikidataId/Q133118
 https://datacommons.org/place/wikidataId/Q243322
 https://datacommons.org/place/wikidataId/Q128849
 https://datacommons.org/place/wikidataId/Q147187
-https://datacommons.org/place/nuts/DE301
 https://datacommons.org/place/wikidataId/Q2280
 https://datacommons.org/place/wikidataId/Q37951
 https://datacommons.org/place/wikidataId/Q205327
