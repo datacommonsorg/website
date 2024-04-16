@@ -23,12 +23,12 @@ import yaml
 
 from nl_server import embeddings_map as emb_map
 from nl_server import gcs
+from nl_server.embeddings import Embeddings
+from nl_server.embeddings import EmbeddingsResult
 from nl_server.loader import NL_CACHE_PATH
 from nl_server.loader import NL_EMBEDDINGS_CACHE_KEY
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
 from nl_server.store.memory import MemoryEmbeddingsStore
-from nl_server.wrapper import Embeddings
-from nl_server.wrapper import EmbeddingsResult
 
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

@@ -23,7 +23,7 @@ from parameterized import parameterized
 from nl_server import config
 from nl_server import embeddings_map as emb_map
 from nl_server.config import EmbeddingsIndex
-from nl_server.wrapper import Embeddings
+from nl_server.embeddings import Embeddings
 from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
 from shared.lib.gcs import TEMP_DIR
 

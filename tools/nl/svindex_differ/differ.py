@@ -30,10 +30,10 @@ from jinja2 import FileSystemLoader
 import requests
 
 from nl_server import gcs
+from nl_server.embeddings import Embeddings
+from nl_server.embeddings import EmbeddingsResult
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
 from nl_server.store.memory import MemoryEmbeddingsStore
-from nl_server.wrapper import Embeddings
-from nl_server.wrapper import EmbeddingsResult
 
 _SV_THRESHOLD = 0.5
 _NUM_SVS = 10

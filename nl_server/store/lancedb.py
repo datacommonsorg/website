@@ -16,8 +16,10 @@ from typing import Dict, List
 
 import lancedb
 
-from nl_server import wrapper
-from shared.lib import detected_variables as vars
+from nl_server.embeddings import EmbeddingsMatch
+from nl_server.embeddings import EmbeddingsResult
+from nl_server.embeddings import EmbeddingsStore
+from nl_server.embeddings import SentenceScore
 
 TABLE_NAME = 'datacommons'
 
@@ -28,7 +30,7 @@ DISTANCE_COL = '_distance'
 
 
 # TODO: Switch to async API for concurrent lookups.
-class LanceDBStore(wrapper.EmbeddingsStore):
+class LanceDBStore(EmbeddingsStore):
   """Manages the embeddings."""
 
   def __init__(self, lance_db_dir: str) -> None:
@@ -38,12 +40,12 @@ class LanceDBStore(wrapper.EmbeddingsStore):
     self.table = self.db.open_table(TABLE_NAME)
 
   def vector_search(self, query_embeddings: List[List[float]],
-                    top_k: int) -> List[wrapper.VarCandidates]:
+                    top_k: int) -> List[EmbeddingsResult]:
     results: List[vars.VarCandidates] = []
     for emb in query_embeddings:
-      sv2score: Dict[str, float] = {}
-      sv2sentence2score: Dict[str, Dict[str, float]] = {}
 
+      # Var => EmbeddingsMatch
+      sv2match: Dict[str, EmbeddingsMatch] = {}
       matches = self.table.search(emb).metric('cosine').limit(top_k).to_list()
       for match in matches:
         # We want to return cosine-similarity, but LanceDB
@@ -51,23 +53,16 @@ class LanceDBStore(wrapper.EmbeddingsStore):
         score = 1 - match[DISTANCE_COL]
         dcid = match[DCID_COL]
         sentence = match[SENTENCE_COL]
-        if dcid not in sv2score:
-          sv2score[dcid] = score
-          sv2sentence2score[dcid] = {}
-        sv2sentence2score[dcid][sentence] = score
+        if dcid not in sv2match:
+          sv2match[dcid] = EmbeddingsMatch(var=dcid, score=score, sentences=[])
+        sv2match[dcid].sentences.append(
+            SentenceScore(sentence=sentence, score=score))
 
-      result = vars.VarCandidates(svs=[], scores=[], sv2sentences={})
-      for sv, score in sorted(sv2score.items(),
-                              key=lambda item: (-item[1], item[0])):
-        result.svs.append(sv)
-        result.scores.append(score)
-        result.sv2sentences[sv] = []
-        for sentence, score in sorted(sv2sentence2score.get(sv, []).items(),
-                                      key=lambda item: item[1],
-                                      reverse=True):
-          score = round(score, 4)
-          result.sv2sentences[sv].append(f'{sentence} ({score})')
-
+      result: List[EmbeddingsResult] = []
+      for _, match in sorted(sv2match.items(),
+                             key=lambda item: (-item[1].score, item[0])):
+        match.sentences.sort(key=lambda item: item.score, reverse=True)
+        result.append(match)
       results.append(result)
 
     return results

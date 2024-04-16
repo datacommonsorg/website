@@ -24,11 +24,11 @@ from nl_server.config import CUSTOM_DC_INDEX
 from nl_server.config import DEFAULT_INDEX_TYPE
 from nl_server.config import EmbeddingsIndex
 from nl_server.config import StoreType
+from nl_server.embeddings import Embeddings
+from nl_server.embeddings import EmbeddingsModel
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
 from nl_server.store.lancedb import LanceDBStore
 from nl_server.store.memory import MemoryEmbeddingsStore
-from nl_server.wrapper import Embeddings
-from nl_server.wrapper import EmbeddingsModel
 
 
 #
