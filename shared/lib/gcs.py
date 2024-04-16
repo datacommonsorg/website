@@ -45,7 +45,7 @@ def download_gcs_file(gcs_path: str, use_anonymous_client: bool = False) -> str:
   if not blob_name:
     return ''
   try:
-    return download_file(bucket_name, blob_name, use_anonymous_client)
+    return get_or_download_file(bucket_name, blob_name, use_anonymous_client)
   except Exception as e:
     logging.warning("Unable to download gcs file: %s (%s)", gcs_path, str(e))
     return ''

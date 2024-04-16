@@ -53,9 +53,7 @@ class EmbeddingsMap:
 
     # Pre-load models once.
     self.name2model: Dict[str, EmbeddingsModel] = {}
-    model2path = {
-        idx.tuned_model: idx.tuned_model_local_path for idx in indexes
-    }
+    model2path = {idx.model_name: idx.model_local_path for idx in indexes}
     for model_name, model_path in model2path.items():
       self.name2model[model_name] = LocalSentenceTransformerModel(model_path)
 
@@ -65,11 +63,11 @@ class EmbeddingsMap:
     for idx in indexes:
       if idx.store_type == StoreType.MEMORY:
         self.embeddings_map[idx.name] = Embeddings(
-            model=self.name2model[idx.tuned_model],
+            model=self.name2model[idx.model_name],
             store=MemoryEmbeddingsStore(idx.embeddings_local_path))
       elif idx.store_type == StoreType.LANCEDB:
         self.embeddings_map[idx.name] = Embeddings(
-            model=self.name2model[idx.tuned_model],
+            model=self.name2model[idx.model_name],
             store=LanceDBStore(idx.embeddings_local_path))
 
   # Note: The caller takes care of exceptions.
@@ -86,17 +84,17 @@ class EmbeddingsMap:
     default_idx.embeddings_local_path = _merge_custom_index(
         default_idx, custom_idx)
 
-    if custom_idx.tuned_model not in self.name2model:
-      self.name2model[custom_idx.tuned_model] = \
-        LocalSentenceTransformerModel(custom_idx.tuned_model_local_path)
+    if custom_idx.model_name not in self.name2model:
+      self.name2model[custom_idx.model_name] = \
+        LocalSentenceTransformerModel(custom_idx.model_local_path)
 
     self.embeddings_map.update({
         custom_idx.name:
-            Embeddings(model=self.name2model[custom_idx.tuned_model],
+            Embeddings(model=self.name2model[custom_idx.model_name],
                        store=MemoryEmbeddingsStore(
                            custom_idx.embeddings_local_path)),
         default_idx.name:
-            Embeddings(model=self.name2model[default_idx.tuned_model],
+            Embeddings(model=self.name2model[default_idx.model_name],
                        store=MemoryEmbeddingsStore(
                            default_idx.embeddings_local_path)),
     })
@@ -132,8 +130,8 @@ def _merge_custom_index(default: EmbeddingsIndex,
                         custom: EmbeddingsIndex) -> str:
   # If model version is encoded in the embeddings file name, it should match the default model.
   # If none is encoded, tuned_model will be false and assumed to have used the same version.
-  assert not custom.tuned_model or default.tuned_model == custom.tuned_model, \
-    f'Main ({default.tuned_model}) vs. custom ({custom.tuned_model}) not using the same embeddings'
+  assert not custom.model_name or default.model_name == custom.model_name, \
+    f'Main ({default.model_name}) vs. custom ({custom.model_name}) not using the same embeddings'
 
   # /foo/x.csv => /foo/WithCustom_x.csv
   output_embeddings_path = os.path.join(

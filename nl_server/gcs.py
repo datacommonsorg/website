@@ -16,11 +16,9 @@ BUCKET = 'datcom-nl-models'
 
 import os
 from pathlib import Path
-import shutil
 from typing import Any
 
 from google.cloud import storage
-from sentence_transformers import SentenceTransformer
 
 from shared.lib import gcs as gcs_lib
 
@@ -37,25 +35,25 @@ def local_path(embeddings_file: str) -> str:
   return os.path.join(gcs_lib.TEMP_DIR, embeddings_file)
 
 
-def download_model_from_gcs(gcs_bucket: Any, local_dir: str,
-                            model_folder_name: str) -> str:
-  """Downloads a Sentence Tranformer model (or finetuned version) from GCS.
+def download_folder_from_gcs(gcs_bucket: Any, local_dir: str,
+                             folder_name: str) -> str:
+  """Downloads a folder from GCS.
 
   Args:
     gcs_bucket: The GCS bucket.
     local_dir: the local folder to download to.
-    model_folder_name: the GCS bucket name for the model.
+    model_folder_name: the GCS folder name for the model.
   
   Returns the path to the local directory where the model was downloaded to.
   The downloaded model can then be loaded as:
 
   ```
-      downloaded_model_path = download_model_from_gcs(bucket, dir, gcs_model_folder_name)
+      downloaded_model_path = download_folder_from_gcs(bucket, dir, gcs_model_folder_name)
       model = SentenceTransformer(downloaded_model_path)
   ```
   """
   # Get list of files
-  blobs = gcs_bucket.list_blobs(prefix=model_folder_name)
+  blobs = gcs_bucket.list_blobs(prefix=folder_name)
   for blob in blobs:
     file_split = blob.name.split("/")
     directory = local_dir
@@ -67,7 +65,7 @@ def download_model_from_gcs(gcs_bucket: Any, local_dir: str,
       continue
     blob.download_to_filename(os.path.join(directory, file_split[-1]))
 
-  return os.path.join(local_dir, model_folder_name)
+  return os.path.join(local_dir, folder_name)
 
 
 # Downloads the `folder` or gs:// path from GCS to /tmp/
@@ -94,4 +92,4 @@ def download_folder(path: str) -> str:
   print(
       f"Directory ({base_name}) was either not previously downloaded or cannot successfully be loaded. Downloading to: {local_path}"
   )
-  return download_model_from_gcs(bucket, directory, base_name)
+  return download_folder_from_gcs(bucket, directory, base_name)

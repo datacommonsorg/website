@@ -29,6 +29,7 @@ from nl_server.loader import NL_CACHE_PATH
 from nl_server.loader import NL_EMBEDDINGS_CACHE_KEY
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
 from nl_server.store.memory import MemoryEmbeddingsStore
+from shared.lib import gcs as shared_gcs
 
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -40,7 +41,7 @@ def _get_embeddings_file_path() -> str:
   with open(embeddings_config_path) as f:
     embeddings = yaml.full_load(f)
     embeddings_file = embeddings[emb_map.DEFAULT_INDEX_TYPE]
-    return gcs.download_embeddings(embeddings_file['embeddings'])
+    return shared_gcs.download_gcs_file(embeddings_file['embeddings'])
 
 
 def _get_tuned_model_path() -> str:

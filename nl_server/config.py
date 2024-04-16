@@ -55,9 +55,9 @@ class EmbeddingsIndex:
   embeddings_local_path: str
 
   # Fine-tuned model name ("" if embeddings uses base model).
-  tuned_model: str = ""
+  model_name: str = ""
   # Fine-tuned model local path.
-  tuned_model_local_path: str = ""
+  model_local_path: str = ""
 
 
 #
@@ -70,21 +70,12 @@ def load(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
   #
   # Download all the models.
   #
-  models_set = set([i.tuned_model for i in indexes if i.tuned_model])
+  models_set = set([i.model_name for i in indexes if i.model_name])
   model2path = {d: gcs.download_folder(d) for d in models_set}
   for idx in indexes:
-    if idx.tuned_model:
-      idx.tuned_model_local_path = model2path[idx.tuned_model]
+    if idx.model_name:
+      idx.model_local_path = model2path[idx.model_name]
 
-  #
-  # Download all the embeddings.
-  #
-  for idx in indexes:
-    if not idx.embeddings_local_path:
-      if idx.store_type == StoreType.MEMORY:
-        idx.embeddings_local_path = gcs.download_embeddings(idx.embeddings_path)
-      elif idx.store_type == StoreType.LANCEDB:
-        idx.embeddings_local_path = gcs.download_folder(idx.embeddings_path)
   return indexes
 
 
@@ -114,14 +105,14 @@ def parse(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
         continue
       file_name = path
     else:
-      file_name = path
-      local_path = ''
+      raise AssertionError(
+          f'"embeddings" path must start with `/` or `gs://`: {path}')
 
     idx = EmbeddingsIndex(name=key,
                           store_type=store_type,
                           embeddings_path=file_name,
                           embeddings_local_path=local_path,
-                          tuned_model=model_name)
+                          model_name=model_name)
     indexes.append(idx)
 
   return indexes
