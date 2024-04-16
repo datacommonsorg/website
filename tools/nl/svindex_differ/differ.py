@@ -30,10 +30,10 @@ from jinja2 import FileSystemLoader
 import requests
 
 from nl_server import gcs
+from nl_server.embeddings import Embeddings
+from nl_server.embeddings import EmbeddingsResult
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
 from nl_server.store.memory import MemoryEmbeddingsStore
-from nl_server.wrapper import Embeddings
-from nl_server.wrapper import EmbeddingsResult
 
 _SV_THRESHOLD = 0.5
 _NUM_SVS = 10
@@ -181,7 +181,7 @@ def _extract_model_name(embeddings_name: str, embeddings_file_path: str) -> str:
     parts = embeddings_name.split(".")
     model_name = ".".join(parts[1:-1])
     print(f"finetuned model_name: {model_name}")
-    model_path = gcs.download_model_folder(model_name)
+    model_path = gcs.download_folder(model_name)
 
     assert "ft_final" in model_path
     assert len(model_path.split(".")) >= 2

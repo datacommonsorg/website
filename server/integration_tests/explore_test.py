@@ -45,12 +45,13 @@ class ExploreTest(NLWebServerTestCase):
                     failure='',
                     test='',
                     i18n='',
-                    check_detection=False):
+                    check_detection=False,
+                    idx=''):
     ctx = {}
     for q in queries:
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect',
+          f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect&idx={idx}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -71,12 +72,13 @@ class ExploreTest(NLWebServerTestCase):
                              i18n='',
                              i18n_lang='',
                              mode='',
-                             default_place=''):
+                             default_place='',
+                             idx=''):
     ctx = {}
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}',
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}&idx={idx}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -230,6 +232,13 @@ class ExploreTest(NLWebServerTestCase):
   def test_detection_basic(self):
     self.run_detection('detection_api_basic', ['Commute in California'],
                        test='unittest')
+
+  def test_detection_basic_lancedb(self):
+    # NOTE: Use the same test-name as above, since we expect the content to exactly
+    # match the one from above.
+    self.run_detection('detection_api_basic', ['Commute in California'],
+                       test='unittest',
+                       idx='medium_lance_ft')
 
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')

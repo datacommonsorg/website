@@ -20,10 +20,10 @@ from sentence_transformers import SentenceTransformer
 import torch
 
 from nl_server import config
-from nl_server import wrapper
+from nl_server import embeddings
 
 
-class LocalSentenceTransformerModel(wrapper.EmbeddingsModel):
+class LocalSentenceTransformerModel(embeddings.EmbeddingsModel):
 
   def __init__(self, existing_model_path: str = ""):
     super().__init__(returns_tensor=True)

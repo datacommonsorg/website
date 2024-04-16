@@ -20,10 +20,13 @@ from datasets import load_dataset
 from sentence_transformers.util import semantic_search
 import torch
 
-from nl_server import wrapper
+from nl_server.embeddings import EmbeddingsMatch
+from nl_server.embeddings import EmbeddingsResult
+from nl_server.embeddings import EmbeddingsStore
+from nl_server.embeddings import SentenceScore
 
 
-class MemoryEmbeddingsStore(wrapper.EmbeddingsStore):
+class MemoryEmbeddingsStore(EmbeddingsStore):
   """Manages the embeddings."""
 
   def __init__(self, embeddings_path: str) -> None:
@@ -57,14 +60,14 @@ class MemoryEmbeddingsStore(wrapper.EmbeddingsStore):
   # and returns a list of candidates in the same order as original queries.
   #
   def vector_search(self, query_embeddings: torch.Tensor,
-                    top_k: int) -> List[wrapper.EmbeddingsResult]:
+                    top_k: int) -> List[EmbeddingsResult]:
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings,
                            top_k=top_k)
 
     # List of results per input query, with each entry being a map
     # keyed by DCID.
-    query_indexed_results: List[Dict[str, wrapper.EmbeddingsMatch]] = []
+    query_indexed_results: List[Dict[str, EmbeddingsMatch]] = []
     for i, hit in enumerate(hits):
       query_indexed_results.append({})
       for ent in hit:
@@ -72,15 +75,16 @@ class MemoryEmbeddingsStore(wrapper.EmbeddingsStore):
         for dcid in self.dcids[ent['corpus_id']].split(','):
           # Prefer the top score.
           if dcid not in query_indexed_results[i]:
-            query_indexed_results[i][dcid] = wrapper.EmbeddingsMatch(
-                var=dcid, score=score, sentences=[])
+            query_indexed_results[i][dcid] = EmbeddingsMatch(var=dcid,
+                                                             score=score,
+                                                             sentences=[])
           if ent['corpus_id'] >= len(self.sentences):
             continue
           sentence = self.sentences[ent['corpus_id']]
           query_indexed_results[i][dcid].sentences.append(
-              wrapper.SentenceScore(sentence=sentence, score=score))
+              SentenceScore(sentence=sentence, score=score))
 
-    results: List[wrapper.EmbeddingsResult] = []
+    results: List[EmbeddingsResult] = []
     for sv2match in query_indexed_results:
       matches_sorted = [
           m for _, m in sorted(sv2match.items(),
@@ -89,6 +93,6 @@ class MemoryEmbeddingsStore(wrapper.EmbeddingsStore):
       # Sort the sentences within each match.
       for m in matches_sorted:
         m.sentences.sort(key=lambda item: item.score, reverse=True)
-      results.append(wrapper.EmbeddingsResult(matches=matches_sorted))
+      results.append(EmbeddingsResult(matches=matches_sorted))
 
     return results
