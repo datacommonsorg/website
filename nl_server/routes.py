@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import json
-from typing import List
 
 from flask import Blueprint
 from flask import current_app

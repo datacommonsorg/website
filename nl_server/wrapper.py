@@ -36,7 +36,7 @@ class SentenceScore:
   score: float
 
   def to_str(self) -> str:
-    return f'sentence (round(score, 4))'
+    return f'{self.sentence} ({round(self.score, 4)})'
 
 
 # A single match from Embeddings result.
