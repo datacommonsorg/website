@@ -23,12 +23,13 @@ import yaml
 
 from nl_server import embeddings_map as emb_map
 from nl_server import gcs
+from nl_server.embeddings import Embeddings
+from nl_server.embeddings import EmbeddingsResult
 from nl_server.loader import NL_CACHE_PATH
 from nl_server.loader import NL_EMBEDDINGS_CACHE_KEY
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
 from nl_server.store.memory import MemoryEmbeddingsStore
-from nl_server.wrapper import Embeddings
-from nl_server.wrapper import EmbeddingsResult
+from shared.lib import gcs as shared_gcs
 
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -40,14 +41,14 @@ def _get_embeddings_file_path() -> str:
   with open(embeddings_config_path) as f:
     embeddings = yaml.full_load(f)
     embeddings_file = embeddings[emb_map.DEFAULT_INDEX_TYPE]
-    return gcs.download_embeddings(embeddings_file)
+    return shared_gcs.download_gcs_file(embeddings_file['embeddings'])
 
 
 def _get_tuned_model_path() -> str:
   models_config_path = os.path.join(_root_dir, 'deploy/nl/models.yaml')
   with open(models_config_path) as f:
     models_map = yaml.full_load(f)
-    return gcs.download_model_folder(models_map['tuned_model'])
+    return gcs.download_folder(models_map['tuned_model'])
 
 
 def _get_contents(

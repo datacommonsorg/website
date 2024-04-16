@@ -20,8 +20,8 @@ from flask import request
 from markupsafe import escape
 
 from nl_server import config
+from nl_server import embeddings
 from nl_server import loader
-from nl_server import wrapper
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -30,7 +30,7 @@ bp = Blueprint('main', __name__, url_prefix='/')
 def healthz():
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(
       config.DEFAULT_INDEX_TYPE)
-  result: wrapper.EmbeddingsResult = nl_embeddings.search_vars(
+  result: embeddings.EmbeddingsResult = nl_embeddings.search_vars(
       ['life expectancy'])['life expectancy']
   if result.matches and 'Expectancy' in result.matches[0].var:
     return 'OK', 200
@@ -60,7 +60,7 @@ def search_vars():
 
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(idx)
 
-  results: wrapper.SearchVarsResult = nl_embeddings.search_vars(
+  results: embeddings.SearchVarsResult = nl_embeddings.search_vars(
       queries, skip_topics)
   json_result = {q: result.to_dict() for q, result in results.items()}
   return json.dumps(json_result)
