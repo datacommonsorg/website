@@ -566,12 +566,19 @@ class ExploreTest(NLWebServerTestCase):
     ])
 
   def test_e2e_date_range(self):
-    self.run_detect_and_fulfill('e2e_date_range', [
-        'Life expectancy in US states in the last 5 years',
-        'Population in California after 2013',
-        'Female population in New York before 2020',
-        'Which countries in Africa have had the greatest increase in electricity access over the last 10 years?'
-    ])
+    self.run_detect_and_fulfill(
+        'e2e_date_range',
+        [
+            'Life expectancy in US states in the last 5 years',
+            'Population in California after 2013',
+            'Female population in New York before 2020',
+            # tests date range with map charts
+            'Female population in California counties before 2020',
+            # tests date range with scatter charts
+            'poverty vs obesity in california before 2020',
+            # tests date range with time delta
+            'Which countries in Africa have had the greatest increase in electricity access over the last 10 years?'
+        ])
 
   def test_e2e_default_place(self):
     self.run_detect_and_fulfill('e2e_no_default_place_specified', [
