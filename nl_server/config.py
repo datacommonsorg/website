@@ -54,9 +54,9 @@ class EmbeddingsIndex:
   # Local path.
   embeddings_local_path: str
 
-  # Fine-tuned model name ("" if embeddings uses base model).
+  # Model name.
   model_name: str = ""
-  # Fine-tuned model local path.
+  # Model local path.
   model_local_path: str = ""
 
 

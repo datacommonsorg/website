@@ -71,19 +71,18 @@ def download_folder(path: str) -> str:
 
   if gcs_lib.is_gcs_path(path):
     bucket_name, base_name = gcs_lib.get_gcs_parts(path)
-    bucket = sc.bucket(bucket_name=bucket_name)
   else:
-    bucket = sc.bucket(bucket_name=BUCKET)
+    bucket_name = BUCKET
     base_name = path
-  directory = gcs_lib.TEMP_DIR
-  local_dir = os.path.basename(base_name) if '/' in base_name else base_name
+  local_dir_prefix = os.path.join(gcs_lib.TEMP_DIR, bucket_name)
 
   # Only download if needed.
-  local_path = os.path.join(directory, local_dir)
+  local_path = os.path.join(local_dir_prefix, base_name)
   if os.path.exists(local_path):
     return local_path
 
   print(
       f"Directory ({base_name}) was either not previously downloaded or cannot successfully be loaded. Downloading to: {local_path}"
   )
-  return download_folder_from_gcs(bucket, directory, base_name)
+  bucket = sc.bucket(bucket_name=bucket_name)
+  return download_folder_from_gcs(bucket, local_dir_prefix, base_name)
