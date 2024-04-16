@@ -50,7 +50,7 @@ while getopts beflc OPTION; do
     l)
         FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/models.yaml | awk '$1=="tuned_model:"{ print $2; }')
         if [[ "$FINETUNED_MODEL" == "" ]]; then
-          echo "Using option -f but could not retrieve an existing finetuned model from prod."
+          echo "Using option -l but could not retrieve an existing finetuned model from prod."
           exit 1
         else
           echo "Found finetuned model on prod: $FINETUNED_MODEL"
