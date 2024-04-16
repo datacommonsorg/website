@@ -65,7 +65,7 @@ class EmbeddingsMap:
             model=self.name2model[idx.model_name],
             store=MemoryEmbeddingsStore(idx.embeddings_local_path))
       elif idx.store_type == StoreType.LANCEDB:
-        raise NotImplemented('LanceDB support coming soon')
+        raise NotImplementedError('LanceDB support coming soon')
 
   # Note: The caller takes care of exceptions.
   def get(self, index_type: str = DEFAULT_INDEX_TYPE) -> Embeddings:
