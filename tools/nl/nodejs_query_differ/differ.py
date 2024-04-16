@@ -25,7 +25,7 @@ _OUTPUT_FILE = 'differ_results.json'
 _GOLDEN_FOLDER = 'golden'
 _DIFF_SUCCESS_MSG = 'Success'
 _EMAIL_SUBJECT_KEY = 'subject'
-_EMAIL_SUBJECT_TEMPLATE = 'Nodejs Query Test Failure in {env}'
+_EMAIL_SUBJECT_TEMPLATE = '[{env}] Failure: Nodejs Query Test'
 _EMAIL_MESSAGE_KEY = 'message'
 _EMAIL_MESSAGE_TEMPLATE = 'There were diffs found when testing Nodejs Query results against goldens in {env}.<br><br><b>Goldens folder</b>: {goldens_path}<br><b>Nodejs Query Results</b>: {test_path}<br><b>Diff results</b>: {results_path}'
 
