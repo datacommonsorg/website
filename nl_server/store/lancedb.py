@@ -41,7 +41,7 @@ class LanceDBStore(EmbeddingsStore):
 
   def vector_search(self, query_embeddings: List[List[float]],
                     top_k: int) -> List[EmbeddingsResult]:
-    results: List[vars.VarCandidates] = []
+    results: List[EmbeddingsResult] = []
     for emb in query_embeddings:
 
       # Var => EmbeddingsMatch
@@ -58,11 +58,11 @@ class LanceDBStore(EmbeddingsStore):
         sv2match[dcid].sentences.append(
             SentenceScore(sentence=sentence, score=score))
 
-      result: List[EmbeddingsResult] = []
+      result = EmbeddingsResult(matches=[])
       for _, match in sorted(sv2match.items(),
                              key=lambda item: (-item[1].score, item[0])):
         match.sentences.sort(key=lambda item: item.score, reverse=True)
-        result.append(match)
+        result.matches.append(match)
       results.append(result)
 
     return results
