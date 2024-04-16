@@ -54,14 +54,16 @@ class EmbeddingsIndex:
   # Local path.
   embeddings_local_path: str
 
-  # Fine-tuned model name ("" if embeddings uses base model).
+  # Model name.
   model_name: str = ""
-  # Fine-tuned model local path.
+  # Model local path.
   model_local_path: str = ""
 
 
 #
 # Validates the config input, downloads all the files and returns a list of Indexes to load.
+# The input `embeddings_map` is the dict representation of `embeddings.yaml`:
+#   index-type => field (e.g., model) => value
 #
 def load(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
   # Create Index objects.
@@ -79,6 +81,10 @@ def load(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
   return indexes
 
 
+#
+# Parse the input `embeddings.yaml` dict representation, with structure:
+#   index-type => field (e.g., model) => value
+#
 def parse(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
   indexes: List[EmbeddingsIndex] = []
 
