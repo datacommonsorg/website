@@ -1,1 +1,4 @@
-custom_ft: /fake/path/to/custom_embeddings.csv
+custom_ft:
+  embeddings: /fake/path/to/custom_embeddings.csv
+  model: FooModel
+  store: MEMORY
