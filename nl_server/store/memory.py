@@ -21,7 +21,6 @@ from sentence_transformers.util import semantic_search
 import torch
 
 from nl_server import wrapper
-from shared.lib import detected_variables as vars
 
 
 class MemoryEmbeddingsStore(wrapper.EmbeddingsStore):
@@ -58,54 +57,38 @@ class MemoryEmbeddingsStore(wrapper.EmbeddingsStore):
   # and returns a list of candidates in the same order as original queries.
   #
   def vector_search(self, query_embeddings: torch.Tensor,
-                    top_k: int) -> List[vars.VarCandidates]:
+                    top_k: int) -> List[wrapper.EmbeddingsResult]:
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings,
                            top_k=top_k)
 
-    # A map from input query -> SV DCID -> matched sentence -> score for that match
-    query_indexed_sv2sentence2score: List[Dict[str, Dict[str, float]]] = []
-    # A map from input query -> SV DCID -> highest matched score
-    query_indexed_sv2score: List[Dict[str, float]] = []
+    # List of results per input query, with each entry being a map
+    # keyed by DCID.
+    query_indexed_results: List[Dict[str, wrapper.EmbeddingsMatch]] = []
     for i, hit in enumerate(hits):
-      query_indexed_sv2sentence2score.append({})
-      query_indexed_sv2score.append({})
+      query_indexed_results.append({})
       for ent in hit:
         score = ent['score']
         for dcid in self.dcids[ent['corpus_id']].split(','):
           # Prefer the top score.
-          if dcid not in query_indexed_sv2score[i]:
-            query_indexed_sv2score[i][dcid] = score
-            query_indexed_sv2sentence2score[i][dcid] = {}
-
+          if dcid not in query_indexed_results[i]:
+            query_indexed_results[i][dcid] = wrapper.EmbeddingsMatch(
+                var=dcid, score=score, sentences=[])
           if ent['corpus_id'] >= len(self.sentences):
             continue
           sentence = self.sentences[ent['corpus_id']]
-          query_indexed_sv2sentence2score[i][dcid][sentence] = score
+          query_indexed_results[i][dcid].sentences.append(
+              wrapper.SentenceScore(sentence=sentence, score=score))
 
-    results: List[vars.VarCandidates] = []
-
-    # Go over the map and prepare parallel lists of
-    # SVs and scores in query2result.
-    for sv2score in query_indexed_sv2score:
-      sv2score_sorted = [(k, v) for (
-          k,
-          v) in sorted(sv2score.items(), key=lambda item: (-item[1], item[0]))]
-      svs = [k for (k, _) in sv2score_sorted]
-      scores = [v for (_, v) in sv2score_sorted]
-      results.append(vars.VarCandidates(svs=svs, scores=scores,
-                                        sv2sentences={}))
-
-    # Go over the results and prepare the sv2sentences map in
-    # query2result.
-    for i, sv2sentence2score in enumerate(query_indexed_sv2sentence2score):
-      results[i].sv2sentences = {}
-      for sv, sentence2score in sv2sentence2score.items():
-        results[i].sv2sentences[sv] = []
-        for sentence, score in sorted(sentence2score.items(),
-                                      key=lambda item: item[1],
-                                      reverse=True):
-          score = round(score, 4)
-          results[i].sv2sentences[sv].append(sentence + f' ({score})')
+    results: List[wrapper.EmbeddingsResult] = []
+    for sv2match in query_indexed_results:
+      matches_sorted = [
+          m for _, m in sorted(sv2match.items(),
+                               key=lambda item: (-item[1].score, item[0]))
+      ]
+      # Sort the sentences within each match.
+      for m in matches_sorted:
+        m.sentences.sort(key=lambda item: item.score, reverse=True)
+      results.append(wrapper.EmbeddingsResult(matches=matches_sorted))
 
     return results

@@ -14,6 +14,7 @@
 """Tests for Embeddings (in nl_embeddings.py)."""
 
 import os
+from typing import List
 import unittest
 
 from diskcache import Cache
@@ -24,9 +25,10 @@ from nl_server import embeddings_map as emb_map
 from nl_server import gcs
 from nl_server.loader import NL_CACHE_PATH
 from nl_server.loader import NL_EMBEDDINGS_CACHE_KEY
-from nl_server.model.sentence_transformer import SentenceTransformerModel
+from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
 from nl_server.store.memory import MemoryEmbeddingsStore
 from nl_server.wrapper import Embeddings
+from nl_server.wrapper import EmbeddingsResult
 
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -46,6 +48,14 @@ def _get_tuned_model_path() -> str:
   with open(models_config_path) as f:
     models_map = yaml.full_load(f)
     return gcs.download_model_folder(models_map['tuned_model'])
+
+
+def _get_contents(
+    r: EmbeddingsResult) -> tuple[List[str], List[str], List[List[str]]]:
+  r1 = [m.var for m in r.matches]
+  r2 = [m.score for m in r.matches]
+  r3 = [m.sentences for m in r.matches]
+  return r1, r2, r3
 
 
 class TestEmbeddings(unittest.TestCase):
@@ -71,7 +81,7 @@ class TestEmbeddings(unittest.TestCase):
         tuned_model_path = _get_tuned_model_path()
 
       cls.nl_embeddings = Embeddings(
-          model=SentenceTransformerModel(tuned_model_path),
+          model=LocalSentenceTransformerModel(tuned_model_path),
           store=MemoryEmbeddingsStore(_get_embeddings_file_path()))
     else:
       cls.nl_embeddings = embeddings.get()
@@ -112,15 +122,16 @@ class TestEmbeddings(unittest.TestCase):
   ])
   def test_sv_detection(self, query_str, skip_topics, expected_list):
     got = self.nl_embeddings.search_vars([query_str],
-                                         skip_topics=skip_topics)[0]
+                                         skip_topics=skip_topics)[query_str]
 
     # Check that all expected fields are present.
-    self.assertTrue(got.svs)
-    self.assertTrue(got.scores)
-    self.assertTrue(got.sv2sentences)
+    svs, scores, sentences = _get_contents(got)
+    self.assertTrue(svs)
+    self.assertTrue(scores)
+    self.assertTrue(sentences)
 
     # Check that the first SV found is among the expected_list.
-    self.assertTrue(got.svs[0] in expected_list)
+    self.assertTrue(svs[0] in expected_list)
 
     # TODO: uncomment the lines below when we have figured out what to do with these
     # assertion failures. They started failing when updating to the medium_ft index.
@@ -132,13 +143,14 @@ class TestEmbeddings(unittest.TestCase):
   # For these queries, the match score should be low (< 0.45).
   @parameterized.expand(["random random", "", "who where why", "__124__abc"])
   def test_low_score_matches(self, query_str):
-    got = self.nl_embeddings.search_vars([query_str])[0]
+    got = self.nl_embeddings.search_vars([query_str])[query_str]
 
     # Check that all expected fields are present.
-    self.assertTrue(got.svs)
-    self.assertTrue(got.scores)
-    self.assertTrue(got.sv2sentences)
+    svs, scores, sentences = _get_contents(got)
+    self.assertTrue(svs)
+    self.assertTrue(scores)
+    self.assertTrue(sentences)
 
     # Check all scores.
-    for score in got.scores:
+    for score in scores:
       self.assertLess(score, 0.45)

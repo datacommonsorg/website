@@ -30,10 +30,10 @@ from jinja2 import FileSystemLoader
 import requests
 
 from nl_server import gcs
-from nl_server.model.sentence_transformer import SentenceTransformerModel
+from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
 from nl_server.store.memory import MemoryEmbeddingsStore
 from nl_server.wrapper import Embeddings
-from shared.lib.detected_variables import VarCandidates
+from nl_server.wrapper import EmbeddingsResult
 
 _SV_THRESHOLD = 0.5
 _NUM_SVS = 10
@@ -83,19 +83,17 @@ def _get_sv_names(sv_dcids):
   return result
 
 
-def _prune(res: VarCandidates):
+def _prune(res: EmbeddingsResult):
   svs = []
   sv_info = {}
-  for i in range(len(res.svs)):
-    score = res.scores[i]
-    if i < _NUM_SVS and score >= _SV_THRESHOLD:
-      sv = res.svs[i]
-      svs.append(sv)
-      sv_info[sv] = {
-          'sv': sv,
+  for i, m in enumerate(res.matches):
+    if i < _NUM_SVS and m.score >= _SV_THRESHOLD:
+      svs.append(m.var)
+      sv_info[m.var] = {
+          'sv': m.var,
           'rank': i + 1,
-          'score': score,
-          'sentence_scores': res.sv2sentences.get(sv, [])
+          'score': m.score,
+          'sentence_scores': m.sentences,
       }
   return svs, sv_info
 
@@ -200,13 +198,13 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
   print(
       f"Setting up the Base Embeddings from: {base_file}; Base model from: {base_model_path}"
   )
-  base = Embeddings(model=SentenceTransformerModel(base_model_path),
+  base = Embeddings(model=LocalSentenceTransformerModel(base_model_path),
                     store=MemoryEmbeddingsStore(base_file))
   print("=================================")
   print(
       f"Setting up the Test Embeddings from: {test_file}; Test model from: {test_model_path}"
   )
-  test = Embeddings(model=SentenceTransformerModel(test_model_path),
+  test = Embeddings(model=LocalSentenceTransformerModel(test_model_path),
                     store=MemoryEmbeddingsStore(test_file))
   print("=================================")
 
@@ -221,8 +219,8 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
       if not query or query.startswith('#') or query.startswith('//'):
         continue
       assert ';' not in query, 'Multiple query not yet supported'
-      base_svs, base_sv_info = _prune(base.search_vars(query)[0])
-      test_svs, test_sv_info = _prune(test.search_vars(query)[0])
+      base_svs, base_sv_info = _prune(base.search_vars(query)[query])
+      test_svs, test_sv_info = _prune(test.search_vars(query)[query])
       for sv in base_svs + test_svs:
         all_svs.add(sv)
       if base_svs != test_svs:

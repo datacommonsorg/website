@@ -23,7 +23,7 @@ import pandas as pd
 from nl_server.config import CUSTOM_DC_INDEX
 from nl_server.config import DEFAULT_INDEX_TYPE
 from nl_server.config import EmbeddingsIndex
-from nl_server.model.sentence_transformer import SentenceTransformerModel
+from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
 from nl_server.store.memory import MemoryEmbeddingsStore
 from nl_server.wrapper import Embeddings
 from nl_server.wrapper import EmbeddingsModel
@@ -31,6 +31,7 @@ from nl_server.wrapper import EmbeddingsModel
 
 #
 # A map from specific index to embeddings stores and models.
+# TODO: Custom DC handling might need to be revisited.
 #
 class EmbeddingsMap:
 
@@ -54,7 +55,7 @@ class EmbeddingsMap:
         idx.tuned_model: idx.tuned_model_local_path for idx in indexes
     }
     for model_name, model_path in model2path.items():
-      self.name2model[model_name] = SentenceTransformerModel(model_path)
+      self.name2model[model_name] = LocalSentenceTransformerModel(model_path)
 
     # NOTE: Not excluding CUSTOM_DC_INDEX from the map, so should the
     # custom DC customers want queries to work within their variables
@@ -80,7 +81,7 @@ class EmbeddingsMap:
 
     if custom_idx.tuned_model not in self.name2model:
       self.name2model[custom_idx.tuned_model] = \
-        SentenceTransformerModel(custom_idx.tuned_model_local_path)
+        LocalSentenceTransformerModel(custom_idx.tuned_model_local_path)
 
     self.embeddings_map.update({
         custom_idx.name:

@@ -50,10 +50,10 @@ def _test_query(test: unittest.TestCase, idx: Embeddings, query: str,
                 expected: str):
   trimmed_svs = []
   if idx:
-    got = idx.search_vars([query])[0]
-    for i in range(len(got.svs)):
-      if got.scores[i] >= SV_SCORE_DEFAULT_THRESHOLD:
-        trimmed_svs.append(got.svs[i])
+    got = idx.search_vars([query])[query]
+    for m in got.matches:
+      if m.score >= SV_SCORE_DEFAULT_THRESHOLD:
+        trimmed_svs.append(m.var)
 
   if not expected:
     test.assertTrue(not trimmed_svs, trimmed_svs)

@@ -22,7 +22,7 @@ from markupsafe import escape
 
 from nl_server import config
 from nl_server import loader
-from shared.lib.detected_variables import VarCandidates
+from nl_server import wrapper
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -31,8 +31,9 @@ bp = Blueprint('main', __name__, url_prefix='/')
 def healthz():
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(
       config.DEFAULT_INDEX_TYPE)
-  result: VarCandidates = nl_embeddings.search_vars(['life expectancy'])[0]
-  if result.svs:
+  result: wrapper.EmbeddingsResult = nl_embeddings.search_vars(
+      ['life expectancy'])['life expectancy']
+  if result.matches and 'Expectancy' in result.matches[0].var:
     return 'OK', 200
   return 'Service Unavailable', 500
 
@@ -59,14 +60,10 @@ def search_vars():
     skip_topics = True
 
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(idx)
-  results: List[VarCandidates] = nl_embeddings.search_vars(queries, skip_topics)
-  json_result = {}
-  for i, q in enumerate(queries):
-    json_result[q] = {
-        'SV': results[i].svs,
-        'CosineScore': results[i].scores,
-        'SV_to_Sentences': results[i].sv2sentences
-    }
+
+  results: wrapper.SearchVarsResult = nl_embeddings.search_vars(
+      queries, skip_topics)
+  json_result = {q: result.to_dict() for q, result in results.items()}
   return json.dumps(json_result)
 
 

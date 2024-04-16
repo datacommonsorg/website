@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ from nl_server import config
 from nl_server import wrapper
 
 
-class SentenceTransformerModel(wrapper.EmbeddingsModel):
+class LocalSentenceTransformerModel(wrapper.EmbeddingsModel):
 
   def __init__(self, existing_model_path: str = ""):
     super().__init__(returns_tensor=True)
