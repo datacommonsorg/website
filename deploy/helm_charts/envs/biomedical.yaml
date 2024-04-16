@@ -22,8 +22,6 @@ namespace:
 website:
   flaskEnv: biomedical
   replicas: 5
-  redis:
-    enabled: false
 
 serviceAccount:
   name: website-ksa
@@ -36,11 +34,11 @@ serviceGroups:
   svg:
     replicas: 2
   observation:
-    replicas: 5
+    replicas: 2
   node:
-    replicas: 10
+    replicas: 2
   default:
-    replicas: 5
+    replicas: 2
 
 nl:
   enabled: true

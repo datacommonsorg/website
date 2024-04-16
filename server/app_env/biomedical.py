@@ -13,12 +13,19 @@
 # limitations under the License.
 
 from server.app_env import _base
+from server.app_env import local
 
 
 class Config(_base.Config):
+  API_ROOT = 'https://autopush.api.datacommons.org'
   GCS_BUCKET = 'datcom-website-autopush-resources'
+  HIDE_DEBUG = False
   LOG_QUERY = True
   SHOW_TOPIC = True
   USE_LLM = True
-  HIDE_DEBUG = False
   USE_MEMCACHE = False
+
+
+class LocalConfig(local.Config):
+  API_ROOT = 'https://autopush.api.datacommons.org'
+  SECRET_PROJECT = 'datcom-biomedical'
