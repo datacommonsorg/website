@@ -210,8 +210,8 @@
                       ]
                     },
                     "entities": [
-                      "bio/rs13317",
-                      "bio/rs7903146"
+                      "bio/rs7903146",
+                      "bio/rs13317"
                     ],
                     "type": "ANSWER_TABLE"
                   }
@@ -227,13 +227,13 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/rs13317",
-      "name": "rs13317",
+      "dcid": "bio/rs7903146",
+      "name": "rs7903146",
       "type": ""
     },
     {
-      "dcid": "bio/rs7903146",
-      "name": "rs7903146",
+      "dcid": "bio/rs13317",
+      "name": "rs13317",
       "type": ""
     }
   ],

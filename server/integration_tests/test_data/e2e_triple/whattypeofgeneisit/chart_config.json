@@ -18,12 +18,12 @@
                       ]
                     },
                     "entities": [
-                      "bio/dm3_Is",
                       "bio/dm6_Is",
                       "bio/mm10_It",
+                      "bio/dm3_Is",
                       "bio/mm9_It"
                     ],
-                    "title": "The typeOfGene for Is, Is and 2 more other are as follows:",
+                    "title": "The typeOfGene for Is, It and 2 more other are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -38,11 +38,6 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/dm3_Is",
-      "name": "Is",
-      "type": ""
-    },
-    {
       "dcid": "bio/dm6_Is",
       "name": "Is",
       "type": ""
@@ -50,6 +45,11 @@
     {
       "dcid": "bio/mm10_It",
       "name": "It",
+      "type": ""
+    },
+    {
+      "dcid": "bio/dm3_Is",
+      "name": "Is",
       "type": ""
     },
     {

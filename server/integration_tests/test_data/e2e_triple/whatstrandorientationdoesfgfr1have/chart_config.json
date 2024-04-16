@@ -18,16 +18,16 @@
                       ]
                     },
                     "entities": [
-                      "bio/FGFR1",
-                      "bio/mm9_Fgfr1",
-                      "bio/galGal5_FGFR1",
-                      "bio/D009949",
                       "bio/hg19_FGFR1",
+                      "bio/galGal5_FGFR1",
+                      "bio/mm9_Fgfr1",
+                      "bio/mm10_Fgfr1",
+                      "bio/FGFR1",
                       "bio/hg38_FGFR1",
-                      "bio/galGal6_FGFR1",
-                      "bio/mm10_Fgfr1"
+                      "bio/D009949",
+                      "bio/galGal6_FGFR1"
                     ],
-                    "title": "The strandOrientation for FGFR1, Fgfr1 and 6 more other are as follows:",
+                    "title": "The strandOrientation for FGFR1, FGFR1 and 6 more other are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -42,7 +42,12 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/FGFR1",
+      "dcid": "bio/hg19_FGFR1",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/galGal5_FGFR1",
       "name": "FGFR1",
       "type": ""
     },
@@ -52,17 +57,12 @@
       "type": ""
     },
     {
-      "dcid": "bio/galGal5_FGFR1",
-      "name": "FGFR1",
+      "dcid": "bio/mm10_Fgfr1",
+      "name": "Fgfr1",
       "type": ""
     },
     {
-      "dcid": "bio/D009949",
-      "name": "Orientation",
-      "type": ""
-    },
-    {
-      "dcid": "bio/hg19_FGFR1",
+      "dcid": "bio/FGFR1",
       "name": "FGFR1",
       "type": ""
     },
@@ -72,13 +72,13 @@
       "type": ""
     },
     {
-      "dcid": "bio/galGal6_FGFR1",
-      "name": "FGFR1",
+      "dcid": "bio/D009949",
+      "name": "Orientation",
       "type": ""
     },
     {
-      "dcid": "bio/mm10_Fgfr1",
-      "name": "Fgfr1",
+      "dcid": "bio/galGal6_FGFR1",
+      "name": "FGFR1",
       "type": ""
     }
   ],
