@@ -269,7 +269,6 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const topic = getSingleParam(hashParams[URL_HASH_PARAMS.TOPIC]);
     const place = getSingleParam(hashParams[URL_HASH_PARAMS.PLACE]);
     const dc = getSingleParam(hashParams[URL_HASH_PARAMS.DC]);
-    const idx = getSingleParam(hashParams[URL_HASH_PARAMS.IDX]);
     const disableExploreMore = getSingleParam(
       hashParams[URL_HASH_PARAMS.DISABLE_EXPLORE_MORE]
     );
@@ -300,7 +299,6 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         query,
         savedContext.current,
         dc,
-        idx,
         disableExploreMore,
         detector,
         llmApi,
@@ -411,7 +409,6 @@ const fetchDetectAndFufillData = async (
   query: string,
   savedContext: any,
   dc: string,
-  idx: string,
   disableExploreMore: string,
   detector: string,
   llmApi: string,
@@ -442,9 +439,6 @@ const fetchDetectAndFufillData = async (
   }
   if (mode) {
     argsMap.set(URL_HASH_PARAMS.MODE, mode);
-  }
-  if (idx) {
-    argsMap.set(URL_HASH_PARAMS.IDX, idx);
   }
   const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
   try {
