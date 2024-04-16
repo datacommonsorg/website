@@ -67,8 +67,8 @@ class ExistenceCheckTracker:
   # combination of sv and place key. Multiple places can map to the same
   # place key so this is the facet that exists for the most number of places
   # of each place key.
-  def _get_sv_place_facets(self):
-    sv_place_facets = {}
+  def _get_sv_place_facet(self):
+    sv_place_facet = {}
     for sv, pl2f in self.existing_svs.items():
       # place key -> facet id -> number of place keys that have this facet id
       place_facet_occurences = {}
@@ -90,10 +90,10 @@ class ExistenceCheckTracker:
         if place_facet_id_occurences > place_facet_occurences.get(k, {}).get(
             saved_facet_id, 0):
           place_facets[k] = facet
-      sv_place_facets[sv] = place_facets
-    return sv_place_facets
+      sv_place_facet[sv] = place_facets
+    return sv_place_facet
 
-  def _get_sv_place_latest_dates(self, sv_place_facets):
+  def _get_sv_place_latest_dates(self, sv_place_facet):
     sv_place_latest_dates = {}
     _, end_date = get_date_range_strings(self.state.date_range)
 
@@ -103,7 +103,7 @@ class ExistenceCheckTracker:
       return sv_place_latest_dates
 
     # If there are no svs, return
-    sv_list = list(sv_place_facets.keys())
+    sv_list = list(sv_place_facet.keys())
     if not sv_list:
       return sv_place_latest_dates
 
@@ -125,9 +125,9 @@ class ExistenceCheckTracker:
         places_with_child_type, self.state.place_type, sv_list,
         self.state.date_range)
 
-    # Get predicted latest dates for the svs and place keys in sv_place_facets
+    # Get predicted latest dates for the svs and place keys in sv_place_facet
     predicted_latest_dates = utils.get_predicted_latest_date(
-        sv_place_facets, self.state.date_range)
+        sv_place_facet, self.state.date_range)
 
     # Go through the list of svs and place keys. If latest date is missing, try
     # to use a predicted latest date.
@@ -148,17 +148,17 @@ class ExistenceCheckTracker:
       utils.sv_existence_for_places_check_single_point(
         places=self.places, svs=list(self.all_svs), single_date=self.state.single_date, date_range=self.state.date_range, counters=self.state.uttr.counters)
 
-    sv_place_facets = self._get_sv_place_facets()
+    sv_place_facet = self._get_sv_place_facet()
     sv_place_latest_dates = {}
     if self.state.date_range:
-      sv_place_latest_dates = self._get_sv_place_latest_dates(sv_place_facets)
+      sv_place_latest_dates = self._get_sv_place_latest_dates(sv_place_facet)
     # In `state`, set sv -> place Key -> ExistInfo
     for sv, pl2sp in existsv2places.items():
       if sv not in self.state.exist_checks:
         self.state.exist_checks[sv] = {}
       for pl, is_singlepoint in pl2sp.items():
         k = self.place2keys[pl]
-        k_facet = sv_place_facets.get(sv, {}).get(k, {})
+        k_facet = sv_place_facet.get(sv, {}).get(k, {})
         if k not in self.state.exist_checks[sv]:
           self.state.exist_checks[sv][k] = ExistInfo(
               is_single_point=False,

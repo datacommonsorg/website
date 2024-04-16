@@ -577,7 +577,10 @@ class ExploreTest(NLWebServerTestCase):
             # tests date range with scatter charts
             'poverty vs obesity in california before 2020',
             # tests date range with time delta
-            'Which countries in Africa have had the greatest increase in electricity access over the last 10 years?'
+            'Which countries in Africa have had the greatest increase in electricity access over the last 10 years?',
+            # tests date range with timeline where observation dates are lower
+            # granularity than asked for date range
+            'Female population in California since apr 2019'
         ])
 
   def test_e2e_default_place(self):
