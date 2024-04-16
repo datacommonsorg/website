@@ -48,23 +48,31 @@ def detect_from_query_dc(orig_query: str,
   # Recognize Places uses comma as a signal for contained-in-place.
   query = utils.remove_punctuations(orig_query, include_comma=True)
 
+  # Set up debug logs
   debug_logs["place_dcid_inference"] = {}
   debug_logs["place_resolution"] = {}
   debug_logs["dc_recognize_places"] = {}
 
-  place_query_parts = _get_query_parts(query, debug_logs["dc_recognize_places"],
-                                       True)
-  # Use the first DCID for now.
+  # Get the query parts for places in the query
+  place_query_items = dc.recognize_places(query)
+  place_query_parts = _get_query_parts(place_query_items, 'places',
+                                       debug_logs["dc_recognize_places"])
+
+  # Get resolved places and parent map using the first recognized place DCID for
+  # each place query part.
   place_main_dcids = [p.dcids[0] for p in place_query_parts if p.dcids]
   resolved_places, parent_map = get_place_from_dcids(
       place_main_dcids, debug_logs["place_resolution"])
 
+  # Set main place and parent places
   main_place = None
   parent_places = []
   if resolved_places:
     main_place = resolved_places[0]
     parent_places = parent_map.get(main_place.dcid, [])
 
+  # Get the parts of the query that resolved to a place and the query string
+  # with those parts stripped out
   resolved_place_dcids = set([p.dcid for p in resolved_places])
   places_str, stripped_query_str = _get_stripped_string(place_query_parts,
                                                         resolved_place_dcids)
@@ -72,14 +80,29 @@ def detect_from_query_dc(orig_query: str,
   resolved_entities = []
   entities_str = []
   if allow_triples:
+    # Get the query parts for entities in the query that already has places
+    # stripped out. This is to ensure that we are only resolving each part of
+    # the query to one of entity or place
     debug_logs["dc_recognize_entities"] = {}
-    entity_query_parts = _get_query_parts(stripped_query_str,
-                                          debug_logs["dc_recognize_entities"],
-                                          False)
+    entity_query_items = dc.recognize_entities(stripped_query_str)
+    entity_query_parts = _get_query_parts(entity_query_items, 'entities',
+                                          debug_logs["dc_recognize_entities"])
+
+    # Get resolved entities
     resolved_entities = _get_resolved_entities(entity_query_parts)
     resolved_entity_dcids = set([e.dcid for e in resolved_entities])
+
+    # Get the parts of the query (with places already stripped out) that
+    # resolved to an entity and the query string with those parts also stripped
+    # out in addition to the places that are already stripped out.
     entities_str, stripped_entities_query_str = _get_stripped_string(
         entity_query_parts, resolved_entity_dcids)
+
+    # The stripped query string returned by place detection should only have
+    # entities stripped out if there were no places stripped OR there are more
+    # that _MAX_ENTITIES_QUERY entity strings found. This is because the
+    # stripped query string will eventually be used for sv/prop detection and
+    # some entities may be part of entity descriptions
     if not places_str or len(entities_str) > _MAX_ENTITIES_QUERY:
       stripped_query_str = stripped_entities_query_str
 
@@ -128,13 +151,12 @@ def detect_from_names(place_names: List[str],
     name2dcids = dc.find_entities(place_names)
     place_or_entity_dcids = {n: d[0] for n, d in name2dcids.items() if d}
 
-  if place_or_entity_dcids:
-    resolved_places, parent_map = get_place_from_dcids(
-        place_or_entity_dcids.values(),
-        query_detection_debug_logs["place_resolution"])
-    if allow_triples:
-      resolved_entities = _get_non_place_entities(
-          place_or_entity_dcids.values(), resolved_places)
+  resolved_places, parent_map = get_place_from_dcids(
+      place_or_entity_dcids.values(),
+      query_detection_debug_logs["place_resolution"])
+  if allow_triples:
+    resolved_entities = _get_non_place_entities(place_or_entity_dcids.values(),
+                                                resolved_places)
   if resolved_places:
     main_place = resolved_places[0]
     parent_places = parent_map.get(main_place.dcid, [])
@@ -227,10 +249,12 @@ def get_place_from_dcids(place_dcids: List[str], debug_logs: Dict) -> any:
 
 
 #
-# Helper function to get resolved entities that are not places.
+# Helper function to get resolved entities that are not places. If no
+# resolved_places passed, will get the resolved entity object for every dcid in
+# all_entities.
 #
 def _get_non_place_entities(all_entities: List[str],
-                            resolved_places: List[Place]) -> List[Entity]:
+                            resolved_places: List[Place] = []) -> List[Entity]:
   entities = []
   places = set([p.dcid for p in resolved_places])
   non_place_entities = [e for e in all_entities if not e in places]
@@ -245,17 +269,11 @@ def _get_non_place_entities(all_entities: List[str],
 
 
 #
-# Helper function to get a list of query parts for a query.
+# Helper function to convert a list of query items that come from a recgonize
+# API (dc.recognize_places or dc.recognize_entities) into a list of query parts.
 #
-def _get_query_parts(query: str, debug_logs: Dict[str, any],
-                     for_place: bool) -> List[QueryPart]:
-  if for_place:
-    query_items = dc.recognize_places(query)
-    items_key = "places"
-  else:
-    query_items = dc.recognize_entities(query)
-    items_key = "entities"
-
+def _get_query_parts(query_items: List[Dict[str, any]], items_key: str,
+                     debug_logs: Dict[str, any]) -> List[QueryPart]:
   query_parts = []
   for item in query_items:
     if 'span' not in item:
@@ -295,13 +313,16 @@ def _get_stripped_string(query_parts: List[QueryPart],
 # recognized.
 #
 def _get_resolved_entities(query_parts: List[QueryPart]) -> List[Entity]:
-  entity_dcids = set()
+  seen_dcids = set()
+  entity_dcids = []
   for e in query_parts:
     if not e.dcids:
       continue
-    entity_dcids.update(e.dcids)
-
-  return _get_non_place_entities(list(entity_dcids), [])
+    new_dcids = [d for d in e.dcids if not d in seen_dcids]
+    seen_dcids.update(new_dcids)
+    # sort the dcids so that the list is deterministic
+    entity_dcids.extend(sorted(new_dcids))
+  return _get_non_place_entities(entity_dcids)
 
 
 def _set_query_detection_debug_logs(d: PlaceDetection,

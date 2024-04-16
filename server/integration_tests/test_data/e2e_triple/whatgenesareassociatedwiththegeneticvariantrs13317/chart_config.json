@@ -18,12 +18,12 @@
                       ]
                     },
                     "entities": [
+                      "bio/D005796",
                       "bio/dm3_with",
                       "bio/dm6_with",
-                      "bio/D005796",
                       "bio/rs13317"
                     ],
-                    "title": "The associated genes for with, with and 2 more other are",
+                    "title": "The associated genes for Genes, with and 2 more other are",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -38,6 +38,11 @@
   "debug": {},
   "entities": [
     {
+      "dcid": "bio/D005796",
+      "name": "Genes",
+      "type": ""
+    },
+    {
       "dcid": "bio/dm3_with",
       "name": "with",
       "type": ""
@@ -45,11 +50,6 @@
     {
       "dcid": "bio/dm6_with",
       "name": "with",
-      "type": ""
-    },
-    {
-      "dcid": "bio/D005796",
-      "name": "Genes",
       "type": ""
     },
     {

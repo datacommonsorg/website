@@ -18,12 +18,12 @@
                       ]
                     },
                     "entities": [
-                      "bio/D000073641",
+                      "bio/dm3_Is",
                       "bio/dm6_Is",
                       "bio/Betacoronavirus1",
-                      "bio/dm3_Is"
+                      "bio/D000073641"
                     ],
-                    "title": "The virusHost for Betacoronavirus 1, Is and 2 more other are as follows:",
+                    "title": "The virusHost for Is, Is and 2 more other are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -38,8 +38,8 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/D000073641",
-      "name": "Betacoronavirus 1",
+      "dcid": "bio/dm3_Is",
+      "name": "Is",
       "type": ""
     },
     {
@@ -53,8 +53,8 @@
       "type": ""
     },
     {
-      "dcid": "bio/dm3_Is",
-      "name": "Is",
+      "dcid": "bio/D000073641",
+      "name": "Betacoronavirus 1",
       "type": ""
     }
   ],

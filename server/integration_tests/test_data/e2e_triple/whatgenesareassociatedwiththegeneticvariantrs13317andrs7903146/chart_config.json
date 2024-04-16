@@ -18,13 +18,13 @@
                       ]
                     },
                     "entities": [
+                      "bio/D005796",
                       "bio/dm3_with",
-                      "bio/rs7903146",
-                      "bio/rs13317",
                       "bio/dm6_with",
-                      "bio/D005796"
+                      "bio/rs13317",
+                      "bio/rs7903146"
                     ],
-                    "title": "The associated genes for with, rs7903146 and 3 more other are",
+                    "title": "The associated genes for Genes, with and 3 more other are",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -39,18 +39,13 @@
   "debug": {},
   "entities": [
     {
+      "dcid": "bio/D005796",
+      "name": "Genes",
+      "type": ""
+    },
+    {
       "dcid": "bio/dm3_with",
       "name": "with",
-      "type": ""
-    },
-    {
-      "dcid": "bio/rs7903146",
-      "name": "rs7903146",
-      "type": ""
-    },
-    {
-      "dcid": "bio/rs13317",
-      "name": "rs13317",
       "type": ""
     },
     {
@@ -59,8 +54,13 @@
       "type": ""
     },
     {
-      "dcid": "bio/D005796",
-      "name": "Genes",
+      "dcid": "bio/rs13317",
+      "name": "rs13317",
+      "type": ""
+    },
+    {
+      "dcid": "bio/rs7903146",
+      "name": "rs7903146",
       "type": ""
     }
   ],

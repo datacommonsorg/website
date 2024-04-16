@@ -9,7 +9,7 @@
     ", apoe ,",
     "ache"
   ],
-  "entities_resolved": "(name: Genes, dcid: bio/D005796); (name: Fgfr1, dcid: bio/mm10_Fgfr1); (name: FGFR1, dcid: bio/galGal6_FGFR1); (name: ACHE, dcid: bio/galGal5_ACHE); (name: Apoe, dcid: bio/mm9_Apoe); (name: ache, dcid: bio/danRer10_ache); (name: APOE, dcid: bio/hg19_APOE); (name: Fgfr1, dcid: bio/mm9_Fgfr1); (name: ACHE, dcid: bio/hg19_ACHE); (name: FGFR1, dcid: bio/hg38_FGFR1); (name: ACHE, dcid: bio/galGal6_ACHE); (name: ACHE, dcid: bio/hg38_ACHE); (name: ache, dcid: bio/danRer11_ache); (name: Apoe, dcid: bio/mm10_Apoe); (name: Ache, dcid: bio/mm9_Ache); (name: FGFR1, dcid: bio/galGal5_FGFR1); (name: APOE, dcid: bio/APOE); (name: APOE, dcid: bio/hg38_APOE); (name: FGFR1, dcid: bio/hg19_FGFR1); (name: FGFR1, dcid: bio/FGFR1); (name: ACHE, dcid: bio/ACHE); (name: Ache, dcid: bio/mm10_Ache); ",
+  "entities_resolved": "(name: Genes, dcid: bio/D005796); (name: FGFR1, dcid: bio/FGFR1); (name: FGFR1, dcid: bio/galGal5_FGFR1); (name: FGFR1, dcid: bio/galGal6_FGFR1); (name: FGFR1, dcid: bio/hg19_FGFR1); (name: FGFR1, dcid: bio/hg38_FGFR1); (name: Fgfr1, dcid: bio/mm10_Fgfr1); (name: Fgfr1, dcid: bio/mm9_Fgfr1); (name: APOE, dcid: bio/APOE); (name: APOE, dcid: bio/hg19_APOE); (name: APOE, dcid: bio/hg38_APOE); (name: Apoe, dcid: bio/mm10_Apoe); (name: Apoe, dcid: bio/mm9_Apoe); (name: ACHE, dcid: bio/ACHE); (name: ache, dcid: bio/danRer10_ache); (name: ache, dcid: bio/danRer11_ache); (name: ACHE, dcid: bio/galGal5_ACHE); (name: ACHE, dcid: bio/galGal6_ACHE); (name: ACHE, dcid: bio/hg19_ACHE); (name: ACHE, dcid: bio/hg38_ACHE); (name: Ache, dcid: bio/mm10_Ache); (name: Ache, dcid: bio/mm9_Ache); ",
   "query_with_places_removed": "what types of are and",
   "sv_matching": {
     "CosineScore": [
