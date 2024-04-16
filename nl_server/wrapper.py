@@ -58,12 +58,11 @@ class EmbeddingsResult:
 
   def to_dict(self):
     return {
-      'SV': [m.var for m in self.matches],
-      'CosineScore': [m.score for m in self.matches],
-      'SV_to_Sentences': {
-        m.var: [s.to_str() for s in m.sentences]
-        for m in self.matches
-      }
+        'SV': [m.var for m in self.matches],
+        'CosineScore': [m.score for m in self.matches],
+        'SV_to_Sentences': {
+            m.var: [s.to_str() for s in m.sentences] for m in self.matches
+        }
     }
 
 
