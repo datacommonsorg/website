@@ -19,6 +19,7 @@ import os
 from flask import Flask, request, jsonify
 import numpy as np
 from sentence_transformers import SentenceTransformer
+from sentence_transformers.cross_encoder import CrossEncoder
 from angle_emb import AnglE, Prompts
 
 
@@ -27,6 +28,8 @@ class Model(str, Enum):
   MINILM = 'sentence-transformers/all-MiniLM-L6-v2'
   SFR_MISTRAL = 'Salesforce/SFR-Embedding-Mistral'
   UAE_LARGE = 'WhereIsAI/UAE-Large-V1'
+  # Unlike the above models, this is a reranking model.
+  RERANKING_MINILM = 'cross-encoder/ms-marco-MiniLM-L-6-v2'
 
 
 logging.getLogger('werkzeug').setLevel(logging.ERROR)
@@ -47,6 +50,8 @@ def create_model(model_name):
   elif model_name == Model.UAE_LARGE:
     model = AnglE.from_pretrained(model_name, pooling_strategy='cls')
     model.set_prompt(prompt=Prompts.C)
+  elif model_name == Model.RERANKING_MINILM:
+    model = CrossEncoder(model_name)
   else:
     raise ValueError(f'Invalid model name: {model_name}')
   logging.info('create model completed')
@@ -83,6 +88,10 @@ def predict():
     instances = [{'text': instance} for instance in instances]
     embeddings = embedding_model.encode(instances, to_numpy=True)
     return jsonify({'predictions': normalize(embeddings)}), 200
+  if model_name == Model.RERANKING_MINILM:
+    # In this case, instances should be a list of sentence pairs.
+    scores = embedding_model.predict(instances)
+    return jsonify({'predictions': scores}), 200
   logging.error('Invalid model name: %s', model_name)
   return {'predictions': []}, 200
 
