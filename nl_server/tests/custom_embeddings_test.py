@@ -21,9 +21,9 @@ import unittest
 from parameterized import parameterized
 
 from nl_server import config
-from nl_server import embeddings_store as store
+from nl_server import embeddings_map as emb_map
 from nl_server.config import EmbeddingsIndex
-from nl_server.embeddings import Embeddings
+from nl_server.wrapper import Embeddings
 from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
 from shared.lib.gcs import TEMP_DIR
 
@@ -51,9 +51,9 @@ def _test_query(test: unittest.TestCase, idx: Embeddings, query: str,
   trimmed_svs = []
   if idx:
     got = idx.search_vars([query])[query]
-    for i in range(len(got['SV'])):
-      if got['CosineScore'][i] >= SV_SCORE_DEFAULT_THRESHOLD:
-        trimmed_svs.append(got['SV'][i])
+    for m in got.matches:
+      if m.score >= SV_SCORE_DEFAULT_THRESHOLD:
+        trimmed_svs.append(m.var)
 
   if not expected:
     test.assertTrue(not trimmed_svs, trimmed_svs)
@@ -68,11 +68,11 @@ class TestEmbeddings(unittest.TestCase):
     cls.default_file = _copy(_DEFAULT_FILE)
     cls.custom_file = _copy(_CUSTOM_FILE)
 
-    cls.main = store.Store(
+    cls.main = emb_map.EmbeddingsMap(
         config.load({'medium_ft': cls.default_file},
                     {'tuned_model': _TUNED_MODEL}))
 
-    cls.custom = store.Store(
+    cls.custom = emb_map.EmbeddingsMap(
         config.load(
             {
                 'medium_ft': cls.default_file,
@@ -80,11 +80,11 @@ class TestEmbeddings(unittest.TestCase):
             }, {'tuned_model': _TUNED_MODEL}))
 
   def test_entries(self):
-    self.assertEqual(1, len(self.main.get('medium_ft').dcids))
+    self.assertEqual(1, len(self.main.get('medium_ft').store.dcids))
     self.assertTrue(not self.main.get('custom_ft'))
     # Custom DC should merge base + custom embeddings.
-    self.assertEqual(2, len(self.custom.get('medium_ft').dcids))
-    self.assertEqual(1, len(self.custom.get('custom_ft').dcids))
+    self.assertEqual(2, len(self.custom.get('medium_ft').store.dcids))
+    self.assertEqual(1, len(self.custom.get('custom_ft').store.dcids))
 
   #
   # MAIN DC content:
@@ -114,7 +114,7 @@ class TestEmbeddings(unittest.TestCase):
     _test_query(self, idx, query, expected)
 
   def test_merge_custom_embeddings(self):
-    embeddings = store.Store(
+    embeddings = emb_map.EmbeddingsMap(
         config.load({'medium_ft': self.default_file},
                     {'tuned_model': _TUNED_MODEL}))
 
