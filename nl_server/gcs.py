@@ -42,15 +42,9 @@ def download_folder_from_gcs(gcs_bucket: Any, local_dir: str,
   Args:
     gcs_bucket: The GCS bucket.
     local_dir: the local folder to download to.
-    model_folder_name: the GCS folder name for the model.
+    folder_name: the GCS folder name for the model.
   
-  Returns the path to the local directory where the model was downloaded to.
-  The downloaded model can then be loaded as:
-
-  ```
-      downloaded_model_path = download_folder_from_gcs(bucket, dir, gcs_model_folder_name)
-      model = SentenceTransformer(downloaded_model_path)
-  ```
+  Returns the path to the local directory where the folder was downloaded to.
   """
   # Get list of files
   blobs = gcs_bucket.list_blobs(prefix=folder_name)
