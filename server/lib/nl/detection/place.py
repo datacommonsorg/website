@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Dict, List, Set
 
 from server.lib.fetch import property_values
 from server.lib.nl.detection.types import Entity
@@ -35,7 +35,7 @@ class QueryPart:
   # The actual substring from the query for this part of the query.
   substr: str
   # The dcid this query part matched to. Empty if it didn't match to a dcid.
-  dcid: str = ''
+  dcids: List[str] = ''
 
 
 #
@@ -48,85 +48,48 @@ def detect_from_query_dc(orig_query: str,
   # Recognize Places uses comma as a signal for contained-in-place.
   query = utils.remove_punctuations(orig_query, include_comma=True)
 
-  query_items = dc.recognize_places(query)
-
-  mains = []
-  main2corrections = {}
-  # List of parts in the query
-  query_parts: List[QueryPart] = []
-
   debug_logs["place_dcid_inference"] = {}
   debug_logs["place_resolution"] = {}
   debug_logs["dc_recognize_places"] = {}
 
-  for item in query_items:
-    if 'span' not in item:
-      continue
-    if 'places' in item and item['places'] and 'dcid' in item['places'][0]:
-      # Use the first DCID for now.
-      main = item['places'][0]['dcid']
-      mains.append(main)
-      query_parts.append(QueryPart(substr=item['span'].lower(), dcid=main))
-
-      related = []
-      for rp in item['places'][1:MAX_IDENTICAL_NAME_PLACES + 1]:
-        if 'dcid' in rp:
-          related.append(rp['dcid'])
-      main2corrections[main] = related
-
-      # For logging, get all DCIDs:
-      debug_logs["dc_recognize_places"][item['span']] = [
-          d['dcid'] for d in item['places'] if 'dcid' in d
-      ]
-    else:
-      query_parts.append(QueryPart(substr=item['span'].lower()))
-
-  resolved_places = []
-  resolved_entities = []
-  parent_map = {}
-  if mains:
-    resolved_places, parent_map = get_place_from_dcids(
-        mains, debug_logs["place_resolution"])
-    if allow_triples:
-      resolved_entities = _get_non_place_entities(mains, resolved_places)
-  resolved_place_dcids = set([p.dcid for p in resolved_places])
-  resolved_entity_dcids = set([e.dcid for e in resolved_entities])
+  place_query_parts = _get_query_parts(query, debug_logs["dc_recognize_places"],
+                                       True)
+  # Use the first DCID for now.
+  place_main_dcids = [p.dcids[0] for p in place_query_parts if p.dcids]
+  resolved_places, parent_map = get_place_from_dcids(
+      place_main_dcids, debug_logs["place_resolution"])
 
   main_place = None
-  peers = []
   parent_places = []
   if resolved_places:
     main_place = resolved_places[0]
     parent_places = parent_map.get(main_place.dcid, [])
 
-  # Set PlaceDetection.
-  places_str = []
+  resolved_place_dcids = set([p.dcid for p in resolved_places])
+  places_str, stripped_query_str = _get_stripped_string(place_query_parts,
+                                                        resolved_place_dcids)
+
+  resolved_entities = []
   entities_str = []
-  stripped_query_parts = []
-  for p in query_parts:
-    retain_in_stripped_query = True
-    if p.dcid in resolved_entity_dcids:
-      # The query part is an entity dcid so add its original string to entities_str
-      entities_str.append(p.substr)
-      if len(resolved_entity_dcids) > _MAX_ENTITIES_QUERY:
-        # Remove the query part if there are more than _MAX_ENTITIES_QUERY
-        # number of non place entities resolved
-        retain_in_stripped_query = False
-    if p.dcid in resolved_place_dcids:
-      # The query part is a place dcid so add its original string to places_str
-      places_str.append(p.substr)
-      # Always remove the query part if it is a place
-      retain_in_stripped_query = False
-    if retain_in_stripped_query:
-      stripped_query_parts.append(p.substr)
-  query_without_place_substr = ' '.join(stripped_query_parts)
+  if allow_triples:
+    debug_logs["dc_recognize_entities"] = {}
+    entity_query_parts = _get_query_parts(stripped_query_str,
+                                          debug_logs["dc_recognize_entities"],
+                                          False)
+    resolved_entities = _get_resolved_entities(entity_query_parts)
+    resolved_entity_dcids = set([e.dcid for e in resolved_entities])
+    entities_str, stripped_entities_query_str = _get_stripped_string(
+        entity_query_parts, resolved_entity_dcids)
+    if not places_str or len(entities_str) > _MAX_ENTITIES_QUERY:
+      stripped_query_str = stripped_entities_query_str
+
   place_detection = PlaceDetection(
       query_original=query,
-      query_without_place_substr=query_without_place_substr,
+      query_without_place_substr=stripped_query_str,
       query_places_mentioned=places_str,
       places_found=resolved_places,
       main_place=main_place,
-      peer_places=peers,
+      peer_places=[],
       parent_places=parent_places,
       entities_found=resolved_entities,
       query_entities_mentioned=entities_str)
@@ -134,7 +97,7 @@ def detect_from_query_dc(orig_query: str,
   # This only makes sense for this flow.
   debug_logs["query_transformations"] = {
       "place_detection_input": query,
-      "place_detection_with_places_removed": query_without_place_substr,
+      "place_detection_with_places_removed": stripped_query_str,
   }
   return place_detection
 
@@ -206,6 +169,8 @@ def detect_from_names(place_names: List[str],
 # dcid to empty list, to be populated by this function.
 #
 def get_place_from_dcids(place_dcids: List[str], debug_logs: Dict) -> any:
+  if not place_dcids:
+    return [], {}
   parent_places = {p: [] for p in place_dcids}
   place_info_result = dc.get_place_info(place_dcids)
   dcid2place = {}
@@ -277,6 +242,66 @@ def _get_non_place_entities(all_entities: List[str],
       e_name = e_names[0] if len(e_names) > 0 else e
       entities.append(Entity(dcid=e, name=e_name, type=''))
   return entities
+
+
+#
+# Helper function to get a list of query parts for a query.
+#
+def _get_query_parts(query: str, debug_logs: Dict[str, any],
+                     for_place: bool) -> List[QueryPart]:
+  if for_place:
+    query_items = dc.recognize_places(query)
+    items_key = "places"
+  else:
+    query_items = dc.recognize_entities(query)
+    items_key = "entities"
+
+  query_parts = []
+  for item in query_items:
+    if 'span' not in item:
+      continue
+    if items_key in item and item[items_key] and 'dcid' in item[items_key][0]:
+      dcids = [d['dcid'] for d in item[items_key] if 'dcid' in d]
+      query_parts.append(QueryPart(substr=item['span'].lower(), dcids=dcids))
+
+      # log the dcids:
+      debug_logs[item['span']] = dcids
+    else:
+      query_parts.append(QueryPart(substr=item['span'].lower()))
+  return query_parts
+
+
+#
+# Helper function to get the list of strings that correspond to a resolved dcid
+# and the query string with all those strings stripped out
+#
+def _get_stripped_string(query_parts: List[QueryPart],
+                         resolved_dcids: Set[str]) -> tuple[List[str], str]:
+  resolved_dcids_str = []
+  stripped_query_parts = []
+  for p in query_parts:
+    if any([p_dcid in resolved_dcids for p_dcid in p.dcids]):
+      # if any of the dcids in the query part is resolved, consider the query part
+      # resolved and add the original string to resolved_things_str
+      resolved_dcids_str.append(p.substr)
+    else:
+      stripped_query_parts.append(p.substr)
+  stripped_query_str = ' '.join(stripped_query_parts)
+  return resolved_dcids_str, stripped_query_str
+
+
+#
+# Gets the resolved entities from a list of query parts with non place entities
+# recognized.
+#
+def _get_resolved_entities(query_parts: List[QueryPart]) -> List[Entity]:
+  entity_dcids = set()
+  for e in query_parts:
+    if not e.dcids:
+      continue
+    entity_dcids.update(e.dcids)
+
+  return _get_non_place_entities(list(entity_dcids), [])
 
 
 def _set_query_detection_debug_logs(d: PlaceDetection,

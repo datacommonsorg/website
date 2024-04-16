@@ -18,10 +18,13 @@
                       ]
                     },
                     "entities": [
+                      "bio/D005796",
+                      "bio/rs7903146",
+                      "bio/dm6_with",
                       "bio/rs13317",
-                      "bio/rs7903146"
+                      "bio/dm3_with"
                     ],
-                    "title": "The associated genes for rs13317 and rs7903146 are",
+                    "title": "The associated genes for Genes, rs7903146 and 3 more other are",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -36,13 +39,28 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/rs13317",
-      "name": "rs13317",
+      "dcid": "bio/D005796",
+      "name": "Genes",
       "type": ""
     },
     {
       "dcid": "bio/rs7903146",
       "name": "rs7903146",
+      "type": ""
+    },
+    {
+      "dcid": "bio/dm6_with",
+      "name": "with",
+      "type": ""
+    },
+    {
+      "dcid": "bio/rs13317",
+      "name": "rs13317",
+      "type": ""
+    },
+    {
+      "dcid": "bio/dm3_with",
+      "name": "with",
       "type": ""
     }
   ],
@@ -61,6 +79,8 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "UNKNOWN",
-  "userMessages": []
+  "svSource": "CURRENT_QUERY",
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
 }
