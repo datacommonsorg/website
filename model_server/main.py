@@ -28,8 +28,9 @@ class Model(str, Enum):
   MINILM = 'sentence-transformers/all-MiniLM-L6-v2'
   SFR_MISTRAL = 'Salesforce/SFR-Embedding-Mistral'
   UAE_LARGE = 'WhereIsAI/UAE-Large-V1'
-  # Unlike the above models, this is a reranking model.
+  # Unlike the above models, the below are reranking models.
   RERANKING_MINILM = 'cross-encoder/ms-marco-MiniLM-L-6-v2'
+  RERANKING_MXBAIBASE = 'mixedbread-ai/mxbai-rerank-base-v1'
 
 
 logging.getLogger('werkzeug').setLevel(logging.ERROR)
@@ -39,7 +40,7 @@ model_name = os.environ['MODEL_NAME']
 
 
 def create_model(model_name):
-  logging.info('create model: %s', model_name)
+  print('create model:', model_name)
   if model_name == Model.FT_PROD:
     model = SentenceTransformer(
         '/app/ft_final_v20230717230459.all-MiniLM-L6-v2')
@@ -50,11 +51,11 @@ def create_model(model_name):
   elif model_name == Model.UAE_LARGE:
     model = AnglE.from_pretrained(model_name, pooling_strategy='cls')
     model.set_prompt(prompt=Prompts.C)
-  elif model_name == Model.RERANKING_MINILM:
+  elif model_name in [Model.RERANKING_MINILM, Model.RERANKING_MXBAIBASE]:
     model = CrossEncoder(model_name)
   else:
     raise ValueError(f'Invalid model name: {model_name}')
-  logging.info('create model completed')
+  print('create model completed')
   return model
 
 
@@ -88,10 +89,11 @@ def predict():
     instances = [{'text': instance} for instance in instances]
     embeddings = embedding_model.encode(instances, to_numpy=True)
     return jsonify({'predictions': normalize(embeddings)}), 200
-  if model_name == Model.RERANKING_MINILM:
-    # In this case, instances should be a list of sentence pairs.
+  if model_name in [Model.RERANKING_MINILM, Model.RERANKING_MXBAIBASE]:
+    # Expects a list of string pairs: List[tuple[str, str]]
     scores = embedding_model.predict(instances)
-    return jsonify({'predictions': scores}), 200
+    # Turn ndarray into a list of floats.
+    return jsonify({'predictions': scores.tolist()}), 200
   logging.error('Invalid model name: %s', model_name)
   return {'predictions': []}, 200
 
