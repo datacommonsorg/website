@@ -634,6 +634,11 @@ class ExploreTest(NLWebServerTestCase):
             # Should return a table in the answer
             'What genes are associated with the genetic variant rs13317 and rs7903146?',
             # Should return a table with all the out arcs of the two entities
-            'what virus species are rs13317 and rs7903146'
+            'what virus species are rs13317 and rs7903146',
+            # When there is entity and place, should not default to the entity
+            # overview tile
+            'What is the prevalence of heart disease in California',
+            # When there is only an entity, should return an entity overview tile
+            'tell me about heart disease'
         ],
         dc='bio')
