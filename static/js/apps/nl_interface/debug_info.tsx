@@ -56,7 +56,6 @@ const svToSentences = (
                   <td>
                     <ul>
                       {svSentences[sv].map((sentence) => {
-                        console.log(sentence);
                         return (
                           <li key={sentence.score + sentence.sentence}>
                             {sentence.sentence} ({sentence.score.toFixed(4)}
