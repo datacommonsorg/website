@@ -20,6 +20,8 @@ from typing import Dict, List
 
 import torch
 
+from shared.lib.detected_variables import SentenceScore
+
 _TOPIC_PREFIX = 'dc/topic/'
 
 # Number of matches to find within the SV index.
@@ -28,15 +30,6 @@ _NUM_SV_INDEX_MATCHES = 40
 # Reason: Since we're going to drop a few candidates at the top,
 # try to retrieve more from vector DB.
 _NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS = 60
-
-
-@dataclass
-class SentenceScore:
-  sentence: str
-  score: float
-
-  def to_str(self) -> str:
-    return f'{self.sentence} ({round(self.score, 4)})'
 
 
 # A single match from Embeddings result.
@@ -61,7 +54,7 @@ class EmbeddingsResult:
         'SV': [m.var for m in self.matches],
         'CosineScore': [m.score for m in self.matches],
         'SV_to_Sentences': {
-            m.var: [s.to_str() for s in m.sentences] for m in self.matches
+            m.var: [s.to_dict() for s in m.sentences] for m in self.matches
         }
     }
 
