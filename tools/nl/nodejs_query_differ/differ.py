@@ -20,6 +20,7 @@ from absl import flags
 from deepdiff import DeepDiff
 from google.cloud import storage
 
+_GCS_URL = 'https://console.cloud.google.com/storage/browser'
 _GCS_BUCKET = 'datcom-website-periodic-testing'
 _OUTPUT_FILE = 'differ_results.json'
 _GOLDEN_FOLDER = 'golden'
@@ -87,7 +88,8 @@ def get_diff(golden_blobs, test_blobs):
       results[key] = "Missing in test folder"
       continue
     test_json = test_jsons[key]
-    del test_json['debug']
+    if 'debug' in test_json:
+      del test_json['debug']
     diff = DeepDiff(golden_json, test_json)
     if diff:
       results[key] = json.dumps(diff.to_json())
@@ -102,13 +104,13 @@ def output_results(results, gcs_bucket) -> str:
     gcs_filename = f'{FLAGS.gcs_output_folder}/{_OUTPUT_FILE}'
     blob = gcs_bucket.blob(gcs_filename)
     with blob.open('w') as f:
-      f.write(json.dumps(results))
-    results_path = f'gs://{_GCS_BUCKET}/{gcs_filename}'
+      f.write(json.dumps(results, indent=2))
+    results_path = f'{_GCS_URL}/{_GCS_BUCKET}/{gcs_filename}'
     logging.info(f'Diff results saved to gcs path: {results_path}')
     return results_path
   else:
     with open(_OUTPUT_FILE, 'w') as f:
-      f.write(json.dumps(results))
+      f.write(json.dumps(results, indent=2))
     logging.info(f'Diff results saved locally to: {_OUTPUT_FILE}')
     return _OUTPUT_FILE
 
@@ -122,8 +124,8 @@ def output_failure_email(results, golden_folder, test_folder, results_path):
   if not has_diff:
     logging.info('No diffs found in the result. Skipping failure email.')
     return
-  goldens_path = f'gs://{_GCS_BUCKET}/{golden_folder}'
-  test_path = f'gs://{_GCS_BUCKET}/{test_folder}'
+  goldens_path = f'{_GCS_URL}/{_GCS_BUCKET}/{golden_folder}'
+  test_path = f'{_GCS_URL}/{_GCS_BUCKET}/{test_folder}'
   email_template = {}
   email_template[_EMAIL_SUBJECT_KEY] = _EMAIL_SUBJECT_TEMPLATE.format(
       env=FLAGS.env)
