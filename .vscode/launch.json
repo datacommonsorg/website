@@ -23,7 +23,8 @@
         "ENV_PREFIX": "DC",
         "FLASK_DEBUG": "1",
         "ENABLE_MODEL": "true",
-        "GOOGLE_CLOUD_PROJECT": "datcom-website-dev"
+        "GOOGLE_CLOUD_PROJECT": "datcom-website-dev",
+        "ENABLE_EVAL_TOOL": "true",
       },
       "args": ["8080", "--no-debugger"],
       "cwd": "${workspaceRoot}",

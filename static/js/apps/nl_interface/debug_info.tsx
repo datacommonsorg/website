@@ -59,7 +59,11 @@ const svToSentences = (
                         console.log(sentence);
                         return (
                           <li key={sentence.score + sentence.sentence}>
-                            {sentence.sentence} ({sentence.score})
+                            {sentence.sentence} ({sentence.score.toFixed(4)}
+                            {sentence.rerank_score
+                              ? " - " + sentence.rerank_score.toFixed(4)
+                              : ""}
+                            )
                           </li>
                         );
                       })}
