@@ -21,7 +21,7 @@ from flask import Blueprint
 from flask import current_app
 from flask import render_template
 
-bp = Blueprint('biomedical', __name__, url_prefix='/bio')
+bp = Blueprint('biomedical', __name__)
 
 _PAGE_CONFIG_FILE = "config/biomedical_landing_page/display_items.json"
 
@@ -35,8 +35,5 @@ def get_page_config() -> dict:
 
 @bp.route('/')
 def main():
-  if os.environ.get('FLASK_ENV') not in ['autopush', 'dev', 'local']:
-    flask.abort(404)
-
   config_data = get_page_config()
   return render_template('/biomedical/landing.html', config_data=config_data)
