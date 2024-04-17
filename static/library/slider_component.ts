@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
+import { DataCommonsWebClient } from "@datacommonsorg/client";
 import { ChartEventDetail } from "@datacommonsorg/web-components";
 import { css, CSSResult, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 
-import { DataCommonsWebClient } from "@datacommonsorg/client";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../js/shared/constants";
 import { convertArrayAttribute, getApiRoot } from "./utils";
 

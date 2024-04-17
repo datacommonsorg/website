@@ -19,19 +19,19 @@
  */
 
 import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
+import { DataRow, dataRowsToCsv } from "@datacommonsorg/client";
+import { ChartEventDetail } from "@datacommonsorg/web-components";
 import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { DataRow, dataRowsToCsv } from "@datacommonsorg/client";
-import { ChartEventDetail } from "@datacommonsorg/web-components";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
-  MapZoomParams,
   drawD3Map,
   getProjection,
   getProjectionGeoJson,
+  MapZoomParams,
 } from "../../chart/draw_d3_map";
 import { drawLegendSvg, getTooltipHtmlFn } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
@@ -51,9 +51,9 @@ import {
   removeSpinner,
 } from "../../shared/util";
 import {
-  MANUAL_GEOJSON_DISTANCES,
   getGeoJsonDataFeatures,
   getPlaceChartData,
+  MANUAL_GEOJSON_DISTANCES,
   shouldShowBorder,
 } from "../../tools/map/util";
 import {
@@ -69,11 +69,11 @@ import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { datacommonsClient } from "../../utils/datacommons_client";
 import { getDateRange } from "../../utils/string_utils";
 import {
-  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
+  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";

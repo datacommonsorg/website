@@ -20,8 +20,8 @@
 
 import _ from "lodash";
 import React, { useRef } from "react";
-
 import { Spinner } from "reactstrap";
+
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
