@@ -22,7 +22,7 @@ from flask import render_template
 
 import server.lib.shared as shared_api
 
-bp = Blueprint('disease', __name__, url_prefix='/bio/disease')
+bp = Blueprint('disease', __name__, url_prefix='/disease')
 
 
 @bp.route('/')
