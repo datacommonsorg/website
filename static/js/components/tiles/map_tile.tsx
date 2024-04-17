@@ -24,13 +24,14 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { DataRow, dataRowsToCsv } from "@datacommonsorg/client";
 import { ChartEventDetail } from "@datacommonsorg/web-components";
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
+  MapZoomParams,
   drawD3Map,
   getProjection,
   getProjectionGeoJson,
-  MapZoomParams,
 } from "../../chart/draw_d3_map";
 import { drawLegendSvg, getTooltipHtmlFn } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
@@ -50,9 +51,9 @@ import {
   removeSpinner,
 } from "../../shared/util";
 import {
+  MANUAL_GEOJSON_DISTANCES,
   getGeoJsonDataFeatures,
   getPlaceChartData,
-  MANUAL_GEOJSON_DISTANCES,
   shouldShowBorder,
 } from "../../tools/map/util";
 import {
@@ -68,11 +69,11 @@ import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { datacommonsClient } from "../../utils/datacommons_client";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
@@ -190,6 +191,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
     null
   );
+  const [isLoading, setIsLoading] = useState(false);
   const [svgHeight, setSvgHeight] = useState(null);
   const [dateOverride, setDateOverride] = useState(null);
   const zoomParams = props.allowZoom
@@ -209,9 +211,14 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     ) {
       loadSpinner(props.id);
       (async () => {
-        const data = await fetchData(props, dateOverride);
-        if (data && props && _.isEqual(data.props, props)) {
-          setMapChartData(data);
+        setIsLoading(true);
+        try {
+          const data = await fetchData(props, dateOverride);
+          if (data && props && _.isEqual(data.props, props)) {
+            setMapChartData(data);
+          }
+        } finally {
+          setIsLoading(false);
         }
       })();
     } else if (!!mapChartData && _.isEqual(mapChartData.props, props)) {
@@ -268,7 +275,6 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         (e: CustomEvent<ChartEventDetail>) => {
           if (e.detail.property === "date") {
             setDateOverride(e.detail.value);
-            // this.date = e.detail.value;
           }
         }
       );
@@ -278,6 +284,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   return (
     <ChartTileContainer
       id={props.id}
+      isLoading={isLoading}
       title={props.title}
       subtitle={props.subtitle}
       sources={props.sources || (mapChartData && mapChartData.sources)}
@@ -286,26 +293,34 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       }
       className={`${props.className} map-chart`}
       allowEmbed={true}
-      getDataCsv={() => {
-        const date = getCappedStatVarDate(
-          props.statVarSpec.statVar,
-          props.statVarSpec.date
-        );
-        const entityProps = props.placeNameProp
-          ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
-          : undefined;
-        return datacommonsClient.getCsv({
-          childType: props.enclosedPlaceType,
-          date,
-          entityProps,
-          fieldDelimiter: CSV_FIELD_DELIMITER,
-          parentEntity: props.place.dcid,
-          perCapitaVariables: props.statVarSpec.denom
-            ? [props.statVarSpec.statVar]
-            : undefined,
-          transformHeader: transformCsvHeader,
-          variables: [props.statVarSpec.statVar],
-        });
+      getDataCsv={async () => {
+        const layers = getDataSpec(props);
+        const rows: DataRow[] = [];
+        for (const layer of layers) {
+          const parentEntity = layer.parentPlace;
+          const childType = layer.enclosedPlaceType;
+          const date = getCappedStatVarDate(
+            props.statVarSpec.statVar,
+            dateOverride || props.statVarSpec.date
+          );
+          const entityProps = props.placeNameProp
+            ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
+            : undefined;
+
+          rows.push(
+            ...(await datacommonsClient.getDataRows({
+              childType,
+              date,
+              entityProps,
+              parentEntity,
+              perCapitaVariables: props.statVarSpec.denom
+                ? [props.statVarSpec.statVar]
+                : undefined,
+              variables: [layer.variable.statVar],
+            }))
+          );
+        }
+        return dataRowsToCsv(rows, CSV_FIELD_DELIMITER, transformCsvHeader);
       }}
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
@@ -419,7 +434,7 @@ export const fetchData = async (
       .then((resp) => resp.data);
     const dataDate = getCappedStatVarDate(
       layer.variable.statVar,
-      layer.variable.date
+      dateOverride || layer.variable.date
     );
     const facetIds = layer.variable.facetId ? [layer.variable.facetId] : null;
     const placeStatPromise: Promise<PointApiResponse> = getPointWithin(

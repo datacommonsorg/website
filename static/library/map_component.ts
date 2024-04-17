@@ -170,21 +170,6 @@ export class DatacommonsMapComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
-  /*
-  firstUpdated(): void {
-    if (this.subscribe) {
-      this.parentElement.addEventListener(
-        this.subscribe,
-        (e: CustomEvent<ChartEventDetail>) => {
-          if (e.detail.property === "date") {
-            this.date = e.detail.value;
-          }
-        }
-      );
-    }
-  }
-  */
-
   render(): HTMLElement {
     let dataSpecs: ContainedInPlaceSingleVariableDataSpec[] = [];
     if (!_.isEmpty(this.parentPlaces) && !_.isEmpty(this.childPlaceTypes)) {
