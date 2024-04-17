@@ -321,6 +321,7 @@ def _get_resolved_entities(query_parts: List[QueryPart]) -> List[Entity]:
     new_dcids = [d for d in e.dcids if not d in seen_dcids]
     seen_dcids.update(new_dcids)
     # sort the dcids so that the list is deterministic
+    # TODO: sort on something better like more common types or other criteria
     entity_dcids.extend(sorted(new_dcids))
   return _get_non_place_entities(entity_dcids)
 
