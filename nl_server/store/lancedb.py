@@ -19,7 +19,7 @@ import lancedb
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import EmbeddingsStore
-from nl_server.embeddings import SentenceScore
+from shared.lib.detected_variables import SentenceScore
 
 TABLE_NAME = 'datacommons'
 
