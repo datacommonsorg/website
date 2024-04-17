@@ -9,28 +9,22 @@
               {
                 "tiles": [
                   {
-                    "answerMessageTileSpec": {
-                      "propertyExpr": "->typeOfGene"
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "->typeOfGene",
+                          "propertyExpr": "->typeOfGene"
+                        }
+                      ]
                     },
                     "entities": [
-                      "bio/hg38_FGFR1"
+                      "bio/dm3_Is",
+                      "bio/dm6_Is",
+                      "bio/mm10_It",
+                      "bio/mm9_It"
                     ],
-                    "title": "The typeOfGene for FGFR1 is:",
-                    "type": "ANSWER_MESSAGE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "entities": [
-                      "bio/hg38_FGFR1"
-                    ],
-                    "type": "ENTITY_OVERVIEW"
+                    "title": "The typeOfGene for Is, Is and 2 more other are as follows:",
+                    "type": "ANSWER_TABLE"
                   }
                 ]
               }
@@ -44,8 +38,23 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/hg38_FGFR1",
-      "name": "FGFR1",
+      "dcid": "bio/dm3_Is",
+      "name": "Is",
+      "type": ""
+    },
+    {
+      "dcid": "bio/dm6_Is",
+      "name": "Is",
+      "type": ""
+    },
+    {
+      "dcid": "bio/mm10_It",
+      "name": "It",
+      "type": ""
+    },
+    {
+      "dcid": "bio/mm9_It",
+      "name": "It",
       "type": ""
     }
   ],

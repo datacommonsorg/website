@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
+from enum import Enum
 import logging
 import os
 from typing import Dict, List
@@ -34,97 +35,90 @@ NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
 NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
 
 
+class StoreType(str, Enum):
+  MEMORY = 'MEMORY'
+  LANCEDB = 'LANCEDB'
+
+
 # Defines one embeddings index config.
 @dataclass
 class EmbeddingsIndex:
   # Name provided in the yaml file, and set in `idx=` URL param.
   name: str
 
+  # Values are: MEMORY, LANCEDB
+  store_type: StoreType
+
   # File name provided in the yaml file.
-  embeddings_file_name: str
+  embeddings_path: str
   # Local path.
   embeddings_local_path: str
 
-  # Fine-tuned model name ("" if embeddings uses base model).
-  tuned_model: str = ""
-  # Fine-tuned model local path.
-  tuned_model_local_path: str = ""
+  # Model name.
+  model_name: str = ""
+  # Model local path.
+  model_local_path: str = ""
 
 
 #
 # Validates the config input, downloads all the files and returns a list of Indexes to load.
+# The input `embeddings_map` is the dict representation of `embeddings.yaml`:
+#   index-type => field (e.g., model) => value
 #
-def load(embeddings_map: Dict[str, str],
-         models_map: Dict[str, str]) -> List[EmbeddingsIndex]:
+def load(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
   # Create Index objects.
   indexes = parse(embeddings_map)
-
-  # This is just a sanity, we can soon deprecate models.yaml
-  tuned_models_provided = list(set(models_map.values()))
-  tuned_models_configured = list(
-      set([i.tuned_model for i in indexes if i.tuned_model]))
-  assert sorted(tuned_models_configured) == sorted(tuned_models_provided), \
-    f'{tuned_models_configured} vs. {tuned_models_provided}'
 
   #
   # Download all the models.
   #
-  model2path = {d: gcs.download_model_folder(d) for d in tuned_models_configured}
+  models_set = set([i.model_name for i in indexes if i.model_name])
+  model2path = {d: gcs.download_folder(d) for d in models_set}
   for idx in indexes:
-    if idx.tuned_model:
-      idx.tuned_model_local_path = model2path[idx.tuned_model]
-
-  #
-  # Download all the embeddings.
-  #
-  for idx in indexes:
-    if not idx.embeddings_local_path:
-      idx.embeddings_local_path = gcs.download_embeddings(
-          idx.embeddings_file_name)
+    if idx.model_name:
+      idx.model_local_path = model2path[idx.model_name]
 
   return indexes
 
 
-def parse(embeddings_map: Dict[str, str]) -> List[EmbeddingsIndex]:
+#
+# Parse the input `embeddings.yaml` dict representation, with structure:
+#   index-type => field (e.g., model) => value
+#
+def parse(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
   indexes: List[EmbeddingsIndex] = []
 
-  for key, value in embeddings_map.items():
+  for key, value_map in embeddings_map.items():
+    # Let this fail if the enum isn't valid.
+    store_type = StoreType(value_map['store'])
+    path = value_map['embeddings']
+    model_name = value_map['model']
 
-    if value.startswith('/'):
+    if path.startswith('/'):
       # Value is an absolute path
-      file_name = os.path.basename(value)
-      local_path = value
-    elif is_gcs_path(value):
-      logging.info('Downloading embeddings from GCS path: %s', value)
-      local_path = download_gcs_file(value)
+      file_name = os.path.basename(path)
+      local_path = path
+    elif is_gcs_path(path):
+      logging.info('Downloading embeddings from GCS path: %s', path)
+      if store_type == StoreType.MEMORY:
+        local_path = download_gcs_file(path)
+      elif store_type == StoreType.LANCEDB:
+        local_path = gcs.download_folder(path)
       if not local_path:
         logging.warning(
             'Embeddings not downloaded from GCS and will be ignored. Please check the path: %s',
-            value)
+            path)
         continue
-      file_name = value
+      file_name = path
     else:
-      file_name = value
-      local_path = ''
+      raise AssertionError(
+          f'"embeddings" path must start with `/` or `gs://`: {path}')
 
     idx = EmbeddingsIndex(name=key,
-                          embeddings_file_name=file_name,
-                          embeddings_local_path=local_path)
-
-    parts = value.split('.')
-    assert parts[
-        -1] == 'csv', f'Embeddings file {value} name does not end with .csv!'
-
-    if len(parts) == 4:
-      # Expect: <embeddings_version>.<fine-tuned-model-version>.<base-model>.csv
-      # Example: embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
-      assert parts[
-          2] == EMBEDDINGS_BASE_MODEL_NAME, f'Unexpected base model {parts[3]}'
-      idx.tuned_model = f'{parts[1]}.{parts[2]}'
-    else:
-      # Expect: <embeddings_version>.csv
-      # Example: embeddings_small_2023_05_24_23_17_03.csv
-      assert len(parts) == 2, f'Unexpected file name format {value}'
+                          store_type=store_type,
+                          embeddings_path=file_name,
+                          embeddings_local_path=local_path,
+                          model_name=model_name)
     indexes.append(idx)
 
   return indexes
