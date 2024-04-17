@@ -20,7 +20,6 @@ from flask import Flask, request, jsonify
 import numpy as np
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.cross_encoder import CrossEncoder
-from angle_emb import AnglE, Prompts
 
 
 class Model(str, Enum):
@@ -49,6 +48,8 @@ def create_model(model_name):
   elif model_name == Model.SFR_MISTRAL:
     model = SentenceTransformer(model_name)
   elif model_name == Model.UAE_LARGE:
+    # Since these GPU-specific imports are needed only for UAE_LARGE
+    from angle_emb import AnglE, Prompts
     model = AnglE.from_pretrained(model_name, pooling_strategy='cls')
     model.set_prompt(prompt=Prompts.C)
   elif model_name in [Model.RERANKING_MINILM, Model.RERANKING_MXBAIBASE]:
