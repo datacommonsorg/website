@@ -1,11 +1,12 @@
+import json
+import os
+import re
+
 from absl import app
 from absl import flags
 from google.cloud import storage
 import pandas as pd
-import os
 import spacy
-import json
-import re
 
 _INPUT_FOLDER = 'input_files/'
 _OUTPUT_FOLDER = 'output_files/'
@@ -15,11 +16,11 @@ _MAX_SPACY_CHARS = 1000000
 
 FLAGS = flags.FLAGS
 
-
-flags.DEFINE_string('input_gcs_bucket',
-                    '',
-                    'GCS bucket to download input files from. Will not download from gcs if this is not set.',
-                    short_name='g')
+flags.DEFINE_string(
+    'input_gcs_bucket',
+    '',
+    'GCS bucket to download input files from. Will not download from gcs if this is not set.',
+    short_name='g')
 
 
 # Downloads files from a gcs bucket to input folder
@@ -43,7 +44,7 @@ def _generate_flagged_names(flagged_tokens, name2tokens, name2types):
       continue
     flagged_names[n] = name2types.get(n, '')
   return flagged_names
-  
+
 
 # Gets a map of name of entity to type of entity
 def _get_name_to_type(file_df):
@@ -89,25 +90,27 @@ def _get_results_for_names(nlp, names, name_to_type):
   running_curr_name = names[curr_name_idx]
   flagged_tokens = {}
   for token in doc:
-      # If running_curr_name is empty, we've finished getting the tokens for
-      # this name, so move on to the next name
-      if not running_curr_name and curr_name_idx < len(names) - 1:
-        curr_name_idx += 1
-        running_curr_name = names[curr_name_idx]
-      # If running_curr_name starts with the token text, that means this token
-      # applies to this name. Add the token to name_to_tokens and update
-      # running_curr_name
-      if running_curr_name.startswith(token.text):
-        curr_name = names[curr_name_idx]
-        if not curr_name in name_to_tokens:
-          name_to_tokens[curr_name] = []
-        name_to_tokens[curr_name].append(token.text)
-        running_curr_name = running_curr_name[len(token.text):].strip()
-      # Add token to flagged tokens if it is not in _POS_GOOD and it is not a
-      # combination of letters and numbers.
-      if token.pos_ not in _POS_GOOD and re.match(_LETTER_NUMBER_REGEX, token.text) is None:
-        flagged_tokens[token.text] = token.pos_
-  flagged_names = _generate_flagged_names(flagged_tokens, name_to_tokens, name_to_type)
+    # If running_curr_name is empty, we've finished getting the tokens for
+    # this name, so move on to the next name
+    if not running_curr_name and curr_name_idx < len(names) - 1:
+      curr_name_idx += 1
+      running_curr_name = names[curr_name_idx]
+    # If running_curr_name starts with the token text, that means this token
+    # applies to this name. Add the token to name_to_tokens and update
+    # running_curr_name
+    if running_curr_name.startswith(token.text):
+      curr_name = names[curr_name_idx]
+      if not curr_name in name_to_tokens:
+        name_to_tokens[curr_name] = []
+      name_to_tokens[curr_name].append(token.text)
+      running_curr_name = running_curr_name[len(token.text):].strip()
+    # Add token to flagged tokens if it is not in _POS_GOOD and it is not a
+    # combination of letters and numbers.
+    if token.pos_ not in _POS_GOOD and re.match(_LETTER_NUMBER_REGEX,
+                                                token.text) is None:
+      flagged_tokens[token.text] = token.pos_
+  flagged_names = _generate_flagged_names(flagged_tokens, name_to_tokens,
+                                          name_to_type)
   return flagged_tokens, flagged_names
 
 
@@ -126,7 +129,8 @@ def generate_result_for_file(filename):
   flagged_tokens = {}
   flagged_names = {}
   for _, name_chunk in enumerate(chunked_names):
-    chunk_flagged_tokens, chunk_flagged_names = _get_results_for_names(nlp, name_chunk, name_to_type)
+    chunk_flagged_tokens, chunk_flagged_names = _get_results_for_names(
+        nlp, name_chunk, name_to_type)
     flagged_names.update(chunk_flagged_names)
     flagged_tokens.update(chunk_flagged_tokens)
 
@@ -138,13 +142,13 @@ def generate_result_for_file(filename):
   print(f'done processing: {filepath}')
 
 
-
 def main(_):
   if FLAGS.input_gcs_bucket:
     get_files_from_gcs(FLAGS.input_gcs_bucket)
   for file in os.listdir(_INPUT_FOLDER):
     filename = os.path.splitext(file)[0]
     generate_result_for_file(filename)
+
 
 if __name__ == '__main__':
   app.run(main)
