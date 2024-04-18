@@ -97,14 +97,23 @@ def _get_results_for_names(nlp, names, name_to_type):
       running_curr_name = names[curr_name_idx]
     # If running_curr_name starts with the token text, that means this token
     # applies to this name. Add the token to name_to_tokens and update
-    # running_curr_name
+    # running_curr_name. We need a running_curr_name because spacy will tokenize
+    # a single name into multiple tokens and we need to match the name back to
+    # its tokens.
+    # e.g., if we have the names "brilliant blue" and "me" and we pass the nlp
+    # "brilliant blue me", we will get back the results for the tokens
+    # "brilliant", "blue", and "me". The first running_curr_name will be
+    # "brilliant blue" & after processing the first token, running_curr_name
+    # will be "blue", and then it will be "" to signify we've processed all the
+    # tokens for "brilliant blue", and can move on to the next name.
     if running_curr_name.startswith(token.text):
       curr_name = names[curr_name_idx]
       if not curr_name in name_to_tokens:
         name_to_tokens[curr_name] = []
       name_to_tokens[curr_name].append(token.text)
       running_curr_name = running_curr_name[len(token.text):].strip()
-    # Add token to flagged tokens if it is not in _POS_GOOD and it is not a
+    # Add token to flagged tokens if it is not in _POS_GOOD (_POS_GOOD are part
+    # of sentence tags that are likely to not be a common word) and it is not a
     # combination of letters and numbers.
     if token.pos_ not in _POS_GOOD and re.match(_LETTER_NUMBER_REGEX,
                                                 token.text) is None:
