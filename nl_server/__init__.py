@@ -48,11 +48,11 @@ def create_app():
   try:
     loader.load_server_state(app)
   except Exception as e:
-    msg = '\n\n!!!!! IMPORTANT NOTE !!!!!!\n' \
+    msg = '\n!!!!! IMPORTANT NOTE !!!!!!\n' \
           'If you are running locally, try clearing caches and models:\n' \
           '* `rm -rf ~/.datacommons`\n' \
           '* `rm -rf /tmp/datcom-nl-models /tmp/datcom-nl-models-dev`\n'
-    logging.error(msg)
+    print('\033[91m{}\033[0m'.format(msg))
     raise
 
   return app
