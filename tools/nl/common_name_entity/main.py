@@ -80,7 +80,7 @@ def _get_chunked_names(names):
 def _get_results_for_names(nlp, names, name_to_type):
   if not names:
     return {}, {}
-  
+
   # Get the part of sentence of each name from spacy
   name_str = ' '.join(names)
   doc = nlp(name_str)
@@ -126,11 +126,11 @@ def _get_results_for_names(nlp, names, name_to_type):
     if token.pos_ not in _POS_GOOD and re.match(_LETTER_NUMBER_REGEX,
                                                 token.text) is None:
       flagged_tokens[token.text] = token.pos_
-  
+
   # Get flagged names
   flagged_names = _generate_flagged_names(flagged_tokens, name_to_tokens,
                                           name_to_type)
-  
+
   return flagged_tokens, flagged_names
 
 
