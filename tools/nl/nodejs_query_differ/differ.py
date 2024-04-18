@@ -13,14 +13,22 @@
 # limitations under the License.
 
 import json
+import logging
 
 from absl import app
 from absl import flags
 from deepdiff import DeepDiff
 from google.cloud import storage
 
+_GCS_URL = 'https://console.cloud.google.com/storage/browser'
 _GCS_BUCKET = 'datcom-website-periodic-testing'
 _OUTPUT_FILE = 'differ_results.json'
+_GOLDEN_FOLDER = 'golden'
+_DIFF_SUCCESS_MSG = 'Success'
+_EMAIL_SUBJECT_KEY = 'subject'
+_EMAIL_SUBJECT_TEMPLATE = '[{env}] Failure: Nodejs Query Test'
+_EMAIL_MESSAGE_KEY = 'message'
+_EMAIL_MESSAGE_TEMPLATE = 'There were diffs found when testing Nodejs Query results against goldens in {env}.<br><br><b>Goldens folder</b>: {goldens_path}<br><b>Nodejs Query Results</b>: {test_path}<br><b>Diff results</b>: {results_path}'
 
 FLAGS = flags.FLAGS
 
@@ -30,82 +38,121 @@ flags.DEFINE_string(
 )
 
 flags.DEFINE_string(
-    'base_folder', '',
-    'The folder holding the base responses to test against. Defaults to second last folder in gs://datcom-website-periodic-testing/<FLAGS.env>'
-)
-
-flags.DEFINE_string(
     'test_folder', '',
     'The folder holding the responses to test. Defaults to last folder in gs://datcom-website-periodic-testing/<FLAGS.env>'
 )
 
+flags.DEFINE_string(
+    'gcs_output_folder', '',
+    'The gcs folder in the bucket gs://datcom-website-periodic-testing to output results to. Will save results locally if this is empty.'
+)
 
-def _get_folder_names(bucket):
-  """Gets a tuple of (base folder name, test folder name)"""
-  base_folder = FLAGS.base_folder
+flags.DEFINE_string(
+    'failure_email_file', '',
+    'Name of the file to output an email template to if there were diffs found. If not set, will not output an email template.'
+)
+
+
+def get_test_folder(bucket):
+  """Gets the test folder name"""
   test_folder = FLAGS.test_folder
-  if not base_folder or not test_folder:
+  if not test_folder:
     blobs = bucket.list_blobs(prefix=FLAGS.env)
     # Get all the dates where there have been cron testing runs done
     dates = set()
     for b in blobs:
       date = b.name[len(FLAGS.env) + 1:].split('/')[0]
-      dates.add(date)
+      if date != _GOLDEN_FOLDER:
+        dates.add(date)
     sorted_dates = sorted(dates, reverse=True)
-    if len(sorted_dates) < 2:
+    if len(sorted_dates) < 1:
       return
-    # set base_folder and test_folder if they weren't passed in as flags
-    if not base_folder:
-      base_folder = sorted_dates[1]
-    if not test_folder:
-      test_folder = sorted_dates[0]
-  return (base_folder, test_folder)
+    test_folder = sorted_dates[0]
+  return test_folder
 
 
-def run_diff(base_blobs, test_blobs, output_file):
-  """Gets the diff between the base blobs and test blobs and output it"""
-  base_jsons = {}
-  for b in base_blobs:
+def get_diff(golden_blobs, test_blobs):
+  """Gets the results of diffing between the base blobs and test blobs"""
+  golden_jsons = {}
+  for b in golden_blobs:
     key = b.name.split('/')[-1].split('.')[0]
-    base_jsons[key] = json.loads(b.download_as_string())
+    golden_jsons[key] = json.loads(b.download_as_string())
   test_jsons = {}
   for t in test_blobs:
     key = t.name.split('/')[-1].split('.')[0]
     test_jsons[key] = json.loads(t.download_as_string())
-  report = {}
-  for key, base_json in base_jsons.items():
+
+  results = {}
+  for key, golden_json in golden_jsons.items():
     if not key in test_jsons:
-      report[key] = "Missing in test folder"
+      results[key] = "Missing in test folder"
+      continue
     test_json = test_jsons[key]
-    del base_json['debug']
-    del test_json['debug']
-    diff = DeepDiff(base_json, test_json)
+    if 'debug' in test_json:
+      del test_json['debug']
+    diff = DeepDiff(golden_json, test_json)
     if diff:
-      report[key] = json.dumps(diff.to_json())
+      results[key] = json.dumps(diff.to_json())
     else:
-      report[key] = 'Success'
-  # TODO: have a UI for showing the result
-  with open(output_file, 'w') as f:
-    f.write(json.dumps(report))
-  print("Done running differ")
-  print(f'Diff report saved locally to: {_OUTPUT_FILE}')
+      results[key] = _DIFF_SUCCESS_MSG
+  return results
+
+
+def output_results(results, gcs_bucket) -> str:
+  """Outputs results either to gcs or locally"""
+  if FLAGS.gcs_output_folder:
+    gcs_filename = f'{FLAGS.gcs_output_folder}/{_OUTPUT_FILE}'
+    blob = gcs_bucket.blob(gcs_filename)
+    with blob.open('w') as f:
+      f.write(json.dumps(results, indent=2))
+    results_path = f'{_GCS_URL}/{_GCS_BUCKET}/{gcs_filename}'
+    logging.info(f'Diff results saved to gcs path: {results_path}')
+    return results_path
+  else:
+    with open(_OUTPUT_FILE, 'w') as f:
+      f.write(json.dumps(results, indent=2))
+    logging.info(f'Diff results saved locally to: {_OUTPUT_FILE}')
+    return _OUTPUT_FILE
+
+
+def output_failure_email(results, golden_folder, test_folder, results_path):
+  """Outputs an email template file if there are diffs found"""
+  email_file = FLAGS.failure_email_file
+  if not email_file:
+    return
+  has_diff = any([v != _DIFF_SUCCESS_MSG for v in results.values()])
+  if not has_diff:
+    logging.info('No diffs found in the result. Skipping failure email.')
+    return
+  goldens_path = f'{_GCS_URL}/{_GCS_BUCKET}/{golden_folder}'
+  test_path = f'{_GCS_URL}/{_GCS_BUCKET}/{test_folder}'
+  email_template = {}
+  email_template[_EMAIL_SUBJECT_KEY] = _EMAIL_SUBJECT_TEMPLATE.format(
+      env=FLAGS.env)
+  email_template[_EMAIL_MESSAGE_KEY] = _EMAIL_MESSAGE_TEMPLATE.format(
+      env=FLAGS.env,
+      goldens_path=goldens_path,
+      test_path=test_path,
+      results_path=results_path)
+  with open(email_file, 'w') as f:
+    f.write(json.dumps(email_template))
+    logging.info(f'email template saved at: {email_file}')
 
 
 def main(_):
   sc = storage.Client()
   bucket = sc.get_bucket(f'{_GCS_BUCKET}')
-  base_folder, test_folder = _get_folder_names(bucket)
-  if not base_folder:
-    print("Could not get base_folder name, please enter one manually.")
-    return
+  test_folder = get_test_folder(bucket)
   if not test_folder:
-    print("Could not get test_folder name, please enter one manually.")
+    logging.info("Could not get test_folder name, please enter one manually.")
     return
-  base_blobs = bucket.list_blobs(
-      prefix=f'{FLAGS.env}/{base_folder}/nodejs_query/')
-  test_blobs = bucket.list_blobs(
-      prefix=f'{FLAGS.env}/{test_folder}/nodejs_query/')
-  run_diff(base_blobs, test_blobs, _OUTPUT_FILE)
+  test_folder = f'{FLAGS.env}/{test_folder}/nodejs_query/'
+  golden_folder = f'{FLAGS.env}/{_GOLDEN_FOLDER}/nodejs_query/'
+  golden_blobs = bucket.list_blobs(prefix=golden_folder)
+  test_blobs = bucket.list_blobs(prefix=test_folder)
+  results = get_diff(golden_blobs, test_blobs)
+  results_path = output_results(results, bucket)
+  output_failure_email(results, golden_folder, test_folder, results_path)
 
 
 if __name__ == '__main__':
