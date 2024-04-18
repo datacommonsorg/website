@@ -78,7 +78,10 @@ def download_folder(path: str) -> str:
 
   # Only download if needed.
   local_path = os.path.join(local_dir_prefix, base_name)
-  if os.path.exists(local_path):
+  if os.path.exists(local_path) and len(os.listdir(local_path)) > 0:
+    # When running locally, we may already have downloaded the path.
+    # But sometimes after restart, the directories in `/tmp` become
+    # empty, so ensure that's not the case.
     return local_path
 
   print(
