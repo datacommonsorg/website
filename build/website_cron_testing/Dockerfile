@@ -23,6 +23,9 @@ RUN pip3 install -r requirements.txt
 
 # Copy scripts for running each of the tests
 COPY server/integration_tests/standalone/nodejs_query.py .
+COPY tools/nl/nodejs_query_differ/differ.py .
+COPY tools/send_email/send_email.py .
+COPY server/integration_tests/standalone/nodejs_query.py .
 COPY server/integration_tests/standalone/adversarial.py .
 COPY server/webdriver/tests/standalone/sanity.py .
 COPY server/webdriver/screenshot/remote/main.py screenshot.py

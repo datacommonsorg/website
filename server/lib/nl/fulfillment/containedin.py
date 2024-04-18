@@ -57,6 +57,14 @@ def populate(state: PopulateState, chart_vars: ChartVars,
     return False
   chart_vars.svs = exist_svs
 
-  add_chart_to_utterance(ChartType.MAP_CHART, state, chart_vars,
-                         contained_places, chart_origin)
+  sv_place_latest_date = ext.get_sv_place_latest_date(exist_svs,
+                                                      contained_places,
+                                                      state.place_type,
+                                                      state.exist_checks)
+  add_chart_to_utterance(ChartType.MAP_CHART,
+                         state,
+                         chart_vars,
+                         contained_places,
+                         chart_origin,
+                         sv_place_latest_date=sv_place_latest_date)
   return True

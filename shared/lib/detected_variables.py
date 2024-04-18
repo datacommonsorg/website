@@ -17,13 +17,33 @@ from dataclasses import dataclass
 from typing import Dict, List
 
 
+@dataclass
+class SentenceScore:
+  sentence: str
+  score: float
+
+  def to_dict(self) -> Dict:
+    return {'sentence': self.sentence, 'score': self.score}
+
+
+# Key is SV.
+SV2Sentences = Dict[str, List[SentenceScore]]
+
+
 # List of SV candidates, along with scores.
 @dataclass
 class VarCandidates:
   # The below are sorted and parallel lists.
   svs: List[str]
   scores: List[float]
-  sv2sentences: Dict[str, List[str]]
+  # Key is variable.
+  sv2sentences: SV2Sentences
+
+  def sv2sentences_dict(self) -> Dict[str, Dict]:
+    resp = {}
+    for sv, sentences in self.sv2sentences.items():
+      resp[sv] = [s.to_dict() for s in sentences]
+    return resp
 
 
 # One part of a single multi-var candidate and its
@@ -57,21 +77,31 @@ class VarDetectionResult:
   multi_var: MultiVarCandidates
 
 
+def dict_to_var_candidates(nlresp: Dict) -> VarCandidates:
+  sv2sentences: SV2Sentences = {}
+  for sv, sentences in nlresp.get('SV_to_Sentences', {}).items():
+    sv2sentences[sv] = [
+        SentenceScore(sentence=v.get('sentence'), score=v.get('score'))
+        for v in sentences
+    ]
+  return VarCandidates(svs=nlresp.get('SV', []),
+                       scores=nlresp.get('CosineScore', []),
+                       sv2sentences=sv2sentences)
+
+
 def var_detection_result_to_dict(res: VarDetectionResult) -> Dict:
   result = {'SV': res.single_var.svs, 'CosineScore': res.single_var.scores}
   if res.single_var.sv2sentences:
-    result['SV_to_Sentences'] = res.single_var.sv2sentences
+    result['SV_to_Sentences'] = res.single_var.sv2sentences_dict()
   if res.multi_var:
     result['MultiSV'] = multivar_candidates_to_dict(res.multi_var)
   return result
 
 
 def dict_to_var_detection_result(input: Dict) -> VarDetectionResult:
-  return VarDetectionResult(
-      single_var=VarCandidates(svs=input.get('SV', []),
-                               scores=input.get('CosineScore', []),
-                               sv2sentences=input.get('SV_to_Sentences', {})),
-      multi_var=dict_to_multivar_candidates(input.get('MultiSV', {})))
+  return VarDetectionResult(single_var=dict_to_var_candidates(input),
+                            multi_var=dict_to_multivar_candidates(
+                                input.get('MultiSV', {})))
 
 
 def multivar_candidates_to_dict(candidates: MultiVarCandidates) -> Dict:

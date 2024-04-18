@@ -31,7 +31,9 @@ import requests
 
 from nl_server import gcs
 from nl_server.embeddings import Embeddings
-from nl_server.embeddings import load_model
+from nl_server.embeddings import EmbeddingsResult
+from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
+from nl_server.store.memory import MemoryEmbeddingsStore
 
 _SV_THRESHOLD = 0.5
 _NUM_SVS = 10
@@ -81,19 +83,17 @@ def _get_sv_names(sv_dcids):
   return result
 
 
-def _prune(res):
+def _prune(res: EmbeddingsResult):
   svs = []
   sv_info = {}
-  for i in range(len(res['SV'])):
-    score = res['CosineScore'][i]
-    if i < _NUM_SVS and score >= _SV_THRESHOLD:
-      sv = res['SV'][i]
-      svs.append(sv)
-      sv_info[sv] = {
-          'sv': sv,
+  for i, m in enumerate(res.matches):
+    if i < _NUM_SVS and m.score >= _SV_THRESHOLD:
+      svs.append(m.var)
+      sv_info[m.var] = {
+          'sv': m.var,
           'rank': i + 1,
-          'score': score,
-          'sentence_scores': res['SV_to_Sentences'].get(sv, [])
+          'score': m.score,
+          'sentence_scores': m.sentences,
       }
   return svs, sv_info
 
@@ -181,7 +181,7 @@ def _extract_model_name(embeddings_name: str, embeddings_file_path: str) -> str:
     parts = embeddings_name.split(".")
     model_name = ".".join(parts[1:-1])
     print(f"finetuned model_name: {model_name}")
-    model_path = gcs.download_model_folder(model_name)
+    model_path = gcs.download_folder(model_name)
 
     assert "ft_final" in model_path
     assert len(model_path.split(".")) >= 2
@@ -198,12 +198,14 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
   print(
       f"Setting up the Base Embeddings from: {base_file}; Base model from: {base_model_path}"
   )
-  base = Embeddings(base_file, load_model(base_model_path))
+  base = Embeddings(model=LocalSentenceTransformerModel(base_model_path),
+                    store=MemoryEmbeddingsStore(base_file))
   print("=================================")
   print(
       f"Setting up the Test Embeddings from: {test_file}; Test model from: {test_model_path}"
   )
-  test = Embeddings(test_file, load_model(test_model_path))
+  test = Embeddings(model=LocalSentenceTransformerModel(test_model_path),
+                    store=MemoryEmbeddingsStore(test_file))
   print("=================================")
 
   # Get the list of diffs

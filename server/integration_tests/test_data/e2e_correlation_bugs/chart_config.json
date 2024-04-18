@@ -504,10 +504,6 @@
           "Count_Person_6To11Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
           "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
           "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
-        ],
-        "gender": [
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
         ]
       }
     },

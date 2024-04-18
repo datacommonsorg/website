@@ -15,13 +15,45 @@
  */
 
 import _ from "lodash";
-import { DEFAULT_FIELD_DELIMITER } from "./data_commons_client";
+import { DEFAULT_FIELD_DELIMITER } from "./constants";
 import {
   DataRow,
   EntityGroupedDataRow,
-  QuotientObservation,
+  FacetOverride,
+  PerCapitaObservation,
 } from "./data_commons_client_types";
 import { Observation } from "./data_commons_web_client_types";
+
+/**
+ * Default override for facets / stat metadata for particular unit dcids.
+ * Used by DataCommonsClient (DataCommonsWebClient will still return raw values)
+ */
+export const DEFAULT_FACET_OVERRIDE: FacetOverride = {
+  SDG_CON_USD_M: {
+    scalingFactor: 1 / 1000000,
+  },
+  SDG_CUR_LCU_M: {
+    scalingFactor: 1 / 1000000,
+  },
+  SDG_CU_USD_B: {
+    scalingFactor: 1 / 1000000000,
+  },
+  SDG_CU_USD_M: {
+    scalingFactor: 1 / 1000000,
+  },
+  SDG_HA_TH: {
+    scalingFactor: 1 / 1000,
+  },
+  SDG_NUM_M: {
+    scalingFactor: 1 / 1000000,
+  },
+  SDG_NUM_TH: {
+    scalingFactor: 1 / 1000,
+  },
+  SDG_TONNES_M: {
+    scalingFactor: 1 / 1000000,
+  },
+};
 
 /**
  * Converts an object to URLSearchParams.
@@ -78,40 +110,44 @@ export function encodeCsvRow(items: any[]): string {
         // Quote strings and replace all double quotes (") with double-double quotes ("")
         return `"${item.replace(/"/g, '""')}"`;
       }
+      if (item === null) {
+        return `""`;
+      }
       return String(item);
     })
     .join(",");
 }
 
 /**
- * Given a observation series `num`, computes the ratio of the each
- * observation value in `num` to the observation value in `denom` with
- * the closest date value.
+ * Calculated per-capita values for the given variable observations using the
+ * closest population observation by date to the passed in population
+ * observations.
  *
  * Both `num` and `denom` series are sorted ascending by date.
  *
- * @param num Sorted numerator observation series.
- * @param denom Sorted denominator time series.
- * @param scaling Scale denominator by dividing by this amount
+ * @param variableObservations Sorted numerator observation series.
+ * @param populationObservations Sorted population observation series.
+ * @param scaling Scale per capita value by dividing by this amount
  *
- * @returns A list of Observations with the per capita calculation applied to its values.
+ * @returns A list of population observations along with calculated per capita
+ *          values
  */
-export function computeRatio(
-  num: Observation[],
-  denom: Observation[],
+export function computePerCapitaRatio(
+  variableObservations: Observation[],
+  populationObservations: Observation[],
   scaling = 1
-): QuotientObservation[] {
-  if (_.isEmpty(denom)) {
+): PerCapitaObservation[] {
+  if (_.isEmpty(populationObservations)) {
     return [];
   }
-  const result: QuotientObservation[] = [];
+  const result: PerCapitaObservation[] = [];
   let j = 0; // denominator position
-  for (let i = 0; i < num.length; i++) {
-    const numDate = Date.parse(num[i].date);
-    const denomDate = Date.parse(denom[j].date);
+  for (let i = 0; i < variableObservations.length; i++) {
+    const numDate = Date.parse(variableObservations[i].date);
+    const denomDate = Date.parse(populationObservations[j].date);
     // Walk through the denom array to find entry with the closest date
-    while (j < denom.length - 1 && numDate > denomDate) {
-      const denomDateNext = Date.parse(denom[j + 1].date);
+    while (j < populationObservations.length - 1 && numDate > denomDate) {
+      const denomDateNext = Date.parse(populationObservations[j + 1].date);
       const nextBetter =
         Math.abs(denomDateNext - numDate) < Math.abs(denomDate - numDate);
       if (nextBetter) {
@@ -121,14 +157,17 @@ export function computeRatio(
       }
     }
     let quotientValue: number;
-    if (denom[j].value == 0) {
+    if (populationObservations[j].value == 0) {
       quotientValue = 0;
     } else {
-      quotientValue = num[i].value / denom[j].value / scaling;
+      quotientValue =
+        variableObservations[i].value /
+        populationObservations[j].value /
+        scaling;
     }
     result.push({
-      ...denom[j],
-      quotientValue,
+      ...populationObservations[j],
+      perCapitaValue: quotientValue,
     });
   }
   return result;
@@ -199,11 +238,13 @@ export function flattenNestedObject(
  *
  * @param dataRows Data rows
  * @param fieldDelimiter Delimiter for flattening nested data row items
+ * @param transformHeader Optional callback for transforming header text
  * @returns CSV string
  */
 export function dataRowsToCsv(
   dataRows: DataRow[] | EntityGroupedDataRow[],
-  fieldDelimiter: string = DEFAULT_FIELD_DELIMITER
+  fieldDelimiter: string = DEFAULT_FIELD_DELIMITER,
+  transformHeader?: (columnHeader: string) => string
 ) {
   if (dataRows.length === 0) {
     return "";
@@ -222,7 +263,50 @@ export function dataRowsToCsv(
   const rows = flattenedDataRows.map((flattenedDataRow) =>
     header.map((column) => flattenedDataRow[column])
   );
-  const csvRows = [header, ...rows];
+  const transformedHeader = transformHeader
+    ? header.map(transformHeader)
+    : header;
+  const csvRows = [transformedHeader, ...rows];
   const csvLines = csvRows.map(encodeCsvRow);
   return csvLines.join("\n");
+}
+
+/**
+ * Returns true if an observation date falls between the specified startDate and
+ * endDate. Also returns true if neither startDate nor endDate are specified.
+ *
+ * Dates are specified as ISO-8601 (Examples: "2023", "2023-01-01")
+ *
+ * Truncates observation date length to match the start and end date lengths for
+ * respective comparisons.
+ *
+ * Example:
+ *
+ * observationDate = "2024-05-6"
+ * startDate = "2023"
+ * endDate = "2024-05"
+ *
+ * Truncating the observationDate when comparing to startDate gives us "2024"
+ * Truncating the observation date when comparing to endDate gives us "2024-05"
+ * Result is true because:
+ *   truncatedObservationDate <= endDate (i.e., "2024-05 <= "2024-05)
+ *   AND truncatedObservationDate >= startDate (i.e., "2024" >= "2023")
+ *
+ * @param observationDate Observation date string
+ * @param startDate Start date string
+ * @param endDate End date string
+ * @returns boolean
+ */
+export function isDateInRange(
+  observationDate: string,
+  startDate: string | undefined,
+  endDate: string | undefined
+): boolean {
+  if (startDate && startDate > observationDate.slice(0, startDate.length)) {
+    return false;
+  }
+  if (endDate && endDate < observationDate.slice(0, endDate.length)) {
+    return false;
+  }
+  return true;
 }

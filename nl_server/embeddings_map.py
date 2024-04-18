@@ -16,21 +16,26 @@ import copy
 import logging
 import os
 import shutil
-from typing import List
+from typing import Dict, List
 
 import pandas as pd
 
 from nl_server.config import CUSTOM_DC_INDEX
 from nl_server.config import DEFAULT_INDEX_TYPE
 from nl_server.config import EmbeddingsIndex
+from nl_server.config import StoreType
 from nl_server.embeddings import Embeddings
-from nl_server.embeddings import load_model
+from nl_server.embeddings import EmbeddingsModel
+from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
+from nl_server.store.lancedb import LanceDBStore
+from nl_server.store.memory import MemoryEmbeddingsStore
 
 
 #
-# A simple wrapper class around multiple embeddings indexes.
+# A map from specific index to embeddings stores and models.
+# TODO: Custom DC handling might need to be revisited.
 #
-class Store:
+class EmbeddingsMap:
 
   def __init__(self, indexes: List[EmbeddingsIndex]):
     self.embeddings_map: dict[str, Embeddings] = {}
@@ -47,19 +52,23 @@ class Store:
           default_idx, custom_idx)
 
     # Pre-load models once.
-    self.name2model = {}
-    model2path = {
-        idx.tuned_model: idx.tuned_model_local_path for idx in indexes
-    }
+    self.name2model: Dict[str, EmbeddingsModel] = {}
+    model2path = {idx.model_name: idx.model_local_path for idx in indexes}
     for model_name, model_path in model2path.items():
-      self.name2model[model_name] = load_model(model_path)
+      self.name2model[model_name] = LocalSentenceTransformerModel(model_path)
 
     # NOTE: Not excluding CUSTOM_DC_INDEX from the map, so should the
     # custom DC customers want queries to work within their variables
     # they can set `idx=custom`.
     for idx in indexes:
-      self.embeddings_map[idx.name] = Embeddings(
-          idx.embeddings_local_path, self.name2model[idx.tuned_model])
+      if idx.store_type == StoreType.MEMORY:
+        self.embeddings_map[idx.name] = Embeddings(
+            model=self.name2model[idx.model_name],
+            store=MemoryEmbeddingsStore(idx.embeddings_local_path))
+      elif idx.store_type == StoreType.LANCEDB:
+        self.embeddings_map[idx.name] = Embeddings(
+            model=self.name2model[idx.model_name],
+            store=LanceDBStore(idx.embeddings_local_path))
 
   # Note: The caller takes care of exceptions.
   def get(self, index_type: str = DEFAULT_INDEX_TYPE) -> Embeddings:
@@ -75,17 +84,19 @@ class Store:
     default_idx.embeddings_local_path = _merge_custom_index(
         default_idx, custom_idx)
 
-    if custom_idx.tuned_model not in self.name2model:
-      self.name2model[custom_idx.tuned_model] = \
-        load_model(custom_idx.tuned_model_local_path)
+    if custom_idx.model_name not in self.name2model:
+      self.name2model[custom_idx.model_name] = \
+        LocalSentenceTransformerModel(custom_idx.model_local_path)
 
     self.embeddings_map.update({
         custom_idx.name:
-            Embeddings(custom_idx.embeddings_local_path,
-                       self.name2model[custom_idx.tuned_model]),
+            Embeddings(model=self.name2model[custom_idx.model_name],
+                       store=MemoryEmbeddingsStore(
+                           custom_idx.embeddings_local_path)),
         default_idx.name:
-            Embeddings(default_idx.embeddings_local_path,
-                       self.name2model[default_idx.tuned_model])
+            Embeddings(model=self.name2model[default_idx.model_name],
+                       store=MemoryEmbeddingsStore(
+                           default_idx.embeddings_local_path)),
     })
 
 
@@ -119,8 +130,8 @@ def _merge_custom_index(default: EmbeddingsIndex,
                         custom: EmbeddingsIndex) -> str:
   # If model version is encoded in the embeddings file name, it should match the default model.
   # If none is encoded, tuned_model will be false and assumed to have used the same version.
-  assert not custom.tuned_model or default.tuned_model == custom.tuned_model, \
-    f'Main ({default.tuned_model}) vs. custom ({custom.tuned_model}) not using the same embeddings'
+  assert not custom.model_name or default.model_name == custom.model_name, \
+    f'Main ({default.model_name}) vs. custom ({custom.model_name}) not using the same embeddings'
 
   # /foo/x.csv => /foo/WithCustom_x.csv
   output_embeddings_path = os.path.join(

@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,132 +11,119 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Managing the embeddings."""
-import logging
+"""Abstract and wrapper classes for Embeddings."""
+
+from abc import ABC
+from abc import abstractmethod
+from dataclasses import dataclass
 from typing import Dict, List
 
-from datasets import load_dataset
-from sentence_transformers import SentenceTransformer
-from sentence_transformers.util import semantic_search
 import torch
 
-from nl_server import config
-from shared.lib import detected_variables as vars
+from shared.lib.detected_variables import SentenceScore
+
+_TOPIC_PREFIX = 'dc/topic/'
 
 # Number of matches to find within the SV index.
 _NUM_SV_INDEX_MATCHES = 40
 # Number of matches to find within the SV index if skipping topics.
+# Reason: Since we're going to drop a few candidates at the top,
+# try to retrieve more from vector DB.
 _NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS = 60
 
-# Prefix string for dcids that are topics
-_TOPIC_PREFIX = 'dc/topic/'
+
+# A single match from Embeddings result.
+@dataclass
+class EmbeddingsMatch:
+  # SV / topic DCID
+  var: str
+  # Best score
+  score: float
+  # Sentences
+  sentences: List[SentenceScore]
 
 
-def load_model(existing_model_path: str = ""):
-  if existing_model_path:
-    logging.info(f'Loading tuned model from: {existing_model_path}')
-    return SentenceTransformer(existing_model_path)
-  logging.info(f'Loading base model {config.EMBEDDINGS_BASE_MODEL_NAME}')
-  return SentenceTransformer(config.EMBEDDINGS_BASE_MODEL_NAME)
+# A list of candidates for a given query (vector or string).
+@dataclass
+class EmbeddingsResult:
+  # Ordered list of matches
+  matches: List[EmbeddingsMatch]
+
+  def to_dict(self):
+    return {
+        'SV': [m.var for m in self.matches],
+        'CosineScore': [m.score for m in self.matches],
+        'SV_to_Sentences': {
+            m.var: [s.to_dict() for s in m.sentences] for m in self.matches
+        }
+    }
 
 
+#
+# Abstract class for an Embeddings model which takes a list of
+# sentences and returns either a list of vectors or a 2d Tensor.
+#
+class EmbeddingsModel(ABC):
+
+  def __init__(self, returns_tensor=False):
+    self.returns_tensor = returns_tensor
+
+  @abstractmethod
+  def encode(self, queries: List[str]) -> List[List[float]] | torch.Tensor:
+    pass
+
+
+#
+# Abstract class for an Embeddings store which takes a list of
+# vectors or a 2d Tensor, and returns a corresponding list of
+# EmbeddingsResult.
+#
+class EmbeddingsStore(ABC):
+
+  def __init__(self, needs_tensor=False):
+    self.needs_tensor = needs_tensor
+
+  @abstractmethod
+  def vector_search(self, query_embeddings: List[List[float]] | torch.Tensor,
+                    top_k: int) -> List[EmbeddingsResult]:
+    pass
+
+
+# Search result keyed by query.
+SearchVarsResult = Dict[str, EmbeddingsResult]
+
+
+# A simple wrapper around EmbeddingsModel + EmbeddingsStore.
 class Embeddings:
-  """Manages the embeddings."""
 
-  def __init__(self, embeddings_path: str, model: any) -> None:
-    self.model = model
-    self.dataset_embeddings: torch.Tensor = None
-    self.dcids: List[str] = []
-    self.sentences: List[str] = []
+  def __init__(self, model: EmbeddingsModel, store: EmbeddingsStore):
+    self.model: EmbeddingsModel = model
+    self.store: EmbeddingsStore = store
 
-    logging.info('Loading embeddings file: %s', embeddings_path)
-    try:
-      ds = load_dataset('csv', data_files=embeddings_path)
-    except:
-      error_str = "No embedding could be loaded."
-      logging.error(error_str)
-      raise Exception("No embedding could be loaded.")
-
-    df = ds["train"].to_pandas()
-    self.dcids = df['dcid'].values.tolist()
-    df = df.drop('dcid', axis=1)
-    # Also get the sentence mappings.
-    self.sentences = []
-    if 'sentence' in df:
-      self.sentences = df['sentence'].values.tolist()
-      df = df.drop('sentence', axis=1)
-
-    self.dataset_embeddings = torch.from_numpy(df.to_numpy()).to(torch.float)
-
-  #
-  # Given a list of queries, searches the in-memory embeddings index
-  # and returns a map of candidates keyed by input queries.
-  #
+  # Given a list of queries, returns
   def search_vars(self,
                   queries: List[str],
-                  skip_topics: bool = False) -> Dict[str, Dict]:
-    query_embeddings = self.model.encode(queries, show_progress_bar=False)
+                  skip_topics: bool = False) -> SearchVarsResult:
+    query_embeddings = self.model.encode(queries)
+
+    if self.model.returns_tensor and not self.store.needs_tensor:
+      # Convert to List[List[float]]
+      query_embeddings = query_embeddings.tolist()
+    elif not self.model.returns_tensor and self.store.needs_tensor:
+      # Convert to torch.Tensor
+      query_embeddings = torch.tensor(query_embeddings, dtype=torch.float)
+
     top_k = _NUM_SV_INDEX_MATCHES
     if skip_topics:
       top_k = _NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS
-    hits = semantic_search(query_embeddings,
-                           self.dataset_embeddings,
-                           top_k=top_k)
 
-    # A map from input query -> SV DCID -> matched sentence -> score for that match
-    query2sv2sentence2score: Dict[str, Dict[str, Dict[str, float]]] = {}
-    # A map from input query -> SV DCID -> highest matched score
-    query2sv2score: Dict[str, Dict[str, float]] = {}
-    for i, hit in enumerate(hits):
-      q = queries[i]
-      query2sv2score[q] = {}
-      query2sv2sentence2score[q] = {}
-      for ent in hit:
-        score = ent['score']
-        for dcid in self.dcids[ent['corpus_id']].split(','):
-          if skip_topics and dcid.startswith(_TOPIC_PREFIX):
-            continue
-          # Prefer the top score.
-          if dcid not in query2sv2score[q]:
-            query2sv2score[q][dcid] = score
-            query2sv2sentence2score[q][dcid] = {}
+    # Call the store.
+    results = self.store.vector_search(query_embeddings, top_k)
 
-          if ent['corpus_id'] >= len(self.sentences):
-            continue
-          sentence = self.sentences[ent['corpus_id']]
-          query2sv2sentence2score[q][dcid][sentence] = score
+    if skip_topics:
+      for result in results:
+        result.matches[:] = filter(
+            lambda m: not m.var.startswith(_TOPIC_PREFIX), result.matches)
 
-    query2result: Dict[str, vars.VarCandidates] = {}
-
-    # Go over the map and prepare parallel lists of
-    # SVs and scores in query2result.
-    for q, sv2score in query2sv2score.items():
-      sv2score_sorted = [(k, v) for (
-          k,
-          v) in sorted(sv2score.items(), key=lambda item: (-item[1], item[0]))]
-      svs = [k for (k, _) in sv2score_sorted]
-      scores = [v for (_, v) in sv2score_sorted]
-      query2result[q] = vars.VarCandidates(svs=svs,
-                                           scores=scores,
-                                           sv2sentences={})
-
-    # Go over the results and prepare the sv2sentences map in
-    # query2result.
-    for q, sv2sentence2score in query2sv2sentence2score.items():
-      query2result[q].sv2sentences = {}
-      for sv, sentence2score in sv2sentence2score.items():
-        query2result[q].sv2sentences[sv] = []
-        for sentence, score in sorted(sentence2score.items(),
-                                      key=lambda item: item[1],
-                                      reverse=True):
-          score = round(score, 4)
-          query2result[q].sv2sentences[sv].append(sentence + f' ({score})')
-
-    json_result = {}
-    for q, result in query2result.items():
-      json_result[q] = {
-          'SV': result.svs,
-          'CosineScore': result.scores,
-          'SV_to_Sentences': result.sv2sentences
-      }
-    return json_result
+    # Turn this into a map:
+    return {k: v for k, v in zip(queries, results)}

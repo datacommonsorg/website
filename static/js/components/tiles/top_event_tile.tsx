@@ -386,7 +386,9 @@ export const TopEventTile = memo(function TopEventTile(
     });
     embedModalElement.current.show(
       "",
-      rankingPointsToCsv(rankingPoints, ["data"]),
+      () => {
+        return Promise.resolve(rankingPointsToCsv(rankingPoints, ["data"]));
+      },
       chartContainer.current.offsetWidth,
       0,
       "",

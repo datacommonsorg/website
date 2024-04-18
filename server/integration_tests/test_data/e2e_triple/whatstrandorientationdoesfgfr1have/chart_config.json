@@ -9,28 +9,26 @@
               {
                 "tiles": [
                   {
-                    "answerMessageTileSpec": {
-                      "propertyExpr": "->strandOrientation"
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "->strandOrientation",
+                          "propertyExpr": "->strandOrientation"
+                        }
+                      ]
                     },
                     "entities": [
-                      "bio/hg38_FGFR1"
+                      "bio/D009949",
+                      "bio/FGFR1",
+                      "bio/galGal5_FGFR1",
+                      "bio/galGal6_FGFR1",
+                      "bio/hg19_FGFR1",
+                      "bio/hg38_FGFR1",
+                      "bio/mm10_Fgfr1",
+                      "bio/mm9_Fgfr1"
                     ],
-                    "title": "The strandOrientation for FGFR1 is:",
-                    "type": "ANSWER_MESSAGE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "entities": [
-                      "bio/hg38_FGFR1"
-                    ],
-                    "type": "ENTITY_OVERVIEW"
+                    "title": "The strandOrientation for Orientation, FGFR1 and 6 more other are as follows:",
+                    "type": "ANSWER_TABLE"
                   }
                 ]
               }
@@ -44,8 +42,43 @@
   "debug": {},
   "entities": [
     {
+      "dcid": "bio/D009949",
+      "name": "Orientation",
+      "type": ""
+    },
+    {
+      "dcid": "bio/FGFR1",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/galGal5_FGFR1",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/galGal6_FGFR1",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/hg19_FGFR1",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
       "dcid": "bio/hg38_FGFR1",
       "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/mm10_Fgfr1",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/mm9_Fgfr1",
+      "name": "Fgfr1",
       "type": ""
     }
   ],
