@@ -45,6 +45,14 @@ def create_app():
   if sys.version_info >= (3, 8) and sys.platform == "darwin":
     torch.set_num_threads(1)
 
-  loader.load_server_state(app)
+  try:
+    loader.load_server_state(app)
+  except Exception as e:
+    msg = '\n\n!!!!! IMPORTANT NOTE !!!!!!\n' \
+          'If you are running locally, try clearing caches and models:\n' \
+          '* `rm -rf ~/.datacommons`\n' \
+          '* `rm -rf /tmp/datcom-nl-models /tmp/datcom-nl-models-dev`\n'
+    logging.error(msg)
+    raise
 
   return app
