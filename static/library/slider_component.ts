@@ -24,6 +24,7 @@ import {
   convertArrayAttribute,
   convertBooleanAttribute,
   getApiRoot,
+  getObservationDateRange,
 } from "./utils";
 
 interface ObservationDatesByVariable {
@@ -267,10 +268,22 @@ export class DatacommonsSliderComponent extends LitElement {
   private _isLoading = false;
 
   /**
-   * Set to true to for
+   * Set to true if trends sumamry is selected
    */
   @state()
-  private _showLatestAvailableData: boolean;
+  private _showTrendsSummaryEnabled: boolean;
+
+  /**
+   * Minimum trend summary date
+   */
+  @state()
+  private _trendSummaryMinDate: string;
+
+  /**
+   * Maximum trend summary date
+   */
+  @state()
+  private _trendSummaryMaxDate: string;
 
   /**
    * Currently selected slider value
@@ -298,7 +311,7 @@ export class DatacommonsSliderComponent extends LitElement {
     } else {
       this._value = 0;
     }
-    this._showLatestAvailableData = false;
+    this._showTrendsSummaryEnabled = false;
     this.fetchObservationDates();
   }
 
@@ -330,7 +343,7 @@ export class DatacommonsSliderComponent extends LitElement {
     const endDate = this._dates[this._dates.length - 1];
     // Normalized slider value as a percent between 0 and 100
     const normalizedSliderValue =
-      this._showLatestAvailableData || this._dates.length <= 1
+      this._showTrendsSummaryEnabled || this._dates.length <= 1
         ? 100
         : (this._value / (this._dates.length - 1)) * 100;
 
@@ -338,13 +351,14 @@ export class DatacommonsSliderComponent extends LitElement {
     const endDateText = this.getEndDateText();
     const lastDateIndex = this._dates.length - 1;
     const isHighestCoverageDate =
-      dateText === this._highestCoverageDate && !this._showLatestAvailableData;
+      dateText === this._highestCoverageDate && !this._showTrendsSummaryEnabled;
 
     // Text to show under range slider button.
     // Shows asterisk if showing date of highest coverage
-    const sliderLabelText = `${this._showLatestAvailableData ? "" : dateText}${
-      isHighestCoverageDate ? "*" : ""
-    }`;
+    let sliderLabelText = this._showTrendsSummaryEnabled ? "" : dateText;
+    if (isHighestCoverageDate) {
+      sliderLabelText += "*";
+    }
     return html`
       <div class="container" part="container">
         ${this.header
@@ -352,7 +366,7 @@ export class DatacommonsSliderComponent extends LitElement {
           : this.defaultHeader()}
 
         <div
-          class="row slider ${this._showLatestAvailableData ? "disabled" : ""}"
+          class="row slider ${this._showTrendsSummaryEnabled ? "disabled" : ""}"
         >
           <div class="label">${startDate}</div>
           <div class="slider-control">
@@ -362,12 +376,12 @@ export class DatacommonsSliderComponent extends LitElement {
               min="0"
               title="${dateText}"
               type="range"
-              .value="${this._showLatestAvailableData
+              .value="${this._showTrendsSummaryEnabled
                 ? lastDateIndex
                 : this._value}"
               @change=${this.onSliderChange}
               @input=${this.onSliderInput}
-              ?disabled=${this._showLatestAvailableData}
+              ?disabled=${this._showTrendsSummaryEnabled}
             />
             <div class="slider-label">
               <div
@@ -388,9 +402,15 @@ export class DatacommonsSliderComponent extends LitElement {
                   ><input
                     type="checkbox"
                     @change=${this.onShowLatestChange}
-                    ?checked=${this._showLatestAvailableData}
+                    ?checked=${this._showTrendsSummaryEnabled}
                   />
-                  <span>Show trends summary</span></label
+                  <span
+                    >Show trends summary
+                    ${this._showTrendsSummaryEnabled
+                      ? html`(${this._trendSummaryMinDate} to
+                        ${this._trendSummaryMaxDate})`
+                      : null}</span
+                  ></label
                 >
               </div>`
             : null}
@@ -449,10 +469,10 @@ export class DatacommonsSliderComponent extends LitElement {
 
   private onShowLatestChange(e: Event): void {
     const target = e.currentTarget as HTMLInputElement;
-    this._showLatestAvailableData = target.checked;
+    this._showTrendsSummaryEnabled = target.checked;
     const dateValue =
       this._value < this._dates.length ? this._dates[this._value] : undefined;
-    const dispatchedDateValue = this._showLatestAvailableData
+    const dispatchedDateValue = this._showTrendsSummaryEnabled
       ? DATE_LATEST
       : dateValue;
     this.dispatchEvent(
@@ -485,6 +505,18 @@ export class DatacommonsSliderComponent extends LitElement {
     const resultObj = (await result.json()) as ObservationDatesResponse;
     this._isLoading = false;
 
+    if (this.showTrendsSummary) {
+      const trendsSummaryResult =
+        await dataCommonsWebClient.getObservationsPointWithin({
+          parentEntity: this.parentPlace,
+          childType: this.childPlaceType,
+          variables: [this.variable],
+          date: DATE_LATEST,
+        });
+      const { minDate, maxDate } = getObservationDateRange(trendsSummaryResult);
+      this._trendSummaryMinDate = minDate;
+      this._trendSummaryMaxDate = maxDate;
+    }
     const highestCoverageResult =
       await dataCommonsWebClient.getObservationsPointWithin({
         parentEntity: this.parentPlace,

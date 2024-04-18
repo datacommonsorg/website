@@ -26,6 +26,10 @@ import {
 import { DataCommonsClient } from "./data_commons_client";
 import { DataRow } from "./data_commons_client_types";
 import { DataCommonsWebClient } from "./data_commons_web_client";
+import {
+  PointApiResponse,
+  SeriesApiResponse,
+} from "./data_commons_web_client_types";
 import { dataRowsToCsv, isDateInRange } from "./utils";
 
 export {
@@ -41,4 +45,4 @@ export {
   dataRowsToCsv,
   isDateInRange,
 };
-export type { DataRow };
+export type { DataRow, PointApiResponse, SeriesApiResponse };

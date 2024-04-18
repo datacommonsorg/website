@@ -18,8 +18,11 @@
  * Component for rendering a map type tile.
  */
 
-import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
-import { DataRow, dataRowsToCsv } from "@datacommonsorg/client";
+import {
+  DataRow,
+  dataRowsToCsv,
+  ISO_CODE_ATTRIBUTE,
+} from "@datacommonsorg/client";
 import { ChartEventDetail } from "@datacommonsorg/web-components";
 import axios from "axios";
 import * as d3 from "d3";
@@ -214,7 +217,12 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         setIsLoading(true);
         try {
           const data = await fetchData(props, dateOverride);
-          if (data && props && _.isEqual(data.props, props)) {
+          if (
+            data &&
+            props &&
+            _.isEqual(data.props, props) &&
+            _.isEqual(data.dateOverride, dateOverride)
+          ) {
             setMapChartData(data);
           }
         } finally {

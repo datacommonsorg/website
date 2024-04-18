@@ -17,6 +17,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { PointApiResponse } from "@datacommonsorg/client";
 import {
   DEFAULT_API_ENDPOINT,
   MATERIAL_ICONS_OUTLINED_STYLESHEET_URL,
@@ -122,4 +123,28 @@ export function getApiRoot(apiRoot: string): string {
     return apiRoot;
   }
   return DEFAULT_API_ENDPOINT;
+}
+
+/**
+ * Extracts the min and max dates from the given PointApiResponse
+ * @param response PointApiResponse object
+ */
+export function getObservationDateRange(response: PointApiResponse): {
+  minDate: string;
+  maxDate: string;
+} {
+  let minDate = "";
+  let maxDate = "";
+  Object.keys(response.data).forEach((entityDcid) => {
+    Object.keys(response.data[entityDcid]).forEach((variableDcid) => {
+      const observation = response.data[entityDcid][variableDcid];
+      if (!minDate || observation.date < minDate) {
+        minDate = observation.date;
+      }
+      if (!maxDate || observation.date > maxDate) {
+        maxDate = observation.date;
+      }
+    });
+  });
+  return { minDate, maxDate };
 }
