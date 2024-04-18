@@ -20,7 +20,11 @@ import { css, CSSResult, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../js/shared/constants";
-import { convertArrayAttribute, getApiRoot } from "./utils";
+import {
+  convertArrayAttribute,
+  convertBooleanAttribute,
+  getApiRoot,
+} from "./utils";
 
 interface ObservationDatesByVariable {
   observationDates: {
@@ -82,17 +86,19 @@ export class DatacommonsSliderComponent extends LitElement {
       width: 100%;
     }
     .row.options {
-      align-items: center;
-      flex-wrap: wrap;
+      flex-direction: row;
+      flex-wrap: wrap-reverse;
+      gap: 6px;
       justify-content: space-between;
-      row-gap: 8px;
+      margin-top: 2px;
       .slider-date-footnote {
         color: #777777;
+        font-size: 12px;
         margin-left: 4px;
       }
     }
     .row.slider {
-      margin: 1rem 0 1.5rem;
+      margin: 1rem 0;
       .slider-control {
         flex-grow: 1;
         padding: 4px 16px 0;
@@ -125,6 +131,7 @@ export class DatacommonsSliderComponent extends LitElement {
         z-index: 1;
         input[type="range"]::-webkit-slider-thumb {
           background: #e9e9e9;
+          display: none;
         }
       }
     }
@@ -200,12 +207,6 @@ export class DatacommonsSliderComponent extends LitElement {
   dates?: string[];
 
   /**
-   * Default starting date for the component
-   */
-  @property()
-  date?: string;
-
-  /**
    * Optional: Header text
    */
   @property()
@@ -222,6 +223,12 @@ export class DatacommonsSliderComponent extends LitElement {
    */
   @property()
   publish: string;
+
+  /**
+   * Set to true to show trends summary checkbox
+   */
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  showTrendsSummary: boolean;
 
   /**
    * Initial slider value
@@ -330,19 +337,20 @@ export class DatacommonsSliderComponent extends LitElement {
     const dateText = this.getDateText();
     const endDateText = this.getEndDateText();
     const lastDateIndex = this._dates.length - 1;
-    const isHighestCoverageDate = dateText === this._highestCoverageDate;
+    const isHighestCoverageDate =
+      dateText === this._highestCoverageDate && !this._showLatestAvailableData;
 
     // Text to show under range slider button.
-    // Shows asterisk if showing latest available data or date of highest
-    // coverage
-    const sliderLabelText = `${
-      this._showLatestAvailableData ? endDateText : dateText
-    }${isHighestCoverageDate || this._showLatestAvailableData ? "*" : ""}`;
+    // Shows asterisk if showing date of highest coverage
+    const sliderLabelText = `${this._showLatestAvailableData ? "" : dateText}${
+      isHighestCoverageDate ? "*" : ""
+    }`;
     return html`
       <div class="container" part="container">
         ${this.header
           ? html`<h4 part="header">${this.header}</h4>`
           : this.defaultHeader()}
+
         <div
           class="row slider ${this._showLatestAvailableData ? "disabled" : ""}"
         >
@@ -366,31 +374,34 @@ export class DatacommonsSliderComponent extends LitElement {
                 class="slider-label-text"
                 style="left:${normalizedSliderValue}%;"
               >
-                <span class="slider-label-text-inner">${sliderLabelText} </span>
+                <span class="slider-label-text-inner">${sliderLabelText}</span>
               </div>
             </div>
           </div>
           <div class="label">${endDate}</div>
         </div>
+
         <div class="row options">
-          <label class="checkbox-label"
-            ><input
-              type="checkbox"
-              @change=${this.onShowLatestChange}
-              ?checked=${this._showLatestAvailableData}
-            />
-            <span>Show trends summary</span></label
-          >
-          ${this._showLatestAvailableData
-            ? html`<span class="slider-date-footnote"
-                >* Trend summary shows latest data for each place</span
-              >`
-            : isHighestCoverageDate
+          ${this.showTrendsSummary
+            ? html`<div>
+                <label class="checkbox-label"
+                  ><input
+                    type="checkbox"
+                    @change=${this.onShowLatestChange}
+                    ?checked=${this._showLatestAvailableData}
+                  />
+                  <span>Show trends summary</span></label
+                >
+              </div>`
+            : null}
+          ${isHighestCoverageDate
             ? html`<span class="slider-date-footnote"
                 >* Most recent date with highest coverage</span
               >`
-            : ""}
+            : html`<span class="slider-date-footnote">&nbsp;</span>`}
         </div>
+
+        <div class="row options"></div>
       </div>
     `;
   }
@@ -502,15 +513,9 @@ export class DatacommonsSliderComponent extends LitElement {
     } else {
       this._errorMessage = `No date range found for (variable: ${this.variable},  parentPlace: ${this.parentPlace}, childPlaceType: ${this.childPlaceType})`;
     }
-    if (!this.date || this.date.toUpperCase() === DATE_LATEST) {
-      // Showing "LATEST" available data
-      this._showLatestAvailableData = true;
-      this._value = this._dates.length - 1;
-    } else if (
-      this.date.toUpperCase() === DATE_HIGHEST_COVERAGE &&
-      this._highestCoverageDate
-    ) {
-      // Showing "HIGHEST_COVERAGE" data
+
+    if (this._highestCoverageDate) {
+      // Show HIGHEST_COVERAGE data on initial load
       const highestCoverageDateIndex = this._dates.indexOf(
         this._highestCoverageDate
       );
@@ -518,9 +523,7 @@ export class DatacommonsSliderComponent extends LitElement {
         this._value = highestCoverageDateIndex;
       }
     } else {
-      // Select a specific date
-      const dateIndex = this._dates.indexOf(this.date);
-      this._value = dateIndex >= 0 ? dateIndex : this._dates.length - 1;
+      this._value = this._dates.length - 1;
     }
   }
 }
