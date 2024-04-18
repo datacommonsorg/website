@@ -46,12 +46,13 @@ class ExploreTest(NLWebServerTestCase):
                     test='',
                     i18n='',
                     check_detection=False,
-                    idx=''):
+                    idx='',
+                    reranker=''):
     ctx = {}
     for q in queries:
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect&idx={idx}',
+          f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect&idx={idx}&reranker={reranker}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -284,6 +285,15 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detection('detection_api_bugs', [
         'What is the relationship between housing size and home prices in California'
     ])
+
+  def test_detection_reranking(self):
+    self.run_detection('detection_api_reranking', [
+      # Without reranker the top SV is Median_Income_Person,
+      # With reranking the top SV is Count_Person_IncomeOf75000OrMoreUSDollar.
+      'population that is rich in california'
+    ],
+    check_detection=True,
+    reranker='cross-encoder-mxbai-rerank-base-v1')
 
   def test_fulfillment_basic(self):
     req = {
