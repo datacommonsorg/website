@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2024 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,6 +15,6 @@
 
 python3 -m venv .env
 source .env/bin/activate
-python3 -m pip install --upgrade pip
-pip3 install -r requirements.txt
-python3 update_goldens.py "$@"
+python3 -m pip install --upgrade pip setuptools
+python3 -m pip install -r requirements.txt
+python3 differ.py "$@"
