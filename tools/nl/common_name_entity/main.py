@@ -80,21 +80,28 @@ def _get_chunked_names(names):
 def _get_results_for_names(nlp, names, name_to_type):
   if not names:
     return {}, {}
+  
+  # Get the part of sentence of each name from spacy
   name_str = ' '.join(names)
   doc = nlp(name_str)
+
   # map of name to its list of tokens that make up the name
   name_to_tokens = {}
   # index in names list of the current name we are processing
   curr_name_idx = 0
   # the part of the current name that has yet to be processed
   running_curr_name = names[curr_name_idx]
+  # map of token to its part of sentence for each flagged token
   flagged_tokens = {}
+
+  # Process each token returned by spacy
   for token in doc:
     # If running_curr_name is empty, we've finished getting the tokens for
     # this name, so move on to the next name
     if not running_curr_name and curr_name_idx < len(names) - 1:
       curr_name_idx += 1
       running_curr_name = names[curr_name_idx]
+
     # If running_curr_name starts with the token text, that means this token
     # applies to this name. Add the token to name_to_tokens and update
     # running_curr_name. We need a running_curr_name because spacy will tokenize
@@ -112,14 +119,18 @@ def _get_results_for_names(nlp, names, name_to_type):
         name_to_tokens[curr_name] = []
       name_to_tokens[curr_name].append(token.text)
       running_curr_name = running_curr_name[len(token.text):].strip()
+
     # Add token to flagged tokens if it is not in _POS_GOOD (_POS_GOOD are part
     # of sentence tags that are likely to not be a common word) and it is not a
     # combination of letters and numbers.
     if token.pos_ not in _POS_GOOD and re.match(_LETTER_NUMBER_REGEX,
                                                 token.text) is None:
       flagged_tokens[token.text] = token.pos_
+  
+  # Get flagged names
   flagged_names = _generate_flagged_names(flagged_tokens, name_to_tokens,
                                           name_to_type)
+  
   return flagged_tokens, flagged_names
 
 
