@@ -43,7 +43,7 @@ _DEFAULT_EMBEDDINGS_INDEX_TYPE = "medium_ft"
 
 _CHUNK_SIZE = 100
 
-_MODEL_ENDPOINT_RETRYS = 3
+_MODEL_ENDPOINT_RETRIES = 3
 
 _GCS_PATH_PREFIX = "gs://"
 
@@ -225,7 +225,7 @@ def build_embeddings(ctx, text2sv: Dict[str, str]) -> pd.DataFrame:
     embeddings = []
     for i, chuck in enumerate(chunk_list(texts, _CHUNK_SIZE)):
       logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE - 1)
-      for i in range(_MODEL_ENDPOINT_RETRYS):
+      for i in range(_MODEL_ENDPOINT_RETRIES):
         try:
           resp = ctx.model_endpoint.predict(instances=chuck,
                                             timeout=600).predictions
