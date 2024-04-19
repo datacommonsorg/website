@@ -65,6 +65,10 @@ class EmbeddingsMap:
             model=self.name2model[idx.model_name],
             store=MemoryEmbeddingsStore(idx.embeddings_local_path))
       elif idx.store_type == StoreType.LANCEDB:
+        # Lance DB's X86_64 lib doesn't run on MacOS Silicon, and
+        # this causes trouble for NL Server in Custom DC docker
+        # for MacOS Mx users. So skip using LanceDB for Custom DC.
+        # TODO: Drop this once Custom DC docker is fixed.
         if not _is_custom_dc():
           from nl_server.store.lancedb import LanceDBStore
           self.embeddings_map[idx.name] = Embeddings(
