@@ -4,42 +4,139 @@
   "main_place_dcid": "<None>",
   "main_place_name": "<None>",
   "entities_detected": [
+    "is",
     "volvox"
   ],
-  "entities_resolved": "(name: Volvox, dcid: dc/003ye83smktt7); ",
-  "query_with_places_removed": "what is the phylum of volvox",
+  "entities_resolved": "(name: Is, dcid: bio/dm3_Is); (name: Is, dcid: bio/dm6_Is); (name: Volvox, dcid: bio/D044446); (name: Volvox, dcid: dc/003ye83smktt7); (name: Volvox, dcid: dc/3rbv0rhm76sg8); (name: Volvox, dcid: dc/5zhg2q9l2n378); (name: Volvox, dcid: dc/953xfs4xh2bm5); (name: Volvox, dcid: dc/9fzm6f7k7etm4); (name: Volvox, dcid: dc/9xy7ymdmzyzdf); (name: Volvox, dcid: dc/b090kbyb0sz5b); (name: Volvox, dcid: dc/ccyhttectv5n2); (name: Volvox, dcid: dc/cd735b0hd6nh8); (name: Volvox, dcid: dc/ds26y3mt8z3c4); (name: Volvox, dcid: dc/erp74w62y7x4h); (name: Volvox, dcid: dc/fnqkx4gtrh1f7); (name: Volvox, dcid: dc/fzfq3lff3kf34); (name: Volvox, dcid: dc/ghtpcec74knl7); (name: Volvox, dcid: dc/h8ncxq8y6bkj2); (name: Volvox, dcid: dc/pdhk5jc41d636); (name: Volvox, dcid: dc/vxzgmlszw0zfh); (name: Volvox, dcid: dc/xvhwj1943wgf9); (name: Volvox, dcid: dc/yg1kw13e813e9); (name: Volvox, dcid: dc/z9x1mlh4pxzb7); (name: Volvox, dcid: dc/zsn19vpl9fy76); ",
+  "query_with_places_removed": "what the phylum of",
   "sv_matching": {
+    "CosineScore": [
+      0.3551090359687805,
+      0.3126291334629059,
+      0.2790032923221588,
+      0.2728559970855713,
+      0.2712491452693939,
+      0.26562047004699707,
+      0.2628049850463867,
+      0.25592702627182007,
+      0.25521552562713623,
+      0.2551817297935486,
+      0.2533870041370392,
+      0.2529027760028839
+    ],
+    "MultiSV": {},
+    "Query": "what the phylum of",
     "SV": [
       "dc/topic/SDGBiodiversity",
+      "Amount_FarmInventory_BarleyForGrain",
+      "Amount_FarmInventory_DurumWheatForGrain",
+      "Amount_FarmInventory_SorghumForSilageOrGreenchop",
+      "dc/topic/Language",
+      "Amount_FarmInventory_SorghumForGrain",
+      "Amount_FarmInventory_WheatForGrain",
+      "dc/topic/Dengue",
+      "dc/topic/Sustainability",
+      "Amount_FarmInventory_Rice",
       "Imports_EconomicActivity_Pharmaceutical",
-      "dc/topic/Emissions_Methane_EmissionsbySource",
-      "dc/topic/Cholesterol"
+      "Area_Farm_BarleyForGrain"
     ]
   },
   "props_matching": {
+    "CosineScore": [
+      1.0,
+      0.4752839207649231,
+      0.3615417182445526,
+      0.342009961605072,
+      0.32933083176612854,
+      0.31845176219940186,
+      0.3146698772907257,
+      0.3083952069282532,
+      0.30794063210487366,
+      0.3046300709247589,
+      0.28270867466926575,
+      0.28187552094459534,
+      0.2808277904987335,
+      0.2804529666900635,
+      0.2742983400821686,
+      0.27150508761405945,
+      0.2707182466983795,
+      0.26954683661460876,
+      0.2599007785320282
+    ],
     "PROP": [
       "phylum",
       "chemblID",
-      "virusGenus",
       "geneID",
-      "geneticVariantFunctionalCategory",
+      "virusGenus",
       "typeOfGene",
-      "hg38GenomicPosition",
       "fullName",
       "ensemblID",
-      "hg19GenomicPosition",
-      "hg38GenomicLocation",
-      "ncbiDNASequenceName",
-      "hg19GenomicLocation",
-      "strandOrientation",
-      "alleleOrigin",
-      "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol",
-      "ofVirusSpecies",
-      "antigenType",
-      "chromosomeSize",
-      "ncbiTaxonID",
       "simplifiedMolecularInputLineEntrySystem",
-      "ncbiProteinAccessionNumber"
+      "geneticVariantFunctionalCategory",
+      "imageUrl",
+      "genomicCoordinates",
+      "chromosomeSize",
+      "observedAllele",
+      "hg38GenomicPosition",
+      "hg19GenomicPosition",
+      "virusHost",
+      "strandOrientation",
+      "ncbiDNASequenceName",
+      "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol"
     ]
+  },
+  "query_detection_debug_logs": {
+    "dc_recognize_entities": {
+      "is": [
+        "bio/dm3_Is",
+        "bio/dm6_Is"
+      ],
+      "volvox": [
+        "bio/D044446",
+        "dc/003ye83smktt7",
+        "dc/3rbv0rhm76sg8",
+        "dc/5zhg2q9l2n378",
+        "dc/953xfs4xh2bm5",
+        "dc/9fzm6f7k7etm4",
+        "dc/9xy7ymdmzyzdf",
+        "dc/b090kbyb0sz5b",
+        "dc/ccyhttectv5n2",
+        "dc/cd735b0hd6nh8",
+        "dc/ds26y3mt8z3c4",
+        "dc/erp74w62y7x4h",
+        "dc/fnqkx4gtrh1f7",
+        "dc/fzfq3lff3kf34",
+        "dc/ghtpcec74knl7",
+        "dc/h8ncxq8y6bkj2",
+        "dc/pdhk5jc41d636",
+        "dc/vxzgmlszw0zfh",
+        "dc/xvhwj1943wgf9",
+        "dc/yg1kw13e813e9",
+        "dc/z9x1mlh4pxzb7",
+        "dc/zsn19vpl9fy76"
+      ]
+    },
+    "dc_recognize_places": {
+      "volvox": [
+        "dc/003ye83smktt7"
+      ]
+    },
+    "main_place_inferred": null,
+    "original_query": "What is the phylum of volvox",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": {
+      "dc_resolution_failure": [
+        "dc/003ye83smktt7"
+      ],
+      "dc_resolved_places": []
+    },
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "What is the phylum of volvox",
+      "place_detection_with_places_removed": "what the phylum of",
+      "sv_detection_query_index_type": "bio_ft",
+      "sv_detection_query_input": "what the phylum of",
+      "sv_detection_query_stop_words_removal": "phylum"
+    }
   }
 }

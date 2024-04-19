@@ -4,43 +4,129 @@
   "main_place_dcid": "<None>",
   "main_place_name": "<None>",
   "entities_detected": [
+    "genes",
     "fgfr1",
-    "apoe",
+    ", apoe ,",
     "ache"
   ],
-  "entities_resolved": "(name: FGFR1, dcid: bio/hg38_FGFR1); (name: APOE, dcid: bio/hg38_APOE); (name: ACHE, dcid: bio/ACHE); ",
-  "query_with_places_removed": "what types of genes are , , and",
+  "entities_resolved": "(name: Genes, dcid: bio/D005796); (name: FGFR1, dcid: bio/FGFR1); (name: FGFR1, dcid: bio/galGal5_FGFR1); (name: FGFR1, dcid: bio/galGal6_FGFR1); (name: FGFR1, dcid: bio/hg19_FGFR1); (name: FGFR1, dcid: bio/hg38_FGFR1); (name: Fgfr1, dcid: bio/mm10_Fgfr1); (name: Fgfr1, dcid: bio/mm9_Fgfr1); (name: APOE, dcid: bio/APOE); (name: APOE, dcid: bio/hg19_APOE); (name: APOE, dcid: bio/hg38_APOE); (name: Apoe, dcid: bio/mm10_Apoe); (name: Apoe, dcid: bio/mm9_Apoe); (name: ACHE, dcid: bio/ACHE); (name: ache, dcid: bio/danRer10_ache); (name: ache, dcid: bio/danRer11_ache); (name: ACHE, dcid: bio/galGal5_ACHE); (name: ACHE, dcid: bio/galGal6_ACHE); (name: ACHE, dcid: bio/hg19_ACHE); (name: ACHE, dcid: bio/hg38_ACHE); (name: Ache, dcid: bio/mm10_Ache); (name: Ache, dcid: bio/mm9_Ache); ",
+  "query_with_places_removed": "what types of are and",
   "sv_matching": {
+    "CosineScore": [
+      0.5232298374176025,
+      0.49217352271080017,
+      0.40450412034988403,
+      0.37155818939208984,
+      0.3589966893196106,
+      0.346591055393219,
+      0.3429902195930481,
+      0.3318939208984375,
+      0.32949498295783997,
+      0.3198515772819519,
+      0.31784915924072266,
+      0.30852699279785156
+    ],
+    "MultiSV": {},
+    "Query": "what types of are and",
     "SV": [
-      "dc/topic/SDGBiodiversity",
-      "dc/topic/sdg_2.5.1",
-      "dc/topic/sdg_15.6",
-      "dc/topic/sdg_2.5"
+      "dc/topic/SchoolType",
+      "dc/topic/HealthInsuranceType",
+      "Count_Worker_NAICSNonclassifiable",
+      "dc/topic/PublicHealthInsuranceType",
+      "dc/topic/CommuteMode",
+      "dc/topic/Demographics",
+      "dc/topic/Gender",
+      "dc/topic/EducationalAttainmentByGenderAndLevel",
+      "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+      "dc/topic/PrivateHealthInsuranceType",
+      "dc/topic/DisabilitiesByGender",
+      "dc/topic/PopulationEnrolledInSchoolTypeByRace"
     ]
   },
   "props_matching": {
+    "CosineScore": [
+      0.7504298090934753,
+      0.5023147463798523,
+      0.4946361482143402,
+      0.4529350996017456,
+      0.4141203463077545,
+      0.39529240131378174,
+      0.38099461793899536,
+      0.3546903133392334
+    ],
     "PROP": [
       "typeOfGene",
-      "geneticVariantFunctionalCategory",
-      "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol",
-      "<-geneSymbol{typeOf:GeneticVariantGeneAssociation}->referenceSNPClusterID",
-      "fullName",
-      "geneID",
-      "<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID",
-      "genomicCoordinates",
-      "<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID",
-      "alleleType",
       "antigenType",
-      "hasRNATranscript",
-      "hg19GenomicPosition",
-      "hg38GenomicPosition",
-      "hg19GenomicLocation",
-      "hg38GenomicLocation",
+      "alleleType",
+      "specializationOf",
+      "subClassificationOf",
+      "geneticVariantFunctionalCategory",
       "antibodyType",
-      "chromosomeSize",
-      "referenceAlleleNCBI",
-      "observedAllele",
-      "ncbiDNASequenceName"
+      "class"
     ]
+  },
+  "query_detection_debug_logs": {
+    "dc_recognize_entities": {
+      ", apoe ,": [
+        "bio/APOE",
+        "bio/hg19_APOE",
+        "bio/hg38_APOE",
+        "bio/mm10_Apoe",
+        "bio/mm9_Apoe"
+      ],
+      "ache": [
+        "bio/ACHE",
+        "bio/danRer10_ache",
+        "bio/danRer11_ache",
+        "bio/galGal5_ACHE",
+        "bio/galGal6_ACHE",
+        "bio/hg19_ACHE",
+        "bio/hg38_ACHE",
+        "bio/mm10_Ache",
+        "bio/mm9_Ache"
+      ],
+      "fgfr1": [
+        "bio/FGFR1",
+        "bio/galGal5_FGFR1",
+        "bio/galGal6_FGFR1",
+        "bio/hg19_FGFR1",
+        "bio/hg38_FGFR1",
+        "bio/mm10_Fgfr1",
+        "bio/mm9_Fgfr1"
+      ],
+      "genes": [
+        "bio/D005796"
+      ]
+    },
+    "dc_recognize_places": {
+      "ACHE": [
+        "bio/ACHE"
+      ],
+      "APOE": [
+        "bio/hg38_APOE"
+      ],
+      "FGFR1": [
+        "bio/hg38_FGFR1"
+      ]
+    },
+    "main_place_inferred": null,
+    "original_query": "What types of genes are FGFR1 APOE and ACHE",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": {
+      "dc_resolution_failure": [
+        "bio/hg38_FGFR1",
+        "bio/hg38_APOE",
+        "bio/ACHE"
+      ],
+      "dc_resolved_places": []
+    },
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "What types of genes are FGFR1, APOE, and ACHE",
+      "place_detection_with_places_removed": "what types of are and",
+      "sv_detection_query_index_type": "bio_ft",
+      "sv_detection_query_input": "what types of are and",
+      "sv_detection_query_stop_words_removal": "types"
+    }
   }
 }

@@ -45,12 +45,14 @@ class ExploreTest(NLWebServerTestCase):
                     failure='',
                     test='',
                     i18n='',
-                    check_detection=False):
+                    check_detection=False,
+                    idx='',
+                    reranker=''):
     ctx = {}
     for q in queries:
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect',
+          f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect&idx={idx}&reranker={reranker}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -71,12 +73,13 @@ class ExploreTest(NLWebServerTestCase):
                              i18n='',
                              i18n_lang='',
                              mode='',
-                             default_place=''):
+                             default_place='',
+                             idx=''):
     ctx = {}
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}',
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}&idx={idx}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -120,12 +123,11 @@ class ExploreTest(NLWebServerTestCase):
       json_dir = os.path.dirname(json_file)
       if not os.path.isdir(json_dir):
         os.makedirs(json_dir)
-      with open(json_file, 'w') as infile:
-        infile.write(json.dumps(resp, indent=2))
-
       if check_detection:
         dbg_file = os.path.join(json_dir, 'debug_info.json')
         with open(dbg_file, 'w') as infile:
+          del dbg["sv_matching"]["SV_to_Sentences"]
+          del dbg["props_matching"]["PROP_to_Sentences"]
           dbg_to_write = {
               "places_detected": dbg["places_detected"],
               "places_resolved": dbg["places_resolved"],
@@ -134,14 +136,14 @@ class ExploreTest(NLWebServerTestCase):
               "entities_detected": dbg["entities_detected"],
               "entities_resolved": dbg["entities_resolved"],
               "query_with_places_removed": dbg["query_with_places_removed"],
-              "sv_matching": {
-                  "SV": dbg["sv_matching"]["SV"]
-              },
-              "props_matching": {
-                  "PROP": dbg["props_matching"]["PROP"]
-              },
+              "sv_matching": dbg["sv_matching"],
+              "props_matching": dbg["props_matching"],
+              "query_detection_debug_logs": dbg["query_detection_debug_logs"],
           }
           infile.write(json.dumps(dbg_to_write, indent=2))
+      else:
+        with open(json_file, 'w') as infile:
+          infile.write(json.dumps(resp, indent=2))
     else:
       if failure:
         self.assertTrue(failure in resp["failure"]), resp["failure"]
@@ -163,7 +165,7 @@ class ExploreTest(NLWebServerTestCase):
           self.maxDiff = None
           self.assertEqual(a, b)
       else:
-        # Look in the debugInfo file to match places detected.
+        # Look in the debugInfo file to match things detected.
         dbg_file = os.path.join(_dir, _TEST_DATA, test_dir, test_name,
                                 'debug_info.json')
         with open(dbg_file, 'r') as infile:
@@ -176,8 +178,33 @@ class ExploreTest(NLWebServerTestCase):
                            expected["entities_resolved"])
           self.assertEqual(dbg["sv_matching"]["SV"],
                            expected["sv_matching"]["SV"])
+          self.assertEqual(dbg["query_detection_debug_logs"],
+                           expected["query_detection_debug_logs"])
           self.assertEqual(dbg["props_matching"]["PROP"],
                            expected["props_matching"]["PROP"])
+          self._check_multivars(dbg["sv_matching"], expected["sv_matching"])
+
+  def _check_multivars(self, got, want):
+    self.assertEqual(got['SV'][0], want['SV'][0])
+
+    got_multisv = got['MultiSV'].get('Candidates', [])
+    want_multisv = want['MultiSV'].get('Candidates', [])
+    self.assertEqual(len(want_multisv), len(got_multisv))
+    for i in range(len(want_multisv)):
+      want_parts = want_multisv[i]['Parts']
+      got_parts = got_multisv[i]['Parts']
+      self.assertEqual(len(want_parts), len(got_parts))
+      for i in range(len(got_parts)):
+        self.assertEqual(got_parts[i]['QueryPart'], want_parts[i]['QueryPart'])
+        self.assertEqual(got_parts[i]['SV'][0], want_parts[i]['SV'][0])
+
+    if not want_multisv:
+      return
+
+    if want['CosineScore'][0] > want_multisv[0]['AggCosineScore']:
+      self.assertTrue(got['CosineScore'][0] > got_multisv[0]['AggCosineScore'])
+    else:
+      self.assertTrue(got['CosineScore'][0] < got_multisv[0]['AggCosineScore'])
 
   def handle_i18n_response(self, resp, i18n_lang):
     """The translation API does not always return the same translations.
@@ -210,6 +237,13 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detection('detection_api_basic', ['Commute in California'],
                        test='unittest')
 
+  def test_detection_basic_lancedb(self):
+    # NOTE: Use the same test-name as above, since we expect the content to exactly
+    # match the one from above.
+    self.run_detection('detection_api_basic', ['Commute in California'],
+                       test='unittest',
+                       idx='medium_lance_ft')
+
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
 
@@ -219,6 +253,16 @@ class ExploreTest(NLWebServerTestCase):
         'What types of genes are FGFR1, APOE, and ACHE?',
     ],
                        dc='bio',
+                       check_detection=True)
+
+  def test_detection_multivar(self):
+    self.run_detection('detection_api_multivar', [
+        'number of poor hispanic women with phd',
+        'compare obesity vs. poverty',
+        'show me the impact of climate change on drought',
+        'how are factors like obesity, blood pressure and asthma impacted by climate change',
+        'Compare "Male population" with "Female Population"',
+    ],
                        check_detection=True)
 
   def test_detection_context(self):
@@ -244,6 +288,17 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detection('detection_api_bugs', [
         'What is the relationship between housing size and home prices in California'
     ])
+
+  def test_detection_reranking(self):
+    self.run_detection(
+        'detection_api_reranking',
+        [
+            # Without reranker the top SV is Median_Income_Person,
+            # With reranking the top SV is Count_Person_IncomeOf75000OrMoreUSDollar.
+            'population that is rich in california'
+        ],
+        check_detection=True,
+        reranker='cross-encoder-mxbai-rerank-base-v1')
 
   def test_fulfillment_basic(self):
     req = {
@@ -535,12 +590,19 @@ class ExploreTest(NLWebServerTestCase):
     ])
 
   def test_e2e_date_range(self):
-    self.run_detect_and_fulfill('e2e_date_range', [
-        'Life expectancy in US states in the last 5 years',
-        'Population in California after 2013',
-        'Female population in New York before 2020',
-        'Which countries in Africa have had the greatest increase in electricity access over the last 10 years?'
-    ])
+    self.run_detect_and_fulfill(
+        'e2e_date_range',
+        [
+            'Life expectancy in US states in the last 5 years',
+            'Population in California after 2013',
+            'Female population in New York before 2020',
+            # tests date range with map charts
+            'Female population in California counties before 2020',
+            # tests date range with scatter charts
+            'poverty vs obesity in california before 2020',
+            # tests date range with time delta
+            'Which countries in Africa have had the greatest increase in electricity access over the last 10 years?'
+        ])
 
   def test_e2e_default_place(self):
     self.run_detect_and_fulfill('e2e_no_default_place_specified', [
@@ -585,6 +647,8 @@ class ExploreTest(NLWebServerTestCase):
             # Should have a chained property in the answer
             'What genes are associated with the genetic variant rs13317?',
             # Should return a table in the answer
-            'What genes are associated with the genetic variant rs13317 and rs7903146?'
+            'What genes are associated with the genetic variant rs13317 and rs7903146?',
+            # Should return a table with all the out arcs of the two entities
+            'what virus species are rs13317 and rs7903146'
         ],
         dc='bio')

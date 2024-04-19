@@ -1,22 +1,23 @@
 {% block head %}
 <script>
-window.addEventListener('DOMContentLoaded', (event) => {
-  document.getElementById("search-form").addEventListener("submit",function(event) {
-    event.preventDefault();
-    var query = document.getElementById("search-form-query").value;
-    if (!query) {
-      return;
-    }
-    window.location = "/explore/#q="+ encodeURI(query);
-  })
-}) </script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      document.getElementById("search-form").addEventListener("submit",function(event) {
+        event.preventDefault();
+        var query = document.getElementById("search-form-query").value;
+        if (!query) {
+          return;
+        }
+        window.location = "/explore/#q="+ encodeURI(query);
+      })
+    })
+</script>
 {% endblock %}
 
 <div class="search__wrapper">
   <p class=search__intro>Get started by asking a question...</p>
   <form method="get" id="search-form" class="search__form">
     <label for="search-form-query" class="search__label">Search Site</label>
-    <input name="q" type="text" id="search-form-query" class="search__input" placeholder="Search here..." />
+    <input name="q" type="text" id="search-form-query" class="search__input" placeholder="Ask a question to explore..." />
     <button type="submit" value="Submit" class="search__submit" aria-label="Search">
       <span style="display: none;">Search</span>
     </button>

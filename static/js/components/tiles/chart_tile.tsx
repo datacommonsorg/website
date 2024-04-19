@@ -43,7 +43,7 @@ interface ChartTileContainerProp {
   allowEmbed: boolean;
   // callback function for getting the chart data as a csv. Only used for
   // embedding.
-  getDataCsv?: () => string;
+  getDataCsv?: () => Promise<string>;
   // Extra classes to add to the container.
   className?: string;
   // Whether or not this is the initial loading state.
@@ -117,7 +117,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     const { svgXml, height, width } = getMergedSvg(containerRef.current);
     embedModalElement.current.show(
       svgXml,
-      props.getDataCsv ? props.getDataCsv() : "",
+      props.getDataCsv,
       width,
       height,
       "",

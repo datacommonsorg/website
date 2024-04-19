@@ -88,8 +88,12 @@ class SV2Thing:
 class ExistInfo:
   is_single_point: bool = False
   # Facet metadata where keys are metadata keys and values are metadata values.
-  # Keys include 'facetId' and optional 'unit'.
+  # Keys include 'facetId'. 'earliestDate', 'latestDate', and optional 'unit'
+  # and 'observationPeriod'.
   facet: Dict[str, str] = field(default_factory=dict)
+  # Latest valid date that there exists data for. This is only used and only set
+  # when there is a date/date range asked for in the query.
+  latest_valid_date: str = ''
 
 
 # Data structure to store state for a single "populate" call.
@@ -144,6 +148,10 @@ class PopulateState:
 Place2Facet = Dict[str, str]
 # Dict of sv dcid -> place dcid -> facet id
 Sv2Place2Facet = Dict[str, Place2Facet]
+# Dict of place key -> date
+Place2Date = Dict[str, str]
+# Dict of sv dcid -> place key -> date
+Sv2Place2Date = Dict[str, Place2Date]
 
 
 @dataclass
@@ -162,6 +170,11 @@ class ChartSpec:
   is_special_dc: bool
   single_date: Date
   date_range: Date
-  # Dict of sv -> place -> facetid to use
+  # Dict of sv -> place -> facetid to use.
+  # This is used by timeline charts when there is a date/date range in the query
   sv_place_facet_id: Sv2Place2Facet
   info_message: str
+  # Dict of sv -> place key -> latest valid date
+  # This is used by charts that show a single data point (e.g., bar, map,
+  # ranking, highlight, scatter) when there is a date range in the query
+  sv_place_latest_date: Sv2Place2Date

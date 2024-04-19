@@ -19,11 +19,11 @@
 import { useCallback, useContext } from "react";
 
 import { StatMetadata } from "../../../shared/stat_types";
+import { getCappedStatVarDate } from "../../../shared/util";
 import { getNonPcQuery, getPcQuery } from "../bq_query_utils";
 import { ChartStore } from "../chart_store";
 import { Context } from "../context";
 import { useAllStatReady } from "../ready_hooks";
-import { getDate } from "../util";
 
 export function useGetSqlQuery(chartStore: ChartStore) {
   const { dateCtx, statVar, placeInfo } = useContext(Context);
@@ -32,7 +32,7 @@ export function useGetSqlQuery(chartStore: ChartStore) {
     if (!allStatReady()) {
       return "";
     }
-    const date = getDate(statVar.value.dcid, dateCtx.value);
+    const date = getCappedStatVarDate(statVar.value.dcid, dateCtx.value);
     let metadata: StatMetadata = {};
     if (statVar.value.metahash in chartStore.allStat.data.facets) {
       metadata = chartStore.allStat.data.facets[statVar.value.metahash];

@@ -1,0 +1,2 @@
+google-cloud-secret-manager==2.18.3
+absl-py==1.4.0

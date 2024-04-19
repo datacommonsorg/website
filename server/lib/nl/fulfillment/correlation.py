@@ -55,8 +55,16 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
 def _scatter(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, rank: int) -> bool:
-  found = add_chart_to_utterance(ChartType.SCATTER_CHART, state, chart_vars,
-                                 places, chart_origin)
+
+  sv_place_latest_date = exist.get_sv_place_latest_date(chart_vars.svs, places,
+                                                        state.place_type,
+                                                        state.exist_checks)
+  found = add_chart_to_utterance(ChartType.SCATTER_CHART,
+                                 state,
+                                 chart_vars,
+                                 places,
+                                 chart_origin,
+                                 sv_place_latest_date=sv_place_latest_date)
   if found:
     ranking_orig = state.ranking_types
     state.ranking_types = [RankingType.HIGH, RankingType.LOW]

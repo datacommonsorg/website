@@ -90,7 +90,7 @@ class TestEndToEnd(unittest.TestCase):
                                                  EMBEDDINGS_YAML_FILE_NAME)
 
       builder.generate_embeddings_yaml(
-          create_file_handler(fake_embeddings_csv_path),
+          'FooModel', create_file_handler(fake_embeddings_csv_path),
           create_file_handler(actual_embeddings_yaml_path))
 
       _compare_files(self, actual_embeddings_yaml_path,

@@ -271,12 +271,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   if ingress_config_path:
     configure_endpoints_from_ingress(ingress_config_path)
 
-  register_routes_common(app)
-  if not cfg.CUSTOM:
-    # Only register biomedical DC routes if in main DC
+  if os.environ.get('FLASK_ENV') == 'biomedical':
     register_routes_biomedical_dc(app)
 
+  register_routes_common(app)
   register_routes_base_dc(app)
+
   if cfg.SHOW_DISASTER:
     register_routes_disasters(app)
 
@@ -340,7 +340,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                       'mixer-api-key', 'latest')
       secret_response = secret_client.access_secret_version(name=secret_name)
-      app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+      app.config['DC_API_KEY'] = secret_response.payload.data.decode(
+          'UTF-8').replace('\n', '')
 
   # Initialize translations
   babel = Babel(app, default_domain='all')

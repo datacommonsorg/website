@@ -102,7 +102,6 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2024",
                       "startDate": "2023"
                     },
                     "statVarKey": [

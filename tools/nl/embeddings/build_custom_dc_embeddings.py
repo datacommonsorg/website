@@ -63,18 +63,20 @@ def download(embeddings_yaml_path: str):
   """
   ctx = _ctx_no_model()
 
+  default_ft_embeddings_info = utils.get_default_ft_embeddings_info()
+
   # Download model.
-  model_version = utils.get_default_ft_model_version()
+  model_version = default_ft_embeddings_info["model"]
   utils.get_or_download_model_from_gcs(ctx, model_version)
 
   # Download embeddings.
-  embeddings_file_name = utils.get_default_ft_embeddings_file_name()
+  embeddings_file_name = default_ft_embeddings_info["embeddings"]
   utils.get_or_download_file_from_gcs(ctx, embeddings_file_name)
 
   # The prod embeddings.yaml includes multiple embeddings (default, biomed, UN)
   # For custom DC, we only want the default.
   utils.save_embeddings_yaml_with_only_default_ft_embeddings(
-      embeddings_yaml_path, embeddings_file_name)
+      embeddings_yaml_path, default_ft_embeddings_info)
 
 
 def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
@@ -102,7 +104,8 @@ def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
   embeddings_csv_handler.write_string(embeddings_csv)
 
   print(f"Saving embeddings yaml: {embeddings_yaml_handler.path}")
-  generate_embeddings_yaml(embeddings_csv_handler, embeddings_yaml_handler)
+  generate_embeddings_yaml(model_version, embeddings_csv_handler,
+                           embeddings_yaml_handler)
 
   print("Done building custom DC embeddings.")
 
@@ -118,9 +121,16 @@ def _build_embeddings_dataframe(
   return utils.build_embeddings(ctx, text2sv_dict)
 
 
-def generate_embeddings_yaml(embeddings_csv_handler: FileHandler,
+def generate_embeddings_yaml(model_version: str,
+                             embeddings_csv_handler: FileHandler,
                              embeddings_yaml_handler: FileHandler):
-  data = {"custom_ft": embeddings_csv_handler.abspath()}
+  data = {
+      "custom_ft": {
+          "embeddings": embeddings_csv_handler.abspath(),
+          "model": model_version,
+          "store": "MEMORY"
+      }
+  }
   embeddings_yaml_handler.write_string(yaml.dump(data))
 
 

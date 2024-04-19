@@ -23,9 +23,10 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { drawGaugeChart } from "../../chart/draw_gauge";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { dataPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import {
   getDenomInfo,
   getNoDataErrorMsg,
@@ -33,6 +34,7 @@ import {
   getStatVarNames,
   ReplacementStrings,
   showError,
+  transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -118,14 +120,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       replacementStrings={replacementStrings}
       allowEmbed={true}
       className={`bar-chart`}
-      getDataCsv={
-        gaugeData
-          ? () =>
-              dataPointsToCsv([
-                { value: gaugeData.value, label: props.place.dcid },
-              ])
-          : null
-      }
+      getDataCsv={getDataCsvCallback(props)}
       hasErrorMsg={gaugeData && !!gaugeData.errorMsg}
       footnote={props.footnote}
     >
@@ -201,6 +196,26 @@ const fetchData = async (props: GaugeTilePropType) => {
     return null;
   }
 };
+
+/**
+ * Returns callback for fetching chart CSV data
+ * @param props Chart properties
+ * @returns Async function for fetching chart CSV
+ */
+function getDataCsvCallback(props: GaugeTilePropType): () => Promise<string> {
+  return () => {
+    return datacommonsClient.getCsv({
+      date: props.statVarSpec.date,
+      entities: [props.place.dcid],
+      fieldDelimiter: CSV_FIELD_DELIMITER,
+      perCapitaVariables: props.statVarSpec.denom
+        ? [props.statVarSpec.denom]
+        : undefined,
+      transformHeader: transformCsvHeader,
+      variables: [props.statVarSpec.statVar],
+    });
+  };
+}
 
 function draw(
   props: GaugeTilePropType,

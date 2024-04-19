@@ -24,6 +24,8 @@ export const URL_HASH_PARAMS = {
   TOPIC: "t",
   QUERY: "q",
   DC: "dc",
+  // Embeddings index name (listed in embeddings.yaml)
+  IDX: "idx",
   DISABLE_EXPLORE_MORE: "em",
   // old query param
   DEPRECATED_QUERY: "oq",
@@ -40,6 +42,7 @@ export const URL_HASH_PARAMS = {
   CLIENT: "client",
   DEFAULT_PLACE: "default_place",
   MODE: "mode",
+  RERANKER: "reranker",
 };
 export const CLIENT_TYPES = {
   // User typed in a p=X&t=Y URL
