@@ -44,13 +44,14 @@ class LanceDBStore(EmbeddingsStore):
     results: List[EmbeddingsResult] = []
     for emb in query_embeddings:
       matches: List[EmbeddingsMatch] = []
-      matches = self.table.search(emb).metric('cosine').limit(top_k).to_list()
-      for match in matches:
+      candidates = self.table.search(emb).metric('cosine').limit(
+          top_k).to_list()
+      for cand in candidates:
         # We want to return cosine-similarity, but LanceDB
         # returns distance.
-        score = 1 - match[DISTANCE_COL]
-        dcid = match[DCID_COL]
-        sentence = match[SENTENCE_COL]
+        score = 1 - cand[DISTANCE_COL]
+        dcid = cand[DCID_COL]
+        sentence = cand[SENTENCE_COL]
         matches.append(
             EmbeddingsMatch(sentence=sentence, score=score, vars=[dcid]))
       results.append(matches)
