@@ -23,7 +23,6 @@ from typing import Any, Dict, List, Tuple
 
 from file_util import create_file_handler
 from google.cloud import aiplatform
-from google.cloud import storage
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import yaml
