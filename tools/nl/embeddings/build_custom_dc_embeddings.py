@@ -81,7 +81,6 @@ def download(embeddings_yaml_path: str):
   # Download embeddings.
   embeddings_file_name = default_ft_embeddings_info["embeddings"]
   gcs.download_gcs_file(embeddings_file_name)
-  # utils.get_or_download_file_from_gcs(ctx, embeddings_file_name)
 
   # The prod embeddings.yaml includes multiple embeddings (default, biomed, UN)
   # For custom DC, we only want the default.

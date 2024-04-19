@@ -167,7 +167,8 @@ def dedup_texts(df: pd.DataFrame) -> Tuple[Dict[str, str], List[List[str]]]:
 
 
 def _download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
-  # TODO: deprecate this in favor of the function  in nl_server.gcs
+  # TODO: Move download_folder from nl_server.gcs to shared.lib.gcs
+  # and then use that function instead of this one.
   """Downloads a Sentence Tranformer model (or finetuned version) from GCS.
 
   Args:
