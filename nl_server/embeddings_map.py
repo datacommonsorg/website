@@ -65,14 +65,13 @@ class EmbeddingsMap:
             model=self.name2model[idx.model_name],
             store=MemoryEmbeddingsStore(idx.embeddings_local_path))
       elif idx.store_type == StoreType.LANCEDB:
-        try:
+        if not _is_custom_dc():
           from nl_server.store.lancedb import LanceDBStore
           self.embeddings_map[idx.name] = Embeddings(
               model=self.name2model[idx.model_name],
               store=LanceDBStore(idx.embeddings_local_path))
-        except Exception:
-          logging.info('NOTE: LANCEDB load failed in Custom DC environment')
-          pass
+        else:
+          logging.info('Not loading LanceDB in Custom DC environment!')
 
   # Note: The caller takes care of exceptions.
   def get(self, index_type: str = DEFAULT_INDEX_TYPE) -> Embeddings:
@@ -161,3 +160,7 @@ def _merge_custom_index(default: EmbeddingsIndex,
       f'custom {custom.embeddings_local_path} into {output_embeddings_path}')
 
   return output_embeddings_path
+
+
+def _is_custom_dc() -> bool:
+  return os.environ.get('IS_CUSTOM_DC', '').lower() == 'true'
