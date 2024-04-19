@@ -28,7 +28,7 @@ def rerank(rerank_fn: RerankCallable, query: str,
 
   # List of query-sentence pairs.
   qs_pairs: List[List[str, str]] = []
-  # Sentence to index into var_candidates parallel arrays.
+  # Sentence to index into var_candidates.svs.
   sentence2idx: Dict[str, int] = {}
   for idx, sv in enumerate(var_candidates.svs):
     for s in var_candidates.sv2sentences.get(sv, []):
