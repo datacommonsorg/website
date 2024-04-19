@@ -12,10 +12,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
 }) </script>
 {% endblock %}
 
-<form method="get" id="search-form" class="search__form">
-  <label for="search-form-query" class="search__label">Search Site</label>
-  <input name="q" type="text" id="search-form-query" class="search__input" placeholder="Search here..." />
-  <button type="submit" value="Submit" class="search__submit" aria-label="Search">
-    <span style="display: none;">Search</span>
-  </button>
-</form>
+<div class="search__wrapper">
+  <p class=search__intro>Get started by asking a question...</p>
+  <form method="get" id="search-form" class="search__form">
+    <label for="search-form-query" class="search__label">Search Site</label>
+    <input name="q" type="text" id="search-form-query" class="search__input" placeholder="Search here..." />
+    <button type="submit" value="Submit" class="search__submit" aria-label="Search">
+      <span style="display: none;">Search</span>
+    </button>
+  </form>
+</div>
