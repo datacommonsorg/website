@@ -21,9 +21,13 @@ from typing import Dict, List
 class SentenceScore:
   sentence: str
   score: float
+  rerank_score: float = None
 
   def to_dict(self) -> Dict:
-    return {'sentence': self.sentence, 'score': self.score}
+    d = {'sentence': self.sentence, 'score': self.score}
+    if self.rerank_score != None:
+      d['rerank_score'] = self.rerank_score
+    return d
 
 
 # Key is SV.
@@ -81,7 +85,9 @@ def dict_to_var_candidates(nlresp: Dict) -> VarCandidates:
   sv2sentences: SV2Sentences = {}
   for sv, sentences in nlresp.get('SV_to_Sentences', {}).items():
     sv2sentences[sv] = [
-        SentenceScore(sentence=v.get('sentence'), score=v.get('score'))
+        SentenceScore(sentence=v.get('sentence'),
+                      score=v.get('score'),
+                      rerank_score=v.get('rerank_score', None))
         for v in sentences
     ]
   return VarCandidates(svs=nlresp.get('SV', []),
@@ -89,10 +95,15 @@ def dict_to_var_candidates(nlresp: Dict) -> VarCandidates:
                        sv2sentences=sv2sentences)
 
 
+def var_candidates_to_dict(res: VarCandidates) -> Dict:
+  result = {'SV': res.svs, 'CosineScore': res.scores}
+  if res.sv2sentences:
+    result['SV_to_Sentences'] = res.sv2sentences_dict()
+  return result
+
+
 def var_detection_result_to_dict(res: VarDetectionResult) -> Dict:
-  result = {'SV': res.single_var.svs, 'CosineScore': res.single_var.scores}
-  if res.single_var.sv2sentences:
-    result['SV_to_Sentences'] = res.single_var.sv2sentences_dict()
+  result = var_candidates_to_dict(res.single_var)
   if res.multi_var:
     result['MultiSV'] = multivar_candidates_to_dict(res.multi_var)
   return result
