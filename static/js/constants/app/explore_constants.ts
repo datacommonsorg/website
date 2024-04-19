@@ -42,6 +42,7 @@ export const URL_HASH_PARAMS = {
   CLIENT: "client",
   DEFAULT_PLACE: "default_place",
   MODE: "mode",
+  RERANKER: "reranker",
 };
 export const CLIENT_TYPES = {
   // User typed in a p=X&t=Y URL

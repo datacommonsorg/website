@@ -58,7 +58,12 @@ const svToSentences = (
                       {svSentences[sv].map((sentence) => {
                         return (
                           <li key={sentence.score + sentence.sentence}>
-                            {sentence.sentence} ({sentence.score})
+                            {sentence.sentence} (cosine:
+                            {sentence.score.toFixed(4)}
+                            {sentence.rerank_score
+                              ? " - rerank:" + sentence.rerank_score.toFixed(4)
+                              : ""}
+                            )
                           </li>
                         );
                       })}
