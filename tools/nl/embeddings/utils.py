@@ -320,7 +320,7 @@ def _get_default_ft_embeddings_info(
     data = yaml.full_load(f)
     if _DEFAULT_EMBEDDINGS_INDEX_TYPE not in data:
       raise ValueError(f"{_DEFAULT_EMBEDDINGS_INDEX_TYPE} not found.")
-    return data[_DEFAULT_EMBEDDINGS_INDEX_TYPE]['embeddings'].split("/")[-1]
+    return data[_DEFAULT_EMBEDDINGS_INDEX_TYPE]
 
 
 def save_embeddings_yaml_with_only_default_ft_embeddings(
