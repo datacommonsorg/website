@@ -62,7 +62,7 @@ export interface SVScores {
 export interface SentenceScore {
   sentence: string;
   score: number;
-  rerank_score: number;
+  rerankScore: number;
 }
 
 export interface DebugInfo {
