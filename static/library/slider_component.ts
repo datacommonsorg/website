@@ -87,11 +87,15 @@ export class DatacommonsSliderComponent extends LitElement {
       width: 100%;
     }
     .row.options {
+      align-items: center;
       flex-direction: row;
       flex-wrap: wrap-reverse;
       gap: 6px;
       justify-content: space-between;
       margin-top: 2px;
+      &.single-option {
+        justify-content: flex-end;
+      }
       .slider-date-footnote {
         color: #777777;
         font-size: 12px;
@@ -395,24 +399,24 @@ export class DatacommonsSliderComponent extends LitElement {
           <div class="label">${endDate}</div>
         </div>
 
-        <div class="row options">
+        <div
+          class="row options${!this.showTrendsSummary ? " single-option" : ""}"
+        >
           ${this.showTrendsSummary
-            ? html`<div>
-                <label class="checkbox-label"
-                  ><input
-                    type="checkbox"
-                    @change=${this.onShowLatestChange}
-                    ?checked=${this._showTrendsSummaryEnabled}
-                  />
-                  <span
-                    >Show trends summary
-                    ${this._showTrendsSummaryEnabled
-                      ? html`(${this._trendSummaryMinDate} to
-                        ${this._trendSummaryMaxDate})`
-                      : null}</span
-                  ></label
-                >
-              </div>`
+            ? html` <label class="checkbox-label"
+                ><input
+                  type="checkbox"
+                  @change=${this.onShowLatestChange}
+                  ?checked=${this._showTrendsSummaryEnabled}
+                />
+                <span
+                  >Show trends summary
+                  ${this._showTrendsSummaryEnabled
+                    ? html`(${this._trendSummaryMinDate} to
+                      ${this._trendSummaryMaxDate})`
+                    : null}</span
+                ></label
+              >`
             : null}
           ${isHighestCoverageDate
             ? html`<span class="slider-date-footnote"
@@ -420,8 +424,6 @@ export class DatacommonsSliderComponent extends LitElement {
               >`
             : html`<span class="slider-date-footnote">&nbsp;</span>`}
         </div>
-
-        <div class="row options"></div>
       </div>
     `;
   }
