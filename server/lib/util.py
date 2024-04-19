@@ -255,8 +255,7 @@ NL_CHART_TITLE_FILES = [
 
 # Filter out observations with dates in the future for these variable DCIDs
 # when finding the date of highest coverage
-FILTER_FUTURE_OBSERVATIONS_FROM_HIGHEST_COVERAGE_FOR_VARIABLE_DCIDS = set(
-    ["Count_Person"])
+FILTER_FUTURE_OBSERVATIONS_FROM_VARIABLES = frozenset(["Count_Person"])
 
 
 def get_repo_root():
@@ -599,7 +598,6 @@ def _get_highest_coverage_date(observation_entity_counts_by_date,
       years
   """
   # Get observation dates in descending order
-  todays_date = str(date.today())
   descending_observation_dates = [
       observation_date for observation_date in list(
           reversed(observation_entity_counts_by_date.get(
@@ -608,7 +606,8 @@ def _get_highest_coverage_date(observation_entity_counts_by_date,
   # Exclude erroneous data for particular variables with dates in the future
   # TODO: Remove this check once data is corrected in b/327667797
   if observation_entity_counts_by_date[
-      'variable'] in FILTER_FUTURE_OBSERVATIONS_FROM_HIGHEST_COVERAGE_FOR_VARIABLE_DCIDS:
+      'variable'] in FILTER_FUTURE_OBSERVATIONS_FROM_VARIABLES:
+    todays_date = str(date.today())
     descending_observation_dates = [
         observation_date for observation_date in descending_observation_dates
         if observation_date['date'] < todays_date
