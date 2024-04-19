@@ -1,13 +1,10 @@
 {"timeline": [
   {
-    "header": "Water Withdrawal Rates",
+    "header": "Climate Finance Disbursements",
     "preposition": "for",
     "examples": [{
-      "text": "California",
-      "url": "#place=geoId%2F06&statsVar=WithdrawalRate_Water_Thermoelectric__WithdrawalRate_Water_PublicSupply__WithdrawalRate_Water_Irrigation__WithdrawalRate_Water_Aquaculture"
-    }, {
-      "text": "Imperial County",
-      "url": "#place=geoId%2F06025&statsVar=WithdrawalRate_Water_Irrigation__WithdrawalRate_Water_Irrigation_FreshWater_GroundWater__WithdrawalRate_Water_Irrigation_SurfaceWater&chart=%7B\"withdrawalRate\"%3A%7B\"pc\"%3Afalse%2C\"delta\"%3Afalse%7D%7D"
+      "text": "Developing Countries",
+      "url": "#place=Earth&statsVar=climateFinanceProvidedDisbursementsCurrentUSD"
     }]
   }, {
     "header": "University towns",
