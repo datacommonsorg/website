@@ -282,6 +282,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     );
     const mode = getSingleParam(hashParams[URL_HASH_PARAMS.MODE]);
     let client = getSingleParam(hashParams[URL_HASH_PARAMS.CLIENT]);
+    const reranker = getSingleParam(hashParams[URL_HASH_PARAMS.RERANKER]);
 
     let fulfillmentPromise: Promise<any>;
     const gaTitle = query
@@ -308,7 +309,8 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         i18n,
         client,
         defaultPlace,
-        mode
+        mode,
+        reranker
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -419,7 +421,8 @@ const fetchDetectAndFufillData = async (
   i18n: string,
   client: string,
   defaultPlace: string,
-  mode: string
+  mode: string,
+  reranker: string
 ) => {
   const argsMap = new Map<string, string>();
   if (detector) {
@@ -442,6 +445,9 @@ const fetchDetectAndFufillData = async (
   }
   if (mode) {
     argsMap.set(URL_HASH_PARAMS.MODE, mode);
+  }
+  if (reranker) {
+    argsMap.set(URL_HASH_PARAMS.RERANKER, reranker);
   }
   if (idx) {
     argsMap.set(URL_HASH_PARAMS.IDX, idx);

@@ -27,6 +27,7 @@ if [[ $GCS_DATA_PATH != "" ]]; then
 else
     export USER_DATA_PATH=/userdata/
 fi
+export IS_CUSTOM_DC=true
 
 /go/bin/mixer \
     --use_bigquery=false \
