@@ -14,6 +14,7 @@
 """Build embeddings for custom DCs."""
 
 import os
+import sys
 
 from absl import app
 from absl import flags
@@ -23,6 +24,15 @@ from google.cloud import storage
 import pandas as pd
 import utils
 import yaml
+
+# Import gcs module from shared lib.
+# Since this tool is run standalone from this directory,
+# the shared lib directory needs to be appended to the sys path.
+_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+_SHARED_LIB_DIR = os.path.join(_THIS_DIR, "..", "..", "..", "shared", "lib")
+print("SHARED LIB DIR", _SHARED_LIB_DIR)
+sys.path.append(_SHARED_LIB_DIR)
+import gcs  # type: ignore
 
 FLAGS = flags.FLAGS
 
@@ -70,7 +80,8 @@ def download(embeddings_yaml_path: str):
 
   # Download embeddings.
   embeddings_file_name = default_ft_embeddings_info["embeddings"]
-  utils.get_or_download_file_from_gcs(ctx, embeddings_file_name)
+  gcs.download_gcs_file(embeddings_file_name)
+  # utils.get_or_download_file_from_gcs(ctx, embeddings_file_name)
 
   # The prod embeddings.yaml includes multiple embeddings (default, biomed, UN)
   # For custom DC, we only want the default.

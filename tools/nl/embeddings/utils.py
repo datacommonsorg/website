@@ -166,29 +166,6 @@ def dedup_texts(df: pd.DataFrame) -> Tuple[Dict[str, str], List[List[str]]]:
   return (text2sv_dict, dup_sv_rows)
 
 
-def _download_file_from_gcs(ctx: Context,
-                            file_name: str,
-                            bucket_name: str = DEFAULT_MODELS_BUCKET) -> str:
-  """Downloads the specified file_name from GCS to the ctx.tmp folder.
-
-  Args:
-    ctx: Context which has the GCS bucket information.
-    file_name: the GCS blob name for the file.
-
-  Returns the path to the local directory where the file was downloaded to.
-  ```
-  """
-  local_file_path = os.path.join(ctx.tmp, bucket_name, file_name)
-  # Create directory to file if it does not exist.
-  parent_dir = Path(local_file_path).parent
-  if not parent_dir.exists():
-    parent_dir.mkdir(parents=True, exist_ok=True)
-  bucket = storage.Client.create_anonymous_client().bucket(bucket_name)
-  blob = bucket.get_blob(file_name)
-  blob.download_to_filename(local_file_path)
-  return local_file_path
-
-
 def _download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
   # TODO: deprecate this in favor of the function  in nl_server.gcs
   """Downloads a Sentence Tranformer model (or finetuned version) from GCS.
@@ -269,33 +246,6 @@ def get_or_download_model_from_gcs(ctx: Context, model_version: str) -> str:
     print(f"Model downloaded locally to: {tuned_model_path}")
 
   return tuned_model_path
-
-
-def get_or_download_file_from_gcs(ctx: Context, file_name: str) -> str:
-  """Returns the local file path, downloading it if needed.
-
-  If the file is already downloaded, it returns the file path.
-  Otherwise, it downloads the file from GCS to the local file system and returns that path.
-  """
-  bucket_name = DEFAULT_MODELS_BUCKET
-  blob_name = file_name
-  if _is_gcs_path(file_name):
-    bucket_name, blob_name = _get_gcs_parts(file_name)
-    local_file_path: str = os.path.join(ctx.tmp, bucket_name, blob_name)
-  else:
-    local_file_path: str = os.path.join(ctx.tmp, file_name)
-
-  # Check if this model is already downloaded locally.
-  if os.path.exists(local_file_path):
-    print(f"File already downloaded at path: {local_file_path}")
-  else:
-    print(
-        f"File not previously downloaded locally. Downloading from GCS: {file_name}"
-    )
-    local_file_path = _download_file_from_gcs(ctx, blob_name, bucket_name)
-    print(f"File downloaded locally to: {local_file_path}")
-
-  return local_file_path
 
 
 def get_ft_model_from_gcs(ctx: Context,
