@@ -1,0 +1,4 @@
+custom_ft:
+  embeddings: /userdata/datacommons/nl/custom_embeddings.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+  model: ft_final_v20230717230459.all-MiniLM-L6-v2
+  store: MEMORY
