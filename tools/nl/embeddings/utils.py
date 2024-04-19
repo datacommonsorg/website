@@ -23,6 +23,7 @@ from typing import Any, Dict, List, Tuple
 
 from file_util import create_file_handler
 from google.cloud import aiplatform
+from google.cloud import storage
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import yaml
@@ -34,6 +35,8 @@ DESCRIPTION_COL = 'Description'
 CURATED_ALTERNATIVES_COL = 'Curated_Alternatives'
 OVERRIDE_COL = 'Override_Alternatives'
 ALTERNATIVES_COL = 'Alternatives'
+
+DEFAULT_MODELS_BUCKET = 'datcom-nl-models'
 
 # Col names in the concatenated dataframe.
 COL_ALTERNATIVES = 'sentence'
@@ -163,18 +166,25 @@ def dedup_texts(df: pd.DataFrame) -> Tuple[Dict[str, str], List[List[str]]]:
   return (text2sv_dict, dup_sv_rows)
 
 
-def _download_file_from_gcs(ctx: Context, file_name: str) -> str:
+def _download_file_from_gcs(ctx: Context,
+                            file_name: str,
+                            bucket_name: str = DEFAULT_MODELS_BUCKET) -> str:
   """Downloads the specified file_name from GCS to the ctx.tmp folder.
 
   Args:
     ctx: Context which has the GCS bucket information.
-    file_name: the GCS bucket name for the file.
+    file_name: the GCS blob name for the file.
 
   Returns the path to the local directory where the file was downloaded to.
   ```
   """
-  local_file_path = os.path.join(ctx.tmp, file_name)
-  blob = ctx.bucket.get_blob(file_name)
+  local_file_path = os.path.join(ctx.tmp, bucket_name, file_name)
+  # Create directory to file if it does not exist.
+  parent_dir = Path(local_file_path).parent
+  if not parent_dir.exists():
+    parent_dir.mkdir(parents=True, exist_ok=True)
+  bucket = storage.Client.create_anonymous_client().bucket(bucket_name)
+  blob = bucket.get_blob(file_name)
   blob.download_to_filename(local_file_path)
   return local_file_path
 
@@ -195,7 +205,7 @@ def _download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
       model = SentenceTransformer(downloaded_model_path)
   ```
   """
-  local_dir = ctx.tmp
+  local_dir = os.path.join(ctx.tmp, DEFAULT_MODELS_BUCKET)
   # Get list of files
   blobs = ctx.bucket.list_blobs(prefix=model_folder_name)
   for blob in blobs:
@@ -245,11 +255,11 @@ def get_or_download_model_from_gcs(ctx: Context, model_version: str) -> str:
   If the model is already downloaded, it returns the model path.
   Otherwise, it downloads the model to the local file system and returns that path.
   """
-  tuned_model_path: str = ""
+  tuned_model_path: str = os.path.join(ctx.tmp, DEFAULT_MODELS_BUCKET,
+                                       model_version)
 
   # Check if this model is already downloaded locally.
-  if os.path.exists(os.path.join(ctx.tmp, model_version)):
-    tuned_model_path = os.path.join(ctx.tmp, model_version)
+  if os.path.exists(tuned_model_path):
     print(f"Model already downloaded at path: {tuned_model_path}")
   else:
     print(
@@ -267,11 +277,13 @@ def get_or_download_file_from_gcs(ctx: Context, file_name: str) -> str:
   If the file is already downloaded, it returns the file path.
   Otherwise, it downloads the file from GCS to the local file system and returns that path.
   """
+  bucket_name = DEFAULT_MODELS_BUCKET
   blob_name = file_name
   if _is_gcs_path(file_name):
-    _, blob_name = _get_gcs_parts(file_name)
-
-  local_file_path: str = os.path.join(ctx.tmp, file_name)
+    bucket_name, blob_name = _get_gcs_parts(file_name)
+    local_file_path: str = os.path.join(ctx.tmp, bucket_name, blob_name)
+  else:
+    local_file_path: str = os.path.join(ctx.tmp, file_name)
 
   # Check if this model is already downloaded locally.
   if os.path.exists(local_file_path):
@@ -280,7 +292,7 @@ def get_or_download_file_from_gcs(ctx: Context, file_name: str) -> str:
     print(
         f"File not previously downloaded locally. Downloading from GCS: {file_name}"
     )
-    local_file_path = _download_file_from_gcs(ctx, blob_name)
+    local_file_path = _download_file_from_gcs(ctx, blob_name, bucket_name)
     print(f"File downloaded locally to: {local_file_path}")
 
   return local_file_path

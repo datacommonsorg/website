@@ -53,7 +53,6 @@ flags.DEFINE_string(
     "Path where the default FT embeddings.yaml will be saved for Custom DC in download mode."
 )
 
-MODELS_BUCKET = 'datcom-nl-models'
 EMBEDDINGS_CSV_FILENAME_PREFIX = "custom_embeddings"
 EMBEDDINGS_YAML_FILE_NAME = "custom_embeddings.yaml"
 
@@ -143,7 +142,8 @@ def _download_model(model_version: str) -> utils.Context:
 
 
 def _ctx_no_model() -> utils.Context:
-  bucket = storage.Client.create_anonymous_client().bucket(MODELS_BUCKET)
+  bucket = storage.Client.create_anonymous_client().bucket(
+      utils.DEFAULT_MODELS_BUCKET)
   return utils.Context(model=None, model_endpoint=None, bucket=bucket)
 
 
