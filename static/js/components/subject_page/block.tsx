@@ -326,10 +326,8 @@ export function Block(props: BlockPropType): JSX.Element {
                         overridePlaceTypes,
                         columnTileClassName,
                         useDenom ? props.denom : "",
-                        enableSnapToLatestData
-                          ? snapToHighestCoverage
-                            ? DATE_HIGHEST_COVERAGE
-                            : DATE_LATEST
+                        snapToHighestCoverage
+                          ? DATE_HIGHEST_COVERAGE
                           : undefined
                       )
                     : renderTiles(
@@ -340,10 +338,8 @@ export function Block(props: BlockPropType): JSX.Element {
                         overridePlaceTypes,
                         columnTileClassName,
                         useDenom ? props.denom : "",
-                        enableSnapToLatestData
-                          ? snapToHighestCoverage
-                            ? DATE_HIGHEST_COVERAGE
-                            : DATE_LATEST
+                        snapToHighestCoverage
+                          ? DATE_HIGHEST_COVERAGE
                           : undefined
                       )
                 }
