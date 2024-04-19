@@ -18,7 +18,6 @@
                       ]
                     },
                     "entities": [
-                      "bio/D009949",
                       "bio/FGFR1",
                       "bio/galGal5_FGFR1",
                       "bio/galGal6_FGFR1",
@@ -27,7 +26,7 @@
                       "bio/mm10_Fgfr1",
                       "bio/mm9_Fgfr1"
                     ],
-                    "title": "The strandOrientation for Orientation, FGFR1 and 6 more other are as follows:",
+                    "title": "The strandOrientation for FGFR1, FGFR1 and 5 more other are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -41,11 +40,6 @@
   "context": {},
   "debug": {},
   "entities": [
-    {
-      "dcid": "bio/D009949",
-      "name": "Orientation",
-      "type": ""
-    },
     {
       "dcid": "bio/FGFR1",
       "name": "FGFR1",
