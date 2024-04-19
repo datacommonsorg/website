@@ -22,6 +22,7 @@ from markupsafe import escape
 from nl_server import config
 from nl_server import embeddings
 from nl_server import loader
+from nl_server import search
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -59,9 +60,8 @@ def search_vars():
     skip_topics = True
 
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(idx)
-
-  results: embeddings.SearchVarsResult = nl_embeddings.search_vars(
-      queries, skip_topics)
+  results: embeddings.SearchVarsResult = search.search_vars(
+      nl_embeddings, queries, skip_topics)
   json_result = {q: result.to_dict() for q, result in results.items()}
   return json.dumps(json_result)
 
