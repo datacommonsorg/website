@@ -41,6 +41,10 @@ def download_gcs_file(gcs_path: str, use_anonymous_client: bool = False) -> str:
   """Downloads the file from the full GCS path (i.e. gs://bucket/path/to/file) 
   to a local path and returns the latter.
   """
+  # If not a GCS path, return the path itself.
+  if not is_gcs_path(gcs_path):
+    return gcs_path
+
   bucket_name, blob_name = get_gcs_parts(gcs_path)
   if not blob_name:
     return ''
