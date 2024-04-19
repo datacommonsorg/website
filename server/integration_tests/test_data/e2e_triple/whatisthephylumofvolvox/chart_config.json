@@ -18,8 +18,6 @@
                       ]
                     },
                     "entities": [
-                      "bio/dm3_Is",
-                      "bio/dm6_Is",
                       "bio/D044446",
                       "dc/003ye83smktt7",
                       "dc/3rbv0rhm76sg8",
@@ -43,7 +41,7 @@
                       "dc/z9x1mlh4pxzb7",
                       "dc/zsn19vpl9fy76"
                     ],
-                    "title": "The phylum for Is, Is and 22 more other are as follows:",
+                    "title": "The phylum for Volvox, Volvox and 20 more other are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -57,16 +55,6 @@
   "context": {},
   "debug": {},
   "entities": [
-    {
-      "dcid": "bio/dm3_Is",
-      "name": "Is",
-      "type": ""
-    },
-    {
-      "dcid": "bio/dm6_Is",
-      "name": "Is",
-      "type": ""
-    },
     {
       "dcid": "bio/D044446",
       "name": "Volvox",

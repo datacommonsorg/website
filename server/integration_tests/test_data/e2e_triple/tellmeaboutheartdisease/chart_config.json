@@ -9,80 +9,10 @@
               {
                 "tiles": [
                   {
-                    "answerTableTileSpec": {
-                      "columns": [
-                        {
-                          "header": "->description",
-                          "propertyExpr": "->description"
-                        },
-                        {
-                          "header": "->diseaseOntologyID",
-                          "propertyExpr": "->diseaseOntologyID"
-                        },
-                        {
-                          "header": "->geneSymbol",
-                          "propertyExpr": "->geneSymbol"
-                        },
-                        {
-                          "header": "->inChromosome",
-                          "propertyExpr": "->inChromosome"
-                        },
-                        {
-                          "header": "->inGenomeAssembly",
-                          "propertyExpr": "->inGenomeAssembly"
-                        },
-                        {
-                          "header": "->mapLocation",
-                          "propertyExpr": "->mapLocation"
-                        },
-                        {
-                          "header": "->modificationDate",
-                          "propertyExpr": "->modificationDate"
-                        },
-                        {
-                          "header": "->name",
-                          "propertyExpr": "->name"
-                        },
-                        {
-                          "header": "->ncbiGeneID",
-                          "propertyExpr": "->ncbiGeneID"
-                        },
-                        {
-                          "header": "->ncbiTaxonID",
-                          "propertyExpr": "->ncbiTaxonID"
-                        },
-                        {
-                          "header": "->ofSpecies",
-                          "propertyExpr": "->ofSpecies"
-                        },
-                        {
-                          "header": "->provenance",
-                          "propertyExpr": "->provenance"
-                        },
-                        {
-                          "header": "->specializationOf",
-                          "propertyExpr": "->specializationOf"
-                        },
-                        {
-                          "header": "->typeOf",
-                          "propertyExpr": "->typeOf"
-                        },
-                        {
-                          "header": "->typeOfGene",
-                          "propertyExpr": "->typeOfGene"
-                        },
-                        {
-                          "header": "->unifiedMedicalLanguageSystemConceptUniqueIdentifier",
-                          "propertyExpr": "->unifiedMedicalLanguageSystemConceptUniqueIdentifier"
-                        }
-                      ]
-                    },
                     "entities": [
-                      "bio/dm3_Me",
-                      "bio/dm6_Me",
                       "bio/DOID_114"
                     ],
-                    "type": "ANSWER_TABLE"
+                    "type": "ENTITY_OVERVIEW"
                   }
                 ]
               }
@@ -95,16 +25,6 @@
   "context": {},
   "debug": {},
   "entities": [
-    {
-      "dcid": "bio/dm3_Me",
-      "name": "Me",
-      "type": ""
-    },
-    {
-      "dcid": "bio/dm6_Me",
-      "name": "Me",
-      "type": ""
-    },
     {
       "dcid": "bio/DOID_114",
       "name": "heart disease",
@@ -126,6 +46,6 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "UNKNOWN",
+  "svSource": "PAST_QUERY",
   "userMessages": []
 }
