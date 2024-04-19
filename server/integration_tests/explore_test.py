@@ -137,7 +137,8 @@ class ExploreTest(NLWebServerTestCase):
               "entities_resolved": dbg["entities_resolved"],
               "query_with_places_removed": dbg["query_with_places_removed"],
               "sv_matching": dbg["sv_matching"],
-              "props_matching": dbg["props_matching"]
+              "props_matching": dbg["props_matching"],
+              "query_detection_debug_logs": dbg["query_detection_debug_logs"],
           }
           infile.write(json.dumps(dbg_to_write, indent=2))
       else:
@@ -177,6 +178,8 @@ class ExploreTest(NLWebServerTestCase):
                            expected["entities_resolved"])
           self.assertEqual(dbg["sv_matching"]["SV"],
                            expected["sv_matching"]["SV"])
+          self.assertEqual(dbg["query_detection_debug_logs"],
+                           expected["query_detection_debug_logs"])
           self.assertEqual(dbg["props_matching"]["PROP"],
                            expected["props_matching"]["PROP"])
           self._check_multivars(dbg["sv_matching"], expected["sv_matching"])
