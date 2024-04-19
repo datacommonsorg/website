@@ -4,65 +4,74 @@
   "main_place_dcid": "<None>",
   "main_place_name": "<None>",
   "entities_detected": [
-    "genes",
     "fgfr1",
     ", apoe ,",
     "ache"
   ],
-  "entities_resolved": "(name: Genes, dcid: bio/D005796); (name: FGFR1, dcid: bio/FGFR1); (name: FGFR1, dcid: bio/galGal5_FGFR1); (name: FGFR1, dcid: bio/galGal6_FGFR1); (name: FGFR1, dcid: bio/hg19_FGFR1); (name: FGFR1, dcid: bio/hg38_FGFR1); (name: Fgfr1, dcid: bio/mm10_Fgfr1); (name: Fgfr1, dcid: bio/mm9_Fgfr1); (name: APOE, dcid: bio/APOE); (name: APOE, dcid: bio/hg19_APOE); (name: APOE, dcid: bio/hg38_APOE); (name: Apoe, dcid: bio/mm10_Apoe); (name: Apoe, dcid: bio/mm9_Apoe); (name: ACHE, dcid: bio/ACHE); (name: ache, dcid: bio/danRer10_ache); (name: ache, dcid: bio/danRer11_ache); (name: ACHE, dcid: bio/galGal5_ACHE); (name: ACHE, dcid: bio/galGal6_ACHE); (name: ACHE, dcid: bio/hg19_ACHE); (name: ACHE, dcid: bio/hg38_ACHE); (name: Ache, dcid: bio/mm10_Ache); (name: Ache, dcid: bio/mm9_Ache); ",
-  "query_with_places_removed": "what types of are and",
+  "entities_resolved": "(name: FGFR1, dcid: bio/FGFR1); (name: FGFR1, dcid: bio/galGal5_FGFR1); (name: FGFR1, dcid: bio/galGal6_FGFR1); (name: FGFR1, dcid: bio/hg19_FGFR1); (name: FGFR1, dcid: bio/hg38_FGFR1); (name: Fgfr1, dcid: bio/mm10_Fgfr1); (name: Fgfr1, dcid: bio/mm9_Fgfr1); (name: APOE, dcid: bio/APOE); (name: APOE, dcid: bio/hg19_APOE); (name: APOE, dcid: bio/hg38_APOE); (name: Apoe, dcid: bio/mm10_Apoe); (name: Apoe, dcid: bio/mm9_Apoe); (name: ACHE, dcid: bio/ACHE); (name: ache, dcid: bio/danRer10_ache); (name: ache, dcid: bio/danRer11_ache); (name: ACHE, dcid: bio/galGal5_ACHE); (name: ACHE, dcid: bio/galGal6_ACHE); (name: ACHE, dcid: bio/hg19_ACHE); (name: ACHE, dcid: bio/hg38_ACHE); (name: Ache, dcid: bio/mm10_Ache); (name: Ache, dcid: bio/mm9_Ache); ",
+  "query_with_places_removed": "what types of genes are and",
   "sv_matching": {
     "CosineScore": [
-      0.5232298374176025,
-      0.49217352271080017,
-      0.40450412034988403,
-      0.37155818939208984,
-      0.3589966893196106,
-      0.346591055393219,
-      0.3429902195930481,
-      0.3318939208984375,
-      0.32949498295783997,
-      0.3198515772819519,
-      0.31784915924072266,
-      0.30852699279785156
+      0.5237792134284973,
+      0.41922134160995483,
+      0.4010193347930908
     ],
     "MultiSV": {},
-    "Query": "what types of are and",
+    "Query": "what types of genes are and",
     "SV": [
-      "dc/topic/SchoolType",
-      "dc/topic/HealthInsuranceType",
-      "Count_Worker_NAICSNonclassifiable",
-      "dc/topic/PublicHealthInsuranceType",
-      "dc/topic/CommuteMode",
-      "dc/topic/Demographics",
-      "dc/topic/Gender",
-      "dc/topic/EducationalAttainmentByGenderAndLevel",
-      "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-      "dc/topic/PrivateHealthInsuranceType",
-      "dc/topic/DisabilitiesByGender",
-      "dc/topic/PopulationEnrolledInSchoolTypeByRace"
+      "dc/topic/SDGBiodiversity",
+      "dc/topic/sdg_2.5.1",
+      "dc/topic/sdg_2.5"
     ]
   },
   "props_matching": {
     "CosineScore": [
-      0.7504298090934753,
-      0.5023147463798523,
-      0.4946361482143402,
-      0.4529350996017456,
-      0.4141203463077545,
-      0.39529240131378174,
-      0.38099461793899536,
-      0.3546903133392334
+      0.9086109399795532,
+      0.7445293664932251,
+      0.7330226302146912,
+      0.7175889015197754,
+      0.6834691166877747,
+      0.6590196490287781,
+      0.6340401768684387,
+      0.5988123416900635,
+      0.5958786010742188,
+      0.5850145816802979,
+      0.5810791850090027,
+      0.5432419776916504,
+      0.5399730801582336,
+      0.5320467948913574,
+      0.5309586524963379,
+      0.5142703056335449,
+      0.5125278234481812,
+      0.46105992794036865,
+      0.4441080093383789,
+      0.39822933077812195,
+      0.3944427967071533,
+      0.3922898769378662
     ],
     "PROP": [
       "typeOfGene",
+      "geneticVariantFunctionalCategory",
+      "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol",
+      "<-geneSymbol{typeOf:GeneticVariantGeneAssociation}->referenceSNPClusterID",
+      "fullName",
+      "geneID",
+      "<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID",
+      "<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID",
+      "genomicCoordinates",
       "antigenType",
       "alleleType",
-      "specializationOf",
-      "subClassificationOf",
-      "geneticVariantFunctionalCategory",
+      "hg19GenomicPosition",
+      "hasRNATranscript",
+      "hg19GenomicLocation",
+      "hg38GenomicPosition",
+      "hg38GenomicLocation",
       "antibodyType",
-      "class"
+      "chromosomeSize",
+      "referenceAlleleNCBI",
+      "observedAllele",
+      "ncbiDNASequenceName",
+      "alleleOrigin"
     ]
   },
   "query_detection_debug_logs": {
@@ -93,40 +102,20 @@
         "bio/hg38_FGFR1",
         "bio/mm10_Fgfr1",
         "bio/mm9_Fgfr1"
-      ],
-      "genes": [
-        "bio/D005796"
       ]
     },
-    "dc_recognize_places": {
-      "ACHE": [
-        "bio/ACHE"
-      ],
-      "APOE": [
-        "bio/hg38_APOE"
-      ],
-      "FGFR1": [
-        "bio/hg38_FGFR1"
-      ]
-    },
+    "dc_recognize_places": {},
     "main_place_inferred": null,
     "original_query": "What types of genes are FGFR1 APOE and ACHE",
     "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
-    "place_resolution": {
-      "dc_resolution_failure": [
-        "bio/hg38_FGFR1",
-        "bio/hg38_APOE",
-        "bio/ACHE"
-      ],
-      "dc_resolved_places": []
-    },
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
     "places_found_str": [],
     "query_transformations": {
       "place_detection_input": "What types of genes are FGFR1, APOE, and ACHE",
-      "place_detection_with_places_removed": "what types of are and",
+      "place_detection_with_places_removed": "what types of genes are and",
       "sv_detection_query_index_type": "bio_ft",
-      "sv_detection_query_input": "what types of are and",
-      "sv_detection_query_stop_words_removal": "types"
+      "sv_detection_query_input": "what types of genes are and",
+      "sv_detection_query_stop_words_removal": "types genes"
     }
   }
 }
