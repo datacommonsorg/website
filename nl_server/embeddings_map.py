@@ -27,7 +27,6 @@ from nl_server.config import StoreType
 from nl_server.embeddings import Embeddings
 from nl_server.embeddings import EmbeddingsModel
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
-from nl_server.store.lancedb import LanceDBStore
 from nl_server.store.memory import MemoryEmbeddingsStore
 
 
@@ -66,9 +65,17 @@ class EmbeddingsMap:
             model=self.name2model[idx.model_name],
             store=MemoryEmbeddingsStore(idx.embeddings_local_path))
       elif idx.store_type == StoreType.LANCEDB:
-        self.embeddings_map[idx.name] = Embeddings(
-            model=self.name2model[idx.model_name],
-            store=LanceDBStore(idx.embeddings_local_path))
+        # Lance DB's X86_64 lib doesn't run on MacOS Silicon, and
+        # this causes trouble for NL Server in Custom DC docker
+        # for MacOS Mx users. So skip using LanceDB for Custom DC.
+        # TODO: Drop this once Custom DC docker is fixed.
+        if not _is_custom_dc():
+          from nl_server.store.lancedb import LanceDBStore
+          self.embeddings_map[idx.name] = Embeddings(
+              model=self.name2model[idx.model_name],
+              store=LanceDBStore(idx.embeddings_local_path))
+        else:
+          logging.info('Not loading LanceDB in Custom DC environment!')
 
   # Note: The caller takes care of exceptions.
   def get(self, index_type: str = DEFAULT_INDEX_TYPE) -> Embeddings:
@@ -157,3 +164,7 @@ def _merge_custom_index(default: EmbeddingsIndex,
       f'custom {custom.embeddings_local_path} into {output_embeddings_path}')
 
   return output_embeddings_path
+
+
+def _is_custom_dc() -> bool:
+  return os.environ.get('IS_CUSTOM_DC', '').lower() == 'true'
