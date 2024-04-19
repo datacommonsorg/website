@@ -9,20 +9,10 @@
               {
                 "tiles": [
                   {
-                    "answerTableTileSpec": {
-                      "columns": [
-                        {
-                          "header": "->typeOfGene",
-                          "propertyExpr": "->typeOfGene"
-                        }
-                      ]
-                    },
                     "entities": [
-                      "bio/dm3_Is",
-                      "bio/dm6_Is"
+                      "bio/DOID_114"
                     ],
-                    "title": "The typeOfGene for Is and Is are as follows:",
-                    "type": "ANSWER_TABLE"
+                    "type": "ENTITY_OVERVIEW"
                   }
                 ]
               }
@@ -36,13 +26,8 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/dm3_Is",
-      "name": "Is",
-      "type": ""
-    },
-    {
-      "dcid": "bio/dm6_Is",
-      "name": "Is",
+      "dcid": "bio/DOID_114",
+      "name": "heart disease",
       "type": ""
     }
   ],
@@ -61,8 +46,6 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessages": [
-    "Low confidence in understanding your query. Displaying the closest results."
-  ]
+  "svSource": "PAST_QUERY",
+  "userMessages": []
 }
