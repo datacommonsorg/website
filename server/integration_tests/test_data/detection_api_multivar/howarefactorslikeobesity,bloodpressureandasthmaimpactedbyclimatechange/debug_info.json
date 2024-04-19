@@ -165,5 +165,20 @@
   "props_matching": {
     "CosineScore": [],
     "PROP": []
+  },
+  "query_detection_debug_logs": {
+    "dc_recognize_places": {},
+    "main_place_inferred": null,
+    "original_query": "how are factors like obesity blood pressure and asthma impacted by climate change",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "how are factors like obesity, blood pressure and asthma impacted by climate change",
+      "place_detection_with_places_removed": "how are factors like obesity , blood pressure and asthma impacted by climate change",
+      "sv_detection_query_index_type": "",
+      "sv_detection_query_input": "how are factors like obesity , blood pressure and asthma impacted by climate change",
+      "sv_detection_query_stop_words_removal": "factors like obesity , blood pressure asthma impacted climate change"
+    }
   }
 }

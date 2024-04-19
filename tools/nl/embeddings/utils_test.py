@@ -32,5 +32,5 @@ class TestUtils(unittest.TestCase):
   def test_get_default_ft_model_version_failure(self):
     embeddings_file_path = f"{INPUT_DIR}/bad_embeddings.yaml"
 
-    with self.assertRaises(ValueError):
+    with self.assertRaises(Exception):
       utils._get_default_ft_model_version(embeddings_file_path)

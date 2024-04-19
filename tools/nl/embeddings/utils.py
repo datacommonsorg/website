@@ -40,21 +40,20 @@ COL_ALTERNATIVES = 'sentence'
 
 _EMBEDDINGS_YAML_PATH = "../../../deploy/nl/embeddings.yaml"
 _DEFAULT_EMBEDDINGS_INDEX_TYPE = "medium_ft"
-"""The embeddings filename pattern in embeddings.yaml.
-
-Expect: <embeddings_version>.<fine-tuned-model-version>.<base-model>.csv
-Example: embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
-
-Model version: <fine-tuned-model-version>.<base-model>
-Example: ft_final_v20230717230459.all-MiniLM-L6-v2
-
-If a string matches this pattern, the first group is the model version.
-"""
-_EMBEDDINGS_FILENAME_PATTERN = r"^[^.]+\.([^.]+\.[^.]+)\.csv$"
 
 _CHUNK_SIZE = 100
 
-_MODEL_ENDPOINT_RETRYS = 3
+_MODEL_ENDPOINT_RETRIES = 3
+
+_GCS_PATH_PREFIX = "gs://"
+
+
+def _is_gcs_path(path: str) -> bool:
+  return path.strip().startswith(_GCS_PATH_PREFIX)
+
+
+def _get_gcs_parts(gcs_path: str) -> tuple[str, str]:
+  return gcs_path[len(_GCS_PATH_PREFIX):].split('/', 1)
 
 
 @dataclass
@@ -226,7 +225,7 @@ def build_embeddings(ctx, text2sv: Dict[str, str]) -> pd.DataFrame:
     embeddings = []
     for i, chuck in enumerate(chunk_list(texts, _CHUNK_SIZE)):
       logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE - 1)
-      for i in range(_MODEL_ENDPOINT_RETRYS):
+      for i in range(_MODEL_ENDPOINT_RETRIES):
         try:
           resp = ctx.model_endpoint.predict(instances=chuck,
                                             timeout=600).predictions
@@ -268,6 +267,10 @@ def get_or_download_file_from_gcs(ctx: Context, file_name: str) -> str:
   If the file is already downloaded, it returns the file path.
   Otherwise, it downloads the file from GCS to the local file system and returns that path.
   """
+  blob_name = file_name
+  if _is_gcs_path(file_name):
+    _, blob_name = _get_gcs_parts(file_name)
+
   local_file_path: str = os.path.join(ctx.tmp, file_name)
 
   # Check if this model is already downloaded locally.
@@ -277,7 +280,7 @@ def get_or_download_file_from_gcs(ctx: Context, file_name: str) -> str:
     print(
         f"File not previously downloaded locally. Downloading from GCS: {file_name}"
     )
-    local_file_path = _download_file_from_gcs(ctx, file_name)
+    local_file_path = _download_file_from_gcs(ctx, blob_name)
     print(f"File downloaded locally to: {local_file_path}")
 
   return local_file_path
@@ -289,13 +292,14 @@ def get_ft_model_from_gcs(ctx: Context,
   return SentenceTransformer(model_path)
 
 
+def _get_default_ft_model_version(embeddings_yaml_file_path: str) -> str:
+  """Gets the default index's (i.e. 'medium_ft') model version from embeddings.yaml.
+  """
+  return _get_default_ft_embeddings_info(embeddings_yaml_file_path)["model"]
+
+
 def get_default_ft_model_version() -> str:
   """Gets the default index's (i.e. 'medium_ft') model version from embeddings.yaml.
-
-  It will raise an error if the file or default index is not found or
-  if the value does not conform to the pattern:
-  <embeddings_version>.<fine-tuned-model-version>.<base-model>.csv
-  Example: embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
   """
   return _get_default_ft_model_version(_EMBEDDINGS_YAML_PATH)
 
@@ -303,10 +307,15 @@ def get_default_ft_model_version() -> str:
 def get_default_ft_embeddings_file_name() -> str:
   """Gets the default index's (i.e. 'medium_ft') embeddings file name from embeddings.yaml.
   """
-  return _get_default_ft_embeddings_file_name(_EMBEDDINGS_YAML_PATH)
+  return get_default_ft_embeddings_info()["embeddings"]
 
 
-def _get_default_ft_embeddings_file_name(embeddings_yaml_file_path: str) -> str:
+def get_default_ft_embeddings_info() -> dict[str, str]:
+  return _get_default_ft_embeddings_info(_EMBEDDINGS_YAML_PATH)
+
+
+def _get_default_ft_embeddings_info(
+    embeddings_yaml_file_path: str) -> dict[str, str]:
   with open(embeddings_yaml_file_path, "r") as f:
     data = yaml.full_load(f)
     if _DEFAULT_EMBEDDINGS_INDEX_TYPE not in data:
@@ -314,19 +323,9 @@ def _get_default_ft_embeddings_file_name(embeddings_yaml_file_path: str) -> str:
     return data[_DEFAULT_EMBEDDINGS_INDEX_TYPE]
 
 
-def _get_default_ft_model_version(embeddings_yaml_file_path: str) -> str:
-  embeddings_file_name = _get_default_ft_embeddings_file_name(
-      embeddings_yaml_file_path)
-  matcher = re.match(_EMBEDDINGS_FILENAME_PATTERN, embeddings_file_name)
-  if not matcher:
-    raise ValueError(
-        f"Invalid embeddings filename value: {embeddings_file_name}")
-  return matcher.group(1)
-
-
 def save_embeddings_yaml_with_only_default_ft_embeddings(
-    embeddings_yaml_file_path: str, default_ft_embeddings_file_name: str):
-  data = {_DEFAULT_EMBEDDINGS_INDEX_TYPE: default_ft_embeddings_file_name}
+    embeddings_yaml_file_path: str, default_ft_embeddings_info: dict[str, str]):
+  data = {_DEFAULT_EMBEDDINGS_INDEX_TYPE: default_ft_embeddings_info}
   with open(embeddings_yaml_file_path, "w") as f:
     yaml.dump(data, f)
 

@@ -46,12 +46,13 @@ class ExploreTest(NLWebServerTestCase):
                     test='',
                     i18n='',
                     check_detection=False,
-                    idx=''):
+                    idx='',
+                    reranker=''):
     ctx = {}
     for q in queries:
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect&idx={idx}',
+          f'/api/explore/detect?q={q}&test={test}&i18n={i18n}&client=test_detect&idx={idx}&reranker={reranker}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -136,7 +137,8 @@ class ExploreTest(NLWebServerTestCase):
               "entities_resolved": dbg["entities_resolved"],
               "query_with_places_removed": dbg["query_with_places_removed"],
               "sv_matching": dbg["sv_matching"],
-              "props_matching": dbg["props_matching"]
+              "props_matching": dbg["props_matching"],
+              "query_detection_debug_logs": dbg["query_detection_debug_logs"],
           }
           infile.write(json.dumps(dbg_to_write, indent=2))
       else:
@@ -176,6 +178,8 @@ class ExploreTest(NLWebServerTestCase):
                            expected["entities_resolved"])
           self.assertEqual(dbg["sv_matching"]["SV"],
                            expected["sv_matching"]["SV"])
+          self.assertEqual(dbg["query_detection_debug_logs"],
+                           expected["query_detection_debug_logs"])
           self.assertEqual(dbg["props_matching"]["PROP"],
                            expected["props_matching"]["PROP"])
           self._check_multivars(dbg["sv_matching"], expected["sv_matching"])
@@ -284,6 +288,17 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detection('detection_api_bugs', [
         'What is the relationship between housing size and home prices in California'
     ])
+
+  def test_detection_reranking(self):
+    self.run_detection(
+        'detection_api_reranking',
+        [
+            # Without reranker the top SV is Median_Income_Person,
+            # With reranking the top SV is Count_Person_IncomeOf75000OrMoreUSDollar.
+            'population that is rich in california'
+        ],
+        check_detection=True,
+        reranker='cross-encoder-mxbai-rerank-base-v1')
 
   def test_fulfillment_basic(self):
     req = {
