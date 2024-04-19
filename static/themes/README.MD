@@ -13,4 +13,4 @@ The setup involves a webpack configuration that compiles SCSS files, minimizes t
 To run the webpack build process, use the following command:
 
 ```bash
-npm run build-css
+npm run postbuild-css
