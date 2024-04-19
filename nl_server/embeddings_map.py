@@ -27,7 +27,6 @@ from nl_server.config import StoreType
 from nl_server.embeddings import Embeddings
 from nl_server.embeddings import EmbeddingsModel
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
-from nl_server.store.lancedb import LanceDBStore
 from nl_server.store.memory import MemoryEmbeddingsStore
 
 
@@ -66,9 +65,14 @@ class EmbeddingsMap:
             model=self.name2model[idx.model_name],
             store=MemoryEmbeddingsStore(idx.embeddings_local_path))
       elif idx.store_type == StoreType.LANCEDB:
-        self.embeddings_map[idx.name] = Embeddings(
-            model=self.name2model[idx.model_name],
-            store=LanceDBStore(idx.embeddings_local_path))
+        try:
+          from nl_server.store.lancedb import LanceDBStore
+          self.embeddings_map[idx.name] = Embeddings(
+              model=self.name2model[idx.model_name],
+              store=LanceDBStore(idx.embeddings_local_path))
+        except Exception:
+          logging.info('NOTE: LANCEDB load failed in Custom DC environment')
+          pass
 
   # Note: The caller takes care of exceptions.
   def get(self, index_type: str = DEFAULT_INDEX_TYPE) -> Embeddings:
