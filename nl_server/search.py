@@ -1,22 +1,23 @@
-# Copyright 2023 Google LLC
+# copyright 2024 google llc
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# licensed under the apache license, version 2.0 (the "license");
+# you may not use this file except in compliance with the license.
+# you may obtain a copy of the license at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/license-2.0
 #
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# unless required by applicable law or agreed to in writing, software
+# distributed under the license is distributed on an "as is" basis,
+# without warranties or conditions of any kind, either express or implied.
+# see the license for the specific language governing permissions and
+# limitations under the license.
 """Library that exposes search_vars"""
 
 from typing import Dict, List
 
 from nl_server.embeddings import Embeddings
-from nl_server.embeddings import EmbeddingsMatch
+from nl_server.embeddings import EmbeddingsResult
+from nl_server.merge import merge_search_results
 import shared.lib.detected_variables as dvars
 
 _TOPIC_PREFIX = 'dc/topic/'
@@ -33,13 +34,28 @@ _NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS = 60
 # Given a list of query embeddings, searches the embeddings index
 # and returns a list of candidates in the same order as original queries.
 #
-def search_vars(embeddings: Embeddings,
+def search_vars(embeddings_list: List[Embeddings],
                 queries: List[str],
                 skip_topics: bool = False) -> Dict[str, dvars.VarCandidates]:
+  if not embeddings_list:
+    return {}
+
   topk = _get_topk(skip_topics)
 
-  query2candidates = embeddings.vector_search(queries, topk)
+  # Call vector search for each index.
+  query2candidates_list: List[EmbeddingsResult] = []
+  for embeddings in embeddings_list:
+    query2candidates_list.append(embeddings.vector_search(queries, topk))
 
+  # Merge the results.
+  if len(query2candidates_list) == 1:
+    # Main DC flow
+    query2candidates = query2candidates_list[0]
+  else:
+    # Custom DC flow
+    query2candidates = merge_search_results(query2candidates_list)
+
+  # Rank merged results by vars.
   results: Dict[str, dvars.VarCandidates] = {}
   for query, candidates in query2candidates.items():
     results[query] = _rank_vars(candidates, skip_topics)
@@ -47,7 +63,7 @@ def search_vars(embeddings: Embeddings,
   return results
 
 
-def _rank_vars(candidates: List[EmbeddingsMatch],
+def _rank_vars(candidates: EmbeddingsResult,
                skip_topics: bool) -> dvars.VarCandidates:
   sv2score = {}
   result = dvars.VarCandidates(svs=[], scores=[], sv2sentences={})

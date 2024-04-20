@@ -92,7 +92,7 @@ def load_custom_embeddings(app: Flask):
   # This is intentional.
   nl_embeddings: emb_map.EmbeddingsMap = app.config[config.NL_EMBEDDINGS_KEY]
   # Merge custom index with default embeddings.
-  nl_embeddings.merge_custom_index(custom_idx_list[0])
+  nl_embeddings.reset_index(custom_idx_list[0])
 
   # Update app config.
   _update_app_config(app, app.config[config.NL_MODEL_KEY], nl_embeddings,
