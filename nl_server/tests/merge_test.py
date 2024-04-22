@@ -13,13 +13,11 @@
 # limitations under the License.
 """Tests for EmbeddingsResult merging."""
 
-import logging
 import unittest
 
 from parameterized import parameterized
 
 from nl_server.embeddings import EmbeddingsMatch
-from nl_server.embeddings import SearchVarsResult
 from nl_server.merge import merge_search_results
 
 

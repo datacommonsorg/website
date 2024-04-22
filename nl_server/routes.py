@@ -98,6 +98,8 @@ def load():
 def _get_indexes(idx: str) -> List[Embeddings]:
   nl_embeddings: List[Embeddings] = []
 
+  emb_map = current_app.config[config.NL_EMBEDDINGS_KEY]
+
   if is_custom_dc() and idx != config.CUSTOM_DC_INDEX:
     # Order custom index first, so that when the score is the same
     # Custom DC will be preferred.
@@ -105,7 +107,6 @@ def _get_indexes(idx: str) -> List[Embeddings]:
     if emb:
       nl_embeddings.append(emb)
 
-  emb_map = current_app.config[config.NL_EMBEDDINGS_KEY]
   emb = emb_map.get(idx)
   if emb:
     nl_embeddings.append(emb)
