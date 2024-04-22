@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+from typing import Dict
 
 from flask import Blueprint
 from flask import current_app
@@ -20,8 +21,10 @@ from flask import request
 from markupsafe import escape
 
 from nl_server import config
-from nl_server import embeddings
 from nl_server import loader
+from nl_server import search
+from shared.lib.detected_variables import var_candidates_to_dict
+from shared.lib.detected_variables import VarCandidates
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -30,9 +33,9 @@ bp = Blueprint('main', __name__, url_prefix='/')
 def healthz():
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(
       config.DEFAULT_INDEX_TYPE)
-  result: embeddings.EmbeddingsResult = nl_embeddings.search_vars(
-      ['life expectancy'])['life expectancy']
-  if result.matches and 'Expectancy' in result.matches[0].var:
+  result: VarCandidates = search.search_vars(
+      nl_embeddings, ['life expectancy'])['life expectancy']
+  if result.svs and 'Expectancy' in result.svs[0]:
     return 'OK', 200
   return 'Service Unavailable', 500
 
@@ -59,10 +62,12 @@ def search_vars():
     skip_topics = True
 
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(idx)
-
-  results: embeddings.SearchVarsResult = nl_embeddings.search_vars(
-      queries, skip_topics)
-  json_result = {q: result.to_dict() for q, result in results.items()}
+  results: Dict[str,
+                VarCandidates] = search.search_vars(nl_embeddings, queries,
+                                                    skip_topics)
+  json_result = {
+      q: var_candidates_to_dict(result) for q, result in results.items()
+  }
   return json.dumps(json_result)
 
 
