@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
+import { PointApiResponse } from "@datacommonsorg/client";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { PointApiResponse } from "@datacommonsorg/client";
 import {
   DEFAULT_API_ENDPOINT,
   MATERIAL_ICONS_OUTLINED_STYLESHEET_URL,
