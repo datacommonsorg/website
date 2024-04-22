@@ -19,11 +19,9 @@
                     },
                     "entities": [
                       "bio/dm3_Is",
-                      "bio/dm6_Is",
-                      "bio/mm10_It",
-                      "bio/mm9_It"
+                      "bio/dm6_Is"
                     ],
-                    "title": "The typeOfGene for Is, Is and 2 more other are as follows:",
+                    "title": "The typeOfGene for Is and Is are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -46,16 +44,6 @@
       "dcid": "bio/dm6_Is",
       "name": "Is",
       "type": ""
-    },
-    {
-      "dcid": "bio/mm10_It",
-      "name": "It",
-      "type": ""
-    },
-    {
-      "dcid": "bio/mm9_It",
-      "name": "It",
-      "type": ""
     }
   ],
   "pastSourceContext": "",
@@ -73,6 +61,8 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "UNKNOWN",
-  "userMessages": []
+  "svSource": "CURRENT_QUERY",
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
 }
