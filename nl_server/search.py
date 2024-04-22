@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ _NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS = 60
 
 #
 # Given a list of query embeddings, searches the embeddings index
-# and returns a list of candidates in the same order as original queries.
+# and returns a map of result candidates keyed by query.
 #
 def search_vars(embeddings: Embeddings,
                 queries: List[str],
