@@ -124,13 +124,10 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     for d in ranked_dcids:
       ranked_places.append(dcid2place[d])
     ranked_places = ranked_places[:constants.MAX_ANSWER_PLACES]
-    place_facet_ids = {}
-    for place, facet in place_facets.items():
-      place_facet_ids[place] = facet.get('facetId', '')
 
-    sv_place_facet_ids = {}
+    sv_place_facet = {}
     if state.date_range or sv in constants.SVS_TO_CHECK_FACET:
-      sv_place_facet_ids = {sv: place_facet_ids}
+      sv_place_facet = {sv: place_facets}
     # TODO: Uncomment this once we agree on look and feel
     if field == 'abs' and ranked_places:
       sv_place_latest_date = {}
@@ -144,7 +141,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                                       ranked_places,
                                       chart_origin,
                                       sv_place_latest_date=sv_place_latest_date,
-                                      sv_place_facet_ids=sv_place_facet_ids)
+                                      sv_place_facet=sv_place_facet)
 
     if rank == 0 and field == 'abs' and ranked_places:
       ans_places = copy.deepcopy(ranked_places)
@@ -159,7 +156,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                                     chart_vars,
                                     ranked_places,
                                     chart_origin,
-                                    sv_place_facet_ids=sv_place_facet_ids)
+                                    sv_place_facet=sv_place_facet)
 
   if not found:
     state.uttr.counters.err('time-delta-across-places_toofewplaces', '')
