@@ -406,7 +406,7 @@ export class DatacommonsSliderComponent extends LitElement {
             ? html` <label class="checkbox-label"
                 ><input
                   type="checkbox"
-                  @change=${this.onShowLatestChange}
+                  @change=${this.onShowTrendsSummaryChange}
                   ?checked=${this._showTrendsSummaryEnabled}
                 />
                 <span
@@ -469,7 +469,7 @@ export class DatacommonsSliderComponent extends LitElement {
     this._value = newValue;
   }
 
-  private onShowLatestChange(e: Event): void {
+  private onShowTrendsSummaryChange(e: Event): void {
     const target = e.currentTarget as HTMLInputElement;
     this._showTrendsSummaryEnabled = target.checked;
     const dateValue =
