@@ -177,14 +177,15 @@ const fetchData = async (
         const valSources = val.map((singleVal) => {
           return singleVal.provenanceId;
         });
-        const entityResults = [];
+        const entityResults = new Set();
         val.forEach((singleVal) => {
-          entityResults.push(
+          entityResults.add(
             singleVal.name || singleVal.value || singleVal.dcid
           );
           provIds.add(singleVal.provenanceId);
         });
-        values[entity][props.columns[i].propertyExpr] = entityResults;
+        values[entity][props.columns[i].propertyExpr] =
+          Array.from(entityResults);
         sources[entity][props.columns[i].propertyExpr] = valSources;
       });
     });

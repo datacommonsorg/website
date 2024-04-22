@@ -9,22 +9,28 @@
               {
                 "tiles": [
                   {
-                    "answerTableTileSpec": {
-                      "columns": [
-                        {
-                          "header": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol",
-                          "propertyExpr": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol"
-                        }
-                      ]
+                    "answerMessageTileSpec": {
+                      "propertyExpr": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol"
                     },
                     "entities": [
-                      "bio/D005796",
-                      "bio/dm3_with",
-                      "bio/dm6_with",
                       "bio/rs13317"
                     ],
-                    "title": "The associated genes for Genes, with and 2 more other are",
-                    "type": "ANSWER_TABLE"
+                    "title": "The associated genes for rs13317 are",
+                    "type": "ANSWER_MESSAGE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "entities": [
+                      "bio/rs13317"
+                    ],
+                    "type": "ENTITY_OVERVIEW"
                   }
                 ]
               }
@@ -37,21 +43,6 @@
   "context": {},
   "debug": {},
   "entities": [
-    {
-      "dcid": "bio/D005796",
-      "name": "Genes",
-      "type": ""
-    },
-    {
-      "dcid": "bio/dm3_with",
-      "name": "with",
-      "type": ""
-    },
-    {
-      "dcid": "bio/dm6_with",
-      "name": "with",
-      "type": ""
-    },
     {
       "dcid": "bio/rs13317",
       "name": "rs13317",
