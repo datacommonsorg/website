@@ -51,19 +51,19 @@ def svs4children(state: ftypes.PopulateState, place: dtypes.Place,
   return ExistenceResult(exist_svs)
 
 
-# For a list of svs and places, Gets a map of sv -> place -> facetId from
+# For a list of svs and places, Gets a map of sv -> place -> facet metadata from
 # the results of an existence check
-def get_sv_place_facet_ids(
+def get_sv_place_facet(
     svs: List[str], places: List[ftypes.Place],
     exist_checks: Dict[str, Dict[str,
                                  ftypes.ExistInfo]]) -> ftypes.Sv2Place2Facet:
-  sv_place_facet_ids = {}
+  sv_place_facet = {}
   for sv in svs:
-    sv_place_facet_ids[sv] = {}
+    sv_place_facet[sv] = {}
     for pl in places:
-      sv_place_facet_ids[sv][pl.dcid] = exist_checks.get(sv, {}).get(
-          pl.dcid, ftypes.ExistInfo()).facet.get('facetId', '')
-  return sv_place_facet_ids
+      sv_place_facet[sv][pl.dcid] = exist_checks.get(sv, {}).get(
+          pl.dcid, ftypes.ExistInfo()).facet
+  return sv_place_facet
 
 
 # For a list of svs, places and an optional place type, gets a map of
