@@ -488,7 +488,6 @@ export const fetchData = async (
       };
       rawDataArray.push(rawData);
     } catch (error) {
-      removeSpinner(props.id);
       return null;
     }
   }
