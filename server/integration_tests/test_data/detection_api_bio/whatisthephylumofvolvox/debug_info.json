@@ -4,28 +4,27 @@
   "main_place_dcid": "<None>",
   "main_place_name": "<None>",
   "entities_detected": [
-    "is",
     "volvox"
   ],
-  "entities_resolved": "(name: Is, dcid: bio/dm3_Is); (name: Is, dcid: bio/dm6_Is); (name: Volvox, dcid: bio/D044446); (name: Volvox, dcid: dc/003ye83smktt7); (name: Volvox, dcid: dc/3rbv0rhm76sg8); (name: Volvox, dcid: dc/5zhg2q9l2n378); (name: Volvox, dcid: dc/953xfs4xh2bm5); (name: Volvox, dcid: dc/9fzm6f7k7etm4); (name: Volvox, dcid: dc/9xy7ymdmzyzdf); (name: Volvox, dcid: dc/b090kbyb0sz5b); (name: Volvox, dcid: dc/ccyhttectv5n2); (name: Volvox, dcid: dc/cd735b0hd6nh8); (name: Volvox, dcid: dc/ds26y3mt8z3c4); (name: Volvox, dcid: dc/erp74w62y7x4h); (name: Volvox, dcid: dc/fnqkx4gtrh1f7); (name: Volvox, dcid: dc/fzfq3lff3kf34); (name: Volvox, dcid: dc/ghtpcec74knl7); (name: Volvox, dcid: dc/h8ncxq8y6bkj2); (name: Volvox, dcid: dc/pdhk5jc41d636); (name: Volvox, dcid: dc/vxzgmlszw0zfh); (name: Volvox, dcid: dc/xvhwj1943wgf9); (name: Volvox, dcid: dc/yg1kw13e813e9); (name: Volvox, dcid: dc/z9x1mlh4pxzb7); (name: Volvox, dcid: dc/zsn19vpl9fy76); ",
-  "query_with_places_removed": "what the phylum of",
+  "entities_resolved": "(name: Volvox, dcid: bio/D044446); (name: Volvox, dcid: dc/003ye83smktt7); (name: Volvox, dcid: dc/3rbv0rhm76sg8); (name: Volvox, dcid: dc/5zhg2q9l2n378); (name: Volvox, dcid: dc/953xfs4xh2bm5); (name: Volvox, dcid: dc/9fzm6f7k7etm4); (name: Volvox, dcid: dc/9xy7ymdmzyzdf); (name: Volvox, dcid: dc/b090kbyb0sz5b); (name: Volvox, dcid: dc/ccyhttectv5n2); (name: Volvox, dcid: dc/cd735b0hd6nh8); (name: Volvox, dcid: dc/ds26y3mt8z3c4); (name: Volvox, dcid: dc/erp74w62y7x4h); (name: Volvox, dcid: dc/fnqkx4gtrh1f7); (name: Volvox, dcid: dc/fzfq3lff3kf34); (name: Volvox, dcid: dc/ghtpcec74knl7); (name: Volvox, dcid: dc/h8ncxq8y6bkj2); (name: Volvox, dcid: dc/pdhk5jc41d636); (name: Volvox, dcid: dc/vxzgmlszw0zfh); (name: Volvox, dcid: dc/xvhwj1943wgf9); (name: Volvox, dcid: dc/yg1kw13e813e9); (name: Volvox, dcid: dc/z9x1mlh4pxzb7); (name: Volvox, dcid: dc/zsn19vpl9fy76); ",
+  "query_with_places_removed": "what is the phylum of",
   "sv_matching": {
     "CosineScore": [
-      0.3551090359687805,
-      0.3126291334629059,
-      0.2790032923221588,
-      0.2728559970855713,
-      0.2712491452693939,
-      0.26562047004699707,
-      0.2628049850463867,
-      0.25592702627182007,
-      0.25521552562713623,
-      0.2551817297935486,
+      0.35510891675949097,
+      0.31262925267219543,
+      0.27900323271751404,
+      0.2728559076786041,
+      0.2712491750717163,
+      0.2656204402446747,
+      0.26280492544174194,
+      0.25592705607414246,
+      0.25521549582481384,
+      0.2551816403865814,
       0.2533870041370392,
-      0.2529027760028839
+      0.25290265679359436
     ],
     "MultiSV": {},
-    "Query": "what the phylum of",
+    "Query": "what is the phylum of",
     "SV": [
       "dc/topic/SDGBiodiversity",
       "Amount_FarmInventory_BarleyForGrain",
@@ -44,24 +43,24 @@
   "props_matching": {
     "CosineScore": [
       1.0,
-      0.4752839207649231,
-      0.3615417182445526,
-      0.342009961605072,
-      0.32933083176612854,
-      0.31845176219940186,
-      0.3146698772907257,
+      0.4752839505672455,
+      0.36154183745384216,
+      0.34200984239578247,
+      0.3293306827545166,
+      0.3184516429901123,
+      0.3146698474884033,
       0.3083952069282532,
-      0.30794063210487366,
-      0.3046300709247589,
-      0.28270867466926575,
-      0.28187552094459534,
-      0.2808277904987335,
-      0.2804529666900635,
+      0.3079405426979065,
+      0.30463019013404846,
+      0.28270864486694336,
+      0.28187546133995056,
+      0.2808276116847992,
+      0.2804529368877411,
       0.2742983400821686,
-      0.27150508761405945,
-      0.2707182466983795,
-      0.26954683661460876,
-      0.2599007785320282
+      0.27150505781173706,
+      0.27071821689605713,
+      0.26954659819602966,
+      0.2599007189273834
     ],
     "PROP": [
       "phylum",
@@ -87,10 +86,6 @@
   },
   "query_detection_debug_logs": {
     "dc_recognize_entities": {
-      "is": [
-        "bio/dm3_Is",
-        "bio/dm6_Is"
-      ],
       "volvox": [
         "bio/D044446",
         "dc/003ye83smktt7",
@@ -116,26 +111,17 @@
         "dc/zsn19vpl9fy76"
       ]
     },
-    "dc_recognize_places": {
-      "volvox": [
-        "dc/003ye83smktt7"
-      ]
-    },
+    "dc_recognize_places": {},
     "main_place_inferred": null,
     "original_query": "What is the phylum of volvox",
     "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
-    "place_resolution": {
-      "dc_resolution_failure": [
-        "dc/003ye83smktt7"
-      ],
-      "dc_resolved_places": []
-    },
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
     "places_found_str": [],
     "query_transformations": {
       "place_detection_input": "What is the phylum of volvox",
-      "place_detection_with_places_removed": "what the phylum of",
+      "place_detection_with_places_removed": "what is the phylum of",
       "sv_detection_query_index_type": "bio_ft",
-      "sv_detection_query_input": "what the phylum of",
+      "sv_detection_query_input": "what is the phylum of",
       "sv_detection_query_stop_words_removal": "phylum"
     }
   }

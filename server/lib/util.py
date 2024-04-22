@@ -256,6 +256,10 @@ NL_CHART_TITLE_FILES = [
     'chart_titles_by_sv.json', 'chart_titles_by_sv_sdg.json'
 ]
 
+# Filter out observations with dates in the future for these variable DCIDs
+# when finding the date of highest coverage
+FILTER_FUTURE_OBSERVATIONS_FROM_VARIABLES = frozenset(["Count_Person"])
+
 
 def get_repo_root():
   '''Get the absolute path of the repo root directory
@@ -596,15 +600,21 @@ def _get_highest_coverage_date(observation_entity_counts_by_date,
     max_years_to_check: Only consider entity counts going back this number of
       years
   """
-  # Get observation dates in descending order, and filter out dates in the
-  # future (to exclude erroneous data)
-  todays_date = str(date.today())
+  # Get observation dates in descending order
   descending_observation_dates = [
       observation_date for observation_date in list(
           reversed(observation_entity_counts_by_date.get(
               'observationDates', [])))
-      if observation_date['date'] < todays_date
   ]
+  # Exclude erroneous data for particular variables with dates in the future
+  # TODO: Remove this check once data is corrected in b/327667797
+  if observation_entity_counts_by_date[
+      'variable'] in FILTER_FUTURE_OBSERVATIONS_FROM_VARIABLES:
+    todays_date = str(date.today())
+    descending_observation_dates = [
+        observation_date for observation_date in descending_observation_dates
+        if observation_date['date'] < todays_date
+    ]
   if len(descending_observation_dates) == 0:
     return None
   # Heuristic to fetch the "max_dates_to_check" most recent
