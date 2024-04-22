@@ -39,7 +39,7 @@ if [[ $NODEJS_API_ROOT != "" ]]; then
   gsutil cp ./output/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/nodejs_query/
   rm -rf ./output/*
   failure_email="failure_email.json"
-  python3 differ.py --env=$TESTING_ENV --test_folder="$date_str" --gcs_output_folder="$TESTING_ENV/$date_str/nodejs_query" --failure_email_file="$failure_email"
+  python3 differ.py -m diff -e "$TESTING_ENV" -t "$date_str" -g "$TESTING_ENV/$date_str/nodejs_query" -f "$failure_email"
   if [[ -e "$failure_email" ]]; then
     python3 send_email.py --recipient="datacommons+alerts@google.com" --email_content="$failure_email"
   fi

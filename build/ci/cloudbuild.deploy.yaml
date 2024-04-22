@@ -76,6 +76,22 @@ steps:
         docker push gcr.io/datcom-ci/datacommons-nodejs:latest
     waitFor: ["-"]
 
+  - id: push-website-cron-testing
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        DOCKER_BUILDKIT=1
+        docker build -f build/website_cron_testing/Dockerfile \
+          --tag gcr.io/$_PROJECT_ID/website-cron-testing:${SHORT_SHA} \
+          --tag gcr.io/$_PROJECT_ID/website-cron-testing:latest \
+          .
+        docker push gcr.io/$_PROJECT_ID/website-cron-testing:${SHORT_SHA}
+        docker push gcr.io/$_PROJECT_ID/website-cron-testing:latest
+    waitFor: ["-"]
+
   - id: update version
     name: "gcr.io/cloud-builders/git"
     entrypoint: /bin/bash
