@@ -16,21 +16,27 @@
 
 /* Styles shared across the Biomedical DC site */
 
-.tooltip {
-  width: 100;
-  height: 100;
-  background-color: rgba(0, 0, 0, 0.8);
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  border: solid;
-  border-radius: 1px;
-  color: #fff;
-  box-sizing: border-box;
-  font-size: 8px;
-  position: absolute;
-  text-align: center;
-  opacity: 1;
+/* Color overrides */
+$link-color: #1e4e4c;
+
+.main-content {
+  background-color: #bbece91a;
+}
+
+a {
+  color: $link-color;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.button {
+  color: #146c2e;
+
+  &:hover {
+    box-shadow: inset 0 0 3px 2px #146c2e1a;
+  }
 }
 
 .axis-label {
@@ -40,4 +46,14 @@
 
 .legend-label {
   font-size: 10px;
+}
+
+.table {
+  tbody {
+    td {
+      a {
+        color: #146c2e;
+      }
+    }
+  }
 }

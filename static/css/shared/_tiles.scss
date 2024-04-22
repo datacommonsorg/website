@@ -606,7 +606,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
 .answer-message-tile {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 24px;
   margin-top: 0;
 
   .answer-message {
@@ -617,7 +617,9 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   }
 
   .source {
-    font-size: 14px;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 28px;
   }
 }
 
@@ -625,13 +627,13 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
  * Entity overview tile
  */
 
- .entity-overview-tile {
+.entity-overview-tile {
   border: var(--border-primary);
   border-radius: var(--border-radius-primary);
   padding: 32px;
- }
+}
 
- /**
+/**
   * Answer table tile
   */
 
@@ -640,27 +642,42 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   flex-direction: column;
   gap: 8px;
   margin-top: 0;
-  
+
   .answer-table-title {
     font-size: 32px;
-    margin-bottom: 48px;
+    margin-bottom: 16px;
+  }
+
+  .arrow-icon {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .source {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    margin-top: 20px;
   }
 
   .table-container {
+    margin-top: 16px;
+    max-height: 50vh;
     overflow: scroll;
-    max-height: 50vH;
   }
 
   .table {
-    border: 1px solid #DEE2E6;
+    border: 1px solid #dee2e6;
     border-radius: 3px;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 400;
+    line-height: 28px;
 
     thead {
-      background-color: #F0F0F0;
+      background-color: #f0f0f0;
       position: sticky;
       top: 0;
+      width: 100%;
       z-index: 2;
 
       th {
@@ -671,7 +688,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
       }
 
       th:first-child {
-        background-color: #F0F0F0;
+        background-color: #f0f0f0;
         left: 0;
         position: sticky;
         top: 0;
@@ -682,7 +699,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
     tbody {
       tr:nth-child(even),
       tr:nth-child(even) td:first-child {
-        background-color: #F0F0F0;
+        background-color: #f0f0f0;
       }
 
       tr:nth-child(odd),
@@ -710,9 +727,5 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
         }
       }
     }
-  }
-  
-  .source {
-      font-size: 14px;
   }
 }

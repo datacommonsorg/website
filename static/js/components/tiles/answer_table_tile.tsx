@@ -29,6 +29,7 @@ import {
 } from "../../constants/css_constants";
 import { AnswerTableColumn } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
+import { DownloadButton } from "../form_components/buttons";
 export interface AnswerTableTilePropType {
   // Title to use
   title: string;
@@ -43,16 +44,18 @@ interface AnswerTableData {
   entityNames: Record<string, string>;
   // Map of entity dcid to property expression to list of values
   values: Record<string, Record<string, string[]>>;
-  // List of sources that the data came from
-  sources: string[];
+  // Map of entity dcid to property expression to list of provenance Ids that the data came from
+  sources: Record<string, Record<string, string[]>>;
 }
 
 export function AnswerTableTile(props: AnswerTableTilePropType): JSX.Element {
   const [answerData, setAnswerData] = useState<AnswerTableData>(null);
+  const [answerAsCsv, setAnswerAsCsv] = useState<string>("");
 
   useEffect(() => {
     fetchData(props).then((data) => {
       setAnswerData(data);
+      setAnswerAsCsv(generateCsv(data, props));
     });
   }, [props]);
 
@@ -66,6 +69,10 @@ export function AnswerTableTile(props: AnswerTableTilePropType): JSX.Element {
     >
       <div className={`answer-table-content ${ASYNC_ELEMENT_CLASS}`}>
         {props.title && <div className="answer-table-title">{props.title}</div>}
+        <DownloadButton
+          content={answerAsCsv}
+          filename={`${props.title}.csv`}
+        ></DownloadButton>
         <div className="table-container">
           <table className="table">
             <thead>
@@ -83,7 +90,7 @@ export function AnswerTableTile(props: AnswerTableTilePropType): JSX.Element {
                     <td>
                       <a href={URI_PREFIX + entity}>
                         {answerData.entityNames[entity] || entity}
-                        <span className="material-icons-outlined">
+                        <span className="material-icons-outlined arrow-icon">
                           arrow_forward
                         </span>
                       </a>
@@ -91,8 +98,25 @@ export function AnswerTableTile(props: AnswerTableTilePropType): JSX.Element {
                     {props.columns.map((col, colIdx) => {
                       return (
                         <td key={`row-${rowIdx}-col-${colIdx}`}>
-                          {answerData.values[entity][col.propertyExpr].join(
-                            ", "
+                          {answerData.values[entity][col.propertyExpr].map(
+                            (value, valIdx) => {
+                              return (
+                                <span key={`value-${valIdx}`}>
+                                  {value}
+                                  <br />
+                                </span>
+                              );
+                            }
+                          )}
+                          {!_.isEmpty(
+                            answerData.sources[entity][col.propertyExpr]
+                          ) && (
+                            <div className="source">
+                              Source:{" "}
+                              {answerData.sources[entity][
+                                col.propertyExpr
+                              ].join(", ")}
+                            </div>
                           )}
                         </td>
                       );
@@ -104,7 +128,6 @@ export function AnswerTableTile(props: AnswerTableTilePropType): JSX.Element {
           </table>
         </div>
       </div>
-      <div className="source">source: {answerData.sources.join(", ")}</div>
     </div>
   );
 }
@@ -142,13 +165,18 @@ const fetchData = async (
     // The rest of the promises are for column values
     const propResp = resp.slice(1);
     const values = {};
+    const sources = {};
     props.entities.forEach((entity) => {
       values[entity] = {};
+      sources[entity] = {};
     });
     const provIds: Set<string> = new Set();
     propResp.forEach((resp, i) => {
       Object.keys(resp.data).forEach((entity) => {
         const val = resp.data[entity];
+        const valSources = val.map((singleVal) => {
+          return singleVal.provenanceId;
+        });
         const entityResults = [];
         val.forEach((singleVal) => {
           entityResults.push(
@@ -157,6 +185,7 @@ const fetchData = async (
           provIds.add(singleVal.provenanceId);
         });
         values[entity][props.columns[i].propertyExpr] = entityResults;
+        sources[entity][props.columns[i].propertyExpr] = valSources;
       });
     });
 
@@ -166,21 +195,55 @@ const fetchData = async (
       params: { dcids: provIdList, prop: "url" },
       paramsSerializer: stringifyFn,
     });
+    const provIdToUrl = {};
+    provIdList.forEach((provId) => {
+      const urlValues = provIdUrlResp.data[provId];
+      if (!_.isEmpty(urlValues)) {
+        provIdToUrl[provId] = new URL(urlValues[0].value).host;
+      } else {
+        provIdToUrl[provId] = "";
+      }
+    });
+
+    // Map sources to their URL
+    for (const entity in sources) {
+      for (const propertyExpr in sources[entity]) {
+        const sourceUrls = new Set<string>();
+        sources[entity][propertyExpr].forEach((provId) => {
+          sourceUrls.add(provIdToUrl[provId]);
+        });
+        sources[entity][propertyExpr] = Array.from(sourceUrls);
+      }
+    }
     return {
       entityNames,
-      sources: provIdList
-        .map((provId) => {
-          const urlValues = provIdUrlResp.data[provId];
-          if (!_.isEmpty(urlValues)) {
-            return new URL(urlValues[0].value).host;
-          } else {
-            return "";
-          }
-        })
-        .filter((url) => !!url),
+      sources,
       values,
     };
   } catch (e) {
     return null;
   }
 };
+
+/** Convert table data to a CSV for downloading */
+function generateCsv(
+  data: AnswerTableData,
+  props: AnswerTableTilePropType
+): string {
+  const headerRow = `DCID,Name,${props.columns
+    .map((column) => {
+      return `${column.header},${column.header} source`;
+    })
+    .join(",")}`;
+  const dataRows = new Array<string>();
+  props.entities.forEach((entity) => {
+    const row = [entity, data.entityNames[entity]];
+    props.columns.forEach((column) => {
+      const value = data.values[entity][column.propertyExpr].join("; ");
+      const source = data.sources[entity][column.propertyExpr].join("; ");
+      row.push(`${value},${source}`);
+    });
+    dataRows.push(row.join(","));
+  });
+  return `${headerRow}\n${dataRows.join("\n")}`;
+}

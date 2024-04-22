@@ -67,6 +67,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=block">
   {% block head %}
   {% endblock %}
+  {% if config['BIOMEDICAL'] %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/biomedical_shared.min.css', t=config['VERSION'])}} >
+  {% endif %}
   {% if OVERRIDE_CSS_PATH %}
   <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
   {% endif %}

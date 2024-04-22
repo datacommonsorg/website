@@ -270,7 +270,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   if ingress_config_path:
     configure_endpoints_from_ingress(ingress_config_path)
 
-  if os.environ.get('FLASK_ENV') == 'biomedical':
+  app.config['BIOMEDICAL'] = os.environ.get('FLASK_ENV') == 'biomedical'
+  if app.config['BIOMEDICAL']:
     register_routes_biomedical_dc(app)
 
   register_routes_common(app)

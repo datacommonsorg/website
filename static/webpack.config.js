@@ -79,6 +79,7 @@ const config = {
       __dirname + "/js/browser/browser.ts",
       __dirname + "/css/browser.scss",
     ],
+    biomedical: __dirname + "/css/biomedical/biomedical_shared.scss",
     biomedical_landing: [
       __dirname + "/js/biomedical/landing/main.ts",
       __dirname + "/css/biomedical/biomedical_landing.scss",

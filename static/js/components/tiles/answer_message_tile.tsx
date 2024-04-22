@@ -28,6 +28,7 @@ import {
 } from "../../constants/css_constants";
 import { DisplayValueSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
+import { CopyButton } from "../form_components/buttons";
 
 export interface AnswerMessageTilePropType {
   // Title to use
@@ -57,15 +58,18 @@ export function AnswerMessageTile(
     return null;
   }
 
+  const answerValues = answerData.values.join(", ");
+
   return (
     <div
       className={`chart-container answer-message-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
     >
       <div className={`answer-message ${ASYNC_ELEMENT_CLASS}`}>
         <span>{props.title}</span>
-        <span>{answerData.values.join(", ")}</span>
+        <span>{answerValues}</span>
       </div>
-      <div className="source">source: {answerData.sources.join(", ")}</div>
+      <div className="source">Source: {answerData.sources.join(", ")}</div>
+      <CopyButton textToCopy={answerValues}></CopyButton>
     </div>
   );
 }
