@@ -48,11 +48,7 @@ import {
   NamedTypedPlace,
   StatVarSpec,
 } from "../../shared/types";
-import {
-  getCappedStatVarDate,
-  loadSpinner,
-  removeSpinner,
-} from "../../shared/util";
+import { getCappedStatVarDate } from "../../shared/util";
 import {
   getGeoJsonDataFeatures,
   getPlaceChartData,
@@ -117,8 +113,6 @@ export interface MapTilePropType {
   title: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
-  // Whether or not to show a loading spinner when fetching data.
-  showLoadingSpinner?: boolean;
   // Whether or not to allow zoom in and out of the map
   allowZoom?: boolean;
   // The property to use to get place names.
@@ -212,7 +206,6 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       !_.isEqual(mapChartData.props, props) ||
       !_.isEqual(mapChartData.dateOverride, dateOverride)
     ) {
-      loadSpinner(props.id);
       (async () => {
         setIsLoading(true);
         try {
@@ -238,7 +231,6 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         mapContainer.current,
         errorMsgContainer.current
       );
-      removeSpinner(props.id);
     }
   }, [
     mapChartData,
@@ -358,11 +350,6 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           {...{ part: "legend" }}
           ref={legendContainer}
         ></div>
-        {props.showLoadingSpinner && (
-          <div className="screen">
-            <div id="spinner"></div>
-          </div>
-        )}
       </div>
     </ChartTileContainer>
   );
@@ -408,7 +395,6 @@ export const fetchData = async (
 ): Promise<MapChartData> => {
   const layers = getDataSpec(props);
   if (_.isEmpty(layers)) {
-    removeSpinner(props.id);
     return null;
   }
   const rawDataArray = [];

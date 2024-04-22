@@ -320,8 +320,16 @@ export class DatacommonsSliderComponent extends LitElement {
   }
 
   render(): TemplateResult {
-    if (this._isLoading) {
-      return html`<div class="container" part="container">Loading...</div>`;
+    if (!this.variable || !this.parentPlace || !this.childPlaceType) {
+      return html`
+        <div class="container error" part="container">
+          <h4>datacommons-slider</h4>
+          <div>
+            Please specify all of the attributes: "variable", "parentPlace", and
+            "childPlaceType".
+          </div>
+        </div>
+      `;
     }
     if (this._errorMessage) {
       return html`
@@ -331,16 +339,8 @@ export class DatacommonsSliderComponent extends LitElement {
         </div>
       `;
     }
-    if (!this._dates || this._dates.length === 0) {
-      return html`
-        <div class="container error" part="container">
-          <h4>datacommons-slider</h4>
-          <div>
-            Please specify either the "dates" attribute or all of the
-            attributes: "variable", "parentPlace", and "childPlaceType".
-          </div>
-        </div>
-      `;
+    if (this._isLoading || !this._dates) {
+      return html`<div class="container" part="container">Loading...</div>`;
     }
 
     const startDate = this._dates[0];
