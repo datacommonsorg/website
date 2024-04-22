@@ -83,13 +83,12 @@ steps:
       - -c
       - |
         set -e
-        DOCKER_BUILDKIT=1
-        docker build -f build/website_cron_testing/Dockerfile \
-          --tag gcr.io/$_PROJECT_ID/website-cron-testing:${_TAG} \
-          --tag gcr.io/$_PROJECT_ID/website-cron-testing:latest \
+        docker build -f build/nodejs_server/Dockerfile \
+          -t gcr.io/datcom-ci/website-cron-testing:$SHORT_SHA \
+          -t gcr.io/datcom-ci/website-cron-testing:latest \
           .
-        docker push gcr.io/$_PROJECT_ID/website-cron-testing:${_TAG}
-        docker push gcr.io/$_PROJECT_ID/website-cron-testing:latest
+        docker push gcr.io/datcom-ci/website-cron-testing:$SHORT_SHA
+        docker push gcr.io/datcom-ci/website-cron-testing:latest\
     waitFor: ["-"]
 
   - id: update version
