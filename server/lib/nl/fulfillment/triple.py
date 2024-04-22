@@ -120,9 +120,6 @@ def populate(state: PopulateState) -> bool:
   if not state.uttr.entities:
     state.uttr.counters.err('triple_failed_no_entities', 1)
     return False
-  if not state.uttr.properties:
-    state.uttr.counters.err('triple_failed_no_properties', 1)
-    return False
 
   chart_added = False
   # TODO: consider messaging if top matches fail existence
