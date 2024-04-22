@@ -384,7 +384,7 @@ h6{
 
 .search__form{
   display:flex;
-  background-color:rgba(255, 255, 255, 0.9);
+  background-color:white;
   max-width:1140px;
   padding:6px 16px;
   border:1px solid var(--dc-primary);
@@ -405,7 +405,7 @@ h6{
   display:block;
   width:100%;
   padding:0.375rem 0.75rem;
-  font-size:1rem;
+  font-size:1.1rem;
   font-weight:400;
   line-height:1.5;
   color:#000;
