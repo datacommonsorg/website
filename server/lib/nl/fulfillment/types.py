@@ -144,9 +144,10 @@ class PopulateState:
   has_child_type_in_top_basic_charts: bool = False
 
 
-# Dict of place dcid -> facet id
-Place2Facet = Dict[str, str]
-# Dict of sv dcid -> place dcid -> facet id
+# Dict of place dcid -> facet metadata which includes information like facetId,
+# earliestDate, and latestDate
+Place2Facet = Dict[str, Dict[str, str]]
+# Dict of sv dcid -> place dcid -> facet metadata
 Sv2Place2Facet = Dict[str, Place2Facet]
 # Dict of place key -> date
 Place2Date = Dict[str, str]
@@ -170,9 +171,9 @@ class ChartSpec:
   is_special_dc: bool
   single_date: Date
   date_range: Date
-  # Dict of sv -> place -> facetid to use.
+  # Dict of sv -> place -> facet metadata to use.
   # This is used by timeline charts when there is a date/date range in the query
-  sv_place_facet_id: Sv2Place2Facet
+  sv_place_facet: Sv2Place2Facet
   info_message: str
   # Dict of sv -> place key -> latest valid date
   # This is used by charts that show a single data point (e.g., bar, map,

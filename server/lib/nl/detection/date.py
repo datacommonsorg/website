@@ -35,8 +35,8 @@ LAST_YEARS = [
 LAST_YEAR = [r'(?:in|during|over)(?: the)? (?:last|past|previous) year']
 
 YEAR_MONTH_RE = [
-    r'(in|after|on|before|since|by|until|from|between) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(?:,)? (\d{4})',
-    r'(in|after|on|before|since|by|until|from|between) (\d{4})(?:,)? (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)',
+    r'(in|after|on|before|since|by|until|from|between) (jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(?:,)? (\d{4})',
+    r'(in|after|on|before|since|by|until|from|between) (\d{4})(?:,)? (jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)',
 ]
 
 # Placeholder prep to use for LAST_YEAR/LAST_YEARS type dates because they do

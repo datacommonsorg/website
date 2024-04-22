@@ -300,21 +300,21 @@ def get_contained_in_latest_date(places: List[str],
   return sv_place_latest_date
 
 
-# For each sv and place key in sv_place_facets, predict the latest date that is
+# For each sv and place key in sv_place_facet, predict the latest date that is
 # within the date range by either:
 # a. taking the latest date for the sv and place if it is within the date range
 # b. starting at the latest date for the sv and place and using the observation
 #    period to find an available date that is within the date range
-def get_predicted_latest_date(sv_place_facets, date_range):
+def get_predicted_latest_date(sv_place_facet, date_range):
   sv_place_latest_date = {}
   start_date, end_date = server.lib.nl.detection.date.get_date_range_strings(
       date_range)
-  for sv, place_facet in sv_place_facets.items():
+  for sv, place_facet in sv_place_facet.items():
     sv_place_latest_date[sv] = {}
     for plk, facet in place_facet.items():
       latest_date_str = facet.get('latestDate', '')
 
-      # Every facet in sv_place_facets is a valid facet for the date range so
+      # Every facet in sv_place_facet is a valid facet for the date range so
       # as long as the latest date is earlier than the end date, we know it must
       # be a valid date.
       if latest_date_str[0:len(end_date)] <= end_date:
