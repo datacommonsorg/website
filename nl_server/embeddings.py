@@ -20,43 +20,20 @@ from typing import Dict, List
 
 import torch
 
-from shared.lib.detected_variables import SentenceScore
-
-_TOPIC_PREFIX = 'dc/topic/'
-
-# Number of matches to find within the SV index.
-_NUM_SV_INDEX_MATCHES = 40
-# Number of matches to find within the SV index if skipping topics.
-# Reason: Since we're going to drop a few candidates at the top,
-# try to retrieve more from vector DB.
-_NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS = 60
-
 
 # A single match from Embeddings result.
 @dataclass
 class EmbeddingsMatch:
-  # SV / topic DCID
-  var: str
-  # Best score
+  # The sentence that was matched
+  sentence: str
+  # Score of the sentence
   score: float
-  # Sentences
-  sentences: List[SentenceScore]
+  # One (very rarely more) variable dcids
+  vars: List[str]
 
 
-# A list of candidates for a given query (vector or string).
-@dataclass
-class EmbeddingsResult:
-  # Ordered list of matches
-  matches: List[EmbeddingsMatch]
-
-  def to_dict(self):
-    return {
-        'SV': [m.var for m in self.matches],
-        'CosineScore': [m.score for m in self.matches],
-        'SV_to_Sentences': {
-            m.var: [s.to_dict() for s in m.sentences] for m in self.matches
-        }
-    }
+# Ordered list of matches.
+EmbeddingsResult = List[EmbeddingsMatch]
 
 
 #
@@ -101,9 +78,7 @@ class Embeddings:
     self.store: EmbeddingsStore = store
 
   # Given a list of queries, returns
-  def search_vars(self,
-                  queries: List[str],
-                  skip_topics: bool = False) -> SearchVarsResult:
+  def vector_search(self, queries: List[str], top_k: int) -> SearchVarsResult:
     query_embeddings = self.model.encode(queries)
 
     if self.model.returns_tensor and not self.store.needs_tensor:
@@ -113,17 +88,8 @@ class Embeddings:
       # Convert to torch.Tensor
       query_embeddings = torch.tensor(query_embeddings, dtype=torch.float)
 
-    top_k = _NUM_SV_INDEX_MATCHES
-    if skip_topics:
-      top_k = _NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS
-
     # Call the store.
     results = self.store.vector_search(query_embeddings, top_k)
-
-    if skip_topics:
-      for result in results:
-        result.matches[:] = filter(
-            lambda m: not m.var.startswith(_TOPIC_PREFIX), result.matches)
 
     # Turn this into a map:
     return {k: v for k, v in zip(queries, results)}
