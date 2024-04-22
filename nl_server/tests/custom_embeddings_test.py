@@ -24,6 +24,7 @@ from nl_server import config
 from nl_server import embeddings_map as emb_map
 from nl_server.config import EmbeddingsIndex
 from nl_server.embeddings import Embeddings
+from nl_server.search import search_vars
 from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
 from shared.lib.gcs import TEMP_DIR
 
@@ -50,10 +51,10 @@ def _test_query(test: unittest.TestCase, idx: Embeddings, query: str,
                 expected: str):
   trimmed_svs = []
   if idx:
-    got = idx.search_vars([query])[query]
-    for m in got.matches:
-      if m.score >= SV_SCORE_DEFAULT_THRESHOLD:
-        trimmed_svs.append(m.var)
+    got = search_vars(idx, [query])[query]
+    for i, m in enumerate(got.svs):
+      if got.scores[i] >= SV_SCORE_DEFAULT_THRESHOLD:
+        trimmed_svs.append(m)
 
   if not expected:
     test.assertTrue(not trimmed_svs, trimmed_svs)

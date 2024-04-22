@@ -18,13 +18,10 @@
                       ]
                     },
                     "entities": [
-                      "bio/D005796",
-                      "bio/dm3_with",
-                      "bio/dm6_with",
                       "bio/rs13317",
                       "bio/rs7903146"
                     ],
-                    "title": "The associated genes for Genes, with and 3 more other are",
+                    "title": "The associated genes for rs13317 and rs7903146 are",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -38,21 +35,6 @@
   "context": {},
   "debug": {},
   "entities": [
-    {
-      "dcid": "bio/D005796",
-      "name": "Genes",
-      "type": ""
-    },
-    {
-      "dcid": "bio/dm3_with",
-      "name": "with",
-      "type": ""
-    },
-    {
-      "dcid": "bio/dm6_with",
-      "name": "with",
-      "type": ""
-    },
     {
       "dcid": "bio/rs13317",
       "name": "rs13317",
