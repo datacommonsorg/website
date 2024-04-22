@@ -101,7 +101,7 @@ def parse(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
     elif is_gcs_path(path):
       logging.info('Downloading embeddings from GCS path: %s', path)
       if store_type == StoreType.MEMORY:
-        local_path = download_gcs_file(path)
+        local_path = download_gcs_file(path, use_anonymous_client=True)
       elif store_type == StoreType.LANCEDB:
         local_path = gcs.download_folder(path)
       if not local_path:

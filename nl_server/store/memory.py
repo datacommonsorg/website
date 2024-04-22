@@ -64,35 +64,17 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings,
                            top_k=top_k)
-
-    # List of results per input query, with each entry being a map
-    # keyed by DCID.
-    query_indexed_results: List[Dict[str, EmbeddingsMatch]] = []
-    for i, hit in enumerate(hits):
-      query_indexed_results.append({})
+    results: List[EmbeddingsResult] = []
+    for hit in hits:
+      matches: List[EmbeddingsMatch] = []
       for ent in hit:
         score = ent['score']
-        for dcid in self.dcids[ent['corpus_id']].split(','):
-          # Prefer the top score.
-          if dcid not in query_indexed_results[i]:
-            query_indexed_results[i][dcid] = EmbeddingsMatch(var=dcid,
-                                                             score=score,
-                                                             sentences=[])
-          if ent['corpus_id'] >= len(self.sentences):
-            continue
+        vars = self.dcids[ent['corpus_id']].split(',')
+        sentence = ''
+        if ent['corpus_id'] < len(self.sentences):
           sentence = self.sentences[ent['corpus_id']]
-          query_indexed_results[i][dcid].sentences.append(
-              SentenceScore(sentence=sentence, score=score))
-
-    results: List[EmbeddingsResult] = []
-    for sv2match in query_indexed_results:
-      matches_sorted = [
-          m for _, m in sorted(sv2match.items(),
-                               key=lambda item: (-item[1].score, item[0]))
-      ]
-      # Sort the sentences within each match.
-      for m in matches_sorted:
-        m.sentences.sort(key=lambda item: item.score, reverse=True)
-      results.append(EmbeddingsResult(matches=matches_sorted))
+        matches.append(
+            EmbeddingsMatch(score=score, vars=vars, sentence=sentence))
+      results.append(matches)
 
     return results

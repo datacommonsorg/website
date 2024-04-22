@@ -43,26 +43,17 @@ class LanceDBStore(EmbeddingsStore):
                     top_k: int) -> List[EmbeddingsResult]:
     results: List[EmbeddingsResult] = []
     for emb in query_embeddings:
-
-      # Var => EmbeddingsMatch
-      sv2match: Dict[str, EmbeddingsMatch] = {}
-      matches = self.table.search(emb).metric('cosine').limit(top_k).to_list()
-      for match in matches:
+      matches: List[EmbeddingsMatch] = []
+      candidates = self.table.search(emb).metric('cosine').limit(
+          top_k).to_list()
+      for c in candidates:
         # We want to return cosine-similarity, but LanceDB
         # returns distance.
-        score = 1 - match[DISTANCE_COL]
-        dcid = match[DCID_COL]
-        sentence = match[SENTENCE_COL]
-        if dcid not in sv2match:
-          sv2match[dcid] = EmbeddingsMatch(var=dcid, score=score, sentences=[])
-        sv2match[dcid].sentences.append(
-            SentenceScore(sentence=sentence, score=score))
-
-      result = EmbeddingsResult(matches=[])
-      for _, match in sorted(sv2match.items(),
-                             key=lambda item: (-item[1].score, item[0])):
-        match.sentences.sort(key=lambda item: item.score, reverse=True)
-        result.matches.append(match)
-      results.append(result)
+        score = 1 - c[DISTANCE_COL]
+        dcid = c[DCID_COL]
+        sentence = c[SENTENCE_COL]
+        matches.append(
+            EmbeddingsMatch(sentence=sentence, score=score, vars=[dcid]))
+      results.append(matches)
 
     return results
