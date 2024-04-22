@@ -328,6 +328,24 @@
       geoJsonProp="geoJsonCoordinatesUN"
     ></datacommons-map>
     <h2>Map with year slider</h2>
+    <datacommons-map 
+      childplacetype="Country"
+      date="HIGHEST_COVERAGE"
+      header="Poverty rate by country (${date})" 
+      parentplace="Earth"
+      subscribe="dc-map-2" 
+      variable="sdg/SI_POV_DAY1">
+      <div slot="footer">
+        <datacommons-slider 
+          childplacetype="Country"
+          date="HIGHEST_COVERAGE"
+          parentplace="Earth"
+          publish="dc-map-2"
+          variable="sdg/SI_POV_DAY1"
+          >
+        </datacommons-slider>
+      </div>
+    </datacommons-map>
     <datacommons-map
       header="Population"
       parentPlace="country/USA"

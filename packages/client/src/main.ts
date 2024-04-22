@@ -24,8 +24,13 @@ import {
   TOTAL_POPULATION_VARIABLE,
 } from "./constants";
 import { DataCommonsClient } from "./data_commons_client";
+import { DataRow } from "./data_commons_client_types";
 import { DataCommonsWebClient } from "./data_commons_web_client";
-import { isDateInRange } from "./utils";
+import {
+  PointApiResponse,
+  SeriesApiResponse,
+} from "./data_commons_web_client_types";
+import { dataRowsToCsv, isDateInRange } from "./utils";
 
 export {
   DEFAULT_ENTITY_PROPS,
@@ -37,5 +42,7 @@ export {
   ISO_CODE_ATTRIBUTE,
   NAME_ATTRIBUTE,
   TOTAL_POPULATION_VARIABLE,
+  dataRowsToCsv,
   isDateInRange,
 };
+export type { DataRow, PointApiResponse, SeriesApiResponse };
