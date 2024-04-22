@@ -29,27 +29,35 @@ import server.lib.nl.fulfillment.types as types
 from server.lib.nl.fulfillment.utils import get_facet_id
 
 
+# sets the line tile spec field for a date range
+def _set_date_range(date_range: types.Date,
+                    sv_place_facet: types.Sv2Place2Facet,
+                    line_tile_spec: LineTileSpec) -> tuple[str, str]:
+  start_date, end_date = get_date_range_strings(date_range)
+  # start_date and end_date should be the same length, but one of them can be
+  # empty so to get their granularity, get the max length between the two
+  lowest_granularity_length = max(len(start_date), len(end_date))
+  # go through all the facets to see if there are any that are lower
+  # granularity than the date range. If so, we want to cut start_date and
+  # end_date to that lower granularity to match the frontend that cuts off
+  # data with date[:len(start_date)] < start_date, but for a start date like
+  # 2020-04, we still want to show 2020 data.
+  for place_facet in sv_place_facet.values():
+    for facet in place_facet.values():
+      lowest_granularity_length = min(
+          len(facet.get('earliestDate', facet.get('latestDate', ''))),
+          lowest_granularity_length)
+  line_tile_spec.start_date = start_date[:lowest_granularity_length]
+  line_tile_spec.end_date = end_date[:lowest_granularity_length]
+
+
 # set the line tile spec field for a date range or a single date.
 def _set_line_tile_spec(date_range: types.Date, single_date: types.Date,
                         line_tile_spec: LineTileSpec,
                         sv_place_facet: types.Sv2Place2Facet):
+
   if date_range:
-    start_date, end_date = get_date_range_strings(date_range)
-    # start_date and end_date should be the same length, but one of them can be
-    # empty so to get their granularity, get the max length between the two
-    lowest_granularity_length = max(len(start_date), len(end_date))
-    # go through all the facets to see if there are any that are lower
-    # granularity than the date range. If so, we want to cut start_date and
-    # end_date to that lower granularity to match the frontend that cuts off
-    # data with date[:len(start_date)] < start_date, but for a start date like
-    # 2020-04, we still want to show 2020 data.
-    for place_facet in sv_place_facet.values():
-      for facet in place_facet.values():
-        lowest_granularity_length = min(
-            len(facet.get('earliestDate', facet.get('latestDate', ''))),
-            lowest_granularity_length)
-    line_tile_spec.start_date = start_date[:lowest_granularity_length]
-    line_tile_spec.end_date = end_date[:lowest_granularity_length]
+    _set_date_range(date_range, sv_place_facet, line_tile_spec)
   elif single_date:
     date = get_date_string(single_date)
     line_tile_spec.highlight_date = date
