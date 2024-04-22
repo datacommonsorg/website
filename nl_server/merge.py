@@ -19,7 +19,6 @@ from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import SearchVarsResult
 
 
-# NOTE: The merge
 def merge_search_results(inputs: List[SearchVarsResult]) -> SearchVarsResult:
 
   # Group by query first.
