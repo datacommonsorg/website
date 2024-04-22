@@ -24,6 +24,7 @@ import server.lib.nl.common.counters as ctr
 from server.lib.nl.common.utils import facet_contains_date
 from server.lib.nl.detection.date import get_date_range_strings
 import server.lib.nl.detection.types as types
+from server.lib.nl.fulfillment.types import Sv2Place2Facet
 from server.lib.nl.fulfillment.utils import get_facet_id
 
 # (growth_direction, rank_order) -> reverse
@@ -190,7 +191,7 @@ def rank_svs_by_series_growth(
     nopc_vars: Set[str],
     counters: ctr.Counters,
     date_range: types.Date = None,
-    sv_place_facet_ids: Dict[str, Dict[str, str]] = None) -> GrowthRankedLists:
+    sv_place_facet: Sv2Place2Facet = None) -> GrowthRankedLists:
   start = time.time()
   series_data = fetch.series_core(entities=[place],
                                   variables=svs,
@@ -200,7 +201,7 @@ def rank_svs_by_series_growth(
 
   svs_with_vals = []
   for sv, place_data in series_data['data'].items():
-    sv_facet_id = get_facet_id(sv, sv_place_facet_ids, [place])
+    sv_facet_id = get_facet_id(sv, sv_place_facet, [place])
     if place not in place_data:
       continue
     if bool(date_range):
