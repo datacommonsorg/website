@@ -48,12 +48,7 @@ def search_vars(embeddings_list: List[Embeddings],
     query2candidates_list.append(embeddings.vector_search(queries, topk))
 
   # Merge the results.
-  if len(query2candidates_list) == 1:
-    # Main DC flow
-    query2candidates = query2candidates_list[0]
-  else:
-    # Custom DC flow
-    query2candidates = merge_search_results(query2candidates_list)
+  query2candidates = merge_search_results(query2candidates_list)
 
   # Rank merged results by vars.
   results: Dict[str, dvars.VarCandidates] = {}
@@ -67,6 +62,8 @@ def _rank_vars(candidates: EmbeddingsResult,
                skip_topics: bool) -> dvars.VarCandidates:
   sv2score = {}
   result = dvars.VarCandidates(svs=[], scores=[], sv2sentences={})
+  # SV => set of sentences; for detecting sentence duplicates.
+  sv2sentences = {}
   for c in candidates:
     for dcid in c.vars:
       if skip_topics and dcid.startswith(_TOPIC_PREFIX):
@@ -75,9 +72,11 @@ def _rank_vars(candidates: EmbeddingsResult,
       if dcid not in sv2score:
         sv2score[dcid] = c.score
         result.sv2sentences[dcid] = []
-      if c.sentence:
+        sv2sentences[dcid] = set()
+      if c.sentence and c.sentence not in sv2sentences[dcid]:
         result.sv2sentences[dcid].append(
             dvars.SentenceScore(sentence=c.sentence, score=c.score))
+        sv2sentences[dcid].add(c.sentence)
 
   for sv, score in sorted(sv2score.items(),
                           key=lambda item: (-item[1], item[0])):

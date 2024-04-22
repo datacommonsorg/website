@@ -91,7 +91,7 @@ def load_custom_embeddings(app: Flask):
   # This lookup will raise an error if embeddings weren't already initialized previously.
   # This is intentional.
   nl_embeddings: emb_map.EmbeddingsMap = app.config[config.NL_EMBEDDINGS_KEY]
-  # Merge custom index with default embeddings.
+  # Reset the custom DC index.
   nl_embeddings.reset_index(custom_idx_list[0])
 
   # Update app config.

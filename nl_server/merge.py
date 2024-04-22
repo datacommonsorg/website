@@ -12,14 +12,22 @@
 # see the license for the specific language governing permissions and
 # limitations under the license.
 
+from itertools import chain
 from typing import Dict, List
 
-from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import SearchVarsResult
 
 
+# This function merges the lists and sorts by score.
+#
+# Note that the resulting list can have multiple entries for the
+# same "sentence", and for the same variable.  This will get grouped
+# by variable, and re-ranked downstream (refer `_rank_vars`).
 def merge_search_results(inputs: List[SearchVarsResult]) -> SearchVarsResult:
+  if len(inputs) == 1:
+    # No merging necessary, this is the Base DC case.
+    return inputs[0]
 
   # Group by query first.
   query_grouping: Dict[str, List[EmbeddingsResult]] = {}
@@ -30,7 +38,7 @@ def merge_search_results(inputs: List[SearchVarsResult]) -> SearchVarsResult:
       query_grouping[query].append(emb_result)
 
   # Merge each query group.
-  result: List[SearchVarsResult] = {}
+  result: SearchVarsResult = {}
   for query, emb_result in query_grouping.items():
     result[query] = _merge_search_results_for_one_query(emb_result)
 
@@ -39,34 +47,7 @@ def merge_search_results(inputs: List[SearchVarsResult]) -> SearchVarsResult:
 
 def _merge_search_results_for_one_query(
     inputs: List[EmbeddingsResult]) -> EmbeddingsResult:
-  # A parallel array for each of the inputs, to identify
-  # the index of the next match to evaulate, tracking
-  # progress in the "merge sort".
-  matches_idx = [0] * len(inputs)
-
-  result: List[EmbeddingsMatch] = []
-  while True:
-    # Find the idx corresponding to the max score, among
-    # the valid indexes found in `matches_idx`
-    max_idx = -1
-    max_score = -1
-    for i, midx in enumerate(matches_idx):
-      if midx < len(inputs[i]):
-        score = inputs[i][midx].score
-        if score > max_score:
-          max_idx = i
-          max_score = score
-
-    # If we found no valid idx, then we've exhausted all
-    # the matches in all the inputs.
-    if max_idx == -1:
-      break
-
-    # In the input identified by |max_idx|, add the match
-    # identified by matches_idx[max_idx]
-    result.append(inputs[max_idx][matches_idx[max_idx]])
-
-    # Mark the match as processed.
-    matches_idx[max_idx] += 1
-
-  return result
+  # Given the inputs are sorted, this maybe a bit less efficient than
+  # merge sort, but lets the library do the sorting.
+  flattened_list = chain.from_iterable(inputs)
+  return sorted(flattened_list, key=lambda x: x.score, reverse=True)
