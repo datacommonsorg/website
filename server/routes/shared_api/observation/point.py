@@ -75,6 +75,7 @@ def point_within():
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or DATE_LATEST
   # If querying by highest coverage is disabled, default to DATE_LATEST
+  # TODO: Remove this check once b/336358566 is resolved
   if date == DATE_HIGHEST_COVERAGE and not is_highest_coverage_enabled():
     date = DATE_LATEST
   facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
@@ -110,6 +111,7 @@ def point_within_all():
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or DATE_LATEST
   # If querying by highest coverage is disabled, default to DATE_LATEST
+  # TODO: Remove this check once b/336358566 is resolved
   if date == DATE_HIGHEST_COVERAGE and not is_highest_coverage_enabled():
     date = DATE_LATEST
   # Fetch recent observations with the highest entity coverage
