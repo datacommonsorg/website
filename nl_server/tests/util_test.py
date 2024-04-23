@@ -18,12 +18,15 @@ from unittest import mock
 
 from parameterized import parameterized
 
-from nl_server import util
+from nl_server.util import use_anonymous_gcs_client
 
 
 class TestUtil(unittest.TestCase):
 
   @parameterized.expand([
+      ('', '', False, "custom dc unset, empty path"),
+      ('', '/local/path', False, "custom dc unset, local path"),
+      ('', 'gs://foo/bar', False, "custom dc unset, gcs path"),
       ('false', '', False, "is not custom dc, empty path"),
       ('false', '/local/path', False, "is not custom dc, local path"),
       ('false', 'gs://foo/bar', False, "is not custom dc, gcs path"),
@@ -33,9 +36,8 @@ class TestUtil(unittest.TestCase):
   ])
   def test_use_anonymous_gcs_client(self, is_custom_dc, user_data_path, want,
                                     message):
-    with mock.patch.dict(
-        os.environ, {
-            util._IS_CUSTOM_DC_ENV_VAR: is_custom_dc,
-            util._USER_DATA_PATH_ENV_VAR: user_data_path
-        }):
-      self.assertEqual(util.use_anonymous_gcs_client(), want, message)
+    with mock.patch.dict(os.environ, {
+        'IS_CUSTOM_DC': is_custom_dc,
+        'USER_DATA_PATH': user_data_path
+    }):
+      self.assertEqual(use_anonymous_gcs_client(), want, message)
