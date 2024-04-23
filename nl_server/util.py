@@ -13,12 +13,13 @@
 # limitations under the license.
 
 import os
+
 from shared.lib.gcs import is_gcs_path
 
 _IS_CUSTOM_DC_ENV_VAR = 'IS_CUSTOM_DC'
 # The path comes from:
-  # https://github.com/datacommonsorg/website/blob/master/server/routes/admin/html.py#L39-L40
-  _USER_DATA_PATH_ENV_VAR = 'USER_DATA_PATH'
+# https://github.com/datacommonsorg/website/blob/master/server/routes/admin/html.py#L39-L40
+_USER_DATA_PATH_ENV_VAR = 'USER_DATA_PATH'
 
 
 def is_custom_dc() -> bool:
@@ -37,5 +38,5 @@ def is_gcs_user_data_path() -> bool:
 # Returns true if anonymous GCS client should be used for downloading embeddings.
 # An anonymous client should only be used for custom DCs but not when user data
 # itself is in GCS.
-def user_anonymous_gcs_client() -> bool:
+def use_anonymous_gcs_client() -> bool:
   return is_custom_dc() and not is_gcs_user_data_path()

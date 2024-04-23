@@ -12,11 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 import unittest
+from unittest import mock
 
 from parameterized import parameterized
-from unittest import mock
-import os
+
 from nl_server import util
 
 
@@ -30,11 +31,11 @@ class TestUtil(unittest.TestCase):
       ('true', '/local/path', True, "is custom dc, local path"),
       ('true', 'gs://foo/bar', False, "is custom dc, gcs path"),
   ])
-  def test_user_anonymous_gcs_client(self, is_custom_dc, user_data_path, want,
-                                     message):
+  def test_use_anonymous_gcs_client(self, is_custom_dc, user_data_path, want,
+                                    message):
     with mock.patch.dict(
         os.environ, {
             util._IS_CUSTOM_DC_ENV_VAR: is_custom_dc,
             util._USER_DATA_PATH_ENV_VAR: user_data_path
         }):
-      self.assertEqual(util.user_anonymous_gcs_client(), want, message)
+      self.assertEqual(util.use_anonymous_gcs_client(), want, message)
