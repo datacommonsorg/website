@@ -31,9 +31,10 @@ import requests
 
 from nl_server import gcs
 from nl_server.embeddings import Embeddings
-from nl_server.embeddings import EmbeddingsResult
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
+from nl_server.search import search_vars
 from nl_server.store.memory import MemoryEmbeddingsStore
+from shared.lib.detected_variables import VarCandidates
 
 _SV_THRESHOLD = 0.5
 _NUM_SVS = 10
@@ -83,17 +84,18 @@ def _get_sv_names(sv_dcids):
   return result
 
 
-def _prune(res: EmbeddingsResult):
+def _prune(res: VarCandidates):
   svs = []
   sv_info = {}
-  for i, m in enumerate(res.matches):
-    if i < _NUM_SVS and m.score >= _SV_THRESHOLD:
-      svs.append(m.var)
-      sv_info[m.var] = {
-          'sv': m.var,
+  for i, var in enumerate(res.svs):
+    score = res.scores[i]
+    if i < _NUM_SVS and score >= _SV_THRESHOLD:
+      svs.append(var)
+      sv_info[var] = {
+          'sv': var,
           'rank': i + 1,
-          'score': m.score,
-          'sentence_scores': m.sentences,
+          'score': score,
+          'sentence_scores': res.sv2sentences[var],
       }
   return svs, sv_info
 
@@ -219,8 +221,8 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
       if not query or query.startswith('#') or query.startswith('//'):
         continue
       assert ';' not in query, 'Multiple query not yet supported'
-      base_svs, base_sv_info = _prune(base.search_vars(query)[query])
-      test_svs, test_sv_info = _prune(test.search_vars(query)[query])
+      base_svs, base_sv_info = _prune(search_vars([base], query)[query])
+      test_svs, test_sv_info = _prune(search_vars([test], query)[query])
       for sv in base_svs + test_svs:
         all_svs.add(sv)
       if base_svs != test_svs:

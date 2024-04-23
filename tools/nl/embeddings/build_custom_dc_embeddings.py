@@ -14,6 +14,7 @@
 """Build embeddings for custom DCs."""
 
 import os
+import sys
 
 from absl import app
 from absl import flags
@@ -23,6 +24,15 @@ from google.cloud import storage
 import pandas as pd
 import utils
 import yaml
+
+# Import gcs module from shared lib.
+# Since this tool is run standalone from this directory,
+# the shared lib directory needs to be appended to the sys path.
+_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+_SHARED_LIB_DIR = os.path.join(_THIS_DIR, "..", "..", "..", "shared", "lib")
+print("SHARED LIB DIR", _SHARED_LIB_DIR)
+sys.path.append(_SHARED_LIB_DIR)
+import gcs  # type: ignore
 
 FLAGS = flags.FLAGS
 
@@ -53,7 +63,6 @@ flags.DEFINE_string(
     "Path where the default FT embeddings.yaml will be saved for Custom DC in download mode."
 )
 
-MODELS_BUCKET = 'datcom-nl-models'
 EMBEDDINGS_CSV_FILENAME_PREFIX = "custom_embeddings"
 EMBEDDINGS_YAML_FILE_NAME = "custom_embeddings.yaml"
 
@@ -63,18 +72,20 @@ def download(embeddings_yaml_path: str):
   """
   ctx = _ctx_no_model()
 
+  default_ft_embeddings_info = utils.get_default_ft_embeddings_info()
+
   # Download model.
-  model_version = utils.get_default_ft_model_version()
+  model_version = default_ft_embeddings_info["model"]
   utils.get_or_download_model_from_gcs(ctx, model_version)
 
   # Download embeddings.
-  embeddings_file_name = utils.get_default_ft_embeddings_file_name()
-  utils.get_or_download_file_from_gcs(ctx, embeddings_file_name)
+  embeddings_file_name = default_ft_embeddings_info["embeddings"]
+  gcs.download_gcs_file(embeddings_file_name)
 
   # The prod embeddings.yaml includes multiple embeddings (default, biomed, UN)
   # For custom DC, we only want the default.
   utils.save_embeddings_yaml_with_only_default_ft_embeddings(
-      embeddings_yaml_path, embeddings_file_name)
+      embeddings_yaml_path, default_ft_embeddings_info)
 
 
 def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
@@ -141,7 +152,8 @@ def _download_model(model_version: str) -> utils.Context:
 
 
 def _ctx_no_model() -> utils.Context:
-  bucket = storage.Client.create_anonymous_client().bucket(MODELS_BUCKET)
+  bucket = storage.Client.create_anonymous_client().bucket(
+      utils.DEFAULT_MODELS_BUCKET)
   return utils.Context(model=None, model_endpoint=None, bucket=bucket)
 
 

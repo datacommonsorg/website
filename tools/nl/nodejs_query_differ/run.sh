@@ -13,35 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-function help {
-  echo "Usage: $0 -ebt"
-  echo "-e       Instance environment to get diffs for"
-  echo "-b       base folder to test against"
-  echo "-t       folder to test"
-  exit 1
-}
-
-while getopts ":e:b:t:" OPTION; do
-  case $OPTION in
-    e)
-      ENV=$OPTARG
-      ;;
-    b)
-      BASE=$OPTARG
-      ;;
-    t)
-      TEST=$OPTARG
-      ;;
-    *)
-      help
-      ;;
-  esac
-done
-
 python3 -m venv .env
 source .env/bin/activate
 python3 -m pip install --upgrade pip setuptools
-pip3 install -r requirements.txt
-
-# Diff production embeddings against test.
-python3 differ.py --env=$ENV --base_folder=$BASE --test_folder=$TEST
+python3 -m pip install -r requirements.txt
+python3 differ.py "$@"

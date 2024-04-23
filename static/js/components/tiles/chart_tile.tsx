@@ -20,6 +20,7 @@
 
 import _ from "lodash";
 import React, { useRef } from "react";
+import { Spinner } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
@@ -35,6 +36,7 @@ import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 interface ChartTileContainerProp {
   id: string;
+  isLoading?: boolean;
   title: string;
   sources: Set<string> | string[];
   children: React.ReactNode;
@@ -72,7 +74,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     <div
       className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ${
         props.className ? props.className : ""
-      }`}
+      } ${props.isLoading ? "loading" : ""}`}
       {...{ part: "container" }}
       ref={containerRef}
     >
@@ -85,7 +87,17 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
           {
             /* We want to render this header element even if title is empty
             to keep the space on the page */
-            props.title && <h4 {...{ part: "header" }}>{title}</h4>
+            props.title && (
+              <h4 {...{ part: "header" }}>
+                {props.isLoading ? (
+                  <>
+                    <Spinner color="secondary" size="sm" className="pr-1" />
+                    {title ? "" : " Loading..."}
+                  </>
+                ) : null}{" "}
+                {title}
+              </h4>
+            )
           }
           <slot name="subheader" {...{ part: "subheader" }}>
             {props.subtitle && !props.isInitialLoading ? (

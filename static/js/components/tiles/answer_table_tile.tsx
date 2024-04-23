@@ -149,14 +149,15 @@ const fetchData = async (
     propResp.forEach((resp, i) => {
       Object.keys(resp.data).forEach((entity) => {
         const val = resp.data[entity];
-        const entityResults = [];
+        const entityResults = new Set();
         val.forEach((singleVal) => {
-          entityResults.push(
+          entityResults.add(
             singleVal.name || singleVal.value || singleVal.dcid
           );
           provIds.add(singleVal.provenanceId);
         });
-        values[entity][props.columns[i].propertyExpr] = entityResults;
+        values[entity][props.columns[i].propertyExpr] =
+          Array.from(entityResults);
       });
     });
 

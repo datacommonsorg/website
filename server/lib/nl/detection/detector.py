@@ -25,6 +25,7 @@ from server.lib.nl.detection import heuristic_detector
 from server.lib.nl.detection import llm_detector
 from server.lib.nl.detection import llm_fallback
 from server.lib.nl.detection import place
+from server.lib.nl.detection import rerank
 from server.lib.nl.detection import types
 from server.lib.nl.detection.place_utils import get_similar
 from server.lib.nl.detection.types import ActualDetectorType
@@ -59,6 +60,7 @@ def detect(detector_type: str,
            query_detection_debug_logs: Dict,
            mode: str,
            counters: Counters,
+           rerank_fn: rerank.RerankCallable = None,
            allow_triples: bool = False) -> types.Detection:
   #
   # In the absence of the PALM API key, fallback to heuristic.
@@ -80,17 +82,15 @@ def detect(detector_type: str,
     llm_detection = llm_detector.detect(original_query, prev_utterance,
                                         embeddings_index_type, llm_api_type,
                                         query_detection_debug_logs, mode,
-                                        counters, allow_triples)
+                                        counters, rerank_fn, allow_triples)
     return llm_detection
 
   #
   # Heuristic detection.
   #
-  heuristic_detection = heuristic_detector.detect(original_query,
-                                                  no_punct_query,
-                                                  embeddings_index_type,
-                                                  query_detection_debug_logs,
-                                                  mode, counters, allow_triples)
+  heuristic_detection = heuristic_detector.detect(
+      original_query, no_punct_query, embeddings_index_type,
+      query_detection_debug_logs, mode, counters, rerank_fn, allow_triples)
   if detector_type == RequestedDetectorType.Heuristic.value:
     return heuristic_detection
 
@@ -117,7 +117,7 @@ def detect(detector_type: str,
   llm_detection = llm_detector.detect(original_query, prev_utterance,
                                       embeddings_index_type, llm_api_type,
                                       query_detection_debug_logs, mode,
-                                      counters, allow_triples)
+                                      counters, rerank_fn, allow_triples)
   if not llm_detection:
     counters.err('info_llm_blocked', '')
     return None

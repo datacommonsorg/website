@@ -19,6 +19,7 @@ import os
 from typing import Dict, List
 
 from nl_server import gcs
+from nl_server.util import use_anonymous_gcs_client
 from shared.lib.gcs import download_gcs_file
 from shared.lib.gcs import is_gcs_path
 
@@ -101,7 +102,8 @@ def parse(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
     elif is_gcs_path(path):
       logging.info('Downloading embeddings from GCS path: %s', path)
       if store_type == StoreType.MEMORY:
-        local_path = download_gcs_file(path)
+        local_path = download_gcs_file(
+            path, use_anonymous_client=use_anonymous_gcs_client())
       elif store_type == StoreType.LANCEDB:
         local_path = gcs.download_folder(path)
       if not local_path:

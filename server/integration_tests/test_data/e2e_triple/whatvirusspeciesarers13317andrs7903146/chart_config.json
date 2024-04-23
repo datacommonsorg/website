@@ -12,199 +12,199 @@
                     "answerTableTileSpec": {
                       "columns": [
                         {
-                          "header": "->alignmentQuality",
+                          "header": "Alignment Quality",
                           "propertyExpr": "->alignmentQuality"
                         },
                         {
-                          "header": "->alleleOrigin",
+                          "header": "Allele Origin",
                           "propertyExpr": "->alleleOrigin"
                         },
                         {
-                          "header": "->averageHeterozygosity",
+                          "header": "Average Heterozygosity",
                           "propertyExpr": "->averageHeterozygosity"
                         },
                         {
-                          "header": "->averageHeterozygositySE",
+                          "header": "Average Heterozygosity SE",
                           "propertyExpr": "->averageHeterozygositySE"
                         },
                         {
-                          "header": "->class",
+                          "header": "Class",
                           "propertyExpr": "->class"
                         },
                         {
-                          "header": "->clinVarAlleleID",
+                          "header": "Clin Var Allele ID",
                           "propertyExpr": "->clinVarAlleleID"
                         },
                         {
-                          "header": "->clinVarReviewStatus",
+                          "header": "Clin Var Review Status",
                           "propertyExpr": "->clinVarReviewStatus"
                         },
                         {
-                          "header": "->clinVarVariationID",
+                          "header": "Clin Var Variation ID",
                           "propertyExpr": "->clinVarVariationID"
                         },
                         {
-                          "header": "->clinicalSignificance",
+                          "header": "Clinical Significance",
                           "propertyExpr": "->clinicalSignificance"
                         },
                         {
-                          "header": "->clinicalSource",
+                          "header": "Clinical Source",
                           "propertyExpr": "->clinicalSource"
                         },
                         {
-                          "header": "->diseaseName",
+                          "header": "Disease Name",
                           "propertyExpr": "->diseaseName"
                         },
                         {
-                          "header": "->exceptions",
+                          "header": "Exceptions",
                           "propertyExpr": "->exceptions"
                         },
                         {
-                          "header": "->functionalCategory",
+                          "header": "Functional Category",
                           "propertyExpr": "->functionalCategory"
                         },
                         {
-                          "header": "->geneID",
+                          "header": "Gene ID",
                           "propertyExpr": "->geneID"
                         },
                         {
-                          "header": "->geneSymbol",
+                          "header": "Gene Symbol",
                           "propertyExpr": "->geneSymbol"
                         },
                         {
-                          "header": "->geneticVariantAttribute",
+                          "header": "Genetic Variant Attribute",
                           "propertyExpr": "->geneticVariantAttribute"
                         },
                         {
-                          "header": "->geneticVariantClass",
+                          "header": "Genetic Variant Class",
                           "propertyExpr": "->geneticVariantClass"
                         },
                         {
-                          "header": "->geneticVariantFunctionalCategory",
+                          "header": "Genetic Variant Functional Category",
                           "propertyExpr": "->geneticVariantFunctionalCategory"
                         },
                         {
-                          "header": "->geneticVariantMolecularType",
+                          "header": "Genetic Variant Molecular Type",
                           "propertyExpr": "->geneticVariantMolecularType"
                         },
                         {
-                          "header": "->hg19GenomicLocation",
+                          "header": "Hg19 Genomic Location",
                           "propertyExpr": "->hg19GenomicLocation"
                         },
                         {
-                          "header": "->hg19GenomicPosition",
+                          "header": "Hg19 Genomic Position",
                           "propertyExpr": "->hg19GenomicPosition"
                         },
                         {
-                          "header": "->hg38GenomicLocation",
+                          "header": "Hg38 Genomic Location",
                           "propertyExpr": "->hg38GenomicLocation"
                         },
                         {
-                          "header": "->hg38GenomicPosition",
+                          "header": "Hg38 Genomic Position",
                           "propertyExpr": "->hg38GenomicPosition"
                         },
                         {
-                          "header": "->hgvsNomenclature",
+                          "header": "Hgvs Nomenclature",
                           "propertyExpr": "->hgvsNomenclature"
                         },
                         {
-                          "header": "->humanPhenotypeOntologyID",
+                          "header": "Human Phenotype Ontology ID",
                           "propertyExpr": "->humanPhenotypeOntologyID"
                         },
                         {
-                          "header": "->inChromosome",
+                          "header": "In Chromosome",
                           "propertyExpr": "->inChromosome"
                         },
                         {
-                          "header": "->locType",
+                          "header": "Loc Type",
                           "propertyExpr": "->locType"
                         },
                         {
-                          "header": "->medGenID",
+                          "header": "Med Gen ID",
                           "propertyExpr": "->medGenID"
                         },
                         {
-                          "header": "->mondoID",
+                          "header": "Mondo ID",
                           "propertyExpr": "->mondoID"
                         },
                         {
-                          "header": "->nAllelesWithFreq",
+                          "header": "N Alleles With Freq",
                           "propertyExpr": "->nAllelesWithFreq"
                         },
                         {
-                          "header": "->name",
+                          "header": "Name",
                           "propertyExpr": "->name"
                         },
                         {
-                          "header": "->ncbiGeneID",
+                          "header": "Ncbi Gene ID",
                           "propertyExpr": "->ncbiGeneID"
                         },
                         {
-                          "header": "->observedAllele",
+                          "header": "Observed Allele",
                           "propertyExpr": "->observedAllele"
                         },
                         {
-                          "header": "->ofSpecies",
+                          "header": "Of Species",
                           "propertyExpr": "->ofSpecies"
                         },
                         {
-                          "header": "->omimID",
+                          "header": "Omim ID",
                           "propertyExpr": "->omimID"
                         },
                         {
-                          "header": "->orphaNumber",
+                          "header": "Orpha Number",
                           "propertyExpr": "->orphaNumber"
                         },
                         {
-                          "header": "->pharmGKBID",
+                          "header": "Pharm GKBID",
                           "propertyExpr": "->pharmGKBID"
                         },
                         {
-                          "header": "->provenance",
+                          "header": "Provenance",
                           "propertyExpr": "->provenance"
                         },
                         {
-                          "header": "->referenceAlleleNCBI",
+                          "header": "Reference Allele NCBI",
                           "propertyExpr": "->referenceAlleleNCBI"
                         },
                         {
-                          "header": "->referenceAllleUCSC",
+                          "header": "Reference Allle UCSC",
                           "propertyExpr": "->referenceAllleUCSC"
                         },
                         {
-                          "header": "->referenceSNPClusterID",
+                          "header": "Reference SNP Cluster ID",
                           "propertyExpr": "->referenceSNPClusterID"
                         },
                         {
-                          "header": "->rsID",
+                          "header": "Rs ID",
                           "propertyExpr": "->rsID"
                         },
                         {
-                          "header": "->sequenceOntologyID",
+                          "header": "Sequence Ontology ID",
                           "propertyExpr": "->sequenceOntologyID"
                         },
                         {
-                          "header": "->snomedCT",
+                          "header": "Snomed CT",
                           "propertyExpr": "->snomedCT"
                         },
                         {
-                          "header": "->strandOrientation",
+                          "header": "Strand Orientation",
                           "propertyExpr": "->strandOrientation"
                         },
                         {
-                          "header": "->submitter",
+                          "header": "Submitter",
                           "propertyExpr": "->submitter"
                         },
                         {
-                          "header": "->submitterCount",
+                          "header": "Submitter Count",
                           "propertyExpr": "->submitterCount"
                         },
                         {
-                          "header": "->typeOf",
+                          "header": "Type Of",
                           "propertyExpr": "->typeOf"
                         },
                         {
-                          "header": "->validationStatus",
+                          "header": "Validation Status",
                           "propertyExpr": "->validationStatus"
                         }
                       ]
@@ -213,6 +213,7 @@
                       "bio/rs13317",
                       "bio/rs7903146"
                     ],
+                    "title": "Here are all the properties for rs13317 and rs7903146",
                     "type": "ANSWER_TABLE"
                   }
                 ]

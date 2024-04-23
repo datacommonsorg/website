@@ -37,6 +37,12 @@ if [[ $NODEJS_API_ROOT != "" ]]; then
   echo "====================================================================================="
   python3 nodejs_query.py --base_url="$NODEJS_API_ROOT"
   gsutil cp ./output/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/nodejs_query/
+  rm -rf ./output/*
+  failure_email="failure_email.json"
+  python3 differ.py -m diff -e "$TESTING_ENV" -t "$date_str" -g "$TESTING_ENV/$date_str/nodejs_query" -f "$failure_email"
+  if [[ -e "$failure_email" ]]; then
+    python3 send_email.py --recipient="datacommons+alerts@google.com" --email_content="$failure_email"
+  fi
   echo "Finished the nodejs Test."
   echo "====================================================================================="
   rm -rf ./output/*
