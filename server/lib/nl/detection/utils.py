@@ -130,8 +130,10 @@ def get_top_sv_score(detection: Detection, cspec: ChartSpec) -> float:
   return 0
 
 
-def empty_svs_score_dict():
-  return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}, "MultiSV": {}}
+def empty_var_detection_result():
+  return dvars.VarDetectionResult(
+      single_var=empty_var_candidates(),
+      multi_var=dvars.MultiVarCandidates(candidates=[]))
 
 
 def empty_var_candidates():
@@ -142,20 +144,20 @@ def empty_var_candidates():
 # 1. sv candidates: svs that are Statistical Variable or Topic
 # 2. prop candidates: any other detected svs.
 def _get_sv_and_prop_candidates(
-    svs_scores_dict: Dict,
+    var_detection_result: dvars.VarDetectionResult,
     allow_triples: bool = False
 ) -> tuple[dvars.VarCandidates, dvars.VarCandidates]:
   sv_candidates = empty_var_candidates()
   prop_candidates = empty_var_candidates()
   if not allow_triples:
     # If triples are not allowed, assume all detected svs are sv type
-    sv_candidates = dvars.VarCandidates(
-        svs=svs_scores_dict['SV'],
-        scores=svs_scores_dict['CosineScore'],
-        sv2sentences=svs_scores_dict['SV_to_Sentences'])
+    sv_candidates = var_detection_result.single_var
     return sv_candidates, prop_candidates
-  sv_types = property_values(svs_scores_dict['SV'], 'typeOf')
-  for i, sv in enumerate(svs_scores_dict['SV']):
+
+  svar_result = var_detection_result.single_var
+
+  sv_types = property_values(svar_result.svs, 'typeOf')
+  for i, sv in enumerate(svar_result.svs):
     sv_type_list = sv_types.get(sv, [])
     # an sv is considered an sv if any of its types are Statistical Variable or
     # Topic. We want to check if an sv is type Statistical Variable or Topic
@@ -172,24 +174,22 @@ def _get_sv_and_prop_candidates(
         break
     candidate_to_add = sv_candidates if is_sv else prop_candidates
     candidate_to_add.svs.append(sv)
-    candidate_to_add.scores.append(svs_scores_dict['CosineScore'][i])
-    candidate_to_add.sv2sentences[sv] = svs_scores_dict['SV_to_Sentences'].get(
-        sv, [])
+    candidate_to_add.scores.append(svar_result.scores[i])
+    candidate_to_add.sv2sentences[sv] = svar_result.sv2sentences.get(sv, [])
   return sv_candidates, prop_candidates
 
 
 def create_sv_detection(
     query: str,
-    svs_scores_dict: Dict,
+    var_detection_result: dvars.VarDetectionResult,
     sv_threshold: float = shared_constants.SV_SCORE_DEFAULT_THRESHOLD,
     allow_triples: bool = False) -> SVDetection:
   sv_candidates, prop_candidates = _get_sv_and_prop_candidates(
-      svs_scores_dict, allow_triples)
+      var_detection_result, allow_triples)
 
   return SVDetection(query=query,
                      single_sv=sv_candidates,
-                     multi_sv=dvars.dict_to_multivar_candidates(
-                         svs_scores_dict['MultiSV']),
+                     multi_sv=var_detection_result.multi_var,
                      prop=prop_candidates,
                      sv_threshold=sv_threshold)
 

@@ -14,20 +14,20 @@
 
 import logging
 import os
-from typing import Any, Dict
+from typing import Dict
 
 from diskcache import Cache
 from flask import Flask
 import yaml
 
 from nl_server import config
-from nl_server import embeddings_store
+import nl_server.embeddings_map as emb_map
 from nl_server.nl_attribute_model import NLAttributeModel
+from nl_server.util import get_user_data_path
 from shared.lib.gcs import download_gcs_file
 from shared.lib.gcs import is_gcs_path
 from shared.lib.gcs import join_gcs_path
 
-_MODEL_YAML = 'models.yaml'
 _EMBEDDINGS_YAML = 'embeddings.yaml'
 _CUSTOM_EMBEDDINGS_YAML_PATH = 'datacommons/nl/custom_embeddings.yaml'
 
@@ -44,7 +44,7 @@ _NL_CACHE_SIZE_LIMIT = 16e9  # 16Gb local cache size
 def load_server_state(app: Flask):
   flask_env = os.environ.get('FLASK_ENV')
 
-  embeddings_map, models_map = _load_yamls(flask_env)
+  embeddings_map = _load_yaml(flask_env)
 
   # In local dev, cache the embeddings on disk so each hot reload won't download
   # the embeddings again.
@@ -58,8 +58,7 @@ def load_server_state(app: Flask):
       _update_app_config(app, nl_model, nl_embeddings, embeddings_map)
       return
 
-  nl_embeddings = embeddings_store.Store(config.load(embeddings_map,
-                                                     models_map))
+  nl_embeddings = emb_map.EmbeddingsMap(config.load(embeddings_map))
   nl_model = NLAttributeModel()
   _update_app_config(app, nl_model, nl_embeddings, embeddings_map)
 
@@ -77,23 +76,24 @@ def load_custom_embeddings(app: Flask):
   on a local path.
   """
   flask_env = os.environ.get('FLASK_ENV')
-  embeddings_map, _ = _load_yamls(flask_env)
-  # TODO: call config._parse() to parse embeddings and assert that the path is local.
-  custom_embeddings_local_path = embeddings_map.get(config.CUSTOM_DC_INDEX)
-  if not custom_embeddings_local_path:
+  embeddings_map = _load_yaml(flask_env)
+  custom_embeddings_path = embeddings_map.get(config.CUSTOM_DC_INDEX)
+  if not custom_embeddings_path:
     logging.warning("No custom DC embeddings found, so none will be loaded.")
     return
-
-  custom_idx = config.EmbeddingsIndex(
-      name=config.CUSTOM_DC_INDEX,
-      embeddings_file_name=os.path.basename(custom_embeddings_local_path),
-      embeddings_local_path=custom_embeddings_local_path)
+  # Construct the Custom EmbeddingsIndex by calling into parse() to
+  # set fields like tuned_model correctly.
+  custom_idx_list = config.parse(
+      {config.CUSTOM_DC_INDEX: custom_embeddings_path})
+  if not custom_idx_list:
+    logging.warning(f"Unable to parse {custom_embeddings_path}")
+    return
 
   # This lookup will raise an error if embeddings weren't already initialized previously.
   # This is intentional.
-  nl_embeddings: embeddings_store.Store = app.config[config.NL_EMBEDDINGS_KEY]
-  # Merge custom index with default embeddings.
-  nl_embeddings.merge_custom_index(custom_idx)
+  nl_embeddings: emb_map.EmbeddingsMap = app.config[config.NL_EMBEDDINGS_KEY]
+  # Reset the custom DC index.
+  nl_embeddings.reset_index(custom_idx_list[0])
 
   # Update app config.
   _update_app_config(app, app.config[config.NL_MODEL_KEY], nl_embeddings,
@@ -102,11 +102,7 @@ def load_custom_embeddings(app: Flask):
   _maybe_update_cache(flask_env, nl_embeddings, None)
 
 
-def _load_yamls(flask_env: str) -> tuple[Dict[str, str], Dict[str, str]]:
-  with open(get_env_path(flask_env, _MODEL_YAML)) as f:
-    models_map = yaml.full_load(f)
-  assert models_map, 'No models.yaml found!'
-
+def _load_yaml(flask_env: str) -> Dict[str, str]:
   with open(get_env_path(flask_env, _EMBEDDINGS_YAML)) as f:
     embeddings_map = yaml.full_load(f)
   assert embeddings_map, 'No embeddings.yaml found!'
@@ -115,18 +111,18 @@ def _load_yamls(flask_env: str) -> tuple[Dict[str, str], Dict[str, str]]:
   if custom_map:
     embeddings_map.update(custom_map)
 
-  return embeddings_map, models_map
+  return embeddings_map
 
 
 def _update_app_config(app: Flask, nl_model: NLAttributeModel,
-                       nl_embeddings: embeddings_store.Store,
+                       nl_embeddings: emb_map.EmbeddingsMap,
                        embeddings_map: Dict[str, str]):
   app.config[config.NL_MODEL_KEY] = nl_model
   app.config[config.NL_EMBEDDINGS_KEY] = nl_embeddings
   app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_map
 
 
-def _maybe_update_cache(flask_env: str, nl_embeddings: embeddings_store.Store,
+def _maybe_update_cache(flask_env: str, nl_embeddings: emb_map.EmbeddingsMap,
                         nl_model: NLAttributeModel):
   if not nl_embeddings and not nl_model:
     return
@@ -142,9 +138,7 @@ def _maybe_update_cache(flask_env: str, nl_embeddings: embeddings_store.Store,
 
 
 def _maybe_load_custom_dc_yaml():
-  # The path comes from:
-  # https://github.com/datacommonsorg/website/blob/master/server/routes/admin/html.py#L39-L40
-  base = os.environ.get('USER_DATA_PATH')
+  base = get_user_data_path()
   if not base:
     return None
 

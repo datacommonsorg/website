@@ -142,7 +142,8 @@ def user_message(uttr: Utterance) -> UserMessage:
   # prefer showing that, since we say our confidence is low...
 
   if (uttr.rankedCharts and
-      uttr.sv_source == FulfillmentResult.CURRENT_QUERY and
+      (uttr.sv_source == FulfillmentResult.CURRENT_QUERY or
+       uttr.sv_source == FulfillmentResult.PARTIAL_PAST_QUERY) and
       get_top_sv_score(uttr.detection, uttr.rankedCharts[0])
       < LOW_CONFIDENCE_SCORE_REPORT_THRESHOLD):
     # We're showing charts for SVs in the current user query and the

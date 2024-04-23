@@ -111,9 +111,7 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
 
     if cspec.chart_type == ChartType.ANSWER:
       if len(cspec.props) > 1 or len(cspec.entities) > 1:
-        # TODO: handle this case
-        state.uttr.counters.err("answer_failed_unsupported_case", 1)
-        continue
+        answer.answer_table_block(builder, cspec)
       else:
         answer.answer_message_block(builder, cspec)
 
@@ -143,7 +141,7 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
             cv=cv,
             single_date=cspec.single_date,
             date_range=cspec.date_range,
-            sv_place_facet_id=cspec.sv_place_facet_id)
+            sv_place_facet=cspec.sv_place_facet)
       elif len(cspec.places) > 1:
         stat_var_spec_map = timeline.multi_place_single_var_timeline_block(
             builder=builder,
@@ -158,7 +156,8 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
           stat_var_spec_map.update(
               highlight.highlight_block(block.columns.add(), cspec.places[0],
                                         cspec.svs[0], sv2thing,
-                                        cspec.single_date))
+                                        cspec.single_date, cspec.date_range,
+                                        cspec.sv_place_latest_date))
         stat_var_spec_map = timeline.single_place_single_var_timeline_block(
             column=block.columns.add(),
             place=cspec.places[0],
@@ -166,21 +165,21 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
             sv2thing=sv2thing,
             single_date=cspec.single_date,
             date_range=cspec.date_range,
-            sv_place_facet_id=cspec.sv_place_facet_id)
+            sv_place_facet=cspec.sv_place_facet)
         if not cspec.is_special_dc:
           stat_var_spec_map.update(
               highlight.highlight_block(block.columns.add(), cspec.places[0],
                                         cspec.svs[0], sv2thing,
-                                        cspec.single_date))
+                                        cspec.single_date, cspec.date_range,
+                                        cspec.sv_place_latest_date))
 
     elif cspec.chart_type == ChartType.BAR_CHART:
       block = builder.new_chart(cspec)
       if len(cspec.places) == 1 and len(cspec.svs) == 1:
         # Demote this to a highlight.
-        stat_var_spec_map = highlight.highlight_block(block.columns.add(),
-                                                      cspec.places[0],
-                                                      cspec.svs[0], sv2thing,
-                                                      cspec.single_date)
+        stat_var_spec_map = highlight.highlight_block(
+            block.columns.add(), cspec.places[0], cspec.svs[0], sv2thing,
+            cspec.single_date, cspec.date_range, cspec.sv_place_latest_date)
       else:
         stat_var_spec_map = bar.multiple_place_bar_block(
             column=block.columns.add(),
@@ -188,8 +187,10 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
             svs=cspec.svs,
             sv2thing=sv2thing,
             cv=cv,
-            sort_order=bar.get_sort_order(state, cspec),
-            date=cspec.single_date)
+            single_date=cspec.single_date,
+            date_range=cspec.date_range,
+            sv_place_latest_date=cspec.sv_place_latest_date,
+            sort_order=bar.get_sort_order(state, cspec))
 
     elif cspec.chart_type == ChartType.MAP_CHART:
       if not base.is_map_or_ranking_compatible(cspec):
@@ -200,12 +201,15 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
                                 child_type=cspec.place_type)
       for sv in cspec.svs:
         stat_var_spec_map.update(
-            map.map_chart_block(column=block.columns.add(),
-                                place=cspec.places[0],
-                                pri_sv=sv,
-                                child_type=cspec.place_type,
-                                sv2thing=sv2thing,
-                                date=cspec.single_date))
+            map.map_chart_block(
+                column=block.columns.add(),
+                place=cspec.places[0],
+                pri_sv=sv,
+                child_type=cspec.place_type,
+                sv2thing=sv2thing,
+                single_date=cspec.single_date,
+                date_range=cspec.date_range,
+                sv_place_latest_date=cspec.sv_place_latest_date))
 
     elif cspec.chart_type == ChartType.RANKING_WITH_MAP:
       if not base.is_map_or_ranking_compatible(cspec):
@@ -233,30 +237,39 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
             if len(cspec.ranking_types) > 1:
               # This is Explore case where we show both HIGH + LOW mappings.
               stat_var_spec_map.update(
-                  map.map_chart_block(column=block.columns.add(),
-                                      place=pri_place,
-                                      pri_sv=sv,
-                                      child_type=cspec.place_type,
-                                      sv2thing=sv2thing,
-                                      date=cspec.single_date))
+                  map.map_chart_block(
+                      column=block.columns.add(),
+                      place=pri_place,
+                      pri_sv=sv,
+                      child_type=cspec.place_type,
+                      sv2thing=sv2thing,
+                      single_date=cspec.single_date,
+                      date_range=cspec.date_range,
+                      sv_place_latest_date=cspec.sv_place_latest_date))
           stat_var_spec_map.update(
-              ranking.ranking_chart_block(column=block.columns.add(),
-                                          pri_place=pri_place,
-                                          pri_sv=sv,
-                                          child_type=cspec.place_type,
-                                          sv2thing=sv2thing,
-                                          ranking_types=cspec.ranking_types,
-                                          ranking_count=cspec.ranking_count,
-                                          date=cspec.single_date))
+              ranking.ranking_chart_block(
+                  column=block.columns.add(),
+                  pri_place=pri_place,
+                  pri_sv=sv,
+                  child_type=cspec.place_type,
+                  sv2thing=sv2thing,
+                  ranking_types=cspec.ranking_types,
+                  ranking_count=cspec.ranking_count,
+                  single_date=cspec.single_date,
+                  date_range=cspec.date_range,
+                  sv_place_latest_date=cspec.sv_place_latest_date))
           if not cv.skip_map_for_ranking and len(cspec.ranking_types) < 2:
             # Also add a map chart.
             stat_var_spec_map.update(
-                map.map_chart_block(column=block.columns.add(),
-                                    place=pri_place,
-                                    pri_sv=sv,
-                                    child_type=cspec.place_type,
-                                    sv2thing=sv2thing,
-                                    date=cspec.single_date))
+                map.map_chart_block(
+                    column=block.columns.add(),
+                    place=pri_place,
+                    pri_sv=sv,
+                    child_type=cspec.place_type,
+                    sv2thing=sv2thing,
+                    single_date=cspec.single_date,
+                    date_range=cspec.date_range,
+                    sv_place_latest_date=cspec.sv_place_latest_date))
 
     elif cspec.chart_type == ChartType.SCATTER_CHART:
       stat_var_spec_map = scatter.scatter_chart_block(builder, cspec)

@@ -51,13 +51,9 @@ class TestVerbs(unittest.TestCase):
           ['give']
       ],
       [('Elaborate  how  your  roles  in  management  accounting  covering  – '
-        'planning,  organizing  and directing,  and  controlling  can  assist'
+        'planning,  organizing  and directing,  and  controlling  can  assist '
         'the  above  organization  in  achieving  their  goals  and objectives.'
-       ),
-       [
-           'Elaborate', 'covering', 'organizing', 'directing', 'controlling',
-           'achieving'
-       ]],
+       ), ['covering', 'organizing', 'controlling', 'assist', 'achieving']],
       ['How to write scholarship essay', ['write']]
   ])
   def test_verb_detection(self, query_str, expected):

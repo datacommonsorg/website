@@ -20,7 +20,7 @@ function setup_python {
   python3 -m venv .env
   source .env/bin/activate
   pip3 install -r server/requirements.txt
-  pip3 install torch==2.2.1 --extra-index-url https://download.pytorch.org/whl/cpu
+  pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
   pip3 install -r nl_server/requirements.txt
   deactivate
 }
@@ -172,6 +172,8 @@ function run_integration_test {
   export ENV_PREFIX=Staging
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   export TEST_MODE=test
+  export ENABLE_EVAL_TOOL=true
+
   python3 -m pytest -vv --reruns 2 server/integration_tests/$1
   deactivate
 }
@@ -184,6 +186,7 @@ function update_integration_test_golden {
   export TEST_MODE=write
   export DC_API_KEY=
   export LLM_API_KEY=
+  export ENABLE_EVAL_TOOL=true
 
   export ENV_PREFIX=Autopush
   python3 -m pytest -vv server/integration_tests/topic_cache

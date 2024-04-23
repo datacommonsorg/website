@@ -169,7 +169,10 @@ def _perform_strict_mode_checks(uttr: Utterance) -> bool:
 
 def _produce_query_types(uttr: Utterance) -> List[QueryType]:
   query_types = []
-  if params.is_bio(uttr.insight_ctx) and uttr.entities and uttr.properties:
+  # Add triple query type even when there are no properties if there's no place
+  # detected because assume the user is specifically asking about the entity
+  if params.is_bio(uttr.insight_ctx) and uttr.entities and (uttr.properties or
+                                                            not uttr.places):
     query_types.append(QueryType.TRIPLE)
   # The remaining query types require places to be set
   if not uttr.places:

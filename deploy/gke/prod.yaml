@@ -14,7 +14,7 @@
 
 project: datcom-website-prod
 ip: 34.120.161.85
-domain: datacommons.org,www.datacommons.org,browser.datacommons.org
+domain: datacommons.org
 region:
   primary: us-central1
   others:
