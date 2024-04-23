@@ -66,6 +66,8 @@ RUN pip3 install -r /workspace/server/requirements.txt
 COPY nl_app.py /workspace/nl_app.py
 COPY deploy/nl/. /datacommons/nl/
 COPY nl_server/requirements.txt /workspace/nl_server/requirements.txt
+# TODO: Undo this once we figure out why lancedb breaks Custom DC Docker
+RUN sed -i'' '/lancedb/d' /workspace/nl_server/requirements.txt
 RUN pip install --upgrade pip
 RUN pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
 RUN pip3 install -r /workspace/nl_server/requirements.txt

@@ -70,6 +70,14 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
     }
   }
 
+  &.loading {
+    h4,
+    .subheader,
+    .sources {
+      color: var(--gm-3-ref-neutral-neutral-50);
+    }
+  }
+
   footer {
     margin-left: inherit !important;
     margin-right: 0 !important;
@@ -625,13 +633,13 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
  * Entity overview tile
  */
 
- .entity-overview-tile {
+.entity-overview-tile {
   border: var(--border-primary);
   border-radius: var(--border-radius-primary);
   padding: 32px;
- }
+}
 
- /**
+/**
   * Answer table tile
   */
 
@@ -640,7 +648,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   flex-direction: column;
   gap: 8px;
   margin-top: 0;
-  
+
   .answer-table-title {
     font-size: 32px;
     margin-bottom: 48px;
@@ -648,17 +656,17 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
 
   .table-container {
     overflow: scroll;
-    max-height: 50vH;
+    max-height: 50vh;
   }
 
   .table {
-    border: 1px solid #DEE2E6;
+    border: 1px solid #dee2e6;
     border-radius: 3px;
     font-size: 24px;
     font-weight: 400;
 
     thead {
-      background-color: #F0F0F0;
+      background-color: #f0f0f0;
       position: sticky;
       top: 0;
       z-index: 2;
@@ -671,7 +679,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
       }
 
       th:first-child {
-        background-color: #F0F0F0;
+        background-color: #f0f0f0;
         left: 0;
         position: sticky;
         top: 0;
@@ -682,7 +690,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
     tbody {
       tr:nth-child(even),
       tr:nth-child(even) td:first-child {
-        background-color: #F0F0F0;
+        background-color: #f0f0f0;
       }
 
       tr:nth-child(odd),
@@ -711,8 +719,8 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
       }
     }
   }
-  
+
   .source {
-      font-size: 14px;
+    font-size: 14px;
   }
 }

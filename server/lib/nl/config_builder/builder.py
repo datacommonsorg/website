@@ -141,7 +141,7 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
             cv=cv,
             single_date=cspec.single_date,
             date_range=cspec.date_range,
-            sv_place_facet_id=cspec.sv_place_facet_id)
+            sv_place_facet=cspec.sv_place_facet)
       elif len(cspec.places) > 1:
         stat_var_spec_map = timeline.multi_place_single_var_timeline_block(
             builder=builder,
@@ -165,7 +165,7 @@ def build(state: PopulateState, config: Config) -> BuilderResult:
             sv2thing=sv2thing,
             single_date=cspec.single_date,
             date_range=cspec.date_range,
-            sv_place_facet_id=cspec.sv_place_facet_id)
+            sv_place_facet=cspec.sv_place_facet)
         if not cspec.is_special_dc:
           stat_var_spec_map.update(
               highlight.highlight_block(block.columns.add(), cspec.places[0],

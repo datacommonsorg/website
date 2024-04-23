@@ -8,16 +8,16 @@
   "query_with_places_removed": "number of poor hispanic women with phd",
   "sv_matching": {
     "CosineScore": [
-      0.8903406858444214,
+      0.8903407454490662,
       0.8845489025115967,
-      0.8456559181213379,
-      0.8409273624420166,
-      0.8346198201179504,
-      0.8306020498275757,
-      0.830077052116394,
-      0.8298370838165283,
-      0.8254846930503845,
-      0.8253123760223389
+      0.8456560373306274,
+      0.8409276008605957,
+      0.83461993932724,
+      0.8306019306182861,
+      0.8300771713256836,
+      0.8298372626304626,
+      0.8254848718643188,
+      0.825312614440918
     ],
     "MultiSV": {
       "Candidates": [
@@ -27,17 +27,17 @@
           "Parts": [
             {
               "CosineScore": [
-                0.863886833190918,
+                0.8638868927955627,
                 0.8613191246986389,
-                0.8523017764091492,
-                0.8326531648635864,
-                0.8307950496673584,
-                0.8306551575660706,
-                0.8281033039093018,
-                0.8209190368652344,
-                0.820178210735321,
-                0.8199416399002075,
-                0.8179656267166138
+                0.8523018956184387,
+                0.8326530456542969,
+                0.8307951092720032,
+                0.8306550979614258,
+                0.8281031847000122,
+                0.8209192752838135,
+                0.8201783299446106,
+                0.8199415802955627,
+                0.8179656863212585
               ],
               "QueryPart": "number poor hispanic",
               "SV": [
@@ -56,7 +56,7 @@
             },
             {
               "CosineScore": [
-                0.9458003044128418
+                0.9458003640174866
               ],
               "QueryPart": "women phd",
               "SV": [
@@ -71,8 +71,8 @@
           "Parts": [
             {
               "CosineScore": [
-                0.9476636052131653,
-                0.9369950890541077
+                0.947663426399231,
+                0.9369949102401733
               ],
               "QueryPart": "number poor hispanic women",
               "SV": [
@@ -82,7 +82,7 @@
             },
             {
               "CosineScore": [
-                0.8309071660041809
+                0.8309070467948914
               ],
               "QueryPart": "phd",
               "SV": [
@@ -97,9 +97,9 @@
           "Parts": [
             {
               "CosineScore": [
-                0.6569586396217346,
-                0.6552733182907104,
-                0.6206247806549072,
+                0.6569586992263794,
+                0.6552731990814209,
+                0.6206247210502625,
                 0.6172629594802856,
                 0.613554060459137
               ],
@@ -114,9 +114,9 @@
             },
             {
               "CosineScore": [
-                0.924019992351532,
-                0.9144765138626099,
-                0.8951905369758606
+                0.9240199327468872,
+                0.9144763946533203,
+                0.895190417766571
               ],
               "QueryPart": "hispanic women phd",
               "SV": [
@@ -146,5 +146,20 @@
   "props_matching": {
     "CosineScore": [],
     "PROP": []
+  },
+  "query_detection_debug_logs": {
+    "dc_recognize_places": {},
+    "main_place_inferred": null,
+    "original_query": "number of poor hispanic women with phd",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "number of poor hispanic women with phd",
+      "place_detection_with_places_removed": "number of poor hispanic women with phd",
+      "sv_detection_query_index_type": "",
+      "sv_detection_query_input": "number of poor hispanic women with phd",
+      "sv_detection_query_stop_words_removal": "number poor hispanic women phd"
+    }
   }
 }

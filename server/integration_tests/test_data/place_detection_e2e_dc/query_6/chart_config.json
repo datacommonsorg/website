@@ -588,7 +588,7 @@
                     "statVarKey": [
                       "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
                     ],
-                    "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in Counties of United States (${date})",
+                    "title": "Population: 1 Years or More, 1-1.5 Ratio to US Census Poverty Line in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -599,14 +599,14 @@
                     "statVarKey": [
                       "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
                     ],
-                    "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in Counties of United States (${date})",
+                    "title": "Population: 1 Years or More, 1-1.5 Ratio to US Census Poverty Line in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in Counties of United States"
+            "title": "Population: 1 Years or More, 1-1.5 Ratio to US Census Poverty Line in Counties of United States"
           },
           {
             "columns": [
@@ -652,7 +652,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, Worker 2, Below US Census Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -663,14 +663,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, Worker 2, Below US Census Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in Counties of United States"
+            "title": "Count of Household: Family Household, Worker 2, Below US Census Poverty Level in the Past 12 Months in Counties of United States"
           },
           {
             "columns": [
@@ -684,7 +684,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, Worker 1, Below US Census Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -695,14 +695,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, Worker 1, Below US Census Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in the Past 12 Months in Counties of United States"
+            "title": "Count of Household: Family Household, Worker 1, Below US Census Poverty Level in the Past 12 Months in Counties of United States"
           },
           {
             "columns": [
@@ -772,15 +772,15 @@
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
+            "name": "Count of Household: Family Household, Worker 1, Below US Census Poverty Level in The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
+            "name": "Count of Household: Family Household, Worker 2, Below US Census Poverty Level in The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine": {
-            "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
+            "name": "Population: 1 Years or More, 1 - 1.5 Ratio To US Census Poverty Line",
             "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
           },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {

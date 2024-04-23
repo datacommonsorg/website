@@ -137,7 +137,7 @@ def add_chart_to_utterance(
     places: List[Place],
     primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART,
     ranking_count: int = 0,
-    sv_place_facet_ids: Sv2Place2Facet = None,
+    sv_place_facet: Sv2Place2Facet = None,
     info_message: str = '',
     entities: List[Entity] = [],
     sv_place_latest_date: Sv2Place2Date = None) -> bool:
@@ -163,7 +163,7 @@ def add_chart_to_utterance(
                  is_special_dc=is_special_dc,
                  single_date=state.single_date,
                  date_range=state.date_range,
-                 sv_place_facet_id=sv_place_facet_ids,
+                 sv_place_facet=sv_place_facet,
                  info_message=info_message,
                  sv_place_latest_date=sv_place_latest_date)
   state.uttr.chartCandidates.append(ch)
@@ -205,17 +205,17 @@ def get_default_contained_in_place(places: List[Place],
   return constants.DEFAULT_PARENT_PLACES.get(ptype, None)
 
 
-# Get facet id to use when there are sv_place_facet_ids specified. Gets the
+# Get facet id to use when there are sv_place_facet specified. Gets the
 # facet id that has data for the most places.
-def get_facet_id(sv: str, sv_place_facet_ids: Dict[str, Dict[str, str]],
+def get_facet_id(sv: str, sv_place_facet: Dict[str, Dict[str, str]],
                  places: List[str]) -> str:
-  if not sv_place_facet_ids:
+  if not sv_place_facet:
     return ''
-  sv_facets = sv_place_facet_ids.get(sv, {})
+  sv_facets = sv_place_facet.get(sv, {})
   facet_id_occurences = {}
   facet_id_to_use = ""
   for place in places:
-    place_facet_id = sv_facets.get(place, '')
+    place_facet_id = sv_facets.get(place, {}).get('facetId', '')
     if not place_facet_id:
       continue
     place_facet_id_occurences = facet_id_occurences.get(place_facet_id, 0) + 1

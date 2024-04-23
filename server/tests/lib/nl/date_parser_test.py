@@ -25,7 +25,7 @@ from server.lib.nl.detection.types import Date
 class TestDateParser(unittest.TestCase):
 
   @parameterized.expand([
-      ('USA population in May, 2021', [Date('in', 2021, 5)]),
+      ('USA population in may, 2021', [Date('in', 2021, 5)]),
       ('USA population in Sep 2021', [Date('in', 2021, 9)]),
       ('USA population in 2021', [Date('in', 2021, 0)]),
       ('World temperature before year 2080', [Date('before', 2080, 0)]),

@@ -181,13 +181,29 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     allow_triples = True
     use_default_place = False
 
+  # See if we have a variable reranker model specified.
+  reranker = request.args.get('reranker')
+  rerank_fn = None
+  if reranker:
+    if not current_app.config.get('VERTEX_AI_MODELS'):
+      counters.err('unconfigured_vertex_ai_models', 1)
+    elif not current_app.config['VERTEX_AI_MODELS'].get(reranker):
+      counters.err('nonexistent_reranker_model', reranker)
+    elif not current_app.config['VERTEX_AI_MODELS'][reranker].get(
+        'prediction_client'):
+      counters.err('reranker_without_prediction_client', reranker)
+    else:
+      minfo = current_app.config['VERTEX_AI_MODELS'][reranker][
+          'prediction_client']
+      rerank_fn = minfo.predict
+
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
   query_detection = detector.detect(detector_type, original_query, query,
                                     prev_utterance, embeddings_index_type,
                                     llm_api_type, debug_logs, mode, counters,
-                                    allow_triples)
+                                    rerank_fn, allow_triples)
   if not query_detection:
     err_json = helpers.abort('Sorry, could not complete your request.',
                              original_query,

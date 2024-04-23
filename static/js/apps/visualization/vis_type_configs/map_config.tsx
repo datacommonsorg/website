@@ -114,7 +114,6 @@ export function getChartArea(
           enclosedPlaceType={appContext.enclosedPlaceType}
           svgChartHeight={chartHeight}
           title={statVarLabel + " (${date})"}
-          showLoadingSpinner={true}
           allowZoom={true}
         />
         <ChartFooter

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+from typing import Dict, List
 
 from flask import Blueprint
 from flask import current_app
@@ -21,6 +22,11 @@ from markupsafe import escape
 
 from nl_server import config
 from nl_server import loader
+from nl_server import search
+from nl_server.embeddings import Embeddings
+from nl_server.util import is_custom_dc
+from shared.lib.detected_variables import var_candidates_to_dict
+from shared.lib.detected_variables import VarCandidates
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -29,8 +35,9 @@ bp = Blueprint('main', __name__, url_prefix='/')
 def healthz():
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(
       config.DEFAULT_INDEX_TYPE)
-  result = nl_embeddings.search_vars(['life expectancy'])['life expectancy']
-  if result.get('SV'):
+  result: VarCandidates = search.search_vars(
+      [nl_embeddings], ['life expectancy'])['life expectancy']
+  if result.svs and 'Expectancy' in result.svs[0]:
     return 'OK', 200
   return 'Service Unavailable', 500
 
@@ -56,8 +63,14 @@ def search_vars():
   if request.args.get('skip_topics'):
     skip_topics = True
 
-  nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(idx)
-  return json.dumps(nl_embeddings.search_vars(queries, skip_topics))
+  nl_embeddings = _get_indexes(idx)
+  results: Dict[str,
+                VarCandidates] = search.search_vars(nl_embeddings, queries,
+                                                    skip_topics)
+  json_result = {
+      q: var_candidates_to_dict(result) for q, result in results.items()
+  }
+  return json.dumps(json_result)
 
 
 @bp.route('/api/detect_verbs/', methods=['GET'])
@@ -80,3 +93,22 @@ def embeddings_version_map():
 def load():
   loader.load_custom_embeddings(current_app)
   return json.dumps(current_app.config[config.NL_EMBEDDINGS_VERSION_KEY])
+
+
+def _get_indexes(idx: str) -> List[Embeddings]:
+  nl_embeddings: List[Embeddings] = []
+
+  emb_map = current_app.config[config.NL_EMBEDDINGS_KEY]
+
+  if is_custom_dc() and idx != config.CUSTOM_DC_INDEX:
+    # Order custom index first, so that when the score is the same
+    # Custom DC will be preferred.
+    emb = emb_map.get(config.CUSTOM_DC_INDEX)
+    if emb:
+      nl_embeddings.append(emb)
+
+  emb = emb_map.get(idx)
+  if emb:
+    nl_embeddings.append(emb)
+
+  return nl_embeddings
