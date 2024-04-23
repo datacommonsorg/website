@@ -16,18 +16,15 @@ import os
 
 from shared.lib.gcs import is_gcs_path
 
-_IS_CUSTOM_DC_ENV_VAR = 'IS_CUSTOM_DC'
-# The path comes from:
-# https://github.com/datacommonsorg/website/blob/master/server/routes/admin/html.py#L39-L40
-_USER_DATA_PATH_ENV_VAR = 'USER_DATA_PATH'
-
 
 def is_custom_dc() -> bool:
-  return os.environ.get(_IS_CUSTOM_DC_ENV_VAR, '').lower() == 'true'
+  return os.environ.get('IS_CUSTOM_DC', '').lower() == 'true'
 
 
+# The path comes from:
+# https://github.com/datacommonsorg/website/blob/master/server/routes/admin/html.py#L39-L40
 def get_user_data_path() -> str:
-  return os.environ.get(_USER_DATA_PATH_ENV_VAR, '')
+  return os.environ.get('USER_DATA_PATH', '')
 
 
 def is_gcs_user_data_path() -> bool:
