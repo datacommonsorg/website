@@ -12,7 +12,7 @@
                     "answerTableTileSpec": {
                       "columns": [
                         {
-                          "header": "->phylum",
+                          "header": "Phylum",
                           "propertyExpr": "->phylum"
                         }
                       ]
@@ -41,7 +41,7 @@
                       "dc/z9x1mlh4pxzb7",
                       "dc/zsn19vpl9fy76"
                     ],
-                    "title": "The phylum for Volvox, Volvox and 20 more other are as follows:",
+                    "title": "The Phylum for Volvox are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]
