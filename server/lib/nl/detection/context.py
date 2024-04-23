@@ -42,7 +42,6 @@ _MAX_RETURNED_VARS = 20
 # context in both the utterance inline and in `insight_ctx`.
 #
 # TODO: Handle OVERVIEW query (for Explore)
-# TODO: Handle entities and properties
 def merge_with_context(uttr: nl_uttr.Utterance, default_place: Place = None):
   data_dict = {}
 
@@ -100,13 +99,15 @@ def merge_with_context(uttr: nl_uttr.Utterance, default_place: Place = None):
   main_vars, cmp_vars = _detect_vars(
       uttr, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS)
 
-  # 6. Detect entities leveraging context
-  entities = _detect_entities(uttr)
-
-  # 7. Detect properties leveraging context
+  # 6. Detect properties leveraging context
   properties = _detect_props(uttr)
 
-  # 6. Populate the returned dict
+  # 7. Detect entities leveraging context. Should detect entities after
+  #    properties because we only want to use context if properties didn't use
+  #    context.
+  entities = _detect_entities(uttr)
+
+  # 8. Populate the returned dict
   data_dict.update({
       Params.ENTITIES.value:
           places,
@@ -350,6 +351,10 @@ def _detect_entities(uttr: nl_uttr.Utterance) -> List[str]:
     uttr.entities_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
   # If places were detected in the current query, don't try to use any past entities
   elif uttr.places and uttr.place_source != nl_uttr.FulfillmentResult.PAST_QUERY:
+    uttr.entities_source = nl_uttr.FulfillmentResult.UNRECOGNIZED
+  # If no properties were detected in the current query, don't try to use past entities
+  # to prevent using both the properties and entities of the previous query
+  elif not uttr.properties or uttr.properties_source == nl_uttr.FulfillmentResult.PAST_QUERY:
     uttr.entities_source = nl_uttr.FulfillmentResult.UNRECOGNIZED
   else:
     # If there were entities detected in the previous query, use those entities

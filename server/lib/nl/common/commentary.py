@@ -43,6 +43,22 @@ def topic_from_context(_) -> str:
   return 'See relevant statistics based on the previous query.'
 
 
+def entity_from_context(u: Utterance) -> str:
+  seen_entities = set()
+  entity_names = []
+  for e in u.entities:
+    if e.name in seen_entities:
+      continue
+    seen_entities.add(e.name)
+    entity_names.append(e.name)
+
+  return f'See relevant information for {_name_list_as_string(entity_names)} based on the previous query.'
+
+
+def prop_from_context(_) -> str:
+  return 'See relevant information based on the previous query.'
+
+
 def cmp_places_from_context(_) -> str:
   return 'See comparisons based on places in the previous query.'
 
@@ -52,7 +68,7 @@ def cmp_places_from_answer(_) -> str:
 
 
 def cmp_places_and_topic_from_context(u: Utterance) -> str:
-  place_str = _places(u)
+  place_str = _name_list_as_string([p.name for p in u.places])
   if not place_str:
     return ''
   return f'See comparisons with {place_str} based on the previous query.'
@@ -135,6 +151,10 @@ def user_message(uttr: Utterance) -> UserMessage:
       callback = place_from_context
     elif uttr.place_source == FulfillmentResult.DEFAULT and uttr.past_source_context != constants.EARTH.name:
       callback = default_place
+    elif uttr.entities_source == FulfillmentResult.PAST_QUERY and uttr.properties_source == FulfillmentResult.CURRENT_QUERY:
+      callback = entity_from_context
+    elif uttr.entities_source == FulfillmentResult.CURRENT_QUERY and uttr.properties_source == FulfillmentResult.PAST_QUERY:
+      callback = prop_from_context
 
   msg_list = []
 
@@ -161,14 +181,14 @@ def _ctx(connector: str, ctx: str) -> str:
   return ""
 
 
-def _places(u: Utterance) -> str:
-  place_str = ''
-  for idx, p in enumerate(u.places):
+def _name_list_as_string(names: List[str]) -> str:
+  names_str = ''
+  for idx, n in enumerate(names):
     conn = ''
-    if idx > 0 and idx == len(u.places) - 1:
+    if idx > 0 and idx == len(names) - 1:
       conn = ' and '
     elif idx > 0:
       conn = ', '
-    place_str += conn + p.name
+    names_str += conn + n
 
-  return place_str
+  return names_str
