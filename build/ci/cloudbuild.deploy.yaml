@@ -34,8 +34,8 @@ steps:
       - -c
       - |
         set -e
-        git clone https://github.com/datacommonsorg/mixer.git
-        git clone https://github.com/datacommonsorg/import.git
+        git submodule foreach git pull origin master
+        git submodule update --init --recursive
 
         # Bundle container with website, esp and mixer.
         docker build -f build/web_compose/Dockerfile \
@@ -83,13 +83,12 @@ steps:
       - -c
       - |
         set -e
-        DOCKER_BUILDKIT=1
         docker build -f build/website_cron_testing/Dockerfile \
-          --tag gcr.io/$_PROJECT_ID/website-cron-testing:${SHORT_SHA} \
-          --tag gcr.io/$_PROJECT_ID/website-cron-testing:latest \
+          -t gcr.io/datcom-ci/website-cron-testing:$SHORT_SHA \
+          -t gcr.io/datcom-ci/website-cron-testing:latest \
           .
-        docker push gcr.io/$_PROJECT_ID/website-cron-testing:${SHORT_SHA}
-        docker push gcr.io/$_PROJECT_ID/website-cron-testing:latest
+        docker push gcr.io/datcom-ci/website-cron-testing:$SHORT_SHA
+        docker push gcr.io/datcom-ci/website-cron-testing:latest\
     waitFor: ["-"]
 
   - id: update version

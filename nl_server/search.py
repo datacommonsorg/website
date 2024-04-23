@@ -16,7 +16,8 @@
 from typing import Dict, List
 
 from nl_server.embeddings import Embeddings
-from nl_server.embeddings import EmbeddingsMatch
+from nl_server.embeddings import EmbeddingsResult
+from nl_server.merge import merge_search_results
 import shared.lib.detected_variables as dvars
 
 _TOPIC_PREFIX = 'dc/topic/'
@@ -31,15 +32,25 @@ _NUM_SV_INDEX_MATCHES_WITHOUT_TOPICS = 60
 
 #
 # Given a list of query embeddings, searches the embeddings index
-# and returns a map of result candidates keyed by query.
+# and returns a list of candidates in the same order as original queries.
 #
-def search_vars(embeddings: Embeddings,
+def search_vars(embeddings_list: List[Embeddings],
                 queries: List[str],
                 skip_topics: bool = False) -> Dict[str, dvars.VarCandidates]:
+  if not embeddings_list:
+    return {}
+
   topk = _get_topk(skip_topics)
 
-  query2candidates = embeddings.vector_search(queries, topk)
+  # Call vector search for each index.
+  query2candidates_list: List[EmbeddingsResult] = []
+  for embeddings in embeddings_list:
+    query2candidates_list.append(embeddings.vector_search(queries, topk))
 
+  # Merge the results.
+  query2candidates = merge_search_results(query2candidates_list)
+
+  # Rank merged results by vars.
   results: Dict[str, dvars.VarCandidates] = {}
   for query, candidates in query2candidates.items():
     results[query] = _rank_vars(candidates, skip_topics)
@@ -47,10 +58,12 @@ def search_vars(embeddings: Embeddings,
   return results
 
 
-def _rank_vars(candidates: List[EmbeddingsMatch],
+def _rank_vars(candidates: EmbeddingsResult,
                skip_topics: bool) -> dvars.VarCandidates:
   sv2score = {}
   result = dvars.VarCandidates(svs=[], scores=[], sv2sentences={})
+  # SV => set of sentences; for detecting sentence duplicates.
+  sv2sentences = {}
   for c in candidates:
     for dcid in c.vars:
       if skip_topics and dcid.startswith(_TOPIC_PREFIX):
@@ -59,9 +72,11 @@ def _rank_vars(candidates: List[EmbeddingsMatch],
       if dcid not in sv2score:
         sv2score[dcid] = c.score
         result.sv2sentences[dcid] = []
-      if c.sentence:
+        sv2sentences[dcid] = set()
+      if c.sentence and c.sentence not in sv2sentences[dcid]:
         result.sv2sentences[dcid].append(
             dvars.SentenceScore(sentence=c.sentence, score=c.score))
+        sv2sentences[dcid].add(c.sentence)
 
   for sv, score in sorted(sv2score.items(),
                           key=lambda item: (-item[1], item[0])):
