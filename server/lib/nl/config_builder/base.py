@@ -13,7 +13,10 @@
 # limitations under the License.
 
 from dataclasses import dataclass
+import re
 from typing import Dict, Set, Tuple
+
+from flask import current_app
 
 from server.config.subject_page_pb2 import Block
 from server.config.subject_page_pb2 import SubjectPageConfig
@@ -31,6 +34,9 @@ from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import SV2Thing
 import server.lib.nl.fulfillment.utils as futils
+
+_OUT_ARROW = '->'
+_IN_ARROW = '<-'
 
 
 # Config structures.
@@ -295,3 +301,28 @@ def _process_title_desc_footnote(builder: Builder,
   elif len(cv.svs) > 1 and builder.sv2thing.name.get(cv.svs[0]):
     title = formatting.title_for_two_or_more_svs(cv.svs, builder.sv2thing.name)
   return title, description, footnote
+
+
+# Gets the display name to use for a property expression
+def get_property_display_name(prop_expression: str) -> str:
+  override_prop_titles = current_app.config['NL_PROP_TITLES']
+  # try to get display name from override_prop_titles
+  display_name = override_prop_titles.get(prop_expression,
+                                          {}).get('displayName', '')
+
+  # If display name was not found in override prop titles, process the prop
+  # expression into a display name
+  if not display_name:
+    display_name = prop_expression
+    # remove any arrows from the display name
+    if display_name.startswith(_IN_ARROW) or display_name.startswith(
+        _OUT_ARROW):
+      display_name = display_name[len(_IN_ARROW):]
+    # break camelCase names into individual words with spaces
+    # e.g., dateCreated becomes date Created
+    display_name = re.sub(r'((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))', r' \1',
+                          display_name)
+    # capitalize the first letter without changing the rest of the string
+    # e.g., chembl ID will become Chembl ID
+    display_name = display_name[0].upper() + display_name[1:]
+  return display_name

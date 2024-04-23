@@ -68,7 +68,7 @@ function getCardSpecsFromConfig(
       // Build card specs for each entry in the config
       const card: CardProps = { ...cardSpec };
       if (!cardSpec.url && addSearchUrl) {
-        card.url = `${BIOMEDICAL_SEARCH_URL}${BIOMEDICAL_SEARCH_QUERY_PARAM}=${cardSpec.text}`;
+        card.url = `${BIOMEDICAL_SEARCH_URL}${BIOMEDICAL_SEARCH_QUERY_PARAM}=${cardSpec.text}&dc=bio`;
       }
       card.tag = categoryConfig.category;
       card.theme =

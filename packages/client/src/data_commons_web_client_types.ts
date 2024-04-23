@@ -22,7 +22,7 @@ export interface StatMetadata {
   provenanceUrl?: string | null;
   measurementMethod?: string | null;
   observationPeriod?: string | null;
-  scalingFactor?: string | null;
+  scalingFactor?: number | null;
   unit?: string | null;
   unitDisplayName?: string | null;
 }
@@ -119,4 +119,28 @@ export type ApiNodePropvalOutResponse = {
     provenanceId: string;
     value: string;
   }[];
+};
+
+export type DatesByVariable = {
+  observationDates: {
+    date: string;
+    entityCount: {
+      count: number;
+      facet: string;
+    }[];
+  }[];
+  variable: string;
+};
+
+/**
+ * Website API response for /api/observation-dates
+ */
+export type ObservationDatesApiResponse = {
+  datesByVariable: DatesByVariable[];
+  facets: {
+    [facetId: string]: {
+      importName: string;
+      provenanceUrl: string;
+    };
+  };
 };

@@ -23,11 +23,17 @@ def highlight_block(column,
                     place,
                     sv,
                     sv2thing: types.SV2Thing,
-                    date: types.Date = None):
+                    single_date: types.Date = None,
+                    date_range: types.Date = None,
+                    sv_place_latest_date=None):
   chart_title = base.decorate_chart_title(title=sv2thing.name[sv], place=place)
 
   sv_key = sv
-  date_string = get_date_string(date)
+  date_string = ''
+  if single_date:
+    date_string = get_date_string(single_date)
+  elif date_range:
+    date_string = sv_place_latest_date.get(sv, {}).get(place.dcid, '')
   if date_string:
     sv_key += f'_{date_string}'
   tile = Tile(type=Tile.TileType.HIGHLIGHT,

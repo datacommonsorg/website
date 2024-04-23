@@ -25,7 +25,7 @@
                   {
                     "description": "Women in New York",
                     "statVarKey": [
-                      "Count_Person_Female"
+                      "Count_Person_Female_2019"
                     ],
                     "title": "Women in New York",
                     "type": "HIGHLIGHT"
@@ -57,7 +57,7 @@
                   {
                     "description": "Women Over 85 in New York",
                     "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female"
+                      "Count_Person_85OrMoreYears_Female_2019"
                     ],
                     "title": "Women Over 85 in New York",
                     "type": "HIGHLIGHT"
@@ -89,7 +89,7 @@
                   {
                     "description": "Population: 15-19 Years, Female, Separated in New York",
                     "statVarKey": [
-                      "Count_Person_15To19Years_Female_Separated"
+                      "Count_Person_15To19Years_Female_Separated_2019"
                     ],
                     "title": "Population: 15-19 Years, Female, Separated in New York",
                     "type": "HIGHLIGHT"
@@ -142,7 +142,7 @@
                   {
                     "description": "Women's Median Age in New York",
                     "statVarKey": [
-                      "Median_Age_Person_Female"
+                      "Median_Age_Person_Female_2019"
                     ],
                     "title": "Women's Median Age in New York",
                     "type": "HIGHLIGHT"
@@ -173,7 +173,7 @@
                   {
                     "description": "Women Identifying as Multiracial in New York",
                     "statVarKey": [
-                      "Count_Person_Female_TwoOrMoreRaces"
+                      "Count_Person_Female_TwoOrMoreRaces_2019"
                     ],
                     "title": "Women Identifying as Multiracial in New York",
                     "type": "HIGHLIGHT"
@@ -205,7 +205,7 @@
                   {
                     "description": "Women Identifying as Some Other Race Alone in New York",
                     "statVarKey": [
-                      "Count_Person_Female_SomeOtherRaceAlone"
+                      "Count_Person_Female_SomeOtherRaceAlone_2019"
                     ],
                     "title": "Women Identifying as Some Other Race Alone in New York",
                     "type": "HIGHLIGHT"
@@ -237,7 +237,7 @@
                   {
                     "description": "Population: With Own Children Under 18, Female in New York",
                     "statVarKey": [
-                      "Count_Person_WithOwnChildrenUnder18_Female"
+                      "Count_Person_WithOwnChildrenUnder18_Female_2019"
                     ],
                     "title": "Population: With Own Children Under 18, Female in New York",
                     "type": "HIGHLIGHT"
@@ -324,15 +324,15 @@
                       "geoId/3651000"
                     ],
                     "statVarKey": [
-                      "Count_Person_Female_TwoOrMoreRaces_multiple_place_bar_block",
-                      "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
-                      "Count_Person_Female_AsianAlone_multiple_place_bar_block",
-                      "Count_Person_Female_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
-                      "Count_Person_Female_HispanicOrLatino_multiple_place_bar_block",
-                      "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
-                      "Count_Person_Female_SomeOtherRaceAlone_multiple_place_bar_block",
-                      "Count_Person_Female_WhiteAlone_multiple_place_bar_block",
-                      "Count_Person_Female_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                      "Count_Person_Female_TwoOrMoreRaces_multiple_place_bar_block_2019",
+                      "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_2019",
+                      "Count_Person_Female_AsianAlone_multiple_place_bar_block_2019",
+                      "Count_Person_Female_BlackOrAfricanAmericanAlone_multiple_place_bar_block_2019",
+                      "Count_Person_Female_HispanicOrLatino_multiple_place_bar_block_2019",
+                      "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_2019",
+                      "Count_Person_Female_SomeOtherRaceAlone_multiple_place_bar_block_2019",
+                      "Count_Person_Female_WhiteAlone_multiple_place_bar_block_2019",
+                      "Count_Person_Female_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block_2019"
                     ],
                     "title": "Women Identifying as Multiracial and More in New York (${date})",
                     "type": "BAR"
@@ -345,7 +345,8 @@
           }
         ],
         "statVarSpec": {
-          "Count_Person_15To19Years_Female_Separated": {
+          "Count_Person_15To19Years_Female_Separated_2019": {
+            "date": "2019",
             "name": "Population: 15 - 19 Years, Female, Separated",
             "statVar": "Count_Person_15To19Years_Female_Separated"
           },
@@ -354,12 +355,13 @@
             "name": "Population: 15 - 19 Years, Female, Separated",
             "statVar": "Count_Person_15To19Years_Female_Separated"
           },
-          "Count_Person_85OrMoreYears_Female": {
+          "Count_Person_85OrMoreYears_Female_1145703171": {
+            "facetId": "1145703171",
             "name": "Women over 85",
             "statVar": "Count_Person_85OrMoreYears_Female"
           },
-          "Count_Person_85OrMoreYears_Female_1145703171": {
-            "facetId": "1145703171",
+          "Count_Person_85OrMoreYears_Female_2019": {
+            "date": "2019",
             "name": "Women over 85",
             "statVar": "Count_Person_85OrMoreYears_Female"
           },
@@ -368,66 +370,78 @@
             "name": "Men over 85",
             "statVar": "Count_Person_85OrMoreYears_Male"
           },
-          "Count_Person_Female": {
-            "name": "Women",
-            "statVar": "Count_Person_Female"
-          },
           "Count_Person_Female_1145703171": {
             "facetId": "1145703171",
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
-          "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+          "Count_Person_Female_2019": {
+            "date": "2019",
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
+          "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_2019": {
+            "date": "2019",
             "name": "American Indian or Alaska Native Monoracial Women",
             "statVar": "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone"
           },
-          "Count_Person_Female_AsianAlone_multiple_place_bar_block": {
+          "Count_Person_Female_AsianAlone_multiple_place_bar_block_2019": {
+            "date": "2019",
             "name": "Asian Monoracial Women",
             "statVar": "Count_Person_Female_AsianAlone"
           },
-          "Count_Person_Female_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+          "Count_Person_Female_BlackOrAfricanAmericanAlone_multiple_place_bar_block_2019": {
+            "date": "2019",
             "name": "Black or African American Monoracial Women",
             "statVar": "Count_Person_Female_BlackOrAfricanAmericanAlone"
           },
-          "Count_Person_Female_HispanicOrLatino_multiple_place_bar_block": {
+          "Count_Person_Female_HispanicOrLatino_multiple_place_bar_block_2019": {
+            "date": "2019",
             "name": "Hispanic Women",
             "statVar": "Count_Person_Female_HispanicOrLatino"
           },
-          "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+          "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_2019": {
+            "date": "2019",
             "name": "Women Identifying as Native Hawaiian/Other Pacific Islander Alone",
             "statVar": "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone"
-          },
-          "Count_Person_Female_SomeOtherRaceAlone": {
-            "name": "Women Identifying as Some Other Race Alone",
-            "statVar": "Count_Person_Female_SomeOtherRaceAlone"
           },
           "Count_Person_Female_SomeOtherRaceAlone_1145703171": {
             "facetId": "1145703171",
             "name": "Women Identifying as Some Other Race Alone",
             "statVar": "Count_Person_Female_SomeOtherRaceAlone"
           },
-          "Count_Person_Female_SomeOtherRaceAlone_multiple_place_bar_block": {
+          "Count_Person_Female_SomeOtherRaceAlone_2019": {
+            "date": "2019",
             "name": "Women Identifying as Some Other Race Alone",
             "statVar": "Count_Person_Female_SomeOtherRaceAlone"
           },
-          "Count_Person_Female_TwoOrMoreRaces": {
-            "name": "Women Identifying as Multiracial",
-            "statVar": "Count_Person_Female_TwoOrMoreRaces"
+          "Count_Person_Female_SomeOtherRaceAlone_multiple_place_bar_block_2019": {
+            "date": "2019",
+            "name": "Women Identifying as Some Other Race Alone",
+            "statVar": "Count_Person_Female_SomeOtherRaceAlone"
           },
           "Count_Person_Female_TwoOrMoreRaces_1145703171": {
             "facetId": "1145703171",
             "name": "Women Identifying as Multiracial",
             "statVar": "Count_Person_Female_TwoOrMoreRaces"
           },
-          "Count_Person_Female_TwoOrMoreRaces_multiple_place_bar_block": {
+          "Count_Person_Female_TwoOrMoreRaces_2019": {
+            "date": "2019",
             "name": "Women Identifying as Multiracial",
             "statVar": "Count_Person_Female_TwoOrMoreRaces"
           },
-          "Count_Person_Female_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+          "Count_Person_Female_TwoOrMoreRaces_multiple_place_bar_block_2019": {
+            "date": "2019",
+            "name": "Women Identifying as Multiracial",
+            "statVar": "Count_Person_Female_TwoOrMoreRaces"
+          },
+          "Count_Person_Female_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block_2019": {
+            "date": "2019",
             "name": "White Non Hispanic Women",
             "statVar": "Count_Person_Female_WhiteAloneNotHispanicOrLatino"
           },
-          "Count_Person_Female_WhiteAlone_multiple_place_bar_block": {
+          "Count_Person_Female_WhiteAlone_multiple_place_bar_block_2019": {
+            "date": "2019",
             "name": "Women Identifying as White Alone",
             "statVar": "Count_Person_Female_WhiteAlone"
           },
@@ -436,16 +450,18 @@
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
-          "Count_Person_WithOwnChildrenUnder18_Female": {
-            "name": "Population: With Own Children Under 18, Female",
-            "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
-          },
           "Count_Person_WithOwnChildrenUnder18_Female_1293445251": {
             "facetId": "1293445251",
             "name": "Population: With Own Children Under 18, Female",
             "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
           },
-          "Median_Age_Person_Female": {
+          "Count_Person_WithOwnChildrenUnder18_Female_2019": {
+            "date": "2019",
+            "name": "Population: With Own Children Under 18, Female",
+            "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
+          },
+          "Median_Age_Person_Female_2019": {
+            "date": "2019",
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
           },

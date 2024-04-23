@@ -102,6 +102,7 @@ function onSearch(query: string): void {
   // Sanitize query to prevent cross-site scripting attacks
   const urlSearchParams = new URLSearchParams();
   urlSearchParams.set(BIOMEDICAL_SEARCH_QUERY_PARAM, query);
+  urlSearchParams.set("dc", "bio");
   window.location.href = `${BIOMEDICAL_SEARCH_URL}${urlSearchParams.toString()}`;
 }
 

@@ -335,12 +335,12 @@ def resolve(nodes, prop):
   return post(url, {'nodes': nodes, 'property': prop})
 
 
-def nl_search_sv(query, index_type, threshold, skip_topics=False):
+def nl_search_vars(queries, index_type, skip_topics=False):
   """Search sv from NL server."""
-  url = f'{current_app.config["NL_ROOT"]}/api/search_sv?q={query}&idx={index_type}&threshold={threshold}'
+  url = f'{current_app.config["NL_ROOT"]}/api/search_vars?idx={index_type}'
   if skip_topics:
-    url += f'&skip_topics={skip_topics}'
-  return get(url)
+    url = f'{url}&skip_topics={skip_topics}'
+  return post(url, {'queries': queries})
 
 
 def nl_detect_verbs(query):
@@ -411,6 +411,12 @@ def related_place(dcid, variables, ancestor=None, per_capita=False):
 
 def recognize_places(query):
   url = get_service_url('/v1/recognize/places')
+  resp = post(url, {'queries': [query]})
+  return resp.get('queryItems', {}).get(query, {}).get('items', [])
+
+
+def recognize_entities(query):
+  url = get_service_url('/v1/recognize/entities')
   resp = post(url, {'queries': [query]})
   return resp.get('queryItems', {}).get(query, {}).get('items', [])
 
