@@ -167,6 +167,8 @@ def update_goldens(new_golden_blobs):
   """Updates golden files with the new golden blobs"""
   for b in new_golden_blobs:
     filename = b.name.split('/')[-1]
+    if filename == 'differ_results.json':
+      continue
     golden = json.loads(b.download_as_string())
     if 'debug' in golden:
       del golden['debug']
