@@ -83,7 +83,7 @@ steps:
       - -c
       - |
         set -e
-        docker build -f build/nodejs_server/Dockerfile \
+        docker build -f build/website_cron_testing/Dockerfile \
           -t gcr.io/datcom-ci/website-cron-testing:$SHORT_SHA \
           -t gcr.io/datcom-ci/website-cron-testing:latest \
           .
