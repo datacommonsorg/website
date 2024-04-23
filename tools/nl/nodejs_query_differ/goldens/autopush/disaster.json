@@ -1,7 +1,7 @@
 {
   "charts": [
     {
-      "data_csv": "label,Count of Fire Event\r\n2024-04,124\r\n2024-03,350\r\n2024-02,234\r\n2024-01,296",
+      "data_csv": "label,Count of Fire Event\r\n2024-04,210\r\n2024-03,350\r\n2024-02,234\r\n2024-01,296",
       "legend": [
         "Count of Fire Event"
       ],
@@ -22,13 +22,13 @@
       ],
       "highlight": {
         "date": "2024-04",
-        "value": 124
+        "value": 210
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=fires%20in%20california"
     },
     {
-      "data_csv": "rank,place,Count of Fire Event\r\n1,Los Angeles County,10\r\n2,San Bernardino County,8\r\n3,Glenn County,8\r\n4,Yolo County,7\r\n5,Solano County,6\r\n51,Mono County,1\r\n52,Inyo County,1\r\n53,Humboldt County,1\r\n54,Calaveras County,1\r\n55,Alpine County,1",
+      "data_csv": "rank,place,Count of Fire Event\r\n1,Los Angeles County,16\r\n2,San Bernardino County,12\r\n3,Yolo County,11\r\n4,Solano County,10\r\n5,San Joaquin County,9\r\n51,Placer County,1\r\n52,Nevada County,1\r\n53,Mono County,1\r\n54,Inyo County,1\r\n55,Alpine County,1",
       "placeType": "County",
       "places": [
         "geoId/06"
