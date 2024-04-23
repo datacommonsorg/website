@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import json
-import logging
+from typing import Dict, List
 
 from flask import Blueprint
 from flask import current_app
@@ -22,7 +22,11 @@ from markupsafe import escape
 
 from nl_server import config
 from nl_server import loader
-from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
+from nl_server import search
+from nl_server.embeddings import Embeddings
+from nl_server.util import is_custom_dc
+from shared.lib.detected_variables import var_candidates_to_dict
+from shared.lib.detected_variables import VarCandidates
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -31,17 +35,16 @@ bp = Blueprint('main', __name__, url_prefix='/')
 def healthz():
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(
       config.DEFAULT_INDEX_TYPE)
-  result = nl_embeddings.detect_svs('life expectancy',
-                                    SV_SCORE_DEFAULT_THRESHOLD,
-                                    skip_multi_sv=True)
-  if result.get('SV'):
+  result: VarCandidates = search.search_vars(
+      [nl_embeddings], ['life expectancy'])['life expectancy']
+  if result.svs and 'Expectancy' in result.svs[0]:
     return 'OK', 200
   return 'Service Unavailable', 500
 
 
-@bp.route('/api/search_sv/', methods=['GET'])
-def search_sv():
-  """Returns a dictionary with the following keys and values
+@bp.route('/api/search_vars/', methods=['POST'])
+def search_vars():
+  """Returns a dictionary with each input query as key and value as:
 
   {
     'SV': List[str]
@@ -49,31 +52,25 @@ def search_sv():
     'SV_to_Sentences': Dict[str, str]
   }
   """
-  query = str(escape(request.args.get('q')))
+  queries = request.json.get('queries', [])
+  queries = [str(escape(q)) for q in queries]
+
   idx = str(escape(request.args.get('idx', config.DEFAULT_INDEX_TYPE)))
   if not idx:
     idx = config.DEFAULT_INDEX_TYPE
 
-  threshold = escape(request.args.get('threshold'))
-  if threshold:
-    try:
-      threshold = float(threshold)
-    except Exception:
-      logging.error(f'Found non-float threshold value: {threshold}')
-      threshold = SV_SCORE_DEFAULT_THRESHOLD
-  else:
-    threshold = SV_SCORE_DEFAULT_THRESHOLD
-
-  skip_multi_sv = False
-  if request.args.get('skip_multi_sv'):
-    skip_multi_sv = True
-
   skip_topics = False
   if request.args.get('skip_topics'):
     skip_topics = True
-  nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(idx)
-  return json.dumps(
-      nl_embeddings.detect_svs(query, threshold, skip_multi_sv, skip_topics))
+
+  nl_embeddings = _get_indexes(idx)
+  results: Dict[str,
+                VarCandidates] = search.search_vars(nl_embeddings, queries,
+                                                    skip_topics)
+  json_result = {
+      q: var_candidates_to_dict(result) for q, result in results.items()
+  }
+  return json.dumps(json_result)
 
 
 @bp.route('/api/detect_verbs/', methods=['GET'])
@@ -96,3 +93,22 @@ def embeddings_version_map():
 def load():
   loader.load_custom_embeddings(current_app)
   return json.dumps(current_app.config[config.NL_EMBEDDINGS_VERSION_KEY])
+
+
+def _get_indexes(idx: str) -> List[Embeddings]:
+  nl_embeddings: List[Embeddings] = []
+
+  emb_map = current_app.config[config.NL_EMBEDDINGS_KEY]
+
+  if is_custom_dc() and idx != config.CUSTOM_DC_INDEX:
+    # Order custom index first, so that when the score is the same
+    # Custom DC will be preferred.
+    emb = emb_map.get(config.CUSTOM_DC_INDEX)
+    if emb:
+      nl_embeddings.append(emb)
+
+  emb = emb_map.get(idx)
+  if emb:
+    nl_embeddings.append(emb)
+
+  return nl_embeddings

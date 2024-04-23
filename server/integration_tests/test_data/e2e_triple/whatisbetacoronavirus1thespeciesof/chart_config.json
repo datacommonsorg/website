@@ -9,28 +9,20 @@
               {
                 "tiles": [
                   {
-                    "answerMessageTileSpec": {
-                      "propertyExpr": "<-ofVirusSpecies"
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "Virus Host",
+                          "propertyExpr": "->virusHost"
+                        }
+                      ]
                     },
                     "entities": [
-                      "bio/Betacoronavirus1"
+                      "bio/Betacoronavirus1",
+                      "bio/D000073641"
                     ],
-                    "title": "Betacoronavirus 1 is the ofVirusSpecies for:",
-                    "type": "ANSWER_MESSAGE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "entities": [
-                      "bio/Betacoronavirus1"
-                    ],
-                    "type": "ENTITY_OVERVIEW"
+                    "title": "The Virus Host for Betacoronavirus 1 are as follows:",
+                    "type": "ANSWER_TABLE"
                   }
                 ]
               }
@@ -45,6 +37,11 @@
   "entities": [
     {
       "dcid": "bio/Betacoronavirus1",
+      "name": "Betacoronavirus 1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D000073641",
       "name": "Betacoronavirus 1",
       "type": ""
     }
@@ -64,6 +61,6 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "UNKNOWN",
+  "svSource": "CURRENT_QUERY",
   "userMessages": []
 }

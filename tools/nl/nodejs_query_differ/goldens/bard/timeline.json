@@ -1,0 +1,79 @@
+{
+  "charts": [
+    {
+      "data_csv": "label,Average Income for Family Households\r\n2019,105819\r\n2018,103731\r\n2017,99878\r\n2016,96309\r\n2015,93044\r\n2014,90140\r\n2013,86449\r\n2012,83141\r\n2011,79594\r\n2010,75645",
+      "legend": [
+        "Average Income for Family Households"
+      ],
+      "places": [
+        "geoId/38"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+        }
+      ],
+      "title": "Average Income for Family Households in North Dakota",
+      "type": "LINE",
+      "unit": "Infl. adj. USD (CY)",
+      "vars": [
+        "Mean_Income_Household_FamilyHousehold"
+      ],
+      "highlight": {
+        "date": "2019",
+        "value": 105819
+      },
+      "chartUrl": "",
+      "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
+    },
+    {
+      "data_csv": "rank,place,Average Income for Family Households\r\n1,Williams County,126095\r\n2,Dunn County,122699\r\n3,Divide County,118649\r\n4,Mountrail County,118316\r\n5,McKenzie County,117604\r\n49,Pierce County,76245\r\n50,McIntosh County,75949\r\n51,Rolette County,72908\r\n52,Benson County,69206\r\n53,Sioux County,56872",
+      "placeType": "County",
+      "places": [
+        "geoId/38"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+        }
+      ],
+      "title": "Average Income for Family Households in Counties of North Dakota (2019)",
+      "type": "TABLE",
+      "unit": "Infl. adj. USD (CY)",
+      "vars": [
+        "Mean_Income_Household_FamilyHousehold"
+      ],
+      "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota",
+      "chartUrl": ""
+    },
+    {
+      "data_csv": "label,Median Family Household Income\r\n2019,86249\r\n2018,83272\r\n2017,80091\r\n2016,77277\r\n2015,74708\r\n2014,72770\r\n2013,70767\r\n2012,68293\r\n2011,65871\r\n2010,62920",
+      "legend": [
+        "Median Family Household Income"
+      ],
+      "places": [
+        "geoId/38"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+        }
+      ],
+      "title": "Median Family Household Income in North Dakota",
+      "type": "LINE",
+      "unit": "Infl. adj. USD (CY)",
+      "vars": [
+        "Median_Income_Household_FamilyHousehold"
+      ],
+      "highlight": {
+        "date": "2019",
+        "value": 86249
+      },
+      "chartUrl": "",
+      "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
+    }
+  ]
+}

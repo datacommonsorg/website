@@ -42,9 +42,8 @@ interface SvRankingUnitsProps {
     chartWidth: number,
     chartHeight: number,
     chartHtml: string,
-    rankingPoints: RankingPoint[],
-    sources: string[],
-    svNames: string[]
+    chartTitle: string,
+    sources: string[]
   ) => void;
   statVar: string;
   entityType: string;
@@ -74,7 +73,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
   /**
    * Build content and triggers export modal window
    */
-  function handleEmbed(isHighest: boolean): void {
+  function handleEmbed(isHighest: boolean, chartTitle: string): void {
     let chartHtml = "";
     let chartHeight = 0;
     let chartWidth = 0;
@@ -93,11 +92,11 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       chartWidth,
       chartHeight,
       chartHtml,
-      points,
-      props.sources || Array.from(rankingGroup.sources),
-      rankingGroup.svName
+      chartTitle,
+      props.sources || Array.from(rankingGroup.sources)
     );
   }
+  const chartTitle = getChartTitle(title, rankingGroup);
   return (
     <React.Fragment>
       {rankingMetadata.showHighestLowest || props.errorMsg ? (
@@ -117,7 +116,9 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
           )}
           {!props.hideFooter && (
             <ChartFooter
-              handleEmbed={props.errorMsg ? null : () => handleEmbed(true)}
+              handleEmbed={
+                props.errorMsg ? null : () => handleEmbed(true, chartTitle)
+              }
               exploreLink={
                 props.showExploreMore && !props.errorMsg
                   ? getExploreLink(props, true)
@@ -148,7 +149,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               )}
               {!props.hideFooter && (
                 <ChartFooter
-                  handleEmbed={() => handleEmbed(true)}
+                  handleEmbed={() => handleEmbed(true, chartTitle)}
                   exploreLink={
                     props.showExploreMore ? getExploreLink(props, true) : null
                   }
@@ -176,7 +177,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               )}
               {!props.hideFooter && (
                 <ChartFooter
-                  handleEmbed={() => handleEmbed(false)}
+                  handleEmbed={() => handleEmbed(false, chartTitle)}
                   exploreLink={
                     props.showExploreMore ? getExploreLink(props, false) : null
                   }
@@ -223,6 +224,26 @@ export function getRankingUnitTitle(
     statVar: rankingGroup.svName.length ? rankingGroup.svName[0] : statVar,
   };
   return formatString(title, rs);
+}
+
+/**
+ * Returns title of overall chart
+ *
+ * @param tileConfigTitle Title from tile with format strings.
+ * @param rankingGroup Chart ranking group
+ * @returns formatted title
+ */
+function getChartTitle(tileConfigTitle: string, rankingGroup: RankingGroup) {
+  const rs = {
+    date: rankingGroup.dateRange,
+    placeName: "",
+  };
+  // Use tile config title if specified
+  if (tileConfigTitle) {
+    return formatString(tileConfigTitle, rs);
+  }
+  // Otherwise variable names joined together
+  return rankingGroup.svName.join(", ");
 }
 
 /**

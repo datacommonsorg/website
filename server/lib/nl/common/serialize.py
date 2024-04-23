@@ -222,8 +222,10 @@ def _chart_spec_to_dict(charts: List[ChartSpec]) -> List[Dict]:
       cdict['single_date'] = asdict(c.single_date)
     if c.date_range:
       cdict['date_range'] = asdict(c.date_range)
-    if c.sv_place_facet_id:
-      cdict['sv_place_facet_id'] = c.sv_place_facet_id
+    if c.sv_place_facet:
+      cdict['sv_place_facet'] = c.sv_place_facet
+    if c.sv_place_latest_date:
+      cdict['sv_place_latest_date'] = c.sv_place_latest_date
     cdict['info_message'] = c.info_message
     charts_dict.append(cdict)
   return charts_dict
@@ -260,8 +262,9 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
             is_special_dc=False,
             single_date=single_date,
             date_range=date_range,
-            sv_place_facet_id=cdict.get('sv_place_facet_id'),
-            info_message=cdict['info_message']))
+            sv_place_facet=cdict.get('sv_place_facet'),
+            info_message=cdict['info_message'],
+            sv_place_latest_date=cdict.get('sv_place_latest_date')))
   return charts
 
 

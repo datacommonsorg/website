@@ -13,26 +13,27 @@
 # limitations under the License.
 """Tests for Embeddings (in nl_embeddings.py)."""
 
-import json
 import os
+from typing import List
 import unittest
 
 from diskcache import Cache
 from parameterized import parameterized
 import yaml
 
-from nl_server import embeddings_store as store
+from nl_server import embeddings_map as emb_map
 from nl_server import gcs
 from nl_server.embeddings import Embeddings
-from nl_server.embeddings import load_model
 from nl_server.loader import NL_CACHE_PATH
 from nl_server.loader import NL_EMBEDDINGS_CACHE_KEY
+from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
+from nl_server.search import search_vars
+from nl_server.store.memory import MemoryEmbeddingsStore
+from shared.lib import gcs as shared_gcs
+from shared.lib.detected_variables import VarCandidates
 
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-_test_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                          'test_data')
 
 
 # TODO(pradh): Expand tests to other index sizes.
@@ -40,15 +41,20 @@ def _get_embeddings_file_path() -> str:
   embeddings_config_path = os.path.join(_root_dir, 'deploy/nl/embeddings.yaml')
   with open(embeddings_config_path) as f:
     embeddings = yaml.full_load(f)
-    embeddings_file = embeddings[store.DEFAULT_INDEX_TYPE]
-    return gcs.download_embeddings(embeddings_file)
+    embeddings_file = embeddings[emb_map.DEFAULT_INDEX_TYPE]
+    return shared_gcs.download_gcs_file(embeddings_file['embeddings'])
 
 
 def _get_tuned_model_path() -> str:
   models_config_path = os.path.join(_root_dir, 'deploy/nl/models.yaml')
   with open(models_config_path) as f:
     models_map = yaml.full_load(f)
-    return gcs.download_model_folder(models_map['tuned_model'])
+    return gcs.download_folder(models_map['tuned_model'])
+
+
+def _get_contents(
+    r: VarCandidates) -> tuple[List[str], List[str], List[List[str]]]:
+  return r.svs, r.scores, r.sv2sentences
 
 
 class TestEmbeddings(unittest.TestCase):
@@ -58,9 +64,9 @@ class TestEmbeddings(unittest.TestCase):
     # Look for the Embeddings in the cache if it exists.
     cache = Cache(NL_CACHE_PATH)
     cache.expire()
-    embeddings_store = cache.get(NL_EMBEDDINGS_CACHE_KEY)
+    embeddings = cache.get(NL_EMBEDDINGS_CACHE_KEY)
 
-    if not embeddings_store:
+    if not embeddings:
       print(
           "Could not load the embeddings from the cache for these tests. Loading a new embeddings object."
       )
@@ -70,13 +76,14 @@ class TestEmbeddings(unittest.TestCase):
       # model pointed to in models.yaml.
       # If the default index is not a "finetuned" index, then the default model can be used.
       tuned_model_path = ""
-      if "ft" in store.DEFAULT_INDEX_TYPE:
+      if "ft" in emb_map.DEFAULT_INDEX_TYPE:
         tuned_model_path = _get_tuned_model_path()
 
-      cls.nl_embeddings = Embeddings(_get_embeddings_file_path(),
-                                     load_model(tuned_model_path))
+      cls.nl_embeddings = Embeddings(
+          model=LocalSentenceTransformerModel(tuned_model_path),
+          store=MemoryEmbeddingsStore(_get_embeddings_file_path()))
     else:
-      cls.nl_embeddings = embeddings_store.get()
+      cls.nl_embeddings = embeddings.get()
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
@@ -113,14 +120,17 @@ class TestEmbeddings(unittest.TestCase):
       ["heart disease", True, ["Percent_Person_WithCoronaryHeartDisease"]],
   ])
   def test_sv_detection(self, query_str, skip_topics, expected_list):
-    got = self.nl_embeddings.detect_svs(query_str, skip_topics=skip_topics)
+    got = search_vars([self.nl_embeddings], [query_str],
+                      skip_topics=skip_topics)[query_str]
 
     # Check that all expected fields are present.
-    for key in ["SV", "CosineScore", "SV_to_Sentences", "MultiSV"]:
-      self.assertTrue(key in got.keys())
+    svs, scores, sentences = _get_contents(got)
+    self.assertTrue(svs)
+    self.assertTrue(scores)
+    self.assertTrue(sentences)
 
     # Check that the first SV found is among the expected_list.
-    self.assertTrue(got["SV"][0] in expected_list)
+    self.assertTrue(svs[0] in expected_list)
 
     # TODO: uncomment the lines below when we have figured out what to do with these
     # assertion failures. They started failing when updating to the medium_ft index.
@@ -129,64 +139,17 @@ class TestEmbeddings(unittest.TestCase):
     #   self.assertTrue(got["CosineScore"][0] > got["MultiSV"]["Candidates"][0]
     #                   ["AggCosineScore"])
 
-  @parameterized.expand([
-      ['number of poor hispanic women with phd', 'hispanic_women_phd.json'],
-      ['compare obesity vs. poverty', 'obesity_poverty.json'],
-      [
-          'show me the impact of climate change on drought',
-          'climatechange_drought.json'
-      ],
-      [
-          'how are factors like obesity, blood pressure and asthma impacted by climate change',
-          'climatechange_health.json'
-      ],
-      [
-          'Compare "Male population" with "Female Population"',
-          'gender_population.json'
-      ],
-  ])
-  def test_multisv_detection(self, query_str, want_file):
-    got = self.nl_embeddings.detect_svs(query_str)
-
-    got['SV_to_Sentences'] = {}
-
-    # NOTE: Uncomment this to generate the golden.
-    print(json.dumps(got, indent=2))
-
-    with open(os.path.join(_test_data, want_file)) as fp:
-      want = json.load(fp)
-
-    self.assertEqual(got['SV'][0], want['SV'][0])
-
-    got_multisv = got['MultiSV']['Candidates']
-    want_multisv = want['MultiSV']['Candidates']
-    self.assertEqual(len(want_multisv), len(got_multisv))
-    for i in range(len(want_multisv)):
-      want_parts = want_multisv[i]['Parts']
-      got_parts = got_multisv[i]['Parts']
-      self.assertEqual(len(want_parts), len(got_parts))
-      for i in range(len(got_parts)):
-        self.assertEqual(got_parts[i]['QueryPart'], want_parts[i]['QueryPart'])
-        self.assertEqual(got_parts[i]['SV'][0], want_parts[i]['SV'][0])
-
-    if not want_multisv:
-      return
-
-    if want['CosineScore'][0] > want_multisv[0]['AggCosineScore']:
-      self.assertTrue(got['CosineScore'][0] > got_multisv[0]['AggCosineScore'])
-    else:
-      self.assertTrue(got['CosineScore'][0] < got_multisv[0]['AggCosineScore'])
-
   # For these queries, the match score should be low (< 0.45).
   @parameterized.expand(["random random", "", "who where why", "__124__abc"])
   def test_low_score_matches(self, query_str):
-    got = self.nl_embeddings.detect_svs(query_str)
+    got = search_vars([self.nl_embeddings], [query_str])[query_str]
 
     # Check that all expected fields are present.
-    for key in ["SV", "CosineScore", "SV_to_Sentences", "MultiSV"]:
-      self.assertTrue(key in got.keys())
-    self.assertTrue(not got["MultiSV"]["Candidates"])
+    svs, scores, sentences = _get_contents(got)
+    self.assertTrue(svs)
+    self.assertTrue(scores)
+    self.assertTrue(sentences)
 
     # Check all scores.
-    for score in got['CosineScore']:
+    for score in scores:
       self.assertLess(score, 0.45)

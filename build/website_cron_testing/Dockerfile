@@ -21,17 +21,27 @@ COPY build/website_cron_testing/requirements.txt .
 RUN python3 -m pip install --upgrade pip setuptools
 RUN pip3 install -r requirements.txt
 
-# Copy scripts for running each of the tests
+# Copy scripts and folders needed for nodejs query testing
 COPY server/integration_tests/standalone/nodejs_query.py .
+COPY tools/nl/nodejs_query_differ/differ.py .
+COPY tools/send_email/send_email.py .
+COPY tools/nl/nodejs_query_differ/goldens/ goldens/
+
+# Copy scripts for adversarial tests
 COPY server/integration_tests/standalone/adversarial.py .
+
+# Copy scripts for sanity tests
 COPY server/webdriver/tests/standalone/sanity.py .
+
+# Copy scripts and make folders needed for screenshot tests
 COPY server/webdriver/screenshot/remote/main.py screenshot.py
-# Screenshot tests save screenshots to a folder called screenshots so add
-# this folder
-RUN mkdir screenshots
 # Screenshot test requires other files from the webdriver folder so copy
 # the whole folder over
 COPY server/webdriver/. server/webdriver/
+# Screenshot tests save screenshots to a folder called screenshots so add
+# this folder
+RUN mkdir screenshots
+
 # Copy and make executable the script for running all the tests
 COPY build/website_cron_testing/run_website_cron_tests.sh .
 RUN chmod +x run_website_cron_tests.sh

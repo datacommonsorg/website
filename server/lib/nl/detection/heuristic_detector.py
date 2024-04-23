@@ -20,6 +20,7 @@ from server.lib.explore.params import QueryMode
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.detection import heuristic_classifiers
 from server.lib.nl.detection import place
+from server.lib.nl.detection import rerank
 from server.lib.nl.detection import utils as dutils
 from server.lib.nl.detection import variable
 from server.lib.nl.detection.types import ActualDetectorType
@@ -35,6 +36,7 @@ def detect(orig_query: str,
            query_detection_debug_logs: Dict,
            mode: str,
            counters: ctr.Counters,
+           rerank_fn: rerank.RerankCallable = None,
            allow_triples: bool = False) -> Detection:
   place_detection = place.detect_from_query_dc(orig_query,
                                                query_detection_debug_logs,
@@ -79,22 +81,23 @@ def detect(orig_query: str,
 
   # Step 4: Identify the SV matched based on the query.
   sv_threshold = params.sv_threshold(mode)
-  svs_scores_dict = dutils.empty_svs_score_dict()
   sv_detection_query = dutils.remove_date_from_query(query, classifications)
   skip_topics = mode == params.QueryMode.TOOLFORMER
+  sv_detection_result = dutils.empty_var_detection_result()
   try:
-    svs_scores_dict = variable.detect_svs(
-        sv_detection_query, index_type,
+    sv_detection_result = variable.detect_vars(
+        sv_detection_query, index_type, counters,
         query_detection_debug_logs["query_transformations"], sv_threshold,
-        skip_topics)
+        rerank_fn, skip_topics)
   except ValueError as e:
-    counters.err('detect_svs_value_error', {
+    counters.err('detect_vars_value_error', {
         'q': sv_detection_query,
         'err': str(e)
     })
   # Set the SVDetection.
-  sv_detection = dutils.create_sv_detection(sv_detection_query, svs_scores_dict,
-                                            sv_threshold, allow_triples)
+  sv_detection = dutils.create_sv_detection(sv_detection_query,
+                                            sv_detection_result, sv_threshold,
+                                            allow_triples)
 
   return Detection(original_query=orig_query,
                    cleaned_query=cleaned_query,

@@ -161,14 +161,14 @@
                     "statVarKey": [
                       "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block"
                     ],
-                    "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line (${date})",
+                    "title": "Population: 1 Years or More, 1-1.5 Ratio to US Census Poverty Line (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line"
+            "title": "Population: 1 Years or More, 1-1.5 Ratio to US Census Poverty Line"
           },
           {
             "columns": [
@@ -285,7 +285,7 @@
             "statVar": "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block": {
-            "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
+            "name": "Population: 1 Years or More, 1 - 1.5 Ratio To US Census Poverty Line",
             "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
           },
           "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad_multiple_place_bar_block": {

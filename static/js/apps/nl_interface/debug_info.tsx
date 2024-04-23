@@ -27,6 +27,7 @@ import {
   DebugInfo,
   MultiSVCandidate,
   QueryResult,
+  SentenceScore,
   SVScores,
 } from "../../types/app/nl_interface_types";
 
@@ -34,7 +35,7 @@ const DEBUG_PARAM = "dbg";
 
 const svToSentences = (
   svScores: SVScores,
-  svSentences: Map<string, Array<string>>
+  svSentences: Map<string, Array<SentenceScore>>
 ): JSX.Element => {
   const svs = Object.values(svScores.SV);
   return (
@@ -55,7 +56,16 @@ const svToSentences = (
                   <td>
                     <ul>
                       {svSentences[sv].map((sentence) => {
-                        return <li key={sentence}>{sentence}</li>;
+                        return (
+                          <li key={sentence.score + sentence.sentence}>
+                            {sentence.sentence} (cosine:
+                            {sentence.score.toFixed(4)}
+                            {sentence.rerank_score
+                              ? " - rerank:" + sentence.rerank_score.toFixed(4)
+                              : ""}
+                            )
+                          </li>
+                        );
                       })}
                     </ul>
                   </td>
