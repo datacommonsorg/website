@@ -53,7 +53,7 @@ def _get_entity_string(entities: List[Entity]) -> str:
     entity_name_lowercase = entity_name.lower()
     if not entity_name_lowercase in seen_entity_names:
       unique_entity_names.append(entity_name)
-    seen_entity_names.add(entity_name_lowercase)
+      seen_entity_names.add(entity_name_lowercase)
 
   # if there is only 1 unique entity name, return it
   if len(unique_entity_names) == 1:
