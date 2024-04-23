@@ -12,7 +12,7 @@
                     "answerTableTileSpec": {
                       "columns": [
                         {
-                          "header": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol",
+                          "header": "associated gene",
                           "propertyExpr": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol"
                         }
                       ]
@@ -61,6 +61,8 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "UNKNOWN",
-  "userMessages": []
+  "svSource": "CURRENT_QUERY",
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
 }

@@ -24,12 +24,13 @@ import yaml
 from nl_server import embeddings_map as emb_map
 from nl_server import gcs
 from nl_server.embeddings import Embeddings
-from nl_server.embeddings import EmbeddingsResult
 from nl_server.loader import NL_CACHE_PATH
 from nl_server.loader import NL_EMBEDDINGS_CACHE_KEY
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
+from nl_server.search import search_vars
 from nl_server.store.memory import MemoryEmbeddingsStore
 from shared.lib import gcs as shared_gcs
+from shared.lib.detected_variables import VarCandidates
 
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -52,11 +53,8 @@ def _get_tuned_model_path() -> str:
 
 
 def _get_contents(
-    r: EmbeddingsResult) -> tuple[List[str], List[str], List[List[str]]]:
-  r1 = [m.var for m in r.matches]
-  r2 = [m.score for m in r.matches]
-  r3 = [m.sentences for m in r.matches]
-  return r1, r2, r3
+    r: VarCandidates) -> tuple[List[str], List[str], List[List[str]]]:
+  return r.svs, r.scores, r.sv2sentences
 
 
 class TestEmbeddings(unittest.TestCase):
@@ -122,8 +120,8 @@ class TestEmbeddings(unittest.TestCase):
       ["heart disease", True, ["Percent_Person_WithCoronaryHeartDisease"]],
   ])
   def test_sv_detection(self, query_str, skip_topics, expected_list):
-    got = self.nl_embeddings.search_vars([query_str],
-                                         skip_topics=skip_topics)[query_str]
+    got = search_vars([self.nl_embeddings], [query_str],
+                      skip_topics=skip_topics)[query_str]
 
     # Check that all expected fields are present.
     svs, scores, sentences = _get_contents(got)
@@ -144,7 +142,7 @@ class TestEmbeddings(unittest.TestCase):
   # For these queries, the match score should be low (< 0.45).
   @parameterized.expand(["random random", "", "who where why", "__124__abc"])
   def test_low_score_matches(self, query_str):
-    got = self.nl_embeddings.search_vars([query_str])[query_str]
+    got = search_vars([self.nl_embeddings], [query_str])[query_str]
 
     # Check that all expected fields are present.
     svs, scores, sentences = _get_contents(got)
