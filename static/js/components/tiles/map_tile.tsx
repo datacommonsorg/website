@@ -18,7 +18,12 @@
  * Component for rendering a map type tile.
  */
 
-import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
+import {
+  DataRow,
+  dataRowsToCsv,
+  ISO_CODE_ATTRIBUTE,
+} from "@datacommonsorg/client";
+import { ChartEventDetail } from "@datacommonsorg/web-components";
 import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
@@ -43,11 +48,7 @@ import {
   NamedTypedPlace,
   StatVarSpec,
 } from "../../shared/types";
-import {
-  getCappedStatVarDate,
-  loadSpinner,
-  removeSpinner,
-} from "../../shared/util";
+import { getCappedStatVarDate } from "../../shared/util";
 import {
   getGeoJsonDataFeatures,
   getPlaceChartData,
@@ -112,8 +113,6 @@ export interface MapTilePropType {
   title: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
-  // Whether or not to show a loading spinner when fetching data.
-  showLoadingSpinner?: boolean;
   // Whether or not to allow zoom in and out of the map
   allowZoom?: boolean;
   // The property to use to get place names.
@@ -126,6 +125,8 @@ export interface MapTilePropType {
   getProcessedSVNameFn?: (name: string) => string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Optional: listen for property value changes with this event name
+  subscribe?: string;
 }
 
 // Api responses associated with a single layer of the map
@@ -175,6 +176,8 @@ export interface MapChartData {
   // props used when fetching this data
   props: MapTilePropType;
   sources: Set<string>;
+  // Set if the component receives a date value from a subscribed event
+  dateOverride?: string;
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
@@ -185,7 +188,9 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
     null
   );
+  const [isLoading, setIsLoading] = useState(false);
   const [svgHeight, setSvgHeight] = useState(null);
+  const [dateOverride, setDateOverride] = useState(null);
   const zoomParams = props.allowZoom
     ? {
         zoomInButtonId: `${ZOOM_IN_BUTTON_ID}-${props.id}`,
@@ -196,12 +201,25 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     !!zoomParams && !!mapChartData && _.isEqual(mapChartData.props, props);
 
   useEffect(() => {
-    if (_.isEmpty(mapChartData) || !_.isEqual(mapChartData.props, props)) {
-      loadSpinner(props.id);
+    if (
+      _.isEmpty(mapChartData) ||
+      !_.isEqual(mapChartData.props, props) ||
+      !_.isEqual(mapChartData.dateOverride, dateOverride)
+    ) {
       (async () => {
-        const data = await fetchData(props);
-        if (data && props && _.isEqual(data.props, props)) {
-          setMapChartData(data);
+        setIsLoading(true);
+        try {
+          const data = await fetchData(props, dateOverride);
+          if (
+            data &&
+            props &&
+            _.isEqual(data.props, props) &&
+            _.isEqual(data.dateOverride, dateOverride)
+          ) {
+            setMapChartData(data);
+          }
+        } finally {
+          setIsLoading(false);
         }
       })();
     } else if (!!mapChartData && _.isEqual(mapChartData.props, props)) {
@@ -213,9 +231,15 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         mapContainer.current,
         errorMsgContainer.current
       );
-      removeSpinner(props.id);
     }
-  }, [mapChartData, props, svgContainer, legendContainer, mapContainer]);
+  }, [
+    mapChartData,
+    props,
+    svgContainer,
+    legendContainer,
+    mapContainer,
+    dateOverride,
+  ]);
 
   useEffect(() => {
     let svgHeight = props.svgChartHeight;
@@ -244,10 +268,23 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     );
   }, [props, mapChartData, svgContainer, legendContainer, mapContainer]);
   useDrawOnResize(drawFn, svgContainer.current);
+  useEffect(() => {
+    if (props.subscribe) {
+      self.addEventListener(
+        props.subscribe,
+        (e: CustomEvent<ChartEventDetail>) => {
+          if (e.detail.property === "date") {
+            setDateOverride(e.detail.value);
+          }
+        }
+      );
+    }
+  }, []);
 
   return (
     <ChartTileContainer
       id={props.id}
+      isLoading={isLoading}
       title={props.title}
       subtitle={props.subtitle}
       sources={props.sources || (mapChartData && mapChartData.sources)}
@@ -256,26 +293,34 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       }
       className={`${props.className} map-chart`}
       allowEmbed={true}
-      getDataCsv={() => {
-        const date = getCappedStatVarDate(
-          props.statVarSpec.statVar,
-          props.statVarSpec.date
-        );
-        const entityProps = props.placeNameProp
-          ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
-          : undefined;
-        return datacommonsClient.getCsv({
-          childType: props.enclosedPlaceType,
-          date,
-          entityProps,
-          fieldDelimiter: CSV_FIELD_DELIMITER,
-          parentEntity: props.place.dcid,
-          perCapitaVariables: props.statVarSpec.denom
-            ? [props.statVarSpec.statVar]
-            : undefined,
-          transformHeader: transformCsvHeader,
-          variables: [props.statVarSpec.statVar],
-        });
+      getDataCsv={async () => {
+        const layers = getDataSpec(props);
+        const rows: DataRow[] = [];
+        for (const layer of layers) {
+          const parentEntity = layer.parentPlace;
+          const childType = layer.enclosedPlaceType;
+          const date = getCappedStatVarDate(
+            props.statVarSpec.statVar,
+            dateOverride || props.statVarSpec.date
+          );
+          const entityProps = props.placeNameProp
+            ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
+            : undefined;
+
+          rows.push(
+            ...(await datacommonsClient.getDataRows({
+              childType,
+              date,
+              entityProps,
+              parentEntity,
+              perCapitaVariables: props.statVarSpec.denom
+                ? [props.statVarSpec.statVar]
+                : undefined,
+              variables: [layer.variable.statVar],
+            }))
+          );
+        }
+        return dataRowsToCsv(rows, CSV_FIELD_DELIMITER, transformCsvHeader);
       }}
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
@@ -305,11 +350,6 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           {...{ part: "legend" }}
           ref={legendContainer}
         ></div>
-        {props.showLoadingSpinner && (
-          <div className="screen">
-            <div id="spinner"></div>
-          </div>
-        )}
       </div>
     </ChartTileContainer>
   );
@@ -350,11 +390,11 @@ function getDataSpec(
 }
 
 export const fetchData = async (
-  props: MapTilePropType
+  props: MapTilePropType,
+  dateOverride?: string
 ): Promise<MapChartData> => {
   const layers = getDataSpec(props);
   if (_.isEmpty(layers)) {
-    removeSpinner(props.id);
     return null;
   }
   const rawDataArray = [];
@@ -388,7 +428,7 @@ export const fetchData = async (
       .then((resp) => resp.data);
     const dataDate = getCappedStatVarDate(
       layer.variable.statVar,
-      layer.variable.date
+      dateOverride || layer.variable.date
     );
     const facetIds = layer.variable.facetId ? [layer.variable.facetId] : null;
     const placeStatPromise: Promise<PointApiResponse> = getPointWithin(
@@ -448,16 +488,17 @@ export const fetchData = async (
       };
       rawDataArray.push(rawData);
     } catch (error) {
-      removeSpinner(props.id);
       return null;
     }
   }
-  return rawToChart(rawDataArray, props);
+  const mapChartData = rawToChart(rawDataArray, props, dateOverride);
+  return mapChartData;
 };
 
 function rawToChart(
   rawDataArray: RawData[],
-  props: MapTilePropType
+  props: MapTilePropType,
+  dateOverride?: string
 ): MapChartData {
   const allDataValues = [];
   const dates: Set<string> = new Set();
@@ -572,6 +613,7 @@ function rawToChart(
     layerData,
     props,
     sources,
+    dateOverride,
   };
 }
 

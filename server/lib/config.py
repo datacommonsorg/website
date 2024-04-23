@@ -53,3 +53,11 @@ def get_config():
 def is_test_env():
   env = os.environ.get('FLASK_ENV')
   return env in ['integration_test', 'test']
+
+
+def is_highest_coverage_enabled() -> bool:
+  """
+  Returns true if querying by highest coverage is enabled.
+  Highest coverage currently not available in SQL custom DC environments
+  """
+  return os.environ.get('IS_CUSTOM_DC', '').lower() != 'true'
