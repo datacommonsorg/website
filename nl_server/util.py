@@ -21,6 +21,12 @@ def is_custom_dc() -> bool:
   return os.environ.get('IS_CUSTOM_DC', '').lower() == 'true'
 
 
+# Set to true when custom dc is being run in a developer's env.
+# The only behavior it currently controls is using the embeddings.yaml from the repo.
+def is_custom_dc_dev() -> bool:
+  return os.environ.get('IS_CUSTOM_DC_DEV', '').lower() == 'true'
+
+
 # The path comes from:
 # https://github.com/datacommonsorg/website/blob/master/server/routes/admin/html.py#L39-L40
 def get_user_data_path() -> str:
