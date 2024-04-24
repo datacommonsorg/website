@@ -18,7 +18,7 @@
  * Component for rendering a button
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 
 import { saveToFile } from "../../shared/util";
@@ -36,7 +36,7 @@ const StyledButton = styled.button`
   gap: 8px;
   justify-content: center;
   line-height: 20px;
-  padding: 10px 24px;
+  padding: 10px 24px 10px 16px;
   text-align: center;
   width: fit-content;
 
@@ -56,7 +56,7 @@ interface ButtonProps {
   onClick: () => void;
 }
 
-function Button(props: ButtonProps): JSX.Element {
+function IconButton(props: ButtonProps): JSX.Element {
   return (
     <StyledButton
       onClick={props.onClick}
@@ -79,21 +79,28 @@ interface CopyButtonProps {
 
 export function CopyButton(props: CopyButtonProps): JSX.Element {
   const [isClicked, setIsClicked] = useState<boolean>(false);
+  const timerRef = useRef(null);
 
   const onClick = () => {
     navigator.clipboard.writeText(props.textToCopy);
     setIsClicked(true);
-    setTimeout(() => {
-      setIsClicked(false);
-    }, 2000);
   };
 
+  useEffect(() => {
+    if (isClicked) {
+      timerRef.current = setTimeout(() => {
+        setIsClicked(false);
+      }, 2000);
+    }
+    return () => clearTimeout(timerRef.current);
+  }, [isClicked]);
+
   return (
-    <Button
+    <IconButton
       icon={isClicked ? "done" : "file_copy"}
       onClick={onClick}
       label="Copy"
-    ></Button>
+    ></IconButton>
   );
 }
 
@@ -108,20 +115,27 @@ interface DownloadButtonProps {
 
 export function DownloadButton(props: DownloadButtonProps): JSX.Element {
   const [isClicked, setIsClicked] = useState<boolean>(false);
+  const timerRef = useRef(null);
 
   const onClick = () => {
     saveToFile(props.filename, props.content);
     setIsClicked(true);
-    setTimeout(() => {
-      setIsClicked(false);
-    }, 2000);
   };
 
+  useEffect(() => {
+    if (isClicked) {
+      timerRef.current = setTimeout(() => {
+        setIsClicked(false);
+      }, 2000);
+    }
+    return () => clearTimeout(timerRef.current);
+  }, [isClicked]);
+
   return (
-    <Button
+    <IconButton
       icon={isClicked ? "download_done" : "download"}
       onClick={onClick}
       label="Download"
-    ></Button>
+    ></IconButton>
   );
 }
