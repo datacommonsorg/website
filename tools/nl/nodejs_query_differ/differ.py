@@ -197,7 +197,7 @@ def main(_):
     test_folder_date = FLAGS.test_folder or get_test_folder(bucket, FLAGS.env)
     if not test_folder_date:
       logging.info("Could not get test_folder name, please enter one manually.")
-      return  
+      return
     # Get the test blobs
     test_folder = f'{FLAGS.env}/{test_folder_date}/nodejs_query/'
     test_blobs = bucket.list_blobs(prefix=test_folder)
