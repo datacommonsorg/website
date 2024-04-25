@@ -75,6 +75,8 @@ function getCardSpecsFromConfig(
         COLOR_TO_CARD_THEME[
           categoryConfig.themeColor || DEFAULT_CARD_COLOR_THEME
         ];
+      card.openInNewTab = sectionName == "sample-analysis";
+      console.log(card.openInNewTab);
       return card;
     });
     cards.push(categoryCards);
