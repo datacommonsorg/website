@@ -671,29 +671,11 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   }
 
   .table-container {
-    display: block;
     margin-top: 16px;
-    max-height: 50vh;
-    overflow: auto;
-
-    &::-webkit-scrollbar {
-      height: 8px;
-      width: 8px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      border-radius: 90px;
-      background-color: #e1e3e1;
-    }
   }
 
   .table {
     border: 1px solid #dee2e6;
-    border-collapse: collapse;
     border-radius: 3px;
     font-size: 22px;
     font-weight: 400;
@@ -704,10 +686,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
       background-color: #f0f0f0;
       border-bottom: 1px solid #dee2e6;
       box-shadow: 0px 0px 0 1px #dee2e6;
-      position: sticky;
-      top: 0;
       width: 100%;
-      z-index: 2;
 
       th {
         font-weight: 400;
@@ -729,12 +708,9 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
       }
 
       tr td:first-child {
-        left: 0;
         padding-left: 80px;
-        position: sticky;
         white-space: nowrap;
         width: auto;
-        z-index: 1;
       }
 
       td {
