@@ -24,7 +24,6 @@ from nl_server import config
 import nl_server.embeddings_map as emb_map
 from nl_server.nl_attribute_model import NLAttributeModel
 from nl_server.util import get_user_data_path
-from nl_server.util import is_custom_dc_dev
 from shared.lib.gcs import download_gcs_file
 from shared.lib.gcs import is_gcs_path
 from shared.lib.gcs import join_gcs_path
@@ -108,7 +107,7 @@ def _load_yaml(flask_env: str) -> Dict[str, str]:
     embeddings_map = yaml.full_load(f)
 
     # For custom DC dev env, only keep the default index.
-    if is_custom_dc_dev():
+    if _is_custom_dc_dev(flask_env):
       embeddings_map = {
           config.DEFAULT_INDEX_TYPE: embeddings_map[config.DEFAULT_INDEX_TYPE]
       }
@@ -183,7 +182,7 @@ def _maybe_load_custom_dc_yaml():
 #
 def get_env_path(flask_env: str, file_name: str) -> str:
   if flask_env in ['local', 'test', 'integration_test', 'webdriver'
-                  ] or is_custom_dc_dev():
+                  ] or _is_custom_dc_dev(flask_env):
     return os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
         f'deploy/nl/{file_name}')
@@ -193,3 +192,7 @@ def get_env_path(flask_env: str, file_name: str) -> str:
 
 def _use_cache(flask_env):
   return flask_env in ['local', 'integration_test', 'webdriver']
+
+
+def _is_custom_dc_dev(flask_env: str) -> bool:
+  return flask_env == 'custom_dev'

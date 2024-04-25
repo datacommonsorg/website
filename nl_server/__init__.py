@@ -42,7 +42,6 @@ def create_app():
   if is_debug_mode():
     log_level = logging.INFO
   logging.getLogger('werkzeug').setLevel(log_level)
-  logging.getLogger('werkzeug').setLevel(logging.WARNING)
 
   app = Flask(__name__)
   app.register_blueprint(routes.bp)

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,6 +28,13 @@ trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
 
 source .run_cdc_dev.env && export $(sed '/^#/d' .run_cdc_dev.env | cut -d= -f1)
 
+# Print commit hashes.
+echo -e "\033[0;32m" # Set different color.
+echo "website hash: $(git rev-parse --short=7 HEAD)"
+echo "mixer hash: $(git rev-parse --short=7 HEAD:mixer)"
+echo "import hash: $(git rev-parse --short=7 HEAD:import)"
+echo -e "\033[0m" # Reset color.
+
 
 if [[ $DC_API_KEY == "" ]]; then
   echo "DC_API_KEY not specified."
@@ -49,6 +56,20 @@ if [[ $USE_CLOUDSQL == "true" ]]; then
     echo "DB_PASS = $DB_PASS"
   fi
 fi
+
+# Validate api root and key by making an API call.
+echo
+url="${DC_API_ROOT}/v2/node?key=${DC_API_KEY}&nodes=geoId/06&property=<-"
+echo "Calling API to validate key: $url"
+# Perform the request and capture both output and HTTP status code
+response=$(curl --silent --output /dev/null --write-out "%{http_code}" "$url")
+status_code=$(echo "$response" | tail -n 1)  # Extract the status code
+if [ "$status_code" -ne 200 ]; then
+  echo "API request failed with status code: $status_code"
+  exit 1
+fi
+echo "API request was successful."
+echo
 
 # Run mixer and envoy
 cd mixer
