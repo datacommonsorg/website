@@ -12,7 +12,7 @@
                     "answerTableTileSpec": {
                       "columns": [
                         {
-                          "header": "->hasRNATranscript",
+                          "header": "Has RNA Transcript",
                           "propertyExpr": "->hasRNATranscript"
                         }
                       ]
@@ -22,7 +22,7 @@
                       "bio/dm6_p53",
                       "bio/mm9_p53"
                     ],
-                    "title": "The hasRNATranscript for p53, p53 and p53 are as follows:",
+                    "title": "The Has RNA Transcript for p53 are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]

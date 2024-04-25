@@ -12,7 +12,7 @@
                     "answerTableTileSpec": {
                       "columns": [
                         {
-                          "header": "->hasRNATranscript",
+                          "header": "Has RNA Transcript",
                           "propertyExpr": "->hasRNATranscript"
                         }
                       ]
@@ -26,7 +26,7 @@
                       "bio/mm10_Fgfr1",
                       "bio/mm9_Fgfr1"
                     ],
-                    "title": "The hasRNATranscript for FGFR1, FGFR1 and 5 more other are as follows:",
+                    "title": "The Has RNA Transcript for FGFR1 are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]
