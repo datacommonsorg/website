@@ -18,6 +18,7 @@ import re
 from typing import List, Set
 
 import shared.lib.constants as constants
+from markupsafe import escape
 
 
 def _add_to_set_from_list(set_strings: Set[str],
@@ -120,3 +121,19 @@ def remove_punctuations(s, include_comma=False):
   else:
     s = re.sub(r'[^\w\s.]', ' ', s)
   return " ".join(s.split())
+
+
+# Converts a passed in object and escapes all the strings in it.
+def escape_strings(data):
+  if isinstance(data, dict):
+    for k, v in data.items():
+      data[k] = escape_strings(v)
+    return data
+  elif isinstance(data, list):
+    for i, item in enumerate(data):
+      data[i] = escape_strings(item)
+    return data
+  elif isinstance(data, str):
+    return str(escape(data))
+  else:
+    return data

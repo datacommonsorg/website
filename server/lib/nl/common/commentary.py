@@ -47,9 +47,9 @@ def entity_from_context(u: Utterance) -> str:
   seen_entities = set()
   entity_names = []
   for e in u.entities:
-    if e.name in seen_entities:
+    if e.name.lower() in seen_entities:
       continue
-    seen_entities.add(e.name)
+    seen_entities.add(e.name.lower())
     entity_names.append(e.name)
 
   return f'See relevant information for {_name_list_as_string(entity_names)} based on the previous query.'

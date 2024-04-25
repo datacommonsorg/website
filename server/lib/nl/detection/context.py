@@ -359,9 +359,9 @@ def _detect_entities(uttr: nl_uttr.Utterance) -> List[str]:
   else:
     # If there were entities detected in the previous query, use those entities
     if uttr.prev_utterance and uttr.prev_utterance.entities:
-      entities = uttr.prev_utterance.entities
-      uttr.entities = entities
-      uttr.counters.info('insight_entity_ctx', [e.dcid for e in entities])
+      uttr.entities = uttr.prev_utterance.entities
+      entities = [e.dcid for e in uttr.prev_utterance.entities]
+      uttr.counters.info('insight_entity_ctx', entities)
       uttr.entities_source = nl_uttr.FulfillmentResult.PAST_QUERY
   return entities
 

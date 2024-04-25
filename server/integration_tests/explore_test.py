@@ -75,7 +75,7 @@ class ExploreTest(NLWebServerTestCase):
                              mode='',
                              default_place='',
                              idx=''):
-    ctx = {}
+    ctx = []
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
