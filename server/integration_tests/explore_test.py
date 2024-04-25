@@ -261,7 +261,7 @@ class ExploreTest(NLWebServerTestCase):
         'compare obesity vs. poverty',
         'show me the impact of climate change on drought',
         'how are factors like obesity, blood pressure and asthma impacted by climate change',
-        'Compare "Male population" with "Female Population"',
+        'Compare Male population with Female Population',
     ],
                        check_detection=True)
 
