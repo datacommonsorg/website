@@ -59,4 +59,9 @@ spec:
                 configMapKeyRef:
                   name: cron-testing-config
                   key: enableSanity
+            - name: ENABLE_ADVERSARIAL
+              valueFrom: 
+                configMapKeyRef:
+                  name: cron-testing-config
+                  key: enableAdversarial
           restartPolicy: Never
