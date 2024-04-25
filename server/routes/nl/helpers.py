@@ -404,7 +404,8 @@ def abort(error_message: str,
           blocked: bool = False,
           test: str = '',
           client: str = '') -> Dict:
-  query = shared_utils.escape_strings(shared_utils.remove_punctuations(original_query))
+  query = shared_utils.escape_strings(
+      shared_utils.remove_punctuations(original_query))
   escaped_context_history = shared_utils.escape_strings(context_history)
 
   res = {
