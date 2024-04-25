@@ -135,6 +135,6 @@ class TestUtilsEscapeStrings(unittest.TestCase):
           {'key1': [{'key2': '<test string 2>'}], 'key3': '<test string 3>', 'key4': {'key4': '<test string 4>'}},
           {'key1': [{'key2': '&lt;test string 2&gt;'}], 'key3': '&lt;test string 3&gt;', 'key4': {'key4': '&lt;test string 4&gt;'}}],
   ])
-  def test_query_remove_stop_words(self, object, expected):
-    escaped_object = utils.escape_strings(object)
+  def test_escape_strings(self, test_object, expected):
+    escaped_object = utils.escape_strings(test_object)
     self.assertEqual(escaped_object, expected)
