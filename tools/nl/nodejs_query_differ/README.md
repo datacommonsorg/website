@@ -9,15 +9,13 @@ Note `<ENV>` and `<DATE>` are used as arguments in commands below.
 
 ## Update Goldens
 
-We pick result from a "golden" run and save that in the [goldens](./goldens/) sub
+For each environment that we have goldens for, we pick result from a "golden" run and save that in the [goldens](./goldens/) sub
 folder. To do this, run:
 
 ```bash
-./run.sh -m update -e <ENV> [-t <DATE>]
+./run.sh -m update
 ```
 
-- <ENV> defaults to `autopush`
-- <DATE> defaults to the date of the latest run.
 
 ## Run Diffs
 
