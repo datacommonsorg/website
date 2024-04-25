@@ -84,24 +84,30 @@ else
   echo "====================================================================================="
 fi
 
-# Run adversarial tests
-echo "====================================================================================="
-echo "Starting adversarial tests"
-echo "====================================================================================="
-mkdir -p input
-gsutil cp gs://datcom-website-adversarial/input/frequent/* input/
-dc_list=("main" "sdg")
-for dc in "${dc_list[@]}"
-do
+# Run adversarial tests if ENABLE_ADVERSARIAL is "true"
+if [[ $ENABLE_ADVERSARIAL == "true" ]]; then
   echo "====================================================================================="
-  echo "Executing the Adversarial Test against the $dc index, detection and fulfillment."
-  python3 adversarial.py --mode=run_all --dc="$dc" --base_url="$WEB_API_ROOT"
-  gsutil cp ./output/$dc/reports/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/adversarial/$dc/
-  rm -rf ./output/$dc/*
-  echo "Finished the Adversarial Test against the $dc index, detection and fulfillment."
+  echo "Starting adversarial tests"
   echo "====================================================================================="
-done
-rm -rf ./input/*
-rm -rf ./output/*
-echo "Finished the adversarial tests."
-echo "====================================================================================="
+  mkdir -p input
+  gsutil cp gs://datcom-website-adversarial/input/frequent/* input/
+  dc_list=("main" "sdg")
+  for dc in "${dc_list[@]}"
+  do
+    echo "====================================================================================="
+    echo "Executing the Adversarial Test against the $dc index, detection and fulfillment."
+    python3 adversarial.py --mode=run_all --dc="$dc" --base_url="$WEB_API_ROOT"
+    gsutil cp ./output/$dc/reports/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/adversarial/$dc/
+    rm -rf ./output/$dc/*
+    echo "Finished the Adversarial Test against the $dc index, detection and fulfillment."
+    echo "====================================================================================="
+  done
+  rm -rf ./input/*
+  rm -rf ./output/*
+  echo "Finished the adversarial tests."
+  echo "====================================================================================="
+else
+  echo "====================================================================================="
+  echo "Adversarial tests disabled."
+  echo "====================================================================================="
+fi

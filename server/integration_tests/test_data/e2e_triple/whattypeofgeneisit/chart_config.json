@@ -12,7 +12,7 @@
                     "answerTableTileSpec": {
                       "columns": [
                         {
-                          "header": "->typeOfGene",
+                          "header": "Type Of Gene",
                           "propertyExpr": "->typeOfGene"
                         }
                       ]
@@ -21,7 +21,7 @@
                       "bio/dm3_Is",
                       "bio/dm6_Is"
                     ],
-                    "title": "The typeOfGene for Is and Is are as follows:",
+                    "title": "The Type Of Gene for Is are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]
