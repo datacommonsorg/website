@@ -28,7 +28,7 @@ import {
 } from "../../constants/css_constants";
 import { DisplayValueSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
-import { CopyButton } from "../form_components/buttons";
+import { CopyButton } from "../form_components/icon_buttons/icon_buttons";
 
 export interface AnswerMessageTilePropType {
   // Title to use

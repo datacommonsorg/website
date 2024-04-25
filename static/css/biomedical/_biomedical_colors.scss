@@ -14,37 +14,20 @@
  * limitations under the License.
  */
 
-/* Styles shared across the Biomedical DC site */
-@import "./_biomedical_colors";
+/** Colors for the Biomedical DC Site
+ *
+ * Overrides the colors set in css/base/_color.scss 
+ * Provides theming for styled components
+ */
 
-.main-content {
-  background-color: var(--main-content-background-color);
-}
-
-a {
-  color: var(--text-link-color);
-
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-.axis-label {
-  text-anchor: middle;
-  font-size: 12px;
-}
-
-.legend-label {
-  font-size: 10px;
-}
-
-/** Override link colors on answer-table-tiles */
-.table {
-  tbody {
-    td {
-      a {
-        color: var(--table-link-color);
-      }
-    }
-  }
+:root,
+:host {
+  --main-content-background-color: #bbece91a;
+  --text-link-color: #1e4e4c;
+  // theming of table components
+  --table-link-color: #146c2e;
+  // theming of button form components
+  --button-background-color: var(--main-content-background-color);
+  --button-highlight-background-color: #f8fafd;
+  --button-text-color: var(--text-link-color);
 }

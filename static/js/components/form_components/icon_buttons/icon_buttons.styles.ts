@@ -14,37 +14,30 @@
  * limitations under the License.
  */
 
-/* Styles shared across the Biomedical DC site */
-@import "./_biomedical_colors";
+/** Styled Components for Icon Buttons */
 
-.main-content {
-  background-color: var(--main-content-background-color);
-}
+import { styled } from "styled-components";
 
-a {
-  color: var(--text-link-color);
+export const StyledButton = styled.button`
+  align-items: center;
+  background: var(--button-background-color, transparent);
+  border: 1px solid #747775;
+  border-radius: 100px;
+  color: var(--button-text-color, black);
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  gap: 8px;
+  justify-content: center;
+  line-height: 20px;
+  padding: 10px 24px 10px 16px;
+  text-align: center;
+  width: fit-content;
 
   &:hover {
-    text-decoration: none;
+    background-color: var(--button-highlight-background-color, transparent);
   }
-}
-
-.axis-label {
-  text-anchor: middle;
-  font-size: 12px;
-}
-
-.legend-label {
-  font-size: 10px;
-}
-
-/** Override link colors on answer-table-tiles */
-.table {
-  tbody {
-    td {
-      a {
-        color: var(--table-link-color);
-      }
-    }
+  .icon {
+    font-size: 18px;
   }
-}
+`;
