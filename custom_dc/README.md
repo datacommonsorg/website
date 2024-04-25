@@ -99,8 +99,8 @@ To enable the NL (Natural Language) interface, update the `ENABLE_MODEL` flag in
 
 Note that enabling NL will increase the startup time of your server.
 
-With NL enabled, you can browse to http://localhost:8080/explore and try NL queries against 
-datasets in main DC (e.g. "Jobs in Texas") or 
+With NL enabled, you can browse to http://localhost:8080/explore and try NL queries against
+datasets in main DC (e.g. "Jobs in Texas") or
 against the custom data you just loaded (e.g. "Average annual wages in Europe").
 
 ### Next steps
@@ -190,6 +190,23 @@ Console](https://console.cloud.google.com/storage/browser), create a new bucket
 or pick an existing bucket and upload the data CSV files there. It's recommended
 to create intermediate folders for the files for easier management.
 
+### (Optional) Setup Redis
+
+Configure redis as website caching layer to improve performance. Open the
+[Google Cloud Redis Memorystore Console](https://console.cloud.google.com/memorystore/redis/instances)
+and configure a new redis instance. Example:
+
+- Tier: basic
+- Location: us-central1-c
+- Connections: default network, direct peering
+- Security: none
+
+Once the instance is created, add the instance IP to `cloudsql_env.list`:
+
+```
+REDIS_HOST=<YOUR_REDIS_IP>
+```
+
 ### Upload Data Files
 
 [Note]: Refer to [Import Custom Data](#import-custom-data) for preparing the
@@ -278,7 +295,8 @@ gcloud run deploy datacommons \
   --image us-central1-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG \
   --add-cloudsql-instances=<project>:<region>:dc-graph \
   --set-env-vars="$env_vars" \
-  --port 8080
+  --port 8080 \
+  --network default
 ```
 
 ## Admin Page
