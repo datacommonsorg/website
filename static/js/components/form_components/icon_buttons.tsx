@@ -19,11 +19,35 @@
  */
 
 import React, { useEffect, useRef, useState } from "react";
+import { styled } from "styled-components";
 
-import { saveToFile } from "../../../shared/util";
-import { StyledButton } from "./icon_buttons.styles";
+import { saveToFile } from "../../shared/util";
 
 /* Base Button Component*/
+
+const StyledButton = styled.button`
+  align-items: center;
+  background: var(--button-background-color, transparent);
+  border: 1px solid #747775;
+  border-radius: 100px;
+  color: var(--button-text-color, black);
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  gap: 8px;
+  justify-content: center;
+  line-height: 20px;
+  padding: 10px 24px 10px 16px;
+  text-align: center;
+  width: fit-content;
+
+  &:hover {
+    background-color: var(--button-highlight-background-color, transparent);
+  }
+  .icon {
+    font-size: 18px;
+  }
+`;
 
 interface ButtonProps {
   // Class name to add to button

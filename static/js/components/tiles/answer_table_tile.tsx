@@ -29,7 +29,7 @@ import {
 } from "../../constants/css_constants";
 import { AnswerTableColumn } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
-import { DownloadButton } from "../form_components/icon_buttons/icon_buttons";
+import { DownloadButton } from "../form_components/icon_buttons";
 
 export interface AnswerTableTilePropType {
   // Title to use
