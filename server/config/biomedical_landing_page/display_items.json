@@ -15,10 +15,6 @@
     {
       "label": "Drugs",
       "value": 63328433
-    },
-    {
-      "label": "Over 195 million entities",
-      "value": "& counting"
     }
   ],
   "sample-questions": [
@@ -74,14 +70,17 @@
       "themeColor": "mutedBlue",
       "cards": [
         {
+          "openInNewTab": true,
           "text": "Covid-19 feature exploration analysis (by Google Health)",
           "url": "https://colab.research.google.com/github/datacommonsorg/api-python/blob/master/notebooks/COVID_19_Feature_Exploration_Analysis_with_Data_Commons.ipynb"
         },
         {
+          "openInNewTab": true,
           "text": "Analyzing Genomic Data with Biomedical Data Commons",
           "url": "https://colab.research.google.com/github/datacommonsorg/api-python/blob/master/notebooks/analyzing_genomic_data.ipynb"
         },
         {
+          "openInNewTab": true,
           "text": "Drug Discovery with Biomedical Data Commons",
           "url": "https://colab.research.google.com/github/datacommonsorg/api-python/blob/master/notebooks/Drug_Discovery_With_Data_Commons.ipynb"
         }
