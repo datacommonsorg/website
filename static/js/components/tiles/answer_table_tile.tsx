@@ -195,7 +195,7 @@ const fetchData = async (
         const valSources = val.map((singleVal) => {
           return singleVal.provenanceId;
         });
-        uniqueProvIds.add(valSources);
+        valSources.forEach((provId) => uniqueProvIds.add(provId));
         provIds[entity][props.columns[i].propertyExpr] = valSources;
       });
     });
