@@ -85,7 +85,7 @@ export interface CardTheme {
 }
 
 export interface CardProps {
-  // Whether to open
+  // Whether to open link in a new tab. Default: false
   openInNewTab?: boolean;
   // tag or category to label card with
   tag: string;

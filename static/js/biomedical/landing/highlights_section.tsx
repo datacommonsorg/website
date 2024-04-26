@@ -25,29 +25,29 @@ import { BREAKPOINTS } from "./constants";
 import { ContentContainer } from "./shared_styled_components";
 
 const HighlightsContainer = styled(ContentContainer)`
+  column-gap: 24px;
   display: flex;
   flex-direction: row;
-  row-gap: 32px;
-  column-gap: 24px;
   justify-content: space-between;
+  row-gap: 32px;
   width: 100%;
 
   @media ${BREAKPOINTS.lg} {
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
   }
 `;
 
 const NumbersContainer = styled.div`
+  align-items: center;
+  column-gap: 48px;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   flex-grow: 1;
-  column-gap: 48px;
-  row-gap: 24px;
+  flex-wrap: wrap;
   justify-content: space-evenly;
+  row-gap: 24px;
   text-align: center;
-  align-items: center;
 `;
 
 const Label = styled.div`
@@ -83,8 +83,8 @@ const KnowledgeGraphExplorerLink = styled.a`
   flex-direction: column;
   font-size: 22px;
   font-weight: 400;
-  line-height: 28px;
   gap: 16px;
+  line-height: 28px;
   padding-left: 24px;
   text-align: left;
   width: 340px;
@@ -96,9 +96,9 @@ const KnowledgeGraphExplorerLink = styled.a`
 
   @media ${BREAKPOINTS.lg} {
     border-left: none;
+    justify-content: center;
     text-align: center;
     width: fit-content;
-    justify-content: center;
   }
 
   &:hover {
