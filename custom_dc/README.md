@@ -126,9 +126,7 @@ the instructions below:
 ### Build docker image locally
 
 ```bash
-docker build --tag datacommons-website-compose:latest \
--f build/web_compose/Dockerfile \
--t website-compose .
+cc
 ```
 
 ### Test custom Data Commons locally with SQLite database
@@ -253,13 +251,16 @@ Specify the GCP project and custom instance docker image tag.
 ```bash
 export PROJECT_ID=<YOUR_PROJECT_ID>
 export CUSTOM_DC_TAG=<YOUR_TAG>
+export CLOUD_RUN_CONTAINER=datacommons
+export REGION=us-central1
+export CLOUDSQL_INSTANCE_ID=dc-graph
 ```
 
 Authenticate for docker image push.
 
 ```bash
 gcloud auth login
-gcloud auth configure-docker us-central1-docker.pkg.dev
+gcloud auth configure-docker ${REGION}-docker.pkg.dev
 ```
 
 Create a Container Registry repository if not done yet, this is a one time
@@ -268,7 +269,7 @@ Create a Container Registry repository if not done yet, this is a one time
 gcloud artifacts repositories create datacommons \
   --project=$PROJECT_ID \
   --repository-format=docker \
-  --location=us-central1 \
+  --location=$REGION \
   --immutable-tags \
   --async
 ```
@@ -276,10 +277,17 @@ gcloud artifacts repositories create datacommons \
 Build docker image and push it to Google Artifact Registry
 
 ```bash
-docker tag datacommons-website-compose:latest \
-  us-central1-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG
+# Build local docker image
+docker build --tag datacommons-website-compose:latest \
+  -f build/web_compose/Dockerfile \
+  -t website-compose .
 
-docker push us-central1-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG
+# Tag image with $CUSTOM_DC_TAG
+docker tag datacommons-website-compose:latest \
+  ${REGION}-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG
+
+# Push local image to Google Artifact Registry
+docker push ${REGION}-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG
 ```
 
 In GCP [IAM](https://console.cloud.google.com/iam-admin/iam), grant the default
@@ -289,13 +297,14 @@ service account "Cloud SQL Editor" permission. Then run:
 # Then env file is "custom_dc/cloudsql_env.list"
 env_vars=$(awk -F '=' 'NF==2 {print $1"="$2}' custom_dc/cloudsql_env.list | tr '\n' ',' | sed 's/,$//')
 
-gcloud run deploy datacommons \
+gcloud beta run deploy datacommons \
   --allow-unauthenticated \
   --memory 4G \
   --image us-central1-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG \
-  --add-cloudsql-instances=<project>:<region>:dc-graph \
+  --add-cloudsql-instances=$PROJECT_ID:$REGION:$CLOUDSQL_INSTANCE_ID \
   --set-env-vars="$env_vars" \
   --port 8080 \
+  --region $REGION \
   --network default
 ```
 
