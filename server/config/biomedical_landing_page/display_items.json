@@ -26,25 +26,25 @@
           "text": "How many species are there of Chlamydia?"
         },
         {
-          "text": "What type of genome do adenoviruses have?"
+          "text": "What is the host of Betapapillomavirus 1?"
         },
         {
-          "text": "What does Cyperus strigosus look like?"
+          "text": "What phylum does volvox belong to?"
         }
       ]
     },
     {
-      "category": "Diseases",
+      "category": "Genomics",
       "themeColor": "blue",
       "cards": [
         {
-          "text": "What genetic variants are significantly associated with FGFR1?"
-        },
-        {
-          "text": "How many clinical variants associated with FGFR1 have clinical pathogenicity?"
-        },
-        {
           "text": "What genes are associated with rs13317?"
+        },
+        {
+          "text": "What functional region of the genome is rs13317 located?"
+        },
+        {
+          "text": "What are the transcripts of FGFR1?"
         }
       ]
     },
@@ -53,13 +53,13 @@
       "themeColor": "red",
       "cards": [
         {
-          "text": "What is the pharmacologic action of Diltiazem?"
+          "text": "How is Bactocill administered?"
         },
         {
-          "text": "What drugs is rs559628884 associated with?"
+          "text": "What is the chembl ID of acetaminophen?"
         },
         {
-          "text": "What is the active ingredient of Bactocill?"
+          "text": "What's the dosage form of Aggrenox?"
         }
       ]
     }
