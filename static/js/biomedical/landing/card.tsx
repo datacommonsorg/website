@@ -63,7 +63,7 @@ const Tag = styled.div`
   display: flex;
   font-size: 12px;
   font-weight: 500;
-  gap: 8px;
+  gap: 4px;
   justify-content: flex-start;
   letter-spacing: 0.5px;
   line-height: 16px;
@@ -102,10 +102,10 @@ export function Card(props: CardProps): JSX.Element {
     <CardContainer href={props.url} target={props.openInNewTab ? "_blank" : ""}>
       <Text theme={props.theme}>{props.text}</Text>
       <Tag theme={props.theme}>
+        {props.tag}
         {props.openInNewTab && (
           <span className="material-icons-outlined icon">open_in_new</span>
         )}
-        {props.tag}
       </Tag>
     </CardContainer>
   );
