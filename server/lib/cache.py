@@ -54,6 +54,8 @@ else:
       })
 
 cfg = lib_config.get_config()
+# Configure cache if USE_MEMCACHE is set, or if there's a REDIS_HOST environment
+# variable
 if cfg.USE_MEMCACHE or REDIS_HOST:
   # Setup regular flask cache. Use Redis if available, otherwise use SimpleCache.
   if _redis_cache:
