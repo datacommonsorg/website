@@ -105,6 +105,13 @@ def load_custom_embeddings(app: Flask):
 def _load_yaml(flask_env: str) -> Dict[str, str]:
   with open(get_env_path(flask_env, _EMBEDDINGS_YAML)) as f:
     embeddings_map = yaml.full_load(f)
+
+    # For custom DC dev env, only keep the default index.
+    if _is_custom_dc_dev(flask_env):
+      embeddings_map = {
+          config.DEFAULT_INDEX_TYPE: embeddings_map[config.DEFAULT_INDEX_TYPE]
+      }
+
   assert embeddings_map, 'No embeddings.yaml found!'
 
   custom_map = _maybe_load_custom_dc_yaml()
@@ -174,7 +181,8 @@ def _maybe_load_custom_dc_yaml():
 # (deploy/nl/).
 #
 def get_env_path(flask_env: str, file_name: str) -> str:
-  if flask_env in ['local', 'test', 'integration_test', 'webdriver']:
+  if flask_env in ['local', 'test', 'integration_test', 'webdriver'
+                  ] or _is_custom_dc_dev(flask_env):
     return os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
         f'deploy/nl/{file_name}')
@@ -184,3 +192,7 @@ def get_env_path(flask_env: str, file_name: str) -> str:
 
 def _use_cache(flask_env):
   return flask_env in ['local', 'integration_test', 'webdriver']
+
+
+def _is_custom_dc_dev(flask_env: str) -> bool:
+  return flask_env == 'custom_dev'
