@@ -245,6 +245,10 @@ function generateCsv(
   data: AnswerTableData,
   props: AnswerTableTilePropType
 ): string {
+  if (!data) {
+    return "";
+  }
+
   // Helper function to encase each csv cell in quotes and escape double quotes
   const sanitize = (cell: string) => {
     return `"${cell.replaceAll('"', '""')}"`;
