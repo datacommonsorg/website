@@ -251,7 +251,8 @@ Specify the GCP project and custom instance docker image tag.
 ```bash
 export PROJECT_ID=<YOUR_PROJECT_ID>
 export CUSTOM_DC_TAG=<YOUR_TAG>
-export CLOUD_RUN_CONTAINER=datacommons
+export CLOUD_RUN_SERVICE_NAME=datacommons-dwnoble
+export CLOUD_RUN_NETWORK=default
 export REGION=us-central1
 export CLOUDSQL_INSTANCE_ID=dc-graph
 ```
@@ -297,7 +298,7 @@ service account "Cloud SQL Editor" permission. Then run:
 # Then env file is "custom_dc/cloudsql_env.list"
 env_vars=$(awk -F '=' 'NF==2 {print $1"="$2}' custom_dc/cloudsql_env.list | tr '\n' ',' | sed 's/,$//')
 
-gcloud beta run deploy datacommons \
+gcloud beta run deploy $CLOUD_RUN_SERVICE_NAME \
   --allow-unauthenticated \
   --memory 4G \
   --image us-central1-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG \
@@ -305,7 +306,7 @@ gcloud beta run deploy datacommons \
   --set-env-vars="$env_vars" \
   --port 8080 \
   --region $REGION \
-  --network default
+  --network $CLOUD_RUN_NETWORK
 ```
 
 ## Admin Page
