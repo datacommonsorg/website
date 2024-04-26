@@ -131,9 +131,10 @@ def is_debug_mode() -> bool:
 # Converts a passed in object and escapes all the strings in it.
 def escape_strings(data):
   if isinstance(data, dict):
+    escaped_dict = {}
     for k, v in data.items():
-      data[k] = escape_strings(v)
-    return data
+      escaped_dict[str(escape(k))] = escape_strings(v)
+    return escaped_dict
   elif isinstance(data, list):
     for i, item in enumerate(data):
       data[i] = escape_strings(item)
