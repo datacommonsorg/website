@@ -395,6 +395,7 @@ def prepare_response_common(data_dict: Dict,
 
 #
 # Preliminary abort with the given error message
+# TODO: Test the flow of context in this case
 #
 def abort(error_message: str,
           original_query: str,

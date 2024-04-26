@@ -142,4 +142,6 @@ def escape_strings(data):
   elif isinstance(data, str):
     return str(escape(data))
   else:
+    # Otherwise, assume data is of a type that doesn't need escaping and just
+    # return it as is.
     return data
