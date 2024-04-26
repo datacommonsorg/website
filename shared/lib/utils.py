@@ -14,6 +14,7 @@
 """Utility functions shared across servers."""
 
 import copy
+import os
 import re
 from typing import List, Set
 
@@ -120,3 +121,7 @@ def remove_punctuations(s, include_comma=False):
   else:
     s = re.sub(r'[^\w\s.]', ' ', s)
   return " ".join(s.split())
+
+
+def is_debug_mode() -> bool:
+  return os.environ.get('DEBUG', '').lower() == 'true'

@@ -22,6 +22,7 @@ import torch
 import nl_server.loader as loader
 import nl_server.routes as routes
 import shared.lib.gcp as lib_gcp
+from shared.lib.utils import is_debug_mode
 
 
 def create_app():
@@ -36,7 +37,11 @@ def create_app():
         "[%(asctime)s][%(levelname)-8s][%(filename)s:%(lineno)s] %(message)s ",
         datefmt="%H:%M:%S",
     )
-  logging.getLogger('werkzeug').setLevel(logging.WARNING)
+
+  log_level = logging.WARNING
+  if is_debug_mode():
+    log_level = logging.INFO
+  logging.getLogger('werkzeug').setLevel(log_level)
 
   app = Flask(__name__)
   app.register_blueprint(routes.bp)
