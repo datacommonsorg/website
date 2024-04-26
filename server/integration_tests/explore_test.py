@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
 
 import json
 import os
+import re
 
 from langdetect import detect as detect_lang
 import requests
@@ -61,7 +62,8 @@ class ExploreTest(NLWebServerTestCase):
       if len(queries) == 1:
         d = ''
       else:
-        d = q.replace(' ', '').replace('?', '').lower()
+        d = re.sub(r'[ ?"]', '', q).lower()
+      print(d)
       self.handle_response(q, resp, test_dir, d, failure, check_detection)
 
   def run_detect_and_fulfill(self,
@@ -88,7 +90,7 @@ class ExploreTest(NLWebServerTestCase):
       if len(queries) == 1:
         d = ''
       else:
-        d = q.replace(' ', '').replace('?', '').lower()
+        d = re.sub(r'[ ?"]', '', q).lower()
         # For some queries like Chinese, no characters are replaced and leads to unwieldy folder names.
         # Use the query index for such cases.
         if d == q and i18n:
