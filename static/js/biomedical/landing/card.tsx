@@ -98,8 +98,6 @@ export interface CardProps {
 }
 
 export function Card(props: CardProps): JSX.Element {
-  console.log(props.tag);
-  console.log(props.openInNewTab);
   return (
     <CardContainer href={props.url} target={props.openInNewTab ? "_blank" : ""}>
       <Text theme={props.theme}>{props.text}</Text>
