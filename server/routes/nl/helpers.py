@@ -395,6 +395,7 @@ def prepare_response_common(data_dict: Dict,
 
 #
 # Preliminary abort with the given error message
+# TODO: Test the flow of context in this case
 #
 def abort(error_message: str,
           original_query: str,
@@ -404,10 +405,9 @@ def abort(error_message: str,
           blocked: bool = False,
           test: str = '',
           client: str = '') -> Dict:
-  query = str(escape(shared_utils.remove_punctuations(original_query)))
-  escaped_context_history = []
-  for ch in context_history:
-    escaped_context_history.append(escape(ch))
+  query = shared_utils.escape_strings(
+      shared_utils.remove_punctuations(original_query))
+  escaped_context_history = shared_utils.escape_strings(context_history)
 
   res = {
       'place': {
