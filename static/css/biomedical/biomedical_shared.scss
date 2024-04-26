@@ -21,6 +21,11 @@ body {
   background-color: var(--main-content-background-color);
 }
 
+// landing page needs uses a white background
+#page-bio_landing body {
+  background-color: white;
+}
+
 a {
   color: var(--text-link-color);
 
@@ -36,15 +41,4 @@ a {
 
 .legend-label {
   font-size: 10px;
-}
-
-/** Override link colors on answer-table-tiles */
-.table {
-  tbody {
-    td {
-      a {
-        color: var(--table-link-color);
-      }
-    }
-  }
 }
