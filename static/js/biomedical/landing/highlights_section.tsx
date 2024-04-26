@@ -76,7 +76,7 @@ const Highlight = styled.div`
   }
 `;
 
-const KnowledgeGraphExplorerLink = styled.a`
+const KnowledgeGraphExplorerLinkContainer = styled.div`
   border-left: 1px solid #a0cfcd;
   color: #1e4e4c;
   display: flex;
@@ -95,13 +95,18 @@ const KnowledgeGraphExplorerLink = styled.a`
   }
 
   @media ${BREAKPOINTS.lg} {
+    align-items: center;
     border-left: none;
     justify-content: center;
     text-align: center;
     width: fit-content;
   }
 
-  &:hover {
+  a {
+    width: fit-content;
+  }
+
+  a:hover {
     text-decoration: none;
   }
 
@@ -112,7 +117,7 @@ const KnowledgeGraphExplorerLink = styled.a`
 
 interface HighlightConfigEntry {
   label: string;
-  value: string | number;
+  value: number;
 }
 interface HighlightsSectionProps {
   config: HighlightConfigEntry[];
@@ -139,10 +144,7 @@ export function HighlightsSection(props: HighlightsSectionProps): JSX.Element {
     <HighlightsContainer className="container">
       <NumbersContainer>
         {props.config.map((callout, index) => {
-          const value =
-            typeof callout.value === "number"
-              ? formatNumber(callout.value, props.locale)
-              : callout.value;
+          const value = formatNumber(callout.value, props.locale);
           return (
             <Label key={index}>
               {callout.label}
@@ -151,10 +153,14 @@ export function HighlightsSection(props: HighlightsSectionProps): JSX.Element {
           );
         })}
       </NumbersContainer>
-      <KnowledgeGraphExplorerLink href="/browser/bio">
-        <div>See all data sources & categories</div>
-        <span className="material-icons-outlined icon">arrow_circle_right</span>
-      </KnowledgeGraphExplorerLink>
+      <KnowledgeGraphExplorerLinkContainer>
+        <a href="/browser/bio">See all data sources & categories</a>
+        <a href="/browser/bio">
+          <span className="material-icons-outlined icon">
+            arrow_circle_right
+          </span>
+        </a>
+      </KnowledgeGraphExplorerLinkContainer>
     </HighlightsContainer>
   );
 }

@@ -48,7 +48,7 @@ const StyledText = styled.div`
   flex-grow: 1;
 
   a {
-    color: #146c2e;
+    color: ${(props) => props.theme.text.linkColor};
   }
   h1 {
     color: ${(props) => props.theme.header.textColor};

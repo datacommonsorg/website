@@ -46,6 +46,7 @@ export const CSS_THEME = {
   },
   text: {
     textColor: "#303030",
+    linkColor: "#146C2E",
   },
 };
 
