@@ -25,11 +25,29 @@ import { BREAKPOINTS } from "./constants";
 import { ContentContainer } from "./shared_styled_components";
 
 const HighlightsContainer = styled(ContentContainer)`
+  display: flex;
+  flex-direction: row;
+  row-gap: 32px;
+  column-gap: 24px;
+  justify-content: space-between;
+  width: 100%;
+
+  @media ${BREAKPOINTS.lg} {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const NumbersContainer = styled.div`
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 32px;
+  flex-grow: 1;
+  column-gap: 48px;
+  row-gap: 24px;
   justify-content: space-evenly;
   text-align: center;
+  align-items: center;
 `;
 
 const Label = styled.div`
@@ -55,6 +73,40 @@ const Highlight = styled.div`
   @media ${BREAKPOINTS.md} {
     font-size: 28px;
     line-height: 36px;
+  }
+`;
+
+const KnowledgeGraphExplorerLink = styled.a`
+  border-left: 1px solid #a0cfcd;
+  color: #1e4e4c;
+  display: flex;
+  flex-direction: column;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  gap: 16px;
+  padding-left: 24px;
+  text-align: left;
+  width: 340px;
+
+  @media ${BREAKPOINTS.md} {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  @media ${BREAKPOINTS.lg} {
+    border-left: none;
+    text-align: center;
+    width: fit-content;
+    justify-content: center;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  .icon {
+    font-size: 32px;
   }
 `;
 
@@ -85,18 +137,24 @@ function formatNumber(number: number, locale: string): string {
 export function HighlightsSection(props: HighlightsSectionProps): JSX.Element {
   return (
     <HighlightsContainer className="container">
-      {props.config.map((callout, index) => {
-        const value =
-          typeof callout.value === "number"
-            ? formatNumber(callout.value, props.locale)
-            : callout.value;
-        return (
-          <Label key={index}>
-            {callout.label}
-            <Highlight>{value}</Highlight>
-          </Label>
-        );
-      })}
+      <NumbersContainer>
+        {props.config.map((callout, index) => {
+          const value =
+            typeof callout.value === "number"
+              ? formatNumber(callout.value, props.locale)
+              : callout.value;
+          return (
+            <Label key={index}>
+              {callout.label}
+              <Highlight>{value}</Highlight>
+            </Label>
+          );
+        })}
+      </NumbersContainer>
+      <KnowledgeGraphExplorerLink href="/browser/bio">
+        <div>See all data sources & categories</div>
+        <span className="material-icons-outlined icon">arrow_circle_right</span>
+      </KnowledgeGraphExplorerLink>
     </HighlightsContainer>
   );
 }
