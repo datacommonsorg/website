@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,36 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Helm config
-project: "datcom-website-dev"
-cluster_prefix: "website"
+from server.app_env import custom
+from server.app_env import local
 
-namespace:
-  name: "website"
 
-website:
-  flaskEnv: dev
-  replicas: 5
-  redis:
-    enabled: false
+class Config(custom.Config):
+  NAME = "Custom Data Commons (Dev)"
 
-serviceAccount:
-  name: website-ksa
 
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 2
-  observation:
-    replicas: 5
-  node:
-    replicas: 10
-  default:
-    replicas: 5
+class LocalConfig(Config, local.Config):
+  pass
 
-nl:
-  enabled: true
 
-nodejs:
-  enabled: true
-  replicas: 5
+class ComposeConfig(Config, local.Config):
+  pass

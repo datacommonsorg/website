@@ -23,6 +23,7 @@ import yaml
 from nl_server import config
 import nl_server.embeddings_map as emb_map
 from nl_server.nl_attribute_model import NLAttributeModel
+from nl_server.util import get_user_data_path
 from shared.lib.gcs import download_gcs_file
 from shared.lib.gcs import is_gcs_path
 from shared.lib.gcs import join_gcs_path
@@ -91,8 +92,8 @@ def load_custom_embeddings(app: Flask):
   # This lookup will raise an error if embeddings weren't already initialized previously.
   # This is intentional.
   nl_embeddings: emb_map.EmbeddingsMap = app.config[config.NL_EMBEDDINGS_KEY]
-  # Merge custom index with default embeddings.
-  nl_embeddings.merge_custom_index(custom_idx_list[0])
+  # Reset the custom DC index.
+  nl_embeddings.reset_index(custom_idx_list[0])
 
   # Update app config.
   _update_app_config(app, app.config[config.NL_MODEL_KEY], nl_embeddings,
@@ -104,6 +105,13 @@ def load_custom_embeddings(app: Flask):
 def _load_yaml(flask_env: str) -> Dict[str, str]:
   with open(get_env_path(flask_env, _EMBEDDINGS_YAML)) as f:
     embeddings_map = yaml.full_load(f)
+
+    # For custom DC dev env, only keep the default index.
+    if _is_custom_dc_dev(flask_env):
+      embeddings_map = {
+          config.DEFAULT_INDEX_TYPE: embeddings_map[config.DEFAULT_INDEX_TYPE]
+      }
+
   assert embeddings_map, 'No embeddings.yaml found!'
 
   custom_map = _maybe_load_custom_dc_yaml()
@@ -137,9 +145,7 @@ def _maybe_update_cache(flask_env: str, nl_embeddings: emb_map.EmbeddingsMap,
 
 
 def _maybe_load_custom_dc_yaml():
-  # The path comes from:
-  # https://github.com/datacommonsorg/website/blob/master/server/routes/admin/html.py#L39-L40
-  base = os.environ.get('USER_DATA_PATH')
+  base = get_user_data_path()
   if not base:
     return None
 
@@ -175,7 +181,8 @@ def _maybe_load_custom_dc_yaml():
 # (deploy/nl/).
 #
 def get_env_path(flask_env: str, file_name: str) -> str:
-  if flask_env in ['local', 'test', 'integration_test', 'webdriver']:
+  if flask_env in ['local', 'test', 'integration_test', 'webdriver'
+                  ] or _is_custom_dc_dev(flask_env):
     return os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
         f'deploy/nl/{file_name}')
@@ -185,3 +192,7 @@ def get_env_path(flask_env: str, file_name: str) -> str:
 
 def _use_cache(flask_env):
   return flask_env in ['local', 'integration_test', 'webdriver']
+
+
+def _is_custom_dc_dev(flask_env: str) -> bool:
+  return flask_env == 'custom_dev'

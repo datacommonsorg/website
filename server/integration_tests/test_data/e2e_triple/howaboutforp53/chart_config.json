@@ -12,16 +12,17 @@
                     "answerTableTileSpec": {
                       "columns": [
                         {
-                          "header": "Virus Host",
-                          "propertyExpr": "->virusHost"
+                          "header": "Has RNA Transcript",
+                          "propertyExpr": "->hasRNATranscript"
                         }
                       ]
                     },
                     "entities": [
-                      "bio/Betacoronavirus1",
-                      "bio/D000073641"
+                      "bio/dm3_p53",
+                      "bio/dm6_p53",
+                      "bio/mm9_p53"
                     ],
-                    "title": "The Virus Host for Betacoronavirus 1 are as follows:",
+                    "title": "The Has RNA Transcript for p53 are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -36,13 +37,18 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/Betacoronavirus1",
-      "name": "Betacoronavirus 1",
+      "dcid": "bio/dm3_p53",
+      "name": "p53",
       "type": ""
     },
     {
-      "dcid": "bio/D000073641",
-      "name": "Betacoronavirus 1",
+      "dcid": "bio/dm6_p53",
+      "name": "p53",
+      "type": ""
+    },
+    {
+      "dcid": "bio/mm9_p53",
+      "name": "p53",
       "type": ""
     }
   ],
@@ -61,6 +67,8 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "svSource": "UNKNOWN",
+  "userMessages": [
+    "See relevant information based on the previous query."
+  ]
 }

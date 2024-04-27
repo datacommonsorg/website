@@ -12,8 +12,8 @@
                     "answerTableTileSpec": {
                       "columns": [
                         {
-                          "header": "Strand Orientation",
-                          "propertyExpr": "->strandOrientation"
+                          "header": "Has RNA Transcript",
+                          "propertyExpr": "->hasRNATranscript"
                         }
                       ]
                     },
@@ -26,7 +26,7 @@
                       "bio/mm10_Fgfr1",
                       "bio/mm9_Fgfr1"
                     ],
-                    "title": "The Strand Orientation for FGFR1 are as follows:",
+                    "title": "The Has RNA Transcript for FGFR1 are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -92,5 +92,7 @@
     "peerTopics": []
   },
   "svSource": "UNKNOWN",
-  "userMessages": []
+  "userMessages": [
+    "See relevant information for FGFR1 based on the previous query."
+  ]
 }

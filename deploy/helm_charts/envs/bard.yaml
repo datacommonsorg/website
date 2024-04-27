@@ -72,3 +72,4 @@ svg:
 cronTesting:
   enabled: true
   enableSanity: false
+  enableAdversarial: false
