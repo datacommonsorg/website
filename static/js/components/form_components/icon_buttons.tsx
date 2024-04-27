@@ -83,7 +83,7 @@ interface CopyButtonProps {
 
 export function CopyButton(props: CopyButtonProps): JSX.Element {
   const [isClicked, setIsClicked] = useState<boolean>(false);
-  const timerRef = useRef(null);
+  const timerRef = useRef<NodeJS.Timeout>(null);
 
   const onClick = () => {
     navigator.clipboard.writeText(props.textToCopy);

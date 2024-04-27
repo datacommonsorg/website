@@ -72,7 +72,7 @@ export function AnswerTableTile(props: AnswerTableTilePropType): JSX.Element {
         {props.title && <div className="answer-table-title">{props.title}</div>}
         <DownloadButton
           content={answerAsCsv}
-          filename={`${props.title}.csv`}
+          filename={`${props.title || "results"}.csv`}
         ></DownloadButton>
         <div className="table-container">
           <table className="table">
