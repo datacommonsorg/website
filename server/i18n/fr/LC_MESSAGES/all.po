@@ -83,7 +83,7 @@ msgid "Government Expenditures on Military"
 msgstr "Dépenses publiques militaires"
 
 msgid "Knowledge Graph Browser"
-msgstr "Exploration des données"
+msgstr "Navigateur de graphe de connaissances"
 
 msgid "Gross National Income"
 msgstr "Revenu National Brut"

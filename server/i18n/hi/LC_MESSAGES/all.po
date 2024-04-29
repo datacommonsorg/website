@@ -83,7 +83,7 @@ msgid "Government Expenditures on Military"
 msgstr "सेना पर सरकारी खर्च"
 
 msgid "Knowledge Graph Browser"
-msgstr "ग्राफ़ ब्राउज़र"
+msgstr "ज्ञान ग्राफ ब्राउज़र"
 
 msgid "Gross National Income"
 msgstr "सकल राष्ट्रीय आय"
