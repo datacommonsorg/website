@@ -418,9 +418,7 @@ def abort(error_message: str,
       'config': {},
       'context': escaped_context_history,
       'failure': error_message,
-      'userMessage': {
-          'msg': error_message
-      },
+      'userMessages': [error_message]
   }
 
   if not counters:
