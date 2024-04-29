@@ -62,17 +62,21 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       # (than, say, breaking it into multiple timeline charts)
       chart_type = ChartType.BAR_CHART
     chart_type = _maybe_demote(chart_type, eres.is_single_point, state)
-    sv_place_facet_ids = None
+    sv_place_facet = None
     if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT and (state.date_range or
                                                             state.single_date):
-      sv_place_facet_ids = ext.get_sv_place_facet_ids(chart_vars.svs, places,
-                                                      state.exist_checks)
+      sv_place_facet = ext.get_sv_place_facet(chart_vars.svs, places,
+                                              state.exist_checks)
+    sv_place_latest_date = ext.get_sv_place_latest_date(chart_vars.svs, places,
+                                                        None,
+                                                        state.exist_checks)
     return add_chart_to_utterance(chart_type,
                                   state,
                                   chart_vars,
                                   places,
                                   chart_origin,
-                                  sv_place_facet_ids=sv_place_facet_ids)
+                                  sv_place_facet=sv_place_facet,
+                                  sv_place_latest_date=sv_place_latest_date)
   else:
     # If its not a peer-group add one chart at a time.
     added = False
@@ -85,17 +89,20 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
         return False
       chart_type = _maybe_demote(ChartType.TIMELINE_WITH_HIGHLIGHT,
                                  eres.is_single_point, state)
-      sv_place_facet_ids = None
+      sv_place_facet = None
       if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT and (
           state.date_range or state.single_date):
-        sv_place_facet_ids = ext.get_sv_place_facet_ids(chart_vars.svs, places,
-                                                        state.exist_checks)
+        sv_place_facet = ext.get_sv_place_facet(chart_vars.svs, places,
+                                                state.exist_checks)
+      sv_place_latest_date = ext.get_sv_place_latest_date(
+          chart_vars.svs, places, None, state.exist_checks)
       added |= add_chart_to_utterance(chart_type,
                                       state,
                                       chart_vars,
                                       places,
                                       chart_origin,
-                                      sv_place_facet_ids=sv_place_facet_ids)
+                                      sv_place_facet=sv_place_facet,
+                                      sv_place_latest_date=sv_place_latest_date)
     return added
 
 

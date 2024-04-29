@@ -18,6 +18,7 @@
  * Component for rendering a scatter type tile.
  */
 
+import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -31,6 +32,7 @@ import {
 } from "../../chart/draw_scatter";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
@@ -42,18 +44,20 @@ import {
   getHash,
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
-import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getSeriesWithin } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
+  getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
   showError,
+  transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -155,18 +159,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       replacementStrings={getReplacementStrings(props, scatterChartData)}
       className={`${props.className} scatter-chart`}
       allowEmbed={true}
-      getDataCsv={
-        scatterChartData
-          ? () =>
-              scatterDataToCsv(
-                scatterChartData.xStatVar.statVar,
-                scatterChartData.xStatVar.denom,
-                scatterChartData.yStatVar.statVar,
-                scatterChartData.yStatVar.denom,
-                scatterChartData.points
-              )
-          : null
-      }
+      getDataCsv={getDataCsvCallback(props, scatterChartData)}
       isInitialLoading={_.isNull(scatterChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={scatterChartData && !!scatterChartData.errorMsg}
@@ -212,6 +205,42 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
     ];
     return _.isEqual(oldDataProps, newDataProps);
   }
+}
+
+/**
+ * Returns callback for fetching chart CSV data
+ * @param props Chart properties
+ * @returns Async function for fetching chart CSV
+ */
+function getDataCsvCallback(
+  props: ScatterTilePropType,
+  scatterChartData: ScatterChartData
+): () => Promise<string> {
+  return () => {
+    // Assume both variables will have the same date
+    // TODO: Update getCsv to handle different dates for different variables
+    const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
+    const perCapitaVariables = [
+      scatterChartData.xStatVar,
+      scatterChartData.yStatVar,
+    ].map((v) => (v.denom ? v.statVar : ""));
+    const entityProps = props.placeNameProp
+      ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
+      : undefined;
+    return datacommonsClient.getCsv({
+      childType: props.enclosedPlaceType,
+      date,
+      entityProps,
+      fieldDelimiter: CSV_FIELD_DELIMITER,
+      parentEntity: props.place.dcid,
+      perCapitaVariables: _.uniq(perCapitaVariables),
+      transformHeader: transformCsvHeader,
+      variables: [
+        scatterChartData.xStatVar.statVar,
+        scatterChartData.yStatVar.statVar,
+      ],
+    });
+  };
 }
 
 // Get the ReplacementStrings object used for formatting the title

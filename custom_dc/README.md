@@ -93,15 +93,14 @@ Clicking the "Load Data" button will load the sample data provided for you in
 Loading the data may take a few seconds. Once it is successful, you can visit the timeline explorer (http://localhost:8080/tools/timeline)
 and other tools again to explore the custom data that you just loaded.
 
-### Enable NL
+### NL queries
 
-To enable the NL (Natural Language) interface, update the `ENABLE_MODEL` flag in [sqlite_env.list](sqlite_env.list) from `false` to `true`. Then restart the server and reload the data.
+You can browse to http://localhost:8080/explore to perform NL (Natural Language) queries.
+* Example 1: "Jobs in Texas" (Queries main DC datasets)
+* Example 2: "Average annual wages in Europe" (Queries that work with the custom data you just loaded)
 
-Note that enabling NL will increase the startup time of your server.
-
-With NL enabled, you can browse to http://localhost:8080/explore and try NL queries against 
-datasets in main DC (e.g. "Jobs in Texas") or 
-against the custom data you just loaded (e.g. "Average annual wages in Europe").
+Note that NL support increases the startup time of your server and consumes more resources.
+If you don't want NL functionality, you can disable it by updating the `ENABLE_MODEL` flag in [sqlite_env.list](sqlite_env.list) from `true` to `false`.
 
 ### Next steps
 

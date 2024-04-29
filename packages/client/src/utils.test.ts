@@ -15,7 +15,12 @@
  */
 
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
-import { computeRatio, flattenNestedObject } from "./utils";
+import {
+  computePerCapitaRatio,
+  encodeCsvRow,
+  flattenNestedObject,
+  isDateInRange,
+} from "./utils";
 
 describe("Utility methods", () => {
   beforeEach(() => {
@@ -49,13 +54,21 @@ describe("Utility methods", () => {
     },
   ];
 
+  test("encodeCsvRow should convert null to empty strings", () => {
+    expect(encodeCsvRow([1, null, "3"])).toBe(`1,"","3"`);
+  });
+
+  test("encodeCsvRow should replace double quotes with two double-quotes", () => {
+    expect(encodeCsvRow([1, 'Number "3"', "3"])).toBe(`1,"Number ""3""","3"`);
+  });
+
   test("computeRatio base cases", async () => {
     // Empty num & denom should return empty result
-    const emptyResult1 = computeRatio([], []);
+    const emptyResult1 = computePerCapitaRatio([], []);
     expect(emptyResult1.length).toBe(0);
 
     // Empty num and non-empty denom should return empty result
-    const emptyResult2 = computeRatio([], sampleDenom);
+    const emptyResult2 = computePerCapitaRatio([], sampleDenom);
     expect(emptyResult2.length).toBe(0);
 
     const sampleNum = [
@@ -70,12 +83,12 @@ describe("Utility methods", () => {
     ];
 
     // Non-empty num & empty denom should return empty result
-    const result3 = computeRatio(sampleNum, []);
+    const result3 = computePerCapitaRatio(sampleNum, []);
     expect(result3.length).toBe(0);
   });
 
   test("computeRatio finds closest dates", async () => {
-    const result1 = computeRatio(
+    const result1 = computePerCapitaRatio(
       [
         {
           date: "1900", // closest to 2010
@@ -106,12 +119,12 @@ describe("Utility methods", () => {
     );
     expect(result1.length).toBe(6);
     result1.forEach((item) => {
-      expect(item.quotientValue).toBeCloseTo(1);
+      expect(item.perCapitaValue).toBeCloseTo(1);
     });
   });
 
   test("computeRatio scaling factor correctly scales", async () => {
-    const result1 = computeRatio(
+    const result1 = computePerCapitaRatio(
       [
         {
           date: "1900", // closest to 2010
@@ -127,7 +140,7 @@ describe("Utility methods", () => {
     );
     expect(result1.length).toBe(2);
     result1.forEach((item) => {
-      expect(item.quotientValue).toBeCloseTo(10);
+      expect(item.perCapitaValue).toBeCloseTo(10);
     });
   });
 
@@ -157,5 +170,17 @@ describe("Utility methods", () => {
       "x.z.0.z1": 1,
       "x.z.0.z2": 2,
     });
+  });
+
+  test("isDateInRange returns correct values if date is in range", () => {
+    expect(isDateInRange("2024", undefined, undefined)).toBe(true);
+    expect(isDateInRange("2024", "2023", undefined)).toBe(true);
+    expect(isDateInRange("2024", "2024", undefined)).toBe(true);
+    expect(isDateInRange("2024", undefined, "2024")).toBe(true);
+    expect(isDateInRange("2024", undefined, "2025")).toBe(true);
+    // Test truncating observation date
+    expect(isDateInRange("2024-05-05", "2022", "2025")).toBe(true);
+    expect(isDateInRange("2024-05-05", "2022", "2024")).toBe(true);
+    expect(isDateInRange("2024-05-05", "2022", "2023")).toBe(false);
   });
 });

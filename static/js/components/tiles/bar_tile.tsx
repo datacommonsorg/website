@@ -18,6 +18,7 @@
  * Component for rendering a bar tile.
  */
 
+import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import { ChartSortOption } from "@datacommonsorg/web-components";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -30,6 +31,7 @@ import {
   drawStackBarChart,
 } from "../../chart/draw_bar";
 import { URL_PATH } from "../../constants/app/visualization_constants";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { PLACE_TYPES } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { RankingPoint } from "../../types/ranking_unit_types";
@@ -37,22 +39,24 @@ import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
-import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import {
   getPoint,
   getPointWithin,
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
+import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
+  getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
   showError,
+  transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import {
@@ -141,9 +145,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       replacementStrings={getReplacementStrings(barChartData)}
       className={`${props.className} bar-chart`}
       allowEmbed={true}
-      getDataCsv={
-        barChartData ? () => dataGroupsToCsv(barChartData.dataGroup) : null
-      }
+      getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(barChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={barChartData && !!barChartData.errorMsg}
@@ -157,6 +159,49 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       ></div>
     </ChartTileContainer>
   );
+}
+
+/**
+ * Returns callback for fetching chart CSV data
+ * @param props Chart properties
+ * @returns Async function for fetching chart CSV
+ */
+function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
+  return () => {
+    // Assume all variables will have the same date
+    // TODO: Handle different dates for different variables
+    const date = getFirstCappedStatVarSpecDate(props.variables);
+    const perCapitaVariables = props.variables
+      .filter((v) => v.denom)
+      .map((v) => v.statVar);
+    const entityProps = props.placeNameProp
+      ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
+      : undefined;
+    // Check for !("places" in props) because parentPlace can be set even if
+    // "places" is also set
+    if (!("places" in props)) {
+      return datacommonsClient.getCsv({
+        childType: props.enclosedPlaceType,
+        date,
+        entityProps,
+        fieldDelimiter: CSV_FIELD_DELIMITER,
+        parentEntity: props.parentPlace,
+        perCapitaVariables,
+        transformHeader: transformCsvHeader,
+        variables: props.variables.map((v) => v.statVar),
+      });
+    } else {
+      return datacommonsClient.getCsv({
+        date,
+        entityProps,
+        entities: props.places,
+        fieldDelimiter: CSV_FIELD_DELIMITER,
+        perCapitaVariables,
+        transformHeader: transformCsvHeader,
+        variables: props.variables.map((v) => v.statVar),
+      });
+    }
+  };
 }
 
 // Get the ReplacementStrings object used for formatting the title
@@ -178,7 +223,8 @@ export const fetchData = async (props: BarTilePropType) => {
     .map((spec) => spec.denom)
     .filter((sv) => !!sv);
   // Assume all variables will have the same date
-  const date = props.variables ? props.variables[0].date : "";
+  // TODO: Update getCsv to handle different dates for different variables
+  const date = getFirstCappedStatVarSpecDate(props.variables);
   const apiRoot = props.apiRoot || "";
   let statPromise: Promise<PointApiResponse>;
   let denomPromise: Promise<SeriesApiResponse>;

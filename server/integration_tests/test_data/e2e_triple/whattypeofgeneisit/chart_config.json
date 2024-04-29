@@ -9,28 +9,20 @@
               {
                 "tiles": [
                   {
-                    "answerMessageTileSpec": {
-                      "propertyExpr": "->typeOfGene"
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "Type Of Gene",
+                          "propertyExpr": "->typeOfGene"
+                        }
+                      ]
                     },
                     "entities": [
-                      "bio/hg38_FGFR1"
+                      "bio/dm3_Is",
+                      "bio/dm6_Is"
                     ],
-                    "title": "The typeOfGene for FGFR1 is:",
-                    "type": "ANSWER_MESSAGE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "entities": [
-                      "bio/hg38_FGFR1"
-                    ],
-                    "type": "ENTITY_OVERVIEW"
+                    "title": "The Type Of Gene for Is are as follows:",
+                    "type": "ANSWER_TABLE"
                   }
                 ]
               }
@@ -44,8 +36,13 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/hg38_FGFR1",
-      "name": "FGFR1",
+      "dcid": "bio/dm3_Is",
+      "name": "Is",
+      "type": ""
+    },
+    {
+      "dcid": "bio/dm6_Is",
+      "name": "Is",
       "type": ""
     }
   ],
@@ -64,6 +61,8 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "UNKNOWN",
-  "userMessages": []
+  "svSource": "CURRENT_QUERY",
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
 }

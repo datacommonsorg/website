@@ -14,5 +14,27 @@
   "<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID": {
     "displayName": "associated disease",
     "titleFormat": "The associated diseases for {entity} are"
+  },
+  "->mRNA": {
+    "displayName": "mRNA"
+  },
+  "<-mRNA": {
+    "displayName": "mRNA"
+  },
+  "->preferredMeSHConcept": {
+    "displayName": "Preferred MeSH Concept"
+
+  },
+  "<-preferredMeSHConcept": {
+    "displayName": "Preferred MeSH Concept"
+
+  },
+  "->hasMeSHQualifier": {
+    "displayName": "Has MeSH Qualifier"
+    
+  },
+  "<-hasMeSHQualifier": {
+    "displayName": "Has MeSH Qualifier"
+    
   }
 }

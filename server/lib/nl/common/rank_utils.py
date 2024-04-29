@@ -24,6 +24,7 @@ import server.lib.nl.common.counters as ctr
 from server.lib.nl.common.utils import facet_contains_date
 from server.lib.nl.detection.date import get_date_range_strings
 import server.lib.nl.detection.types as types
+from server.lib.nl.fulfillment.types import Sv2Place2Facet
 from server.lib.nl.fulfillment.utils import get_facet_id
 
 # (growth_direction, rank_order) -> reverse
@@ -73,6 +74,15 @@ class GrowthRanks(NamedTuple):
   pc: float
 
 
+# Updates facet metadata from API response to have additional fields:
+# facetId, earliestDate, and latestDate
+def _update_facet_metdata(facet_metadata: Dict[str, any], facet_id: str,
+                          place_data: Dict[str, any]):
+  facet_metadata['facetId'] = facet_id
+  facet_metadata['earliestDate'] = place_data.get('earliestDate', '')
+  facet_metadata['latestDate'] = place_data.get('latestDate', '')
+
+
 # Given an SV and list of places, this API ranks the places
 # per the growth rate of the time-series.
 # Returns a tuple of i) ranked lists of the place dcids, and ii) dict of place
@@ -87,7 +97,8 @@ def rank_places_by_series_growth(
     counters: ctr.Counters,
     place_type: str = '',
     min_population: int = 0,
-    date_range: types.Date = None) -> (GrowthRankedLists, Dict[str, str]):
+    date_range: types.Date = None
+) -> tuple[GrowthRankedLists, Dict[str, Dict[str, str]]]:
   start = time.time()
   facet_to_fetch = ''
   if sv in constants.SVS_TO_CHECK_FACET:
@@ -105,9 +116,10 @@ def rank_places_by_series_growth(
       if obs_period_rank < chosen_facet_rank:
         facet_to_fetch = facet_id
   facet_ids = [facet_to_fetch] if facet_to_fetch else None
+  get_all_facets = bool(date_range) and not facet_ids
   series_data = fetch.series_core(entities=places,
                                   variables=[sv],
-                                  all_facets=bool(date_range),
+                                  all_facets=get_all_facets,
                                   facet_ids=facet_ids)
   place2denom = _compute_place_to_denom(sv, places)
   # Count the RPC section (since we have multiple exit points)
@@ -116,22 +128,32 @@ def rank_places_by_series_growth(
   if 'data' not in series_data or sv not in series_data['data']:
     return []
 
+  # List of GrowthRanks for each place
   places_with_vals = []
-  place_facet_ids = {}
+  # Map of place to facet metadata of the series used to calculate the
+  # GrowthRanks of that place
+  place_facets = {}
   series_facets = series_data.get('facets', {})
+  # Loop through the data for each place to add information to place_with_vals
+  # and place_facets for that place
   for place, place_data in series_data['data'][sv].items():
-    if bool(date_range):
+    # Get the series to use for calculation.
+    if get_all_facets:
       series = []
       for s in place_data:
         facet_id = s.get('facet', '')
-        if facet_contains_date(s, series_facets.get(facet_id, ''), None,
-                               date_range):
+        facet_metadata = series_facets.get(facet_id, {})
+        if facet_contains_date(s, facet_metadata, None, date_range):
           series = s.get('series', [])
-          place_facet_ids[place] = facet_id
+          _update_facet_metdata(facet_metadata, facet_id, s)
+          place_facets[place] = facet_metadata
           break
     else:
       series = place_data['series']
-      place_facet_ids[place] = place_data.get('facet', '')
+      facet_id = place_data.get('facet', '')
+      facet_metadata = series_facets.get(facet_id, {})
+      _update_facet_metdata(facet_metadata, facet_id, place_data)
+      place_facets[place] = facet_metadata
     if len(series) < 2:
       continue
 
@@ -156,7 +178,7 @@ def rank_places_by_series_growth(
   growth_ranked_lists = _compute_growth_ranked_lists(places_with_vals,
                                                      growth_direction,
                                                      rank_order)
-  return growth_ranked_lists, place_facet_ids
+  return growth_ranked_lists, place_facets
 
 
 # Given a place and a list of existing SVs, this API ranks the SVs
@@ -169,7 +191,7 @@ def rank_svs_by_series_growth(
     nopc_vars: Set[str],
     counters: ctr.Counters,
     date_range: types.Date = None,
-    sv_place_facet_ids: Dict[str, Dict[str, str]] = None) -> GrowthRankedLists:
+    sv_place_facet: Sv2Place2Facet = None) -> GrowthRankedLists:
   start = time.time()
   series_data = fetch.series_core(entities=[place],
                                   variables=svs,
@@ -179,7 +201,7 @@ def rank_svs_by_series_growth(
 
   svs_with_vals = []
   for sv, place_data in series_data['data'].items():
-    sv_facet_id = get_facet_id(sv, sv_place_facet_ids, [place])
+    sv_facet_id = get_facet_id(sv, sv_place_facet, [place])
     if place not in place_data:
       continue
     if bool(date_range):
@@ -218,7 +240,7 @@ def rank_svs_by_series_growth(
 # specified, get the earliest and latest within that date range.
 def _get_earliest_latest_obs(
     series: List[Dict],
-    date_range: types.Date = None) -> (Dict[str, str], Dict[str, str]):
+    date_range: types.Date = None) -> tuple[Dict[str, str], Dict[str, str]]:
   earliest = None
   latest = None
   if date_range:
@@ -379,16 +401,20 @@ def filter_and_rank_places(
     parent_place: types.Place,
     child_type: types.ContainedInPlaceType,
     sv: str,
-    filter: types.QuantityClassificationAttributes = None) -> List[types.Place]:
+    value_filter: types.QuantityClassificationAttributes = None,
+    date: str = '') -> List[types.Place]:
+  if not date:
+    # When there's no date specified, use latest date
+    date = 'LATEST'
   api_resp = fetch.point_within_core(parent_place.dcid, child_type.value, [sv],
-                                     'LATEST', False)
+                                     date, False)
   sv_data = api_resp.get('data', {}).get(sv, {})
   child_and_value = []
   for child_place, value_data in sv_data.items():
     if 'value' not in value_data:
       continue
     val = value_data['value']
-    if not filter or passes_filter(val, filter):
+    if not value_filter or passes_filter(val, value_filter):
       child_and_value.append((child_place, val))
 
   # Sort place_and_value by value

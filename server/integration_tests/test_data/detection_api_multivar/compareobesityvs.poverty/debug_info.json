@@ -1,0 +1,91 @@
+{
+  "places_detected": [],
+  "places_resolved": "",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>",
+  "entities_detected": [],
+  "entities_resolved": "",
+  "query_with_places_removed": "compare obesity vs poverty",
+  "sv_matching": {
+    "CosineScore": [
+      0.8119865655899048,
+      0.7225801944732666,
+      0.7164521217346191,
+      0.6980432868003845,
+      0.6908258199691772,
+      0.6851561069488525,
+      0.6847794055938721,
+      0.6683323979377747,
+      0.6657034754753113,
+      0.6602827310562134,
+      0.6422476172447205,
+      0.6345553994178772,
+      0.6318432688713074,
+      0.6279779076576233
+    ],
+    "MultiSV": {
+      "Candidates": [
+        {
+          "AggCosineScore": 0.953,
+          "DelimBased": true,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.9060236811637878
+              ],
+              "QueryPart": "obesity",
+              "SV": [
+                "Percent_Person_Obesity"
+              ]
+            },
+            {
+              "CosineScore": [
+                1.0000001192092896
+              ],
+              "QueryPart": "poverty",
+              "SV": [
+                "dc/topic/Poverty"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Query": "compare obesity vs poverty",
+    "SV": [
+      "Percent_Person_Obesity",
+      "dc/topic/Poverty",
+      "dc/topic/Malnutrition",
+      "Count_Person_BelowPovertyLevelInThePast12Months",
+      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
+      "dc/topic/PovertyLevels",
+      "dc/topic/sdg_1.2",
+      "WHO/NCD_BMI_30A",
+      "Count_Person_Upto4Years_Overweight_AsFractionOf_Count_Person_Upto4Years",
+      "dc/topic/SDG_1",
+      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad",
+      "dc/4lvmzr1h1ylk1",
+      "dc/topic/sdg_2.2.2",
+      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
+    ]
+  },
+  "props_matching": {
+    "CosineScore": [],
+    "PROP": []
+  },
+  "query_detection_debug_logs": {
+    "dc_recognize_places": {},
+    "main_place_inferred": null,
+    "original_query": "compare obesity vs poverty",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "compare obesity vs poverty",
+      "place_detection_with_places_removed": "compare obesity vs poverty",
+      "sv_detection_query_index_type": "",
+      "sv_detection_query_input": "compare obesity vs poverty",
+      "sv_detection_query_stop_words_removal": "obesity poverty"
+    }
+  }
+}

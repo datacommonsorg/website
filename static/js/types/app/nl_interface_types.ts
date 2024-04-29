@@ -59,6 +59,12 @@ export interface SVScores {
   MultiSV: MultiSVScores;
 }
 
+export interface SentenceScore {
+  sentence: string;
+  score: number;
+  rerankScore: number;
+}
+
 export interface DebugInfo {
   status: string;
   blocked?: boolean;
@@ -69,7 +75,7 @@ export interface DebugInfo {
   mainPlaceName: string;
   queryWithoutPlaces: string;
   svScores: SVScores;
-  svSentences: Map<string, Array<string>>;
+  svSentences: Map<string, Array<SentenceScore>>;
   rankingClassification: string;
   generalClassification: string;
   sizeTypeClassification: string;

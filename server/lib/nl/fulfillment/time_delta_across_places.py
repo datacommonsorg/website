@@ -24,6 +24,7 @@ from server.lib.nl.common import rank_utils
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.detection.date import get_date_range_strings
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
@@ -98,7 +99,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   chart_vars = copy.deepcopy(chart_vars)
   chart_vars.svs = [sv]
 
-  ranked_children, place_facet_ids = rank_utils.rank_places_by_series_growth(
+  ranked_children, place_facets = rank_utils.rank_places_by_series_growth(
       places=dcids,
       sv=sv,
       growth_direction=direction,
@@ -124,17 +125,23 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       ranked_places.append(dcid2place[d])
     ranked_places = ranked_places[:constants.MAX_ANSWER_PLACES]
 
-    sv_place_facet_ids = {}
+    sv_place_facet = {}
     if state.date_range or sv in constants.SVS_TO_CHECK_FACET:
-      sv_place_facet_ids = {sv: place_facet_ids}
+      sv_place_facet = {sv: place_facets}
     # TODO: Uncomment this once we agree on look and feel
     if field == 'abs' and ranked_places:
+      sv_place_latest_date = {}
+      _, end_date = get_date_range_strings(state.date_range)
+      if end_date:
+        sv_place_latest_date = utils.get_predicted_latest_date(
+            {sv: place_facets}, state.date_range)
       found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT,
                                       state,
                                       chart_vars,
                                       ranked_places,
                                       chart_origin,
-                                      sv_place_facet_ids=sv_place_facet_ids)
+                                      sv_place_latest_date=sv_place_latest_date,
+                                      sv_place_facet=sv_place_facet)
 
     if rank == 0 and field == 'abs' and ranked_places:
       ans_places = copy.deepcopy(ranked_places)
@@ -149,7 +156,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                                     chart_vars,
                                     ranked_places,
                                     chart_origin,
-                                    sv_place_facet_ids=sv_place_facet_ids)
+                                    sv_place_facet=sv_place_facet)
 
   if not found:
     state.uttr.counters.err('time-delta-across-places_toofewplaces', '')

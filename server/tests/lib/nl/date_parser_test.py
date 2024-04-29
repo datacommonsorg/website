@@ -25,17 +25,17 @@ from server.lib.nl.detection.types import Date
 class TestDateParser(unittest.TestCase):
 
   @parameterized.expand([
-      ('USA population in May, 2021', [Date('in', 2021, 5)]),
+      ('USA population in may, 2021', [Date('in', 2021, 5)]),
       ('USA population in Sep 2021', [Date('in', 2021, 9)]),
       ('USA population in 2021', [Date('in', 2021, 0)]),
       ('World temperature before year 2080', [Date('before', 2080, 0)]),
       ('How does california GCP in 2020 compare with year 2010',
        [Date('in', 2020, 0), Date('year', 2010, 0)]),
       ('Earthquakes in the last 5 years',
-       [Date('last_years', 2024, 0, year_span=5)]),
-      ('Flood in previous year', [Date('last_years', 2024, 0, year_span=1)]),
+       [Date('last_years', 2019, 0, year_span=0)]),
+      ('Flood in previous year', [Date('last_years', 2023, 0, year_span=0)]),
       ('Population over the past decade',
-       [Date('last_years', 2024, 0, year_span=10)]),
+       [Date('last_years', 2014, 0, year_span=0)]),
       ('Female population in Dakota', []),
       ('How has the population in USA changed over time', []),
       ("Female population in California a decade ago", [Date('in', 2014)]),
@@ -55,10 +55,8 @@ class TestGetDateRange(unittest.TestCase):
 
   @parameterized.expand([
       # 'last_years' includes the specified date
-      (Date('last_years', 2024, 0, year_span=1), ('2023', '2024')),
-      (Date('last_years', 2024, 2, year_span=1), ('2023-02', '2024-02')),
-      (Date('last_years', 2024, 0, year_span=5), ('2019', '2024')),
-      (Date('last_years', 2024, 2, year_span=5), ('2019-02', '2024-02')),
+      (Date('last_years', 2023, 0, year_span=0), ('2023', '')),
+      (Date('last_years', 2023, 2, year_span=0), ('2023-02', '')),
       # 'before' does not include the specified date
       (Date('before', 2080, 0, year_span=0), ('', '2079')),
       (Date('before', 2080, 1, year_span=0), ('', '2079-12')),

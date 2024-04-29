@@ -22,6 +22,7 @@ import torch
 import nl_server.loader as loader
 import nl_server.routes as routes
 import shared.lib.gcp as lib_gcp
+from shared.lib.utils import is_debug_mode
 
 
 def create_app():
@@ -29,13 +30,18 @@ def create_app():
   if lib_gcp.in_google_network():
     client = google.cloud.logging.Client()
     client.setup_logging()
+  else:
+    logging.basicConfig(
+        level=logging.INFO,
+        format=
+        "[%(asctime)s][%(levelname)-8s][%(filename)s:%(lineno)s] %(message)s ",
+        datefmt="%H:%M:%S",
+    )
 
-  logging.basicConfig(
-      level=logging.INFO,
-      format=
-      "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
-      datefmt="%H:%M:%S",
-  )
+  log_level = logging.WARNING
+  if is_debug_mode():
+    log_level = logging.INFO
+  logging.getLogger('werkzeug').setLevel(log_level)
 
   app = Flask(__name__)
   app.register_blueprint(routes.bp)
@@ -44,6 +50,14 @@ def create_app():
   if sys.version_info >= (3, 8) and sys.platform == "darwin":
     torch.set_num_threads(1)
 
-  loader.load_server_state(app)
+  try:
+    loader.load_server_state(app)
+  except Exception as e:
+    msg = '\n!!!!! IMPORTANT NOTE !!!!!!\n' \
+          'If you are running locally, try clearing caches and models:\n' \
+          '* `rm -rf ~/.datacommons`\n' \
+          '* `rm -rf /tmp/datcom-nl-models /tmp/datcom-nl-models-dev`\n'
+    print('\033[91m{}\033[0m'.format(msg))
+    raise
 
   return app
