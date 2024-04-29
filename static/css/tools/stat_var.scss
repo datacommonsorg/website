@@ -76,7 +76,7 @@
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  font-size: .9rem;
+  font-size: 0.9rem;
   justify-content: center;
 }
 
@@ -103,8 +103,7 @@
   width: 30%;
 }
 
-#place-type-summary-section
-.node-table tr > td:last-of-type,
+#place-type-summary-section .node-table tr > td:last-of-type,
 .node-table tr > th:last-of-type {
   width: 50%;
 }

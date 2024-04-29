@@ -21,26 +21,34 @@ $medium-font-size: 0.85rem;
 $small-font-size: 0.75rem;
 
 .stat-var-hierarchy-container {
-  min-height: 20rem;
   font-size: $medium-font-size;
+  font-size: 14px;
+  font-weight: 700;
   line-height: 1.8rem;
+  line-height: 28px;
+  min-height: 20rem;
+  padding: 0px 10px;
 }
 
 .statvar-hierarchy-search-section {
-  font-size: $medium-font-size;
-  margin-bottom: $vertical-spacing;
+  margin-bottom: 8px;
 }
 
 .statvar-hierarchy-search-section .search-input-container {
+  padding: 24px 0px 20px 0px;
   position: relative;
 }
 
 .statvar-hierarchy-search-section .statvar-search-input {
-  font-size: $medium-font-size;
+  border: 1px solid #ced4da;
+  border-radius: 24px;
+  color: #6c757d;
+  font-size: 14px;
+  padding: 8px 12px;
 }
 
 .stat-var-hierarchy-container .material-icons {
-  font-size: 15px;
+  font-size: 24px;
   vertical-align: middle;
 }
 
@@ -48,12 +56,10 @@ $small-font-size: 0.75rem;
   margin: 0 5px;
 }
 
-.stat-var-hierarchy-container .title {
-  padding-left: 5.5px;
-  vertical-align: middle;
-}
-
 .node-title {
+  align-items: center;
+  display: flex;
+  margin-bottom: 4px;
   white-space: nowrap;
 }
 

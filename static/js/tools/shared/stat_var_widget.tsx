@@ -140,7 +140,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
             entities={props.sampleEntities}
             selectedSVs={Object.keys(props.selectedSVs)}
             selectSV={props.selectSV}
-            searchLabel={"Statistical Variables"}
+            searchLabel={"Statistical variables"}
             deselectSV={(sv) => props.deselectSVs([sv])}
             numEntitiesExistence={props.numEntitiesExistence}
           />
