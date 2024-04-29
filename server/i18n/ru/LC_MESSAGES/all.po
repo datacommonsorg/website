@@ -82,8 +82,8 @@ msgstr "Расходы правительства на образование"
 msgid "Government Expenditures on Military"
 msgstr "Военные расходы правительства"
 
-msgid "Knowledge Graph Browser"
-msgstr "браузер графа знаний"
+msgid "Knowledge Graph"
+msgstr "графа знаний"
 
 msgid "Gross National Income"
 msgstr "Валовой национальный доход"
