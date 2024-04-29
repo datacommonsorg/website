@@ -82,7 +82,7 @@ msgstr "Dépenses publiques en éducation"
 msgid "Government Expenditures on Military"
 msgstr "Dépenses publiques militaires"
 
-msgid "Graph Browser"
+msgid "Knowledge Graph Browser"
 msgstr "Exploration des données"
 
 msgid "Gross National Income"

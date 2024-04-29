@@ -82,8 +82,8 @@ msgstr "Gasto público en educación"
 msgid "Government Expenditures on Military"
 msgstr "Gasto público militar"
 
-msgid "Graph Browser"
-msgstr "Graph Browser"
+msgid "Knowledge Graph Browser"
+msgstr "Knowledge Graph Browser"
 
 msgid "Gross National Income"
 msgstr "Renta Nacional Bruta"

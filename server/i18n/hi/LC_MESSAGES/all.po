@@ -82,7 +82,7 @@ msgstr "शिक्षा पर सरकारी खर्च"
 msgid "Government Expenditures on Military"
 msgstr "सेना पर सरकारी खर्च"
 
-msgid "Graph Browser"
+msgid "Knowledge Graph Browser"
 msgstr "ग्राफ़ ब्राउज़र"
 
 msgid "Gross National Income"

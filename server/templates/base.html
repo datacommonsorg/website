@@ -113,7 +113,7 @@
                 <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
                   <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans
                     %}</a>
-                  <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{%
+                  <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Knowledge Graph Browser{%
                     endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.visualization')}}#visType=timeline">{% trans %}Timelines Explorer{%
                     endtrans %}</a>
@@ -185,7 +185,7 @@
             {# TRANSLATORS: The name of a tool to browse statistics about a place. #}
             <a href="{{ url_for('place.place') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Place Explorer{% endtrans %}</span></a>
             {# TRANSLATORS: The name of a tool to browse the Data Commons knowledge graph. #}
-            <a href="{{ url_for('browser.browser_main') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Graph Browser{% endtrans %}</span></a>
+            <a href="{{ url_for('browser.browser_main') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Knowledge Graph Browser{% endtrans %}</span></a>
             {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}
             <a href="{{ url_for('tools.visualization')}}#visType=timeline"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Timelines Explorer{% endtrans %}</span></a>
             {# TRANSLATORS: The name of a tool to explore scatter plots of statistical variables for places. #}
