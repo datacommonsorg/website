@@ -412,7 +412,7 @@ def get_topic_peergroups(sv_dcids: List[str], dc: str = DCNames.MAIN_DC.value):
 
 
 def get_topic_extended_svgs(topic: str, dc: str = DCNames.MAIN_DC.value):
-  if 'TOPIC_CACHE' in current_app.config:
+  if _use_topic_cache():
     return current_app.config['TOPIC_CACHE'][dc].get_extended_svgs(topic)
   else:
     return fetch.property_values(nodes=[topic], prop='extendedVariable')[topic]
@@ -421,7 +421,7 @@ def get_topic_extended_svgs(topic: str, dc: str = DCNames.MAIN_DC.value):
 def svpg_name(sv: str, dc: str = DCNames.MAIN_DC.value):
   name = SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
-    if 'TOPIC_CACHE' in current_app.config:
+    if _use_topic_cache():
       name = current_app.config['TOPIC_CACHE'][dc].get_name(sv)
     if not name:
       resp = fetch.property_values(nodes=[sv], prop='name')[sv]
@@ -497,17 +497,20 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
 
 def _members(node: str, prop: str, dc: str) -> List[str]:
   val_list = []
-  if 'TOPIC_CACHE' in current_app.config:
+  if _use_topic_cache():
     resp = current_app.config['TOPIC_CACHE'][dc].get_members(node)
     val_list = [v['dcid'] for v in resp]
   else:
     val_list = _prop_val_ordered(node, prop + 'List')
+    # TODO: For custom DCs, make single call for both prop and prop + 'List' instead of 2.
+    if not val_list and utils.is_custom_dc():
+      val_list = _prop_val_ordered(node, prop)
   return val_list
 
 
 def _members_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[str]]:
   val_map = {}
-  if 'TOPIC_CACHE' in current_app.config:
+  if _use_topic_cache():
     for n in nodes:
       val_map[n] = current_app.config['TOPIC_CACHE'][dc].get_members(n)
   else:
@@ -517,7 +520,7 @@ def _members_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[str]]:
 
 def _parents_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
   parent_list = []
-  if 'TOPIC_CACHE' in current_app.config:
+  if _use_topic_cache():
     for n in nodes:
       plist = current_app.config['TOPIC_CACHE'][dc].get_parents(n, prop)
       parent_list.extend(plist)
@@ -546,3 +549,7 @@ def _prop_val_ordered(node: str, prop: str) -> List[str]:
     sv_list = sv_list[0]
     svs = [v.strip() for v in sv_list.split(',') if v.strip()]
   return svs
+
+
+def _use_topic_cache() -> bool:
+  return 'TOPIC_CACHE' in current_app.config and not utils.is_custom_dc()
