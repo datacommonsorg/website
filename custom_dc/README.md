@@ -126,7 +126,9 @@ the instructions below:
 ### Build docker image locally
 
 ```bash
-cc
+docker build --tag datacommons-website-compose:latest \
+  -f build/web_compose/Dockerfile \
+  -t website-compose .
 ```
 
 ### Test custom Data Commons locally with SQLite database
@@ -218,7 +220,7 @@ gcloud compute networks subnets create dc-vpc-connector-subnet \
     --range=10.9.0.0/28 \
     --region=$REGION
 
-# Create connector
+# Create VPC connector
 gcloud compute networks vpc-access connectors create dc-vpc-connector \
   --region $REGION \
   --subnet dc-vpc-connector-subnet
