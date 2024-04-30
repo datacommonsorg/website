@@ -26,10 +26,17 @@ class Info extends Component {
       <div id="placeholder-container">
         <div className="start-instruction-tile">
           <i className="material-symbols-outlined icon">reminder</i>
-          <p>
-            To start, select a variable from the left panel. Need more specific
-            data? Filter by choosing a data source above.
+          <p className="start-instruction-text">
+            To start,{" "}
+            <span className="d-none d-lg-inline">
+              select a variable from the left panel
+            </span>
+            <span className="d-lg-none">
+              click the &quot;Select variable&quot; button below
+            </span>
+            . Need more specific data? Filter by choosing a data source above.
           </p>
+          <p className="start-instruction-text"></p>
         </div>
       </div>
     );
