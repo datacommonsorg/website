@@ -269,9 +269,9 @@ datacommons-website-compose:latest
 Specify the GCP project and custom instance docker image tag.
 
 ```bash
-export PROJECT_ID=datcom-website-dev
-export CUSTOM_DC_TAG=dwnoble-5
-export CLOUD_RUN_SERVICE_NAME=datacommons-dwnoble
+export PROJECT_ID=<YOUR_PROJECT_ID>
+export CUSTOM_DC_TAG=<YOUR_CUSTOM_DC_TAG>
+export CLOUD_RUN_SERVICE_NAME=<YOUR_CLOUD_RUN_SERVICE_NAME>
 export CLOUD_RUN_NETWORK=default
 export REGION=us-central1
 export CLOUDSQL_INSTANCE_ID=dc-dev
