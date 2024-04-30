@@ -337,6 +337,7 @@ def prepare_response(utterance: nl_utterance.Utterance,
         'name': p.name,
         'place_type': p.place_type
     })
+  user_messages = user_message.msg_list
   data_dict = {
       'place': ret_places_dict[0] if len(ret_places) > 0 else {},
       'places': ret_places_dict,
@@ -348,7 +349,10 @@ def prepare_response(utterance: nl_utterance.Utterance,
       'placeSource': utterance.place_source.value,
       'pastSourceContext': utterance.past_source_context,
       'relatedThings': related_things,
-      'userMessages': user_message.msg_list,
+      'userMessages': user_messages,
+      # TODO: userMessage is currently in use by UN client. Deprecate this once
+      # that code is updated.
+      'userMessage': user_messages[0] if len(user_messages) > 0 else "",
   }
   if user_message.show_form:
     data_dict['showForm'] = True
@@ -418,7 +422,10 @@ def abort(error_message: str,
       'config': {},
       'context': escaped_context_history,
       'failure': error_message,
-      'userMessages': [error_message]
+      'userMessages': [error_message],
+      # TODO: userMessage is currently in use by UN client. Deprecate this once
+      # that code is updated.
+      'userMessage': error_message
   }
 
   if not counters:
