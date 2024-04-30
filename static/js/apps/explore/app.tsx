@@ -183,8 +183,12 @@ export function App(props: { isDemo: boolean }): JSX.Element {
 
   function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
     setDebugData(fulfillData["debug"]);
+    const userMessage = {
+      msgList: fulfillData["userMessages"] || [],
+      showForm: !!fulfillData["showForm"],
+    };
     if (!isFulfillDataValid) {
-      setUserMessage(fulfillData["userMessage"]);
+      setUserMessage(userMessage);
       setLoadingStatus(LoadingStatus.FAILED);
       return;
     }
@@ -193,18 +197,19 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       name: fulfillData["place"]["name"],
       types: [fulfillData["place"]["place_type"]],
     };
+    const relatedThings = fulfillData["relatedThings"] || {};
     const pageMetadata: SubjectPageMetadata = {
       place: mainPlace,
       places: fulfillData["places"],
       pageConfig: fulfillData["config"],
-      childPlaces: fulfillData["relatedThings"]["childPlaces"],
-      peerPlaces: fulfillData["relatedThings"]["peerPlaces"],
-      parentPlaces: fulfillData["relatedThings"]["parentPlaces"],
-      parentTopics: fulfillData["relatedThings"]["parentTopics"],
-      childTopics: fulfillData["relatedThings"]["childTopics"],
-      peerTopics: fulfillData["relatedThings"]["peerTopics"],
-      exploreMore: fulfillData["relatedThings"]["exploreMore"],
-      mainTopics: fulfillData["relatedThings"]["mainTopics"],
+      childPlaces: relatedThings["childPlaces"],
+      peerPlaces: relatedThings["peerPlaces"],
+      parentPlaces: relatedThings["parentPlaces"],
+      parentTopics: relatedThings["parentTopics"],
+      childTopics: relatedThings["childTopics"],
+      peerTopics: relatedThings["peerTopics"],
+      exploreMore: relatedThings["exploreMore"],
+      mainTopics: relatedThings["mainTopics"],
       sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
     };
     if (
@@ -241,10 +246,6 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         }
       }
     }
-    const userMessage = {
-      msgList: fulfillData["userMessages"] || [],
-      showForm: !!fulfillData["showForm"],
-    };
     savedContext.current = fulfillData["context"] || [];
     setPageMetadata(pageMetadata);
     setUserMessage(userMessage);

@@ -9,7 +9,8 @@
     "name": "",
     "place_type": ""
   },
-  "userMessage": {
-    "msg": "Sorry, could not complete your request. No place found in the query."
-  }
+  "userMessage": "Sorry, could not complete your request. No place found in the query.",
+  "userMessages": [
+    "Sorry, could not complete your request. No place found in the query."
+  ]
 }
