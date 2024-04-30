@@ -36,7 +36,6 @@ class Info extends Component {
             </span>
             . Need more specific data? Filter by choosing a data source above.
           </p>
-          <p className="start-instruction-text"></p>
         </div>
       </div>
     );

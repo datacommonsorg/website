@@ -62,9 +62,9 @@ class TestRanking(WebdriverBaseTest):
         '/ranking/Amount_Consumption_Energy_PerCapita/Country/?h=country%2FIND&unit=kg&hl=hi&bottom='
     )
 
-    # self.assertEqual(
-    #     self.driver.find_elements(By.CLASS_NAME, 'navbar-brand')[0].text,
-    #     'Data Commons\n•\nप्लेस रैंकिंग')
+    self.assertEqual(
+        self.driver.find_elements(By.CLASS_NAME, 'navbar-brand')[0].text,
+        'Data Commons')
 
     subtitle_present = EC.text_to_be_present_in_element(
         (By.TAG_NAME, 'h3'), 'the World से नीचे से 100 देश')
@@ -109,9 +109,9 @@ class TestRanking(WebdriverBaseTest):
         '/ranking/Amount_Consumption_Energy_PerCapita/Country/?h=country%2FKOR&unit=kg&hl=ko'
     )
 
-    # self.assertEqual(
-    #     self.driver.find_elements(By.CLASS_NAME, 'navbar-brand')[0].text,
-    #     'Data Commons\n•\n장소 순위')
+    self.assertEqual(
+        self.driver.find_elements(By.CLASS_NAME, 'navbar-brand')[0].text,
+        'Data Commons')
 
     subtitle_present = EC.text_to_be_present_in_element((By.TAG_NAME, 'h3'),
                                                         'the World 상위 국가 100개')
