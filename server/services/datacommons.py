@@ -285,8 +285,8 @@ def get_variable_group_info(nodes: List[str],
   """Gets the stat var group node information."""
   url = get_service_url('/v1/bulk/info/variable-group')
   req_dict = {
-      "constrained_entities": entities,
       "nodes": nodes,
+      "constrained_entities": entities,
       "num_entities_existence": numEntitiesExistence
   }
   return post(url, req_dict)
