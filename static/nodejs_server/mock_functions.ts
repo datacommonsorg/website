@@ -58,9 +58,9 @@ export function queryAxiosMock(): void {
       params: {
         childType: "County",
         date: "",
+        facetIds: [],
         parentEntity: "geoId/38",
         variables: ["Mean_Income_Household_FamilyHousehold"],
-        facetIds: [],
       },
       paramsSerializer: stringifyFn,
     })
@@ -68,8 +68,8 @@ export function queryAxiosMock(): void {
   when(axios.get)
     .calledWith("/api/observations/series", {
       params: {
-        variables: ["Mean_Income_Household_FamilyHousehold"],
         entities: ["geoId/38"],
+        variables: ["Mean_Income_Household_FamilyHousehold"],
       },
       paramsSerializer: stringifyFn,
     })
@@ -77,8 +77,8 @@ export function queryAxiosMock(): void {
   when(axios.get)
     .calledWith("/api/observations/series", {
       params: {
-        variables: ["Median_Income_Household_FamilyHousehold"],
         entities: ["geoId/38"],
+        variables: ["Median_Income_Household_FamilyHousehold"],
       },
       paramsSerializer: stringifyFn,
     })

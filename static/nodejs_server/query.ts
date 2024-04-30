@@ -358,12 +358,12 @@ export async function getQueryResult(
   });
   const endTime = process.hrtime.bigint();
   const debug = {
+    debug: nlResp.data["debug"] || {},
     timing: {
       getNlResult: getElapsedTime(startTime, nlResultTime),
       getTileResults: getElapsedTime(nlResultTime, endTime),
       total: getElapsedTime(startTime, endTime),
     },
-    debug: nlResp.data["debug"] || {},
   };
 
   return { charts: processedResults, debug };
