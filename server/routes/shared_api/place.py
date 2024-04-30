@@ -136,7 +136,7 @@ POPULATION_DCID = "Count_Person"
 bp = Blueprint("api_place", __name__, url_prefix='/api/place')
 
 
-def get_place_types(place_dcids):
+def get_place_type(place_dcids):
   place_types = fetch.property_values(place_dcids, 'typeOf')
   ret = {}
   for dcid in place_dcids:
@@ -144,8 +144,8 @@ def get_place_types(place_dcids):
     # "AdministrativeArea"
     chosen_type = ''
     for place_type in place_types[dcid]:
-      if not chosen_type or chosen_type.startswith('AdministrativeArea') \
-              or chosen_type == 'Place':
+      if (chosen_type in ['', 'Place'] or
+          chosen_type.startswith('AdministrativeArea')):
         chosen_type = place_type
     ret[escape(dcid)] = chosen_type
   return ret
@@ -171,8 +171,8 @@ def get_place_type_i18n_name(place_type: str) -> str:
 
 @bp.route('/type/<path:place_dcid>')
 @cache.memoize(timeout=TIMEOUT)
-def get_place_type(place_dcid):
-  return get_place_types([place_dcid])[place_dcid]
+def place_type(place_dcid):
+  return get_place_type([place_dcid]).get(place_dcid, '')
 
 
 @bp.route('/name', methods=['GET', 'POST'])
@@ -257,7 +257,7 @@ def api_i18n_name():
 def get_named_typed_place():
   """Returns data for NamedTypedPlace, a dictionary of key -> NamedTypedPlace."""
   dcids = request.args.getlist('dcids')
-  place_types = get_place_types(dcids)
+  place_type = get_place_type(dcids)
   place_names = names(dcids)
   ret = {}
   for dcid in dcids:
@@ -265,7 +265,7 @@ def get_named_typed_place():
     ret[dcid] = {
         'dcid': escape(dcid),
         'name': place_names[dcid],
-        'types': place_types[dcid]
+        'types': place_type.get(dcid, ''),
     }
   return Response(json.dumps(ret), 200, mimetype='application/json')
 
@@ -330,7 +330,7 @@ def child_fetch(parent_dcid):
   place_dcids = place_dcids + overlaps_response.get(parent_dcid, [])
 
   # Filter by wanted place types
-  place_type = get_place_type(parent_dcid)
+  place_type = place_type(parent_dcid)
   wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
 
   place_types = fetch.property_values(place_dcids, 'typeOf')
@@ -484,7 +484,7 @@ def get_ranking_url(containing_dcid,
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def api_ranking(dcid):
   """Get the ranking information for a given place."""
-  current_place_type = get_place_type(dcid)
+  current_place_type = place_type(dcid)
   parents = parent_places([dcid])[dcid]
   parent_i18n_names = get_i18n_name([x['dcid'] for x in parents], False)
   should_return_all = request.args.get('all', '') == "1"
