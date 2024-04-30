@@ -93,7 +93,8 @@ def series_within():
   facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
 
   # Make batched calls there are too many child places for server to handle
-  batch_size = request.args.get('batchSize') or _MAX_BATCH_SIZE
+  batch_size = (request.args.get('batchSize') or
+                _MAX_BATCH_SIZE // len(variables))
   if parent_entity in _BATCHED_CALL_PLACES.get(child_type, []):
     try:
       logging.info("Fetching child places series in batches")
