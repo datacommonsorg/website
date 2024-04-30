@@ -5,6 +5,11 @@ This is a tool to get a link to see the screenshot diffs between autopush and pr
 To run:
 
 ```bash
+# Pull tags from remote datacommonsorg/website repo. 
+# Note: replace dc with what you use when you run `git pull dc master`
+git pull dc --tags
+
+# Run the script
 ./diff.sh
 ```
 
