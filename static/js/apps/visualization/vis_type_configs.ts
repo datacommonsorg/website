@@ -39,8 +39,6 @@ export const ORDERED_VIS_TYPE = [
 export interface VisTypeConfig {
   // display name to use for the vis type
   displayName: string;
-  // icon to use to represent the vis type
-  icon: string;
   // stat var hierarchy type to use for this vis type
   svHierarchyType: string;
   // function to get the component to render in the chart area

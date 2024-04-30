@@ -272,7 +272,6 @@ function getSqlQueryFn(appContext: AppContextType): () => string {
 
 export const TIMELINE_CONFIG = {
   displayName: "Timeline",
-  icon: "timeline",
   svHierarchyType: StatVarHierarchyType.TIMELINE,
   skipEnclosedPlaceType: true,
   getChartArea,
