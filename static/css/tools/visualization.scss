@@ -425,6 +425,7 @@ $selector-footer-height: 40px;
   }
 
   #stat-var-hierarchy-section {
+    padding: 0px;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -493,7 +494,7 @@ $selector-footer-height: 40px;
       .section-title {
         font-size: 20px;
         font-weight: 500;
-        margin-bottom: 16px;
+        //margin-bottom: 16px;
       }
     }
 

@@ -31,11 +31,14 @@ $small-font-size: 0.75rem;
 }
 
 .statvar-hierarchy-search-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   margin-bottom: 8px;
+  padding-top: 20px;
 }
 
 .statvar-hierarchy-search-section .search-input-container {
-  padding: 24px 0px 20px 0px;
   position: relative;
 }
 
