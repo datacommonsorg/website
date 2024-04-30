@@ -224,7 +224,6 @@ function getInfoContent(): JSX.Element {
 
 export const SCATTER_CONFIG = {
   displayName: "Scatter Plot",
-  icon: "scatter_plot",
   svHierarchyType: StatVarHierarchyType.SCATTER,
   svHierarchyNumExistence: 10,
   singlePlace: true,

@@ -34,28 +34,27 @@ import {
 const DEBUG_PARAM = "dbg";
 
 const svToSentences = (
-  svScores: SVScores,
-  svSentences: Map<string, Array<SentenceScore>>
+  variables: string[],
+  varSentences: Map<string, Array<SentenceScore>>
 ): JSX.Element => {
-  const svs = Object.values(svScores.SV);
   return (
     <div id="sv-sentences-list">
       <table>
         <thead>
           <tr>
-            <th>SV_DCID</th>
+            <th>Variable DCID</th>
             <th>Sentences</th>
           </tr>
         </thead>
         <tbody>
-          {svs.length === Object.keys(svSentences).length &&
-            svs.map((sv) => {
+          {variables.length === Object.keys(varSentences).length &&
+            variables.map((variable) => {
               return (
-                <tr key={sv}>
-                  <td>{sv}</td>
+                <tr key={variable}>
+                  <td>{variable}</td>
                   <td>
                     <ul>
-                      {svSentences[sv].map((sentence) => {
+                      {varSentences[variable].map((sentence) => {
                         return (
                           <li key={sentence.score + sentence.sentence}>
                             {sentence.sentence} (cosine:
@@ -78,9 +77,10 @@ const svToSentences = (
   );
 };
 
-const monoVarScoresElement = (svScores: SVScores): JSX.Element => {
-  const svs = Object.values(svScores.SV);
-  const scores = Object.values(svScores.CosineScore);
+const monoVarScoresElement = (
+  variables: string[],
+  scores: string[]
+): JSX.Element => {
   return (
     <div id="sv-scores-list">
       <table>
@@ -91,11 +91,11 @@ const monoVarScoresElement = (svScores: SVScores): JSX.Element => {
           </tr>
         </thead>
         <tbody>
-          {svs.length === scores.length &&
-            svs.map((sv, i) => {
+          {variables.length === scores.length &&
+            variables.map((variable, i) => {
               return (
                 <tr key={i}>
-                  <td>{sv}</td>
+                  <td>{variable}</td>
                   <td>{scores[i]}</td>
                 </tr>
               );
@@ -193,12 +193,16 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     placeDetectionType: props.debugData["place_detection_type"],
     placesDetected: props.debugData["places_detected"],
     placesResolved: props.debugData["places_resolved"],
+    entitiesDetected: props.debugData["entities_detected"] || [],
+    entitiesResolved: props.debugData["entities_resolved"] || [],
     mainPlaceDCID: props.debugData["main_place_dcid"],
     mainPlaceName: props.debugData["main_place_name"],
     queryWithoutPlaces: props.debugData["query_with_places_removed"],
     queryDetectionDebugLogs: props.debugData["query_detection_debug_logs"],
     svScores: props.debugData["sv_matching"] || {},
     svSentences: props.debugData["svs_to_sentences"],
+    propScores: props.debugData["props_matching"] || {},
+    propSentences: props.debugData["props_to_sentences"],
     rankingClassification: props.debugData["ranking_classification"],
     generalClassification: props.debugData["general_classification"],
     superlativeClassification: props.debugData["superlative_classification"],
@@ -280,6 +284,17 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
+            <b>Entity Detection:</b>
+          </Row>
+          <Row>
+            <Col>
+              Entities Detected: {debugInfo.entitiesDetected.join(", ")}
+            </Col>
+          </Row>
+          <Row>
+            <Col>Entities Resolved: {debugInfo.entitiesResolved}</Col>
+          </Row>
+          <Row>
             <b>Query Type Detection:</b>
           </Row>
           <Row>
@@ -330,7 +345,12 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>Note: Variables with scores less than 0.5 are not used.</Row>
           <Row>
-            <Col>{monoVarScoresElement(debugInfo.svScores)}</Col>
+            <Col>
+              {monoVarScoresElement(
+                Object.values(debugInfo.svScores.SV || {}),
+                Object.values(debugInfo.svScores.CosineScore || {})
+              )}
+            </Col>
           </Row>
           <Row>
             <b>Multi-Variable Matches:</b>
@@ -343,7 +363,33 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <Col>
-              {svToSentences(debugInfo.svScores, debugInfo.svSentences)}
+              {svToSentences(
+                Object.values(debugInfo.svScores.SV || {}),
+                debugInfo.svSentences
+              )}
+            </Col>
+          </Row>
+          <Row>
+            <b>Property Matches:</b>
+          </Row>
+          <Row>Note: Properties with scores less than 0.5 are not used.</Row>
+          <Row>
+            <Col>
+              {monoVarScoresElement(
+                Object.values(debugInfo.propScores.PROP || {}),
+                Object.values(debugInfo.propScores.CosineScore || {})
+              )}
+            </Col>
+          </Row>
+          <Row>
+            <b>Property Sentences Matched:</b>
+          </Row>
+          <Row>
+            <Col>
+              {svToSentences(
+                Object.values(debugInfo.propScores.PROP || {}),
+                debugInfo.propSentences
+              )}
             </Col>
           </Row>
           <Row>
