@@ -90,14 +90,6 @@
             </div>
             {% endif %}
             <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
-            {% if subpage_title %}
-            <span class="sep">•</span>
-            <span>
-              {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
-                {{ subpage_title }}
-                {% if subpage_url %}</a>{% endif %}
-            </span>
-            {% endif %}
             </a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav" aria-label="{% trans %}Show site navigation{% endtrans %}">

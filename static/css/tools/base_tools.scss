@@ -17,6 +17,7 @@
 @import "../base";
 
 body {
+  font-family: "Google Sans";
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -44,7 +45,7 @@ body {
 #main-footer #sub-footer {
   border-top: none !important;
   margin-bottom: 0 !important;
-  padding-bottom: 1.5rem !important;
+  padding: 8px 0px !important;
 }
 
 @include media-breakpoint-up(lg) {

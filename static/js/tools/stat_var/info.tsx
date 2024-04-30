@@ -25,7 +25,7 @@ class Info extends Component {
     return (
       <div id="placeholder-container">
         <div className="start-instruction-tile">
-          <i className="material-icons icon">pan_tool_alt</i>
+          <i className="material-symbols-outlined icon">reminder</i>
           <p>
             To start, select a variable from the left panel. Need more specific
             data? Filter by choosing a data source above.
