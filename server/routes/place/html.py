@@ -265,6 +265,7 @@ def place(place_dcid=None):
     place_summary = get_place_summaries(place_dcid).get(place_dcid, {})
     elapsed_time = (time.time() - start_time) * 1000
     logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
+  logging.info("----------------- 4")
 
   # Block pages from being indexed if not on the main DC domain. This prevents
   # crawlers from indexing dev or custom DC versions of the place pages.

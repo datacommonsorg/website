@@ -257,7 +257,7 @@ def api_i18n_name():
 def get_named_typed_place():
   """Returns data for NamedTypedPlace, a dictionary of key -> NamedTypedPlace."""
   dcids = request.args.getlist('dcids')
-  place_type = get_place_type(dcids)
+  place2type = get_place_type(dcids)
   place_names = names(dcids)
   ret = {}
   for dcid in dcids:
@@ -265,7 +265,7 @@ def get_named_typed_place():
     ret[dcid] = {
         'dcid': escape(dcid),
         'name': place_names[dcid],
-        'types': place_type.get(dcid, ''),
+        'types': place2type.get(dcid, ''),
     }
   return Response(json.dumps(ret), 200, mimetype='application/json')
 
@@ -330,12 +330,13 @@ def child_fetch(parent_dcid):
   place_dcids = place_dcids + overlaps_response.get(parent_dcid, [])
 
   # Filter by wanted place types
-  place_type = place_type(parent_dcid)
-  wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
+  parent_place_type = place_type(parent_dcid)
+  wanted_types = WANTED_PLACE_TYPES.get(parent_place_type,
+                                        ALL_WANTED_PLACE_TYPES)
 
-  place_types = fetch.property_values(place_dcids, 'typeOf')
+  place2types = fetch.property_values(place_dcids, 'typeOf')
   wanted_dcids = set()
-  for dcid, types in place_types.items():
+  for dcid, types in place2types.items():
     for t in types:
       if t in wanted_types:
         wanted_dcids.add(dcid)
@@ -355,7 +356,7 @@ def child_fetch(parent_dcid):
   place_names = fetch.property_values(wanted_dcids, 'name')
   result = collections.defaultdict(list)
   for place_dcid in wanted_dcids:
-    for place_type in place_types[place_dcid]:
+    for place_type in place2types[place_dcid]:
       place_pop = pop.get(place_dcid, 0)
       if place_pop > 0 or parent_dcid == 'Earth':  # Continents do not have population
         place_name = place_names.get(place_dcid, place_dcid)
