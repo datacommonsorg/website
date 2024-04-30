@@ -29,12 +29,11 @@ for parent_folder in "${PARENT_FOLDERS[@]}"; do
     folder_timestamp=$(date -j -f "%Y_%m_%d_%H_%M_%S" "$folder_name" +"%s")
     # get the difference in days between current timestamp and folder timestamp
     timestamp_difference=$((CURRENT_TS - folder_timestamp))
-    days_difference=$(( $timestamp_difference / (60*60*24) ))
+    days_difference=$(( timestamp_difference / (60*60*24) ))
     # delete the folder if its older than MAX_DAYS_OLD
     if [[ "$days_difference" -gt "$MAX_DAYS_OLD" ]]; then
       gsutil rm -r $folder
       echo "deleted $folder"
-      break
     fi
   done
 done
