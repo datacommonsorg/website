@@ -171,7 +171,7 @@ def get_place_type_i18n_name(place_type: str) -> str:
 
 @bp.route('/type/<path:place_dcid>')
 @cache.memoize(timeout=TIMEOUT)
-def place_type(place_dcid):
+def api_place_type(place_dcid):
   return get_place_type([place_dcid]).get(place_dcid, '')
 
 
@@ -330,7 +330,7 @@ def child_fetch(parent_dcid):
   place_dcids = place_dcids + overlaps_response.get(parent_dcid, [])
 
   # Filter by wanted place types
-  parent_place_type = place_type(parent_dcid)
+  parent_place_type = api_place_type(parent_dcid)
   wanted_types = WANTED_PLACE_TYPES.get(parent_place_type,
                                         ALL_WANTED_PLACE_TYPES)
 
@@ -485,7 +485,7 @@ def get_ranking_url(containing_dcid,
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def api_ranking(dcid):
   """Get the ranking information for a given place."""
-  current_place_type = place_type(dcid)
+  current_place_type = api_place_type(dcid)
   parents = parent_places([dcid])[dcid]
   parent_i18n_names = get_i18n_name([x['dcid'] for x in parents], False)
   should_return_all = request.args.get('all', '') == "1"

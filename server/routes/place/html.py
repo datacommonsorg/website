@@ -160,7 +160,7 @@ def get_place_html_link(place_dcid: str, place_name: str) -> str:
 def get_place_type_with_parent_places_links(dcid: str) -> str:
   """Get '<place type> in <parent places>' with html links for a given DCID"""
   # Get place type in localized, human-readable format
-  place_type = place_api.place_type(dcid)
+  place_type = place_api.api_place_type(dcid)
   place_type_display_name = place_api.get_place_type_i18n_name(place_type)
 
   # Get parent places and their localized names
@@ -236,7 +236,7 @@ def place(place_dcid=None):
   if not place_dcid:
     return place_landing()
 
-  place_type = place_api.place_type(place_dcid)
+  place_type = place_api.api_place_type(place_dcid)
   if not place_type:
     return place_landing(error_msg=f'Place "{place_dcid}" not found')
 
