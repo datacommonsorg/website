@@ -87,11 +87,19 @@
                     <a href="{{ url_for('tools.map') }}" id="nav-map" class="nav-link-main "><span>Map</span></a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="{{ url_for('tools.download') }}" id="nav-map" class="nav-link-main "><span>Download</span></a>
+                    <a href="{{ url_for('tools.download') }}" id="nav-download" class="nav-link-main "><span>Download</span></a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="{{ url_for('tools.stat_var') }}" id="nav-map" class="nav-link-main "><span>Variables</span></a>
-                </li>
+                  <a href="{{ url_for('tools.stat_var') }}" id="nav-var" class="nav-link-main "><span>Variables</span></a>
+              </li>
+                <li class="nav-item dropdown">
+<a href="{{ url_for('browser.browser_main') }}" id="nav-browser" class="nav-link-main "><span>Knowledge Graph</span></a>
+</li>
+<li class="nav-item dropdown">
+      <a href="{{ url_for('explore.page') }}" id="nav-explorer" class="nav-link-main "><span>Search</span></a>
+</li>
+
+            </li>
             </ul>
           </div>
         </div>
