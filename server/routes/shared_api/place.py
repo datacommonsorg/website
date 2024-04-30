@@ -681,6 +681,8 @@ def placeid2dcid():
   https://developers.google.com/places/web-service/autocomplete.
   """
   place_ids = request.args.getlist("placeIds")
+  if not place_ids:
+    return 'error: must provide `placeIds` field', 400
   resp = fetch.resolve_id(place_ids, "placeId", "dcid")
   result = {}
   for place_id, dcids in resp.items():

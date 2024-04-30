@@ -30,7 +30,6 @@ import yaml
 # the shared lib directory needs to be appended to the sys path.
 _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 _SHARED_LIB_DIR = os.path.join(_THIS_DIR, "..", "..", "..", "shared", "lib")
-print("SHARED LIB DIR", _SHARED_LIB_DIR)
 sys.path.append(_SHARED_LIB_DIR)
 import gcs  # type: ignore
 
@@ -76,11 +75,19 @@ def download(embeddings_yaml_path: str):
 
   # Download model.
   model_version = default_ft_embeddings_info["model"]
-  utils.get_or_download_model_from_gcs(ctx, model_version)
+  print(f"Downloading default model: {model_version}")
+  local_model_path = utils.get_or_download_model_from_gcs(ctx, model_version)
+  print(f"Downloaded default model to: {local_model_path}")
 
   # Download embeddings.
   embeddings_file_name = default_ft_embeddings_info["embeddings"]
-  gcs.download_gcs_file(embeddings_file_name)
+  print(f"Downloading default embeddings: {embeddings_file_name}")
+  local_embeddings_path = gcs.download_gcs_file(embeddings_file_name,
+                                                use_anonymous_client=True)
+  if not local_embeddings_path:
+    print(f"Unable to download default embeddings: {embeddings_file_name}")
+  else:
+    print(f"Downloaded default embeddings to: {local_embeddings_path}")
 
   # The prod embeddings.yaml includes multiple embeddings (default, biomed, UN)
   # For custom DC, we only want the default.
