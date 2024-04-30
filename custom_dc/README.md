@@ -205,6 +205,26 @@ Once the instance is created, add the instance IP to `cloudsql_env.list`:
 REDIS_HOST=<YOUR_REDIS_IP>
 ```
 
+For Cloud Run Custom Data Commons instance to connect to redis, we will have to
+create a VPC connector:
+
+```
+# Enable VPC Access API
+gcloud services enable vpcaccess.googleapis.com
+
+# Create subnet for the VPC connector
+gcloud compute networks subnets create dc-vpc-connector-subnet \
+    --network=$CLOUD_RUN_NETWORK \
+    --range=10.9.0.0/28 \
+    --region=$REGION
+
+# Create connector
+gcloud compute networks vpc-access connectors create dc-vpc-connector \
+  --region $REGION \
+  --subnet dc-vpc-connector-subnet
+
+```
+
 ### Upload Data Files
 
 [Note]: Refer to [Import Custom Data](#import-custom-data) for preparing the
@@ -249,12 +269,12 @@ datacommons-website-compose:latest
 Specify the GCP project and custom instance docker image tag.
 
 ```bash
-export PROJECT_ID=<YOUR_PROJECT_ID>
-export CUSTOM_DC_TAG=<YOUR_TAG>
+export PROJECT_ID=datcom-website-dev
+export CUSTOM_DC_TAG=dwnoble-5
 export CLOUD_RUN_SERVICE_NAME=datacommons-dwnoble
 export CLOUD_RUN_NETWORK=default
 export REGION=us-central1
-export CLOUDSQL_INSTANCE_ID=dc-graph
+export CLOUDSQL_INSTANCE_ID=dc-dev
 ```
 
 Authenticate for docker image push.
@@ -300,13 +320,13 @@ env_vars=$(awk -F '=' 'NF==2 {print $1"="$2}' custom_dc/cloudsql_env.list | tr '
 
 gcloud beta run deploy $CLOUD_RUN_SERVICE_NAME \
   --allow-unauthenticated \
-  --memory 4G \
+  --memory 8G \
   --image us-central1-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG \
   --add-cloudsql-instances=$PROJECT_ID:$REGION:$CLOUDSQL_INSTANCE_ID \
   --set-env-vars="$env_vars" \
   --port 8080 \
   --region $REGION \
-  --network $CLOUD_RUN_NETWORK
+  --vpc-connector dc-vpc-connector # Optional: remove flag if not using redis
 ```
 
 ## Admin Page
