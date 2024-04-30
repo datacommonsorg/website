@@ -101,14 +101,6 @@ const BAR_EXPECTED_RESULT = [
       'label,Santa Clara County\r\nAccomodation/Food Industry,82881\r\nAdmin / Waste Management Service Industry,60538\r\n"Agriculture, Forestry, Fishing, Hunting",2960\r\nConstruction Industry,53031\r\nEducational Services Industry,81663\r\nHealth Care and Social Assistance Industry,156124\r\nManufacturing,176811\r\nFinance and Insurance Industry,20831\r\nInformation Industry,96168\r\n"Arts, Entertainment, Recreation Industry",20764\r\n"Mining, Quarrying, Oil and Gas Extraction Industry",142\r\nOther Services (except Public Admin),25214\r\nTransportation And Warehousing,20846\r\nUtilities,3527\r\nRetail Trade,72215\r\nReal Estate and Rental and Leasing,15648\r\nPublic Administration,27668\r\nWholesale Trade,28183\r\n"Professional, Scientific, and Technical Services",161223',
     dcUrl:
       "https://datacommons.org/explore#q=top%20jobs%20in%20santa%20clara%20county",
-    placeType: "City",
-    places: ["geoId/06085"],
-    srcs: [
-      {
-        name: "bls.gov",
-        url: "https://www.bls.gov/qcew/",
-      },
-    ],
     legend: [
       "Accomodation/Food Industry",
       "Admin / Waste Management Service Industry",
@@ -129,6 +121,14 @@ const BAR_EXPECTED_RESULT = [
       "Public Administration",
       "Wholesale Trade",
       "Professional, Scientific, and Technical Services",
+    ],
+    placeType: "City",
+    places: ["geoId/06085"],
+    srcs: [
+      {
+        name: "bls.gov",
+        url: "https://www.bls.gov/qcew/",
+      },
     ],
     title: "Categories of Jobs in Santa Clara County (Jun, 2023)",
     type: "BAR",
