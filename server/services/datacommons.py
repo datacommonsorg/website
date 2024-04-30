@@ -234,10 +234,12 @@ def v2observation(select, entity, variable):
     variable: A dict in the form of {'dcids':, 'expression':}
 
   """
+  # Remove None from dcids and sort them. Note do not sort in place to avoid
+  # changing the original input.
   if 'dcids' in entity:
-    entity['dcids'] = sorted(entity['dcids'])
+    entity['dcids'] = sorted([x for x in entity['dcids'] if x])
   if 'dcids' in variable:
-    variable['dcids'] = sorted(variable['dcids'])
+    variable['dcids'] = sorted([x for x in variable['dcids'] if x])
   url = get_service_url('/v2/observation')
   return post(url, {
       'select': select,
