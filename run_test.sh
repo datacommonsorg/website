@@ -121,7 +121,7 @@ function run_py_test {
     exit 1
   fi
 
-  if ! isort server/ nl_server/ tools/ -c --skip-glob *pb2.py --skip-glob **/.env/** --profile google; then
+  if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob *pb2.py --skip-glob **/.env/** --profile google; then
     echo "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
