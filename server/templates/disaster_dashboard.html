@@ -21,7 +21,6 @@
 {% set page_id = 'page-disaster-dashboard' %}
 {% set place_name = place_metadata.place_name or 'Error' %}
 {% set title = place_name + ' - Disasters Dashboard' %}
-{% set subpage_title = 'Severe Weather and Natural Disasters Dashboard' %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/disaster_dashboard.min.css', t=config['VERSION'])}}>

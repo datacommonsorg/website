@@ -21,7 +21,6 @@
 {% set page_id = 'page-sustainability' %}
 {% set place_name = place_metadata.place_name or 'Error' %}
 {% set title = place_name + ' - Sustainability Explorer' %}
-{% set subpage_title = 'Sustainability Explorer' %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/sustainability.min.css', t=config['VERSION'])}}>
