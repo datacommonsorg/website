@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -93,6 +93,8 @@ def series_within():
   facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
 
   # Make batched calls there are too many child places for server to handle
+  # Mixer checks num_places * num_variables and stop processing if the number is
+  # too large. So the batch_size takes into account the number of variables.
   batch_size = _MAX_BATCH_SIZE // len(variables)
   if parent_entity in _BATCHED_CALL_PLACES.get(child_type, []):
     try:
@@ -100,14 +102,9 @@ def series_within():
       child_places = fetch.descendent_places([parent_entity],
                                              child_type).get(parent_entity, [])
       merged_response = {}
-      batch_count = 1
       for batch in shared.divide_into_batches(child_places, batch_size):
-        logging.info(
-            f"Batch {batch_count} of {math.ceil(len(child_places) / batch_size)}"
-        )
         new_response = fetch.series_core(batch, variables, False, facet_ids)
         merged_response = shared.merge_responses(merged_response, new_response)
-        batch_count += 1
       return merged_response, 200
     except Exception as e:
       logging.error(e)
