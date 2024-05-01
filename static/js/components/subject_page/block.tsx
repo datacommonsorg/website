@@ -208,7 +208,8 @@ export function Block(props: BlockPropType): JSX.Element {
       .map((c) => {
         return c.tiles.map((t) => t.placeDcidOverride);
       })
-      .flat();
+      .flat()
+      .filter((name) => !!name);
 
     if (!overridePlaces.length) {
       setOverridePlaceTypes({});
