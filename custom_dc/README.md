@@ -192,35 +192,44 @@ to create intermediate folders for the files for easier management.
 
 ### (Optional) Setup Redis
 
-Configure redis as website caching layer to improve performance. Open the
-[Google Cloud Redis Memorystore Console](https://console.cloud.google.com/memorystore/redis/instances)
-and configure a new redis instance. Example:
+Optionally set up a Redis caching layer to enhance website performance.
 
-- Tier: basic
-- Location: us-central1-c
-- Connections: default network, direct peering
-- Security: none
+```
+# Enable redis service in GCP
+gcloud services enable redis.googleapis.com
 
-Once the instance is created, add the instance IP to `cloudsql_env.list`:
+# [Create 2GB redis instance](https://cloud.google.com/sdk/gcloud/reference/redis/instances/create)
+gcloud redis instances create datacommons-cache --size=2 --region=$REGION \
+    --redis-version=redis_7_0 --network=$CLOUD_RUN_NETWORK
+
+# Get the IP address of the new redis instance
+gcloud redis instances describe datacommons-cache --region=$REGION \
+    --format="value(host)"
+```
+
+Once the instance is created, add the IP address from the last step to
+`cloudsql_env.list`:
 
 ```
 REDIS_HOST=<YOUR_REDIS_IP>
 ```
 
-For Cloud Run Custom Data Commons instance to connect to redis, we will have to
-create a VPC connector:
+Since Google Cloud Redis Memorystore runs in a VPC, we will need to create a VPC
+connector for our cloud run instance to connect to Redis.
 
 ```
 # Enable VPC Access API
 gcloud services enable vpcaccess.googleapis.com
 
-# Create subnet for the VPC connector
+# VPC connectors require a dedicated /28 subnet in the VPC network
+# [Create subnet for the VPC connector](https://cloud.google.com/sdk/gcloud/reference/compute/networks/subnets/create)
 gcloud compute networks subnets create dc-vpc-connector-subnet \
     --network=$CLOUD_RUN_NETWORK \
     --range=10.9.0.0/28 \
     --region=$REGION
 
-# Create VPC connector
+# [Create VPC connector](https://cloud.google.com/sdk/gcloud/reference/compute/networks/vpc-access/connectors/create)
+# using the dedicated /28 subnet
 gcloud compute networks vpc-access connectors create dc-vpc-connector \
   --region $REGION \
   --subnet dc-vpc-connector-subnet
@@ -274,9 +283,9 @@ Specify the GCP project and custom instance docker image tag.
 export PROJECT_ID=<YOUR_PROJECT_ID>
 export CUSTOM_DC_TAG=<YOUR_CUSTOM_DC_TAG>
 export CLOUD_RUN_SERVICE_NAME=<YOUR_CLOUD_RUN_SERVICE_NAME>
+export CLOUDSQL_INSTANCE_ID=<YOUR_CLOUDSQL_INSTANCE_ID>
 export CLOUD_RUN_NETWORK=default
 export REGION=us-central1
-export CLOUDSQL_INSTANCE_ID=dc-dev
 ```
 
 Authenticate for docker image push.
