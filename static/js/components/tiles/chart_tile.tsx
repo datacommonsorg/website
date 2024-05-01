@@ -33,6 +33,7 @@ import {
   TileSources,
 } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
+import { ActionIcons } from "./chart_action_icons";
 import { ChartFooter } from "./chart_footer";
 interface ChartTileContainerProp {
   id: string;
@@ -113,7 +114,11 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         exploreLink={props.exploreLink}
         footnote={props.footnote}
       >
-        <NlChartFeedback id={props.id} />
+        <ActionIcons
+          id={props.id}
+          exploreLink={props.exploreLink}
+          handleEmbed={handleEmbed}
+        />
       </ChartFooter>
       {showEmbed && (
         <ChartEmbed container={containerRef.current} ref={embedModalElement} />
