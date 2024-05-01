@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,9 +43,9 @@ def get(url: str):
   call_logger.finish(response)
   if response.status_code != 200:
     raise ValueError(
-        'Response error: An HTTP {} code ({}) was returned by the mixer.'
-        'Printing response:\n{}'.format(response.status_code, response.reason,
-                                        response.json()['message']))
+        'An HTTP {} code ({}) was returned by the mixer:\n{}'.format(
+            response.status_code, response.reason,
+            response.json()['message']))
   return response.json()
 
 
@@ -70,8 +70,9 @@ def post_wrapper(url, req_str: str):
   call_logger.finish(response)
   if response.status_code != 200:
     raise ValueError(
-        'An HTTP {} code ({}) was returned by the mixer: "{}"'.format(
-            response.status_code, response.reason, response.content))
+        'An HTTP {} code ({}) was returned by the mixer:\n{}'.format(
+            response.status_code, response.reason,
+            response.json()['message']))
   return response.json()
 
 
@@ -234,10 +235,12 @@ def v2observation(select, entity, variable):
     variable: A dict in the form of {'dcids':, 'expression':}
 
   """
+  # Remove None from dcids and sort them. Note do not sort in place to avoid
+  # changing the original input.
   if 'dcids' in entity:
-    entity['dcids'] = sorted(entity['dcids'])
+    entity['dcids'] = sorted([x for x in entity['dcids'] if x])
   if 'dcids' in variable:
-    variable['dcids'] = sorted(variable['dcids'])
+    variable['dcids'] = sorted([x for x in variable['dcids'] if x])
   url = get_service_url('/v2/observation')
   return post(url, {
       'select': select,
@@ -274,9 +277,7 @@ def v2event(node, prop):
 def get_place_info(dcids: List[str]) -> Dict:
   """Retrieves Place Info given a list of DCIDs."""
   url = get_service_url('/v1/bulk/info/place')
-  return post(f'{url}', {
-      'nodes': sorted(set(dcids)),
-  })
+  return post(f'{url}', {'nodes': sorted(set(dcids))})
 
 
 def get_variable_group_info(nodes: List[str],
@@ -285,8 +286,8 @@ def get_variable_group_info(nodes: List[str],
   """Gets the stat var group node information."""
   url = get_service_url('/v1/bulk/info/variable-group')
   req_dict = {
-      "constrained_entities": entities,
       "nodes": nodes,
+      "constrained_entities": entities,
       "num_entities_existence": numEntitiesExistence
   }
   return post(url, req_dict)
