@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
+
 from flask import Blueprint
 from flask import request
 
@@ -21,7 +23,7 @@ from server.lib.cache import cache
 from server.routes import TIMEOUT
 
 # Maximum number of concurrent series the server will fetch
-_MAX_BATCH_SIZE = 5000
+_MAX_BATCH_SIZE = 2000
 
 # Maps enclosed place type -> places with too many of the enclosed type
 # Determines when to make batched API calls to avoid server errors.
@@ -31,7 +33,9 @@ _BATCHED_CALL_PLACES = {
         "geoId/12",  # Florida
         "geoId/36",  # New York (State)
         "geoId/48",  # Texas
-    ]
+    ],
+    "City": ["country/USA"],
+    "County": ["country/USA"]
 }
 
 # Define blueprint
@@ -68,34 +72,41 @@ def series_all():
 @bp.route('/within')
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def series_within():
-  """Gets the observation for child entities of a certain place
-  type contained in a parent entity at a given date.
+  """Gets the observation for child entities of a certain type contained in a
+  parent entity at a given date.
+
   Note: the preferred facet is returned.
   """
   parent_entity = request.args.get('parentEntity')
   if not parent_entity:
     return 'error: must provide a `parentEntity` field', 400
+
   child_type = request.args.get('childType')
   if not child_type:
     return 'error: must provide a `childType` field', 400
+
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
+
   facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
-  batch_size = request.args.get('batchSize') or _MAX_BATCH_SIZE
+
   # Make batched calls there are too many child places for server to handle
+  # Mixer checks num_places * num_variables and stop processing if the number is
+  # too large. So the batch_size takes into account the number of variables.
+  batch_size = _MAX_BATCH_SIZE // len(variables)
   if parent_entity in _BATCHED_CALL_PLACES.get(child_type, []):
     try:
+      logging.info("Fetching child places series in batches")
       child_places = fetch.descendent_places([parent_entity],
                                              child_type).get(parent_entity, [])
-      child_place_batches = list(
-          shared.divide_into_batches(child_places, batch_size))
       merged_response = {}
-      for batch in child_place_batches:
+      for batch in shared.divide_into_batches(child_places, batch_size):
         new_response = fetch.series_core(batch, variables, False, facet_ids)
         merged_response = shared.merge_responses(merged_response, new_response)
       return merged_response, 200
-    except:
+    except Exception as e:
+      logging.error(e)
       return 'error: Error encountered when attempting to make batch calls', 400
   return fetch.series_within_core(parent_entity, child_type, variables, False,
                                   facet_ids)
@@ -104,17 +115,21 @@ def series_within():
 @bp.route('/within/all')
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def series_within_all():
-  """Gets the observation for child entities of a certain place
-  type contained in a parent entity at a given date.
+  """Gets the observation for child entities of a certain type contained in a
+  parent entity at a given date.
+
   Note: all the facets are returned.
   """
   parent_entity = request.args.get('parentEntity')
   if not parent_entity:
     return 'error: must provide a `parentEntity` field', 400
+
   child_type = request.args.get('childType')
   if not child_type:
     return 'error: must provide a `childType` field', 400
+
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
+
   return fetch.series_within_core(parent_entity, child_type, variables, True)

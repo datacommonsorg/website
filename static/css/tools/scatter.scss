@@ -108,13 +108,13 @@
   background: none;
 }
 
-.radio-selection-label,
-.radio-selection-section {
-  padding-top: 0.5rem;
+.radio-selection-label {
+  padding: 0.5rem 0;
 }
 
 .radio-selection-section {
   margin-left: 2rem;
+  padding-top: 0.5rem;
 }
 
 #scatterplot .quadrant-line {
