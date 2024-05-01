@@ -58,7 +58,8 @@ class TestBrowser(WebdriverBaseTest):
     intro = self.driver.find_element(By.XPATH,
                                      '//*[@id="browser_landing"]/div/p[1]')
     self.assertTrue(
-        intro.text.startswith('The Data Commons Graph is constructed'))
+        intro.text.startswith(
+            'The Data Commons Knowledge Graph is constructed'))
 
   def test_page_serve_mtv(self):
     """Test the browser page for MTV can be loaded successfully."""
