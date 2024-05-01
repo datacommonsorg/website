@@ -92,6 +92,8 @@ async def write_row(session_info: Dict, data: Dict, ctr: Dict):
   try:
     row.set_cell(_COLUMN_FAMILY, _COL_DATA.encode(), json.dumps(data))
   except TypeError as e:
+    if 'ERROR' not in ctr:
+      ctr['ERROR'] = {}
     ctr['ERROR']['FAILED_unserializable_data_dict'] = f'{e}'
     row.set_cell(_COLUMN_FAMILY, _COL_DATA.encode(),
                  json.dumps({'FATAL': f'{e}'}))
