@@ -82,8 +82,8 @@ msgstr "政府の教育支出"
 msgid "Government Expenditures on Military"
 msgstr "政府の軍事支出"
 
-msgid "Graph Browser"
-msgstr "グラフブラウザ"
+msgid "Knowledge Graph"
+msgstr "ナレッジグラフ"
 
 msgid "Gross National Income"
 msgstr "国民総所得"
