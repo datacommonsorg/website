@@ -18,8 +18,9 @@ import os
 import re
 from typing import List, Set
 
-import shared.lib.constants as constants
 from markupsafe import escape
+
+import shared.lib.constants as constants
 
 
 def _add_to_set_from_list(set_strings: Set[str],

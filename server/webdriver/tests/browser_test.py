@@ -29,12 +29,12 @@ LANDING_PAGE_URL = '/browser'
 SEARCH_INPUT = 'male asian count '
 
 
-# Class to test Graph Browser.
+# Class to test Knowledge Graph.
 class TestBrowser(WebdriverBaseTest):
 
   def test_page_landing(self):
     """Test the browser landing page can be loaded successfully."""
-    TITLE_TEXT = "Graph Browser - Data Commons"
+    TITLE_TEXT = "Knowledge Graph - Data Commons"
 
     # Load landing page.
     self.driver.get(self.url_ + LANDING_PAGE_URL)
@@ -51,18 +51,19 @@ class TestBrowser(WebdriverBaseTest):
 
     # Wait for title to be present
     title_present = EC.text_to_be_present_in_element((By.TAG_NAME, 'h1'),
-                                                     'Graph Browser')
+                                                     'Knowledge Graph')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
     # Assert intro is correct
     intro = self.driver.find_element(By.XPATH,
                                      '//*[@id="browser_landing"]/div/p[1]')
     self.assertTrue(
-        intro.text.startswith('The Data Commons Graph is constructed'))
+        intro.text.startswith(
+            'The Data Commons Knowledge Graph is constructed'))
 
   def test_page_serve_mtv(self):
     """Test the browser page for MTV can be loaded successfully."""
-    TITLE_TEXT = "Mountain View - Graph Browser - Data Commons"
+    TITLE_TEXT = "Mountain View - Knowledge Graph - Data Commons"
 
     # Load MTV browser page.
     self.driver.get(self.url_ + MTV_URL)
@@ -128,7 +129,7 @@ class TestBrowser(WebdriverBaseTest):
 
   def test_page_serve_ca_population(self):
     """Test the browser page for California population can be loaded successfully."""
-    TITLE_TEXT = "Count_Person - California - Graph Browser - Data Commons"
+    TITLE_TEXT = "Count_Person - California - Knowledge Graph - Data Commons"
 
     # Load California population browser page.
     self.driver.get(self.url_ + CA_POPULATION_URL)
@@ -181,7 +182,7 @@ class TestBrowser(WebdriverBaseTest):
 
   def test_page_serve_austrobaileya(self):
     """Test the browser page for Austrobaileya scandens can be loaded successfully."""
-    TITLE_TEXT = "Austrobaileya scandens C.T.White - Graph Browser - Data Commons"
+    TITLE_TEXT = "Austrobaileya scandens C.T.White - Knowledge Graph - Data Commons"
 
     # Load Austrobaileya browser page.
     self.driver.get(self.url_ + AUSTROBAILEYA_URL)
@@ -308,7 +309,7 @@ class TestBrowser(WebdriverBaseTest):
     self.driver.switch_to.window(new_page)
 
     # Assert the title of the new page is correct
-    NEW_PAGE_TITLE = 'dc/o/y54f4zvqrzf67 - Graph Browser - Data Commons'
+    NEW_PAGE_TITLE = 'dc/o/y54f4zvqrzf67 - Knowledge Graph - Data Commons'
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
     self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
@@ -353,7 +354,7 @@ class TestBrowser(WebdriverBaseTest):
     self.driver.switch_to.window(new_page)
 
     # Assert the title of the new page is correct
-    NEW_PAGE_TITLE = 'dc/o/y54f4zvqrzf67 - Graph Browser - Data Commons'
+    NEW_PAGE_TITLE = 'dc/o/y54f4zvqrzf67 - Knowledge Graph - Data Commons'
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
     self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
