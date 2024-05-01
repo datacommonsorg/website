@@ -77,7 +77,7 @@ class ExploreTest(NLWebServerTestCase):
                              mode='',
                              default_place='',
                              idx=''):
-    ctx = {}
+    ctx = []
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
@@ -642,11 +642,14 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detect_and_fulfill(
         'e2e_triple',
         [
-            # Should all have 'out' properties as answer
-            'What is the phylum of volvox?',
-            'How about Corylus cornuta Marshall',
+            # Should have 'out' properties as answer
             'What strand orientation does FGFR1 have?',
-            'What type of gene is it',
+            # Should use context for the entity
+            'what transcripts does it have',
+            # Should use context for the property
+            'how about for P53',
+            # Should not use context because no entity or property found
+            'what animal is that found in',
             # Should have 'in' properties as answer
             'What is Betacoronavirus 1 the species of',
             # Should have a chained property in the answer
