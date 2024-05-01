@@ -111,16 +111,13 @@ export class StatVarHierarchySearch extends React.Component<
           }
         }}
       >
-        {this.props.searchLabel && (
-          <div className="title">{this.props.searchLabel}</div>
-        )}
         <div className="search-input-container" tabIndex={-1}>
           <input
             className="statvar-search-input form-control"
             type="text"
             value={this.state.query}
             onChange={this.onInputChanged}
-            placeholder="Search or explore below"
+            placeholder="Filter statistical variables"
           />
           {!_.isEmpty(this.state.query) && (
             <span
@@ -131,6 +128,9 @@ export class StatVarHierarchySearch extends React.Component<
             </span>
           )}
         </div>
+        {this.props.searchLabel && (
+          <div className="title">{this.props.searchLabel}</div>
+        )}
         {renderResults && (
           <div className="statvar-hierarchy-search-results" tabIndex={-1}>
             {showResultCount && (
