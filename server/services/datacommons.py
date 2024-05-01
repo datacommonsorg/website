@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,9 +43,9 @@ def get(url: str):
   call_logger.finish(response)
   if response.status_code != 200:
     raise ValueError(
-        'Response error: An HTTP {} code ({}) was returned by the mixer.'
-        'Printing response:\n{}'.format(response.status_code, response.reason,
-                                        response.json()['message']))
+        'An HTTP {} code ({}) was returned by the mixer:\n{}'.format(
+            response.status_code, response.reason,
+            response.json()['message']))
   return response.json()
 
 
@@ -70,8 +70,9 @@ def post_wrapper(url, req_str: str):
   call_logger.finish(response)
   if response.status_code != 200:
     raise ValueError(
-        'An HTTP {} code ({}) was returned by the mixer: "{}"'.format(
-            response.status_code, response.reason, response.content))
+        'An HTTP {} code ({}) was returned by the mixer:\n{}'.format(
+            response.status_code, response.reason,
+            response.json()['message']))
   return response.json()
 
 
@@ -276,9 +277,7 @@ def v2event(node, prop):
 def get_place_info(dcids: List[str]) -> Dict:
   """Retrieves Place Info given a list of DCIDs."""
   url = get_service_url('/v1/bulk/info/place')
-  return post(f'{url}', {
-      'nodes': sorted(set(dcids)),
-  })
+  return post(f'{url}', {'nodes': sorted(set(dcids))})
 
 
 def get_variable_group_info(nodes: List[str],
