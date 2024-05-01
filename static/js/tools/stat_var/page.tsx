@@ -121,7 +121,11 @@ class Page extends Component<unknown, PageStateType> {
         />
         <div id="plot-container">
           <div className="container">
-            <h1 className="mb-4">Statistical Variable Explorer</h1>
+            <h1 className="tool-header">Statistical variable explorer</h1>
+            <p className="tool-description">
+              The statistical variable explorer provides information about each
+              statistical variable, such as metadata, observations, etc.
+            </p>
             <DatasetSelector
               dataset={this.state.dataset}
               datasets={this.state.datasets}
