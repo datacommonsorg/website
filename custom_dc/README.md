@@ -126,8 +126,8 @@ the instructions below:
 
 ```bash
 docker build --tag datacommons-website-compose:latest \
--f build/web_compose/Dockerfile \
--t website-compose .
+  -f build/web_compose/Dockerfile \
+  -t website-compose .
 ```
 
 ### Test custom Data Commons locally with SQLite database
@@ -189,6 +189,52 @@ Console](https://console.cloud.google.com/storage/browser), create a new bucket
 or pick an existing bucket and upload the data CSV files there. It's recommended
 to create intermediate folders for the files for easier management.
 
+### (Optional) Setup Redis
+
+Optionally set up a Redis caching layer to enhance website performance.
+
+```
+# Enable redis service in GCP
+gcloud services enable redis.googleapis.com
+
+# [Create 2GB redis instance](https://cloud.google.com/sdk/gcloud/reference/redis/instances/create)
+gcloud redis instances create datacommons-cache --size=2 --region=$REGION \
+    --redis-version=redis_7_0 --network=$CLOUD_RUN_NETWORK
+
+# Get the IP address of the new redis instance
+gcloud redis instances describe datacommons-cache --region=$REGION \
+    --format="value(host)"
+```
+
+Once the instance is created, add the IP address from the last step to
+`cloudsql_env.list`:
+
+```
+REDIS_HOST=<YOUR_REDIS_IP>
+```
+
+Since Google Cloud Redis Memorystore runs in a VPC, we will need to create a VPC
+connector for our cloud run instance to connect to Redis.
+
+```
+# Enable VPC Access API
+gcloud services enable vpcaccess.googleapis.com
+
+# VPC connectors require a dedicated /28 subnet in the VPC network
+# [Create subnet for the VPC connector](https://cloud.google.com/sdk/gcloud/reference/compute/networks/subnets/create)
+gcloud compute networks subnets create dc-vpc-connector-subnet \
+    --network=$CLOUD_RUN_NETWORK \
+    --range=10.9.0.0/28 \
+    --region=$REGION
+
+# [Create VPC connector](https://cloud.google.com/sdk/gcloud/reference/compute/networks/vpc-access/connectors/create)
+# using the dedicated /28 subnet
+gcloud compute networks vpc-access connectors create dc-vpc-connector \
+  --region $REGION \
+  --subnet dc-vpc-connector-subnet
+
+```
+
 ### Upload Data Files
 
 [Note]: Refer to [Import Custom Data](#import-custom-data) for preparing the
@@ -234,14 +280,18 @@ Specify the GCP project and custom instance docker image tag.
 
 ```bash
 export PROJECT_ID=<YOUR_PROJECT_ID>
-export CUSTOM_DC_TAG=<YOUR_TAG>
+export CUSTOM_DC_TAG=<YOUR_CUSTOM_DC_TAG>
+export CLOUD_RUN_SERVICE_NAME=<YOUR_CLOUD_RUN_SERVICE_NAME>
+export CLOUDSQL_INSTANCE_ID=<YOUR_CLOUDSQL_INSTANCE_ID>
+export CLOUD_RUN_NETWORK=default
+export REGION=us-central1
 ```
 
 Authenticate for docker image push.
 
 ```bash
 gcloud auth login
-gcloud auth configure-docker us-central1-docker.pkg.dev
+gcloud auth configure-docker ${REGION}-docker.pkg.dev
 ```
 
 Create a Container Registry repository if not done yet, this is a one time
@@ -250,7 +300,7 @@ Create a Container Registry repository if not done yet, this is a one time
 gcloud artifacts repositories create datacommons \
   --project=$PROJECT_ID \
   --repository-format=docker \
-  --location=us-central1 \
+  --location=$REGION \
   --immutable-tags \
   --async
 ```
@@ -258,10 +308,17 @@ gcloud artifacts repositories create datacommons \
 Build docker image and push it to Google Artifact Registry
 
 ```bash
-docker tag datacommons-website-compose:latest \
-  us-central1-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG
+# Build local docker image
+docker build --tag datacommons-website-compose:latest \
+  -f build/web_compose/Dockerfile \
+  -t website-compose .
 
-docker push us-central1-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG
+# Tag image with $CUSTOM_DC_TAG
+docker tag datacommons-website-compose:latest \
+  ${REGION}-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG
+
+# Push local image to Google Artifact Registry
+docker push ${REGION}-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG
 ```
 
 In GCP [IAM](https://console.cloud.google.com/iam-admin/iam), grant the default
@@ -271,13 +328,15 @@ service account "Cloud SQL Editor" permission. Then run:
 # Then env file is "custom_dc/cloudsql_env.list"
 env_vars=$(awk -F '=' 'NF==2 {print $1"="$2}' custom_dc/cloudsql_env.list | tr '\n' ',' | sed 's/,$//')
 
-gcloud run deploy datacommons \
+gcloud beta run deploy $CLOUD_RUN_SERVICE_NAME \
   --allow-unauthenticated \
-  --memory 4G \
+  --memory 8G \
   --image us-central1-docker.pkg.dev/$PROJECT_ID/datacommons/website-compose:$CUSTOM_DC_TAG \
-  --add-cloudsql-instances=<project>:<region>:dc-graph \
+  --add-cloudsql-instances=$PROJECT_ID:$REGION:$CLOUDSQL_INSTANCE_ID \
   --set-env-vars="$env_vars" \
-  --port 8080
+  --port 8080 \
+  --region $REGION \
+  --vpc-connector dc-vpc-connector # Optional: remove flag if not using redis
 ```
 
 ## Admin Page

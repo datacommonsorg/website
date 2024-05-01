@@ -398,7 +398,10 @@ def parent_places(dcids, include_admin_areas=False):
       A dictionary of lists of containedInPlace, keyed by dcid.
   """
   result = {dcid: {} for dcid in dcids}
-  place_info = dc.get_place_info(dcids)
+  try:
+    place_info = dc.get_place_info(dcids)
+  except ValueError:
+    return result
   for item in place_info.get('data', []):
     if 'node' not in item or 'info' not in item:
       continue
@@ -680,6 +683,8 @@ def placeid2dcid():
   https://developers.google.com/places/web-service/autocomplete.
   """
   place_ids = request.args.getlist("placeIds")
+  if not place_ids:
+    return 'error: must provide `placeIds` field', 400
   resp = fetch.resolve_id(place_ids, "placeId", "dcid")
   result = {}
   for place_id, dcids in resp.items():

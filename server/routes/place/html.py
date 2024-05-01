@@ -95,7 +95,7 @@ def get_place_summaries(dcid: str) -> dict:
 def generate_link_headers(place_dcid: str, category: str,
                           current_locale: str) -> str:
   """Generate canonical and alternate link HTTP headers
-  
+
   Search crawlers look for rel="canonical" link headers to determine which
   version of a page to crawl and rel="alternative" link headers to identify
   different localized versions of the same page.
@@ -104,7 +104,7 @@ def generate_link_headers(place_dcid: str, category: str,
     place_dcid: DCID of the place the page is about
     category: category of the page
     current_locale: locale of the page
-  
+
   Returns:
     String to pass as value for 'Link' HTTP header
   """
@@ -135,7 +135,7 @@ def generate_link_headers(place_dcid: str, category: str,
 
 def is_canonical_domain(url: str) -> bool:
   """Check if a url is on the canonical domain
-  
+
   Used to determine if the request's URL is on the main DC instance.
   Both HTTP and HTTPS urls are matched, and both canonical and staging URLs
   are matched.
@@ -143,7 +143,7 @@ def is_canonical_domain(url: str) -> bool:
 
   Args:
     url: url to check
-  
+
   Returns:
     True if request is to the canonical domain, False otherwise
   """
@@ -249,6 +249,9 @@ def place(place_dcid=None):
   locale = flask.request.args.get('hl')
   if locale not in AVAILABLE_LANGUAGES:
     locale = 'en'
+
+  if category not in CATEGORIES:
+    category = None
 
   is_overview = (not category) or (category == 'Overview')
 
