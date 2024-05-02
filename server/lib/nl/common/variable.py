@@ -19,7 +19,7 @@ from typing import Dict, List, Set
 
 from flask import current_app
 
-from server.lib.explore.params import DCNames
+from server.lib.nl.explore.params import DCNames
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.topic as topic

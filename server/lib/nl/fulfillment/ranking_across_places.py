@@ -19,7 +19,7 @@ from typing import List
 from flask import current_app
 
 from server.lib import util as libutil
-import server.lib.explore.existence as ext
+import server.lib.nl.common.existence_util as ext
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable

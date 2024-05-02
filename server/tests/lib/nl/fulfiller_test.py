@@ -17,7 +17,7 @@ from typing import Dict, List
 import unittest
 from unittest.mock import patch
 
-from server.lib.explore import topic
+from server.lib.nl.explore import topic
 from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.common import rank_utils

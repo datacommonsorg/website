@@ -19,7 +19,7 @@
 
 from typing import List
 
-from server.lib.explore.params import Params
+from server.lib.nl.explore.params import Params
 from server.lib.nl.common import constants
 from server.lib.nl.common import serialize
 import server.lib.nl.common.utils as utils

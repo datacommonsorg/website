@@ -17,7 +17,7 @@
 
 from typing import Dict, List
 
-from server.lib.explore.params import QueryMode
+from server.lib.nl.explore.params import QueryMode
 from server.lib.fetch import property_values
 from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr

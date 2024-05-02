@@ -15,8 +15,8 @@
 
 from typing import Dict
 
-from server.lib.explore import params
-from server.lib.explore.params import QueryMode
+from server.lib.nl.explore import params
+from server.lib.nl.explore.params import QueryMode
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.detection import heuristic_classifiers
 from server.lib.nl.detection import place

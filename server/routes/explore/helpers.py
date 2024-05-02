@@ -23,8 +23,6 @@ from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.explore import params
-from server.lib.explore.params import QueryMode
 from server.lib.nl.common import bad_words
 from server.lib.nl.common import commentary
 from server.lib.nl.common import serialize
@@ -45,12 +43,14 @@ from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
+from server.lib.nl.explore import params
+from server.lib.nl.explore.params import QueryMode
 import server.lib.nl.fulfillment.fulfiller as fulfillment
 import server.lib.nl.fulfillment.utils as futils
 from server.lib.translator import detect_lang_and_translate
 from server.lib.translator import translate_page_config
 from server.lib.util import get_nl_disaster_config
-from server.routes.nl import helpers
+from server.routes.explore import helpers
 import server.services.bigtable as bt
 from shared.lib.constants import EN_LANG_CODE
 import shared.lib.utils as shared_utils
@@ -268,7 +268,7 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       sdg_percent_vars=set())
 
   start = time.time()
-  state = fulfillment.fulfill(utterance, explore_mode=False)
+  state = fulfillment.fulfill(utterance)
   utterance = state.uttr
   utterance.counters.timeit('fulfillment', start)
 

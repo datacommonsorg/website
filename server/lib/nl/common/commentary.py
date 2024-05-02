@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 from typing import List
 
-from server.lib.explore import params
+from server.lib.nl.explore import params
 from server.lib.nl.common import constants
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance

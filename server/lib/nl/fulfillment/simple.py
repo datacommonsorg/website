@@ -15,8 +15,8 @@
 import copy
 from typing import List
 
-from server.lib.explore import params
-import server.lib.explore.existence as ext
+from server.lib.nl.explore import params
+import server.lib.nl.common.existence_util as ext
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place

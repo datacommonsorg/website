@@ -547,7 +547,47 @@
       "place_type": "State"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/HousesByHomeValue",
+        "name": "Houses by Home Value",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/HomeOwnership",
+        "name": "Home Ownership",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/HousesByOwnershipCost",
+        "name": "Houses by Ownership Cost",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HousesByTaxAmount",
+        "name": "Houses by Tax Amount",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "PAST_QUERY",
   "userMessage": "See relevant statistics based on the previous query.",
   "userMessages": [

@@ -19,7 +19,7 @@ from typing import Dict, List
 from flask import current_app
 
 from server.lib import fetch
-from server.lib.explore.params import DCNames
+from server.lib.nl.explore.params import DCNames
 from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
 

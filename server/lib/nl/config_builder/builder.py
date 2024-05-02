@@ -17,9 +17,9 @@ import time
 from typing import cast, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.explore.params import DCNames
-from server.lib.explore.params import is_special_dc
-from server.lib.explore.params import Params
+from server.lib.nl.explore.params import DCNames
+from server.lib.nl.explore.params import is_special_dc
+from server.lib.nl.explore.params import Params
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
 from server.lib.nl.common.constants import PROJECTED_TEMP_TOPIC

@@ -17,7 +17,7 @@ import copy
 import sys
 from typing import Dict, List
 
-from server.lib.explore import params
+from server.lib.nl.explore import params
 from server.lib.nl.common import counters
 from server.lib.nl.common import serialize
 from server.lib.nl.common import utterance

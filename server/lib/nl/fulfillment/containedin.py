@@ -15,7 +15,7 @@
 import copy
 from typing import List
 
-import server.lib.explore.existence as ext
+import server.lib.nl.common.existence_util as ext
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType

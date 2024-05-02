@@ -19,15 +19,15 @@ import time
 from typing import cast, Dict, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.explore import extension
-from server.lib.explore import params
-from server.lib.explore import related
-import server.lib.explore.related as related
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.config_builder import base
 import server.lib.nl.config_builder.builder as nl_config_builder
+from server.lib.nl.explore import extension
+from server.lib.nl.explore import params
+from server.lib.nl.explore import related
+import server.lib.nl.explore.related as related
 from server.lib.nl.fulfillment import existence
 import server.lib.nl.fulfillment.fulfiller as nl_fulfiller
 from server.lib.nl.fulfillment.types import ChartSpec
@@ -44,7 +44,7 @@ class FulfillResp:
 
 
 def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
-  state = nl_fulfiller.fulfill(uttr, explore_mode=True)
+  state = nl_fulfiller.fulfill(uttr)
 
   builder_result = nl_config_builder.build(state, cb_config)
   if not builder_result.page_config:

@@ -16,7 +16,7 @@ import copy
 import time
 from typing import List
 
-from server.lib.explore import params
+from server.lib.nl.explore import params
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
