@@ -21,30 +21,30 @@
 import _ from "lodash";
 import ReactDOMServer from "react-dom/server";
 
-import { getPointsList } from "../js/components/ranking_unit";
+import { getPointsList } from "../../js/components/ranking_unit";
 import {
   fetchData,
   RankingTilePropType,
-} from "../js/components/tiles/ranking_tile";
+} from "../../js/components/tiles/ranking_tile";
 import {
   getRankingUnit,
   getRankingUnitPoints,
   getRankingUnitTitle,
-} from "../js/components/tiles/sv_ranking_units";
-import { StatVarSpec } from "../js/shared/types";
-import { RankingGroup } from "../js/types/ranking_unit_types";
-import { TileConfig } from "../js/types/subject_page_proto_types";
-import { rankingPointsToCsv } from "../js/utils/chart_csv_utils";
-import { getPlaceNames } from "../js/utils/place_utils";
-import { htmlToSvg } from "../js/utils/svg_utils";
+} from "../../js/components/tiles/sv_ranking_units";
+import { StatVarSpec } from "../../js/shared/types";
+import { RankingGroup } from "../../js/types/ranking_unit_types";
+import { TileConfig } from "../../js/types/subject_page_proto_types";
+import { rankingPointsToCsv } from "../../js/utils/chart_csv_utils";
+import { getPlaceNames } from "../../js/utils/place_utils";
+import { htmlToSvg } from "../../js/utils/svg_utils";
 import {
   CHART_ID,
   FONT_FAMILY,
   FONT_SIZE,
   SVG_HEIGHT,
   SVG_WIDTH,
-} from "./constants";
-import { TileResult } from "./types";
+} from "../constants";
+import { TileResult } from "../types";
 import { getProcessedSvg, getSources } from "./utils";
 
 function getTileProp(
@@ -215,7 +215,9 @@ export async function getRankingTileResult(
         placeDcids.add(point.placeDcid);
       });
     });
-    const placeNames = await getPlaceNames(Array.from(placeDcids), { apiRoot });
+    const placeNames = await getPlaceNames(Array.from(placeDcids).sort(), {
+      apiRoot,
+    });
     const tileResults: TileResult[] = [];
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = _.cloneDeep(rankingData[sv]);

@@ -66,3 +66,21 @@ export interface ChartProps {
   tileConfig: TileConfig;
   eventTypeSpec: Record<string, EventTypeSpec>;
 }
+
+// Debug info to return in /nodejs/query response
+export interface DebugInfo {
+  timing: {
+    getNlResult: number;
+    getTileResults: number;
+    total: number;
+  };
+  // debug info from detect-and-fulfill endpoint
+  debug: Record<string, any>;
+}
+
+// The result to return in /nodejs/query
+export interface QueryResult {
+  charts?: TileResult[];
+  err?: string;
+  debug?: DebugInfo;
+}

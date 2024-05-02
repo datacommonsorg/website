@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ChartProps } from "./types";
+import { ChartProps } from "../types";
 import { compressChartProps, decompressChartProps } from "./utils";
 
 const TEST_PLACE = "testPlace";
