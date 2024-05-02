@@ -20,6 +20,7 @@
 
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
+import { Spinner } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import {
@@ -77,13 +78,20 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     loadSpinner(getSpinnerId());
-    fetchData(props).then((rankingData) => {
-      setRankingData(rankingData);
-      removeSpinner(getSpinnerId());
-    });
+    (async () => {
+      setIsLoading(true);
+      try {
+        const rankingData = await fetchData(props);
+        setRankingData(rankingData);
+        removeSpinner(getSpinnerId());
+      } finally {
+        setIsLoading(false);
+      }
+    })();
   }, [props]);
 
   const numRankingLists = getNumRankingLists(
@@ -136,7 +144,9 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   }
   return (
     <div
-      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${props.className}`}
+      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${
+        props.className
+      } ${isLoading ? `loading ${INITIAL_LOADING_CLASS}` : ""}`}
       ref={chartContainer}
       style={{
         gridTemplateColumns:
@@ -146,11 +156,15 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
       {!rankingData &&
         placeHolderArray.map((_, i) => {
           return (
-            <div
-              key={`ranking-placeholder-${i}`}
-              className={INITIAL_LOADING_CLASS}
-              style={{ minHeight: placeHolderHeight }}
-            ></div>
+            <div className="loading" key={`ranking-placeholder-${i}`}>
+              <div className="chart-headers">
+                <h4>
+                  <Spinner color="secondary" size="sm" className="mr-1" />
+                  <span>Loading...</span>
+                </h4>
+              </div>
+              <div style={{ minHeight: placeHolderHeight }}></div>
+            </div>
           );
         })}
       {rankingData &&
@@ -162,21 +176,22 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               : "";
           return (
             <SvRankingUnits
+              apiRoot={props.apiRoot}
+              entityType={props.enclosedPlaceType}
+              errorMsg={errorMsg}
+              footnote={props.footnote}
+              hideFooter={props.hideFooter}
+              isLoading={isLoading}
               key={statVar}
+              onHoverToggled={props.onHoverToggled}
               rankingData={rankingData}
               rankingMetadata={props.rankingMetadata}
               showChartEmbed={showChartEmbed}
+              showExploreMore={props.showExploreMore}
               sources={props.sources}
               statVar={statVar}
-              entityType={props.enclosedPlaceType}
-              title={props.title}
-              showExploreMore={props.showExploreMore}
-              apiRoot={props.apiRoot}
-              hideFooter={props.hideFooter}
-              onHoverToggled={props.onHoverToggled}
               tileId={props.id}
-              errorMsg={errorMsg}
-              footnote={props.footnote}
+              title={props.title}
             />
           );
         })}

@@ -143,7 +143,7 @@ export function getChartArea(
               hover
             );
           }}
-          showLoadingSpinner={true}
+          showLoadingSpinner={false}
         />
       </div>
     </>
