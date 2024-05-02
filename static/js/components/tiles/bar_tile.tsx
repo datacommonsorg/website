@@ -49,12 +49,12 @@ import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
@@ -119,11 +119,17 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
   );
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (!barChartData || !_.isEqual(barChartData.props, props)) {
       (async () => {
-        const data = await fetchData(props);
-        setBarChartData(data);
+        setIsLoading(true);
+        try {
+          const data = await fetchData(props);
+          setBarChartData(data);
+        } finally {
+          setIsLoading(false);
+        }
       })();
     }
   }, [props, barChartData]);
@@ -138,18 +144,19 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   useDrawOnResize(drawFn, chartContainerRef.current);
   return (
     <ChartTileContainer
-      id={props.id}
-      title={props.title}
-      subtitle={props.subtitle}
-      sources={props.sources || (barChartData && barChartData.sources)}
-      replacementStrings={getReplacementStrings(barChartData)}
-      className={`${props.className} bar-chart`}
       allowEmbed={true}
-      getDataCsv={getDataCsvCallback(props)}
-      isInitialLoading={_.isNull(barChartData)}
+      className={`${props.className} bar-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
-      hasErrorMsg={barChartData && !!barChartData.errorMsg}
       footnote={props.footnote}
+      getDataCsv={getDataCsvCallback(props)}
+      hasErrorMsg={barChartData && !!barChartData.errorMsg}
+      id={props.id}
+      isInitialLoading={_.isNull(barChartData)}
+      isLoading={isLoading}
+      replacementStrings={getReplacementStrings(barChartData)}
+      sources={props.sources || (barChartData && barChartData.sources)}
+      subtitle={props.subtitle}
+      title={props.title}
     >
       <div
         id={props.id}

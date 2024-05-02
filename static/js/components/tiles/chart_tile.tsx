@@ -84,21 +84,15 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         }`}
       >
         <div className="chart-headers">
-          {
-            /* We want to render this header element even if title is empty
-            to keep the space on the page */
-            props.title && (
-              <h4 {...{ part: "header" }}>
-                {props.isLoading ? (
-                  <>
-                    <Spinner color="secondary" size="sm" className="pr-1" />
-                    {title ? "" : " Loading..."}
-                  </>
-                ) : null}{" "}
-                {title}
-              </h4>
-            )
-          }
+          <h4 {...{ part: "header" }}>
+            {props.isLoading ? (
+              <>
+                <Spinner color="secondary" size="sm" className="pr-1" />
+                {title ? "" : " Loading..."}
+              </>
+            ) : null}{" "}
+            {title}
+          </h4>
           <slot name="subheader" {...{ part: "subheader" }}>
             {props.subtitle && !props.isInitialLoading ? (
               <div className="subheader">{props.subtitle}</div>

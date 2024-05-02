@@ -51,5 +51,6 @@ $dc-primary-color: #467bd5;
   // Following vars are overwritten in custom dc modes
   --dc-primary: #{$dc-primary-color};
   --link-color: #0b57d0;
-  --footer-bg: #f5f9fe;
+  --loading-background: #f8f9fa;
+  --footer-background: #f5f9fe;
 }

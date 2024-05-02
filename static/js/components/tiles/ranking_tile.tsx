@@ -30,11 +30,7 @@ import {
 import { ChartEmbed } from "../../place/chart_embed";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
-import {
-  getCappedStatVarDate,
-  loadSpinner,
-  removeSpinner,
-} from "../../shared/util";
+import { getCappedStatVarDate } from "../../shared/util";
 import {
   RankingData,
   RankingGroup,
@@ -67,7 +63,6 @@ export interface RankingTilePropType
   hideFooter?: boolean;
   onHoverToggled?: (placeDcid: string, hover: boolean) => void;
   rankingMetadata: RankingTileSpec;
-  showLoadingSpinner?: boolean;
   footnote?: string;
   // Optional: Override sources for this tile
   sources?: string[];
@@ -81,13 +76,11 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    loadSpinner(getSpinnerId());
     (async () => {
       setIsLoading(true);
       try {
         const rankingData = await fetchData(props);
         setRankingData(rankingData);
-        removeSpinner(getSpinnerId());
       } finally {
         setIsLoading(false);
       }
@@ -196,19 +189,8 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           );
         })}
       <ChartEmbed container={chartContainer.current} ref={embedModalElement} />
-      {props.showLoadingSpinner && (
-        <div id={getSpinnerId()}>
-          <div className="screen">
-            <div id="spinner"></div>
-          </div>
-        </div>
-      )}
     </div>
   );
-
-  function getSpinnerId(): string {
-    return `ranking-spinner-${props.id}`;
-  }
 }
 
 export async function fetchData(
