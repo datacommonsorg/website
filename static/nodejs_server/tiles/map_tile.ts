@@ -22,25 +22,25 @@
 import * as Canvas from "canvas";
 import _ from "lodash";
 
-import { LEGEND_MARGIN_VERTICAL } from "../js/chart/draw_map_utils";
+import { LEGEND_MARGIN_VERTICAL } from "../../js/chart/draw_map_utils";
 import {
   draw,
   fetchData,
   getReplacementStrings,
   MapChartData,
   MapTilePropType,
-} from "../js/components/tiles/map_tile";
-import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
-import { TileConfig } from "../js/types/subject_page_proto_types";
-import { mapDataToCsv } from "../js/utils/chart_csv_utils";
-import { getChartTitle } from "../js/utils/tile_utils";
+} from "../../js/components/tiles/map_tile";
+import { NamedTypedPlace, StatVarSpec } from "../../js/shared/types";
+import { TileConfig } from "../../js/types/subject_page_proto_types";
+import { mapDataToCsv } from "../../js/utils/chart_csv_utils";
+import { getChartTitle } from "../../js/utils/tile_utils";
 import {
   CHART_ID,
   MAP_LEGEND_CONSTANT_WIDTH,
   SVG_HEIGHT,
   SVG_WIDTH,
-} from "./constants";
-import { TileResult } from "./types";
+} from "../constants";
+import { TileResult } from "../types";
 import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 
 function getTileProp(

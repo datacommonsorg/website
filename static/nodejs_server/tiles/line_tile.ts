@@ -26,13 +26,13 @@ import {
   getReplacementStrings,
   LineChartData,
   LineTilePropType,
-} from "../js/components/tiles/line_tile";
-import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
-import { TileConfig } from "../js/types/subject_page_proto_types";
-import { dataGroupsToCsv } from "../js/utils/chart_csv_utils";
-import { getChartTitle, getComparisonPlaces } from "../js/utils/tile_utils";
-import { CHART_ID, DOM_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
-import { TileResult } from "./types";
+} from "../../js/components/tiles/line_tile";
+import { NamedTypedPlace, StatVarSpec } from "../../js/shared/types";
+import { TileConfig } from "../../js/types/subject_page_proto_types";
+import { dataGroupsToCsv } from "../../js/utils/chart_csv_utils";
+import { getChartTitle, getComparisonPlaces } from "../../js/utils/tile_utils";
+import { CHART_ID, DOM_ID, SVG_HEIGHT, SVG_WIDTH } from "../constants";
+import { TileResult } from "../types";
 import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 
 function getTileProp(
