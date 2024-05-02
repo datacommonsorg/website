@@ -29,7 +29,7 @@ import {
   QueryResult,
   SentenceScore,
   SVScores,
-} from "../../types/app/nl_interface_types";
+} from "../../types/app/explore_types";
 
 const DEBUG_PARAM = "dbg";
 

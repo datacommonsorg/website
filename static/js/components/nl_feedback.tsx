@@ -23,10 +23,7 @@ import React, { useCallback, useContext, useState } from "react";
 import { UncontrolledTooltip } from "reactstrap";
 
 import { NlSessionContext } from "../shared/context";
-import {
-  CHART_FEEDBACK_SENTIMENT,
-  getNlChartId,
-} from "../utils/nl_interface_utils";
+import { CHART_FEEDBACK_SENTIMENT, getNlChartId } from "../utils/explore_utils";
 
 class Option {
   icon: string;
