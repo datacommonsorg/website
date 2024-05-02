@@ -34,11 +34,17 @@ EMBEDDINGS_BASE_MODEL_NAME: str = 'all-MiniLM-L6-v2'
 NL_MODEL_KEY: str = 'NL_MODEL'
 NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
 NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
+VERTEX_AI_ENDPOINTS_KEY: str = 'VERTEX_AI_ENDPOINTS'
 
 
 class StoreType(str, Enum):
   MEMORY = 'MEMORY'
   LANCEDB = 'LANCEDB'
+
+
+class ModelType(str, Enum):
+  LOCAL = 'LOCAL'
+  VERTEXAI = 'VERTEXAI'
 
 
 # Defines one embeddings index config.
@@ -60,6 +66,9 @@ class EmbeddingsIndex:
   # Model local path.
   model_local_path: str = ""
 
+  # Values are: LOCAL, VERTEXAI
+  model_type: ModelType = ModelType.LOCAL
+
 
 #
 # Validates the config input, downloads all the files and returns a list of Indexes to load.
@@ -73,11 +82,15 @@ def load(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
   #
   # Download all the models.
   #
-  models_set = set([i.model_name for i in indexes if i.model_name])
+  models_set = set([
+      i.model_name
+      for i in indexes
+      if i.model_name and i.model_type == ModelType.LOCAL
+  ])
   model2path = {d: gcs.download_folder(d) for d in models_set}
   for idx in indexes:
     if idx.model_name:
-      idx.model_local_path = model2path[idx.model_name]
+      idx.model_local_path = model2path.get(idx.model_name, "")
 
   return indexes
 
@@ -94,6 +107,7 @@ def parse(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
     store_type = StoreType(value_map['store'])
     path = value_map['embeddings']
     model_name = value_map['model']
+    model_type = value_map.get('model_type', ModelType.LOCAL)
 
     if path.startswith('/'):
       # Value is an absolute path
@@ -120,7 +134,8 @@ def parse(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
                           store_type=store_type,
                           embeddings_path=file_name,
                           embeddings_local_path=local_path,
-                          model_name=model_name)
+                          model_name=model_name,
+                          model_type=model_type)
     indexes.append(idx)
 
   return indexes

@@ -34,19 +34,19 @@ def load():
   for model_name, model_info in model_endpoints.items():
     aiplatform.init(project=model_info['project_id'],
                     location=model_info['location'])
-    prediction_client = aiplatform.Endpoint(
-        model_info['prediction_endpoint_id'])
-    models[model_name] = {
-        'prediction_client': prediction_client,
-    }
-    if model_info['type'] == 'EMBEDDING':
-      # Embedding models should also include index ID ane endpoint.
+    if model_info['type'] in ['EMBEDDING_MODEL', 'RERANKING_MODEL']:
+      prediction_client = aiplatform.Endpoint(
+          model_info['prediction_endpoint_id'])
+      models[model_name] = {
+          'prediction_client': prediction_client,
+      }
+    elif model_info['type'] == 'EMBEDDING_INDEX':
       vector_search_client = aiplatform_v1.MatchServiceClient(
           client_options={"api_endpoint": model_info['index_endpoint_root']})
-      models[model_name].update({
+      models[model_name] = {
           'vector_search_client': vector_search_client,
           'index_endpoint': model_info['index_endpoint'],
           'index_id': model_info['index_id']
-      })
+      }
   logging.info("finish model loading...")
   return models

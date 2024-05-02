@@ -26,6 +26,7 @@ import urllib
 
 from flask import make_response
 from google.protobuf import text_format
+import yaml
 
 from server.config import subject_page_pb2
 import server.lib.fetch as fetch
@@ -639,3 +640,20 @@ def _get_highest_coverage_date(observation_entity_counts_by_date,
   } for obs in observation_dates]
   best_coverage = max(date_counts, key=lambda date_count: date_count['count'])
   return best_coverage['date']
+
+
+def get_vertex_ai_models():
+  import shared.model.loader as model_loader
+  vertex_ai_endpoints = model_loader.load()
+  filepath = os.path.join(
+      os.path.join(get_repo_root(), 'config', 'nl_page',
+                   'nl_vertex_ai_models.yaml'))
+  with open(filepath) as f:
+    model_configs = yaml.full_load(f)
+    models = {}
+    for model_name, config in model_configs.items():
+      model_info = {}
+      for endpoint in config.values():
+        model_info.update(vertex_ai_endpoints.get(endpoint, {}))
+      models[model_name] = model_info
+    return models

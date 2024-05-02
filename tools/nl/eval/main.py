@@ -28,7 +28,13 @@ FLAGS = flags.FLAGS
 
 flags.DEFINE_string(
     'model_name', '',
-    'Model name used for eval. Full list can be found in endpoints.yaml')
+    'Model name used for eval. Full list can be found in vector_ai_endpoints.yaml with type: EMBEDDING_MODEL'
+)
+
+flags.DEFINE_string(
+    'index_name', '',
+    'Index name used for eval. Full list can be found in vector_ai_endpoints.yaml with type: EMBEDDING_INDEX'
+)
 
 flags.DEFINE_string(
     'eval_folder', '',
@@ -46,7 +52,11 @@ def main(_):
   if FLAGS.model_name not in models:
     print('Model not found from the config')
     return
+  if FLAGS.index_name not in models:
+    print('Model not found from the config')
+    return
   model_info = models[FLAGS.model_name]
+  model_info.update(models[FLAGS.index_name])
 
   debug = {}
   report = []
