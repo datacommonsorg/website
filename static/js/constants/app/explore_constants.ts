@@ -70,10 +70,10 @@ export const NL_LARGE_TILE_CLASS = "tile-lg";
 export const NL_NUM_TILES_SHOWN = 3;
 export const NL_NUM_BLOCKS_SHOWN = 3;
 export const NL_SOURCE_REPLACEMENTS = {
-  "https://www.datacommons.org/": "https://www.google.com",
+  "https://datacommons.org": "https://www.google.com",
   "https://datacommons.org/": "https://www.google.com",
   "https://www.datacommons.org": "https://www.google.com",
-  "https://datacommons.org": "https://www.google.com",
+  "https://www.datacommons.org/": "https://www.google.com",
 };
 
 export const SVG_CHART_HEIGHT = 200;

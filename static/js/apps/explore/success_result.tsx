@@ -25,10 +25,10 @@ import React, { useEffect, useRef } from "react";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import {
   CLIENT_TYPES,
+  SVG_CHART_HEIGHT,
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { SVG_CHART_HEIGHT } from "../../constants/app/explore_constants";
 import {
   ExploreContext,
   NlSessionContext,
