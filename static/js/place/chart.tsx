@@ -456,6 +456,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         // All other charts should fetch data about specific entities and
         // variables
         return datacommonsClient.getCsv({
+          date: this.getDate(),
           entities,
           fieldDelimiter: CSV_FIELD_DELIMITER,
           transformHeader: transformCsvHeader,
@@ -756,18 +757,19 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       : this.props.snapshot.sources;
   }
 
-  private getDateString(): string {
+  private getDate(): string {
     if (this.props.chartType == chartTypeEnum.CHOROPLETH) {
-      return this.state.choroplethDataGroup
-        ? "(" + this.state.choroplethDataGroup.date + ")"
-        : "";
+      return this.state.choroplethDataGroup?.date || "";
     }
     if (this.props.chartType === chartTypeEnum.RANKING) {
-      return this.state.rankingGroup
-        ? "(" + this.state.rankingGroup.dateRange + ")"
-        : "";
+      return this.state.rankingGroup?.dateRange || "";
     }
-    return this.props.snapshot ? "(" + this.props.snapshot.date + ")" : "";
+    return this.props.snapshot?.date || "";
+  }
+
+  private getDateString(): string {
+    const date = this.getDate();
+    return date ? `(${date})` : "";
   }
 
   private getRankingChartData(data: RankingGroup): {
