@@ -29,7 +29,7 @@ import { Input, UncontrolledTooltip } from "reactstrap";
 
 import { getVariableNameProcessingFn } from "../../../library/utils";
 import { TimeScaleOption } from "../../chart/types";
-import { NL_NUM_BLOCKS_SHOWN } from "../../constants/app/nl_interface_constants";
+import { NL_NUM_BLOCKS_SHOWN } from "../../constants/app/explore_constants";
 import {
   COLUMN_ID_PREFIX,
   HIDE_COLUMN_CLASS,
@@ -42,7 +42,7 @@ import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
-import { isNlInterface } from "../../utils/nl_interface_utils";
+import { isNlInterface } from "../../utils/explore_utils";
 import {
   addPerCapitaToTitle,
   addPerCapitaToVersusTitle,
@@ -208,7 +208,8 @@ export function Block(props: BlockPropType): JSX.Element {
       .map((c) => {
         return c.tiles.map((t) => t.placeDcidOverride);
       })
-      .flat();
+      .flat()
+      .filter((name) => !!name);
 
     if (!overridePlaces.length) {
       setOverridePlaceTypes({});
