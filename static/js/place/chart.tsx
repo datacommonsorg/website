@@ -456,11 +456,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         // All other charts should fetch data about specific entities and
         // variables
         return datacommonsClient.getCsv({
+          date: this.getDate(),
           entities,
           fieldDelimiter: CSV_FIELD_DELIMITER,
           transformHeader: transformCsvHeader,
           variables: this.props.statsVars,
-          date: this.getDate(),
         });
       },
       this.svgContainerElement.current.offsetWidth,
