@@ -399,7 +399,10 @@ def parent_places(dcids, include_admin_areas=False):
       A dictionary of lists of containedInPlace, keyed by dcid.
   """
   result = {dcid: {} for dcid in dcids}
-  place_info = dc.get_place_info(dcids)
+  try:
+    place_info = dc.get_place_info(dcids)
+  except ValueError:
+    return result
   for item in place_info.get('data', []):
     if 'node' not in item or 'info' not in item:
       continue

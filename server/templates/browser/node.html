@@ -17,10 +17,8 @@
    {%- extends BASE_HTML -%}
 
    {% set main_id = 'dc-browser' %}
-{% set page_id = 'page-dc-browser' %}
-   {% set title = node_name + ' - Graph Browser' %}
-   {% set subpage_title = 'Graph Browser' %}
-   {% set subpage_url = url_for('browser.browser_main') %}
+   {% set page_id = 'page-dc-browser' %}
+   {% set title = node_name + ' - Knowledge Graph' %}
 
    {% block head %}
    <link rel="stylesheet" href={{url_for('static', filename='css/browser.min.css', t=config['VERSION'])}} >

@@ -253,6 +253,9 @@ def place(place_dcid=None):
   if locale not in AVAILABLE_LANGUAGES:
     locale = 'en'
 
+  if category not in CATEGORIES:
+    category = None
+
   is_overview = (not category) or (category == 'Overview')
 
   place_summary = {}

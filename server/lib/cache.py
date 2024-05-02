@@ -31,6 +31,7 @@ cache = None
 model_cache = None
 
 redis_config = lib_redis.get_redis_config()
+REDIS_HOST = os.environ.get('REDIS_HOST', '')
 
 # Setup model_cache, use redis if available, otherwise use filesystem cache
 # which is good for local development.
@@ -53,7 +54,9 @@ else:
       })
 
 cfg = lib_config.get_config()
-if cfg.USE_MEMCACHE:
+# Configure cache if USE_MEMCACHE is set, or if there's a REDIS_HOST environment
+# variable
+if cfg.USE_MEMCACHE or REDIS_HOST:
   # Setup regular flask cache. Use Redis if available, otherwise use SimpleCache.
   if _redis_cache:
     cache = _redis_cache
