@@ -111,6 +111,7 @@ export class DatacommonsGaugeComponent extends LitElement {
         min: this.min,
         max: this.max,
       },
+      showBrandingInFooter: true,
       sources: this.sources,
       statVarSpec: {
         denom:

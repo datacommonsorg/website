@@ -123,6 +123,7 @@ export class DatacommonsPieComponent extends LitElement {
         name: "",
         types: [],
       },
+      showBrandingInFooter: true,
       sources: this.sources,
       statVarSpec,
       subtitle: this.subheader,

@@ -32,8 +32,7 @@ import {
   ReplacementStrings,
   TileSources,
 } from "../../utils/tile_utils";
-import { NlChartFeedback } from "../nl_feedback";
-import { ActionIcons } from "./chart_action_icons";
+import { ChartActions } from "./chart_action_icons";
 import { ChartFooter } from "./chart_footer";
 interface ChartTileContainerProp {
   id: string;
@@ -57,19 +56,24 @@ interface ChartTileContainerProp {
   hasErrorMsg?: boolean;
   // Text to show in footer
   footnote?: string;
+  // Whether to show "Powered by Google's Data Commons" in the footer
+  showBrandingInFooter?: boolean;
   // Subtitle text
   subtitle?: string;
+  // Whether to display chart actions on the right
+  // instead of download and explore links on the left.
+  useChartActionIcons?: boolean;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const containerRef = useRef(null);
-  const embedModalElement = useRef<ChartEmbed>(null);
+  const downloadModalElement = useRef<ChartEmbed>(null);
   // on initial loading, hide the title text
   const title = !props.isInitialLoading
     ? getChartTitle(props.title, props.replacementStrings)
     : "";
   const showSources = !_.isEmpty(props.sources) && !props.hasErrorMsg;
-  const showEmbed =
+  const showDownload =
     props.allowEmbed && !props.isInitialLoading && !props.hasErrorMsg;
   return (
     <div
@@ -110,29 +114,35 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         {props.children}
       </div>
       <ChartFooter
-        handleEmbed={showEmbed ? handleEmbed : null}
-        exploreLink={props.exploreLink}
         footnote={props.footnote}
+        exploreLink={!props.useChartActionIcons && props.exploreLink}
+        handleEmbed={!props.useChartActionIcons && handleDownload}
+        showBranding={props.showBrandingInFooter}
       >
-        <ActionIcons
-          id={props.id}
-          exploreLink={props.exploreLink}
-          handleEmbed={handleEmbed}
-        />
+        {props.useChartActionIcons && (
+          <ChartActions
+            id={props.id}
+            exploreLink={props.exploreLink}
+            handleDownload={handleDownload}
+          />
+        )}
       </ChartFooter>
-      {showEmbed && (
-        <ChartEmbed container={containerRef.current} ref={embedModalElement} />
+      {showDownload && (
+        <ChartEmbed
+          container={containerRef.current}
+          ref={downloadModalElement}
+        />
       )}
     </div>
   );
 
   // Handle when chart embed is clicked .
-  function handleEmbed(): void {
+  function handleDownload(): void {
     const chartTitle = props.title
       ? formatString(props.title, props.replacementStrings)
       : "";
     const { svgXml, height, width } = getMergedSvg(containerRef.current);
-    embedModalElement.current.show(
+    downloadModalElement.current.show(
       svgXml,
       props.getDataCsv,
       width,

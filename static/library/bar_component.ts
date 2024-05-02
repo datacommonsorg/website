@@ -251,6 +251,7 @@ export class DatacommonsBarComponent extends LitElement {
       parentPlace: this.parentPlace,
       placeNameProp: this.placeNameProp,
       places: this.places,
+      showBrandingInFooter: true,
       showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
       sort: this.sort,

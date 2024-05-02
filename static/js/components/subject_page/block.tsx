@@ -453,6 +453,7 @@ function renderTiles(
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
             footnote={props.footnote}
+            useChartActionIcons={true}
           />
         );
       case "LINE":
@@ -483,6 +484,7 @@ function renderTiles(
             startDate={tile.lineTileSpec?.startDate}
             endDate={tile.lineTileSpec?.endDate}
             highlightDate={tile.lineTileSpec?.highlightDate}
+            useChartActionIcons={true}
           />
         );
       case "RANKING":
@@ -508,6 +510,7 @@ function renderTiles(
                 ? rankingTileLatestDataAvailableFooter
                 : undefined
             }
+            useChartActionIcons={true}
           />
         );
       case "BAR":
@@ -544,6 +547,7 @@ function renderTiles(
               tile.barTileSpec?.variableNameRegex,
               tile.barTileSpec?.defaultVariableName
             )}
+            useChartActionIcons={true}
           />
         );
       case "SCATTER": {
@@ -571,6 +575,7 @@ function renderTiles(
             showExploreMore={props.showExploreMore}
             footnote={props.footnote}
             placeNameProp={tile.placeNameProp}
+            useChartActionIcons={true}
           />
         );
       }
@@ -594,6 +599,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
+            useChartActionIcons={true}
           />
         );
       }
@@ -617,6 +623,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            useChartActionIcons={true}
           ></GaugeTile>
         );
       case "DONUT":
@@ -635,6 +642,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            useChartActionIcons={true}
           ></DonutTile>
         );
       case "DESCRIPTION":

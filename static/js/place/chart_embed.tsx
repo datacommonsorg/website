@@ -412,8 +412,8 @@ class ChartEmbed extends React.Component<
       >
         <ModalHeader toggle={this.toggle}>
           {intl.formatMessage({
-            id: "embed_export_chart_link",
-            defaultMessage: "Export this chart",
+            id: "download_export_chart_link",
+            defaultMessage: "Download this chart",
             description:
               "Text for the hyperlink text that will let users export data and export charts.",
           })}

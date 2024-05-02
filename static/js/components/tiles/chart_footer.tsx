@@ -34,13 +34,15 @@ interface ChartFooterPropType {
   handleEmbed?: () => void;
   // Link to explore more. Only show explore button if this object is non-empty.
   exploreLink?: { displayText: string; url: string };
+  // Show branding "Powered by Data Commons" line.
+  showBranding?: boolean;
   children?: React.ReactNode;
   // Text to show above buttons
   footnote?: string;
 }
 
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
-  if (!props.handleEmbed && !props.exploreLink) {
+  if (!props.handleEmbed && !props.exploreLink && !props.children) {
     return null;
   }
   return (
@@ -84,6 +86,12 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                 >
                   Explore in {props.exploreLink.displayText}
                 </a>
+              </div>
+            )}
+            {props.showBranding && (
+              <div className="branding-line">
+                Powered by{" "}
+                <a href="https://datacommons.org">Google&apos;s Data Commons</a>
               </div>
             )}
           </div>

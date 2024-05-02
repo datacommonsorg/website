@@ -152,6 +152,7 @@ export class DatacommonsLineComponent extends LitElement {
       },
       startDate: this.startDate,
       endDate: this.endDate,
+      showBrandingInFooter: true,
       showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
       sources: this.sources,

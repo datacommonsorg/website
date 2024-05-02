@@ -31,6 +31,7 @@ import { getHash } from "../../utils/app/visualization_utils";
 import { formatString, TileSources } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { RankingUnit } from "../ranking_unit";
+import { ChartActions } from "./chart_action_icons";
 import { ChartFooter } from "./chart_footer";
 
 const RANKING_COUNT = 5;
@@ -57,6 +58,8 @@ interface SvRankingUnitsProps {
   footnote?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Optional: whether to use chart action icons in right of footer
+  useChartActionIcons?: boolean;
 }
 
 /**
@@ -97,6 +100,14 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
     );
   }
   const chartTitle = getChartTitle(title, rankingGroup);
+  const handleEmbedCallback = props.errorMsg
+    ? null
+    : () => handleEmbed(true, chartTitle);
+  const exploreLink =
+    props.showExploreMore && !props.errorMsg
+      ? getExploreLink(props, true)
+      : null;
+
   return (
     <React.Fragment>
       {rankingMetadata.showHighestLowest || props.errorMsg ? (
@@ -116,17 +127,17 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
           )}
           {!props.hideFooter && (
             <ChartFooter
-              handleEmbed={
-                props.errorMsg ? null : () => handleEmbed(true, chartTitle)
-              }
-              exploreLink={
-                props.showExploreMore && !props.errorMsg
-                  ? getExploreLink(props, true)
-                  : null
-              }
+              handleEmbed={!props.useChartActionIcons && handleEmbedCallback}
+              exploreLink={!props.useChartActionIcons && exploreLink}
               footnote={props.footnote}
             >
-              <NlChartFeedback id={props.tileId} />
+              {props.useChartActionIcons && (
+                <ChartActions
+                  id={props.tileId}
+                  handleEmbed={handleEmbedCallback}
+                  exploreLink={exploreLink}
+                />
+              )}
             </ChartFooter>
           )}
         </div>
