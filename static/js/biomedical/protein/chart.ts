@@ -192,7 +192,6 @@ const NUM_TICKS = 10;
 const GRAPH_HEIGHT_XS = 130;
 const GRAPH_HEIGHT_S = 200;
 const GRAPH_HEIGHT_M = 400;
-const GRAPH_HEIGHT_L = 800;
 const GRAPH_WIDTH_S = 660;
 const GRAPH_WIDTH_M = 700;
 const GRAPH_WIDTH_L = 760;
@@ -307,8 +306,8 @@ function dragNode(
 ): DragBehavior<Element, SimulationNodeDatum, SimulationNodeDatum> {
   // Reference for alphaTarget: https://stamen.com/forcing-functions-inside-d3-v4-forces-and-layout-transitions-f3e89ee02d12/
 
-  function dragstarted(nodeDatum: ProteinNode): void {
-    if (!d3.event.active) {
+  function dragstarted(event, nodeDatum): void {
+    if (!event.active) {
       // start up simulation
       simulation.alphaTarget(0.3).restart();
     }
@@ -316,13 +315,13 @@ function dragNode(
     nodeDatum.fy = nodeDatum.y;
   }
 
-  function dragged(nodeDatum: ProteinNode): void {
-    nodeDatum.fx = d3.event.x;
-    nodeDatum.fy = d3.event.y;
+  function dragged(event, nodeDatum): void {
+    nodeDatum.fx = event.x;
+    nodeDatum.fy = event.y;
   }
 
-  function dragended(nodeDatum: ProteinNode): void {
-    if (!d3.event.active) {
+  function dragended(event, nodeDatum): void {
+    if (!event.active) {
       // cool down simulation
       simulation.alphaTarget(0);
     }
@@ -352,7 +351,7 @@ export function drawTissueLegend(id: string, data: ProteinStrData[]): void {
     .append("svg")
     .attr("width", GRAPH_WIDTH_XL)
     .attr("height", GRAPH_HEIGHT_XS);
-  const organTypes = d3.keys(ORGAN_COLOR_DICT);
+  const organTypes = Object.keys(ORGAN_COLOR_DICT);
   // slicing the dictionary in half to display the legend in two rows
   const dictSliceNumber = (organTypes.length + 1) / 2;
   const dataRowOne = organTypes.slice(0, dictSliceNumber);
@@ -505,7 +504,8 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .call(
       handleMouseEvents,
       barIdFunc,
-      (d) => `Name: ${d.name}<br>Expression: ${TISSUE_SCORE_TO_LABEL[d.value]}`,
+      (d: ProteinNumData) =>
+        `Name: ${d.name}<br>Expression: ${TISSUE_SCORE_TO_LABEL[d.value]}`,
       PTI_BRIGHTEN_PERCENTAGE
     );
 }
@@ -657,7 +657,8 @@ export function drawProteinInteractionChart(
     .call(
       handleMouseEvents,
       barIdFunc,
-      (d) => `Protein Name: ${d.name}<br>Confidence Score: ${d.value}`
+      (d: InteractingProteinType) =>
+        `Protein Name: ${d.name}<br>Confidence Score: ${d.value}`
     );
 }
 
@@ -719,7 +720,7 @@ export function drawProteinInteractionGraph(
     .call(
       handleMouseEvents,
       linkIdFunc,
-      (d) =>
+      (d: InteractionLink) =>
         `Source: ${(d.source as ProteinNode).name}<br>Target: ${
           (d.target as ProteinNode).name
         }<br>Confidence: ${d.score}`,
@@ -856,7 +857,7 @@ export function drawDiseaseGeneAssocChart(
     .call(
       handleMouseEvents,
       barIdFunc,
-      (d) =>
+      (d: DiseaseAssociationType) =>
         `Disease Name: ${formatDiseaseName(d.name)}<br>Association Score: ${
           d.value
         }`
@@ -968,15 +969,16 @@ export function drawVarGeneAssocChart(
     .attr("cy", (d) => y(d.id))
     .attr("r", "6")
     .attr("id", (d, i) => circleIdFunc(i))
-    .style("fill", (d) => ERROR_BAR_VAR_COLOR[d.name])
+    .style("fill", (d: VarGeneDataPoint) => ERROR_BAR_VAR_COLOR[d.name])
     // variant redirect
-    .on("click", (d) => {
+    .on("click", (d: VarGeneDataPoint) => {
       window.open(GRAPH_BROWSER_REDIRECT + d.associationID);
     })
     .call(
       handleMouseEvents,
       circleIdFunc,
-      (d) => `Variant ID: ${d.id}<br>Log2 Fold Change: ${d.value}`
+      (d: VarGeneDataPoint) =>
+        `Variant ID: ${d.id}<br>Log2 Fold Change: ${d.value}`
     );
 
   svg
@@ -1142,7 +1144,7 @@ export function drawVarTypeAssocChart(
     .call(
       handleMouseEvents,
       barIdFunc,
-      (d) =>
+      (d: ProteinNumData) =>
         `Variant Functional Category: ${formatVariant(d.name)}<br>Count: ${
           d.value
         }`
@@ -1222,7 +1224,7 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
     .call(
       handleMouseEvents,
       barIdFunc,
-      (d) =>
+      (d: ProteinNumData) =>
         `Variant Clinical Significance: ${formatVariant(d.name)}<br>Count: ${
           d.value
         }`
@@ -1299,6 +1301,7 @@ export function drawChemGeneAssocChart(
     .call(
       handleMouseEvents,
       barIdFunc,
-      (d) => `Association Type: ${formatChemName(d.name)}<br>Count: ${d.value}`
+      (d: ProteinNumData) =>
+        `Association Type: ${formatChemName(d.name)}<br>Count: ${d.value}`
     );
 }
