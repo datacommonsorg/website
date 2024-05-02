@@ -24,8 +24,6 @@ limitations under the License.
   {% set title = place_name + ' - '+ _('CHART_TITLE-CHART_CATEGORY-{category}'.format(category=category)) + ' - ' + _('Place Explorer') %}
   {% set description = _('Statistics about {category} in {place_name}.'.format(category=category, place_name=place_name)) %}
 {% endif %}
-{% set subpage_title = _('Place Explorer') %}
-{% set subpage_url = url_for('place.place') %}
 {% set place_category = category %}
 
 {% block head %}

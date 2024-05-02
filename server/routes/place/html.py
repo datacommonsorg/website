@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -95,7 +95,7 @@ def get_place_summaries(dcid: str) -> dict:
 def generate_link_headers(place_dcid: str, category: str,
                           current_locale: str) -> str:
   """Generate canonical and alternate link HTTP headers
-  
+
   Search crawlers look for rel="canonical" link headers to determine which
   version of a page to crawl and rel="alternative" link headers to identify
   different localized versions of the same page.
@@ -104,7 +104,7 @@ def generate_link_headers(place_dcid: str, category: str,
     place_dcid: DCID of the place the page is about
     category: category of the page
     current_locale: locale of the page
-  
+
   Returns:
     String to pass as value for 'Link' HTTP header
   """
@@ -135,7 +135,7 @@ def generate_link_headers(place_dcid: str, category: str,
 
 def is_canonical_domain(url: str) -> bool:
   """Check if a url is on the canonical domain
-  
+
   Used to determine if the request's URL is on the main DC instance.
   Both HTTP and HTTPS urls are matched, and both canonical and staging URLs
   are matched.
@@ -143,7 +143,7 @@ def is_canonical_domain(url: str) -> bool:
 
   Args:
     url: url to check
-  
+
   Returns:
     True if request is to the canonical domain, False otherwise
   """
@@ -160,7 +160,7 @@ def get_place_html_link(place_dcid: str, place_name: str) -> str:
 def get_place_type_with_parent_places_links(dcid: str) -> str:
   """Get '<place type> in <parent places>' with html links for a given DCID"""
   # Get place type in localized, human-readable format
-  place_type = place_api.get_place_type(dcid)
+  place_type = place_api.api_place_type(dcid)
   place_type_display_name = place_api.get_place_type_i18n_name(place_type)
 
   # Get parent places and their localized names
@@ -236,7 +236,10 @@ def place(place_dcid=None):
   if not place_dcid:
     return place_landing()
 
-  place_type = place_api.get_place_type(place_dcid)
+  place_type = place_api.api_place_type(place_dcid)
+  if not place_type:
+    return place_landing(error_msg=f'Place "{place_dcid}" not found')
+
   place_type_with_parent_places_links = get_place_type_with_parent_places_links(
       place_dcid)
   place_names = place_api.get_i18n_name([place_dcid])
@@ -250,6 +253,9 @@ def place(place_dcid=None):
   if locale not in AVAILABLE_LANGUAGES:
     locale = 'en'
 
+  if category not in CATEGORIES:
+    category = None
+
   is_overview = (not category) or (category == 'Overview')
 
   place_summary = {}
@@ -262,6 +268,7 @@ def place(place_dcid=None):
     place_summary = get_place_summaries(place_dcid).get(place_dcid, {})
     elapsed_time = (time.time() - start_time) * 1000
     logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
+  logging.info("----------------- 4")
 
   # Block pages from being indexed if not on the main DC domain. This prevents
   # crawlers from indexing dev or custom DC versions of the place pages.
@@ -286,7 +293,7 @@ def place(place_dcid=None):
   return response
 
 
-def place_landing():
+def place_landing(error_msg=''):
   """Returns filled template for the place landing page."""
   template_file = os.path.join('custom_dc', g.env, 'place_landing.html')
   dcid_json = os.path.join('custom_dc', g.env, 'place_landing_dcids.json')
@@ -301,5 +308,6 @@ def place_landing():
     place_names = place_api.get_display_name(landing_dcids)
     return flask.render_template(
         template_file,
+        error_msg=error_msg,
         place_names=place_names,
         maps_api_key=current_app.config['MAPS_API_KEY'])

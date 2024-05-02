@@ -63,10 +63,6 @@ const config = {
       __dirname + "/js/apps/explore/main.ts",
       __dirname + "/css/explore.scss",
     ],
-    nl_interface: [
-      __dirname + "/js/apps/nl_interface/main.ts",
-      __dirname + "/css/nl_interface.scss",
-    ],
     nl_eval: [
       __dirname + "/js/apps/nl_eval/main.ts",
       __dirname + "/css/nl_eval.scss",

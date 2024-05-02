@@ -62,11 +62,11 @@ class TestPlaceLandingPage(unittest.TestCase):
 class TestPlacePage(unittest.TestCase):
 
   @patch('server.routes.shared_api.place.get_i18n_name')
-  @patch('server.routes.shared_api.place.get_place_type')
+  @patch('server.routes.shared_api.place.api_place_type')
   @patch('server.routes.shared_api.place.get_place_type_i18n_name')
   @patch('server.routes.shared_api.place.parent_places')
   def test_place(self, mock_parent_places, mock_get_place_type_i18n_name,
-                 mock_get_place_type, mock_get_i18n_name):
+                 mock_api_place_type, mock_get_i18n_name):
     mock_parent_places.return_value = {
         'geoId/06': [{
             'dcid': 'country/USA',
@@ -76,7 +76,7 @@ class TestPlacePage(unittest.TestCase):
     }
     mock_get_place_type_i18n_name.return_value = 'State'
     mock_get_i18n_name.return_value = {'geoId/06': 'California'}
-    mock_get_place_type.return_value = 'State'
+    mock_api_place_type.return_value = 'State'
 
     response = app.test_client().get('/place?dcid=geoId/06',
                                      follow_redirects=True)
@@ -151,12 +151,12 @@ class TestPlacePage(unittest.TestCase):
 class TestPlacePageHeaders(unittest.TestCase):
 
   @patch('server.routes.shared_api.place.get_i18n_name')
-  @patch('server.routes.shared_api.place.get_place_type')
+  @patch('server.routes.shared_api.place.api_place_type')
   @patch('server.routes.shared_api.place.get_place_type_i18n_name')
   @patch('server.routes.shared_api.place.parent_places')
   def test_place_page_canonical_header(self, mock_parent_places,
                                        mock_get_place_type_i18n_name,
-                                       mock_get_place_type, mock_get_i18n_name):
+                                       mock_api_place_type, mock_get_i18n_name):
     mock_parent_places.return_value = {
         'geoId/06': [{
             'dcid': 'country/USA',
@@ -166,7 +166,7 @@ class TestPlacePageHeaders(unittest.TestCase):
     }
     mock_get_place_type_i18n_name.return_value = 'State'
     mock_get_i18n_name.return_value = {'geoId/06': 'California'}
-    mock_get_place_type.return_value = 'State'
+    mock_api_place_type.return_value = 'State'
 
     # Test main page gives canonical without query parameters
     response = app.test_client().get('/place/geoId/06', follow_redirects=False)
@@ -232,12 +232,12 @@ class TestPlacePageHeaders(unittest.TestCase):
         'Link')
 
   @patch('server.routes.shared_api.place.get_i18n_name')
-  @patch('server.routes.shared_api.place.get_place_type')
+  @patch('server.routes.shared_api.place.api_place_type')
   @patch('server.routes.shared_api.place.get_place_type_i18n_name')
   @patch('server.routes.shared_api.place.parent_places')
   def test_place_page_alternate_header(self, mock_parent_places,
                                        mock_get_place_type_i18n_name,
-                                       mock_get_place_type, mock_get_i18n_name):
+                                       mock_api_place_type, mock_get_i18n_name):
     mock_parent_places.return_value = {
         'geoId/06': [{
             'dcid': 'country/USA',
@@ -247,7 +247,7 @@ class TestPlacePageHeaders(unittest.TestCase):
     }
     mock_get_place_type_i18n_name.return_value = 'State'
     mock_get_i18n_name.return_value = {'geoId/06': 'California'}
-    mock_get_place_type.return_value = 'State'
+    mock_api_place_type.return_value = 'State'
 
     # Test available languages listed as alternates for main page
     response = app.test_client().get('/place/geoId/06', follow_redirects=False)
