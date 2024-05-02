@@ -62,3 +62,18 @@ export const CLIENT_TYPES = {
 export const DEFAULT_TOPIC = "dc/topic/Root";
 // String used as a delimiter for url params
 export const URL_DELIM = "___";
+
+export const NL_SMALL_TILE_CLASS = "tile-sm";
+export const NL_MED_TILE_CLASS = "tile-md";
+export const NL_LARGE_TILE_CLASS = "tile-lg";
+// Number of tiles to show.
+export const NL_NUM_TILES_SHOWN = 3;
+export const NL_NUM_BLOCKS_SHOWN = 3;
+export const NL_SOURCE_REPLACEMENTS = {
+  "https://datacommons.org": "https://www.google.com",
+  "https://datacommons.org/": "https://www.google.com",
+  "https://www.datacommons.org": "https://www.google.com",
+  "https://www.datacommons.org/": "https://www.google.com",
+};
+
+export const SVG_CHART_HEIGHT = 200;

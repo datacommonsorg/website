@@ -24,7 +24,7 @@ import {
   NL_MED_TILE_CLASS,
   NL_NUM_TILES_SHOWN,
   NL_SMALL_TILE_CLASS,
-} from "../constants/app/nl_interface_constants";
+} from "../constants/app/explore_constants";
 import { intl } from "../i18n/i18n";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
@@ -33,7 +33,7 @@ import {
 } from "../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "./../types/subject_page_types";
 import { getFilteredParentPlaces } from "./app/disaster_dashboard_utils";
-import { isNlInterface } from "./nl_interface_utils";
+import { isNlInterface } from "./explore_utils";
 
 /**
  * Util functions used by subject page components.
