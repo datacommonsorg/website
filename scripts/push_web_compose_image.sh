@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2022 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ IMAGE_TAG=$1
 
 if [[ $IMAGE_TAG == "" ]]; then
   echo "No image tag specified." >&2
-  echo "Usage ./scripts/push_test_image.sh my-test-image-tag" >&2
+  echo "Usage ./scripts/push_web_compose_image.sh my-test-image-tag" >&2
   exit 1
 fi
 
@@ -30,5 +30,5 @@ set -x
 gcloud builds submit . \
   --async \
   --project=datcom-ci \
-  --config=build/ci/cloudbuild.push_test_image.yaml \
+  --config=build/ci/cloudbuild.push_web_compose_image.yaml \
   --substitutions=_TAG=$IMAGE_TAG
