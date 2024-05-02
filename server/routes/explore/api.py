@@ -22,6 +22,7 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 
+from server.lib.cache import cache
 import server.lib.explore.fulfiller_bridge as nl_fulfillment
 from server.lib.explore.params import Clients
 from server.lib.explore.params import DCNames
@@ -35,6 +36,7 @@ import server.lib.nl.config_builder.base as config_builder
 import server.lib.nl.detection.detector as nl_detector
 from server.lib.nl.detection.utils import create_utterance
 from server.lib.util import get_nl_disaster_config
+from server.routes import TIMEOUT
 from server.routes.nl import helpers
 
 bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
@@ -44,6 +46,7 @@ bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
 # The detection endpoint.
 #
 @bp.route('/detect', methods=['POST'])
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def detect():
   debug_logs = {}
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
@@ -80,6 +83,7 @@ def detect():
 #  - childEntityType: A type of child entity (optional)
 #
 @bp.route('/fulfill', methods=['POST'])
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def fulfill():
   """Data handler."""
   debug_logs = {}
@@ -91,6 +95,7 @@ def fulfill():
 # The detect and fulfill endpoint.
 #
 @bp.route('/detect-and-fulfill', methods=['POST'])
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def detect_and_fulfill():
   debug_logs = {}
 
