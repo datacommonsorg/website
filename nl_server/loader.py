@@ -129,11 +129,11 @@ def _update_app_config(app: Flask,
                        nl_model: NLAttributeModel,
                        nl_embeddings: emb_map.EmbeddingsMap,
                        embeddings_map: Dict[str, str],
-                       vertex_ai_endpoints: Dict[str, Dict] = {}):
+                       vertex_ai_endpoints: Dict[str, Dict] = None):
   app.config[config.NL_MODEL_KEY] = nl_model
   app.config[config.NL_EMBEDDINGS_KEY] = nl_embeddings
   app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_map
-  app.config[config.VERTEX_AI_ENDPOINTS_KEY] = vertex_ai_endpoints
+  app.config[config.VERTEX_AI_ENDPOINTS_KEY] = vertex_ai_endpoints or {}
 
 
 def _maybe_update_cache(flask_env: str, nl_embeddings: emb_map.EmbeddingsMap,
