@@ -45,7 +45,7 @@ _NL_CACHE_SIZE_LIMIT = 16e9  # 16Gb local cache size
 def load_server_state(app: Flask):
   flask_env = os.environ.get('FLASK_ENV')
 
-  embeddings_map = _load_yaml(flask_env)
+  embeddings_dict = _load_yaml(flask_env)
   vertex_ai_endpoints = model_loader.load()
 
   # In local dev, cache the embeddings on disk so each hot reload won't download
@@ -57,13 +57,13 @@ def load_server_state(app: Flask):
     nl_model = cache.get(NL_MODEL_CACHE_KEY)
     nl_embeddings = cache.get(NL_EMBEDDINGS_CACHE_KEY)
     if nl_model and nl_embeddings:
-      _update_app_config(app, nl_model, nl_embeddings, embeddings_map,
+      _update_app_config(app, nl_model, nl_embeddings, embeddings_dict,
                          vertex_ai_endpoints)
       return
 
-  nl_embeddings = emb_map.EmbeddingsMap(config.load(embeddings_map))
+  nl_embeddings = emb_map.EmbeddingsMap(embeddings_dict)
   nl_model = NLAttributeModel()
-  _update_app_config(app, nl_model, nl_embeddings, embeddings_map,
+  _update_app_config(app, nl_model, nl_embeddings, embeddings_dict,
                      vertex_ai_endpoints)
 
   _maybe_update_cache(flask_env, nl_embeddings, nl_model)
