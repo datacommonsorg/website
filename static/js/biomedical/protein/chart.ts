@@ -15,7 +15,7 @@
  */
 
 import * as d3 from "d3";
-import { DragBehavior, Simulation, SimulationNodeDatum } from "d3";
+import { D3DragEvent, DragBehavior, Simulation, SimulationNodeDatum } from "d3";
 import _ from "lodash";
 
 import {
@@ -306,7 +306,10 @@ function dragNode(
 ): DragBehavior<Element, SimulationNodeDatum, SimulationNodeDatum> {
   // Reference for alphaTarget: https://stamen.com/forcing-functions-inside-d3-v4-forces-and-layout-transitions-f3e89ee02d12/
 
-  function dragstarted(event, nodeDatum): void {
+  function dragstarted(
+    event: D3DragEvent<SVGRectElement, unknown, unknown>,
+    nodeDatum: SimulationNodeDatum
+  ): void {
     if (!event.active) {
       // start up simulation
       simulation.alphaTarget(0.3).restart();
@@ -315,12 +318,18 @@ function dragNode(
     nodeDatum.fy = nodeDatum.y;
   }
 
-  function dragged(event, nodeDatum): void {
+  function dragged(
+    event: D3DragEvent<SVGRectElement, unknown, unknown>,
+    nodeDatum: SimulationNodeDatum
+  ): void {
     nodeDatum.fx = event.x;
     nodeDatum.fy = event.y;
   }
 
-  function dragended(event, nodeDatum): void {
+  function dragended(
+    event: D3DragEvent<SVGRectElement, unknown, unknown>,
+    nodeDatum: SimulationNodeDatum
+  ): void {
     if (!event.active) {
       // cool down simulation
       simulation.alphaTarget(0);

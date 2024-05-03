@@ -19,6 +19,7 @@
  */
 
 import * as d3 from "d3";
+import { D3ZoomEvent } from "d3-zoom";
 import * as usaGeo from "geo-albers-usa-territories";
 import _ from "lodash";
 
@@ -123,7 +124,7 @@ function fitSize(
  */
 
 function showTooltip(
-  event,
+  event: MouseEvent,
   containerElement: HTMLDivElement,
   place: NamedPlace,
   getTooltipHtml: (place: NamedPlace) => string
@@ -560,7 +561,7 @@ export function drawD3Map(
         [0, 0],
         [chartWidth, chartHeight],
       ])
-      .on("zoom", function (event: any): void {
+      .on("zoom", function (event: D3ZoomEvent<any, any>): void {
         mapObjects.forEach((mapObjectLayer) => {
           mapObjectLayer.on("mousemove", null).on("mouseover", null);
         });
@@ -569,7 +570,7 @@ export function drawD3Map(
           .selectAll("path,circle")
           .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false)
           .classed(HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME, false)
-          .attr("transform", event.transform);
+          .attr("transform", event.transform.toString());
       })
       .on("end", function (): void {
         mapObjects.forEach((mapObjectLayer) => {
