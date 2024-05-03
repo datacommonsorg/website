@@ -14,39 +14,54 @@
 
 import logging
 import os
+from typing import List
 
 from google.cloud import aiplatform
 from google.cloud import aiplatform_v1
 import yaml
 
 
-def _load_model_endpoints():
-  model_yaml_file = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                 'vertex_ai_endpoints.yaml')
-  with open(model_yaml_file) as f:
+def _load_yaml(filename: str):
+  yaml_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+  with open(yaml_file) as f:
     return yaml.full_load(f)
 
 
-def load():
+def load_models(model_types: List[str] = None):
   logging.info("start model loading...")
-  model_endpoints = _load_model_endpoints()
+  model_endpoints = _load_yaml('vertex_ai_models.yaml')
   models = {}
   for model_name, model_info in model_endpoints.items():
+    # If caller specified the types of models to load, only load those types.
+    # Otherwise, load everything.
+    if model_types and not model_info['type'] in model_types:
+      continue
     aiplatform.init(project=model_info['project_id'],
                     location=model_info['location'])
-    if model_info['type'] in ['EMBEDDING_MODEL', 'RERANKING_MODEL']:
-      prediction_client = aiplatform.Endpoint(
-          model_info['prediction_endpoint_id'])
-      models[model_name] = {
-          'prediction_client': prediction_client,
-      }
-    elif model_info['type'] == 'EMBEDDING_INDEX':
-      vector_search_client = aiplatform_v1.MatchServiceClient(
-          client_options={"api_endpoint": model_info['index_endpoint_root']})
-      models[model_name] = {
-          'vector_search_client': vector_search_client,
-          'index_endpoint': model_info['index_endpoint'],
-          'index_id': model_info['index_id']
-      }
+    prediction_client = aiplatform.Endpoint(
+        model_info['prediction_endpoint_id'])
+    models[model_name] = {
+        'prediction_client': prediction_client,
+    }
   logging.info("finish model loading...")
   return models
+
+
+def load_indexes():
+  logging.info("start index loading...")
+  models = load_models()
+  index_endpoints = _load_yaml('vertex_ai_indexes.yaml')
+  indexes = {}
+  for index_name, index_info in index_endpoints.items():
+    aiplatform.init(project=index_info['project_id'],
+                    location=index_info['location'])
+    vector_search_client = aiplatform_v1.MatchServiceClient(
+        client_options={"api_endpoint": index_info['index_endpoint_root']})
+    indexes[index_name] = {
+        'vector_search_client': vector_search_client,
+        'index_endpoint': index_info['index_endpoint'],
+        'index_id': index_info['index_id'],
+    }
+    indexes[index_name].update(models.get(index_info['model'], {}))
+  logging.info("finish index loading...")
+  return indexes

@@ -644,16 +644,6 @@ def _get_highest_coverage_date(observation_entity_counts_by_date,
 
 def get_vertex_ai_models():
   import shared.model.loader as model_loader
-  vertex_ai_endpoints = model_loader.load()
-  filepath = os.path.join(
-      os.path.join(get_repo_root(), 'config', 'nl_page',
-                   'nl_vertex_ai_models.yaml'))
-  with open(filepath) as f:
-    model_configs = yaml.full_load(f)
-    models = {}
-    for model_name, config in model_configs.items():
-      model_info = {}
-      for endpoint in config.values():
-        model_info.update(vertex_ai_endpoints.get(endpoint, {}))
-      models[model_name] = model_info
-    return models
+  vertex_ai_indexes = model_loader.load_indexes()
+  reranking_models = model_loader.load_models(['RERANKING'])
+  return dict(vertex_ai_indexes, **reranking_models)

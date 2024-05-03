@@ -34,7 +34,7 @@ EMBEDDINGS_BASE_MODEL_NAME: str = 'all-MiniLM-L6-v2'
 NL_MODEL_KEY: str = 'NL_MODEL'
 NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
 NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
-VERTEX_AI_ENDPOINTS_KEY: str = 'VERTEX_AI_ENDPOINTS'
+VERTEX_AI_MODELS_KEY: str = 'VERTEX_AI_MODELS'
 
 
 class StoreType(str, Enum):
@@ -82,14 +82,14 @@ def load(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
   #
   # Download all the models.
   #
-  models_set = set([
-      i.model_name
-      for i in indexes
-      if i.model_name and i.model_type == ModelType.LOCAL
-  ])
+  models_set = set()
+  for i in indexes:
+    if i.model_name and i.model_type == ModelType.LOCAL:
+      models_set.add(i.model_name)
   model2path = {d: gcs.download_folder(d) for d in models_set}
   for idx in indexes:
     if idx.model_name:
+      # the idx will only have a local path if it is a LOCAL model
       idx.model_local_path = model2path.get(idx.model_name, "")
 
   return indexes

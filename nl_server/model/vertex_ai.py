@@ -30,6 +30,6 @@ class VertexAIModel(embeddings.EmbeddingsModel):
     self.model_name = model_name
 
   def encode(self, queries: List[str]) -> List[List[float]]:
-    model_info = current_app.config[config.VERTEX_AI_ENDPOINTS_KEY].get(
+    model_info = current_app.config[config.VERTEX_AI_MODELS_KEY].get(
         self.model_name)
     return predict(model_info, queries)

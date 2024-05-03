@@ -28,12 +28,7 @@ FLAGS = flags.FLAGS
 
 flags.DEFINE_string(
     'model_name', '',
-    'Model name used for eval. Full list can be found in vector_ai_endpoints.yaml with type: EMBEDDING_MODEL'
-)
-
-flags.DEFINE_string(
-    'index_name', '',
-    'Index name used for eval. Full list can be found in vector_ai_endpoints.yaml with type: EMBEDDING_INDEX'
+    'Model name used for eval. Full list can be found in /shared/model/vertex_ai_models.yaml'
 )
 
 flags.DEFINE_string(
@@ -48,15 +43,11 @@ def main(_):
   base_line = None
   with open(os.path.join(eval_folder, 'golden.json')) as f:
     base_line = json.load(f)
-  models = model_loader.load()
+  models = model_loader.load_indexes()
   if FLAGS.model_name not in models:
     print('Model not found from the config')
     return
-  if FLAGS.index_name not in models:
-    print('Model not found from the config')
-    return
   model_info = models[FLAGS.model_name]
-  model_info.update(models[FLAGS.index_name])
 
   debug = {}
   report = []

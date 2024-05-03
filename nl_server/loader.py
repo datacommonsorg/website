@@ -24,6 +24,7 @@ from nl_server import config
 import nl_server.embeddings_map as emb_map
 from nl_server.nl_attribute_model import NLAttributeModel
 from nl_server.util import get_user_data_path
+from nl_server.util import is_custom_dc
 from shared.lib.gcs import download_gcs_file
 from shared.lib.gcs import is_gcs_path
 from shared.lib.gcs import join_gcs_path
@@ -46,7 +47,9 @@ def load_server_state(app: Flask):
   flask_env = os.environ.get('FLASK_ENV')
 
   embeddings_dict = _load_yaml(flask_env)
-  vertex_ai_endpoints = model_loader.load()
+  vertex_ai_models = {}
+  if not is_custom_dc():
+    vertex_ai_models = model_loader.load_models(['EMBEDDING'])
 
   # In local dev, cache the embeddings on disk so each hot reload won't download
   # the embeddings again.
@@ -58,13 +61,13 @@ def load_server_state(app: Flask):
     nl_embeddings = cache.get(NL_EMBEDDINGS_CACHE_KEY)
     if nl_model and nl_embeddings:
       _update_app_config(app, nl_model, nl_embeddings, embeddings_dict,
-                         vertex_ai_endpoints)
+                         vertex_ai_models)
       return
 
   nl_embeddings = emb_map.EmbeddingsMap(embeddings_dict)
   nl_model = NLAttributeModel()
   _update_app_config(app, nl_model, nl_embeddings, embeddings_dict,
-                     vertex_ai_endpoints)
+                     vertex_ai_models)
 
   _maybe_update_cache(flask_env, nl_embeddings, nl_model)
 
@@ -129,11 +132,11 @@ def _update_app_config(app: Flask,
                        nl_model: NLAttributeModel,
                        nl_embeddings: emb_map.EmbeddingsMap,
                        embeddings_map: Dict[str, str],
-                       vertex_ai_endpoints: Dict[str, Dict] = None):
+                       vertex_ai_models: Dict[str, Dict] = None):
   app.config[config.NL_MODEL_KEY] = nl_model
   app.config[config.NL_EMBEDDINGS_KEY] = nl_embeddings
   app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_map
-  app.config[config.VERTEX_AI_ENDPOINTS_KEY] = vertex_ai_endpoints or {}
+  app.config[config.VERTEX_AI_MODELS_KEY] = vertex_ai_models or {}
 
 
 def _maybe_update_cache(flask_env: str, nl_embeddings: emb_map.EmbeddingsMap,

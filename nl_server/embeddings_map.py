@@ -17,8 +17,8 @@ from typing import Dict, List
 
 from nl_server.config import DEFAULT_INDEX_TYPE
 from nl_server.config import EmbeddingsIndex
-from nl_server.config import ModelType
 from nl_server.config import load
+from nl_server.config import ModelType
 from nl_server.config import StoreType
 from nl_server.embeddings import Embeddings
 from nl_server.embeddings import EmbeddingsModel
