@@ -20,11 +20,8 @@
 
 import React from "react";
 
-import {
-  QueryResult,
-  UserMessageInfo,
-} from "../../types/app/nl_interface_types";
-import { DebugInfo } from "../nl_interface/debug_info";
+import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
+import { DebugInfo } from "./debug_info";
 import { SearchSection } from "./search_section";
 import { UserMessage } from "./user_message";
 

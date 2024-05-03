@@ -879,6 +879,7 @@
     ]
   },
   "svSource": "PAST_QUERY",
+  "userMessage": "See comparison based on places in the previous answer.",
   "userMessages": [
     "See comparison based on places in the previous answer."
   ]

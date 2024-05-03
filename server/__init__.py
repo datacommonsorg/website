@@ -38,6 +38,7 @@ import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
 import shared.lib.gcp as lib_gcp
+from shared.lib.utils import is_debug_mode
 
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
@@ -244,7 +245,11 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
         "[%(asctime)s][%(levelname)-8s][%(filename)s:%(lineno)s] %(message)s ",
         datefmt="%H:%M:%S",
     )
-  logging.getLogger('werkzeug').setLevel(logging.WARNING)
+
+  log_level = logging.WARNING
+  if is_debug_mode():
+    log_level = logging.INFO
+  logging.getLogger('werkzeug').setLevel(log_level)
 
   # Setup flask config
   app.config.from_object(cfg)

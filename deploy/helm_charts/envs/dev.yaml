@@ -45,7 +45,3 @@ nl:
 nodejs:
   enabled: true
   replicas: 5
-
-cronTesting:
-  enabled: true
-  screenshotDomain: "dev.datacommons.org"

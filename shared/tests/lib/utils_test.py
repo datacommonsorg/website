@@ -118,3 +118,40 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
   ])
   def test_query_remove_punctuation(self, query, expected):
     self.assertEqual(utils.remove_punctuations(query), expected)
+
+
+class TestUtilsEscapeStrings(unittest.TestCase):
+
+  @parameterized.expand([
+      [
+          '<test string>',
+          '&lt;test string&gt;',
+      ],
+      [
+          ['<test string 1>', '<test string 2>', '<test string 3>'],
+          [
+              '&lt;test string 1&gt;', '&lt;test string 2&gt;',
+              '&lt;test string 3&gt;'
+          ],
+      ],
+      [{
+          'key1': [{
+              'key2': '<test string 2>'
+          }],
+          'key3>': '<test string 3>',
+          'key4': {
+              'key4': '<test string 4>'
+          }
+      }, {
+          'key1': [{
+              'key2': '&lt;test string 2&gt;'
+          }],
+          'key3&gt;': '&lt;test string 3&gt;',
+          'key4': {
+              'key4': '&lt;test string 4&gt;'
+          }
+      }],
+  ])
+  def test_escape_strings(self, test_object, expected):
+    escaped_object = utils.escape_strings(test_object)
+    self.assertEqual(escaped_object, expected)

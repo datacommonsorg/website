@@ -59,7 +59,7 @@ def disaster_dashboard(place_dcid=None):
     return flask.render_template(
         'disaster_dashboard.html',
         place_metadata=place_metadata,
-        config=None,
+        subject_config=None,
         maps_api_key=current_app.config['MAPS_API_KEY'])
 
   dashboard_config.metadata.contained_place_types.clear()
