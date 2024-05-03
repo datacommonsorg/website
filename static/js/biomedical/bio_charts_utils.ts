@@ -63,7 +63,7 @@ export function onMouseOver(
 /**
  * Update position of global tooltip to track mouse.
  */
-export function onMouseMove(event): void {
+export function onMouseMove(event: MouseEvent): void {
   TOOL_TIP.style("left", event.pageX - TOOL_TIP_SHIFT + "px").style(
     "top",
     event.pageY - TOOL_TIP_SHIFT + "px"
