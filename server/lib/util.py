@@ -26,7 +26,6 @@ import urllib
 
 from flask import make_response
 from google.protobuf import text_format
-import yaml
 
 from server.config import subject_page_pb2
 import server.lib.fetch as fetch
