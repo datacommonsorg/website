@@ -17,7 +17,6 @@ import copy
 import sys
 from typing import Dict, List
 
-from server.lib.nl.explore import params
 from server.lib.nl.common import counters
 from server.lib.nl.common import serialize
 from server.lib.nl.common import utterance
@@ -30,6 +29,7 @@ from server.lib.nl.detection import variable
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import LlmApiType
+from server.lib.nl.explore import params
 import shared.lib.detected_variables as dvars
 
 # TODO: Add support for COMPARISON_FILTER and RANKING_FILTER

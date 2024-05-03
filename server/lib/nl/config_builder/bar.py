@@ -17,13 +17,13 @@ from typing import List
 from server.config.subject_page_pb2 import BarTileSpec
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
-from server.lib.nl.explore.params import is_special_dc
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder.formatting_utils import \
     title_for_two_or_more_svs
 from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
+from server.lib.nl.explore.params import is_special_dc
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState

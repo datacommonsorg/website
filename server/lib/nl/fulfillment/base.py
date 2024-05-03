@@ -16,7 +16,6 @@ import copy
 import time
 from typing import List
 
-from server.lib.nl.explore import params
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
@@ -26,6 +25,7 @@ from server.lib.nl.common.utterance import PlaceFallback
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
+from server.lib.nl.explore import params
 from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment.existence import chart_vars_fetch
 from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker

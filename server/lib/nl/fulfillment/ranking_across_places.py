@@ -19,10 +19,10 @@ from typing import List
 from flask import current_app
 
 from server.lib import util as libutil
-import server.lib.nl.common.existence_util as ext
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
+import server.lib.nl.common.existence_util as ext
 from server.lib.nl.common.rank_utils import filter_and_rank_places
 from server.lib.nl.common.rank_utils import filter_and_rank_places_per_capita
 from server.lib.nl.common.utterance import ChartOriginType

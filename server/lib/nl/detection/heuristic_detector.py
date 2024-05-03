@@ -15,8 +15,6 @@
 
 from typing import Dict
 
-from server.lib.nl.explore import params
-from server.lib.nl.explore.params import QueryMode
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.detection import heuristic_classifiers
 from server.lib.nl.detection import place
@@ -28,6 +26,8 @@ from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import SimpleClassificationAttributes
+from server.lib.nl.explore import params
+from server.lib.nl.explore.params import QueryMode
 
 
 def detect(orig_query: str,
