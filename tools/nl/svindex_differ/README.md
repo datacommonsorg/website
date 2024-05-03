@@ -1,31 +1,37 @@
 ## StatVar Embeddings Differ
 
-This is a command-line tool to compare two variable embeddings indexes.
-Such an index is made up of a model + store identified in `embeddings.yaml`.
-With this tool, you can run a diff between two indexes where the model and/or
-store may vary.
+This is a command-line tool to compare a pair of variable embeddings indexes.
+An index is made up of a model + store identified in `embeddings.yaml`.  You
+can compare two indexes where just the model, or the store, or both can be
+different.
 
 The tool runs a bunch of golden queries (in [queryset.csv](queryset.csv))
 against a `test_index` and a `base_index`, and reports diffs in an HTML
 report that is saved in [gs://datcom-embedding-diffs](https://pantheon.corp.google.com/storage/browser/datcom-embedding-diffs).
 
+The base index details are from the checked in `embeddings.yaml` and the test
+index details are from `embeddings.yaml` in the local client.
+
 If you are using the tool in the context of updating the embeddings store, as
 the first step, produce a new store following instructions
-[here](../embeddings).  Then, update the local `embeddings.yaml` file with
+[here](../embeddings). And then, update the local `embeddings.yaml` file with
 the new SV index path.
-
-Note that it needs the autopush Mixer API key.
 
 ### Run the tool
 
-To compare `medium_ft` on 
+Run the tool as below.  You need the `autopush` Mixer API key.  If
+`TEST_INDEX` is not provided, then it is the same as `BASE_INDEX`.
 
 ```
 export AUTOPUSH_KEY=<XYZ>
-./run.sh (medium_ft | undata_ft | ...)
+./run.sh <BASE_INDEX> [<TEST_INDEX>]
 ```
 
-Please ensure any diffs are expected/understood, and attach the report to the
-PR updating the SV index.
+Example #1: `./run.sh medium_ft` compares the store for the index between
+local and repo master.
 
-Note that `medium_ft` refers to the current PROD embeddings index.
+Example #2: `./run.sh medium_ft medium_v2_vertexai_ft` compares two different
+indexes which differ in both model and store.
+
+NOTE: Please ensure any diffs are expected/understood, and attach the report
+to the PR updating the SV index.
