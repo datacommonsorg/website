@@ -15,7 +15,10 @@
  */
 import * as d3 from "d3";
 
-import { DiseaseGeneAssociationData } from "./disease/types";
+import {
+  DiseaseGeneAssociationData,
+  DiseaseSymptomAssociationData,
+} from "./disease/types";
 import { ProteinNumData } from "./protein/chart";
 import { DiseaseAssociationType } from "./protein/page";
 import { InteractionLink, ProteinNode } from "./protein/types";
@@ -60,10 +63,10 @@ export function onMouseOver(
 /**
  * Update position of global tooltip to track mouse.
  */
-export function onMouseMove(): void {
-  TOOL_TIP.style("left", d3.event.pageX - TOOL_TIP_SHIFT + "px").style(
+export function onMouseMove(event: MouseEvent): void {
+  TOOL_TIP.style("left", event.pageX - TOOL_TIP_SHIFT + "px").style(
     "top",
-    d3.event.pageY - TOOL_TIP_SHIFT + "px"
+    event.pageY - TOOL_TIP_SHIFT + "px"
   );
 }
 
@@ -88,15 +91,28 @@ export function onMouseOut(elementID: string): void {
 export function handleMouseEvents(
   selection: d3.Selection<SVGElement, any, any, any>,
   idFunc: (index: number) => string,
-  toolTipFunc: (datum: Datum) => string,
+  toolTipFunc: (
+    data:
+      | DiseaseSymptomAssociationData
+      | DiseaseGeneAssociationData
+      | ProteinNumData
+      | ProteinNode
+      | InteractionLink
+  ) => string,
   brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
 ): void {
+  const index = d3.local<number>();
   selection
-    .on("mouseover", (d, i) => {
-      onMouseOver(idFunc(i), toolTipFunc(d), brightenPercentage);
+    .each(function (d, i) {
+      index.set(this, i);
+    })
+    .on("mouseover", function (event, d) {
+      onMouseOver(idFunc(index.get(this)), toolTipFunc(d), brightenPercentage);
     })
     .on("mousemove", onMouseMove)
-    .on("mouseout", (d, i) => onMouseOut(idFunc(i)));
+    .on("mouseout", function () {
+      onMouseOut(idFunc(index.get(this)));
+    });
 }
 
 /**

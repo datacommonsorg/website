@@ -63,3 +63,5 @@ export const COMPRESSED_VAL_ENCODING = {
   "/": "%2F",
   "=": "%3D",
 };
+// The param value for the client param if the client is Bard. Default is Bard.
+export const BARD_CLIENT_URL_PARAM = "bard";

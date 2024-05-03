@@ -22,13 +22,13 @@ import _ from "lodash";
 import * as xmlserializer from "xmlserializer";
 import * as zlib from "zlib";
 
-import { SVGNS, XLINKNS } from "../js/constants/svg_constants";
-import { StatVarSpec } from "../js/shared/types";
-import { urlToDisplayText } from "../js/shared/util";
+import { SVGNS, XLINKNS } from "../../js/constants/svg_constants";
+import { StatVarSpec } from "../../js/shared/types";
+import { urlToDisplayText } from "../../js/shared/util";
 import {
   EventTypeSpec,
   TileConfig,
-} from "../js/types/subject_page_proto_types";
+} from "../../js/types/subject_page_proto_types";
 import {
   CHART_PARAMS,
   COMPRESSED_VAL_ENCODING,
@@ -37,8 +37,8 @@ import {
   SVG_HEIGHT,
   SVG_PADDING,
   SVG_WIDTH,
-} from "./constants";
-import { ChartProps } from "./types";
+} from "../constants";
+import { ChartProps } from "../types";
 
 /**
  * Gets a list of source objects with name and url from a set of source urls.

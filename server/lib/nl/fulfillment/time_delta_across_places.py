@@ -83,6 +83,9 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     child_places = utils.get_all_child_places([parent_place],
                                               state.place_type.value,
                                               state.uttr.counters)
+  if not child_places:
+    state.uttr.counters.err('time-delta-across-places_failed_no_childplaces', 1)
+    return False
 
   dcid2place = {c.dcid: c for c in child_places}
   dcids = list(dcid2place.keys())

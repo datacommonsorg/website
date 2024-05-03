@@ -64,19 +64,18 @@ class TestEmbeddings(unittest.TestCase):
     cls.default_file = _copy(_DEFAULT_FILE)
     cls.custom_file = _copy(_CUSTOM_FILE)
 
-    cls.custom = emb_map.EmbeddingsMap(
-        config.load({
-            'medium_ft': {
-                'embeddings': cls.default_file,
-                'store': 'MEMORY',
-                'model': _TUNED_MODEL
-            },
-            'custom_ft': {
-                'embeddings': cls.custom_file,
-                'store': 'MEMORY',
-                'model': _TUNED_MODEL
-            }
-        }))
+    cls.custom = emb_map.EmbeddingsMap({
+        'medium_ft': {
+            'embeddings': cls.default_file,
+            'store': 'MEMORY',
+            'model': _TUNED_MODEL
+        },
+        'custom_ft': {
+            'embeddings': cls.custom_file,
+            'store': 'MEMORY',
+            'model': _TUNED_MODEL
+        }
+    })
 
   def test_entries(self):
     self.assertEqual(1, len(self.custom.get('medium_ft').store.dcids))
@@ -101,14 +100,13 @@ class TestEmbeddings(unittest.TestCase):
     _test_query(self, indexes, query, expected)
 
   def test_merge_custom_embeddings(self):
-    embeddings = emb_map.EmbeddingsMap(
-        config.load({
-            'medium_ft': {
-                'embeddings': self.default_file,
-                'store': 'MEMORY',
-                'model': _TUNED_MODEL
-            }
-        }))
+    embeddings = emb_map.EmbeddingsMap({
+        'medium_ft': {
+            'embeddings': self.default_file,
+            'store': 'MEMORY',
+            'model': _TUNED_MODEL
+        }
+    })
 
     _test_query(self, [embeddings.get("medium_ft")], "money", "dc/topic/sdg_1")
     _test_query(self, [embeddings.get("medium_ft")], "food", "")
