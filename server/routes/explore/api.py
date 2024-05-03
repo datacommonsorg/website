@@ -22,6 +22,7 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 
+from server.lib.cache import cache
 from server.lib.nl.common import serialize
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
@@ -35,6 +36,7 @@ from server.lib.nl.explore.params import Clients
 from server.lib.nl.explore.params import DCNames
 from server.lib.nl.explore.params import Params
 from server.lib.util import get_nl_disaster_config
+from server.routes import TIMEOUT
 from server.routes.explore import helpers
 import server.services.bigtable as bt
 
@@ -45,6 +47,7 @@ bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
 # The detection endpoint.
 #
 @bp.route('/detect', methods=['POST'])
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def detect():
   debug_logs = {}
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
@@ -81,6 +84,7 @@ def detect():
 #  - childEntityType: A type of child entity (optional)
 #
 @bp.route('/fulfill', methods=['POST'])
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def fulfill():
   """Data handler."""
   debug_logs = {}
@@ -92,6 +96,7 @@ def fulfill():
 # The detect and fulfill endpoint.
 #
 @bp.route('/detect-and-fulfill', methods=['POST'])
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def detect_and_fulfill():
   debug_logs = {}
 

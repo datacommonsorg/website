@@ -81,7 +81,8 @@ function getTooltipContent(
   unit?: string
 ): string {
   let tooltipDate = "";
-  let tooltipContent = "";
+  // each item represents a row in the tooltip
+  const tooltipContent: { rowLabel: string; value: number }[] = [];
   const places = Object.keys(dataGroupsDict);
   for (const place of places) {
     for (const dataGroupLabel in rowLabels[place]) {
@@ -89,9 +90,8 @@ function getTooltipContent(
         (datagroup) => datagroup.label === dataGroupLabel
       );
       const rowLabel = rowLabels[place][dataGroupLabel];
-      let displayValue = "N/A";
       if (!dataGroup) {
-        tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
+        tooltipContent.push({ rowLabel, value: null });
         continue;
       }
       const dataPoint = dataGroup.value.find(
@@ -99,17 +99,31 @@ function getTooltipContent(
       );
       if (dataPoint) {
         tooltipDate = dataPoint.label;
-        displayValue = !_.isNull(dataPoint.value)
-          ? formatNumber(dataPoint.value, unit)
-          : "N/A";
-        tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
+        tooltipContent.push({ rowLabel, value: dataPoint.value });
       }
     }
   }
+  // sort the rows of content in the tooltip by highest value first
+  tooltipContent.sort((a, b) => {
+    if (a.value === null) {
+      return 1;
+    } else if (b.value === null) {
+      return -1;
+    } else {
+      return b.value - a.value;
+    }
+  });
+  // get the formatted string for each row of the content in the tooltip
+  const tooltipContentStrings = tooltipContent.map((content) => {
+    const displayValue = !_.isNull(content.value)
+      ? formatNumber(content.value, unit)
+      : "N/A";
+    return `${content.rowLabel}: ${displayValue}`;
+  });
   if (places.length === 1 && dataGroupsDict[places[0]].length === 1) {
-    return tooltipDate + tooltipContent;
+    return tooltipDate + tooltipContentStrings.join("<br/>");
   } else {
-    return `${tooltipDate}<br/>` + tooltipContent;
+    return `${tooltipDate}<br/>` + tooltipContentStrings.join("<br/>");
   }
 }
 

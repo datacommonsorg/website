@@ -124,14 +124,6 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     detector_type = RequestedDetectorType.Heuristic.value
     use_default_place = False
 
-  llm_api_type = request.args.get('llm_api',
-                                  default=LlmApiType.GeminiPro.value,
-                                  type=str).lower()
-  if llm_api_type not in [LlmApiType.Palm, LlmApiType.GeminiPro]:
-    llm_api_type = LlmApiType.GeminiPro
-  else:
-    llm_api_type = LlmApiType(llm_api_type)
-
   counters = ctr.Counters()
 
   i18n_lang = ''
@@ -200,10 +192,16 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  query_detection = detector.detect(detector_type, original_query, query,
-                                    prev_utterance, embeddings_index_type,
-                                    llm_api_type, debug_logs, mode, counters,
-                                    rerank_fn, allow_triples)
+  query_detection = detector.detect(detector_type=detector_type,
+                                    original_query=original_query,
+                                    no_punct_query=query,
+                                    prev_utterance=prev_utterance,
+                                    embeddings_index_type=embeddings_index_type,
+                                    query_detection_debug_logs=debug_logs,
+                                    mode=mode,
+                                    counters=counters,
+                                    rerank_fn=rerank_fn,
+                                    allow_triples=allow_triples)
   if not query_detection:
     err_json = helpers.abort('Sorry, could not complete your request.',
                              original_query,
