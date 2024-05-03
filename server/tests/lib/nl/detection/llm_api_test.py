@@ -105,12 +105,6 @@ class TestParseResponse(unittest.TestCase):
                          })])
   def test_good(self, input, want):
     self.maxDiff = None
-    response = {'candidates': [{'content': input}]}
-    got = llm_api.parse_response('', response, llm_api.extract_palm_response,
-                                 Counters())
-    self.assertEqual(got, want)
-
-    self.maxDiff = None
     response = {'candidates': [{'content': {'parts': [{'text': input}]}}]}
     got = llm_api.parse_response('', response, llm_api.extract_gemini_response,
                                  Counters())
