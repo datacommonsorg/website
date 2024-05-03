@@ -17,14 +17,12 @@
 {%- extends BASE_HTML -%}
 
 {% set is_hide_full_footer = true %}
-{% set subpage_title = "Statistical Variable Explorer" %}
-{% set subpage_url = url_for('tools.stat_var') %}
 {% set title = "Statistical Variable Explorer" %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/stat_var.min.css')}} >
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 {% endblock %}
 
 {% block content %}

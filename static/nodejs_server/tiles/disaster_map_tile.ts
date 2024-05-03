@@ -20,27 +20,27 @@
 
 import _ from "lodash";
 
-import { fetchDisasterEventData } from "../js/components/subject_page/disaster_event_block";
+import { fetchDisasterEventData } from "../../js/components/subject_page/disaster_event_block";
 import {
   DisasterEventMapTilePropType,
   DisasterMapChartData,
   draw,
   fetchChartData,
   getReplacementStrings,
-} from "../js/components/tiles/disaster_event_map_tile";
-import { NamedTypedPlace } from "../js/shared/types";
-import { DisasterEventPointData } from "../js/types/disaster_event_map_types";
+} from "../../js/components/tiles/disaster_event_map_tile";
+import { NamedTypedPlace } from "../../js/shared/types";
+import { DisasterEventPointData } from "../../js/types/disaster_event_map_types";
 import {
   EventTypeSpec,
   TileConfig,
-} from "../js/types/subject_page_proto_types";
+} from "../../js/types/subject_page_proto_types";
 import {
   getDate,
   getSeverityFilters,
-} from "../js/utils/disaster_event_map_utils";
-import { getChartTitle } from "../js/utils/tile_utils";
-import { CHART_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
-import { TileResult } from "./types";
+} from "../../js/utils/disaster_event_map_utils";
+import { getChartTitle } from "../../js/utils/tile_utils";
+import { CHART_ID, SVG_HEIGHT, SVG_WIDTH } from "../constants";
+import { TileResult } from "../types";
 import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 
 function getTileProp(

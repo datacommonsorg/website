@@ -48,7 +48,7 @@ import {
   getUpdatedHash,
   getUseCache,
 } from "../../utils/disaster_event_map_utils";
-import { isNlInterface } from "../../utils/nl_interface_utils";
+import { isNlInterface } from "../../utils/explore_utils";
 import {
   getColumnTileClassName,
   getColumnWidth,

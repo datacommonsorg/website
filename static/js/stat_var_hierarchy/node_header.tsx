@@ -27,8 +27,8 @@ import { StatVarHierarchyType } from "../shared/types";
 import { hideTooltip, showTooltip, SV_HIERARCHY_SECTION_ID } from "./util";
 
 const BULLET_POINT_HTML = <span className="bullet">&#8226;</span>;
-const DOWN_ARROW_HTML = <i className="material-icons">remove</i>;
-const RIGHT_ARROW_HTML = <i className="material-icons">add</i>;
+const DOWN_ARROW_HTML = <i className="material-icons">arrow_drop_down</i>;
+const RIGHT_ARROW_HTML = <i className="material-icons">arrow_right</i>;
 const TOOLTIP_TOP_OFFSET = 10;
 
 interface StatVarHierarchyNodeHeaderPropType {

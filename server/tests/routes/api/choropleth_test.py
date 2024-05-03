@@ -43,7 +43,7 @@ GEOJSON_MULTILINE_GEOMETRY = {
 class TestChoroplethPlaces(unittest.TestCase):
 
   @patch('server.routes.shared_api.choropleth.place_api.parent_places')
-  @patch('server.routes.shared_api.choropleth.place_api.get_place_type')
+  @patch('server.routes.shared_api.choropleth.place_api.api_place_type')
   def test_get_choropleth_display_level_has_display_level(
       self, mock_place_type, mock_parents):
     dcid = "test_dcid1"
@@ -53,7 +53,7 @@ class TestChoroplethPlaces(unittest.TestCase):
     assert result == (dcid, "AdministrativeArea1")
 
   @patch('server.routes.shared_api.choropleth.place_api.parent_places')
-  @patch('server.routes.shared_api.choropleth.place_api.get_place_type')
+  @patch('server.routes.shared_api.choropleth.place_api.api_place_type')
   def test_get_choropleth_display_level_equivalent_has_display_level(
       self, mock_place_type, mock_parents):
     dcid = "test_dcid2"
@@ -63,7 +63,7 @@ class TestChoroplethPlaces(unittest.TestCase):
     assert result == (dcid, "AdministrativeArea2")
 
   @patch('server.routes.shared_api.choropleth.place_api.parent_places')
-  @patch('server.routes.shared_api.choropleth.place_api.get_place_type')
+  @patch('server.routes.shared_api.choropleth.place_api.api_place_type')
   def test_get_choropleth_display_level_has_no_display_level(
       self, mock_place_type, mock_parents):
     dcid = "test_dcid3"
@@ -80,7 +80,7 @@ class TestChoroplethPlaces(unittest.TestCase):
     assert result == (None, None)
 
   @patch('server.routes.shared_api.choropleth.place_api.parent_places')
-  @patch('server.routes.shared_api.choropleth.place_api.get_place_type')
+  @patch('server.routes.shared_api.choropleth.place_api.api_place_type')
   def test_get_choropleth_display_level_parent_places(self, mock_place_type,
                                                       mock_parents):
     dcid = "test_dcid4"
@@ -97,7 +97,7 @@ class TestChoroplethPlaces(unittest.TestCase):
     assert result == (parent_dcid, "County")
 
   @patch('server.routes.shared_api.choropleth.place_api.parent_places')
-  @patch('server.routes.shared_api.choropleth.place_api.get_place_type')
+  @patch('server.routes.shared_api.choropleth.place_api.api_place_type')
   def test_get_choropleth_display_level_parent_has_equivalent(
       self, mock_place_type, mock_parents):
     dcid = "test_dcid5"

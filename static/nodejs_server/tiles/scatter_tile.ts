@@ -15,81 +15,59 @@
  */
 
 /**
- * Functions for getting results for a bar tile
+ * Functions for getting results for the scatter tile
  */
 
-import _ from "lodash";
+// This import is unused in this file, but needed for draw functions
+import * as Canvas from "canvas";
 
 import {
-  BarChartData,
-  BarTilePropType,
   draw,
   fetchData,
   getReplacementStrings,
-} from "../js/components/tiles/bar_tile";
-import { StatVarSpec } from "../js/shared/types";
-import { TileConfig } from "../js/types/subject_page_proto_types";
-import { dataGroupsToCsv } from "../js/utils/chart_csv_utils";
-import { getChartTitle } from "../js/utils/tile_utils";
-import { CHART_ID, DOM_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
-import { TileResult } from "./types";
+  ScatterTilePropType,
+} from "../../js/components/tiles/scatter_tile";
+import { NamedTypedPlace, StatVarSpec } from "../../js/shared/types";
+import { TileConfig } from "../../js/types/subject_page_proto_types";
+import { scatterDataToCsv } from "../../js/utils/chart_csv_utils";
+import { getChartTitle } from "../../js/utils/tile_utils";
+import { CHART_ID, SVG_HEIGHT, SVG_WIDTH } from "../constants";
+import { TileResult } from "../types";
 import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
-
-function getPlaces(tileConfig: TileConfig, place: string): string[] {
-  return tileConfig.comparisonPlaces || [place];
-}
 
 function getTileProp(
   id: string,
   tileConfig: TileConfig,
-  place: string,
+  place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string
-): BarTilePropType {
-  const barTileSpec = tileConfig.barTileSpec || {};
+): ScatterTilePropType {
   return {
-    apiRoot,
     id,
-    enclosedPlaceType,
-    horizontal: barTileSpec.horizontal || false,
-    places: getPlaces(tileConfig, place),
-    stacked: barTileSpec.stacked || false,
-    svgChartHeight: SVG_HEIGHT,
     title: tileConfig.title,
-    useLollipop: barTileSpec.useLollipop || false,
-    variables: statVarSpec,
+    place,
+    enclosedPlaceType,
+    statVarSpec,
+    svgChartHeight: SVG_HEIGHT,
+    scatterTileSpec: tileConfig.scatterTileSpec,
+    apiRoot,
   };
 }
 
-function getBarChartSvg(
-  tileProp: BarTilePropType,
-  chartData: BarChartData,
-  chartTitle: string
-): SVGSVGElement {
-  const tileContainer = document.createElement("div");
-  tileContainer.setAttribute("id", tileProp.id);
-  document.getElementById(DOM_ID).appendChild(tileContainer);
-  draw(tileProp, chartData, tileContainer, SVG_WIDTH, true, chartTitle);
-  const chartSvg = tileContainer.querySelector("svg");
-  // viewBox attribute throws off sizing in node server
-  chartSvg.removeAttribute("viewBox");
-  return getProcessedSvg(tileContainer.querySelector("svg"));
-}
-
 /**
- * Gets the Tile Result for a bar tile
+ * Gets the Tile Result for a scatter tile
  * @param id id of the chart
- * @param tileConfig config for the bar tile
- * @param place place to show the bar chart for
- * @param enclosedPlaceType enclosed place type to use for bar chart
- * @param statVarSpec list of stat var specs to show in the bar chart
+ * @param tileConfig config for the tile
+ * @param place place to show the tile for
+ * @param enclosedPlaceType enclosed place type to use in the tile
+ * @param statVarSpec list of stat var specs to show in the tile
  * @param apiRoot API root to use to fetch data
  */
-export async function getBarTileResult(
+export async function getScatterTileResult(
   id: string,
   tileConfig: TileConfig,
-  place: string,
+  place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
@@ -105,34 +83,32 @@ export async function getBarTileResult(
     statVarSpec,
     apiRoot
   );
+
   try {
     const chartData = await fetchData(tileProp);
     const chartTitle = getChartTitle(
       tileConfig.title,
-      getReplacementStrings(chartData)
+      getReplacementStrings(tileProp, chartData)
     );
-    let legend = [];
-    if (
-      !_.isEmpty(chartData.dataGroup) &&
-      !_.isEmpty(chartData.dataGroup[0].value)
-    ) {
-      legend = chartData.dataGroup[0].value.map((dp) => dp.label);
-    }
     const result: TileResult = {
-      data_csv: dataGroupsToCsv(chartData.dataGroup),
+      data_csv: scatterDataToCsv(
+        chartData.xStatVar.statVar,
+        chartData.xStatVar.denom,
+        chartData.yStatVar.statVar,
+        chartData.yStatVar.denom,
+        chartData.points
+      ),
       placeType: enclosedPlaceType,
-      places: getPlaces(tileConfig, place),
+      places: [place.dcid],
       srcs: getSources(chartData.sources),
-      legend,
       title: chartTitle,
-      type: "BAR",
-      unit: chartData.unit,
+      type: "SCATTER",
       vars: statVarSpec.map((spec) => spec.statVar),
     };
     if (useChartUrl) {
       result.chartUrl = getChartUrl(
         tileConfig,
-        place,
+        place.dcid,
         statVarSpec,
         enclosedPlaceType,
         null,
@@ -141,26 +117,36 @@ export async function getBarTileResult(
       );
       return result;
     }
-    const svg = getBarChartSvg(tileProp, chartData, chartTitle);
+    const svgContainer = document.createElement("div");
+    draw(
+      chartData,
+      svgContainer,
+      SVG_HEIGHT,
+      null /* tooltipHtml */,
+      tileConfig.scatterTileSpec,
+      SVG_WIDTH,
+      chartTitle
+    );
+    const svg = getProcessedSvg(svgContainer.querySelector("svg"));
     result.svg = getSvgXml(svg);
     return result;
   } catch (e) {
-    console.log("Failed to get bar tile result for: " + id);
+    console.log("Failed to get scatter tile result for: " + id);
     return null;
   }
 }
 
 /**
- * Gets the bar chart for a given tile config
+ * Gets the scatter chart for a given tile config
  * @param tileConfig the tile config for the chart
  * @param place the place to get the chart for
  * @param enclosedPlaceType the enclosed place type to get the chart for
  * @param statVarSpec list of stat var specs to show in the chart
  * @param apiRoot API root to use to fetch data
  */
-export async function getBarChart(
+export async function getScatterChart(
   tileConfig: TileConfig,
-  place: string,
+  place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string
@@ -177,11 +163,21 @@ export async function getBarChart(
     const chartData = await fetchData(tileProp);
     const chartTitle = getChartTitle(
       tileConfig.title,
-      getReplacementStrings(chartData)
+      getReplacementStrings(tileProp, chartData)
     );
-    return getBarChartSvg(tileProp, chartData, chartTitle);
+    const svgContainer = document.createElement("div");
+    draw(
+      chartData,
+      svgContainer,
+      SVG_HEIGHT,
+      null /* tooltipHtml */,
+      tileConfig.scatterTileSpec,
+      SVG_WIDTH,
+      chartTitle
+    );
+    return getProcessedSvg(svgContainer.querySelector("svg"));
   } catch (e) {
-    console.log("Failed to get bar chart");
+    console.log("Failed to get scatter chart.");
     return null;
   }
 }

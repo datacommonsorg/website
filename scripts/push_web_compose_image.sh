@@ -1,4 +1,5 @@
-# Copyright 2023 Google LLC
+#!/bin/bash
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,24 +13,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import dataclass
-import os
+# Build Docker image with a test image tag and push to Cloud Container Registry.
 
-from server.lib.util import get_repo_root
+set -e
 
+IMAGE_TAG=$1
 
-@dataclass
-class Prompts:
-  # Prompt for full query detection for Gemini Pro Text API.
-  gemini_pro: str
+if [[ $IMAGE_TAG == "" ]]; then
+  echo "No image tag specified." >&2
+  echo "Usage ./scripts/push_web_compose_image.sh my-test-image-tag" >&2
+  exit 1
+fi
 
+set -x
 
-# Returns LLM prompt texts
-def get_prompts() -> Prompts:
-  return Prompts(gemini_pro=_content("geminipro_prompt.txt"))
-
-
-def _content(fname) -> str:
-  filepath = os.path.join(get_repo_root(), "config", "nl_page", fname)
-  with open(filepath, 'r') as f:
-    return f.read()
+gcloud builds submit . \
+  --async \
+  --project=datcom-ci \
+  --config=build/ci/cloudbuild.push_web_compose_image.yaml \
+  --substitutions=_TAG=$IMAGE_TAG
