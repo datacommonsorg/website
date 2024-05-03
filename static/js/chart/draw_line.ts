@@ -82,7 +82,7 @@ function getTooltipContent(
 ): string {
   let tooltipDate = "";
   // each item represents a row in the tooltip
-  const tooltipContent: {rowLabel: string; value: number}[] = []
+  const tooltipContent: { rowLabel: string; value: number }[] = [];
   const places = Object.keys(dataGroupsDict);
   for (const place of places) {
     for (const dataGroupLabel in rowLabels[place]) {
@@ -91,7 +91,7 @@ function getTooltipContent(
       );
       const rowLabel = rowLabels[place][dataGroupLabel];
       if (!dataGroup) {
-        tooltipContent.push({rowLabel, value: null})
+        tooltipContent.push({ rowLabel, value: null });
         continue;
       }
       const dataPoint = dataGroup.value.find(
@@ -99,7 +99,7 @@ function getTooltipContent(
       );
       if (dataPoint) {
         tooltipDate = dataPoint.label;
-        tooltipContent.push({rowLabel, value: dataPoint.value})
+        tooltipContent.push({ rowLabel, value: dataPoint.value });
       }
     }
   }
@@ -112,12 +112,14 @@ function getTooltipContent(
     } else {
       return b.value - a.value;
     }
-  })
+  });
   // get the formatted string for each row of the content in the tooltip
   const tooltipContentStrings = tooltipContent.map((content) => {
-    const displayValue = !_.isNull(content.value) ? formatNumber(content.value, unit) : "N/A";
-    return `${content.rowLabel}: ${displayValue}` 
-  })
+    const displayValue = !_.isNull(content.value)
+      ? formatNumber(content.value, unit)
+      : "N/A";
+    return `${content.rowLabel}: ${displayValue}`;
+  });
   if (places.length === 1 && dataGroupsDict[places[0]].length === 1) {
     return tooltipDate + tooltipContentStrings.join("<br/>");
   } else {
