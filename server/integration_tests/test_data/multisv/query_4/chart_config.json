@@ -9,34 +9,95 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/0644000",
-                      "geoId/0666000",
-                      "geoId/0668000",
-                      "geoId/0627000",
-                      "geoId/0669000",
-                      "geoId/0603526",
-                      "geoId/0643000"
-                    ],
                     "statVarKey": [
-                      "Percent_Person_WithAsthma_multiple_place_bar_block"
+                      "Percent_Person_WithAsthma"
                     ],
-                    "title": "Asthma (${date}) - Top 7 of 289",
-                    "type": "BAR"
+                    "title": "Asthma in Cities of California (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Asthma"
+            "title": "Asthma in Cities of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance_HispanicOrLatino"
+                    ],
+                    "title": "Hispanic or Latino Population With Health Insurance in Cities of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic or Latino Population With Health Insurance in Cities of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance_HispanicOrLatino"
+                    ],
+                    "title": "Hispanic or Latino With No Health Insurance in Cities of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic or Latino With No Health Insurance in Cities of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino"
+                    ],
+                    "title": "Percentage of Hispanic or Latino Population (18 to 64 Years Old) Without Health Insurance in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Percentage of Hispanic or Latino Population (18 to 64 Years Old) Without Health Insurance in California",
+                    "statVarKey": [
+                      "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino"
+                    ],
+                    "title": "Percentage of Hispanic or Latino Population (18 to 64 Years Old) Without Health Insurance in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Hispanic or Latino Population (18 to 64 Years Old) Without Health Insurance"
           }
         ],
         "statVarSpec": {
-          "Percent_Person_WithAsthma_multiple_place_bar_block": {
+          "Count_Person_NoHealthInsurance_HispanicOrLatino": {
+            "name": "Hispanic or Latino With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_HispanicOrLatino"
+          },
+          "Count_Person_WithHealthInsurance_HispanicOrLatino": {
+            "name": "Hispanic or Latino Population With Health Insurance",
+            "statVar": "Count_Person_WithHealthInsurance_HispanicOrLatino"
+          },
+          "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": {
+            "name": "Percentage of Hispanic or Latino Population (18 to 64 Years Old) Without Health Insurance",
+            "statVar": "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino",
+            "unit": "%"
+          },
+          "Percent_Person_WithAsthma": {
             "name": "Asthma",
             "statVar": "Percent_Person_WithAsthma",
             "unit": "%"
@@ -45,8 +106,11 @@
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "State": "City"
+      },
       "placeDcid": [
-        "geoId/0644000"
+        "geoId/06"
       ]
     }
   },
@@ -69,7 +133,7 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "UNKNOWN",
+  "svSource": "CURRENT_QUERY",
   "userMessage": "",
   "userMessages": []
 }

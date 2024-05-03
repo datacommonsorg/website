@@ -16,12 +16,14 @@
 from dataclasses import dataclass
 from typing import List
 
+import server.lib.explore.params as params
 from server.lib.nl.common import constants
 import server.lib.nl.common.utils as cutils
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection import utils as detection_utils
+from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
@@ -200,6 +202,19 @@ def _classification_to_query_type(cl: NLClassifier,
 
   if query_type == QueryType.BASIC:
     query_type = _maybe_remap_basic(uttr)
+
+  if (params.is_special_dc(uttr.insight_ctx) and
+      query_type in [QueryType.EVENT, QueryType.SUPERLATIVE]):
+    # Superlative introduces custom SVs not relevant for SDG.
+    # And we don't do event maps for SDG.
+    query_type = QueryType.BASIC
+
+  if (uttr.detection.detector != ActualDetectorType.LLM and query_type
+      in [QueryType.FILTER_WITH_SINGLE_VAR, QueryType.FILTER_WITH_DUAL_VARS]):
+    # Filter queries are hard to interpret correctly using
+    # just heuristics. So unless this was LLM that did detection,
+    # do not fulfill it.
+    query_type = QueryType.BASIC
 
   return query_type
 

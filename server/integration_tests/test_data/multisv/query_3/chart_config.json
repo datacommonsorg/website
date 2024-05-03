@@ -9,44 +9,597 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino"
+                    ],
+                    "title": "Hispanic Population in Cities of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic Population in Cities of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NotHispanicOrLatino"
+                    ],
+                    "title": "Non Hispanic Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Non Hispanic Population in California",
+                    "statVarKey": [
+                      "Count_Person_NotHispanicOrLatino"
+                    ],
+                    "title": "Non Hispanic Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non Hispanic Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn_PlaceOfBirthEurope_HispanicOrLatino"
+                    ],
+                    "title": "Population: Foreign Born, Europe, Hispanic or Latino in Cities of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born, Europe, Hispanic or Latino in Cities of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_ResidesInGroupQuarters"
+                    ],
+                    "title": "Hispanic Population in Group Quarters in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Hispanic Population in Group Quarters in California",
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_ResidesInGroupQuarters"
+                    ],
+                    "title": "Hispanic Population in Group Quarters in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic Population in Group Quarters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/0jtctjm33mgh1"
+                    ],
+                    "title": "Population: Enrolled in College Undergraduate Years, Hispanic or Latino in Cities of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Enrolled in College Undergraduate Years, Hispanic or Latino in Cities of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_TwoOrMoreRaces"
+                    ],
+                    "title": "Hispanic Multiracial Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Hispanic Multiracial Population in California",
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_TwoOrMoreRaces"
+                    ],
+                    "title": "Hispanic Multiracial Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic Multiracial Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_Separated_HispanicOrLatino"
+                    ],
+                    "title": "Population: 15 Years or More, Separated, Hispanic or Latino in Cities of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 15 Years or More, Separated, Hispanic or Latino in Cities of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_ResidesInInstitutionalizedGroupQuarters"
+                    ],
+                    "title": "Hispanic Institutionalized Population in Group Quarters in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Hispanic Institutionalized Population in Group Quarters in California",
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_ResidesInInstitutionalizedGroupQuarters"
+                    ],
+                    "title": "Hispanic Institutionalized Population in Group Quarters in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic Institutionalized Population in Group Quarters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces"
+                    ],
+                    "title": "Non Hispanic Multiracial Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Non Hispanic Multiracial Population in California",
+                    "statVarKey": [
+                      "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces"
+                    ],
+                    "title": "Non Hispanic Multiracial Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non Hispanic Multiracial Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NotHispanicOrLatino_ResidesInGroupQuarters"
+                    ],
+                    "title": "Non Hispanic Population in Group Quarters in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Non Hispanic Population in Group Quarters in California",
+                    "statVarKey": [
+                      "Count_Person_NotHispanicOrLatino_ResidesInGroupQuarters"
+                    ],
+                    "title": "Non Hispanic Population in Group Quarters in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non Hispanic Population in Group Quarters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_HispanicOrLatino"
+                    ],
+                    "title": "Hispanic Women in Cities of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic Women in Cities of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/0644000",
-                      "geoId/0666000",
-                      "geoId/0668000",
-                      "geoId/0627000",
-                      "geoId/0669000",
-                      "geoId/0603526",
-                      "geoId/0643000"
+                      "geoId/06"
                     ],
                     "statVarKey": [
-                      "Count_Person_HispanicOrLatino_multiple_place_bar_block"
+                      "Count_Person_0To4Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_10To14Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_15To19Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_20To24Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_25To29Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_30To34Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_35To39Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_40To44Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_45To49Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_50To54Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_55To59Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_5To9Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_60To64Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_65To69Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_70To74Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_75To79Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_80To84Years_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_85OrMoreYears_HispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Hispanic Population (${date}) - Top 7 of 289",
+                    "title": "Hispanic or Latino Population by Age in California (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Hispanic Population"
+            "title": "Hispanic or Latino Population by Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/scnp6d6sv1jqd"
+                    ],
+                    "title": "Population: Native, Hispanic or Latino in Cities of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Native, Hispanic or Latino in Cities of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_WhiteAlone"
+                    ],
+                    "title": "White Hispanic Monoracial Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "White Hispanic Monoracial Population in California",
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_WhiteAlone"
+                    ],
+                    "title": "White Hispanic Monoracial Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "White Hispanic Monoracial Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_0To4Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_10To14Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_15To19Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_20To24Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_25To29Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_30To34Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_35To39Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_40To44Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_45To49Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_50To54Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_55To59Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_5To9Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_60To64Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_65To69Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_70To74Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_75To79Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_80To84Years_NotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_85OrMoreYears_NotHispanicOrLatino_multiple_place_bar_block"
+                    ],
+                    "title": "Not Hispanic or Latino Population by Age in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Not Hispanic or Latino Population by Age"
           }
         ],
         "statVarSpec": {
-          "Count_Person_HispanicOrLatino_multiple_place_bar_block": {
+          "Count_Person_0To4Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 0 - 4 Years, Hispanic or Latino",
+            "statVar": "Count_Person_0To4Years_HispanicOrLatino"
+          },
+          "Count_Person_0To4Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 0 - 4 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_0To4Years_NotHispanicOrLatino"
+          },
+          "Count_Person_10To14Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 10 - 14 Years, Hispanic or Latino",
+            "statVar": "Count_Person_10To14Years_HispanicOrLatino"
+          },
+          "Count_Person_10To14Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 10 - 14 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_10To14Years_NotHispanicOrLatino"
+          },
+          "Count_Person_15OrMoreYears_Separated_HispanicOrLatino": {
+            "name": "Population: 15 Years or More, Separated, Hispanic or Latino",
+            "statVar": "Count_Person_15OrMoreYears_Separated_HispanicOrLatino"
+          },
+          "Count_Person_15To19Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 15 - 19 Years, Hispanic or Latino",
+            "statVar": "Count_Person_15To19Years_HispanicOrLatino"
+          },
+          "Count_Person_15To19Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 15 - 19 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_15To19Years_NotHispanicOrLatino"
+          },
+          "Count_Person_20To24Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 20 - 24 Years, Hispanic or Latino",
+            "statVar": "Count_Person_20To24Years_HispanicOrLatino"
+          },
+          "Count_Person_20To24Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 20 - 24 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_20To24Years_NotHispanicOrLatino"
+          },
+          "Count_Person_25To29Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 25 - 29 Years, Hispanic or Latino",
+            "statVar": "Count_Person_25To29Years_HispanicOrLatino"
+          },
+          "Count_Person_25To29Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 25 - 29 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_25To29Years_NotHispanicOrLatino"
+          },
+          "Count_Person_30To34Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 30 - 34 Years, Hispanic or Latino",
+            "statVar": "Count_Person_30To34Years_HispanicOrLatino"
+          },
+          "Count_Person_30To34Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 30 - 34 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_30To34Years_NotHispanicOrLatino"
+          },
+          "Count_Person_35To39Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 35 - 39 Years, Hispanic or Latino",
+            "statVar": "Count_Person_35To39Years_HispanicOrLatino"
+          },
+          "Count_Person_35To39Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 35 - 39 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_35To39Years_NotHispanicOrLatino"
+          },
+          "Count_Person_40To44Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 40 - 44 Years, Hispanic or Latino",
+            "statVar": "Count_Person_40To44Years_HispanicOrLatino"
+          },
+          "Count_Person_40To44Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 40 - 44 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_40To44Years_NotHispanicOrLatino"
+          },
+          "Count_Person_45To49Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 45 - 49 Years, Hispanic or Latino",
+            "statVar": "Count_Person_45To49Years_HispanicOrLatino"
+          },
+          "Count_Person_45To49Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 45 - 49 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_45To49Years_NotHispanicOrLatino"
+          },
+          "Count_Person_50To54Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 50 - 54 Years, Hispanic or Latino",
+            "statVar": "Count_Person_50To54Years_HispanicOrLatino"
+          },
+          "Count_Person_50To54Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 50 - 54 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_50To54Years_NotHispanicOrLatino"
+          },
+          "Count_Person_55To59Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 55 - 59 Years, Hispanic or Latino",
+            "statVar": "Count_Person_55To59Years_HispanicOrLatino"
+          },
+          "Count_Person_55To59Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 55 - 59 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_55To59Years_NotHispanicOrLatino"
+          },
+          "Count_Person_5To9Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 5 - 9 Years, Hispanic or Latino",
+            "statVar": "Count_Person_5To9Years_HispanicOrLatino"
+          },
+          "Count_Person_5To9Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 5 - 9 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_5To9Years_NotHispanicOrLatino"
+          },
+          "Count_Person_60To64Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 60 - 64 Years, Hispanic or Latino",
+            "statVar": "Count_Person_60To64Years_HispanicOrLatino"
+          },
+          "Count_Person_60To64Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 60 - 64 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_60To64Years_NotHispanicOrLatino"
+          },
+          "Count_Person_65To69Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 65 - 69 Years, Hispanic or Latino",
+            "statVar": "Count_Person_65To69Years_HispanicOrLatino"
+          },
+          "Count_Person_65To69Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 65 - 69 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_65To69Years_NotHispanicOrLatino"
+          },
+          "Count_Person_70To74Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 70 - 74 Years, Hispanic or Latino",
+            "statVar": "Count_Person_70To74Years_HispanicOrLatino"
+          },
+          "Count_Person_70To74Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 70 - 74 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_70To74Years_NotHispanicOrLatino"
+          },
+          "Count_Person_75To79Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 75 - 79 Years, Hispanic or Latino",
+            "statVar": "Count_Person_75To79Years_HispanicOrLatino"
+          },
+          "Count_Person_75To79Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 75 - 79 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_75To79Years_NotHispanicOrLatino"
+          },
+          "Count_Person_80To84Years_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 80 - 84 Years, Hispanic or Latino",
+            "statVar": "Count_Person_80To84Years_HispanicOrLatino"
+          },
+          "Count_Person_80To84Years_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 80 - 84 Years, Not Hispanic or Latino",
+            "statVar": "Count_Person_80To84Years_NotHispanicOrLatino"
+          },
+          "Count_Person_85OrMoreYears_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 85 Years or More, Hispanic or Latino",
+            "statVar": "Count_Person_85OrMoreYears_HispanicOrLatino"
+          },
+          "Count_Person_85OrMoreYears_NotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Population: 85 Years or More, Not Hispanic or Latino",
+            "statVar": "Count_Person_85OrMoreYears_NotHispanicOrLatino"
+          },
+          "Count_Person_Female_HispanicOrLatino": {
+            "name": "Hispanic Women",
+            "statVar": "Count_Person_Female_HispanicOrLatino"
+          },
+          "Count_Person_ForeignBorn_PlaceOfBirthEurope_HispanicOrLatino": {
+            "name": "Population: Foreign Born, Europe, Hispanic or Latino",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthEurope_HispanicOrLatino"
+          },
+          "Count_Person_HispanicOrLatino": {
             "name": "Hispanic Population",
             "statVar": "Count_Person_HispanicOrLatino"
+          },
+          "Count_Person_HispanicOrLatino_ResidesInGroupQuarters": {
+            "name": "Hispanic Population in Group Quarters",
+            "statVar": "Count_Person_HispanicOrLatino_ResidesInGroupQuarters"
+          },
+          "Count_Person_HispanicOrLatino_ResidesInInstitutionalizedGroupQuarters": {
+            "name": "Hispanic Institutionalized Population in Group Quarters",
+            "statVar": "Count_Person_HispanicOrLatino_ResidesInInstitutionalizedGroupQuarters"
+          },
+          "Count_Person_HispanicOrLatino_TwoOrMoreRaces": {
+            "name": "Hispanic Multiracial Population",
+            "statVar": "Count_Person_HispanicOrLatino_TwoOrMoreRaces"
+          },
+          "Count_Person_HispanicOrLatino_WhiteAlone": {
+            "name": "White Hispanic Monoracial Population",
+            "statVar": "Count_Person_HispanicOrLatino_WhiteAlone"
+          },
+          "Count_Person_NotHispanicOrLatino": {
+            "name": "Non Hispanic Population",
+            "statVar": "Count_Person_NotHispanicOrLatino"
+          },
+          "Count_Person_NotHispanicOrLatino_ResidesInGroupQuarters": {
+            "name": "Non Hispanic Population in Group Quarters",
+            "statVar": "Count_Person_NotHispanicOrLatino_ResidesInGroupQuarters"
+          },
+          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces": {
+            "name": "Non Hispanic Multiracial Population",
+            "statVar": "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces"
+          },
+          "dc/0jtctjm33mgh1": {
+            "name": "Population: Enrolled in College Undergraduate Years, Hispanic or Latino",
+            "statVar": "dc/0jtctjm33mgh1"
+          },
+          "dc/scnp6d6sv1jqd": {
+            "name": "Population: Native, Hispanic or Latino",
+            "statVar": "dc/scnp6d6sv1jqd"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "State": "City"
+      },
       "placeDcid": [
-        "geoId/0644000"
+        "geoId/06"
       ]
     }
   },
