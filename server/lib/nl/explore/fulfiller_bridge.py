@@ -27,7 +27,6 @@ import server.lib.nl.config_builder.builder as nl_config_builder
 from server.lib.nl.explore import extension
 from server.lib.nl.explore import params
 from server.lib.nl.explore import related
-import server.lib.nl.explore.related as related
 from server.lib.nl.fulfillment import existence
 import server.lib.nl.fulfillment.fulfiller as nl_fulfiller
 from server.lib.nl.fulfillment.types import ChartSpec
