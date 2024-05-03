@@ -129,7 +129,189 @@
       "place_type": "City"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Age",
+        "name": "Age",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Gender",
+        "name": "Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Nationality",
+        "name": "Nationality",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Root",
+        "name": "Statistics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "wikidataId/Q956",
+        "name": "Beijing",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "nuts/DE3",
+        "name": "Berlin",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q85",
+        "name": "Cairo",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1714000",
+        "name": "Chicago",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q1353",
+        "name": "Delhi",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q34647",
+        "name": "Johannesburg",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q84",
+        "name": "London",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q2807",
+        "name": "Madrid",
+        "types": [
+          "AdministrativeArea3"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q649",
+        "name": "Moscow",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/3651000",
+        "name": "New York",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "nuts/FR101",
+        "name": "Paris",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q8678",
+        "name": "Rio de Janeiro",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/0667000",
+        "name": "San Francisco",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q3130",
+        "name": "Sydney",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q7473516",
+        "name": "Tokyo",
+        "types": [
+          "City"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Health",
+        "name": "Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EducationHousingAndCommute",
+        "name": "Education, Housing and Commute",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Equity",
+        "name": "Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Sustainability",
+        "name": "Sustainability",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
   "userMessage": "",
   "userMessages": []

@@ -37,6 +37,37 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceAsianAlone"
+                    ],
+                    "title": "Median Income of Asian Households in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceAsianAlone"
+                    ],
+                    "title": "Median Income of Asian Households in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Asian Households in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone"
                     ],
@@ -60,6 +91,38 @@
             ],
             "denom": "Count_Person",
             "title": "Asian Population Above Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asian Population Above Poverty Line in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asian Population Above Poverty Line in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Population Above Poverty Line in Counties of California"
           },
           {
             "columns": [
@@ -95,6 +158,38 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_HouseholderRaceAsianAlone"
+                    ],
+                    "title": "Count of Household: Asian Alone in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_HouseholderRaceAsianAlone"
+                    ],
+                    "title": "Count of Household: Asian Alone in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Asian Alone in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
                     ],
@@ -118,6 +213,38 @@
             ],
             "denom": "Count_Person",
             "title": "Asians Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asians Below Poverty Line in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asians Below Poverty Line in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asians Below Poverty Line in Counties of California"
           },
           {
             "columns": [
@@ -152,6 +279,37 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: Foreign Born, Eastern Asia in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthWesternAsia"
                     ],
@@ -174,6 +332,37 @@
               }
             ],
             "title": "Median Income of Household: Foreign Born, Western Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthWesternAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, Western Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthWesternAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, Western Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: Foreign Born, Western Asia in Counties of California"
           },
           {
             "columns": [
@@ -208,6 +397,37 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, South Eastern Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, South Eastern Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: Foreign Born, South Eastern Asia in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
                     ],
@@ -230,6 +450,37 @@
               }
             ],
             "title": "Median Income of Household: Foreign Born, Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Median Income of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Household: Foreign Born, Asia in Counties of California"
           },
           {
             "columns": [
@@ -265,6 +516,38 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthWesternAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, Foreign Born, Western Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthWesternAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, Foreign Born, Western Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Earnings, Foreign Born, Western Asia in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
                     ],
@@ -294,6 +577,38 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, Foreign Born, Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, Foreign Born, Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Earnings, Foreign Born, Asia in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
                     ],
@@ -317,6 +632,38 @@
             ],
             "denom": "Count_Person",
             "title": "Count of Household: With Earnings, Foreign Born, Eastern Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthEasternAsia"
+                    ],
+                    "title": "Count of Household: With Earnings, Foreign Born, Eastern Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: With Earnings, Foreign Born, Eastern Asia in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -368,6 +715,9 @@
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "State": "County"
+      },
       "placeDcid": [
         "geoId/06"
       ]
