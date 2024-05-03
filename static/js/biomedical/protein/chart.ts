@@ -659,7 +659,7 @@ export function drawProteinInteractionChart(
     .attr("id", (d, i) => barIdFunc(i))
     .style("fill", BAR_COLOR)
     //PROTEIN_REDIRECT
-    .on("click", (d) => {
+    .on("click", (event: MouseEvent, d) => {
       const proteinId = "bio/" + d.name + "_" + d.parent;
       window.open(PROTEIN_REDIRECT + proteinId);
     })
@@ -860,7 +860,7 @@ export function drawDiseaseGeneAssocChart(
     .attr("height", y.bandwidth())
     .attr("id", (d, i) => barIdFunc(i))
     .style("fill", BAR_COLOR)
-    .on("click", (d) => {
+    .on("click", (event: MouseEvent, d) => {
       window.open(GRAPH_BROWSER_REDIRECT + d.id);
     })
     .call(
@@ -980,7 +980,7 @@ export function drawVarGeneAssocChart(
     .attr("id", (d, i) => circleIdFunc(i))
     .style("fill", (d: VarGeneDataPoint) => ERROR_BAR_VAR_COLOR[d.name])
     // variant redirect
-    .on("click", (d: VarGeneDataPoint) => {
+    .on("click", (event: MouseEvent, d: VarGeneDataPoint) => {
       window.open(GRAPH_BROWSER_REDIRECT + d.associationID);
     })
     .call(

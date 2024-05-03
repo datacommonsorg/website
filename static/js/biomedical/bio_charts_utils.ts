@@ -101,12 +101,18 @@ export function handleMouseEvents(
   ) => string,
   brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
 ): void {
+  const index = d3.local<number>();
   selection
-    .on("mouseover", (d, i) => {
-      onMouseOver(idFunc(i), toolTipFunc(d), brightenPercentage);
+    .each(function (d, i) {
+      index.set(this, i);
+    })
+    .on("mouseover", function (event, d) {
+      onMouseOver(idFunc(index.get(this)), toolTipFunc(d), brightenPercentage);
     })
     .on("mousemove", onMouseMove)
-    .on("mouseout", (d, i) => onMouseOut(idFunc(i)));
+    .on("mouseout", function () {
+      onMouseOut(idFunc(index.get(this)));
+    });
 }
 
 /**
