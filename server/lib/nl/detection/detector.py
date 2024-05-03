@@ -126,16 +126,6 @@ def detect(detector_type: str,
     # Completely use LLM's detections.
     detection = llm_detection
     detection.detector = ActualDetectorType.HybridLLMFull
-  elif llm_type == llm_fallback.NeedLLM.ForVar:
-    # Use place stuff from heuristics
-    detection = llm_detection
-    detection.places_detected = heuristic_detection.places_detected
-    detection.detector = ActualDetectorType.HybridLLMVar
-  elif llm_type == llm_fallback.NeedLLM.ForPlace:
-    # Use place stuff from LLM
-    detection = heuristic_detection
-    detection.places_detected = llm_detection.places_detected
-    detection.detector = ActualDetectorType.HybridLLMPlace
   detection.llm_api = llm_api_type
   return detection
 
