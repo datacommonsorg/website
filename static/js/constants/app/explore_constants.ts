@@ -31,7 +31,6 @@ export const URL_HASH_PARAMS = {
   DEPRECATED_QUERY: "oq",
   // Detection params
   DETECTOR: "detector",
-  LLM_API: "llm_api",
   // auto play params
   AUTO_PLAY_QUERY: "aq",
   AUTO_PLAY_DISABLE_TYPING: "at",
