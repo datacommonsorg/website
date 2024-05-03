@@ -19,6 +19,7 @@
  */
 
 import * as d3 from "d3";
+import * as usaGeo from "geo-albers-usa-territories";
 import _ from "lodash";
 
 import { MapChartData, MapLayerData } from "../components/tiles/map_tile";
@@ -342,7 +343,9 @@ export function getProjection(
       projection = d3.geoEquirectangular().rotate([-100, 0]).precision(0.1);
       break;
     default:
-      projection = isUSAPlace ? d3.geoAlbersUsa() : d3.geoEquirectangular();
+      projection = isUSAPlace
+        ? usaGeo.geoAlbersUsaTerritories()
+        : d3.geoEquirectangular();
   }
   const geomap = d3.geoPath().projection(projection);
   if (zoomDcid) {
