@@ -19,7 +19,7 @@ import unittest
 
 from parameterized import parameterized
 
-from server.lib.nl.detection import rerank
+from nl_server import rerank
 from shared.lib.detected_variables import dict_to_var_candidates
 from shared.lib.detected_variables import var_candidates_to_dict
 
@@ -128,7 +128,7 @@ class TestReank(unittest.TestCase):
       ],
   ])
   def test_main(self, query, input_candidates, want_api_input, api_return,
-                want_candidates):
+                want):
     dummy_logs = {}
     self.maxDiff = None
 
@@ -136,10 +136,9 @@ class TestReank(unittest.TestCase):
       self.assertEqual(want_api_input, got_api_input)
       return RerankerResult(predictions=api_return)
 
-    got_candidates = rerank.rerank(
+    got = rerank.rerank(
         rerank_fn=_fn,
-        query=query,
-        var_candidates=dict_to_var_candidates(input_candidates),
+        query2candidates={query: dict_to_var_candidates(input_candidates)},
         debug_logs=dummy_logs)
 
-    self.assertEqual(want_candidates, var_candidates_to_dict(got_candidates))
+    self.assertEqual(want, var_candidates_to_dict(got[query]))

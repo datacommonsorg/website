@@ -59,6 +59,17 @@ def search_vars():
   if not idx:
     idx = config.DEFAULT_INDEX_TYPE
 
+  reranker = str(escape(request.args.get('reranker', '')))
+  rerank_fn = None
+  if reranker:
+    if (current_app.config.get('VERTEX_AI_MODELS') and
+        current_app.config['VERTEX_AI_MODELS'].get(reranker) and
+        current_app.config['VERTEX_AI_MODELS'][reranker].get(
+            'prediction_client')):
+      minfo = current_app.config['VERTEX_AI_MODELS'][reranker][
+          'prediction_client']
+      rerank_fn = minfo.predict
+
   skip_topics = False
   if request.args.get('skip_topics'):
     skip_topics = True
@@ -66,7 +77,7 @@ def search_vars():
   nl_embeddings = _get_indexes(idx)
   results: Dict[str,
                 VarCandidates] = search.search_vars(nl_embeddings, queries,
-                                                    skip_topics)
+                                                    skip_topics, rerank_fn)
   json_result = {
       q: var_candidates_to_dict(result) for q, result in results.items()
   }

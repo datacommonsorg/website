@@ -20,7 +20,6 @@ from typing import Dict, List
 
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.detection import query_util
-from server.lib.nl.detection import rerank
 from server.services import datacommons as dc
 from shared.lib import constants
 import shared.lib.detected_variables as vars
@@ -51,7 +50,7 @@ def detect_vars(orig_query: str,
                 counters: ctr.Counters,
                 debug_logs: Dict,
                 threshold: float = constants.SV_SCORE_DEFAULT_THRESHOLD,
-                rerank_fn: rerank.RerankCallable = None,
+                reranker: str = '',
                 skip_topics: bool = False) -> vars.VarDetectionResult:
   #
   # 1. Prepare all the queries for embeddings lookup, both mono-var and multi-var.
@@ -75,7 +74,8 @@ def detect_vars(orig_query: str,
   # 2. Lookup embeddings with both single-var and multi-var queries.
   #
   # Make API call to the NL models/embeddings server.
-  query2results = dc.nl_search_vars(all_queries, index_type, skip_topics)
+  query2results = dc.nl_search_vars(all_queries, index_type, skip_topics,
+                                    reranker)
   query2results = {
       q: vars.dict_to_var_candidates(r) for q, r in query2results.items()
   }
@@ -86,16 +86,6 @@ def detect_vars(orig_query: str,
   result_monovar = query2results[query_monovar]
   result_multivar = _prepare_multivar_candidates(multi_querysets, query2results,
                                                  threshold)
-
-  #
-  # 4. Maybe, rerank
-  # TODO:  Consider reranking for multi-var too.
-  #
-  if rerank_fn:
-    start = time.time()
-    result_monovar = rerank.rerank(rerank_fn, query_monovar, result_monovar,
-                                   debug_logs)
-    counters.timeit('var_reranking', start)
 
   debug_logs["sv_detection_query_index_type"] = index_type
   debug_logs["sv_detection_query_input"] = orig_query
