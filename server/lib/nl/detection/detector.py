@@ -56,7 +56,6 @@ def detect(detector_type: str,
            no_punct_query: str,
            prev_utterance: Utterance,
            embeddings_index_type: str,
-           llm_api_type: LlmApiType,
            query_detection_debug_logs: Dict,
            mode: str,
            counters: Counters,
@@ -79,18 +78,29 @@ def detect(detector_type: str,
   # LLM Detection.
   #
   if detector_type == RequestedDetectorType.LLM.value:
-    llm_detection = llm_detector.detect(original_query, prev_utterance,
-                                        embeddings_index_type, llm_api_type,
-                                        query_detection_debug_logs, mode,
-                                        counters, rerank_fn, allow_triples)
+    llm_detection = llm_detector.detect(
+        query=original_query,
+        prev_utterance=prev_utterance,
+        index_type=embeddings_index_type,
+        query_detection_debug_logs=query_detection_debug_logs,
+        mode=mode,
+        ctr=counters,
+        rerank_fn=rerank_fn,
+        allow_triples=allow_triples)
     return llm_detection
 
   #
   # Heuristic detection.
   #
   heuristic_detection = heuristic_detector.detect(
-      original_query, no_punct_query, embeddings_index_type,
-      query_detection_debug_logs, mode, counters, rerank_fn, allow_triples)
+      orig_query=original_query,
+      cleaned_query=no_punct_query,
+      index_type=embeddings_index_type,
+      query_detection_debug_logs=query_detection_debug_logs,
+      mode=mode,
+      counters=counters,
+      rerank_fn=rerank_fn,
+      allow_triples=allow_triples)
   if detector_type == RequestedDetectorType.Heuristic.value:
     return heuristic_detection
 
@@ -107,17 +117,21 @@ def detect(detector_type: str,
 
   if detector_type == RequestedDetectorType.HybridSafetyCheck.value:
     heuristic_detection.detector = ActualDetectorType.HybridLLMSafety
-    heuristic_detection.llm_api = llm_api_type
-    if llm_detector.check_safety(original_query, llm_api_type, counters):
+    if llm_detector.check_safety(original_query, counters):
       return heuristic_detection
     else:
       counters.err('info_llm_blocked', '')
       return None
 
-  llm_detection = llm_detector.detect(original_query, prev_utterance,
-                                      embeddings_index_type, llm_api_type,
-                                      query_detection_debug_logs, mode,
-                                      counters, rerank_fn, allow_triples)
+  llm_detection = llm_detector.detect(
+      query=original_query,
+      prev_utterance=prev_utterance,
+      index_type=embeddings_index_type,
+      query_detection_debug_logs=query_detection_debug_logs,
+      mode=mode,
+      ctr=counters,
+      rerank_fn=rerank_fn,
+      allow_triples=allow_triples)
   if not llm_detection:
     counters.err('info_llm_blocked', '')
     return None
@@ -136,7 +150,6 @@ def detect(detector_type: str,
     detection = heuristic_detection
     detection.places_detected = llm_detection.places_detected
     detection.detector = ActualDetectorType.HybridLLMPlace
-  detection.llm_api = llm_api_type
   return detection
 
 
