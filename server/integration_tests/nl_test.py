@@ -36,7 +36,7 @@ class NLTest(NLWebServerTestCase):
                    test_dir,
                    queries,
                    idx='medium_ft',
-                   detector='hybridsafety',
+                   detector='hybrid',
                    check_place_detection=False,
                    expected_detectors=[],
                    failure='',
@@ -225,7 +225,7 @@ class NLTest(NLWebServerTestCase):
             # instead we would pick contained-in from context (County).
             'GDP of countries in the US',
         ],
-        detector='hybridsafety',
+        detector='hybrid',
         expected_detectors=[
             'Hybrid - LLM Safety',
             'Hybrid - Heuristic Based',
