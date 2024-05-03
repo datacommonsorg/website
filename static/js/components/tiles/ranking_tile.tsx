@@ -20,7 +20,6 @@
 
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
-import { Spinner } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import {
@@ -48,6 +47,7 @@ import {
   getStatVarName,
   transformCsvHeader,
 } from "../../utils/tile_utils";
+import { LoadingHeader } from "./loading_header";
 import { SvRankingUnits } from "./sv_ranking_units";
 import { ContainedInPlaceMultiVariableTileProp } from "./tile_types";
 
@@ -151,10 +151,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           return (
             <div className="loading" key={`ranking-placeholder-${i}`}>
               <div className="chart-headers">
-                <h4>
-                  <Spinner color="secondary" size="sm" className="mr-1" />
-                  <span>Loading...</span>
-                </h4>
+                <LoadingHeader isLoading={true} />
               </div>
               <div style={{ minHeight: placeHolderHeight }}></div>
             </div>
