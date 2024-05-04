@@ -17,9 +17,6 @@ import time
 from typing import cast, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.explore.params import DCNames
-from server.lib.explore.params import is_special_dc
-from server.lib.explore.params import Params
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
 from server.lib.nl.common.constants import PROJECTED_TEMP_TOPIC
@@ -34,6 +31,9 @@ from server.lib.nl.config_builder import ranking
 from server.lib.nl.config_builder import scatter
 from server.lib.nl.config_builder import timeline
 from server.lib.nl.config_builder.base import Config
+from server.lib.nl.explore.params import DCNames
+from server.lib.nl.explore.params import is_special_dc
+from server.lib.nl.explore.params import Params
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState

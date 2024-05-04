@@ -18,9 +18,9 @@ from typing import List
 from flask import current_app
 
 from server.lib import util as libutil
-from server.lib.explore.existence import get_sv_place_facet
-from server.lib.explore.existence import get_sv_place_latest_date
 from server.lib.nl.common import rank_utils
+from server.lib.nl.common.existence_util import get_sv_place_facet
+from server.lib.nl.common.existence_util import get_sv_place_latest_date
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place

@@ -15,9 +15,9 @@
 import copy
 from typing import List
 
-import server.lib.explore.existence as ext
 from server.lib.nl.common import constants
 from server.lib.nl.common.commentary import COMPARISON_MISSING_PLACE_MSG
+import server.lib.nl.common.existence_util as ext
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
