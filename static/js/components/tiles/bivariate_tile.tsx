@@ -132,7 +132,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       sources={bivariateChartData && bivariateChartData.sources}
       replacementStrings={rs}
       className={`${props.className} bivariate-chart`}
-      allowEmbed={true}
+      allowDownload={true}
       getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(bivariateChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}

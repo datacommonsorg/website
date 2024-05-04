@@ -27,11 +27,12 @@ import {
   GA_PARAM_TILE_TYPE,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { ChartEmbed } from "./modal/chart_embed";
+import { ChartFeedback } from "./modal/chart_feedback";
 
 interface ActionIconPropType {
   icon: string;
   onClickHandler: (event) => void;
-  showAction: boolean;
   tooltipContent: string | JSX.Element;
   url?: string;
 }
@@ -49,7 +50,7 @@ function ActionIcon(props: ActionIconPropType) {
   }, [linkRef]);
 
   return (
-    <div className="outlink-item">
+    <div className="outlink-item action-icon">
       <a
         href={props.url || "#"}
         onClick={props.onClickHandler}
@@ -77,73 +78,95 @@ function ActionIcon(props: ActionIconPropType) {
 interface ChartActionsPropType {
   // callback for handling when user clicks on "download" action icon
   handleDownload?: () => void;
-  // callback for handling when user clicks on "embed" action icon
-  handleEmbed?: () => void;
   id: string;
   // Link to explore more. Only show explore button if this object is non-empty.
   exploreLink?: { displayText: string; url: string };
 }
 
 export function ChartActions(props: ChartActionsPropType): JSX.Element {
-  const actionOptions: ActionIconPropType[] = [
-    {
-      icon: "download",
-      onClickHandler: (event) => {
-        event.preventDefault();
-        triggerGAEvent(GA_EVENT_TILE_DOWNLOAD, {
-          [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
-        });
-        props.handleDownload();
-      },
-      showAction: !!props.handleDownload,
-      tooltipContent: (
-        <>
-          <b>Download</b> this chart and its values
-        </>
-      ),
-    },
-    {
-      icon: "timeline",
-      onClickHandler: () => {
-        triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
-          [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
-        });
-        return true;
-      },
-      showAction: !!props.exploreLink,
-      tooltipContent: (
-        <>
-          Open this chart in the <b>{props.exploreLink?.displayText}</b>
-        </>
-      ),
-      url: props.exploreLink?.url,
-    },
-    {
-      icon: "code",
-      onClickHandler: (event) => {
-        event.preventDefault();
-        console.log("click code icon");
-      },
-      showAction: true,
-      tooltipContent: "Embed this chart in your website",
-    },
-    {
-      icon: "thumbs_up_down",
-      onClickHandler: (event) => {
-        event.preventDefault();
-        console.log("click thumbs icon");
-      },
-      showAction: true,
-      tooltipContent: "Rate this chart and provide feedback",
-    },
-  ];
+  const [showEmbedModal, setShowEmbedModal] = useState(false);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+
+  const embedToggle = () => {
+    setShowEmbedModal(!showEmbedModal);
+  };
+
+  const feedbackToggle = () => {
+    setShowFeedbackModal(!showFeedbackModal);
+  };
+
   return (
-    <div className="outlinks">
-      {actionOptions.map((option, i) => {
-        return (
-          <ActionIcon {...option} key={`action-icon-${i}-${option.icon}`} />
-        );
-      })}
-    </div>
+    <>
+      <div className="outlinks">
+        {props.handleDownload && (
+          <ActionIcon
+            icon="download"
+            onClickHandler={(event) => {
+              event.preventDefault();
+              triggerGAEvent(GA_EVENT_TILE_DOWNLOAD, {
+                [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
+              });
+              props.handleDownload?.();
+            }}
+            tooltipContent={
+              <>
+                <b>Download</b> this chart and its values
+              </>
+            }
+          />
+        )}
+        {props.exploreLink && (
+          <ActionIcon
+            icon="timeline"
+            onClickHandler={() => {
+              triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
+                [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
+              });
+              return true;
+            }}
+            tooltipContent={
+              <>
+                Open this chart in the <b>{props.exploreLink?.displayText}</b>
+              </>
+            }
+            url={props.exploreLink?.url}
+          />
+        )}
+        <ActionIcon
+          icon="code"
+          onClickHandler={(event) => {
+            event.preventDefault();
+            setShowEmbedModal(true);
+          }}
+          tooltipContent="Embed this chart in your website"
+        />
+        <ActionIcon
+          icon="thumbs_up_down"
+          onClickHandler={(event) => {
+            event.preventDefault();
+            setShowFeedbackModal(true);
+          }}
+          tooltipContent="Rate this chart and provide feedback"
+        />
+      </div>
+      {showEmbedModal && (
+        <ChartEmbed
+          isOpen={showEmbedModal}
+          toggleCallback={embedToggle}
+          chartType="line"
+          chartAttributes={{
+            variables: ["Count_Person_Male", "Count_Person_Female"],
+            places: ["geoId/06"],
+          }}
+        />
+      )}
+      {showFeedbackModal && (
+        <ChartFeedback
+          chartId={props.id}
+          isOpen={showFeedbackModal}
+          toggleCallback={feedbackToggle}
+        />
+      )}
+    </>
   );
 }

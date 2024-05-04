@@ -162,7 +162,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       sources={props.sources || (scatterChartData && scatterChartData.sources)}
       replacementStrings={getReplacementStrings(props, scatterChartData)}
       className={`${props.className} scatter-chart`}
-      allowEmbed={true}
+      allowDownload={true}
       getDataCsv={getDataCsvCallback(props, scatterChartData)}
       isInitialLoading={_.isNull(scatterChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}

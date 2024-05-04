@@ -122,7 +122,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       subtitle={props.subtitle}
       sources={props.sources || (gaugeData && gaugeData.sources)}
       replacementStrings={replacementStrings}
-      allowEmbed={true}
+      allowDownload={true}
       className={`bar-chart`}
       getDataCsv={getDataCsvCallback(props)}
       hasErrorMsg={gaugeData && !!gaugeData.errorMsg}

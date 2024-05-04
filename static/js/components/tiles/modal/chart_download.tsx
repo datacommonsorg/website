@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,26 @@
 
 import * as d3 from "d3";
 import React from "react";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { styled } from "styled-components";
 
-import { wrap } from "../chart/base";
+import { wrap } from "../../../chart/base";
 import {
   ASYNC_ELEMENT_CLASS,
   ASYNC_ELEMENT_HOLDER_CLASS,
-} from "../constants/css_constants";
-import { intl } from "../i18n/i18n";
+} from "../../../constants/css_constants";
+import { intl } from "../../../i18n/i18n";
 import {
   GA_EVENT_TILE_DOWNLOAD_CSV,
   GA_EVENT_TILE_DOWNLOAD_IMG,
   triggerGAEvent,
-} from "../shared/ga_events";
-import { randDomId, saveToFile, urlToDisplayText } from "../shared/util";
+} from "../../../shared/ga_events";
+import { randDomId, urlToDisplayText } from "../../../shared/util";
+import {
+  CopyButton,
+  DownloadButton,
+  IconButton,
+} from "../../form_components/icon_buttons";
 
 // SVG adjustment related constants
 const TITLE_Y = 20;
@@ -39,10 +45,11 @@ const CHART_PADDING = 10;
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 
-interface ChartEmbedPropsType {
+interface ChartDownloadPropsType {
   container?: HTMLElement;
 }
-interface ChartEmbedStateType {
+
+interface ChartDownloadStateType {
   modal: boolean;
   svgXml: string;
   dataCsv: string;
@@ -57,12 +64,16 @@ interface ChartEmbedStateType {
 }
 
 /**
- * A component to include with each Chart, that displays embed information and data for a chart
- * in a Modal
+ * A component to include with each Chart, that displays downloadable SVG and
+ * data for a chart in a Modal
+ *
+ * TODO (juliawu): Modernize this component by refactoring it into a functional
+ *                 component to match the logic used for the embed and feedback
+ *                 modals.
  */
-class ChartEmbed extends React.Component<
-  ChartEmbedPropsType,
-  ChartEmbedStateType
+class ChartDownload extends React.Component<
+  ChartDownloadPropsType,
+  ChartDownloadStateType
 > {
   private modalId: string;
   private svgContainerElement: React.RefObject<HTMLDivElement>;
@@ -89,8 +100,6 @@ class ChartEmbed extends React.Component<
 
     this.toggle = this.toggle.bind(this);
     this.onOpened = this.onOpened.bind(this);
-    this.onDownloadSvg = this.onDownloadSvg.bind(this);
-    this.onDownloadData = this.onDownloadData.bind(this);
     this.onClickTextarea = this.onClickTextarea.bind(this);
   }
 
@@ -361,24 +370,6 @@ class ChartEmbed extends React.Component<
     );
   }
 
-  /**
-   * On click handler for "Copy SVG to clipboard button".
-   */
-  public onDownloadSvg(): void {
-    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_IMG, {});
-    const basename = this.state.chartTitle || "chart";
-    saveToFile(`${basename}.svg`, this.state.chartDownloadXml);
-  }
-
-  /**
-   * On click handler for "Download Data" button.
-   */
-  public onDownloadData(): void {
-    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_CSV, {});
-    const basename = this.state.chartTitle || "export";
-    saveToFile(`${basename}.csv`, this.state.dataCsv);
-  }
-
   async componentDidUpdate() {
     if (!this.state.dataCsv && this.state.getDataCsv) {
       try {
@@ -405,7 +396,7 @@ class ChartEmbed extends React.Component<
       <Modal
         isOpen={this.state.modal}
         toggle={this.toggle}
-        className="modal-dialog-centered modal-lg"
+        className="modal-dialog-centered modal-lg chart-embed-modal"
         container={this.props.container}
         onOpened={this.onOpened}
         id={this.modalId}
@@ -415,51 +406,52 @@ class ChartEmbed extends React.Component<
             id: "download_export_chart_link",
             defaultMessage: "Download this chart",
             description:
-              "Text for the hyperlink text that will let users export data and export charts.",
+              "Text for the hyperlink text that will let users download data and download charts.",
           })}
         </ModalHeader>
         <ModalBody>
-          <div
-            ref={this.svgContainerElement}
-            className={`modal-chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
-          ></div>
-          <textarea
-            className="copy-svg modal-textarea mt-3"
-            value={this.state.dataCsv}
-            readOnly
-            ref={this.textareaElement}
-            onClick={this.onClickTextarea}
-          ></textarea>
+          {this.state.svgXml && (
+            <div
+              ref={this.svgContainerElement}
+              className={`modal-chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
+            ></div>
+          )}
+          {this.state.dataCsv && (
+            <textarea
+              className="modal-textarea"
+              value={this.state.dataCsv}
+              readOnly
+              ref={this.textareaElement}
+              onClick={this.onClickTextarea}
+              rows={10}
+            ></textarea>
+          )}
         </ModalBody>
         <ModalFooter>
           {this.state.chartDownloadXml && (
+            <DownloadButton
+              label="SVG"
+              content={this.state.chartDownloadXml}
+              filename={`${this.state.chartTitle || "chart"}.svg`}
+              onClick={() => triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_IMG, {})}
+            />
+          )}
+          {this.state.dataCsv && (
             <>
-              <Button color="primary" onClick={this.onDownloadSvg}>
-                {intl.formatMessage({
-                  id: "embed_download_chart_link",
-                  defaultMessage: "Download Chart Image",
-                  description:
-                    "Text for the hyperlink text that will download the chart image.",
-                })}
-              </Button>{" "}
+              <DownloadButton
+                label="CSV"
+                content={this.state.dataCsv}
+                filename={`${this.state.chartTitle || "chart"}.csv`}
+                onClick={() => triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_CSV, {})}
+              />
+              <CopyButton textToCopy={this.state.dataCsv} label="Copy values" />
+              <IconButton label="Close" onClick={this.toggle} primary />
             </>
           )}
-          <Button
-            color="primary"
-            onClick={this.onDownloadData}
-            disabled={!this.state.dataCsv}
-          >
-            {intl.formatMessage({
-              id: "embed_download_csv_link",
-              defaultMessage: "Download Data as CSV",
-              description:
-                "Text for the hyperlink text that will download the data as a CSV.",
-            })}
-          </Button>
         </ModalFooter>
       </Modal>
     );
   }
 }
 
-export { ChartEmbed };
+export { ChartDownload };

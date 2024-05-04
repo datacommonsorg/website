@@ -151,7 +151,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       sources={props.sources || (chartData && chartData.sources)}
       replacementStrings={getReplacementStrings(props)}
       className={`${props.className} line-chart`}
-      allowEmbed={true}
+      allowDownload={true}
       getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(chartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}

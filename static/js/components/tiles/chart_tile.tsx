@@ -19,12 +19,11 @@
  */
 
 import _ from "lodash";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Spinner } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
-import { ChartEmbed } from "../../place/chart_embed";
 import {
   formatString,
   getChartTitle,
@@ -34,6 +33,7 @@ import {
 } from "../../utils/tile_utils";
 import { ChartActions } from "./chart_action_icons";
 import { ChartFooter } from "./chart_footer";
+import { ChartDownload } from "./modal/chart_download";
 interface ChartTileContainerProp {
   id: string;
   isLoading?: boolean;
@@ -41,8 +41,8 @@ interface ChartTileContainerProp {
   sources: Set<string> | string[];
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
-  // Whether or not to allow chart embedding action.
-  allowEmbed: boolean;
+  // Whether or not to allow chart download action.
+  allowDownload: boolean;
   // callback function for getting the chart data as a csv. Only used for
   // embedding.
   getDataCsv?: () => Promise<string>;
@@ -67,14 +67,14 @@ interface ChartTileContainerProp {
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const containerRef = useRef(null);
-  const downloadModalElement = useRef<ChartEmbed>(null);
+  const downloadModalElement = useRef<ChartDownload>(null);
   // on initial loading, hide the title text
   const title = !props.isInitialLoading
     ? getChartTitle(props.title, props.replacementStrings)
     : "";
   const showSources = !_.isEmpty(props.sources) && !props.hasErrorMsg;
   const showDownload =
-    props.allowEmbed && !props.isInitialLoading && !props.hasErrorMsg;
+    props.allowDownload && !props.isInitialLoading && !props.hasErrorMsg;
   return (
     <div
       className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ${
@@ -116,19 +116,21 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       <ChartFooter
         footnote={props.footnote}
         exploreLink={!props.useChartActionIcons && props.exploreLink}
-        handleEmbed={!props.useChartActionIcons && handleDownload}
+        handleDownload={
+          !props.useChartActionIcons && props.allowDownload && handleDownload
+        }
         showBranding={props.showBrandingInFooter}
       >
         {props.useChartActionIcons && (
           <ChartActions
             id={props.id}
             exploreLink={props.exploreLink}
-            handleDownload={handleDownload}
+            handleDownload={props.allowDownload && handleDownload}
           />
         )}
       </ChartFooter>
       {showDownload && (
-        <ChartEmbed
+        <ChartDownload
           container={containerRef.current}
           ref={downloadModalElement}
         />
@@ -136,8 +138,11 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     </div>
   );
 
-  // Handle when chart embed is clicked .
+  // Handle when chart download is clicked .
   function handleDownload(): void {
+    if (!downloadModalElement.current) {
+      return null;
+    }
     const chartTitle = props.title
       ? formatString(props.title, props.replacementStrings)
       : "";

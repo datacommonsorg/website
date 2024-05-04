@@ -120,7 +120,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       sources={props.sources || (donutChartData && donutChartData.sources)}
       replacementStrings={getReplacementStrings(props, donutChartData)}
       className={`${props.className} bar-chart`}
-      allowEmbed={true}
+      allowDownload={true}
       getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(donutChartData)}
       hasErrorMsg={donutChartData && !!donutChartData.errorMsg}

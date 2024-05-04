@@ -40,6 +40,14 @@ export const CHART_FEEDBACK_SENTIMENT = {
   DEMOTE: "DEMOTE",
   // This is an embarrassing result
   FACE_PALM: "FACE_PALM",
+  // Something appears wrong with the data
+  DATA_OFF: "DATA_SEEMS_OFF",
+  // The chart does match the query
+  MATCHES_QUERY: "MATCHES_QUERY",
+  // The chart does not match the query
+  NOT_MATCH_QUERY: "DOES_NOT_MATCH_QUERY",
+  // Some other type of feedback, user should provided freeform comment for
+  OTHER: "OTHER",
 };
 
 interface ChartId {

@@ -35,6 +35,7 @@ import {
 } from "../chart/types";
 import { RankingUnit } from "../components/ranking_unit";
 import { MapLayerData } from "../components/tiles/map_tile";
+import { ChartDownload } from "../components/tiles/modal/chart_download";
 import { fetchData } from "../components/tiles/ranking_tile";
 import {
   ASYNC_ELEMENT_CLASS,
@@ -61,7 +62,6 @@ import { isDateTooFar, urlToDisplayText } from "../shared/util";
 import { RankingGroup, RankingPoint } from "../types/ranking_unit_types";
 import { datacommonsClient } from "../utils/datacommons_client";
 import { transformCsvHeader } from "../utils/tile_utils";
-import { ChartEmbed } from "./chart_embed";
 import { getChoroplethData, getGeoJsonData } from "./fetch";
 import { updatePageLayoutState } from "./place";
 
@@ -154,7 +154,7 @@ interface ChartStateType {
 class Chart extends React.Component<ChartPropType, ChartStateType> {
   chartElement: React.RefObject<HTMLDivElement>;
   svgContainerElement: React.RefObject<HTMLDivElement>;
-  embedModalElement: React.RefObject<ChartEmbed>;
+  downloadModalElement: React.RefObject<ChartDownload>;
   mapContainerElement: React.RefObject<HTMLDivElement>;
   legendContainerElement: React.RefObject<HTMLDivElement>;
   dcid: string;
@@ -166,7 +166,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     super(props);
     this.chartElement = React.createRef();
     this.svgContainerElement = React.createRef();
-    this.embedModalElement = React.createRef();
+    this.downloadModalElement = React.createRef();
     if (props.chartType === chartTypeEnum.CHOROPLETH) {
       this.mapContainerElement = React.createRef();
       this.legendContainerElement = React.createRef();
@@ -180,7 +180,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     // Consider debouncing / throttling this if it gets expensive at
     // small screen sizes
     this._handleWindowResize = this._handleWindowResize.bind(this);
-    this._handleEmbed = this._handleEmbed.bind(this);
+    this._handleDownload = this._handleDownload.bind(this);
 
     // For aggregated stats vars, the per chart stats vars are availabe in
     // chart level not chart block level.
@@ -316,7 +316,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               <a
                 href="#"
                 onClick={(event) => {
-                  this._handleEmbed(event);
+                  this._handleDownload(event);
                   triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
                     [GA_PARAM_PLACE_CHART_CLICK]:
                       GA_VALUE_PLACE_CHART_CLICK_EXPORT,
@@ -362,7 +362,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               "Text label for hyperlink to give Data Commons feedback on something on our website.",
           })}
         />
-        <ChartEmbed ref={this.embedModalElement} />
+        <ChartDownload ref={this.downloadModalElement} />
       </div>
     );
   }
@@ -412,7 +412,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   /**
    * Handle clicks on "embed chart" link.
    */
-  private _handleEmbed(
+  private _handleDownload(
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ): void {
     e.preventDefault();
@@ -422,7 +422,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     if (svgElems.length) {
       svgXml = svgElems.item(0).outerHTML;
     }
-    this.embedModalElement.current.show(
+    this.downloadModalElement.current.show(
       svgXml,
       () => {
         // Fetch data from "nearby" places if present, otherwise use primary

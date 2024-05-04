@@ -296,7 +296,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         mapChartData && getReplacementStrings(props, mapChartData)
       }
       className={`${props.className} map-chart`}
-      allowEmbed={true}
+      allowDownload={true}
       getDataCsv={async () => {
         const layers = getDataSpec(props);
         const rows: DataRow[] = [];

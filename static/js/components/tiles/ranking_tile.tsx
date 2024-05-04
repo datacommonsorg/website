@@ -26,7 +26,6 @@ import {
   CSV_FIELD_DELIMITER,
   INITIAL_LOADING_CLASS,
 } from "../../constants/tile_constants";
-import { ChartEmbed } from "../../place/chart_embed";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
 import {
@@ -51,6 +50,7 @@ import {
   getStatVarName,
   transformCsvHeader,
 } from "../../utils/tile_utils";
+import { ChartDownload } from "./modal/chart_download";
 import { SvRankingUnits } from "./sv_ranking_units";
 import { ContainedInPlaceMultiVariableTileProp } from "./tile_types";
 
@@ -77,7 +77,7 @@ export interface RankingTilePropType
 // TODO: Use ChartTileContainer like other tiles.
 export function RankingTile(props: RankingTilePropType): JSX.Element {
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
-  const embedModalElement = useRef<ChartEmbed>(null);
+  const downloadModalElement = useRef<ChartDownload>(null);
   const chartContainer = useRef(null);
 
   useEffect(() => {
@@ -109,7 +109,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     chartTitle: string,
     sources: string[]
   ): void {
-    embedModalElement.current.show(
+    downloadModalElement.current.show(
       "",
       () => {
         // Assume all variables will have the same date
@@ -183,7 +183,10 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
             />
           );
         })}
-      <ChartEmbed container={chartContainer.current} ref={embedModalElement} />
+      <ChartDownload
+        container={chartContainer.current}
+        ref={downloadModalElement}
+      />
       {props.showLoadingSpinner && (
         <div id={getSpinnerId()}>
           <div className="screen">

@@ -28,7 +28,6 @@ import {
 } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
-import { ChartEmbed } from "../../place/chart_embed";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import {
   DisasterEventPoint,
@@ -46,6 +45,7 @@ import { formatPropertyValue } from "../../utils/property_value_utils";
 import { TileSources } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
+import { ChartDownload } from "./modal/chart_download";
 
 const DEFAULT_RANKING_COUNT = 10;
 const MIN_PERCENT_PLACE_NAMES = 0.4;
@@ -69,7 +69,7 @@ interface TopEventTilePropType {
 export const TopEventTile = memo(function TopEventTile(
   props: TopEventTilePropType
 ): JSX.Element {
-  const embedModalElement = useRef<ChartEmbed>(null);
+  const downloadModalElement = useRef<ChartDownload>(null);
   const chartContainer = useRef(null);
   const [eventPlaces, setEventPlaces] =
     useState<Record<string, NamedPlace>>(null);
@@ -213,7 +213,7 @@ export const TopEventTile = memo(function TopEventTile(
             </table>
           )}
           <ChartFooter
-            handleEmbed={showChart ? () => handleEmbed(topEvents) : null}
+            handleDownload={showChart ? () => handleDownload(topEvents) : null}
             exploreLink={
               props.showExploreMore
                 ? {
@@ -226,7 +226,7 @@ export const TopEventTile = memo(function TopEventTile(
         </div>
       </div>
       <NlChartFeedback id={props.id} />
-      <ChartEmbed ref={embedModalElement} />
+      <ChartDownload ref={downloadModalElement} />
     </div>
   );
 
@@ -376,7 +376,10 @@ export const TopEventTile = memo(function TopEventTile(
     );
   }
 
-  function handleEmbed(topEvents: DisasterEventPoint[]): void {
+  function handleDownload(topEvents: DisasterEventPoint[]): void {
+    if (!downloadModalElement.current) {
+      return null;
+    }
     const rankingPoints = topEvents.map((point) => {
       return {
         placeDcid: point.placeDcid,
@@ -384,7 +387,7 @@ export const TopEventTile = memo(function TopEventTile(
         value: point.severity[severityProp],
       };
     });
-    embedModalElement.current.show(
+    downloadModalElement.current.show(
       "",
       () => {
         return Promise.resolve(rankingPointsToCsv(rankingPoints, ["data"]));

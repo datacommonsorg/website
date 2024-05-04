@@ -144,7 +144,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       sources={props.sources || (barChartData && barChartData.sources)}
       replacementStrings={getReplacementStrings(barChartData)}
       className={`${props.className} bar-chart`}
-      allowEmbed={true}
+      allowDownload={true}
       getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(barChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
