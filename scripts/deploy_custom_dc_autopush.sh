@@ -24,4 +24,8 @@ set -e
 
 set -x
 
-gcloud run deploy dc-autopush --project datcom-website-dev --image gcr.io/datcom-ci/datacommons-website-compose:latest --region us-central1
+gcloud run deploy dc-autopush \
+--project datcom-website-dev \
+--image gcr.io/datcom-ci/datacommons-website-compose:latest \
+--region us-central1 \
+--update-env-vars RESTART_TIMESTAMP="$(date)"
