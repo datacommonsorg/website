@@ -27,14 +27,14 @@ def _load_yaml(filename: str):
     return yaml.full_load(f)
 
 
-def load_models(model_types: List[str] = None):
+def load_models(model_type: str = None):
   logging.info("start model loading...")
   model_endpoints = _load_yaml('vertex_ai_models.yaml')
   models = {}
   for model_name, model_info in model_endpoints.items():
-    # If caller specified the types of models to load, only load those types.
+    # If caller specified the type of model to load, only load that type.
     # Otherwise, load everything.
-    if model_types and not model_info['type'] in model_types:
+    if model_type and model_info['type'] != model_type:
       continue
     aiplatform.init(project=model_info['project_id'],
                     location=model_info['location'])
@@ -57,11 +57,17 @@ def load_indexes():
                     location=index_info['location'])
     vector_search_client = aiplatform_v1.MatchServiceClient(
         client_options={"api_endpoint": index_info['index_endpoint_root']})
+    model = models.get(index_info['model'])
+    if not model:
+      logging.error(
+          f'skipped loading index ${index_name} - refers to non-existent model.'
+      )
+      continue
     indexes[index_name] = {
         'vector_search_client': vector_search_client,
         'index_endpoint': index_info['index_endpoint'],
         'index_id': index_info['index_id'],
     }
-    indexes[index_name].update(models.get(index_info['model'], {}))
+    indexes[index_name].update(model)
   logging.info("finish index loading...")
   return indexes

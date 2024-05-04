@@ -2,3 +2,4 @@ custom_ft:
   embeddings: /fake/path/to/custom_embeddings.csv
   model: FooModel
   store: MEMORY
+  model_type: LOCAL

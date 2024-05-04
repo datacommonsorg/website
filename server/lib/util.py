@@ -30,6 +30,7 @@ from google.protobuf import text_format
 from server.config import subject_page_pb2
 import server.lib.fetch as fetch
 import server.services.datacommons as dc
+import shared.model.loader as model_loader
 
 _ready_check_timeout = 300  # seconds
 _ready_check_sleep_seconds = 5
@@ -642,7 +643,6 @@ def _get_highest_coverage_date(observation_entity_counts_by_date,
 
 
 def get_vertex_ai_models():
-  import shared.model.loader as model_loader
   vertex_ai_indexes = model_loader.load_indexes()
-  reranking_models = model_loader.load_models(['RERANKING'])
+  reranking_models = model_loader.load_models('RERANKING')
   return dict(vertex_ai_indexes, **reranking_models)

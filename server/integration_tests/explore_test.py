@@ -251,7 +251,7 @@ class ExploreTest(NLWebServerTestCase):
     # match the one from above.
     self.run_detection('detection_api_basic', ['Commute in California'],
                        test='unittest',
-                       idx='medium_ft_vertex')
+                       idx='medium_vertex_ft')
 
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')

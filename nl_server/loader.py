@@ -48,8 +48,8 @@ def load_server_state(app: Flask):
 
   embeddings_dict = _load_yaml(flask_env)
   vertex_ai_models = {}
-  if not is_custom_dc():
-    vertex_ai_models = model_loader.load_models(['EMBEDDING'])
+  if _use_vertex_ai(flask_env):
+    vertex_ai_models = model_loader.load_models('EMBEDDING')
 
   # In local dev, cache the embeddings on disk so each hot reload won't download
   # the embeddings again.
@@ -198,6 +198,10 @@ def get_env_path(flask_env: str, file_name: str) -> str:
         f'deploy/nl/{file_name}')
 
   return f'/datacommons/nl/{file_name}'
+
+
+def _use_vertex_ai(flask_env):
+  return flask_env in ['local', 'test', 'integration_test', 'autopush']
 
 
 def _use_cache(flask_env):
