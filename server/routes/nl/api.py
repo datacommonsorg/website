@@ -32,7 +32,7 @@ bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 def encode_vector():
   """Retrieves the embedding vector for a given sentence and model.
 
-    Valid model name can be found from `shared/model/vertex_ai_endpoints.yaml`
+    Valid model name can be found from `server/config/nl_page/nl_vertex_ai_models.yaml`
   """
   if not current_app.config['VERTEX_AI_MODELS']:
     flask.abort(404)
@@ -48,7 +48,7 @@ def encode_vector():
 def vector_search():
   """Performs vector search for a given sentence and model.
 
-    Valid model name can be found from `shared/model/vertex_ai_endpoints.yaml`
+    Valid model name can be found from `server/config/nl_page/nl_vertex_ai_models.yaml`
   """
   if not current_app.config['VERTEX_AI_MODELS']:
     flask.abort(404)
