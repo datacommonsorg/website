@@ -1,12 +1,12 @@
-# (Optional) Secret token to authorize users to perform /admin page operations.
-ADMIN_SECRET=
 # API key for accessing the base Data Commons API.
 DC_API_KEY=
-# Enable embeddings generation and natural language querying. 
-ENABLE_MODEL=true
-# The name of the parent directory for custom CSS, JS, HTML and image files.
-FLASK_ENV=custom
 # API key for accessing Maps and Places APIs for exploration tools.
 MAPS_API_KEY=
 # Use local SQLite as the database.
 USE_SQLITE=true
+# Enable embeddings generation and natural language querying. 
+ENABLE_MODEL=true
+# The name of the parent directory for custom CSS, JS, HTML and image files.
+FLASK_ENV=custom
+# (Optional) Secret token to authorize users to perform /admin page operations.
+ADMIN_SECRET=

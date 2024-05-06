@@ -1,17 +1,12 @@
-# (Optional) Secret token to authorize users to perform /admin page operations.
-ADMIN_SECRET=
-# The name of the Cloud SQL instance, in the form <PROJECT_ID>:<LOCATION>:<INSTANCE_ID>.     
-CLOUDSQL_INSTANCE=
+
 # API key for accessing the base Data Commons API.
 DC_API_KEY=
-# Enable embeddings generation and natural language querying. 
-ENABLE_MODEL=true
-# The name of the parent directory for custom CSS, JS, HTML and image files.
-FLASK_ENV=custom
 # API key for accessing Maps and Places APIs for exploration tools.
 MAPS_API_KEY=
 # Use Google Cloud SQL as the database. 
 USE_CLOUDSQL=true
+# The name of the Cloud SQL instance, in the form <PROJECT_ID>:<LOCATION>:<INSTANCE_ID>.     
+CLOUDSQL_INSTANCE=
 # The project ID of the Google Cloud Platform project for the custom Data Commons.
 GOOGLE_CLOUD_PROJECT=
 # The data path of the files stored in Google Cloud Storage, in the form gs://<BUCKET>/<FOLDER>/.
@@ -22,3 +17,11 @@ DB_NAME=datacommons
 DB_USER=
 # The password of the user specified in DB_USER.
 DB_PASS=
+# If used, the Redis Memorystore instance IP address.
+REDIS_HOST=
+# (Optional) Secret token to authorize users to perform /admin page operations.
+ADMIN_SECRET=
+# Enable embeddings generation and natural language querying. 
+ENABLE_MODEL=true
+# The name of the parent directory for custom CSS, JS, HTML and image files.
+FLASK_ENV=custom
