@@ -24,7 +24,6 @@
 # autopush URL: https://dc-dev-kqb7thiuka-uc.a.run.app
 
 set -e
-
 set -x
 
 gcloud run deploy dc-autopush \
