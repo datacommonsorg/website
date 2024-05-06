@@ -14,7 +14,6 @@
 
 import logging
 import os
-from typing import List
 
 from google.cloud import aiplatform
 from google.cloud import aiplatform_v1
