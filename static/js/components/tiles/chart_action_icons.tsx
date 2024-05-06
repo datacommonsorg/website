@@ -18,9 +18,10 @@
  * Footer for charts in tiles.
  */
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { UncontrolledTooltip } from "reactstrap";
 
+import { NlSessionContext } from "../../shared/context";
 import {
   GA_EVENT_TILE_DOWNLOAD,
   GA_EVENT_TILE_EXPLORE_MORE,
@@ -31,9 +32,15 @@ import { ChartEmbed } from "./modal/chart_embed";
 import { ChartFeedback } from "./modal/chart_feedback";
 
 interface ActionIconPropType {
+  // Container element the tooltip should attach to
+  container?: HTMLElement;
+  // Name of "Material Icons Outlined" icon to show
   icon: string;
+  // Callback to run when icon is clicked
   onClickHandler: (event) => void;
+  // What to display in a tooltip on hover
   tooltipContent: string | JSX.Element;
+  // If icon is being used as a link, the url to go to
   url?: string;
 }
 
@@ -63,6 +70,7 @@ function ActionIcon(props: ActionIconPropType) {
       {linkIsReady && (
         <UncontrolledTooltip
           boundariesElement="window"
+          container={props.container}
           delay={200}
           placement="top"
           target={linkRef.current}
@@ -76,8 +84,11 @@ function ActionIcon(props: ActionIconPropType) {
 }
 
 interface ChartActionsPropType {
-  // callback for handling when user clicks on "download" action icon
+  // Containing HTML element to attach tooltips/modals to
+  container?: HTMLElement;
+  // Callback for handling when user clicks on "download" action icon
   handleDownload?: () => void;
+  // Id of the chart to provide feedback for
   id: string;
   // Link to explore more. Only show explore button if this object is non-empty.
   exploreLink?: { displayText: string; url: string };
@@ -86,6 +97,7 @@ interface ChartActionsPropType {
 export function ChartActions(props: ChartActionsPropType): JSX.Element {
   const [showEmbedModal, setShowEmbedModal] = useState(false);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const nlSessionId = useContext(NlSessionContext);
 
   const embedToggle = () => {
     setShowEmbedModal(!showEmbedModal);
@@ -100,6 +112,7 @@ export function ChartActions(props: ChartActionsPropType): JSX.Element {
       <div className="outlinks">
         {props.handleDownload && (
           <ActionIcon
+            container={props.container}
             icon="download"
             onClickHandler={(event) => {
               event.preventDefault();
@@ -117,6 +130,7 @@ export function ChartActions(props: ChartActionsPropType): JSX.Element {
         )}
         {props.exploreLink && (
           <ActionIcon
+            container={props.container}
             icon="timeline"
             onClickHandler={() => {
               triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
@@ -133,6 +147,7 @@ export function ChartActions(props: ChartActionsPropType): JSX.Element {
           />
         )}
         <ActionIcon
+          container={props.container}
           icon="code"
           onClickHandler={(event) => {
             event.preventDefault();
@@ -140,30 +155,38 @@ export function ChartActions(props: ChartActionsPropType): JSX.Element {
           }}
           tooltipContent="Embed this chart in your website"
         />
-        <ActionIcon
-          icon="thumbs_up_down"
-          onClickHandler={(event) => {
-            event.preventDefault();
-            setShowFeedbackModal(true);
-          }}
-          tooltipContent="Rate this chart and provide feedback"
-        />
+        {nlSessionId && (
+          <ActionIcon
+            container={props.container}
+            icon="thumbs_up_down"
+            onClickHandler={(event) => {
+              event.preventDefault();
+              setShowFeedbackModal(true);
+            }}
+            tooltipContent="Rate this chart and provide feedback"
+          />
+        )}
       </div>
       {showEmbedModal && (
         <ChartEmbed
           isOpen={showEmbedModal}
           toggleCallback={embedToggle}
-          chartType="line"
-          chartAttributes={{
-            variables: ["Count_Person_Male", "Count_Person_Female"],
-            places: ["geoId/06"],
+          container={props.container}
+          chartEmbedSpec={{
+            chartType: "line",
+            chartAttributes: {
+              variables: ["Count_Person_Male", "Count_Person_Female"],
+              places: ["geoId/06"],
+            },
           }}
         />
       )}
-      {showFeedbackModal && (
+      {nlSessionId && showFeedbackModal && (
         <ChartFeedback
           chartId={props.id}
+          container={props.container}
           isOpen={showFeedbackModal}
+          nlSessionId={nlSessionId}
           toggleCallback={feedbackToggle}
         />
       )}

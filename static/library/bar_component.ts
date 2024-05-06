@@ -260,6 +260,7 @@ export class DatacommonsBarComponent extends LitElement {
       variables: statVarSpec,
       svgChartHeight: 200,
       title: this.header || this.title,
+      useChartActionIcons: true,
       useLollipop: this.lollipop,
       yAxisMargin: this.yAxisMargin,
     };

@@ -123,6 +123,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       >
         {props.useChartActionIcons && (
           <ChartActions
+            container={containerRef.current}
             id={props.id}
             exploreLink={props.exploreLink}
             handleDownload={props.allowDownload && handleDownload}

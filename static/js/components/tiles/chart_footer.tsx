@@ -59,6 +59,12 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
       <footer className="chart-container-footer">
         <div className="main-footer-section">
           <div className="outlinks">
+            {props.showBranding && (
+              <div className="branding-line">
+                Powered by{" "}
+                <a href="https://datacommons.org">Google&apos;s Data Commons</a>
+              </div>
+            )}
             {props.handleDownload && (
               <div className="outlink-item">
                 <span className="material-icons-outlined">download</span>
@@ -92,12 +98,6 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                 >
                   Explore in {props.exploreLink.displayText}
                 </a>
-              </div>
-            )}
-            {props.showBranding && (
-              <div className="branding-line">
-                Powered by{" "}
-                <a href="https://datacommons.org">Google&apos;s Data Commons</a>
               </div>
             )}
           </div>

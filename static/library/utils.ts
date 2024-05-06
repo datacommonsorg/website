@@ -17,6 +17,7 @@
 import { PointApiResponse } from "@datacommonsorg/client";
 import React from "react";
 import ReactDOM from "react-dom";
+import { StyleSheetManager } from "styled-components";
 
 import {
   DEFAULT_API_ENDPOINT,
@@ -82,7 +83,14 @@ export function createWebComponentElement(
 
   // Create mount point and render tile in it
   const mountPoint = document.createElement("div");
-  ReactDOM.render(React.createElement(tile, tileProps), mountPoint);
+  ReactDOM.render(
+    React.createElement(
+      StyleSheetManager,
+      { target: mountPoint },
+      React.createElement(tile, tileProps)
+    ),
+    mountPoint
+  );
   container.appendChild(mountPoint);
 
   return container;

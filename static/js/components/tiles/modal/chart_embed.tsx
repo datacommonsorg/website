@@ -21,8 +21,7 @@ import { intl } from "../../../i18n/i18n";
 import { randDomId } from "../../../shared/util";
 import { CopyButton, IconButton } from "../../form_components/icon_buttons";
 
-interface ChartEmbedPropsType {
-  container?: HTMLElement;
+interface ChartEmbedSpec {
   // Allowed chart types for <datacommons-{chart type}> web components
   chartType:
     | "bar"
@@ -35,31 +34,33 @@ interface ChartEmbedPropsType {
     | "scatter";
   // web-component field -> values for the chart
   chartAttributes: Record<string, string[]>;
+}
+interface ChartEmbedPropsType {
+  // properties of the chart being embedded, used to generate embed code
+  chartEmbedSpec?: ChartEmbedSpec;
+  // containing element to attach modal to
+  container?: HTMLElement;
   // whether to show modal open or closed
   isOpen: boolean;
   // function to run when modal is toggled open or closed
   toggleCallback: () => void;
 }
 
-function getEmbedCode(
-  chartType: string,
-  chartAttributes: Record<string, string[]>
-) {
+function getEmbedCode(chartEmbedSpec: ChartEmbedSpec) {
   return `  <!-- Include this line at in the <head> tag of your webpage -->
   <script src="https://datacommons.org/datacommons.js"></script>
 
   <!-- Include these lines in the <body> of your webpage -->
-  <datacommons-${chartType}>
-  ${Object.entries(chartAttributes)
+  <datacommons-${chartEmbedSpec.chartType}>
+  ${Object.entries(chartEmbedSpec.chartAttributes)
     .map(([key, values]) => {
       return `\t${key}="${values.join(" ")}"`;
     })
     .join("\n")}
-  ></datacommons-${chartType}>`;
+  ></datacommons-${chartEmbedSpec.chartType}>`;
 }
 
 export function ChartEmbed(props: ChartEmbedPropsType): JSX.Element {
-  // const [showModal, setShowModal] = useState(false);
   const textareaElementRef = useRef<HTMLTextAreaElement>(null);
   const modalId = randDomId();
 
@@ -84,9 +85,12 @@ export function ChartEmbed(props: ChartEmbedPropsType): JSX.Element {
     );
   }
 
-  const embedCode = getEmbedCode(props.chartType, props.chartAttributes);
+  const embedCode = getEmbedCode(props.chartEmbedSpec);
 
-  if (!props.chartType || !props.chartAttributes) {
+  if (
+    !props.chartEmbedSpec.chartType ||
+    !props.chartEmbedSpec.chartAttributes
+  ) {
     return null;
   }
 
