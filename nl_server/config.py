@@ -19,7 +19,7 @@ import os
 from typing import Dict, List
 
 from nl_server import gcs
-from nl_server.util import use_anonymous_gcs_client
+from shared.lib.custom_dc_util import use_anonymous_gcs_client
 from shared.lib.gcs import download_gcs_file
 from shared.lib.gcs import is_gcs_path
 

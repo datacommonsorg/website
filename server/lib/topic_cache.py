@@ -17,10 +17,15 @@
 
 from dataclasses import dataclass
 import json
-from typing import Dict, List, Set
+import logging
+from typing import Dict, List, Self, Set
 
 from server.lib.nl.common import utils
 from server.lib.nl.explore.params import DCNames
+from shared.lib.custom_dc_util import get_topic_cache_path
+from shared.lib.custom_dc_util import is_custom_dc
+from shared.lib.gcs import download_gcs_file
+from shared.lib.gcs import is_gcs_path
 
 
 # This might be a topic or svpg
@@ -71,6 +76,15 @@ class TopicCache:
   def __init__(self, out_map: Dict[str, Node], in_map: Dict[str, Set[str]]):
     self.out_map = out_map
     self.in_map = in_map
+
+  def _merge(self, other: Self):
+    logging.info("Merging topic caches: out maps (%s, %s), in maps (%s, %s).",
+                 len(self.out_map), len(other.out_map), len(self.in_map),
+                 len(other.in_map))
+    self.out_map.update(other.out_map)
+    self.in_map.update(other.in_map)
+    logging.info("After merging topic caches: out map (%s), in map (%s).",
+                 len(self.out_map), len(self.in_map))
 
   def get_members(self, id: str) -> List[Dict]:
     if id not in self.out_map:
@@ -154,7 +168,32 @@ def load_files(fpath_list: List[str], name_overrides: Dict,
 
 
 def load(name_overrides: Dict) -> Dict[str, TopicCache]:
-  topic_cache_map = {}
+  topic_cache_map: dict[str, TopicCache] = {}
   for dc, fpath_list in TOPIC_CACHE_FILES.items():
     topic_cache_map[dc] = load_files(fpath_list, name_overrides, dc)
+
+  if is_custom_dc():
+    custom_dc_topic_cache = _load_custom_dc_topic_cache(name_overrides)
+    if custom_dc_topic_cache:
+      topic_cache_map[DCNames.CUSTOM_DC.value] = custom_dc_topic_cache
+      topic_cache_map[DCNames.MAIN_DC.value]._merge(custom_dc_topic_cache)
+
   return topic_cache_map
+
+
+def _load_custom_dc_topic_cache(name_overrides: dict) -> TopicCache:
+  local_path = _get_local_custom_dc_topic_cache_path()
+  if not local_path:
+    return None
+  return load_files([local_path], name_overrides, DCNames.CUSTOM_DC.value)
+
+
+def _get_local_custom_dc_topic_cache_path() -> str:
+  path = get_topic_cache_path()
+  if not path:
+    logging.info("No Custom DC topic cache path specified.")
+    return path
+  logging.info("Custom DC topic cache will be downloaded from: %s", path)
+  if is_gcs_path(path):
+    return download_gcs_file(path)
+  return path

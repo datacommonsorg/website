@@ -25,7 +25,7 @@ from nl_server.embeddings import EmbeddingsModel
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
 from nl_server.model.vertex_ai import VertexAIModel
 from nl_server.store.memory import MemoryEmbeddingsStore
-from nl_server.util import is_custom_dc
+from shared.lib.custom_dc_util import is_custom_dc
 
 
 #

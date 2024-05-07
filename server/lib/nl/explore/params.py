@@ -50,6 +50,7 @@ class DCNames(str, Enum):
   SDG_MINI_DC = 'sdgmini'
   UNDATA_DC = 'undata'
   BIO_DC = 'bio'
+  CUSTOM_DC = 'custom'
 
 
 class QueryMode(str, Enum):
