@@ -790,7 +790,7 @@
             "statVar": "Count_Person_Employed"
           },
           "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block": {
