@@ -41,6 +41,34 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Fertility Rate in Turkey",
+                    "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Fertility Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
                     ],
                     "title": "Crude Birth Rate in Turkey",
@@ -275,6 +303,34 @@
               }
             ],
             "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Rate of Population Growth in Turkey",
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Rate of Population Growth"
           }
         ],
         "statVarSpec": {
@@ -348,7 +404,484 @@
       "place_type": "Country"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {
+      "EurostatNUTS3": [
+        {
+          "dcid": "nuts/TR100",
+          "name": "Istanbul Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR211",
+          "name": "Tekirdag",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR212",
+          "name": "Edirne Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR213",
+          "name": "Kirklareli",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR221",
+          "name": "Balikesir",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR222",
+          "name": "\u00c7anakkale Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR310",
+          "name": "Izmir",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR321",
+          "name": "Aydin",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR322",
+          "name": "Denizli Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR323",
+          "name": "Mugla",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR331",
+          "name": "Manisa Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR332",
+          "name": "Afyon",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR333",
+          "name": "K\u00fctahya Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR334",
+          "name": "Usak",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR411",
+          "name": "Bursa Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR412",
+          "name": "Eskisehir",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR413",
+          "name": "Bilecik Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR421",
+          "name": "Kocaeli",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR422",
+          "name": "Sakarya Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR423",
+          "name": "D\u00fczce Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR424",
+          "name": "Bolu Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR425",
+          "name": "Yalova Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR510",
+          "name": "Ankara Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR521",
+          "name": "Konya Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR522",
+          "name": "Karaman Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR611",
+          "name": "Antalya Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR612",
+          "name": "Isparta Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR613",
+          "name": "Burdur Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR621",
+          "name": "Adana Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR622",
+          "name": "I\u00e7el",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR631",
+          "name": "Hatay",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR632",
+          "name": "Kahramanmaras",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR633",
+          "name": "Osmaniye Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR711",
+          "name": "Kirikkale",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR712",
+          "name": "Aksaray Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR713",
+          "name": "Nigde",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR714",
+          "name": "Nevsehir",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR715",
+          "name": "Kirsehir",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR721",
+          "name": "Kayseri Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR722",
+          "name": "Sivas Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR723",
+          "name": "Yozgat Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR811",
+          "name": "Zonguldak Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR812",
+          "name": "Karab\u00fck Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR813",
+          "name": "Bartin",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR821",
+          "name": "Kastamonu Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR822",
+          "name": "\u00c7ankiri",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR823",
+          "name": "Sinop Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR831",
+          "name": "Samsun Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR832",
+          "name": "Tokat Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR833",
+          "name": "\u00c7orum Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Births",
+        "name": "Births",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": []
+  },
   "svSource": "CURRENT_QUERY",
+  "userMessage": "",
   "userMessages": []
 }

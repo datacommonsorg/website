@@ -14,8 +14,11 @@
 """Utility functions shared across servers."""
 
 import copy
+import os
 import re
 from typing import List, Set
+
+from markupsafe import escape
 
 import shared.lib.constants as constants
 
@@ -120,3 +123,26 @@ def remove_punctuations(s, include_comma=False):
   else:
     s = re.sub(r'[^\w\s.]', ' ', s)
   return " ".join(s.split())
+
+
+def is_debug_mode() -> bool:
+  return os.environ.get('DEBUG', '').lower() == 'true'
+
+
+# Converts a passed in object and escapes all the strings in it.
+def escape_strings(data):
+  if isinstance(data, dict):
+    escaped_dict = {}
+    for k, v in data.items():
+      escaped_dict[str(escape(k))] = escape_strings(v)
+    return escaped_dict
+  elif isinstance(data, list):
+    for i, item in enumerate(data):
+      data[i] = escape_strings(item)
+    return data
+  elif isinstance(data, str):
+    return str(escape(data))
+  else:
+    # Otherwise, assume data is of a type that doesn't need escaping and just
+    # return it as is.
+    return data

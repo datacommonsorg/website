@@ -20,7 +20,6 @@ from datetime import datetime
 import difflib
 import os
 import pwd
-import re
 
 from absl import app
 from absl import flags
@@ -28,12 +27,10 @@ from google.cloud import storage
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
 import requests
+import yaml
 
-from nl_server import gcs
-from nl_server.embeddings import Embeddings
-from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
+from nl_server.embeddings_map import EmbeddingsMap
 from nl_server.search import search_vars
-from nl_server.store.memory import MemoryEmbeddingsStore
 from shared.lib.detected_variables import VarCandidates
 
 _SV_THRESHOLD = 0.5
@@ -42,27 +39,34 @@ _SUB_COLOR = '#ffaaaa'
 _ADD_COLOR = '#aaffaa'
 _PROPERTY_URL = 'https://autopush.api.datacommons.org/v2/node'
 _GCS_BUCKET = 'datcom-embedding-diffs'
+_LOCAL_EMBEDDINGS_YAML = 'deploy/nl/embeddings.yaml'
+_PROD_EMBEDDINGS_YAML = f'https://raw.githubusercontent.com/datacommonsorg/website/master/{_LOCAL_EMBEDDINGS_YAML}'
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string(
-    'base', '', 'Base index. Can be a versioned embeddings file name on GCS '
-    'or a local file with absolute path')
-flags.DEFINE_string(
-    'test', '', 'Test index. Can be a versioned embeddings file name on GCS '
-    'or a local file with absolute path')
+flags.DEFINE_string('base_index', '',
+                    'Base index name in PROD `embeddings.yaml` file.')
+flags.DEFINE_string('test_index', '',
+                    'Test index name in local `embeddings.yaml`')
 flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
-flags.DEFINE_string('indextype', '',
-                    'The base index type such as small or medium_ft')
 
 _GCS_PREFIX = 'https://storage.mtls.cloud.google.com'
 _TEMPLATE = 'tools/nl/svindex_differ/template.html'
 _REPORT = '/tmp/diff_report.html'
-_FILE_PATTERN_EMBEDDINGS = r'embeddings_.*_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}\.csv'
-_FILE_PATTERN_FINETUNED_EMBEDDINGS = r'embeddings_.*_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}\.ft.*\.csv'
 
 AUTOPUSH_KEY = os.environ.get('AUTOPUSH_KEY')
 assert AUTOPUSH_KEY
+
+
+def _load_yaml(path: str, idx: str):
+  if path.startswith('https://'):
+    embeddings_dict = yaml.safe_load(requests.get(path).text)
+  else:
+    with open(path) as fp:
+      embeddings_dict = yaml.full_load(fp)
+  assert idx in embeddings_dict
+  # Return just this index
+  return {idx: embeddings_dict[idx]}
 
 
 def _get_sv_names(sv_dcids):
@@ -104,19 +108,7 @@ def _get_file_name():
   """Get the file name to use"""
   username = pwd.getpwuid(os.getuid()).pw_name
   date = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-  return f'{username}_{FLAGS.indextype}_{date}.html'
-
-
-def _maybe_copy_embeddings(file):
-  if re.match(_FILE_PATTERN_EMBEDDINGS, file) or re.match(
-      _FILE_PATTERN_FINETUNED_EMBEDDINGS, file):
-    lpath = gcs.local_path(file)
-    if os.path.exists(lpath):
-      return lpath
-    return gcs.download_embeddings(file)
-  assert file.startswith('/'), \
-    f'File should either be {_FILE_PATTERN_EMBEDDINGS} or {_FILE_PATTERN_FINETUNED_EMBEDDINGS} or an absolute local path'
-  return file
+  return f'{username}_{FLAGS.base_index}_{date}.html'
 
 
 def _get_diff_table(diff_list, base_sv_info, test_sv_info):
@@ -168,47 +160,14 @@ def _get_diff_table(diff_list, base_sv_info, test_sv_info):
   return diff_table_rows
 
 
-def _extract_model_name(embeddings_name: str, embeddings_file_path: str) -> str:
-  model_path = ""
-  if "ft" in embeddings_file_path:
-    # This means we are using embeddings built on finetuned model.
-    # Download the model if needed.
-
-    # Extract the model name.
-    # test embeddings name is of the form:
-    #    <embeddings_size_*>.<ft_final_*>.<ft_intermediate_*>.<base_model>.csv
-    # OR <embeddings_size_*>.<ft_final_*>.<base_model>.csv
-    # The model name is comprised of all the parts between <embeddings_size_*>.
-    # and ".csv".
-    parts = embeddings_name.split(".")
-    model_name = ".".join(parts[1:-1])
-    print(f"finetuned model_name: {model_name}")
-    model_path = gcs.download_folder(model_name)
-
-    assert "ft_final" in model_path
-    assert len(model_path.split(".")) >= 2
-
-  return model_path
-
-
-def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
-             output_file):
+def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
+             test_dict: dict[str, dict[str, str]], query_file: str,
+             output_file: str):
   env = Environment(loader=FileSystemLoader(os.path.dirname(_TEMPLATE)))
   template = env.get_template(os.path.basename(_TEMPLATE))
 
-  print("=================================")
-  print(
-      f"Setting up the Base Embeddings from: {base_file}; Base model from: {base_model_path}"
-  )
-  base = Embeddings(model=LocalSentenceTransformerModel(base_model_path),
-                    store=MemoryEmbeddingsStore(base_file))
-  print("=================================")
-  print(
-      f"Setting up the Test Embeddings from: {test_file}; Test model from: {test_model_path}"
-  )
-  test = Embeddings(model=LocalSentenceTransformerModel(test_model_path),
-                    store=MemoryEmbeddingsStore(test_file))
-  print("=================================")
+  base = EmbeddingsMap(base_dict).get(base_idx)
+  test = EmbeddingsMap(test_dict).get(test_idx)
 
   # Get the list of diffs
   diffs = []
@@ -221,8 +180,8 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
       if not query or query.startswith('#') or query.startswith('//'):
         continue
       assert ';' not in query, 'Multiple query not yet supported'
-      base_svs, base_sv_info = _prune(search_vars([base], query)[query])
-      test_svs, test_sv_info = _prune(search_vars([test], query)[query])
+      base_svs, base_sv_info = _prune(search_vars([base], [query])[query])
+      test_svs, test_sv_info = _prune(search_vars([test], [query])[query])
       for sv in base_svs + test_svs:
         all_svs.add(sv)
       if base_svs != test_svs:
@@ -240,7 +199,8 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
   # Render the html with the diffs
   with open(output_file, 'w') as f:
     f.write(
-        template.render(base_file=FLAGS.base, test_file=FLAGS.test,
+        template.render(base_file=base_dict[base_idx],
+                        test_file=test_dict[test_idx],
                         diffs=diffs))
   print('')
   print(f'Saving locally to {output_file}')
@@ -259,14 +219,12 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
 
 
 def main(_):
-  assert FLAGS.base and FLAGS.test and FLAGS.queryset
-  base_file = _maybe_copy_embeddings(FLAGS.base)
-  test_file = _maybe_copy_embeddings(FLAGS.test)
+  assert FLAGS.base_index and FLAGS.test_index and FLAGS.queryset
 
-  base_model_path = _extract_model_name(FLAGS.base, base_file)
-  test_model_path = _extract_model_name(FLAGS.test, test_file)
+  base_dict = _load_yaml(_LOCAL_EMBEDDINGS_YAML, FLAGS.base_index)
+  test_dict = _load_yaml(_PROD_EMBEDDINGS_YAML, FLAGS.test_index)
 
-  run_diff(base_file, test_file, base_model_path, test_model_path,
+  run_diff(FLAGS.base_index, FLAGS.test_index, base_dict, test_dict,
            FLAGS.queryset, _REPORT)
 
 

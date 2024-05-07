@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
 
 import json
 import os
+import re
 
 from langdetect import detect as detect_lang
 import requests
@@ -61,7 +62,8 @@ class ExploreTest(NLWebServerTestCase):
       if len(queries) == 1:
         d = ''
       else:
-        d = q.replace(' ', '').replace('?', '').lower()
+        d = re.sub(r'[ ?"]', '', q).lower()
+      print(d)
       self.handle_response(q, resp, test_dir, d, failure, check_detection)
 
   def run_detect_and_fulfill(self,
@@ -75,7 +77,7 @@ class ExploreTest(NLWebServerTestCase):
                              mode='',
                              default_place='',
                              idx=''):
-    ctx = {}
+    ctx = []
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
@@ -88,7 +90,7 @@ class ExploreTest(NLWebServerTestCase):
       if len(queries) == 1:
         d = ''
       else:
-        d = q.replace(' ', '').replace('?', '').lower()
+        d = re.sub(r'[ ?"]', '', q).lower()
         # For some queries like Chinese, no characters are replaced and leads to unwieldy folder names.
         # Use the query index for such cases.
         if d == q and i18n:
@@ -243,6 +245,13 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detection('detection_api_basic', ['Commute in California'],
                        test='unittest',
                        idx='medium_lance_ft')
+
+  def test_detection_basic_vertex(self):
+    # NOTE: Use the same test-name as above, since we expect the content to exactly
+    # match the one from above.
+    self.run_detection('detection_api_basic', ['Commute in California'],
+                       test='unittest',
+                       idx='medium_vertex_ft')
 
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
@@ -640,11 +649,14 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detect_and_fulfill(
         'e2e_triple',
         [
-            # Should all have 'out' properties as answer
-            'What is the phylum of volvox?',
-            'How about Corylus cornuta Marshall',
+            # Should have 'out' properties as answer
             'What strand orientation does FGFR1 have?',
-            'What type of gene is it',
+            # Should use context for the entity
+            'what transcripts does it have',
+            # Should use context for the property
+            'how about for P53',
+            # Should not use context because no entity or property found
+            'what animal is that found in',
             # Should have 'in' properties as answer
             'What is Betacoronavirus 1 the species of',
             # Should have a chained property in the answer

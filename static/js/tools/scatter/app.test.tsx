@@ -792,7 +792,7 @@ test("all functionalities", async () => {
   });
   await app.update();
   expectTitle(
-    "Establishments Per Capita (2016)vsHousing Units Per Capita (2016)"
+    "Employed Per Capita (2016)vsNumber Of Establishments Per Capita (2016)"
   );
   expectCircles(3, app);
 

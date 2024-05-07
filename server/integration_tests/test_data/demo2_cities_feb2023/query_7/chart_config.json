@@ -416,8 +416,26 @@
       "place_type": "Country"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Births",
+        "name": "Births",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
   "svSource": "CURRENT_QUERY",
+  "userMessage": "See comparison based on places in the previous answer.",
   "userMessages": [
     "See comparison based on places in the previous answer."
   ]

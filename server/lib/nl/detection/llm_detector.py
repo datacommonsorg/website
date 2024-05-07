@@ -17,7 +17,6 @@ import copy
 import sys
 from typing import Dict, List
 
-from server.lib.explore import params
 from server.lib.nl.common import counters
 from server.lib.nl.common import serialize
 from server.lib.nl.common import utterance
@@ -30,6 +29,7 @@ from server.lib.nl.detection import variable
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import LlmApiType
+from server.lib.nl.explore import params
 import shared.lib.detected_variables as dvars
 
 # TODO: Add support for COMPARISON_FILTER and RANKING_FILTER
@@ -101,12 +101,8 @@ _LLM_OP_TO_QUANTITY_OP = {
 
 
 # Returns False if the query fails safety check.
-def check_safety(query: str, llm_api_type: LlmApiType,
-                 ctr: counters.Counters) -> Detection:
-  if llm_api_type == LlmApiType.GeminiPro:
-    llm_resp = llm_api.detect_with_geminipro(query, [], ctr)
-  else:
-    llm_resp = llm_api.detect_with_palm(query, [], ctr)
+def check_safety(query: str, ctr: counters.Counters) -> Detection:
+  llm_resp = llm_api.detect_with_geminipro(query, [], ctr)
   if llm_resp.get('UNSAFE') == True:
     return False
   return True
@@ -115,7 +111,6 @@ def check_safety(query: str, llm_api_type: LlmApiType,
 def detect(query: str,
            prev_utterance: utterance.Utterance,
            index_type: str,
-           llm_api_type: LlmApiType,
            query_detection_debug_logs: Dict,
            mode: str,
            ctr: counters.Counters,
@@ -128,11 +123,7 @@ def detect(query: str,
     history.append((u.query, u.llm_resp))
     u = u.prev_utterance
 
-  if llm_api_type == LlmApiType.GeminiPro:
-    llm_resp = llm_api.detect_with_geminipro(query, history, ctr)
-  else:
-    llm_resp = llm_api.detect_with_palm(query, history, ctr)
-
+  llm_resp = llm_api.detect_with_geminipro(query, history, ctr)
   if llm_resp.get('UNSAFE') == True:
     return None
 
@@ -195,8 +186,7 @@ def detect(query: str,
                    svs_detected=sv_detection,
                    classifications=classifications,
                    llm_resp=llm_resp,
-                   detector=ActualDetectorType.LLM,
-                   llm_api=llm_api_type)
+                   detector=ActualDetectorType.LLM)
 
 
 def _build_classifications(llm_resp: Dict,

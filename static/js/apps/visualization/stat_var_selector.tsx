@@ -141,12 +141,8 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
           </ModalHeader>
           <ModalBody>
             <Container>
-              <div>
-                You selected:{" "}
-                <b>{extraSv ? extraSv.info.title || extraSv.dcid : ""}</b>
-              </div>
               <div className="radio-selection-label">
-                Please choose 1 statistical variable to replace:
+                Select the statistical variable to replace:
               </div>
               <div className="radio-selection-section">
                 {selectedStatVars
