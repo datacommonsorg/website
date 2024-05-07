@@ -12,27 +12,76 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import json
 import os
+import shutil
+import tempfile
 import unittest
 from unittest.mock import patch
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                             "test_data", "topic_cache")
-INPUT_DIR = os.path.join(TEST_DATA_DIR, "input")
-EXPECTED_DIR = os.path.join(TEST_DATA_DIR, "expected")
-MAIN_DC_TOPIC_CACHE_FILE = os.path.join(INPUT_DIR, "main_dc_topic_cache.json")
+from server.lib import topic_cache
+from server.lib.nl.explore.params import DCNames
+
+_TEST_MODE = os.environ.get('TEST_MODE', '')
+
+_TEST_DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                              "test_data", "topic_cache")
+_INPUT_DIR = os.path.join(_TEST_DATA_DIR, "input")
+_EXPECTED_DIR = os.path.join(_TEST_DATA_DIR, "expected")
+_MAIN_DC_TOPIC_CACHE_FILE = os.path.join(_INPUT_DIR, "main_dc_topic_cache.json")
 # Same value as INPUT_DIR but the custom dc topic cache json will
 # be in a file (datacommons/nl/custom_dc_topic_cache.json) relative to this path.
-CUSTOM_DC_USER_DATA_PATH = INPUT_DIR
+_CUSTOM_DC_USER_DATA_PATH = _INPUT_DIR
 
 
-def _compare_files(test: unittest.TestCase, output_path, expected_path):
+def _compare_files(test: unittest.TestCase, output_path: str,
+                   expected_path: str, message: str):
   with open(output_path) as gotf:
     got = gotf.read()
     with open(expected_path) as wantf:
       want = wantf.read()
-      test.assertEqual(got, want)
+      test.assertEqual(got, want, message)
 
 
-class TestTopicCache(unittest.TestCase):
-  pass
+def _test_topic_cache_loader(test: unittest.TestCase, test_name: str):
+  test.maxDiff = None
+
+  with tempfile.TemporaryDirectory() as temp_dir:
+    output_json_path = os.path.join(temp_dir, f"{test_name}.json")
+    expected_json_path = os.path.join(_EXPECTED_DIR, f"{test_name}.json")
+
+    topic_caches = topic_cache.load({})
+    # Write json
+    topic_caches_json = {
+        dc: topic_cache.json() for dc, topic_cache in topic_caches.items()
+    }
+    with open(output_json_path, "w") as out:
+      json.dump(topic_caches_json, out, indent=1)
+
+    if _TEST_MODE == "write":
+      shutil.copy(output_json_path, expected_json_path)
+      return
+
+    _compare_files(test, output_json_path, expected_json_path,
+                   f"Found diffs in topic caches JSON: {test_name}")
+
+
+@patch.dict(topic_cache.TOPIC_CACHE_FILES,
+            {DCNames.MAIN_DC.value: [_MAIN_DC_TOPIC_CACHE_FILE]},
+            clear=True)
+class TestTopicCacheLoader(unittest.TestCase):
+
+  @patch.dict(os.environ, {"IS_CUSTOM_DC": "false"})
+  def test_main_only(self):
+    _test_topic_cache_loader(self, "main_only")
+
+  @patch.dict(os.environ, {
+      "IS_CUSTOM_DC": "true",
+      "USER_DATA_PATH": _CUSTOM_DC_USER_DATA_PATH
+  })
+  def test_main_and_custom(self):
+    _test_topic_cache_loader(self, "main_and_custom")
+
+  @patch.dict(os.environ, {"IS_CUSTOM_DC": "true"})
+  def test_no_user_data_path(self):
+    _test_topic_cache_loader(self, "no_user_data_path")

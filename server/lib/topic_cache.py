@@ -18,7 +18,7 @@
 from dataclasses import dataclass
 import json
 import logging
-from typing import Dict, List, Self, Set
+from typing import Dict, List, Self
 
 from server.lib.nl.common import utils
 from server.lib.nl.explore.params import DCNames
@@ -35,6 +35,15 @@ class Node:
   type: str
   vars: List[str]
   extended_vars: List[str]
+
+  # For testing.
+  def json(self) -> dict:
+    return {
+        'name': self.name,
+        'type': self.type,
+        'vars': self.vars,
+        'extended_vars': self.extended_vars
+    }
 
 
 # Keyed by DC.
@@ -73,7 +82,8 @@ _EXTENDED_SVG_OVERRIDE_MAP = {
 
 class TopicCache:
 
-  def __init__(self, out_map: Dict[str, Node], in_map: Dict[str, Set[str]]):
+  def __init__(self, out_map: dict[str, Node],
+               in_map: dict[str, dict[str, set[str]]]):
     self.out_map = out_map
     self.in_map = in_map
 
@@ -85,6 +95,19 @@ class TopicCache:
     self.in_map.update(other.in_map)
     logging.info("After merging topic caches: out map (%s), in map (%s).",
                  len(self.out_map), len(self.in_map))
+
+  # For testing.
+  def json(self) -> dict:
+    return {
+        "out_map": {
+            dcid: node.json() for dcid, node in sorted(self.out_map.items())
+        },
+        "in_map": {
+            sv: {
+                prop: sorted(dcids) for prop, dcids in props.items()
+            } for sv, props in sorted(self.in_map.items())
+        }
+    }
 
   def get_members(self, id: str) -> List[Dict]:
     if id not in self.out_map:
