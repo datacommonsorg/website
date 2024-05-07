@@ -170,6 +170,26 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       footnote={props.footnote}
       useChartActionIcons={props.useChartActionIcons}
       showBrandingInFooter={props.showBrandingInFooter}
+      chartEmbedSpec={{
+        chartType: "scatter",
+        chartAttributes: {
+          childPlaceType: props.enclosedPlaceType,
+          header: props.title,
+          highlightBottomLeft: props.scatterTileSpec.highlightBottomLeft,
+          highlightBottomRight: props.scatterTileSpec.highlightBottomRight,
+          highlightTopLeft: props.scatterTileSpec.highlightTopLeft,
+          highlightTopRight: props.scatterTileSpec.highlightTopRight,
+          parentPlace: props.place.dcid,
+          placeNameProp: props.placeNameProp,
+          showPlaceLabels: props.scatterTileSpec.showPlaceLabels,
+          showQuadrants: props.scatterTileSpec.showQuadrants,
+          sources: props.sources,
+          usePerCapita: props.statVarSpec
+            .map((sv) => (sv.denom ? sv.statVar : ""))
+            .filter((sv) => !!sv),
+          variables: props.statVarSpec.map((sv) => sv.statVar),
+        },
+      }}
     >
       <div className="scatter-tile-content">
         <div

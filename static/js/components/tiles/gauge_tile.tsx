@@ -129,6 +129,18 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       footnote={props.footnote}
       useChartActionIcons={props.useChartActionIcons}
       showBrandingInFooter={props.showBrandingInFooter}
+      chartEmbedSpec={{
+        chartType: "gauge",
+        chartAttributes: {
+          colors: props.colors,
+          header: props.title,
+          max: props.range.max,
+          min: props.range.min,
+          place: props.place.dcid,
+          sources: props.sources,
+          variable: props.statVarSpec.statVar,
+        },
+      }}
     >
       <div
         className={`svg-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}

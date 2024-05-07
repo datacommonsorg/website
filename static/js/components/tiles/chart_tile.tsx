@@ -34,6 +34,7 @@ import {
 import { ChartActions } from "./chart_action_icons";
 import { ChartFooter } from "./chart_footer";
 import { ChartDownload } from "./modal/chart_download";
+import { ChartEmbedSpec } from "./modal/chart_embed";
 interface ChartTileContainerProp {
   id: string;
   isLoading?: boolean;
@@ -63,6 +64,8 @@ interface ChartTileContainerProp {
   // Whether to display chart actions on the right
   // instead of download and explore links on the left.
   useChartActionIcons?: boolean;
+  // Tile specs used to generate code users can use to embed the chart
+  chartEmbedSpec?: ChartEmbedSpec;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -123,6 +126,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       >
         {props.useChartActionIcons && (
           <ChartActions
+            chartEmbedSpec={props.chartEmbedSpec}
             container={containerRef.current}
             id={props.id}
             exploreLink={props.exploreLink}

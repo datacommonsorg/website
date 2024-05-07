@@ -32,6 +32,7 @@ import { formatString, TileSources } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
 import { ChartActions } from "./chart_action_icons";
 import { ChartFooter } from "./chart_footer";
+import { ChartEmbedSpec } from "./modal/chart_embed";
 
 const RANKING_COUNT = 5;
 
@@ -59,6 +60,7 @@ interface SvRankingUnitsProps {
   sources?: string[];
   // Optional: whether to use chart action icons in right of footer
   useChartActionIcons?: boolean;
+  chartEmbedSpec: ChartEmbedSpec;
 }
 
 /**
@@ -201,6 +203,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                     id={props.tileId}
                     handleDownload={() => handleDownload(true, chartTitle)}
                     exploreLink={getExploreLink(props, false)}
+                    chartEmbedSpec={props.chartEmbedSpec}
                   />
                 </ChartFooter>
               )}

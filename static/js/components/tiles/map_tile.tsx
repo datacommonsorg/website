@@ -332,6 +332,25 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       footnote={props.footnote}
       useChartActionIcons={props.useChartActionIcons}
       showBrandingInFooter={props.showBrandingInFooter}
+      // TODO: Also allow embeds on maps specified using dataSpec
+      chartEmbedSpec={
+        !props.dataSpecs && {
+          chartType: "map",
+          chartAttributes: {
+            allowZoom: props.allowZoom,
+            childPlaceType: props.enclosedPlaceType,
+            colors: props.colors,
+            geoJsonProp: props.geoJsonProp,
+            header: props.title,
+            parentPlaces: props.parentPlaces.map((place) => place.dcid),
+            parentPlace: props.place.dcid,
+            placeNameProp: props.placeNameProp,
+            perCapita: props.statVarSpec.denom ? props.statVarSpec.statVar : "",
+            sources: props.sources,
+            variable: props.statVarSpec.statVar,
+          },
+        }
+      }
     >
       {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">

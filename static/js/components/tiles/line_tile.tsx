@@ -159,6 +159,26 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       footnote={props.footnote}
       useChartActionIcons={props.useChartActionIcons}
       showBrandingInFooter={props.showBrandingInFooter}
+      chartEmbedSpec={{
+        chartType: "line",
+        chartAttributes: {
+          childPlaceType: props.enclosedPlaceType,
+          colors: props.colors,
+          endDate: props.endDate,
+          header: props.title,
+          placeNameProp: props.placeNameProp,
+          places: [props.place.dcid].concat(props.comparisonPlaces || []),
+          parentPlace: props.enclosedPlaceType && props.place.dcid,
+          perCapita: props.statVarSpec
+            .map((sv) => (sv.denom ? sv.statVar : ""))
+            .filter((sv) => !!sv),
+          sources: props.sources,
+          startDate: props.startDate,
+          svgChartHeight: props.svgChartHeight?.toString(),
+          timeScale: props.timeScale,
+          variables: props.statVarSpec.map((sv) => sv.statVar),
+        },
+      }}
     >
       <div
         id={props.id}

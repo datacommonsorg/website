@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
 import React, { useRef } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
@@ -21,7 +22,7 @@ import { intl } from "../../../i18n/i18n";
 import { randDomId } from "../../../shared/util";
 import { CopyButton, IconButton } from "../../form_components/icon_buttons";
 
-interface ChartEmbedSpec {
+export interface ChartEmbedSpec {
   // Allowed chart types for <datacommons-{chart type}> web components
   chartType:
     | "bar"
@@ -33,7 +34,7 @@ interface ChartEmbedSpec {
     | "ranking"
     | "scatter";
   // web-component field -> values for the chart
-  chartAttributes: Record<string, string[]>;
+  chartAttributes: Record<string, string | string[] | number | boolean>;
 }
 interface ChartEmbedPropsType {
   // properties of the chart being embedded, used to generate embed code
@@ -44,20 +45,6 @@ interface ChartEmbedPropsType {
   isOpen: boolean;
   // function to run when modal is toggled open or closed
   toggleCallback: () => void;
-}
-
-function getEmbedCode(chartEmbedSpec: ChartEmbedSpec) {
-  return `  <!-- Include this line at in the <head> tag of your webpage -->
-  <script src="https://datacommons.org/datacommons.js"></script>
-
-  <!-- Include these lines in the <body> of your webpage -->
-  <datacommons-${chartEmbedSpec.chartType}>
-  ${Object.entries(chartEmbedSpec.chartAttributes)
-    .map(([key, values]) => {
-      return `\t${key}="${values.join(" ")}"`;
-    })
-    .join("\n")}
-  ></datacommons-${chartEmbedSpec.chartType}>`;
 }
 
 export function ChartEmbed(props: ChartEmbedPropsType): JSX.Element {
@@ -126,4 +113,25 @@ export function ChartEmbed(props: ChartEmbedPropsType): JSX.Element {
       </ModalFooter>
     </Modal>
   );
+}
+
+function getEmbedCode(chartEmbedSpec: ChartEmbedSpec) {
+  return `  <!-- Include this line at in the <head> tag of your webpage -->
+  <script src="https://datacommons.org/datacommons.js"></script>
+
+  <!-- Include these lines in the <body> of your webpage -->
+  <datacommons-${chartEmbedSpec.chartType}>
+  ${Object.entries(chartEmbedSpec.chartAttributes)
+    .map(([key, value]) => {
+      if (!_.isEmpty(value)) {
+        if (typeof value == "boolean") {
+          return `${key}`;
+        }
+        const values = Array.isArray(value) ? value : [value.toString()];
+        return `\t${key}="${values.join(" ")}"`;
+      }
+    })
+    .filter((attr) => !!attr)
+    .join("\n")}
+  ></datacommons-${chartEmbedSpec.chartType}>`;
 }

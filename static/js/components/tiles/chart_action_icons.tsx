@@ -28,7 +28,7 @@ import {
   GA_PARAM_TILE_TYPE,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { ChartEmbed } from "./modal/chart_embed";
+import { ChartEmbed, ChartEmbedSpec } from "./modal/chart_embed";
 import { ChartFeedback } from "./modal/chart_feedback";
 
 interface ActionIconPropType {
@@ -84,6 +84,8 @@ function ActionIcon(props: ActionIconPropType) {
 }
 
 interface ChartActionsPropType {
+  // chart specs used for embedding
+  chartEmbedSpec?: ChartEmbedSpec;
   // Containing HTML element to attach tooltips/modals to
   container?: HTMLElement;
   // Callback for handling when user clicks on "download" action icon
@@ -146,15 +148,17 @@ export function ChartActions(props: ChartActionsPropType): JSX.Element {
             url={props.exploreLink?.url}
           />
         )}
-        <ActionIcon
-          container={props.container}
-          icon="code"
-          onClickHandler={(event) => {
-            event.preventDefault();
-            setShowEmbedModal(true);
-          }}
-          tooltipContent="Embed this chart in your website"
-        />
+        {props.chartEmbedSpec && (
+          <ActionIcon
+            container={props.container}
+            icon="code"
+            onClickHandler={(event) => {
+              event.preventDefault();
+              setShowEmbedModal(true);
+            }}
+            tooltipContent="Embed this chart in your website"
+          />
+        )}
         {nlSessionId && (
           <ActionIcon
             container={props.container}
@@ -167,18 +171,12 @@ export function ChartActions(props: ChartActionsPropType): JSX.Element {
           />
         )}
       </div>
-      {showEmbedModal && (
+      {props.chartEmbedSpec && showEmbedModal && (
         <ChartEmbed
           isOpen={showEmbedModal}
           toggleCallback={embedToggle}
           container={props.container}
-          chartEmbedSpec={{
-            chartType: "line",
-            chartAttributes: {
-              variables: ["Count_Person_Male", "Count_Person_Female"],
-              places: ["geoId/06"],
-            },
-          }}
+          chartEmbedSpec={props.chartEmbedSpec}
         />
       )}
       {nlSessionId && showFeedbackModal && (

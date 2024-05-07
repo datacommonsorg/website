@@ -20,6 +20,7 @@
 
 import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import { ChartSortOption } from "@datacommonsorg/web-components";
+import { setMaxIdleHTTPParsers } from "http";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -152,6 +153,32 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       footnote={props.footnote}
       useChartActionIcons={props.useChartActionIcons}
       showBrandingInFooter={props.showBrandingInFooter}
+      chartEmbedSpec={{
+        chartType: "bar",
+        chartAttributes: {
+          barHeight: props.barHeight,
+          childPlaceType:
+            "enclosedPlaceType" in props && props.enclosedPlaceType,
+          colors: props.colors,
+          header: props.title,
+          horizontal: props.horizontal,
+          maxPlaces: props.maxPlaces,
+          maxVariables: props.maxVariables,
+          parentPlace: "parentPlace" in props && props.parentPlace,
+          perCapita: props.variables
+            .map((sv) => (sv.denom ? sv.statVar : ""))
+            .filter((sv) => !!sv),
+          placeNameProp: props.placeNameProp,
+          places: "places" in props && props.places,
+          sort: props.sort,
+          sources: props.sources,
+          stacked: props.stacked,
+          svgChartHeight: props.svgChartHeight,
+          useLollipop: props.useLollipop,
+          variables: props.variables.map((sv) => sv.statVar),
+          yAxisMargin: props.yAxisMargin,
+        },
+      }}
     >
       <div
         id={props.id}

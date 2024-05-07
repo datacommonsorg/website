@@ -180,6 +180,22 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               errorMsg={errorMsg}
               footnote={props.footnote}
               useChartActionIcons={props.useChartActionIcons}
+              chartEmbedSpec={{
+                chartType: "ranking",
+                chartAttributes: {
+                  childPlaceType: props.enclosedPlaceType,
+                  hideFooter: props.hideFooter,
+                  highestTitle: props.rankingMetadata.highestTitle,
+                  lowestTitle: props.rankingMetadata.lowestTitle,
+                  parentPlace: props.parentPlace,
+                  rankingCount: props.rankingMetadata.rankingCount,
+                  showHighestLowest: props.rankingMetadata.showHighestLowest,
+                  showLowest: props.rankingMetadata.showLowest,
+                  showMultiColumn: props.rankingMetadata.showMultiColumn,
+                  sources: props.sources,
+                  variables: props.variables.map((sv) => sv.statVar),
+                },
+              }}
             />
           );
         })}
