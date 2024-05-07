@@ -17,7 +17,6 @@
 
 from typing import Dict, List
 
-from server.lib.explore.params import QueryMode
 from server.lib.fetch import property_values
 from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
@@ -28,6 +27,7 @@ from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
+from server.lib.nl.explore.params import QueryMode
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartType
 from shared.lib import constants as shared_constants

@@ -2,19 +2,29 @@ medium_ft:
   store: MEMORY
   embeddings: gs://datcom-nl-models/embeddings_medium_2024_03_14_16_38_53.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
   model: ft_final_v20230717230459.all-MiniLM-L6-v2
+  model_type: LOCAL
 sdg_ft:
   store: MEMORY
   embeddings: gs://datcom-nl-models/embeddings_sdg_2023_12_26_10_03_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
   model: ft_final_v20230717230459.all-MiniLM-L6-v2
+  model_type: LOCAL
 undata_ft:
   store: MEMORY
   embeddings: gs://datcom-nl-models/embeddings_undata_2024_03_20_11_01_12.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
   model: ft_final_v20230717230459.all-MiniLM-L6-v2
+  model_type: LOCAL
 bio_ft:
   store: MEMORY
   embeddings: gs://datcom-nl-models/embeddings_bio_2024_03_19_16_39_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
   model: ft_final_v20230717230459.all-MiniLM-L6-v2
+  model_type: LOCAL
 medium_lance_ft:
   store: LANCEDB
   embeddings: gs://datcom-nl-models-dev/lancedb/lancedb_embeddings_medium_2024_04_09_07_22_21.ft_final_v20230717230459.all-MiniLM-L6-v2
   model: ft_final_v20230717230459.all-MiniLM-L6-v2
+  model_type: LOCAL
+medium_vertex_ft:
+  store: MEMORY
+  embeddings: gs://datcom-nl-models/embeddings_medium_2024_03_14_16_38_53.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+  model: dc-all-minilm-l6-v2-model
+  model_type: VERTEXAI

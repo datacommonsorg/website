@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,25 +11,25 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Vertex AI Model."""
 
-from dataclasses import dataclass
-import os
+from typing import List
 
-from server.lib.util import get_repo_root
+from flask import current_app
 
-
-@dataclass
-class Prompts:
-  # Prompt for full query detection for Gemini Pro Text API.
-  gemini_pro: str
+from nl_server import config
+from nl_server import embeddings
+from shared.model.api import predict
 
 
-# Returns LLM prompt texts
-def get_prompts() -> Prompts:
-  return Prompts(gemini_pro=_content("geminipro_prompt.txt"))
+class VertexAIModel(embeddings.EmbeddingsModel):
 
+  def __init__(self, model_name):
+    super().__init__()
 
-def _content(fname) -> str:
-  filepath = os.path.join(get_repo_root(), "config", "nl_page", fname)
-  with open(filepath, 'r') as f:
-    return f.read()
+    self.model_name = model_name
+
+  def encode(self, queries: List[str]) -> List[List[float]]:
+    model_info = current_app.config[config.VERTEX_AI_MODELS_KEY].get(
+        self.model_name)
+    return predict(model_info, queries)

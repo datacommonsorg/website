@@ -144,7 +144,8 @@ def generate_embeddings_yaml(model_version: str,
       "custom_ft": {
           "embeddings": embeddings_csv_handler.abspath(),
           "model": model_version,
-          "store": "MEMORY"
+          "store": "MEMORY",
+          "model_type": "LOCAL"
       }
   }
   embeddings_yaml_handler.write_string(yaml.dump(data))
