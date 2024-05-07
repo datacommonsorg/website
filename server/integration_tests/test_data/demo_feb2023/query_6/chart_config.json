@@ -1405,7 +1405,7 @@
             "statVar": "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino"
           },
           "Count_Person_WithDisability_WhiteAlone_multiple_place_bar_block": {
-            "name": "White Disbabled Population",
+            "name": "White Disabled Population",
             "statVar": "Count_Person_WithDisability_WhiteAlone"
           },
           "Count_Person_WithHealthInsurance": {
