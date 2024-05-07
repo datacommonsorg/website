@@ -694,7 +694,16 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
         font-weight: 400;
         padding: 8px 0;
         padding-right: 16px;
+        position: sticky;
         white-space: nowrap;
+        z-index: 1;
+      }
+
+      th:first-child {
+        background-color: #f0f0f0;
+        left: 0;
+        position: sticky;
+        z-index: 2;
       }
     }
 
@@ -710,9 +719,12 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
       }
 
       tr td:first-child {
+        left: 0;
         padding-left: 80px;
+        position: sticky;
         white-space: nowrap;
         width: auto;
+        z-index: 3;
       }
 
       td {
