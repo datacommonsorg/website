@@ -23,6 +23,11 @@ import { styled } from "styled-components";
 
 import { saveToFile } from "../../shared/util";
 
+// How long to show an alternate icon to denote the button was selected.
+// For example, how long to show a checkmark after clicking the button.
+// Measured in milliseconds.
+const ICON_SELECTED_TIMEOUT = 2000;
+
 /* Base Button Component*/
 
 const StyledButton = styled.button`
@@ -54,6 +59,8 @@ interface ButtonProps {
   class?: string;
   // Icon to show on button to the left of text
   icon?: string;
+  // Icon to show temporarily when button is clicked
+  iconWhenClicked?: string;
   // Text to show on button
   label: string;
   // Handler for what happens when button is clicked
@@ -61,13 +68,32 @@ interface ButtonProps {
 }
 
 function IconButton(props: ButtonProps): JSX.Element {
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+  const timerRef = useRef<NodeJS.Timeout>(null);
+
+  useEffect(() => {
+    if (isClicked) {
+      timerRef.current = setTimeout(() => {
+        setIsClicked(false);
+      }, ICON_SELECTED_TIMEOUT);
+    }
+    return () => clearTimeout(timerRef.current);
+  }, [isClicked]);
+
+  const onClickHandler = () => {
+    props.onClick();
+    setIsClicked(true);
+  };
+
   return (
     <StyledButton
-      onClick={props.onClick}
+      onClick={onClickHandler}
       className={`button ${props.class || ""}`}
     >
       {props.icon && (
-        <span className="material-symbols-outlined icon">{props.icon}</span>
+        <span className="material-symbols-outlined icon">
+          {(isClicked && props.iconWhenClicked) || props.icon}
+        </span>
       )}
       {props.label}
     </StyledButton>
@@ -82,27 +108,11 @@ interface CopyButtonProps {
 }
 
 export function CopyButton(props: CopyButtonProps): JSX.Element {
-  const [isClicked, setIsClicked] = useState<boolean>(false);
-  const timerRef = useRef<NodeJS.Timeout>(null);
-
-  const onClick = () => {
-    navigator.clipboard.writeText(props.textToCopy);
-    setIsClicked(true);
-  };
-
-  useEffect(() => {
-    if (isClicked) {
-      timerRef.current = setTimeout(() => {
-        setIsClicked(false);
-      }, 2000);
-    }
-    return () => clearTimeout(timerRef.current);
-  }, [isClicked]);
-
   return (
     <IconButton
-      icon={isClicked ? "done" : "file_copy"}
-      onClick={onClick}
+      icon="file_copy"
+      iconWhenClicked="done"
+      onClick={() => navigator.clipboard.writeText(props.textToCopy)}
       label="Copy"
     ></IconButton>
   );
@@ -118,27 +128,11 @@ interface DownloadButtonProps {
 }
 
 export function DownloadButton(props: DownloadButtonProps): JSX.Element {
-  const [isClicked, setIsClicked] = useState<boolean>(false);
-  const timerRef = useRef(null);
-
-  const onClick = () => {
-    saveToFile(props.filename, props.content);
-    setIsClicked(true);
-  };
-
-  useEffect(() => {
-    if (isClicked) {
-      timerRef.current = setTimeout(() => {
-        setIsClicked(false);
-      }, 2000);
-    }
-    return () => clearTimeout(timerRef.current);
-  }, [isClicked]);
-
   return (
     <IconButton
-      icon={isClicked ? "download_done" : "download"}
-      onClick={onClick}
+      icon="download"
+      iconWhenClicked="download_done"
+      onClick={() => saveToFile(props.filename, props.content)}
       label="Download"
     ></IconButton>
   );

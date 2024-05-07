@@ -65,7 +65,7 @@ function highlightEntities(title: string, entityName: string): JSX.Element {
       <b>
         <i>{entityName}</i>
       </b>
-      {title.slice(entityIndex + entityName.length, title.length)}
+      {title.slice(entityIndex + entityName.length)}
     </span>
   );
 }
@@ -111,7 +111,7 @@ const fetchData = async (
   props: AnswerMessageTilePropType
 ): Promise<AnswerMessageTileData> => {
   let entityName = "";
-  if (_.isEmpty(props.propertyExpr)) {
+  if (_.isEmpty(props.propertyExpr) && props.displayValue) {
     return Promise.resolve({ displayValue: props.displayValue, entityName });
   }
   try {
@@ -121,7 +121,7 @@ const fetchData = async (
       paramsSerializer: stringifyFn,
     });
     const names = nameResp.data[props.entity] || [];
-    entityName = names ? names[0].value : "";
+    entityName = !_.isEmpty(names) ? names[0].value : "";
     // Get property values of the entity
     const propResp = await axios.get(`/api/node/propvals`, {
       params: { dcids: [props.entity], propExpr: props.propertyExpr },

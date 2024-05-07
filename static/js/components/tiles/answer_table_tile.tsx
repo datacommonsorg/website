@@ -192,11 +192,11 @@ const fetchData = async (
           Array.from(entityResults);
 
         // Get all sources associated with the values
-        const valSources = val.map((singleVal) => {
+        const valProvId = val.map((singleVal) => {
           return singleVal.provenanceId;
         });
-        valSources.forEach((provId) => uniqueProvIds.add(provId));
-        provIds[entity][props.columns[i].propertyExpr] = valSources;
+        valProvId.forEach((provId) => uniqueProvIds.add(provId));
+        provIds[entity][props.columns[i].propertyExpr] = valProvId;
       });
     });
 
