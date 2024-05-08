@@ -18,11 +18,11 @@
 from dataclasses import dataclass
 import json
 import logging
-from typing import Dict, List, Self
+from typing import Self
 
 from server.lib.nl.common import utils
 from server.lib.nl.explore.params import DCNames
-from shared.lib.custom_dc_util import get_topic_cache_path
+from shared.lib.custom_dc_util import get_custom_dc_topic_cache_path
 from shared.lib.custom_dc_util import is_custom_dc
 from shared.lib.gcs import download_gcs_file
 from shared.lib.gcs import is_gcs_path
@@ -33,8 +33,8 @@ from shared.lib.gcs import is_gcs_path
 class Node:
   name: str
   type: str
-  vars: List[str]
-  extended_vars: List[str]
+  vars: list[str]
+  extended_vars: list[str]
 
   # For testing.
   def json(self) -> dict:
@@ -109,7 +109,7 @@ class TopicCache:
         }
     }
 
-  def get_members(self, id: str) -> List[Dict]:
+  def get_members(self, id: str) -> list[dict]:
     if id not in self.out_map:
       return []
 
@@ -128,14 +128,14 @@ class TopicCache:
       ret.append({'dcid': nid, 'name': name, 'types': [t]})
     return ret
 
-  def get_extended_svgs(self, id: str) -> List[str]:
+  def get_extended_svgs(self, id: str) -> list[str]:
     if id not in self.out_map:
       return []
     if id in _EXTENDED_SVG_OVERRIDE_MAP:
       return _EXTENDED_SVG_OVERRIDE_MAP[id]
     return [nid for nid in self.out_map[id].extended_vars]
 
-  def get_parents(self, id: str, prop: str) -> List[Dict]:
+  def get_parents(self, id: str, prop: str) -> list[dict]:
     if id not in self.in_map:
       return []
     if prop not in self.in_map[id]:
@@ -153,7 +153,7 @@ class TopicCache:
     return self.out_map[id].name
 
 
-def load_files(fpath_list: List[str], name_overrides: Dict,
+def load_files(fpath_list: list[str], name_overrides: dict,
                dc: str) -> TopicCache:
   cache_nodes = []
   for fpath in fpath_list:
@@ -190,7 +190,7 @@ def load_files(fpath_list: List[str], name_overrides: Dict,
   return TopicCache(out_map=out_map, in_map=in_map)
 
 
-def load(name_overrides: Dict) -> Dict[str, TopicCache]:
+def load(name_overrides: dict) -> dict[str, TopicCache]:
   topic_cache_map: dict[str, TopicCache] = {}
   for dc, fpath_list in TOPIC_CACHE_FILES.items():
     topic_cache_map[dc] = load_files(fpath_list, name_overrides, dc)
@@ -212,11 +212,11 @@ def _load_custom_dc_topic_cache(name_overrides: dict) -> TopicCache:
 
 
 def _get_local_custom_dc_topic_cache_path() -> str:
-  path = get_topic_cache_path()
+  path = get_custom_dc_topic_cache_path()
   if not path:
     logging.info("No Custom DC topic cache path specified.")
     return path
-  logging.info("Custom DC topic cache will be downloaded from: %s", path)
+  logging.info("Custom DC topic cache will be loaded from: %s", path)
   if is_gcs_path(path):
     return download_gcs_file(path)
   return path

@@ -41,6 +41,7 @@ _MAX_DATES_FOR_EXISTENCE = 10
 _MONTH_GRANULARITY = 'M'
 
 
+# Custom dc topics, svgs and svpgs start with "c/".
 def is_topic(sv):
   return sv.startswith("dc/topic/") or sv.startswith("c/topic/")
 

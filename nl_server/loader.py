@@ -23,7 +23,7 @@ import yaml
 from nl_server import config
 import nl_server.embeddings_map as emb_map
 from nl_server.nl_attribute_model import NLAttributeModel
-from shared.lib.custom_dc_util import get_user_data_path
+from shared.lib.custom_dc_util import get_custom_dc_user_data_path
 from shared.lib.gcs import download_gcs_file
 from shared.lib.gcs import is_gcs_path
 from shared.lib.gcs import join_gcs_path
@@ -154,7 +154,7 @@ def _maybe_update_cache(flask_env: str, nl_embeddings: emb_map.EmbeddingsMap,
 
 
 def _maybe_load_custom_dc_yaml():
-  base = get_user_data_path()
+  base = get_custom_dc_user_data_path()
   if not base:
     return None
 

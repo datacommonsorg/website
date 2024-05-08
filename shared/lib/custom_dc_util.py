@@ -26,12 +26,12 @@ def is_custom_dc() -> bool:
 
 # The path comes from:
 # https://github.com/datacommonsorg/website/blob/master/server/routes/admin/html.py#L39-L40
-def get_user_data_path() -> str:
+def get_custom_dc_user_data_path() -> str:
   return os.environ.get('USER_DATA_PATH', '')
 
 
-def get_topic_cache_path() -> str:
-  base_path = get_user_data_path()
+def get_custom_dc_topic_cache_path() -> str:
+  base_path = get_custom_dc_user_data_path()
   if not base_path:
     return base_path
   if is_gcs_path(base_path):
@@ -39,8 +39,8 @@ def get_topic_cache_path() -> str:
   return os.path.join(base_path, _TOPIC_CACHE_PATH)
 
 
-def is_gcs_user_data_path() -> bool:
-  path = get_user_data_path()
+def is_gcs_custom_dc_user_data_path() -> bool:
+  path = get_custom_dc_user_data_path()
   return path and is_gcs_path(path)
 
 
@@ -48,4 +48,4 @@ def is_gcs_user_data_path() -> bool:
 # An anonymous client should only be used for custom DCs but not when user data
 # itself is in GCS.
 def use_anonymous_gcs_client() -> bool:
-  return is_custom_dc() and not is_gcs_user_data_path()
+  return is_custom_dc() and not is_gcs_custom_dc_user_data_path()
