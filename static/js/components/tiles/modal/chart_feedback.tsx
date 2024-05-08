@@ -94,8 +94,8 @@ export function ChartFeedback(props: ChartFeedbackPropsType): JSX.Element {
               onClick={() => {
                 setButtonState({
                   ...buttonState,
-                  thumbUpSelected: !buttonState.thumbUpSelected,
                   thumbDownSelected: false,
+                  thumbUpSelected: !buttonState.thumbUpSelected,
                 });
               }}
             >

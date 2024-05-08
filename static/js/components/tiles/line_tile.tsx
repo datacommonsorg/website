@@ -166,12 +166,12 @@ export function LineTile(props: LineTilePropType): JSX.Element {
           colors: props.colors,
           endDate: props.endDate,
           header: props.title,
-          placeNameProp: props.placeNameProp,
-          places: [props.place.dcid].concat(props.comparisonPlaces || []),
           parentPlace: props.enclosedPlaceType && props.place.dcid,
           perCapita: props.statVarSpec
             .map((sv) => (sv.denom ? sv.statVar : ""))
             .filter((sv) => !!sv),
+          placeNameProp: props.placeNameProp,
+          places: [props.place.dcid].concat(props.comparisonPlaces || []),
           sources: props.sources,
           startDate: props.startDate,
           svgChartHeight: props.svgChartHeight?.toString(),
