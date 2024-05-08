@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Spinner } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
@@ -44,7 +44,7 @@ interface ChartTileContainerProp {
   replacementStrings: ReplacementStrings;
   // Whether or not to allow chart download action.
   allowDownload: boolean;
-  // callback function for getting the chart data as a csv. Only used for
+  // Callback function for getting the chart data as a csv. Only used for
   // embedding.
   getDataCsv?: () => Promise<string>;
   // Extra classes to add to the container.
@@ -143,7 +143,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     </div>
   );
 
-  // Handle when chart download is clicked .
+  // Handle when "download" is clicked.
   function handleDownload(): void {
     if (!downloadModalElement.current) {
       return null;

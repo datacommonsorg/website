@@ -338,11 +338,12 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           chartType: "map",
           chartAttributes: {
             allowZoom: props.allowZoom,
+            apiRoot: props.apiRoot,
             childPlaceType: props.enclosedPlaceType,
             colors: props.colors,
             geoJsonProp: props.geoJsonProp,
             header: props.title,
-            parentPlaces: props.parentPlaces.map((place) => place.dcid),
+            parentPlaces: props.parentPlaces?.map((place) => place.dcid),
             parentPlace: props.place.dcid,
             placeNameProp: props.placeNameProp,
             perCapita: props.statVarSpec.denom ? props.statVarSpec.statVar : "",

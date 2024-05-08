@@ -183,6 +183,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               chartEmbedSpec={{
                 chartType: "ranking",
                 chartAttributes: {
+                  apiRoot: props.apiRoot,
                   childPlaceType: props.enclosedPlaceType,
                   hideFooter: props.hideFooter,
                   highestTitle: props.rankingMetadata.highestTitle,

@@ -130,6 +130,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       chartEmbedSpec={{
         chartType: "pie",
         chartAttributes: {
+          apiRoot: props.apiRoot,
           colors: props.colors,
           donut: !props.pie,
           header: props.title,

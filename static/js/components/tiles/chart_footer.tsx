@@ -32,11 +32,13 @@ import {
 const FOOTNOTE_CHAR_LIMIT = 150;
 
 interface ChartFooterPropType {
+  // Callback to run after "download" is clicked
   handleDownload?: () => void;
   // Link to explore more. Only show explore button if this object is non-empty.
   exploreLink?: { displayText: string; url: string };
-  // Show branding "Powered by Data Commons" line.
+  // Whether to show branding "Powered by Data Commons" line.
   showBranding?: boolean;
+  // Child nodes of the footer
   children?: React.ReactNode;
   // Text to show above buttons
   footnote?: string;

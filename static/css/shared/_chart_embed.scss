@@ -58,11 +58,11 @@
     }
 
     .modal-body {
-      display: flex;
-      flex-grow: 1;
-      flex-direction: row;
-      gap: 16px;
       align-items: center;
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+      gap: 16px;
       padding: 0;
       width: 100%;
 

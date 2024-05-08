@@ -15,17 +15,18 @@
  */
 
 import axios from "axios";
-import React, { useCallback, useContext, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { intl } from "../../../i18n/i18n";
-import { NlSessionContext } from "../../../shared/context";
 import { randDomId } from "../../../shared/util";
 import {
   CHART_FEEDBACK_SENTIMENT,
   getNlChartId,
-} from "../../../utils/nl_interface_utils";
+} from "../../../utils/explore_utils";
 import { IconButton } from "../../form_components/icon_buttons";
+
+/** Modal for submitting feedback about the chart in an NL context */
 
 interface ButtonStateType {
   thumbUpSelected: boolean;
@@ -40,9 +41,11 @@ interface ButtonStateType {
 interface ChartFeedbackPropsType {
   // Id of the chart feedback is about
   chartId: string;
+  // Containing HTML element to attach modal to
   container?: HTMLElement;
   // Whether modal is open or closed
   isOpen: boolean;
+  // NL session ID to include in feedback
   nlSessionId: string;
   // function to run when modal is toggled open or closed
   toggleCallback: () => void;
@@ -249,6 +252,13 @@ export function ChartFeedback(props: ChartFeedbackPropsType): JSX.Element {
   );
 }
 
+/**
+ * Submit feedback to nl/feedback API endpoint
+ * @param state which buttons have been selected
+ * @param comment free-form comment left by the user
+ * @param nlSessionId NL session ID user was in
+ * @param chartId ID of the chart the feedback is about
+ */
 function submitFeedback(
   state: ButtonStateType,
   comment: string,

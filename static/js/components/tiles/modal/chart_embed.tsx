@@ -22,6 +22,11 @@ import { intl } from "../../../i18n/i18n";
 import { randDomId } from "../../../shared/util";
 import { CopyButton, IconButton } from "../../form_components/icon_buttons";
 
+/**
+ * Modal with code user can use to embed chart on their own website
+ * as a web component
+ * */
+
 export interface ChartEmbedSpec {
   // Allowed chart types for <datacommons-{chart type}> web components
   chartType:
@@ -36,6 +41,7 @@ export interface ChartEmbedSpec {
   // web-component field -> values for the chart
   chartAttributes: Record<string, string | string[] | number | boolean>;
 }
+
 interface ChartEmbedPropsType {
   // properties of the chart being embedded, used to generate embed code
   chartEmbedSpec?: ChartEmbedSpec;
@@ -72,14 +78,14 @@ export function ChartEmbed(props: ChartEmbedPropsType): JSX.Element {
     );
   }
 
-  const embedCode = getEmbedCode(props.chartEmbedSpec);
-
   if (
     !props.chartEmbedSpec.chartType ||
     !props.chartEmbedSpec.chartAttributes
   ) {
     return null;
   }
+
+  const embedCode = getEmbedCode(props.chartEmbedSpec);
 
   return (
     <Modal
@@ -115,12 +121,18 @@ export function ChartEmbed(props: ChartEmbedPropsType): JSX.Element {
   );
 }
 
+/**
+ * Generate the HTML code a user could copy and paste into their
+ * webpage to render a chart as a web component
+ * @param chartEmbedSpec chartType and fields to include in web component
+ * @returns web component syntax to display in the modal
+ */
 function getEmbedCode(chartEmbedSpec: ChartEmbedSpec) {
   return `  <!-- Include this line at in the <head> tag of your webpage -->
   <script src="https://datacommons.org/datacommons.js"></script>
 
   <!-- Include these lines in the <body> of your webpage -->
-  <datacommons-${chartEmbedSpec.chartType}>
+  <datacommons-${chartEmbedSpec.chartType}
   ${Object.entries(chartEmbedSpec.chartAttributes)
     .map(([key, value]) => {
       if (!_.isEmpty(value)) {
@@ -131,7 +143,7 @@ function getEmbedCode(chartEmbedSpec: ChartEmbedSpec) {
         return `\t${key}="${values.join(" ")}"`;
       }
     })
-    .filter((attr) => !!attr)
+    .filter((str) => !!str)
     .join("\n")}
   ></datacommons-${chartEmbedSpec.chartType}>`;
 }

@@ -173,6 +173,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       chartEmbedSpec={{
         chartType: "scatter",
         chartAttributes: {
+          apiRoot: props.apiRoot,
           childPlaceType: props.enclosedPlaceType,
           header: props.title,
           highlightBottomLeft: props.scatterTileSpec.highlightBottomLeft,

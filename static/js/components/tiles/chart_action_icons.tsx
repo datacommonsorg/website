@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * Footer for charts in tiles.
+ * Icons for downloading, linking, embedding, and ranking in chart footer.
  */
 
 import React, { useContext, useEffect, useRef, useState } from "react";
@@ -31,6 +31,7 @@ import {
 import { ChartEmbed, ChartEmbedSpec } from "./modal/chart_embed";
 import { ChartFeedback } from "./modal/chart_feedback";
 
+/** Component for a single action/icon */
 interface ActionIconPropType {
   // Container element the tooltip should attach to
   container?: HTMLElement;
@@ -83,8 +84,10 @@ function ActionIcon(props: ActionIconPropType) {
   );
 }
 
+/** Component for a row of icons to place in chart footer */
+
 interface ChartActionsPropType {
-  // chart specs used for embedding
+  // Chart specs used for embedding
   chartEmbedSpec?: ChartEmbedSpec;
   // Containing HTML element to attach tooltips/modals to
   container?: HTMLElement;

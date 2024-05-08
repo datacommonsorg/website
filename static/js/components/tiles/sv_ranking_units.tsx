@@ -141,6 +141,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   id={props.tileId}
                   handleDownload={!props.errorMsg && handleDownloadCallback}
                   exploreLink={!props.errorMsg && getExploreLink(props, true)}
+                  chartEmbedSpec={props.chartEmbedSpec}
                 />
               )}
             </ChartFooter>
@@ -173,6 +174,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                     id={props.tileId}
                     handleDownload={() => handleDownload(true, chartTitle)}
                     exploreLink={getExploreLink(props, true)}
+                    chartEmbedSpec={props.chartEmbedSpec}
                   />
                 </ChartFooter>
               )}

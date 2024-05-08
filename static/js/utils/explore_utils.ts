@@ -46,7 +46,7 @@ export const CHART_FEEDBACK_SENTIMENT = {
   MATCHES_QUERY: "MATCHES_QUERY",
   // The chart does not match the query
   NOT_MATCH_QUERY: "DOES_NOT_MATCH_QUERY",
-  // Some other type of feedback, user should provided freeform comment for
+  // Some other type of feedback (user should provided freeform comment)
   OTHER: "OTHER",
 };
 

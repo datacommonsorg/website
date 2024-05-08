@@ -74,10 +74,11 @@ interface ButtonProps {
   label: string;
   // Handler for what happens when button is clicked
   onClick: () => void;
+  // Whether to use primary button styling instead of default styling
   primary?: boolean;
 }
 
-function IconButton(props: ButtonProps): JSX.Element {
+export function IconButton(props: ButtonProps): JSX.Element {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const timerRef = useRef<NodeJS.Timeout>(null);
 
@@ -99,6 +100,7 @@ function IconButton(props: ButtonProps): JSX.Element {
     <StyledButton
       onClick={onClickHandler}
       className={`button ${props.class || ""}`}
+      $primary={props.primary}
     >
       {props.icon && (
         <span className="material-symbols-outlined icon">

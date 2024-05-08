@@ -20,7 +20,6 @@
 
 import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import { ChartSortOption } from "@datacommonsorg/web-components";
-import { setMaxIdleHTTPParsers } from "http";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -156,6 +155,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       chartEmbedSpec={{
         chartType: "bar",
         chartAttributes: {
+          apiRoot: props.apiRoot,
           barHeight: props.barHeight,
           childPlaceType:
             "enclosedPlaceType" in props && props.enclosedPlaceType,

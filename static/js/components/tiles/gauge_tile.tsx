@@ -132,6 +132,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       chartEmbedSpec={{
         chartType: "gauge",
         chartAttributes: {
+          apiRoot: props.apiRoot,
           colors: props.colors,
           header: props.title,
           max: props.range.max,

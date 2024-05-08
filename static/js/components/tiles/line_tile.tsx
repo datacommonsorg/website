@@ -162,6 +162,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       chartEmbedSpec={{
         chartType: "line",
         chartAttributes: {
+          apiRoot: props.apiRoot,
           childPlaceType: props.enclosedPlaceType,
           colors: props.colors,
           endDate: props.endDate,
