@@ -200,10 +200,10 @@ class ChartDownload extends React.Component<
       .text(
         intl.formatMessage(
           {
-            id: "embed_citation",
             defaultMessage: "Data from {sources} via Data Commons",
             description:
               'Used to cite where the data is from, but that it was provided through Data Commons. For example, "Data from {nytimes.com} via Data Commons" or "Data from {census.gov, nytimes.com} via Data Commons". Please keep the name "Data Commons".',
+            id: "embed_citation",
           },
           {
             sources: this.state.sources
@@ -284,10 +284,10 @@ class ChartDownload extends React.Component<
       .text(
         intl.formatMessage(
           {
-            id: "embed_citation",
             defaultMessage: "Data from {sources} via Data Commons",
             description:
               'Used to cite where the data is from, but that it was provided through Data Commons. For example, "Data from {nytimes.com} via Data Commons" or "Data from {census.gov, nytimes.com} via Data Commons". Please keep the name "Data Commons".',
+            id: "embed_citation",
           },
           {
             sources: this.state.sources
@@ -403,10 +403,10 @@ class ChartDownload extends React.Component<
       >
         <ModalHeader toggle={this.toggle}>
           {intl.formatMessage({
-            id: "download_export_chart_link",
             defaultMessage: "Download this chart",
             description:
               "Text for the hyperlink text that will let users download data and download charts.",
+            id: "download_export_chart_link",
           })}
         </ModalHeader>
         <ModalBody>

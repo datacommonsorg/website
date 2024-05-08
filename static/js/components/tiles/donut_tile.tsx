@@ -128,7 +128,6 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       useChartActionIcons={props.useChartActionIcons}
       showBrandingInFooter={props.showBrandingInFooter}
       chartEmbedSpec={{
-        chartType: "pie",
         chartAttributes: {
           apiRoot: props.apiRoot,
           colors: props.colors,
@@ -139,6 +138,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
           subheader: props.subtitle,
           variables: props.statVarSpec.map((sv) => sv.statVar),
         },
+        chartType: "pie",
       }}
     >
       <div

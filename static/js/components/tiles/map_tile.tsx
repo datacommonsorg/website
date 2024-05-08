@@ -335,7 +335,6 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       // TODO: Also allow embeds on maps specified using dataSpec
       chartEmbedSpec={
         !props.dataSpecs && {
-          chartType: "map",
           chartAttributes: {
             allowZoom: props.allowZoom,
             apiRoot: props.apiRoot,
@@ -350,6 +349,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
             sources: props.sources,
             variable: props.statVarSpec.statVar,
           },
+          chartType: "map",
         }
       }
     >

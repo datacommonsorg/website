@@ -171,7 +171,6 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       useChartActionIcons={props.useChartActionIcons}
       showBrandingInFooter={props.showBrandingInFooter}
       chartEmbedSpec={{
-        chartType: "scatter",
         chartAttributes: {
           apiRoot: props.apiRoot,
           childPlaceType: props.enclosedPlaceType,
@@ -190,6 +189,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
             .filter((sv) => !!sv),
           variables: props.statVarSpec.map((sv) => sv.statVar),
         },
+        chartType: "scatter",
       }}
     >
       <div className="scatter-tile-content">

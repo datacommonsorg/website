@@ -130,7 +130,6 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       useChartActionIcons={props.useChartActionIcons}
       showBrandingInFooter={props.showBrandingInFooter}
       chartEmbedSpec={{
-        chartType: "gauge",
         chartAttributes: {
           apiRoot: props.apiRoot,
           colors: props.colors,
@@ -141,6 +140,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
           sources: props.sources,
           variable: props.statVarSpec.statVar,
         },
+        chartType: "gauge",
       }}
     >
       <div

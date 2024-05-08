@@ -28,6 +28,8 @@ import { CopyButton, IconButton } from "../../form_components/icon_buttons";
  * */
 
 export interface ChartEmbedSpec {
+  // web-component field -> values for the chart
+  chartAttributes: Record<string, string | string[] | number | boolean>;
   // Allowed chart types for <datacommons-{chart type}> web components
   chartType:
     | "bar"
@@ -38,8 +40,6 @@ export interface ChartEmbedSpec {
     | "pie"
     | "ranking"
     | "scatter";
-  // web-component field -> values for the chart
-  chartAttributes: Record<string, string | string[] | number | boolean>;
 }
 
 interface ChartEmbedPropsType {
@@ -97,10 +97,10 @@ export function ChartEmbed(props: ChartEmbedPropsType): JSX.Element {
     >
       <ModalHeader toggle={props.toggleCallback}>
         {intl.formatMessage({
-          id: "embed_export_chart_link",
           defaultMessage: "Embed this chart",
           description:
             "Text for the hyperlink text that will let users embed the chart in their website.",
+          id: "embed_export_chart_link",
         })}
       </ModalHeader>
       <ModalBody>
@@ -127,7 +127,7 @@ export function ChartEmbed(props: ChartEmbedPropsType): JSX.Element {
  * @param chartEmbedSpec chartType and fields to include in web component
  * @returns web component syntax to display in the modal
  */
-function getEmbedCode(chartEmbedSpec: ChartEmbedSpec) {
+function getEmbedCode(chartEmbedSpec: ChartEmbedSpec): string {
   return `  <!-- Include this line at in the <head> tag of your webpage -->
   <script src="https://datacommons.org/datacommons.js"></script>
 

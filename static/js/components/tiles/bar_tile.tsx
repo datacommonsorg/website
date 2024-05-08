@@ -153,7 +153,6 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       useChartActionIcons={props.useChartActionIcons}
       showBrandingInFooter={props.showBrandingInFooter}
       chartEmbedSpec={{
-        chartType: "bar",
         chartAttributes: {
           apiRoot: props.apiRoot,
           barHeight: props.barHeight,
@@ -178,6 +177,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
           variables: props.variables.map((sv) => sv.statVar),
           yAxisMargin: props.yAxisMargin,
         },
+        chartType: "bar",
       }}
     >
       <div

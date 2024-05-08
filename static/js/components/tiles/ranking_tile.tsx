@@ -181,7 +181,6 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               footnote={props.footnote}
               useChartActionIcons={props.useChartActionIcons}
               chartEmbedSpec={{
-                chartType: "ranking",
                 chartAttributes: {
                   apiRoot: props.apiRoot,
                   childPlaceType: props.enclosedPlaceType,
@@ -196,6 +195,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                   sources: props.sources,
                   variables: props.variables.map((sv) => sv.statVar),
                 },
+                chartType: "ranking",
               }}
             />
           );

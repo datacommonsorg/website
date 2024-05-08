@@ -160,7 +160,6 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       useChartActionIcons={props.useChartActionIcons}
       showBrandingInFooter={props.showBrandingInFooter}
       chartEmbedSpec={{
-        chartType: "line",
         chartAttributes: {
           apiRoot: props.apiRoot,
           childPlaceType: props.enclosedPlaceType,
@@ -179,6 +178,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
           timeScale: props.timeScale,
           variables: props.statVarSpec.map((sv) => sv.statVar),
         },
+        chartType: "line",
       }}
     >
       <div

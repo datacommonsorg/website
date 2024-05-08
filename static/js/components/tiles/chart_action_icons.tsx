@@ -38,14 +38,14 @@ interface ActionIconPropType {
   // Name of "Material Icons Outlined" icon to show
   icon: string;
   // Callback to run when icon is clicked
-  onClickHandler: (event) => void;
+  onClickHandler: (event: React.MouseEvent<HTMLElement>) => void;
   // What to display in a tooltip on hover
   tooltipContent: string | JSX.Element;
   // If icon is being used as a link, the url to go to
   url?: string;
 }
 
-function ActionIcon(props: ActionIconPropType) {
+function ActionIcon(props: ActionIconPropType): JSX.Element {
   const linkRef = useRef<HTMLAnchorElement>();
   const [linkIsReady, setLinkIsReady] = useState(false);
 
