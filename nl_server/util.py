@@ -37,3 +37,10 @@ def is_gcs_user_data_path() -> bool:
 # itself is in GCS.
 def use_anonymous_gcs_client() -> bool:
   return is_custom_dc() and not is_gcs_user_data_path()
+
+
+# Returns true if VERTEXAI type models and VERTEXAI type stores are allowed
+def allow_vertex_ai() -> bool:
+  return os.environ.get('FLASK_ENV') in [
+      'local', 'test', 'integration_test', 'autopush'
+  ]
