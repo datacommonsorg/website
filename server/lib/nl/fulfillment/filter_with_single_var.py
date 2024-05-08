@@ -15,9 +15,9 @@
 import copy
 from typing import List
 
-from server.lib.explore.existence import get_sv_place_latest_date
 from server.lib.nl.common import constants
 from server.lib.nl.common import rank_utils
+from server.lib.nl.common.existence_util import get_sv_place_latest_date
 from server.lib.nl.common.utils import get_place_key
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType

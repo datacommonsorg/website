@@ -20,7 +20,7 @@
 
 import { Node } from "../../shared/api_response_types";
 import { NamedNode, NamedTypedPlace } from "../../shared/types";
-import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import { SubjectPageConfig } from "../subject_page_proto_types";
 
 export interface PlaceFallback {
   origStr?: string;

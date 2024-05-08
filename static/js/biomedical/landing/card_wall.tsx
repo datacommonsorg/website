@@ -77,6 +77,7 @@ function CardStack(props: CardStackProps): JSX.Element {
       <CardContainer key={`CardContainer-${index}`}>
         <Card
           key={`Card-${index}`}
+          openInNewTab={card.openInNewTab}
           tag={card.tag}
           theme={card.theme}
           text={card.text}

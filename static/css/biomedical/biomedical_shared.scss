@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,27 +14,31 @@
  * limitations under the License.
  */
 
-/**
- * Entrypoint for NL interface.
- */
+/** Styles shared across the Biomedical DC site */
+@import "./_biomedical_colors";
 
-import React from "react";
-import ReactDOM from "react-dom";
+body {
+  background-color: var(--main-content-background-color);
+}
 
-import { loadLocaleData } from "../../i18n/i18n";
-import { App } from "./app";
+/* landing page needs a white background */
+#page-bio_landing body {
+  background-color: white;
+}
 
-window.onload = () => {
-  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
-    () => {
-      renderPage();
-    }
-  );
-};
+a {
+  color: var(--text-link-color);
 
-function renderPage(): void {
-  ReactDOM.render(
-    React.createElement(App),
-    document.getElementById("dc-nl-interface")
-  );
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.axis-label {
+  text-anchor: middle;
+  font-size: 12px;
+}
+
+.legend-label {
+  font-size: 10px;
 }
