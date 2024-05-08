@@ -21,7 +21,7 @@ namespace:
 
 website:
   flaskEnv: unsdg_staging
-  replicas: 4
+  replicas: 2
   redis:
     enabled: false
 
@@ -30,6 +30,7 @@ serviceAccount:
 
 ingress:
   enabled: true
+  enableMixer: true
 
 mixer:
   useCustomBigtable: true
@@ -42,17 +43,18 @@ serviceGroups:
   svg:
     replicas: 2
   node:
-    replicas: 5
+    replicas: 2
   observation:
-    replicas: 5
+    replicas: 2
   default:
-    replicas: 3
+    replicas: 2
 
 kgStoreConfig:
   customBigtableInfo: |
     project: datcom-un-staging
     instance: dc-graph
     tables:
+      - ilo_2024_05_06_15_04_35
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
