@@ -103,7 +103,7 @@ export function IconButton(props: ButtonProps): JSX.Element {
       $primary={props.primary}
     >
       {props.icon && (
-        <span className="material-symbols-outlined icon">
+        <span className="material-icons-outlined icon">
           {(isClicked && props.iconWhenClicked) || props.icon}
         </span>
       )}
