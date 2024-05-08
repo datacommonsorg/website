@@ -44,6 +44,7 @@ import { getPlaceNames } from "../../utils/place_utils";
 import { formatPropertyValue } from "../../utils/property_value_utils";
 import { TileSources } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
+import { ChartActions } from "./chart_action_icons";
 import { ChartFooter } from "./chart_footer";
 import { ChartDownload } from "./modal/chart_download";
 
@@ -212,20 +213,24 @@ export const TopEventTile = memo(function TopEventTile(
               </tbody>
             </table>
           )}
-          <ChartFooter
-            handleDownload={showChart ? () => handleDownload(topEvents) : null}
-            exploreLink={
-              props.showExploreMore
-                ? {
-                    displayText: "Disaster Tool",
-                    url: `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`,
-                  }
-                : null
-            }
-          />
+          <ChartFooter>
+            <ChartActions
+              id={props.id}
+              handleDownload={
+                showChart ? () => handleDownload(topEvents) : null
+              }
+              exploreLink={
+                props.showExploreMore
+                  ? {
+                      displayText: "Disaster Tool",
+                      url: `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`,
+                    }
+                  : null
+              }
+            />
+          </ChartFooter>
         </div>
       </div>
-      <NlChartFeedback id={props.id} />
       <ChartDownload ref={downloadModalElement} />
     </div>
   );
