@@ -29,13 +29,13 @@ import { IconButton } from "../../form_components/icon_buttons";
 /** Modal for submitting feedback about the chart in an NL context */
 
 interface ButtonStateType {
-  thumbUpSelected: boolean;
-  thumbDownSelected: boolean;
-  matchesMyQuerySelected: boolean;
-  doesNotMatchMyQuerySelected: boolean;
   dataSeemsOffSelected: boolean;
-  positiveOtherSelected: boolean;
+  doesNotMatchMyQuerySelected: boolean;
+  matchesMyQuerySelected: boolean;
   negativeOtherSelected: boolean;
+  positiveOtherSelected: boolean;
+  thumbDownSelected: boolean;
+  thumbUpSelected: boolean;
 }
 
 interface ChartFeedbackPropsType {
@@ -55,13 +55,13 @@ export function ChartFeedback(props: ChartFeedbackPropsType): JSX.Element {
   const modalId = randDomId();
   const [textareaValue, setTextareaValue] = useState("");
   const [buttonState, setButtonState] = useState<ButtonStateType>({
-    thumbUpSelected: false,
-    thumbDownSelected: false,
-    matchesMyQuerySelected: false,
-    doesNotMatchMyQuerySelected: false,
     dataSeemsOffSelected: false,
-    positiveOtherSelected: false,
+    doesNotMatchMyQuerySelected: false,
+    matchesMyQuerySelected: false,
     negativeOtherSelected: false,
+    positiveOtherSelected: false,
+    thumbDownSelected: false,
+    thumbUpSelected: false,
   });
 
   if (!props.nlSessionId) {
@@ -78,10 +78,10 @@ export function ChartFeedback(props: ChartFeedbackPropsType): JSX.Element {
     >
       <ModalHeader toggle={props.toggleCallback}>
         {intl.formatMessage({
-          id: "embed_export_chart_link",
           defaultMessage: "Rating module",
           description:
             "Text for the hyperlink text that will let users rate and leave feedback about a chart.",
+          id: "embed_export_chart_link",
         })}
       </ModalHeader>
       <ModalBody>
