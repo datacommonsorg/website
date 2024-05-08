@@ -17,6 +17,7 @@ from typing import List
 
 from google.cloud import aiplatform
 from google.cloud import aiplatform_v1
+
 from nl_server.config import VertexAIIndexInfo
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
