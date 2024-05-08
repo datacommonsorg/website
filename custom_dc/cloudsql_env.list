@@ -17,7 +17,7 @@ DB_NAME=datacommons
 DB_USER=
 # The password of the user specified in DB_USER.
 DB_PASS=
-# If used, the Redis Memorystore instance IP address.
+# (Optional) If used, the Redis Memorystore instance IP address.
 REDIS_HOST=
 # (Optional) Secret token to authorize users to perform /admin page operations.
 ADMIN_SECRET=
