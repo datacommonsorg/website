@@ -266,13 +266,13 @@ function submitFeedback(
   chartId: string
 ): void {
   const feedbackData = {
+    categories: [],
     chartId: getNlChartId(chartId),
     comment,
   };
 
   if (state.thumbDownSelected) {
     feedbackData["sentiment"] = CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN;
-    feedbackData["categories"] = [];
 
     if (state.doesNotMatchMyQuerySelected) {
       feedbackData["categories"].push(CHART_FEEDBACK_SENTIMENT.NOT_MATCH_QUERY);
@@ -293,7 +293,7 @@ function submitFeedback(
     feedbackData["categories"].push(CHART_FEEDBACK_SENTIMENT.OTHER);
   }
 
-  axios.post("/api/nl/feedback", {
+  axios.post("/api/explore/feedback", {
     feedbackData,
     sessionId: nlSessionId,
   });
