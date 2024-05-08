@@ -16,9 +16,52 @@
                     "type": "MAP"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
               }
             ],
             "title": "Household Median Income in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Household Median Income in Placer County",
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income"
           },
           {
             "columns": [
@@ -116,9 +159,52 @@
                     "type": "MAP"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
               }
             ],
             "title": "Individual Median Income in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Income in Placer County",
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income"
           },
           {
             "columns": [
@@ -268,7 +354,656 @@
       "place_type": "County"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {
+      "CensusTract": [
+        {
+          "dcid": "geoId/06061020104",
+          "name": "Census Tract 201.04, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020105",
+          "name": "Census Tract 201.05, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020106",
+          "name": "Census Tract 201.06, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020107",
+          "name": "Census Tract 201.07, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020200",
+          "name": "Census Tract 202, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020300",
+          "name": "Census Tract 203, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020401",
+          "name": "Census Tract 204.01, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020402",
+          "name": "Census Tract 204.02, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020501",
+          "name": "Census Tract 205.01, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020502",
+          "name": "Census Tract 205.02, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020601",
+          "name": "Census Tract 206.01, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020602",
+          "name": "Census Tract 206.02, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020604",
+          "name": "Census Tract 206.04, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020605",
+          "name": "Census Tract 206.05, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020606",
+          "name": "Census Tract 206.06, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020710",
+          "name": "Census Tract 207.10, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020711",
+          "name": "Census Tract 207.11, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020712",
+          "name": "Census Tract 207.12, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020713",
+          "name": "Census Tract 207.13, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020714",
+          "name": "Census Tract 207.14, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020715",
+          "name": "Census Tract 207.15, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020717",
+          "name": "Census Tract 207.17, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020805",
+          "name": "Census Tract 208.05, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020806",
+          "name": "Census Tract 208.06, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020901",
+          "name": "Census Tract 209.01, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020908",
+          "name": "Census Tract 209.08, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021003",
+          "name": "Census Tract 210.03, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021034",
+          "name": "Census Tract 210.34, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021035",
+          "name": "Census Tract 210.35, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021037",
+          "name": "Census Tract 210.37, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021038",
+          "name": "Census Tract 210.38, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021039",
+          "name": "Census Tract 210.39, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021040",
+          "name": "Census Tract 210.40, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021043",
+          "name": "Census Tract 210.43, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021044",
+          "name": "Census Tract 210.44, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021045",
+          "name": "Census Tract 210.45, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021046",
+          "name": "Census Tract 210.46, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021103",
+          "name": "Census Tract 211.03, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021106",
+          "name": "Census Tract 211.06, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021108",
+          "name": "Census Tract 211.08, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021109",
+          "name": "Census Tract 211.09, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021122",
+          "name": "Census Tract 211.22, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021123",
+          "name": "Census Tract 211.23, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021128",
+          "name": "Census Tract 211.28, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021129",
+          "name": "Census Tract 211.29, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021130",
+          "name": "Census Tract 211.30, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021131",
+          "name": "Census Tract 211.31, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021203",
+          "name": "Census Tract 212.03, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021204",
+          "name": "Census Tract 212.04, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021304",
+          "name": "Census Tract 213.04, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        }
+      ]
+    },
+    "childTopics": [
+      {
+        "dcid": "dc/topic/IndividualIncomeDistribution",
+        "name": "Individual Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income by Industry",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HouseholdIncomeDistribution",
+        "name": "Household Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Mean_Income_Household": {
+        "householdType": [
+          "Mean_Income_Household_FamilyHousehold",
+          "Mean_Income_Household_MarriedCoupleFamilyHousehold",
+          "Mean_Income_Household_NonfamilyHousehold"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Income",
+        "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/06001",
+        "name": "Alameda",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36005",
+        "name": "Bronx",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06013",
+        "name": "Contra Costa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/17031",
+        "name": "Cook",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/39035",
+        "name": "Cuyahoga",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48113",
+        "name": "Dallas",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12031",
+        "name": "Duval",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08041",
+        "name": "El Paso",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/51059",
+        "name": "Fairfax",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/13121",
+        "name": "Fulton",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48201",
+        "name": "Harris",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12057",
+        "name": "Hillsborough",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/15003",
+        "name": "Honolulu",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08059",
+        "name": "Jefferson",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06029",
+        "name": "Kern",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/53033",
+        "name": "King",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06037",
+        "name": "Los Angeles",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/04013",
+        "name": "Maricopa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/37119",
+        "name": "Mecklenburg",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12086",
+        "name": "Miami-Dade",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06059",
+        "name": "Orange",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36081",
+        "name": "Queens",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06065",
+        "name": "Riverside",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06071",
+        "name": "San Bernardino",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06073",
+        "name": "San Diego",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06075",
+        "name": "San Francisco",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06085",
+        "name": "Santa Clara",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/24047",
+        "name": "Worcester",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
+  "userMessage": "",
   "userMessages": []
 }

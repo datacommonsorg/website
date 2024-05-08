@@ -263,8 +263,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
 
   if os.environ.get('ENABLE_EVAL_TOOL') == 'true':
-    import shared.model.loader as model_loader
-    app.config['VERTEX_AI_MODELS'] = model_loader.load()
+    app.config['VERTEX_AI_MODELS'] = libutil.get_vertex_ai_models()
 
   lib_cache.cache.init_app(app)
   lib_cache.model_cache.init_app(app)

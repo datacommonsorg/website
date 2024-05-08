@@ -391,7 +391,7 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
                     ],
-                    "title": "Annual Emissions: Waste Dispotsal Treatment and Recovery in Fort Bend County",
+                    "title": "Annual Emissions: Waste Disposal Treatment and Recovery in Fort Bend County",
                     "type": "LINE"
                   }
                 ]
@@ -399,18 +399,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Annual Emissions: Waste Dispotsal Treatment and Recovery in Fort Bend County",
+                    "description": "Annual Emissions: Waste Disposal Treatment and Recovery in Fort Bend County",
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
                     ],
-                    "title": "Annual Emissions: Waste Dispotsal Treatment and Recovery in Fort Bend County",
+                    "title": "Annual Emissions: Waste Disposal Treatment and Recovery in Fort Bend County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Emissions: Waste Dispotsal Treatment and Recovery"
+            "title": "Annual Emissions: Waste Disposal Treatment and Recovery"
           },
           {
             "columns": [
@@ -500,7 +500,7 @@
             "statVar": "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
           },
           "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery": {
-            "name": "Annual Emissions: Waste Dispotsal Treatment and Recovery",
+            "name": "Annual Emissions: Waste Disposal Treatment and Recovery",
             "statVar": "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
           },
           "Annual_Amount_Emissions_SCC_27_NaturalSources": {
@@ -682,6 +682,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
+  "userMessage": "Sorry, there were no relevant statistics for Houston. See results for Fort Bend County.",
   "userMessages": [
     "Sorry, there were no relevant statistics for Houston. See results for Fort Bend County."
   ]

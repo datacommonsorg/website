@@ -19,7 +19,6 @@
 
 from typing import List
 
-from server.lib.explore.params import Params
 from server.lib.nl.common import constants
 from server.lib.nl.common import serialize
 import server.lib.nl.common.utils as utils
@@ -30,6 +29,7 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 import server.lib.nl.detection.utils as dutils
+from server.lib.nl.explore.params import Params
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 from server.lib.nl.fulfillment.utils import get_default_contained_in_place
 import server.lib.nl.fulfillment.utils as futils

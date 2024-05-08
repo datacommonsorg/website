@@ -1210,7 +1210,7 @@
             "statVar": "Count_Person_5OrMoreYears_ScandinavianLanguagesSpokenAtHome"
           },
           "Count_Person_5OrMoreYears_SerboCroatianSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Serbo Croatian Spoken At Home",
+            "name": "Population: Serbo-Croatian Spoken At Home",
             "statVar": "Count_Person_5OrMoreYears_SerboCroatianSpokenAtHome"
           },
           "Count_Person_5OrMoreYears_SpanishSpokenAtHome_multiple_place_bar_block": {
@@ -1954,5 +1954,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
+  "userMessage": "",
   "userMessages": []
 }

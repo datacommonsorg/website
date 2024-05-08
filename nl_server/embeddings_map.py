@@ -17,10 +17,13 @@ from typing import Dict, List
 
 from nl_server.config import DEFAULT_INDEX_TYPE
 from nl_server.config import EmbeddingsIndex
+from nl_server.config import load
+from nl_server.config import ModelType
 from nl_server.config import StoreType
 from nl_server.embeddings import Embeddings
 from nl_server.embeddings import EmbeddingsModel
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
+from nl_server.model.vertex_ai import VertexAIModel
 from nl_server.store.memory import MemoryEmbeddingsStore
 from nl_server.util import is_custom_dc
 
@@ -30,15 +33,22 @@ from nl_server.util import is_custom_dc
 #
 class EmbeddingsMap:
 
-  def __init__(self, indexes: List[EmbeddingsIndex]):
+  # Input is the in-memory representation of `embeddings.yaml` structure.
+  def __init__(self, embeddings_dict: dict[str, dict[str, str]]):
     self.embeddings_map: dict[str, Embeddings] = {}
 
+    indexes: List[EmbeddingsIndex] = load(embeddings_dict)
     # Pre-load models once.
     self.name2model: Dict[str, EmbeddingsModel] = {}
-    model2path = {idx.model_name: idx.model_local_path for idx in indexes}
-    for model_name, model_path in model2path.items():
-      self.name2model[model_name] = LocalSentenceTransformerModel(model_path)
-
+    for idx in indexes:
+      model_name = idx.model_name
+      if not model_name or model_name in self.name2model:
+        continue
+      elif idx.model_type == ModelType.VERTEXAI:
+        self.name2model[model_name] = VertexAIModel(model_name)
+      else:
+        self.name2model[model_name] = LocalSentenceTransformerModel(
+            idx.model_local_path)
     for idx in indexes:
       self._set_embeddings(idx)
 
