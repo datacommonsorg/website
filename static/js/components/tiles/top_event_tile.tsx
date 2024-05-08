@@ -43,7 +43,6 @@ import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { formatPropertyValue } from "../../utils/property_value_utils";
 import { TileSources } from "../../utils/tile_utils";
-import { NlChartFeedback } from "../nl_feedback";
 import { ChartActions } from "./chart_action_icons";
 import { ChartFooter } from "./chart_footer";
 import { ChartDownload } from "./modal/chart_download";
