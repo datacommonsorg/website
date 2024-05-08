@@ -17,15 +17,12 @@ import os
 from typing import List
 import unittest
 
-from diskcache import Cache
 from parameterized import parameterized
 import yaml
 
 from nl_server import embeddings_map as emb_map
 from nl_server import gcs
 from nl_server.embeddings import Embeddings
-from nl_server.loader import NL_CACHE_PATH
-from nl_server.loader import NL_EMBEDDINGS_CACHE_KEY
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
 from nl_server.search import search_vars
 from nl_server.store.memory import MemoryEmbeddingsStore
@@ -61,29 +58,18 @@ class TestEmbeddings(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls) -> None:
-    # Look for the Embeddings in the cache if it exists.
-    cache = Cache(NL_CACHE_PATH)
-    cache.expire()
-    embeddings = cache.get(NL_EMBEDDINGS_CACHE_KEY)
+    # Building a new Embeddings object. It might require downloading the embeddings file
+    # and a finetuned model.
+    # This uses the default embeddings pointed to in embeddings.yaml file and the fine tuned
+    # model pointed to in models.yaml.
+    # If the default index is not a "finetuned" index, then the default model can be used.
+    tuned_model_path = ""
+    if "ft" in emb_map.DEFAULT_INDEX_TYPE:
+      tuned_model_path = _get_tuned_model_path()
 
-    if not embeddings:
-      print(
-          "Could not load the embeddings from the cache for these tests. Loading a new embeddings object."
-      )
-      # Building a new Embeddings object. It might require downloading the embeddings file
-      # and a finetuned model.
-      # This uses the default embeddings pointed to in embeddings.yaml file and the fine tuned
-      # model pointed to in models.yaml.
-      # If the default index is not a "finetuned" index, then the default model can be used.
-      tuned_model_path = ""
-      if "ft" in emb_map.DEFAULT_INDEX_TYPE:
-        tuned_model_path = _get_tuned_model_path()
-
-      cls.nl_embeddings = Embeddings(
-          model=LocalSentenceTransformerModel(tuned_model_path),
-          store=MemoryEmbeddingsStore(_get_embeddings_file_path()))
-    else:
-      cls.nl_embeddings = embeddings.get()
+    cls.nl_embeddings = Embeddings(
+        model=LocalSentenceTransformerModel(tuned_model_path),
+        store=MemoryEmbeddingsStore(_get_embeddings_file_path()))
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
