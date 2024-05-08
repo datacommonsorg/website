@@ -13,15 +13,10 @@
 # limitations under the License.
 """Vertex AI Embeddings store."""
 
-import logging
-from typing import Dict, List
+from typing import List
 
-from datasets import load_dataset
 from google.cloud import aiplatform
 from google.cloud import aiplatform_v1
-from sentence_transformers.util import semantic_search
-import torch
-
 from nl_server.config import VertexAIIndexInfo
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
