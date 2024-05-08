@@ -29,9 +29,13 @@ _TEST_DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 _INPUT_DIR = os.path.join(_TEST_DATA_DIR, "input")
 _EXPECTED_DIR = os.path.join(_TEST_DATA_DIR, "expected")
 _MAIN_DC_TOPIC_CACHE_FILE = os.path.join(_INPUT_DIR, "main_dc_topic_cache.json")
-# Same value as INPUT_DIR but the custom dc topic cache json will
-# be in a file (datacommons/nl/custom_dc_topic_cache.json) relative to this path.
-_CUSTOM_DC_USER_DATA_PATH = _INPUT_DIR
+_UNDATA_TOPIC_CACHE_FILE = os.path.join(_INPUT_DIR, "undata_topic_cache.json")
+# The custom dc topic cache json will be in a file
+# (datacommons/nl/custom_dc_topic_cache.json) relative to this path.
+_CUSTOM_DC_MERGE_WITH_MAIN_USER_DATA_PATH = os.path.join(
+    _INPUT_DIR, "merge_with_main")
+_CUSTOM_DC_MERGE_WITH_UNDATA_USER_DATA_PATH = os.path.join(
+    _INPUT_DIR, "merge_with_undata")
 
 
 def _compare_files(test: unittest.TestCase, output_path: str,
@@ -66,8 +70,10 @@ def _test_topic_cache_loader(test: unittest.TestCase, test_name: str):
                    f"Found diffs in topic caches JSON: {test_name}")
 
 
-@patch.dict(topic_cache.TOPIC_CACHE_FILES,
-            {DCNames.MAIN_DC.value: [_MAIN_DC_TOPIC_CACHE_FILE]},
+@patch.dict(topic_cache.TOPIC_CACHE_FILES, {
+    DCNames.MAIN_DC.value: [_MAIN_DC_TOPIC_CACHE_FILE],
+    DCNames.UNDATA_DC.value: [_UNDATA_TOPIC_CACHE_FILE]
+},
             clear=True)
 class TestTopicCacheLoader(unittest.TestCase):
 
@@ -75,12 +81,21 @@ class TestTopicCacheLoader(unittest.TestCase):
   def test_main_only(self):
     _test_topic_cache_loader(self, "main_only")
 
-  @patch.dict(os.environ, {
-      "IS_CUSTOM_DC": "true",
-      "USER_DATA_PATH": _CUSTOM_DC_USER_DATA_PATH
-  })
+  @patch.dict(
+      os.environ, {
+          "IS_CUSTOM_DC": "true",
+          "USER_DATA_PATH": _CUSTOM_DC_MERGE_WITH_MAIN_USER_DATA_PATH
+      })
   def test_main_and_custom(self):
     _test_topic_cache_loader(self, "main_and_custom")
+
+  @patch.dict(
+      os.environ, {
+          "IS_CUSTOM_DC": "true",
+          "USER_DATA_PATH": _CUSTOM_DC_MERGE_WITH_UNDATA_USER_DATA_PATH
+      })
+  def test_undata_and_custom(self):
+    _test_topic_cache_loader(self, "undata_and_custom")
 
   @patch.dict(os.environ, {"IS_CUSTOM_DC": "true"})
   def test_no_user_data_path(self):
