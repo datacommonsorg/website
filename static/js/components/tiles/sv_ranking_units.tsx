@@ -29,6 +29,7 @@ import {
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { getHash } from "../../utils/app/visualization_utils";
 import { formatString, TileSources } from "../../utils/tile_utils";
+import { NlChartFeedback } from "../nl_feedback";
 import { RankingUnit } from "../ranking_unit";
 import { ChartActions } from "./chart_action_icons";
 import { ChartFooter } from "./chart_footer";
@@ -144,6 +145,9 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   chartEmbedSpec={props.chartEmbedSpec}
                 />
               )}
+              {!props.useChartActionIcons && (
+                <NlChartFeedback id={props.tileId} />
+              )}
             </ChartFooter>
           )}
         </div>
@@ -170,12 +174,17 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   exploreLink={getExploreLink(props, true)}
                   footnote={props.footnote}
                 >
-                  <ChartActions
-                    id={props.tileId}
-                    handleDownload={() => handleDownload(true, chartTitle)}
-                    exploreLink={getExploreLink(props, true)}
-                    chartEmbedSpec={props.chartEmbedSpec}
-                  />
+                  {props.useChartActionIcons && (
+                    <ChartActions
+                      id={props.tileId}
+                      handleDownload={() => handleDownload(true, chartTitle)}
+                      exploreLink={getExploreLink(props, true)}
+                      chartEmbedSpec={props.chartEmbedSpec}
+                    />
+                  )}
+                  {!props.useChartActionIcons && (
+                    <NlChartFeedback id={props.tileId} />
+                  )}
                 </ChartFooter>
               )}
             </div>
@@ -207,6 +216,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                     exploreLink={getExploreLink(props, false)}
                     chartEmbedSpec={props.chartEmbedSpec}
                   />
+                  <NlChartFeedback id={props.tileId} />
                 </ChartFooter>
               )}
             </div>

@@ -31,6 +31,7 @@ import {
   ReplacementStrings,
   TileSources,
 } from "../../utils/tile_utils";
+import { NlChartFeedback } from "../nl_feedback";
 import { ChartActions } from "./chart_action_icons";
 import { ChartFooter } from "./chart_footer";
 import { ChartDownload } from "./modal/chart_download";
@@ -133,6 +134,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
             handleDownload={props.allowDownload && handleDownload}
           />
         )}
+        {!props.useChartActionIcons && <NlChartFeedback id={props.id} />}
       </ChartFooter>
       {showDownload && (
         <ChartDownload
