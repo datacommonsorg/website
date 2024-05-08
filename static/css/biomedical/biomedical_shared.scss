@@ -14,20 +14,31 @@
  * limitations under the License.
  */
 
-/* Styles for the biomedical homepage */
-@import "../base";
-@import "./biomedical_shared";
+/** Styles shared across the Biomedical DC site */
+@import "./_biomedical_colors";
 
-/**
- * Override base styles
- */
+body {
+  background-color: var(--main-content-background-color);
+}
 
-#main-footer {
+/* landing page needs a white background */
+#page-bio_landing body {
   background-color: white;
 }
 
-#bio_landing.main-content {
-  background-color: white;
-  // start content at top, but leave room for box shadow on #main-header
-  margin-top: 3px;
+a {
+  color: var(--text-link-color);
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.axis-label {
+  text-anchor: middle;
+  font-size: 12px;
+}
+
+.legend-label {
+  font-size: 10px;
 }
