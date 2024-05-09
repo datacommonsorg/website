@@ -18,12 +18,10 @@ import itertools
 import logging
 import os
 from pathlib import Path
-import re
 from typing import Any, Dict, List, Tuple
 
 from file_util import create_file_handler
 from google.cloud import aiplatform
-from google.cloud import storage
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import yaml
@@ -48,15 +46,20 @@ _CHUNK_SIZE = 100
 
 _MODEL_ENDPOINT_RETRIES = 3
 
-_GCS_PATH_PREFIX = "gs://"
+
+@dataclass
+class ModelInfo:
+  name: str
+  # the model info as it would come from embeddings.yaml
+  info: Dict[str, str]
 
 
-def _is_gcs_path(path: str) -> bool:
-  return path.strip().startswith(_GCS_PATH_PREFIX)
-
-
-def _get_gcs_parts(gcs_path: str) -> tuple[str, str]:
-  return gcs_path[len(_GCS_PATH_PREFIX):].split('/', 1)
+@dataclass
+# The info for a single embeddings index
+class EmbeddingInfo:
+  # the index info as it would come from embeddings.yaml
+  index_info: Dict[str, str]
+  model_info: ModelInfo
 
 
 @dataclass
@@ -255,40 +258,46 @@ def get_ft_model_from_gcs(ctx: Context,
   return SentenceTransformer(model_path)
 
 
-def _get_default_ft_model_version(embeddings_yaml_file_path: str) -> str:
+def _get_default_ft_model(embeddings_yaml_file_path: str) -> ModelInfo:
   """Gets the default index's (i.e. 'medium_ft') model version from embeddings.yaml.
   """
-  return _get_default_ft_embeddings_info(embeddings_yaml_file_path)["model"]
+  return _get_default_ft_embeddings_info(embeddings_yaml_file_path).model_info
 
 
-def get_default_ft_model_version() -> str:
+def get_default_ft_model() -> ModelInfo:
   """Gets the default index's (i.e. 'medium_ft') model version from embeddings.yaml.
   """
-  return _get_default_ft_model_version(_EMBEDDINGS_YAML_PATH)
+  return _get_default_ft_model(_EMBEDDINGS_YAML_PATH)
 
 
-def get_default_ft_embeddings_file_name() -> str:
-  """Gets the default index's (i.e. 'medium_ft') embeddings file name from embeddings.yaml.
-  """
-  return get_default_ft_embeddings_info()["embeddings"]
-
-
-def get_default_ft_embeddings_info() -> dict[str, str]:
+def get_default_ft_embeddings_info() -> EmbeddingInfo:
   return _get_default_ft_embeddings_info(_EMBEDDINGS_YAML_PATH)
 
 
 def _get_default_ft_embeddings_info(
-    embeddings_yaml_file_path: str) -> dict[str, str]:
+    embeddings_yaml_file_path: str) -> EmbeddingInfo:
   with open(embeddings_yaml_file_path, "r") as f:
     data = yaml.full_load(f)
-    if _DEFAULT_EMBEDDINGS_INDEX_TYPE not in data:
+    if _DEFAULT_EMBEDDINGS_INDEX_TYPE not in data['indexes']:
       raise ValueError(f"{_DEFAULT_EMBEDDINGS_INDEX_TYPE} not found.")
-    return data[_DEFAULT_EMBEDDINGS_INDEX_TYPE]
+    index_info = data['indexes'][_DEFAULT_EMBEDDINGS_INDEX_TYPE]
+    model_name = index_info['model']
+    model_info = ModelInfo(name=model_name, info=data['models'][model_name])
+    return EmbeddingInfo(index_info=index_info, model_info=model_info)
 
 
 def save_embeddings_yaml_with_only_default_ft_embeddings(
-    embeddings_yaml_file_path: str, default_ft_embeddings_info: dict[str, str]):
-  data = {_DEFAULT_EMBEDDINGS_INDEX_TYPE: default_ft_embeddings_info}
+    embeddings_yaml_file_path: str, default_ft_embeddings_info: EmbeddingInfo):
+  model_info = default_ft_embeddings_info.model_info
+  data = {
+      'version': 1,
+      'indexes': {
+          _DEFAULT_EMBEDDINGS_INDEX_TYPE: default_ft_embeddings_info.index_info
+      },
+      'models': {
+          model_info.name: model_info.info
+      }
+  }
   with open(embeddings_yaml_file_path, "w") as f:
     yaml.dump(data, f)
 

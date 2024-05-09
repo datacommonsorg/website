@@ -89,8 +89,13 @@ class TestEndToEnd(unittest.TestCase):
       actual_embeddings_yaml_path = os.path.join(temp_dir,
                                                  EMBEDDINGS_YAML_FILE_NAME)
 
+      model_info = utils.ModelInfo(name='FooModel',
+                                   info={
+                                       'type': 'LOCAL',
+                                       'gcs_folder': 'fooModelFolder'
+                                   })
       builder.generate_embeddings_yaml(
-          'FooModel', create_file_handler(fake_embeddings_csv_path),
+          model_info, create_file_handler(fake_embeddings_csv_path),
           create_file_handler(actual_embeddings_yaml_path))
 
       _compare_files(self, actual_embeddings_yaml_path,
