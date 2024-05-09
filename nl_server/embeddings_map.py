@@ -15,6 +15,7 @@
 import logging
 from typing import Dict
 
+from nl_server.config import allow_vertex_ai
 from nl_server.config import DEFAULT_INDEX_TYPE
 from nl_server.config import EmbeddingsConfig
 from nl_server.config import IndexConfig
@@ -27,13 +28,8 @@ from nl_server.embeddings import EmbeddingsModel
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
 from nl_server.model.vertexai import VertexAIModel
 from nl_server.store.memory import MemoryEmbeddingsStore
-<<<<<<< HEAD
 from nl_server.store.vertexai import VertexAIStore
-from nl_server.util import allow_vertex_ai
-from nl_server.util import is_custom_dc
-=======
 from shared.lib.custom_dc_util import is_custom_dc
->>>>>>> master
 
 
 #

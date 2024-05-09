@@ -16,6 +16,7 @@ from abc import ABC
 from dataclasses import dataclass
 from enum import Enum
 import logging
+import os
 from typing import Dict
 
 # Index constants.  Passed in `url=`
@@ -155,3 +156,10 @@ def parse_v1(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
       )
 
   return EmbeddingsConfig(indexes=indexes, models=models)
+
+
+# Returns true if VERTEXAI type models and VERTEXAI type stores are allowed
+def allow_vertex_ai() -> bool:
+  return os.environ.get('FLASK_ENV') in [
+      'local', 'test', 'integration_test', 'autopush'
+  ]
