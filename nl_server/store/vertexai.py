@@ -18,7 +18,7 @@ from typing import List
 from google.cloud import aiplatform
 from google.cloud import aiplatform_v1
 
-from nl_server.config import VertexAIIndexInfo
+from nl_server.config import VertexAIIndexConfig
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import EmbeddingsStore
@@ -27,7 +27,7 @@ from nl_server.embeddings import EmbeddingsStore
 class VertexAIStore(EmbeddingsStore):
   """Manages the embeddings."""
 
-  def __init__(self, index_info: VertexAIIndexInfo) -> None:
+  def __init__(self, index_info: VertexAIIndexConfig) -> None:
     super().__init__()
 
     self.index_endpoint = index_info.index_endpoint

@@ -39,8 +39,8 @@ def load_server_state(app: Flask):
 
   embeddings_dict = _load_yaml(flask_env)
   nl_embeddings = emb_map.EmbeddingsMap(embeddings_dict)
-  nl_model = NLAttributeModel()
-  _update_app_config(app, nl_model, nl_embeddings, embeddings_dict)
+  attribute_model = NLAttributeModel()
+  _update_app_config(app, attribute_model, nl_embeddings, embeddings_dict)
 
 
 def load_custom_embeddings(app: Flask):
@@ -55,17 +55,37 @@ def load_custom_embeddings(app: Flask):
   """
   flask_env = os.environ.get('FLASK_ENV')
   embeddings_map = _load_yaml(flask_env)
-  embeddings_info = config.parse(embeddings_map)
 
   # This lookup will raise an error if embeddings weren't already initialized previously.
   # This is intentional.
   nl_embeddings: emb_map.EmbeddingsMap = app.config[config.NL_EMBEDDINGS_KEY]
-  # Reset the custom DC index.
-  nl_embeddings.reset_index(embeddings_info)
+  try:
+    embeddings_info = config.parse(embeddings_map)
+    # Reset the custom DC index.
+    nl_embeddings.reset_index(embeddings_info)
+  except Exception as e:
+    logging.error(f'Custom embeddings not loaded due to error: {str(e)}')
 
   # Update app config.
-  _update_app_config(app, app.config[config.NL_MODEL_KEY], nl_embeddings,
+  _update_app_config(app, app.config[config.ATTRIBUTE_MODEL_KEY], nl_embeddings,
                      embeddings_map)
+
+
+# Takes an embeddings map and returns a version that only has the default
+# index and its model info
+def _get_default_only_emb_map(embeddings_map: Dict[str, any]) -> Dict[str, any]:
+  default_model_name = embeddings_map['indexes'][
+      config.DEFAULT_INDEX_TYPE]['model']
+  return {
+      'version': embeddings_map['version'],
+      'indexes': {
+          config.DEFAULT_INDEX_TYPE:
+              embeddings_map['indexes'][config.DEFAULT_INDEX_TYPE]
+      },
+      'models': {
+          default_model_name: embeddings_map['models'][default_model_name]
+      }
+  }
 
 
 def _load_yaml(flask_env: str) -> Dict[str, str]:
@@ -74,18 +94,7 @@ def _load_yaml(flask_env: str) -> Dict[str, str]:
 
     # For custom DC dev env, only keep the default index.
     if _is_custom_dc_dev(flask_env):
-      default_model_name = embeddings_map['indexes'][
-          config.DEFAULT_INDEX_TYPE]['model']
-      embeddings_map = {
-          'version': embeddings_map['version'],
-          'indexes': {
-              config.DEFAULT_INDEX_TYPE:
-                  embeddings_map['indexes'][config.DEFAULT_INDEX_TYPE]
-          },
-          'models': {
-              default_model_name: embeddings_map['models'][default_model_name]
-          }
-      }
+      embeddings_map = _get_default_only_emb_map(embeddings_map)
 
   assert embeddings_map, 'No embeddings.yaml found!'
 
@@ -98,11 +107,11 @@ def _load_yaml(flask_env: str) -> Dict[str, str]:
 
 
 def _update_app_config(app: Flask,
-                       nl_model: NLAttributeModel,
+                       attribute_model: NLAttributeModel,
                        nl_embeddings: emb_map.EmbeddingsMap,
                        embeddings_map: Dict[str, str],
                        vertex_ai_models: Dict[str, Dict] = None):
-  app.config[config.NL_MODEL_KEY] = nl_model
+  app.config[config.ATTRIBUTE_MODEL_KEY] = attribute_model
   app.config[config.NL_EMBEDDINGS_KEY] = nl_embeddings
   app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_map
   app.config[config.VERTEX_AI_MODELS_KEY] = vertex_ai_models or {}

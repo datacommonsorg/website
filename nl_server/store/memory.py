@@ -20,7 +20,7 @@ from datasets import load_dataset
 from sentence_transformers.util import semantic_search
 import torch
 
-from nl_server.config import MemoryIndexInfo
+from nl_server.config import MemoryIndexConfig
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import EmbeddingsStore
@@ -32,7 +32,7 @@ from shared.lib.gcs import is_gcs_path
 class MemoryEmbeddingsStore(EmbeddingsStore):
   """Manages the embeddings."""
 
-  def __init__(self, idx_info: MemoryIndexInfo) -> None:
+  def __init__(self, idx_info: MemoryIndexConfig) -> None:
     super().__init__(needs_tensor=True)
 
     if idx_info.embeddings_path.startswith('/'):

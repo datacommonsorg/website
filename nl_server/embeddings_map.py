@@ -16,9 +16,9 @@ import logging
 from typing import Dict
 
 from nl_server.config import DEFAULT_INDEX_TYPE
-from nl_server.config import EmbeddingsInfo
-from nl_server.config import IndexInfo
-from nl_server.config import ModelInfo
+from nl_server.config import EmbeddingsConfig
+from nl_server.config import IndexConfig
+from nl_server.config import ModelConfig
 from nl_server.config import ModelType
 from nl_server.config import parse
 from nl_server.config import StoreType
@@ -40,16 +40,10 @@ class EmbeddingsMap:
   # Input is the in-memory representation of `embeddings.yaml` structure.
   def __init__(self, embeddings_dict: dict[str, dict[str, str]]):
     self.embeddings_map: dict[str, Embeddings] = {}
+    self.name2model: Dict[str, EmbeddingsModel] = {}
 
     embeddings_info = parse(embeddings_dict)
-
-    # load models.
-    self.name2model: Dict[str, EmbeddingsModel] = {}
-    self._load_models(embeddings_info.models)
-
-    # load indexes
-    for idx_name, idx_info in embeddings_info.indexes.items():
-      self._set_embeddings(idx_name, idx_info)
+    self.reset_index(embeddings_info)
 
   # Note: The caller takes care of exceptions.
   def get(self, index_type: str = DEFAULT_INDEX_TYPE) -> Embeddings:
@@ -57,13 +51,13 @@ class EmbeddingsMap:
 
   # Adds the new models and indexes in a embeddings_info object to the
   # embeddings
-  def reset_index(self, embeddings_info: EmbeddingsInfo):
+  def reset_index(self, embeddings_info: EmbeddingsConfig):
     self._load_models(embeddings_info.models)
     for idx_name, idx_info in embeddings_info.indexes.items():
       self._set_embeddings(idx_name, idx_info)
 
   # Loads a dict of model name -> model info
-  def _load_models(self, models: dict[str, ModelInfo]):
+  def _load_models(self, models: dict[str, ModelConfig]):
     for model_name, model_info in models.items():
       # if model has already been loaded, continue
       if model_name in self.name2model:
@@ -77,15 +71,15 @@ class EmbeddingsMap:
         elif model_info.type == ModelType.LOCAL:
           model = LocalSentenceTransformerModel(model_info)
       except Exception as e:
-        logging.warning(f'Skipped loading model {model_name}: {str(e)} ')
-        continue
+        logging.error(f'error loading model {model_name}: {str(e)} ')
+        raise e
 
       # if model successfully created, set it in name2model
       if model:
         self.name2model[model_name] = model
 
   # Sets an index to the embeddings map
-  def _set_embeddings(self, idx_name: str, idx_info: IndexInfo):
+  def _set_embeddings(self, idx_name: str, idx_info: IndexConfig):
     # try creating a store object from the index info
     store = None
     try:
@@ -105,8 +99,8 @@ class EmbeddingsMap:
       elif idx_info.store_type == StoreType.VERTEXAI and allow_vertex_ai():
         store = VertexAIStore(idx_info)
     except Exception as e:
-      logging.warning(f'Skipped loading index {idx_name}: {str(e)} ')
-      return
+      logging.error(f'error loading index {idx_name}: {str(e)} ')
+      raise e
 
     # if store successfully created, set it in embeddings_map
     if store:

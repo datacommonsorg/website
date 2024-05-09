@@ -19,7 +19,7 @@ from typing import List
 import lancedb
 
 from nl_server import gcs
-from nl_server.config import LanceDBIndexInfo
+from nl_server.config import LanceDBIndexConfig
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import EmbeddingsStore
@@ -37,7 +37,7 @@ DISTANCE_COL = '_distance'
 class LanceDBStore(EmbeddingsStore):
   """Manages the embeddings."""
 
-  def __init__(self, idx_info: LanceDBIndexInfo) -> None:
+  def __init__(self, idx_info: LanceDBIndexConfig) -> None:
     super().__init__(needs_tensor=False)
 
     if idx_info.embeddings_path.startswith('/'):

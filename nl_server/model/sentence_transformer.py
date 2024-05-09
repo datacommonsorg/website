@@ -22,12 +22,12 @@ import torch
 from nl_server import config
 from nl_server import embeddings
 from nl_server import gcs
-from nl_server.config import LocalModelInfo
+from nl_server.config import LocalModelConfig
 
 
 class LocalSentenceTransformerModel(embeddings.EmbeddingsModel):
 
-  def __init__(self, model_info: LocalModelInfo):
+  def __init__(self, model_info: LocalModelConfig):
     super().__init__(returns_tensor=True)
 
     # Download model from gcs if there is a gcs folder specified

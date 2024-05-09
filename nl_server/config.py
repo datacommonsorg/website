@@ -26,7 +26,7 @@ DEFAULT_INDEX_TYPE: str = 'medium_ft'
 EMBEDDINGS_BASE_MODEL_NAME: str = 'all-MiniLM-L6-v2'
 
 # App Config constants.
-NL_MODEL_KEY: str = 'NL_MODEL'
+ATTRIBUTE_MODEL_KEY: str = 'ATTRIBUTE_MODEL'
 NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
 NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
 VERTEX_AI_MODELS_KEY: str = 'VERTEX_AI_MODELS'
@@ -44,40 +44,40 @@ class ModelType(str, Enum):
 
 
 @dataclass
-class ModelInfo(ABC):
+class ModelConfig(ABC):
   type: str
 
 
 @dataclass
-class VertexAiModelInfo(ModelInfo):
+class VertexAIModelConfig(ModelConfig):
   project_id: str
   location: str
   prediction_endpoint_id: str
 
 
 @dataclass
-class LocalModelInfo(ModelInfo):
+class LocalModelConfig(ModelConfig):
   gcs_folder: str = ''
 
 
 @dataclass
-class IndexInfo(ABC):
+class IndexConfig(ABC):
   store_type: str
   model: str
 
 
 @dataclass
-class MemoryIndexInfo(IndexInfo):
+class MemoryIndexConfig(IndexConfig):
   embeddings_path: str
 
 
 @dataclass
-class LanceDBIndexInfo(IndexInfo):
+class LanceDBIndexConfig(IndexConfig):
   embeddings_path: str
 
 
 @dataclass
-class VertexAIIndexInfo(IndexInfo):
+class VertexAIIndexConfig(IndexConfig):
   project_id: str
   location: str
   index_endpoint_root: str
@@ -87,43 +87,42 @@ class VertexAIIndexInfo(IndexInfo):
 
 # Defines one embeddings index config.
 @dataclass
-class EmbeddingsInfo:
-  indexes: Dict[str, IndexInfo]
-  models: Dict[str, ModelInfo]
+class EmbeddingsConfig:
+  indexes: Dict[str, IndexConfig]
+  models: Dict[str, ModelConfig]
 
 
 #
 # Parse the input `embeddings.yaml` dict representation into EmbeddingsInfo
 # object.
 #
-def parse(embeddings_map: Dict[str, Dict[str, str]]) -> EmbeddingsInfo:
+def parse(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
   if embeddings_map['version'] == 1:
     return parse_v1(embeddings_map)
   else:
-    logging.warning('Could not parse embeddings map: unsupported version.')
-    return None
+    raise AssertionError('Could not parse embeddings map: unsupported version.')
 
 
 #
 # Parses the v1 version of the `embeddings.yaml` dict representation into
 # EmbeddingsInfo object.
 #
-def parse_v1(embeddings_map: Dict[str, Dict[str, str]]) -> EmbeddingsInfo:
+def parse_v1(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
   # parse the models
   models = {}
   for model_name, model_info in embeddings_map.get('models', {}).items():
     model_type = model_info['type']
     if model_type == ModelType.LOCAL:
-      models[model_name] = LocalModelInfo(type=model_type,
-                                          gcs_folder=model_info['gcs_folder'])
+      models[model_name] = LocalModelConfig(type=model_type,
+                                            gcs_folder=model_info['gcs_folder'])
     elif model_type == ModelType.VERTEXAI:
-      models[model_name] = VertexAiModelInfo(
+      models[model_name] = VertexAIModelConfig(
           type=model_type,
           project_id=model_info['project_id'],
           location=model_info['location'],
           prediction_endpoint_id=model_info['prediction_endpoint_id'])
     else:
-      logging.warning(
+      logging.error(
           'Skip parsing information for model {model_name}: unsupported type {model_type}'
       )
 
@@ -132,17 +131,17 @@ def parse_v1(embeddings_map: Dict[str, Dict[str, str]]) -> EmbeddingsInfo:
   for index_name, index_info in embeddings_map.get('indexes', {}).items():
     store_type = index_info['store']
     if store_type == StoreType.MEMORY:
-      indexes[index_name] = MemoryIndexInfo(
+      indexes[index_name] = MemoryIndexConfig(
           store_type=store_type,
           model=index_info['model'],
           embeddings_path=index_info['embeddings'])
     elif store_type == StoreType.LANCEDB:
-      indexes[index_name] = LanceDBIndexInfo(
+      indexes[index_name] = LanceDBIndexConfig(
           store_type=store_type,
           model=index_info['model'],
           embeddings_path=index_info['embeddings'])
     elif store_type == StoreType.VERTEXAI:
-      indexes[index_name] = VertexAIIndexInfo(
+      indexes[index_name] = VertexAIIndexConfig(
           store_type=store_type,
           model=index_info['model'],
           project_id=index_info['project_id'],
@@ -151,8 +150,8 @@ def parse_v1(embeddings_map: Dict[str, Dict[str, str]]) -> EmbeddingsInfo:
           index_endpoint=index_info['index_endpoint'],
           index_id=index_info['index_id'])
     else:
-      logging.warning(
+      logging.error(
           'Skip parsing information for index {index_name}: unsupported store type {store_type}'
       )
 
-  return EmbeddingsInfo(indexes=indexes, models=models)
+  return EmbeddingsConfig(indexes=indexes, models=models)
