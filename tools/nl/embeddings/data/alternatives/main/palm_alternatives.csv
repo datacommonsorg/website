@@ -1069,12 +1069,6 @@ Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_Rea
 Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue,The total value of goods and services produced by the utilities industry in a given year;The economic output of the utilities industry;The total value of goods and services produced by the utilities industry;The total value of goods and services produced by the utilities industry;The economic output of the utilities industry
 Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue,The value of all goods and services sold by wholesalers in a given year;The value of all goods and services produced by the wholesale trade industry in a given year;The GDP of the wholesale trade industry;The total value of all goods and services sold by wholesalers in the United States;The value of all goods and services produced by the wholesale trade industry
 Amount_EconomicActivity_GrossDomesticProduction_Nominal,
-dc/topic/Economy,
-dc/topic/Agriculture,
-dc/topic/AgriculturalProduction,
-dc/topic/MedicalConditions,
-dc/topic/HeatIllnesses,
-dc/topic/Jobs,
 dc/hlxvn1t8b9bhh,How many farmers and cattle ranchers are there?;How many farmers and cattle ranchers are there?;How many farmers and cattle ranchers are there?;How many farmers and cattle ranchers are there?;The number of farmers and cattle ranchers
 Count_Person_EducationalAttainmentDoctorateDegree,Number of people with a PhD;How many people have a PhD?;Number of people with a doctoral degree;How many people have a PhD?;How many people have a PhD?
 Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female,The number of women with a PhD;The number of women with a PhD;Number of PhDs held by women;Number of women with a PhD;Number of female PhD holders
@@ -1089,21 +1083,9 @@ Count_Person_EducationalAttainmentLessThanHighSchoolGraduate,
 Count_Person_EducationalAttainmentSomeCollegeOrAssociatesDegree,Percentage of people with a college degree;Percentage of people with an associate's degree;Number of people with a college degree or higher;Number of people with an associate's degree or higher;Number of people with a postsecondary degree
 Count_Person_15To50Years_EducationalAttainmentSomeCollegeOrAssociatesDegree_Female,the number of females aged 15-50 with a college degree or associate degree;the number of females aged 15-50 who have a college degree or associate degree;the number of females aged 15-50 who are college-educated;the number of females aged 15-50 who have completed college or an associate degree program
 Percent_TreeCanopy,tree canopy cover;tree canopy coverage;percentage of tree cover;percentage of tree canopy
-dc/topic/SolarPotential,
-dc/topic/ProjectedClimateExtremes,
-dc/topic/ClimateChange,
-dc/topic/Income,
-dc/topic/WorkCommute,
 MapFacts/Count_park,How many parks are there?;1 How many parks are there?;How many parks are there;What is the number of parks;What is the total number of parks
 MapFacts/Count_hiking_area,Number of hiking spots;How many hiking areas are there?;Number of hiking areas;Number of places to go hiking;Number of hiking trails
 Annual_Emissions_GreenhouseGas,Emissions that contribute to global warming
-dc/topic/GreenhouseGasEmissionsBySource,
-dc/topic/CarbonDioxideEmissionsBySource,
-dc/topic/AgricultureEmissionsByGas,
-dc/topic/FossilFuelOperationsEmissionsByGas,
-dc/topic/TransportationEmissionsByGas,
-dc/topic/ManufacturingEmissionsByGas,
-dc/topic/PowerEmissionsByGas,
 Percent_Student_AsAFractionOf_Count_Teacher ,the student-teacher ratio;the teacher-student ratio;the ratio of teachers to students;student-teacher ratio
 Count_Teacher,Educators;School instructors;Professors;Faculty;Educators
 dc/c58mvty4nhxdb,Students' average grade on a standardized test;The average achievement of students in a cohort;How well students in a particular group are doing overall;Average student achievement
@@ -1114,18 +1096,5 @@ Count_Person_DetailedHighSchool,High schoolers;Teenagers;teenagers;teenagers;hig
 dc/3jr0p7yjw06z9,Casinos;Places to gamble;Casinos;Betting parlors;Gaming dens
 dc/5br285q68be6,People who work in the gambling industry;People who work in the gambling industry;People who work in the gambling industry;People who work in the gambling industry;People who work in the gambling industry
 Count_VolcanicAshEvent,Volcanic events;Volcanic eruptions;Volcanic activity;Volcanic outbursts;Volcanic phenomena
-dc/topic/Literacy,
-dc/topic/RacialBreakdown,
-dc/topic/SDG_1,
-dc/topic/SDG_2,
-dc/topic/SDG_3,
-dc/topic/SDG_4,
-dc/topic/SDG_5,
-dc/topic/SDG_10,
-dc/topic/SDG_13,
-dc/topic/MaternalHealth,
 Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person,the rate of child-bearing in the us
-dc/topic/HomeValue,
-dc/topic/WetBulbTemperature,
-dc/topic/Temperature,
 Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal Percent of Nominal Gross Domestic Production (GDP) Spent on Education,
