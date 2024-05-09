@@ -175,7 +175,6 @@ dc/topic/PopulationWithMentalHealthNotGoodByAge,Population With Poor Mental Heal
 dc/topic/PopulationWithStrokeByAge,Population With Stroke By Age,Population With Stroke By Age,,
 dc/topic/StrokeFemalePopulationByAge,Female Population With Stroke By Age,Female Population With Stroke By Age,,
 dc/topic/StrokeMalePopulationByAge,Male Population With Stroke By Age,Male Population With Stroke By Age,,
-dc/topic/Asthma,Asthma,People with Asthma,,Diagnosed with Asthma; Asthma Disease;
 dc/topic/BloodPressure,Blood Pressure,People with high blood pressure,,High blood pressure condition; People with high blood pressure;
 dc/topic/CausesOfDeath,Causes of death,Reasons for death,,Reasons for mortality;
 dc/topic/Cholesterol,High cholestrol,People with high cholestrol,,high cholestrol condition;
@@ -210,7 +209,7 @@ dc/topic/WHODALYByCauses,Global DALY causes,Disability adjusted life years by ca
 dc/topic/WHOHealthBehavior,Global Health behaviors,WHO Health behaviors,,Health behaviors WHO
 dc/topic/WHOImmunization,Global Immunizations,Immunizations,,WHO immunizations; immunization rates
 dc/topic/WHOMaternalMortality,Global Maternal Mortality,Deaths among mothers,,WHO maternal mortality;
-dc/topic/WHOMortality,Global Mortality,Mortality,,mortality; death rates;
+dc/topic/WHOMortality,Global Mortality,Mortality,,mortality;
 dc/topic/WHOMortalityCauses,Global Mortality Causes,WHO Mortality causes,,mortality causes by WHO; causes of death WHO;
 dc/topic/WHONeglectedTropicalDiseases,Global Neglected Tropical Diseases,Ignored Tropical Diseases,,WHO neglected tropical diseases; tropical diseases ignored WHO;
 dc/topic/WHONonCommunicableDiseaseDeaths,Global Non communicable disease deaths,Non communicable disease deaths,,deaths due to non communicable disease; WHO deaths due to non communicable diseases;

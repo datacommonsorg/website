@@ -5906,7 +5906,6 @@ dc/topic/AsianAlonePopulationByAge,Asian Population By Age
 dc/topic/AsianOrPacificIslanderFemalePopulationByAge,Asian Or Pacific Islander Female Population By Age
 dc/topic/AsianOrPacificIslanderMalePopulationByAge,Asian Or Pacific Islander Male Population By Age
 dc/topic/AsianOrPacificIslanderPopulationByAge,Asian Or Pacific Islander Population By Age
-dc/topic/Asthma,Asthma;Asthma Disease;Diagnosed with Asthma;People with Asthma
 dc/topic/AsthmaFemalePopulationByAge,Female Population With Asthma By Age
 dc/topic/AsthmaMalePopulationByAge,Male Population With Asthma By Age
 dc/topic/Avalanche,Avalanche
@@ -5992,14 +5991,14 @@ dc/topic/ExportSubsidies,Export Subsidies
 dc/topic/FemaleMortality,Female deaths;Female mortality
 dc/topic/Fire,Fires;fire;fire event;wild fires
 dc/topic/Flood,Floods;flood
-dc/topic/FoodInsecurity,Food Insecurity;access to food;food insecure;lack of access to the food
+dc/topic/FoodInsecurity,Food Insecurity;access to food;food insecure;food security;lack of access to the food
 dc/topic/Forest,Forest
 dc/topic/FossilFuelOperationsEmissionsByGas,Amount of gases emitted in fossil fuel operations;Emissions from fossil fuel operations;Quantity of greenhouse gases emitted by the burning of fossil fuels;The sum of all gases released by the use of fossil fuels;The volume of emissions produced by the use of fossil fuels;Total amount of gas emissions from fossil fuel operations;Total quantity of gases released by fossil fuel operations
 dc/topic/GDP,gross domestic production
 dc/topic/GDPByIndustry,GDP By Industry;gross domestic product breakdown by industry;gross domestic product by industry
 dc/topic/Gender,Gender;gender of population
 dc/topic/GlobalEconomicActivity,Global Economic Activity
-dc/topic/GlobalElectricityAccess,Access To Electricity;Percentage of People with access to Electricity;electrification;people with access to electricity
+dc/topic/GlobalElectricityAccess,Access To Electricity;Percentage of People with access to Electricity;electricity access;electrification;people with access to electricity
 dc/topic/GlobalHealth,Global health;World health;health conditions in the world;health in the world
 dc/topic/GreenJobs,Green Jobs;environmentally friendly jobs;sustainable jobs
 dc/topic/GreenhouseGasEmissions,GHG emissions;Greenhouse Gas Emission;greenhouse gasses emissions;sources of GHG emissions;sources of greenhouse gas emissions
@@ -6237,7 +6236,7 @@ dc/topic/WHODALYByCauses,Disability adjusted life years by causes;Global DALY ca
 dc/topic/WHOHealthBehavior,Global Health behaviors;Health behaviors WHO;WHO Health behaviors
 dc/topic/WHOImmunization,Global Immunizations;Immunizations;WHO immunizations;immunization rates
 dc/topic/WHOMaternalMortality,Deaths among mothers;Global Maternal Mortality;WHO maternal mortality
-dc/topic/WHOMortality,Global Mortality;death rates;mortality
+dc/topic/WHOMortality,Global Mortality;mortality
 dc/topic/WHOMortalityCauses,Global Mortality Causes;WHO Mortality causes;causes of death WHO;mortality causes by WHO
 dc/topic/WHONeglectedTropicalDiseases,Global Neglected Tropical Diseases;Ignored Tropical Diseases;WHO neglected tropical diseases;tropical diseases ignored WHO
 dc/topic/WHONonCommunicableDiseaseDeaths,Global Non communicable disease deaths;Non communicable disease deaths;WHO deaths due to non communicable diseases;deaths due to non communicable disease
@@ -6491,7 +6490,7 @@ dc/topic/sdg_17.9.1,"Dollar value of financial and technical assistance (includi
 dc/topic/sdg_2,SDG Zero Hunger;sdg 2;sdg Zero Hunger;sdg2;sustainable development goal Zero Hunger
 dc/topic/sdg_2.1,"By 2030, end hunger and ensure access by all people, in particular the poor and people in vulnerable situations, including infants, to safe, nutritious and sufficient food all year round;sdg 2 1;sdg 2.1;sdg 21;sdg By 2030, end hunger and ensure access by all people, in particular the poor and people in vulnerable situations, including infants, to safe, nutritious and sufficient food all year round;sdg21;sustainable development goal By 2030, end hunger and ensure access by all people, in particular the poor and people in vulnerable situations, including infants, to safe, nutritious and sufficient food all year round"
 dc/topic/sdg_2.1.1,sdg 2 1 1;sdg 2.1.1;sdg 211;sdg Prevalence of undernourishment;sdg211;sustainable development goal Prevalence of undernourishment
-dc/topic/sdg_2.1.2,"Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES);food insecurity;food security;sdg 2 1 2;sdg 2.1.2;sdg 212;sdg Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES);sdg212;sustainable development goal Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)"
+dc/topic/sdg_2.1.2,"Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES);food insecurity;sdg 2 1 2;sdg 2.1.2;sdg 212;sdg Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES);sdg212;sustainable development goal Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)"
 dc/topic/sdg_2.2,"By 2030, end all forms of malnutrition, including achieving, by 2025, the internationally agreed targets on stunting and wasting in children under 5 years of age, and address the nutritional needs of adolescent girls, pregnant and lactating women and older persons;sdg 2 2;sdg 2.2;sdg 22;sdg By 2030, end all forms of malnutrition, including achieving, by 2025, the internationally agreed targets on stunting and wasting in children under 5 years of age, and address the nutritional needs of adolescent girls, pregnant and lactating women and older persons;sdg22;sustainable development goal By 2030, end all forms of malnutrition, including achieving, by 2025, the internationally agreed targets on stunting and wasting in children under 5 years of age, and address the nutritional needs of adolescent girls, pregnant and lactating women and older persons"
 dc/topic/sdg_2.2.1,Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age;sdg 2 2 1;sdg 2.2.1;sdg 221;sdg Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age;sdg221;sustainable development goal Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age
 dc/topic/sdg_2.2.2,"Prevalence of malnutrition (weight for height >+2 or <-2 standard deviation from the median of the WHO Child Growth Standards) among children under 5 years of age, by type (wasting and overweight);sdg 2 2 2;sdg 2.2.2;sdg 222;sdg Prevalence of malnutrition (weight for height >+2 or <-2 standard deviation from the median of the WHO Child Growth Standards) among children under 5 years of age, by type (wasting and overweight);sdg222;sustainable development goal Prevalence of malnutrition (weight for height >+2 or <-2 standard deviation from the median of the WHO Child Growth Standards) among children under 5 years of age, by type (wasting and overweight)"
@@ -6620,7 +6619,7 @@ dc/topic/sdg_6.b,Support and strengthen the participation of local communities i
 dc/topic/sdg_6.b.1,Proportion of local administrative units with established and operational policies and procedures for participation of local communities in water and sanitation management;sdg 6 b 1;sdg 6.b.1;sdg 6b1;sdg Proportion of local administrative units with established and operational policies and procedures for participation of local communities in water and sanitation management;sdg6b1;sustainable development goal Proportion of local administrative units with established and operational policies and procedures for participation of local communities in water and sanitation management
 dc/topic/sdg_7,SDG Affordable and Clean Energy;sdg 7;sdg Affordable and Clean Energy;sdg7;sustainable development goal Affordable and Clean Energy
 dc/topic/sdg_7.1,"By 2030, ensure universal access to affordable, reliable and modern energy services;sdg 7 1;sdg 7.1;sdg 71;sdg By 2030, ensure universal access to affordable, reliable and modern energy services;sdg71;sustainable development goal By 2030, ensure universal access to affordable, reliable and modern energy services"
-dc/topic/sdg_7.1.1,Proportion of population with access to electricity;access to electricity;electricity access;sdg 7 1 1;sdg 7.1.1;sdg 711;sdg Proportion of population with access to electricity;sdg711;sustainable development goal Proportion of population with access to electricity
+dc/topic/sdg_7.1.1,Proportion of population with access to electricity;access to electricity;sdg 7 1 1;sdg 7.1.1;sdg 711;sdg Proportion of population with access to electricity;sdg711;sustainable development goal Proportion of population with access to electricity
 dc/topic/sdg_7.1.2,Proportion of population with primary reliance on clean fuels and technology;sdg 7 1 2;sdg 7.1.2;sdg 712;sdg Proportion of population with primary reliance on clean fuels and technology;sdg712;sustainable development goal Proportion of population with primary reliance on clean fuels and technology
 dc/topic/sdg_7.2,"By 2030, increase substantially the share of renewable energy in the global energy mix;sdg 7 2;sdg 7.2;sdg 72;sdg By 2030, increase substantially the share of renewable energy in the global energy mix;sdg72;sustainable development goal By 2030, increase substantially the share of renewable energy in the global energy mix"
 dc/topic/sdg_7.2.1,sdg 7 2 1;sdg 7.2.1;sdg 721;sdg Renewable energy share in the total final energy consumption;sdg721;sustainable development goal Renewable energy share in the total final energy consumption

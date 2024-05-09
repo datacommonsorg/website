@@ -1,5 +1,18 @@
 PreferredSV,DroppedSV,DuplicateName
 WagesTotal_Worker_NAICSEducationalServices,dc/jefhcs9qxc971,what is the average salary for people working in the educational services industry?
+Amount_EconomicActivity_GrossDomesticProduction_Nominal,dc/topic/GDP,GDP
+dc/topic/Mortality,dc/topic/WHOMortality,Mortality
+dc/topic/EconomicActivity,dc/topic/GlobalEconomicActivity,Economic Activity
+UnemploymentRate_Person,dc/topic/UnemploymentRate,Unemployment Rate
+UnemploymentRate_Person,dc/topic/UnemploymentRate,unemployment
+dc/topic/EducationalAttainment,dc/topic/LevelOfEducationalAttainment,education attainment level
+AirQualityIndex_AirPollutant,dc/topic/AirQualityIndex,AQI
+Count_Person_DetailedHighSchool,dc/topic/StudentsInHighSchool,high school students
+Count_Person_DetailedPrimarySchool,dc/topic/StudentsInPrimarySchool,primary school students
+Count_Person_DetailedMiddleSchool,dc/topic/StudentsInMiddleSchool,middle school students
+Annual_Emissions_GreenhouseGas,dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emissions
+dc/topic/FoodInsecurity,dc/topic/sdg_2.1.2,food security
+dc/topic/GlobalElectricityAccess,dc/topic/sdg_7.1.1,electricity access
 Amount_EconomicActivity_GrossDomesticProduction_Nominal,dc/topic/sdg_8.1.1,GDP
 Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita,dc/topic/sdg_8.1.1,GDP per capita
 dc/topic/sdg_8.10,dc/topic/sdg_8.10.1,sdg 8 10
@@ -95,19 +108,6 @@ dc/topic/sdg_17.11,dc/topic/sdg_17.1.1,sdg 1711
 dc/topic/sdg_17.11,dc/topic/sdg_17.1.1,sdg1711
 dc/topic/sdg_17.12,dc/topic/sdg_17.1.2,sdg 1712
 dc/topic/sdg_17.12,dc/topic/sdg_17.1.2,sdg1712
-Amount_EconomicActivity_GrossDomesticProduction_Nominal,dc/topic/GDP,GDP
-dc/topic/Mortality,dc/topic/WHOMortality,Mortality
-dc/topic/EconomicActivity,dc/topic/GlobalEconomicActivity,Economic Activity
-UnemploymentRate_Person,dc/topic/UnemploymentRate,Unemployment Rate
-UnemploymentRate_Person,dc/topic/UnemploymentRate,unemployment
-dc/topic/EducationalAttainment,dc/topic/LevelOfEducationalAttainment,education attainment level
-AirQualityIndex_AirPollutant,dc/topic/AirQualityIndex,AQI
-Count_Person_DetailedHighSchool,dc/topic/StudentsInHighSchool,high school students
-Count_Person_DetailedPrimarySchool,dc/topic/StudentsInPrimarySchool,primary school students
-Count_Person_DetailedMiddleSchool,dc/topic/StudentsInMiddleSchool,middle school students
-Annual_Emissions_GreenhouseGas,dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emissions
-dc/topic/sdg_7.1.1,dc/topic/GlobalElectricityAccess,electricity access
-dc/topic/sdg_2.1.2,dc/topic/FoodInsecurity,food security
 Annual_Amount_Emissions_Acetaldehyde_SCC_3_IndustrialProcesses,Annual_Amount_Emissions_Acetaldehyde_SCC_23_IndustrialProcesses,Annual Emissions of Acetaldehyde in Industrial Processes
 Annual_Amount_Emissions_Ammonia_SCC_3_IndustrialProcesses,Annual_Amount_Emissions_Ammonia_SCC_23_IndustrialProcesses,Annual Emissions of Ammonia in Industrial Processes
 Annual_Amount_Emissions_Arsenic_SCC_3_IndustrialProcesses,Annual_Amount_Emissions_Arsenic_SCC_23_IndustrialProcesses,Annual Emissions of Arsenic in Industrial Processes
