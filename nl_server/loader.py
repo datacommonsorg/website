@@ -88,7 +88,7 @@ def _get_default_only_emb_map(embeddings_map: Dict[str, any]) -> Dict[str, any]:
   }
 
 
-def _load_yaml(flask_env: str) -> Dict[str, str]:
+def _load_yaml(flask_env: str) -> Dict[str, any]:
   with open(get_env_path(flask_env, _EMBEDDINGS_YAML)) as f:
     embeddings_map = yaml.full_load(f)
 
@@ -109,11 +109,11 @@ def _load_yaml(flask_env: str) -> Dict[str, str]:
 def _update_app_config(app: Flask,
                        attribute_model: NLAttributeModel,
                        nl_embeddings: emb_map.EmbeddingsMap,
-                       embeddings_map: Dict[str, str],
+                       embeddings_version_map: Dict[str, any],
                        vertex_ai_models: Dict[str, Dict] = None):
   app.config[config.ATTRIBUTE_MODEL_KEY] = attribute_model
   app.config[config.NL_EMBEDDINGS_KEY] = nl_embeddings
-  app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_map
+  app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_version_map
   app.config[config.VERTEX_AI_MODELS_KEY] = vertex_ai_models or {}
 
 
