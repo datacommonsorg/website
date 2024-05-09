@@ -16,7 +16,6 @@ import logging
 import os
 from typing import Dict
 
-from diskcache import Cache
 from flask import Flask
 import yaml
 
@@ -32,12 +31,6 @@ import shared.model.loader as model_loader
 _EMBEDDINGS_YAML = 'embeddings.yaml'
 _CUSTOM_EMBEDDINGS_YAML_PATH = 'datacommons/nl/custom_embeddings.yaml'
 
-NL_CACHE_PATH = '~/.datacommons/'
-NL_EMBEDDINGS_CACHE_KEY = 'nl_embeddings'
-NL_MODEL_CACHE_KEY = 'nl_model'
-_NL_CACHE_EXPIRE = 3600 * 24  # Cache for 1 day
-_NL_CACHE_SIZE_LIMIT = 16e9  # 16Gb local cache size
-
 
 #
 # Reads the yaml files and loads all the server state.
@@ -50,25 +43,10 @@ def load_server_state(app: Flask):
   if _use_vertex_ai(flask_env):
     vertex_ai_models = model_loader.load_models('EMBEDDING')
 
-  # In local dev, cache the embeddings on disk so each hot reload won't download
-  # the embeddings again.
-  if _use_cache(flask_env):
-    cache = Cache(NL_CACHE_PATH, size_limit=_NL_CACHE_SIZE_LIMIT)
-    cache.expire()
-
-    nl_model = cache.get(NL_MODEL_CACHE_KEY)
-    nl_embeddings = cache.get(NL_EMBEDDINGS_CACHE_KEY)
-    if nl_model and nl_embeddings:
-      _update_app_config(app, nl_model, nl_embeddings, embeddings_dict,
-                         vertex_ai_models)
-      return
-
   nl_embeddings = emb_map.EmbeddingsMap(embeddings_dict)
   nl_model = NLAttributeModel()
   _update_app_config(app, nl_model, nl_embeddings, embeddings_dict,
                      vertex_ai_models)
-
-  _maybe_update_cache(flask_env, nl_embeddings, nl_model)
 
 
 def load_custom_embeddings(app: Flask):
@@ -104,8 +82,6 @@ def load_custom_embeddings(app: Flask):
   # Update app config.
   _update_app_config(app, app.config[config.NL_MODEL_KEY], nl_embeddings,
                      embeddings_map)
-  # Update cache.
-  _maybe_update_cache(flask_env, nl_embeddings, None)
 
 
 def _load_yaml(flask_env: str) -> Dict[str, str]:
@@ -136,21 +112,6 @@ def _update_app_config(app: Flask,
   app.config[config.NL_EMBEDDINGS_KEY] = nl_embeddings
   app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_map
   app.config[config.VERTEX_AI_MODELS_KEY] = vertex_ai_models or {}
-
-
-def _maybe_update_cache(flask_env: str, nl_embeddings: emb_map.EmbeddingsMap,
-                        nl_model: NLAttributeModel):
-  if not nl_embeddings and not nl_model:
-    return
-
-  if _use_cache(flask_env):
-    with Cache(NL_CACHE_PATH, size_limit=_NL_CACHE_SIZE_LIMIT) as reference:
-      if nl_embeddings:
-        reference.set(NL_EMBEDDINGS_CACHE_KEY,
-                      nl_embeddings,
-                      expire=_NL_CACHE_EXPIRE)
-      if nl_model:
-        reference.set(NL_MODEL_CACHE_KEY, nl_model, expire=_NL_CACHE_EXPIRE)
 
 
 def _maybe_load_custom_dc_yaml():
@@ -201,10 +162,6 @@ def get_env_path(flask_env: str, file_name: str) -> str:
 
 def _use_vertex_ai(flask_env):
   return flask_env in ['local', 'test', 'integration_test', 'autopush']
-
-
-def _use_cache(flask_env):
-  return flask_env in ['local', 'integration_test', 'webdriver']
 
 
 def _is_custom_dc_dev(flask_env: str) -> bool:

@@ -45,6 +45,7 @@ export const CSS_THEME = {
     main: "#BBECE9",
   },
   text: {
+    linkColor: "#146C2E",
     textColor: "#303030",
   },
 };

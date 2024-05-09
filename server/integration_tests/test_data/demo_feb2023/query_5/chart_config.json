@@ -67,7 +67,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_abs"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Accommodation/Food Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -337,7 +337,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_pct"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Accommodation/Food Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -453,7 +453,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_pc"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Accommodation/Food Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -619,19 +619,19 @@
         ],
         "statVarSpec": {
           "Count_Worker_NAICSAccommodationFoodServices": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_growth_abs": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_growth_pc": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_growth_pct": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices": {
