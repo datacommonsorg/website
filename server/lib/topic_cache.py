@@ -156,7 +156,6 @@ class TopicCache:
 def load_files(dc: str, fpath_list: List[str],
                name_overrides: Dict) -> TopicCache:
   cache_nodes = []
-  cache = {}
   for fpath in fpath_list:
     with open(fpath, 'r') as fp:
       cache = json.load(fp)
@@ -204,7 +203,7 @@ def load(name_overrides: Dict) -> Dict[str, TopicCache]:
   if is_custom_dc():
     override_dc, custom_dc_topic_cache = _load_custom_dc_topic_cache(
         name_overrides)
-    if custom_dc_topic_cache:
+    if override_dc and custom_dc_topic_cache:
       # Always maintain custom dc cache under the name "custom"
       topic_cache_map[DCNames.CUSTOM_DC.value] = custom_dc_topic_cache
 
