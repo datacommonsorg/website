@@ -123,8 +123,8 @@ def parse_v1(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
           location=model_info['location'],
           prediction_endpoint_id=model_info['prediction_endpoint_id'])
     else:
-      logging.error(
-          'Skip parsing information for model {model_name}: unsupported type {model_type}'
+      raise AssertionError(
+          'Error parsing information for model {model_name}: unsupported type {model_type}'
       )
 
   # parse the indexes
@@ -151,8 +151,8 @@ def parse_v1(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
           index_endpoint=index_info['index_endpoint'],
           index_id=index_info['index_id'])
     else:
-      logging.error(
-          'Skip parsing information for index {index_name}: unsupported store type {store_type}'
+      raise AssertionError(
+          'Error parsing information for index {index_name}: unsupported store type {store_type}'
       )
 
   return EmbeddingsConfig(indexes=indexes, models=models)

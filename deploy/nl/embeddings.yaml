@@ -38,15 +38,15 @@ indexes:
   medium_vertex_ft:
     store: MEMORY
     embeddings: gs://datcom-nl-models/embeddings_medium_2024_03_14_16_38_53.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
-    model: dc-all-minilm-l6-v2-model
-  dc-all-minilm-l6-v2:
+    model: medium-vertex-model
+  medium_vertex_store:
     store: VERTEXAI
     project_id: datcom-website-dev
     location: us-central1
     index_endpoint_root: 302175072.us-central1-496370955550.vdb.vertexai.goog
     index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
     index_id: dc_all_minilm_l6_v2_ft_1709655496660
-    model: dc-all-minilm-l6-v2-model
+    model: medium-vertex-model
   uae-large-v1:
     store: VERTEXAI
     project_id: datcom-website-dev
@@ -65,7 +65,7 @@ indexes:
     model: sfr-embedding-mistral-model
 
 models:
-  dc-all-minilm-l6-v2-model:
+  medium-vertex-model:
     type: VERTEXAI
     project_id: datcom-website-dev
     location: us-central1
