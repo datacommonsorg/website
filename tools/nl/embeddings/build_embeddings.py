@@ -56,8 +56,7 @@ flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string('embeddings_size', '', 'Embeddings size')
 
-flags.DEFINE_list('curated_input_dirs',
-                  ['data/curated_input/main', 'data/curated_input/sdg'],
+flags.DEFINE_list('curated_input_dirs', ['data/curated_input/main'],
                   'Curated input csv (relative) directory list')
 
 flags.DEFINE_string(
