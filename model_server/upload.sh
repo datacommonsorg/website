@@ -16,12 +16,10 @@
 set -e
 
 MODEL_NAME=$1
+PROJECT_ID=$2
 
 REGISTRY=us-central1-docker.pkg.dev/datcom-ci/models/embedding-model
-PROJECT_ID=datcom-website-dev
-
 WEBSITE_HASH=$(git rev-parse --short=7 HEAD)
-
 DISPLAY_NAME=$(echo "${MODEL_NAME}_${WEBSITE_HASH}" | tr '[:upper:]/' '[:lower:]_')
 
 gcloud ai models upload \
