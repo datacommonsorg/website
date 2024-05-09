@@ -5894,15 +5894,15 @@ dc/topic/AgricultureEmissionsByGas,Amount of gases emitted by agricultural secto
 dc/topic/AirQualityIndex,Air Quality Index;air quality level
 dc/topic/AlcoholIndustry,Alcohol Industry
 dc/topic/AmbientAirPollution,Ambient Air Pollution
-dc/topic/AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,American Indian And Alaska Native Alone Female Population By Age
-dc/topic/AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,American Indian And Alaska Native Alone Male Population By Age
-dc/topic/AmericanIndianAndAlaskaNativeAlonePopulationByAge,American Indian And Alaska Native Alone Population By Age
+dc/topic/AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,American Indian And Alaska Native Female Population By Age
+dc/topic/AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,American Indian And Alaska Native Male Population By Age
+dc/topic/AmericanIndianAndAlaskaNativeAlonePopulationByAge,American Indian And Alaska Native Population By Age
 dc/topic/Arthritis,Arthritis
 dc/topic/ArthritisFemalePopulationByAge,Female Population With Arthritis By Age
 dc/topic/ArthritisMalePopulationByAge,Male Population With Arthritis By Age
-dc/topic/AsianAloneFemalePopulationByAge,Asian Alone Female Population By Age
-dc/topic/AsianAloneMalePopulationByAge,Asian Alone Male Population By Age
-dc/topic/AsianAlonePopulationByAge,Asian Alone Population By Age
+dc/topic/AsianAloneFemalePopulationByAge,Asian Female Population By Age
+dc/topic/AsianAloneMalePopulationByAge,Asian Male Population By Age
+dc/topic/AsianAlonePopulationByAge,Asian Population By Age
 dc/topic/AsianOrPacificIslanderFemalePopulationByAge,Asian Or Pacific Islander Female Population By Age
 dc/topic/AsianOrPacificIslanderMalePopulationByAge,Asian Or Pacific Islander Male Population By Age
 dc/topic/AsianOrPacificIslanderPopulationByAge,Asian Or Pacific Islander Population By Age
@@ -5914,9 +5914,9 @@ dc/topic/BachelorsMajor,Bachelors Major;college major;undergraduate major
 dc/topic/BankingAccess,Banking Access
 dc/topic/Benefits,Benefits;public benefits;social benefits
 dc/topic/Births,Births
-dc/topic/BlackOrAfricanAmericanAloneFemalePopulationByAge,Black Or African American Alone Female Population By Age
-dc/topic/BlackOrAfricanAmericanAloneMalePopulationByAge,Black Or African American Alone Male Population By Age
-dc/topic/BlackOrAfricanAmericanAlonePopulationByAge,Black Or African American Alone Population By Age
+dc/topic/BlackOrAfricanAmericanAloneFemalePopulationByAge,Black Or African American Female Population By Age
+dc/topic/BlackOrAfricanAmericanAloneMalePopulationByAge,Black Or African American Male Population By Age
+dc/topic/BlackOrAfricanAmericanAlonePopulationByAge,Black Or African American Population By Age
 dc/topic/BloodPressure,Blood Pressure;High blood pressure condition;People with high blood pressure
 dc/topic/Businesses,Business;Business economy;Businesses
 dc/topic/CO2Emissions,CO2 Emissions;Carbon dioxide emissions by source;source of co2 emissions;sources of carbon dioxide emissions
@@ -5926,7 +5926,7 @@ dc/topic/CancerFemalePopulationByAge,Female Population With Cancer By Age
 dc/topic/CancerMalePopulationByAge,Male Population With Cancer By Age
 dc/topic/CarbonMonoxide,CO;CO pollutant;Carbon Monoxide
 dc/topic/CausesOfDeath,Causes of death;Reasons for death;Reasons for mortality
-dc/topic/Cholesterol,High cholestrol;People with high cholestrol;bad cholestrol;good cholestrol;high cholestrol condition
+dc/topic/Cholesterol,High cholestrol;People with high cholestrol;high cholestrol condition
 dc/topic/CitizenshipStatus,Citizenship Status
 dc/topic/ClimateChange,Climate Change;Climate Change impact;Global Warming;Impact of Climate Change
 dc/topic/CoastalFlood,Coastal Flood
@@ -5992,14 +5992,14 @@ dc/topic/ExportSubsidies,Export Subsidies
 dc/topic/FemaleMortality,Female deaths;Female mortality
 dc/topic/Fire,Fires;fire;fire event;wild fires
 dc/topic/Flood,Floods;flood
-dc/topic/FoodInsecurity,Food Insecurity;access to food;food insecure;food security;lack of access to the food
+dc/topic/FoodInsecurity,Food Insecurity;access to food;food insecure;lack of access to the food
 dc/topic/Forest,Forest
 dc/topic/FossilFuelOperationsEmissionsByGas,Amount of gases emitted in fossil fuel operations;Emissions from fossil fuel operations;Quantity of greenhouse gases emitted by the burning of fossil fuels;The sum of all gases released by the use of fossil fuels;The volume of emissions produced by the use of fossil fuels;Total amount of gas emissions from fossil fuel operations;Total quantity of gases released by fossil fuel operations
 dc/topic/GDP,gross domestic production
 dc/topic/GDPByIndustry,GDP By Industry;gross domestic product breakdown by industry;gross domestic product by industry
 dc/topic/Gender,Gender;gender of population
 dc/topic/GlobalEconomicActivity,Global Economic Activity
-dc/topic/GlobalElectricityAccess,Access To Electricity;Percentage of People with access to Electricity;electricity access;electrification;people with access to electricity
+dc/topic/GlobalElectricityAccess,Access To Electricity;Percentage of People with access to Electricity;electrification;people with access to electricity
 dc/topic/GlobalHealth,Global health;World health;health conditions in the world;health in the world
 dc/topic/GreenJobs,Green Jobs;environmentally friendly jobs;sustainable jobs
 dc/topic/GreenhouseGasEmissions,GHG emissions;Greenhouse Gas Emission;greenhouse gasses emissions;sources of GHG emissions;sources of greenhouse gas emissions
@@ -6023,39 +6023,6 @@ dc/topic/HeightStunting,Height Stunting
 dc/topic/HispanicOrLatinoFemalePopulationByAge,Hispanic Or Latino Female Population By Age
 dc/topic/HispanicOrLatinoMalePopulationByAge,Hispanic Or Latino Male Population By Age
 dc/topic/HispanicOrLatinoPopulationByAge,Hispanic Or Latino Population By Age
-dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Female Population By Age"
-dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Male Population By Age"
-dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Female Population By Age"
-dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Male Population By Age"
-dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Population By Age"
-dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAlonePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Population By Age"
-dc/topic/HispanicOrLatino_AsianAloneFemalePopulationByAge,"Hispanic Or Latino, Asian Alone Female Population By Age"
-dc/topic/HispanicOrLatino_AsianAloneMalePopulationByAge,"Hispanic Or Latino, Asian Alone Male Population By Age"
-dc/topic/HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Female Population By Age"
-dc/topic/HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Male Population By Age"
-dc/topic/HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Population By Age"
-dc/topic/HispanicOrLatino_AsianAlonePopulationByAge,"Hispanic Or Latino, Asian Alone Population By Age"
-dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneFemalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Female Population By Age"
-dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneMalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Male Population By Age"
-dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Female Population By Age"
-dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Male Population By Age"
-dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Population By Age"
-dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAlonePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Population By Age"
-dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Female Population By Age"
-dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Male Population By Age"
-dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Female Population By Age"
-dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Male Population By Age"
-dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Population By Age"
-dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Population By Age"
-dc/topic/HispanicOrLatino_TwoOrMoreRacesFemalePopulationByAge,"Hispanic Or Latino, Two Or More Races Female Population By Age"
-dc/topic/HispanicOrLatino_TwoOrMoreRacesMalePopulationByAge,"Hispanic Or Latino, Two Or More Races Male Population By Age"
-dc/topic/HispanicOrLatino_TwoOrMoreRacesPopulationByAge,"Hispanic Or Latino, Two Or More Races Population By Age"
-dc/topic/HispanicOrLatino_WhiteAloneFemalePopulationByAge,"Hispanic Or Latino, White Alone Female Population By Age"
-dc/topic/HispanicOrLatino_WhiteAloneMalePopulationByAge,"Hispanic Or Latino, White Alone Male Population By Age"
-dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Female Population By Age"
-dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Male Population By Age"
-dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age"
-dc/topic/HispanicOrLatino_WhiteAlonePopulationByAge,"Hispanic Or Latino, White Alone Population By Age"
 dc/topic/HomeOwnership,Home Ownership;house ownership;housing owners;owners of houses
 dc/topic/HouseFeatures,House Features;features in a home;features of a house
 dc/topic/HouseOccupants,House Occupants;home occupants;people living in the house
@@ -6073,7 +6040,7 @@ dc/topic/Housing,Housing
 dc/topic/Hurricane,Hurricane
 dc/topic/Immigration,Immigration
 dc/topic/Incarceration,Incarceration
-dc/topic/Income,Earnings;Income;Income from Earnings;Salary;compensation;monetary status;pay;wealth;what are the wealthy neighborhoods
+dc/topic/Income,Earnings;Income;Income from Earnings;Salary;compensation;pay
 dc/topic/IncomeEquity,Income Equity;equity of income distribution;fairness of income distribution;fariness in income
 dc/topic/IndividualIncomeByIndustry,Individual Income By Industry;individual income across industries
 dc/topic/IndividualIncomeDistribution,Individual Income Distribution
@@ -6130,9 +6097,9 @@ dc/topic/MortalityAmongIncarcerated,Mortality among incarcerated;Mortality among
 dc/topic/MortalityByGender,Mortality by gender;Mortality split by gender;mortality breakdown by gender;mortality distribution by gender
 dc/topic/MortalityByRace,Mortality by race;deaths by race;mortality breakdown by race;racial breakdown of mortality
 dc/topic/Nationality,Nationality
-dc/topic/NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Female Population By Age
-dc/topic/NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Male Population By Age
-dc/topic/NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Population By Age
+dc/topic/NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,Native Hawaiian And Other Pacific Islander Female Population By Age
+dc/topic/NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,Native Hawaiian And Other Pacific Islander Male Population By Age
+dc/topic/NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,Native Hawaiian And Other Pacific Islander Population By Age
 dc/topic/NaturalDisasters,Natural Disasters;disasters
 dc/topic/NeglectedTropicalDiseases,Neglected Tropical Diseases
 dc/topic/NeverMarriedFemalePopulationByAge,Never Married Female Population By Age
@@ -6146,41 +6113,6 @@ dc/topic/NoHealthInsuranceByIncome,No Health Insurance by income;no health insur
 dc/topic/NoHealthInsuranceByRace,No Health Insurance by race;no health insurance across race;no health insurance by race;racial breakdown of those without health insurance
 dc/topic/NonEnglishLanguageAtHome,Non-English Languages Spoken At Home;non-english at home;non-english language at home;other languages spoken at home;spoken language at home is not English
 dc/topic/NoninstitutionalizedGroupQuartersResidents,Noninstitutionalized Group Quarters Residents
-dc/topic/NotHispanicOrLatinoFemalePopulationByAge,Not Hispanic Or Latino Female Population By Age
-dc/topic/NotHispanicOrLatinoMalePopulationByAge,Not Hispanic Or Latino Male Population By Age
-dc/topic/NotHispanicOrLatinoPopulationByAge,Not Hispanic Or Latino Population By Age
-dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Female Population By Age"
-dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Male Population By Age"
-dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Female Population By Age"
-dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Male Population By Age"
-dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Population By Age"
-dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAlonePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Population By Age"
-dc/topic/NotHispanicOrLatino_AsianAloneFemalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Female Population By Age"
-dc/topic/NotHispanicOrLatino_AsianAloneMalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Male Population By Age"
-dc/topic/NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Female Population By Age"
-dc/topic/NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Male Population By Age"
-dc/topic/NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Population By Age"
-dc/topic/NotHispanicOrLatino_AsianAlonePopulationByAge,"Not Hispanic Or Latino, Asian Alone Population By Age"
-dc/topic/NotHispanicOrLatino_AsianOrPacificIslanderFemalePopulationByAge,"Not Hispanic Or Latino, Asian Or Pacific Islander Female Population By Age"
-dc/topic/NotHispanicOrLatino_AsianOrPacificIslanderMalePopulationByAge,"Not Hispanic Or Latino, Asian Or Pacific Islander Male Population By Age"
-dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneFemalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Female Population By Age"
-dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneMalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Male Population By Age"
-dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Female Population By Age"
-dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Male Population By Age"
-dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Population By Age"
-dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAlonePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Population By Age"
-dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Female Population By Age"
-dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Male Population By Age"
-dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Female Population By Age"
-dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Male Population By Age"
-dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Population By Age"
-dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Population By Age"
-dc/topic/NotHispanicOrLatino_TwoOrMoreRacesFemalePopulationByAge,"Not Hispanic Or Latino, Two Or More Races Female Population By Age"
-dc/topic/NotHispanicOrLatino_TwoOrMoreRacesMalePopulationByAge,"Not Hispanic Or Latino, Two Or More Races Male Population By Age"
-dc/topic/NotHispanicOrLatino_TwoOrMoreRacesPopulationByAge,"Not Hispanic Or Latino, Two Or More Races Population By Age"
-dc/topic/NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Female Population By Age"
-dc/topic/NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Male Population By Age"
-dc/topic/NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age"
 dc/topic/NowMarriedFemalePopulationByAge,Now Married Female Population By Age
 dc/topic/NowMarriedMalePopulationByAge,Now Married Male Population By Age
 dc/topic/NowMarriedPopulationByAge,Now Married Population By Age
@@ -6240,7 +6172,6 @@ dc/topic/RuralMalePopulationByAge,Rural Male Population By Age
 dc/topic/RuralPopulationByAge,Rural Population By Age
 dc/topic/SDGBiodiversity,Biodiversity;SDG bio diversity;SDG biodiversity;bio diversity
 dc/topic/SDGReforestations,Reforestation;SDG reforestation;reforesting
-dc/topic/SDG_1,End poverty;End poverty in all its forms;SDG end poverty;SDG poverty
 dc/topic/Sanitation,Sanitation
 dc/topic/SchoolType,School Type;type of school;types of schools
 dc/topic/Schools,Schools;school
@@ -6252,8 +6183,6 @@ dc/topic/Snowfall,Snowfall
 dc/topic/SocialSupport,Social Support
 dc/topic/SolarConsumption,Solar Consumption
 dc/topic/SolarPotential,Solar Potential;Solar potential;ability to support solar panels;amount of solar potential;potential for solar energy;solar potential
-dc/topic/SomeOtherRaceAloneFemalePopulationByAge,Some Other Race Alone Female Population By Age
-dc/topic/SomeOtherRaceAloneMalePopulationByAge,Some Other Race Alone Male Population By Age
 dc/topic/Storm,Storm
 dc/topic/Stroke,Stroke;heart attack;stroke attack
 dc/topic/StrokeFemalePopulationByAge,Female Population With Stroke By Age
@@ -6307,19 +6236,16 @@ dc/topic/WHOChildrenNonCommunicableDiseases,Childen with Non Communicable Diseas
 dc/topic/WHODALYByCauses,Disability adjusted life years by causes;Global DALY causes;WHO DALY causes;WHO Disability adjusted life years by causes
 dc/topic/WHOHealthBehavior,Global Health behaviors;Health behaviors WHO;WHO Health behaviors
 dc/topic/WHOImmunization,Global Immunizations;Immunizations;WHO immunizations;immunization rates
-dc/topic/WHOMaternalMortality,Deaths among mothers;Global Maternal Mortality;WHO maternal mortality;death rates of mothers
+dc/topic/WHOMaternalMortality,Deaths among mothers;Global Maternal Mortality;WHO maternal mortality
 dc/topic/WHOMortality,Global Mortality;death rates;mortality
 dc/topic/WHOMortalityCauses,Global Mortality Causes;WHO Mortality causes;causes of death WHO;mortality causes by WHO
 dc/topic/WHONeglectedTropicalDiseases,Global Neglected Tropical Diseases;Ignored Tropical Diseases;WHO neglected tropical diseases;tropical diseases ignored WHO
 dc/topic/WHONonCommunicableDiseaseDeaths,Global Non communicable disease deaths;Non communicable disease deaths;WHO deaths due to non communicable diseases;deaths due to non communicable disease
 dc/topic/WHONonCommunicableDiseases,Global Non communicable diseases;Non communicable diseases;WHO non communicable diseases;non communicable diseases WHO
 dc/topic/WetBulbEvent,Wet-Bulb Events;high humidity and high heat;wet bulb events;wetbulb
-dc/topic/WhiteAloneFemalePopulationByAge,White Alone Female Population By Age
-dc/topic/WhiteAloneMalePopulationByAge,White Alone Male Population By Age
-dc/topic/WhiteAloneNotHispanicOrLatinoFemalePopulationByAge,White Alone Not Hispanic Or Latino Female Population By Age
-dc/topic/WhiteAloneNotHispanicOrLatinoMalePopulationByAge,White Alone Not Hispanic Or Latino Male Population By Age
-dc/topic/WhiteAloneNotHispanicOrLatinoPopulationByAge,White Alone Not Hispanic Or Latino Population By Age
-dc/topic/WhiteAlonePopulationByAge,White Alone Population By Age
+dc/topic/WhiteAloneFemalePopulationByAge,White Female Population By Age
+dc/topic/WhiteAloneMalePopulationByAge,White Male Population By Age
+dc/topic/WhiteAlonePopulationByAge,White Population By Age
 dc/topic/WidowedFemalePopulationByAge,Widowed Female Population By Age
 dc/topic/WidowedMalePopulationByAge,Widowed Male Population By Age
 dc/topic/WidowedPopulationByAge,Widowed Population By Age
@@ -6330,7 +6256,7 @@ dc/topic/WorkCommute,Work Commute;Work commute;commute mode;journey to work;trav
 dc/topic/YearlyProjectedTemperatureHighs,Projected max temperature for the year;maximum temperature projected year;temperature highs for the year;yearly projected max temperature
 dc/topic/YearlyProjectedTemperatureLows,Projected min temperature for the year;minimum temperature projected year;temperature lows for the year;yearly projected min temperature
 dc/topic/sdg,Sustainable Development Goals;sdg;sdg Sustainable Development Goals;sustainable development goal Sustainable Development Goals
-dc/topic/sdg_1,SDG No Poverty;sdg 1;sdg No Poverty;sdg1;sustainable development goal No Poverty
+dc/topic/sdg_1,End poverty;SDG No Poverty;sdg 1;sdg No Poverty;sdg1;sustainable development goal No Poverty
 dc/topic/sdg_1.1,"By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day;sdg 1 1;sdg 1.1;sdg By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day;sustainable development goal By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day"
 dc/topic/sdg_1.1.1,"Proportion of the population living below the international poverty line by sex, age, employment status and geographic location (urban/rural);sdg 1 1 1;sdg 1.1.1;sdg Proportion of the population living below the international poverty line by sex, age, employment status and geographic location (urban/rural);sustainable development goal Proportion of the population living below the international poverty line by sex, age, employment status and geographic location (urban/rural)"
 dc/topic/sdg_1.2,"By 2030, reduce at least by half the proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions;lives below 1 per day;lives under 2 per day;living below $1;living below $2;living below 2 per day;living below poverty;living under 2 per day;sdg 1 2;sdg 1.2;sdg By 2030, reduce at least by half the proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions;sustainable development goal By 2030, reduce at least by half the proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions"
@@ -6565,7 +6491,7 @@ dc/topic/sdg_17.9.1,"Dollar value of financial and technical assistance (includi
 dc/topic/sdg_2,SDG Zero Hunger;sdg 2;sdg Zero Hunger;sdg2;sustainable development goal Zero Hunger
 dc/topic/sdg_2.1,"By 2030, end hunger and ensure access by all people, in particular the poor and people in vulnerable situations, including infants, to safe, nutritious and sufficient food all year round;sdg 2 1;sdg 2.1;sdg 21;sdg By 2030, end hunger and ensure access by all people, in particular the poor and people in vulnerable situations, including infants, to safe, nutritious and sufficient food all year round;sdg21;sustainable development goal By 2030, end hunger and ensure access by all people, in particular the poor and people in vulnerable situations, including infants, to safe, nutritious and sufficient food all year round"
 dc/topic/sdg_2.1.1,sdg 2 1 1;sdg 2.1.1;sdg 211;sdg Prevalence of undernourishment;sdg211;sustainable development goal Prevalence of undernourishment
-dc/topic/sdg_2.1.2,"Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES);food insecurity;sdg 2 1 2;sdg 2.1.2;sdg 212;sdg Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES);sdg212;sustainable development goal Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)"
+dc/topic/sdg_2.1.2,"Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES);food insecurity;food security;sdg 2 1 2;sdg 2.1.2;sdg 212;sdg Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES);sdg212;sustainable development goal Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)"
 dc/topic/sdg_2.2,"By 2030, end all forms of malnutrition, including achieving, by 2025, the internationally agreed targets on stunting and wasting in children under 5 years of age, and address the nutritional needs of adolescent girls, pregnant and lactating women and older persons;sdg 2 2;sdg 2.2;sdg 22;sdg By 2030, end all forms of malnutrition, including achieving, by 2025, the internationally agreed targets on stunting and wasting in children under 5 years of age, and address the nutritional needs of adolescent girls, pregnant and lactating women and older persons;sdg22;sustainable development goal By 2030, end all forms of malnutrition, including achieving, by 2025, the internationally agreed targets on stunting and wasting in children under 5 years of age, and address the nutritional needs of adolescent girls, pregnant and lactating women and older persons"
 dc/topic/sdg_2.2.1,Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age;sdg 2 2 1;sdg 2.2.1;sdg 221;sdg Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age;sdg221;sustainable development goal Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age
 dc/topic/sdg_2.2.2,"Prevalence of malnutrition (weight for height >+2 or <-2 standard deviation from the median of the WHO Child Growth Standards) among children under 5 years of age, by type (wasting and overweight);sdg 2 2 2;sdg 2.2.2;sdg 222;sdg Prevalence of malnutrition (weight for height >+2 or <-2 standard deviation from the median of the WHO Child Growth Standards) among children under 5 years of age, by type (wasting and overweight);sdg222;sustainable development goal Prevalence of malnutrition (weight for height >+2 or <-2 standard deviation from the median of the WHO Child Growth Standards) among children under 5 years of age, by type (wasting and overweight)"
@@ -6694,7 +6620,7 @@ dc/topic/sdg_6.b,Support and strengthen the participation of local communities i
 dc/topic/sdg_6.b.1,Proportion of local administrative units with established and operational policies and procedures for participation of local communities in water and sanitation management;sdg 6 b 1;sdg 6.b.1;sdg 6b1;sdg Proportion of local administrative units with established and operational policies and procedures for participation of local communities in water and sanitation management;sdg6b1;sustainable development goal Proportion of local administrative units with established and operational policies and procedures for participation of local communities in water and sanitation management
 dc/topic/sdg_7,SDG Affordable and Clean Energy;sdg 7;sdg Affordable and Clean Energy;sdg7;sustainable development goal Affordable and Clean Energy
 dc/topic/sdg_7.1,"By 2030, ensure universal access to affordable, reliable and modern energy services;sdg 7 1;sdg 7.1;sdg 71;sdg By 2030, ensure universal access to affordable, reliable and modern energy services;sdg71;sustainable development goal By 2030, ensure universal access to affordable, reliable and modern energy services"
-dc/topic/sdg_7.1.1,Proportion of population with access to electricity;access to electricity;sdg 7 1 1;sdg 7.1.1;sdg 711;sdg Proportion of population with access to electricity;sdg711;sustainable development goal Proportion of population with access to electricity
+dc/topic/sdg_7.1.1,Proportion of population with access to electricity;access to electricity;electricity access;sdg 7 1 1;sdg 7.1.1;sdg 711;sdg Proportion of population with access to electricity;sdg711;sustainable development goal Proportion of population with access to electricity
 dc/topic/sdg_7.1.2,Proportion of population with primary reliance on clean fuels and technology;sdg 7 1 2;sdg 7.1.2;sdg 712;sdg Proportion of population with primary reliance on clean fuels and technology;sdg712;sustainable development goal Proportion of population with primary reliance on clean fuels and technology
 dc/topic/sdg_7.2,"By 2030, increase substantially the share of renewable energy in the global energy mix;sdg 7 2;sdg 7.2;sdg 72;sdg By 2030, increase substantially the share of renewable energy in the global energy mix;sdg72;sustainable development goal By 2030, increase substantially the share of renewable energy in the global energy mix"
 dc/topic/sdg_7.2.1,sdg 7 2 1;sdg 7.2.1;sdg 721;sdg Renewable energy share in the total final energy consumption;sdg721;sustainable development goal Renewable energy share in the total final energy consumption

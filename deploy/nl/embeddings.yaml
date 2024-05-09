@@ -1,6 +1,6 @@
 medium_ft:
   store: MEMORY
-  embeddings: gs://datcom-nl-models/embeddings_medium_2024_03_14_16_38_53.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+  embeddings: gs://datcom-nl-models/embeddings_medium_2024_05_09_14_48_17.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
   model: ft_final_v20230717230459.all-MiniLM-L6-v2
   model_type: LOCAL
 sdg_ft:
