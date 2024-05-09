@@ -79,6 +79,7 @@ class TestTopicCacheLoader(unittest.TestCase):
 
   @patch.dict(os.environ, {"IS_CUSTOM_DC": "false"})
   def test_main_only(self):
+    """Tests that custom dc cache is not loaded if IS_CUSTOM_DC is not true."""
     _test_topic_cache_loader(self, "main_only")
 
   @patch.dict(
@@ -87,6 +88,7 @@ class TestTopicCacheLoader(unittest.TestCase):
           "USER_DATA_PATH": _CUSTOM_DC_MERGE_WITH_MAIN_USER_DATA_PATH
       })
   def test_main_and_custom(self):
+    """Tests merging custom dc cache into main cache."""
     _test_topic_cache_loader(self, "main_and_custom")
 
   @patch.dict(
@@ -95,8 +97,11 @@ class TestTopicCacheLoader(unittest.TestCase):
           "USER_DATA_PATH": _CUSTOM_DC_MERGE_WITH_UNDATA_USER_DATA_PATH
       })
   def test_undata_and_custom(self):
+    """Tests merging custom dc cache into undata cache."""
     _test_topic_cache_loader(self, "undata_and_custom")
 
   @patch.dict(os.environ, {"IS_CUSTOM_DC": "true"})
   def test_no_user_data_path(self):
+    """Tests that when IS_CUSTOM_DC is true, but no user data path is specified,
+    there are no failures."""
     _test_topic_cache_loader(self, "no_user_data_path")

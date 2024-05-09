@@ -82,17 +82,15 @@ _EXTENDED_SVG_OVERRIDE_MAP = {
 
 class TopicCache:
 
-  def __init__(self, dc: str, out_map: Dict[str, Node],
+  def __init__(self, out_map: Dict[str, Node],
                in_map: Dict[str, Dict[str, Set[str]]]):
-    self.dc = dc
     self.out_map = out_map
     self.in_map = in_map
 
-  def _merge(self, other: Self):
-    logging.info(
-        "Merging topic caches %s and %s: out maps (%s, %s), in maps (%s, %s).",
-        self.dc, other.dc, len(self.out_map), len(other.out_map),
-        len(self.in_map), len(other.in_map))
+  def merge(self, other: Self):
+    logging.info("Merging topic caches: out maps (%s, %s), in maps (%s, %s).",
+                 len(self.out_map), len(other.out_map), len(self.in_map),
+                 len(other.in_map))
     self.out_map.update(other.out_map)
     self.in_map.update(other.in_map)
     logging.info("After merging topic caches: out map (%s), in map (%s).",
@@ -155,8 +153,8 @@ class TopicCache:
     return self.out_map[id].name
 
 
-def load_files(fpath_list: List[str], name_overrides: Dict,
-               dc: str) -> TopicCache:
+def load_files(dc: str, fpath_list: List[str],
+               name_overrides: Dict) -> TopicCache:
   cache_nodes = []
   cache = {}
   for fpath in fpath_list:
@@ -164,13 +162,13 @@ def load_files(fpath_list: List[str], name_overrides: Dict,
       cache = json.load(fp)
       cache_nodes.extend(cache['nodes'])
 
+  return _load_nodes(dc, cache_nodes, name_overrides)
+
+
+def _load_nodes(dc: str, cache_nodes: List, name_overrides: Dict) -> TopicCache:
+
   out_map = {}
   in_map = {}
-
-  # For custom dc caches, if a "dc" field is encoded in the cache, use that as the cache's name.
-  # This is used to determine which main dc cache to merge with.
-  if dc == DCNames.CUSTOM_DC.value:
-    dc = cache.get("dc", dc)
 
   for node in cache_nodes:
     dcid = node['dcid'][0]
@@ -195,35 +193,42 @@ def load_files(fpath_list: List[str], name_overrides: Dict,
         in_map[m][new_prop] = set()
       in_map[m][new_prop].add(dcid)
 
-  return TopicCache(dc=dc, out_map=out_map, in_map=in_map)
+  return TopicCache(out_map=out_map, in_map=in_map)
 
 
 def load(name_overrides: Dict) -> Dict[str, TopicCache]:
   topic_cache_map: Dict[str, TopicCache] = {}
   for dc, fpath_list in TOPIC_CACHE_FILES.items():
-    topic_cache_map[dc] = load_files(fpath_list, name_overrides, dc)
+    topic_cache_map[dc] = load_files(dc, fpath_list, name_overrides)
 
   if is_custom_dc():
-    custom_dc_topic_cache = _load_custom_dc_topic_cache(name_overrides)
+    override_dc, custom_dc_topic_cache = _load_custom_dc_topic_cache(
+        name_overrides)
     if custom_dc_topic_cache:
       # Always maintain custom dc cache under the name "custom"
       topic_cache_map[DCNames.CUSTOM_DC.value] = custom_dc_topic_cache
 
-      # Merge custom dc cache with the dc name specified in the cache.
-      # If none was specified, than the name will be custom, in which case we merge with main.
-      merge_dc = DCNames.MAIN_DC.value
-      if custom_dc_topic_cache.dc != DCNames.CUSTOM_DC.value:
-        merge_dc = custom_dc_topic_cache.dc
-      topic_cache_map[merge_dc]._merge(custom_dc_topic_cache)
+      # Merge custom dc cache with the override_dc cache.
+      topic_cache_map[override_dc].merge(custom_dc_topic_cache)
 
   return topic_cache_map
 
 
-def _load_custom_dc_topic_cache(name_overrides: Dict) -> TopicCache:
+# Returns a tuple of DC to be overriden and TopicCache.
+def _load_custom_dc_topic_cache(name_overrides: Dict) -> tuple[str, TopicCache]:
   local_path = _get_local_custom_dc_topic_cache_path()
   if not local_path:
-    return None
-  return load_files([local_path], name_overrides, DCNames.CUSTOM_DC.value)
+    return (None, None)
+
+  cache = {}
+  with open(local_path, 'r') as fp:
+    cache = json.load(fp)
+
+  # If a "dc" field is specified, override that DC's cache.
+  # Else override the main DC cache.
+  override_dc = cache.get("dc", DCNames.MAIN_DC.value)
+  topic_cache = _load_nodes(override_dc, cache['nodes'], name_overrides)
+  return (override_dc, topic_cache)
 
 
 def _get_local_custom_dc_topic_cache_path() -> str:

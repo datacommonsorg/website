@@ -11,6 +11,8 @@
 # without warranties or conditions of any kind, either express or implied.
 # see the license for the specific language governing permissions and
 # limitations under the license.
+"""Custom DC utility functions shared by both server and NL server.
+Any logic added here should be safely callable by both servers."""
 
 import os
 
