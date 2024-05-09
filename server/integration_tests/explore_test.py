@@ -275,14 +275,14 @@ class ExploreTest(NLWebServerTestCase):
     # match the one from above.
     self.run_detection('detection_api_basic_uae_idx', ['Commute in California'],
                        test='unittest',
-                       idx='uae-large-v1')
+                       idx='uae_large_v1')
 
   def test_detection_basic_sfr(self):
     # NOTE: Use the same test-name as above, since we expect the content to exactly
     # match the one from above.
     self.run_detection('detection_api_sfr_idx', ['Commute in California'],
                        test='unittest',
-                       idx='sfr-embedding-mistral')
+                       idx='sfr_embedding_mistral')
 
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')

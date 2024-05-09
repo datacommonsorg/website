@@ -81,6 +81,7 @@ class TestEmbeddings(unittest.TestCase):
         'models': {
             _TUNED_MODEL_NAME: {
                 'type': 'LOCAL',
+                'usage': 'EMBEDDINGS',
                 'gcs_folder': _TUNED_MODEL_GCS
             }
         }
@@ -121,6 +122,7 @@ class TestEmbeddings(unittest.TestCase):
         'models': {
             _TUNED_MODEL_NAME: {
                 'type': 'LOCAL',
+                'usage': 'EMBEDDINGS',
                 'gcs_folder': _TUNED_MODEL_GCS
             }
         }
@@ -142,6 +144,7 @@ class TestEmbeddings(unittest.TestCase):
             'models': {
                 _TUNED_MODEL_NAME: {
                     'type': 'LOCAL',
+                    'usage': 'EMBEDDINGS',
                     'gcs_folder': _TUNED_MODEL_GCS
                 }
             }

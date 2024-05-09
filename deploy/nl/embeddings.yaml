@@ -46,8 +46,8 @@ indexes:
     index_endpoint_root: 302175072.us-central1-496370955550.vdb.vertexai.goog
     index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
     index_id: dc_all_minilm_l6_v2_ft_1709655496660
-    model: medium-vertex-model
-  uae-large-v1:
+    model: dc-all-minilm-l6-v2-model
+  uae_large_v1:
     store: VERTEXAI
     project_id: datcom-website-dev
     location: us-central1
@@ -55,7 +55,7 @@ indexes:
     index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
     index_id: uae_large_v1_1709655438364
     model: uae-large-v1-model
-  sfr-embedding-mistral:
+  sfr_embedding_mistral:
     store: VERTEXAI
     project_id: datcom-website-dev
     location: us-central1
@@ -65,31 +65,37 @@ indexes:
     model: sfr-embedding-mistral-model
 
 models:
-  medium-vertex-model:
+  dc-all-minilm-l6-v2-model:
     type: VERTEXAI
+    usage: EMBEDDINGS
     project_id: datcom-website-dev
     location: us-central1
     prediction_endpoint_id: "8518340991868993536"
   uae-large-v1-model:
     type: VERTEXAI
+    usage: EMBEDDINGS
     project_id: datcom-website-dev
     location: us-central1
     prediction_endpoint_id: "4910007712298827776"
   sfr-embedding-mistral-model:
     type: VERTEXAI
+    usage: EMBEDDINGS
     project_id: datcom-website-dev
     location: us-central1
     prediction_endpoint_id: "224012300019826688"
   cross-encoder-ms-marco-miniilm-l6-v2:
     type: VERTEXAI
+    usage: RERANKING
     project_id: datcom-website-dev
     location: us-central1
     prediction_endpoint_id: "3977846152316846080"
   cross-encoder-mxbai-rerank-base-v1:
     type: VERTEXAI
+    usage: RERANKING
     project_id: datcom-website-dev
     location: us-central1
     prediction_endpoint_id: "284894457873039360"
   ft-final-v20230717230459-all-MiniLM-L6-v2:
     type: LOCAL
+    usage: EMBEDDINGS
     gcs_folder: gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2

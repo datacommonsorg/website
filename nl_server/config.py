@@ -44,9 +44,15 @@ class ModelType(str, Enum):
   VERTEXAI = 'VERTEXAI'
 
 
+class ModelUsage(str, Enum):
+  EMBEDDINGS = 'EMBEDDINGS'
+  RERANKING = 'RERANKING'
+
+
 @dataclass
 class ModelConfig(ABC):
   type: str
+  usage: str
 
 
 @dataclass
@@ -115,10 +121,12 @@ def parse_v1(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
     model_type = model_info['type']
     if model_type == ModelType.LOCAL:
       models[model_name] = LocalModelConfig(type=model_type,
+                                            usage=model_info['usage'],
                                             gcs_folder=model_info['gcs_folder'])
     elif model_type == ModelType.VERTEXAI:
       models[model_name] = VertexAIModelConfig(
           type=model_type,
+          usage=model_info['usage'],
           project_id=model_info['project_id'],
           location=model_info['location'],
           prediction_endpoint_id=model_info['prediction_endpoint_id'])
