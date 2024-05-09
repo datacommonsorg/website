@@ -46,6 +46,16 @@ _CHUNK_SIZE = 100
 
 _MODEL_ENDPOINT_RETRIES = 3
 
+_GCS_PATH_PREFIX = "gs://"
+
+
+def _is_gcs_path(path: str) -> bool:
+  return path.strip().startswith(_GCS_PATH_PREFIX)
+
+
+def _get_gcs_parts(gcs_path: str) -> Tuple[str, str]:
+  return gcs_path[len(_GCS_PATH_PREFIX):].split('/', 1)
+
 
 @dataclass
 class ModelInfo:
@@ -236,17 +246,22 @@ def get_or_download_model_from_gcs(ctx: Context, model_version: str) -> str:
   If the model is already downloaded, it returns the model path.
   Otherwise, it downloads the model to the local file system and returns that path.
   """
+  if _is_gcs_path(model_version):
+    _, folder_name = _get_gcs_parts(model_version)
+  else:
+    folder_name = model_version
+
   tuned_model_path: str = os.path.join(ctx.tmp, DEFAULT_MODELS_BUCKET,
-                                       model_version)
+                                       folder_name)
 
   # Check if this model is already downloaded locally.
   if os.path.exists(tuned_model_path):
     print(f"Model already downloaded at path: {tuned_model_path}")
   else:
     print(
-        f"Model not previously downloaded locally. Downloading from GCS: {model_version}"
+        f"Model not previously downloaded locally. Downloading from GCS: {folder_name}"
     )
-    tuned_model_path = _download_model_from_gcs(ctx, model_version)
+    tuned_model_path = _download_model_from_gcs(ctx, folder_name)
     print(f"Model downloaded locally to: {tuned_model_path}")
 
   return tuned_model_path
