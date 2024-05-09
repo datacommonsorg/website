@@ -24,7 +24,7 @@ from nl_server.config import MemoryIndexConfig
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import EmbeddingsStore
-from nl_server.util import use_anonymous_gcs_client
+from shared.lib.custom_dc_util import use_anonymous_gcs_client
 from shared.lib.gcs import download_gcs_file
 from shared.lib.gcs import is_gcs_path
 
