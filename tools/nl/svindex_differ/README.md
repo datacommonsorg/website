@@ -1,4 +1,4 @@
-## StatVar Embeddings Differ
+# StatVar Embeddings Differ
 
 This is a command-line tool to compare a pair of variable embeddings indexes.
 An index is made up of a model + store identified in `embeddings.yaml`.  You
@@ -17,12 +17,12 @@ the first step, produce a new store following instructions
 [here](../embeddings). And then, update the local `embeddings.yaml` file with
 the new SV index path.
 
-### Run the tool
+## Run the tool
 
 Run the tool as below.  You need the `autopush` Mixer API key.  If
 `TEST_INDEX` is not provided, then it is the same as `BASE_INDEX`.
 
-```
+```bash
 export AUTOPUSH_KEY=<XYZ>
 ./run.sh <BASE_INDEX> [<TEST_INDEX>]
 ```

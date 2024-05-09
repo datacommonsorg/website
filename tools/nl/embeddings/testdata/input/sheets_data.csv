@@ -1,4 +1,0 @@
-dcid,Name,Description,Override_Alternatives,Curated_Alternatives
-SV_1,name1,desc1,,abc1;xyz1
-SV_2,name2,desc2,,abc2;xyz2; abc2
-SV_3,name3,desc3,override3,abc3;xyz3
