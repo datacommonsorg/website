@@ -260,7 +260,7 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detection('detection_api_bio_idx', ['Commute in California'],
                        test='unittest',
                        idx='bio_ft')
-    
+
   def test_detection_basic_vertex(self):
     self.run_detection('detection_api_vertex_ft_idx', ['Commute in California'],
                        test='unittest',
