@@ -15,21 +15,20 @@
 
 from typing import List
 
-from flask import current_app
+from google.cloud import aiplatform
 
-from nl_server import config
 from nl_server import embeddings
-from shared.model.api import predict
+from nl_server.config import VertexAIModelConfig
 
 
 class VertexAIModel(embeddings.EmbeddingsModel):
 
-  def __init__(self, model_name):
+  def __init__(self, model_info: VertexAIModelConfig):
     super().__init__()
 
-    self.model_name = model_name
+    aiplatform.init(project=model_info.project_id, location=model_info.location)
+    self.prediction_client = aiplatform.Endpoint(
+        model_info.prediction_endpoint_id)
 
   def encode(self, queries: List[str]) -> List[List[float]]:
-    model_info = current_app.config[config.VERTEX_AI_MODELS_KEY].get(
-        self.model_name)
-    return predict(model_info, queries)
+    return self.prediction_client.predict(instances=queries).predictions

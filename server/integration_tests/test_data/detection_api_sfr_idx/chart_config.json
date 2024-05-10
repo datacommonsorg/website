@@ -1,0 +1,42 @@
+{
+  "childEntityType": "",
+  "classifications": [
+    {
+      "type": 100
+    }
+  ],
+  "client": "test_detect",
+  "comparisonEntities": [],
+  "comparisonVariables": [],
+  "context": {},
+  "debug": {},
+  "entities": [
+    "geoId/06"
+  ],
+  "nonPlaceEntities": [],
+  "properties": [],
+  "sessionId": "007_999999999",
+  "test": "unittest",
+  "variables": [
+    "dc/topic/WorkCommute",
+    "dc/topic/CommuteTime",
+    "dc/topic/CommuteMode",
+    "dc/topic/CommuteModeByOccupation",
+    "dc/wc8q05drd74bd",
+    "Count_Establishment_NAICSTransportationWarehousing",
+    "dc/hbkh95kc7pkb6",
+    "Covid19MobilityTrend_Workplace",
+    "dc/bceet4dh33ev",
+    "Covid19MobilityTrend_TransportHub",
+    "dc/vgwx3kjjzz8wf",
+    "Annual_Emissions_GreenhouseGas_Transportation",
+    "dc/nvrxn11yxlen2",
+    "dc/j7pej9wer7lkd",
+    "dc/bb4peddkgmqe7",
+    "dc/62gn48xpbqew9",
+    "Annual_Emissions_NitrousOxide_Transportation",
+    "dc/topic/Income",
+    "dc/j7lkt2ww5qsn5",
+    "Count_Worker_NAICSServiceProviding"
+  ]
+}

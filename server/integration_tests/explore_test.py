@@ -246,12 +246,35 @@ class ExploreTest(NLWebServerTestCase):
                        test='unittest',
                        idx='medium_lance_ft')
 
+  def test_detection_basic_sdg(self):
+    self.run_detection('detection_api_sdg_idx', ['Health in USA'],
+                       test='unittest',
+                       idx='sdg_ft')
+
+  def test_detection_basic_undata(self):
+    self.run_detection('detection_api_undata_idx', ['Health in USA'],
+                       test='unittest',
+                       idx='undata_ft')
+
+  def test_detection_basic_bio(self):
+    self.run_detection('detection_api_bio_idx', ['Commute in California'],
+                       test='unittest',
+                       idx='bio_ft')
+
   def test_detection_basic_vertex(self):
-    # NOTE: Use the same test-name as above, since we expect the content to exactly
-    # match the one from above.
-    self.run_detection('detection_api_basic', ['Commute in California'],
+    self.run_detection('detection_api_vertex_ft_idx', ['Commute in California'],
                        test='unittest',
                        idx='medium_vertex_ft')
+
+  def test_detection_basic_uae(self):
+    self.run_detection('detection_api_uae_idx', ['Commute in California'],
+                       test='unittest',
+                       idx='medium_vertex_uae')
+
+  def test_detection_basic_sfr(self):
+    self.run_detection('detection_api_sfr_idx', ['Commute in California'],
+                       test='unittest',
+                       idx='medium_vertex_mistral')
 
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')

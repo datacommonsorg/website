@@ -80,7 +80,7 @@ def detect_verbs():
   List[str]
   """
   query = str(escape(request.args.get('q')))
-  nl_model = current_app.config[config.NL_MODEL_KEY]
+  nl_model = current_app.config[config.ATTRIBUTE_MODEL_KEY]
   return json.dumps(nl_model.detect_verbs(query.strip()))
 
 
