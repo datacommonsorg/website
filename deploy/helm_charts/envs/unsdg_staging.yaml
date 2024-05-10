@@ -48,6 +48,10 @@ serviceGroups:
     replicas: 2
   default:
     replicas: 2
+    cacheSVG: true # No svg service, this needs to use search
+    resources:
+      memoryRequest: "8G"
+      memoryLimit: "8G"
 
 kgStoreConfig:
   customBigtableInfo: |
