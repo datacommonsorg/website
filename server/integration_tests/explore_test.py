@@ -111,6 +111,20 @@ class ExploreTest(NLWebServerTestCase):
                       check_detection=False,
                       detector=None):
     dbg = resp['debug']
+
+    # sort variables in the response because variable scores can change between
+    # runs. Sort by scores cut off after 6 digits after the decimal and for
+    # variables with the same truncated score, sort alphabetically
+    # TODO: Proper fix should be to make NL server more deterministic
+    if 'variables' in resp:
+      resp_var_to_score = {}
+      for i, sv in enumerate(dbg['sv_matching']['SV']):
+        score = dbg['sv_matching']['CosineScore'][i]
+        resp_var_to_score[sv] = float("{:.6f}".format(score))
+      sorted_variables = sorted(resp['variables'],
+                                key=lambda x: (-resp_var_to_score.get(x, 0), x))
+      resp['variables'] = sorted_variables
+
     resp['debug'] = {}
     resp['context'] = {}
     for category in resp.get('config', {}).get('categories', []):
