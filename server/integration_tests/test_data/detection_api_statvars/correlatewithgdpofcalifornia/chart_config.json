@@ -43,7 +43,7 @@
     "dc/topic/Economy",
     "dc/topic/sdg_17.1.1",
     "dc/topic/EconomicEquity",
-    "dc/topic/GDP",
-    "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+    "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
+    "dc/topic/GDP"
   ]
 }
