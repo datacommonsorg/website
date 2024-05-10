@@ -2756,7 +2756,9 @@
         "Count_Worker_NAICSRealEstateRentalLeasing",
         "Count_Worker_NAICSPublicAdministration",
         "Count_Worker_NAICSWholesaleTrade",
-        "Count_Worker_NAICSProfessionalScientificTechnicalServices"
+        "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+        "Count_Worker_NAICSManagementOfCompaniesEnterprises",
+        "Count_Worker_NAICSNonclassifiable"
       ],
       "name": [
         "Categories of Jobs"
@@ -8293,7 +8295,10 @@
         "dc/mlf5e4m68h2k7",
         "dc/tz59wt1hkl4y",
         "dc/w8gp902jnk426",
-        "dc/x52jxxbwspczh"
+        "dc/x52jxxbwspczh",
+        "Count_Establishment_NAICSRealEstateRentalLeasing",
+        "Count_Establishment_NAICSPublicAdministration",
+        "Count_Establishment_NAICSNonclassifiable"
       ],
       "name": [
         "Number of Establishments by Industry"
