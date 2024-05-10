@@ -7,7 +7,7 @@ dc/topic/Jobs,Jobs,Jobs,, Careers; Professions; Work Occupations; Employment Pos
 dc/topic/SolarPotential,Solar Potential,Solar Potential,,Solar potential;
 dc/topic/ProjectedClimateExtremes,Projected Climate Extremes,Projected Climate Extremes,,Climate Extremes;
 dc/topic/ClimateChange,Impact of Climate Change,Climate Change impact,,Climate Change; Global Warming
-dc/topic/Income,Income,Income from Earnings,,Earnings; Salary; pay; compensation; wealth; what are the wealthy neighborhoods; monetary status
+dc/topic/Income,Income,Income from Earnings,,Earnings; Salary; pay; compensation
 dc/topic/WorkCommute,Work Commute,journey to work; travel to work; commute mode,,Work commute;
 dc/topic/AgricultureEmissionsByGas,Emissions from agriculture,Emissions from agriculture,,Amount of gases emitted by agricultural sector;Total quantity of gases released by the farming industry; The volume of emissions produced by agriculture; Quantity of greenhouse gases emitted by the agricultural sector; Total amount of gas emissions from farming practices; The sum of all gases released by the agricultural industry;
 dc/topic/FossilFuelOperationsEmissionsByGas,Emissions from fossil fuel operations,Emissions from fossil fuel operations,,Amount of gases emitted in fossil fuel operations;Total quantity of gases released by fossil fuel operations; The volume of emissions produced by the use of fossil fuels; Quantity of greenhouse gases emitted by the burning of fossil fuels; Total amount of gas emissions from fossil fuel operations; The sum of all gases released by the use of fossil fuels;
@@ -15,8 +15,8 @@ dc/topic/TransportationEmissionsByGas,Emissions from transportation,Emissions fr
 dc/topic/ManufacturingEmissionsByGas,Emissions from manufacturing,Emissions from manufacturing,,Amount of gases emitted by the manufacturing sector;Total quantity of gases released by the manufacturing industry; The volume of emissions produced by manufacturing activities; Quantity of greenhouse gases emitted by factories and production processes; Total amount of gas emissions from the manufacturing sector; The sum of all gases released by manufacturing activities;
 dc/topic/PowerEmissionsByGas,Emissions from power,Emissions from power,,Amount of gases emitted by the power sector;Total quantity of gases released by the power industry; The volume of emissions produced by electricity generation activities; Quantity of greenhouse gases emitted by power plants and energy production processes; Total amount of gas emissions from the power sector; The sum of all gases released by power generation activities;
 dc/topic/Literacy,,Literacy,,
-dc/topic/SDG_1,,,,End poverty; End poverty in all its forms; SDG end poverty; SDG poverty;
 dc/topic/MaternalHealth,,Maternal Health,,Maternal health; womens health; health of mothers;
+dc/topic/SDG_1,,,,End poverty; End poverty in all its forms; SDG end poverty; SDG poverty;
 dc/topic/AdolescentBirthRate,Adolescent Birth Rate,Adolescent Birth Rate,,
 dc/topic/AdultCorrectionalFacilitiesResidents,Adult Correctional Facilities Residents,Adult Correctional Facilities Residents,,
 dc/topic/Age,Age,Age,,
@@ -122,103 +122,30 @@ dc/topic/UrbanPopulationByAge,Urban Population By Age,Urban Population By Age,,
 dc/topic/WidowedFemalePopulationByAge,Widowed Female Population By Age,Widowed Female Population By Age,,
 dc/topic/WidowedMalePopulationByAge,Widowed Male Population By Age,Widowed Male Population By Age,,
 dc/topic/WidowedPopulationByAge,Widowed Population By Age,Widowed Population By Age,,
-dc/topic/AmericanIndianAndAlaskaNativeAlonePopulationByAge,American Indian And Alaska Native Alone Population By Age,American Indian And Alaska Native Alone Population By Age,,
-dc/topic/AsianAlonePopulationByAge,Asian Alone Population By Age,Asian Alone Population By Age,,
+dc/topic/AmericanIndianAndAlaskaNativeAlonePopulationByAge,American Indian And Alaska Native Population By Age,American Indian And Alaska Native Population By Age,,
+dc/topic/AsianAlonePopulationByAge,Asian Population By Age,Asian Population By Age,,
 dc/topic/AsianOrPacificIslanderPopulationByAge,Asian Or Pacific Islander Population By Age,Asian Or Pacific Islander Population By Age,,
-dc/topic/BlackOrAfricanAmericanAlonePopulationByAge,Black Or African American Alone Population By Age,Black Or African American Alone Population By Age,,
+dc/topic/BlackOrAfricanAmericanAlonePopulationByAge,Black Or African American Population By Age,Black Or African American Population By Age,,
 dc/topic/HispanicOrLatinoPopulationByAge,Hispanic Or Latino Population By Age,Hispanic Or Latino Population By Age,,
-dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Population By Age","Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Population By Age",,
-dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAlonePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Population By Age","Hispanic Or Latino, American Indian And Alaska Native Alone Population By Age",,
-dc/topic/HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Population By Age","Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Population By Age",,
-dc/topic/HispanicOrLatino_AsianAlonePopulationByAge,"Hispanic Or Latino, Asian Alone Population By Age","Hispanic Or Latino, Asian Alone Population By Age",,
-dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Population By Age","Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Population By Age",,
-dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAlonePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Population By Age","Hispanic Or Latino, Black Or African American Alone Population By Age",,
-dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Population By Age","Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Population By Age",,
-dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Population By Age","Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Population By Age",,
-dc/topic/HispanicOrLatino_TwoOrMoreRacesPopulationByAge,"Hispanic Or Latino, Two Or More Races Population By Age","Hispanic Or Latino, Two Or More Races Population By Age",,
-dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age","Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age",,
-dc/topic/HispanicOrLatino_WhiteAlonePopulationByAge,"Hispanic Or Latino, White Alone Population By Age","Hispanic Or Latino, White Alone Population By Age",,
-dc/topic/NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Population By Age,Native Hawaiian And Other Pacific Islander Alone Population By Age,,
-dc/topic/NotHispanicOrLatinoPopulationByAge,Not Hispanic Or Latino Population By Age,Not Hispanic Or Latino Population By Age,,
-dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Population By Age","Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Population By Age",,
-dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAlonePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Population By Age","Not Hispanic Or Latino, American Indian And Alaska Native Alone Population By Age",,
-dc/topic/NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Population By Age","Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Population By Age",,
-dc/topic/NotHispanicOrLatino_AsianAlonePopulationByAge,"Not Hispanic Or Latino, Asian Alone Population By Age","Not Hispanic Or Latino, Asian Alone Population By Age",,
-dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Population By Age","Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Population By Age",,
-dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAlonePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Population By Age","Not Hispanic Or Latino, Black Or African American Alone Population By Age",,
-dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Population By Age","Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Population By Age",,
-dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Population By Age","Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Population By Age",,
-dc/topic/NotHispanicOrLatino_TwoOrMoreRacesPopulationByAge,"Not Hispanic Or Latino, Two Or More Races Population By Age","Not Hispanic Or Latino, Two Or More Races Population By Age",,
-dc/topic/NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age","Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age",,
+dc/topic/NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,Native Hawaiian And Other Pacific Islander Population By Age,Native Hawaiian And Other Pacific Islander Population By Age,,
 dc/topic/TwoOrMoreRacesPopulationByAge,Two Or More Races Population By Age,Two Or More Races Population By Age,,
-dc/topic/WhiteAloneNotHispanicOrLatinoPopulationByAge,White Alone Not Hispanic Or Latino Population By Age,White Alone Not Hispanic Or Latino Population By Age,,
-dc/topic/WhiteAlonePopulationByAge,White Alone Population By Age,White Alone Population By Age,,
-dc/topic/AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,American Indian And Alaska Native Alone Female Population By Age,American Indian And Alaska Native Alone Female Population By Age,,
-dc/topic/AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,American Indian And Alaska Native Alone Male Population By Age,American Indian And Alaska Native Alone Male Population By Age,,
-dc/topic/AsianAloneFemalePopulationByAge,Asian Alone Female Population By Age,Asian Alone Female Population By Age,,
-dc/topic/AsianAloneMalePopulationByAge,Asian Alone Male Population By Age,Asian Alone Male Population By Age,,
+dc/topic/WhiteAlonePopulationByAge,White Population By Age,White Population By Age,,
+dc/topic/AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,American Indian And Alaska Native Female Population By Age,American Indian And Alaska Native Female Population By Age,,
+dc/topic/AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,American Indian And Alaska Native Male Population By Age,American Indian And Alaska Native Male Population By Age,,
+dc/topic/AsianAloneFemalePopulationByAge,Asian Female Population By Age,Asian Female Population By Age,,
+dc/topic/AsianAloneMalePopulationByAge,Asian Male Population By Age,Asian Male Population By Age,,
 dc/topic/AsianOrPacificIslanderFemalePopulationByAge,Asian Or Pacific Islander Female Population By Age,Asian Or Pacific Islander Female Population By Age,,
 dc/topic/AsianOrPacificIslanderMalePopulationByAge,Asian Or Pacific Islander Male Population By Age,Asian Or Pacific Islander Male Population By Age,,
-dc/topic/BlackOrAfricanAmericanAloneFemalePopulationByAge,Black Or African American Alone Female Population By Age,Black Or African American Alone Female Population By Age,,
-dc/topic/BlackOrAfricanAmericanAloneMalePopulationByAge,Black Or African American Alone Male Population By Age,Black Or African American Alone Male Population By Age,,
+dc/topic/BlackOrAfricanAmericanAloneFemalePopulationByAge,Black Or African American Female Population By Age,Black Or African American Female Population By Age,,
+dc/topic/BlackOrAfricanAmericanAloneMalePopulationByAge,Black Or African American Male Population By Age,Black Or African American Male Population By Age,,
 dc/topic/HispanicOrLatinoFemalePopulationByAge,Hispanic Or Latino Female Population By Age,Hispanic Or Latino Female Population By Age,,
 dc/topic/HispanicOrLatinoMalePopulationByAge,Hispanic Or Latino Male Population By Age,Hispanic Or Latino Male Population By Age,,
-dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Female Population By Age","Hispanic Or Latino, American Indian And Alaska Native Alone Female Population By Age",,
-dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Male Population By Age","Hispanic Or Latino, American Indian And Alaska Native Alone Male Population By Age",,
-dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Female Population By Age","Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Female Population By Age",,
-dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Male Population By Age","Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Male Population By Age",,
-dc/topic/HispanicOrLatino_AsianAloneFemalePopulationByAge,"Hispanic Or Latino, Asian Alone Female Population By Age","Hispanic Or Latino, Asian Alone Female Population By Age",,
-dc/topic/HispanicOrLatino_AsianAloneMalePopulationByAge,"Hispanic Or Latino, Asian Alone Male Population By Age","Hispanic Or Latino, Asian Alone Male Population By Age",,
-dc/topic/HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Female Population By Age","Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Female Population By Age",,
-dc/topic/HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Male Population By Age","Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Male Population By Age",,
-dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneFemalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Female Population By Age","Hispanic Or Latino, Black Or African American Alone Female Population By Age",,
-dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneMalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Male Population By Age","Hispanic Or Latino, Black Or African American Alone Male Population By Age",,
-dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Female Population By Age","Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Female Population By Age",,
-dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Male Population By Age","Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Male Population By Age",,
-dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Female Population By Age","Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Female Population By Age",,
-dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Male Population By Age","Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Male Population By Age",,
-dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Female Population By Age","Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Female Population By Age",,
-dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Male Population By Age","Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Male Population By Age",,
-dc/topic/HispanicOrLatino_TwoOrMoreRacesFemalePopulationByAge,"Hispanic Or Latino, Two Or More Races Female Population By Age","Hispanic Or Latino, Two Or More Races Female Population By Age",,
-dc/topic/HispanicOrLatino_TwoOrMoreRacesMalePopulationByAge,"Hispanic Or Latino, Two Or More Races Male Population By Age","Hispanic Or Latino, Two Or More Races Male Population By Age",,
-dc/topic/HispanicOrLatino_WhiteAloneFemalePopulationByAge,"Hispanic Or Latino, White Alone Female Population By Age","Hispanic Or Latino, White Alone Female Population By Age",,
-dc/topic/HispanicOrLatino_WhiteAloneMalePopulationByAge,"Hispanic Or Latino, White Alone Male Population By Age","Hispanic Or Latino, White Alone Male Population By Age",,
-dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Female Population By Age","Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Female Population By Age",,
-dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Male Population By Age","Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Male Population By Age",,
-dc/topic/NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Female Population By Age,Native Hawaiian And Other Pacific Islander Alone Female Population By Age,,
-dc/topic/NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Male Population By Age,Native Hawaiian And Other Pacific Islander Alone Male Population By Age,,
-dc/topic/NotHispanicOrLatinoFemalePopulationByAge,Not Hispanic Or Latino Female Population By Age,Not Hispanic Or Latino Female Population By Age,,
-dc/topic/NotHispanicOrLatinoMalePopulationByAge,Not Hispanic Or Latino Male Population By Age,Not Hispanic Or Latino Male Population By Age,,
-dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Female Population By Age","Not Hispanic Or Latino, American Indian And Alaska Native Alone Female Population By Age",,
-dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Male Population By Age","Not Hispanic Or Latino, American Indian And Alaska Native Alone Male Population By Age",,
-dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Female Population By Age","Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Female Population By Age",,
-dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Male Population By Age","Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Male Population By Age",,
-dc/topic/NotHispanicOrLatino_AsianAloneFemalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Female Population By Age","Not Hispanic Or Latino, Asian Alone Female Population By Age",,
-dc/topic/NotHispanicOrLatino_AsianAloneMalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Male Population By Age","Not Hispanic Or Latino, Asian Alone Male Population By Age",,
-dc/topic/NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Female Population By Age","Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Female Population By Age",,
-dc/topic/NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Male Population By Age","Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Male Population By Age",,
-dc/topic/NotHispanicOrLatino_AsianOrPacificIslanderFemalePopulationByAge,"Not Hispanic Or Latino, Asian Or Pacific Islander Female Population By Age","Not Hispanic Or Latino, Asian Or Pacific Islander Female Population By Age",,
-dc/topic/NotHispanicOrLatino_AsianOrPacificIslanderMalePopulationByAge,"Not Hispanic Or Latino, Asian Or Pacific Islander Male Population By Age","Not Hispanic Or Latino, Asian Or Pacific Islander Male Population By Age",,
-dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneFemalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Female Population By Age","Not Hispanic Or Latino, Black Or African American Alone Female Population By Age",,
-dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneMalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Male Population By Age","Not Hispanic Or Latino, Black Or African American Alone Male Population By Age",,
-dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Female Population By Age","Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Female Population By Age",,
-dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Male Population By Age","Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Male Population By Age",,
-dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Female Population By Age","Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Female Population By Age",,
-dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Male Population By Age","Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Male Population By Age",,
-dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Female Population By Age","Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Female Population By Age",,
-dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Male Population By Age","Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Male Population By Age",,
-dc/topic/NotHispanicOrLatino_TwoOrMoreRacesFemalePopulationByAge,"Not Hispanic Or Latino, Two Or More Races Female Population By Age","Not Hispanic Or Latino, Two Or More Races Female Population By Age",,
-dc/topic/NotHispanicOrLatino_TwoOrMoreRacesMalePopulationByAge,"Not Hispanic Or Latino, Two Or More Races Male Population By Age","Not Hispanic Or Latino, Two Or More Races Male Population By Age",,
-dc/topic/NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Female Population By Age","Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Female Population By Age",,
-dc/topic/NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Male Population By Age","Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Male Population By Age",,
-dc/topic/SomeOtherRaceAloneFemalePopulationByAge,Some Other Race Alone Female Population By Age,Some Other Race Alone Female Population By Age,,
-dc/topic/SomeOtherRaceAloneMalePopulationByAge,Some Other Race Alone Male Population By Age,Some Other Race Alone Male Population By Age,,
+dc/topic/NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,Native Hawaiian And Other Pacific Islander Female Population By Age,Native Hawaiian And Other Pacific Islander Female Population By Age,,
+dc/topic/NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,Native Hawaiian And Other Pacific Islander Male Population By Age,Native Hawaiian And Other Pacific Islander Male Population By Age,,
 dc/topic/TwoOrMoreRacesFemalePopulationByAge,Two Or More Races Female Population By Age,Two Or More Races Female Population By Age,,
 dc/topic/TwoOrMoreRacesMalePopulationByAge,Two Or More Races Male Population By Age,Two Or More Races Male Population By Age,,
-dc/topic/WhiteAloneFemalePopulationByAge,White Alone Female Population By Age,White Alone Female Population By Age,,
-dc/topic/WhiteAloneMalePopulationByAge,White Alone Male Population By Age,White Alone Male Population By Age,,
-dc/topic/WhiteAloneNotHispanicOrLatinoFemalePopulationByAge,White Alone Not Hispanic Or Latino Female Population By Age,White Alone Not Hispanic Or Latino Female Population By Age,,
-dc/topic/WhiteAloneNotHispanicOrLatinoMalePopulationByAge,White Alone Not Hispanic Or Latino Male Population By Age,White Alone Not Hispanic Or Latino Male Population By Age,,
+dc/topic/WhiteAloneFemalePopulationByAge,White Female Population By Age,White Female Population By Age,,
+dc/topic/WhiteAloneMalePopulationByAge,White Male Population By Age,White Male Population By Age,,
 dc/topic/ArthritisFemalePopulationByAge,Female Population With Arthritis By Age,Female Population With Arthritis By Age,,
 dc/topic/ArthritisMalePopulationByAge,Male Population With Arthritis By Age,Male Population With Arthritis By Age,,
 dc/topic/AsthmaFemalePopulationByAge,Female Population With Asthma By Age,Female Population With Asthma By Age,,
@@ -249,10 +176,9 @@ dc/topic/PopulationWithMentalHealthNotGoodByAge,Population With Poor Mental Heal
 dc/topic/PopulationWithStrokeByAge,Population With Stroke By Age,Population With Stroke By Age,,
 dc/topic/StrokeFemalePopulationByAge,Female Population With Stroke By Age,Female Population With Stroke By Age,,
 dc/topic/StrokeMalePopulationByAge,Male Population With Stroke By Age,Male Population With Stroke By Age,,
-dc/topic/Asthma,Asthma,People with Asthma,,Diagnosed with Asthma; Asthma Disease;
 dc/topic/BloodPressure,Blood Pressure,People with high blood pressure,,High blood pressure condition; People with high blood pressure;
 dc/topic/CausesOfDeath,Causes of death,Reasons for death,,Reasons for mortality;
-dc/topic/Cholesterol,High cholestrol,People with high cholestrol,,high cholestrol condition; good cholestrol; bad cholestrol;
+dc/topic/Cholesterol,High cholestrol,People with high cholestrol,,high cholestrol condition;
 dc/topic/FemaleMortality,Female mortality,Female deaths,,
 dc/topic/GlobalHealth,Global health,World health,,health in the world; health conditions in the world;
 dc/topic/Health,Health,Health,,
@@ -283,8 +209,8 @@ dc/topic/WHOChildrenNonCommunicableDiseases,Global Childen with Non Communicable
 dc/topic/WHODALYByCauses,Global DALY causes,Disability adjusted life years by causes,,WHO DALY causes; WHO Disability adjusted life years by causes
 dc/topic/WHOHealthBehavior,Global Health behaviors,WHO Health behaviors,,Health behaviors WHO
 dc/topic/WHOImmunization,Global Immunizations,Immunizations,,WHO immunizations; immunization rates
-dc/topic/WHOMaternalMortality,Global Maternal Mortality,Deaths among mothers,,WHO maternal mortality; death rates of mothers;
-dc/topic/WHOMortality,Global Mortality,Mortality,,mortality; death rates;
+dc/topic/WHOMaternalMortality,Global Maternal Mortality,Deaths among mothers,,WHO maternal mortality;
+dc/topic/WHOMortality,Global Mortality,Mortality,,mortality;
 dc/topic/WHOMortalityCauses,Global Mortality Causes,WHO Mortality causes,,mortality causes by WHO; causes of death WHO;
 dc/topic/WHONeglectedTropicalDiseases,Global Neglected Tropical Diseases,Ignored Tropical Diseases,,WHO neglected tropical diseases; tropical diseases ignored WHO;
 dc/topic/WHONonCommunicableDiseaseDeaths,Global Non communicable disease deaths,Non communicable disease deaths,,deaths due to non communicable disease; WHO deaths due to non communicable diseases;

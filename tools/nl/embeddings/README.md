@@ -44,7 +44,7 @@ variables.
    To generate the `small` embeddings:
 
    ```bash
-   ./run.sh -b small
+   ./run.sh -f small
    ```
 
    To generate the `medium_ft` embeddings:

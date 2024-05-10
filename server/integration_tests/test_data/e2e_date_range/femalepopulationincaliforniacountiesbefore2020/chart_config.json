@@ -565,6 +565,70 @@
             ],
             "denom": "Count_Person",
             "title": "Count of Mortality Event: Female in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female_2019"
+                    ],
+                    "title": "Girls (4 and Under) in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female_2019"
+                    ],
+                    "title": "Girls (4 and Under) in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Girls (4 and Under) in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female_789948026"
+                    ],
+                    "title": "Girls (4 and Under) in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Girls (4 and Under) in California",
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female_2019"
+                    ],
+                    "title": "Girls (4 and Under) in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Girls (4 and Under)"
           }
         ],
         "statVarSpec": {
@@ -582,6 +646,16 @@
             "date": "2019",
             "name": "Count of Mortality Event: Female (As Fraction of Count Person Female)",
             "statVar": "Count_Death_Female_AsAFractionOf_Count_Person_Female"
+          },
+          "Count_Person_0To4Years_Female_2019": {
+            "date": "2019",
+            "name": "Girls (4 and under)",
+            "statVar": "Count_Person_0To4Years_Female"
+          },
+          "Count_Person_0To4Years_Female_789948026": {
+            "facetId": "789948026",
+            "name": "Girls (4 and under)",
+            "statVar": "Count_Person_0To4Years_Female"
           },
           "Count_Person_15To19Years_Female_Separated_2019": {
             "date": "2019",
@@ -1081,6 +1155,32 @@
           "Count_MortalityEvent_AorticAneurysmAndDissection_Female_AsAFractionOf_Count_Person_Female"
         ]
       },
+      "Count_Person_0To4Years_Female": {
+        "race": [
+          "Count_Person_0To4Years_Female_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Female_AsianAlone",
+          "Count_Person_0To4Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_AsianAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_WhiteAlone",
+          "Count_Person_0To4Years_Female_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_AsianAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Female_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Female_WhiteAlone",
+          "Count_Person_0To4Years_Female_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
       "Count_Person_85OrMoreYears_Female": {
         "race": [
           "Count_Person_85OrMoreYears_Female_AsianAlone",
@@ -1109,6 +1209,7 @@
       },
       "Count_Person_Female": {
         "age": [
+          "Count_Person_0To4Years_Female",
           "Count_Person_15To44Years_Female",
           "Count_Person_21OrMoreYears_Female",
           "Count_Person_60OrMoreYears_Female",
