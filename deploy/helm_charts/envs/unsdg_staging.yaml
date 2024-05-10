@@ -40,14 +40,11 @@ nl:
 
 serviceGroups:
   recon: null
-  svg:
-    replicas: 2
-  node:
-    replicas: 2
-  observation:
-    replicas: 2
+  svg: null
+  node: null
+  observation: null
   default:
-    replicas: 2
+    replicas: 3
     cacheSVG: true # No svg service, this needs to use search
     resources:
       memoryRequest: "8G"
