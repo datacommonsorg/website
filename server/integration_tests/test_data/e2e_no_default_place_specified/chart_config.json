@@ -627,6 +627,67 @@
             ],
             "denom": "Count_Person",
             "title": "Count of Mortality Event: Female"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female"
+                    ],
+                    "title": "Girls (4 and Under) in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Girls (4 and Under) in United States of America",
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female"
+                    ],
+                    "title": "Girls (4 and Under) in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Girls (4 and Under)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female"
+                    ],
+                    "title": "Girls (4 and Under) in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female"
+                    ],
+                    "title": "Girls (4 and Under) in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Girls (4 and Under) in States of United States of America"
           }
         ],
         "statVarSpec": {
@@ -637,6 +698,10 @@
           "Count_Death_Female_AsAFractionOf_Count_Person_Female": {
             "name": "Count of Mortality Event: Female (As Fraction of Count Person Female)",
             "statVar": "Count_Death_Female_AsAFractionOf_Count_Person_Female"
+          },
+          "Count_Person_0To4Years_Female": {
+            "name": "Girls (4 and under)",
+            "statVar": "Count_Person_0To4Years_Female"
           },
           "Count_Person_15To19Years_Female_Separated": {
             "name": "Population: 15 - 19 Years, Female, Separated",
@@ -1128,6 +1193,16 @@
           "Count_MortalityEvent_AorticAneurysmAndDissection_Female_AsAFractionOf_Count_Person_Female"
         ]
       },
+      "Count_Person_0To4Years_Female": {
+        "race": [
+          "Count_Person_0To4Years_Female_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Female_AsianAlone",
+          "Count_Person_0To4Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Female_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Female_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Female_WhiteAlone"
+        ]
+      },
       "Count_Person_85OrMoreYears_Female": {
         "race": [
           "Count_Person_85OrMoreYears_Female_AsianAlone",
@@ -1157,6 +1232,7 @@
       },
       "Count_Person_Female": {
         "age": [
+          "Count_Person_0To4Years_Female",
           "Count_Person_15To44Years_Female",
           "Count_Person_21OrMoreYears_Female",
           "Count_Person_60OrMoreYears_Female",
