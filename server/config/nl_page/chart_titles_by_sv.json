@@ -2353,7 +2353,7 @@
   },
   "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person": {
     "blocklist": [],
-    "title": "Suicide Mortality Rate"
+    "title": "% of Suicide Events"
   },
   "Count_Death_IntentionalSelfHarm_Female_AsFractionOf_Count_Person_Female": {
     "blocklist": [],
@@ -4037,7 +4037,7 @@
   },
   "Count_Person_5OrMoreYears_PersianInclFarsiDariSpokenAtHome": {
     "blocklist": [],
-    "title": "Population: Persian, Including Farsi or Dari, Spoken At Home"
+    "title": "Population: Persian, Including Farsi Or Dari, Spoken At Home"
   },
   "Count_Person_5OrMoreYears_PersianSpokenAtHome": {
     "blocklist": [],
@@ -5337,7 +5337,7 @@
   },
   "Count_Person_Male_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
     "blocklist": [],
-    "title": "Native Hawaiian or Other Pacific Islander Men Below Poverty Line"
+    "title": "Native Hawaiian Or Other Pacific Islander Men Below Poverty Line"
   },
   "Count_Person_Male_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": {
     "blocklist": [],

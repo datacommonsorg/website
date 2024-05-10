@@ -24,7 +24,7 @@ from nl_server import config
 from nl_server import loader
 from nl_server import search
 from nl_server.embeddings import Embeddings
-from nl_server.util import is_custom_dc
+from shared.lib.custom_dc_util import is_custom_dc
 from shared.lib.detected_variables import var_candidates_to_dict
 from shared.lib.detected_variables import VarCandidates
 

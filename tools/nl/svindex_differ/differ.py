@@ -221,8 +221,8 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
 def main(_):
   assert FLAGS.base_index and FLAGS.test_index and FLAGS.queryset
 
-  base_dict = _load_yaml(_LOCAL_EMBEDDINGS_YAML, FLAGS.base_index)
-  test_dict = _load_yaml(_PROD_EMBEDDINGS_YAML, FLAGS.test_index)
+  base_dict = _load_yaml(_PROD_EMBEDDINGS_YAML, FLAGS.base_index)
+  test_dict = _load_yaml(_LOCAL_EMBEDDINGS_YAML, FLAGS.test_index)
 
   run_diff(FLAGS.base_index, FLAGS.test_index, base_dict, test_dict,
            FLAGS.queryset, _REPORT)
