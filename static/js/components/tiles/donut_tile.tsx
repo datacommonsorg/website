@@ -74,6 +74,8 @@ export interface DonutTilePropType {
   subtitle?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Whether to use new chart action icons in footer
+  useChartActionIcons?: boolean;
 }
 
 interface DonutChartData {
@@ -121,6 +123,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       isInitialLoading={_.isNull(donutChartData)}
       hasErrorMsg={donutChartData && !!donutChartData.errorMsg}
       footnote={props.footnote}
+      useChartActionIcons={props.useChartActionIcons}
     >
       <div
         id={props.id}

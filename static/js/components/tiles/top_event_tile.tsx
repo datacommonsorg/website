@@ -63,6 +63,8 @@ interface TopEventTilePropType {
   className?: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // Whether to use new chart action icons in the footer
+  useChartActionIcons?: boolean;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -213,6 +215,7 @@ export const TopEventTile = memo(function TopEventTile(
             </table>
           )}
           <ChartFooter
+            chartId={props.id}
             handleEmbed={showChart ? () => handleEmbed(topEvents) : null}
             exploreLink={
               props.showExploreMore
@@ -222,6 +225,7 @@ export const TopEventTile = memo(function TopEventTile(
                   }
                 : null
             }
+            useChartActionIcons={props.useChartActionIcons}
           />
         </div>
       </div>

@@ -26,17 +26,23 @@ import {
   GA_PARAM_TILE_TYPE,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { ChartActions } from "./chart_action_icons";
 
 // Number of characters in footnote to show before "show more"
 const FOOTNOTE_CHAR_LIMIT = 150;
 
 interface ChartFooterPropType {
+  // Callback to run after "download" is clicked
   handleEmbed?: () => void;
+  // Id of the chart this footer attaches to
+  chartId: string;
   // Link to explore more. Only show explore button if this object is non-empty.
   exploreLink?: { displayText: string; url: string };
   children?: React.ReactNode;
   // Text to show above buttons
   footnote?: string;
+  // Whether to use new chart action icons
+  useChartActionIcons?: boolean;
 }
 
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
@@ -51,7 +57,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
       <footer className="chart-container-footer">
         <div className="main-footer-section">
           <div className="outlinks">
-            {props.handleEmbed && (
+            {!props.useChartActionIcons && props.handleEmbed && (
               <div className="outlink-item">
                 <span className="material-icons-outlined">download</span>
                 <a
@@ -68,7 +74,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                 </a>
               </div>
             )}
-            {props.exploreLink && (
+            {!props.useChartActionIcons && props.exploreLink && (
               <div className="outlink-item">
                 <span className="material-icons-outlined">timeline</span>
                 <a
@@ -88,6 +94,13 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
             )}
           </div>
           {props.children}
+          {props.useChartActionIcons && (
+            <ChartActions
+              exploreLink={props.exploreLink}
+              handleDownload={props.handleEmbed}
+              id={props.chartId}
+            />
+          )}
         </div>
       </footer>
     </>

@@ -56,5 +56,8 @@ $dc-primary-color: #467bd5;
   --button-text-color: var(--link-color);
   --button-background-color: var(--gm-3-white);
   --button-highlight-background-color: #ecf2fc;
+  --button-primary-text-color: var(--button-background-color);
+  --button-primary-background-color: var(--button-text-color);
+  --button-primary-highlight-background-color: #747775;
   --table-link-color: var(--link-color);
 }

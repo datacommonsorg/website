@@ -58,6 +58,8 @@ interface ChartTileContainerProp {
   footnote?: string;
   // Subtitle text
   subtitle?: string;
+  // Whether to use new chart action icons in footer
+  useChartActionIcons?: boolean;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -109,11 +111,13 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         {props.children}
       </div>
       <ChartFooter
+        chartId={props.id}
         handleEmbed={showEmbed ? handleEmbed : null}
         exploreLink={props.exploreLink}
         footnote={props.footnote}
+        useChartActionIcons={props.useChartActionIcons}
       >
-        <NlChartFeedback id={props.id} />
+        {!props.useChartActionIcons && <NlChartFeedback id={props.id} />}
       </ChartFooter>
       {showEmbed && (
         <ChartEmbed container={containerRef.current} ref={embedModalElement} />

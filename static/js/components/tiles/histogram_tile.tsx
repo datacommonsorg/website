@@ -45,6 +45,8 @@ interface HistogramTilePropType {
   selectedDate: string;
   title: string;
   showExploreMore?: boolean;
+  // Whether to use new chart action icons in the footer
+  useChartActionIcons?: boolean;
 }
 
 const DAY_FORMAT = "YYYY-MM-DD";
@@ -287,6 +289,7 @@ export const HistogramTile = memo(function HistogramTile(
             }
           : null
       }
+      useChartActionIcons={props.useChartActionIcons}
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
     </ChartTileContainer>

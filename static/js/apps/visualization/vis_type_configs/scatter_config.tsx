@@ -33,6 +33,7 @@ import { StatVarHierarchyType } from "../../../shared/types";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
 import { getFacetsWithin } from "../../../utils/data_fetch_utils";
+import { DEV_FLAGS, isFlagSet } from "../../../utils/dev_flag_utils";
 import { AppContextType } from "../app_context";
 import { ChartFooter, InputInfo } from "../chart_footer";
 import { VisType } from "../vis_type_configs";
@@ -175,6 +176,7 @@ function getChartArea(
           showQuadrants: appContext.displayOptions.scatterQuadrants,
         }}
         showLoadingSpinner={true}
+        useChartActionIcons={isFlagSet(DEV_FLAGS.USE_CHART_ACTION_ICONS_FLAG)}
       />
       <ChartFooter
         inputSections={[

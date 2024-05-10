@@ -57,6 +57,8 @@ interface SvRankingUnitsProps {
   footnote?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Whether to use new chart action icons in footer
+  useChartActionIcons?: boolean;
 }
 
 /**
@@ -116,6 +118,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
           )}
           {!props.hideFooter && (
             <ChartFooter
+              chartId={props.tileId}
               handleEmbed={
                 props.errorMsg ? null : () => handleEmbed(true, chartTitle)
               }
@@ -125,8 +128,11 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   : null
               }
               footnote={props.footnote}
+              useChartActionIcons={props.useChartActionIcons}
             >
-              <NlChartFeedback id={props.tileId} />
+              {!props.useChartActionIcons && (
+                <NlChartFeedback id={props.tileId} />
+              )}
             </ChartFooter>
           )}
         </div>
@@ -149,13 +155,17 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               )}
               {!props.hideFooter && (
                 <ChartFooter
+                  chartId={props.tileId}
                   handleEmbed={() => handleEmbed(true, chartTitle)}
                   exploreLink={
                     props.showExploreMore ? getExploreLink(props, true) : null
                   }
                   footnote={props.footnote}
+                  useChartActionIcons={props.useChartActionIcons}
                 >
-                  <NlChartFeedback id={props.tileId} />
+                  {!props.useChartActionIcons && (
+                    <NlChartFeedback id={props.tileId} />
+                  )}
                 </ChartFooter>
               )}
             </div>
@@ -177,13 +187,17 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               )}
               {!props.hideFooter && (
                 <ChartFooter
+                  chartId={props.tileId}
                   handleEmbed={() => handleEmbed(false, chartTitle)}
                   exploreLink={
                     props.showExploreMore ? getExploreLink(props, false) : null
                   }
                   footnote={props.footnote}
+                  useChartActionIcons={props.useChartActionIcons}
                 >
-                  <NlChartFeedback id={props.tileId} />
+                  {!props.useChartActionIcons && (
+                    <NlChartFeedback id={props.tileId} />
+                  )}
                 </ChartFooter>
               )}
             </div>
