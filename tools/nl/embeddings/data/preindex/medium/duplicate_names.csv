@@ -1,16 +1,16 @@
 PreferredSV,DroppedSV,DuplicateName
 WagesTotal_Worker_NAICSEducationalServices,dc/jefhcs9qxc971,what is the average salary for people working in the educational services industry?
+AirQualityIndex_AirPollutant,dc/topic/AirQualityIndex,AQI
 Amount_EconomicActivity_GrossDomesticProduction_Nominal,dc/topic/GDP,GDP
-dc/topic/Mortality,dc/topic/WHOMortality,Mortality
 dc/topic/EconomicActivity,dc/topic/GlobalEconomicActivity,Economic Activity
+Annual_Emissions_GreenhouseGas,dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emissions
+dc/topic/EducationalAttainment,dc/topic/LevelOfEducationalAttainment,education attainment level
+Count_Person_DetailedHighSchool,dc/topic/StudentsInHighSchool,high school students
+Count_Person_DetailedMiddleSchool,dc/topic/StudentsInMiddleSchool,middle school students
+Count_Person_DetailedPrimarySchool,dc/topic/StudentsInPrimarySchool,primary school students
 UnemploymentRate_Person,dc/topic/UnemploymentRate,Unemployment Rate
 UnemploymentRate_Person,dc/topic/UnemploymentRate,unemployment
-dc/topic/EducationalAttainment,dc/topic/LevelOfEducationalAttainment,education attainment level
-AirQualityIndex_AirPollutant,dc/topic/AirQualityIndex,AQI
-Count_Person_DetailedHighSchool,dc/topic/StudentsInHighSchool,high school students
-Count_Person_DetailedPrimarySchool,dc/topic/StudentsInPrimarySchool,primary school students
-Count_Person_DetailedMiddleSchool,dc/topic/StudentsInMiddleSchool,middle school students
-Annual_Emissions_GreenhouseGas,dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emissions
+dc/topic/Mortality,dc/topic/WHOMortality,Mortality
 dc/topic/FoodInsecurity,dc/topic/sdg_2.1.2,food security
 dc/topic/GlobalElectricityAccess,dc/topic/sdg_7.1.1,electricity access
 Amount_EconomicActivity_GrossDomesticProduction_Nominal,dc/topic/sdg_8.1.1,GDP
