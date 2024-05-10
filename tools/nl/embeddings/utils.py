@@ -58,7 +58,7 @@ def _get_gcs_parts(gcs_path: str) -> Tuple[str, str]:
 
 
 @dataclass
-class ModelInfo:
+class ModelConfig:
   name: str
   # the model info as it would come from embeddings.yaml
   info: Dict[str, str]
@@ -66,10 +66,10 @@ class ModelInfo:
 
 @dataclass
 # The info for a single embeddings index
-class EmbeddingInfo:
+class EmbeddingConfig:
   # the index info as it would come from embeddings.yaml
-  index_info: Dict[str, str]
-  model_info: ModelInfo
+  index_config: Dict[str, str]
+  model_config: ModelConfig
 
 
 @dataclass
@@ -273,41 +273,43 @@ def get_ft_model_from_gcs(ctx: Context,
   return SentenceTransformer(model_path)
 
 
-def _get_default_ft_model(embeddings_yaml_file_path: str) -> ModelInfo:
+def _get_default_ft_model(embeddings_yaml_file_path: str) -> ModelConfig:
   """Gets the default index's (i.e. 'medium_ft') model version from embeddings.yaml.
   """
-  return _get_default_ft_embeddings_info(embeddings_yaml_file_path).model_info
+  return _get_default_ft_embeddings_info(embeddings_yaml_file_path).model_config
 
 
-def get_default_ft_model() -> ModelInfo:
+def get_default_ft_model() -> ModelConfig:
   """Gets the default index's (i.e. 'medium_ft') model version from embeddings.yaml.
   """
   return _get_default_ft_model(_EMBEDDINGS_YAML_PATH)
 
 
-def get_default_ft_embeddings_info() -> EmbeddingInfo:
+def get_default_ft_embeddings_info() -> EmbeddingConfig:
   return _get_default_ft_embeddings_info(_EMBEDDINGS_YAML_PATH)
 
 
 def _get_default_ft_embeddings_info(
-    embeddings_yaml_file_path: str) -> EmbeddingInfo:
+    embeddings_yaml_file_path: str) -> EmbeddingConfig:
   with open(embeddings_yaml_file_path, "r") as f:
     data = yaml.full_load(f)
     if _DEFAULT_EMBEDDINGS_INDEX_TYPE not in data['indexes']:
       raise ValueError(f"{_DEFAULT_EMBEDDINGS_INDEX_TYPE} not found.")
     index_info = data['indexes'][_DEFAULT_EMBEDDINGS_INDEX_TYPE]
     model_name = index_info['model']
-    model_info = ModelInfo(name=model_name, info=data['models'][model_name])
-    return EmbeddingInfo(index_info=index_info, model_info=model_info)
+    model_info = ModelConfig(name=model_name, info=data['models'][model_name])
+    return EmbeddingConfig(index_config=index_info, model_config=model_info)
 
 
 def save_embeddings_yaml_with_only_default_ft_embeddings(
-    embeddings_yaml_file_path: str, default_ft_embeddings_info: EmbeddingInfo):
-  model_info = default_ft_embeddings_info.model_info
+    embeddings_yaml_file_path: str,
+    default_ft_embeddings_info: EmbeddingConfig):
+  model_info = default_ft_embeddings_info.model_config
   data = {
       'version': 1,
       'indexes': {
-          _DEFAULT_EMBEDDINGS_INDEX_TYPE: default_ft_embeddings_info.index_info
+          _DEFAULT_EMBEDDINGS_INDEX_TYPE:
+              default_ft_embeddings_info.index_config
       },
       'models': {
           model_info.name: model_info.info

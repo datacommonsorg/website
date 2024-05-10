@@ -74,14 +74,14 @@ def download(embeddings_yaml_path: str):
   default_ft_embeddings_info = utils.get_default_ft_embeddings_info()
 
   # Download model.
-  model_info = default_ft_embeddings_info.model_info
+  model_info = default_ft_embeddings_info.model_config
   print(f"Downloading default model: {model_info.name}")
   local_model_path = utils.get_or_download_model_from_gcs(
       ctx, model_info.info['gcs_folder'])
   print(f"Downloaded default model to: {local_model_path}")
 
   # Download embeddings.
-  embeddings_file_name = default_ft_embeddings_info.index_info['embeddings']
+  embeddings_file_name = default_ft_embeddings_info.index_config['embeddings']
   print(f"Downloading default embeddings: {embeddings_file_name}")
   local_embeddings_path = gcs.download_gcs_file(embeddings_file_name,
                                                 use_anonymous_client=True)
@@ -96,7 +96,7 @@ def download(embeddings_yaml_path: str):
       embeddings_yaml_path, default_ft_embeddings_info)
 
 
-def build(model_info: utils.ModelInfo, sv_sentences_csv_path: str,
+def build(model_info: utils.ModelConfig, sv_sentences_csv_path: str,
           output_dir: str):
   print(f"Downloading model: {model_info.name}")
   ctx = _download_model(model_info.info['gcs_folder'])
@@ -139,7 +139,7 @@ def _build_embeddings_dataframe(
   return utils.build_embeddings(ctx, text2sv_dict)
 
 
-def generate_embeddings_yaml(model_info: utils.ModelInfo,
+def generate_embeddings_yaml(model_info: utils.ModelConfig,
                              embeddings_csv_handler: FileHandler,
                              embeddings_yaml_handler: FileHandler):
   data = {
@@ -154,6 +154,7 @@ def generate_embeddings_yaml(model_info: utils.ModelInfo,
       "models": {
           model_info.name: {
               "type": "LOCAL",
+              "usage": "EMBEDDINGS",
               "gcs_folder": model_info.info['gcs_folder']
           }
       }
@@ -183,11 +184,11 @@ def main(_):
   assert FLAGS.sv_sentences_csv_path
   assert FLAGS.output_dir
   if FLAGS.model_version:
-    model_info = utils.ModelInfo(name=FLAGS.model_version,
-                                 info={
-                                     'type': 'LOCAL',
-                                     'gcs_folder': FLAGS.model_version
-                                 })
+    model_info = utils.ModelConfig(name=FLAGS.model_version,
+                                   info={
+                                       'type': 'LOCAL',
+                                       'gcs_folder': FLAGS.model_version
+                                   })
   else:
     model_info = utils.get_default_ft_model()
     print(f"Using model {model_info.name} from embeddings.yaml.")

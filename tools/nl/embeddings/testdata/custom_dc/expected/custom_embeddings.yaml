@@ -7,4 +7,5 @@ models:
   FooModel:
     gcs_folder: fooModelFolder
     type: LOCAL
+    usage: EMBEDDINGS
 version: 1
