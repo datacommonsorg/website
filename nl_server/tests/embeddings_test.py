@@ -21,32 +21,22 @@ from parameterized import parameterized
 import yaml
 
 from nl_server import embeddings_map as emb_map
-from nl_server import gcs
+from nl_server.config import parse
 from nl_server.embeddings import Embeddings
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
 from nl_server.search import search_vars
 from nl_server.store.memory import MemoryEmbeddingsStore
-from shared.lib import gcs as shared_gcs
 from shared.lib.detected_variables import VarCandidates
 
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-# TODO(pradh): Expand tests to other index sizes.
-def _get_embeddings_file_path() -> str:
+def _get_embeddings_info():
   embeddings_config_path = os.path.join(_root_dir, 'deploy/nl/embeddings.yaml')
   with open(embeddings_config_path) as f:
-    embeddings = yaml.full_load(f)
-    embeddings_file = embeddings[emb_map.DEFAULT_INDEX_TYPE]
-    return shared_gcs.download_gcs_file(embeddings_file['embeddings'])
-
-
-def _get_tuned_model_path() -> str:
-  models_config_path = os.path.join(_root_dir, 'deploy/nl/models.yaml')
-  with open(models_config_path) as f:
-    models_map = yaml.full_load(f)
-    return gcs.download_folder(models_map['tuned_model'])
+    embeddings_map = yaml.full_load(f)
+    return parse(embeddings_map)
 
 
 def _get_contents(
@@ -58,18 +48,13 @@ class TestEmbeddings(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls) -> None:
-    # Building a new Embeddings object. It might require downloading the embeddings file
-    # and a finetuned model.
-    # This uses the default embeddings pointed to in embeddings.yaml file and the fine tuned
-    # model pointed to in models.yaml.
-    # If the default index is not a "finetuned" index, then the default model can be used.
-    tuned_model_path = ""
-    if "ft" in emb_map.DEFAULT_INDEX_TYPE:
-      tuned_model_path = _get_tuned_model_path()
-
+    embeddings_info = _get_embeddings_info()
+    # TODO(pradh): Expand tests to other index sizes.
+    idx_info = embeddings_info.indexes[emb_map.DEFAULT_INDEX_TYPE]
+    model_info = embeddings_info.models[idx_info.model]
     cls.nl_embeddings = Embeddings(
-        model=LocalSentenceTransformerModel(tuned_model_path),
-        store=MemoryEmbeddingsStore(_get_embeddings_file_path()))
+        model=LocalSentenceTransformerModel(model_info),
+        store=MemoryEmbeddingsStore(idx_info))
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
