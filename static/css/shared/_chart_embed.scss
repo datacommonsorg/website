@@ -62,7 +62,7 @@
   }
 }
 
-.chart-embed-modal {
+.chart-footer-modal {
   .modal-content {
     border-radius: 24px;
     display: flex;
@@ -119,6 +119,7 @@
         flex: 1;
 
         img {
+          border: none;
           max-width: 100%;
         }
       }

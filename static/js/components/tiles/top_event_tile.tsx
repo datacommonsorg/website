@@ -46,6 +46,7 @@ import { formatPropertyValue } from "../../utils/property_value_utils";
 import { TileSources } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
+import { ChartDownloadModal } from "./modal/chart_download_modal";
 
 const DEFAULT_RANKING_COUNT = 10;
 const MIN_PERCENT_PLACE_NAMES = 0.4;
@@ -71,7 +72,7 @@ interface TopEventTilePropType {
 export const TopEventTile = memo(function TopEventTile(
   props: TopEventTilePropType
 ): JSX.Element {
-  const embedModalElement = useRef<ChartEmbed>(null);
+  const downloadModalElement = useRef(null);
   const chartContainer = useRef(null);
   const [eventPlaces, setEventPlaces] =
     useState<Record<string, NamedPlace>>(null);
@@ -229,8 +230,14 @@ export const TopEventTile = memo(function TopEventTile(
           />
         </div>
       </div>
-      <NlChartFeedback id={props.id} />
-      <ChartEmbed ref={embedModalElement} />
+      {props.useChartActionIcons ? (
+        <ChartDownloadModal ref={downloadModalElement} />
+      ) : (
+        <>
+          <NlChartFeedback id={props.id} />
+          <ChartEmbed ref={downloadModalElement} />
+        </>
+      )}
     </div>
   );
 
@@ -388,7 +395,7 @@ export const TopEventTile = memo(function TopEventTile(
         value: point.severity[severityProp],
       };
     });
-    embedModalElement.current.show(
+    downloadModalElement.current.show(
       "",
       () => {
         return Promise.resolve(rankingPointsToCsv(rankingPoints, ["data"]));

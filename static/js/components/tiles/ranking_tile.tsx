@@ -77,7 +77,7 @@ export interface RankingTilePropType
 // TODO: Use ChartTileContainer like other tiles.
 export function RankingTile(props: RankingTilePropType): JSX.Element {
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
-  const embedModalElement = useRef<ChartEmbed>(null);
+  const downloadModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
 
   useEffect(() => {
@@ -109,7 +109,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     chartTitle: string,
     sources: string[]
   ): void {
-    embedModalElement.current.show(
+    downloadModalElement.current.show(
       "",
       () => {
         // Assume all variables will have the same date
@@ -183,7 +183,12 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
             />
           );
         })}
-      <ChartEmbed container={chartContainer.current} ref={embedModalElement} />
+      {!props.useChartActionIcons && (
+        <ChartEmbed
+          container={chartContainer.current}
+          ref={downloadModalElement}
+        />
+      )}
       {props.showLoadingSpinner && (
         <div id={getSpinnerId()}>
           <div className="screen">

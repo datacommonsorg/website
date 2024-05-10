@@ -34,6 +34,8 @@ import {
 } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
+import { ChartDownloadModal } from "./modal/chart_download_modal";
+
 interface ChartTileContainerProp {
   id: string;
   isLoading?: boolean;
@@ -64,7 +66,7 @@ interface ChartTileContainerProp {
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const containerRef = useRef(null);
-  const embedModalElement = useRef<ChartEmbed>(null);
+  const downloadModalElement = useRef(null);
   // on initial loading, hide the title text
   const title = !props.isInitialLoading
     ? getChartTitle(props.title, props.replacementStrings)
@@ -112,26 +114,35 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       </div>
       <ChartFooter
         chartId={props.id}
-        handleEmbed={showEmbed ? handleEmbed : null}
+        handleEmbed={showEmbed ? handleDownload : null}
         exploreLink={props.exploreLink}
         footnote={props.footnote}
         useChartActionIcons={props.useChartActionIcons}
       >
         {!props.useChartActionIcons && <NlChartFeedback id={props.id} />}
       </ChartFooter>
-      {showEmbed && (
-        <ChartEmbed container={containerRef.current} ref={embedModalElement} />
-      )}
+      {showEmbed &&
+        (props.useChartActionIcons ? (
+          <ChartDownloadModal
+            container={containerRef.current}
+            ref={downloadModalElement}
+          />
+        ) : (
+          <ChartEmbed
+            container={containerRef.current}
+            ref={downloadModalElement}
+          />
+        ))}
     </div>
   );
 
-  // Handle when chart embed is clicked .
-  function handleEmbed(): void {
+  // Handle when chart download is clicked.
+  function handleDownload(): void {
     const chartTitle = props.title
       ? formatString(props.title, props.replacementStrings)
       : "";
     const { svgXml, height, width } = getMergedSvg(containerRef.current);
-    embedModalElement.current.show(
+    downloadModalElement.current.show(
       svgXml,
       props.getDataCsv,
       width,
