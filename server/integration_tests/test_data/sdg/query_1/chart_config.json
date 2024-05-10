@@ -423,27 +423,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24",
-                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
-                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex (%) in Africa",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24"
-                    ],
-                    "title": "Employed Population Age 15 to 24 Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Population Using Basic Drinking Water Services in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -456,16 +438,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Employed Population Age 15 to 24 Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Population Using Basic Drinking Water Services in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
-            "title": "Employed Population Age 15 to 24 Below International Poverty Line in Countries of Africa"
+            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
+            "title": "Population Using Basic Drinking Water Services in Countries of Africa"
           },
           {
             "columns": [
@@ -473,9 +455,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F"
+                      "sdg/SP_ACS_BSRVSAN"
                     ],
-                    "title": "Employed Women Age 15 to 24 Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Population Using Basic Sanitation Services in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -488,16 +470,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F"
+                      "sdg/SP_ACS_BSRVSAN"
                     ],
-                    "title": "Employed Women Age 15 to 24 Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Population Using Basic Sanitation Services in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
-            "title": "Employed Women Age 15 to 24 Below International Poverty Line in Countries of Africa"
+            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
+            "title": "Population Using Basic Sanitation Services in Countries of Africa"
           },
           {
             "columns": [
@@ -505,17 +487,28 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex (%) in Africa",
+                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex (%)"
+            "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
+            "title": "Employed Population Aged 15 or Over Below International Poverty Line"
           },
           {
             "columns": [
@@ -555,6 +548,23 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Employed Population Below International Poverty Line by Gender in Africa",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Employed Population Below International Poverty Line by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
                     ],
                     "title": "Employed Women Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
@@ -587,27 +597,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex (%) in Africa",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25"
-                    ],
-                    "title": "Employed Population Aged 25 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Employed Men Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -620,272 +612,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Employed Population Aged 25 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Employed Men Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
-            "title": "Employed Population Aged 25 or Over Below International Poverty Line in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F"
-                    ],
-                    "title": "Employed Women Aged 25 or Over Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F"
-                    ],
-                    "title": "Employed Women Aged 25 or Over Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
-            "title": "Employed Women Aged 25 or Over Below International Poverty Line in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_MATNL.SEX--F"
-                    ],
-                    "title": "Mothers With Newborns Receiving Maternity Cash Benefit in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SI_COV_MATNL.SEX--F"
-                    ],
-                    "title": "Mothers With Newborns Receiving Maternity Cash Benefit in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO social security inquiry (SSI); ILO estimates based on country data compled through the ILO social security inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO social security inquiry (SSI). Based on information from federal programmes only.",
-            "title": "Mothers With Newborns Receiving Maternity Cash Benefit in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_CHLD"
-                    ],
-                    "title": "Children/Households Receiving Family Cash Benefit in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SI_COV_CHLD"
-                    ],
-                    "title": "Children/Households Receiving Family Cash Benefit in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO social security inquiry (SSI); ILO estimates based on country data compled through the ILO social security inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO social security inquiry (SSI). Based on information from federal programmes only.",
-            "title": "Children/Households Receiving Family Cash Benefit in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_CHLD.SEX--F"
-                    ],
-                    "title": "Girls/Households Receiving Family Cash Benefit in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SI_COV_CHLD.SEX--F"
-                    ],
-                    "title": "Girls/Households Receiving Family Cash Benefit in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO social security inquiry (SSI); ILO estimates based on country data compled through the ILO social security inquiry (SSI) 2021-2023.",
-            "title": "Girls/Households Receiving Family Cash Benefit in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_WKINJRY"
-                    ],
-                    "title": "Employed Population Covered for Work Injury in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SI_COV_WKINJRY"
-                    ],
-                    "title": "Employed Population Covered for Work Injury in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO social security inquiry (SSI); ILO estimates based on country data compled through the ILO social security inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO social security inquiry (SSI). Based on information from federal programmes only.",
-            "title": "Employed Population Covered for Work Injury in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_WKINJRY.SEX--F"
-                    ],
-                    "title": "Female Employed Population Covered for Work Injury in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SI_COV_WKINJRY.SEX--F"
-                    ],
-                    "title": "Female Employed Population Covered for Work Injury in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO social security inquiry (SSI); ILO estimates based on country data compled through the ILO social security inquiry (SSI) 2021-2023.",
-            "title": "Female Employed Population Covered for Work Injury in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_POOR"
-                    ],
-                    "title": "Population Covered by Social Assistance Programs in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SI_COV_POOR"
-                    ],
-                    "title": "Population Covered by Social Assistance Programs in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO social security inquiry (SSI); ILO estimates based on country data compled through the ILO social security inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO social security inquiry (SSI). Based on information from federal programmes only.",
-            "title": "Population Covered by Social Assistance Programs in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SP_LGL_LNDSEC"
-                    ],
-                    "title": "Population Who Feel Secure in Land Rights in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "sdg/SP_LGL_LNDSEC"
-                    ],
-                    "title": "Population Who Feel Secure in Land Rights in Countries of Africa (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: census & administrative data; INE; LSMS-ISA; MCC-SHPS; MCC/SHPS; NBS; UEMOA CIV1.",
-            "title": "Population Who Feel Secure in Land Rights in Countries of Africa"
+            "title": "Employed Men Aged 15 or Over Below International Poverty Line in Countries of Africa"
           }
         ],
         "statVarSpec": {
@@ -904,30 +640,6 @@
           "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--R": {
             "name": "Impoverished Children in Rural Areas",
             "statVar": "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--R"
-          },
-          "sdg/SI_COV_CHLD": {
-            "name": "Children/Households Receiving Family Cash Benefit",
-            "statVar": "sdg/SI_COV_CHLD"
-          },
-          "sdg/SI_COV_CHLD.SEX--F": {
-            "name": "Girls/Households Receiving Family Cash Benefit",
-            "statVar": "sdg/SI_COV_CHLD.SEX--F"
-          },
-          "sdg/SI_COV_MATNL.SEX--F": {
-            "name": "Mothers With Newborns Receiving Maternity Cash Benefit",
-            "statVar": "sdg/SI_COV_MATNL.SEX--F"
-          },
-          "sdg/SI_COV_POOR": {
-            "name": "Population Covered by Social Assistance Programs",
-            "statVar": "sdg/SI_COV_POOR"
-          },
-          "sdg/SI_COV_WKINJRY": {
-            "name": "Employed Population Covered for Work Injury",
-            "statVar": "sdg/SI_COV_WKINJRY"
-          },
-          "sdg/SI_COV_WKINJRY.SEX--F": {
-            "name": "Female Employed Population Covered for Work Injury",
-            "statVar": "sdg/SI_COV_WKINJRY.SEX--F"
           },
           "sdg/SI_POV_DAY1": {
             "name": "Population Below International Poverty Line",
@@ -957,18 +669,6 @@
             "name": "Urban Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
           },
-          "sdg/SI_POV_EMP1.AGE--Y15T24": {
-            "name": "Employed Population Age 15 to 24 Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F": {
-            "name": "Employed Women Age 15 to 24 Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M": {
-            "name": "Employed Men Age 14 to 24 Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
-          },
           "sdg/SI_POV_EMP1.AGE--Y_GE15": {
             "name": "Employed Population Aged 15 or Over Below International Poverty Line",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
@@ -981,25 +681,17 @@
             "name": "Employed Men Aged 15 or Over Below International Poverty Line",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
           },
-          "sdg/SI_POV_EMP1.AGE--Y_GE25": {
-            "name": "Employed Population Aged 25 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F": {
-            "name": "Employed Women Aged 25 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M": {
-            "name": "Employed Men Aged 25 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
-          },
           "sdg/SI_POV_NAHC": {
             "name": "Employed Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_NAHC"
           },
-          "sdg/SP_LGL_LNDSEC": {
-            "name": "Population Who Feel Secure in Land Rights",
-            "statVar": "sdg/SP_LGL_LNDSEC"
+          "sdg/SP_ACS_BSRVH2O": {
+            "name": "Population Using Basic Drinking Water Services",
+            "statVar": "sdg/SP_ACS_BSRVH2O"
+          },
+          "sdg/SP_ACS_BSRVSAN": {
+            "name": "Population Using Basic Sanitation Services",
+            "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }
       }
@@ -1388,22 +1080,10 @@
     },
     "childTopics": [],
     "exploreMore": {
-      "sdg/SI_POV_EMP1.AGE--Y15T24": {
-        "sdg_sex": [
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
-        ]
-      },
       "sdg/SI_POV_EMP1.AGE--Y_GE15": {
         "sdg_sex": [
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-        ]
-      },
-      "sdg/SI_POV_EMP1.AGE--Y_GE25": {
-        "sdg_sex": [
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F",
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
         ]
       }
     },

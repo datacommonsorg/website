@@ -14391,6 +14391,7 @@
       ],
       "relevantVariableList": [
         "Count_Person_BelowPovertyLevelInThePast12Months",
+        "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
         "dc/topic/PovertyByGender",
         "dc/topic/PovertyByRace",
         "dc/topic/PovertyByResidency",
