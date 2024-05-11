@@ -64,33 +64,18 @@ models:
   dc-all-minilm-l6-v2-model:
     type: VERTEXAI
     usage: EMBEDDINGS
-    project_id: datcom-website-dev
-    location: us-central1
-    prediction_endpoint_id: "8518340991868993536"
   uae-large-v1-model:
     type: VERTEXAI
     usage: EMBEDDINGS
-    project_id: datcom-website-dev
-    location: us-central1
-    prediction_endpoint_id: "4910007712298827776"
   sfr-embedding-mistral-model:
     type: VERTEXAI
     usage: EMBEDDINGS
-    project_id: datcom-website-dev
-    location: us-central1
-    prediction_endpoint_id: "224012300019826688"
   cross-encoder-ms-marco-miniilm-l6-v2:
     type: VERTEXAI
     usage: RERANKING
-    project_id: datcom-website-dev
-    location: us-central1
-    prediction_endpoint_id: "3977846152316846080"
   cross-encoder-mxbai-rerank-base-v1:
     type: VERTEXAI
     usage: RERANKING
-    project_id: datcom-website-dev
-    location: us-central1
-    prediction_endpoint_id: "284894457873039360"
   ft-final-v20230717230459-all-MiniLM-L6-v2:
     type: LOCAL
     usage: EMBEDDINGS
