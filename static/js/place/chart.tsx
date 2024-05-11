@@ -35,7 +35,6 @@ import {
 } from "../chart/types";
 import { RankingUnit } from "../components/ranking_unit";
 import { MapLayerData } from "../components/tiles/map_tile";
-import { ChartDownloadModal } from "../components/tiles/modal/chart_download_modal";
 import { fetchData } from "../components/tiles/ranking_tile";
 import {
   ASYNC_ELEMENT_CLASS,
@@ -61,7 +60,6 @@ import { NamedPlace } from "../shared/types";
 import { isDateTooFar, urlToDisplayText } from "../shared/util";
 import { RankingGroup, RankingPoint } from "../types/ranking_unit_types";
 import { datacommonsClient } from "../utils/datacommons_client";
-import { DEV_FLAGS, isFlagSet } from "../utils/dev_flag_utils";
 import { transformCsvHeader } from "../utils/tile_utils";
 import { ChartEmbed } from "./chart_embed";
 import { getChoroplethData, getGeoJsonData } from "./fetch";
@@ -157,24 +155,18 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   chartElement: React.RefObject<HTMLDivElement>;
   svgContainerElement: React.RefObject<HTMLDivElement>;
   embedModalElement: React.RefObject<ChartEmbed>;
-  downloadModalElement: React.RefObject<ChartDownloadModal>;
   mapContainerElement: React.RefObject<HTMLDivElement>;
   legendContainerElement: React.RefObject<HTMLDivElement>;
   dcid: string;
   rankingUrlByStatVar: { [key: string]: string };
   statsVars: string[];
   placeLinkSearch: string; // Search parameter string including '?'
-  useNewDownloadModal: boolean;
 
   constructor(props: ChartPropType) {
     super(props);
     this.chartElement = React.createRef();
     this.svgContainerElement = React.createRef();
     this.embedModalElement = React.createRef();
-    this.useNewDownloadModal = isFlagSet(DEV_FLAGS.USE_CHART_ACTION_ICONS_FLAG);
-    if (this.useNewDownloadModal) {
-      this.downloadModalElement = React.createRef();
-    }
 
     if (props.chartType === chartTypeEnum.CHOROPLETH) {
       this.mapContainerElement = React.createRef();
@@ -371,11 +363,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               "Text label for hyperlink to give Data Commons feedback on something on our website.",
           })}
         />
-        {this.useNewDownloadModal ? (
-          <ChartDownloadModal ref={this.downloadModalElement} />
-        ) : (
-          <ChartEmbed ref={this.embedModalElement} />
-        )}
+        <ChartEmbed ref={this.embedModalElement} />
       </div>
     );
   }
@@ -435,10 +423,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     if (svgElems.length) {
       svgXml = svgElems.item(0).outerHTML;
     }
-    const modalElement = this.useNewDownloadModal
-      ? this.downloadModalElement
-      : this.embedModalElement;
-    modalElement.current.show(
+    this.embedModalElement.current.show(
       svgXml,
       () => {
         // Fetch data from "nearby" places if present, otherwise use primary

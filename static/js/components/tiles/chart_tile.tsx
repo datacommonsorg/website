@@ -34,7 +34,7 @@ import {
 } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
-import { ChartDownloadModal } from "./modal/chart_download_modal";
+import { ChartDownloadSpec } from "./modal/chart_download";
 
 interface ChartTileContainerProp {
   id: string;
@@ -114,6 +114,8 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       </div>
       <ChartFooter
         chartId={props.id}
+        container={containerRef.current}
+        getChartDownloadSpec={showEmbed ? getChartDownloadSpec : null}
         handleEmbed={showEmbed ? handleDownload : null}
         exploreLink={props.exploreLink}
         footnote={props.footnote}
@@ -121,18 +123,12 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       >
         {!props.useChartActionIcons && <NlChartFeedback id={props.id} />}
       </ChartFooter>
-      {showEmbed &&
-        (props.useChartActionIcons ? (
-          <ChartDownloadModal
-            container={containerRef.current}
-            ref={downloadModalElement}
-          />
-        ) : (
-          <ChartEmbed
-            container={containerRef.current}
-            ref={downloadModalElement}
-          />
-        ))}
+      {showEmbed && !props.useChartActionIcons && (
+        <ChartEmbed
+          container={containerRef.current}
+          ref={downloadModalElement}
+        />
+      )}
     </div>
   );
 
@@ -152,5 +148,22 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       "",
       Array.from(props.sources)
     );
+  }
+
+  function getChartDownloadSpec(): ChartDownloadSpec {
+    const chartTitle = props.title
+      ? formatString(props.title, props.replacementStrings)
+      : "";
+    const { svgXml, height, width } = getMergedSvg(containerRef.current);
+    return {
+      chartDate: "",
+      chartHeight: height,
+      chartHtml: "",
+      chartTitle,
+      chartWidth: width,
+      getDataCsv: props.getDataCsv,
+      sources: Array.from(props.sources),
+      svgXml,
+    };
   }
 }

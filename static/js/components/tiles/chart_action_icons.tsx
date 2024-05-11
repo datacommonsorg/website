@@ -27,6 +27,7 @@ import {
   GA_PARAM_TILE_TYPE,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { ChartDownload, ChartDownloadSpec } from "./modal/chart_download";
 
 /** Component for a single action/icon */
 interface ActionIconPropType {
@@ -86,8 +87,8 @@ function ActionIcon(props: ActionIconPropType): JSX.Element {
 interface ChartActionsPropType {
   // Containing HTML element to attach tooltips/modals to
   container?: HTMLElement;
-  // Callback for handling when user clicks on "download" action icon
-  handleDownload?: () => void;
+  // Callback to get specs of the chart to download if "download" is clicked.
+  getChartDownloadSpec?: () => ChartDownloadSpec;
   // Id of the chart to provide feedback for
   id: string;
   // Link to explore more. Only show explore button if this object is non-empty.
@@ -95,10 +96,24 @@ interface ChartActionsPropType {
 }
 
 export function ChartActions(props: ChartActionsPropType): JSX.Element {
+  const [chartDownloadSpec, setChartDownloadSpec] =
+    useState<ChartDownloadSpec>(null);
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
+
+  const toggleDownloadModal = () => {
+    setShowDownloadModal(!showDownloadModal);
+  };
+
+  const loadChartDownloadSpec = () => {
+    if (!chartDownloadSpec && props.getChartDownloadSpec) {
+      setChartDownloadSpec(props.getChartDownloadSpec());
+    }
+  };
+
   return (
     <>
       <div className="outlinks">
-        {props.handleDownload && (
+        {props.getChartDownloadSpec && (
           <ActionIcon
             container={props.container}
             icon="download"
@@ -107,7 +122,8 @@ export function ChartActions(props: ChartActionsPropType): JSX.Element {
               triggerGAEvent(GA_EVENT_TILE_DOWNLOAD, {
                 [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
               });
-              props.handleDownload?.();
+              loadChartDownloadSpec();
+              toggleDownloadModal();
             }}
             tooltipContent={
               <>
@@ -135,6 +151,14 @@ export function ChartActions(props: ChartActionsPropType): JSX.Element {
           />
         )}
       </div>
+      {chartDownloadSpec && (
+        <ChartDownload
+          chartDownloadSpec={chartDownloadSpec}
+          container={props.container}
+          isOpen={showDownloadModal}
+          toggleCallback={toggleDownloadModal}
+        />
+      )}
     </>
   );
 }

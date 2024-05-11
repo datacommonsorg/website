@@ -51,6 +51,7 @@ import {
   getStatVarName,
   transformCsvHeader,
 } from "../../utils/tile_utils";
+import { ChartDownloadSpec } from "./modal/chart_download";
 import { SvRankingUnits } from "./sv_ranking_units";
 import { ContainedInPlaceMultiVariableTileProp } from "./tile_types";
 
@@ -101,6 +102,9 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
 
   /**
    * Opens export modal window
+   *
+   * TODO (juliawu): Once the new chart action icons in the footer are
+   *                 complete, remove this function.
    */
   function showChartEmbed(
     chartWidth: number,
@@ -136,6 +140,45 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
       props.sources || Array.from(sources)
     );
   }
+
+  /**
+   * Fetch spec for new download modal window
+   */
+  function getChartDownloadSpec(
+    chartHeight: number,
+    chartHtml: string,
+    chartTitle: string,
+    chartWidth: number,
+    sources: string[]
+  ): ChartDownloadSpec {
+    return {
+      chartDate: "",
+      chartHeight,
+      chartHtml,
+      chartTitle,
+      chartWidth,
+      getDataCsv: () => {
+        // Assume all variables will have the same date
+        // TODO: Update getCsv to handle multiple dates
+        const date = getFirstCappedStatVarSpecDate(props.variables);
+        const perCapitaVariables = props.variables
+          .filter((v) => v.denom)
+          .map((v) => v.statVar);
+        return datacommonsClient.getCsv({
+          childType: props.enclosedPlaceType,
+          date,
+          fieldDelimiter: CSV_FIELD_DELIMITER,
+          parentEntity: props.parentPlace,
+          perCapitaVariables,
+          transformHeader: transformCsvHeader,
+          variables: props.variables.map((v) => v.statVar),
+        });
+      },
+      sources,
+      svgXml: "",
+    };
+  }
+
   return (
     <div
       className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${props.className}`}
@@ -180,6 +223,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               errorMsg={errorMsg}
               footnote={props.footnote}
               useChartActionIcons={props.useChartActionIcons}
+              getChartDownloadSpec={getChartDownloadSpec}
             />
           );
         })}

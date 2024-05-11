@@ -46,7 +46,7 @@ import { formatPropertyValue } from "../../utils/property_value_utils";
 import { TileSources } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
-import { ChartDownloadModal } from "./modal/chart_download_modal";
+import { ChartDownloadSpec } from "./modal/chart_download";
 
 const DEFAULT_RANKING_COUNT = 10;
 const MIN_PERCENT_PLACE_NAMES = 0.4;
@@ -217,6 +217,7 @@ export const TopEventTile = memo(function TopEventTile(
           )}
           <ChartFooter
             chartId={props.id}
+            getChartDownloadSpec={getChartDownloadSpec(topEvents)}
             handleEmbed={showChart ? () => handleEmbed(topEvents) : null}
             exploreLink={
               props.showExploreMore
@@ -230,9 +231,7 @@ export const TopEventTile = memo(function TopEventTile(
           />
         </div>
       </div>
-      {props.useChartActionIcons ? (
-        <ChartDownloadModal ref={downloadModalElement} />
-      ) : (
+      {!props.useChartActionIcons && (
         <>
           <NlChartFeedback id={props.id} />
           <ChartEmbed ref={downloadModalElement} />
@@ -407,6 +406,32 @@ export const TopEventTile = memo(function TopEventTile(
       "",
       []
     );
+  }
+
+  function getChartDownloadSpec(
+    topEvents: DisasterEventPoint[]
+  ): () => ChartDownloadSpec {
+    const rankingPoints = topEvents.map((point) => {
+      return {
+        placeDcid: point.placeDcid,
+        placename: point.placeName,
+        value: point.severity[severityProp],
+      };
+    });
+    return () => {
+      return {
+        chartDate: "",
+        chartHeight: 0,
+        chartHtml: "",
+        chartTitle: "",
+        chartWidth: chartContainer.current.offsetWidth,
+        getDataCsv: () => {
+          return Promise.resolve(rankingPointsToCsv(rankingPoints, ["data"]));
+        },
+        sources: [],
+        svgXml: "",
+      };
+    };
   }
 
   function isUnnamedEvent(name: string) {

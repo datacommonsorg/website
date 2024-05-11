@@ -27,6 +27,7 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { ChartActions } from "./chart_action_icons";
+import { ChartDownloadSpec } from "./modal/chart_download";
 
 // Number of characters in footnote to show before "show more"
 const FOOTNOTE_CHAR_LIMIT = 150;
@@ -36,6 +37,8 @@ interface ChartFooterPropType {
   handleEmbed?: () => void;
   // Id of the chart this footer attaches to
   chartId: string;
+  // Containing element to append tooltips/modals to
+  container?: HTMLElement;
   // Link to explore more. Only show explore button if this object is non-empty.
   exploreLink?: { displayText: string; url: string };
   children?: React.ReactNode;
@@ -43,6 +46,8 @@ interface ChartFooterPropType {
   footnote?: string;
   // Whether to use new chart action icons
   useChartActionIcons?: boolean;
+  // Function to get specs of the chart to download
+  getChartDownloadSpec?: () => ChartDownloadSpec;
 }
 
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
@@ -96,8 +101,9 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
           {props.children}
           {props.useChartActionIcons && (
             <ChartActions
+              container={props.container}
               exploreLink={props.exploreLink}
-              handleDownload={props.handleEmbed}
+              getChartDownloadSpec={props.getChartDownloadSpec}
               id={props.chartId}
             />
           )}
