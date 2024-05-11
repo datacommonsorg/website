@@ -125,7 +125,7 @@ class TestEndToEnd(unittest.TestCase):
     input_alternatives_filepattern = os.path.join(input_dir,
                                                   "*_alternatives.csv")
     input_autogen_filepattern = os.path.join(input_dir, "autogen_*.csv")
-    input_sheets_csv_filepath = [os.path.join(input_dir, "sheets_data.csv")]
+    input_sheets_csv_dirs = [os.path.join(input_dir, "curated")]
     expected_local_merged_filepath = os.path.join(expected_dir,
                                                   "merged_data.csv")
     expected_dcid_sentence_csv_filepath = os.path.join(
@@ -136,7 +136,7 @@ class TestEndToEnd(unittest.TestCase):
       tmp_dcid_sentence_csv = os.path.join(tmp_dir,
                                            "final_dcid_sentences_csv.csv")
 
-      embeddings_df = be.build(ctx, input_sheets_csv_filepath,
+      embeddings_df = be.build(ctx, input_sheets_csv_dirs,
                                tmp_local_merged_filepath, "",
                                input_autogen_filepattern,
                                input_alternatives_filepattern)

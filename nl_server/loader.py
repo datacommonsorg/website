@@ -22,11 +22,10 @@ import yaml
 from nl_server import config
 import nl_server.embeddings_map as emb_map
 from nl_server.nl_attribute_model import NLAttributeModel
-from nl_server.util import get_user_data_path
+from shared.lib.custom_dc_util import get_custom_dc_user_data_path
 from shared.lib.gcs import download_gcs_file
 from shared.lib.gcs import is_gcs_path
 from shared.lib.gcs import join_gcs_path
-import shared.model.loader as model_loader
 
 _EMBEDDINGS_YAML = 'embeddings.yaml'
 _CUSTOM_EMBEDDINGS_YAML_PATH = 'datacommons/nl/custom_embeddings.yaml'
@@ -39,14 +38,9 @@ def load_server_state(app: Flask):
   flask_env = os.environ.get('FLASK_ENV')
 
   embeddings_dict = _load_yaml(flask_env)
-  vertex_ai_models = {}
-  if _use_vertex_ai(flask_env):
-    vertex_ai_models = model_loader.load_models('EMBEDDING')
-
   nl_embeddings = emb_map.EmbeddingsMap(embeddings_dict)
-  nl_model = NLAttributeModel()
-  _update_app_config(app, nl_model, nl_embeddings, embeddings_dict,
-                     vertex_ai_models)
+  attribute_model = NLAttributeModel()
+  _update_app_config(app, attribute_model, nl_embeddings, embeddings_dict)
 
 
 def load_custom_embeddings(app: Flask):
@@ -61,61 +55,70 @@ def load_custom_embeddings(app: Flask):
   """
   flask_env = os.environ.get('FLASK_ENV')
   embeddings_map = _load_yaml(flask_env)
-  custom_embeddings_path = embeddings_map.get(config.CUSTOM_DC_INDEX)
-  if not custom_embeddings_path:
-    logging.warning("No custom DC embeddings found, so none will be loaded.")
-    return
-  # Construct the Custom EmbeddingsIndex by calling into parse() to
-  # set fields like tuned_model correctly.
-  custom_idx_list = config.parse(
-      {config.CUSTOM_DC_INDEX: custom_embeddings_path})
-  if not custom_idx_list:
-    logging.warning(f"Unable to parse {custom_embeddings_path}")
-    return
 
   # This lookup will raise an error if embeddings weren't already initialized previously.
   # This is intentional.
   nl_embeddings: emb_map.EmbeddingsMap = app.config[config.NL_EMBEDDINGS_KEY]
-  # Reset the custom DC index.
-  nl_embeddings.reset_index(custom_idx_list[0])
+  try:
+    embeddings_info = config.parse(embeddings_map)
+    # Reset the custom DC index.
+    nl_embeddings.reset_index(embeddings_info)
+  except Exception as e:
+    logging.error(f'Custom embeddings not loaded due to error: {str(e)}')
 
   # Update app config.
-  _update_app_config(app, app.config[config.NL_MODEL_KEY], nl_embeddings,
+  _update_app_config(app, app.config[config.ATTRIBUTE_MODEL_KEY], nl_embeddings,
                      embeddings_map)
 
 
-def _load_yaml(flask_env: str) -> Dict[str, str]:
+# Takes an embeddings map and returns a version that only has the default
+# index and its model info
+def _get_default_only_emb_map(embeddings_map: Dict[str, any]) -> Dict[str, any]:
+  default_model_name = embeddings_map['indexes'][
+      config.DEFAULT_INDEX_TYPE]['model']
+  return {
+      'version': embeddings_map['version'],
+      'indexes': {
+          config.DEFAULT_INDEX_TYPE:
+              embeddings_map['indexes'][config.DEFAULT_INDEX_TYPE]
+      },
+      'models': {
+          default_model_name: embeddings_map['models'][default_model_name]
+      }
+  }
+
+
+def _load_yaml(flask_env: str) -> Dict[str, any]:
   with open(get_env_path(flask_env, _EMBEDDINGS_YAML)) as f:
     embeddings_map = yaml.full_load(f)
 
     # For custom DC dev env, only keep the default index.
     if _is_custom_dc_dev(flask_env):
-      embeddings_map = {
-          config.DEFAULT_INDEX_TYPE: embeddings_map[config.DEFAULT_INDEX_TYPE]
-      }
+      embeddings_map = _get_default_only_emb_map(embeddings_map)
 
   assert embeddings_map, 'No embeddings.yaml found!'
 
   custom_map = _maybe_load_custom_dc_yaml()
   if custom_map:
-    embeddings_map.update(custom_map)
+    embeddings_map['indexes'].update(custom_map.get('indexes', {}))
+    embeddings_map['models'].update(custom_map.get('models', {}))
 
   return embeddings_map
 
 
 def _update_app_config(app: Flask,
-                       nl_model: NLAttributeModel,
+                       attribute_model: NLAttributeModel,
                        nl_embeddings: emb_map.EmbeddingsMap,
-                       embeddings_map: Dict[str, str],
+                       embeddings_version_map: Dict[str, any],
                        vertex_ai_models: Dict[str, Dict] = None):
-  app.config[config.NL_MODEL_KEY] = nl_model
+  app.config[config.ATTRIBUTE_MODEL_KEY] = attribute_model
   app.config[config.NL_EMBEDDINGS_KEY] = nl_embeddings
-  app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_map
+  app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_version_map
   app.config[config.VERTEX_AI_MODELS_KEY] = vertex_ai_models or {}
 
 
 def _maybe_load_custom_dc_yaml():
-  base = get_user_data_path()
+  base = get_custom_dc_user_data_path()
   if not base:
     return None
 
@@ -158,10 +161,6 @@ def get_env_path(flask_env: str, file_name: str) -> str:
         f'deploy/nl/{file_name}')
 
   return f'/datacommons/nl/{file_name}'
-
-
-def _use_vertex_ai(flask_env):
-  return flask_env in ['local', 'test', 'integration_test', 'autopush']
 
 
 def _is_custom_dc_dev(flask_env: str) -> bool:

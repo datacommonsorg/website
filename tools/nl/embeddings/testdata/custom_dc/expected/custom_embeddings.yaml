@@ -1,5 +1,11 @@
-custom_ft:
-  embeddings: /fake/path/to/custom_embeddings.csv
-  model: FooModel
-  model_type: LOCAL
-  store: MEMORY
+indexes:
+  custom_ft:
+    embeddings: /fake/path/to/custom_embeddings.csv
+    model: FooModel
+    store: MEMORY
+models:
+  FooModel:
+    gcs_folder: fooModelFolder
+    type: LOCAL
+    usage: EMBEDDINGS
+version: 1

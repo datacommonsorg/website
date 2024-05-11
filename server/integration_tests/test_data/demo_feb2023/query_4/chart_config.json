@@ -36,7 +36,9 @@
                       "Count_Worker_NAICSRealEstateRentalLeasing_multiple_place_bar_block",
                       "Count_Worker_NAICSPublicAdministration_multiple_place_bar_block",
                       "Count_Worker_NAICSWholesaleTrade_multiple_place_bar_block",
-                      "Count_Worker_NAICSProfessionalScientificTechnicalServices_multiple_place_bar_block"
+                      "Count_Worker_NAICSProfessionalScientificTechnicalServices_multiple_place_bar_block",
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises_multiple_place_bar_block",
+                      "Count_Worker_NAICSNonclassifiable_multiple_place_bar_block"
                     ],
                     "title": "Categories of Jobs in Placer County (${date})",
                     "type": "BAR"
@@ -825,9 +827,17 @@
             "name": "Information Industry",
             "statVar": "Count_Worker_NAICSInformation"
           },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises_multiple_place_bar_block": {
+            "name": "Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block": {
             "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          },
+          "Count_Worker_NAICSNonclassifiable_multiple_place_bar_block": {
+            "name": "Unclassified",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
           },
           "Count_Worker_NAICSOtherServices_multiple_place_bar_block": {
             "name": "Other Services (except Public Admin)",
