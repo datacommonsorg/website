@@ -45,20 +45,32 @@ const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 
 export interface ChartDownloadSpec {
+  // Chart area to download, as XML of the SVG
   svgXml: string;
+  // A date to add to the end of the chart title
   chartDate: string;
+  // Height of the svg chart area
   chartHeight: number;
+  // Chart area to download, as HTML
   chartHtml: string;
+  // Title of the chart
   chartTitle: string;
+  // Width of the svg chart area
   chartWidth: number;
+  // Source URLs to add to the chart
   sources: string[];
+  // Callback for getting the data plotted in the chart as a CSV string
   getDataCsv?: () => Promise<string>;
 }
 
 interface ChartDownloadPropsType {
+  // Specification of chart to download
   chartDownloadSpec: ChartDownloadSpec;
+  // Containing element to attach modal to
   container?: HTMLElement;
+  // Whether modal is currently open
   isOpen?: boolean;
+  // Callback function to run when modal is toggled open or closed
   toggleCallback?: () => void;
 }
 
@@ -172,6 +184,9 @@ export function ChartDownload(props: ChartDownloadPropsType): JSX.Element {
     );
   }
 
+  /**
+   * Callback for after the modal has been rendered and added to the DOM.
+   */
   function onOpened(): void {
     if (!svgContainerElement.current) {
       return;
@@ -182,27 +197,38 @@ export function ChartDownload(props: ChartDownloadPropsType): JSX.Element {
     }
 
     if (props.chartDownloadSpec.chartHtml || props.chartDownloadSpec.svgXml) {
-      const decoratedChartDownloadXml = decorateChart();
+      const chartXml = generateChartXml();
       const imageElement = document.createElement("img");
-      const chartBase64 =
-        "data:image/svg+xml," + encodeURIComponent(decoratedChartDownloadXml);
+      const chartBase64 = "data:image/svg+xml," + encodeURIComponent(chartXml);
       imageElement.src = chartBase64;
       svgContainerElement.current.append(imageElement);
       imageElement.className = ASYNC_ELEMENT_CLASS;
-      setChartDownloadXml(decoratedChartDownloadXml);
+      setChartDownloadXml(chartXml);
     }
   }
 
-  function decorateChart(): string {
-    const container = svgContainerElement.current;
-    container.innerHTML = "";
-    const chartWidth = props.chartDownloadSpec.chartWidth + 2 * CHART_PADDING;
-
+  /**
+   * Generate the XML of an SVG of the chart to download.
+   *
+   * Requires: At least one of svgXml or chartHtml provided in
+   *           props.chartDownloadSpec
+   *
+   * Note: If both svgXml and chartHtml have been provided in
+   *       props.chartDownloadSpec, this function will prefer using the svgXml
+   *       to populate the chart area
+   *
+   * @returns XML content of an svg file to download
+   */
+  function generateChartXml(): string {
     if (!props.chartDownloadSpec.svgXml && !props.chartDownloadSpec.chartHtml) {
       return "";
     }
 
-    // Decorate a hidden chart svg with title and provenance
+    const container = svgContainerElement.current;
+    container.innerHTML = "";
+    const chartWidth = props.chartDownloadSpec.chartWidth + 2 * CHART_PADDING;
+
+    // Create a svg to hold a copy of the chart to download
     const svg = d3
       .select(container)
       .append("svg")
@@ -210,6 +236,7 @@ export function ChartDownload(props: ChartDownloadPropsType): JSX.Element {
       .attr("xmlns:xlink", XLINKNS)
       .attr("width", chartWidth);
 
+    // Add title to the svg
     const title = svg
       .append("g")
       .append("text")
@@ -232,6 +259,7 @@ export function ChartDownload(props: ChartDownloadPropsType): JSX.Element {
         `translate(${CHART_PADDING}, ${titleHeight + TITLE_MARGIN})`
       );
 
+    // Add chart area to the svg
     if (props.chartDownloadSpec.svgXml) {
       svg.append("svg").html(props.chartDownloadSpec.svgXml);
     } else {
@@ -245,6 +273,7 @@ export function ChartDownload(props: ChartDownloadPropsType): JSX.Element {
         .html(props.chartDownloadSpec.chartHtml);
     }
 
+    // Add sources to the svg
     const sources = svg
       .append("g")
       .attr(
@@ -286,6 +315,8 @@ export function ChartDownload(props: ChartDownloadPropsType): JSX.Element {
         sourcesHeight +
         SOURCES_MARGIN
     );
+
+    // Serialize SVG to XML for export
     const s = new XMLSerializer();
     const svgXml = s.serializeToString(svg.node());
     container.innerHTML = "";

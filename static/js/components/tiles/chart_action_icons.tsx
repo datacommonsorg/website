@@ -29,7 +29,8 @@ import {
 } from "../../shared/ga_events";
 import { ChartDownload, ChartDownloadSpec } from "./modal/chart_download";
 
-/** Component for a single action/icon */
+/** Component for a single action icon */
+
 interface ActionIconPropType {
   // Container element the tooltip should attach to
   container?: HTMLElement;
@@ -100,16 +101,6 @@ export function ChartActions(props: ChartActionsPropType): JSX.Element {
     useState<ChartDownloadSpec>(null);
   const [showDownloadModal, setShowDownloadModal] = useState(false);
 
-  const toggleDownloadModal = () => {
-    setShowDownloadModal(!showDownloadModal);
-  };
-
-  const loadChartDownloadSpec = () => {
-    if (!chartDownloadSpec && props.getChartDownloadSpec) {
-      setChartDownloadSpec(props.getChartDownloadSpec());
-    }
-  };
-
   return (
     <>
       <div className="outlinks">
@@ -161,4 +152,20 @@ export function ChartActions(props: ChartActionsPropType): JSX.Element {
       )}
     </>
   );
+
+  /**
+   * Callback for toggling the download modal when "download" gets clicked
+   */
+  function toggleDownloadModal(): void {
+    setShowDownloadModal(!showDownloadModal);
+  }
+
+  /**
+   * Callback for loading chart specs to download when "download" gets clicked
+   */
+  function loadChartDownloadSpec(): void {
+    if (!chartDownloadSpec && props.getChartDownloadSpec) {
+      setChartDownloadSpec(props.getChartDownloadSpec());
+    }
+  }
 }
