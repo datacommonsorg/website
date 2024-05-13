@@ -159,7 +159,8 @@ def parse_v1(embeddings_map: Dict[str, any],
           usage=model_info['usage'],
           project_id=vertex_ai_model_info[model_name]['project_id'],
           prediction_endpoint_id=vertex_ai_model_info[model_name]
-          ['prediction_endpoint_id'])
+          ['prediction_endpoint_id'],
+          location=vertex_ai_model_info[model_name]['location'])
     else:
       raise AssertionError(
           'Error parsing information for model {model_name}: unsupported type {model_type}'
