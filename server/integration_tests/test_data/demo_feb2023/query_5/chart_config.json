@@ -25,7 +25,9 @@
                       "Count_Worker_NAICSWholesaleTrade",
                       "dc/8p97n7l96lgg8",
                       "Count_Worker_NAICSUtilities",
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises",
                       "Count_Worker_NAICSInformation",
+                      "Count_Worker_NAICSNonclassifiable",
                       "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
                     ],
                     "title": "Categories of Jobs in Placer County",
@@ -67,7 +69,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_abs"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Accommodation/Food Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -208,9 +210,31 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_abs"
+                    ],
+                    "title": "Management of Companies and Enterprises Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Worker_NAICSInformation_growth_abs"
                     ],
                     "title": "Information Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSNonclassifiable_growth_abs"
+                    ],
+                    "title": "Unclassified in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -232,6 +256,17 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSNonclassifiable_growth_pct"
+                    ],
+                    "title": "Unclassified in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -337,7 +372,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_pct"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Accommodation/Food Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -412,6 +447,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pct"
+                    ],
+                    "title": "Management of Companies and Enterprises Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Worker_NAICSInformation_growth_pct"
                     ],
                     "title": "Information Industry in Placer County",
@@ -453,7 +499,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_pc"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Accommodation/Food Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -594,9 +640,31 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pc"
+                    ],
+                    "title": "Management of Companies and Enterprises Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Worker_NAICSInformation_growth_pc"
                     ],
                     "title": "Information Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSNonclassifiable_growth_pc"
+                    ],
+                    "title": "Unclassified in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -619,19 +687,19 @@
         ],
         "statVarSpec": {
           "Count_Worker_NAICSAccommodationFoodServices": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_growth_abs": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_growth_pc": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_growth_pct": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices": {
@@ -746,6 +814,22 @@
             "name": "Information Industry",
             "statVar": "Count_Worker_NAICSInformation"
           },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises": {
+            "name": "Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_abs": {
+            "name": "Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pc": {
+            "name": "Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pct": {
+            "name": "Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction": {
             "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
@@ -761,6 +845,22 @@
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pct": {
             "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          },
+          "Count_Worker_NAICSNonclassifiable": {
+            "name": "Unclassified",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
+          },
+          "Count_Worker_NAICSNonclassifiable_growth_abs": {
+            "name": "Unclassified",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
+          },
+          "Count_Worker_NAICSNonclassifiable_growth_pc": {
+            "name": "Unclassified",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
+          },
+          "Count_Worker_NAICSNonclassifiable_growth_pct": {
+            "name": "Unclassified",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
           },
           "Count_Worker_NAICSOtherServices": {
             "name": "Other Services (except Public Admin)",
@@ -917,7 +1017,429 @@
       "place_type": "County"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {
+      "City": [
+        {
+          "dcid": "geoId/0601276",
+          "name": "Alta",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0603204",
+          "name": "Auburn",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0611418",
+          "name": "Carnelian Bay",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0612216",
+          "name": "Cedar Flat",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0614498",
+          "name": "Colfax",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0619455",
+          "name": "Dollar Point",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0620298",
+          "name": "Dutch Flat",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0624834",
+          "name": "Foresthill",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0630693",
+          "name": "Granite Bay",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0638548",
+          "name": "Kings Beach",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0638604",
+          "name": "Kingvale",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0641474",
+          "name": "Lincoln",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0643140",
+          "name": "Loomis",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0646632",
+          "name": "Meadow Vista",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0651000",
+          "name": "Newcastle",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0651637",
+          "name": "North Auburn",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0656546",
+          "name": "Penryn",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0662364",
+          "name": "Rocklin",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0662664",
+          "name": "Rocklin",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0662938",
+          "name": "Roseville",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0671414",
+          "name": "Sheridan",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0676015",
+          "name": "Sunnyside-Tahoe City",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0677700",
+          "name": "Tahoe Vista",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0677728",
+          "name": "Tahoma",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q822230",
+          "name": "Squaw Valley",
+          "types": [
+            "City"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {
+      "dc/8p97n7l96lgg8": {
+        "establishmentOwnership": [
+          "dc/wkn0fmqw6ezxc",
+          "dc/wnrvlpncdkj38"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Jobs",
+        "name": "Jobs",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/06001",
+        "name": "Alameda",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36005",
+        "name": "Bronx",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06013",
+        "name": "Contra Costa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/17031",
+        "name": "Cook",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/39035",
+        "name": "Cuyahoga",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48113",
+        "name": "Dallas",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12031",
+        "name": "Duval",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08041",
+        "name": "El Paso",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/51059",
+        "name": "Fairfax",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/13121",
+        "name": "Fulton",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48201",
+        "name": "Harris",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12057",
+        "name": "Hillsborough",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/15003",
+        "name": "Honolulu",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08059",
+        "name": "Jefferson",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06029",
+        "name": "Kern",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/53033",
+        "name": "King",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06037",
+        "name": "Los Angeles",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/04013",
+        "name": "Maricopa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/37119",
+        "name": "Mecklenburg",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12086",
+        "name": "Miami-Dade",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06059",
+        "name": "Orange",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36081",
+        "name": "Queens",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06065",
+        "name": "Riverside",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06071",
+        "name": "San Bernardino",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06073",
+        "name": "San Diego",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06075",
+        "name": "San Francisco",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06085",
+        "name": "Santa Clara",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/24047",
+        "name": "Worcester",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/UnemploymentRate",
+        "name": "Unemployment Rate",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UnpaidFamilyWorkers",
+        "name": "Unpaid Family Workers",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
   "userMessage": "See relevant statistics for Placer County based on the previous query.",
   "userMessages": [

@@ -16,12 +16,18 @@
 
 
 # Deploys the latest custom dc image to autopush.
+# The script also updates a RESTART_TIMESTAMP env var 
+# to easily identify the restart time of a given revision.
+
 # latest image = gcr.io/datcom-ci/datacommons-website-compose:latest
 # autopush service: https://pantheon.corp.google.com/run/detail/us-central1/dc-dev/revisions?project=datcom-website-dev
 # autopush URL: https://dc-dev-kqb7thiuka-uc.a.run.app
 
 set -e
-
 set -x
 
-gcloud run deploy dc-autopush --project datcom-website-dev --image gcr.io/datcom-ci/datacommons-website-compose:latest --region us-central1
+gcloud run deploy dc-autopush \
+    --project datcom-website-dev \
+    --image gcr.io/datcom-ci/datacommons-website-compose:latest \
+    --region us-central1 \
+    --update-env-vars RESTART_TIMESTAMP="$(date)"

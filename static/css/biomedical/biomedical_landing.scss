@@ -16,7 +16,7 @@
 
 /* Styles for the biomedical homepage */
 @import "../base";
-@import "./shared";
+@import "./biomedical_shared";
 
 /**
  * Override base styles
@@ -26,7 +26,8 @@
   background-color: white;
 }
 
-.main-content {
+#bio_landing.main-content {
+  background-color: white;
   // start content at top, but leave room for box shadow on #main-header
   margin-top: 3px;
 }

@@ -17,8 +17,8 @@ import copy
 from dataclasses import dataclass
 from typing import Dict, List, Set
 
-from server.lib.explore import existence
 import server.lib.fetch as fetch
+from server.lib.nl.common import existence_util
 from server.lib.nl.common import variable
 from server.lib.nl.common import variable_group
 import server.lib.nl.common.topic as topic_lib
@@ -252,10 +252,11 @@ def chart_vars_to_explore_peer_groups(
   explore_peer_groups = {}
 
   for sv, cv_list in explore_more_chart_vars_map.items():
-    if not existence.svs4place(state, state.uttr.places[0], [sv]).exist_svs:
+    if not existence_util.svs4place(state, state.uttr.places[0],
+                                    [sv]).exist_svs:
       continue
     for cv in cv_list:
-      er = existence.svs4place(state, state.uttr.places[0], cv.svs)
+      er = existence_util.svs4place(state, state.uttr.places[0], cv.svs)
       if len(er.exist_svs) < 2:
         continue
       if sv not in explore_peer_groups:

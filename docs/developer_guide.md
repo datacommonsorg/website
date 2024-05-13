@@ -317,18 +317,6 @@ A full tutorial of debugging Flask app in Visual Studio Code is in
   self.driver.save_screenshot(filename)
   ```
 
-### Working with NL Models
-
-NL models are large and take time to load. They are intialized once in
-production but would reload in local environment every time the code changes. We
-cache the model object in a disk cache for 1 day to make things faster.
-
-If you need to reload new embeddings, can manually remove the cache by
-
-```bash
-rm -rf ~/.datacommons/cache.*
-```
-
 ### GKE config
 
 The GKE configuration is stored [here](../deploy/helm_charts/dc_website).
@@ -341,6 +329,5 @@ the same region.
 
 ### Testing cloudbuild changes
 
-To test .yaml cloudbuild files, you can use cloud-build-local to dry run the
-file before actually pushing. Find documentation for how to install and use
-cloud-build-local [here](https://github.com/GoogleCloudPlatform/cloud-build-local).
+To test .yaml cloudbuild files, you can use cloud-build-local to dry run the file before actually pushing. Find documentation for how to install and use cloud-build-local [here](https://github.com/GoogleCloudPlatform/cloud-build-local).
+

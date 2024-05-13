@@ -1069,14 +1069,7 @@ Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_Rea
 Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue,Amount of economic activity in the utilities industry
 Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue,Amount of economic activity in the wholesale trade industry
 Amount_EconomicActivity_GrossDomesticProduction_Nominal,Nominal gross domestic production
-dc/topic/Economy,
-dc/topic/Agriculture,
-dc/topic/AgriculturalProduction,Total agricultural output
-dc/topic/MedicalConditions,
-dc/topic/HeatIllnesses,
-dc/topic/Jobs,
-dc/hlxvn1t8b9bhh,
-Count_Person_EducationalAttainmentDoctorateDegree,population with PhD; population with phd; number of people with doctorates; number of people with doctoral degrees; people who are PhDs; people who are doctors of philosophy 
+Count_Person_EducationalAttainmentDoctorateDegree,population with PhD; population with phd; number of people with doctorates; number of people with doctoral degrees; people who are PhDs; people who are doctors of philosophy
 Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female,female population with PhD; population female with phd; number of women with doctorates; number of females with doctoral degrees; people women are PhDs; women who are doctors of philosophy; girls with PhDs;
 Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Male,male population with PhD; population male with phd; number of men with doctorates; number of males with doctoral degrees; people men are PhDs; men who are doctors of philosophy; boys with PhDs;
 Count_Person_EducationalAttainmentBachelorsDegreeOrHigher,population with bachelors degrees or more; population with at least bachelors degrees; number of people with bachelors degrees or higher;
@@ -1091,19 +1084,6 @@ Count_Person_15To50Years_EducationalAttainmentSomeCollegeOrAssociatesDegree_Fema
 Percent_TreeCanopy,percent of land with tree cover; tree cover; tree canopy; tree cover of land; tree canopy over land; percentage of land covered by trees;
 dc/topic/SolarPotential,solar potential; ability to support solar panels; amount of solar potential; potential for solar energy
 dc/topic/ProjectedClimateExtremes,What are the projected temperature extremes across; tell me about projecte temperature extremes for; how crazy is the climate supposed to get in the future; what are predicted extreme temperatures for; projected temperature extremes; projected temperature
-dc/topic/ClimateChange,
-dc/topic/Income,
-dc/topic/WorkCommute,
-MapFacts/Count_park,
-MapFacts/Count_hiking_area,
-Annual_Emissions_GreenhouseGas,
-dc/topic/GreenhouseGasEmissionsBySource,
-dc/topic/CarbonDioxideEmissionsBySource,
-dc/topic/AgricultureEmissionsByGas,
-dc/topic/FossilFuelOperationsEmissionsByGas,
-dc/topic/TransportationEmissionsByGas,
-dc/topic/ManufacturingEmissionsByGas,
-dc/topic/PowerEmissionsByGas,
 Percent_Student_AsAFractionOf_Count_Teacher ,"students per teacher; number of students per teacher, how many students per teacher, each teacher has on average how many students"
 Count_Teacher,number of teachers; how many teachers are there; educational instructors; count of educators
 dc/c58mvty4nhxdb,average student achievement; student test performance; student educational output measurement; how good are students doing on their education; best schools in; best school performance; highest quality education
@@ -1116,19 +1096,9 @@ dc/5br285q68be6,people working in gambling; people with jobs in the gambling ind
 Count_VolcanicAshEvent,volcanic eruptions; volcanic ash events; volcanic outbursts; volcanic activity; how many times has a volcano exploded
 dc/topic/Literacy,population's ability to read and write; literacy rate; how many people can read or not; how well read is the population; level of literacy; how many people cannot read or write; where can i find the most well read population in
 dc/topic/RacialBreakdown,racial breakdown of a population; tell me about the demographics; ethnicity; demographic breakdown; population race; i want to know about the racial makeup; racial diversity of population; ethnic breakdown; how diverse are the demographics; demographic distribution
-dc/topic/SDG_1,
-dc/topic/SDG_2,
-dc/topic/SDG_3,
-dc/topic/SDG_4,
-dc/topic/SDG_5,
-dc/topic/SDG_10,
-dc/topic/SDG_13,
-dc/topic/MaternalHealth,
 Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person,
-dc/topic/HomeValue,
 dc/topic/WetBulbTemperature,for this area what is the temperature at which the human body can't cool itself anymore; what is the wet bulb temperature; how high or low is the wet bulb temperature predicted to be; give me the degree of the wetbulb temperature; wet bulb temperature prediction range
 dc/topic/Temperature,what's the temperature like; what's the climate here; tell me about the weather;
-dc/235cmp60ywm46,
 Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome,African Languages Speakers
 Count_Person_5OrMoreYears_AmharicSomaliOrOtherAfroAsiaticLanguagesSpokenAtHome,Amharic Somali Or Other Afro Asiatic Languages Speakers
 Count_Person_5OrMoreYears_ArabicSpokenAtHome,Arabic Speakers

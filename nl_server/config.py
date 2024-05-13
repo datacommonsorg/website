@@ -12,16 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from abc import ABC
 from dataclasses import dataclass
 from enum import Enum
 import logging
 import os
-from typing import Dict, List
-
-from nl_server import gcs
-from nl_server.util import use_anonymous_gcs_client
-from shared.lib.gcs import download_gcs_file
-from shared.lib.gcs import is_gcs_path
+from typing import Dict
 
 # Index constants.  Passed in `url=`
 CUSTOM_DC_INDEX: str = 'custom_ft'
@@ -31,96 +27,147 @@ DEFAULT_INDEX_TYPE: str = 'medium_ft'
 EMBEDDINGS_BASE_MODEL_NAME: str = 'all-MiniLM-L6-v2'
 
 # App Config constants.
-NL_MODEL_KEY: str = 'NL_MODEL'
+ATTRIBUTE_MODEL_KEY: str = 'ATTRIBUTE_MODEL'
 NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
 NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
+VERTEX_AI_MODELS_KEY: str = 'VERTEX_AI_MODELS'
 
 
 class StoreType(str, Enum):
   MEMORY = 'MEMORY'
   LANCEDB = 'LANCEDB'
+  VERTEXAI = 'VERTEXAI'
+
+
+class ModelType(str, Enum):
+  LOCAL = 'LOCAL'
+  VERTEXAI = 'VERTEXAI'
+
+
+class ModelUsage(str, Enum):
+  EMBEDDINGS = 'EMBEDDINGS'
+  RERANKING = 'RERANKING'
+
+
+@dataclass
+class ModelConfig(ABC):
+  type: str
+  usage: str
+
+
+@dataclass
+class VertexAIModelConfig(ModelConfig):
+  project_id: str
+  location: str
+  prediction_endpoint_id: str
+
+
+@dataclass
+class LocalModelConfig(ModelConfig):
+  gcs_folder: str = ''
+
+
+@dataclass
+class IndexConfig(ABC):
+  store_type: str
+  model: str
+
+
+@dataclass
+class MemoryIndexConfig(IndexConfig):
+  embeddings_path: str
+
+
+@dataclass
+class LanceDBIndexConfig(IndexConfig):
+  embeddings_path: str
+
+
+@dataclass
+class VertexAIIndexConfig(IndexConfig):
+  project_id: str
+  location: str
+  index_endpoint_root: str
+  index_endpoint: str
+  index_id: str
 
 
 # Defines one embeddings index config.
 @dataclass
-class EmbeddingsIndex:
-  # Name provided in the yaml file, and set in `idx=` URL param.
-  name: str
-
-  # Values are: MEMORY, LANCEDB
-  store_type: StoreType
-
-  # File name provided in the yaml file.
-  embeddings_path: str
-  # Local path.
-  embeddings_local_path: str
-
-  # Model name.
-  model_name: str = ""
-  # Model local path.
-  model_local_path: str = ""
+class EmbeddingsConfig:
+  indexes: Dict[str, IndexConfig]
+  models: Dict[str, ModelConfig]
 
 
 #
-# Validates the config input, downloads all the files and returns a list of Indexes to load.
-# The input `embeddings_map` is the dict representation of `embeddings.yaml`:
-#   index-type => field (e.g., model) => value
+# Parse the input `embeddings.yaml` dict representation into EmbeddingsInfo
+# object.
 #
-def load(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
-  # Create Index objects.
-  indexes = parse(embeddings_map)
-
-  #
-  # Download all the models.
-  #
-  models_set = set([i.model_name for i in indexes if i.model_name])
-  model2path = {d: gcs.download_folder(d) for d in models_set}
-  for idx in indexes:
-    if idx.model_name:
-      idx.model_local_path = model2path[idx.model_name]
-
-  return indexes
+def parse(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
+  if embeddings_map['version'] == 1:
+    return parse_v1(embeddings_map)
+  else:
+    raise AssertionError('Could not parse embeddings map: unsupported version.')
 
 
 #
-# Parse the input `embeddings.yaml` dict representation, with structure:
-#   index-type => field (e.g., model) => value
+# Parses the v1 version of the `embeddings.yaml` dict representation into
+# EmbeddingsInfo object.
 #
-def parse(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
-  indexes: List[EmbeddingsIndex] = []
-
-  for key, value_map in embeddings_map.items():
-    # Let this fail if the enum isn't valid.
-    store_type = StoreType(value_map['store'])
-    path = value_map['embeddings']
-    model_name = value_map['model']
-
-    if path.startswith('/'):
-      # Value is an absolute path
-      file_name = os.path.basename(path)
-      local_path = path
-    elif is_gcs_path(path):
-      logging.info('Downloading embeddings from GCS path: %s', path)
-      if store_type == StoreType.MEMORY:
-        local_path = download_gcs_file(
-            path, use_anonymous_client=use_anonymous_gcs_client())
-      elif store_type == StoreType.LANCEDB:
-        local_path = gcs.download_folder(path)
-      if not local_path:
-        logging.warning(
-            'Embeddings not downloaded from GCS and will be ignored. Please check the path: %s',
-            path)
-        continue
-      file_name = path
+def parse_v1(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
+  # parse the models
+  models = {}
+  for model_name, model_info in embeddings_map.get('models', {}).items():
+    model_type = model_info['type']
+    if model_type == ModelType.LOCAL:
+      models[model_name] = LocalModelConfig(type=model_type,
+                                            usage=model_info['usage'],
+                                            gcs_folder=model_info['gcs_folder'])
+    elif model_type == ModelType.VERTEXAI:
+      models[model_name] = VertexAIModelConfig(
+          type=model_type,
+          usage=model_info['usage'],
+          project_id=model_info['project_id'],
+          location=model_info['location'],
+          prediction_endpoint_id=model_info['prediction_endpoint_id'])
     else:
       raise AssertionError(
-          f'"embeddings" path must start with `/` or `gs://`: {path}')
+          'Error parsing information for model {model_name}: unsupported type {model_type}'
+      )
 
-    idx = EmbeddingsIndex(name=key,
-                          store_type=store_type,
-                          embeddings_path=file_name,
-                          embeddings_local_path=local_path,
-                          model_name=model_name)
-    indexes.append(idx)
+  # parse the indexes
+  indexes = {}
+  for index_name, index_info in embeddings_map.get('indexes', {}).items():
+    store_type = index_info['store']
+    if store_type == StoreType.MEMORY:
+      indexes[index_name] = MemoryIndexConfig(
+          store_type=store_type,
+          model=index_info['model'],
+          embeddings_path=index_info['embeddings'])
+    elif store_type == StoreType.LANCEDB:
+      indexes[index_name] = LanceDBIndexConfig(
+          store_type=store_type,
+          model=index_info['model'],
+          embeddings_path=index_info['embeddings'])
+    elif store_type == StoreType.VERTEXAI:
+      indexes[index_name] = VertexAIIndexConfig(
+          store_type=store_type,
+          model=index_info['model'],
+          project_id=index_info['project_id'],
+          location=index_info['location'],
+          index_endpoint_root=index_info['index_endpoint_root'],
+          index_endpoint=index_info['index_endpoint'],
+          index_id=index_info['index_id'])
+    else:
+      raise AssertionError(
+          'Error parsing information for index {index_name}: unsupported store type {store_type}'
+      )
 
-  return indexes
+  return EmbeddingsConfig(indexes=indexes, models=models)
+
+
+# Returns true if VERTEXAI type models and VERTEXAI type stores are allowed
+def allow_vertex_ai() -> bool:
+  return os.environ.get('FLASK_ENV') in [
+      'local', 'test', 'integration_test', 'autopush'
+  ]

@@ -19,7 +19,6 @@ from typing import Dict, List
 from flask import current_app
 
 from server.lib import util as libutil
-from server.lib.explore import params
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
@@ -32,6 +31,7 @@ from server.lib.nl.detection.types import Date
 from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
+from server.lib.nl.explore import params
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import ExistInfo
