@@ -411,6 +411,10 @@ export const TopEventTile = memo(function TopEventTile(
   function getChartDownloadSpec(
     topEvents: DisasterEventPoint[]
   ): () => ChartDownloadSpec {
+    if (!topEvents) {
+      return null;
+    }
+
     const rankingPoints = topEvents.map((point) => {
       return {
         placeDcid: point.placeDcid,

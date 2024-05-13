@@ -15,7 +15,7 @@
  */
 
 import * as d3 from "d3";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { wrap } from "../../../chart/base";
@@ -85,23 +85,27 @@ export function ChartDownload(props: ChartDownloadPropsType): JSX.Element {
   const textareaElement = useRef<HTMLTextAreaElement>(null);
   const modalId = randDomId();
 
-  useEffect(() => {
-    const computeDataCsv = async () => {
-      if (!dataCsv && props.chartDownloadSpec.getDataCsv) {
-        try {
-          const fetchedDataCsv = await props.chartDownloadSpec.getDataCsv();
-          if (!fetchedDataCsv) {
-            setDataCsv("Error fetching CSV");
-            return;
-          }
-          setDataCsv(fetchedDataCsv);
-        } catch (e) {
+  /**
+   * Fetch chart data in csv format for export.
+   */
+  const loadDataCsv = useCallback(async () => {
+    if (!dataCsv && props.chartDownloadSpec.getDataCsv) {
+      try {
+        const fetchedDataCsv = await props.chartDownloadSpec.getDataCsv();
+        if (!fetchedDataCsv) {
           setDataCsv("Error fetching CSV");
+          return;
         }
+        setDataCsv(fetchedDataCsv);
+      } catch (e) {
+        setDataCsv("Error fetching CSV");
       }
-    };
-    computeDataCsv();
-  }, [dataCsv, props]);
+    }
+  }, [dataCsv, props.chartDownloadSpec]);
+
+  useEffect(() => {
+    loadDataCsv();
+  }, [loadDataCsv]);
 
   return (
     <Modal
@@ -109,7 +113,7 @@ export function ChartDownload(props: ChartDownloadPropsType): JSX.Element {
       toggle={props.toggleCallback}
       className="modal-dialog-centered modal-lg chart-footer-modal"
       container={props.container}
-      onOpened={onOpened}
+      onOpened={generateChartImg}
       id={modalId}
     >
       <ModalHeader toggle={props.toggleCallback}>
@@ -185,15 +189,11 @@ export function ChartDownload(props: ChartDownloadPropsType): JSX.Element {
   }
 
   /**
-   * Callback for after the modal has been rendered and added to the DOM.
+   * Generate an image of the chart's svg to show in the modal.
    */
-  function onOpened(): void {
+  function generateChartImg(): void {
     if (!svgContainerElement.current) {
       return;
-    }
-    if (textareaElement.current) {
-      textareaElement.current.style.width =
-        props.chartDownloadSpec.chartWidth + CHART_PADDING * 2 + "px";
     }
 
     if (props.chartDownloadSpec.chartHtml || props.chartDownloadSpec.svgXml) {
