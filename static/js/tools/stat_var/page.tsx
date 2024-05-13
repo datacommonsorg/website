@@ -59,6 +59,9 @@ interface PageStateType {
   showSvHierarchyModal: boolean;
 }
 
+// TODO: Add webdriver tests for the stat var explorer, including when
+//       various stat var properties are missing as could be possible in
+//       custom DC.
 class Page extends Component<unknown, PageStateType> {
   constructor(props: unknown) {
     super(props);
