@@ -192,17 +192,21 @@ export function ChartDownload(props: ChartDownloadPropsType): JSX.Element {
    * Generate an image of the chart's svg to show in the modal.
    */
   function generateChartImg(): void {
-    if (!svgContainerElement.current) {
+    if (
+      !svgContainerElement.current ||
+      (!props.chartDownloadSpec.chartHtml && !props.chartDownloadSpec.svgXml)
+    ) {
       return;
     }
 
-    if (props.chartDownloadSpec.chartHtml || props.chartDownloadSpec.svgXml) {
-      const chartXml = generateChartXml();
-      const imageElement = document.createElement("img");
-      const chartBase64 = "data:image/svg+xml," + encodeURIComponent(chartXml);
-      imageElement.src = chartBase64;
-      svgContainerElement.current.append(imageElement);
-      imageElement.className = ASYNC_ELEMENT_CLASS;
+    const chartXml = chartDownloadXml || generateChartXml();
+    const imageElement = document.createElement("img");
+    const chartBase64 = "data:image/svg+xml," + encodeURIComponent(chartXml);
+    imageElement.src = chartBase64;
+    svgContainerElement.current.append(imageElement);
+    imageElement.className = ASYNC_ELEMENT_CLASS;
+
+    if (!chartDownloadXml) {
       setChartDownloadXml(chartXml);
     }
   }
