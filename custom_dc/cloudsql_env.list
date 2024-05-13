@@ -24,4 +24,4 @@ ADMIN_SECRET=
 # Enable embeddings generation and natural language querying. 
 ENABLE_MODEL=true
 # The name of the parent directory for custom CSS, JS, HTML and image files.
-FLASK_ENV=customgit
+FLASK_ENV=custom
