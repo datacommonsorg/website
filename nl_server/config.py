@@ -15,9 +15,13 @@
 from abc import ABC
 from dataclasses import dataclass
 from enum import Enum
+import json
 import logging
 import os
+from pathlib import Path
 from typing import Dict
+
+import yaml
 
 # Index constants.  Passed in `url=`
 CUSTOM_DC_INDEX: str = 'custom_ft'
@@ -31,6 +35,8 @@ ATTRIBUTE_MODEL_KEY: str = 'ATTRIBUTE_MODEL'
 NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
 NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
 VERTEX_AI_MODELS_KEY: str = 'VERTEX_AI_MODELS'
+
+_VERTEX_AI_MODEL_CONFIG_PATH: str = '/datacommons/nl/vertex_ai_models.json'
 
 
 class StoreType(str, Enum):
@@ -100,12 +106,31 @@ class EmbeddingsConfig:
 
 
 #
+# Get Dict of vertex ai model to its info
+#
+def _get_vertex_ai_model_info() -> Dict[str, any]:
+  # This is the path to model info when deployed in gke.
+  if os.path.exists(_VERTEX_AI_MODEL_CONFIG_PATH):
+    with open(_VERTEX_AI_MODEL_CONFIG_PATH) as f:
+      return json.load(f) or {}
+  # If that path doesn't exist, assume we are running locally and use the values
+  # from autopush.
+  else:
+    current_file_path = Path(__file__)
+    autopush_env_values = f'{current_file_path.parent.parent}/deploy/helm_charts/envs/autopush.yaml'
+    with open(autopush_env_values) as f:
+      autopush_env = yaml.full_load(f)
+      return autopush_env['nl']['vertex_ai_models']
+
+
+#
 # Parse the input `embeddings.yaml` dict representation into EmbeddingsInfo
 # object.
 #
 def parse(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
+  get_vertex_ai_model_info = _get_vertex_ai_model_info()
   if embeddings_map['version'] == 1:
-    return parse_v1(embeddings_map)
+    return parse_v1(embeddings_map, get_vertex_ai_model_info)
   else:
     raise AssertionError('Could not parse embeddings map: unsupported version.')
 
@@ -114,7 +139,8 @@ def parse(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
 # Parses the v1 version of the `embeddings.yaml` dict representation into
 # EmbeddingsInfo object.
 #
-def parse_v1(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
+def parse_v1(embeddings_map: Dict[str, any],
+             vertex_ai_model_info: Dict[str, any]) -> EmbeddingsConfig:
   # parse the models
   models = {}
   for model_name, model_info in embeddings_map.get('models', {}).items():
@@ -124,12 +150,17 @@ def parse_v1(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
                                             usage=model_info['usage'],
                                             gcs_folder=model_info['gcs_folder'])
     elif model_type == ModelType.VERTEXAI:
+      if model_name not in vertex_ai_model_info:
+        logging.error(
+            f'Could not find vertex ai model information for {model_name}')
+        continue
       models[model_name] = VertexAIModelConfig(
           type=model_type,
           usage=model_info['usage'],
-          project_id=model_info['project_id'],
-          location=model_info['location'],
-          prediction_endpoint_id=model_info['prediction_endpoint_id'])
+          project_id=vertex_ai_model_info[model_name]['project_id'],
+          prediction_endpoint_id=vertex_ai_model_info[model_name]
+          ['prediction_endpoint_id'],
+          location=vertex_ai_model_info[model_name]['location'])
     else:
       raise AssertionError(
           'Error parsing information for model {model_name}: unsupported type {model_type}'
@@ -169,5 +200,5 @@ def parse_v1(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
 # Returns true if VERTEXAI type models and VERTEXAI type stores are allowed
 def allow_vertex_ai() -> bool:
   return os.environ.get('FLASK_ENV') in [
-      'local', 'test', 'integration_test', 'autopush'
+      'local', 'test', 'integration_test', 'autopush', 'dev'
   ]

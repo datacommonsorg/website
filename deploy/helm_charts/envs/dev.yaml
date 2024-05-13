@@ -41,6 +41,27 @@ serviceGroups:
 
 nl:
   enabled: true
+  vertex_ai_models:
+    dc-all-minilm-l6-v2-model:
+      project_id: datcom-website-dev
+      location: us-central1
+      prediction_endpoint_id: "8518340991868993536"
+    uae-large-v1-model:
+      project_id: datcom-website-dev
+      location: us-central1
+      prediction_endpoint_id: "4910007712298827776"
+    sfr-embedding-mistral-model:
+      project_id: datcom-website-dev
+      location: us-central1
+      prediction_endpoint_id: "224012300019826688"
+    cross-encoder-ms-marco-miniilm-l6-v2:
+      project_id: datcom-website-dev
+      location: us-central1
+      prediction_endpoint_id: "3977846152316846080"
+    cross-encoder-mxbai-rerank-base-v1:
+      project_id: datcom-website-dev
+      location: us-central1
+      prediction_endpoint_id: "284894457873039360"
 
 nodejs:
   enabled: true
