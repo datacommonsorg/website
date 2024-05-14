@@ -24,11 +24,6 @@ from shared.lib.detected_variables import dict_to_var_candidates
 from shared.lib.detected_variables import var_candidates_to_dict
 
 
-@dataclass
-class RerankerResult:
-  predictions: List[float]
-
-
 class TestReank(unittest.TestCase):
 
   @parameterized.expand([
@@ -132,12 +127,14 @@ class TestReank(unittest.TestCase):
     dummy_logs = {}
     self.maxDiff = None
 
-    def _fn(got_api_input):
-      self.assertEqual(want_api_input, got_api_input)
-      return RerankerResult(predictions=api_return)
+    class RerankModel:
+
+      def predict(local_self, got_api_input):
+        self.assertEqual(want_api_input, got_api_input)
+        return api_return
 
     got = rerank.rerank(
-        rerank_fn=_fn,
+        rerank_model=RerankModel(),
         query2candidates={query: dict_to_var_candidates(input_candidates)},
         debug_logs=dummy_logs)
 
