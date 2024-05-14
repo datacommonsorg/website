@@ -118,7 +118,7 @@ def _get_indexes(idx: str) -> List[Embeddings]:
   return nl_embeddings
 
 
-# NOTE: Custom DC embeddings addition needs to ensure assert that the
+# NOTE: Custom DC embeddings addition needs to ensures that the
 #       base vs. custom models do not use different thresholds
 def _get_threshold(embeddings: List[Embeddings]) -> float:
   if embeddings:

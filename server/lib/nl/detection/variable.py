@@ -83,13 +83,14 @@ def detect_vars(orig_query: str,
   query2results = {
       q: vars.dict_to_var_candidates(r) for q, r in resp['queryResults'].items()
   }
-  var_threshold = resp['scoreThreshold']
+  model_threshold = resp['scoreThreshold']
 
   #
   # 3. Prepare result candidates.
   #
   # If caller had an overriden threshold bump, apply that.
-  multi_var_threshold = (1 + threshold_bump) * var_threshold
+  multi_var_threshold = dutils.compute_final_threshold(model_threshold,
+                                                       threshold_bump)
   result_monovar = query2results[query_monovar]
   result_multivar = _prepare_multivar_candidates(multi_querysets, query2results,
                                                  multi_var_threshold)
@@ -109,7 +110,7 @@ def detect_vars(orig_query: str,
   debug_logs["sv_detection_query_stop_words_removal"] = query_monovar
   return vars.VarDetectionResult(single_var=result_monovar,
                                  multi_var=result_multivar,
-                                 model_threshold=var_threshold)
+                                 model_threshold=model_threshold)
 
 
 #

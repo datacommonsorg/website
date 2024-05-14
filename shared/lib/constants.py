@@ -377,16 +377,18 @@ SV_SCORE_DEFAULT_THRESHOLD = 0.5
 
 # The Cosine score bump (aka increase over default model-threshold)
 # to be applied for a high confidence match.
-#
 # See compute_final_threshold()
-# bump of 0.4 => an absolute threshold of 0.7 if default is 0.5
+#
+# bump of 0.4 => a threshold of 0.7 if default is 0.5
+#             => a threshold of 0.82 if default is 0.7
 SV_SCORE_HIGH_CONFIDENCE_THRESHOLD_BUMP = 0.4
 
 # The Cosine score bump (aka increase over default model-threshold)
 # to be applied when running in toolformer mode.
-#
 # See compute_final_threshold()
-# bump of 0.6 => an absolute threshold of 0.8 if default is 0.5
+#
+# bump of 0.6 => a threshold of 0.8 if default is 0.5
+#             => a threshold of 0.88 if default is 0.7
 SV_SCORE_TOOLFORMER_THRESHOLD_BUMP = 0.6
 
 # A cosine score differential we use to indicate if scores

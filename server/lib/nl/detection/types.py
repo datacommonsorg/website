@@ -76,7 +76,7 @@ class SVDetection:
   # SV Threshold
   sv_threshold: float
   # The original model threshold.  This will be
-  # greater than `sv_threshold` only when there is
+  # less than `sv_threshold` only when there is
   # a threshold bump (from special mode).
   model_threshold: float
 
