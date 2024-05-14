@@ -293,7 +293,7 @@ class ExploreTest(NLWebServerTestCase):
   def test_detection_basic_uae(self):
     self.run_detection('detection_api_uae_idx', ['Commute in California'],
                        test='unittest',
-                       idx='medium_vertex_uae')
+                       idx='base_uae_mem')
 
   def test_detection_basic_sfr(self):
     self.run_detection('detection_api_sfr_idx', ['Commute in California'],

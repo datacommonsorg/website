@@ -43,13 +43,9 @@ indexes:
     index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
     index_id: dc_all_minilm_l6_v2_ft_1709655496660
     model: dc-all-minilm-l6-v2-model
-  medium_vertex_uae:
-    store: VERTEXAI
-    project_id: datcom-website-dev
-    location: us-central1
-    index_endpoint_root: 302175072.us-central1-496370955550.vdb.vertexai.goog
-    index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
-    index_id: uae_large_v1_1709655438364
+  base_uae_mem:
+    store: MEMORY
+    embeddings: gs://datcom-nl-models/embeddings_medium_2024_05_13_22_58_40.4910007712298827776.csv
     model: uae-large-v1-model
   medium_vertex_mistral:
     store: VERTEXAI
