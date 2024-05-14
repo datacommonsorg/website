@@ -885,6 +885,7 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
+  "test": "filter_test",
   "userMessage": "Low confidence in understanding your query. Displaying the closest results.",
   "userMessages": [
     "Low confidence in understanding your query. Displaying the closest results."
