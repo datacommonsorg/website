@@ -54,10 +54,6 @@
             "url": "q=Which+counties+in+the+US+have+the+highest+rates+of+uninsured"
           },
           {
-            "title": "What is the breakdown of incarceration rates by race in the US",
-            "url": "q=What+is+the+breakdown+of+incarceration+rates+by+race+in+the+US"
-          },
-          {
             "title": "Which countries have the lowest Gini index",
             "url": "q=Which+countries+have+the+lowest+Gini+index"
           }
@@ -162,7 +158,7 @@
           },
           {
             "title": "What is the GDP of Iran",
-            "url": "q=What+is+then+GDP+of+Iran"
+            "url": "q=What+is+the+GDP+of+Iran"
           }
         ],
         "comparison": [
