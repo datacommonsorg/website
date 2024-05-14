@@ -46,7 +46,9 @@ def _sv(v=[], delim=False, above_thres=False):
     return SVDetection(query='',
                        single_sv=dvars.VarCandidates(v, [1.0], {}),
                        multi_sv=None,
-                       prop=empty_var_candidates())
+                       prop=empty_var_candidates(),
+                       sv_threshold=0.5,
+                       model_threshold=0.5)
   if len(v) == 2:
     if above_thres:
       scores = [0.9]
@@ -64,11 +66,15 @@ def _sv(v=[], delim=False, above_thres=False):
                                                    aggregate_score=0.7,
                                                    delim_based=delim)
                        ]),
-                       prop=empty_var_candidates())
+                       prop=empty_var_candidates(),
+                       sv_threshold=0.5,
+                       model_threshold=0.5)
   return SVDetection(query='',
                      single_sv=empty_var_candidates(),
                      prop=empty_var_candidates(),
-                     multi_sv=None)
+                     multi_sv=None,
+                     sv_threshold=0.5,
+                     model_threshold=0.5)
 
 
 def _nlcl(t, pt=None):

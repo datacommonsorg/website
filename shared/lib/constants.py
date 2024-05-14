@@ -375,18 +375,25 @@ NON_GEO_PLACE_TYPES: FrozenSet[str] = frozenset([
 # are considered as a match.
 SV_SCORE_DEFAULT_THRESHOLD = 0.5
 
-# The default Cosine score threshold beyond which Stat Vars
-# are considered a high confidence match.
-SV_SCORE_HIGH_CONFIDENCE_THRESHOLD = 0.7
+# The Cosine score bump (aka increase over default model-threshold)
+# to be applied for a high confidence match.
+#
+# See compute_final_threshold()
+# bump of 0.4 => an absolute threshold of 0.7 if default is 0.5
+SV_SCORE_HIGH_CONFIDENCE_THRESHOLD_BUMP = 0.4
 
-# The default Cosine score threshold beyond which Stat Vars
-# are considered a match in toolformer mode.
-SV_SCORE_TOOLFORMER_THRESHOLD = 0.8
+# The Cosine score bump (aka increase over default model-threshold)
+# to be applied when running in toolformer mode.
+#
+# See compute_final_threshold()
+# bump of 0.6 => an absolute threshold of 0.8 if default is 0.5
+SV_SCORE_TOOLFORMER_THRESHOLD_BUMP = 0.6
 
 # A cosine score differential we use to indicate if scores
 # that differ by up to this amount are "near" SVs.
 # In Multi-SV detection, if the difference between successive scores exceeds
 # this threshold, then SVs at the lower score and below are ignored.
+# TODO: Maybe keep an eye on this for new model.
 MULTI_SV_SCORE_DIFFERENTIAL = 0.05
 
 # English language code.

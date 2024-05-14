@@ -164,6 +164,7 @@ def detect(query: str,
   skip_topics = mode == params.QueryMode.TOOLFORMER
   for sv in sv_list:
     try:
+      # TODO: Consider if we should apply threshold bump
       var_detection_results.append(
           variable.detect_vars(sv,
                                index_type,

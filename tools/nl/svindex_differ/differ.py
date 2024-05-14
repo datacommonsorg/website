@@ -33,7 +33,6 @@ from nl_server.embeddings_map import EmbeddingsMap
 from nl_server.search import search_vars
 from shared.lib.detected_variables import VarCandidates
 
-_SV_THRESHOLD = 0.5
 _NUM_SVS = 10
 _SUB_COLOR = '#ffaaaa'
 _ADD_COLOR = '#aaffaa'
@@ -88,12 +87,12 @@ def _get_sv_names(sv_dcids):
   return result
 
 
-def _prune(res: VarCandidates):
+def _prune(res: VarCandidates, score_threshold: float):
   svs = []
   sv_info = {}
   for i, var in enumerate(res.svs):
     score = res.scores[i]
-    if i < _NUM_SVS and score >= _SV_THRESHOLD:
+    if i < _NUM_SVS and score >= score_threshold:
       svs.append(var)
       sv_info[var] = {
           'sv': var,
@@ -180,8 +179,10 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
       if not query or query.startswith('#') or query.startswith('//'):
         continue
       assert ';' not in query, 'Multiple query not yet supported'
-      base_svs, base_sv_info = _prune(search_vars([base], [query])[query])
-      test_svs, test_sv_info = _prune(search_vars([test], [query])[query])
+      base_svs, base_sv_info = _prune(
+          search_vars([base], [query])[query], base.model.score_threshold)
+      test_svs, test_sv_info = _prune(
+          search_vars([test], [query])[query], test.model.score_threshold)
       for sv in base_svs + test_svs:
         all_svs.add(sv)
       if base_svs != test_svs:

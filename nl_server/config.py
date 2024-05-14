@@ -23,6 +23,8 @@ from typing import Dict
 
 import yaml
 
+from shared.lib import constants
+
 # Index constants.  Passed in `url=`
 CUSTOM_DC_INDEX: str = 'custom_ft'
 DEFAULT_INDEX_TYPE: str = 'medium_ft'
@@ -58,6 +60,7 @@ class ModelUsage(str, Enum):
 @dataclass
 class ModelConfig(ABC):
   type: str
+  score_threshold: float
   usage: str
 
 
@@ -145,8 +148,11 @@ def parse_v1(embeddings_map: Dict[str, any],
   models = {}
   for model_name, model_info in embeddings_map.get('models', {}).items():
     model_type = model_info['type']
+    score_threshold = model_info.get('score_threshold',
+                                     constants.SV_SCORE_DEFAULT_THRESHOLD)
     if model_type == ModelType.LOCAL:
       models[model_name] = LocalModelConfig(type=model_type,
+                                            score_threshold=score_threshold,
                                             usage=model_info['usage'],
                                             gcs_folder=model_info['gcs_folder'])
     elif model_type == ModelType.VERTEXAI:
@@ -156,6 +162,7 @@ def parse_v1(embeddings_map: Dict[str, any],
         continue
       models[model_name] = VertexAIModelConfig(
           type=model_type,
+          score_threshold=score_threshold,
           usage=model_info['usage'],
           project_id=vertex_ai_model_info[model_name]['project_id'],
           prediction_endpoint_id=vertex_ai_model_info[model_name]

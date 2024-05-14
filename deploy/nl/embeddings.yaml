@@ -67,6 +67,8 @@ models:
   uae-large-v1-model:
     type: VERTEXAI
     usage: EMBEDDINGS
+    # These models use a higher threshold.
+    score_threshold: 0.7
   sfr-embedding-mistral-model:
     type: VERTEXAI
     usage: EMBEDDINGS

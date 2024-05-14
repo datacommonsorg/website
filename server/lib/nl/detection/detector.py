@@ -232,21 +232,29 @@ def construct_for_explore(entities: List[str], vars: List[str], child_type: str,
   add_child_and_peer_places(places, child_type, counters, place_detection)
   if not cmp_entities and cmp_vars:
     # Multi SV case.
+    #
+    # The absolute scores don't matter here, only just the fact that
+    # it `scores` > `sv_threshold`.
     sv_detection = types.SVDetection(query='',
                                      single_sv=dutils.VarCandidates(
                                          svs=vars,
                                          scores=[0.51] * len(vars),
                                          sv2sentences={}),
                                      prop=empty_var_candidates(),
-                                     multi_sv=get_multi_sv(vars, cmp_vars, 1.0))
+                                     multi_sv=get_multi_sv(vars, cmp_vars, 1.0),
+                                     sv_threshold=0.5,
+                                     model_threshold=0.5)
   else:
+    # Thresholds don't matter here since the score is 1.0.
     sv_detection = types.SVDetection(query='',
                                      single_sv=dutils.VarCandidates(
                                          svs=vars,
                                          scores=[1.0] * len(vars),
                                          sv2sentences={}),
                                      prop=empty_var_candidates(),
-                                     multi_sv=None)
+                                     multi_sv=None,
+                                     sv_threshold=0.5,
+                                     model_threshold=0.5)
   return types.Detection(original_query=query,
                          cleaned_query=query,
                          places_detected=place_detection,
