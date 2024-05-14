@@ -31,6 +31,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Population Below Poverty Line"
           },
           {

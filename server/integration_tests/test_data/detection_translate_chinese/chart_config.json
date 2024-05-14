@@ -11,6 +11,9 @@
       "contained_in_place_type": "City",
       "had_default_type": false,
       "type": 4
+    },
+    {
+      "type": 14
     }
   ],
   "client": "test_detect",
