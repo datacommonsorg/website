@@ -112,6 +112,6 @@ class EmbeddingsMap:
       raise e
 
     # if store successfully created, set it in embeddings_map
-    if store:
+    if store and idx_info.model in self.name_to_emb_model:
       self.embeddings_map[idx_name] = Embeddings(
           model=self.name_to_emb_model[idx_info.model], store=store)
