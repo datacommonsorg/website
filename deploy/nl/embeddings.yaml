@@ -1,30 +1,82 @@
-medium_ft:
-  store: MEMORY
-  embeddings: gs://datcom-nl-models/embeddings_medium_2024_03_14_16_38_53.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
-  model: ft_final_v20230717230459.all-MiniLM-L6-v2
-  model_type: LOCAL
-sdg_ft:
-  store: MEMORY
-  embeddings: gs://datcom-nl-models/embeddings_sdg_2023_12_26_10_03_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
-  model: ft_final_v20230717230459.all-MiniLM-L6-v2
-  model_type: LOCAL
-undata_ft:
-  store: MEMORY
-  embeddings: gs://datcom-nl-models/embeddings_undata_2024_03_20_11_01_12.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
-  model: ft_final_v20230717230459.all-MiniLM-L6-v2
-  model_type: LOCAL
-bio_ft:
-  store: MEMORY
-  embeddings: gs://datcom-nl-models/embeddings_bio_2024_03_19_16_39_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
-  model: ft_final_v20230717230459.all-MiniLM-L6-v2
-  model_type: LOCAL
-medium_lance_ft:
-  store: LANCEDB
-  embeddings: gs://datcom-nl-models-dev/lancedb/lancedb_embeddings_medium_2024_04_09_07_22_21.ft_final_v20230717230459.all-MiniLM-L6-v2
-  model: ft_final_v20230717230459.all-MiniLM-L6-v2
-  model_type: LOCAL
-medium_vertex_ft:
-  store: MEMORY
-  embeddings: gs://datcom-nl-models/embeddings_medium_2024_03_14_16_38_53.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
-  model: dc-all-minilm-l6-v2-model
-  model_type: VERTEXAI
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+version: 1
+
+indexes:
+  medium_ft:
+    store: MEMORY
+    embeddings: gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+  sdg_ft:
+    store: MEMORY
+    embeddings: gs://datcom-nl-models/embeddings_sdg_2023_12_26_10_03_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+  undata_ft:
+    store: MEMORY
+    embeddings: gs://datcom-nl-models/embeddings_undata_2024_03_20_11_01_12.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+  bio_ft:
+    store: MEMORY
+    embeddings: gs://datcom-nl-models/embeddings_bio_2024_03_19_16_39_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+  medium_lance_ft:
+    store: LANCEDB
+    embeddings: gs://datcom-nl-models-dev/lancedb/lancedb_embeddings_medium_2024_04_09_07_22_21.ft_final_v20230717230459.all-MiniLM-L6-v2
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+  medium_vertex_ft:
+    store: VERTEXAI
+    project_id: datcom-website-dev
+    location: us-central1
+    index_endpoint_root: 302175072.us-central1-496370955550.vdb.vertexai.goog
+    index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
+    index_id: dc_all_minilm_l6_v2_ft_1709655496660
+    model: dc-all-minilm-l6-v2-model
+  medium_vertex_uae:
+    store: VERTEXAI
+    project_id: datcom-website-dev
+    location: us-central1
+    index_endpoint_root: 302175072.us-central1-496370955550.vdb.vertexai.goog
+    index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
+    index_id: uae_large_v1_1709655438364
+    model: uae-large-v1-model
+  medium_vertex_mistral:
+    store: VERTEXAI
+    project_id: datcom-website-dev
+    location: us-central1
+    index_endpoint_root: 302175072.us-central1-496370955550.vdb.vertexai.goog
+    index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
+    index_id: sfr_embedding_mistral_1709682235285
+    model: sfr-embedding-mistral-model
+
+models:
+  dc-all-minilm-l6-v2-model:
+    type: VERTEXAI
+    usage: EMBEDDINGS
+  uae-large-v1-model:
+    type: VERTEXAI
+    usage: EMBEDDINGS
+  sfr-embedding-mistral-model:
+    type: VERTEXAI
+    usage: EMBEDDINGS
+  cross-encoder-ms-marco-miniilm-l6-v2:
+    type: VERTEXAI
+    usage: RERANKING
+  cross-encoder-mxbai-rerank-base-v1:
+    type: VERTEXAI
+    usage: RERANKING
+  ft-final-v20230717230459-all-MiniLM-L6-v2:
+    type: LOCAL
+    usage: EMBEDDINGS
+    gcs_folder: gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2

@@ -58,15 +58,13 @@ AUTOPUSH_KEY = os.environ.get('AUTOPUSH_KEY')
 assert AUTOPUSH_KEY
 
 
-def _load_yaml(path: str, idx: str):
+def _load_yaml(path: str):
   if path.startswith('https://'):
     embeddings_dict = yaml.safe_load(requests.get(path).text)
   else:
     with open(path) as fp:
       embeddings_dict = yaml.full_load(fp)
-  assert idx in embeddings_dict
-  # Return just this index
-  return {idx: embeddings_dict[idx]}
+  return embeddings_dict
 
 
 def _get_sv_names(sv_dcids):
@@ -199,8 +197,8 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
   # Render the html with the diffs
   with open(output_file, 'w') as f:
     f.write(
-        template.render(base_file=base_dict[base_idx],
-                        test_file=test_dict[test_idx],
+        template.render(base_file=base_dict['indexes'][base_idx],
+                        test_file=test_dict['indexes'][test_idx],
                         diffs=diffs))
   print('')
   print(f'Saving locally to {output_file}')
@@ -221,8 +219,8 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
 def main(_):
   assert FLAGS.base_index and FLAGS.test_index and FLAGS.queryset
 
-  base_dict = _load_yaml(_LOCAL_EMBEDDINGS_YAML, FLAGS.base_index)
-  test_dict = _load_yaml(_PROD_EMBEDDINGS_YAML, FLAGS.test_index)
+  base_dict = _load_yaml(_PROD_EMBEDDINGS_YAML)
+  test_dict = _load_yaml(_LOCAL_EMBEDDINGS_YAML)
 
   run_diff(FLAGS.base_index, FLAGS.test_index, base_dict, test_dict,
            FLAGS.queryset, _REPORT)

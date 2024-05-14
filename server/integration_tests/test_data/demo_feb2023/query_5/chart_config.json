@@ -25,7 +25,9 @@
                       "Count_Worker_NAICSWholesaleTrade",
                       "dc/8p97n7l96lgg8",
                       "Count_Worker_NAICSUtilities",
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises",
                       "Count_Worker_NAICSInformation",
+                      "Count_Worker_NAICSNonclassifiable",
                       "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
                     ],
                     "title": "Categories of Jobs in Placer County",
@@ -67,7 +69,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_abs"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Accommodation/Food Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -208,9 +210,31 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_abs"
+                    ],
+                    "title": "Management of Companies and Enterprises Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Worker_NAICSInformation_growth_abs"
                     ],
                     "title": "Information Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSNonclassifiable_growth_abs"
+                    ],
+                    "title": "Unclassified in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -232,6 +256,17 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSNonclassifiable_growth_pct"
+                    ],
+                    "title": "Unclassified in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -337,7 +372,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_pct"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Accommodation/Food Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -412,6 +447,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pct"
+                    ],
+                    "title": "Management of Companies and Enterprises Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Worker_NAICSInformation_growth_pct"
                     ],
                     "title": "Information Industry in Placer County",
@@ -453,7 +499,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_pc"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Accommodation/Food Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -594,9 +640,31 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pc"
+                    ],
+                    "title": "Management of Companies and Enterprises Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Worker_NAICSInformation_growth_pc"
                     ],
                     "title": "Information Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSNonclassifiable_growth_pc"
+                    ],
+                    "title": "Unclassified in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -619,19 +687,19 @@
         ],
         "statVarSpec": {
           "Count_Worker_NAICSAccommodationFoodServices": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_growth_abs": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_growth_pc": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_growth_pct": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices": {
@@ -746,6 +814,22 @@
             "name": "Information Industry",
             "statVar": "Count_Worker_NAICSInformation"
           },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises": {
+            "name": "Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_abs": {
+            "name": "Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pc": {
+            "name": "Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pct": {
+            "name": "Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction": {
             "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
@@ -761,6 +845,22 @@
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pct": {
             "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          },
+          "Count_Worker_NAICSNonclassifiable": {
+            "name": "Unclassified",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
+          },
+          "Count_Worker_NAICSNonclassifiable_growth_abs": {
+            "name": "Unclassified",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
+          },
+          "Count_Worker_NAICSNonclassifiable_growth_pc": {
+            "name": "Unclassified",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
+          },
+          "Count_Worker_NAICSNonclassifiable_growth_pct": {
+            "name": "Unclassified",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
           },
           "Count_Worker_NAICSOtherServices": {
             "name": "Other Services (except Public Admin)",

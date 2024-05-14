@@ -111,10 +111,9 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   dc = request.get_json().get('dc', '')
   embeddings_index_type = params.dc_to_embedding_type(dc, embeddings_index_type)
 
-  detector_type = request.args.get(
-      'detector',
-      default=RequestedDetectorType.HybridSafetyCheck.value,
-      type=str)
+  detector_type = request.args.get('detector',
+                                   default=RequestedDetectorType.Hybrid.value,
+                                   type=str)
 
   # mode param
   use_default_place = True

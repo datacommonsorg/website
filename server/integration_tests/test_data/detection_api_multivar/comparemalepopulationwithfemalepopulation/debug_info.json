@@ -8,20 +8,19 @@
   "query_with_places_removed": "compare male population with female population",
   "sv_matching": {
     "CosineScore": [
-      0.9213767647743225,
-      0.8895533084869385,
+      0.9213768243789673,
+      0.8895533680915833,
       0.839394211769104,
-      0.8070410490036011,
-      0.8066003322601318,
+      0.8070412874221802,
+      0.8066006302833557,
       0.8025591373443604,
-      0.7949633598327637,
-      0.7862058877944946,
-      0.7849380970001221,
-      0.7820716500282288,
-      0.7810717821121216,
+      0.7949635982513428,
+      0.7862057685852051,
+      0.7849380373954773,
+      0.782071590423584,
       0.7803113460540771,
-      0.7780779600143433,
-      0.7691032290458679,
+      0.778078019618988,
+      0.7691034078598022,
       0.7682781219482422
     ],
     "MultiSV": {
@@ -41,7 +40,7 @@
             },
             {
               "CosineScore": [
-                0.9999998807907104
+                1.0
               ],
               "QueryPart": "female population",
               "SV": [
@@ -56,7 +55,7 @@
           "Parts": [
             {
               "CosineScore": [
-                0.8629986643791199
+                0.8629987239837646
               ],
               "QueryPart": "male",
               "SV": [
@@ -65,7 +64,7 @@
             },
             {
               "CosineScore": [
-                0.9757853746414185
+                0.975785493850708
               ],
               "QueryPart": "population female population",
               "SV": [
@@ -80,7 +79,7 @@
           "Parts": [
             {
               "CosineScore": [
-                0.9318187832832336
+                0.9318187236785889
               ],
               "QueryPart": "male population female",
               "SV": [
@@ -112,7 +111,6 @@
       "Median_Age_Person_Male",
       "Count_Person_WithOwnChildrenUnder18_Male",
       "Count_Person_Male_SomeOtherRaceAlone",
-      "dc/topic/SomeOtherRaceAloneMalePopulationByAge",
       "Count_Person_Rural_Male",
       "Count_Person_Urban_Female",
       "dc/topic/SeparatedFemalePopulationByAge",

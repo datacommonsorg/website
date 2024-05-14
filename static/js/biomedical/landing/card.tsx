@@ -56,14 +56,23 @@ const Text = styled.div`
 `;
 
 const Tag = styled.div`
+  align-items: center;
   background-color: ${(props) => props.theme.tagBackgroundColor || "#C4EED0"};
   border-radius: 28px;
   color: ${(props) => props.theme.tagLabelColor || "#072711"};
+  display: flex;
   font-size: 12px;
   font-weight: 500;
+  gap: 4px;
+  justify-content: flex-start;
   letter-spacing: 0.5px;
   line-height: 16px;
   padding: 2px 8px;
+
+  .icon {
+    font-size: 14px;
+    width: 14px;
+  }
 `;
 
 export interface CardTheme {
@@ -76,6 +85,8 @@ export interface CardTheme {
 }
 
 export interface CardProps {
+  // Whether to open link in a new tab. Default: false
+  openInNewTab?: boolean;
   // tag or category to label card with
   tag: string;
   // styling options
@@ -88,9 +99,14 @@ export interface CardProps {
 
 export function Card(props: CardProps): JSX.Element {
   return (
-    <CardContainer href={props.url} target="_blank">
+    <CardContainer href={props.url} target={props.openInNewTab ? "_blank" : ""}>
       <Text theme={props.theme}>{props.text}</Text>
-      <Tag theme={props.theme}>{props.tag}</Tag>
+      <Tag theme={props.theme}>
+        {props.tag}
+        {props.openInNewTab && (
+          <span className="material-icons-outlined icon">open_in_new</span>
+        )}
+      </Tag>
     </CardContainer>
   );
 }

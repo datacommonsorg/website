@@ -586,14 +586,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_27_NaturalSources"
                     ],
-                    "title": "Annual Emissions: Natural Sources in Counties of California (${date})",
-                    "type": "RANKING"
+                    "title": "Annual Emissions: Waste Disposal Treatment and Recovery (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Emissions: Natural Sources in Counties of California"
+            "title": "Annual Emissions: Waste Disposal Treatment and Recovery"
           },
           {
             "columns": [
@@ -742,8 +742,8 @@
             "name": "Annual Emissions: Storage and Transport",
             "statVar": "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
           },
-          "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery": {
-            "name": "Annual Emissions: Waste Dispotsal Treatment and Recovery",
+          "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block": {
+            "name": "Annual Emissions: Waste Disposal Treatment and Recovery",
             "statVar": "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
           },
           "Annual_Amount_Emissions_SCC_27_NaturalSources": {
