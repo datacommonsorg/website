@@ -24,6 +24,7 @@ from typing import Dict
 import yaml
 
 from shared.lib import constants
+from shared.lib.custom_dc_util import is_custom_dc
 
 # Index constants.  Passed in `url=`
 CUSTOM_DC_INDEX: str = 'custom_ft'
@@ -112,6 +113,12 @@ class EmbeddingsConfig:
 # Get Dict of vertex ai model to its info
 #
 def _get_vertex_ai_model_info() -> Dict[str, any]:
+  # Custom DC doesn't use vertex ai so just return an empty dict
+  # TODO: if we want to use vertex ai for custom dc, can add a file with the
+  # config to the custom dc docker image here: https://github.com/datacommonsorg/website/blob/master/build/web_compose/Dockerfile#L67
+  if is_custom_dc():
+    return {}
+
   # This is the path to model info when deployed in gke.
   if os.path.exists(_VERTEX_AI_MODEL_CONFIG_PATH):
     with open(_VERTEX_AI_MODEL_CONFIG_PATH) as f:
