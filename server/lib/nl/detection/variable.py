@@ -74,11 +74,12 @@ def detect_vars(orig_query: str,
   # 2. Lookup embeddings with both single-var and multi-var queries.
   #
   # Make API call to the NL models/embeddings server.
-  query2results = dc.nl_search_vars(all_queries, index_type, skip_topics,
+  resp = dc.nl_search_vars(all_queries, index_type, skip_topics,
                                     reranker)
   query2results = {
-      q: vars.dict_to_var_candidates(r) for q, r in query2results.items()
+      q: vars.dict_to_var_candidates(r) for q, r in resp['queryResults'].items()
   }
+  debug_logs.update(resp.get('debugLogs', {}))
 
   #
   # 3. Prepare result candidates.

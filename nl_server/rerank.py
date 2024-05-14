@@ -24,7 +24,7 @@ RerankCallable = Callable[[List[tuple[str, str]]], List[float]]
 
 def rerank(rerank_model: RerankingModel,
            query2candidates: Dict[str, vars.VarCandidates],
-           debug_logs: Dict) -> vars.VarCandidates:
+           debug_logs: Dict) -> Dict[str, vars.VarCandidates]:
   # 1. Prepare indexes and inputs
 
   # List of query-sentence pairs.
