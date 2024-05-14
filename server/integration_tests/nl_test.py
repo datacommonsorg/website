@@ -36,7 +36,7 @@ class NLTest(NLWebServerTestCase):
                    test_dir,
                    queries,
                    idx='medium_ft',
-                   detector='hybridsafety',
+                   detector='hybrid',
                    check_place_detection=False,
                    expected_detectors=[],
                    failure='',
@@ -225,9 +225,9 @@ class NLTest(NLWebServerTestCase):
             # instead we would pick contained-in from context (County).
             'GDP of countries in the US',
         ],
-        detector='hybridsafety',
+        detector='hybrid',
         expected_detectors=[
-            'Hybrid - LLM Safety',
+            'Hybrid - LLM Fallback',
             'Hybrid - Heuristic Based',
             'Hybrid - Heuristic Based',
             'Hybrid - Heuristic Based',
@@ -249,7 +249,8 @@ class NLTest(NLWebServerTestCase):
             "Prevalence of Asthma in California cities with hispanic population over 10000",
         ],
         # Use heuristic because LLM fallback is not very deterministic.
-        detector='heuristic')
+        detector='heuristic',
+        test='filter_test')
 
   def test_demo_climatetrace(self):
     self.run_sequence('demo_climatetrace',

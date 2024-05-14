@@ -39,7 +39,6 @@ import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.types import Detection
-from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
@@ -111,10 +110,9 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   dc = request.get_json().get('dc', '')
   embeddings_index_type = params.dc_to_embedding_type(dc, embeddings_index_type)
 
-  detector_type = request.args.get(
-      'detector',
-      default=RequestedDetectorType.HybridSafetyCheck.value,
-      type=str)
+  detector_type = request.args.get('detector',
+                                   default=RequestedDetectorType.Hybrid.value,
+                                   type=str)
 
   # mode param
   use_default_place = True
