@@ -114,6 +114,8 @@ class EmbeddingsConfig:
 #
 def _get_vertex_ai_model_info() -> Dict[str, any]:
   # Custom DC doesn't use vertex ai so just return an empty dict
+  # TODO: if we want to use vertex ai for custom dc, can add a file with the
+  # config to the custom dc docker image here: https://github.com/datacommonsorg/website/blob/master/build/web_compose/Dockerfile#L67
   if is_custom_dc():
     return {}
 
