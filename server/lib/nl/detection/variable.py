@@ -20,7 +20,6 @@ from typing import Dict, List
 
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.detection import query_util
-from server.lib.nl.detection import rerank
 import server.lib.nl.detection.utils as dutils
 from server.services import datacommons as dc
 from shared.lib import constants
