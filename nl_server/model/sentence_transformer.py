@@ -35,14 +35,8 @@ class LocalSentenceTransformerModel(embeddings.EmbeddingsModel):
     if model_info.gcs_folder:
       logging.info(f'Downloading tuned model from: {model_info.gcs_folder}')
       model_path = gcs.download_folder(model_info.gcs_folder)
-
-    # If model was downloaded, load that model. Otherwise, load base model.
-    if model_path:
-      logging.info(f'Loading tuned model from: {model_path}')
-      self.model = SentenceTransformer(model_path)
-    else:
-      logging.info(f'Loading base model {config.EMBEDDINGS_BASE_MODEL_NAME}')
-      self.model = SentenceTransformer(config.EMBEDDINGS_BASE_MODEL_NAME)
+    logging.info(f'Loading tuned model from: {model_path}')
+    self.model = SentenceTransformer(model_path)
 
   def encode(self, queries: List[str]) -> torch.Tensor:
     return self.model.encode(queries, show_progress_bar=False)

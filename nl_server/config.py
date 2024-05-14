@@ -29,9 +29,6 @@ from shared.lib import constants
 CUSTOM_DC_INDEX: str = 'custom_ft'
 DEFAULT_INDEX_TYPE: str = 'medium_ft'
 
-# The default base model we use.
-EMBEDDINGS_BASE_MODEL_NAME: str = 'uae-large-v1-model'
-
 # App Config constants.
 ATTRIBUTE_MODEL_KEY: str = 'ATTRIBUTE_MODEL'
 NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
