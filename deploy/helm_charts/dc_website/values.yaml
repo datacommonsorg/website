@@ -136,6 +136,8 @@ nl:
   models:
   memory: "2G"
   workers: 1
+  vertex_ai_models:
+
 
 ###############################################################################
 # Config for Stat Var Groups which is shared between Website and Mixer

@@ -412,7 +412,6 @@ class RequestedDetectorType(str, Enum):
 
 
 class LlmApiType(str, Enum):
-  Palm = "palm"
   GeminiPro = "geminipro"
   Nop = "nop"
 
@@ -427,4 +426,3 @@ class Detection:
   classifications: List[NLClassifier]
   llm_resp: Dict = field(default_factory=dict)
   detector: ActualDetectorType = ActualDetectorType.HybridHeuristic
-  llm_api: LlmApiType = LlmApiType.Nop

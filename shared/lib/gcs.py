@@ -17,6 +17,7 @@ TEMP_DIR = '/tmp/'
 import logging
 import os
 from pathlib import Path
+from typing import Tuple
 
 from google.cloud import storage
 
@@ -33,7 +34,7 @@ def join_gcs_path(base_path: str, sub_path: str) -> str:
   return f'{base_path}/{sub_path}'
 
 
-def get_gcs_parts(gcs_path: str) -> tuple[str, str]:
+def get_gcs_parts(gcs_path: str) -> Tuple[str, str]:
   return gcs_path[len(_GCS_PATH_PREFIX):].split('/', 1)
 
 

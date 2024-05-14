@@ -45,11 +45,11 @@
   "sessionId": "007_999999999",
   "variables": [
     "Count_HousingUnit",
-    "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit",
+    "Count_HousingUnit_WithRent_1250To1499USDollar",
     "Count_HousingUnit_WithRent_2000To2499USDollar",
     "Count_HousingUnit_WithRent_350To399USDollar",
     "Count_HousingUnit_WithRent_800To899USDollar",
-    "dc/topic/Housing",
-    "Count_HousingUnit_WithRent_1250To1499USDollar"
+    "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit",
+    "dc/topic/Housing"
   ]
 }

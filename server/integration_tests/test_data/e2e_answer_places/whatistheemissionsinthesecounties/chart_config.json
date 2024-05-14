@@ -426,14 +426,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block"
                     ],
-                    "title": "Annual Emissions: Waste Dispotsal Treatment and Recovery (${date})",
+                    "title": "Annual Emissions: Waste Disposal Treatment and Recovery (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Emissions: Waste Dispotsal Treatment and Recovery"
+            "title": "Annual Emissions: Waste Disposal Treatment and Recovery"
           },
           {
             "columns": [
@@ -574,7 +574,7 @@
             "statVar": "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
           },
           "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block": {
-            "name": "Annual Emissions: Waste Dispotsal Treatment and Recovery",
+            "name": "Annual Emissions: Waste Disposal Treatment and Recovery",
             "statVar": "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
           },
           "Annual_Amount_Emissions_SCC_27_NaturalSources_multiple_place_bar_block": {

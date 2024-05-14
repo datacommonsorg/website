@@ -24,7 +24,7 @@ from nl_server import config
 from nl_server import loader
 from nl_server import search
 from nl_server.embeddings import Embeddings
-from nl_server.util import is_custom_dc
+from shared.lib.custom_dc_util import is_custom_dc
 from shared.lib.detected_variables import var_candidates_to_dict
 from shared.lib.detected_variables import VarCandidates
 
@@ -80,7 +80,7 @@ def detect_verbs():
   List[str]
   """
   query = str(escape(request.args.get('q')))
-  nl_model = current_app.config[config.NL_MODEL_KEY]
+  nl_model = current_app.config[config.ATTRIBUTE_MODEL_KEY]
   return json.dumps(nl_model.detect_verbs(query.strip()))
 
 

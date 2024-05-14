@@ -44,7 +44,7 @@ variables.
    To generate the `small` embeddings:
 
    ```bash
-   ./run.sh -b small
+   ./run.sh -f small
    ```
 
    To generate the `medium_ft` embeddings:
@@ -56,19 +56,19 @@ variables.
    To generate the `sdg_ft` embeddings:
 
    ```bash
-   ./run.sh -c sdg data/curated_input/sdg/sheets_svs.csv data/alternatives/sdg/*.csv
+   ./run.sh -c sdg data/curated_input/sdg data/alternatives/sdg/*.csv
    ```
 
    To generate the `undata_ft` embeddings:
 
    ```bash
-   ./run.sh -c undata data/curated_input/undata/sheets_svs.csv data/alternatives/undata/*.csv
+   ./run.sh -c undata data/curated_input/undata data/alternatives/undata/*.csv
    ```
 
    To generate the `bio_ft` embeddings:
 
    ```bash
-   ./run.sh -c bio data/curated_input/bio/sheets_svs.csv,data/curated_input/main/sheets_svs.csv data/alternatives/main/*.csv
+   ./run.sh -c bio data/curated_input/bio,data/curated_input/main data/alternatives/main/*.csv
    ```
 
    Note: Bio embeddings uses the alternatives from main dc for now.
@@ -88,20 +88,20 @@ variables.
    You can also create custom embeddings (using the finetuned model in PROD):
 
    ```bash
-   ./run.sh -c <embeddings_size> <curated_input_csv_paths> <alternatives_filepattern>
+   ./run.sh -c <embeddings_size> <curated_input_csv_dirs> <alternatives_filepattern>
    ```
 
    Notes:
 
-   - curated_input_csv_paths is a list of filepaths separated by `,` of the CSVs with the curated inputs to use. The format of the CSVs should follow the description of [point 1](#curated-input).
+   - curated_input_dirs is a list of directories separated by `,` which contains the CSVs with the curated inputs to use. The format of the CSVs should follow the description of [point 1](#curated-input).
    - alternatives_filepattern is the filepattern of the CSV files with the alternatives to use. The format of the CSVs should follow the description of [point 3](#alternatives).
-   - Example: `./run.sh -c test data/curated_input/test/sheets_svs.csv data/alternatives/test/*.csv`
+   - Example: `./run.sh -c test data/curated_input/test data/alternatives/test/*.csv`
 
 5. Validate the CSV diffs, update [`embeddings.yaml`](../../../deploy/nl/embeddings.yaml) with the generated embeddings version and test out locally.
 
 6. Generate an SV embeddings differ report by following the process under the [`sv_index_differ`](../svindex_differ/README.md) folder (one level up). Look at the diffs and evaluate whether they make sense.
 
-7. Remove embedding caches by running `rm -rf ~/.datacommons/cache.*` and then update goldens by running `./run_test.sh -g` from the repo root.
+7. Update goldens by running `./run_test.sh -g` from the repo root.
 
 8. If everything looks good, send out a PR with the `embeddings.yaml`, the `differ_report.html` file (as a linked attachement), CSV changes, and updated goldens.
 

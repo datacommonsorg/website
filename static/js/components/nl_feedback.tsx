@@ -150,7 +150,7 @@ export function NlChartFeedback(props: NlChartFeedbackPropType): JSX.Element {
         return;
       }
       setSaved(true);
-      axios.post("/api/nl/feedback", {
+      axios.post("/api/explore/feedback", {
         feedbackData: {
           chartId: getNlChartId(props.id),
           comment,

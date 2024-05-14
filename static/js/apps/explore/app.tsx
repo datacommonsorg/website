@@ -272,7 +272,6 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       hashParams[URL_HASH_PARAMS.DISABLE_EXPLORE_MORE]
     );
     const detector = getSingleParam(hashParams[URL_HASH_PARAMS.DETECTOR]);
-    const llmApi = getSingleParam(hashParams[URL_HASH_PARAMS.LLM_API]);
     const testMode = getSingleParam(hashParams[URL_HASH_PARAMS.TEST_MODE]);
     const i18n = getSingleParam(hashParams[URL_HASH_PARAMS.I18N]);
     const defaultPlace = getSingleParam(
@@ -302,7 +301,6 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         idx,
         disableExploreMore,
         detector,
-        llmApi,
         testMode,
         i18n,
         client,
@@ -414,7 +412,6 @@ const fetchDetectAndFufillData = async (
   idx: string,
   disableExploreMore: string,
   detector: string,
-  llmApi: string,
   testMode: string,
   i18n: string,
   client: string,
@@ -425,9 +422,6 @@ const fetchDetectAndFufillData = async (
   const argsMap = new Map<string, string>();
   if (detector) {
     argsMap.set(URL_HASH_PARAMS.DETECTOR, detector);
-  }
-  if (llmApi) {
-    argsMap.set(URL_HASH_PARAMS.LLM_API, llmApi);
   }
   if (testMode) {
     argsMap.set(URL_HASH_PARAMS.TEST_MODE, testMode);

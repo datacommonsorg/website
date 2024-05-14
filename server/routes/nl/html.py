@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Data Commons NL Interface routes"""
+"""Data Commons NL Experimentation routes"""
 
 import json
 import os
@@ -19,7 +19,6 @@ import os
 import flask
 from flask import Blueprint
 from flask import current_app
-from flask import g
 from flask import render_template
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
