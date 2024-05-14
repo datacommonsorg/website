@@ -71,3 +71,4 @@ cronTesting:
   enabled: true
   screenshotDomain: "dev.datacommons.org"
   nodePool: "default-pool"
+  schedule: "* * 31 2 *"

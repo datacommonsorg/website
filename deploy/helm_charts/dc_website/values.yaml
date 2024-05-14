@@ -159,7 +159,7 @@ nodejs:
   nodePool:
 
 ###############################################################################
-# Config for Periodic Testing CronJob
+# Config for Cron Testing Job
 ###############################################################################
 cronTesting:
   enabled: false
@@ -176,3 +176,5 @@ cronTesting:
   enableAdversarial: true
   # node pool to use
   nodePool:
+  # schedule to run the cron tests on
+  schedule:
