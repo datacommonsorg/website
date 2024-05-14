@@ -22,6 +22,7 @@ from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import NLClassifier
@@ -288,3 +289,9 @@ def remove_date_from_query(query: str,
     date_trigger = cl.attributes.date_trigger_strings[0]
     processed_query = processed_query.replace(date_trigger, "", 1)
   return processed_query
+
+
+def is_llm_detection(d: Detection) -> bool:
+  return d.detector in [
+      ActualDetectorType.LLM, ActualDetectorType.HybridLLMFull
+  ]
