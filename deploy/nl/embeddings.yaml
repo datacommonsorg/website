@@ -17,7 +17,7 @@ version: 1
 indexes:
   medium_ft:
     store: MEMORY
-    embeddings: gs://datcom-nl-models/embeddings_medium_2024_05_13_17_51_08.4910007712298827776.csv
+    embeddings: gs://datcom-nl-models/embeddings_medium_2024_05_13_22_58_40.4910007712298827776.csv
     model: uae-large-v1-model
   sdg_ft:
     store: MEMORY
