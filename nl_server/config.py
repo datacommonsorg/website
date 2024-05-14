@@ -116,7 +116,7 @@ def _get_vertex_ai_model_info() -> Dict[str, any]:
   # Custom DC doesn't use vertex ai so just return an empty dict
   if is_custom_dc():
     return {}
-  
+
   # This is the path to model info when deployed in gke.
   if os.path.exists(_VERTEX_AI_MODEL_CONFIG_PATH):
     with open(_VERTEX_AI_MODEL_CONFIG_PATH) as f:
