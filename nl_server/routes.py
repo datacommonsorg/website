@@ -24,6 +24,7 @@ from nl_server import config
 from nl_server import loader
 from nl_server import search
 from nl_server.embeddings import Embeddings
+from nl_server.embeddings_map import EmbeddingsMap
 from shared.lib import constants
 from shared.lib.custom_dc_util import is_custom_dc
 from shared.lib.detected_variables import var_candidates_to_dict
@@ -34,7 +35,7 @@ bp = Blueprint('main', __name__, url_prefix='/')
 
 @bp.route('/healthz')
 def healthz():
-  nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(
+  nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get_index(
       config.DEFAULT_INDEX_TYPE)
   result: VarCandidates = search.search_vars(
       [nl_embeddings], ['life expectancy'])['life expectancy']
@@ -60,20 +61,27 @@ def search_vars():
   if not idx:
     idx = config.DEFAULT_INDEX_TYPE
 
+  emb_map: EmbeddingsMap = current_app.config[config.NL_EMBEDDINGS_KEY]
+
   skip_topics = False
   if request.args.get('skip_topics'):
     skip_topics = True
 
-  nl_embeddings = _get_indexes(idx)
+  reranker_name = str(escape(request.args.get('reranker', '')))
+  reranker_model = emb_map.get_reranking_model(
+      reranker_name) if reranker_name else None
+
+  nl_embeddings = _get_indexes(emb_map, idx)
+  debug_logs = {}
   results: Dict[str,
                 VarCandidates] = search.search_vars(nl_embeddings, queries,
-                                                    skip_topics)
-  json_result = {
-      q: var_candidates_to_dict(result) for q, result in results.items()
-  }
+                                                    skip_topics, reranker_model,
+                                                    debug_logs)
+  q2result = {q: var_candidates_to_dict(result) for q, result in results.items()}
   return json.dumps({
-      'queryResults': json_result,
-      'scoreThreshold': _get_threshold(nl_embeddings)
+      'queryResults': q2result,
+      'scoreThreshold': _get_threshold(nl_embeddings),
+      'debugLogs': debug_logs
   })
 
 
@@ -99,19 +107,17 @@ def load():
   return json.dumps(current_app.config[config.NL_EMBEDDINGS_VERSION_KEY])
 
 
-def _get_indexes(idx: str) -> List[Embeddings]:
+def _get_indexes(emb_map: EmbeddingsMap, idx: str) -> List[Embeddings]:
   nl_embeddings: List[Embeddings] = []
-
-  emb_map = current_app.config[config.NL_EMBEDDINGS_KEY]
 
   if is_custom_dc() and idx != config.CUSTOM_DC_INDEX:
     # Order custom index first, so that when the score is the same
     # Custom DC will be preferred.
-    emb = emb_map.get(config.CUSTOM_DC_INDEX)
+    emb = emb_map.get_index(config.CUSTOM_DC_INDEX)
     if emb:
       nl_embeddings.append(emb)
 
-  emb = emb_map.get(idx)
+  emb = emb_map.get_index(idx)
   if emb:
     nl_embeddings.append(emb)
 

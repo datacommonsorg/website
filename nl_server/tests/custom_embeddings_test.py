@@ -88,8 +88,8 @@ class TestEmbeddings(unittest.TestCase):
     })
 
   def test_entries(self):
-    self.assertEqual(1, len(self.custom.get('medium_ft').store.dcids))
-    self.assertEqual(1, len(self.custom.get('custom_ft').store.dcids))
+    self.assertEqual(1, len(self.custom.get_index('medium_ft').store.dcids))
+    self.assertEqual(1, len(self.custom.get_index('custom_ft').store.dcids))
 
   #
   # * default index: dc/topic/sdg_1
@@ -103,9 +103,12 @@ class TestEmbeddings(unittest.TestCase):
   ])
   def test_queries(self, query: str, index: str, expected: str):
     if index == 'medium_ft':
-      indexes = [self.custom.get('custom_ft'), self.custom.get('medium_ft')]
+      indexes = [
+          self.custom.get_index('custom_ft'),
+          self.custom.get_index('medium_ft')
+      ]
     else:
-      indexes = [self.custom.get('custom_ft')]
+      indexes = [self.custom.get_index('custom_ft')]
 
     _test_query(self, indexes, query, expected)
 
@@ -128,8 +131,9 @@ class TestEmbeddings(unittest.TestCase):
         }
     })
 
-    _test_query(self, [embeddings.get("medium_ft")], "money", "dc/topic/sdg_1")
-    _test_query(self, [embeddings.get("medium_ft")], "food", "")
+    _test_query(self, [embeddings.get_index("medium_ft")], "money",
+                "dc/topic/sdg_1")
+    _test_query(self, [embeddings.get_index("medium_ft")], "food", "")
 
     embeddings.reset_index(
         parse({
@@ -150,6 +154,9 @@ class TestEmbeddings(unittest.TestCase):
             }
         }))
 
-    emb_list = [embeddings.get("custom_ft"), embeddings.get("medium_ft")]
+    emb_list = [
+        embeddings.get_index("custom_ft"),
+        embeddings.get_index("medium_ft")
+    ]
     _test_query(self, emb_list, "money", "dc/topic/sdg_1")
     _test_query(self, emb_list, "food", "dc/topic/sdg_2")

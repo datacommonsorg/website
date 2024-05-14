@@ -142,8 +142,8 @@ class ExploreTest(NLWebServerTestCase):
       if check_detection:
         dbg_file = os.path.join(json_dir, 'debug_info.json')
         with open(dbg_file, 'w') as infile:
-          del dbg["sv_matching"]["SV_to_Sentences"]
-          del dbg["props_matching"]["PROP_to_Sentences"]
+          _del_field(dbg, "sv_matching.SV_to_Sentences")
+          _del_field(dbg, "props_matching.PROP_to_Sentences")
           dbg_to_write = {
               "places_detected": dbg["places_detected"],
               "places_resolved": dbg["places_resolved"],
@@ -186,6 +186,16 @@ class ExploreTest(NLWebServerTestCase):
                                 'debug_info.json')
         with open(dbg_file, 'r') as infile:
           expected = json.load(infile)
+          # Delete time value.
+          _del_field(
+              dbg,
+              "query_detection_debug_logs.query_transformations.time_var_reranking"
+          )
+          _del_field(
+              expected,
+              "query_detection_debug_logs.query_transformations.time_var_reranking"
+          )
+
           self.assertEqual(dbg["places_detected"], expected["places_detected"])
           self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
           self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
@@ -720,3 +730,16 @@ class ExploreTest(NLWebServerTestCase):
             'tell me about heart disease'
         ],
         dc='bio')
+
+
+# Helper function to delete x.y.z path in a dict.
+def _del_field(d: dict, path: str):
+  tmp = d
+  parts = path.split('.')
+  for i, p in enumerate(parts):
+    if p in tmp:
+      if i == len(parts) - 1:
+        # Leaf entry
+        del tmp[p]
+      else:
+        tmp = tmp[p]

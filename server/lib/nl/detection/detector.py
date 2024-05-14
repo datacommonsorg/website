@@ -25,7 +25,6 @@ from server.lib.nl.detection import heuristic_detector
 from server.lib.nl.detection import llm_detector
 from server.lib.nl.detection import llm_fallback
 from server.lib.nl.detection import place
-from server.lib.nl.detection import rerank
 from server.lib.nl.detection import types
 from server.lib.nl.detection.place_utils import get_similar
 from server.lib.nl.detection.types import ActualDetectorType
@@ -59,7 +58,7 @@ def detect(detector_type: str,
            query_detection_debug_logs: Dict,
            mode: str,
            counters: Counters,
-           rerank_fn: rerank.RerankCallable = None,
+           reranker: str = '',
            allow_triples: bool = False) -> types.Detection:
   #
   # In the absence of the PALM API key, fallback to heuristic.
@@ -85,7 +84,7 @@ def detect(detector_type: str,
         query_detection_debug_logs=query_detection_debug_logs,
         mode=mode,
         ctr=counters,
-        rerank_fn=rerank_fn,
+        reranker=reranker,
         allow_triples=allow_triples)
     return llm_detection
 
@@ -99,7 +98,7 @@ def detect(detector_type: str,
       query_detection_debug_logs=query_detection_debug_logs,
       mode=mode,
       counters=counters,
-      rerank_fn=rerank_fn,
+      reranker=reranker,
       allow_triples=allow_triples)
   if detector_type == RequestedDetectorType.Heuristic.value:
     return heuristic_detection
@@ -130,7 +129,7 @@ def detect(detector_type: str,
       query_detection_debug_logs=query_detection_debug_logs,
       mode=mode,
       ctr=counters,
-      rerank_fn=rerank_fn,
+      reranker=reranker,
       allow_triples=allow_triples)
   if not llm_detection:
     counters.err('info_llm_blocked', '')
