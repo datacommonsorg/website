@@ -27,7 +27,7 @@ from shared.lib import constants
 
 # Index constants.  Passed in `url=`
 CUSTOM_DC_INDEX: str = 'custom_ft'
-DEFAULT_INDEX_TYPE: str = 'medium_ft'
+DEFAULT_INDEX_TYPE: str = 'base_uae_mem'
 
 # App Config constants.
 ATTRIBUTE_MODEL_KEY: str = 'ATTRIBUTE_MODEL'
