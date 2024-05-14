@@ -476,6 +476,15 @@ class ExploreTest(NLWebServerTestCase):
     ],
                                 test='filter_test')
 
+  # This is the same as the query in `e2e_answer_places`, but
+  # without "filter_test", so filter query should not work.
+  # Specifically, the answer would have MAP and RANKING
+  # chart instead of a single BAR chart.
+  def test_filter_query_disabled(self):
+    self.run_detect_and_fulfill('filter_query_disabled', [
+        'Which counties in california have median age over 40?',
+    ])
+
   def test_e2e_electrification_demo(self):
     self.run_detect_and_fulfill('e2e_electrification_demo', [
         'Which countries in Africa have had the greatest increase in electricity access?',
