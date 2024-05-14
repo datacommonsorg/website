@@ -50,9 +50,9 @@ nl:
       location: us-central1
       prediction_endpoint_id: "8518340991868993536"
     uae-large-v1-model:
-      project_id: datcom-website-dev
+      project_id: datcom-nl
       location: us-central1
-      prediction_endpoint_id: "4910007712298827776"
+      prediction_endpoint_id: "8110162693219942400"
     sfr-embedding-mistral-model:
       project_id: datcom-website-dev
       location: us-central1
