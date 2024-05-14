@@ -27,3 +27,4 @@ models:
     type: LOCAL
     usage: EMBEDDINGS
     gcs_folder: gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2
+    score_threshold: 0.5

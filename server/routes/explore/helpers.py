@@ -39,7 +39,6 @@ import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.types import Detection
-from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance

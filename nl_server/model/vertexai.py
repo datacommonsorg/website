@@ -25,7 +25,7 @@ from nl_server.config import VertexAIModelConfig
 class VertexAIEmbeddingsModel(embeddings.EmbeddingsModel):
 
   def __init__(self, model_info: VertexAIModelConfig):
-    super().__init__()
+    super().__init__(model_info.score_threshold)
     self.prediction_client = _init_client(model_info)
 
   def encode(self, queries: List[str]) -> List[List[float]]:

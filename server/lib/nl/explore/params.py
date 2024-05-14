@@ -71,13 +71,13 @@ SPECIAL_DC_LIST = SDG_DC_LIST + [DCNames.UNDATA_DC]
 
 
 # Get the SV score threshold for the given mode.
-def sv_threshold(mode: str) -> bool:
+def sv_threshold_bump(mode: str) -> bool | None:
   if mode == QueryMode.STRICT:
-    return constants.SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
+    return constants.SV_SCORE_HIGH_CONFIDENCE_THRESHOLD_BUMP
   elif mode == QueryMode.TOOLFORMER:
-    return constants.SV_SCORE_TOOLFORMER_THRESHOLD
-  else:
-    return constants.SV_SCORE_DEFAULT_THRESHOLD
+    return constants.SV_SCORE_TOOLFORMER_THRESHOLD_BUMP
+  # By default no bump.
+  return 0.0
 
 
 #
