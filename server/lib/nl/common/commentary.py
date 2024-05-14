@@ -15,11 +15,11 @@
 from dataclasses import dataclass
 from typing import List
 
-from server.lib.explore import params
 from server.lib.nl.common import constants
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.utils import get_top_sv_score
+from server.lib.nl.explore import params
 from shared.lib.constants import SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
 
 #

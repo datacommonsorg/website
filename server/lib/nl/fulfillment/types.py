@@ -133,8 +133,6 @@ class PopulateState:
   # SV -> Place Keys -> Existence info
   # Where Place Key may be the place DCID, or place DCID + child-type.
   exist_checks: Dict[str, Dict[str, ExistInfo]] = field(default_factory=dict)
-  # Whether this is explore mode of fulfillment.
-  explore_mode: bool = False
   # Set to true if utterance has overwritten SVs.  So they should
   # be cleared and not be propagated into context.
   has_overwritten_svs: bool = False

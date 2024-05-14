@@ -18,12 +18,12 @@ import re
 import time
 from typing import cast, Dict, List, Set
 
-from server.lib.explore.params import DCNames
-from server.lib.explore.params import is_sdg
-from server.lib.explore.params import Params
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.detection.types as dtypes
+from server.lib.nl.explore.params import DCNames
+from server.lib.nl.explore.params import is_sdg
+from server.lib.nl.explore.params import Params
 import server.lib.nl.fulfillment.types as ftypes
 
 

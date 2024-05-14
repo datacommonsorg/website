@@ -56,9 +56,8 @@ flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string('embeddings_size', '', 'Embeddings size')
 
-flags.DEFINE_list('curated_input_paths',
-                  ['data/curated_input/main/sheets_svs.csv'],
-                  'Curated input csv (relative) file path')
+flags.DEFINE_list('curated_input_dirs', ['data/curated_input/main'],
+                  'Curated input csv (relative) directory list')
 
 flags.DEFINE_string(
     'autogen_input_basedir', 'data/autogen_input',
@@ -136,6 +135,8 @@ def get_embeddings(ctx, df_svs: pd.DataFrame, local_merged_filepath: str,
           utils.CURATED_ALTERNATIVES_COL,
           utils.ALTERNATIVES_COL,
       ]:
+        if col_name not in row:
+          continue
         # In order of preference, traverse the various alternative descriptions.
         alternatives += utils.split_alt_string(row[col_name])
 
@@ -158,18 +159,19 @@ def get_embeddings(ctx, df_svs: pd.DataFrame, local_merged_filepath: str,
   return utils.build_embeddings(ctx, text2sv_dict)
 
 
-def build(ctx, curated_input_paths: List[str], local_merged_filepath: str,
+def build(ctx, curated_input_dirs: List[str], local_merged_filepath: str,
           dup_names_filepath: str, autogen_input_filepattern: str,
           alternative_filepattern: str) -> pd.DataFrame:
   curated_input_df_list = list()
   # Read curated sv info.
-  for file_path in curated_input_paths:
-    try:
-      print(f"Reading the curated input file: {file_path}")
-      file_df = pd.read_csv(file_path, na_filter=False)
-      curated_input_df_list.append(file_df)
-    except:
-      print("Error reading curated input file: {file_path}")
+  for curated_input_dir in curated_input_dirs:
+    for file_path in glob.glob(curated_input_dir + "/*.csv"):
+      try:
+        print(f"Reading the curated input file: {file_path}")
+        file_df = pd.read_csv(file_path, na_filter=False)
+        curated_input_df_list.append(file_df)
+      except:
+        print("Error reading curated input file: {file_path}")
 
   if curated_input_df_list:
     # Use inner join to only add rows that have the same headings (which all
@@ -229,7 +231,7 @@ def get_lancedb_records(df) -> List[Dict]:
 def main(_):
   assert FLAGS.vertex_ai_prediction_endpoint_id or (FLAGS.model_name_v2 and
                                                     FLAGS.bucket_name_v2 and
-                                                    FLAGS.curated_input_paths)
+                                                    FLAGS.curated_input_dirs)
 
   assert os.path.exists(os.path.join('data'))
 
@@ -300,7 +302,7 @@ def main(_):
   # return the embeddings dataframe.
   # During this process, the downloaded latest SVs and Descriptions data and the
   # final dataframe with SVs and Alternates are also written to local_merged_dir.
-  embeddings_df = build(ctx, FLAGS.curated_input_paths, local_merged_filepath,
+  embeddings_df = build(ctx, FLAGS.curated_input_dirs, local_merged_filepath,
                         dup_names_filepath, autogen_input_filepattern,
                         FLAGS.alternatives_filepattern)
 

@@ -16,7 +16,7 @@ import copy
 import time
 from typing import List
 
-import server.lib.explore.existence as exist
+import server.lib.nl.common.existence_util as exist
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place

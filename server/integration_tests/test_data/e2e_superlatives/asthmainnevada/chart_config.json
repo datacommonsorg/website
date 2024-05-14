@@ -10,37 +10,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
-                    ],
-                    "title": "Percent of Children That Have Asthma in Counties of Nevada (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
-                    ],
-                    "title": "Percent of Children That Have Asthma in Counties of Nevada (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Percent of Children That Have Asthma in Counties of Nevada"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
                     "title": "Asthma in Nevada",
@@ -100,6 +69,37 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Counties of Nevada (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Counties of Nevada (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Children That Have Asthma in Counties of Nevada"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Death_DiseasesOfTheRespiratorySystem"
                     ],
                     "title": "Deaths From Diseases of the Respiratory System in Counties of Nevada (${date})",
@@ -125,12 +125,84 @@
             ],
             "denom": "Count_Person",
             "title": "Deaths From Diseases of the Respiratory System in Counties of Nevada"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheRespiratorySystem_Female"
+                    ],
+                    "title": "Female Deaths Due to Diseases of the Respiratory System in Counties of Nevada (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheRespiratorySystem_Female"
+                    ],
+                    "title": "Female Deaths Due to Diseases of the Respiratory System in Counties of Nevada (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Female Deaths Due to Diseases of the Respiratory System in Counties of Nevada"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheRespiratorySystem_Male"
+                    ],
+                    "title": "Count of Mortality Event: J00-J98 (Diseases of the Respiratory System), Male in Counties of Nevada (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheRespiratorySystem_Male"
+                    ],
+                    "title": "Count of Mortality Event: J00-J98 (Diseases of the Respiratory System), Male in Counties of Nevada (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: J00-J98 (Diseases of the Respiratory System), Male in Counties of Nevada"
           }
         ],
         "statVarSpec": {
           "Count_Death_DiseasesOfTheRespiratorySystem": {
             "name": "Deaths From Diseases of the Respiratory System",
             "statVar": "Count_Death_DiseasesOfTheRespiratorySystem"
+          },
+          "Count_Death_DiseasesOfTheRespiratorySystem_Female": {
+            "name": "Female Deaths Due To Diseases of The Respiratory System",
+            "statVar": "Count_Death_DiseasesOfTheRespiratorySystem_Female"
+          },
+          "Count_Death_DiseasesOfTheRespiratorySystem_Male": {
+            "name": "Count of Mortality Event: J00-J98 (Diseases of The Respiratory System), Male",
+            "statVar": "Count_Death_DiseasesOfTheRespiratorySystem_Male"
           },
           "Percent_Person_Children_WithAsthma": {
             "name": "Percent of Children That Have Asthma",
@@ -296,12 +368,90 @@
         }
       ]
     },
-    "childTopics": [],
-    "exploreMore": {},
-    "mainTopics": [
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
+        "types": [
+          "Topic"
+        ]
+      },
       {
         "dcid": "dc/topic/Asthma",
         "name": "Asthma",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/BloodPressure",
+        "name": "Blood Pressure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeatIllnesses",
+        "name": "Heat Illnesses",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
         "types": [
           "Topic"
         ]
@@ -310,8 +460,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/HealthConditions",
-        "name": "Health Conditions",
+        "dcid": "dc/topic/Health",
+        "name": "Health",
         "types": [
           "Topic"
         ]
@@ -671,71 +821,29 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Arthritis",
-        "name": "Arthritis",
+        "dcid": "dc/topic/HealthEquity",
+        "name": "Health Equity",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/BloodPressure",
-        "name": "Blood Pressure",
+        "dcid": "dc/topic/HealthInsurance",
+        "name": "Health Insurance",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Cancer",
-        "name": "Cancer",
+        "dcid": "dc/topic/Mortality",
+        "name": "Mortality",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Cholesterol",
-        "name": "Cholesterol",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Diabetes",
-        "name": "Diabetes",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeartDisease",
-        "name": "Heart Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/MentalHealth",
-        "name": "Mental Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/KidneyDisease",
-        "name": "Kidney Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Stroke",
-        "name": "Stroke",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeatIllnesses",
-        "name": "Heat Illnesses",
+        "dcid": "dc/topic/PreventativeHealthAndBehavior",
+        "name": "Preventive Health and Behavior",
         "types": [
           "Topic"
         ]

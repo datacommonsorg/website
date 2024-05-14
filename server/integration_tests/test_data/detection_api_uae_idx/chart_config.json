@@ -1,0 +1,39 @@
+{
+  "childEntityType": "",
+  "classifications": [
+    {
+      "type": 100
+    }
+  ],
+  "client": "test_detect",
+  "comparisonEntities": [],
+  "comparisonVariables": [],
+  "context": {},
+  "debug": {},
+  "entities": [
+    "geoId/06"
+  ],
+  "nonPlaceEntities": [],
+  "properties": [],
+  "sessionId": "007_999999999",
+  "test": "unittest",
+  "variables": [
+    "dc/topic/CommuteTime",
+    "dc/topic/WorkCommute",
+    "dc/topic/CommuteMode",
+    "dc/topic/CommuteModeByOccupation",
+    "dc/vgwx3kjjzz8wf",
+    "dc/1fw0t5m6459gb",
+    "dc/62gn48xpbqew9",
+    "dc/nvrxn11yxlen2",
+    "dc/hbkh95kc7pkb6",
+    "dc/j7lkt2ww5qsn5",
+    "dc/2hhr4qp4b4r0b",
+    "dc/4xklqxfc27w1f",
+    "dc/slp5hywj7b9c1",
+    "dc/kt900ezddrf79",
+    "dc/n2vhkpw0slkv5",
+    "dc/bwr1l8y9we9k7",
+    "dc/dj7khl7q78412"
+  ]
+}

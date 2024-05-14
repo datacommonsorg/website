@@ -396,11 +396,7 @@ class ActualDetectorType(str, Enum):
   # No fallback
   HybridHeuristic = "Hybrid - Heuristic Based"
   # Fallback to LLM fully
-  HybridLLMFull = "Hybrid - LLM Fallback (Full)"
-  # Fallback to LLM for place detection only
-  HybridLLMPlace = "Hybrid - LLM Fallback (Place)"
-  # Fallback to LLM for variable detection only
-  HybridLLMVar = "Hybrid - LLM Fallback (Variable)"
+  HybridLLMFull = "Hybrid - LLM Fallback"
   # LLM for safety check only
   HybridLLMSafety = "Hybrid - LLM Safety Check"
   # The case of no detector involved.
@@ -416,7 +412,6 @@ class RequestedDetectorType(str, Enum):
 
 
 class LlmApiType(str, Enum):
-  Palm = "palm"
   GeminiPro = "geminipro"
   Nop = "nop"
 
@@ -431,4 +426,3 @@ class Detection:
   classifications: List[NLClassifier]
   llm_resp: Dict = field(default_factory=dict)
   detector: ActualDetectorType = ActualDetectorType.HybridHeuristic
-  llm_api: LlmApiType = LlmApiType.Nop
