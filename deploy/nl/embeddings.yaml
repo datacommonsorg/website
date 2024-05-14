@@ -64,6 +64,7 @@ models:
   dc-all-minilm-l6-v2-model:
     type: VERTEXAI
     usage: EMBEDDINGS
+    score_threshold: 0.5
   uae-large-v1-model:
     type: VERTEXAI
     usage: EMBEDDINGS
@@ -72,6 +73,7 @@ models:
   sfr-embedding-mistral-model:
     type: VERTEXAI
     usage: EMBEDDINGS
+    score_threshold: 0.5
   cross-encoder-ms-marco-miniilm-l6-v2:
     type: VERTEXAI
     usage: RERANKING
@@ -82,3 +84,4 @@ models:
     type: LOCAL
     usage: EMBEDDINGS
     gcs_folder: gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2
+    score_threshold: 0.5
