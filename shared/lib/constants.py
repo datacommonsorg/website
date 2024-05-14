@@ -375,18 +375,20 @@ NON_GEO_PLACE_TYPES: FrozenSet[str] = frozenset([
 # are considered as a match.
 SV_SCORE_DEFAULT_THRESHOLD = 0.5
 
-# The Cosine score bump (aka increase over default model-threshold)
-# to be applied for a high confidence match.
-# See compute_final_threshold()
 #
+# The Cosine score "bump" is the increase over default model-threshold
+# that is applied as follows:
+#
+#    model-threshold + (1 - model-threshold) * bump
+#
+# That is, we increase the threshold by this fraction of the
+# (1 - model-threshold) window that the scores are valid in.
+#
+# Bump value for high-confidence threshold.
 # bump of 0.4 => a threshold of 0.7 if default is 0.5
 #             => a threshold of 0.82 if default is 0.7
 SV_SCORE_HIGH_CONFIDENCE_THRESHOLD_BUMP = 0.4
-
-# The Cosine score bump (aka increase over default model-threshold)
-# to be applied when running in toolformer mode.
-# See compute_final_threshold()
-#
+# Bump value for when running in mode=toolformer.
 # bump of 0.6 => a threshold of 0.8 if default is 0.5
 #             => a threshold of 0.88 if default is 0.7
 SV_SCORE_TOOLFORMER_THRESHOLD_BUMP = 0.6
