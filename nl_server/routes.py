@@ -76,13 +76,8 @@ def search_vars():
                 VarCandidates] = search.search_vars(nl_embeddings, queries,
                                                     skip_topics, reranker_model,
                                                     debug_logs)
-  q2result = {
-      q: var_candidates_to_dict(result) for q, result in results.items()
-  }
-  response = {
-    'queryResults': q2result,
-    'debugLogs': debug_logs
-  }
+  q2result = {q: var_candidates_to_dict(result) for q, result in results.items()}
+  response = {'queryResults': q2result, 'debugLogs': debug_logs}
   return json.dumps(response)
 
 

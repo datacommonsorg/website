@@ -179,8 +179,10 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
       if not query or query.startswith('#') or query.startswith('//'):
         continue
       assert ';' not in query, 'Multiple query not yet supported'
-      base_svs, base_sv_info = _prune(search_vars([base], [query])[query], base.model.score_threshold)
-      test_svs, test_sv_info = _prune(search_vars([test], [query])[query], test.model.score_threshold)
+      base_svs, base_sv_info = _prune(
+          search_vars([base], [query])[query], base.model.score_threshold)
+      test_svs, test_sv_info = _prune(
+          search_vars([test], [query])[query], test.model.score_threshold)
       for sv in base_svs + test_svs:
         all_svs.add(sv)
       if base_svs != test_svs:
