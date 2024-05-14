@@ -86,8 +86,8 @@ def detect(orig_query: str,
   try:
     sv_detection_result = variable.detect_vars(
         sv_detection_query, index_type, counters,
-        query_detection_debug_logs["query_transformations"], sv_threshold_override,
-        reranker, skip_topics)
+        query_detection_debug_logs["query_transformations"],
+        sv_threshold_override, reranker, skip_topics)
   except ValueError as e:
     counters.err('detect_vars_value_error', {
         'q': sv_detection_query,
@@ -96,7 +96,8 @@ def detect(orig_query: str,
   # Set the SVDetection.
   sv_detection = dutils.create_sv_detection(sv_detection_query,
                                             sv_detection_result,
-                                            sv_threshold_override, allow_triples)
+                                            sv_threshold_override,
+                                            allow_triples)
 
   return Detection(original_query=orig_query,
                    cleaned_query=cleaned_query,
