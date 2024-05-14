@@ -98,7 +98,7 @@ class TestLLMFallback(unittest.TestCase):
                     places_detected=_place(),
                     svs_detected=_sv(),
                     classifications=[]),
-          NeedLLM.ForVar,
+          NeedLLM.Fully,
           'info_fallback_no_sv_found'),
       (
           # Same as above, but since its OVERVIEW, we ignore
@@ -127,7 +127,7 @@ class TestLLMFallback(unittest.TestCase):
                     places_detected=None,
                     svs_detected=_sv(['Count_Person_Hispanic']),
                     classifications=_nlcl(ClassificationType.OVERVIEW)),
-          NeedLLM.ForPlace,
+          NeedLLM.Fully,
           'info_fallback_no_place_found'),
       (
           # No place found, but Country type, so Earth is assumed.
@@ -168,7 +168,7 @@ class TestLLMFallback(unittest.TestCase):
                                      delim=True,
                                      above_thres=True),
                     classifications=[]),
-          NeedLLM.ForVar,
+          NeedLLM.Fully,
           'info_fallback_multi_sv_delimiter'),
       (
           # Same as above, but with comparison classification, don't fallback.
@@ -198,7 +198,7 @@ class TestLLMFallback(unittest.TestCase):
                     places_detected=_place(),
                     svs_detected=_sv(['hispanic', 'asian'], above_thres=True),
                     classifications=[]),
-          NeedLLM.ForVar,
+          NeedLLM.Fully,
           'info_fallback_place_within_multi_sv'),
   ])
   def test_main(self, heuristic, fallback, counter):
