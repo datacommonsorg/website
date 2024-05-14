@@ -36,6 +36,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Population: Literate"
           },
           {
@@ -70,6 +71,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Population: Illiterate"
           },
           {
@@ -104,6 +106,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Population: Female, Literate"
           },
           {
@@ -138,6 +141,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Population: Literate, Rural"
           },
           {
@@ -172,6 +176,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Population: Literate, Urban"
           },
           {
@@ -239,6 +244,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Population: Houseless, Literate"
           },
           {
@@ -273,6 +279,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Population: Illiterate, Rural"
           },
           {
@@ -307,6 +314,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Population: Illiterate, Urban"
           }
         ],
