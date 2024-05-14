@@ -249,7 +249,8 @@ class NLTest(NLWebServerTestCase):
             "Prevalence of Asthma in California cities with hispanic population over 10000",
         ],
         # Use heuristic because LLM fallback is not very deterministic.
-        detector='heuristic')
+        detector='heuristic',
+        test='filter_test')
 
   def test_demo_climatetrace(self):
     self.run_sequence('demo_climatetrace',
