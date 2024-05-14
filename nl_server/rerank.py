@@ -84,9 +84,9 @@ def rerank(rerank_model: RerankingModel,
                                        reverse=True)
       reranked_var_candidates.sv2sentences[sv] = sentences_with_rerank_score
 
-    debug_logs[query] = {}
-    debug_logs[query]['pre_reranking'] = var_candidates.svs
-    debug_logs[query]['post_reranking'] = reranked_var_candidates.svs
+    query_log = debug_logs.setdefault("reranking", {}).setdefault(query, {})
+    query_log['pre_reranking'] = var_candidates.svs
+    query_log['post_reranking'] = reranked_var_candidates.svs
     query2rerankedcandidates[query] = reranked_var_candidates
 
   return query2rerankedcandidates

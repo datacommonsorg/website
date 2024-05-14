@@ -118,114 +118,116 @@
     "query_transformations": {
       "place_detection_input": "population that is rich in california",
       "place_detection_with_places_removed": "population that is rich in",
-      "population": {
-        "post_reranking": [
-          "Count_Person",
-          "Count_Person_PerArea",
-          "GrowthRate_Count_Person",
-          "IncrementalCount_Person",
-          "Count_Person_Employed_NACE/F",
-          "dc/topic/SeparatedPopulationByAge",
-          "dc/topic/AgeDistribution",
-          "dc/v78t45118s0bb",
-          "dc/gvnh5cpl9h1rf",
-          "dc/topic/DivorcedPopulationByDemographic"
-        ],
-        "pre_reranking": [
-          "Count_Person",
-          "Count_Person_PerArea",
-          "Count_Person_Employed_NACE/F",
-          "IncrementalCount_Person",
-          "GrowthRate_Count_Person",
-          "dc/topic/AgeDistribution",
-          "dc/gvnh5cpl9h1rf",
-          "dc/v78t45118s0bb",
-          "dc/topic/SeparatedPopulationByAge",
-          "dc/topic/DivorcedPopulationByDemographic"
-        ]
-      },
-      "population rich": {
-        "post_reranking": [
-          "Count_Person_IncomeOf75000OrMoreUSDollar",
-          "Count_Person_IncomeOf50000To64999USDollar",
-          "Count_Person_IncomeOf10000To14999USDollar",
-          "Count_Person_BelowPovertyLevelInThePast12Months",
-          "Count_Person_IncomeOfUpto9999USDollar",
-          "Median_Income_Person",
-          "Count_Person_AbovePovertyLevelInThePast12Months",
-          "dc/topic/IncomeEquity",
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
-          "Count_Person_15OrMoreYears_NoIncome",
-          "dc/topic/Income",
-          "dc/topic/EconomicEquity",
-          "dc/topic/PovertyLevels",
-          "dc/topic/Poverty",
-          "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
-        ],
-        "pre_reranking": [
-          "Median_Income_Person",
-          "dc/topic/Income",
-          "Count_Person_BelowPovertyLevelInThePast12Months",
-          "Median_Income_Person_18OrMoreYears_Civilian_WithIncome",
-          "dc/topic/IncomeEquity",
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
-          "Count_Person_15OrMoreYears_NoIncome",
-          "Count_Person_IncomeOfUpto9999USDollar",
-          "dc/topic/PovertyLevels",
-          "Count_Person_IncomeOf75000OrMoreUSDollar",
-          "Count_Person_IncomeOf50000To64999USDollar",
-          "Count_Person_AbovePovertyLevelInThePast12Months",
-          "dc/topic/EconomicEquity",
-          "dc/topic/Poverty",
-          "Count_Person_IncomeOf10000To14999USDollar"
-        ]
-      },
-      "rich": {
-        "post_reranking": [
-          "dc/topic/IncomeEquity",
-          "dc/topic/Income",
-          "dc/topic/EconomicEquity",
-          "Median_Income_Person",
-          "GiniIndex_EconomicActivity",
-          "dc/topic/SDG_1",
-          "Median_Income_Household",
-          "dc/topic/Poverty",
-          "dc/topic/Economy",
-          "dc/topic/PovertyLevels",
-          "Median_Income_Household_NonfamilyHousehold",
-          "Median_Income_Household_FamilyHousehold",
-          "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome",
-          "Median_Earnings_Person",
-          "Mean_Income_Household",
-          "dc/topic/sdg_1.2",
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
-          "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
-        ],
-        "pre_reranking": [
-          "dc/topic/Income",
-          "dc/topic/IncomeEquity",
-          "dc/topic/Poverty",
-          "Median_Income_Person",
-          "dc/topic/EconomicEquity",
-          "Mean_Income_Household",
-          "dc/topic/PovertyLevels",
-          "GiniIndex_EconomicActivity",
-          "Median_Income_Person_18OrMoreYears_Civilian_WithIncome",
-          "Median_Income_Household",
-          "Median_Income_Household_FamilyHousehold",
-          "dc/topic/SDG_1",
-          "Median_Earnings_Person",
-          "dc/topic/Economy",
-          "Median_Income_Household_NonfamilyHousehold",
-          "dc/topic/sdg_1.2",
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
-          "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
-        ]
+      "reranking": {
+        "population": {
+          "post_reranking": [
+            "Count_Person",
+            "Count_Person_PerArea",
+            "GrowthRate_Count_Person",
+            "IncrementalCount_Person",
+            "Count_Person_Employed_NACE/F",
+            "dc/topic/SeparatedPopulationByAge",
+            "dc/topic/AgeDistribution",
+            "dc/v78t45118s0bb",
+            "dc/gvnh5cpl9h1rf",
+            "dc/topic/DivorcedPopulationByDemographic"
+          ],
+          "pre_reranking": [
+            "Count_Person",
+            "Count_Person_PerArea",
+            "Count_Person_Employed_NACE/F",
+            "IncrementalCount_Person",
+            "GrowthRate_Count_Person",
+            "dc/topic/AgeDistribution",
+            "dc/gvnh5cpl9h1rf",
+            "dc/v78t45118s0bb",
+            "dc/topic/SeparatedPopulationByAge",
+            "dc/topic/DivorcedPopulationByDemographic"
+          ]
+        },
+        "population rich": {
+          "post_reranking": [
+            "Count_Person_IncomeOf75000OrMoreUSDollar",
+            "Count_Person_IncomeOf50000To64999USDollar",
+            "Count_Person_IncomeOf10000To14999USDollar",
+            "Count_Person_BelowPovertyLevelInThePast12Months",
+            "Count_Person_IncomeOfUpto9999USDollar",
+            "Median_Income_Person",
+            "Count_Person_AbovePovertyLevelInThePast12Months",
+            "dc/topic/IncomeEquity",
+            "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
+            "Count_Person_15OrMoreYears_NoIncome",
+            "dc/topic/Income",
+            "dc/topic/EconomicEquity",
+            "dc/topic/PovertyLevels",
+            "dc/topic/Poverty",
+            "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
+          ],
+          "pre_reranking": [
+            "Median_Income_Person",
+            "dc/topic/Income",
+            "Count_Person_BelowPovertyLevelInThePast12Months",
+            "Median_Income_Person_18OrMoreYears_Civilian_WithIncome",
+            "dc/topic/IncomeEquity",
+            "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
+            "Count_Person_15OrMoreYears_NoIncome",
+            "Count_Person_IncomeOfUpto9999USDollar",
+            "dc/topic/PovertyLevels",
+            "Count_Person_IncomeOf75000OrMoreUSDollar",
+            "Count_Person_IncomeOf50000To64999USDollar",
+            "Count_Person_AbovePovertyLevelInThePast12Months",
+            "dc/topic/EconomicEquity",
+            "dc/topic/Poverty",
+            "Count_Person_IncomeOf10000To14999USDollar"
+          ]
+        },
+        "rich": {
+          "post_reranking": [
+            "dc/topic/IncomeEquity",
+            "dc/topic/Income",
+            "dc/topic/EconomicEquity",
+            "Median_Income_Person",
+            "GiniIndex_EconomicActivity",
+            "dc/topic/SDG_1",
+            "Median_Income_Household",
+            "dc/topic/Poverty",
+            "dc/topic/Economy",
+            "dc/topic/PovertyLevels",
+            "Median_Income_Household_NonfamilyHousehold",
+            "Median_Income_Household_FamilyHousehold",
+            "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome",
+            "Median_Earnings_Person",
+            "Mean_Income_Household",
+            "dc/topic/sdg_1.2",
+            "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
+            "Median_Income_Person_18OrMoreYears_Civilian_WithIncome"
+          ],
+          "pre_reranking": [
+            "dc/topic/Income",
+            "dc/topic/IncomeEquity",
+            "dc/topic/Poverty",
+            "Median_Income_Person",
+            "dc/topic/EconomicEquity",
+            "Mean_Income_Household",
+            "dc/topic/PovertyLevels",
+            "GiniIndex_EconomicActivity",
+            "Median_Income_Person_18OrMoreYears_Civilian_WithIncome",
+            "Median_Income_Household",
+            "Median_Income_Household_FamilyHousehold",
+            "dc/topic/SDG_1",
+            "Median_Earnings_Person",
+            "dc/topic/Economy",
+            "Median_Income_Household_NonfamilyHousehold",
+            "dc/topic/sdg_1.2",
+            "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
+            "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+          ]
+        }
       },
       "sv_detection_query_index_type": "",
       "sv_detection_query_input": "population that is rich in",
       "sv_detection_query_stop_words_removal": "population rich",
-      "time_var_reranking": 3.034559965133667
+      "time_var_reranking": 2.9611330032348633
     }
   }
 }
