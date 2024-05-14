@@ -10,14 +10,14 @@
     "CosineScore": [
       0.8903406858444214,
       0.8845490217208862,
-      0.8456564545631409,
-      0.8409274816513062,
-      0.8346197605133057,
-      0.830601692199707,
-      0.830077052116394,
-      0.829837441444397,
-      0.825484573841095,
-      0.825312614440918
+      0.845656156539917,
+      0.8409276008605957,
+      0.8346197009086609,
+      0.8306021094322205,
+      0.8300771713256836,
+      0.8298372626304626,
+      0.8254846930503845,
+      0.8253124356269836
     ],
     "MultiSV": {
       "Candidates": [
@@ -27,17 +27,17 @@
           "Parts": [
             {
               "CosineScore": [
-                0.8638870716094971,
-                0.8613194227218628,
-                0.8523018956184387,
-                0.8326529264450073,
-                0.8307949304580688,
-                0.8306548595428467,
-                0.8281034231185913,
-                0.820919394493103,
+                0.8638868927955627,
+                0.8613189458847046,
+                0.852301836013794,
+                0.8326531052589417,
+                0.8307946920394897,
+                0.8306549787521362,
+                0.8281030654907227,
+                0.8209190368652344,
                 0.8201780319213867,
-                0.8199418187141418,
-                0.8179653882980347
+                0.8199412226676941,
+                0.817965567111969
               ],
               "QueryPart": "number poor hispanic",
               "SV": [
@@ -56,7 +56,7 @@
             },
             {
               "CosineScore": [
-                0.9458003640174866
+                0.9458003044128418
               ],
               "QueryPart": "women phd",
               "SV": [
@@ -71,8 +71,8 @@
           "Parts": [
             {
               "CosineScore": [
-                0.947663426399231,
-                0.9369953870773315
+                0.9476636052131653,
+                0.9369949698448181
               ],
               "QueryPart": "number poor hispanic women",
               "SV": [
@@ -82,7 +82,7 @@
             },
             {
               "CosineScore": [
-                0.8309072256088257
+                0.8309073448181152
               ],
               "QueryPart": "phd",
               "SV": [
@@ -97,10 +97,10 @@
           "Parts": [
             {
               "CosineScore": [
-                0.656958281993866,
-                0.6552729606628418,
-                0.6206241250038147,
-                0.6172623038291931,
+                0.6569583415985107,
+                0.6552730798721313,
+                0.6206246614456177,
+                0.6172628402709961,
                 0.6135541200637817
               ],
               "QueryPart": "number poor",
@@ -114,9 +114,9 @@
             },
             {
               "CosineScore": [
-                0.9240200519561768,
-                0.9144761562347412,
-                0.8951907753944397
+                0.9240201711654663,
+                0.914476215839386,
+                0.8951904773712158
               ],
               "QueryPart": "hispanic women phd",
               "SV": [
@@ -149,17 +149,18 @@
   },
   "query_detection_debug_logs": {
     "dc_recognize_places": {},
+    "llm_response": {
+      "METRICS": [
+        "number of poor hispanic women with phd"
+      ]
+    },
     "main_place_inferred": null,
     "original_query": "number of poor hispanic women with phd",
     "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
     "place_resolution": "Place resolution did not trigger (no place dcids found).",
     "places_found_str": [],
     "query_transformations": {
-      "place_detection_input": "number of poor hispanic women with phd",
-      "place_detection_with_places_removed": "number of poor hispanic women with phd",
-      "sv_detection_query_index_type": "",
-      "sv_detection_query_input": "number of poor hispanic women with phd",
-      "sv_detection_query_stop_words_removal": "number poor hispanic women phd"
+      "sv_detection_query_index_type": ""
     }
   }
 }
