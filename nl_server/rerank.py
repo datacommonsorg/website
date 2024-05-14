@@ -14,6 +14,7 @@
 
 from typing import Callable, Dict, List
 
+from nl_server.ranking import RerankingModel
 import shared.lib.detected_variables as vars
 
 # Given a list of query <-> candidates pairs as input, returns
@@ -21,13 +22,13 @@ import shared.lib.detected_variables as vars
 RerankCallable = Callable[[List[tuple[str, str]]], List[float]]
 
 
-def rerank(rerank_fn: RerankCallable,
+def rerank(rerank_model: RerankingModel,
            query2candidates: Dict[str, vars.VarCandidates],
            debug_logs: Dict) -> vars.VarCandidates:
   # 1. Prepare indexes and inputs
 
   # List of query-sentence pairs.
-  qs_pairs: List[List[str, str]] = []
+  qs_pairs: List[tuple[str, str]] = []
   # Sentence to index into var_candidates.svs.
   query2sentence2idx: Dict[str, Dict[str, int]] = {}
   for query, var_candidates in query2candidates.items():
@@ -39,7 +40,7 @@ def rerank(rerank_fn: RerankCallable,
         qs_pairs.append([query, s.sentence])
 
   # 2. Perform the re-ranking
-  scores = rerank_fn(qs_pairs).predictions
+  scores = rerank_model.predict(qs_pairs)
 
   # 3. Group Sentence-Score pairs by query.
   query2sentence2score: Dict[str, Dict[str, float]] = {}

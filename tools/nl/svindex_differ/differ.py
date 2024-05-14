@@ -33,7 +33,6 @@ from nl_server.embeddings_map import EmbeddingsMap
 from nl_server.search import search_vars
 from shared.lib.detected_variables import VarCandidates
 
-_SV_THRESHOLD = 0.5
 _NUM_SVS = 10
 _SUB_COLOR = '#ffaaaa'
 _ADD_COLOR = '#aaffaa'
@@ -58,13 +57,15 @@ AUTOPUSH_KEY = os.environ.get('AUTOPUSH_KEY')
 assert AUTOPUSH_KEY
 
 
-def _load_yaml(path: str):
+def _load_yaml(path: str, idx: str):
   if path.startswith('https://'):
     embeddings_dict = yaml.safe_load(requests.get(path).text)
   else:
     with open(path) as fp:
       embeddings_dict = yaml.full_load(fp)
-  return embeddings_dict
+  assert idx in embeddings_dict
+  # Return just this index
+  return {idx: embeddings_dict[idx]}
 
 
 def _get_sv_names(sv_dcids):
@@ -86,12 +87,12 @@ def _get_sv_names(sv_dcids):
   return result
 
 
-def _prune(res: VarCandidates):
+def _prune(res: VarCandidates, score_threshold: float):
   svs = []
   sv_info = {}
   for i, var in enumerate(res.svs):
     score = res.scores[i]
-    if i < _NUM_SVS and score >= _SV_THRESHOLD:
+    if i < _NUM_SVS and score >= score_threshold:
       svs.append(var)
       sv_info[var] = {
           'sv': var,
@@ -178,8 +179,8 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
       if not query or query.startswith('#') or query.startswith('//'):
         continue
       assert ';' not in query, 'Multiple query not yet supported'
-      base_svs, base_sv_info = _prune(search_vars([base], [query])[query])
-      test_svs, test_sv_info = _prune(search_vars([test], [query])[query])
+      base_svs, base_sv_info = _prune(search_vars([base], [query])[query], base.model.score_threshold)
+      test_svs, test_sv_info = _prune(search_vars([test], [query])[query], test.model.score_threshold)
       for sv in base_svs + test_svs:
         all_svs.add(sv)
       if base_svs != test_svs:
@@ -197,8 +198,8 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
   # Render the html with the diffs
   with open(output_file, 'w') as f:
     f.write(
-        template.render(base_file=base_dict['indexes'][base_idx],
-                        test_file=test_dict['indexes'][test_idx],
+        template.render(base_file=base_dict[base_idx],
+                        test_file=test_dict[test_idx],
                         diffs=diffs))
   print('')
   print(f'Saving locally to {output_file}')
@@ -219,8 +220,8 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
 def main(_):
   assert FLAGS.base_index and FLAGS.test_index and FLAGS.queryset
 
-  base_dict = _load_yaml(_PROD_EMBEDDINGS_YAML)
-  test_dict = _load_yaml(_LOCAL_EMBEDDINGS_YAML)
+  base_dict = _load_yaml(_PROD_EMBEDDINGS_YAML, FLAGS.base_index)
+  test_dict = _load_yaml(_LOCAL_EMBEDDINGS_YAML, FLAGS.test_index)
 
   run_diff(FLAGS.base_index, FLAGS.test_index, base_dict, test_dict,
            FLAGS.queryset, _REPORT)
