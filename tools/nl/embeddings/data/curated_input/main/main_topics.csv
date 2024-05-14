@@ -2,7 +2,7 @@ dcid,Name,Description,Override_Alternatives,Curated_Alternatives
 dc/topic/AdolescentBirthRate,Adolescent Birth Rate,Adolescent Birth Rate,,
 dc/topic/AdultCorrectionalFacilitiesResidents,Adult Correctional Facilities Residents,Adult Correctional Facilities Residents,,
 dc/topic/Age,Age,Age,,
-dc/topic/AgeDistribution,Age Distribution,Age Distribution,,population by age;
+dc/topic/AgeDistribution,,,,Age based demographic breakdown;
 dc/topic/AgeMedians,Age Medians,Age Medians,,
 dc/topic/AgriculturalProduction,,Agricultural Output,,Agricultural Production; Agricultural Output; Output from agricultural activities;Total agricultural output
 dc/topic/Agriculture,,Agriculture,,Agriculture; Farming;Farming information; Agriculture data; Agriculture statistics; Data related to agriculture; Information on farming;
@@ -126,8 +126,8 @@ dc/topic/HealthBehavior,Health behaviors,Health behavior,,Healthy behaviors; Unh
 dc/topic/HealthConditions,Health conditions,Health conditions,,
 dc/topic/HealthEquity,Health equity,Health equity,,fairness in health; fairness of health conditions;
 dc/topic/HealthInsurance,Health Insurance,Health Insurance,,
-dc/topic/HealthInsuranceByGender,Health Insurance by gender,Health Insurance split by gender,,health insurance distribution by gender; health insurance breakdown by gender;
-dc/topic/HealthInsuranceByRace,Health Insurance by race,Health insurance split by race,,health insurance distribution by race; health insurance breakdown by race;
+dc/topic/HealthInsuranceByGender,,,,Breakdown of health insurance coverage by gender;
+dc/topic/HealthInsuranceByRace,,,,Breakdown of health insurance coverage by race;
 dc/topic/HealthInsuranceType,Health Insurance types,Health insurance by types,,types of health insurance;
 dc/topic/HealthWorkerDensity,Health Worker Density,Health Worker Density,,
 dc/topic/HealthcareExpenditure,Healthcare Expenditure,Healthcare Expenditure,,amount spent on health; health expenses;
@@ -142,11 +142,11 @@ dc/topic/HispanicOrLatinoPopulationByAge,Hispanic Or Latino Population By Age,Hi
 dc/topic/HomeOwnership,Home Ownership,Home Ownership,,owners of houses; housing owners; house ownership;
 dc/topic/HouseFeatures,House Features,House Features,,features of a house; features in a home;
 dc/topic/HouseOccupants,House Occupants,House Occupants,,people living in the house; home occupants;
-dc/topic/HouseholdIncomeDistribution,Household Income Distribution,Household Income Distribution,,income distribution for households;
+dc/topic/HouseholdIncomeDistribution,,,,Breakdown of Household Income by household types;
 dc/topic/HousesByDateofBuild,Houses by Date Built,Houses by Date Built,,date built of houses; houses by date build; build date of houses;
 dc/topic/HousesByFacilities,Houses by Facilities,Houses by Facilities,,facilities in houses;
 dc/topic/HousesByHomeValue,Houses by Home Value,Houses by Home Value,,home value of houses;
-dc/topic/HousesByHouseholderAge,Houses by Age of Residents,Houses by Age of Residents,,age distribution of house residents; home residents age distribution;
+dc/topic/HousesByHouseholderAge,,,,breakdown of houses by the householder age;
 dc/topic/HousesByHouseholderEducationalAttainment,Houses by Educational Attainment of Owner,Houses by Educational Attainment of Owner,,education level of home owner; home owner's education; education attainment of home owners; houses by home owner's education level;
 dc/topic/HousesByHouseholderRace,Houses by Race of Occupants,Houses by Race of Occupants,,home residents race; houses by resident race; racial breakdown of house residents;
 dc/topic/HousesByOwnershipCost,Houses by Ownership Cost,Houses by Ownership Cost,,cost of home ownership; housing cost; cost of owning a home; cost of owning a house;
@@ -159,16 +159,15 @@ dc/topic/Incarceration,Incarceration,Incarceration,,
 dc/topic/Income,Income,Income from Earnings,,Earnings; Salary; pay; compensation
 dc/topic/IncomeEquity,Income Equity,Income Equity,,fariness in income; fairness of income distribution; equity of income distribution;
 dc/topic/IndividualIncomeByIndustry,Individual Income By Industry,Individual Income By Industry,,individual income across industries;
-dc/topic/IndividualIncomeDistribution,Individual Income Distribution,Individual Income Distribution,,
+dc/topic/IndividualIncomeDistribution,,,,Population breakdown by income level;
 dc/topic/IndustriesByGDP,Industries By GDP Contribution,Industries By GDP Contribution,,contribution to the GDP by industries; GDP contribution by industries;
 dc/topic/IndustriesByRevenue,Industries By Revenue,Industries By Revenue,,revenue across industries; revenue breakdown by industries;
 dc/topic/InfantMortality,Infant Mortality,Infant Mortality,,mortality among infants; death among infants; infant deaths;
-dc/topic/InflationAdjustedGDP,Inflation Adjusted GDP,Inflation Adjusted GDP,,inflation adjusted gross domestic production;
 dc/topic/InstitutionalizedGroupQuartersResidents,Institutionalized Group Quarters Residents,Institutionalized Group Quarters Residents,,
 dc/topic/Internet,Internet,Internet,,
 dc/topic/InternetAccess,Internet Access,Internet Access,,internet penetration; digital access; digital equity; digital penetration;
 dc/topic/InternetPublishingAndBroadcastingIndustry,Internet Publishing And Broadcasting Industry,Internet Publishing And Broadcasting Industry,,
-dc/topic/Jobs,Jobs,Jobs,, Careers; Professions; Work Occupations; Employment Positions; Job Roles; Occupational professions; distribution of jobs; distribution of workers;
+dc/topic/Jobs,Jobs,Jobs,, Careers; Professions; Work Occupations; Employment Positions; Job Roles; Occupational professions; breakdown of workers by jobs;
 dc/topic/JusticeSystemEquity,Justice System Equity,Justice System Equity,,Equity of the justice system; equity in the justice system; fariness in the justice system;
 dc/topic/JuvenileFacilitiesResidents,Juvenile Facilities Residents,Juvenile Facilities Residents,,
 dc/topic/KidneyDisease,Kidney Disease,Kidney Disease,,
@@ -178,7 +177,7 @@ dc/topic/LandCover,Land Cover,Land Cover,,
 dc/topic/LandUseAndCoverage,Land Use And Coverage,Land Use And Coverage,,land use;
 dc/topic/Landslide,Landslide,Landslide,,
 dc/topic/Language,Language,Language,,
-dc/topic/LanguageSpokenAtHome_ForeignBorn,Language Spoken At Home By Immigrants,Language Spoken At Home By Immigrants,,immigrants language at home; language at home for foreign born;
+dc/topic/LanguageSpokenAtHome_ForeignBorn,,,,breakdown of foreign born people by language at home;
 dc/topic/LevelOfEducationalAttainment,Level Of Educational Attainment,Level Of Educational Attainment,,education attainment level; level of qualification;
 dc/topic/LifeExpectancy,Life Expectancy,Life Expectancy,,
 dc/topic/Literacy,,Literacy,,
@@ -211,7 +210,7 @@ dc/topic/MobilePhoneOwnership,Mobile Phone Ownership,Mobile Phone Ownership,,
 dc/topic/MobilePhoneUsage,Mobile Phone Usage,Mobile Phone Usage,,
 dc/topic/Mortality,Mortality,Mortality,,Death; Issues relating to death;
 dc/topic/MortalityAmongIncarcerated,Mortality among incarcerated,Mortality among those in jail,,deaths among those in jail; deaths of incarcerated; incarcerated deaths;
-dc/topic/MortalityByGender,Mortality by gender,Mortality by gender,,Mortality split by gender; mortality distribution by gender; mortality breakdown by gender;
+dc/topic/MortalityByGender,Mortality by gender,Mortality by gender,,Mortality split by gender; mortality breakdown by gender;
 dc/topic/MortalityByRace,Mortality by race,Mortality by race,,racial breakdown of mortality; deaths by race; mortality breakdown by race;
 dc/topic/Nationality,Nationality,Nationality,,
 dc/topic/NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,Native Hawaiian And Other Pacific Islander Female Population By Age,Native Hawaiian And Other Pacific Islander Female Population By Age,,
@@ -225,7 +224,7 @@ dc/topic/NeverMarriedPopulationByAge,Never Married Population By Age,Never Marri
 dc/topic/NeverMarriedPopulationByDemographic,Never Married Population by Demographic,Never Married Population by Demographic,,demographics of the never married population; demographics of people who never married;
 dc/topic/NitrogenDioxide,Nitrogen Dioxide,Nitrogen Dioxide,,NO2; NO2 pollutant;
 dc/topic/NoHealthInsurance,No Health Insurance,No Health Insurance,,people with no health insurance; people without access to health insurance; without health insurance;
-dc/topic/NoHealthInsuranceByGender,No Health Insurance by gender,No Health Insurance by gender,,distribution of no health insurance by gender; without health insurnace for gender;
+dc/topic/NoHealthInsuranceByGender,No Health Insurance by gender,No Health Insurance by gender,,breakdown of population without health insurance by gender;
 dc/topic/NoHealthInsuranceByIncome,No Health Insurance by income,No Health Insurance by income,,no health insurance split by income; no health insurance across income levels;
 dc/topic/NoHealthInsuranceByRace,No Health Insurance by race,No Health Insurance by race,,racial breakdown of those without health insurance; no health insurance across race; no health insurance by race;
 dc/topic/NonEnglishLanguageAtHome,Non-English Languages Spoken At Home,Non-English Languages Spoken At Home,,non-english at home; non-english language at home; spoken language at home is not English; other languages spoken at home;
@@ -249,7 +248,6 @@ dc/topic/PhysicalActivity,Physical Activity,Physical Activity,,
 dc/topic/Physicians,Physicians,Physicians,,
 dc/topic/PlaceOfBirth,Place of Birth,Place of Birth,,
 dc/topic/Pollutants,Pollutants,Pollutants,,
-dc/topic/PopulationByAgeDistribution,Population By Age Distribution,Population By Age Distribution,,population distribution by age;
 dc/topic/PopulationEnrolledInSchoolTypeByRace,Population Enrolled In School Type By Race,Population Enrolled In School Type By Race,,students enrolled in school type by race;
 dc/topic/PopulationFormerSmoker,Population Former Smoker,Population Former Smoker,,
 dc/topic/PopulationFormerSmoker,Population Former Smoker,Population Former Smoker,,
@@ -281,7 +279,7 @@ dc/topic/PrivateHealthInsuranceType,Private health insurance,Private health insu
 dc/topic/ProductionConsumptionandWaste,Production and Consumption Waste,Production and Consumption Waste,,Waste due to production and consumption;
 dc/topic/ProjectedClimateExtremes,Projected Climate Extremes,Projected Climate Extremes,,Climate Extremes;
 dc/topic/PublicHealthInsuranceType,Public health insurance,Public health insurance,,people with public health insurance; health insurance public type;
-dc/topic/Race,Race,Race,,racial breakdown;
+dc/topic/Race,Race,Race,,population by race;
 dc/topic/Rainfall,Rainfall,Rainfall,,rain;
 dc/topic/Religion,Religion,Religion,,
 dc/topic/Remittance,Remittance,Remittance,,remittances;
@@ -315,7 +313,7 @@ dc/topic/StudentPopulation,Student Population,Student Population,,Students
 dc/topic/StudentPopulationDemographics,Student Population Demographics,Student Population Demographics,,Student demographics;
 dc/topic/StudentTeacherRatio,Student Teacher Ratio,Student Teacher Ratio,,ratio of students to teachers;
 dc/topic/StudentsInCollege,Students in College,Students in College,,undergraduate students; undergrad students; undergrads; college students;
-dc/topic/StudentsInGraduateOrProfessionalSchool,Students in Graduate or Professional School,Students in Graduate or Professional School,,students in graduate school; students in professional school; students enrolled in grad school; PE students; grad students;
+dc/topic/StudentsInGraduateOrProfessionalSchool,,,,race breakdown of students in Graduate or Professional School;
 dc/topic/StudentsInHighSchool,Student in High School,Student in High School,,students enrolled in high schools; high school students;
 dc/topic/StudentsInKindergarten,Students in Kindergarten,Students in Kindergarten,,students in KG; KG students; kindergarten students;
 dc/topic/StudentsInMiddleSchool,Students in Middle School,Students in Middle School,,middle school students;
