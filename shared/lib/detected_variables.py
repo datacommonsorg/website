@@ -113,6 +113,7 @@ def var_detection_result_to_dict(res: VarDetectionResult) -> Dict:
   return result
 
 
+# Only used in test
 def test_dict_to_var_detection_result(input: Dict) -> VarDetectionResult:
   return VarDetectionResult(
       single_var=dict_to_var_candidates(input),
