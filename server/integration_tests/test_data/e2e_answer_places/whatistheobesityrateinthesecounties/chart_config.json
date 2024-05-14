@@ -69,6 +69,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Prevalence: Male, Obesity"
           },
           {
