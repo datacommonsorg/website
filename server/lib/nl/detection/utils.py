@@ -182,19 +182,20 @@ def _get_sv_and_prop_candidates(
 
 
 def compute_final_threshold(model_threshold: float,
-                            threshold_bump: float) -> float:
-  return model_threshold + abs((1 - model_threshold) * threshold_bump)
+                            threshold_override: float) -> float:
+  # Pick the higher of the two.
+  return max(model_threshold, threshold_override)
 
 
 def create_sv_detection(query: str,
                         var_detection_result: dvars.VarDetectionResult,
-                        sv_threshold_bump: float = 0,
+                        sv_threshold_override: float = 0,
                         allow_triples: bool = False) -> SVDetection:
   sv_candidates, prop_candidates = _get_sv_and_prop_candidates(
       var_detection_result, allow_triples)
 
   sv_threshold = compute_final_threshold(var_detection_result.model_threshold,
-                                         sv_threshold_bump)
+                                         sv_threshold_override)
   return SVDetection(query=query,
                      single_sv=sv_candidates,
                      multi_sv=var_detection_result.multi_var,

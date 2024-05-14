@@ -21,7 +21,7 @@ from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.utils import compute_final_threshold
 from server.lib.nl.detection.utils import get_top_sv_score
 from server.lib.nl.explore import params
-from shared.lib.constants import SV_SCORE_HIGH_CONFIDENCE_THRESHOLD_BUMP
+from shared.lib.constants import SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
 
 #
 # List of user messages!
@@ -160,11 +160,11 @@ def user_message(uttr: Utterance) -> UserMessage:
   # prefer showing that, since we say our confidence is low...
 
   # If the score is below this, then we report low confidence
-  # (we reuse the threshold bump we use for determining something
+  # (we reuse the threshold we use for determining something
   #  is "high confidence")
   low_confidence_score_report_threshold = compute_final_threshold(
       uttr.detection.svs_detected.model_threshold,
-      SV_SCORE_HIGH_CONFIDENCE_THRESHOLD_BUMP)
+      SV_SCORE_HIGH_CONFIDENCE_THRESHOLD)
 
   if (uttr.rankedCharts and
       (uttr.sv_source == FulfillmentResult.CURRENT_QUERY or
