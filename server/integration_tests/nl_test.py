@@ -227,7 +227,7 @@ class NLTest(NLWebServerTestCase):
         ],
         detector='hybrid',
         expected_detectors=[
-            'Hybrid - LLM Safety',
+            'Hybrid - LLM Fallback',
             'Hybrid - Heuristic Based',
             'Hybrid - Heuristic Based',
             'Hybrid - Heuristic Based',
