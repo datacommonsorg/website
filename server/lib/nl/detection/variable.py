@@ -21,6 +21,7 @@ from typing import Dict, List
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.detection import query_util
 from server.lib.nl.detection import rerank
+import server.lib.nl.detection.utils as dutils
 from server.services import datacommons as dc
 from shared.lib import constants
 import shared.lib.detected_variables as vars
@@ -50,7 +51,7 @@ def detect_vars(orig_query: str,
                 index_type: str,
                 counters: ctr.Counters,
                 debug_logs: Dict,
-                threshold: float = constants.SV_SCORE_DEFAULT_THRESHOLD,
+                threshold_bump: float = 0,
                 rerank_fn: rerank.RerankCallable = None,
                 skip_topics: bool = False) -> vars.VarDetectionResult:
   #
@@ -63,6 +64,9 @@ def detect_vars(orig_query: str,
   # plurals and any other query attribution/classification trigger words.
   query_monovar = shared_utils.remove_stop_words(orig_query,
                                                  query_util.ALL_STOP_WORDS)
+  if not query_monovar.strip():
+    # Empty user query!  Return empty results
+    return dutils.empty_var_detection_result()
   all_queries = [query_monovar]
 
   # Try to detect multiple SVs.  Use the original query so that
@@ -75,17 +79,21 @@ def detect_vars(orig_query: str,
   # 2. Lookup embeddings with both single-var and multi-var queries.
   #
   # Make API call to the NL models/embeddings server.
-  query2results = dc.nl_search_vars(all_queries, index_type, skip_topics)
+  resp = dc.nl_search_vars(all_queries, index_type, skip_topics)
   query2results = {
-      q: vars.dict_to_var_candidates(r) for q, r in query2results.items()
+      q: vars.dict_to_var_candidates(r) for q, r in resp['queryResults'].items()
   }
+  model_threshold = resp['scoreThreshold']
 
   #
   # 3. Prepare result candidates.
   #
+  # If caller had an overriden threshold bump, apply that.
+  multi_var_threshold = dutils.compute_final_threshold(model_threshold,
+                                                       threshold_bump)
   result_monovar = query2results[query_monovar]
   result_multivar = _prepare_multivar_candidates(multi_querysets, query2results,
-                                                 threshold)
+                                                 multi_var_threshold)
 
   #
   # 4. Maybe, rerank
@@ -101,7 +109,8 @@ def detect_vars(orig_query: str,
   debug_logs["sv_detection_query_input"] = orig_query
   debug_logs["sv_detection_query_stop_words_removal"] = query_monovar
   return vars.VarDetectionResult(single_var=result_monovar,
-                                 multi_var=result_multivar)
+                                 multi_var=result_multivar,
+                                 model_threshold=model_threshold)
 
 
 #

@@ -6,6 +6,7 @@ indexes:
 models:
   FooModel:
     gcs_folder: fooModelFolder
+    score_threshold: 0.5
     type: LOCAL
     usage: EMBEDDINGS
 version: 1

@@ -24,7 +24,7 @@ from nl_server.config import VertexAIModelConfig
 class VertexAIModel(embeddings.EmbeddingsModel):
 
   def __init__(self, model_info: VertexAIModelConfig):
-    super().__init__()
+    super().__init__(model_info.score_threshold)
 
     aiplatform.init(project=model_info.project_id, location=model_info.location)
     self.prediction_client = aiplatform.Endpoint(

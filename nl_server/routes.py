@@ -24,6 +24,7 @@ from nl_server import config
 from nl_server import loader
 from nl_server import search
 from nl_server.embeddings import Embeddings
+from shared.lib import constants
 from shared.lib.custom_dc_util import is_custom_dc
 from shared.lib.detected_variables import var_candidates_to_dict
 from shared.lib.detected_variables import VarCandidates
@@ -70,7 +71,10 @@ def search_vars():
   json_result = {
       q: var_candidates_to_dict(result) for q, result in results.items()
   }
-  return json.dumps(json_result)
+  return json.dumps({
+      'queryResults': json_result,
+      'scoreThreshold': _get_threshold(nl_embeddings)
+  })
 
 
 @bp.route('/api/detect_verbs/', methods=['GET'])
@@ -112,3 +116,11 @@ def _get_indexes(idx: str) -> List[Embeddings]:
     nl_embeddings.append(emb)
 
   return nl_embeddings
+
+
+# NOTE: Custom DC embeddings addition needs to ensures that the
+#       base vs. custom models do not use different thresholds
+def _get_threshold(embeddings: List[Embeddings]) -> float:
+  if embeddings:
+    return embeddings[0].model.score_threshold
+  return constants.SV_SCORE_DEFAULT_THRESHOLD

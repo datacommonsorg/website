@@ -93,7 +93,8 @@ class TestEndToEnd(unittest.TestCase):
                                      info={
                                          'type': 'LOCAL',
                                          'gcs_folder': 'fooModelFolder',
-                                         'usage': 'EMBEDDINGS'
+                                         'usage': 'EMBEDDINGS',
+                                         'score_threshold': 0.5,
                                      })
       builder.generate_embeddings_yaml(
           model_info, create_file_handler(fake_embeddings_csv_path),

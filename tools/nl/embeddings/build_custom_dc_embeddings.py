@@ -142,6 +142,11 @@ def _build_embeddings_dataframe(
 def generate_embeddings_yaml(model_info: utils.ModelConfig,
                              embeddings_csv_handler: FileHandler,
                              embeddings_yaml_handler: FileHandler):
+  #
+  # Right now Custom DC only supports LOCAL mode.
+  #
+  assert model_info.info['type'] == 'LOCAL'
+
   data = {
       "version": 1,
       "indexes": {
@@ -152,11 +157,7 @@ def generate_embeddings_yaml(model_info: utils.ModelConfig,
           }
       },
       "models": {
-          model_info.name: {
-              "type": "LOCAL",
-              "usage": "EMBEDDINGS",
-              "gcs_folder": model_info.info['gcs_folder']
-          }
+          model_info.name: model_info.info,
       }
   }
   embeddings_yaml_handler.write_string(yaml.dump(data))
@@ -187,7 +188,8 @@ def main(_):
     model_info = utils.ModelConfig(name=FLAGS.model_version,
                                    info={
                                        'type': 'LOCAL',
-                                       'gcs_folder': FLAGS.model_version
+                                       'gcs_folder': FLAGS.model_version,
+                                       'score_threshold': 0.5
                                    })
   else:
     model_info = utils.get_default_ft_model()
