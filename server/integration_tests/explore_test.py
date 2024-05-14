@@ -473,7 +473,8 @@ class ExploreTest(NLWebServerTestCase):
         'How about the uninsured population?',
         'Which counties in california have median age over 40?',
         'What is the emissions in these counties?'
-    ])
+    ],
+                                test='filter_test')
 
   def test_e2e_electrification_demo(self):
     self.run_detect_and_fulfill('e2e_electrification_demo', [
@@ -533,7 +534,8 @@ class ExploreTest(NLWebServerTestCase):
             # not have both the topics. Instead, the title has the topic
             # corresponding to the SV in the very first chart.
             'Poverty vs. unemployment rate in districts of Tamil Nadu',
-        ])
+        ],
+        test='filter_test')
 
   def test_e2e_correlation_bugs(self):
     self.run_detect_and_fulfill('e2e_correlation_bugs',

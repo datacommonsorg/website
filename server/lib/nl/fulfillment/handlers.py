@@ -16,7 +16,6 @@
 from dataclasses import dataclass
 from typing import List
 
-import server.lib.explore.params as params
 from server.lib.nl.common import constants
 import server.lib.nl.common.utils as cutils
 from server.lib.nl.common.utterance import FulfillmentResult
@@ -28,6 +27,8 @@ from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
+import server.lib.nl.detection.utils as dutils
+import server.lib.nl.explore.params as params
 from server.lib.nl.fulfillment import basic
 from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import correlation
@@ -209,7 +210,8 @@ def _classification_to_query_type(cl: NLClassifier,
     # And we don't do event maps for SDG.
     query_type = QueryType.BASIC
 
-  if (uttr.detection.detector != ActualDetectorType.LLM and query_type
+  if (not dutils.is_llm_detection(uttr.detection) and
+      uttr.test != 'filter_test' and query_type
       in [QueryType.FILTER_WITH_SINGLE_VAR, QueryType.FILTER_WITH_DUAL_VARS]):
     # Filter queries are hard to interpret correctly using
     # just heuristics. So unless this was LLM that did detection,
