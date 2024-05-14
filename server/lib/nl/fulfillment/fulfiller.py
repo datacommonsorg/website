@@ -176,21 +176,10 @@ def _produce_query_types(uttr: Utterance) -> List[QueryType]:
   # The remaining query types require places to be set
   if not uttr.places:
     return query_types
+
   query_types.append(handlers.first_query_type(uttr))
   while query_types[-1] != None:
     query_types.append(handlers.next_query_type(query_types))
-
-  if params.is_special_dc(uttr.insight_ctx):
-    # Prune out query_types that aren't relevant.
-    pruned_types = []
-    for qt in query_types:
-      # Superlative introduces custom SVs not relevant for SDG.
-      # And we don't do event maps for SDG.
-      if qt not in [QueryType.EVENT, QueryType.SUPERLATIVE]:
-        pruned_types.append(qt)
-    if not pruned_types:
-      pruned_types.append(QueryType.BASIC)
-    query_types = pruned_types
 
   return query_types
 
