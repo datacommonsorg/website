@@ -77,8 +77,7 @@ class EmbeddingsMap:
           if model_info.usage == ModelUsage.EMBEDDINGS:
             model = VertexAIEmbeddingsModel(model_info)
             self.name_to_emb_model[model_name] = model
-          else:
-            # model_info.usage == ModelUsage.RERANKING
+          elif model_info.usage == ModelUsage.RERANKING:
             model = VertexAIRerankingModel(model_info)
             self.name_to_rank_model[model_name] = model
         elif model_info.type == ModelType.LOCAL:

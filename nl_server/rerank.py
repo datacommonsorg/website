@@ -47,6 +47,7 @@ def rerank(rerank_model: RerankingModel,
   for qs, score in zip(qs_pairs, scores):
     query2sentence2score.setdefault(qs[0], {}).setdefault(qs[1], score)
 
+  # TODO: Consider factoring this into a different function
   query2rerankedcandidates: Dict[str, vars.VarCandidates] = {}
   for query, sentence2score in query2sentence2score.items():
     # 4. Per query, sort the Sentence-Score pairs based on scores.
