@@ -50,7 +50,7 @@ def detect_vars(orig_query: str,
                 index_type: str,
                 counters: ctr.Counters,
                 debug_logs: Dict,
-                threshold_bump: float = 0,
+                threshold_override: float = 0,
                 reranker: str = '',
                 skip_topics: bool = False) -> vars.VarDetectionResult:
   #
@@ -90,7 +90,7 @@ def detect_vars(orig_query: str,
   #
   # If caller had an overriden threshold bump, apply that.
   multi_var_threshold = dutils.compute_final_threshold(model_threshold,
-                                                       threshold_bump)
+                                                       threshold_override)
   result_monovar = query2results[query_monovar]
   result_multivar = _prepare_multivar_candidates(multi_querysets, query2results,
                                                  multi_var_threshold)

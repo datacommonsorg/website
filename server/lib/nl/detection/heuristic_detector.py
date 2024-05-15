@@ -79,15 +79,15 @@ def detect(orig_query: str,
                      attributes=SimpleClassificationAttributes()))
 
   # Step 4: Identify the SV matched based on the query.
-  sv_threshold_bump = params.sv_threshold_bump(mode)
+  sv_threshold_override = params.sv_threshold_override(mode)
   sv_detection_query = dutils.remove_date_from_query(query, classifications)
   skip_topics = mode == params.QueryMode.TOOLFORMER
   sv_detection_result = dutils.empty_var_detection_result()
   try:
     sv_detection_result = variable.detect_vars(
         sv_detection_query, index_type, counters,
-        query_detection_debug_logs["query_transformations"], sv_threshold_bump,
-        reranker, skip_topics)
+        query_detection_debug_logs["query_transformations"],
+        sv_threshold_override, reranker, skip_topics)
   except ValueError as e:
     counters.err('detect_vars_value_error', {
         'q': sv_detection_query,
@@ -96,7 +96,8 @@ def detect(orig_query: str,
   # Set the SVDetection.
   sv_detection = dutils.create_sv_detection(sv_detection_query,
                                             sv_detection_result,
-                                            sv_threshold_bump, allow_triples)
+                                            sv_threshold_override,
+                                            allow_triples)
 
   return Detection(original_query=orig_query,
                    cleaned_query=cleaned_query,
