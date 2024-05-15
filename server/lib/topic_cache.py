@@ -18,6 +18,7 @@
 from dataclasses import dataclass
 import json
 import logging
+import os
 from typing import Dict, List, Self, Set
 
 from server.lib.nl.common import utils
@@ -232,10 +233,21 @@ def _load_custom_dc_topic_cache(name_overrides: Dict) -> tuple[str, TopicCache]:
 
 def _get_local_custom_dc_topic_cache_path() -> str:
   path = get_custom_dc_topic_cache_path()
+
   if not path:
     logging.info("No Custom DC topic cache path specified.")
     return path
+
   logging.info("Custom DC topic cache will be loaded from: %s", path)
+
   if is_gcs_path(path):
     return download_gcs_file(path)
+
+  if not os.path.exists(path):
+    logging.warning(
+        "Custom DC topic cache path %s does not exist and will be skipped.",
+        path)
+    # Loading topic cache is skipped if path is empty so return an empty path in this case.
+    return ""
+
   return path
