@@ -47,6 +47,9 @@ const HeadingContainer = styled(ContentContainer)`
 const StyledText = styled.div`
   flex-grow: 1;
 
+  a {
+    color: ${(props) => props.theme.text.linkColor};
+  }
   h1 {
     color: ${(props) => props.theme.header.textColor};
     font-size: 36px;
@@ -114,8 +117,12 @@ export function HeaderAndSearchBox(): JSX.Element {
           <h1>Data Commons • Biomedical</h1>
           <h2>A bridge to open biomedical data</h2>
           <h3>
-            Find relationships between 25 different categories of biomedical
-            data like genes, proteins, diseases, and more
+            Find relationships between{" "}
+            <a href="/browser/bio">25 biomedical categories</a> sourced from{" "}
+            <a href="https://docs.datacommons.org/datasets/Biomedical.html">
+              18 trusted sources
+            </a>
+            , including NIH NCBI and EMBL-EBI
           </h3>
           <MultiLineSearchBox
             onSearch={onSearch}

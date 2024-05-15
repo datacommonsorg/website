@@ -570,7 +570,9 @@ def _detection(place: str,
                                                      svs=svs,
                                                      scores=scores,
                                                      sv2sentences={}),
-                                                 multi_sv=None))
+                                                 multi_sv=None,
+                                                 sv_threshold=0.5,
+                                                 model_threshold=0.5))
   if query_type == ClassificationType.COMPARISON:
     # Set comparison classifier
     detection.classifications = [

@@ -38,6 +38,7 @@ pip3 install -r tools/nl/svindex_differ/requirements.txt
 export TOKENIZERS_PARALLELISM=false
 
 # Diff production embeddings against test.
+export FLASK_ENV=local
 python3 -m tools.nl.svindex_differ.differ \
   --base_index="$BASE" --test_index="$TEST" \
   --queryset=tools/nl/svindex_differ/queryset_vars.csv

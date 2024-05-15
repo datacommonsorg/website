@@ -21,7 +21,7 @@ namespace:
 
 website:
   flaskEnv: unsdg_staging
-  replicas: 4
+  replicas: 2
   redis:
     enabled: false
 
@@ -30,6 +30,7 @@ serviceAccount:
 
 ingress:
   enabled: true
+  enableMixer: true
 
 mixer:
   useCustomBigtable: true
@@ -39,14 +40,15 @@ nl:
 
 serviceGroups:
   recon: null
-  svg:
-    replicas: 2
-  node:
-    replicas: 5
-  observation:
-    replicas: 5
+  svg: null
+  node: null
+  observation: null
   default:
     replicas: 3
+    cacheSVG: true # No svg service, this needs to use search
+    resources:
+      memoryRequest: "8G"
+      memoryLimit: "8G"
 
 kgStoreConfig:
   customBigtableInfo: |

@@ -19,21 +19,21 @@ from typing import List
 from sentence_transformers import SentenceTransformer
 import torch
 
-from nl_server import config
 from nl_server import embeddings
+from nl_server import gcs
+from nl_server.config import LocalModelConfig
 
 
 class LocalSentenceTransformerModel(embeddings.EmbeddingsModel):
 
-  def __init__(self, existing_model_path: str = ""):
-    super().__init__(returns_tensor=True)
+  def __init__(self, model_info: LocalModelConfig):
+    super().__init__(model_info.score_threshold, returns_tensor=True)
 
-    if existing_model_path:
-      logging.info(f'Loading tuned model from: {existing_model_path}')
-      self.model = SentenceTransformer(existing_model_path)
-    else:
-      logging.info(f'Loading base model {config.EMBEDDINGS_BASE_MODEL_NAME}')
-      self.model = SentenceTransformer(config.EMBEDDINGS_BASE_MODEL_NAME)
+    # Download model from gcs if there is a gcs folder specified
+    logging.info(f'Downloading tuned model from: {model_info.gcs_folder}')
+    model_path = gcs.download_folder(model_info.gcs_folder)
+    logging.info(f'Loading tuned model from: {model_path}')
+    self.model = SentenceTransformer(model_path)
 
   def encode(self, queries: List[str]) -> torch.Tensor:
     return self.model.encode(queries, show_progress_bar=False)

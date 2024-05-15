@@ -533,6 +533,38 @@
             ],
             "denom": "Count_Person",
             "title": "Population: With Own Children Under 18, Female"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female"
+                    ],
+                    "title": "Girls (4 and Under) in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female"
+                    ],
+                    "title": "Girls (4 and Under) in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Girls (4 and Under) in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -544,6 +576,10 @@
             "facetId": "1151455814",
             "name": "Count of Mortality Event: Female (As Fraction of Count Person Female)",
             "statVar": "Count_Death_Female_AsAFractionOf_Count_Person_Female"
+          },
+          "Count_Person_0To4Years_Female": {
+            "name": "Girls (4 and under)",
+            "statVar": "Count_Person_0To4Years_Female"
           },
           "Count_Person_15To19Years_Female_Separated": {
             "name": "Population: 15 - 19 Years, Female, Separated",

@@ -74,13 +74,14 @@ def download(embeddings_yaml_path: str):
   default_ft_embeddings_info = utils.get_default_ft_embeddings_info()
 
   # Download model.
-  model_version = default_ft_embeddings_info["model"]
-  print(f"Downloading default model: {model_version}")
-  local_model_path = utils.get_or_download_model_from_gcs(ctx, model_version)
+  model_info = default_ft_embeddings_info.model_config
+  print(f"Downloading default model: {model_info.name}")
+  local_model_path = utils.get_or_download_model_from_gcs(
+      ctx, model_info.info['gcs_folder'])
   print(f"Downloaded default model to: {local_model_path}")
 
   # Download embeddings.
-  embeddings_file_name = default_ft_embeddings_info["embeddings"]
+  embeddings_file_name = default_ft_embeddings_info.index_config['embeddings']
   print(f"Downloading default embeddings: {embeddings_file_name}")
   local_embeddings_path = gcs.download_gcs_file(embeddings_file_name,
                                                 use_anonymous_client=True)
@@ -95,9 +96,10 @@ def download(embeddings_yaml_path: str):
       embeddings_yaml_path, default_ft_embeddings_info)
 
 
-def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
-  print(f"Downloading model: {model_version}")
-  ctx = _download_model(model_version)
+def build(model_info: utils.ModelConfig, sv_sentences_csv_path: str,
+          output_dir: str):
+  print(f"Downloading model: {model_info.name}")
+  ctx = _download_model(model_info.info['gcs_folder'])
 
   print(
       f"Generating embeddings dataframe from SV sentences CSV: {sv_sentences_csv_path}"
@@ -111,7 +113,7 @@ def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
   output_dir_handler = create_file_handler(output_dir)
   embeddings_csv_handler = create_file_handler(
       output_dir_handler.join(
-          f"{EMBEDDINGS_CSV_FILENAME_PREFIX}.{model_version}.csv"))
+          f"{EMBEDDINGS_CSV_FILENAME_PREFIX}.{model_info.name}.csv"))
   embeddings_yaml_handler = create_file_handler(
       output_dir_handler.join(EMBEDDINGS_YAML_FILE_NAME))
 
@@ -120,7 +122,7 @@ def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
   embeddings_csv_handler.write_string(embeddings_csv)
 
   print(f"Saving embeddings yaml: {embeddings_yaml_handler.path}")
-  generate_embeddings_yaml(model_version, embeddings_csv_handler,
+  generate_embeddings_yaml(model_info, embeddings_csv_handler,
                            embeddings_yaml_handler)
 
   print("Done building custom DC embeddings.")
@@ -137,15 +139,25 @@ def _build_embeddings_dataframe(
   return utils.build_embeddings(ctx, text2sv_dict)
 
 
-def generate_embeddings_yaml(model_version: str,
+def generate_embeddings_yaml(model_info: utils.ModelConfig,
                              embeddings_csv_handler: FileHandler,
                              embeddings_yaml_handler: FileHandler):
+  #
+  # Right now Custom DC only supports LOCAL mode.
+  #
+  assert model_info.info['type'] == 'LOCAL'
+
   data = {
-      "custom_ft": {
-          "embeddings": embeddings_csv_handler.abspath(),
-          "model": model_version,
-          "store": "MEMORY",
-          "model_type": "LOCAL"
+      "version": 1,
+      "indexes": {
+          "custom_ft": {
+              "embeddings": embeddings_csv_handler.abspath(),
+              "model": model_info.name,
+              "store": "MEMORY",
+          }
+      },
+      "models": {
+          model_info.name: model_info.info,
       }
   }
   embeddings_yaml_handler.write_string(yaml.dump(data))
@@ -172,12 +184,18 @@ def main(_):
 
   assert FLAGS.sv_sentences_csv_path
   assert FLAGS.output_dir
-  model_version = FLAGS.model_version
-  if not model_version:
-    model_version = utils.get_default_ft_model_version()
-    print(f"Using model version {model_version} from embeddings.yaml.")
+  if FLAGS.model_version:
+    model_info = utils.ModelConfig(name=FLAGS.model_version,
+                                   info={
+                                       'type': 'LOCAL',
+                                       'gcs_folder': FLAGS.model_version,
+                                       'score_threshold': 0.5
+                                   })
+  else:
+    model_info = utils.get_default_ft_model()
+    print(f"Using model {model_info.name} from embeddings.yaml.")
 
-  build(model_version, FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
+  build(model_info, FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
 
 
 if __name__ == "__main__":

@@ -50,6 +50,7 @@ class DCNames(str, Enum):
   SDG_MINI_DC = 'sdgmini'
   UNDATA_DC = 'undata'
   BIO_DC = 'bio'
+  CUSTOM_DC = 'custom'
 
 
 class QueryMode(str, Enum):
@@ -70,13 +71,13 @@ SPECIAL_DC_LIST = SDG_DC_LIST + [DCNames.UNDATA_DC]
 
 
 # Get the SV score threshold for the given mode.
-def sv_threshold(mode: str) -> bool:
+def sv_threshold_override(mode: str) -> bool | None:
   if mode == QueryMode.STRICT:
     return constants.SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
   elif mode == QueryMode.TOOLFORMER:
     return constants.SV_SCORE_TOOLFORMER_THRESHOLD
-  else:
-    return constants.SV_SCORE_DEFAULT_THRESHOLD
+  # The default is 0, so model-score will be used.
+  return 0.0
 
 
 #

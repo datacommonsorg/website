@@ -16,6 +16,8 @@
 from dataclasses import dataclass
 from typing import Dict, List
 
+from shared.lib import constants
+
 
 @dataclass
 class SentenceScore:
@@ -79,6 +81,8 @@ class MultiVarCandidates:
 class VarDetectionResult:
   single_var: VarCandidates
   multi_var: MultiVarCandidates
+  # This is the default score threshold prescribed by the model.
+  model_threshold: float
 
 
 def dict_to_var_candidates(nlresp: Dict) -> VarCandidates:
@@ -109,10 +113,12 @@ def var_detection_result_to_dict(res: VarDetectionResult) -> Dict:
   return result
 
 
-def dict_to_var_detection_result(input: Dict) -> VarDetectionResult:
-  return VarDetectionResult(single_var=dict_to_var_candidates(input),
-                            multi_var=dict_to_multivar_candidates(
-                                input.get('MultiSV', {})))
+# Only used in test
+def test_dict_to_var_detection_result(input: Dict) -> VarDetectionResult:
+  return VarDetectionResult(
+      single_var=dict_to_var_candidates(input),
+      multi_var=dict_to_multivar_candidates(input.get('MultiSV', {})),
+      model_threshold=constants.SV_SCORE_DEFAULT_THRESHOLD)
 
 
 def multivar_candidates_to_dict(candidates: MultiVarCandidates) -> Dict:
