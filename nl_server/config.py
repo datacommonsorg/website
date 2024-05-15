@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,9 +29,6 @@ from shared.lib.custom_dc_util import is_custom_dc
 # Index constants.  Passed in `url=`
 CUSTOM_DC_INDEX: str = 'custom_ft'
 DEFAULT_INDEX_TYPE: str = 'medium_ft'
-
-# The default base model we use.
-EMBEDDINGS_BASE_MODEL_NAME: str = 'all-MiniLM-L6-v2'
 
 # App Config constants.
 ATTRIBUTE_MODEL_KEY: str = 'ATTRIBUTE_MODEL'

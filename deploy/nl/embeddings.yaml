@@ -45,7 +45,7 @@ indexes:
     model: dc-all-minilm-l6-v2-model
   base_uae_mem:
     store: MEMORY
-    embeddings: gs://datcom-nl-models/embeddings_medium_2024_05_13_22_58_40.4910007712298827776.csv
+    embeddings: gs://datcom-nl-models/embeddings_medium_2024_05_14_17_00_30.4910007712298827776.csv
     model: uae-large-v1-model
   medium_vertex_mistral:
     store: VERTEXAI

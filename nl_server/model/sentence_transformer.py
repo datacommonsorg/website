@@ -19,7 +19,6 @@ from typing import List
 from sentence_transformers import SentenceTransformer
 import torch
 
-from nl_server import config
 from nl_server import embeddings
 from nl_server import gcs
 from nl_server.config import LocalModelConfig
@@ -31,18 +30,10 @@ class LocalSentenceTransformerModel(embeddings.EmbeddingsModel):
     super().__init__(model_info.score_threshold, returns_tensor=True)
 
     # Download model from gcs if there is a gcs folder specified
-    model_path = ''
-    if model_info.gcs_folder:
-      logging.info(f'Downloading tuned model from: {model_info.gcs_folder}')
-      model_path = gcs.download_folder(model_info.gcs_folder)
-
-    # If model was downloaded, load that model. Otherwise, load base model.
-    if model_path:
-      logging.info(f'Loading tuned model from: {model_path}')
-      self.model = SentenceTransformer(model_path)
-    else:
-      logging.info(f'Loading base model {config.EMBEDDINGS_BASE_MODEL_NAME}')
-      self.model = SentenceTransformer(config.EMBEDDINGS_BASE_MODEL_NAME)
+    logging.info(f'Downloading tuned model from: {model_info.gcs_folder}')
+    model_path = gcs.download_folder(model_info.gcs_folder)
+    logging.info(f'Loading tuned model from: {model_path}')
+    self.model = SentenceTransformer(model_path)
 
   def encode(self, queries: List[str]) -> torch.Tensor:
     return self.model.encode(queries, show_progress_bar=False)
