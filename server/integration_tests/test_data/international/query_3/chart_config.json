@@ -99,6 +99,35 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/NY_GDP_PCAP"
+                    ],
+                    "title": "Annual Growth Rate of Real GDP Per Capita in United Kingdom",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual Growth Rate of Real GDP Per Capita in United Kingdom",
+                    "statVarKey": [
+                      "sdg/NY_GDP_PCAP"
+                    ],
+                    "title": "Annual Growth Rate of Real GDP Per Capita in United Kingdom",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations, department of economic and social affairs, statistics division (AMA).",
+            "title": "Annual Growth Rate of Real GDP Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
                     "title": "Growth Rate of GDP in United Kingdom",
@@ -148,6 +177,35 @@
               }
             ],
             "title": "Unemployment Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/EN_MAT_DOMCMPG"
+                    ],
+                    "title": "Domestic Material Consumption Per Unit of GDP in United Kingdom",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Domestic Material Consumption Per Unit of GDP in United Kingdom",
+                    "statVarKey": [
+                      "sdg/EN_MAT_DOMCMPG"
+                    ],
+                    "title": "Domestic Material Consumption Per Unit of GDP in United Kingdom",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: WESR / global material flows database.",
+            "title": "Domestic Material Consumption Per Unit of GDP"
           }
         ],
         "statVarSpec": {
@@ -166,6 +224,14 @@
           "UnemploymentRate_Person": {
             "name": "Unemployment Rate",
             "statVar": "UnemploymentRate_Person"
+          },
+          "sdg/EN_MAT_DOMCMPG": {
+            "name": "Domestic material consumption per unit of GDP",
+            "statVar": "sdg/EN_MAT_DOMCMPG"
+          },
+          "sdg/NY_GDP_PCAP": {
+            "name": "Annual growth rate of real GDP per capita",
+            "statVar": "sdg/NY_GDP_PCAP"
           }
         }
       }
@@ -553,7 +619,29 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "sdg/EN_MAT_DOMCMPG": {
+        "sdg_product": [
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF1",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF11",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF121",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF122",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF13",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF14",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF2",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF21",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF22",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF3",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF4",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF41",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF413",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF421",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF422",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF_AGG3A",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF_AGG3B"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/GDP",

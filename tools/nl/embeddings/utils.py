@@ -274,13 +274,13 @@ def get_ft_model_from_gcs(ctx: Context,
 
 
 def _get_default_ft_model(embeddings_yaml_file_path: str) -> ModelConfig:
-  """Gets the default index's (i.e. 'medium_ft') model version from embeddings.yaml.
+  """Gets the default index's model version from embeddings.yaml.
   """
   return _get_default_ft_embeddings_info(embeddings_yaml_file_path).model_config
 
 
 def get_default_ft_model() -> ModelConfig:
-  """Gets the default index's (i.e. 'medium_ft') model version from embeddings.yaml.
+  """Gets the default index's model version from embeddings.yaml.
   """
   return _get_default_ft_model(_EMBEDDINGS_YAML_PATH)
 

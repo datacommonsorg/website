@@ -15,16 +15,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
+                      "geoId/06045",
                       "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06063",
+                      "geoId/06031",
+                      "geoId/06093",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
                     ],
                     "statVarKey": [
                       "Percent_Person_Obesity_multiple_place_bar_block"
@@ -48,16 +48,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
+                      "geoId/06045",
                       "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06063",
+                      "geoId/06031",
+                      "geoId/06093",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
                     ],
                     "statVarKey": [
                       "dc/x13tvt8jsgrm4_multiple_place_bar_block"
@@ -83,16 +83,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
+                      "geoId/06045",
                       "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06063",
+                      "geoId/06031",
+                      "geoId/06093",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
                     ],
                     "statVarKey": [
                       "dc/4lvmzr1h1ylk1_multiple_place_bar_block"
@@ -104,50 +104,12 @@
               }
             ],
             "title": "Prevalence: Female, Obesity"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
-                      "geoId/06115",
-                      "geoId/06089"
-                    ],
-                    "statVarKey": [
-                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block"
-                    ],
-                    "title": "Physical Health Issues (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Physical Health Issues"
           }
         ],
         "statVarSpec": {
           "Percent_Person_Obesity_multiple_place_bar_block": {
             "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
-            "unit": "%"
-          },
-          "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block": {
-            "name": "Physical Health Issues",
-            "statVar": "Percent_Person_WithPhysicalHealthNotGood",
             "unit": "%"
           },
           "dc/4lvmzr1h1ylk1_multiple_place_bar_block": {
@@ -163,7 +125,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/06105"
+        "geoId/06045"
       ]
     }
   },
@@ -172,51 +134,16 @@
   "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "geoId/06105",
-    "name": "Trinity County",
+    "dcid": "geoId/06045",
+    "name": "Mendocino County",
     "place_type": "County"
   },
   "placeFallback": {},
   "placeSource": "PAST_ANSWER",
   "places": [
     {
-      "dcid": "geoId/06105",
-      "name": "Trinity County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06093",
-      "name": "Siskiyou County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06049",
-      "name": "Modoc County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06033",
-      "name": "Lake County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06023",
-      "name": "Humboldt County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06103",
-      "name": "Tehama County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06039",
-      "name": "Madera County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06015",
-      "name": "Del Norte County",
+      "dcid": "geoId/06045",
+      "name": "Mendocino County",
       "place_type": "County"
     },
     {
@@ -225,8 +152,43 @@
       "place_type": "County"
     },
     {
-      "dcid": "geoId/06089",
-      "name": "Shasta County",
+      "dcid": "geoId/06063",
+      "name": "Plumas County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06031",
+      "name": "Kings County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06093",
+      "name": "Siskiyou County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06079",
+      "name": "San Luis Obispo County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06029",
+      "name": "Kern County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06109",
+      "name": "Tuolumne County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06061",
+      "name": "Placer County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06101",
+      "name": "Sutter County",
       "place_type": "County"
     }
   ],

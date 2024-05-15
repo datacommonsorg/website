@@ -15,148 +15,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06105",
+                      "geoId/06045",
+                      "geoId/06115",
+                      "geoId/06063",
+                      "geoId/06031",
                       "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
-                      "geoId/06115",
-                      "geoId/06089"
-                    ],
-                    "statVarKey": [
-                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance_multiple_place_bar_block"
-                    ],
-                    "title": "Percentage of Population Aged 18-64 With No Health Insurance (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Percentage of Population Aged 18-64 With No Health Insurance"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06115",
-                      "geoId/06089"
-                    ],
-                    "statVarKey": [
-                      "Count_Household_NoHealthInsurance_multiple_place_bar_block"
-                    ],
-                    "title": "Households Without Health Insurance (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "infoMessage": "Data for \"Trinity County, Siskiyou County, Modoc County and Del Norte County\" is currently unavailable. See the following statistics on the other places.",
-            "title": "Households Without Health Insurance"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
-                      "geoId/06115",
-                      "geoId/06089"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithHealthInsurance_multiple_place_bar_block"
-                    ],
-                    "title": "Population With Health Insurance (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population With Health Insurance"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
-                      "geoId/06115",
-                      "geoId/06089"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block"
-                    ],
-                    "title": "People With Private Health Insurance (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "People With Private Health Insurance"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
-                      "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
                     ],
                     "statVarKey": [
                       "Count_Person_NoHealthInsurance_multiple_place_bar_block"
@@ -181,118 +49,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
+                      "geoId/06045",
                       "geoId/06115",
-                      "geoId/06089"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block"
-                    ],
-                    "title": "People With Public Health Insurance (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "People With Public Health Insurance"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06105",
+                      "geoId/06063",
+                      "geoId/06031",
                       "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
-                      "geoId/06115",
-                      "geoId/06089"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block"
-                    ],
-                    "title": "People With Only Private Health Insurance (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "People With Only Private Health Insurance"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
-                      "geoId/06115",
-                      "geoId/06089"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithDirectPurchaseHealthInsurance_multiple_place_bar_block"
-                    ],
-                    "title": "Direct Purchasers of Health Insurance (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Direct Purchasers of Health Insurance"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
-                      "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
                     ],
                     "statVarKey": [
                       "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block",
@@ -318,12 +84,13 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
+                      "geoId/06045",
                       "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06031",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06061",
+                      "geoId/06101"
                     ],
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings_multiple_place_bar_block",
@@ -341,7 +108,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Trinity County, Siskiyou County, Modoc County and Del Norte County\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Plumas County, Siskiyou County and Tuolumne County\" is currently unavailable. See the following statistics on the other places.",
             "title": "Uninsured by Income"
           },
           {
@@ -355,16 +122,16 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
+                      "geoId/06045",
                       "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06063",
+                      "geoId/06031",
+                      "geoId/06093",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
                     ],
                     "statVarKey": [
                       "Count_Person_NoHealthInsurance_WhiteAlone_multiple_place_bar_block",
@@ -394,28 +161,26 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
+                      "geoId/06045",
                       "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06031",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06061",
+                      "geoId/06101"
                     ],
                     "statVarKey": [
-                      "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block"
+                      "Count_Household_NoHealthInsurance_multiple_place_bar_block"
                     ],
-                    "title": "People With Only Public Health Insurance (${date})",
+                    "title": "Households Without Health Insurance (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "People With Only Public Health Insurance"
+            "infoMessage": "Data for \"Plumas County, Siskiyou County and Tuolumne County\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Households Without Health Insurance"
           },
           {
             "columns": [
@@ -428,16 +193,246 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
+                      "geoId/06045",
                       "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06063",
+                      "geoId/06031",
+                      "geoId/06093",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Population With Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population With Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06045",
+                      "geoId/06115",
+                      "geoId/06063",
+                      "geoId/06031",
+                      "geoId/06093",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Percentage of Population Aged 18-64 With No Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Population Aged 18-64 With No Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06045",
+                      "geoId/06115",
+                      "geoId/06031",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06061",
+                      "geoId/06101"
+                    ],
+                    "statVarKey": [
+                      "Median_Age_Person_NoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Median Age of Population With No Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Plumas County, Siskiyou County and Tuolumne County\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Median Age of Population With No Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06045",
+                      "geoId/06115",
+                      "geoId/06063",
+                      "geoId/06031",
+                      "geoId/06093",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "People With Public Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People With Public Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06045",
+                      "geoId/06115",
+                      "geoId/06063",
+                      "geoId/06031",
+                      "geoId/06093",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "People With Private Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People With Private Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06045",
+                      "geoId/06115",
+                      "geoId/06063",
+                      "geoId/06031",
+                      "geoId/06093",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_18To64Years_Female_NoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Percentage of Women (18 to 64 Years Old) Without Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Women (18 to 64 Years Old) Without Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06045",
+                      "geoId/06115",
+                      "geoId/06031",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06061",
+                      "geoId/06101"
+                    ],
+                    "statVarKey": [
+                      "Median_Income_Household_NoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Households Without Health Insurance Median Income (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Plumas County, Siskiyou County and Tuolumne County\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Households Without Health Insurance Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06045",
+                      "geoId/06115",
+                      "geoId/06063",
+                      "geoId/06031",
+                      "geoId/06093",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
                     ],
                     "statVarKey": [
                       "Count_Person_WithMedicareCoverage_multiple_place_bar_block"
@@ -462,28 +457,27 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
+                      "geoId/06045",
                       "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06063",
+                      "geoId/06031",
+                      "geoId/06093",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
                     ],
                     "statVarKey": [
-                      "Count_Person_WithDirectPurchaseHealthInsuranceOnly_multiple_place_bar_block"
+                      "Percent_Person_18To64Years_Male_NoHealthInsurance_multiple_place_bar_block"
                     ],
-                    "title": "Only Direct Purchasers of Health Insurance (${date})",
+                    "title": "Percentage of Men (18 to 64 Years Old) Without Health Insurance (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Only Direct Purchasers of Health Insurance"
+            "title": "Percentage of Men (18 to 64 Years Old) Without Health Insurance"
           },
           {
             "columns": [
@@ -496,27 +490,28 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
+                      "geoId/06045",
                       "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06063",
+                      "geoId/06031",
+                      "geoId/06093",
+                      "geoId/06079",
+                      "geoId/06029",
+                      "geoId/06109",
+                      "geoId/06061",
+                      "geoId/06101"
                     ],
                     "statVarKey": [
-                      "Percent_Person_18To64Years_Female_NoHealthInsurance_multiple_place_bar_block"
+                      "Count_Person_WithHealthInsurance_WhiteAlone_multiple_place_bar_block"
                     ],
-                    "title": "Percentage of Women (18 to 64 Years Old) Without Health Insurance (${date})",
+                    "title": "White Population With Health Insurance (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Percentage of Women (18 to 64 Years Old) Without Health Insurance"
+            "denom": "Count_Person",
+            "title": "White Population With Health Insurance"
           }
         ],
         "statVarSpec": {
@@ -588,13 +583,9 @@
             "name": "Population Without Health Insurance",
             "statVar": "Count_Person_NoHealthInsurance"
           },
-          "Count_Person_WithDirectPurchaseHealthInsuranceOnly_multiple_place_bar_block": {
-            "name": "Only Direct Purchasers of Health Insurance",
-            "statVar": "Count_Person_WithDirectPurchaseHealthInsuranceOnly"
-          },
-          "Count_Person_WithDirectPurchaseHealthInsurance_multiple_place_bar_block": {
-            "name": "Direct Purchasers of Health Insurance",
-            "statVar": "Count_Person_WithDirectPurchaseHealthInsurance"
+          "Count_Person_WithHealthInsurance_WhiteAlone_multiple_place_bar_block": {
+            "name": "White Population With Health Insurance",
+            "statVar": "Count_Person_WithHealthInsurance_WhiteAlone"
           },
           "Count_Person_WithHealthInsurance_multiple_place_bar_block": {
             "name": "Population With Health Insurance",
@@ -604,25 +595,30 @@
             "name": "People With Medicare Coverage",
             "statVar": "Count_Person_WithMedicareCoverage"
           },
-          "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block": {
-            "name": "People With Only Private Health Insurance",
-            "statVar": "Count_Person_WithPrivateHealthInsuranceOnly"
-          },
           "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block": {
             "name": "People With Private Health Insurance",
             "statVar": "Count_Person_WithPrivateHealthInsurance"
-          },
-          "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block": {
-            "name": "People With Only Public Health Insurance",
-            "statVar": "Count_Person_WithPublicHealthInsuranceOnly"
           },
           "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block": {
             "name": "People With Public Health Insurance",
             "statVar": "Count_Person_WithPublicHealthInsurance"
           },
+          "Median_Age_Person_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Median Age of Population With No Health Insurance",
+            "statVar": "Median_Age_Person_NoHealthInsurance"
+          },
+          "Median_Income_Household_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Households Without Health Insurance Median Income",
+            "statVar": "Median_Income_Household_NoHealthInsurance"
+          },
           "Percent_Person_18To64Years_Female_NoHealthInsurance_multiple_place_bar_block": {
             "name": "Percentage of Women (18 to 64 Years Old) Without Health Insurance",
             "statVar": "Percent_Person_18To64Years_Female_NoHealthInsurance",
+            "unit": "%"
+          },
+          "Percent_Person_18To64Years_Male_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Percentage of Men (18 to 64 Years Old) Without Health Insurance",
+            "statVar": "Percent_Person_18To64Years_Male_NoHealthInsurance",
             "unit": "%"
           },
           "Percent_Person_18To64Years_ReceivedNoHealthInsurance_multiple_place_bar_block": {
@@ -635,7 +631,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/06105"
+        "geoId/06045"
       ]
     }
   },
@@ -644,51 +640,16 @@
   "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "geoId/06105",
-    "name": "Trinity County",
+    "dcid": "geoId/06045",
+    "name": "Mendocino County",
     "place_type": "County"
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "geoId/06105",
-      "name": "Trinity County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06093",
-      "name": "Siskiyou County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06049",
-      "name": "Modoc County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06033",
-      "name": "Lake County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06023",
-      "name": "Humboldt County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06103",
-      "name": "Tehama County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06039",
-      "name": "Madera County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06015",
-      "name": "Del Norte County",
+      "dcid": "geoId/06045",
+      "name": "Mendocino County",
       "place_type": "County"
     },
     {
@@ -697,8 +658,43 @@
       "place_type": "County"
     },
     {
-      "dcid": "geoId/06089",
-      "name": "Shasta County",
+      "dcid": "geoId/06063",
+      "name": "Plumas County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06031",
+      "name": "Kings County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06093",
+      "name": "Siskiyou County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06079",
+      "name": "San Luis Obispo County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06029",
+      "name": "Kern County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06109",
+      "name": "Tuolumne County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06061",
+      "name": "Placer County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06101",
+      "name": "Sutter County",
       "place_type": "County"
     }
   ],
@@ -721,6 +717,14 @@
       }
     ],
     "exploreMore": {
+      "Count_Household_NoHealthInsurance": {
+        "income": [
+          "Count_Household_NoHealthInsurance_IncomeOf100000OrMoreUSDollar",
+          "Count_Household_NoHealthInsurance_IncomeOf25000OrLessUSDollar",
+          "Count_Household_NoHealthInsurance_IncomeOf25000To49999USDollar",
+          "Count_Household_NoHealthInsurance_IncomeOf75000To99999USDollar"
+        ]
+      },
       "Count_Person_Female_NoHealthInsurance": {
         "age": [
           "Count_Person_18To64Years_Female_NoHealthInsurance",
@@ -740,6 +744,7 @@
       },
       "Count_Person_Male_NoHealthInsurance": {
         "age": [
+          "Count_Person_18To64Years_Male_NoHealthInsurance",
           "dc/1qdvp8x0t3l11",
           "dc/260gxgmeglpb",
           "dc/33z5t6xqjepp1",
@@ -756,6 +761,8 @@
       },
       "Count_Person_NoHealthInsurance": {
         "age": [
+          "Count_Person_16OrMoreYears_NoHealthInsurance",
+          "Count_Person_16To64Years_NoHealthInsurance",
           "Count_Person_18OrMoreYears_NoHealthInsurance",
           "Count_Person_18To24Years_NoHealthInsurance",
           "dc/6cd3lft0vm4f5",
@@ -779,36 +786,9 @@
           "Count_Person_NoHealthInsurance_WhiteAloneNotHispanicOrLatino"
         ]
       },
-      "Count_Person_WithDirectPurchaseHealthInsurance": {
-        "age": [
-          "Count_Person_18OrLessYears_WithDirectPurchaseHealthInsurance",
-          "Count_Person_18To64Years_WithDirectPurchaseHealthInsurance",
-          "Count_Person_19OrLessYears_WithDirectPurchaseHealthInsurance",
-          "Count_Person_19To64Years_WithDirectPurchaseHealthInsurance",
-          "Count_Person_65OrMoreYears_WithDirectPurchaseHealthInsurance"
-        ]
-      },
-      "Count_Person_WithDirectPurchaseHealthInsuranceOnly": {
-        "age": [
-          "dc/1nhzy1gkmf1ch",
-          "dc/2y726x9spgz45",
-          "dc/p6ezg1gqttg4",
-          "dc/she4g5yxb4ps1",
-          "dc/tvsl30ve6xcmh",
-          "dc/xc7xt9l4v6jy3"
-        ]
-      },
-      "Count_Person_WithHealthInsurance": {
-        "age": [
-          "Count_Person_18OrMoreYears_WithHealthInsurance",
-          "Count_Person_18To24Years_WithHealthInsurance"
-        ]
-      },
       "Percent_Person_18To64Years_Female_NoHealthInsurance": {
         "familyIncome": [
-          "dc/580lp655hysv",
           "dc/65wl19b3nw2h",
-          "dc/bzcnetd3pryhb",
           "dc/hcg8bgt9ne75h",
           "dc/s0ywx1qw7v582"
         ]

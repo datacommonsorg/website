@@ -219,6 +219,36 @@
             ],
             "denom": "Count_Person",
             "title": "Commuters by Commute Time"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/fyc3yvjy0xw6g_multiple_place_bar_block",
+                      "dc/dbe0drezxrpv6_multiple_place_bar_block",
+                      "dc/h7ft916g93ys2_multiple_place_bar_block",
+                      "dc/kfr6chpkw90e3_multiple_place_bar_block",
+                      "dc/pplpj0y0mzd3g_multiple_place_bar_block",
+                      "dc/vfs5dgtzhp4j4_multiple_place_bar_block"
+                    ],
+                    "title": "Population: 16 Years or More, 5 Minute or Less, Employed and Working, in Labor Force, Outside of Home and More in Sunnyvale (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Related: Population: 16 Years or More, 5 Minute or Less, Employed and Working, in Labor Force, Outside of Home and More"
           }
         ],
         "statVarSpec": {

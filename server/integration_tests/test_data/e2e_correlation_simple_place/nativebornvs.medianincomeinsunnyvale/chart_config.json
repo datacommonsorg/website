@@ -39,6 +39,149 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Household Median Income in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn"
+                    ],
+                    "title": "Population: Foreign Born in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Foreign Born in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn"
+                    ],
+                    "title": "Population: Foreign Born in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Earnings in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_PlaceOfBirthAsia"
+                    ],
+                    "title": "Population: Foreign Born, Asia in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Foreign Born, Asia in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_PlaceOfBirthAsia"
+                    ],
+                    "title": "Population: Foreign Born, Asia in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born, Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/6bkn9vt30f5c1"
+                    ],
+                    "title": "Population: Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "statVarKey": [
+                      "dc/6bkn9vt30f5c1"
+                    ],
+                    "title": "Population: Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born, American Indian or Alaska Native Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Median_Income_Person"
                     ],
                     "title": "Individual Median Income in Sunnyvale",
@@ -63,13 +206,33 @@
           }
         ],
         "statVarSpec": {
+          "Count_Person_ForeignBorn": {
+            "name": "Population: Foreign Born",
+            "statVar": "Count_Person_ForeignBorn"
+          },
           "Count_Person_Native": {
             "name": "Population: Native",
             "statVar": "Count_Person_Native"
           },
+          "Count_Person_PlaceOfBirthAsia": {
+            "name": "Population: Foreign Born, Asia",
+            "statVar": "Count_Person_PlaceOfBirthAsia"
+          },
+          "Median_Earnings_Person": {
+            "name": "Individual Median Earnings",
+            "statVar": "Median_Earnings_Person"
+          },
+          "Median_Income_Household": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
+          },
           "Median_Income_Person": {
             "name": "Individual Median Income",
             "statVar": "Median_Income_Person"
+          },
+          "dc/6bkn9vt30f5c1": {
+            "name": "Population: Foreign Born, American Indian or Alaska Native Alone",
+            "statVar": "dc/6bkn9vt30f5c1"
           }
         }
       }

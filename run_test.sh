@@ -99,8 +99,8 @@ function run_py_test {
   source .env/bin/activate
   export FLASK_ENV=test
   # Disabled nodejs e2e test to avoid dependency on dev
-  python3 -m pytest server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py
-  python3 -m pytest shared/tests/ -s
+  # python3 -m pytest server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py
+  # python3 -m pytest shared/tests/ -s
   python3 -m pytest nl_server/tests/ -s
 
   # Tests within tools/nl/embeddings

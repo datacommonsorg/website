@@ -699,23 +699,15 @@
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/TemperaturePredictions",
-        "name": "Temperature Predictions",
+        "dcid": "dc/topic/YearlyProjectedTemperatureHighs",
+        "name": "Yearly Projected Temperature Highs",
         "types": [
           "Topic"
         ]
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Temperatures",
-        "name": "Temperature",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/01",

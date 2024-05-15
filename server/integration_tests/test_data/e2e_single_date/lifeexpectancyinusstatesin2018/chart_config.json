@@ -149,9 +149,344 @@
               }
             ],
             "title": "Life Expectancy by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "WHO/CM_01_2018_2422018550",
+                      "WHO/CM_02_2018_2422018550",
+                      "WHO/CM_03_2018_2422018550"
+                    ],
+                    "title": "Child Mortality in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Child Mortality"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "WHO/MORT_MATERNALNUM_2018_2422018550"
+                    ],
+                    "title": "Number of Maternal Deaths in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Number of Maternal Deaths in United States",
+                    "statVarKey": [
+                      "WHO/MORT_MATERNALNUM_2018"
+                    ],
+                    "title": "Number of Maternal Deaths in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Maternal Deaths"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F_2018_463932713"
+                    ],
+                    "title": "Maternal Mortality Ratio in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Maternal Mortality Ratio in United States",
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F_2018"
+                    ],
+                    "title": "Maternal Mortality Ratio in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: estimates by WHO, UNICEF, UNFPA, world bank group and UNDESA/Population division. Geneva: world health organization; 2023.",
+            "title": "Maternal Mortality Ratio"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_1151455814"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mortality Rate (Age Adjusted, Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person_2018_1113810078"
+                    ],
+                    "title": "Deaths Per Capita in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Deaths Per Capita in United States",
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person_2018"
+                    ],
+                    "title": "Deaths Per Capita in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Count_Death_2018_1151455814"
+                    ],
+                    "title": "Deaths in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Deaths in United States",
+                    "statVarKey": [
+                      "Count_Death_2018"
+                    ],
+                    "title": "Deaths in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth_2018"
+                    ],
+                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth_2018"
+                    ],
+                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Interval in Months Since Last Live Birth in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_2018"
+                    ],
+                    "title": "Median Age of Population in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_2018"
+                    ],
+                    "title": "Median Age of Population in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_2018_3357919774"
+                    ],
+                    "title": "Median Age of Population in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Population in United States",
+                    "statVarKey": [
+                      "Median_Age_Person_2018"
+                    ],
+                    "title": "Median Age of Population in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population"
           }
         ],
         "statVarSpec": {
+          "Count_Death_2018": {
+            "date": "2018",
+            "name": "Deaths",
+            "statVar": "Count_Death"
+          },
+          "Count_Death_2018_1151455814": {
+            "date": "2018",
+            "facetId": "1151455814",
+            "name": "Deaths",
+            "statVar": "Count_Death"
+          },
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018": {
+            "date": "2018",
+            "name": "Mortality Rate (Age Adjusted, Per Capita)",
+            "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+          },
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_1151455814": {
+            "date": "2018",
+            "facetId": "1151455814",
+            "name": "Mortality Rate (Age Adjusted, Per Capita)",
+            "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+          },
+          "Count_Death_AsAFractionOfCount_Person_2018": {
+            "date": "2018",
+            "name": "Deaths Per Capita",
+            "statVar": "Count_Death_AsAFractionOfCount_Person"
+          },
+          "Count_Death_AsAFractionOfCount_Person_2018_1113810078": {
+            "date": "2018",
+            "facetId": "1113810078",
+            "name": "Deaths Per Capita",
+            "statVar": "Count_Death_AsAFractionOfCount_Person"
+          },
           "LifeExpectancy_Person_2018": {
             "date": "2018",
             "name": "Life Expectancy",
@@ -184,6 +519,62 @@
             "facetId": "2776657033",
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
+          },
+          "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth_2018": {
+            "date": "2018",
+            "name": "Average interval in months since last live birth",
+            "statVar": "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
+          },
+          "Median_Age_Person_2018": {
+            "date": "2018",
+            "name": "Median Age of Population",
+            "statVar": "Median_Age_Person"
+          },
+          "Median_Age_Person_2018_3357919774": {
+            "date": "2018",
+            "facetId": "3357919774",
+            "name": "Median Age of Population",
+            "statVar": "Median_Age_Person"
+          },
+          "WHO/CM_01_2018_2422018550": {
+            "date": "2018",
+            "facetId": "2422018550",
+            "name": "Number Of Under-Five Deaths",
+            "statVar": "WHO/CM_01"
+          },
+          "WHO/CM_02_2018_2422018550": {
+            "date": "2018",
+            "facetId": "2422018550",
+            "name": "Number Of Infant Deaths",
+            "statVar": "WHO/CM_02"
+          },
+          "WHO/CM_03_2018_2422018550": {
+            "date": "2018",
+            "facetId": "2422018550",
+            "name": "Number Of Neonatal Deaths",
+            "statVar": "WHO/CM_03"
+          },
+          "WHO/MORT_MATERNALNUM_2018": {
+            "date": "2018",
+            "name": "Number Of Maternal Deaths",
+            "statVar": "WHO/MORT_MATERNALNUM"
+          },
+          "WHO/MORT_MATERNALNUM_2018_2422018550": {
+            "date": "2018",
+            "facetId": "2422018550",
+            "name": "Number Of Maternal Deaths",
+            "statVar": "WHO/MORT_MATERNALNUM"
+          },
+          "sdg/SH_STA_MORT.SEX--F_2018": {
+            "date": "2018",
+            "name": "Maternal mortality ratio",
+            "statVar": "sdg/SH_STA_MORT.SEX--F"
+          },
+          "sdg/SH_STA_MORT.SEX--F_2018_463932713": {
+            "date": "2018",
+            "facetId": "463932713",
+            "name": "Maternal mortality ratio",
+            "statVar": "sdg/SH_STA_MORT.SEX--F"
           }
         }
       }
@@ -576,6 +967,12 @@
         "gender": [
           "LifeExpectancy_Person_Female",
           "LifeExpectancy_Person_Male"
+        ]
+      },
+      "Median_Age_Person": {
+        "gender": [
+          "Median_Age_Person_Female",
+          "Median_Age_Person_Male"
         ]
       }
     },
