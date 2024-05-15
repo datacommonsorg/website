@@ -36,7 +36,7 @@ bp = Blueprint('main', __name__, url_prefix='/')
 @bp.route('/healthz')
 def healthz():
   default_index_type = current_app.config[
-      config.EMBEDDINGS_SPEC_KEY][_DEFAULT_INDEX_KEY]
+      config.EMBEDDINGS_SPEC_KEY].default_index
   if not default_index_type:
     return 'Service Unavailable', 500
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get_index(
