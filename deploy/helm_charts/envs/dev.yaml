@@ -43,7 +43,16 @@ nl:
   enabled: true
   embeddingsSpec:
     defaultIndex: "medium_ft"
-    enabledIndexes: ["medium_ft", "sdg_ft", "undata_ft", "bio_ft", "medium_lance_ft", "medium_vertex_ft", "base_uae_mem", "medium_vertex_mistral"]
+    enabledIndexes: [
+      "base_uae_mem",
+      "bio_ft",
+      "medium_ft",
+      "medium_lance_ft",
+      "medium_vertex_ft",
+      "medium_vertex_mistral",
+      "sdg_ft",
+      "undata_ft",
+    ]
     vertexAIModels:
       dc-all-minilm-l6-v2-model:
         project_id: datcom-website-dev
@@ -65,7 +74,7 @@ nl:
         project_id: datcom-website-dev
         location: us-central1
         prediction_endpoint_id: "284894457873039360"
-    rankingEnabled: true
+    enableReranking: true
 
 nodejs:
   enabled: true

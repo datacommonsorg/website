@@ -23,6 +23,7 @@ from flask import Flask
 import yaml
 
 from nl_server import config
+from nl_server.custom_dc_constants import CUSTOM_DC_EMBEDDINGS_SPEC
 import nl_server.embeddings_map as emb_map
 from nl_server.nl_attribute_model import NLAttributeModel
 from shared.lib.custom_dc_util import get_custom_dc_user_data_path
@@ -34,6 +35,7 @@ from shared.lib.gcs import join_gcs_path
 _EMBEDDINGS_YAML = 'embeddings.yaml'
 _CUSTOM_EMBEDDINGS_YAML_PATH = 'datacommons/nl/custom_embeddings.yaml'
 _EMBEDDINGS_SPEC_PATH: str = '/datacommons/nl/embeddings_spec.json'
+_LOCAL_ENV_VALUES_PATH: str = f'{Path(__file__).parent.parent}/deploy/helm_charts/envs/autopush.yaml'
 
 
 @dataclass
@@ -41,15 +43,7 @@ class EmbeddingsSpec:
   default_index: str
   enabled_indexes: List[str]
   vertex_ai_model_info: Dict[str, any]
-  ranking_enabled: bool
-
-
-# TODO: move this to be part of custom dc deployment
-_CUSTOM_DC_EMBEDDINGS_SPEC = {
-    'defaultIndex': 'medium_ft',
-    'enabledIndexes': ['medium_ft'],
-    'rankingEnabled': False
-}
+  enable_reranking: bool
 
 
 #
@@ -62,7 +56,7 @@ def load_server_state(app: Flask):
   embeddings_dict = _load_yaml(flask_env, embeddings_spec.enabled_indexes)
   parsed_embeddings_dict = config.parse(embeddings_dict,
                                         embeddings_spec.vertex_ai_model_info,
-                                        embeddings_spec.ranking_enabled)
+                                        embeddings_spec.enable_reranking)
   nl_embeddings = emb_map.EmbeddingsMap(parsed_embeddings_dict)
   attribute_model = NLAttributeModel()
   _update_app_config(app, attribute_model, nl_embeddings, embeddings_dict,
@@ -89,7 +83,7 @@ def load_custom_embeddings(app: Flask):
   try:
     embeddings_info = config.parse(embeddings_map,
                                    embeddings_spec.vertex_ai_model_info,
-                                   embeddings_spec.ranking_enabled)
+                                   embeddings_spec.enable_reranking)
     # Reset the custom DC index.
     nl_embeddings.reset_index(embeddings_info)
   except Exception as e:
@@ -134,7 +128,6 @@ def _update_app_config(app: Flask, attribute_model: NLAttributeModel,
   app.config[config.ATTRIBUTE_MODEL_KEY] = attribute_model
   app.config[config.NL_EMBEDDINGS_KEY] = nl_embeddings
   app.config[config.NL_EMBEDDINGS_VERSION_KEY] = embeddings_version_map
-  app.config[config.DEFAULT_INDEX_TYPE_KEY] = embeddings_spec.default_index
   app.config[config.EMBEDDINGS_SPEC_KEY] = embeddings_spec
 
 
@@ -195,7 +188,7 @@ def _get_embeddings_spec() -> EmbeddingsSpec:
 
   # If custom dc, get from constant
   if is_custom_dc():
-    embeddings_spec_dict = _CUSTOM_DC_EMBEDDINGS_SPEC
+    embeddings_spec_dict = CUSTOM_DC_EMBEDDINGS_SPEC
   # otherwise try to get from gke.
   elif os.path.exists(_EMBEDDINGS_SPEC_PATH):
     with open(_EMBEDDINGS_SPEC_PATH) as f:
@@ -203,14 +196,12 @@ def _get_embeddings_spec() -> EmbeddingsSpec:
   # If that path doesn't exist, assume we are running locally and use the values
   # from autopush.
   else:
-    current_file_path = Path(__file__)
-    autopush_env_values = f'{current_file_path.parent.parent}/deploy/helm_charts/envs/autopush.yaml'
-    with open(autopush_env_values) as f:
-      autopush_env = yaml.full_load(f)
-      embeddings_spec_dict = autopush_env['nl']['embeddingsSpec']
+    with open(_LOCAL_ENV_VALUES_PATH) as f:
+      env_values = yaml.full_load(f)
+      embeddings_spec_dict = env_values['nl']['embeddingsSpec']
 
   return EmbeddingsSpec(
-      embeddings_spec_dict['defaultIndex'],
-      embeddings_spec_dict['enabledIndexes'],
+      embeddings_spec_dict.get('defaultIndex', ''),
+      embeddings_spec_dict.get('enabledIndexes', []),
       vertex_ai_model_info=embeddings_spec_dict.get('vertexAIModels') or {},
-      ranking_enabled=embeddings_spec_dict['rankingEnabled'])
+      enable_reranking=embeddings_spec_dict.get('enableReranking', False))

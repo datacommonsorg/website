@@ -20,7 +20,6 @@ import unittest
 from parameterized import parameterized
 import yaml
 
-from nl_server import embeddings_map as emb_map
 from nl_server.config import parse
 from nl_server.embeddings import Embeddings
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
@@ -45,7 +44,7 @@ def _get_embeddings_info(embeddings_spec):
   with open(embeddings_config_path) as f:
     embeddings_map = yaml.full_load(f)
     return parse(embeddings_map, embeddings_spec['vertexAIModels'],
-                 embeddings_spec['rankingEnabled'])
+                 embeddings_spec['enableReranking'])
 
 
 def _get_contents(

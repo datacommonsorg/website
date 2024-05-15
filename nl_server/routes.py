@@ -35,7 +35,8 @@ bp = Blueprint('main', __name__, url_prefix='/')
 
 @bp.route('/healthz')
 def healthz():
-  default_index_type = current_app.config[config.DEFAULT_INDEX_TYPE_KEY]
+  default_index_type = current_app.config[
+      config.EMBEDDINGS_SPEC_KEY]['default_index']
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get_index(
       default_index_type)
   if nl_embeddings:
@@ -59,7 +60,8 @@ def search_vars():
   queries = request.json.get('queries', [])
   queries = [str(escape(q)) for q in queries]
 
-  default_index_type = current_app.config[config.DEFAULT_INDEX_TYPE_KEY]
+  default_index_type = current_app.config[
+      config.EMBEDDINGS_SPEC_KEY]['default_index']
   idx = str(escape(request.args.get('idx', default_index_type)))
   if not idx:
     idx = default_index_type

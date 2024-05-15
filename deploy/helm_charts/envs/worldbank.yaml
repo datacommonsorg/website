@@ -51,7 +51,12 @@ nl:
   enabled: true
   embeddingsSpec:
     defaultIndex: "medium_ft"
-    enabledIndexes: ["medium_ft", "sdg_ft", "undata_ft", "bio_ft"]
+    enabledIndexes: [
+      "bio_ft"
+      "medium_ft",
+      "sdg_ft",
+      "undata_ft",
+    ]
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

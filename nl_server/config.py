@@ -26,7 +26,6 @@ CUSTOM_DC_INDEX: str = 'custom_ft'
 ATTRIBUTE_MODEL_KEY: str = 'ATTRIBUTE_MODEL'
 NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
 NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
-DEFAULT_INDEX_TYPE_KEY: str = 'DEFAULT_INDEX_TYPE'
 EMBEDDINGS_SPEC_KEY: str = 'EMBEDDINGS_SPEC'
 
 
@@ -97,14 +96,24 @@ class EmbeddingsConfig:
   models: Dict[str, ModelConfig]
 
 
+# Determines whether model is enabled
+def _is_model_enabled(model_name: str, model_info: Dict[str, str],
+                      used_models: set[str], reranking_enabled: bool):
+  if model_name in used_models:
+    return True
+  if model_info['usage'] == ModelUsage.RERANKING and reranking_enabled:
+    return True
+  return False
+
+
 #
 # Parse the input `embeddings.yaml` dict representation into EmbeddingsConfig
 # object.
 #
 def parse(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str, any],
-          ranking_enabled: bool) -> EmbeddingsConfig:
+          reranking_enabled: bool) -> EmbeddingsConfig:
   if embeddings_map['version'] == 1:
-    return parse_v1(embeddings_map, vertex_ai_model_info, ranking_enabled)
+    return parse_v1(embeddings_map, vertex_ai_model_info, reranking_enabled)
   else:
     raise AssertionError('Could not parse embeddings map: unsupported version.')
 
@@ -115,7 +124,7 @@ def parse(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str, any],
 #
 def parse_v1(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str,
                                                                         any],
-             ranking_enabled: bool) -> EmbeddingsConfig:
+             reranking_enabled: bool) -> EmbeddingsConfig:
   used_models = set()
 
   # parse the indexes
@@ -150,11 +159,9 @@ def parse_v1(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str,
   # parse the models
   models = {}
   for model_name, model_info in embeddings_map.get('models', {}).items():
-    # Only parse the model if it is used by an index or it is a ranking model
-    # and ranking is allowed. Otherwise, skip
-    if model_name not in used_models:
-      if not ranking_enabled or model_info['usage'] != ModelUsage.RERANKING:
-        continue
+    if not _is_model_enabled(model_name, model_info, used_models,
+                             reranking_enabled):
+      continue
 
     model_type = model_info['type']
     score_threshold = model_info.get('score_threshold',

@@ -140,7 +140,7 @@ nl:
     defaultIndex: ""
     enabledIndexes: []
     vertexAIModels:
-    rankingEnabled: false
+    enableReranking: false
 
 
 ###############################################################################
