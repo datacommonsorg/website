@@ -32,8 +32,6 @@ from shared.lib.detected_variables import VarCandidates
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
-_DEFAULT_INDEX_KEY = 'default_index'
-
 
 @bp.route('/healthz')
 def healthz():
@@ -65,7 +63,7 @@ def search_vars():
   queries = [str(escape(q)) for q in queries]
 
   default_index_type = current_app.config[
-      config.EMBEDDINGS_SPEC_KEY][_DEFAULT_INDEX_KEY]
+      config.EMBEDDINGS_SPEC_KEY].default_index
   idx = str(escape(request.args.get('idx', default_index_type)))
   if not idx:
     idx = default_index_type
