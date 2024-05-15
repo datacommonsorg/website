@@ -36,6 +36,9 @@ class Config(_base.Config):
           "dcid": "dc/g/SDG"
       }, {
           "dcid": "dc/g/UN"
+      }, {
+          "dcid": "dc/g/Custom_UN",
+          "name": "12 UN Data Thematic Areas (ILO)"
       }]
   }
 
