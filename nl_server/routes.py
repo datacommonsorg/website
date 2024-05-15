@@ -37,10 +37,11 @@ bp = Blueprint('main', __name__, url_prefix='/')
 def healthz():
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get_index(
       config.DEFAULT_INDEX_TYPE)
-  result: VarCandidates = search.search_vars(
-      [nl_embeddings], ['life expectancy'])['life expectancy']
-  if result.svs and 'Expectancy' in result.svs[0]:
-    return 'OK', 200
+  if nl_embeddings:
+    result: VarCandidates = search.search_vars(
+        [nl_embeddings], ['life expectancy'])['life expectancy']
+    if result.svs and 'Expectancy' in result.svs[0]:
+      return 'OK', 200
   return 'Service Unavailable', 500
 
 
