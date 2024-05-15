@@ -15,14 +15,11 @@
 import logging
 from typing import Dict
 
-from nl_server.config import allow_vertex_ai
-from nl_server.config import DEFAULT_INDEX_TYPE
 from nl_server.config import EmbeddingsConfig
 from nl_server.config import IndexConfig
 from nl_server.config import ModelConfig
 from nl_server.config import ModelType
 from nl_server.config import ModelUsage
-from nl_server.config import parse
 from nl_server.config import StoreType
 from nl_server.embeddings import Embeddings
 from nl_server.embeddings import EmbeddingsModel
@@ -40,17 +37,16 @@ from shared.lib.custom_dc_util import is_custom_dc
 #
 class EmbeddingsMap:
 
-  # Input is the in-memory representation of `embeddings.yaml` structure.
-  def __init__(self, embeddings_dict: dict[str, dict[str, str]]):
+  # Input is parsed embeddings config.
+  def __init__(self, embeddings_config: EmbeddingsConfig):
     self.embeddings_map: dict[str, Embeddings] = {}
     self.name_to_emb_model: Dict[str, EmbeddingsModel] = {}
     self.name_to_rank_model: Dict[str, RerankingModel] = {}
 
-    embeddings_info = parse(embeddings_dict)
-    self.reset_index(embeddings_info)
+    self.reset_index(embeddings_config)
 
   # Note: The caller takes care of exceptions.
-  def get_index(self, index_type: str = DEFAULT_INDEX_TYPE) -> Embeddings:
+  def get_index(self, index_type: str) -> Embeddings:
     return self.embeddings_map.get(index_type)
 
   def get_reranking_model(self, model_name: str) -> RerankingModel:
@@ -73,7 +69,7 @@ class EmbeddingsMap:
 
       # try creating a model object from the model info
       try:
-        if (allow_vertex_ai() and model_info.type == ModelType.VERTEXAI):
+        if model_info.type == ModelType.VERTEXAI:
           if model_info.usage == ModelUsage.EMBEDDINGS:
             model = VertexAIEmbeddingsModel(model_info)
             self.name_to_emb_model[model_name] = model
@@ -105,7 +101,7 @@ class EmbeddingsMap:
         else:
           logging.info('Not loading LanceDB in Custom DC environment!')
           return
-      elif idx_info.store_type == StoreType.VERTEXAI and allow_vertex_ai():
+      elif idx_info.store_type == StoreType.VERTEXAI:
         store = VertexAIStore(idx_info)
     except Exception as e:
       logging.error(f'error loading index {idx_name}: {str(e)} ')

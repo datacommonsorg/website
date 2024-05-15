@@ -15,28 +15,18 @@
 from abc import ABC
 from dataclasses import dataclass
 from enum import Enum
-import json
-import logging
-import os
-from pathlib import Path
 from typing import Dict
 
-import yaml
-
 from shared.lib import constants
-from shared.lib.custom_dc_util import is_custom_dc
 
 # Index constants.  Passed in `url=`
 CUSTOM_DC_INDEX: str = 'custom_ft'
-DEFAULT_INDEX_TYPE: str = 'medium_ft'
 
 # App Config constants.
 ATTRIBUTE_MODEL_KEY: str = 'ATTRIBUTE_MODEL'
 NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
 NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
-VERTEX_AI_MODELS_KEY: str = 'VERTEX_AI_MODELS'
-
-_VERTEX_AI_MODEL_CONFIG_PATH: str = '/datacommons/nl/vertex_ai_models.json'
+EMBEDDINGS_SPEC_KEY: str = 'EMBEDDINGS_SPEC'
 
 
 class StoreType(str, Enum):
@@ -106,81 +96,42 @@ class EmbeddingsConfig:
   models: Dict[str, ModelConfig]
 
 
-#
-# Get Dict of vertex ai model to its info
-#
-def _get_vertex_ai_model_info() -> Dict[str, any]:
-  # Custom DC doesn't use vertex ai so just return an empty dict
-  # TODO: if we want to use vertex ai for custom dc, can add a file with the
-  # config to the custom dc docker image here: https://github.com/datacommonsorg/website/blob/master/build/web_compose/Dockerfile#L67
-  if is_custom_dc():
-    return {}
-
-  # This is the path to model info when deployed in gke.
-  if os.path.exists(_VERTEX_AI_MODEL_CONFIG_PATH):
-    with open(_VERTEX_AI_MODEL_CONFIG_PATH) as f:
-      return json.load(f) or {}
-  # If that path doesn't exist, assume we are running locally and use the values
-  # from autopush.
-  else:
-    current_file_path = Path(__file__)
-    autopush_env_values = f'{current_file_path.parent.parent}/deploy/helm_charts/envs/autopush.yaml'
-    with open(autopush_env_values) as f:
-      autopush_env = yaml.full_load(f)
-      return autopush_env['nl']['vertex_ai_models']
+# Determines whether model is enabled
+def _is_model_enabled(model_name: str, model_info: Dict[str, str],
+                      used_models: set[str], reranking_enabled: bool):
+  if model_name in used_models:
+    return True
+  if model_info['usage'] == ModelUsage.RERANKING and reranking_enabled:
+    return True
+  return False
 
 
 #
-# Parse the input `embeddings.yaml` dict representation into EmbeddingsInfo
+# Parse the input `embeddings.yaml` dict representation into EmbeddingsConfig
 # object.
 #
-def parse(embeddings_map: Dict[str, any]) -> EmbeddingsConfig:
-  get_vertex_ai_model_info = _get_vertex_ai_model_info()
+def parse(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str, any],
+          reranking_enabled: bool) -> EmbeddingsConfig:
   if embeddings_map['version'] == 1:
-    return parse_v1(embeddings_map, get_vertex_ai_model_info)
+    return parse_v1(embeddings_map, vertex_ai_model_info, reranking_enabled)
   else:
     raise AssertionError('Could not parse embeddings map: unsupported version.')
 
 
 #
 # Parses the v1 version of the `embeddings.yaml` dict representation into
-# EmbeddingsInfo object.
+# EmbeddingsConfig object.
 #
-def parse_v1(embeddings_map: Dict[str, any],
-             vertex_ai_model_info: Dict[str, any]) -> EmbeddingsConfig:
-  # parse the models
-  models = {}
-  for model_name, model_info in embeddings_map.get('models', {}).items():
-    model_type = model_info['type']
-    score_threshold = model_info.get('score_threshold',
-                                     constants.SV_SCORE_DEFAULT_THRESHOLD)
-    if model_type == ModelType.LOCAL:
-      models[model_name] = LocalModelConfig(type=model_type,
-                                            score_threshold=score_threshold,
-                                            usage=model_info['usage'],
-                                            gcs_folder=model_info['gcs_folder'])
-    elif model_type == ModelType.VERTEXAI:
-      if model_name not in vertex_ai_model_info:
-        logging.error(
-            f'Could not find vertex ai model information for {model_name}')
-        continue
-      models[model_name] = VertexAIModelConfig(
-          type=model_type,
-          score_threshold=score_threshold,
-          usage=model_info['usage'],
-          project_id=vertex_ai_model_info[model_name]['project_id'],
-          prediction_endpoint_id=vertex_ai_model_info[model_name]
-          ['prediction_endpoint_id'],
-          location=vertex_ai_model_info[model_name]['location'])
-    else:
-      raise AssertionError(
-          'Error parsing information for model {model_name}: unsupported type {model_type}'
-      )
+def parse_v1(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str,
+                                                                        any],
+             reranking_enabled: bool) -> EmbeddingsConfig:
+  used_models = set()
 
   # parse the indexes
   indexes = {}
   for index_name, index_info in embeddings_map.get('indexes', {}).items():
     store_type = index_info['store']
+    used_models.add(index_info['model'])
     if store_type == StoreType.MEMORY:
       indexes[index_name] = MemoryIndexConfig(
           store_type=store_type,
@@ -205,11 +156,32 @@ def parse_v1(embeddings_map: Dict[str, any],
           'Error parsing information for index {index_name}: unsupported store type {store_type}'
       )
 
+  # parse the models
+  models = {}
+  for model_name, model_info in embeddings_map.get('models', {}).items():
+    if not _is_model_enabled(model_name, model_info, used_models,
+                             reranking_enabled):
+      continue
+
+    model_type = model_info['type']
+    score_threshold = model_info.get('score_threshold',
+                                     constants.SV_SCORE_DEFAULT_THRESHOLD)
+    if model_type == ModelType.LOCAL:
+      models[model_name] = LocalModelConfig(type=model_type,
+                                            score_threshold=score_threshold,
+                                            usage=model_info['usage'],
+                                            gcs_folder=model_info['gcs_folder'])
+    elif model_type == ModelType.VERTEXAI:
+      models[model_name] = VertexAIModelConfig(
+          type=model_type,
+          score_threshold=score_threshold,
+          usage=model_info['usage'],
+          project_id=vertex_ai_model_info[model_name]['project_id'],
+          prediction_endpoint_id=vertex_ai_model_info[model_name]
+          ['prediction_endpoint_id'],
+          location=vertex_ai_model_info[model_name]['location'])
+    else:
+      raise AssertionError(
+          'Error parsing information for model {model_name}: unsupported type {model_type}'
+      )
   return EmbeddingsConfig(indexes=indexes, models=models)
-
-
-# Returns true if VERTEXAI type models and VERTEXAI type stores are allowed
-def allow_vertex_ai() -> bool:
-  return os.environ.get('FLASK_ENV') in [
-      'local', 'test', 'integration_test', 'autopush', 'dev'
-  ]

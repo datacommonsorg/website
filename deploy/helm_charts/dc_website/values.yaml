@@ -136,7 +136,11 @@ nl:
   models:
   memory: "2G"
   workers: 1
-  vertex_ai_models:
+  embeddingsSpec:
+    defaultIndex: ""
+    enabledIndexes: []
+    vertexAIModels:
+    enableReranking: false
 
 
 ###############################################################################
