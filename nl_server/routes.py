@@ -35,8 +35,12 @@ bp = Blueprint('main', __name__, url_prefix='/')
 
 @bp.route('/healthz')
 def healthz():
+  default_index_type = current_app.config[
+      config.EMBEDDINGS_SPEC_KEY].default_index
+  if not default_index_type:
+    return 'Service Unavailable', 500
   nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get_index(
-      config.DEFAULT_INDEX_TYPE)
+      default_index_type)
   if nl_embeddings:
     result: VarCandidates = search.search_vars(
         [nl_embeddings], ['life expectancy'])['life expectancy']
@@ -58,9 +62,11 @@ def search_vars():
   queries = request.json.get('queries', [])
   queries = [str(escape(q)) for q in queries]
 
-  idx = str(escape(request.args.get('idx', config.DEFAULT_INDEX_TYPE)))
+  default_index_type = current_app.config[
+      config.EMBEDDINGS_SPEC_KEY].default_index
+  idx = str(escape(request.args.get('idx', default_index_type)))
   if not idx:
-    idx = config.DEFAULT_INDEX_TYPE
+    idx = default_index_type
 
   emb_map: EmbeddingsMap = current_app.config[config.NL_EMBEDDINGS_KEY]
 

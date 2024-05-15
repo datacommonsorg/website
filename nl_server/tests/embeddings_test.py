@@ -20,7 +20,6 @@ import unittest
 from parameterized import parameterized
 import yaml
 
-from nl_server import embeddings_map as emb_map
 from nl_server.config import parse
 from nl_server.embeddings import Embeddings
 from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
@@ -32,11 +31,20 @@ _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-def _get_embeddings_info():
+def _get_embeddings_spec():
+  autopush_values_path = os.path.join(_root_dir,
+                                      'deploy/helm_charts/envs/autopush.yaml')
+  with open(autopush_values_path) as f:
+    autopush_values = yaml.full_load(f)
+    return autopush_values['nl']['embeddingsSpec']
+
+
+def _get_embeddings_info(embeddings_spec):
   embeddings_config_path = os.path.join(_root_dir, 'deploy/nl/embeddings.yaml')
   with open(embeddings_config_path) as f:
     embeddings_map = yaml.full_load(f)
-    return parse(embeddings_map)
+    return parse(embeddings_map, embeddings_spec['vertexAIModels'],
+                 embeddings_spec['enableReranking'])
 
 
 def _get_contents(
@@ -48,9 +56,10 @@ class TestEmbeddings(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls) -> None:
-    embeddings_info = _get_embeddings_info()
+    embeddings_spec = _get_embeddings_spec()
+    embeddings_info = _get_embeddings_info(embeddings_spec)
     # TODO(pradh): Expand tests to other index sizes.
-    idx_info = embeddings_info.indexes[emb_map.DEFAULT_INDEX_TYPE]
+    idx_info = embeddings_info.indexes[embeddings_spec['defaultIndex']]
     model_info = embeddings_info.models[idx_info.model]
     cls.nl_embeddings = Embeddings(
         model=LocalSentenceTransformerModel(model_info),
