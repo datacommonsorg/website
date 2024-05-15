@@ -203,5 +203,7 @@ def _get_embeddings_spec() -> EmbeddingsSpec:
   return EmbeddingsSpec(
       embeddings_spec_dict.get('defaultIndex', ''),
       embeddings_spec_dict.get('enabledIndexes', []),
+      # When vertexAIModels the key exists, the value can be None. If value is
+      # None, we still want to use an empty object.
       vertex_ai_model_info=embeddings_spec_dict.get('vertexAIModels') or {},
       enable_reranking=embeddings_spec_dict.get('enableReranking', False))
