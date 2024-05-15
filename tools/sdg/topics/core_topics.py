@@ -54,22 +54,27 @@ _UNDATA_ILO_NON_COUNTRY_VARS = '../../../server/config/nl_page/undata_ilo_non_co
 _UNDATA_ILO_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_undata_ilo.mcf')
 _UNDATA_ILO_VARIABLES_FILE = 'undata_ilo_variable_grouping.csv'
 _UNDATA_ILO_SERIES_TOPICS_FILE = 'un_ilo_series_topics.csv'
-_UNDATA_ILO_NL_DESCRIPTIONS_FILE = os.path.join(_TMP_DIR,
-                                            'undata_ilo_nl_descriptions.csv')
+_UNDATA_ILO_NL_DESCRIPTIONS_FILE = os.path.join(
+    _TMP_DIR, 'undata_ilo_nl_descriptions.csv')
 
-REMOVE_SVG_PREFIX="Custom_"
+REMOVE_SVG_PREFIX = "Custom_"
 
 API_ROOT = "https://staging.unsdg.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
 API_PATH_PROP_OUT = API_ROOT + '/v1/bulk/property/values/out'
 
+
 def _svg2t(svg, remove_svg_prefix=""):
   # NOTE: Use small "sdg" to avoid overlap with prior topics.
-  return svg.replace('dc/g/SDG', 'dc/topic/sdg').replace('dc/g/', 'dc/topic/').replace(f"/{remove_svg_prefix}", "/")
+  return svg.replace('dc/g/SDG',
+                     'dc/topic/sdg').replace('dc/g/', 'dc/topic/').replace(
+                         f"/{remove_svg_prefix}", "/")
 
 
-def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
-                           keep_vars: Set[str], remove_svg_prefix=""):
+def download_svg_recursive(svgs: List[str],
+                           nodes: Dict[str, Dict],
+                           keep_vars: Set[str],
+                           remove_svg_prefix=""):
   resp = common.call_api(API_PATH_SVG_INFO, {'nodes': svgs})
   recurse_nodes = set()
   for data in resp.get('data', []):
@@ -81,7 +86,7 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
     if not info:
       continue
 
-    tid = _svg2t(svg_id,remove_svg_prefix)
+    tid = _svg2t(svg_id, remove_svg_prefix)
     if tid in nodes:
       continue
 
@@ -111,10 +116,13 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
     }
 
   if recurse_nodes:
-    download_svg_recursive(sorted(list(recurse_nodes)), nodes, keep_vars, remove_svg_prefix)
+    download_svg_recursive(sorted(list(recurse_nodes)), nodes, keep_vars,
+                           remove_svg_prefix)
 
 
-def download_svgs(init_nodes: List[str], keep_vars: Set[str], remove_svg_prefix=""):
+def download_svgs(init_nodes: List[str],
+                  keep_vars: Set[str],
+                  remove_svg_prefix=""):
   nodes = {}
   download_svg_recursive(init_nodes, nodes, keep_vars, remove_svg_prefix)
   return nodes
@@ -245,7 +253,10 @@ def drop_dangling_topic_refs(nodes: List[Dict]):
   return new_nodes
 
 
-def generate(init_nodes: List[str], filter_vars: Variables, remove_svg_prefix="", skip_assert=False):
+def generate(init_nodes: List[str],
+             filter_vars: Variables,
+             remove_svg_prefix="",
+             skip_assert=False):
   nodes = download_svgs(init_nodes, filter_vars.keep_vars, remove_svg_prefix)
   final_nodes = []
   for topic, node in nodes.items():
@@ -284,7 +295,8 @@ def generate(init_nodes: List[str], filter_vars: Variables, remove_svg_prefix=""
   if not skip_assert:
     assert not filter_vars.series2group2vars
   elif filter_vars.series2group2vars:
-    print("Warning: filter_vars.series2group2vars is not empty:", filter_vars.series2group2vars)
+    print("Warning: filter_vars.series2group2vars is not empty:",
+          filter_vars.series2group2vars)
 
   final_nodes = drop_dangling_topic_refs(final_nodes)
 
@@ -419,7 +431,10 @@ def main(_):
                    topic_prefix='dc/topic/',
                    svpg_prefix='dc/svpg/ILO')
     write_non_country_vars(_UNDATA_ILO_NON_COUNTRY_VARS, vars)
-    nodes = generate([_UNDATA_ILO_ROOT], vars, REMOVE_SVG_PREFIX, skip_assert=True)
+    nodes = generate([_UNDATA_ILO_ROOT],
+                     vars,
+                     REMOVE_SVG_PREFIX,
+                     skip_assert=True)
     common.write_topic_mcf(_UNDATA_ILO_MCF_PATH, nodes)
     common.write_topic_json(_UNDATA_ILO_TOPIC_JSON, nodes)
     write_nl_descriptions(_UNDATA_ILO_NL_DESCRIPTIONS_FILE, nodes,
