@@ -39,6 +39,14 @@ def _get_embeddings_info():
     return parse(embeddings_map)
 
 
+def _get_default_index_type():
+  autopush_values_path = os.path.join(_root_dir,
+                                      'deploy/helm_charts/envs/autopush.yaml')
+  with open(autopush_values_path) as f:
+    autopush_values = yaml.full_load(f)
+    return autopush_values['nl']['embeddingIndexes']['default']
+
+
 def _get_contents(
     r: VarCandidates) -> tuple[List[str], List[str], List[List[str]]]:
   return r.svs, r.scores, r.sv2sentences
@@ -50,7 +58,7 @@ class TestEmbeddings(unittest.TestCase):
   def setUpClass(cls) -> None:
     embeddings_info = _get_embeddings_info()
     # TODO(pradh): Expand tests to other index sizes.
-    idx_info = embeddings_info.indexes[emb_map.DEFAULT_INDEX_TYPE]
+    idx_info = embeddings_info.indexes[_get_default_index_type()]
     model_info = embeddings_info.models[idx_info.model]
     cls.nl_embeddings = Embeddings(
         model=LocalSentenceTransformerModel(model_info),

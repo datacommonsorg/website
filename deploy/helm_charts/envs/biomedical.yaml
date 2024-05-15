@@ -42,3 +42,6 @@ serviceGroups:
 
 nl:
   enabled: true
+  embeddingsSpec:
+    defaultIndex: "bio_ft"
+    enabledIndexes: ["medium_ft", "sdg_ft", "undata_ft", "bio_ft"]

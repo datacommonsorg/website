@@ -81,7 +81,7 @@ metadata:
 data:
   embeddings.yaml: {{ required "NL embeddings file is required" .Values.nl.embeddings | quote }}
   models.yaml: {{ required "NL models file is required" .Values.nl.models | quote }}
-  vertex_ai_models.json: {{ .Values.nl.vertex_ai_models | toJson | quote }}
+  embeddings_spec.json: {{ .Values.nl.embeddingsSpec | toJson | quote }}
 {{- end }}
 
 {{- if .Values.website.redis.enabled }}
