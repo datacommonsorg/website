@@ -64,28 +64,30 @@ class TestEmbeddings(unittest.TestCase):
     cls.default_file = _copy(_DEFAULT_FILE)
     cls.custom_file = _copy(_CUSTOM_FILE)
 
-    cls.custom = emb_map.EmbeddingsMap({
-        'version': 1,
-        'indexes': {
-            'medium_ft': {
-                'embeddings': cls.default_file,
-                'store': 'MEMORY',
-                'model': _TUNED_MODEL_NAME
-            },
-            'custom_ft': {
-                'embeddings': cls.custom_file,
-                'store': 'MEMORY',
-                'model': _TUNED_MODEL_NAME
-            }
-        },
-        'models': {
-            _TUNED_MODEL_NAME: {
-                'type': 'LOCAL',
-                'usage': 'EMBEDDINGS',
-                'gcs_folder': _TUNED_MODEL_GCS
-            }
-        }
-    })
+    cls.custom = emb_map.EmbeddingsMap(
+        parse(
+            {
+                'version': 1,
+                'indexes': {
+                    'medium_ft': {
+                        'embeddings': cls.default_file,
+                        'store': 'MEMORY',
+                        'model': _TUNED_MODEL_NAME
+                    },
+                    'custom_ft': {
+                        'embeddings': cls.custom_file,
+                        'store': 'MEMORY',
+                        'model': _TUNED_MODEL_NAME
+                    }
+                },
+                'models': {
+                    _TUNED_MODEL_NAME: {
+                        'type': 'LOCAL',
+                        'usage': 'EMBEDDINGS',
+                        'gcs_folder': _TUNED_MODEL_GCS
+                    }
+                }
+            }, {}, False))
 
   def test_entries(self):
     self.assertEqual(1, len(self.custom.get_index('medium_ft').store.dcids))
@@ -113,46 +115,49 @@ class TestEmbeddings(unittest.TestCase):
     _test_query(self, indexes, query, expected)
 
   def test_merge_custom_embeddings(self):
-    embeddings = emb_map.EmbeddingsMap({
-        'version': 1,
-        'indexes': {
-            'medium_ft': {
-                'embeddings': self.default_file,
-                'store': 'MEMORY',
-                'model': _TUNED_MODEL_NAME
-            },
-        },
-        'models': {
-            _TUNED_MODEL_NAME: {
-                'type': 'LOCAL',
-                'usage': 'EMBEDDINGS',
-                'gcs_folder': _TUNED_MODEL_GCS
-            }
-        }
-    })
+    embeddings = emb_map.EmbeddingsMap(
+        parse(
+            {
+                'version': 1,
+                'indexes': {
+                    'medium_ft': {
+                        'embeddings': self.default_file,
+                        'store': 'MEMORY',
+                        'model': _TUNED_MODEL_NAME
+                    },
+                },
+                'models': {
+                    _TUNED_MODEL_NAME: {
+                        'type': 'LOCAL',
+                        'usage': 'EMBEDDINGS',
+                        'gcs_folder': _TUNED_MODEL_GCS
+                    }
+                }
+            }, {}, False))
 
     _test_query(self, [embeddings.get_index("medium_ft")], "money",
                 "dc/topic/sdg_1")
     _test_query(self, [embeddings.get_index("medium_ft")], "food", "")
 
     embeddings.reset_index(
-        parse({
-            'version': 1,
-            'indexes': {
-                'custom_ft': {
-                    'embeddings': self.custom_file,
-                    'store': 'MEMORY',
-                    'model': _TUNED_MODEL_NAME
+        parse(
+            {
+                'version': 1,
+                'indexes': {
+                    'custom_ft': {
+                        'embeddings': self.custom_file,
+                        'store': 'MEMORY',
+                        'model': _TUNED_MODEL_NAME
+                    },
                 },
-            },
-            'models': {
-                _TUNED_MODEL_NAME: {
-                    'type': 'LOCAL',
-                    'usage': 'EMBEDDINGS',
-                    'gcs_folder': _TUNED_MODEL_GCS
+                'models': {
+                    _TUNED_MODEL_NAME: {
+                        'type': 'LOCAL',
+                        'usage': 'EMBEDDINGS',
+                        'gcs_folder': _TUNED_MODEL_GCS
+                    }
                 }
-            }
-        }))
+            }, {}, False))
 
     emb_list = [
         embeddings.get_index("custom_ft"),
