@@ -28,7 +28,7 @@ from shared.lib.custom_dc_util import is_custom_dc
 
 # Index constants.  Passed in `url=`
 CUSTOM_DC_INDEX: str = 'custom_ft'
-DEFAULT_INDEX_TYPE: str = 'base_uae_mem'
+DEFAULT_INDEX_TYPE: str = 'medium_ft'
 
 # App Config constants.
 ATTRIBUTE_MODEL_KEY: str = 'ATTRIBUTE_MODEL'

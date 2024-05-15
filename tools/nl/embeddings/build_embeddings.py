@@ -33,7 +33,7 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 import utils
 
-VERTEX_AI_PROJECT = 'datcom-website-dev'
+VERTEX_AI_PROJECT = 'datcom-nl'
 VERTEX_AI_PROJECT_LOCATION = 'us-central1'
 
 FLAGS = flags.FLAGS
