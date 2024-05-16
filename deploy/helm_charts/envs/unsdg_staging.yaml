@@ -39,13 +39,8 @@ nl:
   enabled: true
   embeddingsSpec:
     defaultIndex: "sdg_ft"
-    enabledIndexes: [
-      "bio_ft"
-      "medium_ft",
-      "sdg_ft",
-      "undata_ft",
-      "undata_ilo_ft",
-    ]
+    enabledIndexes:
+      ["bio_ft", "medium_ft", "sdg_ft", "undata_ft", "undata_ilo_ft"]
 
 serviceGroups:
   recon: null
