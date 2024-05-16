@@ -54,9 +54,6 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "Count_SolarPanel",
     ],
     "dc/topic/AgricultureEmissionsByGas": ["dc/svpg/AgricultureEmissionsByGas"],
-    "dc/topic/FossilFuelOperationsEmissionsByGas": [
-        "dc/svpg/FossilFuelOperationsEmissionsByGas"
-    ],
     "dc/topic/ManufacturingEmissionsByGas": [
         "dc/svpg/ManufacturingEmissionsByGas"
     ],

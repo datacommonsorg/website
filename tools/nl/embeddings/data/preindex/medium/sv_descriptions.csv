@@ -1103,7 +1103,7 @@ Count_CriminalActivities_Arson,Number of Arson crimes
 Count_CriminalActivities_Burglary,Number of burglaries
 Count_CriminalActivities_CombinedCrime,Number of crimes
 Count_CriminalActivities_ForcibleRape,Number of Rapes
-Count_CriminalActivities_LarcenyTheft,Count of criminal activities involving larceny theft
+Count_CriminalActivities_LarcenyTheft,Number of larceny theft
 Count_CriminalActivities_MotorVehicleTheft,Number of car thefts
 Count_CriminalActivities_MurderAndNonNegligentManslaughter,Number of murders and non-negligent manslaughters
 Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person,Number of Murder and Non Negligent Manslaughter per capita
@@ -1111,7 +1111,7 @@ Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_C
 Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male,Percent of males commiting intentional homicide
 Count_CriminalActivities_PropertyCrime,Number of property crime incidents
 Count_CriminalActivities_Robbery,Number of robberies
-Count_CriminalActivities_ViolentCrime,Count of criminal activities involving a violent crime
+Count_CriminalActivities_ViolentCrime,Number of violent crimes
 Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime,Number of Hate Crimes Motivated by Disability Status
 Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime,Number of Hate Crimes Motivated by Ethnicity
 Count_CriminalIncidents_BiasMotivationGender_IsHateCrime,Number of Hate Crimes Motivated by Gender
@@ -1499,7 +1499,7 @@ Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthamerica,Number of Fore
 Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthSouthernEasternEurope,Number of Foreign-Born Households from Southern Eastern Europe with Earnings
 Count_Household_WithEarnings_ForeignBorn_PlaceOfBirthWesternAsia,Number of Foreign-Born Households from Western Asia with Earnings
 Count_Household_WithFoodStampsInThePast12Months,Number of households that have received food stamps (SNAP) in the last 12 months
-Count_Household_WithFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months,Households that have received food stamps (SNAP) in the last year and live above poverty line
+Count_Household_WithFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months,Households that have received food stamps (SNAP) in the last 12 months and live above poverty line
 Count_Household_WithFoodStampsInThePast12Months_AmericanIndianOrAlaskaNativeAlone,Number of households receiving food stamps last year who identify as American Indian or Alaska native only
 Count_Household_WithFoodStampsInThePast12Months_AsianAlone,Number of households receiving food stamps last year who identify as Asian
 Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months,Households with food stamps last year that are below poverty line
@@ -1540,63 +1540,63 @@ Count_Household_WithFoodStampsInThePast12Months_WithoutChildrenUnder18_MarriedCo
 Count_Household_WithFoodStampsInThePast12Months_WithoutChildrenUnder18_NonfamilyHousehold,Number of nonfamily households Without Children Under 18 and receiving Food Stamps over the last year
 Count_Household_WithFoodStampsInThePast12Months_WithoutPeopleOver60,Count of households without people over 60 receiving food stamps last year
 Count_Household_WithInternetSubscription,Number of households with an internet subscription
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAfrica,Number of households that have received retirement income in the last year and that have householders born in Africa
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia,Number of households that have received retirement income in the last year and that have householders born in Asia
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthCaribbean,Number of households that have received retirement income in the last year and that have householders born in the Caribbean
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico,Number of households that have received retirement income in the last year and that have householders born in Central America not including Mexico
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthEasternAsia,Number of households that have received retirement income in the last year and that have householders born in Eastern Asia
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthEurope,Number of households that have received retirement income in the last year and that have householders born in Europe
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthLatinAmerica,Number of households that have received retirement income in the last year and that have householders born in Latin America
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico,Number of households that have received retirement income in the last year and that have householders born in Mexico
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthNorthamerica,Number of households that have received retirement income in the last year and that have householders born in North America
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthNorthernWesternEurope,Number of households that have received retirement income in the last year and that have householders born in Northern Western Europe
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthOceania,Number of households that have received retirement income in the last year and that have householders born in Oceania
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthCentralAsia,Number of households that have received retirement income in the last year and that have householders born in South Central Asia
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthEasternAsia,Number of households that have received retirement income in the last year and that have householders born in South Eastern Asia
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthamerica,Number of households that have received retirement income in the last year and that have householders born in South America
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthernEasternEurope,Number of households that have received retirement income in the last year and that have householders born in Southern Eastern Europe
-Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthWesternAsia,Number of households that have received retirement income in the last year and that have householders born in Western Asia
-Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold,Number of family households that have received Social Security income in the last year
-Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months,Number of family households that have received Social Security income in the last year and have been under the poverty level in the last year
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAfrica,Number of households that have received Social Security income in the last year and that have householders born in Africa
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia,Number of households that have received Social Security income in the last year and that have householders born in Asia
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthCaribbean,Number of households that have received Social Security income in the last year and that have householders born in the Caribbean
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico,Number of households that have received Social Security income in the last year and that have householders born in Central America not including Mexico
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthEasternAsia,Number of households that have received Social Security income in the last year and that have householders born in Eastern Asia
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthEurope,Number of households that have received Social Security income in the last year and that have householders born in Europe
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthLatinAmerica,Number of households that have received Social Security income in the last year and that have householders born in Latin America
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico,Number of households that have received Social Security income in the last year and that have householders born in Mexico
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthNorthamerica,Number of households that have received Social Security income in the last year and that have householders born in North America
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthNorthernWesternEurope,Number of households that have received Social Security income in the last year and that have householders born in Northern Western Europe
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthOceania,Number of households that have received Social Security income in the last year and that have householders born in Oceania
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthCentralAsia,Number of households that have received Social Security income in the last year and that have householders born in South Central Asia
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthEasternAsia,Number of households that have received Social Security income in the last year and that have householders born in South Eastern Asia
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthamerica,Number of households that have received Social Security income in the last year and that have householders born in South America
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthernEasternEurope,Number of households that have received Social Security income in the last year and that have householders born in Southern Eastern Europe
-Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthWesternAsia,Number of households that have received Social Security income in the last year and that have householders born in Western Asia
-Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold,Number of married couple households that have received social security income in the last year
-Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold,Number of single mother households that have received social security income in the last year
-Count_Household_WithoutFoodStampsInThePast12Months,Number of households that have not received food stamps in the last year
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAfrica,Number of households that have received retirement income in the last 12 months and that have householders born in Africa
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia,Number of households that have received retirement income in the last 12 months and that have householders born in Asia
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthCaribbean,Number of households that have received retirement income in the last 12 months and that have householders born in the Caribbean
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico,Number of households that have received retirement income in the last 12 months and that have householders born in Central America not including Mexico
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthEasternAsia,Number of households that have received retirement income in the last 12 months and that have householders born in Eastern Asia
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthEurope,Number of households that have received retirement income in the last 12 months and that have householders born in Europe
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthLatinAmerica,Number of households that have received retirement income in the last 12 months and that have householders born in Latin America
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico,Number of households that have received retirement income in the last 12 months and that have householders born in Mexico
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthNorthamerica,Number of households that have received retirement income in the last 12 months and that have householders born in North America
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthNorthernWesternEurope,Number of households that have received retirement income in the last 12 months and that have householders born in Northern Western Europe
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthOceania,Number of households that have received retirement income in the last 12 months and that have householders born in Oceania
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthCentralAsia,Number of households that have received retirement income in the last 12 months and that have householders born in South Central Asia
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthEasternAsia,Number of households that have received retirement income in the last 12 months and that have householders born in South Eastern Asia
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthamerica,Number of households that have received retirement income in the last 12 months and that have householders born in South America
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthernEasternEurope,Number of households that have received retirement income in the last 12 months and that have householders born in Southern Eastern Europe
+Count_Household_WithRetirementIncomeInThePast12Months_ForeignBorn_PlaceOfBirthWesternAsia,Number of households that have received retirement income in the last 12 months and that have householders born in Western Asia
+Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold,Number of family households that have received Social Security income in the last 12 months
+Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months,Number of family households that have received Social Security income in the last 12 months and have been under the poverty level in the last 12 months
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAfrica,Number of households that have received Social Security income in the last 12 months and that have householders born in Africa
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia,Number of households that have received Social Security income in the last 12 months and that have householders born in Asia
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthCaribbean,Number of households that have received Social Security income in the last 12 months and that have householders born in the Caribbean
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico,Number of households that have received Social Security income in the last 12 months and that have householders born in Central America not including Mexico
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthEasternAsia,Number of households that have received Social Security income in the last 12 months and that have householders born in Eastern Asia
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthEurope,Number of households that have received Social Security income in the last 12 months and that have householders born in Europe
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthLatinAmerica,Number of households that have received Social Security income in the last 12 months and that have householders born in Latin America
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthMexico,Number of households that have received Social Security income in the last 12 months and that have householders born in Mexico
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthNorthamerica,Number of households that have received Social Security income in the last 12 months and that have householders born in North America
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthNorthernWesternEurope,Number of households that have received Social Security income in the last 12 months and that have householders born in Northern Western Europe
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthOceania,Number of households that have received Social Security income in the last 12 months and that have householders born in Oceania
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthCentralAsia,Number of households that have received Social Security income in the last 12 months and that have householders born in South Central Asia
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthEasternAsia,Number of households that have received Social Security income in the last 12 months and that have householders born in South Eastern Asia
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthamerica,Number of households that have received Social Security income in the last 12 months and that have householders born in South America
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthSouthernEasternEurope,Number of households that have received Social Security income in the last 12 months and that have householders born in Southern Eastern Europe
+Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthWesternAsia,Number of households that have received Social Security income in the last 12 months and that have householders born in Western Asia
+Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold,Number of married couple households that have received social security income in the last 12 months
+Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold,Number of single mother households that have received social security income in the last 12 months
+Count_Household_WithoutFoodStampsInThePast12Months,Number of households that have not received food stamps in the last 12 months
 Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months,Number of Households Above Poverty Level and Have Not Received Food Stamps in the Last Year
-Count_Household_WithoutFoodStampsInThePast12Months_AmericanIndianOrAlaskaNativeAlone,Number of American Indian or Alaska Native households not receiving Food Stamps in the last year
+Count_Household_WithoutFoodStampsInThePast12Months_AmericanIndianOrAlaskaNativeAlone,Number of American Indian or Alaska Native households not receiving Food Stamps in the 12 months
 Count_Household_WithoutFoodStampsInThePast12Months_AsianAlone,Number of Asian households that were not receiving Food Stamps over the last year
-Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months,Number of households that have been below the poverty line in the last year but have not received food stamps in the last year
+Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months,Number of households that have been below the poverty line in the last 12 months but have not received food stamps in the last 12 months
 Count_Household_WithoutFoodStampsInThePast12Months_BlackOrAfricanAmericanAlone,Number of black or African American Households that don't Received Food Stamps in the Last Year
-Count_Household_WithoutFoodStampsInThePast12Months_FamilyHousehold,Number of family households that have not received food stamps in the last year
+Count_Household_WithoutFoodStampsInThePast12Months_FamilyHousehold,Number of family households that have not received food stamps in the last 12 months
 Count_Household_WithoutFoodStampsInThePast12Months_HispanicOrLatino,Number of Hispanic Households Not Receiving Food Stamps Over the Last Year
-Count_Household_WithoutFoodStampsInThePast12Months_MarriedCoupleFamilyHousehold,Number of married-couple households not receiving Food Stamps in the last year
-Count_Household_WithoutFoodStampsInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone,Number of Native Hawaiian or Other Pacific Islander households not receiving Food Stamps in the last year
+Count_Household_WithoutFoodStampsInThePast12Months_MarriedCoupleFamilyHousehold,Number of married-couple households not receiving Food Stamps in the last 12 months
+Count_Household_WithoutFoodStampsInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone,Number of Native Hawaiian or Other Pacific Islander households not receiving Food Stamps in the last 12 months
 Count_Household_WithoutFoodStampsInThePast12Months_NoDisability,Number of Households Not Receiving Food Stamps Over the Last Year Where No Member Has a Disability
-Count_Household_WithoutFoodStampsInThePast12Months_NonfamilyHousehold,Number of non family households that have not received food stamps in the last year
-Count_Household_WithoutFoodStampsInThePast12Months_SingleFatherFamilyHousehold,Number of single father family households that have not received food stamps in the last year
-Count_Household_WithoutFoodStampsInThePast12Months_SingleMotherFamilyHousehold,Number of single mother family households that have not received food stamps in the last year
+Count_Household_WithoutFoodStampsInThePast12Months_NonfamilyHousehold,Number of non family households that have not received food stamps in the last 12 months
+Count_Household_WithoutFoodStampsInThePast12Months_SingleFatherFamilyHousehold,Number of single father family households that have not received food stamps in the last 12 months
+Count_Household_WithoutFoodStampsInThePast12Months_SingleMotherFamilyHousehold,Number of single mother family households that have not received food stamps in the last 12 months
 Count_Household_WithoutFoodStampsInThePast12Months_TwoOrMoreRaces,Number of households that are multi-race and received food stamps last year
-Count_Household_WithoutFoodStampsInThePast12Months_WhiteAlone,Number of white households not receiving Food Stamps in the last year
-Count_Household_WithoutFoodStampsInThePast12Months_WithChildrenUnder18,Number of households with children who did not receive Food Stamps in the last year
-Count_Household_WithoutFoodStampsInThePast12Months_WithDisability,Number of households with householders with disability that have not received food stamps in the last year
-Count_Household_WithoutFoodStampsInThePast12Months_WithPeopleOver60,Number of households with householders over 60 years old that did not receive food stamps in the last year
-Count_Household_WithoutFoodStampsInThePast12Months_WithoutChildrenUnder18,Number of households without children that did not receive food stamps in the last year
-Count_Household_WithoutFoodStampsInThePast12Months_WithoutPeopleOver60,Number of households without householders over 60 years old that did not receive food stamps in the last year
+Count_Household_WithoutFoodStampsInThePast12Months_WhiteAlone,Number of white households not receiving Food Stamps in the last 12 months
+Count_Household_WithoutFoodStampsInThePast12Months_WithChildrenUnder18,Number of households with children who did not receive Food Stamps in the last 12 months
+Count_Household_WithoutFoodStampsInThePast12Months_WithDisability,Number of households with householders with disability that have not received food stamps in the last 12 months
+Count_Household_WithoutFoodStampsInThePast12Months_WithPeopleOver60,Number of households with householders over 60 years old that did not receive food stamps in the last 12 months
+Count_Household_WithoutFoodStampsInThePast12Months_WithoutChildrenUnder18,Number of households without children that did not receive food stamps in the last 12 months
+Count_Household_WithoutFoodStampsInThePast12Months_WithoutPeopleOver60,Number of households without householders over 60 years old that did not receive food stamps in the last 12 months
 Count_HousingUnit,Number of housing units
 Count_HousingUnit_1940To1949DateBuilt,Number of housing units built between 1940 and 1949
 Count_HousingUnit_1950To1959DateBuilt,Number of housing units built between 1950 and 1959
@@ -1984,14 +1984,14 @@ Count_Person_65OrMoreYears_Male_ResidesInNursingFacilities,number of males aged 
 Count_Person_85OrMoreYears_Female,Number of females older than 85
 Count_Person_85OrMoreYears_Male,Number of males older than 85
 Count_Person_Aadhaar_Enrolled,Number of people enrolled for Aadhaar
-Count_Person_AbovePovertyLevelInThePast12Months,Number of people who were above the poverty line in the last 12 months
-Count_Person_AbovePovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone,Number of people above the poverty line in the past year who are American Indian or Alaska Native
-Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone,Number of people above the poverty line in the past year who are asian
-Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone,Number of people above the poverty line in the past year who are Black or African American
-Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino,Number of people above the poverty line in the past year who are Hispanic or Latino
-Count_Person_AbovePovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone,Number of people above the poverty line in the past year who are Native Hawaiian or Other Pacific Islander
-Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces,Number of people above the poverty line in the past year who are multi race
-Count_Person_AbovePovertyLevelInThePast12Months_WhiteAlone,Number of people above the poverty line in the past year who are white
+Count_Person_AbovePovertyLevelInThePast12Months,Number of people who live above the poverty line in the last 12 months
+Count_Person_AbovePovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone,Number of American Indian or Alaska Native people living above the poverty line in the past 12 months
+Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone,Number of asian people living above the poverty line in the past 12 months
+Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone,Number of Black or African American people living above the poverty line in the past 12 months
+Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino,Number of Hispanic or Latino people living above the poverty line in the past 12 months
+Count_Person_AbovePovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone,Number of Native Hawaiian or Other Pacific Islander people living above the poverty line in the past 12 months
+Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces,Number of multi races people living above the poverty line in the past 12 months
+Count_Person_AbovePovertyLevelInThePast12Months_WhiteAlone,Number of white people living above the poverty line in the past 12 months
 Count_Person_AmbulatoryDifficulty,Number of people With Ambulatory Difficulty
 Count_Person_AmericanIndianOrAlaskaNativeAlone,Number of American Indian or Alaska Native people
 Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInAdultCorrectionalFacilities,Number of American Indian or Alaska Native people who reside in adult correctional facilities
@@ -2060,24 +2060,24 @@ Count_Person_Civilian_NonInstitutionalized_WhiteAlone,number of NonInstitutional
 Count_Person_Civilian_ResidesInHousehold,Number of civilian reside in household
 Count_Person_Civilian_WithDisability_NonInstitutionalized,Number of NonInstitutionalized civilian with disability
 Count_Person_CognitiveDifficulty,Number of People Who Have Cognitive Difficulty
-Count_Person_DetailedEnrolledInCollegeUndergraduateYears,Number of people Enrolled in Undergraduate college
-Count_Person_DetailedEnrolledInGrade1,Number of people Enrolled in Grade 1
-Count_Person_DetailedEnrolledInGrade10,Number of people Enrolled in Grade 10
-Count_Person_DetailedEnrolledInGrade11,Number of people Enrolled in Grade 11
-Count_Person_DetailedEnrolledInGrade12,Number of people Enrolled in Grade 12
-Count_Person_DetailedEnrolledInGrade2,Number of people Enrolled in Grade 2
-Count_Person_DetailedEnrolledInGrade3,Number of people Enrolled in Grade 3
-Count_Person_DetailedEnrolledInGrade4,Number of people Enrolled in Grade 4
-Count_Person_DetailedEnrolledInGrade5,Number of people Enrolled in Grade 5
-Count_Person_DetailedEnrolledInGrade6,Number of people Enrolled in Grade 6
-Count_Person_DetailedEnrolledInGrade7,Number of people Enrolled in Grade 7
-Count_Person_DetailedEnrolledInGrade8,Number of people Enrolled in Grade 8
-Count_Person_DetailedEnrolledInGrade9,Number of people Enrolled in Grade 9
-Count_Person_DetailedEnrolledInNurserySchoolPreschool,Number of people Enrolled in Nursery School Preschool
-Count_Person_DetailedGraduateOrProfessionalSchool,Number of people enrolled in Graduate Or Professional School
-Count_Person_DetailedHighSchool,Number of people enrolled in High School
-Count_Person_DetailedMiddleSchool,Number of people enrolled in Middle School
-Count_Person_DetailedPrimarySchool,Number of people enrolled in Primary School
+Count_Person_DetailedEnrolledInCollegeUndergraduateYears,Number of students nrolled in Undergraduate college
+Count_Person_DetailedEnrolledInGrade1,Number of students Enrolled in Grade 1
+Count_Person_DetailedEnrolledInGrade10,Number of students Enrolled in Grade 10
+Count_Person_DetailedEnrolledInGrade11,Number of students enrolled in Grade 11
+Count_Person_DetailedEnrolledInGrade12,Number of students enrolled in Grade 12
+Count_Person_DetailedEnrolledInGrade2,Number of students enrolled in Grade 2
+Count_Person_DetailedEnrolledInGrade3,Number of students enrolled in Grade 3
+Count_Person_DetailedEnrolledInGrade4,Number of students enrolled in Grade 4
+Count_Person_DetailedEnrolledInGrade5,Number of students enrolled in Grade 5
+Count_Person_DetailedEnrolledInGrade6,Number of students enrolled in Grade 6
+Count_Person_DetailedEnrolledInGrade7,Number of students enrolled in Grade 7
+Count_Person_DetailedEnrolledInGrade8,Number of students enrolled in Grade 8
+Count_Person_DetailedEnrolledInGrade9,Number of students enrolled in Grade 9
+Count_Person_DetailedEnrolledInNurserySchoolPreschool,Number of students enrolled in Nursery School Preschool
+Count_Person_DetailedGraduateOrProfessionalSchool,Number of students enrolled in Graduate Or Professional School
+Count_Person_DetailedHighSchool,Number of students enrolled in High School
+Count_Person_DetailedMiddleSchool,Number of students enrolled in Middle School
+Count_Person_DetailedPrimarySchool,Number of students enrolled in Primary School
 Count_Person_Divorced,Number of divorced individuals
 Count_Person_DivorcedOrSeparated,Number of divorced or separated individuals
 Count_Person_Divorced_ResidesInAdultCorrectionalFacilities,Number of divorced individuals residing in adult correctional facilities
@@ -2145,14 +2145,14 @@ Count_Person_Employed_NACE/F,Number of employed people in Construction
 Count_Person_Employed_NACE/J,Number of employed people in Information and communication
 Count_Person_Employed_NACE/K,Number of employed people in Financial and insurance activities
 Count_Person_Employed_NACE/L,Number of employed people in Real estate activities
-Count_Person_EnrolledInCollegeOrGraduateSchool,Number of people Enrolled in College or Graduate School
+Count_Person_EnrolledInCollegeOrGraduateSchool,Number of students Enrolled in College or Graduate School
 Count_Person_EnrolledInCollegeOrGraduateSchool_ResidesInAdultCorrectionalFacilities,Number of people Enrolled in College or Graduate School and Resides in Adult Correctional Facilities
 Count_Person_EnrolledInCollegeOrGraduateSchool_ResidesInCollegeOrUniversityStudentHousing,Number of people Enrolled in College or Graduate School and Resides in College or University Student Housing
 Count_Person_EnrolledInCollegeOrGraduateSchool_ResidesInGroupQuarters,Number of people Enrolled in College or Graduate School and Resides in Group Quarters
 Count_Person_EnrolledInCollegeOrGraduateSchool_ResidesInNursingFacilities,Number of people Enrolled in College or Graduate School and Resides in Nursing Facilities
-Count_Person_EnrolledInCollegeUndergraduateYears,Number of people Enrolled in College Undergraduate Years
-Count_Person_EnrolledInKindergarten,Number of people Enrolled in Kindergarten
-Count_Person_EnrolledInSchool,Number of people enrolled in school
+Count_Person_EnrolledInCollegeUndergraduateYears,Number of students enrolled in College Undergraduate Years
+Count_Person_EnrolledInKindergarten,Number of students enrolled in Kindergarten
+Count_Person_EnrolledInSchool,Number of students enrolled in school
 Count_Person_Female,Number of females
 Count_Person_Female_AbovePovertyLevelInThePast12Months,number of females living Above Poverty Level in the Past Year
 Count_Person_Female_AbovePovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone,number of american indian or alaska native females who live Above Poverty Level in the Past Year
@@ -2915,7 +2915,7 @@ Median_Age_Person_TwoOrMoreRaces,Median age of people of multi races
 Median_Age_Person_WhiteAlone,Median age of white people
 Median_Age_Person_WorkedInThePast12Months,Median age of people who worked in the past 12 months
 Median_Area_Farm,Median area of farm
-Median_Earnings_Person,median earnings of people
+Median_Earnings_Person,median earnings
 Median_Earnings_Person_Female,median earnings of females
 Median_Earnings_Person_Male,median earnings of males
 Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied,Median Gross Rent for Cash-Rent Housing Units
@@ -2950,7 +2950,7 @@ Median_Income_Household_NoHealthInsurance,Median income for household without he
 Median_Income_Household_NonfamilyHousehold,Median income for non family household
 Median_Income_Household_WithFoodStampsInThePast12Months,Median Income for Households With Food Stamps in the Past Year
 Median_Income_Household_WithoutFoodStampsInThePast12Months,Median Income for Households Without Food Stamps in the Past Year
-Median_Income_Person,median individual income
+Median_Income_Person,median income
 Median_Income_Person_15OrMoreYears_Female_WithIncome,Median Income of females
 Median_Income_Person_15OrMoreYears_Male_WithIncome,Median Income of males
 Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn,Median Income of foreign born people
@@ -3241,30 +3241,30 @@ dc/03l0q0wyqrk39,Number of Incarcerated males
 dc/06f0jf8xvzw4f,Number of female hispanic or latino With Bachelor or higher Degree
 dc/0gettc3bc60cb,Number of peole who drive to work
 dc/0hq9z5mspf73f,Total wages of workers in transportation and warehousing industry
-dc/0jtctjm33mgh1,Number of Hispanic or Latino people enrolled in college or undergraduate years
+dc/0jtctjm33mgh1,Number of Hispanic or Latino students enrolled in college or undergraduate years
 dc/0yv0ry7tjmwzc,Number of females enrolled in college undergraduate years
 dc/107jnwnsh17xb,Number of people who work in food manufacturing
 dc/15lrzqkb6n0y7,Number of people who work in crop production
-dc/1c4zcyw02n71g,Number of asian people enrolled in kindergarten
+dc/1c4zcyw02n71g,Number of asian students enrolled in kindergarten
 dc/1jqm2g7cm9m75,total wages of workers in Textile Fabric Finishing and Fabric Coating Mills
-dc/1kt512ynvpmc2,Number of asian people enrolled in high school
+dc/1kt512ynvpmc2,Number of asian students enrolled in high school
 dc/1lm9k2vdxj4c6,Number of foreign born people who speak Asian and Pacific Island languages at home
 dc/1q3ker7zf14hf,total wages of workers in Textile Product Mills
-dc/1t989xd1tn701,Number of Native Hawaiian or other Pacific Islander people enrolled in college or undergraduate years
+dc/1t989xd1tn701,Number of Native Hawaiian or other Pacific Islander students enrolled in college or undergraduate years
 dc/29vy1f58gdm0g,Number of foreign-born multi races people
 dc/2etwgx6vecreh,Number of people who work in nonstore retailers
 dc/2wgh04kx6es88,Median income of people working in the Health Care & Social Assistance Industry
 dc/2xd2ktjs23hk3,Number of multi races people who are citizens at birth
 dc/34t2kjrwbjd31,Number of people who work in petroleum and coal products manufacturing
-dc/3bg4r46ly61q9,Number of Black Or African American people enrolled in high school
+dc/3bg4r46ly61q9,Number of Black Or African American students enrolled in high school
 dc/3ex11eg2q9hp6,Median income of people working in the Manufacturing Industry
 dc/3jr0p7yjw06z9,Number of gambling establishments in gambling industries
 dc/3kwcvm428wpq4,Number of people who work in rail transportation
 dc/3n8g9we5yv7th,Number of people of multi races enrolled in kindergarten
 dc/3w039ndqy7qv1,Number of Hispanic or Latino females who have attended some college
-dc/3z6z9w930dl7b,Number of Black Or African American people enrolled in graduate or professional school
+dc/3z6z9w930dl7b,Number of Black Or African American students enrolled in graduate or professional school
 dc/40724bjd19ej7,Number of foreign-born Native Hawaiian or other Pacific Islander people
-dc/4hzyqndyzntm,Number of white people enrolled in high school
+dc/4hzyqndyzntm,Number of white students enrolled in high school
 dc/4j5t00e5s5el3,Number of people aged 25 and older with an education level of kindergarten or lower
 dc/4ky4sj05bw4nd,total wages of Air Transportation workers
 dc/4lvmzr1h1ylk1,Prevalence of adult female obesity
@@ -3273,8 +3273,8 @@ dc/4qtse8536dg63,Number of female American Indian Or Alaska Native With Bachelor
 dc/4wdtyd2bbf9m9,Number of multi races people currently enrolled in school
 dc/4z9xy6wn8xns1,"Median income of people working in the Administrative Support, Waste Management & Remediation Services Industry"
 dc/51h3g4mcgj3w4,Number of Construction of Buildings establishments
-dc/556pqlh586bmc,Number of Native Hawaiian or other Pacific Islander people enrolled in kindergarten
-dc/55d9n710f1l43,Number of white people enrolled in college undergraduate years
+dc/556pqlh586bmc,Number of Native Hawaiian or other Pacific Islander students enrolled in kindergarten
+dc/55d9n710f1l43,Number of white students enrolled in college undergraduate years
 dc/56md3ndhrmvm7,Number of Black or African American females who have attended some college
 dc/5blsqw3w9jmnc,Number of multi races people not currently enrolled in school
 dc/5br285q68be6,Number of people who work in Gambling Industries
@@ -3285,7 +3285,7 @@ dc/5qnjtqc0w783b,Number of American Indian or Alaska Native people currently enr
 dc/61t0et409x8ch,Number of Research And Development In The Physical Engineering And Life Sciences establishments
 dc/63gkdt13bmsv8,Number of people who work in air transportation
 dc/67ttwfn9dswch,Number of deaths of incarcerated people
-dc/68cg2z97cpl7d,Number of hispanic or latino people enrolled in primary school
+dc/68cg2z97cpl7d,Number of hispanic or latino students enrolled in primary school
 dc/6bkn9vt30f5c1,Number of foreign born American Indian or Alaska Native people
 dc/6ets5evke9mw5,total wages of workers in Miscellaneous Store Retailers
 dc/6n6l2wrzv7473,Number of people who work in paper manufacturing
@@ -3293,8 +3293,8 @@ dc/6rltk4kf75612,Number of People working at home
 dc/6xlk95n27cn23,Number of deaths of incarcerated males
 dc/70zj83ev915f8,Number of males who are married
 dc/7bck6xpkc205c,number of workers in the leather and allied product manufacturing industry
-dc/7fdfhnnjr5sh8,Number of American Indian or Alaska Native people enrolled in graduate or professional school
-dc/7g77dy8hfb1rg,Number of Hispanic or Latino people enrolled in kindergarten
+dc/7fdfhnnjr5sh8,Number of American Indian or Alaska Native students enrolled in graduate or professional school
+dc/7g77dy8hfb1rg,Number of Hispanic or Latino students enrolled in kindergarten
 dc/7jqw95h5wbelb,Median income of people working in the Public Administration Industry
 dc/7nqp2vc6y6fef,Number of native hawaiian or other pacific islander people not currently enrolled in school
 dc/7w0e0p0dzj82g,total wages of workers in Textile Mills
@@ -3310,33 +3310,33 @@ dc/8pxklrk2q6453,total wages of workers in Nonstore Retailers
 dc/90nswpkp8wlw5,Number of people who work in nonmetallic mineral product manufacturing
 dc/95gev5g99r7nc,total wages of Couriers and Messengers workers
 dc/96b2ddmlpvq7f,Revenue of Geothermal Electric Power Generation establishments
-dc/9cqv67nn7pn1b,Number of Hispanic or Latino people enrolled in graduate or professional school
+dc/9cqv67nn7pn1b,Number of Hispanic or Latino students enrolled in graduate or professional school
 dc/9kk3vkzn5v0fb,total wages of Beverage and Tobacco Product Manufacturing workers
 dc/9pmyhk89dj3pf,Median income of people working in the Accommodation & Food Services Industry
 dc/9sneyc8lpk8dc,Number of White females who have attended some college
 dc/9t5n4mk2fxzdg,total wages of workers in Transit Ground Passenger Transportation industry
 dc/9yj0bdp6s4ml5,total wages of workers in Plastics and Rubber Products Manufacturing
 dc/b18vkxwgc8xbd,Number of Native Hawaiian or Other Pacific Islander who are citizens at birth
-dc/b3nmcj3w1lhed,Number of multi races people enrolled in middle school
+dc/b3nmcj3w1lhed,Number of multi races students enrolled in middle school
 dc/b4dj4sbgqybh7,Median income of people working in the Mining Quarrying Oil & Gas Extraction Industry
 dc/b6z2v4t8cvcd5,Revenue of Wind Electric Power Generation establishments
 dc/bb4peddkgmqe7,Number of workers working in support activities for transportation
 dc/bceet4dh33ev,total wages of workers in Support Activities for Transportation
-dc/bf85zc6wypd2h,Number of white people enrolled in primary school
+dc/bf85zc6wypd2h,Number of white students enrolled in primary school
 dc/bwr1l8y9we9k7,Number of people who work in transit and ground passenger transportation
 dc/c0wxmt45gffxc,Number of people who work in general merchandise stores
-dc/c57vzg7l74577,Number of native hawaiian or other pacific islander people enrolled in middle school
+dc/c57vzg7l74577,Number of native hawaiian or other pacific islander students enrolled in middle school
 dc/c58mvty4nhxdb,Student test performance
-dc/cc8wk2n0ywd9,Number of Hispanic or Latino people enrolled in high school
+dc/cc8wk2n0ywd9,Number of Hispanic or Latino students enrolled in high school
 dc/ck1ksqd8rgps6,total annual payroll amount of Heavy and Civil Engineering Construction establishments
 dc/dchdrg93spxkf,total wages of General Merchandise Stores workers
 dc/dxcbt2knrsgg9,total wages of workers in Retail Trade
-dc/dxsxcw009pdm4,Number of Native Hawaiian or other Pacific Islander people enrolled in high school
+dc/dxsxcw009pdm4,Number of Native Hawaiian or other Pacific Islander students enrolled in high school
 dc/dy2k68mmhenfd,Number of people who work in textile product mills
 dc/dyhxtqe2pxhl5,Number of foreign born people with no income
-dc/e2szvml8jkld8,Number of Black Or African American people enrolled in middle school
+dc/e2szvml8jkld8,Number of Black Or African American students enrolled in middle school
 dc/e2zdnwjjhyj36,"Number of people working in sports, hobby, music instruments, and book stores"
-dc/e4y4hqq6mjfsh,Number of Black Or African American people enrolled in primary school
+dc/e4y4hqq6mjfsh,Number of Black Or African American students enrolled in primary school
 dc/eg6rrdr1tkf76,Number of female asian With Bachelor or higher Degree
 dc/eh7s78v8s14l9,Number of people who work in chemical manufacturing
 dc/ep052e5d1p2t4,Number of suicides of incarcerated males
@@ -3345,26 +3345,26 @@ dc/epw58ne8mytn5,Number of females of some other race who have attended some col
 dc/evcytmdmc9xgd,Number of privately owned Wind Electric Power Generation establishments
 dc/fcn7wgvcwtsj2,total wages of workers in Warehousing Storage industry
 dc/fetj39pqls2df,total wages of Leather and Allied Product Manufacturing workers
-dc/fh4td3znm3l4g,Number of American Indian or Alaska Native people enrolled in high school
-dc/fmx7fkrpd3jl2,Number of Native Hawaiian or other Pacific Islander people enrolled in graduate or professional school
+dc/fh4td3znm3l4g,Number of American Indian or Alaska Native students enrolled in high school
+dc/fmx7fkrpd3jl2,Number of Native Hawaiian or other Pacific Islander students enrolled in graduate or professional school
 dc/fyc3yvjy0xw6g,Number of people whose commute time to work is 5 minutes or less
 dc/g4fthg3t3y5td,Number of asian people currently enrolled in middle school
 dc/g8537zqf45wl3,Number of people of multi races enrolled in high school
 dc/g8kg52zcxzw9f,Number of females enrolled in kindergarten
 dc/gb0b3cwxyfsh9,Number of deaths of incarcerated females
-dc/gr3zem8shyhbf,Number of white people enrolled in kindergarten
+dc/gr3zem8shyhbf,Number of white students enrolled in kindergarten
 dc/gvnh5cpl9h1rf,Number of people with income who are foreign born
 dc/h1jy2glt2m7e6,Number of people who work in water transportation
 dc/h77bt8rxcjve3,total wages of workers in Truck Transportation industry
 dc/h7ft916g93ys2,Number of people whose commute time to work is 90 minutes or longer
-dc/h8p2m5rx43j3b,Number of white people enrolled in graduate or professional school
+dc/h8p2m5rx43j3b,Number of white students enrolled in graduate or professional school
 dc/hbkh95kc7pkb6,Number of people who take public transportation to work
 dc/hlxvn1t8b9bhh,Number of people who work in cattle ranching and farming
 dc/hxsdmw575en24,Number of Incarcerated people
 dc/hyfn2tlyz48lb,Number of multi races female With Bachelor or higher Degree
 dc/j5fv028n7nhe4,total annual payroll amount of Residential Building Construction establishments
 dc/jefhcs9qxc971,Median income of people working in the Educational Services Industry
-dc/jhjdplbeg26k1,Number of multi races people enrolled in primary school
+dc/jhjdplbeg26k1,Number of multi races students enrolled in primary school
 dc/jngmh68j9z4q,total wages of Food Manufacturing workers
 dc/jte92xq8qsgtd,Number of suicides of incarcerated people
 dc/jtf63bh66k41g,Number of homicides of incarcerated people
@@ -3388,7 +3388,7 @@ dc/mfz54y2skbpeh,"Median income of people working in the Arts, Entertainment & R
 dc/mqxdr821c7kw3,Number of American Indian Or Alaska Native females with some college education
 dc/mr1f76pb6yq98,Number of white people not currently enrolled in school
 dc/msz3yy4p50yyf,"total annual payroll amount of Research and Development in the Physical, Engineering, and Life Sciences establishments"
-dc/mwbmxs2q9zcgd,Number of American Indian or Alaska Native people enrolled in college or undergraduate years
+dc/mwbmxs2q9zcgd,Number of American Indian or Alaska Native students enrolled in college or undergraduate years
 dc/mwcnlh5bmdk63,Number of Electric Power Transmission And Distribution establishments
 dc/n0m3e2r3pxb21,total wages of workers in Pipeline Transportation
 dc/n18hgz310vw83,Revenue of Hydroelectric Power Generation establishments
@@ -3397,22 +3397,22 @@ dc/ndg1xk1e9frc2,Number of people employed in the manufacturing sector
 dc/nesnbmrncfjrb,Total wages of workers in wood product manufacturing industry
 dc/nh3s4skee5483,Prevalence of adult female diabetes
 dc/nhecfv83n1nt9,Number of American Indian or Alaska Native people who were citizens at birth
-dc/nhmjhp72kjr48,Number of asian people enrolled in college or undergraduate years
-dc/njgzb8knf11n8,Number of american indian or alaska native people enrolled in middle school
-dc/ns1rqx6wy9909,Number of Black Or African American people enrolled in kindergarten
+dc/nhmjhp72kjr48,Number of asian students enrolled in college or undergraduate years
+dc/njgzb8knf11n8,Number of american indian or alaska native students enrolled in middle school
+dc/ns1rqx6wy9909,Number of Black Or African American students enrolled in kindergarten
 dc/ntpwcslsbjfc8,total wages of workers in Postal Service
 dc/nvfkved5p7pv1,Number of asian people not currently enrolled in school
 dc/p34mhcpgtth76,Number of males enrolled in kindergarten
-dc/p4jzvj8q1lnmd,Number of American Indian or Alaska Native people enrolled in primary school
+dc/p4jzvj8q1lnmd,Number of American Indian or Alaska Native students enrolled in primary school
 dc/p69tpsldf99h7,Number of people working in the retail trade industry
 dc/pltrqb2ng8dp8,Number of males enrolled in college undergraduate years
 dc/q2pgyz35p79l4,Number of homicides of incarcerated females
 dc/q98jxycvs422f,Number of muti races females who have attended some college
 dc/qgpqqfzwz03d,total wages of workers in Scenic and Sightseeing Transportation
 dc/qj9v0vqzp9vlg,Number of foreign born widowed people
-dc/qnphlls92tvs9,Number of American Indian or Alaska Native people enrolled in kindergarten
+dc/qnphlls92tvs9,Number of American Indian or Alaska Native students enrolled in kindergarten
 dc/qnz3rlypmfvw6,Number of people who work in plastics and rubber products manufacturing
-dc/qvf1yrhwzp8rd,Number of white people enrolled in middle school
+dc/qvf1yrhwzp8rd,Number of white students enrolled in middle school
 dc/rfdrfdc164y3b,total wages of Chemical Manufacturing workers
 dc/rlk1yxmkk1qqg,Number of people who work in beverage and tobacco product manufacturing
 dc/s9cn1zj5fv5cc,Revenue of Electric Power Distribution establishments
@@ -3430,7 +3430,7 @@ dc/topic/AgeMedians,Age Medians
 dc/topic/AgriculturalProduction,Agricultural Output;Agricultural Production;Output from agricultural activities;Total agricultural output
 dc/topic/Agriculture,Agriculture;Agriculture data;Agriculture statistics;Data related to agriculture;Farming;Farming information;Information on farming
 dc/topic/AgricultureEmissionsByGas,Amount of gases emitted by agricultural sector;Emissions from agriculture;Quantity of greenhouse gases emitted by the agricultural sector;The sum of all gases released by the agricultural industry;The volume of emissions produced by agriculture;Total amount of gas emissions from farming practices;Total quantity of gases released by the farming industry
-dc/topic/AirQualityIndex,AQI;Air Quality Index;air quality level
+dc/topic/AirQualityIndex,AQI;Air Quality Index
 dc/topic/AlcoholIndustry,Alcohol Industry
 dc/topic/AmbientAirPollution,Ambient Air Pollution
 dc/topic/AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,American Indian And Alaska Native Female Population By Age
@@ -3533,7 +3533,6 @@ dc/topic/Fire,Fires;fire;fire event;wild fires
 dc/topic/Flood,Floods;flood
 dc/topic/FoodInsecurity,Food Insecurity;access to food;food insecure;food security;lack of access to the food
 dc/topic/Forest,Forest
-dc/topic/FossilFuelOperationsEmissionsByGas,Amount of gases emitted in fossil fuel operations;Emissions from fossil fuel operations;Quantity of greenhouse gases emitted by the burning of fossil fuels;The sum of all gases released by the use of fossil fuels;The volume of emissions produced by the use of fossil fuels;Total amount of gas emissions from fossil fuel operations;Total quantity of gases released by fossil fuel operations
 dc/topic/GDP,GDP;gross domestic production
 dc/topic/GDPByIndustry,GDP By Industry;gross domestic product breakdown by industry;gross domestic product by industry
 dc/topic/Gender,Gender;gender of population
@@ -3541,7 +3540,7 @@ dc/topic/GlobalEconomicActivity,Global Economic Activity
 dc/topic/GlobalElectricityAccess,Access To Electricity;Percentage of People with access to Electricity;electricity access;electrification;people with access to electricity
 dc/topic/GlobalHealth,Global health;World health;health conditions in the world;health in the world
 dc/topic/GreenJobs,Green Jobs;environmentally friendly jobs;sustainable jobs
-dc/topic/GreenhouseGasEmissions,GHG emissions;Greenhouse Gas Emission;Greenhouse Gas Emissions;greenhouse gasses emissions;sources of GHG emissions;sources of greenhouse gas emissions
+dc/topic/GreenhouseGasEmissions,Amount of Greenhouse Gas Emission breakdown by sources
 dc/topic/GroupQuartersResidents,Group Quarters Residents
 dc/topic/HIV,HIV
 dc/topic/HateCrimes,Hate Crimes
@@ -3579,7 +3578,7 @@ dc/topic/Housing,Housing
 dc/topic/Hurricane,Hurricane
 dc/topic/Immigration,Immigration
 dc/topic/Incarceration,Incarceration
-dc/topic/Income,Earnings;Income;Income from Earnings;Salary;compensation;pay
+dc/topic/Income,overview of income
 dc/topic/IncomeEquity,Income Equity;equity of income distribution;fairness of income distribution;fariness in income
 dc/topic/IndividualIncomeByIndustry,Individual Income By Industry;individual income across industries
 dc/topic/IndividualIncomeDistribution,Population breakdown by income level
@@ -3694,7 +3693,7 @@ dc/topic/PreventativeHealth,Preventative Health
 dc/topic/PreventativeHealthAndBehavior,Preventative health and behavior
 dc/topic/PrivateHealthInsuranceType,Private health insurance;health insurance private type;people with private health insurance
 dc/topic/ProductionConsumptionandWaste,Production and Consumption Waste;Waste due to production and consumption
-dc/topic/ProjectedClimateExtremes,Climate Extremes;Projected Climate Extremes
+dc/topic/ProjectedClimateExtremes,Climate Extremes;Projected Climate Extremes;projected temperature
 dc/topic/PublicHealthInsuranceType,Public health insurance;health insurance public type;people with public health insurance
 dc/topic/Race,Race;population by race
 dc/topic/Rainfall,Rainfall;rain
@@ -3733,7 +3732,7 @@ dc/topic/StudentsInCollege,Students in College;college students;undergrad studen
 dc/topic/StudentsInGraduateOrProfessionalSchool,race breakdown of students in Graduate or Professional School
 dc/topic/StudentsInHighSchool,Student in High School;high school students;students enrolled in high schools
 dc/topic/StudentsInKindergarten,KG students;Students in Kindergarten;kindergarten students;students in KG
-dc/topic/StudentsInMiddleSchool,Students in Middle School;middle school students
+dc/topic/StudentsInMiddleSchool,race breakdown of students in middle school
 dc/topic/StudentsInPrimarySchool,Students in Primary School;primary school students;students enrolled in primary school
 dc/topic/Suicide,Suicide
 dc/topic/SupportServicesStaffInSchools,Support Services Staff In Schools
@@ -4229,8 +4228,8 @@ dc/w1tfjz3h6138,Number of people who work in warehousing and storage
 dc/wbjmvkyqf6dm3,Number of native born people who speak Asian and Pacific Island languages at home
 dc/wfktw3b5c50h1,Number of establishments owned by private entities in the Solar Electric Power Generation industry
 dc/whn99h1l0xgth,Number of Asian females who have attended some college
-dc/wjtdrd9wq4m2g,Number of Black Or African American people enrolled in college or undergraduate years
-dc/wk2vjrzfgyq5d,Number of native hawaiian or other pacific islander people enrolled in primary school
+dc/wjtdrd9wq4m2g,Number of Black Or African American students enrolled in college or undergraduate years
+dc/wk2vjrzfgyq5d,Number of native hawaiian or other pacific islander students enrolled in primary school
 dc/wpkpr906ft37g,Number of foreign-born Hispanic or Latino people
 dc/ws19bm1hl105b,Number of people who work in wood product manufacturing
 dc/wv0mr2t2f5rj9,total wages of workers in Printing and Related Support Activities
@@ -4238,7 +4237,7 @@ dc/wzz9t818m1gk8,total wages of workers in Manufacturing
 dc/x13tvt8jsgrm4,Prevalence of adult male obesity
 dc/x3gghqtglpr59,Median income of people working in the Finance & Insurance Industry
 dc/x95kmng969n42,Median income of people working in the Utilities Industry
-dc/x9e7150515yt7,Number of asian people enrolled in primary school
+dc/x9e7150515yt7,Number of asian students enrolled in primary school
 dc/xdfcsgf05b4mc,Number of foreign born asian people
 dc/xj2nk2bg60fg,Median income of people working in the Information Industry
 dc/xmpy89x1nh8cg,Prevalence of adult male diabetes
@@ -4250,10 +4249,10 @@ dc/yxxs3hh2g2shd,total wages of workers in Nonmetallic Mineral Product Manufactu
 dc/z27q5dymqyrnf,Number of people who work in apparel manufacturing
 dc/z29z7w7ldnwl4,Number of homicides of incarcerated males
 dc/zbpsz8dg01nh2,Median income of people working in the Transportation & Warehousing Industry
-dc/zmp6qzgzp7ly2,Number of asian people enrolled in graduate or professional school
+dc/zmp6qzgzp7ly2,Number of asian students enrolled in graduate or professional school
 dc/zq864lhfql079,Number of white people currently enrolled in school
 dc/zv5g19y8dl9r1,Number of people of multi races enrolled in college undergraduate years
-dc/zvr6djt1p9gj3,Number of hispanic or latino people enrolled in middle school
+dc/zvr6djt1p9gj3,Number of hispanic or latino students enrolled in middle school
 indianCensus/Count_Person_Religion_Buddhist,Number of Buddhist people
 indianCensus/Count_Person_Religion_Buddhist_Female,Number of Buddhist females
 indianCensus/Count_Person_Religion_Buddhist_Illiterate,Number of illiterate Buddhist people

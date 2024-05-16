@@ -7,7 +7,7 @@ dc/topic/AgeMedians,Age Medians,Age Medians,,
 dc/topic/AgriculturalProduction,,Agricultural Output,,Agricultural Production; Agricultural Output; Output from agricultural activities;Total agricultural output
 dc/topic/Agriculture,,Agriculture,,Agriculture; Farming;Farming information; Agriculture data; Agriculture statistics; Data related to agriculture; Information on farming;
 dc/topic/AgricultureEmissionsByGas,Emissions from agriculture,Emissions from agriculture,,Amount of gases emitted by agricultural sector;Total quantity of gases released by the farming industry; The volume of emissions produced by agriculture; Quantity of greenhouse gases emitted by the agricultural sector; Total amount of gas emissions from farming practices; The sum of all gases released by the agricultural industry;
-dc/topic/AirQualityIndex,Air Quality Index,Air Quality Index,,AQI; air quality level;
+dc/topic/AirQualityIndex,Air Quality Index,,,AQI;
 dc/topic/AlcoholIndustry,Alcohol Industry,Alcohol Industry,,
 dc/topic/AmbientAirPollution,Ambient Air Pollution,Ambient Air Pollution,,
 dc/topic/AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,American Indian And Alaska Native Female Population By Age,American Indian And Alaska Native Female Population By Age,,
@@ -110,7 +110,6 @@ dc/topic/Fire,Fires,Fires,,fire; fire event; wild fires;
 dc/topic/Flood,Floods,Floods,,flood;
 dc/topic/FoodInsecurity,Food Insecurity,Food Insecurity,,food insecure;lack of access to the food;access to food;food security;
 dc/topic/Forest,Forest,Forest,,
-dc/topic/FossilFuelOperationsEmissionsByGas,Emissions from fossil fuel operations,Emissions from fossil fuel operations,,Amount of gases emitted in fossil fuel operations;Total quantity of gases released by fossil fuel operations; The volume of emissions produced by the use of fossil fuels; Quantity of greenhouse gases emitted by the burning of fossil fuels; Total amount of gas emissions from fossil fuel operations; The sum of all gases released by the use of fossil fuels;
 dc/topic/GDP,GDP,GDP,,gross domestic production;
 dc/topic/GDPByIndustry,GDP By Industry,GDP By Industry,,gross domestic product breakdown by industry; gross domestic product by industry;
 dc/topic/Gender,Gender,Gender,,gender of population;
@@ -118,7 +117,7 @@ dc/topic/GlobalEconomicActivity,Global Economic Activity,Economic Activity,,
 dc/topic/GlobalElectricityAccess,Access To Electricity,Percentage of People with access to Electricity,,electrification; electricity access; people with access to electricity;
 dc/topic/GlobalHealth,Global health,World health,,health in the world; health conditions in the world;
 dc/topic/GreenJobs,Green Jobs,Green Jobs,,sustainable jobs; environmentally friendly jobs;
-dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emission,Greenhouse Gas Emissions,,GHG emissions; greenhouse gasses emissions; sources of greenhouse gas emissions; sources of GHG emissions;
+dc/topic/GreenhouseGasEmissions, Amount of Greenhouse Gas Emission breakdown by sources,,,
 dc/topic/GroupQuartersResidents,Group Quarters Residents,Group Quarters Residents,,
 dc/topic/HIV,HIV,HIV,,
 dc/topic/HateCrimes,Hate Crimes,Hate Crimes,,
@@ -157,7 +156,7 @@ dc/topic/Housing,Housing,Housing,,
 dc/topic/Hurricane,Hurricane,Hurricane,,
 dc/topic/Immigration,Immigration,Immigration,,
 dc/topic/Incarceration,Incarceration,Incarceration,,
-dc/topic/Income,Income,Income from Earnings,,Earnings; Salary; pay; compensation
+dc/topic/Income,overview of income,,,
 dc/topic/IncomeEquity,Income Equity,Income Equity,,fariness in income; fairness of income distribution; equity of income distribution;
 dc/topic/IndividualIncomeByIndustry,Individual Income By Industry,Individual Income By Industry,,individual income across industries;
 dc/topic/IndividualIncomeDistribution,,,,Population breakdown by income level;
@@ -277,7 +276,7 @@ dc/topic/PreventativeHealth,Preventative Health,Preventative Health,,
 dc/topic/PreventativeHealthAndBehavior,Preventative health and behavior,Preventative health and behavior,,
 dc/topic/PrivateHealthInsuranceType,Private health insurance,Private health insurance,,people with private health insurance; health insurance private type;
 dc/topic/ProductionConsumptionandWaste,Production and Consumption Waste,Production and Consumption Waste,,Waste due to production and consumption;
-dc/topic/ProjectedClimateExtremes,Projected Climate Extremes,Projected Climate Extremes,,Climate Extremes;
+dc/topic/ProjectedClimateExtremes,Projected Climate Extremes,Projected Climate Extremes,,Climate Extremes;projected temperature
 dc/topic/PublicHealthInsuranceType,Public health insurance,Public health insurance,,people with public health insurance; health insurance public type;
 dc/topic/Race,Race,Race,,population by race;
 dc/topic/Rainfall,Rainfall,Rainfall,,rain;
@@ -316,7 +315,7 @@ dc/topic/StudentsInCollege,Students in College,Students in College,,undergraduat
 dc/topic/StudentsInGraduateOrProfessionalSchool,,,,race breakdown of students in Graduate or Professional School;
 dc/topic/StudentsInHighSchool,Student in High School,Student in High School,,students enrolled in high schools; high school students;
 dc/topic/StudentsInKindergarten,Students in Kindergarten,Students in Kindergarten,,students in KG; KG students; kindergarten students;
-dc/topic/StudentsInMiddleSchool,Students in Middle School,Students in Middle School,,middle school students;
+dc/topic/StudentsInMiddleSchool,race breakdown of students in middle school,,,
 dc/topic/StudentsInPrimarySchool,Students in Primary School,Students in Primary School,,students enrolled in primary school; primary school students;
 dc/topic/Suicide,Suicide,Suicide,,
 dc/topic/SupportServicesStaffInSchools,Support Services Staff In Schools,Support Services Staff In Schools,,

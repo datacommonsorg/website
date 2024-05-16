@@ -32,6 +32,22 @@ _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
+def _get_embeddings_spec():
+  autopush_values_path = os.path.join(_root_dir,
+                                      'deploy/helm_charts/envs/autopush.yaml')
+  with open(autopush_values_path) as f:
+    autopush_values = yaml.full_load(f)
+    return autopush_values['nl']['embeddingsSpec']
+
+
+def _get_embeddings_info(embeddings_spec):
+  embeddings_config_path = os.path.join(_root_dir, 'deploy/nl/embeddings.yaml')
+  with open(embeddings_config_path) as f:
+    embeddings_map = yaml.full_load(f)
+    return parse(embeddings_map, embeddings_spec['vertexAIModels'],
+                 embeddings_spec['enableReranking'])
+
+
 def _get_contents(
     r: VarCandidates) -> tuple[List[str], List[str], List[List[str]]]:
   return r.svs, r.scores, r.sv2sentences
@@ -41,12 +57,9 @@ class TestEmbeddings(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls) -> None:
-    embeddings_config_path = os.path.join(_root_dir,
-                                          'deploy/nl/embeddings.yaml')
-    with open(embeddings_config_path) as f:
-      nl_embeddings = emb_map.EmbeddingsMap(yaml.full_load(f))
-      # TODO(pradh): Expand tests to other index sizes.
-      cls.nl_embeddings = nl_embeddings.get_index()
+    embeddings_spec = _get_embeddings_spec()
+    embeddings_info = _get_embeddings_info(embeddings_spec)
+    cls.nl_embeddings = embeddings_info.get_index()
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
