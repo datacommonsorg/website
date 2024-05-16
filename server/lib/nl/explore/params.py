@@ -67,8 +67,8 @@ class Clients(str, Enum):
 
 
 SDG_DC_LIST = [DCNames.SDG_DC, DCNames.SDG_MINI_DC]
-
-SPECIAL_DC_LIST = SDG_DC_LIST + [DCNames.UNDATA_DC]
+UNDATA_DC_LIST = [DCNames.UNDATA_DC, DCNames.UNDATA_ILO_DC]
+SPECIAL_DC_LIST = SDG_DC_LIST + UNDATA_DC_LIST
 
 
 # Get the SV score threshold for the given mode.

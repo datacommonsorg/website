@@ -57,8 +57,11 @@ _UNDATA_ILO_SERIES_TOPICS_FILE = 'un_ilo_series_topics.csv'
 _UNDATA_ILO_NL_DESCRIPTIONS_FILE = os.path.join(
     _TMP_DIR, 'undata_ilo_nl_descriptions.csv')
 
+# TODO(dwnoble): Add command line flag to handle generating custom DC groups
 REMOVE_SVG_PREFIX = "Custom_"
 
+# TODO(dwnoble): Extract API_ROOT (and potentially some of the variables above)
+# to command line args or a config file
 API_ROOT = "https://staging.unsdg.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
 API_PATH_PROP_OUT = API_ROOT + '/v1/bulk/property/values/out'
@@ -431,6 +434,9 @@ def main(_):
                    topic_prefix='dc/topic/',
                    svpg_prefix='dc/svpg/ILO')
     write_non_country_vars(_UNDATA_ILO_NON_COUNTRY_VARS, vars)
+    # TODO(dwnoble): Remove skip_assert here in a future iteration of the
+    # variable groupings (there are currenlty some ILO population types with no
+    # associated variables).
     nodes = generate([_UNDATA_ILO_ROOT],
                      vars,
                      REMOVE_SVG_PREFIX,
