@@ -149,6 +149,157 @@
               {
                 "tiles": [
                   {
+                    "description": "Deaths in China",
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Deaths in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in Administrative Area 1 Places of China (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita in Administrative Area 1 Places of China"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Deaths Per Capita in China",
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+                    ],
+                    "title": "% of Suicide Events in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "% of Suicide Events in China",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+                    ],
+                    "title": "% of Suicide Events in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Causes of Death"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_DYN_NMRT.AGE--M0"
+                    ],
+                    "title": "Neonatal Mortality Rate in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Neonatal Mortality Rate in China",
+                    "statVarKey": [
+                      "sdg/SH_DYN_NMRT.AGE--M0"
+                    ],
+                    "title": "Neonatal Mortality Rate in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations Inter-agency group for child mortality estimation (UN IGME), 2023.",
+            "title": "Neonatal Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F",
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
+                    ],
+                    "title": "Infant Mortality Rate by Gender in China",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Infant Mortality Rate by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "WHO/CM_01",
                       "WHO/CM_02",
@@ -302,157 +453,6 @@
               }
             ],
             "title": "Mortality Rates by Causes"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Deaths in China",
-                    "statVarKey": [
-                      "Count_Death"
-                    ],
-                    "title": "Deaths in China",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Deaths"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
-                    ],
-                    "title": "Deaths Per Capita in Administrative Area 1 Places of China (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
-                    ],
-                    "title": "Deaths Per Capita in Administrative Area 1 Places of China (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Deaths Per Capita in Administrative Area 1 Places of China"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
-                    ],
-                    "title": "Deaths Per Capita in China",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Deaths Per Capita in China",
-                    "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
-                    ],
-                    "title": "Deaths Per Capita in China",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Deaths Per Capita"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
-                    ],
-                    "title": "% of Suicide Events in China",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "% of Suicide Events in China",
-                    "statVarKey": [
-                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
-                    ],
-                    "title": "% of Suicide Events in China",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Causes of Death"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_DYN_NMRT.AGE--M0"
-                    ],
-                    "title": "Neonatal Mortality Rate in China",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Neonatal Mortality Rate in China",
-                    "statVarKey": [
-                      "sdg/SH_DYN_NMRT.AGE--M0"
-                    ],
-                    "title": "Neonatal Mortality Rate in China",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: united nations Inter-agency group for child mortality estimation (UN IGME), 2023.",
-            "title": "Neonatal Mortality Rate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F",
-                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
-                    ],
-                    "title": "Infant Mortality Rate by Gender in China",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Infant Mortality Rate by Gender"
           }
         ],
         "statVarSpec": {

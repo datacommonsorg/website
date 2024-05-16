@@ -41,7 +41,7 @@
           "Parts": [
             {
               "CosineScore": [
-                0.8787486553192139
+                0.8787485361099243
               ],
               "QueryPart": "show climate change",
               "SV": [
@@ -65,10 +65,10 @@
           "Parts": [
             {
               "CosineScore": [
-                0.7942368984222412,
-                0.7929012775421143,
+                0.794236958026886,
+                0.7929013967514038,
                 0.7586166858673096,
-                0.7583957314491272
+                0.7583958506584167
               ],
               "QueryPart": "show climate",
               "SV": [
@@ -80,7 +80,7 @@
             },
             {
               "CosineScore": [
-                0.8665127158164978
+                0.8665127754211426
               ],
               "QueryPart": "change drought",
               "SV": [
@@ -133,7 +133,7 @@
     "query_transformations": {
       "place_detection_input": "show me the impact of climate change on drought",
       "place_detection_with_places_removed": "show me the impact of climate change on drought",
-      "sv_detection_query_index_type": "",
+      "sv_detection_query_index_type": "base_uae_mem",
       "sv_detection_query_input": "show me the impact of climate change on drought",
       "sv_detection_query_stop_words_removal": "show climate change drought"
     }

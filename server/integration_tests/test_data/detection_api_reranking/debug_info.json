@@ -42,10 +42,10 @@
       0.6289035081863403,
       0.6160052418708801,
       0.6142628788948059,
-      0.6081966161727905,
+      0.6081965565681458,
       0.6191737055778503,
       0.6207633018493652,
-      0.6243025064468384,
+      0.6243024468421936,
       0.6071876287460327
     ],
     "MultiSV": {},
@@ -375,10 +375,10 @@
           ]
         }
       },
-      "sv_detection_query_index_type": "",
+      "sv_detection_query_index_type": "base_uae_mem",
       "sv_detection_query_input": "population that is rich in",
       "sv_detection_query_stop_words_removal": "population rich",
-      "time_var_reranking": 2.9423038959503174
+      "time_var_reranking": 3.320078134536743
     }
   }
 }

@@ -69,7 +69,6 @@ RetailDrugDistribution_DrugDistribution_dea/9809,RetailDrugDistribution_DrugDist
 Annual_Consumption_Electricity,dc/topic/Electricity_Consumption,Electricity Consumption
 dc/topic/EconomicActivity,dc/topic/GlobalEconomicActivity,Economic Activity
 Temperature,dc/topic/Temperatures,Temperature
-dc/topic/Mortality,dc/topic/WHOMortality,Mortality
 sdg/SN_ITK_DEFC,dc/topic/sdg_2.1.1,Prevalence of undernourishment
 dc/topic/FoodInsecurity,dc/topic/sdg_2.1.2,food security
 sdg/SH_STA_MORT.SEX--F,dc/topic/sdg_3.1.1,Maternal mortality ratio

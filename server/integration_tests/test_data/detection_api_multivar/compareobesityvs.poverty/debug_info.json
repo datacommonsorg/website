@@ -22,7 +22,7 @@
       0.7264261841773987,
       0.7230079174041748,
       0.7192584276199341,
-      0.714840829372406,
+      0.7148406505584717,
       0.7139475345611572,
       0.7126951217651367,
       0.7112098932266235,
@@ -37,7 +37,7 @@
       0.6995822191238403,
       0.6994997262954712,
       0.6956703662872314,
-      0.6947906613349915
+      0.6947906017303467
     ],
     "MultiSV": {
       "Candidates": [
@@ -117,7 +117,7 @@
     "query_transformations": {
       "place_detection_input": "compare obesity vs poverty",
       "place_detection_with_places_removed": "compare obesity vs poverty",
-      "sv_detection_query_index_type": "",
+      "sv_detection_query_index_type": "base_uae_mem",
       "sv_detection_query_input": "compare obesity vs poverty",
       "sv_detection_query_stop_words_removal": "obesity poverty"
     }
