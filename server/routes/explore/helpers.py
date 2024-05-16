@@ -452,22 +452,3 @@ def _set_blocked(err_json: Dict):
   err_json['blocked'] = True
   if err_json.get('debug'):
     err_json['debug']['blocked'] = True
-
-
-def explore_post_body_cache_key():
-  """
-  Builds flask cache key for /detect and /detect-and-fulfill POST
-  requests. Does not cache requests with a contextHistory.
-  """
-  body_object = request.get_json()
-  if "contextHistory" in body_object and body_object["contextHistory"]:
-    # Don't cache requests with a contextHistory by returning None.
-    # All context histories are unique due to a unique session ID, so caching
-    # isn't helpful.
-    # TODO: Strip out session id, debug info, and potentially other fields from
-    # contextHistory so it can be cached
-    return None
-  full_path = request.full_path
-  post_body = json.dumps(body_object, sort_keys=True)
-  cache_key = f'{full_path},{post_body}'
-  return cache_key
