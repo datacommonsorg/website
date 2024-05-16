@@ -186,6 +186,64 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_Civilian_InLaborForce"
+                    ],
+                    "title": "Population: 16 Years or More, Civilian, in Labor Force in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 16 Years or More, Civilian, in Labor Force in Washington",
+                    "statVarKey": [
+                      "Count_Person_Civilian_InLaborForce"
+                    ],
+                    "title": "Population: 16 Years or More, Civilian, in Labor Force in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16 Years or More, Civilian, in Labor Force"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_InLaborForce"
+                    ],
+                    "title": "Population in the Labor Force in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population in the Labor Force in Washington",
+                    "statVarKey": [
+                      "Count_Person_InLaborForce"
+                    ],
+                    "title": "Population in the Labor Force in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population in the Labor Force"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Person_15OrMoreYears_WithIncome"
                     ],
                     "title": "Population: 15 Years or More, With Income in Census Zip Code Tabulation Areas of Washington (${date})",
@@ -240,64 +298,6 @@
             ],
             "denom": "Count_Person",
             "title": "Population: 15 Years or More, With Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Civilian_InLaborForce"
-                    ],
-                    "title": "Population: 16 Years or More, Civilian, in Labor Force in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 16 Years or More, Civilian, in Labor Force in Washington",
-                    "statVarKey": [
-                      "Count_Person_Civilian_InLaborForce"
-                    ],
-                    "title": "Population: 16 Years or More, Civilian, in Labor Force in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 16 Years or More, Civilian, in Labor Force"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_InLaborForce"
-                    ],
-                    "title": "Population in the Labor Force in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population in the Labor Force in Washington",
-                    "statVarKey": [
-                      "Count_Person_InLaborForce"
-                    ],
-                    "title": "Population in the Labor Force in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population in the Labor Force"
           },
           {
             "columns": [

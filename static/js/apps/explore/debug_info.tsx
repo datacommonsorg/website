@@ -179,10 +179,12 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
   const hideDebug =
     document.getElementById("metadata").dataset.hideDebug === "True" &&
     !debugParam;
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [showDebug, setShowDebug] = useState(false);
+
   if (_.isEmpty(props.debugData) || hideDebug) {
     return <></>;
   }
-  const [showDebug, setShowDebug] = useState(false);
 
   const debugInfo = {
     status: props.debugData["status"],
@@ -337,9 +339,21 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <Col>Date classification: {debugInfo.dateClassification}</Col>
           </Row>
           <Row>
+            <b>Query Detection:</b>
+          </Row>
+          <Row>
+            <Col>
+              <pre>
+                {JSON.stringify(debugInfo.queryDetectionDebugLogs, null, 2)}
+              </pre>
+            </Col>
+          </Row>
+          <Row>
             <b>Single Variables Matches:</b>
           </Row>
-          <Row>Note: Variables with scores less than 0.5 are not used.</Row>
+          <Row>
+            Note: Variables with scores less than model threshold are not used.
+          </Row>
           <Row>
             <Col>
               {monoVarScoresElement(
@@ -388,62 +402,67 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
               )}
             </Col>
           </Row>
+
           <Row>
-            <b>Query Detection:</b>
+            <b
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              style={{ cursor: "pointer" }}
+            >
+              <h3>SHOW MORE: {isCollapsed ? "[+]" : "[-]"}</h3>
+            </b>
           </Row>
-          <Row>
-            <Col>
-              <pre>
-                {JSON.stringify(debugInfo.queryDetectionDebugLogs, null, 2)}
-              </pre>
-            </Col>
-          </Row>
-          <Row>
-            <b>Query Fulfillment:</b>
-          </Row>
-          {props.queryResult && (
-            <Row>
-              <Col>
-                Place Query Source: {props.queryResult.placeSource}
-                {props.queryResult.pastSourceContext
-                  ? "(" + props.queryResult.pastSourceContext + ")"
-                  : ""}
-              </Col>
-            </Row>
+          {!isCollapsed && (
+            <>
+              <Row>
+                <b>Query Fulfillment:</b>
+              </Row>
+              {props.queryResult && (
+                <Row>
+                  <Col>
+                    Place Query Source: {props.queryResult.placeSource}
+                    {props.queryResult.pastSourceContext
+                      ? "(" + props.queryResult.pastSourceContext + ")"
+                      : ""}
+                  </Col>
+                </Row>
+              )}
+              {props.queryResult && (
+                <Row>
+                  <Col>Variable Query Source: {props.queryResult.svSource}</Col>
+                </Row>
+              )}
+              {props.queryResult && props.queryResult.placeFallback && (
+                <Row>
+                  <Col>
+                    Place Fallback: &quot;
+                    {props.queryResult.placeFallback.origStr}
+                    &quot; to &quot;{props.queryResult.placeFallback.newStr}
+                    &quot;
+                  </Col>
+                </Row>
+              )}
+              <Row>
+                <Col>
+                  <b>Counters:</b>
+                  <pre>{JSON.stringify(debugInfo.counters, null, 2)}</pre>
+                </Col>
+              </Row>
+              <Row>
+                <b>Page Config:</b>
+              </Row>
+              <Row>
+                <Col>
+                  <pre>
+                    {JSON.stringify(
+                      props.queryResult ? props.queryResult.config : null,
+                      null,
+                      2
+                    )}
+                  </pre>
+                </Col>
+              </Row>
+            </>
           )}
-          {props.queryResult && (
-            <Row>
-              <Col>Variable Query Source: {props.queryResult.svSource}</Col>
-            </Row>
-          )}
-          {props.queryResult && props.queryResult.placeFallback && (
-            <Row>
-              <Col>
-                Place Fallback: &quot;{props.queryResult.placeFallback.origStr}
-                &quot; to &quot;{props.queryResult.placeFallback.newStr}&quot;
-              </Col>
-            </Row>
-          )}
-          <Row>
-            <Col>
-              <b>Counters:</b>
-              <pre>{JSON.stringify(debugInfo.counters, null, 2)}</pre>
-            </Col>
-          </Row>
-          <Row>
-            <b>Page Config:</b>
-          </Row>
-          <Row>
-            <Col>
-              <pre>
-                {JSON.stringify(
-                  props.queryResult ? props.queryResult.config : null,
-                  null,
-                  2
-                )}
-              </pre>
-            </Col>
-          </Row>
         </div>
       )}
     </>

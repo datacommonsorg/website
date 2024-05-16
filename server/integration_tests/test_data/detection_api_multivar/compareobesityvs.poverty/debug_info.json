@@ -11,7 +11,6 @@
       0.8778442740440369,
       0.8041592240333557,
       0.7967699766159058,
-      0.7749936580657959,
       0.762496829032898,
       0.7490020394325256,
       0.7484047412872314,
@@ -37,7 +36,8 @@
       0.7004534602165222,
       0.6995822191238403,
       0.6994997262954712,
-      0.6956703662872314
+      0.6956703662872314,
+      0.6947906613349915
     ],
     "MultiSV": {
       "Candidates": [
@@ -74,7 +74,6 @@
       "dc/topic/Poverty",
       "Percent_Person_Obesity",
       "dc/topic/PovertyByRace",
-      "dc/topic/PovertyLevels",
       "dc/topic/SDG_1",
       "WHO/NCD_BMI_30A",
       "dc/topic/sdg_1.2",
@@ -100,7 +99,8 @@
       "dc/topic/HealthEquity",
       "WHO/NUTRITION_WA_2",
       "dc/topic/sdg_1.2.1",
-      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "Count_Person_Male_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces"
     ]
   },
   "props_matching": {

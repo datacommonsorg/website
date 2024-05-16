@@ -17,16 +17,15 @@
   "properties": [],
   "sessionId": "007_999999999",
   "variables": [
+    "dc/topic/Income",
     "dc/xj2nk2bg60fg",
     "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
     "WagesAnnual_Establishment_NAICSInformation",
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
     "dc/topic/IndividualIncomeByIndustry",
-    "dc/topic/Income",
     "Count_Worker_NAICSInformation",
     "WagesTotal_Worker_NAICSInformation",
     "Count_Person_16OrMoreYears_WithEarnings",
-    "dc/topic/IndustriesByRevenue",
-    "Count_Person_15OrMoreYears_WithIncome"
+    "dc/topic/IndustriesByRevenue"
   ]
 }

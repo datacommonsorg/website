@@ -25,7 +25,7 @@ dc/topic/AsianOrPacificIslanderPopulationByAge,Asian Or Pacific Islander Populat
 dc/topic/AsthmaFemalePopulationByAge,Female Population With Asthma By Age,Female Population With Asthma By Age,,
 dc/topic/AsthmaMalePopulationByAge,Male Population With Asthma By Age,Male Population With Asthma By Age,,
 dc/topic/Avalanche,Avalanche,Avalanche,,
-dc/topic/BachelorsMajor,Bachelors Major,Bachelors Major,,undergraduate major; college major;
+dc/topic/BachelorsMajor,breakdown of Bachelors by Major,,,
 dc/topic/BankingAccess,Banking Access,Banking Access,,
 dc/topic/Benefits,Benefits,Benefits,,social benefits; public benefits;
 dc/topic/Births,Births,Births,,
@@ -83,9 +83,9 @@ dc/topic/Education,Education,Education,,
 dc/topic/EducationEquity,Education Equity,Education Equity,,education fairness; education opportunities;
 dc/topic/EducationExpenditure,Education Expenditure,Education Expenditure,,
 dc/topic/EducationFaculty,Education Faculty,Education Faculty,,
-dc/topic/EducationalAttainment,Educational Attainment,Educational Attainment,,education attainment level; highest level of education; highest qualification; highest education attained;
-dc/topic/EducationalAttainmentByGenderAndLevel,Educational Attainment By Gender And Level,Educational Attainment By Gender And Level,,education attainment by gender and level; level and gender of education; level and gender of qualification;
-dc/topic/EducationalAttainmentByRaceAndLevel,Education Attainment by Race and Level,Education Attainment by Race and Level,,level of education by gender and race; race and gender breakdown of education level; race and gender breakdown of education attainment;
+dc/topic/EducationalAttainment,Educational Attainment,,,
+dc/topic/EducationalAttainmentByGenderAndLevel,population breakdown by educational attainment and gender,,,
+dc/topic/EducationalAttainmentByRaceAndLevel,population breakdown by education attainment and race,,,
 dc/topic/Electricity_Consumption,Electricity Consumption,Electricity Consumption,,consumption of electricity;
 dc/topic/Emissions,Emissions,Emissions,,
 dc/topic/Emissions_FlourinatedGases,Flourinated Gasses Emissions by Source,Flourinated Gasses Emissions by Source,,source of flourinated gas emissions; flourinated gas emissions by source;
@@ -156,10 +156,10 @@ dc/topic/Housing,Housing,Housing,,
 dc/topic/Hurricane,Hurricane,Hurricane,,
 dc/topic/Immigration,Immigration,Immigration,,
 dc/topic/Incarceration,Incarceration,Incarceration,,
-dc/topic/Income,overview of income,,,
+dc/topic/Income,income information,,,
 dc/topic/IncomeEquity,Income Equity,Income Equity,,fariness in income; fairness of income distribution; equity of income distribution;
-dc/topic/IndividualIncomeByIndustry,Individual Income By Industry,Individual Income By Industry,,individual income across industries;
-dc/topic/IndividualIncomeDistribution,,,,Population breakdown by income level;
+dc/topic/IndividualIncomeByIndustry,Individual Income By Industry type,,,
+dc/topic/IndividualIncomeDistribution,,,,Population breakdown by income;
 dc/topic/IndustriesByGDP,Industries By GDP Contribution,Industries By GDP Contribution,,contribution to the GDP by industries; GDP contribution by industries;
 dc/topic/IndustriesByRevenue,Industries By Revenue,Industries By Revenue,,revenue across industries; revenue breakdown by industries;
 dc/topic/InfantMortality,Infant Mortality,Infant Mortality,,mortality among infants; death among infants; infant deaths;
@@ -178,7 +178,7 @@ dc/topic/LandUseAndCoverage,Land Use And Coverage,Land Use And Coverage,,land us
 dc/topic/Landslide,Landslide,Landslide,,
 dc/topic/Language,Language,Language,,
 dc/topic/LanguageSpokenAtHome_ForeignBorn,,,,breakdown of foreign born people by language at home;
-dc/topic/LevelOfEducationalAttainment,Level Of Educational Attainment,Level Of Educational Attainment,,education attainment level; level of qualification;
+dc/topic/LevelOfEducationalAttainment,population breakdown by level Of Educational Attainment,,,
 dc/topic/LifeExpectancy,Life Expectancy,Life Expectancy,,
 dc/topic/Literacy,,Literacy,,
 dc/topic/LungConditionFemalePopulationByAge,Female Population With Lung Condition By Age,Female Population With Lung Condition By Age,,
@@ -269,7 +269,6 @@ dc/topic/PovertyByGender,Poverty By Gender,Poverty By Gender,,poverty across gen
 dc/topic/PovertyByLanguageSpokenAtHome,Poverty By Language Spoken At Home,Poverty By Language Spoken At Home,,poverty breakdown by language spoken at home;
 dc/topic/PovertyByRace,Poverty By Race,Poverty By Race,,poverty breakdown by race;
 dc/topic/PovertyByResidency,Poverty By Residency,Poverty By Residency,,poverty breakdown by residency;
-dc/topic/PovertyLevels,Poverty Levels,Poverty Levels,,levels of poverty;
 dc/topic/PowerEmissionsByGas,Emissions from power,Emissions from power,,Amount of gases emitted by the power sector;Total quantity of gases released by the power industry; The volume of emissions produced by electricity generation activities; Quantity of greenhouse gases emitted by power plants and energy production processes; Total amount of gas emissions from the power sector; The sum of all gases released by power generation activities;
 dc/topic/Precipitation,Precipitation,Precipitation,,high rainfall; major snow event; major precipitation;
 dc/topic/PreventativeHealth,Preventative Health,Preventative Health,,
@@ -315,7 +314,7 @@ dc/topic/StudentsInCollege,Students in College,Students in College,,undergraduat
 dc/topic/StudentsInGraduateOrProfessionalSchool,,,,race breakdown of students in Graduate or Professional School;
 dc/topic/StudentsInHighSchool,Student in High School,Student in High School,,students enrolled in high schools; high school students;
 dc/topic/StudentsInKindergarten,Students in Kindergarten,Students in Kindergarten,,students in KG; KG students; kindergarten students;
-dc/topic/StudentsInMiddleSchool,race breakdown of students in middle school,,,
+dc/topic/StudentsInMiddleSchool,middle school students by race,,,
 dc/topic/StudentsInPrimarySchool,Students in Primary School,Students in Primary School,,students enrolled in primary school; primary school students;
 dc/topic/Suicide,Suicide,Suicide,,
 dc/topic/SupportServicesStaffInSchools,Support Services Staff In Schools,Support Services Staff In Schools,,

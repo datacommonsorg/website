@@ -1786,8 +1786,8 @@ Count_MortalityEvent_Suicide,Number of Suicide Deaths
 Count_Person,total population
 Count_Person_0To4Years_Female,Number of girls under 4 years old
 Count_Person_0To4Years_Male,Number of boys under 4 years old
-Count_Person_10OrMoreYears_Literate_AsAFractionOf_Count_Person_10OrMoreYears,Literacy Rate Among Individuals Aged 10 Years and Older
-Count_Person_10To14Years_Literate_AsAFractionOf_Count_Person_10To14Years,Literacy Rate Among Individuals Aged 10 to 14 years
+Count_Person_10OrMoreYears_Literate_AsAFractionOf_Count_Person_10OrMoreYears,Literacy Rate Among people Aged 10 Years and Older
+Count_Person_10To14Years_Literate_AsAFractionOf_Count_Person_10To14Years,Literacy Rate Among people Aged 10 to 14 years
 Count_Person_15OrMoreYears_Divorced_AmericanIndianAndAlaskaNativeAlone,number of Divorced American Indian And Alaska Native people
 Count_Person_15OrMoreYears_Divorced_AsianAlone,number of Divorced Asian people
 Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone,number of Divorced Black or African American people
@@ -1843,7 +1843,7 @@ Count_Person_15OrMoreYears_Widowed_NativeHawaiianAndOtherPacificIslanderAlone,Nu
 Count_Person_15OrMoreYears_Widowed_OneRace,Number of widowed one race people
 Count_Person_15OrMoreYears_Widowed_TwoOrMoreRaces,Number of widowed multi race people
 Count_Person_15OrMoreYears_Widowed_WhiteAlone,Number of widowed white people
-Count_Person_15OrMoreYears_WithIncome,Number of people with Income
+Count_Person_15OrMoreYears_WithIncome,Number of people who earn income
 Count_Person_15To19Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To19Years_Female,Percentage of Females Aged 15-19 Who Gave Birth in the Past 12 Months
 Count_Person_15To19Years_Literate_AsAFractionOf_Count_Person_15To19Years,Percentage of Persons Aged 15-19 who are Literate
 Count_Person_15To24Years_Illiterate_AsAFractionOf_Count_Person_15To24Years,Percentage of Persons Aged 15-24 who are Illiterate
@@ -1869,7 +1869,7 @@ Count_Person_18OrMoreYears_Civilian_ResidesInCollegeOrUniversityStudentHousing,N
 Count_Person_18OrMoreYears_Civilian_ResidesInGroupQuarters,Number of civilians aged 18 or more who reside in group quarters
 Count_Person_18OrMoreYears_Civilian_ResidesInInstitutionalizedGroupQuarters,Number of civilians aged 18 or more who reside in institutionalized group quarters
 Count_Person_18OrMoreYears_Civilian_ResidesInNoninstitutionalizedGroupQuarters,Number of civilians aged 18 or more who reside in noninstitutionalized group quarters
-Count_Person_18OrMoreYears_Civilian_ResidesInNursingFacilities,Number of Civilian Individuals Aged 18 or More Resides In Nursing Facilities
+Count_Person_18OrMoreYears_Civilian_ResidesInNursingFacilities,Number of Civilian people Aged 18 or More Resides In Nursing Facilities
 Count_Person_1OrMoreYears_DifferentHouse1YearAgo,Number of people older than 1 and moved home in the last year
 Count_Person_1OrMoreYears_RenterOccupied_ResidesInHousingUnit,Number of people older than 1 and live in Renter Occupied Housing Units
 Count_Person_1OrMoreYears_ResidesInHousingUnit,Number of people older than 1 and reside in a Housing Unit
@@ -2078,14 +2078,14 @@ Count_Person_DetailedGraduateOrProfessionalSchool,Number of students enrolled in
 Count_Person_DetailedHighSchool,Number of students enrolled in High School
 Count_Person_DetailedMiddleSchool,Number of students enrolled in Middle School
 Count_Person_DetailedPrimarySchool,Number of students enrolled in Primary School
-Count_Person_Divorced,Number of divorced individuals
-Count_Person_DivorcedOrSeparated,Number of divorced or separated individuals
-Count_Person_Divorced_ResidesInAdultCorrectionalFacilities,Number of divorced individuals residing in adult correctional facilities
-Count_Person_Divorced_ResidesInCollegeOrUniversityStudentHousing,Number of divorced individuals residing in college or university student housing
-Count_Person_Divorced_ResidesInGroupQuarters,Number of divorced individuals residing in group quarters
-Count_Person_Divorced_ResidesInInstitutionalizedGroupQuarters,Number of divorced individuals residing in institutionalized group quarters
-Count_Person_Divorced_ResidesInNoninstitutionalizedGroupQuarters,Number of divorced individuals residing in noninstitutionalized group quarters
-Count_Person_Divorced_ResidesInNursingFacilities,Number of divorced individuals residing in nursing facilities
+Count_Person_Divorced,Number of divorced people
+Count_Person_DivorcedOrSeparated,Number of divorced or separated people
+Count_Person_Divorced_ResidesInAdultCorrectionalFacilities,Number of divorced people residing in adult correctional facilities
+Count_Person_Divorced_ResidesInCollegeOrUniversityStudentHousing,Number of divorced people residing in college or university student housing
+Count_Person_Divorced_ResidesInGroupQuarters,Number of divorced people residing in group quarters
+Count_Person_Divorced_ResidesInInstitutionalizedGroupQuarters,Number of divorced people residing in institutionalized group quarters
+Count_Person_Divorced_ResidesInNoninstitutionalizedGroupQuarters,Number of divorced people residing in noninstitutionalized group quarters
+Count_Person_Divorced_ResidesInNursingFacilities,Number of divorced people residing in nursing facilities
 Count_Person_EducationalAttainment10ThGrade,Number of People Who Completed 10th Grade
 Count_Person_EducationalAttainment11ThGrade,Number of People Who Completed 11th Grade
 Count_Person_EducationalAttainment12ThGradeNoDiploma,Number of People Who Completed 12th Grade No Diploma
@@ -2302,26 +2302,26 @@ Count_Person_Houseless_Workers_Urban,Number of houseless workers who reside in u
 Count_Person_Houseless_YearsUpto6,Number of houseless who are up to 6 years old
 Count_Person_Houseless_YearsUpto6_Female,Number of houseless females under 6 years
 Count_Person_Houseless_YearsUpto6_Male,Number of houseless males under 6 years
-Count_Person_Houseless_YearsUpto6_Rural,Number of houseless individuals under 6 years who reside in rural area
-Count_Person_Houseless_YearsUpto6_Urban,Number of houseless individuals under 6 years who reside in urban area
+Count_Person_Houseless_YearsUpto6_Rural,Number of houseless people under 6 years who reside in rural area
+Count_Person_Houseless_YearsUpto6_Urban,Number of houseless people under 6 years who reside in urban area
 Count_Person_Illiterate,Number of illiterate people
 Count_Person_Illiterate_AsAFractionOf_Count_Person,Percentage of illiterate people
 Count_Person_Illiterate_Female,Number of illiterate females
 Count_Person_Illiterate_Male,Number of illiterate males
-Count_Person_Illiterate_Rural,Number of illiterate individuals who reside in rural area
-Count_Person_Illiterate_Urban,Number of illiterate individuals who reside in urban area
+Count_Person_Illiterate_Rural,Number of illiterate people who reside in rural area
+Count_Person_Illiterate_Urban,Number of illiterate people who reside in urban area
 Count_Person_InArmedForces,Number of people serving in armed forces
 Count_Person_InLaborForce,number of people in labor force
 Count_Person_InLaborForce_ResidesInCollegeOrUniversityStudentHousing,Number of Labor Force Participants Residing in College or University Student Housing
 Count_Person_InLaborForce_ResidesInGroupQuarters,Number of Labor Force Participants reside in Group Quarters
 Count_Person_InLaborForce_ResidesInNoninstitutionalizedGroupQuarters,Number of Labor Force Participants reside in Noninstitutionalized Group Quarters
-Count_Person_IncomeOf10000To14999USDollar,"Number of Individuals with an Income Between $10,000 and $15,000"
-Count_Person_IncomeOf25000To34999USDollar,"Number of Individuals with an Income Between $25,000 and $35,000"
-Count_Person_IncomeOf35000To49999USDollar,"Number of Individuals with an Income Between $35,000 and $50,000"
-Count_Person_IncomeOf50000To64999USDollar,"Number of Individuals with an Income Between $50,000 and $65,000"
-Count_Person_IncomeOf65000To74999USDollar,"Number of Individuals with an Income Between $65,000 and $75,000"
-Count_Person_IncomeOf75000OrMoreUSDollar,"Number of Individuals with an Income of $75,000 and Over"
-Count_Person_IncomeOfUpto9999USDollar,"Number of Individuals with an Income of $9,999 and Below"
+Count_Person_IncomeOf10000To14999USDollar,"Number of people with an Income Between $10,000 and $15,000"
+Count_Person_IncomeOf25000To34999USDollar,"Number of people with an Income Between $25,000 and $35,000"
+Count_Person_IncomeOf35000To49999USDollar,"Number of people with an Income Between $35,000 and $50,000"
+Count_Person_IncomeOf50000To64999USDollar,"Number of people with an Income Between $50,000 and $65,000"
+Count_Person_IncomeOf65000To74999USDollar,"Number of people with an Income Between $65,000 and $75,000"
+Count_Person_IncomeOf75000OrMoreUSDollar,"Number of people with an Income of $75,000 and Over"
+Count_Person_IncomeOfUpto9999USDollar,"Number of people with an Income of $9,999 and Below"
 Count_Person_IndependentLivingDifficulty,Number of People With Independent Living Difficulty
 Count_Person_IsInternetUser_PerCapita,percentage of internet users
 Count_Person_Literate,Number of Literate people
@@ -3353,7 +3353,7 @@ dc/g8537zqf45wl3,Number of people of multi races enrolled in high school
 dc/g8kg52zcxzw9f,Number of females enrolled in kindergarten
 dc/gb0b3cwxyfsh9,Number of deaths of incarcerated females
 dc/gr3zem8shyhbf,Number of white students enrolled in kindergarten
-dc/gvnh5cpl9h1rf,Number of people with income who are foreign born
+dc/gvnh5cpl9h1rf,Number of foreign born people who earn income
 dc/h1jy2glt2m7e6,Number of people who work in water transportation
 dc/h77bt8rxcjve3,total wages of workers in Truck Transportation industry
 dc/h7ft916g93ys2,Number of people whose commute time to work is 90 minutes or longer
@@ -3448,7 +3448,7 @@ dc/topic/AsianOrPacificIslanderPopulationByAge,Asian Or Pacific Islander Populat
 dc/topic/AsthmaFemalePopulationByAge,Female Population With Asthma By Age
 dc/topic/AsthmaMalePopulationByAge,Male Population With Asthma By Age
 dc/topic/Avalanche,Avalanche
-dc/topic/BachelorsMajor,Bachelors Major;college major;undergraduate major
+dc/topic/BachelorsMajor,breakdown of Bachelors by Major
 dc/topic/BankingAccess,Banking Access
 dc/topic/Benefits,Benefits;public benefits;social benefits
 dc/topic/Births,Births
@@ -3506,9 +3506,9 @@ dc/topic/Education,Education
 dc/topic/EducationEquity,Education Equity;education fairness;education opportunities
 dc/topic/EducationExpenditure,Education Expenditure
 dc/topic/EducationFaculty,Education Faculty
-dc/topic/EducationalAttainment,Educational Attainment;education attainment level;highest education attained;highest level of education;highest qualification
-dc/topic/EducationalAttainmentByGenderAndLevel,Educational Attainment By Gender And Level;education attainment by gender and level;level and gender of education;level and gender of qualification
-dc/topic/EducationalAttainmentByRaceAndLevel,Education Attainment by Race and Level;level of education by gender and race;race and gender breakdown of education attainment;race and gender breakdown of education level
+dc/topic/EducationalAttainment,Educational Attainment
+dc/topic/EducationalAttainmentByGenderAndLevel,population breakdown by educational attainment and gender
+dc/topic/EducationalAttainmentByRaceAndLevel,population breakdown by education attainment and race
 dc/topic/Electricity_Consumption,consumption of electricity
 dc/topic/Emissions,Emissions
 dc/topic/Emissions_FlourinatedGases,Flourinated Gasses Emissions by Source;flourinated gas emissions by source;source of flourinated gas emissions
@@ -3578,10 +3578,10 @@ dc/topic/Housing,Housing
 dc/topic/Hurricane,Hurricane
 dc/topic/Immigration,Immigration
 dc/topic/Incarceration,Incarceration
-dc/topic/Income,overview of income
+dc/topic/Income,income information
 dc/topic/IncomeEquity,Income Equity;equity of income distribution;fairness of income distribution;fariness in income
-dc/topic/IndividualIncomeByIndustry,Individual Income By Industry;individual income across industries
-dc/topic/IndividualIncomeDistribution,Population breakdown by income level
+dc/topic/IndividualIncomeByIndustry,Individual Income By Industry type
+dc/topic/IndividualIncomeDistribution,Population breakdown by income
 dc/topic/IndustriesByGDP,GDP contribution by industries;Industries By GDP Contribution;contribution to the GDP by industries
 dc/topic/IndustriesByRevenue,Industries By Revenue;revenue across industries;revenue breakdown by industries
 dc/topic/InfantMortality,Infant Mortality;death among infants;infant deaths;mortality among infants
@@ -3600,7 +3600,7 @@ dc/topic/LandUseAndCoverage,Land Use And Coverage;land use
 dc/topic/Landslide,Landslide
 dc/topic/Language,Language
 dc/topic/LanguageSpokenAtHome_ForeignBorn,breakdown of foreign born people by language at home
-dc/topic/LevelOfEducationalAttainment,Level Of Educational Attainment;level of qualification
+dc/topic/LevelOfEducationalAttainment,population breakdown by level Of Educational Attainment
 dc/topic/LifeExpectancy,Life Expectancy
 dc/topic/Literacy,Literacy
 dc/topic/LungConditionFemalePopulationByAge,Female Population With Lung Condition By Age
@@ -3686,7 +3686,6 @@ dc/topic/PovertyByGender,Poverty By Gender;poverty across genders;poverty breakd
 dc/topic/PovertyByLanguageSpokenAtHome,Poverty By Language Spoken At Home;poverty breakdown by language spoken at home
 dc/topic/PovertyByRace,Poverty By Race;poverty breakdown by race
 dc/topic/PovertyByResidency,Poverty By Residency;poverty breakdown by residency
-dc/topic/PovertyLevels,Poverty Levels;levels of poverty
 dc/topic/PowerEmissionsByGas,Amount of gases emitted by the power sector;Emissions from power;Quantity of greenhouse gases emitted by power plants and energy production processes;The sum of all gases released by power generation activities;The volume of emissions produced by electricity generation activities;Total amount of gas emissions from the power sector;Total quantity of gases released by the power industry
 dc/topic/Precipitation,Precipitation;high rainfall;major precipitation;major snow event
 dc/topic/PreventativeHealth,Preventative Health
@@ -3732,7 +3731,7 @@ dc/topic/StudentsInCollege,Students in College;college students;undergrad studen
 dc/topic/StudentsInGraduateOrProfessionalSchool,race breakdown of students in Graduate or Professional School
 dc/topic/StudentsInHighSchool,Student in High School;high school students;students enrolled in high schools
 dc/topic/StudentsInKindergarten,KG students;Students in Kindergarten;kindergarten students;students in KG
-dc/topic/StudentsInMiddleSchool,race breakdown of students in middle school
+dc/topic/StudentsInMiddleSchool,middle school students by race
 dc/topic/StudentsInPrimarySchool,Students in Primary School;primary school students;students enrolled in primary school
 dc/topic/Suicide,Suicide
 dc/topic/SupportServicesStaffInSchools,Support Services Staff In Schools
