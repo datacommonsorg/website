@@ -477,8 +477,10 @@ def explore_post_body_cache_key():
   body_object = request.get_json()
   if "contextHistory" in body_object and body_object["contextHistory"]:
     # Don't cache requests with a contextHistory by returning None.
-    # All context histories are be unique due to a unique session ID, so caching
-    # isn't helpful
+    # All context histories are unique due to a unique session ID, so caching
+    # isn't helpful.
+    # TODO: Strip out session id, debug info, and potentially other fields from
+    # contextHistory so it can be cached
     return None
   full_path = request.full_path
   post_body = json.dumps(body_object, sort_keys=True)
