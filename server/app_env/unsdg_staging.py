@@ -31,11 +31,15 @@ class Config(_base.Config):
   GEO_JSON_PROP = "geoJsonCoordinatesUN"
   CUSTOM_DC_TEMPLATE_FOLDER = "unsdg"
   STAT_VAR_HIERARCHY_CONFIG = {
-      "disableSearch": True,
+      "disableSearch":
+          True,
       "nodes": [{
           "dcid": "dc/g/SDG"
       }, {
           "dcid": "dc/g/UN"
+      }, {
+          "dcid": "dc/g/Custom_UN",
+          "name": "12 UN Data Thematic Areas (ILO)"
       }]
   }
 

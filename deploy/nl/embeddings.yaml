@@ -27,6 +27,10 @@ indexes:
     store: MEMORY
     embeddings: gs://datcom-nl-models/embeddings_undata_2024_03_20_11_01_12.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
+  undata_ilo_ft:
+    store: MEMORY
+    embeddings: gs://datcom-nl-models/embeddings_undata_ilo_2024_05_15_11_18_05.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
   bio_ft:
     store: MEMORY
     embeddings: gs://datcom-nl-models/embeddings_bio_2024_03_19_16_39_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
@@ -43,13 +47,9 @@ indexes:
     index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
     index_id: dc_all_minilm_l6_v2_ft_1709655496660
     model: dc-all-minilm-l6-v2-model
-  medium_vertex_uae:
-    store: VERTEXAI
-    project_id: datcom-website-dev
-    location: us-central1
-    index_endpoint_root: 302175072.us-central1-496370955550.vdb.vertexai.goog
-    index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
-    index_id: uae_large_v1_1709655438364
+  base_uae_mem:
+    store: MEMORY
+    embeddings: gs://datcom-nl-models/embeddings_medium_2024_05_14_17_00_30.4910007712298827776.csv
     model: uae-large-v1-model
   medium_vertex_mistral:
     store: VERTEXAI
@@ -64,34 +64,24 @@ models:
   dc-all-minilm-l6-v2-model:
     type: VERTEXAI
     usage: EMBEDDINGS
-    project_id: datcom-website-dev
-    location: us-central1
-    prediction_endpoint_id: "8518340991868993536"
+    score_threshold: 0.5
   uae-large-v1-model:
     type: VERTEXAI
     usage: EMBEDDINGS
-    project_id: datcom-website-dev
-    location: us-central1
-    prediction_endpoint_id: "4910007712298827776"
+    # These models use a higher threshold.
+    score_threshold: 0.7
   sfr-embedding-mistral-model:
     type: VERTEXAI
     usage: EMBEDDINGS
-    project_id: datcom-website-dev
-    location: us-central1
-    prediction_endpoint_id: "224012300019826688"
+    score_threshold: 0.5
   cross-encoder-ms-marco-miniilm-l6-v2:
     type: VERTEXAI
     usage: RERANKING
-    project_id: datcom-website-dev
-    location: us-central1
-    prediction_endpoint_id: "3977846152316846080"
   cross-encoder-mxbai-rerank-base-v1:
     type: VERTEXAI
     usage: RERANKING
-    project_id: datcom-website-dev
-    location: us-central1
-    prediction_endpoint_id: "284894457873039360"
   ft-final-v20230717230459-all-MiniLM-L6-v2:
     type: LOCAL
     usage: EMBEDDINGS
     gcs_folder: gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2
+    score_threshold: 0.5

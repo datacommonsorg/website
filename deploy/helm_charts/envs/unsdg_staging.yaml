@@ -21,7 +21,7 @@ namespace:
 
 website:
   flaskEnv: unsdg_staging
-  replicas: 4
+  replicas: 2
   redis:
     enabled: false
 
@@ -30,29 +30,41 @@ serviceAccount:
 
 ingress:
   enabled: true
+  enableMixer: true
 
 mixer:
   useCustomBigtable: true
 
 nl:
   enabled: true
+  embeddingsSpec:
+    defaultIndex: "sdg_ft"
+    enabledIndexes: [
+      "bio_ft"
+      "medium_ft",
+      "sdg_ft",
+      "undata_ft",
+      "undata_ilo_ft",
+    ]
 
 serviceGroups:
   recon: null
-  svg:
-    replicas: 2
-  node:
-    replicas: 5
-  observation:
-    replicas: 5
+  svg: null
+  node: null
+  observation: null
   default:
     replicas: 3
+    cacheSVG: true # No svg service, this needs to use search
+    resources:
+      memoryRequest: "8G"
+      memoryLimit: "8G"
 
 kgStoreConfig:
   customBigtableInfo: |
     project: datcom-un-staging
     instance: dc-graph
     tables:
+      - ilo_2024_05_15_14_43_26
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

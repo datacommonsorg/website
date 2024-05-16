@@ -46,7 +46,9 @@ def _sv(v=[], delim=False, above_thres=False):
     return SVDetection(query='',
                        single_sv=dvars.VarCandidates(v, [1.0], {}),
                        multi_sv=None,
-                       prop=empty_var_candidates())
+                       prop=empty_var_candidates(),
+                       sv_threshold=0.5,
+                       model_threshold=0.5)
   if len(v) == 2:
     if above_thres:
       scores = [0.9]
@@ -64,11 +66,15 @@ def _sv(v=[], delim=False, above_thres=False):
                                                    aggregate_score=0.7,
                                                    delim_based=delim)
                        ]),
-                       prop=empty_var_candidates())
+                       prop=empty_var_candidates(),
+                       sv_threshold=0.5,
+                       model_threshold=0.5)
   return SVDetection(query='',
                      single_sv=empty_var_candidates(),
                      prop=empty_var_candidates(),
-                     multi_sv=None)
+                     multi_sv=None,
+                     sv_threshold=0.5,
+                     model_threshold=0.5)
 
 
 def _nlcl(t, pt=None):
@@ -92,7 +98,7 @@ class TestLLMFallback(unittest.TestCase):
                     places_detected=_place(),
                     svs_detected=_sv(),
                     classifications=[]),
-          NeedLLM.ForVar,
+          NeedLLM.Fully,
           'info_fallback_no_sv_found'),
       (
           # Same as above, but since its OVERVIEW, we ignore
@@ -121,7 +127,7 @@ class TestLLMFallback(unittest.TestCase):
                     places_detected=None,
                     svs_detected=_sv(['Count_Person_Hispanic']),
                     classifications=_nlcl(ClassificationType.OVERVIEW)),
-          NeedLLM.ForPlace,
+          NeedLLM.Fully,
           'info_fallback_no_place_found'),
       (
           # No place found, but Country type, so Earth is assumed.
@@ -162,7 +168,7 @@ class TestLLMFallback(unittest.TestCase):
                                      delim=True,
                                      above_thres=True),
                     classifications=[]),
-          NeedLLM.ForVar,
+          NeedLLM.Fully,
           'info_fallback_multi_sv_delimiter'),
       (
           # Same as above, but with comparison classification, don't fallback.
@@ -192,7 +198,7 @@ class TestLLMFallback(unittest.TestCase):
                     places_detected=_place(),
                     svs_detected=_sv(['hispanic', 'asian'], above_thres=True),
                     classifications=[]),
-          NeedLLM.ForVar,
+          NeedLLM.Fully,
           'info_fallback_place_within_multi_sv'),
   ])
   def test_main(self, heuristic, fallback, counter):

@@ -65,6 +65,12 @@ variables.
    ./run.sh -c undata data/curated_input/undata data/alternatives/undata/*.csv
    ```
 
+   To generate the `undata_ilo_ft` embeddings:
+
+   ```bash
+   ./run.sh -c undata_ilo data/curated_input/undata_ilo
+   ```
+
    To generate the `bio_ft` embeddings:
 
    ```bash

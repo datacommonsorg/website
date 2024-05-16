@@ -40,7 +40,6 @@ import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.types import Detection
-from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
@@ -112,10 +111,9 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   dc = request.get_json().get('dc', '')
   embeddings_index_type = params.dc_to_embedding_type(dc, embeddings_index_type)
 
-  detector_type = request.args.get(
-      'detector',
-      default=RequestedDetectorType.HybridSafetyCheck.value,
-      type=str)
+  detector_type = request.args.get('detector',
+                                   default=RequestedDetectorType.Hybrid.value,
+                                   type=str)
 
   # mode param
   use_default_place = True
@@ -176,19 +174,6 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
 
   # See if we have a variable reranker model specified.
   reranker = request.args.get('reranker')
-  rerank_fn = None
-  if reranker:
-    if not current_app.config.get('VERTEX_AI_MODELS'):
-      counters.err('unconfigured_vertex_ai_models', 1)
-    elif not current_app.config['VERTEX_AI_MODELS'].get(reranker):
-      counters.err('nonexistent_reranker_model', reranker)
-    elif not current_app.config['VERTEX_AI_MODELS'][reranker].get(
-        'prediction_client'):
-      counters.err('reranker_without_prediction_client', reranker)
-    else:
-      minfo = current_app.config['VERTEX_AI_MODELS'][reranker][
-          'prediction_client']
-      rerank_fn = minfo.predict
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
@@ -201,7 +186,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
                                     query_detection_debug_logs=debug_logs,
                                     mode=mode,
                                     counters=counters,
-                                    rerank_fn=rerank_fn,
+                                    reranker=reranker,
                                     allow_triples=allow_triples)
   if not query_detection:
     err_json = helpers.abort('Sorry, could not complete your request.',
@@ -484,3 +469,4 @@ def explore_post_body_cache_key():
   post_body = json.dumps(body_object, sort_keys=True)
   cache_key = f'{full_path},{post_body}'
   return cache_key
+
