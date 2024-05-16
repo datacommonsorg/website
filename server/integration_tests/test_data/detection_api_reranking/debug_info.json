@@ -312,7 +312,6 @@
             "dc/topic/IndividualIncomeDistribution",
             "Count_HousingUnit_HomeValue750000To999999USDollar",
             "Amount_EconomicActivity_GrossValueAdded_RealValue",
-            "dc/topic/Income",
             "Median_Income_Person",
             "dc/topic/Benefits",
             "dc/topic/Debt",
@@ -321,6 +320,7 @@
             "dc/topic/Race",
             "dc/topic/ParentsEducationalAttainment",
             "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthWesternAsia",
+            "dc/topic/Income",
             "dc/topic/GDP",
             "dc/topic/Language",
             "dc/topic/Education",
@@ -343,13 +343,13 @@
             "dc/topic/Cholesterol",
             "dc/topic/PlaceOfBirth",
             "dc/topic/IncomeEquity",
+            "dc/topic/Income",
             "dc/topic/EducationalAttainment",
             "dc/topic/GDP",
             "dc/topic/Businesses",
             "dc/topic/Economy",
             "dc/topic/HousesByHouseholderEducationalAttainment",
             "Count_Person_IncomeOf65000To74999USDollar",
-            "dc/topic/Income",
             "dc/topic/IndividualIncomeDistribution",
             "dc/topic/sdg_8.2",
             "dc/topic/Debt",
@@ -378,7 +378,7 @@
       "sv_detection_query_index_type": "",
       "sv_detection_query_input": "population that is rich in",
       "sv_detection_query_stop_words_removal": "population rich",
-      "time_var_reranking": 3.0927929878234863
+      "time_var_reranking": 3.0987257957458496
     }
   }
 }

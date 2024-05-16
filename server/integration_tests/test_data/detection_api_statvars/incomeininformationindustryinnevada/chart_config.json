@@ -17,11 +17,11 @@
   "properties": [],
   "sessionId": "007_999999999",
   "variables": [
-    "dc/topic/Income",
     "dc/xj2nk2bg60fg",
     "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
     "WagesAnnual_Establishment_NAICSInformation",
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
+    "dc/topic/Income",
     "dc/topic/IndividualIncomeByIndustry",
     "Count_Worker_NAICSInformation",
     "WagesTotal_Worker_NAICSInformation",
