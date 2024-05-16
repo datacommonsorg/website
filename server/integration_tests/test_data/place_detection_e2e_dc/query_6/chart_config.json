@@ -824,9 +824,9 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Households With Food Stamps in the Past Year and Below Poverty Line in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, 3 Worker or More, Below US Census Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -835,16 +835,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Households With Food Stamps in the Past Year and Below Poverty Line in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, 3 Worker or More, Below US Census Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Households With Food Stamps in the Past Year and Below Poverty Line in Counties of United States"
+            "title": "Count of Household: Family Household, 3 Worker or More, Below US Census Poverty Level in the Past 12 Months in Counties of United States"
           },
           {
             "columns": [
@@ -852,9 +852,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Households With Food Stamps in the Past Year and Below Poverty Line in United States",
+                    "title": "Count of Household: Family Household, 3 Worker or More, Below US Census Poverty Level in the Past 12 Months in United States",
                     "type": "LINE"
                   }
                 ]
@@ -862,18 +862,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Households With Food Stamps in the Past Year and Below Poverty Line in United States",
+                    "description": "Count of Household: Family Household, 3 Worker or More, Below US Census Poverty Level in the Past 12 Months in United States",
                     "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Households With Food Stamps in the Past Year and Below Poverty Line in United States",
+                    "title": "Count of Household: Family Household, 3 Worker or More, Below US Census Poverty Level in the Past 12 Months in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Households With Food Stamps in the Past Year and Below Poverty Line"
+            "title": "Count of Household: Family Household, 3 Worker or More, Below US Census Poverty Level in the Past 12 Months"
           }
         ],
         "statVarSpec": {
@@ -889,6 +889,10 @@
             "name": "Count of Household: Family Household, Worker 2, Below US Census Poverty Level in The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
           },
+          "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months": {
+            "name": "Count of Household: Family Household, 3 Worker or More, Below US Census Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+          },
           "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
             "name": "Count of Household: Family Household, 65 Years or More, Below US Census Poverty Level in The Past 12 Months",
             "statVar": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -896,10 +900,6 @@
           "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months": {
             "name": "Married Couple Family Households below poverty line",
             "statVar": "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months": {
-            "name": "Households With Food Stamps in the Past Year and below poverty line",
-            "statVar": "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
             "name": "Population: Some language other than English spoken at home & below poverty line",

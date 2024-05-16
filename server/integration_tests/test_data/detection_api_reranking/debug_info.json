@@ -376,7 +376,7 @@
       "sv_detection_query_index_type": "",
       "sv_detection_query_input": "population that is rich in",
       "sv_detection_query_stop_words_removal": "population rich",
-      "time_var_reranking": 3.2141339778900146
+      "time_var_reranking": 3.0255377292633057
     }
   }
 }

@@ -159,32 +159,6 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Households With Food Stamps in the Past Year and Below Poverty Line (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Households With Food Stamps in the Past Year and Below Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
                       "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
                     "title": "Count of Household: Family Household, 65 Years or More, Below US Census Poverty Level in the Past 12 Months (${date})",
@@ -263,42 +237,16 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
+                      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Above Poverty Line Households Not Receiving Food Stamps in Last Year (${date})",
+                    "title": "Households With Food Stamps in the Past Year and Below Poverty Line (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Above Poverty Line Households Not Receiving Food Stamps in Last Year"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Population Above Poverty Line (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population Above Poverty Line"
+            "title": "Households With Food Stamps in the Past Year and Below Poverty Line"
           }
         ],
         "statVarSpec": {
@@ -318,10 +266,6 @@
             "name": "Households With Food Stamps in the Past Year and below poverty line",
             "statVar": "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Above poverty line Households Not Receiving Food Stamps in Last Year",
-            "statVar": "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months"
-          },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
             "name": "Population: Some language other than English spoken at home & below poverty line",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
@@ -337,10 +281,6 @@
           "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
             "name": "Population: Spanish Spoken At Home, Below Poverty Line",
             "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population Above poverty line",
-            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block": {
             "name": "Asians Below Poverty Line",
@@ -644,6 +584,10 @@
         ]
       },
       "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_25To34Years_Female_BelowPovertyLevelInThePast12Months"
+        ],
         "maritalStatus": [
           "Count_Person_Female_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
           "Count_Person_Female_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"

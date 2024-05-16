@@ -19,11 +19,10 @@
       0.7357541918754578,
       0.7350349426269531,
       0.7310355305671692,
-      0.7306134700775146,
       0.7266261577606201,
       0.7264261841773987,
       0.7230079174041748,
-      0.720613956451416,
+      0.7192584276199341,
       0.714840829372406,
       0.7139475345611572,
       0.7126951217651367,
@@ -31,14 +30,14 @@
       0.7085551023483276,
       0.7085550427436829,
       0.7080719470977783,
+      0.7078822255134583,
       0.7053750157356262,
-      0.7051548957824707,
-      0.7039992809295654,
       0.7033883929252625,
-      0.7021979689598083,
+      0.7024303674697876,
       0.7004534602165222,
       0.6995822191238403,
-      0.6994997262954712
+      0.6994997262954712,
+      0.6956703662872314
     ],
     "MultiSV": {
       "Candidates": [
@@ -83,11 +82,10 @@
       "dc/topic/PovertyByLanguageSpokenAtHome",
       "dc/topic/sdg_1.2.2",
       "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months",
       "dc/topic/Malnutrition",
       "sdg/SN_ITK_DEFC",
       "dc/topic/PovertyByResidency",
-      "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
+      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months",
       "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
       "dc/topic/sdg_1",
       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
@@ -95,14 +93,14 @@
       "dc/topic/sdg_2.1.2",
       "dc/topic/FoodInsecurity",
       "WHO/NCD_BMI_18A",
+      "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
       "WHO/NUTOVERWEIGHTPREV",
-      "sdg/SI_POV_DAY1",
-      "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
       "dc/x13tvt8jsgrm4",
-      "Count_Person_AbovePovertyLevelInThePast12Months",
+      "Count_Household_WithFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
       "dc/topic/HealthEquity",
       "WHO/NUTRITION_WA_2",
-      "dc/topic/sdg_1.2.1"
+      "dc/topic/sdg_1.2.1",
+      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
     ]
   },
   "props_matching": {

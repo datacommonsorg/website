@@ -14,16 +14,16 @@
                     },
                     "statVarKey": [
                       "Percent_Person_WithDiabetes_scatter",
-                      "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino_scatter"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_scatter"
                     ],
-                    "title": "Diabetes (${yDate}) Vs. Hispanic Monoracial Women Above Poverty Line (${xDate}) in Counties of California",
+                    "title": "Diabetes (${yDate}) Vs. Hispanic or Latino Americans Below Poverty Line (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Diabetes vs. Hispanic Monoracial Women Above poverty line"
+            "title": "Diabetes vs. Hispanic or Latino Americans Below Poverty Line"
           },
           {
             "columns": [
@@ -62,9 +62,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
                     ],
-                    "title": "Hispanic Monoracial Women Above Poverty Line in Counties of California (${date})",
+                    "title": "Hispanic or Latino Americans Below Poverty Line in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -77,25 +77,25 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
                     ],
-                    "title": "Hispanic Monoracial Women Above Poverty Line in Counties of California (${date})",
+                    "title": "Hispanic or Latino Americans Below Poverty Line in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Hispanic Monoracial Women Above Poverty Line in Counties of California"
+            "title": "Hispanic or Latino Americans Below Poverty Line in Counties of California"
           }
         ],
         "statVarSpec": {
-          "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino": {
-            "name": "Hispanic Monoracial Women Above poverty line",
-            "statVar": "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+            "name": "Hispanic or Latino Americans Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
           },
-          "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino_scatter": {
-            "name": "Hispanic Monoracial Women Above poverty line",
-            "statVar": "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_scatter": {
+            "name": "Hispanic or Latino Americans Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
           },
           "Percent_Person_WithDiabetes": {
             "name": "Diabetes",
@@ -494,11 +494,30 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_6To11Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Diabetes",
         "name": "Diabetes",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByRace",
+        "name": "Poverty by Race",
         "types": [
           "Topic"
         ]
@@ -509,6 +528,20 @@
       {
         "dcid": "dc/topic/HealthConditions",
         "name": "Health Conditions",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EconomicEquity",
+        "name": "Economic Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
         "types": [
           "Topic"
         ]
@@ -933,6 +966,34 @@
       {
         "dcid": "dc/topic/HeatIllnesses",
         "name": "Heat Illnesses",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByGender",
+        "name": "Poverty by Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Benefits",
+        "name": "Benefits",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/IncomeEquity",
+        "name": "Income Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EmploymentEquity",
+        "name": "Employment Equity",
         "types": [
           "Topic"
         ]

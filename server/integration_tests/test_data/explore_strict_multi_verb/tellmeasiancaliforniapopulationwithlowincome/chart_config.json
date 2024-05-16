@@ -714,6 +714,67 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asian Population Above Poverty Line in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Asian Population Above Poverty Line in California",
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asian Population Above Poverty Line in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Population Above Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asian Population Above Poverty Line in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone"
+                    ],
+                    "title": "Asian Population Above Poverty Line in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Population Above Poverty Line in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Median_Income_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia"
                     ],
                     "title": "Median Income of Household: Foreign Born, South Eastern Asia in California",
@@ -886,67 +947,6 @@
             ],
             "denom": "Count_Person",
             "title": "Count of Household: With Earnings, Foreign Born, South Eastern Asia in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_PlaceOfBirthAsia"
-                    ],
-                    "title": "Population: Foreign Born, Asia in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Foreign Born, Asia in California",
-                    "statVarKey": [
-                      "Count_Person_PlaceOfBirthAsia"
-                    ],
-                    "title": "Population: Foreign Born, Asia in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Foreign Born, Asia"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_PlaceOfBirthAsia"
-                    ],
-                    "title": "Population: Foreign Born, Asia in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_PlaceOfBirthAsia"
-                    ],
-                    "title": "Population: Foreign Born, Asia in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Foreign Born, Asia in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -1046,13 +1046,13 @@
             "name": "Population: 85 Years or More, Asian Alone",
             "statVar": "Count_Person_85OrMoreYears_AsianAlone"
           },
+          "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone": {
+            "name": "Asian Population Above poverty line",
+            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone"
+          },
           "Count_Person_AsianAlone": {
             "name": "Population Asian Alone",
             "statVar": "Count_Person_AsianAlone"
-          },
-          "Count_Person_PlaceOfBirthAsia": {
-            "name": "Population: Foreign Born, Asia",
-            "statVar": "Count_Person_PlaceOfBirthAsia"
           },
           "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia": {
             "name": "Mean Earnings of Household: Foreign Born, Asia",
