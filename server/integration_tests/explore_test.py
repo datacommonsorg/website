@@ -111,6 +111,20 @@ class ExploreTest(NLWebServerTestCase):
                       check_detection=False,
                       detector=None):
     dbg = resp['debug']
+
+    # sort variables in the response because variable scores can change between
+    # runs. Sort by scores cut off after 6 digits after the decimal and for
+    # variables with the same truncated score, sort alphabetically
+    # TODO: Proper fix should be to make NL server more deterministic
+    if 'variables' in resp:
+      resp_var_to_score = {}
+      for i, sv in enumerate(dbg['sv_matching']['SV']):
+        score = dbg['sv_matching']['CosineScore'][i]
+        resp_var_to_score[sv] = float("{:.6f}".format(score))
+      sorted_variables = sorted(resp['variables'],
+                                key=lambda x: (-resp_var_to_score.get(x, 0), x))
+      resp['variables'] = sorted_variables
+
     resp['debug'] = {}
     resp['context'] = {}
     for category in resp.get('config', {}).get('categories', []):
@@ -128,8 +142,8 @@ class ExploreTest(NLWebServerTestCase):
       if check_detection:
         dbg_file = os.path.join(json_dir, 'debug_info.json')
         with open(dbg_file, 'w') as infile:
-          del dbg["sv_matching"]["SV_to_Sentences"]
-          del dbg["props_matching"]["PROP_to_Sentences"]
+          _del_field(dbg, "sv_matching.SV_to_Sentences")
+          _del_field(dbg, "props_matching.PROP_to_Sentences")
           dbg_to_write = {
               "places_detected": dbg["places_detected"],
               "places_resolved": dbg["places_resolved"],
@@ -172,6 +186,16 @@ class ExploreTest(NLWebServerTestCase):
                                 'debug_info.json')
         with open(dbg_file, 'r') as infile:
           expected = json.load(infile)
+          # Delete time value.
+          _del_field(
+              dbg,
+              "query_detection_debug_logs.query_transformations.time_var_reranking"
+          )
+          _del_field(
+              expected,
+              "query_detection_debug_logs.query_transformations.time_var_reranking"
+          )
+
           self.assertEqual(dbg["places_detected"], expected["places_detected"])
           self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
           self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
@@ -256,6 +280,12 @@ class ExploreTest(NLWebServerTestCase):
                        test='unittest',
                        idx='undata_ft')
 
+  def test_detection_basic_undata_ilo(self):
+    self.run_detection('detection_api_undata_ilo_idx',
+                       ['Employment in the world'],
+                       test='unittest',
+                       idx='undata_ilo_ft')
+
   def test_detection_basic_bio(self):
     self.run_detection('detection_api_bio_idx', ['Commute in California'],
                        test='unittest',
@@ -269,7 +299,7 @@ class ExploreTest(NLWebServerTestCase):
   def test_detection_basic_uae(self):
     self.run_detection('detection_api_uae_idx', ['Commute in California'],
                        test='unittest',
-                       idx='medium_vertex_uae')
+                       idx='base_uae_mem')
 
   def test_detection_basic_sfr(self):
     self.run_detection('detection_api_sfr_idx', ['Commute in California'],
@@ -459,6 +489,16 @@ class ExploreTest(NLWebServerTestCase):
         'How about the uninsured population?',
         'Which counties in california have median age over 40?',
         'What is the emissions in these counties?'
+    ],
+                                test='filter_test')
+
+  # This is the same as the query in `e2e_answer_places`, but
+  # without "filter_test", so filter query should not work.
+  # Specifically, the answer would have MAP and RANKING
+  # chart instead of a single BAR chart.
+  def test_filter_query_disabled(self):
+    self.run_detect_and_fulfill('filter_query_disabled', [
+        'Which counties in california have median age over 40?',
     ])
 
   def test_e2e_electrification_demo(self):
@@ -519,7 +559,8 @@ class ExploreTest(NLWebServerTestCase):
             # not have both the topics. Instead, the title has the topic
             # corresponding to the SV in the very first chart.
             'Poverty vs. unemployment rate in districts of Tamil Nadu',
-        ])
+        ],
+        test='filter_test')
 
   def test_e2e_correlation_bugs(self):
     self.run_detect_and_fulfill('e2e_correlation_bugs',
@@ -695,3 +736,16 @@ class ExploreTest(NLWebServerTestCase):
             'tell me about heart disease'
         ],
         dc='bio')
+
+
+# Helper function to delete x.y.z path in a dict.
+def _del_field(d: dict, path: str):
+  tmp = d
+  parts = path.split('.')
+  for i, p in enumerate(parts):
+    if p in tmp:
+      if i == len(parts) - 1:
+        # Leaf entry
+        del tmp[p]
+      else:
+        tmp = tmp[p]

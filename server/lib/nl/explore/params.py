@@ -49,6 +49,7 @@ class DCNames(str, Enum):
   SDG_DC = 'sdg'
   SDG_MINI_DC = 'sdgmini'
   UNDATA_DC = 'undata'
+  UNDATA_ILO_DC = 'undata_ilo'
   BIO_DC = 'bio'
   CUSTOM_DC = 'custom'
 
@@ -66,18 +67,18 @@ class Clients(str, Enum):
 
 
 SDG_DC_LIST = [DCNames.SDG_DC, DCNames.SDG_MINI_DC]
-
-SPECIAL_DC_LIST = SDG_DC_LIST + [DCNames.UNDATA_DC]
+UNDATA_DC_LIST = [DCNames.UNDATA_DC, DCNames.UNDATA_ILO_DC]
+SPECIAL_DC_LIST = SDG_DC_LIST + UNDATA_DC_LIST
 
 
 # Get the SV score threshold for the given mode.
-def sv_threshold(mode: str) -> bool:
+def sv_threshold_override(mode: str) -> bool | None:
   if mode == QueryMode.STRICT:
     return constants.SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
   elif mode == QueryMode.TOOLFORMER:
     return constants.SV_SCORE_TOOLFORMER_THRESHOLD
-  else:
-    return constants.SV_SCORE_DEFAULT_THRESHOLD
+  # The default is 0, so model-score will be used.
+  return 0.0
 
 
 #
@@ -105,6 +106,8 @@ def dc_to_embedding_type(dc: str, embeddings_type: str) -> str:
     return 'sdg_ft'
   elif dc == DCNames.UNDATA_DC.value:
     return 'undata_ft'
+  elif dc == DCNames.UNDATA_ILO_DC.value:
+    return 'undata_ilo_ft'
   elif dc == DCNames.BIO_DC.value:
     return 'bio_ft'
   return embeddings_type

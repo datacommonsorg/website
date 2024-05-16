@@ -273,7 +273,8 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         # together with ContainedInPlace.
         "AnswerPlacesReference": ["these", "those"],
         "PerCapita": [
-            "fraction", "percent", "percentage", "per capita", "percapita"
+            "fraction", "percent", "percentage", "per capita", "percapita",
+            "rate", "rates"
         ],
         "Temporal": [
             # Day of week
@@ -311,7 +312,8 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
 
 # We do not want to strip words from events / superlatives / temporal
 # since we want those to match SVs too!
-HEURISTIC_TYPES_IN_VARIABLES = frozenset(["Event", "Superlative", "Temporal"])
+HEURISTIC_TYPES_IN_VARIABLES = frozenset(
+    ["Event", "Superlative", "Temporal", "PerCapita"])
 
 PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "place": "places",
@@ -375,18 +377,20 @@ NON_GEO_PLACE_TYPES: FrozenSet[str] = frozenset([
 # are considered as a match.
 SV_SCORE_DEFAULT_THRESHOLD = 0.5
 
-# The default Cosine score threshold beyond which Stat Vars
-# are considered a high confidence match.
+#
+# The Cosine high-confidence score threshold override.
+# NOTE: Used only when the model-threshold is lower than this.
 SV_SCORE_HIGH_CONFIDENCE_THRESHOLD = 0.7
 
-# The default Cosine score threshold beyond which Stat Vars
-# are considered a match in toolformer mode.
+# The Cosine score threshold for mode=toolformer.
+# NOTE: Used only when the model-threshold is lower than this.
 SV_SCORE_TOOLFORMER_THRESHOLD = 0.8
 
 # A cosine score differential we use to indicate if scores
 # that differ by up to this amount are "near" SVs.
 # In Multi-SV detection, if the difference between successive scores exceeds
 # this threshold, then SVs at the lower score and below are ignored.
+# TODO: Maybe keep an eye on this for new model.
 MULTI_SV_SCORE_DIFFERENTIAL = 0.05
 
 # English language code.

@@ -100,46 +100,6 @@
     "async": true
   },
   {
-    "url": "/nl/#q=What+are+the+projected+temperature+extremes+across+california&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=family+earnings+in+california&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=top+jobs+in+santa+clara+county&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=obesity+vs.+poverty+in+counties+of+california&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=fires+in+california&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=Prevalence+of+Asthma+in+California+cities+with+hispanic+population+over+10000&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
     "url": "/tools/map#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
     "height": 1200,
     "async": true

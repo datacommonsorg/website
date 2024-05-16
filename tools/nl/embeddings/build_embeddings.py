@@ -33,7 +33,7 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 import utils
 
-VERTEX_AI_PROJECT = 'datcom-website-dev'
+VERTEX_AI_PROJECT = 'datcom-nl'
 VERTEX_AI_PROJECT_LOCATION = 'us-central1'
 
 FLAGS = flags.FLAGS
@@ -135,6 +135,8 @@ def get_embeddings(ctx, df_svs: pd.DataFrame, local_merged_filepath: str,
           utils.CURATED_ALTERNATIVES_COL,
           utils.ALTERNATIVES_COL,
       ]:
+        if col_name not in row:
+          continue
         # In order of preference, traverse the various alternative descriptions.
         alternatives += utils.split_alt_string(row[col_name])
 

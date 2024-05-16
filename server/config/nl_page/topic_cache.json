@@ -6501,6 +6501,24 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/CollegeEducation_Attainment"
+      ],
+      "memberList": [
+        "Count_Person_EducationalAttainmentAssociatesDegree",
+        "Count_Person_EducationalAttainmentBachelorsDegree",
+        "Count_Person_EducationalAttainmentMastersDegree",
+        "Count_Person_EducationalAttainmentProfessionalSchoolDegree",
+        "Count_Person_EducationalAttainmentDoctorateDegree"
+      ],
+      "name": [
+        "College Education Attainment"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/CommuteModeByOccupation_ManagementBusinessScienceandArtsOccupations"
       ],
       "memberList": [
@@ -7626,8 +7644,8 @@
         "dc/svpg/dc/topic/Immigration_NativeVsForeign"
       ],
       "memberList": [
-        "Count_Person_Native",
-        "Count_Person_ForeignBorn"
+        "Count_Person_ForeignBorn",
+        "Count_Person_Native"
       ],
       "name": [
         "Population by Nativity"
@@ -10153,6 +10171,20 @@
         "Count_FreezingFogEvent",
         "Count_FrostFreezeEvent",
         "Count_WinterWeatherEvent"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/CollegeEducationAttainment"
+      ],
+      "name": [
+        "College Education"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/CollegeEducation_Attainment"
       ],
       "typeOf": [
         "Topic"
