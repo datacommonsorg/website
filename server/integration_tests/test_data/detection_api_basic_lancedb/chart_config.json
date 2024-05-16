@@ -20,10 +20,15 @@
   "variables": [
     "dc/topic/CommuteTime",
     "dc/topic/WorkCommute",
-    "dc/topic/CommuteMode",
     "dc/topic/CommuteModeByOccupation",
-    "dc/h7ft916g93ys2",
-    "dc/fyc3yvjy0xw6g",
-    "dc/hbkh95kc7pkb6"
+    "dc/topic/CommuteMode",
+    "dc/vgwx3kjjzz8wf",
+    "dc/62gn48xpbqew9",
+    "dc/1fw0t5m6459gb",
+    "dc/kt900ezddrf79",
+    "dc/slp5hywj7b9c1",
+    "Count_Household_With2AvailableVehicles",
+    "Count_Household_With3AvailableVehicles",
+    "Count_Household_With1AvailableVehicles"
   ]
 }

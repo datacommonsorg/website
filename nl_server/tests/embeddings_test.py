@@ -20,8 +20,8 @@ import unittest
 from parameterized import parameterized
 import yaml
 
-from nl_server.config import parse
 from nl_server import embeddings_map as emb_map
+from nl_server.config import parse
 from nl_server.search import search_vars
 from shared.lib.detected_variables import VarCandidates
 

@@ -10,7 +10,9 @@
   "comparisonVariables": [],
   "context": {},
   "debug": {},
-  "entities": ["Earth"],
+  "entities": [
+    "Earth"
+  ],
   "nonPlaceEntities": [],
   "properties": [],
   "sessionId": "007_999999999",

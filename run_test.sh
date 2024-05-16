@@ -189,12 +189,14 @@ function update_integration_test_golden {
   export LLM_API_KEY=
   export ENABLE_EVAL_TOOL=true
 
+  # Generate topic cache based on autopush mixer data
   export ENV_PREFIX=Autopush
   python3 -m pytest -vv server/integration_tests/topic_cache
-  # Disabled nodejs e2e test to avoid dependency on dev
-  # python3 -m pytest -vv server/tests/nodejs_e2e_test.py
+
+  # Run integration test against staging mixer to make it stable.
   export ENV_PREFIX=Staging
-  python3 -m pytest -vv -n 5 --reruns 2 server/integration_tests/
+  python3 -m pytest -vv -n 5 --reruns 2 server/integration_tests/ \
+    --ignore=server/integration_tests/topic_cache
 }
 
 function run_all_tests {

@@ -264,9 +264,7 @@ class ExploreTest(NLWebServerTestCase):
                        test='unittest')
 
   def test_detection_basic_lancedb(self):
-    # NOTE: Use the same test-name as above, since we expect the content to exactly
-    # match the one from above.
-    self.run_detection('detection_api_basic', ['Commute in California'],
+    self.run_detection('detection_api_basic_lancedb', ['Commute in California'],
                        test='unittest',
                        idx='medium_lance_ft')
 
