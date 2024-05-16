@@ -25,6 +25,7 @@ from typing import Dict, List, Set
 import urllib
 
 from flask import make_response
+from flask import request
 from google.protobuf import text_format
 
 from server.config import subject_page_pb2
@@ -646,3 +647,15 @@ def get_vertex_ai_models():
   vertex_ai_indexes = model_loader.load_indexes()
   reranking_models = model_loader.load_models('RERANKING')
   return dict(vertex_ai_indexes, **reranking_models)
+
+
+def post_body_cache_key():
+  """
+  Builds flask cache key for POST requests using the request path and
+  JSON-encoded post body
+  """
+  body_object = request.get_json()
+  full_path = request.full_path
+  post_body = json.dumps(body_object, sort_keys=True)
+  cache_key = f'{full_path},{post_body}'
+  return cache_key
