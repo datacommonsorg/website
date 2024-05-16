@@ -98,6 +98,7 @@ function run_py_test {
   # Run server pytest.
   source .env/bin/activate
   export FLASK_ENV=test
+  export TOKENIZERS_PARALLELISM=false
   # Disabled nodejs e2e test to avoid dependency on dev
   python3 -m pytest server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py
   python3 -m pytest shared/tests/ -s

@@ -34,7 +34,7 @@ dc/topic/BlackOrAfricanAmericanAloneMalePopulationByAge,Black Or African America
 dc/topic/BlackOrAfricanAmericanAlonePopulationByAge,Black Or African American Population By Age,Black Or African American Population By Age,,
 dc/topic/BloodPressure,Blood Pressure,People with high blood pressure,,High blood pressure condition; People with high blood pressure;
 dc/topic/Businesses,Business,Businesses,,Business economy
-dc/topic/CO2Emissions,CO2 Emissions,CO2 Emissions,,sources of carbon dioxide emissions; source of co2 emissions; Carbon dioxide emissions by source;
+dc/topic/CO2Emissions,CO2 Emissions,,,CO2 emissions by source;
 dc/topic/COVID19,COVID 19,COVID 19,,
 dc/topic/Cancer,Cancer,Cancer,,
 dc/topic/CancerFemalePopulationByAge,Female Population With Cancer By Age,Female Population With Cancer By Age,,
@@ -117,7 +117,7 @@ dc/topic/GlobalEconomicActivity,Global Economic Activity,Economic Activity,,
 dc/topic/GlobalElectricityAccess,Access To Electricity,Percentage of People with access to Electricity,,electrification; electricity access; people with access to electricity;
 dc/topic/GlobalHealth,Global health,World health,,health in the world; health conditions in the world;
 dc/topic/GreenJobs,Green Jobs,Green Jobs,,sustainable jobs; environmentally friendly jobs;
-dc/topic/GreenhouseGasEmissions, Amount of Greenhouse Gas Emission breakdown by sources,,,
+dc/topic/GreenhouseGasEmissions, Greenhouse Gas Emissions by source,,,
 dc/topic/GroupQuartersResidents,Group Quarters Residents,Group Quarters Residents,,
 dc/topic/HIV,HIV,HIV,,
 dc/topic/HateCrimes,Hate Crimes,Hate Crimes,,

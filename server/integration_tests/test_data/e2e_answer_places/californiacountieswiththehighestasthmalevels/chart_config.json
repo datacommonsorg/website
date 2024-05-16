@@ -14,37 +14,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "AirQualityIndex_AirPollutant"
-                    ],
-                    "title": "Air Quality Index in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "AirQualityIndex_AirPollutant"
-                    ],
-                    "title": "Air Quality Index in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Air Quality Index in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Percent_Person_Children_WithAsthma"
                     ],
                     "title": "Percent of Children That Have Asthma in Counties of California (${date})",
@@ -127,10 +96,6 @@
           }
         ],
         "statVarSpec": {
-          "AirQualityIndex_AirPollutant": {
-            "name": "Air Quality Index",
-            "statVar": "AirQualityIndex_AirPollutant"
-          },
           "Percent_Person_Children_WithAsthma": {
             "name": "Percent of Children That Have Asthma",
             "statVar": "Percent_Person_Children_WithAsthma",
@@ -530,15 +495,23 @@
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/AirQualityIndex",
-        "name": "Air Quality Index",
+        "dcid": "dc/topic/Asthma",
+        "name": "Asthma",
         "types": [
           "Topic"
         ]
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "peerPlaces": [
       {
         "dcid": "geoId/01",
@@ -891,7 +864,78 @@
         ]
       }
     ],
-    "peerTopics": []
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/BloodPressure",
+        "name": "Blood Pressure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeatIllnesses",
+        "name": "Heat Illnesses",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
   "test": "filter_test",

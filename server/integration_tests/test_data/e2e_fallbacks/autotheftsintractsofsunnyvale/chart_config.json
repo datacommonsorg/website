@@ -39,6 +39,35 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft"
+                    ],
+                    "title": "Larceny Theft Cases in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Larceny Theft Cases in Sunnyvale",
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft"
+                    ],
+                    "title": "Larceny Theft Cases in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Larceny Theft Cases"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
                     "title": "Criminal Activities in Sunnyvale",
@@ -116,6 +145,10 @@
           "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block": {
             "name": "Forcible Rapes",
             "statVar": "Count_CriminalActivities_ForcibleRape"
+          },
+          "Count_CriminalActivities_LarcenyTheft": {
+            "name": "Larceny Theft Cases",
+            "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
           "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block": {
             "name": "Larceny Theft Cases",

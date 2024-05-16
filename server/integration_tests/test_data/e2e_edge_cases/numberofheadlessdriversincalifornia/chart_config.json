@@ -723,67 +723,6 @@
             ],
             "denom": "Count_Person",
             "title": "Count of Household: Family Household, Worker 0, Below US Census Poverty Level in the Past 12 Months in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "African American Population Above Poverty Line in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "African American Population Above Poverty Line in California",
-                    "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "African American Population Above Poverty Line in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "African American Population Above Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "African American Population Above Poverty Line in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "African American Population Above Poverty Line in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "African American Population Above Poverty Line in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -822,10 +761,6 @@
           "Count_Person_AbovePovertyLevelInThePast12Months": {
             "name": "Population Above poverty line",
             "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
-          },
-          "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-            "name": "African American Population Above poverty line",
-            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months": {
             "name": "Population Below poverty line",
@@ -1396,16 +1331,6 @@
         "occupancyTenure": [
           "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months",
           "Count_Household_MarriedCoupleFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-        "age": [
-          "Count_Person_12To17Years_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_18To59Years_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_60To74Years_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_6OrLessYears_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_75To84Years_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_85OrMoreYears_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
         ]
       },
       "Count_Person_BelowPovertyLevelInThePast12Months": {

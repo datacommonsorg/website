@@ -9,25 +9,24 @@
   "sv_matching": {
     "CosineScore": [
       0.8778442740440369,
-      0.8041591644287109,
-      0.7967700958251953,
+      0.8041592240333557,
+      0.7967699766159058,
       0.7749936580657959,
       0.762496829032898,
-      0.7490020990371704,
+      0.7490020394325256,
       0.7484047412872314,
-      0.7442896366119385,
-      0.7357542514801025,
-      0.7350348830223083,
-      0.7310354709625244,
+      0.7442895174026489,
+      0.7357541918754578,
+      0.7350349426269531,
+      0.7310355305671692,
       0.7306134700775146,
-      0.7266263365745544,
+      0.7266261577606201,
       0.7264261841773987,
-      0.7230080366134644,
+      0.7230079174041748,
       0.720613956451416,
       0.714840829372406,
       0.7139475345611572,
-      0.7128164768218994,
-      0.7126950621604919,
+      0.7126951217651367,
       0.7112098932266235,
       0.7085551023483276,
       0.7085550427436829,
@@ -36,9 +35,10 @@
       0.7051548957824707,
       0.7039992809295654,
       0.7033883929252625,
-      0.7021245956420898,
+      0.7021979689598083,
       0.7004534602165222,
-      0.7003940343856812
+      0.6995822191238403,
+      0.6994997262954712
     ],
     "MultiSV": {
       "Candidates": [
@@ -48,8 +48,8 @@
           "Parts": [
             {
               "CosineScore": [
-                0.8955404162406921,
-                0.8525747060775757
+                0.8955403566360474,
+                0.8525748252868652
               ],
               "QueryPart": "obesity",
               "SV": [
@@ -59,7 +59,7 @@
             },
             {
               "CosineScore": [
-                0.9999998807907104
+                1.0
               ],
               "QueryPart": "poverty",
               "SV": [
@@ -90,7 +90,6 @@
       "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
       "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
       "dc/topic/sdg_1",
-      "Count_Household_WithFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
       "dc/4lvmzr1h1ylk1",
       "dc/topic/sdg_2.1.2",
@@ -100,9 +99,10 @@
       "sdg/SI_POV_DAY1",
       "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
       "dc/x13tvt8jsgrm4",
-      "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months",
+      "Count_Person_AbovePovertyLevelInThePast12Months",
       "dc/topic/HealthEquity",
-      "Count_Person_AbovePovertyLevelInThePast12Months"
+      "WHO/NUTRITION_WA_2",
+      "dc/topic/sdg_1.2.1"
     ]
   },
   "props_matching": {

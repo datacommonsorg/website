@@ -97,6 +97,65 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Income in Placer County",
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Mean_Income_Household"
                     ],
                     "title": "Average Income for Households in Placer County",
@@ -191,6 +250,34 @@
               }
             ],
             "title": "Median Married Couple Family Household Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Earnings in Placer County",
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings"
           },
           {
             "columns": [
@@ -314,93 +401,6 @@
               }
             ],
             "title": "Nonfamily Household Median Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person"
-                    ],
-                    "title": "Individual Median Income in Census Tracts of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Person"
-                    ],
-                    "title": "Individual Median Income in Census Tracts of Placer County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Income in Census Tracts of Placer County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person"
-                    ],
-                    "title": "Individual Median Income in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Individual Median Income in Placer County",
-                    "statVarKey": [
-                      "Median_Income_Person"
-                    ],
-                    "title": "Individual Median Income in Placer County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Individual Median Earnings in Placer County",
-                    "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in Placer County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Earnings"
           },
           {
             "columns": [

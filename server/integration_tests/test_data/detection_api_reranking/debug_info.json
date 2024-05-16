@@ -12,17 +12,17 @@
     "CosineScore": [
       0.6172618269920349,
       0.6503221988677979,
-      0.6650199890136719,
+      0.6650199294090271,
       0.6547009944915771,
-      0.7492551207542419,
+      0.7492551803588867,
       0.6170035004615784,
       0.6088162064552307,
-      0.6287267804145813,
+      0.6287268400192261,
       0.6310566663742065,
-      0.7170588970184326,
+      0.7170587778091431,
       0.683903694152832,
       0.6640025973320007,
-      0.6661217212677002,
+      0.6661216020584106,
       0.6075131297111511,
       0.6638586521148682,
       0.6062621474266052,
@@ -155,7 +155,6 @@
             "dc/topic/WhiteAlonePopulationByAge",
             "Count_Person_ResidesInHousehold",
             "dc/topic/RuralPopulationByAge",
-            "Count_Person_EnrolledInSchool",
             "Count_Death",
             "Count_Household_Urban",
             "dc/topic/AsianAlonePopulationByAge",
@@ -166,6 +165,7 @@
             "Count_Person_MarriedAndNotSeparated",
             "Count_Person_Rural",
             "Count_Person_Literate",
+            "Count_Person_OneRace",
             "dc/topic/NowMarriedPopulationByAge",
             "dc/topic/StudentPopulation",
             "Count_Person_5OrMoreYears_ResidesInHousehold",
@@ -196,11 +196,10 @@
             "Count_Person_MarriedAndNotSeparated",
             "Count_Person_Rural",
             "dc/topic/SeparatedPopulationByAge",
-            "Count_Person_InLaborForce",
             "Count_Person_Civilian_InLaborForce",
+            "Count_Person_InLaborForce",
             "dc/topic/AsianAlonePopulationByAge",
             "Count_Person_15OrMoreYears_WithIncome",
-            "Count_Person_EnrolledInSchool",
             "dc/topic/TwoOrMoreRacesPopulationByAge",
             "Count_Person_ResidesInHousehold",
             "dc/topic/NowMarriedPopulationByAge",
@@ -213,7 +212,8 @@
             "dc/topic/WhiteAlonePopulationByAge",
             "dc/topic/NeverMarriedPopulationByAge",
             "dc/topic/RuralPopulationByAge",
-            "Count_Person_AsianAlone"
+            "Count_Person_AsianAlone",
+            "Count_Person_OneRace"
           ]
         },
         "population rich": {
@@ -299,7 +299,6 @@
         "rich": {
           "post_reranking": [
             "dc/topic/IncomeEquity",
-            "dc/topic/Income",
             "dc/topic/EconomicEquity",
             "Count_Person_15OrMoreYears_WithIncome",
             "Count_Person_IncomeOf75000OrMoreUSDollar",
@@ -312,6 +311,7 @@
             "Count_Person_16OrMoreYears_WithEarnings",
             "dc/topic/Economy",
             "Amount_EconomicActivity_GrossValueAdded_RealValue",
+            "Median_Income_Person",
             "dc/topic/Benefits",
             "dc/topic/Debt",
             "dc/topic/Cholesterol",
@@ -327,12 +327,14 @@
             "dc/topic/Health",
             "dc/topic/Nationality",
             "USStateQuarterlyIndustryGDP_NAICS_53",
+            "dc/topic/Income",
+            "dc/topic/HealthConditions",
             "dc/topic/PlaceOfBirth",
             "dc/topic/Births",
-            "dc/topic/HousesByHouseholderEducationalAttainment"
+            "dc/topic/HousesByHouseholderEducationalAttainment",
+            "dc/topic/Cancer"
           ],
           "pre_reranking": [
-            "dc/topic/Income",
             "dc/topic/Nationality",
             "dc/topic/Equity",
             "GiniIndex_EconomicActivity",
@@ -347,6 +349,7 @@
             "dc/topic/HousesByHouseholderEducationalAttainment",
             "dc/topic/sdg_8.2",
             "dc/topic/Debt",
+            "dc/topic/Income",
             "Count_Person_IncomeOf65000To74999USDollar",
             "dc/topic/Poverty",
             "dc/topic/Race",
@@ -362,15 +365,18 @@
             "dc/topic/Education",
             "dc/topic/Births",
             "dc/topic/Benefits",
+            "Median_Income_Person",
             "Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthWesternAsia",
-            "dc/topic/ParentsEducationalAttainment"
+            "dc/topic/ParentsEducationalAttainment",
+            "dc/topic/Cancer",
+            "dc/topic/HealthConditions"
           ]
         }
       },
       "sv_detection_query_index_type": "",
       "sv_detection_query_input": "population that is rich in",
       "sv_detection_query_stop_words_removal": "population rich",
-      "time_var_reranking": 3.42621111869812
+      "time_var_reranking": 3.2141339778900146
     }
   }
 }

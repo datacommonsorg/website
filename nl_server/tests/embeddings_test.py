@@ -21,10 +21,8 @@ from parameterized import parameterized
 import yaml
 
 from nl_server.config import parse
-from nl_server.embeddings import Embeddings
-from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
+from nl_server import embeddings_map as emb_map
 from nl_server.search import search_vars
-from nl_server.store.memory import MemoryEmbeddingsStore
 from shared.lib.detected_variables import VarCandidates
 
 _root_dir = os.path.dirname(
@@ -58,7 +56,8 @@ class TestEmbeddings(unittest.TestCase):
   def setUpClass(cls) -> None:
     embeddings_spec = _get_embeddings_spec()
     embeddings_info = _get_embeddings_info(embeddings_spec)
-    cls.nl_embeddings = embeddings_info.get_index()
+    cls.nl_embeddings = emb_map.EmbeddingsMap(embeddings_info).get_index(
+        embeddings_spec['defaultIndex'])
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
