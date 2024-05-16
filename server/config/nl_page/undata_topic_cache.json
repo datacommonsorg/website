@@ -7971,7 +7971,7 @@
         "dc/svpg/WHOEMFLIMITPOWERDENSITY.001"
       ],
       "name": [
-        "['\"Exposure limit for radio-frequency electromagnetic field for the public: Power density (W/m^2)"
+        "Exposure limit for radio-frequency electromagnetic field for the public: Power density (W/m^2)"
       ],
       "memberList": [
         "who/EMFLIMITPOWERDENSITY.EMFEXPOSED--EMFPUBLIC__EMFFREQUENCY--EMFRADIO__EMFRADIOBAND--EMFFREQ1800",
@@ -7986,7 +7986,7 @@
         "dc/svpg/WHOEMFLIMITPOWERDENSITY.002"
       ],
       "name": [
-        "['\"Exposure limit for radio-frequency electromagnetic field for workeers: Power density (W/m^2)"
+        "Exposure limit for radio-frequency electromagnetic field for workeers: Power density (W/m^2)"
       ],
       "memberList": [
         "who/EMFLIMITPOWERDENSITY.EMFEXPOSED--EMFWORKER__EMFFREQUENCY--EMFRADIO__EMFRADIOBAND--EMFFREQ1800",

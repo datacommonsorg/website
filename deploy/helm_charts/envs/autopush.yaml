@@ -46,16 +46,18 @@ nl:
   enabled: true
   embeddingsSpec:
     defaultIndex: "base_uae_mem"
-    enabledIndexes: [
-      "base_uae_mem",
-      "bio_ft",
-      "medium_ft",
-      "medium_lance_ft",
-      "medium_vertex_ft",
-      "medium_vertex_mistral",
-      "sdg_ft",
-      "undata_ft",
-    ]
+    enabledIndexes:
+      [
+        "base_uae_mem",
+        "bio_ft",
+        "medium_ft",
+        "medium_lance_ft",
+        "medium_vertex_ft",
+        "medium_vertex_mistral",
+        "sdg_ft",
+        "undata_ft",
+        "undata_ilo_ft",
+      ]
     vertexAIModels:
       dc-all-minilm-l6-v2-model:
         project_id: datcom-website-dev
