@@ -19,7 +19,6 @@ from typing import Dict, List
 
 import flask
 from flask import current_app
-from flask import request
 from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
 
