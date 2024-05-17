@@ -91,8 +91,9 @@ def _rank_vars(candidates: EmbeddingsResult,
   # TODO: truncate the score based on model parameters from yaml
   # Same model would produce different scores after certain decimals, so we want
   # to round to 6 decimal places to make the score and rank stable.
-  for sv, score in sorted(sv2score.items(),
-                          key=lambda item: (-int(item[1] * 1e6), item[0])):
+  sorted_score = sorted(sv2score.items(),
+                        key=lambda item: (-round(item[1], 6), item[0]))
+  for sv, score in sorted_score:
     result.svs.append(sv)
     result.scores.append(score)
 

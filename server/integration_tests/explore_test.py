@@ -63,7 +63,6 @@ class ExploreTest(NLWebServerTestCase):
         d = ''
       else:
         d = re.sub(r'[ ?"]', '', q).lower()
-      print(d)
       self.handle_response(q, resp, test_dir, d, failure, check_detection)
 
   def run_detect_and_fulfill(self,
