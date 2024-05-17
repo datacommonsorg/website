@@ -14,7 +14,7 @@
 
 import json
 import logging
-from typing import List
+from typing import Dict, List
 
 from flask import Blueprint
 from flask import current_app
@@ -45,8 +45,9 @@ def healthz():
       config.NL_EMBEDDINGS_KEY].get_index(default_index_type)
   if nl_embeddings:
     query = nl_embeddings.store.default_query
-    result: VarCandidates = search.search_vars([nl_embeddings], query)[query]
-    if result.svs:
+    result: VarCandidates = search.search_vars([nl_embeddings],
+                                               [query]).get(query)
+    if result and result.svs:
       return 'OK', 200
     else:
       logging.warning(f'Health Check Failed: query "{query}" failed!')
@@ -85,9 +86,11 @@ def search_vars():
       reranker_name) if reranker_name else None
 
   nl_embeddings = _get_indexes(emb_map, idx)
-  debug_logs = {'sv_detection_query_index_type': idx}
-  results = search.search_vars(nl_embeddings, queries, skip_topics,
-                               reranker_model, debug_logs)
+  debug_logs = {}
+  results: Dict[str,
+                VarCandidates] = search.search_vars(nl_embeddings, queries,
+                                                    skip_topics, reranker_model,
+                                                    debug_logs)
   q2result = {q: var_candidates_to_dict(result) for q, result in results.items()}
   return json.dumps({
       'queryResults': q2result,
