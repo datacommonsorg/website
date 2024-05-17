@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import json
-from typing import Dict, List
+from typing import List
 
 from flask import Blueprint
 from flask import current_app
@@ -79,11 +79,9 @@ def search_vars():
       reranker_name) if reranker_name else None
 
   nl_embeddings = _get_indexes(emb_map, idx)
-  debug_logs = {}
-  results: Dict[str,
-                VarCandidates] = search.search_vars(nl_embeddings, queries,
-                                                    skip_topics, reranker_model,
-                                                    debug_logs)
+  debug_logs = {'sv_detection_query_index_type': idx}
+  results = search.search_vars(nl_embeddings, queries, skip_topics,
+                               reranker_model, debug_logs)
   q2result = {q: var_candidates_to_dict(result) for q, result in results.items()}
   return json.dumps({
       'queryResults': q2result,

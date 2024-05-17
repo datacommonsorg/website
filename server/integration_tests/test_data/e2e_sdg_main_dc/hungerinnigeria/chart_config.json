@@ -10,64 +10,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SN_ITK_DEFCN"
-                    ],
-                    "title": "Undernourished Population in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Undernourished Population in Nigeria",
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFCN"
-                    ],
-                    "title": "Undernourished Population in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
-            "title": "Undernourished Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC"
-                    ],
-                    "title": "Undernourishment in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Undernourishment in Nigeria",
-                    "statVarKey": [
-                      "sdg/SN_ITK_DEFC"
-                    ],
-                    "title": "Undernourishment in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
-            "title": "Undernourishment"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "sdg/AG_PRD_FIESMSN"
                     ],
                     "title": "Population With Moderate or Severe Food Insecurity in Nigeria",
@@ -90,6 +32,23 @@
             ],
             "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
             "title": "Population With Moderate or Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People)"
           },
           {
             "columns": [
@@ -126,23 +85,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F",
-                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
-                    ],
-                    "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F",
                       "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
                     ],
@@ -153,6 +95,145 @@
               }
             ],
             "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS"
+                    ],
+                    "title": "Moderate or Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Moderate or Severe Food Insecurity in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS"
+                    ],
+                    "title": "Moderate or Severe Food Insecurity in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Moderate or Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS"
+                    ],
+                    "title": "Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Severe Food Insecurity in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS"
+                    ],
+                    "title": "Severe Food Insecurity in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC"
+                    ],
+                    "title": "Undernourishment in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Undernourishment in Nigeria",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC"
+                    ],
+                    "title": "Undernourishment in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
+            "title": "Undernourishment"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_WASHARI"
+                    ],
+                    "title": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: global health observatory (GHO), world health organisation (WHO).",
+            "title": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections"
           },
           {
             "columns": [
@@ -211,406 +292,20 @@
             ],
             "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
             "title": "Moderate or Severe Stunting in Population Under 5"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SN_STA_OVWGTN.AGE--Y0T4"
-                    ],
-                    "title": "Overweight Children Under 5 in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Overweight Children Under 5 in Nigeria",
-                    "statVarKey": [
-                      "sdg/SN_STA_OVWGTN.AGE--Y0T4"
-                    ],
-                    "title": "Overweight Children Under 5 in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
-            "title": "Overweight Children Under 5"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_STA_WASTN.AGE--Y0T4"
-                    ],
-                    "title": "Children Under 5 With Wasting in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Children Under 5 With Wasting in Nigeria",
-                    "statVarKey": [
-                      "sdg/SH_STA_WASTN.AGE--Y0T4"
-                    ],
-                    "title": "Children Under 5 With Wasting in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: 10\u00e8me enqu\u00eate nutritionnelle anthropom\u00e9trique et de mortalit\u00e9 r\u00e9trospective bas\u00e9e sur la m\u00e9thodologie SMART au mali (SMART-2020 mali); 2002 annual national nutrition monitoring. Nutrition surveillance department. Hanoi, vietnam: national institute of nutrition, 2009; 2003 annual national nutrition monitoring. Nutrition surveillance department. Hanoi, vietnam: national institute of nutrition, 2009; 2003 egypt interim demographic and health survey. Demogra...88867 more chars",
-            "title": "Children Under 5 With Wasting"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/PD_AGR_LSFP",
-                      "sdg/PD_AGR_LSFP.SEX--F",
-                      "sdg/PD_AGR_LSFP.SEX--M"
-                    ],
-                    "title": "Productivity of Large-Scale Food Producers (Agricultural Output Per Labour Day, PPP) (Constant 2017 International $) in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Productivity of Large-Scale Food Producers (Agricultural Output Per Labour Day, PPP) (Constant 2017 International $)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/PD_AGR_SSFP",
-                      "sdg/PD_AGR_SSFP.SEX--F",
-                      "sdg/PD_AGR_SSFP.SEX--M"
-                    ],
-                    "title": "Productivity of Small-Scale Food Producers (Agricultural Output Per Labour Day, PPP) (Constant 2017 International $) in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Productivity of Small-Scale Food Producers (Agricultural Output Per Labour Day, PPP) (Constant 2017 International $)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_AGR_LSFP",
-                      "sdg/SI_AGR_LSFP.SEX--F",
-                      "sdg/SI_AGR_LSFP.SEX--M"
-                    ],
-                    "title": "Average Income of Large-Scale Food Producers, PPP (Constant 2017 International $) in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Income of Large-Scale Food Producers, PPP (Constant 2017 International $)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_AGR_SSFP",
-                      "sdg/SI_AGR_SSFP.SEX--F",
-                      "sdg/SI_AGR_SSFP.SEX--M"
-                    ],
-                    "title": "Average Income of Small-Scale Food Producers, PPP (Constant 2017 International $) in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Income of Small-Scale Food Producers, PPP (Constant 2017 International $)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/ER_GRF_ANIMKPT"
-                    ],
-                    "title": "Local Breeds in the Country in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Local Breeds in the Country in Nigeria",
-                    "statVarKey": [
-                      "sdg/ER_GRF_ANIMKPT"
-                    ],
-                    "title": "Local Breeds in the Country in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry of agriculture; animal we...8804 more chars",
-            "title": "Local Breeds in the Country"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/ER_GRF_ANIMKPT_TRB"
-                    ],
-                    "title": "Transboundary Breeds in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Transboundary Breeds in Nigeria",
-                    "statVarKey": [
-                      "sdg/ER_GRF_ANIMKPT_TRB"
-                    ],
-                    "title": "Transboundary Breeds in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry of agriculture; animal we...9293 more chars",
-            "title": "Transboundary Breeds"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_PRD_ORTIND"
-                    ],
-                    "title": "Agriculture Orientation Index for Government Expenditures in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Agriculture Orientation Index for Government Expenditures in Nigeria",
-                    "statVarKey": [
-                      "sdg/AG_PRD_ORTIND"
-                    ],
-                    "title": "Agriculture Orientation Index for Government Expenditures in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: data from the international monetary fund (IMF) and FAO imputed data. UNSD national accounts estimates; data from the international monetary fund (IMF) and FAO estimates. UNSD national accounts estimates; data from the international monetary fund (IMF) and official data from online national ministry of agriculture and/or ministry of fisheries. UNSD national accounts estimates; data from the international monetary fund (IMF) and official data from online ...4959 more chars",
-            "title": "Agriculture Orientation Index for Government Expenditures"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_XPD_AGSGB"
-                    ],
-                    "title": "Agriculture Share of Government Expenditure in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Agriculture Share of Government Expenditure in Nigeria",
-                    "statVarKey": [
-                      "sdg/AG_XPD_AGSGB"
-                    ],
-                    "title": "Agriculture Share of Government Expenditure in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: data from the international monetary fund (IMF); data from the international monetary fund (IMF) and FAO imputed data; data from the international monetary fund (IMF) and FAO estimates; data from the international monetary fund (IMF) and official data from online national ministry of agriculture and/or ministry of fisheries; data from the international monetary fund (IMF) and official data from online national ministry of finance. Ministry of budget. Tre...3491 more chars",
-            "title": "Agriculture Share of Government Expenditure"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_PRD_AGVAS"
-                    ],
-                    "title": "Agriculture Value Added Share of GDP in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Agriculture Value Added Share of GDP in Nigeria",
-                    "statVarKey": [
-                      "sdg/AG_PRD_AGVAS"
-                    ],
-                    "title": "Agriculture Value Added Share of GDP in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: FAO calculation based on UNSD national account estimates.",
-            "title": "Agriculture Value Added Share of GDP"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/DC_TOF_AGRL"
-                    ],
-                    "title": "Total Official Flows for Agriculture in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Total Official Flows for Agriculture in Nigeria",
-                    "statVarKey": [
-                      "sdg/DC_TOF_AGRL"
-                    ],
-                    "title": "Total Official Flows for Agriculture in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: the organisation for economic Co-operation and development (OECD).",
-            "title": "Total Official Flows for Agriculture"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_FPA_CFPI"
-                    ],
-                    "title": "Indicator of Food Price Anomalies in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Indicator of Food Price Anomalies in Nigeria",
-                    "statVarKey": [
-                      "sdg/AG_FPA_CFPI"
-                    ],
-                    "title": "Indicator of Food Price Anomalies in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: FAOSTAT data/ consumer price indices: http://www.Fao.org/faostat/en/#data/CP.",
-            "title": "Indicator of Food Price Anomalies"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112",
-                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113",
-                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114",
-                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118"
-                    ],
-                    "title": "Indicator of Food Price Anomalies (IFPA), by Type of Product in Nigeria",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Indicator of Food Price Anomalies (IFPA), by Type of Product"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Food Waste in Nigeria",
-                    "statVarKey": [
-                      "sdg/AG_FOOD_WST"
-                    ],
-                    "title": "Food Waste in Nigeria",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: food waste index report 2021 / WESR.",
-            "title": "Food Waste"
           }
         ],
         "statVarSpec": {
-          "sdg/AG_FOOD_WST": {
-            "name": "Food waste",
-            "statVar": "sdg/AG_FOOD_WST"
+          "sdg/AG_PRD_FIESMS": {
+            "name": "Moderate or Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESMS"
           },
-          "sdg/AG_FPA_CFPI": {
-            "name": "Indicator of Food Price Anomalies",
-            "statVar": "sdg/AG_FPA_CFPI"
+          "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F": {
+            "name": "Moderate or Severe Food Insecurity in Women Age 15 or Older",
+            "statVar": "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F"
           },
-          "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112": {
-            "name": "Maize Food Price Anomalies",
-            "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112"
-          },
-          "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113": {
-            "name": "Rice Food Price Anomalies",
-            "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113"
-          },
-          "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114": {
-            "name": "Sorghum Food Price Anomalies",
-            "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114"
-          },
-          "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118": {
-            "name": "Millet Food Price Anomalies",
-            "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118"
-          },
-          "sdg/AG_PRD_AGVAS": {
-            "name": "Agriculture Value Added Share of GDP",
-            "statVar": "sdg/AG_PRD_AGVAS"
+          "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M": {
+            "name": "Moderate or Severe Food Insecurity in Men Age 15 or Older",
+            "statVar": "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
           },
           "sdg/AG_PRD_FIESMSN": {
             "name": "Population With Moderate or Severe Food Insecurity",
@@ -624,6 +319,18 @@
             "name": "Men Age 15 and Over With Moderate or Severe Food Insecurity",
             "statVar": "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
           },
+          "sdg/AG_PRD_FIESS": {
+            "name": "Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESS"
+          },
+          "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F": {
+            "name": "Severe Food Insecurity in Women Age 15 or Older",
+            "statVar": "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M": {
+            "name": "Severe Food Insecurity in Men Age 15 or Older",
+            "statVar": "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
+          },
           "sdg/AG_PRD_FIESSN": {
             "name": "Population With Severe Food Insecurity",
             "statVar": "sdg/AG_PRD_FIESSN"
@@ -636,50 +343,6 @@
             "name": "Men Age 15 and Over With Severe Food Insecurity",
             "statVar": "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
           },
-          "sdg/AG_PRD_ORTIND": {
-            "name": "Agriculture Orientation Index for Government Expenditures",
-            "statVar": "sdg/AG_PRD_ORTIND"
-          },
-          "sdg/AG_XPD_AGSGB": {
-            "name": "Agriculture Share of Government Expenditure",
-            "statVar": "sdg/AG_XPD_AGSGB"
-          },
-          "sdg/DC_TOF_AGRL": {
-            "name": "Total Official Flows for Agriculture",
-            "statVar": "sdg/DC_TOF_AGRL"
-          },
-          "sdg/ER_GRF_ANIMKPT": {
-            "name": "Local Breeds in the Country",
-            "statVar": "sdg/ER_GRF_ANIMKPT"
-          },
-          "sdg/ER_GRF_ANIMKPT_TRB": {
-            "name": "Transboundary Breeds",
-            "statVar": "sdg/ER_GRF_ANIMKPT_TRB"
-          },
-          "sdg/PD_AGR_LSFP": {
-            "name": "Productivity of Large-Scale Food Producers",
-            "statVar": "sdg/PD_AGR_LSFP"
-          },
-          "sdg/PD_AGR_LSFP.SEX--F": {
-            "name": "Productivity of Large-Scale Female Food Producers",
-            "statVar": "sdg/PD_AGR_LSFP.SEX--F"
-          },
-          "sdg/PD_AGR_LSFP.SEX--M": {
-            "name": "Productivity of Large-Scale Male Food Producers",
-            "statVar": "sdg/PD_AGR_LSFP.SEX--M"
-          },
-          "sdg/PD_AGR_SSFP": {
-            "name": "Productivity of Small-Scale Food Producers",
-            "statVar": "sdg/PD_AGR_SSFP"
-          },
-          "sdg/PD_AGR_SSFP.SEX--F": {
-            "name": "Productivity of Small-Scale Female Food Producers",
-            "statVar": "sdg/PD_AGR_SSFP.SEX--F"
-          },
-          "sdg/PD_AGR_SSFP.SEX--M": {
-            "name": "Productivity of Small-Scale Male Food Producers",
-            "statVar": "sdg/PD_AGR_SSFP.SEX--M"
-          },
           "sdg/SH_STA_STNT.AGE--Y0T4": {
             "name": "Moderate or Severe Stunting in Population Under 5",
             "statVar": "sdg/SH_STA_STNT.AGE--Y0T4"
@@ -688,45 +351,13 @@
             "name": "Children Under 5 With Moderate or Severe Stunting",
             "statVar": "sdg/SH_STA_STNTN.AGE--Y0T4"
           },
-          "sdg/SH_STA_WASTN.AGE--Y0T4": {
-            "name": "Children Under 5 With Wasting",
-            "statVar": "sdg/SH_STA_WASTN.AGE--Y0T4"
-          },
-          "sdg/SI_AGR_LSFP": {
-            "name": "Average Earnings of Large-Scale Food Producers",
-            "statVar": "sdg/SI_AGR_LSFP"
-          },
-          "sdg/SI_AGR_LSFP.SEX--F": {
-            "name": "Average Earnings of Large-Scale Female Food Producers",
-            "statVar": "sdg/SI_AGR_LSFP.SEX--F"
-          },
-          "sdg/SI_AGR_LSFP.SEX--M": {
-            "name": "Average Earnings of Large-Scale Male Food Producers",
-            "statVar": "sdg/SI_AGR_LSFP.SEX--M"
-          },
-          "sdg/SI_AGR_SSFP": {
-            "name": "Average Earnings of Small-Scale Food Producers",
-            "statVar": "sdg/SI_AGR_SSFP"
-          },
-          "sdg/SI_AGR_SSFP.SEX--F": {
-            "name": "Average Earnings of Small-Scale Female Food Producers",
-            "statVar": "sdg/SI_AGR_SSFP.SEX--F"
-          },
-          "sdg/SI_AGR_SSFP.SEX--M": {
-            "name": "Average Earnings of Small-Scale Male Food Producers",
-            "statVar": "sdg/SI_AGR_SSFP.SEX--M"
+          "sdg/SH_STA_WASHARI": {
+            "name": "Mortality rate attributed to unsafe water, unsafe sanitation and lack of hygiene from diarrhoea, intestinal nematode infections, malnutrition and acute respiratory infections",
+            "statVar": "sdg/SH_STA_WASHARI"
           },
           "sdg/SN_ITK_DEFC": {
             "name": "Undernourishment",
             "statVar": "sdg/SN_ITK_DEFC"
-          },
-          "sdg/SN_ITK_DEFCN": {
-            "name": "Undernourished Population",
-            "statVar": "sdg/SN_ITK_DEFCN"
-          },
-          "sdg/SN_STA_OVWGTN.AGE--Y0T4": {
-            "name": "Overweight Children Under 5",
-            "statVar": "sdg/SN_STA_OVWGTN.AGE--Y0T4"
           }
         }
       }
@@ -759,12 +390,36 @@
     "childPlaces": {},
     "childTopics": [
       {
-        "dcid": "dc/topic/sdg_2.1.1",
-        "name": "Undernourishment",
+        "dcid": "dc/topic/sdgAGPRDFIESMSN",
+        "name": "Population With Moderate or Severe Food Insecurity",
         "types": [
           "Topic"
         ]
       },
+      {
+        "dcid": "dc/topic/sdgAGPRDFIESSN",
+        "name": "Population With Severe Food Insecurity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdgAGPRDFIESMS",
+        "name": "Moderate or Severe Food Insecurity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdgAGPRDFIESS",
+        "name": "Severe Food Insecurity",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {},
+    "mainTopics": [
       {
         "dcid": "dc/topic/sdg_2.1.2",
         "name": "Food Insecurity",
@@ -773,53 +428,11 @@
         ]
       }
     ],
-    "exploreMore": {
-      "sdg/AG_FOOD_WST": {
-        "sdg_foodWasteSector": [
-          "sdg/AG_FOOD_WST.FOOD_WASTE_SECTOR--FWS_HHS",
-          "sdg/AG_FOOD_WST.FOOD_WASTE_SECTOR--FWS_OOHC",
-          "sdg/AG_FOOD_WST.FOOD_WASTE_SECTOR--FWS_RTL"
-        ]
-      },
-      "sdg/PD_AGR_LSFP": {
-        "sdg_sex": [
-          "sdg/PD_AGR_LSFP.SEX--F",
-          "sdg/PD_AGR_LSFP.SEX--M"
-        ]
-      },
-      "sdg/PD_AGR_SSFP": {
-        "sdg_sex": [
-          "sdg/PD_AGR_SSFP.SEX--F",
-          "sdg/PD_AGR_SSFP.SEX--M"
-        ]
-      },
-      "sdg/SI_AGR_LSFP": {
-        "sdg_sex": [
-          "sdg/SI_AGR_LSFP.SEX--F",
-          "sdg/SI_AGR_LSFP.SEX--M"
-        ]
-      },
-      "sdg/SI_AGR_SSFP": {
-        "sdg_sex": [
-          "sdg/SI_AGR_SSFP.SEX--F",
-          "sdg/SI_AGR_SSFP.SEX--M"
-        ]
-      }
-    },
-    "mainTopics": [
-      {
-        "dcid": "dc/topic/sdg_2.1",
-        "name": "End Hunger by 2030",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/sdg_2",
-        "name": "Zero Hunger",
+        "dcid": "dc/topic/sdg_2.1",
+        "name": "End Hunger by 2030",
         "types": [
           "Topic"
         ]
@@ -927,36 +540,8 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/sdg_2.2",
-        "name": "End Malnutrition by 2030",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_2.3",
-        "name": "Double Agricultural Productivity by 2030",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_2.5",
-        "name": "Seed and Plant Banks for Genetic Diversity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_2.a",
-        "name": "Rural Development Investment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_2.c",
-        "name": "Food Commodity Markets",
+        "dcid": "dc/topic/sdg_2.1.1",
+        "name": "Undernourishment",
         "types": [
           "Topic"
         ]

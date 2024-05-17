@@ -45,7 +45,7 @@ serviceAccount:
 nl:
   enabled: true
   embeddingsSpec:
-    defaultIndex: "medium_ft"
+    defaultIndex: "base_uae_mem"
     enabledIndexes:
       [
         "base_uae_mem",

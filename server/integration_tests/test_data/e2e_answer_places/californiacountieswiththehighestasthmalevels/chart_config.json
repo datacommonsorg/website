@@ -14,6 +14,37 @@
                       "showHighest": true
                     },
                     "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Children That Have Asthma in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
                     "title": "Asthma in Counties of California (${date})",
@@ -62,112 +93,9 @@
               }
             ],
             "title": "Asthma"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
-                    ],
-                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
-                    ],
-                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Percent of Children That Have Asthma in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_DiseasesOfTheRespiratorySystem"
-                    ],
-                    "title": "Deaths From Diseases of the Respiratory System in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_DiseasesOfTheRespiratorySystem"
-                    ],
-                    "title": "Deaths From Diseases of the Respiratory System in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Deaths From Diseases of the Respiratory System in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_DiseasesOfTheRespiratorySystem_Male"
-                    ],
-                    "title": "Count of Mortality Event: J00-J98 (Diseases of the Respiratory System), Male in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_DiseasesOfTheRespiratorySystem_Male"
-                    ],
-                    "title": "Count of Mortality Event: J00-J98 (Diseases of the Respiratory System), Male in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Mortality Event: J00-J98 (Diseases of the Respiratory System), Male in Counties of California"
           }
         ],
         "statVarSpec": {
-          "Count_Death_DiseasesOfTheRespiratorySystem": {
-            "name": "Deaths From Diseases of the Respiratory System",
-            "statVar": "Count_Death_DiseasesOfTheRespiratorySystem"
-          },
-          "Count_Death_DiseasesOfTheRespiratorySystem_Male": {
-            "name": "Count of Mortality Event: J00-J98 (Diseases of The Respiratory System), Male",
-            "statVar": "Count_Death_DiseasesOfTheRespiratorySystem_Male"
-          },
           "Percent_Person_Children_WithAsthma": {
             "name": "Percent of Children That Have Asthma",
             "statVar": "Percent_Person_Children_WithAsthma",
@@ -563,90 +491,12 @@
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/Arthritis",
-        "name": "Arthritis",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Asthma",
-        "name": "Asthma",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/BloodPressure",
-        "name": "Blood Pressure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Cancer",
-        "name": "Cancer",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Cholesterol",
-        "name": "Cholesterol",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Diabetes",
-        "name": "Diabetes",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeartDisease",
-        "name": "Heart Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/MentalHealth",
-        "name": "Mental Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/KidneyDisease",
-        "name": "Kidney Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Stroke",
-        "name": "Stroke",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeatIllnesses",
-        "name": "Heat Illnesses",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/HealthConditions",
-        "name": "Health Conditions",
+        "dcid": "dc/topic/Asthma",
+        "name": "Asthma",
         "types": [
           "Topic"
         ]
@@ -655,8 +505,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Health",
-        "name": "Health",
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
         "types": [
           "Topic"
         ]
@@ -1016,29 +866,71 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/HealthEquity",
-        "name": "Health Equity",
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/HealthInsurance",
-        "name": "Health Insurance",
+        "dcid": "dc/topic/BloodPressure",
+        "name": "Blood Pressure",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Mortality",
-        "name": "Mortality",
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/PreventativeHealthAndBehavior",
-        "name": "Preventive Health and Behavior",
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeatIllnesses",
+        "name": "Heat Illnesses",
         "types": [
           "Topic"
         ]

@@ -38,6 +38,35 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "dc/b3nmcj3w1lhed"
+                    ],
+                    "title": "Population: Middle School, Two or More Races in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Middle School, Two or More Races in Sunnyvale",
+                    "statVarKey": [
+                      "dc/b3nmcj3w1lhed"
+                    ],
+                    "title": "Population: Middle School, Two or More Races in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Middle School, Two or More Races"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -65,35 +94,6 @@
             ],
             "denom": "Count_Person",
             "title": "Students in Middle School by Race"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool"
-                    ],
-                    "title": "Elementary School Students in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Elementary School Students in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool"
-                    ],
-                    "title": "Elementary School Students in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Elementary School Students"
           },
           {
             "columns": [
@@ -259,93 +259,6 @@
               }
             ],
             "title": "Student-Teacher Ratio in Middle Schools of Sunnyvale"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_EnrolledInSchool"
-                    ],
-                    "title": "Population Currently Enrolled in School in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population Currently Enrolled in School in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_EnrolledInSchool"
-                    ],
-                    "title": "Population Currently Enrolled in School in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population Currently Enrolled in School"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_EducationalAttainment11ThGrade"
-                    ],
-                    "title": "Population: 11th Grade in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 11th Grade in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_EducationalAttainment11ThGrade"
-                    ],
-                    "title": "Population: 11th Grade in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 11th Grade"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
-                    ],
-                    "title": "Population: 7th and 8th Grade in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 7th and 8th Grade in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
-                    ],
-                    "title": "Population: 7th and 8th Grade in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 7th and 8th Grade"
           }
         ],
         "statVarSpec": {
@@ -361,10 +274,6 @@
             "name": "Elementary School Students",
             "statVar": "Count_Person_DetailedPrimarySchool"
           },
-          "Count_Person_EducationalAttainment11ThGrade": {
-            "name": "Population: 11th Grade",
-            "statVar": "Count_Person_EducationalAttainment11ThGrade"
-          },
           "Count_Person_EnrolledInCollegeUndergraduateYears": {
             "name": "Population: Enrolled in College Undergraduate Years",
             "statVar": "Count_Person_EnrolledInCollegeUndergraduateYears"
@@ -372,14 +281,6 @@
           "Count_Person_EnrolledInKindergarten": {
             "name": "Population: Enrolled in Kindergarten",
             "statVar": "Count_Person_EnrolledInKindergarten"
-          },
-          "Count_Person_EnrolledInSchool": {
-            "name": "Population Currently Enrolled in School",
-            "statVar": "Count_Person_EnrolledInSchool"
-          },
-          "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade": {
-            "name": "Population: 7th And 8th Grade",
-            "statVar": "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
           },
           "Count_Student_DirectCertificationLunch": {
             "name": "Count of Student: Direct Certification Lunch",
@@ -417,6 +318,10 @@
           "dc/7g77dy8hfb1rg_multiple_place_bar_block": {
             "name": "Population: Enrolled in Kindergarten, Hispanic or Latino",
             "statVar": "dc/7g77dy8hfb1rg"
+          },
+          "dc/b3nmcj3w1lhed": {
+            "name": "Population: Middle School, Two or More Races",
+            "statVar": "dc/b3nmcj3w1lhed"
           },
           "dc/b3nmcj3w1lhed_multiple_place_bar_block": {
             "name": "Population: Middle School, Two or More Races",
@@ -583,12 +488,6 @@
           "dc/x9e7150515yt7"
         ]
       },
-      "Count_Person_EducationalAttainment11ThGrade": {
-        "gender": [
-          "Count_Person_25OrMoreYears_EducationalAttainment11ThGrade_Female",
-          "Count_Person_25OrMoreYears_EducationalAttainment11ThGrade_Male"
-        ]
-      },
       "Count_Person_EnrolledInCollegeUndergraduateYears": {
         "gender": [
           "dc/0yv0ry7tjmwzc",
@@ -599,26 +498,6 @@
         "gender": [
           "dc/g8kg52zcxzw9f",
           "dc/p34mhcpgtth76"
-        ]
-      },
-      "Count_Person_EnrolledInSchool": {
-        "gender": [
-          "Count_Person_3OrMoreYears_Female_EnrolledInSchool",
-          "Count_Person_3OrMoreYears_Male_EnrolledInSchool"
-        ],
-        "race": [
-          "dc/4wdtyd2bbf9m9",
-          "dc/5qnjtqc0w783b",
-          "dc/8cnhmxe67qddf",
-          "dc/jbv3zc0ezvcyc",
-          "dc/km8en9ep7bwh6",
-          "dc/zq864lhfql079"
-        ]
-      },
-      "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade": {
-        "gender": [
-          "Count_Person_25OrMoreYears_EducationalAttainment7ThAnd8ThGrade_Female",
-          "Count_Person_25OrMoreYears_EducationalAttainment7ThAnd8ThGrade_Male"
         ]
       },
       "dc/g8kg52zcxzw9f": {

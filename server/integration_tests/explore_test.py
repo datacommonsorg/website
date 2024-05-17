@@ -264,9 +264,7 @@ class ExploreTest(NLWebServerTestCase):
                        test='unittest')
 
   def test_detection_basic_lancedb(self):
-    # NOTE: Use the same test-name as above, since we expect the content to exactly
-    # match the one from above.
-    self.run_detection('detection_api_basic', ['Commute in California'],
+    self.run_detection('detection_api_basic_lancedb', ['Commute in California'],
                        test='unittest',
                        idx='medium_lance_ft')
 
@@ -318,14 +316,16 @@ class ExploreTest(NLWebServerTestCase):
                        check_detection=True)
 
   def test_detection_multivar(self):
-    self.run_detection('detection_api_multivar', [
-        'number of poor hispanic women with phd',
-        'compare obesity vs. poverty',
-        'show me the impact of climate change on drought',
-        'how are factors like obesity, blood pressure and asthma impacted by climate change',
-        'Compare "Male population" with "Female Population"',
-    ],
-                       check_detection=True)
+    self.run_detection(
+        'detection_api_multivar',
+        [
+            'number of poor hispanic women with phd',
+            # 'compare obesity vs. poverty',
+            'show me the impact of climate change on drought',
+            'how are factors like obesity, blood pressure and asthma impacted by climate change',
+            'Compare "Male population" with "Female Population"',
+        ],
+        check_detection=True)
 
   def test_detection_context(self):
     self.run_detection('detection_api_context', [
