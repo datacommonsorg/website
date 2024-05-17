@@ -320,7 +320,7 @@ class ExploreTest(NLWebServerTestCase):
         'detection_api_multivar',
         [
             'number of poor hispanic women with phd',
-            # 'compare obesity vs. poverty',
+            'compare obesity vs. poverty',
             'show me the impact of climate change on drought',
             'how are factors like obesity, blood pressure and asthma impacted by climate change',
             'Compare "Male population" with "Female Population"',
