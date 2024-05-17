@@ -88,13 +88,8 @@ def _rank_vars(candidates: EmbeddingsResult,
             dvars.SentenceScore(sentence=c.sentence, score=c.score))
         sv2sentences[dcid].add(c.sentence)
 
-  # The scores are flaky after 7 digit from the model.
-  # Round it to 7 digits to make it more consistent.
-  for sv in sv2score:
-    sv2score[sv] = round(sv2score[sv], 7)
-
   for sv, score in sorted(sv2score.items(),
-                          key=lambda item: (-item[1], item[0])):
+                          key=lambda item: (-round(item[1], 6), item[0])):
     result.svs.append(sv)
     result.scores.append(score)
 
