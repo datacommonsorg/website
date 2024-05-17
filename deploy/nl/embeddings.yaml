@@ -13,18 +13,17 @@
 # limitations under the License.
 #
 #
-# This is the main config file for NL models and embeddings
-#
-# There are two sections: indexes and models
+# This is the main config file for NL models and embeddings,
+# with two sections.
 # 
 # models:
-# - type: what type of serving infra? (LOCAL, VERTEXAI)
+# - type: what type of model serving infra? (LOCAL, VERTEXAI)
 # - usage: what is the model used for?  (EMBEDDINGS, RERANKING)
 # - score_threshold: For embeddings model, what is the cutoff threshold
 #                    below which we drop matches? (default: 0.5)
 #
 # indexes:
-# - store: what type of embeddings serving?  (MEMORY, LANCEDB, VERTEXAI)
+# - store: what type of embeddings store?  (MEMORY, LANCEDB, VERTEXAI)
 # - model: the name of the associated model from `models` section
 # - embeddings: For MEMORY/LANCEDB, the path to the index files.
 #               Can be a local absolute path or GCS (gs://) path.
