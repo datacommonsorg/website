@@ -35,7 +35,7 @@ class NLTest(NLWebServerTestCase):
   def run_sequence(self,
                    test_dir,
                    queries,
-                   idx='medium_ft',
+                   idx='base_uae_mem',
                    detector='hybrid',
                    check_place_detection=False,
                    expected_detectors=[],

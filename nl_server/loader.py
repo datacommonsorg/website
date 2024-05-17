@@ -117,7 +117,6 @@ def _load_yaml(flask_env: str, enabled_indexes: List[str]) -> Dict[str, any]:
     embeddings_map['indexes'].update(custom_map.get('indexes', {}))
     embeddings_map['models'].update(custom_map.get('models', {}))
 
-  logging.info(f'Attempting to load NL YAML: {embeddings_map}')
   return embeddings_map
 
 

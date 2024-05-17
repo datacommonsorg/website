@@ -8,121 +8,155 @@
   "query_with_places_removed": "number of poor hispanic women with phd",
   "sv_matching": {
     "CosineScore": [
-      0.8903406858444214,
-      0.8845490217208862,
-      0.845656156539917,
-      0.8409276008605957,
-      0.8346197009086609,
-      0.8306021094322205,
-      0.8300771713256836,
-      0.8298372626304626,
-      0.8254846930503845,
-      0.8253124356269836
+      0.7957631349563599,
+      0.7857250571250916,
+      0.7803164720535278,
+      0.7711867094039917,
+      0.7488031387329102,
+      0.7312931418418884,
+      0.7230690121650696,
+      0.7032266855239868,
+      0.6992522478103638,
+      0.6975268125534058,
+      0.6968789100646973,
+      0.6965146660804749,
+      0.6957023739814758,
+      0.6950783729553223,
+      0.6924899816513062,
+      0.6909822225570679,
+      0.6900708079338074,
+      0.6897767782211304,
+      0.6895610690116882,
+      0.6882988214492798,
+      0.687789797782898,
+      0.6866766810417175,
+      0.6841540336608887,
+      0.6816003322601318,
+      0.6785858273506165,
+      0.6771783828735352,
+      0.6752111315727234,
+      0.6749598979949951,
+      0.6746017932891846,
+      0.6731376051902771,
+      0.6724945306777954,
+      0.6663401126861572,
+      0.6656798124313354,
+      0.663843035697937,
+      0.6636539101600647,
+      0.6630502939224243,
+      0.6621379852294922,
+      0.6619645953178406,
+      0.6603800058364868,
+      0.6599027514457703
     ],
     "MultiSV": {
       "Candidates": [
         {
-          "AggCosineScore": 0.9048,
+          "AggCosineScore": 0.8202,
           "DelimBased": false,
           "Parts": [
             {
               "CosineScore": [
-                0.8638868927955627,
-                0.8613189458847046,
-                0.852301836013794,
-                0.8326531052589417,
-                0.8307946920394897,
-                0.8306549787521362,
-                0.8281030654907227,
-                0.8209190368652344,
-                0.8201780319213867,
-                0.8199412226676941,
-                0.817965567111969
+                0.8084911108016968,
+                0.8080331087112427,
+                0.8044111728668213,
+                0.7984197735786438,
+                0.7966943979263306,
+                0.7915846705436707,
+                0.790185809135437,
+                0.7865886688232422,
+                0.777317464351654,
+                0.776214063167572,
+                0.7629760503768921
               ],
               "QueryPart": "number poor hispanic",
               "SV": [
-                "Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino",
-                "Count_Person_HispanicOrLatino",
-                "Count_Person_NotHispanicOrLatino",
-                "Count_Person_Male_AbovePovertyLevelInThePast12Months_HispanicOrLatino",
-                "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-                "Count_Person_NotHispanicOrLatino_ResidesInGroupQuarters",
                 "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-                "Count_Person_HispanicOrLatino_ResidesInGroupQuarters",
+                "Count_Person_HispanicOrLatino",
                 "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino",
-                "Count_Household_HouseholderRaceHispanicOrLatino",
-                "Count_Person_AbovePovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+                "Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino",
+                "Count_Person_Male_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+                "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+                "Count_Household_WithoutFoodStampsInThePast12Months_HispanicOrLatino",
+                "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+                "Count_Person_WithDisability_HispanicOrLatino",
+                "Count_Person_NoHealthInsurance_HispanicOrLatino",
+                "Count_Person_15OrMoreYears_Separated_HispanicOrLatino"
               ]
             },
             {
               "CosineScore": [
-                0.9458003044128418
+                0.8318259716033936,
+                0.8029923439025879
               ],
               "QueryPart": "women phd",
               "SV": [
-                "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female"
+                "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female",
+                "Count_Person_25OrMoreYears_Female_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears_Female"
               ]
             }
           ]
         },
         {
-          "AggCosineScore": 0.8893,
+          "AggCosineScore": 0.804,
           "DelimBased": false,
           "Parts": [
             {
               "CosineScore": [
-                0.9476636052131653,
-                0.9369949698448181
+                0.8433718085289001,
+                0.8265039920806885
               ],
               "QueryPart": "number poor hispanic women",
               "SV": [
                 "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-                "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
+                "Count_Person_Female_HispanicOrLatino"
               ]
             },
             {
               "CosineScore": [
-                0.8309073448181152
+                0.7646968960762024,
+                0.7476688027381897,
+                0.7377066612243652,
+                0.7362767457962036,
+                0.7305883169174194
               ],
               "QueryPart": "phd",
               "SV": [
-                "Count_Person_EducationalAttainmentDoctorateDegree"
+                "Count_Person_EducationalAttainmentDoctorateDegree",
+                "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female",
+                "Count_Person_25OrMoreYears_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears",
+                "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Male",
+                "Count_Person_25OrMoreYears_Female_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears_Female"
               ]
             }
           ]
         },
         {
-          "AggCosineScore": 0.7905,
+          "AggCosineScore": 0.8021,
           "DelimBased": false,
           "Parts": [
             {
               "CosineScore": [
-                0.6569583415985107,
-                0.6552730798721313,
-                0.6206246614456177,
-                0.6172628402709961,
-                0.6135541200637817
+                0.7890844941139221
               ],
               "QueryPart": "number poor",
               "SV": [
-                "Count_Person_BelowPovertyLevelInThePast12Months",
-                "dc/topic/PovertyLevels",
-                "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
-                "dc/topic/Poverty",
-                "Count_Person_PovertyStatusDetermined"
+                "dc/topic/Poverty"
               ]
             },
             {
               "CosineScore": [
-                0.9240201711654663,
-                0.914476215839386,
-                0.8951904773712158
+                0.8151503801345825,
+                0.7885993719100952,
+                0.7775554060935974,
+                0.7752052545547485
               ],
               "QueryPart": "hispanic women phd",
               "SV": [
                 "dc/06f0jf8xvzw4f",
+                "Count_Person_Female_HispanicOrLatino",
                 "dc/3w039ndqy7qv1",
-                "Count_Person_Female_HispanicOrLatino"
+                "dc/topic/HispanicOrLatinoFemalePopulationByAge"
               ]
             }
           ]
@@ -131,16 +165,46 @@
     },
     "Query": "number of poor hispanic women with phd",
     "SV": [
+      "dc/06f0jf8xvzw4f",
       "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-      "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino",
-      "Count_Person_Female_AbovePovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
-      "Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
-      "Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino",
-      "Count_Person_Female_NotHispanicOrLatino",
-      "Count_Person_Male_AbovePovertyLevelInThePast12Months_HispanicOrLatino",
       "Count_Person_Female_HispanicOrLatino",
       "dc/3w039ndqy7qv1",
-      "dc/06f0jf8xvzw4f"
+      "dc/topic/HispanicOrLatinoFemalePopulationByAge",
+      "Median_Age_Person_Female_HispanicOrLatino",
+      "dc/9cqv67nn7pn1b",
+      "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female",
+      "Count_Person_15OrMoreYears_Widowed_HispanicOrLatino",
+      "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino",
+      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+      "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino",
+      "Count_Person_Female_NotHispanicOrLatino",
+      "Count_Household_HouseholderRaceHispanicOrLatino_SingleMotherFamilyHousehold",
+      "Count_Person_WithDisability_HispanicOrLatino",
+      "Count_Person_HispanicOrLatino",
+      "Count_Student_HispanicOrLatino",
+      "Count_Person_15OrMoreYears_MarriedAndNotSeparated_HispanicOrLatino",
+      "Count_Household_WithoutFoodStampsInThePast12Months_HispanicOrLatino",
+      "dc/0jtctjm33mgh1",
+      "Count_Person_15OrMoreYears_NeverMarried_HispanicOrLatino",
+      "Count_Person_HispanicOrLatino_ResidesInCollegeOrUniversityStudentHousing",
+      "Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino",
+      "Count_Person_Male_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+      "Count_Person_25OrMoreYears_Female_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears_Female",
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "Count_Person_Male_HispanicOrLatino",
+      "dc/topic/PovertyByGender",
+      "Count_Person_HispanicOrLatino_ResidesInNursingFacilities",
+      "Count_Person_NoHealthInsurance_HispanicOrLatino",
+      "Count_Person_Female_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "dc/topic/HispanicOrLatinoPopulationByAge",
+      "Count_Household_HouseholderRaceHispanicOrLatino_FamilyHousehold",
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+      "dc/5hc4etrfyj9qg",
+      "Count_BirthEvent_LiveBirth_MotherHispanicOrLatino",
+      "Count_Person_HispanicOrLatino_ResidesInAdultCorrectionalFacilities",
+      "dc/wpkpr906ft37g",
+      "dc/hyfn2tlyz48lb"
     ]
   },
   "props_matching": {
