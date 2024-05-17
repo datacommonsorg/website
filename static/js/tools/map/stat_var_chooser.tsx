@@ -114,10 +114,11 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       selectSV={(svDcid) =>
         selectStatVar(dateCtx, statVar, display, placeInfo, svDcid)
       }
-      numEntitiesExistence={Math.min(
-        NUM_ENTITIES_EXISTENCE,
-        samplePlaces.length
-      )}
+      numEntitiesExistence={
+        globalThis.isCustomDC
+          ? 1
+          : Math.min(NUM_ENTITIES_EXISTENCE, samplePlaces.length)
+      }
     />
   );
 }

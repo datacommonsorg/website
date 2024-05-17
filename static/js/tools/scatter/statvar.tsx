@@ -164,10 +164,11 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         }
         selectedSVs={selectedSvs}
         selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
-        numEntitiesExistence={Math.min(
-          NUM_ENTITIES_EXISTENCE,
-          samplePlaces.length
-        )}
+        numEntitiesExistence={
+          globalThis.isCustomDC
+            ? 1
+            : Math.min(NUM_ENTITIES_EXISTENCE, samplePlaces.length)
+        }
       />
       {/* Modal for selecting 2 stat vars when a third is selected */}
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">

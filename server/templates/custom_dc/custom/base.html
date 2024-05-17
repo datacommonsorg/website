@@ -46,6 +46,9 @@
   {% if OVERRIDE_CSS_PATH %}
   <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
   {% endif %}
+  <script>
+    globalThis.isCustomDC = {{ config['CUSTOM']|int }};
+  </script>
 </head>
 
 <body>
