@@ -29,7 +29,7 @@ NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
 EMBEDDINGS_SPEC_KEY: str = 'EMBEDDINGS_SPEC'
 
 # Query to use to check index health if this is the default index.
-_DEFAULT_QUERY = 'health'
+_HEALTHCHECK_QUERY = 'health'
 
 
 class StoreType(str, Enum):
@@ -136,7 +136,7 @@ def parse_v1(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str,
   for index_name, index_info in embeddings_map.get('indexes', {}).items():
     store_type = index_info['store']
     used_models.add(index_info['model'])
-    healthcheck_query = index_info.get('healthcheck_query', _DEFAULT_QUERY)
+    healthcheck_query = index_info.get('healthcheck_query', _HEALTHCHECK_QUERY)
     if store_type == StoreType.MEMORY:
       indexes[index_name] = MemoryIndexConfig(
           store_type=store_type,
