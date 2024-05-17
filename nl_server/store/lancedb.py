@@ -38,7 +38,8 @@ class LanceDBStore(EmbeddingsStore):
   """Manages the embeddings."""
 
   def __init__(self, idx_info: LanceDBIndexConfig) -> None:
-    super().__init__(needs_tensor=False)
+    super().__init__(healthcheck_query=idx_info.healthcheck_query,
+                     needs_tensor=False)
 
     if idx_info.embeddings_path.startswith('/'):
       lance_db_dir = idx_info.embeddings_path
