@@ -44,7 +44,7 @@ def healthz():
   nl_embeddings: Embeddings = current_app.config[
       config.NL_EMBEDDINGS_KEY].get_index(default_index_type)
   if nl_embeddings:
-    query = nl_embeddings.store.default_query
+    query = nl_embeddings.store.healthcheck_query
     result: VarCandidates = search.search_vars([nl_embeddings],
                                                [query]).get(query)
     if result and result.svs:

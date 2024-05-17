@@ -71,7 +71,7 @@ class LocalModelConfig(ModelConfig):
 class IndexConfig(ABC):
   store_type: str
   model: str
-  default_query: str
+  healthcheck_query: str
 
 
 @dataclass
@@ -136,19 +136,19 @@ def parse_v1(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str,
   for index_name, index_info in embeddings_map.get('indexes', {}).items():
     store_type = index_info['store']
     used_models.add(index_info['model'])
-    default_query = index_info.get('default_query', _DEFAULT_QUERY)
+    healthcheck_query = index_info.get('healthcheck_query', _DEFAULT_QUERY)
     if store_type == StoreType.MEMORY:
       indexes[index_name] = MemoryIndexConfig(
           store_type=store_type,
           model=index_info['model'],
           embeddings_path=index_info['embeddings'],
-          default_query=default_query)
+          healthcheck_query=healthcheck_query)
     elif store_type == StoreType.LANCEDB:
       indexes[index_name] = LanceDBIndexConfig(
           store_type=store_type,
           model=index_info['model'],
           embeddings_path=index_info['embeddings'],
-          default_query=default_query)
+          healthcheck_query=healthcheck_query)
     elif store_type == StoreType.VERTEXAI:
       indexes[index_name] = VertexAIIndexConfig(
           store_type=store_type,
@@ -158,7 +158,7 @@ def parse_v1(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str,
           index_endpoint_root=index_info['index_endpoint_root'],
           index_endpoint=index_info['index_endpoint'],
           index_id=index_info['index_id'],
-          default_query=default_query)
+          healthcheck_query=healthcheck_query)
     else:
       raise AssertionError(
           'Error parsing information for index {index_name}: unsupported store type {store_type}'
