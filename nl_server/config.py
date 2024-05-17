@@ -28,6 +28,9 @@ NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
 NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
 EMBEDDINGS_SPEC_KEY: str = 'EMBEDDINGS_SPEC'
 
+# Query to use to check index health if this is the default index.
+_HEALTHCHECK_QUERY = 'health'
+
 
 class StoreType(str, Enum):
   MEMORY = 'MEMORY'
@@ -68,6 +71,7 @@ class LocalModelConfig(ModelConfig):
 class IndexConfig(ABC):
   store_type: str
   model: str
+  healthcheck_query: str
 
 
 @dataclass
@@ -132,16 +136,19 @@ def parse_v1(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str,
   for index_name, index_info in embeddings_map.get('indexes', {}).items():
     store_type = index_info['store']
     used_models.add(index_info['model'])
+    healthcheck_query = index_info.get('healthcheck_query', _HEALTHCHECK_QUERY)
     if store_type == StoreType.MEMORY:
       indexes[index_name] = MemoryIndexConfig(
           store_type=store_type,
           model=index_info['model'],
-          embeddings_path=index_info['embeddings'])
+          embeddings_path=index_info['embeddings'],
+          healthcheck_query=healthcheck_query)
     elif store_type == StoreType.LANCEDB:
       indexes[index_name] = LanceDBIndexConfig(
           store_type=store_type,
           model=index_info['model'],
-          embeddings_path=index_info['embeddings'])
+          embeddings_path=index_info['embeddings'],
+          healthcheck_query=healthcheck_query)
     elif store_type == StoreType.VERTEXAI:
       indexes[index_name] = VertexAIIndexConfig(
           store_type=store_type,
@@ -150,7 +157,8 @@ def parse_v1(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str,
           location=index_info['location'],
           index_endpoint_root=index_info['index_endpoint_root'],
           index_endpoint=index_info['index_endpoint'],
-          index_id=index_info['index_id'])
+          index_id=index_info['index_id'],
+          healthcheck_query=healthcheck_query)
     else:
       raise AssertionError(
           'Error parsing information for index {index_name}: unsupported store type {store_type}'

@@ -33,7 +33,8 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
   """Manages the embeddings."""
 
   def __init__(self, idx_info: MemoryIndexConfig) -> None:
-    super().__init__(needs_tensor=True)
+    super().__init__(healthcheck_query=idx_info.healthcheck_query,
+                     needs_tensor=True)
 
     if idx_info.embeddings_path.startswith('/'):
       embeddings_path = idx_info.embeddings_path

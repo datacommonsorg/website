@@ -13,7 +13,8 @@
 # limitations under the License.
 
 import json
-from typing import List
+import logging
+from typing import Dict, List
 
 from flask import Blueprint
 from flask import current_app
@@ -38,14 +39,20 @@ def healthz():
   default_index_type = current_app.config[
       config.EMBEDDINGS_SPEC_KEY].default_index
   if not default_index_type:
+    logging.warning('Health Check Failed: Default index name empty!')
     return 'Service Unavailable', 500
-  nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get_index(
-      default_index_type)
+  nl_embeddings: Embeddings = current_app.config[
+      config.NL_EMBEDDINGS_KEY].get_index(default_index_type)
   if nl_embeddings:
-    result: VarCandidates = search.search_vars(
-        [nl_embeddings], ['life expectancy'])['life expectancy']
-    if result.svs and 'Expectancy' in result.svs[0]:
+    query = nl_embeddings.store.healthcheck_query
+    result: VarCandidates = search.search_vars([nl_embeddings],
+                                               [query]).get(query)
+    if result and result.svs:
       return 'OK', 200
+    else:
+      logging.warning(f'Health Check Failed: query "{query}" failed!')
+  else:
+    logging.warning('Health Check Failed: Default index not yet loaded!')
   return 'Service Unavailable', 500
 
 
