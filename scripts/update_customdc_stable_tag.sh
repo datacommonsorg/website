@@ -17,14 +17,9 @@
 
 set -e
 
-REMOTE_NAME=$1
 TAG_NAME=customdc_stable
 
-if [[ $REMOTE_NAME == "" ]]; then
-  echo "No remote name specified." >&2
-  echo "Example usage: ./scripts/update_customdc_stable_tag.sh upstream" >&2
-  exit 1
-fi
+read -p "Enter name of remote where the tag should be created (e.g. upstream, dc): " REMOTE_NAME
 
 git push $REMOTE_NAME :refs/tags/$TAG_NAME
 git tag -fa $TAG_NAME
