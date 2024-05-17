@@ -58,7 +58,8 @@ class EmbeddingsModel(ABC):
 #
 class EmbeddingsStore(ABC):
 
-  def __init__(self, needs_tensor=False):
+  def __init__(self, default_query: str, needs_tensor=False):
+    self.default_query = default_query
     self.needs_tensor = needs_tensor
 
   @abstractmethod

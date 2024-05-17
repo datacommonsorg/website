@@ -28,7 +28,7 @@ class VertexAIStore(EmbeddingsStore):
   """Manages the embeddings."""
 
   def __init__(self, index_info: VertexAIIndexConfig) -> None:
-    super().__init__()
+    super().__init__(default_query=index_info.default_query, needs_tensor=False)
 
     self.index_endpoint = index_info.index_endpoint
     self.index_id = index_info.index_id
