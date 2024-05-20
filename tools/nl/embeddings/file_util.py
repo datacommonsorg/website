@@ -80,7 +80,7 @@ class GcsMeta(type):
 class GcsFileHandler(FileHandler, metaclass=GcsMeta):
 
   def __init__(self, path: str) -> None:
-    bucket_name, blob_name = gcs.get_gcs_parts(path)
+    bucket_name, blob_name = gcs.get_path_parts(path)
     self.bucket = GcsFileHandler.gcs_client.bucket(bucket_name)
     self.blob = self.bucket.blob(blob_name)
     super().__init__(path)

@@ -34,7 +34,7 @@ def get_path_parts(gcs_path: str) -> Tuple[str, str]:
 def download_blob(bucket_name: str,
                   blob_name: str,
                   local_path: str,
-                  use_anonymous_client: bool = False):
+                  use_anonymous_client: bool = False) -> bool:
   """
     Downloads the content of a GCS folder to a local folder.
 
@@ -43,7 +43,7 @@ def download_blob(bucket_name: str,
     - blob_name: The GCS blob name, could be a folder or a file.
     - local_path: The local path to download the blob to.
     """
-  logging.info("Downloading %s/%s to %s", bucket_name, blob_name, local_path)
+  logging.info("Download %s/%s to %s", bucket_name, blob_name, local_path)
   if use_anonymous_client:
     storage_client = storage.Client.create_anonymous_client()
   else:
@@ -51,6 +51,7 @@ def download_blob(bucket_name: str,
 
   bucket = storage_client.bucket(bucket_name)
   blobs = bucket.list_blobs(prefix=blob_name)
+  count = 0
   for blob in blobs:
     if blob.name.endswith("/"):
       continue
@@ -68,11 +69,16 @@ def download_blob(bucket_name: str,
       os.makedirs(local_dir)
     # Download the file.
     blob.download_to_filename(local_file_path)
+    count += 1
+  if count == 0:
+    logging.warning("No object found from %s/%s", bucket_name, blob_name)
+    return False
+  return True
 
 
 def download_blob_by_path(gcs_path: str,
                           local_path: str,
-                          use_anonymous_client: bool = False):
+                          use_anonymous_client: bool = False) -> bool:
   """Downloads file/folder given full GCS path (i.e. gs://bucket/path/to/file)
   to a local path.
 
@@ -106,6 +112,8 @@ def maybe_download(gcs_path: str,
     raise ValueError(f"Invalid GCS path: {gcs_path}")
   bucket_name, blob_name = get_path_parts(gcs_path)
   local_path = os.path.join(local_path_prefix, bucket_name, blob_name)
-  if not os.path.exists(local_path):
-    download_blob_by_path(gcs_path, local_path, use_anonymous_client)
-  return local_path
+  if os.path.exists(local_path):
+    return local_path
+  if download_blob_by_path(gcs_path, local_path, use_anonymous_client):
+    return local_path
+  return None

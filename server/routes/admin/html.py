@@ -67,7 +67,8 @@ def load_data():
   # Build custom embeddings.
   command2 = [
       'python',
-      'build_custom_dc_embeddings.py',
+      '-m',
+      'tools.nl.embeddings.build_custom_dc_embeddings',
       '--sv_sentences_csv_path',
       f'{sentences_path}',
       '--output_dir',
@@ -88,7 +89,7 @@ def load_data():
   output = []
   for command, stage, cwd, execute in [
       (command1, 'import_data', 'import/simple', True),
-      (command2, 'create_embeddings', 'tools/nl/embeddings', load_nl),
+      (command2, 'create_embeddings', '.', load_nl),
       (command3, 'load_data', '.', True),
       (command4, 'load_embeddings', '.', load_nl)
   ]:

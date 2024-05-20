@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from dataclasses import asdict
+import json
 import logging
 import os
 from pathlib import Path
@@ -44,6 +45,7 @@ _CATALOG_TMP_PATH = '/tmp/embeddings.yaml'
 _RUNTIME_CODE_PATH = (Path(__file__).parent /
                       '../deploy/helm_charts/envs/autopush.yaml')
 _RUNTIME_MOUNT_PATH = '/datacommons/nl/runtime.json'
+_RUNTIME_USER_PATH = Path(__file__).parent / 'custom_dc_runtime.yaml'
 
 _SUPPORTED_VERSIONS = [1]
 
@@ -90,8 +92,8 @@ def read_catalog_config() -> CatalogConfig:
 
   if gcs.is_gcs_path(user_data_path):
     full_gcs_path = os.path.join(user_data_path, _CATALOG_USER_PATH_SUFFIX)
-    gcs.download_blob_by_path(full_gcs_path, _CATALOG_TMP_PATH)
-    all_paths.append(_CATALOG_TMP_PATH)
+    if gcs.download_blob_by_path(full_gcs_path, _CATALOG_TMP_PATH):
+      all_paths.append(_CATALOG_TMP_PATH)
   else:
     full_user_path = os.path.join(user_data_path, _CATALOG_USER_PATH_SUFFIX)
     if os.path.exists(full_user_path):
@@ -147,6 +149,7 @@ def read_catalog_config() -> CatalogConfig:
                 models[model_name] = VertexAIModelConfig(**model_config)
               case _:
                 raise ValueError(f'Unknown model type: {model_type}')
+  logging.debug(json.dumps(asdict(catalog), indent=2))
   return catalog
 
 
@@ -156,15 +159,18 @@ def read_runtime_config() -> RuntimeConfig:
   """
   # TODO: Make this generic by checking a user provided config file path
   if custom_dc_util.is_custom_dc():
-    return from_dict(data_class=RuntimeConfig,
-                     data=yaml.safe_load(open('/custom_dc_runtime.yaml')))
+    c = from_dict(data_class=RuntimeConfig,
+                  data=yaml.safe_load(open(_RUNTIME_USER_PATH)))
   elif os.path.exists(_RUNTIME_MOUNT_PATH):
-    return from_dict(data_class=RuntimeConfig,
-                     data=yaml.safe_load(open(_RUNTIME_MOUNT_PATH)))
-  with open(_RUNTIME_CODE_PATH) as f:
-    full_nl_config = yaml.safe_load(f.read())
-    return from_dict(data_class=RuntimeConfig,
-                     data=full_nl_config['nl']['runtime'])
+    c = from_dict(data_class=RuntimeConfig,
+                  data=yaml.safe_load(open(_RUNTIME_MOUNT_PATH)))
+  else:
+    with open(_RUNTIME_CODE_PATH) as f:
+      full_nl_config = yaml.safe_load(f.read())
+      c = from_dict(data_class=RuntimeConfig,
+                    data=full_nl_config['nl']['runtime'])
+  logging.debug(json.dumps(asdict(c), indent=2))
+  return c
 
 
 def get_server_config(catalog_config: CatalogConfig,
@@ -179,6 +185,10 @@ def get_server_config(catalog_config: CatalogConfig,
       indexes={},
       models={},
   )
+  server_config.default_indexes = [
+      x for x in server_config.default_indexes if x in catalog_config.indexes
+  ]
+
   # Add reranking models
   if runtime_config.enable_reranking:
     for model_name, model_config in catalog_config.models.items():
@@ -187,6 +197,9 @@ def get_server_config(catalog_config: CatalogConfig,
 
   # Only add enabled indexes
   for index_name in runtime_config.enabled_indexes:
+    if index_name not in catalog_config.indexes:
+      logging.warning('Index %s not found in catalog', index_name)
+      continue
     index_config = catalog_config.indexes[index_name]
     server_config.indexes[index_name] = index_config
     model_name = index_config.model
@@ -201,4 +214,6 @@ def get_server_config(catalog_config: CatalogConfig,
       merged = _merge_dicts(m_dict, v_dict)
       server_config.models[model_name] = VertexAIModelConfig(**merged)
 
+  config_str = json.dumps(asdict(server_config), indent=2)
+  logging.info('server config:\n%s', config_str)
   return server_config

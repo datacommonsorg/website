@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
+from dataclasses import field
 from enum import Enum
 from typing import Dict, List
 
@@ -90,8 +91,8 @@ class CatalogConfig:
 class RuntimeConfig:
   default_indexes: List[str]
   enabled_indexes: List[str]
-  vertex_ai_models: Dict[str, VertexAIModelConfig]
-  enable_reranking: bool
+  enable_reranking: bool = False
+  vertex_ai_models: Dict[str, VertexAIModelConfig] = field(default_factory=dict)
 
 
 @dataclass(kw_only=True)

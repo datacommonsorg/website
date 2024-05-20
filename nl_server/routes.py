@@ -41,16 +41,18 @@ def healthz():
   if not default_indexes:
     logging.warning('Health Check Failed: Default index name empty!')
     return 'Service Unavailable', 500
-  embeddings: Embeddings = r.get_index(default_indexes[0])
-  if embeddings:
-    query = embeddings.store.healthcheck_query
-    result: VarCandidates = search.search_vars([embeddings], [query]).get(query)
-    if result and result.svs:
-      return 'OK', 200
+  for idx in default_indexes:
+    embeddings: Embeddings = r.get_index(idx)
+    if embeddings:
+      query = embeddings.store.healthcheck_query
+      result: VarCandidates = search.search_vars([embeddings],
+                                                 [query]).get(query)
+      if result and result.svs:
+        return 'OK', 200
+      else:
+        logging.warning(f'Health Check Failed: query "{query}" failed!')
     else:
-      logging.warning(f'Health Check Failed: query "{query}" failed!')
-  else:
-    logging.warning('Health Check Failed: Default index not yet loaded!')
+      logging.warning('Health Check Failed: Default index not yet loaded!')
   return 'Service Unavailable', 500
 
 

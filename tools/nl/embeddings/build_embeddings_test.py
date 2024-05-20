@@ -14,10 +14,10 @@
 
 import glob
 import os
+from pathlib import Path
 import tempfile
 import unittest
 from unittest import mock
-from pathlib import Path
 
 import pandas as pd
 from parameterized import parameterized
