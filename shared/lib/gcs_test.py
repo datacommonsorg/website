@@ -24,6 +24,7 @@ import shared.lib.gcs as gcs
 
 
 class TestGCSFunctions(unittest.TestCase):
+  # All the test files are prepared in this bucket.
   bucket_name = 'datcom-ci-test'
 
   @pytest.fixture(autouse=True)
@@ -55,11 +56,18 @@ class TestGCSFunctions(unittest.TestCase):
       ['a.txt', 'folder2/a.txt', 'a'],
   ])
   def test_download_file(self, local_file_path, blob_name, content):
+    """
+    Download a file from GCS to a local path. Here the blob_name is a file name.
+    """
     f = self.tmp_path / local_file_path
     gcs.download_blob(self.bucket_name, blob_name, f)
     self.assertEqual(f.read_text(), content)
 
   def test_download_folder(self):
+    """
+    Test downloading a folder from GCS to a local path. And check all the nested
+    files exist.
+    """
     gcs_folder = 'folder1'
     gcs.download_blob(self.bucket_name, gcs_folder, self.tmp_path)
     p = Path(self.tmp_path)
@@ -72,6 +80,8 @@ class TestGCSFunctions(unittest.TestCase):
       [f'gs://{bucket_name}/folder1/folder11/d.txt', 'tmp.txt', 'd'],
   ])
   def test_download_blob_by_path(self, gcs_path, local_file_path, content):
+    """Download a file based on GCS path.
+    """
     f = self.tmp_path / local_file_path
     gcs.download_blob_by_path(gcs_path, f)
     self.assertEqual(f.read_text(), content)

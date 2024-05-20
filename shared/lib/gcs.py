@@ -33,12 +33,16 @@ def get_path_parts(gcs_path: str) -> Tuple[str, str]:
   return tuple(gcs_path.removeprefix(GCS_PATH_PREFIX).split('/', 1))
 
 
+def make_path(bucket_name: str, blob_name: str) -> str:
+  return GCS_PATH_PREFIX + bucket_name + '/' + blob_name
+
+
 def download_blob(bucket_name: str,
                   blob_name: str,
                   local_path: str,
                   use_anonymous_client: bool = False) -> bool:
   """
-    Downloads the content of a GCS folder to a local folder.
+    Downloads the content of a GCS blob to a local path.
 
     Args:
     - bucket_name: The name of the GCS bucket.
@@ -55,6 +59,7 @@ def download_blob(bucket_name: str,
   blobs = bucket.list_blobs(prefix=blob_name)
   count = 0
   for blob in blobs:
+    # When a blob name ends with "/", the blob is a folder. No need to download.
     if blob.name.endswith("/"):
       continue
     # Get the relative path to the input blob. This is used to download folder.
@@ -115,8 +120,11 @@ def maybe_download(gcs_path: str,
     raise ValueError(f"Invalid GCS path: {gcs_path}")
   bucket_name, blob_name = get_path_parts(gcs_path)
   local_path = os.path.join(local_path_root, bucket_name, blob_name)
-  if os.path.exists(local_path):
+  if os.path.exists(local_path) and len(os.listdir(local_path)) > 0:
+    # When running locally, we may already have downloaded the path.
+    # But sometimes after restart, the directories in `/tmp` become empty,
+    # so ensure that's not the case. return local_path
     return local_path
-  if download_blob_by_path(gcs_path, local_path, use_anonymous_client):
+  if download_blob(bucket_name, blob_name, local_path, use_anonymous_client):
     return local_path
   return None
