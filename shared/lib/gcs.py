@@ -95,18 +95,18 @@ def download_blob_by_path(gcs_path: str,
 
 
 def maybe_download(gcs_path: str,
-                   local_path_prefix='/tmp',
+                   local_path_root: str = '/tmp',
                    use_anonymous_client: bool = False) -> str:
   """Downloads file/folder from a GCS path (i.e. gs://bucket/path/to/file)
   to a local path. If the local file/folder already exists, then do nothing.
 
-  The local path expands the gcs_path pattern under local_path_prefix.
-  For example, if local_path_prefix is '/tmp', the local path will be
+  The local path expands the gcs_path pattern under local_path_root.
+  For example, if local_path_root is '/tmp', the local path will be
   '/tmp/bucket/path/to/file'.
 
   Args:
     gcs_path: The full GCS path (i.e. gs://bucket/path/to/file/).
-    local_path_prefix: The local path prefix to download the folder to.
+    local_path_root: The local root path to download the gcs resources to.
     use_anonymous_client: Whether to use anonymous client to download the file.
   Returns:
     The local path of the downloaded file/folder.
@@ -114,7 +114,7 @@ def maybe_download(gcs_path: str,
   if not is_gcs_path(gcs_path):
     raise ValueError(f"Invalid GCS path: {gcs_path}")
   bucket_name, blob_name = get_path_parts(gcs_path)
-  local_path = os.path.join(local_path_prefix, bucket_name, blob_name)
+  local_path = os.path.join(local_path_root, bucket_name, blob_name)
   if os.path.exists(local_path):
     return local_path
   if download_blob_by_path(gcs_path, local_path, use_anonymous_client):
