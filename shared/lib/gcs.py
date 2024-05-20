@@ -97,11 +97,12 @@ def download_blob_by_path(gcs_path: str,
 def maybe_download(gcs_path: str,
                    local_path_prefix='/tmp',
                    use_anonymous_client: bool = False) -> str:
-  """Downloads file/folder given full GCS path (i.e. gs://bucket/path/to/file)
-  to a local path. If the local file already exists, the do nothing.
+  """Downloads file/folder from a GCS path (i.e. gs://bucket/path/to/file)
+  to a local path. If the local file/folder already exists, then do nothing.
 
-  The local path expands the gcs_path pattern under local_path_prefix. For example,
-  if local_path_prefix is '/tmp', the local path will be '/tmp/bucket/path/to/file'.
+  The local path expands the gcs_path pattern under local_path_prefix.
+  For example, if local_path_prefix is '/tmp', the local path will be
+  '/tmp/bucket/path/to/file'.
 
   Args:
     gcs_path: The full GCS path (i.e. gs://bucket/path/to/file/).
