@@ -16,13 +16,12 @@
 from dataclasses import dataclass
 import itertools
 import logging
-import os
-from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-from file_util import create_file_handler
 from google.cloud import aiplatform
 import pandas as pd
+
+from tools.nl.embeddings.file_util import create_file_handler
 
 # Col names in the input files/sheets.
 DCID_COL = 'dcid'

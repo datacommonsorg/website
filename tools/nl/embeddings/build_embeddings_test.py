@@ -17,12 +17,14 @@ import os
 import tempfile
 import unittest
 from unittest import mock
+from pathlib import Path
 
-import build_embeddings as be
 import pandas as pd
 from parameterized import parameterized
 from sentence_transformers import SentenceTransformer
-import utils
+
+from tools.nl.embeddings import utils
+import tools.nl.embeddings.build_embeddings as be
 
 
 def get_test_sv_data():
@@ -96,7 +98,7 @@ class TestEndToEnd(unittest.TestCase):
     input_sheets_svs = []
 
     # Filepaths all correspond to the testdata folder.
-    input_dir = "testdata/input"
+    input_dir = Path(__file__).parent / "testdata/input"
     input_alternatives_filepattern = os.path.join(input_dir,
                                                   "*_alternatives.csv")
     input_autogen_filepattern = os.path.join(input_dir, 'unknown_*.csv')
@@ -120,8 +122,8 @@ class TestEndToEnd(unittest.TestCase):
                         tmp="/tmp")
 
     # Filepaths all correspond to the testdata folder.
-    input_dir = "testdata/input"
-    expected_dir = "testdata/expected"
+    input_dir = Path(__file__).parent / "testdata/input"
+    expected_dir = Path(__file__).parent / "testdata/expected"
     input_alternatives_filepattern = os.path.join(input_dir,
                                                   "*_alternatives.csv")
     input_autogen_filepattern = os.path.join(input_dir, "autogen_*.csv")
@@ -156,12 +158,16 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
   @parameterized.expand(["small", "medium"])
   def testInputFilesValidations(self, sz):
     # Verify that the required files exist.
-    sheets_filepath = "data/curated_input/main/sheets_svs.csv"
+    sheets_filepath = Path(
+        __file__).parent / "data/curated_input/main/sheets_svs.csv"
     # TODO: Fix palm_batch13k_alternatives.csv to not have duplicate
     # descriptions.  Its technically okay since build_embeddings will take
     # care of dups.
-    input_alternatives_filepattern = "data/alternatives/(palm|other)_alternaties.csv"
-    output_dcid_sentences_filepath = f'data/preindex/{sz}/sv_descriptions.csv'
+    parent_folder = str(Path(__file__).parent)
+    input_alternatives_filepattern = os.path.join(
+        parent_folder, "data/alternatives/(palm|other)_alternaties.csv")
+    output_dcid_sentences_filepath = os.path.join(
+        parent_folder, f'data/preindex/{sz}/sv_descriptions.csv')
 
     # Check that all the files exist.
     self.assertTrue(os.path.exists(sheets_filepath))
@@ -192,7 +198,8 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
 
   @parameterized.expand(["small", "medium"])
   def testOutputFileValidations(self, sz):
-    output_dcid_sentences_filepath = f'data/preindex/{sz}/sv_descriptions.csv'
+    output_dcid_sentences_filepath = Path(
+        __file__).parent / f'data/preindex/{sz}/sv_descriptions.csv'
 
     dcid_sentence_df = pd.read_csv(output_dcid_sentences_filepath).fillna("")
 

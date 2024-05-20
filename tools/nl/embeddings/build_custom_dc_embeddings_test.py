@@ -13,21 +13,24 @@
 # limitations under the License.
 
 import os
+from pathlib import Path
 import tempfile
 import unittest
 
-from build_custom_dc_embeddings import EMBEDDINGS_CSV_FILENAME_PREFIX
-from build_custom_dc_embeddings import EMBEDDINGS_YAML_FILE_NAME
-import build_custom_dc_embeddings as builder
-from file_util import create_file_handler
 from sentence_transformers import SentenceTransformer
-import utils
 
 from nl_server.config import LocalModelConfig
+from tools.nl.embeddings import utils
+from tools.nl.embeddings.build_custom_dc_embeddings import \
+    EMBEDDINGS_CSV_FILENAME_PREFIX
+from tools.nl.embeddings.build_custom_dc_embeddings import \
+    EMBEDDINGS_YAML_FILE_NAME
+import tools.nl.embeddings.build_custom_dc_embeddings as builder
+from tools.nl.embeddings.file_util import create_file_handler
 
 MODEL_NAME = "all-MiniLM-L6-v2"
-INPUT_DIR = "testdata/custom_dc/input"
-EXPECTED_DIR = "testdata/custom_dc/expected"
+INPUT_DIR = Path(__file__).parent / "testdata/custom_dc/input"
+EXPECTED_DIR = Path(__file__).parent / "testdata/custom_dc/expected"
 
 
 def _compare_files(test: unittest.TestCase, output_path, expected_path):

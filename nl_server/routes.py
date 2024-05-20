@@ -22,6 +22,7 @@ from flask import current_app
 from flask import request
 from markupsafe import escape
 
+from nl_server import registry
 from nl_server import search
 from nl_server.embeddings import Embeddings
 from nl_server.registry import REGISTRY_KEY
@@ -35,12 +36,12 @@ bp = Blueprint('main', __name__, url_prefix='/')
 
 @bp.route('/healthz')
 def healthz():
-  registry: ResourceRegistry = current_app.config[REGISTRY_KEY]
-  default_indexes = registry.server_config().default_indexes
+  r: ResourceRegistry = current_app.config[REGISTRY_KEY]
+  default_indexes = r.server_config().default_indexes
   if not default_indexes:
     logging.warning('Health Check Failed: Default index name empty!')
     return 'Service Unavailable', 500
-  embeddings: Embeddings = registry.get_index(default_indexes[0])
+  embeddings: Embeddings = r.get_index(default_indexes[0])
   if embeddings:
     query = embeddings.store.healthcheck_query
     result: VarCandidates = search.search_vars([embeddings], [query]).get(query)
@@ -70,18 +71,19 @@ def search_vars():
   if request.args.get('skip_topics'):
     skip_topics = True
 
+  r: ResourceRegistry = current_app.config[REGISTRY_KEY]
+
   reranker_name = str(escape(request.args.get('reranker', '')))
-  reranker_model = registry.get_reranking_model(
+  reranker_model = r.get_reranking_model(
       reranker_name) if reranker_name else None
 
-  registry = current_app.config[REGISTRY_KEY]
-  default_indexes = registry.server_config().default_indexes
+  default_indexes = r.server_config().default_indexes
   idx_type_str = str(escape(request.args.get('idx', '')))
   if not idx_type_str:
     idx_types = default_indexes
   else:
     idx_types = idx_type_str.split(',')
-  embeddings = _get_indexes(registry, idx_types)
+  embeddings = _get_indexes(r, idx_types)
 
   debug_logs = {'sv_detection_query_index_type': idx_types}
   results = search.search_vars(embeddings, queries, skip_topics, reranker_model,
@@ -101,34 +103,33 @@ def detect_verbs():
   List[str]
   """
   query = str(escape(request.args.get('q')))
-  registry = current_app.config[REGISTRY_KEY]
-  return json.dumps(registry.attribute_model().detect_verbs(query.strip()))
+  r: ResourceRegistry = current_app.config[REGISTRY_KEY]
+  return json.dumps(r.attribute_model().detect_verbs(query.strip()))
 
 
 @bp.route('/api/embeddings_version_map/', methods=['GET'])
 def embeddings_version_map():
-  registry: ResourceRegistry = current_app.config[REGISTRY_KEY]
-  server_config = registry.server_config()
+  r: ResourceRegistry = current_app.config[REGISTRY_KEY]
+  server_config = r.server_config()
   return json.dumps(asdict(server_config))
 
 
 @bp.route('/api/load/', methods=['GET'])
 def load():
   try:
-    current_app.config[registry.REGISTRY_KEY] = registry.build()
+    current_app.config[REGISTRY_KEY] = registry.build()
   except Exception as e:
     logging.error(f'Custom embeddings not loaded due to error: {str(e)}')
-  registry = current_app.config[REGISTRY_KEY]
-  server_config = registry.server_config()
+  r: ResourceRegistry = current_app.config[REGISTRY_KEY]
+  server_config = r.server_config()
   return json.dumps(asdict(server_config))
 
 
-def _get_indexes(registry: ResourceRegistry,
-                 idx_types: List[str]) -> List[Embeddings]:
+def _get_indexes(r: ResourceRegistry, idx_types: List[str]) -> List[Embeddings]:
   embeddings: List[Embeddings] = []
   for idx in idx_types:
     try:
-      emb = registry.get_index(idx)
+      emb = r.get_index(idx)
       if emb:
         embeddings.append(emb)
     except Exception as e:

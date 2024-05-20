@@ -90,7 +90,7 @@ def read_catalog_config() -> CatalogConfig:
 
   if gcs.is_gcs_path(user_data_path):
     full_gcs_path = os.path.join(user_data_path, _CATALOG_USER_PATH_SUFFIX)
-    gcs.download_file_by_path(full_gcs_path, _CATALOG_TMP_PATH)
+    gcs.download_blob_by_path(full_gcs_path, _CATALOG_TMP_PATH)
     all_paths.append(_CATALOG_TMP_PATH)
   else:
     full_user_path = os.path.join(user_data_path, _CATALOG_USER_PATH_SUFFIX)

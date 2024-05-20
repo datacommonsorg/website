@@ -97,24 +97,22 @@ done
 cd ../../..
 python3 -m venv .env
 source .env/bin/activate
-cd tools/nl/embeddings
-python3 -m pip install --upgrade pip
 pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
-pip3 install -r requirements.txt
+pip3 install -r tools/nl/embeddings/requirements.txt
 
 if [[ "$MODEL_ENDPOINT_ID" != "" ]];then
-  python3 build_embeddings.py --embeddings_size=$2 \
+  python3 -m tools.nl.embeddings.build_embeddings --embeddings_size=$2 \
     --vertex_ai_prediction_endpoint_id=$MODEL_ENDPOINT_ID \
     --curated_input_dirs="data/curated_input/main" \
     --autogen_input_basedir="" \
     --alternatives_filepattern=""
 
 elif [[ "$CURATED_INPUT_DIRS" != "" ]]; then
-  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --curated_input_dirs=$CURATED_INPUT_DIRS --alternatives_filepattern=$ALTERNATIVES_FILE_PATTERN
+  python3 -m tools.nl.embeddings.build_embeddings --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --curated_input_dirs=$CURATED_INPUT_DIRS --alternatives_filepattern=$ALTERNATIVES_FILE_PATTERN
 elif [[ "$LANCEDB_OUTPUT_PATH" != "" ]]; then
-  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --lancedb_output_path=$LANCEDB_OUTPUT_PATH --dry_run=True
+  python3 -m tools.nl.embeddings.build_embeddings --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --lancedb_output_path=$LANCEDB_OUTPUT_PATH --dry_run=True
 elif [[ "$FINETUNED_MODEL" != "" ]]; then
-  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL
+  python3 -m tools.nl.embeddings.build_embeddings --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL
 else
-  python3 build_embeddings.py --embeddings_size=$2
+  python3 -m tools.nl.embeddings.build_embeddings --embeddings_size=$2
 fi

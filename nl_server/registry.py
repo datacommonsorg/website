@@ -41,11 +41,12 @@ REGISTRY_KEY: str = 'REGISTRY'
 #
 class ResourceRegistry:
 
-  # Input is parsed runnable config.
+  # Input is server config object.
   def __init__(self, server_config: ServerConfig):
     self.name_to_emb: dict[str, Embeddings] = {}
     self.name_to_emb_model: Dict[str, EmbeddingsModel] = {}
     self.name_to_rank_model: Dict[str, RerankingModel] = {}
+    self._attribute_model = AttributeModel()
     self.load(server_config)
 
   # Note: The caller takes care of exceptions.
@@ -65,14 +66,12 @@ class ResourceRegistry:
   def get_model(self, model_name: str) -> EmbeddingsModel:
     return self.name_to_emb_model.get(model_name)
 
-  # Adds the new models and indexes in a RunnableConfig object to the
-  # embeddings
+  # Load the registry from the server config
   def load(self, server_config: ServerConfig):
     self._server_config = server_config
     self._load_models(server_config.models)
     for idx_name, idx_info in server_config.indexes.items():
       self._set_embeddings(idx_name, idx_info)
-    self._attribute_model = AttributeModel()
 
   # Loads a dict of model name -> model info
   def _load_models(self, models: dict[str, ModelConfig]):

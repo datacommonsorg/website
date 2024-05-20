@@ -17,10 +17,7 @@ from dataclasses import asdict
 
 from absl import app
 from absl import flags
-from file_util import create_file_handler
-from file_util import FileHandler
 import pandas as pd
-import utils
 import yaml
 
 from nl_server import config
@@ -28,6 +25,9 @@ from nl_server import config_reader
 from nl_server.config import CatalogConfig
 from nl_server.config import MemoryIndexConfig
 from nl_server.registry import ResourceRegistry
+from tools.nl.embeddings import utils
+from tools.nl.embeddings.file_util import create_file_handler
+from tools.nl.embeddings.file_util import FileHandler
 
 
 class Mode:
