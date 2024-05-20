@@ -92,17 +92,11 @@ class GcsFileHandler(FileHandler, metaclass=GcsMeta):
     self.blob.upload_from_string(content)
 
   def join(self, subpath: str) -> str:
-    return join_gcs_path(self.path, subpath)
+    return os.path.join(self.path, subpath)
 
 
 def is_gcs_path(path: str) -> bool:
   return path.startswith(_GCS_PATH_PREFIX)
-
-
-def join_gcs_path(base_path: str, sub_path: str) -> str:
-  if base_path.endswith('/'):
-    return f'{base_path}{sub_path}'
-  return f'{base_path}/{sub_path}'
 
 
 def create_file_handler(path: str) -> FileHandler:

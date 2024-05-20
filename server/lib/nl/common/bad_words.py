@@ -74,8 +74,8 @@ EMPTY_BANNED_WORDS = BannedWords(entries={})
 # Loads a list of bad words from a text file.
 #
 def load_bad_words() -> BannedWords:
-  local_file = gcs.download_file(bucket=GLOBAL_CONFIG_BUCKET,
-                                 filename=BAD_WORDS_FILE)
+  local_file = gcs.maybe_download(
+      f'gs://{GLOBAL_CONFIG_BUCKET}/{BAD_WORDS_FILE}')
   return load_bad_words_file(local_file)
 
 
@@ -133,8 +133,8 @@ def load_bad_words_file(local_file: str, validate: bool = False) -> BannedWords:
 
 
 def validate_bad_words():
-  local_file = gcs.download_file(bucket=GLOBAL_CONFIG_BUCKET,
-                                 filename=BAD_WORDS_FILE)
+  local_file = gcs.maybe_download(
+      f'gs://{GLOBAL_CONFIG_BUCKET}/{BAD_WORDS_FILE}')
   load_bad_words_file(local_file, validate=True)
 
 

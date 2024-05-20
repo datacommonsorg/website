@@ -83,8 +83,8 @@ def download(embeddings_yaml_path: str):
   # Download embeddings.
   embeddings_file_name = default_ft_embeddings_info.index_config['embeddings']
   print(f"Downloading default embeddings: {embeddings_file_name}")
-  local_embeddings_path = gcs.download_gcs_file(embeddings_file_name,
-                                                use_anonymous_client=True)
+  local_embeddings_path = gcs.maybe_download(embeddings_file_name,
+                                             use_anonymous_client=True)
   if not local_embeddings_path:
     print(f"Unable to download default embeddings: {embeddings_file_name}")
   else:
