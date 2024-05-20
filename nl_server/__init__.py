@@ -19,7 +19,7 @@ from flask import Flask
 import google.cloud.logging
 import torch
 
-import nl_server.loader as loader
+from nl_server import registry
 import nl_server.routes as routes
 import shared.lib.gcp as lib_gcp
 from shared.lib.utils import is_debug_mode
@@ -49,14 +49,13 @@ def create_app():
   # https://github.com/UKPLab/sentence-transformers/issues/1318
   if sys.version_info >= (3, 8) and sys.platform == "darwin":
     torch.set_num_threads(1)
-
   try:
-    loader.load_server_state(app)
+    app.config[registry.REGISTRY_KEY] = registry.build()
   except Exception as e:
     msg = '\n!!!!! IMPORTANT NOTE !!!!!!\n' \
           'If you are running locally, try clearing models:\n' \
           '* `rm -rf /tmp/datcom-nl-models /tmp/datcom-nl-models-dev`\n'
     print('\033[91m{}\033[0m'.format(msg))
-    raise
+    raise e
 
   return app

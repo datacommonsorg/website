@@ -42,11 +42,11 @@ serviceGroups:
 
 nl:
   enabled: true
-  embeddingsSpec:
-    defaultIndex: "bio_ft"
-    enabledIndexes: [
-      "bio_ft"
-      "medium_ft",
-      "sdg_ft",
-      "undata_ft",
-    ]
+  runtime:
+    default_indexes:
+      - bio_ft
+    enabled_indexes:
+      - bio_ft
+      - medium_ft
+      - sdg_ft
+      - undata_ft

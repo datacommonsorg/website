@@ -1,0 +1,10 @@
+# TODO: move this to deploy folder. This is here for the easy of
+# custom DC loading for now.
+
+default_indexes:
+  - custom_ft
+  - medium_ft
+enabled_indexes:
+  - custom_ft
+  - medium_ft
+enable_reranking: False

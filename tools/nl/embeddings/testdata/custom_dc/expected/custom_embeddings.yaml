@@ -1,8 +1,9 @@
 indexes:
   custom_ft:
-    embeddings: /fake/path/to/custom_embeddings.csv
+    embeddings_path: /fake/path/to/custom_embeddings.csv
+    healthcheck_query: health
     model: FooModel
-    store: MEMORY
+    store_type: MEMORY
 models:
   FooModel:
     gcs_folder: fooModelFolder

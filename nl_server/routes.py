@@ -12,22 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import asdict
 import json
 import logging
-from typing import Dict, List
+from typing import List
 
 from flask import Blueprint
 from flask import current_app
 from flask import request
 from markupsafe import escape
 
-from nl_server import config
-from nl_server import loader
 from nl_server import search
 from nl_server.embeddings import Embeddings
-from nl_server.embeddings_map import EmbeddingsMap
+from nl_server.registry import REGISTRY_KEY
+from nl_server.registry import ResourceRegistry
 from shared.lib import constants
-from shared.lib.custom_dc_util import is_custom_dc
 from shared.lib.detected_variables import var_candidates_to_dict
 from shared.lib.detected_variables import VarCandidates
 
@@ -36,17 +35,15 @@ bp = Blueprint('main', __name__, url_prefix='/')
 
 @bp.route('/healthz')
 def healthz():
-  default_index_type = current_app.config[
-      config.EMBEDDINGS_SPEC_KEY].default_index
-  if not default_index_type:
+  registry: ResourceRegistry = current_app.config[REGISTRY_KEY]
+  default_indexes = registry.server_config().default_indexes
+  if not default_indexes:
     logging.warning('Health Check Failed: Default index name empty!')
     return 'Service Unavailable', 500
-  nl_embeddings: Embeddings = current_app.config[
-      config.NL_EMBEDDINGS_KEY].get_index(default_index_type)
-  if nl_embeddings:
-    query = nl_embeddings.store.healthcheck_query
-    result: VarCandidates = search.search_vars([nl_embeddings],
-                                               [query]).get(query)
+  embeddings: Embeddings = registry.get_index(default_indexes[0])
+  if embeddings:
+    query = embeddings.store.healthcheck_query
+    result: VarCandidates = search.search_vars([embeddings], [query]).get(query)
     if result and result.svs:
       return 'OK', 200
     else:
@@ -69,30 +66,30 @@ def search_vars():
   queries = request.json.get('queries', [])
   queries = [str(escape(q)) for q in queries]
 
-  default_index_type = current_app.config[
-      config.EMBEDDINGS_SPEC_KEY].default_index
-  idx = str(escape(request.args.get('idx', default_index_type)))
-  if not idx:
-    idx = default_index_type
-
-  emb_map: EmbeddingsMap = current_app.config[config.NL_EMBEDDINGS_KEY]
-
   skip_topics = False
   if request.args.get('skip_topics'):
     skip_topics = True
 
   reranker_name = str(escape(request.args.get('reranker', '')))
-  reranker_model = emb_map.get_reranking_model(
+  reranker_model = registry.get_reranking_model(
       reranker_name) if reranker_name else None
 
-  nl_embeddings = _get_indexes(emb_map, idx)
-  debug_logs = {'sv_detection_query_index_type': idx}
-  results = search.search_vars(nl_embeddings, queries, skip_topics,
-                               reranker_model, debug_logs)
+  registry = current_app.config[REGISTRY_KEY]
+  default_indexes = registry.server_config().default_indexes
+  idx_type_str = str(escape(request.args.get('idx', '')))
+  if not idx_type_str:
+    idx_types = default_indexes
+  else:
+    idx_types = idx_type_str.split(',')
+  embeddings = _get_indexes(registry, idx_types)
+
+  debug_logs = {'sv_detection_query_index_type': idx_types}
+  results = search.search_vars(embeddings, queries, skip_topics, reranker_model,
+                               debug_logs)
   q2result = {q: var_candidates_to_dict(result) for q, result in results.items()}
   return json.dumps({
       'queryResults': q2result,
-      'scoreThreshold': _get_threshold(nl_embeddings),
+      'scoreThreshold': _get_threshold(embeddings),
       'debugLogs': debug_logs
   })
 
@@ -104,36 +101,39 @@ def detect_verbs():
   List[str]
   """
   query = str(escape(request.args.get('q')))
-  nl_model = current_app.config[config.ATTRIBUTE_MODEL_KEY]
-  return json.dumps(nl_model.detect_verbs(query.strip()))
+  registry = current_app.config[REGISTRY_KEY]
+  return json.dumps(registry.attribute_model().detect_verbs(query.strip()))
 
 
 @bp.route('/api/embeddings_version_map/', methods=['GET'])
 def embeddings_version_map():
-  return json.dumps(current_app.config[config.NL_EMBEDDINGS_VERSION_KEY])
+  registry: ResourceRegistry = current_app.config[REGISTRY_KEY]
+  server_config = registry.server_config()
+  return json.dumps(asdict(server_config))
 
 
 @bp.route('/api/load/', methods=['GET'])
 def load():
-  loader.load_custom_embeddings(current_app)
-  return json.dumps(current_app.config[config.NL_EMBEDDINGS_VERSION_KEY])
+  try:
+    current_app.config[registry.REGISTRY_KEY] = registry.build()
+  except Exception as e:
+    logging.error(f'Custom embeddings not loaded due to error: {str(e)}')
+  registry = current_app.config[REGISTRY_KEY]
+  server_config = registry.server_config()
+  return json.dumps(asdict(server_config))
 
 
-def _get_indexes(emb_map: EmbeddingsMap, idx: str) -> List[Embeddings]:
-  nl_embeddings: List[Embeddings] = []
-
-  if is_custom_dc() and idx != config.CUSTOM_DC_INDEX:
-    # Order custom index first, so that when the score is the same
-    # Custom DC will be preferred.
-    emb = emb_map.get_index(config.CUSTOM_DC_INDEX)
-    if emb:
-      nl_embeddings.append(emb)
-
-  emb = emb_map.get_index(idx)
-  if emb:
-    nl_embeddings.append(emb)
-
-  return nl_embeddings
+def _get_indexes(registry: ResourceRegistry,
+                 idx_types: List[str]) -> List[Embeddings]:
+  embeddings: List[Embeddings] = []
+  for idx in idx_types:
+    try:
+      emb = registry.get_index(idx)
+      if emb:
+        embeddings.append(emb)
+    except Exception as e:
+      logging.warning(f'Failed to load index {idx}: {e}')
+  return embeddings
 
 
 # NOTE: Custom DC embeddings addition needs to ensures that the

@@ -11,38 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Tests for Embeddings (in nl_embeddings.py)."""
+"""Tests for Embeddings"""
 
-import os
 from typing import List
 import unittest
 
 from parameterized import parameterized
-import yaml
 
-from nl_server import embeddings_map as emb_map
-from nl_server.config import parse
+from nl_server import config_reader
+from nl_server.registry import ResourceRegistry
 from nl_server.search import search_vars
 from shared.lib.detected_variables import VarCandidates
-
-_root_dir = os.path.dirname(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-
-def _get_embeddings_spec():
-  autopush_values_path = os.path.join(_root_dir,
-                                      'deploy/helm_charts/envs/autopush.yaml')
-  with open(autopush_values_path) as f:
-    autopush_values = yaml.full_load(f)
-    return autopush_values['nl']['embeddingsSpec']
-
-
-def _get_embeddings_info(embeddings_spec):
-  embeddings_config_path = os.path.join(_root_dir, 'deploy/nl/embeddings.yaml')
-  with open(embeddings_config_path) as f:
-    embeddings_map = yaml.full_load(f)
-    return parse(embeddings_map, embeddings_spec['vertexAIModels'],
-                 embeddings_spec['enableReranking'])
 
 
 def _get_contents(
@@ -54,10 +33,13 @@ class TestEmbeddings(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls) -> None:
-    embeddings_spec = _get_embeddings_spec()
-    embeddings_info = _get_embeddings_info(embeddings_spec)
-    cls.nl_embeddings = emb_map.EmbeddingsMap(embeddings_info).get_index(
-        embeddings_spec['defaultIndex'])
+    catalog_config = config_reader.read_catalog_config()
+    runtime_config = config_reader.read_runtime_config()
+    server_config = config_reader.get_server_config(catalog_config,
+                                                    runtime_config)
+    registry = ResourceRegistry(server_config)
+    default_indexes = registry.server_config().default_indexes
+    cls.embeddings = registry.get_index(default_indexes[0])
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
@@ -94,7 +76,7 @@ class TestEmbeddings(unittest.TestCase):
       ],
   ])
   def test_sv_detection(self, query_str, skip_topics, expected_list):
-    got = search_vars([self.nl_embeddings], [query_str],
+    got = search_vars([self.embeddings], [query_str],
                       skip_topics=skip_topics)[query_str]
 
     # Check that all expected fields are present.
@@ -116,7 +98,7 @@ class TestEmbeddings(unittest.TestCase):
   # For these queries, the match score should be low (< 0.45).
   @parameterized.expand(["random random", "who where why", "__124__abc"])
   def test_low_score_matches(self, query_str):
-    got = search_vars([self.nl_embeddings], [query_str])[query_str]
+    got = search_vars([self.embeddings], [query_str])[query_str]
 
     # Check that all expected fields are present.
     svs, scores, sentences = _get_contents(got)

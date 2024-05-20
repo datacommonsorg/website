@@ -29,7 +29,7 @@ from jinja2 import FileSystemLoader
 import requests
 import yaml
 
-from nl_server.embeddings_map import EmbeddingsMap
+from nl_server.registry import ResourceRegistry
 from nl_server.search import search_vars
 from shared.lib.detected_variables import VarCandidates
 
@@ -163,8 +163,8 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
   env = Environment(loader=FileSystemLoader(os.path.dirname(_TEMPLATE)))
   template = env.get_template(os.path.basename(_TEMPLATE))
 
-  base = EmbeddingsMap(base_dict).get(base_idx)
-  test = EmbeddingsMap(test_dict).get(test_idx)
+  base = ResourceRegistry(base_dict).get(base_idx)
+  test = ResourceRegistry(test_dict).get(test_idx)
 
   # Get the list of diffs
   diffs = []

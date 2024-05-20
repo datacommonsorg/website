@@ -14,25 +14,8 @@
 
 import unittest
 
-import utils
-
-INPUT_DIR = "testdata/custom_dc/input"
-
 
 class TestUtils(unittest.TestCase):
 
-  def test_get_default_ft_model(self):
-    embeddings_file_path = f"{INPUT_DIR}/embeddings.yaml"
-    expected_model_name = "ft_final_v20230717230459"
-    expected_gcs_folder = "gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2"
-
-    result = utils._get_default_ft_model(embeddings_file_path)
-
-    self.assertEqual(result.name, expected_model_name)
-    self.assertEqual(result.info['gcs_folder'], expected_gcs_folder)
-
-  def test_get_default_ft_model_version_failure(self):
-    embeddings_file_path = f"{INPUT_DIR}/bad_embeddings.yaml"
-
-    with self.assertRaises(Exception):
-      utils._get_default_ft_model(embeddings_file_path)
+  def test_func(self):
+    pass

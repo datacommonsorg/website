@@ -17,14 +17,14 @@ import unittest
 
 from parameterized import parameterized
 
-from nl_server.nl_attribute_model import NLAttributeModel
+from nl_server.model.attribute_model import AttributeModel
 
 
 class TestVerbs(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls) -> None:
-    cls.nl_model = NLAttributeModel()
+    cls.nl_model = AttributeModel()
 
   @parameterized.expand([
       # All these queries should detect places.

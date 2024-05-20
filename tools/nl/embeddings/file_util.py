@@ -17,7 +17,7 @@ import os
 
 from google.cloud import storage
 
-_GCS_PATH_PREFIX = "gs://"
+from shared.lib import gcs
 
 
 class FileHandler:
@@ -80,7 +80,7 @@ class GcsMeta(type):
 class GcsFileHandler(FileHandler, metaclass=GcsMeta):
 
   def __init__(self, path: str) -> None:
-    bucket_name, blob_name = path[len(_GCS_PATH_PREFIX):].split('/', 1)
+    bucket_name, blob_name = gcs.get_gcs_parts(path)
     self.bucket = GcsFileHandler.gcs_client.bucket(bucket_name)
     self.blob = self.bucket.blob(blob_name)
     super().__init__(path)
@@ -91,21 +91,8 @@ class GcsFileHandler(FileHandler, metaclass=GcsMeta):
   def write_string(self, content: str) -> None:
     self.blob.upload_from_string(content)
 
-  def join(self, subpath: str) -> str:
-    return join_gcs_path(self.path, subpath)
-
-
-def is_gcs_path(path: str) -> bool:
-  return path.startswith(_GCS_PATH_PREFIX)
-
-
-def join_gcs_path(base_path: str, sub_path: str) -> str:
-  if base_path.endswith('/'):
-    return f'{base_path}{sub_path}'
-  return f'{base_path}/{sub_path}'
-
 
 def create_file_handler(path: str) -> FileHandler:
-  if is_gcs_path(path):
+  if gcs.is_gcs_path(path):
     return GcsFileHandler(path)
   return LocalFileHandler(path)

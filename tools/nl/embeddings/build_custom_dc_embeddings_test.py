@@ -23,6 +23,8 @@ from file_util import create_file_handler
 from sentence_transformers import SentenceTransformer
 import utils
 
+from nl_server.config import LocalModelConfig
+
 MODEL_NAME = "all-MiniLM-L6-v2"
 INPUT_DIR = "testdata/custom_dc/input"
 EXPECTED_DIR = "testdata/custom_dc/expected"
@@ -89,15 +91,13 @@ class TestEndToEnd(unittest.TestCase):
       actual_embeddings_yaml_path = os.path.join(temp_dir,
                                                  EMBEDDINGS_YAML_FILE_NAME)
 
-      model_info = utils.ModelConfig(name='FooModel',
-                                     info={
-                                         'type': 'LOCAL',
-                                         'gcs_folder': 'fooModelFolder',
-                                         'usage': 'EMBEDDINGS',
-                                         'score_threshold': 0.5,
-                                     })
+      model_config = LocalModelConfig(type='LOCAL',
+                                      gcs_folder='fooModelFolder',
+                                      usage='EMBEDDINGS',
+                                      score_threshold=0.5)
       builder.generate_embeddings_yaml(
-          model_info, create_file_handler(fake_embeddings_csv_path),
+          'FooModel', model_config,
+          create_file_handler(fake_embeddings_csv_path),
           create_file_handler(actual_embeddings_yaml_path))
 
       _compare_files(self, actual_embeddings_yaml_path,

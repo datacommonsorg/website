@@ -37,14 +37,11 @@ ingress:
 
 nl:
   enabled: true
-  embeddingsSpec:
-    defaultIndex: "medium_ft"
-    enabledIndexes: [
-      "bio_ft"
-      "medium_ft",
-      "sdg_ft",
-      "undata_ft",
-    ]
+  runtime:
+    default_indexes:
+      - medium_ft
+    enabled_indexes:
+      - medium_ft
 
 serviceGroups:
   recon: null
