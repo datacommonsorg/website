@@ -65,7 +65,8 @@ def download(embeddings_yaml_path: str):
   # Download model.
   model_info = default_ft_embeddings_info.model_config
   print(f"Downloading default model: {model_info.name}")
-  local_model_path = gcs.maybe_download(model_info.info['gcs_folder'])
+  local_model_path = gcs.maybe_download(model_info.info['gcs_folder'],
+                                        use_anonymous_client=True)
   print(f"Downloaded default model to: {local_model_path}")
 
   # Download embeddings.
