@@ -57,6 +57,7 @@ nl:
         "sdg_ft",
         "undata_ft",
         "undata_ilo_ft",
+        "undata_dev_ft",
       ]
     vertexAIModels:
       dc-all-minilm-l6-v2-model:
