@@ -97,12 +97,11 @@ class TestEndToEnd(unittest.TestCase):
     input_dir = Path(__file__).parent / "testdata/input"
     input_alternatives_filepattern = os.path.join(input_dir,
                                                   "*_alternatives.csv")
-    input_autogen_filepattern = os.path.join(input_dir, 'unknown_*.csv')
 
     with tempfile.TemporaryDirectory() as tmp_dir, self.assertRaises(KeyError):
       tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
       be.build(model, None, input_sheets_svs, tmp_local_merged_filepath, "",
-               input_autogen_filepattern, input_alternatives_filepattern)
+               input_alternatives_filepattern)
 
   def testSuccess(self):
     self.maxDiff = None
@@ -119,7 +118,6 @@ class TestEndToEnd(unittest.TestCase):
     expected_dir = Path(__file__).parent / "testdata/expected"
     input_alternatives_filepattern = os.path.join(input_dir,
                                                   "*_alternatives.csv")
-    input_autogen_filepattern = os.path.join(input_dir, "autogen_*.csv")
     input_sheets_csv_dirs = [os.path.join(input_dir, "curated")]
     expected_local_merged_filepath = os.path.join(expected_dir,
                                                   "merged_data.csv")
@@ -133,7 +131,6 @@ class TestEndToEnd(unittest.TestCase):
 
       embeddings_df = be.build(model, None, input_sheets_csv_dirs,
                                tmp_local_merged_filepath, "",
-                               input_autogen_filepattern,
                                input_alternatives_filepattern)
 
       # Write dcids, sentences to temp directory.
