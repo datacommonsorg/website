@@ -32,7 +32,7 @@ serviceAccount:
 
 nl:
   enabled: true
-  runtime:
+  env:
     defaultIndexes:
       - base_uae_mem
     enabledIndexes:

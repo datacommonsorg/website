@@ -24,7 +24,7 @@ from nl_server.config import LocalModelConfig
 from nl_server.config import MemoryIndexConfig
 from nl_server.config import ServerConfig
 from nl_server.embeddings import Embeddings
-from nl_server.registry import ResourceRegistry
+from nl_server.registry import Registry
 from nl_server.search import search_vars
 from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
 
@@ -92,7 +92,7 @@ class TestEmbeddings(unittest.TestCase):
                                  },
                                  enable_reranking=False)
 
-    cls.custom = ResourceRegistry(server_config)
+    cls.custom = Registry(server_config)
 
   def test_entries(self):
     self.assertEqual(1, len(self.custom.get_index('medium_ft').store.dcids))
@@ -139,7 +139,7 @@ class TestEmbeddings(unittest.TestCase):
                                          )
                                  },
                                  enable_reranking=False)
-    registry: ResourceRegistry = ResourceRegistry(server_config)
+    registry: Registry = Registry(server_config)
     _test_query(self, [registry.get_index("medium_ft")], "money",
                 "dc/topic/sdg_1")
     _test_query(self, [registry.get_index("medium_ft")], "food", "")

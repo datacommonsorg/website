@@ -29,7 +29,7 @@ from jinja2 import FileSystemLoader
 import requests
 import yaml
 
-from nl_server.registry import ResourceRegistry
+from nl_server.registry import Registry
 from nl_server.search import search_vars
 from shared.lib.detected_variables import VarCandidates
 
@@ -38,15 +38,14 @@ _SUB_COLOR = '#ffaaaa'
 _ADD_COLOR = '#aaffaa'
 _PROPERTY_URL = 'https://autopush.api.datacommons.org/v2/node'
 _GCS_BUCKET = 'datcom-embedding-diffs'
-_LOCAL_EMBEDDINGS_YAML = 'deploy/nl/embeddings.yaml'
+_LOCAL_EMBEDDINGS_YAML = 'deploy/nl/catalog.yaml'
 _PROD_EMBEDDINGS_YAML = f'https://raw.githubusercontent.com/datacommonsorg/website/master/{_LOCAL_EMBEDDINGS_YAML}'
 
 FLAGS = flags.FLAGS
 
 flags.DEFINE_string('base_index', '',
-                    'Base index name in PROD `embeddings.yaml` file.')
-flags.DEFINE_string('test_index', '',
-                    'Test index name in local `embeddings.yaml`')
+                    'Base index name in PROD `catalog.yaml` file.')
+flags.DEFINE_string('test_index', '', 'Test index name in local `catalog.yaml`')
 flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
 
 _GCS_PREFIX = 'https://storage.mtls.cloud.google.com'
@@ -163,8 +162,8 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
   env = Environment(loader=FileSystemLoader(os.path.dirname(_TEMPLATE)))
   template = env.get_template(os.path.basename(_TEMPLATE))
 
-  base = ResourceRegistry(base_dict).get(base_idx)
-  test = ResourceRegistry(test_dict).get(test_idx)
+  base = Registry(base_dict).get(base_idx)
+  test = Registry(test_dict).get(test_idx)
 
   # Get the list of diffs
   diffs = []

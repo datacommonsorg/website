@@ -39,7 +39,7 @@ REGISTRY_KEY: str = 'REGISTRY'
 #
 # A class to hold embeddings stores and models.
 #
-class ResourceRegistry:
+class Registry:
 
   # Input is server config object.
   def __init__(self, server_config: ServerConfig):
@@ -127,9 +127,8 @@ class ResourceRegistry:
           model=self.name_to_emb_model[idx_info.model], store=store)
 
 
-def build() -> ResourceRegistry:
-  catalog_config = config_reader.read_catalog_config()
-  runtime_config = config_reader.read_runtime_config()
-  server_config = config_reader.get_server_config(catalog_config,
-                                                  runtime_config)
-  return ResourceRegistry(server_config)
+def build() -> Registry:
+  catalog = config_reader.read_catalog()
+  env = config_reader.read_env()
+  server_config = config_reader.get_server_config(catalog, env)
+  return Registry(server_config)

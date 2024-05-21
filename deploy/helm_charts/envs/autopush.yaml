@@ -44,7 +44,7 @@ serviceAccount:
 
 nl:
   enabled: true
-  runtime:
+  env:
     default_indexes:
       - base_uae_mem
     enabled_indexes:

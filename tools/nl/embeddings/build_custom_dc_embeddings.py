@@ -22,9 +22,9 @@ import yaml
 
 from nl_server import config
 from nl_server import config_reader
-from nl_server.config import CatalogConfig
+from nl_server.config import Catalog
 from nl_server.config import MemoryIndexConfig
-from nl_server.registry import ResourceRegistry
+from nl_server.registry import Registry
 from tools.nl.embeddings import utils
 from tools.nl.embeddings.file_util import create_file_handler
 from tools.nl.embeddings.file_util import FileHandler
@@ -46,7 +46,7 @@ flags.DEFINE_enum(
 
 flags.DEFINE_string(
     "model_version", None,
-    "Existing finetuned model folder name on GCS (e.g. 'ft_final_v20230717230459.all-MiniLM-L6-v2'). If not specified, the version will be parsed from embeddings.yaml."
+    "Existing finetuned model folder name on GCS (e.g. 'ft_final_v20230717230459.all-MiniLM-L6-v2'). If not specified, the version will be parsed from catalog.yaml."
 )
 flags.DEFINE_string("sv_sentences_csv_path", None,
                     "Path to the custom DC SV sentences path.")
@@ -55,7 +55,7 @@ flags.DEFINE_string(
     "Output directory where the generated embeddings will be saved.")
 
 EMBEDDINGS_CSV_FILENAME_PREFIX = "custom_embeddings"
-EMBEDDINGS_YAML_FILE_NAME = "custom_embeddings.yaml"
+EMBEDDINGS_YAML_FILE_NAME = "custom_catalog.yaml"
 
 DEFAULT_EMBEDDINGS_INDEX_TYPE = "medium_ft"
 
@@ -63,21 +63,20 @@ DEFAULT_EMBEDDINGS_INDEX_TYPE = "medium_ft"
 def build_registry():
   """Downloads the default model and embeddings."""
   # Only use the default model.
-  runtime_config = config_reader.read_runtime_config()
-  runtime_config.default_indexes = [DEFAULT_EMBEDDINGS_INDEX_TYPE]
-  runtime_config.enabled_indexes = [DEFAULT_EMBEDDINGS_INDEX_TYPE]
-  runtime_config.enable_reranking = False
+  env = config_reader.read_env()
+  env.default_indexes = [DEFAULT_EMBEDDINGS_INDEX_TYPE]
+  env.enabled_indexes = [DEFAULT_EMBEDDINGS_INDEX_TYPE]
+  env.enable_reranking = False
 
   # Construct server_config
-  catalog_config = config_reader.read_catalog_config()
-  server_config = config_reader.get_server_config(catalog_config,
-                                                  runtime_config)
+  catalog = config_reader.read_catalog()
+  server_config = config_reader.get_server_config(catalog, env)
   # Build registry, this will download the models and embeddings to the local
   # tmp dir.
-  return ResourceRegistry(server_config)
+  return Registry(server_config)
 
 
-def build(r: ResourceRegistry, sv_sentences_csv_path: str, output_dir: str):
+def build(r: Registry, sv_sentences_csv_path: str, output_dir: str):
   print(
       f"Generating embeddings dataframe from SV sentences CSV: {sv_sentences_csv_path}"
   )
@@ -133,18 +132,17 @@ def generate_embeddings_yaml(model_name: str, model_config: config.ModelConfig,
   # Right now Custom DC only supports LOCAL mode.
   assert model_config.type == 'LOCAL'
 
-  data = CatalogConfig(
-      version=1,
-      indexes={
-          "custom_ft":
-              MemoryIndexConfig(
-                  embeddings_path=embeddings_csv_handler.abspath(),
-                  model=model_name,
-                  store_type="MEMORY")
-      },
-      models={
-          model_name: model_config,
-      })
+  data = Catalog(version=1,
+                 indexes={
+                     "custom_ft":
+                         MemoryIndexConfig(
+                             embeddings_path=embeddings_csv_handler.abspath(),
+                             model=model_name,
+                             store_type="MEMORY")
+                 },
+                 models={
+                     model_name: model_config,
+                 })
   embeddings_yaml_handler.write_string(yaml.dump(asdict(data)))
 
 

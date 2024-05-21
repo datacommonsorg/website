@@ -79,9 +79,8 @@ metadata:
   name: nl-config
   namespace: {{ .Values.namespace.name }}
 data:
-  embeddings.yaml: {{ required "NL embeddings file is required" .Values.nl.embeddings | quote }}
-  models.yaml: {{ required "NL models file is required" .Values.nl.models | quote }}
-  runtime.yaml: {{ .Values.nl.runtime | quote }}
+  catalog.yaml: {{ required "NL catalog file is required" .Values.nl.catalog | quote }}
+  env.yaml: {{ .Values.nl.env | quote }}
 {{- end }}
 
 {{- if .Values.website.redis.enabled }}

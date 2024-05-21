@@ -19,7 +19,7 @@ import unittest
 from parameterized import parameterized
 
 from nl_server import config_reader
-from nl_server.registry import ResourceRegistry
+from nl_server.registry import Registry
 from nl_server.search import search_vars
 from shared.lib.detected_variables import VarCandidates
 
@@ -33,11 +33,10 @@ class TestEmbeddings(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls) -> None:
-    catalog_config = config_reader.read_catalog_config()
-    runtime_config = config_reader.read_runtime_config()
-    server_config = config_reader.get_server_config(catalog_config,
-                                                    runtime_config)
-    registry = ResourceRegistry(server_config)
+    catalog = config_reader.read_catalog()
+    env = config_reader.read_env()
+    server_config = config_reader.get_server_config(catalog, env)
+    registry = Registry(server_config)
     default_indexes = registry.server_config().default_indexes
     cls.embeddings = registry.get_index(default_indexes[0])
 

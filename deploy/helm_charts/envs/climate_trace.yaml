@@ -34,7 +34,7 @@ serviceAccount:
 
 nl:
   enabled: true
-  runtime:
+  env:
     default_indexes:
       - medium_ft
     enabled_indexes:

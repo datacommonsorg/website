@@ -132,11 +132,10 @@ serviceGroups:
 ###############################################################################
 nl:
   enabled: false
-  embeddings: {}
-  models: ""
+  catalog: {}
   memory: "2G"
   workers: 1
-  runtime:
+  env:
     default_indexes: []
     enabled_indexes: []
     vertex_ai_models: {}

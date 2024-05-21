@@ -21,13 +21,13 @@ from pathlib import Path
 from dacite import from_dict
 import yaml
 
-from nl_server.config import CatalogConfig
+from nl_server.config import Catalog
 from nl_server.config import LanceDBIndexConfig
 from nl_server.config import LocalModelConfig
 from nl_server.config import MemoryIndexConfig
 from nl_server.config import ModelType
 from nl_server.config import ModelUsage
-from nl_server.config import RuntimeConfig
+from nl_server.config import Env
 from nl_server.config import ServerConfig
 from nl_server.config import StoreType
 from nl_server.config import VertexAIIndexConfig
@@ -35,17 +35,17 @@ from nl_server.config import VertexAIModelConfig
 from shared.lib import custom_dc_util
 from shared.lib import gcs
 
-# catalog config paths
-_CATALOG_CODE_PATH = Path(__file__).parent / '../deploy/nl/embeddings.yaml'
-_CATALOG_MOUNT_PATH = '/datacommons/nl/embeddings.yaml'
-_CATALOG_USER_PATH_SUFFIX = 'datacommons/nl/custom_embeddings.yaml'
-_CATALOG_TMP_PATH = '/tmp/embeddings.yaml'
+# catalog paths
+_CATALOG_CODE_PATH = Path(__file__).parent / '../deploy/nl/catalog.yaml'
+_CATALOG_MOUNT_PATH = '/datacommons/nl/catalog.yaml'
+_CATALOG_USER_PATH_SUFFIX = 'datacommons/nl/custom_catalog.yaml'
+_CATALOG_TMP_PATH = '/tmp/catalog.yaml'
 
-# runtime config paths
-_RUNTIME_CODE_PATH = (Path(__file__).parent /
-                      '../deploy/helm_charts/envs/autopush.yaml')
-_RUNTIME_MOUNT_PATH = '/datacommons/nl/runtime.json'
-_RUNTIME_USER_PATH = Path(__file__).parent / 'custom_dc_runtime.yaml'
+# env paths
+_ENV_CODE_PATH = (Path(__file__).parent /
+                  '../deploy/helm_charts/envs/autopush.yaml')
+_ENV_MOUNT_PATH = '/datacommons/nl/env.yaml'
+_ENV_USER_PATH = Path(__file__).parent / 'custom_dc_env.yaml'
 
 _SUPPORTED_VERSIONS = [1]
 
@@ -61,15 +61,15 @@ def _merge_dicts(x, y):
   return res
 
 
-def read_catalog_config() -> CatalogConfig:
+def read_catalog() -> Catalog:
   """
   Reads the catalog from the config files and merges them together.
 
   One Config file could exist in several places depending on the environment.
 
-  - `../../deploy/nl/embeddings.yaml`
-  - `/datacommons/nl/embeddings.yaml`
-  - `${USER_DATA_PATH}/datacommons/nl/custom_embeddings.yaml`
+  - `../../deploy/nl/catalog.yaml`
+  - `/datacommons/nl/catalog.yaml`
+  - `${USER_DATA_PATH}/datacommons/nl/custom_catalog.yaml`
 
   Note here ${USER_DATA_PATH} could be a local path or a GCS path (gcs://)
   """
@@ -100,7 +100,7 @@ def read_catalog_config() -> CatalogConfig:
       all_paths.append(full_user_path)
 
   # Now load and merge all the catalog config files
-  catalog = CatalogConfig(
+  catalog = Catalog(
       version='',
       indexes={},
       models={},
@@ -153,63 +153,58 @@ def read_catalog_config() -> CatalogConfig:
   return catalog
 
 
-def read_runtime_config() -> RuntimeConfig:
-  """
-  Reads the runtime config.
+def read_env() -> Env:
+  """Reads the envs
   """
   # TODO: Make this generic by checking a user provided config file path
   if custom_dc_util.is_custom_dc():
-    c = from_dict(data_class=RuntimeConfig,
-                  data=yaml.safe_load(open(_RUNTIME_USER_PATH)))
-  elif os.path.exists(_RUNTIME_MOUNT_PATH):
-    c = from_dict(data_class=RuntimeConfig,
-                  data=yaml.safe_load(open(_RUNTIME_MOUNT_PATH)))
+    c = from_dict(data_class=Env, data=yaml.safe_load(open(_ENV_USER_PATH)))
+  elif os.path.exists(_ENV_MOUNT_PATH):
+    c = from_dict(data_class=Env, data=yaml.safe_load(open(_ENV_MOUNT_PATH)))
   else:
-    with open(_RUNTIME_CODE_PATH) as f:
+    with open(_ENV_CODE_PATH) as f:
       full_nl_config = yaml.safe_load(f.read())
-      c = from_dict(data_class=RuntimeConfig,
-                    data=full_nl_config['nl']['runtime'])
+      c = from_dict(data_class=Env, data=full_nl_config['nl']['env'])
   logging.debug(json.dumps(asdict(c), indent=2))
   return c
 
 
-def get_server_config(catalog_config: CatalogConfig,
-                      runtime_config: RuntimeConfig) -> ServerConfig:
+def get_server_config(catalog: Catalog, env: Env) -> ServerConfig:
   """
-  Merges the catalog and runtime config into a server config.
+  Merges the catalog and env into a server config.
   """
   server_config = ServerConfig(
-      version=catalog_config.version,
-      default_indexes=runtime_config.default_indexes,
-      enable_reranking=runtime_config.enable_reranking,
+      version=catalog.version,
+      default_indexes=env.default_indexes,
+      enable_reranking=env.enable_reranking,
       indexes={},
       models={},
   )
   server_config.default_indexes = [
-      x for x in server_config.default_indexes if x in catalog_config.indexes
+      x for x in server_config.default_indexes if x in catalog.indexes
   ]
 
   # Add reranking models
-  if runtime_config.enable_reranking:
-    for model_name, model_config in catalog_config.models.items():
+  if env.enable_reranking:
+    for model_name, model_config in catalog.models.items():
       if model_config.usage == ModelUsage.RERANKING:
         server_config.models[model_name] = model_config
 
   # Only add enabled indexes
-  for index_name in runtime_config.enabled_indexes:
-    if index_name not in catalog_config.indexes:
+  for index_name in env.enabled_indexes:
+    if index_name not in catalog.indexes:
       logging.warning('Index %s not found in catalog', index_name)
       continue
-    index_config = catalog_config.indexes[index_name]
+    index_config = catalog.indexes[index_name]
     server_config.indexes[index_name] = index_config
     model_name = index_config.model
-    server_config.models[model_name] = catalog_config.models[model_name]
+    server_config.models[model_name] = catalog.models[model_name]
 
   # Add vertex AI model info
   for model_name in server_config.models:
-    if model_name in runtime_config.vertex_ai_models:
+    if model_name in env.vertex_ai_models:
       m = server_config.models[model_name]
-      v = runtime_config.vertex_ai_models[model_name]
+      v = env.vertex_ai_models[model_name]
       m_dict, v_dict = asdict(m), asdict(v)
       merged = _merge_dicts(m_dict, v_dict)
       server_config.models[model_name] = VertexAIModelConfig(**merged)

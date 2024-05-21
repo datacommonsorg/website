@@ -144,8 +144,8 @@ function deploy_website() {
   --set nodejs.apiRoot="$WEBSITE_SERVICE_URL" \
   --set cronTesting.webApiRoot="$WEBSITE_SERVICE_URL" \
   --set cronTesting.nodejsApiRoot="$NODEJS_SERVICE_URL" \
-  --set-file nl.embeddings=deploy/nl/embeddings.yaml \
-  --set-file nl.runtime=deploy/nl/runtime.yaml \
+  --set-file nl.catalog=deploy/nl/catalog.yaml \
+  --set-file nl.env=deploy/nl/env.yaml \
   --set-file website.placeSummary.data.country=server/config/summaries/place_summaries_for_country_.json \
   --set-file website.placeSummary.data.geoid_0_2=server/config/summaries/place_summaries_for_geoId_0-2.json \
   --set-file website.placeSummary.data.geoid_3_5=server/config/summaries/place_summaries_for_geoId_3-5.json \

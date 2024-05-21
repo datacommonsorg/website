@@ -44,7 +44,7 @@ nl:
   enabled: true
   memory: "10G"
   workers: 3
-  runtime:
+  env:
     default_indexes:
       - medium_ft
     enabled_indexes:

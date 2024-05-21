@@ -81,18 +81,18 @@ class VertexAIIndexConfig(IndexConfig):
 
 # This represents the full catalog of models and indexes.
 @dataclass(kw_only=True)
-class CatalogConfig:
+class Catalog:
   version: str = None
   indexes: Dict[str, IndexConfig]
   models: Dict[str, ModelConfig]
 
 
 @dataclass(kw_only=True)
-class RuntimeConfig:
+class Env:
   default_indexes: List[str]
   enabled_indexes: List[str]
-  enable_reranking: bool = False
   vertex_ai_models: Dict[str, VertexAIModelConfig] = field(default_factory=dict)
+  enable_reranking: bool = False
 
 
 @dataclass(kw_only=True)

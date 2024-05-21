@@ -26,7 +26,7 @@ from nl_server import registry
 from nl_server import search
 from nl_server.embeddings import Embeddings
 from nl_server.registry import REGISTRY_KEY
-from nl_server.registry import ResourceRegistry
+from nl_server.registry import Registry
 from shared.lib import constants
 from shared.lib.detected_variables import var_candidates_to_dict
 from shared.lib.detected_variables import VarCandidates
@@ -36,7 +36,7 @@ bp = Blueprint('main', __name__, url_prefix='/')
 
 @bp.route('/healthz')
 def healthz():
-  r: ResourceRegistry = current_app.config[REGISTRY_KEY]
+  r: Registry = current_app.config[REGISTRY_KEY]
   default_indexes = r.server_config().default_indexes
   if not default_indexes:
     logging.warning('Health Check Failed: Default index name empty!')
@@ -73,7 +73,7 @@ def search_vars():
   if request.args.get('skip_topics'):
     skip_topics = True
 
-  r: ResourceRegistry = current_app.config[REGISTRY_KEY]
+  r: Registry = current_app.config[REGISTRY_KEY]
 
   reranker_name = str(escape(request.args.get('reranker', '')))
   reranker_model = r.get_reranking_model(
@@ -105,13 +105,13 @@ def detect_verbs():
   List[str]
   """
   query = str(escape(request.args.get('q')))
-  r: ResourceRegistry = current_app.config[REGISTRY_KEY]
+  r: Registry = current_app.config[REGISTRY_KEY]
   return json.dumps(r.attribute_model().detect_verbs(query.strip()))
 
 
 @bp.route('/api/embeddings_version_map/', methods=['GET'])
 def embeddings_version_map():
-  r: ResourceRegistry = current_app.config[REGISTRY_KEY]
+  r: Registry = current_app.config[REGISTRY_KEY]
   server_config = r.server_config()
   return json.dumps(asdict(server_config))
 
@@ -122,12 +122,12 @@ def load():
     current_app.config[REGISTRY_KEY] = registry.build()
   except Exception as e:
     logging.error(f'Custom embeddings not loaded due to error: {str(e)}')
-  r: ResourceRegistry = current_app.config[REGISTRY_KEY]
+  r: Registry = current_app.config[REGISTRY_KEY]
   server_config = r.server_config()
   return json.dumps(asdict(server_config))
 
 
-def _get_indexes(r: ResourceRegistry, idx_types: List[str]) -> List[Embeddings]:
+def _get_indexes(r: Registry, idx_types: List[str]) -> List[Embeddings]:
   embeddings: List[Embeddings] = []
   for idx in idx_types:
     try:

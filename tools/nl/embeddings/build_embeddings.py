@@ -324,7 +324,7 @@ def main(_):
     blob.upload_from_filename(gcs_tmp_out_path, timeout=600)
     print("Done uploading to gcs.")
     print(f"\t Embeddings Filename: {gcs_embeddings_filename}")
-    print("\nNOTE: Please update embeddings.yaml with the Embeddings Filename")
+    print("\nNOTE: Please update catalog.yaml with the Embeddings Filename")
 
   if FLAGS.vertex_ai_prediction_endpoint_id:
     with open(embeddings_index_tmp_out_path, 'w') as f:

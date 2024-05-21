@@ -40,7 +40,7 @@ ingress:
 
 nl:
   enabled: true
-  runtime:
+  env:
     default_indexes:
       - sdg_ft
     enabled_indexes:
