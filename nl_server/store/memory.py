@@ -25,8 +25,8 @@ from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import EmbeddingsStore
 from shared.lib.custom_dc_util import use_anonymous_gcs_client
-from shared.lib.gcs import download_gcs_file
 from shared.lib.gcs import is_gcs_path
+from shared.lib.gcs import maybe_download
 
 
 class MemoryEmbeddingsStore(EmbeddingsStore):
@@ -40,7 +40,7 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
       embeddings_path = idx_info.embeddings_path
     elif is_gcs_path(idx_info.embeddings_path):
       logging.info('Downloading embeddings from GCS path: ')
-      embeddings_path = download_gcs_file(
+      embeddings_path = maybe_download(
           idx_info.embeddings_path,
           use_anonymous_client=use_anonymous_gcs_client())
       if not embeddings_path:
