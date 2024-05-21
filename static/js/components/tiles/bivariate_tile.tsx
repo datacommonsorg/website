@@ -71,6 +71,8 @@ interface BivariateTilePropType {
   showExploreMore?: boolean;
   // API root
   apiRoot?: string;
+  // Whether to use new chart action icons in footer
+  useChartActionIcons?: boolean;
 }
 
 interface RawData {
@@ -133,6 +135,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       isInitialLoading={_.isNull(bivariateChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={bivariateChartData && !!bivariateChartData.errorMsg}
+      useChartActionIcons={props.useChartActionIcons}
     >
       <div
         id={props.id}

@@ -65,6 +65,8 @@ export interface GaugeTilePropType {
   subtitle?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Whether to use new chart action icons in footer
+  useChartActionIcons?: boolean;
 }
 
 export interface GaugeChartData {
@@ -123,6 +125,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       getDataCsv={getDataCsvCallback(props)}
       hasErrorMsg={gaugeData && !!gaugeData.errorMsg}
       footnote={props.footnote}
+      useChartActionIcons={props.useChartActionIcons}
     >
       <div
         className={`svg-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}

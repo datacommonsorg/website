@@ -18,6 +18,7 @@
  * Component for rendering a ranking tile.
  */
 import React, { RefObject, useRef } from "react";
+import { sources } from "webpack";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { URL_PATH } from "../../constants/app/visualization_constants";
@@ -32,6 +33,7 @@ import { formatString, TileSources } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
+import { ChartDownloadSpec } from "./modal/chart_download";
 
 const RANKING_COUNT = 5;
 
@@ -57,6 +59,16 @@ interface SvRankingUnitsProps {
   footnote?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Whether to use new chart action icons in footer
+  useChartActionIcons?: boolean;
+  // Function for getting the specs of the ranking tile for download
+  getChartDownloadSpec?: (
+    chartHeight: number,
+    chartHtml: string,
+    chartTitle: string,
+    chartWidth: number,
+    sources: string[]
+  ) => ChartDownloadSpec;
 }
 
 /**
@@ -72,6 +84,9 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
 
   /**
    * Build content and triggers export modal window
+   *
+   * TODO (juliawu): Once new chart action icons are implemented, remove this
+   *                 function.
    */
   function handleEmbed(isHighest: boolean, chartTitle: string): void {
     let chartHtml = "";
@@ -96,6 +111,38 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       props.sources || Array.from(rankingGroup.sources)
     );
   }
+
+  /**
+   * Generate callback function used by download modal to fetch specs of
+   * the chart being downloaded.
+   */
+  function getChartDownloadSpecCallback(
+    isHighest: boolean,
+    chartTitle: string
+  ): () => ChartDownloadSpec {
+    let chartHtml = "";
+    let chartHeight = 0;
+    let chartWidth = 0;
+    const divEl = isHighest
+      ? highestRankingUnitRef.current
+      : lowestRankingUnitRef.current;
+    if (divEl) {
+      chartHtml = divEl.outerHTML;
+      chartHeight = divEl.offsetHeight;
+      chartWidth = divEl.offsetWidth;
+    }
+    const sources = props.sources || Array.from(rankingGroup.sources);
+    return () => {
+      return props.getChartDownloadSpec(
+        chartHeight,
+        chartHtml,
+        chartTitle,
+        chartWidth,
+        sources
+      );
+    };
+  }
+
   const chartTitle = getChartTitle(title, rankingGroup);
   return (
     <React.Fragment>
@@ -116,6 +163,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
           )}
           {!props.hideFooter && (
             <ChartFooter
+              chartId={props.tileId}
               handleEmbed={
                 props.errorMsg ? null : () => handleEmbed(true, chartTitle)
               }
@@ -125,8 +173,15 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   : null
               }
               footnote={props.footnote}
+              useChartActionIcons={props.useChartActionIcons}
+              getChartDownloadSpec={getChartDownloadSpecCallback(
+                true,
+                chartTitle
+              )}
             >
-              <NlChartFeedback id={props.tileId} />
+              {!props.useChartActionIcons && (
+                <NlChartFeedback id={props.tileId} />
+              )}
             </ChartFooter>
           )}
         </div>
@@ -149,13 +204,21 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               )}
               {!props.hideFooter && (
                 <ChartFooter
+                  chartId={props.tileId}
                   handleEmbed={() => handleEmbed(true, chartTitle)}
                   exploreLink={
                     props.showExploreMore ? getExploreLink(props, true) : null
                   }
                   footnote={props.footnote}
+                  useChartActionIcons={props.useChartActionIcons}
+                  getChartDownloadSpec={getChartDownloadSpecCallback(
+                    true,
+                    chartTitle
+                  )}
                 >
-                  <NlChartFeedback id={props.tileId} />
+                  {!props.useChartActionIcons && (
+                    <NlChartFeedback id={props.tileId} />
+                  )}
                 </ChartFooter>
               )}
             </div>
@@ -177,13 +240,21 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               )}
               {!props.hideFooter && (
                 <ChartFooter
+                  chartId={props.tileId}
                   handleEmbed={() => handleEmbed(false, chartTitle)}
                   exploreLink={
                     props.showExploreMore ? getExploreLink(props, false) : null
                   }
                   footnote={props.footnote}
+                  useChartActionIcons={props.useChartActionIcons}
+                  getChartDownloadSpec={getChartDownloadSpecCallback(
+                    false,
+                    chartTitle
+                  )}
                 >
-                  <NlChartFeedback id={props.tileId} />
+                  {!props.useChartActionIcons && (
+                    <NlChartFeedback id={props.tileId} />
+                  )}
                 </ChartFooter>
               )}
             </div>

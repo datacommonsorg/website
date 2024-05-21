@@ -42,6 +42,7 @@ import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
+import { DEV_FLAGS, isFlagSet } from "../../utils/dev_flag_utils";
 import { isNlInterface } from "../../utils/explore_utils";
 import {
   addPerCapitaToTitle,
@@ -202,6 +203,7 @@ export function Block(props: BlockPropType): JSX.Element {
   const columnSectionRef = useRef(null);
   const expandoRef = useRef(null);
   const snapToLatestDataInfoRef = useRef<HTMLDivElement>(null);
+  const useChartActionIcons = isFlagSet(DEV_FLAGS.USE_CHART_ACTION_ICONS_FLAG);
 
   useEffect(() => {
     const overridePlaces = props.columns
@@ -341,7 +343,8 @@ export function Block(props: BlockPropType): JSX.Element {
                         useDenom ? props.denom : "",
                         snapToHighestCoverage
                           ? DATE_HIGHEST_COVERAGE
-                          : undefined
+                          : undefined,
+                        useChartActionIcons
                       )
                 }
               />
@@ -385,7 +388,8 @@ function renderTiles(
   overridePlaces: Record<string, NamedTypedPlace>,
   tileClassName?: string,
   blockDenom?: string,
-  blockDate?: string
+  blockDate?: string,
+  useChartActionIcons?: boolean
 ): JSX.Element {
   if (!tiles || !overridePlaces) {
     return <></>;
@@ -454,6 +458,7 @@ function renderTiles(
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
             footnote={props.footnote}
+            useChartActionIcons={useChartActionIcons}
           />
         );
       case "LINE":
@@ -484,6 +489,7 @@ function renderTiles(
             startDate={tile.lineTileSpec?.startDate}
             endDate={tile.lineTileSpec?.endDate}
             highlightDate={tile.lineTileSpec?.highlightDate}
+            useChartActionIcons={useChartActionIcons}
           />
         );
       case "RANKING":
@@ -509,6 +515,7 @@ function renderTiles(
                 ? rankingTileLatestDataAvailableFooter
                 : undefined
             }
+            useChartActionIcons={useChartActionIcons}
           />
         );
       case "BAR":
@@ -545,6 +552,7 @@ function renderTiles(
               tile.barTileSpec?.variableNameRegex,
               tile.barTileSpec?.defaultVariableName
             )}
+            useChartActionIcons={useChartActionIcons}
           />
         );
       case "SCATTER": {
@@ -572,6 +580,7 @@ function renderTiles(
             showExploreMore={props.showExploreMore}
             footnote={props.footnote}
             placeNameProp={tile.placeNameProp}
+            useChartActionIcons={useChartActionIcons}
           />
         );
       }
@@ -595,6 +604,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
+            useChartActionIcons={useChartActionIcons}
           />
         );
       }
@@ -618,6 +628,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            useChartActionIcons={useChartActionIcons}
           ></GaugeTile>
         );
       case "DONUT":
@@ -636,6 +647,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            useChartActionIcons={useChartActionIcons}
           ></DonutTile>
         );
       case "DESCRIPTION":

@@ -40,6 +40,7 @@ import {
   SeverityFilter,
   TileConfig,
 } from "../../types/subject_page_proto_types";
+import { DEV_FLAGS, isFlagSet } from "../../utils/dev_flag_utils";
 import {
   fetchDisasterEventPoints,
   getDate,
@@ -181,6 +182,7 @@ export const DisasterEventBlock = memo(function DisasterEventBlock(
   const columnWidth = getColumnWidth(props.columns);
   const minIdxToHide = getMinTileIdxToHide();
   const hideFilters = isNlInterface();
+  const useChartActionIcons = isFlagSet(DEV_FLAGS.USE_CHART_ACTION_ICONS_FLAG);
   return (
     <>
       <DisasterEventMapSelectors
@@ -229,7 +231,8 @@ export const DisasterEventBlock = memo(function DisasterEventBlock(
                       ? disasterEventData.disasterEventData
                       : null,
                     disasterEventData ? disasterEventData.date : "",
-                    columnTileClassName
+                    columnTileClassName,
+                    useChartActionIcons
                   )}
                 />
               );
@@ -350,7 +353,8 @@ function renderTiles(
   minIdxToHide: number,
   disasterEventData: Record<string, DisasterEventPointData>,
   date: string,
-  tileClassName?: string
+  tileClassName?: string,
+  useChartActionIcons?: boolean
 ): JSX.Element {
   if (!tiles) {
     return <></>;
@@ -388,6 +392,7 @@ function renderTiles(
             tileSpec={tile.disasterEventMapTileSpec}
             parentPlaces={props.parentPlaces}
             showExploreMore={props.showExploreMore}
+            useChartActionIcons={useChartActionIcons}
           />
         );
       }
@@ -410,6 +415,7 @@ function renderTiles(
             property={tile.histogramTileSpec.prop}
             disasterEventData={tileEventData}
             showExploreMore={props.showExploreMore}
+            useChartActionIcons={useChartActionIcons}
           />
         );
       }
@@ -432,6 +438,7 @@ function renderTiles(
             disasterEventData={tileEventData}
             enclosedPlaceType={enclosedPlaceType}
             showExploreMore={props.showExploreMore}
+            useChartActionIcons={useChartActionIcons}
           />
         );
       }

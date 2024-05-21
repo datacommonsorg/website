@@ -51,6 +51,7 @@ import {
   getStatVarName,
   transformCsvHeader,
 } from "../../utils/tile_utils";
+import { ChartDownloadSpec } from "./modal/chart_download";
 import { SvRankingUnits } from "./sv_ranking_units";
 import { ContainedInPlaceMultiVariableTileProp } from "./tile_types";
 
@@ -70,12 +71,14 @@ export interface RankingTilePropType
   footnote?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Whether to use new chart action icons in footer
+  useChartActionIcons?: boolean;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
 export function RankingTile(props: RankingTilePropType): JSX.Element {
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
-  const embedModalElement = useRef<ChartEmbed>(null);
+  const downloadModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
 
   useEffect(() => {
@@ -99,6 +102,9 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
 
   /**
    * Opens export modal window
+   *
+   * TODO (juliawu): Once the new chart action icons in the footer are
+   *                 complete, remove this function.
    */
   function showChartEmbed(
     chartWidth: number,
@@ -107,7 +113,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     chartTitle: string,
     sources: string[]
   ): void {
-    embedModalElement.current.show(
+    downloadModalElement.current.show(
       "",
       () => {
         // Assume all variables will have the same date
@@ -134,6 +140,45 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
       props.sources || Array.from(sources)
     );
   }
+
+  /**
+   * Fetch spec for new download modal window
+   */
+  function getChartDownloadSpec(
+    chartHeight: number,
+    chartHtml: string,
+    chartTitle: string,
+    chartWidth: number,
+    sources: string[]
+  ): ChartDownloadSpec {
+    return {
+      chartDate: "",
+      chartHeight,
+      chartHtml,
+      chartTitle,
+      chartWidth,
+      getDataCsv: () => {
+        // Assume all variables will have the same date
+        // TODO: Update getCsv to handle multiple dates
+        const date = getFirstCappedStatVarSpecDate(props.variables);
+        const perCapitaVariables = props.variables
+          .filter((v) => v.denom)
+          .map((v) => v.statVar);
+        return datacommonsClient.getCsv({
+          childType: props.enclosedPlaceType,
+          date,
+          fieldDelimiter: CSV_FIELD_DELIMITER,
+          parentEntity: props.parentPlace,
+          perCapitaVariables,
+          transformHeader: transformCsvHeader,
+          variables: props.variables.map((v) => v.statVar),
+        });
+      },
+      sources,
+      svgXml: "",
+    };
+  }
+
   return (
     <div
       className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${props.className}`}
@@ -177,10 +222,17 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               tileId={props.id}
               errorMsg={errorMsg}
               footnote={props.footnote}
+              useChartActionIcons={props.useChartActionIcons}
+              getChartDownloadSpec={getChartDownloadSpec}
             />
           );
         })}
-      <ChartEmbed container={chartContainer.current} ref={embedModalElement} />
+      {!props.useChartActionIcons && (
+        <ChartEmbed
+          container={chartContainer.current}
+          ref={downloadModalElement}
+        />
+      )}
       {props.showLoadingSpinner && (
         <div id={getSpinnerId()}>
           <div className="screen">

@@ -106,6 +106,8 @@ export interface DisasterEventMapTilePropType {
   apiRoot?: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // Whether to use new chart action icons in the footer
+  useChartActionIcons?: boolean;
 }
 
 export interface DisasterMapChartData {
@@ -201,6 +203,7 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
             }
           : null
       }
+      useChartActionIcons={props.useChartActionIcons}
     >
       <div className={`${CSS_SELECTOR_PREFIX}-container`}>
         <div className={`${CSS_SELECTOR_PREFIX}-chart-section`}>

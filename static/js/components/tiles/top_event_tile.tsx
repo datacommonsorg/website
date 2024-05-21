@@ -46,6 +46,7 @@ import { formatPropertyValue } from "../../utils/property_value_utils";
 import { TileSources } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
+import { ChartDownloadSpec } from "./modal/chart_download";
 
 const DEFAULT_RANKING_COUNT = 10;
 const MIN_PERCENT_PLACE_NAMES = 0.4;
@@ -63,13 +64,15 @@ interface TopEventTilePropType {
   className?: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // Whether to use new chart action icons in the footer
+  useChartActionIcons?: boolean;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
 export const TopEventTile = memo(function TopEventTile(
   props: TopEventTilePropType
 ): JSX.Element {
-  const embedModalElement = useRef<ChartEmbed>(null);
+  const downloadModalElement = useRef(null);
   const chartContainer = useRef(null);
   const [eventPlaces, setEventPlaces] =
     useState<Record<string, NamedPlace>>(null);
@@ -213,6 +216,8 @@ export const TopEventTile = memo(function TopEventTile(
             </table>
           )}
           <ChartFooter
+            chartId={props.id}
+            getChartDownloadSpec={getChartDownloadSpec(topEvents)}
             handleEmbed={showChart ? () => handleEmbed(topEvents) : null}
             exploreLink={
               props.showExploreMore
@@ -222,11 +227,16 @@ export const TopEventTile = memo(function TopEventTile(
                   }
                 : null
             }
+            useChartActionIcons={props.useChartActionIcons}
           />
         </div>
       </div>
-      <NlChartFeedback id={props.id} />
-      <ChartEmbed ref={embedModalElement} />
+      {!props.useChartActionIcons && (
+        <>
+          <NlChartFeedback id={props.id} />
+          <ChartEmbed ref={downloadModalElement} />
+        </>
+      )}
     </div>
   );
 
@@ -384,7 +394,7 @@ export const TopEventTile = memo(function TopEventTile(
         value: point.severity[severityProp],
       };
     });
-    embedModalElement.current.show(
+    downloadModalElement.current.show(
       "",
       () => {
         return Promise.resolve(rankingPointsToCsv(rankingPoints, ["data"]));
@@ -396,6 +406,36 @@ export const TopEventTile = memo(function TopEventTile(
       "",
       []
     );
+  }
+
+  function getChartDownloadSpec(
+    topEvents: DisasterEventPoint[]
+  ): () => ChartDownloadSpec {
+    if (!topEvents) {
+      return null;
+    }
+
+    const rankingPoints = topEvents.map((point) => {
+      return {
+        placeDcid: point.placeDcid,
+        placename: point.placeName,
+        value: point.severity[severityProp],
+      };
+    });
+    return () => {
+      return {
+        chartDate: "",
+        chartHeight: 0,
+        chartHtml: "",
+        chartTitle: "",
+        chartWidth: chartContainer.current.offsetWidth,
+        getDataCsv: () => {
+          return Promise.resolve(rankingPointsToCsv(rankingPoints, ["data"]));
+        },
+        sources: [],
+        svgXml: "",
+      };
+    };
   }
 
   function isUnnamedEvent(name: string) {

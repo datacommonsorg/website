@@ -34,6 +34,8 @@ import {
 } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
+import { ChartDownloadSpec } from "./modal/chart_download";
+
 interface ChartTileContainerProp {
   id: string;
   isLoading?: boolean;
@@ -58,11 +60,13 @@ interface ChartTileContainerProp {
   footnote?: string;
   // Subtitle text
   subtitle?: string;
+  // Whether to use new chart action icons in footer
+  useChartActionIcons?: boolean;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const containerRef = useRef(null);
-  const embedModalElement = useRef<ChartEmbed>(null);
+  const downloadModalElement = useRef(null);
   // on initial loading, hide the title text
   const title = !props.isInitialLoading
     ? getChartTitle(props.title, props.replacementStrings)
@@ -109,25 +113,32 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         {props.children}
       </div>
       <ChartFooter
-        handleEmbed={showEmbed ? handleEmbed : null}
+        chartId={props.id}
+        container={containerRef.current}
+        getChartDownloadSpec={showEmbed ? getChartDownloadSpec : null}
+        handleEmbed={showEmbed ? handleDownload : null}
         exploreLink={props.exploreLink}
         footnote={props.footnote}
+        useChartActionIcons={props.useChartActionIcons}
       >
-        <NlChartFeedback id={props.id} />
+        {!props.useChartActionIcons && <NlChartFeedback id={props.id} />}
       </ChartFooter>
-      {showEmbed && (
-        <ChartEmbed container={containerRef.current} ref={embedModalElement} />
+      {showEmbed && !props.useChartActionIcons && (
+        <ChartEmbed
+          container={containerRef.current}
+          ref={downloadModalElement}
+        />
       )}
     </div>
   );
 
-  // Handle when chart embed is clicked .
-  function handleEmbed(): void {
+  // Handle when chart download is clicked.
+  function handleDownload(): void {
     const chartTitle = props.title
       ? formatString(props.title, props.replacementStrings)
       : "";
     const { svgXml, height, width } = getMergedSvg(containerRef.current);
-    embedModalElement.current.show(
+    downloadModalElement.current.show(
       svgXml,
       props.getDataCsv,
       width,
@@ -137,5 +148,22 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       "",
       Array.from(props.sources)
     );
+  }
+
+  function getChartDownloadSpec(): ChartDownloadSpec {
+    const chartTitle = props.title
+      ? formatString(props.title, props.replacementStrings)
+      : "";
+    const { svgXml, height, width } = getMergedSvg(containerRef.current);
+    return {
+      chartDate: "",
+      chartHeight: height,
+      chartHtml: "",
+      chartTitle,
+      chartWidth: width,
+      getDataCsv: props.getDataCsv,
+      sources: Array.from(props.sources),
+      svgXml,
+    };
   }
 }

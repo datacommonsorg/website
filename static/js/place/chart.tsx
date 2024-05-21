@@ -167,6 +167,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     this.chartElement = React.createRef();
     this.svgContainerElement = React.createRef();
     this.embedModalElement = React.createRef();
+
     if (props.chartType === chartTypeEnum.CHOROPLETH) {
       this.mapContainerElement = React.createRef();
       this.legendContainerElement = React.createRef();
