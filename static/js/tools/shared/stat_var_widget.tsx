@@ -29,6 +29,8 @@ import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarInfo } from "../timeline/chart_region";
 
+const NUM_ENTITIES_EXISTENCE = 10;
+
 interface StatVarWidgetPropsType {
   // Whether or not modal version of sv hierarchy is opened
   openSvHierarchyModal: boolean;
@@ -130,7 +132,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
             selectSV={props.selectSV}
             searchLabel={"Statistical variables"}
             deselectSV={(sv) => props.deselectSVs([sv])}
-            numEntitiesExistence={props.numEntitiesExistence}
+            numEntitiesExistence={getNumEntitiesExistence()}
           />
         </div>
         <DrawerResize
@@ -160,7 +162,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
             selectSV={props.selectSV}
             searchLabel={"Statistical variables"}
             deselectSV={(sv) => props.deselectSVs([sv])}
-            numEntitiesExistence={props.numEntitiesExistence}
+            numEntitiesExistence={getNumEntitiesExistence()}
           />
         </ModalBody>
         <ModalFooter>
@@ -171,4 +173,22 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
       </Modal>
     </>
   );
+
+  /**
+   * Get value of NumEntitiesExistence to pass to StatVarHierarchy
+   * 
+   * NumEntitiesExistence is a parameter that sets the number of entities that
+   * should have data for each stat var (group) shown in the widget. For
+   * example, setting a value of 10 means that at least 10 entities must have
+   * data for a stat var for that stat var to show in the widget. This prevents
+   * showing users stat vars with low geographic coverage that lead to sparse
+   * charts.
+   * 
+   * @returns 
+   */
+  function getNumEntitiesExistence(): number {
+    return globalThis.useStatVarFiltering
+      ? Math.min(NUM_ENTITIES_EXISTENCE, props.sampleEntities.length)
+      : 1;
+  }
 }

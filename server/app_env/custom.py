@@ -24,6 +24,7 @@ class Config(_base.Config):
   SHOW_DISASTER = False
   USE_LLM = False
   USE_MEMCACHE = False
+  USE_STAT_VAR_FILTERING = False
 
 
 class LocalConfig(Config, local.Config):

@@ -401,6 +401,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     blocklist_svg = ["dc/g/Uncategorized", "oecd/g/OECD"]
   app.config['BLOCKLIST_SVG'] = blocklist_svg
 
+  # Set whether to filter stat vars with low geographic coverage in the
+  # map and scatter tools.
+  app.config['USE_STAT_VAR_FILTERING'] = cfg.USE_STAT_VAR_FILTERING
+
   if not cfg.TEST:
     urls = get_health_check_urls()
     libutil.check_backend_ready(urls)
