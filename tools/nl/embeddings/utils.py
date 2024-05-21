@@ -17,7 +17,7 @@ from dataclasses import dataclass
 import itertools
 import logging
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Dict, List, Tuple
 
 from google.cloud import aiplatform
 import pandas as pd
@@ -62,18 +62,6 @@ class EmbeddingConfig:
   # the index info as it would come from embeddings.yaml
   index_config: Dict[str, str]
   model_config: ModelConfig
-
-
-@dataclass
-class Context:
-  # Model
-  model: Any
-  # Vertex AI model endpoint url
-  model_endpoint: aiplatform.Endpoint
-  # GCS storage bucket
-  bucket: Any
-  # Temp dir
-  tmp: str = "/tmp"
 
 
 def chunk_list(data, chunk_size):
