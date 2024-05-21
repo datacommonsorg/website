@@ -20,7 +20,7 @@ from typing import Dict, List
 from server.lib.config import GLOBAL_CONFIG_BUCKET
 from shared.lib import gcs
 
-BAD_WORDS_FILE = 'nl_bad_words.txt'
+BAD_WORDS_PATH = gcs.make_path(GLOBAL_CONFIG_BUCKET, 'nl_bad_words.txt')
 _DELIM = ':'
 
 
@@ -74,8 +74,7 @@ EMPTY_BANNED_WORDS = BannedWords(entries={})
 # Loads a list of bad words from a text file.
 #
 def load_bad_words() -> BannedWords:
-  local_file = gcs.maybe_download(
-      f'gs://{GLOBAL_CONFIG_BUCKET}/{BAD_WORDS_FILE}')
+  local_file = gcs.maybe_download(BAD_WORDS_PATH)
   return load_bad_words_file(local_file)
 
 
@@ -133,8 +132,7 @@ def load_bad_words_file(local_file: str, validate: bool = False) -> BannedWords:
 
 
 def validate_bad_words():
-  local_file = gcs.maybe_download(
-      f'gs://{GLOBAL_CONFIG_BUCKET}/{BAD_WORDS_FILE}')
+  local_file = gcs.maybe_download(BAD_WORDS_PATH)
   load_bad_words_file(local_file, validate=True)
 
 

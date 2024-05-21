@@ -39,6 +39,7 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
     if idx_info.embeddings_path.startswith('/'):
       embeddings_path = idx_info.embeddings_path
     elif is_gcs_path(idx_info.embeddings_path):
+      logging.info('Downloading embeddings from GCS path: ')
       embeddings_path = maybe_download(
           idx_info.embeddings_path,
           use_anonymous_client=use_anonymous_gcs_client())

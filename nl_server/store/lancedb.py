@@ -22,8 +22,7 @@ from nl_server.config import LanceDBIndexConfig
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import EmbeddingsStore
-from shared.lib.gcs import is_gcs_path
-from shared.lib.gcs import maybe_download
+from shared.lib import gcs
 
 TABLE_NAME = 'datacommons'
 
@@ -43,9 +42,9 @@ class LanceDBStore(EmbeddingsStore):
 
     if idx_info.embeddings_path.startswith('/'):
       lance_db_dir = idx_info.embeddings_path
-    elif is_gcs_path(idx_info.embeddings_path):
+    elif gcs.is_gcs_path(idx_info.embeddings_path):
       logging.info('Downloading embeddings from GCS path: ')
-      lance_db_dir = maybe_download(idx_info.embeddings_path)
+      lance_db_dir = gcs.maybe_download(idx_info.embeddings_path)
       if not lance_db_dir:
         raise AssertionError(
             f'Embeddings not downloaded from GCS. Please check the path: {idx_info.embeddings_path}'
