@@ -14,15 +14,16 @@
 
 import glob
 import os
+from pathlib import Path
 import tempfile
 import unittest
 from unittest import mock
 
-import build_embeddings as be
 import pandas as pd
 from parameterized import parameterized
 from sentence_transformers import SentenceTransformer
-import utils
+
+import tools.nl.embeddings.build_embeddings as be
 
 
 def get_test_sv_data():
@@ -87,23 +88,20 @@ class TestEndToEnd(unittest.TestCase):
     # the expected column names not found.
     be.get_sheets_data = mock.Mock(return_value=pd.DataFrame())
 
-    ctx = utils.Context(model=SentenceTransformer("all-MiniLM-L6-v2"),
-                        model_endpoint=None,
-                        bucket="",
-                        tmp="/tmp")
+    model = SentenceTransformer("all-MiniLM-L6-v2")
 
     # input sheets filepaths can be empty.
     input_sheets_svs = []
 
     # Filepaths all correspond to the testdata folder.
-    input_dir = "testdata/input"
+    input_dir = Path(__file__).parent / "testdata/input"
     input_alternatives_filepattern = os.path.join(input_dir,
                                                   "*_alternatives.csv")
     input_autogen_filepattern = os.path.join(input_dir, 'unknown_*.csv')
 
     with tempfile.TemporaryDirectory() as tmp_dir, self.assertRaises(KeyError):
       tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
-      be.build(ctx, input_sheets_svs, tmp_local_merged_filepath, "",
+      be.build(model, None, input_sheets_svs, tmp_local_merged_filepath, "",
                input_autogen_filepattern, input_alternatives_filepattern)
 
   def testSuccess(self):
@@ -114,14 +112,11 @@ class TestEndToEnd(unittest.TestCase):
 
     # Given that the get_sheets_data() function is mocked, the Context
     # object does not need a valid `gs` and `bucket` field.
-    ctx = utils.Context(model=SentenceTransformer("all-MiniLM-L6-v2"),
-                        model_endpoint=None,
-                        bucket="",
-                        tmp="/tmp")
+    model = SentenceTransformer("all-MiniLM-L6-v2")
 
     # Filepaths all correspond to the testdata folder.
-    input_dir = "testdata/input"
-    expected_dir = "testdata/expected"
+    input_dir = Path(__file__).parent / "testdata/input"
+    expected_dir = Path(__file__).parent / "testdata/expected"
     input_alternatives_filepattern = os.path.join(input_dir,
                                                   "*_alternatives.csv")
     input_autogen_filepattern = os.path.join(input_dir, "autogen_*.csv")
@@ -136,7 +131,7 @@ class TestEndToEnd(unittest.TestCase):
       tmp_dcid_sentence_csv = os.path.join(tmp_dir,
                                            "final_dcid_sentences_csv.csv")
 
-      embeddings_df = be.build(ctx, input_sheets_csv_dirs,
+      embeddings_df = be.build(model, None, input_sheets_csv_dirs,
                                tmp_local_merged_filepath, "",
                                input_autogen_filepattern,
                                input_alternatives_filepattern)
@@ -156,12 +151,16 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
   @parameterized.expand(["small", "medium"])
   def testInputFilesValidations(self, sz):
     # Verify that the required files exist.
-    sheets_filepath = "data/curated_input/main/sheets_svs.csv"
+    sheets_filepath = Path(
+        __file__).parent / "data/curated_input/main/sheets_svs.csv"
     # TODO: Fix palm_batch13k_alternatives.csv to not have duplicate
     # descriptions.  Its technically okay since build_embeddings will take
     # care of dups.
-    input_alternatives_filepattern = "data/alternatives/(palm|other)_alternaties.csv"
-    output_dcid_sentences_filepath = f'data/preindex/{sz}/sv_descriptions.csv'
+    parent_folder = str(Path(__file__).parent)
+    input_alternatives_filepattern = os.path.join(
+        parent_folder, "data/alternatives/(palm|other)_alternaties.csv")
+    output_dcid_sentences_filepath = os.path.join(
+        parent_folder, f'data/preindex/{sz}/sv_descriptions.csv')
 
     # Check that all the files exist.
     self.assertTrue(os.path.exists(sheets_filepath))
@@ -192,7 +191,8 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
 
   @parameterized.expand(["small", "medium"])
   def testOutputFileValidations(self, sz):
-    output_dcid_sentences_filepath = f'data/preindex/{sz}/sv_descriptions.csv'
+    output_dcid_sentences_filepath = Path(
+        __file__).parent / f'data/preindex/{sz}/sv_descriptions.csv'
 
     dcid_sentence_df = pd.read_csv(output_dcid_sentences_filepath).fillna("")
 

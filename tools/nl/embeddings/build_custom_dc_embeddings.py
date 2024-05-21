@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,27 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Build embeddings for custom DCs."""
-
-import os
-import sys
+"""Build embeddings for custom DC"""
 
 from absl import app
 from absl import flags
-from file_util import create_file_handler
-from file_util import FileHandler
-from google.cloud import storage
 import pandas as pd
-import utils
+from sentence_transformers import SentenceTransformer
 import yaml
 
-# Import gcs module from shared lib.
-# Since this tool is run standalone from this directory,
-# the shared lib directory needs to be appended to the sys path.
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_SHARED_LIB_DIR = os.path.join(_THIS_DIR, "..", "..", "..", "shared", "lib")
-sys.path.append(_SHARED_LIB_DIR)
-import gcs  # type: ignore
+from shared.lib import gcs
+from tools.nl.embeddings import utils
+from tools.nl.embeddings.file_util import create_file_handler
+from tools.nl.embeddings.file_util import FileHandler
 
 FLAGS = flags.FLAGS
 
@@ -69,15 +60,12 @@ EMBEDDINGS_YAML_FILE_NAME = "custom_embeddings.yaml"
 def download(embeddings_yaml_path: str):
   """Downloads the default FT model and embeddings.
   """
-  ctx = _ctx_no_model()
-
   default_ft_embeddings_info = utils.get_default_ft_embeddings_info()
 
   # Download model.
   model_info = default_ft_embeddings_info.model_config
   print(f"Downloading default model: {model_info.name}")
-  local_model_path = utils.get_or_download_model_from_gcs(
-      ctx, model_info.info['gcs_folder'])
+  local_model_path = gcs.maybe_download(model_info.info['gcs_folder'])
   print(f"Downloaded default model to: {local_model_path}")
 
   # Download embeddings.
@@ -99,13 +87,14 @@ def download(embeddings_yaml_path: str):
 def build(model_info: utils.ModelConfig, sv_sentences_csv_path: str,
           output_dir: str):
   print(f"Downloading model: {model_info.name}")
-  ctx = _download_model(model_info.info['gcs_folder'])
-
+  model_path = gcs.maybe_download(model_info.info['gcs_folder'])
+  model_obj = SentenceTransformer(model_path)
   print(
       f"Generating embeddings dataframe from SV sentences CSV: {sv_sentences_csv_path}"
   )
   sv_sentences_csv_handler = create_file_handler(sv_sentences_csv_path)
-  embeddings_df = _build_embeddings_dataframe(ctx, sv_sentences_csv_handler)
+  embeddings_df = _build_embeddings_dataframe(model_obj,
+                                              sv_sentences_csv_handler)
 
   print("Validating embeddings.")
   utils.validate_embeddings(embeddings_df, sv_sentences_csv_path)
@@ -129,14 +118,15 @@ def build(model_info: utils.ModelConfig, sv_sentences_csv_path: str,
 
 
 def _build_embeddings_dataframe(
-    ctx: utils.Context, sv_sentences_csv_handler: FileHandler) -> pd.DataFrame:
+    model: SentenceTransformer,
+    sv_sentences_csv_handler: FileHandler) -> pd.DataFrame:
   sv_sentences_df = pd.read_csv(sv_sentences_csv_handler.read_string_io())
 
   # Dedupe texts
   (text2sv_dict, _) = utils.dedup_texts(sv_sentences_df)
 
   print("Building custom DC embeddings")
-  return utils.build_embeddings(ctx, text2sv_dict)
+  return utils.build_embeddings(text2sv_dict, model=model)
 
 
 def generate_embeddings_yaml(model_info: utils.ModelConfig,
@@ -161,20 +151,6 @@ def generate_embeddings_yaml(model_info: utils.ModelConfig,
       }
   }
   embeddings_yaml_handler.write_string(yaml.dump(data))
-
-
-def _download_model(model_version: str) -> utils.Context:
-  ctx_no_model = _ctx_no_model()
-  model = utils.get_ft_model_from_gcs(ctx_no_model, model_version)
-  return utils.Context(model=model,
-                       model_endpoint=None,
-                       bucket=ctx_no_model.bucket)
-
-
-def _ctx_no_model() -> utils.Context:
-  bucket = storage.Client.create_anonymous_client().bucket(
-      utils.DEFAULT_MODELS_BUCKET)
-  return utils.Context(model=None, model_endpoint=None, bucket=bucket)
 
 
 def main(_):

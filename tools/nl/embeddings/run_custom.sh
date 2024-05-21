@@ -15,10 +15,10 @@
 
 set -e
 
+cd ../../..
 python3 -m venv .env
 source .env/bin/activate
-python3 -m pip install --upgrade pip
 pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
-pip3 install -r requirements.txt
+pip3 install -r tools/nl/embeddings/requirements.txt
 
-python3 build_custom_dc_embeddings.py "$@"
+python3 -m tools.nl.embeddings.build_custom_dc_embeddings "$@"
