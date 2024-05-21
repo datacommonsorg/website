@@ -251,6 +251,7 @@ export class DatacommonsBarComponent extends LitElement {
       parentPlace: this.parentPlace,
       placeNameProp: this.placeNameProp,
       places: this.places,
+      showBrandingInFooter: true,
       showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
       sort: this.sort,
@@ -259,6 +260,7 @@ export class DatacommonsBarComponent extends LitElement {
       variables: statVarSpec,
       svgChartHeight: 200,
       title: this.header || this.title,
+      useChartActionIcons: true,
       useLollipop: this.lollipop,
       yAxisMargin: this.yAxisMargin,
     };

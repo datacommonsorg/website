@@ -191,7 +191,7 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
       sources={chartData ? chartData.sources : new Set<string>()}
       replacementStrings={getReplacementStrings(props)}
       className={`${CSS_SELECTOR_PREFIX}-tile`}
-      allowEmbed={false}
+      allowDownload={false}
       isInitialLoading={isInitialLoading}
       exploreLink={
         props.showExploreMore

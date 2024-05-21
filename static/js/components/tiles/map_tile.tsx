@@ -127,6 +127,10 @@ export interface MapTilePropType {
   sources?: string[];
   // Optional: listen for property value changes with this event name
   subscribe?: string;
+  // Whether to show branding line in footer
+  showBrandingInFooter?: boolean;
+  // Whether to use chart action icons in footer
+  useChartActionIcons?: boolean;
 }
 
 // Api responses associated with a single layer of the map
@@ -292,7 +296,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         mapChartData && getReplacementStrings(props, mapChartData)
       }
       className={`${props.className} map-chart`}
-      allowEmbed={true}
+      allowDownload={true}
       getDataCsv={async () => {
         const layers = getDataSpec(props);
         const rows: DataRow[] = [];
@@ -326,6 +330,28 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={!_.isEmpty(mapChartData) && !!mapChartData.errorMsg}
       footnote={props.footnote}
+      useChartActionIcons={props.useChartActionIcons}
+      showBrandingInFooter={props.showBrandingInFooter}
+      // TODO: Also allow embeds on maps specified using dataSpec
+      chartEmbedSpec={
+        !props.dataSpecs && {
+          chartAttributes: {
+            allowZoom: props.allowZoom,
+            apiRoot: props.apiRoot,
+            childPlaceType: props.enclosedPlaceType,
+            colors: props.colors,
+            geoJsonProp: props.geoJsonProp,
+            header: props.title,
+            parentPlace: props.place.dcid,
+            parentPlaces: props.parentPlaces?.map((place) => place.dcid),
+            perCapita: props.statVarSpec.denom ? props.statVarSpec.statVar : "",
+            placeNameProp: props.placeNameProp,
+            sources: props.sources,
+            variable: props.statVarSpec.statVar,
+          },
+          chartType: "map",
+        }
+      }
     >
       {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">

@@ -277,7 +277,7 @@ export const HistogramTile = memo(function HistogramTile(
       sources={sources}
       replacementStrings={rs}
       className={"histogram-chart"}
-      allowEmbed={false}
+      allowDownload={false}
       isInitialLoading={isInitialLoading}
       exploreLink={
         props.showExploreMore

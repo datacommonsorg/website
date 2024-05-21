@@ -135,6 +135,7 @@ export class DatacommonsScatterComponent extends LitElement {
         showPlaceLabels: this.showPlaceLabels,
         showQuadrants: this.showQuadrants,
       },
+      showBrandingInFooter: true,
       showExploreMore: this.showExploreMore,
       sources: this.sources,
       statVarSpec: this.variables.map((variable) => ({

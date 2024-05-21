@@ -26,7 +26,6 @@ import {
   CSV_FIELD_DELIMITER,
   INITIAL_LOADING_CLASS,
 } from "../../constants/tile_constants";
-import { ChartEmbed } from "../../place/chart_embed";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
 import {
@@ -51,6 +50,7 @@ import {
   getStatVarName,
   transformCsvHeader,
 } from "../../utils/tile_utils";
+import { ChartDownload } from "./modal/chart_download";
 import { SvRankingUnits } from "./sv_ranking_units";
 import { ContainedInPlaceMultiVariableTileProp } from "./tile_types";
 
@@ -70,12 +70,14 @@ export interface RankingTilePropType
   footnote?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Optional: whether to use chart action icons in right of footer
+  useChartActionIcons?: boolean;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
 export function RankingTile(props: RankingTilePropType): JSX.Element {
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
-  const embedModalElement = useRef<ChartEmbed>(null);
+  const downloadModalElement = useRef<ChartDownload>(null);
   const chartContainer = useRef(null);
 
   useEffect(() => {
@@ -107,7 +109,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     chartTitle: string,
     sources: string[]
   ): void {
-    embedModalElement.current.show(
+    downloadModalElement.current.show(
       "",
       () => {
         // Assume all variables will have the same date
@@ -177,10 +179,31 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               tileId={props.id}
               errorMsg={errorMsg}
               footnote={props.footnote}
+              useChartActionIcons={props.useChartActionIcons}
+              chartEmbedSpec={{
+                chartAttributes: {
+                  apiRoot: props.apiRoot,
+                  childPlaceType: props.enclosedPlaceType,
+                  hideFooter: props.hideFooter,
+                  highestTitle: props.rankingMetadata.highestTitle,
+                  lowestTitle: props.rankingMetadata.lowestTitle,
+                  parentPlace: props.parentPlace,
+                  rankingCount: props.rankingMetadata.rankingCount,
+                  showHighestLowest: props.rankingMetadata.showHighestLowest,
+                  showLowest: props.rankingMetadata.showLowest,
+                  showMultiColumn: props.rankingMetadata.showMultiColumn,
+                  sources: props.sources,
+                  variables: props.variables.map((sv) => sv.statVar),
+                },
+                chartType: "ranking",
+              }}
             />
           );
         })}
-      <ChartEmbed container={chartContainer.current} ref={embedModalElement} />
+      <ChartDownload
+        container={chartContainer.current}
+        ref={downloadModalElement}
+      />
       {props.showLoadingSpinner && (
         <div id={getSpinnerId()}>
           <div className="screen">

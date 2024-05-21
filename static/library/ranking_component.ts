@@ -176,6 +176,7 @@ export class DatacommonsRankingComponent extends LitElement {
         showLowest: this.showLowest,
         showMultiColumn: this.showMultiColumn,
       },
+      showBrandingInFooter: true,
       showExploreMore: this.showExploreMore,
       sources: this.sources,
       variables: statVarSpecs,

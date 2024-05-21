@@ -24,7 +24,6 @@ import { Spinner } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
-import { ChartEmbed } from "../../place/chart_embed";
 import {
   formatString,
   getChartTitle,
@@ -33,7 +32,10 @@ import {
   TileSources,
 } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
+import { ChartActions } from "./chart_action_icons";
 import { ChartFooter } from "./chart_footer";
+import { ChartDownload } from "./modal/chart_download";
+import { ChartEmbedSpec } from "./modal/chart_embed";
 interface ChartTileContainerProp {
   id: string;
   isLoading?: boolean;
@@ -41,9 +43,9 @@ interface ChartTileContainerProp {
   sources: Set<string> | string[];
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
-  // Whether or not to allow chart embedding action.
-  allowEmbed: boolean;
-  // callback function for getting the chart data as a csv. Only used for
+  // Whether or not to allow chart download action.
+  allowDownload: boolean;
+  // Callback function for getting the chart data as a csv. Only used for
   // embedding.
   getDataCsv?: () => Promise<string>;
   // Extra classes to add to the container.
@@ -56,20 +58,27 @@ interface ChartTileContainerProp {
   hasErrorMsg?: boolean;
   // Text to show in footer
   footnote?: string;
+  // Whether to show "Powered by Google's Data Commons" in the footer
+  showBrandingInFooter?: boolean;
   // Subtitle text
   subtitle?: string;
+  // Whether to display chart actions on the right
+  // instead of download and explore links on the left.
+  useChartActionIcons?: boolean;
+  // Tile specs used to generate code users can use to embed the chart
+  chartEmbedSpec?: ChartEmbedSpec;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const containerRef = useRef(null);
-  const embedModalElement = useRef<ChartEmbed>(null);
+  const downloadModalElement = useRef<ChartDownload>(null);
   // on initial loading, hide the title text
   const title = !props.isInitialLoading
     ? getChartTitle(props.title, props.replacementStrings)
     : "";
   const showSources = !_.isEmpty(props.sources) && !props.hasErrorMsg;
-  const showEmbed =
-    props.allowEmbed && !props.isInitialLoading && !props.hasErrorMsg;
+  const showDownload =
+    props.allowDownload && !props.isInitialLoading && !props.hasErrorMsg;
   return (
     <div
       className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ${
@@ -109,25 +118,43 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         {props.children}
       </div>
       <ChartFooter
-        handleEmbed={showEmbed ? handleEmbed : null}
-        exploreLink={props.exploreLink}
         footnote={props.footnote}
+        exploreLink={!props.useChartActionIcons && props.exploreLink}
+        handleDownload={
+          !props.useChartActionIcons && props.allowDownload && handleDownload
+        }
+        showBranding={props.showBrandingInFooter}
       >
-        <NlChartFeedback id={props.id} />
+        {props.useChartActionIcons && (
+          <ChartActions
+            chartEmbedSpec={props.chartEmbedSpec}
+            container={containerRef.current}
+            id={props.id}
+            exploreLink={props.exploreLink}
+            handleDownload={props.allowDownload && handleDownload}
+          />
+        )}
+        {!props.useChartActionIcons && <NlChartFeedback id={props.id} />}
       </ChartFooter>
-      {showEmbed && (
-        <ChartEmbed container={containerRef.current} ref={embedModalElement} />
+      {showDownload && (
+        <ChartDownload
+          container={containerRef.current}
+          ref={downloadModalElement}
+        />
       )}
     </div>
   );
 
-  // Handle when chart embed is clicked .
-  function handleEmbed(): void {
+  // Handle when "download" is clicked.
+  function handleDownload(): void {
+    if (!downloadModalElement.current) {
+      return null;
+    }
     const chartTitle = props.title
       ? formatString(props.title, props.replacementStrings)
       : "";
     const { svgXml, height, width } = getMergedSvg(containerRef.current);
-    embedModalElement.current.show(
+    downloadModalElement.current.show(
       svgXml,
       props.getDataCsv,
       width,

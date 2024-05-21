@@ -18,6 +18,7 @@
  * Footer for charts in tiles.
  */
 
+import _ from "lodash";
 import React, { useState } from "react";
 
 import {
@@ -31,16 +32,25 @@ import {
 const FOOTNOTE_CHAR_LIMIT = 150;
 
 interface ChartFooterPropType {
-  handleEmbed?: () => void;
+  // Callback to run after "download" is clicked
+  handleDownload?: () => void;
   // Link to explore more. Only show explore button if this object is non-empty.
   exploreLink?: { displayText: string; url: string };
+  // Whether to show branding "Powered by Data Commons" line.
+  showBranding?: boolean;
+  // Child nodes of the footer
   children?: React.ReactNode;
   // Text to show above buttons
   footnote?: string;
 }
 
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
-  if (!props.handleEmbed && !props.exploreLink) {
+  if (
+    !props.handleDownload &&
+    _.isEmpty(props.exploreLink) &&
+    !props.children &&
+    !props.footnote
+  ) {
     return null;
   }
   return (
@@ -51,7 +61,13 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
       <footer className="chart-container-footer">
         <div className="main-footer-section">
           <div className="outlinks">
-            {props.handleEmbed && (
+            {props.showBranding && (
+              <div className="branding-line">
+                Powered by{" "}
+                <a href="https://datacommons.org">Google&apos;s Data Commons</a>
+              </div>
+            )}
+            {props.handleDownload && (
               <div className="outlink-item">
                 <span className="material-icons-outlined">download</span>
                 <a
@@ -61,7 +77,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                     triggerGAEvent(GA_EVENT_TILE_DOWNLOAD, {
                       [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
                     });
-                    props.handleEmbed();
+                    props.handleDownload();
                   }}
                 >
                   Download

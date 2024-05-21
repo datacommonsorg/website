@@ -74,6 +74,10 @@ export interface DonutTilePropType {
   subtitle?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Whether to show branding line in footer
+  showBrandingInFooter?: boolean;
+  // Whether to use chart action icons in footer
+  useChartActionIcons?: boolean;
 }
 
 interface DonutChartData {
@@ -116,11 +120,26 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       sources={props.sources || (donutChartData && donutChartData.sources)}
       replacementStrings={getReplacementStrings(props, donutChartData)}
       className={`${props.className} bar-chart`}
-      allowEmbed={true}
+      allowDownload={true}
       getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(donutChartData)}
       hasErrorMsg={donutChartData && !!donutChartData.errorMsg}
       footnote={props.footnote}
+      useChartActionIcons={props.useChartActionIcons}
+      showBrandingInFooter={props.showBrandingInFooter}
+      chartEmbedSpec={{
+        chartAttributes: {
+          apiRoot: props.apiRoot,
+          colors: props.colors,
+          donut: !props.pie,
+          header: props.title,
+          place: props.place.dcid,
+          sources: props.sources,
+          subheader: props.subtitle,
+          variables: props.statVarSpec.map((sv) => sv.statVar),
+        },
+        chartType: "pie",
+      }}
     >
       <div
         id={props.id}

@@ -71,6 +71,10 @@ interface BivariateTilePropType {
   showExploreMore?: boolean;
   // API root
   apiRoot?: string;
+  // Whether to show branding line in footer
+  showBrandingInFooter?: boolean;
+  // Whether to use chart action icons in footer
+  useChartActionIcons?: boolean;
 }
 
 interface RawData {
@@ -128,11 +132,13 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       sources={bivariateChartData && bivariateChartData.sources}
       replacementStrings={rs}
       className={`${props.className} bivariate-chart`}
-      allowEmbed={true}
+      allowDownload={true}
       getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(bivariateChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={bivariateChartData && !!bivariateChartData.errorMsg}
+      useChartActionIcons={props.useChartActionIcons}
+      showBrandingInFooter={props.showBrandingInFooter}
     >
       <div
         id={props.id}

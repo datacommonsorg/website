@@ -23,6 +23,7 @@ import "../../../library";
 
 import axios from "axios";
 import _ from "lodash";
+import queryString from "query-string";
 import React, { useEffect, useRef, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { Input, UncontrolledTooltip } from "reactstrap";
@@ -69,6 +70,9 @@ import { ScatterTile } from "../tiles/scatter_tile";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
 
+// Temporary flag to gate new chart icons in the footer
+// TODO (juliawu): Remove this flag once all chart action icon changes are in.
+const USE_CHART_ACTION_ICONS_FLAG = "chartIcons";
 /**
  * Translates the line tile's timeScale enum to the TimeScaleOption type
  */
@@ -202,6 +206,9 @@ export function Block(props: BlockPropType): JSX.Element {
   const columnSectionRef = useRef(null);
   const expandoRef = useRef(null);
   const snapToLatestDataInfoRef = useRef<HTMLDivElement>(null);
+  const useChartActionIcons = !!queryString.parse(window.location.hash)[
+    USE_CHART_ACTION_ICONS_FLAG
+  ];
 
   useEffect(() => {
     const overridePlaces = props.columns
@@ -341,7 +348,8 @@ export function Block(props: BlockPropType): JSX.Element {
                         useDenom ? props.denom : "",
                         snapToHighestCoverage
                           ? DATE_HIGHEST_COVERAGE
-                          : undefined
+                          : undefined,
+                        useChartActionIcons
                       )
                 }
               />
@@ -385,7 +393,8 @@ function renderTiles(
   overridePlaces: Record<string, NamedTypedPlace>,
   tileClassName?: string,
   blockDenom?: string,
-  blockDate?: string
+  blockDate?: string,
+  useChartActionIcons?: boolean
 ): JSX.Element {
   if (!tiles || !overridePlaces) {
     return <></>;
@@ -454,6 +463,7 @@ function renderTiles(
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
             footnote={props.footnote}
+            useChartActionIcons={useChartActionIcons}
           />
         );
       case "LINE":
@@ -484,6 +494,7 @@ function renderTiles(
             startDate={tile.lineTileSpec?.startDate}
             endDate={tile.lineTileSpec?.endDate}
             highlightDate={tile.lineTileSpec?.highlightDate}
+            useChartActionIcons={useChartActionIcons}
           />
         );
       case "RANKING":
@@ -509,6 +520,7 @@ function renderTiles(
                 ? rankingTileLatestDataAvailableFooter
                 : undefined
             }
+            useChartActionIcons={useChartActionIcons}
           />
         );
       case "BAR":
@@ -545,6 +557,7 @@ function renderTiles(
               tile.barTileSpec?.variableNameRegex,
               tile.barTileSpec?.defaultVariableName
             )}
+            useChartActionIcons={useChartActionIcons}
           />
         );
       case "SCATTER": {
@@ -572,6 +585,7 @@ function renderTiles(
             showExploreMore={props.showExploreMore}
             footnote={props.footnote}
             placeNameProp={tile.placeNameProp}
+            useChartActionIcons={useChartActionIcons}
           />
         );
       }
@@ -595,6 +609,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
+            useChartActionIcons={useChartActionIcons}
           />
         );
       }
@@ -618,6 +633,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            useChartActionIcons={useChartActionIcons}
           ></GaugeTile>
         );
       case "DONUT":
@@ -636,6 +652,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            useChartActionIcons={useChartActionIcons}
           ></DonutTile>
         );
       case "DESCRIPTION":

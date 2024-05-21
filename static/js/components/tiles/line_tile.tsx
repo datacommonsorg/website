@@ -103,6 +103,10 @@ export interface LineTilePropType {
   highlightDate?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Whether to show branding line in footer
+  showBrandingInFooter?: boolean;
+  // Whether to use chart action icons in footer
+  useChartActionIcons?: boolean;
 }
 
 export interface LineChartData {
@@ -147,12 +151,35 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       sources={props.sources || (chartData && chartData.sources)}
       replacementStrings={getReplacementStrings(props)}
       className={`${props.className} line-chart`}
-      allowEmbed={true}
+      allowDownload={true}
       getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(chartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={chartData && !!chartData.errorMsg}
       footnote={props.footnote}
+      useChartActionIcons={props.useChartActionIcons}
+      showBrandingInFooter={props.showBrandingInFooter}
+      chartEmbedSpec={{
+        chartAttributes: {
+          apiRoot: props.apiRoot,
+          childPlaceType: props.enclosedPlaceType,
+          colors: props.colors,
+          endDate: props.endDate,
+          header: props.title,
+          parentPlace: props.enclosedPlaceType && props.place.dcid,
+          perCapita: props.statVarSpec
+            .map((sv) => (sv.denom ? sv.statVar : ""))
+            .filter((sv) => !!sv),
+          placeNameProp: props.placeNameProp,
+          places: [props.place.dcid].concat(props.comparisonPlaces || []),
+          sources: props.sources,
+          startDate: props.startDate,
+          svgChartHeight: props.svgChartHeight?.toString(),
+          timeScale: props.timeScale,
+          variables: props.statVarSpec.map((sv) => sv.statVar),
+        },
+        chartType: "line",
+      }}
     >
       <div
         id={props.id}

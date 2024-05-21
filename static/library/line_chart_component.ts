@@ -152,6 +152,7 @@ export class DatacommonsLineComponent extends LitElement {
       },
       startDate: this.startDate,
       endDate: this.endDate,
+      showBrandingInFooter: true,
       showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
       sources: this.sources,
@@ -169,6 +170,7 @@ export class DatacommonsLineComponent extends LitElement {
       svgChartHeight: 200,
       title: this.header || this.title,
       timeScale: this.timeScale,
+      useChartActionIcons: true,
       getProcessedSVNameFn: getVariableNameProcessingFn(
         this.variableNameRegex,
         this.defaultVariableName

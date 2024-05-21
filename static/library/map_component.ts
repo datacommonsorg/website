@@ -244,6 +244,7 @@ export class DatacommonsMapComponent extends LitElement {
         name: "",
         types: [],
       },
+      showBrandingInFooter: true,
       showExploreMore: this.showExploreMore,
       sources: this.sources,
       statVarSpec: {

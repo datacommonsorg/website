@@ -144,12 +144,41 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       sources={props.sources || (barChartData && barChartData.sources)}
       replacementStrings={getReplacementStrings(barChartData)}
       className={`${props.className} bar-chart`}
-      allowEmbed={true}
+      allowDownload={true}
       getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(barChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={barChartData && !!barChartData.errorMsg}
       footnote={props.footnote}
+      useChartActionIcons={props.useChartActionIcons}
+      showBrandingInFooter={props.showBrandingInFooter}
+      chartEmbedSpec={{
+        chartAttributes: {
+          apiRoot: props.apiRoot,
+          barHeight: props.barHeight,
+          childPlaceType:
+            "enclosedPlaceType" in props && props.enclosedPlaceType,
+          colors: props.colors,
+          header: props.title,
+          horizontal: props.horizontal,
+          maxPlaces: props.maxPlaces,
+          maxVariables: props.maxVariables,
+          parentPlace: "parentPlace" in props && props.parentPlace,
+          perCapita: props.variables
+            .map((sv) => (sv.denom ? sv.statVar : ""))
+            .filter((sv) => !!sv),
+          placeNameProp: props.placeNameProp,
+          places: "places" in props && props.places,
+          sort: props.sort,
+          sources: props.sources,
+          stacked: props.stacked,
+          svgChartHeight: props.svgChartHeight,
+          useLollipop: props.useLollipop,
+          variables: props.variables.map((sv) => sv.statVar),
+          yAxisMargin: props.yAxisMargin,
+        },
+        chartType: "bar",
+      }}
     >
       <div
         id={props.id}

@@ -30,25 +30,34 @@ const ICON_SELECTED_TIMEOUT = 2000;
 
 /* Base Button Component*/
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{ $primary?: boolean }>`
   align-items: center;
-  background: var(--button-background-color, transparent);
-  border: 1px solid #747775;
+  background: ${(props) =>
+    props.$primary
+      ? "var(--button-primary-background-color, transparent)"
+      : "var(--button-background-color, transparent)"};
+  border: ${(props) => (props.$primary ? "none" : "1px solid #747775")};
   border-radius: 100px;
-  color: var(--button-text-color, black);
+  color: ${(props) =>
+    props.$primary
+      ? "var(--button-primary-text-color, black)"
+      : "var(--button-text-color, black)"};
   display: flex;
   font-size: 14px;
   font-weight: 500;
   gap: 8px;
   justify-content: center;
   line-height: 20px;
-  padding: 10px 24px 10px 16px;
+  padding: 10px 24px;
   text-align: center;
   width: fit-content;
-
   &:hover {
-    background-color: var(--button-highlight-background-color, transparent);
+    background-color: ${(props) =>
+      props.$primary
+        ? "var(--button-primary-highlight-background-color, transparent)"
+        : "var(--button-highlight-background-color, transparent)"};
   }
+
   .icon {
     font-size: 18px;
   }
@@ -65,9 +74,11 @@ interface ButtonProps {
   label: string;
   // Handler for what happens when button is clicked
   onClick: () => void;
+  // Whether to use primary button styling instead of default styling
+  primary?: boolean;
 }
 
-function IconButton(props: ButtonProps): JSX.Element {
+export function IconButton(props: ButtonProps): JSX.Element {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const timerRef = useRef<NodeJS.Timeout>(null);
 
@@ -89,9 +100,10 @@ function IconButton(props: ButtonProps): JSX.Element {
     <StyledButton
       onClick={onClickHandler}
       className={`button ${props.class || ""}`}
+      $primary={props.primary}
     >
       {props.icon && (
-        <span className="material-symbols-outlined icon">
+        <span className="material-icons-outlined icon">
           {(isClicked && props.iconWhenClicked) || props.icon}
         </span>
       )}
@@ -103,8 +115,12 @@ function IconButton(props: ButtonProps): JSX.Element {
 /* Copy Button Component */
 
 interface CopyButtonProps {
-  //Text to copy to clipboard
+  // Text to copy to clipboard
   textToCopy: string;
+  // Text to show on button. Defaults to "Copy"
+  label?: string;
+  // other actions to perform when clicked
+  onClick?: () => void;
 }
 
 export function CopyButton(props: CopyButtonProps): JSX.Element {
@@ -112,8 +128,11 @@ export function CopyButton(props: CopyButtonProps): JSX.Element {
     <IconButton
       icon="file_copy"
       iconWhenClicked="done"
-      onClick={() => navigator.clipboard.writeText(props.textToCopy)}
-      label="Copy"
+      onClick={() => {
+        props.onClick?.();
+        navigator.clipboard.writeText(props.textToCopy);
+      }}
+      label={props.label || "Copy"}
     ></IconButton>
   );
 }
@@ -125,6 +144,10 @@ interface DownloadButtonProps {
   content: string;
   // Name to give to downloaded file, including extension
   filename: string;
+  // Text to show on button. Defaults to "Download"
+  label?: string;
+  // other actions to perform when clicked
+  onClick?: () => void;
 }
 
 export function DownloadButton(props: DownloadButtonProps): JSX.Element {
@@ -132,8 +155,11 @@ export function DownloadButton(props: DownloadButtonProps): JSX.Element {
     <IconButton
       icon="download"
       iconWhenClicked="download_done"
-      onClick={() => saveToFile(props.filename, props.content)}
-      label="Download"
+      onClick={() => {
+        props.onClick?.();
+        saveToFile(props.filename, props.content);
+      }}
+      label={props.label || "Download"}
     ></IconButton>
   );
 }
