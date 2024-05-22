@@ -51,6 +51,7 @@ class DCNames(str, Enum):
   # Production UN Data index. Contains SDG and WHO data
   UNDATA_DC = 'undata'
   # Dev UN Data index. Contains SDG, WHO, and ILO data
+  # TODO(dwnoble): Remove after ILO launch
   UNDATA_DEV_DC = 'undata_dev'
   # Dev UN Data index. Contains ILO data
   # TODO(dwnoble): Remove after ILO launch
