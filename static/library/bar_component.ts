@@ -219,7 +219,7 @@ export class DatacommonsBarComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
-  render(): HTMLElement {
+  render(): HTMLDivElement {
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
     statVarDcids.forEach((statVarDcid) => {
