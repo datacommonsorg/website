@@ -1994,22 +1994,14 @@ Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces,Number of multi r
 Count_Person_AbovePovertyLevelInThePast12Months_WhiteAlone,Number of white people living above the poverty level in the past 12 months
 Count_Person_AmbulatoryDifficulty,Number of people With Ambulatory Difficulty
 Count_Person_AmericanIndianOrAlaskaNativeAlone,Number of American Indian or Alaska Native people
-Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInAdultCorrectionalFacilities,Number of American Indian or Alaska Native people who reside in adult correctional facilities
 Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInCollegeOrUniversityStudentHousing,Number of American Indian or Alaska Native people who reside in college or university student housing
 Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInGroupQuarters,Number of American Indian or Alaska Native people who reside in group quarters
-Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInInstitutionalizedGroupQuarters,Number of American Indian or Alaska Native people who reside in institutionalized group quarters
-Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInJuvenileFacilities,Number of American Indian or Alaska Native people who reside in juvenile facilities
 Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInMilitaryQuartersOrMilitaryShips,Number of American Indian or Alaska Native people who reside in military quarters or military ships
-Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInNoninstitutionalizedGroupQuarters,Number of American Indian or Alaska Native people who reside in noninstitutionalized group quarters
 Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInNursingFacilities,Number of American Indian or Alaska Native people who reside in nursing facilities
 Count_Person_AsianAlone,Number of asian people
-Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities,Number of asian people who reside in adult correctional facilities
 Count_Person_AsianAlone_ResidesInCollegeOrUniversityStudentHousing,Number of asian people who reside in college or university student housing
 Count_Person_AsianAlone_ResidesInGroupQuarters,Number of asian people who reside in group quarters
-Count_Person_AsianAlone_ResidesInInstitutionalizedGroupQuarters,Number of asian people who reside in institutionalized group quarters
-Count_Person_AsianAlone_ResidesInJuvenileFacilities,Number of asian people who reside in juvenile facilities
 Count_Person_AsianAlone_ResidesInMilitaryQuartersOrMilitaryShips,Number of asian people who reside in military quarters or military ships
-Count_Person_AsianAlone_ResidesInNoninstitutionalizedGroupQuarters,Number of asian people who reside in noninstitutionalized group quarters
 Count_Person_AsianAlone_ResidesInNursingFacilities,Number of asian people who reside in nursing facilities
 Count_Person_AsianOrPacificIslander,Number of Asian or Pacific Islander people
 Count_Person_BachelorOfArtsHumanitiesAndOtherMajor,"Number of people with a bachelor's degree or higher in Arts, Humanities, and Other Major"
@@ -2027,13 +2019,9 @@ Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIsla
 Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces,Number of people of multi races below poverty level in the past 12 months
 Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone,Number of white people below poverty level in the past 12 months
 Count_Person_BlackOrAfricanAmericanAlone,Number of Black or African American people
-Count_Person_BlackOrAfricanAmericanAlone_ResidesInAdultCorrectionalFacilities,Number of Black or African American people who reside in adult correctional facilities
 Count_Person_BlackOrAfricanAmericanAlone_ResidesInCollegeOrUniversityStudentHousing,Number of Black or African American people who reside in College Or University Student Housing
 Count_Person_BlackOrAfricanAmericanAlone_ResidesInGroupQuarters,Number of Black or African American people who reside in group quarters
-Count_Person_BlackOrAfricanAmericanAlone_ResidesInInstitutionalizedGroupQuarters,Number of Black or African American people who reside in institutionalized group quarters
-Count_Person_BlackOrAfricanAmericanAlone_ResidesInJuvenileFacilities,Number of Black or African American people who reside in juvenile facilities
 Count_Person_BlackOrAfricanAmericanAlone_ResidesInMilitaryQuartersOrMilitaryShips,Number of Black or African American people who reside in military quarters or military ships
-Count_Person_BlackOrAfricanAmericanAlone_ResidesInNoninstitutionalizedGroupQuarters,Number of Black or African American people who reside in noninstitutionalized group quarters
 Count_Person_BlackOrAfricanAmericanAlone_ResidesInNursingFacilities,Number of Black or African American people who reside in nursing facilities
 Count_Person_BornInOtherStateInTheUnitedStates,Number of people who were born in other state in the United States
 Count_Person_BornInStateOfResidence,Number of people who were born in state of residence
@@ -2202,7 +2190,6 @@ Count_Person_Female_ForeignBorn_ResidesInAdultCorrectionalFacilities,Number of f
 Count_Person_Female_ForeignBorn_ResidesInCollegeOrUniversityStudentHousing,Number of foreign born females who reside in College Or University Student Housing
 Count_Person_Female_ForeignBorn_ResidesInGroupQuarters,Number of foreign born females who reside in Group Quarters
 Count_Person_Female_ForeignBorn_ResidesInInstitutionalizedGroupQuarters,Number of foreign born females who reside in Institutionalized Group Quarters
-Count_Person_Female_ForeignBorn_ResidesInJuvenileFacilities,Number of foreign born females who reside in Juvenile Facilities
 Count_Person_Female_ForeignBorn_ResidesInMilitaryQuartersOrMilitaryShips,Number of foreign born females who reside in Military Quarters Or Military Ships
 Count_Person_Female_ForeignBorn_ResidesInNoninstitutionalizedGroupQuarters,Number of foreign born females who reside in Noninstitutionalized Group Quarters
 Count_Person_Female_ForeignBorn_ResidesInNursingFacilities,Number of foreign born females who reside in Nursing Facilities
@@ -2256,13 +2243,9 @@ Count_Person_ForeignBorn_ResidesInNursingFacilities,Number of foreign born peopl
 Count_Person_FullTimeYearRoundWorker,Number of people who worked full time through the year
 Count_Person_HearingDifficulty,Number of people with hearing difficulty
 Count_Person_HispanicOrLatino,number of hispanic or latino people
-Count_Person_HispanicOrLatino_ResidesInAdultCorrectionalFacilities,Number of hispanic or latino people who reside in adult correctional facilities
 Count_Person_HispanicOrLatino_ResidesInCollegeOrUniversityStudentHousing,Number of hispanic or latino people who reside in college or university student housing
 Count_Person_HispanicOrLatino_ResidesInGroupQuarters,Number of hispanic or latino people who reside in group quarters
-Count_Person_HispanicOrLatino_ResidesInInstitutionalizedGroupQuarters,Number of hispanic or latino people who reside in institutionalized group quarters
-Count_Person_HispanicOrLatino_ResidesInJuvenileFacilities,Number of hispanic or latino people who reside in juvenile facilities
 Count_Person_HispanicOrLatino_ResidesInMilitaryQuartersOrMilitaryShips,Number of hispanic or latino people who reside in military quarters or military ships
-Count_Person_HispanicOrLatino_ResidesInNoninstitutionalizedGroupQuarters,Number of hispanic or latino people who reside in noninstitutionalized group quarters
 Count_Person_HispanicOrLatino_ResidesInNursingFacilities,Number of hispanic or latino people who reside in nursing facilities
 Count_Person_Houseless,Number of houseless people
 Count_Person_Houseless_Female,Number of houseless females
@@ -2417,13 +2400,9 @@ Count_Person_MarriedAndNotSeparated_ResidesInNoninstitutionalizedGroupQuarters,N
 Count_Person_MarriedAndNotSeparated_ResidesInNursingFacilities,Number of married people who reside in nursing facilities
 Count_Person_Native,Number of native people
 Count_Person_NativeHawaiianOrOtherPacificIslanderAlone,Number of Native Hawaiian or Other Pacific Islander people
-Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInAdultCorrectionalFacilities,Number of Native Hawaiian or Other Pacific Islander people residing in Adult Correctional Facilities
 Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInCollegeOrUniversityStudentHousing,Number of Native Hawaiian or Other Pacific Islander people residing in College Or University Student Housing
 Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInGroupQuarters,Number of Native Hawaiian or Other Pacific Islander people residing in Group Quarters
-Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInInstitutionalizedGroupQuarters,Number of Native Hawaiian or Other Pacific Islander people residing in Institutionalized Group Quarters
-Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInJuvenileFacilities,Number of Native Hawaiian or Other Pacific Islander people residing in Juvenile Facilities
 Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInMilitaryQuartersOrMilitaryShips,Number of Native Hawaiian or Other Pacific Islander people residing in Military Quarters Or Military Ships
-Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInNoninstitutionalizedGroupQuarters,Number of Native Hawaiian or Other Pacific Islander people residing in Noninstitutionalized Group Quarters
 Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInNursingFacilities,Number of Native Hawaiian or Other Pacific Islander people residing in Nursing Facilities
 Count_Person_NeverMarried,Number of people that are never married
 Count_Person_NeverMarried_ResidesInAdultCorrectionalFacilities,Number of people that are never married and reside in adult correctional facilities
@@ -2458,13 +2437,9 @@ Count_Person_NotEnrolledInSchool,Number of people not enrolled in school
 Count_Person_NotInLaborForce,Number of people Aged 16 and Over Not in the Labor Force
 Count_Person_NowMarried,Number of married females
 Count_Person_OneRace,Number of people of single race
-Count_Person_OneRace_ResidesInAdultCorrectionalFacilities,Number of people of single race who reside in adult correctional facilities
 Count_Person_OneRace_ResidesInCollegeOrUniversityStudentHousing,Number of people of single race who reside in college or university student housing
 Count_Person_OneRace_ResidesInGroupQuarters,Number of people of single race who reside in group quarters
-Count_Person_OneRace_ResidesInInstitutionalizedGroupQuarters,Number of people of single race who reside in institutionalized group quarters
-Count_Person_OneRace_ResidesInJuvenileFacilities,Number of people of single race who reside in juvenile facilities
 Count_Person_OneRace_ResidesInMilitaryQuartersOrMilitaryShips,Number of people of single race who reside in military quarters or military ships
-Count_Person_OneRace_ResidesInNoninstitutionalizedGroupQuarters,Number of people of single race who reside in noninstitutionalized group quarters
 Count_Person_OneRace_ResidesInNursingFacilities,Number of people of single race who reside in nursing facilities
 Count_Person_PerArea,Population Density
 Count_Person_PlaceOfBirthAsia,Number of foreign Born People from Asia
