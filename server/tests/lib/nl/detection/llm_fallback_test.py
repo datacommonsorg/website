@@ -31,10 +31,10 @@ from server.lib.nl.detection.utils import empty_var_candidates
 from shared.lib import detected_variables as dvars
 
 
-def _place():
+def _place(place_name: str = 'california'):
   return PlaceDetection(query_original='',
                         query_without_place_substr='foo bar',
-                        query_places_mentioned=['california'],
+                        query_places_mentioned=[place_name],
                         places_found=[Place('geoId/06', 'CA', 'State')],
                         main_place=None,
                         entities_found=[],
@@ -200,6 +200,21 @@ class TestLLMFallback(unittest.TestCase):
                     classifications=[]),
           NeedLLM.Fully,
           'info_fallback_place_within_multi_sv'),
+      (
+          # Regression test for incorrect detection of place within a query.
+          # NOTE: "us" appears in "greenhoUSe"
+          # Previously:  fallback with counter "info_fallback_place_within_multi_sv"
+          Detection(
+              original_query=
+              'what are the sources of greenhouse gas emissions in the US',
+              cleaned_query=
+              'what are the sources of greenhouse gas emissions in the US',
+              places_detected=_place('us'),
+              svs_detected=_sv(['sources greenhouse gas', 'emissions'],
+                               above_thres=True),
+              classifications=[]),
+          NeedLLM.No,
+          'info_fallback_multi_sv_no_delim'),
   ])
   def test_main(self, heuristic, fallback, counter):
     ctr = Counters()
