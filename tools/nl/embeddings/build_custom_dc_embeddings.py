@@ -89,11 +89,9 @@ def build(r: Registry, sv_sentences_csv_path: str, output_dir: str):
   model_info = server_config.models[model_name]
 
   print("Building custom DC embeddings")
-  ctx = utils.Context(model=r.get_model(model_name),
-                      model_endpoint=None,
-                      bucket=None)
 
-  embeddings_df = _build_embeddings_dataframe(ctx, sv_sentences_csv_handler)
+  embeddings_df = _build_embeddings_dataframe(r.get_model(model_name),
+                                              sv_sentences_csv_handler)
 
   print("Validating embeddings.")
   utils.validate_embeddings(embeddings_df, sv_sentences_csv_path)
