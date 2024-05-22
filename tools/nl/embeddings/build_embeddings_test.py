@@ -23,7 +23,6 @@ import pandas as pd
 from parameterized import parameterized
 from sentence_transformers import SentenceTransformer
 
-from tools.nl.embeddings import utils
 import tools.nl.embeddings.build_embeddings as be
 
 
@@ -89,10 +88,7 @@ class TestEndToEnd(unittest.TestCase):
     # the expected column names not found.
     be.get_sheets_data = mock.Mock(return_value=pd.DataFrame())
 
-    ctx = utils.Context(model=SentenceTransformer("all-MiniLM-L6-v2"),
-                        model_endpoint=None,
-                        bucket="",
-                        tmp="/tmp")
+    model = SentenceTransformer("all-MiniLM-L6-v2")
 
     # input sheets filepaths can be empty.
     input_sheets_svs = []
@@ -101,12 +97,11 @@ class TestEndToEnd(unittest.TestCase):
     input_dir = Path(__file__).parent / "testdata/input"
     input_alternatives_filepattern = os.path.join(input_dir,
                                                   "*_alternatives.csv")
-    input_autogen_filepattern = os.path.join(input_dir, 'unknown_*.csv')
 
     with tempfile.TemporaryDirectory() as tmp_dir, self.assertRaises(KeyError):
       tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
-      be.build(ctx, input_sheets_svs, tmp_local_merged_filepath, "",
-               input_autogen_filepattern, input_alternatives_filepattern)
+      be.build(model, None, input_sheets_svs, tmp_local_merged_filepath, "",
+               input_alternatives_filepattern)
 
   def testSuccess(self):
     self.maxDiff = None
@@ -116,17 +111,13 @@ class TestEndToEnd(unittest.TestCase):
 
     # Given that the get_sheets_data() function is mocked, the Context
     # object does not need a valid `gs` and `bucket` field.
-    ctx = utils.Context(model=SentenceTransformer("all-MiniLM-L6-v2"),
-                        model_endpoint=None,
-                        bucket="",
-                        tmp="/tmp")
+    model = SentenceTransformer("all-MiniLM-L6-v2")
 
     # Filepaths all correspond to the testdata folder.
     input_dir = Path(__file__).parent / "testdata/input"
     expected_dir = Path(__file__).parent / "testdata/expected"
     input_alternatives_filepattern = os.path.join(input_dir,
                                                   "*_alternatives.csv")
-    input_autogen_filepattern = os.path.join(input_dir, "autogen_*.csv")
     input_sheets_csv_dirs = [os.path.join(input_dir, "curated")]
     expected_local_merged_filepath = os.path.join(expected_dir,
                                                   "merged_data.csv")
@@ -138,9 +129,8 @@ class TestEndToEnd(unittest.TestCase):
       tmp_dcid_sentence_csv = os.path.join(tmp_dir,
                                            "final_dcid_sentences_csv.csv")
 
-      embeddings_df = be.build(ctx, input_sheets_csv_dirs,
+      embeddings_df = be.build(model, None, input_sheets_csv_dirs,
                                tmp_local_merged_filepath, "",
-                               input_autogen_filepattern,
                                input_alternatives_filepattern)
 
       # Write dcids, sentences to temp directory.

@@ -13,15 +13,17 @@
 # limitations under the License.
 """Common Utility functions for Embeddings."""
 
-from dataclasses import dataclass
 import itertools
 import logging
-from typing import Any, Dict, List, Tuple
+from typing import Dict, List, Tuple
 
 from google.cloud import aiplatform
 import pandas as pd
 
 from tools.nl.embeddings.file_util import create_file_handler
+
+from tools.nl.embeddings.file_util import create_file_handler
+from sentence_transformers import SentenceTransformer
 
 # Col names in the input files/sheets.
 DCID_COL = 'dcid'
@@ -37,18 +39,6 @@ COL_ALTERNATIVES = 'sentence'
 _CHUNK_SIZE = 100
 
 _MODEL_ENDPOINT_RETRIES = 3
-
-
-@dataclass
-class Context:
-  # Model
-  model: Any
-  # Vertex AI model endpoint url
-  model_endpoint: aiplatform.Endpoint
-  # GCS storage bucket
-  bucket: Any
-  # Temp dir
-  tmp: str = "/tmp"
 
 
 def chunk_list(data, chunk_size):
@@ -146,23 +136,26 @@ def dedup_texts(df: pd.DataFrame) -> Tuple[Dict[str, str], List[List[str]]]:
   return (text2sv_dict, dup_sv_rows)
 
 
-def build_embeddings(ctx, text2sv: Dict[str, str]) -> pd.DataFrame:
+def build_embeddings(
+    text2sv: Dict[str, str],
+    model: SentenceTransformer = None,
+    model_endpoint: aiplatform.Endpoint = None) -> pd.DataFrame:
   """Builds the embeddings dataframe.
 
   The output dataframe contains the embeddings columns (typically 384) + dcid + sentence.
   """
   texts = sorted(list(text2sv.keys()))
 
-  if ctx.model:
-    embeddings = ctx.model.encode(texts, show_progress_bar=True)
+  if model:
+    embeddings = model.encode(texts, show_progress_bar=True)
   else:
     embeddings = []
     for i, chuck in enumerate(chunk_list(texts, _CHUNK_SIZE)):
       logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE - 1)
       for i in range(_MODEL_ENDPOINT_RETRIES):
         try:
-          resp = ctx.model_endpoint.predict(instances=chuck,
-                                            timeout=600).predictions
+          resp = model_endpoint.predict(instances=chuck,
+                                        timeout=600).predictions
           embeddings.extend(resp)
           break
         except Exception as e:

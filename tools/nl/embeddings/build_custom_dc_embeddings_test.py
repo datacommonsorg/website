@@ -46,10 +46,7 @@ class TestEndToEnd(unittest.TestCase):
   def test_build_embeddings_dataframe(self):
     self.maxDiff = None
 
-    ctx = utils.Context(model=SentenceTransformer(MODEL_NAME),
-                        model_endpoint=None,
-                        bucket=None,
-                        tmp="/tmp")
+    model = SentenceTransformer(MODEL_NAME)
 
     input_dcids_sentences_csv_path = os.path.join(INPUT_DIR,
                                                   "dcids_sentences.csv")
@@ -61,7 +58,7 @@ class TestEndToEnd(unittest.TestCase):
           temp_dir, "final_dcids_sentences.csv")
 
       embeddings_df = builder._build_embeddings_dataframe(
-          ctx, create_file_handler(input_dcids_sentences_csv_path))
+          model, create_file_handler(input_dcids_sentences_csv_path))
 
       embeddings_df[['dcid',
                      'sentence']].to_csv(actual_dcids_sentences_csv_path,
@@ -71,16 +68,13 @@ class TestEndToEnd(unittest.TestCase):
                      expected_dcids_sentences_csv_path)
 
   def test_build_embeddings_dataframe_and_validate(self):
-    ctx = utils.Context(model=SentenceTransformer(MODEL_NAME),
-                        model_endpoint=None,
-                        bucket=None,
-                        tmp="/tmp")
+    model = SentenceTransformer(MODEL_NAME)
 
     input_dcids_sentences_csv_path = os.path.join(INPUT_DIR,
                                                   "dcids_sentences.csv")
 
     embeddings_df = builder._build_embeddings_dataframe(
-        ctx, create_file_handler(input_dcids_sentences_csv_path))
+        model, create_file_handler(input_dcids_sentences_csv_path))
 
     # Test success == no failures during validation
     utils.validate_embeddings(embeddings_df, input_dcids_sentences_csv_path)

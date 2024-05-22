@@ -28,6 +28,7 @@ from nl_server.registry import Registry
 from tools.nl.embeddings import utils
 from tools.nl.embeddings.file_util import create_file_handler
 from tools.nl.embeddings.file_util import FileHandler
+from sentence_transformers import SentenceTransformer
 
 
 class Mode:
@@ -116,14 +117,15 @@ def build(r: Registry, sv_sentences_csv_path: str, output_dir: str):
 
 
 def _build_embeddings_dataframe(
-    ctx: utils.Context, sv_sentences_csv_handler: FileHandler) -> pd.DataFrame:
+    model: SentenceTransformer,
+    sv_sentences_csv_handler: FileHandler) -> pd.DataFrame:
   sv_sentences_df = pd.read_csv(sv_sentences_csv_handler.read_string_io())
 
   # Dedupe texts
   (text2sv_dict, _) = utils.dedup_texts(sv_sentences_df)
 
   print("Building custom DC embeddings")
-  return utils.build_embeddings(ctx, text2sv_dict)
+  return utils.build_embeddings(text2sv_dict, model=model)
 
 
 def generate_embeddings_yaml(model_name: str, model_config: config.ModelConfig,

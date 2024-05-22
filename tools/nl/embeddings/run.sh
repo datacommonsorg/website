@@ -34,7 +34,7 @@ while getopts beflc OPTION; do
         FINETUNED_MODEL=""
         ;;
     e)
-        MODEL_ENDPOINT_ID="$3"
+        MODEL_ENDPOINT_ID="$2"
         echo -e "### Using Vertex AI model endpoint $MODEL_ENDPOINT_ID"
         ;;
     f)
@@ -101,10 +101,10 @@ pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
 pip3 install -r tools/nl/embeddings/requirements.txt
 
 if [[ "$MODEL_ENDPOINT_ID" != "" ]];then
-  python3 -m tools.nl.embeddings.build_embeddings --embeddings_size=$2 \
+  python3 -m tools.nl.embeddings.build_embeddings \
+    --embeddings_size=medium \
     --vertex_ai_prediction_endpoint_id=$MODEL_ENDPOINT_ID \
-    --curated_input_dirs="data/curated_input/main" \
-    --autogen_input_basedir="" \
+    --curated_input_dirs=$PWD/tools/nl/embeddings/data/curated_input/main \
     --alternatives_filepattern=""
 
 elif [[ "$CURATED_INPUT_DIRS" != "" ]]; then
@@ -116,3 +116,5 @@ elif [[ "$FINETUNED_MODEL" != "" ]]; then
 else
   python3 -m tools.nl.embeddings.build_embeddings --embeddings_size=$2
 fi
+
+cd tools/nl/embeddings
