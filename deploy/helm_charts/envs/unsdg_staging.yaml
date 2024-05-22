@@ -46,6 +46,7 @@ nl:
       - sdg_ft
       - undata_ft
       - undata_ilo_ft
+      - undata_dev_ft
 
 serviceGroups:
   recon: null

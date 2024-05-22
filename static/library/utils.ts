@@ -66,7 +66,7 @@ export function convertBooleanAttribute(attributeValue: string): boolean {
 export function createWebComponentElement(
   tile: (props: any) => JSX.Element,
   tileProps: any
-): HTMLElement {
+): HTMLDivElement {
   const container = document.createElement("div");
 
   // Add stylesheet for material icons to the shadow DOM
