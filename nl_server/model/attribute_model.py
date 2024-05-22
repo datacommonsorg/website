@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,14 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Managing the model for NL detection."""
+"""Model to detect query attributes."""
 
 from typing import List
 
 import en_core_web_sm
 
 
-class NLAttributeModel:
+class AttributeModel:
 
   def __init__(self) -> None:
     self.spacy_model_ = en_core_web_sm.load()

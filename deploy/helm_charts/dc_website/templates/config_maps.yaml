@@ -80,8 +80,7 @@ metadata:
   namespace: {{ .Values.namespace.name }}
 data:
   embeddings.yaml: {{ required "NL embeddings file is required" .Values.nl.embeddings | quote }}
-  models.yaml: {{ required "NL models file is required" .Values.nl.models | quote }}
-  embeddings_spec.json: {{ .Values.nl.embeddingsSpec | toJson | quote }}
+  env.yaml: {{ .Values.nl.env | quote }}
 {{- end }}
 
 {{- if .Values.website.redis.enabled }}

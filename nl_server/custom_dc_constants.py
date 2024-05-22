@@ -15,8 +15,8 @@
 TODO: should be moved to be part of deployment"""
 
 # TODO: move this to be part of custom dc deployment
-CUSTOM_DC_EMBEDDINGS_SPEC = {
-    'defaultIndex': 'medium_ft',
-    'enabledIndexes': ['medium_ft'],
-    'enableReranking': False
+CUSTOM_DC_ENV = {
+    'default_indexes': ['medium_ft'],
+    'enabled_indexes': ['medium_ft'],
+    'enable_reranking': False
 }

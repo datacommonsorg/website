@@ -20,8 +20,8 @@ import unittest
 from parameterized import parameterized
 import yaml
 
-from nl_server import embeddings_map as emb_map
 from nl_server.config import parse
+from nl_server.registry import Registry
 from nl_server.search import search_vars
 from shared.lib.detected_variables import VarCandidates
 
@@ -34,15 +34,15 @@ def _get_embeddings_spec():
                                       'deploy/helm_charts/envs/autopush.yaml')
   with open(autopush_values_path) as f:
     autopush_values = yaml.full_load(f)
-    return autopush_values['nl']['embeddingsSpec']
+    return autopush_values['nl']['env']
 
 
 def _get_embeddings_info(embeddings_spec):
   embeddings_config_path = os.path.join(_root_dir, 'deploy/nl/embeddings.yaml')
   with open(embeddings_config_path) as f:
-    embeddings_map = yaml.full_load(f)
-    return parse(embeddings_map, embeddings_spec['vertexAIModels'],
-                 embeddings_spec['enableReranking'])
+    catalog = yaml.full_load(f)
+    return parse(catalog, embeddings_spec['vertex_ai_models'],
+                 embeddings_spec['enable_reranking'])
 
 
 def _get_contents(
@@ -56,8 +56,8 @@ class TestEmbeddings(unittest.TestCase):
   def setUpClass(cls) -> None:
     embeddings_spec = _get_embeddings_spec()
     embeddings_info = _get_embeddings_info(embeddings_spec)
-    cls.nl_embeddings = emb_map.EmbeddingsMap(embeddings_info).get_index(
-        embeddings_spec['defaultIndex'])
+    cls.registry = Registry(embeddings_info).get_index(
+        embeddings_spec['default_indexes'][0])
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
@@ -94,7 +94,7 @@ class TestEmbeddings(unittest.TestCase):
       ],
   ])
   def test_sv_detection(self, query_str, skip_topics, expected_list):
-    got = search_vars([self.nl_embeddings], [query_str],
+    got = search_vars([self.registry], [query_str],
                       skip_topics=skip_topics)[query_str]
 
     # Check that all expected fields are present.
@@ -116,7 +116,7 @@ class TestEmbeddings(unittest.TestCase):
   # For these queries, the match score should be low (< 0.45).
   @parameterized.expand(["random random", "who where why", "__124__abc"])
   def test_low_score_matches(self, query_str):
-    got = search_vars([self.nl_embeddings], [query_str])[query_str]
+    got = search_vars([self.registry], [query_str])[query_str]
 
     # Check that all expected fields are present.
     svs, scores, sentences = _get_contents(got)

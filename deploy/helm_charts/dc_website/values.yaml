@@ -133,15 +133,13 @@ serviceGroups:
 nl:
   enabled: false
   embeddings:
-  models:
   memory: "2G"
   workers: 1
-  embeddingsSpec:
-    defaultIndex: ""
-    enabledIndexes: []
-    vertexAIModels:
-    enableReranking: false
-
+  env:
+    default_indexes: []
+    enabled_indexes: []
+    vertex_ai_models: {}
+    enable_reranking: false
 
 ###############################################################################
 # Config for Stat Var Groups which is shared between Website and Mixer
