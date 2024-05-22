@@ -48,8 +48,12 @@ class DCNames(str, Enum):
   MAIN_DC = 'main'
   SDG_DC = 'sdg'
   SDG_MINI_DC = 'sdgmini'
+  # Production UN Data index. Contains SDG and WHO data
   UNDATA_DC = 'undata'
+  # Dev UN Data index. Contains SDG, WHO, and ILO data
   UNDATA_DEV_DC = 'undata_dev'
+  # Dev UN Data index. Contains ILO data
+  # TODO(dwnoble): Remove after ILO launch
   UNDATA_ILO_DC = 'undata_ilo'
   BIO_DC = 'bio'
   CUSTOM_DC = 'custom'
