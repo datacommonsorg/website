@@ -16,15 +16,16 @@
 from dataclasses import dataclass
 import itertools
 import logging
-import os
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Dict, List, Tuple
 
-from file_util import create_file_handler
 from google.cloud import aiplatform
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import yaml
+
+from shared.lib import gcs
+from tools.nl.embeddings.file_util import create_file_handler
 
 # Col names in the input files/sheets.
 DCID_COL = 'dcid'
@@ -39,22 +40,13 @@ DEFAULT_MODELS_BUCKET = 'datcom-nl-models'
 # Col names in the concatenated dataframe.
 COL_ALTERNATIVES = 'sentence'
 
-_EMBEDDINGS_YAML_PATH = "../../../deploy/nl/embeddings.yaml"
+_EMBEDDINGS_YAML_PATH = (Path(__file__).parent /
+                         "../../../deploy/nl/embeddings.yaml")
 _DEFAULT_EMBEDDINGS_INDEX_TYPE = "medium_ft"
 
 _CHUNK_SIZE = 100
 
 _MODEL_ENDPOINT_RETRIES = 3
-
-_GCS_PATH_PREFIX = "gs://"
-
-
-def _is_gcs_path(path: str) -> bool:
-  return path.strip().startswith(_GCS_PATH_PREFIX)
-
-
-def _get_gcs_parts(gcs_path: str) -> Tuple[str, str]:
-  return gcs_path[len(_GCS_PATH_PREFIX):].split('/', 1)
 
 
 @dataclass
@@ -70,18 +62,6 @@ class EmbeddingConfig:
   # the index info as it would come from embeddings.yaml
   index_config: Dict[str, str]
   model_config: ModelConfig
-
-
-@dataclass
-class Context:
-  # Model
-  model: Any
-  # Vertex AI model endpoint url
-  model_endpoint: aiplatform.Endpoint
-  # GCS storage bucket
-  bucket: Any
-  # Temp dir
-  tmp: str = "/tmp"
 
 
 def chunk_list(data, chunk_size):
@@ -179,57 +159,26 @@ def dedup_texts(df: pd.DataFrame) -> Tuple[Dict[str, str], List[List[str]]]:
   return (text2sv_dict, dup_sv_rows)
 
 
-def _download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
-  # TODO: Move download_folder from nl_server.gcs to shared.lib.gcs
-  # and then use that function instead of this one.
-  """Downloads a Sentence Tranformer model (or finetuned version) from GCS.
-
-  Args:
-    ctx: Context which has the GCS bucket information.
-    model_folder_name: the GCS bucket name for the model.
-
-  Returns the path to the local directory where the model was downloaded to.
-  The downloaded model can then be loaded as:
-
-  ```
-      downloaded_model_path = _download_model_from_gcs(ctx, gcs_model_folder_name)
-      model = SentenceTransformer(downloaded_model_path)
-  ```
-  """
-  local_dir = os.path.join(ctx.tmp, DEFAULT_MODELS_BUCKET)
-  # Get list of files
-  blobs = ctx.bucket.list_blobs(prefix=model_folder_name)
-  for blob in blobs:
-    file_split = blob.name.split("/")
-    directory = local_dir
-    for p in file_split[0:-1]:
-      directory = os.path.join(directory, p)
-    Path(directory).mkdir(parents=True, exist_ok=True)
-
-    if blob.name.endswith("/"):
-      continue
-    blob.download_to_filename(os.path.join(directory, file_split[-1]))
-
-  return os.path.join(local_dir, model_folder_name)
-
-
-def build_embeddings(ctx, text2sv: Dict[str, str]) -> pd.DataFrame:
+def build_embeddings(
+    text2sv: Dict[str, str],
+    model: SentenceTransformer = None,
+    model_endpoint: aiplatform.Endpoint = None) -> pd.DataFrame:
   """Builds the embeddings dataframe.
 
   The output dataframe contains the embeddings columns (typically 384) + dcid + sentence.
   """
   texts = sorted(list(text2sv.keys()))
 
-  if ctx.model:
-    embeddings = ctx.model.encode(texts, show_progress_bar=True)
+  if model:
+    embeddings = model.encode(texts, show_progress_bar=True)
   else:
     embeddings = []
     for i, chuck in enumerate(chunk_list(texts, _CHUNK_SIZE)):
       logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE - 1)
       for i in range(_MODEL_ENDPOINT_RETRIES):
         try:
-          resp = ctx.model_endpoint.predict(instances=chuck,
-                                            timeout=600).predictions
+          resp = model_endpoint.predict(instances=chuck,
+                                        timeout=600).predictions
           embeddings.extend(resp)
           break
         except Exception as e:
@@ -240,36 +189,9 @@ def build_embeddings(ctx, text2sv: Dict[str, str]) -> pd.DataFrame:
   return embeddings
 
 
-def get_or_download_model_from_gcs(ctx: Context, model_version: str) -> str:
-  """Returns the local model path, downloading it if needed.
-
-  If the model is already downloaded, it returns the model path.
-  Otherwise, it downloads the model to the local file system and returns that path.
-  """
-  if _is_gcs_path(model_version):
-    _, folder_name = _get_gcs_parts(model_version)
-  else:
-    folder_name = model_version
-
-  tuned_model_path: str = os.path.join(ctx.tmp, DEFAULT_MODELS_BUCKET,
-                                       folder_name)
-
-  # Check if this model is already downloaded locally.
-  if os.path.exists(tuned_model_path):
-    print(f"Model already downloaded at path: {tuned_model_path}")
-  else:
-    print(
-        f"Model not previously downloaded locally. Downloading from GCS: {folder_name}"
-    )
-    tuned_model_path = _download_model_from_gcs(ctx, folder_name)
-    print(f"Model downloaded locally to: {tuned_model_path}")
-
-  return tuned_model_path
-
-
-def get_ft_model_from_gcs(ctx: Context,
-                          model_version: str) -> SentenceTransformer:
-  model_path = get_or_download_model_from_gcs(ctx, model_version)
+def get_ft_model_from_gcs(model_version: str) -> SentenceTransformer:
+  model_path = gcs.maybe_download(
+      gcs.make_path(DEFAULT_MODELS_BUCKET, model_version))
   return SentenceTransformer(model_path)
 
 

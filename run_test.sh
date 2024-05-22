@@ -106,10 +106,8 @@ function run_py_test {
 
   # Tests within tools/nl/embeddings
   echo "Running tests within tools/nl/embeddings:"
-  cd tools/nl/embeddings
-  pip3 install -r requirements.txt
-  python3 -m pytest ./ -s
-  cd ../../..
+  pip3 install -r tools/nl/embeddings/requirements.txt -q
+  python3 -m pytest tools/nl/embeddings/ -s
 
   pip3 install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
