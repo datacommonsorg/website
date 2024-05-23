@@ -28,7 +28,7 @@ import {
 } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { getHash } from "../../utils/app/visualization_utils";
-import { TileSources, formatString } from "../../utils/tile_utils";
+import { formatString, TileSources } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";

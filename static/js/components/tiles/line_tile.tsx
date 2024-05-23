@@ -18,7 +18,7 @@
  * Component for rendering a line type tile.
  */
 
-import { ISO_CODE_ATTRIBUTE, isDateInRange } from "@datacommonsorg/client";
+import { isDateInRange, ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -44,10 +44,10 @@ import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
-  ReplacementStrings,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
+  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";

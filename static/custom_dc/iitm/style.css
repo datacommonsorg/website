@@ -9,7 +9,7 @@
   --iitm-section-text: #0d0952;
   --dc-primary: #80296e;
   --link-color: #80296e;
-  --footer-bg: #0b1434;
+  --footer-background: #0b1434;
 }
 
 header.masthead {
@@ -59,7 +59,7 @@ header.masthead p {
 
   .nav-item .nav-link,
   #main-nav .navbar-brand .sep {
-    color: rgba(255,255,255,.5)
+    color: rgba(255, 255, 255, 0.5);
   }
 }
 

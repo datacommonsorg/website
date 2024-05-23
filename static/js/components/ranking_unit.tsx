@@ -20,8 +20,8 @@
 
 import _ from "lodash";
 import React, { RefObject, useContext } from "react";
-
 import { Spinner } from "reactstrap";
+
 import { RankingUnitUrlFuncContext } from "../../js/shared/context";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
