@@ -33,9 +33,20 @@ from shared.lib.detected_variables import VarCandidates
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
+#
+# A global bool to ensure we keep failing healthz till we
+# load the default embeddings fully on the server.
+#
+default_embeddings_loaded = False
+
 
 @bp.route('/healthz')
 def healthz():
+  global default_embeddings_loaded
+
+  if default_embeddings_loaded:
+    return 'OK', 200
+
   default_index_type = current_app.config[
       config.EMBEDDINGS_SPEC_KEY].default_index
   if not default_index_type:
@@ -48,6 +59,7 @@ def healthz():
     result: VarCandidates = search.search_vars([nl_embeddings],
                                                [query]).get(query)
     if result and result.svs:
+      default_embeddings_loaded = True
       return 'OK', 200
     else:
       logging.warning(f'Health Check Failed: query "{query}" failed!')
