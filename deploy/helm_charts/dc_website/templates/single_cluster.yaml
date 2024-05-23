@@ -74,6 +74,7 @@ metadata:
     {{- end }}
     cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig-nodejs"}}'
 spec:
+  type: NodePort
   ports:
     - port: 8080
       targetPort: 8080
@@ -134,7 +135,7 @@ metadata:
     {{- if .Values.ingress.internal }}
     ingress.gcp.kubernetes.io/pre-shared-cert: "website-ilb"
     kubernetes.io/ingress.regional-static-ip-name: "website-ilb-ip"
-    kubernetes.io/ingress.class: "gce-internal"
+    kubernetes.io/spec.ingressClassName: "gce-internal"
     kubernetes.io/ingress.allow-http: "false"
     {{- else }}
     kubernetes.io/ingress.global-static-ip-name: {{ .Values.ingress.ipName }}

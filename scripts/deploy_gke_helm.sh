@@ -138,7 +138,7 @@ function deploy_website() {
   helm upgrade --install dc-website deploy/helm_charts/dc_website \
   -f "deploy/helm_charts/envs/$ENV.yaml" \
   --atomic \
-  --timeout 10m \
+  --timeout 15m \
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \
   --set nodejs.apiRoot="$WEBSITE_SERVICE_URL" \
