@@ -15,7 +15,8 @@
 
 # TODO: rename to variable_utils.py
 
-from typing import Dict, List
+import re
+from typing import List
 
 from server.lib.fetch import property_values
 from server.lib.nl.common import constants
@@ -296,3 +297,15 @@ def is_llm_detection(d: Detection) -> bool:
   return d.detector in [
       ActualDetectorType.LLM, ActualDetectorType.HybridLLMFull
   ]
+
+
+# Find "needle" at word boundary in "haystack".
+def find_word_boundary(haystack: str, needle: str):
+  # Create a regex pattern with word boundaries
+  pattern = r'\b' + re.escape(needle) + r'\b'
+  # Search for the pattern in the string
+  match = re.search(pattern, haystack)
+  # Return the start index if a match is found, otherwise -1
+  if match:
+    return match.start()
+  return -1

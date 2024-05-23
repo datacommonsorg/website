@@ -44,6 +44,7 @@ nl:
   enabled: true
   memory: "10G"
   workers: 3
+<<<<<<< HEAD
   env:
     default_indexes:
       - medium_ft
@@ -51,6 +52,11 @@ nl:
       - medium_ft
       - sdg_ft
       - undata_ft
+=======
+  embeddingsSpec:
+    defaultIndex: "medium_ft"
+    enabledIndexes: ["medium_ft", "sdg_ft", "undata_ft"]
+>>>>>>> 1313ca484e024a4f6e20c6f4dd65c844e9a79d18
 
 nodejs:
   enabled: true

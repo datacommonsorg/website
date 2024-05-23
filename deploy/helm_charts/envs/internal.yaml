@@ -36,11 +36,17 @@ ingress:
   certName: website-ssl-certificate
 nl:
   enabled: true
+<<<<<<< HEAD
   env:
     default_indexes:
       - medium_ft
     enabled_indexes:
       - medium_ft
+=======
+  embeddingsSpec:
+    defaultIndex: "medium_ft"
+    enabledIndexes: ["medium_ft", "sdg_ft", "undata_ft"]
+>>>>>>> 1313ca484e024a4f6e20c6f4dd65c844e9a79d18
 
 serviceGroups:
   recon: null
