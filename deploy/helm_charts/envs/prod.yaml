@@ -43,8 +43,7 @@ nl:
   enabled: true
   embeddingsSpec:
     defaultIndex: "base_uae_mem"
-    enabledIndexes:
-      ["base_uae_mem", "bio_ft", "medium_ft", "sdg_ft", "undata_ft"]
+    enabledIndexes: ["base_uae_mem", "medium_ft", "sdg_ft", "undata_ft"]
     vertexAIModels:
       uae-large-v1-model:
         project_id: datcom-nl
