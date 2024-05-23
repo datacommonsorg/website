@@ -43,12 +43,18 @@ nl:
   enabled: true
   env:
     default_indexes:
-      - medium_ft
+      - base_uae_mem
     enabled_indexes:
-      - bio_ft
+      - base_uae_mem
       - medium_ft
       - sdg_ft
       - undata_ft
+    vertex_ai_models:
+      uae-large-v1-model:
+        project_id: datcom-nl
+        location: us-central1
+        prediction_endpoint_id: "430892009855647744"
+    enable_reranking: false
 
 serviceGroups:
   recon: null

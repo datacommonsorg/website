@@ -37,11 +37,15 @@ nl:
       - base_uae_mem
     enabled_indexes:
       - base_uae_mem
-      - bio_ft
       - medium_ft
       - sdg_ft
       - undata_ft
     vertex_ai_models:
+      uae-large-v1-model:
+        project_id: datcom-nl
+        location: us-central1
+        prediction_endpoint_id: "8435477397553283072"
+    enable_reranking: false
 
 serviceGroups:
   recon: null
