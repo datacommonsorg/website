@@ -147,6 +147,37 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "PrecipitationRate"
+                    ],
+                    "title": "Precipitation Rate in Countries of Africa (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "PrecipitationRate"
+                    ],
+                    "title": "Precipitation Rate in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Precipitation Rate in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Max_Rainfall"
                     ],
                     "title": "Max Rainfall in Countries of Africa (${date})",
@@ -211,9 +242,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Min_Rainfall"
+                      "sdg/ER_H2O_STRESS"
                     ],
-                    "title": "Min Rainfall in Countries of Africa (${date})",
+                    "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -226,16 +257,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Min_Rainfall"
+                      "sdg/ER_H2O_STRESS"
                     ],
-                    "title": "Min Rainfall in Countries of Africa (${date})",
+                    "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "description": "Min near-surface rainfall.",
-            "title": "Min Rainfall in Countries of Africa"
+            "footnote": "Includes data from the following sources: food and agriculture organisation of united nations (FAO).",
+            "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources in Countries of Africa"
           },
           {
             "columns": [
@@ -243,9 +274,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "PrecipitationRate"
+                      "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322"
                     ],
-                    "title": "Precipitation Rate in Countries of Africa (${date})",
+                    "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources [Agriculture] in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -258,15 +289,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "PrecipitationRate"
+                      "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322"
                     ],
-                    "title": "Precipitation Rate in Countries of Africa (${date})",
+                    "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources [Agriculture] in Countries of Africa (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Precipitation Rate in Countries of Africa"
+            "footnote": "Includes data from the following sources: food and agriculture organisation of united nations (FAO).",
+            "title": "Level of Water Stress: Freshwater Withdrawal as a Proportion of Available Freshwater Resources [Agriculture] in Countries of Africa"
           }
         ],
         "statVarSpec": {
@@ -286,13 +318,17 @@
             "name": "Mean Rainfall",
             "statVar": "Mean_Rainfall"
           },
-          "Min_Rainfall": {
-            "name": "Min Rainfall",
-            "statVar": "Min_Rainfall"
-          },
           "PrecipitationRate": {
             "name": "Precipitation Rate",
             "statVar": "PrecipitationRate"
+          },
+          "sdg/ER_H2O_STRESS": {
+            "name": "Level of water stress: freshwater withdrawal as a proportion of available freshwater resources",
+            "statVar": "sdg/ER_H2O_STRESS"
+          },
+          "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322": {
+            "name": "Level of water stress: freshwater withdrawal as a proportion of available freshwater resources [Agriculture]",
+            "statVar": "sdg/ER_H2O_STRESS.ACTIVITY--ISIC4_A01_A0210_A0322"
           }
         }
       }

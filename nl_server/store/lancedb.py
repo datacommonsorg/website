@@ -18,12 +18,11 @@ from typing import List
 
 import lancedb
 
-from nl_server import gcs
 from nl_server.config import LanceDBIndexConfig
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import EmbeddingsStore
-from shared.lib.gcs import is_gcs_path
+from shared.lib import gcs
 
 TABLE_NAME = 'datacommons'
 
@@ -38,13 +37,14 @@ class LanceDBStore(EmbeddingsStore):
   """Manages the embeddings."""
 
   def __init__(self, idx_info: LanceDBIndexConfig) -> None:
-    super().__init__(needs_tensor=False)
+    super().__init__(healthcheck_query=idx_info.healthcheck_query,
+                     needs_tensor=False)
 
     if idx_info.embeddings_path.startswith('/'):
       lance_db_dir = idx_info.embeddings_path
-    elif is_gcs_path(idx_info.embeddings_path):
+    elif gcs.is_gcs_path(idx_info.embeddings_path):
       logging.info('Downloading embeddings from GCS path: ')
-      lance_db_dir = gcs.download_folder(idx_info.embeddings_path)
+      lance_db_dir = gcs.maybe_download(idx_info.embeddings_path)
       if not lance_db_dir:
         raise AssertionError(
             f'Embeddings not downloaded from GCS. Please check the path: {idx_info.embeddings_path}'

@@ -132,9 +132,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Percent_Person_WithPhysicalHealthNotGood"
+                      "Percent_Person_WithArthritis"
                     ],
-                    "title": "Physical Health Issues in California",
+                    "title": "Arthritis in California",
                     "type": "LINE"
                   }
                 ]
@@ -142,17 +142,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Physical Health Issues in California",
+                    "description": "Arthritis in California",
                     "statVarKey": [
-                      "Percent_Person_WithPhysicalHealthNotGood"
+                      "Percent_Person_WithArthritis"
                     ],
-                    "title": "Physical Health Issues in California",
+                    "title": "Arthritis in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Physical Health Issues"
+            "title": "Arthritis"
           },
           {
             "columns": [
@@ -160,9 +160,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Percent_Person_WithPhysicalHealthNotGood"
+                      "Percent_Person_WithArthritis"
                     ],
-                    "title": "Physical Health Issues in Counties of California (${date})",
+                    "title": "Arthritis in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -175,26 +175,1057 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Percent_Person_WithPhysicalHealthNotGood"
+                      "Percent_Person_WithArthritis"
                     ],
-                    "title": "Physical Health Issues in Counties of California (${date})",
+                    "title": "Arthritis in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Physical Health Issues in Counties of California"
+            "title": "Arthritis in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Children That Have Asthma in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_WithArthritis_multiple_place_bar_block",
+                      "Percent_Person_WithAsthma_multiple_place_bar_block",
+                      "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
+                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
+                      "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
+                      "Percent_Person_WithDiabetes_multiple_place_bar_block",
+                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
+                      "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
+                      "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_WithStroke_multiple_place_bar_block"
+                    ],
+                    "title": "Prevalence of Health Conditions in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Health Conditions"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Asthma in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female",
+                      "Count_Person_WithDisability_Male"
+                    ],
+                    "title": "Disabled Population by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Disabled Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female"
+                    ],
+                    "title": "Women With Disabilities in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female"
+                    ],
+                    "title": "Women With Disabilities in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Disabilities in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Male"
+                    ],
+                    "title": "Men With Disabilities in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Male"
+                    ],
+                    "title": "Men With Disabilities in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men With Disabilities in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_WithDisability_OneRace_multiple_place_bar_block",
+                      "Count_Person_WithDisability_SomeOtherRaceAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_WithDisability_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                    ],
+                    "title": "Disabled Population by Race in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Disabled Population by Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "American Indian/Alaska Natives With Disabilities in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "American Indian/Alaska Natives With Disabilities in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "American Indian/Alaska Natives With Disabilities in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black/African Americans With Disabilities in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black/African Americans With Disabilities in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Black/African Americans With Disabilities in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_NoHealthInsurance",
+                      "Count_Person_Male_NoHealthInsurance"
+                    ],
+                    "title": "Uninsured by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Uninsured by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_NoHealthInsurance"
+                    ],
+                    "title": "Women With No Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_NoHealthInsurance"
+                    ],
+                    "title": "Women With No Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With No Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_NoHealthInsurance"
+                    ],
+                    "title": "Men With No Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_NoHealthInsurance"
+                    ],
+                    "title": "Men With No Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men With No Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance",
+                      "Count_Person_Male_WithHealthInsurance"
+                    ],
+                    "title": "With Health Insurance by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "With Health Insurance by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance"
+                    ],
+                    "title": "Women With Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance"
+                    ],
+                    "title": "Women With Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_WithHealthInsurance"
+                    ],
+                    "title": "Men With Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_WithHealthInsurance"
+                    ],
+                    "title": "Men With Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men With Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance"
+                    ],
+                    "title": "Population With Health Insurance in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population With Health Insurance in California",
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance"
+                    ],
+                    "title": "Population With Health Insurance in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population With Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance"
+                    ],
+                    "title": "Population With Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance"
+                    ],
+                    "title": "Population With Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population With Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance"
+                    ],
+                    "title": "Population Without Health Insurance in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Without Health Insurance in California",
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance"
+                    ],
+                    "title": "Population Without Health Insurance in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Without Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance"
+                    ],
+                    "title": "Population Without Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance"
+                    ],
+                    "title": "Population Without Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Without Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsurance",
+                      "Count_Person_WithPrivateHealthInsuranceOnly",
+                      "Count_Person_WithPublicHealthInsurance",
+                      "Count_Person_WithPublicHealthInsuranceOnly"
+                    ],
+                    "title": "Type of Health Insurance Coverage in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Type of Health Insurance Coverage"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsurance"
+                    ],
+                    "title": "People With Private Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsurance"
+                    ],
+                    "title": "People With Private Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People With Private Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsuranceOnly"
+                    ],
+                    "title": "People With Only Private Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsuranceOnly"
+                    ],
+                    "title": "People With Only Private Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People With Only Private Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Deaths in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Deaths in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Life Expectancy in California",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Life Expectancy"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female",
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Life Expectancy by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Life Expectancy by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_ReceivedAnnualCheckup"
+                    ],
+                    "title": "Percentage of Population That Has Received An Annual Checkup in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Percentage of Population That Has Received An Annual Checkup in California",
+                    "statVarKey": [
+                      "Percent_Person_ReceivedAnnualCheckup"
+                    ],
+                    "title": "Percentage of Population That Has Received An Annual Checkup in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Population That Has Received An Annual Checkup"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_ReceivedAnnualCheckup"
+                    ],
+                    "title": "Percentage of Population That Has Received An Annual Checkup in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_ReceivedAnnualCheckup"
+                    ],
+                    "title": "Percentage of Population That Has Received An Annual Checkup in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Population That Has Received An Annual Checkup in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_BingeDrinking",
+                      "Percent_Person_Obesity",
+                      "Percent_Person_PhysicalInactivity",
+                      "Percent_Person_SleepLessThan7Hours",
+                      "Percent_Person_Smoking"
+                    ],
+                    "title": "Health Behavior in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Health Behavior"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_BingeDrinking"
+                    ],
+                    "title": "Prevalence of Binge Drinking in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_BingeDrinking"
+                    ],
+                    "title": "Prevalence of Binge Drinking in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Binge Drinking in Counties of California"
           }
         ],
         "statVarSpec": {
+          "Count_Death": {
+            "name": "Deaths",
+            "statVar": "Count_Death"
+          },
+          "Count_Person_Female_NoHealthInsurance": {
+            "name": "Women With No Health Insurance",
+            "statVar": "Count_Person_Female_NoHealthInsurance"
+          },
+          "Count_Person_Female_WithHealthInsurance": {
+            "name": "Women With Health Insurance",
+            "statVar": "Count_Person_Female_WithHealthInsurance"
+          },
+          "Count_Person_Male_NoHealthInsurance": {
+            "name": "Men With No Health Insurance",
+            "statVar": "Count_Person_Male_NoHealthInsurance"
+          },
+          "Count_Person_Male_WithHealthInsurance": {
+            "name": "Men With Health Insurance",
+            "statVar": "Count_Person_Male_WithHealthInsurance"
+          },
+          "Count_Person_NoHealthInsurance": {
+            "name": "Population Without Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance"
+          },
+          "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone": {
+            "name": "American Indian/Alaska Natives With Disabilities",
+            "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "American Indian/Alaska Natives With Disabilities",
+            "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_WithDisability_BlackOrAfricanAmericanAlone": {
+            "name": "Black/African Americans With Disabilities",
+            "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Black/African Americans With Disabilities",
+            "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_WithDisability_Female": {
+            "name": "Women With Disabilities",
+            "statVar": "Count_Person_WithDisability_Female"
+          },
+          "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Hispanic/Latinos With Disabilities",
+            "statVar": "Count_Person_WithDisability_HispanicOrLatino"
+          },
+          "Count_Person_WithDisability_Male": {
+            "name": "Men With Disabilities",
+            "statVar": "Count_Person_WithDisability_Male"
+          },
+          "Count_Person_WithDisability_OneRace_multiple_place_bar_block": {
+            "name": "Single-Race Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_OneRace"
+          },
+          "Count_Person_WithDisability_SomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Disabled Population of Some Other Race",
+            "statVar": "Count_Person_WithDisability_SomeOtherRaceAlone"
+          },
+          "Count_Person_WithDisability_TwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Disabled Population of Two or More Races",
+            "statVar": "Count_Person_WithDisability_TwoOrMoreRaces"
+          },
+          "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Non Hispanic or Latino White Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_WithDisability_WhiteAlone_multiple_place_bar_block": {
+            "name": "White Disabled Population",
+            "statVar": "Count_Person_WithDisability_WhiteAlone"
+          },
+          "Count_Person_WithHealthInsurance": {
+            "name": "Population With Health Insurance",
+            "statVar": "Count_Person_WithHealthInsurance"
+          },
+          "Count_Person_WithPrivateHealthInsurance": {
+            "name": "People With Private Health Insurance",
+            "statVar": "Count_Person_WithPrivateHealthInsurance"
+          },
+          "Count_Person_WithPrivateHealthInsuranceOnly": {
+            "name": "People With Only Private Health Insurance",
+            "statVar": "Count_Person_WithPrivateHealthInsuranceOnly"
+          },
+          "Count_Person_WithPublicHealthInsurance": {
+            "name": "People With Public Health Insurance",
+            "statVar": "Count_Person_WithPublicHealthInsurance"
+          },
+          "Count_Person_WithPublicHealthInsuranceOnly": {
+            "name": "People With Only Public Health Insurance",
+            "statVar": "Count_Person_WithPublicHealthInsuranceOnly"
+          },
+          "LifeExpectancy_Person": {
+            "name": "Life Expectancy",
+            "statVar": "LifeExpectancy_Person"
+          },
+          "LifeExpectancy_Person_Female": {
+            "name": "Female Life Expectancy",
+            "statVar": "LifeExpectancy_Person_Female"
+          },
+          "LifeExpectancy_Person_Male": {
+            "name": "Male Life Expectancy",
+            "statVar": "LifeExpectancy_Person_Male"
+          },
+          "Percent_Person_BingeDrinking": {
+            "name": "Prevalence of Binge Drinking",
+            "statVar": "Percent_Person_BingeDrinking",
+            "unit": "%"
+          },
+          "Percent_Person_Children_WithAsthma": {
+            "name": "Percent of Children That Have Asthma",
+            "statVar": "Percent_Person_Children_WithAsthma",
+            "unit": "%"
+          },
           "Percent_Person_Obesity": {
             "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
           },
-          "Percent_Person_WithPhysicalHealthNotGood": {
+          "Percent_Person_PhysicalInactivity": {
+            "name": "Prevalence of Physical Inactivity",
+            "statVar": "Percent_Person_PhysicalInactivity",
+            "unit": "%"
+          },
+          "Percent_Person_ReceivedAnnualCheckup": {
+            "name": "Percentage of Population That Has Received an Annual Checkup",
+            "statVar": "Percent_Person_ReceivedAnnualCheckup",
+            "unit": "%"
+          },
+          "Percent_Person_SleepLessThan7Hours": {
+            "name": "Percentage That Sleeps Less Than 7 Hours Per Night",
+            "statVar": "Percent_Person_SleepLessThan7Hours",
+            "unit": "%"
+          },
+          "Percent_Person_Smoking": {
+            "name": "Prevalence of Smoking",
+            "statVar": "Percent_Person_Smoking",
+            "unit": "%"
+          },
+          "Percent_Person_WithArthritis": {
+            "name": "Arthritis",
+            "statVar": "Percent_Person_WithArthritis",
+            "unit": "%"
+          },
+          "Percent_Person_WithArthritis_multiple_place_bar_block": {
+            "name": "Arthritis",
+            "statVar": "Percent_Person_WithArthritis",
+            "unit": "%"
+          },
+          "Percent_Person_WithAsthma": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_WithAsthma_multiple_place_bar_block": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block": {
+            "name": "Cancer (excluding skin cancer)",
+            "statVar": "Percent_Person_WithCancerExcludingSkinCancer",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block": {
+            "name": "Chronic Kidney Disease",
+            "statVar": "Percent_Person_WithChronicKidneyDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block": {
+            "name": "Chronic Obstructive Pulmonary Disease",
+            "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block": {
+            "name": "Coronary Heart Disease",
+            "statVar": "Percent_Person_WithCoronaryHeartDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithDiabetes_multiple_place_bar_block": {
+            "name": "Diabetes",
+            "statVar": "Percent_Person_WithDiabetes",
+            "unit": "%"
+          },
+          "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
+            "name": "High Blood Pressure",
+            "statVar": "Percent_Person_WithHighBloodPressure",
+            "unit": "%"
+          },
+          "Percent_Person_WithHighCholesterol_multiple_place_bar_block": {
+            "name": "High Cholesterol",
+            "statVar": "Percent_Person_WithHighCholesterol",
+            "unit": "%"
+          },
+          "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block": {
+            "name": "Mental Health Issues",
+            "statVar": "Percent_Person_WithMentalHealthNotGood",
+            "unit": "%"
+          },
+          "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block": {
             "name": "Physical Health Issues",
             "statVar": "Percent_Person_WithPhysicalHealthNotGood",
+            "unit": "%"
+          },
+          "Percent_Person_WithStroke_multiple_place_bar_block": {
+            "name": "Stroke",
+            "statVar": "Percent_Person_WithStroke",
             "unit": "%"
           },
           "dc/4lvmzr1h1ylk1": {
@@ -591,7 +1622,26 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_NoHealthInsurance": {
+        "gender": [
+          "Count_Person_Female_NoHealthInsurance",
+          "Count_Person_Male_NoHealthInsurance"
+        ]
+      },
+      "Count_Person_WithHealthInsurance": {
+        "gender": [
+          "Count_Person_Female_WithHealthInsurance",
+          "Count_Person_Male_WithHealthInsurance"
+        ]
+      },
+      "LifeExpectancy_Person": {
+        "gender": [
+          "LifeExpectancy_Person_Female",
+          "LifeExpectancy_Person_Male"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/HealthBehavior",

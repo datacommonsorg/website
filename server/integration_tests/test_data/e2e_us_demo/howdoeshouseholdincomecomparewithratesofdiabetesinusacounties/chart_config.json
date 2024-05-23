@@ -13,16 +13,16 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Income_Household_scatter",
+                      "Mean_Income_Household_scatter",
                       "Percent_Person_WithDiabetes_scatter"
                     ],
-                    "title": "Household Median Income (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "title": "Average Income for Households (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income vs. Diabetes"
+            "title": "Average Income for Households vs. Diabetes"
           },
           {
             "columns": [
@@ -30,9 +30,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household"
+                      "Mean_Income_Household"
                     ],
-                    "title": "Household Median Income in Counties of United States (${date})",
+                    "title": "Average Income for Households in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -45,15 +45,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Income_Household"
+                      "Mean_Income_Household"
                     ],
-                    "title": "Household Median Income in Counties of United States (${date})",
+                    "title": "Average Income for Households in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income in Counties of United States"
+            "title": "Average Income for Households in Counties of United States"
           },
           {
             "columns": [
@@ -88,14 +88,14 @@
           }
         ],
         "statVarSpec": {
-          "Median_Income_Household": {
-            "name": "Household Median Income",
-            "statVar": "Median_Income_Household"
+          "Mean_Income_Household": {
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
           },
-          "Median_Income_Household_scatter": {
-            "name": "Household Median Income",
+          "Mean_Income_Household_scatter": {
+            "name": "Average Income for Households",
             "noPerCapita": true,
-            "statVar": "Median_Income_Household"
+            "statVar": "Mean_Income_Household"
           },
           "Percent_Person_WithDiabetes": {
             "name": "Diabetes",
@@ -493,45 +493,17 @@
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/IndividualIncomeDistribution",
-        "name": "Individual Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/IndividualIncomeByIndustry",
-        "name": "Individual Income by Industry",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HouseholdIncomeDistribution",
-        "name": "Household Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childTopics": [],
     "exploreMore": {
-      "Median_Income_Household": {
-        "benefitsStatus": [
-          "Median_Income_Household_WithFoodStampsInThePast12Months",
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+      "Mean_Income_Household": {
+        "householdType": [
+          "Mean_Income_Household_FamilyHousehold",
+          "Mean_Income_Household_MarriedCoupleFamilyHousehold",
+          "Mean_Income_Household_NonfamilyHousehold"
         ]
       }
     },
     "mainTopics": [
-      {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      },
       {
         "dcid": "dc/topic/Diabetes",
         "name": "Diabetes",
@@ -542,13 +514,6 @@
     ],
     "parentPlaces": [],
     "parentTopics": [
-      {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
-        "types": [
-          "Topic"
-        ]
-      },
       {
         "dcid": "dc/topic/HealthConditions",
         "name": "Health Conditions",
@@ -658,48 +623,6 @@
       }
     ],
     "peerTopics": [
-      {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Poverty",
-        "name": "Poverty",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
-        "types": [
-          "Topic"
-        ]
-      },
       {
         "dcid": "dc/topic/Arthritis",
         "name": "Arthritis",

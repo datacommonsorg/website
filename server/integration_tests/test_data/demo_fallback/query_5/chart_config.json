@@ -66,6 +66,35 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+                    ],
+                    "title": "GDP (Real Value) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "GDP (Real Value) in United States",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+                    ],
+                    "title": "GDP (Real Value) in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "GDP (Real Value)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -107,6 +136,35 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/NY_GDP_PCAP"
+                    ],
+                    "title": "Annual Growth Rate of Real GDP Per Capita in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual Growth Rate of Real GDP Per Capita in United States",
+                    "statVarKey": [
+                      "sdg/NY_GDP_PCAP"
+                    ],
+                    "title": "Annual Growth Rate of Real GDP Per Capita in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations, department of economic and social affairs, statistics division (AMA).",
+            "title": "Annual Growth Rate of Real GDP Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
                     "title": "Growth Rate of GDP in United States",
@@ -135,9 +193,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+                      "sdg/EN_MAT_DOMCMPG"
                     ],
-                    "title": "GDP (Real Value) in United States",
+                    "title": "Domestic Material Consumption Per Unit of GDP in United States",
                     "type": "LINE"
                   }
                 ]
@@ -145,58 +203,18 @@
               {
                 "tiles": [
                   {
-                    "description": "GDP (Real Value) in United States",
+                    "description": "Domestic Material Consumption Per Unit of GDP in United States",
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+                      "sdg/EN_MAT_DOMCMPG"
                     ],
-                    "title": "GDP (Real Value) in United States",
+                    "title": "Domestic Material Consumption Per Unit of GDP in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "GDP (Real Value)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/USA"
-                    ],
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue_multiple_place_bar_block"
-                    ],
-                    "title": "GDP of the Finance and Insurance Industry and More in United States (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Related: GDP of the Finance and Insurance Industry and More"
+            "footnote": "Includes data from the following sources: WESR / global material flows database.",
+            "title": "Domestic Material Consumption Per Unit of GDP"
           },
           {
             "columns": [
@@ -215,6 +233,46 @@
             ],
             "denom": "Count_Person",
             "title": "Related: GDP (Real Value) and Amount of Economic Activity (Real Value): Gross Value Added"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue_multiple_place_bar_block"
+                    ],
+                    "title": "GDP of the Construction Industry and More in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Related: GDP of the Construction Industry and More"
           }
         ],
         "statVarSpec": {
@@ -309,6 +367,14 @@
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+          },
+          "sdg/EN_MAT_DOMCMPG": {
+            "name": "Domestic material consumption per unit of GDP",
+            "statVar": "sdg/EN_MAT_DOMCMPG"
+          },
+          "sdg/NY_GDP_PCAP": {
+            "name": "Annual growth rate of real GDP per capita",
+            "statVar": "sdg/NY_GDP_PCAP"
           }
         }
       }
@@ -388,6 +454,27 @@
           "Amount_EconomicActivity_GrossValueAdded_ISICOtherActivities_RealValue",
           "Amount_EconomicActivity_GrossValueAdded_ISICTransportStorageCommunications_RealValue",
           "Amount_EconomicActivity_GrossValueAdded_ISICWholesaleRetailTradeRestaurantsHotels_RealValue"
+        ]
+      },
+      "sdg/EN_MAT_DOMCMPG": {
+        "sdg_product": [
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF1",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF11",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF121",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF122",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF13",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF14",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF2",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF21",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF22",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF3",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF4",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF41",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF413",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF421",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF422",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF_AGG3A",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF_AGG3B"
         ]
       }
     },

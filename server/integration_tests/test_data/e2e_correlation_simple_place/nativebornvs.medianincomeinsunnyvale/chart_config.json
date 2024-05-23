@@ -60,12 +60,110 @@
               }
             ],
             "title": "Individual Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn"
+                    ],
+                    "title": "Population: Foreign Born in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Foreign Born in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn"
+                    ],
+                    "title": "Population: Foreign Born in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Earnings in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_PlaceOfBirthAsia"
+                    ],
+                    "title": "Population: Foreign Born, Asia in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Foreign Born, Asia in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_PlaceOfBirthAsia"
+                    ],
+                    "title": "Population: Foreign Born, Asia in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born, Asia"
           }
         ],
         "statVarSpec": {
+          "Count_Person_ForeignBorn": {
+            "name": "Population: Foreign Born",
+            "statVar": "Count_Person_ForeignBorn"
+          },
           "Count_Person_Native": {
             "name": "Population: Native",
             "statVar": "Count_Person_Native"
+          },
+          "Count_Person_PlaceOfBirthAsia": {
+            "name": "Population: Foreign Born, Asia",
+            "statVar": "Count_Person_PlaceOfBirthAsia"
+          },
+          "Median_Earnings_Person": {
+            "name": "Individual Median Earnings",
+            "statVar": "Median_Earnings_Person"
           },
           "Median_Income_Person": {
             "name": "Individual Median Income",
@@ -116,7 +214,37 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_ForeignBorn": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn",
+          "Count_Person_18To24Years_ForeignBorn",
+          "Count_Person_25To34Years_ForeignBorn",
+          "Count_Person_35To44Years_ForeignBorn",
+          "Count_Person_45To54Years_ForeignBorn",
+          "Count_Person_55To59Years_ForeignBorn",
+          "Count_Person_5To17Years_ForeignBorn",
+          "Count_Person_60To61Years_ForeignBorn",
+          "Count_Person_62To64Years_ForeignBorn",
+          "Count_Person_65To74Years_ForeignBorn",
+          "Count_Person_75OrMoreYears_ForeignBorn",
+          "Count_Person_Upto5Years_ForeignBorn"
+        ]
+      },
+      "Count_Person_PlaceOfBirthAsia": {
+        "age": [
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthAsia"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Immigration",

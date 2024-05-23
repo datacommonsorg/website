@@ -13,9 +13,11 @@
 # limitations under the License.
 
 import datetime
+import json
 import unittest
 
 import server.lib.util as lib_util
+from web_app import app
 
 
 class TestParseDate(unittest.TestCase):
@@ -29,3 +31,31 @@ class TestParseDate(unittest.TestCase):
     for input in data:
       assert lib_util.parse_date(input).replace(
           tzinfo=datetime.timezone.utc).timestamp() == data[input]
+
+
+class TestPostBodyCacheKey(unittest.TestCase):
+
+  def test_post_body_cache_key(self):
+    test_data = {'key1': 'value1', 'key3': 'value3', 'key2': 'value2'}
+
+    with app.test_request_context('/test', method='POST', json=test_data):
+      # Get the expected cache key
+      expected_cache_key = f"/test?," + json.dumps(test_data, sort_keys=True)
+
+      # Ensure calculated cache value matches
+      cache_key = lib_util.post_body_cache_key()
+      self.assertEqual(cache_key, expected_cache_key)
+
+  def test_post_body_with_query_params_cache_key(self):
+    test_data = {'key1': 'value1', 'key3': 'value3', 'key2': 'value2'}
+
+    with app.test_request_context('/test?a=b&c=d',
+                                  method='POST',
+                                  json=test_data):
+      # Get the expected cache key
+      expected_cache_key = f"/test?a=b&c=d," + json.dumps(test_data,
+                                                          sort_keys=True)
+
+      # Ensure calculated cache value matches
+      cache_key = lib_util.post_body_cache_key()
+      self.assertEqual(cache_key, expected_cache_key)

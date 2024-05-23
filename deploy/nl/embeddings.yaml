@@ -11,6 +11,42 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+#
+# This is the main config file for NL models and embeddings,
+# with two sections.
+#
+# models:
+# - type: what type of model serving infra? (LOCAL, VERTEXAI)
+# - usage: what is the model used for?  (EMBEDDINGS, RERANKING)
+# - score_threshold: For embeddings model, what is the cutoff threshold
+#                    below which we drop matches? (default: 0.5)
+#
+# indexes:
+# - store: what type of embeddings store?  (MEMORY, LANCEDB, VERTEXAI)
+# - model: the name of the associated model from `models` section
+# - embeddings: For MEMORY/LANCEDB, the path to the index files.
+#               Can be a local absolute path or GCS (gs://) path.
+# - healthcheck_query: if this index were the default index, what is
+#                      the query to use for health-checking the index?
+# - Additional params specific to VERTEXAI:
+#   - project_id
+#   - location
+#   - index_endpoint_root
+#   - index_endpoint
+#   - index_id
+# TODO: Move the VERTEXAI index params to per-env yamls.
+#
+# Additionally, every environment (prod, etc) may define the following
+# parameters if NL is enabled:
+# - defaultIndex: Which index in `indexes` section is the default?
+# - enabledIndexes: What are the indexes to load on server start?
+# - enableRanking: Should the RANKING models be loaded on server start?
+# - vertexAIModels: Additional endpoint configuration for Vertex AI models
+#
+# NOTE: Ensure every VERTEXAI model below has parameters in the
+# env yaml files for all the environments you're enabling it for.
+#
 
 version: 1
 
@@ -19,22 +55,37 @@ indexes:
     store: MEMORY
     embeddings: gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    healthcheck_query: "Life expectancy"
   sdg_ft:
     store: MEMORY
     embeddings: gs://datcom-nl-models/embeddings_sdg_2023_12_26_10_03_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    healthcheck_query: "Hunger"
   undata_ft:
     store: MEMORY
     embeddings: gs://datcom-nl-models/embeddings_undata_2024_03_20_11_01_12.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    healthcheck_query: "Hunger"
+  undata_ilo_ft:
+    store: MEMORY
+    embeddings: gs://datcom-nl-models/embeddings_undata_ilo_2024_05_15_11_18_05.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    healthcheck_query: "Employment"
+  undata_dev_ft:
+    store: MEMORY
+    embeddings: gs://datcom-nl-models/embeddings_undata_dev_2024_05_21_15_37_51.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    healthcheck_query: "Employment"
   bio_ft:
     store: MEMORY
     embeddings: gs://datcom-nl-models/embeddings_bio_2024_03_19_16_39_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    healthcheck_query: "Gene"
   medium_lance_ft:
     store: LANCEDB
     embeddings: gs://datcom-nl-models-dev/lancedb/lancedb_embeddings_medium_2024_04_09_07_22_21.ft_final_v20230717230459.all-MiniLM-L6-v2
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    healthcheck_query: "Life expectancy"
   medium_vertex_ft:
     store: VERTEXAI
     project_id: datcom-website-dev
@@ -43,10 +94,12 @@ indexes:
     index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
     index_id: dc_all_minilm_l6_v2_ft_1709655496660
     model: dc-all-minilm-l6-v2-model
+    healthcheck_query: "Life expectancy"
   base_uae_mem:
     store: MEMORY
-    embeddings: gs://datcom-nl-models/embeddings_medium_2024_05_14_17_00_30.4910007712298827776.csv
+    embeddings: gs://datcom-nl-models/embeddings_medium_2024_05_22_12_06_51.8110162693219942400.csv
     model: uae-large-v1-model
+    healthcheck_query: "Life expectancy"
   medium_vertex_mistral:
     store: VERTEXAI
     project_id: datcom-website-dev
@@ -55,6 +108,7 @@ indexes:
     index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
     index_id: sfr_embedding_mistral_1709682235285
     model: sfr-embedding-mistral-model
+    healthcheck_query: "Life expectancy"
 
 models:
   dc-all-minilm-l6-v2-model:

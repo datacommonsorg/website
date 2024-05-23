@@ -88,8 +88,12 @@ def _rank_vars(candidates: EmbeddingsResult,
             dvars.SentenceScore(sentence=c.sentence, score=c.score))
         sv2sentences[dcid].add(c.sentence)
 
-  for sv, score in sorted(sv2score.items(),
-                          key=lambda item: (-item[1], item[0])):
+  # TODO: truncate the score based on model parameters from yaml
+  # Same model would produce different scores after certain decimals, so we want
+  # to round to 6 decimal places to make the score and rank stable.
+  sorted_score = sorted(sv2score.items(),
+                        key=lambda item: (-round(item[1], 6), item[0]))
+  for sv, score in sorted_score:
     result.svs.append(sv)
     result.scores.append(score)
 

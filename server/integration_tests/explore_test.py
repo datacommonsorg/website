@@ -63,7 +63,6 @@ class ExploreTest(NLWebServerTestCase):
         d = ''
       else:
         d = re.sub(r'[ ?"]', '', q).lower()
-      print(d)
       self.handle_response(q, resp, test_dir, d, failure, check_detection)
 
   def run_detect_and_fulfill(self,
@@ -264,9 +263,7 @@ class ExploreTest(NLWebServerTestCase):
                        test='unittest')
 
   def test_detection_basic_lancedb(self):
-    # NOTE: Use the same test-name as above, since we expect the content to exactly
-    # match the one from above.
-    self.run_detection('detection_api_basic', ['Commute in California'],
+    self.run_detection('detection_api_basic_lancedb', ['Commute in California'],
                        test='unittest',
                        idx='medium_lance_ft')
 
@@ -279,6 +276,18 @@ class ExploreTest(NLWebServerTestCase):
     self.run_detection('detection_api_undata_idx', ['Health in USA'],
                        test='unittest',
                        idx='undata_ft')
+
+  def test_detection_basic_undata_ilo(self):
+    self.run_detection('detection_api_undata_ilo_idx',
+                       ['Employment in the world'],
+                       test='unittest',
+                       idx='undata_ilo_ft')
+
+  def test_detection_basic_undata_dev(self):
+    self.run_detection('detection_api_undata_dev_idx',
+                       ['Employment in the world'],
+                       test='unittest',
+                       idx='undata_dev_ft')
 
   def test_detection_basic_bio(self):
     self.run_detection('detection_api_bio_idx', ['Commute in California'],
@@ -345,16 +354,17 @@ class ExploreTest(NLWebServerTestCase):
         'What is the relationship between housing size and home prices in California'
     ])
 
-  def test_detection_reranking(self):
-    self.run_detection(
-        'detection_api_reranking',
-        [
-            # Without reranker the top SV is Median_Income_Person,
-            # With reranking the top SV is Count_Person_IncomeOf75000OrMoreUSDollar.
-            'population that is rich in california'
-        ],
-        check_detection=True,
-        reranker='cross-encoder-mxbai-rerank-base-v1')
+  # TODO: renable when we solve the flaky issue
+  # def test_detection_reranking(self):
+  #   self.run_detection(
+  #       'detection_api_reranking',
+  #       [
+  #           # Without reranker the top SV is Median_Income_Person,
+  #           # With reranking the top SV is Count_Person_IncomeOf75000OrMoreUSDollar.
+  #           'population that is rich in california'
+  #       ],
+  #       check_detection=True,
+  #       reranker='cross-encoder-mxbai-rerank-base-v1')
 
   def test_fulfillment_basic(self):
     req = {

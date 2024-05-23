@@ -37,6 +37,17 @@ mixer:
 
 nl:
   enabled: true
+  embeddingsSpec:
+    defaultIndex: "sdg_ft"
+    enabledIndexes:
+      [
+        "bio_ft",
+        "medium_ft",
+        "sdg_ft",
+        "undata_ft",
+        "undata_ilo_ft",
+        "undata_dev_ft",
+      ]
 
 serviceGroups:
   recon: null
@@ -55,7 +66,7 @@ kgStoreConfig:
     project: datcom-un-staging
     instance: dc-graph
     tables:
-      - ilo_2024_05_06_15_04_35
+      - ilo_2024_05_15_14_43_26
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

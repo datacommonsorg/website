@@ -15,7 +15,6 @@
 # Interface for variable detection
 #
 
-import time
 from typing import Dict, List
 
 import server.lib.nl.common.counters as ctr
@@ -95,7 +94,6 @@ def detect_vars(orig_query: str,
   result_multivar = _prepare_multivar_candidates(multi_querysets, query2results,
                                                  multi_var_threshold)
 
-  debug_logs["sv_detection_query_index_type"] = index_type
   debug_logs["sv_detection_query_input"] = orig_query
   debug_logs["sv_detection_query_stop_words_removal"] = query_monovar
   return vars.VarDetectionResult(single_var=result_monovar,

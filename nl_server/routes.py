@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+import logging
 from typing import Dict, List
 
 from flask import Blueprint
@@ -35,13 +36,23 @@ bp = Blueprint('main', __name__, url_prefix='/')
 
 @bp.route('/healthz')
 def healthz():
-  nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get_index(
-      config.DEFAULT_INDEX_TYPE)
+  default_index_type = current_app.config[
+      config.EMBEDDINGS_SPEC_KEY].default_index
+  if not default_index_type:
+    logging.warning('Health Check Failed: Default index name empty!')
+    return 'Service Unavailable', 500
+  nl_embeddings: Embeddings = current_app.config[
+      config.NL_EMBEDDINGS_KEY].get_index(default_index_type)
   if nl_embeddings:
-    result: VarCandidates = search.search_vars(
-        [nl_embeddings], ['life expectancy'])['life expectancy']
-    if result.svs and 'Expectancy' in result.svs[0]:
+    query = nl_embeddings.store.healthcheck_query
+    result: VarCandidates = search.search_vars([nl_embeddings],
+                                               [query]).get(query)
+    if result and result.svs:
       return 'OK', 200
+    else:
+      logging.warning(f'Health Check Failed: query "{query}" failed!')
+  else:
+    logging.warning('Health Check Failed: Default index not yet loaded!')
   return 'Service Unavailable', 500
 
 
@@ -58,9 +69,11 @@ def search_vars():
   queries = request.json.get('queries', [])
   queries = [str(escape(q)) for q in queries]
 
-  idx = str(escape(request.args.get('idx', config.DEFAULT_INDEX_TYPE)))
+  default_index_type = current_app.config[
+      config.EMBEDDINGS_SPEC_KEY].default_index
+  idx = str(escape(request.args.get('idx', default_index_type)))
   if not idx:
-    idx = config.DEFAULT_INDEX_TYPE
+    idx = default_index_type
 
   emb_map: EmbeddingsMap = current_app.config[config.NL_EMBEDDINGS_KEY]
 
@@ -73,11 +86,9 @@ def search_vars():
       reranker_name) if reranker_name else None
 
   nl_embeddings = _get_indexes(emb_map, idx)
-  debug_logs = {}
-  results: Dict[str,
-                VarCandidates] = search.search_vars(nl_embeddings, queries,
-                                                    skip_topics, reranker_model,
-                                                    debug_logs)
+  debug_logs = {'sv_detection_query_index_type': idx}
+  results = search.search_vars(nl_embeddings, queries, skip_topics,
+                               reranker_model, debug_logs)
   q2result = {q: var_candidates_to_dict(result) for q, result in results.items()}
   return json.dumps({
       'queryResults': q2result,

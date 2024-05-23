@@ -31,17 +31,183 @@
               }
             ],
             "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female) in Massachusetts",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female) in Massachusetts",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female) in Massachusetts",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male) in Massachusetts",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male) in Massachusetts",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male) in Massachusetts",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Massachusetts",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Massachusetts",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Massachusetts",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years"
+                    ],
+                    "title": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years) in Massachusetts",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years) in Massachusetts",
+                    "statVarKey": [
+                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years"
+                    ],
+                    "title": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years) in Massachusetts",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years)"
           }
         ],
         "statVarSpec": {
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
             "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
             "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+          },
+          "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female": {
+            "name": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female)",
+            "statVar": "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female"
+          },
+          "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male": {
+            "name": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male)",
+            "statVar": "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male"
+          },
+          "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years": {
+            "name": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years)",
+            "statVar": "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years"
+          },
+          "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod": {
+            "name": "Mortality Events (1 Years or Less): Certain Conditions Originating in The Perinatal Period)",
+            "statVar": "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "State": "County"
+      },
       "placeDcid": [
         "geoId/25"
       ]
@@ -66,12 +232,129 @@
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "County": [
+        {
+          "dcid": "geoId/25001",
+          "name": "Barnstable",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25003",
+          "name": "Berkshire",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25005",
+          "name": "Bristol",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25007",
+          "name": "Dukes",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25009",
+          "name": "Essex",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25011",
+          "name": "Franklin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25013",
+          "name": "Hampden",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25015",
+          "name": "Hampshire",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25017",
+          "name": "Middlesex",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25019",
+          "name": "Nantucket",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25021",
+          "name": "Norfolk",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25023",
+          "name": "Plymouth",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25025",
+          "name": "Suffolk",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25027",
+          "name": "Worcester",
+          "types": [
+            "County"
+          ]
+        }
+      ]
+    },
     "childTopics": [],
     "exploreMore": {},
-    "mainTopics": [],
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/InfantMortality",
+        "name": "Infant Mortality",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
-    "parentTopics": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Mortality",
+        "name": "Mortality",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "peerPlaces": [
       {
         "dcid": "geoId/01",
@@ -424,7 +707,36 @@
         ]
       }
     ],
-    "peerTopics": []
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/LifeExpectancy",
+        "name": "Life Expectancy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/CausesOfDeath",
+        "name": "Causes of Death",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/FemaleMortality",
+        "name": "Female Mortality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MortalityAmongIncarcerated",
+        "name": "Mortality Among The Incarcerated",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
   "userMessage": "",
