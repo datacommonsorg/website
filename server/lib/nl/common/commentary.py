@@ -15,20 +15,18 @@
 from dataclasses import dataclass
 from typing import List
 
-from server.lib.explore import params
 from server.lib.nl.common import constants
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection.utils import compute_final_threshold
 from server.lib.nl.detection.utils import get_top_sv_score
+from server.lib.nl.explore import params
 from shared.lib.constants import SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
 
 #
 # List of user messages!
 #
 
-# If the score is below this, then we report low confidence
-# (we reuse the threshold we use for determining something is "high confidence")
-LOW_CONFIDENCE_SCORE_REPORT_THRESHOLD = SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
 LOW_CONFIDENCE_SCORE_MESSAGE = \
   'Low confidence in understanding your query. Displaying the closest results.'
 # Message when there are missing places when showing comparison charts
@@ -161,11 +159,18 @@ def user_message(uttr: Utterance) -> UserMessage:
   # NOTE: Showing multiple messages can be confusing.  So if the SV score is low
   # prefer showing that, since we say our confidence is low...
 
+  # If the score is below this, then we report low confidence
+  # (we reuse the threshold we use for determining something
+  #  is "high confidence")
+  low_confidence_score_report_threshold = compute_final_threshold(
+      uttr.detection.svs_detected.model_threshold,
+      SV_SCORE_HIGH_CONFIDENCE_THRESHOLD)
+
   if (uttr.rankedCharts and
       (uttr.sv_source == FulfillmentResult.CURRENT_QUERY or
        uttr.sv_source == FulfillmentResult.PARTIAL_PAST_QUERY) and
       get_top_sv_score(uttr.detection, uttr.rankedCharts[0])
-      < LOW_CONFIDENCE_SCORE_REPORT_THRESHOLD):
+      < low_confidence_score_report_threshold):
     # We're showing charts for SVs in the current user query and the
     # top-score is below the threshold, so report message.
     msg_list.append(LOW_CONFIDENCE_SCORE_MESSAGE)

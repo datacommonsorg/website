@@ -20,9 +20,8 @@ import unittest
 
 from parameterized import parameterized
 
-from nl_server import config
 from nl_server import embeddings_map as emb_map
-from nl_server.config import EmbeddingsIndex
+from nl_server.config import parse
 from nl_server.embeddings import Embeddings
 from nl_server.search import search_vars
 from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
@@ -33,7 +32,8 @@ _test_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 
 _DEFAULT_FILE: str = 'default.ft_final_v20230717230459.all-MiniLM-L6-v2.csv'
 _CUSTOM_FILE: str = 'custom.ft_final_v20230717230459.all-MiniLM-L6-v2.csv'
-_TUNED_MODEL: str = 'ft_final_v20230717230459.all-MiniLM-L6-v2'
+_TUNED_MODEL_NAME: str = 'ft_final_v20230717230459'
+_TUNED_MODEL_GCS: str = 'gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2'
 
 
 def _copy(fname: str):
@@ -64,22 +64,34 @@ class TestEmbeddings(unittest.TestCase):
     cls.default_file = _copy(_DEFAULT_FILE)
     cls.custom_file = _copy(_CUSTOM_FILE)
 
-    cls.custom = emb_map.EmbeddingsMap({
-        'medium_ft': {
-            'embeddings': cls.default_file,
-            'store': 'MEMORY',
-            'model': _TUNED_MODEL
-        },
-        'custom_ft': {
-            'embeddings': cls.custom_file,
-            'store': 'MEMORY',
-            'model': _TUNED_MODEL
-        }
-    })
+    cls.custom = emb_map.EmbeddingsMap(
+        parse(
+            {
+                'version': 1,
+                'indexes': {
+                    'medium_ft': {
+                        'embeddings': cls.default_file,
+                        'store': 'MEMORY',
+                        'model': _TUNED_MODEL_NAME
+                    },
+                    'custom_ft': {
+                        'embeddings': cls.custom_file,
+                        'store': 'MEMORY',
+                        'model': _TUNED_MODEL_NAME
+                    }
+                },
+                'models': {
+                    _TUNED_MODEL_NAME: {
+                        'type': 'LOCAL',
+                        'usage': 'EMBEDDINGS',
+                        'gcs_folder': _TUNED_MODEL_GCS
+                    }
+                }
+            }, {}, False))
 
   def test_entries(self):
-    self.assertEqual(1, len(self.custom.get('medium_ft').store.dcids))
-    self.assertEqual(1, len(self.custom.get('custom_ft').store.dcids))
+    self.assertEqual(1, len(self.custom.get_index('medium_ft').store.dcids))
+    self.assertEqual(1, len(self.custom.get_index('custom_ft').store.dcids))
 
   #
   # * default index: dc/topic/sdg_1
@@ -93,33 +105,63 @@ class TestEmbeddings(unittest.TestCase):
   ])
   def test_queries(self, query: str, index: str, expected: str):
     if index == 'medium_ft':
-      indexes = [self.custom.get('custom_ft'), self.custom.get('medium_ft')]
+      indexes = [
+          self.custom.get_index('custom_ft'),
+          self.custom.get_index('medium_ft')
+      ]
     else:
-      indexes = [self.custom.get('custom_ft')]
+      indexes = [self.custom.get_index('custom_ft')]
 
     _test_query(self, indexes, query, expected)
 
   def test_merge_custom_embeddings(self):
-    embeddings = emb_map.EmbeddingsMap({
-        'medium_ft': {
-            'embeddings': self.default_file,
-            'store': 'MEMORY',
-            'model': _TUNED_MODEL
-        }
-    })
+    embeddings = emb_map.EmbeddingsMap(
+        parse(
+            {
+                'version': 1,
+                'indexes': {
+                    'medium_ft': {
+                        'embeddings': self.default_file,
+                        'store': 'MEMORY',
+                        'model': _TUNED_MODEL_NAME
+                    },
+                },
+                'models': {
+                    _TUNED_MODEL_NAME: {
+                        'type': 'LOCAL',
+                        'usage': 'EMBEDDINGS',
+                        'gcs_folder': _TUNED_MODEL_GCS
+                    }
+                }
+            }, {}, False))
 
-    _test_query(self, [embeddings.get("medium_ft")], "money", "dc/topic/sdg_1")
-    _test_query(self, [embeddings.get("medium_ft")], "food", "")
+    _test_query(self, [embeddings.get_index("medium_ft")], "money",
+                "dc/topic/sdg_1")
+    _test_query(self, [embeddings.get_index("medium_ft")], "food", "")
 
-    custom_idx = config.load({
-        'custom_ft': {
-            'embeddings': self.custom_file,
-            'store': 'MEMORY',
-            'model': _TUNED_MODEL
-        }
-    })[0]
-    embeddings.reset_index(custom_idx)
+    embeddings.reset_index(
+        parse(
+            {
+                'version': 1,
+                'indexes': {
+                    'custom_ft': {
+                        'embeddings': self.custom_file,
+                        'store': 'MEMORY',
+                        'model': _TUNED_MODEL_NAME
+                    },
+                },
+                'models': {
+                    _TUNED_MODEL_NAME: {
+                        'type': 'LOCAL',
+                        'usage': 'EMBEDDINGS',
+                        'gcs_folder': _TUNED_MODEL_GCS
+                    }
+                }
+            }, {}, False))
 
-    emb_list = [embeddings.get("custom_ft"), embeddings.get("medium_ft")]
+    emb_list = [
+        embeddings.get_index("custom_ft"),
+        embeddings.get_index("medium_ft")
+    ]
     _test_query(self, emb_list, "money", "dc/topic/sdg_1")
     _test_query(self, emb_list, "food", "dc/topic/sdg_2")

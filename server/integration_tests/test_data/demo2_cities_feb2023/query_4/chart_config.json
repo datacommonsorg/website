@@ -429,7 +429,48 @@
       "place_type": "City"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/CommuteModeByOccupation",
+        "name": "Commute Mode by Occupation",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/CommuteMode",
+        "name": "Commute Mode",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/WorkCommute",
+        "name": "Commute",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/CommuteTime",
+        "name": "Commute Time",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "PAST_QUERY",
   "userMessage": "See comparisons with San Bruno and Sunnyvale based on the previous query.",
   "userMessages": [

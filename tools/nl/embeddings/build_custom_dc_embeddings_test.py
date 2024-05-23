@@ -13,19 +13,24 @@
 # limitations under the License.
 
 import os
+from pathlib import Path
 import tempfile
 import unittest
 
-from build_custom_dc_embeddings import EMBEDDINGS_CSV_FILENAME_PREFIX
-from build_custom_dc_embeddings import EMBEDDINGS_YAML_FILE_NAME
-import build_custom_dc_embeddings as builder
-from file_util import create_file_handler
 from sentence_transformers import SentenceTransformer
-import utils
+
+from tools.nl.embeddings import utils
+from tools.nl.embeddings.build_custom_dc_embeddings import \
+    EMBEDDINGS_CSV_FILENAME_PREFIX
+from tools.nl.embeddings.build_custom_dc_embeddings import \
+    EMBEDDINGS_YAML_FILE_NAME
+import tools.nl.embeddings.build_custom_dc_embeddings as builder
+from tools.nl.embeddings.file_util import create_file_handler
 
 MODEL_NAME = "all-MiniLM-L6-v2"
-INPUT_DIR = "testdata/custom_dc/input"
-EXPECTED_DIR = "testdata/custom_dc/expected"
+
+INPUT_DIR = Path(__file__).parent / "testdata/custom_dc/input"
+EXPECTED_DIR = Path(__file__).parent / "testdata/custom_dc/expected"
 
 
 def _compare_files(test: unittest.TestCase, output_path, expected_path):
@@ -41,10 +46,7 @@ class TestEndToEnd(unittest.TestCase):
   def test_build_embeddings_dataframe(self):
     self.maxDiff = None
 
-    ctx = utils.Context(model=SentenceTransformer(MODEL_NAME),
-                        model_endpoint=None,
-                        bucket=None,
-                        tmp="/tmp")
+    model = SentenceTransformer(MODEL_NAME)
 
     input_dcids_sentences_csv_path = os.path.join(INPUT_DIR,
                                                   "dcids_sentences.csv")
@@ -56,7 +58,7 @@ class TestEndToEnd(unittest.TestCase):
           temp_dir, "final_dcids_sentences.csv")
 
       embeddings_df = builder._build_embeddings_dataframe(
-          ctx, create_file_handler(input_dcids_sentences_csv_path))
+          model, create_file_handler(input_dcids_sentences_csv_path))
 
       embeddings_df[['dcid',
                      'sentence']].to_csv(actual_dcids_sentences_csv_path,
@@ -66,16 +68,13 @@ class TestEndToEnd(unittest.TestCase):
                      expected_dcids_sentences_csv_path)
 
   def test_build_embeddings_dataframe_and_validate(self):
-    ctx = utils.Context(model=SentenceTransformer(MODEL_NAME),
-                        model_endpoint=None,
-                        bucket=None,
-                        tmp="/tmp")
+    model = SentenceTransformer(MODEL_NAME)
 
     input_dcids_sentences_csv_path = os.path.join(INPUT_DIR,
                                                   "dcids_sentences.csv")
 
     embeddings_df = builder._build_embeddings_dataframe(
-        ctx, create_file_handler(input_dcids_sentences_csv_path))
+        model, create_file_handler(input_dcids_sentences_csv_path))
 
     # Test success == no failures during validation
     utils.validate_embeddings(embeddings_df, input_dcids_sentences_csv_path)
@@ -89,8 +88,15 @@ class TestEndToEnd(unittest.TestCase):
       actual_embeddings_yaml_path = os.path.join(temp_dir,
                                                  EMBEDDINGS_YAML_FILE_NAME)
 
+      model_info = utils.ModelConfig(name='FooModel',
+                                     info={
+                                         'type': 'LOCAL',
+                                         'gcs_folder': 'fooModelFolder',
+                                         'usage': 'EMBEDDINGS',
+                                         'score_threshold': 0.5,
+                                     })
       builder.generate_embeddings_yaml(
-          'FooModel', create_file_handler(fake_embeddings_csv_path),
+          model_info, create_file_handler(fake_embeddings_csv_path),
           create_file_handler(actual_embeddings_yaml_path))
 
       _compare_files(self, actual_embeddings_yaml_path,

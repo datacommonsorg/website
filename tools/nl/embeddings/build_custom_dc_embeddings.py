@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,27 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Build embeddings for custom DCs."""
-
-import os
-import sys
+"""Build embeddings for custom DC"""
 
 from absl import app
 from absl import flags
-from file_util import create_file_handler
-from file_util import FileHandler
-from google.cloud import storage
 import pandas as pd
-import utils
+from sentence_transformers import SentenceTransformer
 import yaml
 
-# Import gcs module from shared lib.
-# Since this tool is run standalone from this directory,
-# the shared lib directory needs to be appended to the sys path.
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_SHARED_LIB_DIR = os.path.join(_THIS_DIR, "..", "..", "..", "shared", "lib")
-sys.path.append(_SHARED_LIB_DIR)
-import gcs  # type: ignore
+from shared.lib import gcs
+from tools.nl.embeddings import utils
+from tools.nl.embeddings.file_util import create_file_handler
+from tools.nl.embeddings.file_util import FileHandler
 
 FLAGS = flags.FLAGS
 
@@ -69,21 +60,20 @@ EMBEDDINGS_YAML_FILE_NAME = "custom_embeddings.yaml"
 def download(embeddings_yaml_path: str):
   """Downloads the default FT model and embeddings.
   """
-  ctx = _ctx_no_model()
-
   default_ft_embeddings_info = utils.get_default_ft_embeddings_info()
 
   # Download model.
-  model_version = default_ft_embeddings_info["model"]
-  print(f"Downloading default model: {model_version}")
-  local_model_path = utils.get_or_download_model_from_gcs(ctx, model_version)
+  model_info = default_ft_embeddings_info.model_config
+  print(f"Downloading default model: {model_info.name}")
+  local_model_path = gcs.maybe_download(model_info.info['gcs_folder'],
+                                        use_anonymous_client=True)
   print(f"Downloaded default model to: {local_model_path}")
 
   # Download embeddings.
-  embeddings_file_name = default_ft_embeddings_info["embeddings"]
+  embeddings_file_name = default_ft_embeddings_info.index_config['embeddings']
   print(f"Downloading default embeddings: {embeddings_file_name}")
-  local_embeddings_path = gcs.download_gcs_file(embeddings_file_name,
-                                                use_anonymous_client=True)
+  local_embeddings_path = gcs.maybe_download(embeddings_file_name,
+                                             use_anonymous_client=True)
   if not local_embeddings_path:
     print(f"Unable to download default embeddings: {embeddings_file_name}")
   else:
@@ -95,15 +85,17 @@ def download(embeddings_yaml_path: str):
       embeddings_yaml_path, default_ft_embeddings_info)
 
 
-def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
-  print(f"Downloading model: {model_version}")
-  ctx = _download_model(model_version)
-
+def build(model_info: utils.ModelConfig, sv_sentences_csv_path: str,
+          output_dir: str):
+  print(f"Downloading model: {model_info.name}")
+  model_path = gcs.maybe_download(model_info.info['gcs_folder'])
+  model_obj = SentenceTransformer(model_path)
   print(
       f"Generating embeddings dataframe from SV sentences CSV: {sv_sentences_csv_path}"
   )
   sv_sentences_csv_handler = create_file_handler(sv_sentences_csv_path)
-  embeddings_df = _build_embeddings_dataframe(ctx, sv_sentences_csv_handler)
+  embeddings_df = _build_embeddings_dataframe(model_obj,
+                                              sv_sentences_csv_handler)
 
   print("Validating embeddings.")
   utils.validate_embeddings(embeddings_df, sv_sentences_csv_path)
@@ -111,7 +103,7 @@ def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
   output_dir_handler = create_file_handler(output_dir)
   embeddings_csv_handler = create_file_handler(
       output_dir_handler.join(
-          f"{EMBEDDINGS_CSV_FILENAME_PREFIX}.{model_version}.csv"))
+          f"{EMBEDDINGS_CSV_FILENAME_PREFIX}.{model_info.name}.csv"))
   embeddings_yaml_handler = create_file_handler(
       output_dir_handler.join(EMBEDDINGS_YAML_FILE_NAME))
 
@@ -120,48 +112,46 @@ def build(model_version: str, sv_sentences_csv_path: str, output_dir: str):
   embeddings_csv_handler.write_string(embeddings_csv)
 
   print(f"Saving embeddings yaml: {embeddings_yaml_handler.path}")
-  generate_embeddings_yaml(model_version, embeddings_csv_handler,
+  generate_embeddings_yaml(model_info, embeddings_csv_handler,
                            embeddings_yaml_handler)
 
   print("Done building custom DC embeddings.")
 
 
 def _build_embeddings_dataframe(
-    ctx: utils.Context, sv_sentences_csv_handler: FileHandler) -> pd.DataFrame:
+    model: SentenceTransformer,
+    sv_sentences_csv_handler: FileHandler) -> pd.DataFrame:
   sv_sentences_df = pd.read_csv(sv_sentences_csv_handler.read_string_io())
 
   # Dedupe texts
   (text2sv_dict, _) = utils.dedup_texts(sv_sentences_df)
 
   print("Building custom DC embeddings")
-  return utils.build_embeddings(ctx, text2sv_dict)
+  return utils.build_embeddings(text2sv_dict, model=model)
 
 
-def generate_embeddings_yaml(model_version: str,
+def generate_embeddings_yaml(model_info: utils.ModelConfig,
                              embeddings_csv_handler: FileHandler,
                              embeddings_yaml_handler: FileHandler):
+  #
+  # Right now Custom DC only supports LOCAL mode.
+  #
+  assert model_info.info['type'] == 'LOCAL'
+
   data = {
-      "custom_ft": {
-          "embeddings": embeddings_csv_handler.abspath(),
-          "model": model_version,
-          "store": "MEMORY"
+      "version": 1,
+      "indexes": {
+          "custom_ft": {
+              "embeddings": embeddings_csv_handler.abspath(),
+              "model": model_info.name,
+              "store": "MEMORY",
+          }
+      },
+      "models": {
+          model_info.name: model_info.info,
       }
   }
   embeddings_yaml_handler.write_string(yaml.dump(data))
-
-
-def _download_model(model_version: str) -> utils.Context:
-  ctx_no_model = _ctx_no_model()
-  model = utils.get_ft_model_from_gcs(ctx_no_model, model_version)
-  return utils.Context(model=model,
-                       model_endpoint=None,
-                       bucket=ctx_no_model.bucket)
-
-
-def _ctx_no_model() -> utils.Context:
-  bucket = storage.Client.create_anonymous_client().bucket(
-      utils.DEFAULT_MODELS_BUCKET)
-  return utils.Context(model=None, model_endpoint=None, bucket=bucket)
 
 
 def main(_):
@@ -171,12 +161,18 @@ def main(_):
 
   assert FLAGS.sv_sentences_csv_path
   assert FLAGS.output_dir
-  model_version = FLAGS.model_version
-  if not model_version:
-    model_version = utils.get_default_ft_model_version()
-    print(f"Using model version {model_version} from embeddings.yaml.")
+  if FLAGS.model_version:
+    model_info = utils.ModelConfig(name=FLAGS.model_version,
+                                   info={
+                                       'type': 'LOCAL',
+                                       'gcs_folder': FLAGS.model_version,
+                                       'score_threshold': 0.5
+                                   })
+  else:
+    model_info = utils.get_default_ft_model()
+    print(f"Using model {model_info.name} from embeddings.yaml.")
 
-  build(model_version, FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
+  build(model_info, FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
 
 
 if __name__ == "__main__":

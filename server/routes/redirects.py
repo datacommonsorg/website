@@ -115,8 +115,8 @@ def demo():
 
 
 def load_redirects(name):
-  local_file = gcs.download_file(bucket=GLOBAL_CONFIG_BUCKET,
-                                 filename='redirects.json')
+  local_file = gcs.maybe_download(
+      gcs.make_path(GLOBAL_CONFIG_BUCKET, 'redirects.json'))
   with open(local_file) as fp:
     mapping = json.load(fp)
     return mapping.get(name, '/')

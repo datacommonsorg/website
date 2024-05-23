@@ -17,19 +17,18 @@ import copy
 import sys
 from typing import Dict, List
 
-from server.lib.explore import params
 from server.lib.nl.common import counters
 from server.lib.nl.common import serialize
 from server.lib.nl.common import utterance
 from server.lib.nl.detection import llm_api
 from server.lib.nl.detection import place
-from server.lib.nl.detection import rerank
 from server.lib.nl.detection import types
 from server.lib.nl.detection import utils as dutils
 from server.lib.nl.detection import variable
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import LlmApiType
+from server.lib.nl.explore import params
 import shared.lib.detected_variables as dvars
 
 # TODO: Add support for COMPARISON_FILTER and RANKING_FILTER
@@ -114,7 +113,7 @@ def detect(query: str,
            query_detection_debug_logs: Dict,
            mode: str,
            ctr: counters.Counters,
-           rerank_fn: rerank.RerankCallable = None,
+           reranker: str = '',
            allow_triples: bool = False) -> Detection:
   # History
   history = []
@@ -164,12 +163,13 @@ def detect(query: str,
   skip_topics = mode == params.QueryMode.TOOLFORMER
   for sv in sv_list:
     try:
+      # TODO: Consider if we should apply threshold bump
       var_detection_results.append(
           variable.detect_vars(sv,
                                index_type,
                                ctr,
                                dummy_dict,
-                               rerank_fn=rerank_fn,
+                               reranker=reranker,
                                skip_topics=skip_topics))
     except ValueError as e:
       ctr.err('llm_detect_vars_value_error', {'q': sv, 'err': str(e)})

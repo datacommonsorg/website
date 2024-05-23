@@ -12,25 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from pathlib import Path
 import unittest
 
-import utils
+from tools.nl.embeddings import utils
 
-INPUT_DIR = "testdata/custom_dc/input"
+INPUT_DIR = Path(__file__).parent / "testdata/custom_dc/input"
 
 
 class TestUtils(unittest.TestCase):
-
-  def test_get_default_ft_model_version(self):
-    embeddings_file_path = f"{INPUT_DIR}/embeddings.yaml"
-    expected = "ft_final_v20230717230459.all-MiniLM-L6-v2"
-
-    result = utils._get_default_ft_model_version(embeddings_file_path)
-
-    self.assertEqual(result, expected)
 
   def test_get_default_ft_model_version_failure(self):
     embeddings_file_path = f"{INPUT_DIR}/bad_embeddings.yaml"
 
     with self.assertRaises(Exception):
-      utils._get_default_ft_model_version(embeddings_file_path)
+      utils._get_default_ft_model(embeddings_file_path)

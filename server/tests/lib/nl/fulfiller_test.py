@@ -17,7 +17,6 @@ from typing import Dict, List
 import unittest
 from unittest.mock import patch
 
-from server.lib.explore import topic
 from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.common import rank_utils
@@ -35,6 +34,7 @@ from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import SVDetection
 import server.lib.nl.detection.types as nl_detection
 from server.lib.nl.detection.utils import create_utterance
+from server.lib.nl.explore import topic
 from server.lib.nl.fulfillment import fulfiller
 from server.lib.nl.fulfillment.types import ChartVars
 from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
@@ -570,7 +570,9 @@ def _detection(place: str,
                                                      svs=svs,
                                                      scores=scores,
                                                      sv2sentences={}),
-                                                 multi_sv=None))
+                                                 multi_sv=None,
+                                                 sv_threshold=0.5,
+                                                 model_threshold=0.5))
   if query_type == ClassificationType.COMPARISON:
     # Set comparison classifier
     detection.classifications = [

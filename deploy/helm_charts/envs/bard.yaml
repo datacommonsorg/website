@@ -44,6 +44,9 @@ nl:
   enabled: true
   memory: "10G"
   workers: 3
+  embeddingsSpec:
+    defaultIndex: "medium_ft"
+    enabledIndexes: ["medium_ft", "sdg_ft", "undata_ft"]
 
 nodejs:
   enabled: true
@@ -73,3 +76,4 @@ cronTesting:
   enabled: true
   enableSanity: false
   enableAdversarial: false
+  schedule: "0 */4 * * *"

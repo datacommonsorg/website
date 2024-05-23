@@ -118,8 +118,7 @@ COPY import/. /workspace/import/
 COPY tools/nl/embeddings/. /workspace/tools/nl/embeddings/
 
 # Download model and embeddings
-WORKDIR /workspace/tools/nl/embeddings
-RUN python build_custom_dc_embeddings.py --mode=download
+RUN python -m tools.nl.embeddings.build_custom_dc_embeddings --mode=download
 
 WORKDIR /workspace
 

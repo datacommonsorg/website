@@ -21,6 +21,24 @@
             ],
             "denom": "Count_Person",
             "title": "Population: Foreign Born and Population: Native"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/xdfcsgf05b4mc",
+                      "dc/6bkn9vt30f5c1"
+                    ],
+                    "title": "Population: Foreign Born, Asian Alone and Population: Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born, Asian Alone and Population: Foreign Born, American Indian or Alaska Native Alone"
           }
         ],
         "statVarSpec": {
@@ -31,6 +49,14 @@
           "Count_Person_Native": {
             "name": "Population: Native",
             "statVar": "Count_Person_Native"
+          },
+          "dc/6bkn9vt30f5c1": {
+            "name": "Population: Foreign Born, American Indian or Alaska Native Alone",
+            "statVar": "dc/6bkn9vt30f5c1"
+          },
+          "dc/xdfcsgf05b4mc": {
+            "name": "Population: Foreign Born, Asian Alone",
+            "statVar": "dc/xdfcsgf05b4mc"
           }
         }
       }
@@ -77,7 +103,34 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_5OrMoreYears_ForeignBorn": {
+        "race": [
+          "dc/6bkn9vt30f5c1",
+          "dc/xdfcsgf05b4mc"
+        ]
+      },
+      "dc/6bkn9vt30f5c1": {
+        "abilityToSpeakEnglish": [
+          "dc/834l34hp5krkd",
+          "dc/slhc0k07wwmq1"
+        ],
+        "languageSpokenAtHome": [
+          "dc/dc2zeq33ew2p2",
+          "dc/wygcf0xy4dgrd"
+        ]
+      },
+      "dc/xdfcsgf05b4mc": {
+        "abilityToSpeakEnglish": [
+          "dc/ktkbjq2bkp8xc",
+          "dc/qx3kfy4r5ce49"
+        ],
+        "languageSpokenAtHome": [
+          "dc/mjmz36lytkxtb",
+          "dc/xvdx8kfyj41kh"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Immigration",

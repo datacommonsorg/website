@@ -130,9 +130,11 @@ gcloud config set project <PROJECT>
 
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
 
-## Add a periodic testing job
+## Add a cron testing job
 
-To add a cronjob to run periodic testing against a cluster, run:
+Note: By default, the added cron testing job will run every 4 hours. If you want the job to run on a different schedule, update the `schedule` field in [cron_testing_job.yaml.tpl](./cron_testing_job.yaml.tpl) before setting up the job.
+
+To set up cron testing for a cluster, run:
 
 ```bash
 ./setup_cron_testing.sh -e <ENV> -l <REGION>

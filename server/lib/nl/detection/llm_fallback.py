@@ -31,10 +31,8 @@ from shared.lib import utils as sh_utils
 
 class NeedLLM(Enum):
   No = 1
-  ForPlace = 2
-  ForVar = 3
-  ForSafety = 4
-  Fully = 5
+  ForSafety = 2
+  Fully = 3
 
 
 # Any score below this value does not qualify for fallback. This
@@ -100,12 +98,8 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
     need_sv = True
 
   llm_type = NeedLLM.No
-  if need_sv and need_place:
+  if need_sv or need_place:
     llm_type = NeedLLM.Fully
-  elif need_sv:
-    llm_type = NeedLLM.ForVar
-  elif need_place:
-    llm_type = NeedLLM.ForPlace
 
   return llm_type
 
@@ -207,7 +201,7 @@ def _is_multi_sv_delimited(d: Detection, places_mentioned: List[str],
   # Find all sv sub-part indexes.
   vidx_list = []
   for p in multi_sv.parts:
-    vidx = query.find(p.query_part)
+    vidx = dutils.find_word_boundary(query, p.query_part)
     if vidx == -1:
       ctr.err('failed_fallback_svidxmissing', p.query_part)
       return False
@@ -215,7 +209,7 @@ def _is_multi_sv_delimited(d: Detection, places_mentioned: List[str],
 
   for place in places_mentioned:
     # Find place idx.
-    pidx = query.find(place)
+    pidx = dutils.find_word_boundary(query, place)
     if pidx == -1:
       ctr.err('failed_fallback_placeidxmissing', place)
       return False

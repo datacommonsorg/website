@@ -136,6 +136,12 @@ nl:
   models:
   memory: "2G"
   workers: 1
+  embeddingsSpec:
+    defaultIndex: ""
+    enabledIndexes: []
+    vertexAIModels:
+    enableReranking: false
+
 
 ###############################################################################
 # Config for Stat Var Groups which is shared between Website and Mixer
@@ -157,7 +163,7 @@ nodejs:
   nodePool:
 
 ###############################################################################
-# Config for Periodic Testing CronJob
+# Config for Cron Testing Job
 ###############################################################################
 cronTesting:
   enabled: false
@@ -174,3 +180,5 @@ cronTesting:
   enableAdversarial: true
   # node pool to use
   nodePool:
+  # schedule to run the cron tests on
+  schedule:

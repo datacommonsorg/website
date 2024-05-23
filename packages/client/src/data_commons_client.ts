@@ -163,7 +163,7 @@ class DataCommonsClient {
             type: "Feature",
           };
           if (feature.geometry && shouldRewind) {
-            return rewind(feature, { reverse: true }) as Feature;
+            return rewind(feature, { reverse: true });
           }
           return feature;
         }),

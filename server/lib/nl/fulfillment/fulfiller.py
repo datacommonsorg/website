@@ -18,13 +18,13 @@ from typing import cast, List
 
 from flask import current_app
 
-import server.lib.explore.params as params
-import server.lib.explore.topic as topic
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 import server.lib.nl.detection.types as dtypes
+import server.lib.nl.explore.params as params
+import server.lib.nl.explore.topic as topic
 from server.lib.nl.fulfillment import base
 from server.lib.nl.fulfillment import event
 from server.lib.nl.fulfillment import filter_with_dual_vars
@@ -39,7 +39,7 @@ import server.lib.nl.fulfillment.utils as futils
 #
 # Populate chart candidates in the utterance.
 #
-def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
+def fulfill(uttr: Utterance) -> PopulateState:
   # Construct a common PopulateState
   state = PopulateState(uttr=uttr)
 
@@ -61,7 +61,6 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   state.time_delta_types = utils.get_time_delta_types(uttr)
   state.quantity = utils.get_quantity(uttr)
   state.event_types = utils.get_event_types(uttr)
-  state.explore_mode = explore_mode
   state.single_date = utils.get_single_date(uttr)
   # Only one of single date or date range should be specified, so only get date
   # range if there is no single date.
@@ -177,21 +176,10 @@ def _produce_query_types(uttr: Utterance) -> List[QueryType]:
   # The remaining query types require places to be set
   if not uttr.places:
     return query_types
+
   query_types.append(handlers.first_query_type(uttr))
   while query_types[-1] != None:
     query_types.append(handlers.next_query_type(query_types))
-
-  if params.is_special_dc(uttr.insight_ctx):
-    # Prune out query_types that aren't relevant.
-    pruned_types = []
-    for qt in query_types:
-      # Superlative introduces custom SVs not relevant for SDG.
-      # And we don't do event maps for SDG.
-      if qt not in [QueryType.EVENT, QueryType.SUPERLATIVE]:
-        pruned_types.append(qt)
-    if not pruned_types:
-      pruned_types.append(QueryType.BASIC)
-    query_types = pruned_types
 
   return query_types
 

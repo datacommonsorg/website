@@ -220,75 +220,9 @@
               }
             ],
             "title": "Employed Population Below International Poverty Line by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/MEX",
-                      "country/NGA",
-                      "country/PAK"
-                    ],
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC_multiple_place_bar_block"
-                    ],
-                    "title": "Employed Population Below International Poverty Line (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Population Living Below the National Poverty Line (%)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/MEX",
-                      "country/NGA",
-                      "country/PAK"
-                    ],
-                    "statVarKey": [
-                      "sdg/SD_MDP_ANDI_multiple_place_bar_block",
-                      "sdg/SD_MDP_ANDI.URBANISATION--R_multiple_place_bar_block",
-                      "sdg/SD_MDP_ANDI.URBANISATION--U_multiple_place_bar_block"
-                    ],
-                    "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%) (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%)"
           }
         ],
         "statVarSpec": {
-          "sdg/SD_MDP_ANDI.URBANISATION--R_multiple_place_bar_block": {
-            "name": "Average Deprivation for Impoverished Rural Population",
-            "statVar": "sdg/SD_MDP_ANDI.URBANISATION--R"
-          },
-          "sdg/SD_MDP_ANDI.URBANISATION--U_multiple_place_bar_block": {
-            "name": "Average Deprivation for Impoverished Urban Population",
-            "statVar": "sdg/SD_MDP_ANDI.URBANISATION--U"
-          },
-          "sdg/SD_MDP_ANDI_multiple_place_bar_block": {
-            "name": "Average Deprivations for Population in Poverty",
-            "statVar": "sdg/SD_MDP_ANDI"
-          },
           "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block": {
             "name": "Population Age Under 15 Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
@@ -332,10 +266,6 @@
           "sdg/SI_POV_EMP1.AGE--Y_GE15_multiple_place_bar_block": {
             "name": "Employed Population Aged 15 or Over Below International Poverty Line",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
-          },
-          "sdg/SI_POV_NAHC_multiple_place_bar_block": {
-            "name": "Employed Population Below International Poverty Line",
-            "statVar": "sdg/SI_POV_NAHC"
           },
           "sdg/SP_ACS_BSRVH2O_multiple_place_bar_block": {
             "name": "Population Using Basic Drinking Water Services",
@@ -386,12 +316,6 @@
     "childPlaces": {},
     "childTopics": [],
     "exploreMore": {
-      "sdg/SD_MDP_ANDI": {
-        "sdg_urbanisation": [
-          "sdg/SD_MDP_ANDI.URBANISATION--R",
-          "sdg/SD_MDP_ANDI.URBANISATION--U"
-        ]
-      },
       "sdg/SI_POV_DAY1": {
         "age": [
           "sdg/SI_POV_DAY1.AGE--Y0T14",

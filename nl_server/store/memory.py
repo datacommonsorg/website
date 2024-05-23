@@ -14,23 +14,43 @@
 """In-memory Embeddings store."""
 
 import logging
-from typing import Dict, List
+from typing import List
 
 from datasets import load_dataset
 from sentence_transformers.util import semantic_search
 import torch
 
+from nl_server.config import MemoryIndexConfig
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import EmbeddingsStore
-from shared.lib.detected_variables import SentenceScore
+from shared.lib.custom_dc_util import use_anonymous_gcs_client
+from shared.lib.gcs import is_gcs_path
+from shared.lib.gcs import maybe_download
 
 
 class MemoryEmbeddingsStore(EmbeddingsStore):
   """Manages the embeddings."""
 
-  def __init__(self, embeddings_path: str) -> None:
-    super().__init__(needs_tensor=True)
+  def __init__(self, idx_info: MemoryIndexConfig) -> None:
+    super().__init__(healthcheck_query=idx_info.healthcheck_query,
+                     needs_tensor=True)
+
+    if idx_info.embeddings_path.startswith('/'):
+      embeddings_path = idx_info.embeddings_path
+    elif is_gcs_path(idx_info.embeddings_path):
+      logging.info('Downloading embeddings from GCS path: ')
+      embeddings_path = maybe_download(
+          idx_info.embeddings_path,
+          use_anonymous_client=use_anonymous_gcs_client())
+      if not embeddings_path:
+        raise AssertionError(
+            f'Embeddings not downloaded from GCS. Please check the path: {idx_info.embeddings_path}'
+        )
+    else:
+      raise AssertionError(
+          f'"embeddings" path must start with `/` or `gs://`: {idx_info.embeddings_path}'
+      )
 
     self.dataset_embeddings: torch.Tensor = None
     self.dcids: List[str] = []

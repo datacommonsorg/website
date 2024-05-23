@@ -15,19 +15,21 @@
 
 # TODO: rename to variable_utils.py
 
-from typing import Dict, List
+import re
+from typing import List
 
-from server.lib.explore.params import QueryMode
 from server.lib.fetch import property_values
 from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
+from server.lib.nl.explore.params import QueryMode
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartType
 from shared.lib import constants as shared_constants
@@ -130,10 +132,11 @@ def get_top_sv_score(detection: Detection, cspec: ChartSpec) -> float:
   return 0
 
 
-def empty_var_detection_result():
+def empty_var_detection_result() -> dvars.VarDetectionResult:
   return dvars.VarDetectionResult(
       single_var=empty_var_candidates(),
-      multi_var=dvars.MultiVarCandidates(candidates=[]))
+      multi_var=dvars.MultiVarCandidates(candidates=[]),
+      model_threshold=shared_constants.SV_SCORE_DEFAULT_THRESHOLD)
 
 
 def empty_var_candidates():
@@ -179,19 +182,27 @@ def _get_sv_and_prop_candidates(
   return sv_candidates, prop_candidates
 
 
-def create_sv_detection(
-    query: str,
-    var_detection_result: dvars.VarDetectionResult,
-    sv_threshold: float = shared_constants.SV_SCORE_DEFAULT_THRESHOLD,
-    allow_triples: bool = False) -> SVDetection:
+def compute_final_threshold(model_threshold: float,
+                            threshold_override: float) -> float:
+  # Pick the higher of the two.
+  return max(model_threshold, threshold_override)
+
+
+def create_sv_detection(query: str,
+                        var_detection_result: dvars.VarDetectionResult,
+                        sv_threshold_override: float = 0,
+                        allow_triples: bool = False) -> SVDetection:
   sv_candidates, prop_candidates = _get_sv_and_prop_candidates(
       var_detection_result, allow_triples)
 
+  sv_threshold = compute_final_threshold(var_detection_result.model_threshold,
+                                         sv_threshold_override)
   return SVDetection(query=query,
                      single_sv=sv_candidates,
                      multi_sv=var_detection_result.multi_var,
                      prop=prop_candidates,
-                     sv_threshold=sv_threshold)
+                     sv_threshold=sv_threshold,
+                     model_threshold=var_detection_result.model_threshold)
 
 
 def empty_place_detection() -> PlaceDetection:
@@ -280,3 +291,21 @@ def remove_date_from_query(query: str,
     date_trigger = cl.attributes.date_trigger_strings[0]
     processed_query = processed_query.replace(date_trigger, "", 1)
   return processed_query
+
+
+def is_llm_detection(d: Detection) -> bool:
+  return d.detector in [
+      ActualDetectorType.LLM, ActualDetectorType.HybridLLMFull
+  ]
+
+
+# Find "needle" at word boundary in "haystack".
+def find_word_boundary(haystack: str, needle: str):
+  # Create a regex pattern with word boundaries
+  pattern = r'\b' + re.escape(needle) + r'\b'
+  # Search for the pattern in the string
+  match = re.search(pattern, haystack)
+  # Return the start index if a match is found, otherwise -1
+  if match:
+    return match.start()
+  return -1
