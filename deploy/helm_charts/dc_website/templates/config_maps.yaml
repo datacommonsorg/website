@@ -80,7 +80,7 @@ metadata:
   namespace: {{ .Values.namespace.name }}
 data:
   catalog.yaml: {{ required "NL catalog file is required" .Values.nl.catalog | quote }}
-  env.yaml: {{ .Values.nl.env | quote }}
+  env.yaml: {{ toYaml required "NL env file is required" .Values.nl.env | quote }}
 {{- end }}
 
 {{- if .Values.website.redis.enabled }}
