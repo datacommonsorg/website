@@ -33,6 +33,12 @@ from shared.lib.detected_variables import VarCandidates
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
+#
+# A global bool to ensure we keep failing healthz till we
+# load the default embeddings fully on the server.
+#
+default_embeddings_loaded = False
+
 
 @bp.route('/healthz')
 def healthz():

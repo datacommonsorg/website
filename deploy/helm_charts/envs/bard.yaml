@@ -48,7 +48,6 @@ nl:
     default_indexes:
       - medium_ft
     enabled_indexes:
-      - bio_ft
       - medium_ft
       - sdg_ft
       - undata_ft

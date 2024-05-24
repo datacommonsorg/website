@@ -188,7 +188,6 @@ function getChartArea(
               svgChartHeight={chartHeight}
               place={appContext.places[0]}
               colors={COLORS}
-              showLoadingSpinner={true}
               showTooltipOnHover={true}
             />
             <ChartFooter

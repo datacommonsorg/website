@@ -41,11 +41,11 @@ nl:
     default_indexes:
       - sdg_ft
     enabled_indexes:
-      - bio_ft
       - medium_ft
       - sdg_ft
       - undata_ft
       - undata_ilo_ft
+      - undata_dev_ft
 
 serviceGroups:
   recon: null

@@ -54,6 +54,8 @@ nl:
       - medium_ft
     enabled_indexes:
       - medium_ft
+      - sdg_ft
+      - undata_ft
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

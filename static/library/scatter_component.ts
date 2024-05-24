@@ -117,7 +117,7 @@ export class DatacommonsScatterComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
-  render(): HTMLElement {
+  render(): HTMLDivElement {
     const scatterTileProps: ScatterTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       enclosedPlaceType: this.childPlaceType,

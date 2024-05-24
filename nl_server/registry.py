@@ -40,8 +40,10 @@ REGISTRY_KEY: str = 'REGISTRY'
 # A class to hold embeddings stores and models.
 #
 class Registry:
+  """
+  A class to hold runtime model handle/client objects and embeddings stores.
+  """
 
-  # Input is server config object.
   def __init__(self, server_config: ServerConfig):
     self.name_to_emb: dict[str, Embeddings] = {}
     self.name_to_emb_model: Dict[str, EmbeddingsModel] = {}
@@ -97,7 +99,7 @@ class Registry:
         logging.error(f'error loading model {model_name}: {str(e)} ')
         raise e
 
-  # Sets an index to the embeddings map
+  # Sets an index to the name_to_emb
   def _set_embeddings(self, idx_name: str, idx_info: IndexConfig):
     # try creating a store object from the index info
     store = None

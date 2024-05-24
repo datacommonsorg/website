@@ -80,6 +80,7 @@ class VertexAIIndexConfig(IndexConfig):
 
 
 # This represents the full catalog of models and indexes.
+# Only a subset of them are enabled/used by the Env config at runtime.
 @dataclass(kw_only=True)
 class Catalog:
   version: str = None

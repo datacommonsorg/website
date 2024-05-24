@@ -174,7 +174,6 @@ function getChartArea(
           showPlaceLabels: appContext.displayOptions.scatterPlaceLabels,
           showQuadrants: appContext.displayOptions.scatterQuadrants,
         }}
-        showLoadingSpinner={true}
       />
       <ChartFooter
         inputSections={[

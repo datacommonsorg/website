@@ -33,11 +33,10 @@ serviceAccount:
 nl:
   enabled: true
   env:
-    defaultIndexes:
+    default_indexes:
       - base_uae_mem
-    enabledIndexes:
+    enabled_indexes:
       - base_uae_mem
-      - bio_ft
       - medium_ft
       - sdg_ft
       - undata_ft

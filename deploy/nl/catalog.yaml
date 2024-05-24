@@ -23,7 +23,7 @@
 #                    below which we drop matches? (default: 0.5)
 #
 # indexes:
-# - store: what type of embeddings store?  (MEMORY, LANCEDB, VERTEXAI)
+# - store_type: what type of embeddings store?  (MEMORY, LANCEDB, VERTEXAI)
 # - model: the name of the associated model from `models` section
 # - embeddings_path: For MEMORY/LANCEDB, the path to the index files.
 #               Can be a local absolute path or GCS (gs://) path.
@@ -71,6 +71,11 @@ indexes:
     embeddings_path: gs://datcom-nl-models/embeddings_undata_ilo_2024_05_15_11_18_05.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Employment"
+  undata_dev_ft:
+    store_type: MEMORY
+    embeddings_path: gs://datcom-nl-models/embeddings_undata_dev_2024_05_21_15_37_51.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    healthcheck_query: "Employment"
   bio_ft:
     store_type: MEMORY
     embeddings_path: gs://datcom-nl-models/embeddings_bio_2024_03_19_16_39_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
@@ -92,7 +97,7 @@ indexes:
     healthcheck_query: "Life expectancy"
   base_uae_mem:
     store_type: MEMORY
-    embeddings_path: gs://datcom-nl-models/embeddings_medium_2024_05_16_13_45_32.8110162693219942400.csv
+    embeddings_path: gs://datcom-nl-models/embeddings_medium_2024_05_22_12_06_51.8110162693219942400.csv
     model: uae-large-v1-model
     healthcheck_query: "Life expectancy"
   medium_vertex_mistral:

@@ -44,7 +44,7 @@ export class DatacommonsTextComponent extends LitElement {
   @property()
   link?: string;
 
-  render(): HTMLElement {
+  render(): HTMLDivElement {
     const textTileProps: TextTilePropType = {
       link: this.link,
     };
