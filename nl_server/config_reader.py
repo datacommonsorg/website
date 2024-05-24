@@ -206,6 +206,7 @@ def get_server_config(catalog: Catalog, env: Env) -> ServerConfig:
   """
   Merges the catalog and env into a server config.
   """
+  # TODO: remove this check when custom DC can update the env.yaml.
   default_indexes = [x for x in env.default_indexes if x in catalog.indexes]
 
   # Add reranking models
@@ -224,7 +225,7 @@ def get_server_config(catalog: Catalog, env: Env) -> ServerConfig:
     index_config = catalog.indexes[index_name]
     indexes[index_name] = index_config
     model_name = index_config.model
-    if model_name not in models:
+    if model_name not in catalog.models:
       raise ValueError(
           f'Model {model_name} from index {index_name} not found in catalog')
     models[model_name] = catalog.models[model_name]
