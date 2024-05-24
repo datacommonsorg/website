@@ -22,8 +22,11 @@ from shared.lib import constants
 CUSTOM_DC_INDEX: str = 'custom_ft'
 
 # App Config constants.
+# Key for the registry that holds model objects/client and embedding store.
 REGISTRY_KEY: str = 'NL_REGISTRY'
+# Key for the catalog object that holds model and index configs.
 CATALOG_KEY: str = 'NL_CATALOG'
+# Key for the environment config object.
 ENV_KEY: str = 'NL_ENV'
 
 # Query to use to check index health if this is the default index.
@@ -92,6 +95,7 @@ class VertexAIIndexConfig(IndexConfig):
 
 
 # This represents the full catalog of models and indexes.
+# Only a subset of them are enabled/used by the Env config at runtime.
 @dataclass(kw_only=True)
 class Catalog:
   version: str = None

@@ -48,10 +48,12 @@ def healthz():
   if default_embeddings_loaded:
     return 'OK', 200
 
-  default_index_type = current_app.config[config.ENV_KEY].default_indexes[0]
-  if not default_index_type:
-    logging.warning('Health Check Failed: Default index name empty!')
+  nl_env = current_app.config[config.ENV_KEY]
+  if not nl_env.default_indexes:
+    logging.error('Health Check Failed: Default index name empty!')
     return 'Service Unavailable', 500
+
+  default_index_type = nl_env.default_indexes[0]
   nl_embeddings: Embeddings = current_app.config[config.REGISTRY_KEY].get_index(
       default_index_type)
   if nl_embeddings:

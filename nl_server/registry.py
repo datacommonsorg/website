@@ -33,10 +33,10 @@ from nl_server.store.vertexai import VertexAIStore
 from shared.lib.custom_dc_util import is_custom_dc
 
 
-#
-# A class to hold embeddings stores and models.
-#
 class Registry:
+  """
+  A class to hold runtime model handle/client objects and embeddings stores.
+  """
 
   # Input is parsed embeddings config.
   def __init__(self, catalog: Catalog):

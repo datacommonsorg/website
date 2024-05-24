@@ -37,6 +37,11 @@ _LOCAL_ENV_VALUES_PATH: str = f'{Path(__file__).parent.parent}/deploy/helm_chart
 
 @dataclass
 class Env:
+  """
+  A class to represent the NL server environment config.
+
+  This object is used with the Catalog object to configure the server.
+  """
   default_indexes: List[str]
   enabled_indexes: List[str]
   vertex_ai_model_info: Dict[str, any]
