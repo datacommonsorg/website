@@ -171,7 +171,7 @@ def detect(query: str,
                                dummy_dict,
                                reranker=reranker,
                                skip_topics=skip_topics))
-    except ValueError as e:
+    except Exception as e:
       ctr.err('llm_detect_vars_value_error', {'q': sv, 'err': str(e)})
   merged_var_detection = _merge_sv_dicts(sv_list, var_detection_results)
   sv_detection = dutils.create_sv_detection(query,
@@ -296,7 +296,7 @@ def _handle_quantity(filter: Dict, ctype: str) -> types.NLClassifier:
       qop = _LLM_OP_TO_QUANTITY_OP.get(op, None)
       if qop:
         qty = types.Quantity(cmp=qop, val=val)
-    except ValueError:
+    except Exception:
       pass
   if not qty:
     return None
