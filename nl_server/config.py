@@ -81,10 +81,18 @@ class VertexAIIndexConfig(IndexConfig):
   index_id: str = None
 
 
-# This represents the full catalog of models and indexes.
-# Only a subset of them are enabled/used by the Env config at runtime.
+# Check
+# https://github.com/datacommonsorg/website/assets/5951856/81bfdf68-0119-4755-95f3-2742cc74655c
+# to see the relation between the following configs and the Registry object.
+
+
 @dataclass(kw_only=True)
 class Catalog:
+  """
+  This represents the full catalog of models and indexes.
+
+  Only a subset of them are enabled/used by the Env config at runtime.
+  """
   version: str = None
   indexes: Dict[str, IndexConfig]
   models: Dict[str, ModelConfig]
@@ -107,6 +115,11 @@ class Env:
 
 @dataclass(kw_only=True)
 class ServerConfig:
+  """
+  A class to hold the runtime server config.
+
+  This config is obtained from the catalog and environment config.
+  """
   version: str
   default_indexes: List[str]
   indexes: Dict[str, IndexConfig]

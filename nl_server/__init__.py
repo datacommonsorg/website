@@ -20,7 +20,8 @@ import google.cloud.logging
 import torch
 
 from nl_server import registry
-import nl_server.routes as routes
+from nl_server import routes
+from nl_server import search
 import shared.lib.gcp as lib_gcp
 from shared.lib.utils import is_debug_mode
 
@@ -51,6 +52,15 @@ def create_app():
   # are loaded.
   try:
     r = registry.build()
+    # Below is a safe check to ensure that the model and embedding is loaded.
+    server_config = r.server_config()
+    idx_type = server_config.default_indexes[0]
+    embeddings = r.get_index(idx_type)
+    query = server_config.indexes[idx_type].healthcheck_query
+    result = search.search_vars([embeddings], [query]).get(query)
+    if not result or not result.svs:
+      raise Exception(
+          f'Unable to do health check query on default index {idx_type}')
   except Exception as e:
     msg = '\n!!!!! IMPORTANT NOTE !!!!!!\n' \
           'If you are running locally, try clearing models:\n' \

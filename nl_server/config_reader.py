@@ -18,7 +18,6 @@ import logging
 import os
 from pathlib import Path
 
-from dacite import from_dict
 import yaml
 
 from nl_server.config import Catalog
