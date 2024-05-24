@@ -28,6 +28,9 @@ website:
 serviceAccount:
   name: website-ksa
 
+ingress:
+  enabled: true
+
 serviceGroups:
   recon: null
   svg:

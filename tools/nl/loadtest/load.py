@@ -22,6 +22,7 @@ import requests
 
 FLAGS = flags.FLAGS
 
+flags.DEFINE_string('instance', 'bard', 'The instance name of the website')
 flags.DEFINE_integer('parallel_requests', 1,
                      'Number of requests to run in parallel')
 flags.DEFINE_integer('total_requests', None, 'Total number of requests to run')
@@ -29,7 +30,7 @@ flags.DEFINE_string('apikey', '', "apikey to use when making query requests.")
 
 _OUTPUT_FILE = 'load_results.json'
 _QUERY_FILE = 'queryset.csv'
-_URL = 'https://bard.datacommons.org/nodejs/query?apikey={apikey}&q={query}'
+_URL = 'https://{instance}.datacommons.org/nodejs/query?apikey={apikey}&q={query}'
 _RESULT_KEY_CODE = 'code'
 _RESULT_KEY_ERROR_CONTENT = 'errorContent'
 _RESULT_KEY_NL_TIME = 'nlTime'
@@ -43,8 +44,8 @@ def _run_query(query):
   # Make the API request
   print(f'Running query: {query}')
   try:
-    response = session.get(_URL.format(apikey=FLAGS.apikey, query=query),
-                           timeout=None)
+    url = _URL.format(instance=FLAGS.instance, apikey=FLAGS.apikey, query=query)
+    response = session.get(url, timeout=None)
     if response.status_code == 200:
       debug_timing = response.json().get('debug', {}).get('timing', {})
       return {
@@ -129,7 +130,7 @@ def run_load(total_requests, parallel_requests):
   # If number of total requests is specified, generate a list of queries that is
   # total requests long
   if total_requests:
-    while len(query_list_to_run) < total_requests or len(query_list):
+    while len(query_list_to_run) < total_requests and len(query_list):
       num_missing = total_requests - len(query_list_to_run)
       query_list_to_run += query_list[0:min(num_missing, len(query_list))]
   else:
