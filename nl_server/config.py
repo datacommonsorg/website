@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from abc import ABC
 from dataclasses import dataclass
 from enum import Enum
 from typing import Dict
@@ -23,10 +22,12 @@ from shared.lib import constants
 CUSTOM_DC_INDEX: str = 'custom_ft'
 
 # App Config constants.
-ATTRIBUTE_MODEL_KEY: str = 'ATTRIBUTE_MODEL'
-NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
-NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
-EMBEDDINGS_SPEC_KEY: str = 'EMBEDDINGS_SPEC'
+# Key for the registry that holds model objects/client and embedding store.
+REGISTRY_KEY: str = 'NL_REGISTRY'
+# Key for the catalog object that holds model and index configs.
+CATALOG_KEY: str = 'NL_CATALOG'
+# Key for the environment config object.
+ENV_KEY: str = 'NL_ENV'
 
 # Query to use to check index health if this is the default index.
 _HEALTHCHECK_QUERY = 'health'
@@ -48,54 +49,56 @@ class ModelUsage(str, Enum):
   RERANKING = 'RERANKING'
 
 
-@dataclass
-class ModelConfig(ABC):
-  type: str
-  score_threshold: float
-  usage: str
+@dataclass(kw_only=True)
+class ModelConfig:
+  type: str = None
+  usage: str = None
+  score_threshold: float = None
 
 
-@dataclass
+@dataclass(kw_only=True)
 class VertexAIModelConfig(ModelConfig):
-  project_id: str
-  location: str
-  prediction_endpoint_id: str
+  project_id: str = None
+  location: str = None
+  prediction_endpoint_id: str = None
 
 
-@dataclass
+@dataclass(kw_only=True)
 class LocalModelConfig(ModelConfig):
-  gcs_folder: str = ''
+  gcs_folder: str = None
 
 
-@dataclass
-class IndexConfig(ABC):
-  store_type: str
-  model: str
-  healthcheck_query: str
+@dataclass(kw_only=True)
+class IndexConfig:
+  store_type: str = None
+  model: str = None
+  healthcheck_query: str = 'health'
 
 
-@dataclass
+@dataclass(kw_only=True)
 class MemoryIndexConfig(IndexConfig):
-  embeddings_path: str
+  embeddings_path: str = None
 
 
-@dataclass
+@dataclass(kw_only=True)
 class LanceDBIndexConfig(IndexConfig):
-  embeddings_path: str
+  embeddings_path: str = None
 
 
-@dataclass
+@dataclass(kw_only=True)
 class VertexAIIndexConfig(IndexConfig):
-  project_id: str
-  location: str
-  index_endpoint_root: str
-  index_endpoint: str
-  index_id: str
+  project_id: str = None
+  location: str = None
+  index_endpoint_root: str = None
+  index_endpoint: str = None
+  index_id: str = None
 
 
-# Defines one embeddings index config.
-@dataclass
-class EmbeddingsConfig:
+# This represents the full catalog of models and indexes.
+# Only a subset of them are enabled/used by the Env config at runtime.
+@dataclass(kw_only=True)
+class Catalog:
+  version: str = None
   indexes: Dict[str, IndexConfig]
   models: Dict[str, ModelConfig]
 
@@ -111,43 +114,42 @@ def _is_model_enabled(model_name: str, model_info: Dict[str, str],
 
 
 #
-# Parse the input `embeddings.yaml` dict representation into EmbeddingsConfig
+# Parse the input `embeddings.yaml` dict representation into Catalog
 # object.
 #
-def parse(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str, any],
-          reranking_enabled: bool) -> EmbeddingsConfig:
-  if embeddings_map['version'] == 1:
-    return parse_v1(embeddings_map, vertex_ai_model_info, reranking_enabled)
+def parse(catalog_dict: Dict[str, any], vertex_ai_model_info: Dict[str, any],
+          reranking_enabled: bool) -> Catalog:
+  if catalog_dict['version'] == 1:
+    return parse_v1(catalog_dict, vertex_ai_model_info, reranking_enabled)
   else:
-    raise AssertionError('Could not parse embeddings map: unsupported version.')
+    raise AssertionError('Could not parse catalog: unsupported version.')
 
 
 #
 # Parses the v1 version of the `embeddings.yaml` dict representation into
-# EmbeddingsConfig object.
+# Catalog object.
 #
-def parse_v1(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str,
-                                                                        any],
-             reranking_enabled: bool) -> EmbeddingsConfig:
+def parse_v1(catalog_dict: Dict[str, any], vertex_ai_model_info: Dict[str, any],
+             reranking_enabled: bool) -> Catalog:
   used_models = set()
 
   # parse the indexes
   indexes = {}
-  for index_name, index_info in embeddings_map.get('indexes', {}).items():
-    store_type = index_info['store']
+  for index_name, index_info in catalog_dict.get('indexes', {}).items():
+    store_type = index_info['store_type']
     used_models.add(index_info['model'])
     healthcheck_query = index_info.get('healthcheck_query', _HEALTHCHECK_QUERY)
     if store_type == StoreType.MEMORY:
       indexes[index_name] = MemoryIndexConfig(
           store_type=store_type,
           model=index_info['model'],
-          embeddings_path=index_info['embeddings'],
+          embeddings_path=index_info['embeddings_path'],
           healthcheck_query=healthcheck_query)
     elif store_type == StoreType.LANCEDB:
       indexes[index_name] = LanceDBIndexConfig(
           store_type=store_type,
           model=index_info['model'],
-          embeddings_path=index_info['embeddings'],
+          embeddings_path=index_info['embeddings_path'],
           healthcheck_query=healthcheck_query)
     elif store_type == StoreType.VERTEXAI:
       indexes[index_name] = VertexAIIndexConfig(
@@ -166,7 +168,7 @@ def parse_v1(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str,
 
   # parse the models
   models = {}
-  for model_name, model_info in embeddings_map.get('models', {}).items():
+  for model_name, model_info in catalog_dict.get('models', {}).items():
     if not _is_model_enabled(model_name, model_info, used_models,
                              reranking_enabled):
       continue
@@ -192,4 +194,4 @@ def parse_v1(embeddings_map: Dict[str, any], vertex_ai_model_info: Dict[str,
       raise AssertionError(
           'Error parsing information for model {model_name}: unsupported type {model_type}'
       )
-  return EmbeddingsConfig(indexes=indexes, models=models)
+  return Catalog(indexes=indexes, models=models)

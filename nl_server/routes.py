@@ -12,9 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import asdict
 import json
 import logging
-from typing import Dict, List
+from typing import List
 
 from flask import Blueprint
 from flask import current_app
@@ -25,7 +26,7 @@ from nl_server import config
 from nl_server import loader
 from nl_server import search
 from nl_server.embeddings import Embeddings
-from nl_server.embeddings_map import EmbeddingsMap
+from nl_server.registry import Registry
 from shared.lib import constants
 from shared.lib.custom_dc_util import is_custom_dc
 from shared.lib.detected_variables import var_candidates_to_dict
@@ -47,13 +48,14 @@ def healthz():
   if default_embeddings_loaded:
     return 'OK', 200
 
-  default_index_type = current_app.config[
-      config.EMBEDDINGS_SPEC_KEY].default_index
-  if not default_index_type:
-    logging.warning('Health Check Failed: Default index name empty!')
+  nl_env = current_app.config[config.ENV_KEY]
+  if not nl_env.default_indexes:
+    logging.error('Health Check Failed: Default index name empty!')
     return 'Service Unavailable', 500
-  nl_embeddings: Embeddings = current_app.config[
-      config.NL_EMBEDDINGS_KEY].get_index(default_index_type)
+
+  default_index_type = nl_env.default_indexes[0]
+  nl_embeddings: Embeddings = current_app.config[config.REGISTRY_KEY].get_index(
+      default_index_type)
   if nl_embeddings:
     query = nl_embeddings.store.healthcheck_query
     result: VarCandidates = search.search_vars([nl_embeddings],
@@ -81,23 +83,22 @@ def search_vars():
   queries = request.json.get('queries', [])
   queries = [str(escape(q)) for q in queries]
 
-  default_index_type = current_app.config[
-      config.EMBEDDINGS_SPEC_KEY].default_index
+  default_index_type = current_app.config[config.ENV_KEY].default_indexes[0]
   idx = str(escape(request.args.get('idx', default_index_type)))
   if not idx:
     idx = default_index_type
 
-  emb_map: EmbeddingsMap = current_app.config[config.NL_EMBEDDINGS_KEY]
+  registry: Registry = current_app.config[config.REGISTRY_KEY]
 
   skip_topics = False
   if request.args.get('skip_topics'):
     skip_topics = True
 
   reranker_name = str(escape(request.args.get('reranker', '')))
-  reranker_model = emb_map.get_reranking_model(
+  reranker_model = registry.get_reranking_model(
       reranker_name) if reranker_name else None
 
-  nl_embeddings = _get_indexes(emb_map, idx)
+  nl_embeddings = _get_indexes(registry, idx)
   debug_logs = {'sv_detection_query_index_type': idx}
   results = search.search_vars(nl_embeddings, queries, skip_topics,
                                reranker_model, debug_logs)
@@ -116,32 +117,32 @@ def detect_verbs():
   List[str]
   """
   query = str(escape(request.args.get('q')))
-  nl_model = current_app.config[config.ATTRIBUTE_MODEL_KEY]
+  nl_model = current_app.config[config.REGISTRY_KEY].attribute_model()
   return json.dumps(nl_model.detect_verbs(query.strip()))
 
 
 @bp.route('/api/embeddings_version_map/', methods=['GET'])
 def embeddings_version_map():
-  return json.dumps(current_app.config[config.NL_EMBEDDINGS_VERSION_KEY])
+  return json.dumps(asdict(current_app.config[config.CATALOG_KEY]))
 
 
 @bp.route('/api/load/', methods=['GET'])
 def load():
   loader.load_custom_embeddings(current_app)
-  return json.dumps(current_app.config[config.NL_EMBEDDINGS_VERSION_KEY])
+  return json.dumps(asdict(current_app.config[config.CATALOG_KEY]))
 
 
-def _get_indexes(emb_map: EmbeddingsMap, idx: str) -> List[Embeddings]:
+def _get_indexes(registry: Registry, idx: str) -> List[Embeddings]:
   nl_embeddings: List[Embeddings] = []
 
   if is_custom_dc() and idx != config.CUSTOM_DC_INDEX:
     # Order custom index first, so that when the score is the same
     # Custom DC will be preferred.
-    emb = emb_map.get_index(config.CUSTOM_DC_INDEX)
+    emb = registry.get_index(config.CUSTOM_DC_INDEX)
     if emb:
       nl_embeddings.append(emb)
 
-  emb = emb_map.get_index(idx)
+  emb = registry.get_index(idx)
   if emb:
     nl_embeddings.append(emb)
 

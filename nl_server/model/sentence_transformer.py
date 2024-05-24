@@ -35,5 +35,5 @@ class LocalSentenceTransformerModel(embeddings.EmbeddingsModel):
     logging.info(f'Loading tuned model from: {model_path}')
     self.model = SentenceTransformer(model_path)
 
-  def encode(self, queries: List[str]) -> torch.Tensor:
-    return self.model.encode(queries, show_progress_bar=False)
+  def encode(self, queries: List[str], show_progress_bar=False) -> torch.Tensor:
+    return self.model.encode(queries, show_progress_bar=show_progress_bar)

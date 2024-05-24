@@ -32,15 +32,20 @@ serviceAccount:
 
 nl:
   enabled: true
-  embeddingsSpec:
-    defaultIndex: "base_uae_mem"
-    enabledIndexes: ["base_uae_mem", "medium_ft", "sdg_ft", "undata_ft"]
-    vertexAIModels:
+  env:
+    default_indexes:
+      - base_uae_mem
+    enabled_indexes:
+      - base_uae_mem
+      - medium_ft
+      - sdg_ft
+      - undata_ft
+    vertex_ai_models:
       uae-large-v1-model:
         project_id: datcom-nl
         location: us-central1
         prediction_endpoint_id: "8435477397553283072"
-    enableReranking: false
+    enable_reranking: false
 
 serviceGroups:
   recon: null

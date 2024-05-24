@@ -37,17 +37,15 @@ mixer:
 
 nl:
   enabled: true
-  embeddingsSpec:
-    defaultIndex: "sdg_ft"
-    enabledIndexes:
-      [
-        "bio_ft",
-        "medium_ft",
-        "sdg_ft",
-        "undata_ft",
-        "undata_ilo_ft",
-        "undata_dev_ft",
-      ]
+  env:
+    default_indexes:
+      - sdg_ft
+    enabled_indexes:
+      - medium_ft
+      - sdg_ft
+      - undata_ft
+      - undata_ilo_ft
+      - undata_dev_ft
 
 serviceGroups:
   recon: null

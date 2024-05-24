@@ -51,7 +51,7 @@ class LanceDBStore(EmbeddingsStore):
         )
     else:
       raise AssertionError(
-          f'"embeddings" path must start with `/` or `gs://`: {idx_info.embeddings_path}'
+          f'"embeddings_path" path must start with `/` or `gs://`: {idx_info.embeddings_path}'
       )
 
     self.db = lancedb.connect(lance_db_dir)

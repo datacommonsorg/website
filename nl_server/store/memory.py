@@ -49,7 +49,7 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
         )
     else:
       raise AssertionError(
-          f'"embeddings" path must start with `/` or `gs://`: {idx_info.embeddings_path}'
+          f'"embeddings_path" path must start with `/` or `gs://`: {idx_info.embeddings_path}'
       )
 
     self.dataset_embeddings: torch.Tensor = None

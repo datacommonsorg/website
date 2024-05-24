@@ -70,7 +70,8 @@ def download(embeddings_yaml_path: str):
   print(f"Downloaded default model to: {local_model_path}")
 
   # Download embeddings.
-  embeddings_file_name = default_ft_embeddings_info.index_config['embeddings']
+  embeddings_file_name = default_ft_embeddings_info.index_config[
+      'embeddings_path']
   print(f"Downloading default embeddings: {embeddings_file_name}")
   local_embeddings_path = gcs.maybe_download(embeddings_file_name,
                                              use_anonymous_client=True)
@@ -142,9 +143,9 @@ def generate_embeddings_yaml(model_info: utils.ModelConfig,
       "version": 1,
       "indexes": {
           "custom_ft": {
-              "embeddings": embeddings_csv_handler.abspath(),
+              "embeddings_path": embeddings_csv_handler.abspath(),
               "model": model_info.name,
-              "store": "MEMORY",
+              "store_type": "MEMORY",
           }
       },
       "models": {

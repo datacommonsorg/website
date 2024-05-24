@@ -23,9 +23,9 @@
 #                    below which we drop matches? (default: 0.5)
 #
 # indexes:
-# - store: what type of embeddings store?  (MEMORY, LANCEDB, VERTEXAI)
+# - store_type: what type of embeddings store?  (MEMORY, LANCEDB, VERTEXAI)
 # - model: the name of the associated model from `models` section
-# - embeddings: For MEMORY/LANCEDB, the path to the index files.
+# - embeddings_path: For MEMORY/LANCEDB, the path to the index files.
 #               Can be a local absolute path or GCS (gs://) path.
 # - healthcheck_query: if this index were the default index, what is
 #                      the query to use for health-checking the index?
@@ -39,10 +39,10 @@
 #
 # Additionally, every environment (prod, etc) may define the following
 # parameters if NL is enabled:
-# - defaultIndex: Which index in `indexes` section is the default?
-# - enabledIndexes: What are the indexes to load on server start?
-# - enableRanking: Should the RANKING models be loaded on server start?
-# - vertexAIModels: Additional endpoint configuration for Vertex AI models
+# - default_indexes: Which indexes in `indexes` section are the default?
+# - enabled_indexes: What are the indexes to load on server start?
+# - enable_ranking: Should the RANKING models be loaded on server start?
+# - vertex_ai_models: Additional endpoint configuration for Vertex AI models
 #
 # NOTE: Ensure every VERTEXAI model below has parameters in the
 # env yaml files for all the environments you're enabling it for.
@@ -52,42 +52,42 @@ version: 1
 
 indexes:
   medium_ft:
-    store: MEMORY
-    embeddings: gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    store_type: MEMORY
+    embeddings_path: gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Life expectancy"
   sdg_ft:
-    store: MEMORY
-    embeddings: gs://datcom-nl-models/embeddings_sdg_2023_12_26_10_03_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    store_type: MEMORY
+    embeddings_path: gs://datcom-nl-models/embeddings_sdg_2023_12_26_10_03_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Hunger"
   undata_ft:
-    store: MEMORY
-    embeddings: gs://datcom-nl-models/embeddings_undata_2024_03_20_11_01_12.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    store_type: MEMORY
+    embeddings_path: gs://datcom-nl-models/embeddings_undata_2024_03_20_11_01_12.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Hunger"
   undata_ilo_ft:
-    store: MEMORY
-    embeddings: gs://datcom-nl-models/embeddings_undata_ilo_2024_05_15_11_18_05.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    store_type: MEMORY
+    embeddings_path: gs://datcom-nl-models/embeddings_undata_ilo_2024_05_15_11_18_05.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Employment"
   undata_dev_ft:
-    store: MEMORY
-    embeddings: gs://datcom-nl-models/embeddings_undata_dev_2024_05_21_15_37_51.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    store_type: MEMORY
+    embeddings_path: gs://datcom-nl-models/embeddings_undata_dev_2024_05_21_15_37_51.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Employment"
   bio_ft:
-    store: MEMORY
-    embeddings: gs://datcom-nl-models/embeddings_bio_2024_03_19_16_39_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    store_type: MEMORY
+    embeddings_path: gs://datcom-nl-models/embeddings_bio_2024_03_19_16_39_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Gene"
   medium_lance_ft:
-    store: LANCEDB
-    embeddings: gs://datcom-nl-models-dev/lancedb/lancedb_embeddings_medium_2024_04_09_07_22_21.ft_final_v20230717230459.all-MiniLM-L6-v2
+    store_type: LANCEDB
+    embeddings_path: gs://datcom-nl-models-dev/lancedb/lancedb_embeddings_medium_2024_04_09_07_22_21.ft_final_v20230717230459.all-MiniLM-L6-v2
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Life expectancy"
   medium_vertex_ft:
-    store: VERTEXAI
+    store_type: VERTEXAI
     project_id: datcom-website-dev
     location: us-central1
     index_endpoint_root: 302175072.us-central1-496370955550.vdb.vertexai.goog
@@ -96,12 +96,12 @@ indexes:
     model: dc-all-minilm-l6-v2-model
     healthcheck_query: "Life expectancy"
   base_uae_mem:
-    store: MEMORY
-    embeddings: gs://datcom-nl-models/embeddings_medium_2024_05_22_12_06_51.8110162693219942400.csv
+    store_type: MEMORY
+    embeddings_path: gs://datcom-nl-models/embeddings_medium_2024_05_22_12_06_51.8110162693219942400.csv
     model: uae-large-v1-model
     healthcheck_query: "Life expectancy"
   medium_vertex_mistral:
-    store: VERTEXAI
+    store_type: VERTEXAI
     project_id: datcom-website-dev
     location: us-central1
     index_endpoint_root: 302175072.us-central1-496370955550.vdb.vertexai.goog

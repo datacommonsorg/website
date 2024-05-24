@@ -20,9 +20,9 @@ import unittest
 
 from parameterized import parameterized
 
-from nl_server import embeddings_map as emb_map
 from nl_server.config import parse
 from nl_server.embeddings import Embeddings
+from nl_server.registry import Registry
 from nl_server.search import search_vars
 from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
 from shared.lib.gcs import TEMP_DIR
@@ -64,19 +64,19 @@ class TestEmbeddings(unittest.TestCase):
     cls.default_file = _copy(_DEFAULT_FILE)
     cls.custom_file = _copy(_CUSTOM_FILE)
 
-    cls.custom = emb_map.EmbeddingsMap(
+    cls.custom = Registry(
         parse(
             {
                 'version': 1,
                 'indexes': {
                     'medium_ft': {
-                        'embeddings': cls.default_file,
-                        'store': 'MEMORY',
+                        'embeddings_path': cls.default_file,
+                        'store_type': 'MEMORY',
                         'model': _TUNED_MODEL_NAME
                     },
                     'custom_ft': {
-                        'embeddings': cls.custom_file,
-                        'store': 'MEMORY',
+                        'embeddings_path': cls.custom_file,
+                        'store_type': 'MEMORY',
                         'model': _TUNED_MODEL_NAME
                     }
                 },
@@ -115,14 +115,14 @@ class TestEmbeddings(unittest.TestCase):
     _test_query(self, indexes, query, expected)
 
   def test_merge_custom_embeddings(self):
-    embeddings = emb_map.EmbeddingsMap(
+    embeddings = Registry(
         parse(
             {
                 'version': 1,
                 'indexes': {
                     'medium_ft': {
-                        'embeddings': self.default_file,
-                        'store': 'MEMORY',
+                        'embeddings_path': self.default_file,
+                        'store_type': 'MEMORY',
                         'model': _TUNED_MODEL_NAME
                     },
                 },
@@ -145,8 +145,8 @@ class TestEmbeddings(unittest.TestCase):
                 'version': 1,
                 'indexes': {
                     'custom_ft': {
-                        'embeddings': self.custom_file,
-                        'store': 'MEMORY',
+                        'embeddings_path': self.custom_file,
+                        'store_type': 'MEMORY',
                         'model': _TUNED_MODEL_NAME
                     },
                 },
