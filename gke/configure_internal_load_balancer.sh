@@ -18,8 +18,12 @@
 # (2) self-signed certificate for internal load balancer
 # (3) private cloud dns zone
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
-REGION=$(yq eval '.region.primary' config.yaml)
+ENV=$1
+REGION=$2
+
+CONFIG_YAML="../deploy/helm_charts/envs/$ENV.yaml"
+
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 
 echo $PROJECT_ID
 gcloud config set project $PROJECT_ID
@@ -30,7 +34,7 @@ gcloud compute networks subnets create website-internal-lb-proxy-subnet \
     --role=ACTIVE \
     --region=$REGION \
     --network=default \
-    --range=10.1.0.0/24	
+    --range=10.1.0.0/24
 
 # Create self-signed certificate for internal load balancer SSL communication
 openssl req -newkey rsa:2048 -keyout website-ilb.key -x509 -days 365 -out website-ilb.crt -nodes -subj "/CN=website-ilb.website.internal"

@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DNS
+domain: unsdg.datacommons.org
+ip: 34.117.91.127
+
 # Helm config
 project: "datcom-recon-autopush"
 cluster_prefix: "datacommons"

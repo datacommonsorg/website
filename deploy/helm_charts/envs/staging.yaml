@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DNS
+ip: 35.186.255.58
+domain: staging.datacommons.org
+
 # Helm config
 project: "datcom-website-staging"
 cluster_prefix: "website"
