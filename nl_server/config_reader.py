@@ -16,7 +16,6 @@ from dataclasses import asdict
 import json
 import logging
 import os
-from pathlib import Path
 
 import yaml
 
@@ -25,6 +24,8 @@ from nl_server.config import Env
 from nl_server.config import LanceDBIndexConfig
 from nl_server.config import LocalModelConfig
 from nl_server.config import MemoryIndexConfig
+from nl_server.config import ModelConfig
+from nl_server.config import IndexConfig
 from nl_server.config import ModelType
 from nl_server.config import ModelUsage
 from nl_server.config import ServerConfig
@@ -34,21 +35,44 @@ from nl_server.config import VertexAIModelConfig
 from shared.lib import custom_dc_util
 from shared.lib import gcs
 
+from typing import Any, Dict
+
+
+def _path_from_current_file(rel_path: str) -> str:
+  """
+  Get the path of a file relative to the current file.
+  """
+  return os.path.join(os.path.dirname(__file__), rel_path)
+
+
 # catalog paths
-_CATALOG_CODE_PATH = Path(__file__).parent / '../deploy/nl/catalog.yaml'
+
+# catalog from checked in file
+_CATALOG_CODE_PATH = _path_from_current_file('../deploy/nl/catalog.yaml')
+# catalog from mounted file, this is for GKE deployments
 _CATALOG_MOUNT_PATH = '/datacommons/nl/catalog.yaml'
+# catalog from user provided file, this is for custom DCs
+# TODO: use absolute path set by user.
 _CATALOG_USER_PATH_SUFFIX = 'datacommons/nl/custom_catalog.yaml'
 
 # env paths
-_ENV_CODE_PATH = (Path(__file__).parent /
-                  '../deploy/helm_charts/envs/autopush.yaml')
-_ENV_MOUNT_PATH = '/datacommons/nl/env.yaml'
-_ENV_USER_PATH = Path(__file__).parent / 'custom_dc_env.yaml'
 
-_SUPPORTED_VERSIONS = set([1])
+# env from checked in file for autopush instance. Used for local and testing.
+_ENV_CODE_PATH = _path_from_current_file(
+    '../deploy/helm_charts/envs/autopush.yaml')
+# env from mounted file, this is for GKE deployments
+_ENV_MOUNT_PATH = '/datacommons/nl/env.yaml'
+# env from user provided file, this is for custom DCs
+_ENV_USER_PATH = _path_from_current_file('custom_dc_env.yaml')
+
+_CONFIG_V1 = '1'
+_SUPPORTED_VERSIONS = frozenset([_CONFIG_V1])
 
 
 def _merge_dicts(x, y):
+  """
+  Merge two dicts and prefer the latter on if both have a value.
+  """
   res = {}
   for k, v in x.items():
     if v:
@@ -57,6 +81,14 @@ def _merge_dicts(x, y):
     if v:
       res[k] = v
   return res
+
+
+def _log_asdict(
+    obj: Any,
+    msg_prefix: str,
+) -> None:
+  obj_str = json.dumps(asdict(obj), indent=2)
+  logging.info('%s:\n%s', msg_prefix, obj_str)
 
 
 def read_catalog() -> Catalog:
@@ -124,7 +156,7 @@ def read_catalog() -> Catalog:
 
       # TODO: when another version is added, extract separate version read as
       # a function.
-      if this_ver == 1:
+      if this_ver == _CONFIG_V1:
         # read indexes
         for index_name, index_config in partial_catalog['indexes'].items():
           store_type = index_config['store_type']
@@ -138,17 +170,17 @@ def read_catalog() -> Catalog:
             case _:
               raise ValueError(f'Unknown store type: {store_type}')
 
-          # read models
-          for model_name, model_config in partial_catalog['models'].items():
-            model_type = model_config['type']
-            match model_type:
-              case ModelType.LOCAL:
-                models[model_name] = LocalModelConfig(**model_config)
-              case ModelType.VERTEXAI:
-                models[model_name] = VertexAIModelConfig(**model_config)
-              case _:
-                raise ValueError(f'Unknown model type: {model_type}')
-  logging.debug('NL Catalog:\n%s', json.dumps(asdict(catalog), indent=2))
+        # read models
+        for model_name, model_config in partial_catalog['models'].items():
+          model_type = model_config['type']
+          match model_type:
+            case ModelType.LOCAL:
+              models[model_name] = LocalModelConfig(**model_config)
+            case ModelType.VERTEXAI:
+              models[model_name] = VertexAIModelConfig(**model_config)
+            case _:
+              raise ValueError(f'Unknown model type: {model_type}')
+  _log_asdict(catalog, 'NL catalog')
   return catalog
 
 
@@ -157,15 +189,17 @@ def read_env() -> Env:
   """
   # TODO: Make this generic by checking a user provided config file path
   if custom_dc_util.is_custom_dc():
-    c = Env.from_dict(yaml.safe_load(open(_ENV_USER_PATH)))
+    e = Env.from_dict(yaml.safe_load(open(_ENV_USER_PATH)))
   elif os.path.exists(_ENV_MOUNT_PATH):
-    c = Env.from_dict(yaml.safe_load(open(_ENV_MOUNT_PATH)))
+    # env as mounted file. This is for GKE deployments
+    e = Env.from_dict(yaml.safe_load(open(_ENV_MOUNT_PATH)))
   else:
+    # use env from code. This is for local and testing
     with open(_ENV_CODE_PATH) as f:
       full_nl_config = yaml.safe_load(f.read())
-      c = Env.from_dict(full_nl_config['nl']['env'])
-  logging.debug('NL Env:\n%s', json.dumps(asdict(c), indent=2))
-  return c
+      e = Env.from_dict(full_nl_config['nl']['env'])
+  _log_asdict(e, 'NL env')
+  return e
 
 
 def get_server_config(catalog: Catalog, env: Env) -> ServerConfig:
@@ -175,14 +209,14 @@ def get_server_config(catalog: Catalog, env: Env) -> ServerConfig:
   default_indexes = [x for x in env.default_indexes if x in catalog.indexes]
 
   # Add reranking models
-  models = {}
+  models: Dict[str, ModelConfig] = {}
   if env.enable_reranking:
     for model_name, model_config in catalog.models.items():
       if model_config.usage == ModelUsage.RERANKING:
         models[model_name] = model_config
 
   # Only add enabled indexes
-  indexes = {}
+  indexes: Dict[str, IndexConfig] = {}
   for index_name in env.enabled_indexes:
     if index_name not in catalog.indexes:
       logging.warning('Index %s not found in catalog', index_name)
@@ -193,11 +227,14 @@ def get_server_config(catalog: Catalog, env: Env) -> ServerConfig:
     models[model_name] = catalog.models[model_name]
 
   # Add vertex AI model info
-  for model_name in models:
-    if model_name in env.vertex_ai_models:
-      m = models[model_name]
-      v = env.vertex_ai_models[model_name]
+  for model_name, model_config in models.items():
+    if model_config.type == ModelType.VERTEXAI:
+      if model_name not in env.vertex_ai_models:
+        raise ValueError(f'Vertex AI Model {model_name} not found in env')
+      m: ModelConfig = models[model_name]
+      v: VertexAIModelConfig = env.vertex_ai_models[model_name]
       m_dict, v_dict = asdict(m), asdict(v)
+      # Merge vertex AI config from catalog and env. Prefer env if both exist.
       merged = _merge_dicts(m_dict, v_dict)
       models[model_name] = VertexAIModelConfig(**merged)
 
@@ -208,7 +245,5 @@ def get_server_config(catalog: Catalog, env: Env) -> ServerConfig:
       indexes=indexes,
       models=models,
   )
-
-  config_str = json.dumps(asdict(server_config), indent=2)
-  logging.info('server config:\n%s', config_str)
+  _log_asdict(server_config, 'server config')
   return server_config

@@ -43,7 +43,6 @@ class LanceDBStore(EmbeddingsStore):
     if idx_info.embeddings_path.startswith('/'):
       lance_db_dir = idx_info.embeddings_path
     elif gcs.is_gcs_path(idx_info.embeddings_path):
-      logging.info('Downloading embeddings from GCS path: ')
       lance_db_dir = gcs.maybe_download(idx_info.embeddings_path)
       if not lance_db_dir:
         raise AssertionError(
