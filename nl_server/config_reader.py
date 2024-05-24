@@ -224,6 +224,9 @@ def get_server_config(catalog: Catalog, env: Env) -> ServerConfig:
     index_config = catalog.indexes[index_name]
     indexes[index_name] = index_config
     model_name = index_config.model
+    if model_name not in models:
+      raise ValueError(
+          f'Model {model_name} from index {index_name} not found in catalog')
     models[model_name] = catalog.models[model_name]
 
   # Add vertex AI model info
