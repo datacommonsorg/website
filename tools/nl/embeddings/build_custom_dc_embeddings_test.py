@@ -18,6 +18,7 @@ import tempfile
 import unittest
 
 from sentence_transformers import SentenceTransformer
+import yaml
 
 from nl_server.config import LocalModelConfig
 from tools.nl.embeddings import utils
@@ -39,6 +40,13 @@ def _compare_files(test: unittest.TestCase, output_path, expected_path):
     with open(expected_path) as wantf:
       want = wantf.read()
       test.assertEqual(got, want)
+
+
+def _compare_yaml(test: unittest.TestCase, output_path, expected_path):
+  with open(output_path) as gotf, open(expected_path) as wantf:
+    got = yaml.safe_load(gotf)
+    want = yaml.safe_load(wantf)
+    test.assertDictEqual(got, want)
 
 
 class TestEndToEnd(unittest.TestCase):
@@ -97,5 +105,5 @@ class TestEndToEnd(unittest.TestCase):
           create_file_handler(fake_embeddings_csv_path),
           create_file_handler(actual_embeddings_yaml_path))
 
-      _compare_files(self, actual_embeddings_yaml_path,
-                     expected_embeddings_yaml_path)
+      _compare_yaml(self, actual_embeddings_yaml_path,
+                    expected_embeddings_yaml_path)

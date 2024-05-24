@@ -132,7 +132,7 @@ def generate_embeddings_yaml(model_name: str, model_config: config.ModelConfig,
   # Right now Custom DC only supports LOCAL mode.
   assert model_config.type == 'LOCAL'
 
-  data = Catalog(version='1',
+  data = Catalog(version="1",
                  indexes={
                      "custom_ft":
                          MemoryIndexConfig(
