@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DNS
+ip: 34.120.161.85
+domain: datacommons.org
+
 # Helm config
 project: "datcom-website-prod"
 cluster_prefix: "website"

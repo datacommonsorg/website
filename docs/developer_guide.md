@@ -225,7 +225,7 @@ data. For this to happen in other dev/demo instance, in a clean git checkout,
 simply run:
 
 ```bash
-./script/deploy_latest.sh <ENV_NAME>
+./script/deploy_latest.sh <ENV_NAME> <REGION>
 ```
 
 ### Debug Flask in Visual Studio Code
@@ -330,4 +330,3 @@ the same region.
 ### Testing cloudbuild changes
 
 To test .yaml cloudbuild files, you can use cloud-build-local to dry run the file before actually pushing. Find documentation for how to install and use cloud-build-local [here](https://github.com/GoogleCloudPlatform/cloud-build-local).
-
