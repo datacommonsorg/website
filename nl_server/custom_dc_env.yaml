@@ -7,4 +7,4 @@ default_indexes:
 enabled_indexes:
   - custom_ft
   - medium_ft
-enable_reranking: False
+enable_reranking: false

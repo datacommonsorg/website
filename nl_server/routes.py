@@ -73,6 +73,10 @@ def search_vars():
     idx_types = default_indexes
   else:
     idx_types = idx_type_str.split(',')
+  if not idx_types:
+    logging.error('No index type is found!')
+    return 'No index type is found!', 500
+
   embeddings = _get_indexes(r, idx_types)
 
   debug_logs = {'sv_detection_query_index_type': idx_types}
