@@ -486,6 +486,7 @@ def is_up(url: str):
     # Disable Bandit security check 310. http scheme is already checked above.
     # Codacity still calls out the error so disable the check.
     # https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b310-urllib-urlopen
+    logging.info("Checking if %s is up", url)
     code = urllib.request.urlopen(url).getcode()  # nosec B310
     if code != 200:
       return False

@@ -71,5 +71,5 @@ def create_app():
   app = Flask(__name__)
   app.register_blueprint(routes.bp)
   app.config[registry.REGISTRY_KEY] = r
-
+  logging.info('NL Server Flask app initialized')
   return app
