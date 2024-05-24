@@ -16,9 +16,7 @@
 set -e
 
 CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
-
 PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
-STORE_PROJECT_ID=datcom-store
 
 NAME="website-robot"
 SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
