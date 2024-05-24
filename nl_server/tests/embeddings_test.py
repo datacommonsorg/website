@@ -54,10 +54,9 @@ class TestEmbeddings(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls) -> None:
-    embeddings_spec = _get_embeddings_spec()
-    embeddings_info = _get_embeddings_info(embeddings_spec)
-    cls.registry = Registry(embeddings_info).get_index(
-        embeddings_spec['default_indexes'][0])
+    env = _get_embeddings_spec()
+    catalog = _get_embeddings_info(env)
+    cls.embeddings = Registry(catalog).get_index(env['default_indexes'][0])
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
@@ -94,7 +93,7 @@ class TestEmbeddings(unittest.TestCase):
       ],
   ])
   def test_sv_detection(self, query_str, skip_topics, expected_list):
-    got = search_vars([self.registry], [query_str],
+    got = search_vars([self.embeddings], [query_str],
                       skip_topics=skip_topics)[query_str]
 
     # Check that all expected fields are present.
@@ -116,7 +115,7 @@ class TestEmbeddings(unittest.TestCase):
   # For these queries, the match score should be low (< 0.45).
   @parameterized.expand(["random random", "who where why", "__124__abc"])
   def test_low_score_matches(self, query_str):
-    got = search_vars([self.registry], [query_str])[query_str]
+    got = search_vars([self.embeddings], [query_str])[query_str]
 
     # Check that all expected fields are present.
     svs, scores, sentences = _get_contents(got)
