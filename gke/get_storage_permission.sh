@@ -19,21 +19,15 @@
 
 set -e
 
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
+
 PROJECT_ID=$1
 if [[ $PROJECT_ID == "" ]]; then
-  PROJECT_ID=$(yq eval '.project' config.yaml)
+  PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 fi
 
-STORE_PROJECT_ID=$2
-if [[ $STORE_PROJECT_ID == "" ]]; then
-  STORE_PROJECT_ID=$(yq eval '.storage_project' config.yaml)
-fi
-
-CONTROL_PROJECT_ID=$2
-if [[ $CONTROL_PROJECT_ID == "" ]]; then
-  CONTROL_PROJECT_ID=$(yq eval '.control_project' config.yaml)
-fi
-
+STORE_PROJECT_ID=datcom-store
+CONTROL_PROJECT_ID=datcom-204919
 NAME="website-robot"
 SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
 
