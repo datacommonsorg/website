@@ -39,7 +39,6 @@ from shared.lib import gcs
 _CATALOG_CODE_PATH = Path(__file__).parent / '../deploy/nl/catalog.yaml'
 _CATALOG_MOUNT_PATH = '/datacommons/nl/catalog.yaml'
 _CATALOG_USER_PATH_SUFFIX = 'datacommons/nl/custom_catalog.yaml'
-_CATALOG_TMP_PATH = '/tmp/catalog.yaml'
 
 # env paths
 _ENV_CODE_PATH = (Path(__file__).parent /
@@ -47,7 +46,7 @@ _ENV_CODE_PATH = (Path(__file__).parent /
 _ENV_MOUNT_PATH = '/datacommons/nl/env.yaml'
 _ENV_USER_PATH = Path(__file__).parent / 'custom_dc_env.yaml'
 
-_SUPPORTED_VERSIONS = [1]
+_SUPPORTED_VERSIONS = set([1])
 
 
 def _merge_dicts(x, y):
@@ -92,8 +91,9 @@ def read_catalog() -> Catalog:
 
   if gcs.is_gcs_path(user_data_path):
     full_gcs_path = os.path.join(user_data_path, _CATALOG_USER_PATH_SUFFIX)
-    if gcs.download_blob_by_path(full_gcs_path, _CATALOG_TMP_PATH):
-      all_paths.append(_CATALOG_TMP_PATH)
+    local_user_catalog_path = gcs.maybe_download(full_gcs_path)
+    if local_user_catalog_path:
+      all_paths.append(local_user_catalog_path)
   else:
     full_user_path = os.path.join(user_data_path, _CATALOG_USER_PATH_SUFFIX)
     if os.path.exists(full_user_path):
@@ -114,10 +114,10 @@ def read_catalog() -> Catalog:
       this_ver = partial_catalog['version']
       if (ver and this_ver and ver != this_ver):
         raise ValueError(
-            f'Inconsistent version in config files: {ver} and {this_ver}')
+            f'Inconsistent version in config file {p}: {ver} and {this_ver}')
 
       if this_ver not in _SUPPORTED_VERSIONS:
-        raise ValueError(f'Unknown version: {this_ver}')
+        raise ValueError(f'Unsupported version: {this_ver} in file {p}')
       catalog.version = this_ver
 
       indexes = catalog.indexes
@@ -149,7 +149,7 @@ def read_catalog() -> Catalog:
                 models[model_name] = VertexAIModelConfig(**model_config)
               case _:
                 raise ValueError(f'Unknown model type: {model_type}')
-  logging.debug(json.dumps(asdict(catalog), indent=2))
+  logging.debug('NL Catalog:\n%s', json.dumps(asdict(catalog), indent=2))
   return catalog
 
 
@@ -158,14 +158,14 @@ def read_env() -> Env:
   """
   # TODO: Make this generic by checking a user provided config file path
   if custom_dc_util.is_custom_dc():
-    c = from_dict(data_class=Env, data=yaml.safe_load(open(_ENV_USER_PATH)))
+    c = Env.from_dict(yaml.safe_load(open(_ENV_USER_PATH)))
   elif os.path.exists(_ENV_MOUNT_PATH):
-    c = from_dict(data_class=Env, data=yaml.safe_load(open(_ENV_MOUNT_PATH)))
+    c = Env.from_dict(yaml.safe_load(open(_ENV_MOUNT_PATH)))
   else:
     with open(_ENV_CODE_PATH) as f:
       full_nl_config = yaml.safe_load(f.read())
-      c = from_dict(data_class=Env, data=full_nl_config['nl']['env'])
-  logging.debug(json.dumps(asdict(c), indent=2))
+      c = Env.from_dict(full_nl_config['nl']['env'])
+  logging.debug('NL Env:\n%s', json.dumps(asdict(c), indent=2))
   return c
 
 
@@ -173,41 +173,42 @@ def get_server_config(catalog: Catalog, env: Env) -> ServerConfig:
   """
   Merges the catalog and env into a server config.
   """
-  server_config = ServerConfig(
-      version=catalog.version,
-      default_indexes=env.default_indexes,
-      enable_reranking=env.enable_reranking,
-      indexes={},
-      models={},
-  )
-  server_config.default_indexes = [
-      x for x in server_config.default_indexes if x in catalog.indexes
-  ]
+  default_indexes = [x for x in env.default_indexes if x in catalog.indexes]
 
   # Add reranking models
+  models = {}
   if env.enable_reranking:
     for model_name, model_config in catalog.models.items():
       if model_config.usage == ModelUsage.RERANKING:
-        server_config.models[model_name] = model_config
+        models[model_name] = model_config
 
   # Only add enabled indexes
+  indexes = {}
   for index_name in env.enabled_indexes:
     if index_name not in catalog.indexes:
       logging.warning('Index %s not found in catalog', index_name)
       continue
     index_config = catalog.indexes[index_name]
-    server_config.indexes[index_name] = index_config
+    indexes[index_name] = index_config
     model_name = index_config.model
-    server_config.models[model_name] = catalog.models[model_name]
+    models[model_name] = catalog.models[model_name]
 
   # Add vertex AI model info
-  for model_name in server_config.models:
+  for model_name in models:
     if model_name in env.vertex_ai_models:
-      m = server_config.models[model_name]
+      m = models[model_name]
       v = env.vertex_ai_models[model_name]
       m_dict, v_dict = asdict(m), asdict(v)
       merged = _merge_dicts(m_dict, v_dict)
-      server_config.models[model_name] = VertexAIModelConfig(**merged)
+      models[model_name] = VertexAIModelConfig(**merged)
+
+  server_config = ServerConfig(
+      version=catalog.version,
+      default_indexes=default_indexes,
+      enable_reranking=env.enable_reranking,
+      indexes=indexes,
+      models=models,
+  )
 
   config_str = json.dumps(asdict(server_config), indent=2)
   logging.info('server config:\n%s', config_str)

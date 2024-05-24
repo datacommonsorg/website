@@ -16,6 +16,7 @@ from dataclasses import dataclass
 from dataclasses import field
 from enum import Enum
 from typing import Dict, List
+import dacite
 
 
 class StoreType(str, Enum):
@@ -98,6 +99,9 @@ class Env:
   enabled_indexes: List[str]
   vertex_ai_models: Dict[str, VertexAIModelConfig] = field(default_factory=dict)
   enable_reranking: bool = False
+
+  def from_dict(d):
+    return dacite.from_dict(data_class=Env, data=d)
 
 
 @dataclass(kw_only=True)

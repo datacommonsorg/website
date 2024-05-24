@@ -149,9 +149,7 @@ def generate_embeddings_yaml(model_name: str, model_config: config.ModelConfig,
 def main(_):
   # build registry will download models.
   r = build_registry()
-  if FLAGS.mode == Mode.DOWNLOAD:
-    return
-  else:
+  if FLAGS.mode == Mode.BUILD:
     assert FLAGS.sv_sentences_csv_path
     assert FLAGS.output_dir
     build(r, FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
