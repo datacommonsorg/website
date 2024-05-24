@@ -16,16 +16,17 @@ from dataclasses import asdict
 import json
 import logging
 import os
+from typing import Any, Dict
 
 import yaml
 
 from nl_server.config import Catalog
 from nl_server.config import Env
+from nl_server.config import IndexConfig
 from nl_server.config import LanceDBIndexConfig
 from nl_server.config import LocalModelConfig
 from nl_server.config import MemoryIndexConfig
 from nl_server.config import ModelConfig
-from nl_server.config import IndexConfig
 from nl_server.config import ModelType
 from nl_server.config import ModelUsage
 from nl_server.config import ServerConfig
@@ -34,8 +35,6 @@ from nl_server.config import VertexAIIndexConfig
 from nl_server.config import VertexAIModelConfig
 from shared.lib import custom_dc_util
 from shared.lib import gcs
-
-from typing import Any, Dict
 
 
 def _path_from_current_file(rel_path: str) -> str:
