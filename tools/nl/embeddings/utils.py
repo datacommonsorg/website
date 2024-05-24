@@ -19,11 +19,9 @@ from typing import Dict, List, Tuple
 
 from google.cloud import aiplatform
 import pandas as pd
-
-from tools.nl.embeddings.file_util import create_file_handler
-
-from tools.nl.embeddings.file_util import create_file_handler
 from sentence_transformers import SentenceTransformer
+
+from tools.nl.embeddings.file_util import create_file_handler
 
 # Col names in the input files/sheets.
 DCID_COL = 'dcid'

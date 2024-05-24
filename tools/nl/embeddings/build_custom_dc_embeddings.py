@@ -18,6 +18,7 @@ from dataclasses import asdict
 from absl import app
 from absl import flags
 import pandas as pd
+from sentence_transformers import SentenceTransformer
 import yaml
 
 from nl_server import config
@@ -28,7 +29,6 @@ from nl_server.registry import Registry
 from tools.nl.embeddings import utils
 from tools.nl.embeddings.file_util import create_file_handler
 from tools.nl.embeddings.file_util import FileHandler
-from sentence_transformers import SentenceTransformer
 
 
 class Mode:
@@ -90,7 +90,7 @@ def build(r: Registry, sv_sentences_csv_path: str, output_dir: str):
 
   print("Building custom DC embeddings")
 
-  embeddings_df = _build_embeddings_dataframe(r.get_model(model_name),
+  embeddings_df = _build_embeddings_dataframe(r.get_embedding_model(model_name),
                                               sv_sentences_csv_handler)
 
   print("Validating embeddings.")

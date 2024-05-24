@@ -352,8 +352,8 @@ def nl_detect_verbs(query):
   return get(url)
 
 
-def nl_embeddings_version_map():
-  return get(f'{current_app.config["NL_ROOT"]}/api/embeddings_version_map')
+def nl_server_config():
+  return get(f'{current_app.config["NL_ROOT"]}/api/server_config')
 
 
 # =======================   V0 V0 V0 ================================

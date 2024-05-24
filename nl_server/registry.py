@@ -36,9 +36,6 @@ from shared.lib.custom_dc_util import is_custom_dc
 REGISTRY_KEY: str = 'REGISTRY'
 
 
-#
-# A class to hold embeddings stores and models.
-#
 class Registry:
   """
   A class to hold runtime model handle/client objects and embeddings stores.
@@ -59,14 +56,14 @@ class Registry:
   def get_reranking_model(self, model_name: str) -> RerankingModel:
     return self.name_to_rank_model.get(model_name)
 
-  def server_config(self) -> ServerConfig:
-    return self._server_config
-
-  def attribute_model(self) -> AttributeModel:
+  def get_attribute_model(self) -> AttributeModel:
     return self._attribute_model
 
-  def get_model(self, model_name: str) -> EmbeddingsModel:
+  def get_embedding_model(self, model_name: str) -> EmbeddingsModel:
     return self.name_to_emb_model.get(model_name)
+
+  def server_config(self) -> ServerConfig:
+    return self._server_config
 
   # Load the registry from the server config
   def load(self, server_config: ServerConfig):
@@ -130,6 +127,11 @@ class Registry:
 
 
 def build() -> Registry:
+  """
+  Build the registry based on available catalog and environment config files.
+
+  This also get all the model/index resources downloaded and ready to use.
+  """
   catalog = config_reader.read_catalog()
   env = config_reader.read_env()
   server_config = config_reader.get_server_config(catalog, env)

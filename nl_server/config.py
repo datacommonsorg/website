@@ -90,6 +90,10 @@ class Catalog:
 
 @dataclass(kw_only=True)
 class Env:
+  """
+  A class to represent the NL server environment config.
+  This object is used with the Catalog object to configure the server.
+  """
   default_indexes: List[str]
   enabled_indexes: List[str]
   vertex_ai_models: Dict[str, VertexAIModelConfig] = field(default_factory=dict)

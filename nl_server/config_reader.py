@@ -22,12 +22,12 @@ from dacite import from_dict
 import yaml
 
 from nl_server.config import Catalog
+from nl_server.config import Env
 from nl_server.config import LanceDBIndexConfig
 from nl_server.config import LocalModelConfig
 from nl_server.config import MemoryIndexConfig
 from nl_server.config import ModelType
 from nl_server.config import ModelUsage
-from nl_server.config import Env
 from nl_server.config import ServerConfig
 from nl_server.config import StoreType
 from nl_server.config import VertexAIIndexConfig

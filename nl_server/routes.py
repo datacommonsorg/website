@@ -25,11 +25,10 @@ from markupsafe import escape
 from nl_server import registry
 from nl_server import search
 from nl_server.embeddings import Embeddings
-from nl_server.registry import REGISTRY_KEY
 from nl_server.registry import Registry
+from nl_server.registry import REGISTRY_KEY
 from shared.lib import constants
 from shared.lib.detected_variables import var_candidates_to_dict
-from shared.lib.detected_variables import VarCandidates
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -42,24 +41,7 @@ default_embeddings_loaded = False
 
 @bp.route('/healthz')
 def healthz():
-  r: Registry = current_app.config[REGISTRY_KEY]
-  default_indexes = r.server_config().default_indexes
-  if not default_indexes:
-    logging.warning('Health Check Failed: Default index name empty!')
-    return 'Service Unavailable', 500
-  for idx in default_indexes:
-    embeddings: Embeddings = r.get_index(idx)
-    if embeddings:
-      query = embeddings.store.healthcheck_query
-      result: VarCandidates = search.search_vars([embeddings],
-                                                 [query]).get(query)
-      if result and result.svs:
-        return 'OK', 200
-      else:
-        logging.warning(f'Health Check Failed: query "{query}" failed!')
-    else:
-      logging.warning('Health Check Failed: Default index not yet loaded!')
-  return 'Service Unavailable', 500
+  return 'NL Server is healthy', 200
 
 
 @bp.route('/api/search_vars/', methods=['POST'])
@@ -112,10 +94,10 @@ def detect_verbs():
   """
   query = str(escape(request.args.get('q')))
   r: Registry = current_app.config[REGISTRY_KEY]
-  return json.dumps(r.attribute_model().detect_verbs(query.strip()))
+  return json.dumps(r.get_attribute_model().detect_verbs(query.strip()))
 
 
-@bp.route('/api/embeddings_version_map/', methods=['GET'])
+@bp.route('/api/server_config/', methods=['GET'])
 def embeddings_version_map():
   r: Registry = current_app.config[REGISTRY_KEY]
   server_config = r.server_config()
@@ -127,7 +109,7 @@ def load():
   try:
     current_app.config[REGISTRY_KEY] = registry.build()
   except Exception as e:
-    logging.error(f'Custom embeddings not loaded due to error: {str(e)}')
+    logging.error(f'Server registry not built due to error: {str(e)}')
   r: Registry = current_app.config[REGISTRY_KEY]
   server_config = r.server_config()
   return json.dumps(asdict(server_config))

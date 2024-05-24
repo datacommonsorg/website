@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,19 +43,23 @@ def create_app():
     log_level = logging.INFO
   logging.getLogger('werkzeug').setLevel(log_level)
 
-  app = Flask(__name__)
-  app.register_blueprint(routes.bp)
-
   # https://github.com/UKPLab/sentence-transformers/issues/1318
   if sys.version_info >= (3, 8) and sys.platform == "darwin":
     torch.set_num_threads(1)
+
+  # Build the registry before creating the Flask app to make sure all resources
+  # are loaded.
   try:
-    app.config[registry.REGISTRY_KEY] = registry.build()
+    r = registry.build()
   except Exception as e:
     msg = '\n!!!!! IMPORTANT NOTE !!!!!!\n' \
           'If you are running locally, try clearing models:\n' \
           '* `rm -rf /tmp/datcom-nl-models /tmp/datcom-nl-models-dev`\n'
     print('\033[91m{}\033[0m'.format(msg))
     raise e
+
+  app = Flask(__name__)
+  app.register_blueprint(routes.bp)
+  app.config[registry.REGISTRY_KEY] = r
 
   return app
