@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+import os
 import sys
 
 from flask import Flask
@@ -27,7 +28,8 @@ from shared.lib.utils import is_debug_mode
 
 def create_app():
 
-  if lib_gcp.in_google_network():
+  if lib_gcp.in_google_network() and os.environ.get(
+      'FLASK_ENV') != 'integration_test':
     client = google.cloud.logging.Client()
     client.setup_logging()
   else:
