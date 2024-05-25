@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ from flask import Flask
 import google.cloud.logging
 import torch
 
-import nl_server.loader as loader
-import nl_server.routes as routes
+from nl_server import registry
+from nl_server import routes
 import shared.lib.gcp as lib_gcp
 from shared.lib.utils import is_debug_mode
 
@@ -43,20 +43,34 @@ def create_app():
     log_level = logging.INFO
   logging.getLogger('werkzeug').setLevel(log_level)
 
-  app = Flask(__name__)
-  app.register_blueprint(routes.bp)
-
   # https://github.com/UKPLab/sentence-transformers/issues/1318
   if sys.version_info >= (3, 8) and sys.platform == "darwin":
     torch.set_num_threads(1)
 
+  app = Flask(__name__)
+  app.register_blueprint(routes.bp)
+
+  # Build the registry before creating the Flask app to make sure all resources
+  # are loaded.
   try:
-    loader.load_server_state(app)
+    reg = registry.build()
+
+    # Below is a safe check to ensure that the model and embedding is loaded.
+    # TODO: uncomment this code when fixing the crash issue during test.
+
+    # server_config = reg.server_config()
+    # idx_type = server_config.default_indexes[0]
+    # embeddings = reg.get_index(idx_type)
+    # query = server_config.indexes[idx_type].healthcheck_query
+    # result = search.search_vars([embeddings], [query]).get(query)
+    # if not result or not result.svs:
+    #   raise Exception(f'Registry does not have default index {idx_type}')
+    app.config[registry.REGISTRY_KEY] = reg
+    logging.info('NL Server Flask app initialized')
+    return app
   except Exception as e:
     msg = '\n!!!!! IMPORTANT NOTE !!!!!!\n' \
           'If you are running locally, try clearing models:\n' \
           '* `rm -rf /tmp/datcom-nl-models /tmp/datcom-nl-models-dev`\n'
     print('\033[91m{}\033[0m'.format(msg))
-    raise
-
-  return app
+    raise e

@@ -13,18 +13,14 @@
 # limitations under the License.
 """Common Utility functions for Embeddings."""
 
-from dataclasses import dataclass
 import itertools
 import logging
-from pathlib import Path
 from typing import Dict, List, Tuple
 
 from google.cloud import aiplatform
 import pandas as pd
 from sentence_transformers import SentenceTransformer
-import yaml
 
-from shared.lib import gcs
 from tools.nl.embeddings.file_util import create_file_handler
 
 # Col names in the input files/sheets.
@@ -35,33 +31,12 @@ CURATED_ALTERNATIVES_COL = 'Curated_Alternatives'
 OVERRIDE_COL = 'Override_Alternatives'
 ALTERNATIVES_COL = 'Alternatives'
 
-DEFAULT_MODELS_BUCKET = 'datcom-nl-models'
-
 # Col names in the concatenated dataframe.
 COL_ALTERNATIVES = 'sentence'
-
-_EMBEDDINGS_YAML_PATH = (Path(__file__).parent /
-                         "../../../deploy/nl/embeddings.yaml")
-_DEFAULT_EMBEDDINGS_INDEX_TYPE = "medium_ft"
 
 _CHUNK_SIZE = 100
 
 _MODEL_ENDPOINT_RETRIES = 3
-
-
-@dataclass
-class ModelConfig:
-  name: str
-  # the model info as it would come from embeddings.yaml
-  info: Dict[str, str]
-
-
-@dataclass
-# The info for a single embeddings index
-class EmbeddingConfig:
-  # the index info as it would come from embeddings.yaml
-  index_config: Dict[str, str]
-  model_config: ModelConfig
 
 
 def chunk_list(data, chunk_size):
@@ -187,58 +162,6 @@ def build_embeddings(
   embeddings[DCID_COL] = [text2sv[t] for t in texts]
   embeddings[COL_ALTERNATIVES] = texts
   return embeddings
-
-
-def get_ft_model_from_gcs(model_version: str) -> SentenceTransformer:
-  model_path = gcs.maybe_download(
-      gcs.make_path(DEFAULT_MODELS_BUCKET, model_version))
-  return SentenceTransformer(model_path)
-
-
-def _get_default_ft_model(embeddings_yaml_file_path: str) -> ModelConfig:
-  """Gets the default index's model version from embeddings.yaml.
-  """
-  return _get_default_ft_embeddings_info(embeddings_yaml_file_path).model_config
-
-
-def get_default_ft_model() -> ModelConfig:
-  """Gets the default index's model version from embeddings.yaml.
-  """
-  return _get_default_ft_model(_EMBEDDINGS_YAML_PATH)
-
-
-def get_default_ft_embeddings_info() -> EmbeddingConfig:
-  return _get_default_ft_embeddings_info(_EMBEDDINGS_YAML_PATH)
-
-
-def _get_default_ft_embeddings_info(
-    embeddings_yaml_file_path: str) -> EmbeddingConfig:
-  with open(embeddings_yaml_file_path, "r") as f:
-    data = yaml.full_load(f)
-    if _DEFAULT_EMBEDDINGS_INDEX_TYPE not in data['indexes']:
-      raise ValueError(f"{_DEFAULT_EMBEDDINGS_INDEX_TYPE} not found.")
-    index_info = data['indexes'][_DEFAULT_EMBEDDINGS_INDEX_TYPE]
-    model_name = index_info['model']
-    model_info = ModelConfig(name=model_name, info=data['models'][model_name])
-    return EmbeddingConfig(index_config=index_info, model_config=model_info)
-
-
-def save_embeddings_yaml_with_only_default_ft_embeddings(
-    embeddings_yaml_file_path: str,
-    default_ft_embeddings_info: EmbeddingConfig):
-  model_info = default_ft_embeddings_info.model_config
-  data = {
-      'version': 1,
-      'indexes': {
-          _DEFAULT_EMBEDDINGS_INDEX_TYPE:
-              default_ft_embeddings_info.index_config
-      },
-      'models': {
-          model_info.name: model_info.info
-      }
-  }
-  with open(embeddings_yaml_file_path, "w") as f:
-    yaml.dump(data, f)
 
 
 def validate_embeddings(embeddings_df: pd.DataFrame,

@@ -48,7 +48,7 @@
 # env yaml files for all the environments you're enabling it for.
 #
 
-version: 1
+version: "1"
 
 indexes:
   medium_ft:

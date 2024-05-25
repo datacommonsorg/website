@@ -1,0 +1,16 @@
+# TODO: move this to deploy folder. This is here for the ease of
+# custom DC loading for now.
+
+# The default embedding index types to use.
+default_indexes:
+  - custom_ft
+  - medium_ft
+
+# The enabled embedding index types. Can use 'idx=' in explore page url to pick
+# a specific index from here to use.
+enabled_indexes:
+  - custom_ft
+  - medium_ft
+
+# Whether to enable reranking for stat var matches.
+enable_reranking: false

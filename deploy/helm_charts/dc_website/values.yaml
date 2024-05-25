@@ -132,9 +132,9 @@ serviceGroups:
 ###############################################################################
 nl:
   enabled: false
-  embeddings:
   memory: "2G"
   workers: 1
+  catalog: {}
   env:
     default_indexes: []
     enabled_indexes: []
