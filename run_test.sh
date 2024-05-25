@@ -173,7 +173,7 @@ function run_integration_test {
   export TEST_MODE=test
   export ENABLE_EVAL_TOOL=false
 
-  python3 -m pytest -vv --reruns 2 server/integration_tests/$1
+  python3 -m pytest -vv server/integration_tests/$1
   deactivate
 }
 
