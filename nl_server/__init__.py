@@ -48,6 +48,9 @@ def create_app():
   if sys.version_info >= (3, 8) and sys.platform == "darwin":
     torch.set_num_threads(1)
 
+  app = Flask(__name__)
+  app.register_blueprint(routes.bp)
+
   # Build the registry before creating the Flask app to make sure all resources
   # are loaded.
   try:
@@ -68,8 +71,6 @@ def create_app():
     print('\033[91m{}\033[0m'.format(msg))
     raise e
 
-  app = Flask(__name__)
-  app.register_blueprint(routes.bp)
   app.config[registry.REGISTRY_KEY] = r
   logging.info('NL Server Flask app initialized')
   return app
