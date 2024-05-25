@@ -49,9 +49,6 @@ def create_app():
   if sys.version_info >= (3, 8) and sys.platform == "darwin":
     torch.set_num_threads(1)
 
-  app = Flask(__name__)
-  app.register_blueprint(routes.bp)
-
   # Build the registry before creating the Flask app to make sure all resources
   # are loaded.
   try:
@@ -67,7 +64,11 @@ def create_app():
     # result = search.search_vars([embeddings], [query]).get(query)
     # if not result or not result.svs:
     #   raise Exception(f'Registry does not have default index {idx_type}')
+
+    app = Flask(__name__)
+    app.register_blueprint(routes.bp)
     app.config[registry.REGISTRY_KEY] = reg
+
     logging.info('NL Server Flask app initialized')
     return app
   except Exception as e:
