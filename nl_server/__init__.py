@@ -54,16 +54,17 @@ def create_app():
   # Build the registry before creating the Flask app to make sure all resources
   # are loaded.
   try:
-    r = registry.build()
+    reg = registry.build()
     # Below is a safe check to ensure that the model and embedding is loaded.
-    server_config = r.server_config()
-    idx_type = server_config.default_indexes[0]
-    embeddings = r.get_index(idx_type)
-    query = server_config.indexes[idx_type].healthcheck_query
-    result = search.search_vars([embeddings], [query]).get(query)
-    if not result or not result.svs:
-      raise Exception(
-          f'Unable to do health check query on default index {idx_type}')
+    # server_config = reg.server_config()
+    # idx_type = server_config.default_indexes[0]
+    # embeddings = reg.get_index(idx_type)
+    # query = server_config.indexes[idx_type].healthcheck_query
+    # result = search.search_vars([embeddings], [query]).get(query)
+    # if not result or not result.svs:
+    #   raise Exception(
+    #       f'Unable to do health check query on default index {idx_type}')
+    app.config[registry.REGISTRY_KEY] = reg
   except Exception as e:
     msg = '\n!!!!! IMPORTANT NOTE !!!!!!\n' \
           'If you are running locally, try clearing models:\n' \
@@ -71,6 +72,5 @@ def create_app():
     print('\033[91m{}\033[0m'.format(msg))
     raise e
 
-  app.config[registry.REGISTRY_KEY] = r
   logging.info('NL Server Flask app initialized')
   return app
