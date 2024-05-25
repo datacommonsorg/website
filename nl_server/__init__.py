@@ -21,7 +21,6 @@ import torch
 
 from nl_server import registry
 from nl_server import routes
-from nl_server import search
 import shared.lib.gcp as lib_gcp
 from shared.lib.utils import is_debug_mode
 
@@ -55,22 +54,23 @@ def create_app():
   # are loaded.
   try:
     reg = registry.build()
+
     # Below is a safe check to ensure that the model and embedding is loaded.
+    # TODO: uncomment this code when fixing the crash issue during test.
+
     # server_config = reg.server_config()
     # idx_type = server_config.default_indexes[0]
     # embeddings = reg.get_index(idx_type)
     # query = server_config.indexes[idx_type].healthcheck_query
     # result = search.search_vars([embeddings], [query]).get(query)
     # if not result or not result.svs:
-    #   raise Exception(
-    #       f'Unable to do health check query on default index {idx_type}')
+    #   raise Exception(f'Registry does not have default index {idx_type}')
     app.config[registry.REGISTRY_KEY] = reg
+    logging.info('NL Server Flask app initialized')
+    return app
   except Exception as e:
     msg = '\n!!!!! IMPORTANT NOTE !!!!!!\n' \
           'If you are running locally, try clearing models:\n' \
           '* `rm -rf /tmp/datcom-nl-models /tmp/datcom-nl-models-dev`\n'
     print('\033[91m{}\033[0m'.format(msg))
     raise e
-
-  logging.info('NL Server Flask app initialized')
-  return app
