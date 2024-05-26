@@ -44,6 +44,23 @@ def healthz():
   return 'NL Server is healthy', 200
 
 
+@bp.route('/api/encode', methods=['POST'])
+def encode():
+  """Returns a list of embeddings for each input query.
+
+  List[List[float]]
+  """
+  model_name = request.json.get('model', '')
+  queries = request.json.get('queries', [])
+  queries = [str(escape(q)) for q in queries]
+  reg: Registry = current_app.config[REGISTRY_KEY]
+  model = reg.get_embedding_model(model_name)
+  query_embeddings = model.encode(queries)
+  if model.returns_tensor:
+    query_embeddings = query_embeddings.tolist()
+  return json.dumps(query_embeddings)
+
+
 @bp.route('/api/search_vars/', methods=['POST'])
 def search_vars():
   """Returns a dictionary with each input query as key and value as:

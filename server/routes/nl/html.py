@@ -21,18 +21,19 @@ from flask import Blueprint
 from flask import current_app
 from flask import render_template
 
+import server.services.datacommons as dc
+
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 
 
 @bp.route('/eval')
 def eval_page():
-  if not current_app.config['VERTEX_AI_MODELS']:
+  if os.environ.get('FLASK_ENV') not in ['local', 'test', 'autopush']:
     flask.abort(404)
-
-  model_names = list(current_app.config['VERTEX_AI_MODELS'].keys())
+  server_config = dc.nl_server_config()
   eval_file = os.path.join(os.path.dirname(current_app.root_path),
                            'shared/eval/base/golden.json')
   with open(eval_file) as f:
     return render_template('/nl_eval.html',
-                           model_names=json.dumps(model_names),
+                           server_config=json.dumps(server_config),
                            eval_golden=json.dumps(json.load(f)))

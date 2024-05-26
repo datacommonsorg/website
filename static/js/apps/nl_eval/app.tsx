@@ -25,7 +25,7 @@ import { EmbeddingObject } from "./util";
 
 interface AppPropType {
   evalGolden: Record<string, string[]>;
-  modelNames: string[];
+  index2model: Record<string, string>;
 }
 
 export function App(props: AppPropType): JSX.Element {
@@ -42,18 +42,24 @@ export function App(props: AppPropType): JSX.Element {
     event.preventDefault();
     const form = event.currentTarget;
     const overrideInput = form.override ? form.override.value : "";
-    fetchEmbeddings(overrideInput, props.modelNames).then((embeddings) => {
-      setCustomDescription(embeddings);
-    });
+    const lines = overrideInput.split("\n");
+    if (lines.length === 0) {
+      return;
+    }
+    fetchEmbeddings(lines, Object.values(props.index2model)).then(
+      (embeddings) => {
+        setCustomDescription(embeddings);
+      }
+    );
   };
 
   const handleCustomQuery = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const queryInput = form.query.value;
-    const statVarsInput = form.statVars ? form.statVars.value : "";
+    const svInput = form.statVars ? form.statVar.value : "";
     setCustomQuery(queryInput);
-    setCustomGolden(statVarsInput.split(",").map((s) => s.trim()));
+    setCustomGolden(svInput.split(",").map((s) => s.trim()));
   };
 
   const handleUpdateOverallScore = (
@@ -113,7 +119,7 @@ export function App(props: AppPropType): JSX.Element {
           <QuerySection
             key={customQuery}
             sentence={customQuery}
-            modelNames={props.modelNames}
+            index2model={props.index2model}
             goldenStatVars={customGolden}
             customDescription={customDescription}
             onScoreUpdated={handleUpdateOverallScore}
@@ -128,7 +134,7 @@ export function App(props: AppPropType): JSX.Element {
             <QuerySection
               key={sentence}
               sentence={sentence}
-              modelNames={props.modelNames}
+              index2model={props.index2model}
               goldenStatVars={props.evalGolden[sentence]}
               customDescription={customDescription}
               onScoreUpdated={handleUpdateOverallScore}
@@ -140,49 +146,44 @@ export function App(props: AppPropType): JSX.Element {
   );
 }
 
-const fetchEmbeddings = async (input: string, modelNames: string[]) => {
-  const lines = input.split("\n");
-  if (lines.length === 0) {
-    return;
-  }
-
-  const text2sv = {};
+const fetchEmbeddings = async (lines: string[], modelNames: string[]) => {
+  const sentence2sv = {};
   for (const line of lines) {
     const [statVar, descriptions] = line.split(",");
-    for (const description of descriptions.split(";")) {
-      text2sv[description] = statVar;
+    for (const sentence of descriptions.split(";")) {
+      sentence2sv[sentence] = statVar;
     }
   }
-  const allText = Object.keys(text2sv);
+  const allSentences = Object.keys(sentence2sv);
 
-  const modelAndTextList = _.flatMap(modelNames, (modelName) => {
-    return _.map(allText, (text) => {
+  const modelAndSentenceList = _.flatMap(modelNames, (modelName) => {
+    return _.map(allSentences, (text) => {
       return [modelName, text];
     });
   });
 
-  const requests = modelAndTextList.flatMap((modelAndText) =>
+  const requests = modelAndSentenceList.flatMap((modelAndSentence) =>
     axios
       .get(`/api/nl/encode-vector`, {
-        params: { modelName: modelAndText[0], sentence: modelAndText[1] },
+        params: { model: modelAndSentence[0], query: modelAndSentence[1] },
         paramsSerializer: stringifyFn,
       })
-      .then((resp) => ({ modelAndText, data: resp.data }))
+      .then((resp) => ({ modelAndSentence, data: resp.data }))
   );
 
   const responses = await Promise.all(requests);
 
   const result = {};
   for (const response of responses) {
-    const { modelAndText, data } = response;
-    const [modelName, text] = modelAndText;
+    const { modelAndSentence, data } = response;
+    const [modelName, sentence] = modelAndSentence;
     if (result[modelName] === undefined) {
       result[modelName] = [];
     }
     const item: EmbeddingObject = {
       embeddings: data[0],
-      sentence: text,
-      statVar: text2sv[text],
+      sentence,
+      statVar: sentence2sv[sentence],
     };
     result[modelName].push(item);
   }
