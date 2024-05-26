@@ -118,7 +118,8 @@ COPY import/. /workspace/import/
 COPY tools/nl/embeddings/. /workspace/tools/nl/embeddings/
 
 # Download model and embeddings
-RUN gsutil cp -r gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/
+ENV IS_CUSTOM_DC=true
+RUN python -m tools.nl.embeddings.build_custom_dc_embeddings --mode=download
 
 WORKDIR /workspace
 

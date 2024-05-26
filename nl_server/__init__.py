@@ -26,10 +26,13 @@ import shared.lib.gcp as lib_gcp
 from shared.lib.utils import is_debug_mode
 
 
+def _is_test() -> bool:
+  return os.environ.get('FLASK_ENV') == 'integration_test'
+
+
 def create_app():
 
-  if lib_gcp.in_google_network() and os.environ.get(
-      'FLASK_ENV') != 'integration_test':
+  if lib_gcp.in_google_network() and not _is_test():
     client = google.cloud.logging.Client()
     client.setup_logging()
   else:
