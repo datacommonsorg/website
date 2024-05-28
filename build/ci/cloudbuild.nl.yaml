@@ -33,15 +33,15 @@ steps:
       - |
         ./run_test.sh --explore
 
-  # - id: nl_test
-  #   name: python:3.11.3
-  #   entrypoint: /bin/sh
-  #   waitFor:
-  #     - setup_python
-  #   args:
-  #     - -c
-  #     - |
-  #       ./run_test.sh --nl
+  - id: nl_test
+    name: python:3.11.3
+    entrypoint: /bin/sh
+    waitFor:
+      - setup_python
+    args:
+      - -c
+      - |
+        ./run_test.sh --nl
 
 options:
   machineType: "E2_HIGHCPU_32"
