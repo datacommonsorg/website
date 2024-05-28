@@ -63,9 +63,9 @@ const config = {
       __dirname + "/js/apps/explore/main.ts",
       __dirname + "/css/explore.scss",
     ],
-    nl_eval: [
-      __dirname + "/js/apps/nl_eval/main.ts",
-      __dirname + "/css/nl_eval.scss",
+    embeddings_eval: [
+      __dirname + "/js/apps/embeddings_eval/main.ts",
+      __dirname + "/css/embeddings_eval.scss",
     ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",

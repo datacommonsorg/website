@@ -51,6 +51,6 @@ function renderPage(): void {
       evalGolden,
       index2model,
     }),
-    document.getElementById("dc-nl-eval")
+    document.getElementById("dc-embeddings-eval")
   );
 }
