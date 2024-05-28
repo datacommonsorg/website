@@ -373,7 +373,7 @@ export function getHash(
 }
 
 /**
- * Get value of NumEntitiesExistence to pass to StatVarHierarchy
+ * Get number of required entities for stat var filtering.
  *
  * NumEntitiesExistence is a parameter that sets the number of entities that
  * should have data for each stat var (group) shown in the widget. For
@@ -381,6 +381,10 @@ export function getHash(
  * data for a stat var for that stat var to show in the widget. This prevents
  * showing users stat vars with low geographic coverage that lead to sparse
  * charts.
+ *
+ * If globalThis.useStatVarFiltering is not set, defaults to 1. Otherwise,
+ * calculates the value to use based on the number of places used for
+ * existence checks and the visualization type's settings.
  *
  * @param samplePlaces list of places used to determine available stat vars
  * @param visTypeConfig config for the chart type being plotted

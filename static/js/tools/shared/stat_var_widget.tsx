@@ -174,7 +174,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   );
 
   /**
-   * Get value of NumEntitiesExistence to pass to StatVarHierarchy
+   * Get number of required entities for stat var filtering.
    *
    * NumEntitiesExistence is a parameter that sets the number of entities that
    * should have data for each stat var (group) shown in the widget. For
