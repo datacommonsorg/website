@@ -62,8 +62,6 @@ const defaultModalSelected: ModalSelected = Object.freeze({
   y: false,
 });
 
-const NUM_ENTITIES_EXISTENCE = 10;
-
 interface StatVarChooserProps {
   openSvHierarchyModalCallback: () => void;
   openSvHierarchyModal: boolean;
@@ -164,11 +162,6 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         }
         selectedSVs={selectedSvs}
         selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
-        numEntitiesExistence={
-          globalThis.useStatVarFiltering
-            ? Math.min(NUM_ENTITIES_EXISTENCE, samplePlaces.length)
-            : 1
-        }
       />
       {/* Modal for selecting 2 stat vars when a third is selected */}
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">

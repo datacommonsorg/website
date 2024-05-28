@@ -38,8 +38,6 @@ import {
 } from "./context";
 import { DEFAULT_DISPLAY_OPTIONS, getMapPointPlaceType } from "./util";
 
-const NUM_ENTITIES_EXISTENCE = 10;
-
 interface StatVarChooserProps {
   openSvHierarchyModalCallback: () => void;
   openSvHierarchyModal: boolean;
@@ -113,11 +111,6 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       selectedSVs={selectedSVs}
       selectSV={(svDcid) =>
         selectStatVar(dateCtx, statVar, display, placeInfo, svDcid)
-      }
-      numEntitiesExistence={
-        globalThis.useStatVarFiltering
-          ? Math.min(NUM_ENTITIES_EXISTENCE, samplePlaces.length)
-          : 1
       }
     />
   );
