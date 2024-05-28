@@ -38,15 +38,14 @@ _SUB_COLOR = '#ffaaaa'
 _ADD_COLOR = '#aaffaa'
 _PROPERTY_URL = 'https://autopush.api.datacommons.org/v2/node'
 _GCS_BUCKET = 'datcom-embedding-diffs'
-_LOCAL_EMBEDDINGS_YAML = 'deploy/nl/embeddings.yaml'
+_LOCAL_EMBEDDINGS_YAML = 'deploy/nl/catalog.yaml'
 _PROD_EMBEDDINGS_YAML = f'https://raw.githubusercontent.com/datacommonsorg/website/master/{_LOCAL_EMBEDDINGS_YAML}'
 
 FLAGS = flags.FLAGS
 
 flags.DEFINE_string('base_index', '',
-                    'Base index name in PROD `embeddings.yaml` file.')
-flags.DEFINE_string('test_index', '',
-                    'Test index name in local `embeddings.yaml`')
+                    'Base index name in PROD `catalog.yaml` file.')
+flags.DEFINE_string('test_index', '', 'Test index name in local `catalog.yaml`')
 flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
 
 _GCS_PREFIX = 'https://storage.mtls.cloud.google.com'

@@ -11,38 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Tests for Embeddings (in nl_embeddings.py)."""
+"""Tests for Embeddings"""
 
-import os
 from typing import List
 import unittest
 
 from parameterized import parameterized
-import yaml
 
-from nl_server.config import parse
+from nl_server import config_reader
 from nl_server.registry import Registry
 from nl_server.search import search_vars
 from shared.lib.detected_variables import VarCandidates
-
-_root_dir = os.path.dirname(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-
-def _get_embeddings_spec():
-  autopush_values_path = os.path.join(_root_dir,
-                                      'deploy/helm_charts/envs/autopush.yaml')
-  with open(autopush_values_path) as f:
-    autopush_values = yaml.full_load(f)
-    return autopush_values['nl']['env']
-
-
-def _get_embeddings_info(embeddings_spec):
-  embeddings_config_path = os.path.join(_root_dir, 'deploy/nl/embeddings.yaml')
-  with open(embeddings_config_path) as f:
-    catalog = yaml.full_load(f)
-    return parse(catalog, embeddings_spec['vertex_ai_models'],
-                 embeddings_spec['enable_reranking'])
 
 
 def _get_contents(
@@ -54,9 +33,12 @@ class TestEmbeddings(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls) -> None:
-    env = _get_embeddings_spec()
-    catalog = _get_embeddings_info(env)
-    cls.embeddings = Registry(catalog).get_index(env['default_indexes'][0])
+    catalog = config_reader.read_catalog()
+    env = config_reader.read_env()
+    server_config = config_reader.get_server_config(catalog, env)
+    registry = Registry(server_config)
+    default_indexes = registry.server_config().default_indexes
+    cls.embeddings = registry.get_index(default_indexes[0])
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
