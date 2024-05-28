@@ -15,11 +15,12 @@
 import logging
 from typing import Dict
 
-from nl_server.config import Catalog
+from nl_server import config_reader
 from nl_server.config import IndexConfig
 from nl_server.config import ModelConfig
 from nl_server.config import ModelType
 from nl_server.config import ModelUsage
+from nl_server.config import ServerConfig
 from nl_server.config import StoreType
 from nl_server.embeddings import Embeddings
 from nl_server.embeddings import EmbeddingsModel
@@ -32,34 +33,43 @@ from nl_server.store.memory import MemoryEmbeddingsStore
 from nl_server.store.vertexai import VertexAIStore
 from shared.lib.custom_dc_util import is_custom_dc
 
+REGISTRY_KEY: str = 'REGISTRY'
+
 
 class Registry:
   """
   A class to hold runtime model handle/client objects and embeddings stores.
   """
 
-  # Input is parsed embeddings config.
-  def __init__(self, catalog: Catalog):
+  def __init__(self, server_config: ServerConfig):
     self.name_to_emb: dict[str, Embeddings] = {}
     self.name_to_emb_model: Dict[str, EmbeddingsModel] = {}
     self.name_to_rank_model: Dict[str, RerankingModel] = {}
     self._attribute_model = AttributeModel()
-    self.reset_index(catalog)
+    self.load(server_config)
 
   # Note: The caller takes care of exceptions.
+  # TODO: consider consistent naming among index and embedding.
   def get_index(self, index_type: str) -> Embeddings:
     return self.name_to_emb.get(index_type)
 
   def get_reranking_model(self, model_name: str) -> RerankingModel:
     return self.name_to_rank_model.get(model_name)
 
-  def attribute_model(self) -> AttributeModel:
+  def get_attribute_model(self) -> AttributeModel:
     return self._attribute_model
 
-  # Adds the new models and indexes in a catalog object to the registry.
-  def reset_index(self, catalog: Catalog):
-    self._load_models(catalog.models)
-    for idx_name, idx_info in catalog.indexes.items():
+  def get_embedding_model(self, model_name: str) -> EmbeddingsModel:
+    return self.name_to_emb_model.get(model_name)
+
+  def server_config(self) -> ServerConfig:
+    return self._server_config
+
+  # Load the registry from the server config
+  def load(self, server_config: ServerConfig):
+    self._server_config = server_config
+    self._load_models(server_config.models)
+    for idx_name, idx_info in server_config.indexes.items():
       self._set_embeddings(idx_name, idx_info)
 
   # Loads a dict of model name -> model info
@@ -114,3 +124,15 @@ class Registry:
     if store and idx_info.model in self.name_to_emb_model:
       self.name_to_emb[idx_name] = Embeddings(
           model=self.name_to_emb_model[idx_info.model], store=store)
+
+
+def build() -> Registry:
+  """
+  Build the registry based on available catalog and environment config files.
+
+  This also get all the model/index resources downloaded and ready to use.
+  """
+  catalog = config_reader.read_catalog()
+  env = config_reader.read_env()
+  server_config = config_reader.get_server_config(catalog, env)
+  return Registry(server_config)

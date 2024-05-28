@@ -6,14 +6,16 @@ You should have owner/editor role to perform the following tasks.
 
 - Register a website domain on Google Domain or other registrars.
 
-- Make a copy of the `config.yaml.tpl` as `config.yaml` in the same folder and fill out the following
-  fields
+- Make a copy of the `config.yaml.tpl` as `<ENV>.yaml` and copied it over to
+  `deploy/helm_charts/envs/<ENV>.yaml` and fill in the following fields:
 
   - `project`: the hosting GCP project
   - `domain`: domain of the the website
-  - `region.primary`: region for Kubernetes cluster
-  - `storage-project`: base Data Commons project (set this to `datcom-store`)
-  - `control-project`: set this to `datcom-204919`
+
+  ```text
+    > The filename used will be the `<ENV>` in subsequent commands. E.g. if you
+    > named the yaml file `staging.yaml`, then the `ENV` below is `staging`.
+  ```
 
 - Install the following tools:
 
@@ -33,46 +35,38 @@ You should have owner/editor role to perform the following tasks.
    gcloud auth login
 
    # Enable GCP services
-   ./enable_services.sh
+   ./enable_services.sh <ENV>
 
    # Create a static IP for the domain (Skip this step if you are using apigee proxy)
-   ./create_ip.sh
+   ./create_ip.sh <ENV>
 
    # Create api key for web client maps and places API
-   ./create_api_key.sh
+   ./create_api_key.sh  <ENV>
 
    # Create robot account
-   ./create_robot_account.sh
+   ./create_robot_account.sh <ENV>
 
    # Config robot account IAM in the project
-   ./add_policy_binding.sh
+   ./add_policy_binding.sh <ENV>
 
    # [Ask Data Commons team to run this] Get permission to read Data Commons data
-   ./get_storage_permission.sh
+   ./get_storage_permission.sh <ENV>
 
    # Create SSL certificate
-   ./setup_ssl.sh
+   ./setup_ssl.sh <ENV>
 
    # Deploy esp service
-   ./setup_esp.sh
+   ./setup_esp.sh <ENV>
 
    # [For apigee configurations only] Configure internal load balancer network and dns settings
-   ./configure_internal_load_balancer.sh
-   ```
-
-1. Copy the `config.yaml` file into the `/deploy/gke` folder. Rename
-   the file to describe the environment the clusters are being used for.
-
-   ```text
-     > The filename used will be the `<ENV>` in subsequent commands. E.g. if you
-     > named the yaml file `staging.yaml`, then the `ENV` below is `staging`.
+   ./configure_internal_load_balancer.sh <ENV> <REGION>
    ```
 
 1. Run the following scripts sequentially.
 
    ```bash
-   # Create clusters
-   ./create_all_clusters.sh <ENV>
+   # Create cluster. Run this for all the regions
+   ./create_cluster.sh <ENV> <REGION> <NODES>
 
    # Deploy helm
    ../scripts/deploy_gke_helm.sh -e <ENV> -l <REGION>
@@ -83,10 +77,10 @@ You should have owner/editor role to perform the following tasks.
 
    ```bash
    # Set up multi-cluster ingress and service WITHOUT nodejs
-   ./setup_config_cluster.sh
+   ./setup_config_cluster.sh <ENV> <REGION>
 
    # Set up multi-cluster ingress and service WITH nodejs
-   ./setup_config_cluster.sh -n
+   ./setup_config_cluster.sh <ENV> <REGION> -n
    ```
 
 ## DNS setup

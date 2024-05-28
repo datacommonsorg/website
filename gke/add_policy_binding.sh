@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2020 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 
 set -e
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
-STORE_PROJECT_ID=$(yq eval '.storage_project' config.yaml)
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 
 NAME="website-robot"
 SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"

@@ -39,7 +39,8 @@ Create a kubenetest secret, replace `client_id_key` and `client_secret_key` with
 the actual key from OAuth setup.
 
 ```bash
-kubectl create secret generic iap-secret --from-literal=client_id=[client_id_key] \
+kubectl create secret generic iap-secret \
+    --from-literal=client_id=[client_id_key] \
     --from-literal=client_secret=[client_secret_key] -n website
 ```
 
@@ -54,7 +55,7 @@ kubectl apply -f website_nodejs_mcs.yaml
 
 cp mci.yaml.tpl mci.yaml
 # Update <IP> to be the static IP of the website, which can be found in
-# <REPO_ROOT>/deploy/gke/<ENV>.yaml,
+# <REPO_ROOT>/deploy/helm_charts/envs/<ENV>.yaml,
 # [Optional] change the certificate to match the current SSL certificate
 # [Optional] remove the nodejs path if not deploying nodejs service
 kubectl apply -f mci.yaml

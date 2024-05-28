@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +12,45 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 # This is a yaml template to create gcp/gke configuration.
-# Copy this file to `config.yaml` and use that.
+# Copy this file to `../deploy/helm_charts/envs/<ENV>.yaml` and use that.
 
-project:
-domain:
+# DNS
 ip:
-region:
-  primary:
-  others:
-    -
-nodes: 1
-storage_project:
-control_project:
+domain:
+
+# Helm config
+project:
+cluster_prefix: "website"
+
+namespace:
+  name: "website"
+
+website:
+  flaskEnv:
+  replicas: 1
+  redis:
+    enabled: false
+
+serviceAccount:
+  name: website-ksa
+
+ingress:
+  enabled: true
+
+serviceGroups:
+  recon: null
+  svg:
+    replicas: 1
+  observation:
+    replicas: 1
+  node:
+    replicas: 1
+  default:
+    replicas: 1
+
+nl:
+  enabled: false
+
+nodejs:
+  enabled: false

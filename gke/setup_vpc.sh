@@ -17,17 +17,13 @@
 
 set -e
 
-ENV=$1
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
 REGION=$2
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 
-if [[ $REGION == "" ]]; then
-  REGION=$(yq eval '.region.primary' $ROOT/deploy/gke/$ENV.yaml)
-fi
-
-PROJECT_ID=$(yq eval '.project' $ROOT/deploy/gke/$ENV.yaml)
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 NETWORK_NAME="default"
 PEERING_RANGE_NAME="${NETWORK_NAME}-internal-ip"
 

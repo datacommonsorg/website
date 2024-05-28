@@ -13,7 +13,6 @@
 # limitations under the License.
 """Sentence Transformer Model."""
 
-import logging
 from typing import List
 
 from sentence_transformers import SentenceTransformer
@@ -30,9 +29,8 @@ class LocalSentenceTransformerModel(embeddings.EmbeddingsModel):
     super().__init__(model_info.score_threshold, returns_tensor=True)
 
     # Download model from gcs if there is a gcs folder specified
-    logging.info(f'Downloading tuned model from: {model_info.gcs_folder}')
-    model_path = gcs.maybe_download(model_info.gcs_folder)
-    logging.info(f'Loading tuned model from: {model_path}')
+    model_path = gcs.maybe_download(model_info.gcs_folder,
+                                    use_anonymous_client=True)
     self.model = SentenceTransformer(model_path)
 
   def encode(self, queries: List[str], show_progress_bar=False) -> torch.Tensor:

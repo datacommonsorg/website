@@ -24,7 +24,7 @@ export const URL_HASH_PARAMS = {
   TOPIC: "t",
   QUERY: "q",
   DC: "dc",
-  // Embeddings index name (listed in embeddings.yaml)
+  // Embeddings index name (listed in catalog.yaml)
   IDX: "idx",
   DISABLE_EXPLORE_MORE: "em",
   // old query param

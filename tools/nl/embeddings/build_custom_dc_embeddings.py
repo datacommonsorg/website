@@ -11,7 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Build embeddings for custom DC"""
+"""Build embeddings for custom DCs."""
+
+from dataclasses import asdict
 
 from absl import app
 from absl import flags
@@ -19,12 +21,14 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 import yaml
 
-from shared.lib import gcs
+from nl_server import config
+from nl_server import config_reader
+from nl_server.config import Catalog
+from nl_server.config import MemoryIndexConfig
+from nl_server.registry import Registry
 from tools.nl.embeddings import utils
 from tools.nl.embeddings.file_util import create_file_handler
 from tools.nl.embeddings.file_util import FileHandler
-
-FLAGS = flags.FLAGS
 
 
 class Mode:
@@ -32,70 +36,61 @@ class Mode:
   DOWNLOAD = "download"
 
 
+FLAGS = flags.FLAGS
+
 flags.DEFINE_enum(
     "mode",
     Mode.BUILD,
     [Mode.BUILD, Mode.DOWNLOAD],
-    f"Mode of operation",
+    "Mode of operation",
 )
 
 flags.DEFINE_string(
     "model_version", None,
-    "Existing finetuned model folder name on GCS (e.g. 'ft_final_v20230717230459.all-MiniLM-L6-v2'). If not specified, the version will be parsed from embeddings.yaml."
+    "Existing finetuned model folder name on GCS (e.g. 'ft_final_v20230717230459.all-MiniLM-L6-v2'). If not specified, the version will be parsed from catalog.yaml."
 )
 flags.DEFINE_string("sv_sentences_csv_path", None,
                     "Path to the custom DC SV sentences path.")
 flags.DEFINE_string(
     "output_dir", None,
     "Output directory where the generated embeddings will be saved.")
-flags.DEFINE_string(
-    "embeddings_yaml_path", "/datacommons/nl/embeddings.yaml",
-    "Path where the default FT embeddings.yaml will be saved for Custom DC in download mode."
-)
 
 EMBEDDINGS_CSV_FILENAME_PREFIX = "custom_embeddings"
-EMBEDDINGS_YAML_FILE_NAME = "custom_embeddings.yaml"
+EMBEDDINGS_YAML_FILE_NAME = "custom_catalog.yaml"
+
+DEFAULT_EMBEDDINGS_INDEX_TYPE = "medium_ft"
 
 
-def download(embeddings_yaml_path: str):
-  """Downloads the default FT model and embeddings.
-  """
-  default_ft_embeddings_info = utils.get_default_ft_embeddings_info()
+def build_registry():
+  """Downloads the default model and embeddings."""
+  # Only use the default model.
+  env = config_reader.read_env()
+  env.default_indexes = [DEFAULT_EMBEDDINGS_INDEX_TYPE]
+  env.enabled_indexes = [DEFAULT_EMBEDDINGS_INDEX_TYPE]
+  env.enable_reranking = False
 
-  # Download model.
-  model_info = default_ft_embeddings_info.model_config
-  print(f"Downloading default model: {model_info.name}")
-  local_model_path = gcs.maybe_download(model_info.info['gcs_folder'],
-                                        use_anonymous_client=True)
-  print(f"Downloaded default model to: {local_model_path}")
-
-  # Download embeddings.
-  embeddings_file_name = default_ft_embeddings_info.index_config[
-      'embeddings_path']
-  print(f"Downloading default embeddings: {embeddings_file_name}")
-  local_embeddings_path = gcs.maybe_download(embeddings_file_name,
-                                             use_anonymous_client=True)
-  if not local_embeddings_path:
-    print(f"Unable to download default embeddings: {embeddings_file_name}")
-  else:
-    print(f"Downloaded default embeddings to: {local_embeddings_path}")
-
-  # The prod embeddings.yaml includes multiple embeddings (default, biomed, UN)
-  # For custom DC, we only want the default.
-  utils.save_embeddings_yaml_with_only_default_ft_embeddings(
-      embeddings_yaml_path, default_ft_embeddings_info)
+  # Construct server_config
+  catalog = config_reader.read_catalog()
+  server_config = config_reader.get_server_config(catalog, env)
+  # Build registry, this will download the models and embeddings to the local
+  # tmp dir.
+  return Registry(server_config)
 
 
-def build(model_info: utils.ModelConfig, sv_sentences_csv_path: str,
-          output_dir: str):
-  print(f"Downloading model: {model_info.name}")
-  model_path = gcs.maybe_download(model_info.info['gcs_folder'])
-  model_obj = SentenceTransformer(model_path)
+def build(r: Registry, sv_sentences_csv_path: str, output_dir: str):
   print(
       f"Generating embeddings dataframe from SV sentences CSV: {sv_sentences_csv_path}"
   )
   sv_sentences_csv_handler = create_file_handler(sv_sentences_csv_path)
-  embeddings_df = _build_embeddings_dataframe(model_obj,
+
+  server_config = r.server_config()
+  index_config = server_config.indexes[DEFAULT_EMBEDDINGS_INDEX_TYPE]
+  model_name = index_config.model
+  model_info = server_config.models[model_name]
+
+  print("Building custom DC embeddings")
+
+  embeddings_df = _build_embeddings_dataframe(r.get_embedding_model(model_name),
                                               sv_sentences_csv_handler)
 
   print("Validating embeddings.")
@@ -104,7 +99,7 @@ def build(model_info: utils.ModelConfig, sv_sentences_csv_path: str,
   output_dir_handler = create_file_handler(output_dir)
   embeddings_csv_handler = create_file_handler(
       output_dir_handler.join(
-          f"{EMBEDDINGS_CSV_FILENAME_PREFIX}.{model_info.name}.csv"))
+          f"{EMBEDDINGS_CSV_FILENAME_PREFIX}.{model_name}.csv"))
   embeddings_yaml_handler = create_file_handler(
       output_dir_handler.join(EMBEDDINGS_YAML_FILE_NAME))
 
@@ -113,7 +108,7 @@ def build(model_info: utils.ModelConfig, sv_sentences_csv_path: str,
   embeddings_csv_handler.write_string(embeddings_csv)
 
   print(f"Saving embeddings yaml: {embeddings_yaml_handler.path}")
-  generate_embeddings_yaml(model_info, embeddings_csv_handler,
+  generate_embeddings_yaml(model_name, model_info, embeddings_csv_handler,
                            embeddings_yaml_handler)
 
   print("Done building custom DC embeddings.")
@@ -131,49 +126,33 @@ def _build_embeddings_dataframe(
   return utils.build_embeddings(text2sv_dict, model=model)
 
 
-def generate_embeddings_yaml(model_info: utils.ModelConfig,
+def generate_embeddings_yaml(model_name: str, model_config: config.ModelConfig,
                              embeddings_csv_handler: FileHandler,
                              embeddings_yaml_handler: FileHandler):
-  #
   # Right now Custom DC only supports LOCAL mode.
-  #
-  assert model_info.info['type'] == 'LOCAL'
+  assert model_config.type == 'LOCAL'
 
-  data = {
-      "version": 1,
-      "indexes": {
-          "custom_ft": {
-              "embeddings_path": embeddings_csv_handler.abspath(),
-              "model": model_info.name,
-              "store_type": "MEMORY",
-          }
-      },
-      "models": {
-          model_info.name: model_info.info,
-      }
-  }
-  embeddings_yaml_handler.write_string(yaml.dump(data))
+  data = Catalog(version="1",
+                 indexes={
+                     "custom_ft":
+                         MemoryIndexConfig(
+                             embeddings_path=embeddings_csv_handler.abspath(),
+                             model=model_name,
+                             store_type="MEMORY")
+                 },
+                 models={
+                     model_name: model_config,
+                 })
+  embeddings_yaml_handler.write_string(yaml.dump(asdict(data)))
 
 
 def main(_):
-  if FLAGS.mode == Mode.DOWNLOAD:
-    download(FLAGS.embeddings_yaml_path)
-    return
-
-  assert FLAGS.sv_sentences_csv_path
-  assert FLAGS.output_dir
-  if FLAGS.model_version:
-    model_info = utils.ModelConfig(name=FLAGS.model_version,
-                                   info={
-                                       'type': 'LOCAL',
-                                       'gcs_folder': FLAGS.model_version,
-                                       'score_threshold': 0.5
-                                   })
-  else:
-    model_info = utils.get_default_ft_model()
-    print(f"Using model {model_info.name} from embeddings.yaml.")
-
-  build(model_info, FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
+  # build registry will download models.
+  r = build_registry()
+  if FLAGS.mode == Mode.BUILD:
+    assert FLAGS.sv_sentences_csv_path
+    assert FLAGS.output_dir
+    build(r, FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
 
 
 if __name__ == "__main__":

@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DNS
+domain: staging.unsdg.datacommons.org
+ip: 34.120.81.84
+
 # Helm config
 project: "datcom-un-staging"
 cluster_prefix: "website"

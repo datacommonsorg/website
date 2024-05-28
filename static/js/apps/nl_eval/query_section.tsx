@@ -16,12 +16,12 @@
 
 import React, { useState } from "react";
 
-import { ModelScoreBox } from "./model_score_box";
+import { IndexScoreBox } from "./index_score_box";
 import { BASE_URL, EmbeddingObject } from "./util";
 
 export interface QuerySectionProps {
   sentence: string;
-  modelNames: string[];
+  index2model: Record<string, string>;
   goldenStatVars: string[];
   customDescription: Record<string, EmbeddingObject[]>;
   onScoreUpdated: (modelName: string, sentence: string, score: number) => void;
@@ -57,11 +57,13 @@ export function QuerySection(props: QuerySectionProps): JSX.Element {
             })}
           </ul>
         </div>
-        {props.modelNames.map((modelName) => {
+        {Object.keys(props.index2model).map((indexName) => {
+          const modelName = props.index2model[indexName];
           return (
-            <ModelScoreBox
-              key={modelName}
+            <IndexScoreBox
+              key={indexName}
               sentence={props.sentence}
+              indexName={indexName}
               modelName={modelName}
               isExpanded={isExpanded}
               goldenStatVars={props.goldenStatVars}
