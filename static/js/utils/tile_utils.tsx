@@ -40,6 +40,7 @@ import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
 import { isNlInterface } from "./explore_utils";
 import { getUnit } from "./stat_metadata_utils";
+import { TileMetadataModal } from "../tools/shared/tile_metadata_modal";
 
 const DEFAULT_PC_SCALING = 100;
 const DEFAULT_PC_UNIT = "%";
@@ -375,6 +376,8 @@ export function TileSources(props: {
   return (
     <div className="sources" {...{ part: "source" }}>
       Source: {sourcesJsx}
+      {" "}•{" "}
+      <TileMetadataModal svList={[]}></TileMetadataModal>
     </div>
   );
 }
