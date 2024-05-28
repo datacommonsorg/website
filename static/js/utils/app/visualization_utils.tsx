@@ -294,10 +294,7 @@ export function getFilteredStatVarPromise(
     })
     .then((resp) => {
       const availableSVs = new Set();
-      const numRequired = Math.min(
-        samplePlaces.length,
-        visTypeConfig.svHierarchyNumExistence || 1
-      );
+      const numRequired = getNumEntitiesExistence(samplePlaces, visTypeConfig);
       for (const sv of statVars) {
         let numAvailable = 0;
         for (const entity in resp.data[sv.dcid]) {
@@ -373,4 +370,30 @@ export function getHash(
     hash += `${idx === 0 ? "" : "&"}${key}=${params[key]}`;
   });
   return encodeURIComponent(hash);
+}
+
+/**
+ * Get value of NumEntitiesExistence to pass to StatVarHierarchy
+ *
+ * NumEntitiesExistence is a parameter that sets the number of entities that
+ * should have data for each stat var (group) shown in the widget. For
+ * example, setting a value of 10 means that at least 10 entities must have
+ * data for a stat var for that stat var to show in the widget. This prevents
+ * showing users stat vars with low geographic coverage that lead to sparse
+ * charts.
+ *
+ * @param samplePlaces list of places used to determine available stat vars
+ * @param visTypeConfig config for the chart type being plotted
+ * @returns minimum number of entities to use for stat var filtering
+ */
+export function getNumEntitiesExistence(
+  samplePlaces: NamedNode[],
+  visTypeConfig: VisTypeConfig
+): number {
+  return globalThis.useStatVarFiltering
+    ? Math.min(
+        Math.max(samplePlaces.length, 1),
+        visTypeConfig.svHierarchyNumExistence || 1
+      )
+    : 1;
 }

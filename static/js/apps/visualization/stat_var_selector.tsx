@@ -36,6 +36,7 @@ import { Spinner } from "../../components/spinner";
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { getFilteredStatVarPromise } from "../../utils/app/visualization_utils";
+import { getNumEntitiesExistence } from "../../utils/app/visualization_utils";
 import { AppContext } from "./app_context";
 import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
@@ -104,7 +105,10 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
             selectSV={addSv}
             searchLabel={""}
             deselectSV={removeSv}
-            numEntitiesExistence={getNumEntitiesExistence()}
+            numEntitiesExistence={getNumEntitiesExistence(
+              samplePlaces,
+              visTypeConfig
+            )}
           />
         )}
         <Spinner isOpen={_.isNull(samplePlaces)} />
@@ -212,26 +216,5 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
     } else {
       setStatVars(svList);
     }
-  }
-
-  /**
-   * Get value of NumEntitiesExistence to pass to StatVarHierarchy
-   *
-   * NumEntitiesExistence is a parameter that sets the number of entities that
-   * should have data for each stat var (group) shown in the widget. For
-   * example, setting a value of 10 means that at least 10 entities must have
-   * data for a stat var for that stat var to show in the widget. This prevents
-   * showing users stat vars with low geographic coverage that lead to sparse
-   * charts.
-   *
-   * @returns minimum number of entities to use for stat var filtering
-   */
-  function getNumEntitiesExistence(): number {
-    return globalThis.useStatVarFiltering
-      ? Math.min(
-          Math.max(samplePlaces.length, 1),
-          visTypeConfig.svHierarchyNumExistence || 1
-        )
-      : 1;
   }
 }
