@@ -587,3 +587,24 @@ categories {
     }
   }
 }
+
+
+categories {
+  title: "Test Answer tiles"
+  blocks {
+    columns {
+      tiles {
+        type: ANSWER_MESSAGE
+      }
+      tiles {
+        type: ANSWER_TABLE
+      }
+    }
+  }
+  stat_var_spec {
+    key: 'male_population'
+    value {
+      stat_var: "Count_Person_Male"
+    }
+  }
+}
