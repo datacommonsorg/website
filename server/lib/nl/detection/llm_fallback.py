@@ -201,7 +201,7 @@ def _is_multi_sv_delimited(d: Detection, places_mentioned: List[str],
   # Find all sv sub-part indexes.
   vidx_list = []
   for p in multi_sv.parts:
-    vidx = query.find(p.query_part)
+    vidx = dutils.find_word_boundary(query, p.query_part)
     if vidx == -1:
       ctr.err('failed_fallback_svidxmissing', p.query_part)
       return False
@@ -209,7 +209,7 @@ def _is_multi_sv_delimited(d: Detection, places_mentioned: List[str],
 
   for place in places_mentioned:
     # Find place idx.
-    pidx = query.find(place)
+    pidx = dutils.find_word_boundary(query, place)
     if pidx == -1:
       ctr.err('failed_fallback_placeidxmissing', place)
       return False

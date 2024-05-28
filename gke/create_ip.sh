@@ -13,8 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 
 gcloud config set project $PROJECT_ID
 
@@ -24,4 +25,4 @@ gcloud compute addresses create dc-website-ip --global
 # Record the IP address.
 export IP=$(gcloud compute addresses list --global --filter='name:dc-website-ip' --format='value(ADDRESS)')
 
-yq eval -i '.ip = env(IP)' config.yaml
+yq eval -i '.ip = env(IP)' $CONFIG_YAML

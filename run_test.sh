@@ -106,10 +106,8 @@ function run_py_test {
 
   # Tests within tools/nl/embeddings
   echo "Running tests within tools/nl/embeddings:"
-  cd tools/nl/embeddings
-  pip3 install -r requirements.txt
-  python3 -m pytest ./ -s
-  cd ../../..
+  pip3 install -r tools/nl/embeddings/requirements.txt -q
+  python3 -m pytest tools/nl/embeddings/ -s
 
   pip3 install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
@@ -173,7 +171,7 @@ function run_integration_test {
   export ENV_PREFIX=Staging
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   export TEST_MODE=test
-  export ENABLE_EVAL_TOOL=true
+  export ENABLE_EVAL_TOOL=false
 
   python3 -m pytest -vv --reruns 2 server/integration_tests/$1
   deactivate
@@ -187,7 +185,7 @@ function update_integration_test_golden {
   export TEST_MODE=write
   export DC_API_KEY=
   export LLM_API_KEY=
-  export ENABLE_EVAL_TOOL=true
+  export ENABLE_EVAL_TOOL=false
 
   # Run integration test against staging mixer to make it stable.
   export ENV_PREFIX=Staging

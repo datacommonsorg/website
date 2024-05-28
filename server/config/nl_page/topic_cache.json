@@ -15422,7 +15422,6 @@
       ],
       "relevantVariableList": [
         "UnemploymentRate_Person",
-        "Count_Person_NonWorker",
         "UnemploymentRate_Person_Female",
         "UnemploymentRate_Person_Male"
       ],

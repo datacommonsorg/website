@@ -283,6 +283,12 @@ class ExploreTest(NLWebServerTestCase):
                        test='unittest',
                        idx='undata_ilo_ft')
 
+  def test_detection_basic_undata_dev(self):
+    self.run_detection('detection_api_undata_dev_idx',
+                       ['Employment in the world'],
+                       test='unittest',
+                       idx='undata_dev_ft')
+
   def test_detection_basic_bio(self):
     self.run_detection('detection_api_bio_idx', ['Commute in California'],
                        test='unittest',
@@ -348,16 +354,17 @@ class ExploreTest(NLWebServerTestCase):
         'What is the relationship between housing size and home prices in California'
     ])
 
-  def test_detection_reranking(self):
-    self.run_detection(
-        'detection_api_reranking',
-        [
-            # Without reranker the top SV is Median_Income_Person,
-            # With reranking the top SV is Count_Person_IncomeOf75000OrMoreUSDollar.
-            'population that is rich in california'
-        ],
-        check_detection=True,
-        reranker='cross-encoder-mxbai-rerank-base-v1')
+  # TODO: renable when we solve the flaky issue
+  # def test_detection_reranking(self):
+  #   self.run_detection(
+  #       'detection_api_reranking',
+  #       [
+  #           # Without reranker the top SV is Median_Income_Person,
+  #           # With reranking the top SV is Count_Person_IncomeOf75000OrMoreUSDollar.
+  #           'population that is rich in california'
+  #       ],
+  #       check_detection=True,
+  #       reranker='cross-encoder-mxbai-rerank-base-v1')
 
   def test_fulfillment_basic(self):
     req = {

@@ -23,6 +23,12 @@ import ReactDOM from "react-dom";
 
 import { App } from "./app";
 
+const EVAL_INDEXES = new Set([
+  "base_uae_mem",
+  "medium_ft",
+  "medium_vertex_mistral",
+]);
+
 window.onload = () => {
   renderPage();
 };
@@ -31,13 +37,19 @@ function renderPage(): void {
   const evalGolden = JSON.parse(
     document.getElementById("metadata").dataset.evalGolden
   );
-  const modelNames = JSON.parse(
-    document.getElementById("metadata").dataset.modelNames
+  const serverConfig = JSON.parse(
+    document.getElementById("metadata").dataset.serverConfig
   );
+  const index2model = {};
+  for (const indexName in serverConfig["indexes"]) {
+    if (EVAL_INDEXES.has(indexName)) {
+      index2model[indexName] = serverConfig["indexes"][indexName]["model"];
+    }
+  }
   ReactDOM.render(
     React.createElement(App, {
       evalGolden,
-      modelNames,
+      index2model,
     }),
     document.getElementById("dc-nl-eval")
   );

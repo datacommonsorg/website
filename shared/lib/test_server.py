@@ -54,7 +54,6 @@ class NLWebServerTestCase(LiveServerTestCase):
   @classmethod
   def setUpClass(cls):
     if is_nl_mode:
-
       if should_start_nl_server:
 
         def start_nl_server(app):

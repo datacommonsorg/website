@@ -48,7 +48,13 @@ class DCNames(str, Enum):
   MAIN_DC = 'main'
   SDG_DC = 'sdg'
   SDG_MINI_DC = 'sdgmini'
+  # Production UN Data index. Contains SDG and WHO data
   UNDATA_DC = 'undata'
+  # Dev UN Data index. Contains SDG, WHO, and ILO data
+  # TODO(dwnoble): Remove after ILO launch
+  UNDATA_DEV_DC = 'undata_dev'
+  # Dev UN Data index. Contains ILO data
+  # TODO(dwnoble): Remove after ILO launch
   UNDATA_ILO_DC = 'undata_ilo'
   BIO_DC = 'bio'
   CUSTOM_DC = 'custom'
@@ -67,7 +73,9 @@ class Clients(str, Enum):
 
 
 SDG_DC_LIST = [DCNames.SDG_DC, DCNames.SDG_MINI_DC]
-UNDATA_DC_LIST = [DCNames.UNDATA_DC, DCNames.UNDATA_ILO_DC]
+UNDATA_DC_LIST = [
+    DCNames.UNDATA_DC, DCNames.UNDATA_DEV_DC, DCNames.UNDATA_ILO_DC
+]
 SPECIAL_DC_LIST = SDG_DC_LIST + UNDATA_DC_LIST
 
 
@@ -108,6 +116,8 @@ def dc_to_embedding_type(dc: str, embeddings_type: str) -> str:
     return 'undata_ft'
   elif dc == DCNames.UNDATA_ILO_DC.value:
     return 'undata_ilo_ft'
+  elif dc == DCNames.UNDATA_DEV_DC.value:
+    return 'undata_dev_ft'
   elif dc == DCNames.BIO_DC.value:
     return 'bio_ft'
   return embeddings_type
