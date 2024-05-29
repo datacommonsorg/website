@@ -173,7 +173,14 @@ function run_integration_test {
   export TEST_MODE=test
   export ENABLE_EVAL_TOOL=false
 
-  python3 -m pytest -vv --reruns 2 server/integration_tests/$1 -k $2
+  pytest_command="python3 -m pytest -vv --reruns 2 server/integration_tests/$1"
+
+  # Use "-k" filter to run specific tests
+  [[ -n "$2" ]] && pytest_command+=" -k \"$2\""
+
+  echo "Running tests with command: $pytest_command"
+  eval $pytest_command  # Use eval to handle the entire command as a single string
+
   deactivate
 }
 
