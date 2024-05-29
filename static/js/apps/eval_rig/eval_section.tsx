@@ -17,6 +17,14 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { useEffect, useState } from "react";
 
+import {
+  DC_QUESTION_COL,
+  DC_RESPONSE_COL,
+  DC_STAT_COL,
+  DCCallSheet,
+  LLM_STAT_COL,
+} from "./constants";
+
 export interface EvalSectionProps {
   doc: GoogleSpreadsheet;
   rowIdx: number;
@@ -29,18 +37,15 @@ export function EvalSection(props: EvalSectionProps): JSX.Element {
   const [dcStat, setDcStat] = useState<string>("");
 
   useEffect(() => {
-    const callSheet = props.doc.sheetsByTitle["dc_calls"];
-    const filter = [];
-    filter.push(`C${props.rowIdx + 1}:F${props.rowIdx + 1}`);
-    callSheet.loadCells(filter).then(() => {
-      setDcQuestion(
-        callSheet.getCellByA1(`C${props.rowIdx + 1}`).value as string
-      );
-      setDcAnswer(
-        callSheet.getCellByA1(`D${props.rowIdx + 1}`).value as string
-      );
-      setLlmStat(callSheet.getCellByA1(`E${props.rowIdx + 1}`).value as string);
-      setDcStat(callSheet.getCellByA1(`F${props.rowIdx + 1}`).value as string);
+    const sheet = props.doc.sheetsByTitle[DCCallSheet];
+    sheet.getRows({ offset: props.rowIdx - 1, limit: 1 }).then((rows) => {
+      const row = rows[0];
+      if (row) {
+        setDcQuestion(row.get(DC_QUESTION_COL));
+        setDcAnswer(row.get(DC_RESPONSE_COL));
+        setLlmStat(row.get(LLM_STAT_COL));
+        setDcStat(row.get(DC_STAT_COL));
+      }
     });
   }, [props.doc, props.rowIdx]);
 

@@ -18,6 +18,7 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
 
+import { QASheet } from "./constants";
 import { EvalSection } from "./eval_section";
 
 export interface Query {
@@ -38,7 +39,7 @@ export function QuerySection(props: QuerySectionProps): JSX.Element {
 
   const loadAnswer = (doc: GoogleSpreadsheet, rowIndex: number) => {
     doc.loadInfo().then(() => {
-      const qaSheet = doc.sheetsByTitle["query_and_answer"];
+      const qaSheet = doc.sheetsByTitle[QASheet];
       const address = `D${rowIndex + 1}`;
       qaSheet.loadCells(address).then(() => {
         setAnswer(qaSheet.getCellByA1(address).value as string);

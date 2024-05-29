@@ -19,7 +19,18 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { useState } from "react";
 
 import { GoogleSignIn } from "../../utils/google_signin";
+import {
+  CALL_ID_COL,
+  DCCallSheet,
+  QASheet,
+  QUERY_COL,
+  QUERY_ID_COL,
+  USER_COL,
+} from "./constants";
 import { Query, QuerySection } from "./query_section";
+
+// Map from sheet name to column name to column index
+type HeaderInfo = Record<string, Record<string, number>>;
 
 interface AppPropType {
   sheetId: string;
@@ -33,69 +44,88 @@ export function App(props: AppPropType): JSX.Element {
     Record<string, Record<string, number>>
   >({});
 
-  const loadQuery = (doc: GoogleSpreadsheet) => {
-    doc.loadInfo().then(() => {
-      const qaSheet = doc.sheetsByTitle["query_and_answer"];
-      const qaRows = qaSheet.rowCount;
-      qaSheet
-        .loadCells({
-          startRowIndex: 1,
-          endRowIndex: qaRows,
-          startColumnIndex: 0,
-          endColumnIndex: 3,
+  async function loadHeader(doc: GoogleSpreadsheet) {
+    const result = {};
+    for (const sheetName of [QASheet, DCCallSheet]) {
+      result[sheetName] = {};
+      const sheet = doc.sheetsByTitle[sheetName];
+      await sheet.loadHeaderRow();
+      for (let i = 0; i < sheet.headerValues.length; i++) {
+        const colName = sheet.headerValues[i];
+        result[sheetName][colName] = i;
+      }
+    }
+    return result;
+  }
+
+  const loadQuery = (doc: GoogleSpreadsheet, allHeader: HeaderInfo) => {
+    const sheet = doc.sheetsByTitle[QASheet];
+    const header = allHeader[QASheet];
+    const numRows = sheet.rowCount;
+    const loadPromises = [];
+    for (const col of [QUERY_ID_COL, USER_COL, QUERY_COL]) {
+      loadPromises.push(
+        sheet.loadCells({
+          startColumnIndex: header[col],
+          endColumnIndex: header[col] + 1,
         })
-        .then(() => {
-          const allQuery: Record<string, Query> = {};
-          for (let i = 1; i < qaRows; i++) {
-            allQuery[qaSheet.getCell(i, 0).value as string] = {
-              rowIdx: i,
-              text: qaSheet.getCell(i, 2).value as string,
-              user: qaSheet.getCell(i, 1).value as string,
-            };
-          }
-          setAllQuery(allQuery);
-        });
+      );
+    }
+    Promise.all(loadPromises).then(() => {
+      const allQuery: Record<string, Query> = {};
+      for (let i = 1; i < numRows; i++) {
+        allQuery[sheet.getCell(i, header[QUERY_ID_COL]).value as string] = {
+          rowIdx: i,
+          text: sheet.getCell(i, header[QUERY_COL]).value as string,
+          user: sheet.getCell(i, header[USER_COL]).value as string,
+        };
+      }
+      setAllQuery(allQuery);
     });
   };
 
-  const loadCall = (doc: GoogleSpreadsheet) => {
-    doc.loadInfo().then(() => {
-      const callSheet = doc.sheetsByTitle["dc_calls"];
-      const callRows = callSheet.rowCount;
-      callSheet
-        .loadCells({
-          startRowIndex: 1,
-          endRowIndex: callRows,
-          startColumnIndex: 0,
-          endColumnIndex: 2,
+  const loadCall = (doc: GoogleSpreadsheet, allHeader: HeaderInfo) => {
+    const sheet = doc.sheetsByTitle[DCCallSheet];
+    const header = allHeader[DCCallSheet];
+    const numRows = sheet.rowCount;
+    const loadPromises = [];
+    for (const col of [QUERY_ID_COL, CALL_ID_COL]) {
+      loadPromises.push(
+        sheet.loadCells({
+          startColumnIndex: header[col],
+          endColumnIndex: header[col] + 1,
         })
-        .then(() => {
-          const allCall: Record<string, Record<string, number>> = {};
-          for (let i = 1; i < callRows; i++) {
-            const rowIdx = i;
-            const queryId = callSheet.getCell(i, 0).value as string;
-            const callId = callSheet.getCell(i, 1).value as string;
-            if (!allCall[queryId]) {
-              allCall[queryId] = {};
-            }
-            allCall[queryId][callId] = rowIdx;
-          }
-          setAllCall(allCall);
-        });
+      );
+    }
+    Promise.all(loadPromises).then(() => {
+      const allCall: Record<string, Record<string, number>> = {};
+      for (let i = 1; i < numRows; i++) {
+        const rowIdx = i;
+        const queryId = sheet.getCell(i, header[QUERY_ID_COL]).value as string;
+        const callId = sheet.getCell(i, header[CALL_ID_COL]).value as string;
+        if (!allCall[queryId]) {
+          allCall[queryId] = {};
+        }
+        allCall[queryId][callId] = rowIdx;
+      }
+      setAllCall(allCall);
     });
   };
 
-  const handleUserSignIn = (user: User, credential: OAuthCredential) => {
+  async function handleUserSignIn(user: User, credential: OAuthCredential) {
     if (credential.accessToken) {
       setUser(user); // Set the user state to the signed-in user
       const doc = new GoogleSpreadsheet(props.sheetId, {
         token: credential.accessToken,
       });
+      await doc.loadInfo();
       setDoc(doc);
-      loadQuery(doc);
-      loadCall(doc);
+      loadHeader(doc).then((allHeader) => {
+        loadQuery(doc, allHeader);
+        loadCall(doc, allHeader);
+      });
     }
-  };
+  }
 
   return (
     <>
