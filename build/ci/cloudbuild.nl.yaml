@@ -31,7 +31,7 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh --explore ExploreTestDetection
+        ./run_test.sh --explore -k 'ExploreTestDetection'
 
   - id: explore_test_fulfillment
     name: python:3.11.3
@@ -41,7 +41,7 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh --explore ExploreTestFulfillment
+        ./run_test.sh --explore -k 'ExploreTestFulfillment'
 
   - id: explore_test_e2e_1
     name: python:3.11.3
@@ -51,7 +51,7 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh --explore ExploreTestEE1
+        ./run_test.sh --explore -k 'ExploreTestEE1'
 
   - id: explore_test_e2e_2
     name: python:3.11.3
@@ -61,7 +61,7 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh --explore ExploreTestEE2
+        ./run_test.sh --explore -k 'ExploreTestEE2'
 
   - id: explore_test_e2e_3
     name: python:3.11.3
@@ -71,7 +71,7 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh --explore ExploreTestEE3
+        ./run_test.sh --explore -k 'ExploreTestEE3'
 
   - id: nl_test_demo
     name: python:3.11.3
@@ -81,7 +81,7 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh --nl NLTestDemo
+        ./run_test.sh --nl -k 'NLTestDemo'
 
   - id: nl_test_misc
     name: python:3.11.3
@@ -91,7 +91,7 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh --nl NLTestMisc
+        ./run_test.sh --nl -k 'NLTestMisc'
 
 options:
   machineType: "E2_HIGHCPU_32"
