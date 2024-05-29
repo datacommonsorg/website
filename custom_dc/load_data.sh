@@ -11,7 +11,6 @@ Options:
   -i <dir>        Input directory to process
   -k <api-key>    Data Commons API Key
   -o <dir>        Output folder for stats importer. Default: $OUTPUT_DIR
-  -m <customdc|maindc> Mode of operation for simple importer. Default: $MODE
   -j <jar>        Data Commons Import java JAR file.
                     Download latest from https://github.com/datacommonsorg/import/releases/
   -r <steps>      Steps to run. Can be one or more of the following:
@@ -159,28 +158,24 @@ function setup {
     OUTPUT_DIR=$(readlink -f $OUTPUT_DIR)
   fi
 
-  # Set additional options
-  if false; then
-    GCS_OUTPUT_DIR=""
-    is_output_gcs=$(echo "$OUTPUT_DIR" | grep "gs://" )
-    if [[ -n "$is_output_gcs" ]]; then
-      # Generate output locally and copy to GCS
-      GCS_OUTPUT_DIR="$OUTPUT_DIR"
-      OUTPUT_DIR="$TMP_DIR/$(basename $OUTPUT_DIR)-$(date +%Y%m%d)"
-      echo_log "Generating output to: $OUTPUT_DIR and will be copied to GCS: $GCS_OUTPUT_DIR"
-    fi
-  fi
-
   # Fork a process to display log
   touch $LOG
   if [[ -z "$QUIET" ]]; then
     tail -f $LOG &
+    LOG_PID=$!
     # Kill forked processes on exit
-    trap "trap - SIGTERM && kill -- -$$ 2>/dev/null" SIGINT SIGTERM EXIT
+    trap "trap - SIGTERM && cleanup 2>/dev/null" SIGINT SIGTERM EXIT
   fi
 
   # Get dir for simple stats importer
   SIMPLE_DIR=${SIMPLE_DIR:-$(dirname $(realpath $0) | sed -e 's,/simple.*,/simple,')}
+}
+
+# Cleanup when existing script
+function cleanup {
+  exit_status=$?
+  [[ -n "$LOG_PID" ]] && kill -9 $LOG_PID
+  exit $exit_status
 }
 
 # Check parameters for simple_import
@@ -296,19 +291,6 @@ function generate_embeddings {
   cd "$cwd"
 }
 
-# Copy files from local folder to GCS
-function copy_to_gcs {
-  local dir="$1"; shift
-  local gcs_dir="$1"; shift
-
-  [[ -z "$gcs_dir" ]] && return
-
-  cmd="gsutil -m cp -r $dir $gcs_dir"
-  run_cmd $cmd
-  echo_log "Copied output files to $gcs_dir"
-  run_cmd gsutil ls -l -r "$gcs_dir"
-}
-
 # Return if being sourced
 (return 0 2>/dev/null) && return
 
@@ -326,7 +308,6 @@ function main {
   run_step "stats|simple" simple_import
   run_step "validate" validate_output
   run_step "embeddings" generate_embeddings
-  # copy_to_gcs "$OUTPUT_DIR" "$GCS_OUTPUT_DIR"
 }
 
 main "$@"
