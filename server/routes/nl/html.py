@@ -26,7 +26,7 @@ import server.services.datacommons as dc
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 
 
-@bp.route('/eval')
+@bp.route('/eval/embeddings')
 def eval_page():
   if os.environ.get('FLASK_ENV') not in ['local', 'test', 'autopush']:
     flask.abort(404)
@@ -34,6 +34,6 @@ def eval_page():
   eval_file = os.path.join(os.path.dirname(current_app.root_path),
                            'shared/eval/base/golden.json')
   with open(eval_file) as f:
-    return render_template('/nl_eval.html',
+    return render_template('/eval_embeddings.html',
                            server_config=json.dumps(server_config),
                            eval_golden=json.dumps(json.load(f)))
