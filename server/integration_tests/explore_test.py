@@ -258,6 +258,9 @@ class ExploreTest(NLWebServerTestCase):
 
     self.assertTrue(success, f"wanted: {i18n_lang}, got {detected}")
 
+
+class ExploreTestDetection(ExploreTest):
+
   def test_detection_basic(self):
     self.run_detection('detection_api_basic', ['Commute in California'],
                        test='unittest')
@@ -365,6 +368,9 @@ class ExploreTest(NLWebServerTestCase):
   #       ],
   #       check_detection=True,
   #       reranker='cross-encoder-mxbai-rerank-base-v1')
+
+
+class ExploreTestFulfillment(ExploreTest):
 
   def test_fulfillment_basic(self):
     req = {
@@ -485,6 +491,9 @@ class ExploreTest(NLWebServerTestCase):
         ],
     }
     self.run_fulfillment('fulfillment_api_nl_size', req)
+
+
+class ExploreTestE2E(ExploreTest):
 
   def test_e2e_answer_places(self):
     self.run_detect_and_fulfill('e2e_answer_places', [

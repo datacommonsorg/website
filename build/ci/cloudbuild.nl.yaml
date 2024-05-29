@@ -23,7 +23,7 @@ steps:
       - |
         ./run_test.sh --setup_python
 
-  - id: explore_test
+  - id: explore_test_detection
     name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
@@ -31,7 +31,27 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh --explore
+        ./run_test.sh --explore ExploreTestDetection
+
+  - id: explore_test_fulfillment
+    name: python:3.11.3
+    entrypoint: /bin/sh
+    waitFor:
+      - setup_python
+    args:
+      - -c
+      - |
+        ./run_test.sh --explore ExploreTestFulfillment
+
+  - id: explore_test_e2e
+    name: python:3.11.3
+    entrypoint: /bin/sh
+    waitFor:
+      - setup_python
+    args:
+      - -c
+      - |
+        ./run_test.sh --explore ExploreTestE2E
 
   - id: nl_test
     name: python:3.11.3

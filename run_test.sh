@@ -173,7 +173,7 @@ function run_integration_test {
   export TEST_MODE=test
   export ENABLE_EVAL_TOOL=false
 
-  python3 -m pytest -vv --reruns 2 server/integration_tests/$1
+  python3 -m pytest -vv --reruns 2 server/integration_tests/$1 -k $2
   deactivate
 }
 
@@ -233,9 +233,15 @@ while [[ "$#" -gt 0 ]]; do
         shift 1
         ;;
     --explore)
-        echo --explore "### Running explore page integration tests"
-        run_integration_test explore_test.py
-        shift 1
+        if [[ -n "$2" && "$2" != -* ]]; then
+            echo --explore "### Running explore page integration tests with parameter $2"
+            run_integration_test explore_test.py $2
+            shift 2
+        else
+            echo --explore "### Running explore page integration tests"
+            run_integration_test explore_test.py
+            shift 1
+        fi
         ;;
     --nl)
         echo --nl "### Running nl page integration tests"
