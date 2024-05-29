@@ -154,6 +154,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       sources={props.sources || (chartData && chartData.sources)}
       subtitle={props.subtitle}
       title={props.title}
+      statVarSpecs={props.statVarSpec}
     >
       <div
         id={props.id}

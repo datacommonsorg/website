@@ -123,6 +123,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       getDataCsv={getDataCsvCallback(props)}
       hasErrorMsg={gaugeData && !!gaugeData.errorMsg}
       footnote={props.footnote}
+      statVarSpecs={[props.statVarSpec]}
     >
       <div
         className={`svg-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}

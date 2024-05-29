@@ -125,7 +125,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
         <span>{highlightData.errorMsg}</span>
       )}
       {!_.isEmpty(highlightData.sources) && !highlightData.errorMsg && (
-        <TileSources sources={props.sources || highlightData.sources} />
+        <TileSources sources={props.sources || highlightData.sources} statVarSpecs={[props.statVarSpec]} />
       )}
     </div>
   );

@@ -333,12 +333,14 @@ export function getTileEventTypeSpecs(
 }
 
 /**
- * Gets the JSX element for displaying a list of sources.
+ * Gets the JSX element for displaying a list of sources and stat vars.
  */
 export function TileSources(props: {
   sources: Set<string> | string[];
+  // If available, the stat vars to link to.
+  statVarSpecs?: StatVarSpec[];
 }): JSX.Element {
-  const { sources } = props;
+  const { sources, statVarSpecs } = props;
   if (!sources) {
     return null;
   }
@@ -376,8 +378,12 @@ export function TileSources(props: {
   return (
     <div className="sources" {...{ part: "source" }}>
       Source: {sourcesJsx}
-      {" "}•{" "}
-      <TileMetadataModal svList={[]}></TileMetadataModal>
+      {statVarSpecs && statVarSpecs.length > 0 &&
+        <>
+          {" "}•{" "}
+          <TileMetadataModal statVarSpecs={statVarSpecs}></TileMetadataModal>
+        </>
+      }
     </div>
   );
 }

@@ -326,6 +326,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={!_.isEmpty(mapChartData) && !!mapChartData.errorMsg}
       footnote={props.footnote}
+      statVarSpecs={[props.statVarSpec]}
     >
       {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">

@@ -133,6 +133,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       isInitialLoading={_.isNull(bivariateChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={bivariateChartData && !!bivariateChartData.errorMsg}
+      statVarSpecs={props.statVarSpec}
     >
       <div
         id={props.id}

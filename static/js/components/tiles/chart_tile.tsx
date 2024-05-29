@@ -34,6 +34,7 @@ import {
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 import { LoadingHeader } from "./loading_header";
+import { StatVarSpec } from "../../shared/types";
 interface ChartTileContainerProp {
   id: string;
   isLoading?: boolean;
@@ -58,6 +59,8 @@ interface ChartTileContainerProp {
   footnote?: string;
   // Subtitle text
   subtitle?: string;
+  // Stat Vars for metadata rendering.
+  statVarSpecs?: StatVarSpec[];
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -90,7 +93,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
               <div className="subheader">{props.subtitle}</div>
             ) : null}
           </slot>
-          {showSources && <TileSources sources={props.sources} />}
+          {showSources && <TileSources sources={props.sources} statVarSpecs={props.statVarSpecs}/>}
         </div>
         {props.children}
       </div>

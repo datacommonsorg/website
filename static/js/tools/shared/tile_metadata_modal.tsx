@@ -14,71 +14,78 @@
  * limitations under the License.
  */
 
+/**
+ * Displays a modal with links for each stat var to their page in Stat Var Explorer.
+ */
+
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { StatVarSpec } from "../../shared/types";
+import { datacommonsClient } from "../../utils/datacommons_client";
 
-const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#";
+const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 
 interface TileMetadataModalPropType {
-  // sources?
-  svList: {
-    name: string;
-    dcid: string;
-  }[];
+  statVarSpecs: StatVarSpec[];
 }
 
+type Dcid = string;
+type Name = string;
+type DcidNameTuple = [Dcid, Name];
+
 export function TileMetadataModal(props: TileMetadataModalPropType): JSX.Element {
-  // const { svList } = props;
-  const svList = [
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-    { name: "Population 1", dcid:"foo" },
-  ];
+  const { statVarSpecs } = props;
   const [modalOpen, setModalOpen] = useState(false);
+  const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
+  const dcids = new Set<string>();
+
+  if (!statVarSpecs) return;
+  for (const spec of statVarSpecs) {
+    dcids.add(spec.statVar);
+    if (spec.denom) {
+      dcids.add(spec.denom);
+    }
+  }
+
+  useEffect(() => {
+    (async () => {
+      const responseObj = await datacommonsClient.getFirstNodeValues({
+        dcids: [...dcids], prop: "name"
+      });
+      let responseList = new Array<DcidNameTuple>();
+      for (const dcid in responseObj) {
+        responseList.push([dcid, responseObj[dcid]]);
+      }
+      // Sort by name
+      responseList.sort((a, b) => a[1] > b[1] ? 1 : -1);
+      setStatVarNames(responseList);
+      console.log(responseList);
+    })();
+  }, [props]);
+
   return (
     <>
-    <a href="#" onClick={() => {setModalOpen(true)}}>show metadata</a>
+    <a href="#" onClick={(e) => {e.preventDefault(); setModalOpen(true)}}>show metadata</a>
     <Modal
       isOpen={modalOpen}
       scrollable
+      keyboard
       className="metadata-modal modal-dialog-centered modal-lg"
     >
       <ModalHeader toggle={() => setModalOpen(false)} close={<></>}>
         Choose a variable to view its metadata
-        <h6>
-          Select a variable from the list to see its details. The links below
-          open the Statistical Variable Explorer in a new tab.
-        </h6>
       </ModalHeader>
+      <div className="modal-subtitle">
+        Select a variable from the list to see its details. The links below
+        open the Statistical Variable Explorer in a new tab.
+      </div>
       <ModalBody>
         <div className="metadata-modal-links">
-          {svList.map(sv => (
-            <div className="metadata-modal-link">
+          {statVarNames && statVarNames.map((dcidName, i) => (
+            <div className="metadata-modal-link" key={i}>
               <span className="material-icons-outlined">arrow_forward</span>
-              <a href={SV_EXPLORER_REDIRECT_PREFIX + sv.dcid} target="_blank">{sv.name}</a>
+              <a href={SV_EXPLORER_REDIRECT_PREFIX + dcidName[0]} target="_blank">{dcidName[1]}</a>
             </div>
           ))}
         </div>

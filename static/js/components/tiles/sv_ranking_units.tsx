@@ -32,6 +32,7 @@ import { formatString, TileSources } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
+import { StatVarSpec } from "../../shared/types";
 
 const RANKING_COUNT = 5;
 
@@ -58,6 +59,7 @@ interface SvRankingUnitsProps {
   // Optional: Override sources for this tile
   sources?: string[];
   isLoading?: boolean;
+  statVarSpecs: StatVarSpec[];
 }
 
 /**
@@ -109,6 +111,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             rankingMetadata,
             true,
             props.apiRoot,
+            props.statVarSpecs,
             highestRankingUnitRef,
             props.onHoverToggled,
             props.errorMsg,
@@ -143,6 +146,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 rankingMetadata,
                 true,
                 props.apiRoot,
+                props.statVarSpecs,
                 highestRankingUnitRef,
                 props.onHoverToggled,
                 undefined,
@@ -172,6 +176,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 rankingMetadata,
                 false,
                 props.apiRoot,
+                props.statVarSpecs,
                 lowestRankingUnitRef,
                 props.onHoverToggled,
                 undefined,
@@ -297,6 +302,7 @@ export function getRankingUnit(
   rankingMetadata: RankingTileSpec,
   isHighest: boolean,
   apiRoot: string,
+  statVarSpecs: StatVarSpec[],
   rankingUnitRef?: RefObject<HTMLDivElement>,
   onHoverToggled?: (placeDcid: string, hover: boolean) => void,
   errorMsg?: string,
@@ -333,7 +339,7 @@ export function getRankingUnit(
       onHoverToggled={onHoverToggled}
       headerChild={
         errorMsg ? null : (
-          <TileSources sources={sources || rankingGroup.sources} />
+          <TileSources sources={sources || rankingGroup.sources} statVarSpecs={statVarSpecs}/>
         )
       }
       errorMsg={errorMsg}

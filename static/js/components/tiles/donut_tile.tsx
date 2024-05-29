@@ -121,6 +121,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       isInitialLoading={_.isNull(donutChartData)}
       hasErrorMsg={donutChartData && !!donutChartData.errorMsg}
       footnote={props.footnote}
+      statVarSpecs={props.statVarSpec}
     >
       <div
         id={props.id}

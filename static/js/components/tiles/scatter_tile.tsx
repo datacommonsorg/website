@@ -166,6 +166,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       sources={props.sources || (scatterChartData && scatterChartData.sources)}
       subtitle={props.subtitle}
       title={props.title}
+      statVarSpecs={props.statVarSpec}
     >
       <div className="scatter-tile-content">
         <div

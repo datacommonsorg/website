@@ -71,7 +71,8 @@ function getRankingChartSvg(
   sv: string,
   enclosedPlaceType: string,
   tileConfig: TileConfig,
-  apiRoot: string
+  apiRoot: string,
+  variables: StatVarSpec[]
 ): SVGSVGElement {
   const rankingHtml = ReactDOMServer.renderToString(
     getRankingUnit(
@@ -81,7 +82,8 @@ function getRankingChartSvg(
       rankingGroup,
       tileConfig.rankingTileSpec,
       tileConfig.rankingTileSpec.showHighest,
-      apiRoot
+      apiRoot,
+      variables
     )
   );
   const style = {
@@ -306,7 +308,8 @@ export async function getRankingChart(
         sv,
         enclosedPlaceType,
         tileConfig,
-        apiRoot
+        apiRoot,
+        statVarSpec
       );
     }
   } catch (e) {

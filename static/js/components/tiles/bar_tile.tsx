@@ -157,6 +157,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       sources={props.sources || (barChartData && barChartData.sources)}
       subtitle={props.subtitle}
       title={props.title}
+      statVarSpecs={props.variables}
     >
       <div
         id={props.id}
