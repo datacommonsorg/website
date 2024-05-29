@@ -219,88 +219,85 @@ function help {
   exit 1
 }
 
-extra_args=""
+declare -a extra_args=()  # Use an array to handle extra arguments properly
+command=""  # Initialize command variable
 
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
     -p | -w | --explore | --nl | --setup_python | -g | -o | -b | -l | -c | -s | -f | -a)
+        if [[ -n "$command" ]]; then
+            # If a command has already been set, break the loop to process it with the collected extra_args
+            break
+        fi
         command=$1  # Store the command to call the appropriate function
-        shift 1     # Shift past the command
-        extra_args="$*"  # Capture all remaining arguments as extra_args
-        break       # Break the loop since all remaining args are captured
+        shift  # Move to the next command-line argument
         ;;
     *)
-        echo "Unknown option: $1"
-        help
-        exit 1
+        if [[ -n "$command" ]]; then
+            # Collect extra args only if a command is already set
+            extra_args+=("$1")
+        else
+            echo "Unknown option: $1"
+            help
+            exit 1
+        fi
+        shift
         ;;
   esac
 done
 
+# Use "${extra_args[@]}" to correctly pass array elements as separate words
 case "$command" in
   -p)
       echo -e "### Running server tests"
-      run_py_test $extra_args
-      shift 1
+      run_py_test "${extra_args[@]}"
       ;;
   -w)
       echo -e "### Running webdriver tests"
-      run_webdriver_test $extra_args
-      shift 1
+      run_webdriver_test "${extra_args[@]}"
       ;;
   --explore)
       echo --explore "### Running explore page integration tests"
-      run_integration_test explore_test.py $extra_args
-      shift 1
+      run_integration_test explore_test.py "${extra_args[@]}"
       ;;
   --nl)
       echo --nl "### Running nl page integration tests"
-      run_integration_test nl_test.py $extra_args
-      shift 1
+      run_integration_test nl_test.py "${extra_args[@]}"
       ;;
   --setup_python)
       echo --setup_python "### Set up python environment"
       setup_python
-      shift 1
       ;;
   -g)
       echo -e "### Updating integration test goldens"
-      update_integration_test_golden $extra_args
-      shift 1
+      update_integration_test_golden "${extra_args[@]}"
       ;;
   -o)
       echo -e "### Production flag enabled"
       PROD=true
-      shift 1
       ;;
   -b)
       echo -e "### Build client-side packages"
-      run_npm_build $PROD
-      shift 1
+      run_npm_build "${PROD:-false}"  # Use the value of PROD or default to false
       ;;
   -l)
       echo -e "### Running lint"
       run_npm_lint_test
-      shift 1
       ;;
   -c)
       echo -e "### Running client tests"
-      run_npm_test $extra_args
-      shift 1
+      run_npm_test "${extra_args[@]}"
       ;;
   -s)
       echo -e "### Running screenshot tests"
-      run_screenshot_test $extra_args
-      shift 1
+      run_screenshot_test "${extra_args[@]}"
       ;;
   -f)
       echo -e "### Fix lint errors"
       run_lint_fix
-      shift 1
       ;;
   -a)
       echo -e "### Running all tests"
       run_all_tests
-      shift 1
       ;;
 esac
