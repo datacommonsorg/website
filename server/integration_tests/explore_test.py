@@ -259,7 +259,7 @@ class ExploreTest(NLWebServerTestCase):
     self.assertTrue(success, f"wanted: {i18n_lang}, got {detected}")
 
 
-class ExploreTestDetection(ExploreTest):
+class ExploreTestDetectionFulfillment(ExploreTest):
 
   def test_detection_basic(self):
     self.run_detection('detection_api_basic', ['Commute in California'],
@@ -368,9 +368,6 @@ class ExploreTestDetection(ExploreTest):
   #       ],
   #       check_detection=True,
   #       reranker='cross-encoder-mxbai-rerank-base-v1')
-
-
-class ExploreTestFulfillment(ExploreTest):
 
   def test_fulfillment_basic(self):
     req = {
@@ -540,9 +537,6 @@ class ExploreTestEE1(ExploreTest):
         'How do obesity rates compare with rates of diabetes in USA counties?',
     ])
 
-
-class ExploreTestEE2(ExploreTest):
-
   def test_e2e_edge_cases(self):
     self.run_detect_and_fulfill('e2e_edge_cases', [
         'emissions in Houston', 'poverty in California and California',
@@ -616,6 +610,9 @@ class ExploreTestEE2(ExploreTest):
         'Compare progress on poverty in Mexico, Nigeria and Pakistan'
     ])
 
+
+class ExploreTestEE2(ExploreTest):
+
   def test_e2e_fallbacks(self):
     self.run_detect_and_fulfill(
         'e2e_fallbacks',
@@ -632,9 +629,6 @@ class ExploreTestEE2(ExploreTest):
             # to the place (SC county) to its state (CA).
             'auto thefts in tracts of santa clara county'
         ])
-
-
-class ExploreTestEE3(ExploreTest):
 
   def test_e2e_strict_multi_verb(self):
     self.run_detect_and_fulfill(
