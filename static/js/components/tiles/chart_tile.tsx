@@ -24,6 +24,7 @@ import React, { useRef } from "react";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
+import { StatVarSpec } from "../../shared/types";
 import {
   formatString,
   getChartTitle,
@@ -34,7 +35,6 @@ import {
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 import { LoadingHeader } from "./loading_header";
-import { StatVarSpec } from "../../shared/types";
 interface ChartTileContainerProp {
   id: string;
   isLoading?: boolean;
@@ -93,7 +93,12 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
               <div className="subheader">{props.subtitle}</div>
             ) : null}
           </slot>
-          {showSources && <TileSources sources={props.sources} statVarSpecs={props.statVarSpecs}/>}
+          {showSources && (
+            <TileSources
+              sources={props.sources}
+              statVarSpecs={props.statVarSpecs}
+            />
+          )}
         </div>
         {props.children}
       </div>

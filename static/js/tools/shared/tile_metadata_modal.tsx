@@ -21,6 +21,7 @@
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+
 import { StatVarSpec } from "../../shared/types";
 import { datacommonsClient } from "../../utils/datacommons_client";
 
@@ -34,7 +35,9 @@ type Dcid = string;
 type Name = string;
 type DcidNameTuple = [Dcid, Name];
 
-export function TileMetadataModal(props: TileMetadataModalPropType): JSX.Element {
+export function TileMetadataModal(
+  props: TileMetadataModalPropType
+): JSX.Element {
   const { statVarSpecs } = props;
   const [modalOpen, setModalOpen] = useState(false);
   const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
@@ -53,50 +56,74 @@ export function TileMetadataModal(props: TileMetadataModalPropType): JSX.Element
     if (dcids.size == statVarNames.length) return;
     (async () => {
       const responseObj = await datacommonsClient.getFirstNodeValues({
-        dcids: [...dcids], prop: "name"
+        dcids: [...dcids],
+        prop: "name",
       });
-      let responseList = new Array<DcidNameTuple>();
+      const responseList = new Array<DcidNameTuple>();
       for (const dcid in responseObj) {
         responseList.push([dcid, responseObj[dcid]]);
       }
       // Sort by name
-      responseList.sort((a, b) => a[1] > b[1] ? 1 : -1);
+      responseList.sort((a, b) => (a[1] > b[1] ? 1 : -1));
       setStatVarNames(responseList);
     })();
   }, [props, modalOpen]);
 
   return (
     <>
-    <a href="#" onClick={(e) => {e.preventDefault(); setModalOpen(true)}}>show metadata</a>
-    {modalOpen && 
-    <Modal
-      isOpen={modalOpen}
-      scrollable
-      keyboard
-      className="metadata-modal modal-dialog-centered modal-lg"
-    >
-      <ModalHeader toggle={() => setModalOpen(false)} close={<></>}>
-        Choose a variable to view its metadata
-      </ModalHeader>
-      <div className="modal-subtitle">
-        Select a variable from the list to see its details. The links below
-        open the Statistical Variable Explorer in a new tab.
-      </div>
-      <ModalBody>
-        <div className="metadata-modal-links">
-          {statVarNames && statVarNames.map((dcidName, i) => (
-            <div className="metadata-modal-link" key={i}>
-              <span className="material-icons-outlined">arrow_forward</span>
-              <a href={SV_EXPLORER_REDIRECT_PREFIX + dcidName[0]} target="_blank">{dcidName[1]}</a>
+      <a
+        href="#"
+        onClick={(e) => {
+          e.preventDefault();
+          setModalOpen(true);
+        }}
+      >
+        show metadata
+      </a>
+      {modalOpen && (
+        <Modal
+          isOpen={modalOpen}
+          scrollable
+          keyboard
+          className="metadata-modal modal-dialog-centered modal-lg"
+        >
+          <ModalHeader toggle={() => setModalOpen(false)} close={<></>}>
+            Choose a variable to view its metadata
+          </ModalHeader>
+          <div className="modal-subtitle">
+            Select a variable from the list to see its details. The links below
+            open the Statistical Variable Explorer in a new tab.
+          </div>
+          <ModalBody>
+            <div className="metadata-modal-links">
+              {statVarNames &&
+                statVarNames.map((dcidName, i) => (
+                  <div className="metadata-modal-link" key={i}>
+                    <span className="material-icons-outlined">
+                      arrow_forward
+                    </span>
+                    <a
+                      href={SV_EXPLORER_REDIRECT_PREFIX + dcidName[0]}
+                      target="_blank"
+                    >
+                      {dcidName[1]}
+                    </a>
+                  </div>
+                ))}
             </div>
-          ))}
-        </div>
-      </ModalBody>
-      <ModalFooter>
-        <Button className="modal-close" onClick={() => {setModalOpen(false)}}>Close</Button>
-      </ModalFooter>
-    </Modal>
-}
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              className="modal-close"
+              onClick={() => {
+                setModalOpen(false);
+              }}
+            >
+              Close
+            </Button>
+          </ModalFooter>
+        </Modal>
+      )}
     </>
   );
 }

@@ -35,12 +35,12 @@ import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { getCappedStatVarDate, urlToDisplayText } from "../shared/util";
+import { TileMetadataModal } from "../tools/shared/tile_metadata_modal";
 import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
 import { isNlInterface } from "./explore_utils";
 import { getUnit } from "./stat_metadata_utils";
-import { TileMetadataModal } from "../tools/shared/tile_metadata_modal";
 
 const DEFAULT_PC_SCALING = 100;
 const DEFAULT_PC_UNIT = "%";
@@ -378,12 +378,12 @@ export function TileSources(props: {
   return (
     <div className="sources" {...{ part: "source" }}>
       Source: {sourcesJsx}
-      {statVarSpecs && statVarSpecs.length > 0 &&
+      {statVarSpecs && statVarSpecs.length > 0 && (
         <>
-          {" "}•{" "}
-          <TileMetadataModal statVarSpecs={statVarSpecs}></TileMetadataModal>
+          {" "}
+          • <TileMetadataModal statVarSpecs={statVarSpecs}></TileMetadataModal>
         </>
-      }
+      )}
     </div>
   );
 }

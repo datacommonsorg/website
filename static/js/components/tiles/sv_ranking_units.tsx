@@ -21,6 +21,7 @@ import React, { RefObject, useRef } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { URL_PATH } from "../../constants/app/visualization_constants";
+import { StatVarSpec } from "../../shared/types";
 import {
   RankingData,
   RankingGroup,
@@ -32,7 +33,6 @@ import { formatString, TileSources } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
-import { StatVarSpec } from "../../shared/types";
 
 const RANKING_COUNT = 5;
 
@@ -339,7 +339,10 @@ export function getRankingUnit(
       onHoverToggled={onHoverToggled}
       headerChild={
         errorMsg ? null : (
-          <TileSources sources={sources || rankingGroup.sources} statVarSpecs={statVarSpecs}/>
+          <TileSources
+            sources={sources || rankingGroup.sources}
+            statVarSpecs={statVarSpecs}
+          />
         )
       }
       errorMsg={errorMsg}
