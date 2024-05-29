@@ -15,7 +15,7 @@
  */
 
 /**
- * Entrypoint for Gemma Eval page.
+ * Entrypoint for RIG Eval page.
  */
 
 import React from "react";
@@ -28,8 +28,9 @@ window.onload = () => {
 };
 
 function renderPage(): void {
+  const sheetId = document.getElementById("metadata").dataset.sheetId;
   ReactDOM.render(
-    React.createElement(App, {}),
+    React.createElement(App, { sheetId }),
     document.getElementById("dc-eval-rig")
   );
 }

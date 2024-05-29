@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+// Initialize Firebase module and auth.
+
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
