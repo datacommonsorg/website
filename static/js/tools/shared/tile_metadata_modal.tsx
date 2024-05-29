@@ -19,8 +19,7 @@
  * TODO(beets): Don't update the modal with stat var names if it's already opened.
  */
 
-import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { StatVarSpec } from "../../shared/types";
@@ -40,7 +39,11 @@ function buildMetadataRow(dcid: Dcid, name: Name, key: number): JSX.Element {
   return (
     <div className="metadata-modal-link" key={key}>
       <span className="material-icons-outlined">arrow_forward</span>
-      <a href={SV_EXPLORER_REDIRECT_PREFIX + dcid} target="_blank">
+      <a
+        href={SV_EXPLORER_REDIRECT_PREFIX + dcid}
+        target="_blank"
+        rel="noreferrer"
+      >
         {name}
       </a>
     </div>
@@ -55,11 +58,12 @@ export function TileMetadataModal(
   const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
   const dcids = new Set<string>();
 
-  if (!statVarSpecs) return;
-  for (const spec of statVarSpecs) {
-    dcids.add(spec.statVar);
-    if (spec.denom) {
-      dcids.add(spec.denom);
+  if (statVarSpecs) {
+    for (const spec of statVarSpecs) {
+      dcids.add(spec.statVar);
+      if (spec.denom) {
+        dcids.add(spec.denom);
+      }
     }
   }
 
@@ -80,7 +84,7 @@ export function TileMetadataModal(
       responseList.sort((a, b) => (a[1] > b[1] ? 1 : -1));
       setStatVarNames(responseList);
     })();
-  }, [props, modalOpen]);
+  }, [props, modalOpen, dcids, statVarNames.length]);
 
   return (
     <>
