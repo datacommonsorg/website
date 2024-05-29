@@ -57,7 +57,7 @@ export function QuerySection(props: QuerySectionProps): JSX.Element {
       <Row>
         <Col>
           <h1>This is the first Query</h1>
-          <h3>Questiong</h3>
+          <h3>Question</h3>
           <p>{props.query.text}</p>
           <h3>Answer</h3>
           <p>{answer}</p>

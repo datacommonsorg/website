@@ -49,8 +49,8 @@ export function App(props: AppPropType): JSX.Element {
           for (let i = 1; i < qaRows; i++) {
             allQuery[qaSheet.getCell(i, 0).value as string] = {
               rowIdx: i,
-              user: qaSheet.getCell(i, 1).value as string,
               text: qaSheet.getCell(i, 2).value as string,
+              user: qaSheet.getCell(i, 1).value as string,
             };
           }
           setAllQuery(allQuery);
