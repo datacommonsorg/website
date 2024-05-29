@@ -16,6 +16,7 @@
 
 /**
  * Displays a modal with links for each stat var to their page in Stat Var Explorer.
+ * TODO(beets): Don't update the modal with stat var names if it's already opened.
  */
 
 import _ from "lodash";
@@ -35,6 +36,17 @@ type Dcid = string;
 type Name = string;
 type DcidNameTuple = [Dcid, Name];
 
+function buildMetadataRow(dcid: Dcid, name: Name, key: number): JSX.Element {
+  return (
+    <div className="metadata-modal-link" key={key}>
+      <span className="material-icons-outlined">arrow_forward</span>
+      <a href={SV_EXPLORER_REDIRECT_PREFIX + dcid} target="_blank">
+        {name}
+      </a>
+    </div>
+  );
+}
+
 export function TileMetadataModal(
   props: TileMetadataModalPropType
 ): JSX.Element {
@@ -52,6 +64,7 @@ export function TileMetadataModal(
   }
 
   useEffect(() => {
+    // Only fetch data once the modal is opened.
     if (!modalOpen) return;
     if (dcids.size == statVarNames.length) return;
     (async () => {
@@ -96,20 +109,12 @@ export function TileMetadataModal(
           </div>
           <ModalBody>
             <div className="metadata-modal-links">
-              {statVarNames &&
-                statVarNames.map((dcidName, i) => (
-                  <div className="metadata-modal-link" key={i}>
-                    <span className="material-icons-outlined">
-                      arrow_forward
-                    </span>
-                    <a
-                      href={SV_EXPLORER_REDIRECT_PREFIX + dcidName[0]}
-                      target="_blank"
-                    >
-                      {dcidName[1]}
-                    </a>
-                  </div>
-                ))}
+              {statVarNames.length
+                ? statVarNames.map((dcidName, i) =>
+                    buildMetadataRow(dcidName[0], dcidName[1], i)
+                  )
+                : // Use DCID as display name as a fallback. Note, might not be displayed in order.
+                  [...dcids].map((dcid, i) => buildMetadataRow(dcid, dcid, i))}
             </div>
           </ModalBody>
           <ModalFooter>
