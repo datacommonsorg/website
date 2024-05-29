@@ -164,6 +164,9 @@ class NLTest(NLWebServerTestCase):
 
     self.assertTrue(success, f"wanted: {i18n_lang}, got {detected}")
 
+
+class NLTestDemo(NLTest):
+
   def test_textbox_sample(self):
     # This is the sample advertised in our textbox
     self.run_sequence('textbox_sample', ['family earnings in california'])
@@ -257,6 +260,8 @@ class NLTest(NLWebServerTestCase):
                       ['Which countries emit the most greenhouse gases?'],
                       test='unittest')
 
+
+class NLTestMisc(NLTest):
   # This test uses DC's Recognize Places API.
   def test_place_detection_e2e_dc(self):
     self.run_sequence('place_detection_e2e_dc', [
