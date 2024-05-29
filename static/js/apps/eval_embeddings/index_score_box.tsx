@@ -31,13 +31,13 @@ function dotProduct(a: number[], b: number[]): number {
 }
 
 function findKNearestEmbeddings(
-  targetEmbedding: number[],
-  objects: EmbeddingObject[],
+  target: number[],
+  pool: EmbeddingObject[],
   k: number
 ): MatchObject[] {
   const result = [];
-  for (const emb of objects) {
-    const dist = dotProduct(emb.embeddings, targetEmbedding);
+  for (const emb of pool) {
+    const dist = dotProduct(emb.embeddings, target);
     result.push({
       distance: dist,
       sentence: emb.sentence,
@@ -54,8 +54,9 @@ interface StatVar {
   scores: number[];
 }
 
-interface ModelScoreBoxProps {
+interface IndexScoreBoxProps {
   sentence: string;
+  indexName: string;
   modelName: string;
   isExpanded: boolean;
   goldenStatVars: string[];
@@ -65,16 +66,22 @@ interface ModelScoreBoxProps {
   onScoreUpdated: (modelName: string, sentence: string, score: number) => void;
 }
 
-export function ModelScoreBox(props: ModelScoreBoxProps): JSX.Element {
+export function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
   const [statVarMatch, setStatVarMatch] = useState<MatchObject[]>([]);
   const [rankedStatVars, setRankedStatVars] = useState<StatVar[]>([]);
   const [evalScore, setEvalScore] = useState<number>();
 
   useEffect(() => {
     (async () => {
-      const data = await fetchData(props.sentence, props.modelName);
-      const embeddings = data["embeddings"];
-      let matches: MatchObject[] = data["matches"];
+      const searchResp = await searchVector(props.sentence, props.indexName);
+      const searchResult = searchResp["queryResults"][props.sentence];
+      let matches: MatchObject[] = [];
+      for (let i = 0; i < searchResult["SV"].length; i++) {
+        const sv = searchResult["SV"][i];
+        const score = searchResult["SV_to_Sentences"][sv][0]["score"];
+        const sentence = searchResult["SV_to_Sentences"][sv][0]["sentence"];
+        matches.push({ distance: score, statVar: sv, sentence });
+      }
       const originalMatchCount = matches.length;
       // Use override stat var embeddings
       if (props.overrideStatVars) {
@@ -86,6 +93,7 @@ export function ModelScoreBox(props: ModelScoreBoxProps): JSX.Element {
         if (newMatchCount == 0) {
           newMatchCount = NEW_MATCH_COUNT;
         }
+        const embeddings = await encodeVector(props.sentence, props.modelName);
         const overrideMatches = findKNearestEmbeddings(
           embeddings,
           props.overrideStatVars,
@@ -127,9 +135,9 @@ export function ModelScoreBox(props: ModelScoreBoxProps): JSX.Element {
   }, [props]);
 
   return (
-    <div className="model-score-box">
-      <div className="model-name">
-        {props.modelName}{" "}
+    <div className="index-score-box">
+      <div className="index-name">
+        {props.indexName}{" "}
         <span className="eval-score">(accuracy: {evalScore?.toFixed(2)})</span>
       </div>
       <p>Matched stat vars with top 2 cosine scores</p>
@@ -179,13 +187,24 @@ export function ModelScoreBox(props: ModelScoreBoxProps): JSX.Element {
   );
 }
 
-const fetchData = async (sentence: string, modelName: string) => {
+const searchVector = async (sentence: string, indexName: string) => {
   return axios
-    .get(`/api/nl/vector-search`, {
-      params: { sentence, modelName },
+    .get(`/api/nl/search-vector`, {
+      params: { query: sentence, index: indexName },
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
       return resp.data;
+    });
+};
+
+const encodeVector = async (sentence: string, modelName: string) => {
+  return axios
+    .get(`/api/nl/encode-vector`, {
+      params: { query: sentence, model: modelName },
+      paramsSerializer: stringifyFn,
+    })
+    .then((resp) => {
+      return resp.data[0];
     });
 };

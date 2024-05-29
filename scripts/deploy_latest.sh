@@ -23,10 +23,16 @@
 set -e
 
 ENV=$1
+REGION=$2
+
 if [[ $ENV == "" ]]; then
   ENV="autopush"
 fi
 echo "Run autopush for env: $ENV"
+
+if [[ $REGION == "" ]]; then
+  REGION="us-central1"
+fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
@@ -53,18 +59,4 @@ done
 
 cd $ROOT
 
-# Deploy in primary region
-PRIMARY_REGION=$(yq eval '.region.primary' deploy/gke/"$ENV".yaml)
-$ROOT/scripts/deploy_gke_helm.sh -e $ENV -l $PRIMARY_REGION
-
-# Deploy in other regions
-len=$(yq eval '.region.others | length' deploy/gke/"$ENV".yaml)
-for index in $(seq 0 $(($len-1)));
-do
-  export index=$index
-  REGION=$(yq eval '.region.others[env(index)]' deploy/gke/"$ENV".yaml)
-  echo $REGION
-  if [[ $REGION != "" ]]; then
-    $ROOT/scripts/deploy_gke_helm.sh -e $ENV -l $REGION
-  fi
-done
+$ROOT/scripts/deploy_gke_helm.sh -e $ENV -l $REGION

@@ -15,6 +15,9 @@
 
 set -e
 
+ENV=$1
+REGION=$2
+
 function help {
   echo "Usage: $0 -n"
   echo "-n       Setup nodejs service"
@@ -34,8 +37,9 @@ done
 
 # https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-for-anthos-setup
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
-REGION=$(yq eval '.region.primary' config.yaml)
+CONFIG_YAML="../deploy/helm_charts/envs/$ENV.yaml"
+
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 CLUSTER_NAME="website-$REGION"
 
 gcloud config set project $PROJECT_ID
@@ -44,7 +48,7 @@ gcloud beta container hub ingress enable \
   --config-membership=$CLUSTER_NAME
 
 cp mci.yaml.tpl mci.yaml
-export IP=$(yq eval '.ip' config.yaml)
+export IP=$(yq eval '.ip' $CONFIG_YAML)
 yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = env(IP)' mci.yaml
 # If not setting up nodejs service, remove the nodejs path from the mci.yaml
 if [[ -z $SETUP_NODEJS ]]; then

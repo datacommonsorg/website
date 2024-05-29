@@ -51,7 +51,7 @@ while getopts ":e:p:m?d?l?x" OPTION; do
       export ENABLE_MODEL=true
       ;;
     x)
-      export ENABLE_EVAL_TOOL=true
+      export ENABLE_EVAL_TOOL=false
       ;;
     d)
       export ENABLE_DISASTER_JSON=true

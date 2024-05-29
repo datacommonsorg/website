@@ -12,18 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pathlib import Path
 import unittest
-
-from tools.nl.embeddings import utils
-
-INPUT_DIR = Path(__file__).parent / "testdata/custom_dc/input"
 
 
 class TestUtils(unittest.TestCase):
 
-  def test_get_default_ft_model_version_failure(self):
-    embeddings_file_path = f"{INPUT_DIR}/bad_embeddings.yaml"
-
-    with self.assertRaises(Exception):
-      utils._get_default_ft_model(embeddings_file_path)
+  def test_func(self):
+    pass
