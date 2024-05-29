@@ -27,7 +27,7 @@ bp = Blueprint('nl', __name__, url_prefix='/nl')
 
 
 @bp.route('/eval/embeddings')
-def eval_page():
+def eval_embeddings():
   if os.environ.get('FLASK_ENV') not in ['local', 'test', 'autopush']:
     flask.abort(404)
   server_config = dc.nl_server_config()
@@ -37,3 +37,10 @@ def eval_page():
     return render_template('/eval_embeddings.html',
                            server_config=json.dumps(server_config),
                            eval_golden=json.dumps(json.load(f)))
+
+
+@bp.route('/eval/rig')
+def eval_rig():
+  if os.environ.get('FLASK_ENV') not in ['local', 'autopush']:
+    flask.abort(404)
+  return render_template('/eval_rig.html')
