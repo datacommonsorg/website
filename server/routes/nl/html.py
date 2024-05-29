@@ -39,8 +39,8 @@ def eval_embeddings():
                            eval_golden=json.dumps(json.load(f)))
 
 
-@bp.route('/eval/gemma')
-def eval_gemma():
+@bp.route('/eval/rig')
+def eval_rig():
   if os.environ.get('FLASK_ENV') not in ['local', 'autopush']:
     flask.abort(404)
-  return render_template('/eval_gemma.html')
+  return render_template('/eval_rig.html')

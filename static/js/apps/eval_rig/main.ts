@@ -30,6 +30,6 @@ window.onload = () => {
 function renderPage(): void {
   ReactDOM.render(
     React.createElement(App, {}),
-    document.getElementById("dc-eval-gemma")
+    document.getElementById("dc-eval-rig")
   );
 }
