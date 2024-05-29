@@ -17,27 +17,115 @@
 import { OAuthCredential, User } from "firebase/auth";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { useState } from "react";
-import { Col, Row } from "reactstrap";
 
 import { GoogleSignIn } from "../../utils/google_signin";
+import {
+  CALL_ID_COL,
+  DC_CALL_SHEET,
+  QA_SHEET,
+  QUERY_COL,
+  QUERY_ID_COL,
+  USER_COL,
+} from "./constants";
+import { Query, QuerySection } from "./query_section";
 
-export function App(): JSX.Element {
+// Map from sheet name to column name to column index
+type HeaderInfo = Record<string, Record<string, number>>;
+
+interface AppPropType {
+  sheetId: string;
+}
+
+export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
+  const [doc, setDoc] = useState<GoogleSpreadsheet>();
+  const [allQuery, setAllQuery] = useState<Record<string, Query>>({});
+  const [allCall, setAllCall] = useState<
+    Record<string, Record<string, number>>
+  >({});
 
-  const handleUserSignIn = (user: User, credential: OAuthCredential) => {
+  async function loadHeader(doc: GoogleSpreadsheet): Promise<HeaderInfo> {
+    const result: HeaderInfo = {};
+    for (const sheetName of [QA_SHEET, DC_CALL_SHEET]) {
+      result[sheetName] = {};
+      const sheet = doc.sheetsByTitle[sheetName];
+      await sheet.loadHeaderRow();
+      for (let i = 0; i < sheet.headerValues.length; i++) {
+        const colName = sheet.headerValues[i];
+        result[sheetName][colName] = i;
+      }
+    }
+    return result;
+  }
+
+  const loadQuery = (doc: GoogleSpreadsheet, allHeader: HeaderInfo) => {
+    const sheet = doc.sheetsByTitle[QA_SHEET];
+    const header = allHeader[QA_SHEET];
+    const numRows = sheet.rowCount;
+    const loadPromises = [];
+    for (const col of [QUERY_ID_COL, USER_COL, QUERY_COL]) {
+      loadPromises.push(
+        sheet.loadCells({
+          startColumnIndex: header[col],
+          endColumnIndex: header[col] + 1,
+        })
+      );
+    }
+    Promise.all(loadPromises).then(() => {
+      const allQuery: Record<string, Query> = {};
+      for (let i = 1; i < numRows; i++) {
+        allQuery[sheet.getCell(i, header[QUERY_ID_COL]).value as string] = {
+          rowIdx: i,
+          text: sheet.getCell(i, header[QUERY_COL]).value as string,
+          user: sheet.getCell(i, header[USER_COL]).value as string,
+        };
+      }
+      setAllQuery(allQuery);
+    });
+  };
+
+  const loadCall = (doc: GoogleSpreadsheet, allHeader: HeaderInfo) => {
+    const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
+    const header = allHeader[DC_CALL_SHEET];
+    const numRows = sheet.rowCount;
+    const loadPromises = [];
+    for (const col of [QUERY_ID_COL, CALL_ID_COL]) {
+      loadPromises.push(
+        sheet.loadCells({
+          startColumnIndex: header[col],
+          endColumnIndex: header[col] + 1,
+        })
+      );
+    }
+    Promise.all(loadPromises).then(() => {
+      const allCall: Record<string, Record<string, number>> = {};
+      for (let i = 1; i < numRows; i++) {
+        const rowIdx = i;
+        const queryId = sheet.getCell(i, header[QUERY_ID_COL]).value as string;
+        const callId = sheet.getCell(i, header[CALL_ID_COL]).value as string;
+        if (!allCall[queryId]) {
+          allCall[queryId] = {};
+        }
+        allCall[queryId][callId] = rowIdx;
+      }
+      setAllCall(allCall);
+    });
+  };
+
+  async function handleUserSignIn(user: User, credential: OAuthCredential) {
     if (credential.accessToken) {
       setUser(user); // Set the user state to the signed-in user
-      const doc = new GoogleSpreadsheet(
-        "1uKpyVhqh5TWTOkxAA0vNUnw03IQFfRDfRHT6eXVcktQ",
-        {
-          token: credential.accessToken,
-        }
-      );
-      doc.loadInfo().then(() => {
-        console.log(doc.title);
+      const doc = new GoogleSpreadsheet(props.sheetId, {
+        token: credential.accessToken,
+      });
+      await doc.loadInfo();
+      setDoc(doc);
+      loadHeader(doc).then((allHeader) => {
+        loadQuery(doc, allHeader);
+        loadCall(doc, allHeader);
       });
     }
-  };
+  }
 
   return (
     <>
@@ -49,18 +137,10 @@ export function App(): JSX.Element {
           />
         )}
         {user && <p>Signed in as {user.email}</p>}
+        {allQuery["1"] && allCall["1"] && (
+          <QuerySection doc={doc} query={allQuery["1"]} call={allCall["1"]} />
+        )}
       </div>
-      <Row>
-        <Col>
-          <h1>This is a list of queries</h1>
-        </Col>
-        <Col>
-          <h1>This is the raw output</h1>
-        </Col>
-        <Col>
-          <h1>This is the eval workspace</h1>
-        </Col>
-      </Row>
     </>
   );
 }
