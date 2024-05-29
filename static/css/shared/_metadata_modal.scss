@@ -28,7 +28,7 @@
   }
   .modal-header {
     border-bottom: none;
-    padding: 24px 24px 12px 24px;
+    padding: 24px 24px 8px 24px;
   }
   .modal-body {
     padding: 8px 24px;
@@ -45,17 +45,17 @@
     font-size: 1.1rem;
     font-weight: 500;
     line-height: 1.5;
+  }
 
-    h6 {
-      color: var(--gm-3-sys-light-on-surface);
-      margin-top: 8px;
+  .modal-subtitle {
+    color: var(--gm-3-sys-light-on-surface);
+    padding: 0 24px 12px;
 
-      /* body/medium */
-      font-family: "Google Sans Text";
-      font-size: .9rem;
-      font-weight: 400;
-      line-height: 1.4;
-    }
+    /* body/medium */
+    font-family: "Google Sans Text";
+    font-size: .9rem;
+    font-weight: 400;
+    line-height: 1.4;
   }
   button.modal-close {
     background: none;
@@ -77,7 +77,6 @@
 
     .metadata-modal-link {
       display: flex;
-      height: 27px;
       padding: 10px 16px;
       justify-content: left;
       align-items: center;
@@ -98,6 +97,8 @@
         font-style: normal;
         font-weight: 500;
         line-height: 1.4;
+
+        text-align: left;
       }
     }
   }
