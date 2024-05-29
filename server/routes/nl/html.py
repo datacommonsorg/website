@@ -34,6 +34,6 @@ def eval_page():
   eval_file = os.path.join(os.path.dirname(current_app.root_path),
                            'shared/eval/base/golden.json')
   with open(eval_file) as f:
-    return render_template('/embeddings_eval.html',
+    return render_template('/eval_embeddings.html',
                            server_config=json.dumps(server_config),
                            eval_golden=json.dumps(json.load(f)))

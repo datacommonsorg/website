@@ -15,20 +15,20 @@
 #}
 {%- extends BASE_HTML -%}
 
-{% set main_id = 'embeddings-eval' %}
-{% set page_id = 'embeddings-eval' %}
+{% set main_id = 'eval-embeddings' %}
+{% set page_id = 'eval-embeddings' %}
 {% set title = 'NL Eval Playground' %}
 
 {% block head %}
-<link rel="stylesheet" href={{url_for('static', filename='css/embeddings_eval.min.css', t=config['VERSION'])}} >
+<link rel="stylesheet" href={{url_for('static', filename='css/eval_embeddings.min.css', t=config['VERSION'])}} >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 {% endblock %}
 
 {% block content %}
 <div id="metadata" class="d-none" data-server-config="{{ server_config }}" data-eval-golden="{{ eval_golden }}"></div>
-<div id="dc-embeddings-eval"></div>
+<div id="dc-eval-embeddings"></div>
 {% endblock %}
 
 {% block footer %}
-<script src={{url_for('static', filename='embeddings_eval.js', t=config['GAE_VERSION'])}}></script>
+<script src={{url_for('static', filename='eval_embeddings.js', t=config['GAE_VERSION'])}}></script>
 {% endblock %}
