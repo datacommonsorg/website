@@ -1,21 +1,21 @@
 #!/bin/bash
-# Script to process stats using simple stats loader.
+# Script to load data into custom dc using simple importer.
 # Defaults
 MODE="customdc"
 OUTPUT_DIR=".data/output_$MODE"
 USAGE="Script to load data into custom dc using simple importer.
 Usage: $(basename $0) [Options]
 Options:
-  -c <file>       Json config file for stats importer
+  -c <file>       JSON config file for stats importer
   -e <file>       Load environment variables from file.
   -i <dir>        Input directory to process
-  -k <api-key>    DataCommons API Key
+  -k <api-key>    Data Commons API Key
   -o <dir>        Output folder for stats importer. Default: $OUTPUT_DIR
   -m <customdc|maindc> Mode of operation for simple importer. Default: $MODE
-  -j <jar>        DC Import java jar file.
+  -j <jar>        Data Commons Import java JAR file.
                     Download latest from https://github.com/datacommonsorg/import/releases/
-  -r <steps>      Steps to run. Can be one or more from:
-                    stats, validate
+  -r <steps>      Steps to run. Can be one or more of the following:
+                    stats, validate, embeddings
   -s <cloud_sql>  Cloud SQL instance. Also set DB_USER and DB_PASS with -u, -p
   -u <username>   DB username for cloud SQL. Default: $DB_USER.
   -p <password>   DB password for cloud SQL. Default: $DB_PASS.
@@ -48,7 +48,8 @@ function run_cmd {
   status=$?
   local duration=$(( $(date +%s) - $start_ts))
   [[ "$status" == "0" ]] || echo_fatal "Failed to run command: $cmd"
-  echo_log "Completed $cmd with status:$status in $duration secs"
+  echo_log "Completed command: $cmd with status:$status in $duration secs"
+  return $status
 }
 
 # Parse command line options
@@ -65,7 +66,10 @@ function parse_options {
       -s) shift; USE_CLOUDSQL=true; CLOUDSQL_INSTANCE="$1";;
       -u) shift; DB_USER="$1";;
       -p) shift; DB_PASS="$1";;
-      -e) shift; ENV_FILE=$1; source $ENV_FILE;;
+      -e) shift; ENV_FILE=$1;
+          echo_log "Loading env variables from $ENV_FILE"
+          set -a; source $ENV_FILE; set +a
+          ;;
       -q) QUIET="1";;
       -h) echo -e "$USAGE" >&2 && exit 0;;
       -x) set -x;;
@@ -77,8 +81,9 @@ function parse_options {
 
 
 function setup_python {
-  python3 -m venv $TMP_DIR/env-stats
-  source $TMP_DIR/env-stats/bin/activate
+  PY_ENV_DIR=${PY_ENV_DIR:-"$TMP_DIR/py_env_load_data"}
+  python3 -m venv $PY_ENV_DIR
+  source $PY_ENV_DIR/bin/activate
   if [[ "$PYTHON_REQUIREMENTS_INSTALLED" != "true" ]]
   then
     echo_log "Installing Python requirements from $SIMPLE_DIR/requirements.txt"
@@ -89,10 +94,13 @@ function setup_python {
     embeddings_req="$WEBSITE_DIR/tools/nl/embeddings/requirements.txt"
     if [[ -f "$embeddings_req" ]]; then
       echo_log "Installing Pytorch"
-      run_cmd python3 -m pip install --upgrade pip
+      run_cmd python -m pip install --upgrade pip
       run_cmd pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
       echo_log "Installing Python requirements from $embeddings_req"
       run_cmd pip3 install -r "$embeddings_req"
+      nlserver_req=$WEBSITE_DIR/nl_server/requirements.txt
+      echo_log "Installing Python requirements from $nlserver_req"
+      run_cmd pip3 install -r "$nlserver_req"
     fi
   fi
 }
@@ -104,7 +112,7 @@ function setup_dc_import {
   else
     # Download the latest jar
     echo_log "Getting latest version of dc-import jar file..."
-    # Get URLthe latest release
+    # Get URL to the latest release
     jar_url=$(curl -vs  "https://api.github.com/repos/datacommonsorg/import/releases/latest" | \
       grep browser_download_url | cut -d\" -f4)
     [[ -z "$jar_url" ]] && echo_fatal "Unable to get latest jar for https://github.com/datacommonsorg/import/releases.
@@ -122,37 +130,45 @@ Please download manually and set command line option '-j'"
 function setup_submodules {
   local cwd=$PWD
   cd $WEBSITE_DIR
-  if [[ ! -d "import/simple" ]]; then
-    run_cmd scripts/update_git_submodules.sh
-  fi
+  run_cmd scripts/update_git_submodules.sh
   if [[ -d "$WEBSITE_DIR/import/simple" ]]; then
-    SIMPLE_DIR="$WEBSITE_DIR/import/simple"
+    SIMPLE_DIR=${SIMPLE_DIR:-"$WEBSITE_DIR/import/simple"}
   fi
   cd $cwd
 }
 
-function setup {
-  WEBSITE_DIR=$(realpath $0 | sed -e 's,/website/.*,//website,')
-  parse_options "$@"
+# Returns 0 if the argument is a local dir and doesn't start with 'gs://'
+function is_local_dir {
+  local dir="$1"; shift;
 
-  # Source env file variables
-  if [[ -n "$ENV_FILE" ]]; then
-    echo_log "Loading env variables from $ENV_FILE"
-    set -a
-    source $ENV_FILE
-    set +a
-  fi
+  is_gcs=$(echo "$dir" | grep 'gs://')
+  [[ -n "$is_gcs" ]] && return 1
+  return 0
+}
+
+function setup {
+  echo_log "Running script: $0 $@"
+  WEBSITE_DIR=$(dirname $(dirname $(realpath $0 )))
+  parse_options "$@"
 
   setup_submodules
 
+
+  if is_local_dir $OUTPUT_DIR; then
+    mkdir -p $OUTPUT_DIR
+    OUTPUT_DIR=$(readlink -f $OUTPUT_DIR)
+  fi
+
   # Set additional options
-  GCS_OUTPUT_DIR=""
-  is_output_gcs=$(echo "$OUTPUT_DIR" | grep "gs://" )
-  if [[ -n "$is_output_gcs" ]]; then
-    # Generate output locally and copy to GCS
-    GCS_OUTPUT_DIR="$OUTPUT_DIR"
-    OUTPUT_DIR="$TMP_DIR/$(basename $OUTPUT_DIR)-$(date +%Y%m%d)"
-    echo_log "Generating output to: $OUTPUT_DIR and will be copied to GCS: $GCS_OUTPUT_DIR"
+  if false; then
+    GCS_OUTPUT_DIR=""
+    is_output_gcs=$(echo "$OUTPUT_DIR" | grep "gs://" )
+    if [[ -n "$is_output_gcs" ]]; then
+      # Generate output locally and copy to GCS
+      GCS_OUTPUT_DIR="$OUTPUT_DIR"
+      OUTPUT_DIR="$TMP_DIR/$(basename $OUTPUT_DIR)-$(date +%Y%m%d)"
+      echo_log "Generating output to: $OUTPUT_DIR and will be copied to GCS: $GCS_OUTPUT_DIR"
+    fi
   fi
 
   # Fork a process to display log
@@ -201,8 +217,6 @@ function simple_import {
   [[ -n "$CONFIG" ]] && importer_options="$importer_options --config_file=$CONFIG"
   [[ -n "$MODE" ]] && importer_options="$importer_options --mode=$MODE"
   [[ -n "$OUTPUT_DIR" ]] && importer_options="$importer_options --output_dir=$OUTPUT_DIR"
-  mkdir -p $OUTPUT_DIR
-  OUTPUT_DIR=$(readlink -f $OUTPUT_DIR)
 
   # Clear state from old run
   report_json=$OUTPUT_DIR/process/report.json
@@ -212,8 +226,7 @@ function simple_import {
   local cwd="$PWD"
   cd "$SIMPLE_DIR"
   cmd="python -m stats.main $importer_options"
-  echo_log "Running command: $cmd"
-  $cmd >> $LOG 2>&1
+  run_cmd $cmd
   cmd_status=$?
   cd "$cwd"
   if [[ "$cmd_status" != "0" ]]; then
@@ -274,12 +287,12 @@ function validate_output {
 # Generate embeddings for sentences
 function generate_embeddings {
   setup_python
-  EMBEDDINGS_TOOL_DIR=${EMBEDDINGS_TOOL_DIR:-"$WEBSITE_DIR/tools/nl/embeddings"}
   NL_DIR=${NL_DIR:-"$OUTPUT_DIR/nl"}
   echo_log "Building embeddings for sentences in $NL_DIR"
   local cwd="$PWD"
-  cd $EMBEDDINGS_TOOL_DIR
-  run_cmd python3 build_custom_dc_embeddings.py --sv_sentences_csv_path=$NL_DIR/sentences.csv --output_dir=$NL_DIR
+  cd $WEBSITE_DIR
+  run_cmd python -m tools.nl.embeddings.build_custom_dc_embeddings \
+    --sv_sentences_csv_path=$NL_DIR/sentences.csv --output_dir=$NL_DIR
   cd "$cwd"
 }
 
@@ -313,7 +326,7 @@ function main {
   run_step "stats|simple" simple_import
   run_step "validate" validate_output
   run_step "embeddings" generate_embeddings
-  copy_to_gcs "$OUTPUT_DIR" "$GCS_OUTPUT_DIR"
+  # copy_to_gcs "$OUTPUT_DIR" "$GCS_OUTPUT_DIR"
 }
 
 main "$@"
