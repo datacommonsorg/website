@@ -67,6 +67,10 @@ const config = {
       __dirname + "/js/apps/eval_embeddings/main.ts",
       __dirname + "/css/eval_embeddings.scss",
     ],
+    eval_gemma: [
+      __dirname + "/js/apps/eval_gemma/main.ts",
+      __dirname + "/css/eval_gemma.scss",
+    ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
       __dirname + "/css/ranking.scss",
