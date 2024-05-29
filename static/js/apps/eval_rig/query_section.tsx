@@ -38,12 +38,10 @@ export function QuerySection(props: QuerySectionProps): JSX.Element {
   const [answer, setAnswer] = useState<string>("");
 
   const loadAnswer = (doc: GoogleSpreadsheet, rowIndex: number) => {
-    doc.loadInfo().then(() => {
-      const qaSheet = doc.sheetsByTitle[QASheet];
-      const address = `D${rowIndex + 1}`;
-      qaSheet.loadCells(address).then(() => {
-        setAnswer(qaSheet.getCellByA1(address).value as string);
-      });
+    const qaSheet = doc.sheetsByTitle[QASheet];
+    const address = `D${rowIndex + 1}`;
+    qaSheet.loadCells(address).then(() => {
+      setAnswer(qaSheet.getCellByA1(address).value as string);
     });
   };
 

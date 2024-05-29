@@ -55,7 +55,6 @@ function run_lint_fix {
   npm list eslint || npm install eslint
   npm run lint
   cd ..
-  exit 0
 
   echo -e "#### Fixing Python code"
   source .env/bin/activate
