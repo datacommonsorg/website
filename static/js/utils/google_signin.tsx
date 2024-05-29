@@ -39,10 +39,10 @@ export function GoogleSignIn(props: GoogleSignInProps): JSX.Element {
     }
     signInWithPopup(auth, provider)
       .then((result: UserCredential) => {
-        const credential: OAuthCredential =
-          GoogleAuthProvider.credentialFromResult(result);
-        // Google sign-in was successful
-        props.onSignIn(result.user, credential);
+        props.onSignIn(
+          result.user,
+          GoogleAuthProvider.credentialFromResult(result)
+        );
       })
       .catch((error: AuthError) => {
         // Handle errors here

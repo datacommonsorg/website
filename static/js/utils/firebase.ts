@@ -19,11 +19,11 @@ import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB4IjbZNNwxiZwpT59txsIketfxUZODPfs",
+  appId: "1:182452152245:web:2006d63d368ffc5838dbfc",
   authDomain: "datcom-website-autopush.firebaseapp.com",
+  messagingSenderId: "182452152245",
   projectId: "datcom-website-autopush",
   storageBucket: "datcom-website-autopush.appspot.com",
-  messagingSenderId: "182452152245",
-  appId: "1:182452152245:web:2006d63d368ffc5838dbfc",
 };
 
 // Initialize Firebase
