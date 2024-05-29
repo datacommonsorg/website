@@ -14,32 +14,42 @@
  * limitations under the License.
  */
 
+import { OAuthCredential, User } from "firebase/auth";
+import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { useState } from "react";
-import { Col, Input, Row } from "reactstrap";
+import { Col, Row } from "reactstrap";
+
+import { GoogleSignIn } from "../../utils/google_signin";
 
 export function App(): JSX.Element {
-  const [userId, setUserId] = useState("");
+  const [user, setUser] = useState<User | null>(null);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserId(event.target.value);
+  const handleUserSignIn = (user: User, credential: OAuthCredential) => {
+    if (credential.accessToken) {
+      setUser(user); // Set the user state to the signed-in user
+      const doc = new GoogleSpreadsheet(
+        "1uKpyVhqh5TWTOkxAA0vNUnw03IQFfRDfRHT6eXVcktQ",
+        {
+          token: credential.accessToken,
+        }
+      );
+      doc.loadInfo().then(() => {
+        console.log(doc.title);
+      });
+    }
   };
 
   return (
     <>
       <div>
-        <h1>Enter the user id to take eval job</h1>
-        <Input
-          type="text"
-          value={userId}
-          onChange={handleInputChange}
-          placeholder="Enter user ID"
-        />
+        {!user && (
+          <GoogleSignIn
+            onSignIn={handleUserSignIn}
+            scopes={["https://www.googleapis.com/auth/spreadsheets"]}
+          />
+        )}
+        {user && <p>Signed in as {user.email}</p>}
       </div>
-      {userId && (
-        <div>
-          <h1>Run the eval job as {userId}</h1>
-        </div>
-      )}
       <Row>
         <Col>
           <h1>This is a list of queries</h1>
