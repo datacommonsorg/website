@@ -493,7 +493,7 @@ class ExploreTestFulfillment(ExploreTest):
     self.run_fulfillment('fulfillment_api_nl_size', req)
 
 
-class ExploreTestE2E(ExploreTest):
+class ExploreTestEE1(ExploreTest):
 
   def test_e2e_answer_places(self):
     self.run_detect_and_fulfill('e2e_answer_places', [
@@ -539,6 +539,9 @@ class ExploreTestE2E(ExploreTest):
         'How does household income compare with rates of diabetes in USA counties?',
         'How do obesity rates compare with rates of diabetes in USA counties?',
     ])
+
+
+class ExploreTestEE2(ExploreTest):
 
   def test_e2e_edge_cases(self):
     self.run_detect_and_fulfill('e2e_edge_cases', [
@@ -629,6 +632,9 @@ class ExploreTestE2E(ExploreTest):
             # to the place (SC county) to its state (CA).
             'auto thefts in tracts of santa clara county'
         ])
+
+
+class ExploreTestEE3(ExploreTest):
 
   def test_e2e_strict_multi_verb(self):
     self.run_detect_and_fulfill(
