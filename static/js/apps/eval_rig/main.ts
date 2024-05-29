@@ -15,7 +15,7 @@
  */
 
 /**
- * Entrypoint for NL Eval page.
+ * Entrypoint for Gemma Eval page.
  */
 
 import React from "react";
@@ -28,17 +28,8 @@ window.onload = () => {
 };
 
 function renderPage(): void {
-  const evalGolden = JSON.parse(
-    document.getElementById("metadata").dataset.evalGolden
-  );
-  const modelNames = JSON.parse(
-    document.getElementById("metadata").dataset.modelNames
-  );
   ReactDOM.render(
-    React.createElement(App, {
-      evalGolden,
-      modelNames,
-    }),
-    document.getElementById("dc-nl-eval")
+    React.createElement(App, {}),
+    document.getElementById("dc-eval-rig")
   );
 }

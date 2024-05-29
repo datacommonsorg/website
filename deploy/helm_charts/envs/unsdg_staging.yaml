@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DNS
+domain: staging.unsdg.datacommons.org
+ip: 34.120.81.84
+
 # Helm config
 project: "datcom-un-staging"
 cluster_prefix: "website"
@@ -37,17 +41,15 @@ mixer:
 
 nl:
   enabled: true
-  embeddingsSpec:
-    defaultIndex: "sdg_ft"
-    enabledIndexes:
-      [
-        "bio_ft",
-        "medium_ft",
-        "sdg_ft",
-        "undata_ft",
-        "undata_ilo_ft",
-        "undata_dev_ft",
-      ]
+  env:
+    default_indexes:
+      - sdg_ft
+    enabled_indexes:
+      - medium_ft
+      - sdg_ft
+      - undata_ft
+      - undata_ilo_ft
+      - undata_dev_ft
 
 serviceGroups:
   recon: null

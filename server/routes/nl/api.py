@@ -17,12 +17,11 @@ import json
 
 import flask
 from flask import Blueprint
-from flask import current_app
 from flask import request
 
 from server.lib.cache import model_cache
 from server.routes import TIMEOUT
-import shared.model.api as model_api
+from server.services import datacommons as dc
 
 bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 
@@ -30,33 +29,22 @@ bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 @bp.route('/encode-vector')
 @model_cache.cached(timeout=TIMEOUT, query_string=True)
 def encode_vector():
-  """Retrieves the embedding vector for a given sentence and model.
-
-    Valid model name can be found from `server/config/nl_page/nl_vertex_ai_models.yaml`
+  """Retrieves the embedding vector for a given query and model.
   """
-  if not current_app.config['VERTEX_AI_MODELS']:
-    flask.abort(404)
-  sentence = request.args.get('sentence')
-  model_name = request.args.get('modelName')
-  return json.dumps(
-      model_api.predict(current_app.config['VERTEX_AI_MODELS'][model_name],
-                        [sentence]))
+  query = request.args.get('query')
+  model = request.args.get('model')
+  return json.dumps(dc.nl_encode(model, query))
 
 
-@bp.route('/vector-search')
+@bp.route('/search-vector')
 @model_cache.cached(timeout=TIMEOUT, query_string=True)
-def vector_search():
-  """Performs vector search for a given sentence and model.
-
-    Valid model name can be found from `server/config/nl_page/nl_vertex_ai_models.yaml`
+def search_vector():
+  """Performs vector search for a given query and embedding index.
   """
-  if not current_app.config['VERTEX_AI_MODELS']:
-    flask.abort(404)
-  sentence = request.args.get('sentence')
-  model_name = request.args.get('modelName')
-  if not sentence:
-    flask.abort(400, f'Bad sentence: {sentence}')
-  if model_name not in current_app.config['VERTEX_AI_MODELS']:
-    flask.abort(400, f'Bad model name: {model_name}')
-  return model_api.vector_search(
-      current_app.config['VERTEX_AI_MODELS'][model_name], sentence)
+  query = request.args.get('query')
+  index = request.args.get('index')
+  if not query:
+    flask.abort(400, 'Must provde a `query`')
+  if not index:
+    flask.abort(400, 'Must provde an `index`')
+  return dc.nl_search_vars([query], index)
