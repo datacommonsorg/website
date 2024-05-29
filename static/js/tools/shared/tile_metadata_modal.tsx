@@ -49,6 +49,8 @@ export function TileMetadataModal(props: TileMetadataModalPropType): JSX.Element
   }
 
   useEffect(() => {
+    if (!modalOpen) return;
+    if (dcids.size == statVarNames.length) return;
     (async () => {
       const responseObj = await datacommonsClient.getFirstNodeValues({
         dcids: [...dcids], prop: "name"
@@ -60,13 +62,13 @@ export function TileMetadataModal(props: TileMetadataModalPropType): JSX.Element
       // Sort by name
       responseList.sort((a, b) => a[1] > b[1] ? 1 : -1);
       setStatVarNames(responseList);
-      console.log(responseList);
     })();
-  }, [props]);
+  }, [props, modalOpen]);
 
   return (
     <>
     <a href="#" onClick={(e) => {e.preventDefault(); setModalOpen(true)}}>show metadata</a>
+    {modalOpen && 
     <Modal
       isOpen={modalOpen}
       scrollable
@@ -94,6 +96,7 @@ export function TileMetadataModal(props: TileMetadataModalPropType): JSX.Element
         <Button className="modal-close" onClick={() => {setModalOpen(false)}}>Close</Button>
       </ModalFooter>
     </Modal>
+}
     </>
   );
 }
