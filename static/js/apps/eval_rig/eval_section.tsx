@@ -18,10 +18,10 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { useEffect, useState } from "react";
 
 import {
+  DC_CALL_SHEET,
   DC_QUESTION_COL,
   DC_RESPONSE_COL,
   DC_STAT_COL,
-  DCCallSheet,
   LLM_STAT_COL,
 } from "./constants";
 
@@ -37,7 +37,7 @@ export function EvalSection(props: EvalSectionProps): JSX.Element {
   const [dcStat, setDcStat] = useState<string>("");
 
   useEffect(() => {
-    const sheet = props.doc.sheetsByTitle[DCCallSheet];
+    const sheet = props.doc.sheetsByTitle[DC_CALL_SHEET];
     sheet.getRows({ offset: props.rowIdx - 1, limit: 1 }).then((rows) => {
       const row = rows[0];
       if (row) {

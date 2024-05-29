@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-export const QASheet = "query_and_answer";
-export const DCCallSheet = "dc_calls";
+export const QA_SHEET = "query_and_answer";
+export const DC_CALL_SHEET = "dc_calls";
 
 export const QUERY_ID_COL = "query_id";
 export const USER_COL = "user";

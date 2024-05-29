@@ -21,8 +21,8 @@ import React, { useState } from "react";
 import { GoogleSignIn } from "../../utils/google_signin";
 import {
   CALL_ID_COL,
-  DCCallSheet,
-  QASheet,
+  DC_CALL_SHEET,
+  QA_SHEET,
   QUERY_COL,
   QUERY_ID_COL,
   USER_COL,
@@ -44,9 +44,9 @@ export function App(props: AppPropType): JSX.Element {
     Record<string, Record<string, number>>
   >({});
 
-  async function loadHeader(doc: GoogleSpreadsheet) {
-    const result = {};
-    for (const sheetName of [QASheet, DCCallSheet]) {
+  async function loadHeader(doc: GoogleSpreadsheet): Promise<HeaderInfo> {
+    const result: HeaderInfo = {};
+    for (const sheetName of [QA_SHEET, DC_CALL_SHEET]) {
       result[sheetName] = {};
       const sheet = doc.sheetsByTitle[sheetName];
       await sheet.loadHeaderRow();
@@ -59,8 +59,8 @@ export function App(props: AppPropType): JSX.Element {
   }
 
   const loadQuery = (doc: GoogleSpreadsheet, allHeader: HeaderInfo) => {
-    const sheet = doc.sheetsByTitle[QASheet];
-    const header = allHeader[QASheet];
+    const sheet = doc.sheetsByTitle[QA_SHEET];
+    const header = allHeader[QA_SHEET];
     const numRows = sheet.rowCount;
     const loadPromises = [];
     for (const col of [QUERY_ID_COL, USER_COL, QUERY_COL]) {
@@ -85,8 +85,8 @@ export function App(props: AppPropType): JSX.Element {
   };
 
   const loadCall = (doc: GoogleSpreadsheet, allHeader: HeaderInfo) => {
-    const sheet = doc.sheetsByTitle[DCCallSheet];
-    const header = allHeader[DCCallSheet];
+    const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
+    const header = allHeader[DC_CALL_SHEET];
     const numRows = sheet.rowCount;
     const loadPromises = [];
     for (const col of [QUERY_ID_COL, CALL_ID_COL]) {
