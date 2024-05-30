@@ -37,12 +37,20 @@ interface TileMetadataModalPropType {
 // [dcid, name]
 type DcidNameTuple = [string, string];
 
-function MetadataRow(props: { dcid: string; name: string; apiRoot?: string }): JSX.Element {
+function MetadataRow(props: {
+  dcid: string;
+  name: string;
+  apiRoot?: string;
+}): JSX.Element {
   return (
     <div className="metadata-modal-link">
       <span className="material-icons-outlined">arrow_forward</span>
       <a
-        href={apiRootToHostname(props.apiRoot) + SV_EXPLORER_REDIRECT_PREFIX + props.dcid}
+        href={
+          apiRootToHostname(props.apiRoot) +
+          SV_EXPLORER_REDIRECT_PREFIX +
+          props.dcid
+        }
         target="_blank"
         rel="noreferrer"
       >
@@ -129,7 +137,12 @@ export function TileMetadataModal(
                   ))
                 : // Use DCID as display name as a fallback. Note, might not be displayed in order.
                   [...dcids].map((dcid, i) => (
-                    <MetadataRow dcid={dcid} name={dcid} apiRoot={props.apiRoot} key={i} />
+                    <MetadataRow
+                      dcid={dcid}
+                      name={dcid}
+                      apiRoot={props.apiRoot}
+                      key={i}
+                    />
                   ))}
             </div>
           </ModalBody>

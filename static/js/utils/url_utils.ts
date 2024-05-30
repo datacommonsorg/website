@@ -73,7 +73,6 @@ export function updateHash(params: Record<string, string | string[]>): void {
   window.location.hash = getUpdatedHash(params);
 }
 
-
 /**
  * Returns a cleaned url host that can be used for creating URLs to DC tools.
  * @param apiRoot API root to clean.

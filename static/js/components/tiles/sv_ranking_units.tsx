@@ -312,7 +312,7 @@ export function getRankingUnit(
   onHoverToggled?: (placeDcid: string, hover: boolean) => void,
   errorMsg?: string,
   sources?: string[],
-  isLoading?: boolean,
+  isLoading?: boolean
 ): JSX.Element {
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     rankingMetadata,

@@ -383,7 +383,12 @@ export function TileSources(props: {
       {statVarSpecs && statVarSpecs.length > 0 && (
         <>
           {" "}
-          • <TileMetadataModal apiRoot={props.apiRoot} containerRef={props.containerRef} statVarSpecs={statVarSpecs}></TileMetadataModal>
+          •{" "}
+          <TileMetadataModal
+            apiRoot={props.apiRoot}
+            containerRef={props.containerRef}
+            statVarSpecs={statVarSpecs}
+          ></TileMetadataModal>
         </>
       )}
     </div>

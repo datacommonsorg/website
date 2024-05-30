@@ -138,7 +138,7 @@ If you run into problems starting the server, try running these commands before 
 ./run_test.sh --setup_python
 rm -rf ~/.datacommons
 rm -rf /tmp/datcom-nl-models
-rm -rf /tmp/datcom-models-dev
+rm -rf /tmp/datcom-nl-models-dev
 ```
 
 ### Use Local Mixer
