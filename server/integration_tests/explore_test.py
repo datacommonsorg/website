@@ -259,7 +259,7 @@ class ExploreTest(NLWebServerTestCase):
     self.assertTrue(success, f"wanted: {i18n_lang}, got {detected}")
 
 
-class ExploreTestDetectionFulfillment(ExploreTest):
+class ExploreTestDetection(ExploreTest):
 
   def test_detection_basic(self):
     self.run_detection('detection_api_basic', ['Commute in California'],
@@ -368,6 +368,9 @@ class ExploreTestDetectionFulfillment(ExploreTest):
   #       ],
   #       check_detection=True,
   #       reranker='cross-encoder-mxbai-rerank-base-v1')
+
+
+class ExploreTestFulfillment(ExploreTest):
 
   def test_fulfillment_basic(self):
     req = {
