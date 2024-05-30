@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import { addDoc, collection } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 
-import { db } from "../../utils/firebase";
 import { AppContext } from "./context";
+import { getCallData, saveResponse } from "./data_store";
 import { OneQuestion } from "./one_question";
 
 const initialResponse = {
@@ -35,7 +34,7 @@ export interface EvalInfo {
   dcStat: string;
 }
 
-interface Response extends EvalInfo {
+export interface Response extends EvalInfo {
   // overall evaluation of all the aspects
   overall: string;
   userEmail?: string;
@@ -50,10 +49,19 @@ export interface FeedbackFormProps {
 export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
   const { sheetId, userEmail } = useContext(AppContext);
   const [response, setResponse] = useState<Response>(initialResponse);
+  const [completed, SetCompleted] = useState(false);
 
   useEffect(() => {
-    setResponse(initialResponse);
-  }, [props.evalInfo]);
+    getCallData(sheetId, props.queryId, props.callId).then((data) => {
+      if (data) {
+        setResponse(data as Response);
+        SetCompleted(true);
+      } else {
+        setResponse(initialResponse);
+        SetCompleted(false);
+      }
+    });
+  }, [sheetId, props.queryId, props.callId]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -84,103 +92,84 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
     };
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <fieldset>
-        <div>
-          <h2>OVERALL EVALUATION</h2>
-          <OneQuestion
-            question="How is the overall answer?"
-            name="overall"
-            options={{
-              LLM_ANSWER_HALLUCINATION: "Found factual inaccuracies",
-              LLM_ANSWER_OKAY: "No obvious factual inaccuracies",
-            }}
-            handleChange={handleChange}
-            responseField={response.overall}
-          />
-        </div>
+    <>
+      {completed && <h1>This question has already been completed.</h1>}
+      <form onSubmit={handleSubmit}>
+        <fieldset>
+          <div>
+            <h2>OVERALL EVALUATION</h2>
+            <OneQuestion
+              question="How is the overall answer?"
+              name="overall"
+              options={{
+                LLM_ANSWER_HALLUCINATION: "Found factual inaccuracies",
+                LLM_ANSWER_OKAY: "No obvious factual inaccuracies",
+              }}
+              handleChange={handleChange}
+              responseField={response.overall}
+              disabled={completed}
+            />
+          </div>
 
-        <div>
-          <h2>GEMMA MODEL EVALUATION</h2>
-          <h3>{props.evalInfo.question}</h3>
-          <h3>{props.evalInfo.llmResponse}</h3>
-          <OneQuestion
-            question="Question from the model"
-            name="question"
-            options={{
-              DC_QUESTION_IRRELEVANT: "Irrelevant, vague, requires editing",
-              DC_QUESTION_RELEVANT: "Well formulated & relevant",
-            }}
-            handleChange={handleChange}
-            responseField={response.question}
-          />
-          <OneQuestion
-            question="Model response quality"
-            name="llmResponse"
-            options={{
-              LLM_STAT_ACCURATE: "Stats seem accurate",
-              LLM_STAT_INACCURATE: "Stats seem inaccurate",
-            }}
-            handleChange={handleChange}
-            responseField={response.llmResponse}
-          />
-        </div>
+          <div>
+            <h2>GEMMA MODEL EVALUATION</h2>
+            <h3>{props.evalInfo.question}</h3>
+            <h3>{props.evalInfo.llmResponse}</h3>
+            <OneQuestion
+              question="Question from the model"
+              name="question"
+              options={{
+                DC_QUESTION_IRRELEVANT: "Irrelevant, vague, requires editing",
+                DC_QUESTION_RELEVANT: "Well formulated & relevant",
+              }}
+              handleChange={handleChange}
+              responseField={response.question}
+              disabled={completed}
+            />
+            <OneQuestion
+              question="Model response quality"
+              name="llmResponse"
+              options={{
+                LLM_STAT_ACCURATE: "Stats seem accurate",
+                LLM_STAT_INACCURATE: "Stats seem inaccurate",
+              }}
+              handleChange={handleChange}
+              responseField={response.llmResponse}
+              disabled={completed}
+            />
+          </div>
 
-        <div>
-          <h2>DATA COMMONS EVALUATION</h2>
-          <h3>{props.evalInfo.dcResponse}</h3>
-          <h3>{props.evalInfo.dcStat}</h3>
-          <OneQuestion
-            question="Response from Data Commons"
-            name="dcResponse"
-            options={dcResponseOptions}
-            handleChange={handleChange}
-            responseField={response.dcResponse}
-          />
+          <div>
+            <h2>DATA COMMONS EVALUATION</h2>
+            <h3>{props.evalInfo.dcResponse}</h3>
+            <h3>{props.evalInfo.dcStat}</h3>
+            <OneQuestion
+              question="Response from Data Commons"
+              name="dcResponse"
+              options={dcResponseOptions}
+              handleChange={handleChange}
+              responseField={response.dcResponse}
+              disabled={completed}
+            />
 
-          <OneQuestion
-            question="Response from Data Commons"
-            name="dcStat"
-            options={{
-              DC_STAT_ACCURATE: "Stats seem accurate",
-              DC_STAT_INACCURATE: "Stats seem inaccurate",
-            }}
-            handleChange={handleChange}
-            responseField={response.dcStat}
-          />
-        </div>
+            <OneQuestion
+              question="Response from Data Commons"
+              name="dcStat"
+              options={{
+                DC_STAT_ACCURATE: "Stats seem accurate",
+                DC_STAT_INACCURATE: "Stats seem inaccurate",
+              }}
+              handleChange={handleChange}
+              responseField={response.dcStat}
+              disabled={completed}
+            />
+          </div>
 
-        <button type="submit" disabled={Object.values(response).includes("")}>
-          Submit
-        </button>
-      </fieldset>
-    </form>
+          <button type="submit" disabled={Object.values(response).includes("")}>
+            Submit
+          </button>
+        </fieldset>
+      </form>
+    </>
   );
-}
-
-// Save response to Firestore
-async function saveResponse(
-  sheetId: string,
-  queryId: string,
-  callId: string,
-  response: Response
-): Promise<void> {
-  try {
-    // Define the document reference
-    const docRef = collection(
-      db,
-      "sheets",
-      sheetId,
-      "queries",
-      queryId,
-      "calls",
-      callId,
-      "responses"
-    );
-    // Save the data to Firestore
-    await addDoc(docRef, response);
-    console.log("API Call data saved successfully");
-  } catch (error) {
-    console.error("Error writing document: ", error);
-  }
 }
